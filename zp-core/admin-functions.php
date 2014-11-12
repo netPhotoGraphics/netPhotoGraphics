@@ -1761,7 +1761,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 													echo "\n<option";
 													if ($_zp_gallery->getThumbSelectImages()) {
 														echo " class=\"thumboption\"";
-														echo " style=\"background-image: url(" . html_encode(pathurlencode(getAdminThumb($image, 'large'))) . "); background-repeat: no-repeat;\"";
+														echo " style=\"background-image: url(" . html_encode(pathurlencode(getAdminThumb($image, 'medium'))) . "); background-repeat: no-repeat;\"";
 													}
 													echo " value=\"" . $imagename . "\"";
 													if ($selected) {
@@ -2144,7 +2144,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 					}
 					?>
-					<img src="<?php echo html_encode(pathurlencode($thumb)); ?>" width="40" height="40" alt="" title="album thumb" />
+					<img src="<?php echo html_encode(pathurlencode($thumb)); ?>" width="<?php echo ADMIN_THUMB_SMALL; ?>" height="<?php echo ADMIN_THUMB_SMALL; ?>" alt="" title="album thumb" />
 					<?php
 					if ($enableEdit) {
 						?>
@@ -2519,7 +2519,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$start = max(1, $pagenum - 7);
 		$total = min($start + 15, $totalpages + 1);
 		if ($start != 1) {
-			echo "\n <li><a href=" . $url . 'subpage=' . ($p = max($start - 8, 1)) . $tab . ' title="' . sprintf(gettext('page %u'), $p) . '">. . .</a></li>';
+			echo "\n <li><a href=\"" . $url . 'subpage=' . ($p = max($start - 8, 1)) . $tab . '" title="' . sprintf(gettext('page %u'), $p) . '">. . .</a></li>';
 		}
 		for ($i = $start; $i < $total; $i++) {
 			if ($i == $pagenum) {
@@ -2529,7 +2529,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 		}
 		if ($i < $totalpages) {
-			echo "\n <li><a href=" . $url . 'subpage=' . ($p = min($pagenum + 22, $totalpages + 1)) . $tab . ' title="' . sprintf(gettext('page %u'), $p) . '">. . .</a></li>';
+			echo "\n <li><a href=\"" . $url . 'subpage=' . ($p = min($pagenum + 22, $totalpages + 1)) . $tab . '" title="' . sprintf(gettext('page %u'), $p) . '">. . .</a></li>';
 		}
 		echo "<li class=\"next\">";
 		if ($pagenum < $totalpages) {
@@ -4652,12 +4652,17 @@ function getPluginTabs() {
 		if (extensionEnabled($plugin)) {
 			$active[$plugin] = $path;
 		}
-		if ($str = isolate('@category', $p)) {
-			preg_match('|@category\s+(.*)\s|', $str, $matches);
-			if (!isset($matches[1]) || $matches[1] != 'package')
+		if (strpos($path, SERVERPATH . '/' . USER_PLUGIN_FOLDER) === 0) {
+			if ($str = isolate('@category', $p)) {
+				preg_match('|@category\s+(.*)\s|', $str, $matches);
+				$deprecate = !isset($matches[1]) || $matches[1] != 'package';
+			} else {
+				$deprecate = true;
+			}
+			if ($deprecate) {
 				$thirdparty[$plugin] = $path;
+			}
 		}
-
 		if (array_key_exists($key, $classXlate)) {
 			$local = $classXlate[$key];
 		} else {
@@ -4699,10 +4704,12 @@ function getPluginTabs() {
 
 function getAdminThumb($image, $size) {
 	switch ($size) {
+		case 'medium':
+			return $image->getCustomImage(ADMIN_THUMB_MEDIUM, NULL, NULL, ADMIN_THUMB_MEDIUM, ADMIN_THUMB_MEDIUM, NULL, NULL, -1);
 		case 'large':
-			return $image->getCustomImage(80, NULL, NULL, 80, 80, NULL, NULL, -1);
+			return $image->getCustomImage(ADMIN_THUMB_LARGE, NULL, NULL, ADMIN_THUMB_LARGE, ADMIN_THUMB_LARGE, NULL, NULL, -1);
 		default:
-			return $image->getCustomImage(40, NULL, NULL, 40, 40, NULL, NULL, -1);
+			return $image->getCustomImage(ADMIN_THUMB_SMALL, NULL, NULL, ADMIN_THUMB_SMALL, ADMIN_THUMB_SMALL, NULL, NULL, -1);
 	}
 }
 
