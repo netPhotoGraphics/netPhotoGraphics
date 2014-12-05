@@ -63,7 +63,7 @@ function switcher_head($ignore) {
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
-		window.onload = function() {
+		window.onload = function () {
 			$('#themeSwitcher_zenpage').html('');
 		}
 		function switchColors() {
