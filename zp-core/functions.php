@@ -20,7 +20,6 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-kses.php');
 
 $_zp_captcha = new _zp_captcha(); // this will be overridden by the plugin if enabled.
 $_zp_HTML_cache = new _zp_HTML_cache(); // this will be overridden by the plugin if enabled.
-//setup session before checking for logon cookie
 require_once(dirname(__FILE__) . '/functions-i18n.php');
 
 if (GALLERY_SESSION) {
@@ -1073,7 +1072,7 @@ function setupTheme($album = NULL) {
  * @param $language string exclude language tags other than this string
  * @return array
  */
-function getAllTagsUnique($language = NULL, $assigned = true) {
+function getAllTagsUnique($language = NULL, $count = 0) {
 	global $_zp_unique_tags, $_zp_current_locale;
 	if (is_null($language)) {
 		switch (getOption('languageTagSearch')) {
@@ -1084,30 +1083,29 @@ function getAllTagsUnique($language = NULL, $assigned = true) {
 				$language = $_zp_current_locale;
 				break;
 			default:
-				$language = '';
+				$language = 0;
 				break;
 		}
 	}
 
-	if (isset($_zp_unique_tags[$language][(int) $assigned]))
-		return $_zp_unique_tags[$language][(int) $assigned]; // cache them.
-
-	$_zp_unique_tags[$language][(int) $assigned] = array();
-	$sql = 'SELECT DISTINCT tags.name, tags.id, (SELECT COUNT(*) FROM ' . prefix('obj_to_tag') . ' as object WHERE object.tagid = tags.id) AS count FROM ' . prefix('tags') . ' as tags ';
-	if (!empty($language)) {
-		$sql .= ' WHERE tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '/%');
-	}
-	$sql .= ' ORDER BY tags.name';
-	$unique_tags = query($sql);
-	if ($unique_tags) {
-		while ($tagrow = db_fetch_assoc($unique_tags)) {
-			if ($tagrow['count'] > 0 || !$assigned) {
-				$_zp_unique_tags[$language][(int) $assigned][mb_strtolower($tagrow['name'])] = $tagrow['name'];
-			}
+	if (!isset($_zp_unique_tags[$language][$count])) {
+		$_zp_unique_tags[$language][$count] = array();
+		$sql = 'SELECT DISTINCT tags.name, tags.id, (SELECT COUNT(*) FROM ' . prefix('obj_to_tag') . ' as object WHERE object.tagid = tags.id) AS count FROM ' . prefix('tags') . ' as tags ';
+		if (!empty($language)) {
+			$sql .= ' WHERE tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '%');
 		}
-		db_free_result($unique_tags);
+		$sql .= ' ORDER BY tags.name';
+		$unique_tags = query($sql);
+		if ($unique_tags) {
+			while ($tagrow = db_fetch_assoc($unique_tags)) {
+				if ($tagrow['count'] >= $count) {
+					$_zp_unique_tags[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['name'];
+				}
+			}
+			db_free_result($unique_tags);
+		}
 	}
-	return $_zp_unique_tags[$language][(int) $assigned];
+	return $_zp_unique_tags[$language][$count];
 }
 
 /**
@@ -1127,7 +1125,7 @@ function getAllTagsCount($language = NULL) {
 	$_zp_count_tags[$language] = array();
 	$sql = 'SELECT DISTINCT tags.name, tags.id, (SELECT COUNT(*) FROM ' . prefix('obj_to_tag') . ' as object WHERE object.tagid = tags.id) AS count FROM ' . prefix('tags') . ' as tags ';
 	if (!empty($language)) {
-		$sql .= ' WHERE tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '/%');
+		$sql .= ' WHERE tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '%');
 	}
 	$sql .= ' ORDER BY tags.name';
 	$tagresult = query($sql);
@@ -1151,7 +1149,7 @@ function storeTags($tags, $id, $tbl) {
 	if ($id) {
 		$tagsLC = array();
 		foreach ($tags as $key => $tag) {
-			$tag = trim($tag);
+			$tag = trim($tag, '\'"');
 			if (!empty($tag)) {
 				$lc_tag = mb_strtolower($tag);
 				if (!in_array($lc_tag, $tagsLC)) {
@@ -1178,7 +1176,7 @@ function storeTags($tags, $id, $tbl) {
 		foreach ($tags as $key => $tag) {
 			$dbtag = query_single_row("SELECT `id` FROM " . prefix('tags') . " WHERE `name`=" . db_quote($key));
 			if (!is_array($dbtag)) { // tag does not exist
-				query("INSERT INTO " . prefix('tags') . " (name) VALUES (" . db_quote($key) . ")", false);
+				query('INSERT INTO ' . prefix('tags') . ' (name) VALUES (' . db_quote($key) . ')', false);
 				$dbtag = array('id' => db_insert_id());
 			}
 			query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "')");
@@ -1211,18 +1209,16 @@ function readTags($id, $tbl, $language) {
 	}
 
 	$tags = array();
-	$sql = 'SELECT `tagid` FROM ' . prefix('obj_to_tag') . ' WHERE `type`="' . $tbl . '" AND `objectid` = "' . $id . '"';
+
+	$sql = 'SELECT * FROM ' . prefix('tags') . ' AS tags, ' . prefix('obj_to_tag') . ' AS objects WHERE `type`="' . $tbl . '" AND `objectid`="' . $id . '" AND tagid=tags.id';
+
+	if ($language) {
+		$sql .= ' AND (tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '%') . ')';
+	}
 	$result = query($sql);
 	if ($result) {
 		while ($row = db_fetch_assoc($result)) {
-			$sql = 'SELECT `name` FROM' . prefix('tags') . ' WHERE `id`="' . $row['tagid'] . '"';
-			if ($language) {
-				$sql .= ' AND (`language`="" OR `language`=' . db_quote(db_LIKE_escape($language) . '/%') . ')';
-			}
-			$dbtag = query_single_row($sql);
-			if ($dbtag) {
-				$tags[mb_strtolower($dbtag['name'])] = $dbtag['name'];
-			}
+			$tags[mb_strtolower($row['name'])] = $row['name'];
 		}
 		db_free_result($result);
 	}

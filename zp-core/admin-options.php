@@ -169,7 +169,7 @@ if (isset($_GET['action'])) {
 			$_zp_gallery->setSecurity(sanitize($_POST['gallery_security'], 3));
 			$notify = processCredentials($_zp_gallery);
 			if (zp_loggedin(CODEBLOCK_RIGHTS)) {
-				$_zp_gallery->setCodeblock(processCodeblockSave(0));
+				processCodeblockSave(0, $_zp_gallery);
 			}
 			$_zp_gallery->save();
 			$returntab = "&tab=gallery";
@@ -477,8 +477,6 @@ if ($_zp_admin_subtab == 'gallery' || $_zp_admin_subtab == 'image') {
 		sort($dbfields);
 	}
 	?>
-	<script type="text/javascript" src="js/encoder.js"></script>
-	<script type="text/javascript" src="js/tag.js"></script>
 	<script type="text/javascript">
 						// <!-- <![CDATA[
 						$(function () {
@@ -991,7 +989,7 @@ Zenphoto_Authority::printPasswordFormJS();
 										<p><?php echo gettext("Email:"); ?></p>
 									</td>
 									<td width="350">
-										<p><?php print_language_string_list(getOption('site_email_name'), 'site_email_name'); ?></p>
+										<p><input type="text" size="48" name="site_email_name" value="<?php echo get_language_string(getOption('site_email_name')) ?>" /></p>
 										<p><input type="text" size="48" id="site_email" name="site_email"  value="<?php echo getOption('site_email'); ?>" /></p>
 									</td>
 									<td><?php echo gettext("This email name and address will be used as the <em>From</em> address for all mails sent by the gallery."); ?></td>

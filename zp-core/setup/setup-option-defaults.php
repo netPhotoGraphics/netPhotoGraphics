@@ -25,9 +25,41 @@ for ($i = 0; $i < 30; $i++) {
 	$lib_auth_extratext = $lib_auth_extratext . $salt{$list[$i]};
 }
 
+//clean up tag list quoted strings
+$sql = 'SELECT * FROM ' . prefix('tags') . ' WHERE `name` LIKE \'"%\' OR `name` LIKE "\'%"';
+$result = query($sql);
+if ($result) {
+	while ($row = db_fetch_assoc($result)) {
+		$sql = 'UPDATE ' . prefix('tags') . ' SET `name`=' . db_quote(trim($row['name'], '"\'')) . ' WHERE `id`=' . $row['id'];
+		if (!query($sql, false)) {
+			$oldtag = $row['id'];
+			$sql = 'DELETE FROM ' . prefix('tags') . ' WHERE `id`=' . $oldtag;
+			query($sql);
+			$sql = 'SELECT * FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote(trim($row['name'], '"\''));
+			$row = query_single_row($sql);
+			if (!empty($row)) {
+				$sql = 'UPDATE ' . prefix('obj_to_tag') . ' SET `tagid`=' . $row['id'] . ' WHERE `tagid`=' . $oldtag;
+			}
+		}
+	}
+}
 
 setOption('zenphoto_install', serialize(installSignature()));
 $admins = $_zp_authority->getAdministrators('all');
+
+$str = gettext("What is your father’s middle name?");
+$questions[] = getSerializedArray(getAllTranslations($str));
+$str = gettext("What street did your Grandmother live on?");
+$questions[] = getSerializedArray(getAllTranslations($str));
+$str = gettext("Who was your favorite singer?");
+$questions[] = getSerializedArray(getAllTranslations($str));
+$str = gettext("When did you first get a computer?");
+$questions[] = getSerializedArray(getAllTranslations($str));
+$str = gettext("How much wood could a woodchuck chuck if a woodchuck could chuck wood?");
+$questions[] = getSerializedArray(getAllTranslations($str));
+$str = gettext("What is the date of the Ides of March?");
+$questions[] = getSerializedArray(getAllTranslations($str));
+setOptionDefault('challenge_foils', serialize($questions));
 
 if (empty($admins)) { //	empty administrators table
 	$groupsdefined = NULL;
