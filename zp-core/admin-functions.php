@@ -1220,7 +1220,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			?>
 			<span class="new_tag displayinline" >
 				<a onclick="addNewTag('<?php echo $postit; ?>');" title="<?php echo gettext('add tag'); ?>">
-					<img src="images/add.png" title="<?php echo gettext('add tag'); ?>"/>
+					<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" title="<?php echo gettext('add tag'); ?>"/>
 				</a>
 				<input class="tagsuggest <?php echo $class; ?>" type="text" value="" name="newtag_<?php echo $postit; ?>" id="newtag_<?php echo $postit; ?>" />
 			</span>
@@ -1798,8 +1798,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
 					<div class="box-edit">
 						<label class="checkboxlabel">
-							<input type="checkbox" name="<?php echo $prefix; ?>Published" value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?> />
-							<?php echo gettext("Published"); ?>
+							<input type="checkbox"
+										 name="<?php echo $prefix; ?>Published"
+										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
+										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
+										 />
+										 <?php echo gettext("Published"); ?>
 						</label>
 						<?php
 						if (extensionEnabled('comment_form')) {
@@ -1864,9 +1871,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 									var today = new Date();
 									var pub = $('#<?php echo $prefix; ?>publishdate').datepicker('getDate');
 									if (pub.getTime() > today.getTime()) {
-										$(".<?php echo $prefix; ?>scheduledpublishing").html('<br /><?php echo addslashes(gettext('Future publishing date.')); ?>');
+										$("<?php echo $prefix; ?>Published").removeAttr('checked');
+										$('#<?php echo $prefix; ?>publishdate').css('color', 'blue');
 									} else {
-										$(".<?php echo $prefix; ?>scheduledpublishing").html('');
+										$("<?php echo $prefix; ?>Published").attr('checked', 'checked');
+										$('#<?php echo $prefix; ?>publishdate').css('color', 'black');
 									}
 								});
 								$('#<?php echo $prefix; ?>expirationdate').change(function () {
@@ -1885,15 +1894,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<hr />
 						<p>
 							<label for="<?php echo $prefix; ?>publishdate"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
-							<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>publishdate" />
-							<strong class="scheduledpublishing-<?php echo $prefix; ?>" style="color:red">
-								<?php
-								if (!empty($publishdate) && ($publishdate > date('Y-m-d H:i:s'))) {
-									echo '<br />' . gettext('Future publishing date.');
-								}
-								?>
-							</strong>
-							<br /><br />
+							<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>publishdate" <?php if ($publishdate > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
 							<label for="<?php echo $prefix; ?>expirationdate"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
 							<br /><input value="<?php echo $expirationdate; ?>" type="text" size="20" maxlength="30" name="expirationdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>expirationdate" />
 							<strong class="<?php echo $prefix; ?>expire" style="color:red">
@@ -2104,8 +2105,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<?php
 			}
 			?>
-			<li><img src="images/add.png" alt="" /><?php echo gettext("pick source"); ?></li>
-			<li><img src="images/pass.png" alt="Published" /><img src="images/action.png" alt="" /><?php echo gettext("Published/Un-published"); ?></li>
+			<li><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" alt="" /><?php echo gettext("pick source"); ?></li>
+			<li>
+				<img src="images/pass.png" alt="Published" />
+				<img src="images/action.png" alt="" />
+				<img src="images/clock.png" alt="" /><?php echo gettext("Published/Not published/Scheduled for publishing"); ?>
+			</li>
 			<li><img src="images/comments-on.png" alt="" /><img src="images/comments-off.png" alt="" /><?php echo gettext("Comments on/off"); ?></li>
 			<li><img src="images/view.png" alt="" /><?php echo gettext("View the album"); ?></li>
 			<li><img src="images/refresh.png" alt="" /><?php echo gettext("Refresh metadata"); ?></li>
@@ -2238,9 +2243,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<a href="?action=publish&amp;value=1&amp;album=<?php echo html_encode(pathurlencode($album->name)); ?>&amp;return=*<?php echo html_encode(pathurlencode($owner)); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo sprintf(gettext('Publish the album %s'), $album->name); ?>">
 								<?php
 							}
-							?>
-							<img src="images/action.png" style="border: 0px;" alt="" title="<?php echo sprintf(gettext('Unpublished'), $album->name); ?>" />
-							<?php
+							if ($album->getPublishDate() > date('Y-m-d H:i:s')) {
+								?>
+								<img src="images/clock.png" alt="<?php echo gettext("Un-published"); ?>" title= "<?php echo gettext("Publish (override scheduling)"); ?>" />
+								<?php
+							} else {
+								?>
+								<img src="images/action.png" style="border: 0px;" alt="" title="<?php echo sprintf(gettext('Unpublished'), $album->name); ?>" />
+								<?php
+							}
 							if ($enableEdit) {
 								?>
 							</a>
@@ -2387,7 +2398,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$album->setTags($tags);
 		if (isset($_POST[$prefix . 'thumb']))
 			$album->setThumb(sanitize($_POST[$prefix . 'thumb']));
-		$album->setShow((int) isset($_POST[$prefix . 'Published']));
 		$album->setCommentsAllowed(isset($_POST[$prefix . 'allowcomments']));
 		$sorttype = strtolower(sanitize($_POST[$prefix . 'sortby'], 3));
 		if ($sorttype == 'custom') {
@@ -2421,8 +2431,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->set('total_votes', 0);
 			$album->set('used_ips', 0);
 		}
-		$album->setPublishDate(sanitize($_POST['publishdate-' . $prefix]));
+		$pubdate = $album->setPublishDate(sanitize($_POST['publishdate-' . $prefix]));
 		$album->setExpireDate(sanitize($_POST['expirationdate-' . $prefix]));
+		$album->setShow(isset($_POST[$prefix . 'Published']) && $pubdate <= date(date('Y-m-d H:i:s')));
 		$fail = '';
 		processCredentials($album, $suffix);
 		$oldtheme = $album->getAlbumTheme();
@@ -4063,9 +4074,13 @@ function processAlbumBulkActions() {
 						break;
 					case 'showall':
 						$albumobj->setShow(1);
+						$albumobj->setPublishDate(NULL);
+						$albumobj->setExpireDate(NULL);
 						break;
 					case 'hideall':
 						$albumobj->setShow(0);
+						$albumobj->setPublishDate(NULL);
+						$albumobj->setExpireDate(NULL);
 						break;
 					case 'commentson':
 						$albumobj->setCommentsAllowed(1);
@@ -4148,6 +4163,8 @@ function processImageBulkActions($album) {
 						break;
 					case 'showall':
 						$imageobj->set('show', 1);
+						$imageobj->setPublishDate(NULL);
+						$imageobj->setExpireDate(NULL);
 						break;
 					case 'hideall':
 						$imageobj->set('show', 0);

@@ -17,6 +17,8 @@ if (is_AdminEditPage('page')) {
 	$rights = ZENPAGE_NEWS_RIGHTS;
 }
 admin_securityChecks($rights, currentRelativeURL());
+updatePublished('news');
+updatePublished('pages');
 
 $saveitem = '';
 $reports = array();
@@ -110,11 +112,14 @@ codeblocktabsJS();
 	}
 	function checkFuturePub() {
 		var today = new Date();
-		var pub = $('#date').datepicker('getDate');
+		var pub = $('#pubdate').datepicker('getDate');
 		if (pub.getTime() > today.getTime()) {
-			$(".scheduledpublishing").html('<?php echo addslashes(gettext('Future publishing date:')); ?>');
+			$('#show').removeAttr('checked');
+			$("#pubdate").css("color", "blue");
 		} else {
-			$(".scheduledpublishing").html('');
+			$('#show').attr('checked', 'checked');
+			$("#pubdate").css("color", "black");
+
 		}
 	}
 	function toggleTitlelink() {
@@ -233,11 +238,8 @@ codeblocktabsJS();
 							?>
 							<h1><?php echo gettext('Edit Article:'); ?> <em><?php checkForEmptyTitle($result->getTitle(), 'news', false); ?></em></h1>
 							<?php
-							if ($result->getDatetime() >= date('Y-m-d H:i:s')) {
+							if ($result->getPublishDate() >= date('Y-m-d H:i:s')) {
 								echo '<small><strong id="scheduldedpublishing">' . gettext('(Article scheduled for publishing)') . '</strong></small>';
-								if ($result->getShow() != 1) {
-									echo '<p class="scheduledate"><small>' . gettext('<strong>Note:</strong> Scheduled publishing is not active unless the article is also set to <em>published</em>') . '</small></p>';
-								}
 							}
 							if ($result->inProtectedCategory()) {
 								echo '<p class="notebox">' . gettext('<strong>Note:</strong> This article belongs to a password protected category.') . '</p>';
@@ -252,11 +254,8 @@ codeblocktabsJS();
 							?>
 							<h1><?php echo gettext('Edit Page:'); ?> <em><?php checkForEmptyTitle($result->getTitle(), 'page', false); ?></em></h1>
 							<?php
-							if ($result->getDatetime() >= date('Y-m-d H:i:s')) {
+							if ($result->getPublishDate() >= date('Y-m-d H:i:s')) {
 								echo ' <small><strong id="scheduldedpublishing">' . gettext('(Page scheduled for publishing)') . '</strong></small>';
-								if ($result->getShow() != 1) {
-									echo '<p class="scheduledate"><small>' . gettext('Note: Scheduled publishing is not active unless the page is also set to <em>published</em>') . '</small></p>';
-								}
 							}
 							if ($result->getPassword()) {
 								echo '<p class="notebox">' . gettext('<strong>Note:</strong> This page is password protected.') . '</p>';
@@ -273,11 +272,11 @@ codeblocktabsJS();
 								if ($locked) {
 									?>
 									<script type="text/javascript">
-										window.onload = function () {
+										window.addEventListener('load', function () {
 											$('#form_cmsItemEdit :input').prop('disabled', true);
 											$('input[type="submit"]').attr('disabled', 'disabled');
 											$('input[type="reset"]').attr('disabled', 'disabled');
-										}
+										}, false);
 									</script>
 									<?php
 								}
@@ -332,8 +331,8 @@ codeblocktabsJS();
 								}
 								?>
 								<span class="buttons">
-									<strong><a href="<?php echo $backurl; ?>"><img	src="../../images/arrow_left_blue_round.png" alt="" /><?php echo gettext("Back"); ?></a></strong>
-									<button type="submit" title="<?php echo $updateitem; ?>"><img src="../../images/pass.png" alt="" /><strong><?php
+									<strong><a href="<?php echo $backurl; ?>"><img	src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/arrow_left_blue_round.png" alt="" /><?php echo gettext("Back"); ?></a></strong>
+									<button type="submit" title="<?php echo $updateitem; ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/pass.png" alt="" /><strong><?php
 											if ($result->transient) {
 												echo $saveitem;
 											} else {
@@ -341,25 +340,25 @@ codeblocktabsJS();
 											}
 											?></strong></button>
 									<button type="reset" onclick="$('.copydelete').hide();" >
-										<img src="../../images/reset.png" alt="" />
+										<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/reset.png" alt="" />
 										<strong><?php echo gettext("Reset"); ?></strong>
 									</button>
 									<div class="floatright">
 										<?php
 										if ($additem) {
 											?>
-											<strong><a href="admin-edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>"><img src="images/add.png" alt="" /> <?php echo $additem; ?></a></strong>
+											<strong><a href="admin-edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" alt="" /> <?php echo $additem; ?></a></strong>
 											<?php
 										}
 										?>
-										<span id="tip"><a href="#"><img src="images/info.png" alt="" /><?php echo gettext("Usage tips"); ?></a></span>
+										<span id="tip"><a href="#"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/info.png" alt="" /><?php echo gettext("Usage tips"); ?></a></span>
 										<?php
 										if (!$result->transient) {
 											if (is_AdminEditPage("newscategory")) {
 												?>
-												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;category=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="images/view.png" alt="" /><?php echo gettext("View"); ?></a>
+												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;category=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/view.png" alt="" /><?php echo gettext("View"); ?></a>
 											<?php } else { ?>
-												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;title=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="images/view.png" alt="" /><?php echo gettext("View"); ?></a>
+												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;title=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/view.png" alt="" /><?php echo gettext("View"); ?></a>
 												<?php
 											}
 										}
@@ -411,6 +410,20 @@ codeblocktabsJS();
 														<p><?php echo gettext("Author:"); ?> <?php authorSelector($result->getAuthor()); ?></p>
 														<?php
 													}
+													?>
+													<p class="checkbox">
+														<input name="show"
+																	 type="checkbox"
+																	 id="show"
+																	 value="1" <?php checkIfChecked($result->getShow()); ?>
+																	 onclick="$('#pubdate').val('');
+																				 $('#expiredate').val('');
+																				 $('#pubdate').css('color', 'black');
+																				 $('.expire').html('');"
+																	 />
+														<label for="show"><?php echo gettext("Published"); ?></label>
+													</p>
+													<?php
 													if (!$result->transient) {
 														?>
 														<p class="checkbox">
@@ -421,12 +434,11 @@ codeblocktabsJS();
 													}
 													?>
 													<p class="checkbox">
-														<input name="permalink" type="checkbox" id="permalink" value="1" <?php checkIfChecked($result->getPermalink()); ?> />
+														<input name="permalink"
+																	 type="checkbox" id="permalink"
+																	 value="1" <?php checkIfChecked($result->getPermalink()); ?>
+																	 />
 														<label for="permalink"><?php echo gettext("Enable permaTitlelink"); ?></label>
-													</p>
-													<p class="checkbox">
-														<input name="show" type="checkbox" id="show" value="1" <?php checkIfChecked($result->getShow()); ?> />
-														<label for="show"><?php echo gettext("Published"); ?></label>
 													</p>
 													<?php
 													if (!is_AdminEditPage("newscategory")) {
@@ -473,12 +485,12 @@ codeblocktabsJS();
 																<?php
 																if (empty($x)) {
 																	?>
-																	<img src="../../images/lock_open.png" alt="" class="icon-postiion-top8" />
+																	<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/lock_open.png" alt="" class="icon-postiion-top8" />
 																	<?php
 																} else {
 																	$x = '          ';
 																	?>
-																	<a onclick="resetPass('');" title="<?php echo gettext('clear password'); ?>"><img src="../../images/lock.png"  alt="" class="icon-postiion-top8" /></a>
+																	<a onclick="resetPass('');" title="<?php echo gettext('clear password'); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/lock.png"  alt="" class="icon-postiion-top8" /></a>
 																	<?php
 																}
 																?>
@@ -506,7 +518,7 @@ codeblocktabsJS();
 																<br />
 																<label>
 																	<input type="checkbox" name="disclose_password" id="disclose_password" onclick="passwordClear('');
-																			togglePassword('');"><?php echo gettext('Show password'); ?>
+																						togglePassword('');"><?php echo gettext('Show password'); ?>
 																</label>
 																<br />
 																<span class="password_field_">
@@ -533,13 +545,13 @@ codeblocktabsJS();
 														<label class="checkboxlabel">
 															<input type="radio" id="copy_object" name="copy_delete_object" value="copy"
 																		 onclick="$('#copyfield').show();
-																				 $('#deletemsg').hide();" />
+																						 $('#deletemsg').hide();" />
 																		 <?php echo gettext("Copy"); ?>
 														</label>
 														<label class="checkboxlabel">
 															<input type="radio" id="delete_object" name="copy_delete_object" value="delete"
 																		 onclick="deleteConfirm('delete_object', '', '<?php addslashes(printf(gettext('Are you sure you want to delete this %s?'), $deleteitem)); ?>');
-																				 $('#copyfield').hide();" />
+																						 $('#copyfield').hide();" />
 																		 <?php echo gettext('delete'); ?>
 														</label>
 														<br class="clearall" />
@@ -568,14 +580,13 @@ codeblocktabsJS();
 													<h2 class="h2_bordered_edit"><?php echo gettext("Date"); ?></h2>
 													<div class="box-edit">
 														<p>
-
 															<script type="text/javascript">
 																// <!-- <![CDATA[
 																$(function () {
 																	$("#date").datepicker({
 																		dateFormat: 'yy-mm-dd',
 																		showOn: 'button',
-																		buttonImage: '../../images/calendar.png',
+																		buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
 																		buttonText: '<?php echo gettext('calendar'); ?>',
 																		buttonImageOnly: true
 																	});
@@ -585,17 +596,29 @@ codeblocktabsJS();
 															<?php
 															$date = $result->getDatetime();
 															?>
-															<input name="date" type="text" id="date" value="<?php echo $date; ?>" onchange="checkFuturePub();" />
-															<br />
-															<strong class='scheduledpublishing'>
-																<?php
-																if ($date > date('Y-m-d H:i:s')) {
-																	echo addslashes(gettext('Future publishing date:'));
-																}
-																?>
-															</strong>
+															<input name="date" type="text" id="date" value="<?php echo $date; ?>" />
 														</p>
 														<hr />
+														<p>
+															<script type="text/javascript">
+																// <!-- <![CDATA[
+																$(function () {
+																	$("#pubdate").datepicker({
+																		dateFormat: 'yy-mm-dd',
+																		showOn: 'button',
+																		buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																		buttonText: '<?php echo gettext('calendar'); ?>',
+																		buttonImageOnly: true
+																	});
+																});
+																// ]]> -->
+															</script>
+															<?php
+															echo gettext('Publish date (YYYY-MM-DD) ');
+															$date = $result->getPublishDate();
+															?>
+															<input name="pubdate" type="text" id="pubdate" value="<?php echo $date; ?>" onchange="checkFuturePub();" <?php if ($date > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
+														</p>
 														<p>
 															<script type="text/javascript">
 																// <!-- <![CDATA[
@@ -603,7 +626,7 @@ codeblocktabsJS();
 																	$("#expiredate").datepicker({
 																		dateFormat: 'yy-mm-dd',
 																		showOn: 'button',
-																		buttonImage: '../../images/calendar.png',
+																		buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
 																		buttonText: '<?php echo gettext('calendar'); ?>',
 																		buttonImageOnly: true
 																	});
@@ -612,7 +635,7 @@ codeblocktabsJS();
 															</script>
 
 															<?php
-															echo gettext("Expiration date:");
+															echo gettext("Expiration date (YYYY-MM-DD)");
 															$date = $result->getExpireDate();
 															?>
 															<br />
@@ -777,8 +800,8 @@ codeblocktabsJS();
 										?>
 									</table>
 									<span class="buttons">
-										<strong><a href="<?php echo $backurl; ?>"><img	src="../../images/arrow_left_blue_round.png" alt="" /><?php echo gettext("Back"); ?></a></strong>
-										<button type="submit" title="<?php echo $updateitem; ?>"><img src="../../images/pass.png" alt="" /><strong><?php
+										<strong><a href="<?php echo $backurl; ?>"><img	src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/arrow_left_blue_round.png" alt="" /><?php echo gettext("Back"); ?></a></strong>
+										<button type="submit" title="<?php echo $updateitem; ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/pass.png" alt="" /><strong><?php
 												if ($result->transient) {
 													echo $saveitem;
 												} else {
@@ -786,20 +809,20 @@ codeblocktabsJS();
 												}
 												?></strong></button>
 										<button type="reset" onclick="$('.copydelete').hide();">
-											<img src="../../images/reset.png" alt="" />
+											<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/reset.png" alt="" />
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>
 										<div class="floatright">
-											<strong><a href="admin-edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>"><img src="images/add.png" alt="" /> <?php echo $additem; ?></a></strong>
+											<strong><a href="admin-edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" alt="" /> <?php echo $additem; ?></a></strong>
 											<?php
 											if (!$result->transient) {
 												if (is_AdminEditPage("newscategory")) {
 													?>
-													<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;category=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="images/view.png" alt="" /><?php echo gettext("View"); ?></a>
+													<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;category=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/view.png" alt="" /><?php echo gettext("View"); ?></a>
 													<?php
 												} else {
 													?>
-													<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;title=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="images/view.png" alt="" /><?php echo gettext("View"); ?></a>
+													<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;title=<?php echo $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/view.png" alt="" /><?php echo gettext("View"); ?></a>
 													<?php
 												}
 											}

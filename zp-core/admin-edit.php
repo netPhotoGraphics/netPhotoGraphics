@@ -15,6 +15,8 @@ require_once(dirname(__FILE__) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
+updatePublished('albums');
+updatePublished('images');
 
 if (isset($_GET['tab'])) {
 	$subtab = sanitize($_GET['tab']);
@@ -165,8 +167,13 @@ if (isset($_GET['action'])) {
 		/*		 * *************************************************************************** */
 		case "publish":
 			XSRFdefender('albumedit');
+
+
+
 			$album = newAlbum($folder);
 			$album->setShow($_GET['value']);
+			$album->setPublishDate(NULL);
+			$album->setExpireDate(NULL);
 			$album->save();
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
@@ -285,8 +292,9 @@ if (isset($_GET['action'])) {
 												$image->set('total_votes', 0);
 												$image->set('used_ips', 0);
 											}
-											$image->setPublishDate(sanitize($_POST['publishdate-' . $i]));
+											$pubdate = $image->setPublishDate(sanitize($_POST['publishdate-' . $i]));
 											$image->setExpireDate(sanitize($_POST['expirationdate-' . $i]));
+											$image->setShow(isset($_POST["$i-Visible"]) && $pubdate <= date(date('Y-m-d H:i:s')));
 											$image->setTitle(process_language_string_save("$i-title", 2));
 											$image->setDesc(process_language_string_save("$i-desc", EDITOR_SANITIZE_LEVEL));
 
@@ -300,7 +308,6 @@ if (isset($_GET['action'])) {
 													Gallery::clearCache(SERVERCACHE . '/' . $album->name);
 												}
 											}
-											$image->setShow(isset($_POST["$i-Visible"]));
 											$image->setCommentsAllowed(isset($_POST["$i-allowcomments"]));
 											if (isset($_POST["reset_hitcounter$i"])) {
 												$image->set('hitcounter', 0);
@@ -899,6 +906,7 @@ echo "\n</head>";
 					?>
 					<?php
 				} else if ($subtab == 'imageinfo') {
+					require_once(SERVERPATH . '/' . ZENFOLDER . '/exif/exifTranslations.php');
 					$singleimage = NULL;
 					if ($totalimages == 1) {
 						$_GET['singleimage'] = array_shift($images);
@@ -1081,8 +1089,15 @@ echo "\n</head>";
 															<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
 															<div class="box-edit">
 																<label class="checkboxlabel">
-																	<input type="checkbox" id="Visible-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-Visible" value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?> />
-																	<?php echo gettext("Published"); ?>
+																	<input type="checkbox" id="Visible-<?php echo $currentimage; ?>"
+																				 name="<?php echo $currentimage; ?>-Visible"
+																				 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
+																				 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
+																										 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																										 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																										 $('.expire-<?php echo $currentimage; ?>').html('');"
+																				 />
+																				 <?php echo gettext("Published"); ?>
 																</label>
 																<?php
 																if (extensionEnabled('comment_form')) {
@@ -1147,9 +1162,12 @@ echo "\n</head>";
 																			var today = new Date();
 																			var pub = $('#publishdate-<?php echo $currentimage; ?>').datepicker('getDate');
 																			if (pub.getTime() > today.getTime()) {
-																				$(".scheduledpublishing-<?php echo $currentimage; ?>").html('<br /><?php echo addslashes(gettext('Future publishing date.')); ?>');
+																				$("Visible-<?php echo $currentimage; ?>").removeAttr('checked');
+																				$('#publishdate-<?php echo $currentimage; ?>').css('color', 'blue');
+
 																			} else {
-																				$(".scheduledpublishing-<?php echo $currentimage; ?>").html('');
+																				$("Visible-<?php echo $currentimage; ?>").attr('checked', 'checked');
+																				$('#publishdate-<?php echo $currentimage; ?>').css('color', 'black');
 																			}
 																		});
 																		$('#expirationdate-<?php echo $currentimage; ?>').change(function () {
@@ -1168,15 +1186,7 @@ echo "\n</head>";
 																<hr />
 																<p>
 																	<label for="publishdate-<?php echo $currentimage; ?>"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
-																	<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" />
-																	<strong class="scheduledpublishing-<?php echo $currentimage; ?>" style="color:red">
-																		<?php
-																		if (!empty($publishdate) && ($publishdate > date('Y-m-d H:i:s'))) {
-																			echo '<br />' . gettext('Future publishing date.');
-																		}
-																		?>
-																	</strong>
-																	<br /><br />
+																	<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" <?php if ($publishdate > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
 																	<label for="expirationdate-<?php echo $currentimage; ?>"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
 																	<br /><input value="<?php echo $expirationdate; ?>" type="text" size="20" maxlength="30" name="expirationdate-<?php echo $currentimage; ?>" id="expirationdate-<?php echo $currentimage; ?>" />
 																	<strong class="expire-<?php echo $currentimage; ?>" style="color:red">
@@ -1359,7 +1369,7 @@ echo "\n</head>";
 																			$display = $_zp_exifvars[$field][3];
 																			if ($display) {
 																				$label = $_zp_exifvars[$field][2];
-																				$data .= "<tr><td class=\"medtadata_tag\">$label: </td> <td>" . html_encode($value) . "</td></tr>\n";
+																				$data .= "<tr><td class=\"medtadata_tag\">$label: </td> <td>" . html_encode(exifTranslate($value)) . "</td></tr>\n";
 																			}
 																		}
 																	}

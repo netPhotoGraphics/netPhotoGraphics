@@ -32,7 +32,7 @@
  *
  * Copyright 2014 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
  */
-$filehandler = zp_apply_filter('tinymce_zenpage_config', NULL);
+$filehandler = zp_apply_filter('tinymce_config', NULL);
 
 if ($MCEcss) {
 	$MCEcss = getPlugin('tinymce/config/' . $MCEcss, true, true);
@@ -56,8 +56,13 @@ if (!extensionEnabled('tinyZenpage')) {
 ?>
 <script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . "/" . PLUGIN_FOLDER; ?>/tinymce/tinymce.min.js"></script>
 <script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . "/" . PLUGIN_FOLDER; ?>/tinymce/jquery.tinymce.min.js"></script>
-<script src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/dirtyforms/tinymce.js" type="text/javascript"></script>
-
+<?php
+if (OFFSET_PATH) {
+	?>
+	<script src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/dirtyforms/tinymce.js" type="text/javascript"></script>
+	<?php
+}
+?>
 <script type="text/javascript">
 // <!-- <![CDATA[
 					tinymce.init({
