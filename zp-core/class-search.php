@@ -133,7 +133,7 @@ class SearchEngine {
 		}
 		$this->search_structure = zp_apply_filter('searchable_fields', $this->search_structure);
 		if (isset($_REQUEST['words'])) {
-			$this->words = strtr(sanitize($_REQUEST['words'], 4), array_flip(self::$xlate));
+			$this->words = self::decode(sanitize($_REQUEST['words'], 4));
 		} else {
 			$this->words = NULL;
 			if (isset($_REQUEST['date'])) { // words & dates are mutually exclusive
@@ -223,6 +223,15 @@ class SearchEngine {
 	 */
 	static function encode($words) {
 		return strtr($words, self::$xlate);
+	}
+
+	/**
+	 * decodes search words
+	 * @param string $words
+	 * @return string
+	 */
+	static function decode($words) {
+		return strtr($words, array_flip(self::$xlate));
 	}
 
 	/**
