@@ -255,7 +255,7 @@ function lookup_tag($tag) {
 		case '9203': $tag = 'BrightnessValue';
 			break; // positive rational number
 		case '9204': $tag = 'ExposureBiasValue';
-			break; // positive rational number (EV)
+			break; // signed rational number (EV)
 		case '9205': $tag = 'MaxApertureValue';
 			break; // positive rational number
 		case '9206': $tag = 'SubjectDistance';
@@ -305,7 +305,7 @@ function lookup_tag($tag) {
 		case 'a214': $tag = 'SubjectLocation';
 			break; // two integers 0-65535
 		case 'a215': $tag = 'ExposureIndex';
-			break; // positive rational number
+			break; // signed rational number
 		case 'a217': $tag = 'SensingMethod';
 			break; // values 1-8
 		case 'a300': $tag = 'FileSource';
@@ -577,8 +577,8 @@ function formatData($type, $tag, $intel, $data) {
 				case '829d': // FNumber
 					$data = 'f/' . round(unRational($data, $type, $intel), 2);
 					break;
-				case '9204': // ExposureBiasValue
-					$data = round(unRational($data, $type, $intel), 2) . ' EV';
+				case '9204': // ExposureBiasValue (assume signed!)
+					$data = round(unRational($data, 'SRATIONAL', $intel), 2) . ' EV';
 					break;
 				case '9205': // ApertureValue
 				case '9202': // MaxApertureValue
@@ -626,13 +626,13 @@ function formatData($type, $tag, $intel, $data) {
 							break;
 						case 4 : $data = '!4: upside-down mirrored!';
 							break;
-						case 5 : $data = '!5: 90 deg cw mirrored!';
+						case 5 : $data = '!5: 90 deg ccw mirrored!';
 							break;
-						case 6 : $data = '!6: 90 deg ccw!';
+						case 6 : $data = '!6: 90 deg cw!';
 							break;
-						case 7 : $data = '!7: 90 deg ccw mirrored!';
+						case 7 : $data = '!7: 90 deg cw mirrored!';
 							break;
-						case 8 : $data = '!8: 90 deg cw!';
+						case 8 : $data = '!8: 90 deg ccw!';
 							break;
 						default : $data = sprintf('%d: ' . '!unknown!', $data);
 							break;
@@ -937,10 +937,7 @@ function formatExposure($data) {
 		if ($data >= 1) {
 			return round($data, 2) . ' ' . '!sec!';
 		} else {
-			$n = 0;
-			$d = 0;
-			ConvertToFraction($data, $n, $d);
-			return $n . '/' . $d . ' ' . '!sec!';
+			return convertToFraction($data) . ' !sec!';
 		}
 	} else {
 		return '!bulb!';
@@ -1374,17 +1371,32 @@ function read_exif_data_raw($path, $verbose) {
 //=========================================================
 // Converts a floating point number into a simple fraction.
 //=========================================================
-function ConvertToFraction($v, &$n, &$d) {
+/*
+ * This function has been ammended to work better with actual
+ * camera data. In particular, the tolarance computation is
+ * completely changed.
+ *
+ * Changes are Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
+ */
+function convertToFraction($v) {
 	if ($v == 0) {
-		$n = 0;
-		$d = 1;
-		return;
-	}
-	for ($n = 1; $n < 100; $n++) {
-		$v1 = 1 / $v * $n;
-		$d = round($v1, 0);
-		if (abs($d - $v1) < 0.02)
-			return; // within tolarance
+		return "0";
+	} else if ($v > 1) {
+		for ($n = 0; $n < 5; $n++) {
+			$x = round($v, $n);
+			if (abs($v - $x) < 0.005) {
+				break;
+			}
+		}
+		return $x;
+	} else {
+		for ($n = 1; $n < 100; $n++) {
+			$d = round(1 / $v * $n, 0);
+			if (abs($n / $d - $v) < 0.00005) {
+				break;
+			}
+		}
+		return "$n/$d";
 	}
 }
 

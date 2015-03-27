@@ -2,9 +2,9 @@
 /**
  * Prints a list of all albums context sensitive.
  *
- * menu types:
+ * Menu types:
  * 	<ul>
- * 			<li><var>list</var> for html list</li>
+ * 			<li><var>list</var> for HTML list</li>
  * 			<li><var>list-top</var> for only the top level albums</li>
  * 			<li><var>omit-top</var> same as list, but the first level of albums is omitted</li>
  * 			<li><var>list-sub</var> lists the offspring level of subalbums for the current album</li>
@@ -113,7 +113,7 @@ class print_album_menu {
  */
 function printAlbumMenu($option, $showcount = NULL, $css_id = '', $css_class_topactive = '', $css_class = '', $css_class_active = '', $indexname = "Gallery Index", $showsubs = NULL, $firstimagelink = false, $keeptopactive = false) {
 	if ($option == "jump") {
-		printAlbumMenuJump($showcount, $indexname, $firstimagelink);
+		printAlbumMenuJump($showcount, $indexname, $firstimagelink, $showsubs);
 	} else {
 		printAlbumMenuList($option, $showcount, $css_id, $css_class_topactive, $css_class, $css_class_active, $indexname, $showsubs, $firstimagelink, $keeptopactive);
 	}
@@ -213,12 +213,15 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 	if (is_null($limit)) {
 		$limit = MENU_TRUNCATE_STRING;
 	}
-	if (is_null($showcount))
+	if (is_null($showcount)) {
 		$showcount = ALBUM_MENU_COUNT;
-	if (is_null($showsubs))
+	}
+	if (is_null($showsubs)) {
 		$showsubs = ALBUM_MENU_SHOWSUBS;
-	if ($showsubs && !is_numeric($showsubs))
+	}
+	if ($showsubs && !is_numeric($showsubs)) {
 		$showsubs = 9999999999;
+	}
 	$pagelevel = count(explode('/', $folder));
 	$currenturalbumname = "";
 
@@ -315,76 +318,72 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
  * @param string $option "count" for a image counter in brackets behind the album name, "" = for no image numbers
  * @param string $indexname insert the name (default "Gallery Index") how you want to call the link to the gallery index, insert "" if you don't use it, it is not printed then.
  * @param bool $firstimagelink If set to TRUE and if the album has images the link will point to page of the first image instead the album thumbnail page
+ * @param string $css_class see printAlbumMenuList
+ * @param bool $skipform If set to false this prints a full form option select list (default), if set to true it will only print the options
  */
-function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $firstimagelink = false) {
+function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $firstimagelink = false, $showsubs = NULL, $skipform = false) {
 	global $_zp_gallery, $_zp_current_album, $_zp_gallery_page;
-	$albumpath = rewrite_path("/", "/index.php?album=");
 	if (!is_null($_zp_current_album) || $_zp_gallery_page == 'album.php') {
 		$currentfolder = $_zp_current_album->name;
 	}
-	?>
-	<script type="text/javaScript">
-		// <!-- <![CDATA[
-		function gotoLink(form) {
-		var OptionIndex=form.ListBoxURL.selectedIndex;
-		parent.location = form.ListBoxURL.options[OptionIndex].value;
-		}
-		// ]]> -->
-	</script>
-	<form name="AutoListBox" action="#">
-		<p>
-			<select name="ListBoxURL" size="1" onchange="gotoLink(this.form);">
-				<?php
-				if (!empty($indexname)) {
-					$selected = checkSelectedAlbum("", "index");
-					?>
-					<option <?php echo $selected; ?> value="<?php echo html_encode(getGalleryIndexURL()); ?>"><?php echo $indexname; ?></option>
-					<?php
-				}
-				$albums = $_zp_gallery->getAlbums();
-				printAlbumMenuJumpAlbum($albums, $option, $albumpath, $firstimagelink);
-				?>
-			</select>
-		</p>
-	</form>
-	<?php
-}
-
-/**
- * Handles a single album level for printAlbumMenuJump
- *
- * @param array $albums list of album names
- * @param string $showcount see printAlbumMenuJump
- * @param string $albumpath path of the page album
- * @param bool $firstimagelink If set to TRUE and if the album has images the link will point to page of the first image instead the album thumbnail page
- * @param int $level current level
- */
-function printAlbumMenuJumpAlbum($albums, $option, $albumpath, $firstimagelink, $level = 1) {
-	global $_zp_gallery, $_zp_albums_visited_albumMenu;
-	foreach ($albums as $album) {
-		$subalbum = newAlbum($album, true);
-		if ($option === "count" AND $subalbum->getNumImages() > 0) {
-			$count = " (" . $subalbum->getNumImages() . ")";
-		} else {
-			$count = "";
-		}
-		$arrow = str_replace(':', '» ', str_pad("", $level - 1, ":"));
-
-		$selected = checkSelectedAlbum($subalbum->name, "album");
-		$title = shortenContent(getBare($subalbum->getTitle()), MENU_TRUNCATE_STRING, MENU_TRUNCATE_INDICATOR);
-		if ($firstimagelink && $subalbum->getNumImages() != 0) {
-			$link = "<option $selected value='" . html_encode($subalbum->getImage(0)->getLink()) . "'>" . $arrow . $title . $count . "</option>";
-		} else {
-			$link = "<option $selected value='" . html_encode($subalbum->getLink(1)) . "'>" . $arrow . $title . $count . "</option>";
-		}
-		echo $link;
-		if (!in_array($subalbum->name, $_zp_albums_visited_albumMenu) && $subalbum->exists) {
-			$_zp_albums_visited_albumMenu[] = $subalbum->name;
-			$subalbums = $subalbum->getAlbums();
-			if (!empty($subalbums)) {
-				printAlbumMenuJumpAlbum($subalbums, $option, $albumpath, $firstimagelink, $level + 1);
+	if (is_null($showsubs)) {
+		$showsubs = ALBUM_MENU_SHOWSUBS;
+	}
+	if ($showsubs && !is_numeric($showsubs)) {
+		$showsubs = 9999999999;
+	}
+	if (!$skipform) {
+		?>
+		<script type="text/javaScript">
+			// <!-- <![CDATA[
+			function gotoLink(form) {
+			var OptionIndex=form.ListBoxURL.selectedIndex;
+			parent.location = form.ListBoxURL.options[OptionIndex].value;
 			}
-		}
+			// ]]> -->
+		</script>
+		<form name="AutoListBox" action="#">
+			<p>
+				<select name="ListBoxURL" size="1" onchange="gotoLink(this.form);">
+					<?php
+					if (!empty($indexname)) {
+						$selected = checkSelectedAlbum("", "index");
+						?>
+						<option <?php echo $selected; ?> value="<?php echo html_encode(getGalleryIndexURL()); ?>"><?php echo $indexname; ?></option>
+						<?php
+					}
+				}
+				$albums = getNestedAlbumList(null, $showsubs);
+				foreach ($albums as $album) {
+					$albumobj = newAlbum($album['name'], true);
+					$count = '';
+					if ($option == "count") {
+						$numimages = $albumobj->getNumImages();
+						if ($numimages != 0) {
+							$count = " (" . $numimages . ")";
+						}
+					}
+					$sortorder = count($album['sort_order']);
+					$arrow = '';
+					if ($sortorder > 1) {
+						for ($c = 1; $c != $sortorder; $c++) {
+							$arrow .= '» ';
+						}
+					}
+					$selected = checkSelectedAlbum($albumobj->name, "album");
+					if ($firstimagelink && $numimages != 0) {
+						$link = "<option $selected value='" . html_encode($albumobj->getImage(0)->getLink()) . "'>" . $arrow . getBare($albumobj->getTitle()) . $count . "</option>";
+					} else {
+						$link = "<option $selected value='" . html_encode($albumobj->getLink(1)) . "'>" . $arrow . getBare($albumobj->getTitle()) . $count . "</option>";
+					}
+					echo $link;
+				}
+				if (!$skipform) {
+					?>
+				</select>
+			</p>
+		</form>
+		<?php
 	}
 }
 

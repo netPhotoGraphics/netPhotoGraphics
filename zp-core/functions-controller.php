@@ -21,7 +21,7 @@ function zpRewriteURL($query) {
 			case 'news':
 				$redirectURL = _NEWS_;
 				if (isset($query['category'])) {
-					$obj = new Category(rtrim($query['category'], '/'), false);
+					$obj = newCategory(rtrim($query['category'], '/'), false);
 					if (!$obj->loaded)
 						return '';
 					$redirectURL = $obj->getLink();
@@ -40,7 +40,7 @@ function zpRewriteURL($query) {
 				break;
 			case 'pages':
 				if (isset($query['title'])) {
-					$obj = new Page(rtrim($query['title'], '/'), false);
+					$obj = newPage(rtrim($query['title'], '/'), false);
 					if (!$obj->loaded)
 						return '';
 					$redirectURL = $obj->getLink();
@@ -57,7 +57,7 @@ function zpRewriteURL($query) {
 					unset($query['searchfields']);
 				}
 				if (isset($query['words'])) {
-					$redirectURL .= '/' . $query['words'] . '/';
+					$redirectURL .= '/' . SearchEngine::encode($query['words']) . '/';
 					unset($query['words']);
 				}
 				break;
@@ -72,7 +72,7 @@ function zpRewriteURL($query) {
 		}
 	} else if (isset($query['album'])) {
 		if (isset($query['image'])) {
-			$obj = newImage(NULL, array('folder' => $query['album'], 'filename' => $query['image']), true);
+			$obj = newImage(array('folder' => $query['album'], 'filename' => $query['image']), NULL, true);
 			unset($query['image']);
 		} else {
 			$obj = newAlbum($query['album'], NULL, true);
@@ -286,7 +286,7 @@ function zp_load_image($folder, $filename) {
  */
 function load_zenpage_pages($titlelink) {
 	global $_zp_current_page;
-	$_zp_current_page = new Page($titlelink);
+	$_zp_current_page = newPage($titlelink);
 	if ($_zp_current_page->loaded) {
 		add_context(ZP_ZENPAGE_PAGE | ZP_ZENPAGE_SINGLE);
 	} else {

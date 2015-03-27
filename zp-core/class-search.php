@@ -45,7 +45,7 @@ class SearchEngine {
 	protected $category_list = NULL; // list of categories for a news search
 	protected $searches = NULL; // remember the criteria for past searches
 	protected $extraparams = array(); // allow plugins to add to search parameters
-//	mimic album object
+	// mimic album object
 	var $loaded = false;
 	var $table = 'albums';
 	var $transient = true;
@@ -130,9 +130,12 @@ class SearchEngine {
 				$this->search_structure[strtolower($field)] = $row[2];
 			}
 		}
+
 		$this->search_structure = zp_apply_filter('searchable_fields', $this->search_structure);
+		asort($this->search_structure, SORT_LOCALE_STRING);
+
 		if (isset($_REQUEST['words'])) {
-			$this->words = strtr(sanitize($_REQUEST['words'], 4), array('__23__' => '#', '__25__' => '%', '__26__' => '&'));
+			$this->words = self::decode(sanitize($_REQUEST['words'], 4));
 		} else {
 			$this->words = NULL;
 			if (isset($_REQUEST['date'])) { // words & dates are mutually exclusive
@@ -209,6 +212,33 @@ class SearchEngine {
 		$this->albums = NULL;
 		$this->searches = array('images' => NULL, 'albums' => NULL, 'pages' => NULL, 'news' => NULL);
 		zp_apply_filter('search_instantiate', $this);
+	}
+
+	/**
+	 * encodes search words so that they can get past browser/server stuff
+	 *
+	 * @param string $words
+	 * @return string
+	 *
+	 * @author Stephen Billard
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
+	 */
+	static function encode($words) {
+		$words = bin2hex($words);
+		return strlen($words) . '.' . $words;
+	}
+
+	/**
+	 * decodes search words
+	 * @param string $words
+	 * @return string
+	 */
+	static function decode($words) {
+		preg_match('~^(\d+)\.([0-9a-f]+)$~', $words, $matches);
+		if (isset($matches[1]) && isset($matches[2]) && $matches[1] == strlen($matches[2])) {
+			$words = hex2bin($matches[2]);
+		}
+		return $words;
 	}
 
 	/**
@@ -1914,6 +1944,25 @@ class SearchEngine {
 			}
 		}
 		return NULL;
+	}
+
+	/**
+	 * Clears the entire search cache table
+	 */
+	static function clearSearchCache($obj) {
+		if (empty($obj)) {
+			query('TRUNCATE TABLE ' . prefix('search_cache'));
+		} else {
+			$criteria = serialize(array('item' => $table = $obj->table));
+			preg_match('~.*{(.*)}~', $criteria, $matches);
+			$criteria = '`criteria` LIKE ' . db_quote('%' . $matches[1] . '%');
+			if ($table == 'albums') {
+				$album = serialize(array('item' => 'images'));
+				preg_match('~.*{(.*)}~', $album, $matches);
+				$criteria .= ' OR `criteria` LIKE ' . db_quote('%' . $matches[1] . '%');
+			}
+			query('DELETE FROM ' . prefix('search_cache') . ' WHERE ' . $criteria);
+		}
 	}
 
 }

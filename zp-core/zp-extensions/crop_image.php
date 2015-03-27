@@ -45,7 +45,7 @@ class crop_image {
 		}
 	}
 
-	static function edit($output, $image, $prefix, $subpage, $tagsort) {
+	static function edit($output, $image, $prefix, $subpage, $tagsort, $singleimage) {
 		if (isImagePhoto($image)) {
 			if (is_array($image->filename)) {
 				$albumname = dirname($image->filename['source']);
@@ -54,10 +54,12 @@ class crop_image {
 				$albumname = $image->albumlink;
 				$imagename = $image->filename;
 			}
+			if ($singleimage)
+				$singleimage = '&amp;singleimage=' . $singleimage;
 			$output .=
 							'<div class="button buttons tooltip" title="' . gettext('Permanently crop the actual image.') . '">' . "\n" .
 							'<a href="' . WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/crop_image.php?a=' . pathurlencode($albumname) . "\n" .
-							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n" .
+							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n" .
 							'<img src="images/shape_handles.png" alt="" />' . gettext("Crop image") . '</a>' . "\n" .
 							'<br class="clearall" />' .
 							'</div>' . "\n";
@@ -75,6 +77,11 @@ if (!$album->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return);
 		exitZP();
 	}
+}
+if (isset($_REQUEST['singleimage'])) {
+	$singleimage = sanitize($_REQUEST['singleimage']);
+} else {
+	$singleimage = '';
 }
 
 // get what image side is being used for resizing
@@ -160,7 +167,7 @@ if (isset($_REQUEST['crop'])) {
 	$quality = getOption('full_image_quality');
 	$rotate = false;
 	if (zp_imageCanRotate()) {
-		$rotate = getImageRotation($imgpath);
+		$rotate = getImageRotation($imageobj);
 	}
 	if (DEBUG_IMAGE)
 		debugLog("image_crop: crop " . basename($imgpath) . ":\$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy \$rotate=$rotate");
@@ -185,7 +192,7 @@ if (isset($_REQUEST['crop'])) {
 	zp_imageKill($timg);
 	Gallery::clearCache(SERVERCACHE . '/' . $albumname);
 	// update the image data
-	$imageobj->set('EXIFOrientation', 0);
+	$imageobj->set('rotation', 0);
 	$imageobj->updateDimensions();
 	$imageobj->set('thumbX', NULL);
 	$imageobj->set('thumbY', NULL);
@@ -195,6 +202,8 @@ if (isset($_REQUEST['crop'])) {
 
 	if ($_REQUEST['performcrop'] == 'backend') {
 		$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . sanitize($_REQUEST['subpage']) . '&tagsort=' . sanitize($_REQUEST['tagsort']) . '&tab=imageinfo';
+		if ($singleimage)
+			$return .= '&singleimage=' . html_encode($singleimage);
 	} else {
 		$return = FULLWEBPATH . $imageobj->getLink();
 	}
@@ -236,7 +245,7 @@ if ($pasteobj) {
 	var sizedWidth = <?php echo $sizedwidth ?>;
 	var sizedHeight = <?php echo $sizedheight ?>;
 	var oldSize = <?php echo $size; ?>;
-	jQuery(window).load(function() {
+	jQuery(window).load(function () {
 		initJcrop();
 		function initJcrop() {
 			jcrop_api = jQuery.Jcrop('#cropbox');
@@ -404,7 +413,13 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								printf(gettext('crop width:%1$s %2$s crop height:%3$s'), '<input type="text" id="aspect-ratio-width" name="aspect-ratio-width" value="" size="5" />', '&nbsp;<span id="aspect" ><a id="swap_button" onclick="swapAspect();" title="' . gettext('swap width and height fields') . '" > <img src="crop_image/swap.png"> </a></span>&nbsp;', '<input type="text" id="aspect-ratio-height" name="aspect-ratio-height" value="" size="5" />');
 								?>
 							</p>
-
+							<?php
+							if ($singleimage) {
+								?>
+								<input type="hidden" name="singleimage" value="<?php echo html_encode($singleimage); ?>" />
+								<?php
+							}
+							?>
 							<input type="hidden" size="4" id="x" name="x" value="<?php echo $iX ?>" />
 							<input type="hidden" size="4" id="y" name="y" value="<?php echo $iY ?>" />
 							<input type="hidden" size="4" id="x2" name="x2" value="<?php echo $iX + $iW ?>" />
@@ -451,7 +466,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								}
 								if ($_REQUEST['performcrop'] == 'backend') {
 									?>
-									<button type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '../admin-edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo $subpage; ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
+									<button type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '../admin-edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo $subpage . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : ''; ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
 										<img src="../images/arrow_left_blue_round.png" alt="" /><strong><?php echo gettext("Back"); ?></strong>
 									</button>
 									<?php

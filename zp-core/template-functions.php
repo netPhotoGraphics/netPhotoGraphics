@@ -22,7 +22,7 @@ if (!defined('SEO_FULLWEBPATH')) {
  * Returns the zenphoto version string
  */
 function getVersion() {
-	return ZENPHOTO_VERSION . ' [' . ZENPHOTO_RELEASE . ']';
+	return ZENPHOTO_VERSION;
 }
 
 /**
@@ -83,19 +83,13 @@ function adminToolbox() {
 		?>
 		<div id="<?php echo $id; ?>">
 			<h3>
-				<a onclick="toggle('<?php echo $dataid; ?>');">
+				<a onclick="toggle('<?php echo $dataid; ?>');" title="<?php echo $_zp_current_admin_obj->getUser(); ?>">
 					<?php echo gettext('Admin Toolbox'); ?>
 				</a>
 			</h3>
 		</div>
 		<div id="<?php echo $dataid; ?>" style="display: none;">
-
 			<ul style="list-style-type: none;" >
-				<li>
-					<em><?php echo $_zp_current_admin_obj->getUser(); ?></em>
-					<br /><br />
-				</li>
-
 				<?php
 				$outputA = ob_get_contents();
 				ob_end_clean();
@@ -444,7 +438,7 @@ function getHeadTitle($separator = ' | ', $listparents = true) {
 				if (count($parents) != 0) {
 					$parents = array_reverse($parents);
 					foreach ($parents as $parent) {
-						$obj = new Page($parent);
+						$obj = newPage($parent);
 						$parentpages .= html_encode(getBare($obj->getTitle())) . $separator;
 					}
 				}
@@ -3128,7 +3122,7 @@ function printSizedImageURL($size, $text, $title, $class = NULL, $id = NULL) {
 function filterImageQuery($result, $source) {
 	if ($result) {
 		while ($row = db_fetch_assoc($result)) {
-			$image = newImage(NULL, $row);
+			$image = newImage($row);
 			$album = $image->album;
 			if ($album->name == $source || $album->checkAccess()) {
 				if (isImagePhoto($image)) {
@@ -3436,31 +3430,33 @@ function printAllTagsAs($option, $class = '', $sort = NULL, $counter = FALSE, $l
 	if ($class != "") {
 		$class = ' class="' . $class . '"';
 	}
-	$tagcount = getAllTagsCount();
+	$tagcount = getAllTagsUnique(NULL, $mincount, true);
+
 	if (!is_array($tagcount)) {
 		return false;
 	}
+	arsort($tagcount);
+	if (!is_null($limit)) {
+		$tagcount = array_slice($tagcount, 0, $limit);
+	}
+	$keys = array_keys($tagcount);
 	switch ($sort) {
+		default:
+			natcasesort($keys);
+			break;
 		case 'results':
-			arsort($tagcount);
-			if (!is_null($limit)) {
-				$tagcount = array_slice($tagcount, 0, $limit);
-			}
+			//already in tag count order
 			break;
 		case 'random':
-			if (!is_null($limit)) {
-				$tagcount = array_slice($tagcount, 0, $limit);
-			}
-			shuffle_assoc($tagcount);
-			break;
-		default:
+			shuffle_assoc($keys);
 			break;
 	}
 	?>
 	<ul<?php echo $class; ?>>
 		<?php
 		if (count($tagcount) > 0) {
-			foreach ($tagcount as $key => $val) {
+			foreach ($keys as $key) {
+				$val = $tagcount[$key];
 				if (!$counter) {
 					$counter = "";
 				} else {
@@ -3477,26 +3473,25 @@ function printAllTagsAs($option, $class = '', $sort = NULL, $counter = FALSE, $l
 				} else {
 					$size = '';
 				}
-				if ($val >= $mincount) {
-					if ($links) {
-						if (is_object($_zp_current_search)) {
-							$albumlist = $_zp_current_search->getAlbumList();
-						} else {
-							$albumlist = NULL;
-						}
-						$link = getSearchURL(search_quote($key), '', 'tags', 0, array('albums' => $albumlist));
-						?>
-						<li>
-							<a href="<?php echo html_encode($link); ?>" rel="nofollow"<?php echo $size; ?>><?php echo $key . $counter; ?></a>
-						</li>
-						<?php
+
+				if ($links) {
+					if (is_object($_zp_current_search)) {
+						$albumlist = $_zp_current_search->getAlbumList();
 					} else {
-						?>
-						<li<?php echo $size; ?>><?php echo $key . $counter; ?></li>
-						<?php
+						$albumlist = NULL;
 					}
+					$link = getSearchURL(search_quote($key), '', 'tags', 0, array('albums' => $albumlist));
+					?>
+					<li>
+						<a href="<?php echo html_encode($link); ?>" rel="nofollow"<?php echo $size; ?>><?php echo str_replace(' ', '&nbsp;', html_encode($key)) . $counter; ?></a>
+					</li>
+					<?php
+				} else {
+					?>
+					<li<?php echo $size; ?>><?php echo str_replace(' ', '&nbsp;', html_encode($key)) . $counter; ?></li>
+					<?php
 				}
-			} // while end
+			}
 		} else {
 			?>
 			<li><?php echo gettext('No popular tags'); ?></li>
@@ -3682,13 +3677,14 @@ function isArchive() {
  * @param mixed $words the search words target
  * @param mixed $dates the dates that limit the search
  * @param mixed $fields the fields on which to search
+ * NOTE: $words and $dates are mutually exclusive and $fields applies only to $words searches
  * @param int $page the page number for the URL
  * @param array $object_list the list of objects to search
  * @return string
  * @since 1.1.3
  */
 function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
-	$urls = '';
+	$urls = array();
 	$rewrite = false;
 	if (MOD_REWRITE) {
 		$rewrite = true;
@@ -3703,75 +3699,68 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
 	}
 
 	if ($rewrite) {
-		if (empty($dates)) {
-			$url = SEO_WEBPATH . '/' . _SEARCH_ . '/';
-		} else {
-			$url = SEO_WEBPATH . '/' . _ARCHIVE_ . '/';
-		}
+		$url = SEO_WEBPATH . '/' . _SEARCH_ . '/';
 	} else {
-		$url = SEO_WEBPATH . "/index.php?p=search";
+		$url = SEO_WEBPATH . "/index.php";
+		$urls[] = 'p=search';
 	}
-	if (!empty($fields) && empty($dates)) {
-		if (!is_array($fields)) {
-			$fields = explode(',', $fields);
-		}
-		$temp = $fields;
-		if ($rewrite && count($fields) == 1 && array_shift($temp) == 'tags') {
-			$url = SEO_WEBPATH . '/' . _TAGS_ . '/';
-		} else {
-			$search = new SearchEngine();
-			$urls = $search->getSearchFieldsText($fields, 'searchfields=');
-		}
-	}
-
-	if (!empty($words)) {
+	if ($words) {
 		if (is_array($words)) {
 			foreach ($words as $key => $word) {
 				$words[$key] = search_quote($word);
 			}
 			$words = implode(',', $words);
 		}
-		$words = strtr($words, array('%' => '__25__', '&' => '__26__', '#' => '__23__'));
+		$words = SearchEngine::encode($words);
 		if ($rewrite) {
-			$url .= urlencode($words) . '/';
+			$url .= $words . '/';
 		} else {
-			$url .= "&words=" . urlencode($words);
+			$urls[] = 'words=' . $words;
 		}
-	}
-	if (!empty($dates)) {
+		if (!empty($fields)) {
+			if (!is_array($fields)) {
+				$fields = explode(',', $fields);
+			}
+			$temp = $fields;
+			if ($rewrite && count($fields) == 1 && array_shift($temp) == 'tags') {
+				$url = SEO_WEBPATH . '/' . _TAGS_ . '/' . $words . '/';
+			} else {
+				$search = new SearchEngine();
+				$urls[] = $search->getSearchFieldsText($fields, 'searchfields=');
+			}
+		}
+	} else { //	dates
 		if (is_array($dates)) {
 			$dates = implode(',', $dates);
 		}
 		if ($rewrite) {
-			$url .= $dates . '/';
+			$url = SEO_WEBPATH . '/' . _ARCHIVE_ . '/' . $dates . '/';
 		} else {
-			$url .= "&date=$dates";
+			$urls[] = "date=$dates";
 		}
 	}
 	if ($page > 1) {
 		if ($rewrite) {
 			$url .= $page;
 		} else {
-			if ($urls) {
-				$urls .= '&';
-			}
-			$urls .= "page=$page";
+			$urls[] = "page=$page";
 		}
 	}
-	if (!empty($urls)) {
-		if ($rewrite) {
-			$url .= '?' . $urls;
-		} else {
-			$url .= '&' . $urls;
-		}
-	}
+
 	if (is_array($object_list)) {
 		foreach ($object_list as $key => $list) {
 			if (!empty($list)) {
-				$url .= '&in' . $key . '=' . html_encode(implode(',', $list));
+				if (is_array($list)) {
+					$list = implode(',', $list);
+				}
+				$urls[] = 'in' . $key . '=' . $list;
 			}
 		}
 	}
+	if (!empty($urls)) {
+		$url .= '?' . implode('&', $urls);
+	}
+
 	return $url;
 }
 
@@ -3856,45 +3845,47 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	?>
 	<div id="<?php echo $id; ?>">
 		<!-- search form -->
-		<form method="post" action="<?php echo $searchurl; ?>" id="search_form">
-			<script type="text/javascript">
-					// <!-- <![CDATA[
-					var within = <?php echo (int) $within; ?>;
-					function search_(way) {
-						within = way;
-						if (way) {
-							$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
+		<script type="text/javascript">
+				// <!-- <![CDATA[
+				var within = <?php echo (int) $within; ?>;
+				function search_(way) {
+					within = way;
+					if (way) {
+						$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
+					} else {
+						lastsearch = '';
+						$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
+					}
+					$('#search_input').val('');
+				}
+				$('#search_form').submit(function () {
+					if (within) {
+						var newsearch = $.trim($('#search_input').val());
+						if (newsearch.substring(newsearch.length - 1) == ',') {
+							newsearch = newsearch.substr(0, newsearch.length - 1);
+						}
+						if (newsearch.length > 0) {
+							$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
 						} else {
-							lastsearch = '';
-							$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
+							$('#search_input').val('<?php echo $searchwords; ?>');
 						}
-						$('#search_input').val('');
 					}
-					$('#search_form').submit(function () {
-						if (within) {
-							var newsearch = $.trim($('#search_input').val());
-							if (newsearch.substring(newsearch.length - 1) == ',') {
-								newsearch = newsearch.substr(0, newsearch.length - 1);
-							}
-							if (newsearch.length > 0) {
-								$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
-							} else {
-								$('#search_input').val('<?php echo $searchwords; ?>');
-							}
-						}
-						return true;
-					});
-					function search_all() {
-						//search all is copyright by Stephen Billard for use in ZenPhoto20. All rights reserved
-						var check = $('#SEARCH_checkall').prop('checked');
-						$('.SEARCH_checkall').prop('checked', check);
-					}
+					return true;
+				});
+				function search_all() {
+					//search all is Copyright 2014 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}. All rights reserved
+					var check = $('#SEARCH_checkall').prop('checked');
+					$('.SEARCH_checkall').prop('checked', check);
+				}
 
-					// ]]> -->
-			</script>
+				// ]]> -->
+		</script>
+		<form method="post" action="<?php echo $searchurl; ?>" id="search_form">
 			<?php echo $prevtext; ?>
 			<div>
-				<input type="text" name="words" value="" id="search_input" size="10" />
+				<span class="tagSuggestContainer">
+					<input type="text" name="words" value="" id="search_input" size="10" />
+				</span>
 				<?php if (count($fields) > 1 || $searchwords) { ?>
 					<a onclick="toggle('searchextrashow');" ><img src="<?php echo $iconsource; ?>" title="<?php echo gettext('search options'); ?>" alt="<?php echo gettext('fields'); ?>" id="searchfields_icon" /></a>
 				<?php } ?>
@@ -3916,9 +3907,6 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				<br />
 				<?php
 				if (count($fields) > 1 || $searchwords) {
-					$fields = array_flip($fields);
-					natcasesort($fields);
-					$fields = array_flip($fields);
 					if (is_null($query_fields)) {
 						$query_fields = $engine->parseQueryFields();
 					} else {
@@ -4184,6 +4172,11 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 			$query = array();
 		}
 		$query['userlog'] = 1;
+		if (isset($_GET['p']) && $_GET['p'] == 'password') {
+			// redirecting here would be terribly confusing
+			unset($query['p']);
+			$parts['path'] = SEO_WEBPATH;
+		}
 		$parts['query'] = http_build_query($query);
 		$action = build_url($parts);
 		$_password_redirect = $action;
@@ -4237,7 +4230,7 @@ function exposeZenPhotoInformations($obj = '', $plugins = '', $theme = '') {
 
 	$a = basename($obj);
 	if ($a != 'full-image.php') {
-		echo "\n<!-- zenphoto version " . ZENPHOTO_VERSION . " [" . ZENPHOTO_FULL_RELEASE . "]";
+		echo "\n<!-- zenphoto version " . ZENPHOTO_VERSION;
 		echo " THEME: " . $theme . " (" . $a . ")";
 		$graphics = zp_graphicsLibInfo();
 		$graphics = str_replace('<br />', ', ', $graphics['Library_desc']);
@@ -4393,29 +4386,25 @@ function print404status() {
 		if (array_shift($list) != 'cache') {
 			$target = getRequestURI();
 			if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/zp-data/tést.jpg'))) {
-				$server = array();
+				$output = "404 error details\n\t\t\tSERVER:\n";
 				foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'REDIRECT_STATUS') as $key) {
-					$server[$key] = @$_SERVER[$key];
+					if (is_null(@$_SERVER[$key])) {
+						$value = 'NULL';
+					} else {
+						$value = "'$_SERVER[$key]'";
+					}
+					$output .= "\t\t\t\t\t$key\t=>\t$value\n";
 				}
+				$output .= "\t\t\tREQUEST:\n";
 				$request = $_REQUEST;
 				$request['theme'] = $theme;
 				if (!empty($image)) {
 					$request['image'] = $image;
 				}
-
-				ob_start();
-				var_dump($server);
-				$server = preg_replace('~array\s*\(.*\)\s*~', '', html_decode(getBare(ob_get_contents())));
-				ob_end_clean();
-				ob_start();
-				var_dump($request);
-				$request['theme'] = $theme;
-				if (!empty($image)) {
-					$request['image'] = $image;
+				foreach ($request as $key => $value) {
+					$output .= "\t\t\t\t\t$key\t=>\t'$value'\n";
 				}
-				$request = preg_replace('~array\s*\(.*\)\s*~', '', html_decode(getBare(ob_get_contents())));
-				ob_end_clean();
-				debugLog("404 error details\n" . $server . $request);
+				debugLog($output);
 			}
 		}
 	}

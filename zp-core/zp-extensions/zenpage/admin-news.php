@@ -19,9 +19,10 @@ if (isset($_GET['bulkaction'])) {
 if (isset($_GET['deleted'])) {
 	$reports[] = "<p class='messagebox fade-message'>" . gettext("Article successfully deleted!") . "</p>";
 }
+
 if (isset($_POST['checkallaction'])) { // true if apply is pressed
 	XSRFdefender('checkeditems');
-	if ($action = processZenpageBulkActions('News')) {
+	if ($action = processZenpageBulkActions('Article')) {
 		bulkActionRedirect($action);
 	}
 }
@@ -36,7 +37,8 @@ if (isset($_GET['delete'])) {
 if (isset($_GET['publish'])) {
 	XSRFdefender('update');
 	$obj = newArticle(sanitize($_GET['titlelink']));
-	zenpagePublish($obj, sanitize_numeric($_GET['publish']));
+	$obj->setShow(sanitize_numeric($_GET['publish']));
+	$obj->save();
 }
 
 if (isset($_GET['commentson'])) {
@@ -135,7 +137,7 @@ updatePublished('news');
 					} else {
 						$published = 'all';
 					}
-					$sortorder = 'date';
+					$sortorder = 'publishdate';
 					$direction = true;
 					if (isset($_GET['sortorder'])) {
 						list($sortorder, $sortdirection) = explode('-', $_GET['sortorder']);
@@ -187,10 +189,10 @@ updatePublished('news');
 						foreach ($result as $article) {
 							$list[] = $article[$sortorder];
 						}
-						if ($sortorder == 'date') {
-							$rangeset = getPageSelector($list, $articles_page, 'dateDiff');
-						} else {
+						if ($sortorder == 'title') {
 							$rangeset = getPageSelector($list, $articles_page);
+						} else {
+							$rangeset = getPageSelector($list, $articles_page, 'dateDiff');
 						}
 						$options = array_merge(array('page' => 'news', 'tab' => 'articles'), getNewsAdminOption(array('category' => 0, 'date' => 0, 'published' => 0, 'sortorder' => 0, 'articles_page' => 1)));
 						$result = array_slice($result, $offset, $articles_page);
@@ -226,7 +228,7 @@ updatePublished('news');
 
 					<table class="bordered">
 						<tr>
-							<th colspan="13" id="imagenav">
+							<th colspan="14" id="imagenav">
 								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/admin-news.php', $options); ?>
 							</th>
 						</tr>
@@ -236,7 +238,7 @@ updatePublished('news');
 							</th>
 
 
-							<th colspan="6">
+							<th colspan="7">
 								<?php
 								$checkarray = array(
 												gettext('*Bulk actions*')			 => 'noaction',
@@ -258,10 +260,22 @@ updatePublished('news');
 							</th>
 						</tr>
 						<tr class="newstr">
-							<td class="subhead" colspan="13">
+							<th><!--title--></th>
+							<th><?php echo gettext('Categories'); ?></th>
+							<th><?php echo gettext('Author'); ?></th>
+							<th><?php
+								if ($sortorder == 'date') {
+									echo gettext('Created');
+								} else {
+									echo gettext('Last changed');
+								}
+								?></th>
+							<th><?php echo gettext('Published'); ?></th>
+							<th><?php echo gettext('Expires'); ?></th>
+							<th class="subhead" colspan="8">
 								<label style="float: right"><?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
-							</td>
+							</th>
 						</tr>
 						<?php
 						foreach ($result as $article) {
@@ -294,6 +308,15 @@ updatePublished('news');
 								</td>
 								<td>
 									<?php echo html_encode($article->getAuthor()); ?>
+								</td>
+								<td>
+									<?php
+									if ($sortorder == 'date') {
+										echo $article->getDateTime();
+									} else {
+										echo $article->getLastchange();
+									}
+									?>
 								</td>
 								<td>
 									<?php printPublished($article); ?>
@@ -375,10 +398,7 @@ updatePublished('news');
 									}
 									?>
 									<td class="page-list_icon">
-										<a href="javascript:confirmDelete('admin-news.php?delete=<?php
-										echo $article->getTitlelink();
-										echo $option;
-										?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
+										<a href="javascript:confirmDelete('admin-news.php<?php echo $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
 											<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/fail.png" alt="" title="<?php echo gettext('Delete article'); ?>" /></a>
 									</td>
 									<td class="page-list_icon">

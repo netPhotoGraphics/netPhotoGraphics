@@ -5,7 +5,7 @@
  * Options are provided for setting the required registration details and the default
  * user rights that will be granted.
  *
- * Place a call on printRegistrationForm() where you want the form to appear.
+ * Place a call on <var>printRegistrationForm()</var> where you want the form to appear.
  * Probably the best use is to create a new <i>custom page</i> script just for handling these
  * user registrations. Then put a link to that script on your index page so that people
  * who wish to register will click on the link and be taken to the registration page.
@@ -233,6 +233,10 @@ class register_user {
 				$currentadmin = Zenphoto_Authority::getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 				if (is_object($currentadmin)) {
 					$_notify = 'exists';
+				} else {
+					if (Zenphoto_Authority::getAnAdmin(array('`email`=' => $admin_e, '`valid`=' => '1'))) {
+						$_notify = 'dup_email';
+					}
 				}
 				if (empty($_notify)) {
 					$userobj = Zenphoto_Authority::newAdministrator('');
@@ -432,7 +436,15 @@ function printRegistrationForm($thanks = NULL) {
 				?>
 				<div class="errorbox fade-message">
 					<h2><?php echo gettext("Registration failed."); ?></h2>
-					<p><?php printf(gettext('The user ID <em>%s</em> is already in use.'), $admin_e); ?></p>
+					<p><?php printf(gettext('The user ID <em>%s</em> is already in use.'), $user); ?></p>
+				</div>
+				<?php
+				break;
+			case 'dup_email':
+				?>
+				<div class="errorbox fade-message">
+					<h2><?php echo gettext("Registration failed."); ?></h2>
+					<p><?php printf(gettext('A user with the e-mail <em>%s</em> is already exists.'), $admin_e); ?></p>
 				</div>
 				<?php
 				break;

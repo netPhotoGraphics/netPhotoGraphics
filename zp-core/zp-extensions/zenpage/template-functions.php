@@ -831,25 +831,19 @@ function printNewsCategoryURL($before = '', $catlink = '') {
  */
 function printNewsIndexURL($name = NULL, $before = '', $archive = NULL) {
 	global $_zp_post_date;
-	if ($_zp_post_date) {
-		if (is_null($archive)) {
-			$name = '<em>' . gettext('Archive') . '</em>';
-		} else {
-			$name = getBare(html_encode($archive));
-		}
-		$link = zp_apply_filter('getLink', rewrite_path(_ARCHIVE_ . '/', "/index.php?p=archive"), 'archive.php', NULL);
-	} else {
+	if (!in_context(ZP_SEARCH_LINKED)) {
 		if (is_null($name)) {
 			$name = gettext('News');
 		} else {
 			$name = getBare(html_encode($name));
 		}
 		$link = getNewsIndexURL();
+
+		if ($before) {
+			echo '<span class="beforetext">' . html_encode($before) . '</span>';
+		}
+		echo "<a href=\"" . html_encode($link) . "\" title=\"" . getBare($name) . "\">" . $name . "</a>";
 	}
-	if ($before) {
-		echo '<span class="beforetext">' . html_encode($before) . '</span>';
-	}
-	echo "<a href=\"" . html_encode($link) . "\" title=\"" . getBare($name) . "\">" . $name . "</a>";
 }
 
 /**
@@ -1056,15 +1050,13 @@ function getTotalNewsPages() {
  * Returns false if there is none (or option is empty)
  *
  * NOTE: This is not available if using the CombiNews feature
- * @param string $sortorder "desc" (default)or "asc" for descending or ascending news. Required if these for next_news() loop are changed.
- * @param string $sortdirection "date" (default) or "title" for sorting by date or titlelink. Required if these for next_news() loop are changed.
  *
  * @return mixed
  */
-function getNextNewsURL($sortorder = 'date', $sortdirection = 'desc') {
+function getNextNewsURL() {
 	global $_zp_current_article;
 	if (is_object($_zp_current_article)) {
-		$article = $_zp_current_article->getNextArticle($sortorder, $sortdirection);
+		$article = $_zp_current_article->getNextArticle();
 		if ($article)
 			return array("link" => $article->getLink(), "title" => $article->getTitle());
 	}
@@ -1076,15 +1068,13 @@ function getNextNewsURL($sortorder = 'date', $sortdirection = 'desc') {
  * Returns false if there is none (or option is empty)
  *
  * NOTE: This is not available if using the CombiNews feature
- * @param string $sortorder "desc" (default)or "asc" for descending or ascending news. Required if these for next_news() loop are changed.
- * @param string $sortdirection "date" (default) or "title" for sorting by date or titlelink. Required if these for next_news() loop are changed.
  *
  * @return mixed
  */
-function getPrevNewsURL($sortorder = 'date', $sortdirection = 'desc') {
+function getPrevNewsURL() {
 	global $_zp_current_article;
 	if (is_object($_zp_current_article)) {
-		$article = $_zp_current_article->getPrevArticle($sortorder, $sortdirection);
+		$article = $_zp_current_article->getPrevArticle();
 		if ($article)
 			return array("link" => $article->getLink(), "title" => $article->getTitle());
 	}return false;
@@ -1096,12 +1086,10 @@ function getPrevNewsURL($sortorder = 'date', $sortdirection = 'desc') {
  * NOTE: This is not available if using the CombiNews feature
  *
  * @param string $next If you want to show something with the title of the article like a symbol
- * @param string $sortorder "desc" (default)or "asc" for descending or ascending news. Required if these for next_news() loop are changed.
- * @param string $sortdirection "date" (default) or "title" for sorting by date or titlelink. Required if these for next_news() loop are changed.
  * @return string
  */
-function printNextNewsLink($next = " »", $sortorder = 'date', $sortdirection = 'desc') {
-	$article_url = getNextNewsURL($sortorder, $sortdirection);
+function printNextNewsLink($next = " »") {
+	$article_url = getNextNewsURL();
 	if ($article_url && array_key_exists('link', $article_url) && $article_url['link'] != "") {
 		echo "<a href=\"" . html_encode($article_url['link']) . "\" title=\"" . html_encode(getBare($article_url['title'])) . "\">" . $article_url['title'] . "</a> " . html_encode($next);
 	}
@@ -1113,12 +1101,10 @@ function printNextNewsLink($next = " »", $sortorder = 'date', $sortdirection = 
  * NOTE: This is not available if using the CombiNews feature
  *
  * @param string $next If you want to show something with the title of the article like a symbol
- * @param string $sortorder "desc" (default)or "asc" for descending or ascending news. Required if these for next_news() loop are changed.
- * @param string $sortdirection "date" (default) or "title" for sorting by date or titlelink. Required if these for next_news() loop are changed.
  * @return string
  */
-function printPrevNewsLink($prev = "« ", $sortorder = 'date', $sortdirection = 'desc') {
-	$article_url = getPrevNewsURL($sortorder, $sortdirection);
+function printPrevNewsLink($prev = "« ") {
+	$article_url = getPrevNewsURL();
 	if ($article_url && array_key_exists('link', $article_url) && $article_url['link'] != "") {
 		echo html_encode($prev) . " <a href=\"" . html_encode($article_url['link']) . "\" title=\"" . html_encode(getBare($article_url['title'])) . "\">" . $article_url['title'] . "</a>";
 	}
@@ -1623,33 +1609,60 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
  * @param string $after Text to place after the breadcrumb item
  */
 function printZenpageItemsBreadcrumb($before = NULL, $after = NULL) {
-	global $_zp_current_page, $_zp_current_category;
-	$parentitems = array();
-	if (is_Pages()) {
-		//$parentid = $_zp_current_page->getParentID();
-		$parentitems = $_zp_current_page->getParents();
-	}
-	if (is_NewsCategory()) {
-		//$parentid = $_zp_current_category->getParentID();
-		$parentitems = $_zp_current_category->getParents();
-	}
-	foreach ($parentitems as $item) {
-		if (is_Pages()) {
-			$pageobj = newPage($item);
-			$parentitemurl = html_encode($pageobj->getLink());
-			$parentitemtitle = $pageobj->getTitle();
-		}
+	global $_zp_current_page, $_zp_current_category, $_zp_current_search;
+	if (in_context(ZP_SEARCH_LINKED)) {
+		$page = $_zp_current_search->page;
+		$searchwords = $_zp_current_search->getSearchWords();
+		$searchdate = $_zp_current_search->getSearchDate();
+		$searchfields = $_zp_current_search->getSearchFields(true);
 		if (is_NewsCategory()) {
-			$catobj = newCategory($item);
-			$parentitemurl = $catobj->getLink();
-			$parentitemtitle = $catobj->getTitle();
+			$search_obj_list = array('news' => $_zp_current_search->getCategoryList());
+		} else {
+			$search_obj_list = NULL;
+		}
+		$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $page, $search_obj_list);
+		if (empty($searchdate)) {
+			$title = gettext("Return to search");
+			$text = gettext("Search");
+		} else {
+			$title = gettext("Return to archive");
+			$text = gettext("Archive");
 		}
 		if ($before) {
 			echo '<span class="beforetext">' . html_encode($before) . '</span>';
 		}
-		echo"<a href='" . $parentitemurl . "'>" . html_encode($parentitemtitle) . "</a>";
+		echo"<a href='" . $searchpagepath . "' title='" . html_encode($title) . "'>" . html_encode($text) . "</a>";
 		if ($after) {
 			echo '<span class="aftertext">' . html_encode($after) . '</span>';
+		}
+	} else {
+		if (is_Pages()) {
+			//$parentid = $_zp_current_page->getParentID();
+			$parentitems = $_zp_current_page->getParents();
+		} else if (is_NewsCategory()) {
+			//$parentid = $_zp_current_category->getParentID();
+			$parentitems = $_zp_current_category->getParents();
+		} else {
+			$parentitems = array();
+		}
+		foreach ($parentitems as $item) {
+			if (is_Pages()) {
+				$pageobj = newPage($item);
+				$parentitemurl = $pageobj->getLink();
+				$parentitemtitle = $pageobj->getTitle();
+			}
+			if (is_NewsCategory()) {
+				$catobj = newCategory($item);
+				$parentitemurl = $catobj->getLink();
+				$parentitemtitle = $catobj->getTitle();
+			}
+			if ($before) {
+				echo '<span class="beforetext">' . html_encode($before) . '</span>';
+			}
+			echo"<a href='" . html_encode($parentitemurl) . "'>" . html_encode($parentitemtitle) . "</a>";
+			if ($after) {
+				echo '<span class="aftertext">' . html_encode($after) . '</span>';
+			}
 		}
 	}
 }

@@ -81,6 +81,17 @@ class TextObject extends Image {
 	}
 
 	/**
+	 * returns the database fields used by the object
+	 * @return array
+	 *
+	 * @author Stephen Billard
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
+	 */
+	static function getMetadataFields() {
+		return array();
+	}
+
+	/**
 	 * Handles class common instantiation
 	 * @param $album
 	 * @param $filename
@@ -89,14 +100,14 @@ class TextObject extends Image {
 		global $_zp_supported_images;
 		$msg = false;
 		if (!is_object($album) || !$album->exists) {
-			$msg = gettext('Invalid Textobject instantiation: Album does not exist');
+			$msg = sprintf(gettext('Invalid %s instantiation: Album does not exist'), get_class($this));
 		} else if (!$this->classSetup($album, $filename) || !file_exists($this->localpath) || is_dir($this->localpath)) {
-			$msg = gettext('Invalid Textobject instantiation: file does not exist');
+			$msg = sprintf(gettext('Invalid %s instantiation: file does not exist'), get_class($this));
 		}
 		if ($msg) {
 			$this->exists = false;
 			if (!$quiet) {
-				trigger_error($msg, E_USER_ERROR);
+				zp_error($msg, E_USER_ERROR);
 			}
 			return;
 		}

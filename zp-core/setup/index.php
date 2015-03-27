@@ -342,6 +342,7 @@ if ($selected_database) {
 }
 
 require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
+require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/security-logger.php');
 
 header('Content-Type: text/html; charset=UTF-8');
 header("HTTP/1.0 200 OK");
@@ -388,6 +389,10 @@ if ($setup_checked) {
 	if (isset($_POST['db'])) {
 		setupLog(gettext("Post of Database credentials"), true);
 	} else {
+
+		if (!isset($_REQUEST['xsrfToken']))
+			zp_apply_filter('log_setup', true, 'install', gettext('Started'));
+
 		$me = realpath(dirname(dirname(dirname(str_replace('\\', '/', __FILE__)))));
 		$mine = realpath(SERVERPATH);
 		if (isWin() || isMac()) { // case insensitive file systems
@@ -410,7 +415,7 @@ if ($setup_checked) {
 		} else {
 			$clone = ' ' . gettext('clone');
 		}
-		setupLog(sprintf(gettext('ZenPhoto20 Setup v%1$s[%2$s]%3$s: %4$s'), ZENPHOTO_VERSION, ZENPHOTO_RELEASE, $clone, date('r')), true, true); // initialize the log file
+		setupLog(sprintf(gettext('ZenPhoto20 Setup v%1$s%2$s: %3$s'), ZENPHOTO_VERSION, $clone, date('r')), true, true); // initialize the log file
 	}
 	if ($environ) {
 		setupLog(gettext("Full environment"));
@@ -850,7 +855,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 													}
 													var loadSucceeded = true;
 													$(document).ready(function () {
-														var image = new Image();
+														var image = newImage();
 														image.onload = function () {
 						<?php
 						if (!(UTF8_IMAGE_URI || @$_SESSION['clone'][$cloneid]['UTF8_image_URI'])) {
@@ -1267,8 +1272,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 							$filelist = '';
-							foreach ($installed_files as $extra) {
+							$report = $installed_files;
+							if (count($report) > 15) {
+								shuffle($report);
+								$report = array_slice($report, 0, 15);
+								natsort($report);
+							}
+							foreach ($report as $extra) {
 								$filelist .= filesystemToInternal(str_replace($base, '', $extra) . '<br />');
+							}
+							if ($report != $installed_files) {
+								$filelist .= '....<br />';
 							}
 							if (zpFunctions::hasPrimaryScripts() && count($installed_files) > 0) {
 								if (defined('TEST_RELEASE') && TEST_RELEASE) {
@@ -1737,7 +1751,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 														`tagid` int(11) UNSIGNED NOT NULL,
 														`type` tinytext,
 														`objectid` int(11) UNSIGNED NOT NULL,
-														PRIMARY KEY (`id`)
+														PRIMARY KEY (`id`),
+														KEY (tagid),
+														KEY (objectid)
 														)	$collation;";
 						}
 
@@ -1856,6 +1872,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 														`sort_order` int(11) unsigned default NULL,
 														`height` int(10) unsigned default NULL,
 														`width` int(10) unsigned default NULL,
+														`rotation` int(3) unsigned default 0,
+														`GPSLatitude` varchar(52) default NULL,
+														`GPSLongitude` varchar(52) default NULL,
+														`GPSAltitude` varchar(52) default NULL,
 														`thumbX` int(10) unsigned default NULL,
 														`thumbY` int(10) unsigned default NULL,
 														`thumbW` int(10) unsigned default NULL,
@@ -2322,18 +2342,15 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						$sql_statements[] = "ALTER TABLE $tbl_news ADD INDEX publishdate (`publishdate`);";
 						$sql_statements[] = "ALTER TABLE $tbl_pages ADD INDEX expiredate (`expiredate`);";
 						$sql_statements[] = "ALTER TABLE $tbl_pages ADD INDEX publishdate (`publishdate`);";
+						//v1.1.2.8
+						$sql_statements[] = 'ALTER TABLE ' . $tbl_images . ' ADD COLUMN `rotation` int(3) default 0';
+						$sql_statements[] = 'ALTER TABLE ' . $tbl_images . ' ADD COLUMN `GPSLatitude` varchar(52) default NULL';
+						$sql_statements[] = 'ALTER TABLE ' . $tbl_images . ' ADD COLUMN `GPSLongitude` varchar(52) default NULL';
+						$sql_statements[] = 'ALTER TABLE ' . $tbl_images . ' ADD COLUMN	`GPSAltitude` varchar(52) default NULL';
+
 						// do this last incase there are any field changes of like names!
-						foreach ($_zp_exifvars as $key => $exifvar) {
-							if ($s = $exifvar[4]) {
-								if ($s < 255) {
-									$size = "varchar($s)";
-								} else {
-									$size = 'MEDIUMTEXT';
-								}
-								$sql_statements[] = "ALTER TABLE $tbl_images ADD COLUMN `$key` $size default NULL";
-								$sql_statements[] = "ALTER TABLE $tbl_images CHANGE `$key` `$key` $size default NULL";
-							}
-						}
+						$meta = metadataFields($_zp_exifvars, false);
+						$sql_statements = array_merge($sql_statements, $meta);
 
 						/**
 						 * ************************************************************************************
@@ -2422,6 +2439,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 
 							if ($createTables) {
+								zp_apply_filter('log_setup', true, 'install', gettext('Completed'));
 								$clones = array();
 
 								if ($_zp_loggedin == ADMIN_RIGHTS) {

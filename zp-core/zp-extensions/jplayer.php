@@ -1,7 +1,7 @@
 <?php
 /**
  * Support for the jPlayer jQuery/Flash 2.0.0 multimedia player (jplayer.org). It will play natively via HTML5 in capable browser
- * if the appropiate multimedia formats are provided. This is not an adaption of the existing 3rd party plugin zenjPlayer but a full featured plugin.
+ * if the appropiate multimedia formats are provided.
 
  * Audio: <var>.mp3</var>, <var>.m4a</var>, <var>.fla</var> - Counterpart formats <var>.oga</var> and <var>.webma</var> supported (see note below!)<br>
  * Video: <var>.m4v</var>/<var>.mp4</var>, <var>.flv</var> - Counterpart formats <var>.ogv</var> and <var>.webmv</var> supported (see note below!)
@@ -23,14 +23,14 @@
  * If you have problems with any format being recognized, you might need to tell your server about the mime types first:
  * See examples on {@link http://jplayer.org/latest/developer-guide/#jPlayer-server-response the jplayer site}.
  *
- * Note on POPCORN Support (http://popcornjs.org)
+ * NOTE on POPCORN Support (http://popcornjs.org):
  * jPlayer has support for this interactive libary and its plugin is included but currently not loaded or implemented. You need to customize the plugin or your theme to use it.
  * Please refer to http://jplayer.org/latest/developer-guide/ and http://popcornjs.org to learn about this extra functionality.
  *
  * NOTE ON PLAYER SKINS:<br>
  * The look of the player is determined by a pure HTML/CSS based skin (theme). There may occur display issues with themes.
  * Only the default skins <var>zenphotolight</var> and <var>zenphotodark</var>
- * have been tested with the standard themes (and not even with all it works perfectly). Those two themes are also have a responsive width.
+ * have been tested with the standard themes (and it does not work perfectly for all)). Those two themes are also have a responsive width.
  * So you might need to adjust the skin yourself to work with your theme. It is recommended that
  * you place your custom skins within the root /plugins folder like:
  *
@@ -58,8 +58,8 @@
  * [MEDIAPLAYER album1 video.mp4]
  *
  * If you are using more than one player on a page you need to pass a 2nd parameter with for example an unique number:<br>
- * [MEDIAPLAYER album1 video1.mp4 1]<br>
- * [MEDIAPLAYER album2 video2.mp4 2]
+ * [MEDIAPLAYER album1 video1.mp4 <var>1</var>]<br>
+ * [MEDIAPLAYER album2 video2.mp4 <var>2</var>]
  *
  * <b>NOTE:</b> This player does not support external albums!
  *
@@ -71,22 +71,13 @@ $plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 $plugin_description = gettext("This plugin handles <code>flv</code>, <code>fla</code>, <code>mp3</code>, <code>mp4</code>, <code>m4v</code>, and <code>m4a</code> multi-media files.");
 gettext("Please see <a href='http://jplayer.org'>jplayer.org</a> for more info about the player and its license.");
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_disable = (getOption('album_folder_class') === 'external') ? gettext('This player does not support <em>External Albums</em>.') : false;
+$plugin_disable = zpFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(!extensionEnabled('jplayer') && class_exists('Video') && Video::multimediaExtension() != 'pseudoPlayer', sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', (gettext('This player does not support <em>External Albums</em>.')))));
 
 $option_interface = 'jplayer_options';
 
-if (!empty($_zp_multimedia_extension->name) || $plugin_disable) {
+if ($plugin_disable) {
 	enableExtension('jplayer', 0);
-
-//NOTE: the following text really should be included in the $plugin_disable statement above so that it is visible
-//on the plugin tab
-
-	if (isset($_zp_multimedia_extension)) {
-		trigger_error(sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), get_class($_zp_multimedia_extension)), E_USER_NOTICE);
-	}
 } else {
-	if (OFFSET_PATH != 2)
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/class-video.php');
 	Gallery::addImageHandler('flv', 'Video');
 	Gallery::addImageHandler('fla', 'Video');
 	Gallery::addImageHandler('mp3', 'Video');
@@ -234,7 +225,7 @@ class jPlayer {
 
 	static function getMacrojplayer($albumname, $imagename, $count = 1) {
 		global $_zp_multimedia_extension;
-		$movie = newImage(NULL, array('folder' => $albumname, 'filename' => $imagename), true);
+		$movie = newImage(array('folder' => $albumname, 'filename' => $imagename), true);
 		if ($movie->exists) {
 			return $_zp_multimedia_extension->getPlayerConfig($movie, NULL, (int) $count);
 		} else {
@@ -340,10 +331,15 @@ class jPlayer {
 			width: "100%",
 			height: "' . $this->height . 'px",
 			cssClass: "' . $this->playersize . '"
-		}';
+		},';
+		} else {
+			$playerconfig .= ',';
 		}
 
 		$playerconfig .= '
+			useStateClassSkin: true,
+			remainingDuration: true,
+			toggleDuration: true
 			});
 		});
 	//]]>
@@ -381,15 +377,15 @@ class jPlayer {
 			$playerconfig .= $this->getPlayerHTMLparts($this->mode, 'toggles');
 			$playerconfig .= '
 						</div>';
+			$playerconfig .= '
+						</div>
+					</div>';
 			if (getOption('jplayer_showtitle')) {
 				$playerconfig .= '
 					<div class="jp-details">
 						<div class="jp-title" aria-label="title">' . html_encode($movietitle) . '</div>
 					</div>';
 			}
-			$playerconfig .= '
-					</div>
-				</div>';
 			$playerconfig .= $this->getPlayerHTMLparts($this->mode, 'no-solution');
 			$playerconfig .= '
 			</div>
@@ -471,7 +467,7 @@ class jPlayer {
 				if ($part == 'controls-playlist') {
 					$htmlpart .= '<button class="jp-next" role="button" tabindex="0">' . gettext('next') . '</button>	';
 				}
-				$htmlpart .= '<button class="jp-stop" role="button" tabindex="0">>' . gettext('stop') . '</button>';
+				$htmlpart .= '<button class="jp-stop" role="button" tabindex="0">' . gettext('stop') . '</button>';
 				$htmlpart .= '</div>';
 				break;
 			case 'toggles':
@@ -671,7 +667,7 @@ class jPlayer {
 					}
 					$playtime = '';
 					if (getOption('jplayer_playlist_playtime')) {
-							$playtime = ' (' . $video->get('VideoPlaytime') . ')';
+						$playtime = ' (' . $video->get('VideoPlaytime') . ')';
 					}
 					?>
 						{
@@ -709,6 +705,12 @@ class jPlayer {
 									cssClass: "<?php echo $this->playersize; ?>"
 					}
 			<?php } ?>
+				useStateClassSkin: true,
+								autoBlur: false,
+								smoothPlayBar: true,
+								keyEnabled: true,
+								remainingDuration: true,
+								toggleDuration: true
 				});
 				});
 								//]]>

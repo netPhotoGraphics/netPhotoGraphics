@@ -65,7 +65,7 @@ function updatePage(&$reports, $newpage = false) {
 	$commentson = getcheckboxState('commentson');
 	$permalink = getcheckboxState('permalink');
 	$locked = getcheckboxState('locked');
-	$show = getcheckboxState('show') && $pubdate <= date(date('Y-m-d H:i:s'));
+	$show = getcheckboxState('show');
 
 	if ($newpage) {
 		$titlelink = seoFriendly(get_language_string($title));
@@ -113,8 +113,6 @@ function updatePage(&$reports, $newpage = false) {
 	$notice = processCredentials($page);
 	$page->setTitle($title);
 	$page->setContent($content);
-	$page->setShow($show);
-	$page->setDateTime($date);
 	$page->setCommentsAllowed($commentson);
 	$page->setAuthor($author);
 	$page->setLastchange($lastchange);
@@ -132,6 +130,7 @@ function updatePage(&$reports, $newpage = false) {
 		$page->set('used_ips', 0);
 	}
 	processTags($page);
+	$page->setShow($show);
 
 	if ($newpage) {
 		$msg = zp_apply_filter('new_page', '', $page);
@@ -160,6 +159,7 @@ function updatePage(&$reports, $newpage = false) {
 	}
 	zp_apply_filter('save_page_custom_data', NULL, $page);
 	$page->save();
+	$msg = zp_apply_filter('edit_error', $msg);
 	if ($msg) {
 		$reports[] = $msg;
 	}
@@ -167,7 +167,7 @@ function updatePage(&$reports, $newpage = false) {
 }
 
 /**
- * Deletes a page (and also if existing its subpages) from the database
+ * Deletes an object from the database
  *
  */
 function deleteZenpageObj($obj, $redirect = false) {
@@ -359,7 +359,7 @@ function updateArticle(&$reports, $newarticle = false) {
 	$lastchangeauthor = sanitize($_POST['lastchangeauthor']);
 	$commentson = getcheckboxState('commentson');
 	$locked = getcheckboxState('locked');
-	$show = getcheckboxState('show') && $pubdate <= date(date('Y-m-d H:i:s'));
+	$show = getcheckboxState('show');
 
 	if ($newarticle) {
 		$titlelink = seoFriendly(get_language_string($title));
@@ -409,7 +409,6 @@ function updateArticle(&$reports, $newarticle = false) {
 	$article = newArticle($titlelink, true);
 	$article->setTitle($title);
 	$article->setContent($content);
-	$article->setShow($show);
 	$article->setDateTime($date);
 	$article->setCommentsAllowed($commentson);
 	$article->setAuthor($author);
@@ -438,6 +437,7 @@ function updateArticle(&$reports, $newarticle = false) {
 		}
 	}
 	$article->setCategories($categories);
+	$article->setShow($show);
 	if ($newarticle) {
 		$msg = zp_apply_filter('new_article', '', $article);
 		if (empty($title)) {
@@ -457,6 +457,7 @@ function updateArticle(&$reports, $newarticle = false) {
 	}
 	zp_apply_filter('save_article_custom_data', NULL, $article);
 	$article->save();
+	$msg = zp_apply_filter('edit_error', $msg);
 
 	if ($msg) {
 		$reports[] = $msg;
@@ -568,7 +569,7 @@ function printNewsDatesDropdown() {
 	<form name="AutoListBox1" id="articledatesdropdown" style="float:left; margin:5px;" action="#" >
 		<select name="ListBoxURL" size="1" onchange="gotoLink(this.form)">
 			<?php
-			echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("View all months") . "</option>";
+			echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("View all months") . "</option>\n";
 			while (list($key, $val) = each($datecount)) {
 				$nr++;
 				if ($key == '0000-00-01') {
@@ -683,6 +684,8 @@ function printUnpublishedDropdown() {
 /**
  * Prints the dropdown menu for the sortorder selector for the news articles list
  *
+ * @author Stephen Billard
+ * @Copyright 2014 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
  */
 function printSortOrderDropdown() {
 	global $_zp_CMS;
@@ -690,36 +693,31 @@ function printSortOrderDropdown() {
 	<form name="AutoListBox4" id="sortorderdropdown" style="float:left; margin:5px;"	action="#">
 		<select name="ListBoxURL" size="1"	onchange="gotoLink(this.form)">
 			<?php
-			$orderdate_desc = '';
-			$orderdate_asc = '';
-			$ordertitle_desc = '';
-			$ordertitle_asc = '';
 			if (isset($_GET['sortorder'])) {
-				switch ($_GET['sortorder']) {
-					case "date-desc":
-						$orderdate_desc = "selected='selected'";
-						break;
-					case "date-asc":
-						$orderdate_asc = "selected='selected'";
-						break;
-					case "title-desc":
-						$ordertitle_desc = "selected='selected'";
-						break;
-					case "title-asc":
-						$ordertitle_asc = "selected='selected'";
-						break;
-				}
+				$selected = $_GET['sortorder'];
 			} else {
-				$orderdate_desc = "selected='selected'";
+				$selected = 'publishdate-desc';
 			}
 			$option = getNewsAdminOption(array('author' => 0, 'category' => 0, 'date' => 0, 'published' => 0, 'articles_page' => 1));
-			echo "<option $orderdate_desc value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('sortorder' => 'date-desc'), $option)) . "'>" . gettext("Order by date descending") . "</option>\n";
-			echo "<option $orderdate_asc value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('sortorder' => 'date-asc'), $option)) . "'>" . gettext("Order by date ascending") . "</option>\n";
-			echo "<option $ordertitle_desc value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('sortorder' => 'title-desc'), $option)) . "'>" . gettext("Order by title descending") . "</option>\n";
-			echo "<option $ordertitle_asc value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('sortorder' => 'title-asc'), $option)) . "'>" . gettext("Order by title ascending") . "</option>\n";
+			$selections = array(
+							'date-desc'				 => gettext("Order by creation date descending"),
+							'date-asc'				 => gettext("Order by creation date ascending"),
+							'publishdate-desc' => gettext("Order by published descending"),
+							'publishdate-asc'	 => gettext("Order by published ascending"),
+							'expiredate-desc'	 => gettext("Order by expired descending"),
+							'expiredate-asc'	 => gettext("Order by expired ascending"),
+							'lastchange-desc'	 => gettext("Order by last change descending"),
+							'lastchange-asc'	 => gettext("Order by last change ascending"),
+							'title-desc'			 => gettext("Order by title descending"),
+							'title-asc'				 => gettext("Order by title ascending")
+			);
+			foreach ($selections as $sortorder => $text) {
+				?>
+				<option<?php if ($sortorder == $selected) echo ' selected="selected"'; ?> value="admin-news.php<?php echo getNewsAdminOptionPath(array_merge(array('sortorder' => $sortorder), $option)); ?>"><?php echo $text; ?></option>
+				<?php
+			}
 			?>
 		</select>
-
 	</form>
 	<?php
 }
@@ -878,7 +876,6 @@ function updateCategory(&$reports, $newcategory = false) {
 	$cat->setPermalink(getcheckboxState('permalink'));
 	$cat->set('title', $title);
 	$cat->setDesc($desc);
-	$cat->setShow($show);
 	if (getcheckboxState('resethitcounter')) {
 		$cat->set('hitcounter', 0);
 	}
@@ -887,6 +884,7 @@ function updateCategory(&$reports, $newcategory = false) {
 		$cat->set('total_votes', 0);
 		$cat->set('used_ips', 0);
 	}
+	$cat->setShow($show);
 
 	if ($newcategory) {
 		$msg = zp_apply_filter('new_category', '', $cat);
@@ -918,6 +916,7 @@ function updateCategory(&$reports, $newcategory = false) {
 	}
 	zp_apply_filter('save_category_custom_data', NULL, $cat);
 	$cat->save();
+	$msg = zp_apply_filter('edit_error', $msg);
 	if ($msg) {
 		$reports[] = $msg;
 	}
@@ -1226,20 +1225,6 @@ function checkForEmptyTitle($titlefield, $type, $truncate = true) {
 }
 
 /**
- * Publishes a page or news article
- *
- * @param object $obj
- * @param int $show the value for publishing
- * @return string
- */
-function zenpagePublish($obj, $show) {
-	$obj->setExpireDate(NULL);
-	$obj->setPublishDate(NULL);
-	$obj->setShow($show);
-	$obj->save();
-}
-
-/**
  * Checks if there are hitcounts and if they are displayed behind the news article, page or category title
  *
  * @param string $item The array of the current news article, page or category in the list.
@@ -1415,13 +1400,9 @@ function authorSelector($author = NULL) {
  * @return string
  */
 function printPublished($object) {
-	$dt = $object->getPublishDate();
+	$dt = $object->get('publishdate');
 	if ($dt > date('Y-m-d H:i:s')) {
-		if ($object->getShow()) {
-			echo '<span class="scheduledate">' . $dt . '</strong>';
-		} else {
-			echo '<span class="inactivescheduledate">' . $dt . '</strong>';
-		}
+		echo '<span class="scheduledate">' . $dt . '</strong>';
 	} else {
 		echo '<span>' . $dt . '</span>';
 	}
@@ -1563,9 +1544,7 @@ function processZenpageBulkActions($type) {
 				}
 				$n = 0;
 				foreach ($links as $titlelink) {
-					$class = 'Zenpage' . $type;
-					$obj = new $class($titlelink);
-
+					$obj = new $type($titlelink);
 					switch ($action) {
 						case 'deleteall':
 							$obj->remove();
@@ -1612,16 +1591,16 @@ function processZenpageBulkActions($type) {
 							$obj->setCategories(array());
 							break;
 						case 'showall':
-							$obj->set('show', 1);
+							$obj->setShow(1);
 							break;
 						case 'hideall':
-							$obj->set('show', 0);
+							$obj->setShow(0);
 							break;
 						case 'commentson':
-							$obj->set('commentson', 1);
+							$obj->setCommentsAllowed(1);
 							break;
 						case 'commentsoff':
-							$obj->set('commentson', 0);
+							$obj->setCommentsAllowed(0);
 							break;
 						case 'resethitcounter':
 							$obj->set('hitcounter', 0);

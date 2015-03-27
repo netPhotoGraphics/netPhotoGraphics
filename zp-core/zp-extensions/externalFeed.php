@@ -337,7 +337,7 @@ class ExternalFeed extends feed {
 	 */
 	protected function getItemGallery($item) {
 		if ($this->mode == "albums") {
-			$albumobj = newAlbum($item['folder']);
+			$albumobj = $item;
 			$totalimages = $albumobj->getNumImages();
 			$itemlink = $this->host . pathurlencode($albumobj->getLink());
 			$thumb = $albumobj->getAlbumThumbImage();
@@ -433,7 +433,7 @@ class ExternalFeed extends feed {
 					$image = array($image);
 				}
 				foreach ($image as $filename) {
-					$obj = newImage(NULL, array('folder' => $album, 'filename' => $filename), true);
+					$obj = newImage(array('folder' => $album, 'filename' => $filename), true, true);
 					if ($obj->exists) {
 						$items[] = $obj;
 					}

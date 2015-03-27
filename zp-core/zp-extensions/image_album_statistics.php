@@ -5,7 +5,7 @@
  *
  * Supports such statistics as "most popular", "latest", "top rated", etc.
  *
- * <b>CAUTION:</b> The usage to get an specific album has changed. You now have to pass the foldername of an album instead the album title.
+ * <b>CAUTION:</b> The way to get a specific album has changed. You now have to pass the foldername of an album instead the album title.
  *
  * @author Malte Müller (acrylian), Stephen Billard (sbillard)
  * @package plugins
@@ -17,7 +17,7 @@ $plugin_author = "Malte Müller (acrylian), Stephen Billard (sbillard)";
 require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
 
 /**
- * Returns a list of album statistic accordingly to $option
+ * Returns an array of album objects accordingly to $option
  *
  * @param int $number the number of albums to get
  * @param string $option
@@ -31,35 +31,51 @@ require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
  * 		"latestupdated" for the latest updated
  * 		"random" for random order (yes, strictly no statistical order...)
  * @param string $albumfolder The name of an album to get only the statistc for its subalbums
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an album must have to be included in the list. (Default 0)
  * @param mixed $sortdirection "asc" for ascending order otherwise order is descending
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  * @return array
  */
-function getAlbumStatistic($number = 5, $option, $albumfolder = '', $sortdirection = 'desc') {
+function getAlbumStatistic($number = 5, $option, $albumfolder = '', $threshold = 0, $sortdirection = 'desc', $collection = false) {
 	global $_zp_gallery;
+	$where = '';
 	if ($albumfolder) {
 		$obj = newAlbum($albumfolder);
+		$where = ' WHERE parentid = ' . $obj->getID();
+		if ($collection) {
+			$ids = getAllSubAlbumIDs($albumfolder);
+			if (!empty($ids)) {
+				foreach ($ids as $id) {
+					$getids[] = $id['id'];
+				}
+				$getids = implode(', ', $getids);
+				$where = ' WHERE id IN (' . $getids . ')';
+			}
+		}
 	} else {
 		$obj = $_zp_gallery;
 	}
 	switch (strtolower($sortdirection)) {
 		case false:
 		case 'asc':
-			$sortdir = 'ASC';
+			$sortdir = ' ASC';
 			break;
 		default:
-			$sortdir = 'DESC';
-			break;
+			$sortdir = ' DESC';
 	}
+
+	$opt = '';
 	switch ($option) {
 		case "popular":
 			$sortorder = "hitcounter";
+			$opt = 'hitcounter >= ' . $threshold;
 			break;
 		default:
 		case "latest":
 			$sortorder = "id";
 			break;
 		case "latest-mtime":
-			$sortorder = "images.mtime";
+			$sortorder = "mtime";
 			break;
 		case "latest-date":
 			$sortorder = "date";
@@ -72,6 +88,7 @@ function getAlbumStatistic($number = 5, $option, $albumfolder = '', $sortdirecti
 			break;
 		case "toprated":
 			$sortorder = "(total_value/total_votes) DESC, total_value";
+			$opt = 'total_votes >= ' . $threshold;
 			break;
 		case "latestupdated":
 			$sortorder = 'updateddate';
@@ -80,22 +97,41 @@ function getAlbumStatistic($number = 5, $option, $albumfolder = '', $sortdirecti
 			$sortorder = "RAND()";
 			break;
 	}
-
+	if ($opt) {
+		if ($where) {
+			$where .= ' AND ' . $opt;
+		} else {
+			$where = ' WHERE ' . $opt;
+		}
+	}
 	$albums = array();
-	$result = query("SELECT id, title, folder, thumb FROM " . prefix('albums') . " ORDER BY " . $sortorder . " " . $sortdir . " LIMIT " . $number);
-	if ($result) {
-		while ($row = db_fetch_assoc($result)) {
-			if (empty($albumfolder) || strpos($row['folder'], $albumfolder) === 0) {
-				$obj = newAlbum($row['folder'], true);
-				if ($obj->exists && $obj->checkAccess()) {
-					$albums[] = $row;
-					if (count($albums) >= $number) { // got enough
-						break;
-					}
+	if ($albumfolder && $obj->isDynamic()) {
+		$albums = $obj->getAlbums(0, $sortorder, $sortdir);
+		foreach ($albums as $album) {
+			$album = newAlbum($album);
+			if ($album->checkAccess()) {
+				$albums[] = $album;
+				if (count($albums) >= $number) { // got enough
+					break;
 				}
 			}
 		}
-		db_free_result($result);
+	} else {
+		$result = query('SELECT id, title, folder, thumb FROM ' . prefix('albums') . $where . ' ORDER BY ' . $sortorder . $sortdir);
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				if (empty($albumfolder) || strpos($row['folder'], $albumfolder) === 0) {
+					$obj = newAlbum($row['folder'], true);
+					if ($obj->exists && $obj->checkAccess()) {
+						$albums[] = newAlbum($row['folder']);
+						if (count($albums) >= $number) { // got enough
+							break;
+						}
+					}
+				}
+			}
+			db_free_result($result);
+		}
 	}
 	return $albums;
 }
@@ -126,9 +162,11 @@ function getAlbumStatistic($number = 5, $option, $albumfolder = '', $sortdirecti
  * @param integer $width the width/cropwidth of the thumb if crop=true else $width is longest size. (Default 85px)
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an album must have to be included in the list. (Default 0)
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
-function printAlbumStatistic($number, $option, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false) {
-	$albums = getAlbumStatistic($number, $option, $albumfolder);
+function printAlbumStatistic($number, $option, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false, $threshold = 0, $collection = false) {
+	$albums = getAlbumStatistic($number, $option, $albumfolder, $threshold, $collection);
 	echo "\n<div id=\"" . $option . "_album\">\n";
 	echo "<ul>";
 	foreach ($albums as $album) {
@@ -141,7 +179,7 @@ function printAlbumStatistic($number, $option, $showtitle = false, $showdate = f
  * A helper function that only prints a item of the loop within printAlbumStatistic()
  * Not for standalone use.
  *
- * @param array $album the array that getAlbumsStatistic() submitted
+ * @param array $tempalbum object
  * @param string $option
  * 		"popular" for the most popular albums,
  * 		"latest" for the latest uploaded by id (Discovery)
@@ -164,6 +202,7 @@ function printAlbumStatistic($number, $option, $showtitle = false, $showdate = f
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $firstimglink 'false' (default) if the album thumb link should lead to the album page, 'true' if to the first image of theh album if the album itself has images
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
 function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $firstimglink = false) {
 	global $_zp_gallery;
@@ -182,7 +221,7 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 			$crop = (int) $crop && true;
 		}
 	}
-	$tempalbum = newAlbum($album['folder']);
+
 	if ($firstimglink && $tempimage = $tempalbum->getImage(0)) {
 		$albumpath = $tempimage->getLink();
 	} else {
@@ -196,7 +235,11 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 			echo '<img src="' . html_encode(pathurlencode($albumthumb->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
 			break;
 		case 1;
-			$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $albumthumb);
+			if (isImagePhoto($albumthumb)) {
+				$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $albumthumb);
+			} else {
+				$sizes = array($width, $height);
+			}
 			echo '<img src="' . html_encode(pathurlencode($albumthumb->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
 			break;
 		case 2:
@@ -261,9 +304,11 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $firstimglink 'false' (default) if the album thumb link should lead to the album page, 'true' if to the first image of theh album if the album itself has images
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an album must have to be included in the list. (Default 0)
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
-function printPopularAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = 'hitcounter', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false) {
-	printAlbumStatistic($number, "popular", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink);
+function printPopularAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = 'hitcounter', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false, $threshold = 0, $collection = false) {
+	printAlbumStatistic($number, "popular", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink, $threshold, $collection);
 }
 
 /**
@@ -282,9 +327,10 @@ function printPopularAlbums($number = 5, $showtitle = false, $showdate = false, 
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $firstimglink 'false' (default) if the album thumb link should lead to the album page, 'true' if to the first image of theh album if the album itself has images
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
-function printLatestAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false) {
-	printAlbumStatistic($number, "latest", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink);
+function printLatestAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false, $collection = false) {
+	printAlbumStatistic($number, "latest", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink, $collection);
 }
 
 /**
@@ -303,9 +349,11 @@ function printLatestAlbums($number = 5, $showtitle = false, $showdate = false, $
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $firstimglink 'false' (default) if the album thumb link should lead to the album page, 'true' if to the first image of theh album if the album itself has images
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an album must have to be included in the list. (Default 0)
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
-function printMostRatedAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false) {
-	printAlbumStatistic($number, "mostrated", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink);
+function printMostRatedAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false, $threshold = 0, $collection = false) {
+	printAlbumStatistic($number, "mostrated", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink, $threshold, $collection);
 }
 
 /**
@@ -324,13 +372,15 @@ function printMostRatedAlbums($number = 5, $showtitle = false, $showdate = false
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $firstimglink 'false' (default) if the album thumb link should lead to the album page, 'true' if to the first image of theh album if the album itself has images
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an album must have to be included in the list. (Default 0)
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
-function printTopRatedAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false) {
-	printAlbumStatistic($number, "toprated", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink);
+function printTopRatedAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false, $threshold = 0, $collection = false) {
+	printAlbumStatistic($number, "toprated", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink, $threshold, $collection);
 }
 
 /**
- * Prints the top voted albums
+ * Prints the latest updated albums
  *
  * @param string $number the number of albums to get
  * @param bool $showtitle if the album title should be shown
@@ -345,13 +395,14 @@ function printTopRatedAlbums($number = 5, $showtitle = false, $showdate = false,
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $firstimglink 'false' (default) if the album thumb link should lead to the album page, 'true' if to the first image of theh album if the album itself has images
+ * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
-function printLatestUpdatedAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false) {
-	printAlbumStatistic($number, "latestupdated", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink);
+function printLatestUpdatedAlbums($number = 5, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $albumfolder = '', $firstimglink = false, $collection = false) {
+	printAlbumStatistic($number, "latestupdated", $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $albumfolder, $firstimglink, $collection);
 }
 
 /**
- * Returns a list of image statistic according to $option
+ * Returns an array of image objects according to $option
  *
  * NOTE: for performance reasons this function will NOT discover new images.
  *
@@ -368,22 +419,30 @@ function printLatestUpdatedAlbums($number = 5, $showtitle = false, $showdate = f
  * 		"random" for random order (yes, strictly no statistical order...)
  * @param string $albumfolder foldername of an specific album
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics from this album and all of its subalbums
- * @param integer $threshold the minimum number of ratings an image must have to be included in the list. (Default 0)
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an image must have to be included in the list. (Default 0)
  * @param mixed $sortdirection "asc" for ascending order otherwise order is descending
- * @return string
+ * @return array
  */
 function getImageStatistic($number, $option, $albumfolder = '', $collection = false, $threshold = 0, $sortdirection = 'desc') {
 	global $_zp_gallery;
+	$where = '';
 	if ($albumfolder) {
 		$obj = newAlbum($albumfolder);
+		$where = ' AND albums.id = ' . $obj->getID();
+		if ($collection) {
+			$ids = getAllSubAlbumIDs($albumfolder);
+			if (!empty($ids)) {
+				foreach ($ids as $id) {
+					$getids[] = $id['id'];
+				}
+				$getids = implode(', ', $getids);
+				$where = ' AND albums.id IN (' . $getids . ')';
+			}
+		}
 	} else {
 		$obj = $_zp_gallery;
 	}
-	if ($threshold > 0) {
-		$albumWhere = ' images.total_votes >= ' . $threshold;
-	} else {
-		$albumWhere = '';
-	}
+
 	switch (strtolower($sortdirection)) {
 		case false:
 		case 'asc':
@@ -393,9 +452,11 @@ function getImageStatistic($number, $option, $albumfolder = '', $collection = fa
 			$sortdir = 'DESC';
 			break;
 	}
+	$opt = '';
 	switch ($option) {
 		case "popular":
 			$sortorder = "images.hitcounter";
+			$opt = 'images.hitcounter >= ' . $threshold;
 			break;
 		case "latest-date":
 			$sortorder = "images.date";
@@ -415,10 +476,15 @@ function getImageStatistic($number, $option, $albumfolder = '', $collection = fa
 			break;
 		case "toprated":
 			$sortorder = "(images.total_value/images.total_votes) DESC, images.total_value";
+			$opt = 'images.total_votes >= ' . $threshold;
 			break;
 		case "random":
 			$sortorder = "RAND()";
 			break;
+	}
+
+	if ($opt) {
+		$where .= ' AND ' . $opt;
 	}
 	$imageArray = array();
 	if (!empty($albumfolder) && $obj->isDynamic()) {
@@ -434,11 +500,11 @@ function getImageStatistic($number, $option, $albumfolder = '', $collection = fa
 			}
 		}
 	} else {
-		$result = query("SELECT images.filename AS filename, albums.folder AS folder FROM " . prefix('images') . " AS images, " . prefix('albums') . " AS albums " . "WHERE (images.albumid = albums.id) " . $albumWhere . " ORDER BY " . $sortorder . " " . $sortdir);
+		$result = query("SELECT images.filename AS filename, albums.folder AS folder FROM " . prefix('images') . " AS images, " . prefix('albums') . " AS albums " . "WHERE (images.albumid = albums.id) " . $where . " ORDER BY " . $sortorder . " " . $sortdir);
 		if ($result) {
 			while ($row = db_fetch_assoc($result)) {
 				if (empty($albumfolder) || strpos($row['folder'], $albumfolder) === 0) {
-					$image = newImage(NULL, $row, true);
+					$image = newImage($row, true, true);
 					if ($image->exists && $image->checkAccess()) {
 						$imageArray[] = $image;
 						if (count($imageArray) >= $number) { // got enough
@@ -481,8 +547,7 @@ function getImageStatistic($number, $option, $albumfolder = '', $collection = fa
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics from this album and all of its subalbums
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
- * @param integer $threshold the minimum number of ratings an image must have to be included in the list. (Default 0)
- * @return array
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an image must have to be included in the list. (Default 0)
  */
 function printImageStatistic($number, $option, $albumfolder = '', $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false, $threshold = 0) {
 	$images = getImageStatistic($number, $option, $albumfolder, $collection, $threshold);
@@ -570,9 +635,10 @@ function printImageStatistic($number, $option, $albumfolder = '', $showtitle = f
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics from this album and all of its subalbums
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an image must have to be included in the list. (Default 0)
  */
-function printPopularImages($number = 5, $albumfolder = '', $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false) {
-	printImageStatistic($number, "popular", $albumfolder, $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $collection, $fullimagelink);
+function printPopularImages($number = 5, $albumfolder = '', $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false, $threshold = 0) {
+	printImageStatistic($number, "popular", $albumfolder, $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $collection, $fullimagelink, $threshold);
 }
 
 /**
@@ -593,7 +659,7 @@ function printPopularImages($number = 5, $albumfolder = '', $showtitle = false, 
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics from this album and all of its subalbums
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
- * @param integer $threshold the minimum number of ratings an image must have to be included in the list. (Default 0)
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an image must have to be included in the list. (Default 0)
  */
 function printTopRatedImages($number = 5, $albumfolder = "", $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false, $threshold = 0) {
 	printImageStatistic($number, "toprated", $albumfolder, $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $collection, $fullimagelink, $threshold);
@@ -617,9 +683,10 @@ function printTopRatedImages($number = 5, $albumfolder = "", $showtitle = false,
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics from this album and all of its subalbums
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
+ * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an image must have to be included in the list. (Default 0)
  */
-function printMostRatedImages($number = 5, $albumfolder = '', $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false) {
-	printImageStatistic($number, "mostrated", $albumfolder, $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $collection, $fullimagelink);
+function printMostRatedImages($number = 5, $albumfolder = '', $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false, $threshold = 0) {
+	printImageStatistic($number, "mostrated", $albumfolder, $showtitle, $showdate, $showdesc, $desclength, $showstatistic, $width, $height, $crop, $collection, $fullimagelink, $threshold);
 }
 
 /**

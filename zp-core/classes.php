@@ -134,9 +134,9 @@ class PersistentObject {
 	 * used to make the object "virgin" so it can be re-saved with a new id
 	 */
 	function clearID() {
-		$insert_data = array_merge($this->data, $this->updates, $this->tempdata);
+		$insert_data = array_merge($this->data, $this->updates);
 		$insert_data['id'] = $this->id = 0;
-		$this->tempdata = $this->updates = $this->data = array();
+		$this->updates = $this->data = array();
 		foreach (db_list_fields($this->table) as $col) {
 			$this->updates[$col['Field']] = $insert_data[$col['Field']];
 		}
@@ -188,7 +188,7 @@ class PersistentObject {
 				return false;
 			}
 			// Note: It's important for $new_unique_set to come last, as its values should override.
-			$insert_data = array_merge($this->data, $this->updates, $this->tempdata, $new_unique_set);
+			$insert_data = array_merge($this->data, $this->updates, $new_unique_set);
 			unset($insert_data['id']);
 			unset($insert_data['hitcounter']); //	start fresh on new copy
 			if (empty($insert_data)) {
@@ -256,10 +256,11 @@ class PersistentObject {
 	/**
 	 *
 	 * returns the database record of the object
+	 * NOTE: if you want to be sure that the data is merged, save the object before invoking this function
+	 *
 	 * @return array
 	 */
 	function getData() {
-		$this->save();
 		return $this->data;
 	}
 
@@ -287,27 +288,36 @@ class PersistentObject {
 	 */
 	private function load($allowCreate) {
 		$new = $entry = null;
-		// Set up the SQL query in case we need it...
-		$sql = 'SELECT * FROM ' . prefix($this->table) . getWhereClause($this->unique_set) . ' LIMIT 1;';
-		// But first, try the cache.
+		// First, try the cache.
 		if ($this->use_cache) {
 			$entry = $this->getFromCache();
 		}
 		// Check the database if: 1) not using cache, or 2) didn't get a hit.
 		if (empty($entry)) {
+			$sql = 'SELECT * FROM ' . prefix($this->table) . getWhereClause($this->unique_set) . ' LIMIT 1;';
 			$entry = query_single_row($sql, false);
 			// Save this entry into the cache so we get a hit next time.
-			if ($entry)
+			if ($entry) {
 				$this->addToCache($entry);
+			}
 		}
-
 		// If we don't have an entry yet, this is a new record. Create it.
 		if (empty($entry)) {
-			if ($this->transient) { // no don't save it in the DB!
-				$entry = array_merge($this->unique_set, $this->updates, $this->tempdata);
-				$entry['id'] = 0;
-			} else if (!$allowCreate) {
-				return NULL; // does not exist and we are not allowed to create it
+			if ($this->transient || !$allowCreate) { // no don't save it in the DB!
+				//	populate $this->data so that the set method will work correctly
+				$result = db_list_fields($this->table);
+				if ($result) {
+					foreach ($result as $row) {
+						$this->data[$row['Field']] = NULL;
+					}
+				}
+				if ($allowCreate) {
+					$entry = array_merge($this->data, $this->unique_set);
+					$entry['id'] = 0;
+					$this->addToCache($entry);
+				} else {
+					return NULL; // does not exist and we are not allowed to create it
+				}
 			} else {
 				$new = true;
 				$this->save();
@@ -336,9 +346,13 @@ class PersistentObject {
 			zp_error('empty $this->unique set is empty');
 			return false;
 		}
+		if (!zp_apply_filter('save_object', true, $this)) {
+			// filter aborted the save
+			return false;
+		}
 		if (!$this->id) {
 			$this->setDefaults();
-			$insert_data = array_merge($this->unique_set, $this->updates, $this->tempdata);
+			$insert_data = array_merge($this->unique_set, $this->updates);
 			if (empty($insert_data)) {
 				return true;
 			}
@@ -366,7 +380,6 @@ class PersistentObject {
 			$this->data['id'] = $this->id = (int) db_insert_id(); // so 'get' will retrieve it!
 			$this->loaded = true;
 			$this->updates = array();
-			$this->tempdata = array();
 		} else {
 			// Save the existing object (updates only) based on the existing id.
 			if (empty($this->updates)) {
@@ -395,7 +408,6 @@ class PersistentObject {
 				$this->updates = array();
 			}
 		}
-		zp_apply_filter('save_object', true, $this);
 		$this->addToCache($this->data);
 		return true;
 	}
@@ -505,9 +517,26 @@ class ThemeObject extends PersistentObject {
 	function setShow($show) {
 		$old_show = $this->get('show');
 		$new_show = (int) ($show && true);
-		$this->set('show', $new_show);
-		if ($old_show != $new_show && $this->get('id')) {
-			zp_apply_filter('show_change', $this);
+		if ($old_show != $new_show) {
+			$this->set('show', $new_show);
+			if ($this->get('id')) {
+				zp_apply_filter('show_change', $this);
+			}
+			if ($this->get('show') == $new_show) { //	filter did not reverse the change
+				$p = $this->get("publishdate");
+				$d = date('Y-m-d H:i:s');
+				if ($new_show) { //	going from unpublished to published
+					$this->setPublishDate($d); // published NOW
+					$this->setExpireDate(NULL); // "kill" any scheduled expiry
+				} else { //	going from published to unpulbished
+					if ($p && $p <= $d) {
+						$this->setPublishDate(NULL); // "kill" scheduled publish
+					}
+					if (($e = $this->get("expiredate")) && ($e >= $d)) {
+						$this->setExpireDate(NULL); // "kill" scheduled expiry
+					}
+				}
+			}
 		}
 	}
 
@@ -789,6 +818,23 @@ class ThemeObject extends PersistentObject {
 		} else {
 			$this->set('expiredate', NULL);
 		}
+	}
+
+	/**
+	 * Invalidate the search cache because something has definately changed
+	 */
+	function remove() {
+		if (class_exists('SearchEngine')) {
+			SearchEngine::clearSearchCache($this);
+		}
+		return parent::remove();
+	}
+
+	function move($new_unique_set) {
+		if (class_exists('SearchEngine')) {
+			SearchEngine::clearSearchCache($this);
+		}
+		return parent::move($new_unique_set);
 	}
 
 }

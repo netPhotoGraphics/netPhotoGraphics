@@ -126,6 +126,8 @@ class security_logger {
 				$type = gettext('Log downloaded');
 				break;
 			case 'setup_install':
+				$aux1 = $addl;
+				$success = 3;
 				$type = gettext('Install');
 				$addl = gettext('version') . ' ' . ZENPHOTO_VERSION . '[' . ZENPHOTO_RELEASE . "]";
 				if (!zpFunctions::hasPrimaryScripts()) {
@@ -194,14 +196,15 @@ class security_logger {
 					break;
 				case 1:
 					$message .= gettext("Success") . "\t";
-					$message .= substr($authority, 0, strrpos($authority, '_auth'));
 					break;
 				case 2:
 					$message .= gettext("Blocked") . "\t";
 					break;
-				default:
-					$message .= $success . "\t";
+				case 3:
+					$message .= $aux1 . "\t";
+					break;
 			}
+			$message .= str_replace('_auth', '', $authority);
 			if ($addl) {
 				$message .= "\t" . $addl;
 			}
@@ -333,7 +336,10 @@ class security_logger {
 			switch (getOption('logger_log_type')) {
 				case 'all':
 				case 'fail':
-					security_logger::Logger(0, NULL, NULL, 'auth_cookie', '', $id . ':' . $auth);
+					if ($id) {
+						$id .=':';
+					}
+					security_logger::Logger(0, NULL, NULL, 'auth_cookie', '', $id . $auth);
 			}
 		}
 		return $allow;
@@ -416,7 +422,7 @@ class security_logger {
 	 * @param string $txt
 	 */
 	static function security_misc($success, $requestor, $auth, $txt) {
-		security_logger::Logger((int) ($success && true), NULL, NULL, $requestor, 'zp_admin_auth', $txt);
+		security_logger::Logger((int) $success, NULL, NULL, $requestor, $auth, $txt);
 		return $success;
 	}
 

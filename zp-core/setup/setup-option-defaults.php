@@ -9,10 +9,13 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
+if (isset($_GET['debug'])) {
+	$debug = '&debug';
+} else {
+	$debug = '';
+}
 
 require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/security-logger.php');
-zp_apply_filter('log_setup', true, 'install', '');
 
 /* fix for NULL theme name */
 Query('UPDATE ' . prefix('options') . ' SET `theme`="" WHERE `theme` IS NULL');
@@ -46,8 +49,50 @@ if ($result) {
 
 //migrate CMS "publish" dates
 foreach (array('news', 'pages') as $table) {
-	$sql = 'UPDATE ' . prefix($table) . ' SET `publishdate`=`date` WHERE `publishdate` is NULL';
+	$sql = 'UPDATE ' . prefix($table) . ' SET `publishdate`=`date` WHERE `publishdate` IS NULL';
 	query($sql);
+	$sql = 'UPDATE ' . prefix($table) . ' SET `lastchange`=`date` WHERE `lastchange` IS NULL';
+	query($sql);
+}
+
+//migrate rotation and GPS data
+$result = db_list_fields('images');
+$where = '';
+if (isset($result['EXIFOrientation'])) {
+	$where = '(`rotation` IS NULL AND `EXIFOrientation`!="")';
+}
+if (isset($result['EXIFGPSLatitude'])) {
+	$where .= ' OR (`GPSLatitude` IS NULL AND NOT `EXIFGPSLatitude` IS NULL)';
+} else if (isset($result['EXIFGPSLongitude'])) {
+	$where .= ' OR (`GPSLongitude` IS NULL AND NOT `EXIFGPSLongitude` IS NULL)';
+} else if (isset($result['EXIFGPSAltitude'])) {
+	$where .= ' OR (`GPSAltitude` IS NULL AND NOT `EXIFGPSAltitude` IS NULL)';
+}
+if (!empty($where)) {
+	$sql = 'SELECT `id` FROM ' . prefix('images') . ' WHERE ' . $where;
+	$result = query($sql);
+	while ($row = db_fetch_assoc($result)) {
+		$img = getItemByID('images', $row['id']);
+		foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
+			$data = $img->get($source);
+			if (!empty($data)) {
+				if (in_array(strtoupper($img->get($source . 'Ref')), array('S', 'W'))) {
+					$data = -$data;
+				}
+				$img->set(substr($source, 4), $data);
+			}
+		}
+		$alt = $img->get('EXIFGPSAltitude');
+		if (!empty($alt)) {
+			if ($img->get('EXIFGPSAltitudeRef') == '-') {
+				$alt = -$alt;
+			}
+			$img->set('GPSAltitude', $alt);
+		}
+		$img->set('rotation', substr(trim($img->get('EXIFOrientation'), '!'), 0, 1));
+		$img->save();
+	}
+	db_free_result($result);
 }
 
 setOption('zenphoto_install', serialize(installSignature()));
@@ -85,8 +130,8 @@ if (empty($admins)) { //	empty administrators table
 	} else {
 		if (Zenphoto_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
-				//	The password hash of these old versions did not have the extra text.
-				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
+//	The password hash of these old versions did not have the extra text.
+//	Note: if the administrators table is empty we will re-do this option with the good stuff.
 				purgeOption('extra_auth_hash_text');
 				setOptionDefault('extra_auth_hash_text', '');
 			}
@@ -353,13 +398,19 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 ?>
 <p>
 	<?php
+	$deprecate = false;
 	$themes = array_keys($_zp_gallery->getThemes());
 	natcasesort($themes);
 	echo gettext('Theme setup:') . '<br />';
-	foreach ($themes as $theme) {
+	foreach ($themes as $key => $theme) {
+		if (protectedTheme($theme)) {
+			unset($themes[$key]);
+		} else {
+			$deprecate = true;
+		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug; ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -583,7 +634,6 @@ foreach ($_languages as $language => $dirname) {
 
 //The following should be done LAST so it catches anything done above
 //set plugin default options by instantiating the options interface
-enableExtension('deprecated-functions', 0); //	innocent until proven guilty.
 $plugins = getPluginFiles('*.php');
 ?>
 <p>
@@ -591,16 +641,46 @@ $plugins = getPluginFiles('*.php');
 	$plugins = array_keys($plugins);
 	natcasesort($plugins);
 	echo gettext('Plugin setup:') . '<br />';
-	foreach ($plugins as $extension) {
+	foreach ($plugins as $key => $extension) {
+		$path = getPlugin($extension . '.php');
+		if (strpos($path, SERVERPATH . '/' . USER_PLUGIN_FOLDER) === 0) {
+			$pluginStream = file_get_contents($path);
+			if ($str = isolate('@category', $pluginStream)) {
+				preg_match('|@category\s+(.*)\s|', $str, $matches);
+				if (!isset($matches[1]) || $matches[1] != 'package') {
+					$deprecate = true;
+				}
+			} else {
+				$deprecate = true;
+			}
+		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension; ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
+		if (!$deprecate) {
+			unset($plugins[$key]);
+		}
 	}
 	?>
 </p>
 
 <?php
-$_zp_gallery->garbageCollect();
+if ($deprecate) {
+	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+	$deprecated = new deprecated_functions();
+	$listed = sha1(serialize($deprecated->listed_functions));
+	if ($listed != getOption('deprecated_functions_signature')) {
+		setOption('deprecated_functions_signature', $listed);
+		enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
+		setupLog(gettext('There has been a change in function deprecation. The deprecated-functions plugin has been enabled.'), true);
+	}
+	$compatibility = sha1(serialize($themes)) . sha1(serialize($plugins));
+	if ($compatibility != getOption('zenphotoCompatibilityPack_signature')) {
+		setOption('zenphotoCompatibilityPack_signature', $compatibility);
+		enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
+		setupLog(gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.'), true);
+	}
+}
 ?>

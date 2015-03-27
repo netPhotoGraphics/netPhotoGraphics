@@ -68,13 +68,18 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					$class = 'messagebox';
 					$msg = gettext('HTML cache cleared.');
 					break;
-
+				/** clear the search cache ****************************************************** */
+				case 'clear_search_cache':
+					XSRFdefender('ClearSearchCache');
+					SearchEngine::clearSearchCache(NULL);
+					$class = 'messagebox';
+					$msg = gettext('Search cache cleared.');
+					break;
 				/** restore the setup files ************************************************** */
 				case 'restore_setup':
 					XSRFdefender('restore_setup');
 					list($diff, $needs) = checkSignature(true);
 					if (empty($needs)) {
-						zp_apply_filter('log_setup', true, 'restore', gettext('restored'));
 						$class = 'messagebox';
 						$msg = gettext('Setup files restored.');
 					} else {
@@ -134,9 +139,12 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 			}
 		} else {
 			$class = 'errorbox';
-			$actions = array('clear_cache'				 => gettext('purge Image cache'),
+			$actions = array(
+							'clear_cache'				 => gettext('purge Image cache'),
 							'clear_rss_cache'		 => gettext('purge RSS cache'),
-							'reset_hitcounters'	 => gettext('reset all hitcounters'));
+							'reset_hitcounters'	 => gettext('reset all hitcounters'),
+							'clear_search_cache' => gettext('purge search cache')
+			);
 			if (array_key_exists($action, $actions)) {
 				$msg = $actions[$action];
 			} else {
@@ -179,7 +187,7 @@ printAdminHeader('overview');
 <script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.masonry.min.js"></script>
 <script type="text/javascript">
 	// <!-- <![CDATA[
-	$(function() {
+	$(function () {
 		$('#overviewboxes').masonry({
 			// options
 			itemSelector: '.overview-utility',
@@ -238,6 +246,7 @@ if (!zp_loggedin()) {
 				}
 			}
 			$buttonlist = zp_apply_filter('admin_utilities_buttons', $buttonlist);
+
 			foreach ($buttonlist as $key => $button) {
 				if (zp_loggedin($button['rights'])) {
 					if (!array_key_exists('category', $button)) {
@@ -247,7 +256,7 @@ if (!zp_loggedin()) {
 					unset($buttonlist[$key]);
 				}
 			}
-			list($diff, $needs) = checkSignature(false);
+			list($diff, $needs) = checkSignature(0);
 			if (zpFunctions::hasPrimaryScripts()) {
 				//	button to restore setup files if needed
 				if (!empty($needs)) {
@@ -276,7 +285,7 @@ if (!zp_loggedin()) {
 					$buttonlist[] = array(
 									'XSRFTag'			 => 'protect_setup',
 									'category'		 => gettext('Admin'),
-									'enable'			 => true,
+									'enable'			 => 2,
 									'button_text'	 => gettext('Setup » protect scripts'),
 									'formname'		 => 'restore_setup',
 									'action'			 => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=protect_setup',
@@ -303,7 +312,7 @@ if (!zp_loggedin()) {
 				);
 			}
 
-			$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false);
+			$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'));
 
 			if (zp_loggedin(OVERVIEW_RIGHTS)) {
 				?>
@@ -345,7 +354,7 @@ if (!zp_loggedin()) {
 										?>
 										<script type="text/javascript">
 											<!--
-											$(document).ready(function() {
+											$(document).ready(function () {
 												$(".doc").colorbox({
 													close: '<?php echo gettext("close"); ?>',
 													maxHeight: "98%",
@@ -359,7 +368,7 @@ if (!zp_loggedin()) {
 									} else {
 										$notes = '';
 									}
-									printf(gettext('ZenPhoto20 version <strong>%1$s [%2$s] (%3$s)</strong>'), ZENPHOTO_VERSION, ZENPHOTO_RELEASE, $official);
+									printf(gettext('ZenPhoto20 version <strong>%1$s (%2$s)</strong>'), ZENPHOTO_VERSION, $official);
 									echo $notes . $source;
 									?>
 								</li>
@@ -503,7 +512,7 @@ if (!zp_loggedin()) {
 								<?php
 								if ($_zp_captcha) {
 									?>
-									<li><?php printf(gettext('CAPTCHA generator: <strong>%s</strong>'), $_zp_captcha->name) ?></li>
+									<li><?php printf(gettext('CAPTCHA generator: <strong>%s</strong>'), ($_zp_captcha->name) ? $_zp_captcha->name : gettext('none')) ?></li>
 									<?php
 								}
 								zp_apply_filter('installation_information');
@@ -631,17 +640,34 @@ if (!zp_loggedin()) {
 								}
 								?>
 								<form name="<?php echo $button['formname']; ?>"	id="<?php echo $button['formname']; ?>" action="<?php echo $button['action']; ?>" class="overview_utility_buttons">
-									<?php if (isset($button['XSRFTag']) && $button['XSRFTag']) XSRFToken($button['XSRFTag']); ?>
-									<?php echo $button['hidden']; ?>
+									<?php
+									if (isset($button['XSRFTag']) && $button['XSRFTag'])
+										XSRFToken($button['XSRFTag']);
+									$color = '';
+									echo $button['hidden'];
+									if ($button['enable']) {
+										if ((int) $button['enable'] == 2) {
+											$color = ' style="color:red"';
+										}
+										$disable = '';
+									} else {
+										$disable = ' disabled="disabled"';
+									}
+									if (isset($button['onclick'])) {
+										$type = 'type="button" onclick="' . $button['onclick'] . '"';
+									} else {
+										$type = 'type="submit"';
+									}
+									?>
 									<div class="buttons tooltip" title="<?php echo html_encode($button['title']); ?>">
-										<button class="fixedwidth" type="submit"<?php if (!$button['enable']) echo 'disabled="disabled"'; ?>>
+										<button class="fixedwidth" <?php echo $type . $disable; ?>>
 											<?php
 											if (!empty($button_icon)) {
 												?>
 												<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
 												<?php
 											}
-											echo html_encode($button['button_text']);
+											echo '<span' . $color . '>' . html_encode($button['button_text']) . '</span>';
 											?>
 										</button>
 									</div><!--buttons -->

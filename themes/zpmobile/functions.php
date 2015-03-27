@@ -11,6 +11,11 @@ function jqm_loadScripts() {
 	?>
 	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/jquerymobile/jquery.mobile-1.4.5.min.css" />
 	<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#admin_data a, a.downloadlist_link").attr('data-ajax', 'false');
+		});
+	</script>
 	<?php
 	printZDSearchToggleJS();
 }
@@ -102,22 +107,31 @@ function jqm_printFooterNav() {
 		$favoriteslink = '';
 		if (zp_loggedin()) {
 			$adminlink = '<li><a rel="external" href="' . PROTOCOL . '://' . html_encode($_SERVER['HTTP_HOST'] . WEBPATH . '/' . ZENFOLDER) . '/admin.php">' . gettext('Admin') . '</a></li>';
+		} else {
+			if ($_zp_gallery_page != 'register.php' && function_exists('printRegisterURL')) {
+				$_linktext = get_language_string(getOption('register_user_page_link'));
+				$adminlink = '<li><a rel="external" href="' . html_encode(register_user::getLink()) . '">' . $_linktext . '</a></li>';
+			}
 		}
 		if (function_exists('printFavoritesURL')) {
-			ob_start();
-			printFavoritesURL(NULL, '<li>', '</li><li>', '</li>');
-			$favoriteslink = ob_get_contents();
-			ob_end_clean();
+			$favoriteslink = '<li><a rel="external" href="' . html_encode(getFavoritesURL()) . '">' . gettext('Favorites') . '</a></li>';
 		}
 		if ($adminlink || $favoriteslink) {
 			?>
 			<div data-role="navbar">
 				<ul id="footernav">
-					<?php echo $adminlink . $favoriteslink; ?>
+					<?php
+					echo $adminlink . $favoriteslink;
+					if (function_exists("printUserLogin_out")) {
+						echo "<li>";
+						printUserLogin_out("", "", 0);
+						echo "</li>";
+					}
+					?>
 				</ul>
 			</div>
 			<!-- /navbar -->
-		<?php } ?>
+	<?php } ?>
 	</div><!-- footer -->
 	<?php
 }
@@ -157,7 +171,7 @@ function jqm_printMenusLinks() {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_zp_gallery_page == 'news.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo gettext('News'); ?></h3>
-				<?php printAllNewsCategories(gettext("All news"), TRUE, "", "menu-active", true, "submenu", "menu-active"); ?>
+			<?php printAllNewsCategories(gettext("All news"), TRUE, "", "menu-active", true, "submenu", "menu-active"); ?>
 			</div>
 			<?php
 		}
@@ -165,7 +179,7 @@ function jqm_printMenusLinks() {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_zp_gallery_page == 'gallery.php' || $_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'image.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo gettext('Gallery'); ?></h3>
-				<?php printAlbumMenu('list', true, '', '', '', '', 'Gallery Index', false, false, false); ?>
+			<?php printAlbumMenu('list', true, '', '', '', '', 'Gallery Index', false, false, false); ?>
 			</div>
 			<?php
 		}
@@ -173,13 +187,13 @@ function jqm_printMenusLinks() {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_zp_gallery_page == 'pages.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo gettext('Pages'); ?></h3>
-				<?php printPageMenu("list", "", "menu-active", "submenu", "menu-active", NULL, true, true, NULL); ?>
+			<?php printPageMenu("list", "", "menu-active", "submenu", "menu-active", NULL, true, true, NULL); ?>
 			</div>
 			<?php
 		}
 		?>
 		<div data-role="collapsible" data-content-theme="c" data-theme="b">
-		<?php jqm_printRSSlinks(); ?>
+	<?php jqm_printRSSlinks(); ?>
 		</div>
 	</div>
 	<?php

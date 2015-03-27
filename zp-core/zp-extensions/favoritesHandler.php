@@ -12,7 +12,7 @@
  * will contain the object. If the name is left empty the object will be added
  * to the <i>un-named</i> favorite instance.
  *
- * <b>Note:</b> if the <var>tgag_suggest</var> plugin is enabled there will be
+ * <b>Note:</b> If the <var>tag_suggest</var> plugin is enabled there will be
  * suggestions made for the text field much like the "tag suggestions" for searching.
  *
  * If an object is contained in multiple favorites there will be multiple <var>remove</var> buttons.
@@ -30,7 +30,7 @@
  * 	</li>
  *
  * 	<li>
- * 	The standard <i>image</i> page should also contain a call on <i>printAddToFavorites</i>
+ * 	The standard <i>image</i> page should also contain a call on <i>printAddToFavorites()</i>
  * 	</li>
  *
  * 	<li>
@@ -241,45 +241,47 @@ class favoritesHandler {
 	}
 
 	static function showWatchers($html, $obj, $prefix) {
-		$watchers = favorites::getWatchers($obj);
-		$multi = false;
-		foreach ($watchers as $key => $aux) {
-			$array = getSerializedArray($aux);
-			if (array_key_exists(1, $array)) {
-				$multi = true;
-				break;
+		if (!trim($prefix, '-')) {
+			//	only on single item tabs
+			$watchers = favorites::getWatchers($obj);
+			$multi = false;
+			foreach ($watchers as $key => $aux) {
+				$array = getSerializedArray($aux);
+				if (array_key_exists(1, $array)) {
+					$multi = true;
+					break;
+				}
 			}
-		}
-
-		if (!empty($watchers)) {
-			?>
-			<tr>
-				<td>
-					<?php echo gettext('Users watching:'); ?>
-				</td>
-				<td class="top">
-					<?php
-					if ($multi) {
-						?>
-						<dl class="userlist">
-							<dh>
-								<dt><em><?php echo gettext('User'); ?></em></dt>
-								<dd><em><?php echo gettext('instance'); ?></em></dd>
-							</dh>
-							<?php favorites::listWatchers($obj, array('<dt>', '</dt><dd>', '</dd>')); ?>
-						</dl>
+			if (!empty($watchers)) {
+				?>
+				<tr>
+					<td>
+						<?php echo gettext('Users watching:'); ?>
+					</td>
+					<td class="top">
 						<?php
-					} else {
+						if ($multi) {
+							?>
+							<dl class="userlist">
+								<dh>
+									<dt><em><?php echo gettext('User'); ?></em></dt>
+									<dd><em><?php echo gettext('instance'); ?></em></dd>
+								</dh>
+								<?php favorites::listWatchers($obj, array('<dt>', '</dt><dd>', '</dd>')); ?>
+							</dl>
+							<?php
+						} else {
+							?>
+							<ul class="userlist">
+								<?php favorites::listWatchers($obj, array('<li>', '', '</li>')); ?>
+							</ul>
+							<?php
+						}
 						?>
-						<ul class="userlist">
-							<?php favorites::listWatchers($obj, array('<li>', '', '</li>')); ?>
-						</ul>
-						<?php
-					}
-					?>
-				</td>
-			</tr>
-			<?php
+					</td>
+				</tr>
+				<?php
+			}
 		}
 		return $html;
 	}
@@ -320,7 +322,7 @@ if (OFFSET_PATH) {
 			$id = sanitize($_POST['id']);
 			switch ($_POST['type']) {
 				case 'images':
-					$img = newImage(NULL, array('folder' => dirname($id), 'filename' => basename($id)));
+					$img = newImage(array('folder' => dirname($id), 'filename' => basename($id)));
 					if ($_POST['addToFavorites']) {
 						if ($img->loaded) {
 							$___Favorites->addImage($img);

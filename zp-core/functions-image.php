@@ -17,15 +17,20 @@
 function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.png') {
 	global $newfilename, $album, $image;
 	$debug = isset($_GET['debug']);
+	$msg = '<strong>' . sprintf(gettext('Image Processing Error: %s'), $errormessage) . '</strong>'
+					. '<br />' . sprintf(gettext('Request URI: [ <code>%s</code> ]'), html_encode(getRequestURI()))
+					. '<br />PHP_SELF: [ <code>' . sanitize($_SERVER['PHP_SELF'], 3) . '</code> ]';
+	if ($newfilename) {
+		$msg .='<br />' . sprintf(gettext('Cache: [<code>%s</code>]'), '/' . CACHEFOLDER . '/' . sanitize($newfilename, 3));
+	}
+	if ($image || $album) {
+		$msg.= '<br />' . sprintf(gettext('Image: [<code>%s</code>]'), sanitize($album . '/' . $image, 3));
+	}
 	if ($debug) {
-		echo('<strong>' . sprintf(gettext('Image Processing Error: %s'), $errormessage) . '</strong>'
-		. '<br /><br />' . sprintf(gettext('Request URI: [ <code>%s</code> ]'), html_encode(getRequestURI()))
-		. '<br />PHP_SELF: [ <code>' . sanitize($_SERVER['PHP_SELF'], 3) . '</code> ]'
-		. (empty($newfilename) ? '' : '<br />' . sprintf(gettext('Cache: [<code>%s</code>]'), '/' . CACHEFOLDER . '/' . sanitize($newfilename, 3)) . ' ')
-		. (empty($image) || empty($album) ? '' : ' <br />' . sprintf(gettext('Image: [<code>%s</code>]'), sanitize($album . '/' . $image, 3)) . ' <br />'));
+		echo $msg;
 	} else {
-		if (DEBUG_IMAGE_ERR) {
-			trigger_error($errormessage, E_USER_NOTICE);
+		if (DEBUG_IMAGE) {
+			debugLog(strip_tags(str_replace('<br />', "\n\t\t", $msg)));
 		}
 		header("HTTP/1.0 $status_text");
 		header("Status: $status_text");
@@ -515,23 +520,30 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
  * fill a flipped value in the tag.
  */
 
-function getImageRotation($imgfile) {
-	$imgfile = substr(filesystemToInternal($imgfile), strlen(ALBUM_FOLDER_SERVERPATH));
-	$result = query_single_row('SELECT EXIFOrientation FROM ' . prefix('images') . ' AS i JOIN ' . prefix('albums') . ' as a ON i.albumid = a.id WHERE ' . db_quote($imgfile) . ' = CONCAT(a.folder,"/",i.filename)');
-	if (is_array($result) && array_key_exists('EXIFOrientation', $result)) {
-		$splits = preg_split('/!([(0-9)])/', $result['EXIFOrientation']);
-		$rotation = $splits[0];
-		switch ($rotation) {
-			case 1 : return false; // none
-			case 2 : return false; // mirrored
-			case 3 : return 180; // upside-down (not 180 but close)
-			case 4 : return 180; // upside-down mirrored
-			case 5 : return 270; // 90 CW mirrored (not 270 but close)
-			case 6 : return 270; // 90 CCW
-			case 7 : return 90; // 90 CCW mirrored (not 90 but close)
-			case 8 : return 90; // 90 CW
+function getImageRotation($img) {
+	if (is_object($img)) {
+		$rotation = $img->get('rotation');
+	} else {
+		$imgfile = substr(filesystemToInternal($img), strlen(ALBUM_FOLDER_SERVERPATH));
+		$result = query_single_row('SELECT rotation FROM ' . prefix('images') . ' AS i JOIN ' . prefix('albums') . ' as a ON i.albumid = a.id WHERE ' . db_quote($imgfile) . ' = CONCAT(a.folder,"/",i.filename)', false);
+		$rotation = 0;
+		if (is_array($result)) {
+			if (array_key_exists('rotation', $result)) {
+				$rotation = $result['rotation'];
+			}
 		}
 	}
-	return false;
+	switch (substr(trim($rotation, '!'), 0, 1)) {
+		case 0:
+		case 1: // none
+		case 2: return 0; // mirrored
+		case 3: // upside-down
+		case 4: return 180; // upside-down mirrored
+		case 5: // 90 CW mirrored
+		case 6: return 90; // 90 CCW
+		case 7: // 90 CCW mirrored
+		case 8: return 270; // 90 CW
+	}
+	return 0;
 }
 ?>

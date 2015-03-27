@@ -21,6 +21,7 @@ if (count($_POST) > 0) {
 		XSRFdefender('new_tags');
 		$language = sanitize($_POST['language']);
 		unset($_POST['language']);
+		unset($_POST['XSRFToken']);
 		foreach ($_POST as $value) {
 			if (!empty($value)) {
 				$value = html_decode(sanitize($value, 3));
@@ -261,7 +262,7 @@ printAdminHeader('tags');
 							</div>
 							<p class="buttons">
 								<button type="submit" id='save_tags' value="<?php echo gettext("Add tags"); ?>">
-									<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>images/add.png" alt="" /><?php echo gettext("Add tags"); ?>
+									<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" alt="" /><?php echo gettext("Add tags"); ?>
 								</button>
 							</p>
 							<select name="language" id="language" class="ignoredirty">

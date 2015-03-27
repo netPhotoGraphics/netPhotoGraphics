@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Prints a paged thumbnail navigation to be used on a theme's image.php, independent of the album.php's thumbs loop
- * The function contains some predefined CSS ids you can use for styling.
+ * Prints a paged thumbnail navigation to be used on a theme's <i>image.php</i>, independent of the album.php's thumbs loop
+ * The function contains some predefined CSS id's you can use for styling.
  *
  * @author Malte Müller (acrylian)
  * @package plugins
@@ -196,12 +196,7 @@ class pagedThumbsNav {
 		if ($this->totalpages > 1) {
 			$prevpageimagenr = ($this->currentpage * $this->imagesperpage) - ($this->imagesperpage + 1);
 			if ($this->currentpage > 1) {
-				if (is_array($this->images[$prevpageimagenr])) {
-					$albumobj = newAlbum($this->images[$prevpageimagenr]['folder']);
-					$this->prevpageimage = newImage($albumobj, $this->images[$prevpageimagenr]['filename']);
-				} else {
-					$this->prevpageimage = newImage($_zp_current_album, $this->images[$prevpageimagenr]);
-				}
+				$this->prevpageimage = newImage($_zp_current_album, $this->images[$prevpageimagenr]);
 				return $this->prevpageimage->getLink();
 			}
 		}
@@ -231,11 +226,7 @@ class pagedThumbsNav {
 		$curimages = array_slice($this->images, $this->currentfloor, $this->imagesperpage);
 		$thumbs = array();
 		foreach ($curimages as $item) {
-			if (is_array($item)) {
-				$thumbs[] = newImage(newAlbum($item['folder']), $item['filename']);
-			} else {
-				$thumbs[] = newImage($_zp_current_album, $item);
-			}
+			$thumbs[] = newImage($_zp_current_album, $item);
 		}
 		return $thumbs;
 	}
@@ -290,12 +281,7 @@ class pagedThumbsNav {
 		if ($this->totalpages > 1) {
 			if ($this->currentpage < $this->totalpages) {
 				$nextpageimagenr = $this->currentpage * $this->imagesperpage;
-				if (is_array($this->images[$nextpageimagenr])) {
-					$albumobj = newAlbum($this->images[$nextpageimagenr]['folder']);
-					$this->nextpageimage = newImage($albumobj, $this->images[$nextpageimagenr]['filename']);
-				} else {
-					$this->nextpageimage = newImage($_zp_current_album, $this->images[$nextpageimagenr]);
-				}
+				$this->nextpageimage = newImage($_zp_current_album, $this->images[$nextpageimagenr]);
 				return $this->nextpageimage->getLink();
 			}
 		}
@@ -405,12 +391,7 @@ class pagedThumbsNav {
 		$i = $i;
 		$linktex = $linktext;
 		$imagenr = ($i * $this->imagesperpage) - ($this->imagesperpage);
-		if (is_array($this->images[$imagenr])) {
-			$albumobj = newAlbum($this->images[$imagenr]['folder']);
-			$pageimage = newImage($albumobj, $this->images[$imagenr]['filename']);
-		} else {
-			$pageimage = newImage($_zp_current_album, $this->images[$imagenr]);
-		}
+		$pageimage = newImage($_zp_current_album, $this->images[$imagenr]);
 		if ($this->currentpage == $i) {
 			echo "<li class=\"pagedthumbsnav-pagelistactive\">" . html_encode($linktext) . "</a>\n";
 		} else {

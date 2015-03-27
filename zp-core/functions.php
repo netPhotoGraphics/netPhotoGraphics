@@ -14,9 +14,9 @@ if (!function_exists("json_encode")) {
 	require_once(dirname(__FILE__) . '/lib-json.php');
 }
 
-require_once(dirname(__FILE__) . '/functions-basic.php');
 require_once(dirname(__FILE__) . '/functions-filter.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-kses.php');
+require_once(dirname(__FILE__) . '/lib-kses.php');
+require_once(dirname(__FILE__) . '/functions-basic.php');
 
 $_zp_captcha = new _zp_captcha(); // this will be overridden by the plugin if enabled.
 $_zp_HTML_cache = new _zp_HTML_cache(); // this will be overridden by the plugin if enabled.
@@ -947,9 +947,9 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 		if (!is_null($_zp_current_page)) {
 			$pages = $_zp_current_search->getPages();
 			if (!empty($pages)) {
-				$tltlelink = $_zp_current_page->getTitlelink();
+				$titlelink = $_zp_current_page->getTitlelink();
 				foreach ($pages as $apage) {
-					if ($apage == $tltlelink) {
+					if ($apage == $titlelink) {
 						$context = $context | ZP_SEARCH_LINKED;
 						break;
 					}
@@ -959,9 +959,9 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 		if (!is_null($_zp_current_article)) {
 			$news = $_zp_current_search->getArticles(0, NULL, true);
 			if (!empty($news)) {
-				$tltlelink = $_zp_current_article->getTitlelink();
+				$titlelink = $_zp_current_article->getTitlelink();
 				foreach ($news as $anews) {
-					if ($anews['titlelink'] == $tltlelink) {
+					if ($anews['titlelink'] == $titlelink) {
 						$context = $context | ZP_SEARCH_LINKED;
 						break;
 					}
@@ -986,14 +986,27 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
  * @param string $table the database table
  */
 function updatePublished($table) {
-	//publish items that have matured
-	$sql = 'UPDATE ' . prefix($table) . ' SET `show`=1 WHERE `publishdate`!="0000-00-00 00:00:00" AND `publishdate`<=' . db_quote(date('Y-m-d H:i:s'));
-	query($sql);
+//publish items that have matured
+	$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `show`=0 AND `publishdate`!="0000-00-00 00:00:00" AND `publishdate`<=' . db_quote(date('Y-m-d H:i:s'));
+	$result = query($sql);
+	if ($result) {
+		while ($row = db_fetch_assoc($result)) {
+			$obj = getItemByID($table, $row['id']);
+			$obj->setShow(1);
+			$obj->save();
+		}
+	}
 
-	//unpublish items that have expired or are not published yet
-	$sql = 'UPDATE ' . prefix($table) . ' SET `show`=0 WHERE (`expiredate`!="0000-00-00 00:00:00" AND `expiredate`<' . db_quote(date('Y-m-d H:i:s')) . ')' .
-					' OR `publishdate`>' . db_quote(date('Y-m-d H:i:s'));
-	query($sql);
+//unpublish items that have expired or are not published yet
+	$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `show`=1 AND (`expiredate`!="0000-00-00 00:00:00" AND `expiredate`<' . db_quote(date('Y-m-d H:i:s')) . ') OR `publishdate`>' . db_quote(date('Y-m-d H:i:s'));
+	$result = query($sql);
+	if ($result) {
+		while ($row = db_fetch_assoc($result)) {
+			$obj = getItemByID($table, $row['id']);
+			$obj->setShow(0);
+			$obj->save();
+		}
+	}
 }
 
 /**
@@ -1061,14 +1074,39 @@ function setupTheme($album = NULL) {
 	return $theme;
 }
 
+define('SELECT_IMAGES', 1);
+define('SELECT_ALBUMS', 2);
+define('SELECT_PAGES', 4);
+define('SELECT_ARTICLES', 8);
+
 /**
  * Returns an array of unique tag names
  *
+ * Tags are shown only if their occurance count is greater or equal to the threshold
+ * value passed.
+ *
+ * If the site visitor is not logged in this function returns only tags associated
+ * with "published" objects. However, the publish state is limited to the `show` column
+ * of the object. This is not totally "correct", however the computatioal intensity
+ * of returning only that might link to "visible" objects is prohibitive.
+ *
+ * Logged-in users will see all tags subject to the threshold limits
+ *
  * @param $language string exclude language tags other than this string
+ * @param $count int threshold occurance count
+ * @param $returnCount bool set to true to return the tag counts
  * @return array
+ *
+ * @author Stephen Billard
+ * @Copyright 2014 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
  */
-function getAllTagsUnique($language = NULL, $count = 0) {
-	global $_zp_unique_tags, $_zp_current_locale;
+function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
+	global $_zp_unique_tags, $_zp_count_tags, $_zp_current_locale, $_zp_loggedin;
+	if (is_null($returnCount)) {
+		$list = &$_zp_unique_tags;
+	} else {
+		$list = &$_zp_count_tags;
+	}
 	if (is_null($language)) {
 		switch (getOption('languageTagSearch')) {
 			case 1:
@@ -1083,54 +1121,63 @@ function getAllTagsUnique($language = NULL, $count = 0) {
 		}
 	}
 
-	if (!isset($_zp_unique_tags[$language][$count])) {
-		$_zp_unique_tags[$language][$count] = array();
-		$sql = 'SELECT DISTINCT tags.name, tags.id, (SELECT COUNT(*) FROM ' . prefix('obj_to_tag') . ' as object WHERE object.tagid = tags.id) AS count FROM ' . prefix('tags') . ' as tags ';
-		if (!empty($language)) {
-			$sql .= ' WHERE tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '%');
+	if (!isset($list[$language][$count])) {
+		$list[$language][$count] = array();
+
+		if (($_zp_loggedin & TAGS_RIGHTS) || ($_zp_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
+			$source = prefix('obj_to_tag');
+		} else {
+			// create a table of only "published" tag assignments
+			$source = 'taglist';
+			query('CREATE TEMPORARY TABLE IF NOT EXISTS taglist (
+														`tagid` int(11) UNSIGNED NOT NULL,
+														`type` tinytext,
+														`objectid` int(11) UNSIGNED NOT NULL,
+														KEY (tagid),
+														KEY (objectid)
+														) CHARACTER SET utf8 COLLATE utf8_unicode_ci');
+			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
+			if (extensionEnabled('zenpage')) {
+				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
+			}
+			foreach ($tables as $table => $rights) {
+				if ($_zp_loggedin & $rights) {
+					$show = '';
+				} else {
+					$show = ' AND tag.objectid=object.id AND object.show=1';
+				}
+				$sql = 'INSERT INTO taglist SELECT tag.tagid, tag.type, tag.objectid FROM ' . prefix('obj_to_tag') . ' tag, ' . prefix($table) . ' object WHERE tag.type="' . $table . '"' . $show;
+				query($sql);
+			}
 		}
-		$sql .= ' ORDER BY tags.name';
+
+		if (empty($language)) {
+			$lang = '';
+		} else {
+			$lang = ' AND (tag.language="" OR tag.language LIKE ' . db_quote(db_LIKE_escape($language) . '%') . ')';
+		}
+
+		$sql = 'SELECT tag.name, count(DISTINCT tag.name,obj.type,obj.objectid) as count FROM ' . prefix('tags') . ' tag, ' . $source . ' obj WHERE (tag.id=obj.tagid) ' . $lang . ' GROUP BY tag.name';
 		$unique_tags = query($sql);
+
 		if ($unique_tags) {
 			while ($tagrow = db_fetch_assoc($unique_tags)) {
 				if ($tagrow['count'] >= $count) {
-					$_zp_unique_tags[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['name'];
+					if ($returnCount) {
+						$list[$language][$count][$tagrow['name']] = $tagrow['count'];
+					} else {
+						$list[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['name'];
+					}
 				}
 			}
-			db_free_result($unique_tags);
+		}
+		db_free_result($unique_tags);
+
+		if (!zp_loggedin()) {
+			query('DROP TEMPORARY TABLE taglist');
 		}
 	}
-	return $_zp_unique_tags[$language][$count];
-}
-
-/**
- * Returns an array indexed by 'tag' with the element value the count of the tag
- *
- * @param $language string exclude language tags other than this string
- * @return array
- */
-function getAllTagsCount($language = NULL) {
-	global $_zp_count_tags, $_zp_current_locale;
-	if (is_null($language)) {
-		$language = $_zp_current_locale;
-	}
-	if (isset($_zp_count_tags[$language]))
-		return $_zp_count_tags[$language];
-
-	$_zp_count_tags[$language] = array();
-	$sql = 'SELECT DISTINCT tags.name, tags.id, (SELECT COUNT(*) FROM ' . prefix('obj_to_tag') . ' as object WHERE object.tagid = tags.id) AS count FROM ' . prefix('tags') . ' as tags ';
-	if (!empty($language)) {
-		$sql .= ' WHERE tags.language="" OR tags.language LIKE ' . db_quote(db_LIKE_escape($language) . '%');
-	}
-	$sql .= ' ORDER BY tags.name';
-	$tagresult = query($sql);
-	if ($tagresult) {
-		while ($tag = db_fetch_assoc($tagresult)) {
-			$_zp_count_tags[$language][$tag['name']] = $tag['count'];
-		}
-		db_free_result($tagresult);
-	}
-	return $_zp_count_tags[$language];
+	return $list[$language][$count];
 }
 
 /**
@@ -1389,38 +1436,45 @@ function sortMultiArray($array, $index, $descending = false, $natsort = true, $c
 			$indicies = array($index);
 		}
 		if ($descending) {
-			$separator = '~~';
+			$pad = '~';
 		} else {
-			$separator = '  ';
+			$pad = ' ';
 		}
-		foreach ($array as $key => $row) {
-			$temp[$key] = '';
-			foreach ($indicies as $index) {
-				if (is_array($row) && array_key_exists($index, $row)) {
-					$temp[$key] .= get_language_string($row[$index]) . $separator;
+		$size = 0;
+		foreach ($indicies as $index) {
+			$prev = $size;
+			$size = 0;
+			$c = 0;
+			foreach ($array as $key => $row) {
+				$c++;
+				if (is_array($row)) {
+					if (array_key_exists($index, $row)) {
+						$word = get_language_string($row[$index]);
+						if (!$case_sensitive) {
+							$word = mb_strtolower($word);
+						}
+					} else {
+						$word = $c;
+					}
+					$size = max($size, strlen($word));
+					if (isset($temp[$key])) {
+						$temp[$key] = str_pad($temp[$key], $prev, $pad) . $word;
+					} else {
+						$temp[$key] = $word;
+					}
 					if (in_array($index, $remove_criteria)) {
 						unset($array[$key][$index]);
 					}
 				}
 			}
-			$temp[$key] .= $key;
 		}
-		if ($natsort) {
-			if ($case_sensitive) {
-				natsort($temp);
-			} else {
-				natcasesort($temp);
-			}
-			if ($descending) {
-				$temp = array_reverse($temp, TRUE);
-			}
+
+		if ($descending) {
+			arsort($temp, SORT_LOCALE_STRING | SORT_NATURAL);
 		} else {
-			if ($descending) {
-				arsort($temp);
-			} else {
-				asort($temp);
-			}
+			asort($temp, SORT_LOCALE_STRING | SORT_NATURAL);
 		}
+
 		foreach (array_keys($temp) as $key) {
 			if (!$preservekeys && is_numeric($key)) {
 				$sorted[] = $array[$key];
@@ -1489,6 +1543,7 @@ function safe_fnmatch($pattern, $string) {
 function zp_image_types($quote) {
 	global $_zp_images_classes;
 	$types = array_unique($_zp_images_classes);
+	$typelist = '';
 	foreach ($types as $type) {
 		$typelist .= $quote . strtolower($type) . 's' . $quote . ',';
 	}
@@ -1753,7 +1808,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 		}
 		$success = zp_apply_filter('guest_login_attempt', $success, $post_user, $post_pass, $authType);
 		if ($success) {
-			// Correct auth info. Set the cookie.
+// Correct auth info. Set the cookie.
 			if (DEBUG_LOGIN)
 				debugLog("zp_handle_password: valid credentials");
 			zp_setCookie($authType, $auth);
@@ -1765,7 +1820,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				}
 			}
 		} else {
-			// Clear the cookie, just in case
+// Clear the cookie, just in case
 			if (DEBUG_LOGIN)
 				debugLog("zp_handle_password: invalid credentials");
 			zp_clearCookie($authType);
@@ -1782,7 +1837,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				debugLog("zp_handle_password: valid cookie");
 			return true;
 		} else {
-			// Clear the cookie
+// Clear the cookie
 			if (DEBUG_LOGIN)
 				debugLog("zp_handle_password: invalid cookie");
 			zp_clearCookie($authType);
@@ -1880,11 +1935,11 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 	$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND `ownerid`=" . $id . " AND `theme`=" . db_quote($theme);
 	$db = query_single_row($sql);
 	if (!$db) {
-		// raw theme option
+// raw theme option
 		$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND `ownerid`=0 AND `theme`=" . db_quote($theme);
 		$db = query_single_row($sql);
 		if (!$db) {
-			// raw album option
+// raw album option
 			$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND `ownerid`=" . $id . " AND `theme`=NULL";
 			$db = query_single_row($sql);
 			if (!$db) {
@@ -2106,7 +2161,7 @@ function getItemByID($table, $id) {
 			case 'news':
 				return newArticle($result['titlelink']);
 			case 'pages':
-				return new Page($result['titlelink']);
+				return newPage($result['titlelink']);
 			case 'news_categories':
 				return new Category($result['titlelink']);
 		}
@@ -2306,6 +2361,45 @@ function getMacros() {
 	return $_zp_content_macros;
 }
 
+/**
+ * generates a nested list of albums for the album tab sorting
+ * Returns an array of "albums" each element contains:
+ * 								'name' which is the folder name
+ * 								'sort_order' which is an array of the sort order set
+ *
+ * @param $subalbum root level album (NULL is the gallery)
+ * @param $levels how far to nest
+ * @param $level internal for keeping the sort order elements
+ * @return array
+ */
+function getNestedAlbumList($subalbum, $levels, $level = array()) {
+	global $_zp_gallery;
+	if (OFFSET_PATH) {
+		$rights = ALBUM_RIGHTS;
+	} else {
+		$rights = LIST_RIGHTS;
+	}
+	$cur = count($level);
+	$levels--; // make it 0 relative to sync with $cur
+	if (is_null($subalbum)) {
+		$albums = $_zp_gallery->getAlbums();
+	} else {
+		$albums = $subalbum->getAlbums();
+	}
+	$list = array();
+	foreach ($albums as $analbum) {
+		$albumobj = newAlbum($analbum);
+		if (!is_null($subalbum) || $albumobj->isMyItem($rights)) {
+			$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
+			$list[] = array('name' => $analbum, 'sort_order' => $level);
+			if ($cur < $levels && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
+				$list = array_merge($list, getNestedAlbumList($albumobj, $levels + 1, $level));
+			}
+		}
+	}
+	return $list;
+}
+
 class zpFunctions {
 
 	/**
@@ -2359,9 +2453,12 @@ class zpFunctions {
 	/**
 	 * initializes the $_zp_exifvars array display state
 	 *
+	 * @author Stephen Billard
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
 	 */
-	static function setexifvars() {
-		global $_zp_exifvars;
+	static function exifvars($default = false) {
+		global $_zp_images_classes;
+
 		/*
 		 * Note: If fields are added or deleted, setup should be run or the new data won't be stored
 		 * (but existing fields will still work; nothing breaks).
@@ -2369,92 +2466,55 @@ class zpFunctions {
 		 * This array should be ordered by logical associations as it will be the order that EXIF information
 		 * is displayed
 		 */
-		$_zp_exifvars = array(
-						// Database Field       		 => array('source', 'Metadata Key', 'ZP Display Text', Display?	size,	enabled, type)
-						'EXIFMake'									 => array('IFD0', 'Make', gettext('Camera Maker'), true, 52, true, 'string'),
-						'EXIFModel'									 => array('IFD0', 'Model', gettext('Camera Model'), true, 52, true, 'string'),
-						'EXIFDescription'						 => array('IFD0', 'ImageDescription', gettext('Image Title'), false, 52, true, 'string'),
-						'IPTCObjectName'						 => array('IPTC', 'ObjectName', gettext('Object Name'), false, 256, true, 'string'),
-						'IPTCImageHeadline'					 => array('IPTC', 'ImageHeadline', gettext('Image Headline'), false, 256, true, 'string'),
-						'IPTCImageCaption'					 => array('IPTC', 'ImageCaption', gettext('Image Caption'), false, 2000, true, 'string'),
-						'IPTCImageCaptionWriter'		 => array('IPTC', 'ImageCaptionWriter', gettext('Image Caption Writer'), false, 32, true, 'string'),
-						'EXIFDateTime'							 => array('SubIFD', 'DateTime', gettext('Time Taken'), true, 52, true, 'time'),
-						'EXIFDateTimeOriginal'			 => array('SubIFD', 'DateTimeOriginal', gettext('Original Time Taken'), true, 52, true, 'time'),
-						'EXIFDateTimeDigitized'			 => array('SubIFD', 'DateTimeDigitized', gettext('Time Digitized'), true, 52, true, 'time'),
-						'IPTCDateCreated'						 => array('IPTC', 'DateCreated', gettext('Date Created'), false, 8, true, 'time'),
-						'IPTCTimeCreated'						 => array('IPTC', 'TimeCreated', gettext('Time Created'), false, 11, true, 'time'),
-						'IPTCDigitizeDate'					 => array('IPTC', 'DigitizeDate', gettext('Digital Creation Date'), false, 8, true, 'time'),
-						'IPTCDigitizeTime'					 => array('IPTC', 'DigitizeTime', gettext('Digital Creation Time'), false, 11, true, 'time'),
-						'EXIFArtist'								 => array('IFD0', 'Artist', gettext('Artist'), false, 52, true, 'string'),
-						'IPTCImageCredit'						 => array('IPTC', 'ImageCredit', gettext('Image Credit'), false, 32, true, 'string'),
-						'IPTCByLine'								 => array('IPTC', 'ByLine', gettext('Byline'), false, 32, true, 'string'),
-						'IPTCByLineTitle'						 => array('IPTC', 'ByLineTitle', gettext('Byline Title'), false, 32, true, 'string'),
-						'IPTCSource'								 => array('IPTC', 'Source', gettext('Image Source'), false, 32, true, 'string'),
-						'IPTCContact'								 => array('IPTC', 'Contact', gettext('Contact'), false, 128, true, 'string'),
-						'EXIFCopyright'							 => array('IFD0', 'Copyright', gettext('Copyright Holder'), false, 128, true, 'string'),
-						'IPTCCopyright'							 => array('IPTC', 'Copyright', gettext('Copyright Notice'), false, 128, true, 'string'),
-						'IPTCKeywords'							 => array('IPTC', 'Keywords', gettext('Keywords'), false, 0, true, 'string'),
-						'EXIFExposureTime'					 => array('SubIFD', 'ExposureTime', gettext('Shutter Speed'), true, 52, true, 'string'),
-						'EXIFFNumber'								 => array('SubIFD', 'FNumber', gettext('Aperture'), true, 52, true, 'number'),
-						'EXIFISOSpeedRatings'				 => array('SubIFD', 'ISOSpeedRatings', gettext('ISO Sensitivity'), true, 52, true, 'number'),
-						'EXIFExposureBiasValue'			 => array('SubIFD', 'ExposureBiasValue', gettext('Exposure Compensation'), true, 52, true, 'string'),
-						'EXIFMeteringMode'					 => array('SubIFD', 'MeteringMode', gettext('Metering Mode'), true, 52, true, 'string'),
-						'EXIFFlash'									 => array('SubIFD', 'Flash', gettext('Flash Fired'), true, 52, true, 'string'),
-						'EXIFImageWidth'						 => array('SubIFD', 'ExifImageWidth', gettext('Original Width'), false, 52, true, 'number'),
-						'EXIFImageHeight'						 => array('SubIFD', 'ExifImageHeight', gettext('Original Height'), false, 52, true, 'number'),
-						'EXIFOrientation'						 => array('IFD0', 'Orientation', gettext('Orientation'), false, 52, true, 'string'),
-						'EXIFSoftware'							 => array('IFD0', 'Software', gettext('Software'), false, 999, true, 'string'),
-						'EXIFContrast'							 => array('SubIFD', 'Contrast', gettext('Contrast Setting'), false, 52, true, 'string'),
-						'EXIFSharpness'							 => array('SubIFD', 'Sharpness', gettext('Sharpness Setting'), false, 52, true, 'string'),
-						'EXIFSaturation'						 => array('SubIFD', 'Saturation', gettext('Saturation Setting'), false, 52, true, 'string'),
-						'EXIFWhiteBalance'					 => array('SubIFD', 'WhiteBalance', gettext('White Balance'), false, 52, true, 'string'),
-						'EXIFSubjectDistance'				 => array('SubIFD', 'SubjectDistance', gettext('Subject Distance'), false, 52, true, 'number'),
-						'EXIFFocalLength'						 => array('SubIFD', 'FocalLength', gettext('Focal Length'), true, 52, true, 'number'),
-						'EXIFLensType'							 => array('SubIFD', 'LensType', gettext('Lens Type'), false, 52, true, 'string'),
-						'EXIFLensInfo'							 => array('SubIFD', 'LensInfo', gettext('Lens Info'), false, 52, true, 'string'),
-						'EXIFFocalLengthIn35mmFilm'	 => array('SubIFD', 'FocalLengthIn35mmFilm', gettext('35mm Focal Length Equivalent'), false, 52, true, 'string'),
-						'IPTCCity'									 => array('IPTC', 'City', gettext('City'), false, 32, true, 'string'),
-						'IPTCSubLocation'						 => array('IPTC', 'SubLocation', gettext('Sub-location'), false, 32, true, 'string'),
-						'IPTCState'									 => array('IPTC', 'State', gettext('Province/State'), false, 32, true, 'string'),
-						'IPTCLocationCode'					 => array('IPTC', 'LocationCode', gettext('Country/Primary Location Code'), false, 3, true, 'string'),
-						'IPTCLocationName'					 => array('IPTC', 'LocationName', gettext('Country/Primary Location Name'), false, 64, true, 'string'),
-						'IPTCContentLocationCode'		 => array('IPTC', 'ContentLocationCode', gettext('Content Location Code'), false, 3, true, 'string'),
-						'IPTCContentLocationName'		 => array('IPTC', 'ContentLocationName', gettext('Content Location Name'), false, 64, true, 'string'),
-						'EXIFGPSLatitude'						 => array('GPS', 'Latitude', gettext('Latitude'), false, 52, true, 'number'),
-						'EXIFGPSLatitudeRef'				 => array('GPS', 'Latitude Reference', gettext('Latitude Reference'), false, 52, true, 'string'),
-						'EXIFGPSLongitude'					 => array('GPS', 'Longitude', gettext('Longitude'), false, 52, true, 'number'),
-						'EXIFGPSLongitudeRef'				 => array('GPS', 'Longitude Reference', gettext('Longitude Reference'), false, 52, true, 'string'),
-						'EXIFGPSAltitude'						 => array('GPS', 'Altitude', gettext('Altitude'), false, 52, true, 'number'),
-						'EXIFGPSAltitudeRef'				 => array('GPS', 'Altitude Reference', gettext('Altitude Reference'), false, 52, true, 'string'),
-						'IPTCOriginatingProgram'		 => array('IPTC', 'OriginatingProgram', gettext('Originating Program '), false, 32, true, 'string'),
-						'IPTCProgramVersion'				 => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string'),
-						'VideoFormat'								 => array('VIDEO', 'fileformat', gettext('Video File Format'), false, 32, true, 'string'),
-						'VideoSize'									 => array('VIDEO', 'filesize', gettext('Video File Size'), false, 32, true, 'number'),
-						'VideoArtist'								 => array('VIDEO', 'artist', gettext('Video Artist'), false, 256, true, 'string'),
-						'VideoTitle'								 => array('VIDEO', 'title', gettext('Video Title'), false, 256, true, 'string'),
-						'VideoBitrate'							 => array('VIDEO', 'bitrate', gettext('Bitrate'), false, 32, true, 'number'),
-						'VideoBitrate_mode'					 => array('VIDEO', 'bitrate_mode', gettext('Bitrate_Mode'), false, 32, true, 'string'),
-						'VideoBits_per_sample'			 => array('VIDEO', 'bits_per_sample', gettext('Bits per sample'), false, 32, true, 'number'),
-						'VideoCodec'								 => array('VIDEO', 'codec', gettext('Codec'), false, 32, true, 'string'),
-						'VideoCompression_ratio'		 => array('VIDEO', 'compression_ratio', gettext('Compression Ratio'), false, 32, true, 'number'),
-						'VideoDataformat'						 => array('VIDEO', 'dataformat', gettext('Video Dataformat'), false, 32, true, 'string'),
-						'VideoEncoder'							 => array('VIDEO', 'encoder', gettext('File Encoder'), false, 10, true, 'string'),
-						'VideoSamplerate'						 => array('VIDEO', 'Samplerate', gettext('Sample rate'), false, 32, true, 'number'),
-						'VideoChannelmode'					 => array('VIDEO', 'channelmode', gettext('Channel mode'), false, 32, true, 'string'),
-						'VideoFormat'								 => array('VIDEO', 'format', gettext('Format'), false, 10, true, 'string'),
-						'VideoChannels'							 => array('VIDEO', 'channels', gettext('Channels'), false, 10, true, 'number'),
-						'VideoFramerate'						 => array('VIDEO', 'framerate', gettext('Frame rate'), false, 32, true, 'number'),
-						'VideoResolution_x'					 => array('VIDEO', 'resolution_x', gettext('X Resolution'), false, 32, true, 'number'),
-						'VideoResolution_y'					 => array('VIDEO', 'resolution_y', gettext('Y Resolution'), false, 32, true, 'number'),
-						'VideoAspect_ratio'					 => array('VIDEO', 'pixel_aspect_ratio', gettext('Aspect ratio'), false, 32, true, 'number'),
-						'VideoPlaytime'							 => array('VIDEO', 'playtime_string', gettext('Play Time'), false, 10, true, 'number'),
-						'XMPrating'									 => array('XMP', 'rating', gettext('XMP Rating'), false, 10, true, 'string'),
-		);
-		foreach ($_zp_exifvars as $key => $item) {
-			if (!is_null($disable = getOption($key . '-disabled'))) {
-				$_zp_exifvars[$key][5] = !$disable;
+		$exifvars = array();
+		$handlers = array_unique($_zp_images_classes);
+		$handlers[] = 'xmpMetadata';
+		foreach ($handlers as $handler) {
+			if (class_exists($handler)) {
+				$exifvars = array_merge($exifvars, $handler::getMetadataFields());
 			}
-			$_zp_exifvars[$key][3] = getOption($key);
+		}
+		$exifvars = sortMultiArray($exifvars, 2);
+		if ($default) {
+			return $exifvars;
+		}
+
+		foreach ($exifvars as $key => $item) {
+			if (!is_null($disable = getOption($key . '-disabled'))) {
+				$exifvars[$key][5] = !($disable & true);
+			}
+			if (!is_null($display = getOption($key . '-display'))) {
+				$exifvars[$key][3] = $display;
+			}
+		}
+		return $exifvars;
+	}
+
+	/**
+	 * handler for "image" plugin metadata enable/disable
+	 * @param string $whom
+	 * @param int $disable
+	 * @param array $list
+	 *
+	 * @author Stephen Billard
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
+	 */
+	static function exifOptions($whom, $disable, $list) {
+		$reenable = false;
+		foreach ($list as $key => $exifvar) {
+			$v = $exifvar[5] = getOption($key . '_disabled');
+			if ($exifvar[4] && $v != $disable) {
+				$reenable = true;
+			}
+			setOption($key . '_disabled', $disable | ($v & 1));
+			$list[$key][5] = $disable == 0;
+		}
+		if (OFFSET_PATH == 2) {
+			metadataFields($list);
+		} else {
+			if ($reenable) {
+				requestSetup($whom);
+			}
 		}
 	}
 
@@ -2465,7 +2525,7 @@ class zpFunctions {
 	static function hasPrimaryScripts() {
 		if (!defined('PRIMARY_INSTALLATION')) {
 			if (function_exists('readlink') && ($zen = str_replace('\\', '/', @readlink(SERVERPATH . '/' . ZENFOLDER)))) {
-				// no error reading the link info
+// no error reading the link info
 				$os = strtoupper(PHP_OS);
 				$sp = SERVERPATH;
 				if (substr($os, 0, 3) == 'WIN' || $os == 'DARWIN') { // canse insensitive file systems
@@ -2625,6 +2685,23 @@ class zpFunctions {
 		debugLog(sprintf('    ' . $extension . '(%s:%u)=>%.4fs', implode('|', $class), $priority & PLUGIN_PRIORITY, $end - $start));
 	}
 
+	/**
+	 * handles compound plugin disable criteria
+	 * @param array $criteria
+	 * @return boolean
+	 *
+	 * @author Stephen Billard
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
+	 */
+	static function pluginDisable($criteria) {
+		foreach ($criteria as $try) {
+			if ($try[0]) {
+				return $try[1];
+			}
+		}
+		return false;
+	}
+
 }
 
 /**
@@ -2671,6 +2748,6 @@ class _zp_HTML_cache {
 
 }
 
-zpFunctions::setexifvars();
+$_zp_exifvars = zpFunctions::exifvars();
 $_locale_Subdomains = zpFunctions::LanguageSubdomains();
 ?>

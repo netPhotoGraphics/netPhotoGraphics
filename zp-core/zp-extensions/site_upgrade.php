@@ -15,7 +15,7 @@
  * only logged in <i>Administrators</i> can access the <i>front end</i>. You can then, as the administrator, view the
  * site to be sure that all your changes are as you wish them to be.
  *
- * Once your testing is completed satisfactorily you <i>open</i> your site to all visitors.
+ * Once your testing is completed you <i>open</i> your site to all visitors.
  *
  * Change the files in <var>plugins/site_upgrade</var> to meet your needs. (<b>Note</b> these files will
  * be copied to that folder during setup the first time you do an install. Setup will not overrite any existing
@@ -24,7 +24,7 @@
  * files.)
  *
  *
- * The plugin works best if mod_rewrite is active and the <var>.htaccess</var> file exists. If these are not the case
+ * The plugin works best if <var>mod_rewrite</var> is active and the <var>.htaccess</var> file exists. If this is not the case
  * the plugin will still work in most cases. However if you the release you are upgrading to has significant changes involving
  * plugin loading of the front-end site there may be PHP failures due if the site is accessed while the files
  * being uploaded are in a mixed release state.
@@ -41,6 +41,17 @@ $plugin_notice = (MOD_REWRITE) ? false : gettext('<em>mod_rewrite</em> is not en
 
 switch (OFFSET_PATH) {
 	case 0:
+
+		function site_upgrade_notice($html) {
+			?>
+			<div style="text-align: center;padding: 5px 10px 5px 10px;">
+				<strong style="background-color: #FFEFB7;color:black;">
+					<?php echo gettext('Site is avaiable for testing only.'); ?>
+				</strong>
+			</div>
+			<?php
+		}
+
 		$state = @$_zp_conf_vars['site_upgrade_state'];
 		if ((!zp_loggedin(ADMIN_RIGHTS | DEBUG_RIGHTS) && $state == 'closed_for_test') || $state == 'closed') {
 			if (isset($_zp_conf_vars['special_pages']['page']['rewrite'])) {
@@ -52,11 +63,47 @@ switch (OFFSET_PATH) {
 				header('location: ' . WEBPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/closed.php');
 				exit();
 			}
+		} else if ($state == 'closed_for_test') {
+			zp_register_filter('theme_body_open', 'site_upgrade_notice');
 		}
 		break;
 	default:
 		zp_register_filter('admin_utilities_buttons', 'site_upgrade_button');
 		zp_register_filter('installation_information', 'site_upgrade_status');
+		zp_register_filter('admin_note', 'site_upgrade_note');
+
+		function site_upgrade_note($where) {
+			global $_zp_conf_vars;
+			switch (@$_zp_conf_vars['site_upgrade_state']) {
+				case 'closed':
+					if ($where == 'Overview') {
+						?>
+						<form class="dirtylistening" name="site_upgrade_form" id="site_upgrade_form">
+						</form>
+						<script type="text/javascript">
+							$(document).ready(function () {
+								$('#site_upgrade_form').dirtyForms('setDirty');
+								$.DirtyForms.message = '<?php echo gettext('The site is closed!'); ?>';
+							});
+						</script>
+						<?php
+					}
+					?>
+					<p class="errorbox">
+						<strong><?php echo gettext('The site is closed!'); ?></strong></span>
+					</p>
+					<?php
+					break;
+				case 'closed_for_test';
+					?>
+					<p class="notebox">
+						<strong><?php echo gettext('Site is avaiable for testing only.');
+					?></strong>
+					</p>
+					<?php
+					break;
+			}
+		}
 
 		function site_upgrade_status() {
 			global $_zp_conf_vars;
@@ -112,12 +159,13 @@ switch (OFFSET_PATH) {
 					$buttons[] = array(
 									'XSRFTag'			 => 'site_upgrade',
 									'category'		 => gettext('Admin'),
-									'enable'			 => true,
+									'enable'			 => 2,
 									'button_text'	 => gettext('Site » test mode'),
 									'formname'		 => 'site_upgrade',
 									'action'			 => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
 									'icon'				 => 'images/lock_open.png',
 									'title'				 => gettext('Make the site available for viewing administrators only.'),
+									'onclick'			 => "$('#site_upgrade_form').dirtyForms('setClean');this.form.submit();",
 									'alt'					 => '',
 									'hidden'			 => '<input type="hidden" name="siteState" value="closed_for_test" />',
 									'rights'			 => ADMIN_RIGHTS
@@ -127,7 +175,7 @@ switch (OFFSET_PATH) {
 					$buttons[] = array(
 									'XSRFTag'			 => 'site_upgrade',
 									'category'		 => gettext('Admin'),
-									'enable'			 => true,
+									'enable'			 => 2,
 									'button_text'	 => gettext('Site » open'),
 									'formname'		 => 'site_upgrade',
 									'action'			 => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
@@ -137,7 +185,7 @@ switch (OFFSET_PATH) {
 									'hidden'			 => '<input type="hidden" name="siteState" value="open" />',
 									'rights'			 => ADMIN_RIGHTS
 					);
-					list($diff, $needs) = checkSignature(false);
+					list($diff, $needs) = checkSignature(0);
 					if (zpFunctions::hasPrimaryScripts() && empty($needs)) {
 						?>
 						<script type="text/javascript">

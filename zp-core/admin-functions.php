@@ -28,7 +28,7 @@ function printAdminFooter($addl = '') {
 	?>
 	<div id="footer">
 		<?php
-		echo gettext('<span class="zenlogo"><a href="https://' . GITHUB . '" title="' . gettext('A simpler media content management system') . '"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/zen-logo-light.png" /></a></span> ') . sprintf(gettext('version %1$s [%2$s]'), ZENPHOTO_VERSION, ZENPHOTO_RELEASE);
+		echo gettext('<span class="zenlogo"><a href="https://' . GITHUB . '" title="' . gettext('A simpler media content management system') . '"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/zen-logo-light.png" /></a></span> ') . sprintf(gettext('version %1$s'), ZENPHOTO_VERSION);
 
 		if (!empty($addl)) {
 			echo ' | ' . $addl;
@@ -195,7 +195,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 						tabSize: 25,
 						tolerance: 'intersect',
 						toleranceElement: '> div',
-						listType: 'ul'
+						listType: 'ul',
+						change: function (event, ui) {
+							$('#sortableListForm').dirtyForms('setDirty');
+						}
 					});
 					$('.serialize').click(function () {
 						serialized = $('ul.page-list').nestedSortable('serialize');
@@ -1133,6 +1136,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 	}
 
+	function addTags($tags, $obj) {
+		$mytags = array_unique(array_merge($tags, $obj->getTags(false)));
+		$obj->setTags($mytags);
+	}
+
 	/**
 	 * Creates an unordered checklist of the tags
 	 *
@@ -1140,13 +1148,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $postit prefix to prepend for posting
 	 * @param bool $showCounts set to true to get tag count displayed
 	 * @param string $tagsort set true to sort alphabetically
-	 * @param bool $addnew set true enables adding tags
+	 * @param bool $addnew true enables adding tags, ==2 for "additive" tags
 	 * @param bool $resizeable set true to allow the box to be resized
 	 * @param string $class class of the selections
 	 */
 	function tagSelector($that, $postit, $showCounts = false, $tagsort = 'alpha', $addnew = true, $resizeable = false, $class = 'checkTagsAuto') {
 		global $_zp_admin_ordered_taglist, $_zp_admin_LC_taglist;
-		if (is_null($_zp_admin_ordered_taglist)) {
+		if ((int) $addnew <= 1 && is_null($_zp_admin_ordered_taglist)) {
 			switch ($tagsort) {
 				case 'language':
 					$order = '`language` DESC,`name`';
@@ -1185,6 +1193,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$_zp_admin_ordered_taglist = array($them, $counts, $languages, $flags);
 		} else {
 			list($them, $counts, $languages, $flags) = $_zp_admin_ordered_taglist;
+			if ((int) $addnew == 2) {
+				$them = $counts = array();
+			}
 		}
 
 		if (is_null($that)) {
@@ -1196,8 +1207,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (count($tags) > 0) {
 			$them = array_diff_key($them, $tags);
 		}
+		$total = count($tags) + count($them);
 		if ($resizeable) {
-			$tagclass = 'resizeable_tagchecklist';
+			if ($total > 0) {
+				$tagclass = 'resizeable_tagchecklist';
+			} else {
+				$tagclass = 'resizeable_empty_tagchecklist';
+			}
 			if (is_bool($resizeable)) {
 				$tagclass .= ' resizeable_tagchecklist_fixed_width';
 			}
@@ -1222,10 +1238,16 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<a onclick="addNewTag('<?php echo $postit; ?>');" title="<?php echo gettext('add tag'); ?>">
 					<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" title="<?php echo gettext('add tag'); ?>"/>
 				</a>
-				<input class="tagsuggest <?php echo $class; ?>" type="text" value="" name="newtag_<?php echo $postit; ?>" id="newtag_<?php echo $postit; ?>" />
+				<span class="tagSuggestContainer">
+					<input class="tagsuggest <?php echo $class; ?> " type="text" value="" name="newtag_<?php echo $postit; ?>" id="newtag_<?php echo $postit; ?>" />
+				</span>
 			</span>
-
 			<?php
+			if ((int) $addnew == 2) {
+				?>
+				<input type="hidden" value="1" name="additive_<?php echo $postit; ?>" id="tag_additive_<?php echo $postit; ?>" />
+				<?php
+			}
 		}
 		?>
 		<div id="resizable_<?php echo $postit; ?>" class="tag_div">
@@ -1287,7 +1309,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since 1.1.3
 	 */
 	function printAlbumEditForm($index, $album, $buttons = true) {
-		global $sortby, $_zp_gallery, $mcr_albumlist, $_zp_albumthumb_selector, $_zp_current_admin_obj;
+		global $_zp_sortby, $_zp_gallery, $mcr_albumlist, $_zp_albumthumb_selector, $_zp_current_admin_obj;
 		$isPrimaryAlbum = '';
 		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$myalbum = $_zp_current_admin_obj->getAlbum();
@@ -1301,7 +1323,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$prefix = "$index-";
 			$suffix = "_$index";
-			echo "<p><em><strong>" . $album->name . "</strong></em></p>";
+			echo '<p><em><strong><a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . urlencode($album->name) . '&tab=albuminfo">' . urlencode($album->name) . '</a></strong></em></p>';
 		}
 		if (isset($_GET['subpage'])) {
 			?>
@@ -1346,7 +1368,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<img src="images/folder.png" alt="" />
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
-						<?php
+						<?php if (!$album->isDynamic()) { ?>
+							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbum('<?php echo pathurlencode($album->name); ?>', true);">
+								<img src="images/folder.png" alt="" />
+								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
+							</button>
+							<?php
+						}
 					}
 					?>
 					<a href="<?php echo WEBPATH . "/index.php?album=" . html_encode(pathurlencode($album->getFileName())); ?>">
@@ -1385,11 +1413,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<tr>
 								<td align="left" valign="top" width="150"><em><?php echo get_class($album); ?></em></td>
 								<td class="noinput">
-
 									<?php
 									switch ($album->isDynamic()) {
 										case 'alb':
-											echo html_encode(urldecode($album->getSearchParams()));
+											echo html_encode(str_replace(',', ', ', urldecode($album->getSearchParams())));
 											break;
 										case'fav':
 											echo html_encode($album->owner);
@@ -1500,7 +1527,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php
 						}
 
-						$sort = $sortby;
+						$sort = $_zp_sortby;
 						if (!$album->isDynamic()) {
 							$sort[gettext('Manual')] = 'manual';
 						}
@@ -1558,7 +1585,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<span id="album_custom_div<?php echo $suffix; ?>" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
 									<br />
 									<?php echo gettext('custom fields:') ?>
-									<input id="customalbumsort<?php echo $suffix; ?>" class="customalbumsort" name="<?php echo $prefix; ?>customalbumsort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									<span class="tagSuggestContainer">
+										<input id="customalbumsort<?php echo $suffix; ?>" class="customalbumsort" name="<?php echo $prefix; ?>customalbumsort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									</span>
 								</span>
 							</td>
 						</tr>
@@ -1614,7 +1643,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<span id="image_custom_div<?php echo $suffix; ?>" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
 									<br />
 									<?php echo gettext('custom fields:') ?>
-									<input id="customimagesort<?php echo $suffix; ?>" class="customimagesort" name="<?php echo $prefix; ?>customimagesort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									<span class="tagSuggestContainer">
+										<input id="customimagesort<?php echo $suffix; ?>" class="customimagesort" name="<?php echo $prefix; ?>customimagesort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									</span>
 								</span>
 							</td>
 						</tr>
@@ -1751,7 +1782,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 											// there are some images to choose from
 											foreach ($imagelist as $imagename) {
 												if (is_array($imagename)) {
-													$image = newImage(NULL, $imagename);
+													$image = newImage($imagename);
 													$imagename = '/' . $imagename['folder'] . '/' . $imagename['filename'];
 													$filename = basename($imagename);
 												} else {
@@ -1788,8 +1819,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 								</td>
 							</tr>
 							<?php
-							echo $custom = zp_apply_filter('edit_album_custom_data', '', $album, $prefix);
 						}
+						echo $custom = zp_apply_filter('edit_album_custom_data', '', $album, $prefix);
 						?>
 					</table>
 				</td>
@@ -2005,12 +2036,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 						?>
 						<span class="clearall" ></span>
 					</div>
-					<h2 class="h2_bordered_edit"><?php echo gettext("Tags"); ?></h2>
-					<div class="box-edit-unpadded">
-						<?php
-						tagSelector($album, 'tags_' . $prefix, false, getTagOrder(), true, true);
-						?>
-					</div>
 				</td>
 			</tr>
 
@@ -2042,7 +2067,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<img src="images/folder.png" alt="" />
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
-						<?php
+						<?php if (!$album->isDynamic()) { ?>
+							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbum('<?php echo pathurlencode($album->name); ?>', true);">
+								<img src="images/folder.png" alt="" />
+								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
+							</button>
+							<?php
+						}
 					}
 					?>
 					<a href="<?php echo WEBPATH . "/index.php?album=" . html_encode(pathurlencode($album->getFileName())); ?>">
@@ -2381,10 +2412,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$prefix = "$index-";
 			$suffix = "_$index";
 		}
-		$tagsprefix = 'tags_' . $prefix;
 		$notify = '';
 		$album->setTitle(process_language_string_save($prefix . 'albumtitle', 2));
 		$album->setDesc(process_language_string_save($prefix . 'albumdesc', EDITOR_SANITIZE_LEVEL));
+		$tagsprefix = 'tags_' . $prefix;
 		$tags = array();
 		$l = strlen($tagsprefix);
 		foreach ($_POST as $key => $value) {
@@ -2433,7 +2464,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		$pubdate = $album->setPublishDate(sanitize($_POST['publishdate-' . $prefix]));
 		$album->setExpireDate(sanitize($_POST['expirationdate-' . $prefix]));
-		$album->setShow(isset($_POST[$prefix . 'Published']) && $pubdate <= date(date('Y-m-d H:i:s')));
 		$fail = '';
 		processCredentials($album, $suffix);
 		$oldtheme = $album->getAlbumTheme();
@@ -2447,6 +2477,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermark(sanitize($_POST[$prefix . 'album_watermark'], 3));
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
+		$album->setShow(isset($_POST[$prefix . 'Published']));
 
 		zp_apply_filter('save_album_custom_data', NULL, $prefix, $album);
 		zp_apply_filter('save_album_utilities_data', $album, $prefix);
@@ -3666,42 +3697,6 @@ function postAlbumSort($parentid) {
 }
 
 /**
- * generates a nested list of albums for the album tab sorting
- * Returns an array of "albums" each element contains:
- * 								'name' which is the folder name
- * 								'album' which is an album object for the album
- * 								'sort_order' which is an array of the sort order set
- *
- * @param $subalbum root level album (NULL is the gallery)
- * @param $levels how far to nest
- * @param $level internal for keeping the sort order elements
- * @return array
- */
-function getNestedAlbumList($subalbum, $levels, $level = array()) {
-	global $_zp_gallery;
-	$cur = count($level);
-	$levels--; // make it 0 relative to sync with $cur
-	if (is_null($subalbum)) {
-		$albums = $_zp_gallery->getAlbums();
-	} else {
-		$albums = $subalbum->getAlbums();
-	}
-
-	$list = array();
-	foreach ($albums as $analbum) {
-		$albumobj = newAlbum($analbum);
-		if (!is_null($subalbum) || $albumobj->isMyItem(ALBUM_RIGHTS)) {
-			$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
-			$list[] = array('name' => $analbum, 'sort_order' => $level);
-			if ($cur < $levels && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
-				$list = array_merge($list, getNestedAlbumList($albumobj, $levels + 1, $level));
-			}
-		}
-	}
-	return $list;
-}
-
-/**
  * Prints the sortable nested albums list
  * returns true if nesting levels exceede the database container
  *
@@ -3771,7 +3766,7 @@ function printNestedAlbumsList($albums, $show_thumb, $owner) {
  * Prints the dropdown menu for the nesting level depth for the album sorting
  *
  */
-function printEditDropdown($subtab, $nestinglevels, $nesting) {
+function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 	switch ($subtab) {
 		case '':
 			$link = '?selection=';
@@ -3798,7 +3793,7 @@ function printEditDropdown($subtab, $nestinglevels, $nesting) {
 				} else {
 					$selected = "";
 				}
-				echo '<option ' . $selected . ' value="admin-edit.php' . $link . $nestinglevel . '">';
+				echo '<option ' . $selected . ' value="admin-edit.php' . $link . $nestinglevel . $query . '">';
 				switch ($subtab) {
 					case '':
 					case 'subalbuminfo':
@@ -4074,13 +4069,9 @@ function processAlbumBulkActions() {
 						break;
 					case 'showall':
 						$albumobj->setShow(1);
-						$albumobj->setPublishDate(NULL);
-						$albumobj->setExpireDate(NULL);
 						break;
 					case 'hideall':
 						$albumobj->setShow(0);
-						$albumobj->setPublishDate(NULL);
-						$albumobj->setExpireDate(NULL);
 						break;
 					case 'commentson':
 						$albumobj->setCommentsAllowed(1);
@@ -4092,8 +4083,7 @@ function processAlbumBulkActions() {
 						$albumobj->set('hitcounter', 0);
 						break;
 					case 'addtags':
-						$mytags = array_unique(array_merge($tags, $albumobj->getTags(false)));
-						$albumobj->setTags($mytags);
+						addTags($tags, $albumobj);
 						break;
 					case 'cleartags':
 						$albumobj->setTags(array());
@@ -4102,8 +4092,7 @@ function processAlbumBulkActions() {
 						$images = $albumobj->getImages();
 						foreach ($images as $imagename) {
 							$imageobj = newImage($albumobj, $imagename);
-							$mytags = array_unique(array_merge($tags, $imageobj->getTags(false)));
-							$imageobj->setTags($mytags);
+							addTags($tags, $imageobj);
 							$imageobj->save();
 						}
 						break;
@@ -4162,12 +4151,10 @@ function processImageBulkActions($album) {
 						$imageobj->remove();
 						break;
 					case 'showall':
-						$imageobj->set('show', 1);
-						$imageobj->setPublishDate(NULL);
-						$imageobj->setExpireDate(NULL);
+						$imageobj->setShow(1);
 						break;
 					case 'hideall':
-						$imageobj->set('show', 0);
+						$imageobj->setShow(0);
 						break;
 					case 'commentson':
 						$imageobj->set('commentson', 1);
@@ -4179,8 +4166,7 @@ function processImageBulkActions($album) {
 						$imageobj->set('hitcounter', 0);
 						break;
 					case 'addtags':
-						$mytags = array_unique(array_merge($tags, $imageobj->getTags(false)));
-						$imageobj->setTags($mytags);
+						addTags($tags, $imageobj);
 						break;
 					case 'cleartags':
 						$imageobj->setTags(array());

@@ -175,6 +175,7 @@ if (!defined('DATABASE_SOFTWARE') && (extension_loaded(strtolower($_zp_conf_vars
 } else {
 	$data = false;
 }
+
 if (!$data && OFFSET_PATH != 2) {
 	require_once(dirname(__FILE__) . '/reconfigure.php');
 	reconfigureAction(3);
@@ -345,6 +346,24 @@ function getOption($key) {
 	} else {
 		return NULL;
 	}
+}
+
+/**
+ * Returns a list of options that start with $pattern
+ * @global array $_zp_options
+ * @param string $pattern
+ * @return array
+ */
+function getOptionsLike($pattern) {
+	global $_zp_options;
+	$result = array();
+	$pattern = strtolower($pattern);
+	foreach ($_zp_options as $option => $value) {
+		if (strpos($option, $pattern) === 0) {
+			$result[$option] = $value;
+		}
+	}
+	return $result;
 }
 
 /**
@@ -1198,11 +1217,12 @@ function switchLog($log) {
  *
  * @param string $message the debug information
  * @param bool $reset set to true to reset the log to zero before writing the message
+ * @param string $log alternative log file
  */
-function debugLog($message, $reset = false) {
+function debugLog($message, $reset = false, $log = 'debug') {
 	if (defined('SERVERPATH')) {
 		global $_zp_mutex;
-		$path = SERVERPATH . '/' . DATA_FOLDER . '/debug.log';
+		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
 		$me = getmypid();
 		if (is_object($_zp_mutex))
 			$_zp_mutex->lock();
@@ -1217,7 +1237,7 @@ function debugLog($message, $reset = false) {
 				} else {
 					$clone = ' ' . gettext('clone');
 				}
-				fwrite($f, '{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} ZenPhoto20 v" . ZENPHOTO_VERSION . '[' . ZENPHOTO_FULL_RELEASE . ']' . $clone . "\n");
+				fwrite($f, '{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} ZenPhoto20 v" . ZENPHOTO_VERSION . $clone . "\n");
 			}
 		} else {
 			$f = fopen($path, 'a');
@@ -1463,28 +1483,32 @@ function safe_glob($pattern, $flags = 0) {
  * Check to see if the setup script needs to be run
  */
 function checkInstall() {
-	preg_match('|([^-]*)|', ZENPHOTO_VERSION, $version);
-	if ($i = getOption('zenphoto_install')) {
-		$install = getSerializedArray($i);
-	} else {
-		$install = array('ZENPHOTO' => '0.0.0[0000]');
-	}
-	preg_match('|([^-]*).*\[(.*)\]|', $install['ZENPHOTO'], $matches);
-	if (isset($matches[1]) && isset($matches[2]) && $matches[1] != $version[1] || $matches[2] != ZENPHOTO_RELEASE || ((time() & 7) == 0) && OFFSET_PATH != 2 && $i != serialize(installSignature())) {
-		require_once(dirname(__FILE__) . '/reconfigure.php');
-		reconfigureAction(0);
+	if (OFFSET_PATH != 2) {
+		preg_match('|([^-]*)|', ZENPHOTO_VERSION, $version);
+		if ($i = getOption('zenphoto_install')) {
+			$install = getSerializedArray($i);
+		} else {
+			$install = array('REQUESTS' => 'CONFIGURATION', 'ZENPHOTO' => '0.0.0[0000]');
+		}
+		preg_match('|([^-]*).*\[(.*)\]|', $install['ZENPHOTO'], $matches);
+		if (isset($install['REQUESTS']) || isset($matches[1]) && isset($matches[2]) && $matches[1] != $version[1] || $matches[2] != ZENPHOTO_RELEASE || ((time() & 7) == 0) && OFFSET_PATH != 2 && $i != serialize(installSignature())) {
+			require_once(dirname(__FILE__) . '/reconfigure.php');
+			reconfigureAction(0);
+		}
 	}
 }
 
 /**
+ * registers a request to have setup run
+ * @param string $whom the requestor
  *
- * Call when terminating a script.
- * Closes the database to be sure that we do not build up outstanding connections
+ * @author Stephen Billard
+ * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
  */
-function exitZP() {
-	IF (function_exists('db_close'))
-		db_close();
-	exit();
+function requestSetup($whom) {
+	$sig = getSerializedArray(getOption('zenphoto_install'));
+	$sig['REQUESTS'][$whom] = $whom;
+	setOption('zenphoto_install', serialize($sig));
 }
 
 /**
@@ -1522,6 +1546,17 @@ function installSignature() {
 					'DATABASE'				 => $dbs['application'] . ' ' . $dbs['version']
 					)
 	);
+}
+
+/**
+ *
+ * Call when terminating a script.
+ * Closes the database to be sure that we do not build up outstanding connections
+ */
+function exitZP() {
+	IF (function_exists('db_close'))
+		db_close();
+	exit();
 }
 
 /**

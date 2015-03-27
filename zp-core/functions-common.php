@@ -13,7 +13,7 @@
  * @param type $sql
  */
 function dbErrorReport($sql) {
-	trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_error()), E_USER_ERROR);
+	zp_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_error()), E_USER_ERROR);
 }
 
 /**
@@ -28,7 +28,7 @@ function dbErrorReport($sql) {
 function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 	// check if function has been called by an exception
 	if (func_num_args() == 5) {
-		// called by trigger_error()
+		// called by zp_error()
 		list($errno, $errstr, $errfile, $errline) = func_get_args();
 	} else {
 		// caught exception
@@ -60,7 +60,19 @@ function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 		$errno = E_ERROR;
 	}
 	$msg = sprintf(gettext('%1$s: %2$s in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
-	debugLogBacktrace($msg, 1);
+	if (array_key_exists('REQUEST_URI', $_SERVER)) {
+		$uri = sanitize($_SERVER['REQUEST_URI']);
+		preg_match('|^(http[s]*\://[a-zA-Z0-9\-\.]+/?)*(.*)$|xis', $uri, $matches);
+		$uri = $matches[2];
+		if (!empty($matches[1])) {
+			$uri = '/' . $uri;
+		}
+	} else {
+		$uri = sanitize(@$_SERVER['SCRIPT_NAME']);
+	}
+	if ($uri)
+		$uri = "\nURI:" . urldecode(str_replace('\\', '/', $uri));
+	debugLogBacktrace($msg . $uri, 1);
 	return false;
 }
 
@@ -207,7 +219,7 @@ function getBare($content) {
 
 /** returns a sanitized string for the sanitize function
  * @param string $input_string
- * @param string $sanitize_level
+ * @param string $sanitize_level See sanitize()
  * @return string the sanitized string.
  */
 function sanitize_string($input, $sanitize_level) {
@@ -404,8 +416,10 @@ function mkdir_recursive($pathname, $mode) {
  * Logs the calling stack
  *
  * @param string $message Message to prefix the backtrace
+ * @param int $omit count of "callers" to remove from backtrace
+ * @param string $log alternative log file
  */
-function debugLogBacktrace($message, $omit = 0) {
+function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 	$output = trim($message) . "\n";
 	// Get a backtrace.
 	$bt = debug_backtrace();
@@ -434,7 +448,7 @@ function debugLogBacktrace($message, $omit = 0) {
 	if (!empty($line)) {
 		$output .= 'from ' . $line;
 	}
-	debugLog($output);
+	debugLog($output, false, $log);
 }
 
 /**
@@ -442,6 +456,7 @@ function debugLogBacktrace($message, $omit = 0) {
  *
  * @param string $message message to insert in log [optional]
  * @param mixed $var the variable to record
+ * @param string $log alternative log file
  */
 function debugLogVar($message) {
 	$args = func_get_args();
@@ -452,11 +467,16 @@ function debugLogVar($message) {
 		$message .= ' ';
 		$var = $args[1];
 	}
+	if (count($args) == 3) {
+		$log = $args[2];
+	} else {
+		$log = 'debug';
+	}
 	ob_start();
 	var_dump($var);
 	$str = ob_get_contents();
 	ob_end_clean();
-	debugLog(trim($message) . "\r" . html_decode(getBare($str)));
+	debugLog(trim($message) . "\r" . html_decode(getBare($str)), false, $log);
 }
 
 /**

@@ -8,16 +8,20 @@
  * @package setup
  *
  */
+list($usec, $sec) = explode(" ", microtime());
+$start = (float) $usec + (float) $sec;
+
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager.php');
+$debug = TEST_RELEASE || isset($_GET['debug']);
 
 $iMutex = new Mutex('i', getOption('imageProcessorConcurrency'));
 $iMutex->lock();
 
 $extension = sanitize($_REQUEST['plugin']);
-setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), true);
+setupLog(sprintf(gettext('Plugin:%s setup started'), $extension));
 $option_interface = NULL;
 $plugin_is_filter = 5 | THEME_PLUGIN;
 
@@ -38,7 +42,7 @@ if (extensionEnabled($extension)) {
 	if ($plugin_is_filter & THEME_PLUGIN) {
 		$priority .= ' | THEME_PLUGIN';
 	}
-	setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $extension, $priority), true);
+	setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $extension, $priority));
 	enableExtension($extension, $plugin_is_filter);
 }
 if (strpos($path, SERVERPATH . '/' . USER_PLUGIN_FOLDER) === 0) {
@@ -49,27 +53,23 @@ if (strpos($path, SERVERPATH . '/' . USER_PLUGIN_FOLDER) === 0) {
 	} else {
 		$deprecate = true;
 	}
-	if ($deprecate) {
-		setupLog(sprintf(gettext('Plugin:%s triggered the deprecated functions plugin'), $extension), true);
-		enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
-	}
+} else {
+	$deprecate = false;
 }
 if ($option_interface) {
 	//	prime the default options
-	setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $extension, $option_interface), true);
+	setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $extension, $option_interface));
 	$option_interface = new $option_interface;
 }
 
-setupLog(sprintf(gettext('Plugin:%s setup completed'), $extension), true);
-
 $iMutex->unlock();
-if (isset($deprecate) && $deprecate) {
+if ($deprecate) {
 	$img = 'pass_2.png';
 } else {
 	$img = 'pass.png';
 }
 $fp = fopen(SERVERPATH . '/' . ZENFOLDER . '/images/' . $img, 'rb');
+
 
 // send the right headers
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -78,4 +78,8 @@ header("Content-Length: " . filesize(SERVERPATH . '/' . ZENFOLDER . '/images/' .
 // dump the picture and stop the script
 fpassthru($fp);
 fclose($fp);
+
+list($usec, $sec) = explode(" ", microtime());
+$last = (float) $usec + (float) $sec;
+setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $start));
 ?>

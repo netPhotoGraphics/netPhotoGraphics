@@ -8,10 +8,11 @@
  * can already make root level albums, so are excluded from this plugin.
  *
  * @author Stephen Billard (sbillard)
- * 
+ *
  * @package plugins
  * @subpackage example
  * @category package
+ * @category ZenPhoto20Tools
  */
 $plugin_is_filter = 9 | ADMIN_PLUGIN;
 $plugin_description = gettext('Allow a user to create a root level album when he does not otherwise have rights to do so.');
@@ -212,12 +213,12 @@ function create_album_save($updated, $userobj, $i, $alter) {
 				} else {
 					if (@mkdir_recursive($path, FOLDER_MOD)) {
 						$album = newAlbum($alb);
-						if (!isset($_POST['publishalbum'])) {
-							$album->setShow(false);
-						}
 						$title = sanitize($_POST['albumtitle'], 2);
 						if (!empty($title)) {
 							$album->setTitle($title);
+						}
+						if (!isset($_POST['publishalbum'])) {
+							$album->setShow(false);
 						}
 						$album->save();
 						$userobj->setObjects(array_merge($userobj->getObjects(), array('data' => $alb, 'name' => $title, 'edit' => MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_UPLOAD | MANAGED_OBJECT_RIGHTS_VIEW)));

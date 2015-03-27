@@ -1,13 +1,13 @@
 <?php
 /**
  * JavaScript thumb nav plugin with dynamic loading of thumbs on request via JavaScript.
- * Place <var>printThumbNav()</var> on your theme's image.php where you want it to appear.
+ * Place <var>printThumbNav()</var> on your theme's <i>image.php</i> where you want it to appear.
  *
  * Supports theme based custom css files (place <var>jcarousel.css</var> and needed images in your theme's folder).
  *
  * @author Malte Müller (acrylian)
  * @package plugins
- * @subpackage media
+ * @subpackage theme
  */
 $plugin_description = gettext("jQuery jCarousel thumb nav plugin with dynamic loading of thumbs on request via JavaScript.");
 $plugin_author = "Malte Müller (acrylian) based on a jCarousel example";
@@ -171,7 +171,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 			if (count($jcarousel_items) >= 2) {
 				foreach ($jcarousel_items as $item) {
 					if (is_array($item)) {
-						$imgobj = newImage(newAlbum($item['folder']), $item['filename']);
+						$imgobj = newImage($_zp_current_album, $item['filename']);
 					} else {
 						$imgobj = newImage($_zp_current_album, $item);
 					}

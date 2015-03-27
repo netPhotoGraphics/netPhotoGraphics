@@ -76,8 +76,40 @@
 			}
 		</style>
 	<body>
-<h1>ZenPhoto20 v1.0.1.0 release notes</h1><h2>Rationalization of published states</h2>
-<p>The <code>show()</code> method of all objects now correctly reflects if the object is currently <em>published</em>. The <code>show()</code> method for objects which have a future publishing date will return <em>false</em> until the publishing date has occurred. At that time <em>true</em> will be returned. For objects that have expiry dates, once that date has passed the object will become <em>unpublished</em> and the <code>show()</code> method will return <em>false</em>.</p>
+<h1>ZenPhoto20 release notes</h1><p>&nbsp;</p>
+<h2>Tag handling for albums <em>mass-edit</em> and multiple image tabs</h2>
+<p>The ability to add tags to albums and images has been extended to the multiple item tabs. Previously this function was removed due to problems with some PHP installations where the amount of data "posted" when the apply button was pressed exceeded the capacity defined by the server. This resulted in not being able to save from these pages unless the number of items per page was reduced. (An option not available for the album mass-edit tab.)</p>
+<p>It is now possible to add tags to items on these pages.No list of possible tags is shown since that might cause some of the above issues. But <em>tag_suggest</em> will make suggestions from the existing tag list and you can create new tags by simply typing them in the <em>add tag</em> field. Individual tags cannot be removed. However you can elect to clear existing tags so only those you add will be present after the apply button is pressed.&nbsp;</p>
+<h2>Database storage for image metadata&nbsp;fields</h2>
+<p>ZenPhoto20 now allows for database columns for image metadata&nbsp;to be optional. You can reduce the size of image database records by marking the ones you do not need <em>do not process</em> on the<em> image options</em> tab. When <code>setup</code> is run it will add or remove fields based on this setting. There is an additional checkbox on that tab,&nbsp;<em>Mark unused fields do not process</em>, that will cause ZenPhoto20 to examine the database for metadata&nbsp;columns that have not had any data stored. These are then marked <em>do not process</em>. Before using this option you should insure that you have a representative set of images and have refreshed their metadata&nbsp;so as to not remove columns that you might want.</p>
+<p>The <em>class-video</em> and <em>xmpMetadata</em> plugins&nbsp;will create database columns for their metadata&nbsp;only if they are enabled when <code>setup</code> is run.</p>
+<p>You may see a "configuration change" notice when you change the state of these options. This will indicate that a <em>setup request</em> has been made (and by what process.) This is a reminder that the change will not take effect until you have run <code>setup</code> so data that might be stored in these fields may not be saved&nbsp;to the database.</p>
+<h2>Plugins</h2>
+<p><em>tagsFromMetadata:</em></p>
+<p>This plugin will allow you to select specific metadata items from an image and set the values of these items as tags for the image. So, for instance, you can select <em>EXIFMake</em> and all your images will be tagged with the camera manufacturer's name (provided that camera does record that metadata item.) Tags will be created in each enabled language provided there is a unique translation in that language for the item.</p>
+<p><em>tagFromSearch:</em></p>
+<p>This plugin provides a means to tag objects found by a search. In addition, it (optionally) forces searches&nbsp;by visitors and users without <em>Tags</em>&nbsp;rights to be limited to the&nbsp;tags field.<br /><br />Thus you can apply a unique tag to results of a search so that they are "related" to&nbsp;each other. If you have selected the optional <em>Tags only</em>&nbsp;search <em>normal&nbsp;</em>viewers are limited&nbsp;to searching for defined tags.</p>
+<p><em>debug:<br />markRelease:</em></p>
+<p>The <em>markRelease</em>&nbsp;plugin&nbsp;has been consolidated&nbsp;into the&nbsp;<em>debug</em> plugin.&nbsp;In addition the functionality of the <code>Mark release</code> button is extended by plugin&nbsp;options to allow you to refine the debugging options that are set.</p>
+<p><em>ipBlocker:</em></p>
+<p>The plugin&nbsp;has been extensively rewritten to improve both performance and reporting of its actions. A new capability is added to monitor 404 errors and suspend ip address that generate them too quickly.</p>
+<p><strong>Image rotation fixes</strong></p>
+<p>The original <em>zenphoto&nbsp;</em>code that handled image rotation was confused about the meanings of each of the <em>EXIF&nbsp;orientation</em> values. This was originally mitigated by also being confused as to how the<em> GD library</em> rotations worked. These two errors offset each other. But then the <em>Imagic </em>library was implemented. It rotated images in the opposite&nbsp;direction from the <em>GD library.</em></p>
+<p>Then someone noticed that GD rotated in the opposite direction from <em>zenphoto's </em>assumptions and "fixed" the code. This broke situations where a camera recorded&nbsp;the image rotation instead of just rotating the image as is normal.</p>
+<p>We have now fixed the implementation to be true to the specification. Camera set rotations now will work correctly. Unfortunately the downside of this is if you have "fixed" on your images on the prior software they may now be improperly rotated. You should re-import the image metadata&nbsp;or select the correct image rotation on the image tab.</p>
+<h2>News article sort order selections</h2>
+<p>You may now select ordering by <em>Published date</em>, <em>Last change date</em>, and <em>Expiry date</em> in addition to the original <em>creation&nbsp;date</em> and <em>title </em>orders. <em>Creation date</em> (or <em>Last change date</em>) are now shown in addition to the <em>Published date</em>.</p>
+<h2>Security</h2>
+<p>This release fixes a hole whereby a hacker could cause your setup scripts to become unprotected.</p>
+<hr />
+<p>&nbsp;</p>
+<h2 style="text-align: center;">Version 1.1.0</h2>
+<h2>New theme</h2>
+<p><a href="http://www.vincentbourganel.fr/news/zpbootstrap-a-responsive-theme-zenphoto-zenpage">zpBootstrap</a>&mdash;a responsive theme by Vincent Bourganel&nbsp;has been added to the distributed themes set.&nbsp;</p>
+<h2>Tag lists will reflect published state of the object</h2>
+<p>Tag suggestion lists and <code>html_meta_tags</code> keywords will not be gated by the published state of objects. Specifically, if the site viewer is not logged-in then tags associated with objects marked <em>unpublished</em> will not be included in the counts. This means, for instance, that if a tag is associated only with unpublished objects it will not be included in these lists. Note: object hierarchy&nbsp;is not applied in this for performance reasons. Thus for instance tags of <em>published</em> images in an <em>unpublished</em> album will be included.</p>
+<h2>Rationalization of published states</h2>
+<p><em>The <code>show()</code> method of all objects now correctly reflects if the object is currently published. The <code>show()</code> method for objects which have a future publishing date will return false until the publishing date has occurred. At that time true will be returned. For objects that have expiry dates, once that date has passed the object will become unpublished and the <code>show()</code> method will return false.</em></p>
 <p>If you explicitly publish an object that has expired or whose publish date is in the future then the expiry and publish dates will be cancelled.</p>
 <p>This means that the database <code>show</code> column is the sole arbitrator of whether an object should be visible to the general public.</p>
 <h2>Dynamically translatable image metadata strings</h2>
@@ -99,10 +131,6 @@
 <p>There are two enhancements to security questions implemented now. First, the administrator may create as many foils as he wishes to increase the work a hacker must do to try to hack an answer. Second, security questions provided by other users may be presented, again increasing the work of hackers.</p>
 <h2>Checkbox toggle for search&nbsp;fields</h2>
 <p>The search form now has a toggle to check/un-check all search fields. This makes it easier to search on a limited number of the possible fields.</p>
-<hr />
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 style="text-align: center;">Version 1.0.1</h1>
 <h2>Mouse click minimization</h2>
 <p>When you "apply" changes on admin edit tabs you will now be returned to the page that launched the edit. That is if you use the front-end admin toolbox to edit an image the apply button will return you to the image page. If you got there from the "Edit all image data" link you will return to the page of images. This behavior is cancelled if any errors occur.</p>
 <p><strong>Performance enhancements</strong></p>
@@ -119,7 +147,7 @@
 <p>A new function,&nbsp;<em>favorites::listWatchers()</em>, is available&nbsp;to assists&nbsp;in output of users watching an object. The plugin now&nbsp;uses a DL list to show the watchers on the administrative tabs.</p>
 <h2>Resizable language string input areas</h2>
 <p>If the <em>Multi-lingual</em> option is selected text input areas such as <em>page</em> and <em>article&nbsp;</em>content fields can be expanded by dragging on the resize handle at the lower right of the field. If tinyMCE is enabled the individual language edit boxes expand giving the ability to see multiple language translations at a time.</p>
-<h2>TinyMce language directionality</h2>
+<h2>TinyMCE language directionality</h2>
 <p>Normally TinyMCE will set the <em>language directionality</em> based on the language in effect. E.g. if the language is Persian, Arabic,&nbsp;Hebrew,&nbsp;Hindi, or&nbsp;Urdu the language direction will be <em>right-to-left</em>. Otherwise it is <em>left-to-right</em>. There is now an option to override this setting and force <em>right-to-left</em> for those cases where this selection is not appropriate. In addition the tinyMCE editor has buttons (where selected) and <em>tool</em> settings to change the text direction.</p>
 <h2>Download for dynamic albums and favoitied</h2>
 <p>The <em>downloadList</em> plugin now supports "album zips" for dynamic albums and for the user's favorites.</p>
@@ -161,6 +189,7 @@
 <p>Running the script extracts the release source scripts and then starts&nbsp;the setup process. This work flow&nbsp;is&nbsp;less prone to such things as mis-matched versions of the individual files or overwriting album files.</p>
 <h2>Suffix-less image links</h2>
 <p>If you use <em>mod_rewrite</em> with a <em>mod_rewrite suffix</em> and your image names are unique in their prefix you can select the option <em>Unique images</em>&nbsp;on the general options tab so that your image page links will not include the image suffix. For instance if your <em>mod_rewrite suffix</em> is <code>.htm</code> then&nbsp;the link to the image <code>myalbum/myimage.jpg</code>&nbsp;will have the link <code>myalbum/myimage.htm.</code></p>
+<p>&nbsp;<a id="tinyMCE:obj"></a></p>
 <h2>tinyMCE:obj plugin</h2>
 <p>This plugin replaces tinyZenpage as the preferred means for inserting ZenPhoto20 objects into tinyMCE editor windows.</p>
 <p>On the back end each object has a "pick" icon (<img src="https://cloud.githubusercontent.com/assets/2474007/3194486/59db3546-ecff-11e3-8c27-e5c44fd92f2b.png" alt="add" />) that you use to select the object. The overview lists also have a pick icon for each object, so it is not necessary to browse all the way to the object's tab.</p>

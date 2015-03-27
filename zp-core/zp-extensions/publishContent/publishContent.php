@@ -10,8 +10,6 @@ function unpublishSubalbums($album) {
 	foreach ($albums as $albumname) {
 		$subalbum = newAlbum($albumname);
 		$subalbum->setShow(false);
-		$subalbum->setPublishDate(NULL);
-		$subalbum->setExpireDate(NULL);
 		$subalbum->save();
 		unpublishSubalbums($subalbum);
 	}
@@ -37,8 +35,6 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $albumid) {
 				$album = newAlbum(sanitize(postIndexDecode($key)));
 				$album->setShow(1);
-				$album->setExpireDate(NULL);
-				$album->setPublishDate(NULL);
 				$album->save();
 			}
 			$report = 'albums';
@@ -54,8 +50,6 @@ if (isset($_POST['set_defaults'])) {
 				switch (substr($action, 0, $i)) {
 					case 'pub':
 						$image->setShow(1);
-						$image->setExpireDate(NULL);
-						$image->setPublishDate(NULL);
 						$image->save();
 						break;
 					case 'del':
@@ -78,8 +72,6 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $titlelink) {
 				$obj = newArticle($titlelink);
 				$obj->setShow(1);
-				$obj->setExpireDate(NULL);
-				$obj->setPublishDate(NULL);
 				$obj->save();
 			}
 			break;
@@ -87,8 +79,6 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $titlelink) {
 				$obj = newPage($titlelink);
 				$obj->setShow(1);
-				$obj->setExpireDate(NULL);
-				$obj->setPublishDate(NULL);
 				$obj->save();
 			}
 			$report = 'pages';
@@ -195,7 +185,6 @@ echo '</head>';
 					ksort($publish_images_list, SORT_LOCALE_STRING);
 				}
 
-
 				if (zp_loggedin(ADMIN_RIGHTS)) { //only admin should be allowed to do this
 					?>
 					<fieldset class="smallbox">
@@ -285,6 +274,7 @@ echo '</head>';
 												<?php echo $album->name; ?>
 											</label>
 											<a href="<?php echo $album->getLink(); ?>" title="<?php echo gettext('view'); ?>"> (<?php echo gettext('view'); ?>)</a>
+											<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit&album=<?php echo html_encode($album->name); ?>" title="<?php echo gettext('Edit'); ?>"> (<?php echo gettext('Edit'); ?>)</a>
 										</li>
 										<?php
 									}
@@ -444,7 +434,7 @@ echo '</head>';
 																	<img src="<?php echo html_encode(pathurlencode(getAdminThumb($image, 'medium'))); ?>" alt="<?php echo $image->filename; ?>"/>
 																</td>
 																<td>
-																	<?php printf(gettext('%s'), $display); ?><a href="<?php echo html_encode($image->getLink()); ?>" title="<?php echo html_encode($image->getTitle()); ?>"> (<?php echo gettext('View'); ?>)</a>
+																	<?php echo $display; ?> <a href="<?php echo html_encode($image->getLink()); ?>" title="<?php echo html_encode($image->getTitle()); ?>">(<?php echo gettext('View'); ?>) </a><a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit&tab=imageinfo&album=<?php echo html_encode($image->album->name); ?>&singleimage=<?php echo html_encode($image->getFilename()); ?>&subpage=1">(<?php echo gettext('Edit'); ?>)</a>
 																</td>
 															</tr>
 														</table>
@@ -497,7 +487,11 @@ echo '</head>';
 						$itemobj = newCategory($item['titlelink']);
 						if (!$itemobj->getShow()) {
 							$c++;
-							$output .= '<li><label><input type="checkbox" name="' . $item['titlelink'] . '" value="' . $item['titlelink'] . '" class="catcheck" />' . $itemobj->getTitle() . '</label><a href="' . html_encode($itemobj->getLink()) . '" title="' . html_encode($itemobj->getTitle()) . '"> (' . gettext('View') . ')</a></li>';
+							$output .= '<li><label><input type="checkbox" name="' . $item['titlelink'] . '" value="' . $item['titlelink'] . '" class="catcheck" />' . $itemobj->getTitle() . '</label>';
+							if ($desc = shortenContent($itemobj->getDesc(), 50, '...')) {
+								$output .= ' "' . strip_tags($desc) . '"';
+							}
+							$output .= ' <a href="' . html_encode($itemobj->getLink()) . '" title="' . html_encode($itemobj->getTitle()) . '">(' . gettext('View') . ')</a> <a href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-edit.php?newscategory&titlelink=' . html_encode($itemobj->getTitlelink()) . '">(' . gettext('Edit') . ')</a></li>';
 						}
 					}
 					?>
@@ -556,7 +550,11 @@ echo '</head>';
 						$itemobj = newArticle($item['titlelink']);
 						if (!$itemobj->getShow()) {
 							$c++;
-							$output .= '<li><label><input type="checkbox" name="' . $item['titlelink'] . '" value="' . $item['titlelink'] . '" class="artcheck" />' . $itemobj->getTitle() . '</label><a href="' . html_encode($itemobj->getLink()) . '" title="' . html_encode($itemobj->getTitle()) . '"> (' . gettext('View') . ')</a></li>';
+							$output .= '<li><label><input type="checkbox" name="' . $item['titlelink'] . '" value="' . $item['titlelink'] . '" class="catcheck" />' . $itemobj->getTitle() . '</label>';
+							if ($desc = shortenContent($itemobj->getContent(), 50, '...')) {
+								$output .= ' "' . strip_tags($desc) . '"';
+							}
+							$output .= ' <a href="' . html_encode($itemobj->getLink()) . '" title="' . html_encode($itemobj->getTitle()) . '">(' . gettext('View') . ') </a><a href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-edit.php?newscategory&titlelink=' . html_encode($itemobj->getTitlelink()) . '">(' . gettext('Edit') . ')</a></li>';
 						}
 					}
 					?>
@@ -612,7 +610,11 @@ echo '</head>';
 						$itemobj = newPage($item['titlelink']);
 						if (!$itemobj->getShow()) {
 							$c++;
-							$output .= '<li><label><input type="checkbox" name="' . $item['titlelink'] . '" value="' . $item['titlelink'] . '" class="pagecheck" />' . $itemobj->getTitle() . '</label><a href="' . html_encode($itemobj->getLink()) . '" title="' . html_encode($itemobj->getTitle()) . '"> (' . gettext('View') . ')</a></li>';
+							$output .= '<li><label><input type="checkbox" name="' . $item['titlelink'] . '" value="' . $item['titlelink'] . '" class="catcheck" />' . $itemobj->getTitle() . '</label>';
+							if ($desc = shortenContent($itemobj->getContent(), 50, '...')) {
+								$output .= ' "' . strip_tags($desc) . '"';
+							}
+							$output .= ' <a href="' . html_encode($itemobj->getLink()) . '" title="' . html_encode($itemobj->getTitle()) . '">(' . gettext('View') . ')</a> <a href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-edit.php?newscategory&titlelink=' . html_encode($itemobj->getTitlelink()) . '" title="' . html_encode($itemobj->getTitle()) . '">(' . gettext('Edit') . ')</a></li>';
 						}
 					}
 					?>
