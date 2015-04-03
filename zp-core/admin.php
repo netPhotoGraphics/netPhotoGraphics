@@ -78,7 +78,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 				/** restore the setup files ************************************************** */
 				case 'restore_setup':
 					XSRFdefender('restore_setup');
-					list($diff, $needs) = checkSignature(true);
+					list($diff, $needs) = checkSignature(1);
 					if (empty($needs)) {
 						$class = 'messagebox';
 						$msg = gettext('Setup files restored.');
@@ -97,8 +97,8 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					$rslt = array();
 					foreach ($list as $component) {
 						@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, 0777);
-						if (@rename(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component . '.xxx')) {
-							@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component . '.xxx', FILE_MOD);
+						if (@rename(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, SERVERPATH . '/' . ZENFOLDER . '/setup/' . stripSuffix($component) . '.xxx')) {
+							@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
 						} else {
 							@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, FILE_MOD);
 							$rslt[] = $component;
@@ -256,8 +256,8 @@ if (!zp_loggedin()) {
 					unset($buttonlist[$key]);
 				}
 			}
-			list($diff, $needs) = checkSignature(0);
-			if (zpFunctions::hasPrimaryScripts()) {
+			list($diff, $needs, $present) = checkSignature(0);
+			if ($present && zpFunctions::hasPrimaryScripts()) {
 				//	button to restore setup files if needed
 				if (!empty($needs)) {
 					$buttonlist[] = array(
