@@ -113,7 +113,7 @@ function checkSignature($mandatory) {
 	$package = file_get_contents(dirname(__FILE__) . '/zenphoto.package');
 	preg_match_all('|' . ZENFOLDER . '/setup/(.*)|', $package, $matches);
 	$needs = array();
-	$restore = false;
+	$restore = $found = false;
 	foreach ($matches[1] as $need) {
 		$needs[] = rtrim(trim($need), ":*");
 	}
@@ -129,7 +129,7 @@ function checkSignature($mandatory) {
 		$needs = array_diff($needs, $found);
 	}
 	$_configMutex->unlock();
-	return array($diff, $needs, $restore);
+	return array($diff, $needs, $restore, $found);
 }
 
 /**
@@ -255,6 +255,8 @@ function reconfigurePage($diff, $needs, $mandatory) {
  * control when and how setup scripts are turned back into PHP files
  */
 function restoreSetupScrpts($reason) {
+	//log setup file restore no matter what!
+	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/security-logger.php');
 	switch ($reason) {
 		default:
 			$addl = sprintf(gettext('restored to run setup [%s]'), $reason);
@@ -263,7 +265,7 @@ function restoreSetupScrpts($reason) {
 			$addl = gettext('restored by cloning');
 			break;
 	}
-	zp_apply_filter('log_setup', true, 'restore', $addl);
+	security_logger::log_setup(true, 'restore', $addl);
 	if (!defined('FILE_MOD')) {
 		define('FILE_MOD', 0666);
 	}
