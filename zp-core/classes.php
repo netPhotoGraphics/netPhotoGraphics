@@ -43,12 +43,12 @@ class PersistentObject {
 	var $table;
 	var $transient;
 	protected $id = 0;
-	private $unique_set = NULL;
+	private $unique_set = array();
 	private $cache_by;
 	private $use_cache = false;
-	private $tempdata = NULL;
-	private $data = NULL;
-	private $updates = NULL;
+	private $tempdata = array();
+	private $data = array();
+	private $updates = array();
 
 	/**
 	  }
@@ -254,13 +254,14 @@ class PersistentObject {
 	}
 
 	/**
-	 *
 	 * returns the database record of the object
-	 * NOTE: if you want to be sure that the data is merged, save the object before invoking this function
 	 *
 	 * @return array
 	 */
 	function getData() {
+		foreach ($this->updates as $key => $value) {
+			$this->data[$key] = $value;
+		}
 		return $this->data;
 	}
 
@@ -269,11 +270,11 @@ class PersistentObject {
 	 * as of the last save of this object.
 	 */
 	function get($var, $current = true) {
-		if ($current && isset($this->updates[$var])) {
+		if ($current && array_key_exists($var, $this->updates)) {
 			return $this->updates[$var];
-		} else if (isset($this->data[$var])) {
+		} else if (array_key_exists($var, $this->data)) {
 			return $this->data[$var];
-		} else if (isset($this->tempdata[$var])) {
+		} else if (array_key_exists($var, $this->tempdata)) {
 			return $this->tempdata[$var];
 		} else {
 			return null;
@@ -350,8 +351,12 @@ class PersistentObject {
 			// filter aborted the save
 			return false;
 		}
+
 		if (!$this->id) {
+			//	prevent recursive save form default processing
+			$this->transient = true;
 			$this->setDefaults();
+			$this->transient = false;
 			$insert_data = array_merge($this->unique_set, $this->updates);
 			if (empty($insert_data)) {
 				return true;

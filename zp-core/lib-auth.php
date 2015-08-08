@@ -1,49 +1,13 @@
 <?php
 /**
- * USER credentials handlers
- *
- * An alternate authorization script may be provided to override this script. To do so, make a script that
- * implements the classes declared below. Place the new script inthe <ZENFOLDER>/plugins/alt/ folder. ZenPhoto20
- * will then will be automatically loaded the alternate script in place of this one.
- *
- * Replacement libraries must implement two classes:
- * 		"Authority" class: Provides the methods used for user authorization and management
- * 			store an instantiation of this class in $_zp_authority.
- *
- * 		Administrator: supports the basic needs for object manipulation of administrators.
- * (You can include this script and extend the classes if that suits your needs.)
- *
- * The global $_zp_current_admin_obj represents the current admin with.
- * The library must instantiate its authority class and store the object in the global $_zp_authority
- * (Note, this library does instantiate the object as described. This is so its classes can
- * be used as parent classes for lib-auth implementations. If auth_zp.php decides to use this
- * library it will instantiate the class and store it into $_zp_authority.
- *
- * The following elements need to be present in any alternate implementation in the
- * array returned by getAdministrators().
- *
- * 		In particular, there should be array elements for:
- * 				'id' (unique), 'user' (unique),	'pass',	'name', 'email', 'rights', 'valid',
- * 				'group', and 'other_credentials'
- *
- * 		So long as all these indices are populated it should not matter when and where
- * 		the data is stored.
- *
- * 		Administrator class methods are required for these elements as well.
- *
- * 		The getRights() method must define at least the rights defined by the method in
- * 		this library.
- *
- * 		The checkAuthorization() method should promote the "most privileged" Admin to
- * 		ADMIN_RIGHTS to insure that there is some user capable of adding users or
- * 		modifying user rights.
+ * USER credentials library
  *
  * @package classes
  */
 // force UTF-8 Ø
 require_once(dirname(__FILE__) . '/classes.php');
 
-class Zenphoto_Authority {
+class _Authority {
 
 	var $admin_users = NULL;
 	var $admin_groups = NULL;
@@ -86,12 +50,20 @@ class Zenphoto_Authority {
 		}
 	}
 
+	function addOtherUser($adminObj) {
+		$this->admin_users[$adminObj->getID()] = $adminObj->getData();
+	}
+
 	function getMasterUser() {
 		return new Zenphoto_Administrator($this->master_user, 1);
 	}
 
 	function isMasterUser($user) {
 		return $user == $this->master_user;
+	}
+
+	function validID($id) {
+		return array_key_exists($id, $this->admin_all);
 	}
 
 	/**
@@ -257,7 +229,7 @@ class Zenphoto_Authority {
 			}
 		}
 		$sql = 'SELECT * FROM ' . prefix('administrators') . ' WHERE ' . implode(' AND ', $selector) . ' LIMIT 1';
-		$admin = query_single_row($sql, false);
+		$admin = query_single_row($sql);
 		if ($admin) {
 			return self::newAdministrator($admin['user'], $admin['valid']);
 		} else {
@@ -280,7 +252,6 @@ class Zenphoto_Authority {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
 
-
 		$admins = $this->getAdministrators();
 		if (count($admins) == 0) {
 			if (DEBUG_LOGIN) {
@@ -298,18 +269,14 @@ class Zenphoto_Authority {
 			return $_zp_current_admin_obj->getRights();
 		}
 
-
 		$_zp_current_admin_obj = NULL;
-		if (empty($authCode))
+		if (empty($authCode) || empty($id))
 			return 0; //  so we don't "match" with an empty password
 		if (DEBUG_LOGIN) {
 			debugLogVar("checkAuthorization: admins", $admins);
 		}
 		$rights = 0;
-		$criteria = array('`pass`=' => $authCode, '`valid`=' => 1);
-		if (!empty($id)) {
-			$criteria['`id`='] = $id;
-		}
+		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
 		$user = self::getAnAdmin($criteria);
 		if (is_object($user)) {
 			$_zp_current_admin_obj = $user;
@@ -508,8 +475,8 @@ class Zenphoto_Authority {
 	 * @param $valid
 	 * @return object
 	 */
-	static function newAdministrator($name, $valid = 1) {
-		$user = new Zenphoto_Administrator($name, $valid);
+	static function newAdministrator($name, $valid = 1, $allowCreate = true) {
+		$user = new Zenphoto_Administrator($name, $valid, $allowCreate);
 		return $user;
 	}
 
@@ -827,14 +794,16 @@ class Zenphoto_Authority {
 	 */
 	function checkCookieCredentials() {
 		list($auth, $id) = explode('.', zp_getCookie('zp_user_auth') . '.');
-		$loggedin = $this->checkAuthorization($auth, $id);
-		$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
-		if ($loggedin) {
-			return $loggedin;
-		} else {
-			zp_clearCookie("zp_user_auth");
-			return NULL;
+		if ($auth) {
+			$loggedin = $this->checkAuthorization($auth, $id);
+			$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
+			if ($loggedin) {
+				return $loggedin;
+			} else {
+				zp_clearCookie("zp_user_auth");
+			}
 		}
+		return NULL;
 	}
 
 	/**
@@ -1276,7 +1245,7 @@ class Zenphoto_Authority {
 		<p>
 			<label for="disclose_password<?php echo $id; ?>"><?php echo gettext('Show password'); ?></label>
 			<input type="checkbox" name="disclose_password<?php echo $id; ?>" id="disclose_password<?php echo $id; ?>" onclick="passwordClear('<?php echo $id; ?>');
-							togglePassword('<?php echo $id; ?>');">
+					togglePassword('<?php echo $id; ?>');">
 		</p>
 		<p class="password_field_<?php echo $id; ?>">
 			<label for="pass_r<?php echo $id; ?>" id="match<?php echo $id; ?>"><?php echo gettext("Repeat password") . $flag; ?></label>
@@ -1320,7 +1289,7 @@ class Zenphoto_Authority {
 
 }
 
-class Zenphoto_Administrator extends PersistentObject {
+class _Administrator extends PersistentObject {
 
 	/**
 	 * This is a simple class so that we have a convienient "handle" for manipulating Administrators.
@@ -1344,10 +1313,10 @@ class Zenphoto_Administrator extends PersistentObject {
 	 * @return Administrator
 	 */
 
-	function __construct($user, $valid) {
+	function __construct($user, $valid, $create = true) {
 		global $_zp_authority;
 		$this->passhash = (int) getOption('strong_hash');
-		$this->instantiate('administrators', array('user' => $user, 'valid' => $valid), NULL, false, empty($user));
+		$this->instantiate('administrators', array('user' => $user, 'valid' => $valid), NULL, false, empty($user), $create);
 		if (empty($user)) {
 			$this->set('id', -1);
 		}
@@ -1423,7 +1392,7 @@ class Zenphoto_Administrator extends PersistentObject {
 		$this->set('pass', $pwd);
 		$this->set('passupdate', date('Y-m-d H:i:s'));
 		$this->set('passhash', $hash_type);
-		return $this->get('pass');
+		return $pwd;
 	}
 
 	/**
@@ -1487,7 +1456,7 @@ class Zenphoto_Administrator extends PersistentObject {
 	/**
 	 * Returns local copy of managed objects.
 	 */
-	function getObjects($what = NULL) {
+	function getObjects($what = NULL, $full = NULL) {
 		if (is_null($this->objects)) {
 			if ($this->transient) {
 				$this->objects = array();
@@ -1501,7 +1470,11 @@ class Zenphoto_Administrator extends PersistentObject {
 		$result = array();
 		foreach ($this->objects as $object) {
 			if ($object['type'] == $what) {
-				$result[$object['name']] = $object['data'];
+				if ($full) {
+					$result[$object['data']] = $object;
+				} else {
+					$result[$object['name']] = $object['data'];
+				}
 			}
 		}
 		return $result;
@@ -1632,8 +1605,12 @@ class Zenphoto_Administrator extends PersistentObject {
 						}
 						break;
 					case 'news':
-						$sql = 'SELECT * FROM ' . prefix('news_categories') . ' WHERE `titlelink`=' . db_quote($object['data']);
-						$result = query_single_row($sql);
+						if ($object['data'] == '`') {
+							$result = array('id' => 0);
+						} else {
+							$sql = 'SELECT * FROM ' . prefix('news_categories') . ' WHERE `titlelink`=' . db_quote($object['data']);
+							$result = query_single_row($sql);
+						}
 						if (is_array($result)) {
 							$objectid = $result['id'];
 							$sql = "INSERT INTO " . prefix('admin_to_object') . " (adminid, objectid, type, edit) VALUES ($id, $objectid, 'news', $edit)";

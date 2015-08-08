@@ -21,7 +21,6 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop_height', 150);
 		setThemeOptionDefault('image_size', 700);
 		setThemeOptionDefault('image_use_side', 'longest');
-		setThemeOptionDefault('custom_index_page', '');
 
 		setThemeOptionDefault('use_image_logo_filename', 'banniere3.jpg');
 		setThemeOptionDefault('show_image_logo_on_image', false);
@@ -38,7 +37,6 @@ class ThemeOptions {
 		setThemeOptionDefault('use_colorbox_image', false);
 		setThemeOptionDefault('show_exif', true);
 
-		setOption('zp_plugin_colorbox_js', 9 | THEME_PLUGIN);
 		setOption('colorbox_zpArdoise_album', 1);
 		setOption('colorbox_zpArdoise_archive', 1);
 		setOption('colorbox_zpArdoise_contact', 1);
@@ -65,7 +63,7 @@ class ThemeOptions {
 	}
 
 	function getOptionsDisabled() {
-		return array('thumb_size', 'image_size', 'custom_index_page');
+		return array('thumb_size', 'image_size');
 	}
 
 	function getOptionsSupported() {

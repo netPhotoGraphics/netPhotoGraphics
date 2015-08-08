@@ -1,6 +1,4 @@
 <?php
-setOption('themeSwitcher_css', preg_replace('~top:\s.*px;~', 'top: 40px;', getOption('themeSwitcher_css')), false);
-
 // Check some settings
 
 $zenpage = getOption('zp_plugin_zenpage');
@@ -186,7 +184,7 @@ function printPPSlideShowLink($linktext = '', $linkstyle = '') {
 				if ($zpskel_pptarget == 'sized') {
 					$imagelink = $imgobj->getSizedImage(630);
 				} else {
-					$imagelink = $imgobj->getFullImage();
+					$imagelink = $imgobj->getFullImageURL();
 				}
 				$imagedetaillink = $imgobj->getLink();
 				?>

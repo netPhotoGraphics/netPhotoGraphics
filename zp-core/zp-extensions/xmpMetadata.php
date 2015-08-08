@@ -55,7 +55,7 @@ require_once(dirname(dirname(__FILE__)) . '/exif/exif.php');
 
 define('XMP_EXTENSION', strtolower(getOption('xmpMetadata_suffix')));
 
-if (OFFSET_PATH) {
+if (OFFSET_PATH && OFFSET_PATH != 2) {
 	zpFunctions::exifOptions('XMP Metadata', (extensionEnabled('xmpMetadata')) ? 0 : 2, xmpMetadata::getMetadataFields());
 }
 
@@ -982,16 +982,14 @@ class xmpMetadata {
 								case 'XMPGPSLatitude':
 								case 'XMPGPSLongitude':
 									$n = explode(',', substr($element, 0, -1));
-									if (count($n) == 3) {
-										$v = $n[0] + ($n[1] + ($n[2] / 60) / 60);
-									} else {
-										$v = $n[0] + $n[1] / 60;
+									$r = $n[0] + $n[1] / 60;
+									$ref = strtoupper(substr($element, -1, 1));
+									$v = Image::toDMS($r, $ref);
+									if (in_array($ref, array('S', 'W'))) {
+										$r = -$r;
 									}
-									if (in_array(strtoupper(substr($element, -1, 1)), array('S', 'W'))) {
-										$v = -$v;
-									}
-									$v = (float) $v;
-									$image->set(substr($field, 3), $v);
+									$r = (float) $r;
+									$image->set(substr($field, 3), $r);
 									break;
 								case 'XMPLensInfo':
 									preg_match_all('~(\d+/\d+)~', $v, $matches);

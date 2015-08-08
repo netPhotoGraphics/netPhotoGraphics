@@ -57,7 +57,7 @@
  * Example:
  * [MEDIAPLAYER album1 video.mp4]
  *
- * If you are using more than one player on a page you need to pass a 2nd parameter with for example an unique number:<br>
+ * If you are using more than one player on a page you need to pass a 3rd parameter with for example an unique number:<br>
  * [MEDIAPLAYER album1 video1.mp4 <var>1</var>]<br>
  * [MEDIAPLAYER album2 video2.mp4 <var>2</var>]
  *
@@ -107,8 +107,10 @@ class jplayer_options {
 			setOptionDefault('jplayer_counterparts', 0);
 			/* TODO: what are these sizes?
 			  $player = new jPlayer();
+			 * if (class_exists('cacheManager')) {
 			  cacheManager::deleteThemeCacheSizes('jplayer');
 			  cacheManager::addThemeCacheSize('jplayer', NULL, $player->width, $player->height, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+			 * }
 			 */
 		}
 	}
@@ -274,7 +276,7 @@ class jPlayer {
 	 *
 	 */
 	function getPlayerConfig($movie, $movietitle = NULL, $count = NULL) {
-		$moviepath = $movie->getFullImage(FULLWEBPATH);
+		$moviepath = $movie->getFullImageURL(FULLWEBPATH);
 		if (is_null($movietitle)) {
 			$movietitle = $movie->getTitle();
 		}
@@ -675,7 +677,7 @@ class jPlayer {
 					<?php if (getOption('jplayer_download')) { ?>
 							free:true,
 					<?php } ?>
-					<?php echo $this->supplied; ?>:"<?php echo html_encode(pathurlencode($url = $video->getFullImage(FULLWEBPATH))); ?>"
+					<?php echo $this->supplied; ?>:"<?php echo html_encode(pathurlencode($url = $video->getFullImageURL(FULLWEBPATH))); ?>"
 					<?php echo $this->getCounterpartFiles($url, $ext); ?>
 					<?php echo $videoThumb; ?>
 						}

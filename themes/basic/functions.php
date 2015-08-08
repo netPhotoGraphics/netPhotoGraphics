@@ -1,5 +1,6 @@
 <?php
 zp_register_filter('themeSwitcher_head', 'switcher_head');
+zp_register_filter('iconColor', 'iconColor');
 zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
 zp_register_filter('theme_head', 'css_head', 500);
 enableExtension('zenpage', 0, false); //	we do not support it
@@ -34,6 +35,17 @@ function css_head($ignore) {
 	return $ignore;
 }
 
+function iconColor($icon) {
+	global $themeColor;
+	if (!$themeColor) {
+		$themeColor = getOption('Theme_colors');
+	}
+	if (strpos($themeColor, 'dark') !== false) {
+		$icon = stripSuffix($icon) . '-white.png';
+	}
+	return($icon);
+}
+
 function printSoftwareLink() {
 	global $themeColor;
 	switch ($themeColor) {
@@ -63,9 +75,6 @@ function switcher_head($ignore) {
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
-		window.addEventListener('load', function () {
-			$('#themeSwitcher_zenpage').html('');
-		}, false);
 		function switchColors() {
 			personality = $('#themeColor').val();
 			window.location = '?themeColor=' + personality;

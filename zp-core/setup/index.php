@@ -9,6 +9,8 @@
 // force UTF-8 Ø
 Define('PHP_MIN_VERSION', '5.2');
 Define('PHP_DESIRED_VERSION', '5.4');
+define('HTACCESS_VERSION', '1.4.5'); // be sure to change this the one in .htaccess when the .htaccess file is updated.
+define('OFFSET_PATH', 2);
 
 // leave this as the first executable statement to avoid problems with PHP not having gettext support.
 if (!function_exists("gettext")) {
@@ -17,28 +19,27 @@ if (!function_exists("gettext")) {
 } else {
 	$noxlate = 1;
 }
-define('HTACCESS_VERSION', '1.4.5'); // be sure to change this the one in .htaccess when the .htaccess file is updated.
-
-define('OFFSET_PATH', 2);
-
 if (version_compare(PHP_VERSION, '5.0.0', '<')) {
 	die(sprintf(gettext('ZenPhoto20 requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
+
+$chmod = fileperms(dirname(dirname(__FILE__))) & 0666;
+$_initial_session_path = session_save_path();
+
 require_once(dirname(dirname(__FILE__)) . '/global-definitions.php');
 require_once(dirname(dirname(__FILE__)) . '/functions-common.php');
 
-$session_path = session_save_path();
-if (!file_exists($session_path) || !is_writable($session_path)) {
-	@mkdir(dirname(dirname(dirname(__FILE__))) . '/' . DATA_FOLDER . '/PHP_sessions', $chmod | 0311);
-	session_save_path(dirname(dirname(dirname(__FILE__))) . '/' . DATA_FOLDER . '/PHP_sessions');
+if (file_exists(dirname(dirname(dirname(__FILE__))) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	require(dirname(dirname(dirname(__FILE__))) . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	require_once(dirname(dirname(__FILE__)) . '/functions.php');
 }
 
-$session = session_start();
+$session = zp_session_start();
 session_cache_limiter('nocache');
 
 require_once(dirname(__FILE__) . '/setup-functions.php');
 //allow only one setup to run
-$setupMutex = new Mutex('sP');
+$setupMutex = new zpMutex('sP');
 $setupMutex->lock();
 
 if ($debug = isset($_REQUEST['debug'])) {
@@ -64,8 +65,6 @@ if (isset($_REQUEST['autorun'])) {
 	$autorun = false;
 }
 
-$chmod = fileperms(dirname(dirname(__FILE__))) & 0666;
-
 $en_US = dirname(dirname(__FILE__)) . '/locale/en_US/';
 if (!file_exists($en_US)) {
 	@mkdir(dirname(dirname(__FILE__)) . '/locale/', $chmod | 0311);
@@ -88,7 +87,7 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE))
 	}
 	$newconfig = false;
 } else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . ZENFOLDER . '/zp-config.php')) {
-	//migrate old root configuration file.
+//migrate old root configuration file.
 	$zpconfig = file_get_contents($oldconfig);
 	$i = strpos($zpconfig, '/** Do not edit above this line. **/');
 	$zpconfig = "<?php\nglobal \$_zp_conf_vars;\n\$conf = array()\n" . substr($zpconfig, $i);
@@ -121,7 +120,11 @@ if (isset($_GET['mod_rewrite'])) {
 $zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
 $updatezp_config = false;
-
+if (strpos($zp_cfg, "\$conf['charset']") === false) {
+	$k = strpos($zp_cfg, "\$conf['UTF-8'] = true;");
+	$zp_cfg = substr($zp_cfg, 0, $k) . "\$conf['charset'] = 'UTF-8';\n" . substr($zp_cfg, $k);
+	$updatezp_config = true;
+}
 if (strpos($zp_cfg, "\$conf['special_pages']") === false) {
 	$template = file_get_contents(dirname(dirname(__FILE__)) . '/zenphoto_cfg.txt');
 	$i = strpos($template, "\$conf['special_pages']");
@@ -215,6 +218,7 @@ if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 	$zp_cfg = updateConfigItem('FILESYSTEM_CHARSET', $fileset, $zp_cfg);
 	$updatezp_config = true;
 }
+
 if ($updatezp_config) {
 	storeConfig($zp_cfg);
 	$updatezp_config = false;
@@ -275,7 +279,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 			require_once(dirname(dirname(__FILE__)) . '/functions-db-NULL.php');
 		}
 	} else {
-		// There is a problem with the configuration file
+// There is a problem with the configuration file
 		?>
 		<div style="background-color: red;font-size: xx-large;">
 			<p>
@@ -306,7 +310,7 @@ if ($selected_database) {
 		if ($result) {
 			if (db_num_rows($result) > 0) {
 				$upgrade = gettext("upgrade");
-				// apply some critical updates to the database for migration issues
+// apply some critical updates to the database for migration issues
 				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `valid` int(1) default 1', false);
 				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' CHANGE `password` `pass` varchar(64)', false);
 				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `loggedin` datetime', false);
@@ -542,10 +546,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$err = versionCheck(PHP_MIN_VERSION, PHP_DESIRED_VERSION, PHP_VERSION);
 							$good = checkMark($err, sprintf(gettext("PHP version %s"), PHP_VERSION), "", sprintf(gettext('PHP Version %1$s or greater is required. Version %2$s or greater is strongly recommended. Use earlier versions at your own risk.'), PHP_MIN_VERSION, PHP_DESIRED_VERSION), false) && $good;
 
-							if ($session && session_id() && $session_path == session_save_path()) {
+							if ($session && session_id() && $_initial_session_path == session_save_path()) {
 								checkmark(true, gettext('PHP <code>Sessions</code>.'), gettext('PHP <code>Sessions</code> [appear to not be working].'), '', true);
 							} else {
-								if ($session && session_id() && $session_path != session_save_path()) {
+								if ($session && session_id() && $_initial_session_path != session_save_path()) {
 									checkmark(-1, '', gettext('PHP <code>Sessions</code> [problems with <em>save_save_path</em>].'), sprintf(gettext('The configured PHP session path could not be used. ZenPhoto20 has set the path to the %s folder.'), DATA_FOLDER), true);
 								} else {
 									checkmark(0, '', gettext('PHP <code>Sessions</code> [appear to not be working].'), gettext('PHP Sessions are required for administrative functions.'), true);
@@ -638,16 +642,20 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							primeMark(gettext('mb_strings'));
 							if (function_exists('mb_internal_encoding')) {
-								@mb_internal_encoding('UTF-8');
-								if (($charset = mb_internal_encoding()) == 'UTF-8') {
+								if (($mbcharset = mb_internal_encoding()) == LOCAL_CHARSET) {
 									$mb = 1;
 								} else {
 									$mb = -1;
 								}
-								$m2 = gettext('Setting <em>mbstring.internal_encoding</em> to <strong>UTF-8</strong> in your <em>php.ini</em> file is recommended to insure accented and multi-byte characters function properly.');
-								checkMark($mb, gettext("PHP <code>mbstring</code> package"), sprintf(gettext('PHP <code>mbstring</code> package [Your internal character set is <strong>%s</strong>]'), $charset), $m2);
+								$m2 = sprintf(gettext('Setting <em>mbstring.internal_encoding</em> to <strong>%s</strong> in your <em>php.ini</em> file is recommended to insure accented and multi-byte characters function properly.'), LOCAL_CHARSET);
+								checkMark($mb, gettext("PHP <code>mbstring</code> package"), sprintf(gettext('PHP <code>mbstring</code> package [Your internal character set is <strong>%s</strong>]'), $mbcharset), $m2);
 							} else {
-								$test = $_zp_UTF8->convert('test', 'ISO-8859-1', 'UTF-8');
+								if (LOCAL_CHARSET == 'ISO-8859-1') {
+									$set = 'UTF-8';
+								} else {
+									$set = 'ISO-8859-1';
+								}
+								$test = $_zp_UTF8->convert('test', $set, LOCAL_CHARSET);
 								if (empty($test)) {
 									$m2 = gettext("You need to install the <code>mbstring</code> package or correct the issue with <code>iconv()</code>");
 									checkMark(0, '', gettext("PHP <code>mbstring</code> package [is not present and <code>iconv()</code> is not working]"), $m2);
@@ -656,6 +664,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									checkMark(-1, '', gettext("PHP <code>mbstring</code> package [is not present]"), $m2);
 								}
 							}
+							if (($mbcharset = ini_get('default_charset')) == LOCAL_CHARSET) {
+								$mb = 1;
+							} else {
+								$mb = -1;
+							}
+							checkMark($mb, gettext("PHP <code>default_charset</code>"), sprintf(gettext('PHP <code>default_charset</code> [Your default character set is <strong>%s</strong>]'), ini_get('default_charset')), sprintf(gettext('Setting <em>default_charset</em> to <strong>%s</strong> in your <em>php.ini</em> file is recommended to insure accented and multi-byte characters function properly.'), LOCAL_CHARSET));
 
 							if ($environ) {
 								/* Check for graphic library and image type support. */
@@ -757,10 +771,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										} else {
 											primeMark(gettext('Character set'));
 											$charset_defined = $_zp_UTF8->iconv_sets[FILESYSTEM_CHARSET];
-											$charset = LOCAL_CHARSET;
-											if (empty($charset)) {
-												$charset = 'UTF-8';
-											}
 											$test = '';
 											if (($dir = opendir($serverpath . '/' . DATA_FOLDER . '/')) !== false) {
 												while (($file = readdir($dir)) !== false) {
@@ -814,6 +824,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												//	fount the test file
 												if (file_exists(internalToFilesystem($test_internal))) {
 													//	and the active character set define worked
+													if (!isset($_zp_conf_vars['FILESYSTEM_CHARSET'])) {
+														$zp_cfg = updateConfigItem('FILESYSTEM_CHARSET', FILESYSTEM_CHARSET, $zp_cfg);
+														storeConfig($zp_cfg);
+													}
 													$notice = 1;
 													$msg = sprintf(gettext('The filesystem character define is %1$s [confirmed]'), $charset_defined);
 													$msg1 = '';
@@ -1118,9 +1132,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							primeMark(gettext('ZenPhoto20 files'));
 							@set_time_limit(120);
+							$stdExclude = Array('Thumbs.db', 'readme.md', 'data');
+
 							$lcFilesystem = file_exists(strtoupper(__FILE__));
 							$base = $serverpath . '/';
-							getResidentZPFiles(SERVERPATH . '/' . ZENFOLDER, $lcFilesystem);
+							getResidentZPFiles(SERVERPATH . '/' . ZENFOLDER, $lcFilesystem, $stdExclude);
 							if ($lcFilesystem) {
 								$res = array_search(strtolower($base . ZENFOLDER . '/zenphoto.package'), $_zp_resident_files);
 								$base = strtolower($base);
@@ -1184,7 +1200,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										$folders[$component] = $component;
 										unset($installed_files[$key]);
 										if (dirname($value) == THEMEFOLDER) {
-											getResidentZPFiles($base . $value, $lcFilesystem);
+											getResidentZPFiles($base . $value, $lcFilesystem, $stdExclude);
 										}
 									} else {
 										if ($updatechmod) {
@@ -1682,8 +1698,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 						/*
 						 * ********************************************************************************
-						  Add new fields in the upgrade section. This section should remain static except for new
-						  tables. This tactic keeps all changes in one place so that noting gets accidentaly omitted.
+							Add new fields in the upgrade section. This section should remain static except for new
+							tables. This tactic keeps all changes in one place so that noting gets accidentaly omitted.
 						 * ********************************************************************************** */
 
 						//v1.2
@@ -2433,13 +2449,13 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									if (extensionEnabled('cloneZenphoto')) {
 										require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
 										if (class_exists('cloneZenphoto'))
-											$clones = cloneZenphoto::setup();
+											$clones = cloneZenphoto::clones();
 									}
 									$link = sprintf(gettext('You can now <a href="%1$s">administer your gallery.</a>'), WEBPATH . '/' . ZENFOLDER . '/admin.php');
 									foreach ($clones as $clone => $url) {
 										$autorun = false;
 										?>
-										<p class="delayshow" style="display:none;"><?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $url, $clone); ?></p>
+										<p class="delayshow" style="display:none;"><?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $url . ZENFOLDER . '/setup/index.php?autorun', $clone); ?></p>
 										<?php
 									}
 								}

@@ -461,14 +461,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$subrights = $album->subRights();
 
 		if (!$album->isDynamic()) {
-			if ($album->getNumImages()) {
+			if ($c = $album->getNumImages()) {
 				if ($subrights & (MANAGED_OBJECT_RIGHTS_UPLOAD || MANAGED_OBJECT_RIGHTS_EDIT)) {
 					$zenphoto_tabs['edit']['subtabs'] = array_merge(
 									array(gettext('Images') => 'admin-edit.php' . $albumlink . '&tab=imageinfo'), $zenphoto_tabs['edit']['subtabs']
 					);
 					$default = 'imageinfo';
 				}
-				if ($subrights & MANAGED_OBJECT_RIGHTS_EDIT) {
+				if ($c > 1 && $subrights & MANAGED_OBJECT_RIGHTS_EDIT) {
 					$zenphoto_tabs['edit']['subtabs'] = array_merge(
 									array(gettext('Image order') => 'admin-albumsort.php' . $albumlink . '&tab=sort'), $zenphoto_tabs['edit']['subtabs']
 					);
@@ -529,6 +529,39 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 	}
 
+	/**
+	 *
+	 * @param string $text
+	 * @param string $key
+	 * @param int $min
+	 * @param int $max
+	 * @param int $v current value
+	 */
+	function putSlider($text, $postkey, $min, $max, $v) {
+		?>
+		<span id="slider_display-<?php echo $postkey; ?>">
+			<?php echo $text; ?>
+			<input type="text" id="<?php echo $postkey; ?>" name="<?php echo $postkey; ?>" size="2" value="<?php echo $v; ?>" onchange="$('#slider-<?php echo $postkey; ?>').slider('value', $('#<?php echo $postkey; ?>').val());"/>
+		</span>
+		<script type="text/javascript">
+			// <!-- <![CDATA[
+			$(function () {
+				$("#slider-<?php echo $postkey; ?>").slider({
+					startValue: <?php echo (int) $v; ?>,
+					value: <?php echo (int) $v; ?>,
+					min: <?php echo (int) $min; ?>,
+					max: <?php echo (int) $max; ?>,
+					slide: function (event, ui) {
+						$("#<?php echo $postkey; ?>").val(ui.value);
+					}
+				});
+				$("#<?php echo $postkey; ?>").val($("#slider-<?php echo $postkey; ?>").slider("value"));
+			});
+			// ]]> -->
+		</script>
+		<div id="slider-<?php echo $postkey; ?>"></div>		<?php
+	}
+
 	define('CUSTOM_OPTION_PREFIX', '_ZP_CUSTOM_');
 	/**
 	 * Generates the HTML for custom options (e.g. theme options, plugin options, etc.)
@@ -550,6 +583,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * 		OPTION_TYPE_NUMBER:						A small textbox for numbers. NOTE: the default allows only positive integers
 	 * 																			(i.e. 'step' defaults to 1.) If you need	other values supply a "limits" element, e.g:
 	 * 																			'limits' => array('min' => -25, 'max'=> 25, 'step' => 0.5)
+	 * 		OPTION_TYPE_SLIDER						A number but with a slider that changes the value
 	 *    OPTION_TYPE_CHECKBOX:         A checkbox
 	 *    OPTION_TYPE_CUSTOM:           Handled by $optionHandler->handleOption()
 	 *    OPTION_TYPE_TEXTAREA:         A textarea
@@ -880,27 +914,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							?>
 							<td width="350" style="margin:0; padding:0">
 								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'slider-' . $postkey; ?>" value="1" />
-								<span id="slider_display-<?php echo $postkey; ?>"><?php echo (int) $v; ?></span>
-								<input type="hidden" id="<?php echo $postkey; ?>" name="<?php echo $postkey; ?>" value="<?php echo $v; ?>" />
-								<script type="text/javascript">
-									// <!-- <![CDATA[
-									$(function () {
-										$("#slider-<?php echo $postkey; ?>").slider({
-											startValue: <?php echo (int) $v; ?>,
-											value: <?php echo (int) $v; ?>,
-											min: <?php echo (int) $min; ?>,
-											max: <?php echo (int) $max; ?>,
-											slide: function (event, ui) {
-												$("#<?php echo $postkey; ?>").val(ui.value);
-												$("#slider_display-<?php echo $postkey; ?>").html(ui.value);
-											}
-										});
-										$("#<?php echo $postkey; ?>").val($("#slider-<?php echo $postkey; ?>").slider("value"));
-									});
-									// ]]> -->
-								</script>
-								<div id="slider-<?php echo $postkey; ?>"></div>
-
+								<?php putSlider('', $postkey, $min, $max, $v); ?>
 							</td>
 							<?php
 							break;
@@ -1482,7 +1496,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 													 name="disclose_password<?php echo $suffix; ?>"
 													 id="disclose_password<?php echo $suffix; ?>"
 													 onclick="passwordClear('<?php echo $suffix; ?>');
-																	 togglePassword('<?php echo $suffix; ?>');" /><?php echo addslashes(gettext('Show password')); ?>
+															 togglePassword('<?php echo $suffix; ?>');" /><?php echo addslashes(gettext('Show password')); ?>
 									</label>
 								</td>
 								<td>
@@ -1839,9 +1853,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -1975,7 +1989,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -3518,6 +3532,7 @@ function processManagedObjects($i, &$rights) {
 			}
 		}
 	}
+
 	foreach ($albums as $key => $analbum) {
 		unset($albums[$key]);
 		$albums[] = $analbum;
@@ -4611,7 +4626,11 @@ function getLogTabs() {
 	$localizer = array('setup' => gettext('setup'), 'security' => gettext('security'), 'debug' => gettext('debug'), 'deprecated' => gettext('deprecated'));
 	$filelist = safe_glob(SERVERPATH . "/" . DATA_FOLDER . '/*.log');
 	if (count($filelist) > 0) {
-		$tab = sanitize(@$_GET['tab'], 3);
+		if (isset($_GET['tab'])) {
+			$tab = sanitize($_GET['tab'], 3);
+		} else {
+			$tab = false;
+		}
 		foreach ($filelist as $logfile) {
 			$log = substr(basename($logfile), 0, -4);
 			if (filemtime($logfile) > getOption('logviewed_' . $log)) {
@@ -4815,7 +4834,7 @@ function processCredentials($object, $suffix = '') {
 
 function consolidatedEditMessages($subtab) {
 	zp_apply_filter('admin_note', 'albums', $subtab);
-	$messagebox = $errorbox = $notebox = array();
+	global $messagebox, $errorbox, $notebox;
 	if (isset($_GET['ndeleted'])) {
 		$ntdel = sanitize_numeric($_GET['ndeleted']);
 		if ($ntdel <= 2) {
@@ -5049,7 +5068,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+			$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 		<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/add.png" alt="" id="<?php echo $iconid; ?>">
 	</a>
 	<?php

@@ -21,7 +21,6 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop_height', 220);
 		setThemeOptionDefault('image_size', 800, NULL);
 		setThemeOptionDefault('image_use_side', 'longest');
-		setThemeOptionDefault('custom_index_page', '');
 
 		setThemeOptionDefault('zpB_homepage', true);
 		setThemeOptionDefault('allow_search', true);
@@ -35,7 +34,6 @@ class ThemeOptions {
 		setOption('colorbox_zpBootstrap_favorites', 1);
 		setOption('colorbox_zpBootstrap_image', 1);
 		setOption('colorbox_zpBootstrap_search', 1);
-		setOption('colorbox_theme', 'example3');
 
 		setOption('slideshow_zpBootstrap_album', 1);
 		setOption('slideshow_zpBootstrap_image', 1);
@@ -47,10 +45,6 @@ class ThemeOptions {
 		setOption('cycle_zpBootstrap_favorites', 1);
 		setOption('cycle_zpBootstrap_search', 1);
 
-		setOption('slideshow_mode', 'colorbox');
-		setOption('cycle-slideshow_mode', 'colorbox');
-		setOption('gmap_display', 'hide');
-
 		if (class_exists('cacheManager')) {
 			$me = basename(dirname(__FILE__));
 			cacheManager::deleteThemeCacheSizes($me);
@@ -60,7 +54,7 @@ class ThemeOptions {
 	}
 
 	function getOptionsDisabled() {
-		return array('thumb_size', 'image_size', 'custom_index_page');
+		return array('thumb_size', 'image_size');
 	}
 
 	function getOptionsSupported() {

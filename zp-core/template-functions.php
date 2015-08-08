@@ -46,6 +46,8 @@ function printThemeHeadItems() {
 	<?php
 	if (zp_loggedin()) {
 		?>
+		<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/toolbox.css" type="text/css" />
+
 		<script type="text/javascript">
 			// <!-- <![CDATA[
 			var deleteAlbum1 = "<?php echo gettext("Are you sure you want to delete this entire album?"); ?>";
@@ -78,13 +80,16 @@ function adminToolbox() {
 		$id = 'admin';
 		$dataid = 'admin_data';
 		$page = getCurrentPage();
-
+		$icon = zp_apply_filter('iconColor', getPlugin('images/gear.png', true, true));
 		ob_start();
+		if (!$name = $_zp_current_admin_obj->getName()) {
+			$name = $_zp_current_admin_obj->getUser();
+		}
 		?>
 		<div id="<?php echo $id; ?>">
 			<h3>
-				<a onclick="toggle('<?php echo $dataid; ?>');" title="<?php echo $_zp_current_admin_obj->getUser(); ?>">
-					<?php echo gettext('Admin Toolbox'); ?>
+				<a onclick="toggle('<?php echo $dataid; ?>');" title="<?php echo gettext('Admin') . ' ' . $name; ?>">
+					<img src="<?php echo $icon; ?>" />
 				</a>
 			</h3>
 		</div>
@@ -157,16 +162,10 @@ function adminToolbox() {
 					<?php
 				}
 
-				$gal = getOption('custom_index_page');
-				if (empty($gal) || !file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $_zp_gallery->getCurrentTheme() . '/' . internalToFilesystem($gal) . '.php')) {
-					$gal = 'index.php';
-				} else {
-					$gal .= '.php';
-				}
 				$inImage = false;
 				switch ($_zp_gallery_page) {
 					case 'index.php':
-					case $gal:
+					case 'gallery.php':
 						// script is either index.php or the gallery index page
 						if (zp_loggedin(ADMIN_RIGHTS)) {
 							?>
@@ -392,7 +391,7 @@ function getHeadTitle($separator = ' | ', $listparents = true) {
 	}
 	switch ($_zp_gallery_page) {
 		case 'index.php':
-			return $gallerytitle . $mainsitetitle;
+			return $gallerytitle . $mainsitetitle . $pagenumber;
 			break;
 		case 'album.php':
 		case 'favorites.php';
@@ -532,6 +531,17 @@ function getGalleryIndexURL() {
 		}
 	}
 	return zp_apply_filter('getLink', $link, 'index.php', NULL);
+}
+
+/**
+ * Prints the above. Included for legacy compatibility
+ * @global type $_zp_gallery_page
+ * @param type $after
+ * @param type $text
+ */
+function printGalleryIndexURL($after = NULL, $text = NULL) {
+	printLinkHTML(getGalleryIndexURL(), $text, $text, 'galleryindexurl');
+	echo $after;
 }
 
 /**
@@ -886,145 +896,144 @@ function getPageNavList($_oneImagePage, $navlen, $firstlast, $current, $total) {
  * @param int $navlen Number of navigation links to show (0 for all pages). Works best if the number is odd.
  */
 function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nextprev = true, $class = 'pagelist', $id = NULL, $firstlast = true, $navlen = 9) {
-	$current = getCurrentPage();
 	$total = max(1, getTotalPages($_oneImagePage));
-	$nav = getPageNavList($_oneImagePage, $navlen, $firstlast, $current, $total);
-	if (count($nav) < 4) {
-		$class .= ' disabled_nav';
-	}
-	?>
-	<div <?php if ($id) echo ' id="$id"'; ?> class="<?php echo $class; ?>">
-		<ul class="<?php echo $class; ?>">
-			<?php
-			$prev = $nav['prev'];
-			unset($nav['prev']);
-			$next = $nav['next'];
-			unset($nav['next']);
-			if ($nextprev) {
-				?>
-				<li class="prev">
-					<?php
-					if ($prev) {
-						printLinkHTML($prev, html_encode($prevtext), gettext('Previous Page'));
-					} else {
-						?>
-						<span class="disabledlink"><?php echo html_encode($prevtext); ?></span>
-						<?php
-					}
-					?>
-				</li>
+	if ($total > 1) {
+		$current = getCurrentPage();
+		$nav = getPageNavList($_oneImagePage, $navlen, $firstlast, $current, $total);
+		?>
+		<div <?php if ($id) echo ' id="$id"'; ?> class="<?php echo $class; ?>">
+			<ul class="<?php echo $class; ?>">
 				<?php
-			}
-			$last = NULL;
-			if ($firstlast) {
-				?>
-				<li class="<?php
-				if ($current == 1)
-					echo 'current';
-				else
-					echo 'first';
-				?>">
-							<?php
-							if ($current == 1) {
-								echo '1';
-							} else {
-								printLinkHTML($nav[1], 1, gettext("Page 1"));
-							}
-							?>
-				</li>
-				<?php
-				$last = 1;
-				unset($nav[1]);
-			}
-			foreach ($nav as $i => $link) {
-				$d = $i - $last;
-				if ($d > 2) {
+				$prev = $nav['prev'];
+				unset($nav['prev']);
+				$next = $nav['next'];
+				unset($nav['next']);
+				if ($nextprev) {
 					?>
-					<li>
+					<li class="prev">
 						<?php
-						$k1 = $i - (int) (($i - $last) / 2);
-						printLinkHTML(getPageNumURL($k1, $total), '...', sprintf(ngettext('Page %u', 'Page %u', $k1), $k1));
-						?>
-					</li>
-					<?php
-				} else if ($d == 2) {
-					?>
-					<li>
-						<?php
-						$k1 = $last + 1;
-						printLinkHTML(getPageNumURL($k1, $total), $k1, sprintf(ngettext('Page %u', 'Page %u', $k1), $k1));
-						?>
-					</li>
-					<?php
-				}
-				?>
-				<li<?php if ($current == $i) echo ' class="current"'; ?>>
-					<?php
-					if ($i == $current) {
-						echo $i;
-					} else {
-						$title = sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i);
-						printLinkHTML($link, $i, $title);
-					}
-					?>
-				</li>
-				<?php
-				$last = $i;
-				unset($nav[$i]);
-				if ($firstlast && count($nav) == 1) {
-					break;
-				}
-			}
-			if ($firstlast) {
-				foreach ($nav as $i => $link) {
-					$d = $i - $last;
-					if ($d > 2) {
-						$k1 = $i - (int) (($i - $last) / 2);
-						?>
-						<li>
-							<?php printLinkHTML(getPageNumURL($k1, $total), '...', sprintf(ngettext('Page %u', 'Page %u', $k1), $k1)); ?>
-						</li>
-						<?php
-					} else if ($d == 2) {
-						$k1 = $last + 1;
-						?>
-						<li>
-							<?php printLinkHTML(getPageNumURL($k1, $total), $k1, sprintf(ngettext('Page %u', 'Page %u', $k1), $k1)); ?>
-						</li>
-						<?php
-					}
-					?>
-					<li class="last<?php if ($current == $i) echo ' current'; ?>">
-						<?php
-						if ($current == $i) {
-							echo $i;
+						if ($prev) {
+							printLinkHTML($prev, html_encode($prevtext), gettext('Previous Page'));
 						} else {
-							printLinkHTML($link, $i, sprintf(ngettext('Page %u', 'Page %u', $i), $i));
+							?>
+							<span class="disabledlink"><?php echo html_encode($prevtext); ?></span>
+							<?php
 						}
 						?>
 					</li>
 					<?php
 				}
-			}
-			if ($nextprev) {
-				?>
-				<li class="next">
+				$last = NULL;
+				if ($firstlast) {
+					?>
+					<li class="<?php
+					if ($current == 1)
+						echo 'current';
+					else
+						echo 'first';
+					?>">
+								<?php
+								if ($current == 1) {
+									echo '1';
+								} else {
+									printLinkHTML($nav[1], 1, gettext("Page 1"));
+								}
+								?>
+					</li>
 					<?php
-					if ($next) {
-						printLinkHTML($next, html_encode($nexttext), gettext('Next Page'));
-					} else {
+					$last = 1;
+					unset($nav[1]);
+				}
+				foreach ($nav as $i => $link) {
+					$d = $i - $last;
+					if ($d > 2) {
 						?>
-						<span class="disabledlink"><?php echo html_encode($nexttext); ?></span>
+						<li>
+							<?php
+							$k1 = $i - (int) (($i - $last) / 2);
+							printLinkHTML(getPageNumURL($k1, $total), '...', sprintf(ngettext('Page %u', 'Page %u', $k1), $k1));
+							?>
+						</li>
+						<?php
+					} else if ($d == 2) {
+						?>
+						<li>
+							<?php
+							$k1 = $last + 1;
+							printLinkHTML(getPageNumURL($k1, $total), $k1, sprintf(ngettext('Page %u', 'Page %u', $k1), $k1));
+							?>
+						</li>
 						<?php
 					}
 					?>
-				</li>
-				<?php
-			}
-			?>
-		</ul>
-	</div>
-	<?php
+					<li<?php if ($current == $i) echo ' class="current"'; ?>>
+						<?php
+						if ($i == $current) {
+							echo $i;
+						} else {
+							$title = sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i);
+							printLinkHTML($link, $i, $title);
+						}
+						?>
+					</li>
+					<?php
+					$last = $i;
+					unset($nav[$i]);
+					if ($firstlast && count($nav) == 1) {
+						break;
+					}
+				}
+				if ($firstlast) {
+					foreach ($nav as $i => $link) {
+						$d = $i - $last;
+						if ($d > 2) {
+							$k1 = $i - (int) (($i - $last) / 2);
+							?>
+							<li>
+								<?php printLinkHTML(getPageNumURL($k1, $total), '...', sprintf(ngettext('Page %u', 'Page %u', $k1), $k1)); ?>
+							</li>
+							<?php
+						} else if ($d == 2) {
+							$k1 = $last + 1;
+							?>
+							<li>
+								<?php printLinkHTML(getPageNumURL($k1, $total), $k1, sprintf(ngettext('Page %u', 'Page %u', $k1), $k1)); ?>
+							</li>
+							<?php
+						}
+						?>
+						<li class="last<?php if ($current == $i) echo ' current'; ?>">
+							<?php
+							if ($current == $i) {
+								echo $i;
+							} else {
+								printLinkHTML($link, $i, sprintf(ngettext('Page %u', 'Page %u', $i), $i));
+							}
+							?>
+						</li>
+						<?php
+					}
+				}
+				if ($nextprev) {
+					?>
+					<li class="next">
+						<?php
+						if ($next) {
+							printLinkHTML($next, html_encode($nexttext), gettext('Next Page'));
+						} else {
+							?>
+							<span class="disabledlink"><?php echo html_encode($nexttext); ?></span>
+							<?php
+						}
+						?>
+					</li>
+					<?php
+				}
+				?>
+			</ul>
+		</div>
+		<?php
+	}
 }
 
 //*** Album Context ************************
@@ -1911,7 +1920,7 @@ function isImagePage() {
  */
 function isAlbumPage() {
 	global $_zp_page;
-	$pageCount = Ceil(getNumAlbums() / max(1, getOption('albums_per_page')));
+	$pageCount = Ceil(max(1, getNumAlbums()) / max(1, getOption('albums_per_page')));
 	return ($_zp_page <= $pageCount);
 }
 
@@ -3008,7 +3017,7 @@ function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $crop
 		if ($dims[0])
 			$sizing = ' width="' . $dims[0] . '"';
 		if ($dims[1])
-			$sizing .= '"height="' . $dims[1] . '"';
+			$sizing .= ' height="' . $dims[1] . '"';
 	} else {
 		if ($width)
 			$sizing .= ' width="' . $width . '"';
@@ -3202,57 +3211,21 @@ function getRandomImagesAlbum($rootAlbum = NULL, $daily = false) {
 		if (date('Y-m-d', $potd['day']) == date('Y-m-d')) {
 			$rndalbum = newAlbum($potd['folder']);
 			$image = newImage($rndalbum, $potd['filename']);
-			if ($image->exists)
+			if ($image->exists) {
 				return $image;
-		}
-	}
-	$image = NULL;
-	if ($album->isDynamic()) {
-		$images = $album->getImages(0);
-		shuffle($images);
-		while (count($images) > 0) {
-			$result = array_pop($images);
-			if (Gallery::imageObjectClass($result['filename']) == 'Image') {
-				$image = newImage(newAlbum($result['folder']), $result['filename']);
 			}
 		}
-	} else {
-		$albumfolder = $album->getFileName();
-		if ($album->isMyItem(LIST_RIGHTS)) {
-			$imageWhere = '';
-			$albumInWhere = '';
-		} else {
-			$imageWhere = " AND " . prefix('images') . ".show=1";
-			$albumInWhere = prefix('albums') . ".show=1";
-		}
-
-		$query = "SELECT id FROM " . prefix('albums') . " WHERE ";
-		if ($albumInWhere)
-			$query .= $albumInWhere . ' AND ';
-		$query .= "folder LIKE " . db_quote(db_LIKE_escape($albumfolder) . '%');
-		$result = query($query);
-		if ($result) {
-			$albumInWhere = prefix('albums') . ".id IN (";
-			while ($row = db_fetch_assoc($result)) {
-				$albumInWhere = $albumInWhere . $row['id'] . ", ";
-			}
-			db_free_result($result);
-			$albumInWhere = ' AND ' . substr($albumInWhere, 0, -2) . ')';
-			$sql = 'SELECT `folder`, `filename` ' .
-							' FROM ' . prefix('images') . ', ' . prefix('albums') .
-							' WHERE ' . prefix('albums') . '.folder!="" AND ' . prefix('images') . '.albumid = ' .
-							prefix('albums') . '.id ' . $albumInWhere . $imageWhere . ' ORDER BY RAND()';
-			$result = query($sql);
-			$image = filterImageQuery($result, $album->name);
-		}
 	}
-	if ($image) {
+	$album->setSortType('random');
+	$image = $album->getImage(0);
+	if ($image && $image->exists) {
 		if ($daily) {
 			$potd = array('day' => time(), 'folder' => $image->getAlbumName(), 'filename' => $image->getFileName());
 			setThemeOption('picture_of_the_day:' . $album->name, serialize($potd), NULL, $_zp_gallery->getCurrentTheme());
 		}
+		return $image;
 	}
-	return $image;
+	return NULL;
 }
 
 /**
@@ -3396,7 +3369,7 @@ function printTags($option = 'links', $preText = NULL, $class = NULL, $separator
 				$separator = "";
 			}
 			if ($option === "links") {
-				$links1 = "<a href=\"" . html_encode(getSearchURL(search_quote($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\" rel=\"nofollow\">";
+				$links1 = "<a href=\"" . html_encode(getSearchURL(search_quote($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\">";
 				$links2 = "</a>";
 			} else {
 				$links1 = $links2 = '';
@@ -3889,7 +3862,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				<?php if (count($fields) > 1 || $searchwords) { ?>
 					<a onclick="toggle('searchextrashow');" ><img src="<?php echo $iconsource; ?>" title="<?php echo gettext('search options'); ?>" alt="<?php echo gettext('fields'); ?>" id="searchfields_icon" /></a>
 				<?php } ?>
-				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="button buttons" id="search_submit" <?php echo $buttonSource; ?> />
+				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="button buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
 				<?php
 				if (is_array($object_list)) {
 					foreach ($object_list as $key => $list) {
@@ -4215,6 +4188,7 @@ function printZenphotoLink($mod = null) {
 	if (!$image = getPlugin('images/zen-logo' . $mod . '.png', true, true)) {
 		$image = getPlugin('images/zen-logo.png', true, true);
 	}
+
 	printf(gettext('<span class="zen-logo"><a href="https://%1$s" title="' . '">Powered by <img src="%2$s" /></a></span>'), GITHUB, $image);
 }
 

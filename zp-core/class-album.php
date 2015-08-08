@@ -44,7 +44,7 @@ class AlbumBase extends MediaObject {
 	var $linkname; // may have the .alb suffix stripped off
 	var $localpath; // Latin1 full server path to the album
 	var $exists = true; // Does the folder exist?
-	var $images = null; // Full images array storage.
+	var $images = NULL; // Full images array storage.
 	var $parent = null; // The parent album name
 	var $parentalbum = null; // The parent album's album object (lazy)
 	var $sidecars = array(); // keeps the list of suffixes associated with this album
@@ -84,7 +84,8 @@ class AlbumBase extends MediaObject {
 				zp_error(gettext('An album object was instantiated without using the newAlbum() function.'), E_USER_WARNING);
 			}
 		}
-// Set default data for a new Album (title and parent_id)
+
+		// Set default data for a new Album (title and parent_id)
 		$this->set('mtime', time());
 		$title = trim($this->name);
 		if (!is_null($parentalbum = $this->getParent())) {
@@ -93,6 +94,42 @@ class AlbumBase extends MediaObject {
 		}
 		$this->set('title', $title);
 		$this->setShow($_zp_gallery->getAlbumPublish());
+
+		//	load images
+		if (is_null($this->getImages())) {
+			$this->images = array();
+		}
+
+		return true;
+	}
+
+	/**
+	 * album validity check
+	 *
+	 * @param string $folder8
+	 * @param string $folderFS
+	 * @param bool $quiet
+	 * @param bool $valid class specific check
+	 * @return boolean
+	 */
+	static protected function albumCheck($folder8, $folderFS, $quiet, $invalid) {
+		if (empty($folder8)) {
+			$msg = gettext('Invalid album instantiation: No album name');
+		} else if (filesystemToInternal($folderFS) != $folder8) {
+			// an attempt to spoof the album name.
+			$msg = sprintf(gettext('Invalid album instantiation: %1$s!=%2$s'), html_encode(filesystemToInternal($folderFS)), $folder8);
+		} else if ($invalid) {
+			//	class specific validity test
+			$msg = sprintf(gettext('Invalid album instantiation: %s does not exist.'), $folder8);
+		} else {
+			$msg = false;
+		}
+		if ($msg) {
+			if (!$quiet) {
+				zp_error($msg, E_USER_ERROR);
+			}
+			return false;
+		}
 		return true;
 	}
 
@@ -354,7 +391,7 @@ class AlbumBase extends MediaObject {
 	function getImage($index) {
 		$images = $this->getImages();
 		if ($index >= 0 && $index < count($images)) {
-			return newImage($this, $this->images[$index]);
+			return newImage($this, $images[$index]);
 		}
 		return false;
 	}
@@ -1107,38 +1144,15 @@ class Album extends AlbumBase {
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS . "/";
 		$this->linkname = $this->name = $folder8;
 		$this->localpath = $localpath;
-		if (!$this->_albumCheck($folder8, $folderFS, $quiet))
+		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !file_exists($this->localpath) || !(is_dir($this->localpath)) || $folder8 && $folder8{0} == '.' || preg_match('~/\.*/~', $folder8))) {
 			return;
+		}
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
 		if ($new) {
 			$this->save();
 			zp_apply_filter('new_album', $this);
 		}
 		zp_apply_filter('album_instantiate', $this);
-	}
-
-	/**
-	 * album validity check
-	 * @return boolean
-	 */
-	protected function _albumCheck($folder8, $folderFS, $quiet) {
-		$msg = false;
-		if (empty($folder8)) {
-			$msg = gettext('Invalid album instantiation: No album name');
-		} else if (filesystemToInternal($folderFS) != $folder8) {
-// an attempt to spoof the album name.
-			$msg = sprintf(gettext('Invalid album instantiation: %1$s!=%2$s'), html_encode(filesystemToInternal($folderFS)), $folder8);
-		} else if (!file_exists($this->localpath) || !(is_dir($this->localpath)) || $folder8{0} == '.' || preg_match('~/\.*/~', $folder8)) {
-			$msg = sprintf(gettext('Invalid album instantiation: %s does not exist.'), $folder8);
-		}
-		if ($msg) {
-			$this->exists = false;
-			if (!$quiet) {
-				zp_error($msg, E_USER_ERROR);
-			}
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -1150,7 +1164,6 @@ class Album extends AlbumBase {
 		global $_zp_gallery;
 		// Set default data for a new Album (title and parent_id)
 		parent::setDefaults();
-		$parentalbum = $this->getParent();
 		$this->set('mtime', filemtime($this->localpath));
 		if (!$_zp_gallery->getAlbumUseImagedate()) {
 			$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
@@ -1497,15 +1510,17 @@ class Album extends AlbumBase {
 class dynamicAlbum extends AlbumBase {
 
 	var $searchengine; // cache the search engine for dynamic albums
+	var $imageNames; // list of images for handling duplicate file names
 
 	function __construct($folder8, $cache = true, $quiet = false) {
 		$folder8 = trim($folder8, '/');
 		$folderFS = internalToFilesystem($folder8);
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS;
 		$this->linkname = $this->name = $folder8;
-		$this->localpath = $localpath;
-		if (!$this->_albumCheck($folder8, $folderFS, $quiet))
+		$this->localpath = rtrim($localpath, '/');
+		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !file_exists($this->localpath) || is_dir($this->localpath))) {
 			return;
+		}
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
 		$this->exists = true;
 		if (!is_dir(stripSuffix($this->localpath))) {
@@ -1552,33 +1567,6 @@ class dynamicAlbum extends AlbumBase {
 			}
 		}
 		zp_apply_filter('album_instantiate', $this);
-	}
-
-	/**
-	 * album validity check
-	 * @param type $folder8
-	 * @return boolean
-	 */
-	protected function _albumCheck($folder8, $folderFS, $quiet) {
-		$this->localpath = rtrim($this->localpath, '/');
-
-		$msg = false;
-		if (empty($folder8)) {
-			$msg = gettext('Invalid album instantiation: No album name');
-		} else if (filesystemToInternal($folderFS) != $folder8) {
-// an attempt to spoof the album name.
-			$msg = sprintf(gettext('Invalid album instantiation: %1$s!=%2$s'), html_encode(filesystemToInternal($folderFS)), html_encode($folder8));
-		} else if (!file_exists($this->localpath) || is_dir($this->localpath)) {
-			$msg = sprintf(gettext('Invalid album instantiation: %s does not exist.'), $folder8);
-		}
-		if ($msg) {
-			$this->exists = false;
-			if (!$quiet) {
-				zp_error($msg, E_USER_ERROR);
-			}
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -1640,8 +1628,8 @@ class dynamicAlbum extends AlbumBase {
 			return $this->searchengine;
 		$this->searchengine = new SearchEngine(true);
 		$params = $this->get('search_params');
-		$params .= '&albumname=' . $this->name;
 		$this->searchengine->setSearchParams($params);
+		$this->searchengine->setAlbum($this);
 		return $this->searchengine;
 	}
 
@@ -1673,6 +1661,11 @@ class dynamicAlbum extends AlbumBase {
 			$searchengine = $this->getSearchEngine();
 			$this->images = $searchengine->getImages(0, 0, $sorttype, $sortdirection, $care, $mine);
 			$this->lastimagesort = $sorttype . $sortdirection;
+			$this->imageNames = array();
+			foreach ($this->images as $image) {
+				$this->imageNames[$image['folder'] . '/' . $image['filename']] = $image['filename'];
+			}
+			ksort($this->imageNames);
 		}
 		return parent::getImages($page, $firstPageCount);
 	}

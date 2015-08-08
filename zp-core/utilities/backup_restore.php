@@ -223,9 +223,7 @@ if (isset($_REQUEST['backup'])) {
 		$writeresult = false;
 	}
 	if ($writeresult) {
-		if (isset($_REQUEST['autobackup'])) {
-			setOption('last_backup_run', time());
-		}
+		setOption('last_backup_run', time());
 		$messages = '
 		<div class="messagebox fade-message">
 		<h2>
@@ -484,7 +482,7 @@ if (isset($_GET['compression'])) {
 	if ($compression_handler == 'no') {
 		$messages .= (gettext('Restore completed'));
 	} else {
-		$messages .= sprintf(gettext('Restore completed using %s compression'), $compression_handler);
+		$messages .= sprintf(gettext('Restore completed using %s compression'), html_encode($compression_handler));
 	}
 	$messages .= '
 		</h2>

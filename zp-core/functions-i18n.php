@@ -249,15 +249,14 @@ function ngettext_pl($msgid1, $msgid2, $n, $plugin) {
  */
 function i18nSetLocale($locale) {
 	global $_zp_RTL_css;
-	$en1 = LOCAL_CHARSET;
-	$en2 = str_replace('ISO-', 'ISO', $en1);
+	$en2 = str_replace('ISO-', 'ISO', LOCAL_CHARSET);
 	$locale_hyphen = str_replace('_', '-', $locale);
 	$simple = explode('-', $locale_hyphen);
 	$try[$locale . '.UTF8'] = $locale . '.UTF8';
 	$try[$locale . '.UTF-8'] = $locale . '.UTF-8';
 	$try[$locale . '.@euro'] = $locale . '.@euro';
 	$try[$locale . '.' . $en2] = $locale . '.' . $en2;
-	$try[$locale . '.' . $en1] = $locale . '.' . $en1;
+	$try[$locale . '.' . LOCAL_CHARSET] = $locale . '.' . LOCAL_CHARSET;
 	$try[$locale] = $locale;
 	$try[$simple[0]] = $simple[0];
 	$try['NULL'] = NULL;
@@ -477,8 +476,13 @@ function setMainDomain() {
 	if (empty($_zp_current_locale)) {
 // return "default" language, English if allowed, otherwise whatever is the "first" allowed language
 		$languageSupport = generateLanguageList();
-		if (empty($languageSupport) || in_array('en_US', $languageSupport)) {
-			$_zp_current_locale = 'en_US';
+		if (defined('BASE_LOCALE')) {
+			$loc = BASE_LOCALE;
+		} else {
+			$loc = 'en_US';
+		}
+		if (empty($languageSupport) || in_array($loc, $languageSupport)) {
+			$_zp_current_locale = $loc;
 		} else {
 			$_zp_current_locale = array_shift($languageSupport);
 		}
@@ -489,7 +493,6 @@ function setMainDomain() {
 	}
 	if (DEBUG_LOCALE)
 		debugLog("getUserLocale Returning locale: " . $_zp_current_locale);
-
 	return setupCurrentLocale($_zp_current_locale);
 }
 
@@ -592,6 +595,8 @@ function getAllTranslations($text) {
 	$entry_locale = getUserLocale();
 	$result = array('en_US' => $text);
 	$languages = generateLanguageList();
+	$key = array_search('en_US', $languages);
+	unset($languages[$key]);
 	foreach ($languages as $language) {
 		setupCurrentLocale($language);
 		$xlated = gettext($text);
@@ -600,9 +605,6 @@ function getAllTranslations($text) {
 		}
 	}
 	setupCurrentLocale($entry_locale);
-	if (count($result) == 1) {
-		return $text;
-	}
 	return serialize($result);
 }
 

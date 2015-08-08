@@ -258,20 +258,16 @@ function lookupSortKey($sorttype, $default, $table) {
 		case 'random':
 			return 'RAND()';
 		case "manual":
-			return '`sort_order`';
-		case "filename":
-			switch ($table) {
-				case 'images':
-					return '`filename`';
-				case 'albums':
-					return '`folder`';
-			}
+			return 'sort_order';
 		default:
 			if (empty($sorttype)) {
-				return '`' . $default . '`';
+				return $default;
 			}
 			if (substr($sorttype, 0) == '(') {
 				return $sorttype;
+			}
+			if ($table == 'albums') { // filename is synonomon for folder with albums
+				$sorttype = str_replace('filename', 'folder', $sorttype);
 			}
 			if (is_array($_zp_fieldLists) && isset($_zp_fieldLists[$table])) {
 				$dbfields = $_zp_fieldLists[$table];
@@ -287,12 +283,13 @@ function lookupSortKey($sorttype, $default, $table) {
 			}
 			$sorttype = strtolower($sorttype);
 			$list = explode(',', $sorttype);
+			$rslt = array();
 			foreach ($list as $key => $field) {
-				if (array_key_exists($field, $dbfields)) {
-					$list[$key] = '`' . trim($dbfields[$field]) . '`';
+				if (array_key_exists($field = trim($field, '`'), $dbfields)) {
+					$rslt[] = '`' . trim($dbfields[$field]) . '`';
 				}
 			}
-			return implode(',', $list);
+			return implode(',', $rslt);
 	}
 }
 
@@ -307,13 +304,12 @@ function zpFormattedDate($format, $dt) {
 	global $_zp_UTF8;
 	$fdate = strftime($format, $dt);
 	$charset = 'ISO-8859-1';
-	$outputset = LOCAL_CHARSET;
 	if (function_exists('mb_internal_encoding')) {
-		if (($charset = mb_internal_encoding()) == $outputset) {
+		if (($charset = mb_internal_encoding()) == LOCAL_CHARSET) {
 			return $fdate;
 		}
 	}
-	return $_zp_UTF8->convert($fdate, $charset, $outputset);
+	return $_zp_UTF8->convert($fdate, $charset, LOCAL_CHARSET);
 }
 
 /**
@@ -440,13 +436,13 @@ function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $
 			$from_mail = getOption('site_email');
 			$from_name = get_language_string(getOption('site_email_name'));
 
-// Convert to UTF-8
+			// Convert to UTF-8
 			if (LOCAL_CHARSET != 'UTF-8') {
 				$subject = $_zp_UTF8->convert($subject, LOCAL_CHARSET);
 				$message = $_zp_UTF8->convert($message, LOCAL_CHARSET);
 			}
 
-//	we do not support rich text
+			//	we do not support rich text
 			$message = preg_replace('~<p[^>]*>~', "\n", $message); // Replace the start <p> or <p attr="">
 			$message = preg_replace('~</p>~', "\n", $message); // Replace the end
 			$message = preg_replace('~<br[^>]*>~', "\n", $message); // Replace <br> or <br ...>
@@ -590,7 +586,9 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
 				if ($stripsuffix) {
 					$key = stripSuffix($key);
 				}
-				$list[$key] = $basepath . $file;
+				if (realpath($basepath . $file)) { //	sometimes you just can't get there from here!
+					$list[$key] = $basepath . $file;
+				}
 			}
 		}
 	}
@@ -871,6 +869,10 @@ function populateManagedObjectsList($type, $id, $rights = false) {
 				}
 			}
 			db_free_result($currentvalues);
+		}
+		$item = query_single_row('SELECT `edit` FROM ' . prefix('admin_to_object') . "WHERE adminid=$id AND objectid=0 AND type='news'", false);
+		if ($item) {
+			$cv[] = array('data' => '`', 'name' => '"' . gettext('un-categorized') . '"', 'type' => 'news', 'edit' => (int) $item['edit']);
 		}
 	}
 	return $cv;
@@ -1961,27 +1963,6 @@ function commentsAllowed($type) {
 }
 
 /**
- * Returns the viewer's IP address
- * Deals with transparent proxies
- *
- * @return string
- */
-function getUserIP() {
-	$pattern = '~^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$~';
-	if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		$ip = sanitize($_SERVER['HTTP_X_FORWARDED_FOR']);
-		if (preg_match($pattern, $ip)) {
-			return $ip;
-		}
-	}
-	$ip = sanitize($_SERVER['REMOTE_ADDR']);
-	if (preg_match($pattern, $ip)) {
-		return $ip;
-	}
-	return NULL;
-}
-
-/**
  * Strips out and/or replaces characters from the string that are not "soe" friendly
  *
  * @param string $string
@@ -2023,7 +2004,7 @@ function seoFriendlyJS() {
 
 /**
  * returns an XSRF token
- * @param striong $action
+ * @param string $action
  */
 function getXSRFToken($action) {
 	global $_zp_current_admin_obj;
@@ -2201,6 +2182,7 @@ function reveal($content, $visible = false) {
 function applyMacros($text) {
 	$content_macros = getMacros();
 	preg_match_all('/\[(\w+)(.*?)\]/i', $text, $instances);
+
 	foreach ($instances[0] as $instance => $macro_instance) {
 		$macroname = strtoupper($instances[1][$instance]);
 		if (array_key_exists($macroname, $content_macros)) {
@@ -2216,7 +2198,7 @@ function applyMacros($text) {
 				$k = 0;
 				foreach ($l[0] as $s) {
 					if ($s != ',') {
-						$parms[$k++] = trim($s, '\'"'); //	remove any quote marks
+						$parms[$k++] = trim($s, ',\'"'); //	remove any quote marks
 					}
 				}
 			} else {
@@ -2300,7 +2282,7 @@ function applyMacros($text) {
 						if ($class == 'function') {
 							ob_start();
 							$data = call_user_func_array($macro['value'], $parameters);
-							if (empty($data)) {
+							if (is_null($data)) {
 								$data = ob_get_contents();
 							}
 							ob_end_clean();
@@ -2309,8 +2291,11 @@ function applyMacros($text) {
 							call_user_func_array($macro['value'], $parameters);
 							$data = ob_get_contents();
 							ob_end_clean();
+							if (empty($data)) {
+								$data = NULL;
+							}
 						}
-						if (empty($data)) {
+						if (is_null($data)) {
 							$data = '<span class="error">' . sprintf(gettext('<em>[%1$s]</em> retuned no data'), trim($macro_instance, '[]')) . '</span>';
 						} else {
 							$data = "\n<!--Begin " . $macroname . "-->\n" . $data . "\n<!--End " . $macroname . "-->\n";
@@ -2422,9 +2407,6 @@ class zpFunctions {
 			} else {
 				$langs[$full[0]] = $simple;
 			}
-		}
-		if (isset($langs[SITE_LOCALE])) {
-			$langs[SITE_LOCALE] = '';
 		}
 		return $langs;
 	}

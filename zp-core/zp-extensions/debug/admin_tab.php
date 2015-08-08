@@ -7,7 +7,7 @@
  * Copyright 2014 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
  *
  * @package plugins
- * @subpackage admin
+ * @subpackage development
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
@@ -21,7 +21,7 @@ if (isset($_POST['delete_cookie'])) {
 }
 
 $subtab = getSubtabs();
-printAdminHeader('debug', $subtab);
+printAdminHeader('development', $subtab);
 
 echo "\n</head>";
 ?>
@@ -163,8 +163,7 @@ echo "\n</head>";
 									$a = array();
 									foreach ($lang[2] as $lang_code) {
 										$loc = setlocale(LC_ALL, $lang_code);
-										$loc = $_zp_UTF8->convert($loc, FILESYSTEM_CHARSET, LOCAL_CHARSET);
-										$a [] = $lang_code . ' ' . ( false === $loc ? '✖' : '✔ - ' . $loc );
+										$a[] = $lang_code . ' ' . ( false === $loc ? '✖' : '✔ - ' . $_zp_UTF8->convert($loc, FILESYSTEM_CHARSET, LOCAL_CHARSET) );
 									}
 									echo '  <td>' . implode('<br />', $a) . '</td>' . "\n";
 									echo '</tr>' . "\n";

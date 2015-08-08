@@ -69,7 +69,6 @@ if (!defined('WEBPATH')) {
 unset($const_webpath);
 unset($const_serverpath);
 
-
 // Contexts (Bitwise and combinable)
 define("ZP_INDEX", 1);
 define("ZP_ALBUM", 2);
@@ -112,12 +111,24 @@ if (TEST_RELEASE) {
 	error_reporting(E_ALL | E_STRICT);
 	@ini_set('display_errors', 1);
 }
+
 set_error_handler("zpErrorHandler");
 set_exception_handler("zpErrorHandler");
-$_configMutex = new Mutex('cF');
-if (OFFSET_PATH != 2 && !file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	require_once(dirname(__FILE__) . '/reconfigure.php');
-	reconfigureAction(1);
+$_configMutex = new zpMutex('cF');
+$_zp_mutex = new zpMutex();
+
+$_zp_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8');
+// Including the config file more than once is OK, and avoids $conf missing.
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	@eval('?>' . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	define('DATA_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
+} else {
+	define('DATA_MOD', 0777);
+}
+define('DATABASE_PREFIX', $_zp_conf_vars['mysql_prefix']);
+define('LOCAL_CHARSET', $_zp_conf_vars['charset']);
+if (!isset($_zp_conf_vars['special_pages'])) {
+	$_zp_conf_vars['special_pages'] = array();
 }
 
 if (!defined('CHMOD_VALUE')) {
@@ -126,25 +137,12 @@ if (!defined('CHMOD_VALUE')) {
 define('FOLDER_MOD', CHMOD_VALUE | 0311);
 define('FILE_MOD', CHMOD_VALUE & 0666);
 
-$_zp_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_');
-// Including the config file more than once is OK, and avoids $conf missing.
-if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	@eval('?>' . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	define('DATA_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
-} else {
-	define('DATA_MOD', 0777);
-}
-if (!isset($_zp_conf_vars['special_pages'])) {
-	$_zp_conf_vars['special_pages'] = array();
-}
-
-define('DATABASE_PREFIX', $_zp_conf_vars['mysql_prefix']);
-
-$_zp_mutex = new Mutex();
-
-if (OFFSET_PATH != 2 && empty($_zp_conf_vars['mysql_database'])) {
-	require_once(dirname(__FILE__) . '/reconfigure.php');
-	reconfigureAction(2);
+if (OFFSET_PATH != 2) {
+	if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+		_setup(1);
+	} else if (empty($_zp_conf_vars['mysql_database'])) {
+		_setup(2);
+	}
 }
 
 require_once(dirname(__FILE__) . '/lib-utf8.php');
@@ -161,13 +159,6 @@ if (!defined('FILESYSTEM_CHARSET')) {
 	}
 }
 
-$_session_path = session_save_path();
-if (!file_exists($_session_path) || !is_writable($_session_path)) {
-	mkdir_recursive(SERVERPATH . '/' . DATA_FOLDER . '/PHP_sessions', FOLDER_MOD);
-	session_save_path(SERVERPATH . '/' . DATA_FOLDER . '/PHP_sessions');
-}
-unset($_session_path);
-
 // If the server protocol is not set, set it to the default.
 if (!isset($_zp_conf_vars['server_protocol'])) {
 	$_zp_conf_vars['server_protocol'] = 'http';
@@ -181,16 +172,10 @@ if (!defined('DATABASE_SOFTWARE') && (extension_loaded(strtolower($_zp_conf_vars
 }
 
 if (!$data && OFFSET_PATH != 2) {
-	require_once(dirname(__FILE__) . '/reconfigure.php');
-	reconfigureAction(3);
+	_setup(3);
 }
 
 primeOptions();
-$data = getOption('charset');
-if (!$data) {
-	$data = 'UTF-8';
-}
-define('LOCAL_CHARSET', $data);
 
 $data = getOption('gallery_data');
 if ($data) {
@@ -218,6 +203,7 @@ if (ini_get('memory_limit') && parse_size(ini_get('memory_limit')) < 100663296) 
 }
 
 // Set the internal encoding
+@ini_set('default_charset', LOCAL_CHARSET);
 if (function_exists('mb_internal_encoding')) {
 	@mb_internal_encoding(LOCAL_CHARSET);
 }
@@ -277,7 +263,8 @@ if ($c = getOption('zenphoto_cookie_path')) {
 }
 
 define('SAFE_MODE', preg_match('#(1|ON)#i', ini_get('safe_mode')));
-define('FULLWEBPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST'] . WEBPATH);
+define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
+define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 define('SAFE_MODE_ALBUM_SEP', '__');
 define('SERVERCACHE', SERVERPATH . '/' . CACHEFOLDER);
 define('MOD_REWRITE', getOption('mod_rewrite'));
@@ -903,7 +890,7 @@ function getImageProcessorURI($args, $album, $image) {
 
 	$uri .= '&check=' . sha1(HASH_SEED . serialize($args));
 
-	$uri = zp_apply_filter('image_processor_uri', $uri);
+	$uri = zp_apply_filter('image_processor_uri', $uri, $args, $album, $image);
 
 	return $uri;
 }
@@ -1060,7 +1047,7 @@ function getAllowedTags($which) {
  */
 function rewrite_path($rewrite, $plain, $webpath = NULL) {
 	if (is_null($webpath)) {
-		if (class_exists('seo_locale')) {
+		if (defined('LOCALE_TYPE') && LOCALE_TYPE == 1) {
 			$webpath = seo_locale::localePath();
 		} else {
 			$webpath = WEBPATH;
@@ -1210,55 +1197,6 @@ function switchLog($log) {
 	@copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log', SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '-' . $counter . '.log');
 	if (getOption($log . '_log_mail')) {
 		zp_mail(sprintf(gettext('%s log size limit exceeded'), $log), sprintf(gettext('The %1$s log has exceeded its size limit and has been renamed to %2$s.'), $log, $log . '-' . $counter . '.log'));
-	}
-}
-
-/**
- * Write output to the debug log
- * Use this for debugging when echo statements would come before headers are sent
- * or would create havoc in the HTML.
- * Creates (or adds to) a file named debug.log which is located in the zenphoto core folder
- *
- * @param string $message the debug information
- * @param bool $reset set to true to reset the log to zero before writing the message
- * @param string $log alternative log file
- */
-function debugLog($message, $reset = false, $log = 'debug') {
-	if (defined('SERVERPATH')) {
-		global $_zp_mutex;
-		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
-		$me = getmypid();
-		if (is_object($_zp_mutex))
-			$_zp_mutex->lock();
-		if ($reset || ($size = @filesize($path)) == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
-			if (!$reset && $size > 0) {
-				switchLog('debug');
-			}
-			$f = fopen($path, 'w');
-			if ($f) {
-				if (!class_exists('zpFunctions') || zpFunctions::hasPrimaryScripts()) {
-					$clone = '';
-				} else {
-					$clone = ' ' . gettext('clone');
-				}
-				fwrite($f, '{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} ZenPhoto20 v" . ZENPHOTO_VERSION . $clone . "\n");
-			}
-		} else {
-			$f = fopen($path, 'a');
-			if ($f) {
-				fwrite($f, '{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT}\n");
-			}
-		}
-		if ($f) {
-			fwrite($f, "  " . $message . "\n");
-			fclose($f);
-			clearstatcache();
-			if (defined('DATA_MOD')) {
-				@chmod($path, DATA_MOD);
-			}
-		}
-		if (is_object($_zp_mutex))
-			$_zp_mutex->unlock();
 	}
 }
 
@@ -1496,8 +1434,7 @@ function checkInstall() {
 		}
 		preg_match('|([^-]*).*\[(.*)\]|', $install['ZENPHOTO'], $matches);
 		if (isset($install['REQUESTS']) || isset($matches[1]) && isset($matches[2]) && $matches[1] != $version[1] || $matches[2] != ZENPHOTO_RELEASE || ((time() & 7) == 0) && OFFSET_PATH != 2 && $i != serialize(installSignature())) {
-			require_once(dirname(__FILE__) . '/reconfigure.php');
-			reconfigureAction(0);
+			_setup(0);
 		}
 	}
 }
@@ -1513,6 +1450,19 @@ function requestSetup($whom) {
 	$sig = getSerializedArray(getOption('zenphoto_install'));
 	$sig['REQUESTS'][$whom] = $whom;
 	setOption('zenphoto_install', serialize($sig));
+}
+
+/**
+ * Force a setup to get the configuration right
+ *
+ * @param int $action if positive the setup is mandatory
+ *
+ * @author Stephen Billard
+ * @Copyright 2015 by Stephen L Billard for use in {@link https://github.com/ZenPhoto20/ZenPhoto20 ZenPhoto20}
+ */
+function _setup($action) {
+	require_once(dirname(__FILE__) . '/reconfigure.php');
+	reconfigureAction($action);
 }
 
 /**
@@ -1558,8 +1508,9 @@ function installSignature() {
  * Closes the database to be sure that we do not build up outstanding connections
  */
 function exitZP() {
-	IF (function_exists('db_close'))
+	IF (function_exists('db_close')) {
 		db_close();
+	}
 	exit();
 }
 
@@ -1568,14 +1519,26 @@ function exitZP() {
  * Starts a zenphoto session (perhaps a secure one)
  */
 function zp_session_start() {
+	global $_zp_conf_vars;
 	if (session_id() == '') {
-// force session cookie to be secure when in https
+		//	insure that the session data has a place to be saved
+		if (isset($_zp_conf_vars['session_save_path'])) {
+			session_save_path($_zp_conf_vars['session_save_path']);
+		} else {
+			$_session_path = session_save_path();
+			if (!file_exists($_session_path) || !is_writable($_session_path)) {
+				mkdir_recursive(SERVERPATH . '/' . DATA_FOLDER . '/PHP_sessions', FOLDER_MOD);
+				session_save_path(SERVERPATH . '/' . DATA_FOLDER . '/PHP_sessions');
+			}
+		}
 		if (secureServer()) {
+			// force session cookie to be secure when in https
 			$CookieInfo = session_get_cookie_params();
 			session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
 		}
-		session_start();
+		return session_start();
 	}
+	return NULL;
 }
 
 ?>

@@ -418,7 +418,7 @@ class Gallery {
 	 * @return bool
 	 */
 	function garbageCollect($cascade = true, $complete = false, $restart = '') {
-		global $_zp_gallery;
+		global $_zp_gallery, $_zp_authority;
 		if (empty($restart)) {
 			setOption('last_garbage_collect', time());
 			/* purge old search cache items */
@@ -459,8 +459,7 @@ class Gallery {
 			$result = query("SELECT * FROM " . prefix('admin_to_object'));
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
-					$dbtag = query_single_row("SELECT * FROM " . prefix('administrators') . " WHERE `id`='" . $row['adminid'] . "'", false);
-					if (!$dbtag) {
+					if (!$_zp_authority->validID($row['adminid'])) {
 						$dead[] = $row['id'];
 					}
 					$tbl = $row['type'];
@@ -776,12 +775,12 @@ class Gallery {
 			}
 			$order = $sortdirection && strtolower($sortdirection) != 'asc';
 		}
-		$sql = 'SELECT * FROM ' . prefix("albums") . ' WHERE `parentid`' . $albumid . ' ORDER BY ' . $sortkey;
+		$sql = 'SELECT * FROM ' . prefix("albums") . ' WHERE `parentid`' . $albumid . ' ORDER BY ' . db_escape($sortkey);
 		if ($order)
 			$sql .= ' DESC';
 		$result = query($sql);
 		$results = array();
-//	check database aganist file system
+		//	check database aganist file system
 		while ($row = db_fetch_assoc($result)) {
 			$folder = $row['folder'];
 			if (($key = array_search($folder, $albums)) !== false) { // album exists in filesystem
@@ -1101,6 +1100,16 @@ class Gallery {
 
 	function getData() {
 		return $this->data;
+	}
+
+	function getLink($page = NULL) {
+		$rewrite = '';
+		$plain = '/index.php';
+		if ($page > 1) {
+			$rewrite .=_PAGE_ . '/' . $page;
+			$plain .= "&page=$page";
+		}
+		return zp_apply_filter('getLink', rewrite_path($rewrite, $plain), $this, $page);
 	}
 
 }

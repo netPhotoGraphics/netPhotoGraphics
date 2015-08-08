@@ -3,11 +3,15 @@
 
 zp_register_filter('themeSwitcher_head', 'switcher_head');
 zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
+zp_register_filter('iconColor', 'iconColor');
 zp_register_filter('theme_head', 'EF_head', 0);
 zp_register_filter('load_theme_script', 'fourOhFour');
 
 define('ALBUM_THMB_WIDTH', 170);
 define('ALBUM_THUMB_HEIGHT', 80);
+if (extensionEnabled('zenpage')) {
+	setOption('gallery_index', 1, false);
+}
 
 $cwd = getcwd();
 chdir(dirname(__FILE__));
@@ -69,30 +73,33 @@ if (!OFFSET_PATH) {
 	$_oneImagePage = $handler->onePage();
 	$_zp_page_check = 'my_checkPageValidity';
 }
+define('_IMAGE_PATH', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/');
 
 function EF_head($ignore) {
 	global $themeColor;
 	if (!$themeColor) {
 		$themeColor = getThemeOption('Theme_colors');
 	}
-	if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/effervescence+/styles/' . $themeColor . '.css') || filemtime(SERVERPATH . '/' . DATA_FOLDER . '/effervescence+/styles/' . $themeColor . '.css') < filemtime(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/styles/' . $themeColor . '.txt')) {
-		eval(file_get_contents(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/styles/' . $themeColor . '.txt'));
-		$css = file_get_contents(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/base.css');
+	$basePath = SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/';
+	$csfile = $basePath . 'data/styles/' . $themeColor . '.css';
+	if (!file_exists($csfile) || ($mtime = filemtime($csfile) < filemtime($basePath . 'styles/' . $themeColor . '.txt')) || $mtime < filemtime($basePath . '/base.css')) {
+		eval(file_get_contents($basePath . 'styles/' . $themeColor . '.txt'));
+		$css = file_get_contents($basePath . '/base.css');
 		$css = strtr($css, $tr);
 		$css = preg_replace('|\.\./images/|', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/', $css);
-		mkdir_recursive(SERVERPATH . '/' . DATA_FOLDER . '/effervescence+/styles/', FOLDER_MOD);
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/effervescence+/styles/' . $themeColor . '.css', $css);
+		mkdir_recursive($basePath . '/data/styles', FOLDER_MOD);
+		file_put_contents($csfile, $css);
 	}
 	?>
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . DATA_FOLDER; ?>/effervescence+/styles/<?php echo $themeColor; ?>.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . THEMEFOLDER; ?>/effervescence+/common.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . THEMEFOLDER; ?>/effervescence+/data/styles/<?php echo $themeColor; ?>.css" type="text/css" />
 	<script type="text/javascript">
 		// <!-- <![CDATA[
 		function blurAnchors() {
 			if (document.getElementsByTagName) {
 				var a = document.getElementsByTagName("a");
 				for (var i = 0; i < a.length; i++) {
-					a[i].onfocus = function() {
+					a[i].onfocus = function () {
 						this.blur()
 					};
 				}
@@ -102,6 +109,20 @@ function EF_head($ignore) {
 	</script>
 	<?php
 	return $ignore;
+}
+
+function iconColor($icon) {
+	global $themeColor;
+	if (!$themeColor) {
+		list($personality, $themeColor) = getPersonality();
+	}
+	switch ($themeColor) {
+		case 'rainbow':
+		case 'effervescence':
+			return($icon);
+		default:
+			return (stripSuffix($icon) . '-gray.png');
+	}
 }
 
 function switcher_head($ignore) {
@@ -123,17 +144,17 @@ function switcher_head($ignore) {
 }
 
 function switcher_controllink($ignore) {
-	global $personalities, $themecolors, $_zp_gallery_page;
-	$color = getOption('themeSwitcher_effervescence_color');
-	if (!$color) {
-		list($personality, $color) = getPersonality();
+	global $personalities, $themecolors, $_zp_gallery_page, $themeColor;
+	$themeColor = getOption('themeSwitcher_effervescence_color');
+	if (!$themeColor) {
+		list($personality, $themeColor) = getPersonality();
 	}
 	?>
 	<span id="themeSwitcher_effervescence">
 		<span title="<?php echo gettext("Effervescence color scheme."); ?>">
 			<?php echo gettext('Theme Color'); ?>
 			<select name="themeColor" id="themeColor" onchange="switchColors();">
-				<?php generateListFromArray(array($color), $themecolors, false, false); ?>
+				<?php generateListFromArray(array($themeColor), $themecolors, false, false); ?>
 			</select>
 		</span>
 		<?php
@@ -495,7 +516,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (!extensionEnabled('zenpage') || getOption('custom_index_page') == 'gallery') { // only one index page if zenpage plugin is enabled or custom index page is set
+			if (!getOption('gallery_index')) { // only one index page if zenpage plugin is enabled or gallery index page is set
 				break;
 			}
 		default:

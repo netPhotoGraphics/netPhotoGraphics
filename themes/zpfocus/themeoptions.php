@@ -19,7 +19,6 @@ class ThemeOptions {
 		setThemeOption('thumb_crop', 0, null, 'zpfocus');
 		setThemeOption('image_size', 800, null, 'zpfocus'); //for sized cb target option only
 		setThemeOption('image_use_side', 'longest', null, 'zpfocus');
-		setThemeOption('custom_index_page', 'none', null, 'zpfocus');
 
 		// set core theme option defaults
 		setThemeOptionDefault('albums_per_page', 6);
@@ -90,7 +89,7 @@ class ThemeOptions {
 	}
 
 	function getOptionsDisabled() {
-		return array('custom_index_page', 'thumb_size', 'thumb_crop', 'image_size');
+		return array('thumb_size', 'thumb_crop', 'image_size');
 	}
 
 	function handleOption($option, $currentValue) {
@@ -448,7 +447,7 @@ class ThemeOptions {
 				echo gettext("No unpublished pages available");
 				// clear option if no unpublished pages are available or have been published meanwhile
 				// so that the normal gallery index appears and no page is accidentally set if set to unpublished again.
-				setOption("zpfocus_homepage", "none", true);
+				setOption("zpfocus_homepage", "none");
 			} else {
 				echo '<input type="hidden" name="' . CUSTOM_OPTION_PREFIX . 'selector-zpfocus_homepage" value="0" />' . "\n";
 				echo '<select id="' . $option . '" name="zpfocus_homepage">' . "\n";

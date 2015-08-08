@@ -16,6 +16,10 @@ if (isset($_GET['debug'])) {
 }
 
 require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+$testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést');
+if (!file_exists($testFile)) {
+	file_put_contents($testFile, '');
+}
 
 /* fix for NULL theme name */
 Query('UPDATE ' . prefix('options') . ' SET `theme`="" WHERE `theme` IS NULL');
@@ -289,7 +293,6 @@ setOptionDefault('tagsort', 0);
 setOptionDefault('albumimagesort', 'ID');
 setOptionDefault('albumimagedirection', 'DESC');
 setOptionDefault('cache_full_image', 0);
-setOptionDefault('custom_index_page', '');
 setOptionDefault('exact_tag_match', 0);
 
 setOptionDefault('image_max_size', 3000);

@@ -332,14 +332,11 @@ class security_logger {
 	}
 
 	static function adminCookie($allow, $auth, $id) {
-		if (!$allow && $auth) {
+		if (!$allow && $auth && $id) { //	then it was a cononical auth cookie that is no longer valid or was forged
 			switch (getOption('logger_log_type')) {
 				case 'all':
 				case 'fail':
-					if ($id) {
-						$id .=':';
-					}
-					security_logger::Logger(0, NULL, NULL, 'auth_cookie', '', $id . $auth);
+					security_logger::Logger(0, NULL, NULL, 'auth_cookie', '', (int) $id . ':' . $auth);
 			}
 		}
 		return $allow;
@@ -422,7 +419,8 @@ class security_logger {
 	 * @param string $txt
 	 */
 	static function security_misc($success, $requestor, $auth, $txt) {
-		security_logger::Logger((int) $success, NULL, NULL, $requestor, $auth, $txt);
+		list($user, $name) = security_logger::populate_user();
+		security_logger::Logger((int) $success, $name, NULL, $requestor, $auth, $txt);
 		return $success;
 	}
 

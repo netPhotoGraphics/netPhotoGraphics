@@ -1,5 +1,4 @@
 <?php
-
 /**
  * functions common to both the core and setup's basic environment
  *
@@ -17,6 +16,46 @@ function dbErrorReport($sql) {
 }
 
 /**
+ * Returns a properly quoted string for DB queries
+ * @param type $string
+ * @return type
+ */
+function db_quote($string) {
+	return "'" . db_escape($string) . "'";
+}
+
+/**
+ * Returns the viewer's IP address
+ * Deals with transparent proxies
+ *
+ * @return string
+ */
+function getUserIP() {
+	$pattern = '~^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$~';
+	if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		$ip = sanitize($_SERVER['HTTP_X_FORWARDED_FOR']);
+		if (preg_match($pattern, $ip)) {
+			return $ip;
+		}
+	}
+	$ip = sanitize($_SERVER['REMOTE_ADDR']);
+	if (preg_match($pattern, $ip)) {
+		return $ip;
+	}
+	return NULL;
+}
+
+/**
+ * triggers an error
+ *
+ * @param string $message
+ * @param bool $fatal set true to fail the script
+ */
+function zp_error($message, $fatal = E_USER_ERROR) {
+	trigger_error($message, $fatal);
+}
+
+/**
  *
  * Traps errors and insures thy are logged.
  * @param int $errno
@@ -26,9 +65,9 @@ function dbErrorReport($sql) {
  * @return void|boolean
  */
 function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
+	global $_zp_current_admin_obj, $_index_theme;
 	// check if function has been called by an exception
 	if (func_num_args() == 5) {
-		// called by zp_error()
 		list($errno, $errstr, $errfile, $errline) = func_get_args();
 	} else {
 		// caught exception
@@ -38,6 +77,7 @@ function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 		$errfile = $exc->getFile();
 		$errline = $exc->getLine();
 	}
+
 	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
 		return;
@@ -59,7 +99,9 @@ function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 		$err = gettext("EXCEPTION ($errno)");
 		$errno = E_ERROR;
 	}
-	$msg = sprintf(gettext('%1$s: %2$s in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
+
+
+	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
 	if (array_key_exists('REQUEST_URI', $_SERVER)) {
 		$uri = sanitize($_SERVER['REQUEST_URI']);
 		preg_match('|^(http[s]*\://[a-zA-Z0-9\-\.]+/?)*(.*)$|xis', $uri, $matches);
@@ -70,10 +112,26 @@ function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 	} else {
 		$uri = sanitize(@$_SERVER['SCRIPT_NAME']);
 	}
-	if ($uri)
-		$uri = "\nURI:" . urldecode(str_replace('\\', '/', $uri));
-	$uri .= "\nIP:" . getUserIP();
+	if ($uri) {
+		$uri = "\n URI:" . urldecode(str_replace('\\', '/', $uri));
+	}
+	$uri .= "\n IP:" . getUserIP();
+	if (is_object($_zp_current_admin_obj)) {
+		$uri .= "\n " . gettext('user') . ':' . $_zp_current_admin_obj->getUser();
+	}
+	if ($_index_theme) {
+		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
+	}
 	debugLogBacktrace($msg . $uri, 1);
+
+	if (!ini_get('display_errors') && ($errno == E_ERROR || $errno = E_USER_ERROR)) {
+		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
+		?>
+		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
+			<?php echo html_encode($msg); ?>
+		</div>
+		<?php
+	}
 	return false;
 }
 
@@ -199,12 +257,12 @@ function ksesProcess($input_string, $allowed_tags) {
 	if (function_exists('kses')) {
 		return kses($input_string, $allowed_tags);
 	} else {
-		$content = preg_replace('~<script.*?/script>~is', '', $input_string);
-		$content = preg_replace('~<style.*?/style>~is', '', $input_string);
-		$content = preg_replace('~<!--.*?-->~is', '', $input_string);
+		$input_string = preg_replace('~<script.*?/script>~is', '', $input_string);
+		$input_string = preg_replace('~<style.*?/style>~is', '', $input_string);
+		$input_string = preg_replace('~<!--.*?-->~is', '', $input_string);
 		$content = strip_tags($input_string);
-		$content = str_replace('&nbsp;', ' ', $input_string);
-		$content = html_entity_decode($input_string, ENT_QUOTES, 'UTF-8');
+		$input_string = str_replace('&nbsp;', ' ', $input_string);
+		$input_string = html_decode($input_string);
 		return $input_string;
 	}
 }
@@ -325,18 +383,15 @@ function db_count($table, $clause = NULL, $field = "*") {
 	}
 }
 
-/**
- * triggers an error
- *
- * @param string $message
- * @param bool $fatal set true to fail the script
- */
-function zp_error($message, $fatal = E_USER_ERROR) {
-	trigger_error($message, $fatal);
-}
-
 function html_decode($string) {
-	return html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
+	$string = html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
+	// Replace numeric entities because html_entity_decode doesn't do it for us.
+	if (function_exists('mb_convert_encoding')) {
+		$string = preg_replace_callback("/(&#[0-9]+;)/", function($m) {
+			return mb_convert_encoding($m[1], LOCAL_CHARSET, "HTML-ENTITIES");
+		}, $string);
+	}
+	return $string;
 }
 
 /**
@@ -380,19 +435,14 @@ function html_encodeTagged($original, $allowScript = true) {
 		$tags[2]['%' . $key . '$s'] = $tag;
 		$str = str_replace($tag, '%' . $key . '$s', $str);
 	}
-	//entities
-	preg_match_all('/(&[a-z#]+;)/i', $str, $matches);
-	foreach (array_unique($matches[0]) as $key => $entity) {
-		$tags[3]['%' . $key . '$e'] = $entity;
-		$str = str_replace($entity, '%' . $key . '$e', $str);
-	}
-	$str = htmlspecialchars($str, ENT_FLAGS, LOCAL_CHARSET);
+	$str = html_decode($str);
+	$str = htmlentities($str, ENT_FLAGS, LOCAL_CHARSET);
 	foreach (array_reverse($tags, true) as $taglist) {
 		$str = strtr($str, $taglist);
 	}
 	if (class_exists('tidy') && $str != $original) {
 		$tidy = new tidy();
-		$tidy->parseString($str, array('show-body-only' => 1, 'quote-marks' => 1, 'quote-ampersand' => 1), 'utf8');
+		$tidy->parseString($str, array('show-body-only' => 1, 'quote-marks' => 1, 'quote-ampersand' => 1, 'preserve-entities' => true), 'utf8');
 		$tidy->cleanRepair();
 		$str = $tidy->value;
 	}
@@ -411,6 +461,55 @@ function mkdir_recursive($pathname, $mode) {
 		mkdir_recursive(dirname($pathname), $mode);
 	}
 	return is_dir($pathname) || @mkdir($pathname, $mode);
+}
+
+/**
+ * Write output to the debug log
+ * Use this for debugging when echo statements would come before headers are sent
+ * or would create havoc in the HTML.
+ * Creates (or adds to) a file named debug.log which is located in the zenphoto core folder
+ *
+ * @param string $message the debug information
+ * @param bool $reset set to true to reset the log to zero before writing the message
+ * @param string $log alternative log file
+ */
+function debugLog($message, $reset = false, $log = 'debug') {
+	if (defined('SERVERPATH')) {
+		global $_zp_mutex;
+		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
+		$me = getmypid();
+		if (is_object($_zp_mutex))
+			$_zp_mutex->lock();
+		if ($reset || ($size = @filesize($path)) == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
+			if (!$reset && $size > 0) {
+				switchLog('debug');
+			}
+			$f = fopen($path, 'w');
+			if ($f) {
+				if (!class_exists('zpFunctions') || zpFunctions::hasPrimaryScripts()) {
+					$clone = '';
+				} else {
+					$clone = ' ' . gettext('clone');
+				}
+				fwrite($f, '{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} ZenPhoto20 v" . ZENPHOTO_VERSION . $clone . "\n");
+			}
+		} else {
+			$f = fopen($path, 'a');
+			if ($f) {
+				fwrite($f, '{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT}\n");
+			}
+		}
+		if ($f) {
+			fwrite($f, "  " . $message . "\n");
+			fclose($f);
+			clearstatcache();
+			if (defined('DATA_MOD')) {
+				@chmod($path, DATA_MOD);
+			}
+		}
+		if (is_object($_zp_mutex))
+			$_zp_mutex->unlock();
+	}
 }
 
 /**
@@ -603,7 +702,7 @@ function getSerializedArray($string) {
  * @author Stephen
  *
  */
-class Mutex {
+class zpMutex {
 
 	private $locked = NULL;
 	private $ignoreUseAbort = NULL;
@@ -611,12 +710,12 @@ class Mutex {
 	private $lock = NULL;
 
 	function __construct($lock = 'zP', $concurrent = NULL, $folder = NULL) {
-		if (is_null($folder)) {
-			$folder = SERVERPATH . '/';
-		}
 
 // if any of the construction fails, run in free mode (lock = NULL)
 		if (function_exists('flock') && defined('SERVERPATH')) {
+			if (is_null($folder)) {
+				$folder = SERVERPATH . '/';
+			}
 			if ($concurrent) {
 				If ($subLock = self::which_lock($lock, $concurrent, $folder)) {
 					$this->lock = $folder . DATA_FOLDER . '/' . MUTEX_FOLDER . '/' . $lock . '_' . $subLock;
@@ -634,7 +733,7 @@ class Mutex {
 		global $_zp_mutex;
 		$counter_file = $folder . DATA_FOLDER . '/' . MUTEX_FOLDER . '/' . $lock . '_counter';
 		$_zp_mutex->lock();
-// increment the lock id:
+		// increment the lock id:
 		if (@file_put_contents($counter_file, $count = (((int) @file_get_contents($counter_file)) + 1) % $concurrent)) {
 			$count++;
 		} else {
@@ -651,14 +750,14 @@ class Mutex {
 	}
 
 	public function lock() {
-//if "flock" is not supported run un-serialized
-//Only lock an unlocked mutex, we don't support recursive mutex'es
+		//if "flock" is not supported run un-serialized
+		//Only lock an unlocked mutex, we don't support recursive mutex'es
 		if (!$this->locked && $this->lock) {
 			if ($this->mutex = @fopen($this->lock, 'wb')) {
 				if (flock($this->mutex, LOCK_EX)) {
 					$this->locked = true;
-//We are entering a critical section so we need to change the ignore_user_abort setting so that the
-//script doesn't stop in the critical section.
+					//We are entering a critical section so we need to change the ignore_user_abort setting so that the
+					//script doesn't stop in the critical section.
 					$this->ignoreUserAbort = ignore_user_abort(true);
 				}
 			}
