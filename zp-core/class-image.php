@@ -153,7 +153,7 @@ class Image extends MediaObject {
 	 */
 	static function getMetadataFields() {
 		return array(
-// Database Field       		 => array(0:'source', 1:'Metadata Key', 2;'ZP Display Text', 3:Display?	4:size,	5:enabled, type)
+						// Database Field       		 => array(0:'source', 1:'Metadata Key', 2;'ZP Display Text', 3:Display?	4:size,	5:enabled, type)
 						'EXIFMake'									 => array('IFD0', 'Make', gettext('Camera Maker'), true, 52, true, 'string'),
 						'EXIFModel'									 => array('IFD0', 'Model', gettext('Camera Model'), true, 52, true, 'string'),
 						'EXIFDescription'						 => array('IFD0', 'ImageDescription', gettext('Image Title'), false, 52, true, 'string'),
@@ -1140,11 +1140,11 @@ class Image extends MediaObject {
 		}
 
 		if (($size && ($side == 'longest' && $h > $w) || ($side == 'height') || ($side == 'shortest' && $h < $w))) {
-// Scale the height
+			// Scale the height
 			$newh = $dim;
 			$neww = $wprop;
 		} else {
-// Scale the width
+			// Scale the width
 			$neww = $dim;
 			$newh = $hprop;
 		}
@@ -1236,28 +1236,24 @@ class Image extends MediaObject {
 		global $_zp_current_search, $_zp_current_album;
 		if ($this->index == NULL) {
 			$album = $this->albumnamealbum;
+			$filename = $this->filename;
 			if (!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED) || $album->isDynamic()) {
+				$imagefolder = $this->imagefolder;
 				if ($album->isDynamic()) {
 					$images = $album->getImages();
-					for ($i = 0; $i < count($images); $i++) {
-						$image = $images[$i];
-						if ($this->filename == $image['filename']) {
-							$this->index = $i;
-							break;
-						}
-					}
 				} else {
-					$this->index = $_zp_current_search->getImageIndex($this->imagefolder, $this->filename);
+					$images = $_zp_current_search->getImages(0);
 				}
+				$target = array_keys(array_filter($images, function($item) use($filename, $imagefolder) {
+									return $item['filename'] == $filename && $item['folder'] == $imagefolder;
+								}));
+				$this->index = @$target[0];
 			} else {
 				$images = $this->album->getImages(0);
-				for ($i = 0; $i < count($images); $i++) {
-					$image = $images[$i];
-					if ($this->filename == $image) {
-						$this->index = $i;
-						break;
-					}
-				}
+				$target = array_keys(array_filter($images, function($item) use ($filename) {
+									return $item == $filename;
+								}));
+				$this->index = @$target[0];
 			}
 		}
 		return $this->index;

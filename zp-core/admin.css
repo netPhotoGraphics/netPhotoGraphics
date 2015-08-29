@@ -2691,9 +2691,6 @@ dt,dd {
 	padding: 5px;
 }
 
-dt {
-	font-weight: bold;
-}
 dd {
 	width: 60%;
 	margin-left: -10px;
@@ -2744,10 +2741,6 @@ form.tinyDirty input[type=submit]:hover,
 form.tinyDirty input[type=submit]:active{
 	border: 1px solid green !important;
 	background: #eff6d5;
-}
-
-.mce-tinymce.mce-container .mce-toolbar {
-	float: left;
 }
 
 .zenlogo img {
