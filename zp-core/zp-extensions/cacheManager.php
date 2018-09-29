@@ -197,6 +197,14 @@ class cacheManager {
 		foreach ($custom as $ownerdata) {
 			$a = reset($ownerdata);
 			$ownerid = $owner = $a['theme'];
+
+			if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $owner)) {
+				$type = 'theme';
+			} else if (getPlugin($owner . '.php')) {
+				$type = 'plugin';
+			} else {
+				$type = 'deprecated';
+			}
 			if (array_key_exists('album', $a) && $a['album']) {
 				$album = $a['album'];
 				$ownerid = $owner . '__' . $album;
@@ -213,17 +221,24 @@ class cacheManager {
 			?>
 			<span class="icons upArrow" id="<?php echo $ownerid; ?>_arrow">
 				<a onclick="showTheme('<?php echo $ownerid; ?>');" title="<?php echo gettext('Show'); ?>">
-					<?php echo ARROW_DOWN_GREEN; ?>
+					<?php
+					echo ARROW_DOWN_GREEN;
+					if ($owner) {
+						$inputclass = 'hidden';
+						echo '<span class="' . $type . '"><em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')</span>';
+						$subtype = @$ownerdata['album'];
+					} else {
+						$inputclass = 'textbox';
+						$subtype = '_custom_';
+						echo gettext('add');
+					}
+					?>
 				</a>
 				<?php
-				if ($owner) {
-					$inputclass = 'hidden';
-					echo '<em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')';
-					$subtype = @$ownerdata['album'];
-				} else {
-					$inputclass = 'textbox';
-					$subtype = '_custom_';
-					echo gettext('add');
+				if ($owner && $owner != 'admin') {
+					?>
+					<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" onclick="$('.cacheManagerOwner_<?php echo $ownerid; ?>').prop('checked', $(this).prop('checked'))" value="1" /></span>
+					<?php
 				}
 				?>
 			</span>
@@ -254,7 +269,7 @@ class cacheManager {
 							<?php
 							if ($owner) {
 								?>
-								<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" name="cacheManager[<?php echo $key; ?>][delete]" value="1" /></span>
+								<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" name="cacheManager[<?php echo $key; ?>][delete]" value="1" class="cacheManagerOwner_<?php echo $ownerid; ?>" /></span>
 								<?php
 							}
 							?>
@@ -280,9 +295,9 @@ class cacheManager {
 							?>
 							<span class="nowrap"><?php echo gettext('Watermark'); ?> <input type="textbox" size="20" name="cacheManager[<?php echo $key; ?>][wmk]" value="<?php echo $wmk; ?>" /></span>
 							<br />
-							<span class="nowrap"><?php echo gettext('MaxSpace'); ?><input type="checkbox"  name="cacheManager[<?php echo $key; ?>][maxspace]" value="1"<?php if (isset($cache['maxspace']) && $cache['maxspace']) echo ' checked="checked"'; ?> /></span>
-							<span class="nowrap"><?php echo gettext('Thumbnail'); ?><input type="checkbox"  name="cacheManager[<?php echo $key; ?>][thumb]" value="1"<?php if (isset($cache['thumb']) && $cache['thumb']) echo ' checked="checked"'; ?> /></span>
-							<span class="nowrap"><?php echo gettext('Grayscale'); ?><input type="checkbox"  name="cacheManager[<?php echo $key; ?>][gray]" value="gray"<?php if (isset($cache['gray']) && $cache['gray']) echo ' checked="checked"'; ?> /></span>
+							<span class="nowrap"><?php echo gettext('MaxSpace'); ?> <input type="checkbox"  name="cacheManager[<?php echo $key; ?>][maxspace]" value="1"<?php if (isset($cache['maxspace']) && $cache['maxspace']) echo ' checked="checked"'; ?> /></span>
+							<span class="nowrap"><?php echo gettext('Thumbnail'); ?> <input type="checkbox"  name="cacheManager[<?php echo $key; ?>][thumb]" value="1"<?php if (isset($cache['thumb']) && $cache['thumb']) echo ' checked="checked"'; ?> /></span>
+							<span class="nowrap"><?php echo gettext('Grayscale'); ?> <input type="checkbox"  name="cacheManager[<?php echo $key; ?>][gray]" value="gray"<?php if (isset($cache['gray']) && $cache['gray']) echo ' checked="checked"'; ?> /></span>
 						</div>
 						<br />
 					</div>
