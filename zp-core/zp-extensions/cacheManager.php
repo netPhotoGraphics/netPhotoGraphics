@@ -197,14 +197,26 @@ class cacheManager {
 		foreach ($custom as $ownerdata) {
 			$a = reset($ownerdata);
 			$ownerid = $owner = $a['theme'];
-
-			if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $owner)) {
-				$type = 'theme';
-			} else if (getPlugin($owner . '.php')) {
-				$type = 'plugin';
+			if (array_key_exists('class', $a)) {
+				$type = $a['class'];
 			} else {
-				$type = 'deprecated';
+				$type = 'legacy';
 			}
+			switch ($type) {
+				default:
+				case 'custom':
+					break;
+				case 'theme':
+					if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $owner)) {
+						break;
+					}
+				case 'plugin':
+					if (getPlugin($owner . '.php')) {
+						break;
+					}
+					$type = 'deprecated'; //	owner no longer exists
+			}
+
 			if (array_key_exists('album', $a) && $a['album']) {
 				$album = $a['album'];
 				$ownerid = $owner . '__' . $album;
@@ -230,6 +242,7 @@ class cacheManager {
 					} else {
 						$inputclass = 'textbox';
 						$subtype = '_custom_';
+						$type = 'custom';
 						echo gettext('add');
 					}
 					?>
@@ -266,6 +279,7 @@ class cacheManager {
 						<div class="<?php echo $class; ?>">
 							<input type="<?php echo $inputclass; ?>" size="25" name="cacheManager[<?php echo $key; ?>][theme]" value="<?php echo $owner; ?>" />
 							<input type="hidden" name="cacheManager[<?php echo $key; ?>][subtype]" value="<?php echo $subtype; ?>" />
+							<input type="hidden" name="cacheManager[<?php echo $key; ?>][class]" value="<?php echo $type; ?>" />
 							<?php
 							if ($owner) {
 								?>
@@ -351,41 +365,51 @@ class cacheManager {
 	 */
 	static function addCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
 		global $_set_theme_album, $_zp_gallery;
-		$ownerList = array_map('strtolower', array_keys($_zp_gallery->getThemes()));
+
 
 		$albumName = '';
-		if (in_array(strtolower($owner), $ownerList)) {
-			//from a theme, so there are standard options
-			if (is_null($watermark)) {
-				$watermark = getThemeOption('image_watermark', $_set_theme_album, $owner);
-			}
-			if (is_null($effects)) {
+		if (getPlugin($owner . '.php')) {
+			$class = 'plugin';
+		} else {
+			$ownerList = array_map('strtolower', array_keys($_zp_gallery->getThemes()));
+			if (in_array(strtolower($owner), $ownerList)) {
+				$class = 'theme';
+				//from a theme, so there are standard options
+				if (is_null($watermark)) {
+					$watermark = getThemeOption('image_watermark', $_set_theme_album, $owner);
+				}
+				if (is_null($effects)) {
+					if ($thumb) {
+						if (getThemeOption('thumb_gray', $_set_theme_album, $owner)) {
+							$effects = 'gray';
+						}
+					} else {
+						if (getThemeOption('image_gray', $_set_theme_album, $owner)) {
+							$effects = 'gray';
+						}
+					}
+				}
 				if ($thumb) {
-					if (getThemeOption('thumb_gray', $_set_theme_album, $owner)) {
-						$effects = 'gray';
-					}
-				} else {
-					if (getThemeOption('image_gray', $_set_theme_album, $owner)) {
-						$effects = 'gray';
+					if (getThemeOption('thumb_crop', $_set_theme_album, $owner)) {
+						if (is_null($cw) && is_null($ch)) {
+							$ch = getThemeOption('thumb_crop_height', $_set_theme_album, $owner);
+							$cw = getThemeOption('thumb_crop_width', $_set_theme_album, $owner);
+						}
+					} else {
+						$ch = $cw = NULL;
 					}
 				}
-			}
-			if ($thumb) {
-				if (getThemeOption('thumb_crop', $_set_theme_album, $owner)) {
-					if (is_null($cw) && is_null($ch)) {
-						$ch = getThemeOption('thumb_crop_height', $_set_theme_album, $owner);
-						$cw = getThemeOption('thumb_crop_width', $_set_theme_album, $owner);
-					}
-				} else {
-					$ch = $cw = NULL;
+				if (!is_null($_set_theme_album)) {
+					$albumName = $_set_theme_album->name;
 				}
-			}
-			if (!is_null($_set_theme_album)) {
-				$albumName = $_set_theme_album->name;
+			} else {
+				$class = 'custom';
 			}
 		}
-		$cacheSize = serialize(array('theme' => $owner, 'album' => $albumName, 'apply' => false, 'image_size' => $size, 'image_width' => $width, 'image_height' => $height,
-				'crop_width' => $cw, 'crop_height' => $ch, 'crop_x' => $cx, 'crop_y' => $cy, 'thumb' => $thumb, 'wmk' => $watermark, 'gray' => $effects, 'maxspace' => $maxspace));
+		$cacheSize = serialize(array('theme' => $owner, 'album' => $albumName, 'apply' => false, 'class' => $class,
+				'image_size' => $size, 'image_width' => $width, 'image_height' => $height,
+				'crop_width' => $cw, 'crop_height' => $ch, 'crop_x' => $cx, 'crop_y' => $cy,
+				'thumb' => $thumb, 'wmk' => $watermark, 'gray' => $effects, 'maxspace' => $maxspace));
 		$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("cacheManager",' . db_quote($albumName) . ',' . db_quote($owner) . ',' . db_quote($cacheSize) . ')';
 		query($sql);
 	}
