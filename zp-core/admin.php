@@ -232,8 +232,9 @@ $buttonlist = array();
 <body>
 	<?php
 	/* Admin-only content safe from here on. */
+	printLogoAndLinks();
+
 	if (zp_loggedin(ADMIN_RIGHTS)) {
-		printLogoAndLinks();
 
 		if (class_exists('Milo\Github\Api') && zpFunctions::hasPrimaryScripts()) {
 			/*
