@@ -248,7 +248,7 @@ class scriptlessSocialsharing {
 		}
 		if (getOption('scriptless_socialsharing_reddit')) {
 			$buttons[] = array(
-					'class' => 'sharingicon-reddit',
+					'class' => 'sharingicon-reddit-alien',
 					'title' => 'Reddit',
 					'url' => 'https://reddit.com/submit?url=' . $url . '/?socialshare&amp;title=' . $title
 			);
