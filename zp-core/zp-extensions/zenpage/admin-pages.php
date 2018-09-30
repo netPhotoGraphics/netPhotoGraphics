@@ -123,10 +123,11 @@ updatePublished('pages');
 					}
 				}
 
+				$admin = $_zp_current_admin_obj->getUser();
 				$pagelist = $_zp_CMS->getPages();
 				foreach ($pagelist as $key => $apage) {
 					$pageobj = newPage($apage['titlelink']);
-					if (!($pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+					if (!($pageobj->getAuthor() == $admin || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 						unset($pagelist[$key]);
 					}
 				}

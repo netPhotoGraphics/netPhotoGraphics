@@ -160,26 +160,19 @@ updatePublished('news');
 						list($sortorder, $sortdirection) = explode('-', $_GET['sortorder']);
 						$direction = $sortdirection && $sortdirection == 'desc';
 					}
-
+					$admin = $_zp_current_admin_obj->getUser();
 					$resultU = $_zp_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
 					$result = $_zp_CMS->getArticles(0, $published, false, $sortorder, $direction, false, $catobj);
-					foreach ($result as $key => $article) {
-						$article = newArticle($article['titlelink']);
-						$subrights = $article->subRights();
-						if (!($article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT) ||
-										($cur_author && $cur_author != $article->getAuthor()) ||
-										(is_null($catobj) && !is_null($category) && !empty($article->getCategories()))) {
-							unset($result[$key]);
-						}
-					}
-
-					foreach ($resultU as $key => $article) {
-						$article = newArticle($article['titlelink']);
-						$subrights = $article->subRights();
-						if (!($article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT) ||
-										($cur_author && $cur_author != $article->getAuthor()) ||
-										(is_null($catobj) && !is_null($category) && !empty($article->getCategories()))) {
-							unset($resultU[$key]);
+					foreach (array('result' => $result, 'resultU' => $resultU) as $which => $list) {
+						foreach ($list as $key => $article) {
+							$article = newArticle($article['titlelink']);
+							$subrights = $article->subRights();
+							$author = $article->getAuthor();
+							if (!($author == $admin || $article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT) ||
+											($cur_author && $cur_author != $article->getAuthor()) ||
+											(is_null($catobj) && !is_null($category) && !empty($article->getCategories()))) {
+								unset($$which[$key]);
+							}
 						}
 					}
 
