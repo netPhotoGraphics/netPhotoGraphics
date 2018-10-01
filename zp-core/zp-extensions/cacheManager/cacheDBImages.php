@@ -27,33 +27,37 @@ echo "\n" . '<div id="content">';
 
 zp_apply_filter('admin_note', 'cache', '');
 echo '<h1>' . gettext('Cache images stored in the database') . '</h1>';
+
+$tables = array(
+		'albums' => array('desc'),
+		'images' => array('desc'),
+		'pages' => array('content'),
+		'news' => array('content')
+);
+
+// "extracontent" is optional
+foreach (array('albums', 'images', 'pages', 'news') as $table) {
+	$fields = db_list_fields($table);
+	if (array_key_exists('extracontent', $fields)) {
+		$tables[$table][] = 'extracontent';
+	}
+	if (array_key_exists('codeblock', $fields)) {
+		$tables[$table][] = 'codeblock';
+	}
+}
 ?>
 <div class="tabbox">
-	<p class="notebox">
+	<p>
 		<?php
-		echo gettext('This utility scans the database for images references that have been stored there.') . ' ';
+		echo gettext('This utility scans the database for images references that have been stored in <em>codeblocks</em><sup>†</sup>, in the album and image <em>description</em> fields, and in the news<sup>†</sup> and pages<sup>†</sup> <em>content</em> and <em>extracontent</em><sup>†</sup> fields.') . ' ';
 		echo gettext('If an image processor URI is discovered it will be converted to a cache file URI.') . ' ';
 		echo gettext('If the cache file for the image does not exist, a caching image reference will be made for the image.');
 		?>
 	</p>
-	<?php
-	$tables = array(
-			'albums' => array('desc'),
-			'images' => array('desc'),
-			'pages' => array('content'),
-			'news' => array('content')
-	);
-	// "extracontent" is optional
-	foreach (array('albums', 'images', 'pages', 'news') as $table) {
-		$fields = db_list_fields($table);
-		if (array_key_exists('extracontent', $fields)) {
-			$tables[$table][] = 'extracontent';
-		}
-		if (array_key_exists('codeblock', $fields)) {
-			$tables[$table][] = 'codeblock';
-		}
-	}
-	?>
+	<p>
+		<sup>†</sup><?php echo gettext('If these are enabled.'); ?>
+	</p>
+
 	<?php
 	$refresh = $imageprocessor = $found = $fixed = $fixedFolder = 0;
 	XSRFToken('cacheDBImages');
