@@ -18,7 +18,7 @@ include('inc_header.php');
 	<thead>
 	<th><h4><?php echo gettext('Gallery archive'); ?></h4></th>
 	<?php if ($_zenpage_news_enabled) { ?>
-		<th><h4><?php echo echo NEWS_LABEL; ?></h4></th>
+		<th><h4><?php echo NEWS_LABEL; ?></h4></th>
 	<?php } ?>
 </thead>
 <tbody>
