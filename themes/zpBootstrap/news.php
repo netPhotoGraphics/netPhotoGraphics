@@ -1,20 +1,11 @@
 <?php
-if (!$_zenpage_enabled)
-	die();
 include('inc_header.php');
 ?>
 
 <!-- .container main -->
 <!-- .page-header -->
 <!-- .header -->
-<h3>
-	<?php
-	printNewsIndexURL(NULL, '');
-	printZenpageItemsBreadcrumb();
-	printCurrentNewsCategory(' | ' . gettext('Category') . ' : ');
-	printCurrentNewsArchive(' | ');
-	?>
-</h3>
+<h3><?php printZenpageItemsBreadcrumb(); ?><?php printCurrentNewsCategory(' | ' . gettext('Category') . ' : '); ?><?php printCurrentNewsArchive(' | '); ?></h3>
 </div><!-- .header -->
 </div><!-- /.page-header -->
 
@@ -29,39 +20,37 @@ if (is_NewsArticle()) {
 			<ul class="pager margin-top-reset margin-bottom-reset">
 				<?php if (getPrevNewsURL()) { ?>
 					<li class="previous margin-bottom col-sm-6 pull-left">
-						<a href="<?php
-						$article_url = getPrevNewsURL();
-						echo $article_url['link'];
-						?>" title="<?php echo $article_url['title']; ?>"> &larr; <?php echo shortenContent($article_url['title'], 30, ' (...)'); ?></a>
+						<a href="<?php $article_url = getPrevNewsURL();
+			echo $article_url['link'];
+					?>" title="<?php echo $article_url['title']; ?>"> &larr; <?php echo shortenContent($article_url['title'], $zpB_shorten_title_size, ' (...)'); ?></a>
 					</li>
 				<?php } ?>
-				<?php if (getNextNewsURL()) { ?>
+		<?php if (getNextNewsURL()) { ?>
 					<li class="next margin-bottom col-sm-6 pull-right">
-						<a href="<?php
-						$article_url = getNextNewsURL();
-						echo $article_url['link'];
-						?>" title="<?php echo $article_url['title']; ?>"><?php echo shortenContent($article_url['title'], 30, ' (...)'); ?> &rarr; </a>
+						<a href="<?php $article_url = getNextNewsURL();
+			echo $article_url['link'];
+			?>" title="<?php echo $article_url['title']; ?>"><?php echo shortenContent($article_url['title'], $zpB_shorten_title_size, ' (...)'); ?> &rarr; </a>
 					</li>
-				<?php } ?>
+		<?php } ?>
 			</ul>
 		</nav>
-	<?php } ?>
+		<?php } ?>
 
 	<div class="row">
-		<?php if (getNewsExtraContent()) { ?>
+			<?php if (getNewsExtraContent()) { ?>
 			<div class="col-sm-9">
-				<?php include('inc_print_news.php'); ?>
+		<?php include('inc_print_news.php'); ?>
 			</div>
 			<div class="col-sm-3">
 				<div class="post extra-content clearfix">
-					<?php printNewsExtraContent(); ?>
+			<?php printNewsExtraContent(); ?>
 				</div>
 			</div>
-		<?php } else { ?>
+			<?php } else { ?>
 			<div class="col-sm-12">
-				<?php include('inc_print_news.php'); ?>
+			<?php include('inc_print_news.php'); ?>
 			</div>
-		<?php } ?>
+	<?php } ?>
 	</div>
 
 	<?php if (extensionEnabled('comment_form')) { ?>
@@ -74,23 +63,33 @@ if (is_NewsArticle()) {
 	$news_class = 'list-post';
 	?>
 
-	<?php if ($_zp_CMS->getAllCategories()) { ?>
-		<div class="row margin-bottom">
+			<?php if ($_zp_CMS->getAllCategories()) { ?>
+		<div class="row margin-bottom-double">
 			<div class="col-sm-offset-1 col-sm-10">
-				<?php printAllNewsCategories(gettext('All'), true, 'news-cat-list', 'active'); ?>
+		<?php printAllNewsCategories(NEWS_LABEL, true, 'news-cat-list', 'active'); ?>
 			</div>
 		</div>
 	<?php } ?>
 
-	<?php printNewsPageListWithNav('»', '«', true, 'pagination pagination-sm', true, 7); ?>
+	<?php
+	if (!getOption('zpB_use_infinitescroll_news')) {
+		printNewsPageListWithNav('»', '«', true, 'pagination pagination-sm', true, 7);
+	}
+	?>
 
-	<div class="list-news">
+	<div class="news-wrap">
 		<?php while (next_news()) { ?>
-			<?php include('inc_print_news.php'); ?>
-		<?php } ?>
+		<?php include('inc_print_news.php'); ?>
+	<?php } ?>
 	</div>
 
-	<?php printNewsPageListWithNav('»', '«', true, 'pagination pagination-sm margin-top-reset', true, 7); ?>
+	<?php
+	if (!getOption('zpB_use_infinitescroll_news')) {
+		printNewsPageListWithNav('»', '«', true, 'pagination pagination-sm margin-top-reset', true, 7);
+	} else {
+		include('inc_print_infinitescroll_news.php');
+	}
+	?>
 
 <?php } ?>
 

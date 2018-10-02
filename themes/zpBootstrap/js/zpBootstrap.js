@@ -2,7 +2,7 @@
 		zenphoto overwriting for theme, zenphoto and bootstrap 3.x being compliant all together
 -------------------------------------- */
 
-jQuery(document).ready(function() {
+$(document).ready( function() {
 
 	/* responsive pictures */
 	$('img.remove-attributes')
@@ -13,13 +13,6 @@ jQuery(document).ready(function() {
 		.removeAttr('height')
 		.addClass('img-responsive');
 
-	/* add attributes for Fancybox */
-	$('.swipebox').each(function() {
-		$(this)
-			.attr('data-fancybox', 'fancybox')
-			.attr('data-caption', $(this).attr('title'));
-	});
-
 	/* add icon to links going out of the site, except links with pictures */
 	$('a[target=_blank]').each(function() {
 		if (!($(this).children('img').length)) {
@@ -29,6 +22,7 @@ jQuery(document).ready(function() {
 	$('footer a[href="http://www.zenphoto.org"]')
 		.attr('target', '_blank')
 		.append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
+	$('#photo-part').addClass('text-lowercase');
 
 	/* buttons */
 	$('button, input[type="button"], input[type="submit"], input[type="reset"]').addClass('btn btn-default');
@@ -65,12 +59,18 @@ jQuery(document).ready(function() {
 	}
 
 	/* login & password & register */
-	$('#register_link').prepend('<span class="glyphicon glyphicon glyphicon-edit"></span>&nbsp;&nbsp;');
-	$('.logonlink').prepend('<span class="glyphicon glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;');
-	$('.logoutlink')
+	$('.logonlink-single')
 		.addClass('text-center')
 		.text('')
+		.prepend('<span class="glyphicon glyphicon glyphicon-log-in"></span>');
+	$('#admin-single > .logoutlink')
+		.addClass('logoutlink-single text-center')
+		.removeClass('logoutlink')
+		.text('')
 		.prepend('<span class="glyphicon glyphicon glyphicon-log-out"></span>');
+	$('.logonlink').prepend('<span class="glyphicon glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;');
+	$('.logoutlink').prepend('<span class="glyphicon glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;');
+	$('#register_link').prepend('<span class="glyphicon glyphicon glyphicon-edit"></span>&nbsp;&nbsp;');
 
 	if ($('#loginform').length) {
 		$('#loginform form').addClass('form-horizontal');
@@ -100,6 +100,11 @@ jQuery(document).ready(function() {
 			.parent().parent().wrapInner('<div class="form-group"></div>');
 		$('#registration_form label').addClass('col-sm-4 control-label');
 		$('#registration_form #disclose_password').removeClass('form-control');
+		$('#registration_form label[for="admin_dataconfirmation"]')
+			.removeClass('col-sm-4 control-label')
+			.parent().wrapInner('<div class="checkbox"></div>')
+			.wrapInner('<div class="col-sm-offset-4 col-sm-8"></div>')
+			.wrapInner('<div class="form-group"></div>');
 		$('#registration_form p > strong')
 			.parent().wrapInner('<div class="form-control-static"></div>')
 			.wrapInner('<div class="col-sm-push-4 col-sm-6"></div>')
@@ -147,7 +152,8 @@ jQuery(document).ready(function() {
 	/* contact */
 	if ($('#mailform').length) {
 		$('#mailform, #confirm, #discard').addClass('form-horizontal');
-				$('#mailform input[type="reset"], #confirm input[type="reset"]').addClass('margin-left-small');
+		$('#mailform input[type="reset"]').addClass('margin-left-small');
+		$('#discard input[type="submit"]').addClass('margin-left');
 		$('#mailform label + input')
 			.addClass('form-control')
 			.wrap('<div class="col-sm-6"></div>')
@@ -158,6 +164,11 @@ jQuery(document).ready(function() {
 			.attr('rows', '8')
 			.wrap('<div class="col-sm-8"></div>')
 			.parent().parent().wrapInner('<div class="form-group"></div>');
+		$('#mailform label[for="dataconfirmation"]')
+			.removeClass('col-sm-3 control-label')
+			.parent().wrapInner('<div class="checkbox"></div>')
+			.wrapInner('<div class="col-sm-offset-3 col-sm-9"></div>')
+			.wrapInner('<div class="form-group"></div>');
 		$('#mailform input[type="submit"]').parent()
 			.wrapInner('<div class="col-sm-offset-3 col-sm-6"></div>')
 			.wrapInner('<div class="form-group"></div>');
@@ -218,6 +229,11 @@ jQuery(document).ready(function() {
 			.parent().parent().wrapInner('<div class="form-group"></div>');
 		$('#commentform label').addClass('col-sm-4 control-label');
 		$('#commentform label[for="username"]').parent().addClass('hidden');
+		$('#commentform label[for="comment_dataconfirmation"]')
+			.removeClass('col-sm-4 control-label')
+			.parent().wrapInner('<div class="checkbox"></div>')
+			.wrapInner('<div class="col-sm-offset-4 col-sm-8"></div>')
+			.wrapInner('<div class="form-group"></div>');
 		$('#commentform p > strong')
 			.parent().wrapInner('<div class="form-control-static"></div>')
 			.wrapInner('<div class="col-sm-push-4 col-sm-7"></div>')
@@ -233,6 +249,13 @@ jQuery(document).ready(function() {
 		if ($('#commentform .alert').length) {
 			$('#comment_collapse').collapse('show');
 		}
+		/* if ($('#guestbook').length) {
+			$('#comment_collapse').collapse('show');
+		} */
+		// fix no focus when oppening comments
+		$('#comment_collapse').on('shown.bs.collapse', function() {
+			$(this).find('#name').focus();
+		});
 	}
 
 	//Scroll to top : thanks to: http://www.webtipblog.com/adding-scroll-top-button-website/

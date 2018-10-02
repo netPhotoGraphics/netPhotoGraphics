@@ -1,5 +1,6 @@
-<?php include('inc_header.php'); ?>
-
+<?php
+include('inc_header.php');
+?>
 <!-- .container main -->
 <!-- .page-header -->
 <!-- .header -->
@@ -15,9 +16,9 @@
 
 <table id="archives" class="table">
 	<thead>
-	<th><h4><?php echo gettext('Gallery'); ?></h4></th>
-	<?php if ($_zenpage_enabled) { ?>
-		<th><h4><?php echo NEWS_LABEL; ?></h4></th>
+	<th><h4><?php echo gettext('Gallery archive'); ?></h4></th>
+	<?php if ($_zenpage_news_enabled) { ?>
+		<th><h4><?php echo echo NEWS_LABEL; ?></h4></th>
 	<?php } ?>
 </thead>
 <tbody>
@@ -25,7 +26,7 @@
 		<td>
 			<?php printAllDates('list-unstyled', 'year', 'month nav nav-pills col-xs-offset-1', 'desc'); ?>
 		</td>
-		<?php if (extensionEnabled('zenpage') && getNumNews(true)) { ?>
+		<?php if ($_zenpage_news_enabled) { ?>
 			<td id="newsarchives">
 				<?php printNewsArchive('list-unstyled', 'year', 'month nav nav-pills col-xs-offset-1', null, false, 'desc'); ?>
 			</td>
@@ -49,18 +50,20 @@
 	</table>
 <?php } ?>
 
-<table id="cat" class="table">
-	<thead>
-	<th><h4><?php echo gettext('Categories'); ?></h4></th>
-</thead>
-<tbody>
-	<tr>
-		<td>
-			<?php printAllNewsCategories('', true, 'news-cat-list'); ?>
-		</td>
-	</tr>
-</tbody>
-</table>
+<?php if ($_zenpage_news_enabled) { ?>
+	<table id="cat" class="table">
+		<thead>
+		<th><h4><?php echo gettext('Categories'); ?></h4></th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<?php printAllNewsCategories('', true, 'news-cat-list'); ?>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+<?php } ?>
 
 </div><!-- /.container main -->
 
