@@ -113,6 +113,7 @@ class deprecated_functions {
 			fwrite($f, strip_tags($msg) . "\n");
 			fclose($f);
 			clearstatcache();
+			chmod(DEPRECATED_LOG, LOG_MOD);
 		}
 		if (is_object($_zp_mutex))
 			$_zp_mutex->unlock();
