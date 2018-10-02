@@ -214,9 +214,9 @@ if (!defined('WEBPATH'))
 				case 63235: case 39:
 								if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-		break;
-		case 63234: case 37:
-						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+				break;
+				case 63234: case 37:
+								if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
 				break;
 				}
@@ -261,7 +261,7 @@ if (!defined('WEBPATH'))
 							<li<?php if ((isset($isHomePage)) && ($isHomePage)) { ?> class="active"<?php } ?>>
 								<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a>
 							</li>
-<?php } ?>
+						<?php } ?>
 
 						<li<?php if ($galleryactive) { ?> class="active"<?php } ?>>
 							<?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?>
@@ -269,87 +269,89 @@ if (!defined('WEBPATH'))
 
 						<?php if ($_zenpage_news_enabled && (getNumNews(true) > 0)) { ?>
 							<li<?php if ($_zp_gallery_page == 'news.php') { ?> class="active"<?php } ?>>
-							<?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?>
+								<?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?>
 							</li>
 						<?php } ?>
 
 						<?php if ($_zenpage_pages_enabled) { ?>
-								<?php printPageMenu('list-top', '', 'active', '', '', '', 0, false); ?>
-							<?php } ?>
+							<?php printPageMenu('list-top', '', 'active', '', '', '', 0, false); ?>
+						<?php } ?>
 
 						<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
 							<li<?php if ($_zp_gallery_page == 'favorites.php') { ?> class="active"<?php } ?>>
-							<?php printFavoritesURL(); ?>
+								<?php printFavoritesURL(); ?>
 							</li>
-							<?php } ?>
+						<?php } ?>
 
 						<?php if (extensionEnabled('contact_form')) { ?>
 							<li<?php if ($_zp_gallery_page == 'contact.php') { ?> class="active"<?php } ?>>
-							<?php printCustomPageURL(gettext('Contact'), 'contact'); ?>
+								<?php printCustomPageURL(gettext('Contact'), 'contact'); ?>
 							</li>
-<?php } ?>
+						<?php } ?>
 
 						<?php if (getOption('zpB_allow_search')) { ?>
 							<li id="look"<?php if ($_zp_gallery_page == 'archive.php') { ?> class="active"<?php } ?>>
 								<a id="search-icon" class="text-center" href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Search'); ?>"><span class="glyphicon glyphicon-search"></span></a>
 							</li>
-							<?php } ?>
+						<?php } ?>
 
 						<?php if ((extensionEnabled('user_login-out')) && (!extensionEnabled('register_user'))) { ?>
 							<?php if (zp_loggedin()) { ?>
 								<li id="admin-single">
-		<?php printUserLogin_out(); ?>
+									<?php printUserLogin_out(); ?>
 								</li>
 							<?php } else { ?>
 								<li id="admin-single">
 									<a href="#login-modal" class="logonlink-single" data-toggle="modal" title="<?php echo gettext('Login'); ?>"></a>
 								</li>
-									<?php } ?>
-								<?php } else if ((extensionEnabled('user_login-out')) || ((!zp_loggedin()) && (extensionEnabled('register_user')))) { ?>
+							<?php } ?>
+						<?php } else if ((extensionEnabled('user_login-out')) || ((!zp_loggedin()) && (extensionEnabled('register_user')))) { ?>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon glyphicon-user"></span>&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></a>
 								<ul class="dropdown-menu">
 									<?php if (extensionEnabled('user_login-out')) { ?>
 										<?php if (zp_loggedin()) { ?>
 											<li id="admin">
-			<?php printUserLogin_out(); ?>
+												<?php printUserLogin_out(); ?>
 											</li>
 										<?php } else { ?>
 											<li id="admin">
 												<a href="#login-modal" class="logonlink" data-toggle="modal" title="<?php echo gettext('Login'); ?>"><?php echo gettext('Login'); ?></a>
 											</li>
-											<?php } ?>
+										<?php } ?>
 									<?php } ?>
 									<?php if ((!zp_loggedin()) && (extensionEnabled('register_user'))) { ?>
 										<li>
-								<?php printRegisterURL(gettext('Register')); ?>
+											<?php printRegisterURL(gettext('Register')); ?>
 										</li>
-							<?php } ?>
+									<?php } ?>
 								</ul>
 							</li>
-							<?php } ?>
+						<?php } ?>
 
 						<?php if (extensionEnabled('dynamic-locale')) { ?>
 							<li id="flags" class="dropdown">
-	<?php printLanguageSelector(); ?>
+								<?php
+								printLanguageSelector(true);
+								?>
 							</li>
-<?php } ?>
+						<?php } ?>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav><!--/.navbar -->
 
-						<?php if ((extensionEnabled('user_login-out')) && (!zp_loggedin()) && ($_zp_gallery_page <> 'password.php') && ($_zp_gallery_page <> 'register.php')) { ?>
+		<?php if ((extensionEnabled('user_login-out')) && (!zp_loggedin()) && ($_zp_gallery_page <> 'password.php') && ($_zp_gallery_page <> 'register.php')) { ?>
 			<div id="login-modal" class="modal" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body">
-			<?php printPasswordForm('', true, false); ?>
+							<?php printPasswordForm('', true, false); ?>
 						</div>
 					</div>
 				</div>
 			</div>
-<?php } ?>
+		<?php } ?>
 
 		<!-- The scroll to top feature -->
 		<div class="scroll-to-top">
@@ -358,7 +360,7 @@ if (!defined('WEBPATH'))
 
 		<div id="main" class="container">
 			<div class="page-header row">
-					<?php if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) { ?>
+				<?php if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) { ?>
 					<div class="col-sm-push-9 col-sm-3">
 						<?php
 						if (extensionEnabled('rss')) {
@@ -373,17 +375,17 @@ if (!defined('WEBPATH'))
 							if ($rss) {
 								?>
 								<div class="feed pull-right">
-			<?php printRSSLink($type, '', '', '', false, 'rss'); ?>
+									<?php printRSSLink($type, '', '', '', false, 'rss'); ?>
 								</div>
 								<script type="text/javascript">
 									//<![CDATA[
 									$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_zp_themeroot; ?>/images/feed_icon.png">');
 									//]]>
 								</script>
-		<?php } ?>
-	<?php } ?>
+							<?php } ?>
+						<?php } ?>
 
-	<?php if (getOption('zpB_social_links')) { ?>
+						<?php if (getOption('zpB_social_links')) { ?>
 							<div class="addthis pull-right">
 								<!-- AddThis Button BEGIN -->
 								<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -395,7 +397,7 @@ if (!defined('WEBPATH'))
 								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 								<!-- AddThis Button END -->
 							</div>
-					<?php } ?>
+						<?php } ?>
 					</div>
 				<?php } ?>
 
