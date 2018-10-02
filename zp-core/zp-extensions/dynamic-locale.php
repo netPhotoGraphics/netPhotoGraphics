@@ -79,10 +79,16 @@ if (OFFSET_PATH != 2) {
 function printLanguageSelector($flags = NULL) {
 	global $_locale_Subdomains, $_zp_current_locale;
 	$locale = $localeOption = getOption('locale');
-	if (!$dynamic_locale = zp_getCookie('dynamic_locale')) {
+	$dynamic_locale = zp_getCookie('dynamic_locale');
+	if (empty($dynamic_locale)) {
 		$dynamic_locale = getOptionfromDB('locale');
+		if (empty($dynamic_locale)) {
+			$dynamic_locale = $locale;
+			if (empty($dynamic_locale)) {
+				$dynamic_locale = 'en_US';
+			}
+		}
 	}
-
 	$languages = generateLanguageList();
 	$disallow = getSerializedArray(getOption('locale_disallowed'));
 
