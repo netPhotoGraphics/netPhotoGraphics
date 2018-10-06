@@ -190,6 +190,15 @@ p {
 	padding-right: 8px;
 }
 
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
+}
+
 code {
 	font-family: Courier, Monaco, monospace;
 	font-size: 1.1em;

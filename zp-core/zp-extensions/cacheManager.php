@@ -197,6 +197,26 @@ class cacheManager {
 		foreach ($custom as $ownerdata) {
 			$a = reset($ownerdata);
 			$ownerid = $owner = $a['theme'];
+			if (array_key_exists('class', $a)) {
+				$type = $a['class'];
+			} else {
+				$type = 'legacy';
+			}
+			switch ($type) {
+				default:
+				case 'custom':
+					break;
+				case 'theme':
+					if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $owner)) {
+						break;
+					}
+				case 'plugin':
+					if (getPlugin($owner . '.php')) {
+						break;
+					}
+					$type = 'deprecated'; //	owner no longer exists
+			}
+
 			if (array_key_exists('album', $a) && $a['album']) {
 				$album = $a['album'];
 				$ownerid = $owner . '__' . $album;
@@ -213,17 +233,25 @@ class cacheManager {
 			?>
 			<span class="icons upArrow" id="<?php echo $ownerid; ?>_arrow">
 				<a onclick="showTheme('<?php echo $ownerid; ?>');" title="<?php echo gettext('Show'); ?>">
-					<?php echo ARROW_DOWN_GREEN; ?>
+					<?php
+					echo ARROW_DOWN_GREEN;
+					if ($owner) {
+						$inputclass = 'hidden';
+						echo '<span class="' . $type . '"><em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')</span>';
+						$subtype = @$ownerdata['album'];
+					} else {
+						$inputclass = 'textbox';
+						$subtype = '_custom_';
+						$type = 'custom';
+						echo gettext('add');
+					}
+					?>
 				</a>
 				<?php
-				if ($owner) {
-					$inputclass = 'hidden';
-					echo '<em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')';
-					$subtype = @$ownerdata['album'];
-				} else {
-					$inputclass = 'textbox';
-					$subtype = '_custom_';
-					echo gettext('add');
+				if ($owner && $owner != 'admin') {
+					?>
+					<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" onclick="$('.cacheManagerOwner_<?php echo $ownerid; ?>').prop('checked', $(this).prop('checked'))" value="1" /></span>
+					<?php
 				}
 				?>
 			</span>
@@ -251,10 +279,11 @@ class cacheManager {
 						<div class="<?php echo $class; ?>">
 							<input type="<?php echo $inputclass; ?>" size="25" name="cacheManager[<?php echo $key; ?>][theme]" value="<?php echo $owner; ?>" />
 							<input type="hidden" name="cacheManager[<?php echo $key; ?>][subtype]" value="<?php echo $subtype; ?>" />
+							<input type="hidden" name="cacheManager[<?php echo $key; ?>][class]" value="<?php echo $type; ?>" />
 							<?php
 							if ($owner) {
 								?>
-								<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" name="cacheManager[<?php echo $key; ?>][delete]" value="1" /></span>
+								<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" name="cacheManager[<?php echo $key; ?>][delete]" value="1" class="cacheManagerOwner_<?php echo $ownerid; ?>" /></span>
 								<?php
 							}
 							?>
@@ -280,9 +309,9 @@ class cacheManager {
 							?>
 							<span class="nowrap"><?php echo gettext('Watermark'); ?> <input type="textbox" size="20" name="cacheManager[<?php echo $key; ?>][wmk]" value="<?php echo $wmk; ?>" /></span>
 							<br />
-							<span class="nowrap"><?php echo gettext('MaxSpace'); ?><input type="checkbox"  name="cacheManager[<?php echo $key; ?>][maxspace]" value="1"<?php if (isset($cache['maxspace']) && $cache['maxspace']) echo ' checked="checked"'; ?> /></span>
-							<span class="nowrap"><?php echo gettext('Thumbnail'); ?><input type="checkbox"  name="cacheManager[<?php echo $key; ?>][thumb]" value="1"<?php if (isset($cache['thumb']) && $cache['thumb']) echo ' checked="checked"'; ?> /></span>
-							<span class="nowrap"><?php echo gettext('Grayscale'); ?><input type="checkbox"  name="cacheManager[<?php echo $key; ?>][gray]" value="gray"<?php if (isset($cache['gray']) && $cache['gray']) echo ' checked="checked"'; ?> /></span>
+							<span class="nowrap"><?php echo gettext('MaxSpace'); ?> <input type="checkbox"  name="cacheManager[<?php echo $key; ?>][maxspace]" value="1"<?php if (isset($cache['maxspace']) && $cache['maxspace']) echo ' checked="checked"'; ?> /></span>
+							<span class="nowrap"><?php echo gettext('Thumbnail'); ?> <input type="checkbox"  name="cacheManager[<?php echo $key; ?>][thumb]" value="1"<?php if (isset($cache['thumb']) && $cache['thumb']) echo ' checked="checked"'; ?> /></span>
+							<span class="nowrap"><?php echo gettext('Grayscale'); ?> <input type="checkbox"  name="cacheManager[<?php echo $key; ?>][gray]" value="gray"<?php if (isset($cache['gray']) && $cache['gray']) echo ' checked="checked"'; ?> /></span>
 						</div>
 						<br />
 					</div>
@@ -336,41 +365,51 @@ class cacheManager {
 	 */
 	static function addCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
 		global $_set_theme_album, $_zp_gallery;
-		$ownerList = array_map('strtolower', array_keys($_zp_gallery->getThemes()));
+
 
 		$albumName = '';
-		if (in_array(strtolower($owner), $ownerList)) {
-			//from a theme, so there are standard options
-			if (is_null($watermark)) {
-				$watermark = getThemeOption('image_watermark', $_set_theme_album, $owner);
-			}
-			if (is_null($effects)) {
+		if (getPlugin($owner . '.php')) {
+			$class = 'plugin';
+		} else {
+			$ownerList = array_map('strtolower', array_keys($_zp_gallery->getThemes()));
+			if (in_array(strtolower($owner), $ownerList)) {
+				$class = 'theme';
+				//from a theme, so there are standard options
+				if (is_null($watermark)) {
+					$watermark = getThemeOption('image_watermark', $_set_theme_album, $owner);
+				}
+				if (is_null($effects)) {
+					if ($thumb) {
+						if (getThemeOption('thumb_gray', $_set_theme_album, $owner)) {
+							$effects = 'gray';
+						}
+					} else {
+						if (getThemeOption('image_gray', $_set_theme_album, $owner)) {
+							$effects = 'gray';
+						}
+					}
+				}
 				if ($thumb) {
-					if (getThemeOption('thumb_gray', $_set_theme_album, $owner)) {
-						$effects = 'gray';
-					}
-				} else {
-					if (getThemeOption('image_gray', $_set_theme_album, $owner)) {
-						$effects = 'gray';
+					if (getThemeOption('thumb_crop', $_set_theme_album, $owner)) {
+						if (is_null($cw) && is_null($ch)) {
+							$ch = getThemeOption('thumb_crop_height', $_set_theme_album, $owner);
+							$cw = getThemeOption('thumb_crop_width', $_set_theme_album, $owner);
+						}
+					} else {
+						$ch = $cw = NULL;
 					}
 				}
-			}
-			if ($thumb) {
-				if (getThemeOption('thumb_crop', $_set_theme_album, $owner)) {
-					if (is_null($cw) && is_null($ch)) {
-						$ch = getThemeOption('thumb_crop_height', $_set_theme_album, $owner);
-						$cw = getThemeOption('thumb_crop_width', $_set_theme_album, $owner);
-					}
-				} else {
-					$ch = $cw = NULL;
+				if (!is_null($_set_theme_album)) {
+					$albumName = $_set_theme_album->name;
 				}
-			}
-			if (!is_null($_set_theme_album)) {
-				$albumName = $_set_theme_album->name;
+			} else {
+				$class = 'custom';
 			}
 		}
-		$cacheSize = serialize(array('theme' => $owner, 'album' => $albumName, 'apply' => false, 'image_size' => $size, 'image_width' => $width, 'image_height' => $height,
-				'crop_width' => $cw, 'crop_height' => $ch, 'crop_x' => $cx, 'crop_y' => $cy, 'thumb' => $thumb, 'wmk' => $watermark, 'gray' => $effects, 'maxspace' => $maxspace));
+		$cacheSize = serialize(array('theme' => $owner, 'album' => $albumName, 'apply' => false, 'class' => $class,
+				'image_size' => $size, 'image_width' => $width, 'image_height' => $height,
+				'crop_width' => $cw, 'crop_height' => $ch, 'crop_x' => $cx, 'crop_y' => $cy,
+				'thumb' => $thumb, 'wmk' => $watermark, 'gray' => $effects, 'maxspace' => $maxspace));
 		$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("cacheManager",' . db_quote($albumName) . ',' . db_quote($owner) . ',' . db_quote($cacheSize) . ')';
 		query($sql);
 	}

@@ -143,31 +143,34 @@ if (@$_zp_loggedin) {
 
 
 		if (isset($_zp_CMS)) {
-			if (($_zp_loggedin & ZENPAGE_PAGES_RIGHTS) && $_zp_CMS->pages_enabled) {
+			$admin = $_zp_current_admin_obj->getUser();
+			if ($_zp_CMS->pages_enabled) {
 				$pagelist = $_zp_CMS->getPages();
 				foreach ($pagelist as $key => $apage) {
 					$pageobj = newPage($apage['titlelink']);
-					if (!($pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+					if (!($admin == $pageobj->getAuthor() || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 						unset($pagelist[$key]);
 					}
 				}
 				if (!empty($pagelist) || $_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
+					$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
 					$zenphoto_tabs['pages'] = array('text' => gettext("pages"),
 							'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-pages.php',
 							'subtabs' => NULL);
 				}
 			}
-
-			if (($_zp_loggedin & ZENPAGE_NEWS_RIGHTS) && $_zp_CMS->news_enabled) {
+			if ($_zp_CMS->news_enabled) {
 				$articles = $_zp_CMS->getArticles(0, 'all', false, NULL, NULL, false, NULL);
 				foreach ($articles as $key => $article) {
 					$article = newArticle($article['titlelink']);
 					$subrights = $article->subRights();
-					if (!($article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT)) {
+					if (!($admin == $article->getAuthor() || $article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT)) {
 						unset($articles[$key]);
 					}
 				}
-
+				if (!empty($articles)) {
+					$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
+				}
 				$categories = $_zp_CMS->getAllCategories();
 				foreach ($categories as $key => $cat) {
 					$catobj = newCategory($cat['titlelink']);

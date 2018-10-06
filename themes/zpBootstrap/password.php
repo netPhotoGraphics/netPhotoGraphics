@@ -1,4 +1,6 @@
-<?php include ('inc_header.php'); ?>
+<?php
+include ('inc_header.php');
+?>
 
 <!-- .container main -->
 <!-- .page-header -->
@@ -11,10 +13,10 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
+				<?php printPasswordForm('', true); ?>
 				<script type="text/javascript">
 					//<![CDATA[
-					jQuery(document).ready(function ($) {
+					$(document).ready(function ($) {
 						$('#password').modal('show');
 					});
 					//]]>

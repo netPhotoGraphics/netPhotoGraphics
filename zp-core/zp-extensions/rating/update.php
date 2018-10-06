@@ -5,7 +5,7 @@
  * @author Stephen Billard (sbillard)
  * @package plugins/rating
  */
-if (isset($_POST['id']) && isset($_POST['table'])) {
+if (class_exists('jquery_rating') && isset($_POST['id']) && isset($_POST['table'])) {
 	define('OFFSET_PATH', 4);
 	require_once(dirname(dirname(dirname(__FILE__))) . '/template-functions.php');
 

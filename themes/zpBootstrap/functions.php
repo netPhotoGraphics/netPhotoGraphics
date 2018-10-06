@@ -1,14 +1,16 @@
 <?php
 
-// force UTF-8 Ø
+// force UTF-8 ø
 
 if (!OFFSET_PATH) {
 
-	setOption('comment_form_toggle', false, true); // override this option of comment_form, to avoid JS conflits
-	setOption('comment_form_pagination', false, true); // override this option of comment_form, to avoid JS conflits
-	setOption('tinymce_comments', null, true); // force this option to disable tinyMCE for comment form
-	setOption('user_logout_login_form', 1); //override this option called by user_login-out plugin
-	// Check for mobile and tablets, set some options...
+	// override some options to avoid conflits
+	setOption('comment_form_toggle', false, true);
+	setOption('comment_form_pagination', false, true);
+	setOption('tinymce_comments', null, true);
+	setOption('user_logout_login_form', 1, true);
+
+	// Check for mobile and tablets, and set some options
 	require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
 	$detect = new Mobile_Detect;
 
@@ -24,20 +26,34 @@ if (!OFFSET_PATH) {
 	}
 
 	if ($isMobile) {
+		// set album thumb size and album thumb size for mobile device
 		setOption('zpB_album_thumb_width', 720, false);
 		setOption('zpB_album_thumb_height', 360, false);
-		// setOption('zpB_image_thumb_size', 350, false);					doesn't work : printCustomAlbumThumbImage() n'utilise pas la vignette d�finie dans l'admin
-		// setThemeOption('thumb_size', 350, NULL, 'zpBootstrap', false);	doesn't work : le cache ne bascule pas entre les tailles de vignettes
-		// setOption('image_size', 400, false);
+
+		setOption('thumb_size', 350, false);
+		setOption('thumb_crop_width', 350, false);
+		setOption('thumb_crop_height', 350, false);
+
+		// set shorten title size
+		$zpB_shorten_title_size = 26;
 	} else {
+		// set album thumb size and album thumb size
 		setOption('zpB_album_thumb_width', 360, false);
 		setOption('zpB_album_thumb_height', 180, false);
-		// setOption('zpB_image_thumb_size', 220, false);					doesn't work : printCustomAlbumThumbImage() n'utilise pas la vignette d�finie dans l'admin
-		// setThemeOption('thumb_size', 220, NULL, 'zpBootstrap', false);	doesn't work : le cache ne bascule pas entre les tailles de vignettes
+
+		setOption('thumb_size', 220, false);
+		setOption('thumb_crop_width', 220, false);
+		setOption('thumb_crop_height', 220, false);
+
+		// set shorten title size
+		$zpB_shorten_title_size = 50;
 	}
 
 	$_zp_page_check = 'my_checkPageValidity';
+
 	$_zenpage_enabled = extensionEnabled('zenpage');
+	$_zenpage_news_enabled = extensionEnabled('zenpage') && getNumNews(true);
+	$_zenpage_pages_enabled = extensionEnabled('zenpage') && getNumpages(true);
 }
 
 function my_checkPageValidity($request, $gallery_page, $page) {
@@ -56,7 +72,6 @@ function my_checkPageValidity($request, $gallery_page, $page) {
  * @return an array of pictures, or false is there is no picture to return
  */
 function zpB_getRandomImages($number = 5, $option = 'all', $album_filename = '') {
-
 	global $_zp_gallery;
 
 	switch ($option) {
@@ -84,7 +99,7 @@ function zpB_getRandomImages($number = 5, $option = 'all', $album_filename = '')
 				$randomImage = getRandomImagesAlbum($album_filename);
 				break;
 		}
-		if (is_object($randomImage) && $randomImage->exists) {
+		if ((is_object($randomImage)) && ($randomImage->exists)) {
 			if (array_search($randomImage, $randomImageList) === false) {
 				$randomImageList[] = $randomImage;
 				$i++;
@@ -97,6 +112,37 @@ function zpB_getRandomImages($number = 5, $option = 'all', $album_filename = '')
 		return $randomImageList;
 	} else {
 		return false;
+	}
+}
+
+/**
+ * Returns true if there is a next news page and false if there is not
+ * @return bool
+ */
+function zpB_hasNextNewsPage() {
+	global $_zp_CMS, $_zp_page;
+
+	$total_pages = getTotalNewsPages();
+	if ($_zp_page < $total_pages) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
+ * Prints the URL of the next news page.
+ *
+ * @param string $text text for the URL
+ * @param string $class Text for the HTML class
+ */
+function zpB_printNextNewsPageURL($text, $class = NULL) {
+	global $_zp_CMS, $_zp_page;
+
+	if (zpB_hasNextNewsPage()) {
+		echo '<a href="' . getNextNewsPageURL() . '" class="' . $class . '" >' . html_encode($text) . '</a>';
+	} else {
+		echo '<span class="disabledlink">' . html_encode($text) . '</span>';
 	}
 }
 

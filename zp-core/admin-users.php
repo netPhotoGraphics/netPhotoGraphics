@@ -57,8 +57,16 @@ if (isset($_GET['action'])) {
 	if (($action = sanitize($_GET['action'])) != 'saveoptions') {
 		admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 	}
+
 	$themeswitch = false;
 	switch ($action) {
+		case 'viewadmin':
+			XSRFdefender('viewadmin');
+			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
+			Zenphoto_Authority::logUser($adminobj);
+			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin.php");
+			exitZP();
+
 		case 'migrate_rights':
 			XSRFdefender('migrate_rights');
 			if (isset($_GET['revert'])) {
@@ -73,7 +81,7 @@ if (isset($_GET['action'])) {
 			}
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-users.php?page=admin&subpage=" . $subpage . $notify);
 			exitZP();
-			break;
+
 		case 'deleteadmin':
 			XSRFdefender('deleteadmin');
 			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
@@ -649,8 +657,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -659,7 +667,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -701,8 +709,17 @@ echo $refresh;
 																$msg .= ' ' . gettext('This is the master user account. If you delete it another user will be promoted to master user.');
 															}
 															?>
-
 															<span class="floatright">
+																<?php
+																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
+																	?>
+																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
+																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
+																			 <?php echo BULLSEYE_BLUE; ?>
+																	</a>
+																	<?php
+																}
+																?>
 																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"
 																	 title="<?php echo gettext('Delete this user.'); ?>" style="color: #c33;">
 																		 <?php echo WASTEBASKET; ?>

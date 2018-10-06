@@ -10,6 +10,7 @@
  */
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 
 $ip = sanitize($_GET['selected_ip']);
 $recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));

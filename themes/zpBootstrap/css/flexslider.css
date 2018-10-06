@@ -1,5 +1,5 @@
 /*
- * jQuery FlexSlider v2.6.3
+ * jQuery FlexSlider v2.7.1
  * http://www.woothemes.com/flexslider/
  *
  * Copyright 2012 WooThemes
@@ -8,12 +8,15 @@
  *
  * Contributing author: Tyler Smith (@mbmufffin)
  *
+ * Note: some hacks (look for "hack VBO") exists in that file to be compliant with zpBootstrap
+ * 
  */
 /* ====================================================================================================================
  * FONT-FACE
  * ====================================================================================================================*/
 @font-face {
   font-family: 'flexslider-icon';
+  /* hack VBO to point in the right theme directory (init :  url('fonts/...') */
   src: url('../fonts/flexslider-icon.eot');
   src: url('../fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'), url('../fonts/flexslider-icon.woff') format('woff'), url('../fonts/flexslider-icon.ttf') format('truetype'), url('../fonts/flexslider-icon.svg#flexslider-icon') format('svg');
   font-weight: normal;
@@ -104,6 +107,11 @@ html[xmlns] .flexslider .slides {
 .loading .flex-viewport {
   max-height: 300px;
 }
+@-moz-document url-prefix() {
+  .loading .flex-viewport {
+    max-height: none;
+  }
+}
 .carousel li {
   margin-right: 5px;
 }
@@ -142,10 +150,12 @@ html[xmlns] .flexslider .slides {
   content: '\f002';
 }
 .flex-direction-nav .flex-prev {
-  left: -50px;
+  /* hack VBO to avoid horizontal scrollbar (init : -50px) */
+  left: -20px;
 }
 .flex-direction-nav .flex-next {
-  right: -50px;
+  /* hack VBO to avoid horizontal scrollbar (init : -50px) */
+  right: -20px;
   text-align: right;
 }
 .flexslider:hover .flex-direction-nav .flex-prev {
@@ -263,7 +273,8 @@ html[xmlns] .flexslider .slides {
 /* ====================================================================================================================
  * RESPONSIVE
  * ====================================================================================================================*/
-@media screen and (max-width: 860px) {
+ /* hack VBO to be consistant with bootstrap breakpoints (init : 860px) */
+@media screen and (max-width: 767px) {
   .flex-direction-nav .flex-prev {
     opacity: 1;
     left: 10px;

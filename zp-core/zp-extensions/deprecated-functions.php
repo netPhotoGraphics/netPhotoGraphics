@@ -105,7 +105,7 @@ class deprecated_functions {
 	 * @param type $msg
 	 */
 	static function log($msg) {
-		global $debug, $_zp_mutex, $chmod;
+		global $_zp_mutex;
 		if (is_object($_zp_mutex))
 			$_zp_mutex->lock();
 		$f = fopen(DEPRECATED_LOG, 'a');
@@ -113,6 +113,7 @@ class deprecated_functions {
 			fwrite($f, strip_tags($msg) . "\n");
 			fclose($f);
 			clearstatcache();
+			chmod(DEPRECATED_LOG, LOG_MOD);
 		}
 		if (is_object($_zp_mutex))
 			$_zp_mutex->unlock();

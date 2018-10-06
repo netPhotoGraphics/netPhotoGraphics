@@ -14,6 +14,23 @@ define('OFFSET_PATH', 1);
 require_once(dirname(__FILE__) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/reconfigure.php');
 
+$came_from = NULL;
+if (zp_loggedin() && !empty($zenphoto_tabs)) {
+	if (!$_zp_current_admin_obj->getID() || empty($msg) && !zp_loggedin(OVERVIEW_RIGHTS)) {
+		// admin access without overview rights, redirect to first tab
+		$tab = array_shift($zenphoto_tabs);
+		$link = $tab['link'];
+		header('location:' . $link);
+		exitZP();
+	}
+} else {
+	if (isset($_GET['from'])) {
+		$came_from = sanitizeRedirect($_GET['from']);
+	} else {
+		$came_from = urldecode(currentRelativeURL());
+	}
+}
+
 if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
 	require_once( SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
 }
@@ -176,22 +193,6 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 	/** End Action Handling ************************************************************ */
 	/*	 * ********************************************************************************* */
 }
-$from = NULL;
-if (zp_loggedin() && !empty($zenphoto_tabs)) {
-	if (!$_zp_current_admin_obj->getID() || empty($msg) && !zp_loggedin(OVERVIEW_RIGHTS)) {
-		// admin access without overview rights, redirect to first tab
-		$tab = array_shift($zenphoto_tabs);
-		$link = $tab['link'];
-		header('location:' . $link);
-		exitZP();
-	}
-} else {
-	if (isset($_GET['from'])) {
-		$from = sanitizeRedirect($_GET['from']);
-	} else {
-		$from = urldecode(currentRelativeURL());
-	}
-}
 
 if (zp_loggedin() && $zenphoto_tabs) {
 	//	check rights if logged in, if not we will display the logon form below
@@ -220,7 +221,7 @@ if (!zp_loggedin()) {
 	// If they are not logged in, display the login form and exit
 	?>
 	<body style="background-image: none">
-		<?php $_zp_authority->printLoginForm($from); ?>
+		<?php $_zp_authority->printLoginForm($came_from); ?>
 	</body>
 	<?php
 	echo "\n</html>";
@@ -231,8 +232,9 @@ $buttonlist = array();
 <body>
 	<?php
 	/* Admin-only content safe from here on. */
+	printLogoAndLinks();
+
 	if (zp_loggedin(ADMIN_RIGHTS)) {
-		printLogoAndLinks();
 
 		if (class_exists('Milo\Github\Api') && zpFunctions::hasPrimaryScripts()) {
 			/*

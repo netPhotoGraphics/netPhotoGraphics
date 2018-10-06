@@ -92,7 +92,8 @@ function listUses($files, $base, $pattern) {
 			}
 			$script_location = trim($base . '/' . $location, '/') . '/';
 			$script = str_replace($script_location, '', $file);
-			$open = formatList($script, $subject, $pattern, $open);
+			$where = ltrim(str_replace(SERVERPATH, '', $script_location), '/');
+			$open = formatList($where . $script, $subject, $pattern, $open);
 			if ($open) {
 				$output = true;
 			}

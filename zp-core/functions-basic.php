@@ -1644,7 +1644,6 @@ function mb_parse_url($url) {
 	}, $url);
 
 	$parts = parse_url($enc_url);
-
 	if ($parts === false) {
 		debugLogBacktrace('Malformed URL: ' . $url);
 		return array();

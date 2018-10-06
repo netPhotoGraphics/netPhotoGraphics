@@ -746,7 +746,9 @@ class _Authority {
 						$mails = array();
 						$user = NULL;
 						foreach ($admins as $key => $tuser) {
-							if (!empty($tuser['email'])) {
+							if (empty($tuser['email'])) {
+								unset($admins[$key]); // we want to ignore groups and users with no email address here!
+							} else {
 								if (!empty($post_user) && ($tuser['user'] == $post_user || $tuser['email'] == $post_user)) {
 									$name = $tuser['name'];
 									if (empty($name)) {
@@ -760,11 +762,9 @@ class _Authority {
 										unset($admins[$key]); // eliminate any peons from the list
 									}
 								}
-							} else {
-								unset($admins[$key]); // we want to ignore groups and users with no email address here!
 							}
 						}
-
+						$found = !empty($mails);
 						$cclist = array();
 						foreach ($admins as $tuser) {
 							$name = $tuser['name'];
@@ -778,13 +778,18 @@ class _Authority {
 								$cclist[$name] = $tuser['email'];
 							}
 						}
+
 						if (is_null($user)) {
 							$_zp_login_error = gettext('There was no one to which to send the reset request.');
 						} else {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
-							$msg = "\n" . $requestor .
-											"\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), FULLWEBPATH . "/" . ZENFOLDER . "/admin-users.php?ticket=$ref&user=" . $user['user']) .
-											"\n" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.");
+							$msg = "\n" . $requestor;
+							if ($found) {
+								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), FULLWEBPATH . "/" . ZENFOLDER . "/admin-users.php?ticket=$ref&user=" . $user['user']) .
+												"\n" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.");
+							} else {
+								$msg.= "\n" . gettext('No matching user was found.');
+							}
 							$err_msg = zp_mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
 								$_zp_login_error = 2;
