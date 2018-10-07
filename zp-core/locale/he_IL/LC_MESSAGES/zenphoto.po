@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-29 15:52-0700\n"
-"PO-Revision-Date: 2018-09-29 16:15-0700\n"
+"POT-Creation-Date: 2018-10-07 10:13-0700\n"
+"PO-Revision-Date: 2018-10-07 10:14-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -79,41 +79,40 @@ msgstr "אתה יכול להגדיר מקסימום גיל, בתוך שניות,
 #: themes/zenpage/sidebar.php:74 themes/zenpage/themeoptions.php:48
 #: themes/zpArdoise/archive.php:13 themes/zpArdoise/inc_header.php:18
 #: themes/zpArdoise/inc_header.php:42 themes/zpArdoise/inc_header.php:334
-#: themes/zpBootstrap/archive.php:18 themes/zpBootstrap/home.php:35
-#: themes/zpBootstrap/home.php:36 themes/zpBootstrap/inc_header.php:20
-#: themes/zpBootstrap/inc_header.php:44 themes/zpBootstrap/inc_header.php:253
-#: themes/zpBootstrap/inc_header.php:260 themes/zpBootstrap/themeoptions.php:66
-#: themes/zpEnlighten/album.php:25 themes/zpEnlighten/archive.php:10
-#: themes/zpEnlighten/archive.php:26 themes/zpEnlighten/archive.php:34
-#: themes/zpEnlighten/contact.php:25 themes/zpEnlighten/favorites.php:26
-#: themes/zpEnlighten/gallery.php:10 themes/zpEnlighten/gallery.php:26
-#: themes/zpEnlighten/image.php:63 themes/zpEnlighten/news.php:9
-#: themes/zpEnlighten/pages.php:9 themes/zpEnlighten/password.php:24
-#: themes/zpEnlighten/register.php:24 themes/zpEnlighten/search.php:10
-#: themes/zpEnlighten/search.php:36 themes/zpEnlighten/sidebar.php:17
-#: themes/zpEnlighten/sidebar.php:22 themes/zpEnlighten/sidebar.php:27
-#: themes/zpfocus/archive.php:13 themes/zpfocus/inc-header.php:212
-#: themes/zpfocus/inc-header.php:214 themes/zpmasonry/archive.php:22
-#: themes/zpmasonry/inc-menu.php:45 themes/zpminimal/archive.php:10
-#: themes/zpminimal/inc-header.php:120 themes/zpminimal/inc-sidemenu.php:15
-#: themes/zpmobile/album.php:29 themes/zpmobile/archive.php:29
-#: themes/zpmobile/favorites.php:29 themes/zpmobile/functions.php:49
-#: themes/zpmobile/functions.php:80 themes/zpmobile/functions.php:190
-#: themes/zpmobile/image.php:29 themes/zpskeleton/album.php:7
-#: themes/zpskeleton/archive.php:13 themes/zpskeleton/favorites.php:10
-#: themes/zpskeleton/image.php:7 themes/zpskeleton/inc-header.php:174
-#: themes/zpskeleton/inc-header.php:176 themes/zpskeleton/search.php:26
-#: zp-core/admin-edit.php:1684 zp-core/admin-themes.php:102
-#: zp-core/admin-themes.php:103 zp-core/admin_options/theme.php:10
-#: zp-core/admin_options/theme.php:11 zp-core/allTranslations.php:9
-#: zp-core/lib-auth.php:565 zp-core/lib-auth.php:566 zp-core/lib-auth.php:567
-#: zp-core/lib-auth.php:568 zp-core/lib-auth.php:569 zp-core/lib-auth.php:573
-#: zp-core/lib-auth.php:577 zp-core/lib-auth.php:585 zp-core/lib-auth.php:586
-#: zp-core/lib-auth.php:592 zp-core/lib-auth.php:593 zp-core/lib-auth.php:597
-#: zp-core/lib-auth.php:602 zp-core/lib-auth.php:603 zp-core/lib-auth.php:612
-#: zp-core/lib-auth.php:613 zp-core/lib-auth.php:620 zp-core/lib-auth.php:621
-#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:633 zp-core/lib-auth.php:635
-#: zp-core/setup/setup-option-defaults.php:676
+#: themes/zpBootstrap/home.php:35 themes/zpBootstrap/home.php:36
+#: themes/zpBootstrap/inc_header.php:25 themes/zpBootstrap/inc_header.php:50
+#: themes/zpBootstrap/inc_header.php:267 themes/zpBootstrap/themeoptions.php:78
+#: themes/zpBootstrap/themeoptions.php:95 themes/zpEnlighten/album.php:25
+#: themes/zpEnlighten/archive.php:10 themes/zpEnlighten/archive.php:26
+#: themes/zpEnlighten/archive.php:34 themes/zpEnlighten/contact.php:25
+#: themes/zpEnlighten/favorites.php:26 themes/zpEnlighten/gallery.php:10
+#: themes/zpEnlighten/gallery.php:26 themes/zpEnlighten/image.php:63
+#: themes/zpEnlighten/news.php:9 themes/zpEnlighten/pages.php:9
+#: themes/zpEnlighten/password.php:24 themes/zpEnlighten/register.php:24
+#: themes/zpEnlighten/search.php:10 themes/zpEnlighten/search.php:36
+#: themes/zpEnlighten/sidebar.php:17 themes/zpEnlighten/sidebar.php:22
+#: themes/zpEnlighten/sidebar.php:27 themes/zpfocus/archive.php:13
+#: themes/zpfocus/inc-header.php:212 themes/zpfocus/inc-header.php:214
+#: themes/zpmasonry/archive.php:22 themes/zpmasonry/inc-menu.php:45
+#: themes/zpminimal/archive.php:10 themes/zpminimal/inc-header.php:120
+#: themes/zpminimal/inc-sidemenu.php:15 themes/zpmobile/album.php:29
+#: themes/zpmobile/archive.php:29 themes/zpmobile/favorites.php:29
+#: themes/zpmobile/functions.php:49 themes/zpmobile/functions.php:80
+#: themes/zpmobile/functions.php:190 themes/zpmobile/image.php:29
+#: themes/zpskeleton/album.php:7 themes/zpskeleton/archive.php:13
+#: themes/zpskeleton/favorites.php:10 themes/zpskeleton/image.php:7
+#: themes/zpskeleton/inc-header.php:174 themes/zpskeleton/inc-header.php:176
+#: themes/zpskeleton/search.php:26 zp-core/admin-edit.php:1684
+#: zp-core/admin-themes.php:102 zp-core/admin-themes.php:103
+#: zp-core/admin_options/theme.php:10 zp-core/admin_options/theme.php:11
+#: zp-core/allTranslations.php:9 zp-core/lib-auth.php:565 zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:567 zp-core/lib-auth.php:568 zp-core/lib-auth.php:569
+#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:577 zp-core/lib-auth.php:585
+#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:592 zp-core/lib-auth.php:593
+#: zp-core/lib-auth.php:597 zp-core/lib-auth.php:602 zp-core/lib-auth.php:603
+#: zp-core/lib-auth.php:612 zp-core/lib-auth.php:613 zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:621 zp-core/lib-auth.php:626 zp-core/lib-auth.php:633
+#: zp-core/lib-auth.php:635 zp-core/setup/setup-option-defaults.php:676
 #: zp-core/setup/setup-option-defaults.php:677
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:151
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
@@ -123,8 +122,8 @@ msgstr "גלרייה"
 
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:118 zp-core/admin-functions.php:163
-#: zp-core/admin.php:276 zp-core/admin.php:341 zp-core/admin.php:355
-#: zp-core/admin.php:371 zp-core/lib-auth.php:561 zp-core/lib-auth.php:580
+#: zp-core/admin.php:278 zp-core/admin.php:343 zp-core/admin.php:357
+#: zp-core/admin.php:373 zp-core/lib-auth.php:561 zp-core/lib-auth.php:580
 #: zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
 #: zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
@@ -136,9 +135,8 @@ msgstr "ניהול"
 #: plugins/cacheHeader.php:50 themes/effervescence+/sidebar.php:28
 #: themes/garland/sidebar.php:73 themes/zenFluid/inc-sidebar.php:59
 #: themes/zenpage/sidebar.php:16 themes/zpArdoise/news.php:30
-#: themes/zpBootstrap/news.php:80 themes/zpEnlighten/sidebar.php:6
-#: themes/zpmobile/functions.php:183 zp-core/allTranslations.php:7
-#: zp-core/template-functions.php:4018
+#: themes/zpEnlighten/sidebar.php:6 themes/zpmobile/functions.php:183
+#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4018
 #: zp-core/zp-extensions/zenpage/admin-functions.php:831
 #, fuzzy
 msgid "All"
@@ -239,7 +237,7 @@ msgstr "ברירת מחדל"
 msgid "Default new users to \"allowed\""
 msgstr "ברירת מחדל של משתמשים חדשים ל&quot;מותר &quot;"
 
-#: plugins/create_album.php:136 zp-core/admin-users.php:305
+#: plugins/create_album.php:136 zp-core/admin-users.php:313
 #: zp-core/template-functions.php:132
 #, fuzzy
 msgid "Users"
@@ -326,15 +324,16 @@ msgstr "סנן קבצים מאלבומים וחיפושי תמונות שאינ�
 #: themes/paradigm/includes/_head.php:120 themes/paradigm/includes/_header.php:34
 #: themes/paradigm/includes/_homepage.php:110
 #: themes/paradigm/includes/_sidebar.php:8 themes/paradigm/themeoptions.php:91
-#: themes/zpEnlighten/sidebar.php:77 themes/zpfocus/inc-header.php:111
-#: themes/zpmasonry/inc-menu.php:21 themes/zpskeleton/inc-bottom.php:51
-#: zp-core/admin-edit.php:1757 zp-core/admin-functions.php:2565
-#: zp-core/admin-functions.php:3850 zp-core/admin_options/theme.php:258
-#: zp-core/allTranslations.php:11 zp-core/lib-auth.php:570 zp-core/lib-auth.php:576
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:590 zp-core/lib-auth.php:591
-#: zp-core/lib-auth.php:594 zp-core/lib-auth.php:598 zp-core/lib-auth.php:601
-#: zp-core/lib-auth.php:614 zp-core/lib-auth.php:617 zp-core/lib-auth.php:618
-#: zp-core/lib-auth.php:622 zp-core/lib-auth.php:627 zp-core/lib-auth.php:630
+#: themes/zpBootstrap/themeoptions.php:96 themes/zpEnlighten/sidebar.php:77
+#: themes/zpfocus/inc-header.php:111 themes/zpmasonry/inc-menu.php:21
+#: themes/zpskeleton/inc-bottom.php:51 zp-core/admin-edit.php:1757
+#: zp-core/admin-functions.php:2565 zp-core/admin-functions.php:3850
+#: zp-core/admin_options/theme.php:258 zp-core/allTranslations.php:11
+#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:576 zp-core/lib-auth.php:587
+#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:591 zp-core/lib-auth.php:594
+#: zp-core/lib-auth.php:598 zp-core/lib-auth.php:601 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:617 zp-core/lib-auth.php:618 zp-core/lib-auth.php:622
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:630
 #: zp-core/template-functions.php:115 zp-core/utilities/gallery_statistics.php:69
 #: zp-core/utilities/gallery_statistics.php:580
 #: zp-core/zp-extensions/cacheManager.php:153
@@ -767,8 +766,8 @@ msgstr "תוספים "
 #: zp-core/admin-edit.php:1823 zp-core/admin-edit.php:1876
 #: zp-core/admin-functions.php:1770 zp-core/admin-functions.php:2485
 #: zp-core/admin-plugins.php:170 zp-core/admin-plugins.php:487
-#: zp-core/admin-thumbcrop.php:298 zp-core/admin-users.php:511
-#: zp-core/admin-users.php:513 zp-core/admin-users.php:933
+#: zp-core/admin-thumbcrop.php:298 zp-core/admin-users.php:519
+#: zp-core/admin-users.php:521 zp-core/admin-users.php:950
 #: zp-core/admin_options/gallery.php:68 zp-core/admin_options/gallery.php:519
 #: zp-core/admin_options/general.php:167 zp-core/admin_options/general.php:169
 #: zp-core/admin_options/general.php:823 zp-core/admin_options/image.php:245
@@ -805,12 +804,12 @@ msgstr "תוספים "
 #: zp-core/zp-extensions/zenpage/admin-categories.php:204
 #: zp-core/zp-extensions/zenpage/admin-categories.php:205
 #: zp-core/zp-extensions/zenpage/admin-edit.php:190
-#: zp-core/zp-extensions/zenpage/admin-news.php:257
-#: zp-core/zp-extensions/zenpage/admin-news.php:480
-#: zp-core/zp-extensions/zenpage/admin-news.php:482
-#: zp-core/zp-extensions/zenpage/admin-pages.php:151
-#: zp-core/zp-extensions/zenpage/admin-pages.php:209
-#: zp-core/zp-extensions/zenpage/admin-pages.php:211
+#: zp-core/zp-extensions/zenpage/admin-news.php:250
+#: zp-core/zp-extensions/zenpage/admin-news.php:473
+#: zp-core/zp-extensions/zenpage/admin-news.php:475
+#: zp-core/zp-extensions/zenpage/admin-pages.php:152
+#: zp-core/zp-extensions/zenpage/admin-pages.php:210
+#: zp-core/zp-extensions/zenpage/admin-pages.php:212
 msgid "Apply"
 msgstr "אשר"
 
@@ -823,11 +822,11 @@ msgstr "אשר"
 #: zp-core/admin-edit.php:1628 zp-core/admin-edit.php:1825
 #: zp-core/admin-edit.php:1827 zp-core/admin-edit.php:1878
 #: zp-core/admin-edit.php:1880 zp-core/admin-functions.php:1774
-#: zp-core/admin-functions.php:2489 zp-core/admin-logs.php:147
+#: zp-core/admin-functions.php:2489 zp-core/admin-logs.php:148
 #: zp-core/admin-plugins.php:171 zp-core/admin-plugins.php:173
 #: zp-core/admin-plugins.php:488 zp-core/admin-plugins.php:490
 #: zp-core/admin-tags.php:249 zp-core/admin-thumbcrop.php:302
-#: zp-core/admin-users.php:517 zp-core/admin-users.php:937
+#: zp-core/admin-users.php:525 zp-core/admin-users.php:954
 #: zp-core/admin_options/gallery.php:71 zp-core/admin_options/gallery.php:522
 #: zp-core/admin_options/general.php:173 zp-core/admin_options/general.php:827
 #: zp-core/admin_options/image.php:250 zp-core/admin_options/image.php:964
@@ -835,8 +834,8 @@ msgstr "אשר"
 #: zp-core/admin_options/search.php:108 zp-core/admin_options/search.php:626
 #: zp-core/admin_options/security.php:85 zp-core/admin_options/security.php:330
 #: zp-core/admin_options/theme.php:244 zp-core/admin_options/theme.php:576
-#: zp-core/lib-auth.php:1121 zp-core/lib-auth.php:1123
-#: zp-core/zp-extensions/contact_form/form.php:142
+#: zp-core/lib-auth.php:1126 zp-core/lib-auth.php:1128
+#: zp-core/zp-extensions/contact_form/form.php:143
 #: zp-core/zp-extensions/crop_image.php:492
 #: zp-core/zp-extensions/debug/admin_tab.php:313
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:414
@@ -894,8 +893,8 @@ msgstr "אינדקס גלרייה"
 #: themes/basic/404.php:23 themes/paradigm/404.php:20
 #: themes/paradigm/includes/_head.php:35 themes/paradigm/includes/_head.php:126
 #: themes/zenpage/404.php:28 themes/zpArdoise/404.php:6
-#: themes/zpArdoise/inc_header.php:21 themes/zpBootstrap/404.php:6
-#: themes/zpBootstrap/inc_header.php:23 themes/zpEnlighten/404.php:19
+#: themes/zpArdoise/inc_header.php:21 themes/zpBootstrap/404.php:8
+#: themes/zpBootstrap/inc_header.php:29 themes/zpEnlighten/404.php:19
 #: themes/zpmobile/404.php:27 zp-core/template-functions.php:458
 msgid "Object not found"
 msgstr "אובייקט לא נמצא"
@@ -906,7 +905,7 @@ msgstr "אובייקט לא נמצא"
 msgid "Search within album"
 msgstr "חפש בתוך האלבום"
 
-#: themes/basic/album.php:23 zp-core/admin-globals.php:234
+#: themes/basic/album.php:23 zp-core/admin-globals.php:237
 #: zp-core/zp-extensions/downloadList.php:598
 msgid "search"
 msgstr "חיפוש"
@@ -920,7 +919,7 @@ msgstr "חיפוש"
 #: themes/effervescence+/indexpage.php:91 themes/effervescence+/news.php:50
 #: themes/effervescence+/pages.php:40 themes/effervescence+/register.php:46
 #: themes/effervescence+/search.php:108 themes/effervescence+/slideshow.php:35
-#: themes/effervescence+/slideshow.php:39 themes/zpBootstrap/favorites.php:18
+#: themes/effervescence+/slideshow.php:39
 msgid "Albums Index"
 msgstr "אינדקס אלבום"
 
@@ -964,8 +963,8 @@ msgstr "צפי באלבום:"
 #: themes/zenpage/gallery.php:57 themes/zenpage/image.php:47
 #: themes/zenpage/search.php:174 themes/zpArdoise/image.php:10
 #: themes/zpArdoise/image.php:12 themes/zpArdoise/inc_header.php:158
-#: themes/zpArdoise/inc_header.php:283 themes/zpBootstrap/image.php:19
-#: themes/zpBootstrap/image.php:21 themes/zpBootstrap/inc_header.php:143
+#: themes/zpArdoise/inc_header.php:283 themes/zpBootstrap/image.php:21
+#: themes/zpBootstrap/image.php:23 themes/zpBootstrap/inc_header.php:150
 #: themes/zpEnlighten/album.php:78 themes/zpEnlighten/favorites.php:92
 #: themes/zpEnlighten/gallery.php:59 themes/zpEnlighten/image.php:45
 #: themes/zpEnlighten/image.php:47 themes/zpEnlighten/search.php:168
@@ -1002,8 +1001,8 @@ msgstr "הקודם"
 #: themes/zenpage/gallery.php:57 themes/zenpage/image.php:49
 #: themes/zenpage/search.php:174 themes/zpArdoise/image.php:15
 #: themes/zpArdoise/image.php:17 themes/zpArdoise/inc_header.php:159
-#: themes/zpArdoise/inc_header.php:284 themes/zpBootstrap/image.php:30
-#: themes/zpBootstrap/image.php:32 themes/zpBootstrap/inc_header.php:142
+#: themes/zpArdoise/inc_header.php:284 themes/zpBootstrap/image.php:27
+#: themes/zpBootstrap/image.php:29 themes/zpBootstrap/inc_header.php:149
 #: themes/zpEnlighten/album.php:78 themes/zpEnlighten/favorites.php:92
 #: themes/zpEnlighten/gallery.php:59 themes/zpEnlighten/image.php:49
 #: themes/zpEnlighten/image.php:51 themes/zpEnlighten/search.php:168
@@ -1062,7 +1061,7 @@ msgstr "אלבום"
 #: themes/zenpage/archive.php:32 themes/zpArdoise/archive.php:6
 #: themes/zpArdoise/inc_footer.php:46 themes/zpArdoise/inc_header.php:30
 #: themes/zpArdoise/inc_header.php:347 themes/zpBootstrap/inc_footer.php:7
-#: themes/zpBootstrap/inc_header.php:32 themes/zpBootstrap/themeoptions.php:84
+#: themes/zpBootstrap/inc_header.php:38 themes/zpBootstrap/themeoptions.php:129
 #: themes/zpEnlighten/archive.php:27 themes/zpfocus/inc-header.php:53
 #: themes/zpmasonry/archive.php:4 themes/zpmasonry/inc-header.php:54
 #: themes/zpmasonry/inc-menu.php:51 themes/zpminimal/archive.php:4
@@ -1132,12 +1131,12 @@ msgstr "Theme Color"
 #: themes/garland/image.php:29 themes/zenFluid/password.php:28
 #: themes/zenpage/image.php:22 themes/zenpage/image.php:28
 #: themes/zpArdoise/inc_header.php:285 themes/zpArdoise/password.php:21
-#: themes/zpBootstrap/inc_header.php:141 themes/zpEnlighten/image.php:16
-#: themes/zpEnlighten/image.php:22 themes/zpfocus/inc-header.php:162
-#: themes/zpfocus/inc-header.php:176 themes/zpmasonry/inc-footer.php:40
-#: themes/zpmasonry/inc-header.php:147 themes/zpmasonry/inc-header.php:162
-#: zp-core/admin-functions.php:217 zp-core/admin-plugins.php:112
-#: zp-core/utilities/installation_analysis.php:65
+#: themes/zpBootstrap/image.php:57 themes/zpBootstrap/inc_header.php:148
+#: themes/zpEnlighten/image.php:16 themes/zpEnlighten/image.php:22
+#: themes/zpfocus/inc-header.php:162 themes/zpfocus/inc-header.php:176
+#: themes/zpmasonry/inc-footer.php:40 themes/zpmasonry/inc-header.php:147
+#: themes/zpmasonry/inc-header.php:162 zp-core/admin-functions.php:217
+#: zp-core/admin-plugins.php:112 zp-core/utilities/installation_analysis.php:65
 #: zp-core/zp-extensions/accessThreshold/admin_tab.php:93
 #: zp-core/zp-extensions/googleMap.php:528
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:63
@@ -1149,7 +1148,7 @@ msgstr "לִסְגוֹר"
 
 #: themes/basic/image.php:47 themes/paradigm/image.php:22
 #: themes/zenFluid/image.php:139 themes/zenpage/image.php:47
-#: themes/zpArdoise/image.php:10 themes/zpBootstrap/image.php:19
+#: themes/zpArdoise/image.php:10 themes/zpBootstrap/image.php:21
 #: themes/zpEnlighten/image.php:45 themes/zpmasonry/image.php:24
 #: themes/zpminimal/image.php:42 themes/zpmobile/image.php:33
 #: themes/zpskeleton/image.php:47 themes/zpskeleton/image.php:65
@@ -1158,7 +1157,7 @@ msgstr "תמונות קודמות"
 
 #: themes/basic/image.php:51 themes/paradigm/image.php:24
 #: themes/zenFluid/image.php:151 themes/zenpage/image.php:49
-#: themes/zpArdoise/image.php:15 themes/zpBootstrap/image.php:30
+#: themes/zpArdoise/image.php:15 themes/zpBootstrap/image.php:27
 #: themes/zpEnlighten/image.php:49 themes/zpmasonry/image.php:25
 #: themes/zpminimal/image.php:43 themes/zpmobile/image.php:36
 #: themes/zpskeleton/image.php:44 themes/zpskeleton/image.php:62
@@ -1237,8 +1236,8 @@ msgstr "קטגוריות:"
 #: themes/basic/news.php:85 themes/effervescence+/functions.php:451
 #: themes/garland/functions.php:144
 #: zp-core/zp-extensions/zenpage/admin-edit.php:589
-#: zp-core/zp-extensions/zenpage/admin-news.php:326
-#: zp-core/zp-extensions/zenpage/admin-news.php:329
+#: zp-core/zp-extensions/zenpage/admin-news.php:319
+#: zp-core/zp-extensions/zenpage/admin-news.php:322
 msgid "sticky"
 msgstr "דביק"
 
@@ -1278,7 +1277,7 @@ msgstr "סיסמא הכרחית ודף שביקשת"
 #: themes/garland/register.php:41 themes/paradigm/includes/_head.php:81
 #: themes/paradigm/includes/_head.php:172 themes/zenFluid/inc-sidebar.php:102
 #: themes/zpArdoise/inc_footer.php:51 themes/zpArdoise/inc_header.php:66
-#: themes/zpBootstrap/inc_header.php:68 themes/zpBootstrap/inc_header.php:291
+#: themes/zpBootstrap/inc_header.php:75 themes/zpBootstrap/inc_header.php:325
 #: themes/zpfocus/inc-footer.php:24 themes/zpfocus/inc-header.php:89
 #: themes/zpfocus/register.php:5 themes/zpmasonry/inc-header.php:91
 #: themes/zpmasonry/inc-menu.php:63 themes/zpminimal/inc-header.php:92
@@ -1313,7 +1312,7 @@ msgstr "מצטערים, אין התאמות לחיפוש שלך."
 #: themes/basic/search.php:71 themes/effervescence+/search.php:148
 #: themes/garland/search.php:110 themes/paradigm/search.php:59
 #: themes/zenFluid/search.php:58 themes/zenpage/search.php:87
-#: themes/zpArdoise/search.php:109 themes/zpBootstrap/search.php:105
+#: themes/zpArdoise/search.php:109 themes/zpBootstrap/search.php:104
 #: themes/zpEnlighten/search.php:64 themes/zpfocus/search.php:52
 #: themes/zpmobile/search.php:81 themes/zpskeleton/search.php:56
 #, php-format
@@ -1343,7 +1342,7 @@ msgstr "הצג פחות תוצאות"
 #: themes/basic/search.php:104 themes/effervescence+/search.php:181
 #: themes/garland/search.php:143 themes/paradigm/search.php:79
 #: themes/zenFluid/search.php:83 themes/zenpage/search.php:107
-#: themes/zpArdoise/search.php:93 themes/zpBootstrap/search.php:92
+#: themes/zpArdoise/search.php:93 themes/zpBootstrap/search.php:90
 #: themes/zpfocus/search.php:72 themes/zpmobile/search.php:101
 #: themes/zpskeleton/search.php:77
 #, php-format
@@ -1353,7 +1352,7 @@ msgstr "מאמרים (%s)"
 #: themes/basic/search.php:141 themes/effervescence+/search.php:217
 #: themes/garland/search.php:180 themes/paradigm/search.php:101
 #: themes/zenpage/search.php:129 themes/zpArdoise/search.php:42
-#: themes/zpBootstrap/search.php:55 themes/zpmobile/search.php:123
+#: themes/zpBootstrap/search.php:57 themes/zpmobile/search.php:123
 #: themes/zpskeleton/search.php:98
 #, php-format
 msgid "Images (%s)"
@@ -1362,7 +1361,7 @@ msgstr "תמונות (%s)"
 #: themes/basic/search.php:145 themes/effervescence+/search.php:221
 #: themes/garland/search.php:184 themes/paradigm/search.php:106
 #: themes/zenFluid/search.php:107 themes/zenpage/search.php:134
-#: themes/zpArdoise/search.php:49 themes/zpBootstrap/search.php:60
+#: themes/zpArdoise/search.php:49 themes/zpBootstrap/search.php:64
 #: themes/zpmobile/search.php:128 themes/zpskeleton/search.php:103
 #, php-format
 msgid "Albums (%s)"
@@ -1371,7 +1370,7 @@ msgstr "אלבומים (%s)"
 #: themes/basic/search.php:147 themes/effervescence+/search.php:223
 #: themes/garland/search.php:186 themes/paradigm/search.php:109
 #: themes/zenpage/search.php:137 themes/zpArdoise/search.php:55
-#: themes/zpBootstrap/search.php:64 themes/zpmobile/search.php:131
+#: themes/zpBootstrap/search.php:70 themes/zpmobile/search.php:131
 #: themes/zpskeleton/search.php:106
 #, php-format
 msgid "Albums (%1$s) &amp; Images (%2$s)"
@@ -1403,7 +1402,7 @@ msgstr ""
 #: themes/basic/themeoptions.php:44 themes/effervescence+/themeoptions.php:96
 #: themes/garland/themeoptions.php:81 themes/paradigm/themeoptions.php:95
 #: themes/zenFluid/themeoptions.php:113 themes/zenpage/themeoptions.php:65
-#: themes/zpArdoise/themeoptions.php:70 themes/zpBootstrap/themeoptions.php:83
+#: themes/zpArdoise/themeoptions.php:70 themes/zpBootstrap/themeoptions.php:119
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:38
 msgid "Allow search"
@@ -1411,7 +1410,7 @@ msgstr "הפעלת חיפוש"
 
 #: themes/basic/themeoptions.php:44 themes/effervescence+/themeoptions.php:96
 #: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:65
-#: themes/zpArdoise/themeoptions.php:70 themes/zpBootstrap/themeoptions.php:83
+#: themes/zpArdoise/themeoptions.php:70 themes/zpBootstrap/themeoptions.php:123
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:38
 msgid "Check to enable search form."
@@ -1448,8 +1447,8 @@ msgstr "האלבום ריק"
 #: themes/paradigm/includes/_head.php:43 themes/paradigm/includes/_head.php:134
 #: themes/paradigm/includes/_header.php:61 themes/zpArdoise/contact.php:9
 #: themes/zpArdoise/inc_header.php:33 themes/zpArdoise/inc_header.php:350
-#: themes/zpBootstrap/contact.php:9 themes/zpBootstrap/inc_header.php:35
-#: themes/zpBootstrap/inc_header.php:272 themes/zpEnlighten/contact.php:26
+#: themes/zpBootstrap/contact.php:9 themes/zpBootstrap/inc_header.php:41
+#: themes/zpBootstrap/inc_header.php:288 themes/zpEnlighten/contact.php:26
 #: themes/zpfocus/inc-header.php:81 themes/zpfocus/inc-header.php:230
 #: themes/zpmasonry/contact.php:4 themes/zpmasonry/contact.php:16
 #: themes/zpmasonry/inc-header.php:83 themes/zpmasonry/inc-menu.php:56
@@ -1599,7 +1598,7 @@ msgstr[1] "תמונות %u"
 #: themes/effervescence+/functions.php:399 themes/zenFluid/image.php:180
 #: themes/zenFluid/news.php:63 themes/zenFluid/news.php:152
 #: themes/zenFluid/pages.php:41 themes/zpArdoise/inc_print_comment.php:32
-#: themes/zpBootstrap/inc_print_comment.php:36
+#: themes/zpBootstrap/inc_print_comment.php:37
 #: zp-core/zp-extensions/comment_form.php:241
 #, php-format
 msgid "%u Comment"
@@ -1616,7 +1615,7 @@ msgid "album"
 msgstr "אלבום"
 
 #: themes/effervescence+/functions.php:447 themes/garland/functions.php:140
-#: zp-core/admin-globals.php:233 zp-core/admin_options/theme.php:447
+#: zp-core/admin-globals.php:236 zp-core/admin_options/theme.php:447
 #: zp-core/zp-extensions/comment_form/admin-comments.php:421
 #: zp-core/zp-extensions/image_album_statistics.php:262
 #: zp-core/zp-extensions/optionalObjectFields.php:524
@@ -1674,8 +1673,8 @@ msgstr "חפש בתוך קטגוריה"
 #: themes/paradigm/includes/_header.php:64 themes/zenpage/album.php:24
 #: themes/zenpage/news.php:30 themes/zpArdoise/inc_footer.php:11
 #: themes/zpArdoise/inc_header.php:69 themes/zpArdoise/search.php:4
-#: themes/zpBootstrap/archive.php:6 themes/zpBootstrap/inc_header.php:71
-#: themes/zpBootstrap/inc_header.php:275 themes/zpBootstrap/search.php:6
+#: themes/zpBootstrap/archive.php:7 themes/zpBootstrap/inc_header.php:78
+#: themes/zpBootstrap/inc_header.php:294 themes/zpBootstrap/search.php:8
 #: themes/zpEnlighten/header.php:7 themes/zpEnlighten/search.php:38
 #: themes/zpfocus/inc-header.php:57 themes/zpfocus/search.php:5
 #: themes/zpmasonry/inc-header.php:59 themes/zpmasonry/inc-header.php:252
@@ -1710,7 +1709,7 @@ msgstr[1] "חפש בקטגוריות: %s"
 
 #: themes/effervescence+/search.php:137 themes/garland/search.php:91
 #: themes/zenFluid/search.php:48 themes/zenpage/search.php:76
-#: themes/zpArdoise/search.php:31 themes/zpBootstrap/search.php:46
+#: themes/zpArdoise/search.php:31 themes/zpBootstrap/search.php:47
 #: themes/zpfocus/search.php:41 themes/zpmobile/search.php:70
 #: themes/zpskeleton/search.php:40
 #, php-format
@@ -1861,9 +1860,7 @@ msgstr "אם מסומן כותרת התמונה ישתנה מדי יום במק�
 #: themes/effervescence+/themeoptions.php:97 themes/zpArdoise/album.php:11
 #: themes/zpArdoise/favorites.php:14 themes/zpArdoise/image.php:24
 #: themes/zpArdoise/inc_header.php:156 themes/zpArdoise/search.php:65
-#: themes/zpArdoise/slideshow.php:6 themes/zpBootstrap/album_standard.php:24
-#: themes/zpBootstrap/favorites.php:32 themes/zpBootstrap/home.php:42
-#: themes/zpBootstrap/image.php:26 themes/zpBootstrap/search.php:73
+#: themes/zpArdoise/slideshow.php:6 themes/zpBootstrap/home.php:42
 #: themes/zpfocus/album.php:68 themes/zpfocus/favorites.php:67
 #: themes/zpfocus/image.php:33 themes/zpfocus/search.php:133
 #: themes/zpfocus/slideshow.php:19 themes/zpmasonry/album.php:70
@@ -2120,7 +2117,7 @@ msgstr "הקודם"
 #: themes/garland/password.php:43 themes/paradigm/includes/_head.php:77
 #: themes/paradigm/includes/_head.php:168 themes/zenFluid/password.php:15
 #: themes/zpArdoise/inc_header.php:63 themes/zpArdoise/password.php:6
-#: themes/zpBootstrap/password.php:6 zp-core/password.php:6
+#: themes/zpBootstrap/password.php:8 zp-core/password.php:6
 #: zp-core/template-functions.php:467 zp-core/zp-extensions/html_meta_tags.php:254
 msgid "Password required"
 msgstr "סיסמא הכרחית"
@@ -2177,7 +2174,7 @@ msgstr ""
 "בחר את <em>הדפים</em> titlelink עבור דף הבית. רק דפים שלא פורסמו מוצעים לבחירה."
 
 #: themes/paradigm/album.php:31 themes/paradigm/image.php:99
-#: themes/zpBootstrap/archive.php:40 themes/zpBootstrap/themeoptions.php:85
+#: themes/zpBootstrap/archive.php:41 themes/zpBootstrap/themeoptions.php:134
 #: zp-core/admin-tags.php:259 zp-core/lib-auth.php:559 zp-core/lib-auth.php:578
 #: zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
 #: zp-core/template-functions.php:125 zp-core/utilities/gallery_statistics.php:92
@@ -2207,93 +2204,93 @@ msgstr "מיקום:"
 
 #: themes/paradigm/comment_form/comment_form.php:20
 #: themes/paradigm/contact_form/form.php:23
-#: zp-core/zp-extensions/comment_form/comment_form.php:23
-#: zp-core/zp-extensions/contact_form/form.php:23
+#: zp-core/zp-extensions/comment_form/comment_form.php:24
+#: zp-core/zp-extensions/contact_form/form.php:24
 #, fuzzy, php-format
 msgid "Name%s"
 msgstr "שם מסד הנתונים <strong>%s</strong>"
 
 #: themes/paradigm/comment_form/comment_form.php:29
-#: zp-core/zp-extensions/comment_form/comment_form.php:30
+#: zp-core/zp-extensions/comment_form/comment_form.php:31
 msgid "<em>anonymous</em>"
 msgstr "<em>ללא שם</em>"
 
 #: themes/paradigm/comment_form/comment_form.php:45
 #: themes/paradigm/contact_form/form.php:101
-#: zp-core/zp-extensions/comment_form/comment_form.php:44
-#: zp-core/zp-extensions/contact_form/form.php:85
+#: zp-core/zp-extensions/comment_form/comment_form.php:45
+#: zp-core/zp-extensions/contact_form/form.php:86
 #, fuzzy, php-format
 msgid "E-Mail%s"
 msgstr "דואר אלקטרוני %s"
 
 #: themes/paradigm/comment_form/comment_form.php:55
-#: zp-core/zp-extensions/comment_form/comment_form.php:52
+#: zp-core/zp-extensions/comment_form/comment_form.php:53
 #, fuzzy, php-format
 msgid "Site%s"
 msgstr "אתרים"
 
 #: themes/paradigm/comment_form/comment_form.php:66
 #: themes/paradigm/contact_form/form.php:51
-#: zp-core/zp-extensions/comment_form/comment_form.php:61
-#: zp-core/zp-extensions/contact_form/form.php:45
-#: zp-core/zp-extensions/register_user/register_user_form.php:58
+#: zp-core/zp-extensions/comment_form/comment_form.php:62
+#: zp-core/zp-extensions/contact_form/form.php:46
+#: zp-core/zp-extensions/register_user/register_user_form.php:59
 #, fuzzy, php-format
 msgid "Street%s"
 msgstr "רחוב %s"
 
 #: themes/paradigm/comment_form/comment_form.php:72
 #: themes/paradigm/contact_form/form.php:61
-#: zp-core/zp-extensions/comment_form/comment_form.php:65
-#: zp-core/zp-extensions/contact_form/form.php:53
-#: zp-core/zp-extensions/register_user/register_user_form.php:64
+#: zp-core/zp-extensions/comment_form/comment_form.php:66
+#: zp-core/zp-extensions/contact_form/form.php:54
+#: zp-core/zp-extensions/register_user/register_user_form.php:65
 #, fuzzy, php-format
 msgid "City%s"
 msgstr "עיר %s"
 
 #: themes/paradigm/comment_form/comment_form.php:78
 #: themes/paradigm/contact_form/form.php:71
-#: zp-core/zp-extensions/comment_form/comment_form.php:69
-#: zp-core/zp-extensions/contact_form/form.php:61
-#: zp-core/zp-extensions/register_user/register_user_form.php:70
+#: zp-core/zp-extensions/comment_form/comment_form.php:70
+#: zp-core/zp-extensions/contact_form/form.php:62
+#: zp-core/zp-extensions/register_user/register_user_form.php:71
 #, fuzzy, php-format
 msgid "State%s"
 msgstr "מדינות"
 
 #: themes/paradigm/comment_form/comment_form.php:84
 #: themes/paradigm/contact_form/form.php:81
-#: zp-core/zp-extensions/comment_form/comment_form.php:73
-#: zp-core/zp-extensions/contact_form/form.php:69
-#: zp-core/zp-extensions/register_user/register_user_form.php:76
+#: zp-core/zp-extensions/comment_form/comment_form.php:74
+#: zp-core/zp-extensions/contact_form/form.php:70
+#: zp-core/zp-extensions/register_user/register_user_form.php:77
 #, fuzzy, php-format
 msgid "Country%s"
 msgstr "ארץ %s"
 
 #: themes/paradigm/comment_form/comment_form.php:90
 #: themes/paradigm/contact_form/form.php:91
-#: zp-core/zp-extensions/comment_form/comment_form.php:77
-#: zp-core/zp-extensions/contact_form/form.php:77
-#: zp-core/zp-extensions/register_user/register_user_form.php:82
+#: zp-core/zp-extensions/comment_form/comment_form.php:78
+#: zp-core/zp-extensions/contact_form/form.php:78
+#: zp-core/zp-extensions/register_user/register_user_form.php:83
 #, fuzzy, php-format
 msgid "Postal code%s"
 msgstr "מיקוד %s"
 
 #: themes/paradigm/comment_form/comment_form.php:99
 #: themes/paradigm/contact_form/form.php:130
-#: zp-core/zp-extensions/comment_form/comment_form.php:84
-#: zp-core/zp-extensions/contact_form/form.php:108
-#: zp-core/zp-extensions/register_user/register_user_form.php:91
+#: zp-core/zp-extensions/comment_form/comment_form.php:85
+#: zp-core/zp-extensions/contact_form/form.php:109
+#: zp-core/zp-extensions/register_user/register_user_form.php:92
 #, fuzzy
 msgid "Enter CAPTCHA<strong>*</strong>"
 msgstr "הזינו CAPTCHA<strong>*</strong>:"
 
 #: themes/paradigm/comment_form/comment_form.php:121
-#: zp-core/zp-extensions/comment_form/comment_form.php:105
+#: zp-core/zp-extensions/comment_form/comment_form.php:106
 #, fuzzy
 msgid "<strong>*</strong>Required fields"
 msgstr "<strong>*</strong> שדות חובה"
 
 #: themes/paradigm/comment_form/comment_form.php:127
-#: zp-core/zp-extensions/comment_form/comment_form.php:112
+#: zp-core/zp-extensions/comment_form/comment_form.php:113
 #, fuzzy
 msgid "Private comment (do not publish)"
 msgstr "הערה פרטית (לא לפרסם)"
@@ -2308,42 +2305,42 @@ msgstr "תגובה"
 #: themes/zpmasonry/comment_form/comment_form.php:84
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:83
 #: themes/zpskeleton/comment_form/comment_form.php:112
-#: zp-core/zp-extensions/comment_form/comment_form.php:126
+#: zp-core/zp-extensions/comment_form/comment_form.php:127
 msgid "Add Comment"
 msgstr "הוסיפו תגובה"
 
 #: themes/paradigm/contact_form/form.php:13
-#: zp-core/zp-extensions/contact_form/form.php:15
+#: zp-core/zp-extensions/contact_form/form.php:16
 #, fuzzy, php-format
 msgid "Title%s"
 msgstr "כותרת %s"
 
 #: themes/paradigm/contact_form/form.php:41
-#: zp-core/zp-extensions/contact_form/form.php:37
+#: zp-core/zp-extensions/contact_form/form.php:38
 #, fuzzy, php-format
 msgid "Company%s"
 msgstr "חברה %s"
 
 #: themes/paradigm/contact_form/form.php:111
-#: zp-core/zp-extensions/contact_form/form.php:93
+#: zp-core/zp-extensions/contact_form/form.php:94
 #, fuzzy, php-format
 msgid "Website%s"
 msgstr "אתר %s"
 
 #: themes/paradigm/contact_form/form.php:121
-#: zp-core/zp-extensions/contact_form/form.php:101
+#: zp-core/zp-extensions/contact_form/form.php:102
 #, fuzzy, php-format
 msgid "Phone%s"
 msgstr "טלפון %s"
 
 #: themes/paradigm/contact_form/form.php:152
-#: zp-core/zp-extensions/contact_form/form.php:128
+#: zp-core/zp-extensions/contact_form/form.php:129
 #, fuzzy
 msgid "Subject<strong>*</strong>"
 msgstr "נושא<strong>%s</strong>:"
 
 #: themes/paradigm/contact_form/form.php:158
-#: zp-core/zp-extensions/contact_form/form.php:132
+#: zp-core/zp-extensions/contact_form/form.php:133
 #, fuzzy
 msgid "Message<strong>*</strong>"
 msgstr "הודעה<strong>%s</strong>:"
@@ -2352,7 +2349,7 @@ msgstr "הודעה<strong>%s</strong>:"
 #: themes/zpfocus/z_contact_form/form.php:126
 #: themes/zpskeleton/contact_form/form.php:123
 #: themes/zpskeleton/register_user/register_user_form.php:70
-#: zp-core/zp-extensions/contact_form/form.php:140
+#: zp-core/zp-extensions/contact_form/form.php:141
 msgid "Send e-mail"
 msgstr "שילחו הודעת מייל"
 
@@ -2449,7 +2446,7 @@ msgstr "זכויות יוצרים:"
 #: themes/paradigm/includes/_breadcrumbs.php:20
 #, fuzzy
 msgid "Not found"
-msgstr "<em>%s</em> לא נמצא"
+msgstr "הקובץ לא נמצא."
 
 #: themes/paradigm/includes/_gallery.php:12 themes/zpfocus/inc-sidebar.php:43
 #, fuzzy
@@ -2457,7 +2454,7 @@ msgid "About"
 msgstr "אודות"
 
 #: themes/paradigm/includes/_head.php:47 themes/paradigm/includes/_head.php:138
-#: themes/zpArdoise/inc_header.php:36 themes/zpBootstrap/inc_header.php:38
+#: themes/zpArdoise/inc_header.php:36 themes/zpBootstrap/inc_header.php:44
 #: zp-core/allTranslations.php:65 zp-core/template-functions.php:470
 #: zp-core/zp-extensions/downloadList.php:586
 #: zp-core/zp-extensions/html_meta_tags.php:256
@@ -2477,8 +2474,8 @@ msgstr "בלוג"
 #: themes/paradigm/includes/_head.php:111 themes/paradigm/includes/_head.php:241
 #: themes/zpArdoise/inc_header.php:15 themes/zpArdoise/inc_header.php:314
 #: themes/zpArdoise/inc_header.php:332 themes/zpBootstrap/home.php:57
-#: themes/zpBootstrap/inc_header.php:17 themes/zpBootstrap/inc_header.php:247
-#: themes/zpBootstrap/inc_header.php:252 themes/zpfocus/inc-header.php:209
+#: themes/zpBootstrap/inc_header.php:23 themes/zpBootstrap/inc_header.php:256
+#: themes/zpBootstrap/inc_header.php:262 themes/zpfocus/inc-header.php:209
 #: themes/zpmasonry/archive.php:4 themes/zpminimal/album.php:4
 #: themes/zpminimal/archive.php:4 themes/zpminimal/contact.php:4
 #: themes/zpminimal/favorites.php:7 themes/zpminimal/image.php:4
@@ -2525,7 +2522,7 @@ msgstr "הצג עוד תוצאות"
 
 #: themes/paradigm/search.php:134 themes/zenFluid/search.php:188
 #: themes/zenpage/search.php:171 themes/zpArdoise/search.php:33
-#: themes/zpBootstrap/search.php:44 themes/zpEnlighten/search.php:165
+#: themes/zpBootstrap/search.php:45 themes/zpEnlighten/search.php:165
 #: themes/zpmobile/search.php:185 themes/zpskeleton/search.php:42
 msgid "Sorry, no matches found. Try refining your search."
 msgstr "סליחה, לא נמצאו התאמות. נסו למקד את החיפוש."
@@ -2873,10 +2870,9 @@ msgstr "דף נושא"
 #, fuzzy
 #| msgid "Views: %u"
 msgid "View: "
-msgstr "צפייה"
+msgstr "צפו"
 
-#: themes/zenFluid/functions.php:266 themes/zpBootstrap/image.php:60
-#: zp-core/zp-extensions/themeSwitcher.php:183
+#: themes/zenFluid/functions.php:266 zp-core/zp-extensions/themeSwitcher.php:183
 #, fuzzy
 msgid "Close"
 msgstr "סגור"
@@ -2895,7 +2891,7 @@ msgstr "צפיות: %u"
 #: themes/zenFluid/image.php:178 themes/zenFluid/news.php:61
 #: themes/zenFluid/news.php:150 themes/zenFluid/pages.php:39
 #: themes/zpArdoise/inc_print_comment.php:30
-#: themes/zpBootstrap/inc_print_comment.php:34
+#: themes/zpBootstrap/inc_print_comment.php:35
 #: zp-core/zp-extensions/comment_form.php:237
 msgid "No Comments"
 msgstr "אין תגובות"
@@ -2921,7 +2917,7 @@ msgstr "פידי RSS"
 msgid "The ZenFluid theme requires that the zenpage plugin be enabled."
 msgstr "הנושא ZenFluid דורש כי תוסף zenpage להיות מופעל."
 
-#: themes/zenFluid/inc-sidebar.php:106 zp-core/admin-users.php:308
+#: themes/zenFluid/inc-sidebar.php:106 zp-core/admin-users.php:316
 #, fuzzy
 #| msgid "files"
 msgid "Profile"
@@ -3407,7 +3403,7 @@ msgstr ""
 "הפעל זאת אם ברצונך להציג את הדף הראשון של דף החדשות בדף <code>index.php</code> ."
 
 #: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:68
-#: themes/zpBootstrap/themeoptions.php:61 themes/zpEnlighten/themeoptions.php:24
+#: themes/zpBootstrap/themeoptions.php:64 themes/zpEnlighten/themeoptions.php:24
 #: themes/zpfocus/themeoptions.php:72 themes/zpskeleton/themeoptions.php:72
 msgid "Homepage"
 msgstr "דף הבית"
@@ -3463,7 +3459,7 @@ msgstr ""
 msgid "You can browse with the arrows keys of your keyboard"
 msgstr "אתה יכול לגלוש עם מקשי החצים של המקלדת"
 
-#: themes/zpArdoise/inc_header.php:281 themes/zpBootstrap/inc_header.php:144
+#: themes/zpArdoise/inc_header.php:281 themes/zpBootstrap/inc_header.php:151
 #: themes/zpfocus/inc-header.php:157 themes/zpfocus/inc-header.php:171
 #: themes/zpmasonry/inc-footer.php:35 themes/zpmasonry/inc-header.php:142
 #: themes/zpmasonry/inc-header.php:157 zp-core/zp-extensions/slideshow.php:594
@@ -3472,7 +3468,7 @@ msgstr "אתה יכול לגלוש עם מקשי החצים של המקלדת"
 msgid "start slideshow"
 msgstr "התחל מצגת"
 
-#: themes/zpArdoise/inc_header.php:282 themes/zpBootstrap/inc_header.php:145
+#: themes/zpArdoise/inc_header.php:282 themes/zpBootstrap/inc_header.php:152
 #: themes/zpfocus/inc-header.php:158 themes/zpfocus/inc-header.php:172
 #: themes/zpmasonry/inc-footer.php:36 themes/zpmasonry/inc-header.php:143
 #: themes/zpmasonry/inc-header.php:158 zp-core/zp-extensions/slideshow.php:595
@@ -3506,7 +3502,7 @@ msgstr "חדש יותר"
 msgid "older"
 msgstr "ישן יותר"
 
-#: themes/zpArdoise/news.php:33 themes/zpBootstrap/news.php:14
+#: themes/zpArdoise/news.php:33 themes/zpBootstrap/news.php:8
 #: zp-core/zp-extensions/galleryArticles.php:87
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:125
 #: zp-core/zp-extensions/zenpage/admin-edit.php:219
@@ -3674,42 +3670,132 @@ msgstr ""
 msgid "No unpublished pages available"
 msgstr "אין דפים שלא פורסמו"
 
-#: themes/zpBootstrap/album_standard.php:78 zp-core/zp-extensions/googleMap.php:342
-msgid "Google Map"
-msgstr "מפות גוגל"
+#: themes/zpBootstrap/archive.php:19
+#, fuzzy
+#| msgid "Gallery index"
+msgid "Gallery archive"
+msgstr "ארכיון גלרייה"
 
-#: themes/zpBootstrap/archive.php:54 themes/zpfocus/inc-sidebar.php:91
+#: themes/zpBootstrap/archive.php:56 themes/zpfocus/inc-sidebar.php:91
 #: themes/zpmasonry/news.php:17 themes/zpskeleton/news.php:105
 #: zp-core/class-search.php:123
 #: zp-core/zp-extensions/wordpress_import/admin_tab.php:461
 #: zp-core/zp-extensions/zenpage/admin-categories.php:116
 #: zp-core/zp-extensions/zenpage/admin-edit.php:859
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1291
-#: zp-core/zp-extensions/zenpage/admin-news.php:299
+#: zp-core/zp-extensions/zenpage/admin-news.php:292
 msgid "Categories"
 msgstr "קטגוריות"
 
-#: themes/zpBootstrap/inc_header.php:65
+#: themes/zpBootstrap/inc_header.php:72
 #, fuzzy
 msgid "Password Required..."
 msgstr "סיסמא הכרחית"
 
-#: themes/zpBootstrap/inc_header.php:82
+#: themes/zpBootstrap/inc_header.php:92
 #, fuzzy
 msgid "Latest images RSS"
 msgstr "תמונות אחרונות RSS"
 
-#: themes/zpBootstrap/inc_header.php:286 themes/zpEnlighten/password_form.php:10
-#: themes/zpfocus/inc-footer.php:33 themes/zpfocus/inc-header.php:85
-#: themes/zpmasonry/inc-header.php:87 themes/zpmasonry/inc-menu.php:36
-#: themes/zpminimal/inc-header.php:88 themes/zpminimal/inc-sidemenu.php:47
-#: themes/zpminimal/login.php:4 themes/zpskeleton/inc-footer.php:15
-#: themes/zpskeleton/inc-header.php:91 themes/zpskeleton/login.php:6
-#: zp-core/lib-auth.php:1060 zp-core/zp-extensions/user_login-out.php:115
+#: themes/zpBootstrap/inc_header.php:153 zp-core/admin_options/image.php:421
+#, fuzzy
+#| msgid "thumbnail"
+msgid "thumbnails"
+msgstr "אפסו את התמונות המוקטנות של האלבום."
+
+#: themes/zpBootstrap/inc_header.php:305 themes/zpBootstrap/inc_header.php:319
+#: themes/zpEnlighten/password_form.php:10 themes/zpfocus/inc-footer.php:33
+#: themes/zpfocus/inc-header.php:85 themes/zpmasonry/inc-header.php:87
+#: themes/zpmasonry/inc-menu.php:36 themes/zpminimal/inc-header.php:88
+#: themes/zpminimal/inc-sidemenu.php:47 themes/zpminimal/login.php:4
+#: themes/zpskeleton/inc-footer.php:15 themes/zpskeleton/inc-header.php:91
+#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1065
+#: zp-core/zp-extensions/user_login-out.php:115
 msgid "Login"
 msgstr "שם משתמש"
 
-#: themes/zpBootstrap/themeoptions.php:61
+#: themes/zpBootstrap/inc_print_googlemap.php:2
+#, fuzzy
+msgid "The theme doesn't support colorbox option for googlemap plugin."
+msgstr "ערכת הנושא אינה תומכת באפשרות colorbox עבור plugm googlemap."
+
+#: themes/zpBootstrap/inc_print_googlemap.php:29
+#: zp-core/zp-extensions/googleMap.php:342
+msgid "Google Map"
+msgstr "מפות גוגל"
+
+#: themes/zpBootstrap/inc_print_infinitescroll.php:5
+#, fuzzy
+msgid "View more albums"
+msgstr "הצג אלבומים נוספים"
+
+#: themes/zpBootstrap/inc_print_infinitescroll.php:6
+#, fuzzy
+msgid "No more albums to display"
+msgstr "אין עוד אלבומים להצגה"
+
+#: themes/zpBootstrap/inc_print_infinitescroll.php:10
+#, fuzzy
+#| msgid "View the image: %s"
+msgid "View more images"
+msgstr "צפה בתמונות נוספות"
+
+#: themes/zpBootstrap/inc_print_infinitescroll.php:11
+#, fuzzy
+msgid "No more images to display"
+msgstr "אין עוד תמונות להצגה"
+
+#: themes/zpBootstrap/inc_print_infinitescroll.php:17
+#: themes/zpBootstrap/inc_print_infinitescroll_news.php:3
+#: zp-core/admin-functions.php:3110 zp-core/admin-functions.php:3112
+#: zp-core/zp-extensions/zenpage/template-functions.php:875
+msgid "Next page"
+msgstr "הדף הבא"
+
+#: themes/zpBootstrap/inc_print_infinitescroll_news.php:7
+#, fuzzy
+#| msgid "View more"
+msgid "View more news"
+msgstr "הצג חדשות נוספות"
+
+#: themes/zpBootstrap/inc_print_infinitescroll_news.php:17
+#, fuzzy
+msgid "No more news to display"
+msgstr "אין עוד חדשות להצגה"
+
+#: themes/zpBootstrap/theme_description.php:10
+#, fuzzy
+msgid ""
+"A responsive theme ready for desktop to mobile device, using <a href=\"http://"
+"getbootstrap.com/\" title=\"Boostrap\" target=\"_blank\">Boostrap 3.3.7</a> "
+"framework."
+msgstr ""
+"נושא קשוב מוכן לשולחן העבודה למכשיר נייד, באמצעות <a href=\"http://getbootstrap."
+"com/\" title=\"Boostrap\" target=\"_blank\">Boostrap 3.3.7</a> במסגרת."
+
+#: themes/zpBootstrap/theme_description.php:11
+#, fuzzy
+msgid "Please read"
+msgstr "בבקשה תקרא"
+
+#: themes/zpBootstrap/theme_description.php:11 zp-core/admin-upload.php:275
+#: zp-core/setup/index.php:1089
+msgid "and"
+msgstr "וגם"
+
+#: themes/zpBootstrap/theme_description.php:12
+#, fuzzy
+msgid ""
+"To design your content to be responsive using Boostrap framework, you can have a "
+"look on"
+msgstr "כדי לעצב את התוכן שלך כדי להגיב באמצעות מסגרת Boostrap, אתה יכול להסתכל על"
+
+#: themes/zpBootstrap/theme_description.php:12
+#, fuzzy
+msgid "Bootstrap Grid System"
+msgstr "מערכת טבלה Bootstrap"
+
+#: themes/zpBootstrap/themeoptions.php:68
 #, fuzzy
 msgid ""
 "Display a home page, with a slider of random pictures, the gallery description "
@@ -3717,60 +3803,122 @@ msgid ""
 msgstr ""
 "הצגת דף הבית, עם מחוון של תמונות אקראיות, תיאור הגלריה ואת החדשות האחרונות."
 
-#: themes/zpBootstrap/themeoptions.php:62
+#: themes/zpBootstrap/themeoptions.php:69
+#, fuzzy
+msgid "Latest news on Homepage"
+msgstr "חדשות אחרונות על דף הבית"
+
+#: themes/zpBootstrap/themeoptions.php:73
+#, fuzzy
+msgid ""
+"Display the latest news on the home page (Homepage option have to be selected "
+"too)."
+msgstr "הצג את החדשות האחרונות בדף הבית (אפשרות דף הבית צריך גם לבחור)."
+
+#: themes/zpBootstrap/themeoptions.php:74
 #, fuzzy
 msgid "Homepage slider"
 msgstr "מחוון דף הבית"
 
-#: themes/zpBootstrap/themeoptions.php:70
+#: themes/zpBootstrap/themeoptions.php:82
 #, fuzzy
-msgid ""
-"Select the Album to use for the homepage slider (Dynamic albums may be used)."
-msgstr "בחר את האלבום שישמש עבור מחוון דף הבית (ניתן להשתמש באלבומים דינמיים)."
+msgid "Select the Album to use for the homepage slider (Dynamic albums may used)."
+msgstr ""
+"בחר את האלבום שבו ברצונך להשתמש עבור מחוון דף הבית (ניתן להשתמש באלבומים "
+"דינמיים)."
 
-#: themes/zpBootstrap/themeoptions.php:71
+#: themes/zpBootstrap/themeoptions.php:83
 #, fuzzy
 msgid "If Gallery is selected, the whole gallery will be used for the slider."
 msgstr "אם נבחרה גלריה, הגלריה כולה תשמש עבור המחוון."
 
-#: themes/zpBootstrap/themeoptions.php:72
+#: themes/zpBootstrap/themeoptions.php:84
 #, fuzzy
 #| msgid "Random picture..."
 msgid "Random pictures for homepage slider"
 msgstr "תמונות אקראיות עבור המחוון דף הבית"
 
-#: themes/zpBootstrap/themeoptions.php:72
+#: themes/zpBootstrap/themeoptions.php:89
 #, fuzzy
 msgid "Number of random pictures to use for the homepage slider."
 msgstr "מספר תמונות אקראיות לשימוש עבור מחוון דף הבית."
 
-#: themes/zpBootstrap/themeoptions.php:73
+#: themes/zpBootstrap/themeoptions.php:90
 #, fuzzy
-#| msgid "Menu items for all albums added."
-msgid "Use isotope for all albums pages"
-msgstr "השתמש איזוטופ עבור כל דפי האלבומים"
+msgid "Use infinite scroll"
+msgstr "השתמש בגלילה אינסופית"
 
-#: themes/zpBootstrap/themeoptions.php:79
+#: themes/zpBootstrap/themeoptions.php:97 zp-core/admin-functions.php:3735
+#: zp-core/admin-functions.php:3878 zp-core/allTranslations.php:55
+#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:575 zp-core/lib-auth.php:588
+#: zp-core/lib-auth.php:595 zp-core/lib-auth.php:599 zp-core/lib-auth.php:615
+#: zp-core/lib-auth.php:619 zp-core/lib-auth.php:624 zp-core/lib-auth.php:628
+#: zp-core/zp-extensions/cacheManager.php:155
+#: zp-core/zp-extensions/comment_form.php:87
+#: zp-core/zp-extensions/externalFeed.php:75
+#: zp-core/zp-extensions/multiple_layouts.php:109
+#: zp-core/zp-extensions/tweet_news.php:97 zp-core/zp-extensions/zenpage.php:120
+msgid "News"
+msgstr "חדשות"
+
+#: themes/zpBootstrap/themeoptions.php:99
+#, fuzzy
+msgid ""
+"Check pages which use <a href=\"https://infinite-scroll.com/\" target=\"_blank"
+"\">infinite-scroll jQuery plugin</a>. This layout will automatically load items "
+"of next page (albums, images or news) without pagination."
+msgstr ""
+"בדוק דפים שמשתמשים <a href=\"https://infinite-scroll.com/\" target=\"_blank"
+"\">בפלאגין jQuery של גלילה אינסופית</a> . פריסה זו תטען באופן אוטומטי פריטים "
+"מהדף הבא (אלבומים, תמונות או חדשות) ללא הדפסת עמודים."
+
+#: themes/zpBootstrap/themeoptions.php:100
+#, fuzzy
+msgid ""
+"The behavior is \"manual first\": it requires visitor to click a button the "
+"first time to load new items and then, it automatically load after."
+msgstr ""
+"ההתנהגות היא &quot;ידנית הראשונה&quot;: זה דורש המבקר ללחוץ על כפתור בפעם "
+"הראשונה לטעון פריטים חדשים ולאחר מכן, זה לטעון באופן אוטומטי לאחר."
+
+#: themes/zpBootstrap/themeoptions.php:101
+#, fuzzy
+msgid ""
+"Rather than using infinite-scroll layout for all albums, you may also allow "
+"\"multiple_layouts\" plugin and then choose \"album_infinitescroll\" as layout "
+"for specific albums of your gallery."
+msgstr ""
+"במקום להשתמש בפריסת גלילה אינסופית עבור כל האלבומים, ייתכן שתאפשר גם את הפלאגין "
+"&quot;multiple_layouts&quot; ולאחר מכן בחר באפשרות &quot;"
+"album_infinitescroll&quot; כפריסה לאלבומים ספציפיים של הגלריה שלך."
+
+#: themes/zpBootstrap/themeoptions.php:102
+#, fuzzy
+msgid ""
+"<strong>Note:</strong> This album layout does not manage albums with images and "
+"sub-albums (in that case, standard album layout is automatically used)."
+msgstr ""
+"<strong>הערה:</strong> פריסת אלבום זו אינה מנהלת אלבומים עם תמונות ותת אלבומים "
+"(במקרה זה, פריסת אלבום רגילה משמשת באופן אוטומטי)."
+
+#: themes/zpBootstrap/themeoptions.php:103
+#, fuzzy
+#| msgid "Use text"
+msgid "Use isotope"
+msgstr "השתמש איזוטופ"
+
+#: themes/zpBootstrap/themeoptions.php:108
 #, fuzzy
 msgid ""
 "Use <a href=\"https://isotope.metafizzy.co/\" target=\"_blank\">isotope jQuery "
-"plugin</a> for all albums pages rather than standard albums page. This album "
-"layout allows filtering pictures based on their tags."
+"plugin</a> for albums pages. This layout allows to display uncropped thumbnails "
+"and to filter them based on their tags."
 msgstr ""
-"השתמש ב- <a href=\"https://isotope.metafizzy.co/\" target=\"_blank\">isotope "
-"jQuery plugin</a> עבור כל דפי האלבומים ולא בדף האלבומים הרגילים. פריסת אלבום זו "
-"מאפשרת סינון תמונות על סמך התגים שלהן."
+"השתמש <a href=\"https://isotope.metafizzy.co/\" target=\"_blank\">איזוטופ jQuery "
+"תוסף</a> עבור דפי אלבומים. פריסה זו מאפשרת להציג תמונות ממוזערות לא מסומנות "
+"ולסנן אותן על סמך התגים שלהן."
 
-#: themes/zpBootstrap/themeoptions.php:80
-#, fuzzy
-msgid ""
-"This album layout does not manage sub-albums (in that case, only pictures of the "
-"album are shown and you can not access on sub-albums!)."
-msgstr ""
-"פריסת אלבום זו אינה מנהלת אלבומי משנה (במקרה זה, רק תמונות של האלבום מוצגות ולא "
-"ניתן לגשת אל תת-אלבומים!)."
-
-#: themes/zpBootstrap/themeoptions.php:81
+#: themes/zpBootstrap/themeoptions.php:109
 #, fuzzy
 msgid ""
 "Rather than use isotope layout for all albums, you may also allow "
@@ -3781,40 +3929,65 @@ msgstr ""
 "mult_layouts&quot; plugin ולאחר מכן בחירה &quot;album_isotope&quot; כמו פריסה "
 "עבור אלבומים ספציפיים של הגלריה שלך."
 
-#: themes/zpBootstrap/themeoptions.php:82
+#: themes/zpBootstrap/themeoptions.php:111
+#, fuzzy
+msgid ""
+"<strong>Notes:</strong> This album layout does not manage sub-albums (in that "
+"case, only pictures of the album are shown and you cant not access on sub-"
+"albums)."
+msgstr ""
+"<strong>הערות:</strong> פריסת אלבום זו אינה מנהלת אלבומי משנה (במקרה זה, רק "
+"תמונות של האלבום מוצגות ואינך יכול לגשת אל תת-אלבומים)."
+
+#: themes/zpBootstrap/themeoptions.php:112
+#, fuzzy
+msgid "This option overwrites the infinite scroll on album option above."
+msgstr "אפשרות זו מחליפה את אפשרות הגלילה האינסופית של האלבום לעיל."
+
+#: themes/zpBootstrap/themeoptions.php:114
 #, fuzzy
 msgid "Social Links"
 msgstr "קישורים חברתיים"
 
-#: themes/zpBootstrap/themeoptions.php:82
+#: themes/zpBootstrap/themeoptions.php:118
 #, fuzzy
 msgid "Check to show some social links."
 msgstr "סמן כדי להציג קישורים חברתיים מסוימים."
 
-#: themes/zpBootstrap/themeoptions.php:84
+#: themes/zpBootstrap/themeoptions.php:124
+#, fuzzy
+msgid "Excerpt length"
+msgstr "אורך קטע"
+
+#: themes/zpBootstrap/themeoptions.php:128
+#, fuzzy
+msgid "Excerpt length for news and pages lists in search page"
+msgstr "אורך הקטע עבור רשימות חדשות ודפים בדף החיפוש"
+
+#: themes/zpBootstrap/themeoptions.php:133
 #, fuzzy
 msgid "Display a link to the Archive list."
 msgstr "הצגת קישור לרשימת הארכיון."
 
-#: themes/zpBootstrap/themeoptions.php:85
+#: themes/zpBootstrap/themeoptions.php:138
 #, fuzzy
 msgid ""
 "Check to show a tag cloud in Archive list, with all the tags of the gallery."
 msgstr "סמן כדי להציג ענן תגיות ברשימה ארכיון, עם כל התגים של הגלריה."
 
-#: themes/zpBootstrap/themeoptions.php:86
+#: themes/zpBootstrap/themeoptions.php:139
 #, fuzzy
 msgid "Exif"
 msgstr "Exif"
 
-#: themes/zpBootstrap/themeoptions.php:86
+#: themes/zpBootstrap/themeoptions.php:143
 #, fuzzy
 msgid ""
-"Show the EXIF Data on Image page. Remember you have to check EXIFs data you want "
-"to show on options>image>information EXIF."
+"Show the EXIFs Data on Image page. Remember you have to check EXIFs data you "
+"want to show on Options>Image>Metadata."
 msgstr ""
-"הצג את נתוני EXIF ​​בדף התמונה. זכור שיש לבדוק את נתוני ה- EXIF ​​שברצונכם להציג "
-"באפשרויות EXIF."
+"הצג את נתוני ה- EXIF ​​בדף &#39;תמונה&#39;. זכור שעליך לבדוק את נתוני ה- EXIF ​​"
+"שברצונך להציג ב אפשרויות &lt;תמונה &lt;מטא נתונים."
 
 #: themes/zpEnlighten/album.php:90 themes/zpEnlighten/favorites.php:98
 #: themes/zpEnlighten/image.php:123 themes/zpEnlighten/search.php:161
@@ -3830,14 +4003,14 @@ msgstr "צפו במצגת"
 msgid "Send me a message of Love"
 msgstr "שלח לי מסר של אהבה"
 
-#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1112
-#: zp-core/lib-auth.php:1285 zp-core/lib-auth.php:1389
+#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1117
+#: zp-core/lib-auth.php:1290 zp-core/lib-auth.php:1394
 msgid "Password"
 msgstr "סיסמא"
 
-#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1027
-#: zp-core/lib-auth.php:1029 zp-core/zp-extensions/googleTFA/auth_code.php:61
-#: zp-core/zp-extensions/register_user/register_user_form.php:111
+#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1032
+#: zp-core/lib-auth.php:1034 zp-core/zp-extensions/googleTFA/auth_code.php:61
+#: zp-core/zp-extensions/register_user/register_user_form.php:112
 msgid "Submit"
 msgstr "התחבר"
 
@@ -3855,7 +4028,7 @@ msgstr "%1$s מנהלים:%2$s%3$s"
 #: themes/zpEnlighten/search.php:125
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "אלבומים (%1$s) &amp; תמונות (%2$s)"
+msgstr "<em>%1$s</em> תיקייה%2$s"
 
 #: themes/zpEnlighten/sidebar.php:46
 #, fuzzy
@@ -4040,7 +4213,7 @@ msgstr "תמונת גלריה אקראית"
 #: themes/zpfocus/inc-sidebar.php:52
 #, fuzzy
 msgid "More"
-msgstr "הצג עוד תוצאות"
+msgstr "מנהלים של אלבום אחד או יותר"
 
 #: themes/zpfocus/inc-sidebar.php:75
 #, fuzzy
@@ -4548,7 +4721,7 @@ msgstr "תצוגה מקדימה"
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:18
 #: zp-core/admin_options/general.php:643 zp-core/zp-extensions/contact_form.php:102
 #: zp-core/zp-extensions/contact_form.php:104
-#: zp-core/zp-extensions/register_user/register_user_form.php:31
+#: zp-core/zp-extensions/register_user/register_user_form.php:32
 msgid "Name"
 msgstr "שם"
 
@@ -4574,7 +4747,7 @@ msgstr "אנונימי"
 
 #: themes/zpmasonry/comment_form/comment_form.php:66
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:63
-#: zp-core/lib-auth.php:1191
+#: zp-core/lib-auth.php:1196
 msgid "Enter CAPTCHA"
 msgstr "הזינו תמונת זיהוי (CAPTCHA)"
 
@@ -4674,7 +4847,7 @@ msgstr "דף הבא"
 #: themes/zpmasonry/search.php:30 themes/zpminimal/search.php:29
 #, fuzzy
 msgid "items"
-msgstr "הפריטים שסומנו נמחקו"
+msgstr "הפריטים הנבחרים מסומנים כספאם."
 
 #: themes/zpmasonry/search.php:171 themes/zpminimal/search.php:109
 #, fuzzy
@@ -5314,15 +5487,15 @@ msgstr "חזרי אל %s"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:369
 #: zp-core/zp-extensions/menu_manager/menu_tab.php:190
 #: zp-core/zp-extensions/zenpage/admin-categories.php:172
-#: zp-core/zp-extensions/zenpage/admin-news.php:278
-#: zp-core/zp-extensions/zenpage/admin-pages.php:173
+#: zp-core/zp-extensions/zenpage/admin-news.php:271
+#: zp-core/zp-extensions/zenpage/admin-pages.php:174
 msgid "*Bulk actions*"
 msgstr "*סדרת פעולות*"
 
 #: zp-core/admin-albumsort.php:86 zp-core/admin-edit.php:734
 #: zp-core/admin-edit.php:744 zp-core/admin-edit.php:748
 #: zp-core/admin-edit.php:1706 zp-core/admin-edit.php:1743
-#: zp-core/admin-logs.php:139 zp-core/admin-themes.php:328
+#: zp-core/admin-logs.php:140 zp-core/admin-themes.php:328
 #: zp-core/setup/index.php:1081 zp-core/zp-extensions/cacheManager.php:253
 #: zp-core/zp-extensions/cacheManager.php:286
 #: zp-core/zp-extensions/comment_form/admin-comments.php:149
@@ -5337,40 +5510,40 @@ msgstr "*סדרת פעולות*"
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:160
 #: zp-core/zp-extensions/zenpage/admin-categories.php:173
 #: zp-core/zp-extensions/zenpage/admin-categories.php:244
-#: zp-core/zp-extensions/zenpage/admin-news.php:279
-#: zp-core/zp-extensions/zenpage/admin-pages.php:174
+#: zp-core/zp-extensions/zenpage/admin-news.php:272
+#: zp-core/zp-extensions/zenpage/admin-pages.php:175
 msgid "Delete"
 msgstr "מחיקה"
 
 #: zp-core/admin-albumsort.php:87 zp-core/admin-edit.php:735
 #: zp-core/zp-extensions/zenpage/admin-categories.php:170
-#: zp-core/zp-extensions/zenpage/admin-news.php:280
-#: zp-core/zp-extensions/zenpage/admin-pages.php:175
+#: zp-core/zp-extensions/zenpage/admin-news.php:273
+#: zp-core/zp-extensions/zenpage/admin-pages.php:176
 msgid "Set to published"
 msgstr "קבעו כמפורסם"
 
 #: zp-core/admin-albumsort.php:88 zp-core/admin-edit.php:736
 #: zp-core/zp-extensions/zenpage/admin-categories.php:171
-#: zp-core/zp-extensions/zenpage/admin-news.php:281
-#: zp-core/zp-extensions/zenpage/admin-pages.php:176
+#: zp-core/zp-extensions/zenpage/admin-news.php:274
+#: zp-core/zp-extensions/zenpage/admin-pages.php:177
 msgid "Set to unpublished"
 msgstr "קבעו כלא מפורסם"
 
 #: zp-core/admin-albumsort.php:89 zp-core/admin-edit.php:737
 #: zp-core/admin-functions.php:2783
 #: zp-core/zp-extensions/zenpage/admin-functions.php:274
-#: zp-core/zp-extensions/zenpage/admin-news.php:282
-#: zp-core/zp-extensions/zenpage/admin-news.php:397
-#: zp-core/zp-extensions/zenpage/admin-pages.php:177
+#: zp-core/zp-extensions/zenpage/admin-news.php:275
+#: zp-core/zp-extensions/zenpage/admin-news.php:390
+#: zp-core/zp-extensions/zenpage/admin-pages.php:178
 msgid "Disable comments"
 msgstr "בטלו תגובות"
 
 #: zp-core/admin-albumsort.php:90 zp-core/admin-edit.php:738
 #: zp-core/admin-functions.php:2797
 #: zp-core/zp-extensions/zenpage/admin-functions.php:280
-#: zp-core/zp-extensions/zenpage/admin-news.php:283
-#: zp-core/zp-extensions/zenpage/admin-news.php:405
-#: zp-core/zp-extensions/zenpage/admin-pages.php:178
+#: zp-core/zp-extensions/zenpage/admin-news.php:276
+#: zp-core/zp-extensions/zenpage/admin-news.php:398
+#: zp-core/zp-extensions/zenpage/admin-pages.php:179
 msgid "Enable comments"
 msgstr "הפעילו תגובות"
 
@@ -5378,9 +5551,9 @@ msgstr "הפעילו תגובות"
 #: zp-core/zp-extensions/zenpage/admin-categories.php:176
 #: zp-core/zp-extensions/zenpage/admin-functions.php:311
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1032
-#: zp-core/zp-extensions/zenpage/admin-news.php:288
-#: zp-core/zp-extensions/zenpage/admin-news.php:438
-#: zp-core/zp-extensions/zenpage/admin-pages.php:181
+#: zp-core/zp-extensions/zenpage/admin-news.php:281
+#: zp-core/zp-extensions/zenpage/admin-news.php:431
+#: zp-core/zp-extensions/zenpage/admin-pages.php:182
 msgid "Reset hitcounter"
 msgstr "אפס מונה"
 
@@ -5754,8 +5927,8 @@ msgstr ""
 #: zp-core/zp-extensions/comment_form/admin-comments.php:382
 #: zp-core/zp-extensions/menu_manager/menu_tab.php:226
 #: zp-core/zp-extensions/zenpage/admin-categories.php:185
-#: zp-core/zp-extensions/zenpage/admin-news.php:313
-#: zp-core/zp-extensions/zenpage/admin-pages.php:190
+#: zp-core/zp-extensions/zenpage/admin-news.php:306
+#: zp-core/zp-extensions/zenpage/admin-pages.php:191
 msgid "Check All"
 msgstr "סמן הכל"
 
@@ -5770,7 +5943,7 @@ msgstr "מסנן תמונות"
 
 #: zp-core/admin-edit.php:1122 zp-core/admin-functions.php:1102
 #: zp-core/admin-functions.php:1144 zp-core/admin-functions.php:5264
-#: zp-core/admin-tags.php:262 zp-core/admin-users.php:542
+#: zp-core/admin-tags.php:262 zp-core/admin-users.php:550
 #: zp-core/admin_options/image.php:830 zp-core/admin_options/search.php:270
 #: zp-core/utilities/backup_restore.php:576
 #: zp-core/zp-extensions/publishContent/publishContent.php:301
@@ -5889,7 +6062,7 @@ msgstr "כללי"
 #: zp-core/admin-globals.php:73 zp-core/zp-extensions/favoritesHandler.php:147
 #: zp-core/zp-extensions/zenpage/admin-edit.php:555
 #: zp-core/zp-extensions/zenpage/admin-functions.php:692
-#: zp-core/zp-extensions/zenpage/admin-news.php:310
+#: zp-core/zp-extensions/zenpage/admin-news.php:303
 msgid "Published"
 msgstr "פורסם"
 
@@ -6216,7 +6389,7 @@ msgstr "רמז לסיסמא:"
 
 #: zp-core/admin-functions.php:1933 zp-core/admin_options/gallery.php:245
 #: zp-core/admin_options/image.php:699 zp-core/admin_options/search.php:197
-#: zp-core/lib-auth.php:1110 zp-core/lib-auth.php:1393
+#: zp-core/lib-auth.php:1115 zp-core/lib-auth.php:1398
 #: zp-core/utilities/gallery_statistics.php:762
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
@@ -6299,7 +6472,7 @@ msgstr "*ברירת מחדל"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "תמונות מוקטנות לשורה"
+msgstr "אפסו את התמונות המוקטנות של האלבום."
 
 #: zp-core/admin-functions.php:2159 zp-core/zp-extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -6499,11 +6672,6 @@ msgstr "דף %u"
 msgid "Previous page"
 msgstr "דף קודם"
 
-#: zp-core/admin-functions.php:3110 zp-core/admin-functions.php:3112
-#: zp-core/zp-extensions/zenpage/template-functions.php:875
-msgid "Next page"
-msgstr "הדף הבא"
-
 #: zp-core/admin-functions.php:3514 zp-core/admin-functions.php:3519
 #: zp-core/admin-functions.php:3524 zp-core/admin-functions.php:3529
 msgid "Cannot create new theme."
@@ -6559,18 +6727,6 @@ msgstr ""
 msgid "Rights:"
 msgstr "אין הרשאות"
 
-#: zp-core/admin-functions.php:3735 zp-core/admin-functions.php:3878
-#: zp-core/allTranslations.php:55 zp-core/lib-auth.php:572 zp-core/lib-auth.php:575
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:595 zp-core/lib-auth.php:599
-#: zp-core/lib-auth.php:615 zp-core/lib-auth.php:619 zp-core/lib-auth.php:624
-#: zp-core/lib-auth.php:628 zp-core/zp-extensions/cacheManager.php:155
-#: zp-core/zp-extensions/comment_form.php:87
-#: zp-core/zp-extensions/externalFeed.php:75
-#: zp-core/zp-extensions/multiple_layouts.php:109
-#: zp-core/zp-extensions/tweet_news.php:97 zp-core/zp-extensions/zenpage.php:120
-msgid "News"
-msgstr "חדשות"
-
 #: zp-core/admin-functions.php:3804
 #, fuzzy
 msgid "Primary album"
@@ -6612,8 +6768,8 @@ msgstr "דפים מנוהלים: "
 msgid "Select one or more %1$s for the %2$s to manage."
 msgstr "בחר אחד או יותר %1$s עבור %2$s לניהול."
 
-#: zp-core/admin-functions.php:3913 zp-core/admin-users.php:863
-#: zp-core/admin-users.php:882 zp-core/admin-users.php:888
+#: zp-core/admin-functions.php:3913 zp-core/admin-users.php:880
+#: zp-core/admin-users.php:899 zp-core/admin-users.php:905
 #: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:566
 msgid "user"
 msgstr "user"
@@ -6697,7 +6853,7 @@ msgstr "%1$s:%2$s לא השתנה ל-%3$s (כותרת משנה כפולה)."
 msgid "setup"
 msgstr "בדיקת עוגיות (Cookie) הסתיימה בהצלחה"
 
-#: zp-core/admin-functions.php:5193 zp-core/admin-globals.php:231
+#: zp-core/admin-functions.php:5193 zp-core/admin-globals.php:234
 #: zp-core/admin_options/general.php:779
 #, fuzzy
 msgid "security"
@@ -6757,8 +6913,8 @@ msgstr "נושא תמיכה"
 msgid "tools"
 msgstr "כלים"
 
-#: zp-core/admin-functions.php:5261 zp-core/admin-globals.php:209
-#: zp-core/admin-globals.php:216 zp-core/zp-extensions/accessThreshold.php:108
+#: zp-core/admin-functions.php:5261 zp-core/admin-globals.php:212
+#: zp-core/admin-globals.php:219 zp-core/zp-extensions/accessThreshold.php:108
 #: zp-core/zp-extensions/cloneZenphoto.php:53
 msgid "users"
 msgstr "משתמשים"
@@ -6826,13 +6982,13 @@ msgstr "נכשלתי במחיקת %s."
 msgid "%s deleted successfully."
 msgstr "הצלחתי במחיקת %s."
 
-#: zp-core/admin-functions.php:5511 zp-core/admin-users.php:457
+#: zp-core/admin-functions.php:5511 zp-core/admin-users.php:465
 #, fuzzy
 msgid "You must supply a password."
 msgstr "עליך לספק סיסמה."
 
 #: zp-core/admin-functions.php:5513 zp-core/admin-options.php:153
-#: zp-core/admin-users.php:466 zp-core/zp-extensions/register_user.php:434
+#: zp-core/admin-users.php:474 zp-core/zp-extensions/register_user.php:434
 msgid "Your passwords did not match."
 msgstr "הסיסמאות לא זהות"
 
@@ -6960,7 +7116,7 @@ msgstr "Filemtime"
 msgid "Owner"
 msgstr "בעלים"
 
-#: zp-core/admin-globals.php:81 zp-core/admin-globals.php:206
+#: zp-core/admin-globals.php:81 zp-core/admin-globals.php:209
 #: zp-core/pluginDoc.php:271 zp-core/zp-extensions/accessThreshold.php:112
 #: zp-core/zp-extensions/cloneZenphoto.php:57
 #: zp-core/zp-extensions/user-expiry.php:100
@@ -6977,67 +7133,67 @@ msgstr "סקירה"
 msgid "Gallery statistics"
 msgstr "סטטיסטיקות גלרייה"
 
-#: zp-core/admin-globals.php:155 zp-core/zp-extensions/tinyURL.php:97
+#: zp-core/admin-globals.php:157 zp-core/zp-extensions/tinyURL.php:97
 msgid "pages"
 msgstr "דפים"
 
-#: zp-core/admin-globals.php:179 zp-core/admin-globals.php:186
+#: zp-core/admin-globals.php:182 zp-core/admin-globals.php:189
 #: zp-core/zp-extensions/tinyURL.php:87
 msgid "news"
 msgstr "חדשות"
 
-#: zp-core/admin-globals.php:181
+#: zp-core/admin-globals.php:184
 #: zp-core/zp-extensions/zenpage/admin-functions.php:982
 msgid "articles"
 msgstr "מאמרים"
 
-#: zp-core/admin-globals.php:182 zp-core/admin-globals.php:192
+#: zp-core/admin-globals.php:185 zp-core/admin-globals.php:195
 msgid "categories"
 msgstr "קטגוריות"
 
-#: zp-core/admin-globals.php:213
+#: zp-core/admin-globals.php:216
 #, fuzzy
 #| msgid "files"
 msgid "my profile"
 msgstr "הפרופיל שלי"
 
-#: zp-core/admin-globals.php:225
+#: zp-core/admin-globals.php:228
 msgid "general"
 msgstr "כללי"
 
-#: zp-core/admin-globals.php:229
+#: zp-core/admin-globals.php:232
 msgid "gallery"
 msgstr "גלרייה"
 
-#: zp-core/admin-globals.php:236
+#: zp-core/admin-globals.php:239
 msgid "plugin"
 msgstr "תוסף"
 
-#: zp-core/admin-globals.php:242 zp-core/functions-basic.php:569
+#: zp-core/admin-globals.php:245 zp-core/functions-basic.php:569
 msgid "theme"
 msgstr "ערכת עיצוב"
 
-#: zp-core/admin-globals.php:244
+#: zp-core/admin-globals.php:247
 msgid "options"
 msgstr "אפשרויות"
 
-#: zp-core/admin-globals.php:252
+#: zp-core/admin-globals.php:255
 msgid "themes"
 msgstr "ערכות עיצוב"
 
-#: zp-core/admin-globals.php:260
+#: zp-core/admin-globals.php:263
 msgid "plugins"
 msgstr "תוספים"
 
-#: zp-core/admin-globals.php:266 zp-core/utilities/installation_analysis.php:24
+#: zp-core/admin-globals.php:269 zp-core/utilities/installation_analysis.php:24
 msgid "Installation information"
 msgstr "פרטי התקנה"
 
-#: zp-core/admin-globals.php:271
+#: zp-core/admin-globals.php:274
 msgid "logs"
 msgstr "יומן אירועים"
 
-#: zp-core/admin-globals.php:276
+#: zp-core/admin-globals.php:279
 #, fuzzy
 #| msgid "Database quick reference"
 msgid "Database Reference"
@@ -7053,21 +7209,21 @@ msgstr "%s יומן רוקן."
 msgid "%s log could not be emptied."
 msgstr "לא ניתן לרוקן את יומן %s."
 
-#: zp-core/admin-logs.php:46
+#: zp-core/admin-logs.php:47
 #, fuzzy, php-format
 msgid "%s log was removed."
 msgstr "%s יומן הוסר."
 
-#: zp-core/admin-logs.php:49
+#: zp-core/admin-logs.php:50
 #, fuzzy, php-format
 msgid "%s log could not be removed."
 msgstr "לא ניתן להסיר את %s יומן."
 
-#: zp-core/admin-logs.php:153 zp-core/admin_options/image.php:730
+#: zp-core/admin-logs.php:154 zp-core/admin_options/image.php:730
 msgid "Download"
 msgstr "הורד"
 
-#: zp-core/admin-logs.php:241
+#: zp-core/admin-logs.php:242
 msgid "There are no logs to view."
 msgstr "אין יומני אירועים לצפייה."
 
@@ -7087,7 +7243,7 @@ msgid "Your Allowed tags change did not parse successfully."
 msgstr "התגיות המותרות שלכם לא עבור את הפירסור (parsing) בהצלחה."
 
 #: zp-core/admin-options.php:121 zp-core/admin-plugins.php:149
-#: zp-core/admin-users.php:316
+#: zp-core/admin-users.php:324
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:149
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:139
 #, fuzzy
@@ -7095,7 +7251,7 @@ msgid "Error"
 msgstr "שגיאה!"
 
 #: zp-core/admin-options.php:122 zp-core/admin-plugins.php:150
-#: zp-core/admin-users.php:317
+#: zp-core/admin-users.php:325
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:140
 #, fuzzy
 msgid ""
@@ -7435,7 +7591,7 @@ msgstr "ניהול תגיות"
 #: zp-core/admin-tags.php:235
 #, fuzzy
 msgid "Order by"
-msgstr "סדר התמונות נשמר"
+msgstr "סדר מיון נשמר."
 
 #: zp-core/admin-tags.php:238
 #, fuzzy
@@ -7811,47 +7967,43 @@ msgstr "העלאה אל:"
 msgid "Make a new Album"
 msgstr "צרו אלבום חדש"
 
-#: zp-core/admin-upload.php:275 zp-core/setup/index.php:1089
-msgid "and"
-msgstr "וגם"
-
 #: zp-core/admin-upload.php:357
 msgid "There are no albums to which you can upload."
 msgstr "אין אלבומים שיש לכם הרשאות לעלות אליהם תמונות."
 
-#: zp-core/admin-users.php:149
+#: zp-core/admin-users.php:157
 #, fuzzy, php-format
 msgid "%s password may not be empty!"
 msgstr "סיסמת %s לא יכולה להיות ריקה!"
 
-#: zp-core/admin-users.php:300
+#: zp-core/admin-users.php:308
 #, fuzzy
 msgid "Password reset request."
 msgstr "בקשה לאיפוס סיסמה."
 
-#: zp-core/admin-users.php:322
+#: zp-core/admin-users.php:330
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:150
 msgid "Saved"
 msgstr "נשמר"
 
-#: zp-core/admin-users.php:445
+#: zp-core/admin-users.php:453
 msgid "Rights migration failed."
 msgstr "מיזוג הרשאות נכשל"
 
-#: zp-core/admin-users.php:450
+#: zp-core/admin-users.php:458
 #, fuzzy
 msgid "User id already used."
 msgstr "מזהה המשתמש כבר בשימוש."
 
-#: zp-core/admin-users.php:460
+#: zp-core/admin-users.php:468
 msgid "User name not provided"
 msgstr "שם המשתמשת לא סופק"
 
-#: zp-core/admin-users.php:473
+#: zp-core/admin-users.php:481
 msgid "Your Website URL is not valid"
 msgstr "כתובת ה-URL של האתר שלך אינה חוקית"
 
-#: zp-core/admin-users.php:515 zp-core/admin_options/gallery.php:69
+#: zp-core/admin-users.php:523 zp-core/admin_options/gallery.php:69
 #: zp-core/admin_options/gallery.php:520 zp-core/admin_options/general.php:171
 #: zp-core/admin_options/general.php:825 zp-core/admin_options/image.php:248
 #: zp-core/admin_options/image.php:962 zp-core/admin_options/plugin.php:92
@@ -7865,79 +8017,84 @@ msgstr "כתובת ה-URL של האתר שלך אינה חוקית"
 msgid "reset"
 msgstr "איפוס"
 
-#: zp-core/admin-users.php:528
+#: zp-core/admin-users.php:536
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:225
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:438
 msgid "Expand all"
 msgstr "הרחב הכל"
 
-#: zp-core/admin-users.php:530
+#: zp-core/admin-users.php:538
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:227
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:440
 msgid "Collapse all"
 msgstr "הסתר הכל"
 
-#: zp-core/admin-users.php:539 zp-core/admin_options/image.php:809
+#: zp-core/admin-users.php:547 zp-core/admin_options/image.php:809
 #: zp-core/admin_options/image.php:835 zp-core/zp-extensions/contact_form.php:72
 #: zp-core/zp-extensions/googleMap.php:87
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:122
 msgid "show"
 msgstr "הצג"
 
-#: zp-core/admin-users.php:546 zp-core/admin-users.php:607
+#: zp-core/admin-users.php:554 zp-core/admin-users.php:615
 msgid "pending verification"
 msgstr "אימות בהמתנה"
 
-#: zp-core/admin-users.php:552
+#: zp-core/admin-users.php:560
 msgid "no group"
 msgstr "אין קבוצה"
 
-#: zp-core/admin-users.php:613
+#: zp-core/admin-users.php:621
 msgid "Master"
 msgstr "מנהל-על"
 
-#: zp-core/admin-users.php:644
+#: zp-core/admin-users.php:652
 msgid "Show details"
 msgstr "הציגי פרטים"
 
-#: zp-core/admin-users.php:645
+#: zp-core/admin-users.php:653
 msgid "Hide details"
 msgstr "הסתירי פרטים"
 
-#: zp-core/admin-users.php:647
+#: zp-core/admin-users.php:655
 #, php-format
 msgid "Show details for user %s"
 msgstr "הציגי מידע עבור משתמשת %s"
 
-#: zp-core/admin-users.php:648
+#: zp-core/admin-users.php:656
 #, php-format
 msgid "Hide details for user %s"
 msgstr "הסתירי מידע של משתמשת %s"
 
-#: zp-core/admin-users.php:659
+#: zp-core/admin-users.php:667
 #, fuzzy
 msgid "New User"
 msgstr "משתמש חדש"
 
-#: zp-core/admin-users.php:687
+#: zp-core/admin-users.php:695
 msgid "Authenticate user"
 msgstr "אמתי משתמשת"
 
-#: zp-core/admin-users.php:699
+#: zp-core/admin-users.php:707
 msgid "Are you sure you want to delete this user?"
 msgstr "האם אתם בטוחים שאתם רוצים למחוק את המשתמש הזה?"
 
-#: zp-core/admin-users.php:701
+#: zp-core/admin-users.php:709
 msgid ""
 "This is the master user account. If you delete it another user will be promoted "
 "to master user."
 msgstr "זהו חשבון של מנהל-על. אם תמחקו אותו משתמש אחר יקודם להיות מנהל -על."
 
-#: zp-core/admin-users.php:707
+#: zp-core/admin-users.php:717
+#, fuzzy, php-format
+msgid "Log on as %s."
+msgstr "היכנס כ- %s."
+
+#: zp-core/admin-users.php:724
 msgid "Delete this user."
 msgstr "מחיקת משתמש"
 
-#: zp-core/admin-users.php:731
+#: zp-core/admin-users.php:748
 msgid ""
 "<strong>Note:</strong> You must have ADMIN rights to alter anything but your "
 "personal information."
@@ -7945,37 +8102,37 @@ msgstr ""
 "<strong>חשוב:</strong> חייבים להיות לכם הרשאות מנהל (ADMIN) בכדי לשנות כל דבר "
 "למעט המידע האישי שלכם."
 
-#: zp-core/admin-users.php:768
+#: zp-core/admin-users.php:785
 #, fuzzy
 msgid "Challenge phrase"
 msgstr "ביטוי אתגר"
 
-#: zp-core/admin-users.php:771
+#: zp-core/admin-users.php:788
 #, fuzzy
 msgid "Challenge response"
 msgstr "תגובה לאתגר"
 
-#: zp-core/admin-users.php:778
+#: zp-core/admin-users.php:795
 #, fuzzy
 msgid "Full name"
 msgstr "שם מלא"
 
-#: zp-core/admin-users.php:783 zp-core/admin_options/general.php:644
-#: zp-core/zp-extensions/register_user/register_user_form.php:38
+#: zp-core/admin-users.php:800 zp-core/admin_options/general.php:644
+#: zp-core/zp-extensions/register_user/register_user_form.php:39
 msgid "Email"
 msgstr "אימייל"
 
-#: zp-core/admin-users.php:796
+#: zp-core/admin-users.php:813
 #, fuzzy
 msgid "create primary album"
 msgstr "ליצור אלבום ראשי"
 
-#: zp-core/admin-users.php:806
+#: zp-core/admin-users.php:823
 #, fuzzy, php-format
 msgid "delink primary album <strong>%1$s</strong>(<em>%2$s</em>)"
 msgstr "דלינק אלבום ראשי <strong>%1$s</strong> ( <em>%2$s</em> )"
 
-#: zp-core/admin-users.php:810
+#: zp-core/admin-users.php:827
 #, fuzzy
 msgid ""
 "The primary album was created in association with the user. It will be removed "
@@ -7984,21 +8141,21 @@ msgstr ""
 "האלבום הראשי נוצר בשיתוף עם המשתמש. הוא יוסר אם המשתמש יימחק. מחיקת האלבום מסירה "
 "את השיוך."
 
-#: zp-core/admin-users.php:819
+#: zp-core/admin-users.php:836
 msgid "Language:"
 msgstr "שפה:"
 
-#: zp-core/admin-users.php:856
+#: zp-core/admin-users.php:873
 #, fuzzy
 msgid "The <em>master</em> account has full rights to all objects."
 msgstr "לחשבון <em>הראשי</em> יש זכויות מלאות לכל האובייקטים."
 
-#: zp-core/admin-users.php:877 zp-core/functions.php:847
+#: zp-core/admin-users.php:894 zp-core/functions.php:847
 #, fuzzy
 msgid "un-categorized"
 msgstr "ללא סיווג"
 
-#: zp-core/admin-users.php:950
+#: zp-core/admin-users.php:967
 #, fuzzy, php-format
 msgid ""
 "The <em>Zenphoto_Authority</em> object supports a higher version of user rights "
@@ -8009,11 +8166,11 @@ msgstr ""
 "הנבחר כעת. ייתכן שתרצה להעביר את זכויות המשתמש כדי לקבל את הפונקציונליות החדשה "
 "שמספקת גירסה זו."
 
-#: zp-core/admin-users.php:953
+#: zp-core/admin-users.php:970
 msgid "Migrate rights"
 msgstr "מזגו הרשאות"
 
-#: zp-core/admin-users.php:963
+#: zp-core/admin-users.php:980
 #, fuzzy, php-format
 msgid ""
 "You may wish to revert the <em>Zenphoto_Authority</em> user rights to version %s "
@@ -8022,223 +8179,223 @@ msgstr ""
 "ייתכן שתרצה להחזיר את זכויות המשתמש <em>Zenphoto_Authority</em> לגירסה %s עבור "
 "תאימות לאחור עם הודעות קודמות."
 
-#: zp-core/admin-users.php:966
+#: zp-core/admin-users.php:983
 msgid "Revert rights"
 msgstr "שחזר הרשאות"
 
-#: zp-core/admin-users.php:984
+#: zp-core/admin-users.php:1001
 #, fuzzy
 msgid "User names may not contain “?”, “&\", or quotation marks."
 msgstr "שמות משתמש אינם יכולים להכיל &quot;?&quot;, &quot;&amp;&quot; או מרכאות."
 
-#: zp-core/admin-users.php:989
+#: zp-core/admin-users.php:1006
 #, fuzzy, php-format
 msgid "The user “%s” already exists."
 msgstr "המשתמש &quot; %s&quot; כבר קיים."
 
-#: zp-core/admin.php:55
+#: zp-core/admin.php:72
 msgid "Image cache cleared."
 msgstr "מטמון התמונות נוקה."
 
-#: zp-core/admin.php:65
+#: zp-core/admin.php:82
 msgid "RSS cache cleared."
 msgstr "מטמון פיד הרסס נוקה."
 
-#: zp-core/admin.php:75
+#: zp-core/admin.php:92
 msgid "HTML cache cleared."
 msgstr "מטמון HTML נוקה."
 
-#: zp-core/admin.php:82
+#: zp-core/admin.php:99
 #, fuzzy
 msgid "Search cache cleared."
 msgstr "מטמון החיפוש נמחק."
 
-#: zp-core/admin.php:90
+#: zp-core/admin.php:107
 #, fuzzy
 msgid "Setup files restored."
 msgstr "קבצי ההתקנה שוחזרו."
 
-#: zp-core/admin.php:94
+#: zp-core/admin.php:111
 #, fuzzy
 msgid "Setup files restore failed."
 msgstr "שחזור קבצי ההתקנה נכשל."
 
-#: zp-core/admin.php:118
+#: zp-core/admin.php:135
 #, fuzzy
 msgid "protected"
 msgstr "מוגן"
 
-#: zp-core/admin.php:120
+#: zp-core/admin.php:137
 #, fuzzy
 msgid "Setup files protected."
 msgstr "קובצי ההתקנה מוגנים."
 
-#: zp-core/admin.php:124
+#: zp-core/admin.php:141
 #, fuzzy
 msgid "Protecting setup files failed."
 msgstr "הגנה על קבצי ההתקנה נכשלה."
 
-#: zp-core/admin.php:156
+#: zp-core/admin.php:173
 msgid "purge Image cache"
 msgstr "מחיקה סופית את מטמון התמונות"
 
-#: zp-core/admin.php:157
+#: zp-core/admin.php:174
 msgid "purge RSS cache"
 msgstr "למחוק סופית את מטמון פיד ה-RSS"
 
-#: zp-core/admin.php:158
+#: zp-core/admin.php:175
 msgid "reset all hitcounters"
 msgstr "איפוס כל המונים"
 
-#: zp-core/admin.php:159
+#: zp-core/admin.php:176
 #, fuzzy
 msgid "purge search cache"
 msgstr "טיהור מטמון החיפוש"
 
-#: zp-core/admin.php:166
+#: zp-core/admin.php:183
 #, php-format
 msgid "You do not have proper rights to %s."
 msgstr "אין לכם הרשאות מתאימות עבור %s."
 
-#: zp-core/admin.php:171
+#: zp-core/admin.php:188
 #, php-format
 msgid "You do not have proper rights to access %s."
 msgstr "אין לכם הרשאות מתאימות לגשת אל %s."
 
-#: zp-core/admin.php:254
+#: zp-core/admin.php:256
 #, fuzzy
 msgid "GitHub repository not accessable. "
 msgstr "מאגר GitHub אינו נגיש."
 
-#: zp-core/admin.php:268
+#: zp-core/admin.php:270
 #, fuzzy
 msgid "There is a new version is available."
 msgstr "יש גרסה חדשה זמינה."
 
-#: zp-core/admin.php:270
+#: zp-core/admin.php:272
 #, fuzzy, php-format
 msgid "Version %s can be downloaded by the utility button."
 msgstr "גירסה %s ניתן להוריד על ידי לחצן השירות."
 
-#: zp-core/admin.php:282
+#: zp-core/admin.php:284
 #, fuzzy, php-format
 #| msgid "%1$s version %2$s"
 msgid "Download %1$s version %2$s."
 msgstr "הורד את%1$s גרסה%2$s."
 
-#: zp-core/admin.php:330
+#: zp-core/admin.php:332
 #, fuzzy
 msgid "Misc"
 msgstr "שונות"
 
-#: zp-core/admin.php:343
+#: zp-core/admin.php:345
 #, fuzzy
 msgid "Run setup"
 msgstr "הפעל את ההתקנה"
 
-#: zp-core/admin.php:348
+#: zp-core/admin.php:350
 #, fuzzy
 msgid "Run the setup script."
 msgstr "הפעל את סקריפט ההתקנה."
 
-#: zp-core/admin.php:357
+#: zp-core/admin.php:359
 #, fuzzy
 msgid "Setup » protect scripts"
 msgstr "»להגן על סקריפטים"
 
-#: zp-core/admin.php:362
+#: zp-core/admin.php:364
 #, fuzzy
 msgid "Protects setup files so setup cannot be run."
 msgstr "מגן על קבצי ההתקנה כך ההתקנה לא ניתן להפעיל."
 
-#: zp-core/admin.php:373
+#: zp-core/admin.php:375
 #, fuzzy
 msgid "Setup » restore scripts"
 msgstr "»שחזור סקריפטים"
 
-#: zp-core/admin.php:378
+#: zp-core/admin.php:380
 #, fuzzy
 msgid "Restores setup files so setup can be run."
 msgstr "שחזור קבצי ההתקנה כך ההתקנה ניתן להפעיל."
 
-#: zp-core/admin.php:391 zp-core/utilities/installation_analysis.php:35
+#: zp-core/admin.php:393 zp-core/utilities/installation_analysis.php:35
 #, fuzzy
 msgid "<em>Debug build</em>"
 msgstr "<em>לבנות באגים</em>"
 
-#: zp-core/admin.php:393 zp-core/utilities/installation_analysis.php:37
+#: zp-core/admin.php:395 zp-core/utilities/installation_analysis.php:37
 #, fuzzy
 msgid "Official build"
 msgstr "הרשמי לבנות"
 
-#: zp-core/admin.php:399 zp-core/utilities/installation_analysis.php:73
+#: zp-core/admin.php:401 zp-core/utilities/installation_analysis.php:73
 #, fuzzy
 msgid "release notes"
 msgstr "מכתבי שחרור"
 
-#: zp-core/admin.php:400 zp-core/utilities/installation_analysis.php:77
+#: zp-core/admin.php:402 zp-core/utilities/installation_analysis.php:77
 #, fuzzy, php-format
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgstr "גרסת netPhotoGraphics <strong>%1$s (%2$s)</strong>"
 
-#: zp-core/admin.php:407
+#: zp-core/admin.php:409
 msgid "Utility functions"
 msgstr "פונקציות עזר"
 
-#: zp-core/admin.php:480
+#: zp-core/admin.php:482
 msgid "Gallery Stats"
 msgstr "סטטיסטיקת הגלרייה"
 
-#: zp-core/admin.php:487
+#: zp-core/admin.php:489
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Album (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Albums (%2$u un-published)"
 msgstr[0] "<strong>% 1 $ u</strong> אלבום (% 2 $ u לא פורסם)"
 msgstr[1] "<strong>%1$u</strong> אלבומים (%2$u לא מפורסמים)"
 
-#: zp-core/admin.php:489
+#: zp-core/admin.php:491
 #, php-format
 msgid "<strong>%u</strong> Album"
 msgid_plural "<strong>%u</strong> Albums"
 msgstr[0] "<strong>%u</strong> אלבום"
 msgstr[1] "<strong>%u</strong> אלבומים"
 
-#: zp-core/admin.php:498
+#: zp-core/admin.php:500
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgstr[0] "<strong>% 1 $ u</strong> תמונה (% 2 $ u לא פורסם)"
 msgstr[1] "<strong>%1$u</strong> דפים (%2$u לא מפורסם)"
 
-#: zp-core/admin.php:500
+#: zp-core/admin.php:502
 #, php-format
 msgid "<strong>%u</strong> Image"
 msgid_plural "<strong>%u</strong> Images"
 msgstr[0] "<strong>%u</strong> תמונה"
 msgstr[1] "<strong>%u</strong> תמונות"
 
-#: zp-core/admin.php:524
+#: zp-core/admin.php:526
 #, php-format
 msgid "<strong>%1$u</strong> Comment (%2$u in moderation)"
 msgid_plural "<strong>%1$u</strong> Comments (%2$u in moderation)"
 msgstr[0] "<strong>%1$u</strong> תגובה (%2$u בתהליך בדיקה)"
 msgstr[1] "<strong>%1$u</strong> תגובות (%2$u בתהליך בדיקה)"
 
-#: zp-core/admin.php:526
+#: zp-core/admin.php:528
 #, php-format
 msgid "<strong>%u</strong> Comment"
 msgid_plural "<strong>%u</strong> Comments"
 msgstr[0] "<strong>%u</strong> תגובה"
 msgstr[1] "<strong>%u</strong> תגובות"
 
-#: zp-core/admin.php:541
+#: zp-core/admin.php:543
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
 msgstr[0] "<strong>% 1 $ u</strong> משתמש (% 2 $ u פג)"
 msgstr[1] "<strong>%1$u</strong> דפים (%2$u לא מפורסם)"
 
-#: zp-core/admin.php:543
+#: zp-core/admin.php:545
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8247,7 +8404,7 @@ msgid_plural "<strong>%u</strong> Users"
 msgstr[0] "משתמש <strong>u%</strong>"
 msgstr[1] "<strong>%u</strong> תמונות"
 
-#: zp-core/admin.php:560
+#: zp-core/admin.php:562
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Album"
 #| msgid_plural "<strong>%u</strong> Albums"
@@ -8256,7 +8413,7 @@ msgid_plural "<strong>%u</strong> Groups"
 msgstr[0] "<strong>% u</strong> קבוצה"
 msgstr[1] "<strong>%u</strong> אלבומים"
 
-#: zp-core/admin.php:567
+#: zp-core/admin.php:569
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8265,7 +8422,7 @@ msgid_plural "<strong>%u</strong> Templates"
 msgstr[0] "תבנית <strong>% u</strong>"
 msgstr[1] "<strong>%u</strong> תמונות"
 
-#: zp-core/admin.php:584
+#: zp-core/admin.php:586
 #, fuzzy
 msgid "Your user rights do not allow access to administrative functions."
 msgstr "זכויות המשתמש שלך אינן מאפשרות גישה לפונקציות ניהוליות."
@@ -8563,19 +8720,19 @@ msgid "Codeblocks"
 msgstr "בלוקוד"
 
 #: zp-core/admin_options/general.php:153
-#: zp-core/zp-extensions/dynamic-locale.php:95
+#: zp-core/zp-extensions/dynamic-locale.php:101
 #, php-format
 msgid "<em>%s</em> is not available."
 msgstr "<em>%s</em> אינו נמצא."
 
 #: zp-core/admin_options/general.php:154
-#: zp-core/zp-extensions/dynamic-locale.php:96
+#: zp-core/zp-extensions/dynamic-locale.php:102
 #, php-format
 msgid "The locale %s is not supported on your server."
 msgstr "הגדרת הלוקאל %s אינה נתמכת על ידי השרת."
 
 #: zp-core/admin_options/general.php:156 zp-core/setup/index.php:677
-#: zp-core/zp-extensions/dynamic-locale.php:98
+#: zp-core/zp-extensions/dynamic-locale.php:104
 #, fuzzy
 msgid ""
 "You can use the <em>debug</em> plugin to see which locales your server supports."
@@ -9378,12 +9535,6 @@ msgstr ""
 #| msgid "Sharpen:"
 msgid "Sharpen"
 msgstr "חדות:"
-
-#: zp-core/admin_options/image.php:421
-#, fuzzy
-#| msgid "thumbnail"
-msgid "thumbnails"
-msgstr "תמונות מוקטנות לשורה"
 
 #: zp-core/admin_options/image.php:425
 #, fuzzy
@@ -11105,7 +11256,7 @@ msgid "Content"
 msgstr "תוכן"
 
 #: zp-core/class-search.php:120 zp-core/zp-extensions/zenpage/admin-edit.php:541
-#: zp-core/zp-extensions/zenpage/admin-news.php:300
+#: zp-core/zp-extensions/zenpage/admin-news.php:293
 msgid "Author"
 msgstr "מחבר"
 
@@ -12100,12 +12251,12 @@ msgstr "%1$s: &quot;%2$s&quot; ב-%3$s בשורה%4$s"
 msgid "clone"
 msgstr "שיבוט:"
 
-#: zp-core/functions-basic.php:1736
+#: zp-core/functions-basic.php:1735
 #, fuzzy, php-format
 msgid "%s log size limit exceeded"
 msgstr "חרגה מגבלת הגודל של %s"
 
-#: zp-core/functions-basic.php:1736
+#: zp-core/functions-basic.php:1735
 #, fuzzy, php-format
 msgid "The %1$s log has exceeded its size limit and has been renamed to %2$s."
 msgstr "היומן%1$s חרג ממגבלת הגודל שלו ושמה שונה ל-%2$s."
@@ -13375,7 +13526,7 @@ msgstr "משתמשים עם הזכות הזו יראו את כל הפריטים 
 msgid "Manage all"
 msgstr "ניהול כל החדשות"
 
-#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:999 zp-core/lib-auth.php:1102
+#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:1004 zp-core/lib-auth.php:1107
 #: zp-core/zp-extensions/favoritesHandler.php:272
 #, fuzzy
 msgid "User"
@@ -13430,61 +13581,67 @@ msgstr ""
 "אתה מקבל הודעת אימייל זו בשל בקשת איפוס סיסמה בגלריה שלך ממשתמש שניסה להיכנס כ- "
 "%s."
 
-#: zp-core/lib-auth.php:782
+#: zp-core/lib-auth.php:783
 msgid "There was no one to which to send the reset request."
 msgstr "לא נמצא מישהו שניתן לשלוח אליו את בקשת האיפוס."
 
-#: zp-core/lib-auth.php:786
+#: zp-core/lib-auth.php:788
 #, fuzzy, php-format
 msgid "To reset your Admin passwords visit: %s"
 msgstr "כדי לאפס את סיסמאות הניהול שלך, בקר בכתובת: %s"
 
-#: zp-core/lib-auth.php:787
+#: zp-core/lib-auth.php:789
 msgid ""
 "If you do not wish to reset your passwords just ignore this message. This ticket "
 "will automatically expire in 3 days."
 msgstr ""
 "אם אתם לא רוצים לאפס את הסיסמא שלכם, התעלמו מהודעה זו. התוקף שלה יפוג תוך 3 ימים."
 
-#: zp-core/lib-auth.php:788
+#: zp-core/lib-auth.php:791
+#, fuzzy
+#| msgid "No image effects found."
+msgid "No matching user was found."
+msgstr "לא נמצא משתמש תואם."
+
+#: zp-core/lib-auth.php:793
 #, fuzzy
 msgid "The information you requested"
 msgstr "המידע שביקשת"
 
-#: zp-core/lib-auth.php:788
+#: zp-core/lib-auth.php:793
 #, fuzzy, php-format
 msgid "%1$s password reset request mail failed."
 msgstr "הודעת הבקשה לאיפוס הסיסמה%1$s נכשלה."
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:798
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Reset request failed."
 msgstr "איפוס הבקשה נכשל."
 
-#: zp-core/lib-auth.php:797 zp-core/zp-extensions/comment_form/functions.php:380
+#: zp-core/lib-auth.php:802 zp-core/zp-extensions/comment_form/functions.php:380
 #: zp-core/zp-extensions/register_user.php:466
 msgid "CAPTCHA verification failed."
 msgstr "אימות CAPTCHA  נכשל."
 
-#: zp-core/lib-auth.php:961
+#: zp-core/lib-auth.php:966
 msgid "There was an error logging in."
 msgstr "ארעה שגיאה בעת ניסיון ההתחברות למערכת"
 
-#: zp-core/lib-auth.php:964
+#: zp-core/lib-auth.php:969
 msgid "Check your username and password and try again."
 msgstr "בדקו את שם המשתמש והסיסמא ונסו שנית"
 
-#: zp-core/lib-auth.php:966
+#: zp-core/lib-auth.php:971
 #, fuzzy
 msgid "Check password and try again."
 msgstr "בדוק סיסמא ונסה שוב."
 
-#: zp-core/lib-auth.php:975
+#: zp-core/lib-auth.php:980
 msgid "A reset request has been sent."
 msgstr "בקשת איתחול נשלחה לתיבת המייל שלך"
 
-#: zp-core/lib-auth.php:1005
+#: zp-core/lib-auth.php:1010
 #, fuzzy
 msgid ""
 "Supply the correct response to the question below and you will be directed to a "
@@ -13492,17 +13649,17 @@ msgid ""
 msgstr ""
 "ספק את התשובה הנכונה לשאלה הבאה ואתה תועבר לדף שבו אתה יכול לשנות את הסיסמה שלך."
 
-#: zp-core/lib-auth.php:1006
+#: zp-core/lib-auth.php:1011
 #, fuzzy
 msgid "Challenge question:"
 msgstr "שאלה מאתגרת:"
 
-#: zp-core/lib-auth.php:1011
+#: zp-core/lib-auth.php:1016
 #, fuzzy
 msgid "Your response"
 msgstr "תגובתך"
 
-#: zp-core/lib-auth.php:1020
+#: zp-core/lib-auth.php:1025
 #, fuzzy
 msgid ""
 "Enter your User ID and press <code>Refresh</code> to get your challenge question."
@@ -13510,78 +13667,78 @@ msgstr ""
 "הזן את זיהוי המשתמש שלך ולחץ על &#39; <code>Refresh</code> כדי לקבל את שאלת "
 "האתגר שלך."
 
-#: zp-core/lib-auth.php:1031 zp-core/lib-auth.php:1033 zp-core/setup/index.php:1636
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:210
+#: zp-core/lib-auth.php:1036 zp-core/lib-auth.php:1038 zp-core/setup/index.php:1636
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:214
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:366
 msgid "Refresh"
 msgstr "רענן"
 
-#: zp-core/lib-auth.php:1035 zp-core/lib-auth.php:1037 zp-core/lib-auth.php:1207
-#: zp-core/lib-auth.php:1209
+#: zp-core/lib-auth.php:1040 zp-core/lib-auth.php:1042 zp-core/lib-auth.php:1212
+#: zp-core/lib-auth.php:1214
 #, fuzzy
 msgid "Return"
 msgstr "חזרה אל עריכת פוסט"
 
-#: zp-core/lib-auth.php:1048
+#: zp-core/lib-auth.php:1053
 #, fuzzy
 msgid "Request reset by e-mail"
 msgstr "בקשה לאיפוס באמצעות דואר אלקטרוני"
 
-#: zp-core/lib-auth.php:1081
+#: zp-core/lib-auth.php:1086
 #, fuzzy, php-format
 msgid "Logon using:%s"
 msgstr "כניסה באמצעות: %s"
 
-#: zp-core/lib-auth.php:1117 zp-core/lib-auth.php:1119
+#: zp-core/lib-auth.php:1122 zp-core/lib-auth.php:1124
 msgid "Log in"
 msgstr "התחבר"
 
-#: zp-core/lib-auth.php:1139 zp-core/lib-auth.php:1148
+#: zp-core/lib-auth.php:1144 zp-core/lib-auth.php:1153
 #, fuzzy
 msgid "I forgot my <strong>User ID</strong>/<strong>Password</strong>"
 msgstr "שכחתי את <strong>זיהוי המשתמש</strong> / <strong>סיסמה שלי</strong>"
 
-#: zp-core/lib-auth.php:1181
+#: zp-core/lib-auth.php:1186
 #, fuzzy
 msgid "User name or e-mail address"
 msgstr "שם משתמש או כתובת אימייל"
 
-#: zp-core/lib-auth.php:1205
+#: zp-core/lib-auth.php:1210
 #, fuzzy
 msgid "Request password reset"
 msgstr "איפוס סיסמת הבקשה"
 
-#: zp-core/lib-auth.php:1290
+#: zp-core/lib-auth.php:1295
 #, fuzzy
 msgid "password strength weak"
 msgstr "חוזק סיסמא: חלש"
 
-#: zp-core/lib-auth.php:1293
+#: zp-core/lib-auth.php:1298
 #, fuzzy
 msgid "password strength good"
 msgstr "כוח הסיסמה טוב"
 
-#: zp-core/lib-auth.php:1296
+#: zp-core/lib-auth.php:1301
 #, fuzzy
 msgid "password strength strong"
 msgstr "כוח סיסמה חזקה"
 
-#: zp-core/lib-auth.php:1301
+#: zp-core/lib-auth.php:1306
 #, fuzzy
 msgid "password strength too weak"
 msgstr "כוח הסיסמה חלש מדי"
 
-#: zp-core/lib-auth.php:1321
+#: zp-core/lib-auth.php:1326
 #, fuzzy
 msgid "passwords match"
 msgstr "סיסמאות תואמות"
 
-#: zp-core/lib-auth.php:1325
+#: zp-core/lib-auth.php:1330
 #, fuzzy
 msgid "passwords do not match"
 msgstr "סיסמאות לא תואמות"
 
-#: zp-core/lib-auth.php:1416
+#: zp-core/lib-auth.php:1421
 #, fuzzy
 msgid "Repeat password"
 msgstr "חזור על הסיסמה"
@@ -15510,7 +15667,7 @@ msgid "Setup could not create the following subfolders:<br />%s"
 msgstr "ההתקנה לא הצליחה ליצור את תת התיקיות הבאות: <br />%s"
 
 #: zp-core/setup/setup-functions.php:259 zp-core/setup/setup-functions.php:264
-#: zp-core/zp-extensions/deprecated-functions.php:164
+#: zp-core/zp-extensions/deprecated-functions.php:165
 #: zp-core/zp-extensions/purgeOptions.php:93
 msgid "unknown"
 msgstr "לא ידוע"
@@ -16582,7 +16739,7 @@ msgid "PHP openSSL is %s"
 msgstr "PHP OpenSL הוא %s"
 
 #: zp-core/utilities/installation_analysis.php:100
-#: zp-core/zp-extensions/dynamic-locale.php:208
+#: zp-core/zp-extensions/dynamic-locale.php:214
 #: zp-core/zp-extensions/rewriteTokens.php:81
 #, fuzzy
 msgid "disabled"
@@ -17188,7 +17345,7 @@ msgstr "סף הגישה"
 #: zp-core/zp-extensions/accessThreshold/admin_tab.php:146
 #, fuzzy
 msgid "Sort by:"
-msgstr "סדר מיון אלבומי גלרייה*"
+msgstr "סדר מיון נשמר."
 
 #: zp-core/zp-extensions/accessThreshold/admin_tab.php:148
 #, fuzzy
@@ -17614,32 +17771,42 @@ msgstr "שמור תמונות אלבום"
 msgid "Cache images stored in the database"
 msgstr "שמור תמונות המאוחסנות במסד הנתונים"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:34
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:52
 #, fuzzy
 msgid ""
-"This utility scans the database for images references that have been stored "
-"there."
-msgstr "כלי זה סורק את מסד הנתונים עבור הפניות תמונות מאוחסנים שם."
+"This utility scans the database for images references that have been stored in "
+"<em>codeblocks</em><sup>†</sup>, in the album and image <em>description</em> "
+"fields, and in the news<sup>†</sup> and pages<sup>†</sup> <em>content</em> and "
+"<em>extracontent</em><sup>†</sup> fields."
+msgstr ""
+"כלי זה סורק את הנתונים עבור אזכור התמונות שאוחסנו ב <em>codeblocks</em> <sup>†,</"
+"sup> בתחומי <em>תיאור</em> לאלבום ותמונה, ועל בחדשות <sup>†</sup> ודפי <sup>†</"
+"sup> <em>תוכן</em> ושדות <sup>†</sup> <em>extracontent.</em>"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:35
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:53
 #, fuzzy
 msgid ""
 "If an image processor URI is discovered it will be converted to a cache file URI."
 msgstr "אם מתגלה URI של מעבד תמונה, הוא יומר לקובץ URI של קובץ שמור."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:36
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:54
 #, fuzzy
 msgid ""
 "If the cache file for the image does not exist, a caching image reference will "
 "be made for the image."
 msgstr "אם קובץ המטמון של התמונה אינו קיים, ייעשה שימוש בתמונת מטמון עבור התמונה."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:82
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:58
+#, fuzzy
+msgid "If these are enabled."
+msgstr "אם אלה מופעלים."
+
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:86
 #, fuzzy
 msgid "image processor reference"
 msgstr "התייחסות מעבד מעבד - -"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:171
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:175
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> the following objects have images that appear to no "
@@ -17647,41 +17814,41 @@ msgid ""
 msgstr ""
 "<strong>הערה:</strong> לאובייקטים הבאים יש תמונות שנראות כאילו אינן קיימות עוד."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:185
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:189
 #, fuzzy, php-format
 msgid "%u image processor reference found."
 msgid_plural "%u image processor references found."
 msgstr[0] "% U התייחסות מעבד התמונה נמצא - -."
 msgstr[1] "לא נמצאו אפקטים לתמונות."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:187
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:191
 #, fuzzy
 msgid ""
 "You should use the refresh button to convert these to cached image references"
 msgstr "עליך להשתמש בלחצן הרענון כדי להמיר אותם לפניות של תמונות במטמון"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:192
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:196
 #, fuzzy, php-format
 msgid "%u cached image reference found."
 msgid_plural "%u cached image references found."
 msgstr[0] "נמצאה% u הפניה לתמונה בקובץ שמור."
 msgstr[1] "לא נמצאו אפקטים לתמונות."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:196
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:200
 #, fuzzy, php-format
 msgid "%s reference re-cached."
 msgid_plural "%s references re-cached."
 msgstr[0] "%s הפנייה מחדש במטמון."
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:201
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:205
 #, fuzzy, php-format
 msgid "%s cache folder reference fixed."
 msgid_plural "%s cache folder references fixed."
 msgstr[0] "%s הפניה של תיקיית המטמון קבועה."
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:208
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:212
 #, fuzzy
 msgid ""
 "Refresh the caching of the images stored in the database if some images did not "
@@ -19281,7 +19448,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Expires"
 msgid "Expire"
-msgstr "פג"
+msgstr "תאריך פקיעה"
 
 #: zp-core/zp-extensions/cookieconsent.php:70
 #, fuzzy
@@ -19639,7 +19806,7 @@ msgstr "סשנים"
 #: zp-core/zp-extensions/debug.php:183
 #, fuzzy
 msgid "SERVER"
-msgstr "תאריך שרת: %s"
+msgstr "שרת דואר יוצא:"
 
 #: zp-core/zp-extensions/debug.php:184
 #, fuzzy
@@ -19738,31 +19905,31 @@ msgstr "תוסף זה <strong>אינו</strong> נדרש עבור הקוד המ�
 msgid "Check deprecated"
 msgstr "ההמחאה בוטלה"
 
-#: zp-core/zp-extensions/deprecated-functions.php:128
+#: zp-core/zp-extensions/deprecated-functions.php:129
 msgid "function"
 msgstr "פונקציה"
 
-#: zp-core/zp-extensions/deprecated-functions.php:150
+#: zp-core/zp-extensions/deprecated-functions.php:151
 #, fuzzy, php-format
 msgid "theme %1$s:%2$s"
 msgstr "ערכת הנושא%1$s:%2$s"
 
-#: zp-core/zp-extensions/deprecated-functions.php:153
+#: zp-core/zp-extensions/deprecated-functions.php:154
 #, fuzzy, php-format
 msgid "user plugin %1$s:%2$s"
 msgstr "תוסף משתמש%1$s:%2$s"
 
-#: zp-core/zp-extensions/deprecated-functions.php:156
+#: zp-core/zp-extensions/deprecated-functions.php:157
 #, fuzzy, php-format
 msgid "standard plugin %1$s:%2$s"
 msgstr "תוסף סטנדרטי%1$s:%2$s"
 
-#: zp-core/zp-extensions/deprecated-functions.php:159
+#: zp-core/zp-extensions/deprecated-functions.php:160
 #, fuzzy, php-format
 msgid "core:%s"
 msgstr "ליבה: %s"
 
-#: zp-core/zp-extensions/deprecated-functions.php:166
+#: zp-core/zp-extensions/deprecated-functions.php:167
 #, fuzzy, php-format
 msgid "%1$s (called from %2$s line %3$s) is deprecated."
 msgstr "%1$s (נקרא מ%2$s שורה%3$s) הוצא משימוש."
@@ -19865,13 +20032,13 @@ msgstr ""
 msgid "Use array_shift(filterImageQueryList())"
 msgstr "השתמש array_shift (filterImageQueryList ())"
 
-#: zp-core/zp-extensions/deprecated-functions/functions.php:106
-#: zp-core/zp-extensions/deprecated-functions/functions.php:144
+#: zp-core/zp-extensions/deprecated-functions/functions.php:107
+#: zp-core/zp-extensions/deprecated-functions/functions.php:145
 #, fuzzy
 msgid "No calls on deprecated functions were found."
 msgstr "לא נמצאו שיחות על פונקציות שהוצאו משימוש."
 
-#: zp-core/zp-extensions/deprecated-functions/functions.php:116
+#: zp-core/zp-extensions/deprecated-functions/functions.php:117
 #, fuzzy, php-format
 msgid "%s table"
 msgstr "%s טבלה"
@@ -20101,7 +20268,7 @@ msgid ""
 "Allows viewers of your site to select the language translation of their choice."
 msgstr "מאפשר לצופים באתר שלך לבחור את שפת התרגום לפי בחירתם."
 
-#: zp-core/zp-extensions/dynamic-locale.php:205
+#: zp-core/zp-extensions/dynamic-locale.php:211
 #, fuzzy, php-format
 msgid ""
 "Select <em>Use subdomains</em> and links will be in the form <code><em>language</"
@@ -20112,21 +20279,21 @@ msgstr ""
 "הטופס <code><em>language</em> .%s</code> כאשר <code><em>language</em></code> היא "
 "קוד השפה, לדוגמה <code><em>fr</em></code> בצרפתית."
 
-#: zp-core/zp-extensions/dynamic-locale.php:208
+#: zp-core/zp-extensions/dynamic-locale.php:214
 #, fuzzy
 msgid "subdomain"
 msgstr "תת - דומיין"
 
-#: zp-core/zp-extensions/dynamic-locale.php:208
-#: zp-core/zp-extensions/dynamic-locale.php:210
-#: zp-core/zp-extensions/dynamic-locale.php:213
+#: zp-core/zp-extensions/dynamic-locale.php:214
+#: zp-core/zp-extensions/dynamic-locale.php:216
+#: zp-core/zp-extensions/dynamic-locale.php:219
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:54
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:146
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:154
 msgid "URL"
 msgstr "URL"
 
-#: zp-core/zp-extensions/dynamic-locale.php:211
+#: zp-core/zp-extensions/dynamic-locale.php:217
 #, fuzzy, php-format
 msgid ""
 "Select <em>URL</em> and links paths will have the language selector prepended in "
@@ -20135,26 +20302,26 @@ msgstr ""
 "בחר נתיבי <em>URL</em> ושבילי קישורים יכלול את בורר השפה שמופיע בטופס <code>"
 "%1$s/ <em>language</em> /...</code>"
 
-#: zp-core/zp-extensions/dynamic-locale.php:218
+#: zp-core/zp-extensions/dynamic-locale.php:224
 msgid "Use flags"
 msgstr "השתמשו בדגלים"
 
-#: zp-core/zp-extensions/dynamic-locale.php:220
+#: zp-core/zp-extensions/dynamic-locale.php:226
 #, fuzzy
 msgid "Checked produces an array of flags. Not checked produces a selector."
 msgstr "מסומנת מייצרת מערך של דגלים. לא מסומנת מייצרת בורר."
 
-#: zp-core/zp-extensions/dynamic-locale.php:221
+#: zp-core/zp-extensions/dynamic-locale.php:227
 #, fuzzy
 msgid "Language links"
 msgstr "קישורים לשפה"
 
-#: zp-core/zp-extensions/dynamic-locale.php:225
+#: zp-core/zp-extensions/dynamic-locale.php:231
 #, fuzzy
 msgid "Site language"
 msgstr "שפת האתר"
 
-#: zp-core/zp-extensions/dynamic-locale.php:228
+#: zp-core/zp-extensions/dynamic-locale.php:234
 #, fuzzy
 msgid "Set the primary language for your site."
 msgstr "הגדר את השפה העיקרית עבור האתר שלך."
@@ -20946,12 +21113,12 @@ msgid ""
 msgstr ""
 "הוסף את התיאור באופן דינמי מאובייקט גלריה - שם האלבום (% 1), שם התמונה (% 2)."
 
-#: zp-core/zp-extensions/galleryArticles/combiNews.php:264
+#: zp-core/zp-extensions/galleryArticles/combiNews.php:265
 #, fuzzy
 msgid "combiNews"
 msgstr "combiNews"
 
-#: zp-core/zp-extensions/galleryArticles/combiNews.php:265
+#: zp-core/zp-extensions/galleryArticles/combiNews.php:266
 #, fuzzy
 msgid "Auto category for ported combi-news articles."
 msgstr "קטגוריה אוטומטית עבור מאמרים מובילים חדשות combi."
@@ -21392,7 +21559,7 @@ msgid "Request the crawler to revisit the page after x days."
 msgstr "Request the crawler to revisit the page after x days."
 
 #: zp-core/zp-extensions/html_meta_tags.php:111
-#: zp-core/zp-extensions/zenpage/admin-news.php:311
+#: zp-core/zp-extensions/zenpage/admin-news.php:304
 msgid "Expires"
 msgstr "פג תוקף"
 
@@ -24426,7 +24593,7 @@ msgstr "עדיין לא מדורג"
 #: zp-core/zp-extensions/rating.php:403
 #, fuzzy
 msgid "like"
-msgstr "מעדיפים"
+msgstr "אוהבים"
 
 #: zp-core/zp-extensions/rating.php:405
 #, fuzzy, php-format
@@ -24739,22 +24906,22 @@ msgid ""
 "check."
 msgstr "ניסיון הרישום שלך נכשל בבדיקת מסנן <code>register_user_registered</code> ."
 
-#: zp-core/zp-extensions/register_user/register_user_form.php:14
+#: zp-core/zp-extensions/register_user/register_user_form.php:15
 #, fuzzy
 msgid "Username* (this will be your user username)"
 msgstr "שם משתמש * (זה יהיה שם המשתמש שלך)"
 
-#: zp-core/zp-extensions/register_user/register_user_form.php:21
+#: zp-core/zp-extensions/register_user/register_user_form.php:22
 #, fuzzy
 msgid "Email<strong>*</strong> (this will be your user id)"
 msgstr "דוא&quot;ל <strong>*</strong> (זה יהיה מזהה המשתמש שלך)"
 
-#: zp-core/zp-extensions/register_user/register_user_form.php:23
+#: zp-core/zp-extensions/register_user/register_user_form.php:24
 #, fuzzy
 msgid "User ID"
 msgstr "מזהה משתמש:"
 
-#: zp-core/zp-extensions/register_user/register_user_form.php:110
+#: zp-core/zp-extensions/register_user/register_user_form.php:111
 #, fuzzy
 msgid "<strong>*</strong>Required"
 msgstr "<strong>*</strong> חובה"
@@ -26658,7 +26825,7 @@ msgstr ""
 #: zp-core/zp-extensions/tinyURL.php:92
 #, fuzzy
 msgid "news categories"
-msgstr "קטגוריות חדשות"
+msgstr "קטגוריות של חדשות"
 
 #: zp-core/zp-extensions/tinymce.php:22
 #, fuzzy
@@ -27532,7 +27699,7 @@ msgstr "מיפויים"
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:145
 #, fuzzy
 msgid "Deleted"
-msgstr "הפריטים שסומנו נמחקו"
+msgstr "לא ניתן היה למחוק את הקבצים הבאים."
 
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:159
 #, fuzzy
@@ -28219,7 +28386,7 @@ msgid "Are you sure you want to delete the article? THIS CANNOT BE UNDONE!"
 msgstr "האם את בטוחה שאת רוצה למחוק את המאמר? פעולה זו היא בלתי הפיכה!"
 
 #: zp-core/zp-extensions/zenpage.php:354
-#: zp-core/zp-extensions/zenpage/admin-news.php:446
+#: zp-core/zp-extensions/zenpage/admin-news.php:439
 msgid "Delete article"
 msgstr "למחוק מאמר"
 
@@ -28286,7 +28453,7 @@ msgstr "העתק של %s"
 
 #: zp-core/zp-extensions/zenpage/admin-edit.php:126
 #: zp-core/zp-extensions/zenpage/admin-news.php:79
-#: zp-core/zp-extensions/zenpage/admin-news.php:446
+#: zp-core/zp-extensions/zenpage/admin-news.php:439
 #: zp-core/zp-extensions/zenpage/admin-pages.php:89
 msgid "Are you sure you want to delete this article? THIS CANNOT BE UNDONE!"
 msgstr "האם את בטוחה שאת רוצה למחוק את המאמר? פעולה זו היא בלתי הפיכה!"
@@ -28303,7 +28470,7 @@ msgstr "זהו איננה תאריך עתידי!"
 
 #: zp-core/zp-extensions/zenpage/admin-edit.php:194
 #: zp-core/zp-extensions/zenpage/admin-edit.php:271
-#: zp-core/zp-extensions/zenpage/admin-news.php:263
+#: zp-core/zp-extensions/zenpage/admin-news.php:256
 #, fuzzy
 msgid "New Article"
 msgstr "מאמר חדש"
@@ -28316,7 +28483,7 @@ msgstr "קטגוריה חדשה"
 
 #: zp-core/zp-extensions/zenpage/admin-edit.php:228
 #: zp-core/zp-extensions/zenpage/admin-edit.php:281
-#: zp-core/zp-extensions/zenpage/admin-pages.php:160
+#: zp-core/zp-extensions/zenpage/admin-pages.php:161
 #, fuzzy
 msgid "New Page"
 msgstr "עמוד חדש"
@@ -28900,60 +29067,58 @@ msgstr "הקטגוריות נמחקו מהפריטים שנבחרו"
 msgid "Hitcounter reset"
 msgstr "Hitcounter לאפס"
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:273
+#: zp-core/zp-extensions/zenpage/admin-news.php:266
 msgid "Edit this article"
 msgstr "עריכת מאמר זה"
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:284
+#: zp-core/zp-extensions/zenpage/admin-news.php:277
 #, fuzzy
 msgid "Add categories"
 msgstr "הוסף קטגוריות"
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:285
+#: zp-core/zp-extensions/zenpage/admin-news.php:278
 #, fuzzy
 msgid "Clear categories"
 msgstr "נקה קטגוריות"
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:304
+#: zp-core/zp-extensions/zenpage/admin-news.php:297
 #, fuzzy
 msgid "Created"
-msgstr ""
-"אם האפשרות מסומנת, התמונות המוקטנות/התמונות הרגילות יווצרו בגווני אפור "
-"(grayscale)."
+msgstr "עדיין יצרתם הגדרה לגיבוי."
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:306
+#: zp-core/zp-extensions/zenpage/admin-news.php:299
 #, fuzzy
 msgid "Last changed"
 msgstr "השתנה לאחרונה"
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:426
+#: zp-core/zp-extensions/zenpage/admin-news.php:419
 msgid "View article"
 msgstr "צפייה במאמר"
 
-#: zp-core/zp-extensions/zenpage/admin-news.php:489
+#: zp-core/zp-extensions/zenpage/admin-news.php:482
 #, fuzzy
 #| msgid "There are no albums for you to edit."
 msgid "There are no articles for you to edit."
 msgstr "אין מאמרים לעריכה."
 
-#: zp-core/zp-extensions/zenpage/admin-pages.php:140
+#: zp-core/zp-extensions/zenpage/admin-pages.php:141
 msgid ""
 "Select a page to edit or drag the pages into the order, including subpage "
 "levels, you wish them displayed."
 msgstr "בחרו דף לעריכה או גררו את הדפים ואת תתי הדפים לסדר שברצונכם להציגם."
 
-#: zp-core/zp-extensions/zenpage/admin-pages.php:144
+#: zp-core/zp-extensions/zenpage/admin-pages.php:145
 msgid ""
 "<strong>Note:</strong> Subpages of password protected pages inherit the "
 "protection."
 msgstr ""
 "<strong>חשוב:</strong> תתי-דפים של דפים מוגנים בסיסמא יהיו גם מוגנים בסיסמא. "
 
-#: zp-core/zp-extensions/zenpage/admin-pages.php:170
+#: zp-core/zp-extensions/zenpage/admin-pages.php:171
 msgid "Edit this page"
 msgstr "עריכת הדף הנוכחי"
 
-#: zp-core/zp-extensions/zenpage/admin-pages.php:202
+#: zp-core/zp-extensions/zenpage/admin-pages.php:203
 #, fuzzy
 msgid ""
 "The sort position of the indicated pages cannot be recorded because the nesting "
@@ -28962,7 +29127,7 @@ msgstr ""
 "לא ניתן להקליט את מיקום המיון של הדפים שצוינו משום שהקינון עמוק מדי. אנא העבר "
 "אותם לרמה גבוהה יותר ושמור את ההזמנה."
 
-#: zp-core/zp-extensions/zenpage/admin-pages.php:218
+#: zp-core/zp-extensions/zenpage/admin-pages.php:219
 #, fuzzy
 #| msgid "There are no albums for you to edit."
 msgid "There are no pages for you to edit."
@@ -29067,7 +29232,7 @@ msgstr "לִתְפּוֹס"
 #: zp-core/zp-extensions/zoomImage.php:64
 #, fuzzy
 msgid "Click"
-msgstr "לחצו על התמונה בכדי לשנות את קיצוץ התמונה המוקטנת"
+msgstr "<strong>שימו לב!</strong> הקליקו לפרטים נוספים"
 
 #: zp-core/zp-extensions/zoomImage.php:64
 #, fuzzy
@@ -29166,12 +29331,3 @@ msgstr ""
 #: zp-core/zp-extensions/zpCaptcha.php:70
 msgid "Sample CAPTCHA image"
 msgstr "דוגמת תמונת זיהוי (CAPTCHA("
-
-#, fuzzy
-#~| msgid "Administrators"
-#~ msgid "administration"
-#~ msgstr "אדמיניסטרציה"
-
-#, fuzzy
-#~ msgid "seo"
-#~ msgstr "קידום במנועי חיפוש"
