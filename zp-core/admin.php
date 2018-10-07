@@ -264,9 +264,11 @@ $buttonlist = array();
 			$zenphoto_version = preg_replace('~[^0-9,.]~', '', array_shift($zenphoto_version));
 			if (version_compare($newestVersion, $zenphoto_version, '>')) {
 				if (!isset($_SESSION['new_version_available'])) {
+					$image = str_replace(WEBPATH, SERVERPATH, $_zp_gallery->getSiteLogo());
+					$size = zp_imageDims($image);
 					$_SESSION['new_version_available'] = $newestVersion;
 					?>
-					<div class="notebox" style="width:100%">
+					<div class="newVersion" style="height:<?php echo $size['height']; ?>px;">
 						<h2><?php echo gettext('There is a new version is available.'); ?></h2>
 						<?php
 						printf(gettext('Version %s can be downloaded by the utility button.'), $newestVersion);

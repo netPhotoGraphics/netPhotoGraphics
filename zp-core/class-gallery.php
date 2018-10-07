@@ -117,7 +117,12 @@ class Gallery {
 	 * @return string title
 	 */
 	function getSiteLogo() {
-		return $this->get('sitelogoimage');
+		$image = $this->get('sitelogoimage');
+		if (empty($image) || !file_exists(SERVERPATH . '/' . $image)) {
+			return WEBPATH . '/' . ZENFOLDER . '/images/admin-logo.png"';
+		} else {
+			return WEBPATH . '/' . $image;
+		}
 	}
 
 	/**

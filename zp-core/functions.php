@@ -466,6 +466,7 @@ function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $
 		}
 	}
 	if (count($email_list) + count($bcc_addresses) > 0) {
+
 		if (zp_has_filter('sendmail')) {
 
 			if (is_array($fromMail)) {
@@ -1383,13 +1384,7 @@ function printSiteLogoImage($title = NULL) {
 			$title = 'netPhotoGraphics';
 		}
 	}
-	$image = $_zp_gallery->getSiteLogo();
-	if (empty($image) || !file_exists(SERVERPATH . '/' . $image)) {
-		$image = WEBPATH . '/' . ZENFOLDER . '/images/admin-logo.png"';
-	} else {
-		$image = WEBPATH . '/' . $image;
-	}
-	echo '<img src="' . $image . '" alt="site logo" title="' . $title . '" />';
+	echo '<img src="' . $_zp_gallery->getSiteLogo() . '" alt="site logo" title="' . $title . '" />';
 }
 
 /**
