@@ -7904,10 +7904,10 @@ zp-core/zp-extensions/openstreetmap/images/marker-shadow.png
 zp-core/zp-extensions/openstreetmap/images/toggle.png
 zp-core/zp-extensions/openstreetmap/images/toggle.svg
 zp-core/zp-extensions/PHPMailer
-zp-core/zp-extensions/PHPMailer/class.phpmailer.php
-zp-core/zp-extensions/PHPMailer/class.pop3.php
-zp-core/zp-extensions/PHPMailer/class.smtp.php
-zp-core/zp-extensions/PHPMailer/PHPMailerAutoload.php
+zp-core/zp-extensions/PHPMailer/Exception.php
+zp-core/zp-extensions/PHPMailer/PHPMailer.php
+zp-core/zp-extensions/PHPMailer/POP3.php
+zp-core/zp-extensions/PHPMailer/SMTP.php
 zp-core/zp-extensions/publishContent
 zp-core/zp-extensions/publishContent/publishContent.css
 zp-core/zp-extensions/publishContent/publishContent.php
