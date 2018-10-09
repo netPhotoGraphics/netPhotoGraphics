@@ -524,6 +524,15 @@ code {
 	background-color: #FFEFB7;
 }
 
+.newVersion {
+	padding: 5px 10px 0px 10px;
+	background-color: #FFEFB7;
+	margin-bottom: 0px;
+	font-size: 100%;
+	width: 100%;
+	font-weight: normal;
+}
+
 .notebox {
 	padding: 5px 10px 5px 10px;
 	background-color: #FFEFB7;
