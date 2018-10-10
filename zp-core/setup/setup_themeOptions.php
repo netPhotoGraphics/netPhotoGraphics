@@ -8,11 +8,15 @@
  * @package setup
  *
  */
+define('OFFSET_PATH', 2);
+require_once('setup-functions.php');
+zp_session_start();
+$optionMutex = new zpMutex('oP', $_SESSION['db_connections_available']);
+$optionMutex->lock();
+
 list($usec, $sec) = explode(" ", microtime());
 $startTO = (float) $usec + (float) $sec;
 
-define('OFFSET_PATH', 2);
-require_once('setup-functions.php');
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 $fullLog = isset($_GET['fullLog']);
@@ -42,5 +46,6 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $theme, $last - $startTO), $fullLog);
 
 sendImage($_GET['class'], 'theme_' . $theme);
+$optionMutex->unlock();
 exitZP();
 ?>

@@ -176,6 +176,10 @@ if (!empty($where)) {
 	db_free_result($result);
 }
 
+$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+$used = query_single_row('SHOW GLOBAL STATUS LIKE "max_use%";');
+$_SESSION['db_connections_available'] = min(1, max(30, $max['Value'] - $used['Value']));
+
 $old = @unserialize(getOption('zenphoto_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['ZENPHOTO']);
 purgeOption('zenphoto_install');

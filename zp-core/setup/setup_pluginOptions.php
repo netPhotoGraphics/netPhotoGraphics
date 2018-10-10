@@ -8,11 +8,15 @@
  * @package setup
  *
  */
+define('OFFSET_PATH', 2);
+require_once('setup-functions.php');
+zp_session_start();
+$optionMutex = new zpMutex('oP', $_SESSION['db_connections_available']);
+$optionMutex->lock();
+
 list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
-define('OFFSET_PATH', 2);
-require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager.php');
@@ -61,5 +65,6 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $startPO), $fullLog);
 
 sendImage($_GET['class'], 'plugin_' . $extension);
+$optionMutex->unlock();
 exitZP();
 ?>

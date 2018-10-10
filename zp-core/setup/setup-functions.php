@@ -9,6 +9,8 @@
 // force UTF-8 Ø
 require_once(dirname(dirname(__FILE__)) . '/global-definitions.php');
 require_once(dirname(dirname(__FILE__)) . '/functions-config.php');
+require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
+
 
 define('SETUPLOG', SERVERPATH . '/' . DATA_FOLDER . '/setup.log');
 
