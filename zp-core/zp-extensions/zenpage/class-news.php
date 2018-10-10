@@ -255,10 +255,11 @@ class Article extends CMSItems {
 		if (parent::isMyItem($action)) {
 			return true;
 		}
+		if ($_zp_current_admin_obj && $_zp_current_admin_obj->getUser() == $this->getAuthor()) {
+			return true; //	he is the author
+		}
 		if (zp_loggedin($action)) {
-			if ($_zp_current_admin_obj->getUser() == $this->getAuthor()) {
-				return true; //	he is the author
-			}
+
 			if (GALLERY_SECURITY == 'public' && $this->getShow() && $action == LIST_RIGHTS) {
 				return LIST_RIGHTS;
 			}

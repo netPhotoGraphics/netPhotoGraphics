@@ -199,7 +199,18 @@ echo '</head>';
 								?>
 
 							</li>
-							<li><?php printf(gettext('Database name: <strong>%1$s</strong>'), db_name()); ?></li>
+							<li>
+								<?php
+								printf(gettext('Database name: <strong>%1$s</strong>'), db_name());
+								echo '; ';
+								$result = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+								echo ' ';
+								printf(gettext('Max connections: %d'), $result['Value']);
+								$result = query_single_row('SHOW GLOBAL STATUS LIKE "max_use%";');
+								echo ', ';
+								printf(gettext('Connections used: %d'), $result['Value']);
+								?>
+							</li>
 							<li>
 								<?php
 								$prefix = trim(prefix(), '`');
@@ -341,8 +352,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php

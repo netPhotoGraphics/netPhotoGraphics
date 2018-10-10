@@ -157,7 +157,7 @@ class hitcounter {
 					// count only if permitted to access
 					switch ($_zp_gallery_page) {
 						case'index.php':
-							if (!zp_loggedin()) {
+							if (!zp_loggedin(ADMIN_RIGHTS)) {
 								$_zp_gallery->countHit();
 							}
 							break;
@@ -173,21 +173,21 @@ class hitcounter {
 							}
 							break;
 						case 'pages.php':
-							if (class_exists('CMS') && !zp_loggedin(ZENPAGE_PAGES_RIGHTS)) {
+							if (class_exists('CMS') && !$_zp_current_page->isMyItem(ZENPAGE_PAGES_RIGHTS)) {
 								$_zp_current_page->countHit();
 							}
 							break;
 						case 'news.php':
-							if (class_exists('CMS') && !zp_loggedin(ZENPAGE_NEWS_RIGHTS)) {
-								if (is_NewsArticle()) {
+							if (class_exists('CMS')) {
+								if (is_NewsArticle() && !$_zp_current_article->isMyItem(ZENPAGE_NEWS_RIGHTS)) {
 									$_zp_current_article->countHit();
-								} else if (is_NewsCategory()) {
+								} else if (is_NewsCategory() && !$_zp_current_category->isMyItem(ZENPAGE_NEWS_RIGHTS)) {
 									$_zp_current_category->countHit();
 								}
 							}
 							break;
 						default:
-							if (!zp_loggedin()) {
+							if (!zp_loggedin(ADMIN_RIGHTS)) {
 								$page = stripSuffix($_zp_gallery_page);
 								$_scriptpage_hitcounters[$page] = @$_scriptpage_hitcounters[$page] + 1;
 								setOption('page_hitcounters', serialize($_scriptpage_hitcounters));
