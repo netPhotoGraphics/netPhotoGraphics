@@ -14,6 +14,11 @@ if (isset($_GET['debug'])) {
 } else {
 	$debug = '';
 }
+if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
+	$fullLog = '&fullLog';
+} else {
+	$fullLog = false;
+}
 
 loadConfiguration();
 
@@ -178,7 +183,9 @@ if (!empty($where)) {
 
 $max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 $used = query_single_row('SHOW GLOBAL STATUS LIKE "max_use%";');
-$_SESSION['db_connections_available'] = min(1, max(30, $max['Value'] - $used['Value']));
+$_SESSION['db_connections_available'] = max(1, min(50, $max['Value'] - $used['Value'] - 5));
+
+setupLog(sprintf(gettext('Setup concurrency is %d'), $_SESSION['db_connections_available']), $fullLog);
 
 $old = @unserialize(getOption('zenphoto_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['ZENPHOTO']);
@@ -306,12 +313,6 @@ setOptionDefault('dirtyform_enable', 2);
 	});
 </script>
 <?php
-if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
-	$fullLog = '&fullLog';
-} else {
-	$fullLog = false;
-}
-
 purgeOption('mod_rewrite_detected');
 if (isset($_GET['mod_rewrite'])) {
 	?>

@@ -10,11 +10,16 @@
  * @package setup
  *
  */
+require_once('setup-functions.php');
+require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
+
+zp_session_start();
+$optionMutex = new zpMutex('oP', $_SESSION['db_connections_available']);
+$optionMutex->lock();
+
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;
 
-require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
-require_once(dirname(__FILE__) . '/setup-functions.php');
 $fullLog = defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false;
 
 setupLog(sprintf(gettext('Mod_rewrite setup started')), $fullLog);
@@ -37,5 +42,6 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Mod_rewrite setup completed in %1$.4f seconds'), $last - $start), $fullLog);
 
 sendImage(false, 'mod_rewrite');
+$optionMutex->unlock();
 exitZP();
 ?>

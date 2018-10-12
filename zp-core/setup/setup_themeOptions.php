@@ -10,6 +10,8 @@
  */
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
+require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
+
 zp_session_start();
 $optionMutex = new zpMutex('oP', $_SESSION['db_connections_available']);
 $optionMutex->lock();
