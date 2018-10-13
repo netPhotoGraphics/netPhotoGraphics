@@ -203,12 +203,20 @@ echo '</head>';
 								<?php
 								printf(gettext('Database name: <strong>%1$s</strong>'), db_name());
 								echo '; ';
-								$result = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+								$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+								if ($max['Value'] == 0) {
+									$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+								}
 								echo ' ';
-								printf(gettext('Max connections: %d'), $result['Value']);
-								$result = query_single_row('SHOW GLOBAL STATUS LIKE "max_use%";');
+								printf(gettext('Max connections: %d'), $max['Value']);
+								$used = query_single_row("SELECT " . $_zp_conf_vars['mysql_user'] . " user," . $_zp_conf_vars['mysql_host'] . " host,COUNT(1) Connections FROM
+		(
+				SELECT user " . $_zp_conf_vars['mysql_user'] . ",LEFT(host,LOCATE(':',host) - 1) " . $_zp_conf_vars['mysql_host'] . "
+				FROM information_schema.processlist
+				WHERE user NOT IN ('system user','root')
+		) A GROUP BY " . $_zp_conf_vars['mysql_user'] . "," . $_zp_conf_vars['mysql_host'] . " WITH ROLLUP;");
 								echo ', ';
-								printf(gettext('Connections used: %d'), $result['Value']);
+								printf(gettext('Connections used: %d'), $used['Connections']);
 								?>
 							</li>
 							<li>
@@ -352,8 +360,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php

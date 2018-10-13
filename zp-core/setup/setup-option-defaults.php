@@ -181,9 +181,17 @@ if (!empty($where)) {
 	db_free_result($result);
 }
 
-$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
-$used = query_single_row('SHOW GLOBAL STATUS LIKE "max_use%";');
-$_SESSION['db_connections_available'] = max(1, min(50, $max['Value'] - $used['Value'] - 5));
+$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+if ($max['Value'] == 0) {
+	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+}
+$used = query_single_row("SELECT " . $_zp_conf_vars['mysql_user'] . " user," . $_zp_conf_vars['mysql_host'] . " host,COUNT(1) Connections FROM
+		(
+				SELECT user " . $_zp_conf_vars['mysql_user'] . ",LEFT(host,LOCATE(':',host) - 1) " . $_zp_conf_vars['mysql_host'] . "
+				FROM information_schema.processlist
+				WHERE user NOT IN ('system user','root')
+		) A GROUP BY " . $_zp_conf_vars['mysql_user'] . "," . $_zp_conf_vars['mysql_host'] . " WITH ROLLUP;");
+$_SESSION['db_connections_available'] = max(1, min(50, $max['Value'] - $used['Connections'] - 5));
 
 setupLog(sprintf(gettext('Setup concurrency is %d'), $_SESSION['db_connections_available']), $fullLog);
 
