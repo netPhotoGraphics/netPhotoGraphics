@@ -187,12 +187,10 @@ if ($max['Value'] == 0) {
 	$max = $globalMax;
 }
 $globalUsed = query_single_row("show status where `variable_name` = 'Threads_connected';");
-$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user," . db_quote($_zp_conf_vars['mysql_host']) . " host,COUNT(1) Connections FROM
+$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
 		(
-				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . ",LEFT(host,LOCATE(':',host) - 1) " . db_quote($_zp_conf_vars['mysql_host']) . "
-				FROM information_schema.processlist
-				WHERE user NOT IN ('system user','root')
-		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . "," . db_quote($_zp_conf_vars['mysql_host']) . " WITH ROLLUP;");
+				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . "FROM information_schema.processlist
+		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . " WITH ROLLUP;");
 $userMax = min(50, $max['Value'] - $used['Connections']);
 $systemMax = $globalMax['Value'] - $globalUsed['Value'];
 $_SESSION['db_connections_available'] = max(1, min($userMax, $systemMax));

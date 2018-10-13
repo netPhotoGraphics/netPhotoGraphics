@@ -191,7 +191,12 @@ echo '</head>';
 								printf(gettext('supporting: %s'), '<em>' . strtolower(implode(', ', array_keys($graphics_lib))) . '</em>');
 								?>
 							</li>
-							<li><?php printf(gettext('PHP memory limit: <strong>%1$s</strong> (Note: Your server might allocate less!)'), INI_GET('memory_limit')); ?></li>
+							<li>
+								<?php
+								$memoryLimit = INI_GET('memory_limit');
+								printf(gettext('PHP memory limit: <strong>%1$s</strong>; usage <strong>%2$s</strong>'), $memoryLimit < 0 ? 'none' : convert_size(parse_size($memoryLimit)), convert_size(memory_get_peak_usage()));
+								?>
+							</li>
 							<li>
 								<?php
 								$dbsoftware = db_software();
@@ -201,22 +206,17 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								printf(gettext('Database name: <strong>%1$s</strong>'), db_name());
-								echo '; ';
 								$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
 								if ($max['Value'] == 0) {
 									$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 								}
-								echo ' ';
-								printf(gettext('Max connections: %d'), $max['Value']);
-								$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user," . db_quote($_zp_conf_vars['mysql_host']) . " host,COUNT(1) Connections FROM
+								$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
 		(
-				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . ",LEFT(host,LOCATE(':',host) - 1) " . db_quote($_zp_conf_vars['mysql_host']) . "
-				FROM information_schema.processlist
-				WHERE user NOT IN ('system user','root')
-		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . "," . db_quote($_zp_conf_vars['mysql_host']) . " WITH ROLLUP;");
-								echo ', ';
-								printf(gettext('Connections used: %d'), $used['Connections']);
+				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . "FROM information_schema.processlist
+		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . " WITH ROLLUP;");
+								printf(gettext('Database name: <strong>%1$s</strong>; '), db_name());
+								printf(ngettext('%d connection allowed; ', '%d connections allowed; ', $max['Value']), $max['Value']);
+								printf(ngettext('%d connection used', '%d connections used', $used['Connections']), $used['Connections']);
 								?>
 							</li>
 							<li>
@@ -360,8 +360,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php

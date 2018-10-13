@@ -1753,21 +1753,6 @@ function instrument($point) {
 	debugLogBacktrace($point . ' ' . $now . $delta);
 }
 
-/**
- * Parses a byte size from a size value (eg: 100M) for comparison.
- */
-function parse_size($size) {
-	$suffixes = array(
-			'' => 1,
-			'k' => 1024,
-			'm' => 1048576, // 1024 * 1024
-			'g' => 1073741824, // 1024 * 1024 * 1024
-	);
-	if (preg_match('/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $size, $match)) {
-		return $match[1] * $suffixes[strtolower($match[2])];
-	}
-}
-
 /** getAlbumArray - returns an array of folder names corresponding to the given album string.
  * @param string $albumstring is the path to the album as a string. Ex: album/subalbum/my-album
  * @param string $includepaths is a boolean whether or not to include the full path to the album
