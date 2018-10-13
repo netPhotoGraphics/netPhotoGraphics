@@ -181,18 +181,21 @@ if (!empty($where)) {
 	db_free_result($result);
 }
 
+$globalMax = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 $max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
 if ($max['Value'] == 0) {
-	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+	$max = $globalMax;
 }
-$used = query_single_row("SELECT " . $_zp_conf_vars['mysql_user'] . " user," . $_zp_conf_vars['mysql_host'] . " host,COUNT(1) Connections FROM
+$globalUsed = query_single_row("show status where `variable_name` = 'Threads_connected';");
+$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user," . db_quote($_zp_conf_vars['mysql_host']) . " host,COUNT(1) Connections FROM
 		(
-				SELECT user " . $_zp_conf_vars['mysql_user'] . ",LEFT(host,LOCATE(':',host) - 1) " . $_zp_conf_vars['mysql_host'] . "
+				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . ",LEFT(host,LOCATE(':',host) - 1) " . db_quote($_zp_conf_vars['mysql_host']) . "
 				FROM information_schema.processlist
 				WHERE user NOT IN ('system user','root')
-		) A GROUP BY " . $_zp_conf_vars['mysql_user'] . "," . $_zp_conf_vars['mysql_host'] . " WITH ROLLUP;");
-$_SESSION['db_connections_available'] = max(1, min(50, $max['Value'] - $used['Connections'] - 5));
-
+		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . "," . db_quote($_zp_conf_vars['mysql_host']) . " WITH ROLLUP;");
+$userMax = min(50, $max['Value'] - $used['Connections']);
+$systemMax = $globalMax['Value'] - $globalUsed['Value'];
+$_SESSION['db_connections_available'] = max(1, min($userMax, $systemMax));
 setupLog(sprintf(gettext('Setup concurrency is %d'), $_SESSION['db_connections_available']), $fullLog);
 
 $old = @unserialize(getOption('zenphoto_install'));
