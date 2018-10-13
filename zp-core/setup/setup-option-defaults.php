@@ -14,6 +14,11 @@ if (isset($_GET['debug'])) {
 } else {
 	$debug = '';
 }
+if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
+	$fullLog = '&fullLog';
+} else {
+	$fullLog = false;
+}
 
 loadConfiguration();
 
@@ -176,9 +181,22 @@ if (!empty($where)) {
 	db_free_result($result);
 }
 
-$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
-$used = query_single_row('SHOW GLOBAL STATUS LIKE "max_use%";');
-$_SESSION['db_connections_available'] = min(1, max(30, $max['Value'] - $used['Value']));
+$globalMax = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+if ($max['Value'] == 0) {
+	$max = $globalMax;
+}
+$globalUsed = query_single_row("show status where `variable_name` = 'Threads_connected';");
+$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user," . db_quote($_zp_conf_vars['mysql_host']) . " host,COUNT(1) Connections FROM
+		(
+				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . ",LEFT(host,LOCATE(':',host) - 1) " . db_quote($_zp_conf_vars['mysql_host']) . "
+				FROM information_schema.processlist
+				WHERE user NOT IN ('system user','root')
+		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . "," . db_quote($_zp_conf_vars['mysql_host']) . " WITH ROLLUP;");
+$userMax = min(50, $max['Value'] - $used['Connections']);
+$systemMax = $globalMax['Value'] - $globalUsed['Value'];
+$_SESSION['db_connections_available'] = max(1, min($userMax, $systemMax));
+setupLog(sprintf(gettext('Setup concurrency is %d'), $_SESSION['db_connections_available']), $fullLog);
 
 $old = @unserialize(getOption('zenphoto_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['ZENPHOTO']);
@@ -306,12 +324,6 @@ setOptionDefault('dirtyform_enable', 2);
 	});
 </script>
 <?php
-if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
-	$fullLog = '&fullLog';
-} else {
-	$fullLog = false;
-}
-
 purgeOption('mod_rewrite_detected');
 if (isset($_GET['mod_rewrite'])) {
 	?>
