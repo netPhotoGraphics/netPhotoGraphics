@@ -144,11 +144,8 @@ if (function_exists('date_default_timezone_set')) {
 	error_reporting($level);
 }
 
-// Set the memory limit higher just in case -- suppress errors if user doesn't have control.
-// 100663296 bytes = 96M
-if (ini_get('memory_limit') && parse_size(ini_get('memory_limit')) < 100663296) {
-	@ini_set('memory_limit', '96M');
-}
+// Set the memory limit to unlimited -- suppress errors if user doesn't have control.
+@ini_set('memory_limit', '-1');
 
 // Set the internal encoding
 @ini_set('default_charset', LOCAL_CHARSET);

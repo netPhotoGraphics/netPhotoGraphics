@@ -4312,7 +4312,7 @@ function exposeZenPhotoInformations($obj = '', $plugins = '', $theme = '') {
 	echo " THEME: " . $theme . " (" . $a . ")";
 	$graphics = zp_graphicsLibInfo();
 	$graphics = str_replace('<br />', ', ', $graphics['Library_desc']);
-	echo " GRAPHICS LIB: " . $graphics . " { memory: " . INI_GET('memory_limit') . " }";
+	echo " GRAPHICS LIB: " . $graphics;
 	echo ' PLUGINS: ';
 	if (count($plugins) > 0) {
 		sort($plugins);
