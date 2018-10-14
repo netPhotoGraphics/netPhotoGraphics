@@ -14,7 +14,7 @@ register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
 zp_session_start();
-$optionMutex = new zpMutex('oP', $_SESSION['db_connections_available']);
+$optionMutex = new zpMutex('oP', $_GET['limit']);
 $optionMutex->lock();
 
 list($usec, $sec) = explode(" ", microtime());

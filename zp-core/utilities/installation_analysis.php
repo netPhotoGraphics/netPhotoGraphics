@@ -194,7 +194,7 @@ echo '</head>';
 							<li>
 								<?php
 								$memoryLimit = INI_GET('memory_limit');
-								printf(gettext('PHP memory limit: <strong>%1$s</strong>; usage <strong>%2$s</strong>'), $memoryLimit < 0 ? 'none' : convert_size(parse_size($memoryLimit)), convert_size(memory_get_peak_usage()));
+								printf(gettext('PHP memory limit: <strong>%1$s</strong>; <strong>%2$s</strong> used'), $memoryLimit < 0 ? 'none' : convert_size(parse_size($memoryLimit)), convert_size(memory_get_peak_usage(), 1));
 								?>
 							</li>
 							<li>

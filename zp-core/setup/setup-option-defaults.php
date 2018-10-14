@@ -193,8 +193,8 @@ $used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " 
 		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . " WITH ROLLUP;");
 $userMax = min(50, $max['Value'] - $used['Connections']);
 $systemMax = $globalMax['Value'] - $globalUsed['Value'];
-$_SESSION['db_connections_available'] = max(1, min($userMax, $systemMax));
-setupLog(sprintf(gettext('Setup concurrency is %d'), $_SESSION['db_connections_available']), $fullLog);
+$runLimit = max(1, min($userMax, $systemMax));
+setupLog(sprintf(gettext('Setup concurrency is %d'), $runLimit), $fullLog);
 
 $old = @unserialize(getOption('zenphoto_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['ZENPHOTO']);
@@ -329,7 +329,7 @@ if (isset($_GET['mod_rewrite'])) {
 		<?php echo gettext('Mod_Rewrite check:'); ?>
 		<br />
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . $_zp_conf_vars['special_pages']['page']['rewrite']; ?>/setup_set-mod_rewrite?z=setup" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . $_zp_conf_vars['special_pages']['page']['rewrite']; ?>/setup_set-mod_rewrite?z=setup&limit=<?php echo $runLimit; ?>" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
 		</span>
 	</p>
 	<?php
@@ -618,7 +618,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>&limit=<?php echo $runLimit; ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -906,7 +906,7 @@ $plugins = array_keys($plugins);
 		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>&limit=<?php echo $runLimit; ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
