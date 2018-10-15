@@ -195,6 +195,11 @@ $userMax = min(50, $max['Value'] - $used['Connections']);
 $systemMax = $globalMax['Value'] - $globalUsed['Value'];
 $runLimit = max(1, min($userMax, $systemMax));
 setupLog(sprintf(gettext('Setup concurrency is %d'), $runLimit), $fullLog);
+//	cleanup option mutexes
+$list = safe_glob(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/oP*');
+foreach ($list as $file) {
+	unlink($file);
+}
 
 $old = @unserialize(getOption('zenphoto_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['ZENPHOTO']);

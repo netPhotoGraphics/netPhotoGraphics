@@ -8,6 +8,7 @@
 // force UTF-8 Ø
 
 require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(dirname(__FILE__) . '/initialize-basic.php');
 require_once(dirname(__FILE__) . '/initialize-general.php');
 
 /**

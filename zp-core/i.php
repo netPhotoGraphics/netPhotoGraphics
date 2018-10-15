@@ -33,6 +33,7 @@
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
 require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(dirname(__FILE__) . '/initialize-basic.php');
 require_once(dirname(__FILE__) . '/functions-image.php');
 
 $debug = isset($_GET['debug']);

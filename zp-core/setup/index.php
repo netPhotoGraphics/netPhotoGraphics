@@ -671,11 +671,15 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						checkmark($display, gettext('PHP <code>display_errors</code>'), sprintf(gettext('PHP <code>display_errors</code> [is enabled]'), $display), gettext('This setting may result in PHP error messages being displayed on WEB pages. These displays may contain sensitive information about your site.') . $aux, $display && !$testRelease);
 
 						checkMark($noxlate, gettext('PHP <code>gettext()</code> support'), gettext('PHP <code>gettext()</code> support [is not present]'), gettext("PHP <code>gettext()</code> support is not enabled, the drop in replacement is being used."));
-						checkmark(function_exists('flock') ? 1 : -1, gettext('PHP <code>flock</code> support'), gettext('PHP <code>flock</code> support [is not present]'), gettext('<code>flock</code> is used for serializing critical regions of code. Without <code>flock</code> active sites may experience <em>race conditions</em> which may be causing inconsistent data.'));
+						checkmark(function_exists('flock') ? 1 : -1, gettext('PHP <code>flock</code> support'), gettext('PHP <code>flock</code> support [is not present]'), gettext('<code>flock</code> is used for serializing critical regions of code. Without <code>flock</code> active sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
+						if (function_exists('flock') && !$setupMutex) {
+							checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
+						}
 						if ($_zp_setupCurrentLocale_result === false) {
 							checkMark(-1, gettext('PHP <code>setlocale()</code>'), ' ' . gettext('PHP <code>setlocale()</code> failed'), gettext("Locale functionality is not implemented on your platform or the specified locale does not exist. Language translation may not work.") . '<br />');
 							echo gettext('You can use the <em>debug</em> plugin to see which locales your server supports.');
 						}
+
 						primeMark(gettext('mb_strings'));
 						if (function_exists('mb_internal_encoding')) {
 							if (($mbcharset = mb_internal_encoding()) == LOCAL_CHARSET) {

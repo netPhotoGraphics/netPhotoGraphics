@@ -12,7 +12,6 @@
 // force UTF-8 Ø
 
 require_once(dirname(__FILE__) . '/global-definitions.php');
-require_once(dirname(__FILE__) . '/initialize-basic.php');
 
 /**
  * functions common to both the core and setup's basic environment
@@ -827,18 +826,17 @@ class zpMutex {
 	private $lock = NULL;
 
 	function __construct($lock = 'zP', $concurrent = NULL, $folder = NULL) {
-
 		// if any of the construction fails, run in free mode (lock = NULL)
 		if (function_exists('flock') && defined('SERVERPATH')) {
 			if (is_null($folder)) {
-				$folder = SERVERPATH . '/';
+				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
 			}
 			if ($concurrent) {
 				If ($subLock = self::which_lock($lock, $concurrent, $folder)) {
-					$this->lock = $folder . DATA_FOLDER . '/' . MUTEX_FOLDER . '/' . $lock . '_' . $subLock;
+					$this->lock = $folder . '/' . $lock . '_' . $subLock;
 				}
 			} else {
-				$this->lock = $folder . DATA_FOLDER . '/' . MUTEX_FOLDER . '/' . $lock;
+				$this->lock = $folder . '/' . $lock;
 			}
 		}
 		return $this->lock;
@@ -848,15 +846,21 @@ class zpMutex {
 	// rotates locks sequentially mod $concurrent
 	private static function which_lock($lock, $concurrent, $folder) {
 		global $_zp_mutex;
-		$counter_file = $folder . DATA_FOLDER . '/' . MUTEX_FOLDER . '/' . $lock . '_counter';
-		$_zp_mutex->lock();
-		// increment the lock id:
-		if (@file_put_contents($counter_file, $count = (((int) @file_get_contents($counter_file)) + 1) % $concurrent)) {
-			$count++;
-		} else {
-			$count = false;
+		$count = false;
+		$counter_file = $folder . '/' . $lock . '_counter';
+		if ($f = fopen($counter_file, 'a+')) {
+			if (flock($f, LOCK_EX)) {
+				clearstatcache();
+				fseek($f, 0);
+				$data = fgets($f);
+				$count = (((int) $data) + 1) % $concurrent;
+				ftruncate($f, 0);
+				fwrite($f, "$count");
+				fflush($f);
+				flock($f, LOCK_UN);
+				fclose($f);
+			}
 		}
-		$_zp_mutex->unlock();
 		return $count;
 	}
 
