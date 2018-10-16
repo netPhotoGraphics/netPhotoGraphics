@@ -11,6 +11,7 @@
 
 $_zp_button_actions = $zenphoto_tabs = array();
 require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(dirname(__FILE__) . '/initialize-basic.php');
 
 if (TEST_RELEASE) {
 	setOption('zp_plugin_debug', 10 | ADMIN_PLUGIN, false);

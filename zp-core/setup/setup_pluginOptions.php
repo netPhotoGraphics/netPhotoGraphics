@@ -17,6 +17,8 @@ zp_session_start();
 $optionMutex = new zpMutex('oP', $_GET['limit']);
 $optionMutex->lock();
 
+require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
+
 list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
