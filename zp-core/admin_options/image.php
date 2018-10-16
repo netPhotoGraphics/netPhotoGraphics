@@ -59,7 +59,7 @@ function saveOptions() {
 	setOption('full_image_quality', sanitize($_POST['fullimagequality'], 3));
 	setOption('cache_full_image', (int) isset($_POST['cache_full_image']));
 	setOption('protect_full_image', sanitize($_POST['protect_full_image'], 3));
-	setOption('imageProcessorConcurrency', $_POST['imageProcessorConcurrency']);
+	setOption('imageProcessorConcurrency', min($_POST['imageProcessorConcurrency'], $_npgRunLimit));
 	$processNotify = processCredentials('protected_image');
 	if ($processNotify) {
 		if ($notify) {
@@ -193,7 +193,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_zp_gallery, $_zp_images_classes, $_zp_exifvars, $_zp_graphics_optionhandlers, $_zp_sortby, $_zp_cachefileSuffix, $_zp_UTF8;
+	global $_zp_gallery, $_zp_images_classes, $_zp_exifvars, $_zp_graphics_optionhandlers, $_zp_sortby, $_zp_cachefileSuffix, $_zp_UTF8, $_npgRunLimit;
 	?>
 
 	<script type="text/javascript">
@@ -542,7 +542,7 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Caching concurrency"); ?></td>
 					<td class="option_value">
-						<?php putSlider(gettext('limit'), 'imageProcessorConcurrency', 1, 60, getOption('imageProcessorConcurrency')); ?>
+						<?php putSlider(gettext('limit'), 'imageProcessorConcurrency', 1, $_npgRunLimit, getOption('imageProcessorConcurrency')); ?>
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
@@ -695,7 +695,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																 togglePassword('');" />
+																		 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 

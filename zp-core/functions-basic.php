@@ -1368,6 +1368,7 @@ function ipProtectTag($album, $image, $args) {
  * @return string
  */
 function getImageProcessorURI($args, $album, $image) {
+	global $_npgRunLimit;
 	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 	$args[8] = NULL; // not used by image processor
 	$uri = WEBPATH . '/' . ZENFOLDER . '/i.php?a=' . $album;
@@ -1446,7 +1447,7 @@ function getImageProcessorURI($args, $album, $image) {
 	}
 	$args[14] = $z;
 
-	$uri .= '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
+	$uri .='&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
 	$uri = zp_apply_filter('image_processor_uri', $uri, $args, $album, $image);
 

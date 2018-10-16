@@ -33,6 +33,10 @@
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
 require_once(dirname(__FILE__) . '/functions-basic.php');
+
+$iMutex = new zpMutex('i', @$_GET['limit']);
+$iMutex->lock();
+
 require_once(dirname(__FILE__) . '/initialize-basic.php');
 require_once(dirname(__FILE__) . '/functions-image.php');
 
@@ -158,12 +162,7 @@ if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
 		imageError('403 Forbidden', gettext("Forbidden(2)"));
 	}
-
-	$iMutex = new zpMutex('i', getOption('imageProcessorConcurrency'));
-	$iMutex->lock();
 	$result = cacheImage($newfilename, $imgfile, $args, $allowWatermark, $theme, $album);
-	$iMutex->unlock();
-
 	if (!$result) {
 		imageError('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
 	}
@@ -211,4 +210,4 @@ if ($debug) {
 		fclose($fp);
 	}
 }
-?>
+$iMutex->unlock();

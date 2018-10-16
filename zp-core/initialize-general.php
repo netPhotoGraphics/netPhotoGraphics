@@ -61,3 +61,20 @@ define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('zenpage_n
 
 $_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*ZENFOLDER*}', '{*PLUGIN_FOLDER*}', '{*USER_PLUGIN_FOLDER*}');
 $_tagURLs_values = array(FULLWEBPATH, WEBPATH, ZENFOLDER, PLUGIN_FOLDER, USER_PLUGIN_FOLDER);
+
+$globalMax = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+if ($max['Value'] == 0) {
+	$max = $globalMax;
+}$globalUsed = query_single_row("show status where `variable_name` = 'Threads_connected';");
+$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
+		(
+				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . "FROM information_schema.processlist
+		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . " WITH ROLLUP;");
+$userMax = min(50, $max['Value'] - $used['Connections']);
+$systemMax = $globalMax['Value'] - $globalUsed['Value'];
+$_npgRunLimit = max(1, min($userMax, $systemMax));
+unset($used);
+unset($globalUsed);
+unset($userMax);
+unset($systemMax);
