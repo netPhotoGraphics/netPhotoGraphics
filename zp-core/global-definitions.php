@@ -38,6 +38,8 @@ define("STATIC_CACHE_FOLDER", "cache_html");
 define('CONFIGFILE', 'zenphoto.cfg.php');
 define('MUTEX_FOLDER', '.mutex');
 
+define('MYSQL_CONNECTION_RETRIES', 5);
+
 //bit masks for plugin priorities
 define('CLASS_PLUGIN', 8192);
 define('ADMIN_PLUGIN', 2048);
