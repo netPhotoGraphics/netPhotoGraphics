@@ -24,24 +24,23 @@ Define('DATABASE_DESIRED_VERSION', '5.6.0');
  */
 function db_connect($config, $errorstop = true) {
 	global $_zp_DB_connection, $_zp_DB_details, $_zp_DB_last_result;
-	if (is_object($_zp_DB_connection)) {
-		$_zp_DB_connection = NULL; //	don't want to leave connections open
-	}
 	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
 	$_zp_DB_last_result = NULL;
-
-	$db = $config['mysql_database'];
-	$hostname = $config['mysql_host'];
-	$username = $config['mysql_user'];
-	$password = $config['mysql_pass'];
 	if (class_exists('PDO')) {
+		$db = $config['mysql_database'];
+		$hostname = $config['mysql_host'];
+		$username = $config['mysql_user'];
+		$password = $config['mysql_pass'];
+		if (is_object($_zp_DB_connection)) {
+			$_zp_DB_connection = NULL; //	don't want to leave connections open
+		}
 		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
 			try {
 				$_zp_DB_connection = new PDO("mysql:host=$hostname;dbname=$db", $username, $password);
 				break;
 			} catch (PDOException $e) {
 				$_zp_DB_last_result = $e;
-				if ($i >= MYSQL_CONNECTION_RETRIES - 1 || $e->getCode() != 1203) {
+				if ($i >= MYSQL_CONNECTION_RETRIES - 1 || ($er = $e->getCode()) != ER_TOO_MANY_USER_CONNECTIONS || $er = ER_CON_COUNT_ERROR) {
 					if ($errorstop) {
 						zp_error(sprintf(gettext('MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $e->getMessage()));
 					}

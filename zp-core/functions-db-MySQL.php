@@ -26,7 +26,16 @@ function db_connect($config, $errorstop = true) {
 	global $_zp_DB_connection, $_zp_DB_details;
 	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
 	if (function_exists('mysql_connect')) {
-		$_zp_DB_connection = @mysql_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
+		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
+			if (!empty($_zp_DB_connection)) {
+				mysql_close($_zp_DB_connection); //	don't want to leave connections open
+			}
+			$_zp_DB_connection = @mysql_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
+			if ($_zp_DB_connection || ($er = mysql_errno()) != ER_TOO_MANY_USER_CONNECTIONS || $er = ER_CON_COUNT_ERROR) {
+				break;
+			}
+			sleep(1);
+		}
 	} else {
 		$_zp_DB_connection = NULL;
 	}

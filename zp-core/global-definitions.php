@@ -38,8 +38,6 @@ define("STATIC_CACHE_FOLDER", "cache_html");
 define('CONFIGFILE', 'zenphoto.cfg.php');
 define('MUTEX_FOLDER', '.mutex');
 
-define('MYSQL_CONNECTION_RETRIES', 5);
-
 //bit masks for plugin priorities
 define('CLASS_PLUGIN', 8192);
 define('ADMIN_PLUGIN', 2048);
@@ -87,8 +85,9 @@ $_zp_DB_details = array(
 		'mysql_pass' => ''
 );
 define('DB_NOT_CONNECTED', serialize($_zp_DB_details));
-
-
+define('MYSQL_CONNECTION_RETRIES', 5);
+define('ER_TOO_MANY_USER_CONNECTIONS', 1203);
+define('ER_CON_COUNT_ERROR', 1040);
 /**
  * OFFSET_PATH definitions:
  * 		0		root scripts (e.g. the root index.php)
