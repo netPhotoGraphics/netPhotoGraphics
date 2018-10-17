@@ -254,9 +254,9 @@ if ($updatezp_config) {
 // Important. when adding new database support this switch may need to be extended,
 $engines = array();
 
-$preferences = array('mysqli' => 1, 'pdo_mysql' => 2);
+$preferences = array('MySQLi' => 1, 'PDO_MySQL' => 2);
 if (version_compare(PHP_VERSION, '7.0.0', '<')) {
-	$preferences['mysql'] = 3;
+	$preferences['MySQL'] = 3;
 }
 $cur = 999999;
 $preferred = NULL;
@@ -266,8 +266,8 @@ while (($engineMC = readdir($dir)) !== false) {
 	if (preg_match('/^functions-db-(.+)\.php/', $engineMC)) {
 		$engineMC = substr($engineMC, 13, -4);
 		$engine = strtolower($engineMC);
-		if (array_key_exists($engine, $preferences)) {
-			$order = $preferences[$engine];
+		if (array_key_exists($engineMC, $preferences)) {
+			$order = $preferences[$engineMC];
 			$enabled = extension_loaded($engine);
 			if ($enabled && $order < $cur) {
 				$preferred = $engineMC;
@@ -1008,8 +1008,15 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$dbversion = $dbsoftware['version'];
 							$required = $dbsoftware['required'];
 							$desired = $dbsoftware['desired'];
+							$deprecated = isset($dbsoftware['deprecated']);
 							$sqlv = versionCheck($required, $desired, $dbversion);
-							$good = checkMark($sqlv, sprintf(gettext('%1$s version %2$s'), $dbapp, $dbversion), "", sprintf(gettext('%1$s Version %2$s or greater is required. Version %3$s or greater is preferred. Use a lower version at your own risk.'), $dbapp, $required, $desired), false) && $good;
+							if ($sqlv && $deprecated) {
+								$preferredDB = array_keys($preferences);
+								$preferredDB = array_shift($preferredDB);
+								checkMark(-1, sprintf(gettext('%1$s version %2$s'), $dbapp, $dbversion), "", sprintf(gettext('The PHP %1$s extension is deprecated. You should enable the PHP %2$s extension.'), $dbapp, $preferredDB), false);
+							} else {
+								$good = checkMark($sqlv, sprintf(gettext('%1$s version %2$s'), $dbapp, $dbversion), "", sprintf(gettext('%1$s Version %2$s or greater is required. Version %3$s or greater is preferred. Use a lower version at your own risk.'), $dbapp, $required, $desired), false) && $good;
+							}
 						}
 						primeMark(gettext('Database connection'));
 
