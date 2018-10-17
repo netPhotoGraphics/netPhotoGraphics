@@ -10,12 +10,12 @@
  * @package setup
  *
  */
+$__script = 'Mod_rewrite';
 require_once('setup-functions.php');
+register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
 zp_session_start();
-$optionMutex = new zpMutex('oP', $_GET['limit']);
-$optionMutex->lock();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
 
@@ -43,7 +43,6 @@ $last = (float) $usec + (float) $sec;
 /* and record that we finished */
 setupLog(sprintf(gettext('Mod_rewrite setup completed in %1$.4f seconds'), $last - $start), $fullLog);
 
-sendImage(false, 'mod_rewrite');
-$optionMutex->unlock();
+sendImage(0, 'mod_rewrite');
 exitZP();
 ?>

@@ -14,8 +14,6 @@ register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
 zp_session_start();
-$optionMutex = new zpMutex('oP', $_GET['limit']);
-$optionMutex->lock();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
 
@@ -28,6 +26,8 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-f
 $fullLog = isset($_GET['fullLog']);
 
 $extension = sanitize($_REQUEST['plugin']);
+$__script = 'Plugin:' . $extension;
+
 setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
 
 $path = getPlugin($extension . '.php');
@@ -69,6 +69,5 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $startPO), $fullLog);
 
 sendImage($_GET['class'], 'plugin_' . $extension);
-$optionMutex->unlock();
 exitZP();
 ?>

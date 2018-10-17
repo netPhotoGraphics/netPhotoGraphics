@@ -59,7 +59,7 @@ function saveOptions() {
 	setOption('full_image_quality', sanitize($_POST['fullimagequality'], 3));
 	setOption('cache_full_image', (int) isset($_POST['cache_full_image']));
 	setOption('protect_full_image', sanitize($_POST['protect_full_image'], 3));
-	setOption('imageProcessorConcurrency', $_POST['imageProcessorConcurrency']);
+	setOption('imageProcessorConcurrency', sanitize_numeric($_POST['imageProcessorConcurrency']));
 	$processNotify = processCredentials('protected_image');
 	if ($processNotify) {
 		if ($notify) {

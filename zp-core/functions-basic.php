@@ -831,7 +831,7 @@ class zpMutex {
 			if (is_null($folder)) {
 				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
 			}
-			if ($concurrent) {
+			if ($concurrent > 1) {
 				If ($subLock = self::which_lock($lock, $concurrent, $folder)) {
 					$this->lock = $folder . '/' . $lock . '_' . $subLock;
 				}
@@ -859,6 +859,7 @@ class zpMutex {
 				fflush($f);
 				flock($f, LOCK_UN);
 				fclose($f);
+				$count++;
 			}
 		}
 		return $count;
@@ -1446,7 +1447,7 @@ function getImageProcessorURI($args, $album, $image) {
 	}
 	$args[14] = $z;
 
-	$uri .= '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
+	$uri .='&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
 	$uri = zp_apply_filter('image_processor_uri', $uri, $args, $album, $image);
 

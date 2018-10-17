@@ -10,11 +10,10 @@
  */
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
+register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
 zp_session_start();
-$optionMutex = new zpMutex('oP', $_GET['limit']);
-$optionMutex->lock();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
 
@@ -26,6 +25,8 @@ require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 $fullLog = isset($_GET['fullLog']);
 
 $theme = sanitize($_REQUEST['theme']);
+$__script = 'Theme:' . $theme;
+
 setupLog(sprintf(gettext('Theme:%s setup started'), $theme), $fullLog);
 
 $requirePath = getPlugin('themeoptions.php', $theme);
@@ -50,6 +51,5 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $theme, $last - $startTO), $fullLog);
 
 sendImage($_GET['class'], 'theme_' . $theme);
-$optionMutex->unlock();
 exitZP();
 ?>
