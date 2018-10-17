@@ -230,7 +230,7 @@ function db_close() {
 function db_software() {
 	$dbversion = trim(@mysql_get_server_info());
 	preg_match('/[0-9,\.]*/', $dbversion, $matches);
-	return array('application' => DATABASE_SOFTWARE, 'required' => DATABASE_MIN_VERSION, 'desired' => DATABASE_DESIRED_VERSION, 'version' => $matches[0]);
+	return array('application' => DATABASE_SOFTWARE, 'required' => DATABASE_MIN_VERSION, 'desired' => DATABASE_DESIRED_VERSION, 'version' => $matches[0], 'deprecated' => true);
 }
 
 /**
