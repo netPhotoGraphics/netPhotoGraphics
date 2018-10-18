@@ -31,17 +31,19 @@ function db_connect($config, $errorstop = true) {
 				mysql_close($_zp_DB_connection); //	don't want to leave connections open
 			}
 			$_zp_DB_connection = @mysql_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
-			if ($_zp_DB_connection || ($er = mysql_errno()) != ER_TOO_MANY_USER_CONNECTIONS || $er = ER_CON_COUNT_ERROR) {
+			if ($_zp_DB_connection || !(($er = mysql_errno()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
 				break;
 			}
+			$er .= ':' . mysql_connect_error();
 			sleep(1);
 		}
 	} else {
 		$_zp_DB_connection = NULL;
+		$er = gettext('"extension not loaded"');
 	}
 	if (!$_zp_DB_connection) {
 		if ($errorstop) {
-			zp_error(sprintf(gettext('MySQL Error: netPhotoGraphics received the error %s when connecting to the database server.'), mysql_error()));
+			zp_error(sprintf(gettext('MySQL Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er));
 		}
 		return false;
 	}
@@ -166,6 +168,15 @@ function db_fetch_assoc($resource) {
 		return mysql_fetch_assoc($resource);
 	}
 	return false;
+}
+
+/*
+ * 	returns the error number from the previous operation
+ */
+
+function db_errorno() {
+	global $_zp_DB_connection;
+	return mysql_errno();
 }
 
 /*

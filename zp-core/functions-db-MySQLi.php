@@ -31,17 +31,19 @@ function db_connect($config, $errorstop = true) {
 		}
 		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
 			$_zp_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
-			if ($_zp_DB_connection || ($er = mysqli_connect_errno()) != ER_TOO_MANY_USER_CONNECTIONS || $er = ER_CON_COUNT_ERROR) {
+			if ($_zp_DB_connection || !(($er = mysqli_connect_errno()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
 				break;
 			}
+			$er.=':' . mysqli_connect_error();
 			sleep(1);
 		}
 	} else {
 		$_zp_DB_connection = NULL;
+		$er = gettext('"extension not loaded"');
 	}
 	if (!$_zp_DB_connection) {
 		if ($errorstop) {
-			zp_error(gettext('MySQLi Error: netPhotoGraphics could not instantiate a connection.'));
+			zp_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er));
 		}
 		return false;
 	}
@@ -76,7 +78,7 @@ function db_connect($config, $errorstop = true) {
  * @since 0.6
  */
 function db_query($sql, $errorstop = true) {
-	global $_zp_DB_connection, $_zp_DB_details;
+	global $_zp_DB_connection;
 	if ($_zp_DB_connection) {
 		if (EXPLAIN_SELECTS && strpos($sql, 'SELECT') !== false) {
 			$result = $_zp_DB_connection->query('EXPLAIN ' . $sql);
@@ -183,16 +185,28 @@ function db_fetch_assoc($resource) {
 }
 
 /*
- * Returns the text of the error message from previous operation
+ * 	returns the error number from the previous operation
  */
 
+function db_errorno() {
+	global $_zp_DB_connection;
+	if (is_object($_zp_DB_connection)) {
+		return mysqli_errno($_zp_DB_connection);
+	}
+	return mysqli_connect_errno();
+}
+
+/**
+ * Returns the text of the error message from previous operation
+ */
 function db_error() {
 	global $_zp_DB_connection;
 	if (is_object($_zp_DB_connection)) {
 		return mysqli_error($_zp_DB_connection);
 	}
-	if (!$msg = mysqli_connect_error())
+	if (!$msg = mysqli_connect_error()) {
 		$msg = sprintf(gettext('%s not connected'), DATABASE_SOFTWARE);
+	}
 	return $msg;
 }
 

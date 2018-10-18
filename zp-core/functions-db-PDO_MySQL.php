@@ -40,9 +40,9 @@ function db_connect($config, $errorstop = true) {
 				break;
 			} catch (PDOException $e) {
 				$_zp_DB_last_result = $e;
-				if ($i >= MYSQL_CONNECTION_RETRIES - 1 || ($er = $e->getCode()) != ER_TOO_MANY_USER_CONNECTIONS || $er = ER_CON_COUNT_ERROR) {
+				if ($i >= MYSQL_CONNECTION_RETRIES - 1 || !(($er = $e->getCode()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
 					if ($errorstop) {
-						zp_error(sprintf(gettext('MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $e->getMessage()));
+						zp_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ':' . $e->getMessage()));
 					}
 					$_zp_DB_connection = NULL;
 					return false;
@@ -50,6 +50,8 @@ function db_connect($config, $errorstop = true) {
 				sleep(1);
 			}
 		}
+	} else {
+		zp_error(gettext('PDO_MySQL extension not loaded.'));
 	}
 
 	$_zp_DB_details = $config;
@@ -288,6 +290,18 @@ function db_fetch_assoc($resource) {
 		return $resource->fetch(PDO::FETCH_ASSOC);
 	}
 	return false;
+}
+
+/*
+ * 	returns the error number from the previous operation
+ */
+
+function db_errorno() {
+	global $_zp_DB_connection;
+	if (is_object($_zp_DB_connection)) {
+		return $_zp_DB_last_result->getCode();
+	}
+	return '---';
 }
 
 /*
