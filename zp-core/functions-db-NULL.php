@@ -88,6 +88,14 @@ function db_fetch_assoc($resource) {
 }
 
 /*
+ * 	returns the error number from the previous operation
+ */
+
+function db_errorno() {
+	return gettext('No database');
+}
+
+/*
  * Returns the text of the error message from previous operation
  */
 
