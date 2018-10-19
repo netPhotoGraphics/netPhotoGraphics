@@ -34,7 +34,7 @@ class rewriteTokens {
 			$this->conf_vars = $_zp_conf_vars['special_pages'];
 			$i = strpos($zp_cfg, '/** Do not edit below this line. **/');
 			if ($i === false) {
-				zp_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'));
+				trigger_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 			}
 			$this->zp_cfg_a = substr($zp_cfg, 0, $i);
 			$this->zp_cfg_b = "//\n" . substr($zp_cfg, $i);

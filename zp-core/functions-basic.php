@@ -33,7 +33,7 @@ function loadConfiguration() {
  * @param type $sql
  */
 function dbErrorReport($sql) {
-	zp_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno(), db_error() .': '. E_USER_ERROR);
+	trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
 }
 
 /**
@@ -74,16 +74,6 @@ function getUserID() {
 		$id = $_adminCript->encrypt($id);
 	}
 	return $id;
-}
-
-/**
- * triggers an error
- *
- * @param string $message
- * @param bool $fatal set true to fail the script
- */
-function zp_error($message, $fatal = E_USER_ERROR) {
-	trigger_error($message, $fatal);
 }
 
 /**

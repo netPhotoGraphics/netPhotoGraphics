@@ -547,7 +547,7 @@ value="' . $item . '" />';
 			} else if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
 				$object = $_zp_current_category;
 			} else {
-				zp_error(gettext('There is no defined context, you must pass a comment object.'));
+				trigger_error(gettext('There is no defined context, you must pass a comment object.'), E_USER_ERROR);
 			}
 		}
 
@@ -565,7 +565,7 @@ value="' . $item . '" />';
 		if (isset($detail)) {
 			return get_language_string($object->get($detail['name']));
 		} else {
-			zp_error(gettext('Field not defined.'));
+			trigger_error(gettext('Field not defined.'), E_USER_ERROR);
 		}
 	}
 

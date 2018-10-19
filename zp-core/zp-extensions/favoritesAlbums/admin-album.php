@@ -47,7 +47,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 	}
 	if (!$allow) {
 		if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-			zp_error(gettext("You do not have edit rights on this album."));
+			trigger_error(gettext("You do not have edit rights on this album."), E_USER_ERROR);
 		}
 	}
 
