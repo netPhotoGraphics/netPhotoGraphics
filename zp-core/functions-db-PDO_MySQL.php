@@ -22,7 +22,7 @@ Define('DATABASE_DESIRED_VERSION', '5.6.0');
  * @param bool $errorstop set to false to omit error messages
  * @return true if successful connection
  */
-function db_connect($config, $errorstop = true) {
+function db_connect($config, $errorstop = E_USER_ERROR) {
 	global $_zp_DB_connection, $_zp_DB_details, $_zp_DB_last_result;
 	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
 	$_zp_DB_last_result = NULL;
@@ -42,7 +42,7 @@ function db_connect($config, $errorstop = true) {
 				$_zp_DB_last_result = $e;
 				if ($i >= MYSQL_CONNECTION_RETRIES - 1 || !(($er = $e->getCode()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
 					if ($errorstop) {
-						zp_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ':' . $e->getMessage()));
+						trigger_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ': ' . $e->getMessage()), $errorstop);
 					}
 					$_zp_DB_connection = NULL;
 					return false;
@@ -51,7 +51,7 @@ function db_connect($config, $errorstop = true) {
 			}
 		}
 	} else {
-		zp_error(gettext('PDO_MySQL extension not loaded.'));
+		trigger_error(gettext('PDO_MySQL extension not loaded.'), $errorstop);
 	}
 
 	$_zp_DB_details = $config;
