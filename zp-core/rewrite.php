@@ -108,7 +108,7 @@ function rewriteHandler() {
 							break;
 						}
 					} else {
-						zp_error(sprintf(gettext('Error processing rewrite rule: “%s”'), trim(preg_replace('~^rewriterule~i', '', $rule))), E_USER_WARNING);
+						trigger_error(sprintf(gettext('Error processing rewrite rule: “%s”'), trim(preg_replace('~^rewriterule~i', '', $rule))), E_USER_WARNING);
 					}
 				} else {
 					if (preg_match('~define\s+(.*?)\s*\=\>\s*(.*)$~i', $rule, $matches)) {

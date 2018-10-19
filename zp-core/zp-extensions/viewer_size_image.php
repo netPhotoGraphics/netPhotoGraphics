@@ -105,7 +105,7 @@ function printUserSizeSelector($text = '', $default = NULL, $usersizes = NULL) {
 					$size = str_replace(',', ';', $size) . ';';
 					$s = $w = $h = NULL;
 					if (false === eval($size)) {
-						zp_error(gettext('There is a format error in your <em>viewer_size_image_sizes</em> option string.'), E_USER_NOTICE);
+						trigger_error(gettext('There is a format error in your <em>viewer_size_image_sizes</em> option string.'), E_USER_NOTICE);
 					}
 					if (!empty($s)) {
 						$key = $s;
@@ -122,7 +122,7 @@ function printUserSizeSelector($text = '', $default = NULL, $usersizes = NULL) {
 				$size = str_replace(',', ';', $size) . ';';
 				$s = $w = $h = NULL;
 				if (false === eval($size)) {
-					zp_error(gettext('There is a format error in your $usersizes string.'), E_USER_NOTICE);
+					trigger_error(gettext('There is a format error in your $usersizes string.'), E_USER_NOTICE);
 				}
 				if (!empty($s)) {
 					$key = $s;
@@ -268,7 +268,7 @@ function getViewerImageSize($default, &$size, &$width, &$height) {
 		}
 	}
 	if (empty($size) && empty($width) && empty($height)) {
-		zp_error($msg, E_USER_NOTICE);
+		trigger_error($msg, E_USER_NOTICE);
 	}
 }
 

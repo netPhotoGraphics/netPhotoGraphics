@@ -24,7 +24,7 @@ function updateConfigItem($item, $value, $zp_cfg, $quote = true) {
 		if (isset($parts[1])) {
 			$zp_cfg = $parts[0] . "\$conf['" . $item . "'] = " . $value . ";\n/** Do not edit below this line. **/" . $parts[1];
 		} else {
-			zp_error(gettext('The configuration file is corrupt. You will need to restore it from a backup.'));
+			trigger_error(gettext('The configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 		}
 	} else {
 		$i = strpos($zp_cfg, '=', $i);

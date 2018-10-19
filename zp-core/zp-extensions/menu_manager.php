@@ -922,7 +922,7 @@ function createMenuIfNotExists($menuitems, $menuset = 'default') {
 		$success = 0;
 	}
 	if ($success < 0) {
-		zp_error(gettext('createMenuIfNotExists has posted processing errors to your debug log.'), E_USER_NOTICE);
+		trigger_error(gettext('createMenuIfNotExists has posted processing errors to your debug log.'), E_USER_NOTICE);
 	}
 	return $success;
 }

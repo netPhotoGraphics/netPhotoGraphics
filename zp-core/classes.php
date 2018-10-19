@@ -340,7 +340,7 @@ class PersistentObject {
 		if ($this->transient)
 			return false; // If this object isn't supposed to be persisted, don't save it.
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
-			zp_error('empty $this->unique set is empty');
+			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
 			return false;
 		}
 		if (!zp_apply_filter('save_object', true, $this)) {

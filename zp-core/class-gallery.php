@@ -306,7 +306,7 @@ class Gallery {
 			} else {
 				$msg = sprintf(gettext('Error: The “albums” directory (%s) is not readable.'), $this->albumdir);
 			}
-			zp_error($msg);
+			trigger_error($msg, E_USER_ERROR);
 		}
 		$albums = array();
 

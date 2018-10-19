@@ -22,7 +22,7 @@ define('DATABASE_DESIRED_VERSION', '5.6.0');
  * @param bool $errorstop set to false to omit error messages
  * @return true if successful connection
  */
-function db_connect($config, $errorstop = true) {
+function db_connect($config, $errorstop = E_USER_ERROR) {
 	global $_zp_DB_connection, $_zp_DB_details;
 	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
 	if (function_exists('mysqli_connect')) {
@@ -34,7 +34,7 @@ function db_connect($config, $errorstop = true) {
 			if ($_zp_DB_connection || !(($er = mysqli_connect_errno()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
 				break;
 			}
-			$er.=':' . mysqli_connect_error();
+			$er .= ': ' . mysqli_connect_error();
 			sleep(1);
 		}
 	} else {
@@ -43,14 +43,14 @@ function db_connect($config, $errorstop = true) {
 	}
 	if (!$_zp_DB_connection) {
 		if ($errorstop) {
-			zp_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er));
+			trigger_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er), $errorstop);
 		}
 		return false;
 	}
 	$_zp_DB_details['mysql_host'] = $config['mysql_host'];
 	if (!$_zp_DB_connection->select_db($config['mysql_database'])) {
 		if ($errorstop) {
-			zp_error(sprintf(gettext('MySQLi Error: MySQLi returned the error %1$s when netPhotoGraphics tried to select the database %2$s.'), $_zp_DB_connection->error, $config['mysql_database']));
+			trigger_error(sprintf(gettext('MySQLi Error: MySQLi returned the error %1$s when netPhotoGraphics tried to select the database %2$s.'), $_zp_DB_connection->error, $config['mysql_database']), $errorstop);
 		}
 		return false;
 	}
