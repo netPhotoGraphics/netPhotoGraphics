@@ -31,10 +31,11 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		}
 		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
 			$_zp_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
-			if ($_zp_DB_connection || !(($er = mysqli_connect_errno()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
+			$e = mysqli_connect_errno();
+			$er = $e . ': ' . mysqli_connect_error();
+			if ($_zp_DB_connection || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
 				break;
 			}
-			$er .= ': ' . mysqli_connect_error();
 			sleep(1);
 		}
 	} else {

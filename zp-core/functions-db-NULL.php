@@ -100,7 +100,7 @@ function db_errorno() {
  */
 
 function db_error() {
-	return gettext('No supported PHP database extensions are enabled.');
+	return gettext('No databases are configured.');
 }
 
 /*
