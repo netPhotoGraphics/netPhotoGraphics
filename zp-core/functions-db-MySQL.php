@@ -26,15 +26,17 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 	global $_zp_DB_connection, $_zp_DB_details;
 	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
 	if (function_exists('mysql_connect')) {
+		if (!empty($_zp_DB_connection)) {
+			mysql_close($_zp_DB_connection); //	don't want to leave connections open
+		}
 		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
-			if (!empty($_zp_DB_connection)) {
-				mysql_close($_zp_DB_connection); //	don't want to leave connections open
-			}
 			$_zp_DB_connection = @mysql_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
-			if ($_zp_DB_connection || !(($er = mysql_errno()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
+			$e = mysqli_connect_errno();
+			$er = $e . ': ' . mysqli_connect_error();
+
+			if ($_zp_DB_connection || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
 				break;
 			}
-			$er .= ':' . mysql_connect_error();
 			sleep(1);
 		}
 	} else {
