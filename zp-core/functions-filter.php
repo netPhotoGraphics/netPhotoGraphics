@@ -33,12 +33,13 @@ $_zp_filters = array();
  *
  * 		zp_register_filter('some_hook', 'function_handler_for_hook');
  *
- * global array $_zp_filters Storage for all of the filters
+ * @global array $_zp_filters Storage for all of the filters
  * @param string $hook the name of the element to be filtered
  * @param callback $function_name the name of the function that is to be called.
- * @param integer $priority optional. Used to specify the order in which the functions associated with a particular
- * 																		action are executed (default=5, higher=earlier execution, and functions with
- * 																		the same priority are executed in the order in which they were added to the filter)
+ * @param integer $priority optional. Used to specify the order in which the
+ * 				functions associated with a particular action are executed (default=5,
+ * 				higher=earlier execution, and functions with the same priority are
+ * 				executed in the order in which they were added to the filter)
  */
 function zp_register_filter($hook, $function_name, $priority = NULL) {
 	global $_zp_filters, $_EnabledPlugins;

@@ -305,7 +305,7 @@ class Page extends CMSItems {
 		}
 
 		if (zp_loggedin($action)) {
-			if (GALLERY_SECURITY == 'public' && $this->getShow() && $action == LIST_RIGHTS) {
+			if ($this->getShow() && $action == LIST_RIGHTS) {
 				return LIST_RIGHTS;
 			}
 			$subRights = $this->subRights();
