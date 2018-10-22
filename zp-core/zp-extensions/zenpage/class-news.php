@@ -259,8 +259,7 @@ class Article extends CMSItems {
 			return true; //	he is the author
 		}
 		if (zp_loggedin($action)) {
-
-			if (GALLERY_SECURITY == 'public' && $this->getShow() && $action == LIST_RIGHTS) {
+			if ($this->getShow() && $action == LIST_RIGHTS) {
 				return LIST_RIGHTS;
 			}
 			$myObjects = $_zp_current_admin_obj->getObjects('news_categories', true);

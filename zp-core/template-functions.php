@@ -4195,7 +4195,7 @@ function checkAccess(&$hint = NULL, &$show = NULL) {
 	global $_zp_current_album, $_zp_current_search, $_zp_gallery, $_zp_gallery_page,
 	$_zp_current_page, $_zp_current_article;
 	if (GALLERY_SECURITY != 'public') // only registered users allowed
-		$show = true; //	therefore they will need to supply their user id is something fails below
+		$show = true; //	therefore they will need to supply their user id if something fails below
 	if ($_zp_gallery->isUnprotectedPage(stripSuffix($_zp_gallery_page)))
 		return true;
 	if (zp_loggedin()) {

@@ -1871,7 +1871,7 @@ function getPageContent($titlelink = NULL, $published = true) {
 	} else {
 		$page = newPage($titlelink);
 	}
-	if ($page && (!$published || $page->checkAccess())) {
+	if ($page && (!$published || $page->getShow() || $page->isMyItem(LIST_RIGHTS))) {
 		return $page->getContent();
 	}
 	return false;
