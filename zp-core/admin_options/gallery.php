@@ -17,7 +17,7 @@ function saveOptions() {
 	$_zp_gallery->setDesc(process_language_string_save('Gallery_description', EDITOR_SANITIZE_LEVEL));
 	$_zp_gallery->setWebsiteTitle(process_language_string_save('website_title', 2));
 	$_zp_gallery->setLogonWelcome(process_language_string_save('logon_welcome', EDITOR_SANITIZE_LEVEL));
-	$_zp_gallery->setSiteLogo(sanitize($_POST['sitelogoimage']));
+	$_zp_gallery->setSiteLogo(sanitize_path($_POST['sitelogoimage']));
 	$_zp_gallery->setSiteLogoTitle(process_language_string_save('sitelogotitle', EDITOR_SANITIZE_LEVEL));
 	$web = sanitize($_POST['website_url'], 3);
 	$_zp_gallery->setWebsiteURL($web);
@@ -104,7 +104,7 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Branding logo"); ?></td>
 					<td class="option_value">
-						<input type="text" style="width:100%;" name="sitelogoimage" value="<?php echo $sitelogo = $_zp_gallery->getSiteLogo(); ?>"   onchange="$('#sitelogotitle').show();"/>
+						<input type="text" style="width:100%;" name="sitelogoimage" value="<?php echo $sitelogo = ltrim(str_replace(WEBPATH, '', $_zp_gallery->getSiteLogo()), '/'); ?>"   onchange="$('#sitelogotitle').show();"/>
 						<?php
 						if ($sitelogo && !file_exists(SERVERPATH . '/' . $sitelogo)) {
 							?>
