@@ -36,5 +36,5 @@ if (isset($_GET['code'])) {
 }
 session_unset();
 header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($error));
-exitZP();
+exit();
 ?>

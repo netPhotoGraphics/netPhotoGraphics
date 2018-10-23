@@ -19,7 +19,7 @@ if (isset($_GET['page'])) {
 	$link = $zenphoto_tabs['upload']['link'];
 	if (strpos($link, 'admin-upload.php') == false) {
 		header('location: ' . $link);
-		exitZP();
+		exit();
 	}
 	$page = "upload";
 	$_GET['page'] = 'upload';
@@ -37,7 +37,7 @@ if (!zp_loggedin(UPLOAD_RIGHTS) || empty($handlers)) {
 	//	redirect to the files page if present
 	if (isset($zenphoto_tabs['upload']['subtabs'])) {
 		header('location: ' . array_shift($zenphoto_tabs['upload']['subtabs']));
-		exitZP();
+		exit();
 	}
 	$handlers = array();
 }
@@ -50,7 +50,7 @@ if (count($handlers) > 0) {
 } else {
 
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/no_uploader.php');
-	exitZP();
+	exit();
 }
 printAdminHeader('upload', 'albums');
 

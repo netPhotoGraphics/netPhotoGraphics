@@ -69,5 +69,5 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $startPO), $fullLog);
 
 sendImage($_GET['class'], 'plugin_' . $extension);
-exitZP();
+exit();
 ?>

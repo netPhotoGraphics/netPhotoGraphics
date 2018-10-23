@@ -42,7 +42,7 @@ if (isset($_GET['album'])) {
 		if (!$allow) {
 			if (isset($_GET['uploaded'])) { // it was an upload to an album which we cannot edit->return to sender
 				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?uploaded=1');
-				exitZP();
+				exit();
 			}
 		}
 	} else {
@@ -55,7 +55,7 @@ $showDefaultThumbs = getSerializedArray(getOption('album_tab_showDefaultThumbs')
 
 if (!zp_apply_filter('admin_managed_albums_access', $allow, $return)) {
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return);
-	exitZP();
+	exit();
 }
 $tagsort = 'alpha';
 $mcr_errors = array();
@@ -83,7 +83,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return);
-			exitZP();
+			exit();
 		/** reorder the tag list ***************************************************** */
 		/*		 * *************************************************************************** */
 		case 'savealbumorder':
@@ -110,7 +110,7 @@ if (isset($_GET['action'])) {
 			}
 
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $notify);
-			exitZP();
+			exit();
 			break;
 		case 'savesubalbumorder':
 			XSRFdefender('savealbumorder');
@@ -137,7 +137,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $folder . '&tab=subalbuminfo' . $notify);
-			exitZP();
+			exit();
 			break;
 		case 'sorttags':
 			if (isset($_GET['subpage'])) {
@@ -148,7 +148,7 @@ if (isset($_GET['action'])) {
 				$tab = '';
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $folder . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
-			exitZP();
+			exit();
 			break;
 
 		/** clear the cache ********************************************************** */
@@ -162,7 +162,7 @@ if (isset($_GET['action'])) {
 			}
 			Gallery::clearCache($album);
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&cleared&album=' . $album);
-			exitZP();
+			exit();
 			break;
 		case 'comments':
 			XSRFdefender('albumedit');
@@ -177,7 +177,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return);
-			exitZP();
+			exit();
 			break;
 
 		/** Publish album  *********************************************************** */
@@ -195,7 +195,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return);
-			exitZP();
+			exit();
 			break;
 
 		/** Reset hitcounters ********************************************************** */
@@ -215,7 +215,7 @@ if (isset($_GET['action'])) {
 			query("UPDATE " . prefix('albums') . " SET `hitcounter`= 0" . $where);
 			query("UPDATE " . prefix('images') . " SET `hitcounter`= 0" . $imgwhere);
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return . '&counters_reset');
-			exitZP();
+			exit();
 			break;
 
 //** DELETEIMAGE **************************************************************/
@@ -232,7 +232,7 @@ if (isset($_GET['action'])) {
 				$nd = 2;
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . pathurlencode($albumname) . '&ndeleted=' . $nd);
-			exitZP();
+			exit();
 			break;
 
 		/** REFRESH IMAGE METADATA */
@@ -254,7 +254,7 @@ if (isset($_GET['action'])) {
 				$return .= '&singleimage=' . sanitize($_REQUEST['singleimage']);
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php' . $return);
-			exitZP();
+			exit();
 			break;
 
 		/**
@@ -290,7 +290,7 @@ if (isset($_GET['action'])) {
 				$filter = '&filter=' . $filter;
 
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $albumname . $pg . '&tagsort=' . $tagsort . '&tab=imageinfo' . $filter);
-			exitZP();
+			exit();
 			break;
 
 		case "gallery_sortorder":
@@ -310,7 +310,7 @@ if (isset($_GET['action'])) {
 				$_zp_gallery->save();
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit');
-			exitZP();
+			exit();
 			break;
 
 		case "subalbum_sortorder":
@@ -331,7 +331,7 @@ if (isset($_GET['action'])) {
 			}
 			$albumname = sanitize_path($_REQUEST['album']);
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $albumname . '&tab=subalbuminfo');
-			exitZP();
+			exit();
 			break;
 
 		/** SAVE ********************************************************************* */
@@ -503,10 +503,10 @@ if (isset($_GET['action'])) {
 					$link = $album->getLink();
 				}
 				header('Location: ' . $link);
-				exitZP();
+				exit();
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
-			exitZP();
+			exit();
 			break;
 
 		/** DELETION ***************************************************************** */
@@ -535,7 +535,7 @@ if (isset($_GET['action'])) {
 			}
 
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit" . $albumdir . "&ndeleted=" . $nd);
-			exitZP();
+			exit();
 			break;
 		case 'newalbum':
 			XSRFdefender('newalbum');
@@ -563,7 +563,7 @@ if (isset($_GET['action'])) {
 					$tab = '&tab=albuminfo';
 				}
 				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit$albumdir&exists=" . urlencode($name) . $tab);
-				exitZP();
+				exit();
 			} else {
 				mkdir_recursive($uploaddir, FOLDER_MOD);
 			}
@@ -574,7 +574,7 @@ if (isset($_GET['action'])) {
 				$album->setTitle($name);
 				$album->save();
 				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit" . "&album=" . pathurlencode($folder));
-				exitZP();
+				exit();
 			} else {
 				$AlbumDirName = str_replace(SERVERPATH, '', $_zp_gallery->albumdir);
 				$errorbox[] = gettext("The album couldn’t be created in the “albums” folder. This is usually a permissions problem. Try setting the permissions on the albums and cache folders to be world-writable using a shell:") . " <code>chmod 777 " . $AlbumDirName . '/' . CACHEFOLDER . '/' . "</code>, "

@@ -20,7 +20,7 @@ if (isset($_GET['licenseAccept'])) {
 	}
 	setOption('license_accepted', ZENPHOTO_VERSION);
 	header('Location: ' . $return_to);
-	exitZP();
+	exit();
 }
 
 printAdminHeader('license');
@@ -63,5 +63,5 @@ echo "\n</head>";
 </body>
 </html>
 <?php
-exitZP();
+exit();
 ?>

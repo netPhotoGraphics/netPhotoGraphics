@@ -2002,11 +2002,3 @@ function installSignature() {
 					)
 	);
 }
-
-/**
- *
- * Call when terminating a script.
- */
-function exitZP() {
-	exit();
-}

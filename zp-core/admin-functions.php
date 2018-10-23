@@ -4931,7 +4931,7 @@ function admin_securityChecks($rights, $return) {
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Location: ' . $redirect);
-		exitZP();
+		exit();
 	}
 }
 
@@ -4948,7 +4948,7 @@ function XSRFdefender($action, $modifier = NULL) {
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&error&msg=' . sprintf(gettext('“%s” Cross Site Request Forgery blocked.'), $action));
-		exitZP();
+		exit();
 	}
 	unset($_REQUEST['XSRFToken']);
 	unset($_POST['XSRFToken']);

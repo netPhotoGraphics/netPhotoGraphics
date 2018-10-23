@@ -55,11 +55,11 @@ if (isset($_GET['action'])) {
 					zp_apply_filter('admin_log_actions', true, $file, $action); // have to record the fact
 				}
 				header('location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-logs.php');
-				exitZP();
+				exit();
 			case 'download_log':
 				XSRFdefender($action, $what);
 				putZip($what . '.zip', $file);
-				exitZP();
+				exit();
 		}
 	}
 }

@@ -169,7 +169,7 @@ class static_html_cache {
 						list($usec, $sec) = explode(' ', microtime());
 						$end = (float) $usec + (float) $sec;
 						echo "<!-- " . sprintf(gettext('Cached content of %3$s served by static_html_cache in %1$.4f seconds plus %2$.4f seconds unavoidable overhead.'), $end - $start_cache, $start_cache - $start, date('D, d M Y H:i:s', filemtime($cachefilepath))) . " -->\n";
-						exitZP();
+						exit();
 					}
 					$this->deletestatic_html_cacheFile($cachefilepath);
 				}

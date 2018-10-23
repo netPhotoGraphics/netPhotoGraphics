@@ -394,7 +394,7 @@ class ipBlocker {
 			sleep(30);
 			header("HTTP/1.0 403 " . gettext("Forbidden"));
 			header("Status: 403 " . gettext("Forbidden"));
-			exitZP(); //	terminate the script with no output
+			exit(); //	terminate the script with no output
 		}
 	}
 

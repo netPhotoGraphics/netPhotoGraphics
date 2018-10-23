@@ -22,7 +22,7 @@ echo "\n</head>";
 </body>
 <?php
 echo "\n</html>";
-exitZP();
+exit();
 
 function removeAltHandlers($list) {
 	return array();

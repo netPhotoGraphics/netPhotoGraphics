@@ -40,7 +40,7 @@ if (getOption('hotlink_protection') && isset($_SERVER['HTTP_REFERER'])) {
 	if (preg_replace('/^www./', '', strtolower($_SERVER['SERVER_NAME'])) != $checkstring) {
 		/* It seems they are directly requesting the full image. */
 		header('Location: ' . FULLWEBPATH . '/index.php?album=' . $album8 . '&image=' . $image8);
-		exitZP();
+		exit();
 	}
 }
 
@@ -120,7 +120,7 @@ if (($hash || !$albumobj->checkAccess()) && !zp_loggedin(VIEW_FULLIMAGE_RIGHTS))
 		header("Status: 302 Found");
 		header('Last-Modified: ' . ZP_LAST_MODIFIED);
 		include(internalToFilesystem($_zp_script));
-		exitZP();
+		exit();
 	}
 }
 
@@ -155,7 +155,7 @@ switch ($suffix) {
 		} else {
 			header('Location: ' . $imageobj->getFullImageURL(), true, 301);
 		}
-		exitZP();
+		exit();
 }
 if ($force_cache = getOption('cache_full_image')) {
 	$cache_file = getImageCacheFilename($album, $image, $args);
@@ -192,7 +192,7 @@ if (!($process || $force_cache)) { // no processing needed
 		} else {
 			header("Location: " . getAlbumFolder(FULLWEBPATH) . pathurlencode($album) . "/" . rawurlencode($image));
 		}
-		exitZP();
+		exit();
 	} else { // the web server does not have access to the image, have to supply it
 		$fp = fopen($image_path, 'rb');
 		// send the right headers
@@ -205,7 +205,7 @@ if (!($process || $force_cache)) { // no processing needed
 		// dump the picture and stop the script
 		fpassthru($fp);
 		fclose($fp);
-		exitZP();
+		exit();
 	}
 }
 
@@ -287,7 +287,7 @@ if (!is_null($cache_path)) {
 	} else {
 		header('Location: ' . FULLWEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cache_file)), true, 301);
 	}
-	exitZP();
+	exit();
 }
 ?>
 

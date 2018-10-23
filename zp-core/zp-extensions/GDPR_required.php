@@ -121,7 +121,7 @@ class GDPR_required {
 					header("HTTP/1.0 307 Found");
 					header("Status: 307 Found");
 					header('Location: ' . $link);
-					exitZP();
+					exit();
 				}
 			}
 		}

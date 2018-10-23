@@ -994,5 +994,5 @@ if (OFFSET_PATH === 0 && isset($_GET['sitemap']) && $_zp_gallery_page == 'index.
 		$sitemapfile = file_get_contents($sitemappath);
 		echo $sitemapfile;
 	}
-	exitZP();
+	exit();
 }

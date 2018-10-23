@@ -169,7 +169,7 @@ if (OFFSET_PATH) {
 			if (@$recentIP[$ip]['blocked']) {
 				file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', serialize($recentIP));
 				$mu->unlock();
-				exitZP();
+				exit();
 			} else {
 				$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
 				$__locale = getUserLocale();

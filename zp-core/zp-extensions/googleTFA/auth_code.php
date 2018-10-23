@@ -25,7 +25,7 @@ if (isset($_SESSION['OTA'])) {
 				if (googleTFA::checkCache(crypt($secret . "|" . $code, md5($code)))) {
 					_Authority::logUser($userobj);
 					header('Location: ' . $link);
-					exitZP();
+					exit();
 				}
 			}
 			$_SESSION['OTA'] = array('user' => $user, 'redirect' => $link); //	restore for the next attempt
@@ -73,6 +73,6 @@ if (isset($_SESSION['OTA'])) {
 		</body>
 		<?php
 		echo "\n</html>";
-		exitZP();
+		exit();
 	}
 }

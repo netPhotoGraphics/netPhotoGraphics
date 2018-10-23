@@ -183,7 +183,7 @@ function deleteZenpageObj($obj, $redirect = false) {
 				$redirect .= '?deleted';
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/' . $redirect);
-			exitZP();
+			exit();
 		}
 		switch ($obj->table) {
 			case 'pages':

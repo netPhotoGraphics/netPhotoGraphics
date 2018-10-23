@@ -59,7 +59,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 }
 
 header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?report=' . $report);
-exitZP();
+exit();
 
 /**
  * updates the site status

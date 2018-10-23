@@ -13,7 +13,7 @@ if (isset($_POST['auth'])) {
 	$_zp_loggedin = $_zp_authority->checkAuthorization($hash, $id);
 } else {
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&type=images&uploaded=1');
-	exitZP();
+	exit();
 }
 
 admin_securityChecks(UPLOAD_RIGHTS, $return = currentRelativeURL());
@@ -127,7 +127,7 @@ if (isset($_POST['processed'])) {
 				} else {
 					header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&type=images&uploaded=1');
 				}
-				exitZP();
+				exit();
 			}
 		}
 	}
@@ -163,5 +163,5 @@ if (!isset($_POST['processed'])) {
 	}
 }
 header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?error=' . $errormsg);
-exitZP();
+exit();
 ?>

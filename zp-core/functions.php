@@ -1050,7 +1050,7 @@ function setupTheme($album = NULL) {
 		</body>
 		</html>
 		<?php
-		exitZP();
+		exit();
 	} else {
 		loadLocalOptions($id, $theme);
 		$_zp_themeroot = WEBPATH . "/" . THEMEFOLDER . "/$theme";
@@ -1390,7 +1390,7 @@ function printSiteLogoImage($title = NULL) {
 	if ($logo == ZENFOLDER . '/images/admin-logo.png') {
 		$sizing = 'height="78" width="282"';
 	} else {
-		list($width, $height) = getimagesize(str_replace(WEBPATH, SERVERPATH, $logo));
+		list($width, $height) = getimagesize(SERVERPATH . '/' . ltrim(str_replace(WEBPATH, '', $logo), '/'));
 		$new_width = round(78 * $width / $height);
 		$sizing = 'height="78" width="' . $new_width . '"';
 	}
@@ -1960,7 +1960,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 					$redirect_to = sanitizeRedirect($_POST['redirect']);
 					if (!empty($redirect_to)) {
 						header("Location: " . $redirect_to);
-						exitZP();
+						exit();
 					}
 				}
 			} else {
@@ -2282,7 +2282,7 @@ function httpsRedirect() {
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
-			exitZP();
+			exit();
 		}
 	}
 }

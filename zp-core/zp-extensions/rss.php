@@ -755,7 +755,7 @@ function executeRSS() {
 	$_zp_gallery_page = 'rss.php';
 	$rss = new RSS(sanitize($_GET));
 	$rss->printFeed();
-	exitZP();
+	exit();
 }
 
 // RSS feed calls before anything else

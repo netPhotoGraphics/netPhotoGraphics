@@ -45,7 +45,7 @@ if (empty($needs)) {
 			</body>
 			<?php
 			echo "\n</html>";
-			exitZP();
+			exit();
 		}
 		?>
 		<body>
@@ -74,4 +74,4 @@ if (empty($needs)) {
 	</html>
 	<?php
 }
-exitZP();
+exit();

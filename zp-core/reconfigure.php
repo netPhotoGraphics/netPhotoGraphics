@@ -45,7 +45,7 @@ function reconfigureAction($mandatory) {
 			}
 			$location = $protocol . '://' . $_SERVER['HTTP_HOST'] . $dir . "/" . ZENFOLDER . "/setup/index.php?autorun=$where";
 			header("Location: $location");
-			exitZP();
+			exit();
 		} else {
 			// because we are loading the script from within a function!
 			global $subtabs, $zenphoto_tabs, $_zp_admin_tab, $_zp_invisible_execute, $_zp_gallery;
@@ -75,7 +75,7 @@ function reconfigureAction($mandatory) {
 			</body>
 			</html>
 			<?php
-			exitZP();
+			exit();
 		}
 	} else if (!empty($diff)) {
 		if (function_exists('zp_register_filter') && zp_loggedin(ADMIN_RIGHTS)) {

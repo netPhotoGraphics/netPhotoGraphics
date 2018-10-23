@@ -21,7 +21,7 @@ if (zp_loggedin() && !empty($zenphoto_tabs)) {
 		$tab = array_shift($zenphoto_tabs);
 		$link = $tab['link'];
 		header('location:' . $link);
-		exitZP();
+		exit();
 	}
 } else {
 	if (isset($_GET['from'])) {
@@ -225,7 +225,7 @@ if (!zp_loggedin()) {
 	</body>
 	<?php
 	echo "\n</html>";
-	exitZP();
+	exit();
 }
 $buttonlist = array();
 ?>
@@ -598,4 +598,4 @@ $buttonlist = array();
 <?php
 // to fool the validator
 echo "\n</html>";
-exitZP();
+exit();

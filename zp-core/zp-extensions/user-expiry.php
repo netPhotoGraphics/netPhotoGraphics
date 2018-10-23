@@ -261,12 +261,12 @@ class user_expiry {
 
 				Zenphoto_Authority::logUser($userobj);
 				header("Location: " . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
-				exitZP();
+				exit();
 			}
 		}
 		if (user_expiry::checkPasswordRenew()) {
 			header("Location: " . FULLWEBPATH . '/' . ZENFOLDER . '/admin-users.php?page=admin&tab=users');
-			exitZP();
+			exit();
 		}
 		return $path;
 	}

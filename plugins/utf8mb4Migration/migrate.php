@@ -77,4 +77,4 @@ $_configMutex->unlock();
 
 
 header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&msg=' . gettext('utf8mb4 migration completed.'));
-exitZP();
+exit();

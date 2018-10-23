@@ -51,7 +51,8 @@ $legacyReplacements = array(
 		'addDefaultThumbSize\(.*?\)' => '/*addDefaultThumbSize removed*/',
 		'addThemeDefaultThumbSize\(.*?\)' => '/*addThemeDefaultThumbSize removed*/',
 		'addDefaultSizedImageSize\(.*?\)' => '/*addDefaultSizedImageSize removed*/',
-		'addThemeDefaultSizedImageSize\(.*?\)' => 'addThemeDefaultSizedImageSize/*addThemeDefaultSizedImageSize removed*/'
+		'addThemeDefaultSizedImageSize\(.*?\)' => 'addThemeDefaultSizedImageSize/*addThemeDefaultSizedImageSize removed*/',
+		'exitZP\(\)' => 'exit()'
 );
 
 /**

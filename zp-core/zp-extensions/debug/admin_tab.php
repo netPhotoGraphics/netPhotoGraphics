@@ -16,7 +16,7 @@ if (isset($_POST['delete_cookie'])) {
 		zp_clearCookie(postIndexDecode($cookie));
 	}
 	header('location: ?page=develpment&tab=cookie');
-	exitZP();
+	exit();
 }
 
 $subtab = getCurrentTab();

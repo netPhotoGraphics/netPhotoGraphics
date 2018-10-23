@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
 			zp_apply_filter('comment_disapprove', $comment);
 			$comment->save();
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
-			exitZP();
+			exit();
 
 		case "notspam":
 			XSRFdefender('comment_update');
@@ -45,7 +45,7 @@ if (isset($_GET['action'])) {
 			zp_apply_filter('comment_approve', $comment);
 			$comment->save();
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
-			exitZP();
+			exit();
 
 		case 'applycomments':
 			XSRFdefender('applycomments');
@@ -55,19 +55,19 @@ if (isset($_GET['action'])) {
 			} else {
 				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?saved');
 			}
-			exitZP();
+			exit();
 		case 'deletecomment':
 			XSRFdefender('deletecomment');
 			$id = sanitize_numeric($_GET['id']);
 			$comment = new Comment($id);
 			$comment->remove();
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?ndeleted=1');
-			exitZP();
+			exit();
 
 		case 'savecomment':
 			if (!isset($_POST['id'])) {
 				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
-				exitZP();
+				exit();
 			}
 			XSRFdefender('savecomment');
 			$id = sanitize_numeric($_POST['id']);
@@ -83,7 +83,7 @@ if (isset($_GET['action'])) {
 			$comment->setAddressData($_comment_form_save_post = serialize(getCommentAddress(0)));
 			$comment->save();
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?saved&page=editcomment&id=' . $comment->getID());
-			exitZP();
+			exit();
 	}
 }
 

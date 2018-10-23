@@ -203,7 +203,7 @@ class tinyURL {
 							header("HTTP/1.0 301 Moved Permanently");
 							header("Status: 301 Moved Permanently");
 							header('Location: ' . FULLWEBPATH . '/' . $redirect);
-							exitZP();
+							exit();
 							break;
 					}
 				}

@@ -89,7 +89,7 @@ if (isset($_GET['action'])) {
 		}
 
 		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-plugins.php?page=plugins&tab=" . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
-		exitZP();
+		exit();
 	}
 }
 $saved = isset($_GET['saved']);

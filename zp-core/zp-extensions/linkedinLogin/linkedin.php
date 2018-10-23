@@ -60,13 +60,13 @@ if (($success = $client->Initialize())) {
 	$success = $client->Finalize($success);
 }
 if ($client->exit) {
-	exitZP();
+	exit();
 }
 if ($success) {
 	linkedinLogin::credentials($user->id, $user->emailAddress, $user->firstName . ' ' . $user->lastName, $_SESSION['redirect']);
 } else {
 	session_unset();
 	header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($client->error));
-	exitZP();
+	exit();
 }
 ?>

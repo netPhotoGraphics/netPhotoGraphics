@@ -173,7 +173,7 @@ function fix_path_redirect() {
 					header("HTTP/1.0 301 Moved Permanently");
 					header("Status: 301 Moved Permanently");
 					header('Location: ' . FULLWEBPATH . '/' . preg_replace('~^' . WEBPATH . '/~', '', $redirectURL));
-					exitZP();
+					exit();
 				}
 			}
 		}
@@ -192,7 +192,7 @@ function fix_suffix_redirect($tofix, $toadd = RW_SUFFIX) {
 	header("HTTP/1.0 301 Moved Permanently");
 	header("Status: 301 Moved Permanently");
 	header('Location: ' . FULLWEBPATH . '/' . preg_replace('~^' . WEBPATH . '/~', '', $redirectURL));
-	exitZP();
+	exit();
 }
 
 /**

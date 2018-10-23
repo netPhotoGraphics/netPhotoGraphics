@@ -133,4 +133,12 @@ function filterImageQuery($result, $source, $limit = 1, $photo = true) {
 	return NULL;
 }
 
+/**
+ * @deprecated since version 1.8.1
+ */
+function exitZP() {
+	deprecated_functions::notify(gettext('Use exit()'));
+	exit();
+}
+
 ?>

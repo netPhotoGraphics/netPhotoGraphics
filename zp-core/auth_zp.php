@@ -54,7 +54,7 @@ if (isset($_POST['login'])) { //	Handle the login form.
 			$redirect = sanitizeRedirect($_POST['redirect']);
 			if (!empty($redirect)) {
 				header("Location: " . $redirect);
-				exitZP();
+				exit();
 			}
 		}
 	}
@@ -125,6 +125,6 @@ if (isset($_REQUEST['logout'])) {
 	$location = $rd_protocol . "://" . $_SERVER['HTTP_HOST'] . WEBPATH . '/index.php' . $redirect;
 	$location = Zenphoto_Authority::handleLogout($location);
 	header("Location: " . $location);
-	exitZP();
+	exit();
 }
 ?>

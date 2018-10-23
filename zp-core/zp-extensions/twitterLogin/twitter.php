@@ -69,6 +69,6 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['token'] == $_REQUEST['oauth_to
 
 	session_unset();
 	header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($error));
-	exitZP();
+	exit();
 }
 ?>

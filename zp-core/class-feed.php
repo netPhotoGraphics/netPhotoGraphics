@@ -123,7 +123,7 @@ class feed {
 			$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . internalToFilesystem($this->getCacheFilename());
 			if (file_exists($cachefilepath) AND time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
 				echo file_get_contents($cachefilepath);
-				exitZP();
+				exit();
 			} else {
 				if (file_exists($cachefilepath)) {
 					@chmod($cachefilepath, 0777);
@@ -592,7 +592,7 @@ class feed {
 
 	static protected function feed404() {
 		include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
-		exitZP();
+		exit();
 	}
 
 }

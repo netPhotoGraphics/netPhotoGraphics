@@ -14,7 +14,7 @@ admin_securityChecks(THEMES_RIGHTS, currentRelativeURL());
 
 if (!isset($_GET['theme'])) {
 	header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-themes.php");
-	exitZP();
+	exit();
 }
 
 $ok_extensions = array('css', 'php', 'js', 'txt', 'inc');

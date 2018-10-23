@@ -27,7 +27,7 @@ if (isset($_REQUEST['singleimage'])) {
 if (!$albumobj->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : '');
-		exitZP();
+		exit();
 	}
 }
 
@@ -167,7 +167,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	if ($singleimage)
 		$return .= '&singleimage=' . html_encode($singleimage);
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . $return);
-	exitZP();
+	exit();
 }
 printAdminHeader('edit', 'thumbcrop');
 ?>

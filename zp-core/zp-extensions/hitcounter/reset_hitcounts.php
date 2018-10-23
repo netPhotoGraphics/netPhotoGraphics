@@ -11,7 +11,7 @@ if (isset($_GET['action'])) {
 		if (!zp_loggedin(ADMIN_RIGHTS)) {
 			// prevent nefarious access to this page.
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . currentRelativeURL());
-			exitZP();
+			exit();
 		}
 		zp_session_start();
 		XSRFdefender('hitcounter');
@@ -25,6 +25,6 @@ if (isset($_GET['action'])) {
 		purgeOption('page_hitcounters');
 		query("DELETE FROM " . prefix('plugin_storage') . " WHERE `type` = 'hitcounter' AND `subtype`='rss'");
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&msg=' . gettext('All hitcounters have been set to zero.'));
-		exitZP();
+		exit();
 	}
 }

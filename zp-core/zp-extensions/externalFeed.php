@@ -584,7 +584,7 @@ if (!OFFSET_PATH) {
 		$_zp_gallery_page = 'rss.php';
 		$e = new ExternalFeed(sanitize($_GET));
 		$e->printFeed();
-		exitZP();
+		exit();
 	}
 }
 ?>

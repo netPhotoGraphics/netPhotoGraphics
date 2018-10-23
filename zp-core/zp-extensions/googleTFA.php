@@ -73,7 +73,7 @@ class googleTFA extends fieldExtender {
 			zp_session_start();
 			$_SESSION['OTA'] = array('user' => $post_user, 'redirect' => $_POST['redirect']);
 			header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/auth_code.php');
-			exitZP();
+			exit();
 		}
 		// redirect to form to have the user provide the googleAuth key
 		return $loggedin;

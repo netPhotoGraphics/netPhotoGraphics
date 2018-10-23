@@ -92,7 +92,7 @@ if (in_context(ZP_INDEX)) {
 			}
 			$location = Zenphoto_Authority::handleLogout(FULLWEBPATH . '/index.php?fromlogout' . $params);
 			header("Location: " . $location);
-			exitZP();
+			exit();
 		}
 	}
 }

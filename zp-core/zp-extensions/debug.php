@@ -43,7 +43,7 @@ if (isset($_REQUEST['markRelease'])) {
 	setOption('markRelease_state', $version);
 	debug::updateVersion($version);
 	header('location:' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
-	exitZP();
+	exit();
 } else {
 	if (!TEST_RELEASE && strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
 		$version = debug::version(false);

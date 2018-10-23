@@ -143,7 +143,7 @@ class oAuthLogin {
 		session_unset(); //	need to cleanse out stuff or subsequent logins will fail[sic]
 		if ($more) {
 			header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($more));
-			exitZP();
+			exit();
 		}
 		zp_apply_filter('federated_login_attempt', true, $user, $oAuthAuthority . 'oAuth'); //	we will mascerade as federated logon for this filter
 		Zenphoto_Authority::logUser($userobj);
@@ -152,7 +152,7 @@ class oAuthLogin {
 		} else {
 			header('Location: ' . FULLWEBPATH);
 		}
-		exitZP();
+		exit();
 	}
 
 	/**

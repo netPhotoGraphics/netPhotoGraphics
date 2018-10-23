@@ -35,7 +35,7 @@ if (isset($_GET['action'])) {
 			// clear out existing user assignments
 			Zenphoto_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups&deleted&subpage=' . $subpage);
-			exitZP();
+			exit();
 		case 'savegroups':
 			XSRFdefender('savegroups');
 			if (isset($_POST['checkForPostTruncation'])) {
@@ -97,7 +97,7 @@ if (isset($_GET['action'])) {
 			}
 
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups&subpage=' . $subpage . $notify);
-			exitZP();
+			exit();
 		case 'saveauserassignments':
 			XSRFdefender('saveauserassignments');
 			if (isset($_POST['checkForPostTruncation'])) {
@@ -116,7 +116,7 @@ if (isset($_GET['action'])) {
 				$notify = '&post_error';
 			}
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=assignments&subpage=' . $subpage . $notify);
-			exitZP();
+			exit();
 	}
 }
 

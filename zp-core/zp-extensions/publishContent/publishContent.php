@@ -111,7 +111,7 @@ if (isset($_POST['set_defaults'])) {
 }
 if ($report) {
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/publishContent/publishContent.php?tab=content&report=' . $report);
-	exitZP();
+	exit();
 } else {
 	if (isset($_GET['report'])) {
 		$report = sanitize($_GET['report']);

@@ -44,5 +44,5 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Mod_rewrite setup completed in %1$.4f seconds'), $last - $start), $fullLog);
 
 sendImage(0, 'mod_rewrite');
-exitZP();
+exit();
 ?>

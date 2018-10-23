@@ -75,7 +75,7 @@ $album = newAlbum($albumname, true, true);
 if (!$album->exists || !$album->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return);
-		exitZP();
+		exit();
 	}
 }
 if (isset($_REQUEST['singleimage'])) {
@@ -209,7 +209,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	}
 
 	header('Location: ' . $return);
-	exitZP();
+	exit();
 }
 if (isset($_REQUEST['subpage'])) {
 	$subpage = sanitize($_REQUEST['subpage']);

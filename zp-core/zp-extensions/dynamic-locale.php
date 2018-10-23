@@ -311,7 +311,7 @@ class seo_locale {
 			header("HTTP/1.0 302 Found");
 			header("Status: 302 Found");
 			header('Location: ' . $uri);
-			exitZP();
+			exit();
 		}
 		return $allow;
 	}

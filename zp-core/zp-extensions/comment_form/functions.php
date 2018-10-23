@@ -642,7 +642,7 @@ function comment_form_handle_comment() {
 				if (!isset($_SERVER['SERVER_SOFTWARE']) || strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'microsoft-iis') === false) {
 					// but not for Microsoft IIS because that server fails if we redirect!
 					header('Location: ' . $redirectTo . '#zp_comment_id_' . $commentadded->getId());
-					exitZP();
+					exit();
 				}
 			}
 		}

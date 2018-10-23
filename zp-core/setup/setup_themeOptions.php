@@ -51,5 +51,5 @@ $last = (float) $usec + (float) $sec;
 setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $theme, $last - $startTO), $fullLog);
 
 sendImage($_GET['class'], 'theme_' . $theme);
-exitZP();
+exit();
 ?>

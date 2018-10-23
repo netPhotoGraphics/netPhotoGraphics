@@ -36,7 +36,7 @@ function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.p
 		header("Status: $status_text");
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/images/' . $errorimg);
 	}
-	exitZP();
+	exit();
 }
 
 /**

@@ -1966,5 +1966,5 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							</html>
 							<?php
 							$setupMutex->unlock();
-							exitZP();
+							exit();
 							?>

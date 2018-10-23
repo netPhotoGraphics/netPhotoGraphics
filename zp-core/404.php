@@ -22,7 +22,7 @@ if (array_key_exists(0, $folders) && $folders[0] == CACHEFOLDER) {
 				header("HTTP/1.0 302 Found");
 				header("Status: 302 Found");
 				header('Location: ' . $uri);
-				exitZP();
+				exit();
 			}
 		}
 	}
@@ -31,7 +31,7 @@ if (isset($_GET['fromlogout'])) {
 	header("HTTP/1.0 302 Found");
 	header("Status: 302 Found");
 	header('Location: ' . WEBPATH . '/index.php');
-	exitZP();
+	exit();
 }
 if (empty($image) && Gallery::imageObjectClass($album)) {
 	$image = basename($album);

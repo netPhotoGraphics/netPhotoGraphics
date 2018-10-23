@@ -29,14 +29,14 @@ if (!defined('OFFSET_PATH')) {
 
 	if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 		if (!zp_loggedin(ADMIN_RIGHTS)) {
-// prevent nefarious access to this page.
+			// prevent nefarious access to this page.
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . currentRelativeURL());
-			exitZP();
+			exit();
 		}
 
 		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
 		if (session_id() == '') {
-// force session cookie to be secure when in https
+			// force session cookie to be secure when in https
 			if (secureServer()) {
 				$CookieInfo = session_get_cookie_params();
 				session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
@@ -49,7 +49,7 @@ if (!defined('OFFSET_PATH')) {
 		query('UPDATE ' . prefix('news') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
 		query('UPDATE ' . prefix('pages') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&msg=' . gettext('All ratings have been set to <em>unrated</em>.'));
-		exitZP();
+		exit();
 	}
 }
 
@@ -399,11 +399,11 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 			$j++;
 			?>
 			<input type="radio" class="star<?php echo $split; ?>" name="star_rating-value<?php echo $unique; ?>" value="<?php echo $j; ?>" title="<?php
-		if ($like) {
-			echo gettext('like');
-		} else {
-			printf(ngettext('%u star', '%u stars', $v), $v);
-		}
+			if ($like) {
+				echo gettext('like');
+			} else {
+				printf(ngettext('%u star', '%u stars', $v), $v);
+			}
 			?>" />
 						 <?php
 					 }
