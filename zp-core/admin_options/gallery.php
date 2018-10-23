@@ -104,7 +104,13 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Branding logo"); ?></td>
 					<td class="option_value">
-						<input type="text" style="width:100%;" name="sitelogoimage" value="<?php echo $sitelogo = ltrim(str_replace(WEBPATH, '', $_zp_gallery->getSiteLogo()), '/'); ?>"   onchange="$('#sitelogotitle').show();"/>
+						<?php
+						$sitelogo = ltrim(str_replace(WEBPATH, '', $_zp_gallery->getSiteLogo()), '/');
+						if ($sitelogo == ZENFOLDER . '/images/admin-logo.png') {
+							$sitelogo = '';
+						}
+						?>
+						<input type="text" style="width:100%;" name="sitelogoimage" value="<?php echo $sitelogo; ?>"   onchange="$('#sitelogotitle').show();"/>
 						<?php
 						if ($sitelogo && !file_exists(SERVERPATH . '/' . $sitelogo)) {
 							?>
