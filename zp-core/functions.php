@@ -1386,16 +1386,9 @@ function printSiteLogoImage($title = NULL) {
 		}
 	}
 	$logo = $_zp_gallery->getSiteLogo();
-	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so this is hard coded
-	if ($logo == ZENFOLDER . '/images/admin-logo.png') {
-		$sizing = 'height="78" width="282"';
-	} else {
-		list($width, $height) = getimagesize(SERVERPATH . '/' . ltrim(str_replace(WEBPATH, '', $logo), '/'));
-		$new_width = round(78 * $width / $height);
-		$sizing = 'height="78" width="' . $new_width . '"';
-	}
+	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so the 78px is hard coded
 	?>
-	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="' . $title . '"<?php echo $sizing; ?> />
+	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="' . $title . '" style="height:78px; width:auto;" />
 	<?php
 }
 
