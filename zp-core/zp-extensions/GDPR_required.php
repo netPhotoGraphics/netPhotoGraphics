@@ -49,7 +49,7 @@ $option_interface = 'GDPR_required';
 class GDPR_required {
 
 	function __construct() {
-		setOptionDefault('GDPR_Bots_Allowed', 'bingbot,googlebot,W3C-checklink,W3C_Validator,Yahoo! Slurp');
+		setOptionDefault('GDPR_Bots_Allowed', 'Baiduspider,bingbot,Googlebot,W3C-checklink,W3C_Validator,Yahoo! Slurp');
 	}
 
 	function getOptionsSupported() {
@@ -125,9 +125,16 @@ class GDPR_required {
 				if (getRequestURI() == $link) {
 					$_GDPR_acknowledge_loaded = true;
 				} else {
-					$goodBots = explode(',', getOption('GDPR_Bots_Allowed'));
-					$agent = @$_SERVER['HTTP_USER_AGENT'];
-					if (!($agent && in_array($agent, $goodBots))) {
+					$goodBots = explode(',', strtolower(getOption('GDPR_Bots_Allowed')));
+					$agent = strtolower(@$_SERVER['HTTP_USER_AGENT']);
+					$require = true;
+					foreach ($goodBots as $bot) {
+						if (strpos($agent, $bot) !== false) {
+							$require = false;
+							break;
+						}
+					}
+					if ($require) {
 						//	redirect to the policy page
 						header("HTTP/1.0 307 Found");
 						header("Status: 307 Found");
