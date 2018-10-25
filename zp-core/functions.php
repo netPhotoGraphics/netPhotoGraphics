@@ -1388,7 +1388,7 @@ function printSiteLogoImage($title = NULL) {
 	$logo = $_zp_gallery->getSiteLogo();
 	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so the 78px is hard coded
 	?>
-	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="' . $title . '" style="height:78px; width:auto;" />
+	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="<?php echo $title; ?>" style="height:78px; width:auto;" />
 	<?php
 }
 
