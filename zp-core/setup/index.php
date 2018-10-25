@@ -11,7 +11,7 @@
 Define('PHP_MIN_VERSION', '5.2');
 Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
 Define('PHP_DESIRED_VERSION', '7.1');
-define('HTACCESS_VERSION', '1.4.5'); // be sure to change this to the one in .htaccess when the .htaccess file is updated.
+define('HTACCESS_VERSION', '1.8.1'); // be sure to change this to the one in .htaccess when the .htaccess file is updated.
 define('OFFSET_PATH', 2);
 
 // leave this as the first executable statement to avoid problems with PHP not having gettext support.
@@ -503,7 +503,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		}
 	</script>
 	<link rel="stylesheet" href="setup.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/loginForm.css" type="text/css" />
+	<style type="text/css">
+<?php echo preg_replace('/\s+/', ' ', file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css')) . "\n"; ?>
+	</style>
 </head>
 <body>
 	<div id="main">

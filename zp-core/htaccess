@@ -1,9 +1,16 @@
-# htaccess file version 1.4.5;
+# htaccess file version 1.8.1;
 #	Rewrite rules are now handled by PHP code
 # See the file "zenphoto-rewrite.txt" for the actual rules
 #
 # These rules redirect everything not directly accessing a file to the index.php script
 #
+<IfModule mod_expires.c>
+  ExpiresDefault "access 1 day"
+</IfModule>
+<IfModule mod_deflate.c>
+	SetOutputFilter DEFLATE
+  SetEnvIfNoCase Request_URI "\.(?:gif|jpe?g|png)$" no-gzip
+</IfModule>
 <IfModule mod_autoindex.c>
 	IndexIgnore *
 </IfModule>

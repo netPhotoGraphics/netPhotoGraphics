@@ -30,7 +30,9 @@ if (empty($needs)) {
 			<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?netPhotoGraphics_<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
 			<?php if (!zp_loggedin(ADMIN_RIGHTS)) {
 				?>
-				<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/loginForm.css" type="text/css" />
+				<style type="text/css">
+		<?php echo preg_replace('/\s+/', ' ', file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css')) . "\n"; ?>
+				</style>
 				<?php
 			}
 			reconfigureCS();
