@@ -4513,7 +4513,7 @@ function print404status() {
 				$target = getRequestURI();
 				if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/zp-data/tést.jpg'))) {
 					$output = "404 error details\n\t\t\tSERVER:\n";
-					foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'REDIRECT_STATUS') as $key) {
+					foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'HTTP_USER_AGENT', 'REDIRECT_STATUS') as $key) {
 						if (is_null(@$_SERVER[$key])) {
 							$value = 'NULL';
 						} else {
