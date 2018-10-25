@@ -48,6 +48,10 @@ $option_interface = 'GDPR_required';
 
 class GDPR_required {
 
+	function __construct() {
+		setOptionDefault('GDPR_Bots_Allowed', 'bingbot,googlebot,W3C-checklink,W3C_Validator,Yahoo! Slurp');
+	}
+
 	function getOptionsSupported() {
 		global $_zp_CMS;
 		if (extensionEnabled('zenpage')) {
@@ -69,7 +73,11 @@ class GDPR_required {
 									'desc' => gettext('The <em>zenpage page</em> object to use as the policy page.')),
 							gettext('Policy page URL') => array('key' => 'GDPR_URL', 'type' => OPTION_TYPE_CUSTOM,
 									'order' => 2,
-									'desc' => gettext('The URL to the site policy page. This will be the link to the <em>Policy page</em> object if a <em>zenpage page</em> is selected.'))
+									'desc' => gettext('The URL to the site policy page. This will be the link to the <em>Policy page</em> object if a <em>zenpage page</em> is selected.')),
+							gettext('disable list') => array('key' => 'GDPR_Bots_Allowed', 'type' => OPTION_TYPE_TEXTAREA,
+									'order' => 3,
+									'multilingual' => false,
+									'desc' => gettext('Provide a comma separated list of user agents (web crawlers) that may bypass the acknowledgement. This is useful to allow indexing robots to browse your site.'))
 					);
 				}
 			} else {
@@ -117,11 +125,15 @@ class GDPR_required {
 				if (getRequestURI() == $link) {
 					$_GDPR_acknowledge_loaded = true;
 				} else {
-					//	redirect to the policy page
-					header("HTTP/1.0 307 Found");
-					header("Status: 307 Found");
-					header('Location: ' . $link);
-					exit();
+					$goodBots = explode(',', getOption('GDPR_Bots_Allowed'));
+					$agent = @$_SERVER['HTTP_USER_AGENT'];
+					if (!($agent && in_array($agent, $goodBots))) {
+						//	redirect to the policy page
+						header("HTTP/1.0 307 Found");
+						header("Status: 307 Found");
+						header('Location: ' . $link);
+						exit();
+					}
 				}
 			}
 		}
