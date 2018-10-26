@@ -16,7 +16,7 @@ if (class_exists('themeSwitcher')) {
 	$themeColor = themeSwitcher::themeSelection('themeColor', $themecolors);
 }
 
-function css_head($ignore) {
+function css_head() {
 	global $themecolors, $zenCSS, $themeColor, $_zp_themeroot;
 	if (!$themeColor) {
 		$themeColor = getOption('Theme_colors');

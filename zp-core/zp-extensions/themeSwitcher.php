@@ -122,10 +122,12 @@ class themeSwitcher {
 		return $theme;
 	}
 
-	static function head($css) {
+	static function head() {
 		global $_themeSwitcherThemelist;
-		$css = getPlugin('themeSwitcher/themeSwitcher.css', true, true);
 		?>
+		<style type="text/css">
+		<?php echo preg_replace('/\s+/', ' ', file_get_contents(getPlugin('themeSwitcher/themeSwitcher.css', true))) . "\n"; ?>
+		</style>
 		<link type="text/css" rel="stylesheet" href="<?php echo pathurlencode($css); ?>" />
 		<script type="text/javascript">
 			// <!-- <![CDATA[
@@ -136,7 +138,6 @@ class themeSwitcher {
 		</script>
 		<?php
 		$_themeSwitcherThemelist = zp_apply_filter('themeSwitcher_head', $_themeSwitcherThemelist);
-		return $css;
 	}
 
 	/**

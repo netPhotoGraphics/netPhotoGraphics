@@ -68,14 +68,14 @@ class zoomImage {
 		return $options;
 	}
 
-	static function head($html) {
+	static function head() {
 		?>
 		<link rel="stylesheet" href="<?php echo getPlugin('zoomImage/zoom.css', true, true) ?>" type="text/css" />
 		<script src='<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/zoomImage/jquery.zoom.min.js'></script>
 		<?php
 	}
 
-	static function body_close($html) {
+	static function body_close() {
 		global $_zoomImage_id_list;
 		?>
 		<script type="text/javascript">

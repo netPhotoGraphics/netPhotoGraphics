@@ -79,9 +79,8 @@ class auto_backup {
 
 	/**
 	 * Handles the periodic start of the backup/restore utility to backup the database
-	 * @param string $discard
 	 */
-	static function timer_handler($discard) {
+	static function timer_handler() {
 		global $_backupMutex;
 		$_backupMutex->lock();
 		if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) {

@@ -246,7 +246,9 @@ class dynamic_locale {
 
 	static function dynamic_localeCSS() {
 		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/dynamic-locale/locale.css" />
+		<style type="text/css">
+		<?php echo preg_replace('/\s+/', ' ', file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css')) . "\n"; ?>
+		</style>
 		<?php
 	}
 

@@ -49,7 +49,7 @@ $option_interface = 'GDPR_required';
 class GDPR_required {
 
 	function __construct() {
-		setOptionDefault('GDPR_Bots_Allowed', 'Baiduspider,bingbot,Googlebot,W3C-checklink,W3C_Validator,Yahoo! Slurp');
+		setOptionDefault('GDPR_Bots_Allowed', 'Baiduspider,bingbot,Googlebot,Google page speed insights,W3C-checklink,W3C_Validator,Yahoo! Slurp');
 	}
 
 	function getOptionsSupported() {

@@ -403,7 +403,6 @@ $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION[
 if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 	if (($newconfig || $forcerewrite) && !file_exists(SERVERPATH . '/.htaccess') || setupUserAuthorized()) {
 		@chmod(SERVERPATH . '/.htaccess', 0777);
-		$ht = @file_get_contents(SERVERPATH . '/.htaccess');
 		$newht = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/htaccess');
 		file_put_contents(SERVERPATH . '/.htaccess', $newht);
 		@chmod(SERVERPATH . '/.htaccess', 0444);

@@ -67,7 +67,7 @@ $_zp_page_check = 'my_checkPageValidity';
 
 define('_IMAGE_PATH', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/');
 
-function EF_head($ignore) {
+function EF_head() {
 	global $themeColor;
 	if (!$themeColor) {
 		$themeColor = getOption('Theme_colors');
