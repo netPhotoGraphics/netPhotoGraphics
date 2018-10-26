@@ -128,7 +128,6 @@ class themeSwitcher {
 		<style type="text/css">
 		<?php echo preg_replace('/\s+/', ' ', file_get_contents(getPlugin('themeSwitcher/themeSwitcher.css', true))) . "\n"; ?>
 		</style>
-		<link type="text/css" rel="stylesheet" href="<?php echo pathurlencode($css); ?>" />
 		<script type="text/javascript">
 			// <!-- <![CDATA[
 			function switchTheme(reloc) {
