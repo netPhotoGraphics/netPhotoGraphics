@@ -105,7 +105,6 @@ function EF_head() {
 		// ]]> -->
 	</script>
 	<?php
-	return $ignore;
 }
 
 function iconColor($icon) {

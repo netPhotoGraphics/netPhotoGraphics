@@ -109,7 +109,6 @@ class auto_backup {
 			setOption('last_backup_run', time());
 		}
 		$_backupMutex->unlock();
-		return $discard;
 	}
 
 }

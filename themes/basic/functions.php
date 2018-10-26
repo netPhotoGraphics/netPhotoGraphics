@@ -34,7 +34,6 @@ function css_head() {
 	if (!file_exists(SERVERPATH . internalToFilesystem($unzenCSS))) {
 		$zenCSS = $_zp_themeroot . "/styles/light.css";
 	}
-	return $ignore;
 }
 
 function iconColor($icon) {
