@@ -122,9 +122,7 @@ if (isset($_GET['action'])) {
 
 printAdminHeader('admin');
 $background = '';
-?>
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/sprintf.js"></script>
-<?php
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 echo '</head>' . "\n";
 ?>
 
@@ -288,11 +286,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />

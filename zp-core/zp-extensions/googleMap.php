@@ -136,10 +136,10 @@ class GoogleMap {
 		}
 		?>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/googleMap/markerClustererPlus/markerclusterer.js"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/googleMap/overlappingMarkerSpiderfier/oms.min.js"></script>
-		<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/googleMap/googleMap.css" type="text/css" media="screen"/>
 		<?php
+		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
+		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
+		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/googleMap.css');
 	}
 
 }
@@ -314,7 +314,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 		?>
 		<br clear="all">
 		<div class="errorbox">
-			<?php echo gettext('No Google Map API key has been set.'); ?>
+		<?php echo gettext('No Google Map API key has been set.'); ?>
 		</div>
 		<?php
 		return;
@@ -455,7 +455,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				//]]>
 			</script>
 			<div id="<?php echo $id_data; ?>">
-				<?php echo $map->output_html; ?>
+			<?php echo $map->output_html; ?>
 			</div>
 			<?php
 			break;
@@ -492,7 +492,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $text; ?></a>
 			</span>
 			<div id="<?php echo $id_data; ?>" class="hidden_map">
-				<?php echo $map->output_html; ?>
+			<?php echo $map->output_html; ?>
 			</div>
 			<?php
 			break;

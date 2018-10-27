@@ -91,13 +91,6 @@ class jcarousel {
 	}
 
 	static function themeJS() {
-		$theme = getCurrentTheme();
-		$css = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css';
-		if (file_exists($css)) {
-			$css = WEBPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
-		} else {
-			$css = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jcarousel.css';
-		}
 		?>
 		<script>
 			(function ($) {
@@ -113,10 +106,16 @@ class jcarousel {
 
 			})(jQuery);
 		</script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jCarousel_thumb_nav/jquery.jcarousel.pack.js"></script>
-		<link rel="stylesheet" type="text/css" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jCarousel_thumb_nav/jquery.jcarousel.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo html_encode($css); ?>" />
 		<?php
+		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
+		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
+		$theme = getCurrentTheme();
+		if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css')) {
+			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
+		} else {
+			$css = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jcarousel.css';
+		}
+		loadscript($css, false);
 	}
 
 }
@@ -237,40 +236,40 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 			?>
 			<script type="text/javascript">
 			// <!-- <![CDATA[
-			var mycarousel_itemList = [
+				var mycarousel_itemList = [
 			<?php echo $items; ?>
-			];
+				];
 
-			function mycarousel_itemLoadCallback(carousel, state) {
-				for (var i = carousel.first; i <= carousel.last; i++) {
-					if (carousel.has(i)) {
-						continue;
+				function mycarousel_itemLoadCallback(carousel, state) {
+					for (var i = carousel.first; i <= carousel.last; i++) {
+						if (carousel.has(i)) {
+							continue;
+						}
+						if (i > mycarousel_itemList.length) {
+							break;
+						}
+						carousel.add(i, mycarousel_getItemHTML(mycarousel_itemList[i - 1]));
 					}
-					if (i > mycarousel_itemList.length) {
-						break;
+				}
+
+				function mycarousel_getItemHTML(item) {
+					if (item.active === "") {
+						html = '<a href="' + item.link + '" title="' + item.title + '"><img src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
+					} else {
+						html = '<a href="' + item.link + '" title="' + item.title + '"><img class="activecarouselimage" src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
 					}
-					carousel.add(i, mycarousel_getItemHTML(mycarousel_itemList[i - 1]));
+					return html;
 				}
-			}
 
-			function mycarousel_getItemHTML(item) {
-				if (item.active === "") {
-					html = '<a href="' + item.link + '" title="' + item.title + '"><img src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
-				} else {
-					html = '<a href="' + item.link + '" title="' + item.title + '"><img class="activecarouselimage" src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
-				}
-				return html;
-			}
-
-			jQuery(document).ready(function () {
-				jQuery("#mycarousel").jcarousel({
-					vertical: <?php echo $vertical; ?>,
-					size: mycarousel_itemList.length,
-					start: <?php echo $imgnumber; ?>,
-					scroll: <?php echo $thumbscroll; ?>,
-					itemLoadCallback: {onBeforeAnimation: mycarousel_itemLoadCallback}
+				jQuery(document).ready(function () {
+					jQuery("#mycarousel").jcarousel({
+						vertical: <?php echo $vertical; ?>,
+						size: mycarousel_itemList.length,
+						start: <?php echo $imgnumber; ?>,
+						scroll: <?php echo $thumbscroll; ?>,
+						itemLoadCallback: {onBeforeAnimation: mycarousel_itemLoadCallback}
+					});
 				});
-			});
 			// ]]> -->
 			</script>
 			<ul id="mycarousel">

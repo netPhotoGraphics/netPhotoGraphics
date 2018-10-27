@@ -145,8 +145,7 @@ class colorbox {
 				$inTheme = $_zp_gallery->getCurrentTheme();
 			}
 		}
-		$css = getPlugin($themepath, $inTheme);
-		loadScript($css);
+		loadScript(getPlugin($themepath, $inTheme), false);
 		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
 		?>
 		<script type="text/javascript">

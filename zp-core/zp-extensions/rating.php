@@ -190,7 +190,7 @@ class jquery_rating {
 		} else {
 			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true);
 		}
-		loadScript($css);
+		loadScript($css, false);
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[

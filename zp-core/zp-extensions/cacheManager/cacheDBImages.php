@@ -107,12 +107,11 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 
 			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*' . CACHEFOLDER . '((\\.|[^\"])*)"';
 			$result = query($sql);
-
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
+					$updated = false;
 					preg_match_all('~\<\s*img.*\ssrc\s*=\s*"(.*)".*/\>~U', $row[$field], $matches);
 					foreach ($matches[1] as $key => $match) {
-						$updated = false;
 						if (preg_match('~/' . CACHEFOLDER . '/~', $match)) {
 							$match = urldecode($match);
 							$found++;

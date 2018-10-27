@@ -20,21 +20,14 @@ if (empty($locale))
 		<?php
 		load_jQuery_CSS();
 		load_jQuery_scripts('admin');
-		?>
-
-		<!-- elFinder CSS (REQUIRED) -->
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/'; ?>css/elfinder.min.css">
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/'; ?>css/theme.css">
-
-		<!-- elFinder JS (REQUIRED) -->
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/'; ?>js/elfinder.min.js"></script>
-
-		<!-- elFinder translation (OPTIONAL) -->
-		<?php
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css', false);
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/theme.css');
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js', false);
 		if ($locale != 'en') {
 			?>
-			<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/'; ?>js/i18n/elfinder.<?php echo $locale; ?>.js"></script>
+			<!-- elFinder translation (OPTIONAL) -->
 			<?php
+			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
 		}
 		?>
 

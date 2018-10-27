@@ -256,21 +256,15 @@ class jPlayer {
 
 	static function headJS() {
 		$skin = @array_shift(getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin')));
-		if (file_exists($skin)) {
-			$skin = str_replace(SERVERPATH, WEBPATH, $skin); //replace SERVERPATH as that does not work as a CSS link
-		} else {
-			$skin = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
+		if (!file_exists($skin)) {
+			$skin = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}
-		?>
-		<link href="<?php echo $skin; ?>" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js/jquery.jplayer.min.js"></script>
-		<?php
+		loadScript($skin);
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js/jplayer.playlist.min.js"></script>
-		<?php
+		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**

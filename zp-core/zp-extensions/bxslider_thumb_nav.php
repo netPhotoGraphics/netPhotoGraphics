@@ -124,12 +124,9 @@ class bxslider {
 	static function js() {
 		global $_bxslider_scripts;
 		$theme = getCurrentTheme();
-		$_bxslider_scripts = getPlugin('bxslider_thumb_nav/jquery.bxslider.min.css', getCurrentTheme(), true);
-		?>
-
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/bxslider_thumb_nav/jquery.bxslider.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="<?php echo html_encode($_bxslider_scripts); ?>" />
-		<?php
+		$_bxslider_scripts = getPlugin('bxslider_thumb_nav/jquery.bxslider.min.css', getCurrentTheme());
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '//bxslider_thumb_nav/jquery.bxslider.min.js');
+		loadScript($_bxslider_scripts, false);
 	}
 
 }

@@ -240,15 +240,13 @@ class image_effects {
 								$common_data = trim(substr($common_data, strlen($common_element)));
 								$common_element = trim($common_element);
 								if (!in_array($common_element, $common)) {
+									echo $common_element . "\n";
 									$common[] = $common_element;
 								}
 							}
 						}
 					}
 				}
-			}
-			if (!empty($common)) {
-				echo implode("\n", $common);
 			}
 		}
 	}

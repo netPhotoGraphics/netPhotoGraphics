@@ -4,11 +4,9 @@
  * @package plugins/uploader_http
  */
 function upload_head() {
-	$myfolder = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http';
-	?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $myfolder; ?>/httpupload.css">
-	<script type="text/javascript" src="<?php echo $myfolder; ?>/httpupload.js"></script>
-	<?php
+	$myfolder = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http';
+	loadscript($myfolder . '/httpupload.css');
+	loadscript($myfolder . '/httpupload.js');
 	return $myfolder . '/uploader.php';
 }
 

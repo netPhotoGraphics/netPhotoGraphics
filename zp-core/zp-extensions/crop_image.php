@@ -233,12 +233,11 @@ if ($pasteobj) {
 	</style>
 	<?php
 }
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/crop_image/crop_image.css');
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/htmlencoder.js');
 ?>
-
-<script src="<?php echo WEBPATH . '/' . ZENFOLDER ?>/js/Jcrop/jquery.Jcrop.js" type="text/javascript"></script>
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/htmlencoder.js"></script>
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER ?>/js/Jcrop/jquery.Jcrop.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER ?>/crop_image/crop_image.css" type="text/css" />
 <script type="text/javascript" >
 	//<!-- <![CDATA[
 	var jcrop_api;

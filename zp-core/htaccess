@@ -15,7 +15,7 @@
 	ExpiresByType image/x-icon "access 1 week"
 	ExpiresByType text/css "access 3 days"
 	ExpiresByType text/javascript "access 3 days"
-  ExpiresDefault "access 1 hour"
+  ExpiresDefault "access 1 day"
 </IfModule>
 <IfModule mod_headers.c>
 	<FilesMatch "\\.(ico|jpe?g|png|gif|swf)$">

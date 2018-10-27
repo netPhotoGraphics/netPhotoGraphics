@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Support for the Video.JS video player (videojs.com). It will play video natively via HTML5 in capable browsers
  * if the appropiate multimedia formats are provided. It will fall back to flash in older browsers.
@@ -87,13 +88,11 @@ class VideoJS {
 	}
 
 	static function headJS() {
-		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/VideoJS/video-js.min.css"/>
-		<link type="text/css" rel="stylesheet" href="<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/VideoJS/videojs-resolution-switcher.css"/>
-		<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/VideoJS/ie8/videojs-ie8.min.js"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/VideoJS/video.min.js"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/VideoJS/videojs-resolution-switcher.js"></script>
-		<?php
+		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
+		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
+		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
+		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
+		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . 'VideoJS/videojs-resolution-switcher.js');
 	}
 
 	/**

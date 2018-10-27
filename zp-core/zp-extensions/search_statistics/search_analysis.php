@@ -19,9 +19,7 @@ if (isset($_GET['reset'])) {
 	exit();
 }
 printAdminHeader('overview', 'analysis');
-?>
-<link rel="stylesheet" href="../../admin-statistics.css" type="text/css" media="screen" />
-<?php
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 echo '</head>';
 
 $nodata = gettext('No search criteria collected.');

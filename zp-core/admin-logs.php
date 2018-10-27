@@ -208,7 +208,7 @@ echo "\n</head>";
 											?>
 										</tbody>
 									</table>
-									<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.stickytableheaders.min.js"></script>
+									<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.stickytableheaders.min.js'); ?>
 									<script>
 										$(function () {
 											$('#log_table').stickyTableHeaders({scrollableArea: $('.logtext'), cacheHeaderHeight: true});

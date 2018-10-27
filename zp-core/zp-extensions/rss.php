@@ -677,8 +677,8 @@ class RSS extends feed {
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache();
-			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
+			$this->startCache(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css');
+			loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css');
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 				<channel>

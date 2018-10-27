@@ -943,12 +943,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-			if ($current == 1)
-				echo 'current';
-			else
-				echo 'first';
+					if ($current == 1)
+						echo 'current';
+					else
+						echo 'first';
 					?>">
-							<?php
+								<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
@@ -3912,47 +3912,45 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	$fields = $engine->allowedSearchFields();
 	if (!$_zp_adminJS_loaded) {
 		$_zp_adminJS_loaded = true;
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/admin.js"></script>
-		<?php
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
 	}
 	?>
 	<div id="<?php echo $id; ?>">
 		<!-- search form -->
 		<script type="text/javascript">
-							// <!-- <![CDATA[
-							var within = <?php echo (int) $within; ?>;
-							function search_(way) {
-								within = way;
-								if (way) {
-									$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
-								} else {
-									lastsearch = '';
-									$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
-								}
-								$('#search_input').val('');
-							}
-							$('#search_form').submit(function () {
-								if (within) {
-									var newsearch = $.trim($('#search_input').val());
-									if (newsearch.substring(newsearch.length - 1) == ',') {
-										newsearch = newsearch.substr(0, newsearch.length - 1);
-									}
-									if (newsearch.length > 0) {
-										$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
-									} else {
-										$('#search_input').val('<?php echo $searchwords; ?>');
-									}
-								}
-								return true;
-							});
-							function search_all() {
-								//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}. All rights reserved
-								var check = $('#SEARCH_checkall').prop('checked');
-								$('.SEARCH_checkall').prop('checked', check);
-							}
+			// <!-- <![CDATA[
+			var within = <?php echo (int) $within; ?>;
+			function search_(way) {
+				within = way;
+				if (way) {
+					$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
+				} else {
+					lastsearch = '';
+					$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
+				}
+				$('#search_input').val('');
+			}
+			$('#search_form').submit(function () {
+				if (within) {
+					var newsearch = $.trim($('#search_input').val());
+					if (newsearch.substring(newsearch.length - 1) == ',') {
+						newsearch = newsearch.substr(0, newsearch.length - 1);
+					}
+					if (newsearch.length > 0) {
+						$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
+					} else {
+						$('#search_input').val('<?php echo $searchwords; ?>');
+					}
+				}
+				return true;
+			});
+			function search_all() {
+				//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}. All rights reserved
+				var check = $('#SEARCH_checkall').prop('checked');
+				$('.SEARCH_checkall').prop('checked', check);
+			}
 
-							// ]]> -->
+			// ]]> -->
 		</script>
 		<form method="post" action="<?php echo $searchurl; ?>" id="search_form">
 			<?php echo $prevtext; ?>

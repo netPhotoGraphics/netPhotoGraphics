@@ -2168,40 +2168,44 @@ function seoFriendlyJS() {
 
 /**
  *
- * General handler for loading css and js files
+ * General handler for generating HTML for loading css and js files
  *
  * The funcation checks the size of the file. If it is "small" it loads the script
  * in-line. Otherwise it uses the normal HTML script loading syntax. BUT, it will
  * append a release unique tag to the URL to avoid caching issues.
  *
- * @param type $script
+ * @param string $script
+ * @param bool $inline	set to false to prevent rendering the script in-line, for
+ * 											instance if the script has self relative url links.
+ *
  */
-function loadScript($script) {
-	if (filesize($script) < INLINE_LOAD_THRESHOLD) {
-		if (getSuffix($script) == 'css') {
+function loadScript($script, $inline = true) {
+	$scriptFS = internalToFilesystem($script);
+	if ($inline && filesize($scriptFS) < INLINE_LOAD_THRESHOLD) {
+		if (getSuffix($scriptFS) == 'css') {
 			?>
 			<style type="text/css">/* src="<?php echo $script; ?>" */
-			<?php echo preg_replace('/\s+/', ' ', file_get_contents($script)) . "\n"; ?>
+			<?php echo preg_replace('/\s+/', ' ', file_get_contents($scriptFS)) . "\n"; ?>
 			</style>
 			<?php
 		} else {
 			?>
 			<script type="text/javascript">/* src="<?php echo $script; ?>" */
-			<?php echo preg_replace('/\s+/', ' ', file_get_contents($script)) . "\n"; ?>
+			<?php echo preg_replace('/\s+/', ' ', file_get_contents($scriptFS)) . "\n"; ?>
 			</script>
 			<?php
 		}
 	} else {
-		$script = str_replace(SERVERPATH, WEBPATH, $script);
-		$zenphoto_version = explode('-', ZENPHOTO_VERSION);
-		$zenphoto_version = array_shift($zenphoto_version);
+		$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
+		$version = explode('-', ZENPHOTO_VERSION);
+		$version = array_shift($version);
 		if (getSuffix($script) == 'css') {
 			?>
-			<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $zenphoto_version; ?>" type = "text/css" />
+			<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
 			<?php
 		} else {
 			?>
-			<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $zenphoto_version; ?>" type = "text/javascript" ></script>
+			<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/javascript"></script>
 			<?php
 		}
 	}

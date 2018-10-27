@@ -380,7 +380,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 			<div class="tabbox">
 				<?php if (!isset($_REQUEST['dbname']) && !isset($_REQUEST['dbuser']) && !isset($_REQUEST['dbpass']) && !isset($_REQUEST['dbhost']) && !isset($_GET['refresh'])) { ?>
 					<p><?php echo gettext("An importer for <strong>Wordpress 3.x or newer</strong> to the Zenpage CMS plugin that imports the following:"); ?></p>
-					<ul>
+					<ul class='ulclean'>
 						<li><?php echo gettext("<strong>Posts (post_status published and draft only) => Zenpage articles</strong>"); ?></li>
 						<li><?php echo gettext("<strong>Pages (post_status published and draft only) => Zenpage pages</strong>"); ?></li>
 						<li><?php echo gettext("<strong>Post categories => Zenpage categories including assignment to their article</strong>"); ?></li>

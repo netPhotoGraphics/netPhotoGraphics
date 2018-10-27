@@ -49,8 +49,8 @@ if (isset($_GET['generatesitemaps'])) {
 		<?php
 	}
 } // if(isset($_GET['generatesitemaps']) end
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 ?>
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-statistics.css" type="text/css" media="screen" />
 <script type="text/javascript">
 	// <!-- <![CDATA[
 	window.addEventListener('load', function () {

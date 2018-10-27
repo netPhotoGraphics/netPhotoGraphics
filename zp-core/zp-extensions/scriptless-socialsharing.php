@@ -109,10 +109,7 @@ class scriptlessSocialsharing {
 	}
 
 	static function CSS() {
-		$css = getPlugin('scriptless-socialsharing/style.min.css', true, WEBPATH);
-		?>
-		<link rel="stylesheet" href="<?php echo $css; ?>" type="text/css">
-		<?php
+		loadScript(getPlugin('scriptless-socialsharing/style.min.css', true));
 	}
 
 	/**

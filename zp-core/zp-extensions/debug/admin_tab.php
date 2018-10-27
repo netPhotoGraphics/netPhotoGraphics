@@ -19,8 +19,8 @@ if (isset($_POST['delete_cookie'])) {
 	exit();
 }
 
+printAdminHeader('development', @$_GET['tab']);
 $subtab = getCurrentTab();
-printAdminHeader('development', $subtab);
 
 echo "\n</head>";
 ?>

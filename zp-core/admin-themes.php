@@ -68,9 +68,8 @@ if (isset($_GET['action'])) {
 printAdminHeader('themes');
 
 // Script for the "Duplicate theme" feature
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 ?>
-
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/sprintf.js"></script>
 <script type="text/javascript">
 	//<!-- <![CDATA[
 	function copyClick(source) {

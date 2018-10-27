@@ -19,9 +19,7 @@ if (!zp_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
 }
 
 printAdminHeader('overview', 'download');
-?>
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-statistics.css" type="text/css" media="screen" />
-<?php
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 
 /**
  * Prints a table with a bar graph of the values.
