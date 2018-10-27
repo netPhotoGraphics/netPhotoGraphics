@@ -181,25 +181,21 @@ class jquery_rating {
 
 	static function ratingJS() {
 		$ME = substr(basename(__FILE__), 0, -4);
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME; ?>/jquery.MetaData.js"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME; ?>/jquery.rating.js"></script>
-		<?php
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
+
 		$size = getOption('rating_star_size');
 		if (getOption('rating_like-dislike')) {
-			$css = getPlugin('rating/jquery.rating_like-' . $size . '.css', true, true);
+			$css = getPlugin('rating/jquery.rating_like-' . $size . '.css', true);
 		} else {
-			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true, true);
+			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true);
 		}
+		loadScript($css);
 		?>
-		<link rel="stylesheet" href="<?php echo pathurlencode($css); ?>" type="text/css" />
-		<?php
-		?>
-
 		<script type="text/javascript">
-					// <!-- <![CDATA[
-					$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo $size; ?>};
-					// ]]> -->
+			// <!-- <![CDATA[
+			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo $size; ?>};
+			// ]]> -->
 		</script>
 		<?php
 	}

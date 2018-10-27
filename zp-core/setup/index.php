@@ -486,8 +486,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?css_<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
 	<?php
+	loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
 	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
 	?>
@@ -501,10 +501,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 				e.style.display = 'block';
 		}
 	</script>
-	<link rel="stylesheet" href="setup.css" type="text/css" />
-	<style type="text/css">
-<?php echo preg_replace('/\s+/', ' ', file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css')) . "\n"; ?>
-	</style>
+	<?php
+	loadScript(SERVERPATH . '/' . ZENFOLDER . '/setup/setup.css');
+	loadScript(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+	?>
 </head>
 <body>
 	<div id="main">

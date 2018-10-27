@@ -201,8 +201,8 @@ if (zp_loggedin() && $zenphoto_tabs) {
 
 // Print our header
 printAdminHeader('overview');
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min.js');
 ?>
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/common/masonry/masonry.pkgd.min.js"></script>
 <script type="text/javascript">
 	// <!-- <![CDATA[
 	$(function () {

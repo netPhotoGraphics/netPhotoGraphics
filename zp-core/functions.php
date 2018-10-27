@@ -2166,6 +2166,47 @@ function seoFriendlyJS() {
 	<?php
 }
 
+/**
+ *
+ * General handler for loading css and js files
+ *
+ * The funcation checks the size of the file. If it is "small" it loads the script
+ * in-line. Otherwise it uses the normal HTML script loading syntax. BUT, it will
+ * append a release unique tag to the URL to avoid caching issues.
+ *
+ * @param type $script
+ */
+function loadScript($script) {
+	if (filesize($script) < INLINE_LOAD_THRESHOLD) {
+		if (getSuffix($script) == 'css') {
+			?>
+			<style type="text/css">/* src="<?php echo $script; ?>" */
+			<?php echo preg_replace('/\s+/', ' ', file_get_contents($script)) . "\n"; ?>
+			</style>
+			<?php
+		} else {
+			?>
+			<script type="text/javascript">/* src="<?php echo $script; ?>" */
+			<?php echo preg_replace('/\s+/', ' ', file_get_contents($script)) . "\n"; ?>
+			</script>
+			<?php
+		}
+	} else {
+		$script = str_replace(SERVERPATH, WEBPATH, $script);
+		$zenphoto_version = explode('-', ZENPHOTO_VERSION);
+		$zenphoto_version = array_shift($zenphoto_version);
+		if (getSuffix($script) == 'css') {
+			?>
+			<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $zenphoto_version; ?>" type = "text/css" />
+			<?php
+		} else {
+			?>
+			<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $zenphoto_version; ?>" type = "text/javascript" ></script>
+			<?php
+		}
+	}
+}
+
 function load_jQuery_CSS() {
 	?>
 	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQueryui/jquery-ui-1.12.css" type="text/css" />

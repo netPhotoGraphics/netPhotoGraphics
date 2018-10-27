@@ -15,8 +15,8 @@ if (isset($_POST['dbname']) || isset($_POST['dbuser']) || isset($_POST['dbpass']
 }
 
 printAdminHeader('overview', 'Database');
+loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 ?>
-<link rel="stylesheet" href="../admin-statistics.css" type="text/css" media="screen" />
 <style>
 
 	.bordered td {

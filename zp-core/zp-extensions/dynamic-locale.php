@@ -245,11 +245,7 @@ class dynamic_locale {
 	}
 
 	static function dynamic_localeCSS() {
-		?>
-		<style type="text/css">
-		<?php echo preg_replace('/\s+/', ' ', file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css')) . "\n"; ?>
-		</style>
-		<?php
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
 	}
 
 	static function fullHostPath($lang) {

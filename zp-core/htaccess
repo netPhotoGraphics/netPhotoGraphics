@@ -11,8 +11,27 @@
 	ExpiresByType image/gif "access 1 week"
 	ExpiresByType image/png "access 1 week"
 	ExpiresByType application/pdf "access 1 week"
+	ExpiresByType application/x-shockwave-flash "access 1 week"
 	ExpiresByType image/x-icon "access 1 week"
-  ExpiresDefault "access 1 day"
+	ExpiresByType text/css "access 3 days"
+	ExpiresByType text/javascript "access 3 days"
+  ExpiresDefault "access 1 hour"
+</IfModule>
+<IfModule mod_headers.c>
+	<FilesMatch "\\.(ico|jpe?g|png|gif|swf)$">
+		Header set Cache-Control "max-age=604800, public"
+	</FilesMatch>
+	<FilesMatch "\\.(css)$">
+		Header set Cache-Control "max-age=604800, public"
+	</FilesMatch>
+	<FilesMatch "\\.(js)$">
+		Header set Cache-Control "max-age=604800, private"
+	</FilesMatch>
+	<FilesMatch "\\.(x?html?|php)$">
+		Header set Cache-Control "max-age=600, private, must-revalidate"
+	</FilesMatch>
+	Header unset ETag
+	Header unset Last-Modified
 </IfModule>
 <IfModule mod_deflate.c>
 	SetOutputFilter DEFLATE

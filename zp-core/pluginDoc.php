@@ -276,7 +276,7 @@ if (!defined('OFFSET_PATH')) {
 		<head>
 			<?php printStandardMeta(); ?>
 			<title><?php echo $pagetitle; ?></title>
-			<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?netPhotoGraphics_<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
+			<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
 			<style>
 
 				#heading {

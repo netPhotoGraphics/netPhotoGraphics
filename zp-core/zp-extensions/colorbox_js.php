@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Loads Colorbox JS and CSS scripts for selected theme page scripts.
  *
@@ -144,10 +145,10 @@ class colorbox {
 				$inTheme = $_zp_gallery->getCurrentTheme();
 			}
 		}
-		$css = getPlugin($themepath, $inTheme, true);
+		$css = getPlugin($themepath, $inTheme);
+		loadScript($css);
+		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
 		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo $css; ?>" />
-		<script type="text/javascript" src="<?php echo FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/colorbox_js/jquery.colorbox-min.js"></script>
 		<script type="text/javascript">
 			/* Colorbox resize function for images */
 			var resizeTimer;
@@ -175,7 +176,7 @@ class colorbox {
 					}
 				}, 500)
 			}
-			// Resize Colorbox when changing mobile device orientation
+		// Resize Colorbox when changing mobile device orientation
 			window.addEventListener("orientationchange", function () {
 				resizeColorBoxImage();
 				parent.resizeColorBoxMap()
@@ -183,6 +184,7 @@ class colorbox {
 
 		</script>
 		<?php
+
 	}
 
 }
