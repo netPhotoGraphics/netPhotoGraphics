@@ -487,7 +487,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
 	<?php
-	loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
 	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
 	?>
@@ -502,8 +502,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		}
 	</script>
 	<?php
-	loadScript(SERVERPATH . '/' . ZENFOLDER . '/setup/setup.css');
-	loadScript(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/setup/setup.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
 	?>
 </head>
 <body>

@@ -49,7 +49,7 @@ if (isset($_GET['generatesitemaps'])) {
 		<?php
 	}
 } // if(isset($_GET['generatesitemaps']) end
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[

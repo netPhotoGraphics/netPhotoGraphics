@@ -181,8 +181,8 @@ class jquery_rating {
 
 	static function ratingJS() {
 		$ME = substr(basename(__FILE__), 0, -4);
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
 
 		$size = getOption('rating_star_size');
 		if (getOption('rating_like-dislike')) {
@@ -190,7 +190,7 @@ class jquery_rating {
 		} else {
 			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true);
 		}
-		loadScript($css, false);
+		scriptLoader($css);
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[

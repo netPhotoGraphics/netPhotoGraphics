@@ -170,8 +170,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	exit();
 }
 printAdminHeader('edit', 'thumbcrop');
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
 ?>
 <script type="text/javascript" >
 	//<!-- <![CDATA[

@@ -145,8 +145,8 @@ class colorbox {
 				$inTheme = $_zp_gallery->getCurrentTheme();
 			}
 		}
-		loadScript(getPlugin($themepath, $inTheme), false);
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptLoader(getPlugin($themepath, $inTheme));
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
 		?>
 		<script type="text/javascript">
 			/* Colorbox resize function for images */

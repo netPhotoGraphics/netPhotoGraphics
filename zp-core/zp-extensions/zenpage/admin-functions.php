@@ -1353,7 +1353,7 @@ function printCategoriesStatistic() {
  *
  */
 function zenpageJSCSS() {
-	loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[

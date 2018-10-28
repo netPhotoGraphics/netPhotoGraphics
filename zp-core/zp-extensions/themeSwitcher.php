@@ -124,7 +124,7 @@ class themeSwitcher {
 
 	static function head() {
 		global $_themeSwitcherThemelist;
-		loadScript(getPlugin('themeSwitcher/themeSwitcher.css', true));
+		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));
 		?>
 		<script type="text/javascript">
 		// <!-- <![CDATA[

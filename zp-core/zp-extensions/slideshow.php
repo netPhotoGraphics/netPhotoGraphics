@@ -464,8 +464,8 @@ class slideshow {
 	static function js() {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
-		loadScript(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		scriptLoader(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
 	}
 
 	/**

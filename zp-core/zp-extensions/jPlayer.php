@@ -259,12 +259,12 @@ class jPlayer {
 		if (!file_exists($skin)) {
 			$skin = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}
-		loadScript($skin);
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
+		scriptLoader($skin);
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**

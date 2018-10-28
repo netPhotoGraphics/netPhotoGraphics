@@ -276,7 +276,7 @@ if (!defined('OFFSET_PATH')) {
 		<head>
 			<?php printStandardMeta(); ?>
 			<title><?php echo $pagetitle; ?></title>
-			<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
+			<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
 			<style>
 
 				#heading {

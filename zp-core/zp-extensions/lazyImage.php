@@ -60,9 +60,9 @@ class lazyImage {
 	static function head() {
 
 		if (class_exists('Video')) {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.extra.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.extra.min.js');
 		} else {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.min.js');
 		}
 		?>
 		<style>
@@ -73,10 +73,10 @@ class lazyImage {
 		<?php
 
 		if (getOption('lazyImage_jqBootstrap')) {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
 		}
 		if (getOption('lazyImage_jqMobile')) {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
 		}
 	}
 

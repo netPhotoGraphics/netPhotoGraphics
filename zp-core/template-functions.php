@@ -36,11 +36,11 @@ function printThemeHeadItems() {
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
-	loadScript(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
 	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
 	if (zp_loggedin()) {
-		loadScript(getPlugin('toolbox.css', true));
+		scriptLoader(getPlugin('toolbox.css', true));
 	}
 }
 
@@ -3912,7 +3912,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	$fields = $engine->allowedSearchFields();
 	if (!$_zp_adminJS_loaded) {
 		$_zp_adminJS_loaded = true;
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
 	}
 	?>
 	<div id="<?php echo $id; ?>">

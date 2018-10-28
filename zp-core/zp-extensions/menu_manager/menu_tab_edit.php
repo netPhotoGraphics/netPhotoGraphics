@@ -32,7 +32,7 @@ if (isset($_GET['del'])) {
 }
 
 printAdminHeader('menu', (is_array($result) && $result['id']) ? gettext('edit') : gettext('add'));
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
 $menuset = checkChosenMenuset();
 ?>
 </head>

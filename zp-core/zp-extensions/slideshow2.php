@@ -432,42 +432,42 @@ class cycle {
 
 	static function js() {
 		global $__cycle_css;
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.min.js');
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.center.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.center.min.js');
 		?>
 		<!-- effect plugins -->
 		<?php
 		if (getOption('cycle-slideshow_effect') == 'flipHorz' || getOption('cycle-slideshow_effect') == 'flipVert') {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.flip.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.flip.min.js');
 		}
 		?>
 		<!--[if lt IE 9]>
-		<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.ie-fade.min.js'); ?>
+		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.ie-fade.min.js'); ?>
 		<![endif]-->
 		<?php
 		if (getOption('cycle-slideshow_effect') == 'shuffle') {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.shuffle.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.shuffle.min.js');
 		}
 
 		if (getOption('cycle-slideshow_effect') == 'tileSlide' || getOption('cycle-slideshow_effect') == 'tileBlind') {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/query.cycle2.tile.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/query.cycle2.tile.min.js');
 		}
 		if (getOption('cycle-slideshow_effect') == 'scrollVert') {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.scrollVert.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.scrollVert.min.js');
 		}
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.carousel.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.carousel.min.js');
 		?>
 		<!--  swipe with iOS fix -->
 		<?php
 		if (getOption('cycle-slideshow_swipe')) {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.swipe.min.js');
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/ios6fix.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.swipe.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/ios6fix.js');
 		}
-		loadScript($__cycle_css = getPlugin('slideshow2/slideshow2.css', getCurrentTheme()));
+		scriptLoader($__cycle_css = getPlugin('slideshow2/slideshow2.css', getCurrentTheme()));
 		?>
 		<!--[if lte IE 7]>
-		<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/fonts/ie7.css'); ?>
-		<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/fonts/ie7.js'); ?>
+		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/fonts/ie7.css'); ?>
+		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/fonts/ie7.js'); ?>
 		<![endif]-->
 		<?php
 	}

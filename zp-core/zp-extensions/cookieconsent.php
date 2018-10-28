@@ -112,7 +112,7 @@ class cookieConsent {
 	}
 
 	static function getCSS() {
-		loadScript(getPlugin('cookieconsent/cookieconsent.min.css', true));
+		scriptLoader(getPlugin('cookieconsent/cookieconsent.min.css'));
 	}
 
 	static function getJS() {
@@ -145,7 +145,7 @@ class cookieConsent {
 		}
 		$color_popup = getOption('zpcookieconsent_colorpopup');
 		$color_button = getOption('zpcookieconsent_colorbutton');
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
 		?>
 		<script>
 			window.addEventListener("load", function () {

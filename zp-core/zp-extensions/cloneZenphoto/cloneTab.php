@@ -12,7 +12,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 printAdminHeader('admin');
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 ?>
 <script type="text/javascript">
 	function reloadCloneTab() {

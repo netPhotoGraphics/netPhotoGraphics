@@ -42,9 +42,9 @@ class tag_suggest {
 
 	static function JS() {
 		// the scripts needed
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/encoder.js');
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/tag.js');
-		loadScript(getPlugin('tag_suggest/tag.css', true));
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/encoder.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/tag.js');
+		scriptLoader(getPlugin('tag_suggest/tag.css', true));
 		$taglist = getAllTagsUnique(OFFSET_PATH ? false : NULL, OFFSET_PATH ? 0 : getOption('tag_suggest_threshold'));
 		$tags = array();
 		foreach ($taglist as $tag) {

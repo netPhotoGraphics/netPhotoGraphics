@@ -87,7 +87,7 @@ function datepickerJS() {
 		}
 	}
 	if (!empty($lang)) {
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/jqueryui/i18n/datepicker-' . $lang . '.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jqueryui/i18n/datepicker-' . $lang . '.js');
 	}
 }
 
@@ -142,31 +142,31 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 			printStandardMeta();
 			load_jQuery_CSS();
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
 
 			if ($_zp_RTL_css) {
-				loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-rtl.css');
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-rtl.css');
 			}
 			if ($multi) {
-				loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/dd.css');
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/dd.css');
 			}
 			?>
 
 			<title><?php echo sprintf(gettext('%1$s %2$s: %3$s%4$s'), html_encode($_zp_gallery->getTitle()), gettext('Admin'), html_encode($tabtext), html_encode($subtabtext)); ?></title>
 			<?php
 			load_jQuery_scripts('admin');
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.scrollTo.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.scrollTo.min.js');
 
 			if (extensionEnabled('touchPunch')) {
-				loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.ui.touch-punch.min.js');
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.ui.touch-punch.min.js');
 			}
 			if ($multi) {
-				loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/jquery.dd.min.js');
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/jquery.dd.min.js');
 			}
 			if (getOption('dirtyform_enable')) {
-				loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.min.js');
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.min.js');
 			}
 			?>
 			<script type="text/javascript">
@@ -229,7 +229,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 
 		function printSortableHead() {
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.mjs.nestedSortable.js')
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.mjs.nestedSortable.js')
 			?>
 			<!--Nested Sortables-->
 			<script type="text/javascript">

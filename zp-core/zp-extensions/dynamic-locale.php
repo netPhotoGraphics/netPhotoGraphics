@@ -245,7 +245,7 @@ class dynamic_locale {
 	}
 
 	static function dynamic_localeCSS() {
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
 	}
 
 	static function fullHostPath($lang) {

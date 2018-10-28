@@ -137,9 +137,9 @@ class GoogleMap {
 		?>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
 		<?php
-		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
-		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
-		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/googleMap.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/googleMap.css');
 	}
 
 }

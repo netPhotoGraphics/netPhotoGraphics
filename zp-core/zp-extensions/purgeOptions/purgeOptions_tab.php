@@ -78,7 +78,7 @@ if (isset($_POST['purge'])) {
 
 printAdminHeader('options', '');
 $orphaned = array();
-loadscript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css');
+scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css');
 ?>
 </head>
 <body>

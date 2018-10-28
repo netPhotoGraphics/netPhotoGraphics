@@ -19,7 +19,7 @@ if (!zp_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
 }
 
 printAdminHeader('overview', 'download');
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 
 /**
  * Prints a table with a bar graph of the values.

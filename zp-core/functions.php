@@ -2179,35 +2179,38 @@ function seoFriendlyJS() {
  * 											instance if the script has self relative url links.
  *
  */
-function loadScript($script, $inline = true) {
+function scriptLoader($script, $inline = true) {
 	$scriptFS = internalToFilesystem($script);
 	if ($inline && filesize($scriptFS) < INLINE_LOAD_THRESHOLD) {
-		if (getSuffix($scriptFS) == 'css') {
-			?>
-			<style type="text/css">/* src="<?php echo $script; ?>" */
-			<?php echo preg_replace('/\s+/', ' ', file_get_contents($scriptFS)) . "\n"; ?>
-			</style>
-			<?php
-		} else {
-			?>
-			<script type="text/javascript">/* src="<?php echo $script; ?>" */
-			<?php echo preg_replace('/\s+/', ' ', file_get_contents($scriptFS)) . "\n"; ?>
-			</script>
-			<?php
+		$content = file_get_contents($scriptFS);
+		if (!preg_match('~url\s*\(~i', $content)) { //	no potential self relative links
+			if (getSuffix($scriptFS) == 'css') {
+				?>
+				<style type="text/css">/* src="<?php echo $script; ?>" */
+				<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+				</style>
+				<?php
+			} else {
+				?>
+				<script type="text/javascript">/* src="<?php echo $script; ?>" */
+				<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+				</script>
+				<?php
+			}
+			return;
 		}
+	}
+	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
+	$version = explode('-', ZENPHOTO_VERSION);
+	$version = array_shift($version);
+	if (getSuffix($script) == 'css') {
+		?>
+		<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
+		<?php
 	} else {
-		$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
-		$version = explode('-', ZENPHOTO_VERSION);
-		$version = array_shift($version);
-		if (getSuffix($script) == 'css') {
-			?>
-			<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
-			<?php
-		} else {
-			?>
-			<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/javascript"></script>
-			<?php
-		}
+		?>
+		<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/javascript"></script>
+		<?php
 	}
 }
 

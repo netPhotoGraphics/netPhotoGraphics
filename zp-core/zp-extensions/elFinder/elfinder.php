@@ -20,14 +20,14 @@ if (empty($locale))
 		<?php
 		load_jQuery_CSS();
 		load_jQuery_scripts('admin');
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css', false);
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/theme.css');
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js', false);
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/theme.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js');
 		if ($locale != 'en') {
 			?>
 			<!-- elFinder translation (OPTIONAL) -->
 			<?php
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
 		}
 		?>
 

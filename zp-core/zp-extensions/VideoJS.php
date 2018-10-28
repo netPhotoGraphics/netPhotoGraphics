@@ -88,11 +88,11 @@ class VideoJS {
 	}
 
 	static function headJS() {
-		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
-		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
-		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
-		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
-		loadScript(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . 'VideoJS/videojs-resolution-switcher.js');
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . 'VideoJS/videojs-resolution-switcher.js');
 	}
 
 	/**

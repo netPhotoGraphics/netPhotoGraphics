@@ -26,7 +26,7 @@ admin_securityChecks(OVERVIEW_RIGHTS, currentRelativeURL());
 $_zp_gallery->garbageCollect();
 
 printAdminHeader('overview', 'statistics');
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 
 /*
  * http://php.net/manual/de/function.filesize.php

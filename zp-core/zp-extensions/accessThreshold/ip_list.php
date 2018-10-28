@@ -32,7 +32,7 @@ if (isset($recentIP[$ip])) {
 <head>
 	<?php printStandardMeta(); ?>
 	<title><? echo $ip; ?></title>
-	<?php loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
+	<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
 	<style>
 		ul, ol {
 			list-style: none;

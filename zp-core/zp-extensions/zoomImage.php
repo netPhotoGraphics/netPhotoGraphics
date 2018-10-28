@@ -69,8 +69,8 @@ class zoomImage {
 	}
 
 	static function head() {
-		loadScript(getPlugin('zoomImage/zoom.css', true), false);
-		loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
+		scriptLoader(getPlugin('zoomImage/zoom.css', true));
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
 	}
 
 	static function body_close() {

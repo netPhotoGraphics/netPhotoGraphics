@@ -28,9 +28,9 @@ if (empty($needs)) {
 		<head>
 			<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 			<?php
-			loadScript(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
 			if (!zp_loggedin(ADMIN_RIGHTS)) {
-				loadScript(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
 			}
 			reconfigureCS();
 			?>

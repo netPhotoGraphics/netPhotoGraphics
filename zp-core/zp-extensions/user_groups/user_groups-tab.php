@@ -122,7 +122,7 @@ if (isset($_GET['action'])) {
 
 printAdminHeader('admin');
 $background = '';
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 echo '</head>' . "\n";
 ?>
 

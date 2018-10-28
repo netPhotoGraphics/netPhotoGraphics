@@ -107,15 +107,15 @@ class jcarousel {
 			})(jQuery);
 		</script>
 		<?php
-		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
-		loadscript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
 		$theme = getCurrentTheme();
 		if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css')) {
 			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
 		} else {
 			$css = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jcarousel.css';
 		}
-		loadscript($css, false);
+		scriptLoader($css);
 	}
 
 }

@@ -137,7 +137,7 @@ datepickerJS();
 	}
 </script>
 <?php
-loadScript(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/publishContent/publishContent.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/publishContent/publishContent.css');
 echo "</head>\n";
 ?>
 <body>

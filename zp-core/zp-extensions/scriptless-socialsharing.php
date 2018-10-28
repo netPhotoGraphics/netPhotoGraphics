@@ -109,7 +109,7 @@ class scriptlessSocialsharing {
 	}
 
 	static function CSS() {
-		loadScript(getPlugin('scriptless-socialsharing/style.min.css', true));
+		scriptLoader(getPlugin('scriptless-socialsharing/style.min.css'));
 	}
 
 	/**
