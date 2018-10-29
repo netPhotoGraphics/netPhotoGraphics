@@ -1,6 +1,5 @@
 <?php
 
-require_once(SERVERPATH . "/" . ZENFOLDER . "/admin-functions.php");
 require_once(dirname(__FILE__) . '/functions.php');
 
 class ThemeOptions {

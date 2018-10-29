@@ -145,11 +145,13 @@
 				};
 <?php } ?>
 		</script>
-		<?php if (($zpfocus_showrandom) == 'rotator') { ?>
-			<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/slideshow/jquery.cycle.all.js" type="text/javascript"></script>
-		<?php } ?>
-		<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/jquery.colorbox-min.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/themes/<?php echo $zpfocus_cbstyle; ?>/colorbox.css" type="text/css" media="screen"/>
+		<?php
+		if (($zpfocus_showrandom) == 'rotator') {
+			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		}
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptloader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpfocus_cbstyle . '/colorbox.css');
+		?>
 		<script type="text/javascript">
 			window.addEventListener('load', function () {
 				$("a[rel='zoom']").colorbox({

@@ -128,12 +128,14 @@
 		?>
 		<title><?php echo html_encode($zpmas_metatitle); ?></title>
 		<meta name="description" content="<?php echo $zpmas_metadesc; ?>" />
+		<?php scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js'); ?>
 
-		<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/jquery.colorbox-min.js" type="text/javascript"></script>
-		<?php if ($zpmas_ss) { ?>
-			<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/slideshow/jquery.cycle.all.js" type="text/javascript"></script>
-		<?php } ?>
-		<link rel="stylesheet" href="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/themes/<?php echo $zpmas_cbstyle; ?>/colorbox.css" type="text/css" media="screen"/>
+		<?php
+		if ($zpmas_ss) {
+			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		}
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpmas_cbstyle . '/colorbox.css');
+		?>
 		<script type="text/javascript">
 			window.addEventListener('load', function () {
 				$('#page_nav').css('display', 'none');
