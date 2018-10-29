@@ -3,7 +3,7 @@
  * JavaScript thumb nav plugin with dynamic loading of thumbs on request via JavaScript.
  * Place <var>printThumbNav()</var> on your theme's <i>image.php</i> where you want it to appear.
  *
- * Supports theme based custom css files (place <var>jcarousel.css</var> and needed images in your theme's folder).
+ * Supports theme based custom css files (place <var>jcarousel.css</var> and needed images in your theme's <var>jCarousel_thumb_nav</var> folder).
  *
  * @author Malte Müller (acrylian)
  * @package plugins/jCarousel_thumb_nav
@@ -111,9 +111,16 @@ class jcarousel {
 		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
 		$theme = getCurrentTheme();
 		if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css')) {
+			// this should comply with the standard!
 			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
+			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+			$traces = debug_backtrace();
+			$me = array('file' => __FILE__, 'line' => __LINE__, 'function' => 'jcarousel::themeJS');
+			array_unshift($traces, $me);
+			$traces = array_values($traces);
+			deprecated_functions::notify_handler(gettext('The jCarousel css files should be placed in the theme subfolder <code>jCarousel_thumb_nav</code>'), $traces, false);
 		} else {
-			$css = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jcarousel.css';
+			$css = getPlugin('jCarousel_thumb_nav/jcarousel.css', $theme);
 		}
 		scriptLoader($css);
 	}
@@ -235,7 +242,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 			}
 			?>
 			<script type="text/javascript">
-			// <!-- <![CDATA[
+				// <!-- <![CDATA[
 				var mycarousel_itemList = [
 			<?php echo $items; ?>
 				];
@@ -270,7 +277,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 						itemLoadCallback: {onBeforeAnimation: mycarousel_itemLoadCallback}
 					});
 				});
-			// ]]> -->
+				// ]]> -->
 			</script>
 			<ul id="mycarousel">
 				<!-- The content will be dynamically loaded in here -->
@@ -280,4 +287,3 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 	}
 
 }
-?>

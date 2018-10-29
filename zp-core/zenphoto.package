@@ -270,7 +270,6 @@ themes/zenpage/functions.php
 themes/zenpage/gallery.php
 themes/zenpage/image.php
 themes/zenpage/index.php
-themes/zenpage/jcarousel.css
 themes/zenpage/news.php
 themes/zenpage/pages.php
 themes/zenpage/password.php
@@ -297,6 +296,8 @@ themes/zenpage/images/jcarousel_loading.gif
 themes/zenpage/images/jcarousel_next.png
 themes/zenpage/images/jcarousel_prev.png
 themes/zenpage/images/tag.png
+themes/zenpage/jCarousel_thumb_nav
+themes/zenpage/jCarousel_thumb_nav/jcarousel.css
 themes/zpArdoise
 themes/zpArdoise/404.php
 themes/zpArdoise/album.php
@@ -452,7 +453,6 @@ themes/zpEnlighten/header.php
 themes/zpEnlighten/home.php
 themes/zpEnlighten/image.php
 themes/zpEnlighten/index.php
-themes/zpEnlighten/jcarousel.css
 themes/zpEnlighten/news.php
 themes/zpEnlighten/pages.php
 themes/zpEnlighten/password.php
@@ -500,6 +500,8 @@ themes/zpEnlighten/images/white_pixel.png
 themes/zpEnlighten/images/white_pixel_6.png
 themes/zpEnlighten/images/white_pixel_7.png
 themes/zpEnlighten/images/white_pixel_8.png
+themes/zpEnlighten/jCarousel_thumb_nav
+themes/zpEnlighten/jCarousel_thumb_nav/jcarousel.css
 themes/zpEnlighten/js
 themes/zpEnlighten/js/jquery.corner.js
 themes/zpfocus
@@ -516,7 +518,6 @@ themes/zpfocus/inc-header.php
 themes/zpfocus/inc-sidebar.php
 themes/zpfocus/inc-social.php
 themes/zpfocus/index.php
-themes/zpfocus/jcarousel.css
 themes/zpfocus/logo.png
 themes/zpfocus/news.php
 themes/zpfocus/pages.php
@@ -560,6 +561,8 @@ themes/zpfocus/images/search.png
 themes/zpfocus/images/search_icon.gif
 themes/zpfocus/images/shout.png
 themes/zpfocus/images/twitter.png
+themes/zpfocus/jCarousel_thumb_nav
+themes/zpfocus/jCarousel_thumb_nav/jcarousel.css
 themes/zpfocus/js
 themes/zpfocus/js/index.html
 themes/zpfocus/js/superfish.js
@@ -581,7 +584,6 @@ themes/zpmasonry/inc-footer.php
 themes/zpmasonry/inc-header.php
 themes/zpmasonry/inc-menu.php
 themes/zpmasonry/index.php
-themes/zpmasonry/jcarousel.css
 themes/zpmasonry/logo.png
 themes/zpmasonry/news.php
 themes/zpmasonry/pages.php
@@ -646,6 +648,8 @@ themes/zpmasonry/images/tools-inv.png
 themes/zpmasonry/images/tools.png
 themes/zpmasonry/images/twitter.png
 themes/zpmasonry/images/zoom.png
+themes/zpmasonry/jCarousel_thumb_nav
+themes/zpmasonry/jCarousel_thumb_nav/jcarousel.css
 themes/zpmasonry/js
 themes/zpmasonry/js/jquery.infinitescroll.min.js
 themes/zpminimal
@@ -662,7 +666,6 @@ themes/zpminimal/inc-footer.php
 themes/zpminimal/inc-header.php
 themes/zpminimal/inc-sidemenu.php
 themes/zpminimal/index.php
-themes/zpminimal/jcarousel.css
 themes/zpminimal/login.php
 themes/zpminimal/logo.png
 themes/zpminimal/news.php
@@ -741,6 +744,8 @@ themes/zpminimal/images/search.gif
 themes/zpminimal/images/slideshow-controls.png
 themes/zpminimal/images/social.png
 themes/zpminimal/images/zoom.png
+themes/zpminimal/jCarousel_thumb_nav
+themes/zpminimal/jCarousel_thumb_nav/jcarousel.css
 themes/zpminimal/z_disable_comment_form
 themes/zpminimal/z_disable_comment_form/comment_form.php
 themes/zpmobile
@@ -8362,4 +8367,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8364
+8369

@@ -123,49 +123,51 @@ class deprecated_functions {
 	 * used to provided deprecated function notification.
 	 */
 
-	static function notify_handler($message, $traces) {
-		$fcn = $traces[1]['function'];
-		if (empty($fcn)) {
-			$fcn = gettext('function');
-		}
-
-		if (!empty($message))
-			$message = ' ' . $message;
-		//get the container folder
-		if (isset($traces[0]['file']) && isset($traces[0]['line'])) {
-			$script = basename(dirname($traces[0]['file']));
-		} else {
-			$script = 'unknown';
-		}
-		if ($script == 'deprecated-functions') {
-			$plugin = 'core';
-		} else {
-			$plugin = $script;
-		}
-
-		if (isset($traces[1]['file']) && isset($traces[1]['line'])) {
-
-			$path = explode('/', replaceScriptPath($traces[1]['file']));
-			switch (array_shift($path)) {
-				case THEMEFOLDER:
-					$script = sprintf(gettext('theme %1$s:%2$s'), array_shift($path), array_pop($path));
-					break;
-				case USER_PLUGIN_FOLDER:
-					$script = sprintf(gettext('user plugin %1$s:%2$s'), array_shift($path), array_pop($path));
-					break;
-				case PLUGIN_FOLDER:
-					$script = sprintf(gettext('standard plugin %1$s:%2$s'), array_shift($path), array_pop($path));
-					break;
-				default:
-					$script = sprintf(gettext('core:%s'), array_pop($path));
-					break;
+	static function notify_handler($message, $traces, $function = true) {
+		if ($function) {
+			$fcn = $traces[1]['function'];
+			if (empty($fcn)) {
+				$fcn = gettext('function');
 			}
-			$line = $traces[1]['line'];
-		} else {
-			$script = $line = gettext('unknown');
-		}
-		$output = sprintf(gettext('%1$s (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n" . $message . "\n";
+			if (!empty($message))
+				$message = ' ' . $message;
+			//get the container folder
+			if (isset($traces[0]['file']) && isset($traces[0]['line'])) {
+				$script = basename(dirname($traces[0]['file']));
+			} else {
+				$script = 'unknown';
+			}
+			if ($script == 'deprecated-functions') {
+				$plugin = 'core';
+			} else {
+				$plugin = $script;
+			}
 
+			if (isset($traces[1]['file']) && isset($traces[1]['line'])) {
+
+				$path = explode('/', replaceScriptPath($traces[1]['file']));
+				switch (array_shift($path)) {
+					case THEMEFOLDER:
+						$script = sprintf(gettext('theme %1$s:%2$s'), array_shift($path), array_pop($path));
+						break;
+					case USER_PLUGIN_FOLDER:
+						$script = sprintf(gettext('user plugin %1$s:%2$s'), array_shift($path), array_pop($path));
+						break;
+					case PLUGIN_FOLDER:
+						$script = sprintf(gettext('standard plugin %1$s:%2$s'), array_shift($path), array_pop($path));
+						break;
+					default:
+						$script = sprintf(gettext('core:%s'), array_pop($path));
+						break;
+				}
+				$line = $traces[1]['line'];
+			} else {
+				$script = $line = gettext('unknown');
+			}
+			$output = sprintf(gettext('%1$s (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n" . $message . "\n";
+		} else {
+			$output = $message . "\n";
+		}
 		if (file_exists(DEPRECATED_LOG)) {
 			$content = file_get_contents(DEPRECATED_LOG);
 			$log = !preg_match('~' . preg_quote($output) . '~', $content);
