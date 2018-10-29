@@ -162,6 +162,6 @@ if (!isset($_POST['processed'])) {
 			break;
 	}
 }
-header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?error=' . $errormsg);
+header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&error=' . $errormsg);
 exit();
 ?>
