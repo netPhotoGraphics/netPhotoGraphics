@@ -123,8 +123,8 @@ class deprecated_functions {
 	 * used to provided deprecated function notification.
 	 */
 
-	static function notify_handler($message, $traces, $function = true) {
-		if ($function) {
+	static function notify_handler($message, $traces) {
+		if ($traces) {
 			$fcn = $traces[1]['function'];
 			if (empty($fcn)) {
 				$fcn = gettext('function');
@@ -166,6 +166,8 @@ class deprecated_functions {
 			}
 			$output = sprintf(gettext('%1$s (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n" . $message . "\n";
 		} else {
+			$traces = debug_backtrace();
+			$traces = array_values($traces);
 			$output = $message . "\n";
 		}
 		if (file_exists(DEPRECATED_LOG)) {

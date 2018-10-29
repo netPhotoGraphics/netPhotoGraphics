@@ -114,11 +114,7 @@ class jcarousel {
 			// this should comply with the standard!
 			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
 			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
-			$traces = debug_backtrace();
-			$me = array('file' => __FILE__, 'line' => __LINE__, 'function' => 'jcarousel::themeJS');
-			array_unshift($traces, $me);
-			$traces = array_values($traces);
-			deprecated_functions::notify_handler(gettext('The jCarousel css files should be placed in the theme subfolder <code>jCarousel_thumb_nav</code>'), $traces, false);
+			deprecated_functions::notify_handler(gettext('The jCarousel css files should be placed in the theme subfolder "jCarousel_thumb_nav"'), NULL);
 		} else {
 			$css = getPlugin('jCarousel_thumb_nav/jcarousel.css', $theme);
 		}
