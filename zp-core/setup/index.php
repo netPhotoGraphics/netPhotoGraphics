@@ -11,7 +11,6 @@
 Define('PHP_MIN_VERSION', '5.2');
 Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
 Define('PHP_DESIRED_VERSION', '7.1');
-define('HTACCESS_VERSION', '1.8.1'); // be sure to change this to the one in .htaccess when the .htaccess file is updated.
 define('OFFSET_PATH', 2);
 
 // leave this as the first executable statement to avoid problems with PHP not having gettext support.
@@ -400,10 +399,10 @@ setOptionDefault('zp_plugin_security-logger', 9 | CLASS_PLUGIN);
 
 $cloneid = bin2hex(FULLWEBPATH);
 $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION['clone'][$cloneid]['mod_rewrite'] && !file_exists(SERVERPATH . '/.htaccess');
+$newht = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/htaccess');
 if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 	if (($newconfig || $forcerewrite) && !file_exists(SERVERPATH . '/.htaccess') || setupUserAuthorized()) {
 		@chmod(SERVERPATH . '/.htaccess', 0777);
-		$newht = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/htaccess');
 		file_put_contents(SERVERPATH . '/.htaccess', $newht);
 		@chmod(SERVERPATH . '/.htaccess', 0444);
 	}
@@ -1483,13 +1482,16 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$desc = gettext("Server seems not to be <em>Apache</em> or <em>Apache-compatible</em>, <code>mod_rewrite</code> may not be available.");
 							}
 						} else {
+							preg_match('~version (.*);~i', $newht, $matches);
+							$newvr = $matches[1];
+
 							if (preg_match('~version (.*);~i', $ht, $matches)) {
 								$vr = $matches[1];
 							} else {
 								$vr = false;
 							}
 
-							$ch = !empty($vr) && version_compare($vr, HTACCESS_VERSION, '>=');
+							$ch = empty($vr) || version_compare($vr, $newvr, '>=');
 							$d = rtrim(str_replace('\\', '/', dirname(dirname(dirname($_SERVER['SCRIPT_NAME'])))), '/') . '/';
 							$d = str_replace(' ', '%20', $d); //	apache appears to trip out if there is a space in the rewrite base
 
