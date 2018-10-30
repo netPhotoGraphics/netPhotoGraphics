@@ -190,36 +190,6 @@ function upload_extra($uploadlimit, $passedalbum) {
 	<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/cors/jquery.xdr-transport.js'); ?>
 	<![endif]-->
 
-	<script type="text/javascript">
-		var upload_fail = false;
-		$('#fileupload')
-						.on('fileuploadfail', function (e, data) {
-							//alert('fail');
-							upload_fail = true;
-						})
-						.on('fileuploadstop', function (e, data) {
-							//alert('stop');
-							if (upload_fail) {
-								//alert('upload failed');
-								// clean up any globals since we are staying on the page
-								upload_fail = false;
-							} else {
-
-	<?php
-	if (zp_loggedin(ALBUM_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
-		?>
-									launchScript('admin-edit.php', ['page=edit', 'subpage=1', 'tab=imageinfo', 'album=' + encodeURIComponent($('#folderdisplay').val()), 'uploaded=1', 'albumimagesort=id_desc']);
-		<?php
-	} else {
-		?>
-									launchScript('admin-upload.php', ['uploaded=1']);
-		<?php
-	}
-	?>
-							}
-						});
-
-	</script>
 	<?php
 }
 

@@ -195,6 +195,7 @@ foreach ($albumlist as $key => $value) {
 						var sel = document.getElementById('albumselectmenu');
 						var selected = sel.options[sel.selectedIndex].value;
 						$('#folderslot').val(selected);
+						$('#go_to_album').show();
 						var state = albumSwitch(sel, true, '<?php echo addslashes(gettext('That name is already used.')); ?>', '<?php echo addslashes(gettext('This upload has to have a folder. Type a title or folder name to continue...')); ?>');
 						buttonstate(state);
 					}
@@ -211,9 +212,11 @@ foreach ($albumlist as $key => $value) {
 								<option value="" selected="selected" style="font-weight: bold;">/</option>
 								<?php
 							}
+							$gotobuttonState = ' style="display:none"';
 							$bglevels = array('#fff', '#f8f8f8', '#efefef', '#e8e8e8', '#dfdfdf', '#d8d8d8', '#cfcfcf', '#c8c8c8');
 							if (isset($_GET['album'])) {
 								$passedalbum = sanitize($_GET['album']);
+								$gotobuttonState = '';
 							} else {
 								if ($rootrights) {
 									$passedalbum = NULL;
@@ -251,6 +254,14 @@ foreach ($albumlist as $key => $value) {
 							}
 							?>
 						</select>
+						<?php
+						if (zp_loggedin(ALBUM_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
+							?>
+							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript('admin-edit.php', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
+							<?php
+						}
+						?>
+
 
 						<?php
 						if (empty($passedalbum)) {
