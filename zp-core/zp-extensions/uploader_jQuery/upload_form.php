@@ -15,18 +15,16 @@ function upload_head() {
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload.css');
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload-ui.css');
 
-	return WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery//uploader.php';
+	return WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/uploader.php';
 }
 
 function upload_extra($uploadlimit, $passedalbum) {
 	global $_zp_current_admin_obj;
-
-	$myfolder = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/';
 	?>
 
 	<div>
 		<!-- The file upload form used as target for the file upload widget -->
-		<form id="fileupload" action="<?php echo $myfolder; ?>xxserver/php/index.php" method="POST" enctype="multipart/form-data">
+		<form id="fileupload" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/uploader_jQuery/server/php/index.php" method="POST" enctype="multipart/form-data">
 
 			<noscript><?php echo gettext('This uploader requires browser javaScript support.'); ?></noscript>
 
