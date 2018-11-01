@@ -11,7 +11,7 @@ if (function_exists('printSlideShow')) {
 			<?php zp_apply_filter('theme_head'); ?>
 			
 			<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css">
-			scriptLoader(dirname(dirname($zenCSS)) . '/common.css', false);
+			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 		</head>
 
 		<body>

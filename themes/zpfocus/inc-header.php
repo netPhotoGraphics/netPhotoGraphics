@@ -125,21 +125,21 @@
 
 		<?php
 		require_once(SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/print_album_menu.php");
-		scriptLoader($_zp_themeroot . '/css/main.css', false);
+		scriptLoader($_zp_themeroot . '/css/main.css');
 		if (getOption('zpfocus_center_site')) {
-			scriptLoader($_zp_themeroot . '/css/center.css', false);
+			scriptLoader($_zp_themeroot . '/css/center.css');
 		}
 
-		scriptLoader($_zp_themeroot . '/css/print.css', false);
+		scriptLoader($_zp_themeroot . '/css/print.css');
 		?>
 		<!--[if lte IE 6]>
 		<?php
-		scriptLoader($_zp_themeroot . '/css/ie6.css', false);
+		scriptLoader($_zp_themeroot . '/css/ie6.css');
 		?>
 		<![endif]-->
 		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
 		<?php
-		scriptLoader($_zp_themeroot . '/js/superfish.js', false);
+		scriptLoader($_zp_themeroot . '/js/superfish.js');
 		?>
 		<script type="text/javascript">
 			jQuery(function () {

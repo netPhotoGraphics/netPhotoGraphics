@@ -9,7 +9,7 @@ if (class_exists('favorites')) {
 			<?php
 			zp_apply_filter('theme_head');
 
-			scriptLoader($_zp_themeroot . '/zen.css', false);
+			scriptLoader($_zp_themeroot . '/zen.css');
 
 			if (class_exists('RSS'))
 				printRSSHeaderLink('Album', getAlbumTitle());

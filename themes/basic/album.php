@@ -10,8 +10,8 @@ if (!defined('WEBPATH'))
 		<?php
 		zp_apply_filter('theme_head');
 
-		scriptLoader($zenCSS, false);
-		scriptLoader(dirname(dirname($zenCSS)) . '/common.css', false);
+		scriptLoader($zenCSS);
+		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Album', getAlbumTitle());

@@ -334,10 +334,10 @@
 
 		<!-- css -->
 		<?php
-		scriptLoader(WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css', false);
-		scriptLoader($_zp_themeroot . '/css/site.css', false);
-		scriptLoader($_zp_themeroot . '/css/icons.css', false);
-		scriptLoader($_zp_themeroot . '/css/slimbox2.css', false);
+		scriptLoader(WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
+		scriptLoader($_zp_themeroot . '/css/site.css');
+		scriptLoader($_zp_themeroot . '/css/icons.css');
+		scriptLoader($_zp_themeroot . '/css/slimbox2.css');
 		?>
 
 		<!-- favicon -->
@@ -347,8 +347,8 @@
 
 		<!-- js -->
 		<?php
-		scriptLoader(WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . 'common/bootstrap/bootstrap.min.js', false);
-		scriptLoader($_zp_themeroot . '/js/slimbox2-ar.js', false);
+		scriptLoader(WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . 'common/bootstrap/bootstrap.min.js');
+		scriptLoader($_zp_themeroot . '/js/slimbox2-ar.js');
 		?>
 
 		<!-- rss -->

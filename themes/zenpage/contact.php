@@ -12,7 +12,7 @@ if (function_exists('printContactForm')) {
 			zp_apply_filter('theme_head');
 			printHeadTitle();
 
-			scriptLoader($_zp_themeroot . '/style.css', false);
+			scriptLoader($_zp_themeroot . '/style.css');
 			?>
 		</head>
 		<body>

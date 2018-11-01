@@ -10,7 +10,7 @@ if (!defined('WEBPATH'))
 		<?php
 		zp_apply_filter('theme_head');
 
-		scriptLoader($_zp_themeroot, '/style.css', false);
+		scriptLoader($_zp_themeroot, '/style.css');
 
 		if (zp_has_filter('theme_head', 'colorbox::css')) {
 			?>

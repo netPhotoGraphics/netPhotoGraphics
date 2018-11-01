@@ -14,7 +14,7 @@ if (!defined('WEBPATH'))
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<?php
-		scriptLoader($_zp_themeroot . '/style.css', false);
+		scriptLoader($_zp_themeroot . '/style.css');
 		jqm_loadScripts();
 		?>
 	</head>

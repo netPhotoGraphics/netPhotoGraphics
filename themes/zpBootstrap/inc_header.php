@@ -92,15 +92,15 @@ if (!defined('WEBPATH'))
 				printRSSHeaderLink('Gallery', gettext('Latest images RSS'));
 			}
 		}
-		scriptloader($_zp_themeroot . '/images/favicon.ico', false);
-		scriptloader($_zp_themeroot . '/css/bootstrap.min.css', false);
+		scriptLoader($_zp_themeroot . '/images/favicon.ico');
+		scriptLoader($_zp_themeroot . '/css/bootstrap.min.css');
 		if (($_zp_gallery_page == 'index.php') && ($isHomePage)) {
-			scriptloader($_zp_themeroot . '/css/flexslider.css', false);
+			scriptLoader($_zp_themeroot . '/css/flexslider.css');
 		}
 		if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) {
-			scriptloader($_zp_themeroot . '/css/jquery.fancybox.min.css', false);
+			scriptLoader($_zp_themeroot . '/css/jquery.fancybox.min.css');
 		}
-		scriptloader($_zp_themeroot . '/css/zpBootstrap.css', false);
+		scriptLoader($_zp_themeroot . '/css/zpBootstrap.css');
 		?>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -108,11 +108,11 @@ if (!defined('WEBPATH'))
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<?php
-		scriptloader($_zp_themeroot . '/js/bootstrap.min.js', false);
-		scriptloader($_zp_themeroot . '/js/zpBootstrap.js', false);
+		scriptLoader($_zp_themeroot . '/js/bootstrap.min.js');
+		scriptLoader($_zp_themeroot . '/js/zpBootstrap.js');
 
 		if (($_zp_gallery_page == 'index.php') && ($isHomePage)) {
-			scriptloader($_zp_themeroot . '/js/jquery.flexslider-min.js', false);
+			scriptLoader($_zp_themeroot . '/js/jquery.flexslider-min.js');
 			?>
 			<script type="text/javascript">
 				//<![CDATA[
@@ -131,8 +131,8 @@ if (!defined('WEBPATH'))
 
 		<?php
 		if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) {
-			scriptloader($_zp_themeroot . '/js/jquery.fancybox.min.js', false);
-			scriptloader($_zp_themeroot . '/js/zpB_fancybox_config.js', false);
+			scriptLoader($_zp_themeroot . '/js/jquery.fancybox.min.js');
+			scriptLoader($_zp_themeroot . '/js/zpB_fancybox_config.js');
 			'
 							. '
 			?>'

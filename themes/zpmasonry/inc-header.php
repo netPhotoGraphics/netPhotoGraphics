@@ -5,7 +5,7 @@
 		<?php
 		zp_apply_filter('theme_head');
 
-		scriptLoader($_zp_themeroot . '/css/' . $zpmas_css . '.css', false);
+		scriptLoader($_zp_themeroot . '/css/' . $zpmas_css . '.css');
 
 		switch ($_zp_gallery_page) {
 			case 'index.php':

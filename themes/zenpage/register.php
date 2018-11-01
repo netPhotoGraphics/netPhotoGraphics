@@ -11,7 +11,7 @@ if (function_exists('printRegistrationForm')) {
 			<?php
 			zp_apply_filter('theme_head');
 
-			scriptLoader($_zp_themeroot . '/style.css', false);
+			scriptLoader($_zp_themeroot . '/style.css');
 			?>
 		</head>
 		<body>

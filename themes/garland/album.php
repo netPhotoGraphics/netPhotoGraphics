@@ -12,7 +12,7 @@ $map = function_exists('printGoogleMap');
 
 		$handler->theme_head($_zp_themeroot);
 
-		scriptLoader($_zp_themeroot . '/zen.css', false);
+		scriptLoader($_zp_themeroot . '/zen.css');
 
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Album', getAlbumTitle());

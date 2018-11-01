@@ -130,15 +130,15 @@ $zpskel_social = function_exists('printAddThis');
 				}
 			}
 		}
-		scriptLoader($_zp_themeroot . '/js/zpskeleton.js', false);
+		scriptLoader($_zp_themeroot . '/js/zpskeleton.js');
 		?>
 		<meta name="description" content="<?php echo $zpskel_metadesc; ?>" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<?php
-		scriptLoader($_zp_themeroot . '/css/style.css', false);
+		scriptLoader($_zp_themeroot . '/css/style.css');
 		if (!$zpskel_ismobile) {
-			scriptLoader($_zp_themeroot . '/css/prettyPhoto.css" type="text/css', false);
-			scriptLoader($_zp_themeroot . '/js/jquery.prettyPhoto.min.js', false);
+			scriptLoader($_zp_themeroot . '/css/prettyPhoto.css" type="text/css');
+			scriptLoader($_zp_themeroot . '/js/jquery.prettyPhoto.min.js');
 			?>
 			<script type="text/javascript" charset="utf-8">
 				$(document).ready(function () {

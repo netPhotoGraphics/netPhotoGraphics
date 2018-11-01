@@ -8,7 +8,7 @@ if (!defined('WEBPATH'))
 	zp_apply_filter('theme_head');
 	printZDRoundedCornerJS();
 
-	scriptLoader($_zp_themeroot . '/style.css', false);
+	scriptLoader($_zp_themeroot . '/style.css');
 	?>
 </head>
 <body>

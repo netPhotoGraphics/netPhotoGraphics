@@ -83,23 +83,23 @@ if (!defined('WEBPATH'))
 			}
 		}
 
-		scriptLoader($_zp_themeroot . '/css/screen.css', false);
+		scriptLoader($_zp_themeroot . '/css/screen.css');
 
 		if (getOption('css_style') == 'light') {
-			scriptLoader($_zp_themeroot . 'css/light.css', false);
+			scriptLoader($_zp_themeroot . 'css/light.css');
 		}
 		if (getOption('color_style') == 'custom') {
-			scriptLoader($_zp_themeroot . '/css/custom.css', false);
+			scriptLoader($_zp_themeroot . '/css/custom.css');
 		}
 		?>
 		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
 		<?php
-		scriptLoader($_zp_themeroot . '/js/fadeSliderToggle.js', false);
-		scriptLoader($_zp_themeroot . '/js/jquery.opacityrollover.js', false);
+		scriptLoader($_zp_themeroot . '/js/fadeSliderToggle.js');
+		scriptLoader($_zp_themeroot . '/js/jquery.opacityrollover.js');
 		if (getOption('css_style') == 'dark') {
-			scriptLoader($_zp_themeroot . '/js/zpardoise.js', false);
+			scriptLoader($_zp_themeroot . '/js/zpardoise.js');
 		} else {
-			scriptLoader($_zp_themeroot . '/js/zpardoise_light.js', false);
+			scriptLoader($_zp_themeroot . '/js/zpardoise_light.js');
 		}
 		if (($_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'favorites.php') && (getOption('use_galleriffic')) && (isImagePage() == true)) {
 			?>
@@ -118,8 +118,8 @@ if (!defined('WEBPATH'))
 				//]]>
 			</script>
 			<?php
-			scriptLoader($_zp_themeroot . '/js/jquery.history.js', false);
-			scriptLoader($_zp_themeroot . '/js/jquery.galleriffic.js', false);
+			scriptLoader($_zp_themeroot . '/js/jquery.history.js');
+			scriptLoader($_zp_themeroot . '/js/jquery.galleriffic.js');
 			?>
 			<script type = "text/javascript">
 				//<![CDATA[

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <head>
 	<?php
-	scriptLoader($_zp_themeroot . '/style.css', false);
-	scriptLoader($_zp_themeroot . '/slideshow.css', false);
+	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_zp_themeroot . '/slideshow.css');
 	zp_apply_filter('theme_head');
 	?>
 

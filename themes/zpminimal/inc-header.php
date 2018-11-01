@@ -13,7 +13,7 @@ if (function_exists('printAddThis')) {
 		<?php
 		zp_apply_filter('theme_head');
 
-		scriptLoader($_zp_themeroot . '/css/main.css', false);
+		scriptLoader($_zp_themeroot . '/css/main.css');
 		if (function_exists('printGslideshow'))
 			setOption('gslideshow_style', 'light', false);
 
@@ -202,7 +202,7 @@ if (function_exists('printAddThis')) {
 		<?php if ((($zpmin_colorbox) || (($zpmin_finallink) == 'colorbox')) && ($cbscript)) { ?>
 			<?php
 			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-			scriptLoader($_zp_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css', false);
+			scriptLoader($_zp_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css');
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[

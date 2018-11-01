@@ -31,7 +31,7 @@ if (isAlbumPage()) {
 		<div class="infinite-scroll-last infinite-scroll-error"><?php echo $noMoreText; ?></div>
 	</div>
 	<?php
-	scriptloader($_zp_themeroot . '/js/infinite-scroll.pkgd.min.js', false);
+	scriptLoader($_zp_themeroot . '/js/infinite-scroll.pkgd.min.js');
 	?>
 	<script type="text/javascript">
 	//<![CDATA[

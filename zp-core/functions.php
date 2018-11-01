@@ -2180,24 +2180,34 @@ function seoFriendlyJS() {
  *
  */
 function scriptLoader($script, $inline = true) {
+	if (strpos($script, SERVERPATH) === false) {
+		if (strpos($script, FULLWEBPATH) === 0) {
+			$script = SERVERPATH . substr($script, strlen(FULLWEBPATH));
+		} else {
+			$script = SERVERPATH . substr($script, strlen(WEBPATH));
+		}
+	}
+
 	$scriptFS = internalToFilesystem($script);
-	if ($inline && filesize($scriptFS) < INLINE_LOAD_THRESHOLD) {
-		$content = file_get_contents($scriptFS);
-		if (!preg_match('~url\s*\(~i', $content)) { //	no potential self relative links
-			if (getSuffix($scriptFS) == 'css') {
-				?>
-				<style type="text/css">/* src="<?php echo $script; ?>" */
-				<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
-				</style>
-				<?php
-			} else {
-				?>
-				<script type="text/javascript">/* src="<?php echo $script; ?>" */
-				<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
-				</script>
-				<?php
+	if ($inline) {
+		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD) {
+			$content = file_get_contents($scriptFS);
+			if (!preg_match('~url\s*\(~i', $content)) { //	no potential self relative links
+				if (getSuffix($scriptFS) == 'css') {
+					?>
+					<style type="text/css">/* src="<?php echo $script; ?>" */
+					<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+					</style>
+					<?php
+				} else {
+					?>
+					<script type="text/javascript">/* src="<?php echo $script; ?>" */
+					<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+					</script>
+					<?php
+				}
+				return;
 			}
-			return;
 		}
 	}
 	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
@@ -2356,14 +2366,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-					// <!-- <![CDATA[
-					$.ajax({
-						type: 'POST',
-						cache: false,
-						data: '<?php echo $paramlist; ?>',
-						url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-					});
-					// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

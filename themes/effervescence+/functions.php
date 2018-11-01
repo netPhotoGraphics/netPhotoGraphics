@@ -87,8 +87,8 @@ function EF_head() {
 		mkdir_recursive($basePath . '/data/styles', FOLDER_MOD);
 		file_put_contents($csfile, $css);
 	}
-	scriptLoader(WEBPATH . '/' . THEMEFOLDER . '/effervescence+/common.css', false);
-	scriptLoader(WEBPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css', false);
+	scriptLoader(WEBPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
+	scriptLoader(WEBPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
 	?>
 	<script type="text/javascript">
 	// <!-- <![CDATA[

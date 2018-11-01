@@ -75,9 +75,9 @@ $tags_album = getAllTagsFromAlbum($name, false, 'images');
 <?php } ?>
 </div>
 <?php
-scriptloader($_zp_themeroot . '/js/imagesloaded.pkgd.min.js', false);
-scriptloader($_zp_themeroot . '/js/isotope.pkgd.min.js', false);
-scriptloader($_zp_themeroot . '/js/packery-mode.pkgd.min.js', false);
+scriptLoader($_zp_themeroot . '/js/imagesloaded.pkgd.min.js');
+scriptLoader($_zp_themeroot . '/js/isotope.pkgd.min.js');
+scriptLoader($_zp_themeroot . '/js/packery-mode.pkgd.min.js');
 ?>
 <script type="text/javascript">
 //<![CDATA[
