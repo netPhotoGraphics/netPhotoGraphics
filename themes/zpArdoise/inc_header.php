@@ -82,23 +82,27 @@ if (!defined('WEBPATH'))
 				printRSSHeaderLink('News', NEWS_LABEL);
 			}
 		}
+
+		scriptLoader($_zp_themeroot . '/css/screen.css', false);
+
+		if (getOption('css_style') == 'light') {
+			scriptLoader($_zp_themeroot . 'css/light.css', false);
+		}
+		if (getOption('color_style') == 'custom') {
+			scriptLoader($_zp_themeroot . '/css/custom.css', false);
+		}
 		?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/screen.css" type="text/css" media="screen"/>
-		<?php if (getOption('css_style') == 'light') { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/light.css" type="text/css" media="screen"/>
-		<?php } ?>
-		<?php if (getOption('color_style') == 'custom') { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/custom.css" type="text/css" media="screen"/>
-		<?php } ?>
 		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/fadeSliderToggle.js"></script>
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.opacityrollover.js"></script>
-		<?php if (getOption('css_style') == 'dark') { ?>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/zpardoise.js"></script>
-		<?php } else { ?>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/zpardoise_light.js"></script>
-		<?php } ?>
-		<?php if (($_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'favorites.php') && (getOption('use_galleriffic')) && (isImagePage() == true)) { ?>
+		<?php
+		scriptLoader($_zp_themeroot . '/js/fadeSliderToggle.js', false);
+		scriptLoader($_zp_themeroot . '/js/jquery.opacityrollover.js', false);
+		if (getOption('css_style') == 'dark') {
+			scriptLoader($_zp_themeroot . '/js/zpardoise.js', false);
+		} else {
+			scriptLoader($_zp_themeroot . '/js/zpardoise_light.js', false);
+		}
+		if (($_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'favorites.php') && (getOption('use_galleriffic')) && (isImagePage() == true)) {
+			?>
 			<script type="text/javascript">
 				//<![CDATA[
 				(function($) {
@@ -113,9 +117,11 @@ if (!defined('WEBPATH'))
 				})(jQuery);
 				//]]>
 			</script>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.history.js"></script>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.galleriffic.js"></script>
-			<script type="text/javascript">
+			<?php
+			scriptLoader($_zp_themeroot . '/js/jquery.history.js', false);
+			scriptLoader($_zp_themeroot . '/js/jquery.galleriffic.js', false);
+			?>
+			<script type = "text/javascript">
 				//<![CDATA[
 				jQuery(document).ready(function($) {
 

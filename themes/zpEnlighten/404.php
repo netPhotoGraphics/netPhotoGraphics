@@ -1,8 +1,11 @@
 <?php if (!defined('WEBPATH')) die(); ?>
 <!DOCTYPE html>
 <head>
-	<?php zp_apply_filter('theme_head'); ?>
-	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
+	<?php
+	zp_apply_filter('theme_head');
+
+	scriptLoader($_zp_themeroot . '/style.css', false);
+	?>
 </head>
 
 <body>

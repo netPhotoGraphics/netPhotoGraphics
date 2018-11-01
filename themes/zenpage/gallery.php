@@ -7,10 +7,12 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
-
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
+		<?php
+		zp_apply_filter('theme_head');
+		scriptLoader($_zp_themeroot, '/style.css', false);
+		if (class_exists('RSS'))
+			printRSSHeaderLink('Gallery', gettext('Gallery'));
+		?>
 	</head>
 	<body>
 		<?php zp_apply_filter('theme_body_open'); ?>

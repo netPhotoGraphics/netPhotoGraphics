@@ -8,16 +8,19 @@ if (class_exists('CMS')) {
 	<html>
 		<head>
 
-			<?php zp_apply_filter('theme_head'); ?>
-			<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css" />
-			<link rel="stylesheet" href="<?php echo pathurlencode(dirname(dirname($zenCSS))); ?>/common.css" type="text/css" />
+			<?php
+			zp_apply_filter('theme_head');
 
+			scriptLoader($zenCSS, false);
+			scriptLoader(dirname(dirname($zenCSS)) . '/common.css', false);
 
-			<?php if (class_exists('RSS')) printRSSHeaderLink("Pages", "Zenpage news", ""); ?>
+			if (class_exists('RSS'))
+				printRSSHeaderLink("Pages", "Zenpage news", "");
+			?>
 		</head>
 
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 
 			<div id="main">
 				<div id="header">
@@ -52,7 +55,7 @@ if (class_exists('CMS')) {
 					?>
 					<?php if ($prev = getPrevNewsURL()) { ?><div class="singlenews_prev"><?php printPrevNewsLink(); ?></div><?php } ?>
 					<?php if ($next = getNextNewsURL()) { ?><div class="singlenews_next"><?php printNextNewsLink(); ?></div><?php } ?>
-					<?php if ($prev || $next) { ?><br class="clearall"><?php } ?>
+		<?php if ($prev || $next) { ?><br class="clearall"><?php } ?>
 					<h3><?php printNewsTitle(); ?></h3>
 
 					<div class="newsarticlecredit">
@@ -74,7 +77,7 @@ if (class_exists('CMS')) {
 						<br />
 						<?php printCodeblock(1); ?>
 						<?php printNewsContent(); ?>
-						<?php printCodeblock(2); ?>
+					<?php printCodeblock(2); ?>
 					</div>
 					<?php
 					@call_user_func('printCommentForm');
@@ -109,7 +112,7 @@ if (class_exists('CMS')) {
 							<br clear="all">
 							<?php printCodeblock(1); ?>
 							<?php printNewsContent(); ?>
-							<?php printCodeblock(2); ?>
+			<?php printCodeblock(2); ?>
 							<br class="clearall">
 						</div>
 						<?php
@@ -127,7 +130,7 @@ if (class_exists('CMS')) {
 				?>
 				<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 				<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> | <?php printSoftwareLink(); ?>
-				<?php @call_user_func('printUserLogin_out', " | "); ?>
+			<?php @call_user_func('printUserLogin_out', " | "); ?>
 			</div>
 			<?php
 			zp_apply_filter('theme_body_close');

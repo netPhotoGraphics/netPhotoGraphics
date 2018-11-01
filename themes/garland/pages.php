@@ -6,12 +6,17 @@ if (class_exists('CMS')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-			<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
+			<?php
+			zp_apply_filter('theme_head');
+
+			scriptLoader($_zp_themeroot . '/zen.css', false);
+
+			if (class_exists('RSS'))
+				printRSSHeaderLink('Gallery', gettext('Gallery'));
+			?>
 		</head>
 		<body class="sidebars">
-			<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 			<div id="navigation"></div>
 			<div id="wrapper">
 				<div id="container">
@@ -26,7 +31,7 @@ if (class_exists('CMS')) {
 					<!-- header -->
 					<div class="sidebar">
 						<div id="leftsidebar">
-							<?php include("sidebar.php"); ?>
+	<?php include("sidebar.php"); ?>
 						</div>
 					</div>
 
@@ -39,13 +44,13 @@ if (class_exists('CMS')) {
 										<h2 id="gallerytitle">
 											<?php printHomeLink('', ' » '); ?>
 											<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php echo html_encode(getGalleryTitle()); ?></a>
-											<?php printZenpageItemsBreadcrumb(" » ", ""); ?><?php printPageTitle(" » "); ?>
+	<?php printZenpageItemsBreadcrumb(" » ", ""); ?><?php printPageTitle(" » "); ?>
 										</h2>
 										<h3><?php printPageTitle(); ?></h3>
 										<div id="pagetext">
 											<?php printCodeblock(1); ?>
 											<?php printPageContent(); ?>
-											<?php printCodeblock(2); ?>
+										<?php printCodeblock(2); ?>
 										</div>
 										<?php
 										@call_user_func('printCommentForm');
@@ -61,7 +66,7 @@ if (class_exists('CMS')) {
 					<span class="clear"></span>
 					<div class="sidebar">
 						<div id="rightsidebar">
-							<?php printTags('links', gettext('Tags: '), NULL, ''); ?>
+	<?php printTags('links', gettext('Tags: '), NULL, ''); ?>
 						</div><!-- right sidebar -->
 					</div><!-- sidebar -->
 				</div><!-- /container -->

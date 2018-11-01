@@ -4,9 +4,12 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 <head>
-	<?php printZDRoundedCornerJS(); ?>
-	<?php zp_apply_filter('theme_head'); ?>
-	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
+	<?php
+	printZDRoundedCornerJS();
+	zp_apply_filter('theme_head');
+
+	scriptLoader($_zp_themeroot . '/style.css', false);
+	?>
 </head>
 <body>
 	<?php zp_apply_filter('theme_body_open'); ?>

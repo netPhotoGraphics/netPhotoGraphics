@@ -7,10 +7,11 @@ if (function_exists('printSlideShow')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			
-			
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php
+			zp_apply_filter('theme_head');
+
+			scriptLoader($_zp_themeroot . '/zen.css', false);
+			?>
 		</head>
 
 		<body>

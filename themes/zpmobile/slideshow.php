@@ -10,7 +10,7 @@ if (function_exists('printSlideShow')) {
 			<?php zp_apply_filter('theme_head'); ?>
 			<meta charset="<?php echo LOCAL_CHARSET; ?>">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" />
+			<?php scriptLoader($_zp_themeroot . '/style.css', false); ?>
 		</head>
 		<body>
 			<?php zp_apply_filter('theme_body_open'); ?>

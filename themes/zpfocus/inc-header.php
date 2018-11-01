@@ -123,18 +123,24 @@
 
 		<meta name="description" content="<?php echo html_encode($zpfocus_metadesc); ?>" />
 
-		<?php require_once(SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/print_album_menu.php"); ?>
+		<?php
+		require_once(SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/print_album_menu.php");
+		scriptLoader($_zp_themeroot . '/css/main.css', false);
+		if (getOption('zpfocus_center_site')) {
+			scriptLoader($_zp_themeroot . '/css/center.css', false);
+		}
 
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/main.css" />
-		<?php if (getOption('zpfocus_center_site')) { ?>
-			<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/center.css" />
-		<?php } ?>
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/print.css" media="print" />
+		scriptLoader($_zp_themeroot . '/css/print.css', false);
+		?>
 		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/ie6.css" />
+		<?php
+		scriptLoader($_zp_themeroot . '/css/ie6.css', false);
+		?>
 		<![endif]-->
 		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/superfish.js"></script>
+		<?php
+		scriptLoader($_zp_themeroot . '/js/superfish.js', false);
+		?>
 		<script type="text/javascript">
 			jQuery(function () {
 				jQuery('ul.sf-menu').superfish();

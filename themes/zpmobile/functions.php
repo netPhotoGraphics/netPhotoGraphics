@@ -8,9 +8,9 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/print_album_
  */
 function jqm_loadScripts() {
 	global $_zp_themeroot;
+	scriptLoader($_zp_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.css', false);
+	scriptLoader($_zp_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.js', false);
 	?>
-	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/jquerymobile/jquery.mobile-1.4.5.min.css" />
-	<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/jquerymobile/jquery.mobile-1.4.5.min.js"></script>
 
 	<script type="text/javascript">
 		window.addEventListener('load', function () {

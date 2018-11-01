@@ -6,14 +6,17 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php
+		zp_apply_filter('theme_head');
 
+		scriptLoader($_zp_themeroot . '/zen.css', false);
 
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
+		if (class_exists('RSS'))
+			printRSSHeaderLink('Gallery', gettext('Gallery'));
+		?>
 	</head>
 	<body class="sidebars">
-		<?php zp_apply_filter('theme_body_open'); ?>
+<?php zp_apply_filter('theme_body_open'); ?>
 		<div id="navigation"></div>
 		<div id="wrapper">
 			<div id="container">
@@ -27,7 +30,7 @@ if (!defined('WEBPATH'))
 				<!-- header -->
 				<div class="sidebar">
 					<div id="leftsidebar">
-						<?php include("sidebar.php"); ?>
+<?php include("sidebar.php"); ?>
 					</div>
 				</div>
 				<div id="center">
@@ -39,13 +42,13 @@ if (!defined('WEBPATH'))
 									<h2 id="gallerytitle">
 										<?php printHomeLink('', ' » '); ?>
 										<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php echo html_encode(getGalleryTitle()); ?></a> »
-										<?php echo "<em>" . gettext('Page not found') . "</em>"; ?>
+<?php echo "<em>" . gettext('Page not found') . "</em>"; ?>
 									</h2>
 									<h3><?php echo gettext('Page not found') ?></h3>
 									<div class="errorbox">
-										<?php print404status(); ?>
+									<?php print404status(); ?>
 									</div>
-									<?php footer(); ?>
+<?php footer(); ?>
 									<p style="clear: both;"></p>
 								</div>
 								<!-- end content -->

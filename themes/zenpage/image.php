@@ -7,12 +7,13 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php
+		zp_apply_filter('theme_head');
 
+		scriptLoader($_zp_themeroot, '/style.css', false);
 
-
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-		<?php if (zp_has_filter('theme_head', 'colorbox::css')) { ?>
+		if (zp_has_filter('theme_head', 'colorbox::css')) {
+			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
 				window.addEventListener('load', function () {

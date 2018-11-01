@@ -130,14 +130,16 @@ $zpskel_social = function_exists('printAddThis');
 				}
 			}
 		}
+		scriptLoader($_zp_themeroot . '/js/zpskeleton.js', false);
 		?>
-		<script src="<?php echo $_zp_themeroot; ?>/js/zpskeleton.js"></script>
 		<meta name="description" content="<?php echo $zpskel_metadesc; ?>" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/style.css">
-		<?php if (!$zpskel_ismobile) { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-			<script src="<?php echo $_zp_themeroot; ?>/js/jquery.prettyPhoto.min.js" type="text/javascript" charset="utf-8"></script>
+		<?php
+		scriptLoader($_zp_themeroot . '/css/style.css', false);
+		if (!$zpskel_ismobile) {
+			scriptLoader($_zp_themeroot . '/css/prettyPhoto.css" type="text/css', false);
+			scriptLoader($_zp_themeroot . '/js/jquery.prettyPhoto.min.js', false);
+			?>
 			<script type="text/javascript" charset="utf-8">
 				$(document).ready(function () {
 					$("a[rel^='slideshow']").prettyPhoto({

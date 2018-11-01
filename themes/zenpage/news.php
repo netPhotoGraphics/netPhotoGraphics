@@ -7,10 +7,12 @@ if (class_exists('CMS')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-			<?php if (class_exists('RSS')) printRSSHeaderLink("News", "Zenpage news", ""); ?>
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php
+			zp_apply_filter('theme_head');
+			scriptLoader($_zp_themeroot . '/style.css', false);
+			if (class_exists('RSS'))
+				printRSSHeaderLink("News", "Zenpage news", "");
+			?>
 		</head>
 
 		<body>

@@ -7,12 +7,17 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Album', getAlbumTitle()); ?>
+		<?php
+		zp_apply_filter('theme_head');
+
+		scriptLoader($_zp_themeroot . '/style.css', false);
+
+		if (class_exists('RSS'))
+			printRSSHeaderLink('Album', getAlbumTitle());
+		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+<?php zp_apply_filter('theme_body_open'); ?>
 
 		<div id="main">
 
@@ -36,9 +41,9 @@ if (!defined('WEBPATH'))
 					<div><?php printAlbumDesc(); ?></div>
 
 
-					<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
+						<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
 					<div id="albums">
-						<?php while (next_album()): ?>
+<?php while (next_album()): ?>
 							<div class="album">
 								<div class="thumb">
 									<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), NULL, 95, 95, 95, 95); ?></a>
@@ -56,15 +61,15 @@ if (!defined('WEBPATH'))
 								</div>
 								<p style="clear: both; "></p>
 							</div>
-						<?php endwhile; ?>
+<?php endwhile; ?>
 					</div>
 
 					<div id="images">
-						<?php while (next_image()): ?>
+<?php while (next_image()): ?>
 							<div class="image">
 								<div class="imagethumb"><a href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>"><?php printImageThumb(getBareImageTitle()); ?></a></div>
 							</div>
-						<?php endwhile; ?>
+<?php endwhile; ?>
 
 					</div>
 					<p style="clear: both; "></p>
@@ -100,13 +105,13 @@ if (!defined('WEBPATH'))
 
 
 				<div id="sidebar">
-					<?php include("sidebar.php"); ?>
+<?php include("sidebar.php"); ?>
 				</div><!-- sidebar -->
 
 
 
 				<div id="footer">
-					<?php include("footer.php"); ?>
+<?php include("footer.php"); ?>
 				</div>
 
 			</div><!-- content -->

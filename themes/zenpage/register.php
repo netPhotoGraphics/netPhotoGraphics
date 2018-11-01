@@ -8,11 +8,11 @@ if (function_exists('printRegistrationForm')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
-			
-			
-			 
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
+			<?php
+			zp_apply_filter('theme_head');
+
+			scriptLoader($_zp_themeroot . '/style.css', false);
+			?>
 		</head>
 		<body>
 			<?php zp_apply_filter('theme_body_open'); ?>
@@ -59,4 +59,4 @@ if (function_exists('printRegistrationForm')) {
 } else {
 	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
 }
-	?>
+?>

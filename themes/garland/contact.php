@@ -6,10 +6,12 @@ if (function_exists('printContactForm')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			
-			<?php zp_apply_filter('theme_head'); ?>
-			
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
+
+			<?php
+			zp_apply_filter('theme_head');
+
+			scriptLoader($_zp_themeroot . '/zen.css', false);
+			?>
 		</head>
 		<body class="sidebars">
 			<?php zp_apply_filter('theme_body_open'); ?>

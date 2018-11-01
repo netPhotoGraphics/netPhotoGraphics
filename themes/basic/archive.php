@@ -8,14 +8,17 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php
+		zp_apply_filter('theme_head');
 
-		<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo pathurlencode(dirname(dirname($zenCSS))); ?>/common.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
+		scriptLoader($zenCSS, false);
+		scriptLoader(dirname(dirname($zenCSS)) . '/common.css', false);
+		if (class_exists('RSS'))
+			printRSSHeaderLink('Gallery', gettext('Gallery'));
+		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+<?php zp_apply_filter('theme_body_open'); ?>
 		<div id="main">
 			<div id="gallerytitle">
 				<?php
@@ -25,10 +28,10 @@ if (!defined('WEBPATH'))
 				?>
 				<h2>
 					<span>
-						<?php printHomeLink('', ' | '); ?>
+<?php printHomeLink('', ' | '); ?>
 						<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php printGalleryTitle(); ?></a>
 					</span> |
-					<?php echo gettext("Archive View"); ?>
+<?php echo gettext("Archive View"); ?>
 				</h2>
 			</div>
 			<div id="padbox">
@@ -50,7 +53,7 @@ if (!defined('WEBPATH'))
 				?>
 				<div id="tag_cloud">
 					<p><?php echo gettext('Popular Tags'); ?></p>
-					<?php printAllTagsAs('cloud', 'tags'); ?>
+<?php printAllTagsAs('cloud', 'tags'); ?>
 				</div>
 			</div>
 		</div>

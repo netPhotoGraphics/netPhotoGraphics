@@ -7,14 +7,18 @@ if (class_exists('CMS')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
+			<?php
+			zp_apply_filter('theme_head');
 
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-			<?php if (class_exists('RSS')) printRSSHeaderLink("News", "Zenpage news", ""); ?>
-			<?php zp_apply_filter('theme_head'); ?>
+			scriptLoader($_zp_themeroot . '/style.css', false);
+
+			if (class_exists('RSS'))
+				printRSSHeaderLink("News", "Zenpage news", "");
+			?>
 		</head>
 
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 
 			<div id="main">
 
@@ -57,12 +61,12 @@ if (class_exists('CMS')) {
 
 
 					<div id="sidebar">
-						<?php include("sidebar.php"); ?>
+	<?php include("sidebar.php"); ?>
 					</div><!-- sidebar -->
 
 
 					<div id="footer">
-						<?php include("footer.php"); ?>
+	<?php include("footer.php"); ?>
 					</div>
 
 				</div><!-- content -->

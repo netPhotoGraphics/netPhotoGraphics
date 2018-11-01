@@ -9,10 +9,12 @@ if (function_exists('printRegistrationForm')) {
 	<html>
 		<head>
 
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php
+			zp_apply_filter('theme_head');
 
-			<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css" />
-			<link rel="stylesheet" href="<?php echo pathurlencode(dirname(dirname($zenCSS))); ?>/common.css" type="text/css" />
+			scriptLoader($zenCSS, false);
+			scriptLoader(dirname(dirname($zenCSS)) . '/common.css', false);
+			?>
 		</head>
 		<body>
 			<?php zp_apply_filter('theme_body_open'); ?>

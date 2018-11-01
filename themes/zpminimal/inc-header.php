@@ -10,10 +10,13 @@ if (function_exists('printAddThis')) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/main.css" />
-		<?php if (function_exists('printGslideshow')) setOption('gslideshow_style', 'light', false); ?>
 		<?php
+		zp_apply_filter('theme_head');
+
+		scriptLoader($_zp_themeroot . '/css/main.css', false);
+		if (function_exists('printGslideshow'))
+			setOption('gslideshow_style', 'light', false);
+
 		$showsearch = true;
 		$galleryactive = false;
 		$zpmin_metatitle = '';
@@ -197,8 +200,10 @@ if (function_exists('printAddThis')) {
 			</script>
 		<?php } ?>
 		<?php if ((($zpmin_colorbox) || (($zpmin_finallink) == 'colorbox')) && ($cbscript)) { ?>
-			<?php scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js'); ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/cbStyles/<?php echo $zpmin_cbstyle; ?>/colorbox.css" type="text/css" media="screen"/>
+			<?php
+			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+			scriptLoader($_zp_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css', false);
+			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
 				$(document).ready(function () {
@@ -207,24 +212,24 @@ if (function_exists('printAddThis')) {
 				// ]]> -->
 			</script>
 
-		<?php } ?>
+<?php } ?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+<?php zp_apply_filter('theme_body_open'); ?>
 		<div id="wrapper">
 			<div id="header"<?php
 			if (!$showsearch) {
 				echo ' style="text-align:center;"';
 			}
 			?>>
-						 <?php if ($zpmin_logo) { ?>
+				<?php if ($zpmin_logo) { ?>
 					<div id="image-logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/<?php echo $zpmin_logo; ?>" /></a></div>
 				<?php } else { ?>
 					<h1 id="logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><?php echo getGalleryTitle(); ?></a></h1>
 				<?php } ?>
-				<?php if ($zpmin_social) { ?>
+					<?php if ($zpmin_social) { ?>
 					<div id="social">
-						<?php printAddThis(); ?>
+					<?php printAddThis(); ?>
 					</div>
 				<?php } ?>
 				<?php
