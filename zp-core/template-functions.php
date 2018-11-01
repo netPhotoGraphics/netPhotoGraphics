@@ -3868,7 +3868,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @since 1.1.3
  */
 function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL) {
-	global $_zp_adminJS_loaded, $_zp_current_search, $_zp_current_album;
+	global $_zp_current_search, $_zp_current_album;
 	$engine = new SearchEngine();
 	if (!is_null($_zp_current_search) && !$_zp_current_search->getSearchWords()) {
 		$engine->clearSearchWords();
@@ -3916,12 +3916,9 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	}
 
 	$fields = $engine->allowedSearchFields();
-	if (!$_zp_adminJS_loaded) {
-		$_zp_adminJS_loaded = true;
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
-	}
 	?>
-	<div id="<?php echo $id; ?>">
+
+	<div id="<?php echo $id; ?>"><!-- start of search form -->
 		<!-- search form -->
 		<script type="text/javascript">
 			// <!-- <![CDATA[
@@ -4339,7 +4336,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
