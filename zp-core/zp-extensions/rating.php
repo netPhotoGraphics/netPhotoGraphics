@@ -60,7 +60,7 @@ if (getOption('rating_image_individual_control')) {
 
 // register the scripts needed
 if (in_context(ZP_INDEX)) {
-	zp_register_filter('theme_head', 'jquery_rating::ratingJS');
+	zp_register_filter('theme_body_close', 'jquery_rating::ratingJS');
 }
 
 /**

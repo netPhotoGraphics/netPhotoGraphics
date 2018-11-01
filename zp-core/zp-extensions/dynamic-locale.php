@@ -61,7 +61,7 @@ define('LOCALE_TYPE', getOption('dynamic_locale_subdomain'));
 define('BASE_LOCALE', getOption('dynamic_locale_base'));
 
 if (OFFSET_PATH != 2) {
-	zp_register_filter('theme_head', 'dynamic_locale::dynamic_localeCSS');
+	zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
 	if (LOCALE_TYPE && extensionEnabled('dynamic-locale')) {
 		if (LOCALE_TYPE == 1) {
 

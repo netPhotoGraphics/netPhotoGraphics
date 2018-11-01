@@ -218,4 +218,4 @@ class VideoJS {
 }
 
 $_zp_multimedia_extension = new VideoJS(); // claim to be the flash player.
-zp_register_filter('theme_head', 'VideoJS::headJS');
+zp_register_filter('theme_body_close', 'VideoJS::headJS');

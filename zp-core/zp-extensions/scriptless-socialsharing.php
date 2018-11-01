@@ -51,7 +51,7 @@ $plugin_description = gettext('Provides scriptless and privacy friendly sharing 
 $option_interface = 'scriptlessSocialsharing';
 
 if (getOption('scriptless_socialsharing_iconfont')) {
-	zp_register_filter('theme_head', 'scriptlessSocialsharing::CSS');
+	zp_register_filter('theme_body_close', 'scriptlessSocialsharing::CSS');
 }
 
 class scriptlessSocialsharing {

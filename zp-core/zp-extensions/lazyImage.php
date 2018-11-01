@@ -17,7 +17,7 @@ $plugin_description = gettext('A plugin to turn <em>img src</em> links into lazy
 
 $option_interface = 'lazyImage';
 
-zp_register_filter('theme_head', 'lazyImage::head');
+zp_register_filter('theme_body_close', 'lazyImage::head');
 // Note: these are not exact. If some other plugin decides to insert before or after, it's output
 // will not get processed.
 zp_register_filter('theme_body_open', 'lazyImage::start', 99999);

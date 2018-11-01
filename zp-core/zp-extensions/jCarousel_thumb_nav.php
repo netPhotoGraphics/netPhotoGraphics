@@ -13,6 +13,9 @@ $plugin_description = gettext("jQuery jCarousel thumb nav plugin with dynamic lo
 $plugin_disable = (extensionEnabled('bxslider_thumb_nav')) ? sprintf(gettext('Only one Carousel plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), 'bxslider_thumb_nav') : '';
 
 $option_interface = 'jcarousel';
+if (!getOption('jQuery_Migrate_theme')) { //	until such time as jquery.jcarousel works with jQuery 3.3
+	setOption('jQuery_Migrate_theme', 1, false);
+}
 
 /**
  * Plugin option handling class
@@ -124,7 +127,7 @@ class jcarousel {
 }
 
 if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page))) {
-	zp_register_filter('theme_head', 'jcarousel::themeJS');
+	zp_register_filter('theme_body_close', 'jcarousel::themeJS');
 
 	/** Prints the jQuery jCarousel HTML setup to be replaced by JS
 	 *
@@ -142,7 +145,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 	function printThumbNav($minitems = NULL, $maxitems = NULL, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $fullimagelink = NULL, $vertical = NULL, $speed = NULL, $thumbscroll = NULL) {
 		global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery_page;
 		//	Just incase the theme has not set the option, at least second try will work!
-		setOptionDefault('slideshow_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page), 1);
+		setOptionDefault('jcarousel_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page), 1);
 		$items = "";
 		if (is_object($_zp_current_album) && $_zp_current_album->getNumImages() >= 2) {
 			if (is_null($thumbscroll)) {

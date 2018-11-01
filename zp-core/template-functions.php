@@ -37,8 +37,14 @@ function printThemeHeadItems() {
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
-	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
+}
+
+/**
+ * stuff that belongs at then end of the theme html
+ */
+function printThemeCloseItems() {
+	load_jQuery_CSS();
 	if (zp_loggedin()) {
 		scriptLoader(getPlugin('toolbox.css', true));
 	}
@@ -4333,7 +4339,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

@@ -77,6 +77,7 @@ class debug {
 	function getOptionsSupported() {
 		$list = array(
 				gettext('Display PHP errors') => 'DISPLAY_ERRORS',
+				gettext('<em>testing mode</em>') => 'TESTING',
 				gettext('Log 404 error processing debug information') => '404',
 				gettext('Log start/finish of exif processing') => 'EXIF',
 				gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN_SELECTS',
@@ -92,7 +93,7 @@ class debug {
 				NULL => array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
 						'checkboxes' => $list,
 						'order' => 1,
-						'desc' => ''),
+						'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.')),
 				1 => array('key' => '', 'type' => OPTION_TYPE_NOTE, 'desc' => gettext('Note: These options are enabled only when the release is marked in <em>debug</em> mode.')),
 				gettext('jQuery migration (admin)') => array('key' => 'jQuery_Migrate_admin', 'type' => OPTION_TYPE_RADIO,
 						'buttons' => array(// The definition of the radio buttons to choose from and their values.

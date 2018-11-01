@@ -77,6 +77,7 @@ define('DEBUG_LOGIN', strpos($_debug, 'LOGIN')); // set to true to log admin sav
 define('DEBUG_PLUGINS', strpos($_debug, 'PLUGINS')); // set to true to log plugin load sequence.
 define('DEBUG_FEED', strpos($_debug, 'FEED')); // set to true to log class feed detected issues.
 define('DEBUG_OBJECTS', strpos($_debug, 'OBJECTS')); // set to true to log object management.
+define('TESTING_MODE', strpos($_debug, 'TESTING'));
 
 unset($_debug);
 

@@ -85,9 +85,9 @@ Gallery::addImageHandler('m4a', 'Video');
 
 $_zp_multimedia_extension = new jPlayer(); // claim to be the flash player.
 zp_register_filter('content_macro', 'jPlayer::macro');
-zp_register_filter('theme_head', 'jplayer::headJS');
+zp_register_filter('theme_body_close', 'jplayer::headJS');
 if (getOption('jplayer_playlist')) {
-	zp_register_filter('theme_head', 'jplayer::playlistJS');
+	zp_register_filter('theme_body_close', 'jplayer::playlistJS');
 }
 
 // theme function wrapper for user convenience

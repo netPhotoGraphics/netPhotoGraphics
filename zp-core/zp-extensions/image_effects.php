@@ -68,7 +68,7 @@ zp_register_filter('standard_image_thumb_html', 'image_effects::std_image_thumbs
 zp_register_filter('custom_album_thumb_html', 'image_effects::custom_album_thumbs');
 
 if (defined('OFFSET_PATH') && OFFSET_PATH == 0) {
-	zp_register_filter('theme_head', 'image_effects::effectsJS');
+	zp_register_filter('theme_body_close', 'image_effects::effectsJS');
 }
 
 class image_effects {
