@@ -84,10 +84,16 @@ function EF_head() {
 		$css = file_get_contents($basePath . '/base.css');
 		$css = strtr($css, $tr);
 		$css = preg_replace('|\.\./images/|', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/', $css);
+		$common = file_get_contents(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
+		$common = preg_replace('|images/|', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/', $common);
+
+		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $common . $css);
+		$buffer = str_replace(': ', ':', $buffer);
+		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+
 		mkdir_recursive($basePath . '/data/styles', FOLDER_MOD);
-		file_put_contents($csfile, $css);
+		file_put_contents($csfile, $buffer);
 	}
-	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
 	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
 	?>
 	<script type="text/javascript">

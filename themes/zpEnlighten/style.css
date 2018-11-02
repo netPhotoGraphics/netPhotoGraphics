@@ -662,7 +662,7 @@ ul.pagelist li.next {
 	width: 32px;
   height: 32px;
   cursor: pointer;
-  background: transparent url(jcarousel/jcarousel_prev.png) no-repeat 0 0;
+  background: transparent url(jCarousel_thumb_nav/jcarousel_prev.png) no-repeat 0 0;
 	position: relative;
 	top: -40px;
 	left: 100px;
@@ -679,7 +679,7 @@ ul.pagelist li.next {
 	background-position: -32px 0;
 }
 .imgnav .imgprevious.disabled a, .imgnav .imgprevious.disabled a:hover {
-	background: transparent url(jcarousel/jcarousel_prev.png) no-repeat -96px 0;
+	background: transparent url(jCarousel_thumb_nav/jcarousel_prev.png) no-repeat -96px 0;
 }
 
 .imgnav .imgprevious a:active {
@@ -693,7 +693,7 @@ ul.pagelist li.next {
 	width: 32px;
   height: 32px;
   cursor: pointer;
-  background: transparent url(jcarousel/jcarousel_next.png) no-repeat 0 0;
+  background: transparent url(jCarousel_thumb_nav/jcarousel_next.png) no-repeat 0 0;
 	position: relative;
 	top: -40px;
 	right: 100px;
@@ -712,7 +712,7 @@ ul.pagelist li.next {
 }
 
 .imgnav .imgnext.disabled a, .imgnav .imgnext.disabled a:hover {
-	background: transparent url(jcarousel/jcarousel_next.png) no-repeat -96px 0;
+	background: transparent url(jCarousel_thumb_nav/jcarousel_next.png) no-repeat -96px 0;
 }
 
 .imgnav .imgnext a:active {

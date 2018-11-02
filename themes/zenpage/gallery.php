@@ -9,7 +9,7 @@ if (!defined('WEBPATH'))
 	<head>
 		<?php
 		zp_apply_filter('theme_head');
-		scriptLoader($_zp_themeroot, '/style.css');
+		scriptLoader($_zp_themeroot . '/style.css');
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
