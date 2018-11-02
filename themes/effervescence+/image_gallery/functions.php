@@ -16,10 +16,8 @@ class imagegallery {
 	}
 
 	function theme_head($_zp_themeroot) {
-		?>
-		<link rel="stylesheet" type="text/css" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER; ?>/adGallery/jquery.ad-gallery.css">
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER; ?>/adGallery/jquery.ad-gallery.js"></script>
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
 	}
 
 	function theme_bodyopen($_zp_themeroot) {

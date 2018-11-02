@@ -27,6 +27,7 @@
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = 400 | CLASS_PLUGIN;
 	$plugin_description = gettext("Adds static HTML cache functionality.");
+	$plugin_notice = TESTING_MODE ? gettext('Caching is disabled because <em>TESTING_MODE</em> is enabled.') : '';
 }
 
 $option_interface = 'static_html_cache';
@@ -51,8 +52,10 @@ if (OFFSET_PATH == 2) { //	clear the cache upon upgrade
 	static_html_cache::clearHTMLCache();
 }
 
-$_zp_HTML_cache = new static_html_cache();
-zp_register_filter('image_processor_uri', 'static_html_cache::_disable');
+if (!TESTING_MODE) {
+	$_zp_HTML_cache = new static_html_cache();
+	zp_register_filter('image_processor_uri', 'static_html_cache::_disable');
+}
 
 class static_html_cache {
 

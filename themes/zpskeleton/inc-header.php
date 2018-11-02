@@ -137,7 +137,7 @@ $zpskel_social = function_exists('printAddThis');
 		<?php
 		scriptLoader($_zp_themeroot . '/css/style.css');
 		if (!$zpskel_ismobile) {
-			scriptLoader($_zp_themeroot . '/css/prettyPhoto.css" type="text/css');
+			scriptLoader($_zp_themeroot . '/css/prettyPhoto.css');
 			scriptLoader($_zp_themeroot . '/js/jquery.prettyPhoto.min.js');
 			?>
 			<script type="text/javascript" charset="utf-8">

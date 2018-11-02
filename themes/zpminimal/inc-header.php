@@ -78,7 +78,7 @@ if (function_exists('printAddThis')) {
 			case 'slideshow.php':
 				$zpmin_metatitle = getBareAlbumTitle() . ' | ' . gettext('Slideshow') . ' | ';
 				if (!function_exists('printGslideshow')) {
-					echo '<link rel="stylesheet" href="' . $_zp_themeroot . '/css/slideshow.css" type="text/css" />';
+					scriptLoader($_zp_themeroot . '/css/slideshow.css');
 				}
 				$showsearch = false;
 				$zpmin_social = false;
@@ -212,24 +212,24 @@ if (function_exists('printAddThis')) {
 				// ]]> -->
 			</script>
 
-<?php } ?>
+		<?php } ?>
 	</head>
 	<body>
-<?php zp_apply_filter('theme_body_open'); ?>
+		<?php zp_apply_filter('theme_body_open'); ?>
 		<div id="wrapper">
 			<div id="header"<?php
 			if (!$showsearch) {
 				echo ' style="text-align:center;"';
 			}
 			?>>
-				<?php if ($zpmin_logo) { ?>
+						 <?php if ($zpmin_logo) { ?>
 					<div id="image-logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/<?php echo $zpmin_logo; ?>" /></a></div>
 				<?php } else { ?>
 					<h1 id="logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><?php echo getGalleryTitle(); ?></a></h1>
 				<?php } ?>
-					<?php if ($zpmin_social) { ?>
+				<?php if ($zpmin_social) { ?>
 					<div id="social">
-					<?php printAddThis(); ?>
+						<?php printAddThis(); ?>
 					</div>
 				<?php } ?>
 				<?php

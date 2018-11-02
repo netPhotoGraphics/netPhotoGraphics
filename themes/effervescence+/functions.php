@@ -87,11 +87,11 @@ function EF_head() {
 		mkdir_recursive($basePath . '/data/styles', FOLDER_MOD);
 		file_put_contents($csfile, $css);
 	}
-	scriptLoader(WEBPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
-	scriptLoader(WEBPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
+	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
+	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
 	?>
 	<script type="text/javascript">
-	// <!-- <![CDATA[
+		// <!-- <![CDATA[
 		function blurAnchors() {
 			if (document.getElementsByTagName) {
 				var a = document.getElementsByTagName("a");
@@ -102,7 +102,7 @@ function EF_head() {
 				}
 			}
 		}
-	// ]]> -->
+		// ]]> -->
 	</script>
 	<?php
 }
