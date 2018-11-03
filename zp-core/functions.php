@@ -2196,7 +2196,11 @@ function scriptLoader($script, $inline = true) {
 				if (getSuffix($scriptFS) == 'css') {
 					?>
 					<style type="text/css">/* src="<?php echo $script; ?>" */
-					<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+					<?php
+					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
+					$content = str_replace(': ', ':', $content);
+					echo preg_replace('/\s+/', ' ', $content) . "\n";
+					?>
 					</style>
 					<?php
 				} else {
@@ -2366,14 +2370,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

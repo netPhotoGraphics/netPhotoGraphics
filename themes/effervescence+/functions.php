@@ -87,9 +87,9 @@ function EF_head() {
 		$common = file_get_contents(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
 		$common = preg_replace('|images/|', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/', $common);
 
-		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $common . $css);
+		$buffer = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $common . $css);
 		$buffer = str_replace(': ', ':', $buffer);
-		$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
+		$buffer = preg_replace('/\s+/', ' ', $buffer);
 
 		mkdir_recursive($basePath . '/data/styles', FOLDER_MOD);
 		file_put_contents($csfile, $buffer);
