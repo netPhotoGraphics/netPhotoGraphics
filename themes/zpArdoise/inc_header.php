@@ -86,7 +86,7 @@ if (!defined('WEBPATH'))
 		scriptLoader($_zp_themeroot . '/css/screen.css');
 
 		if (getOption('css_style') == 'light') {
-			scriptLoader($_zp_themeroot . 'css/light.css');
+			scriptLoader($_zp_themeroot . '/css/light.css');
 		}
 		if (getOption('color_style') == 'custom') {
 			scriptLoader($_zp_themeroot . '/css/custom.css');
