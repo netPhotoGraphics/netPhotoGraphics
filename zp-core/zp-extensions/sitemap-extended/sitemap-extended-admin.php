@@ -19,6 +19,9 @@ if (!zp_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
 }
 if (isset($_GET['clearsitemapcache'])) {
 	sitemap::clearCache();
+	$robots = file_get_contents(SERVERPATH . '/robots.txt');
+	$robots = str_replace(' sitemap:', '# sitemap:', $robots);
+	file_put_contents(SERVERPATH . '/robots.txt', $robots);
 	header('location:' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php');
 	exit();
 }
@@ -43,7 +46,13 @@ if (isset($_GET['generatesitemaps'])) {
 	} else {
 		$metaURL = '';
 	}
-	if (!empty($metaURL)) {
+	if (empty($metaURL)) {
+		$robots = file_get_contents(SERVERPATH . '/robots.txt');
+		if (strpos($robots, 'http://www.yourdomain.com') === false) { //update the robots file if FULLWEBPATH is stored
+			$robots = str_replace('# sitemap:', ' sitemap:', $robots);
+			$robots_updated = file_put_contents(SERVERPATH . '/robots.txt', $robots);
+		}
+	} else {
 		?>
 		<meta http-equiv="refresh" content="1; url=<?php echo $metaURL; ?>" />
 		<?php

@@ -1162,7 +1162,6 @@ zp-core/controller.php
 zp-core/cron_runner.php
 zp-core/dataaccess
 zp-core/databaseTemplate
-zp-core/example_robots.txt
 zp-core/external_auth.php
 zp-core/full-image.php
 zp-core/functions-basic.php
@@ -1205,6 +1204,7 @@ zp-core/pickSource.php
 zp-core/pluginDoc.php
 zp-core/reconfigure.php
 zp-core/rewrite.php
+zp-core/robots.txt
 zp-core/root_index.php
 zp-core/setup.php
 zp-core/template-filters.php

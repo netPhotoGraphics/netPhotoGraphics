@@ -17,7 +17,7 @@
  * The sitemapindex file can be referenced via <var>%FULLWEBPATH%/index.php?sitemap</var> or
  * with modrewrite <var>%FULLWEBPATH%/?sitemap</var>.
  *
- * <b>IMPORTANT:</b> A multilingual sitemap requires the <var>dynamic-locale</var> plugin and either the <var>seo_locale</var> plugin or <i>language subdomains</i>.
+ * <b>IMPORTANT:</b> A multilingual sitemap requires the <var>dynamic-locale</var> plugin with <em>language links</em> enabled.
  *
  * @author Malte Müller (acrylian) Stephen Billard (sbillard) based on the plugin by Jeppe Toustrup (Tenzer) http://github.com/Tenzer/zenphoto-sitemap and on contributions by timo, Blue Dragonfly and Francois Marechal (frankm)
  *

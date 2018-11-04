@@ -1,3 +1,12 @@
+ul {
+	list-style: none;
+}
+
+li {
+	margin-left:20px;
+	list-style: none;
+}
+
 .bordered th {
 	font-weight: bold;
 	padding-bottom: 7px !important;

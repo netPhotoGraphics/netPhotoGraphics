@@ -1575,17 +1575,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						//robots.txt file
-						$robots = file_get_contents(dirname(dirname(__FILE__)) . '/example_robots.txt');
+						$robots = file_get_contents(dirname(dirname(__FILE__)) . '/robots.txt');
 						if ($robots === false) {
 							checkmark(-1, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup could not find the  <em>example_robots.txt</em> file.'));
 						} else {
 							if (file_exists(SERVERPATH . '/robots.txt')) {
 								checkmark(-2, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup did not create a <em>robots.txt</em> file because one already exists.'));
 							} else {
-								$d = dirname(dirname(dirname($_SERVER['SCRIPT_NAME'])));
-								if ($d == '/')
-									$d = '';
-								$robots = str_replace('/zenphoto', $d, trim($robots));
+								$robots = str_replace('%FULLWEBPATH%', FULLWEBPATH, $robots);
 								$rslt = file_put_contents(SERVERPATH . '/robots.txt', $robots);
 								if ($rslt === false) {
 									$rslt = -1;
