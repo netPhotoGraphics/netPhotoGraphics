@@ -670,7 +670,19 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						}
 						checkmark($display, gettext('PHP <code>display_errors</code>'), sprintf(gettext('PHP <code>display_errors</code> [is enabled]'), $display), gettext('This setting may result in PHP error messages being displayed on WEB pages. These displays may contain sensitive information about your site.') . $aux, $display && !$testRelease);
 
-						checkMark($noxlate, gettext('PHP <code>gettext()</code> support'), gettext('PHP <code>gettext()</code> support [is not present]'), gettext("PHP <code>gettext()</code> support is not enabled, the drop in replacement is being used."));
+						$loaded = get_loaded_extensions();
+						$loaded = array_flip($loaded);
+						$desired = array('bz2', 'curl', 'exif', 'gettext', 'hash', 'iconv', 'mbstring', 'mcrypt', 'openssl', 'openssl', 'session', 'tidy', 'zip');
+						$missing = '';
+						$check = 1;
+						foreach ($desired as $module) {
+							if (!isset($loaded[$module])) {
+								$missing .= '<strong>' . $module . '</strong>, ';
+								$check = -1;
+							}
+						}
+						checkMark($check, gettext('PHP extensions'), gettext('PHP extensions [missing]'), sprintf(gettext('To improve netPhotoGraphics performance and functionality you should enable the follwing PHP extensions: %s'), rtrim($missing, ', ')));
+
 						checkmark(function_exists('flock') ? 1 : -1, gettext('PHP <code>flock</code> support'), gettext('PHP <code>flock</code> support [is not present]'), gettext('<code>flock</code> is used for serializing critical regions of code. Without <code>flock</code> active sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
 						if (function_exists('flock') && !$setupMutex) {
 							checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
