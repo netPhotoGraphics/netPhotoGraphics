@@ -3578,12 +3578,12 @@ function getAllDates($order = 'asc') {
 	$alldates = array();
 	$cleandates = array();
 	$sql = "SELECT `date` FROM " . prefix('images');
-	if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+	if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 		$sql .= " WHERE `show`=1";
 	}
 	$hidealbums = getNotViewableAlbums();
 	if (!empty($hidealbums)) {
-		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= ' WHERE ';
 		} else {
 			$sql .= ' AND ';

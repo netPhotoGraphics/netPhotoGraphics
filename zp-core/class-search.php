@@ -1043,7 +1043,7 @@ class SearchEngine {
 				break;
 		}
 		$sql .= "FROM " . prefix($tbl) . " WHERE ";
-		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= '`show`=1 AND (';
 		}
 
