@@ -206,3 +206,5 @@ define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange;
 define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/trashcan.png" /></span>');
 define('BADGE_BLUE', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png" /></span>');
 define('BADGE_GOLD', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" /></span>');
+
+define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,mbstring,mcrypt,openssl,openssl,session,tidy,zip');

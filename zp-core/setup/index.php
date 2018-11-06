@@ -13,12 +13,6 @@ Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
 Define('PHP_DESIRED_VERSION', '7.1');
 define('OFFSET_PATH', 2);
 
-// leave this as the first executable statement to avoid problems with PHP not having gettext support.
-if (function_exists("gettext")) {
-	$noxlate = 1;
-} else {
-	$noxlate = -1;
-}
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
@@ -672,7 +666,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 						$loaded = get_loaded_extensions();
 						$loaded = array_flip($loaded);
-						$desired = array('bz2', 'curl', 'exif', 'gettext', 'hash', 'iconv', 'mbstring', 'mcrypt', 'openssl', 'openssl', 'session', 'tidy', 'zip');
+						$desired = explode(',', DESIRED_PHP_EXTENSIONS);
 						$missing = '';
 						$check = 1;
 						foreach ($desired as $module) {
