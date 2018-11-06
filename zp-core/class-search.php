@@ -1043,8 +1043,8 @@ class SearchEngine {
 				break;
 		}
 		$sql .= "FROM " . prefix($tbl) . " WHERE ";
-		if (!zp_loggedin()) {
-			$sql .= "`show` = 1 AND (";
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+			$sql .= '`show`=1 AND (';
 		}
 
 		if (!empty($searchdate)) {
@@ -1430,7 +1430,7 @@ class SearchEngine {
 					if ($this->search_unpublished || zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= '`titlelink` ';
 					if (!empty($this->category_list)) {
@@ -1453,7 +1453,7 @@ class SearchEngine {
 					if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= '`titlelink` ';
 					if (empty($sorttype)) {
@@ -1469,7 +1469,7 @@ class SearchEngine {
 					if ($this->search_unpublished || zp_loggedin()) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= "`folder` ";
 					if (is_null($sorttype)) {
@@ -1495,7 +1495,7 @@ class SearchEngine {
 					if ($this->search_unpublished || zp_loggedin()) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= "`albumid`, `filename` ";
 					if (is_null($sorttype)) {

@@ -3578,12 +3578,12 @@ function getAllDates($order = 'asc') {
 	$alldates = array();
 	$cleandates = array();
 	$sql = "SELECT `date` FROM " . prefix('images');
-	if (!zp_loggedin()) {
-		$sql .= " WHERE `show` = 1";
+	if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		$sql .= " WHERE `show`=1";
 	}
 	$hidealbums = getNotViewableAlbums();
 	if (!empty($hidealbums)) {
-		if (zp_loggedin()) {
+		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$sql .= ' WHERE ';
 		} else {
 			$sql .= ' AND ';
@@ -4336,7 +4336,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
