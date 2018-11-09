@@ -347,7 +347,7 @@
 
 		<!-- js -->
 		<?php
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . 'common/bootstrap/bootstrap.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
 		scriptLoader($_zp_themeroot . '/js/slimbox2-ar.js');
 		?>
 
