@@ -52,11 +52,10 @@ class DailySummaryItem extends Album {
 				$imageAlbums[$folder] = $text;
 			}
 		}
+		ksort($imageAlbums, SORT_NATURAL | SORT_FLAG_CASE);
+		$albumCount = count($imageAlbums);
 
-		$albums = array_unique($imageAlbums);
-		$albumCount = count($albums);
-
-		$this->set('albums', $albums);
+		$this->set('albums', $imageAlbums);
 		$this->set('imagecount', $count);
 		$this->set('albumcount', $albumCount);
 	}

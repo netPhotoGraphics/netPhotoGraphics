@@ -10,7 +10,7 @@ class DailySummary extends Gallery {
 
 	var $imagaecount;
 
-	function loadAlbumNames() {
+	protected function loadAlbumNames() {
 		$minDate = floor(strtotime('-' . getOption('DailySummaryDays') . ' days') / 86400) * 86400;
 		$cleandates = array();
 		$sql = "SELECT `date` FROM " . prefix('images');
@@ -43,9 +43,9 @@ class DailySummary extends Gallery {
 		$datecount = array_count_values($cleandates);
 		krsort($datecount);
 
-		$albums = array_keys($datecount);
+		$items = array_keys($datecount);
 
-		return $albums;
+		return $items;
 	}
 
 	function getAlbums($page = 0, $sorttype = NULL, $direction = NULL, $care = true, $mine = NULL) {
@@ -55,8 +55,8 @@ class DailySummary extends Gallery {
 		if ($page == 0) {
 			return $this->albums;
 		} else {
-			$albums_per_page = max(1, getOption('DailySummaryItemsPage'));
-			return array_slice($this->albums, $albums_per_page * ($page - 1), $albums_per_page);
+			$items_per_page = max(1, getOption('DailySummaryItemsPage'));
+			return array_slice($this->albums, $items_per_page * ($page - 1), $items_per_page);
 		}
 	}
 

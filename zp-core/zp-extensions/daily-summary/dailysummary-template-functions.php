@@ -165,6 +165,7 @@ function getDailySummaryTitleAndDesc() {
  */
 function printDailySummaryPageListWithNav($next, $prev, $nextprev = true, $class = 'pagelist', $firstlast = true, $navlen = 9) {
 	global $_zp_current_DailySummary, $_zp_page;
+	$script = stripSuffix(getOption('DailySummaryScript'));
 	$total = ceil($_zp_current_DailySummary->getTotalItems() / getOption('DailySummaryItemsPage'));
 	if ($total > 1) {
 		if ($navlen == 0)
@@ -182,7 +183,7 @@ function printDailySummaryPageListWithNav($next, $prev, $nextprev = true, $class
 			echo "<li class=\"prev\">";
 			if ($_zp_page > 1) {
 				$i = $_zp_page - 1;
-				echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', $i)) . '" title = "' . sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i) . '">' . $prev . '</a>';
+				echo '<a href = "' . html_encode(getCustomPageURL($script, '', $i)) . '" title = "' . sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i) . '">' . $prev . '</a>';
 			} else {
 				echo "<span class=\"disabledlink\">" . html_encode($next) . "</span>\n";
 			}
@@ -193,13 +194,13 @@ function printDailySummaryPageListWithNav($next, $prev, $nextprev = true, $class
 			if ($_zp_page == 1) {
 				echo "1";
 			} else {
-				echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', 1)) . '" title = "' . gettext("Page") . ' 1">1</a>';
+				echo '<a href = "' . html_encode(getCustomPageURL($script, '', 1)) . '" title = "' . gettext("Page") . ' 1">1</a>';
 			}
 			echo "</li>\n";
 			if ($j > 2) {
 				echo "<li>";
 				$linktext = ($j - 1 > 2) ? '...' : $k1;
-				echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', $k1)) . '" title = "' . sprintf(ngettext('Page %u', 'Page %u', $k1), $k1) . '">' . $linktext . '</a>';
+				echo '<a href = "' . html_encode(getCustomPageURL($script, '', $k1)) . '" title = "' . sprintf(ngettext('Page %u', 'Page %u', $k1), $k1) . '">' . $linktext . '</a>';
 				echo "</li>\n";
 			}
 		}
@@ -208,14 +209,14 @@ function printDailySummaryPageListWithNav($next, $prev, $nextprev = true, $class
 			if ($i == $_zp_page) {
 				echo $i;
 			} else {
-				echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', $i)) . '" title = "' . sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i) . '">' . $i . '</a>';
+				echo '<a href = "' . html_encode(getCustomPageURL($script, '', $i)) . '" title = "' . sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i) . '">' . $i . '</a>';
 			}
 			echo "</li>\n";
 		}
 		if ($i < $total) {
 			echo "<li>";
 			$linktext = ($total - $i > 1) ? '...' : $k2;
-			echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', $k2)) . '" title = "' . sprintf(ngettext('Page %u', 'Page %u', $k2), $k2) . '">' . $linktext . '</a>';
+			echo '<a href = "' . html_encode(getCustomPageURL($script, '', $k2)) . '" title = "' . sprintf(ngettext('Page %u', 'Page %u', $k2), $k2) . '">' . $linktext . '</a>';
 			echo "</li>\n";
 		}
 		if ($firstlast && $i <= $total) {
@@ -223,7 +224,7 @@ function printDailySummaryPageListWithNav($next, $prev, $nextprev = true, $class
 			if ($_zp_page == $total) {
 				echo $total;
 			} else {
-				echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', $total)) . '" title = "' . sprintf(ngettext('Page {%u}', 'Page {%u}', $total), $total) . '">' . $total . '</a>';
+				echo '<a href = "' . html_encode(getCustomPageURL($script, '', $total)) . '" title = "' . sprintf(ngettext('Page {%u}', 'Page {%u}', $total), $total) . '">' . $total . '</a>';
 			}
 			echo "</li>\n";
 		}
@@ -231,7 +232,7 @@ function printDailySummaryPageListWithNav($next, $prev, $nextprev = true, $class
 			echo '<li class = "next">';
 			if ($_zp_page < $total) {
 				$i = $_zp_page + 1;
-				echo '<a href = "' . html_encode(getCustomPageURL('daily-summary', '', $i)) . '" title = "' . sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i) . '">' . $next . '</a>';
+				echo '<a href = "' . html_encode(getCustomPageURL($script, '', $i)) . '" title = "' . sprintf(ngettext('Page %1$u', 'Page %1$u', $i), $i) . '">' . $next . '</a>';
 			} else {
 				echo "<span class=\"disabledlink\">" . html_encode($next) . "</span>\n";
 			}
