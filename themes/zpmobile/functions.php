@@ -83,6 +83,17 @@ function jqm_printMainHeaderNav() {
 				}
 				?>
 				<li><a href="<?php echo getCustomPageURL('archive'); ?>"><?php echo gettext('Archive'); ?></a></li>
+				<?php
+				if (extensionEnabled('daily-summary')) {
+					?>
+					<li>
+						<?php
+						printDailySummaryLink(gettext('Daily summary'), '', '', '');
+						?>
+					</li>
+					<?php
+				}
+				?>
 			</ul>
 		</div><!-- /navbar -->
 	</div><!-- /header -->

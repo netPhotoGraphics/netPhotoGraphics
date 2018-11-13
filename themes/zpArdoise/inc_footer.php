@@ -44,6 +44,9 @@
 			<?php
 			echo getMainSiteName();
 			printCustomPageURL(gettext('Archive View'), 'archive', '', ' | ');
+			if (extensionEnabled('daily-summary')) {
+				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
+			}
 			if (extensionEnabled('user_login-out')) {
 				printUserLogin_out(' | ', '', 2);
 			}

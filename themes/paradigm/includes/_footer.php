@@ -17,6 +17,13 @@
 						<li><?php printCustomPageURL(gettext('Archive View'), 'archive'); ?></li>
 						<?php
 					}
+					if (extensionEnabled('daily-summary')) {
+						?>
+						<li>
+							<?php printDailySummaryLink(gettext('Daily summary'), '', '', ''); ?>
+						</li>
+						<?php
+					}
 
 					if (function_exists("printAllNewsCategories") && ((getNumNews(true)) > 0)) {
 						?>

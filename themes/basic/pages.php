@@ -20,7 +20,7 @@ if (class_exists('CMS')) {
 		</head>
 
 		<body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+			<?php zp_apply_filter('theme_body_open'); ?>
 			<div id="main">
 				<div id="header">
 					<div id="gallerytitle">
@@ -44,7 +44,7 @@ if (class_exists('CMS')) {
 				<div id="pagetext">
 					<?php printCodeblock(1); ?>
 					<?php printPageContent(); ?>
-	<?php printCodeblock(2); ?>
+					<?php printCodeblock(2); ?>
 				</div>
 
 				<?php
@@ -75,7 +75,12 @@ if (class_exists('CMS')) {
 				?>
 				<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 				<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> | <?php printSoftwareLink(); ?>
-			<?php @call_user_func('printUserLogin_out', " | "); ?>
+				<?php
+				if (extensionEnabled('daily-summary')) {
+					printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+				}
+				?>
+				<?php @call_user_func('printUserLogin_out', " | "); ?>
 			</div>
 			<?php
 			zp_apply_filter('theme_body_close');

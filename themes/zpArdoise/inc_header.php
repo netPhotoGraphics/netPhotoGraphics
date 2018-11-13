@@ -263,17 +263,17 @@ if (!defined('WEBPATH'))
 					case 63235: case 39:
 									if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-					break;
-					case 63234: case 37:
-									if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+		break;
+		case 63234: case 37:
+						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-					break;
-					}
-					return true;
-					}
+		break;
+		}
+		return true;
+		}
 
-					document.onkeydown = keyboardNavigation;
-					//]]>
+		document.onkeydown = keyboardNavigation;
+		//]]>
 			</script>
 		<?php } ?>
 
@@ -351,6 +351,9 @@ if (!defined('WEBPATH'))
 					<?php } ?>
 					<?php if (getOption('show_archive')) { ?>
 						<li <?php if ($_zp_gallery_page == 'archive.php') { ?>class="active"<?php } ?>><?php printCustomPageURL(gettext('Archive View'), 'archive'); ?></li>
+					<?php } ?>
+					<?php if (extensionEnabled('daily-summary')) { ?>
+						<li <?php if ($_zp_gallery_page == 'summary.php') { ?>class="active"<?php } ?>><?php printDailySummaryLink(gettext('Daily summary'), '', '', ''); ?></li>
 					<?php } ?>
 					<?php if (extensionEnabled('contact_form')) { ?>
 						<li <?php if ($_zp_gallery_page == 'contact.php') { ?>class="active"<?php } ?>><?php printCustomPageURL(gettext('Contact'), 'contact'); ?></li>

@@ -64,13 +64,22 @@ if (function_exists("printAllNewsCategories")) {
 		if (function_exists('printFavoritesURL')) {
 			printFavoritesURL(NULL, '<li>', '</li><li>', '</li>');
 		}
-		?>		<?php
+
 		if ($_zp_gallery_page == "archive.php") {
 			echo "<li class='menu-active'>" . gettext("Site archive view") . "</li>";
 		} else {
 			echo "<li>";
 			printCustomPageURL(gettext("Site archive view"), "archive");
 			echo "</li>";
+		}
+		if (extensionEnabled('daily-summary')) {
+			if ($_zp_gallery_page == "summary.php") {
+				echo "<li class='menu-active'>" . gettext("Daily summary") . "</li>";
+			} else {
+				echo "<li>";
+				printDailySummaryLink(gettext('Daily summary'), '', '', '');
+				echo "</li>";
+			}
 		}
 		if (extensionEnabled('rss')) {
 			if (!is_null($_zp_current_album)) {

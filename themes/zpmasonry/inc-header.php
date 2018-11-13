@@ -56,6 +56,11 @@
 				$zpmas_metatitle = gettext("Archive View") . ' | ' . getBareGalleryTitle();
 				$zpmas_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 				break;
+			case 'summary.php':
+				$zpmas_metatitle = gettext("Daily summary") . ' | ' . getBareGalleryTitle();
+				$zpmas_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
+				break;
+
 			case 'search.php':
 				$galleryactive = true;
 				$zpmas_metatitle = gettext('Search') . ' | ' . html_encode(getSearchWords()) . ' | ' . getBareGalleryTitle();

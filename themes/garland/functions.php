@@ -113,8 +113,11 @@ function footer() {
 			printCustomPageURL(gettext('Archive View'), 'archive', '', $prev, '');
 			$prev = ' | ';
 		}
-		?>
-		<?php
+		if (extensionEnabled('daily-summary')) {
+			printDailySummaryLink(gettext('Daily summary'), '', $prev, '');
+
+			$prev = ' | ';
+		}
 		if ($_zp_gallery_page != 'contact.php' && extensionEnabled('contact_form') && ($_zp_gallery_page != 'password.php' || $_zp_gallery->isUnprotectedPage('contact'))) {
 			printCustomPageURL(gettext('Contact us'), 'contact', '', $prev, '');
 			$prev = ' | ';

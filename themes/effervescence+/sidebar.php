@@ -95,6 +95,21 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 			}
 			?>
 		</h3>
+		<?php
+		if (extensionEnabled('daily-summary')) {
+			?>
+			<h3>
+				<?php
+				if ($_zp_gallery_page == "summary.php") {
+					echo gettext("Daily summary");
+				} else {
+					printDailySummaryLink(gettext('Daily summary'), '', '', '');
+				}
+				?>
+			</h3>
+			<?php
+		}
+		?>
 
 		<div class="menu_rule"></div>
 	</div>

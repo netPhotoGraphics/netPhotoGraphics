@@ -49,11 +49,11 @@ if (!defined('WEBPATH'))
 				?>
 				<h2>
 					<span>
-<?php printHomeLink('', ' | '); ?>
+						<?php printHomeLink('', ' | '); ?>
 						<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo ('Gallery Index'); ?>"><?php printGalleryTitle(); ?></a>
 					</span>
 					|
-<?php printSearchBreadcrumb(' | '); ?>
+					<?php printSearchBreadcrumb(' | '); ?>
 				</h2>
 			</div>
 			<div id="padbox">
@@ -91,7 +91,7 @@ if (!defined('WEBPATH'))
 										$c++;
 										?>
 										<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
-										<?php printPageURL(); ?>
+											<?php printPageURL(); ?>
 											<p style="text-indent:1em;"><?php echo shortenContent($_zp_current_page->getContent(), TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator")); ?></p>
 										</li>
 										<?php
@@ -124,7 +124,7 @@ if (!defined('WEBPATH'))
 										$c++;
 										?>
 										<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
-										<?php printNewsURL(); ?>
+											<?php printNewsURL(); ?>
 											<p style="text-indent:1em;"><?php echo shortenContent($_zp_current_article->getContent(), TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator")); ?></p>
 										</li>
 										<?php
@@ -210,8 +210,13 @@ if (!defined('WEBPATH'))
 			?>
 			<?php if (class_exists('RSS')) printRSSLink('Gallery', '', gettext('Gallery'), ' | '); ?>
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
-		<?php printSoftwareLink(); ?>
-		<?php @call_user_func('printUserLogin_out', " | "); ?>
+			<?php
+			if (extensionEnabled('daily-summary')) {
+				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+			}
+			?>
+			<?php printSoftwareLink(); ?>
+			<?php @call_user_func('printUserLogin_out', " | "); ?>
 		</div>
 		<?php
 		zp_apply_filter('theme_body_close');

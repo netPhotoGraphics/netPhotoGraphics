@@ -98,11 +98,12 @@ if (!defined('WEBPATH'))
 			<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
+			if (extensionEnabled('daily-summary')) {
+				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+			}
 			if (extensionEnabled('contact_form')) {
 				printCustomPageURL(gettext('Contact us'), 'contact', '', '', ' | ');
 			}
-			?>
-			<?php
 			if (!zp_loggedin() && function_exists('printRegisterURL')) {
 				printRegisterURL(gettext('Register for this site'), '', ' | ');
 			}

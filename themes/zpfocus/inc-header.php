@@ -53,6 +53,10 @@
 				$zpfocus_metatitle = gettext("Archive View") . ' | ' . getBareGalleryTitle();
 				$zpfocus_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 				break;
+			case 'summary.php':
+				$zpfocus_metatitle = gettext("Daily summary") . ' | ' . getBareGalleryTitle();
+				$zpfocus_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
+				break;
 			case 'search.php':
 				$zpfocus_metatitle = gettext('Search') . ' | ' . html_encode(getSearchWords()) . ' | ' . getBareGalleryTitle();
 				$zpfocus_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');

@@ -3695,7 +3695,6 @@ function getCustomPageRewrite($page) {
 /**
  * Produces the url to a custom page (e.g. one that is not album.php, image.php, or index.php)
  *
- * @param string $linktext Text for the URL
  * @param string $page page name to include in URL
  * @param string $q query string to add to url
  * @param int $pageno set to a page number if that needs to be included in the URL

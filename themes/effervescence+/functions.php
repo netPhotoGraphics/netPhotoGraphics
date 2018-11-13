@@ -180,7 +180,7 @@ function switcher_controllink($ignore) {
 function get_subalbum_count() {
 	$where = "WHERE parentid IS NOT NULL";
 	if (!zp_loggedin()) {
-		$where .= " AND `show` = 1";
+		$where .= " AND `show`=1";
 	} /* exclude the un-published albums */
 	return db_count('albums', $where);
 }

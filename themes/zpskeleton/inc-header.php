@@ -60,6 +60,11 @@ $zpskel_social = function_exists('printAddThis');
 				$zpskel_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 				$galleryactive = true;
 				break;
+			case 'summary.php':
+				$zpskel_metatitle = gettext("Daily summary") . ' | ' . getBareGalleryTitle();
+				$zpskel_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
+				$galleryactive = true;
+				break;
 			case 'search.php':
 				$zpskel_metatitle = gettext('Search') . ' | ' . html_encode(getSearchWords()) . ' | ' . getBareGalleryTitle();
 				$zpskel_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
@@ -178,11 +183,17 @@ $zpskel_social = function_exists('printAddThis');
 									<li <?php if (!empty($galleryactive)) { ?>class="active" <?php } ?>><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext('Gallery'); ?></a></li>
 								<?php } ?>
 									<?php if ($zpskel_archive) { ?><li <?php if ($_zp_gallery_page == "archive.php") { ?>class="active" <?php } ?>><a href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Archive View'); ?>"><?php echo gettext('Archive'); ?></a></li><?php } ?>
-									<?php if ((function_exists('getNewsIndexURL')) && ($zpskel_usenews)) { ?>
+									<?php if (extensionEnabled('daily-summary')) { ?>
+									<li <?php if ($_zp_gallery_page == "summary.php") { ?>class="active" <?php } ?>>
+										<a href="<?php echo getCustomPageURL('summary'); ?>"><?php echo gettext('Daily summary'); ?></a>
+									</li>
+								<?php } ?>
+								<?php if ((function_exists('getNewsIndexURL')) && ($zpskel_usenews)) { ?>
 									<li <?php if ($_zp_gallery_page == "news.php") { ?>class="active" <?php } ?>>
 										<a href="<?php echo getNewsIndexURL(); ?>"><?php echo NEWS_LABEL; ?></a>
 									</li>
 								<?php } ?>
+
 								<?php if (function_exists('printContactForm')) { ?><li <?php if ($_zp_gallery_page == "contact.php") { ?>class="active" <?php } ?>><?php printCustomPageURL(gettext('Contact'), "contact"); ?></li><?php } ?>
 								<?php if (function_exists('printPageMenu')) { ?>
 									<li class="divider"></li>

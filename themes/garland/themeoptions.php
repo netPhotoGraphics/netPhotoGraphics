@@ -46,8 +46,6 @@ class ThemeOptions {
 					array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printPageMenu("list","","menu-active","inner_ul","menu-active","",0,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1, getOption("menu_manager_truncate_string")),
 					array('type' => 'html', 'title' => getAllTranslations('Pages Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-					array('type' => 'custompage', 'title' => getAllTranslations('Archive'), 'link' => 'archive', 'show' => 1, 'nesting' => 0),
-					array('type' => 'html', 'title' => getAllTranslations('Archive Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0)
 			);
 			if (class_exists('RSS')) {
 				$rssItems = array(

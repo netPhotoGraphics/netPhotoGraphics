@@ -6,6 +6,9 @@
 			if (getOption('zpB_show_archive')) {
 				printCustomPageURL(gettext('Archive View'), 'archive', '', ' | ');
 			}
+			if (extensionEnabled('daily-summary')) {
+				printDailySummaryLink(gettext('Daily summary'), '', ' | ', '');
+			}
 			?>
 		</div>
 		<div>
