@@ -1070,7 +1070,7 @@ class SearchEngine {
 				}
 			}
 		}
-		if (!zp_loggedin()) {
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= ")";
 		}
 
@@ -1466,7 +1466,7 @@ class SearchEngine {
 					}
 					break;
 				case 'albums':
-					if ($this->search_unpublished || zp_loggedin()) {
+					if ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1492,7 +1492,7 @@ class SearchEngine {
 					}
 					break;
 				default: // images
-					if ($this->search_unpublished || zp_loggedin()) {
+					if ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1567,7 +1567,7 @@ class SearchEngine {
 							if (file_exists(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumname))) {
 								$album = newAlbum($albumname);
 								$uralbum = getUrAlbum($album);
-								$viewUnpublished = ($this->search_unpublished || zp_loggedin() && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+								$viewUnpublished = ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 								if ($mine || (is_null($mine) && $album->isMyItem(LIST_RIGHTS)) || (checkAlbumPassword($albumname) && ($row['show'] || $viewUnpublished))) {
 									if (empty($this->album_list) || in_array($albumname, $this->album_list)) {
 										$result[] = array_merge($row, array('name' => $albumname, 'weight' => $weights[$row['id']]));
@@ -1729,7 +1729,7 @@ class SearchEngine {
 							$allow = false;
 							$album = newAlbum($albumname);
 							$uralbum = getUrAlbum($album);
-							$viewUnpublished = ($this->search_unpublished || zp_loggedin() && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+							$viewUnpublished = ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 
 							if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($albumname) && ($album->getShow() || $viewUnpublished))) {
 								$allow = empty($this->album_list) || in_array($albumname, $this->album_list);
