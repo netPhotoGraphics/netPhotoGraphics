@@ -415,8 +415,12 @@ $a = "a => (href =>() title =>() target=>() class=>() id=>() rel=>())\n" .
 				"div=>(class=>() id=>() style=>())\n" .
 				"img=>(class=>() id=>() style=>() src=>() title=>() alt=>() width=>() height=>())\n" .
 				"iframe=>(class=>() id=>() style=>() src=>() title=>() width=>() height=>())\n" .
-				"hr=>()\n"
-;
+				"hr=>()\n
+				table=>(style=>() collapse=>() width=>() border=>())
+				thead=>()
+				tbody=>()
+				tr=>()
+				td=>(style=>())";
 setOption('allowed_tags_default', $a);
 setOptionDefault('allowed_tags', $a);
 setOptionDefault('style_tags', "abbr => (title => ())\n" .
