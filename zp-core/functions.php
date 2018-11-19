@@ -2689,6 +2689,43 @@ function getNestedAlbumList($subalbum, $levels, $level = array()) {
 	return $list;
 }
 
+if (function_exists('curl_init')) {
+
+	/**
+	 * Sends a simple cURL request to the $uri specified.
+	 *
+	 * @param string $uri The uri to send the request to.
+	 * @param array $options An array of cURL options to set Default is if nothing is set:
+	 * 		array(
+	 * 			CURLOPT_RETURNTRANSFER => true,
+	 * 			CURLOPT_TIMEOUT => 2000
+	 * 		)
+	 * See http://php.net/manual/en/function.curl-setopt.php for more info
+	 * @return boolean
+	 */
+	function curlRequest($uri, $options = array()) {
+		if (empty($options) || !is_array($options)) {
+			$options = array(
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_TIMEOUT => 2000,
+			);
+		}
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $uri);
+		curl_setopt_array($ch, $options);
+		$curl_exec = curl_exec($ch);
+		if ($curl_exec === false) {
+			trigger_error(sprintf(gettext('cURL request failed, error code: %s'), curl_error($ch)), E_USER_WARNING);
+		} else if (empty(trim($curl_exec))) {
+			trigger_error(sprintf(gettext('cURL request failed, response code: %s'), curl_getinfo(CURLINFO_HTTP_CODE)), E_USER_WARNING);
+			$curl_exec = false;
+		}
+		curl_close($ch);
+		return $curl_exec;
+	}
+
+}
+
 class zpFunctions {
 
 	/**
