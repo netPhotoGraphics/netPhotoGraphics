@@ -18,6 +18,7 @@ themes/basic/slideshow-controls-light.png
 themes/basic/slideshow-controls.png
 themes/basic/slideshow.css
 themes/basic/slideshow.php
+themes/basic/summary.php
 themes/basic/theme.png
 themes/basic/theme_description.php
 themes/basic/themeoptions.php
@@ -53,6 +54,7 @@ themes/effervescence+/sidebar.php
 themes/effervescence+/slideshow-controls.png
 themes/effervescence+/slideshow.css
 themes/effervescence+/slideshow.php
+themes/effervescence+/summary.php
 themes/effervescence+/theme.jpg
 themes/effervescence+/theme_description.php
 themes/effervescence+/themeoptions.php
@@ -103,6 +105,7 @@ themes/garland/sidebar.php
 themes/garland/slideshow-controls.png
 themes/garland/slideshow.css
 themes/garland/slideshow.php
+themes/garland/summary.php
 themes/garland/theme.png
 themes/garland/theme_description.php
 themes/garland/themeoptions.php
@@ -141,6 +144,7 @@ themes/paradigm/pages.php
 themes/paradigm/password.php
 themes/paradigm/register.php
 themes/paradigm/search.php
+themes/paradigm/summary.php
 themes/paradigm/theme.png
 themes/paradigm/theme_description.php
 themes/paradigm/themeoptions.php
@@ -270,7 +274,6 @@ themes/zenpage/functions.php
 themes/zenpage/gallery.php
 themes/zenpage/image.php
 themes/zenpage/index.php
-themes/zenpage/jcarousel.css
 themes/zenpage/news.php
 themes/zenpage/pages.php
 themes/zenpage/password.php
@@ -281,6 +284,7 @@ themes/zenpage/slideshow-controls.png
 themes/zenpage/slideshow.css
 themes/zenpage/slideshow.php
 themes/zenpage/style.css
+themes/zenpage/summary.php
 themes/zenpage/theme.png
 themes/zenpage/theme_description.php
 themes/zenpage/themeoptions.php
@@ -293,10 +297,12 @@ themes/zenpage/images/breadcrumb-back.jpg
 themes/zenpage/images/footer.jpg
 themes/zenpage/images/header.jpg
 themes/zenpage/images/img-bg.gif
-themes/zenpage/images/jcarousel_loading.gif
-themes/zenpage/images/jcarousel_next.png
-themes/zenpage/images/jcarousel_prev.png
 themes/zenpage/images/tag.png
+themes/zenpage/jCarousel_thumb_nav
+themes/zenpage/jCarousel_thumb_nav/jcarousel.css
+themes/zenpage/jCarousel_thumb_nav/jcarousel_loading.gif
+themes/zenpage/jCarousel_thumb_nav/jcarousel_next.png
+themes/zenpage/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpArdoise
 themes/zpArdoise/404.php
 themes/zpArdoise/album.php
@@ -322,6 +328,7 @@ themes/zpArdoise/readme.htm
 themes/zpArdoise/register.php
 themes/zpArdoise/search.php
 themes/zpArdoise/slideshow.php
+themes/zpArdoise/summary.php
 themes/zpArdoise/theme.png
 themes/zpArdoise/theme_description.php
 themes/zpArdoise/themeoptions.php
@@ -397,6 +404,7 @@ themes/zpBootstrap/password.php
 themes/zpBootstrap/readme.htm
 themes/zpBootstrap/register.php
 themes/zpBootstrap/search.php
+themes/zpBootstrap/summary.php
 themes/zpBootstrap/theme.png
 themes/zpBootstrap/theme_description.php
 themes/zpBootstrap/themeoptions.php
@@ -452,7 +460,6 @@ themes/zpEnlighten/header.php
 themes/zpEnlighten/home.php
 themes/zpEnlighten/image.php
 themes/zpEnlighten/index.php
-themes/zpEnlighten/jcarousel.css
 themes/zpEnlighten/news.php
 themes/zpEnlighten/pages.php
 themes/zpEnlighten/password.php
@@ -465,6 +472,7 @@ themes/zpEnlighten/slideshow-controls_light.png
 themes/zpEnlighten/slideshow.css
 themes/zpEnlighten/slideshow.php
 themes/zpEnlighten/style.css
+themes/zpEnlighten/summary.php
 themes/zpEnlighten/theme.png
 themes/zpEnlighten/theme_description.php
 themes/zpEnlighten/themeoptions.php
@@ -487,9 +495,6 @@ themes/zpEnlighten/images/header.jpg
 themes/zpEnlighten/images/header.png
 themes/zpEnlighten/images/hr.png
 themes/zpEnlighten/images/img-bg.gif
-themes/zpEnlighten/images/jcarousel_loading.gif
-themes/zpEnlighten/images/jcarousel_next.png
-themes/zpEnlighten/images/jcarousel_prev.png
 themes/zpEnlighten/images/search.gif
 themes/zpEnlighten/images/search.png
 themes/zpEnlighten/images/sidebar_bottom.png
@@ -500,6 +505,11 @@ themes/zpEnlighten/images/white_pixel.png
 themes/zpEnlighten/images/white_pixel_6.png
 themes/zpEnlighten/images/white_pixel_7.png
 themes/zpEnlighten/images/white_pixel_8.png
+themes/zpEnlighten/jCarousel_thumb_nav
+themes/zpEnlighten/jCarousel_thumb_nav/jcarousel.css
+themes/zpEnlighten/jCarousel_thumb_nav/jcarousel_loading.gif
+themes/zpEnlighten/jCarousel_thumb_nav/jcarousel_next.png
+themes/zpEnlighten/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpEnlighten/js
 themes/zpEnlighten/js/jquery.corner.js
 themes/zpfocus
@@ -516,7 +526,6 @@ themes/zpfocus/inc-header.php
 themes/zpfocus/inc-sidebar.php
 themes/zpfocus/inc-social.php
 themes/zpfocus/index.php
-themes/zpfocus/jcarousel.css
 themes/zpfocus/logo.png
 themes/zpfocus/news.php
 themes/zpfocus/pages.php
@@ -525,6 +534,7 @@ themes/zpfocus/register.php
 themes/zpfocus/search.php
 themes/zpfocus/slideshow.css
 themes/zpfocus/slideshow.php
+themes/zpfocus/summary.php
 themes/zpfocus/theme.png
 themes/zpfocus/theme_description.php
 themes/zpfocus/themeoptions.php
@@ -560,6 +570,11 @@ themes/zpfocus/images/search.png
 themes/zpfocus/images/search_icon.gif
 themes/zpfocus/images/shout.png
 themes/zpfocus/images/twitter.png
+themes/zpfocus/jCarousel_thumb_nav
+themes/zpfocus/jCarousel_thumb_nav/jcarousel.css
+themes/zpfocus/jCarousel_thumb_nav/jcarousel_loading.gif
+themes/zpfocus/jCarousel_thumb_nav/jcarousel_next.png
+themes/zpfocus/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpfocus/js
 themes/zpfocus/js/index.html
 themes/zpfocus/js/superfish.js
@@ -581,7 +596,6 @@ themes/zpmasonry/inc-footer.php
 themes/zpmasonry/inc-header.php
 themes/zpmasonry/inc-menu.php
 themes/zpmasonry/index.php
-themes/zpmasonry/jcarousel.css
 themes/zpmasonry/logo.png
 themes/zpmasonry/news.php
 themes/zpmasonry/pages.php
@@ -590,6 +604,7 @@ themes/zpmasonry/register.php
 themes/zpmasonry/search.php
 themes/zpmasonry/slideshow.css
 themes/zpmasonry/slideshow.php
+themes/zpmasonry/summary.php
 themes/zpmasonry/theme.png
 themes/zpmasonry/theme_description.php
 themes/zpmasonry/themeoptions.php
@@ -646,6 +661,11 @@ themes/zpmasonry/images/tools-inv.png
 themes/zpmasonry/images/tools.png
 themes/zpmasonry/images/twitter.png
 themes/zpmasonry/images/zoom.png
+themes/zpmasonry/jCarousel_thumb_nav
+themes/zpmasonry/jCarousel_thumb_nav/jcarousel.css
+themes/zpmasonry/jCarousel_thumb_nav/jcarousel_loading.gif
+themes/zpmasonry/jCarousel_thumb_nav/jcarousel_next.png
+themes/zpmasonry/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpmasonry/js
 themes/zpmasonry/js/jquery.infinitescroll.min.js
 themes/zpminimal
@@ -662,7 +682,6 @@ themes/zpminimal/inc-footer.php
 themes/zpminimal/inc-header.php
 themes/zpminimal/inc-sidemenu.php
 themes/zpminimal/index.php
-themes/zpminimal/jcarousel.css
 themes/zpminimal/login.php
 themes/zpminimal/logo.png
 themes/zpminimal/news.php
@@ -672,6 +691,7 @@ themes/zpminimal/register.php
 themes/zpminimal/search.php
 themes/zpminimal/slideshow.css
 themes/zpminimal/slideshow.php
+themes/zpminimal/summary.php
 themes/zpminimal/theme.png
 themes/zpminimal/theme_description.php
 themes/zpminimal/themeoptions.php
@@ -741,6 +761,11 @@ themes/zpminimal/images/search.gif
 themes/zpminimal/images/slideshow-controls.png
 themes/zpminimal/images/social.png
 themes/zpminimal/images/zoom.png
+themes/zpminimal/jCarousel_thumb_nav
+themes/zpminimal/jCarousel_thumb_nav/jcarousel.css
+themes/zpminimal/jCarousel_thumb_nav/jcarousel_loading.gif
+themes/zpminimal/jCarousel_thumb_nav/jcarousel_next.png
+themes/zpminimal/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpminimal/z_disable_comment_form
 themes/zpminimal/z_disable_comment_form/comment_form.php
 themes/zpmobile
@@ -760,6 +785,7 @@ themes/zpmobile/register.php
 themes/zpmobile/search.php
 themes/zpmobile/slideshow.php
 themes/zpmobile/style.css
+themes/zpmobile/summary.php
 themes/zpmobile/theme.png
 themes/zpmobile/theme_description.php
 themes/zpmobile/themeoptions.php
@@ -997,6 +1023,7 @@ themes/zpskeleton/pages.php
 themes/zpskeleton/password.php
 themes/zpskeleton/register.php
 themes/zpskeleton/search.php
+themes/zpskeleton/summary.php
 themes/zpskeleton/theme.png
 themes/zpskeleton/theme_description.php
 themes/zpskeleton/themeoptions.php
@@ -1148,7 +1175,6 @@ zp-core/controller.php
 zp-core/cron_runner.php
 zp-core/dataaccess
 zp-core/databaseTemplate
-zp-core/example_robots.txt
 zp-core/external_auth.php
 zp-core/full-image.php
 zp-core/functions-basic.php
@@ -1191,6 +1217,7 @@ zp-core/pickSource.php
 zp-core/pluginDoc.php
 zp-core/reconfigure.php
 zp-core/rewrite.php
+zp-core/robots.txt
 zp-core/root_index.php
 zp-core/setup.php
 zp-core/template-filters.php
@@ -1327,9 +1354,9 @@ zp-core/js/jQuery/jquery-migrate-1.4.1.js
 zp-core/js/jQuery/jquery-migrate-3.0.0.js
 zp-core/js/jQuery/jquery-migrate-3.0.0.min.js
 zp-core/js/jQueryui
-zp-core/js/jQueryui/base-1.12.css
+zp-core/js/jQueryui/base-1.12.min.css
 zp-core/js/jQueryui/jquery-ui-1.12.1.min.js
-zp-core/js/jQueryui/jquery-ui-1.12.css
+zp-core/js/jQueryui/jquery-ui-1.12.min.css
 zp-core/js/jQueryui/readme.txt
 zp-core/js/jQueryui/i18n
 zp-core/js/jQueryui/i18n/datepicker-af.js
@@ -1547,6 +1574,7 @@ zp-core/zp-extensions/comment_form.php
 zp-core/zp-extensions/contact_form.php
 zp-core/zp-extensions/cookieconsent.php
 zp-core/zp-extensions/crop_image.php
+zp-core/zp-extensions/daily-summary.php
 zp-core/zp-extensions/debug.php
 zp-core/zp-extensions/defaultCodeblocks.php
 zp-core/zp-extensions/deprecated-functions.php
@@ -7546,6 +7574,11 @@ zp-core/zp-extensions/crop_image/crop_image.css
 zp-core/zp-extensions/crop_image/swap.png
 zp-core/zp-extensions/crop_image/swap_down.png
 zp-core/zp-extensions/crop_image/swap_up.png
+zp-core/zp-extensions/daily-summary
+zp-core/zp-extensions/daily-summary/class-dailysummary.php
+zp-core/zp-extensions/daily-summary/class-dailysummaryitem.php
+zp-core/zp-extensions/daily-summary/daily-summary_content.php
+zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php
 zp-core/zp-extensions/debug
 zp-core/zp-extensions/debug/admin_tab.php
 zp-core/zp-extensions/deprecated-functions
@@ -7810,8 +7843,6 @@ zp-core/zp-extensions/instagramLogin/instagram.php
 zp-core/zp-extensions/instagramLogin/login_button.png
 zp-core/zp-extensions/jCarousel_thumb_nav
 zp-core/zp-extensions/jCarousel_thumb_nav/jcarousel.css
-zp-core/zp-extensions/jCarousel_thumb_nav/jcarousel.js
-zp-core/zp-extensions/jCarousel_thumb_nav/jcarousel_ajax.php
 zp-core/zp-extensions/jCarousel_thumb_nav/jcarousel_loading.gif
 zp-core/zp-extensions/jCarousel_thumb_nav/jcarousel_next.png
 zp-core/zp-extensions/jCarousel_thumb_nav/jcarousel_next_vertical.png
@@ -8010,9 +8041,9 @@ zp-core/zp-extensions/slideshow2/fonts/ie7.css
 zp-core/zp-extensions/slideshow2/fonts/ie7.js
 zp-core/zp-extensions/slideshow2/fonts/style.css
 zp-core/zp-extensions/tag_suggest
-zp-core/zp-extensions/tag_suggest/encoder.js
+zp-core/zp-extensions/tag_suggest/encoder.min.js
 zp-core/zp-extensions/tag_suggest/tag.css
-zp-core/zp-extensions/tag_suggest/tag.js
+zp-core/zp-extensions/tag_suggest/tag.min.js
 zp-core/zp-extensions/tagFromSearch
 zp-core/zp-extensions/tagFromSearch/tag.php
 zp-core/zp-extensions/themeEditor
@@ -8362,4 +8393,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8364
+8395

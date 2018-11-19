@@ -6,12 +6,15 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <html>
 	<head>
+		<?php
+		zp_apply_filter('theme_head');
+		scriptLoader($zenCSS);
+		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 
-		<?php zp_apply_filter('theme_head'); ?>
-
-		<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo pathurlencode(dirname(dirname($zenCSS))); ?>/common.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
+		if (class_exists('RSS')) {
+			printRSSHeaderLink('Gallery', gettext('Gallery'));
+		}
+		?>
 	</head>
 	<body>
 		<?php zp_apply_filter('theme_body_open'); ?>
@@ -95,11 +98,12 @@ if (!defined('WEBPATH'))
 			<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
+			if (extensionEnabled('daily-summary')) {
+				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+			}
 			if (extensionEnabled('contact_form')) {
 				printCustomPageURL(gettext('Contact us'), 'contact', '', '', ' | ');
 			}
-			?>
-			<?php
 			if (!zp_loggedin() && function_exists('printRegisterURL')) {
 				printRegisterURL(gettext('Register for this site'), '', ' | ');
 			}

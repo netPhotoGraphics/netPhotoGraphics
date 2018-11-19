@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <head>
-	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/slideshow.css" type="text/css" />
-	<?php zp_apply_filter('theme_head'); ?>
+	<?php
+	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_zp_themeroot . '/slideshow.css');
+	zp_apply_filter('theme_head');
+	?>
 
 </head>
 <body>

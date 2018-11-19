@@ -53,6 +53,10 @@
 				$zpfocus_metatitle = gettext("Archive View") . ' | ' . getBareGalleryTitle();
 				$zpfocus_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 				break;
+			case 'summary.php':
+				$zpfocus_metatitle = gettext("Daily summary") . ' | ' . getBareGalleryTitle();
+				$zpfocus_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
+				break;
 			case 'search.php':
 				$zpfocus_metatitle = gettext('Search') . ' | ' . html_encode(getSearchWords()) . ' | ' . getBareGalleryTitle();
 				$zpfocus_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
@@ -123,18 +127,24 @@
 
 		<meta name="description" content="<?php echo html_encode($zpfocus_metadesc); ?>" />
 
-		<?php require_once(SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/print_album_menu.php"); ?>
+		<?php
+		require_once(SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/print_album_menu.php");
+		scriptLoader($_zp_themeroot . '/css/main.css');
+		if (getOption('zpfocus_center_site')) {
+			scriptLoader($_zp_themeroot . '/css/center.css');
+		}
 
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/main.css" />
-		<?php if (getOption('zpfocus_center_site')) { ?>
-			<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/center.css" />
-		<?php } ?>
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/print.css" media="print" />
+		scriptLoader($_zp_themeroot . '/css/print.css');
+		?>
 		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/ie6.css" />
+		<?php
+		scriptLoader($_zp_themeroot . '/css/ie6.css');
+		?>
 		<![endif]-->
 		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/superfish.js"></script>
+		<?php
+		scriptLoader($_zp_themeroot . '/js/superfish.js');
+		?>
 		<script type="text/javascript">
 			jQuery(function () {
 				jQuery('ul.sf-menu').superfish();
@@ -145,11 +155,13 @@
 				};
 <?php } ?>
 		</script>
-		<?php if (($zpfocus_showrandom) == 'rotator') { ?>
-			<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/slideshow/jquery.cycle.all.js" type="text/javascript"></script>
-		<?php } ?>
-		<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/jquery.colorbox-min.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/themes/<?php echo $zpfocus_cbstyle; ?>/colorbox.css" type="text/css" media="screen"/>
+		<?php
+		if (($zpfocus_showrandom) == 'rotator') {
+			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		}
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptloader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpfocus_cbstyle . '/colorbox.css');
+		?>
 		<script type="text/javascript">
 			window.addEventListener('load', function () {
 				$("a[rel='zoom']").colorbox({

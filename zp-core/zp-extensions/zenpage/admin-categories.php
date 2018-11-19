@@ -60,7 +60,7 @@ if (empty($reports)) {
 	var_dump($reports);
 	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-categories.php';
 	header('Location: ' . $uri);
-	exitZP();
+	exit();
 }
 
 $_zp_CMS = new CMS();

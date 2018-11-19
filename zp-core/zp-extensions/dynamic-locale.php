@@ -61,9 +61,16 @@ define('LOCALE_TYPE', getOption('dynamic_locale_subdomain'));
 define('BASE_LOCALE', getOption('dynamic_locale_base'));
 
 if (OFFSET_PATH != 2) {
-	zp_register_filter('theme_head', 'dynamic_locale::dynamic_localeCSS');
+	zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
 	if (LOCALE_TYPE && extensionEnabled('dynamic-locale')) {
 		if (LOCALE_TYPE == 1) {
+
+			//TODO: this is debuging code until we find how this can happen
+			if (!(function_exists('zp_register_filter'))) {
+				debugLogBacktrace('Trapped missing zp_register_filter');
+				debugLogVar('$_SERVER', $_SERVER);
+			}
+
 			zp_register_filter('load_request', 'seo_locale::load_request');
 			define('SEO_WEBPATH', seo_locale::localePath());
 			define('SEO_FULLWEBPATH', seo_locale::localePath(true));
@@ -238,9 +245,7 @@ class dynamic_locale {
 	}
 
 	static function dynamic_localeCSS() {
-		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/dynamic-locale/locale.css" />
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
 	}
 
 	static function fullHostPath($lang) {
@@ -311,7 +316,7 @@ class seo_locale {
 			header("HTTP/1.0 302 Found");
 			header("Status: 302 Found");
 			header('Location: ' . $uri);
-			exitZP();
+			exit();
 		}
 		return $allow;
 	}

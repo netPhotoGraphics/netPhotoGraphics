@@ -51,6 +51,13 @@
 			<a href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Archive View'); ?>"><?php echo gettext('Archive'); ?></a>
 		</li>
 		<?php
+		if (extensionEnabled('daily-summary')) {
+			?>
+			<li <?php if ($_zp_gallery_page == "summary.php") { ?>class="active" <?php } ?>>
+				<a href="<?php echo getCustomPageURL('summary'); ?>" title="<?php echo gettext('Daily summary'); ?>"><?php echo gettext('Daily summary'); ?></a>
+			</li>
+			<?php
+		}
 		if (function_exists('printContactForm')) {
 			?><li <?php if ($_zp_gallery_page == "contact.php") { ?>class="active" <?php } ?>>
 				<?php printCustomPageURL(gettext('Contact'), "contact"); ?></li><?php

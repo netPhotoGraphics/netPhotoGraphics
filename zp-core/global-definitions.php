@@ -38,6 +38,9 @@ define("STATIC_CACHE_FOLDER", "cache_html");
 define('CONFIGFILE', 'zenphoto.cfg.php');
 define('MUTEX_FOLDER', '.mutex');
 
+//used by scriptLoader() to decide whether to inline the script (js or css)
+define('INLINE_LOAD_THRESHOLD', 3072);
+
 //bit masks for plugin priorities
 define('CLASS_PLUGIN', 8192);
 define('ADMIN_PLUGIN', 2048);
@@ -74,6 +77,7 @@ define('DEBUG_LOGIN', strpos($_debug, 'LOGIN')); // set to true to log admin sav
 define('DEBUG_PLUGINS', strpos($_debug, 'PLUGINS')); // set to true to log plugin load sequence.
 define('DEBUG_FEED', strpos($_debug, 'FEED')); // set to true to log class feed detected issues.
 define('DEBUG_OBJECTS', strpos($_debug, 'OBJECTS')); // set to true to log object management.
+define('TESTING_MODE', strpos($_debug, 'TESTING'));
 
 unset($_debug);
 
@@ -202,3 +206,5 @@ define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange;
 define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/trashcan.png" /></span>');
 define('BADGE_BLUE', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png" /></span>');
 define('BADGE_GOLD', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" /></span>');
+
+define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,mbstring,mcrypt,openssl,session,tidy,zip');

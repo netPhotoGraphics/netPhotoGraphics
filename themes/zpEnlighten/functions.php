@@ -86,8 +86,9 @@ function printZDToggleClass($option, $c, $number_to_show) {
 
 function printZDRoundedCornerJS() {
 	global $_zp_themeroot;
+	scriptLoader($_zp_themeroot . '/js/jquery.corner.js');
 	?>
-	<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.corner.js"></script>
+
 	<script type="text/javascript">
 		//<!-- <![CDATA[
 		window.addEventListener('load', function () {

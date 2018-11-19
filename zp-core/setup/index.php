@@ -11,15 +11,8 @@
 Define('PHP_MIN_VERSION', '5.2');
 Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
 Define('PHP_DESIRED_VERSION', '7.1');
-define('HTACCESS_VERSION', '1.4.5'); // be sure to change this to the one in .htaccess when the .htaccess file is updated.
 define('OFFSET_PATH', 2);
 
-// leave this as the first executable statement to avoid problems with PHP not having gettext support.
-if (function_exists("gettext")) {
-	$noxlate = 1;
-} else {
-	$noxlate = -1;
-}
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
@@ -400,11 +393,10 @@ setOptionDefault('zp_plugin_security-logger', 9 | CLASS_PLUGIN);
 
 $cloneid = bin2hex(FULLWEBPATH);
 $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION['clone'][$cloneid]['mod_rewrite'] && !file_exists(SERVERPATH . '/.htaccess');
+$newht = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/htaccess');
 if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 	if (($newconfig || $forcerewrite) && !file_exists(SERVERPATH . '/.htaccess') || setupUserAuthorized()) {
 		@chmod(SERVERPATH . '/.htaccess', 0777);
-		$ht = @file_get_contents(SERVERPATH . '/.htaccess');
-		$newht = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/htaccess');
 		file_put_contents(SERVERPATH . '/.htaccess', $newht);
 		@chmod(SERVERPATH . '/.htaccess', 0444);
 	}
@@ -487,8 +479,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?css_<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
 	<?php
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
 	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
 	?>
@@ -502,8 +494,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 				e.style.display = 'block';
 		}
 	</script>
-	<link rel="stylesheet" href="setup.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/loginForm.css" type="text/css" />
+	<?php
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/setup/setup.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+	?>
 </head>
 <body>
 	<div id="main">
@@ -670,7 +664,19 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						}
 						checkmark($display, gettext('PHP <code>display_errors</code>'), sprintf(gettext('PHP <code>display_errors</code> [is enabled]'), $display), gettext('This setting may result in PHP error messages being displayed on WEB pages. These displays may contain sensitive information about your site.') . $aux, $display && !$testRelease);
 
-						checkMark($noxlate, gettext('PHP <code>gettext()</code> support'), gettext('PHP <code>gettext()</code> support [is not present]'), gettext("PHP <code>gettext()</code> support is not enabled, the drop in replacement is being used."));
+						$loaded = get_loaded_extensions();
+						$loaded = array_flip($loaded);
+						$desired = explode(',', DESIRED_PHP_EXTENSIONS);
+						$missing = '';
+						$check = 1;
+						foreach ($desired as $module) {
+							if (!isset($loaded[$module])) {
+								$missing .= '<strong>' . $module . '</strong>, ';
+								$check = -1;
+							}
+						}
+						checkMark($check, gettext('PHP extensions'), gettext('PHP extensions [missing]'), sprintf(gettext('To improve netPhotoGraphics performance and functionality you should enable the follwing PHP extensions: %s'), rtrim($missing, ', ')));
+
 						checkmark(function_exists('flock') ? 1 : -1, gettext('PHP <code>flock</code> support'), gettext('PHP <code>flock</code> support [is not present]'), gettext('<code>flock</code> is used for serializing critical regions of code. Without <code>flock</code> active sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
 						if (function_exists('flock') && !$setupMutex) {
 							checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
@@ -1482,13 +1488,16 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$desc = gettext("Server seems not to be <em>Apache</em> or <em>Apache-compatible</em>, <code>mod_rewrite</code> may not be available.");
 							}
 						} else {
+							preg_match('~version (.*);~i', $newht, $matches);
+							$newvr = $matches[1];
+
 							if (preg_match('~version (.*);~i', $ht, $matches)) {
 								$vr = $matches[1];
 							} else {
 								$vr = false;
 							}
 
-							$ch = !empty($vr) && version_compare($vr, HTACCESS_VERSION, '>=');
+							$ch = empty($vr) || version_compare($vr, $newvr, '>=');
 							$d = rtrim(str_replace('\\', '/', dirname(dirname(dirname($_SERVER['SCRIPT_NAME'])))), '/') . '/';
 							$d = str_replace(' ', '%20', $d); //	apache appears to trip out if there is a space in the rewrite base
 
@@ -1572,17 +1581,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						//robots.txt file
-						$robots = file_get_contents(dirname(dirname(__FILE__)) . '/example_robots.txt');
+						$robots = file_get_contents(dirname(dirname(__FILE__)) . '/robots.txt');
 						if ($robots === false) {
 							checkmark(-1, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup could not find the  <em>example_robots.txt</em> file.'));
 						} else {
 							if (file_exists(SERVERPATH . '/robots.txt')) {
 								checkmark(-2, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup did not create a <em>robots.txt</em> file because one already exists.'));
 							} else {
-								$d = dirname(dirname(dirname($_SERVER['SCRIPT_NAME'])));
-								if ($d == '/')
-									$d = '';
-								$robots = str_replace('/zenphoto', $d, trim($robots));
+								$robots = str_replace('%FULLWEBPATH%', FULLWEBPATH, $robots);
 								$rslt = file_put_contents(SERVERPATH . '/robots.txt', $robots);
 								if ($rslt === false) {
 									$rslt = -1;
@@ -1966,5 +1972,5 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							</html>
 							<?php
 							$setupMutex->unlock();
-							exitZP();
+							exit();
 							?>

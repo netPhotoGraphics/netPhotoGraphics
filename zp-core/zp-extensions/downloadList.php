@@ -364,7 +364,7 @@ class AlbumZip {
 		echo "<FONT face=\"Helvitica,Arial,Sans-serif\" size=\"2\">";
 		echo "<b>" . sprintf(gettext('Page error: %2$s (%1$s)'), $err, $text) . "</b><br /><br />";
 		echo "</body></html>";
-		exitZP();
+		exit();
 	}
 
 	/**
@@ -656,7 +656,7 @@ if (isset($_GET['download'])) {
 		} else {
 			header("HTTP/1.0 403 " . gettext("Forbidden"));
 			header("Status: 403 " . gettext("Forbidden"));
-			exitZP(); //	terminate the script with no output
+			exit(); //	terminate the script with no output
 		}
 	}
 	$hash = getOption('downloadList_password');
@@ -677,7 +677,7 @@ if (isset($_GET['download'])) {
 				header("Status: 302 Found");
 				header('Last-Modified: ' . ZP_LAST_MODIFIED);
 				include(internalToFilesystem($_zp_script));
-				exitZP();
+				exit();
 			}
 		}
 	}
@@ -703,7 +703,7 @@ if (isset($_GET['download'])) {
 
 			AlbumZip::create($album, $item, $fromcache, $subalbums);
 			DownloadList::updateListItemCount($item . '.zip');
-			exitZP();
+			exit();
 		default:
 			$path = query_single_row("SELECT `aux` FROM " . prefix('plugin_storage') . " WHERE id=" . (int) $item);
 			if ($path && array_key_exists('aux', $path) && file_exists($_downloadFile = internalToFilesystem($path['aux']))) {
@@ -721,7 +721,7 @@ if (isset($_GET['download'])) {
 				header('Content-Length: ' . filesize($_downloadFile));
 				flush();
 				readfile($_downloadFile);
-				exitZP();
+				exit();
 			} else {
 				zp_register_filter('theme_body_open', 'DownloadList::noFile');
 			}

@@ -87,9 +87,7 @@ function datepickerJS() {
 		}
 	}
 	if (!empty($lang)) {
-		?>
-		<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jqueryui/i18n/datepicker-<?php echo $lang; ?>.js" type="text/javascript"></script>
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jqueryui/i18n/datepicker-' . $lang . '.js');
 	}
 }
 
@@ -144,136 +142,124 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 			printStandardMeta();
 			load_jQuery_CSS();
-			?>
-			<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?v<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
-			<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/loginForm.css" type="text/css" />
-			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+
 			if ($_zp_RTL_css) {
-				?>
-				<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-rtl.css" type="text/css" />
-				<?php
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-rtl.css');
 			}
 			if ($multi) {
-				?>
-				<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/msdropdown/dd.css" type="text/css" />
-				<?php
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/dd.css');
 			}
 			?>
 
 			<title><?php echo sprintf(gettext('%1$s %2$s: %3$s%4$s'), html_encode($_zp_gallery->getTitle()), gettext('Admin'), html_encode($tabtext), html_encode($subtabtext)); ?></title>
-			<?php load_jQuery_scripts('admin'); ?>
-
-			<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/admin.js" type="text/javascript" ></script>
-			<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.scrollTo.min.js" type="text/javascript"></script>
-
 			<?php
+			load_jQuery_scripts('admin');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.scrollTo.min.js');
+
 			if (extensionEnabled('touchPunch')) {
-				?>
-				<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.ui.touch-punch.min.js"></script>
-				<?php
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.ui.touch-punch.min.js');
 			}
 			if ($multi) {
-				?>
-				<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/msdropdown/jquery.dd.min.js" type="text/javascript"></script>
-				<?php
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/jquery.dd.min.js');
 			}
 			if (getOption('dirtyform_enable')) {
-				?>
-				<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/dirtyforms/jquery.dirtyforms.min.js" type="text/javascript"></script>
-				<?php
+				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.min.js');
 			}
 			?>
 			<script type="text/javascript">
-		// <!-- <![CDATA[
-		function setClean(id) {
-			$('form#' + id).removeClass('tinyDirty');
-		}
+				// <!-- <![CDATA[
+				function setClean(id) {
+					$('form#' + id).removeClass('tinyDirty');
+				}
 	<?php
 	if ($multi) {
 		?>
-			function lsclick(key, id) {
-				$('.lbx-' + id).hide();
-				$('#lb' + key + '-' + id).show();
-				$('.lbt-' + id).removeClass('selected');
-				$('#lbt-' + key + '-' + id).addClass('selected');
-			}
+					function lsclick(key, id) {
+						$('.lbx-' + id).hide();
+						$('#lb' + key + '-' + id).show();
+						$('.lbt-' + id).removeClass('selected');
+						$('#lbt-' + key + '-' + id).addClass('selected');
+					}
 		<?php
 	}
 	?>
-		jQuery(function ($) {
-			$(".fade-message").fadeTo(5000, 1).fadeOut(1000);
-		});
-		window.addEventListener('load', function () {
-			var high = $('.navigation').height() - 65;
-			$('#container').css('min-height', high);
-			$('.tabbox').css('min-height', high);
+				jQuery(function ($) {
+					$(".fade-message").fadeTo(5000, 1).fadeOut(1000);
+				});
+				window.addEventListener('load', function () {
+					var high = $('.navigation').height() - 65;
+					$('#container').css('min-height', high);
+					$('.tabbox').css('min-height', high);
 
 	<?php
 	if (zp_has_filter('admin_head', 'colorbox::css')) {
 		?>
-				$("a.colorbox").colorbox({
-					maxWidth: "98%",
-					maxHeight: "98%",
-					close: '<?php echo addslashes(gettext("close")); ?>'
-				});
+						$("a.colorbox").colorbox({
+							maxWidth: "98%",
+							maxHeight: "98%",
+							close: '<?php echo addslashes(gettext("close")); ?>'
+						});
 		<?php
 	}
 	if ($multi) {
 		?>
-				try {
-					$('.languageSelector').msDropDown();
-				} catch (e) {
-					alert(e.message);
-				}
+						try {
+							$('.languageSelector').msDropDown();
+						} catch (e) {
+							alert(e.message);
+						}
 		<?php
 	}
 	if (getOption('dirtyform_enable')) {
 		?>
-				$.DirtyForms.ignoreClass = 'ignoredirty';
-				$('form.dirtylistening').dirtyForms({debug: true});
+						$.DirtyForms.ignoreClass = 'ignoredirty';
+						$('form.dirtylistening').dirtyForms({debug: true});
 		<?php
 	}
 	?>
 
-		}, false);
-		// ]]> -->
+				}, false);
+				// ]]> -->
 			</script>
 			<?php
 			zp_apply_filter('admin_head');
 		}
 
 		function printSortableHead() {
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.mjs.nestedSortable.js')
 			?>
 			<!--Nested Sortables-->
-			<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.mjs.nestedSortable.js"></script>
 			<script type="text/javascript">
-		//<!-- <![CDATA[
-		window.addEventListener('load', function () {
+				//<!-- <![CDATA[
+				window.addEventListener('load', function () {
 
-			$('ul.page-list').nestedSortable({
-				disableNesting: 'no-nest',
-				forcePlaceholderSize: true,
-				handle: 'div',
-				items: 'li',
-				opacity: .6,
-				placeholder: 'placeholder',
-				tabSize: 25,
-				tolerance: 'intersect',
-				toleranceElement: '> div',
-				listType: 'ul',
-				change: function (event, ui) {
-					$('#sortableListForm').addClass('dirty');
-				}
-			});
-			$('.serialize').click(function () {
-				serialized = $('ul.page-list').nestedSortable('serialize');
-				if (serialized != original_order) {
-					$('#serializeOutput').html('<input type="hidden" name="order" size="30" maxlength="1000" value="' + serialized + '" />');
-				}
-			})
-			var original_order = $('ul.page-list').nestedSortable('serialize');
-		}, false);
-		// ]]> -->
+					$('ul.page-list').nestedSortable({
+						disableNesting: 'no-nest',
+						forcePlaceholderSize: true,
+						handle: 'div',
+						items: 'li',
+						opacity: .6,
+						placeholder: 'placeholder',
+						tabSize: 25,
+						tolerance: 'intersect',
+						toleranceElement: '> div',
+						listType: 'ul',
+						change: function (event, ui) {
+							$('#sortableListForm').addClass('dirty');
+						}
+					});
+					$('.serialize').click(function () {
+						serialized = $('ul.page-list').nestedSortable('serialize');
+						if (serialized != original_order) {
+							$('#serializeOutput').html('<input type="hidden" name="order" size="30" maxlength="1000" value="' + serialized + '" />');
+						}
+					})
+					var original_order = $('ul.page-list').nestedSortable('serialize');
+				}, false);
+				// ]]> -->
 			</script>
 			<!--Nested Sortables End-->
 			<?php
@@ -1930,7 +1916,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2259,9 +2245,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2394,7 +2380,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -4096,7 +4082,7 @@ function getCheckboxState($id) {
  * @return array
  */
 function standardScripts() {
-	$standardlist = array('themeoptions', 'theme_description', '404', 'slideshow', 'search', 'image', 'index', 'album', 'functions');
+	$standardlist = array('themeoptions', 'theme_description', '404', 'slideshow', 'search', 'image', 'index', 'album', 'functions', 'password', 'archive', 'gallery', 'favorites', 'register', 'contact');
 	if (extensionEnabled('zenpage'))
 		$standardlist = array_merge($standardlist, array('news', 'pages'));
 	return $standardlist;
@@ -4390,30 +4376,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+									mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+								mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -4792,27 +4778,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -4931,7 +4917,7 @@ function admin_securityChecks($rights, $return) {
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Location: ' . $redirect);
-		exitZP();
+		exit();
 	}
 }
 
@@ -4948,7 +4934,7 @@ function XSRFdefender($action, $modifier = NULL) {
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&error&msg=' . sprintf(gettext('“%s” Cross Site Request Forgery blocked.'), $action));
-		exitZP();
+		exit();
 	}
 	unset($_REQUEST['XSRFToken']);
 	unset($_POST['XSRFToken']);
@@ -5726,7 +5712,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php

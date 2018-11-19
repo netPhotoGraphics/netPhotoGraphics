@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Applies lazy loading to image content.
  * Uses {@link https://github.com/ressio/lazy-load-xt#usage Lazy load XT}
@@ -16,7 +17,7 @@ $plugin_description = gettext('A plugin to turn <em>img src</em> links into lazy
 
 $option_interface = 'lazyImage';
 
-zp_register_filter('theme_head', 'lazyImage::head');
+zp_register_filter('theme_body_close', 'lazyImage::head');
 // Note: these are not exact. If some other plugin decides to insert before or after, it's output
 // will not get processed.
 zp_register_filter('theme_body_open', 'lazyImage::start', 99999);
@@ -59,13 +60,9 @@ class lazyImage {
 	static function head() {
 
 		if (class_exists('Video')) {
-			?>
-			<script src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/lazyImage/jquery.lazyloadxt.extra.min.js" ></script>
-			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.extra.min.js');
 		} else {
-			?>
-			<script src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/lazyImage/jquery.lazyloadxt.min.js"></script>
-			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.min.js');
 		}
 		?>
 		<style>
@@ -74,15 +71,12 @@ class lazyImage {
 			}
 		</style>
 		<?php
+
 		if (getOption('lazyImage_jqBootstrap')) {
-			?>
-			<script src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/lazyImage/jquery.lazyloadxt.jquerymobile.min.js"></script>
-			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
 		}
 		if (getOption('lazyImage_jqMobile')) {
-			?>
-			<script src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/lazyImage/jquery.lazyloadxt.bootstrap.min.js" ></script>
-			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
 		}
 	}
 

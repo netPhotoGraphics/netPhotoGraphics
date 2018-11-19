@@ -122,21 +122,19 @@ class themeSwitcher {
 		return $theme;
 	}
 
-	static function head($css) {
+	static function head() {
 		global $_themeSwitcherThemelist;
-		$css = getPlugin('themeSwitcher/themeSwitcher.css', true, true);
+		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));
 		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo pathurlencode($css); ?>" />
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+		// <!-- <![CDATA[
 			function switchTheme(reloc) {
 				window.location = reloc.replace(/%t/, encodeURIComponent($('#themeSwitcher').val()));
 			}
-			// ]]> -->
+		// ]]> -->
 		</script>
 		<?php
 		$_themeSwitcherThemelist = zp_apply_filter('themeSwitcher_head', $_themeSwitcherThemelist);
-		return $css;
 	}
 
 	/**

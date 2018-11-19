@@ -4,11 +4,15 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 <head>
-	<?php printZDRoundedCornerJS(); ?>
-	<?php zp_apply_filter('theme_head'); ?>
-	<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-	<?php printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
-	<?php printZDSearchToggleJS(); ?>
+	<?php
+	printZDRoundedCornerJS();
+	zp_apply_filter('theme_head');
+
+	scriptLoader($_zp_themeroot . '/style.css');
+
+	printRSSHeaderLink('Gallery', gettext('Gallery'));
+	printZDSearchToggleJS();
+	?>
 </head>
 <body>
 	<?php zp_apply_filter('theme_body_open'); ?>

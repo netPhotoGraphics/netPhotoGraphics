@@ -12,8 +12,11 @@ if (!defined('WEBPATH'))
 
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" />
-		<?php jqm_loadScripts(); ?>
+
+		<?php
+		scriptLoader($_zp_themeroot . '/style.css');
+		jqm_loadScripts();
+		?>
 	</head>
 
 	<body>
@@ -60,7 +63,7 @@ if (!defined('WEBPATH'))
 							<h3><?php echo gettext('Tags:'); ?></h3>
 							<?php printTags('links', '', 'taglist', ''); ?>
 						</div>
-						<?php }
+					<?php }
 					?>
 					<?php
 					if (getImageMetaData()) {
@@ -74,18 +77,20 @@ if (!defined('WEBPATH'))
 					?>
 					<br style="clear:both" />
 					<?php
-						if (function_exists('printSlideShowLink')) {
-							echo '<span id="slideshowlink">';
-							printSlideShowLink();
-							echo '</span>';
-						}
-					if (function_exists('printAddToFavorites')) printAddToFavorites($_zp_current_image);
+					if (function_exists('printSlideShowLink')) {
+						echo '<span id="slideshowlink">';
+						printSlideShowLink();
+						echo '</span>';
+					}
+					if (function_exists('printAddToFavorites'))
+						printAddToFavorites($_zp_current_image);
 					if (function_exists('printRating')) {
 						echo '<div id="rating">';
 						printRating();
 						echo '</div>';
 					}
-					if (function_exists('printGoogleMap')) printGoogleMap();
+					if (function_exists('printGoogleMap'))
+						printGoogleMap();
 					if (function_exists('printCommentForm')) {
 						echo '<hr />';
 						printCommentForm();

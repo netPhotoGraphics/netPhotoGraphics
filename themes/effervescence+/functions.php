@@ -67,7 +67,7 @@ $_zp_page_check = 'my_checkPageValidity';
 
 define('_IMAGE_PATH', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/');
 
-function EF_head($ignore) {
+function EF_head() {
 	global $themeColor;
 	if (!$themeColor) {
 		$themeColor = getOption('Theme_colors');
@@ -84,12 +84,18 @@ function EF_head($ignore) {
 		$css = file_get_contents($basePath . '/base.css');
 		$css = strtr($css, $tr);
 		$css = preg_replace('|\.\./images/|', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/', $css);
+		$common = file_get_contents(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/common.css');
+		$common = preg_replace('|images/|', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/', $common);
+
+		$buffer = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $common . $css);
+		$buffer = str_replace(': ', ':', $buffer);
+		$buffer = preg_replace('/\s+/', ' ', $buffer);
+
 		mkdir_recursive($basePath . '/data/styles', FOLDER_MOD);
-		file_put_contents($csfile, $css);
+		file_put_contents($csfile, $buffer);
 	}
+	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
 	?>
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . THEMEFOLDER; ?>/effervescence+/common.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . THEMEFOLDER; ?>/effervescence+/data/styles/<?php echo $themeColor; ?>.css" type="text/css" />
 	<script type="text/javascript">
 		// <!-- <![CDATA[
 		function blurAnchors() {
@@ -105,7 +111,6 @@ function EF_head($ignore) {
 		// ]]> -->
 	</script>
 	<?php
-	return $ignore;
 }
 
 function iconColor($icon) {
@@ -175,7 +180,7 @@ function switcher_controllink($ignore) {
 function get_subalbum_count() {
 	$where = "WHERE parentid IS NOT NULL";
 	if (!zp_loggedin()) {
-		$where .= " AND `show` = 1";
+		$where .= " AND `show`=1";
 	} /* exclude the un-published albums */
 	return db_count('albums', $where);
 }

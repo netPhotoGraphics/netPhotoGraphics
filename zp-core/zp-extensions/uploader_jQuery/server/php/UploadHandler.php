@@ -21,7 +21,7 @@ class UploadHandler {
 
 	public function __construct($options = null, $initialize = true, $error_messages = null) {
 		$this->error_messages = array(
-				1 => gettext('The uploaded file exceeds the upload_max_filesize directive in php.ini'),
+				1 => gettext('The uploaded file exceeds the UPLOAD_MAX_FILESIZE directive in php.ini'),
 				2 => gettext('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'),
 				3 => gettext('The uploaded file was only partially uploaded'),
 				4 => gettext('No file was uploaded'),

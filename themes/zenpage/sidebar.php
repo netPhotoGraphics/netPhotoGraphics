@@ -56,7 +56,19 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 <div class="menu">
 	<h3><?php printCustomPageURL(gettext('Archive'), "archive"); ?></h3>
 </div>
-
+<?php
+if (extensionEnabled('daily-summary')) {
+	?>
+	<div class="menu">
+		<h3>
+			<?php
+			printDailySummaryLink(gettext('Daily summary'), '', '', '');
+			?>
+		</h3>
+	</div>
+	<?php
+}
+?>
 <?php
 if (class_exists('RSS') && (getOption('RSS_album_image') || getOption('RSS_articles'))) {
 	?>

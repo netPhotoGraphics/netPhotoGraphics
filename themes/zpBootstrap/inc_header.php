@@ -37,6 +37,9 @@ if (!defined('WEBPATH'))
 				case 'archive.php':
 					echo gettext('Archive View');
 					break;
+				case 'summary.php':
+					echo gettext('Daily summary');
+					break;
 				case 'contact.php':
 					echo gettext('Contact');
 					break;
@@ -92,29 +95,28 @@ if (!defined('WEBPATH'))
 				printRSSHeaderLink('Gallery', gettext('Latest images RSS'));
 			}
 		}
+		scriptLoader($_zp_themeroot . '/images/favicon.ico');
+		scriptLoader($_zp_themeroot . '/css/bootstrap.min.css');
+		if (($_zp_gallery_page == 'index.php') && ($isHomePage)) {
+			scriptLoader($_zp_themeroot . '/css/flexslider.css');
+		}
+		if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) {
+			scriptLoader($_zp_themeroot . '/css/jquery.fancybox.min.css');
+		}
+		scriptLoader($_zp_themeroot . '/css/zpBootstrap.css');
 		?>
-
-		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/bootstrap.min.css" type="text/css" media="screen" />
-		<?php if (($_zp_gallery_page == 'index.php') && ($isHomePage)) { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/flexslider.css" type="text/css" media="screen" />
-		<?php } ?>
-		<?php if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/jquery.fancybox.min.css" type="text/css" media="screen"/>
-		<?php } ?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/zpBootstrap.css" type="text/css" media="screen" />
-
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<?php
+		scriptLoader($_zp_themeroot . '/js/bootstrap.min.js');
+		scriptLoader($_zp_themeroot . '/js/zpBootstrap.js');
 
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/zpBootstrap.js"></script>
-
-		<?php if (($_zp_gallery_page == 'index.php') && ($isHomePage)) { ?>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.flexslider-min.js"></script>
+		if (($_zp_gallery_page == 'index.php') && ($isHomePage)) {
+			scriptLoader($_zp_themeroot . '/js/jquery.flexslider-min.js');
+			?>
 			<script type="text/javascript">
 				//<![CDATA[
 				$(document).ready(function() {
@@ -130,9 +132,13 @@ if (!defined('WEBPATH'))
 			</script>
 		<?php } ?>
 
-		<?php if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) { ?>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.fancybox.min.js"></script>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/zpB_fancybox_config.js"></script>
+		<?php
+		if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) {
+			scriptLoader($_zp_themeroot . '/js/jquery.fancybox.min.js');
+			scriptLoader($_zp_themeroot . '/js/zpB_fancybox_config.js');
+			'
+							. '
+			?>'
 			<script type="text/javascript">
 				//<![CDATA[
 				$(document).ready(function() {
@@ -214,17 +220,17 @@ if (!defined('WEBPATH'))
 				case 63235: case 39:
 								if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-				break;
-				case 63234: case 37:
-								if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+		break;
+		case 63234: case 37:
+						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-				break;
-				}
-				return true;
-				}
+		break;
+		}
+		return true;
+		}
 
-				document.onkeydown = keyboardNavigation;
-				//]]>
+		document.onkeydown = keyboardNavigation;
+		//]]>
 			</script>
 		<?php } ?>
 

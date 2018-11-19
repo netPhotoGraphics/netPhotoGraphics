@@ -85,9 +85,9 @@ Gallery::addImageHandler('m4a', 'Video');
 
 $_zp_multimedia_extension = new jPlayer(); // claim to be the flash player.
 zp_register_filter('content_macro', 'jPlayer::macro');
-zp_register_filter('theme_head', 'jplayer::headJS');
+zp_register_filter('theme_body_close', 'jplayer::headJS');
 if (getOption('jplayer_playlist')) {
-	zp_register_filter('theme_head', 'jplayer::playlistJS');
+	zp_register_filter('theme_body_close', 'jplayer::playlistJS');
 }
 
 // theme function wrapper for user convenience
@@ -256,21 +256,15 @@ class jPlayer {
 
 	static function headJS() {
 		$skin = @array_shift(getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin')));
-		if (file_exists($skin)) {
-			$skin = str_replace(SERVERPATH, WEBPATH, $skin); //replace SERVERPATH as that does not work as a CSS link
-		} else {
-			$skin = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
+		if (!file_exists($skin)) {
+			$skin = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}
-		?>
-		<link href="<?php echo $skin; ?>" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js/jquery.jplayer.min.js"></script>
-		<?php
+		scriptLoader($skin);
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js/jplayer.playlist.min.js"></script>
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**

@@ -7,15 +7,18 @@ if (function_exists('printSlideShow')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
+			<?php
+			zp_apply_filter('theme_head');
+
+			scriptLoader($_zp_themeroot . '/style.css');
+			?>
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+				<?php zp_apply_filter('theme_body_open'); ?>
 			<div id="slideshowpage">
-				<?php printSlideShow(true, true); ?>
+			<?php printSlideShow(true, true); ?>
 			</div>
-			<?php zp_apply_filter('theme_body_close'); ?>
+	<?php zp_apply_filter('theme_body_close'); ?>
 
 		</body>
 	</html>

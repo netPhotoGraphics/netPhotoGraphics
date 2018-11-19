@@ -35,7 +35,7 @@ if (isset($_GET['action'])) {
 			// clear out existing user assignments
 			Zenphoto_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups&deleted&subpage=' . $subpage);
-			exitZP();
+			exit();
 		case 'savegroups':
 			XSRFdefender('savegroups');
 			if (isset($_POST['checkForPostTruncation'])) {
@@ -97,7 +97,7 @@ if (isset($_GET['action'])) {
 			}
 
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups&subpage=' . $subpage . $notify);
-			exitZP();
+			exit();
 		case 'saveauserassignments':
 			XSRFdefender('saveauserassignments');
 			if (isset($_POST['checkForPostTruncation'])) {
@@ -116,15 +116,13 @@ if (isset($_GET['action'])) {
 				$notify = '&post_error';
 			}
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=assignments&subpage=' . $subpage . $notify);
-			exitZP();
+			exit();
 	}
 }
 
 printAdminHeader('admin');
 $background = '';
-?>
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/sprintf.js"></script>
-<?php
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 echo '</head>' . "\n";
 ?>
 
@@ -288,11 +286,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />

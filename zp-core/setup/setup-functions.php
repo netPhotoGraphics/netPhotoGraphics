@@ -563,6 +563,6 @@ function shutDownFunction() {
 	}
 	error_reporting(0); //	bypass any further error handling
 	db_close();
-	exitZP();
+	exit();
 }
 ?>

@@ -65,7 +65,7 @@ if (empty($reports)) {
 	$_SESSION['reports'] = $reports;
 	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-news.php' . getNewsAdminOptionPath(getNewsAdminOption(NULL));
 	header('Location: ' . $uri);
-	exitZP();
+	exit();
 }
 
 printAdminHeader('news', 'articles');

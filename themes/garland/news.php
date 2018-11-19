@@ -6,12 +6,17 @@ if (class_exists('CMS')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-			<?php if (class_exists('RSS')) printRSSHeaderLink("News", "Zenpage news", ""); ?>
+			<?php
+			zp_apply_filter('theme_head');
+
+			scriptLoader($_zp_themeroot . '/zen.css');
+
+			if (class_exists('RSS'))
+				printRSSHeaderLink("News", "Zenpage news", "");
+			?>
 		</head>
 		<body class="sidebars">
-			<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 			<div id="navigation"></div>
 			<div id="wrapper">
 				<div id="container">
@@ -26,7 +31,7 @@ if (class_exists('CMS')) {
 					<!-- header -->
 					<div class="sidebar">
 						<div id="leftsidebar">
-							<?php include("sidebar.php"); ?>
+	<?php include("sidebar.php"); ?>
 						</div>
 					</div>
 
@@ -71,7 +76,7 @@ if (class_exists('CMS')) {
 
 												<?php printCodeblock(1); ?>
 												<?php printNewsContent(); ?>
-												<?php printCodeblock(2); ?>
+											<?php printCodeblock(2); ?>
 											</div>
 											<?php
 											@call_user_func('printCommentForm');
@@ -79,7 +84,7 @@ if (class_exists('CMS')) {
 											commonNewsLoop(true);
 										}
 										?>
-										<?php footer(); ?>
+	<?php footer(); ?>
 										<p style="clear: both;"></p>
 									</div>
 									<!-- end content -->

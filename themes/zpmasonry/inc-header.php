@@ -2,9 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
-		<link rel="stylesheet" type="text/css" href="<?php echo $_zp_themeroot; ?>/css/<?php echo $zpmas_css; ?>.css" />
 		<?php
+		zp_apply_filter('theme_head');
+
+		scriptLoader($_zp_themeroot . '/css/' . $zpmas_css . '.css');
+
 		switch ($_zp_gallery_page) {
 			case 'index.php':
 				if ($_zp_page > 1) {
@@ -54,6 +56,11 @@
 				$zpmas_metatitle = gettext("Archive View") . ' | ' . getBareGalleryTitle();
 				$zpmas_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 				break;
+			case 'summary.php':
+				$zpmas_metatitle = gettext("Daily summary") . ' | ' . getBareGalleryTitle();
+				$zpmas_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
+				break;
+
 			case 'search.php':
 				$galleryactive = true;
 				$zpmas_metatitle = gettext('Search') . ' | ' . html_encode(getSearchWords()) . ' | ' . getBareGalleryTitle();
@@ -128,12 +135,14 @@
 		?>
 		<title><?php echo html_encode($zpmas_metatitle); ?></title>
 		<meta name="description" content="<?php echo $zpmas_metadesc; ?>" />
+		<?php scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js'); ?>
 
-		<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/jquery.colorbox-min.js" type="text/javascript"></script>
-		<?php if ($zpmas_ss) { ?>
-			<script src="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/slideshow/jquery.cycle.all.js" type="text/javascript"></script>
-		<?php } ?>
-		<link rel="stylesheet" href="<?php echo FULLWEBPATH . "/" . ZENFOLDER ?>/zp-extensions/colorbox_js/themes/<?php echo $zpmas_cbstyle; ?>/colorbox.css" type="text/css" media="screen"/>
+		<?php
+		if ($zpmas_ss) {
+			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		}
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpmas_cbstyle . '/colorbox.css');
+		?>
 		<script type="text/javascript">
 			window.addEventListener('load', function () {
 				$('#page_nav').css('display', 'none');
@@ -153,7 +162,8 @@
 				});
 				$("a[rel='slideshow']").colorbox({
 					slideshow: true,
-					slideshowSpeed:<?php echo $zpmas_cbssspeed; ?>,
+					slideshowSpeed:<?php echo $zpmas_cbssspeed;
+		?>,
 					slideshowStart: '<?php echo gettext('start slideshow'); ?>',
 					slideshowStop: '<?php echo gettext('stop slideshow'); ?>',
 					current: '<?php echo gettext('image {current} of {total}'); ?>', // Text format for the content group / gallery count. {current} and {total} are detected and replaced with actual numbers while ColorBox runs.

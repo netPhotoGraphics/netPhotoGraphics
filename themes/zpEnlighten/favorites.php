@@ -5,10 +5,14 @@ if (class_exists('favorites')) {
 	?>
 	<!DOCTYPE html>
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
-		<?php printZDRoundedCornerJS(); ?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
-		<?php printRSSHeaderLink('Album', getAlbumTitle()); ?>
+		<?php
+		zp_apply_filter('theme_head');
+		printZDRoundedCornerJS();
+
+		scriptLoader($_zp_themeroot . '/style.css');
+
+		printRSSHeaderLink('Album', getAlbumTitle());
+		?>
 	</head>
 	<body>
 		<?php zp_apply_filter('theme_body_open'); ?>

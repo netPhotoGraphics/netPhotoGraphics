@@ -1640,7 +1640,9 @@ function mb_parse_url($url) {
 
 	$parts = parse_url($enc_url);
 	if ($parts === false) {
-		debugLogBacktrace('Malformed URL: ' . $url);
+		if (TEST_RELEASE) {
+			debugLogBacktrace('Malformed URL: ' . $url);
+		}
 		return array();
 	}
 
@@ -2001,12 +2003,4 @@ function installSignature() {
 			'DATABASE' => $dbs['application'] . ' ' . $dbs['version']
 					)
 	);
-}
-
-/**
- *
- * Call when terminating a script.
- */
-function exitZP() {
-	exit();
 }

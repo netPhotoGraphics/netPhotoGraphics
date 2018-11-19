@@ -16,12 +16,10 @@ if (isset($_GET['reset'])) {
 	$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
 	query($sql);
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/search_statistics/search_analysis.php');
-	exitZP();
+	exit();
 }
 printAdminHeader('overview', 'analysis');
-?>
-<link rel="stylesheet" href="../../admin-statistics.css" type="text/css" media="screen" />
-<?php
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 echo '</head>';
 
 $nodata = gettext('No search criteria collected.');

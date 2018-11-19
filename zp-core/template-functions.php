@@ -35,16 +35,18 @@ function printThemeHeadItems() {
 	printStandardMeta();
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
-
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/loginForm.css" type="text/css" />
-
 	<?php
-	load_jQuery_CSS();
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
 	load_jQuery_scripts('theme');
+}
+
+/**
+ * stuff that belongs at then end of the theme html
+ */
+function printThemeCloseItems() {
+	load_jQuery_CSS();
 	if (zp_loggedin()) {
-		?>
-		<link rel="stylesheet" href="<?php echo getPlugin('toolbox.css', true, true); ?>" type="text/css" />
-		<?php
+		scriptLoader(getPlugin('toolbox.css', true));
 	}
 }
 
@@ -3576,12 +3578,12 @@ function getAllDates($order = 'asc') {
 	$alldates = array();
 	$cleandates = array();
 	$sql = "SELECT `date` FROM " . prefix('images');
-	if (!zp_loggedin()) {
-		$sql .= " WHERE `show` = 1";
+	if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
+		$sql .= " WHERE `show`=1";
 	}
 	$hidealbums = getNotViewableAlbums();
 	if (!empty($hidealbums)) {
-		if (zp_loggedin()) {
+		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= ' WHERE ';
 		} else {
 			$sql .= ' AND ';
@@ -3693,7 +3695,6 @@ function getCustomPageRewrite($page) {
 /**
  * Produces the url to a custom page (e.g. one that is not album.php, image.php, or index.php)
  *
- * @param string $linktext Text for the URL
  * @param string $page page name to include in URL
  * @param string $q query string to add to url
  * @param int $pageno set to a page number if that needs to be included in the URL
@@ -3866,7 +3867,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @since 1.1.3
  */
 function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL) {
-	global $_zp_adminJS_loaded, $_zp_current_search, $_zp_current_album;
+	global $_zp_current_search, $_zp_current_album;
 	$engine = new SearchEngine();
 	if (!is_null($_zp_current_search) && !$_zp_current_search->getSearchWords()) {
 		$engine->clearSearchWords();
@@ -3914,49 +3915,44 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	}
 
 	$fields = $engine->allowedSearchFields();
-	if (!$_zp_adminJS_loaded) {
-		$_zp_adminJS_loaded = true;
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/admin.js"></script>
-		<?php
-	}
 	?>
-	<div id="<?php echo $id; ?>">
+
+	<div id="<?php echo $id; ?>"><!-- start of search form -->
 		<!-- search form -->
 		<script type="text/javascript">
-							// <!-- <![CDATA[
-							var within = <?php echo (int) $within; ?>;
-							function search_(way) {
-								within = way;
-								if (way) {
-									$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
-								} else {
-									lastsearch = '';
-									$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
-								}
-								$('#search_input').val('');
-							}
-							$('#search_form').submit(function () {
-								if (within) {
-									var newsearch = $.trim($('#search_input').val());
-									if (newsearch.substring(newsearch.length - 1) == ',') {
-										newsearch = newsearch.substr(0, newsearch.length - 1);
-									}
-									if (newsearch.length > 0) {
-										$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
-									} else {
-										$('#search_input').val('<?php echo $searchwords; ?>');
-									}
-								}
-								return true;
-							});
-							function search_all() {
-								//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}. All rights reserved
-								var check = $('#SEARCH_checkall').prop('checked');
-								$('.SEARCH_checkall').prop('checked', check);
-							}
+			// <!-- <![CDATA[
+			var within = <?php echo (int) $within; ?>;
+			function search_(way) {
+				within = way;
+				if (way) {
+					$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
+				} else {
+					lastsearch = '';
+					$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
+				}
+				$('#search_input').val('');
+			}
+			$('#search_form').submit(function () {
+				if (within) {
+					var newsearch = $.trim($('#search_input').val());
+					if (newsearch.substring(newsearch.length - 1) == ',') {
+						newsearch = newsearch.substr(0, newsearch.length - 1);
+					}
+					if (newsearch.length > 0) {
+						$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
+					} else {
+						$('#search_input').val('<?php echo $searchwords; ?>');
+					}
+				}
+				return true;
+			});
+			function search_all() {
+				//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}. All rights reserved
+				var check = $('#SEARCH_checkall').prop('checked');
+				$('.SEARCH_checkall').prop('checked', check);
+			}
 
-							// ]]> -->
+			// ]]> -->
 		</script>
 		<form method="post" action="<?php echo $searchurl; ?>" id="search_form">
 			<?php echo $prevtext; ?>
@@ -4339,7 +4335,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4511,7 +4507,7 @@ function print404status() {
 				$target = getRequestURI();
 				if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/zp-data/tést.jpg'))) {
 					$output = "404 error details\n\t\t\tSERVER:\n";
-					foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'REDIRECT_STATUS') as $key) {
+					foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'HTTP_USER_AGENT', 'REDIRECT_STATUS') as $key) {
 						if (is_null(@$_SERVER[$key])) {
 							$value = 'NULL';
 						} else {

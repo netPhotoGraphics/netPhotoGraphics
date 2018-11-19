@@ -29,14 +29,14 @@ if (!defined('OFFSET_PATH')) {
 
 	if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 		if (!zp_loggedin(ADMIN_RIGHTS)) {
-// prevent nefarious access to this page.
+			// prevent nefarious access to this page.
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . currentRelativeURL());
-			exitZP();
+			exit();
 		}
 
 		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
 		if (session_id() == '') {
-// force session cookie to be secure when in https
+			// force session cookie to be secure when in https
 			if (secureServer()) {
 				$CookieInfo = session_get_cookie_params();
 				session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
@@ -49,7 +49,7 @@ if (!defined('OFFSET_PATH')) {
 		query('UPDATE ' . prefix('news') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
 		query('UPDATE ' . prefix('pages') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&msg=' . gettext('All ratings have been set to <em>unrated</em>.'));
-		exitZP();
+		exit();
 	}
 }
 
@@ -60,7 +60,7 @@ if (getOption('rating_image_individual_control')) {
 
 // register the scripts needed
 if (in_context(ZP_INDEX)) {
-	zp_register_filter('theme_head', 'jquery_rating::ratingJS');
+	zp_register_filter('theme_body_close', 'jquery_rating::ratingJS');
 }
 
 /**
@@ -181,25 +181,21 @@ class jquery_rating {
 
 	static function ratingJS() {
 		$ME = substr(basename(__FILE__), 0, -4);
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME; ?>/jquery.MetaData.js"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME; ?>/jquery.rating.js"></script>
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
+
 		$size = getOption('rating_star_size');
 		if (getOption('rating_like-dislike')) {
-			$css = getPlugin('rating/jquery.rating_like-' . $size . '.css', true, true);
+			$css = getPlugin('rating/jquery.rating_like-' . $size . '.css', true);
 		} else {
-			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true, true);
+			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true);
 		}
+		scriptLoader($css);
 		?>
-		<link rel="stylesheet" href="<?php echo pathurlencode($css); ?>" type="text/css" />
-		<?php
-		?>
-
 		<script type="text/javascript">
-					// <!-- <![CDATA[
-					$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo $size; ?>};
-					// ]]> -->
+			// <!-- <![CDATA[
+			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo $size; ?>};
+			// ]]> -->
 		</script>
 		<?php
 	}
@@ -399,11 +395,11 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 			$j++;
 			?>
 			<input type="radio" class="star<?php echo $split; ?>" name="star_rating-value<?php echo $unique; ?>" value="<?php echo $j; ?>" title="<?php
-		if ($like) {
-			echo gettext('like');
-		} else {
-			printf(ngettext('%u star', '%u stars', $v), $v);
-		}
+			if ($like) {
+				echo gettext('like');
+			} else {
+				printf(ngettext('%u star', '%u stars', $v), $v);
+			}
 			?>" />
 						 <?php
 					 }

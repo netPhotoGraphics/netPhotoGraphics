@@ -8,11 +8,11 @@ if (class_exists('favorites')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php
+			zp_apply_filter('theme_head');
 
-
-
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
+			scriptLoader($_zp_themeroot . '/style.css');
+			?>
 		</head>
 		<body>
 			<?php zp_apply_filter('theme_body_open'); ?>

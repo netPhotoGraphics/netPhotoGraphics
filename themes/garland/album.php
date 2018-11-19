@@ -7,11 +7,16 @@ $map = function_exists('printGoogleMap');
 <html>
 	<head>
 
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php
+		zp_apply_filter('theme_head');
 
-		<?php $handler->theme_head($_zp_themeroot); ?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Album', getAlbumTitle()); ?>
+		$handler->theme_head($_zp_themeroot);
+
+		scriptLoader($_zp_themeroot . '/zen.css');
+
+		if (class_exists('RSS'))
+			printRSSHeaderLink('Album', getAlbumTitle());
+		?>
 	</head>
 	<body class="sidebars">
 		<?php zp_apply_filter('theme_body_open'); ?>

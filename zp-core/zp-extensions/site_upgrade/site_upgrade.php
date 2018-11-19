@@ -3,7 +3,6 @@
 /**
  * @package plugins/site_upgrade
  */
-
 define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
@@ -59,7 +58,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 }
 
 header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?report=' . $report);
-exitZP();
+exit();
 
 /**
  * updates the site status
@@ -69,7 +68,7 @@ function setSiteState($state, $folder = NULL) {
 	if (is_null($folder)) {
 		$folder = SERVERPATH . '/';
 	}
-	$_configMutex = new zpMutex('cF', NULL, $folder);
+	$_configMutex = new zpMutex('cF', NULL, $folder . DATA_FOLDER . '/.mutex');
 	$_configMutex->lock();
 	$zp_cfg = @file_get_contents($folder . DATA_FOLDER . '/' . CONFIGFILE);
 	$zp_cfg = updateConfigItem('site_upgrade_state', $state, $zp_cfg);

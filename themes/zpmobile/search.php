@@ -10,9 +10,12 @@ if (!defined('WEBPATH'))
 
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" />
-		<?php jqm_loadScripts(); ?>
-		<?php printZDSearchToggleJS(); ?>
+
+		<?php
+		scriptLoader($_zp_themeroot . '/style.css');
+		jqm_loadScripts();
+		printZDSearchToggleJS();
+		?>
 	</head>
 
 	<body>
@@ -137,9 +140,10 @@ if (!defined('WEBPATH'))
 						<ul data-role="listview" data-inset="true">
 							<?php while (next_album()): ?>
 								<li>
-									<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:');
-						printAnnotatedAlbumTitle();
-								?>">
+									<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php
+									echo gettext('View album:');
+									printAnnotatedAlbumTitle();
+									?>">
 		<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, 79, 79, 79, 79, NULL, null, NULL, NULL); ?>
 										<h3><?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small></h3>
 										<div class="albumdesc"><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 100, '(...)', false)); ?></div>

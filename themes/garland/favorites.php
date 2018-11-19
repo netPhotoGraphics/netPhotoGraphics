@@ -6,13 +6,17 @@ if (class_exists('favorites')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php
+			zp_apply_filter('theme_head');
 
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-			<?php if (class_exists('RSS')) printRSSHeaderLink('Album', getAlbumTitle()); ?>
+			scriptLoader($_zp_themeroot . '/zen.css');
+
+			if (class_exists('RSS'))
+				printRSSHeaderLink('Album', getAlbumTitle());
+			?>
 		</head>
 		<body class="sidebars">
-			<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 			<div id="navigation"></div>
 			<div id="wrapper">
 				<div id="container">
@@ -28,7 +32,7 @@ if (class_exists('favorites')) {
 					</div><!-- header -->
 					<div class="sidebar">
 						<div id="leftsidebar">
-							<?php include("sidebar.php"); ?>
+	<?php include("sidebar.php"); ?>
 						</div>
 					</div>
 					<div id="center">
@@ -37,28 +41,28 @@ if (class_exists('favorites')) {
 								<div class="left-corner"><!-- begin content -->
 									<div class="main section" id="main">
 										<h2 id="gallerytitle">
-											<?php printHomeLink('', ' » '); ?>
+	<?php printHomeLink('', ' » '); ?>
 											<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php printGalleryTitle(); ?></a> » <?php printParentBreadcrumb("", " » ", " » "); ?><?php echo html_encode(getAlbumTitle()); ?>
 										</h2>
 										<?php printAlbumDesc(); ?>
-										<?php printCodeblock(1); ?>
+											<?php printCodeblock(1); ?>
 										<div id="albums">
 											<?php
 											while (next_album()) {
 												?>
 												<div class="album">
 													<a class="albumthumb" href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album:  %s'), html_encode(getBareAlbumTitle())); ?>">
-														<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
+		<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
 													</a>
 													<div class="albumdesc">
 														<h3>
 															<a href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album:  %s'), html_encode(getBareAlbumTitle())); ?>">
-																<?php printAlbumTitle(); ?>
+		<?php printAlbumTitle(); ?>
 															</a>
 														</h3>
 														<br />
 														<small><?php printAlbumDate(); ?></small>
-														<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
+		<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
 													</div>
 													<p style="clear: both;"></p>
 												</div>
@@ -76,7 +80,7 @@ if (class_exists('favorites')) {
 												<div class="image">
 													<div class="imagethumb">
 														<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getImageTitle()); ?></a>
-														<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
+		<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
 													</div>
 												</div>
 												<?php

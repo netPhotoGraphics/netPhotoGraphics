@@ -15,12 +15,17 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 if (!zp_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . currentRelativeURL());
-	exitZP();
+	exit();
 }
 if (isset($_GET['clearsitemapcache'])) {
 	sitemap::clearCache();
+	$robots = file_get_contents(SERVERPATH . '/robots.txt');
+	if ($robots) {
+		$robots = str_replace(' sitemap:', '# sitemap:', $robots);
+		file_put_contents(SERVERPATH . '/robots.txt', $robots);
+	}
 	header('location:' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php');
-	exitZP();
+	exit();
 }
 
 printAdminHeader('overview', 'sitemap');
@@ -43,14 +48,20 @@ if (isset($_GET['generatesitemaps'])) {
 	} else {
 		$metaURL = '';
 	}
-	if (!empty($metaURL)) {
+	if (empty($metaURL)) {
+		$robots = file_get_contents(SERVERPATH . '/robots.txt');
+		if ($robots && strpos($robots, 'http://www.yourdomain.com') === false) { //update the robots file if FULLWEBPATH is stored
+			$robots = str_replace('# sitemap:', ' sitemap:', $robots);
+			$robots_updated = file_put_contents(SERVERPATH . '/robots.txt', $robots);
+		}
+	} else {
 		?>
 		<meta http-equiv="refresh" content="1; url=<?php echo $metaURL; ?>" />
 		<?php
 	}
 } // if(isset($_GET['generatesitemaps']) end
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 ?>
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-statistics.css" type="text/css" media="screen" />
 <script type="text/javascript">
 	// <!-- <![CDATA[
 	window.addEventListener('load', function () {

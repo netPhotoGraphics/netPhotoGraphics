@@ -74,7 +74,7 @@ if (empty($reports)) {
 	$_SESSION['reports'] = $reports;
 	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-pages.php';
 	header('Location: ' . $uri);
-	exitZP();
+	exit();
 }
 
 $_zp_CMS = new CMS();

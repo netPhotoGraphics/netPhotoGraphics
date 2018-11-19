@@ -522,3 +522,29 @@ li.sfHover > a > .sf-sub-indicator {
 .disclose_password_show {
 	padding-right: 80px !important;
 }
+
+
+ul.pagelist {
+	clear: both;
+	padding: 0;
+	margin: 20px 0 0 0;
+	list-style-type: none;
+}
+ul.pagelist li {
+	display: inline;
+}
+ul.pagelist li a, ul.pagelist span.disabledlink {
+	padding: 4px;
+}
+ul.pagelist li.current a {
+	color: __C_50__ ; /*denotes the current page were on (1..5 etc) (I'm hiding it in the background)*/
+}
+ul.pagelist li.prev {
+	margin-right: 10px;
+}
+ul.pagelist li.next {
+	margin-left: 10px;
+}
+.pagenav {
+	clear: both;
+}

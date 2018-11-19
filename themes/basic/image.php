@@ -8,11 +8,13 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php
+		zp_apply_filter('theme_head');
 
-		<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css" />
-		<link rel="stylesheet" href="<?php echo pathurlencode(dirname(dirname($zenCSS))); ?>/common.css" type="text/css" />
-		<?php if (zp_has_filter('theme_head', 'colorbox::css')) { ?>
+		scriptLoader($zenCSS);
+		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
+		if (zp_has_filter('theme_head', 'colorbox::css')) {
+			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
 				window.addEventListener('load', function () {
@@ -155,6 +157,11 @@ if (!defined('WEBPATH'))
 			?>
 			<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> | <?php printSoftwareLink(); ?>
+			<?php
+			if (extensionEnabled('daily-summary')) {
+				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+			}
+			?>
 			<?php @call_user_func('printUserLogin_out', " | "); ?>
 		</div>
 		<?php

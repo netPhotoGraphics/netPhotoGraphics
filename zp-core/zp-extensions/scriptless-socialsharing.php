@@ -51,7 +51,7 @@ $plugin_description = gettext('Provides scriptless and privacy friendly sharing 
 $option_interface = 'scriptlessSocialsharing';
 
 if (getOption('scriptless_socialsharing_iconfont')) {
-	zp_register_filter('theme_head', 'scriptlessSocialsharing::CSS');
+	zp_register_filter('theme_body_close', 'scriptlessSocialsharing::CSS');
 }
 
 class scriptlessSocialsharing {
@@ -109,10 +109,7 @@ class scriptlessSocialsharing {
 	}
 
 	static function CSS() {
-		$css = getPlugin('scriptless-socialsharing/style.min.css', true, WEBPATH);
-		?>
-		<link rel="stylesheet" href="<?php echo $css; ?>" type="text/css">
-		<?php
+		scriptLoader(getPlugin('scriptless-socialsharing/style.min.css'));
 	}
 
 	/**

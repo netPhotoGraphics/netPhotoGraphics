@@ -55,11 +55,11 @@ if (isset($_GET['action'])) {
 					zp_apply_filter('admin_log_actions', true, $file, $action); // have to record the fact
 				}
 				header('location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-logs.php');
-				exitZP();
+				exit();
 			case 'download_log':
 				XSRFdefender($action, $what);
 				putZip($what . '.zip', $file);
-				exitZP();
+				exit();
 		}
 	}
 }
@@ -208,7 +208,7 @@ echo "\n</head>";
 											?>
 										</tbody>
 									</table>
-									<script src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.stickytableheaders.min.js"></script>
+									<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.stickytableheaders.min.js'); ?>
 									<script>
 										$(function () {
 											$('#log_table').stickyTableHeaders({scrollableArea: $('.logtext'), cacheHeaderHeight: true});

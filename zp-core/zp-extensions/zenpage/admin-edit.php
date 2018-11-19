@@ -37,7 +37,7 @@ if (is_AdminEditPage('page')) {
 } else {
 	//we should not be here!
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
-	exitZP();
+	exit();
 }
 
 admin_securityChecks($rights, currentRelativeURL());
@@ -101,7 +101,7 @@ if (isset($_GET['delete'])) {
 if ($redirect) {
 	$_SESSION['reports'] = $reports;
 	header('Location: ' . $redirect);
-	exitZP();
+	exit();
 } else if (isset($_SESSION['reports'])) {
 	$reports = $_SESSION['reports'];
 	unset($_SESSION['reports']);

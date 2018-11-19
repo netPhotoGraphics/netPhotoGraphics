@@ -8,12 +8,15 @@ if (class_exists('CMS')) {
 	<html>
 		<head>
 
-			<?php zp_apply_filter('theme_head'); ?>
-			<link rel="stylesheet" href="<?php echo pathurlencode($zenCSS); ?>" type="text/css" />
-			<link rel="stylesheet" href="<?php echo pathurlencode(dirname(dirname($zenCSS))); ?>/common.css" type="text/css" />
+			<?php
+			zp_apply_filter('theme_head');
 
+			scriptLoader($zenCSS);
+			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 
-			<?php if (class_exists('RSS')) printRSSHeaderLink("Pages", "Zenpage pages", ""); ?>
+			if (class_exists('RSS'))
+				printRSSHeaderLink("Pages", "Zenpage pages", "");
+			?>
 		</head>
 
 		<body>
@@ -72,6 +75,11 @@ if (class_exists('CMS')) {
 				?>
 				<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 				<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> | <?php printSoftwareLink(); ?>
+				<?php
+				if (extensionEnabled('daily-summary')) {
+					printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+				}
+				?>
 				<?php @call_user_func('printUserLogin_out', " | "); ?>
 			</div>
 			<?php

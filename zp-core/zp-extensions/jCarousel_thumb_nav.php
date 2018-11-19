@@ -3,7 +3,7 @@
  * JavaScript thumb nav plugin with dynamic loading of thumbs on request via JavaScript.
  * Place <var>printThumbNav()</var> on your theme's <i>image.php</i> where you want it to appear.
  *
- * Supports theme based custom css files (place <var>jcarousel.css</var> and needed images in your theme's folder).
+ * Supports theme based custom css files (place <var>jcarousel.css</var> and needed images in your theme's <var>jCarousel_thumb_nav</var> folder).
  *
  * @author Malte Müller (acrylian)
  * @package plugins/jCarousel_thumb_nav
@@ -13,6 +13,9 @@ $plugin_description = gettext("jQuery jCarousel thumb nav plugin with dynamic lo
 $plugin_disable = (extensionEnabled('bxslider_thumb_nav')) ? sprintf(gettext('Only one Carousel plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), 'bxslider_thumb_nav') : '';
 
 $option_interface = 'jcarousel';
+if (!getOption('jQuery_Migrate_theme')) { //	until such time as jquery.jcarousel works with jQuery 3.3
+	setOption('jQuery_Migrate_theme', 1, false);
+}
 
 /**
  * Plugin option handling class
@@ -91,13 +94,6 @@ class jcarousel {
 	}
 
 	static function themeJS() {
-		$theme = getCurrentTheme();
-		$css = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css';
-		if (file_exists($css)) {
-			$css = WEBPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
-		} else {
-			$css = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jcarousel.css';
-		}
 		?>
 		<script>
 			(function ($) {
@@ -113,16 +109,25 @@ class jcarousel {
 
 			})(jQuery);
 		</script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jCarousel_thumb_nav/jquery.jcarousel.pack.js"></script>
-		<link rel="stylesheet" type="text/css" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jCarousel_thumb_nav/jquery.jcarousel.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo html_encode($css); ?>" />
 		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
+		$theme = getCurrentTheme();
+		if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css')) {
+			// this should comply with the standard!
+			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
+			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+			deprecated_functions::notify_handler(gettext('The jCarousel css files should be placed in the theme subfolder "jCarousel_thumb_nav"'), NULL);
+		} else {
+			$css = getPlugin('jCarousel_thumb_nav/jcarousel.css', $theme);
+		}
+		scriptLoader($css);
 	}
 
 }
 
 if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page))) {
-	zp_register_filter('theme_head', 'jcarousel::themeJS');
+	zp_register_filter('theme_body_close', 'jcarousel::themeJS');
 
 	/** Prints the jQuery jCarousel HTML setup to be replaced by JS
 	 *
@@ -140,7 +145,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 	function printThumbNav($minitems = NULL, $maxitems = NULL, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $fullimagelink = NULL, $vertical = NULL, $speed = NULL, $thumbscroll = NULL) {
 		global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery_page;
 		//	Just incase the theme has not set the option, at least second try will work!
-		setOptionDefault('slideshow_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page), 1);
+		setOptionDefault('jcarousel_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page), 1);
 		$items = "";
 		if (is_object($_zp_current_album) && $_zp_current_album->getNumImages() >= 2) {
 			if (is_null($thumbscroll)) {
@@ -236,42 +241,42 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 			}
 			?>
 			<script type="text/javascript">
-			// <!-- <![CDATA[
-			var mycarousel_itemList = [
+				// <!-- <![CDATA[
+				var mycarousel_itemList = [
 			<?php echo $items; ?>
-			];
+				];
 
-			function mycarousel_itemLoadCallback(carousel, state) {
-				for (var i = carousel.first; i <= carousel.last; i++) {
-					if (carousel.has(i)) {
-						continue;
+				function mycarousel_itemLoadCallback(carousel, state) {
+					for (var i = carousel.first; i <= carousel.last; i++) {
+						if (carousel.has(i)) {
+							continue;
+						}
+						if (i > mycarousel_itemList.length) {
+							break;
+						}
+						carousel.add(i, mycarousel_getItemHTML(mycarousel_itemList[i - 1]));
 					}
-					if (i > mycarousel_itemList.length) {
-						break;
+				}
+
+				function mycarousel_getItemHTML(item) {
+					if (item.active === "") {
+						html = '<a href="' + item.link + '" title="' + item.title + '"><img src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
+					} else {
+						html = '<a href="' + item.link + '" title="' + item.title + '"><img class="activecarouselimage" src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
 					}
-					carousel.add(i, mycarousel_getItemHTML(mycarousel_itemList[i - 1]));
+					return html;
 				}
-			}
 
-			function mycarousel_getItemHTML(item) {
-				if (item.active === "") {
-					html = '<a href="' + item.link + '" title="' + item.title + '"><img src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
-				} else {
-					html = '<a href="' + item.link + '" title="' + item.title + '"><img class="activecarouselimage" src="' + item.url + '" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="' + item.url + '" /></a>';
-				}
-				return html;
-			}
-
-			jQuery(document).ready(function () {
-				jQuery("#mycarousel").jcarousel({
-					vertical: <?php echo $vertical; ?>,
-					size: mycarousel_itemList.length,
-					start: <?php echo $imgnumber; ?>,
-					scroll: <?php echo $thumbscroll; ?>,
-					itemLoadCallback: {onBeforeAnimation: mycarousel_itemLoadCallback}
+				jQuery(document).ready(function () {
+					jQuery("#mycarousel").jcarousel({
+						vertical: <?php echo $vertical; ?>,
+						size: mycarousel_itemList.length,
+						start: <?php echo $imgnumber; ?>,
+						scroll: <?php echo $thumbscroll; ?>,
+						itemLoadCallback: {onBeforeAnimation: mycarousel_itemLoadCallback}
+					});
 				});
-			});
-			// ]]> -->
+				// ]]> -->
 			</script>
 			<ul id="mycarousel">
 				<!-- The content will be dynamically loaded in here -->
@@ -281,4 +286,3 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 	}
 
 }
-?>

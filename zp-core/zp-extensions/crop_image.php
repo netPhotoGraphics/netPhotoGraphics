@@ -75,7 +75,7 @@ $album = newAlbum($albumname, true, true);
 if (!$album->exists || !$album->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return);
-		exitZP();
+		exit();
 	}
 }
 if (isset($_REQUEST['singleimage'])) {
@@ -209,7 +209,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	}
 
 	header('Location: ' . $return);
-	exitZP();
+	exit();
 }
 if (isset($_REQUEST['subpage'])) {
 	$subpage = sanitize($_REQUEST['subpage']);
@@ -233,12 +233,11 @@ if ($pasteobj) {
 	</style>
 	<?php
 }
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/crop_image/crop_image.css');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/htmlencoder.js');
 ?>
-
-<script src="<?php echo WEBPATH . '/' . ZENFOLDER ?>/js/Jcrop/jquery.Jcrop.js" type="text/javascript"></script>
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/htmlencoder.js"></script>
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER ?>/js/Jcrop/jquery.Jcrop.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER ?>/crop_image/crop_image.css" type="text/css" />
 <script type="text/javascript" >
 	//<!-- <![CDATA[
 	var jcrop_api;

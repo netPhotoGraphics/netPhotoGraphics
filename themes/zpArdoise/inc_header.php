@@ -82,23 +82,27 @@ if (!defined('WEBPATH'))
 				printRSSHeaderLink('News', NEWS_LABEL);
 			}
 		}
+
+		scriptLoader($_zp_themeroot . '/css/screen.css');
+
+		if (getOption('css_style') == 'light') {
+			scriptLoader($_zp_themeroot . '/css/light.css');
+		}
+		if (getOption('color_style') == 'custom') {
+			scriptLoader($_zp_themeroot . '/css/custom.css');
+		}
 		?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/screen.css" type="text/css" media="screen"/>
-		<?php if (getOption('css_style') == 'light') { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/light.css" type="text/css" media="screen"/>
-		<?php } ?>
-		<?php if (getOption('color_style') == 'custom') { ?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/custom.css" type="text/css" media="screen"/>
-		<?php } ?>
 		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/fadeSliderToggle.js"></script>
-		<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.opacityrollover.js"></script>
-		<?php if (getOption('css_style') == 'dark') { ?>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/zpardoise.js"></script>
-		<?php } else { ?>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/zpardoise_light.js"></script>
-		<?php } ?>
-		<?php if (($_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'favorites.php') && (getOption('use_galleriffic')) && (isImagePage() == true)) { ?>
+		<?php
+		scriptLoader($_zp_themeroot . '/js/fadeSliderToggle.js');
+		scriptLoader($_zp_themeroot . '/js/jquery.opacityrollover.js');
+		if (getOption('css_style') == 'dark') {
+			scriptLoader($_zp_themeroot . '/js/zpardoise.js');
+		} else {
+			scriptLoader($_zp_themeroot . '/js/zpardoise_light.js');
+		}
+		if (($_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'favorites.php') && (getOption('use_galleriffic')) && (isImagePage() == true)) {
+			?>
 			<script type="text/javascript">
 				//<![CDATA[
 				(function($) {
@@ -113,9 +117,11 @@ if (!defined('WEBPATH'))
 				})(jQuery);
 				//]]>
 			</script>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.history.js"></script>
-			<script type="text/javascript" src="<?php echo $_zp_themeroot; ?>/js/jquery.galleriffic.js"></script>
-			<script type="text/javascript">
+			<?php
+			scriptLoader($_zp_themeroot . '/js/jquery.history.js');
+			scriptLoader($_zp_themeroot . '/js/jquery.galleriffic.js');
+			?>
+			<script type = "text/javascript">
 				//<![CDATA[
 				jQuery(document).ready(function($) {
 
@@ -257,17 +263,17 @@ if (!defined('WEBPATH'))
 					case 63235: case 39:
 									if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-					break;
-					case 63234: case 37:
-									if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+		break;
+		case 63234: case 37:
+						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-					break;
-					}
-					return true;
-					}
+		break;
+		}
+		return true;
+		}
 
-					document.onkeydown = keyboardNavigation;
-					//]]>
+		document.onkeydown = keyboardNavigation;
+		//]]>
 			</script>
 		<?php } ?>
 
@@ -345,6 +351,9 @@ if (!defined('WEBPATH'))
 					<?php } ?>
 					<?php if (getOption('show_archive')) { ?>
 						<li <?php if ($_zp_gallery_page == 'archive.php') { ?>class="active"<?php } ?>><?php printCustomPageURL(gettext('Archive View'), 'archive'); ?></li>
+					<?php } ?>
+					<?php if (extensionEnabled('daily-summary')) { ?>
+						<li <?php if ($_zp_gallery_page == 'summary.php') { ?>class="active"<?php } ?>><?php printDailySummaryLink(gettext('Daily summary'), '', '', ''); ?></li>
 					<?php } ?>
 					<?php if (extensionEnabled('contact_form')) { ?>
 						<li <?php if ($_zp_gallery_page == 'contact.php') { ?>class="active"<?php } ?>><?php printCustomPageURL(gettext('Contact'), 'contact'); ?></li>

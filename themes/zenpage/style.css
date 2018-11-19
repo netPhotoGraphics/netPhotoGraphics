@@ -561,7 +561,7 @@ ul.pagelist li.next {
 	width: 32px;
 	height: 32px;
 	cursor: pointer;
-	background: transparent url(images/jcarousel_prev.png) no-repeat 0 0;
+	background: transparent url(jCarousel_thumb_nav/jcarousel_prev.png) no-repeat 0 0;
 	position: relative;
 	top: -40px;
 	left: 100px;
@@ -590,7 +590,7 @@ ul.pagelist li.next {
 	width: 32px;
 	height: 32px;
 	cursor: pointer;
-	background: transparent url(images/jcarousel_next.png) no-repeat 0 0;
+	background: transparent url(jCarousel_thumb_nav/jcarousel_next.png) no-repeat 0 0;
 	position: relative;
 	top: -40px;
 	right: 100px;

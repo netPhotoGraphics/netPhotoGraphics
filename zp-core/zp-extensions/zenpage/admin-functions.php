@@ -183,7 +183,7 @@ function deleteZenpageObj($obj, $redirect = false) {
 				$redirect .= '?deleted';
 			}
 			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/' . $redirect);
-			exitZP();
+			exit();
 		}
 		switch ($obj->table) {
 			case 'pages':
@@ -1353,8 +1353,8 @@ function printCategoriesStatistic() {
  *
  */
 function zenpageJSCSS() {
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
 	?>
-	<link rel="stylesheet" href="zenpage.css" type="text/css" />
 	<script type="text/javascript">
 		// <!-- <![CDATA[
 		window.addEventListener('load', function () {

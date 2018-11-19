@@ -1043,8 +1043,8 @@ class SearchEngine {
 				break;
 		}
 		$sql .= "FROM " . prefix($tbl) . " WHERE ";
-		if (!zp_loggedin()) {
-			$sql .= "`show` = 1 AND (";
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
+			$sql .= '`show`=1 AND (';
 		}
 
 		if (!empty($searchdate)) {
@@ -1070,7 +1070,7 @@ class SearchEngine {
 				}
 			}
 		}
-		if (!zp_loggedin()) {
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= ")";
 		}
 
@@ -1430,7 +1430,7 @@ class SearchEngine {
 					if ($this->search_unpublished || zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= '`titlelink` ';
 					if (!empty($this->category_list)) {
@@ -1453,7 +1453,7 @@ class SearchEngine {
 					if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= '`titlelink` ';
 					if (empty($sorttype)) {
@@ -1466,10 +1466,10 @@ class SearchEngine {
 					}
 					break;
 				case 'albums':
-					if ($this->search_unpublished || zp_loggedin()) {
+					if ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= "`folder` ";
 					if (is_null($sorttype)) {
@@ -1492,10 +1492,10 @@ class SearchEngine {
 					}
 					break;
 				default: // images
-					if ($this->search_unpublished || zp_loggedin()) {
+					if ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 						$show = '';
 					} else {
-						$show = "`show` = 1 AND ";
+						$show = "`show`=1 AND ";
 					}
 					$sql .= "`albumid`, `filename` ";
 					if (is_null($sorttype)) {
@@ -1567,7 +1567,7 @@ class SearchEngine {
 							if (file_exists(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumname))) {
 								$album = newAlbum($albumname);
 								$uralbum = getUrAlbum($album);
-								$viewUnpublished = ($this->search_unpublished || zp_loggedin() && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+								$viewUnpublished = ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 								if ($mine || (is_null($mine) && $album->isMyItem(LIST_RIGHTS)) || (checkAlbumPassword($albumname) && ($row['show'] || $viewUnpublished))) {
 									if (empty($this->album_list) || in_array($albumname, $this->album_list)) {
 										$result[] = array_merge($row, array('name' => $albumname, 'weight' => $weights[$row['id']]));
@@ -1729,7 +1729,7 @@ class SearchEngine {
 							$allow = false;
 							$album = newAlbum($albumname);
 							$uralbum = getUrAlbum($album);
-							$viewUnpublished = ($this->search_unpublished || zp_loggedin() && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+							$viewUnpublished = ($this->search_unpublished || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 
 							if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($albumname) && ($album->getShow() || $viewUnpublished))) {
 								$allow = empty($this->album_list) || in_array($albumname, $this->album_list);

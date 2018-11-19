@@ -73,13 +73,13 @@ if (isset($_POST['purge'])) {
 		requestSetup('purgeOptions', gettext('Active plugins have been disabled.'));
 	}
 	header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/purgeOptions_tab.php?tab=purge');
-	exitZP();
+	exit();
 }
 
 printAdminHeader('options', '');
 $orphaned = array();
+scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css');
 ?>
-<link rel="stylesheet" href="<?php echo FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/purgeOptions/purgeOptions.css" type="text/css">
 </head>
 <body>
 	<?php printLogoAndLinks(); ?>

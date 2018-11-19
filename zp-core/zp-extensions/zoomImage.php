@@ -47,7 +47,6 @@ $option_interface = 'zoomImage';
 
 require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-image.php');
 
-zp_register_filter('theme_head', 'zoomImage::head');
 zp_register_filter('theme_body_close', 'zoomImage::body_close');
 
 class zoomImage {
@@ -68,15 +67,10 @@ class zoomImage {
 		return $options;
 	}
 
-	static function head($html) {
-		?>
-		<link rel="stylesheet" href="<?php echo getPlugin('zoomImage/zoom.css', true, true) ?>" type="text/css" />
-		<script src='<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/zoomImage/jquery.zoom.min.js'></script>
-		<?php
-	}
-
-	static function body_close($html) {
+	static function body_close() {
 		global $_zoomImage_id_list;
+		scriptLoader(getPlugin('zoomImage/zoom.css', true));
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
 		?>
 		<script type="text/javascript">
 		<?php

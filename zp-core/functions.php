@@ -1050,7 +1050,7 @@ function setupTheme($album = NULL) {
 		</body>
 		</html>
 		<?php
-		exitZP();
+		exit();
 	} else {
 		loadLocalOptions($id, $theme);
 		$_zp_themeroot = WEBPATH . "/" . THEMEFOLDER . "/$theme";
@@ -1385,7 +1385,11 @@ function printSiteLogoImage($title = NULL) {
 			$title = 'netPhotoGraphics';
 		}
 	}
-	echo '<img src="' . $_zp_gallery->getSiteLogo() . '" alt="site logo" title="' . $title . '" />';
+	$logo = $_zp_gallery->getSiteLogo();
+	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so the 78px is hard coded
+	?>
+	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="<?php echo $title; ?>" style="height:78px; width:auto;" />
+	<?php
 }
 
 /**
@@ -1949,7 +1953,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 					$redirect_to = sanitizeRedirect($_POST['redirect']);
 					if (!empty($redirect_to)) {
 						header("Location: " . $redirect_to);
-						exitZP();
+						exit();
 					}
 				}
 			} else {
@@ -2162,46 +2166,105 @@ function seoFriendlyJS() {
 	<?php
 }
 
+/**
+ *
+ * General handler for generating HTML for loading css and js files
+ *
+ * The funcation checks the size of the file. If it is "small" it loads the script
+ * in-line. Otherwise it uses the normal HTML script loading syntax. BUT, it will
+ * append a release unique tag to the URL to avoid caching issues.
+ *
+ * @param string $script
+ * @param bool $inline	set to false to prevent rendering the script in-line, for
+ * 											instance if the script has self relative url links.
+ *
+ */
+function scriptLoader($script, $inline = true) {
+	if (strpos($script, SERVERPATH) === false) {
+		if (strpos($script, FULLWEBPATH) === 0) {
+			$script = SERVERPATH . substr($script, strlen(FULLWEBPATH));
+		} else {
+			$script = SERVERPATH . substr($script, strlen(WEBPATH));
+		}
+	}
+
+	$scriptFS = internalToFilesystem($script);
+	if ($inline) {
+		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD) {
+			$content = file_get_contents($scriptFS);
+			if (!preg_match('~url\s*\(~i', $content)) { //	no potential self relative links
+				if (getSuffix($scriptFS) == 'css') {
+					?>
+					<style type="text/css">/* src="<?php echo $script; ?>" */
+					<?php
+					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
+					$content = str_replace(': ', ':', $content);
+					echo preg_replace('/\s+/', ' ', $content) . "\n";
+					?>
+					</style>
+					<?php
+				} else {
+					?>
+					<script type="text/javascript">/* src="<?php echo $script; ?>" */
+					<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+					</script>
+					<?php
+				}
+				return;
+			}
+		}
+	}
+	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
+	$version = explode('-', ZENPHOTO_VERSION);
+	$version = array_shift($version);
+	if (TESTING_MODE) {
+		$version .= '.' . time();
+	}
+	if (getSuffix($script) == 'css') {
+		?>
+		<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
+		<?php
+	} else {
+		?>
+		<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/javascript"></script>
+		<?php
+	}
+}
+
 function load_jQuery_CSS() {
-	?>
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQueryui/jquery-ui-1.12.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQueryui/base-1.12.css" type="text/css" />
-	<?php
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/jquery-ui-1.12.min.css');
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/base-1.12.min.css');
 }
 
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		case 0: //	no migration script
-			?>
-			<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/jQuery/jquery-3.3.1.js"></script>
-			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.3.1.js');
 			break;
 		case 1: //	production version
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.3.1.js');
 			?>
-			<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/jQuery/jquery-3.3.1.js"></script>
 			<!-- for production purposes -->
-			<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQuery/jquery-migrate-3.0.0.min.js" type="text/javascript"></script>
 			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.0.min.js');
 			break;
 		case 2: //	debug version
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.3.1.js');
 			?>
-			<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/jQuery/jquery-3.3.1.js"></script>
 			<!-- for migration to jQuery 3.0 purposes -->
-			<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQuery/jquery-migrate-3.0.0.js"></script>
 			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.0.js');
 			break;
 		case 3: //	use legacy jQuery
 			?>
 			<!-- for migration to jQuery 1.9 purposes -->
-			<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/jQuery/jquery-1.12.js"></script>
-			<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQuery/jquery-migrate-1.4.1.js"></script>
 			<?php
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-1.12.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-1.4.1.js');
 			break;
 	}
 	if ($ui) {
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jQueryui/jquery-ui-1.12.1.min.js"></script>
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/jquery-ui-1.12.1.min.js');
 	}
 }
 
@@ -2271,7 +2334,7 @@ function httpsRedirect() {
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
-			exitZP();
+			exit();
 		}
 	}
 }
@@ -2624,6 +2687,43 @@ function getNestedAlbumList($subalbum, $levels, $level = array()) {
 		}
 	}
 	return $list;
+}
+
+if (function_exists('curl_init')) {
+
+	/**
+	 * Sends a simple cURL request to the $uri specified.
+	 *
+	 * @param string $uri The uri to send the request to.
+	 * @param array $options An array of cURL options to set Default is if nothing is set:
+	 * 		array(
+	 * 			CURLOPT_RETURNTRANSFER => true,
+	 * 			CURLOPT_TIMEOUT => 2000
+	 * 		)
+	 * See http://php.net/manual/en/function.curl-setopt.php for more info
+	 * @return boolean
+	 */
+	function curlRequest($uri, $options = array()) {
+		if (empty($options) || !is_array($options)) {
+			$options = array(
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_TIMEOUT => 2000,
+			);
+		}
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $uri);
+		curl_setopt_array($ch, $options);
+		$curl_exec = curl_exec($ch);
+		if ($curl_exec === false) {
+			trigger_error(sprintf(gettext('cURL request failed, error code: %s'), curl_error($ch)), E_USER_WARNING);
+		} else if (empty(trim($curl_exec))) {
+			trigger_error(sprintf(gettext('cURL request failed, response code: %s'), curl_getinfo(CURLINFO_HTTP_CODE)), E_USER_WARNING);
+			$curl_exec = false;
+		}
+		curl_close($ch);
+		return $curl_exec;
+	}
+
 }
 
 class zpFunctions {

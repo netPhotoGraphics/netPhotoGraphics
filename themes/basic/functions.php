@@ -16,7 +16,7 @@ if (class_exists('themeSwitcher')) {
 	$themeColor = themeSwitcher::themeSelection('themeColor', $themecolors);
 }
 
-function css_head($ignore) {
+function css_head() {
 	global $themecolors, $zenCSS, $themeColor, $_zp_themeroot;
 	if (!$themeColor) {
 		$themeColor = getOption('Theme_colors');
@@ -34,7 +34,6 @@ function css_head($ignore) {
 	if (!file_exists(SERVERPATH . internalToFilesystem($unzenCSS))) {
 		$zenCSS = $_zp_themeroot . "/styles/light.css";
 	}
-	return $ignore;
 }
 
 function iconColor($icon) {

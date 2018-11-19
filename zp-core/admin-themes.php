@@ -42,7 +42,7 @@ if (isset($_GET['action'])) {
 				/* set any "standard" options that may not have been covered by the theme */
 				standardThemeOptions($newtheme, $_set_theme_album);
 				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-themes.php?themealbum=" . sanitize($_GET['themealbum']));
-				exitZP();
+				exit();
 			}
 			break;
 		// Duplicate a theme
@@ -68,9 +68,8 @@ if (isset($_GET['action'])) {
 printAdminHeader('themes');
 
 // Script for the "Duplicate theme" feature
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 ?>
-
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/sprintf.js"></script>
 <script type="text/javascript">
 	//<!-- <![CDATA[
 	function copyClick(source) {

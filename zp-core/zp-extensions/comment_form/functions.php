@@ -91,8 +91,8 @@ function fetchComments($number) {
 }
 
 function comment_form_PaginationJS() {
+	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.pagination.js');
 	?>
-	<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/jquery.pagination.js"></script>
 	<script type="text/javascript">
 		var current_comment_N, addrBar_hash = window.location.hash, Comm_ID_found = !addrBar_hash.search(/#zp_comment_id_/);
 		function pageselectCallback(page_index, jq) {
@@ -642,7 +642,7 @@ function comment_form_handle_comment() {
 				if (!isset($_SERVER['SERVER_SOFTWARE']) || strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'microsoft-iis') === false) {
 					// but not for Microsoft IIS because that server fails if we redirect!
 					header('Location: ' . $redirectTo . '#zp_comment_id_' . $commentadded->getId());
-					exitZP();
+					exit();
 				}
 			}
 		}

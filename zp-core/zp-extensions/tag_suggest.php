@@ -20,7 +20,7 @@ $plugin_description = gettext("Enables jQuery tag suggestions on the search fiel
 
 $option_interface = 'tag_suggest';
 
-zp_register_filter('theme_head', 'tag_suggest::JS');
+zp_register_filter('theme_body_close', 'tag_suggest::JS');
 zp_register_filter('admin_head', 'tag_suggest::JS');
 
 class tag_suggest {
@@ -42,14 +42,9 @@ class tag_suggest {
 
 	static function JS() {
 		// the scripts needed
-		?>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/tag_suggest/encoder.js"></script>
-		<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/tag_suggest/tag.js"></script>
-		<?php
-		$css = getPlugin('tag_suggest/tag.css', true, true);
-		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo pathurlencode($css); ?>" />
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/encoder.min.js');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/tag.min.js');
+		scriptLoader(getPlugin('tag_suggest/tag.css', true));
 		$taglist = getAllTagsUnique(OFFSET_PATH ? false : NULL, OFFSET_PATH ? 0 : getOption('tag_suggest_threshold'));
 		$tags = array();
 		foreach ($taglist as $tag) {

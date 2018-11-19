@@ -573,6 +573,8 @@ class RSS extends feed {
 			} else {
 				if ($totalimages != 0) {
 					$imagenumber = sprintf(ngettext('%s (%u image)', '%s (%u images)', $totalimages), $title, $totalimages);
+				} else {
+					$imagenumber = $title;
 				}
 				$feeditem['desc'] = '<a title="' . html_encode($title) . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . '<br />' . sprintf(gettext("Date: %s"), zpFormattedDate(DATE_FORMAT, $item->get('mtime')));
 			}
@@ -677,7 +679,7 @@ class RSS extends feed {
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache();
+			$this->startCache(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css');
 			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
@@ -755,7 +757,7 @@ function executeRSS() {
 	$_zp_gallery_page = 'rss.php';
 	$rss = new RSS(sanitize($_GET));
 	$rss->printFeed();
-	exitZP();
+	exit();
 }
 
 // RSS feed calls before anything else

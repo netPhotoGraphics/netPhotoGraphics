@@ -26,7 +26,7 @@ if (isset($_GET['mergedrss'])) {
 	$feeds = getOption('mergedrss_feeds');
 	$feeds = explode(';', $feeds);
 	if (count($feeds) < 0) {
-		exitZP();
+		exit();
 	}
 	// set the header type
 	header("Content-type: text/xml");
@@ -48,7 +48,7 @@ if (isset($_GET['mergedrss'])) {
 		$mergedrss_feeditems = 10;
 	}
 	$MergedRSS->export(false, true, $mergedrss_feeditems); //getOption('RSS_items')
-	exitZP();
+	exit();
 }
 
 class MergedRSSOptions {

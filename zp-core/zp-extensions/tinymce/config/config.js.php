@@ -50,14 +50,10 @@ if ($MCEdirection == NULL) {
 	}
 }
 $MCEplugins = preg_replace('|\stinyzenpage|', '', $MCEplugins);
-?>
-<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . "/" . PLUGIN_FOLDER; ?>/tinymce/tinymce.min.js"></script>
-<script type="text/javascript" src="<?php echo WEBPATH . "/" . ZENFOLDER . "/" . PLUGIN_FOLDER; ?>/tinymce/jquery.tinymce.min.js"></script>
-<?php
+scriptLoader(SERVERPATH . "/" . ZENFOLDER . "/" . PLUGIN_FOLDER . '/tinymce/tinymce.min.js');
+scriptLoader(SERVERPATH . "/" . ZENFOLDER . "/" . PLUGIN_FOLDER . '/tinymce/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
-	?>
-	<script src="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js" type="text/javascript"></script>
-	<?php
+	scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
 }
 ?>
 <script type="text/javascript">

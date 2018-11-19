@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Loads Colorbox JS and CSS scripts for selected theme page scripts.
  *
@@ -28,10 +29,12 @@ $plugin_notice = gettext('Note that this plugin does not attach Colorbox to any 
 $option_interface = 'colorbox';
 
 if (OFFSET_PATH) {
+	zp_register_filter('admin_head', 'colorbox::js');
 	zp_register_filter('admin_head', 'colorbox::css');
 } else {
 	if (in_array(stripSuffix(@$_zp_gallery_page), getSerializedArray(getOption('colorbox_' . $_zp_gallery->getCurrentTheme() . '_scripts')))) {
-		zp_register_filter('theme_head', 'colorbox::css');
+		zp_register_filter('theme_body_close', 'colorbox::js');
+		zp_register_filter('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
 	}
 }
 
@@ -144,10 +147,12 @@ class colorbox {
 				$inTheme = $_zp_gallery->getCurrentTheme();
 			}
 		}
-		$css = getPlugin($themepath, $inTheme, true);
+		scriptLoader(getPlugin($themepath, $inTheme));
+	}
+
+	static function js() {
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
 		?>
-		<link type="text/css" rel="stylesheet" href="<?php echo $css; ?>" />
-		<script type="text/javascript" src="<?php echo FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/colorbox_js/jquery.colorbox-min.js"></script>
 		<script type="text/javascript">
 			/* Colorbox resize function for images */
 			var resizeTimer;
@@ -183,6 +188,7 @@ class colorbox {
 
 		</script>
 		<?php
+
 	}
 
 }

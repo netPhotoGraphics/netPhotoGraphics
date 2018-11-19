@@ -16,6 +16,9 @@
 			<?php if ($_zp_gallery_page == 'archive.php') { ?>
 				<li><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Index'); ?>" itemprop="url"><i class="glyphicon glyphicon-home">&nbsp;</i></a></li><li class="active"><?php echo gettext("Archive View"); ?></li>
 			<?php } ?>
+			<?php if ($_zp_gallery_page == 'summary.php') { ?>
+				<li><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Index'); ?>" itemprop="url"><i class="glyphicon glyphicon-home">&nbsp;</i></a></li><li class="active"><?php echo gettext("Daily summary"); ?></li>
+			<?php } ?>
 			<?php if ($_zp_gallery_page == '404.php') { ?>
 				<li><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Index'); ?>" itemprop="url"><i class="glyphicon glyphicon-home">&nbsp;</i></a></li><li class="active"><?php echo gettext("Not found"); ?></li>
 			<?php } ?>

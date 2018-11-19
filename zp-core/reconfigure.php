@@ -45,7 +45,7 @@ function reconfigureAction($mandatory) {
 			}
 			$location = $protocol . '://' . $_SERVER['HTTP_HOST'] . $dir . "/" . ZENFOLDER . "/setup/index.php?autorun=$where";
 			header("Location: $location");
-			exitZP();
+			exit();
 		} else {
 			// because we are loading the script from within a function!
 			global $subtabs, $zenphoto_tabs, $_zp_admin_tab, $_zp_invisible_execute, $_zp_gallery;
@@ -58,7 +58,7 @@ function reconfigureAction($mandatory) {
 			<html xmlns="http://www.w3.org/1999/xhtml" />
 			<head>
 				<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-				<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?netPhotoGraphics_<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
+				<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
 				<?php reconfigureCS(); ?>
 			</head>
 			<body>
@@ -75,7 +75,7 @@ function reconfigureAction($mandatory) {
 			</body>
 			</html>
 			<?php
-			exitZP();
+			exit();
 		}
 	} else if (!empty($diff)) {
 		if (function_exists('zp_register_filter') && zp_loggedin(ADMIN_RIGHTS)) {

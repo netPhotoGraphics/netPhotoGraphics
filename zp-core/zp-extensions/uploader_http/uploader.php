@@ -13,13 +13,13 @@ if (isset($_POST['auth'])) {
 	$_zp_loggedin = $_zp_authority->checkAuthorization($hash, $id);
 } else {
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&type=images&uploaded=1');
-	exitZP();
+	exit();
 }
 
 admin_securityChecks(UPLOAD_RIGHTS, $return = currentRelativeURL());
 
 /* handle posts */
-$error = false;
+$folder = $error = false;
 if (isset($_POST['processed'])) {
 	// sometimes things just go terribly wrong!
 	// Check for files.
@@ -121,13 +121,8 @@ if (isset($_POST['processed'])) {
 				}
 			}
 			if ($error == UPLOAD_ERR_OK && ($filecount || isset($_POST['newalbum']))) {
-				if ($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-					//	he has edit rights, allow new album creation
-					header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . pathurlencode($folder) . '&uploaded&subpage=1&tab=imageinfo&albumimagesort=id_desc');
-				} else {
-					header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&type=images&uploaded=1');
-				}
-				exitZP();
+				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&type=images&uploaded=1&album=' . $folder);
+				exit();
 			}
 		}
 	}
@@ -162,6 +157,6 @@ if (!isset($_POST['processed'])) {
 			break;
 	}
 }
-header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?error=' . $errormsg);
-exitZP();
+header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?page=upload&tab=http&album=' . $folder . '&error=' . $errormsg);
+exit();
 ?>

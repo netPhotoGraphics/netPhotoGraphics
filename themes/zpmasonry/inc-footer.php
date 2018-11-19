@@ -3,8 +3,8 @@
 if (function_exists('printLanguageSelector')) {
 	printLanguageSelector();
 }
+scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min.js');
 ?>
-<script type="text/javascript" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/common/masonry/masonry.pkgd.min.js"></script>
 <?php if ($zpmas_infscroll) { ?><script src="<?php echo $_zp_themeroot; ?>/js/jquery.infinitescroll.min.js"></script><?php } ?>
 <script>
 	$(function () {

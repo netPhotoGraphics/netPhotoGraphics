@@ -16,11 +16,11 @@ if (isset($_POST['delete_cookie'])) {
 		zp_clearCookie(postIndexDecode($cookie));
 	}
 	header('location: ?page=develpment&tab=cookie');
-	exitZP();
+	exit();
 }
 
+printAdminHeader('development', @$_GET['tab']);
 $subtab = getCurrentTab();
-printAdminHeader('development', $subtab);
 
 echo "\n</head>";
 ?>

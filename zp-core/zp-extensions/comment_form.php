@@ -33,11 +33,11 @@ if (OFFSET_PATH) {
 	zp_register_filter('handle_comment', 'comment_form_postcomment');
 	zp_register_filter('object_addComment', 'comment_form_addComment');
 	if (getOption('comment_form_pagination')) {
-		zp_register_filter('theme_head', 'comment_form_PaginationJS');
+		zp_register_filter('theme_body_close', 'comment_form_PaginationJS');
 	}
 	if (getOption('tinymce_comments')) {
 		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce.php');
-		zp_register_filter('theme_head', 'comment_form_visualEditor');
+		zp_register_filter('theme_body_close', 'comment_form_visualEditor');
 	}
 }
 

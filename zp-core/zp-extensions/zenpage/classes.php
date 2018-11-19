@@ -312,12 +312,12 @@ class CMS {
 					break;
 			}
 			if ($author) {
-				if($cat || $show) {
+				if ($cat || $show) {
 					$author_conjuction = ' AND ';
 				} else {
 					$author_conjuction = ' WHERE ';
 				}
-				$show .= $author_conjuction . ' author = ' .db_quote($author);
+				$show .= $author_conjuction . ' author = ' . db_quote($author);
 			}
 			$order = " ORDER BY $sticky";
 

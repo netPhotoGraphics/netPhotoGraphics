@@ -96,9 +96,28 @@ echo '</head>';
 							<li>
 								<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>' ?>
 							</li>
-							<li>
-								<?php printf(gettext('PHP openSSL is %s'), function_exists('openssl_encrypt') ? gettext('enabled') : gettext('disabled')); ?>
-							</li>
+							<?php
+							$loaded = get_loaded_extensions();
+							$loaded = array_flip($loaded);
+							$desired = explode(',', DESIRED_PHP_EXTENSIONS);
+							$missing = '';
+							$check = 1;
+							foreach ($desired as $module) {
+								if (!isset($loaded[$module])) {
+									$missing .= '<strong>' . $module . '</strong>, ';
+									$check = -1;
+								}
+							}
+							if (!empty($missing)) {
+								?>
+								<li>
+									<?php
+									printf(gettext('The follwing desired PHP extensions are not enabled: %s'), rtrim($missing, ', '));
+									?>
+								</li>
+								<?php
+							}
+							?>
 							<li>
 								<?php
 								$themes = $_zp_gallery->getThemes();
@@ -360,8 +379,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php

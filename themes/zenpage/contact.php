@@ -11,8 +11,9 @@ if (function_exists('printContactForm')) {
 			<?php
 			zp_apply_filter('theme_head');
 			printHeadTitle();
+
+			scriptLoader($_zp_themeroot . '/style.css');
 			?>
-			<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/style.css" type="text/css" />
 		</head>
 		<body>
 			<?php zp_apply_filter('theme_body_open'); ?>

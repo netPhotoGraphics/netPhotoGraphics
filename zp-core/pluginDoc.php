@@ -13,6 +13,7 @@
  * <hr> horizontal rule
  * <ul><li> bulleted list
  * <ol><li> lists
+ * <super></super> superscript
  * <pre>
  * <br> line break
  * </code>
@@ -43,6 +44,8 @@ function processCommentBlock($commentBlock) {
 			'&lt;/b&gt;' => '</strong>',
 			'&lt;code&gt;' => '<span class="inlinecode">',
 			'&lt;/code&gt;' => '</span>',
+			'&lt;sup&gt;' => '<span class="superscript">',
+			'&lt;/sup&gt;' => '</span>',
 			'&lt;hr&gt;' => '<hr />',
 			'&lt;ul&gt;' => '<ul>',
 			'&lt;/ul&gt;' => '</ul>',
@@ -190,7 +193,6 @@ if (!defined('OFFSET_PATH')) {
 	$real_locale = getUserLocale();
 
 	$pluginType = @$_GET['type'];
-
 	if ($pluginType) {
 		$pluginToBeDocPath = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $extension . '.php';
 	} else {
@@ -276,9 +278,8 @@ if (!defined('OFFSET_PATH')) {
 		<head>
 			<?php printStandardMeta(); ?>
 			<title><?php echo $pagetitle; ?></title>
-			<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.css?netPhotoGraphics_<?PHP ECHO ZENPHOTO_VERSION; ?>" type="text/css" />
+			<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
 			<style>
-
 				#heading {
 					height: 15px;
 				}
@@ -319,20 +320,17 @@ if (!defined('OFFSET_PATH')) {
 				.buttons .tip {
 					text-align: left;
 				}
-
 				dl {
 					display: block;
 					clear: both;
 					width: 100%;
 				}
-
 				dt,dd {
 					vertical-align: top;
 					display: inline-block;
 					width: 90%;
 					margin: 0;
 				}
-
 				dt {
 					font-weight: bold;
 				}
@@ -340,7 +338,6 @@ if (!defined('OFFSET_PATH')) {
 					width: 90%;
 					margin-left: 3em;
 				}
-
 				ul {
 					list-style: bullet;
 					padding: 0;
@@ -362,6 +359,9 @@ if (!defined('OFFSET_PATH')) {
 					list-style: none;
 					margin-left: 1.5em;
 					padding-bottom: 0.5em;
+				}
+				.superscript {
+					vertical-align: super;
 				}
 			</style>
 		</head>

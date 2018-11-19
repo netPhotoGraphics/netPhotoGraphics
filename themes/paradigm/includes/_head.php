@@ -15,79 +15,87 @@
 		<meta http-equiv="content-type" content="text/html; charset=<?php echo LOCAL_CHARSET; ?>" />
 
 		<title><?php
-			if ($_zp_gallery_page == 'index.php') {
-				echo getGalleryTitle();
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'album.php') {
-				echo getBareAlbumTitle();
-				if ($_zp_page > 1) {
-					echo ' [' . $_zp_page . ']';
-				}echo ' | ';
-			}
-			if ($_zp_gallery_page == 'gallery.php') {
-				echo gettext('Gallery');
-				if ($_zp_page > 1) {
-					echo ' [' . $_zp_page . ']';
-				}echo ' | ';
-			}
-			if ($_zp_gallery_page == '404.php') {
-				echo gettext('Object not found');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'archive.php') {
-				echo gettext('Archive View');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'contact.php') {
-				echo gettext('Contact');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'favorites.php') {
-				echo gettext('My favorites');
-				if ($_zp_page > 1) {
-					echo ' [' . $_zp_page . ']';
-				}echo ' | ';
-			}
-			if ($_zp_gallery_page == 'image.php') {
-				echo getBareImageTitle() . ' - photo from ' . getBareAlbumTitle();
-				echo ' | ';
-			}
-			if (($_zp_gallery_page == 'news.php') && (is_NewsPage()) && (!is_NewsCategory()) && (!is_NewsArticle())) {
-				echo gettext('Blog');
-				echo ' | ';
-			}
-			if (($_zp_gallery_page == 'news.php') && (is_NewsCategory())) {
-				printCurrentNewsCategory();
-				echo ' | ';
-				echo gettext('Blog');
-				echo ' | ';
-			}
-			if (($_zp_gallery_page == 'news.php') && (is_NewsArticle())) {
-				echo getBareNewsTitle();
-				echo ' | ';
-				echo gettext('Blog');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'pages.php') {
-				echo getBarePageTitle();
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'password.php') {
-				echo gettext('Password required');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'register.php') {
-				echo gettext('Register');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'credits.php') {
-				echo gettext('Credits');
-				echo ' | ';
-			}
-			if ($_zp_gallery_page == 'search.php') {
-				echo html_encode($searchwords);
-				echo ' | ';
+			switch ($_zp_gallery_page) {
+				case 'index.php':
+					echo getGalleryTitle();
+					echo ' | ';
+					break;
+				case 'album.php':
+					echo getBareAlbumTitle();
+					if ($_zp_page > 1) {
+						echo ' [' . $_zp_page . ']';
+					}echo ' | ';
+					break;
+				case 'gallery.php':
+					echo gettext('Gallery');
+					if ($_zp_page > 1) {
+						echo ' [' . $_zp_page . ']';
+					}echo ' | ';
+					break;
+				case '404.php':
+					echo gettext('Object not found');
+					echo ' | ';
+					break;
+				case 'archive.php':
+					echo gettext('Archive View');
+					echo ' | ';
+					break;
+				case 'summary.php':
+					echo gettext('Daily summary');
+					echo ' | ';
+					break;
+				case 'contact.php':
+					echo gettext('Contact');
+					echo ' | ';
+					break;
+				case 'favorites.php':
+					echo gettext('My favorites');
+					if ($_zp_page > 1) {
+						echo ' [' . $_zp_page . ']';
+					}echo ' | ';
+					break;
+				case 'image.php':
+					echo getBareImageTitle() . ' - photo from ' . getBareAlbumTitle();
+					echo ' | ';
+					break;
+				case 'news.php':
+					if ((is_NewsPage()) && !is_NewsCategory() && !is_NewsArticle()) {
+						echo gettext(NEWS_LABEL);
+						echo ' | ';
+					}
+					if (is_NewsCategory()) {
+						printCurrentNewsCategory();
+						echo ' | ';
+						echo gettext('Blog');
+						echo ' | ';
+					}
+					if (is_NewsArticle()) {
+						echo getBareNewsTitle();
+						echo ' | ';
+						echo gettext('Blog');
+						echo ' | ';
+					}
+					break;
+				case 'pages.php':
+					echo getBarePageTitle();
+					echo ' | ';
+					break;
+				case 'password.php':
+					echo gettext('Password required');
+					echo ' | ';
+					break;
+				case 'register.php':
+					echo gettext('Register');
+					echo ' | ';
+					break;
+				case 'credits.php':
+					echo gettext('Credits');
+					echo ' | ';
+					break;
+				case 'search.php':
+					echo html_encode($searchwords);
+					echo ' | ';
+					break;
 			}
 			echo getMainSiteName();
 			?>
@@ -333,12 +341,12 @@
 
 
 		<!-- css -->
-
-		<link rel="stylesheet" href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/common/bootstrap/bootstrap.min.css" type="text/css" media="screen"/>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/site.css" type="text/css" media="screen"/>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/icons.css" type="text/css" media="screen"/>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot; ?>/css/slimbox2.css" type="text/css" media="screen"/>
-
+		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
+		scriptLoader($_zp_themeroot . '/css/site.css');
+		scriptLoader($_zp_themeroot . '/css/icons.css');
+		scriptLoader($_zp_themeroot . '/css/slimbox2.css');
+		?>
 
 		<!-- favicon -->
 
@@ -346,10 +354,10 @@
 
 
 		<!-- js -->
-
-		<script src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/common/bootstrap/bootstrap.min.js" type="text/javascript" defer></script>
-		<script src="<?php echo $_zp_themeroot; ?>/js/slimbox2-ar.js" type="text/javascript" defer></script>
-
+		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
+		scriptLoader($_zp_themeroot . '/js/slimbox2-ar.js');
+		?>
 
 		<!-- rss -->
 

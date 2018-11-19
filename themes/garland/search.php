@@ -8,10 +8,13 @@ if (!defined('WEBPATH'))
 	<head>
 		<?php
 		zp_apply_filter('theme_head');
+		$handler->theme_head($_zp_themeroot);
+
+		scriptLoader($_zp_themeroot . '/zen.css');
+
+		if (class_exists('RSS'))
+			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
-		<?php $handler->theme_head($_zp_themeroot); ?>
-		<link rel="stylesheet" href="<?php echo $_zp_themeroot ?>/zen.css" type="text/css" />
-		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
 			function toggleExtraElements(category, show) {
@@ -69,7 +72,7 @@ if (!defined('WEBPATH'))
 				<!-- header -->
 				<div class="sidebar">
 					<div id="leftsidebar">
-						<?php include("sidebar.php"); ?>
+<?php include("sidebar.php"); ?>
 					</div>
 				</div>
 				<div id="center">
@@ -79,7 +82,7 @@ if (!defined('WEBPATH'))
 								<!-- begin content -->
 								<div class="main section" id="main">
 									<h2 id="gallerytitle">
-										<?php printHomeLink('', ' » '); ?>
+<?php printHomeLink('', ' » '); ?>
 										<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php echo html_encode(getGalleryTitle()); ?></a> » <?php printSearchBreadcrumb(' » '); ?>
 									</h2>
 
@@ -125,7 +128,7 @@ if (!defined('WEBPATH'))
 															$c++;
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
-																<?php printPageURL(); ?>
+			<?php printPageURL(); ?>
 																<p style="text-indent:1em;"><?php echo exerpt($_zp_current_page->getContent()); ?></p>
 															</li>
 															<?php
@@ -158,7 +161,7 @@ if (!defined('WEBPATH'))
 															$c++;
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
-																<?php printNewsURL(); ?>
+			<?php printNewsURL(); ?>
 																<p style="text-indent:1em;"><?php echo exerpt($_zp_current_article->getContent()); ?></p>
 															</li>
 															<?php
@@ -199,12 +202,12 @@ if (!defined('WEBPATH'))
 											?>
 											<div class="album">
 												<a class="albumthumb" href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album:  %s'), html_encode(getBareAlbumTitle())); ?>">
-													<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
+	<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
 												</a>
 												<div class="albumdesc">
 													<h3>
 														<a href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album:  %s'), html_encode(getBareAlbumTitle())); ?>">
-															<?php printAlbumTitle(); ?>
+	<?php printAlbumTitle(); ?>
 														</a>
 													</h3>
 													<br />

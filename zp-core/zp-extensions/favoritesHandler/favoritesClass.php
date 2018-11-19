@@ -5,7 +5,6 @@
  * @author Stephen Billard (sbillard)
  * @package plugins/favoritesHandler
  */
-
 class favorites extends AlbumBase {
 
 	var $imageSortDirection;
@@ -314,7 +313,7 @@ class favorites extends AlbumBase {
 				//We've deleted last item on page, need a place to land when we return
 				global $_zp_page;
 				header('location: ' . FULLWEBPATH . '/' . $this->getLink($_zp_page - 1));
-				exitZP();
+				exit();
 			}
 		}
 		return $count;

@@ -18,8 +18,8 @@ $plugin_description = gettext("A plugin to add a cookie notify dialog to comply 
 $option_interface = 'cookieConsent';
 
 if (!isset($_COOKIE['cookieconsent_status'])) {
-	zp_register_filter('theme_head', 'cookieConsent::getCSS');
-	zp_register_filter('theme_head', 'cookieConsent::getJS');
+	zp_register_filter('theme_body_close', 'cookieConsent::getCSS');
+	zp_register_filter('theme_body_close', 'cookieConsent::getJS');
 }
 
 class cookieConsent {
@@ -112,10 +112,7 @@ class cookieConsent {
 	}
 
 	static function getCSS() {
-		$css = getPlugin('cookieconsent/cookieconsent.min.css', true, FULLWEBPATH);
-		?>
-		<link rel="stylesheet" href="<?php echo $css; ?>" type="text/css">
-		<?php
+		scriptLoader(getPlugin('cookieconsent/cookieconsent.min.css'));
 	}
 
 	static function getJS() {
@@ -148,8 +145,8 @@ class cookieConsent {
 		}
 		$color_popup = getOption('zpcookieconsent_colorpopup');
 		$color_button = getOption('zpcookieconsent_colorbutton');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
 		?>
-		<script src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js'; ?>"></script>
 		<script>
 			window.addEventListener("load", function () {
 				window.cookieconsent.initialise({

@@ -57,7 +57,7 @@ class cookieInvalidator {
 	static function setBase() {
 		setOption('cookieInvalidator_base', time());
 		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
-		exitZP();
+		exit();
 	}
 
 }

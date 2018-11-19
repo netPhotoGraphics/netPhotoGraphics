@@ -4,12 +4,10 @@
  * @package plugins/uploader_http
  */
 function upload_head() {
-	$myfolder = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http';
-	?>
-	<link rel="stylesheet" type="text/css" href="<?php echo $myfolder; ?>/httpupload.css">
-	<script type="text/javascript" src="<?php echo $myfolder; ?>/httpupload.js"></script>
-	<?php
-	return $myfolder . '/uploader.php';
+	$myfolder = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http';
+	scriptLoader($myfolder . '/httpupload.css');
+	scriptLoader($myfolder . '/httpupload.js');
+	return WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http/uploader.php';
 }
 
 function upload_extra($uploadlimit, $passedalbum) {
@@ -68,7 +66,7 @@ function upload_form($uploadlimit, $passedalbum) {
 			<?php echo gettext("(will not reload the page, but remember your upload limits!)"); ?></small></p>
 
 	<p class="fileUploadActions" class="buttons" style="display: none;">
-		<button type="submit" value="<?php echo gettext('Upload'); ?>" onclick="this.form.folder.value = this.form.folderdisplay.value;" class="button">
+		<button type="submit" value="<?php echo gettext('Upload'); ?>" onclick="$('#folderslot').val($('#folderdisplay').val());" class="button">
 			<?php echo CHECKMARK_GREEN; ?>
 			<?php echo gettext('Upload'); ?>
 		</button>
