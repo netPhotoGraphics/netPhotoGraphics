@@ -2370,14 +2370,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
@@ -2710,8 +2710,15 @@ if (function_exists('curl_init')) {
 					CURLOPT_TIMEOUT => 2000,
 			);
 		}
+		$options[CURLOPT_URL] = $uri;
+
+
+		if (true || CURL_OVERRIDE) {
+			$options[CURLOPT_SSL_VERIFYPEER] = false;
+		}
+
+
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $uri);
 		curl_setopt_array($ch, $options);
 		$curl_exec = curl_exec($ch);
 		if ($curl_exec === false) {
@@ -2973,7 +2980,7 @@ class zpFunctions {
 				$text = serialize($text);
 			}
 		} else {
-			preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)/\>|U', $text, $matches);
+			preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', $text, $matches);
 			foreach ($matches[1] as $key => $match) {
 				preg_match('|.*i\.php\?(.*)|', $match, $imgproc);
 				if ($imgproc) {
