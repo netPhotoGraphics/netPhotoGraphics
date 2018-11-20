@@ -564,24 +564,19 @@ function getOptionContent() {
 						<p id="GDPR_clear" <?php if (!(getOption('GDPR_acknowledge') || extensionEnabled('GDPR_required'))) echo ' style="display:none"'; ?>>
 							<label>
 								<input type="checkbox" name="GDPR_re-acknowledge" value="1" />
-								<?php echo gettext('Clear remembered acknowledgements'); ?>
+								<?php echo gettext('clear remembered acknowledgements'); ?>
 							</label>
 						</p>
-
 						<div id="GDR_Details" <?php if (!GetOption('GDPR_acknowledge')) echo ' style="display:none"'; ?>>
 							<p>
 								<?php echo gettext('Policy URL'); ?>
 								<input type="text" name="GDPR_URL" size="35" value="<?php echo getOption('GDPR_URL'); ?>" />
 							</p>
-							<p>
-								<?php
-								echo gettext('Notice text');
-								print_language_string_list(get_language_string(getOption('GDPR_text')), 'GDPR_text', false, null, '', '45');
-								?>
-							</p>
+							<?php
+							echo gettext('Notice text') . ' ';
+							print_language_string_list(get_language_string(getOption('GDPR_text')), 'GDPR_text', false, null, '', '45');
+							?>
 						</div>
-
-
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
