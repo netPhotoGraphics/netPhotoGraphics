@@ -569,11 +569,11 @@ function getOptionContent() {
 						</p>
 						<div id="GDR_Details" <?php if (!GetOption('GDPR_acknowledge')) echo ' style="display:none"'; ?>>
 							<p>
-								<?php echo gettext('Policy URL'); ?>
+								<?php echo gettext('policy URL'); ?>
 								<input type="text" name="GDPR_URL" size="35" value="<?php echo getOption('GDPR_URL'); ?>" />
 							</p>
 							<?php
-							echo gettext('Notice text') . ' ';
+							echo gettext('notice text') . ' ';
 							print_language_string_list(get_language_string(getOption('GDPR_text')), 'GDPR_text', false, null, '', '45');
 							?>
 						</div>
@@ -685,12 +685,12 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						<table>
 							<tr>
 								<td>
-									<?php echo gettext("Users per page"); ?>
+									<?php echo gettext("users per page"); ?>
 									<input type="text" size="2" id="users_per_page" name="users_per_page" style="float:right;" value="<?php echo getOption('users_per_page'); ?>" />
 								</td>
 								<td>
 									<?php
-									echo gettext("Plugins per page");
+									echo gettext("plugins per page");
 									?>
 									<input type="text" size="2" id="plugins_per_page" name="plugins_per_page" style="float:right;"  value="<?php echo getOption('plugins_per_page'); ?>" />
 								</td>
@@ -704,7 +704,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									<td>
 										<?php
 										$row = true;
-										echo gettext("Groups per page");
+										echo gettext("groups per page");
 										?>
 										<input type="text" size="2" id="groups_per_page" name="groups_per_page" style="float:right;"  value="<?php echo getOption('groups_per_page'); ?>" />
 									</td>
@@ -720,7 +720,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									?>
 									<td>
 										<?php
-										echo gettext("Articles per page");
+										echo gettext("articles per page");
 										?>
 										<input type="text" size="2" id="articles_per_page" name="articles_per_page" style="float:right;"  value="<?php echo getOption('articles_per_page'); ?>" />
 									</td>
