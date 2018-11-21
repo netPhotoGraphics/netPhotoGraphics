@@ -168,6 +168,8 @@ if ($process) { // If the file hasn't been cached yet, create it.
 	}
 	$fmt = filemtime($newfile);
 }
+$iMutex->unlock();
+
 $protocol = FULLWEBPATH;
 $path = $protocol . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($newfilename));
 
@@ -210,4 +212,3 @@ if ($debug) {
 		fclose($fp);
 	}
 }
-$iMutex->unlock();
