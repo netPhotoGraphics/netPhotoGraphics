@@ -19,23 +19,31 @@ require_once(dirname(__FILE__) . '/class-search.php');
 
 $_zp_loaded_plugins = array();
 // load the class & filter plugins
-if (abs(OFFSET_PATH) != 2) { // setup does not need (and might have problems with) plugins
-	if (DEBUG_PLUGINS) {
-		debugLog('Loading the "class" plugins.');
+if (DEBUG_PLUGINS) {
+	debugLog('Loading the "class" plugins.');
+}
+if (abs(OFFSET_PATH) == 2) {
+	// setup does not need (and might have problems with) plugins so just load some specific ones
+	$enabled = array();
+	if (extensionEnabled('googleTFA')) {
+		$enabled['googleTFA'] = array('priority' => 5 | CLASS_PLUGIN, 'path' => SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA.php');
+		$enabled['dynamic-locale'] = array('priority' => 10 | CLASS_PLUGIN, 'path' => SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale.php');
 	}
+} else {
 	$enabled = getEnabledPlugins();
-	foreach ($enabled as $extension => $plugin) {
-		$priority = $plugin['priority'];
-		if ($priority & CLASS_PLUGIN) {
-			$start = microtime();
-			require_once($plugin['path']);
-			if (DEBUG_PLUGINS) {
-				zpFunctions::pluginDebug($extension, $priority, $start);
-			}
-			$_zp_loaded_plugins[$extension] = $extension;
+}
+foreach ($enabled as $extension => $plugin) {
+	$priority = $plugin['priority'];
+	if ($priority & CLASS_PLUGIN) {
+		$start = microtime();
+		require_once($plugin['path']);
+		if (DEBUG_PLUGINS) {
+			zpFunctions::pluginDebug($extension, $priority, $start);
 		}
+		$_zp_loaded_plugins[$extension] = $extension;
 	}
 }
+
 //	check for logged in users and set up the locale
 require_once(dirname(__FILE__) . '/auth_zp.php');
 define('ZENPHOTO_LOCALE', setMainDomain());
