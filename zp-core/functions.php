@@ -2094,6 +2094,28 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 }
 
 /**
+ * Use to migrate options. If option $newKey exists simply purge the old option
+ * else if option $oldKey exists set the option to its value, otherwise set the
+ * option to the default
+ *
+ * @param string $oldKey
+ * @param sstring $newKey
+ * @param mixed $default
+ */
+function replaceOption($oldKey, $newKey, $default) {
+	$existing = getOptionList();
+	if (!array_key_exists($newKey, $existing)) {
+		if (isset($existing[$oldkey])) {
+			$v = $existing[$oldkey];
+		} else {
+			$v = $default;
+		}
+		setOption($newKey, $v);
+	}
+	purgeOption($oldKey);
+}
+
+/**
  * Returns a list of database tables for the installation
  * @return type
  */

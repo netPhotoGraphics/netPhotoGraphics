@@ -527,8 +527,27 @@ class pseudoPlayer {
 		return $this->height;
 	}
 
-	function getPlayerConfig($moviepath, $imagefilename) {
-		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-noflashplayer.png" alt="' . gettext('No multimedia extension installed.') . '" />';
+	function getPlayerConfig($obj, $movietitle = NULL, $count = NULL) {
+		$movie = $obj->getFullImage(FULLWEBPATH);
+		$suffix = getSuffix($movie);
+		$poster = $obj->getCustomImage(null, $obj->getWidth(), $obj->getHeight(), $obj->getWidth(), $obj->getHeight(), null, null, true);
+		$content = '';
+		switch ($suffix) {
+			case 'mp4':
+			case 'm4v':
+				$content = '<video poster="' . html_encode($poster) . '" src="' . html_encode($movie) . '" controls width="' . $this->width . '" height="' . $this->height . '">';
+				$content .= '<p>' . gettext('Your browser does not support this video format.') . '</p>';
+				$content .= '</video>';
+				break;
+			case 'mp3':
+				$content = '<audio src="' . html_encode($movie) . '" controls>';
+				$content .= '<p>' . gettext('Your browser does not support this audio format.') . '</p>';
+				$content .= '</audio>';
+				break;
+		}
+		if (empty($content)) {
+			return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-noflashplayer.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
+		}
 	}
 
 }

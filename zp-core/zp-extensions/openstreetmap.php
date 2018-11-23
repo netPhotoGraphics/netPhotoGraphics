@@ -27,13 +27,15 @@ zp_register_filter('theme_head', 'openStreetMap::scripts');
 class openStreetMapOptions {
 
 	function __construct() {
+		/* clean up old options */
+		replaceOption('osmap_controlpos', 'osmap_zoomcontrolpos', 'topleft');
+		replaceOption('osmap_maptiles', 'osmap_defaultlayer', 'OpenStreetMap.Mapnik');
+
 		setOptionDefault('osmap_width', '100%'); //responsive by default!
 		setOptionDefault('osmap_height', '300px');
 		setOptionDefault('osmap_zoom', 4);
 		setOptionDefault('osmap_minzoom', 2);
 		setOptionDefault('osmap_maxzoom', 18);
-		setOptionDefault('osmap_zoomcontrolpos', 'topleft');
-		setOptionDefault('osmap_defaultlayer', 'OpenStreetMap.Mapnik');
 		setOptionDefault('osmap_clusterradius', 40);
 		setOptionDefault('osmap_markerpopup', 1);
 		setOptionDefault('osmap_markerpopup_title', 1);
@@ -54,16 +56,6 @@ class openStreetMapOptions {
 		if (class_exists('cacheManager')) {
 			cacheManager::deleteCacheSizes('openstreetmap');
 			cacheManager::addCacheSize('openstreetmap', 150, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
-		}
-
-		/* clean up old options */
-		if (getOption('osmap_controlpos')) {
-			setOption('osmap_zoomcontrolpos', getOption('osmap_controlpos'));
-			purgeOption('osmap_controlpos');
-		}
-		if (getOption('osmap_maptiles')) {
-			setOption('osmap_defaultlayer', getOption('osmap_maptiles'));
-			purgeOption('osmap_maptiles');
 		}
 	}
 
