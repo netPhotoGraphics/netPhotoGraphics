@@ -223,7 +223,6 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("URL options"); ?></td>
 					<td class="option_value">
-
 						<?php
 						if (MOD_REWRITE) {
 							$state = ' checked="checked"';
@@ -232,32 +231,27 @@ function getOptionContent() {
 						}
 						?>
 						<label>
-							<input type="checkbox" name="mod_rewrite" value="1"<?php echo $state; ?> />
-							<?php echo gettext('mod rewrite'); ?>
+							<input type="checkbox" name="mod_rewrite" value="1"<?php echo $state; ?> />	<?php echo gettext('mod rewrite'); ?>
 						</label>
+						<br />
 						<?php
 						if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
 							?>
-							<p>
-								<label>
-									<input class="fullwidth" type="checkbox" name="UTF8_image_URI" value="1"<?php checked('0', UTF8_IMAGE_URI); ?> />
-									<?php echo gettext('<em>filesystem</em> image URIs'); ?>
-								</label>
-							</p>
+							<label>
+								<input type="checkbox" name="UTF8_image_URI" value="1"<?php checked('0', UTF8_IMAGE_URI); ?> />	<?php echo gettext('<em>filesystem</em> image URIs'); ?>
+							</label>
+							<br />
 							<?php
 						}
 						?>
-						<p><?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" /></p>
-						<p>
-							<label>
-								<input class="fullwidth" type="checkbox" name="unique_image_prefix"<?php
-								if (UNIQUE_IMAGE)
-									echo ' checked="checked";'
-									?>>
-											 <?php echo gettext("unique images"); ?>
-							</label>
-						</p>
-
+						<?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" />
+						<br />
+						<label>
+							<input type="checkbox" name="unique_image_prefix"<?php
+							if (UNIQUE_IMAGE)
+								echo ' checked="checked";'
+								?>> <?php echo gettext("unique images"); ?>
+						</label>
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
