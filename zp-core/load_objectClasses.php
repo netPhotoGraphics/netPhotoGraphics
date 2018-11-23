@@ -24,10 +24,12 @@ if (DEBUG_PLUGINS) {
 }
 if (abs(OFFSET_PATH) == 2) {
 	// setup does not need (and might have problems with) plugins so just load some specific ones
-	$enabled = array();
+	//	NOTE: these should be ordered by priority, descending
+	$enabled = array(
+			'dynamic-locale' => array('priority' => 10 | CLASS_PLUGIN, 'path' => SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale.php')
+	);
 	if (extensionEnabled('googleTFA')) {
 		$enabled['googleTFA'] = array('priority' => 5 | CLASS_PLUGIN, 'path' => SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA.php');
-		$enabled['dynamic-locale'] = array('priority' => 10 | CLASS_PLUGIN, 'path' => SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale.php');
 	}
 } else {
 	$enabled = getEnabledPlugins();
