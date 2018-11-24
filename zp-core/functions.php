@@ -2094,6 +2094,28 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 }
 
 /**
+ * Use to migrate options. If option $newKey exists simply purge the old option
+ * else if option $oldKey exists set the option to its value, otherwise set the
+ * option to the default
+ *
+ * @param string $oldKey
+ * @param sstring $newKey
+ * @param mixed $default
+ */
+function replaceOption($oldKey, $newKey, $default) {
+	$existing = getOptionList();
+	if (!array_key_exists($newKey, $existing)) {
+		if (isset($existing[$oldkey])) {
+			$v = $existing[$oldkey];
+		} else {
+			$v = $default;
+		}
+		setOption($newKey, $v);
+	}
+	purgeOption($oldKey);
+}
+
+/**
  * Returns a list of database tables for the installation
  * @return type
  */
@@ -2370,14 +2392,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
@@ -2689,43 +2711,6 @@ function getNestedAlbumList($subalbum, $levels, $level = array()) {
 	return $list;
 }
 
-if (function_exists('curl_init')) {
-
-	/**
-	 * Sends a simple cURL request to the $uri specified.
-	 *
-	 * @param string $uri The uri to send the request to.
-	 * @param array $options An array of cURL options to set Default is if nothing is set:
-	 * 		array(
-	 * 			CURLOPT_RETURNTRANSFER => true,
-	 * 			CURLOPT_TIMEOUT => 2000
-	 * 		)
-	 * See http://php.net/manual/en/function.curl-setopt.php for more info
-	 * @return boolean
-	 */
-	function curlRequest($uri, $options = array()) {
-		if (empty($options) || !is_array($options)) {
-			$options = array(
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_TIMEOUT => 2000,
-			);
-		}
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $uri);
-		curl_setopt_array($ch, $options);
-		$curl_exec = curl_exec($ch);
-		if ($curl_exec === false) {
-			trigger_error(sprintf(gettext('cURL request failed, error code: %s'), curl_error($ch)), E_USER_WARNING);
-		} else if (empty(trim($curl_exec))) {
-			trigger_error(sprintf(gettext('cURL request failed, response code: %s'), curl_getinfo(CURLINFO_HTTP_CODE)), E_USER_WARNING);
-			$curl_exec = false;
-		}
-		curl_close($ch);
-		return $curl_exec;
-	}
-
-}
-
 class zpFunctions {
 
 	/**
@@ -2973,7 +2958,7 @@ class zpFunctions {
 				$text = serialize($text);
 			}
 		} else {
-			preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)/\>|U', $text, $matches);
+			preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', $text, $matches);
 			foreach ($matches[1] as $key => $match) {
 				preg_match('|.*i\.php\?(.*)|', $match, $imgproc);
 				if ($imgproc) {

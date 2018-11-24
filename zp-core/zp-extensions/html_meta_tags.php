@@ -34,15 +34,13 @@ class htmlmetatags {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			replaceOption('google-site-verification', 'htmlmeta_google-site-verification', '');
 			setOptionDefault('htmlmeta_cache_control', 'no-cache');
 			setOptionDefault('htmlmeta_pragma', 'no-cache');
 			setOptionDefault('htmlmeta_robots', 'index');
 			setOptionDefault('htmlmeta_revisit_after', '10');
 			setOptionDefault('htmlmeta_expires', '43200');
 			setOptionDefault('htmlmeta_tags', '');
-			setOptionDefault('htmlmeta_google-site-verification', getOption('google-site-verification'));
-			purgeOption('google-site-verification'); // remove obsolete option
-
 			setOptionDefault('htmlmeta_opengraph', 1);
 
 			// the html meta tag selector prechecked ones
@@ -333,7 +331,7 @@ class htmlmetatags {
 
 		// Facebook app id
 		if (getOption('htmlmeta_fb-app_id')) {
-			$meta .= '<meta property="fb:app_id"  content="' . sanitize_numeric(getOption('htmlmeta_fb-app_id')) . '" />' . "\n";
+			$meta .= '<meta property="fb:app_id"  content="' . getOption('htmlmeta_fb-app_id') . '" />' . "\n";
 		}
 
 		// dissalow users to pin images on Pinterest

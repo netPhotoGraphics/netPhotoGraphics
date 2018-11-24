@@ -70,12 +70,13 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$update = false;
-					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)/\>|U', zpFunctions::unTagURLs($row[$field]), $matches);
+					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', zpFunctions::unTagURLs($row[$field]), $matches);
 					foreach ($matches[1] as $uri) {
 						$imageprocessor++;
 						$params = mb_parse_url(html_decode($uri));
 						if (array_key_exists('query', $params)) {
 							parse_str($params['query'], $query);
+
 							if (!file_exists(getAlbumFolder() . $query['a'] . '/' . $query['i'])) {
 								recordMissing($table, $row, $query['a'] . '/' . $query['i']);
 							} else {

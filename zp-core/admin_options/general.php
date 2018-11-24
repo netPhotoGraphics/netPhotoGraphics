@@ -223,7 +223,6 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("URL options"); ?></td>
 					<td class="option_value">
-
 						<?php
 						if (MOD_REWRITE) {
 							$state = ' checked="checked"';
@@ -232,32 +231,27 @@ function getOptionContent() {
 						}
 						?>
 						<label>
-							<input type="checkbox" name="mod_rewrite" value="1"<?php echo $state; ?> />
-							<?php echo gettext('mod rewrite'); ?>
+							<input type="checkbox" name="mod_rewrite" value="1"<?php echo $state; ?> />	<?php echo gettext('mod rewrite'); ?>
 						</label>
+						<br />
 						<?php
 						if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
 							?>
-							<p>
-								<label>
-									<input type="checkbox" name="UTF8_image_URI" value="1"<?php checked('0', UTF8_IMAGE_URI); ?> />
-									<?php echo gettext('<em>filesystem</em> image URIs'); ?>
-								</label>
-							</p>
+							<label>
+								<input type="checkbox" name="UTF8_image_URI" value="1"<?php checked('0', UTF8_IMAGE_URI); ?> />	<?php echo gettext('<em>filesystem</em> image URIs'); ?>
+							</label>
+							<br />
 							<?php
 						}
 						?>
-						<p><?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" /></p>
-						<p>
-							<label>
-								<input type="checkbox" name="unique_image_prefix"<?php
-								if (UNIQUE_IMAGE)
-									echo ' checked="checked";'
-									?>>
-											 <?php echo gettext("unique images"); ?>
-							</label>
-						</p>
-
+						<?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" />
+						<br />
+						<label>
+							<input type="checkbox" name="unique_image_prefix"<?php
+							if (UNIQUE_IMAGE)
+								echo ' checked="checked";'
+								?>> <?php echo gettext("unique images"); ?>
+						</label>
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
@@ -508,7 +502,7 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Allowed tags"); ?></td>
 					<td class="option_value">
-						<p><textarea name="allowed_tags" id="allowed_tags" style="width: 340px" rows="4" cols="35"><?php echo html_encode(getOption('allowed_tags')); ?></textarea>
+						<p><textarea name="allowed_tags" id="allowed_tags" class="fullwidth" rows="4" cols="35"><?php echo html_encode(getOption('allowed_tags')); ?></textarea>
 							<span class="buttons">
 								<a onclick="resetallowedtags()" >
 									<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
@@ -564,24 +558,19 @@ function getOptionContent() {
 						<p id="GDPR_clear" <?php if (!(getOption('GDPR_acknowledge') || extensionEnabled('GDPR_required'))) echo ' style="display:none"'; ?>>
 							<label>
 								<input type="checkbox" name="GDPR_re-acknowledge" value="1" />
-								<?php echo gettext('Clear remembered acknowledgements'); ?>
+								<?php echo gettext('clear remembered acknowledgements'); ?>
 							</label>
 						</p>
-
 						<div id="GDR_Details" <?php if (!GetOption('GDPR_acknowledge')) echo ' style="display:none"'; ?>>
-							<p>
-								<?php echo gettext('Policy URL'); ?>
-								<input type="text" name="GDPR_URL" size="35" value="<?php echo getOption('GDPR_URL'); ?>" />
-							</p>
-							<p>
-								<?php
-								echo gettext('Notice text');
-								print_language_string_list(get_language_string(getOption('GDPR_text')), 'GDPR_text', false, null, '', '45');
-								?>
-							</p>
+
+							<?php echo gettext('policy URL'); ?>
+							<input type="text" class="fullwidth" name="GDPR_URL" value="<?php echo getOption('GDPR_URL'); ?>" />
+
+							<?php
+							echo gettext('notice text') . ' ';
+							print_language_string_list(get_language_string(getOption('GDPR_text')), 'GDPR_text', false, null, '', '100%');
+							?>
 						</div>
-
-
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
@@ -602,7 +591,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						if (!GALLERY_SESSION) {
 							echo gettext('path');
 							?>
-							<input type="text" size="40" id="zenphoto_cookie_path" name="zenphoto_cookie_path"  value="<?php echo getOption('zenphoto_cookie_path'); ?>" />
+							<input type="text" class="fullwidth" id="zenphoto_cookie_path" name="zenphoto_cookie_path"  value="<?php echo getOption('zenphoto_cookie_path'); ?>" />
 							<p>
 								<?php
 								echo gettext('duration');
@@ -644,8 +633,8 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						<p><?php echo gettext("Email"); ?></p>
 					</td>
 					<td class="option_value">
-						<input type="text" size="48" name="site_email_name" value="<?php echo get_language_string(getOption('site_email_name')) ?>" />
-						<p><input type="text" size="48" id="site_email" name="site_email"  value="<?php echo getOption('site_email'); ?>" /></p>
+						<input type="text" class="fullwidth" name="site_email_name" value="<?php echo get_language_string(getOption('site_email_name')) ?>" />
+						<input type="text" class="fullwidth" id="site_email" name="site_email"  value="<?php echo getOption('site_email'); ?>" />
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
@@ -665,7 +654,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						$mailinglist = $_zp_authority->getAdminEmail(ADMIN_RIGHTS);
 						?>
 						<label>
-							<input type="checkbox" size="48" id="site_email" name="register_user_notify"  value="1" <?php checked('1', getOption('register_user_notify') && $mailinglist); ?> <?php if (!$mailinglist) echo ' disabled="disabled"'; ?> />
+							<input type="checkbox" class="fullwidth" id="site_email" name="register_user_notify"  value="1" <?php checked('1', getOption('register_user_notify') && $mailinglist); ?> <?php if (!$mailinglist) echo ' disabled="disabled"'; ?> />
 							<?php echo gettext('notify'); ?>
 						</label>
 					</td>
@@ -690,12 +679,12 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						<table>
 							<tr>
 								<td>
-									<?php echo gettext("Users per page"); ?>
+									<?php echo gettext("users per page"); ?>
 									<input type="text" size="2" id="users_per_page" name="users_per_page" style="float:right;" value="<?php echo getOption('users_per_page'); ?>" />
 								</td>
 								<td>
 									<?php
-									echo gettext("Plugins per page");
+									echo gettext("plugins per page");
 									?>
 									<input type="text" size="2" id="plugins_per_page" name="plugins_per_page" style="float:right;"  value="<?php echo getOption('plugins_per_page'); ?>" />
 								</td>
@@ -709,7 +698,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									<td>
 										<?php
 										$row = true;
-										echo gettext("Groups per page");
+										echo gettext("groups per page");
 										?>
 										<input type="text" size="2" id="groups_per_page" name="groups_per_page" style="float:right;"  value="<?php echo getOption('groups_per_page'); ?>" />
 									</td>
@@ -725,7 +714,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									?>
 									<td>
 										<?php
-										echo gettext("Articles per page");
+										echo gettext("articles per page");
 										?>
 										<input type="text" size="2" id="articles_per_page" name="articles_per_page" style="float:right;"  value="<?php echo getOption('articles_per_page'); ?>" />
 									</td>
