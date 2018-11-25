@@ -114,10 +114,10 @@ function getMenuItems($menuset, $visible) {
 	$_menu_manager_items[$menuset][$visible] = array();
 	switch ($visible) {
 		case 'visible':
-			$where = " WHERE `show` = 1 AND menuset = " . db_quote($menuset);
+			$where = " WHERE `show`=1 AND menuset = " . db_quote($menuset);
 			break;
 		case 'hidden':
-			$where = " WHERE `show` = 0 AND menuset = " . db_quote($menuset);
+			$where = " WHERE `show`=0 AND menuset = " . db_quote($menuset);
 			break;
 		default:
 			$where = " WHERE menuset = " . db_quote($menuset);
@@ -836,7 +836,6 @@ function createMenuIfNotExists($menuitems, $menuset = 'default') {
 						$success = -1;
 						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty link.'), $key), $result);
 					}
-					$result['link'] = NULL;
 					break;
 				case 'galleryindex':
 					if (empty($result['title'])) {
@@ -845,12 +844,11 @@ function createMenuIfNotExists($menuitems, $menuset = 'default') {
 					}
 					$result['link'] = NULL;
 					break;
-				case 'Page':
+				case 'page':
 					if (empty($result['link'])) {
 						$success = -1;
 						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty link.'), $key), $result);
 					}
-					$result['link'] = NULL;
 					break;
 				case 'newsindex':
 					$result['link'] = NULL;
@@ -897,7 +895,7 @@ function createMenuIfNotExists($menuitems, $menuset = 'default') {
 					break;
 				default:
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an invalid type.'), $key), $result);
+					debugLogVar(sprintf(gettext('createMenuIfNotExists item %1$s has an invalid type (%2$s).'), $key, $type), $result);
 					break;
 			}
 			if ($success > 0 && $type) {
