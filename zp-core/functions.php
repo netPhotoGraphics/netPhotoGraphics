@@ -2102,7 +2102,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
  * @param sstring $newKey
  * @param mixed $default
  */
-function replaceOption($oldKey, $newKey, $default) {
+function replaceOption($oldKey, $newKey, $default, $setOption = 'setOptionDefault') {
 	$existing = getOptionList();
 	if (!array_key_exists($newKey, $existing)) {
 		if (isset($existing[$oldkey])) {
@@ -2110,9 +2110,13 @@ function replaceOption($oldKey, $newKey, $default) {
 		} else {
 			$v = $default;
 		}
-		setOption($newKey, $v);
+		$setOption($newKey, $v);
 	}
 	purgeOption($oldKey);
+}
+
+function replaceThemeOption($oldKey, $newKey, $default) {
+	replaceOption($oldKey, $newKey, $default, 'setThemeOptionDefault');
 }
 
 /**

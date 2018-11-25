@@ -86,7 +86,10 @@ function saveOptions() {
 			} else {
 				$sql .= ' AND `ownerid`=0';
 			}
-			query($sql);
+			query($sql); //	delete the theme options
+			$sql = 'DELETE FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote($themename);
+			query($sql); //	delete the theme menu
+
 			$themeswitch = true;
 		} else {
 			$ncw = $cw = getThemeOption('thumb_crop_width', $_set_theme_album, $themename);
@@ -235,7 +238,7 @@ function getOptionContent() {
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
 								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');
-										$('#themeoptionsform').submit();">
+												$('#themeoptionsform').submit();">
 													<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
@@ -567,7 +570,7 @@ function getOptionContent() {
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
 								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');
-										$('#themeoptionsform').submit();">
+												$('#themeoptionsform').submit();">
 													<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
