@@ -13,7 +13,7 @@ class DailySummary extends Gallery {
 	protected function loadAlbumNames() {
 		$minDate = floor(strtotime('-' . getOption('DailySummaryDays') . ' days') / 86400) * 86400;
 		$cleandates = array();
-		$sql = "SELECT `date` FROM " . prefix('images');
+		$sql = "SELECT `id`,`date` FROM " . prefix('images');
 		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= " WHERE `show`=1";
 		}
@@ -30,12 +30,15 @@ class DailySummary extends Gallery {
 		$result = query($sql);
 		while ($row = db_fetch_assoc($result)) {
 			if (!empty($row['date'])) {
-				$d = substr($row['date'], 0, 10);
-				$rowDate = strtotime($d);
-				if ($rowDate < $minDate) {
-					break;
+				$image = getItemByID('images', $row['id'], true, false);
+				if ($image) {
+					$d = substr($row['date'], 0, 10);
+					$rowDate = strtotime($d);
+					if ($rowDate < $minDate) {
+						break;
+					}
+					$cleandates[] = $d;
 				}
-				$cleandates[] = $d;
 			}
 		}
 		db_free_result($result);

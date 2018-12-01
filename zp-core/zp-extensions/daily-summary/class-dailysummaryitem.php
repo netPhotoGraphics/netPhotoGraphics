@@ -35,7 +35,7 @@ class DailySummaryItem extends Album {
 		}
 		$count = 0;
 		foreach ($results as $album) {
-			$albumobj = newAlbum($album['folder']);
+			$albumobj = newAlbum($album['folder'], false);
 			if ($albumobj && $albumobj->checkAccess()) {
 				if (empty($this->date)) {
 					$this->set('date', dateTimeConvert($album['date']));

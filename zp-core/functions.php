@@ -2396,14 +2396,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -2471,29 +2471,30 @@ function getLanguageFlag($lang) {
  *
  * @param string $table database table to search
  * @param int $id id of the item to get
+ * @param bool $quiet set to false to supress error messages
  * @return mixed
  */
-function getItemByID($table, $id) {
+function getItemByID($table, $id, $quiet = true) {
 	if ($result = query_single_row('SELECT * FROM ' . prefix($table) . ' WHERE id =' . (int) $id)) {
 		switch ($table) {
 			case 'images':
-				if ($alb = getItemByID('albums', $result['albumid'])) {
-					$obj = newImage($alb, $result['filename'], true);
+				if ($alb = getItemByID('albums', $result['albumid'], false, $quiet)) {
+					$obj = newImage($alb, $result['filename'], $quiet);
 				} else {
 					$obj = NULL;
 				}
 				break;
 			case 'albums':
-				$obj = newAlbum($result['folder'], false, true);
+				$obj = newAlbum($result['folder'], false, $quiet);
 				break;
 			case 'news':
-				$obj = newArticle($result['titlelink']);
+				$obj = newArticle($result['titlelink'], false);
 				break;
 			case 'pages':
-				$obj = newPage($result['titlelink']);
+				$obj = newPage($result['titlelink'], false);
 				break;
 			case 'news_categories':
-				$obj = new Category($result['titlelink']);
+				$obj = new Category($result['titlelink'], false);
 				break;
 		}
 		if ($obj && $obj->loaded) {
