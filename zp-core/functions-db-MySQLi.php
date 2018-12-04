@@ -33,7 +33,8 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$_zp_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
-			if ($_zp_DB_connection || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
+			if (is_object($_zp_DB_connection) || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
+				$_zp_DB_connection = NULL;
 				break;
 			}
 			sleep(1);
@@ -42,7 +43,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		$_zp_DB_connection = NULL;
 		$er = gettext('"extension not loaded"');
 	}
-	if (!$_zp_DB_connection) {
+	if (!is_object($_zp_DB_connection)) {
 		if ($errorstop) {
 			trigger_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er), $errorstop);
 		}

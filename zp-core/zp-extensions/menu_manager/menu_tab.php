@@ -50,6 +50,39 @@ if (isset($_GET['deletemenuset'])) {
 	purgeOption('menu_lastChanged');
 	$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” deleted"), html_encode(sanitize($_GET['deletemenuset']))) . "</p>";
 }
+if (isset($_GET['exportmenuset'])) {
+	XSRFdefender('dup_menu');
+	$menuEpxorted = sanitize($_GET['exportmenuset']);
+	$sql = 'SELECT * FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote($menuEpxorted) . ' ORDER BY `sort_order`';
+	$menu = query_full_array($sql);
+
+	$lineEnd = '';
+	$text = '$menuset = array(<br />';
+
+	foreach ($menu as $menuItem) {
+		unset($menuItem['id']);
+		unset($menuItem['parentid']);
+		unset($menuItem['menuset']);
+		$text .= $lineEnd . '&nbsp;&nbsp;array(';
+		$comma = '';
+		foreach ($menuItem as $type => $value) {
+			if ($type == 'sort_order') {
+				$type = 'nesting';
+				$nest = explode('-', $value);
+				$value = count($nest) - 1;
+			}
+			$text .= $comma . "'" . $type . "' => " . "'" . html_encode($value) . "'";
+			$comma = ", ";
+		}
+		$text .= ')';
+		$lineEnd = ',<br />';
+	}
+	$text .= '<br />);<br />';
+	$reports[] = '<div class="messagebox">' .
+					'<h2>' . $menuEpxorted . '</h2>' .
+					$text .
+					'</div>';
+}
 if (isset($_GET['dupmenuset'])) {
 	XSRFdefender('dup_menu');
 	$oldmenuset = sanitize($_GET['dupmenuset']);
@@ -204,6 +237,12 @@ printSortableHead();
 											<a href="javascript:deleteMenuSet();" title="<?php printf(gettext('Delete %s menu'), $menuset); ?>">
 												<?php echo WASTEBASKET; ?>
 												<strong><?php echo gettext("Delete menu"); ?></strong>
+											</a>
+										</span>
+										<span class="buttons">
+											<a href="?exportmenuset=<?php echo html_encode($menuset); ?>&amp;XSRFToken=<?php echo getXSRFToken('dup_menu') ?>" title="<?php printf(gettext('Export %s menu'), $menuset); ?>">
+												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/stock_copy.png" alt="" />
+												<strong><?php echo gettext("Export menu"); ?></strong>
 											</a>
 										</span>
 										<?php

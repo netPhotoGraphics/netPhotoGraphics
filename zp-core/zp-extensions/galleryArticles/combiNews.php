@@ -54,7 +54,7 @@ class Combi extends CMS {
 		}
 
 		if ($published == "published") {
-			$show = " WHERE `show` = 1 AND date <= '" . date('Y-m-d H:i:s') . "'";
+			$show = " WHERE `show`=1 AND date <= '" . date('Y-m-d H:i:s') . "'";
 			$imagesshow = " AND images.show = 1 ";
 		} else {
 			$show = "";

@@ -89,7 +89,7 @@ class ThemeOptions {
 			$note .= '<p class="notebox">' . sprintf(gettext('<strong>Note:</strong> The <em>%s</em> custom menu makes use of the <em>print_album_menu</em> plugin.'), $m) . '</p>';
 		}
 		$options = array(
-				gettext('Separate gallery index') => array('key' => 'gallery_index', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 1, 'desc' => gettext('Check to move the gallery index from the home page to gallery.php.') . '<p class="notebox">' . gettext('<strong>Note:</strong> this is assumed if the zenpage plugin is enabled.') . '</p>'),
+				gettext('Separate gallery index') => array('key' => 'gallery_index', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 1, 'desc' => gettext('Check to move the gallery index from the home page to gallery.php.') . '<p class="notebox">' . gettext('<strong>Note:</strong> this is assumed the zenpage plugin is enabled.') . '</p>'),
 				gettext('Theme logo') => array('key' => 'Theme_logo', 'type' => OPTION_TYPE_TEXTBOX, 'multilingual' => 1, 'order' => 8, 'desc' => gettext('The text for the theme logo')),
 				gettext('Watermark head image') => array('key' => 'Watermark_head_image', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 11, 'desc' => gettext('Check to place a watermark on the heading image. (Image watermarking must be set.)')),
 				gettext('Daily image') => array('key' => 'effervescence_daily_album_image', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 3, 'desc' => gettext('If checked the heading image will change daily rather than on each page load.')),

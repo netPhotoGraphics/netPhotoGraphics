@@ -2102,7 +2102,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
  * @param sstring $newKey
  * @param mixed $default
  */
-function replaceOption($oldKey, $newKey, $default) {
+function replaceOption($oldKey, $newKey, $default, $setOption = 'setOptionDefault') {
 	$existing = getOptionList();
 	if (!array_key_exists($newKey, $existing)) {
 		if (isset($existing[$oldkey])) {
@@ -2110,9 +2110,13 @@ function replaceOption($oldKey, $newKey, $default) {
 		} else {
 			$v = $default;
 		}
-		setOption($newKey, $v);
+		$setOption($newKey, $v);
 	}
 	purgeOption($oldKey);
+}
+
+function replaceThemeOption($oldKey, $newKey, $default) {
+	replaceOption($oldKey, $newKey, $default, 'setThemeOptionDefault');
 }
 
 /**
@@ -2392,14 +2396,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -2467,29 +2471,30 @@ function getLanguageFlag($lang) {
  *
  * @param string $table database table to search
  * @param int $id id of the item to get
+ * @param bool $quiet set to false to supress error messages
  * @return mixed
  */
-function getItemByID($table, $id) {
+function getItemByID($table, $id, $quiet = true) {
 	if ($result = query_single_row('SELECT * FROM ' . prefix($table) . ' WHERE id =' . (int) $id)) {
 		switch ($table) {
 			case 'images':
-				if ($alb = getItemByID('albums', $result['albumid'])) {
-					$obj = newImage($alb, $result['filename'], true);
+				if ($alb = getItemByID('albums', $result['albumid'], false, $quiet)) {
+					$obj = newImage($alb, $result['filename'], $quiet);
 				} else {
 					$obj = NULL;
 				}
 				break;
 			case 'albums':
-				$obj = newAlbum($result['folder'], false, true);
+				$obj = newAlbum($result['folder'], false, $quiet);
 				break;
 			case 'news':
-				$obj = newArticle($result['titlelink']);
+				$obj = newArticle($result['titlelink'], false);
 				break;
 			case 'pages':
-				$obj = newPage($result['titlelink']);
+				$obj = newPage($result['titlelink'], false);
 				break;
 			case 'news_categories':
-				$obj = new Category($result['titlelink']);
+				$obj = new Category($result['titlelink'], false);
 				break;
 		}
 		if ($obj && $obj->loaded) {

@@ -26,7 +26,7 @@ class DailySummaryItem extends Album {
 			FROM " . prefix('images') . " AS i
 			INNER JOIN " . prefix('albums') . " AS a ON i.albumid = a.id
 			WHERE i.`date` >= \"$d1\" AND i.`date` < \"$d2\"
-			ORDER BY i.hitcounter DESC";
+			ORDER BY i.date DESC";
 		$results = query_full_array($imageSql);
 
 		if (sizeof($results) == 0) {
@@ -35,7 +35,7 @@ class DailySummaryItem extends Album {
 		}
 		$count = 0;
 		foreach ($results as $album) {
-			$albumobj = newAlbum($album['folder']);
+			$albumobj = newAlbum($album['folder'], false);
 			if ($albumobj && $albumobj->checkAccess()) {
 				if (empty($this->date)) {
 					$this->set('date', dateTimeConvert($album['date']));
