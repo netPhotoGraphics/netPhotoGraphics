@@ -16,7 +16,7 @@ class imagegallery {
 	}
 
 	function theme_head($_zp_themeroot) {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER, '/adGallery/jquery.ad-gallery.css');
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
 		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
 	}
 

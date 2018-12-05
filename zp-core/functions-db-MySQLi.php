@@ -34,7 +34,6 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
 			if (is_object($_zp_DB_connection) || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
-				$_zp_DB_connection = NULL;
 				break;
 			}
 			sleep(1);
