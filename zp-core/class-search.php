@@ -1149,7 +1149,7 @@ class SearchEngine {
 	function getTagSQL($searchstring, $table, $tagPattern) {
 		$key = implode('-', $tagPattern);
 		if (!array_key_exists($key, $this->tagSQL)) {
-			$tagsql = 'SELECTt.`name`,t.language, o.`objectid` FROM ' . prefix('tags') . ' AS t, ' . prefix('obj_to_tag') . ' AS o WHERE t.`id`=o.`tagid` ';
+			$tagsql = 'SELECT t.`name`,t.language, o.`objectid` FROM ' . prefix('tags') . ' AS t, ' . prefix('obj_to_tag') . ' AS o WHERE t.`id`=o.`tagid` ';
 			if (getOption('languageTagSearch')) {
 				$tagsql .= 'AND (t.language LIKE ' . db_quote(db_LIKE_escape($this->language) . '%') . ' OR t.language="") ';
 			}
