@@ -394,6 +394,18 @@ if (isset($_GET['action'])) {
 										$image->setExpireDate(sanitize($_POST['expirationdate-' . $i]));
 										$image->setTitle(process_language_string_save("$i-title", 2));
 										$image->setDesc(process_language_string_save("$i-desc", EDITOR_SANITIZE_LEVEL));
+										$image->set('GPSLatitude', NULL);
+										$image->set('GPSLongitude', NULL);
+										foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {
+											$v = $_POST["$i-$geo"];
+											if (!empty($v)) {
+												if (preg_match('~[ns]$~i', $v)) {
+													$image->set('GPSLatitude', parseDMS($v));
+												} else {
+													$image->set('GPSLongitude', parseDMS($v));
+												}
+											}
+										}
 										if (isset($_POST[$i . '-oldrotation']) && isset($_POST[$i . '-rotation'])) {
 											$oldrotation = (int) $_POST[$i . '-oldrotation'];
 											$rotation = (int) $_POST[$i . '-rotation'];
@@ -1293,7 +1305,6 @@ echo "\n</head>";
 															<td  class="middlecolumn">
 																<?php echo linkPickerItem($image, 'image_link-' . $currentimage); ?>
 															</td>
-
 														</tr>
 														<tr>
 															<td class="leftcolumn"><?php echo gettext("Description"); ?></td>
@@ -1335,6 +1346,32 @@ echo "\n</head>";
 															</tr>
 															<?php
 														}
+														?>
+														<tr>
+															<td class="leftcolumn"><?php echo gettext("Geo location"); ?></td>
+															<td class="middlecolumn">
+																<?php
+																$lat = $image->get('GPSLatitude');
+																if ($lat < 0) {
+																	$lat = image::toDMS($lat, 'S');
+																} else if ($lat == 0) {
+																	$lat = '';
+																} else {
+																	$lat = image::toDMS($lat, 'N');
+																}
+																$long = $image->get('GPSLongitude');
+																if ($long < 0) {
+																	$long = image::toDMS($long, 'W');
+																} else if ($long == 0) {
+																	$long = '';
+																} else {
+																	$long = image::toDMS($long, 'E');
+																}
+																?>
+																<input name="<?php echo $currentimage; ?>-GPSLatitude" type="text" value="<?php echo html_encode($lat); ?>"><input name="<?php echo $currentimage; ?>-GPSLongitude" type="text" value="<?php echo html_encode($long); ?>">
+															</td>
+														</tr>
+														<?php
 														echo zp_apply_filter('edit_image_custom_data', '', $image, $currentimage);
 														if (!$singleimage) {
 															?>

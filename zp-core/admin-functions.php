@@ -5028,6 +5028,28 @@ function dateDiff($date1, $date2) {
 }
 
 /**
+ * Converts a floating point geo coordinate into hrs mins sec ref format
+ *
+ * @param float $geoString
+ * @return string
+ */
+function parseDMS($geoString) {
+	$geoString = preg_replace('~\s+~', ':', trim($geoString));
+	$matches = explode(':', $geoString);
+	$g = (int) $matches[0];
+	if (isset($matches[1])) {
+		$g = $g + (int) $matches[1] / 60;
+	}
+	if (isset($matches[2])) {
+		$g = $g + (int) $matches[2] / 3600;
+	}
+	if (in_array(strtolower($matches[count($matches) - 1]), array('w', 's'))) {
+		$g = -$g;
+	}
+	return (float) $g;
+}
+
+/**
  * changes zenpage titlelink suffixes from $old to $new
  *
  * @param type $old
@@ -5591,21 +5613,21 @@ function consolidatedEditMessages($subtab) {
 	if (!empty($errorbox)) {
 		?>
 		<div class="errorbox fade-message">
-			<?php echo implode('<br />', $errorbox); ?>
+		<?php echo implode('<br />', $errorbox); ?>
 		</div>
 		<?php
 	}
 	if (!empty($notebox)) {
 		?>
 		<div class="notebox fade-message">
-			<?php echo implode('<br />', $notebox); ?>
+		<?php echo implode('<br />', $notebox); ?>
 		</div>
 		<?php
 	}
 	if (!empty($messagebox)) {
 		?>
 		<div class="messagebox fade-message">
-			<?php echo implode('<br />', $messagebox); ?>
+		<?php echo implode('<br />', $messagebox); ?>
 		</div>
 		<?php
 	}
@@ -5713,7 +5735,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-			 <?php echo CLIPBOARD; ?>
+	<?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }
