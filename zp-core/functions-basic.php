@@ -1868,7 +1868,7 @@ function getRequestURI($decode = true) {
 		$uri = sanitize(str_replace('\\', '/', @$_SERVER['SCRIPT_NAME']));
 	}
 	if ($decode) {
-		$uri = urldecode($uri);
+		$uri = sanitize(urldecode($uri));
 	}
 	return $uri;
 }
