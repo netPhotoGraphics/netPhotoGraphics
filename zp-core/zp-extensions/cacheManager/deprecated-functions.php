@@ -42,7 +42,7 @@ class cachemanager_internal_deprecations {
 				} else {
 					$whom = 'unknown';
 				}
-				deprecated_functions::notify_call($method, gettext('Use cacheManager::addCacheSize().'), E_USER_NOTICE);
+				deprecated_functions::notify_call($method, gettext('Use cacheManager::addCacheSize().'));
 				cacheManager::addCacheSize($whom, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $thumb);
 				break;
 			default:
