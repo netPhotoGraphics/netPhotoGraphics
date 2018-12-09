@@ -4284,7 +4284,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
  * Prints the logo and link
  *
  */
-function printZenphotoLink() {
+function print_SW_Link() {
 	?>
 	<span class="zen-logo">
 		<a href="https://netPhotoGraphics.org" title="<?php echo gettext('A media oriented content management system'); ?>">

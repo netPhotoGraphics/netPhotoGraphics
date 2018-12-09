@@ -17,7 +17,7 @@
 				?>
 			</span>
 		<?php } ?>
-		<span id="zpcredit">| <?php printZenphotoLink(); ?></span>
+		<span id="zpcredit">| <?php print_SW_Link(); ?></span>
 		<?php if ($_zp_gallery_page == 'album.php') { ?>
 			<?php
 			if ($_zp_current_album->getParent()) {

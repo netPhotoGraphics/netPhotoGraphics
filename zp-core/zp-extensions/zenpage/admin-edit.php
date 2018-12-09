@@ -53,7 +53,6 @@ if (isset($_GET['titlelink'])) {
 } else if (isset($_GET['update'])) {
 	XSRFdefender('update');
 	$result = $update($reports);
-
 	if (getCheckboxState('copy_delete_object')) {
 		switch (sanitize($_POST['copy_delete_object'])) {
 			case 'copy':
@@ -548,9 +547,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																		 $('#expiredate').val('');
-																		 $('#pubdate').css('color', 'black');
-																		 $('.expire').html('');"
+																			 $('#expiredate').val('');
+																			 $('#pubdate').css('color', 'black');
+																			 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -642,7 +641,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																					 togglePassword('');">
+																								 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />

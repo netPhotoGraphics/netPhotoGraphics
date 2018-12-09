@@ -16,7 +16,7 @@ Review Combinews support
 	1.4.3
 	General compatability fixes.
 	Fixed bug on front page slideshow when there were not enough images to supply the option count.  For example, now if the option is set to "5" and there are only "2" published or available, the setting will be "2".
-	Theme options page update, improvement, addition of new features in Zenphoto.
+	Theme options page update, improvement, addition of new features in netPhotoGraphics.
 	Added theme option to disable news feature of Zenpage.
 	Fixed addthis display, css tweaks for chrome.
 	Pre-caching plugin support in theme options for all sized of theme.

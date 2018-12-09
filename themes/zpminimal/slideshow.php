@@ -6,7 +6,7 @@
 // force UTF-8 Ø
 
 if (!defined('WEBPATH'))
-	die(); // are we in the Zenphoto environment? if not, kill application.
+	die(); // are we in the netPhotoGraphics environment? if not, kill application.
 ?>
 
 <?php if (function_exists('printGslideshow')) { ?>

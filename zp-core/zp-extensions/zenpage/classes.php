@@ -103,7 +103,7 @@ class CMS {
 		if ($published) {
 			if ($toplevel)
 				$gettop = " AND parentid IS NULL";
-			$show = " WHERE `show` = 1 AND date <= '" . $now . "'" . $gettop;
+			$show = " WHERE `show`=1 AND date <= '" . $now . "'" . $gettop;
 		} else {
 			if ($toplevel)
 				$gettop = " WHERE parentid IS NULL";
@@ -303,7 +303,7 @@ class CMS {
 					$getUnpublished = true;
 					break;
 				case 'sticky':
-					$show = "`sticky` <> 0";
+					$show = "`sticky`<>0";
 					$getUnpublished = true;
 					break;
 				case "all":
@@ -491,7 +491,7 @@ class CMS {
 		$cleandates = array();
 		$sql = "SELECT date FROM " . prefix('news');
 		if (!zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
-			$sql .= " WHERE `show` = 1";
+			$sql .= " WHERE `show`=1";
 		}
 		$result = query_full_array($sql);
 		foreach ($result as $row) {

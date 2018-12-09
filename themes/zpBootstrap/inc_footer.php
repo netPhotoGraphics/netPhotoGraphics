@@ -12,7 +12,7 @@
 			?>
 		</div>
 		<div>
-			<?php printZenphotoLink(); ?> & <a href="http://getbootstrap.com/" target="_blank" title="Bootstrap">Bootstrap</a>
+			<?php print_SW_Link(); ?> & <a href="http://getbootstrap.com/" target="_blank" title="Bootstrap">Bootstrap</a>
 		</div>
 	</div>
 </footer>

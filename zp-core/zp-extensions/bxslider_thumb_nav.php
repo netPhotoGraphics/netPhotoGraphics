@@ -33,10 +33,10 @@ class bxslider {
 			setOptionDefault('bxslider_speed', '500');
 			setOptionDefault('bxslider_fullimagelink', '');
 			setOptionDefault('bxslider_mode', 'horizontal');
+
 			$found = array();
 			$result = getOptionsLike('bxslider_');
 			foreach ($result as $option) {
-
 				preg_match('/bxslider_(.*)_(.*)/', $option, $matches);
 				if (count($matches) == 3 && $matches[2] != 'scripts') {
 					if ($value) {
@@ -45,10 +45,10 @@ class bxslider {
 					purgeOption('bxslider_' . $matches[1] . '_' . $matches[2]);
 				}
 			}
-
 			foreach ($found as $theme => $scripts) {
 				setOptionDefault('bxslider_' . $theme . '_scripts', serialize($scripts));
 			}
+
 			if (class_exists('cacheManager')) {
 				cacheManager::deleteCacheSizes('bxslider_thumb_nav');
 				cacheManager::addCacheSize('bxslider_thumb_nav', NULL, getOption('bxslider_width'), getOption('bxslider_height'), getOption('bxslider_cropw'), getOption('bxslider_croph'), NULL, NULL, true, NULL, NULL, NULL);

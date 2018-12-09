@@ -500,7 +500,6 @@ function updateArticle(&$reports, $newarticle = false) {
 			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
-
 	zp_apply_filter('save_article_custom_data', NULL, $article);
 	$article->save();
 

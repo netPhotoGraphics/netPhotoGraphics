@@ -10,7 +10,7 @@
 	<body>
 		<?php printPasswordForm($hint, $show); ?>
 		<div id="credit">
-			<?php printZenphotoLink(); ?>
+			<?php print_SW_Link(); ?>
 		</div>
 	</body>
 </html>

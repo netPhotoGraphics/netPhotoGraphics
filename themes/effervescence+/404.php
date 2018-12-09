@@ -60,7 +60,7 @@ if (!defined('WEBPATH'))
 		<!-- Footer -->
 		<div class="footlinks">
 			<small><?php printThemeInfo(); ?></small>
-			<?php printZenphotoLink(); ?>
+			<?php print_SW_Link(); ?>
 			<br />
 		</div>
 

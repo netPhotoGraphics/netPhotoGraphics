@@ -411,7 +411,7 @@ function printFooter($admin = true) {
 		?>
 
 		<?php printThemeInfo(); ?>
-		<?php printZenphotoLink(); ?>
+		<?php print_SW_Link(); ?>
 		<br />
 		<?php
 		if (function_exists('printFavoritesURL') && $_zp_gallery_page != 'password.php' && $_zp_gallery_page != 'favorites.php') {

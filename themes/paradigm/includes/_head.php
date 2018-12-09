@@ -251,7 +251,7 @@
 			?>" />
 			<meta name="twitter:description" content="<?php
 			echo getGalleryTitle();
-			echo ' #zenphoto ';
+			echo ' #netPhotoGraphics ';
 			echo gettext('album')
 			?>"  />
 			<meta name="twitter:url" content="<?php echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"]); ?>" />

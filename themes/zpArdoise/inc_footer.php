@@ -58,7 +58,7 @@
 
 		<div id="zpcredit">
 			<?php
-			printZenphotoLink(getOption('css_style'));
+			print_SW_Link();
 			?>
 			<?php
 			if (($_zp_gallery_page == 'image.php') ||
@@ -78,4 +78,4 @@ zp_apply_filter('theme_body_close');
 
 </body>
 </html>
-<!-- zpArdoise 1.4.13 - a ZenPhoto/ZenPage theme by Vincent3569  -->
+<!-- zpArdoise 1.4.13 - a netPhotoGraphics/ZenPage theme by Vincent3569  -->

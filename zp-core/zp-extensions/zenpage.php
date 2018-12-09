@@ -1,11 +1,11 @@
 <?php
 /**
  * With Zenpage you can extend the easy to use interface to manage an entire site with a news section (blog) for
- * announcements. Considering zenphoto's image, video and audio management capabilites this is the ideal solution for
+ * announcements. Considering netPhotoGraphic's image, video and audio management capabilites this is the ideal solution for
  * personal portfolio sites of artists, graphic/web designers, illustrators, musicians, multimedia/video artists,
  * photographers and many more.
  *
- * You could even run an audio or podcast blog with zenphoto and zenpage.
+ * You could even run an audio or podcast blog with netPhotoGraphic and zenpage.
  *
  * <b>Features</b>
  * <ol>
@@ -16,10 +16,6 @@
  * <li>Scheduled publishing</li>
  * <li>RSS feed for news articles</li>
  * <li>Comments on news articles and pages incl. subscription via RSS</li>
- * <li>CombiNews feature to show the lastest gallery items like image, videos or audio within the news section as if they were news articles</li>
- * <li>Localization and multi-lingual</li>
- * <li>WSIWYG text editor {@link "http://tinymce.moxiecode.com/index.php TinyMCE} with Ajax File Manager included</li>
- * <li>TinyMCE plugin <i>tinyZenpage</i> to include zenphoto and zenpage items into your articles or pages</li>
  * </ol>
  *
  *

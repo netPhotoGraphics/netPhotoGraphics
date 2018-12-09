@@ -26,7 +26,7 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_transition', 2);
 
 		// set theme option defaults
-		setThemeOptionDefault('zpfocus_tagline', 'A ZenPhoto / ZenPage Powered Theme');
+		setThemeOptionDefault('zpfocus_tagline', 'A netPhotoGraphics / ZenPage Powered Theme');
 		setThemeOptionDefault('zpfocus_allow_search', true);
 		setThemeOptionDefault('zpfocus_show_archive', true);
 		setThemeOptionDefault('zpfocus_use_colorbox', true);

@@ -134,6 +134,15 @@ function filterImageQuery($result, $source, $limit = 1, $photo = true) {
 }
 
 /**
+ * @deprecated
+ * @since 1.9.0
+ */
+function printZenphotoLink() {
+	deprecated_functions::notify(gettext('Use print_SW_Link()'));
+	print_SW_Link();
+}
+
+/**
  * @deprecated since version 1.8.1
  */
 function exitZP() {

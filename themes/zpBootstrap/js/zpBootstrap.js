@@ -1,5 +1,5 @@
 /*------------------------------------
- zenphoto overwriting for theme, zenphoto and bootstrap 3.x being compliant all together
+ netPhotographics overwriting for theme, netPhotographics and bootstrap 3.x being compliant all together
  -------------------------------------- */
 
 $(document).ready(function () {
@@ -19,7 +19,7 @@ $(document).ready(function () {
 			$(this).append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
 		}
 	});
-	$('footer a[href="http://www.zenphoto.org"]')
+	$('footer a[href="http://netPhotographics.org"]')
 					.attr('target', '_blank')
 					.append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
 	$('#photo-part').addClass('text-lowercase');
