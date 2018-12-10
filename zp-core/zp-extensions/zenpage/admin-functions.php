@@ -536,7 +536,10 @@ function printAuthorDropdown() {
 			$authors[] = $row['author'];
 		}
 		if (isset($_GET['author'])) {
-			$cur_author = sanitize($_GET['author']);
+			$authors[] = $cur_author = sanitize($_GET['author']);
+			if (!in_array($cur_author, $authors)) {
+				$authors[] = $cur_author;
+			}
 			$selected = 'selected="selected"';
 		} else {
 			$selected = $cur_author = NULL;
@@ -577,6 +580,9 @@ function printNewsDatesDropdown() {
 		$selected = 'selected = "selected"';
 	} else {
 		$selected = "";
+		if (!in_array($_GET['date'], $datecount)) {
+			$datecount[$_GET['date']] = $_GET['date'];
+		}
 	}
 	?>
 	<form name="AutoListBox1" id="articledatesdropdown" style="float:left; margin:5px;" action="#" >
@@ -755,12 +761,12 @@ function printCategoryDropdown() {
 			$datelinkall = "";
 		}
 
+		$selected = $category = "";
 		if (isset($_GET['category'])) {
-			$selected = '';
+			$add = array('titlelink' => $category);
 			$category = sanitize($_GET['category']);
 		} else {
 			$selected = "selected='selected'";
-			$category = "";
 		}
 		$option = getNewsAdminOption('category');
 		?>
@@ -778,7 +784,6 @@ function printCategoryDropdown() {
 
 				foreach ($result as $cat) {
 					$catobj = newCategory($cat['titlelink']);
-					// check if there are articles in this category. If not don't list the category.
 					$count = count($catobj->getArticles(0, 'all'));
 					$count = " (" . $count . ")";
 					if ($category == $cat['titlelink']) {
@@ -796,7 +801,7 @@ function printCategoryDropdown() {
 					if (empty($title)) {
 						$title = '*' . $catobj->getTitlelink() . '*';
 					}
-					if ($count != " (0)") {
+					if ($selected || $count != " (0)") { //	don't list empty categories
 						echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath(array_merge(array(
 								'category' => $catobj->getTitlelink()), $option)) . "'>" . $levelmark . $title . $count . "</option>\n";
 					}
@@ -983,13 +988,13 @@ function printCategoryListSortableTable($cat, $toodeep) {
 
 		<div class="page-list_iconwrapper">
 			<div class="page-list_icon"><?php
-				$password = $cat->getPassword();
-				if ($password) {
-					echo LOCK;
-				} else {
-					echo LOCK_OPEN;
-				}
-				?>
+		$password = $cat->getPassword();
+		if ($password) {
+			echo LOCK;
+		} else {
+			echo LOCK_OPEN;
+		}
+			?>
 			</div>
 			<div class="page-list_icon">
 				<?php echo linkPickerIcon($cat); ?>
