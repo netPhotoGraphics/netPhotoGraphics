@@ -4018,7 +4018,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 									if (in_array($key, $query_fields)) {
 										echo ' checked="checked" ';
 									}
-									echo ' value="' . $key . '"  /> ' . trim($display, ':') . "</label></li>" . "\n";
+									echo ' value="' . html_encode($key) . '"  /> ' . html_encode(trim($display, ':')) . "</label></li>" . "\n";
 								}
 								?>
 							</ul>
@@ -4335,7 +4335,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
