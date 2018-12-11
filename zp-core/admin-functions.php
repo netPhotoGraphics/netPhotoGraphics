@@ -1297,8 +1297,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 		setThemeOption('thumb_transition', 1, $album, $theme, true);
 
 		$knownThemes = getSerializedArray(getOptionFromDB('known_themes'));
-		$knownThemes[$theme] = $theme;
-		setOption('known_themes', serialize($knownThemes));
+		if (!isset($knownThemes[$theme])) {
+			if (extensionEnabled('themeSwitcher')) {
+				$enabled = getSerializedArray(getOption('themeSwitcher_list'));
+				$enabled[$theme] = $theme;
+				setOption('themeSwitcher_list', serialize($enabled));
+			}
+			$knownThemes[$theme] = $theme;
+			setOption('known_themes', serialize($knownThemes));
+		}
 	}
 
 	/**
@@ -5613,21 +5620,21 @@ function consolidatedEditMessages($subtab) {
 	if (!empty($errorbox)) {
 		?>
 		<div class="errorbox fade-message">
-		<?php echo implode('<br />', $errorbox); ?>
+			<?php echo implode('<br />', $errorbox); ?>
 		</div>
 		<?php
 	}
 	if (!empty($notebox)) {
 		?>
 		<div class="notebox fade-message">
-		<?php echo implode('<br />', $notebox); ?>
+			<?php echo implode('<br />', $notebox); ?>
 		</div>
 		<?php
 	}
 	if (!empty($messagebox)) {
 		?>
 		<div class="messagebox fade-message">
-		<?php echo implode('<br />', $messagebox); ?>
+			<?php echo implode('<br />', $messagebox); ?>
 		</div>
 		<?php
 	}
@@ -5735,7 +5742,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-	<?php echo CLIPBOARD; ?>
+			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }
