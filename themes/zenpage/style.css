@@ -1415,3 +1415,6 @@ input.button {
 	width: auto !important;
 	height: auto !important;
 }
+.bx-wrapper{
+	margin: 0 auto;
+}
