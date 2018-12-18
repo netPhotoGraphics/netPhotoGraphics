@@ -7,7 +7,7 @@
  * @package admin
  */
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
 				if (basename($file) == 'security.log') {
 					zp_apply_filter('admin_log_actions', true, $file, $action); // have to record the fact
 				}
-				header('location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-logs.php');
+				header('location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/logs.php');
 				exit();
 			case 'download_log':
 				XSRFdefender($action, $what);
@@ -133,9 +133,9 @@ echo "\n</head>";
 							<?php
 						}
 						?>
-						<form method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-logs.php'; ?>?action=change_size&amp;page=logs&amp;tab=<?php echo html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>" >
+						<form method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/logs.php'; ?>?action=change_size&amp;page=logs&amp;tab=<?php echo html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>" >
 							<span class="button buttons">
-								<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-logs.php?action=delete_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete_log', $subtab); ?>">
+								<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/logs.php?action=delete_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete_log', $subtab); ?>">
 									<?php echo WASTEBASKET; ?>
 									<?php echo gettext('Delete'); ?></a>
 							</span>
@@ -143,13 +143,13 @@ echo "\n</head>";
 							if (!empty($logtext)) {
 								?>
 								<span class="button buttons">
-									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-logs.php?action=clear_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_log', $subtab); ?>">
+									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/logs.php?action=clear_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_log', $subtab); ?>">
 										<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 										<?php echo gettext('Reset'); ?>
 									</a>
 								</span>
 								<span class="button buttons">
-									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-logs.php?action=download_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('download_log', $subtab); ?>">
+									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/logs.php?action=download_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('download_log', $subtab); ?>">
 										<?php echo ARROW_DOWN_GREEN; ?>
 										<?php echo gettext('Download'); ?>
 									</a>

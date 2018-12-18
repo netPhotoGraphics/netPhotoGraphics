@@ -65,7 +65,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 			fclose($f);
 			clearstatcache();
 			// redirct to edit of this album
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit&album=" . pathurlencode($redirect));
+			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/edit.php?page=edit&album=" . pathurlencode($redirect));
 			exit();
 		}
 	}

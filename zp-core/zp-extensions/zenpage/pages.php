@@ -1,6 +1,6 @@
 <?php
 /**
- * zenpage admin-pages.php
+ * zenpage pages.php
  *
  * @author Malte Müller (acrylian)
  * @package plugins/zenpage
@@ -27,7 +27,7 @@ if (isset($_POST['update'])) {
 // remove the page from the database
 if (isset($_GET['delete'])) {
 	XSRFdefender('delete');
-	$msg = deleteZenpageObj(newPage(sanitize($_GET['delete']), 'admin-pages.php'));
+	$msg = deleteZenpageObj(newPage(sanitize($_GET['delete']), 'pages.php'));
 	if (!empty($msg)) {
 		$reports[] = $msg;
 	}
@@ -72,7 +72,7 @@ if (empty($reports)) {
 	}
 } else {
 	$_SESSION['reports'] = $reports;
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-pages.php';
+	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/pages.php';
 	header('Location: ' . $uri);
 	exit();
 }
@@ -135,7 +135,7 @@ updatePublished('pages');
 				if (!empty($pagelist) || zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printPagesStatistic(); ?></span>
-					<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="admin-pages.php" method="post" name="update" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="pages.php" method="post" name="update" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('update'); ?>
 
 						<p><?php echo gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."); ?></p>
@@ -155,7 +155,7 @@ updatePublished('pages');
 							if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<a href="admin-edit.php?page&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
+									<a href="edit.php?page&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
 										<?php echo PLUS_ICON; ?>
 										<strong>
 											<?php echo gettext('New Page'); ?>

@@ -181,7 +181,7 @@ $clear = sprintf(gettext('Refresh cache for %s'), $object);
 $count = 0;
 
 if ($alb) {
-	$r = '/admin-edit.php?page = edit&album = ' . $alb;
+	$r = '/admin-tabs/edit.php?page = edit&album = ' . $alb;
 	echo "\n<h1>" . $clear . "</h1>";
 } else {
 	$r = '/admin.php';

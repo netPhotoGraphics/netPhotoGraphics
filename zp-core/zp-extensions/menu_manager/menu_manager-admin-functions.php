@@ -45,13 +45,13 @@ function printItemsListTable($item, $toodeep) {
 	if ($array['valid']) {
 		switch ($item['type']) {
 			case "album":
-				$link = '<a href="../../admin-edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
 				break;
 			case "page":
-				$link = '<a href="../zenpage/admin-edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
 				break;
 			case "category":
-				$link = '<a href="../zenpage/admin-edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
 				break;
 			case 'dynamiclink':
 				$link = html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';

@@ -9,7 +9,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
 
@@ -50,8 +50,8 @@ if (file_exists(SERVERPATH . '/' . ZENFOLDER . '/admin_options/' . $_zp_admin_su
 	}
 	printAdminHeader('options');
 	?>
-	<script src='js/spectrum/spectrum.js'></script>
-	<link rel='stylesheet' href='js/spectrum/spectrum.css' />
+	<script src='<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/spectrum/spectrum.js'></script>
+	<link rel='stylesheet' href='<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/spectrum/spectrum.css' />
 	<?php
 	$table = NULL;
 
@@ -91,7 +91,7 @@ if (file_exists(SERVERPATH . '/' . ZENFOLDER . '/admin_options/' . $_zp_admin_su
 	</head>
 	<body>
 		<?php printLogoAndLinks(); ?>
-		<div id="main">
+		<div id ="main">
 			<?php printTabs(); ?>
 			<div id="content">
 				<?php

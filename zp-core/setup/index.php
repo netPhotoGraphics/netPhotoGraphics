@@ -1778,12 +1778,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								if ($_zp_loggedin == ADMIN_RIGHTS) {
 									$filelist = safe_glob(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/*.zdb');
 									if (count($filelist) > 0) {
-										$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-users.php?page=admin">', '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php">', '</a>');
+										$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php">', '</a>');
 										$autorun = false;
 									} else {
-										$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-users.php?page=admin">', '</a>');
+										$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '</a>');
 										if ($autorun == 'admin' || $autorun == 'gallery') {
-											$autorun = WEBPATH . '/' . ZENFOLDER . '/admin-users.php?page=admin';
+											$autorun = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin';
 										}
 									}
 								} else {

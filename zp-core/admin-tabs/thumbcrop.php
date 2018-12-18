@@ -7,7 +7,7 @@
  * @package admin
  */
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(dirname(__FILE__) . '/functions-image.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
@@ -163,7 +163,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$imageobj->set('thumbH', $ch);
 	$imageobj->save();
 
-	$return = '/admin-edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
+	$return = '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
 	if ($singleimage)
 		$return .= '&singleimage=' . html_encode($singleimage);
 	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . $return);
@@ -301,7 +301,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
 									<?php echo CROSS_MARK_RED; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
-								<button type="reset" value="<?php echo gettext('Back') ?>" onclick="window.location = 'admin-edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo html_encode($subpage) ?><?php if ($singleimage) echo '&singleimage=' . html_encode($singleimage); ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
+								<button type="reset" value="<?php echo gettext('Back') ?>" onclick="window.location = 'admin-tabs/edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo html_encode($subpage) ?><?php if ($singleimage) echo '&singleimage=' . html_encode($singleimage); ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
 									<span style="color:blue;font-size:large;line-height: 60%;">&lArr;</span>
 									<strong><?php echo gettext("Back"); ?></strong>
 								</button>

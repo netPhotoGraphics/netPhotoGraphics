@@ -231,7 +231,7 @@ function printPagesListTable($page, $toodeep) {
 		</div>
 		<div class="page-list_title">
 			<?php
-			echo "<a href='admin-edit.php?page&amp;titlelink=" . urlencode($page->getTitlelink()) . "'> ";
+			echo "<a href='edit.php?page&amp;titlelink=" . urlencode($page->getTitlelink()) . "'> ";
 			checkForEmptyTitle($page->getTitle(), "page");
 			echo "</a>" . checkHitcounterDisplay($page->getHitcounter());
 			?>
@@ -316,7 +316,7 @@ function printPagesListTable($page, $toodeep) {
 				}
 				?>
 				<div class="page-list_icon">
-					<a href="javascript:confirmDelete('admin-pages.php?delete=<?php echo $page->getTitlelink(); ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>',deletePage)" title="<?php echo gettext("Delete page"); ?>">
+					<a href="javascript:confirmDelete('pages.php?delete=<?php echo $page->getTitlelink(); ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>',deletePage)" title="<?php echo gettext("Delete page"); ?>">
 						<?php echo WASTEBASKET; ?>
 					</a>
 				</div>
@@ -549,14 +549,14 @@ function printAuthorDropdown() {
 		<form name="AutoListBox0" id="articleauthordropdown" style="float:left; margin:5px;" action="#" >
 			<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form)">
 				<?php
-				echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All authors") . "</option>";
+				echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All authors") . "</option>";
 				foreach ($authors as $author) {
 					if ($cur_author == $author) {
 						$selected = 'selected="selected"';
 					} else {
 						$selected = '';
 					}
-					echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . "'>$author</option>\n";
+					echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . "'>$author</option>\n";
 				}
 				?>
 			</select>
@@ -588,7 +588,7 @@ function printNewsDatesDropdown() {
 	<form name="AutoListBox1" id="articledatesdropdown" style="float:left; margin:5px;" action="#" >
 		<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form)">
 			<?php
-			echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("View all months") . "</option>\n";
+			echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("View all months") . "</option>\n";
 			foreach ($datecount as $key => $val) {
 				$nr++;
 				if ($key == '0000-00-01') {
@@ -610,7 +610,7 @@ function printNewsDatesDropdown() {
 				} else {
 					$selected = "";
 				}
-				echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . "'>$month $year ($val)</option>\n";
+				echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . "'>$month $year ($val)</option>\n";
 			}
 			?>
 		</select>
@@ -693,10 +693,10 @@ function printUnpublishedDropdown() {
 				$all = "selected='selected'";
 			}
 			$option = getNewsAdminOption('published');
-			echo "<option $all value='admin-news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All articles") . "</option>\n";
-			echo "<option $published value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'yes'), $option)) . "'>" . gettext("Published") . "</option>\n";
-			echo "<option $unpublished value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'no'), $option)) . "'>" . gettext("Un-published") . "</option>\n";
-			echo "<option $sticky value='admin-news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'sticky'), $option)) . "'>" . gettext("Sticky") . "</option>\n";
+			echo "<option $all value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All articles") . "</option>\n";
+			echo "<option $published value='news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'yes'), $option)) . "'>" . gettext("Published") . "</option>\n";
+			echo "<option $unpublished value='news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'no'), $option)) . "'>" . gettext("Un-published") . "</option>\n";
+			echo "<option $sticky value='news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'sticky'), $option)) . "'>" . gettext("Sticky") . "</option>\n";
 			?>
 		</select>
 
@@ -736,7 +736,7 @@ function printSortOrderDropdown() {
 			);
 			foreach ($selections as $sortorder => $text) {
 				?>
-				<option<?php if ($sortorder == $selected) echo ' selected="selected"'; ?> value="admin-news.php<?php echo getNewsAdminOptionPath(array_merge(array('sortorder' => $sortorder), $option)); ?>"><?php echo $text; ?></option>
+				<option<?php if ($sortorder == $selected) echo ' selected="selected"'; ?> value="news.php<?php echo getNewsAdminOptionPath(array_merge(array('sortorder' => $sortorder), $option)); ?>"><?php echo $text; ?></option>
 				<?php
 			}
 			?>
@@ -773,13 +773,13 @@ function printCategoryDropdown() {
 		<form name ="AutoListBox2" id="categorydropdown" style="float:left; margin:5px;" action="#" >
 			<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form)">
 				<?php
-				echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All categories") . "</option>\n";
+				echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All categories") . "</option>\n";
 				if ($category == '`') {
 					$selected = "selected='selected'";
 				} else {
 					$selected = "";
 				}
-				echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath(array_merge(array(
+				echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array(
 						'category' => '`'), $option)) . "'>" . gettext("Un-categorized") . "</option>\n";
 
 				foreach ($result as $cat) {
@@ -802,7 +802,7 @@ function printCategoryDropdown() {
 						$title = '*' . $catobj->getTitlelink() . '*';
 					}
 					if ($selected || $count != " (0)") { //	don't list empty categories
-						echo "<option $selected value='admin-news.php" . getNewsAdminOptionPath(array_merge(array(
+						echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array(
 								'category' => $catobj->getTitlelink()), $option)) . "'>" . $levelmark . $title . $count . "</option>\n";
 					}
 				}
@@ -828,11 +828,11 @@ function printArticlesPerPageDropdown($subpage) {
 			sort($list);
 			foreach ($list as $count) {
 				?>
-				<option <?php if ($articles_page == $count) echo 'selected="selected"'; ?> value="admin-news.php<?php echo getNewsAdminOptionPath(array_merge(array('articles_page' => $count, 'subpage' => (int) ($subpage * $articles_page / $count)), $option)); ?>"><?php printf(gettext('%u per page'), $count); ?></option>
+				<option <?php if ($articles_page == $count) echo 'selected="selected"'; ?> value="news.php<?php echo getNewsAdminOptionPath(array_merge(array('articles_page' => $count, 'subpage' => (int) ($subpage * $articles_page / $count)), $option)); ?>"><?php printf(gettext('%u per page'), $count); ?></option>
 				<?php
 			}
 			?>
-			<option <?php if ($articles_page == 0) echo 'selected="selected"'; ?> value="admin-news.php<?php echo getNewsAdminOptionPath(array_merge(array('articles_page' => 'all'), $option)); ?>"><?php echo gettext("All"); ?></option>
+			<option <?php if ($articles_page == 0) echo 'selected="selected"'; ?> value="news.php<?php echo getNewsAdminOptionPath(array_merge(array('articles_page' => 'all'), $option)); ?>"><?php echo gettext("All"); ?></option>
 		</select>
 
 	</form>
@@ -979,7 +979,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			<?php echo $handle; ?>
 		</div>
 		<div class="page-list_title">
-			<?php echo "<a href='admin-edit.php?newscategory&amp;titlelink=" . $cat->getTitlelink() . "' title='" . gettext('Edit this category') . "'>" . $cattitle . "</a>" . checkHitcounterDisplay($cat->getHitcounter()); ?>
+			<?php echo "<a href='edit.php?newscategory&amp;titlelink=" . $cat->getTitlelink() . "' title='" . gettext('Edit this category') . "'>" . $cattitle . "</a>" . checkHitcounterDisplay($cat->getHitcounter()); ?>
 		</div>
 		<div class="page-list_extra">
 			<?php echo $count; ?>
@@ -988,13 +988,13 @@ function printCategoryListSortableTable($cat, $toodeep) {
 
 		<div class="page-list_iconwrapper">
 			<div class="page-list_icon"><?php
-		$password = $cat->getPassword();
-		if ($password) {
-			echo LOCK;
-		} else {
-			echo LOCK_OPEN;
-		}
-			?>
+				$password = $cat->getPassword();
+				if ($password) {
+					echo LOCK;
+				} else {
+					echo LOCK_OPEN;
+				}
+				?>
 			</div>
 			<div class="page-list_icon">
 				<?php echo linkPickerIcon($cat); ?>
@@ -1041,7 +1041,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			}
 			?>
 			<div class="page-list_icon">
-				<a href="javascript:confirmDelete('admin-categories.php?delete=<?php echo js_encode($cat->getTitlelink()); ?>&amp;tab=categories&amp;XSRFToken=<?php echo getXSRFToken('delete_category') ?>',deleteCategory)"
+				<a href="javascript:confirmDelete('categories.php?delete=<?php echo js_encode($cat->getTitlelink()); ?>&amp;tab=categories&amp;XSRFToken=<?php echo getXSRFToken('delete_category') ?>',deleteCategory)"
 					 title="<?php echo gettext("Delete Category"); ?>">
 						 <?php echo WASTEBASKET; ?>
 				</a>
@@ -1542,7 +1542,7 @@ function checkIfLocked($obj) {
 }
 
 /**
- * Checks if the current admin-edit.php page is called for news articles or for pages.
+ * Checks if the current edit.php page is called for news articles or for pages.
  *
  * @param string $page What you want to check for, "page" or "newsarticle"
  * @return bool

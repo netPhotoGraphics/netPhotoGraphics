@@ -7,7 +7,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 if (isset($_REQUEST['album'])) {
 	$localrights = ALBUM_RIGHTS;
@@ -189,7 +189,7 @@ echo "\n</head>";
 								<?php printBulkActions($checkarray_images, true); ?>
 
 						<p class="buttons">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $parent; ?>">
+							<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>">
 								<?php echo BACK_ARROW_BLUE; ?>
 								<strong><?php echo gettext("Back"); ?></strong>
 							</a>
@@ -226,7 +226,7 @@ echo "\n</head>";
 													 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
 											<p>
 												<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
-												<a href="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/admin-edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
+												<a href="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
 													<?php echo PENCIL_ICON; ?>
 												</a>
 												<?php
@@ -252,7 +252,7 @@ echo "\n</head>";
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<p class="buttons">
-								<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $parent; ?>">
+								<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>">
 									<?php echo BACK_ARROW_BLUE; ?>
 									<strong><?php echo gettext("Back"); ?></strong>
 								</a>

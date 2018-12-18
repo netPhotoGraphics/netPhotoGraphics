@@ -16,7 +16,7 @@ function markUpdated($user) {
 //for finding out who did it!	debugLogBacktrace('updated');
 }
 
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
 
 if (isset($_GET['ticket'])) {
@@ -79,7 +79,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '&migration_error';
 			}
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-users.php?page=admin&subpage=" . $subpage . $notify);
+			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?page=admin&subpage=" . $subpage . $notify);
 			exit();
 
 		case 'deleteadmin':
@@ -87,7 +87,7 @@ if (isset($_GET['action'])) {
 			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
 			zp_apply_filter('save_user', '', $adminobj, 'delete');
 			$adminobj->remove();
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-users.php?page=admin&deleted&subpage=" . $subpage);
+			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?page=admin&deleted&subpage=" . $subpage);
 			exit();
 			break;
 		case 'saveoptions':
@@ -546,7 +546,7 @@ echo $refresh;
 									if (count($userlist) != 1 && ($pending || count($seenGroups) > 0)) {
 										echo gettext('show');
 										?>
-										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-users.php', ['showgroup=' + $('#showgroup').val()]);" >
+										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php', ['showgroup=' + $('#showgroup').val()]);" >
 											<option value=""<?php if (!$showgroup) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 											<?php
 											if ($pending) {
@@ -574,7 +574,7 @@ echo $refresh;
 								</td>
 								<td>
 									<span class="floatright padded">
-										<?php printPageSelector($subpage, $rangeset, 'admin-users.php', array('page' => 'users')); ?>
+										<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users')); ?>
 									</span>
 								</td>
 							</tr>
@@ -713,7 +713,7 @@ echo $refresh;
 																<?php
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
-																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
+																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
 																			 <?php echo BULLSEYE_BLUE; ?>
 																	</a>
@@ -930,7 +930,7 @@ echo $refresh;
 								<tr>
 									<td colspan="100%">
 										<span class="floatright padded">
-											<?php printPageSelector($subpage, $rangeset, 'admin-users.php', array('page' => 'users', 'showgroup' => $showgroup)); ?>
+											<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users', 'showgroup' => $showgroup)); ?>
 										</span>
 									</td>
 								</tr>

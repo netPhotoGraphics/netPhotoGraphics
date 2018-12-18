@@ -23,36 +23,6 @@ zp_register_filter('edit_album_utilities', 'jquery_rating::optionVoteStatus');
 zp_register_filter('save_album_utilities_data', 'jquery_rating::optionVoteStatusSave');
 zp_register_filter('admin_utilities_buttons', 'jquery_rating::rating_purgebutton');
 
-if (!defined('OFFSET_PATH')) {
-	define('OFFSET_PATH', 3);
-	require_once(dirname(dirname(__FILE__)) . '/functions.php');
-
-	if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
-		if (!zp_loggedin(ADMIN_RIGHTS)) {
-			// prevent nefarious access to this page.
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . currentRelativeURL());
-			exit();
-		}
-
-		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
-		if (session_id() == '') {
-			// force session cookie to be secure when in https
-			if (secureServer()) {
-				$CookieInfo = session_get_cookie_params();
-				session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
-			}
-			zp_session_start();
-		}
-		XSRFdefender('clear_rating');
-		query('UPDATE ' . prefix('images') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-		query('UPDATE ' . prefix('albums') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-		query('UPDATE ' . prefix('news') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-		query('UPDATE ' . prefix('pages') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&msg=' . gettext('All ratings have been set to <em>unrated</em>.'));
-		exit();
-	}
-}
-
 if (getOption('rating_image_individual_control')) {
 	zp_register_filter('edit_image_utilities', 'jquery_rating::optionVoteStatus');
 	zp_register_filter('save_image_utilities_data', 'jquery_rating::optionVoteStatusSave');
@@ -243,7 +213,7 @@ class jquery_rating {
 				'enable' => true,
 				'button_text' => gettext('Reset all ratings'),
 				'formname' => 'clearrating_button',
-				'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rating.php?action=clear_rating',
+				'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rating/update.php?action=clear_rating',
 				'icon' => RECYCLE_ICON,
 				'title' => gettext('Sets all ratings to unrated.'),
 				'alt' => '',

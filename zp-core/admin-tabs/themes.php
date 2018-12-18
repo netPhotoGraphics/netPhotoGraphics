@@ -9,7 +9,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 admin_securityChecks(THEMES_RIGHTS, currentRelativeURL());
 
@@ -18,7 +18,7 @@ $_GET['page'] = 'themes';
 /* handle posts */
 $message = null; // will hold error/success message displayed in a fading box
 if (isset($_GET['action'])) {
-	XSRFdefender('admin-themes');
+	XSRFdefender('admin-tabs/themes');
 	switch ($_GET['action']) {
 		case 'settheme':
 			if (isset($_GET['theme'])) {
@@ -41,7 +41,7 @@ if (isset($_GET['action'])) {
 				}
 				/* set any "standard" options that may not have been covered by the theme */
 				standardThemeOptions($newtheme, $_set_theme_album);
-				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-themes.php?themealbum=" . sanitize($_GET['themealbum']));
+				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/themes.php?themealbum=" . sanitize($_GET['themealbum']));
 				exit();
 			}
 			break;
@@ -77,7 +77,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 		if (targetname) {
 			var targetdir = prompt('<?php echo gettext('Theme folder name?'); ?>', targetname.toLowerCase().replace(/ /g, '_').replace(/[^A-Za-z0-9_]/g, ''));
 			if (targetdir) {
-				launchScript('', ['action=copytheme', 'XSRFToken=<?php echo getXSRFToken('admin-themes') ?>', 'source=' + encodeURIComponent(source), 'target=' + encodeURIComponent(targetdir), 'name=' + encodeURIComponent(targetname)]);
+				launchScript('', ['action=copytheme', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>', 'source=' + encodeURIComponent(source), 'target=' + encodeURIComponent(targetdir), 'name=' + encodeURIComponent(targetname)]);
 				return false;
 			}
 		}
@@ -158,7 +158,7 @@ if (count($themelist) == 0) {
 	if (!empty($alb) && !empty($themename)) {
 		?>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a class="reset" onclick="launchScript('', ['action=settheme', 'themealbum=<?php echo pathurlencode($album->name); ?>', 'theme=', 'XSRFToken=<?php echo getXSRFToken('admin-themes'); ?>']);" title="<?php printf(gettext('Clear theme assignment for %s'), html_encode($album->name)); ?>">
+		<a class="reset" onclick="launchScript('', ['action=settheme', 'themealbum=<?php echo pathurlencode($album->name); ?>', 'theme=', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes'); ?>']);" title="<?php printf(gettext('Clear theme assignment for %s'), html_encode($album->name)); ?>">
 			<?php echo CROSS_MARK_RED; ?>
 		</a>
 		<?php
@@ -215,7 +215,7 @@ if (count($themelist) == 0) {
 			if (protectedTheme($theme)) {
 				$whose = 'Official theme';
 				if (!$ico) {
-					$ico = '<img class="zp_logoicon" src="images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
+					$ico = '<img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
 				}
 			} else {
 				$whose = gettext('Third party theme');
@@ -267,7 +267,7 @@ if (count($themelist) == 0) {
 					}
 					?>
 					<br /><br />
-					<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-options.php?page=options&amp;tab=theme&amp;optiontheme=<?php echo $linkto; ?>" ><?php echo sprintf(gettext('Set <em>%s</em> theme options'), $themeinfo['name']); ?></a>
+					<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?page=options&amp;tab=theme&amp;optiontheme=<?php echo $linkto; ?>" ><?php echo sprintf(gettext('Set <em>%s</em> theme options'), $themeinfo['name']); ?></a>
 					<?php
 					if (!isset($knownThemes[$theme])) {
 						?>
@@ -283,7 +283,7 @@ if (count($themelist) == 0) {
 							?>
 							<li>
 								<p class="buttons">
-									<a onclick="launchScript('admin-themes.php', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-themes') ?>']);">
+									<a onclick="launchScript('admin-tabs/themes.php', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
 										<?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Activate"); ?>
 									</a>
 								</p>
@@ -295,7 +295,7 @@ if (count($themelist) == 0) {
 								?>
 								<li>
 									<p class="buttons">
-										<a onclick="launchScript('admin-themes.php', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-themes') ?>']);">
+										<a onclick="launchScript('admin-tabs/themes.php', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
 											<?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Assign"); ?>
 										</a>
 									</p>
@@ -322,7 +322,7 @@ if (count($themelist) == 0) {
 								?>
 								<li>
 									<p class="buttons">
-										<a onclick="launchScript('admin-themes.php', ['action=deletetheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-themes') ?>']);">
+										<a onclick="launchScript('admin-tabs/themes.php', ['action=deletetheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
 											<?php echo WASTEBASKET; ?>
 											<?php echo gettext("Delete"); ?>
 										</a>
@@ -335,7 +335,7 @@ if (count($themelist) == 0) {
 							<li class="zp_copy_theme">
 								<p class="buttons">
 									<a onclick="copyClick('<?php echo $theme; ?>');">
-										<img src="images/page_white_copy.png" alt="" /><?php echo gettext("Duplicate"); ?>
+										<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/page_white_copy.png" alt="" /><?php echo gettext("Duplicate"); ?>
 									</a>
 								</p>
 							</li>

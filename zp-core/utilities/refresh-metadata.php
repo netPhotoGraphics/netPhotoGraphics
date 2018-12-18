@@ -10,7 +10,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 // need the class plugins to handle video, etc.
 foreach (getEnabledPlugins() as $extension => $plugin) {
@@ -18,7 +18,7 @@ foreach (getEnabledPlugins() as $extension => $plugin) {
 		require_once($plugin['path']);
 }
 
-require_once(dirname(__FILE__) . '/template-functions.php');
+require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
 
 if (isset($_REQUEST['album'])) {
 	$localrights = ALBUM_RIGHTS;
@@ -62,11 +62,11 @@ if (isset($_REQUEST['album'])) {
 }
 $albumparm = $folder = $albumwhere = $imagewhere = $id = $r = '';
 $ret = '';
-$backurl = 'admin.php';
+$backurl = FULLWEBPATH . '/' . ZENFOLDER . '/admin.php';
 if (isset($_REQUEST['return'])) {
 	$return = $_REQUEST['return'];
 	if ($return == '*') {
-		$backurl = 'admin-edit.php';
+		$backurl = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php';
 	} else {
 		$r = '?page=edit&amp;album=' . pathurlencode($ret = sanitize_path($return));
 		if (strpos($return, '*') === 0) {
@@ -75,7 +75,7 @@ if (isset($_REQUEST['return'])) {
 		} else {
 			$star = '';
 		}
-		$backurl = 'admin-edit.php' . $r . '&amp;return=' . $star . pathurlencode($ret);
+		$backurl = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php' . $r . '&amp;return=' . $star . pathurlencode($ret);
 	}
 }
 
