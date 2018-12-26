@@ -72,6 +72,7 @@ class slideshow {
 			foreach ($found as $theme => $scripts) {
 				setOptionDefault('slideshow_' . $theme . '_scripts', serialize($scripts));
 			}
+
 			//setOptionDefault('slideshow_size', '595');
 			setOptionDefault('slideshow_width', '595');
 			setOptionDefault('slideshow_height', '595');

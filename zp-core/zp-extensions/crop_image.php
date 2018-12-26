@@ -60,7 +60,7 @@ class crop_image {
 							'<div class="button buttons tooltip" title="' . gettext('Permanently crop the actual image.') . '">' . "\n" .
 							'<a href="' . WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/crop_image.php?a=' . pathurlencode($albumname) . "\n" .
 							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n" .
-							'<img src="images/shape_handles.png" alt="" />' . gettext("Crop image") . '</a>' . "\n" .
+							'<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/shape_handles.png" alt="" />' . gettext("Crop image") . '</a>' . "\n" .
 							'<br class="clearall">' .
 							'</div>' . "\n";
 		}
@@ -201,7 +201,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$imageobj->save();
 
 	if ($_REQUEST['performcrop'] == 'backend') {
-		$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . sanitize($_REQUEST['subpage']) . '&tagsort=' . sanitize($_REQUEST['tagsort']) . '&tab=imageinfo';
+		$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . sanitize($_REQUEST['subpage']) . '&tagsort=' . sanitize($_REQUEST['tagsort']) . '&tab=imageinfo';
 		if ($singleimage)
 			$return .= '&singleimage=' . html_encode($singleimage);
 	} else {
@@ -457,7 +457,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								<?php
 								if ($_REQUEST['performcrop'] == 'backend') {
 									?>
-									<button type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '../admin-edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo $subpage . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : ''; ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
+									<button type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '../admin-tabs/edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo $subpage . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : ''; ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
 										<?php echo BACK_ARROW_BLUE; ?>
 										<strong><?php echo gettext("Back"); ?></strong>
 									</button>

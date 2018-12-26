@@ -727,7 +727,7 @@ class _Authority {
 						$info = $user->getChallengePhraseInfo();
 						if ($post_pass && $info['response'] == $post_pass) {
 							$ref = self::getResetTicket($post_user, $user->getPass());
-							header('location:' . WEBPATH . '/' . ZENFOLDER . '/admin-users.php?ticket=' . $ref . '&user=' . $post_user);
+							header('location:' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?ticket=' . $ref . '&user=' . $post_user);
 							exit();
 						}
 					}
@@ -785,7 +785,7 @@ class _Authority {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
 							$msg = "\n" . $requestor;
 							if ($found) {
-								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), FULLWEBPATH . "/" . ZENFOLDER . "/admin-users.php?ticket=$ref&user=" . $user['user']) .
+								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?ticket=$ref&user=" . $user['user']) .
 												"\n" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.");
 							} else {
 								$msg.= "\n" . gettext('No matching user was found.');

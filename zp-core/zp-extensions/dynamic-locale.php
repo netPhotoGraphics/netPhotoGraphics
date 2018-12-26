@@ -96,6 +96,7 @@ function printLanguageSelector($flags = NULL) {
 			}
 		}
 	}
+
 	$languages = generateLanguageList();
 	$disallow = getSerializedArray(getOption('locale_disallowed'));
 

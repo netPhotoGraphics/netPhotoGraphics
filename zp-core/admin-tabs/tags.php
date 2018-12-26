@@ -7,8 +7,8 @@
  * @package admin
  */
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
-require_once(dirname(__FILE__) . '/template-functions.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+require_once(SERVERPATH.'/'.ZENFOLDER . '/template-functions.php');
 
 admin_securityChecks(TAGS_RIGHTS, currentRelativeURL());
 

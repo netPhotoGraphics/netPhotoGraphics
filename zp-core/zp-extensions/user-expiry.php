@@ -98,7 +98,7 @@ class user_expiry {
 		if (user_expiry::checkPasswordRenew()) {
 			$_zp_current_admin_obj->setRights($_zp_loggedin = USER_RIGHTS | NO_RIGHTS);
 			$tabs = array('admin' => array('text' => gettext("admin"),
-							'link' => WEBPATH . "/" . ZENFOLDER . '/admin-users.php?page=admin&tab=users',
+							'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
 							'subtabs' => NULL));
 		} else {
 			if (zp_loggedin(ADMIN_RIGHTS) && $_zp_current_admin_obj->getID()) {
@@ -265,7 +265,7 @@ class user_expiry {
 			}
 		}
 		if (user_expiry::checkPasswordRenew()) {
-			header("Location: " . FULLWEBPATH . '/' . ZENFOLDER . '/admin-users.php?page=admin&tab=users');
+			header("Location: " . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users');
 			exit();
 		}
 		return $path;

@@ -66,11 +66,11 @@ class cycle {
 					purgeOption('cycle_' . $matches[1] . '_' . $matches[2]);
 				}
 			}
-
 			foreach ($found as $theme => $scripts) {
 				setOptionDefault('cycle_' . $theme . '_scripts', serialize($scripts));
 			}
-//normal slideshow
+
+			//normal slideshow
 			setOptionDefault('cycle-slideshow_width', '595');
 			setOptionDefault('cycle-slideshow_height', '595');
 			setOptionDefault('cycle-slideshow_mode', 'cycle');

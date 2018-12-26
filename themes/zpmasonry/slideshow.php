@@ -6,7 +6,7 @@
 // force UTF-8 Ø
 
 if (!defined('WEBPATH'))
-	die(); // are we in the Zenphoto environment? if not, kill application.
+	die(); // are we in the netPhotoGraphics environment? if not, kill application.
 ?>
 
 <?php if (function_exists('printGslideshow')) { ?>
@@ -37,11 +37,11 @@ if (!defined('WEBPATH'))
 
 		</head>
 		<body>
-				<?php zp_apply_filter('theme_body_open'); ?>
+			<?php zp_apply_filter('theme_body_open'); ?>
 			<div id="slideshowpage">
-			<?php printSlideShow(true, true); ?>
+				<?php printSlideShow(true, true); ?>
 			</div>
-	<?php zp_apply_filter('theme_body_close'); ?>
+			<?php zp_apply_filter('theme_body_close'); ?>
 
 		</body>
 	</html>

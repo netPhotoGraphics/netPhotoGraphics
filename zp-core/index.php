@@ -44,7 +44,7 @@ foreach (getEnabledPlugins() as $extension => $plugin) {
 $_zp_script_timer['feature plugins'] = microtime();
 
 require_once(SERVERPATH . "/" . ZENFOLDER . '/rewrite.php');
-require_once(dirname(__FILE__) . '/template-functions.php');
+require_once(SERVERPATH.'/'.ZENFOLDER . '/template-functions.php');
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
 	define('SEO_WEBPATH', WEBPATH);

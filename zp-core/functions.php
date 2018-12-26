@@ -2283,9 +2283,9 @@ function load_jQuery_scripts($where, $ui = true) {
 			break;
 		case 3: //	use legacy jQuery
 			?>
-			<!-- for migration to jQuery 1.9 purposes -->
+			<!-- for migration to jQuery 1.9+ purposes -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-1.12.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-1.12.4.min.js');
 			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-1.4.1.js');
 			break;
 	}

@@ -51,7 +51,7 @@ $args[0] = 'FULL';
 $adminrequest = $args[12];
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
-	// maybe it was from the tinyZenpage javascript which does not know better!
+	// maybe it was from javascript which does not know better!
 	zp_session_start();
 	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['zp_user_auth'];
 }

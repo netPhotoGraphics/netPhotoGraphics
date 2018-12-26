@@ -605,7 +605,7 @@ ul.pagelist li.next {
 	background: __B_23__;
 }
 #albums li:hover h4 a {
-	color: __C_51__; 
+	color: __C_51__;
 }
 .imagethumb {
 	float: left;
@@ -1162,20 +1162,6 @@ ul li {
 	text-indent: 1em;
 }
 
-/* tinyZenpage title addition */
-.zenpage_wrapper_left {
-	margin-right: 10px;
-	padding: 0px 10px 10px 0px;
-}
-
-.zenpage_wrapper_right {
-	margin-left: 10px;
-	padding: 0px 0px 10px 10px;
-}
-
-div.zenpage_title {
-	font-style: italic;
-}
 .textobject {
 	text-align: left !important;
 	text-decoration: none !important;

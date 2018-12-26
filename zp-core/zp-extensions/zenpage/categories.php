@@ -1,6 +1,6 @@
 <?php
 /**
- * zenpage admin-categories.php
+ * zenpage categories
  *
  * @author Malte Müller (acrylian)
  * @package plugins/zenpage
@@ -58,7 +58,7 @@ if (empty($reports)) {
 	$_SESSION['reports'] = $reports;
 
 	var_dump($reports);
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-categories.php';
+	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/categories.php';
 	header('Location: ' . $uri);
 	exit();
 }
@@ -139,7 +139,7 @@ zenpageJSCSS();
 				if (!empty($categories) || zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printCategoriesStatistic(); ?></span>
-					<form class="dirtylistening" onReset="setClean('checkeditems');" action="admin-categories.php?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('checkeditems');" action="categories.php?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('checkeditems'); ?>
 						<input	type="hidden" name="action" id="action" value="update" />
 						<p class="buttons">
@@ -150,7 +150,7 @@ zenpageJSCSS();
 							if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<a href="admin-edit.php?newscategory&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo gettext('New category'); ?>">
+									<a href="edit.php?newscategory&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo gettext('New category'); ?>">
 										<?php echo PLUS_ICON; ?>
 										<strong>
 											<?php echo gettext('New category'); ?>

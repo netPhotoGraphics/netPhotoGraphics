@@ -247,7 +247,7 @@ if (!defined('OFFSET_PATH')) {
 				if (file_exists($path)) {
 					$ico = str_replace(SERVERPATH, WEBPATH, $path);
 				} else {
-					$ico = 'images/placeholder.png';
+					$ico = WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png';
 				}
 				break;
 			case 'supplemental':
@@ -255,14 +255,14 @@ if (!defined('OFFSET_PATH')) {
 					$sublink = $subpackage . '/';
 				}
 				$whose = 'Supplemental plugin';
-				$ico = 'images/np_blue.png';
+				$ico = WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png';
 				break;
 			default:
 				if ($subpackage) {
 					$sublink = $subpackage . '/';
 				}
 				$whose = 'Official plugin';
-				$ico = 'images/np_gold.png';
+				$ico = WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png';
 				break;
 		}
 

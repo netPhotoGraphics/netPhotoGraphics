@@ -1,6 +1,6 @@
 <?php
 /**
- * zenpage admin-news.php
+ * zenpage news.php
  *
  * @author Malte Müller (acrylian)
  * @package plugins/zenpage
@@ -15,7 +15,7 @@ $reports = array();
 
 if (isset($_GET['delete'])) {
 	XSRFdefender('delete');
-	$msg = deleteZenpageObj(newArticle(sanitize($_GET['delete']), 'admin-news.php'));
+	$msg = deleteZenpageObj(newArticle(sanitize($_GET['delete']), 'news.php'));
 	if (!empty($msg)) {
 		$reports[] = $msg;
 	}
@@ -63,7 +63,7 @@ if (empty($reports)) {
 	}
 } else {
 	$_SESSION['reports'] = $reports;
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-news.php' . getNewsAdminOptionPath(getNewsAdminOption(NULL));
+	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php' . getNewsAdminOptionPath(getNewsAdminOption(NULL));
 	header('Location: ' . $uri);
 	exit();
 }
@@ -244,14 +244,14 @@ updatePublished('news');
 						<?php
 						$option = getNewsAdminOptionPath(getNewsAdminOption(NULL));
 						?>
-						<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="admin-news.php<?php echo $option; ?>" method="post" name="checkeditems" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
+						<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="news.php<?php echo $option; ?>" method="post" name="checkeditems" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
 							<?php XSRFToken('checkeditems'); ?>
 							<div class="buttons">
 								<button type="submit" title="<?php echo gettext('Apply'); ?>"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
 								</button>
 							</div>
 							<span class="buttons floatright">
-								<a href="admin-edit.php?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
+								<a href="edit.php?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
 									<?php echo PLUS_ICON; ?>
 									<strong><?php echo gettext("New Article"); ?></strong>
 								</a>
@@ -259,7 +259,7 @@ updatePublished('news');
 							<br class="clearall">
 
 							<div class="centered">
-								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/admin-news.php', $options); ?>
+								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
 							</div>
 
 							<div class="headline">
@@ -327,7 +327,7 @@ updatePublished('news');
 											}
 
 
-											echo '<a href="admin-edit.php' . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
+											echo '<a href="edit.php' . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
 											checkForEmptyTitle($article->getTitle(), "news");
 											echo '</a>' . checkHitcounterDisplay($article->getHitcounter()) . $sticky;
 											?>
@@ -436,7 +436,7 @@ updatePublished('news');
 												}
 												?>
 												<div class="page-list_icon">
-													<a href="javascript:confirmDelete('admin-news.php<?php echo $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
+													<a href="javascript:confirmDelete('news.php<?php echo $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
 														<?php echo WASTEBASKET; ?>
 													</a>
 												</div>
@@ -467,7 +467,7 @@ updatePublished('news');
 
 							</table>
 							<p class="centered">
-								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/admin-news.php', $options); ?>
+								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
 							</p>
 							<p class="buttons">
 								<button type="submit" title="<?php echo gettext('Apply'); ?>">

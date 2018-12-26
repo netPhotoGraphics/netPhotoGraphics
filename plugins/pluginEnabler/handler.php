@@ -108,6 +108,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 								}
 							}
 						}
+
 						$option_interface = NULL;
 						require_once($paths[$extension]);
 						if ($option_interface && is_string($option_interface)) {

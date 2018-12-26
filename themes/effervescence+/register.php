@@ -69,7 +69,7 @@ if (function_exists('printRegistrationForm')) {
 			<div class="footlinks">
 
 				<?php printThemeInfo(); ?>
-				<?php printZenphotoLink(); ?>
+				<?php print_SW_Link(); ?>
 
 			</div> <!-- footerlinks -->
 

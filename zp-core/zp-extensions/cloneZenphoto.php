@@ -50,12 +50,12 @@ if ($plugin_disable) {
 					$subtabs = $tabs['admin']['subtabs'];
 				} else {
 					$subtabs = array(
-							gettext('users') => 'admin-users.php?page=admin&tab=users'
+							gettext('users') => 'admin-tabs/users.php?page=admin&tab=users'
 					);
 				}
 				$subtabs[gettext("clone")] = PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php?page=admin&tab=clone';
 				$tabs['admin']['text'] = gettext("admin");
-				$tabs['admin']['link'] = WEBPATH . "/" . ZENFOLDER . '/admin-users.php?page=admin&tab=users';
+				$tabs['admin']['link'] = WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users';
 				$tabs['admin']['subtabs'] = $subtabs;
 			}
 			return $tabs;

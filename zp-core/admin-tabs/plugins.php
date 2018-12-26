@@ -9,7 +9,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
@@ -88,7 +88,7 @@ if (isset($_GET['action'])) {
 			$notify = '&post_error';
 		}
 
-		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-plugins.php?page=plugins&tab=" . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
+		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/plugins.php?page=plugins&tab=" . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
 		exit();
 	}
 }
@@ -104,7 +104,7 @@ $filelist = array_slice($pluginlist, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PA
 	var pluginsToPage = ['<?php echo implode("','", array_map('strtolower', $pluginlist)); ?>'];
 	function gotoPlugin(plugin) {
 		i = Math.floor(jQuery.inArray(plugin, pluginsToPage) / <?php echo PLUGINS_PER_PAGE; ?>);
-		window.location = '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-plugins.php?page=plugins&tab=<?php echo html_encode($plugin_default); ?>&subpage=' + i + '&show=' + plugin + '#' + plugin;
+		window.location = '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/plugins.php?page=plugins&tab=<?php echo html_encode($plugin_default); ?>&subpage=' + i + '&show=' + plugin + '#' + plugin;
 	}
 
 	function showPluginInfo(plugin) {
@@ -175,7 +175,7 @@ zp_apply_filter('admin_note', 'plugins', '');
 		<table>
 			<tr>
 				<th class="centered" colspan="100%">
-					<?php printPageSelector($subpage, $rangeset, 'admin-plugins.php', array('page' => 'plugins', 'tab' => $plugin_default)); ?>
+					<?php printPageSelector($subpage, $rangeset, 'admin-tabs/plugins.php', array('page' => 'plugins', 'tab' => $plugin_default)); ?>
 				</th>
 			</tr>
 			<tr>
@@ -194,10 +194,10 @@ zp_apply_filter('admin_note', 'plugins', '');
 				switch ($details['thridparty']) {
 					case 0:
 						$whose = gettext('Official plugin');
-						$ico = 'images/np_gold.png';
+						$ico = WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png';
 						break;
 					case 1:
-						$ico = 'images/np_blue.png';
+						$ico = WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png';
 						$whose = gettext('Supplemental plugin');
 						$plugin_URL .= '&type=supplemental';
 						break;
@@ -206,7 +206,7 @@ zp_apply_filter('admin_note', 'plugins', '');
 						if (file_exists($path)) {
 							$ico = str_replace(SERVERPATH, WEBPATH, $path);
 						} else {
-							$ico = 'images/placeholder.png';
+							$ico = WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png';
 						}
 						$whose = gettext('Third party plugin');
 						$plugin_URL .= '&type=thirdparty';
@@ -262,7 +262,7 @@ zp_apply_filter('admin_note', 'plugins', '');
 						$option_interface = NULL;
 						eval($str);
 						if ($option_interface) {
-							$optionlink = FULLWEBPATH . '/' . ZENFOLDER . '/admin-options.php?page=options&amp;tab=plugin&amp;single=' . $extension;
+							$optionlink = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?page=options&amp;tab=plugin&amp;single=' . $extension;
 						}
 					}
 				}
@@ -276,20 +276,20 @@ zp_apply_filter('admin_note', 'plugins', '');
 				}
 
 				if ($plugin_is_filter & CLASS_PLUGIN) {
-					$iconA = '<img class="zp_logoicon" width="8px" src="images/placeholder.png" /><a title="' . gettext('class plugin') . '"><img class="zp_logoicon" src="images/folder_picture.png" /></a><img class="zp_logoicon" width="8px" src="images/placeholder.png" />';
+					$iconA = '<img class="zp_logoicon" width="8px" src="' . WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png" /><a title="' . gettext('class plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/folder_picture.png" /></a><img class="zp_logoicon" width="8px" src="' . WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png" />';
 					$iconT = '';
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
-						$iconA = '<a title="' . gettext('admin plugin') . '"><img class="zp_logoicon" src="images/folder.png" /></a>';
+						$iconA = '<a title="' . gettext('admin plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/folder.png" /></a>';
 					} else {
-						$iconA = '<img class="zp_logoicon" src="images/placeholder.png" />';
+						$iconA = '<img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png" />';
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
-						$iconT = '<a title="' . gettext('feature plugin') . '"><img class="zp_logoicon" src="images/pictures.png" /></a>';
+						$iconT = '<a title="' . gettext('feature plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures.png" /></a>';
 					} else if ($plugin_is_filter & THEME_PLUGIN) {
-						$iconT = '<a title="' . gettext('theme plugin') . '"><img class="zp_logoicon" src="images/pictures_dn.png" /></a>';
+						$iconT = '<a title="' . gettext('theme plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures_dn.png" /></a>';
 					} else {
-						$iconT = '<img class="zp_logoicon" src="images/placeholder.png" />';
+						$iconT = '<img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png" />';
 					}
 				}
 
@@ -413,7 +413,7 @@ zp_apply_filter('admin_note', 'plugins', '');
 								<?php
 							} else {
 								?>
-								<span class="icons"><img class="icon-position-top3" src="images/placeholder.png" alt="" /></span>
+								<span class="icons"><img class="icon-position-top3" src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png" alt="" /></span>
 								<?php
 							}
 							if ($plugin_notice) {
@@ -440,34 +440,34 @@ zp_apply_filter('admin_note', 'plugins', '');
 			?>
 			<tr>
 				<td colspan="100%" class="centered">
-					<?php printPageSelector($subpage, $rangeset, 'admin-plugins.php', array('page' => 'plugins', 'tab' => $plugin_default)); ?>
+					<?php printPageSelector($subpage, $rangeset, 'admin-tabs/plugins.php', array('page' => 'plugins', 'tab' => $plugin_default)); ?>
 				</td>
 			</tr>
 		</table>
 		<br />
 		<ul class="iconlegend">
 			<li>
-				<img src="images/np_gold.png" alt="">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/np_gold.png" alt="">
 				<?php echo gettext('Official plugin'); ?>
 			</li>
 			<li>
-				<img src="images/np_blue.png" alt="">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/np_blue.png" alt="">
 				<?php echo gettext('Supplemental plugin'); ?>
 			</li>
 			<li>
-				<img src="images/folder_picture.png" alt="">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder_picture.png" alt="">
 				<?php echo gettext('Class plugin'); ?>
 			</li>
 			<li>
-				<img src="images/folder.png" alt="">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="">
 				<?php echo gettext('Admin plugin'); ?>
 			</li>
 			<li>
-				<img src="images/pictures.png" alt="">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/pictures.png" alt="">
 				<?php echo gettext('Feature plugin'); ?>
 			</li>
 			<li>
-				<img src="images/pictures_dn.png" alt="">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/pictures_dn.png" alt="">
 				<?php echo gettext('Theme plugin'); ?>
 			</li>
 			<li>

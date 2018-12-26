@@ -55,16 +55,49 @@ class debug {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			$list = array('404' => '404', 'DISPLAY_ERRORS' => 'DISPLAY_ERRORS');
-			$options = getOptionsLike('debug_mark_');
-			foreach ($options as $option => $value) {
-				if ($value) {
-					$object = strtoupper(str_replace('debug_mark_', '', $option));
-					$list[$object] = $object;
+			if (TEST_RELEASE) {
+				//	then the options must match the version tags
+				$options = explode('-', ZENPHOTO_VERSION . '-');
+				$options = explode('_', $options[1]);
+				array_shift($options);
+				setOption('debug_marks', serialize($options));
+			} else {
+				$options = getOptionsLike('debug_mark_');
+				if ($options) {
+					foreach ($options as $option => $value) {
+						if ($value) {
+							$object = strtoupper(str_replace('debug_mark_', '', $option));
+							$list[$object] = $object;
+						}
+						purgeOption($option);
+					}
+					$options = $list;
+					$update = true;
 				}
-				purgeOption($option);
 			}
-			setOptionDefault('debug_marks', serialize($list));
+			$update = false;
+			if (empty($options)) {
+				$options = getSerializedArray(getOption('debug_marks'));
+			}
+			$key = array_search('DISPLAY', $options);
+			if ($key !== false) {
+				$key2 = array_search('ERRORS', $options);
+				if ($key2 == $key + 1) {
+					unset($options[$key2]);
+					$options[$key] = 'DISPLAY‑ERRORS';
+					$update = true;
+				}
+			} else {
+				$key = array_search('DISPLAY_ERRORS', $options);
+				if ($key !== false) {
+					$options[$key] = 'DISPLAY‑ERRORS';
+					$update = true;
+				}
+			}
+			if ($update) {
+				setOption('debug_marks', serialize($options));
+				self::handleOptionSave(NULL, NULL);
+			}
 
 			$version = debug::version(true);
 			setOptionDefault('jQuery_Migrate_theme', 0);
@@ -76,11 +109,11 @@ class debug {
 
 	function getOptionsSupported() {
 		$list = array(
-				gettext('Display PHP errors') => 'DISPLAY_ERRORS',
+				gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
 				gettext('<em>testing mode</em>') => 'TESTING',
 				gettext('Log 404 error processing debug information') => '404',
 				gettext('Log start/finish of exif processing') => 'EXIF',
-				gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN_SELECTS',
+				gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
 				gettext('Log filter application sequence') => 'FILTERS',
 				gettext('Log image processing debug information') => 'IMAGE',
 				gettext('Log language selection processing') => 'LOCALE',

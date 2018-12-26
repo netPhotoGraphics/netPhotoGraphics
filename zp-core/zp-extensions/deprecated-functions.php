@@ -121,55 +121,65 @@ class deprecated_functions {
 
 	/*
 	 * used to provided deprecated function notification.
+	 *
+	 * @param $message the instructions for mitigation
+	 * @param $fcn used for handling "magic call" class methods
 	 */
 
-	static function notify_handler($message, $traces) {
-		if ($traces) {
-			$fcn = $traces[1]['function'];
+	static function notify($message, $fcn = NULL) {
+		$traces = debug_backtrace();
+		foreach ($traces as $key => $trace) {
+			if (!array_key_exists('file', $trace) || basename($trace['file']) != 'deprecated-functions.php') {
+				break;
+			}
+			unset($traces[$key]);
+		}
+
+		if ($fcn) { //	static call
+			array_shift($traces); //	remove the _CALL container
+			$traces = array_values($traces);
+		} else {
+			$traces = array_values($traces);
+			$fcn = $traces[0]['function'];
+
 			if (empty($fcn)) {
 				$fcn = gettext('function');
 			}
-			if (!empty($message))
-				$message = ' ' . $message;
-			//get the container folder
-			if (isset($traces[0]['file']) && isset($traces[0]['line'])) {
-				$script = basename(dirname($traces[0]['file']));
-			} else {
-				$script = 'unknown';
-			}
-			if ($script == 'deprecated-functions') {
-				$plugin = 'core';
-			} else {
-				$plugin = $script;
-			}
-
-			if (isset($traces[1]['file']) && isset($traces[1]['line'])) {
-
-				$path = explode('/', replaceScriptPath($traces[1]['file']));
-				switch (array_shift($path)) {
-					case THEMEFOLDER:
-						$script = sprintf(gettext('theme %1$s:%2$s'), array_shift($path), array_pop($path));
-						break;
-					case USER_PLUGIN_FOLDER:
-						$script = sprintf(gettext('user plugin %1$s:%2$s'), array_shift($path), array_pop($path));
-						break;
-					case PLUGIN_FOLDER:
-						$script = sprintf(gettext('standard plugin %1$s:%2$s'), array_shift($path), array_pop($path));
-						break;
-					default:
-						$script = sprintf(gettext('core:%s'), array_pop($path));
-						break;
-				}
-				$line = $traces[1]['line'];
-			} else {
-				$script = $line = gettext('unknown');
-			}
-			$output = sprintf(gettext('%1$s (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n" . $message . "\n";
-		} else {
-			$traces = debug_backtrace();
-			$traces = array_values($traces);
-			$output = $message . "\n";
 		}
+
+		if (!empty($message)) {
+			$message = ' ' . $message;
+		}
+		//get the container folder
+		if (isset($traces[0]['file']) && isset($traces[0]['line'])) {
+			$path = explode('/', replaceScriptPath($traces[0]['file'])); //	NB: this fails if symlinking is involved
+
+			var_dump($path);
+
+			switch (array_shift($path)) {
+				case THEMEFOLDER:
+					$script = sprintf(gettext('theme %1$s:%2$s'), array_shift($path), array_pop($path));
+					break;
+				case USER_PLUGIN_FOLDER:
+					$script = sprintf(gettext('user plugin %1$s:%2$s'), array_shift($path), array_pop($path));
+					break;
+				case PLUGIN_FOLDER:
+					$script = sprintf(gettext('standard plugin %1$s:%2$s'), array_shift($path), array_pop($path));
+					break;
+				case ZENFOLDER:
+					$script = sprintf(gettext('core:%s'), array_pop($path));
+					break;
+
+				default:
+					$script = array_pop($path);
+					break;
+			}
+			$line = $traces[0]['line'];
+		} else {
+			$script = $line = gettext('unknown');
+		}
+		$output = sprintf(gettext('%1$s (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n" . $message . "\n";
+
 		if (file_exists(DEPRECATED_LOG)) {
 			$content = file_get_contents(DEPRECATED_LOG);
 			$log = !preg_match('~' . preg_quote($output) . '~', $content);
@@ -210,19 +220,8 @@ class deprecated_functions {
 		}
 	}
 
-	static function notify($message) {
-		$traces = debug_backtrace();
-		array_shift($traces);
-		$traces = array_values($traces);
-		self::notify_handler($message, $traces);
-	}
-
 	static function notify_call($method, $message) {
-		$traces = debug_backtrace();
-		array_shift($traces);
-		$traces = array_values($traces);
-		$traces[1]['function'] = $method; //	replace __call or __callStatic with the method that was invoked
-		self::notify_handler($message, $traces, $method);
+		self::notify($message, $method);
 	}
 
 }

@@ -52,7 +52,7 @@ if (isset($_GET['report'])) {
 	$msg = '';
 }
 if (extensionEnabled('zenpage')) {
-	require_once(dirname(__FILE__) . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
+	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 	if (isset($_GET['action'])) {
@@ -391,15 +391,25 @@ $buttonlist = array();
 			if (zp_loggedin(OVERVIEW_RIGHTS)) {
 				if (TEST_RELEASE) {
 					$official = gettext('<em>Debug build</em>');
+					$debug = explode('-', ZENPHOTO_VERSION);
+					$v = $debug[0];
+					$debug = explode('_', $debug[1]);
+					array_shift($debug);
+					if (!empty($debug)) {
+						$debug = array_map('strtolower', $debug);
+						$debug = array_map('ucfirst', $debug);
+						$official .= ': ' . implode(', ', $debug);
+					}
 				} else {
 					$official = gettext('Official build');
+					$v = ZENPHOTO_VERSION;
 				}
 				?>
 				<div id="overviewboxes">
 					<div class="box overview-section overview_utilities">
 						<h2 class="h2_bordered">
 							<a href="<?php echo WEBPATH; ?>/docs/release%20notes.htm" class="doc" title="<?php echo gettext('release notes'); ?>">
-								<?php printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), ZENPHOTO_VERSION, $official); ?>
+								<?php printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), $v, $official); ?>
 							</a>
 						</h2>
 						<?php

@@ -1,6 +1,6 @@
 <?php
 /**
- * admin-edit.php editing of albums.
+ * editing of albums and i mages.
  *
  * @author Stephen Billard (sbillard)
  *
@@ -11,7 +11,7 @@
 /* Don't put anything before this line! */
 define('OFFSET_PATH', 1);
 
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
@@ -41,7 +41,7 @@ if (isset($_GET['album'])) {
 		$allow = $album->isMyItem(ALBUM_RIGHTS);
 		if (!$allow) {
 			if (isset($_GET['uploaded'])) { // it was an upload to an album which we cannot edit->return to sender
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-upload.php?uploaded=1');
+				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/upload.php?uploaded=1');
 				exit();
 			}
 		}
@@ -82,7 +82,7 @@ if (isset($_GET['action'])) {
 					$return .= '&tab=subalbuminfo';
 				}
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $return);
 			exit();
 		/** reorder the tag list ***************************************************** */
 		/*		 * *************************************************************************** */
@@ -109,7 +109,7 @@ if (isset($_GET['action'])) {
 				$notify = '&bulkmessage=' . $notify;
 			}
 
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $notify);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $notify);
 			exit();
 			break;
 		case 'savesubalbumorder':
@@ -136,7 +136,7 @@ if (isset($_GET['action'])) {
 					$notify = '&bulkmessage=' . $notify;
 				}
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $folder . '&tab=subalbuminfo' . $notify);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . $folder . '&tab=subalbuminfo' . $notify);
 			exit();
 			break;
 		case 'sorttags':
@@ -147,7 +147,7 @@ if (isset($_GET['action'])) {
 				$pg = '';
 				$tab = '';
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $folder . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . $folder . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
 			exit();
 			break;
 
@@ -161,7 +161,7 @@ if (isset($_GET['action'])) {
 				$album = sanitize_path($_POST['album']);
 			}
 			Gallery::clearCache($album);
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&cleared&album=' . $album);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&cleared&album=' . $album);
 			exit();
 			break;
 		case 'comments':
@@ -176,7 +176,7 @@ if (isset($_GET['action'])) {
 					$return .= '&tab=subalbuminfo';
 				}
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $return);
 			exit();
 			break;
 
@@ -194,7 +194,7 @@ if (isset($_GET['action'])) {
 					$return .= '&tab=subalbuminfo';
 				}
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $return);
 			exit();
 			break;
 
@@ -214,7 +214,7 @@ if (isset($_GET['action'])) {
 			}
 			query("UPDATE " . prefix('albums') . " SET `hitcounter`= 0" . $where);
 			query("UPDATE " . prefix('images') . " SET `hitcounter`= 0" . $imgwhere);
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $return . '&counters_reset');
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $return . '&counters_reset');
 			exit();
 			break;
 
@@ -231,7 +231,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$nd = 2;
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . pathurlencode($albumname) . '&ndeleted=' . $nd);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&ndeleted=' . $nd);
 			exit();
 			break;
 
@@ -253,7 +253,7 @@ if (isset($_GET['action'])) {
 			if (isset($_REQUEST['singleimage'])) {
 				$return .= '&singleimage=' . sanitize($_REQUEST['singleimage']);
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php' . $return);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php' . $return);
 			exit();
 			break;
 
@@ -289,7 +289,7 @@ if (isset($_GET['action'])) {
 			if ($filter)
 				$filter = '&filter=' . $filter;
 
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $albumname . $pg . '&tagsort=' . $tagsort . '&tab=imageinfo' . $filter);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . $albumname . $pg . '&tagsort=' . $tagsort . '&tab=imageinfo' . $filter);
 			exit();
 			break;
 
@@ -309,7 +309,7 @@ if (isset($_GET['action'])) {
 				}
 				$_zp_gallery->save();
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit');
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit');
 			exit();
 			break;
 
@@ -330,7 +330,7 @@ if (isset($_GET['action'])) {
 				$album->save();
 			}
 			$albumname = sanitize_path($_REQUEST['album']);
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&album=' . $albumname . '&tab=subalbuminfo');
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . $albumname . '&tab=subalbuminfo');
 			exit();
 			break;
 
@@ -517,7 +517,7 @@ if (isset($_GET['action'])) {
 				header('Location: ' . $link);
 				exit();
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
 			exit();
 			break;
 
@@ -546,7 +546,7 @@ if (isset($_GET['action'])) {
 				$albumdir = '';
 			}
 
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit" . $albumdir . "&ndeleted=" . $nd);
+			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/edit.php?page=edit" . $albumdir . "&ndeleted=" . $nd);
 			exit();
 			break;
 		case 'newalbum':
@@ -574,7 +574,7 @@ if (isset($_GET['action'])) {
 				} else {
 					$tab = '&tab=albuminfo';
 				}
-				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit$albumdir&exists=" . urlencode($name) . $tab);
+				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/edit.php?page=edit$albumdir&exists=" . urlencode($name) . $tab);
 				exit();
 			} else {
 				mkdir_recursive($uploaddir, FOLDER_MOD);
@@ -585,7 +585,7 @@ if (isset($_GET['action'])) {
 			if ($album->exists) {
 				$album->setTitle($name);
 				$album->save();
-				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-edit.php?page=edit" . "&album=" . pathurlencode($folder));
+				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/edit.php?page=edit" . "&album=" . pathurlencode($folder));
 				exit();
 			} else {
 				$AlbumDirName = str_replace(SERVERPATH, '', $_zp_gallery->albumdir);
@@ -615,7 +615,7 @@ if (isset($_GET['album'])) {
 	$album = newAlbum($folder);
 	$subtab = setAlbumSubtabs($album);
 } else {
-	$zenphoto_tabs['edit']['subtabs'][gettext('Mass-edit albums')] = "/" . ZENFOLDER . '/admin-edit.php?tab=massedit';
+	$zenphoto_tabs['edit']['subtabs'][gettext('Mass-edit albums')] = "/" . ZENFOLDER . '/admin-tabs/edit.php?tab=massedit';
 }
 if (empty($subtab)) {
 	if (isset($_GET['album'])) {
@@ -677,7 +677,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 		var album = prompt('<?php echo addslashes(gettext('New album name?')); ?>', '<?php echo gettext('album'); ?>.' + $.now());
 		if (album) {
 			if (dynamic) {
-				launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-dynamic-album.php', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
+				launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/dynamic-album.php', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
 			} else {
 				launchScript('', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album), 'XSRFToken=<?php echo getXSRFToken('newalbum'); ?>']);
 			}
@@ -945,7 +945,7 @@ echo "\n</head>";
 								$dsp = 'inline';
 							}
 							?>
-							<form name="subalbum_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit&album=<?php echo pathurlencode($album->name); ?>&tab=subalbuminfo&action=subalbum_sortorder" >
+							<form name="subalbum_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo pathurlencode($album->name); ?>&tab=subalbuminfo&action=subalbum_sortorder" >
 								<?php XSRFToken('subalbum_sortorder'); ?>
 								<span class="nowrap">
 									<?php echo gettext('Sort subalbums by:'); ?>
@@ -971,7 +971,7 @@ echo "\n</head>";
 								}
 								?>
 								<span class="buttons">
-									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $parent; ?>">
+									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>">
 										<?php echo BACK_ARROW_BLUE; ?>
 										<strong><?php echo gettext("Back"); ?></strong>
 									</a>
@@ -988,13 +988,13 @@ echo "\n</head>";
 										</button>
 										<div class="floatright" style="padding-right: 5px">
 											<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-												<img src="images/folder.png" alt="" />
-												<strong><?php echo gettext('New subalbum'); ?></strong>
+												<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+														 <strong><?php echo gettext('New subalbum'); ?></strong>
 											</button>
 											<?php if (!$album->isDynamic()) { ?>
 												<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-													<img src="images/folder.png" alt="" />
-													<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
+													<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+															 <strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 												</button>
 											<?php } ?>
 										</div>
@@ -1013,7 +1013,7 @@ echo "\n</head>";
 								</div>
 								<div class="subhead">
 									<label class="buttons" style="float: left;padding-top:3px;">
-										<a href="admin-edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
+										<a href="admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
 											<?php echo $thumbmsg; ?>
 										</a>
 									</label>
@@ -1040,7 +1040,7 @@ echo "\n</head>";
 								<input name="update" type="hidden" value="Save Order" />
 								<br />
 								<span class="buttons">
-									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $parent; ?>&filter=<?php echo $filter; ?>">
+									<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>&filter=<?php echo $filter; ?>">
 										<?php echo BACK_ARROW_BLUE; ?>
 										<strong><?php echo gettext("Back"); ?></strong>
 									</a>
@@ -1054,13 +1054,13 @@ echo "\n</head>";
 									</button>
 									<div class="floatright">
 										<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-											<img src="images/folder.png" alt="" />
-											<strong><?php echo gettext('New subalbum'); ?></strong>
+											<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+													 <strong><?php echo gettext('New subalbum'); ?></strong>
 										</button>
 										<?php if (!$album->isDynamic()) { ?>
 											<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-												<img src="images/folder.png" alt="" />
-												<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
+												<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+														 <strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 											</button>
 										<?php } ?>
 									</div>
@@ -1076,7 +1076,7 @@ echo "\n</head>";
 					require_once(SERVERPATH . '/' . ZENFOLDER . '/exif/exifTranslations.php');
 					$singleimagelink = $singleimage = NULL;
 					$showfilter = true;
-					$bakcButton = WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $parent;
+					$bakcButton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent;
 					;
 					if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 						$showfilter = !isset($_GET['singleimage']);
@@ -1130,7 +1130,7 @@ echo "\n</head>";
 									<input type="hidden" name="filter" value="<?php echo html_encode($filter); ?>" />
 
 									<?php echo gettext('Image filter'); ?>
-									<select id="filter" name="filter" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php', ['page=edit', 'album=<?php echo html_encode($album->name); ?>', 'subpage=1', 'tab=imageinfo', 'filter=' + $('#filter').val()]);">
+									<select id="filter" name="filter" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php', ['page=edit', 'album=<?php echo html_encode($album->name); ?>', 'subpage=1', 'tab=imageinfo', 'filter=' + $('#filter').val()]);">
 										<option value=""<?php if (empty($filter)) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 										<option value="unpublished"<?php if ($filter == 'unpublished') echo ' selected="selected"'; ?>><?php echo gettext('unpublished'); ?></option>
 										<option value="published"<?php if ($filter == 'published') echo ' selected="selected"'; ?>><?php echo gettext('published'); ?></option>
@@ -1183,7 +1183,7 @@ echo "\n</head>";
 									<p class="buttons">
 										<?php
 										if (is_numeric($pagenum)) {
-											$backbutton = WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit' . $parent . '&filter=' . $filter;
+											$backbutton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent . '&filter=' . $filter;
 										} else {
 											$image = newImage($album, $singleimage);
 											$backbutton = $image->getLink();
@@ -1235,7 +1235,7 @@ echo "\n</head>";
 														<?php
 														if ($close = (isImagePhoto($image) || !is_null($image->objectsThumb))) {
 															?>
-															<a href="admin-thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
+															<a href="admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
 																<?php
 															}
 															?>
@@ -1252,7 +1252,7 @@ echo "\n</head>";
 													<?php
 													if (isImagePhoto($image)) {
 														?>
-														<p class="buttons"><a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox"><img src="images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
+														<p class="buttons"><a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
 														<?php
 													}
 													?>
@@ -1377,7 +1377,7 @@ echo "\n</head>";
 															?>
 															<tr>
 																<td colspan="100%" style="border-bottom:none;">
-																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-edit.php?page=edit&tab=imageinfo&album=' . $album->name . '&singleimage=' . $image->filename . '&subpage=' . $pagenum; ?>&filter=<?php echo $filter; ?>">
+																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&tab=imageinfo&album=' . $album->name . '&singleimage=' . $image->filename . '&subpage=' . $pagenum; ?>&filter=<?php echo $filter; ?>">
 																		<?php echo PENCIL_ICON; ?>
 																		<?php echo gettext('Edit all image data'); ?>
 																	</a>
@@ -1458,7 +1458,7 @@ echo "\n</head>";
 																$("#publishdate-<?php echo $currentimage; ?>,#expirationdate-<?php echo $currentimage; ?>").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '../zp-core/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext("calendar"); ?>',
 																	buttonImageOnly: true
 																});
@@ -1622,7 +1622,7 @@ echo "\n</head>";
 														<br class="clearall">
 														<hr />
 														<div class="button buttons tooltip" title="<?php printf(gettext('Refresh %s metadata'), $image->filename); ?>">
-															<a href="admin-edit.php?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
+															<a href="admin-tabs/edit.php?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
 																<?php echo CIRCLED_BLUE_STAR; ?>
 																<?php echo gettext("Refresh Metadata"); ?>
 															</a>
@@ -1632,8 +1632,8 @@ echo "\n</head>";
 														if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
 															?>
 															<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
-																<a href="admin-thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
-																	<img src="images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
+																<a href="admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
+																	<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
 																</a>
 																<br class="clearall">
 															</div>
@@ -1730,7 +1730,7 @@ echo "\n</head>";
 						<?php XSRFToken('albumedit'); ?>
 						<input type="hidden" name="totalalbums" value="<?php echo sizeof($albums); ?>" />
 						<span class="buttons">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit">
+							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit">
 								<?php echo BACK_ARROW_BLUE; ?>
 								<strong><?php echo gettext("Back"); ?></strong>
 							</a>
@@ -1754,7 +1754,7 @@ echo "\n</head>";
 								?>
 								<div class="innerbox<?php if (!($currentalbum % 2)) echo '_dark'; ?>" style="padding-left: 15px;padding-right: 15px;">
 
-									<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit&album=<?php echo urlencode($album->name); ?>&tab=albuminfo">
+									<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo urlencode($album->name); ?>&tab=albuminfo">
 										<em><strong><?php echo urlencode($album->name); ?></strong></em></a>
 									<br /><br />
 									<?php
@@ -1768,7 +1768,7 @@ echo "\n</head>";
 						</div>
 						<br />
 						<span class="buttons">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit">
+							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit">
 								<?php echo BACK_ARROW_BLUE; ?>
 								<strong><?php echo gettext("Back"); ?></strong>
 							</a>
@@ -1827,7 +1827,7 @@ echo "\n</head>";
 							}
 							echo gettext('Drag the albums into the order you wish them displayed.');
 							?>
-							<form name="gallery_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-edit.php?page=edit&action=gallery_sortorder" >
+							<form name="gallery_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&action=gallery_sortorder" >
 								<?php XSRFToken('gallery_sortorder'); ?>
 								<span class="nowrap">
 									<?php echo gettext('Sort albums by:'); ?>
@@ -1868,8 +1868,8 @@ echo "\n</head>";
 								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright" style="padding-right: 3px;">
-										<button type="button" onclick="newAlbumJS('', false);"><img src="images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
-										<button type="button" onclick="newAlbumJS('', true);"><img src="images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', false);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', true);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
 									</span>
 									<?php
 								}
@@ -1883,7 +1883,7 @@ echo "\n</head>";
 							</div>
 							<div class="subhead">
 								<label class="buttons" style="float: left;padding-top:3px;">
-									<a href="admin-edit.php?showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
+									<a href="admin-tabs/edit.php?showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
 										<?php echo $thumbmsg; ?>
 									</a>
 								</label>
@@ -1921,8 +1921,8 @@ echo "\n</head>";
 								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright">
-										<button type="button" onclick="newAlbumJS('', false);"><img src="images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
-										<button type="button" onclick="newAlbumJS('', true);"><img src="images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', false);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', true);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
 									</span>
 									<?php
 								}
@@ -1941,10 +1941,10 @@ echo "\n</head>";
 						<span class="floatright">
 							<p class="buttons">
 								<button type="button" onclick="newAlbumJS('', false);">
-									<img src="images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong>
+									<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong>
 								</button>
 								<button type="button" onclick="newAlbumJS('', true);">
-									<img src="images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong>
+									<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong>
 								</button>
 							</p>
 						</span>

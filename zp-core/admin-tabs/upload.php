@@ -10,14 +10,14 @@
 
 define('OFFSET_PATH', 1);
 
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 admin_securityChecks(UPLOAD_RIGHTS | FILES_RIGHTS, $return = currentRelativeURL());
 
 if (isset($_GET['page'])) {
 	$page = sanitize($_GET['page']);
 } else {
 	$link = $zenphoto_tabs['upload']['link'];
-	if (strpos($link, 'admin-upload.php') == false) {
+	if (strpos($link, 'admin-tabs/upload.php') == false) {
 		header('location: ' . $link);
 		exit();
 	}
@@ -257,7 +257,7 @@ foreach ($albumlist as $key => $value) {
 						<?php
 						if (zp_loggedin(ALBUM_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
 							?>
-							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript('admin-edit.php', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
+							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript('admin-tabs/edit.php', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
 							<?php
 						}
 						?>

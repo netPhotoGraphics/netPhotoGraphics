@@ -29,8 +29,6 @@ gettext('Both');
 //gettext('Pages');
 //gettext('All');
 //gettext('Pages Rule');
-//gettext('Archive');
-//gettext('Archive Rule');
 //gettext('RSS');
 //gettext('Gallery');
 //gettext('Both');

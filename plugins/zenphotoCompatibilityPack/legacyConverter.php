@@ -52,7 +52,8 @@ $legacyReplacements = array(
 		'addThemeDefaultThumbSize\(.*?\)' => '/*addThemeDefaultThumbSize removed*/',
 		'addDefaultSizedImageSize\(.*?\)' => '/*addDefaultSizedImageSize removed*/',
 		'addThemeDefaultSizedImageSize\(.*?\)' => 'addThemeDefaultSizedImageSize/*addThemeDefaultSizedImageSize removed*/',
-		'exitZP\(\)' => 'exit()'
+		'exitZP\(\)' => 'exit()',
+		'printZenphotoLink\(.*\)' => 'print_SW_Link()'
 );
 
 /**

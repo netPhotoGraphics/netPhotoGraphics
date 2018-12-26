@@ -354,7 +354,7 @@ class ExternalFeed extends feed {
 			$title = $albumobj->getTitle($this->locale);
 
 			$filechangedate = filectime(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumobj->name));
-			$latestimage = query_single_row("SELECT mtime FROM " . prefix('images') . " WHERE albumid = " . $albumobj->getID() . " AND `show` = 1 ORDER BY id DESC");
+			$latestimage = query_single_row("SELECT mtime FROM " . prefix('images') . " WHERE albumid = " . $albumobj->getID() . " AND `show`=1 ORDER BY id DESC");
 			if ($latestimage && $this->sortorder == 'latestupdated') {
 				$count = db_count('images', "WHERE albumid = " . $albumobj->getID() . " AND mtime = " . $latestimage['mtime']);
 			} else {

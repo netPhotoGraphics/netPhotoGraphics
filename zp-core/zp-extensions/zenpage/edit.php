@@ -1,6 +1,6 @@
 <?php
 /**
- * zenpage admin-edit.php
+ * zenpage edit.php
  *
  * @author Malte Müller (acrylian)
  * @package plugins/zenpage
@@ -12,7 +12,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.
 
 if (is_AdminEditPage('page')) {
 	$rights = ZENPAGE_PAGES_RIGHTS;
-	$script = 'admin-pages.php?tab=pages';
+	$script = 'pages.php?tab=pages';
 	$page = $tab = 'pages';
 	$tab = NULL;
 	$new = 'newPage';
@@ -20,7 +20,7 @@ if (is_AdminEditPage('page')) {
 	$returnpage = 'page';
 } else if (is_AdminEditPage('newsarticle')) {
 	$rights = ZENPAGE_NEWS_RIGHTS;
-	$script = 'admin-news.php?tab=articles';
+	$script = 'news.php?tab=articles';
 	$page = 'news';
 	$_GET['tab'] = $tab = 'articles';
 	$new = 'newArticle';
@@ -28,7 +28,7 @@ if (is_AdminEditPage('page')) {
 	$returnpage = 'newsarticle';
 } else if (is_AdminEditPage('newscategory')) {
 	$rights = ZENPAGE_NEWS_RIGHTS;
-	$script = 'admin-categories.php?tab=categories';
+	$script = 'categories.php?tab=categories';
 	$page = 'news';
 	$_GET['tab'] = $tab = 'categories';
 	$new = 'newCategory';
@@ -53,7 +53,6 @@ if (isset($_GET['titlelink'])) {
 } else if (isset($_GET['update'])) {
 	XSRFdefender('update');
 	$result = $update($reports);
-
 	if (getCheckboxState('copy_delete_object')) {
 		switch (sanitize($_POST['copy_delete_object'])) {
 			case 'copy':
@@ -81,7 +80,7 @@ if (isset($_GET['titlelink'])) {
 		}
 		header('Location: ' . $result->getLink($cat));
 	} else {
-		$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
+		$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
 	}
 } else {
 	$result = $new('');
@@ -89,11 +88,11 @@ if (isset($_GET['titlelink'])) {
 if (isset($_GET['save'])) {
 	XSRFdefender('save');
 	$result = $update($reports, true);
-	$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
+	$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
 }
 if (isset($_GET['delete'])) {
 	XSRFdefender('delete');
-	$msg = deleteZenpageObj('new' . $new(sanitize($_GET['delete']), 'admin-pages.php'));
+	$msg = deleteZenpageObj('new' . $new(sanitize($_GET['delete']), 'pages.php'));
 	if (!empty($msg)) {
 		$reports[] = $msg;
 	}
@@ -196,7 +195,7 @@ $tagsort = 'alpha';
 				$themepage = 'news';
 				$locked = !checkIfLocked($result);
 				$me = 'news';
-				$backurl = 'admin-news.php?' . $page;
+				$backurl = 'news.php?' . $page;
 				if (isset($_GET['category']))
 					$backurl .= '&amp;category=' . html_encode(sanitize($_GET['category']));
 				if (isset($_GET['date']))
@@ -220,7 +219,7 @@ $tagsort = 'alpha';
 				$themepage = 'news';
 				$locked = false;
 				$me = 'news';
-				$backurl = 'admin-categories.php?';
+				$backurl = 'categories.php?';
 			}
 
 			if (is_AdminEditPage('page')) {
@@ -230,7 +229,7 @@ $tagsort = 'alpha';
 				$themepage = 'pages';
 				$locked = !checkIfLocked($result);
 				$me = 'page';
-				$backurl = 'admin-pages.php';
+				$backurl = 'pages.php';
 			}
 			if (!is_numeric($pageno)) {
 				$backurl = $result->getLink();
@@ -313,7 +312,7 @@ $tagsort = 'alpha';
 			if ($result->loaded || $result->transient) {
 				if ($result->transient) {
 					?>
-					<form class="dirtylistening" onReset="setClean('addnews_form');" id="addnews_form" method="post" name="addnews" action="admin-edit.php?<?php echo $admintype; ?>&amp;save" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('addnews_form');" id="addnews_form" method="post" name="addnews" action="edit.php?<?php echo $admintype; ?>&amp;save" autocomplete="off">
 						<?php
 						XSRFToken('save');
 					} else {
@@ -332,7 +331,7 @@ $tagsort = 'alpha';
 
 						<div id="tab_articles" class="tabbox">
 
-							<form class="dirtylistening" onReset="setClean('form_cmsItemEdit');$('.resetHide').hide();" method="post" name="update" id="form_cmsItemEdit" action="admin-edit.php?<?php echo $admintype; ?>&amp;update<?php echo $page; ?>" autocomplete="off">
+							<form class="dirtylistening" onReset="setClean('form_cmsItemEdit');$('.resetHide').hide();" method="post" name="update" id="form_cmsItemEdit" action="edit.php?<?php echo $admintype; ?>&amp;update<?php echo $page; ?>" autocomplete="off">
 								<?php
 								XSRFToken('update');
 							}
@@ -392,7 +391,7 @@ $tagsort = 'alpha';
 									<?php
 									if ($additem) {
 										?>
-										<a href="admin-edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+										<a href="edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
 											<?php echo PLUS_ICON; ?>
 											<strong><?php echo $additem; ?></strong>
 										</a>
@@ -548,9 +547,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																		 $('#expiredate').val('');
-																		 $('#pubdate').css('color', 'black');
-																		 $('.expire').html('');"
+																			 $('#expiredate').val('');
+																			 $('#pubdate').css('color', 'black');
+																			 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -642,7 +641,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																					 togglePassword('');">
+																								 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -903,7 +902,7 @@ $tagsort = 'alpha';
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>
 										<div class="floatright">
-											<a href="admin-edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+											<a href="edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
 												<?php echo PLUS_ICON; ?>
 												<strong><?php echo $additem; ?></strong>
 											</a>

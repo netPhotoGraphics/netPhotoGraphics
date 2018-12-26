@@ -465,7 +465,7 @@ class optionalObjectFields extends fieldExtender {
 						$("#datepicker_<?php echo $instance; ?>").datepicker({
 							dateFormat: 'yy-mm-dd',
 							showOn: 'button',
-							buttonImage: 'images/calendar.png',
+							buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
 							buttonText: '<?php echo gettext('calendar'); ?>',
 							buttonImageOnly: true
 						});

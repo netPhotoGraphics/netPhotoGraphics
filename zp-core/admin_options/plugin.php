@@ -104,7 +104,7 @@ function getOptionContent() {
 							<th style="text-align:left">
 							</th>
 							<th style="text-align:right; padding-right: 10px;">
-								<?php printPageSelector($subpage, $rangeset, 'admin-options.php', array('page' => 'options', 'tab' => 'plugin')); ?>
+								<?php printPageSelector($subpage, $rangeset, 'admin-tabs/options.php', array('page' => 'options', 'tab' => 'plugin')); ?>
 							</th>
 							<th></th>
 						</tr>
@@ -162,7 +162,7 @@ function getOptionContent() {
 
 											<?php
 										} else {
-											$optionlink = FULLWEBPATH . '/' . ZENFOLDER . '/admin-options.php?page=options&amp;tab=plugin&amp;single=' . html_encode($extension);
+											$optionlink = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?page=options&amp;tab=plugin&amp;single=' . html_encode($extension);
 											?>
 											<span class="icons">
 												<a href="<?php echo $optionlink; ?>" title="<?php printf(gettext("Change %s options"), html_encode($extension)); ?>">
@@ -248,7 +248,7 @@ function getOptionContent() {
 							<tr>
 								<th></th>
 								<th style="text-align:right; padding-right: 10px;">
-									<?php printPageSelector($subpage, $rangeset, 'admin-options.php', array('page' => 'options', 'tab' => 'plugin')); ?>
+									<?php printPageSelector($subpage, $rangeset, 'admin-tabs/options.php', array('page' => 'options', 'tab' => 'plugin')); ?>
 								</th>
 								<th></th>
 							</tr>
