@@ -291,7 +291,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$msg = gettext('Logged in as %1$s (last login %2$s)');
 					}
 					$user = $_zp_current_admin_obj->getUser();
-					printf($msg, '<a href = "admin-tabs/users.php?user=' . $user . '&page=admin&tab=users" title = "' . gettext('go to user profile') . '">' . $user . '</a>', $last);
+					printf($msg, '<a href = "' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?user=' . $user . '&page=admin&tab=users" title = "' . gettext('go to user profile') . '">' . $user . '</a>', $last);
 					?>
 					</a>
 					<?php
@@ -576,7 +576,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			if (!empty($subalbums)) {
 				$add[gettext('Subalbums')] = 'admin-tabs/edit.php' . $albumlink . '&tab=subalbuminfo';
 				if ($tab == 'subalbuminfo' && count($subalbums) > 1 || $tab == 'massedit') {
-					$add[gettext('Mass-edit subalbums')] = "/" . ZENFOLDER . '/admin-tabs/edit.php' . $albumlink . '&tab=massedit';
+					$add[gettext('Mass-edit subalbums')] = 'admin-tabs/edit.php' . $albumlink . '&tab=massedit';
 				}
 				$zenphoto_tabs['edit']['subtabs'] = array_merge($add, $zenphoto_tabs['edit']['subtabs']);
 				$default = 'subalbuminfo';
@@ -4307,7 +4307,7 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 				} else {
 					$selected = "";
 				}
-				echo '<option ' . $selected . ' value="admin-tabs/edit.php' . $link . $nestinglevel . $query . '">';
+				echo '<option ' . $selected . ' value="' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php' . $link . $nestinglevel . $query . '">';
 				switch ($subtab) {
 					case '':
 					case 'subalbuminfo':
@@ -5267,17 +5267,17 @@ function getLogTabs() {
  */
 function getPluginTabs() {
 	/* subpackages */
-	$pluginCategoryNames = array (
-			'admin'	=>	gettext('admin support'),
-			'development'	=>	gettext('development'),
-			'example'	=>	gettext('example'),
-			'mail'	=>	gettext('mail'),
-			'media'	=>	gettext('media'),
-			'misc'	=>	gettext('misc'),
-			'netPhotoGraphics'	=>	gettext('netPhotoGraphics'),
-			'theme'	=>	gettext('theme support'),
-			'tools'	=>	gettext('tools'),
-			'users'	=>	gettext('users')
+	$pluginCategoryNames = array(
+			'admin' => gettext('admin support'),
+			'development' => gettext('development'),
+			'example' => gettext('example'),
+			'mail' => gettext('mail'),
+			'media' => gettext('media'),
+			'misc' => gettext('misc'),
+			'netPhotoGraphics' => gettext('netPhotoGraphics'),
+			'theme' => gettext('theme support'),
+			'tools' => gettext('tools'),
+			'users' => gettext('users')
 	);
 	$classXlate = array(
 			'all' => gettext('all'),
