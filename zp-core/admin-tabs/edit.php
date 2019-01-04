@@ -1013,7 +1013,7 @@ echo "\n</head>";
 								</div>
 								<div class="subhead">
 									<label class="buttons" style="float: left;padding-top:3px;">
-										<a href="admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
+										<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
 											<?php echo $thumbmsg; ?>
 										</a>
 									</label>
@@ -1235,7 +1235,7 @@ echo "\n</head>";
 														<?php
 														if ($close = (isImagePhoto($image) || !is_null($image->objectsThumb))) {
 															?>
-															<a href="admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
+															<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
 																<?php
 															}
 															?>
@@ -1622,7 +1622,7 @@ echo "\n</head>";
 														<br class="clearall">
 														<hr />
 														<div class="button buttons tooltip" title="<?php printf(gettext('Refresh %s metadata'), $image->filename); ?>">
-															<a href="admin-tabs/edit.php?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
+															<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/edit.php?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
 																<?php echo CIRCLED_BLUE_STAR; ?>
 																<?php echo gettext("Refresh Metadata"); ?>
 															</a>
@@ -1632,7 +1632,7 @@ echo "\n</head>";
 														if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
 															?>
 															<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
-																<a href="admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
+																<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
 																	<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
 																</a>
 																<br class="clearall">
@@ -1883,7 +1883,7 @@ echo "\n</head>";
 							</div>
 							<div class="subhead">
 								<label class="buttons" style="float: left;padding-top:3px;">
-									<a href="admin-tabs/edit.php?showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
+									<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/edit.php?showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
 										<?php echo $thumbmsg; ?>
 									</a>
 								</label>

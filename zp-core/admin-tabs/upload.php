@@ -257,7 +257,7 @@ foreach ($albumlist as $key => $value) {
 						<?php
 						if (zp_loggedin(ALBUM_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
 							?>
-							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript('admin-tabs/edit.php', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
+							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript(FULLWEBPATH.'/'.ZENFOLDER.'/admin-tabs/edit.php', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
 							<?php
 						}
 						?>

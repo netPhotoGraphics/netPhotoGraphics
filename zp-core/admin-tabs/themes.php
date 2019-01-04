@@ -283,7 +283,7 @@ if (count($themelist) == 0) {
 							?>
 							<li>
 								<p class="buttons">
-									<a onclick="launchScript('admin-tabs/themes.php', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
+									<a onclick="launchScript('', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
 										<?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Activate"); ?>
 									</a>
 								</p>
@@ -295,7 +295,7 @@ if (count($themelist) == 0) {
 								?>
 								<li>
 									<p class="buttons">
-										<a onclick="launchScript('admin-tabs/themes.php', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
+										<a onclick="launchScript('', ['action=settheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
 											<?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Assign"); ?>
 										</a>
 									</p>
@@ -322,7 +322,7 @@ if (count($themelist) == 0) {
 								?>
 								<li>
 									<p class="buttons">
-										<a onclick="launchScript('admin-tabs/themes.php', ['action=deletetheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
+										<a onclick="launchScript('', ['action=deletetheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
 											<?php echo WASTEBASKET; ?>
 											<?php echo gettext("Delete"); ?>
 										</a>
