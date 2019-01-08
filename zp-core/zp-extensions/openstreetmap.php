@@ -535,43 +535,60 @@ class openStreetMap {
 	}
 
 	/**
+	 * converts a cordinate in string format to a float
+	 * NOTE: this function presumes that there are no thousands separators!!!
+	 *
+	 * @param string $num
+	 * @return float
+	 */
+	static function inputConvert($num) {
+		if (is_string($num)) {
+			$d = preg_split('/[,\.]/', $num . '.0');
+			$float = abs($d[0]) + $d[1] * pow(10, -strlen($d[1]));
+			if (strpos($num, '-') !== FALSE) {
+				$float = - $float;
+			}
+		} else {
+			$float = (float) $num;
+		}
+		return $float;
+	}
+
+	/**
+	 * $returns coordinate informations for an image
+	 * @param $image		image object
+	 */
+	static function getGeoCoord($image) {
+		if (isImageClass($image)) {
+			$lat = $image->get('GPSLatitude');
+			$long = $image->get('GPSLongitude');
+			if (!empty($lat) && !empty($long)) {
+				$lat_f = self::inputConvert($lat);
+				$long_f = self::inputConvert($long);
+				return array('lat' => $lat_f, 'long' => $long_f);
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * $returns coordinate informations for an image
 	 * Adapted from the offical Zenphoto GoogleMap plugin by Stephen Billard (sbillard) & Vincent Bourganel (vincent3569)
 	 * @param $image	image object
 	 */
 	function getImageGeodata($image) {
 		global $_zp_current_image;
-		$result = array();
-		if (isImageClass($image)) {
-			$exif = $image->getMetaData();
-			if ((!empty($exif['EXIFGPSLatitude'])) && (!empty($exif['EXIFGPSLongitude']))) {
-				$lat_c = explode('.', str_replace(',', '.', $exif['EXIFGPSLatitude']) . '.0');
-				$lat_f = round((float) abs($lat_c[0]) + ($lat_c[1] / pow(10, strlen($lat_c[1]))), 12);
-				if (strtoupper(@$exif['EXIFGPSLatitudeRef']{0}) == 'S') {
-					$lat_f = -$lat_f;
-				}
-				$long_c = explode('.', str_replace(',', '.', $exif['EXIFGPSLongitude']) . '.0');
-				$long_f = round((float) abs($long_c[0]) + ($long_c[1] / pow(10, strlen($long_c[1]))), 12);
-				if (strtoupper(@$exif['EXIFGPSLongitudeRef']{0}) == 'W') {
-					$long_f = -$long_f;
-				}
-				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
-				$current = 0;
-				if ($this->mode == 'single-cluster' && isset($_zp_current_image) && ($image->filename == $_zp_current_image->filename && $image->getAlbumname() == $_zp_current_image->getAlbumname())) {
-					$current = 1;
-				}
-				//in case European comma decimals sneaked in
-				$lat_f = str_replace(',', '.', $lat_f);
-				$long_f = str_replace(',', '.', $long_f);
-				$result = array(
-						'lat' => $lat_f,
-						'long' => $long_f,
-						'title' => shortenContent($image->getTitle(), 50, '...') . '<br />',
-						'desc' => shortenContent($image->getDesc(), 100, '...'),
-						'thumb' => $thumb,
-						'current' => $current
-				);
+		$result = self::getGeoCoord($image);
+		if ($result) {
+			$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
+			$current = 0;
+			if ($this->mode == 'single-cluster' && isset($_zp_current_image) && ($image->filename == $_zp_current_image->filename && $image->getAlbumname() == $_zp_current_image->getAlbumname())) {
+				$current = 1;
 			}
+			$result['title'] = shortenContent($image->getTitle(), 50, '...') . '<br />';
+			$result['desc'] = shortenContent($image->getDesc(), 100, '...');
+			$result['thumb'] = $thumb;
+			$result['current'] = $current;
 		}
 		return $result;
 	}
