@@ -14,7 +14,7 @@ require_once(dirname(__FILE__) . '/functions-basic.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
 
 if (TEST_RELEASE) {
-	setOption('zp_plugin_debug', 10 | ADMIN_PLUGIN, false);
+	enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 }
 
 zp_session_start();
@@ -22,7 +22,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
 httpsRedirect();
 
 if (abs(OFFSET_PATH) != 2) {
-//load feature and admin plugins
+	//load feature and admin plugins
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
 		if (DEBUG_PLUGINS) {
 			switch ($mask) {

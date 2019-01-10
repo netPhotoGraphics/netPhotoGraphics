@@ -61,16 +61,17 @@ define('LOCALE_TYPE', getOption('dynamic_locale_subdomain'));
 define('BASE_LOCALE', getOption('dynamic_locale_base'));
 
 if (OFFSET_PATH != 2) {
-	zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
+
+	//TODO: this is debuging code until we find how this can happen
+	if (!(function_exists('zp_register_filter'))) {
+		debugLogBacktrace('Trapped missing zp_register_filter');
+		debugLogVar('LOCALE_TYPE', LOCALE_TYPE);
+		debugLogVar('$_SERVER', $_SERVER);
+	}
+
 	if (LOCALE_TYPE && extensionEnabled('dynamic-locale')) {
+		zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
 		if (LOCALE_TYPE == 1) {
-
-			//TODO: this is debuging code until we find how this can happen
-			if (!(function_exists('zp_register_filter'))) {
-				debugLogBacktrace('Trapped missing zp_register_filter');
-				debugLogVar('$_SERVER', $_SERVER);
-			}
-
 			zp_register_filter('load_request', 'seo_locale::load_request');
 			define('SEO_WEBPATH', seo_locale::localePath());
 			define('SEO_FULLWEBPATH', seo_locale::localePath(true));
