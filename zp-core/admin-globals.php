@@ -22,7 +22,6 @@ if (abs(OFFSET_PATH) != 2) {
 	if (TEST_RELEASE) {
 		enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 	}
-
 	//load feature and admin plugins
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
 		if (DEBUG_PLUGINS) {

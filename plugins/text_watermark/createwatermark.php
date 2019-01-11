@@ -3,7 +3,7 @@
 /**
  * @package plugins/text_watermark
  */
-define("OFFSET_PATH", 3);
+define('OFFSET_PATH', 3);
 require('../../zp-core/admin-functions.php');
 $string = sanitize(@$_GET['text_watermark_text'], 3);
 
