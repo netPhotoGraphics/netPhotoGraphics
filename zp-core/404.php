@@ -54,8 +54,10 @@ header("HTTP/1.0 404 Not Found");
 header("Status: 404 Not Found");
 zp_apply_filter('theme_headers');
 if ($_zp_script && file_exists($_zp_script)) {
-	if (isset($custom) && $custom)
+	$custom = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($_index_theme) . '/functions.php';
+	if (file_exists($custom)) {
 		require_once($custom);
+	}
 	include($_zp_script);
 } else {
 	?>
