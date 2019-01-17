@@ -194,7 +194,7 @@ printSortableHead();
 								<?php echo PLUS_ICON; ?>
 								<strong><?php echo gettext("New Menu"); ?></strong>
 							</a>
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-options.php?'page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
+							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?'page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
 								<?php echo OPTIONS_ICON; ?>
 								<strong><?php echo gettext('Options') ?></strong>
 							</a>

@@ -302,7 +302,7 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 						</p>
 						<br class="clearall">
 						<p>
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER ?>/admin-options.php?tab=plugin&amp;single=search_statistics#search_statistics" ><?php echo gettext('Change <em>Threshold</em> values') ?></a>
+							<a href="<?php echo WEBPATH . '/' . ZENFOLDER ?>/admin-tabs/options.php?tab=plugin&amp;single=search_statistics#search_statistics" ><?php echo gettext('Change <em>Threshold</em> values') ?></a>
 						</p>
 						<?php
 					} else {
