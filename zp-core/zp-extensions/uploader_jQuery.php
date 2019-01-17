@@ -34,7 +34,7 @@ function jQueryUploadHandler($uploadHandlers) {
 function jQueryUploadHandler_admin_tabs($tabs) {
 	if (zp_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('images (%s)'), 'jQuery');
-		$mylink = 'admin-upload.php?page=upload&tab=jQuery&type=' . gettext('images');
+		$mylink = 'admin-tabs/upload.php?page=upload&tab=jQuery&type=' . gettext('images');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),
 					'link' => WEBPATH . "/" . ZENFOLDER . '/' . $mylink,

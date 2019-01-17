@@ -59,7 +59,7 @@ class show_not_loggedin {
 	static function note($where) {
 		?>
 		<p class="errorbox">
-			<strong><?php echo sprintf(gettext('%s is enabled!'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . 'admin-plugins.php?page=plugins&tab=development#show_not_logged-in">show_not_logged-in</a>'); ?></strong>
+			<strong><?php echo sprintf(gettext('%s is enabled!'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . 'admin-tabs/plugins.php?page=plugins&tab=development#show_not_logged-in">show_not_logged-in</a>'); ?></strong>
 		</p>
 		<?php
 	}

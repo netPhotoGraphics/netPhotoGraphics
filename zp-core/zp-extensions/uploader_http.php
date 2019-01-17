@@ -26,7 +26,7 @@ function httpUploadHandler($uploadHandlers) {
 function httpUploadHandler_admin_tabs($tabs) {
 	if (zp_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('images (%s)'), 'http');
-		$mylink = 'admin-upload.php?page=upload&tab=http&type=' . gettext('images');
+		$mylink = 'admin-tabs/upload.php?page=upload&tab=http&type=' . gettext('images');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),
 					'link' => WEBPATH . "/" . ZENFOLDER . '/' . $mylink,
