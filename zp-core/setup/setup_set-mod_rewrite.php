@@ -18,6 +18,7 @@ require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 zp_session_start();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
+@ini_set('display_errors', 1);
 
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;

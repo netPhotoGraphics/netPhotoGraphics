@@ -21,6 +21,7 @@ list($usec, $sec) = explode(" ", microtime());
 $startTO = (float) $usec + (float) $sec;
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+@ini_set('display_errors', 1);
 
 $fullLog = isset($_GET['fullLog']);
 
