@@ -134,7 +134,7 @@ echo '</head>' . "\n";
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>
 						<div class="floatright">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-options.php?'page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
+							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?'page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
 								<?php echo OPTIONS_ICON; ?>
 								<strong><?php echo gettext('Options') ?></strong>
 							</a>
