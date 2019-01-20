@@ -201,7 +201,7 @@ class slideshow {
 
 		$showdesc = getOption("slideshow_showdesc");
 		// slideshow display section
-		$validtypes = array('jpg', 'jpeg', 'gif', 'png', 'mov', '3gp');
+		$validtypes = array('jpg', 'jpeg', 'gif', 'png');
 		$slideshow .= '
 				<script type="text/javascript">
 				// <!-- <![CDATA[

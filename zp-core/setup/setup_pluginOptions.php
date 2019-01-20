@@ -21,6 +21,7 @@ list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+@ini_set('display_errors', 1);
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
 $fullLog = isset($_GET['fullLog']);

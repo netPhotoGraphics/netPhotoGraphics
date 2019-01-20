@@ -1,15 +1,13 @@
 <?php
 
 /**
- * This plugin provides basic handlling for videos.
  *
- * If the browser supports HTML5 the plugin will show <code>mp3</code> and <code>mp4</code> <i>video</i>
- * natively. <code>3gp</code> and <code>mov</code> <i>video</i>
- * class images will be shown if <i>Apple Quicktime</i> is installed on the visitors system.
+ * This plugin directly handles `mp4`/`mp4` video and `mp3` audio natively in capable browsers
+ *
  * Other formats require a multimedia player to be enabled. The actual supported multimedia types may vary
  * according to the player enabled.
  *
- * @author Stephen Billard (sbillard)
+ * @author Stephen Billard (sbillard), Malte Müller (acrylian)
  *
  * @package classes/class-video
  * @pluginCategory media
@@ -18,16 +16,14 @@
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = defaultExtension(990 | CLASS_PLUGIN);
 	$plugin_description = gettext('The <em>audio-video</em> handler.');
-	$plugin_notice = gettext('This plugin handles <code>mp3</code>, <code>mp4</code>, <code>3gp</code>, and <code>mov</code> multi-media files. <strong>Note:</strong> <code>mp3</code> and <code>mp4</code> require HTML5 browser support. You should enable a multimedia player plugin to handle other media files.');
+	$plugin_notice = gettext('This plugin handles <code>mp3</code> and <code>mp4</code> multi-media files. <strong>Note:</strong> <code>mp3</code> and <code>mp4</code> require HTML5 browser support. You should enable a multimedia player plugin to handle other media files.');
 }
 
 if (extensionEnabled('class-video')) {
-	Gallery::addImageHandler('3gp', 'Video');
-	Gallery::addImageHandler('mov', 'Video');
-	if (getOption('class-video_html5')) {
-		Gallery::addImageHandler('mp3', 'Video');
-		Gallery::addImageHandler('mp4', 'Video');
-	}
+	Gallery::addImageHandler('mp3', 'Video');
+	Gallery::addImageHandler('mp4', 'Video');
+	Gallery::addImageHandler('m4v', 'Video');
+	Gallery::addImageHandler('m4a', 'Video');
 }
 $option_interface = 'VideoObject_Options';
 
@@ -42,11 +38,11 @@ class VideoObject_Options {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('class-video_html5', true);
-			setOptionDefault('class-video_mov_w', 520);
-			setOptionDefault('class-video_mov_h', 390);
-			setOptionDefault('class-video_3gp_w', 520);
-			setOptionDefault('class-video_3gp_h', 390);
+			purgeOption('class-video_html5');
+			purgeOption('class-video_mov_w');
+			purgeOption('class-video_mov_h');
+			purgeOption('class-video_3gp_w');
+			purgeOption('class-video_3gp_h');
 			setOptionDefault('class-video_videoalt', 'ogg, avi, wmv');
 		}
 	}
@@ -61,21 +57,6 @@ class VideoObject_Options {
 				gettext('Watermark default images') => array('key' => 'video_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
 						'desc' => gettext('Check to place watermark image on default thumbnail images.')),
-				gettext('Assume HTML5') => array('key' => 'class-video_html5', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 0.5,
-						'desc' => gettext('If checked <code>mp3</code> and <code>mp4</code> files will be handled with the HTML5 <em>video</em> and <em>audio</em> tags. Otherwise these must be handled via a multimedia player plugin.')),
-				gettext('Quicktime video width') => array('key' => 'class-video_mov_w', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 2,
-						'desc' => ''),
-				gettext('Quicktime video height') => array('key' => 'class-video_mov_h', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 2,
-						'desc' => ''),
-				gettext('3gp video width') => array('key' => 'class-video_3gp_w', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 2,
-						'desc' => ''),
-				gettext('3gp video height') => array('key' => 'class-video_3gp_h', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 2,
-						'desc' => ''),
 				gettext('High quality alternate') => array('key' => 'class-video_videoalt', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 1,
 						'desc' => gettext('<code>getFullImageURL()</code> returns a URL to a file with one of these high quality video alternate suffixes if present.'))
@@ -170,19 +151,8 @@ class Video extends Image {
 	function updateDimensions() {
 		global $_zp_multimedia_extension;
 		$ext = getSuffix($this->filename);
-		switch ($ext) {
-			case '3gp':
-				$h = extensionEnabled('class-video_3gp_h');
-				$w = extensionEnabled('class-video_3gp_w');
-				break;
-			case 'mov':
-				$h = extensionEnabled('class-video_mov_h');
-				$w = extensionEnabled('class-video_mov_w');
-				break;
-			default:
-				$h = $_zp_multimedia_extension->getHeight($this);
-				$w = $_zp_multimedia_extension->getWidth($this);
-		}
+		$h = $_zp_multimedia_extension->getHeight($this);
+		$w = $_zp_multimedia_extension->getWidth($this);
 		$this->set('width', $w);
 		$this->set('height', $h);
 	}
@@ -200,40 +170,15 @@ class Video extends Image {
 			$path = SERVERPATH;
 		if (is_null($this->objectsThumb)) {
 			$suffix = getSuffix($this->filename);
-			switch ($suffix) {
-				case "mp3":
-					$img = '/mp3Default.png';
+			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
+				$imgfile = $path . '/' . $folder . '/' . $suffix . 'Default.png';
+				if (file_exists($imgfile)) {
 					break;
-				case "mp4": // generic suffix for mp4 stuff - considered video
-					$img = '/mp4Default.png';
-					break;
-				case "m4v": // specific suffix for mp4 video
-					$img = '/m4vDefault.png';
-					break;
-				case "m4a": // specific suffix for mp4/AAC audio
-					$img = '/m4aDefault.png';
-					break;
-				case "flv": // suffix for flash video container
-					$img = '/flvDefault.png';
-					break;
-				case "fla": // suffix for flash audio container
-					$img = '/flaDefault.png';
-					break;
-				case "mov":
-					$img = '/movDefault.png';
-					break;
-				case "3gp":
-					$img = '/3gpDefault.png';
-					break;
-				default: // just in case we extend and are lazy...
-					$img = '/multimediaDefault.png';
-					break;
-			}
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images' . $img;
-			if (!file_exists($imgfile)) { // first check if the theme has adefault image
-				$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/multimediaDefault.png';
-				if (!file_exists($imgfile)) { // if theme has a generic default image use it otherwise use the standard image
-					$imgfile = $path . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . $img;
+				} else { // check for a default image
+					$imgfile = $path . '/' . $folder . '/images/multimediaDefault.png';
+					if (file_exists($imgfile)) {
+						break;
+					}
 				}
 			}
 		} else {
@@ -382,35 +327,17 @@ class Video extends Image {
 		$ext = getSuffix($link = $this->getFullImageURL());
 		switch ($ext) {
 			case 'mp3':
-				if (getOption('class-video_html5')) {
-					return '<audio controls>
+				return '<audio controls>
 						<source src="' . $link . '" type="audio/mpeg">
 								' . gettext('Your browser does not support the audio tag') . '
 					</audio>';
-					break;
-				}
 			case 'mp4':
-				if (getOption('class-video_html5')) {
-					return '<video  width="' . $w . '" height="' . $h . '" controls>
+				return '<video  width="' . $w . '" height="' . $h . '" controls>
 						<source src="' . $this->getFullImageURL() . '" type="video/' . $ext . '">
 								' . gettext('Your browser does not support the video tag') . '
 					</video>';
-					break;
-				}
 			default:
 				return $_zp_multimedia_extension->getPlayerConfig($this, NULL, NULL, $w, $h);
-				break;
-			case '3gp':
-			case 'mov':
-				return '</a>
-					<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="' . $w . '" height="' . $h . '" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
-					<param name="src" value="' . pathurlencode($link) . '"/>
-					<param name="autoplay" value="false" />
-					<param name="type" value="video/quicktime" />
-					<param name="controller" value="true" />
-					<embed src="' . pathurlencode($link) . '" width="' . $w . '" height="' . $h . '" scale="aspect" autoplay="false" controller"true" type="video/quicktime"
-						pluginspage="http://www.apple.com/quicktime/download/" cache="true"></embed>
-					</object><a>';
 				break;
 		}
 	}
@@ -421,7 +348,7 @@ class Video extends Image {
 	 */
 	private function getMetaDataID3() {
 		$suffix = getSuffix($this->localpath);
-		if (in_array($suffix, array('m4a', 'm4v', 'mp3', 'mp4', 'flv', 'fla', 'mov', '3gp'))) {
+		if (in_array($suffix, array('m4a', 'm4v', 'mp3', 'mp4', 'flv', 'fla'))) {
 			$getID3 = new getID3;
 			@set_time_limit(30);
 			$ThisFileInfo = $getID3->analyze($this->localpath);
@@ -540,6 +467,7 @@ class pseudoPlayer {
 				$content .= '</video>';
 				break;
 			case 'mp3':
+			case 'm4a':
 				$content = '<audio src="' . html_encode($movie) . '" controls>';
 				$content .= '<p>' . gettext('Your browser does not support this audio format.') . '</p>';
 				$content .= '</audio>';

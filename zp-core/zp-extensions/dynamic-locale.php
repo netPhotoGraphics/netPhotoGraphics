@@ -69,13 +69,11 @@ if (OFFSET_PATH != 2) {
 		debugLogVar('$_SERVER', $_SERVER);
 	}
 
-	if (LOCALE_TYPE && extensionEnabled('dynamic-locale')) {
-		zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
-		if (LOCALE_TYPE == 1) {
-			zp_register_filter('load_request', 'seo_locale::load_request');
-			define('SEO_WEBPATH', seo_locale::localePath());
-			define('SEO_FULLWEBPATH', seo_locale::localePath(true));
-		}
+	zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
+	if (LOCALE_TYPE == 1) {
+		zp_register_filter('load_request', 'seo_locale::load_request');
+		define('SEO_WEBPATH', seo_locale::localePath());
+		define('SEO_FULLWEBPATH', seo_locale::localePath(true));
 	}
 }
 
@@ -213,23 +211,25 @@ class dynamic_locale {
 	function getOptionsSupported() {
 		$host = $_SERVER['HTTP_HOST'];
 		$matches = explode('.', $host);
+		$webpath = ltrim(WEBPATH, '/');
 		if (validateLocale($matches[0], 'Dynamic Locale')) {
 			array_shift($matches);
 			$host = implode('.', $matches);
 		}
-		$localdesc = '<p>' . sprintf(gettext('Select <em>Use subdomains</em> and links will be in the form <code><em>language</em>.%s</code> where <code><em>language</em></code> is the language code, e.g. <code><em>fr</em></code> for French.'), $host) . '</p>';
+		$localdesc = '<p>' . sprintf(gettext('Select <em>Use subdomains</em> and links will be in the form <code><em>language</em>.%s/...</code> where <code><em>language</em></code> is the language code, e.g. <code><em>fr</em></code> for French.'), $host . '/' . $webpath) . '</p>';
 
 		$locales = generateLanguageList();
 		$buttons = array(gettext('subdomain') => 2, gettext('URL') => 1, gettext('disabled') => 0);
 		if (MOD_REWRITE) {
 			$buttons[gettext('URL')] = 1;
-			$localdesc .= '<p>' . sprintf(gettext('Select <em>URL</em> and links paths will have the language selector prepended in the form <code>%1$s/<em>language</em>/...</code>'), ltrim(WEBPATH, '/')) . '</p>';
+			$localdesc .= '<p>' . sprintf(gettext('Select <em>URL</em> and links paths will have the language selector prepended in the form <code>%1$s/<em>language</em>/...</code>.'), $host . '/' . $webpath) . '</p>';
 		} else {
 			unset($buttons[gettext('URL')]);
 			if (getOption('dynamic_locale_subdomain') == 1) {
 				setOption('dynamic_locale_subdomain', 0);
 			}
 		}
+		$localdesc .= '<p>' . sprintf(gettext('Select <em>disabled</em> and links will have the language specified via the <em>locale</em> query parameter, e.g. <code>%s/...?locale=<em>language</em></code>.'), $host . '/' . $webpath) . '</p>';
 		$options = array(gettext('Use flags') => array('key' => 'dynamic_locale_visual', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
 						'desc' => gettext('Checked produces an array of flags. Not checked produces a selector.')),

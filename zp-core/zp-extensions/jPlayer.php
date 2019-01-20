@@ -171,11 +171,11 @@ class jplayer_options {
 		$filestoignore = array('.', '..', '.DS_Store', 'Thumbs.db', '.htaccess', '.svn');
 		$skins = array_diff(scandir($default_skins_dir), array_merge($filestoignore));
 		$default_skins = self::getSkinCSS($skins, $default_skins_dir);
-		//echo "<pre>";print_r($default_skins);echo "</pre>";
+//echo "<pre>";print_r($default_skins);echo "</pre>";
 		$skins2 = @array_diff(scandir($user_skins_dir), array_merge($filestoignore));
 		if (is_array($skins2)) {
 			$user_skins = selfgetSkinCSS($skins2, $user_skins_dir);
-			//echo "<pre>";print_r($user_skins);echo "</pre>";
+//echo "<pre>";print_r($user_skins);echo "</pre>";
 			$default_skins = array_merge($default_skins, $user_skins);
 		}
 		return $default_skins;
@@ -300,9 +300,9 @@ class jPlayer {
 		}
 		$videoThumb = '';
 		if (getOption('jplayer_poster') && ($this->mode == 'video' || ($this->mode == 'audio' && getOption('jplayer_audioposter')))) {
-			//$splashimagerwidth = $this->width;
-			//$splashimageheight = $this->height;
-			//getMaxSpaceContainer($splashimagerwidth, $splashimageheight, $movie, true); // jplayer squishes always if not the right aspect ratio
+//$splashimagerwidth = $this->width;
+//$splashimageheight = $this->height;
+//getMaxSpaceContainer($splashimagerwidth, $splashimageheight, $movie, true); // jplayer squishes always if not the right aspect ratio
 			$videoThumb = ',poster:"' . $movie->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true) . '"';
 		}
 		$playerconfig = '
@@ -349,8 +349,8 @@ class jPlayer {
 	//]]>
 	</script>';
 
-		// I am really too lazy to figure everything out to optimize this quite complex html nesting so I generalized only parts.
-		// This will also make it easier and more convenient to spot any html changes the jplayer developer might come up with later on (as he did from 2.0 to 2.1!)
+// I am really too lazy to figure everything out to optimize this quite complex html nesting so I generalized only parts.
+// This will also make it easier and more convenient to spot any html changes the jplayer developer might come up with later on (as he did from 2.0 to 2.1!)
 		if ($this->mode == 'video' || !empty($videoThumb)) {
 			$playerconfig .= '
 			<div id="jp_container_' . $count . '" class="jp-video ' . $this->playersize . '" role="application" aria-label="media player">
@@ -533,33 +533,14 @@ class jPlayer {
 			case 'mp3':
 			case 'fla':
 				$this->mode = 'audio';
-				switch ($ext) {
-					case 'm4a':
-						$this->supplied = 'm4a';
-						break;
-					case 'mp3':
-						$this->supplied = 'mp3';
-						break;
-					case 'fla':
-						$this->supplied = 'fla';
-						break;
-				}
 				break;
 			case 'mp4':
 			case 'm4v':
 			case 'flv':
 				$this->mode = 'video';
-				switch ($ext) {
-					case 'm4v':
-					case 'mp4':
-						$this->supplied = 'm4v';
-						break;
-					case 'flv':
-						$this->supplied = 'flv';
-						break;
-				}
 				break;
 		}
+		$this->supplied = $ext;
 	}
 
 	/** TODO: Could not get this to work with Firefox. Low priority so postponed for sometime later...
@@ -592,7 +573,7 @@ class jPlayer {
 			  $filesuffix = 'ogg';
 			  } */
 			$counterpart = str_replace($ext, $filesuffix, $moviepath);
-			//$suffix = str_replace('.','',$suffix);
+//$suffix = str_replace('.','',$suffix);
 			if (file_exists(str_replace(FULLWEBPATH, SERVERPATH, $counterpart))) {
 				$this->supplied_counterparts .= ',' . $suffix;
 				$counterparts .= ',' . $suffix . ':"' . pathurlencode($counterpart) . '"';
@@ -634,7 +615,7 @@ class jPlayer {
 					$suffixes = array('m4a', 'mp3', 'fla');
 					break;
 				default:
-					//	an invalid option parameter!
+//	an invalid option parameter!
 					return;
 			}
 			$id = $albumobj->getID();
