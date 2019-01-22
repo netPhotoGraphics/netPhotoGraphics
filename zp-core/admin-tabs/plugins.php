@@ -8,26 +8,13 @@
  */
 // force UTF-8 Ø
 
-define('OFFSET_PATH', 1);
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-
-admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
-
-define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
-if (isset($_GET['subpage'])) {
-	$subpage = sanitize_numeric($_GET['subpage']);
-} else {
-	if (isset($_POST['subpage'])) {
-		$subpage = sanitize_numeric($_POST['subpage']);
-	} else {
-		$subpage = 0;
-	}
-}
-
-$_GET['page'] = 'plugins';
-
 /* handle posts */
 if (isset($_GET['action'])) {
+	define('OFFSET_PATH', 2);
+	require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+
+	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
+
 	if ($_GET['action'] == 'saveplugins') {
 		if (isset($_POST['checkForPostTruncation'])) {
 			XSRFdefender('saveplugins');
@@ -52,6 +39,7 @@ if (isset($_GET['action'])) {
 					$plugins[$matches[1]] = array('action' => $action, 'is' => $nv);
 				}
 			}
+			$cleanup = array();
 			foreach ($plugins as $_plugin_extension => $data) {
 				$f = str_replace('-', '_', $_plugin_extension) . '_enable';
 				$p = getPlugin($_plugin_extension . '.php');
@@ -61,11 +49,8 @@ if (isset($_GET['action'])) {
 						break;
 					case 2:
 						//going from enabled to disabled
-						require_once($p);
-						if (function_exists($f)) {
-							$f(false);
-						}
 						setOption('zp_plugin_' . $_plugin_extension, 0);
+						$cleanup[] = array('p' => $p, 'f' => $f);
 						break;
 					case 3:
 						//going from disabled to enabled
@@ -83,6 +68,12 @@ if (isset($_GET['action'])) {
 						break;
 				}
 			}
+			foreach ($cleanup as $clean) {
+				require_once($clean['p']);
+				if (function_exists($f = $clean['f'])) {
+					$f(false);
+				}
+			}
 			$notify = '&saved';
 		} else {
 			$notify = '&post_error';
@@ -91,7 +82,26 @@ if (isset($_GET['action'])) {
 		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/plugins.php?page=plugins&tab=" . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
 		exit();
 	}
+} else {
+	define('OFFSET_PATH', 1);
+	require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+
+	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 }
+if (isset($_GET['subpage'])) {
+	$subpage = sanitize_numeric($_GET['subpage']);
+} else {
+	if (isset($_POST['subpage'])) {
+		$subpage = sanitize_numeric($_POST['subpage']);
+	} else {
+		$subpage = 0;
+	}
+}
+
+$_GET['page'] = 'plugins';
+
+define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
+
 $saved = isset($_GET['saved']);
 printAdminHeader('plugins');
 
