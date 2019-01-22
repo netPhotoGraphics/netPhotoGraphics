@@ -24,6 +24,7 @@ $option_interface = 'tinymceOptions';
 
 if (!defined('EDITOR_SANITIZE_LEVEL'))
 	define('EDITOR_SANITIZE_LEVEL', 4);
+define('TINYMCE', SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__)));
 zp_register_filter('texteditor_config', 'tinymceConfigJS');
 
 /**
@@ -93,7 +94,7 @@ function tinymceConfigJS($mode) {
 		}
 		$_editorconfig = getOption('tinymce_' . $mode);
 		if (!empty($_editorconfig)) {
-			$_editorconfig = getPlugin('tinymce/config/' . $_editorconfig, true);
+			$_editorconfig = getPlugin(stripSuffix(basename(__FILE__)) . '/config/' . $_editorconfig, true);
 			if (!empty($_editorconfig)) {
 				require_once($_editorconfig);
 			}

@@ -16,4 +16,4 @@ $MCEtoolbars[2] = "media | emoticons pasteobj | ltr rtl code fullscreen";
 $MCEstatusbar = true;
 $MCEmenubar = true;
 
-include(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/config/config.js.php');
+include(TINYMCE . '/config/config.js.php');

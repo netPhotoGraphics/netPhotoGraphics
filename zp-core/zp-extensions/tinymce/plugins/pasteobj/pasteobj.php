@@ -26,10 +26,8 @@ function getIPSizedImage($size, $image) {
 	<head>
 		<?php printStandardMeta(); ?>
 		<title>tinyMCE:obj</title>
-		<?php
-		load_jQuery_scripts('admin');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/plugins/pasteobj/pasteobj_popup.js');
-		?>
+		<?php load_jQuery_scripts('admin'); ?>
+		<script type="text/javascript" src="pasteobj_popup.js"></script>
 
 	</head>
 

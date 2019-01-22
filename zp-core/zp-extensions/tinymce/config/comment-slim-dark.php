@@ -15,4 +15,4 @@ $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 $MCEtoolbars[1] = "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ltr rtl code";
 $MCEstatusbar = false;
 $MCEmenubar = false;
-include(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/config/config.js.php');
+include(TINYMCE . '/config/config.js.php');
