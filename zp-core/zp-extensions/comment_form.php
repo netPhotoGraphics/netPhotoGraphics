@@ -35,8 +35,9 @@ if (OFFSET_PATH) {
 	if (getOption('comment_form_pagination')) {
 		zp_register_filter('theme_body_close', 'comment_form_PaginationJS');
 	}
+
 	if (getOption('tinymce_comments')) {
-		require_once(TINYMCE . '.php');
+		require_once(getPlugin('tinymce.php'));
 		zp_register_filter('theme_body_close', 'comment_form_visualEditor');
 	}
 }
@@ -49,7 +50,6 @@ class comment_form {
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			$old = getOption('tinymce_comments');
 			setOptionDefault('email_new_comments', 1);
 			setOptionDefault('comment_name_required', 'required');
 			setOptionDefault('comment_email_required', 'required');
@@ -72,6 +72,10 @@ class comment_form {
 			setOptionDefault('tinymce_comments', 'comment-ribbon.php');
 			setOptionDefault('tinymce_admin_comments', 'comment-ribbon.php');
 		}
+		if (getOption('tinymce_comments')) {
+			require_once(TINYMCE . '.php');
+			zp_register_filter('theme_body_close', 'comment_form_visualEditor');
+		}
 	}
 
 	/**
@@ -81,12 +85,10 @@ class comment_form {
 	 */
 	function getOptionsSupported() {
 		global $_zp_captcha;
-		require_once(TINYMCE . '.php');
 		$checkboxes = array(gettext('Albums') => 'comment_form_albums', gettext('Images') => 'comment_form_images');
 		if (extensionEnabled('zenpage')) {
 			$checkboxes = array_merge($checkboxes, array(gettext('Pages') => 'comment_form_pages', gettext('News') => 'comment_form_articles'));
 		}
-		$configarray = tinymce::getConfigFiles('comment');
 
 		$options = array(
 				gettext('Enable comment notification') => array('key' => 'email_new_comments', 'type' => OPTION_TYPE_CHECKBOX,
@@ -136,20 +138,28 @@ class comment_form {
 						'desc' => gettext('If checked, an RSS link will be included at the bottom of the comment section.')),
 				gettext('Comments per page') => array('key' => 'comment_form_comments_per_page', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 9,
-						'desc' => gettext('The comments that should show per page on the admin tab and when using the jQuery pagination')),
-				gettext('Comment editor configuration') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 1,
-						'selections' => $configarray,
-						'null_selection' => gettext('Disabled'),
-						'desc' => gettext('Configuration file for TinyMCE when used for comments. Set to <code>Disabled</code> to disable visual editing.')),
-				gettext('Admin comment editor configuration') => array('key' => 'tinymce_admin_comments', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 1.1,
-						'selections' => $configarray,
-						'null_selection' => gettext('Disabled'),
-						'desc' => gettext('Configuration file for TinyMCE when used for the <em>edit comments</em> tab.')), gettext('Pagination') => array('key' => 'comment_form_pagination', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 3,
-						'desc' => gettext('Uncheck to disable the jQuery pagination of comments. Enabled by default.')),
+						'desc' => gettext('The comments that should show per page on the admin tab and when using the jQuery pagination'))
 		);
+		if (defined('TINYMCE')) {
+			$editorConfig = stripsuffix(basename(TINYMCE)) . '::getConfigFiles';
+			$configarray = $editorConfig('comment');
+			$commentEditor = array(
+					gettext('Comment editor configuration') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
+							'order' => 1,
+							'selections' => $configarray,
+							'null_selection' => gettext('Disabled'),
+							'desc' => gettext('Configuration file for TinyMCE when used for comments. Set to <code>Disabled</code> to disable visual editing.')),
+					gettext('Admin comment editor configuration') => array('key' => 'tinymce_admin_comments', 'type' => OPTION_TYPE_SELECTOR,
+							'order' => 1.1,
+							'selections' => $configarray,
+							'null_selection' => gettext('Disabled'),
+							'desc' => gettext('Configuration file for TinyMCE when used for the <em>edit comments</em> tab.')), gettext('Pagination') => array('key' => 'comment_form_pagination', 'type' => OPTION_TYPE_CHECKBOX,
+							'order' => 3,
+							'desc' => gettext('Uncheck to disable the jQuery pagination of comments. Enabled by default.')),
+			);
+			$options = array_merge($options, $commentEditor);
+		}
+
 		return $options;
 	}
 
