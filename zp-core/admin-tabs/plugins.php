@@ -8,13 +8,18 @@
  */
 // force UTF-8 Ø
 
-/* handle posts */
+$subpage = (int) filter_var(@$_REQUEST['subpage'], FILTER_SANITIZE_NUMBER_FLOAT);
 if (isset($_GET['action'])) {
 	define('OFFSET_PATH', 2);
-	require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+} else {
+	define('OFFSET_PATH', 1);
+}
+require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
-	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
+admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
+/* handle posts */
+if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'saveplugins') {
 		if (isset($_POST['checkForPostTruncation'])) {
 			XSRFdefender('saveplugins');
@@ -81,20 +86,6 @@ if (isset($_GET['action'])) {
 
 		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/plugins.php?page=plugins&tab=" . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
 		exit();
-	}
-} else {
-	define('OFFSET_PATH', 1);
-	require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-
-	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
-}
-if (isset($_GET['subpage'])) {
-	$subpage = sanitize_numeric($_GET['subpage']);
-} else {
-	if (isset($_POST['subpage'])) {
-		$subpage = sanitize_numeric($_POST['subpage']);
-	} else {
-		$subpage = 0;
 	}
 }
 
