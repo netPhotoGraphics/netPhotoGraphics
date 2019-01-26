@@ -219,7 +219,7 @@ code {
 	margin-top: 10px;
 	position: absolute;
 	overflow: visible;
-	z-index: 500000;
+	z-index: 50000;
   width: 13em;
   background: #fafafa;
 	zoom: 1;
