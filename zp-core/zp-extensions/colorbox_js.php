@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Loads Colorbox JS and CSS scripts for selected theme page scripts.
  *
@@ -32,63 +31,30 @@ if (OFFSET_PATH) {
 	zp_register_filter('admin_head', 'colorbox::js');
 	zp_register_filter('admin_head', 'colorbox::css');
 } else {
-	if (in_array(stripSuffix(@$_zp_gallery_page), getSerializedArray(getOption('colorbox_' . $_zp_gallery->getCurrentTheme() . '_scripts')))) {
-		zp_register_filter('theme_body_close', 'colorbox::js');
-		zp_register_filter('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
-	}
+	zp_register_filter('theme_body_close', 'colorbox::js');
+	zp_register_filter('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
 }
 
 class colorbox {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('colorbox_theme', 'example1');
-
-			$found = array();
 			$result = getOptionsLike('colorbox_');
 			foreach ($result as $option => $value) {
-				preg_match('/colorbox_(.*)_(.*)/', $option, $matches);
-				if (count($matches) == 3 && $matches[2] != 'scripts') {
-					if ($value) {
-						$found[$matches[1]][] = $matches[2];
-					}
+				if ($option != 'colorbox_theme')
 					purgeOption('colorbox_' . $matches[1] . '_' . $matches[2]);
-				}
 			}
-			foreach ($found as $theme => $scripts) {
-				setOptionDefault('colorbox_' . $theme . '_scripts', serialize($scripts));
-			}
+			setOptionDefault('colorbox_theme', 'example1');
 		}
 	}
 
 	function getOptionsSupported() {
 		global $_zp_gallery;
-		$themes = getPluginFiles('colorbox_js/themes/*.*');
-		$list = array('Custom (theme based)' => 'custom');
-		foreach ($themes as $theme) {
-			$theme = stripSuffix(basename($theme));
-			$list[ucfirst($theme)] = $theme;
-		}
-		$opts = array(gettext('Colorbox theme') => array('key' => 'colorbox_theme', 'type' => OPTION_TYPE_SELECTOR,
+		return array(gettext('Colorbox theme') => array('key' => 'colorbox_theme', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 0,
 						'selections' => $list,
 						'desc' => gettext("The Colorbox script comes with 5 example themes you can select here. If you select <em>custom (within theme)</em> you need to place a folder <em>colorbox_js</em> containing a <em>colorbox.css</em> file and a folder <em>images</em> within the current theme to override to use a custom Colorbox theme."))
 		);
-		$c = 10;
-
-		foreach (getThemeFiles(array('404.php', 'themeoptions.php', 'theme_description.php', 'functions.php')) as $theme => $scripts) {
-			$list = array();
-			foreach ($scripts as $script) {
-				$list[$script] = stripSuffix($script);
-			}
-			$opts[$theme] = array('key' => 'colorbox_' . $theme . '_scripts', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
-					'order' => $c++,
-					'checkboxes' => $list,
-					'desc' => sprintf(gettext('The %1$s scripts for which Colorbox is enabled.'), $theme)
-			);
-		}
-
-		return $opts;
 	}
 
 	function handleOption($option, $currentValue) {
@@ -100,12 +66,10 @@ class colorbox {
 	 *
 	 * @param string $theme
 	 * @param array $scripts list of the scripts
+	 * @deprecated since version 1.9
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		if (is_null($theme)) {
-			list($theme, $creaator) = getOptionOwner();
-		}
-		setOptionDefault('colorbox_' . $theme . '_scripts', serialize($scripts));
+
 	}
 
 	/**
@@ -117,15 +81,9 @@ class colorbox {
 	 * @param string $theme
 	 * @param string $script
 	 * @return boolean true registered
+	 * @deprecated since version 1.9
 	 */
 	static function scriptEnabled($theme, $script) {
-		global $_zp_gallery, $_zp_gallery_page;
-		$scripts = getSerializedArray(getOption('colorbox_' . $_zp_gallery->getCurrentTheme() . '_scripts'));
-		if (!in_array(stripSuffix($_zp_gallery_page), $scripts)) {
-			array_push($scripts, $script);
-			setOption('colorbox_' . $theme . '_scripts', serialize($scripts));
-			return false;
-		}
 		return true;
 	}
 
@@ -154,6 +112,7 @@ class colorbox {
 		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
 		?>
 		<script type="text/javascript">
+		<?php ob_start(); ?>
 			/* Colorbox resize function for images */
 			var resizeTimer;
 
@@ -180,15 +139,18 @@ class colorbox {
 					}
 				}, 500)
 			}
-			// Resize Colorbox when changing mobile device orientation
-			window.addEventListener("orientationchange", function () {
+			/* Resize Colorbox when changing mobile device orientation */
+			window.addEventListener('orientationchange', function () {
 				resizeColorBoxImage();
 				parent.resizeColorBoxMap()
 			}, false);
-
+		<?php
+		$body = ob_get_contents();
+		ob_end_clean();
+		echo preg_replace('~\s+~', ' ', $body) . "\n";
+		?>
 		</script>
 		<?php
-
 	}
 
 }

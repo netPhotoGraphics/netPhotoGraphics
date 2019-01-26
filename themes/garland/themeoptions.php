@@ -24,9 +24,6 @@ class ThemeOptions {
 		setThemeOptionDefault('garland_transition', 'slide-hori');
 		setThemeOptionDefault('garland_caption_location', 'image');
 		setThemeOptionDefault('garland_menu', '');
-		if (class_exists('colorbox')) {
-			colorbox::registerScripts(array('album', 'favorites', 'image', 'search'));
-		}
 		if (class_exists('cacheManager')) {
 			$me = basename(dirname(__FILE__));
 			cacheManager::deleteCacheSizes($me);
