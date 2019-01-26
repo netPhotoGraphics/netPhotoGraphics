@@ -49,7 +49,7 @@ if ($MCEdirection == NULL) {
 		}
 	}
 }
-$MCEplugins = preg_replace('|\stinyzenpage|', '', $MCEplugins);
+
 scriptLoader(TINYMCE . '/tinymce.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
@@ -88,7 +88,7 @@ if ($filehandler) {
 ?>
 	plugins: ["<?php echo $MCEplugins; ?>"],
 <?php
-if (strpos($MCEplugins, 'pagebreak') != FALSE) {
+if (strpos($MCEplugins, 'pagebreak') !== FALSE) {
 	?>
 		pagebreak_split_block: true,
 	<?php
@@ -114,17 +114,56 @@ if (empty($MCEtoolbars)) {
 		<?php
 	}
 }
+
 if ($MCEmenubar) {
-	if (!is_string($MCEmenubar)) {
-		$MCEmenubar = "file edit insert view format table tools ";
+	if (is_array($MCEmenubar)) {
+		$menu = $MCEmenubar;
+	} else if (is_string($MCEmenubar)) {
+		$menu = explode(' ', $MCEmenubar);
+	} else {
+		$menu = array('file', 'edit', 'insert', 'view', 'format', 'table', 'tools');
 	}
+	// remove unsupported plugins
+	unset($menu['contextmenu']);
+
+	$MCEmenubar = "    menu: {\n";
+	foreach ($menu as $item) {
+		switch ($item) {
+			case 'file':
+				$MCEmenubar .= "      file: {title: 'File', items: 'newdocument'},\n";
+				break;
+			case 'edit':
+				$MCEmenubar .= "      edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},\n";
+				break;
+			case 'insert':
+				$MCEmenubar .= "      insert: {title: 'Insert', items: 'image link media";
+				if (strpos($MCEplugins, 'pasteobj') !== false) {
+					$MCEmenubar .= " pasteobj";
+				}
+				$MCEmenubar .= " template | charmap hr | pagebreak nonbreaking anchor | insertdatetime'},\n";
+				break;
+			case 'view':
+				$MCEmenubar .= "      view: {title: 'View', items: 'visualaid'},\n";
+				break;
+			case 'format':
+				$MCEmenubar .= "      format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'},\n";
+				break;
+			case 'table':
+				$MCEmenubar .= "      table: {title: 'Table', items: 'inserttable tableprops deletetable | row column | cell'},\n";
+				break;
+			case 'file':
+				$MCEmenubar .= "      tools: {title: 'Tools', items: 'spellchecker code'}\n";
+				break;
+		}
+	}
+	$MCEmenubar = trim($MCEmenubar, ",\n") . "\n      }";
 } else {
 	$MCEmenubar = "false";
 }
 ?>
 
 	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
-					menubar: '<?php echo $MCEmenubar; ?>',
+<?php echo $MCEmenubar; ?>,
 					setup: function(editor) {
 					editor.on('blur', function(ed, e) {
 					form = $(editor.getContainer()).closest('form');
@@ -149,5 +188,5 @@ if (getOption('dirtyform_enable') > 1) {
 
 
 	});
-// ]]> -->
+	// ]]> -->
 </script>
