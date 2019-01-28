@@ -2233,7 +2233,11 @@ function scriptLoader($script, $inline = 1) {
 				} else {
 					?>
 					<script type="text/javascript">/* src="<?php echo $script; ?>" */
-					<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+					<?php
+					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
+					$content = preg_replace('~//.*~', '', $content);
+					echo preg_replace('/\s+/', ' ', $content) . "\n";
+					?>
 					</script>
 					<?php
 				}
