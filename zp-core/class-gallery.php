@@ -1141,34 +1141,6 @@ class Gallery {
 	}
 
 	/**
-	 * Returns true if the file is an image
-	 *
-	 * @param string $filename the name of the target
-	 * @return bool
-	 *
-	 * @deprecated probably no real use any more
-	 */
-	static function validImage($filename) {
-		global $_zp_supported_images;
-		return in_array(getSuffix($filename), $_zp_supported_images);
-	}
-
-	/**
-	 * Returns true if the file is handled by an image handler plugin object
-	 *
-	 * @param string $filename
-	 * @return bool
-	 *
-	 * @deprecated probably no real use any more
-	 */
-	static function validImageAlt($filename) {
-		$obj = self::imageObjectClass($filename);
-		if ($obj == 'Image')
-			$obj = NULL;
-		return $obj;
-	}
-
-	/**
 	 * registers object handlers for album varients
 	 * @global array $_zp_albumHandlers
 	 * @param type $suffix

@@ -118,7 +118,8 @@ class bxslider {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-
+		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
 	static function js() {

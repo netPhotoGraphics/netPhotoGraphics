@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Loads Colorbox JS and CSS scripts for selected theme page scripts.
  *
@@ -69,7 +70,8 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-
+		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
 	/**
@@ -84,6 +86,8 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function scriptEnabled($theme, $script) {
+		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify('scriptEnabled() is no longer used. You may delete the calls.');
 		return true;
 	}
 
@@ -110,47 +114,7 @@ class colorbox {
 
 	static function js() {
 		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-		?>
-		<script type="text/javascript">
-		<?php ob_start(); ?>
-			/* Colorbox resize function for images */
-			var resizeTimer;
-
-			function resizeColorBoxImage() {
-				if (resizeTimer)
-					clearTimeout(resizeTimer);
-				resizeTimer = setTimeout(function () {
-					if (jQuery('#cboxOverlay').is(':visible')) {
-						jQuery.colorbox.resize({width: '90%'});
-						jQuery('#cboxLoadedContent img').css('max-width', '100%').css('height', 'auto');
-					}
-				}, 300)
-			}
-			/* Colorbox resize function for Google Maps*/
-			function resizeColorBoxMap() {
-				if (resizeTimer)
-					clearTimeout(resizeTimer);
-				resizeTimer = setTimeout(function () {
-					var mapw = $(window).width() * 0.8;
-					var maph = $(window).height() * 0.7;
-					if (jQuery('#cboxOverlay').is(':visible')) {
-						$.colorbox.resize({innerWidth: mapw, innerHeight: maph});
-						$('#cboxLoadedContent iframe').contents().find('#map_canvas').css('width', '100%').css('height', maph - 20);
-					}
-				}, 500)
-			}
-			/* Resize Colorbox when changing mobile device orientation */
-			window.addEventListener('orientationchange', function () {
-				resizeColorBoxImage();
-				parent.resizeColorBoxMap()
-			}, false);
-		<?php
-		$body = ob_get_contents();
-		ob_end_clean();
-		echo preg_replace('~\s+~', ' ', $body) . "\n";
-		?>
-		</script>
-		<?php
+		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/functions.js');
 	}
 
 }
