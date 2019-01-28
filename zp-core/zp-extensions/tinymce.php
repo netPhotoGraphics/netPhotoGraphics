@@ -76,7 +76,8 @@ class tinymce {
 
 	static function configJS($mode) {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
-		$MCEskin = $MCEdirection = $MCEcss = $MCEspecial = $MCEimage_advtab = $MCEtoolbars = NULL;
+		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = NULL;
+		$MCEspecial = 'browser_spellcheck: true';
 
 		if (empty($_editorconfig)) { // only if we get here first!
 			$MCElocale = 'en';
