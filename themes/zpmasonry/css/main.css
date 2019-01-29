@@ -166,10 +166,6 @@ span.beforetext{margin:0;padding:0 5px 0 0;}
 span.betweentext{float:none;display:inline;}
 .readmorelink{display:none;}
 
-.zenpage_sizedimage,.zenpage_customimage,.zenpage_thumb,.zenpage_customthumb{margin:5px auto;clear:both;}
-.zenpage_wrapper_left img,.zenpage_thumb_left,.zenpage_customthumb_left,.zenpage_sizedimage_left,.zenpage_customimage_left{margin:0 10px 5px 0;}
-.zenpage_wrapper_right img,.zenpage_thumb_right,.zenpage_customthumb_right,.zenpage_sizedimage_right,.zenpage_customimage_right{margin:0 0 5px 10px;}
-
 .latest li{margin-bottom:10px;}
 .latest .latestnews-date{font-style:italic;}
 
