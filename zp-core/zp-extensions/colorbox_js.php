@@ -41,9 +41,9 @@ class colorbox {
 	function __construct() {
 		if (OFFSET_PATH == 2) {
 			$result = getOptionsLike('colorbox_');
+			unset($result['colorbox_theme']);
 			foreach ($result as $option => $value) {
-				if ($option != 'colorbox_theme')
-					purgeOption('colorbox_' . $matches[1] . '_' . $matches[2]);
+				purgeOption('colorbox_' . $option);
 			}
 			setOptionDefault('colorbox_theme', 'example1');
 		}
@@ -118,4 +118,5 @@ class colorbox {
 	}
 
 }
+
 ?>

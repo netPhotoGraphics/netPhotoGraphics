@@ -73,7 +73,7 @@ class comment_form {
 			setOptionDefault('tinymce_admin_comments', 'comment-ribbon.php');
 		}
 		if (getOption('tinymce_comments')) {
-			require_once(TINYMCE . '.php');
+			require_once(getPlugin('tinymce.php'));
 			zp_register_filter('theme_body_close', 'comment_form_visualEditor');
 		}
 	}
