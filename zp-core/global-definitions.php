@@ -113,7 +113,7 @@ if (!preg_match('~(.*?)/(' . ZENFOLDER . ')~', $const_webpath, $matches)) {
 }
 if ($matches) {
 	$const_webpath = $matches[1];
-	$const_serverpath = substr($const_serverpath, 0, strpos($const_serverpath, $matches[2]));
+	$const_serverpath = trim(substr($const_serverpath, 0, strpos($const_serverpath, $matches[2])), '/');
 	switch ($matches[2]) {
 		case ZENFOLDER:
 			$offset = 1;

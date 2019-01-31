@@ -24,8 +24,9 @@ $option_interface = 'tinymce';
 
 if (!defined('EDITOR_SANITIZE_LEVEL'))
 	define('EDITOR_SANITIZE_LEVEL', 4);
-if (!defined('TINYMCE'))
-	define('TINYMCE', str_replace('\\', '/', stripSuffix(__FILE__)));
+if (!defined('TINYMCE')) {
+	define('TINYMCE', SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce');
+}
 zp_register_filter('texteditor_config', 'tinymce::configJS');
 
 /**
