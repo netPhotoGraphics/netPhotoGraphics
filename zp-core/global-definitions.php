@@ -102,6 +102,7 @@ define('ER_CON_COUNT_ERROR', 1040);
  */
 $const_webpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 $const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']));
+
 /**
  * see if we are executing out of any of the known script folders. If so we know how to adjust the paths
  * if not we presume the script is in the root of the installation. If it is not the script better have set
@@ -112,24 +113,23 @@ if (!preg_match('~(.*?)/(' . ZENFOLDER . ')~', $const_webpath, $matches)) {
 }
 if ($matches) {
 	$const_webpath = $matches[1];
-	$const_serverpath = substr($const_serverpath, 0, strpos($const_serverpath, $const_webpath) + strlen($const_webpath));
-	if (!defined('OFFSET_PATH')) {
-		switch ($matches[2]) {
-			case ZENFOLDER:
-				define('OFFSET_PATH', 1);
-				break;
-			case USER_PLUGIN_FOLDER:
-				define('OFFSET_PATH', 3);
-				break;
-			case THEMEFOLDER:
-				define('OFFSET_PATH', 4);
-				break;
-		}
+	$const_serverpath = substr($const_serverpath, 0, strpos($const_serverpath, $matches[2]));
+	switch ($matches[2]) {
+		case ZENFOLDER:
+			$offset = 1;
+			break;
+		case USER_PLUGIN_FOLDER:
+			$offset = 3;
+			break;
+		case THEMEFOLDER:
+			$offset = 4;
+			break;
 	}
 } else {
-	if (!defined('OFFSET_PATH')) {
-		define('OFFSET_PATH', 0);
-	}
+	$offset = 0;
+}
+if (!defined('OFFSET_PATH')) {
+	define('OFFSET_PATH', $offset);
 }
 
 if ($const_webpath == '/' || $const_webpath == '.') {
