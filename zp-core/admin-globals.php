@@ -49,7 +49,7 @@ if (abs(OFFSET_PATH) != 2) {
 	}
 
 	//	just incase
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/functions-filter.php');
+	require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-filter.php');
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale.php');
 }
 if (!defined('SEO_FULLWEBPATH')) {
