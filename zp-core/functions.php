@@ -2105,8 +2105,8 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 function replaceOption($oldKey, $newKey, $default, $setOption = 'setOptionDefault') {
 	$existing = getOptionList();
 	if (!array_key_exists($newKey, $existing)) {
-		if (isset($existing[$oldkey])) {
-			$v = $existing[$oldkey];
+		if (isset($existing[$oldKey])) {
+			$v = $existing[$oldKey];
 		} else {
 			$v = $default;
 		}
