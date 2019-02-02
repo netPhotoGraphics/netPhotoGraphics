@@ -25,7 +25,7 @@ define('SECRET_IV', getOption('secret_init_vector'));
 define('INCRIPTION_METHOD', 'AES-256-CBC');
 
 if (function_exists('openssl_encrypt')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/class.ncrypt.php');
+	require_once(dirname(__FILE__) . '/class.ncrypt.php');
 	$_adminCript = new mukto90\Ncrypt;
 	$_adminCript->set_secret_key(SECRET_KEY);
 	$_adminCript->set_secret_iv(SECRET_IV);
