@@ -112,7 +112,7 @@ echo '</head>';
 								?>
 								<li>
 									<?php
-									printf(gettext('The follwing desired PHP extensions are not enabled: %s'), rtrim($missing, ', '));
+									printf(gettext('The following desired PHP extensions are not enabled: %s'), rtrim($missing, ', '));
 									?>
 								</li>
 								<?php
@@ -379,8 +379,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php
