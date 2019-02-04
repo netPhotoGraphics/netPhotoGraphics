@@ -15,7 +15,7 @@
  * instantiated, only used for subclasses. This cannot be enforced, but please
  * follow it!
  *
- * A child class should run the follwing in its constructor:
+ * A child class should run the following in its constructor:
  *
  * $new = $this->instantiate('tablename',
  *   array('uniquestring'=>$value, 'uniqueid'=>$uniqueid));
