@@ -2219,7 +2219,20 @@ function scriptLoader($script, $inline = 1) {
 	if ($inline) {
 		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD || is_bool($inline)) {
 			$content = file_get_contents($scriptFS);
-			if (!preg_match('~url\s*\(~i', $content)) { //	no potential self relative links
+			$found = preg_match_all('~url\s*\((.+)\)~i', $content, $matches);
+			if ($found) {
+				$serverbase = dirname($script) . '/';
+				$webbase = str_replace(SERVERPATH, WEBPATH, $serverbase);
+				foreach ($matches[1] as $key => $match) {
+					if (file_exists($serverbase . $match)) {
+						$found--;
+						$content = str_replace($matches[0][$key], 'url(' . $webbase . $match . ')', $content);
+					} else {
+						break;
+					}
+				}
+			}
+			if (!$found) { //	no unresolved self relative links
 				if (getSuffix($scriptFS) == 'css') {
 					?>
 					<style type="text/css">/* src="<?php echo $script; ?>" */
@@ -2401,14 +2414,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

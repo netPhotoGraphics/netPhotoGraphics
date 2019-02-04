@@ -39,7 +39,7 @@ define('CONFIGFILE', 'zenphoto.cfg.php');
 define('MUTEX_FOLDER', '.mutex');
 
 //used by scriptLoader() to decide whether to inline the script (js or css)
-define('INLINE_LOAD_THRESHOLD', 3072);
+define('INLINE_LOAD_THRESHOLD', 4096);
 
 //bit masks for plugin priorities
 define('CLASS_PLUGIN', 8192);
