@@ -1339,6 +1339,7 @@ zp-core/js/jquery.pagination.js
 zp-core/js/jquery.scrollTo.min.js
 zp-core/js/jquery.stickytableheaders.min.js
 zp-core/js/jquery.ui.touch-punch.min.js
+zp-core/js/searchform.js
 zp-core/js/sprintf.js
 zp-core/js/dirtyforms
 zp-core/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js
@@ -1612,7 +1613,6 @@ zp-core/zp-extensions/menu_manager.php
 zp-core/zp-extensions/mergedRSS.php
 zp-core/zp-extensions/mobileTheme.php
 zp-core/zp-extensions/multiple_layouts.php
-zp-core/zp-extensions/nanospell.php
 zp-core/zp-extensions/openstreetmap.php
 zp-core/zp-extensions/optionalObjectFields.php
 zp-core/zp-extensions/paged_thumbs_nav.php
@@ -1720,6 +1720,7 @@ zp-core/zp-extensions/cloneZenphoto
 zp-core/zp-extensions/cloneZenphoto/clone.php
 zp-core/zp-extensions/cloneZenphoto/cloneTab.php
 zp-core/zp-extensions/colorbox_js
+zp-core/zp-extensions/colorbox_js/functions.js
 zp-core/zp-extensions/colorbox_js/jquery.colorbox-min.js
 zp-core/zp-extensions/colorbox_js/i18n
 zp-core/zp-extensions/colorbox_js/i18n/jquery.colorbox-ar.js
@@ -8390,4 +8391,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8392
+8393

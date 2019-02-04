@@ -39,9 +39,6 @@ class ThemeOptions {
 		setThemeOptionDefault('effervescence_daily_album_image', 1);
 		setThemeOptionDefault('effervescence_daily_album_image_effect', '');
 		setThemeOptionDefault('display_theme_info', 1);
-		if (class_exists('colorbox')) {
-			colorbox::registerScripts(array('album', 'favorites', 'image', 'search'));
-		}
 		if (class_exists('cacheManager')) {
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, 595, NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);

@@ -24,9 +24,6 @@ class ThemeOptions {
 		setThemeOptionDefault('images_per_page', 24);
 		setThemeOptionDefault('images_per_row', 6);
 
-		if (class_exists('colorbox')) {
-			colorbox::registerScripts(array('album', 'favorites', 'image', 'search'));
-		}
 		if (class_exists('cacheManager')) {
 			cacheManager::deleteCacheSizes('zpMobile');
 			cacheManager::addCacheSize('zpMobile', NULL, 79, 79, 79, 79, NULL, NULL, true, NULL, NULL, NULL);

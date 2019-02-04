@@ -13,4 +13,4 @@ $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image pasteobj | ltr rtl code fullscreen";
 $MCEstatusbar = true;
 $MCEmenubar = true;
-include(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/config/config.js.php');
+include(TINYMCE . '/config/config.js.php');

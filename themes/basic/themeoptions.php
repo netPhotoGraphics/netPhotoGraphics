@@ -29,9 +29,6 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop', 1);
 		setThemeOptionDefault('thumb_transition', 1);
 
-		if (class_exists('colorbox')) {
-			colorbox::registerScripts(array('album', 'favorites', 'image', 'search'));
-		}
 		if (class_exists('cacheManager')) {
 			$me = basename(dirname(__FILE__));
 			cacheManager::deleteCacheSizes($me);

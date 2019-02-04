@@ -95,6 +95,8 @@ function checkSignature($mandatory) {
 	$old = NULL;
 	if (function_exists('query_full_array') && $_zp_DB_connection) {
 		$old = @unserialize(getOption('zenphoto_install'));
+		unset($old['SERVER_SOFTWARE']);
+		unset($old['DATABASE']);
 		$new = installSignature();
 	}
 	if (!is_array($old)) {
@@ -249,12 +251,6 @@ function reconfigurePage($diff, $needs, $mandatory) {
 				<?php
 				foreach ($diff as $thing => $rslt) {
 					switch ($thing) {
-						case 'SERVER_SOFTWARE':
-							echo '<li>' . sprintf(gettext('Your server software has changed from %1$s to %2$s.'), $rslt['old'], $rslt['new']) . '</li>';
-							break;
-						case 'DATABASE':
-							echo '<li>' . sprintf(gettext('Your database software has changed from %1$s to %2$s.'), $rslt['old'], $rslt['new']) . '</li>';
-							break;
 						case 'ZENPHOTO':
 							echo '<li>' . sprintf(gettext('Version %1$s has been copied over %2$s.'), $rslt['new'], $rslt['old']) . '</li>';
 							break;

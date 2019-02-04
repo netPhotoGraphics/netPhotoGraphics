@@ -38,11 +38,6 @@ class ThemeOptions {
 		setThemeOptionDefault('use_colorbox_image', false);
 		setThemeOptionDefault('show_exif', true);
 
-		if (class_exists('colorbox')) {
-			colorbox::registerScripts(array('album', 'favorites', 'image', 'search', 'archive', 'contact', 'gallery', 'index', 'news', 'pages', 'password', 'regiser'));
-		}
-
-
 		if (class_exists('cacheManager')) {
 			$me = basename(dirname(__FILE__));
 			cacheManager::deleteCacheSizes($me);

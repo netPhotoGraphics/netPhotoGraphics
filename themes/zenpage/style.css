@@ -1221,25 +1221,6 @@ button.positive,.buttons a.positive {
 	padding:8px;
 }
 
-/* tinyZenpage title addition */
-.zenpage_wrapper_left,
-.zenpage_wrapper_right {
-	border: 1px solid #EEEEEE;
-	background: #FBFBF8;
-	padding: 10px;
-}
-
-.zenpage_wrapper_left {
-	margin-right: 10px;
-}
-
-.zenpage_wrapper_right {
-	margin-left: 10px;
-}
-.zenpage_title {
-	font-style: italic;
-}
-
 /*CSS3 rounded edges */
 .album,
 .button,
@@ -1247,9 +1228,7 @@ button.positive,.buttons a.positive {
 textarea,
 #exif_link a,
 #search_input,
-#search_submit,
-.zenpage_wrapper_left,
-.zenpage_wrapper_right {
+#search_submit {
 	-moz-border-radius: 5px 5px 5px 5px;
 	-khtml-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;

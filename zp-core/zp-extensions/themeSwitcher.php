@@ -125,16 +125,22 @@ class themeSwitcher {
 	static function head() {
 		global $_themeSwitcherThemelist;
 		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));
+		ob_start();
+		$_themeSwitcherThemelist = zp_apply_filter('themeSwitcher_head', $_themeSwitcherThemelist);
+		$scripts = ob_get_contents();
+		ob_end_clean();
+		$scripts = preg_replace('~<script.*text/javascript.*>\s*//\s*<!--.*CDATA\[?~', '', $scripts);
+		$scripts = preg_replace('~//\s*\]\]>\s*-->\s*\s</script>?~', '', $scripts);
 		?>
-		<script type="text/javascript">
-		// <!-- <![CDATA[
+		<script type="text/javascript">/* themeSwitcher */
+			// <!-- <![CDATA[
 			function switchTheme(reloc) {
 				window.location = reloc.replace(/%t/, encodeURIComponent($('#themeSwitcher').val()));
 			}
-		// ]]> -->
+		<?php echo $scripts; ?>
+			// ]]> -->
 		</script>
 		<?php
-		$_themeSwitcherThemelist = zp_apply_filter('themeSwitcher_head', $_themeSwitcherThemelist);
 	}
 
 	/**
@@ -197,7 +203,7 @@ class themeSwitcher {
 						echo '>' . $item . "</option>" . "\n";
 					}
 					?>
-					<?php //generateListFromArray(array($theme), $themes, false, true);  ?>
+					<?php //generateListFromArray(array($theme), $themes, false, true);   ?>
 				</select>
 				<?php zp_apply_filter('themeSwitcher_Controllink', $theme); ?>
 			</div>

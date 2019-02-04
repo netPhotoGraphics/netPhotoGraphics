@@ -107,13 +107,13 @@ $const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']))
  * if not we presume the script is in the root of the installation. If it is not the script better have set
  * the SERVERPATH and WEBPATH defines to the correct values
  */
-if (!preg_match('~(.*)/(' . ZENFOLDER . ')~', $const_webpath, $matches)) {
-	preg_match('~(.*)/(' . USER_PLUGIN_FOLDER . '|' . THEMEFOLDER . ')~', $const_webpath, $matches);
+if (!preg_match('~(.*?)/(' . ZENFOLDER . ')~', $const_webpath, $matches)) {
+	preg_match('~(.*?)/(' . USER_PLUGIN_FOLDER . '|' . THEMEFOLDER . ')~', $const_webpath, $matches);
 }
-
 if ($matches) {
 	$const_webpath = $matches[1];
-	$const_serverpath = substr($const_serverpath, 0, strrpos($const_serverpath, '/' . $matches[2]));
+	$const_serverpath = substr($const_serverpath, 0, strpos($const_serverpath, '/' . $matches[2]));
+
 	if (!defined('OFFSET_PATH')) {
 		switch ($matches[2]) {
 			case ZENFOLDER:

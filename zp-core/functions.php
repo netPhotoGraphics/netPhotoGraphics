@@ -2105,8 +2105,8 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 function replaceOption($oldKey, $newKey, $default, $setOption = 'setOptionDefault') {
 	$existing = getOptionList();
 	if (!array_key_exists($newKey, $existing)) {
-		if (isset($existing[$oldkey])) {
-			$v = $existing[$oldkey];
+		if (isset($existing[$oldKey])) {
+			$v = $existing[$oldKey];
 		} else {
 			$v = $default;
 		}
@@ -2201,11 +2201,12 @@ function seoFriendlyJS() {
  * append a release unique tag to the URL to avoid caching issues.
  *
  * @param string $script
- * @param bool $inline	set to false to prevent rendering the script in-line, for
+ * @param bool $inline	set to FALSE to prevent rendering the script in-line, for
  * 											instance if the script has self relative url links.
+ *                      set to TRUE to force rendering the script in-line
  *
  */
-function scriptLoader($script, $inline = true) {
+function scriptLoader($script, $inline = 1) {
 	if (strpos($script, SERVERPATH) === false) {
 		if (strpos($script, FULLWEBPATH) === 0) {
 			$script = SERVERPATH . substr($script, strlen(FULLWEBPATH));
@@ -2216,7 +2217,7 @@ function scriptLoader($script, $inline = true) {
 
 	$scriptFS = internalToFilesystem($script);
 	if ($inline) {
-		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD) {
+		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD || is_bool($inline)) {
 			$content = file_get_contents($scriptFS);
 			if (!preg_match('~url\s*\(~i', $content)) { //	no potential self relative links
 				if (getSuffix($scriptFS) == 'css') {
@@ -2232,7 +2233,11 @@ function scriptLoader($script, $inline = true) {
 				} else {
 					?>
 					<script type="text/javascript">/* src="<?php echo $script; ?>" */
-					<?php echo preg_replace('/\s+/', ' ', $content) . "\n"; ?>
+					<?php
+					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
+					$content = preg_replace('~//.*~', '', $content);
+					echo preg_replace('/\s+/', ' ', $content) . "\n";
+					?>
 					</script>
 					<?php
 				}

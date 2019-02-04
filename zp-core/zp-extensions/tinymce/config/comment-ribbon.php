@@ -14,4 +14,4 @@ $MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
 $MCEmenubar = "edit insert view format tools";
 $MCEtoolbars = array();
 $MCEstatusbar = false;
-include(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/config/config.js.php');
+include(TINYMCE . '/config/config.js.php');

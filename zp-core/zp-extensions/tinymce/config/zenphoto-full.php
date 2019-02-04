@@ -15,4 +15,4 @@ $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter
 $MCEtoolbars[2] = "media | emoticons | ltr rtl code";
 $MCEstatusbar = false;
 $MCEmenubar = true;
-include(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/config/config.js.php');
+include(TINYMCE . '/config/config.js.php');

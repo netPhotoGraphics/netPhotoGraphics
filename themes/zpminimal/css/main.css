@@ -182,12 +182,6 @@ li.year{margin-bottom:7px;}
 	margin-bottom:10px;
 }
 
-.zenpage_wrapper_right img,.zenpage_wrapper_left img,.zenpage_thumb_right,.zenpage_thumb_left,.zenpage_customthumb_right,.zenpage_customthumb_left,.zenpage_sizedimage_left,.zenpage_sizedimage_right,.zenpage_sizedimage,.zenpage_customimage,.zenpage_customimage_left,.zenpage_customimage_right,.zenpage_thumb,.zenpage_customthumb{-moz-box-shadow:0 0 9px #666;-webkit-box-shadow:0 0 9px #666;box-shadow:0 0 9px #666;border:1px solid #ccc;}
-
-.zenpage_sizedimage,.zenpage_customimage,.zenpage_thumb,.zenpage_customthumb{margin:5px auto;clear:both;}
-.zenpage_wrapper_left img,.zenpage_thumb_left,.zenpage_customthumb_left,.zenpage_sizedimage_left,.zenpage_customimage_left{margin:0 10px 5px 0;}
-.zenpage_wrapper_right img,.zenpage_thumb_right,.zenpage_customthumb_right,.zenpage_sizedimage_right,.zenpage_customimage_right{margin:0 0 5px 10px;}
-
 #post ul, #post ol{margin:5px 0 5px 40px;}
 #post ul{list-style-type:disc;}
 #post ul ul{list-style-type:circle;}

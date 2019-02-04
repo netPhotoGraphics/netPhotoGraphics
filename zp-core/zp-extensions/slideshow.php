@@ -158,7 +158,8 @@ class slideshow {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-
+		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
 	static function getPlayer($album, $controls = false, $width = NULL, $height = NULL) {
@@ -566,15 +567,6 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 				$slideshow_instance++;
 				break;
 			case 'colorbox':
-				$theme = $_zp_gallery->getCurrentTheme();
-				$script = stripSuffix($_zp_gallery_page);
-				if (!(class_exists('colorbox') && colorbox::scriptEnabled($theme, $script))) {
-					$themes = $_zp_gallery->getThemes();
-					?>
-					<div class="errorbox"><?php printf(gettext('Slideshow not available because colorbox is not enabled on %1$s <em>%2$s</em> pages.'), $themes[$theme]['name'], $script); ?></div>
-					<?php
-					break;
-				}
 				if ($numberofimages > 1) {
 					if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_zp_current_album)) {
 						$images = $_zp_current_search->getImages(0);

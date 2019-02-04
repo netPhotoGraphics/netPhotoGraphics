@@ -30,9 +30,7 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop_height', 95);
 		setThemeOptionDefault('thumb_crop', 1);
 		setThemeOptionDefault('thumb_transition', 1);
-		if (class_exists('colorbox')) {
-			colorbox::registerScripts(array('album', 'favorites', 'image', 'search'));
-		}
+
 		if (class_exists('cacheManager')) {
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, NULL, 580, 580, NULL, NULL, NULL, NULL, NULL, false, NULL, true);

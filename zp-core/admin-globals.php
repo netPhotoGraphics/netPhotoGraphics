@@ -47,7 +47,10 @@ if (abs(OFFSET_PATH) != 2) {
 			}
 		}
 	}
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale.php'); //	just incase
+
+	//	just incase
+	require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-filter.php');
+	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale.php');
 }
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);

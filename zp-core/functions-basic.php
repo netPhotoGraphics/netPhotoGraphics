@@ -1985,11 +1985,6 @@ function installSignature() {
 			'functions-image.php' => filesize($folder . '/functions-image.php')
 	);
 
-	if (isset($_SERVER['SERVER_SOFTWARE'])) {
-		$s = $_SERVER['SERVER_SOFTWARE'];
-	} else {
-		$s = 'software unknown';
-	}
 	$dbs = db_software();
 	$version = ZENPHOTO_VERSION;
 	$i = strpos($version, '-');
@@ -1997,10 +1992,8 @@ function installSignature() {
 		$version = substr($version, 0, $i);
 	}
 	return array_merge($testFiles, array(
-			'SERVER_SOFTWARE' => $s,
 			'ZENPHOTO' => $version,
 			'FOLDER' => dirname(dirname(__FILE__)),
-			'DATABASE' => $dbs['application'] . ' ' . $dbs['version']
 					)
 	);
 }
