@@ -467,6 +467,7 @@ function getContactFormMacros($macros) {
 			'params' => array('string*'),
 			'value' => 'printContactFormMacro',
 			'owner' => 'contact_form',
-			'desc' => gettext('Set %1 set to optionally override the subject.')
+			'desc' => gettext('Set %1 to optionally override the subject.')
 	);
+	return $macros;
 }
