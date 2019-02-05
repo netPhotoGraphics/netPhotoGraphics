@@ -1252,7 +1252,7 @@ echo "\n</head>";
 													<?php
 													if (isImagePhoto($image)) {
 														?>
-														<p class="buttons"><a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
+														<p class="buttons"><a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
 														<?php
 													}
 													?>
@@ -1633,7 +1633,7 @@ echo "\n</head>";
 															?>
 															<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
 																<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
-																	<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
+																	<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
 																</a>
 																<br class="clearall">
 															</div>

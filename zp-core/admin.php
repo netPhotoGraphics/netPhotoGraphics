@@ -253,7 +253,7 @@ $buttonlist = array();
 						setOption('getUpdates_latest', $item->browser_download_url);
 					}
 				} catch (Exception $e) {
-					debugLog(gettext('GitHub repository not accessable. ') . $e);
+					debugLog(gettext('GitHub repository not accessible. ') . $e);
 				}
 			}
 
