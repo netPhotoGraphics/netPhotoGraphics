@@ -25,12 +25,17 @@ if (!isset($_COOKIE['cookieconsent_status'])) {
 class cookieConsent {
 
 	function __construct() {
-		setOptionDefault('zpcookieconsent_expirydays', 365);
-		setOptionDefault('zpcookieconsent_theme', 'block');
-		setOptionDefault('zpcookieconsent_position', 'bottom');
-		setOptionDefault('zpcookieconsent_colorpopup', '#000');
-		setOptionDefault('zpcookieconsent_colorbutton', '#f1d600');
-		setOptionDefault('zpcookieconsent_buttonlearnmorelink', getOption('GDPR_URL'));
+		if (OFFSET_PATH == 2) {
+			setOptionDefault('zpcookieconsent_expirydays', 365);
+			setOptionDefault('zpcookieconsent_theme', 'block');
+			setOptionDefault('zpcookieconsent_position', 'bottom');
+			setOptionDefault('zpcookieconsent_colorpopup', '#000');
+			setOptionDefault('zpcookieconsent_colorbutton', '#f1d600');
+			setOptionDefault('zpcookieconsent_buttonlearnmorelink', getOption('GDPR_URL'));
+			setOptionDefault('zpcookieconsent_buttonagree', getAllTranslations('Agree'));
+			setOptionDefault('zpcookieconsent_buttonlearnmore', getAllTranslations('More info'));
+			setOptionDefault('zpcookieconsent_message', getAllTranslations('This website uses cookies. By continuing to browse the site, you agree to our use of cookies.'));
+		}
 	}
 
 	function getOptionsSupported() {
@@ -116,27 +121,13 @@ class cookieConsent {
 	}
 
 	static function getJS() {
-		$message = gettext('This website uses cookies. By continuing to browse the site, you agree to our use of cookies.');
-		if (getOption('zpcookieconsent_message')) {
-			$message = get_language_string(getOption('zpcookieconsent_message'));
-		}
-		$dismiss = gettext('Agree');
-		if (getOption('zpcookieconsent_buttonagree')) {
-			$dismiss = get_language_string(getOption('zpcookieconsent_buttonagree'));
-		}
-		$learnmore = gettext('More info');
-		if (getOption('zpcookieconsent_buttonlearnmore')) {
-			$learnmore = get_language_string(getOption('zpcookieconsent_buttonlearnmore'));
-		}
+
+		$message = get_language_string(getOption('zpcookieconsent_message'));
+		$dismiss = get_language_string(getOption('zpcookieconsent_buttonagree'));
+		$learnmore = get_language_string(getOption('zpcookieconsent_buttonlearnmore'));
 		$link = getOption('zpcookieconsent_buttonlearnmorelink');
-		$theme = 'block';
-		if (getOption('zpcookieconsent_theme')) {
-			$theme = getOption('zpcookieconsent_theme');
-		}
-		$domain = '';
-		if (getOption('zpcookieconsent_domain')) {
-			$domain = getOption('zpcookieconsent_domain');
-		}
+		$theme = getOption('zpcookieconsent_theme');
+		$domain = getOption('zpcookieconsent_domain');
 		$position = getOption('zpcookieconsent_position');
 		$cookie_expiry = getOption('zpcookieconsent_expirydays');
 		$dismiss_on_scroll = "false";
