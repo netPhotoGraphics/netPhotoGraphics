@@ -11,46 +11,48 @@
 
 class ThemeOptions {
 
-	function __construct() {
-		$me = basename(dirname(__FILE__));
-		setThemeOptionDefault('zenpage_zp_index_news', false);
-		setThemeOptionDefault('Allow_search', true);
-		setThemeOptionDefault('Use_thickbox', true);
-		setThemeOptionDefault('zenpage_homepage', 'none');
-		setThemeOptionDefault('zenpage_contactpage', true);
-		setThemeOptionDefault('zenpage_custommenu', false);
-		setThemeOptionDefault('albums_per_page', 6);
-		setThemeOptionDefault('albums_per_row', 2);
-		setThemeOptionDefault('images_per_page', 20);
-		setThemeOptionDefault('images_per_row', 5);
-		setThemeOption('image_size', 580, NULL);
-		setThemeOption('image_use_side', 'longest', NULL);
-		setThemeOption('thumb_size', 95, NULL);
-		setThemeOptionDefault('thumb_crop_width', 95);
-		setThemeOptionDefault('thumb_crop_height', 95);
-		setThemeOptionDefault('thumb_crop', 1);
-		setThemeOptionDefault('thumb_transition', 1);
+	function __construct($setDefaultOptions) {
+		if ($setDefaultOptions) {
+			$me = basename(dirname(__FILE__));
+			setThemeOptionDefault('zenpage_zp_index_news', false);
+			setThemeOptionDefault('Allow_search', true);
+			setThemeOptionDefault('Use_thickbox', true);
+			setThemeOptionDefault('zenpage_homepage', 'none');
+			setThemeOptionDefault('zenpage_contactpage', true);
+			setThemeOptionDefault('zenpage_custommenu', false);
+			setThemeOptionDefault('albums_per_page', 6);
+			setThemeOptionDefault('albums_per_row', 2);
+			setThemeOptionDefault('images_per_page', 20);
+			setThemeOptionDefault('images_per_row', 5);
+			setThemeOption('image_size', 580, NULL);
+			setThemeOption('image_use_side', 'longest', NULL);
+			setThemeOption('thumb_size', 95, NULL);
+			setThemeOptionDefault('thumb_crop_width', 95);
+			setThemeOptionDefault('thumb_crop_height', 95);
+			setThemeOptionDefault('thumb_crop', 1);
+			setThemeOptionDefault('thumb_transition', 1);
 
-		if (class_exists('cacheManager')) {
-			cacheManager::deleteCacheSizes($me);
-			cacheManager::addCacheSize($me, NULL, 580, 580, NULL, NULL, NULL, NULL, NULL, false, NULL, true);
-			cacheManager::addCacheSize($me, 95, NULL, NULL, getThemeOption('thumb_crop_width'), getThemeOption('thumb_crop_height'), NULL, NULL, true, NULL, NULL, NULL);
-		}
-		if (function_exists('createMenuIfNotExists')) {
-			$menuitems = array(
-					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
-					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
-							'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,"inner_ul",false,"list",false,getOption("menu_manager_truncate_string"));',
-							'show' => 1, 'include_li' => 0, 'nesting' => 1),
-					array('type' => 'html', 'title' => getAllTranslations('Articles Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-					array('type' => 'menulabel', 'title' => gettext('Gallery'), 'link' => '', 'show' => 1, 'nesting' => 0),
-					array('type' => 'custompage', 'title' => getAllTranslations('All'), 'link' => 'gallery', 'show' => 1, 'nesting' => 1),
-					array('type' => 'menufunction', 'title' => getAllTranslations('Album list'), 'link' => 'printAlbumMenuList("list",NULL,"","menu-active","inner_ul","menu-active","",false,false,false,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1),
-					array('type' => 'html', 'title' => getAllTranslations('Gallery Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-					array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),
-					array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printPageMenu("list","","menu-active","inner_ul","menu-active","",0,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1, getOption("menu_manager_truncate_string"))
-			);
-			createMenuIfNotExists($menuitems, 'zenpage');
+			if (class_exists('cacheManager')) {
+				cacheManager::deleteCacheSizes($me);
+				cacheManager::addCacheSize($me, NULL, 580, 580, NULL, NULL, NULL, NULL, NULL, false, NULL, true);
+				cacheManager::addCacheSize($me, 95, NULL, NULL, getThemeOption('thumb_crop_width'), getThemeOption('thumb_crop_height'), NULL, NULL, true, NULL, NULL, NULL);
+			}
+			if (function_exists('createMenuIfNotExists')) {
+				$menuitems = array(
+						array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
+						array('type' => 'menufunction', 'title' => getAllTranslations('All'),
+								'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,"inner_ul",false,"list",false,getOption("menu_manager_truncate_string"));',
+								'show' => 1, 'include_li' => 0, 'nesting' => 1),
+						array('type' => 'html', 'title' => getAllTranslations('Articles Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
+						array('type' => 'menulabel', 'title' => gettext('Gallery'), 'link' => '', 'show' => 1, 'nesting' => 0),
+						array('type' => 'custompage', 'title' => getAllTranslations('All'), 'link' => 'gallery', 'show' => 1, 'nesting' => 1),
+						array('type' => 'menufunction', 'title' => getAllTranslations('Album list'), 'link' => 'printAlbumMenuList("list",NULL,"","menu-active","inner_ul","menu-active","",false,false,false,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1),
+						array('type' => 'html', 'title' => getAllTranslations('Gallery Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
+						array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),
+						array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printPageMenu("list","","menu-active","inner_ul","menu-active","",0,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1, getOption("menu_manager_truncate_string"))
+				);
+				createMenuIfNotExists($menuitems, 'zenpage');
+			}
 		}
 	}
 

@@ -609,12 +609,15 @@ function timezoneDiff($server, $local) {
  * @param string $text to be translated
  */
 function getAllTranslations($text) {
+	global $__languages;
+	if (!$__languages) {
+		$__languages = generateLanguageList();
+		$key = array_search('en_US', $__languages);
+		unset($__languages[$key]);
+	}
 	$entry_locale = getUserLocale();
 	$result = array('en_US' => $text);
-	$languages = generateLanguageList();
-	$key = array_search('en_US', $languages);
-	unset($languages[$key]);
-	foreach ($languages as $language) {
+	foreach ($__languages as $language) {
 		setupCurrentLocale($language);
 		$xlated = gettext($text);
 		if ($xlated != $text) { // the string has a translation in this language
