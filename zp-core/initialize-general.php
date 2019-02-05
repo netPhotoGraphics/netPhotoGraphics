@@ -36,7 +36,7 @@ if (function_exists('openssl_encrypt')) {
 
 require_once(dirname(__FILE__) . '/load_objectClasses.php');
 
-$_zp_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => 'random'),
+$_zp_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => gettext('random')),
 		array('field' => 'id', 'direction' => 'DESC', 'desc' => gettext('most recent')),
 		array('field' => 'mtime', 'direction' => '', 'desc' => gettext('oldest')),
 		array('field' => 'title', 'direction' => '', 'desc' => gettext('first alphabetically')),
