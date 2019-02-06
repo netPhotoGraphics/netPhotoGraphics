@@ -189,6 +189,9 @@ function getItemTitleAndURL($item) {
 	$array = array();
 	$valid = true;
 	$title = get_language_string($item['title']);
+	if (empty($title)) {
+		$title = $item['link'];
+	}
 	switch ($item['type']) {
 		case "galleryindex":
 			$array = array("title" => get_language_string($item['title']), "url" => WEBPATH, "name" => WEBPATH, 'protected' => false, 'theme' => $themename);
@@ -270,11 +273,12 @@ function getItemTitleAndURL($item) {
 			$array = array("title" => get_language_string($item['title']), "url" => $item['link'], "name" => $item['link'], 'protected' => false, 'theme' => $themename);
 			break;
 	}
-	$limit = MENU_TRUNCATE_STRING;
-	$array['valid'] = $valid;
-	if ($limit) {
-		$array['title'] = shortenContent($array['title'], $limit, MENU_TRUNCATE_INDICATOR);
+
+	if (MENU_TRUNCATE_STRING) {
+		$array['title'] = shortenContent($array['title'], MENU_TRUNCATE_STRING, MENU_TRUNCATE_INDICATOR);
 	}
+	$array['valid'] = $valid;
+
 	return $array;
 }
 

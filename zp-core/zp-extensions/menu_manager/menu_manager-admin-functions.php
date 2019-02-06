@@ -45,13 +45,13 @@ function printItemsListTable($item, $toodeep) {
 	if ($array['valid']) {
 		switch ($item['type']) {
 			case "album":
-				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
 				break;
 			case "page":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
 				break;
 			case "category":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenCOntent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
 				break;
 			case 'dynamiclink':
 				$link = html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
@@ -66,7 +66,7 @@ function printItemsListTable($item, $toodeep) {
 				$link = html_encode(truncate_string($item['link'], 40, '...'));
 				break;
 			default:
-				$link = html_encodeTagged(shortenCOntent($item['link'], 40, '...'));
+				$link = html_encodeTagged(shortenContent($item['link'], 40, '...'));
 				break;
 		}
 	} else {
@@ -83,7 +83,7 @@ function printItemsListTable($item, $toodeep) {
 		</div>
 		<div class="page-list_title">
 			<?php
-			printItemEditLink($item);
+			printItemEditLink($item, !$array['valid']);
 			?>
 		</div>
 		<div class="page-list_extra">
@@ -229,10 +229,13 @@ function printItemsList($items) {
  *
  * @param array $item Array of the menu item
  */
-function printItemEditLink($item) {
+function printItemEditLink($item, $strike) {
 	$link = "";
 	$array = getItemTitleAndURL($item);
 	$title = html_encode(get_language_string($array['title']));
+	if ($strike) {
+		$title = '<span class="strike">' . $title . '</span>';
+	}
 	$link = '<a href="menu_tab_edit.php?edit&amp;id=' . $item['id'] . "&amp;type=" . $item['type'] . "&amp;menuset=" . html_encode($item['menuset']) . '">' . $title . '</a>';
 	echo $link;
 }
