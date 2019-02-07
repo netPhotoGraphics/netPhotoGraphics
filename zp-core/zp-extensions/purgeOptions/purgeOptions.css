@@ -3,7 +3,8 @@
 }
 
 .active {
-	color: darkred;
+	color: darkgreen;
+	font-weight: bold;
 }
 
 .empty_name {
