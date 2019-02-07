@@ -13,68 +13,67 @@ require_once(dirname(__FILE__) . '/functions.php');
 class ThemeOptions {
 
 	function __construct($setDefaultOptions) {
-		if ($setDefaultOptions) {
-			$me = basename(dirname(__FILE__));
-			setThemeOptionDefault('Theme_logo', '');
-			setThemeOptionDefault('Allow_search', true);
-			setThemeOptionDefault('Slideshow', true);
-			setThemeOptionDefault('Graphic_logo', '*');
-			setThemeOptionDefault('Watermark_head_image', true);
-			setThemeOptionDefault('effervescence_personality', 'image_page');
-			setThemeOptionDefault('effervescence_transition', 'slide-hori');
-			setThemeOptionDefault('effervescence_caption_location', 'image');
-			setThemeOptionDefault('Theme_colors', 'kish-my father');
-			setThemeOptionDefault('effervescence_menu', '');
-			setThemeOptionDefault('albums_per_page', 9);
-			setThemeOptionDefault('albums_per_row', 3);
-			setThemeOptionDefault('images_per_page', 20);
-			setThemeOptionDefault('images_per_row', 5);
-			setThemeOption('image_size', 595, NULL);
-			setThemeOption('image_use_side', 'longest', NULL);
-			setThemeOptionDefault('thumb_transition', 1);
-			setThemeOptionDefault('thumb_size', 90);
-			setThemeOptionDefault('thumb_crop_width', 90);
-			setThemeOptionDefault('thumb_crop_height', 90);
-			setThemeOptionDefault('thumb_crop', 1);
-			setThemeOptionDefault('gallery_index', 1);
-			setThemeOptionDefault('effervescence_daily_album_image', 1);
-			setThemeOptionDefault('effervescence_daily_album_image_effect', '');
-			setThemeOptionDefault('display_theme_info', 1);
-			if (class_exists('cacheManager')) {
-				cacheManager::deleteCacheSizes($me);
-				cacheManager::addCacheSize($me, 595, NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
-				cacheManager::addCacheSize($me, getThemeOption('thumb_size'), NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
-				cacheManager::addCacheSize($me, NULL, 180, 80, NUll, NULL, NULL, NULL, true, NULL, NULL, NULL);
-			}
-			if (function_exists('createMenuIfNotExists')) {
-				$menuitems = array(
-						array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
-						array('type' => 'menufunction', 'title' => getAllTranslations('All'),
-								'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,false,false,"list",false,getOption("menu_manager_truncate_string"));',
-								'show' => 1, 'include_li' => 0, 'nesting' => 1),
-						array('type' => 'html', 'title' => getAllTranslations('Articles Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-						array('type' => 'menulabel', 'title' => getAllTranslations('Gallery'), 'link' => '', 'show' => 1, 'nesting' => 0),
-						array('type' => 'custompage', 'title' => getAllTranslations('All'), 'link' => 'gallery', 'show' => 1, 'nesting' => 1),
-						array('type' => 'menufunction', 'title' => getAllTranslations('Albums'), 'link' => 'printAlbumMenuList("list",NULL,"","menu-active","submenu","menu-active","",false,false,false,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1),
-						array('type' => 'html', 'title' => getAllTranslations('Gallery Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-						array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),
-						array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printPageMenu("list","","menu-active","submenu","menu-active","",0,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1, getOption("menu_manager_truncate_string")),
-						array('type' => 'html', 'title' => getAllTranslations('Pages Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-						array('type' => 'menulabel', 'title' => getAllTranslations('Archive'), 'link' => '', 'show' => 1, 'nesting' => 0),
-						array('type' => 'custompage', 'title' => getAllTranslations('All'), 'link' => 'archive', 'show' => 1, 'nesting' => 1),
-						array('type' => 'html', 'title' => getAllTranslations('Archive Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0)
+
+		$me = basename(dirname(__FILE__));
+		setThemeOptionDefault('Theme_logo', '');
+		setThemeOptionDefault('Allow_search', true);
+		setThemeOptionDefault('Slideshow', true);
+		setThemeOptionDefault('Graphic_logo', '*');
+		setThemeOptionDefault('Watermark_head_image', true);
+		setThemeOptionDefault('effervescence_personality', 'image_page');
+		setThemeOptionDefault('effervescence_transition', 'slide-hori');
+		setThemeOptionDefault('effervescence_caption_location', 'image');
+		setThemeOptionDefault('Theme_colors', 'kish-my father');
+		setThemeOptionDefault('effervescence_menu', '');
+		setThemeOptionDefault('albums_per_page', 9);
+		setThemeOptionDefault('albums_per_row', 3);
+		setThemeOptionDefault('images_per_page', 20);
+		setThemeOptionDefault('images_per_row', 5);
+		setThemeOption('image_size', 595, NULL);
+		setThemeOption('image_use_side', 'longest', NULL);
+		setThemeOptionDefault('thumb_transition', 1);
+		setThemeOptionDefault('thumb_size', 90);
+		setThemeOptionDefault('thumb_crop_width', 90);
+		setThemeOptionDefault('thumb_crop_height', 90);
+		setThemeOptionDefault('thumb_crop', 1);
+		setThemeOptionDefault('gallery_index', 1);
+		setThemeOptionDefault('effervescence_daily_album_image', 1);
+		setThemeOptionDefault('effervescence_daily_album_image_effect', '');
+		setThemeOptionDefault('display_theme_info', 1);
+		if (class_exists('cacheManager')) {
+			cacheManager::deleteCacheSizes($me);
+			cacheManager::addCacheSize($me, 595, NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
+			cacheManager::addCacheSize($me, getThemeOption('thumb_size'), NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
+			cacheManager::addCacheSize($me, NULL, 180, 80, NUll, NULL, NULL, NULL, true, NULL, NULL, NULL);
+		}
+		if (function_exists('menuExists') && !menuExists('effervescence')) {
+			$menuitems = array(
+					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
+					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
+							'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,false,false,"list",false,getOption("menu_manager_truncate_string"));',
+							'show' => 1, 'include_li' => 0, 'nesting' => 1),
+					array('type' => 'html', 'title' => getAllTranslations('Articles Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
+					array('type' => 'menulabel', 'title' => getAllTranslations('Gallery'), 'link' => '', 'show' => 1, 'nesting' => 0),
+					array('type' => 'custompage', 'title' => getAllTranslations('All'), 'link' => 'gallery', 'show' => 1, 'nesting' => 1),
+					array('type' => 'menufunction', 'title' => getAllTranslations('Albums'), 'link' => 'printAlbumMenuList("list",NULL,"","menu-active","submenu","menu-active","",false,false,false,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1),
+					array('type' => 'html', 'title' => getAllTranslations('Gallery Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
+					array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),
+					array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printPageMenu("list","","menu-active","submenu","menu-active","",0,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1, getOption("menu_manager_truncate_string")),
+					array('type' => 'html', 'title' => getAllTranslations('Pages Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
+					array('type' => 'menulabel', 'title' => getAllTranslations('Archive'), 'link' => '', 'show' => 1, 'nesting' => 0),
+					array('type' => 'custompage', 'title' => getAllTranslations('All'), 'link' => 'archive', 'show' => 1, 'nesting' => 1),
+					array('type' => 'html', 'title' => getAllTranslations('Archive Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0)
+			);
+			if (class_exists('RSS')) {
+				$rssItems = array(
+						array('type' => 'menulabel', 'title' => getAllTranslations('RSS'), 'link' => '', 'show' => 1, 'nesting' => 0),
+						array('type' => 'dynamiclink', 'title' => getAllTranslations('Gallery'), 'link' => "html_encode(getRSSLink(''))", 'show' => 1, 'nesting' => 1),
+						array('type' => 'dynamiclink', 'title' => getOption('zenpage_news_label'), 'link' => "html_encode(getRSSLink('news'))", 'show' => 1, 'nesting' => 1),
+						array('type' => 'dynamiclink', 'title' => getAllTranslations('Both'), 'link' => "html_encode(getRSSLink('news')).'&amp;withimages'", 'show' => 1, 'nesting' => 1),
 				);
-				if (class_exists('RSS')) {
-					$rssItems = array(
-							array('type' => 'menulabel', 'title' => getAllTranslations('RSS'), 'link' => '', 'show' => 1, 'nesting' => 0),
-							array('type' => 'dynamiclink', 'title' => getAllTranslations('Gallery'), 'link' => "html_encode(getRSSLink(''))", 'show' => 1, 'nesting' => 1),
-							array('type' => 'dynamiclink', 'title' => getOption('zenpage_news_label'), 'link' => "html_encode(getRSSLink('news'))", 'show' => 1, 'nesting' => 1),
-							array('type' => 'dynamiclink', 'title' => getAllTranslations('Both'), 'link' => "html_encode(getRSSLink('news')).'&amp;withimages'", 'show' => 1, 'nesting' => 1),
-					);
-					$menuitems = array_merge($menuitems, $rssItems);
-				}
-				createMenuIfNotExists($menuitems, 'effervescence');
+				$menuitems = array_merge($menuitems, $rssItems);
 			}
+			createMenu($menuitems, 'effervescence');
 		}
 	}
 
