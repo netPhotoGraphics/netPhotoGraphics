@@ -37,7 +37,7 @@ body {
 	color: #4B4B4B;
 	text-align: center;
 	background-color: #f1f1f1;
-	background-image: url(images/admin-headerback.jpg); 
+	background-image: url(images/admin-headerback.jpg);
 	background-repeat: repeat-x;
 	margin: 0;
 	padding: 0;
@@ -2936,11 +2936,15 @@ form.tinyDirty input[type=submit]:active {
 }
 
 .clearfix:after {
-  clear: both !important; 
+  clear: both !important;
 }
 
 .language_string_listbox,
 .zenpage_language_string_listbox {
 	resize: vertical !important;
 	overflow: scroll;
+}
+
+.strike {
+	text-decoration: line-through;
 }

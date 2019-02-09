@@ -944,11 +944,13 @@ class AlbumBase extends MediaObject {
 	function setAlbumTheme($theme) {
 		global $_set_theme_album;
 		$this->set('album_theme', $theme);
-		if (!(false === ($requirePath = getPlugin('themeoptions.php', $theme)))) {
-			//prime the options
-			$_set_theme_album = $this;
-			require_once($requirePath);
-			$optionHandler = new ThemeOptions();
+		if (!getThemeOption('constructed', $this, $theme)) {
+			if (!(false === ($requirePath = getPlugin('themeoptions.php', $theme)))) {
+				//prime the options
+				$_set_theme_album = $this;
+				require_once($requirePath);
+				$optionHandler = new ThemeOptions(true);
+			}
 		}
 	}
 

@@ -12,7 +12,8 @@ require_once(dirname(__FILE__) . '/functions.php');
 
 class ThemeOptions {
 
-	function __construct() {
+	function __construct($setDefaultOptions) {
+
 		$me = basename(dirname(__FILE__));
 		setThemeOptionDefault('Theme_logo', '');
 		setThemeOptionDefault('Allow_search', true);
@@ -45,7 +46,7 @@ class ThemeOptions {
 			cacheManager::addCacheSize($me, getThemeOption('thumb_size'), NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
 			cacheManager::addCacheSize($me, NULL, 180, 80, NUll, NULL, NULL, NULL, true, NULL, NULL, NULL);
 		}
-		if (function_exists('createMenuIfNotExists')) {
+		if (function_exists('menuExists') && !menuExists('effervescence')) {
 			$menuitems = array(
 					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
@@ -72,7 +73,7 @@ class ThemeOptions {
 				);
 				$menuitems = array_merge($menuitems, $rssItems);
 			}
-			createMenuIfNotExists($menuitems, 'effervescence');
+			createMenu($menuitems, 'effervescence');
 		}
 	}
 

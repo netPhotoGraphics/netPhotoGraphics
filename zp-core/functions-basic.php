@@ -1010,7 +1010,7 @@ function getOptionOwner() {
 /**
  * Sets the default value of an option.
  *
- * If the option has never been set it is set to the value passed
+ * If the option is NULL or has never been set it is set to the value passed
  *
  * @param string $key the option name
  * @param mixed $default the value to be used as the default
@@ -1020,18 +1020,24 @@ function setOptionDefault($key, $default) {
 	list($theme, $creator) = getOptionOwner();
 	$sql = 'INSERT INTO ' . prefix('options') . ' (`name`, `value`, `ownerid`, `theme`, `creator`) VALUES (' . db_quote($key) . ',';
 	if (is_null($default)) {
-		$sql .= 'NULL';
+		$value = 'NULL';
 	} else {
-		if (is_bool($default)) {
-			$default = (int) $default;
+		$value = $default;
+		if (is_bool($value)) {
+			$value = (int) $default;
 		}
-		$sql .= db_quote($default);
+		$value = db_quote($value);
 	}
-	$sql .= ',0,' . db_quote($theme) . ',' . db_quote($creator) . ');';
+	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ');';
 	if (query($sql, false)) {
 		$_zp_options[strtolower($key)] = $default;
 	} else {
-		$sql = 'UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ' WHERE `ownerid`=0 AND `name`=' . db_quote($key) . ' AND `theme`=' . db_quote($theme) . ';';
+		if (is_null(getOption($key))) {
+			$v = ', `value`=' . $value;
+		} else {
+			$v = '';
+		}
+		$sql = 'UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . $v . ' WHERE `ownerid`=0 AND `name`=' . db_quote($key) . ' AND `theme`=' . db_quote($theme) . ';';
 		query($sql, false);
 	}
 }

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-19 13:58-0800\n"
-"PO-Revision-Date: 2018-12-19 13:58-0800\n"
+"POT-Creation-Date: 2019-02-07 13:06-0800\n"
+"PO-Revision-Date: 2019-02-07 13:07-0800\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: is_IS\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SearchPath-0: zp-core/locale/is_IS/LC_MESSAGES/zenphoto.po\n"
@@ -82,7 +82,7 @@ msgstr "Þú getur sett hámarksaldur, í sekúndum, sem hnýtur upphafsheitið.
 #: themes/zenpage/search.php:15 themes/zenpage/sidebar.php:28
 #: themes/zenpage/sidebar.php:33 themes/zenpage/sidebar.php:38
 #: themes/zenpage/sidebar.php:86 themes/zenpage/summary.php:16
-#: themes/zenpage/themeoptions.php:48 themes/zpArdoise/archive.php:13
+#: themes/zenpage/themeoptions.php:47 themes/zpArdoise/archive.php:13
 #: themes/zpArdoise/inc_header.php:18 themes/zpArdoise/inc_header.php:42
 #: themes/zpArdoise/inc_header.php:340 themes/zpBootstrap/home.php:35
 #: themes/zpBootstrap/home.php:36 themes/zpBootstrap/inc_header.php:25
@@ -110,7 +110,7 @@ msgstr "Þú getur sett hámarksaldur, í sekúndum, sem hnýtur upphafsheitið.
 #: themes/zpskeleton/favorites.php:10 themes/zpskeleton/image.php:7
 #: themes/zpskeleton/inc-header.php:181 themes/zpskeleton/inc-header.php:183
 #: themes/zpskeleton/search.php:26 zp-core/admin-tabs/edit.php:1721
-#: zp-core/admin-tabs/themes.php:101 zp-core/admin-tabs/themes.php:102
+#: zp-core/admin-tabs/themes.php:103 zp-core/admin-tabs/themes.php:104
 #: zp-core/admin_options/theme.php:10 zp-core/admin_options/theme.php:11
 #: zp-core/allTranslations.php:9 zp-core/lib-auth.php:565
 #: zp-core/lib-auth.php:566 zp-core/lib-auth.php:567 zp-core/lib-auth.php:568
@@ -349,7 +349,7 @@ msgstr "Sía út skrár úr albúmum og myndaleitum sem við viljum ekki sjást.
 #: themes/zpfocus/inc-header.php:115 themes/zpmasonry/inc-menu.php:21
 #: themes/zpskeleton/inc-bottom.php:51 zp-core/admin-functions.php:2562
 #: zp-core/admin-functions.php:3847 zp-core/admin-tabs/edit.php:1794
-#: zp-core/admin_options/theme.php:261 zp-core/allTranslations.php:11
+#: zp-core/admin_options/theme.php:262 zp-core/allTranslations.php:11
 #: zp-core/lib-auth.php:570 zp-core/lib-auth.php:576 zp-core/lib-auth.php:587
 #: zp-core/lib-auth.php:590 zp-core/lib-auth.php:591 zp-core/lib-auth.php:594
 #: zp-core/lib-auth.php:598 zp-core/lib-auth.php:601 zp-core/lib-auth.php:614
@@ -359,7 +359,7 @@ msgstr "Sía út skrár úr albúmum og myndaleitum sem við viljum ekki sjást.
 #: zp-core/utilities/gallery_statistics.php:68
 #: zp-core/utilities/gallery_statistics.php:579
 #: zp-core/zp-extensions/cacheManager.php:153
-#: zp-core/zp-extensions/comment_form.php:85
+#: zp-core/zp-extensions/comment_form.php:88
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/galleryArticles.php:64
 #: zp-core/zp-extensions/multiple_layouts.php:107
@@ -377,11 +377,11 @@ msgstr "Athugaðu hvort nöfn á albúm séu hunsuð."
 #: themes/zpfocus/inc-header.php:112 themes/zpmasonry/inc-menu.php:20
 #: themes/zpskeleton/inc-bottom.php:50 zp-core/admin-functions.php:565
 #: zp-core/admin-functions.php:2122 zp-core/admin-functions.php:2566
-#: zp-core/admin-functions.php:2703 zp-core/admin_options/theme.php:303
+#: zp-core/admin-functions.php:2703 zp-core/admin_options/theme.php:304
 #: zp-core/utilities/gallery_statistics.php:72
 #: zp-core/utilities/gallery_statistics.php:570
 #: zp-core/zp-extensions/cacheManager.php:153
-#: zp-core/zp-extensions/comment_form.php:85
+#: zp-core/zp-extensions/comment_form.php:88
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/galleryArticles.php:64
 #: zp-core/zp-extensions/multiple_layouts.php:107
@@ -622,7 +622,7 @@ msgstr "Textinn fyrir þemamerkið"
 msgid "Text for the watermark."
 msgstr "Texti fyrir vatnsmerki."
 
-#: plugins/text_watermark.php:34 themes/zpArdoise/themeoptions.php:67
+#: plugins/text_watermark.php:34 themes/zpArdoise/themeoptions.php:62
 #: zp-core/exif/exifTranslations.php:69
 #, fuzzy
 msgid "Color"
@@ -738,17 +738,17 @@ msgstr "Zenphoto eindrægni."
 msgid "legacy Converter"
 msgstr "arfur Breytir"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:140
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:141
 #, fuzzy
 msgid "legacyConverter"
 msgstr "legacyConverter"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:150
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:151
 #, fuzzy
 msgid "Convert legacy Zenphoto themes and plugins"
 msgstr "Breyta arfleifð Zenphoto þema og viðbætur"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:157
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:158
 #, fuzzy, php-format
 #| msgid "%s failed to delete."
 msgid "%s file updated"
@@ -756,46 +756,46 @@ msgid_plural "%s files updated"
 msgstr[0] "%s skrá uppfærð"
 msgstr[1] "%s skrár uppfærðar"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:192
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:193
 #: zp-core/lib-auth.php:557 zp-core/lib-auth.php:577 zp-core/lib-auth.php:602
 #: zp-core/lib-auth.php:633 zp-core/template-functions.php:154
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 msgid "Themes"
 msgstr "Þemu"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:203
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:234
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:204
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:235
 #, fuzzy
 msgid " (already processed)"
 msgstr "(þegar unnið)"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:223
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:224
 #: zp-core/template-functions.php:161
 #, fuzzy
 msgid "Plugins"
 msgstr "íbætur"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:254
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:255
 #: zp-core/admin-functions.php:1767 zp-core/admin-functions.php:2482
 #: zp-core/admin-tabs/albumsort.php:198 zp-core/admin-tabs/albumsort.php:261
 #: zp-core/admin-tabs/edit.php:983 zp-core/admin-tabs/edit.php:1049
 #: zp-core/admin-tabs/edit.php:1198 zp-core/admin-tabs/edit.php:1661
 #: zp-core/admin-tabs/edit.php:1739 zp-core/admin-tabs/edit.php:1776
 #: zp-core/admin-tabs/edit.php:1860 zp-core/admin-tabs/edit.php:1913
-#: zp-core/admin-tabs/plugins.php:170 zp-core/admin-tabs/plugins.php:487
+#: zp-core/admin-tabs/plugins.php:171 zp-core/admin-tabs/plugins.php:488
 #: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:519
 #: zp-core/admin-tabs/users.php:521 zp-core/admin-tabs/users.php:950
 #: zp-core/admin_options/gallery.php:68 zp-core/admin_options/gallery.php:525
 #: zp-core/admin_options/general.php:167 zp-core/admin_options/general.php:169
-#: zp-core/admin_options/general.php:812 zp-core/admin_options/image.php:245
+#: zp-core/admin_options/general.php:809 zp-core/admin_options/image.php:245
 #: zp-core/admin_options/image.php:246 zp-core/admin_options/image.php:958
 #: zp-core/admin_options/image.php:960 zp-core/admin_options/plugin.php:90
 #: zp-core/admin_options/plugin.php:236 zp-core/admin_options/search.php:102
 #: zp-core/admin_options/search.php:104 zp-core/admin_options/search.php:620
 #: zp-core/admin_options/search.php:622 zp-core/admin_options/security.php:81
-#: zp-core/admin_options/security.php:326 zp-core/admin_options/theme.php:236
-#: zp-core/admin_options/theme.php:238 zp-core/admin_options/theme.php:568
-#: zp-core/admin_options/theme.php:570
+#: zp-core/admin_options/security.php:326 zp-core/admin_options/theme.php:237
+#: zp-core/admin_options/theme.php:239 zp-core/admin_options/theme.php:569
+#: zp-core/admin_options/theme.php:571
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:228
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:328
 #: zp-core/zp-extensions/comment_form/admin-comments.php:137
@@ -831,7 +831,7 @@ msgstr "íbætur"
 msgid "Apply"
 msgstr "Virkja"
 
-#: plugins/zenphotoCompatibilityPack/legacyConverter.php:258
+#: plugins/zenphotoCompatibilityPack/legacyConverter.php:259
 #: themes/zpfocus/z_contact_form/form.php:127
 #: themes/zpskeleton/contact_form/form.php:124 zp-core/admin-functions.php:1771
 #: zp-core/admin-functions.php:2486 zp-core/admin-tabs/albumsort.php:202
@@ -841,17 +841,17 @@ msgstr "Virkja"
 #: zp-core/admin-tabs/edit.php:1665 zp-core/admin-tabs/edit.php:1862
 #: zp-core/admin-tabs/edit.php:1864 zp-core/admin-tabs/edit.php:1915
 #: zp-core/admin-tabs/edit.php:1917 zp-core/admin-tabs/logs.php:148
-#: zp-core/admin-tabs/plugins.php:171 zp-core/admin-tabs/plugins.php:173
-#: zp-core/admin-tabs/plugins.php:488 zp-core/admin-tabs/plugins.php:490
+#: zp-core/admin-tabs/plugins.php:172 zp-core/admin-tabs/plugins.php:174
+#: zp-core/admin-tabs/plugins.php:489 zp-core/admin-tabs/plugins.php:491
 #: zp-core/admin-tabs/tags.php:249 zp-core/admin-tabs/thumbcrop.php:302
 #: zp-core/admin-tabs/users.php:525 zp-core/admin-tabs/users.php:954
 #: zp-core/admin_options/gallery.php:71 zp-core/admin_options/gallery.php:528
-#: zp-core/admin_options/general.php:173 zp-core/admin_options/general.php:816
+#: zp-core/admin_options/general.php:173 zp-core/admin_options/general.php:813
 #: zp-core/admin_options/image.php:250 zp-core/admin_options/image.php:964
 #: zp-core/admin_options/plugin.php:94 zp-core/admin_options/plugin.php:240
 #: zp-core/admin_options/search.php:108 zp-core/admin_options/search.php:626
 #: zp-core/admin_options/security.php:85 zp-core/admin_options/security.php:330
-#: zp-core/admin_options/theme.php:247 zp-core/admin_options/theme.php:579
+#: zp-core/admin_options/theme.php:248 zp-core/admin_options/theme.php:580
 #: zp-core/lib-auth.php:1126 zp-core/lib-auth.php:1128
 #: zp-core/zp-extensions/contact_form/form.php:143
 #: zp-core/zp-extensions/crop_image.php:491
@@ -927,7 +927,7 @@ msgstr "Hlutur fannst ekki"
 msgid "Search within album"
 msgstr "Leita í albúmi"
 
-#: themes/basic/album.php:27 zp-core/admin-globals.php:238
+#: themes/basic/album.php:27 zp-core/admin-globals.php:241
 #: zp-core/zp-extensions/downloadList.php:598
 #, fuzzy
 msgid "search"
@@ -1005,9 +1005,9 @@ msgstr "Skoða albúm:"
 #: themes/zpmobile/news.php:58 themes/zpmobile/search.php:192
 #: themes/zpskeleton/gallery.php:55 zp-core/admin-functions.php:5139
 #: zp-core/zp-extensions/comment_form/functions.php:118
-#: zp-core/zp-extensions/slideshow.php:595
-#: zp-core/zp-extensions/slideshow2.php:282
-#: zp-core/zp-extensions/slideshow2.php:597
+#: zp-core/zp-extensions/slideshow.php:587
+#: zp-core/zp-extensions/slideshow2.php:283
+#: zp-core/zp-extensions/slideshow2.php:589
 msgid "prev"
 msgstr "fyrri"
 
@@ -1047,9 +1047,9 @@ msgstr "fyrri"
 #: themes/zpmobile/search.php:192 themes/zpskeleton/gallery.php:55
 #: zp-core/admin-functions.php:5166
 #: zp-core/zp-extensions/comment_form/functions.php:119
-#: zp-core/zp-extensions/jPlayer.php:472 zp-core/zp-extensions/slideshow.php:596
-#: zp-core/zp-extensions/slideshow2.php:286
-#: zp-core/zp-extensions/slideshow2.php:598
+#: zp-core/zp-extensions/jPlayer.php:472 zp-core/zp-extensions/slideshow.php:588
+#: zp-core/zp-extensions/slideshow2.php:287
+#: zp-core/zp-extensions/slideshow2.php:590
 msgid "next"
 msgstr "næsta"
 
@@ -1165,13 +1165,13 @@ msgstr "Þema litur"
 #: themes/zpfocus/inc-header.php:174 themes/zpfocus/inc-header.php:188
 #: themes/zpmasonry/inc-footer.php:40 themes/zpmasonry/inc-header.php:156
 #: themes/zpmasonry/inc-header.php:172 zp-core/admin-functions.php:203
-#: zp-core/admin-tabs/plugins.php:112
+#: zp-core/admin-tabs/plugins.php:113
 #: zp-core/utilities/installation_analysis.php:65
 #: zp-core/zp-extensions/accessThreshold/admin_tab.php:93
 #: zp-core/zp-extensions/googleMap.php:528
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:74
-#: zp-core/zp-extensions/slideshow.php:597
-#: zp-core/zp-extensions/slideshow2.php:599
+#: zp-core/zp-extensions/slideshow.php:589
+#: zp-core/zp-extensions/slideshow2.php:591
 #: zp-core/zp-extensions/user_login-out.php:155
 msgid "close"
 msgstr "loka"
@@ -1261,7 +1261,7 @@ msgstr "Skráðu þig fyrir þessa síðu"
 #: themes/zpEnlighten/news.php:35 themes/zpEnlighten/pages.php:27
 #: themes/zpEnlighten/password.php:25 themes/zpEnlighten/register.php:25
 #: themes/zpEnlighten/search.php:38 themes/zpEnlighten/summary.php:27
-#: zp-core/404.php:73 zp-core/setup/index.php:1097
+#: zp-core/404.php:75 zp-core/setup/index.php:1097
 #, fuzzy
 msgid "Index"
 msgstr "Index"
@@ -1341,7 +1341,7 @@ msgstr "Lykilorð er krafist fyrir síðuna sem þú baðst um"
 #: themes/zpfocus/register.php:5 themes/zpmasonry/inc-header.php:98
 #: themes/zpmasonry/inc-menu.php:70 themes/zpminimal/inc-header.php:95
 #: themes/zpminimal/inc-sidemenu.php:39 themes/zpskeleton/inc-footer.php:20
-#: themes/zpskeleton/inc-header.php:100 zp-core/allTranslations.php:79
+#: themes/zpskeleton/inc-header.php:100 zp-core/allTranslations.php:84
 #: zp-core/template-functions.php:466
 #: zp-core/zp-extensions/html_meta_tags.php:252
 #: zp-core/zp-extensions/scriptless-socialsharing.php:176
@@ -1462,28 +1462,28 @@ msgstr ""
 "getur þú valið þema litinn með því að fara á flipann Admin Options og breyta "
 "<em>þema litum</em> valkostinum."
 
-#: themes/basic/themeoptions.php:44 themes/effervescence+/themeoptions.php:96
-#: themes/garland/themeoptions.php:78 themes/paradigm/themeoptions.php:95
-#: themes/zenFluid/themeoptions.php:113 themes/zenpage/themeoptions.php:65
-#: themes/zpArdoise/themeoptions.php:70 themes/zpBootstrap/themeoptions.php:119
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
+#: themes/garland/themeoptions.php:77 themes/paradigm/themeoptions.php:95
+#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:65
+#: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:119
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
-#: themes/zpmobile/themeoptions.php:38
+#: themes/zpmobile/themeoptions.php:35
 msgid "Allow search"
 msgstr "Leyfa leit"
 
-#: themes/basic/themeoptions.php:44 themes/effervescence+/themeoptions.php:96
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
 #: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:65
-#: themes/zpArdoise/themeoptions.php:70 themes/zpBootstrap/themeoptions.php:123
+#: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:123
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
-#: themes/zpmobile/themeoptions.php:38
+#: themes/zpmobile/themeoptions.php:35
 msgid "Check to enable search form."
 msgstr "Smelltu til að opna fyrir leit."
 
-#: themes/basic/themeoptions.php:45 themes/effervescence+/themeoptions.php:104
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
 msgid "Theme colors"
 msgstr "Þemalitir"
 
-#: themes/basic/themeoptions.php:45 themes/effervescence+/themeoptions.php:104
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
 msgid "Select the colors of the theme"
 msgstr "Veldu liti þemans"
 
@@ -1562,7 +1562,7 @@ msgid "Random picture..."
 msgstr "Mynd af handahófi..."
 
 #: themes/effervescence+/functions.php:251
-#: zp-core/zp-extensions/menu_manager.php:1070
+#: zp-core/zp-extensions/menu_manager.php:1074
 #: zp-core/zp-extensions/print_album_menu.php:253
 #, fuzzy, php-format
 msgid "%u album"
@@ -1571,7 +1571,7 @@ msgstr[0] "% u albúmið"
 msgstr[1] "% u albúm"
 
 #: themes/effervescence+/functions.php:257
-#: zp-core/zp-extensions/menu_manager.php:1076
+#: zp-core/zp-extensions/menu_manager.php:1080
 #: zp-core/zp-extensions/print_album_menu.php:259
 #, fuzzy, php-format
 msgid "%u image"
@@ -1673,7 +1673,7 @@ msgstr[1] "% u myndir"
 #: themes/zenFluid/news.php:63 themes/zenFluid/news.php:152
 #: themes/zenFluid/pages.php:41 themes/zpArdoise/inc_print_comment.php:32
 #: themes/zpBootstrap/inc_print_comment.php:37
-#: zp-core/zp-extensions/comment_form.php:241
+#: zp-core/zp-extensions/comment_form.php:251
 #, fuzzy, php-format
 msgid "%u Comment"
 msgid_plural "%u Comments"
@@ -1690,7 +1690,7 @@ msgid "album"
 msgstr "Albúm"
 
 #: themes/effervescence+/functions.php:452 themes/garland/functions.php:143
-#: zp-core/admin-globals.php:237 zp-core/admin_options/theme.php:450
+#: zp-core/admin-globals.php:240 zp-core/admin_options/theme.php:451
 #: zp-core/zp-extensions/comment_form/admin-comments.php:421
 #: zp-core/zp-extensions/image_album_statistics.php:262
 #: zp-core/zp-extensions/optionalObjectFields.php:524
@@ -1700,7 +1700,7 @@ msgstr "mynd"
 #: themes/effervescence+/functions.php:452 themes/garland/functions.php:143
 #, fuzzy
 msgid "video"
-msgstr "myndband"
+msgstr "myndskeið"
 
 #: themes/effervescence+/functions.php:507
 msgid "Add a comment"
@@ -1767,8 +1767,8 @@ msgstr "Leita innan flokks"
 #: zp-core/zp-extensions/deprecated-functions/check_for_deprecated.php:71
 #: zp-core/zp-extensions/html_meta_tags.php:252
 #: zp-core/zp-extensions/scriptless-socialsharing.php:179
-#: zp-core/zp-extensions/slideshow.php:757
-#: zp-core/zp-extensions/slideshow2.php:740
+#: zp-core/zp-extensions/slideshow.php:749
+#: zp-core/zp-extensions/slideshow2.php:732
 #: zp-core/zp-extensions/zenpage/template-functions.php:1594
 msgid "Search"
 msgstr "Leita"
@@ -1828,7 +1828,7 @@ msgstr "Bæði"
 #: zp-core/utilities/gallery_statistics.php:76
 #: zp-core/utilities/gallery_statistics.php:597
 #: zp-core/zp-extensions/cacheManager.php:156
-#: zp-core/zp-extensions/comment_form.php:87
+#: zp-core/zp-extensions/comment_form.php:90
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:76
 #: zp-core/zp-extensions/multiple_layouts.php:109
@@ -1876,7 +1876,7 @@ msgid ""
 msgstr ""
 "Byggt á Effervescence 1.1 með mörgum litasamningum og persónuleika bætt við."
 
-#: themes/effervescence+/themeoptions.php:86
+#: themes/effervescence+/themeoptions.php:85
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> This option is valid only if the Zenpage plugin is "
@@ -1887,7 +1887,7 @@ msgstr ""
 "er virkt eða valið valkostur fyrir aðgreina gallerí vísitölu. Að sjálfsögðu "
 "verður einnig valið að setja inn <em>menningarstýringu menu_manager</em> ."
 
-#: themes/effervescence+/themeoptions.php:89 themes/garland/themeoptions.php:70
+#: themes/effervescence+/themeoptions.php:88 themes/garland/themeoptions.php:69
 #, fuzzy, php-format
 msgid ""
 "<strong>Note:</strong> The <em>%s</em> custom menu makes use of the "
@@ -1896,35 +1896,35 @@ msgstr ""
 "<strong>Athugaðu:</strong> Sérsniðið valmynd <em> %s</em> notar "
 "<em>print_album_menu tappann</em> ."
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 #, fuzzy
 msgid "Separate gallery index"
 msgstr "Aðgreina gallerí vísitölu"
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 #, fuzzy
 msgid "Check to move the gallery index from the home page to gallery.php."
 msgstr "Athugaðu að færa gallerí vísitölu frá heimasíðu til gallery.php."
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 #, fuzzy
 msgid "<strong>Note:</strong> this is assumed the zenpage plugin is enabled."
 msgstr ""
 "<strong>Ath .:</strong> Þetta er gert ráð fyrir ef zenpage tappi er virkt."
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid "Theme logo"
 msgstr "Þemamerki"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid "The text for the theme logo"
 msgstr "Textinn fyrir þemamerkið"
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 msgid "Watermark head image"
 msgstr "Vatnsmerkja hausmynd"
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 msgid ""
 "Check to place a watermark on the heading image. (Image watermarking must be "
 "set.)"
@@ -1932,12 +1932,12 @@ msgstr ""
 "Veldu þetta til að setja vatnsmerki á hausmyndina. (Vatnsmerking mynda þarf "
 "að vera virk.)"
 
-#: themes/effervescence+/themeoptions.php:95
+#: themes/effervescence+/themeoptions.php:94
 #, fuzzy
 msgid "Daily image"
 msgstr "Daglegt mynd"
 
-#: themes/effervescence+/themeoptions.php:95
+#: themes/effervescence+/themeoptions.php:94
 #, fuzzy
 msgid ""
 "If checked the heading image will change daily rather than on each page load."
@@ -1945,7 +1945,7 @@ msgstr ""
 "Ef merktur fyrirsögnin mun myndin breytast daglega fremur en á hverri síðu "
 "hlaða."
 
-#: themes/effervescence+/themeoptions.php:97 themes/zpArdoise/album.php:11
+#: themes/effervescence+/themeoptions.php:96 themes/zpArdoise/album.php:11
 #: themes/zpArdoise/favorites.php:14 themes/zpArdoise/image.php:24
 #: themes/zpArdoise/inc_header.php:162 themes/zpArdoise/search.php:65
 #: themes/zpArdoise/slideshow.php:6 themes/zpBootstrap/home.php:42
@@ -1958,18 +1958,18 @@ msgstr ""
 msgid "Slideshow"
 msgstr "Glærusýning"
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 msgid "Check to enable slideshow for the <em>Smoothgallery</em> personality."
 msgstr ""
 "Veldu þetta til að virkja glærusýningu fyrir <em>Smoothgallery</em> "
 "persónuleikann."
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "Graphic logo"
 msgstr "Grafísk merki"
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy, php-format
 msgid ""
 "Select a logo (PNG files in the <em>%s/images</em> folder) or leave empty for "
@@ -1978,61 +1978,57 @@ msgstr ""
 "Veldu lógó (PNG-skrár í möppunni <em> %s / myndum</em> ) eða farðu tómt fyrir "
 "textamerki."
 
-#: themes/effervescence+/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:98
 #, fuzzy
 msgid "Display theme info"
 msgstr "Birta upplýsingar um þemu"
 
-#: themes/effervescence+/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:98
 #, fuzzy
 msgid "If checked the theme settings summary will be displayed in the footer."
 msgstr "Ef valið er yfirlit yfir þema stillingar verða birtar á síðunni."
 
-#: themes/effervescence+/themeoptions.php:100 themes/garland/themeoptions.php:75
+#: themes/effervescence+/themeoptions.php:99 themes/garland/themeoptions.php:74
 msgid "Theme personality"
 msgstr "Þemapersónuleiki"
 
-#: themes/effervescence+/themeoptions.php:103 themes/garland/themeoptions.php:77
+#: themes/effervescence+/themeoptions.php:102 themes/garland/themeoptions.php:76
 msgid "Select the theme personality"
 msgstr "Veldu þemapersónuleika"
 
-#: themes/effervescence+/themeoptions.php:105 themes/garland/themeoptions.php:80
+#: themes/effervescence+/themeoptions.php:104 themes/garland/themeoptions.php:79
 #, fuzzy
 msgid "Custom menu"
 msgstr "Sérsniðin valmynd"
 
-#: themes/effervescence+/themeoptions.php:105 themes/garland/themeoptions.php:80
+#: themes/effervescence+/themeoptions.php:104 themes/garland/themeoptions.php:79
 #, fuzzy
 msgid "Set this to the <em>menu_manager</em> menu you wish to use."
 msgstr "Stilltu þetta í valmyndina <em>menu_manager sem</em> þú vilt nota."
 
-#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
 #, fuzzy
 msgid "Image gallery transition"
 msgstr "Myndasýning umskipti"
 
-#: themes/effervescence+/themeoptions.php:110
-#: themes/garland/themeoptions.php:100 zp-core/exif/exifTranslations.php:149
-#: zp-core/zp-extensions/googleMap.php:93
+#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: zp-core/exif/exifTranslations.php:149 zp-core/zp-extensions/googleMap.php:93
 #: zp-core/zp-extensions/user_login-out.php:37
 msgid "None"
 msgstr "Ekkert"
 
-#: themes/effervescence+/themeoptions.php:110
-#: themes/garland/themeoptions.php:100
+#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:90
 #, fuzzy
 msgid "Fade"
 msgstr "Hverfa"
 
-#: themes/effervescence+/themeoptions.php:110
-#: themes/garland/themeoptions.php:100
+#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
 #, fuzzy
 msgid "Shrink/grow"
 msgstr "Skreppa saman / vaxa"
 
-#: themes/effervescence+/themeoptions.php:110
-#: themes/garland/themeoptions.php:100
+#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:88
 #: zp-core/zp-extensions/googleMap.php:96
 #: zp-core/zp-extensions/slideshow2.php:132
@@ -2040,8 +2036,7 @@ msgstr "Skreppa saman / vaxa"
 msgid "Horizontal"
 msgstr "Lárétt"
 
-#: themes/effervescence+/themeoptions.php:110
-#: themes/garland/themeoptions.php:100
+#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:89
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:78
 #: zp-core/zp-extensions/slideshow2.php:133
@@ -2049,57 +2044,57 @@ msgstr "Lárétt"
 msgid "Vertical"
 msgstr "Lóðrétt"
 
-#: themes/effervescence+/themeoptions.php:112
-#: themes/garland/themeoptions.php:102
+#: themes/effervescence+/themeoptions.php:111
+#: themes/garland/themeoptions.php:101
 #, fuzzy
 msgid "Transition effect for Image gallery"
 msgstr "Umskipti áhrif fyrir Myndasafn"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #, fuzzy
 msgid "Image gallery caption"
 msgstr "Myndasöfn myndasafns"
 
-#: themes/effervescence+/themeoptions.php:114
-#: themes/garland/themeoptions.php:104
+#: themes/effervescence+/themeoptions.php:113
+#: themes/garland/themeoptions.php:103
 #, fuzzy
 msgid "On image"
 msgstr "% af mynd"
 
-#: themes/effervescence+/themeoptions.php:114
-#: themes/garland/themeoptions.php:104
+#: themes/effervescence+/themeoptions.php:113
+#: themes/garland/themeoptions.php:103
 #, fuzzy
 msgid "Separate"
 msgstr "Aðskilja"
 
-#: themes/effervescence+/themeoptions.php:114
-#: themes/garland/themeoptions.php:104 zp-core/zp-extensions/comment_form.php:97
-#: zp-core/zp-extensions/comment_form.php:101
-#: zp-core/zp-extensions/comment_form.php:105
-#: zp-core/zp-extensions/comment_form.php:109
-#: zp-core/zp-extensions/comment_form.php:113
+#: themes/effervescence+/themeoptions.php:113
+#: themes/garland/themeoptions.php:103 zp-core/zp-extensions/comment_form.php:99
+#: zp-core/zp-extensions/comment_form.php:103
+#: zp-core/zp-extensions/comment_form.php:107
+#: zp-core/zp-extensions/comment_form.php:111
+#: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/register_user.php:85
 #, fuzzy
 msgid "Omit"
 msgstr "Sleppa"
 
-#: themes/effervescence+/themeoptions.php:116
-#: themes/garland/themeoptions.php:106
+#: themes/effervescence+/themeoptions.php:115
+#: themes/garland/themeoptions.php:105
 #, fuzzy
 msgid "Location for Image gallery picture caption"
 msgstr "Staðsetning myndasafns myndatöku"
 
-#: themes/effervescence+/themeoptions.php:126
+#: themes/effervescence+/themeoptions.php:125
+#: themes/effervescence+/themeoptions.php:130
 #: themes/effervescence+/themeoptions.php:131
-#: themes/effervescence+/themeoptions.php:132
 #, fuzzy
 msgid "Index Image"
 msgstr "Index Image"
 
-#: themes/effervescence+/themeoptions.php:127 themes/garland/themeoptions.php:95
+#: themes/effervescence+/themeoptions.php:126 themes/garland/themeoptions.php:94
 #: themes/zenpage/themeoptions.php:68 themes/zpArdoise/inc_header.php:337
-#: themes/zpArdoise/themeoptions.php:130 themes/zpArdoise/themeoptions.php:132
+#: themes/zpArdoise/themeoptions.php:125 themes/zpArdoise/themeoptions.php:127
 #: themes/zpEnlighten/themeoptions.php:45 themes/zpfocus/themeoptions.php:459
 #: themes/zpskeleton/themeoptions.php:103 zp-core/admin-tabs/edit.php:1596
 #: zp-core/admin_options/image.php:459 zp-core/admin_options/image.php:472
@@ -2118,28 +2113,28 @@ msgstr "Index Image"
 msgid "none"
 msgstr "enginn"
 
-#: themes/effervescence+/themeoptions.php:129
+#: themes/effervescence+/themeoptions.php:128
 #, fuzzy
 msgid "Apply this effect to the index page image."
 msgstr "Beita þessum áhrifum á vísitölusíðuna."
 
-#: themes/effervescence+/themeoptions.php:132
+#: themes/effervescence+/themeoptions.php:131
 #, fuzzy
 msgid "This option requires the <em>image_effects</em> plugin to be enabled."
 msgstr "Þessi valkostur krefst þess að tappi <em>image_effects</em> sé virkt."
 
-#: themes/effervescence+/themeoptions.php:162
-#: themes/garland/themeoptions.php:125
+#: themes/effervescence+/themeoptions.php:161
+#: themes/garland/themeoptions.php:124
 #, fuzzy
 msgid "*standard menu"
 msgstr "* staðall valmynd"
 
-#: themes/effervescence+/themeoptions.php:169
+#: themes/effervescence+/themeoptions.php:168
 #, fuzzy
 msgid "*no logo selected"
 msgstr "* ekkert merki valið"
 
-#: themes/effervescence+/themeoptions.php:170
+#: themes/effervescence+/themeoptions.php:169
 #, fuzzy
 msgid "Effervescence"
 msgstr "Effervescence %s"
@@ -2261,27 +2256,27 @@ msgstr ""
 "Modded Wordpress þema frá <a href=\"http://garlandtheme.blogspot.com/"
 "\">Garland</a>"
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 #, fuzzy
 msgid "Set to enable search form."
 msgstr "Stilltu til að virkja leitarform."
 
-#: themes/garland/themeoptions.php:79
+#: themes/garland/themeoptions.php:78
 #, fuzzy
 msgid "Allow cloud"
 msgstr "Leyfa skýinu"
 
-#: themes/garland/themeoptions.php:79
+#: themes/garland/themeoptions.php:78
 #, fuzzy
 msgid "Set to enable tag cloud for album page."
 msgstr "Stilltu til að virkja merkjaskýja fyrir albúmssíðu."
 
-#: themes/garland/themeoptions.php:93
+#: themes/garland/themeoptions.php:92
 #, fuzzy
 msgid "Custom Homepage"
 msgstr "Sérsniðna heimasíðu"
 
-#: themes/garland/themeoptions.php:96
+#: themes/garland/themeoptions.php:95
 #, fuzzy
 msgid ""
 "Select the <em>pages</em> titlelink for the home page. Only unpublished pages "
@@ -2573,7 +2568,7 @@ msgstr "Um"
 
 #: themes/paradigm/includes/_head.php:52 themes/paradigm/includes/_head.php:146
 #: themes/zpArdoise/inc_header.php:36 themes/zpBootstrap/inc_header.php:47
-#: zp-core/allTranslations.php:63 zp-core/template-functions.php:472
+#: zp-core/allTranslations.php:68 zp-core/template-functions.php:472
 #: zp-core/zp-extensions/downloadList.php:586
 #: zp-core/zp-extensions/html_meta_tags.php:254
 #, fuzzy
@@ -2604,8 +2599,8 @@ msgstr "Blogg"
 #: themes/zpminimal/search.php:29 themes/zpminimal/summary.php:4
 #: themes/zpmobile/functions.php:66 themes/zpskeleton/inc-header.php:180
 #: zp-core/template-functions.php:1448
-#: zp-core/zp-extensions/menu_manager.php:808
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:481
+#: zp-core/zp-extensions/menu_manager.php:812
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:484
 msgid "Home"
 msgstr "Heim"
 
@@ -2992,7 +2987,7 @@ msgstr "Þema síðu"
 msgid "View: "
 msgstr "Skoða"
 
-#: themes/zenFluid/functions.php:266 zp-core/zp-extensions/themeSwitcher.php:181
+#: themes/zenFluid/functions.php:266 zp-core/zp-extensions/themeSwitcher.php:187
 msgid "Close"
 msgstr "Loka"
 
@@ -3010,7 +3005,7 @@ msgstr "Skoðanir:"
 #: themes/zenFluid/news.php:150 themes/zenFluid/pages.php:39
 #: themes/zpArdoise/inc_print_comment.php:30
 #: themes/zpBootstrap/inc_print_comment.php:35
-#: zp-core/zp-extensions/comment_form.php:237
+#: zp-core/zp-extensions/comment_form.php:247
 #, fuzzy
 msgid "No Comments"
 msgstr "Ummæli:"
@@ -3047,7 +3042,7 @@ msgstr "Notandasniðið þitt"
 
 #: themes/zenFluid/news.php:121 themes/zpfocus/album.php:150
 #: themes/zpfocus/favorites.php:144 themes/zpfocus/gallery.php:49
-#: themes/zpfocus/search.php:203 zp-core/zp-extensions/slideshow.php:368
+#: themes/zpfocus/search.php:203 zp-core/zp-extensions/slideshow.php:369
 msgid "Next"
 msgstr "Næsta"
 
@@ -3062,146 +3057,146 @@ msgstr "Fyrra"
 msgid "Images and Videos (%s)"
 msgstr "Myndir og myndskeið ( %s)"
 
-#: themes/zenFluid/themeoptions.php:78
+#: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "White"
 msgstr "Hvítur"
 
-#: themes/zenFluid/themeoptions.php:78
+#: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "Light Green"
 msgstr "Ljós grænn"
 
-#: themes/zenFluid/themeoptions.php:78
+#: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "Dark gray"
 msgstr "Dökk grár"
 
-#: themes/zenFluid/themeoptions.php:79
+#: themes/zenFluid/themeoptions.php:74
 #, fuzzy
 msgid "Round corners"
 msgstr "Hringlaga horn"
 
-#: themes/zenFluid/themeoptions.php:79
+#: themes/zenFluid/themeoptions.php:74
 #, fuzzy
 msgid "Square corners"
 msgstr "Hringbrautir"
 
-#: themes/zenFluid/themeoptions.php:79
+#: themes/zenFluid/themeoptions.php:74
 #, fuzzy
 msgid "No Border"
 msgstr "Engin landamæri"
 
-#: themes/zenFluid/themeoptions.php:80
+#: themes/zenFluid/themeoptions.php:75
 #, fuzzy
 msgid "Times"
 msgstr "Times"
 
-#: themes/zenFluid/themeoptions.php:80
+#: themes/zenFluid/themeoptions.php:75
 #, fuzzy
 msgid "Com4T"
 msgstr "Com4T"
 
-#: themes/zenFluid/themeoptions.php:81 zp-core/exif/exifTranslations.php:126
+#: themes/zenFluid/themeoptions.php:76 zp-core/exif/exifTranslations.php:126
 #, fuzzy
 msgid "Left"
 msgstr "Vinstri"
 
-#: themes/zenFluid/themeoptions.php:81 zp-core/exif/exifTranslations.php:57
+#: themes/zenFluid/themeoptions.php:76 zp-core/exif/exifTranslations.php:57
 #, fuzzy
 msgid "Center"
 msgstr "Miðja"
 
-#: themes/zenFluid/themeoptions.php:81 zp-core/exif/exifTranslations.php:189
+#: themes/zenFluid/themeoptions.php:76 zp-core/exif/exifTranslations.php:189
 #, fuzzy
 msgid "Right"
 msgstr "Hægri"
 
-#: themes/zenFluid/themeoptions.php:92
+#: themes/zenFluid/themeoptions.php:87
 #, fuzzy
 msgid "ZenFluid color"
 msgstr "ZenFluid litur"
 
-#: themes/zenFluid/themeoptions.php:97
+#: themes/zenFluid/themeoptions.php:92
 #, fuzzy
 msgid "Select the colorscheme."
 msgstr "Veldu litasniðið."
 
-#: themes/zenFluid/themeoptions.php:99
+#: themes/zenFluid/themeoptions.php:94
 #, fuzzy
 msgid "Font type"
 msgstr "Leturgerð"
 
-#: themes/zenFluid/themeoptions.php:104
+#: themes/zenFluid/themeoptions.php:99
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the font style."
 msgstr "Veldu leturgerðina."
 
-#: themes/zenFluid/themeoptions.php:106
+#: themes/zenFluid/themeoptions.php:101
 #, fuzzy
 msgid "Border type"
 msgstr "Border tegund"
 
-#: themes/zenFluid/themeoptions.php:111
+#: themes/zenFluid/themeoptions.php:106
 #, fuzzy
 msgid "Select the border scheme."
 msgstr "Veldu landamæri kerfisins."
 
-#: themes/zenFluid/themeoptions.php:117
+#: themes/zenFluid/themeoptions.php:112
 #, fuzzy
 msgid "Enable search form."
 msgstr "Smelltu til að opna fyrir leit."
 
-#: themes/zenFluid/themeoptions.php:119 themes/zenpage/themeoptions.php:66
+#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:66
 #: themes/zpEnlighten/themeoptions.php:22 themes/zpfocus/themeoptions.php:75
 #, fuzzy
 msgid "Use Colorbox"
 msgstr "Notaðu Colorbox"
 
-#: themes/zenFluid/themeoptions.php:123
+#: themes/zenFluid/themeoptions.php:118
 #, fuzzy
 msgid "Enable to display full size image with Colorbox."
 msgstr "Gerðu kleift að birta í fullri stærð með Colorbox."
 
-#: themes/zenFluid/themeoptions.php:125
+#: themes/zenFluid/themeoptions.php:120
 #, fuzzy
 msgid "Use UPPERCASE menu"
 msgstr "Notaðu UPPERCASE valmyndina"
 
-#: themes/zenFluid/themeoptions.php:129
+#: themes/zenFluid/themeoptions.php:124
 #, fuzzy
 msgid "Enable if you want all menu entries to be uppercase"
 msgstr "Virkja ef þú vilt að öll valmyndaratriði séu hástafi"
 
-#: themes/zenFluid/themeoptions.php:131
+#: themes/zenFluid/themeoptions.php:126
 #, fuzzy
 msgid "Include HOME link"
 msgstr "Hafa HOME hlekkur"
 
-#: themes/zenFluid/themeoptions.php:135
+#: themes/zenFluid/themeoptions.php:130
 #, fuzzy
 msgid "Enable if you want to include a HOME link at the top of the menus"
 msgstr "Gera kleift að setja upp HOME-tengil efst á valmyndunum"
 
-#: themes/zenFluid/themeoptions.php:137
+#: themes/zenFluid/themeoptions.php:132
 #, fuzzy
 msgid "Include title and description with thumbnail"
 msgstr "Hafa titil og lýsingu með smámynd"
 
-#: themes/zenFluid/themeoptions.php:141
+#: themes/zenFluid/themeoptions.php:136
 #, fuzzy
 msgid ""
 "Enable if you want to include the title and description beside each thumbnail"
 msgstr "Virkja ef þú vilt fá titilinn og lýsingu við hliðina á hverri smámyndir"
 
-#: themes/zenFluid/themeoptions.php:143
+#: themes/zenFluid/themeoptions.php:138
 #, fuzzy
 #| msgid "Random images"
 msgid "Use random image"
 msgstr "Notaðu handahófi mynd"
 
-#: themes/zenFluid/themeoptions.php:147
+#: themes/zenFluid/themeoptions.php:142
 #, fuzzy
 msgid ""
 "Enable if you want a random image displayed on the home page, otherwise the "
@@ -3210,12 +3205,12 @@ msgstr ""
 "Virkja ef þú vilt handahófi mynd sem birtist á heimasíðunni, annars birtist "
 "nýjasta myndin"
 
-#: themes/zenFluid/themeoptions.php:149
+#: themes/zenFluid/themeoptions.php:144
 #, fuzzy
 msgid "Random/Latest image root folder"
 msgstr "Handahófi / Nýjustu myndarrómappa"
 
-#: themes/zenFluid/themeoptions.php:154
+#: themes/zenFluid/themeoptions.php:149
 #, fuzzy
 msgid ""
 "Optional: Select the name of the album folder from which the random or latest "
@@ -3224,24 +3219,24 @@ msgstr ""
 "Valfrjáls: Veldu heiti albúmsmöppunnar þar sem handahófi eða nýjasta myndin "
 "verður tekin."
 
-#: themes/zenFluid/themeoptions.php:156
+#: themes/zenFluid/themeoptions.php:151
 #, fuzzy
 msgid "Print title breadcrumb"
 msgstr "Prenta titil breadcrumb"
 
-#: themes/zenFluid/themeoptions.php:160
+#: themes/zenFluid/themeoptions.php:155
 #, fuzzy
 msgid ""
 "Enable this if you want the album title to be included before the image title"
 msgstr ""
 "Virkja þetta ef þú vilt að plötutitillinn sé innifalinn fyrir mynd titilinn"
 
-#: themes/zenFluid/themeoptions.php:162
+#: themes/zenFluid/themeoptions.php:157
 #, fuzzy
 msgid "Title Margin"
 msgstr "Titill Framlegð"
 
-#: themes/zenFluid/themeoptions.php:166
+#: themes/zenFluid/themeoptions.php:161
 #, fuzzy
 msgid ""
 "Set size (in pixels) of the title, buttons, and comments that always shows "
@@ -3250,22 +3245,22 @@ msgstr ""
 "Stilla stærð (í punktum) titils, hnappa og athugasemda sem alltaf birtist "
 "fyrir neðan myndina eða myndskeiðið"
 
-#: themes/zenFluid/themeoptions.php:168
+#: themes/zenFluid/themeoptions.php:163
 #, fuzzy
 msgid "Title on top"
 msgstr "Titill ofan"
 
-#: themes/zenFluid/themeoptions.php:172
+#: themes/zenFluid/themeoptions.php:167
 #, fuzzy
 msgid "Enable this if you want the image title to be displayed above the image"
 msgstr "Virkja þetta ef þú vilt að myndatitillinn sé sýndur fyrir ofan myndina"
 
-#: themes/zenFluid/themeoptions.php:174
+#: themes/zenFluid/themeoptions.php:169
 #, fuzzy
 msgid "Transition on new row"
 msgstr "Umskipti á nýjum röð"
 
-#: themes/zenFluid/themeoptions.php:178
+#: themes/zenFluid/themeoptions.php:173
 #, fuzzy
 msgid ""
 "If combined transition is selected above, enable this if you wish the "
@@ -3275,13 +3270,13 @@ msgstr ""
 "Ef sameinað umskipti er valið hér að ofan, virkjaðu þetta ef þú vilt að "
 "umskipunin hefjist í nýjum röð, annars mun umskipti halda áfram í sömu línu"
 
-#: themes/zenFluid/themeoptions.php:180
+#: themes/zenFluid/themeoptions.php:175
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show header"
 msgstr "Sýna haus"
 
-#: themes/zenFluid/themeoptions.php:184
+#: themes/zenFluid/themeoptions.php:179
 #, fuzzy
 msgid ""
 "Enable to show a header with gallery title and description across the top of "
@@ -3290,12 +3285,12 @@ msgstr ""
 "Gakktu úr skugga um að haus sé sýnt með titli og lýsingu myndasafnsins efst á "
 "skjánum í staðinn fyrir ofan á skenkanum"
 
-#: themes/zenFluid/themeoptions.php:186
+#: themes/zenFluid/themeoptions.php:181
 #, fuzzy
 msgid "Show footer"
 msgstr "Sýna fótur"
 
-#: themes/zenFluid/themeoptions.php:190
+#: themes/zenFluid/themeoptions.php:185
 #, fuzzy
 msgid ""
 "Enable to show a footer across the bottom of the screen instead of at the "
@@ -3303,12 +3298,12 @@ msgid ""
 msgstr ""
 "Gerðu kleift að birta fót neðst á skjánum í staðinn fyrir neðst á skenkunum"
 
-#: themes/zenFluid/themeoptions.php:192
+#: themes/zenFluid/themeoptions.php:187
 #, fuzzy
 msgid "Stage maximum width"
 msgstr "Stig hámark breidd"
 
-#: themes/zenFluid/themeoptions.php:196
+#: themes/zenFluid/themeoptions.php:191
 #, fuzzy
 msgid ""
 "Enter the maximum width (in pixels) that the stage (everything to the right "
@@ -3317,12 +3312,12 @@ msgstr ""
 "Sláðu inn hámarksbreiddina (í punktum) sem stigið (allt til hægri við "
 "hliðarstikuna) ætti að taka."
 
-#: themes/zenFluid/themeoptions.php:198
+#: themes/zenFluid/themeoptions.php:193
 #, fuzzy
 msgid "Comment maximum width"
 msgstr "Athugaðu hámarksbreidd"
 
-#: themes/zenFluid/themeoptions.php:202
+#: themes/zenFluid/themeoptions.php:197
 #, fuzzy
 msgid ""
 "Enter the maximum width (in pixels) that the comments section should take. "
@@ -3331,13 +3326,13 @@ msgstr ""
 "Sláðu inn hámarksbreiddina (í punktum) sem athugasemdin ætti að taka. (Sláðu "
 "inn 0 (núll) til að nota hámarksbreiddina)"
 
-#: themes/zenFluid/themeoptions.php:204
+#: themes/zenFluid/themeoptions.php:199
 #, fuzzy
 #| msgid "Description"
 msgid "Description maximum width"
 msgstr "Lýsing hámarksbreidd"
 
-#: themes/zenFluid/themeoptions.php:208
+#: themes/zenFluid/themeoptions.php:203
 #, fuzzy
 msgid ""
 "Enter the maximum width (in pixels) that the description section should take. "
@@ -3346,13 +3341,13 @@ msgstr ""
 "Sláðu inn hámarksbreidd (í punktum) sem lýsingarhlutinn ætti að taka. (Sláðu "
 "inn 0 (núll) til að nota hámarksbreiddina)"
 
-#: themes/zenFluid/themeoptions.php:210
+#: themes/zenFluid/themeoptions.php:205
 #, fuzzy
 #| msgid "Description"
 msgid "Description justification"
 msgstr "Lýsing rökstuðning"
 
-#: themes/zenFluid/themeoptions.php:215
+#: themes/zenFluid/themeoptions.php:210
 #, fuzzy
 msgid ""
 "Enter the default justification for the description text (Override individual "
@@ -3361,81 +3356,81 @@ msgstr ""
 "Sláðu inn sjálfgefinn réttlætingu fyrir lýsingu textans (Hættu einstökum "
 "lýsingum í textaritlinum stjórnanda)."
 
-#: themes/zenFluid/themeoptions.php:217
+#: themes/zenFluid/themeoptions.php:212
 #, fuzzy
 msgid "Stage position"
 msgstr "Stigstöðu"
 
-#: themes/zenFluid/themeoptions.php:222
+#: themes/zenFluid/themeoptions.php:217
 #, fuzzy
 msgid ""
 "Select the position of the stage when its width is less than the width of the "
 "window"
 msgstr "Veldu stöðu stigsins þegar breidd hennar er minna en breidd gluggans"
 
-#: themes/zenFluid/themeoptions.php:224
+#: themes/zenFluid/themeoptions.php:219
 #, fuzzy
 msgid "Title position"
 msgstr "Titill stöðu"
 
-#: themes/zenFluid/themeoptions.php:230
+#: themes/zenFluid/themeoptions.php:225
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the position of the title"
 msgstr "Veldu stöðu titilsins"
 
-#: themes/zenFluid/themeoptions.php:232
+#: themes/zenFluid/themeoptions.php:227
 #, fuzzy
 #| msgid "Description"
 msgid "Description position"
 msgstr "Lýsing stöðu"
 
-#: themes/zenFluid/themeoptions.php:237
+#: themes/zenFluid/themeoptions.php:232
 #, fuzzy
 msgid "Select the position of the image/album description."
 msgstr "Veldu stöðu myndarinnar / albúmslýsingarinnar."
 
-#: themes/zenFluid/themeoptions.php:239
+#: themes/zenFluid/themeoptions.php:234
 #, fuzzy
 msgid "Button position"
 msgstr "Button stöðu"
 
-#: themes/zenFluid/themeoptions.php:244
+#: themes/zenFluid/themeoptions.php:239
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the position of the buttons under the image"
 msgstr "Veldu stöðu hnappa undir myndinni"
 
-#: themes/zenFluid/themeoptions.php:246
+#: themes/zenFluid/themeoptions.php:241
 #, fuzzy
 msgid "Comment position"
 msgstr "Athugasemd stöðu"
 
-#: themes/zenFluid/themeoptions.php:251
+#: themes/zenFluid/themeoptions.php:246
 #, fuzzy
 msgid ""
 "Select the position of the comments section when its width is less than the "
 "stage"
 msgstr "Veldu stöðu athugasafnsins þegar breidd hennar er minna en sviðið"
 
-#: themes/zenFluid/themeoptions.php:253
+#: themes/zenFluid/themeoptions.php:248
 #, fuzzy
 #| msgid "pending verification"
 msgid "Menu justification"
 msgstr "Valmöguleiki valmyndarinnar"
 
-#: themes/zenFluid/themeoptions.php:258
+#: themes/zenFluid/themeoptions.php:253
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the position of the sidebar menu items"
 msgstr "Veldu stöðu hliðarvalmyndanna"
 
-#: themes/zenFluid/themeoptions.php:260
+#: themes/zenFluid/themeoptions.php:255
 #, fuzzy
 msgid "Image width same as Stage"
 msgstr "Myndbreidd sama og Stage"
 
-#: themes/zenFluid/themeoptions.php:264
+#: themes/zenFluid/themeoptions.php:259
 #, fuzzy
 msgid ""
 "Enable this to force the image width to match the stage width if the image "
@@ -3444,12 +3439,12 @@ msgstr ""
 "Virkja þetta til að þvinga myndbreiddina til að passa við breiddarbreiddina "
 "ef myndbreiddin er stærri en stigbreiddin"
 
-#: themes/zenFluid/themeoptions.php:266
+#: themes/zenFluid/themeoptions.php:261
 #, fuzzy
 msgid "Thumb list width same as Stage"
 msgstr "Thumb listi breidd sama og Stage"
 
-#: themes/zenFluid/themeoptions.php:270
+#: themes/zenFluid/themeoptions.php:265
 #, fuzzy
 msgid ""
 "Enable this to force the width of the list of thumbs to match the stage width"
@@ -3457,24 +3452,24 @@ msgstr ""
 "Virkja þetta til að þvinga breidd lista yfir þumalfingur til að passa við "
 "breiddina"
 
-#: themes/zenFluid/themeoptions.php:272
+#: themes/zenFluid/themeoptions.php:267
 #, fuzzy
 msgid "Buttons before Title"
 msgstr "Hnappar fyrir Titill"
 
-#: themes/zenFluid/themeoptions.php:276
+#: themes/zenFluid/themeoptions.php:271
 #, fuzzy
 msgid ""
 "Enable if you want the image buttons to appear before the title and "
 "description"
 msgstr "Virkja ef þú vilt að myndhnapparnir birtist fyrir titilinn og lýsingu"
 
-#: themes/zenFluid/themeoptions.php:278
+#: themes/zenFluid/themeoptions.php:273
 #, fuzzy
 msgid "Menu section titles"
 msgstr "Titlar valmyndar"
 
-#: themes/zenFluid/themeoptions.php:282
+#: themes/zenFluid/themeoptions.php:277
 #, fuzzy
 msgid "Enable the display of a title for each sidebar menu section."
 msgstr "Virkja birtingu titils fyrir hverja hliðarvalmyndarsvið."
@@ -3487,13 +3482,13 @@ msgstr ""
 "Zenpage þema hannað af <a href=\"http://www.maltem.de\">Malte Müller</a>"
 
 #: themes/zenpage/image.php:73 themes/zpEnlighten/image.php:81
-#: zp-core/allTranslations.php:74
+#: zp-core/allTranslations.php:79
 #, fuzzy
 msgid "« prev thumbs"
 msgstr "«Fyrri þumalfingur"
 
 #: themes/zenpage/image.php:73 themes/zpEnlighten/image.php:81
-#: zp-core/allTranslations.php:75
+#: zp-core/allTranslations.php:80
 #, fuzzy
 msgid "next thumbs »"
 msgstr "næsta þumalfingur »"
@@ -3537,7 +3532,7 @@ msgstr ""
 "Virkja þetta ef þú vilt birta fyrstu síðu fréttasíðunnar á síðunni "
 "<code>index.php</code> ."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:68
+#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
 #: themes/zpBootstrap/themeoptions.php:64 themes/zpEnlighten/themeoptions.php:24
 #: themes/zpfocus/themeoptions.php:72 themes/zpskeleton/themeoptions.php:72
 #, fuzzy
@@ -3554,7 +3549,7 @@ msgstr ""
 "em> ) til að starfa sem heimasíðan þín í staðinn fyrir venjulegan gallerí "
 "vísitölu."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:68
+#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
 #: themes/zpEnlighten/themeoptions.php:24
 #, fuzzy
 msgid ""
@@ -3607,8 +3602,8 @@ msgstr "Þú getur flett með örvarnar á lyklaborðinu þínu"
 #: themes/zpArdoise/inc_header.php:287 themes/zpBootstrap/inc_header.php:157
 #: themes/zpfocus/inc-header.php:169 themes/zpfocus/inc-header.php:183
 #: themes/zpmasonry/inc-footer.php:35 themes/zpmasonry/inc-header.php:151
-#: themes/zpmasonry/inc-header.php:167 zp-core/zp-extensions/slideshow.php:593
-#: zp-core/zp-extensions/slideshow2.php:595
+#: themes/zpmasonry/inc-header.php:167 zp-core/zp-extensions/slideshow.php:585
+#: zp-core/zp-extensions/slideshow2.php:587
 #, fuzzy
 msgid "start slideshow"
 msgstr "byrja myndasýningu"
@@ -3616,8 +3611,8 @@ msgstr "byrja myndasýningu"
 #: themes/zpArdoise/inc_header.php:288 themes/zpBootstrap/inc_header.php:158
 #: themes/zpfocus/inc-header.php:170 themes/zpfocus/inc-header.php:184
 #: themes/zpmasonry/inc-footer.php:36 themes/zpmasonry/inc-header.php:152
-#: themes/zpmasonry/inc-header.php:168 zp-core/zp-extensions/slideshow.php:594
-#: zp-core/zp-extensions/slideshow2.php:596
+#: themes/zpmasonry/inc-header.php:168 zp-core/zp-extensions/slideshow.php:586
+#: zp-core/zp-extensions/slideshow2.php:588
 #, fuzzy
 msgid "stop slideshow"
 msgstr "stöðva myndasýningu"
@@ -3654,12 +3649,12 @@ msgstr "eldri"
 msgid "Category"
 msgstr "Flokkur"
 
-#: themes/zpArdoise/themeoptions.php:64
+#: themes/zpArdoise/themeoptions.php:59
 #, fuzzy
 msgid "Use this file as logo"
 msgstr "Notaðu þessa skrá sem merki"
 
-#: themes/zpArdoise/themeoptions.php:64
+#: themes/zpArdoise/themeoptions.php:59
 #, fuzzy
 msgid ""
 "Image file for the logo area: enter the full filename (including extension) "
@@ -3670,27 +3665,27 @@ msgstr ""
 "myndarskráarinnar sem er staðsett í þemum / zpArdoise / images / (banniere1."
 "jpg til dæmis)."
 
-#: themes/zpArdoise/themeoptions.php:65
+#: themes/zpArdoise/themeoptions.php:60
 #, fuzzy
 msgid "Show the logo on Image page"
 msgstr "Sýna lógóið á myndasíðu"
 
-#: themes/zpArdoise/themeoptions.php:65
+#: themes/zpArdoise/themeoptions.php:60
 #, fuzzy
 msgid "Check to show the logo on the Image page."
 msgstr "Kannaðu til að sýna lógóið á myndasíðunni."
 
-#: themes/zpArdoise/themeoptions.php:66 themes/zpmasonry/themeoptions.php:73
+#: themes/zpArdoise/themeoptions.php:61 themes/zpmasonry/themeoptions.php:73
 #, fuzzy
 msgid "Style"
 msgstr "Stíll"
 
-#: themes/zpArdoise/themeoptions.php:66
+#: themes/zpArdoise/themeoptions.php:61
 #, fuzzy
 msgid "Choose Dark or Light for color style of the site."
 msgstr "Veldu Myrkur eða Ljós fyrir litastíl á síðunni."
 
-#: themes/zpArdoise/themeoptions.php:67
+#: themes/zpArdoise/themeoptions.php:62
 #, fuzzy
 msgid ""
 "Choose the color of links: choose Default to use the default color of Dark or "
@@ -3701,7 +3696,7 @@ msgstr ""
 "Light stíl og veldu Custom til að nota sérsniðið gildi. Þú getur sérsniðið "
 "þessi gildi með því að breyta skráarsniðinu / zpArdoise / css / custom.css."
 
-#: themes/zpArdoise/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:24
+#: themes/zpArdoise/themeoptions.php:63 themes/zpEnlighten/themeoptions.php:24
 #: themes/zpskeleton/themeoptions.php:74
 #, fuzzy
 msgid ""
@@ -3712,32 +3707,32 @@ msgstr ""
 "em> ) til að starfa sem heimasíðan þín í staðinn fyrir venjulegan gallerí "
 "vísitölu."
 
-#: themes/zpArdoise/themeoptions.php:69
+#: themes/zpArdoise/themeoptions.php:64
 #, fuzzy
 msgid "Show Archive link"
 msgstr "Sýna skjalasafn"
 
-#: themes/zpArdoise/themeoptions.php:69
+#: themes/zpArdoise/themeoptions.php:64
 #, fuzzy
 msgid "Display a menu link to the Archive list."
 msgstr "Birta valmyndaratengilinn á skjalasafnið."
 
-#: themes/zpArdoise/themeoptions.php:71
+#: themes/zpArdoise/themeoptions.php:66
 #, fuzzy
 msgid "Show Tags"
 msgstr "Sýna merki"
 
-#: themes/zpArdoise/themeoptions.php:71
+#: themes/zpArdoise/themeoptions.php:66
 #, fuzzy
 msgid "Check to show a tag cloud with all the tags of the gallery."
 msgstr "Athugaðu að sýna merki ský með öllum merkjum gallerísins."
 
-#: themes/zpArdoise/themeoptions.php:72
+#: themes/zpArdoise/themeoptions.php:67
 #, fuzzy
 msgid "Show Image Statistic strip"
 msgstr "Sýna mynd Statistic strip"
 
-#: themes/zpArdoise/themeoptions.php:72
+#: themes/zpArdoise/themeoptions.php:67
 #, fuzzy
 msgid ""
 "Shows a strip of thumbnails on Gallery page, depending of the selected "
@@ -3747,12 +3742,12 @@ msgstr ""
 "Sýnir smámyndasöfn á Galleríssíðu, allt eftir valinni valkost. ATHUGIÐ: Fyrir "
 "annað en handahófi verður að vera stillt á myndatökuglugga."
 
-#: themes/zpArdoise/themeoptions.php:73
+#: themes/zpArdoise/themeoptions.php:68
 #, fuzzy
 msgid "Use Galleriffic script"
 msgstr "Notaðu Galleriffic handrit"
 
-#: themes/zpArdoise/themeoptions.php:73
+#: themes/zpArdoise/themeoptions.php:68
 #, fuzzy
 msgid ""
 "Check to use the Galleriffic script. Uncheck to use a standard display. This "
@@ -3761,12 +3756,12 @@ msgstr ""
 "Athugaðu að nota Galleriffic handritið. Afveldið til að nota staðlaða skjá. "
 "Þessi staðall sýna birtist einnig þegar javascript er óvirkt í vafranum."
 
-#: themes/zpArdoise/themeoptions.php:74
+#: themes/zpArdoise/themeoptions.php:69
 #, fuzzy
 msgid "Galleriffic slideshow delay"
 msgstr "Galleriffic myndasýningu tafar"
 
-#: themes/zpArdoise/themeoptions.php:74
+#: themes/zpArdoise/themeoptions.php:69
 #, fuzzy
 msgid ""
 "If Galleriffic is used, enter the delay of the gallerific slideshow in ms (e."
@@ -3774,12 +3769,12 @@ msgid ""
 msgstr ""
 "Ef Galleriffic er notað skaltu slá inn töf á myndasýningu í ms (td 3000)."
 
-#: themes/zpArdoise/themeoptions.php:75
+#: themes/zpArdoise/themeoptions.php:70
 #, fuzzy
 msgid "Use Colorbox in Album page"
 msgstr "Notaðu Colorbox á albúmssíðu"
 
-#: themes/zpArdoise/themeoptions.php:75
+#: themes/zpArdoise/themeoptions.php:70
 #, fuzzy
 msgid ""
 "Check to display the full size image with Colorbox in album page, if "
@@ -3789,22 +3784,22 @@ msgstr ""
 "Athugaðu að sýna fullri stærð með Colorbox á albúmssíðu, ef gallerí er notað "
 "eða ekki. ATH: Í því tilviki verður myndasíðan aldrei notuð."
 
-#: themes/zpArdoise/themeoptions.php:76
+#: themes/zpArdoise/themeoptions.php:71
 #, fuzzy
 msgid "Use Colorbox in Image page"
 msgstr "Notaðu Litur í myndasíðu"
 
-#: themes/zpArdoise/themeoptions.php:76
+#: themes/zpArdoise/themeoptions.php:71
 #, fuzzy
 msgid "Check to display the full size image with Colorbox in Image page."
 msgstr "Athugaðu að sýna fullri stærð með Colorbox á myndasíðu."
 
-#: themes/zpArdoise/themeoptions.php:77
+#: themes/zpArdoise/themeoptions.php:72
 #, fuzzy
 msgid "Show image EXIF data"
 msgstr "Sýna mynd EXIF ​​gögn"
 
-#: themes/zpArdoise/themeoptions.php:77
+#: themes/zpArdoise/themeoptions.php:72
 #, fuzzy
 msgid ""
 "Show the main EXIF Data on Image page (Model, FocalLength, FNumber, "
@@ -3815,7 +3810,7 @@ msgstr ""
 "ExposureTime, ISOSpeedRatings). Mundu að þú þarft að athuga þessar EXIF-gögn "
 "á admin&gt; mynd&gt; upplýsingar EXIF."
 
-#: themes/zpArdoise/themeoptions.php:120 themes/zpEnlighten/themeoptions.php:33
+#: themes/zpArdoise/themeoptions.php:115 themes/zpEnlighten/themeoptions.php:33
 #: themes/zpfocus/themeoptions.php:447 themes/zpskeleton/themeoptions.php:91
 #, fuzzy
 msgid "No unpublished pages available"
@@ -3870,7 +3865,7 @@ msgstr "Innskrá"
 msgid "The theme doesn't support colorbox option for googlemap plugin."
 msgstr "Þemað styður ekki litabox valkost fyrir googlemap tappi."
 
-#: themes/zpBootstrap/inc_print_googlemap.php:29
+#: themes/zpBootstrap/inc_print_googlemap.php:32
 #: zp-core/zp-extensions/googleMap.php:342
 #, fuzzy
 msgid "Google Map"
@@ -4011,7 +4006,7 @@ msgstr "Notaðu óendanlega fletta"
 #: zp-core/lib-auth.php:595 zp-core/lib-auth.php:599 zp-core/lib-auth.php:615
 #: zp-core/lib-auth.php:619 zp-core/lib-auth.php:624 zp-core/lib-auth.php:628
 #: zp-core/zp-extensions/cacheManager.php:155
-#: zp-core/zp-extensions/comment_form.php:87
+#: zp-core/zp-extensions/comment_form.php:90
 #: zp-core/zp-extensions/externalFeed.php:75
 #: zp-core/zp-extensions/multiple_layouts.php:109
 #: zp-core/zp-extensions/tweet_news.php:97 zp-core/zp-extensions/zenpage.php:116
@@ -4157,8 +4152,8 @@ msgstr ""
 #: themes/zpEnlighten/image.php:126 themes/zpEnlighten/search.php:165
 #: themes/zpminimal/album.php:62 themes/zpminimal/favorites.php:60
 #: themes/zpminimal/image.php:55 themes/zpminimal/search.php:116
-#: themes/zpmobile/search.php:187 zp-core/zp-extensions/slideshow.php:511
-#: zp-core/zp-extensions/slideshow2.php:514
+#: themes/zpmobile/search.php:187 zp-core/zp-extensions/slideshow.php:512
+#: zp-core/zp-extensions/slideshow2.php:515
 msgid "View Slideshow"
 msgstr "Glærusýning"
 
@@ -4305,7 +4300,7 @@ msgstr "Gerast áskrifandi:"
 #: themes/zpfocus/inc-footer.php:44 themes/zpminimal/inc-footer.php:11
 #, fuzzy
 msgid "This Album"
-msgstr "Þetta albúm"
+msgstr "Skoða albúm:"
 
 #: themes/zpfocus/inc-footer.php:47 themes/zpminimal/inc-footer.php:13
 #, fuzzy
@@ -4339,7 +4334,7 @@ msgstr "404 Ekki fundið..."
 #: themes/zpmasonry/inc-menu.php:26 themes/zpskeleton/inc-bottom.php:59
 #: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:554
 #: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
-#: zp-core/zp-extensions/comment_form.php:173
+#: zp-core/zp-extensions/comment_form.php:183
 #: zp-core/zp-extensions/comment_form/admin-comments.php:268
 msgid "Comments"
 msgstr "Ummæli"
@@ -4902,8 +4897,8 @@ msgstr "Forskoða"
 #: themes/zpmasonry/comment_form/comment_form.php:18
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:18
 #: zp-core/admin_options/general.php:632
-#: zp-core/zp-extensions/contact_form.php:102
 #: zp-core/zp-extensions/contact_form.php:104
+#: zp-core/zp-extensions/contact_form.php:106
 #: zp-core/zp-extensions/register_user/register_user_form.php:32
 msgid "Name"
 msgstr "Nafn"
@@ -4916,8 +4911,8 @@ msgstr "Netfang:"
 
 #: themes/zpmasonry/comment_form/comment_form.php:30
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:30
-#: zp-core/zp-extensions/contact_form.php:126
 #: zp-core/zp-extensions/contact_form.php:128
+#: zp-core/zp-extensions/contact_form.php:130
 #: zp-core/zp-extensions/userAddressFields.php:60
 msgid "Website"
 msgstr "Vefsíða"
@@ -5025,7 +5020,7 @@ msgstr "Engar myndir eru til staðar ..."
 
 #: themes/zpmasonry/index.php:105 zp-core/template-functions.php:845
 #: zp-core/template-functions.php:1044
-#: zp-core/zp-extensions/menu_manager.php:634
+#: zp-core/zp-extensions/menu_manager.php:638
 msgid "Next Page"
 msgstr "Næsta síða"
 
@@ -5481,12 +5476,12 @@ msgstr ""
 "Þema þýddi fyrst og fremst fyrir farsíma / snjallsíma vafra með <a "
 "href='http://jQuerymobile.com'>jQuerymobile ramma</a> ."
 
-#: themes/zpmobile/themeoptions.php:39
+#: themes/zpmobile/themeoptions.php:36
 #, fuzzy
 msgid "Allow direct link from multimedia"
 msgstr "Leyfa bein tengsl frá margmiðlun"
 
-#: themes/zpmobile/themeoptions.php:39
+#: themes/zpmobile/themeoptions.php:36
 #, fuzzy
 msgid ""
 "Check to enable a direct link to multimedia items on the single image page in "
@@ -5686,7 +5681,7 @@ msgid ""
 "images."
 msgstr "Veldu hvort myndarlistinn neðst sýnir slemma myndir eða nýjustu myndir."
 
-#: zp-core/404.php:73
+#: zp-core/404.php:75
 #, php-format
 msgid "Return to %s"
 msgstr "Aftur á %s"
@@ -5944,10 +5939,10 @@ msgstr "Vísbending aðgangsorðs:"
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:297
-#: zp-core/zp-extensions/comment_form.php:97
-#: zp-core/zp-extensions/comment_form.php:101
-#: zp-core/zp-extensions/comment_form.php:105
-#: zp-core/zp-extensions/comment_form.php:113
+#: zp-core/zp-extensions/comment_form.php:99
+#: zp-core/zp-extensions/comment_form.php:103
+#: zp-core/zp-extensions/comment_form.php:107
+#: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/downloadList.php:148
 #: zp-core/zp-extensions/menu_manager/menu_tab.php:225
 #: zp-core/zp-extensions/register_user.php:85
@@ -6065,7 +6060,7 @@ msgstr "Smámynd:"
 msgid "General"
 msgstr "Almennt"
 
-#: zp-core/admin-functions.php:2262 zp-core/admin-globals.php:74
+#: zp-core/admin-functions.php:2262 zp-core/admin-globals.php:77
 #: zp-core/admin-tabs/edit.php:1404
 #: zp-core/zp-extensions/favoritesHandler.php:147
 #: zp-core/zp-extensions/zenpage/admin-functions.php:697
@@ -6266,7 +6261,7 @@ msgid "Edit this album: %s"
 msgstr "Breyta þessu albúmi: %s"
 
 #: zp-core/admin-functions.php:2694 zp-core/admin-functions.php:2697
-#: zp-core/admin-globals.php:139 zp-core/zp-extensions/tinyURL.php:76
+#: zp-core/admin-globals.php:142 zp-core/zp-extensions/tinyURL.php:76
 #, fuzzy
 msgid "albums"
 msgstr "Albúm"
@@ -6314,7 +6309,7 @@ msgstr "Slökktu á athugasemdum"
 #: zp-core/zp-extensions/zenpage/pages.php:179
 #, fuzzy
 msgid "Enable comments"
-msgstr "Virkja athugasemdir"
+msgstr "Leyfa athugasemdir"
 
 #: zp-core/admin-functions.php:2809
 #, fuzzy
@@ -6564,13 +6559,13 @@ msgstr "%1$s:%2$s var ekki breytt í%3$s (afrit titlelink.)"
 msgid "setup"
 msgstr "uppsetning"
 
-#: zp-core/admin-functions.php:5212 zp-core/admin-globals.php:235
-#: zp-core/admin_options/general.php:768
+#: zp-core/admin-functions.php:5212 zp-core/admin-globals.php:238
+#: zp-core/admin_options/general.php:765
 #, fuzzy
 msgid "security"
 msgstr "öryggi"
 
-#: zp-core/admin-functions.php:5212 zp-core/admin_options/general.php:768
+#: zp-core/admin-functions.php:5212 zp-core/admin_options/general.php:765
 #: zp-core/zp-extensions/debug.php:180
 #, fuzzy
 msgid "debug"
@@ -6600,7 +6595,7 @@ msgstr "Senda tölvupóst"
 #: zp-core/admin-functions.php:5275
 #, fuzzy
 msgid "media"
-msgstr "fjölmiðla"
+msgstr "skrá"
 
 #: zp-core/admin-functions.php:5276
 #, fuzzy
@@ -6623,8 +6618,8 @@ msgstr "þema stuðning"
 msgid "tools"
 msgstr "verkfæri"
 
-#: zp-core/admin-functions.php:5280 zp-core/admin-globals.php:213
-#: zp-core/admin-globals.php:220 zp-core/zp-extensions/accessThreshold.php:108
+#: zp-core/admin-functions.php:5280 zp-core/admin-globals.php:216
+#: zp-core/admin-globals.php:223 zp-core/zp-extensions/accessThreshold.php:108
 #: zp-core/zp-extensions/cloneZenphoto.php:53
 #, fuzzy
 msgid "users"
@@ -6744,21 +6739,21 @@ msgstr "Ekkert breytt"
 
 #: zp-core/admin-functions.php:5564 zp-core/admin-tabs/albumsort.php:142
 #: zp-core/zp-extensions/comment_form/admin-comments.php:277
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:948
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:951
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1672
 #, fuzzy
 msgid "Selected items deleted"
 msgstr "Valdar hlutir eytt"
 
 #: zp-core/admin-functions.php:5567 zp-core/admin-tabs/albumsort.php:145
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:952
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:955
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1675
 #, fuzzy
 msgid "Selected items published"
 msgstr "Valdar hlutir birtar"
 
 #: zp-core/admin-functions.php:5570 zp-core/admin-tabs/albumsort.php:148
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:956
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:959
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1678
 #, fuzzy
 msgid "Selected items unpublished"
@@ -6874,12 +6869,12 @@ msgstr "Endurnýja lýsigögn"
 msgid "Reset album thumbs"
 msgstr "Endurhlaða plötu thumbs"
 
-#: zp-core/admin-globals.php:68 zp-core/admin_options/search.php:505
+#: zp-core/admin-globals.php:71 zp-core/admin_options/search.php:505
 #: zp-core/zp-extensions/favoritesHandler.php:140
 msgid "Filename"
 msgstr "Skráarnafn"
 
-#: zp-core/admin-globals.php:69 zp-core/class-search.php:116
+#: zp-core/admin-globals.php:72 zp-core/class-search.php:116
 #: zp-core/zp-extensions/favoritesHandler.php:142
 #: zp-core/zp-extensions/optionalObjectFields.php:81
 #: zp-core/zp-extensions/optionalObjectFields.php:141
@@ -6887,9 +6882,9 @@ msgstr "Skráarnafn"
 msgid "Date"
 msgstr "Dagsetning"
 
-#: zp-core/admin-globals.php:70 zp-core/admin-tabs/edit.php:1293
-#: zp-core/class-search.php:113 zp-core/zp-extensions/contact_form.php:99
-#: zp-core/zp-extensions/contact_form.php:101
+#: zp-core/admin-globals.php:73 zp-core/admin-tabs/edit.php:1293
+#: zp-core/class-search.php:113 zp-core/zp-extensions/contact_form.php:101
+#: zp-core/zp-extensions/contact_form.php:103
 #: zp-core/zp-extensions/favoritesHandler.php:112
 #: zp-core/zp-extensions/favoritesHandler.php:143
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:53
@@ -6898,19 +6893,19 @@ msgstr "Dagsetning"
 msgid "Title"
 msgstr "Titill"
 
-#: zp-core/admin-globals.php:71 zp-core/zp-extensions/favoritesHandler.php:144
+#: zp-core/admin-globals.php:74 zp-core/zp-extensions/favoritesHandler.php:144
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:379
 #, fuzzy
 msgid "ID"
 msgstr "Nr."
 
-#: zp-core/admin-globals.php:72 zp-core/admin_options/search.php:504
+#: zp-core/admin-globals.php:75 zp-core/admin_options/search.php:504
 #: zp-core/zp-extensions/favoritesHandler.php:145
 #, fuzzy
 msgid "Filemtime"
 msgstr "Filemtime"
 
-#: zp-core/admin-globals.php:73 zp-core/zp-extensions/accessThreshold.php:65
+#: zp-core/admin-globals.php:76 zp-core/zp-extensions/accessThreshold.php:65
 #: zp-core/zp-extensions/favoritesHandler.php:146
 #: zp-core/zp-extensions/optionalObjectFields.php:69
 #: zp-core/zp-extensions/optionalObjectFields.php:123
@@ -6918,7 +6913,7 @@ msgstr "Filemtime"
 msgid "Owner"
 msgstr "Eigandi"
 
-#: zp-core/admin-globals.php:82 zp-core/admin-globals.php:210
+#: zp-core/admin-globals.php:85 zp-core/admin-globals.php:213
 #: zp-core/pluginDoc.php:273 zp-core/zp-extensions/accessThreshold.php:112
 #: zp-core/zp-extensions/cloneZenphoto.php:57
 #: zp-core/zp-extensions/user-expiry.php:100
@@ -6926,85 +6921,85 @@ msgstr "Eigandi"
 msgid "admin"
 msgstr "admin"
 
-#: zp-core/admin-globals.php:122
+#: zp-core/admin-globals.php:125
 msgid "overview"
 msgstr "yfirlit"
 
-#: zp-core/admin-globals.php:125
+#: zp-core/admin-globals.php:128
 #, fuzzy
 #| msgid "Gallery Statistics"
 msgid "Gallery statistics"
 msgstr "Tölfræði gallerýa"
 
-#: zp-core/admin-globals.php:158 zp-core/zp-extensions/tinyURL.php:97
+#: zp-core/admin-globals.php:161 zp-core/zp-extensions/tinyURL.php:97
 #, fuzzy
 msgid "pages"
 msgstr "Síður"
 
-#: zp-core/admin-globals.php:183 zp-core/admin-globals.php:190
+#: zp-core/admin-globals.php:186 zp-core/admin-globals.php:193
 #: zp-core/zp-extensions/tinyURL.php:87
 #, fuzzy
 msgid "news"
 msgstr "Fréttir"
 
-#: zp-core/admin-globals.php:185
+#: zp-core/admin-globals.php:188
 #: zp-core/zp-extensions/zenpage/admin-functions.php:986
 #, fuzzy
 msgid "articles"
 msgstr "Fréttagreinar"
 
-#: zp-core/admin-globals.php:186 zp-core/admin-globals.php:196
+#: zp-core/admin-globals.php:189 zp-core/admin-globals.php:199
 #, fuzzy
 msgid "categories"
 msgstr "Flokkar: "
 
-#: zp-core/admin-globals.php:217
+#: zp-core/admin-globals.php:220
 #, fuzzy
 msgid "my profile"
 msgstr "prófílinn minn"
 
-#: zp-core/admin-globals.php:229
+#: zp-core/admin-globals.php:232
 #, fuzzy
 msgid "general"
 msgstr "almennt"
 
-#: zp-core/admin-globals.php:233
+#: zp-core/admin-globals.php:236
 #, fuzzy
 msgid "gallery"
 msgstr "Gallerý"
 
-#: zp-core/admin-globals.php:240
+#: zp-core/admin-globals.php:243
 #, fuzzy
 msgid "plugin"
 msgstr "stinga inn"
 
-#: zp-core/admin-globals.php:246 zp-core/functions-basic.php:558
+#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:558
 #, fuzzy
 msgid "theme"
 msgstr "Veldu liti þemans"
 
-#: zp-core/admin-globals.php:248
+#: zp-core/admin-globals.php:251
 msgid "options"
 msgstr "stillingar"
 
-#: zp-core/admin-globals.php:256
+#: zp-core/admin-globals.php:259
 msgid "themes"
 msgstr "þemu"
 
-#: zp-core/admin-globals.php:264
+#: zp-core/admin-globals.php:267
 msgid "plugins"
 msgstr "íbætur"
 
-#: zp-core/admin-globals.php:270 zp-core/utilities/installation_analysis.php:24
+#: zp-core/admin-globals.php:273 zp-core/utilities/installation_analysis.php:24
 msgid "Installation information"
 msgstr "Uppsetningarupplýsingar"
 
-#: zp-core/admin-globals.php:275
+#: zp-core/admin-globals.php:278
 #, fuzzy
 msgid "logs"
 msgstr "logs"
 
-#: zp-core/admin-globals.php:280
+#: zp-core/admin-globals.php:283
 #, fuzzy
 msgid "Database Reference"
 msgstr "Gagnasafn Tilvísun"
@@ -7022,7 +7017,7 @@ msgstr "* Magn aðgerða *"
 #: zp-core/admin-tabs/albumsort.php:86 zp-core/admin-tabs/edit.php:746
 #: zp-core/admin-tabs/edit.php:756 zp-core/admin-tabs/edit.php:760
 #: zp-core/admin-tabs/edit.php:1743 zp-core/admin-tabs/edit.php:1780
-#: zp-core/admin-tabs/logs.php:140 zp-core/admin-tabs/themes.php:327
+#: zp-core/admin-tabs/logs.php:140 zp-core/admin-tabs/themes.php:329
 #: zp-core/setup/index.php:1097 zp-core/zp-extensions/cacheManager.php:253
 #: zp-core/zp-extensions/cacheManager.php:286
 #: zp-core/zp-extensions/comment_form/admin-comments.php:149
@@ -7382,7 +7377,7 @@ msgstr "pt"
 msgid "<strong>Size:</strong>"
 msgstr "<strong>Stærð:</strong>"
 
-#: zp-core/admin-tabs/edit.php:1310 zp-core/admin-tabs/plugins.php:184
+#: zp-core/admin-tabs/edit.php:1310 zp-core/admin-tabs/plugins.php:185
 #: zp-core/class-search.php:114 zp-core/zp-extensions/favoritesHandler.php:116
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:320
 #: zp-core/zp-extensions/slideshow.php:120
@@ -7546,7 +7541,7 @@ msgid "Your Allowed tags change did not parse successfully."
 msgstr ""
 "Breyting þín á leyfilegum merkingum tókst ekki að flokka með góðum árangri."
 
-#: zp-core/admin-tabs/options.php:122 zp-core/admin-tabs/plugins.php:149
+#: zp-core/admin-tabs/options.php:122 zp-core/admin-tabs/plugins.php:150
 #: zp-core/admin-tabs/users.php:324
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:146
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:137
@@ -7554,7 +7549,7 @@ msgstr ""
 msgid "Error"
 msgstr "Villa!"
 
-#: zp-core/admin-tabs/options.php:123 zp-core/admin-tabs/plugins.php:150
+#: zp-core/admin-tabs/options.php:123 zp-core/admin-tabs/plugins.php:151
 #: zp-core/admin-tabs/users.php:325
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:138
 #, fuzzy
@@ -7565,7 +7560,7 @@ msgstr ""
 "Skjalið uppgjöf er ófullnægjandi. Kannski er formastærðin yfir stilltu "
 "miðlara eða vafraörkum."
 
-#: zp-core/admin-tabs/options.php:128 zp-core/admin-tabs/plugins.php:134
+#: zp-core/admin-tabs/options.php:128 zp-core/admin-tabs/plugins.php:135
 #, fuzzy
 msgid "Applied"
 msgstr "Beitt"
@@ -7596,22 +7591,22 @@ msgstr ""
 "Slóðin sem þú valdir leiddi til þess að smákökur væru ekki hægt að nálgast. "
 "Það hefur verið endurstillt."
 
-#: zp-core/admin-tabs/plugins.php:141
+#: zp-core/admin-tabs/plugins.php:142
 #, fuzzy, php-format
 msgid "%1$s plugins"
 msgstr "%1$s viðbætur"
 
-#: zp-core/admin-tabs/plugins.php:156
+#: zp-core/admin-tabs/plugins.php:157
 msgid "Plugins provide optional functionality."
 msgstr "Íbætur veita aukna virkni í ZenPhoto20."
 
-#: zp-core/admin-tabs/plugins.php:157
+#: zp-core/admin-tabs/plugins.php:158
 msgid ""
 "They may be provided as part of the distribution or as offerings from third "
 "parties."
 msgstr "Þær geta verið dreift með ZenPhoto20 dreifingunni eða af þriðja aðila."
 
-#: zp-core/admin-tabs/plugins.php:158
+#: zp-core/admin-tabs/plugins.php:159
 #, fuzzy, php-format
 msgid ""
 "Third party plugins are placed in the <code>%s</code> folder and are "
@@ -7619,7 +7614,7 @@ msgid ""
 msgstr ""
 "Tæki þriðja aðila eru settar í möppuna <code>%s</code> og finnast sjálfkrafa."
 
-#: zp-core/admin-tabs/plugins.php:159
+#: zp-core/admin-tabs/plugins.php:160
 #, fuzzy
 msgid ""
 "If the plugin checkbox is checked, the plugin will be loaded and its "
@@ -7630,12 +7625,12 @@ msgstr ""
 "gerðar tiltækar. Ef gátreitinn er ekki valinn er viðbótin óvirk og tekur ekki "
 "til neinna úrræða."
 
-#: zp-core/admin-tabs/plugins.php:161
+#: zp-core/admin-tabs/plugins.php:162
 #, fuzzy
 msgid "Find more plugins"
 msgstr "Finndu fleiri viðbætur"
 
-#: zp-core/admin-tabs/plugins.php:163
+#: zp-core/admin-tabs/plugins.php:164
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> Support for a particular plugin may be theme "
@@ -7645,48 +7640,48 @@ msgstr ""
 "<strong>Ath:</strong> Stuðningur við tiltekna tappi getur verið þema háð! Þú "
 "gætir þurft að bæta við þemaþáttum viðbótar ef þemað styður ekki stuðning."
 
-#: zp-core/admin-tabs/plugins.php:182
+#: zp-core/admin-tabs/plugins.php:183
 #, fuzzy
 msgid "Available Plugins"
 msgstr "Lausar viðbætur"
 
-#: zp-core/admin-tabs/plugins.php:196 zp-core/admin-tabs/plugins.php:451
+#: zp-core/admin-tabs/plugins.php:197 zp-core/admin-tabs/plugins.php:452
 #, fuzzy
 msgid "Official plugin"
 msgstr "Opinber tappi"
 
-#: zp-core/admin-tabs/plugins.php:201 zp-core/admin-tabs/plugins.php:455
+#: zp-core/admin-tabs/plugins.php:202 zp-core/admin-tabs/plugins.php:456
 #, fuzzy
 msgid "Supplemental plugin"
 msgstr "Viðbótareiginleikar"
 
-#: zp-core/admin-tabs/plugins.php:211
+#: zp-core/admin-tabs/plugins.php:212
 #, fuzzy
 msgid "Third party plugin"
 msgstr "Þriðja aðila tappi"
 
-#: zp-core/admin-tabs/plugins.php:221
+#: zp-core/admin-tabs/plugins.php:222
 #, fuzzy
 msgid "<strong>Error parsing <em>plugin_description</em> string!</strong>."
 msgstr ""
 "<strong>Villa við að flokka <em>tappi_description</em> streng!</strong> ."
 
-#: zp-core/admin-tabs/plugins.php:229
+#: zp-core/admin-tabs/plugins.php:230
 #, fuzzy
 msgid "<strong>Error parsing <em>plugin_notice</em> string!</strong>."
 msgstr "<strong>Villa við að flokka <em>tappi_notice</em> streng!</strong> ."
 
-#: zp-core/admin-tabs/plugins.php:237
+#: zp-core/admin-tabs/plugins.php:238
 #, fuzzy
 msgid "<strong>Error parsing <em>plugin_version</em> string!</strong>."
 msgstr "<strong>Villa við að flokka <em>plugin_version</em> streng!</strong> ."
 
-#: zp-core/admin-tabs/plugins.php:245
+#: zp-core/admin-tabs/plugins.php:246
 #, fuzzy
 msgid "<strong>Error parsing <em>plugin_disable</em> string!</strong>."
 msgstr "<strong>Villa við að flokka <em>tappi-diska</em></strong> ."
 
-#: zp-core/admin-tabs/plugins.php:260 zp-core/admin_options/plugin.php:131
+#: zp-core/admin-tabs/plugins.php:261 zp-core/admin_options/plugin.php:131
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> Instantiating the option interface within the plugin "
@@ -7697,78 +7692,78 @@ msgstr ""
 "valdið flutningsvandamálum. Þú ættir að setja <code>$option_interface</code> "
 "í stað nafnsins sem streng."
 
-#: zp-core/admin-tabs/plugins.php:279
+#: zp-core/admin-tabs/plugins.php:280
 #, fuzzy
 msgid "class plugin"
 msgstr "flokki tappi"
 
-#: zp-core/admin-tabs/plugins.php:283
+#: zp-core/admin-tabs/plugins.php:284
 #, fuzzy
 msgid "admin plugin"
 msgstr "admin tappi"
 
-#: zp-core/admin-tabs/plugins.php:288
+#: zp-core/admin-tabs/plugins.php:289
 #, fuzzy
 msgid "feature plugin"
 msgstr "lögun tappi"
 
-#: zp-core/admin-tabs/plugins.php:290
+#: zp-core/admin-tabs/plugins.php:291
 #, fuzzy
 msgid "theme plugin"
 msgstr "þema tappi"
 
-#: zp-core/admin-tabs/plugins.php:323 zp-core/admin-tabs/themes.php:211
-#: zp-core/admin-tabs/themes.php:218
+#: zp-core/admin-tabs/plugins.php:324 zp-core/admin-tabs/themes.php:213
+#: zp-core/admin-tabs/themes.php:220
 #, fuzzy
 msgid "logo"
 msgstr "Textinn fyrir þemamerkið"
 
-#: zp-core/admin-tabs/plugins.php:350 zp-core/admin-tabs/plugins.php:352
+#: zp-core/admin-tabs/plugins.php:351 zp-core/admin-tabs/plugins.php:353
 #, fuzzy
 msgid "Plugin is deprecated!"
 msgstr "Tappi er úrfallið!"
 
-#: zp-core/admin-tabs/plugins.php:390
+#: zp-core/admin-tabs/plugins.php:391
 #, fuzzy, php-format
 msgid "Go to &quot;%s&quot; plugin page."
 msgstr "Farðu á &quot; %s&quot; tappi síðu."
 
-#: zp-core/admin-tabs/plugins.php:401
+#: zp-core/admin-tabs/plugins.php:402
 #, fuzzy
 msgid "Show plugin usage information."
 msgstr "Sýna upplýsingar um viðbótarnotkun."
 
-#: zp-core/admin-tabs/plugins.php:409 zp-core/admin_options/plugin.php:168
+#: zp-core/admin-tabs/plugins.php:410 zp-core/admin_options/plugin.php:168
 #, fuzzy, php-format
 msgid "Change %s options"
 msgstr "Breyta %s valkostum"
 
-#: zp-core/admin-tabs/plugins.php:459
+#: zp-core/admin-tabs/plugins.php:460
 #, fuzzy
 msgid "Class plugin"
 msgstr "Class tappi"
 
-#: zp-core/admin-tabs/plugins.php:463
+#: zp-core/admin-tabs/plugins.php:464
 #, fuzzy
 msgid "Admin plugin"
 msgstr "Admin tappi"
 
-#: zp-core/admin-tabs/plugins.php:467
+#: zp-core/admin-tabs/plugins.php:468
 #, fuzzy
 msgid "Feature plugin"
 msgstr "Lögun tappi"
 
-#: zp-core/admin-tabs/plugins.php:471
+#: zp-core/admin-tabs/plugins.php:472
 #, fuzzy
 msgid "Theme plugin"
 msgstr "Þema tappi"
 
-#: zp-core/admin-tabs/plugins.php:475
+#: zp-core/admin-tabs/plugins.php:476
 #, fuzzy
 msgid "Usage info"
 msgstr "Notkunarupplýsingar"
 
-#: zp-core/admin-tabs/plugins.php:479 zp-core/lib-auth.php:560
+#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:560
 #: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
 #: zp-core/template-functions.php:147
 #: zp-core/zp-extensions/menu_manager/menu_tab.php:199
@@ -7776,7 +7771,7 @@ msgstr "Notkunarupplýsingar"
 msgid "Options"
 msgstr "Stillingar"
 
-#: zp-core/admin-tabs/plugins.php:483
+#: zp-core/admin-tabs/plugins.php:484
 #, fuzzy
 msgid "Warning note"
 msgstr "Viðvörunarskýring"
@@ -7958,57 +7953,57 @@ msgstr ""
 msgid "You can assign a language to the tags with the language selector."
 msgstr "Þú getur úthlutað tungumáli við merkin með tungumálavalinum."
 
-#: zp-core/admin-tabs/themes.php:58
+#: zp-core/admin-tabs/themes.php:60
 #, fuzzy, php-format
 msgid "Theme <em>%s</em> removed."
 msgstr "Þema <em> %s</em> fjarlægð."
 
-#: zp-core/admin-tabs/themes.php:60
+#: zp-core/admin-tabs/themes.php:62
 #, fuzzy, php-format
 msgid "Error removing theme <em>%s</em>"
 msgstr "Villa við að fjarlægja þema <em> %s</em>"
 
-#: zp-core/admin-tabs/themes.php:76
+#: zp-core/admin-tabs/themes.php:78
 #, fuzzy
 msgid "New theme name?"
 msgstr "Nýtt heiti heiti?"
 
-#: zp-core/admin-tabs/themes.php:76
+#: zp-core/admin-tabs/themes.php:78
 #, fuzzy, php-format
 msgid "Copy of %s"
 msgstr "Afrit af %s"
 
-#: zp-core/admin-tabs/themes.php:78
+#: zp-core/admin-tabs/themes.php:80
 #, fuzzy
 msgid "Theme folder name?"
 msgstr "Þema möppu heiti?"
 
-#: zp-core/admin-tabs/themes.php:142
+#: zp-core/admin-tabs/themes.php:144
 #, fuzzy
 msgid "no theme assigned, defaulting to Gallery theme"
 msgstr "ekkert þema úthlutað, sjálfgefið í Galleríþema"
 
-#: zp-core/admin-tabs/themes.php:152 zp-core/admin_options/theme.php:196
+#: zp-core/admin-tabs/themes.php:154 zp-core/admin_options/theme.php:197
 #, fuzzy
 msgid "There are no themes for which you have rights to administer."
 msgstr "Það eru engar þemu sem þú hefur réttindi til að stjórna."
 
-#: zp-core/admin-tabs/themes.php:157
+#: zp-core/admin-tabs/themes.php:159
 #, fuzzy, php-format
 msgid "Current theme for <code><strong>%1$s</strong></code>: <em>%2$s</em>"
 msgstr "Núverandi þema fyrir <code><strong>%1$s</strong></code> : <em>%2$s</em>"
 
-#: zp-core/admin-tabs/themes.php:161
+#: zp-core/admin-tabs/themes.php:163
 #, fuzzy, php-format
 msgid "Clear theme assignment for %s"
 msgstr "Hreinsa þema verkefni fyrir %s"
 
-#: zp-core/admin-tabs/themes.php:169
+#: zp-core/admin-tabs/themes.php:171
 #, fuzzy
 msgid "Show theme for: "
 msgstr "Sýna þema fyrir:"
 
-#: zp-core/admin-tabs/themes.php:186
+#: zp-core/admin-tabs/themes.php:188
 #, fuzzy
 msgid ""
 "Themes allow you to visually change the entire look and feel of your gallery. "
@@ -8017,7 +8012,7 @@ msgstr ""
 "Þemu leyfa þér að sjónrænt breyta öllu útlitinu og ímynd gallerísins. "
 "Þemaskrár eru staðsettar í möppunni <code>/themes</code> ."
 
-#: zp-core/admin-tabs/themes.php:187
+#: zp-core/admin-tabs/themes.php:189
 #, fuzzy
 msgid ""
 "Place the downloaded themes in the <code>/themes</code> folder and they will "
@@ -8026,7 +8021,7 @@ msgstr ""
 "Settu niður þemu í möppuna <code>/themes</code> og þau verða aðgengileg til "
 "notkunar."
 
-#: zp-core/admin-tabs/themes.php:191
+#: zp-core/admin-tabs/themes.php:193
 #, fuzzy
 msgid ""
 "You can edit files from custom themes. Official themes shipped with the "
@@ -8036,7 +8031,7 @@ msgstr ""
 "hugbúnaðinum eru ekki hægt að breyta, þar sem breytingar þínar myndu glatast "
 "við næstu uppfærslu."
 
-#: zp-core/admin-tabs/themes.php:192
+#: zp-core/admin-tabs/themes.php:194
 #, fuzzy
 msgid ""
 "If you want to customize an official theme, please first <em>duplicate</em> "
@@ -8047,54 +8042,54 @@ msgstr ""
 "fyrst. Þetta mun setja afrit í möppuna <code>/themes</code> fyrir þig til að "
 "breyta."
 
-#: zp-core/admin-tabs/themes.php:196
+#: zp-core/admin-tabs/themes.php:198
 #, fuzzy
 msgid "Installed themes"
 msgstr "Uppsett þemu"
 
-#: zp-core/admin-tabs/themes.php:197 zp-core/zp-extensions/ipBlocker.php:99
+#: zp-core/admin-tabs/themes.php:199 zp-core/zp-extensions/ipBlocker.php:99
 #: zp-core/zp-extensions/trivialSpam.php:62
 #, fuzzy
 msgid "Action"
 msgstr "Hreyfing"
 
-#: zp-core/admin-tabs/themes.php:221
+#: zp-core/admin-tabs/themes.php:223
 #, fuzzy
 msgid "Third party theme"
 msgstr "Þema þriðja aðila"
 
-#: zp-core/admin-tabs/themes.php:259
+#: zp-core/admin-tabs/themes.php:261
 #, fuzzy
 msgid "Version"
 msgstr "PHP útgáfa: <strong>%1$s</strong>"
 
-#: zp-core/admin-tabs/themes.php:270
+#: zp-core/admin-tabs/themes.php:272
 #, fuzzy, php-format
 msgid "Set <em>%s</em> theme options"
 msgstr "Stilltu <em> %s</em> þema valkosti"
 
-#: zp-core/admin-tabs/themes.php:274
+#: zp-core/admin-tabs/themes.php:276
 #, fuzzy
 msgid "The default options for this theme have not been set."
 msgstr "Sjálfgefnar valkostir fyrir þetta þema hafa ekki verið stilltir."
 
-#: zp-core/admin-tabs/themes.php:287
+#: zp-core/admin-tabs/themes.php:289
 #, fuzzy
 msgid "Activate"
 msgstr "Virkja"
 
-#: zp-core/admin-tabs/themes.php:299
+#: zp-core/admin-tabs/themes.php:301
 #, fuzzy
 msgid "Assign"
 msgstr "Úthluta"
 
-#: zp-core/admin-tabs/themes.php:305 zp-core/zp-extensions/purgeOptions.php:79
+#: zp-core/admin-tabs/themes.php:307 zp-core/zp-extensions/purgeOptions.php:79
 msgid "Current Theme"
 msgstr "Núgildandi þema"
 
-#: zp-core/admin-tabs/themes.php:316
+#: zp-core/admin-tabs/themes.php:318
 #: zp-core/utilities/gallery_statistics.php:451
-#: zp-core/zp-extensions/comment_form.php:291
+#: zp-core/zp-extensions/comment_form.php:301
 #: zp-core/zp-extensions/publishContent/publishContent.php:319
 #: zp-core/zp-extensions/publishContent/publishContent.php:481
 #: zp-core/zp-extensions/publishContent/publishContent.php:539
@@ -8103,7 +8098,7 @@ msgstr "Núgildandi þema"
 msgid "Edit"
 msgstr "Breyta"
 
-#: zp-core/admin-tabs/themes.php:338
+#: zp-core/admin-tabs/themes.php:340
 #, fuzzy
 msgid "Duplicate"
 msgstr "Afrita"
@@ -8286,12 +8281,12 @@ msgstr "Tengill vefsíðu þinnar er ógildur"
 
 #: zp-core/admin-tabs/users.php:523 zp-core/admin_options/gallery.php:69
 #: zp-core/admin_options/gallery.php:526 zp-core/admin_options/general.php:171
-#: zp-core/admin_options/general.php:814 zp-core/admin_options/image.php:248
+#: zp-core/admin_options/general.php:811 zp-core/admin_options/image.php:248
 #: zp-core/admin_options/image.php:962 zp-core/admin_options/plugin.php:92
 #: zp-core/admin_options/plugin.php:238 zp-core/admin_options/search.php:106
 #: zp-core/admin_options/search.php:624 zp-core/admin_options/security.php:83
-#: zp-core/admin_options/security.php:328 zp-core/admin_options/theme.php:245
-#: zp-core/admin_options/theme.php:577
+#: zp-core/admin_options/security.php:328 zp-core/admin_options/theme.php:246
+#: zp-core/admin_options/theme.php:578
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:183
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:318
 #: zp-core/zp-extensions/search_statistics/search_analysis.php:301
@@ -8312,7 +8307,7 @@ msgid "Collapse all"
 msgstr "Loka öllu"
 
 #: zp-core/admin-tabs/users.php:547 zp-core/admin_options/image.php:809
-#: zp-core/admin_options/image.php:835 zp-core/zp-extensions/contact_form.php:72
+#: zp-core/admin_options/image.php:835 zp-core/zp-extensions/contact_form.php:74
 #: zp-core/zp-extensions/googleMap.php:87
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:122
 msgid "show"
@@ -8563,7 +8558,7 @@ msgstr "Þú hefur ekki réttarrétt til að fá aðgang að %s."
 
 #: zp-core/admin.php:256
 #, fuzzy
-msgid "GitHub repository not accessable. "
+msgid "GitHub repository not accessible. "
 msgstr "GitHub geymsla ekki aðgengileg."
 
 #: zp-core/admin.php:270
@@ -9024,19 +9019,19 @@ msgid "Codeblocks"
 msgstr "Codeblocks"
 
 #: zp-core/admin_options/general.php:153
-#: zp-core/zp-extensions/dynamic-locale.php:109
+#: zp-core/zp-extensions/dynamic-locale.php:100
 #, php-format
 msgid "<em>%s</em> is not available."
 msgstr "<em>%s</em> er ekki til."
 
 #: zp-core/admin_options/general.php:154
-#: zp-core/zp-extensions/dynamic-locale.php:110
+#: zp-core/zp-extensions/dynamic-locale.php:101
 #, php-format
 msgid "The locale %s is not supported on your server."
 msgstr "Landsstaðallinn %s er ekki studdur á netþjóninum þínum."
 
 #: zp-core/admin_options/general.php:156 zp-core/setup/index.php:685
-#: zp-core/zp-extensions/dynamic-locale.php:112
+#: zp-core/zp-extensions/dynamic-locale.php:103
 #, fuzzy
 msgid ""
 "You can use the <em>debug</em> plugin to see which locales your server "
@@ -9593,12 +9588,12 @@ msgstr ""
 msgid "Registration"
 msgstr "Skráning"
 
-#: zp-core/admin_options/general.php:658
+#: zp-core/admin_options/general.php:656
 #, fuzzy
 msgid "notify"
 msgstr "tilkynna"
 
-#: zp-core/admin_options/general.php:666
+#: zp-core/admin_options/general.php:663
 #, fuzzy
 msgid ""
 "If checked, an e-mail will be sent to the gallery admin when a new user has "
@@ -9607,7 +9602,7 @@ msgstr ""
 "Ef merkt er, verður tölvupóstur sendur í gallerí admin þegar nýr notandi "
 "hefur skráð á síðuna."
 
-#: zp-core/admin_options/general.php:668
+#: zp-core/admin_options/general.php:665
 #, fuzzy
 msgid ""
 "Of course there must be some Administrator with an e-mail address for this "
@@ -9616,32 +9611,32 @@ msgstr ""
 "Auðvitað verður að vera einhver stjórnandi með tölvupóstfangi fyrir þennan "
 "möguleika til að geta skilið!"
 
-#: zp-core/admin_options/general.php:676
+#: zp-core/admin_options/general.php:673
 #, fuzzy
 msgid "Admin pagination"
 msgstr "Admin pagination"
 
-#: zp-core/admin_options/general.php:682
+#: zp-core/admin_options/general.php:679
 #, fuzzy
 msgid "users per page"
 msgstr "Notendur á síðu"
 
-#: zp-core/admin_options/general.php:687
+#: zp-core/admin_options/general.php:684
 #, fuzzy
 msgid "plugins per page"
 msgstr "Tappi á síðu"
 
-#: zp-core/admin_options/general.php:701
+#: zp-core/admin_options/general.php:698
 #, fuzzy
 msgid "groups per page"
 msgstr "Hópar á síðu"
 
-#: zp-core/admin_options/general.php:717
+#: zp-core/admin_options/general.php:714
 #, fuzzy
 msgid "articles per page"
 msgstr "Greinar á síðu"
 
-#: zp-core/admin_options/general.php:735
+#: zp-core/admin_options/general.php:732
 #, fuzzy
 msgid ""
 "These options control the number of items displayed on their tabs. If you "
@@ -9651,42 +9646,42 @@ msgstr ""
 "þú átt í vandræðum með að nota þessar flipar skaltu draga úr númerinu sem "
 "sýnt er hér."
 
-#: zp-core/admin_options/general.php:742
+#: zp-core/admin_options/general.php:739
 #, fuzzy
 msgid "Dirty form check"
 msgstr "Dirty form athugun"
 
-#: zp-core/admin_options/general.php:747
+#: zp-core/admin_options/general.php:744
 #, fuzzy
 msgid "ignore"
 msgstr "hunsa"
 
-#: zp-core/admin_options/general.php:751
+#: zp-core/admin_options/general.php:748
 #, fuzzy
 msgid "exclude tinyMCE"
 msgstr "útiloka tinyMCE"
 
-#: zp-core/admin_options/general.php:755
+#: zp-core/admin_options/general.php:752
 #, fuzzy
 msgid "detect all changes"
 msgstr "greina allar breytingar"
 
-#: zp-core/admin_options/general.php:762
+#: zp-core/admin_options/general.php:759
 #, fuzzy
 msgid "Enable checking for form changes before leaving pages."
 msgstr "Gakktu úr skugga um breytingar á formi áður en þú ferð yfir síður."
 
-#: zp-core/admin_options/general.php:775
+#: zp-core/admin_options/general.php:772
 #, fuzzy, php-format
 msgid "<p>%s log limit</p>"
 msgstr "<p>  %s log limit </p>"
 
-#: zp-core/admin_options/general.php:790
+#: zp-core/admin_options/general.php:787
 #, fuzzy
 msgid "e-mail when exceeded"
 msgstr "E-mail þegar farið er yfir"
 
-#: zp-core/admin_options/general.php:802
+#: zp-core/admin_options/general.php:799
 #, fuzzy
 msgid ""
 "Logs will be \"rolled\" over when they exceed the specified size. If checked, "
@@ -9695,18 +9690,18 @@ msgstr ""
 "Logs verða &quot;velt&quot; yfir þegar þau fara yfir tilgreind stærð. Ef "
 "athugað er, verður kerfisstjórinn sendur á tölvupóst þegar þetta gerist."
 
-#: zp-core/admin_options/general.php:811 zp-core/admin_options/plugin.php:88
+#: zp-core/admin_options/general.php:808 zp-core/admin_options/plugin.php:88
 #: zp-core/admin_options/plugin.php:234 zp-core/admin_options/security.php:79
 #: zp-core/admin_options/security.php:324 zp-core/setup/setup-sqlform.php:110
 msgid "save"
 msgstr "vista"
 
-#: zp-core/admin_options/image.php:177 zp-core/zp-extensions/class-video.php:570
+#: zp-core/admin_options/image.php:177 zp-core/zp-extensions/class-video.php:498
 #, fuzzy
 msgid "Metadata fields will be added to the Image object."
 msgstr "Lýsigögn sviðum verður bætt við Image mótmæla."
 
-#: zp-core/admin_options/image.php:180 zp-core/zp-extensions/class-video.php:572
+#: zp-core/admin_options/image.php:180 zp-core/zp-extensions/class-video.php:500
 #, fuzzy
 msgid ""
 "Metadata fields will be <span style=\"color:red;font-weight:bold;\">dropped</"
@@ -9777,7 +9772,7 @@ msgstr "eðlilegt mynd"
 msgid "<em>full</em> Image"
 msgstr "<em>fullt</em> mynd"
 
-#: zp-core/admin_options/image.php:336 zp-core/admin_options/theme.php:454
+#: zp-core/admin_options/image.php:336 zp-core/admin_options/theme.php:455
 #, fuzzy
 msgid "thumbnail"
 msgstr "Smámynd:"
@@ -10866,29 +10861,29 @@ msgstr ""
 msgid "Authentication authority: <strong>%s</strong>"
 msgstr "Staðfestingaryfirvald: <strong> %s</strong>"
 
-#: zp-core/admin_options/theme.php:211
+#: zp-core/admin_options/theme.php:212
 #, fuzzy, php-format
 msgid "Options for <code><strong>%1$s</strong></code>: <em>%2$s</em>"
 msgstr "Valkostir fyrir <code><strong>%1$s</strong></code> : <em>%2$s</em>"
 
-#: zp-core/admin_options/theme.php:213
+#: zp-core/admin_options/theme.php:214
 #, fuzzy, php-format
 msgid "Options for <em>%s</em>"
 msgstr "Valkostir fyrir <em> %s</em>"
 
-#: zp-core/admin_options/theme.php:221
+#: zp-core/admin_options/theme.php:222
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show theme for"
 msgstr "Sýna þema fyrir:"
 
-#: zp-core/admin_options/theme.php:240 zp-core/admin_options/theme.php:243
-#: zp-core/admin_options/theme.php:572 zp-core/admin_options/theme.php:575
+#: zp-core/admin_options/theme.php:241 zp-core/admin_options/theme.php:244
+#: zp-core/admin_options/theme.php:573 zp-core/admin_options/theme.php:576
 #, fuzzy
 msgid "Revert to default"
 msgstr "Aftur í sjálfgefið"
 
-#: zp-core/admin_options/theme.php:257
+#: zp-core/admin_options/theme.php:258
 #, fuzzy
 msgid ""
 "<em>These image and album presentation options provided by the Core for all "
@@ -10896,7 +10891,7 @@ msgid ""
 msgstr ""
 "<em>Þessar myndir og plötu kynningu valkosti sem Core fyrir alla þemu.</em>"
 
-#: zp-core/admin_options/theme.php:257
+#: zp-core/admin_options/theme.php:258
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> These are <em>recommendations</em> as themes may "
@@ -10905,17 +10900,17 @@ msgstr ""
 "<strong>Athugaðu:</strong> Þetta eru <em>tilmæli þar</em> sem þemu geta valið "
 "að hunsa þau af <em>tillögum</em> af hönnun."
 
-#: zp-core/admin_options/theme.php:270 zp-core/admin_options/theme.php:312
+#: zp-core/admin_options/theme.php:271 zp-core/admin_options/theme.php:313
 #, fuzzy
 msgid "thumbnails per row"
 msgstr "Smámyndir í röð"
 
-#: zp-core/admin_options/theme.php:279 zp-core/admin_options/theme.php:321
+#: zp-core/admin_options/theme.php:280 zp-core/admin_options/theme.php:322
 #, fuzzy
 msgid "thumbnails per page"
 msgstr "Smámyndir á síðu"
 
-#: zp-core/admin_options/theme.php:286
+#: zp-core/admin_options/theme.php:287
 #, fuzzy
 msgid ""
 "These specify the Theme <a title=\"Look at your album page and count the "
@@ -10929,7 +10924,7 @@ msgstr ""
 "setja fyrir valkostinn.\">CSS ákveðinn fjölda</a> smámyndir í albúm sem passa "
 "í &quot;röð&quot; og fjölda smámyndir albúmanna sem þú vilt á hverri síðu."
 
-#: zp-core/admin_options/theme.php:291 zp-core/admin_options/theme.php:333
+#: zp-core/admin_options/theme.php:292 zp-core/admin_options/theme.php:334
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> If <em>thumbnails per row</em> is greater than 1, The "
@@ -10940,12 +10935,12 @@ msgstr ""
 "1, þá er raunverulegur fjöldi smámyndir sem birtist á blaðsíðu upp á næsta "
 "margfeldi."
 
-#: zp-core/admin_options/theme.php:292
+#: zp-core/admin_options/theme.php:293
 #, fuzzy, php-format
 msgid "For album pages there will be %1$u rows of thumbnails."
 msgstr "Fyrir blaðsíður eru% 1 $ línur þínar af smámyndir."
 
-#: zp-core/admin_options/theme.php:328
+#: zp-core/admin_options/theme.php:329
 #, fuzzy
 msgid ""
 "These specify the Theme <a title=\"Look at your album page and count the "
@@ -10959,27 +10954,27 @@ msgstr ""
 "fyrir valkostinn.\">CSS ákveðið fjölda</a> mynda smámyndir sem passa í &quot;"
 "röð&quot; og fjölda mynda smámyndir sem þú vilt á hverri síðu."
 
-#: zp-core/admin_options/theme.php:334
+#: zp-core/admin_options/theme.php:335
 #, fuzzy, php-format
 msgid "For pages containing images there will be %1$u rows of thumbnails."
 msgstr "Fyrir síður sem innihalda myndir verða% 1 $ línur þínar af smámyndir."
 
-#: zp-core/admin_options/theme.php:352
+#: zp-core/admin_options/theme.php:353
 #, fuzzy
 msgid "Transition"
 msgstr "Umskipti"
 
-#: zp-core/admin_options/theme.php:370
+#: zp-core/admin_options/theme.php:371
 #, fuzzy
 msgid "separate"
 msgstr "aðskilja"
 
-#: zp-core/admin_options/theme.php:374
+#: zp-core/admin_options/theme.php:375
 #, fuzzy
 msgid "combined"
 msgstr "sameinuð"
 
-#: zp-core/admin_options/theme.php:382
+#: zp-core/admin_options/theme.php:383
 #, fuzzy
 msgid ""
 "if both album and image <em>thumbnails per row</em> are greater than 1 you "
@@ -10990,34 +10985,34 @@ msgstr ""
 "valið hvort smámyndum og smámyndum í albúmi séu sett saman á síðunni sem "
 "skiptir úr aðeins smámyndum í albúm til aðeins smámyndasafna."
 
-#: zp-core/admin_options/theme.php:400
+#: zp-core/admin_options/theme.php:401
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
 msgstr "Thumbnail stærð"
 
-#: zp-core/admin_options/theme.php:408
+#: zp-core/admin_options/theme.php:409
 #, fuzzy, php-format
 msgid "Standard thumbnails will be scaled to %u pixels."
 msgstr "Standard smámyndir verða minnkaðar í% u pixla."
 
-#: zp-core/admin_options/theme.php:422
+#: zp-core/admin_options/theme.php:423
 #, fuzzy
 #| msgid "Crop thumbnails:"
 msgid "Crop thumbnails"
 msgstr "Skera smámyndir:"
 
-#: zp-core/admin_options/theme.php:427
+#: zp-core/admin_options/theme.php:428
 #, fuzzy, php-format
 msgid "%s%% left &amp; right"
 msgstr "%s %% til vinstri og hægri"
 
-#: zp-core/admin_options/theme.php:431
+#: zp-core/admin_options/theme.php:432
 #, fuzzy, php-format
 msgid "%s%% top &amp; bottom"
 msgstr "%s %% efst og neðst"
 
-#: zp-core/admin_options/theme.php:439
+#: zp-core/admin_options/theme.php:440
 #, fuzzy, php-format
 msgid ""
 "If checked the thumbnail will be cropped %1$.1f%% in from the top and the "
@@ -11026,7 +11021,7 @@ msgstr ""
 "Ef valið er smellt á smámyndin% 1 $ .1f %% í efstu og neðri marmunum og% 2 "
 "$ .1f %% inn frá vinstri og hægri kantinum."
 
-#: zp-core/admin_options/theme.php:441
+#: zp-core/admin_options/theme.php:442
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> changing crop will invalidate existing custom crops."
@@ -11034,46 +11029,46 @@ msgstr ""
 "<strong>Athugaðu:</strong> Breyting á uppskeru mun ógilda núverandi sérsniðnu "
 "ræktun."
 
-#: zp-core/admin_options/theme.php:447
+#: zp-core/admin_options/theme.php:448
 #, fuzzy
 msgid "Gray scale conversion"
 msgstr "Grey mælikvarða viðskipti"
 
-#: zp-core/admin_options/theme.php:462
+#: zp-core/admin_options/theme.php:463
 #, fuzzy
 msgid "If checked, images/thumbnails will be created in gray scale."
 msgstr "Ef valið er mynda myndir / smámyndir í gráum mæli."
 
-#: zp-core/admin_options/theme.php:485 zp-core/zp-extensions/externalFeed.php:83
+#: zp-core/admin_options/theme.php:486 zp-core/zp-extensions/externalFeed.php:83
 #: zp-core/zp-extensions/rss.php:57
 #, fuzzy
 msgid "Image size"
 msgstr "Stærð myndar:"
 
-#: zp-core/admin_options/theme.php:496
+#: zp-core/admin_options/theme.php:497
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:66
 msgid "height"
 msgstr "hæð"
 
-#: zp-core/admin_options/theme.php:500
+#: zp-core/admin_options/theme.php:501
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:63
 msgid "width"
 msgstr "breidd"
 
-#: zp-core/admin_options/theme.php:507
+#: zp-core/admin_options/theme.php:508
 #, fuzzy
 msgid "shortest side"
 msgstr "stystu hlið"
 
-#: zp-core/admin_options/theme.php:511
+#: zp-core/admin_options/theme.php:512
 msgid "longest side"
 msgstr "lengsta hlið"
 
-#: zp-core/admin_options/theme.php:520
+#: zp-core/admin_options/theme.php:521
 msgid "Default image display size."
 msgstr "Sjálfgefin sýnileg stærð mynda."
 
-#: zp-core/admin_options/theme.php:521
+#: zp-core/admin_options/theme.php:522
 #, fuzzy
 msgid ""
 "The image will be sized so that the <em>height</em>, <em>width</em>, "
@@ -11083,28 +11078,28 @@ msgstr ""
 "Myndin verður stór þannig að <em>hæð</em> , <em>breidd</em> , <em>stysti "
 "hlið</em> eða <em>lengsti hliðin</em> jafngildir <em>myndastærð</em> ."
 
-#: zp-core/admin_options/theme.php:530
+#: zp-core/admin_options/theme.php:531
 #, fuzzy
 msgid "Theme head &lt;title&gt; tag"
 msgstr "Þema höfuð &lt;title&gt; tag"
 
-#: zp-core/admin_options/theme.php:534
+#: zp-core/admin_options/theme.php:535
 #, fuzzy
 msgid "enabled"
 msgstr "virkt"
 
-#: zp-core/admin_options/theme.php:538
+#: zp-core/admin_options/theme.php:539
 #, fuzzy
 msgid "separator"
 msgstr "skiljari"
 
-#: zp-core/admin_options/theme.php:545
+#: zp-core/admin_options/theme.php:546
 #, fuzzy
 msgid "Select if you want parent breadcrumbs and if so the separator for them."
 msgstr ""
 "Veldu hvort þú viljir hafa foreldra brauðkrem og ef svo er aðskilinn fyrir þá."
 
-#: zp-core/admin_options/theme.php:558
+#: zp-core/admin_options/theme.php:559
 #, fuzzy, php-format
 msgid "The following are options specifically implemented by %s."
 msgstr "Eftirfarandi eru valkostir sem eru sérstaklega framkvæmdar af %s."
@@ -11204,36 +11199,55 @@ msgstr ""
 "<p> Eintak af tölvupóstinum þínum verður sjálfkrafa send á heimilisfangið sem "
 "þú gafst upp fyrir eigin skrár. </p>"
 
+#: zp-core/allTranslations.php:63
+#, fuzzy
+msgid "Agree"
+msgstr "Sammála"
+
+#: zp-core/allTranslations.php:64
+#, fuzzy
+msgid "More info"
+msgstr "Meiri upplýsingar"
+
 #: zp-core/allTranslations.php:65
+#, fuzzy
+msgid ""
+"This website uses cookies. By continuing to browse the site, you agree to our "
+"use of cookies."
+msgstr ""
+"Þessi vefsíða notar smákökur. Með því að halda áfram að skoða síðuna "
+"samþykkirðu notkun okkar á smákökum."
+
+#: zp-core/allTranslations.php:70
 #, fuzzy
 msgid "The albums and images selected as favorites."
 msgstr "Albumin og myndirnar valdar sem uppáhald."
 
-#: zp-core/allTranslations.php:66
+#: zp-core/allTranslations.php:71
 #, fuzzy
 msgid "Add favorite"
 msgstr "Bæta við uppáhaldi"
 
-#: zp-core/allTranslations.php:67
+#: zp-core/allTranslations.php:72
 #, fuzzy
 msgid "Remove favorite"
 msgstr "Fjarlægðu uppáhalds"
 
-#: zp-core/allTranslations.php:70
+#: zp-core/allTranslations.php:75
 #, fuzzy, php-format
 msgid "New album: %1$s"
 msgstr "Nýtt albúm:%1$s"
 
-#: zp-core/allTranslations.php:71
+#: zp-core/allTranslations.php:76
 #, fuzzy, php-format
 msgid "New image: [%2$s]%1$s"
 msgstr "Ný mynd: [%2$s]%1$s"
 
-#: zp-core/allTranslations.php:78
+#: zp-core/allTranslations.php:83
 msgid "Click here to register for this site."
 msgstr "Smelltu hér til að nýskrá þig."
 
-#: zp-core/allTranslations.php:80
+#: zp-core/allTranslations.php:85
 #, fuzzy, php-format
 msgid ""
 "You have received this email because you registered with the user id %3$s on "
@@ -11243,7 +11257,7 @@ msgstr ""
 "Þú hefur fengið þetta tölvupóst vegna þess að þú skráðir þig með "
 "notendanafninu%3$s á þessari síðu. Til að ljúka skráningarnúmerinu þínu%1$s."
 
-#: zp-core/allTranslations.php:81
+#: zp-core/allTranslations.php:86
 #, fuzzy
 msgid ""
 "Your registration information has been accepted. An email has been sent to "
@@ -11252,7 +11266,7 @@ msgstr ""
 "Skráningarupplýsingar þínar hafa verið samþykktar. Tölvupóstur hefur verið "
 "sendur til þín til að staðfesta netfangið þitt."
 
-#: zp-core/allTranslations.php:84 zp-core/zp-extensions/zenpage.php:131
+#: zp-core/allTranslations.php:89 zp-core/zp-extensions/zenpage.php:131
 #, fuzzy
 msgid "Read more"
 msgstr "Nánar"
@@ -11277,12 +11291,12 @@ msgstr "Ógilt plötuspilun:%1$s! =%2$s"
 msgid "Invalid album instantiation: %s does not exist."
 msgstr "Ógilt plötuspil: %s er ekki til."
 
-#: zp-core/class-album.php:1536
+#: zp-core/class-album.php:1538
 #, fuzzy, php-format
 msgid "Error: The album %s is not readable."
 msgstr "Villa: Albumið %s er ekki læsilegt."
 
-#: zp-core/class-album.php:1538
+#: zp-core/class-album.php:1540
 #, fuzzy, php-format
 msgid "Error: The album named %s cannot be found."
 msgstr "Villa: Ekki er hægt að finna plötuna sem heitir %s."
@@ -11588,8 +11602,8 @@ msgstr "Linsuupplýsingar"
 msgid "35mm Focal Length Equivalent"
 msgstr "35mm brennivídd jafngild"
 
-#: zp-core/class-image.php:220 zp-core/zp-extensions/contact_form.php:111
-#: zp-core/zp-extensions/contact_form.php:113
+#: zp-core/class-image.php:220 zp-core/zp-extensions/contact_form.php:113
+#: zp-core/zp-extensions/contact_form.php:115
 #: zp-core/zp-extensions/optionalObjectFields.php:175
 #: zp-core/zp-extensions/userAddressFields.php:62
 #: zp-core/zp-extensions/xmpMetadata.php:644
@@ -11883,7 +11897,7 @@ msgstr "Av"
 #: zp-core/exif/exifTranslations.php:50
 #, fuzzy
 msgid "Average"
-msgstr "Meðaltal"
+msgstr "Meðal"
 
 #: zp-core/exif/exifTranslations.php:51
 #, fuzzy
@@ -12343,7 +12357,7 @@ msgstr "Aðvörun!"
 #: zp-core/exif/makers/sanyo.php:84 zp-core/zp-extensions/reCAPTCHA_v2.php:68
 #, fuzzy
 msgid "Normal"
-msgstr "Venjuleg"
+msgstr "Hefðbundið"
 
 #: zp-core/exif/exifTranslations.php:151
 #, fuzzy
@@ -12358,7 +12372,7 @@ msgstr "Af"
 #: zp-core/exif/exifTranslations.php:153
 #, fuzzy
 msgid "On"
-msgstr "Virkt"
+msgstr "Þann"
 
 #: zp-core/exif/exifTranslations.php:154
 #, fuzzy
@@ -12855,12 +12869,12 @@ msgstr "%1$s: &quot;%2$s&quot; í%3$s á línu%4$s"
 msgid "clone"
 msgstr "klón"
 
-#: zp-core/functions-basic.php:1732
+#: zp-core/functions-basic.php:1738
 #, fuzzy, php-format
 msgid "%s log size limit exceeded"
 msgstr "%s skráarstærðarmörk yfir"
 
-#: zp-core/functions-basic.php:1732
+#: zp-core/functions-basic.php:1738
 #, fuzzy, php-format
 msgid "The %1$s log has exceeded its size limit and has been renamed to %2$s."
 msgstr "Skráin%1$s hefur farið yfir stærðarmörk og hefur verið breytt í%2$s."
@@ -13548,37 +13562,37 @@ msgstr "Mynd %s er ekki hægt að snúa."
 msgid "Unknown error processing %s! Please report to the <a href=\""
 msgstr "<html> Óþekkt villa vinnsla %s! Vinsamlegast tilkynntu til"
 
-#: zp-core/functions-image.php:370 zp-core/functions-image.php:399
+#: zp-core/functions-image.php:382 zp-core/functions-image.php:419
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
 msgstr "Mynd %s er ekki hægt að endurheimta (resample)."
 
-#: zp-core/functions-image.php:403
+#: zp-core/functions-image.php:423
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
 msgstr "Mynd %s er ekki hægt að gera (skarpur)."
 
-#: zp-core/functions-image.php:419
+#: zp-core/functions-image.php:439
 #, fuzzy, php-format
 msgid "Watermark %s not renderable."
 msgstr "Vatnsmerki %s er ekki hægt að gera."
 
-#: zp-core/functions-image.php:436
+#: zp-core/functions-image.php:457
 #, fuzzy, php-format
 msgid "Watermark %s not resizeable."
 msgstr "Vatnsmerki %s er ekki hægt að breyta stærð."
 
-#: zp-core/functions-image.php:445
+#: zp-core/functions-image.php:466
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
 msgstr "Mynd %s er ekki hægt að gera (copycanvas)."
 
-#: zp-core/functions-image.php:504
+#: zp-core/functions-image.php:528
 #, fuzzy, php-format
 msgid "cacheImage: failed to create %s"
 msgstr "cacheImage: tókst ekki að búa til %s"
 
-#: zp-core/functions-image.php:511
+#: zp-core/functions-image.php:535
 #, fuzzy, php-format
 msgid "cacheImage(%1$s) exception: %2$s"
 msgstr "cacheImage (%1$s) undantekning:%2$s"
@@ -13628,7 +13642,7 @@ msgstr "Póstur sendi mistókst. Engin pósthirður er stilltur."
 msgid "No “to” address list provided."
 msgstr "Engin &quot;til&quot; netfangalisti sem veitt er."
 
-#: zp-core/functions.php:1049
+#: zp-core/functions.php:1052
 #, fuzzy, php-format
 msgid ""
 "No theme scripts found. Please check the <em>%s</em> folder of your "
@@ -13637,22 +13651,22 @@ msgstr ""
 "Engar þema forskriftir fundust. Vinsamlegast athugaðu möppuna <em> %s</em> af "
 "uppsetningu þinni."
 
-#: zp-core/functions.php:1718
+#: zp-core/functions.php:1721
 #, fuzzy
 msgid "0 Bytes"
 msgstr "0 bæti"
 
-#: zp-core/functions.php:2552
+#: zp-core/functions.php:2573
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a number."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d ætti að vera númer."
 
-#: zp-core/functions.php:2560
+#: zp-core/functions.php:2581
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a string."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d ætti að vera strengur."
 
-#: zp-core/functions.php:2573
+#: zp-core/functions.php:2594
 #, fuzzy, php-format
 msgid ""
 "<em>[%1$s]</em> parameter %2$d should be <code>true</code> or <code>false</"
@@ -13661,40 +13675,40 @@ msgstr ""
 "<em>[%1$s]</em> breytu% 2 $ d ætti að vera <code>true</code> eða <code>false</"
 "code> ."
 
-#: zp-core/functions.php:2592
+#: zp-core/functions.php:2613
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is incorrectly defined."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d er rangt skilgreind."
 
-#: zp-core/functions.php:2598
+#: zp-core/functions.php:2619
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is missing."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d vantar."
 
-#: zp-core/functions.php:2607
+#: zp-core/functions.php:2628
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> macro does not take parameters"
 msgstr "<em>[%1$s]</em> Macro tekur ekki við breytur"
 
-#: zp-core/functions.php:2633 zp-core/functions.php:2660
+#: zp-core/functions.php:2654 zp-core/functions.php:2681
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> retuned no data"
 msgstr "<em>[%1$s]</em> retuned engar upplýsingar"
 
-#: zp-core/functions.php:2638
+#: zp-core/functions.php:2659
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> <code>%2$s</code> is not callable"
 msgstr "<em>[%1$s]</em> <code>%2$s</code> er ekki hægt að kalla"
 
-#: zp-core/functions.php:2665
+#: zp-core/functions.php:2686
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> takes %2$d parameter"
 msgid_plural "<em>[%1$s]</em> takes %2$d parameters"
 msgstr[0] "<em>[%1$s]</em> tekur% 2 $ d breytu"
 msgstr[1] "<em>[%1$s]</em> tekur% 2 $ d breytur"
 
-#: zp-core/functions.php:3050 zp-core/zp-extensions/comment_form.php:110
-#: zp-core/zp-extensions/contact_form.php:131
+#: zp-core/functions.php:3071 zp-core/zp-extensions/comment_form.php:112
+#: zp-core/zp-extensions/contact_form.php:133
 #: zp-core/zp-extensions/register_user.php:80
 #, fuzzy
 msgid "No captcha handler is enabled."
@@ -13742,6 +13756,11 @@ msgstr "Ritvinnsla%1$s:% 2 $ .4f sekúndur"
 #, fuzzy, php-format
 msgid "Script processing total:%.4f seconds"
 msgstr "Ritvinnsla alls:%. 4f sekúndur"
+
+#: zp-core/initialize-general.php:39 zp-core/zp-extensions/zpCaptcha.php:62
+#, fuzzy
+msgid "random"
+msgstr "handahófi"
 
 #: zp-core/initialize-general.php:40
 msgid "most recent"
@@ -14389,7 +14408,7 @@ msgstr ""
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:366
 #, fuzzy
 msgid "Refresh"
-msgstr "Endurnýja lýsigögn"
+msgstr "Endurnýja lýsingargögn fyrir albúmið %s"
 
 #: zp-core/lib-auth.php:1040 zp-core/lib-auth.php:1042 zp-core/lib-auth.php:1212
 #: zp-core/lib-auth.php:1214
@@ -14809,63 +14828,53 @@ msgstr[1] "Fjölvi skilgreind:"
 msgid "Setup request"
 msgstr "Uppsetning beiðni"
 
-#: zp-core/reconfigure.php:104
+#: zp-core/reconfigure.php:106
 #, fuzzy
 msgid "The configuration file is missing."
 msgstr "Stillingaskráin vantar."
 
-#: zp-core/reconfigure.php:107
+#: zp-core/reconfigure.php:109
 #, fuzzy
 msgid "The <code>db_software</code> specification is not valid."
 msgstr "<code>db_software</code> forskriftin er ekki gilt."
 
-#: zp-core/reconfigure.php:110
+#: zp-core/reconfigure.php:112
 #, fuzzy
 msgid "The database connection failed."
 msgstr "Gagnasambandið mistókst."
 
-#: zp-core/reconfigure.php:245
+#: zp-core/reconfigure.php:247
 #, fuzzy
 #| msgid "ZenPhoto20 has detected a change in your installation."
 msgid "A change has been detected in your installation."
 msgstr "Breyting hefur fundist í uppsetningu þinni."
 
-#: zp-core/reconfigure.php:253
-#, fuzzy, php-format
-msgid "Your server software has changed from %1$s to %2$s."
-msgstr "Miðlarinn þinn hefur breyst frá%1$s til%2$s."
-
-#: zp-core/reconfigure.php:256
-#, fuzzy, php-format
-msgid "Your database software has changed from %1$s to %2$s."
-msgstr "Gagnasafn hugbúnaður hefur breyst frá%1$s til%2$s."
-
-#: zp-core/reconfigure.php:259
+#: zp-core/reconfigure.php:255
 #, fuzzy, php-format
 msgid "Version %1$s has been copied over %2$s."
 msgstr "Útgáfa%1$s hefur verið afrituð yfir%2$s."
 
-#: zp-core/reconfigure.php:262
+#: zp-core/reconfigure.php:258
 #, fuzzy, php-format
 msgid "Your installation has moved from %1$s to %2$s."
 msgstr "Uppsetningin þín hefur verið flutt frá%1$s til%2$s."
 
-#: zp-core/reconfigure.php:265
+#: zp-core/reconfigure.php:261
 #, fuzzy
 msgid "Your installation configuration is damaged."
 msgstr "Uppsetningin þín er skemmd."
 
-#: zp-core/reconfigure.php:271
+#: zp-core/reconfigure.php:267
 #, fuzzy
 msgid "setup has been requested by:"
 msgstr "skipulag hefur verið beðið um af:"
 
-#: zp-core/reconfigure.php:281
+#: zp-core/reconfigure.php:277
 #, fuzzy, php-format
 msgid "The script <code>%1$s</code> has changed."
 msgstr "Handritið <code>%1$s</code> hefur breyst."
 
-#: zp-core/reconfigure.php:291
+#: zp-core/reconfigure.php:287
 #, fuzzy, php-format
 msgid ""
 "The change detected is critical. You <strong>must</strong> run %1$ssetup%2$s "
@@ -14874,7 +14883,7 @@ msgstr ""
 "Breytingin sem finnast er mikilvægt. Þú <strong>verður að</strong> keyra"
 "%1$ssetup%2$s þar sem vefsvæðið þitt virkar."
 
-#: zp-core/reconfigure.php:293
+#: zp-core/reconfigure.php:289
 #, fuzzy, php-format
 msgid ""
 "The change detected may not be critical but you should run %1$ssetup%2$s at "
@@ -14883,27 +14892,27 @@ msgstr ""
 "Breytingin sem finnast kann ekki að vera mikilvægt en þú ættir að keyra"
 "%1$ssetup%2$s eins fljótt og auðið er."
 
-#: zp-core/reconfigure.php:304
+#: zp-core/reconfigure.php:300
 #, fuzzy
 msgid "Ignore this configuration change."
 msgstr "Hunsa þessa stillingarbreytingu."
 
-#: zp-core/reconfigure.php:304
+#: zp-core/reconfigure.php:300
 #, fuzzy
 msgid "dismiss"
 msgstr "hafna"
 
-#: zp-core/reconfigure.php:333
+#: zp-core/reconfigure.php:329
 #, fuzzy, php-format
 msgid "to run setup [%s]"
 msgstr "að keyra skipulag [ %s]"
 
-#: zp-core/reconfigure.php:336
+#: zp-core/reconfigure.php:332
 #, fuzzy
 msgid "by Admin request"
 msgstr "eftir stjórnbeiðni"
 
-#: zp-core/reconfigure.php:339
+#: zp-core/reconfigure.php:335
 #, fuzzy
 msgid "by cloning"
 msgstr "með kloning"
@@ -16769,25 +16778,25 @@ msgstr ""
 "Þú getur sett inn lýsingu Galleríið þitt á flipanum Admin Options Gallery."
 
 #: zp-core/setup/setup-option-defaults.php:861
-#: zp-core/setup/setup_pluginOptions.php:31
+#: zp-core/setup/setup_pluginOptions.php:32
 #, fuzzy, php-format
 msgid "Plugin:%s setup started"
 msgstr "Tappi: %s skipulag byrjaði"
 
 #: zp-core/setup/setup-option-defaults.php:879
-#: zp-core/setup/setup_pluginOptions.php:55
+#: zp-core/setup/setup_pluginOptions.php:56
 #, fuzzy, php-format
 msgid "Plugin:%s enabled (%2$s)"
 msgstr "Tappi: %s virkt (%2$s)"
 
 #: zp-core/setup/setup-option-defaults.php:881
-#: zp-core/setup/setup_pluginOptions.php:62
+#: zp-core/setup/setup_pluginOptions.php:63
 #, fuzzy, php-format
 msgid "Plugin:%1$s option interface instantiated (%2$s)"
 msgstr "Tappi:%1$s valkostur tengi instantiated (%2$s)"
 
 #: zp-core/setup/setup-option-defaults.php:884
-#: zp-core/setup/setup_pluginOptions.php:69
+#: zp-core/setup/setup_pluginOptions.php:70
 #, fuzzy, php-format
 msgid "Plugin:%1$s setup completed in %2$.4f seconds"
 msgstr "Tappi: Uppsetning%1$s lokið í% 2 $ .4f sekúndum"
@@ -16894,47 +16903,47 @@ msgstr "Tilkynning: Mistókst stillingarstillingar (0% o) fyrir %s."
 msgid "Notice: illegal call for permissions setting for %s."
 msgstr "Tilkynning: Óleyfilegt símtal fyrir heimildir fyrir %s."
 
-#: zp-core/setup/setup_set-mod_rewrite.php:27
+#: zp-core/setup/setup_set-mod_rewrite.php:28
 #, fuzzy, php-format
 msgid "Mod_rewrite setup started"
 msgstr "Mod_rewrite skipulag byrjaði"
 
-#: zp-core/setup/setup_set-mod_rewrite.php:31
+#: zp-core/setup/setup_set-mod_rewrite.php:32
 #, fuzzy
 msgid "The option “mod_rewrite” will be set to “enabled”."
 msgstr "Valið &quot;mod_rewrite&quot; verður stillt á &quot;virkt&quot;."
 
-#: zp-core/setup/setup_set-mod_rewrite.php:34
+#: zp-core/setup/setup_set-mod_rewrite.php:35
 #, fuzzy
 msgid "The option “mod_rewrite” is “enabled”."
 msgstr "Valkosturinn &quot;mod_rewrite&quot; er &quot;virkt&quot;."
 
-#: zp-core/setup/setup_set-mod_rewrite.php:36
+#: zp-core/setup/setup_set-mod_rewrite.php:37
 #, fuzzy
 msgid "The option “mod_rewrite” is “disabled”."
 msgstr "Valkosturinn &quot;mod_rewrite&quot; er &quot;óvirk&quot;."
 
-#: zp-core/setup/setup_set-mod_rewrite.php:39
+#: zp-core/setup/setup_set-mod_rewrite.php:40
 #, fuzzy
 msgid "Notice: “Module mod_rewrite” is working."
 msgstr "Tilkynning: &quot;Module mod_rewrite&quot; er að vinna."
 
-#: zp-core/setup/setup_set-mod_rewrite.php:44
+#: zp-core/setup/setup_set-mod_rewrite.php:45
 #, fuzzy, php-format
 msgid "Mod_rewrite setup completed in %1$.4f seconds"
 msgstr "Mod_rewrite skipulag lokið í% 1 $ .4f sekúndum"
 
-#: zp-core/setup/setup_themeOptions.php:30
+#: zp-core/setup/setup_themeOptions.php:31
 #, fuzzy, php-format
 msgid "Theme:%s setup started"
 msgstr "Þema: %s skipulag byrjaði"
 
-#: zp-core/setup/setup_themeOptions.php:43
+#: zp-core/setup/setup_themeOptions.php:46
 #, fuzzy, php-format
 msgid "Theme:%s option interface instantiated"
 msgstr "Þema: %s valkostur tengi instantiated"
 
-#: zp-core/setup/setup_themeOptions.php:51
+#: zp-core/setup/setup_themeOptions.php:54
 #, fuzzy, php-format
 msgid "Theme:%s setup completed in %2$.4f seconds"
 msgstr "Þema: %s skipulag lokið í% 2 $ .4f sekúndum"
@@ -17023,11 +17032,11 @@ msgid "Logout"
 msgstr "Útskrá"
 
 #: zp-core/template-functions.php:843 zp-core/template-functions.php:938
-#: zp-core/zp-extensions/menu_manager.php:594
+#: zp-core/zp-extensions/menu_manager.php:598
 msgid "Previous Page"
 msgstr "Fyrri síða"
 
-#: zp-core/template-functions.php:961 zp-core/zp-extensions/menu_manager.php:600
+#: zp-core/template-functions.php:961 zp-core/zp-extensions/menu_manager.php:604
 #, fuzzy
 msgid "Page 1"
 msgstr "Page 1"
@@ -17037,8 +17046,8 @@ msgstr "Page 1"
 #: zp-core/template-functions.php:1032
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:203
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:219
-#: zp-core/zp-extensions/menu_manager.php:605
-#: zp-core/zp-extensions/menu_manager.php:623
+#: zp-core/zp-extensions/menu_manager.php:609
+#: zp-core/zp-extensions/menu_manager.php:627
 #: zp-core/zp-extensions/zenpage/template-functions.php:935
 #: zp-core/zp-extensions/zenpage/template-functions.php:951
 #, fuzzy, php-format
@@ -17051,7 +17060,7 @@ msgstr[1] "síða %u"
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:186
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:212
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:235
-#: zp-core/zp-extensions/menu_manager.php:615
+#: zp-core/zp-extensions/menu_manager.php:619
 #: zp-core/zp-extensions/zenpage/template-functions.php:944
 #, fuzzy, php-format
 msgid "Page %1$u"
@@ -17719,7 +17728,7 @@ msgstr "PHP Session slóð:"
 
 #: zp-core/utilities/installation_analysis.php:115
 #, fuzzy, php-format
-msgid "The follwing desired PHP extensions are not enabled: %s"
+msgid "The following desired PHP extensions are not enabled: %s"
 msgstr "Follwing viðkomandi PHP eftirnafn er ekki virkt: %s"
 
 #: zp-core/utilities/installation_analysis.php:128
@@ -19116,7 +19125,7 @@ msgstr ""
 #: zp-core/zp-extensions/class-AnyFile.php:39
 #: zp-core/zp-extensions/class-WEBdocs.php:56
 #: zp-core/zp-extensions/class-textobject.php:72
-#: zp-core/zp-extensions/class-video.php:61
+#: zp-core/zp-extensions/class-video.php:57
 #, fuzzy
 msgid "Watermark default images"
 msgstr "Valkostir sjálfgefna myndir"
@@ -19124,7 +19133,7 @@ msgstr "Valkostir sjálfgefna myndir"
 #: zp-core/zp-extensions/class-AnyFile.php:40
 #: zp-core/zp-extensions/class-WEBdocs.php:58
 #: zp-core/zp-extensions/class-textobject.php:73
-#: zp-core/zp-extensions/class-video.php:63
+#: zp-core/zp-extensions/class-video.php:59
 #, fuzzy
 msgid "Check to place watermark image on default thumbnail images."
 msgstr "Athugaðu að setja vatnsmerki mynd á sjálfgefnum smámyndir."
@@ -19165,14 +19174,14 @@ msgstr "PDF"
 #: zp-core/zp-extensions/class-WEBdocs.php:60
 #: zp-core/zp-extensions/class-WEBdocs.php:72
 #: zp-core/zp-extensions/class-WEBdocs.php:80
-#: zp-core/zp-extensions/comment_form.php:143
-#: zp-core/zp-extensions/comment_form.php:148
+#: zp-core/zp-extensions/comment_form.php:150
+#: zp-core/zp-extensions/comment_form.php:155
 #: zp-core/zp-extensions/debug.php:133 zp-core/zp-extensions/debug.php:141
 #: zp-core/zp-extensions/galleryArticles.php:101
-#: zp-core/zp-extensions/tinymce.php:54 zp-core/zp-extensions/tinymce.php:59
+#: zp-core/zp-extensions/tinymce.php:57 zp-core/zp-extensions/tinymce.php:62
 #, fuzzy
 msgid "Disabled"
-msgstr "óvirkjuð"
+msgstr "Óvirkt"
 
 #: zp-core/zp-extensions/class-WEBdocs.php:61
 #: zp-core/zp-extensions/class-WEBdocs.php:73
@@ -19243,66 +19252,30 @@ msgstr "Veldu vefþjónustuna til að nota til að birta TIFF myndir."
 msgid "Provides a means for showing text type documents (.txt, .html, .htm)."
 msgstr "Veitir leið til að sýna textaskjal skjöl (.txt, .html, .htm)."
 
-#: zp-core/zp-extensions/class-video.php:20
+#: zp-core/zp-extensions/class-video.php:18
 #, fuzzy
 msgid "The <em>audio-video</em> handler."
 msgstr "The <em>hljómflutnings-vídeó</em> dýraþjálfari."
 
-#: zp-core/zp-extensions/class-video.php:21
+#: zp-core/zp-extensions/class-video.php:19
 #, fuzzy
 msgid ""
-"This plugin handles <code>mp3</code>, <code>mp4</code>, <code>3gp</code>, and "
-"<code>mov</code> multi-media files. <strong>Note:</strong> <code>mp3</code> "
-"and <code>mp4</code> require HTML5 browser support. You should enable a "
-"multimedia player plugin to handle other media files."
+"This plugin handles <code>mp3</code> and <code>mp4</code> multi-media files. "
+"<strong>Note:</strong> <code>mp3</code> and <code>mp4</code> require HTML5 "
+"browser support. You should enable a multimedia player plugin to handle other "
+"media files."
 msgstr ""
 "Þessi tappi annast <code>mp3</code> , <code>mp4</code> , <code>3gp</code> og "
 "<code>mov</code> fjölmiðlunarskrár. <strong>Athugaðu:</strong> <code>mp3</"
 "code> og <code>mp4</code> þurfa HTML5 vafra stuðning. Þú ættir að gera kleift "
 "að gera margmiðlunarspilara kleift að höndla aðrar skrár."
 
-#: zp-core/zp-extensions/class-video.php:64
-#, fuzzy
-msgid "Assume HTML5"
-msgstr "Gerðu ráð fyrir HTML5"
-
-#: zp-core/zp-extensions/class-video.php:66
-#, fuzzy
-msgid ""
-"If checked <code>mp3</code> and <code>mp4</code> files will be handled with "
-"the HTML5 <em>video</em> and <em>audio</em> tags. Otherwise these must be "
-"handled via a multimedia player plugin."
-msgstr ""
-"Ef köflótt <code>mp3</code> og <code>mp4</code> skrár verða meðhöndluð með "
-"HTML5 <em>vídeó</em> og <em>hljóðmerki</em> . Annars verður þetta að vera "
-"meðhöndluð í gegnum margmiðlunarspilara."
-
-#: zp-core/zp-extensions/class-video.php:67
-#, fuzzy
-msgid "Quicktime video width"
-msgstr "Quicktime vídeó breidd"
-
-#: zp-core/zp-extensions/class-video.php:70
-#, fuzzy
-msgid "Quicktime video height"
-msgstr "Quicktime vídeó hæð"
-
-#: zp-core/zp-extensions/class-video.php:73
-#, fuzzy
-msgid "3gp video width"
-msgstr "3gp vídeó breidd"
-
-#: zp-core/zp-extensions/class-video.php:76
-#, fuzzy
-msgid "3gp video height"
-msgstr "3gp vídeó hæð"
-
-#: zp-core/zp-extensions/class-video.php:79
+#: zp-core/zp-extensions/class-video.php:60
 #, fuzzy
 msgid "High quality alternate"
 msgstr "Hágæða varamaður"
 
-#: zp-core/zp-extensions/class-video.php:81
+#: zp-core/zp-extensions/class-video.php:62
 #, fuzzy
 msgid ""
 "<code>getFullImageURL()</code> returns a URL to a file with one of these high "
@@ -19311,132 +19284,132 @@ msgstr ""
 "<code>getFullImageURL()</code> skilar vefslóð í skrá með einum af þessum "
 "hágæða myndskeiðum til viðbótar ef við á."
 
-#: zp-core/zp-extensions/class-video.php:143
+#: zp-core/zp-extensions/class-video.php:124
 #, fuzzy
 msgid "Video File Format"
 msgstr "Vídeóskráarsnið"
 
-#: zp-core/zp-extensions/class-video.php:144
+#: zp-core/zp-extensions/class-video.php:125
 #, fuzzy
 msgid "Video File Size"
 msgstr "Vídeóskráarstærð"
 
-#: zp-core/zp-extensions/class-video.php:145
+#: zp-core/zp-extensions/class-video.php:126
 #, fuzzy
 msgid "Video Artist"
 msgstr "Myndlistarmaður"
 
-#: zp-core/zp-extensions/class-video.php:146
+#: zp-core/zp-extensions/class-video.php:127
 #, fuzzy
 msgid "Video Title"
 msgstr "Video Titill"
 
-#: zp-core/zp-extensions/class-video.php:147
+#: zp-core/zp-extensions/class-video.php:128
 #, fuzzy
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: zp-core/zp-extensions/class-video.php:148
+#: zp-core/zp-extensions/class-video.php:129
 #, fuzzy
 msgid "Bitrate_Mode"
 msgstr "Bitrate_Mode"
 
-#: zp-core/zp-extensions/class-video.php:149
+#: zp-core/zp-extensions/class-video.php:130
 #, fuzzy
 msgid "Bits per sample"
 msgstr "Bits á sýni"
 
-#: zp-core/zp-extensions/class-video.php:150
+#: zp-core/zp-extensions/class-video.php:131
 #, fuzzy
 msgid "Codec"
 msgstr "Codec"
 
-#: zp-core/zp-extensions/class-video.php:151
+#: zp-core/zp-extensions/class-video.php:132
 #, fuzzy
 msgid "Compression Ratio"
 msgstr "Þjöppunarhlutfall"
 
-#: zp-core/zp-extensions/class-video.php:152
+#: zp-core/zp-extensions/class-video.php:133
 #, fuzzy
 msgid "Video Dataformat"
 msgstr "Video Dataformat"
 
-#: zp-core/zp-extensions/class-video.php:153
+#: zp-core/zp-extensions/class-video.php:134
 #, fuzzy
 msgid "File Encoder"
 msgstr "Skráakóða"
 
-#: zp-core/zp-extensions/class-video.php:154
+#: zp-core/zp-extensions/class-video.php:135
 #, fuzzy
 msgid "Sample rate"
 msgstr "Sýnishorn"
 
-#: zp-core/zp-extensions/class-video.php:155
+#: zp-core/zp-extensions/class-video.php:136
 #, fuzzy
 msgid "Channel mode"
 msgstr "Rásarhamur"
 
-#: zp-core/zp-extensions/class-video.php:156
+#: zp-core/zp-extensions/class-video.php:137
 #, fuzzy
 msgid "Format"
 msgstr "Snið"
 
-#: zp-core/zp-extensions/class-video.php:157
+#: zp-core/zp-extensions/class-video.php:138
 #, fuzzy
 msgid "Channels"
 msgstr "Rásir"
 
-#: zp-core/zp-extensions/class-video.php:158
+#: zp-core/zp-extensions/class-video.php:139
 #, fuzzy
 msgid "Frame rate"
 msgstr "Frame hlutfall"
 
-#: zp-core/zp-extensions/class-video.php:159
+#: zp-core/zp-extensions/class-video.php:140
 #, fuzzy
 msgid "X Resolution"
 msgstr "X upplausn"
 
-#: zp-core/zp-extensions/class-video.php:160
+#: zp-core/zp-extensions/class-video.php:141
 #, fuzzy
 msgid "Y Resolution"
 msgstr "Y Upplausn"
 
-#: zp-core/zp-extensions/class-video.php:161
+#: zp-core/zp-extensions/class-video.php:142
 #, fuzzy
 msgid "Aspect ratio"
 msgstr "Stærðarhlutföll"
 
-#: zp-core/zp-extensions/class-video.php:162
+#: zp-core/zp-extensions/class-video.php:143
 #, fuzzy
 msgid "Play Time"
 msgstr "Spila tíma"
 
-#: zp-core/zp-extensions/class-video.php:388
+#: zp-core/zp-extensions/class-video.php:332
 #, fuzzy
 msgid "Your browser does not support the audio tag"
 msgstr "Vafrinn þinn styður ekki hljóðmerkið"
 
-#: zp-core/zp-extensions/class-video.php:396
+#: zp-core/zp-extensions/class-video.php:337
 #, fuzzy
 msgid "Your browser does not support the video tag"
 msgstr "Vafrinn þinn styður ekki vídeómerkið"
 
-#: zp-core/zp-extensions/class-video.php:471
+#: zp-core/zp-extensions/class-video.php:398
 #, fuzzy, php-format
 msgid "getid3 exceptions for %1$s::%2$s"
 msgstr "getid3 undantekningar fyrir%1$s ::%2$s"
 
-#: zp-core/zp-extensions/class-video.php:539
+#: zp-core/zp-extensions/class-video.php:466
 #, fuzzy
 msgid "Your browser does not support this video format."
 msgstr "Vafrinn þinn styður ekki vídeómerkið"
 
-#: zp-core/zp-extensions/class-video.php:544
+#: zp-core/zp-extensions/class-video.php:472
 #, fuzzy
 msgid "Your browser does not support this audio format."
 msgstr "Vafrinn þinn styður ekki hljóðmerkið"
 
-#: zp-core/zp-extensions/class-video.php:549
+#: zp-core/zp-extensions/class-video.php:477
 #, fuzzy
 msgid "No multimedia extension installed for this format."
 msgstr "Engin margmiðlunaruppfærsla sett upp."
@@ -19456,82 +19429,82 @@ msgstr "Aðeins aðalinnsetningin getur klónið afkvæmi uppsetningar."
 msgid "Your server does not support symbolic linking."
 msgstr "Þjónninn þinn styður ekki táknræn tengsl."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:29
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:30
 #, fuzzy
 msgid "You attempted to clone to the master install."
 msgstr "Þú reyndir að klóna í húsbókauppsetninguna."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:67
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:68
 #, fuzzy, php-format
 msgid "The existing folder <code>%s</code> was replaced."
 msgstr "Núverandi mappa <code>%s</code> var skipt út."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:69
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:70
 #, fuzzy, php-format
 msgid ""
 "The existing folder <code>%1$s</code> was removed but Link creation failed."
 msgstr "Núverandi mappa <code>%1$s</code> var eytt en tengingin mistókst."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:73
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:74
 #, fuzzy, php-format
 msgid "The existing folder <code>%s</code> could not be removed."
 msgstr ""
 "Ekki <code>%s</code> hægt að fjarlægja núverandi möppu <code>%s</code> ."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:85
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:104
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:86
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:105
 #, fuzzy, php-format
 msgid "The existing symlink <code>%s</code> was replaced."
 msgstr "Núverandi symlink <code>%s</code> var skipt út."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:87
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:88
 #, fuzzy, php-format
 msgid ""
 "The existing symlink <code>%s</code> was removed but Link creation failed."
 msgstr "Núverandi symlink <code>%s</code> var eytt en tengingin mistókst."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:91
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:114
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:92
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:115
 #, fuzzy, php-format
 msgid "The existing symlink <code>%s</code> could not be removed."
 msgstr "Ekki var hægt að fjarlægja núverandi symlink <code>%s</code> ."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:102
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:103
 #, fuzzy, php-format
 msgid "The existing file <code>%s</code> was replaced."
 msgstr "Núverandi skrá <code>%s</code> var skipt út."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:107
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:108
 #, fuzzy, php-format
 msgid "The existing file <code>%s</code> was removed but Link creation failed."
 msgstr "Núverandi skrá <code>%s</code> var fjarlægð en Link Creation mistókst."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:112
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:113
 #, fuzzy, php-format
 msgid "The existing file <code>%s</code> could not be removed."
 msgstr "Ekki var hægt að fjarlægja núverandi skrá <code>%s</code> ."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:123
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:124
 #, fuzzy, php-format
 msgid "<code>%s</code> Link created."
 msgstr "<code>%s</code> Tengill búinn til."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:125
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:126
 #, fuzzy, php-format
 msgid "<code>%s</code> Link creation failed."
 msgstr "<code>%s</code> Sköpun skips mistókst."
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:132
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:133
 #, fuzzy, php-format
 msgid "Successful clone to %s"
 msgstr "Árangursrík klón í %s"
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:165
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:166
 #, fuzzy
 msgid "setup the new install"
 msgstr "settu upp nýja uppsetningu"
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:167
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:168
 #, fuzzy, php-format
 msgid ""
 "Before running setup for <code>%1$s</code> please reinstall the following "
@@ -19540,7 +19513,7 @@ msgstr ""
 "Áður en þú keyrir uppsetninguna fyrir <code>%1$s</code> skaltu endurtaka "
 "eftirfarandi uppsetningarskrár úr%2$s í þessari uppsetningu:"
 
-#: zp-core/zp-extensions/cloneZenphoto/clone.php:178
+#: zp-core/zp-extensions/cloneZenphoto/clone.php:179
 #, fuzzy, php-format
 msgid "Clone to <code>%s</code> failed"
 msgstr "Klónin í <code>%s</code> mistókst"
@@ -19621,12 +19594,12 @@ msgstr ""
 "Athugaðu að þetta tappi hengir ekki við Colorbox við nein atriði. Þú þarft að "
 "gera þetta á þemað sjálfur."
 
-#: zp-core/zp-extensions/colorbox_js.php:72
+#: zp-core/zp-extensions/colorbox_js.php:54
 #, fuzzy
 msgid "Colorbox theme"
 msgstr "Colorbox þema"
 
-#: zp-core/zp-extensions/colorbox_js.php:75
+#: zp-core/zp-extensions/colorbox_js.php:57
 #, fuzzy
 msgid ""
 "The Colorbox script comes with 5 example themes you can select here. If you "
@@ -19640,52 +19613,47 @@ msgstr ""
 "sem</em> inniheldur <em>colorbox.css</em> skrá og möppu <em>myndir</em> innan "
 "núverandi þema til að hunsa til að nota sérsniðna Colorbox þema."
 
-#: zp-core/zp-extensions/colorbox_js.php:87
-#, fuzzy, php-format
-msgid "The %1$s scripts for which Colorbox is enabled."
-msgstr "The%1$s forskriftir sem Colorbox er virkt."
-
 #: zp-core/zp-extensions/comment_form.php:20
 #, fuzzy
 msgid "Provides a unified comment handling facility."
 msgstr "Veitir samræmda athugasemd meðhöndlun leikni."
 
-#: zp-core/zp-extensions/comment_form.php:92
+#: zp-core/zp-extensions/comment_form.php:94
 #, fuzzy
 msgid "Enable comment notification"
 msgstr "Virkja athugasemd tilkynningu"
 
-#: zp-core/zp-extensions/comment_form.php:94
+#: zp-core/zp-extensions/comment_form.php:96
 #, fuzzy
 msgid "Email the Admin when new comments are posted"
 msgstr "Sendu póststjóra þegar nýjar athugasemdir eru birtar"
 
-#: zp-core/zp-extensions/comment_form.php:95
+#: zp-core/zp-extensions/comment_form.php:97
 #, fuzzy
 msgid "Name field"
 msgstr "Nafn reit"
 
-#: zp-core/zp-extensions/comment_form.php:97
-#: zp-core/zp-extensions/comment_form.php:101
-#: zp-core/zp-extensions/comment_form.php:105
-#: zp-core/zp-extensions/comment_form.php:109
-#: zp-core/zp-extensions/comment_form.php:113
+#: zp-core/zp-extensions/comment_form.php:99
+#: zp-core/zp-extensions/comment_form.php:103
+#: zp-core/zp-extensions/comment_form.php:107
+#: zp-core/zp-extensions/comment_form.php:111
+#: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/register_user.php:85
 #, fuzzy
 msgid "Require"
 msgstr "Krefjast"
 
-#: zp-core/zp-extensions/comment_form.php:98
+#: zp-core/zp-extensions/comment_form.php:100
 #, fuzzy
 msgid "If the <em>Name</em> field is required, the poster must provide a name."
 msgstr "Ef <em>nafni</em> reitinn er krafist verður pósturinn að gefa upp nafn."
 
-#: zp-core/zp-extensions/comment_form.php:99
+#: zp-core/zp-extensions/comment_form.php:101
 #, fuzzy
 msgid "Email field"
 msgstr "Tölvupóstur"
 
-#: zp-core/zp-extensions/comment_form.php:102
+#: zp-core/zp-extensions/comment_form.php:104
 #, fuzzy
 msgid ""
 "If the <em>Email</em> field is required, the poster must provide an email "
@@ -19693,40 +19661,40 @@ msgid ""
 msgstr ""
 "Ef <em>tölvupóstfangið</em> er krafist verður pósturinn að gefa upp netfang."
 
-#: zp-core/zp-extensions/comment_form.php:103
+#: zp-core/zp-extensions/comment_form.php:105
 #, fuzzy
 msgid "Website field"
 msgstr "Vefsvæði"
 
-#: zp-core/zp-extensions/comment_form.php:106
+#: zp-core/zp-extensions/comment_form.php:108
 #, fuzzy
 msgid ""
 "If the <em>Website</em> field is required, the poster must provide a website."
 msgstr "Ef <em>vefsvæðinu</em> er krafist verður pósturinn að gefa upp vefsíðu."
 
-#: zp-core/zp-extensions/comment_form.php:107
+#: zp-core/zp-extensions/comment_form.php:109
 #, fuzzy
 msgid "Captcha field"
 msgstr "Captcha sviði"
 
-#: zp-core/zp-extensions/comment_form.php:109
+#: zp-core/zp-extensions/comment_form.php:111
 #, fuzzy
 msgid "For guests"
 msgstr "Fyrir gesti"
 
-#: zp-core/zp-extensions/comment_form.php:110
+#: zp-core/zp-extensions/comment_form.php:112
 #, fuzzy
 msgid ""
 "If <em>Captcha</em> is required, the form will include a Captcha verification."
 msgstr "Ef <em>Captcha</em> er krafist verður formið með Captcha staðfestingu."
 
-#: zp-core/zp-extensions/comment_form.php:111
+#: zp-core/zp-extensions/comment_form.php:113
 #: zp-core/zp-extensions/register_user.php:83
 #, fuzzy
 msgid "Address fields"
 msgstr "Heimilisfang reiti"
 
-#: zp-core/zp-extensions/comment_form.php:114
+#: zp-core/zp-extensions/comment_form.php:116
 #, fuzzy
 msgid ""
 "If <em>Address fields</em> are shown or required, the form will include "
@@ -19737,22 +19705,22 @@ msgstr ""
 "fyrir heimilisfang upplýsinga. Ef þörf krefur þarf plakatinn að afla gagna í "
 "hverju netfangi."
 
-#: zp-core/zp-extensions/comment_form.php:115
+#: zp-core/zp-extensions/comment_form.php:117
 #, fuzzy
 msgid "Allow comments on"
 msgstr "Leyfa ummæli"
 
-#: zp-core/zp-extensions/comment_form.php:118
+#: zp-core/zp-extensions/comment_form.php:120
 #, fuzzy
 msgid "Comment forms will be presented on the checked pages."
 msgstr "Athugasemdareyðublöð verða kynntar á köflunum."
 
-#: zp-core/zp-extensions/comment_form.php:119
+#: zp-core/zp-extensions/comment_form.php:121
 #, fuzzy
 msgid "Toggled comment block"
 msgstr "Víxla athugasemd blokk"
 
-#: zp-core/zp-extensions/comment_form.php:121
+#: zp-core/zp-extensions/comment_form.php:123
 #, fuzzy
 msgid ""
 "If checked, existing comments will be initially hidden. Clicking on the "
@@ -19761,12 +19729,12 @@ msgstr ""
 "Ef athugað er, verða núverandi athugasemdir upphaflega falin. Með því að "
 "smella á hnappinn sem gefinn er upp birtist hann."
 
-#: zp-core/zp-extensions/comment_form.php:122
+#: zp-core/zp-extensions/comment_form.php:124
 #, fuzzy
 msgid "Show author URL"
 msgstr "Sýna höfundarlóð"
 
-#: zp-core/zp-extensions/comment_form.php:124
+#: zp-core/zp-extensions/comment_form.php:126
 #, fuzzy
 msgid ""
 "To discourage SPAM, uncheck this box and the author URL will not be revealed."
@@ -19774,23 +19742,23 @@ msgstr ""
 "Til að draga úr ruslpósti skaltu afmarka þennan reit og höfundarlóðin verður "
 "ekki birt."
 
-#: zp-core/zp-extensions/comment_form.php:125
+#: zp-core/zp-extensions/comment_form.php:127
 #, fuzzy
 msgid "Only members can comment"
 msgstr "Aðeins meðlimir geta skrifað ummæli"
 
-#: zp-core/zp-extensions/comment_form.php:127
+#: zp-core/zp-extensions/comment_form.php:129
 #, fuzzy
 msgid "If checked, only logged in users will be allowed to post comments."
 msgstr ""
 "Ef það er valið verður aðeins innskráður notandi heimilt að senda ummæli."
 
-#: zp-core/zp-extensions/comment_form.php:128
+#: zp-core/zp-extensions/comment_form.php:130
 #, fuzzy
 msgid "Allow private postings"
 msgstr "Leyfa einkapósti"
 
-#: zp-core/zp-extensions/comment_form.php:130
+#: zp-core/zp-extensions/comment_form.php:132
 #, fuzzy
 msgid ""
 "If checked, posters may mark their comments as private (not for publishing)."
@@ -19798,12 +19766,12 @@ msgstr ""
 "Ef athugað er, geta veggspjöld merkt athugasemdir sínar sem einkamál (ekki "
 "til útgáfu)."
 
-#: zp-core/zp-extensions/comment_form.php:131
+#: zp-core/zp-extensions/comment_form.php:133
 #, fuzzy
 msgid "Allow anonymous posting"
 msgstr "Leyfa nafnlaus staða"
 
-#: zp-core/zp-extensions/comment_form.php:133
+#: zp-core/zp-extensions/comment_form.php:135
 #, fuzzy
 msgid ""
 "If checked, posters may exclude their personal information from the published "
@@ -19812,23 +19780,23 @@ msgstr ""
 "Ef athugað er getur veggspjöld útilokað persónulegar upplýsingar frá birtu "
 "færslunni."
 
-#: zp-core/zp-extensions/comment_form.php:134
+#: zp-core/zp-extensions/comment_form.php:136
 #, fuzzy
 msgid "Include RSS link"
 msgstr "Hafa RSS hlekkur"
 
-#: zp-core/zp-extensions/comment_form.php:136
+#: zp-core/zp-extensions/comment_form.php:138
 #, fuzzy
 msgid ""
 "If checked, an RSS link will be included at the bottom of the comment section."
 msgstr "Ef merkt er, verður RSS hlekkur innifalinn neðst í athugasemdarsviðinu."
 
-#: zp-core/zp-extensions/comment_form.php:137
+#: zp-core/zp-extensions/comment_form.php:139
 #, fuzzy
 msgid "Comments per page"
 msgstr "Athugasemdir á síðu"
 
-#: zp-core/zp-extensions/comment_form.php:139
+#: zp-core/zp-extensions/comment_form.php:141
 #, fuzzy
 msgid ""
 "The comments that should show per page on the admin tab and when using the "
@@ -19837,12 +19805,12 @@ msgstr ""
 "Athugasemdirnar sem á að sýna á hverri síðu á stjórnunarflipanum og þegar "
 "jQuery pagination er notuð"
 
-#: zp-core/zp-extensions/comment_form.php:140
+#: zp-core/zp-extensions/comment_form.php:147
 #, fuzzy
 msgid "Comment editor configuration"
 msgstr "Athugasemd ritstjóra stillingu"
 
-#: zp-core/zp-extensions/comment_form.php:144
+#: zp-core/zp-extensions/comment_form.php:151
 #, fuzzy
 msgid ""
 "Configuration file for TinyMCE when used for comments. Set to <code>Disabled</"
@@ -19851,12 +19819,12 @@ msgstr ""
 "Stillingarskrá fyrir TinyMCE þegar notaður er til athugasemda. Stilltu í "
 "<code>Disabled</code> til að slökkva á sjónrænum breytingum."
 
-#: zp-core/zp-extensions/comment_form.php:145
+#: zp-core/zp-extensions/comment_form.php:152
 #, fuzzy
 msgid "Admin comment editor configuration"
 msgstr "Stillingar stjórnenda athugasemd ritstjóri"
 
-#: zp-core/zp-extensions/comment_form.php:149
+#: zp-core/zp-extensions/comment_form.php:156
 #, fuzzy
 msgid ""
 "Configuration file for TinyMCE when used for the <em>edit comments</em> tab."
@@ -19864,56 +19832,56 @@ msgstr ""
 "Stillingarskrá fyrir TinyMCE þegar notaður er til að <em>breyta ummæli</em> "
 "flipann."
 
-#: zp-core/zp-extensions/comment_form.php:149
+#: zp-core/zp-extensions/comment_form.php:156
 #, fuzzy
 msgid "Pagination"
 msgstr "Pagination"
 
-#: zp-core/zp-extensions/comment_form.php:151
+#: zp-core/zp-extensions/comment_form.php:158
 #, fuzzy
 msgid ""
 "Uncheck to disable the jQuery pagination of comments. Enabled by default."
 msgstr ""
 "Afveldið að slökkva á jQuery pagination athugasemdum. Virkja sjálfgefið."
 
-#: zp-core/zp-extensions/comment_form.php:162
-#: zp-core/zp-extensions/comment_form.php:163
+#: zp-core/zp-extensions/comment_form.php:172
 #: zp-core/zp-extensions/comment_form.php:173
+#: zp-core/zp-extensions/comment_form.php:183
 msgid "comments"
 msgstr "ummæli"
 
-#: zp-core/zp-extensions/comment_form.php:200
+#: zp-core/zp-extensions/comment_form.php:210
 msgid "Add a comment:"
 msgstr "Skrifa ummæli:"
 
-#: zp-core/zp-extensions/comment_form.php:251
+#: zp-core/zp-extensions/comment_form.php:261
 #, fuzzy
 msgid "show comments"
 msgstr "sýna athugasemdir"
 
-#: zp-core/zp-extensions/comment_form.php:255
+#: zp-core/zp-extensions/comment_form.php:265
 #, fuzzy
 msgid "hide comments"
 msgstr "fela athugasemdir"
 
-#: zp-core/zp-extensions/comment_form.php:289
+#: zp-core/zp-extensions/comment_form.php:299
 #, fuzzy
 msgid "on"
 msgstr "virkt"
 
-#: zp-core/zp-extensions/comment_form.php:312
+#: zp-core/zp-extensions/comment_form.php:322
 #, fuzzy
 msgid "Only registered users may post comments."
 msgstr "Aðeins skráðir notendur geta sent athugasemdir."
 
-#: zp-core/zp-extensions/comment_form.php:387
+#: zp-core/zp-extensions/comment_form.php:397
 msgid "Closed for comments."
 msgstr "Lokað fyrir ummæli."
 
-#: zp-core/zp-extensions/comment_form.php:401
-#: zp-core/zp-extensions/comment_form.php:404
-#: zp-core/zp-extensions/comment_form.php:407
-#: zp-core/zp-extensions/comment_form.php:410
+#: zp-core/zp-extensions/comment_form.php:411
+#: zp-core/zp-extensions/comment_form.php:414
+#: zp-core/zp-extensions/comment_form.php:417
+#: zp-core/zp-extensions/comment_form.php:420
 #, fuzzy
 msgid "Subscribe to comments"
 msgstr "Gerast áskrifandi að athugasemdum"
@@ -20350,39 +20318,39 @@ msgid ""
 msgstr ""
 "Prentar e-mail tengilið svo gestir geti sent tölvupóststjóra á vefsvæðinu."
 
-#: zp-core/zp-extensions/contact_form.php:72
+#: zp-core/zp-extensions/contact_form.php:74
 #, fuzzy
 msgid "required"
 msgstr "nauðsynlegt"
 
-#: zp-core/zp-extensions/contact_form.php:72
+#: zp-core/zp-extensions/contact_form.php:74
 #, fuzzy
 msgid "omitted"
 msgstr "sleppt"
 
-#: zp-core/zp-extensions/contact_form.php:73
+#: zp-core/zp-extensions/contact_form.php:75
 #, fuzzy, php-format
 msgid ""
 "Set if the <code>%s</code> field should be required, just shown or omitted"
 msgstr ""
 "Stilltu ef <code>%s</code> reitinn ætti að vera krafist, bara sýnt eða sleppt"
 
-#: zp-core/zp-extensions/contact_form.php:75
+#: zp-core/zp-extensions/contact_form.php:77
 #, fuzzy
 msgid "Intro text"
 msgstr "Intro texti"
 
-#: zp-core/zp-extensions/contact_form.php:77
+#: zp-core/zp-extensions/contact_form.php:79
 #, fuzzy
 msgid "The intro text for your contact form"
 msgstr "Innsláttartexta fyrir tengiliðsformið"
 
-#: zp-core/zp-extensions/contact_form.php:78
+#: zp-core/zp-extensions/contact_form.php:80
 #, fuzzy
 msgid "Confirm text"
 msgstr "Staðfestu texta"
 
-#: zp-core/zp-extensions/contact_form.php:80
+#: zp-core/zp-extensions/contact_form.php:82
 #, fuzzy
 msgid ""
 "The text that asks the visitor to confirm that he really wants to send the "
@@ -20391,22 +20359,22 @@ msgstr ""
 "Textinn sem biður gestinum um að staðfesta að hann vill virkilega senda "
 "skilaboðin."
 
-#: zp-core/zp-extensions/contact_form.php:81
+#: zp-core/zp-extensions/contact_form.php:83
 #, fuzzy
 msgid "Thanks text"
 msgstr "Takk texta"
 
-#: zp-core/zp-extensions/contact_form.php:83
+#: zp-core/zp-extensions/contact_form.php:85
 #, fuzzy
 msgid "The text that is shown after a message has been confirmed and sent."
 msgstr "Textinn sem birtist eftir skilaboð hefur verið staðfest og sendur."
 
-#: zp-core/zp-extensions/contact_form.php:84
+#: zp-core/zp-extensions/contact_form.php:86
 #, fuzzy
 msgid "New message link text"
 msgstr "Ný skilaboð hlekkur texta"
 
-#: zp-core/zp-extensions/contact_form.php:86
+#: zp-core/zp-extensions/contact_form.php:88
 #, fuzzy
 msgid ""
 "The text for the link after the thanks text to return to the contact page to "
@@ -20415,12 +20383,12 @@ msgstr ""
 "Textinn fyrir tengilinn eftir takkann til að fara aftur á tengiliðasíðuna til "
 "að senda annan skilaboð."
 
-#: zp-core/zp-extensions/contact_form.php:87
+#: zp-core/zp-extensions/contact_form.php:89
 #, fuzzy
 msgid "Require confirmation"
 msgstr "Krefjast staðfestingar"
 
-#: zp-core/zp-extensions/contact_form.php:89
+#: zp-core/zp-extensions/contact_form.php:91
 #, fuzzy
 msgid ""
 "If checked, a confirmation form will be presented before sending the contact "
@@ -20428,12 +20396,12 @@ msgid ""
 msgstr ""
 "Ef það er valið verður staðfestingareyðublað fram áður en skilaboðin eru send."
 
-#: zp-core/zp-extensions/contact_form.php:90
+#: zp-core/zp-extensions/contact_form.php:92
 #, fuzzy
 msgid "Send copy"
 msgstr "Senda afrit"
 
-#: zp-core/zp-extensions/contact_form.php:92
+#: zp-core/zp-extensions/contact_form.php:94
 #, fuzzy
 msgid ""
 "If checked, a copy of the message will be sent to the address provided. <p "
@@ -20450,12 +20418,12 @@ msgstr ""
 "fyrir ruslpóst með þessu eyðublaði og að í sumum löndum lögsagnarumdæmum (td "
 "flestum Evrópulöndum) gætir þú verið ábyrgur fyrir þessu! </p>"
 
-#: zp-core/zp-extensions/contact_form.php:93
+#: zp-core/zp-extensions/contact_form.php:95
 #, fuzzy
 msgid "Send copy note text"
 msgstr "Senda afrita athugasemd texta"
 
-#: zp-core/zp-extensions/contact_form.php:95
+#: zp-core/zp-extensions/contact_form.php:97
 #, fuzzy
 msgid ""
 "The text for the note about sending a copy to the address provided in case "
@@ -20464,12 +20432,12 @@ msgstr ""
 "Textinn fyrir minnispunktinn um að senda afrit á netfangið sem kveðið er á um "
 "ef þessi valkostur er stilltur."
 
-#: zp-core/zp-extensions/contact_form.php:96
+#: zp-core/zp-extensions/contact_form.php:98
 #, fuzzy
 msgid "Contact recipients"
 msgstr "Hafðu samband viðtakenda"
 
-#: zp-core/zp-extensions/contact_form.php:98
+#: zp-core/zp-extensions/contact_form.php:100
 #, fuzzy
 msgid ""
 "The e-mail address the messages should be sent to. Enter one or more address "
@@ -20478,170 +20446,175 @@ msgstr ""
 "Netfangið sem skilaboðin skulu send til. Sláðu inn eitt eða fleiri "
 "heimilisfang aðskilin með hálfkvílum."
 
-#: zp-core/zp-extensions/contact_form.php:105
 #: zp-core/zp-extensions/contact_form.php:107
+#: zp-core/zp-extensions/contact_form.php:109
 #, fuzzy
 msgid "Company"
 msgstr "Fyrirtæki (ef við á)"
 
-#: zp-core/zp-extensions/contact_form.php:108
 #: zp-core/zp-extensions/contact_form.php:110
+#: zp-core/zp-extensions/contact_form.php:112
 #: zp-core/zp-extensions/userAddressFields.php:61
 #, fuzzy
 msgid "Street"
 msgstr "Street"
 
-#: zp-core/zp-extensions/contact_form.php:114
 #: zp-core/zp-extensions/contact_form.php:116
+#: zp-core/zp-extensions/contact_form.php:118
 #: zp-core/zp-extensions/optionalObjectFields.php:184
 #: zp-core/zp-extensions/userAddressFields.php:63
 msgid "State"
 msgstr "Ríki"
 
-#: zp-core/zp-extensions/contact_form.php:117
 #: zp-core/zp-extensions/contact_form.php:119
+#: zp-core/zp-extensions/contact_form.php:121
 #: zp-core/zp-extensions/userAddressFields.php:64
 #, fuzzy
 msgid "Postal code"
 msgstr "Póstnúmer"
 
-#: zp-core/zp-extensions/contact_form.php:120
 #: zp-core/zp-extensions/contact_form.php:122
+#: zp-core/zp-extensions/contact_form.php:124
 #: zp-core/zp-extensions/optionalObjectFields.php:193
 #: zp-core/zp-extensions/userAddressFields.php:65
 msgid "Country"
 msgstr "Land"
 
-#: zp-core/zp-extensions/contact_form.php:123
 #: zp-core/zp-extensions/contact_form.php:125
+#: zp-core/zp-extensions/contact_form.php:127
 #: zp-core/zp-extensions/scriptless-socialsharing.php:89
 #, fuzzy
 msgid "E-mail"
 msgstr "Netfang:"
 
-#: zp-core/zp-extensions/contact_form.php:129
+#: zp-core/zp-extensions/contact_form.php:131
 #: zp-core/zp-extensions/register_user.php:78
 #, fuzzy
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
 
-#: zp-core/zp-extensions/contact_form.php:131
+#: zp-core/zp-extensions/contact_form.php:133
 #: zp-core/zp-extensions/register_user.php:80
 #, fuzzy
 msgid "If checked, the form will include a Captcha verification."
 msgstr "Ef það er valið, verður formið með Captcha staðfestingu."
 
-#: zp-core/zp-extensions/contact_form.php:132
+#: zp-core/zp-extensions/contact_form.php:134
 #: zp-core/zp-extensions/mobileTheme.php:104
 #, fuzzy
 msgid "Phone"
 msgstr "Símanúmer"
 
-#: zp-core/zp-extensions/contact_form.php:134
+#: zp-core/zp-extensions/contact_form.php:136
 #, fuzzy
 msgid "Phone number"
 msgstr "Símanúmer"
 
-#: zp-core/zp-extensions/contact_form.php:193
+#: zp-core/zp-extensions/contact_form.php:195
 #, fuzzy
 msgid "a title"
 msgstr "Titill:"
 
-#: zp-core/zp-extensions/contact_form.php:196
+#: zp-core/zp-extensions/contact_form.php:198
 #, fuzzy
 msgid "a name"
 msgstr "Nafn:"
 
-#: zp-core/zp-extensions/contact_form.php:199
+#: zp-core/zp-extensions/contact_form.php:201
 #, fuzzy
 msgid "a company"
 msgstr "fyrirtæki"
 
-#: zp-core/zp-extensions/contact_form.php:202
+#: zp-core/zp-extensions/contact_form.php:204
 #, fuzzy
 msgid "a street"
 msgstr "götu"
 
-#: zp-core/zp-extensions/contact_form.php:205
+#: zp-core/zp-extensions/contact_form.php:207
 #, fuzzy
 msgid "a city"
 msgstr "Borg:"
 
-#: zp-core/zp-extensions/contact_form.php:208
+#: zp-core/zp-extensions/contact_form.php:210
 #, fuzzy
 msgid "a state"
 msgstr "Ríki:"
 
-#: zp-core/zp-extensions/contact_form.php:211
+#: zp-core/zp-extensions/contact_form.php:213
 #, fuzzy
 msgid "a postal code"
 msgstr "póstnúmer"
 
-#: zp-core/zp-extensions/contact_form.php:214
+#: zp-core/zp-extensions/contact_form.php:216
 #, fuzzy
 msgid "a country"
 msgstr "Land:"
 
-#: zp-core/zp-extensions/contact_form.php:217
+#: zp-core/zp-extensions/contact_form.php:219
 #, fuzzy
 msgid "a valid email address"
 msgstr "Gilt netfang"
 
-#: zp-core/zp-extensions/contact_form.php:220
+#: zp-core/zp-extensions/contact_form.php:222
 #, fuzzy
 msgid "a website"
 msgstr "Vefsíða"
 
-#: zp-core/zp-extensions/contact_form.php:229
+#: zp-core/zp-extensions/contact_form.php:231
 #, fuzzy
 msgid "a phone number"
 msgstr "símanúmer"
 
-#: zp-core/zp-extensions/contact_form.php:232
+#: zp-core/zp-extensions/contact_form.php:234
 #, fuzzy
 msgid "a subject"
 msgstr "viðfangsefni"
 
-#: zp-core/zp-extensions/contact_form.php:235
+#: zp-core/zp-extensions/contact_form.php:237
 #, fuzzy
 msgid "a message"
 msgstr "Skilaboð<strong>%s</strong>:"
 
-#: zp-core/zp-extensions/contact_form.php:243
+#: zp-core/zp-extensions/contact_form.php:245
 #, fuzzy
 msgid "CAPTCHA verification."
 msgstr "CAPTCHA staðfesting."
 
-#: zp-core/zp-extensions/contact_form.php:256
+#: zp-core/zp-extensions/contact_form.php:258
 #, fuzzy, php-format
 msgid "Please enter %s. Thanks."
 msgstr "Vinsamlegast sláðu inn %s. Takk."
 
-#: zp-core/zp-extensions/contact_form.php:259
+#: zp-core/zp-extensions/contact_form.php:261
 #, fuzzy, php-format
 msgid "Please enter %1$s and %2$s. Thanks."
 msgstr "Vinsamlegast sláðu inn%1$s og%2$s. Takk."
 
-#: zp-core/zp-extensions/contact_form.php:267
+#: zp-core/zp-extensions/contact_form.php:269
 #, fuzzy, php-format
 msgid "Please enter: %sThanks."
 msgstr "Vinsamlegast sláðu inn: %sThanks."
 
-#: zp-core/zp-extensions/contact_form.php:332
+#: zp-core/zp-extensions/contact_form.php:334
 msgid "Confirm"
 msgstr "Staðfesta"
 
-#: zp-core/zp-extensions/contact_form.php:336
+#: zp-core/zp-extensions/contact_form.php:338
 #, fuzzy
 msgid "Discard"
 msgstr "Fleygja"
 
-#: zp-core/zp-extensions/contact_form.php:376
+#: zp-core/zp-extensions/contact_form.php:378
 #, fuzzy
 msgid "Error sending mail:"
 msgid_plural "Errors sending mail:"
 msgstr[0] "Villa við að senda póst:"
 msgstr[1] "Villur að senda póst:"
+
+#: zp-core/zp-extensions/contact_form.php:470
+#, fuzzy
+msgid "Provide the subject (optionally) as %1."
+msgstr "Gefðu myndefninu (valkvætt) sem% 1."
 
 #: zp-core/zp-extensions/cookieconsent.php:17
 #, fuzzy
@@ -20653,24 +20626,24 @@ msgstr ""
 "ESB kex lög og beiðni Google varðandi notkun Google AdWords, Analytics og "
 "fleira"
 
-#: zp-core/zp-extensions/cookieconsent.php:38
+#: zp-core/zp-extensions/cookieconsent.php:43
 #, fuzzy
 msgid "Button: Agree"
 msgstr "Hnappur: Sammála"
 
-#: zp-core/zp-extensions/cookieconsent.php:43
+#: zp-core/zp-extensions/cookieconsent.php:48
 #, fuzzy
 msgid "Text used for the dismiss button. Leave empty to use the default text."
 msgstr ""
 "Texti sem notaður er til að sleppa hnappinum. Leyfi tómt til að nota "
 "sjálfgefin texta."
 
-#: zp-core/zp-extensions/cookieconsent.php:44
+#: zp-core/zp-extensions/cookieconsent.php:49
 #, fuzzy
 msgid "Button: Learn more"
 msgstr "Button: Lærðu meira"
 
-#: zp-core/zp-extensions/cookieconsent.php:49
+#: zp-core/zp-extensions/cookieconsent.php:54
 #, fuzzy
 msgid ""
 "Text used for the learn more info button. Leave empty to use the default text."
@@ -20678,33 +20651,33 @@ msgstr ""
 "Texti sem notaður er til að fá frekari upplýsingar um hnappinn. Leyfi tómt "
 "til að nota sjálfgefin texta."
 
-#: zp-core/zp-extensions/cookieconsent.php:50
+#: zp-core/zp-extensions/cookieconsent.php:55
 #, fuzzy
 msgid "Button: Learn more - URL"
 msgstr "Hnappur: Lærðu meira - URL"
 
-#: zp-core/zp-extensions/cookieconsent.php:54
+#: zp-core/zp-extensions/cookieconsent.php:59
 #, fuzzy
 msgid "URL to your cookie policy / privacy info page."
 msgstr "Vefslóðin að upplýsingum um kexstefnu / persónuupplýsinga."
 
-#: zp-core/zp-extensions/cookieconsent.php:55
+#: zp-core/zp-extensions/cookieconsent.php:60
 #, fuzzy
 msgid "Message"
 msgstr "Skilaboð<strong>%s</strong>:"
 
-#: zp-core/zp-extensions/cookieconsent.php:60
+#: zp-core/zp-extensions/cookieconsent.php:65
 #, fuzzy
 msgid "The message shown by the plugin. Leave empty to use the default text."
 msgstr ""
 "Skilaboðin sem sýnd eru í viðbótinni. Leyfi tómt til að nota sjálfgefin texta."
 
-#: zp-core/zp-extensions/cookieconsent.php:61
+#: zp-core/zp-extensions/cookieconsent.php:66
 #, fuzzy
 msgid "Domain"
 msgstr "Lén"
 
-#: zp-core/zp-extensions/cookieconsent.php:65
+#: zp-core/zp-extensions/cookieconsent.php:70
 #, fuzzy
 msgid ""
 "The domain for the consent cookie that Cookie Consent uses, to remember that "
@@ -20719,12 +20692,12 @@ msgstr ""
 "þetta á <code>example.com</code> , þannig að hægt sé að lesa sömu samþykki "
 "kex af undirlénum eins og <code>foo.example.com</code> ."
 
-#: zp-core/zp-extensions/cookieconsent.php:66
+#: zp-core/zp-extensions/cookieconsent.php:71
 #, fuzzy
 msgid "Expire"
 msgstr "Rennur út"
 
-#: zp-core/zp-extensions/cookieconsent.php:70
+#: zp-core/zp-extensions/cookieconsent.php:75
 #, fuzzy
 msgid ""
 "The number of days Cookie Consent should store the user’s consent information "
@@ -20733,20 +20706,20 @@ msgstr ""
 "Fjöldi daga Cookie Samþykki ætti að geyma upplýsingar um samþykki notandans "
 "fyrir. Notaðu -1 fyrir enga gildistíma."
 
-#: zp-core/zp-extensions/cookieconsent.php:71
+#: zp-core/zp-extensions/cookieconsent.php:76
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:57
-#: zp-core/zp-extensions/themeSwitcher.php:162
+#: zp-core/zp-extensions/themeSwitcher.php:168
 #, fuzzy
 msgid "Theme"
 msgstr "Veldu liti þemans"
 
-#: zp-core/zp-extensions/cookieconsent.php:79
+#: zp-core/zp-extensions/cookieconsent.php:84
 #, fuzzy
 #| msgid "Custom"
 msgid "custom"
 msgstr "Sérsniðið"
 
-#: zp-core/zp-extensions/cookieconsent.php:81
+#: zp-core/zp-extensions/cookieconsent.php:86
 #, fuzzy
 msgid ""
 "These are the included default themes. The chosen theme is added to the popup "
@@ -20757,50 +20730,50 @@ msgstr ""
 "sprettiglugganum sem CSS flokki í formi .cc-stíl-THEME_NAME. Notendur geta "
 "búið til eigin þemu."
 
-#: zp-core/zp-extensions/cookieconsent.php:82
+#: zp-core/zp-extensions/cookieconsent.php:87
 #, fuzzy
 msgid "Position"
 msgstr "Staða"
 
-#: zp-core/zp-extensions/cookieconsent.php:87
+#: zp-core/zp-extensions/cookieconsent.php:92
 #, fuzzy
 msgid "Top"
 msgstr "Efst"
 
-#: zp-core/zp-extensions/cookieconsent.php:88
+#: zp-core/zp-extensions/cookieconsent.php:93
 #: zp-core/zp-extensions/openstreetmap.php:104
 #: zp-core/zp-extensions/openstreetmap.php:156
 #, fuzzy
 msgid "Top left"
 msgstr "Efst vinstra"
 
-#: zp-core/zp-extensions/cookieconsent.php:89
+#: zp-core/zp-extensions/cookieconsent.php:94
 #: zp-core/zp-extensions/openstreetmap.php:105
 #: zp-core/zp-extensions/openstreetmap.php:157
 #, fuzzy
 msgid "Top right"
 msgstr "Efst hægra"
 
-#: zp-core/zp-extensions/cookieconsent.php:90
+#: zp-core/zp-extensions/cookieconsent.php:95
 #, fuzzy
 msgid "Bottom"
 msgstr "Botn"
 
-#: zp-core/zp-extensions/cookieconsent.php:91
+#: zp-core/zp-extensions/cookieconsent.php:96
 #: zp-core/zp-extensions/openstreetmap.php:106
 #: zp-core/zp-extensions/openstreetmap.php:158
 #, fuzzy
 msgid "Bottom left"
 msgstr "Neðst til vinstri"
 
-#: zp-core/zp-extensions/cookieconsent.php:92
+#: zp-core/zp-extensions/cookieconsent.php:97
 #: zp-core/zp-extensions/openstreetmap.php:107
 #: zp-core/zp-extensions/openstreetmap.php:159
 #, fuzzy
 msgid "Bottom right"
 msgstr "Neðst til hægri"
 
-#: zp-core/zp-extensions/cookieconsent.php:94
+#: zp-core/zp-extensions/cookieconsent.php:99
 #, fuzzy
 msgid ""
 "Choose the position of the popup. Top and Bottom = banner, Top left/right, "
@@ -20809,12 +20782,12 @@ msgstr ""
 "Veldu stöðu sprettiglugga. Efst og neðst = borði, Efst til vinstri / hægri, "
 "Bottom vinstri / hægri = fljótandi"
 
-#: zp-core/zp-extensions/cookieconsent.php:95
+#: zp-core/zp-extensions/cookieconsent.php:100
 #, fuzzy
 msgid "Dismiss on Scroll"
 msgstr "Slepptu á flettu"
 
-#: zp-core/zp-extensions/cookieconsent.php:99
+#: zp-core/zp-extensions/cookieconsent.php:104
 #, fuzzy
 msgid ""
 "Check to dismiss when users scroll a page [other than <em>Learn more</em> "
@@ -20823,45 +20796,26 @@ msgstr ""
 "Athugaðu að hafna þegar notendur fletta að síðu [önnur en að fá <em>frekari "
 "upplýsingar</em> ]."
 
-#: zp-core/zp-extensions/cookieconsent.php:100
+#: zp-core/zp-extensions/cookieconsent.php:105
 #, fuzzy
 msgid "Color - Popup"
 msgstr "Litur - almenningur"
 
-#: zp-core/zp-extensions/cookieconsent.php:104
+#: zp-core/zp-extensions/cookieconsent.php:109
 #, fuzzy
 msgid "Choose the color of the popup background."
 msgstr "Veldu lit sprettiglugga."
 
-#: zp-core/zp-extensions/cookieconsent.php:105
+#: zp-core/zp-extensions/cookieconsent.php:110
 #, fuzzy
 msgid "Color - Button"
 msgstr "Litur - Hnappur"
 
-#: zp-core/zp-extensions/cookieconsent.php:109
+#: zp-core/zp-extensions/cookieconsent.php:114
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Choose the color of the button."
 msgstr "Veldu lit hnappsins."
-
-#: zp-core/zp-extensions/cookieconsent.php:119
-#, fuzzy
-msgid ""
-"This website uses cookies. By continuing to browse the site, you agree to our "
-"use of cookies."
-msgstr ""
-"Þessi vefsíða notar smákökur. Með því að halda áfram að skoða síðuna "
-"samþykkirðu notkun okkar á smákökum."
-
-#: zp-core/zp-extensions/cookieconsent.php:123
-#, fuzzy
-msgid "Agree"
-msgstr "Sammála"
-
-#: zp-core/zp-extensions/cookieconsent.php:127
-#, fuzzy
-msgid "More info"
-msgstr "Meiri upplýsingar"
 
 #: zp-core/zp-extensions/crop_image.php:26
 #, fuzzy
@@ -21092,7 +21046,7 @@ msgid "Page"
 msgstr "[síða]"
 
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:227
-#: zp-core/zp-extensions/menu_manager.php:629
+#: zp-core/zp-extensions/menu_manager.php:633
 #: zp-core/zp-extensions/zenpage/template-functions.php:959
 #, fuzzy, php-format
 msgid "Page {%u}"
@@ -21490,8 +21444,9 @@ msgid "Use array_shift(filterImageQueryList())"
 msgstr "Notaðu array_shift (filterImageQueryList ())"
 
 #: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:141
+#, fuzzy
 msgid "Use print_SW_Link()"
-msgstr ""
+msgstr "Notaðu print_SW_Link ()"
 
 #: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:149
 #, fuzzy
@@ -21743,25 +21698,25 @@ msgid ""
 msgstr ""
 "Leyfir áhorfendum á vefsvæðinu þínu að velja tungumálafræðin að eigin vali."
 
-#: zp-core/zp-extensions/dynamic-locale.php:219
+#: zp-core/zp-extensions/dynamic-locale.php:211
 #, fuzzy, php-format
 msgid ""
 "Select <em>Use subdomains</em> and links will be in the form "
-"<code><em>language</em>.%s</code> where <code><em>language</em></code> is the "
-"language code, e.g. <code><em>fr</em></code> for French."
+"<code><em>language</em>.%s/...</code> where <code><em>language</em></code> is "
+"the language code, e.g. <code><em>fr</em></code> for French."
 msgstr ""
 "Veldu <em>Nota undirlén</em> og tenglar verða í formi <code><em>language</"
 "em> .%s</code> þar <code><em>language</em></code> er tungumál númer, td "
 "<code><em>fr</em></code> fyrir franska."
 
-#: zp-core/zp-extensions/dynamic-locale.php:222
+#: zp-core/zp-extensions/dynamic-locale.php:214
 #, fuzzy
 msgid "subdomain"
 msgstr "undirlén"
 
-#: zp-core/zp-extensions/dynamic-locale.php:222
-#: zp-core/zp-extensions/dynamic-locale.php:224
-#: zp-core/zp-extensions/dynamic-locale.php:227
+#: zp-core/zp-extensions/dynamic-locale.php:214
+#: zp-core/zp-extensions/dynamic-locale.php:216
+#: zp-core/zp-extensions/dynamic-locale.php:219
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:52
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:144
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:152
@@ -21769,42 +21724,52 @@ msgstr "undirlén"
 msgid "URL"
 msgstr "Tengill vefsíðu þinnar er ógildur"
 
-#: zp-core/zp-extensions/dynamic-locale.php:222
+#: zp-core/zp-extensions/dynamic-locale.php:214
 #: zp-core/zp-extensions/rewriteTokens.php:81
 #, fuzzy
 msgid "disabled"
-msgstr "óvirk"
+msgstr "óvirkt"
 
-#: zp-core/zp-extensions/dynamic-locale.php:225
+#: zp-core/zp-extensions/dynamic-locale.php:217
 #, fuzzy, php-format
 msgid ""
 "Select <em>URL</em> and links paths will have the language selector prepended "
-"in the form <code>%1$s/<em>language</em>/...</code>"
+"in the form <code>%1$s/<em>language</em>/...</code>."
 msgstr ""
 "Veldu <em>vefslóð</em> og tenglar slóðir hafa tungumálakennara fyrirfram á "
 "forminu <code>%1$s/ <em>language</em> /...</code>"
 
-#: zp-core/zp-extensions/dynamic-locale.php:232
+#: zp-core/zp-extensions/dynamic-locale.php:224
+#, fuzzy, php-format
+msgid ""
+"Select <em>disabled</em> and links will have the language specified via the "
+"<em>locale</em> query parameter, e.g. <code>%s/...?locale=<em>language</em></"
+"code>."
+msgstr ""
+"Veldu <em>vefslóð</em> og tenglar slóðir hafa tungumálakennara fyrirfram á "
+"forminu <code>%1$s/ <em>language</em> /...</code>"
+
+#: zp-core/zp-extensions/dynamic-locale.php:225
 #, fuzzy
 msgid "Use flags"
 msgstr "Notaðu fánar"
 
-#: zp-core/zp-extensions/dynamic-locale.php:234
+#: zp-core/zp-extensions/dynamic-locale.php:227
 #, fuzzy
 msgid "Checked produces an array of flags. Not checked produces a selector."
 msgstr "Skoðaður framleiðir fjölda fánar. Ekki köflóttur framleiðir val."
 
-#: zp-core/zp-extensions/dynamic-locale.php:235
+#: zp-core/zp-extensions/dynamic-locale.php:228
 #, fuzzy
 msgid "Language links"
 msgstr "Tungumálatenglar"
 
-#: zp-core/zp-extensions/dynamic-locale.php:239
+#: zp-core/zp-extensions/dynamic-locale.php:232
 #, fuzzy
 msgid "Site language"
 msgstr "Tungumál vefsvæðis"
 
-#: zp-core/zp-extensions/dynamic-locale.php:242
+#: zp-core/zp-extensions/dynamic-locale.php:235
 #, fuzzy
 msgid "Set the primary language for your site."
 msgstr "Stilltu aðalmálið fyrir síðuna þína."
@@ -23489,7 +23454,7 @@ msgstr "Leyfa"
 #: zp-core/zp-extensions/ipBlocker.php:80
 #, fuzzy
 msgid "Block"
-msgstr "Loka"
+msgstr "Blokk"
 
 #: zp-core/zp-extensions/ipBlocker.php:90
 #, fuzzy
@@ -23818,26 +23783,26 @@ msgid "This multimedia format is not supported by jPlayer"
 msgstr "Þetta margmiðlunarformi styður ekki jPlayer"
 
 #: zp-core/zp-extensions/jPlayer.php:361 zp-core/zp-extensions/jPlayer.php:470
-#: zp-core/zp-extensions/jPlayer.php:730
-#: zp-core/zp-extensions/slideshow2.php:285
+#: zp-core/zp-extensions/jPlayer.php:711
+#: zp-core/zp-extensions/slideshow2.php:286
 #, fuzzy
 msgid "play"
 msgstr "Spila"
 
 #: zp-core/zp-extensions/jPlayer.php:375 zp-core/zp-extensions/jPlayer.php:412
-#: zp-core/zp-extensions/jPlayer.php:743 zp-core/zp-extensions/jPlayer.php:779
+#: zp-core/zp-extensions/jPlayer.php:724 zp-core/zp-extensions/jPlayer.php:760
 #, fuzzy
 msgid "mute"
 msgstr "slökkva"
 
 #: zp-core/zp-extensions/jPlayer.php:376 zp-core/zp-extensions/jPlayer.php:413
-#: zp-core/zp-extensions/jPlayer.php:744 zp-core/zp-extensions/jPlayer.php:780
+#: zp-core/zp-extensions/jPlayer.php:725 zp-core/zp-extensions/jPlayer.php:761
 #, fuzzy
 msgid "max volume"
 msgstr "hámarks bindi"
 
 #: zp-core/zp-extensions/jPlayer.php:474
-#: zp-core/zp-extensions/slideshow2.php:283
+#: zp-core/zp-extensions/slideshow2.php:284
 #, fuzzy
 msgid "stop"
 msgstr "stöðva"
@@ -24230,53 +24195,53 @@ msgstr ""
 msgid "menu"
 msgstr "valmynd"
 
-#: zp-core/zp-extensions/menu_manager.php:613
+#: zp-core/zp-extensions/menu_manager.php:617
 #, fuzzy, php-format
 msgid "Page %1$u (Current Page)"
 msgid_plural "Page %1$u (Current Page)"
 msgstr[0] "Page% 1 $ u (núverandi síða)"
 msgstr[1] "Page% 1 $ u (núverandi síða)"
 
-#: zp-core/zp-extensions/menu_manager.php:813
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:485
+#: zp-core/zp-extensions/menu_manager.php:817
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:488
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:276
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:108
 #, fuzzy
 msgid "News index"
 msgstr "Fréttir vísitölu"
 
-#: zp-core/zp-extensions/menu_manager.php:837
-#: zp-core/zp-extensions/menu_manager.php:850
-#: zp-core/zp-extensions/menu_manager.php:863
+#: zp-core/zp-extensions/menu_manager.php:841
+#: zp-core/zp-extensions/menu_manager.php:854
+#: zp-core/zp-extensions/menu_manager.php:867
 #, fuzzy, php-format
 msgid "createMenuIfNotExists item %s has an empty link."
 msgstr "createMenuIfNotExists atriði %s hefur tómt tengil."
 
-#: zp-core/zp-extensions/menu_manager.php:843
-#: zp-core/zp-extensions/menu_manager.php:857
-#: zp-core/zp-extensions/menu_manager.php:877
-#: zp-core/zp-extensions/menu_manager.php:885
+#: zp-core/zp-extensions/menu_manager.php:847
+#: zp-core/zp-extensions/menu_manager.php:861
+#: zp-core/zp-extensions/menu_manager.php:881
+#: zp-core/zp-extensions/menu_manager.php:889
 #, fuzzy, php-format
 msgid "createMenuIfNotExists item %s has an empty title."
 msgstr "createMenuIfNotExists atriði %s hefur tóm titil."
 
-#: zp-core/zp-extensions/menu_manager.php:870
-#: zp-core/zp-extensions/menu_manager.php:893
+#: zp-core/zp-extensions/menu_manager.php:874
+#: zp-core/zp-extensions/menu_manager.php:897
 #, fuzzy, php-format
 msgid "createMenuIfNotExists item %s has an empty title or link."
 msgstr "createMenuIfNotExists atriði %s hefur tómt titil eða tengil."
 
-#: zp-core/zp-extensions/menu_manager.php:898
+#: zp-core/zp-extensions/menu_manager.php:902
 #, fuzzy, php-format
 msgid "createMenuIfNotExists item %1$s has an invalid type (%2$s)."
 msgstr "createMenuIfNotExists atriði %s hefur ógilt tegund."
 
-#: zp-core/zp-extensions/menu_manager.php:915
+#: zp-core/zp-extensions/menu_manager.php:919
 #, fuzzy, php-format
 msgid "createMenuIfNotExists item %1$s query (%2$s) failed: %3$s."
 msgstr "CreateMenuIfNotExists atriði%1$s fyrirspurn (%2$s) mistókst:%3$s."
 
-#: zp-core/zp-extensions/menu_manager.php:923
+#: zp-core/zp-extensions/menu_manager.php:927
 #, fuzzy
 msgid "createMenuIfNotExists has posted processing errors to your debug log."
 msgstr ""
@@ -24306,137 +24271,137 @@ msgstr "Markmið er ekki til"
 msgid "Ok to delete %s? This cannot be undone."
 msgstr "Allt í lagi til að eyða %s? Þetta er ekki hægt að afturkalla."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:264
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:267
 #, fuzzy
 msgid "Hidden and visible items"
 msgstr "Falinn og sýnilegur hluti"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:265
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:268
 #, fuzzy
 msgid "Visible items"
 msgstr "Sýnileg atriði"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:266
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:269
 #, fuzzy
 msgid "hidden items"
 msgstr "falin atriði"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:489
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:492
 #, fuzzy
 msgid "Menu items for all objects added."
 msgstr "Valmöguleikar fyrir alla hluti bætt við."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:493
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:496
 #, fuzzy
 msgid "Menu items for all albums added."
 msgstr "Valmöguleikar fyrir alla plötur bætt við."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:498
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:656
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:501
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:659
 #, fuzzy
 msgid "You forgot to select an album."
 msgstr "Þú gleymdi að velja albúm."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:501
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:504
 #, fuzzy, php-format
 msgid "Album menu item <em>%s</em> added"
 msgstr "Valmyndaratriði valmyndar <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:507
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:533
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:551
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:560
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:574
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:582
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:595
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:664
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:680
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:696
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:704
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:718
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:725
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:737
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:759
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:510
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:536
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:554
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:563
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:577
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:585
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:598
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:667
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:683
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:699
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:707
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:721
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:728
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:740
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:762
 #, fuzzy
 msgid "You forgot to give your menu item a <strong>title</strong>!"
 msgstr "Þú gleymdi að gefa valmyndaratriðinu þínu <strong>titil</strong> !"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:510
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:513
 #, fuzzy, php-format
 msgid "Gallery index menu item <em>%s</em> added"
 msgstr "Gallerí Vísitala valmyndaratriði <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:514
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:517
 #, fuzzy
 msgid "Menu items for all Zenpage pages added."
 msgstr "Valmöguleikar fyrir alla Zenpage síður bætt við."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:518
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:521
 #, fuzzy
 msgid "Menu items for all Zenpage categories added."
 msgstr "Valmöguleikar fyrir alla Zenpage flokka bætt við."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:524
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:542
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:672
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:688
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:761
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:527
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:545
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:675
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:691
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:764
 #, fuzzy
 msgid "You forgot to give your menu item a <strong>link</strong>!"
 msgstr "Þú gleymdi að gefa valmyndinni þinni <strong>tengil</strong> !"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:527
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:530
 #, fuzzy, php-format
 msgid "Zenpage page menu item <em>%s</em> added"
 msgstr "Zenpage síðu valmyndaratriði <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:536
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:539
 #, fuzzy, php-format
 msgid "Zenpage news index menu item <em>%s</em> added"
 msgstr "Zenpage fréttir vísitölu valmynd atriði <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:545
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:548
 #, fuzzy, php-format
 msgid "Zenpage news category menu item <em>%s</em> added"
 msgstr "Zenpage fréttir flokkur valmynd atriði <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:554
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:568
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:557
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:571
 #, fuzzy, php-format
 msgid "Custom page menu item <em>%s</em> added"
 msgstr "Sérsniðið síðu valmyndaratriði <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:565
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:587
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:600
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:709
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:730
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:742
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:568
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:590
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:603
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:712
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:733
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:745
 #, fuzzy
 msgid "You forgot to provide a <strong>function</strong>!"
 msgstr "Þú gleymdi að veita <strong>aðgerð</strong> !"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:577
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:580
 #, fuzzy
 msgid "Custom label added"
 msgstr "Sérsniðin merki bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:590
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:593
 #, fuzzy, php-format
 msgid "Function menu item <em>%s</em> added"
 msgstr "Valmyndarhlutur <em> %s</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:603
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:606
 #, fuzzy
 msgid "<em>HTML</em> added"
 msgstr "<em>HTML</em> bætt við"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:625
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:628
 #, fuzzy, php-format
 msgid "A <em>%1$s</em> item already exists in <em>%2$s </em>!"
 msgstr "Hluti <em>%1$s</em> er þegar til í <em>%2$s</em> !"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:627
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:630
 #, fuzzy, php-format
 msgid ""
 "A <em>%1$s</em> item with the link <em>%2$s</em> already exists in <em>%3$s </"
@@ -24444,12 +24409,12 @@ msgid ""
 msgstr ""
 "Hluti <em>%1$s</em> með tengilinn <em>%2$s er</em> þegar til í <em>%3$s</em> !"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:763
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:766
 #, fuzzy
 msgid "Menu item updated!"
 msgstr "Valmyndaratriði uppfært!"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:777
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:780
 #, fuzzy
 msgid "Custom menu item successfully deleted!"
 msgstr "Sérsniðið valmyndaratriði var eytt!"
@@ -24972,11 +24937,6 @@ msgstr "Engar viðbótar <em> %s</em> þemasíður í boði"
 #, fuzzy, php-format
 msgid "Query failure: %s"
 msgstr "Fyrirspurnarbilun: %s"
-
-#: zp-core/zp-extensions/nanospell.php:24
-#, fuzzy
-msgid "Spellchecker for tinyMCE."
-msgstr "Spellchecker fyrir tinyMCE."
 
 #: zp-core/zp-extensions/openstreetmap.php:21
 #, fuzzy
@@ -28162,43 +28122,43 @@ msgstr "Litur kassi titill"
 msgid "If the image title should be shown at the bottom of the Colorbox."
 msgstr "Ef myndatitillinn ætti að birtast neðst í litaboxinu."
 
-#: zp-core/zp-extensions/slideshow.php:173
-#: zp-core/zp-extensions/slideshow2.php:202
+#: zp-core/zp-extensions/slideshow.php:174
+#: zp-core/zp-extensions/slideshow2.php:203
 #, fuzzy
 msgid "Invalid slideshow album name!"
 msgstr "Ógilt myndasafni fyrir myndasýningu!"
 
-#: zp-core/zp-extensions/slideshow.php:180
-#: zp-core/zp-extensions/slideshow2.php:209
+#: zp-core/zp-extensions/slideshow.php:181
+#: zp-core/zp-extensions/slideshow2.php:210
 msgid "This album is password protected!"
 msgstr "Þetta albúm er varið með aðgangsorði!"
 
-#: zp-core/zp-extensions/slideshow.php:196
-#: zp-core/zp-extensions/slideshow2.php:277
+#: zp-core/zp-extensions/slideshow.php:197
+#: zp-core/zp-extensions/slideshow2.php:278
 #, fuzzy
 msgid "No images for the slideshow!"
 msgstr "Engar myndir fyrir myndasýningu!"
 
-#: zp-core/zp-extensions/slideshow.php:364
+#: zp-core/zp-extensions/slideshow.php:365
 msgid "Previous"
 msgstr "Fyrra"
 
-#: zp-core/zp-extensions/slideshow.php:365
+#: zp-core/zp-extensions/slideshow.php:366
 #, fuzzy
 msgid "Stop and return to album or image page"
 msgstr "Stöðva og fara aftur í albúm eða myndasíðu"
 
-#: zp-core/zp-extensions/slideshow.php:366
+#: zp-core/zp-extensions/slideshow.php:367
 #, fuzzy
 msgid "Pause (to stop the slideshow without returning)"
 msgstr "Hlé (til að stöðva myndasýningu án þess að fara aftur)"
 
-#: zp-core/zp-extensions/slideshow.php:367
+#: zp-core/zp-extensions/slideshow.php:368
 msgid "Play"
 msgstr "Spila"
 
-#: zp-core/zp-extensions/slideshow.php:460
-#: zp-core/zp-extensions/slideshow2.php:428
+#: zp-core/zp-extensions/slideshow.php:461
+#: zp-core/zp-extensions/slideshow2.php:429
 #, fuzzy
 msgid ""
 "provide the album name as %1 and (optionally) <code>true</code> (or "
@@ -28211,24 +28171,14 @@ msgstr ""
 "stjórnina. Breidd (% 3) og hæð (% 4) má einnig tilgreina til að hunsa "
 "sjálfgefið gildi."
 
-#: zp-core/zp-extensions/slideshow.php:574
-#: zp-core/zp-extensions/slideshow2.php:576
-#, fuzzy, php-format
-msgid ""
-"Slideshow not available because colorbox is not enabled on %1$s <em>%2$s</em> "
-"pages."
-msgstr ""
-"Myndasýning ekki tiltæk vegna þess að litabox er ekki virk á%1$s <em>%2$s</"
-"em> síðum."
-
-#: zp-core/zp-extensions/slideshow.php:598
-#: zp-core/zp-extensions/slideshow2.php:600
+#: zp-core/zp-extensions/slideshow.php:590
+#: zp-core/zp-extensions/slideshow2.php:592
 #, fuzzy, php-format
 msgid "image %1$s of %2$s"
 msgstr "mynd%1$s af%2$s"
 
-#: zp-core/zp-extensions/slideshow.php:706
-#: zp-core/zp-extensions/slideshow2.php:688
+#: zp-core/zp-extensions/slideshow.php:698
+#: zp-core/zp-extensions/slideshow2.php:680
 #, fuzzy
 msgid "Invalid linking to the slideshow page."
 msgstr "Ógild tenging á myndasýningu."
@@ -28384,7 +28334,7 @@ msgstr "Colorbox: Mynd titill"
 msgid "Colorbox: Slide width"
 msgstr "Colorbox: Slide width"
 
-#: zp-core/zp-extensions/slideshow2.php:284
+#: zp-core/zp-extensions/slideshow2.php:285
 #, fuzzy
 msgid "pause"
 msgstr "hlé"
@@ -28688,12 +28638,12 @@ msgstr "Þetta eru þau þemu sem hægt er að velja meðal."
 msgid "These themes are enabled but have not got their default options set:"
 msgstr "Þessir þemar eru virkar en hafa ekki fengið sjálfgefin valkosti þeirra:"
 
-#: zp-core/zp-extensions/themeSwitcher.php:173
+#: zp-core/zp-extensions/themeSwitcher.php:179
 #, fuzzy
 msgid "Switch themes"
 msgstr "Skiptu um þemu"
 
-#: zp-core/zp-extensions/themeSwitcher.php:188
+#: zp-core/zp-extensions/themeSwitcher.php:194
 #, fuzzy
 msgid ""
 "Themes will be disabled in this list if selecting them would result in a “not "
@@ -28731,12 +28681,12 @@ msgstr "fréttaflokkar"
 msgid "TinyMCE WYSIWYG editor"
 msgstr "TinyMCE WYSIWYG ritstjóri"
 
-#: zp-core/zp-extensions/tinymce.php:51
+#: zp-core/zp-extensions/tinymce.php:54
 #, fuzzy
 msgid "Text editor configuration - gallery"
 msgstr "Textaritari stillingar - gallerí"
 
-#: zp-core/zp-extensions/tinymce.php:55
+#: zp-core/zp-extensions/tinymce.php:58
 #, fuzzy
 msgid ""
 "Applies to <em>admin</em> editable text other than for Zenpage pages and news "
@@ -28744,48 +28694,48 @@ msgid ""
 msgstr ""
 "Gildir til <em>admin</em> editable texta annað en Zenpage síður og greinar."
 
-#: zp-core/zp-extensions/tinymce.php:56
+#: zp-core/zp-extensions/tinymce.php:59
 #, fuzzy
 msgid "Text editor configuration - zenpage"
 msgstr "Stillingar texta ritstjóri - zenpage"
 
-#: zp-core/zp-extensions/tinymce.php:60
+#: zp-core/zp-extensions/tinymce.php:63
 #, fuzzy
 msgid "Applies to editing on the Zenpage <em>pages</em> and <em>news</em> tabs."
 msgstr "Gildir breytingar á Zenpage <em>síðum</em> og <em>fréttablaði</em> ."
 
-#: zp-core/zp-extensions/tinymce.php:61
+#: zp-core/zp-extensions/tinymce.php:64
 #, fuzzy
 #| msgid "IPTC encoding:"
 msgid "Entity encoding"
 msgstr "Einingakóðun"
 
-#: zp-core/zp-extensions/tinymce.php:63
+#: zp-core/zp-extensions/tinymce.php:66
 #, fuzzy
 msgid "named"
 msgstr "heitir"
 
-#: zp-core/zp-extensions/tinymce.php:63
+#: zp-core/zp-extensions/tinymce.php:66
 #, fuzzy
 msgid "numeric"
 msgstr "tölur"
 
-#: zp-core/zp-extensions/tinymce.php:63
+#: zp-core/zp-extensions/tinymce.php:66
 #, fuzzy
 msgid "raw"
 msgstr "hrár"
 
-#: zp-core/zp-extensions/tinymce.php:64
+#: zp-core/zp-extensions/tinymce.php:67
 #, fuzzy
 msgid "Select the TinyMCE <em>entity_encoding</em> strategy."
 msgstr "Veldu TinyMCE <em>entity_encoding</em> stefnu."
 
-#: zp-core/zp-extensions/tinymce.php:65
+#: zp-core/zp-extensions/tinymce.php:68
 #, fuzzy
 msgid "Text editor text direction"
 msgstr "Textaritun texta átt"
 
-#: zp-core/zp-extensions/tinymce.php:67
+#: zp-core/zp-extensions/tinymce.php:70
 #, fuzzy
 msgid ""
 "This option should be checked if your language writing direction is right-to-"
@@ -28794,134 +28744,134 @@ msgstr ""
 "Þessi valkostur ætti að vera merktur ef tungumálið þitt skrifar átt er til "
 "hægri"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:37
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:35
 #, fuzzy
 #| msgid "ZenPhoto20 object insertion"
 msgid "netPhotoGraphics object insertion"
 msgstr "netPhotoGraphics mótmælainnsetning"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:49
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:47
 #, fuzzy, php-format
 msgid "<em>image</em>: %s"
 msgstr "<em>mynd</em> : %s"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:50
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:48
 #, fuzzy, php-format
 msgid "%s with link to image"
 msgstr "%s með tengil á mynd"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:60
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:58
 #, fuzzy, php-format
 msgid "<em>album</em>: %s"
 msgstr "<em>albúm</em> : %s"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:61
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:59
 #, fuzzy, php-format
 msgid "%s with link to album"
 msgstr "%s með tengil á albúm"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:76
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:74
 #, fuzzy, php-format
 msgid "<em>news article</em>: %s"
 msgstr "<em>fréttagrein</em> : %s"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:77
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:75
 #, fuzzy
 msgid "title with link to news article"
 msgstr "titill með tengil á fréttagrein"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:81
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:79
 #, fuzzy, php-format
 msgid "<em>page</em>: %s"
 msgstr "<em>síðu</em> : %s"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:82
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:80
 #, fuzzy
 msgid "title with link to page"
 msgstr "titill með hlekk til síðu"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:86
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:84
 #, fuzzy, php-format
 msgid "<em>category</em>: %s"
 msgstr "<em>flokkur</em> : %s"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:87
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:85
 #, fuzzy
 msgid "title with link to category"
 msgstr "titill með tengli í flokk"
 
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:223
 #: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:225
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:227
 #, fuzzy
 msgid "paste"
 msgstr "líma"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:240
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:238
 #, fuzzy
 msgid "thumb only"
 msgstr "aðeins þumalfingur"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:250
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:248
 #, fuzzy
 msgid "thumb with link to full-sized image"
 msgstr "þumalfingur með tengingu við mynd í fullri stærð"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:259
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:257
 #, fuzzy
 msgid "thumb with link to album"
 msgstr "þumalfingur með tengil á albúm"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:271
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:269
 #, fuzzy
 msgid "image only"
 msgstr "aðeins í myndinni"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:282
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:280
 #, fuzzy
 msgid "image with link to full-sized image"
 msgstr "mynd með tengil á mynd í fullri stærð"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:292
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:290
 #, fuzzy
 msgid "image with link to album"
 msgstr "mynd með tengil á albúm"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:302
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:300
 #, fuzzy
 msgid "Mediaplayer macro"
 msgstr "Mediaplayer makró"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:312
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:310
 #, fuzzy
 msgid "Slideshow macro"
 msgstr "Slideshow macro"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:333
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:331
 #, fuzzy
 msgid "Include caption"
 msgstr "Hafa yfirskrift"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:340
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:338
 #, fuzzy
 msgid "title only"
 msgstr "aðeins titill"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:355
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:353
 #, fuzzy
 msgid "Click to bring up the custom cropping page."
 msgstr "Smelltu til að koma upp sérsniðna uppskera síðu."
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:356
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:354
 #, fuzzy
 msgid "Custom crop"
 msgstr "Sérsniðin ræktun"
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:362
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:360
 #, fuzzy
 msgid "No object source has been chosen."
 msgstr "Engin mótmælagjafi hefur verið valinn."
 
-#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:365
+#: zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php:363
 #, fuzzy, php-format
 msgid ""
 "You can pick an object for insertion by browsing to the object and clicking "
@@ -31398,11 +31348,6 @@ msgstr "Fjöldi stafa í CAPTCHA."
 msgid "CAPTCHA font"
 msgstr "CAPTCHA leturgerð"
 
-#: zp-core/zp-extensions/zpCaptcha.php:62
-#, fuzzy
-msgid "random"
-msgstr "handahófi"
-
 #: zp-core/zp-extensions/zpCaptcha.php:63
 #, fuzzy
 msgid "The font to use for CAPTCHA characters."
@@ -31426,3 +31371,57 @@ msgstr ""
 #, fuzzy
 msgid "Sample CAPTCHA image"
 msgstr "Dæmi um CAPTCHA mynd"
+
+#, fuzzy
+#~ msgid "Your server software has changed from %1$s to %2$s."
+#~ msgstr "Miðlarinn þinn hefur breyst frá%1$s til%2$s."
+
+#, fuzzy
+#~ msgid "Your database software has changed from %1$s to %2$s."
+#~ msgstr "Gagnasafn hugbúnaður hefur breyst frá%1$s til%2$s."
+
+#, fuzzy
+#~ msgid "Assume HTML5"
+#~ msgstr "Gerðu ráð fyrir HTML5"
+
+#, fuzzy
+#~ msgid ""
+#~ "If checked <code>mp3</code> and <code>mp4</code> files will be handled "
+#~ "with the HTML5 <em>video</em> and <em>audio</em> tags. Otherwise these "
+#~ "must be handled via a multimedia player plugin."
+#~ msgstr ""
+#~ "Ef köflótt <code>mp3</code> og <code>mp4</code> skrár verða meðhöndluð með "
+#~ "HTML5 <em>vídeó</em> og <em>hljóðmerki</em> . Annars verður þetta að vera "
+#~ "meðhöndluð í gegnum margmiðlunarspilara."
+
+#, fuzzy
+#~ msgid "Quicktime video width"
+#~ msgstr "Quicktime vídeó breidd"
+
+#, fuzzy
+#~ msgid "Quicktime video height"
+#~ msgstr "Quicktime vídeó hæð"
+
+#, fuzzy
+#~ msgid "3gp video width"
+#~ msgstr "3gp vídeó breidd"
+
+#, fuzzy
+#~ msgid "3gp video height"
+#~ msgstr "3gp vídeó hæð"
+
+#, fuzzy
+#~ msgid "The %1$s scripts for which Colorbox is enabled."
+#~ msgstr "The%1$s forskriftir sem Colorbox er virkt."
+
+#, fuzzy
+#~ msgid "Spellchecker for tinyMCE."
+#~ msgstr "Spellchecker fyrir tinyMCE."
+
+#, fuzzy
+#~ msgid ""
+#~ "Slideshow not available because colorbox is not enabled on %1$s <em>%2$s</"
+#~ "em> pages."
+#~ msgstr ""
+#~ "Myndasýning ekki tiltæk vegna þess að litabox er ekki virk á%1$s <em>%2$s</"
+#~ "em> síðum."

@@ -609,20 +609,28 @@ function timezoneDiff($server, $local) {
  * @param string $text to be translated
  */
 function getAllTranslations($text) {
+	global $__languages, $__translations_seen;
+	$hash = md5($text);
+	if (isset($__translations_seen[$hash]) && $__translations_seen[$hash]['text'] == $text) {
+		return $__translations_seen[$hash]['translations'];
+	}
+	if (!$__languages) {
+		$__languages = generateLanguageList();
+		$key = array_search('en_US', $__languages);
+		unset($__languages[$key]);
+	}
 	$entry_locale = getUserLocale();
 	$result = array('en_US' => $text);
-	$languages = generateLanguageList();
-	$key = array_search('en_US', $languages);
-	unset($languages[$key]);
-	foreach ($languages as $language) {
+	foreach ($__languages as $language) {
 		setupCurrentLocale($language);
 		$xlated = gettext($text);
 		if ($xlated != $text) { // the string has a translation in this language
 			$result[$language] = $xlated;
 		}
 	}
+	$__translations_seen[$hash] = array('text' => $text, 'translations' => $translated = serialize($result));
 	setupCurrentLocale($entry_locale);
-	return serialize($result);
+	return $translated;
 }
 
 if (function_exists('date_default_timezone_set')) { // insure a correct time zone

@@ -50,7 +50,7 @@ if (empty($alb)) {
 if (!(false === ($requirePath = getPlugin('themeoptions.php', $themename)))) {
 	require_once($requirePath);
 	$_zp_gallery->setCurrentTheme($themename);
-	$optionHandler = new ThemeOptions();
+	$optionHandler = new ThemeOptions(!getThemeOption('constructed', $_set_theme_album, $themename));
 } else {
 	$optionHandler = NULL;
 }
@@ -92,6 +92,7 @@ function saveOptions() {
 
 			$themeswitch = true;
 		} else {
+			setThemeOption('constructed', 1, $_set_theme_album, $themename);
 			$ncw = $cw = getThemeOption('thumb_crop_width', $_set_theme_album, $themename);
 			$nch = $ch = getThemeOption('thumb_crop_height', $_set_theme_album, $themename);
 			if (isset($_POST['image_size']))
@@ -238,7 +239,7 @@ function getOptionContent() {
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
 								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');
-												$('#themeoptionsform').submit();">
+										$('#themeoptionsform').submit();">
 													<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
@@ -570,7 +571,7 @@ function getOptionContent() {
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
 								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');
-												$('#themeoptionsform').submit();">
+										$('#themeoptionsform').submit();">
 													<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>

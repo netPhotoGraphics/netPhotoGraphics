@@ -189,6 +189,9 @@ function getItemTitleAndURL($item) {
 	$array = array();
 	$valid = true;
 	$title = get_language_string($item['title']);
+	if (empty($title)) {
+		$title = $item['link'];
+	}
 	switch ($item['type']) {
 		case "galleryindex":
 			$array = array("title" => get_language_string($item['title']), "url" => WEBPATH, "name" => WEBPATH, 'protected' => false, 'theme' => $themename);
@@ -270,11 +273,12 @@ function getItemTitleAndURL($item) {
 			$array = array("title" => get_language_string($item['title']), "url" => $item['link'], "name" => $item['link'], 'protected' => false, 'theme' => $themename);
 			break;
 	}
-	$limit = MENU_TRUNCATE_STRING;
-	$array['valid'] = $valid;
-	if ($limit) {
-		$array['title'] = shortenContent($array['title'], $limit, MENU_TRUNCATE_INDICATOR);
+
+	if (MENU_TRUNCATE_STRING) {
+		$array['title'] = shortenContent($array['title'], MENU_TRUNCATE_STRING, MENU_TRUNCATE_INDICATOR);
 	}
+	$array['valid'] = $valid;
+
 	return $array;
 }
 
@@ -767,7 +771,34 @@ function submenuOf($link, $menuset = 'default') {
 }
 
 /**
- * Creates a menu set from the items passed. But only if the menu set does not already exist
+ * checks if there is a menu by the name $menuset
+ *
+ * @param string $menuset
+ */
+function menuExists($menuset) {
+	return db_count('menu', 'WHERE menuset=' . db_quote($menuset));
+}
+
+/**
+ * Creates a menu set from the items passed if the menu set does not already exist
+ *
+ * NOTE: it is better to check use menuExists() to check and createMenu() to built
+ * the menu if the menu is multi-lingual. This avoids the overhead of doing the gettext()
+ * translations for each menu item. This latter can chew up a lot of processing.
+ *
+ * @param array $menuitems
+ * @param string $menuset
+ * @return true if the menuset was created successfully
+ */
+function createMenuIfNotExists($menuitems, $menuset = 'default') {
+	if (!menuExists($menuset)) {
+		return createMenu($menuitems, $menuset);
+	}
+	return false;
+}
+
+/**
+ * Creates a menu set from the items passed.
  * @param array $menuitems items for the menuset
  * 		array elements:
  * 			'type'=>menuset type
@@ -778,149 +809,145 @@ function submenuOf($link, $menuset = 'default') {
  *
  * @param string $menuset current menuset
  */
-function createMenuIfNotExists($menuitems, $menuset = 'default') {
-	$count = db_count('menu', 'WHERE menuset=' . db_quote($menuset));
-	if ($count == 0) { // there was not an existing menu set
-		require_once(dirname(__FILE__) . '/menu_manager/menu_manager-admin-functions.php');
-		$success = 1;
-		$orders = array();
-		foreach ($menuitems as $key => $result) {
-			if (array_key_exists('nesting', $result)) {
-				$nesting = $result['nesting'];
-			} else {
-				$nesting = 0;
-			}
-			while ($nesting + 1 < count($orders))
-				array_pop($orders);
-			while ($nesting + 1 > count($orders))
-				array_push($orders, -1);
-			$result['id'] = 0;
-			if (isset($result['include_li'])) {
-				$includeli = $result['include_li'];
-			} else {
-				$includeli = 1;
-			}
-			$type = $result['type'];
-			switch ($type) {
-				case 'all_items':
-					$orders[$nesting] ++;
-					query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
-									"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','galleryindex','1'," . db_quote($menuset) . ',' . db_quote($orders), true);
-					$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
-					if (extensionEnabled('zenpage')) {
-						$orders[$nesting] ++;
-						query("INSERT INTO " . prefix('menu') . " (title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
-										"VALUES ('" . gettext('News index') . "', '" . getNewsIndexURL() . "','newsindex','1'," . db_quote($menuset) . ',' . db_quote(sprintf('%03u', $base + 1)), true);
-						$orders[$nesting] = addPagesToDatabase($menuset, $orders) + 1;
-						$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
-					}
-					$type = false;
-					break;
-				case 'all_albums':
-					$orders[$nesting] ++;
-					$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
-					$type = false;
-					break;
-				case 'all_Pages':
-					$orders[$nesting] ++;
-					$orders[$nesting] = addPagesToDatabase($menuset, $orders);
-					$type = false;
-					break;
-				case 'all_categories':
-					$orders[$nesting] ++;
-					$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
-					$type = false;
-					break;
-				case 'album':
-					if (empty($result['link'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty link.'), $key), $result);
-					}
-					break;
-				case 'galleryindex':
-					if (empty($result['title'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty title.'), $key), $result);
-					}
-					$result['link'] = NULL;
-					break;
-				case 'page':
-					if (empty($result['link'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty link.'), $key), $result);
-					}
-					break;
-				case 'newsindex':
-					$result['link'] = NULL;
-					if (empty($result['title'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty title.'), $key), $result);
-					}
-					break;
-				case 'category':
-					if (empty($result['link'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty link.'), $key), $result);
-					}
-					$result['link'] = NULL;
-					break;
-				case 'custompage':
-					if (empty($result['title']) || empty($result['link'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty title or link.'), $key), $result);
-					}
-					break;
-				case 'dynamiclink':
-				case 'customlink':
-					if (empty($result['title'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty title.'), $key), $result);
-					} else if (empty($result['link'])) {
-						$result['link'] = seoFriendly(get_language_string($result['title']));
-					}
-					break;
-				case 'menulabel':
-					if (empty($result['title'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty title.'), $key), $result);
-					}
-					$result['link'] = sha1($result['title']);
-					break;
-				case 'menufunction':
-				case 'html':
-					if (empty($result['title']) || empty($result['link'])) {
-						$success = -1;
-						debugLogVar(sprintf(gettext('createMenuIfNotExists item %s has an empty title or link.'), $key), $result);
-					}
-					break;
-				default:
-					$success = -1;
-					debugLogVar(sprintf(gettext('createMenuIfNotExists item %1$s has an invalid type (%2$s).'), $key, $type), $result);
-					break;
-			}
-			if ($success > 0 && $type) {
+function createMenu($menuitems, $menuset = 'default') {
+	require_once(dirname(__FILE__) . '/menu_manager/menu_manager-admin-functions.php');
+	$success = 1;
+	$orders = array();
+	foreach ($menuitems as $key => $result) {
+		if (array_key_exists('nesting', $result)) {
+			$nesting = $result['nesting'];
+		} else {
+			$nesting = 0;
+		}
+		while ($nesting + 1 < count($orders))
+			array_pop($orders);
+		while ($nesting + 1 > count($orders))
+			array_push($orders, -1);
+		$result['id'] = 0;
+		if (isset($result['include_li'])) {
+			$includeli = $result['include_li'];
+		} else {
+			$includeli = 1;
+		}
+		$type = $result['type'];
+		switch ($type) {
+			case 'all_items':
 				$orders[$nesting] ++;
-				$sort_order = '';
-				for ($i = 0; $i < count($orders); $i++) {
-					$sort_order .= sprintf('%03u', $orders[$i]) . '-';
+				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
+								"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','galleryindex','1'," . db_quote($menuset) . ',' . db_quote($orders), true);
+				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
+				if (extensionEnabled('zenpage')) {
+					$orders[$nesting] ++;
+					query("INSERT INTO " . prefix('menu') . " (title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
+									"VALUES ('" . gettext('News index') . "', '" . getNewsIndexURL() . "','newsindex','1'," . db_quote($menuset) . ',' . db_quote(sprintf('%03u', $base + 1)), true);
+					$orders[$nesting] = addPagesToDatabase($menuset, $orders) + 1;
+					$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
 				}
-				$sort_order = substr($sort_order, 0, -1);
-				$sql = "INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`,`include_li`) " .
-								"VALUES (" . db_quote($result['title']) .
-								", " . db_quote($result['link']) .
-								"," . db_quote($result['type']) . "," . $result['show'] .
-								"," . db_quote($menuset) . "," . db_quote($sort_order) . ",$includeli)";
-				if (!query($sql, false)) {
-					$success = -2;
-					debugLog(sprintf(gettext('createMenuIfNotExists item %1$s query (%2$s) failed: %3$s.'), $key, $sql, db_error()));
+				$type = false;
+				break;
+			case 'all_albums':
+				$orders[$nesting] ++;
+				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
+				$type = false;
+				break;
+			case 'all_Pages':
+				$orders[$nesting] ++;
+				$orders[$nesting] = addPagesToDatabase($menuset, $orders);
+				$type = false;
+				break;
+			case 'all_categories':
+				$orders[$nesting] ++;
+				$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
+				$type = false;
+				break;
+			case 'album':
+				if (empty($result['link'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty link.'), $key), $result);
 				}
+				break;
+			case 'galleryindex':
+				if (empty($result['title'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+				}
+				$result['link'] = NULL;
+				break;
+			case 'page':
+				if (empty($result['link'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty link.'), $key), $result);
+				}
+				break;
+			case 'newsindex':
+				$result['link'] = NULL;
+				if (empty($result['title'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+				}
+				break;
+			case 'category':
+				if (empty($result['link'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty link.'), $key), $result);
+				}
+				$result['link'] = NULL;
+				break;
+			case 'custompage':
+				if (empty($result['title']) || empty($result['link'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty title or link.'), $key), $result);
+				}
+				break;
+			case 'dynamiclink':
+			case 'customlink':
+				if (empty($result['title'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+				} else if (empty($result['link'])) {
+					$result['link'] = seoFriendly(get_language_string($result['title']));
+				}
+				break;
+			case 'menulabel':
+				if (empty($result['title'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+				}
+				$result['link'] = sha1($result['title']);
+				break;
+			case 'menufunction':
+			case 'html':
+				if (empty($result['title']) || empty($result['link'])) {
+					$success = -1;
+					debugLogVar(sprintf(gettext('createMenu item %s has an empty title or link.'), $key), $result);
+				}
+				break;
+			default:
+				$success = -1;
+				debugLogVar(sprintf(gettext('createMenu item %1$s has an invalid type (%2$s).'), $key, $type), $result);
+				break;
+		}
+		if ($success > 0 && $type) {
+			$orders[$nesting] ++;
+			$sort_order = '';
+			for ($i = 0; $i < count($orders); $i++) {
+				$sort_order .= sprintf('%03u', $orders[$i]) . '-';
+			}
+			$sort_order = substr($sort_order, 0, -1);
+			$sql = "INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`,`include_li`) " .
+							"VALUES (" . db_quote($result['title']) .
+							", " . db_quote($result['link']) .
+							"," . db_quote($result['type']) . "," . $result['show'] .
+							"," . db_quote($menuset) . "," . db_quote($sort_order) . ",$includeli)";
+			if (!query($sql, false)) {
+				$success = -2;
+				debugLog(sprintf(gettext('createMenu item %1$s query (%2$s) failed: %3$s.'), $key, $sql, db_error()));
 			}
 		}
-	} else {
-		$success = 0;
 	}
+
 	if ($success < 0) {
-		trigger_error(gettext('createMenuIfNotExists has posted processing errors to your debug log.'), E_USER_NOTICE);
+		trigger_error(gettext('createMenu has posted processing errors to your debug log.'), E_USER_NOTICE);
 	}
 	return $success;
 }

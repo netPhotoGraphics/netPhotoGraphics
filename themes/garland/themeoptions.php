@@ -4,7 +4,8 @@ require_once(dirname(__FILE__) . '/functions.php');
 
 class ThemeOptions {
 
-	function __construct() {
+	function __construct($setDefaultOptions) {
+
 		$me = basename(dirname(__FILE__));
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Allow_cloud', true);
@@ -30,7 +31,7 @@ class ThemeOptions {
 			cacheManager::addCacheSize($me, 520, NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
 			cacheManager::addCacheSize($me, 85, NULL, NULL, getThemeOption('thumb_crop_width'), getThemeOption('thumb_crop_height'), NULL, NULL, true, NULL, NULL, NULL);
 		}
-		if (function_exists('createMenuIfNotExists')) {
+		if (function_exists('menuExists') && !menuExists('garland')) {
 			$menuitems = array(
 					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
@@ -53,7 +54,7 @@ class ThemeOptions {
 				);
 				$menuitems = array_merge($menuitems, $rssItems);
 			}
-			createMenuIfNotExists($menuitems, 'garland');
+			createMenu($menuitems, 'garland');
 		}
 	}
 

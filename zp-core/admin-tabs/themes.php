@@ -34,13 +34,15 @@ if (isset($_GET['action'])) {
 					$_set_theme_album->setAlbumTheme($newtheme);
 					$_set_theme_album->save();
 				}
-				$opthandler = SERVERPATH . '/' . THEMEFOLDER . '/' . $newtheme . '/themeoptions.php';
-				if (file_exists($opthandler)) {
-					require_once($opthandler);
-					$opt = new ThemeOptions(); //	prime the default options!
+				if (!getThemeOption('constructed', $_set_theme_album, $newtheme)) {
+					$opthandler = SERVERPATH . '/' . THEMEFOLDER . '/' . $newtheme . '/themeoptions.php';
+					if (file_exists($opthandler)) {
+						require_once($opthandler);
+						$opt = new ThemeOptions(true); //	prime the default options!
+					}
+					/* set any "standard" options that may not have been covered by the theme */
+					standardThemeOptions($newtheme, $_set_theme_album);
 				}
-				/* set any "standard" options that may not have been covered by the theme */
-				standardThemeOptions($newtheme, $_set_theme_album);
 				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/themes.php?themealbum=" . sanitize($_GET['themealbum']));
 				exit();
 			}

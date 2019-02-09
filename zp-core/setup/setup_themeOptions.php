@@ -40,7 +40,9 @@ if (!empty($requirePath)) {
 
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/themeoptions.php');
 	/* prime the default theme options */
-	$optionHandler = new ThemeOptions();
+	$optionHandler = new ThemeOptions(true);
+	setThemeOption('constructed', 1, NULL, $theme); //	mark the theme "constructed"
+
 	setupLog(sprintf(gettext('Theme:%s option interface instantiated'), $theme), $fullLog);
 }
 /* then set any "standard" options that may not have been covered by the theme */

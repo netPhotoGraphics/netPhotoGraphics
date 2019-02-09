@@ -883,6 +883,9 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 	$_zp_current_article, $_zp_current_page, $_zp_gallery, $_zp_loggedin, $_zp_HTML_cache;
 	$_zp_last_album = zp_getCookie('zenphoto_last_album');
 	if (is_object($zp_request) && get_class($zp_request) == 'SearchEngine') { //	we are are on a search
+		if (is_null($album)) {
+			zp_clearCookie('zenphoto_last_album');
+		}
 		return $zp_request->getAlbumList();
 	}
 	$params = zp_getCookie('zenphoto_search_params');
@@ -903,7 +906,9 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 				$context = $context | ZP_SEARCH_LINKED | ZP_IMAGE_LINKED;
 			}
 		}
-		if (!is_null($album)) {
+		if (is_null($album)) {
+			zp_clearCookie('zenphoto_last_album');
+		} else {
 			$albumname = $album->name;
 			zp_setCookie('zenphoto_last_album', $albumname);
 			if (hasDynamicAlbumSuffix($albumname) && !is_dir(ALBUM_FOLDER_SERVERPATH . $albumname)) {
@@ -920,8 +925,6 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 					break;
 				}
 			}
-		} else {
-			zp_clearCookie('zenphoto_last_album');
 		}
 		if (!is_null($_zp_current_page)) {
 			$pages = $_zp_current_search->getPages();

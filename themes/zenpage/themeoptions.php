@@ -11,7 +11,8 @@
 
 class ThemeOptions {
 
-	function __construct() {
+	function __construct($setDefaultOptions) {
+
 		$me = basename(dirname(__FILE__));
 		setThemeOptionDefault('zenpage_zp_index_news', false);
 		setThemeOptionDefault('Allow_search', true);
@@ -36,7 +37,7 @@ class ThemeOptions {
 			cacheManager::addCacheSize($me, NULL, 580, 580, NULL, NULL, NULL, NULL, NULL, false, NULL, true);
 			cacheManager::addCacheSize($me, 95, NULL, NULL, getThemeOption('thumb_crop_width'), getThemeOption('thumb_crop_height'), NULL, NULL, true, NULL, NULL, NULL);
 		}
-		if (function_exists('createMenuIfNotExists')) {
+		if (function_exists('menuExists') && !menuExists('zenpage')) {
 			$menuitems = array(
 					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
@@ -50,7 +51,7 @@ class ThemeOptions {
 					array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printPageMenu("list","","menu-active","inner_ul","menu-active","",0,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1, getOption("menu_manager_truncate_string"))
 			);
-			createMenuIfNotExists($menuitems, 'zenpage');
+			createMenu($menuitems, 'zenpage');
 		}
 	}
 
