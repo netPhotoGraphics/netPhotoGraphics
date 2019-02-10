@@ -92,7 +92,7 @@ class VideoJS {
 		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
 		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
 		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . 'VideoJS/videojs-resolution-switcher.js');
+		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.js');
 	}
 
 	/**
