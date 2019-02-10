@@ -2238,7 +2238,7 @@ function scriptLoader($script, $inline = 1) {
 			if (!$found) { //	no unresolved self relative links
 				if (getSuffix($scriptFS) == 'css') {
 					?>
-					<style type="text/css">/* src="<?php echo $script; ?>" */
+					<style type="text/css">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
 					<?php
 					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
 					$content = str_replace(': ', ':', $content);
@@ -2248,7 +2248,7 @@ function scriptLoader($script, $inline = 1) {
 					<?php
 				} else {
 					?>
-					<script type="text/javascript">/* src="<?php echo $script; ?>" */
+					<script type="text/javascript">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
 					<?php
 					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
 					$content = preg_replace('~//.*~', '', $content);
