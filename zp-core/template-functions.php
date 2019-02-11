@@ -3066,7 +3066,7 @@ function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $crop
 		$id = ' id="' . $id . '"';
 	}
 	if ($class) {
-		$id = ' class="' . $class . '"';
+		$class = ' class="' . $class . '"';
 	}
 	if ($title) {
 		$title = ' title="' . html_encode($title) . '"';
@@ -3075,8 +3075,6 @@ function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $crop
 		$html = '<img src="' . pathurlencode(getCustomImageURL($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin, $effects)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
-		$sizing .
-						' />';
 		$html = zp_apply_filter('custom_image_html', $html, $thumbStandin);
 		echo $html;
 	} else { // better be a plugin
