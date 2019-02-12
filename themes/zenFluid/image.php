@@ -29,8 +29,11 @@ zp_apply_filter('theme_file_top')
 			</div>
 			<?php 
 		}
+		$metadata = getImageMetaData(NULL,false);
 		if (isImagePhoto()) {
 			$doSlideShowLink = true;
+			$imgWidth = $metadata['width'];
+			$imgHeight = $metadata['height'];
 			echo ImageJS($titleMargin,$stageWidth,getOption('zenfluid_stageimage'));
 			if (zp_has_filter('theme_head', 'colorbox::css')) {
 				echo colorBoxJS();
@@ -47,7 +50,7 @@ zp_apply_filter('theme_file_top')
 				if (!empty($tburl)) {
 					echo '<a href="' . pathurlencode($tburl) . '" ' . $boxclass . ' title="' . getBareImageTitle() . '">' . "\n";
 				}
-				printCustomSizedImageMaxSpace(getBareImageTitle(),null,null,"imgheight border");
+				printCustomSizedImageMaxSpace(getBareImageTitle(),$imgWidth,$imgHeight,"imgheight border");
 				if (!empty($tburl)) {
 					echo "\n</a>\n";
 				}
@@ -55,16 +58,15 @@ zp_apply_filter('theme_file_top')
 			</div>
 			<?php 
 		} else {
-			$metadata = getImageMetaData(NULL,false);
 			$vidWidth = $metadata['VideoResolution_x'];
 			$vidHeight = $metadata['VideoResolution_y'];
-			echo vidJS($vidWidth, $vidHeight, $titleMargin, $stageWidth, getOption('zenfluid_stageimage'),$commentCount);
+			echo vidJS($vidWidth, $vidHeight, $titleMargin, $stageWidth, getOption('zenfluid_stageimage'));
 			//jPlayer adds a 40 px controls bar below the video. Others add the bar in the video.
 			$playerMarginBottom = (extensionEnabled('jPlayer')) ? 'style="margin-bottom: 44px;"' : ''; 
 			?>
 			<div class="videocontainer" <?php echo $playerMarginBottom; ?>>
 				<div class="video" <?php echo $stageStyle;?>>
-					<?php printCustomSizedImageMaxSpace(getBareImageTitle(),null,null); ?>
+					<?php printCustomSizedImageMaxSpace(getBareImageTitle(),$vidWidth,$vidHeight); ?>
 				</div>
 			</div>
 			<?php 

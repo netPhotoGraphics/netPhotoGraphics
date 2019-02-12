@@ -188,7 +188,7 @@ class ThemeOptions {
 						'key' => 'zenfluid_stagewidth',
 						'order' => 17,
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Enter the maximum width (in pixels) that the stage (everything to the right of the sidebar) should take.')
+						'desc' => gettext('Enter the maximum width (in pixels) that the stage (everything to the right of the sidebar) should take. (Enter 0 (zero) to use the maximum width)')
 				),
 				gettext('Comment maximum width') => array(
 						'key' => 'zenfluid_commentwidth',
