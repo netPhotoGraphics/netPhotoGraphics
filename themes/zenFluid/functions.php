@@ -152,9 +152,9 @@ function ImageJS($titleMargin = 0, $stageWidth = 0, $stageImage = true) {
 		function setStage(){
 			viewportwidth = $(window).width();
 			viewportheight = $(window).height();
-			titleheight = $(".title").outerHeight(true) + 4;
-			headerheight = $(".header").outerHeight(true);
-			footerheight = $(".footer").outerHeight(true);
+			if ($(".title").outerHeight(true)) { titleheight = $(".title").outerHeight(true) + 4; };
+			if ($(".header").outerHeight(true)) { headerheight = $(".header").outerHeight(true); };
+			if ($(".footer").outerHeight(true)) { footerheight = $(".footer").outerHeight(true); };
 			sidebarwidth = $("#sidebar").outerWidth(false);
 			sidebarheight = $("#sidebar").outerHeight(false) - 8;
 			bodymarginleft = parseInt($("body").css("margin-left"));
@@ -201,6 +201,7 @@ function vidJS($vidWidth, $vidHeight, $titleMargin = 50, $stageWidth = 0, $stage
 	// <!-- <![CDATA[
 		var viewportwidth;
 		var viewportheight;
+		var headerheight = 0;
 		var maxvidheight = $vidHeight;
 		var maxvidwidth = $vidWidth;
 		var vidwidth;
@@ -209,7 +210,7 @@ function vidJS($vidWidth, $vidHeight, $titleMargin = 50, $stageWidth = 0, $stage
 		function setStage(){
 			viewportwidth = $(window).width();
 			viewportheight = $(window).height();
-			headerheight = $("#header").outerHeight(true);
+			if ($("#header").outerHeight(true)) { headerheight = $("#header").outerHeight(true); };
 			vidheight = viewportheight - headerheight - $titleMargin;
 			vidwidth = viewportwidth - 204;
 			if (vidheight > maxvidheight) {
@@ -224,10 +225,12 @@ function vidJS($vidWidth, $vidHeight, $titleMargin = 50, $stageWidth = 0, $stage
 			if (vidwidth * vidratio > vidheight) {
 				vidwidth = vidheight / vidratio;
 			}
-			if ($stageImage && $stageWidth > 0 && vidwidth > $stageWidth - 4) {
+			if ($stageImage && ($stageWidth > 0) && (vidwidth > ($stageWidth - 4))) {
 				vidwidth = $stageWidth - 4;
 				vidheight = vidwidth * vidratio;
 			}
+			$("video").attr({"width" : vidwidth + "px"});
+			$("video").attr({"height" : vidheight + "px"});
 			$(".video").css({"max-width" : vidwidth + "px"});
 			$(".video").css({"max-height" : vidheight + "px"});
 			$(".video-js").css({"max-height" : vidheight + "px"});
