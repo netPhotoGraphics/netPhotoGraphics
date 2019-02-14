@@ -1919,6 +1919,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 	if (DEBUG_LOGIN) {
 		debugLogVar("zp_handle_password:", $auth);
 	}
+
 	if (isset($_POST['password']) && isset($_POST['pass'])) { // process login form
 		if (isset($_POST['user'])) {
 			$post_user = sanitize($_POST['user'], 0);
@@ -1928,7 +1929,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 		$post_pass = sanitize($_POST['pass'], 0);
 		if (!empty($auth)) {
 			$alternates = array();
-			foreach (Zenphoto_Authority::$hashList as $hash => $hi) {
+			foreach (Zenphoto_Authority::$hashList as $hi => $hash) {
 				$alternates[] = Zenphoto_Authority::passwordHash($post_user, $post_pass, $hi);
 			}
 			foreach ($auth as $try) {
@@ -1936,11 +1937,17 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				$check_auth = $try['check_auth'];
 				$check_user = $try['check_user'];
 				foreach ($alternates as $auth) {
-					$success = ($auth == $check_auth) && $post_user == $check_user;
-					if (DEBUG_LOGIN)
-						debugLog("zp_handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
-					if ($success) {
-						break 2;
+					if ($post_user == $check_user) {
+						if (strpos($auth, '$') === 0) {
+							$success = password_verify($post_pass, $auth);
+						} else {
+							$success = ($auth == $check_auth);
+						}
+						if (DEBUG_LOGIN)
+							debugLog("zp_handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
+						if ($success) {
+							break 2;
+						}
 					}
 				}
 			}

@@ -409,15 +409,7 @@ echo $refresh;
 					} else {
 						$rangeset = array();
 						if ($_zp_current_admin_obj) {
-							$admins = array($_zp_current_admin_obj->getUser() =>
-									array('id' => $_zp_current_admin_obj->getID(),
-											'user' => $_zp_current_admin_obj->getUser(),
-											'pass' => $_zp_current_admin_obj->getPass(),
-											'name' => $_zp_current_admin_obj->getName(),
-											'email' => $_zp_current_admin_obj->getEmail(),
-											'rights' => $_zp_current_admin_obj->getRights(),
-											'valid' => 1,
-											'group' => $_zp_current_admin_obj->getGroup()));
+							$admins = array($_zp_current_admin_obj->getUser() => $_zp_current_admin_obj->getData());
 							$showset = array($_zp_current_admin_obj->getUser());
 						} else {
 							$admins = $showset = array();
@@ -592,10 +584,14 @@ echo $refresh;
 							if (!empty($newuser)) {
 								$userlist[-1] = $newuser;
 							}
+							$strongHash = getOption('strong_hash');
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
 								$local_alterrights = $alterrights;
 								$userid = $user['user'];
+								if (!(isset($user['passhash']) && ($oldHash = $user['passhash']) < $strongHash)) {
+									$oldHash = false;
+								}
 								$current = in_array($userid, $showset);
 								if ($userid == $_zp_current_admin_obj->getuser()) {
 									$userobj = $_zp_current_admin_obj;
@@ -657,8 +653,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -667,7 +663,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -678,6 +674,9 @@ echo $refresh;
 																echo '<strong>' . $userid . '</strong> ';
 																if (!empty($userid)) {
 																	echo $master;
+																}
+																if ($oldHash !== false) {
+																	echo '<span title="' . sprintf(gettext('The %1$s password hashing algorithm is deprecated.'), Zenphoto_Authority::$hashList[$oldHash]) . '">' . WARNING_SIGN_ORANGE . '</span>';
 																}
 															}
 														}
@@ -757,6 +756,9 @@ echo $refresh;
 													<div class="user_left">
 														<p>
 															<?php
+															if ($oldHash && count($admins) == 1) {
+																echo '<span class="warningbox">' . WARNING_SIGN_ORANGE . ' ' . sprintf(gettext('The %1$s password hashing algorithm is deprecated.'), Zenphoto_Authority::$hashList[$oldHash]) . '</span>';
+															}
 															$pad = false;
 															$pwd = $userobj->getPass();
 															if (!empty($userid) && !$clearPass) {
