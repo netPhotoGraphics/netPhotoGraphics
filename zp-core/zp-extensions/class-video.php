@@ -327,12 +327,12 @@ class Video extends Image {
 		$ext = getSuffix($link = $this->getFullImageURL());
 		switch ($ext) {
 			case 'mp3':
-				return '<audio controls>
+				return '<audio class="audio-cv" controls>
 						<source src="' . $link . '" type="audio/mpeg">
 								' . gettext('Your browser does not support the audio tag') . '
 					</audio>';
 			case 'mp4':
-				return '<video  width="' . $w . '" height="' . $h . '" controls>
+				return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
 						<source src="' . $this->getFullImageURL() . '" type="video/' . $ext . '">
 								' . gettext('Your browser does not support the video tag') . '
 					</video>';
