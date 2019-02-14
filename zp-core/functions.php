@@ -1917,7 +1917,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 	}
 // Handle the login form.
 	if (DEBUG_LOGIN) {
-		debugLogVar("zp_handle_password:", $auth);
+		debugLogVar(["zp_handle_password:" =>  $auth]);
 	}
 
 	if (isset($_POST['password']) && isset($_POST['pass'])) { // process login form

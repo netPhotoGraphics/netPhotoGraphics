@@ -863,47 +863,47 @@ function createMenu($menuitems, $menuset = 'default') {
 			case 'album':
 				if (empty($result['link'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty link.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) =>  $result]);
 				}
 				break;
 			case 'galleryindex':
 				if (empty($result['title'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) =>  $result]);
 				}
 				$result['link'] = NULL;
 				break;
 			case 'page':
 				if (empty($result['link'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty link.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) =>  $result]);
 				}
 				break;
 			case 'newsindex':
 				$result['link'] = NULL;
 				if (empty($result['title'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) =>  $result]);
 				}
 				break;
 			case 'category':
 				if (empty($result['link'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty link.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) =>  $result]);
 				}
 				$result['link'] = NULL;
 				break;
 			case 'custompage':
 				if (empty($result['title']) || empty($result['link'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty title or link.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty title or link.'), $key) =>  $result]);
 				}
 				break;
 			case 'dynamiclink':
 			case 'customlink':
 				if (empty($result['title'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) =>  $result]);
 				} else if (empty($result['link'])) {
 					$result['link'] = seoFriendly(get_language_string($result['title']));
 				}
@@ -911,7 +911,7 @@ function createMenu($menuitems, $menuset = 'default') {
 			case 'menulabel':
 				if (empty($result['title'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty title.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) =>  $result]);
 				}
 				$result['link'] = sha1($result['title']);
 				break;
@@ -919,12 +919,12 @@ function createMenu($menuitems, $menuset = 'default') {
 			case 'html':
 				if (empty($result['title']) || empty($result['link'])) {
 					$success = -1;
-					debugLogVar(sprintf(gettext('createMenu item %s has an empty title or link.'), $key), $result);
+					debugLogVar([sprintf(gettext('createMenu item %s has an empty title or link.'), $key) =>  $result]);
 				}
 				break;
 			default:
 				$success = -1;
-				debugLogVar(sprintf(gettext('createMenu item %1$s has an invalid type (%2$s).'), $key, $type), $result);
+				debugLogVar([sprintf(gettext('createMenu item %1$s has an invalid type (%2$s).'), $key, $type) =>  $result]);
 				break;
 		}
 		if ($success > 0 && $type) {

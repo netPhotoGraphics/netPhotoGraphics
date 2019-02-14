@@ -362,7 +362,7 @@ class _Authority {
 		if (empty($authCode) || empty($id))
 			return 0; //  so we don't "match" with an empty password
 		if (DEBUG_LOGIN) {
-			debugLogVar("checkAuthorization: admins", $admins);
+			debugLogVar(["checkAuthorization: admins" => $admins]);
 		}
 		$rights = 0;
 		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
@@ -1692,8 +1692,8 @@ class _Administrator extends PersistentObject {
 					$name = ' (' . $name . ')';
 				}
 				debugLogBacktrace($this->getUser() . $name . "->setObjects()");
-				debuglogVar('old', $this->objects);
-				debuglogVar('new', $objects);
+				debugLogVar(['old' => $this->objects]);
+				debugLogVar(['new' => $objects]);
 			}
 		}
 		$this->objects = $objects;
@@ -1803,7 +1803,7 @@ class _Administrator extends PersistentObject {
 	function save() {
 		global $_zp_gallery;
 		if (DEBUG_LOGIN) {
-			debugLogVar("Zenphoto_Administrator->save()", $this);
+			debugLogVar(["Zenphoto_Administrator->save()" => $this]);
 		}
 		if (is_null($this->get('date'))) {
 			$this->set('date', date('Y-m-d H:i:s'));
@@ -1817,7 +1817,7 @@ class _Administrator extends PersistentObject {
 					$name = ' (' . $name . ')';
 				}
 				debugLogBacktrace($this->getUser() . $name . "->save()");
-				debugLogVar('objects', $this->objects);
+				debugLogVar(['objects' => $this->objects]);
 			}
 			$id = $this->getID();
 			$sql = "DELETE FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;

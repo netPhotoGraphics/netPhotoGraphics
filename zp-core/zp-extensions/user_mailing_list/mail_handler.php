@@ -56,7 +56,7 @@ foreach ($toList as $name => $email) {
 
 	$err_msg = zp_mail($subject, $message, array($name => $email), array(), array());
 	if ($err_msg) {
-		debugLogVar(gettext('user_mailing_list error'), $err_msg);
+		debugLogVar([gettext('user_mailing_list error') =>  $err_msg]);
 	}
 }
 ?>
