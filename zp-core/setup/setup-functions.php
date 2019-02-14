@@ -59,25 +59,30 @@ function getResidentZPFiles($folder, $lcFilesystem, $exclude) {
 }
 
 function primeMark($text) {
-	global $primeid;
+	global $primeid, $clearedid;
 	?>
 	<script type="text/javascript">
 		$("#prime<?php echo $primeid; ?>").remove();
 	</script>
-	<div id="prime<?php echo ++$primeid; ?>" class="error"><?php printf(gettext('Testing %s.'), $text); ?></div>
+	<div id="prime<?php echo $primeid + 1; ?>" class="error"><?php printf(gettext('Testing %s.'), $text); ?></div>
 	<?php
+	$clearedid = $primeid;
+	$primeid++;
 }
 
 function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
-	global $warn, $moreid, $primeid, $autorun, $displayLimited;
+	global $warn, $moreid, $primeid, $clearedid, $autorun, $displayLimited;
 	$classes = array('fail' => gettext('Fail: '), 'warn' => gettext('Warn: '), 'pass' => gettext('Pass: '));
 
 	$display = '';
-	?>
-	<script type="text/javascript">
-		$("#prime<?php echo $primeid; ?>").remove();
-	</script>
-	<?php
+	if ($primeid != $clearedid) {
+		?>
+		<script type="text/javascript">
+			$("#prime<?php echo $primeid; ?>").remove();
+		</script>
+		<?php
+		$clearedid = $primeid;
+	}
 	$check = (int) $check;
 	$anyway = 0;
 	$dsp = '';
