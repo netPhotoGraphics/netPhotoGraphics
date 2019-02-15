@@ -123,6 +123,7 @@ if ($MCEmenubar) {
 	} else {
 		$menu = array('file', 'edit', 'insert', 'view', 'format', 'table', 'tools');
 	}
+
 	// remove unsupported plugins
 	unset($menu['contextmenu']);
 
@@ -151,7 +152,7 @@ if ($MCEmenubar) {
 			case 'table':
 				$MCEmenubar .= "      table: {title: 'Table', items: 'inserttable tableprops deletetable | row column | cell'},\n";
 				break;
-			case 'file':
+			case 'tools':
 				$MCEmenubar .= "      tools: {title: 'Tools', items: 'spellchecker code'}\n";
 				break;
 		}
