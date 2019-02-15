@@ -584,7 +584,7 @@ echo $refresh;
 							if (!empty($newuser)) {
 								$userlist[-1] = $newuser;
 							}
-							$strongHash = getOption('strong_hash');
+							$strongHash = max(getOption('strong_hash'), (function_exists('password_hash')) ? 4 : 0);
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
 								$local_alterrights = $alterrights;
@@ -708,7 +708,7 @@ echo $refresh;
 															<span class="floatright">
 																<?php
 																if ($oldHash !== false) {
-																	echo '<span title="' . sprintf(gettext('User\' password is encrypted with the %1$s password hashing algorithm which is deprecated.'), Zenphoto_Authority::$hashList[$oldHash]) . '">' . WARNING_SIGN_ORANGE . '</span>';
+																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is deprecated.'), array_search($oldHash, Zenphoto_Authority::$hashList)) . '">' . WARNING_SIGN_ORANGE . '</span>';
 																}
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>

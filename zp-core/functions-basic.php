@@ -460,6 +460,9 @@ function mkdir_recursive($pathname, $mode) {
 }
 
 function debug_var($args) {
+	if (!is_array($args)) {
+		$args = array($args);
+	}
 	echo "<pre>\n";
 	foreach ($args as $arg => $v) {
 		if (is_string($arg)) {
