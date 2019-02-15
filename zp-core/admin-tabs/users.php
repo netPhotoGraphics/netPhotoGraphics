@@ -653,8 +653,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -663,7 +663,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -674,9 +674,6 @@ echo $refresh;
 																echo '<strong>' . $userid . '</strong> ';
 																if (!empty($userid)) {
 																	echo $master;
-																}
-																if ($oldHash !== false) {
-																	echo '<span title="' . sprintf(gettext('The %1$s password hashing algorithm is deprecated.'), Zenphoto_Authority::$hashList[$oldHash]) . '">' . WARNING_SIGN_ORANGE . '</span>';
 																}
 															}
 														}
@@ -710,12 +707,19 @@ echo $refresh;
 															?>
 															<span class="floatright">
 																<?php
+																if ($oldHash !== false) {
+																	echo '<span title="' . sprintf(gettext('User\' password is encrypted with the %1$s password hashing algorithm which is deprecated.'), Zenphoto_Authority::$hashList[$oldHash]) . '">' . WARNING_SIGN_ORANGE . '</span>';
+																}
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
 																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
 																			 <?php echo BULLSEYE_BLUE; ?>
 																	</a>
+																	<?php
+																} else {
+																	?>
+																	<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 																	<?php
 																}
 																?>
@@ -756,9 +760,6 @@ echo $refresh;
 													<div class="user_left">
 														<p>
 															<?php
-															if ($oldHash && count($admins) == 1) {
-																echo '<span class="warningbox">' . WARNING_SIGN_ORANGE . ' ' . sprintf(gettext('The %1$s password hashing algorithm is deprecated.'), Zenphoto_Authority::$hashList[$oldHash]) . '</span>';
-															}
 															$pad = false;
 															$pwd = $userobj->getPass();
 															if (!empty($userid) && !$clearPass) {

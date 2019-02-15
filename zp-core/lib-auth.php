@@ -368,12 +368,16 @@ class _Authority {
 		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
 		$user = $this->getAnAdmin($criteria);
 		if (is_object($user)) {
-			$_zp_current_admin_obj = $user;
-			$rights = $user->getRights();
-			if (DEBUG_LOGIN) {
-				debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
+			//	force new logon to update password hash if his algorithm is deprecated
+			$userdata = $user->getData();
+			if (!isset($userdata['passhash']) || $userdata['passhash'] >= getOption('strong_hash')) {
+				$_zp_current_admin_obj = $user;
+				$rights = $user->getRights();
+				if (DEBUG_LOGIN) {
+					debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
+				}
+				return $rights;
 			}
-			return $rights;
 		}
 		$_zp_current_admin_obj = NULL;
 		if (DEBUG_LOGIN) {
@@ -399,39 +403,27 @@ class _Authority {
 			if (!(function_exists('password_verify') && password_verify($pass, $hash))) {
 				$hash = self::passwordHash($user, $pass, $type);
 				if ($hash != $userobj->getPass()) {
-					//	maybe not yet updated passhash field
-					$type = -1;
-					foreach (self::$hashList as $hashv => $hashtext) {
-						$hash = self::passwordHash($user, $pass, $hashv);
-						if ($hash == $userobj->getPass()) {
-							break;
-						} else {
-							$hash = -1;
-						}
-					}
-					if ($hash === -1) {
-						$userobj = NULL;
-					}
+					$userobj = NULL;
 				}
 			}
-
 			if ($userobj && $type < getOption('strong_hash')) {
 				//	update his password hash to more modern one
 				$userobj->setPass($pass);
 				$userobj->save();
 			}
 		} else {
-			$hash = -1;
+			$hash = 'FALSE';
 		}
 
 		if (DEBUG_LOGIN) {
 			if ($userobj) {
 				$rights = sprintf('%X', $userobj->getRights());
 			} else {
-				$rights = false;
+				$rights = 'FALSE';
 			}
 			debugLog(sprintf('checkLogon(%1$s, %2$s)->%3$s', $user, $hash, $rights));
 		}
+
 		return $userobj;
 	}
 
