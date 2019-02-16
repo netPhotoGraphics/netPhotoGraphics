@@ -19,7 +19,6 @@ define('RESPOND_COUNTER', 1000);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
 $signaure = getOption('zenphoto_install');
-
 if (!$_zp_current_admin_obj || $_zp_current_admin_obj->getID()) {
 	$rights = NULL;
 } else {
@@ -27,8 +26,8 @@ if (!$_zp_current_admin_obj || $_zp_current_admin_obj->getID()) {
 }
 admin_securityChecks($rights, currentRelativeURL());
 
-if (isset($_GET['action'])) {
-	$action = $_GET['action'];
+if (isset($_REQUEST['action'])) {
+	$action = $_REQUEST['action'];
 } else {
 	$action = NULL;
 }
