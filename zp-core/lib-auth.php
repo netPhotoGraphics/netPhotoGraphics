@@ -121,7 +121,7 @@ class _Authority {
 				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
 						'order' => 2,
 						'selections' => $encodings,
-						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($encodings)) . '</code>')),
+						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($encodings)) . '</code>') . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 4,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
@@ -380,13 +380,21 @@ class _Authority {
 		if (is_object($user)) {
 			//	force new logon to update password hash if his algorithm is deprecated
 			$userdata = $user->getData();
-			if (!isset($userdata['passhash']) || $userdata['passhash'] >= getOption('strong_hash')) {
-				$_zp_current_admin_obj = $user;
-				$rights = $user->getRights();
-				if (DEBUG_LOGIN) {
-					debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
+			if (isset($userdata['passhash'])) {
+				if (($strong_hash = getOption('strong_hash')) == 9) { //	default
+					$strong_hash = 3;
+					if (function_exists('password_hash')) {
+						$strong_hash = $strong_hash + PASSWORD_DEFAULT;
+					}
 				}
-				return $rights;
+				if ($userdata['passhash'] >= $strong_hash) {
+					$_zp_current_admin_obj = $user;
+					$rights = $user->getRights();
+					if (DEBUG_LOGIN) {
+						debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
+					}
+					return $rights;
+				}
 			}
 		}
 		$_zp_current_admin_obj = NULL;

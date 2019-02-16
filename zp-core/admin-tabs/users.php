@@ -584,12 +584,19 @@ echo $refresh;
 							if (!empty($newuser)) {
 								$userlist[-1] = $newuser;
 							}
-							$strongHash = max(getOption('strong_hash'), (function_exists('password_hash')) ? 4 : 0);
+							if (function_exists('password_hash')) {
+								if (9 == $strongHash = getOption('strong_hash')) {
+									$strongHash = 3 + PASSWORD_DEFAULT;
+								}
+							} else {
+								$strongHash = 4;
+							}
+
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
 								$local_alterrights = $alterrights;
 								$userid = $user['user'];
-								if (!(isset($user['passhash']) && ($oldHash = $user['passhash']) < $strongHash)) {
+								if (!isset($user['passhash']) || ($oldHash = $user['passhash']) >= $strongHash) {
 									$oldHash = false;
 								}
 								$current = in_array($userid, $showset);
@@ -708,7 +715,7 @@ echo $refresh;
 															<span class="floatright">
 																<?php
 																if ($oldHash !== false) {
-																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is deprecated.'), array_search($oldHash, Zenphoto_Authority::$hashList)) . '">' . WARNING_SIGN_ORANGE . '</span>';
+																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than the default.'), array_search($oldHash, Zenphoto_Authority::$hashList)) . '">' . WARNING_SIGN_ORANGE . '</span>';
 																}
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
