@@ -82,10 +82,15 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 1.9.0.11</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 1.9.0.12</h2>
 <h2>General</h2>
 <p>Bug fixes and security improvements.</p>
 <p>The scripts for the administrative tabs have been reorganized. They are now located in the <em>admin-tabs</em> folder. This is not a functional change, but any third party themes or plugins which directly link to these scripts will need updating.</p>
+<h2>Security</h2>
+<p><strong>netPhotoGraphics</strong> will now use the PHP functions for password hashing and checking if they are available. These are more robust and better performing that the legacy algorithms. New algorithm choices have been added to the <em>password hash algorithm</em> option reflecting the new capabilities provided by these functions. As part of this improvement there is now a <em>default</em> selection for the option. Setting <em>default</em> as the option will automatically migrate the strength of your hashing algorithms as PHP adds new algorithms and changes its default setting. This is the recommended setting for the option.</p>
+<p>The legacy password hashing algorithms are deprecated and will be removed in a future release. Any user with a password still hashed by these algorithms at that time will be forced to use the forgotten password paths to log into the site.</p>
+<p>Part of this security enhancement is to require a new log-on for users whose passwords are hashed with a less robust algorithm than the current option setting. This logon will automatically update their saved password hash to the new algorithm.</p>
+<p>The <em>admin/user</em> page will show administrators which users currently have the less robustly hashed passwords.</p>
 <h2>Plugins</h2>
 <p><em>nanospell</em></p>
 <p>This plugin has been deprecated and will be removed. The tinyMCE configurations now enable the browser's spell checker. <em>nanospell </em>required custom installations and special licensing. Modern browsers provide a more seamless spell checking solution.</p>
@@ -94,7 +99,7 @@
 <h2>General</h2>
 <p>The standard <strong><code>.htaccess</code></strong> file has been updated to provide cache expiry headers. This, along with some script loading optimizations, will improve page load performance for your site. The possible down side to this is that is you change <em><code>JS</code> </em>or <em><code>CSS</code> </em>scripts you may need to purge your browser cache to see quickly the results of your changes. Standard <em>CSS </em>and <em>JS</em> scripts are now loaded by calling the <code>scriptLoader()</code> function. This function, in conjunction with the new DEBUG setting TESTING_MODE, will insure that these files will be re-fetched by the browser each time a page loads. If you use this function ito load your scripts the above caution is moot.</p>
 <p>The suggested <strong><code>robots.txt </code></strong>file has also been updated. A crawl delay has been added and the rules have been enhanced to include any cloned sites reachable from the site root. In addition, <code>sitemap-extended</code> will now comment and un-comment the sitemap url line when you clear/generate the sitemap files. It is recommended that you switch to this version of the <code>robots.text</code> file by deleting your original and running setup. (You may also manually install an edited copy of the source file in the <code>zp-core</code> folder if you have needed additions to the standard rules.)</p>
-<p><em>Site customizations</em>: You now may change the netPhotoGraphics logo to an image of your choice on the General options page. You may also provide a "welcome message" that will be shown to users when they log onto your site.</p>
+<p><em>Site customizations</em>: You now may change the <strong>netPhotoGraphics</strong> logo to an image of your choice on the General options page. You may also provide a "welcome message" that will be shown to users when they log onto your site.</p>
 <p><em>Image metadata</em>: The software will no longer truncate metadata strings. Even if the field exceeds the length specified by the standard the value will be stored.</p>
 <p>The site administrator(s) may now “log on” as any user. This allows them to view the site as that user would see it.</p>
 <p>Several themes and plugins have been updated, bug fixes applied, and security issues resolved.</p>
@@ -108,7 +113,7 @@
 <hr />
 <h2 style="text-align: center;">Version 1.8</h2>
 <h2>General</h2>
-<p>With this release, the name of the software has changed from ZenPhoto20 to netPhotoGraphics™.</p>
+<p>With this release, the name of the software has changed from <strong>ZenPhoto20</strong> to <strong>netPhotoGraphics</strong>™.</p>
 <p>We have invested in a new version of our language translation utility—­­­PoEdit. This version uses Microsoft Translator for web based automatic translations which should give a better mechanical translations. Still we encourage you to contribute bu reviewing your language in the PoEdit editor and submitting updates for inclusion with ZenPhotoGraphics.</p>
 <p>This release fixes multiple bugs and improves performance. For details see the change log.</p>
 <h2>Plugins</h2>
