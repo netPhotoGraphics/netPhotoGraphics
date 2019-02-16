@@ -201,7 +201,7 @@ $questions[] = getSerializedArray(getAllTranslations("When did you first get a c
 $questions[] = getSerializedArray(getAllTranslations("How much wood could a woodchuck chuck if a woodchuck could chuck wood?"));
 $questions[] = getSerializedArray(getAllTranslations("What is the date of the Ides of March?"));
 setOptionDefault('challenge_foils', serialize($questions));
-setOptionDefault('strong_hash', 1);
+setOptionDefault('strong_hash', 9);
 if (empty($admins)) { //	empty administrators table
 	$groupsdefined = NULL;
 	if (isset($_SESSION['clone'][$cloneid])) { //replicate the user who cloned the install

@@ -914,8 +914,8 @@ class _Authority {
 		$cookie = zp_getCookie('zp_user_auth');
 		$idLoc = strrpos($cookie, '.');
 		if ($idLoc) {
-			$auth = substr($cookie, 0, $idLoc);
 			$id = (int) substr($cookie, $idLoc + 1);
+			$auth = substr($cookie, 0, $idLoc);
 			$loggedin = $this->checkAuthorization($auth, $id);
 			$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
 			if ($loggedin) {
@@ -1464,7 +1464,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

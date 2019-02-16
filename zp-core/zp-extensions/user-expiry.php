@@ -189,7 +189,7 @@ class user_expiry {
 	}
 
 	static function passwordAllowed($msg, $pwd, $user) {
-		if ($id = $user->getID() > 0) {
+		if ($id = !$user->transient) {
 			$store = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="user_expiry" AND `aux`=' . $id);
 			if ($store) {
 				$used = getSerializedArray($store['data']);

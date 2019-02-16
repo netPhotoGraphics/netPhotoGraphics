@@ -94,7 +94,7 @@ if (isset($_GET['action'])) {
 			XSRFdefender('saveadmin');
 
 			$notify = $returntab = $msg = '';
-			$newuserid = @$_POST['newuser'];
+			$newuserid = (int) @$_POST['newuser'];
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -137,7 +137,6 @@ if (isset($_GET['action'])) {
 								$what = 'update';
 								$userobj = Zenphoto_Authority::newAdministrator($user);
 							}
-
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
 								if ($admin_n != $userobj->getName()) {
@@ -660,8 +659,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -670,7 +669,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -910,7 +909,7 @@ echo $refresh;
 																if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 																	$alter_rights = $local_alterrights;
 																} else {
-																	$alter_rights = ' disabled="disabled"';
+																	$alter_rights = ' disabled = "disabled"';
 																}
 																printManagedObjects('pages', $pagelist, $alter_rights, $userobj, $id, gettext('user'), NULL);
 															}
@@ -977,7 +976,7 @@ echo $refresh;
 								<?php printf(gettext('The <em>Zenphoto_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), Zenphoto_Authority::getVersion(), Zenphoto_Authority::$supports_version); ?>
 								<br class="clearall">
 								<span class="buttons">
-									<a onclick="launchScript('', ['action=migrate_rights', 'XSRFToken=<?php echo getXSRFToken('migrate_rights') ?>']);"><?php echo gettext('Migrate rights'); ?></a>
+									<a onclick="launchScript('', ['action = migrate_rights', 'XSRFToken = <?php echo getXSRFToken('migrate_rights') ?>']);"> <?php echo gettext('Migrate rights'); ?></a>
 								</span>
 								<br class="clearall">
 							</p>
