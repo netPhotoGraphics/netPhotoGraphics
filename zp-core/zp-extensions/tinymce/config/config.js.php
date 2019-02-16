@@ -125,7 +125,6 @@ if ($MCEmenubar) {
 	}
 
 	// remove unsupported plugins
-	unset($menu['contextmenu']);
 
 	$MCEmenubar = "    menu: {\n";
 	foreach ($menu as $item) {

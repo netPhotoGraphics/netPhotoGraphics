@@ -7,7 +7,7 @@
  * @author Stephen Billard (sbillard)
  */
 $MCEcss = 'dark_content.css';
-$MCEskin = "tundora";
+$MCEskin = "oxide-dark";
 $MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
 $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace visualchars visualblocks code " .
