@@ -36,15 +36,6 @@ var pasteObjPopup = {
 
 		settings = self.editor.settings;
 
-
-		// Setup local DOM
-		self.dom = self.editor.windowManager.createInstance('tinymce.dom.DOMUtils', document, {
-			ownEvents: true,
-			proxy: pasteObjPopup._eventProxy
-		});
-
-		self.dom.bind(window, 'ready', self._onDOMLoaded, self);
-
 		// Setup on init listeners
 		self.listeners = [];
 
