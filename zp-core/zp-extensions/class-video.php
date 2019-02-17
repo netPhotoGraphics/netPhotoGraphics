@@ -324,22 +324,22 @@ class Video extends Image {
 			$w = $this->getWidth();
 		if (is_null($h))
 			$h = $this->getHeight();
-		if (Video::multimediaExtension() == "pseudoPlayer") {
-			$ext = getSuffix($link = $this->getFullImageURL());
-			switch ($ext) {
-				case 'mp3':
-					return '<audio class="audio-cv" controls>
-							<source src="' . $link . '" type="audio/mpeg">
-									' . gettext('Your browser does not support the audio tag') . '
-						</audio>';
-				case 'mp4':
-					return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
-							<source src="' . $this->getFullImageURL() . '" type="video/' . $ext . '">
-									' . gettext('Your browser does not support the video tag') . '
-						</video>';
-			}
+		$ext = getSuffix($link = $this->getFullImageURL());
+		switch ($ext) {
+			case 'mp3':
+				return '<audio class="audio-cv" controls>
+						<source src="' . $link . '" type="audio/mpeg">
+								' . gettext('Your browser does not support the audio tag') . '
+					</audio>';
+			case 'mp4':
+				return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
+						<source src="' . $this->getFullImageURL() . '" type="video/' . $ext . '">
+								' . gettext('Your browser does not support the video tag') . '
+					</video>';
+			default:
+				return $_zp_multimedia_extension->getPlayerConfig($this, NULL, NULL, $w, $h);
+				break;
 		}
-		return $_zp_multimedia_extension->getPlayerConfig($this, NULL, NULL, $w, $h);
 	}
 
 	/**
