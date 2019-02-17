@@ -154,7 +154,7 @@ function zp_apply_filter($hook, $value = NULL) {
 				}
 				$new_value = call_user_func_array($the_['function'], $args);
 				if (!is_null($new_value)) {
-					$value = $new_value;
+					$args[0] = $value = $new_value;
 				}
 			}
 		}
