@@ -135,8 +135,7 @@ function zp_apply_filter($hook, $value = NULL) {
 		return $value;
 	}
 	//get the arguments for the $hook function call
-	$args = func_get_args();
-	$args = array_slice($args, 1); //	drop the $hook paremeter
+	$args = array_slice(func_get_args(), 1); //	drop the $hook paremeter
 	$args[0] = $value; //	if it was not passed
 	//
 	// Sort filters by priority
