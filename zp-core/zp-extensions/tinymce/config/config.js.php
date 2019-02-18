@@ -11,10 +11,10 @@
  *
  * <ul>
  * 	<li>$MCEselector: the class(es) upon which tinyMCE will activate</li>
- * 	<li>$MCEplugins: the list of plugins to include in the configuration</li>
+ * 	<li>$MCEplugins: array of plugins to include in the configuration</li>
  * 	<li>$MCEtoolbars: toolbar(s) for the configuration</li>
  * 	<li>$MCEstatusbar: Status to true for a status bar, false for none</li>
- * 	<li>$MCEmenubar: Status to true for a status bar, false for none</li>
+ * 	<li>$MCEmenubar: array of menu items for the menu bar, false for none</li>
  * </ul>
  *
  * And the following variables are optional, if set they will be used, otherwise default
@@ -23,6 +23,7 @@
  * <ul>
  * 	<li>$MCEdirection: set to "rtl" for right-to-left text flow</li>
  * 	<li>$MCEspecial: used to insert arbitrary initialization parameters such as styles </li>
+ *  <li>$MCEexternal: array of external plugins</li>
  * 	<li>$MCEskin: set to the override the default tinyMCE skin</li>
  * 	<li>$MCEcss: css file to be used by tinyMce</li>
  * 	<li>$MCEimage_advtab: set to <var>false</var> to disable the advanced image tab on the image insert popup (<i>style</i>, <i>borders</i>, etc.)</li>
@@ -55,6 +56,10 @@ scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 	scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
 }
+
+if ($MCEplugins && !is_array($MCEplugins)) {
+	$MCEplugins = explode(' ', preg_replace('/\s\s+/', ' ', trim($MCEplugins)));
+}
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[
@@ -86,15 +91,24 @@ if ($filehandler) {
 	<?php
 }
 ?>
-	plugins: ["<?php echo $MCEplugins; ?>"],
+	plugins: ["<?php echo implode(' ', $MCEplugins); ?>"],
 <?php
-if (strpos($MCEplugins, 'pagebreak') !== FALSE) {
+if ($MCEexternal) {
+	?>
+		external_plugins: {
+	<?php
+	foreach ($MCEexternal as $plugin => $url) {
+		echo "		  '" . $plugin . "': '" . $url . "'\n";
+	}
+	?>
+		},
+	<?php
+}
+if (in_array('pagebreak', $MCEplugins)) {
 	?>
 		pagebreak_split_block: true,
 	<?php
 }
-?>
-<?php
 if ($MCEspecial) {
 	echo $MCEspecial . ",\n";
 }
@@ -119,12 +133,10 @@ if ($MCEmenubar) {
 	if (is_array($MCEmenubar)) {
 		$menu = $MCEmenubar;
 	} else if (is_string($MCEmenubar)) {
-		$menu = explode(' ', $MCEmenubar);
+		$menu = explode(' ', preg_replace('/\s\s+/', ' ', trim($MCEmenubar)));
 	} else {
 		$menu = array('file', 'edit', 'insert', 'view', 'format', 'table', 'tools');
 	}
-
-	// remove unsupported plugins
 
 	$MCEmenubar = "    menu: {\n";
 	foreach ($menu as $item) {
@@ -137,7 +149,7 @@ if ($MCEmenubar) {
 				break;
 			case 'insert':
 				$MCEmenubar .= "      insert: {title: 'Insert', items: 'image link media";
-				if (strpos($MCEplugins, 'pasteobj') !== false) {
+				if (in_array('pasteobj', $MCEplugins)) {
 					$MCEmenubar .= " pasteobj";
 				}
 				$MCEmenubar .= " template | charmap hr | pagebreak nonbreaking anchor | insertdatetime'},\n";
