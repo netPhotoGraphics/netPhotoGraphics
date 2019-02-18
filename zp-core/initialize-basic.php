@@ -60,7 +60,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 } else {
 	define('LOG_MOD', DATA_MOD);
 }
-define('DATABASE_PREFIX', strtolower($_zp_conf_vars['mysql_prefix']));
+define('DATABASE_PREFIX', $_zp_conf_vars['mysql_prefix']);
 define('LOCAL_CHARSET', $_zp_conf_vars['charset']);
 if (!isset($_zp_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
