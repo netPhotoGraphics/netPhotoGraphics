@@ -590,6 +590,7 @@ echo $refresh;
 							} else {
 								$strongHash = 4;
 							}
+							$defaultHash = array_search($strongHash, Zenphoto_Authority::$hashList);
 
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
@@ -659,8 +660,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -669,7 +670,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -714,7 +715,7 @@ echo $refresh;
 															<span class="floatright">
 																<?php
 																if ($oldHash !== false) {
-																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than the default.'), array_search($oldHash, Zenphoto_Authority::$hashList)) . '">' . WARNING_SIGN_ORANGE . '</span>';
+																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, Zenphoto_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
 																}
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
