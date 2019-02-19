@@ -94,7 +94,7 @@ if (isset($_GET['action'])) {
 			XSRFdefender('saveadmin');
 
 			$notify = $returntab = $msg = '';
-			$newuserid = @$_POST['newuser'];
+			$newuserid = (int) @$_POST['newuser'];
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -137,7 +137,6 @@ if (isset($_GET['action'])) {
 								$what = 'update';
 								$userobj = Zenphoto_Authority::newAdministrator($user);
 							}
-
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
 								if ($admin_n != $userobj->getName()) {
@@ -409,15 +408,7 @@ echo $refresh;
 					} else {
 						$rangeset = array();
 						if ($_zp_current_admin_obj) {
-							$admins = array($_zp_current_admin_obj->getUser() =>
-									array('id' => $_zp_current_admin_obj->getID(),
-											'user' => $_zp_current_admin_obj->getUser(),
-											'pass' => $_zp_current_admin_obj->getPass(),
-											'name' => $_zp_current_admin_obj->getName(),
-											'email' => $_zp_current_admin_obj->getEmail(),
-											'rights' => $_zp_current_admin_obj->getRights(),
-											'valid' => 1,
-											'group' => $_zp_current_admin_obj->getGroup()));
+							$admins = array($_zp_current_admin_obj->getUser() => $_zp_current_admin_obj->getData());
 							$showset = array($_zp_current_admin_obj->getUser());
 						} else {
 							$admins = $showset = array();
@@ -592,10 +583,22 @@ echo $refresh;
 							if (!empty($newuser)) {
 								$userlist[-1] = $newuser;
 							}
+							if (function_exists('password_hash')) {
+								if (9 == $strongHash = getOption('strong_hash')) {
+									$strongHash = 3 + PASSWORD_DEFAULT;
+								}
+							} else {
+								$strongHash = 4;
+							}
+							$defaultHash = array_search($strongHash, Zenphoto_Authority::$hashList);
+
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
 								$local_alterrights = $alterrights;
 								$userid = $user['user'];
+								if (!isset($user['passhash']) || ($oldHash = $user['passhash']) >= $strongHash) {
+									$oldHash = false;
+								}
 								$current = in_array($userid, $showset);
 								if ($userid == $_zp_current_admin_obj->getuser()) {
 									$userobj = $_zp_current_admin_obj;
@@ -711,12 +714,19 @@ echo $refresh;
 															?>
 															<span class="floatright">
 																<?php
+																if ($oldHash !== false) {
+																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, Zenphoto_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
+																}
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
 																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
 																			 <?php echo BULLSEYE_BLUE; ?>
 																	</a>
+																	<?php
+																} else {
+																	?>
+																	<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 																	<?php
 																}
 																?>
@@ -900,7 +910,7 @@ echo $refresh;
 																if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 																	$alter_rights = $local_alterrights;
 																} else {
-																	$alter_rights = ' disabled="disabled"';
+																	$alter_rights = ' disabled = "disabled"';
 																}
 																printManagedObjects('pages', $pagelist, $alter_rights, $userobj, $id, gettext('user'), NULL);
 															}
@@ -967,7 +977,7 @@ echo $refresh;
 								<?php printf(gettext('The <em>Zenphoto_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), Zenphoto_Authority::getVersion(), Zenphoto_Authority::$supports_version); ?>
 								<br class="clearall">
 								<span class="buttons">
-									<a onclick="launchScript('', ['action=migrate_rights', 'XSRFToken=<?php echo getXSRFToken('migrate_rights') ?>']);"><?php echo gettext('Migrate rights'); ?></a>
+									<a onclick="launchScript('', ['action = migrate_rights', 'XSRFToken = <?php echo getXSRFToken('migrate_rights') ?>']);"> <?php echo gettext('Migrate rights'); ?></a>
 								</span>
 								<br class="clearall">
 							</p>

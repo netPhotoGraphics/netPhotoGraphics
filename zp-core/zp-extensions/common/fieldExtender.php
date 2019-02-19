@@ -71,6 +71,8 @@ class fieldExtender {
 	 * @param array $newfields
 	 */
 	function constructor($me, $newfields) {
+		require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
+
 		if (OFFSET_PATH == 2) {
 			//clean up creator fields
 			$sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(replaceScriptPath(__FILE__) . '[' . __LINE__ . ']') . ' WHERE `name`=' . db_quote($me . '_addedFields') . ' AND `creator` IS NULL;';

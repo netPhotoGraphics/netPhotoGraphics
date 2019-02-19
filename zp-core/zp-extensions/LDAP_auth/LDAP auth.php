@@ -149,7 +149,7 @@ class Zenphoto_Authority extends _Authority {
 		if (class_exists('user_groups')) {
 			user_groups::merge_rights($adminObj, $groups, array());
 			if (DEBUG_LOGIN) {
-				debugLogVar("LDAsetupUser: groups:", $adminObj->getGroup());
+				debugLogVar(["LDAsetupUser: groups:" =>  $adminObj->getGroup()]);
 			}
 			$rights = $adminObj->getRights() & ~ USER_RIGHTS;
 			$adminObj->setRights($rights);

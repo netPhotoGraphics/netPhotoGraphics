@@ -88,7 +88,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 							if ($str = isolate('$plugin_disable', $pluginStream)) {
 								eval($str);
 								if ($plugin_disable) {
-									continue;
+									continue 2;
 								}
 							}
 						}

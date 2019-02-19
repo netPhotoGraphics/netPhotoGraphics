@@ -18,7 +18,7 @@ class _Authority {
 	protected $master_userObj = NULL;
 	static $preferred_version = 4;
 	static $supports_version = 4;
-	static $hashList = array('pbkdf2' => 3, 'pbkdf2*' => 2, 'sha1' => 1, 'md5' => 0);
+	static $hashList = array('md5' => 0, 'sha1' => 1, 'pbkdf2*' => 2, 'pbkdf2' => 3, 'Bcrypt' => 4, 'Argon2i' => 5, 'Argon2id' => 6 /* default => 9 */);
 
 	/**
 	 * class instantiation function
@@ -27,11 +27,11 @@ class _Authority {
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('password_strength', 10);
-			setOptionDefault('min_password_lenght', 6);
-			setOptionDefault('user_album_edit_default', 1);
-			setOptionDefault('challenge_foil_enabled', 1);
-			setOptionDefault('libauth_version', self::$preferred_version);
+			setOptionDefault('password_strength ', 10);
+			setOptionDefault('min_password_lenght ', 6);
+			setOptionDefault('user_album_edit_default ', 1);
+			setOptionDefault('challenge_foil_enabled ', 1);
+			setOptionDefault('libauth_version ', self::$preferred_version);
 		}
 		$this->admin_all = $this->admin_groups = $this->admin_users = $this->admin_other = array();
 
@@ -85,27 +85,58 @@ class _Authority {
 	function getOptionsSupported() {
 		$encodings = self::$hashList;
 		unset($encodings['pbkdf2*']); // don't use this one any more
-		if (!function_exists('hash')) {
-			unset($encodings['pbkdf2']);
+		if (function_exists('password_hash')) {
+			$default = 3 + PASSWORD_DEFAULT;
+		} else {
+			$default = 3;
 		}
-		$options = array(gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
+		$encodings = array_reverse(array_merge(array_slice($encodings, 0, $default, true), array(gettext('default') . ' (' . array_search($default, $encodings) . ')' => 9), array_slice($encodings, $default, NULL, true)));
+
+		if (function_exists('password_hash')) {
+			$default = array_search(3 + PASSWORD_DEFAULT, $encodings);
+			//	deprecate these encodings
+			if (!defined('PASSWORD_ARGON2ID')) {
+				unset($encodings['Argon2id']);
+			}
+			if (!defined('PASSWORD_ARGON2I')) {
+				unset($encodings['Argon2i']);
+			}
+			if (!defined('PASSWORD_BCRYPT')) {
+				unset($encodings['Bcrypt']);
+			}
+
+			unset($encodings['pbkdf2']);
+			unset($encodings['sha1']);
+			unset($encodings['md5']);
+		}
+
+		$options = array(
+				gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
-						'desc' => gettext('Check if you want <em>edit rights</em> automatically assigned when a user <em>primary album</em> is created.')),
+						'desc' => gettext('Check if you want <em>edit rights</em> automatically assigned when a user <em>primary album</em> is created.'
+						)),
 				gettext('Minimum password strength') => array('key' => 'password_strength', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 1,
 						'desc' => sprintf(gettext('Users must provide passwords a strength of at least %s. The repeat password field will be disabled until this floor is met.'), '<span id="password_strength_display">' . getOption('password_strength') . '</span>')),
-				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 3,
+				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
+						'order' => 2,
 						'selections' => $encodings,
-						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_flip($encodings)) . '</code>')),
+						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($encodings)) . '</code>') . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 3,
+						'order' => 4,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
 		);
 		if (getOption('challenge_foil_enabled')) {
 			$options[gettext('Challenge phrase foils')] = array('key' => 'challenge_foil', 'type' => OPTION_TYPE_CUSTOM,
-					'order' => 4,
+					'order' => 5,
 					'desc' => gettext('These <em>foil</em> challenge phrases will be presented randomly. This list should not be empty, otherwise hackers can discover valid user IDs and know that there is an answer to any presented challenge phrase.'));
+		}
+		if (getOption('strong_hash') < (3 + (int) function_exists('password_hash'))) {
+
+			$options[NULL] = array('key' => 'lib_auth_note', 'type' => OPTION_TYPE_NOTE,
+					'order' => 2,
+					'desc' => '<span class="warningbox">' . gettext('You should use a more robust hashing algorithm.') . '</span>'
+			);
 		}
 		return $options;
 	}
@@ -200,7 +231,16 @@ class _Authority {
 		if (is_null($hash_type)) {
 			$hash_type = getOption('strong_hash');
 		}
+		if ($hash_type == 9) { //	default
+			$hash_type = 3;
+			if (function_exists('password_hash')) {
+				$hash_type = $hash_type + PASSWORD_DEFAULT;
+			}
+		};
 		switch ($hash_type) {
+			case 0:
+				$hash = md5($user . $pass . HASH_SEED);
+				break;
 			case 1:
 				$hash = sha1($user . $pass . HASH_SEED);
 				break;
@@ -211,8 +251,14 @@ class _Authority {
 			case 3:
 				$hash = str_replace('+', '-', base64_encode(self::pbkdf2($pass, $user . HASH_SEED)));
 				break;
-			default:
-				$hash = md5($user . $pass . HASH_SEED);
+			case 4:
+				$hash = password_hash($pass, PASSWORD_BCRYPT);
+				break;
+			case 5:
+				$hash = password_hash($pass, PASSWORD_ARGON2I);
+				break;
+			case 6:
+				$hash = password_hash($pass, PASSWORD_ARGON2ID);
 				break;
 		}
 		if (DEBUG_LOGIN) {
@@ -326,18 +372,30 @@ class _Authority {
 		if (empty($authCode) || empty($id))
 			return 0; //  so we don't "match" with an empty password
 		if (DEBUG_LOGIN) {
-			debugLogVar("checkAuthorization: admins", $admins);
+			debugLogVar(["checkAuthorization: admins" => $admins]);
 		}
 		$rights = 0;
 		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
 		$user = $this->getAnAdmin($criteria);
 		if (is_object($user)) {
-			$_zp_current_admin_obj = $user;
-			$rights = $user->getRights();
-			if (DEBUG_LOGIN) {
-				debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
+			//	force new logon to update password hash if his algorithm is deprecated
+			$userdata = $user->getData();
+			if (isset($userdata['passhash'])) {
+				if (($strong_hash = getOption('strong_hash')) == 9) { //	default
+					$strong_hash = 3;
+					if (function_exists('password_hash')) {
+						$strong_hash = $strong_hash + PASSWORD_DEFAULT;
+					}
+				}
+				if ($userdata['passhash'] >= $strong_hash) {
+					$_zp_current_admin_obj = $user;
+					$rights = $user->getRights();
+					if (DEBUG_LOGIN) {
+						debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
+					}
+					return $rights;
+				}
 			}
-			return $rights;
 		}
 		$_zp_current_admin_obj = NULL;
 		if (DEBUG_LOGIN) {
@@ -358,33 +416,32 @@ class _Authority {
 	function checkLogon($user, $pass) {
 		$userobj = $this->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 		if ($userobj) {
-			$hash = self::passwordHash($user, $pass, $userobj->get('passhash'));
-			if ($hash != $userobj->getPass()) {
-				//	maybe not yet updated passhash field
-				foreach (self::$hashList as $hashv) {
-					$hash = self::passwordHash($user, $pass, $hashv);
-					if ($hash == $userobj->getPass()) {
-						break;
-					} else {
-						$hash = -1;
-					}
-				}
-				if ($hash === -1) {
+			$hash = $userobj->getPass();
+			$type = $userobj->get('passhash');
+			if (!(function_exists('password_verify') && password_verify($pass, $hash))) {
+				$hash = self::passwordHash($user, $pass, $type);
+				if ($hash != $userobj->getPass()) {
 					$userobj = NULL;
 				}
 			}
+			if ($userobj && $type < getOption('strong_hash')) {
+				//	update his password hash to more modern one
+				$userobj->setPass($pass);
+				$userobj->save();
+			}
 		} else {
-			$hash = -1;
+			$hash = 'FALSE';
 		}
 
 		if (DEBUG_LOGIN) {
 			if ($userobj) {
 				$rights = sprintf('%X', $userobj->getRights());
 			} else {
-				$rights = false;
+				$rights = 'FALSE';
 			}
 			debugLog(sprintf('checkLogon(%1$s, %2$s)->%3$s', $user, $hash, $rights));
 		}
+
 		return $userobj;
 	}
 
@@ -854,11 +911,16 @@ class _Authority {
 	 * Checks saved cookies to see if a user is logged in
 	 */
 	function checkCookieCredentials() {
-		list($auth, $id) = explode('.', zp_getCookie('zp_user_auth') . '.');
-		$loggedin = $this->checkAuthorization($auth, (int) $id);
-		$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
-		if ($loggedin) {
-			return $loggedin;
+		$cookie = zp_getCookie('zp_user_auth');
+		$idLoc = strrpos($cookie, '.');
+		if ($idLoc) {
+			$id = (int) substr($cookie, $idLoc + 1);
+			$auth = substr($cookie, 0, $idLoc);
+			$loggedin = $this->checkAuthorization($auth, $id);
+			$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
+			if ($loggedin) {
+				return $loggedin;
+			}
 		}
 		zp_clearCookie("zp_user_auth");
 		return NULL;
@@ -1445,7 +1507,7 @@ class _Authority {
 		$hl = strlen(hash($a, null, true)); # Hash length
 		$kb = ceil($kl / $hl); # Key blocks to compute
 		$dk = ''; # Derived key
-		# Create key
+# Create key
 		for ($block = 1; $block <= $kb; $block++) {
 			# Initial hash for this block
 			$ib = $b = hash_hmac($a, $s . pack('N', $block), $p, true);
@@ -1455,7 +1517,7 @@ class _Authority {
 				$ib ^= ($b = hash_hmac($a, $b, $p, true));
 			$dk .= $ib; # Append iterated block
 		}
-		# Return derived key of correct length
+# Return derived key of correct length
 		return substr($dk, 0, $kl);
 	}
 
@@ -1640,8 +1702,8 @@ class _Administrator extends PersistentObject {
 					$name = ' (' . $name . ')';
 				}
 				debugLogBacktrace($this->getUser() . $name . "->setObjects()");
-				debuglogVar('old', $this->objects);
-				debuglogVar('new', $objects);
+				debugLogVar(['old' => $this->objects]);
+				debugLogVar(['new' => $objects]);
 			}
 		}
 		$this->objects = $objects;
@@ -1751,7 +1813,7 @@ class _Administrator extends PersistentObject {
 	function save() {
 		global $_zp_gallery;
 		if (DEBUG_LOGIN) {
-			debugLogVar("Zenphoto_Administrator->save()", $this);
+			debugLogVar(["Zenphoto_Administrator->save()" => $this]);
 		}
 		if (is_null($this->get('date'))) {
 			$this->set('date', date('Y-m-d H:i:s'));
@@ -1765,7 +1827,7 @@ class _Administrator extends PersistentObject {
 					$name = ' (' . $name . ')';
 				}
 				debugLogBacktrace($this->getUser() . $name . "->save()");
-				debugLogVar('objects', $this->objects);
+				debugLogVar(['objects' => $this->objects]);
 			}
 			$id = $this->getID();
 			$sql = "DELETE FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
@@ -1869,7 +1931,7 @@ class _Administrator extends PersistentObject {
 	 * Creates a "prime" album for the user. Album name is based on the userid
 	 */
 	function createPrimealbum($new = true, $name = NULL) {
-		//	create his album
+//	create his album
 		$t = 0;
 		$ext = '';
 		if (is_null($name)) {

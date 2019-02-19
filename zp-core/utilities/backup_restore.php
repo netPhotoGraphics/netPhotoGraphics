@@ -578,8 +578,7 @@ if (isset($_GET['compression'])) {
 						<br />
 						<div  style="max-width: 750px;">
 							<?php
-							foreach ($tables as $row) {
-								$table = preg_replace('~^' . $prefix . '~', '', array_shift($row));
+							foreach (unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate')) as $table => $row) {
 								?>
 								<span class="nowrap">
 									<label>

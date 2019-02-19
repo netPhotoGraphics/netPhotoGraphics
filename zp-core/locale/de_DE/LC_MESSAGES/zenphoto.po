@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 13:11-0800\n"
-"PO-Revision-Date: 2019-02-07 13:12-0800\n"
+"POT-Creation-Date: 2019-02-19 09:57-0800\n"
+"PO-Revision-Date: 2019-02-19 09:57-0800\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Malte Müller (acrylian)\n"
 "Language: de_DE\n"
@@ -118,13 +118,13 @@ msgstr ""
 #: zp-core/admin-tabs/edit.php:1721 zp-core/admin-tabs/themes.php:103
 #: zp-core/admin-tabs/themes.php:104 zp-core/admin_options/theme.php:10
 #: zp-core/admin_options/theme.php:11 zp-core/allTranslations.php:9
-#: zp-core/lib-auth.php:565 zp-core/lib-auth.php:566 zp-core/lib-auth.php:567
-#: zp-core/lib-auth.php:568 zp-core/lib-auth.php:569 zp-core/lib-auth.php:573
-#: zp-core/lib-auth.php:577 zp-core/lib-auth.php:585 zp-core/lib-auth.php:586
-#: zp-core/lib-auth.php:592 zp-core/lib-auth.php:593 zp-core/lib-auth.php:597
-#: zp-core/lib-auth.php:602 zp-core/lib-auth.php:603 zp-core/lib-auth.php:612
-#: zp-core/lib-auth.php:613 zp-core/lib-auth.php:620 zp-core/lib-auth.php:621
-#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:633 zp-core/lib-auth.php:635
+#: zp-core/lib-auth.php:622 zp-core/lib-auth.php:623 zp-core/lib-auth.php:624
+#: zp-core/lib-auth.php:625 zp-core/lib-auth.php:626 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:634 zp-core/lib-auth.php:642 zp-core/lib-auth.php:643
+#: zp-core/lib-auth.php:649 zp-core/lib-auth.php:650 zp-core/lib-auth.php:654
+#: zp-core/lib-auth.php:659 zp-core/lib-auth.php:660 zp-core/lib-auth.php:669
+#: zp-core/lib-auth.php:670 zp-core/lib-auth.php:677 zp-core/lib-auth.php:678
+#: zp-core/lib-auth.php:683 zp-core/lib-auth.php:690 zp-core/lib-auth.php:692
 #: zp-core/setup/setup-option-defaults.php:686
 #: zp-core/setup/setup-option-defaults.php:687
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:151
@@ -136,8 +136,8 @@ msgstr "Galerie"
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
 #: zp-core/admin.php:278 zp-core/admin.php:343 zp-core/admin.php:357
-#: zp-core/admin.php:373 zp-core/lib-auth.php:561 zp-core/lib-auth.php:580
-#: zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
+#: zp-core/admin.php:373 zp-core/lib-auth.php:618 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:662 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
 #: zp-core/zp-extensions/site_upgrade.php:173
@@ -149,7 +149,7 @@ msgstr "Verwalten"
 #: themes/garland/sidebar.php:73 themes/zenFluid/inc-sidebar.php:60
 #: themes/zenpage/sidebar.php:16 themes/zpArdoise/news.php:30
 #: themes/zpEnlighten/sidebar.php:6 themes/zpmobile/functions.php:186
-#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4014
+#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4012
 #: zp-core/zp-extensions/zenpage/admin-functions.php:835
 msgid "All"
 msgstr "Alle"
@@ -251,7 +251,7 @@ msgstr "Standard"
 msgid "Default new users to \"allowed\""
 msgstr "Standardmäßig sind neue Benutzer auf \"erlaubt\" eingestellt."
 
-#: plugins/create_album.php:136 zp-core/admin-tabs/users.php:313
+#: plugins/create_album.php:136 zp-core/admin-tabs/users.php:312
 #: zp-core/template-functions.php:134
 msgid "Users"
 msgstr "Benutzer"
@@ -356,11 +356,11 @@ msgstr ""
 #: themes/zpskeleton/inc-bottom.php:51 zp-core/admin-functions.php:2562
 #: zp-core/admin-functions.php:3847 zp-core/admin-tabs/edit.php:1794
 #: zp-core/admin_options/theme.php:262 zp-core/allTranslations.php:11
-#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:576 zp-core/lib-auth.php:587
-#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:591 zp-core/lib-auth.php:594
-#: zp-core/lib-auth.php:598 zp-core/lib-auth.php:601 zp-core/lib-auth.php:614
-#: zp-core/lib-auth.php:617 zp-core/lib-auth.php:618 zp-core/lib-auth.php:622
-#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:633 zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:647 zp-core/lib-auth.php:648 zp-core/lib-auth.php:651
+#: zp-core/lib-auth.php:655 zp-core/lib-auth.php:658 zp-core/lib-auth.php:671
+#: zp-core/lib-auth.php:674 zp-core/lib-auth.php:675 zp-core/lib-auth.php:679
+#: zp-core/lib-auth.php:684 zp-core/lib-auth.php:687
 #: zp-core/template-functions.php:117
 #: zp-core/utilities/gallery_statistics.php:68
 #: zp-core/utilities/gallery_statistics.php:579
@@ -788,8 +788,8 @@ msgstr[0] "%s-Datei aktualisiert"
 msgstr[1] "%s-Dateien aktualisiert"
 
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:193
-#: zp-core/lib-auth.php:557 zp-core/lib-auth.php:577 zp-core/lib-auth.php:602
-#: zp-core/lib-auth.php:633 zp-core/template-functions.php:154
+#: zp-core/lib-auth.php:614 zp-core/lib-auth.php:634 zp-core/lib-auth.php:659
+#: zp-core/lib-auth.php:690 zp-core/template-functions.php:154
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 msgid "Themes"
 msgstr "Themes"
@@ -813,8 +813,8 @@ msgstr "Plugins"
 #: zp-core/admin-tabs/edit.php:1739 zp-core/admin-tabs/edit.php:1776
 #: zp-core/admin-tabs/edit.php:1860 zp-core/admin-tabs/edit.php:1913
 #: zp-core/admin-tabs/plugins.php:171 zp-core/admin-tabs/plugins.php:488
-#: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:519
-#: zp-core/admin-tabs/users.php:521 zp-core/admin-tabs/users.php:950
+#: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:510
+#: zp-core/admin-tabs/users.php:512 zp-core/admin-tabs/users.php:960
 #: zp-core/admin_options/gallery.php:68 zp-core/admin_options/gallery.php:525
 #: zp-core/admin_options/general.php:167 zp-core/admin_options/general.php:169
 #: zp-core/admin_options/general.php:809 zp-core/admin_options/image.php:245
@@ -832,8 +832,8 @@ msgstr "Plugins"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
 #: zp-core/zp-extensions/crop_image.php:484
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:190
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:288
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:192
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:290
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:409
 #: zp-core/zp-extensions/publishContent/publishContent.php:249
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:179
@@ -873,7 +873,7 @@ msgstr "Anwenden"
 #: zp-core/admin-tabs/plugins.php:172 zp-core/admin-tabs/plugins.php:174
 #: zp-core/admin-tabs/plugins.php:489 zp-core/admin-tabs/plugins.php:491
 #: zp-core/admin-tabs/tags.php:249 zp-core/admin-tabs/thumbcrop.php:302
-#: zp-core/admin-tabs/users.php:525 zp-core/admin-tabs/users.php:954
+#: zp-core/admin-tabs/users.php:516 zp-core/admin-tabs/users.php:964
 #: zp-core/admin_options/gallery.php:71 zp-core/admin_options/gallery.php:528
 #: zp-core/admin_options/general.php:173 zp-core/admin_options/general.php:813
 #: zp-core/admin_options/image.php:250 zp-core/admin_options/image.php:964
@@ -881,7 +881,7 @@ msgstr "Anwenden"
 #: zp-core/admin_options/search.php:108 zp-core/admin_options/search.php:626
 #: zp-core/admin_options/security.php:85 zp-core/admin_options/security.php:330
 #: zp-core/admin_options/theme.php:248 zp-core/admin_options/theme.php:580
-#: zp-core/lib-auth.php:1126 zp-core/lib-auth.php:1128
+#: zp-core/lib-auth.php:1188 zp-core/lib-auth.php:1190
 #: zp-core/zp-extensions/contact_form/form.php:143
 #: zp-core/zp-extensions/crop_image.php:491
 #: zp-core/zp-extensions/debug/admin_tab.php:313
@@ -1101,7 +1101,7 @@ msgstr "<strong>Schlagwörter:</strong>"
 #: themes/basic/album.php:91 themes/zenFluid/404.php:19
 #: themes/zenpage/sidebar.php:80 themes/zpminimal/inc-footer.php:26
 #: themes/zpmobile/functions.php:45 zp-core/admin-functions.php:587
-#: zp-core/admin-functions.php:5519 zp-core/lib-auth.php:555
+#: zp-core/admin-functions.php:5519 zp-core/lib-auth.php:612
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:76
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:80
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:270
@@ -1206,7 +1206,7 @@ msgid "close"
 msgstr "schließen"
 
 #: themes/basic/image.php:49 themes/paradigm/image.php:22
-#: themes/zenFluid/image.php:139 themes/zenpage/image.php:48
+#: themes/zenFluid/image.php:141 themes/zenpage/image.php:48
 #: themes/zpArdoise/image.php:10 themes/zpBootstrap/image.php:21
 #: themes/zpEnlighten/image.php:48 themes/zpmasonry/image.php:24
 #: themes/zpminimal/image.php:42 themes/zpmobile/image.php:36
@@ -1215,7 +1215,7 @@ msgid "Previous Image"
 msgstr "Vorheriges Bild"
 
 #: themes/basic/image.php:53 themes/paradigm/image.php:24
-#: themes/zenFluid/image.php:151 themes/zenpage/image.php:50
+#: themes/zenFluid/image.php:153 themes/zenpage/image.php:50
 #: themes/zpArdoise/image.php:15 themes/zpBootstrap/image.php:27
 #: themes/zpEnlighten/image.php:52 themes/zpmasonry/image.php:25
 #: themes/zpminimal/image.php:43 themes/zpmobile/image.php:39
@@ -1407,7 +1407,7 @@ msgstr "Seiten (%s)"
 #: themes/basic/search.php:80 themes/basic/search.php:113
 #: themes/effervescence+/search.php:152 themes/effervescence+/search.php:185
 #: themes/garland/search.php:117 themes/garland/search.php:150
-#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:307
+#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:310
 #: themes/zenpage/functions.php:46 themes/zpEnlighten/functions.php:66
 #: themes/zpfocus/functions.php:158 themes/zpmobile/functions.php:287
 #: themes/zpskeleton/functions.php:236
@@ -1417,7 +1417,7 @@ msgstr "Mehr Ergebnisse anzeigen"
 #: themes/basic/search.php:81 themes/basic/search.php:114
 #: themes/effervescence+/search.php:153 themes/effervescence+/search.php:186
 #: themes/garland/search.php:118 themes/garland/search.php:151
-#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:308
+#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:311
 #: themes/zenpage/functions.php:47 themes/zpEnlighten/functions.php:67
 #: themes/zpfocus/functions.php:159 themes/zpmobile/functions.php:288
 #: themes/zpskeleton/functions.php:237
@@ -1485,28 +1485,28 @@ msgstr ""
 "Sie auf der Registerkarte Admin-Optionen die Option <em>Themenfarben</em> "
 "ändern."
 
-#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
-#: themes/garland/themeoptions.php:77 themes/paradigm/themeoptions.php:95
-#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:65
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:94
+#: themes/garland/themeoptions.php:76 themes/paradigm/themeoptions.php:95
+#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:64
 #: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:119
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:35
 msgid "Allow search"
 msgstr "Suche erlauben"
 
-#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
-#: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:65
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:94
+#: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:64
 #: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:123
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:35
 msgid "Check to enable search form."
 msgstr "Aktivieren, um das Suchfeld anzuzeigen."
 
-#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:102
 msgid "Theme colors"
 msgstr "Themefarben"
 
-#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:102
 msgid "Select the colors of the theme"
 msgstr "Farben für das Theme auswählen"
 
@@ -1580,7 +1580,7 @@ msgid "Random picture..."
 msgstr "Zufallsbild..."
 
 #: themes/effervescence+/functions.php:251
-#: zp-core/zp-extensions/menu_manager.php:1074
+#: zp-core/zp-extensions/menu_manager.php:1097
 #: zp-core/zp-extensions/print_album_menu.php:253
 #, php-format
 msgid "%u album"
@@ -1589,7 +1589,7 @@ msgstr[0] "%u Album"
 msgstr[1] "%u Alben"
 
 #: themes/effervescence+/functions.php:257
-#: zp-core/zp-extensions/menu_manager.php:1080
+#: zp-core/zp-extensions/menu_manager.php:1103
 #: zp-core/zp-extensions/print_album_menu.php:259
 #, php-format
 msgid "%u image"
@@ -1683,7 +1683,7 @@ msgid_plural "%u Images"
 msgstr[0] "%u Bild"
 msgstr[1] "%u Bilder"
 
-#: themes/effervescence+/functions.php:404 themes/zenFluid/image.php:180
+#: themes/effervescence+/functions.php:404 themes/zenFluid/image.php:182
 #: themes/zenFluid/news.php:63 themes/zenFluid/news.php:152
 #: themes/zenFluid/pages.php:41 themes/zpArdoise/inc_print_comment.php:32
 #: themes/zpBootstrap/inc_print_comment.php:37
@@ -1770,7 +1770,7 @@ msgstr "Innerhalb der Kategorie suchen"
 #: themes/zpskeleton/inc-header.php:69 themes/zpskeleton/inc-search.php:1
 #: themes/zpskeleton/search.php:28 zp-core/template-functions.php:467
 #: zp-core/template-functions.php:1301 zp-core/template-functions.php:1332
-#: zp-core/template-functions.php:3876
+#: zp-core/template-functions.php:3874
 #: zp-core/zp-extensions/deprecated-functions/check_for_deprecated.php:71
 #: zp-core/zp-extensions/html_meta_tags.php:252
 #: zp-core/zp-extensions/scriptless-socialsharing.php:179
@@ -1827,9 +1827,9 @@ msgstr "beide"
 #: themes/zpmobile/functions.php:201 themes/zpmobile/pagelist.php:29
 #: themes/zpmobile/pages.php:29 zp-core/admin-functions.php:3732
 #: zp-core/admin-functions.php:3903 zp-core/allTranslations.php:13
-#: zp-core/lib-auth.php:571 zp-core/lib-auth.php:574 zp-core/lib-auth.php:589
-#: zp-core/lib-auth.php:596 zp-core/lib-auth.php:600 zp-core/lib-auth.php:616
-#: zp-core/lib-auth.php:623 zp-core/lib-auth.php:625 zp-core/lib-auth.php:629
+#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:631 zp-core/lib-auth.php:646
+#: zp-core/lib-auth.php:653 zp-core/lib-auth.php:657 zp-core/lib-auth.php:673
+#: zp-core/lib-auth.php:680 zp-core/lib-auth.php:682 zp-core/lib-auth.php:686
 #: zp-core/utilities/gallery_statistics.php:76
 #: zp-core/utilities/gallery_statistics.php:597
 #: zp-core/zp-extensions/cacheManager.php:156
@@ -1880,7 +1880,7 @@ msgstr ""
 "Basiert auf Effervescence 1.1  mit mehreren Farb- und Designvarianten "
 "hinzugefügt."
 
-#: themes/effervescence+/themeoptions.php:85
+#: themes/effervescence+/themeoptions.php:84
 #, fuzzy
 #| msgid ""
 #| "<strong>Note:</strong> This option is valid only if you have the "
@@ -1895,7 +1895,7 @@ msgstr ""
 "Plugin aktiviert ist oder die Option Separate Galerie Index aktiviert ist. "
 "Natürlich muss auch das Plugin <em>menu_manager</em> aktiviert sein."
 
-#: themes/effervescence+/themeoptions.php:88 themes/garland/themeoptions.php:69
+#: themes/effervescence+/themeoptions.php:87 themes/garland/themeoptions.php:68
 #, php-format
 msgid ""
 "<strong>Note:</strong> The <em>%s</em> custom menu makes use of the "
@@ -1904,20 +1904,20 @@ msgstr ""
 "<strong>Hinweis:</strong> Das benutzerdefinierte Menü <em>%s</em> verwendet "
 "das <em>print_album_menu</em>-Plugin."
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 #| msgid "View gallery index"
 msgid "Separate gallery index"
 msgstr "Separater Galerie-Index"
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "Check to move the gallery index from the home page to gallery.php."
 msgstr ""
 "Aktivieren Sie dieses Kontrollkästchen, um den Galerieindex von der "
 "Startseite in die gallery.php zu verschieben."
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 #| msgid "<strong>ERROR: </strong>The Zenpage CMS plugin is not enabled."
 msgid "<strong>Note:</strong> this is assumed the zenpage plugin is enabled."
@@ -1925,19 +1925,19 @@ msgstr ""
 "<strong>Hinweis:</strong> Dies wird angenommen, wenn das zenpage-Plugin "
 "aktiviert ist."
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 msgid "Theme logo"
 msgstr "Themelogo"
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 msgid "The text for the theme logo"
 msgstr "Der Text für das Theme-Logo"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid "Watermark head image"
 msgstr "Kopf-Wasserzeichen"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid ""
 "Check to place a watermark on the heading image. (Image watermarking must be "
 "set.)"
@@ -1945,11 +1945,11 @@ msgstr ""
 "Anwählen, um ein Wasserzeichen auf dem Kopfbild zu platzieren "
 "(Bildwasserzeichen muß ausgewählt sein)."
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 msgid "Daily image"
 msgstr "Tägliches Bild"
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 #, fuzzy
 msgid ""
 "If checked the heading image will change daily rather than on each page load."
@@ -1957,7 +1957,7 @@ msgstr ""
 "Wenn diese Option aktiviert ist, ändert sich das Titelbild täglich und nicht "
 "bei jedem Seitenaufbau."
 
-#: themes/effervescence+/themeoptions.php:96 themes/zpArdoise/album.php:11
+#: themes/effervescence+/themeoptions.php:95 themes/zpArdoise/album.php:11
 #: themes/zpArdoise/favorites.php:14 themes/zpArdoise/image.php:24
 #: themes/zpArdoise/inc_header.php:162 themes/zpArdoise/search.php:65
 #: themes/zpArdoise/slideshow.php:6 themes/zpBootstrap/home.php:42
@@ -1970,16 +1970,16 @@ msgstr ""
 msgid "Slideshow"
 msgstr "Diaschau"
 
-#: themes/effervescence+/themeoptions.php:96
+#: themes/effervescence+/themeoptions.php:95
 msgid "Check to enable slideshow for the <em>Smoothgallery</em> personality."
 msgstr ""
 "Anwählen, um die Diaschau der <em>Smoothgallery</em>-Variante zu aktivieren."
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 msgid "Graphic logo"
 msgstr "Grafiklogo"
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 #, php-format
 msgid ""
 "Select a logo (PNG files in the <em>%s/images</em> folder) or leave empty "
@@ -1988,99 +1988,99 @@ msgstr ""
 "Ein Logo auswählen (PNG-Dateien im <em>%s/images</em>-Ordner) oder für ein "
 "Textlogo frei lassen."
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "Display theme info"
 msgstr "Themeninformationen anzeigen"
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "If checked the theme settings summary will be displayed in the footer."
 msgstr ""
 "Wenn diese Option aktiviert ist, wird die Zusammenfassung der "
 "Themeneinstellungen in der Fußzeile angezeigt."
 
-#: themes/effervescence+/themeoptions.php:99 themes/garland/themeoptions.php:74
+#: themes/effervescence+/themeoptions.php:98 themes/garland/themeoptions.php:73
 msgid "Theme personality"
 msgstr "Themevariante"
 
-#: themes/effervescence+/themeoptions.php:102
-#: themes/garland/themeoptions.php:76
+#: themes/effervescence+/themeoptions.php:101
+#: themes/garland/themeoptions.php:75
 msgid "Select the theme personality"
 msgstr "Die Themevariante auswählen"
 
-#: themes/effervescence+/themeoptions.php:104
-#: themes/garland/themeoptions.php:79
+#: themes/effervescence+/themeoptions.php:103
+#: themes/garland/themeoptions.php:78
 msgid "Custom menu"
 msgstr "Benutzerdefiniertes Menü"
 
-#: themes/effervescence+/themeoptions.php:104
-#: themes/garland/themeoptions.php:79
+#: themes/effervescence+/themeoptions.php:103
+#: themes/garland/themeoptions.php:78
 msgid "Set this to the <em>menu_manager</em> menu you wish to use."
 msgstr ""
 "Stellen Sie das <em>menu_manager</em>-Menü ein, dass Sie verwenden möchten."
 
-#: themes/effervescence+/themeoptions.php:108
-#: themes/garland/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:107
+#: themes/garland/themeoptions.php:97
 msgid "Image gallery transition"
 msgstr "Bildgalerie-Überblendung"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99 zp-core/exif/exifTranslations.php:149
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98 zp-core/exif/exifTranslations.php:149
 #: zp-core/zp-extensions/googleMap.php:93
 #: zp-core/zp-extensions/user_login-out.php:37
 msgid "None"
 msgstr "kein"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:90
 msgid "Fade"
 msgstr "Ausblenden"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 msgid "Shrink/grow"
 msgstr "Verkleinern/Vergrößern"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:88
 #: zp-core/zp-extensions/googleMap.php:96
 #: zp-core/zp-extensions/slideshow2.php:132
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:89
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:78
 #: zp-core/zp-extensions/slideshow2.php:133
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: themes/effervescence+/themeoptions.php:111
-#: themes/garland/themeoptions.php:101
+#: themes/effervescence+/themeoptions.php:110
+#: themes/garland/themeoptions.php:100
 msgid "Transition effect for Image gallery"
 msgstr "Überblendungeffekt der Bildgalerie"
 
-#: themes/effervescence+/themeoptions.php:112
-#: themes/garland/themeoptions.php:102
+#: themes/effervescence+/themeoptions.php:111
+#: themes/garland/themeoptions.php:101
 msgid "Image gallery caption"
 msgstr "Bildgaleriebeschreibung"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 msgid "On image"
 msgstr "Auf dem Bild"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 msgid "Separate"
 msgstr "getrennt"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -2090,19 +2090,19 @@ msgstr "getrennt"
 msgid "Omit"
 msgstr "Weglassen"
 
-#: themes/effervescence+/themeoptions.php:115
-#: themes/garland/themeoptions.php:105
+#: themes/effervescence+/themeoptions.php:114
+#: themes/garland/themeoptions.php:104
 msgid "Location for Image gallery picture caption"
 msgstr "Ort der Bildgalerie-Bildbeschreibung"
 
-#: themes/effervescence+/themeoptions.php:125
+#: themes/effervescence+/themeoptions.php:124
+#: themes/effervescence+/themeoptions.php:129
 #: themes/effervescence+/themeoptions.php:130
-#: themes/effervescence+/themeoptions.php:131
 msgid "Index Image"
 msgstr "Indexbild"
 
-#: themes/effervescence+/themeoptions.php:126
-#: themes/garland/themeoptions.php:94 themes/zenpage/themeoptions.php:68
+#: themes/effervescence+/themeoptions.php:125
+#: themes/garland/themeoptions.php:93 themes/zenpage/themeoptions.php:67
 #: themes/zpArdoise/inc_header.php:337 themes/zpArdoise/themeoptions.php:125
 #: themes/zpArdoise/themeoptions.php:127 themes/zpEnlighten/themeoptions.php:45
 #: themes/zpfocus/themeoptions.php:459 themes/zpskeleton/themeoptions.php:103
@@ -2122,26 +2122,26 @@ msgstr "Indexbild"
 msgid "none"
 msgstr "kein"
 
-#: themes/effervescence+/themeoptions.php:128
+#: themes/effervescence+/themeoptions.php:127
 msgid "Apply this effect to the index page image."
 msgstr "Diesen Effekt auf das Index-Seiten-Bild anwenden."
 
-#: themes/effervescence+/themeoptions.php:131
+#: themes/effervescence+/themeoptions.php:130
 msgid "This option requires the <em>image_effects</em> plugin to be enabled."
 msgstr ""
 "Diese Einstellung erfordert, dass das <em>image_effects</em>-Plugin "
 "aktiviert ist."
 
-#: themes/effervescence+/themeoptions.php:161
-#: themes/garland/themeoptions.php:124
+#: themes/effervescence+/themeoptions.php:160
+#: themes/garland/themeoptions.php:123
 msgid "*standard menu"
 msgstr "*Standardmenü"
 
-#: themes/effervescence+/themeoptions.php:168
+#: themes/effervescence+/themeoptions.php:167
 msgid "*no logo selected"
 msgstr "*Kein Logo ausgewählt"
 
-#: themes/effervescence+/themeoptions.php:169
+#: themes/effervescence+/themeoptions.php:168
 msgid "Effervescence"
 msgstr "Effervescence"
 
@@ -2176,7 +2176,7 @@ msgstr "« Voriges Album"
 #: themes/garland/album.php:122 themes/garland/image.php:141
 #: themes/garland/news.php:122 themes/garland/pages.php:69
 #: themes/garland/summary.php:72 themes/zenFluid/album.php:127
-#: themes/zenFluid/image.php:115 themes/zenFluid/news.php:108
+#: themes/zenFluid/image.php:117 themes/zenFluid/news.php:108
 #: themes/zenFluid/news.php:163 themes/zenFluid/pages.php:77
 msgid "Tags: "
 msgstr "Schlagwörter:"
@@ -2204,7 +2204,7 @@ msgid "Next image"
 msgstr "Nächstes Bild"
 
 #: themes/garland/image.php:123 themes/garland/summary.php:54
-#: themes/zenFluid/image.php:151 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:153 themes/zpmasonry/news.php:88
 msgid "Next »"
 msgstr "Weiter »"
 
@@ -2246,23 +2246,23 @@ msgstr ""
 "Modifiziertes Wordpress-Theme von <a href=\"http://garlandtheme.blogspot.com/"
 "\">garland</a>"
 
-#: themes/garland/themeoptions.php:77
+#: themes/garland/themeoptions.php:76
 msgid "Set to enable search form."
 msgstr "Aktivieren, um das Suchfeld anzuzeigen."
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 msgid "Allow cloud"
 msgstr "Wolke erlauben"
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 msgid "Set to enable tag cloud for album page."
 msgstr "Auswählen, um die Schlagwortwolke für die Albumseite zu aktivieren."
 
-#: themes/garland/themeoptions.php:92
+#: themes/garland/themeoptions.php:91
 msgid "Custom Homepage"
 msgstr "Benutzerdefinierte Startseite"
 
-#: themes/garland/themeoptions.php:95
+#: themes/garland/themeoptions.php:94
 msgid ""
 "Select the <em>pages</em> titlelink for the home page. Only unpublished "
 "pages are offered for selection."
@@ -2272,8 +2272,8 @@ msgstr ""
 
 #: themes/paradigm/album.php:31 themes/paradigm/image.php:99
 #: themes/zpBootstrap/archive.php:41 themes/zpBootstrap/themeoptions.php:134
-#: zp-core/admin-tabs/tags.php:259 zp-core/lib-auth.php:559
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
+#: zp-core/admin-tabs/tags.php:259 zp-core/lib-auth.php:616
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:660 zp-core/lib-auth.php:692
 #: zp-core/template-functions.php:127
 #: zp-core/utilities/gallery_statistics.php:91
 #: zp-core/utilities/gallery_statistics.php:591
@@ -2474,7 +2474,7 @@ msgstr "Verwendete Themen:"
 msgid "by"
 msgstr "von"
 
-#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3563
+#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3561
 msgid "No popular tags"
 msgstr "Keine populären Schlagwörter"
 
@@ -2581,7 +2581,7 @@ msgstr "Blog"
 #: themes/zpminimal/register.php:4 themes/zpminimal/search.php:29
 #: themes/zpminimal/summary.php:4 themes/zpmobile/functions.php:66
 #: themes/zpskeleton/inc-header.php:180 zp-core/template-functions.php:1448
-#: zp-core/zp-extensions/menu_manager.php:812
+#: zp-core/zp-extensions/menu_manager.php:837
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:484
 msgid "Home"
 msgstr "Home"
@@ -2997,25 +2997,25 @@ msgstr "Themenseite"
 msgid "View: "
 msgstr "Ansehen"
 
-#: themes/zenFluid/functions.php:266
+#: themes/zenFluid/functions.php:269
 #: zp-core/zp-extensions/themeSwitcher.php:187
 #, fuzzy
 #| msgid "close"
 msgid "Close"
 msgstr "schließen"
 
-#: themes/zenFluid/image.php:139 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:141 themes/zpmasonry/news.php:88
 #, fuzzy
 msgid "« Prev"
 msgstr "« zurück"
 
-#: themes/zenFluid/image.php:172 themes/zenFluid/pages.php:33
+#: themes/zenFluid/image.php:174 themes/zenFluid/pages.php:33
 #, fuzzy
 #| msgid "Views: %u"
 msgid "Views: "
 msgstr "Besucher: %u"
 
-#: themes/zenFluid/image.php:178 themes/zenFluid/news.php:61
+#: themes/zenFluid/image.php:180 themes/zenFluid/news.php:61
 #: themes/zenFluid/news.php:150 themes/zenFluid/pages.php:39
 #: themes/zpArdoise/inc_print_comment.php:30
 #: themes/zpBootstrap/inc_print_comment.php:35
@@ -3048,7 +3048,7 @@ msgstr "RSS-Feeds"
 msgid "The ZenFluid theme requires that the zenpage plugin be enabled."
 msgstr "Das ZenFluid-Thema erfordert, dass das zenpage-Plugin aktiviert ist."
 
-#: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:316
+#: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:315
 #, fuzzy
 #| msgid "files"
 msgid "Profile"
@@ -3171,7 +3171,7 @@ msgstr "Wählen Sie das Rahmenschema aus."
 msgid "Enable search form."
 msgstr "Aktivieren, um das Suchfeld anzuzeigen."
 
-#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:66
+#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:65
 #: themes/zpEnlighten/themeoptions.php:22 themes/zpfocus/themeoptions.php:75
 msgid "Use Colorbox"
 msgstr "Colorbox verwenden"
@@ -3349,7 +3349,7 @@ msgstr "Maximale Breite der Stufe"
 #, fuzzy
 msgid ""
 "Enter the maximum width (in pixels) that the stage (everything to the right "
-"of the sidebar) should take."
+"of the sidebar) should take. (Enter 0 (zero) to use the maximum width)"
 msgstr ""
 "Geben Sie die maximale Breite (in Pixeln) ein, die die Bühne (alles rechts "
 "in der Seitenleiste) einnehmen soll."
@@ -3561,15 +3561,15 @@ msgstr ""
 "Albumlinks in der Seitenleiste angezeigt werden), das dynamic_locale-Plugin, "
 "das paged_thumbs_nav-Plugin sowie das jCarousel_thumb_nav-Plugin."
 
-#: themes/zenpage/themeoptions.php:66 themes/zpEnlighten/themeoptions.php:22
+#: themes/zenpage/themeoptions.php:65 themes/zpEnlighten/themeoptions.php:22
 msgid "Check to display of the full size image with Colorbox."
 msgstr "Auswählen, um das Originalbild mit Colorbox anzuzeigen."
 
-#: themes/zenpage/themeoptions.php:67 themes/zpEnlighten/themeoptions.php:23
+#: themes/zenpage/themeoptions.php:66 themes/zpEnlighten/themeoptions.php:23
 msgid "News on index page"
 msgstr "Neuigkeiten auf Index"
 
-#: themes/zenpage/themeoptions.php:67
+#: themes/zenpage/themeoptions.php:66
 msgid ""
 "Enable this if you want to show the news section’s first page on the "
 "<code>index.php</code> page."
@@ -3577,14 +3577,14 @@ msgstr ""
 "Aktivieren Sie dies, wenn Sie die erste Seite der Neuigkeiten auf der "
 "<code>index.php</code>-Seite anzeigen möchten."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/themeoptions.php:63
 #: themes/zpBootstrap/themeoptions.php:64
 #: themes/zpEnlighten/themeoptions.php:24 themes/zpfocus/themeoptions.php:72
 #: themes/zpskeleton/themeoptions.php:72
 msgid "Homepage"
 msgstr "Homepage"
 
-#: themes/zenpage/themeoptions.php:68
+#: themes/zenpage/themeoptions.php:67
 msgid ""
 "Choose here any <em>un-published Zenpage page</em> (listed by <em>titlelink</"
 "em>) to act as your site’s homepage instead the normal gallery index."
@@ -3593,7 +3593,7 @@ msgstr ""
 "nach <em>titlelink</em>), um sie als Homepage anstatt des normalen "
 "Galerieindexes zu verwenden."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/themeoptions.php:63
 #: themes/zpEnlighten/themeoptions.php:24
 msgid ""
 "<strong>Note:</strong> This of course overrides the <em>News on index page</"
@@ -3604,11 +3604,11 @@ msgstr ""
 "em>-Einstellung und Ihr Theme muß dafür eingerichtet sein. Lesen Sie dazu "
 "das Theming-Tutorial!"
 
-#: themes/zenpage/themeoptions.php:69 themes/zpEnlighten/themeoptions.php:25
+#: themes/zenpage/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:25
 msgid "Use standard contact page"
 msgstr "Standard-Kontaktseite verwenden"
 
-#: themes/zenpage/themeoptions.php:69 themes/zpEnlighten/themeoptions.php:25
+#: themes/zenpage/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:25
 msgid ""
 "Disable this if you do not want to use the separate contact page with the "
 "contact form. You can also use the codeblock of a page for this. See the "
@@ -3618,11 +3618,11 @@ msgstr ""
 "Kontaktformular verwenden möchten. Sie können auch den Codeblock einer Seite "
 "dafür verwenden. Mehr Information bei der contact_form_plugin-Dokumentation."
 
-#: themes/zenpage/themeoptions.php:70
+#: themes/zenpage/themeoptions.php:69
 msgid "Use custom menu"
 msgstr "Benutzerdefiniertes Menü verwenden"
 
-#: themes/zenpage/themeoptions.php:70
+#: themes/zenpage/themeoptions.php:69
 msgid ""
 "Check this if you want to use the <em>menu_manager</em> plugin if enabled to "
 "build a custom menu instead of the separate standard ones. A standard menu "
@@ -3898,7 +3898,7 @@ msgstr "%s Thumbnails"
 #: themes/zpmasonry/inc-menu.php:36 themes/zpminimal/inc-header.php:91
 #: themes/zpminimal/inc-sidemenu.php:47 themes/zpminimal/login.php:4
 #: themes/zpskeleton/inc-footer.php:15 themes/zpskeleton/inc-header.php:96
-#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1065
+#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1127
 #: zp-core/zp-extensions/user_login-out.php:114
 msgid "Login"
 msgstr "Anmelden"
@@ -4054,9 +4054,9 @@ msgstr "Unendliches Scrollen verwenden"
 
 #: themes/zpBootstrap/themeoptions.php:97 zp-core/admin-functions.php:3732
 #: zp-core/admin-functions.php:3875 zp-core/allTranslations.php:53
-#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:575 zp-core/lib-auth.php:588
-#: zp-core/lib-auth.php:595 zp-core/lib-auth.php:599 zp-core/lib-auth.php:615
-#: zp-core/lib-auth.php:619 zp-core/lib-auth.php:624 zp-core/lib-auth.php:628
+#: zp-core/lib-auth.php:629 zp-core/lib-auth.php:632 zp-core/lib-auth.php:645
+#: zp-core/lib-auth.php:652 zp-core/lib-auth.php:656 zp-core/lib-auth.php:672
+#: zp-core/lib-auth.php:676 zp-core/lib-auth.php:681 zp-core/lib-auth.php:685
 #: zp-core/zp-extensions/cacheManager.php:155
 #: zp-core/zp-extensions/comment_form.php:90
 #: zp-core/zp-extensions/externalFeed.php:75
@@ -4218,13 +4218,13 @@ msgstr "Diaschau ansehen"
 msgid "Send me a message of Love"
 msgstr "Sende mir eine Botschaft der Liebe."
 
-#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1117
-#: zp-core/lib-auth.php:1290 zp-core/lib-auth.php:1394
+#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1179
+#: zp-core/lib-auth.php:1352 zp-core/lib-auth.php:1456
 msgid "Password"
 msgstr "Passwort"
 
-#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1032
-#: zp-core/lib-auth.php:1034 zp-core/zp-extensions/googleTFA/auth_code.php:61
+#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1094
+#: zp-core/lib-auth.php:1096 zp-core/zp-extensions/googleTFA/auth_code.php:61
 #: zp-core/zp-extensions/register_user/register_user_form.php:112
 msgid "Submit"
 msgstr "Abschicken"
@@ -4238,7 +4238,7 @@ msgstr "Hinweis: %s"
 #: themes/zpEnlighten/search.php:126
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%s"
+msgstr "%1$s: %2$s"
 
 #: themes/zpEnlighten/search.php:129
 #, fuzzy, php-format
@@ -4395,8 +4395,8 @@ msgstr "404 Nicht gefunden......"
 
 #: themes/zpfocus/inc-header.php:122 themes/zpmasonry/inc-menu.php:24
 #: themes/zpmasonry/inc-menu.php:26 themes/zpskeleton/inc-bottom.php:59
-#: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:554
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
+#: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:611
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:650 zp-core/lib-auth.php:678
 #: zp-core/zp-extensions/comment_form.php:183
 #: zp-core/zp-extensions/comment_form/admin-comments.php:268
 msgid "Comments"
@@ -4998,7 +4998,7 @@ msgstr "Anonym"
 
 #: themes/zpmasonry/comment_form/comment_form.php:66
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:63
-#: zp-core/lib-auth.php:1196
+#: zp-core/lib-auth.php:1258
 msgid "Enter CAPTCHA"
 msgstr "CAPTCHA eingeben"
 
@@ -5086,7 +5086,7 @@ msgstr "Willkommen"
 
 #: themes/zpmasonry/index.php:53 themes/zpmasonry/index.php:57
 #: themes/zpminimal/index.php:50 themes/zpminimal/index.php:54
-#: zp-core/template-functions.php:3369
+#: zp-core/template-functions.php:3367
 #, php-format
 msgid "View image: %s"
 msgstr "Bild %s ansehen"
@@ -5790,12 +5790,12 @@ msgstr ""
 msgid "Return to %s"
 msgstr "Zurück zu %s"
 
-#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:465
+#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:470
 #, fuzzy
 msgid "A simpler media content management system"
 msgstr "Ein einfacheres Media Content Management System"
 
-#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:465
+#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:470
 #, fuzzy, php-format
 msgid "version %1$s"
 msgstr ""
@@ -5812,7 +5812,7 @@ msgstr "netPhotoGraphics-Lizenz"
 msgid "License"
 msgstr "Lizenz"
 
-#: zp-core/admin-functions.php:49 zp-core/setup/setup-functions.php:466
+#: zp-core/admin-functions.php:49 zp-core/setup/setup-functions.php:471
 #, fuzzy
 msgid "Support"
 msgstr "Keine PHP-Bildbearbeitungunterstützung"
@@ -5926,9 +5926,9 @@ msgstr "Veraltet."
 
 #: zp-core/admin-functions.php:1092 zp-core/admin-functions.php:1134
 #: zp-core/admin-functions.php:5283 zp-core/admin-tabs/edit.php:1134
-#: zp-core/admin-tabs/tags.php:262 zp-core/admin-tabs/users.php:550
+#: zp-core/admin-tabs/tags.php:262 zp-core/admin-tabs/users.php:541
 #: zp-core/admin_options/image.php:830 zp-core/admin_options/search.php:270
-#: zp-core/utilities/backup_restore.php:576
+#: zp-core/utilities/backup_restore.php:575
 #: zp-core/zp-extensions/publishContent/publishContent.php:301
 #: zp-core/zp-extensions/publishContent/publishContent.php:567
 #: zp-core/zp-extensions/publishContent/publishContent.php:631
@@ -6039,7 +6039,7 @@ msgstr "Passwort-Hinweis:"
 
 #: zp-core/admin-functions.php:1930 zp-core/admin_options/gallery.php:251
 #: zp-core/admin_options/image.php:699 zp-core/admin_options/search.php:197
-#: zp-core/lib-auth.php:1115 zp-core/lib-auth.php:1398
+#: zp-core/lib-auth.php:1177 zp-core/lib-auth.php:1460
 #: zp-core/utilities/gallery_statistics.php:761
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
@@ -6050,7 +6050,7 @@ msgstr "Passwort-Hinweis:"
 #: zp-core/zp-extensions/comment_form.php:107
 #: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/downloadList.php:148
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:227
 #: zp-core/zp-extensions/register_user.php:85
 #: zp-core/zp-extensions/zenpage/edit.php:645
 msgid "Show"
@@ -6150,10 +6150,10 @@ msgid "Thumbnail"
 msgstr "Thumbnail"
 
 #: zp-core/admin-functions.php:2251 zp-core/admin-tabs/edit.php:1393
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:579 zp-core/lib-auth.php:580
-#: zp-core/lib-auth.php:584 zp-core/lib-auth.php:604 zp-core/lib-auth.php:605
-#: zp-core/lib-auth.php:609 zp-core/lib-auth.php:610 zp-core/lib-auth.php:611
-#: zp-core/lib-auth.php:632 zp-core/lib-auth.php:636 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:636 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:641 zp-core/lib-auth.php:661 zp-core/lib-auth.php:662
+#: zp-core/lib-auth.php:666 zp-core/lib-auth.php:667 zp-core/lib-auth.php:668
+#: zp-core/lib-auth.php:689 zp-core/lib-auth.php:693 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/zenpage/edit.php:805
 msgid "General"
 msgstr "Allgemein"
@@ -6536,9 +6536,9 @@ msgstr "Verwaltete Seiten:"
 msgid "Select one or more %1$s for the %2$s to manage."
 msgstr "Ein oder mehrere %1$s für  %2$s zum Verwalten auswählen."
 
-#: zp-core/admin-functions.php:3910 zp-core/admin-tabs/users.php:880
-#: zp-core/admin-tabs/users.php:899 zp-core/admin-tabs/users.php:905
-#: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:555
+#: zp-core/admin-functions.php:3910 zp-core/admin-tabs/users.php:890
+#: zp-core/admin-tabs/users.php:909 zp-core/admin-tabs/users.php:915
+#: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:573
 msgid "user"
 msgstr "Benutzer"
 
@@ -6578,7 +6578,7 @@ msgstr "ok"
 #: zp-core/admin-functions.php:4429 zp-core/admin-tabs/edit.php:1024
 #: zp-core/admin-tabs/edit.php:1891
 #: zp-core/zp-extensions/comment_form/admin-comments.php:382
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:265
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:267
 #: zp-core/zp-extensions/zenpage/categories.php:185
 #: zp-core/zp-extensions/zenpage/news.php:306
 #: zp-core/zp-extensions/zenpage/pages.php:191
@@ -6758,12 +6758,12 @@ msgstr "%s konnte nicht gelöscht werden."
 msgid "%s deleted successfully."
 msgstr "%s erfolgreich gelöscht."
 
-#: zp-core/admin-functions.php:5530 zp-core/admin-tabs/users.php:465
+#: zp-core/admin-functions.php:5530 zp-core/admin-tabs/users.php:456
 msgid "You must supply a password."
 msgstr "Sie müssen ein Passwort angeben."
 
 #: zp-core/admin-functions.php:5532 zp-core/admin-tabs/options.php:154
-#: zp-core/admin-tabs/users.php:474 zp-core/zp-extensions/register_user.php:434
+#: zp-core/admin-tabs/users.php:465 zp-core/zp-extensions/register_user.php:434
 msgid "Your passwords did not match."
 msgstr "Ihr Passwort stimmt nicht überein."
 
@@ -7015,7 +7015,7 @@ msgstr "Galerie"
 msgid "plugin"
 msgstr "Plugin"
 
-#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:558
+#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:576
 msgid "theme"
 msgstr "Theme"
 
@@ -7047,7 +7047,7 @@ msgstr "Datenbankreferenz"
 
 #: zp-core/admin-tabs/albumsort.php:85 zp-core/admin-tabs/edit.php:745
 #: zp-core/zp-extensions/comment_form/admin-comments.php:369
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:223
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
 #: zp-core/zp-extensions/zenpage/categories.php:172
 #: zp-core/zp-extensions/zenpage/news.php:271
 #: zp-core/zp-extensions/zenpage/pages.php:174
@@ -7065,8 +7065,8 @@ msgstr "*Sammelaktionen*"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:370
 #: zp-core/zp-extensions/comment_form/admin-comments.php:534
 #: zp-core/zp-extensions/debug/admin_tab.php:309
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:224
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:307
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:309
 #: zp-core/zp-extensions/publishContent/publishContent.php:473
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:61
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:157
@@ -7260,7 +7260,7 @@ msgstr "Neuer Albumname?"
 
 #: zp-core/admin-tabs/edit.php:689
 #: zp-core/zp-extensions/comment_form/admin-comments.php:98
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:158
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:160
 #: zp-core/zp-extensions/zenpage/categories.php:78
 #: zp-core/zp-extensions/zenpage/news.php:82
 #: zp-core/zp-extensions/zenpage/pages.php:93
@@ -7369,7 +7369,7 @@ msgstr "Zoom"
 #: zp-core/admin-tabs/edit.php:1262
 #: zp-core/utilities/gallery_statistics.php:447
 #: zp-core/utilities/gallery_statistics.php:451
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:303
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:305
 #: zp-core/zp-extensions/publishContent/publishContent.php:481
 #: zp-core/zp-extensions/publishContent/publishContent.php:539
 #: zp-core/zp-extensions/publishContent/publishContent.php:604
@@ -7557,14 +7557,14 @@ msgid "Your Allowed tags change did not parse successfully."
 msgstr "Die Änderung der erlaubten Schlagwort konnte nicht ausgeführt werden."
 
 #: zp-core/admin-tabs/options.php:122 zp-core/admin-tabs/plugins.php:150
-#: zp-core/admin-tabs/users.php:324
+#: zp-core/admin-tabs/users.php:323
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:146
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:137
 msgid "Error"
 msgstr "Fehler"
 
 #: zp-core/admin-tabs/options.php:123 zp-core/admin-tabs/plugins.php:151
-#: zp-core/admin-tabs/users.php:325
+#: zp-core/admin-tabs/users.php:324
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:138
 msgid ""
 "The form submission is incomplete. Perhaps the form size exceeds configured "
@@ -7777,10 +7777,10 @@ msgstr "Theme-Plugin"
 msgid "Usage info"
 msgstr "Bedienungsanleitung"
 
-#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:560
-#: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
+#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:636 zp-core/lib-auth.php:661 zp-core/lib-auth.php:693
 #: zp-core/template-functions.php:147
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:199
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:201
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:139
 msgid "Options"
 msgstr "Einstellungen"
@@ -8245,39 +8245,39 @@ msgstr "Neues Album erstellen"
 msgid "There are no albums to which you can upload."
 msgstr "Es gibt keine Alben, in die Sie hochladen können."
 
-#: zp-core/admin-tabs/users.php:157
+#: zp-core/admin-tabs/users.php:156
 #, php-format
 msgid "%s password may not be empty!"
 msgstr "%s Passwort darf nicht leer sein!"
 
-#: zp-core/admin-tabs/users.php:308
+#: zp-core/admin-tabs/users.php:307
 #, fuzzy
 #| msgid "Password required"
 msgid "Password reset request."
 msgstr "Anforderung zum Zurücksetzen des Passworts."
 
-#: zp-core/admin-tabs/users.php:330
+#: zp-core/admin-tabs/users.php:329
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:148
 msgid "Saved"
 msgstr "Gesichert"
 
-#: zp-core/admin-tabs/users.php:453
+#: zp-core/admin-tabs/users.php:444
 msgid "Rights migration failed."
 msgstr "Zenphoto-Rechteübertragung fehlgeschlagen."
 
-#: zp-core/admin-tabs/users.php:458
+#: zp-core/admin-tabs/users.php:449
 msgid "User id already used."
 msgstr "Diese Benutzer-ID wird bereits verwendet."
 
-#: zp-core/admin-tabs/users.php:468
+#: zp-core/admin-tabs/users.php:459
 msgid "User name not provided"
 msgstr "Der Benutzername wurde nicht angegeben"
 
-#: zp-core/admin-tabs/users.php:481
+#: zp-core/admin-tabs/users.php:472
 msgid "Your Website URL is not valid"
 msgstr "Die Webadresse ist nicht gültig."
 
-#: zp-core/admin-tabs/users.php:523 zp-core/admin_options/gallery.php:69
+#: zp-core/admin-tabs/users.php:514 zp-core/admin_options/gallery.php:69
 #: zp-core/admin_options/gallery.php:526 zp-core/admin_options/general.php:171
 #: zp-core/admin_options/general.php:811 zp-core/admin_options/image.php:248
 #: zp-core/admin_options/image.php:962 zp-core/admin_options/plugin.php:92
@@ -8291,19 +8291,19 @@ msgstr "Die Webadresse ist nicht gültig."
 msgid "reset"
 msgstr "Zurücksetzen"
 
-#: zp-core/admin-tabs/users.php:536
+#: zp-core/admin-tabs/users.php:527
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:222
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:435
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
-#: zp-core/admin-tabs/users.php:538
+#: zp-core/admin-tabs/users.php:529
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:224
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:437
 msgid "Collapse all"
 msgstr "Alle zusammenklappen"
 
-#: zp-core/admin-tabs/users.php:547 zp-core/admin_options/image.php:809
+#: zp-core/admin-tabs/users.php:538 zp-core/admin_options/image.php:809
 #: zp-core/admin_options/image.php:835
 #: zp-core/zp-extensions/contact_form.php:74
 #: zp-core/zp-extensions/googleMap.php:87
@@ -8311,49 +8311,49 @@ msgstr "Alle zusammenklappen"
 msgid "show"
 msgstr "Zeigen"
 
-#: zp-core/admin-tabs/users.php:554 zp-core/admin-tabs/users.php:615
+#: zp-core/admin-tabs/users.php:545 zp-core/admin-tabs/users.php:618
 msgid "pending verification"
 msgstr "Auf Verifizierung wartend"
 
-#: zp-core/admin-tabs/users.php:560
+#: zp-core/admin-tabs/users.php:551
 msgid "no group"
 msgstr "keine Gruppe"
 
-#: zp-core/admin-tabs/users.php:621
+#: zp-core/admin-tabs/users.php:624
 msgid "Master"
 msgstr "Master"
 
-#: zp-core/admin-tabs/users.php:652
+#: zp-core/admin-tabs/users.php:655
 msgid "Show details"
 msgstr "Details zeigen"
 
-#: zp-core/admin-tabs/users.php:653
+#: zp-core/admin-tabs/users.php:656
 msgid "Hide details"
 msgstr "Details verstecken"
 
-#: zp-core/admin-tabs/users.php:655
+#: zp-core/admin-tabs/users.php:658
 #, php-format
 msgid "Show details for user %s"
 msgstr "Details für Benutzer %s anzeigen"
 
-#: zp-core/admin-tabs/users.php:656
+#: zp-core/admin-tabs/users.php:659
 #, php-format
 msgid "Hide details for user %s"
 msgstr "Details für Benutzer %s verstecken"
 
-#: zp-core/admin-tabs/users.php:667
+#: zp-core/admin-tabs/users.php:670
 msgid "New User"
 msgstr "Neuer Benutzer"
 
-#: zp-core/admin-tabs/users.php:695
+#: zp-core/admin-tabs/users.php:698
 msgid "Authenticate user"
 msgstr "Benutzer authentifizieren"
 
-#: zp-core/admin-tabs/users.php:707
+#: zp-core/admin-tabs/users.php:710
 msgid "Are you sure you want to delete this user?"
 msgstr "Sind Sie sicher, dass Sie diesen Benutzer löschen wollen?"
 
-#: zp-core/admin-tabs/users.php:709
+#: zp-core/admin-tabs/users.php:712
 msgid ""
 "This is the master user account. If you delete it another user will be "
 "promoted to master user."
@@ -8361,17 +8361,26 @@ msgstr ""
 "Dies ist das Masterbenutzerkonto. Wenn Sie dieses löschen, wird eine anderer "
 "Benutzer zum Masterbenutzer."
 
-#: zp-core/admin-tabs/users.php:717
+#: zp-core/admin-tabs/users.php:718
+#, fuzzy, php-format
+msgid ""
+"User's password is encrypted with the %1$s password hashing algorithm which "
+"is less secure than %2$s."
+msgstr ""
+"Das Passwort des Benutzers wird mit dem %1$s Passwort Hashing Algorithmus "
+"verschlüsselt, der weniger sicher ist als %2$s."
+
+#: zp-core/admin-tabs/users.php:723
 #, fuzzy, php-format
 #| msgid "Logged in as %1$s"
 msgid "Log on as %s."
 msgstr "Melden Sie sich als %s an."
 
-#: zp-core/admin-tabs/users.php:724
+#: zp-core/admin-tabs/users.php:734
 msgid "Delete this user."
 msgstr "Diesen Benutzer löschen."
 
-#: zp-core/admin-tabs/users.php:748
+#: zp-core/admin-tabs/users.php:758
 msgid ""
 "<strong>Note:</strong> You must have ADMIN rights to alter anything but your "
 "personal information."
@@ -8379,33 +8388,33 @@ msgstr ""
 "<strong>Anmerkung:</strong> Sie müssen über ADMIN-Rechte verfügen, um mehr "
 "als nur Ihre persönlichen Informationen verändern zu können."
 
-#: zp-core/admin-tabs/users.php:785
+#: zp-core/admin-tabs/users.php:795
 msgid "Challenge phrase"
 msgstr "Geheimfrage"
 
-#: zp-core/admin-tabs/users.php:788
+#: zp-core/admin-tabs/users.php:798
 msgid "Challenge response"
 msgstr "Geheimfrage-Antwort"
 
-#: zp-core/admin-tabs/users.php:795
+#: zp-core/admin-tabs/users.php:805
 msgid "Full name"
 msgstr "Voller Name"
 
-#: zp-core/admin-tabs/users.php:800 zp-core/admin_options/general.php:633
+#: zp-core/admin-tabs/users.php:810 zp-core/admin_options/general.php:633
 #: zp-core/zp-extensions/register_user/register_user_form.php:39
 msgid "Email"
 msgstr "E-Mail"
 
-#: zp-core/admin-tabs/users.php:813
+#: zp-core/admin-tabs/users.php:823
 msgid "create primary album"
 msgstr "Primäres Album erstellen"
 
-#: zp-core/admin-tabs/users.php:823
+#: zp-core/admin-tabs/users.php:833
 #, php-format
 msgid "delink primary album <strong>%1$s</strong>(<em>%2$s</em>)"
 msgstr "Primäres Album trennen <strong>%1$s</strong>(<em>%2$s</em>)"
 
-#: zp-core/admin-tabs/users.php:827
+#: zp-core/admin-tabs/users.php:837
 msgid ""
 "The primary album was created in association with the user. It will be "
 "removed if the user is deleted. Delinking the album removes this association."
@@ -8414,21 +8423,21 @@ msgstr ""
 "entfernt, wenn der Benutzer gelöscht wird. Das Trennen des Albums entfernt "
 "diese Abhängigkeit."
 
-#: zp-core/admin-tabs/users.php:836
+#: zp-core/admin-tabs/users.php:846
 msgid "Language:"
 msgstr "Sprache:"
 
-#: zp-core/admin-tabs/users.php:873
+#: zp-core/admin-tabs/users.php:883
 msgid "The <em>master</em> account has full rights to all objects."
 msgstr "Das <em>Master</em>-Konto hatte volle Rechte für alle Objekte. "
 
-#: zp-core/admin-tabs/users.php:894 zp-core/functions.php:849
+#: zp-core/admin-tabs/users.php:904 zp-core/functions.php:849
 #, fuzzy
 #| msgid "*not categorized*"
 msgid "un-categorized"
 msgstr "nicht kategorisiert"
 
-#: zp-core/admin-tabs/users.php:967
+#: zp-core/admin-tabs/users.php:977
 #, php-format
 msgid ""
 "The <em>Zenphoto_Authority</em> object supports a higher version of user "
@@ -8440,11 +8449,11 @@ msgstr ""
 "Benutzerrechte übertragen, um die neue Funktionalität dieser Version zu "
 "nutzen."
 
-#: zp-core/admin-tabs/users.php:970
+#: zp-core/admin-tabs/users.php:980
 msgid "Migrate rights"
 msgstr "Rechte übertragen"
 
-#: zp-core/admin-tabs/users.php:980
+#: zp-core/admin-tabs/users.php:990
 #, fuzzy, php-format
 msgid ""
 "You may wish to revert the <em>Zenphoto_Authority</em> user rights to "
@@ -8454,15 +8463,15 @@ msgstr ""
 "Version %s für eine Rückwärtskompatibilät mit alten Zenphoto-Versionen "
 "zurücksetzen."
 
-#: zp-core/admin-tabs/users.php:983
+#: zp-core/admin-tabs/users.php:993
 msgid "Revert rights"
 msgstr "Rechte wiederherstellen"
 
-#: zp-core/admin-tabs/users.php:1001
+#: zp-core/admin-tabs/users.php:1011
 msgid "User names may not contain “?”, “&\", or quotation marks."
 msgstr "Benutzernamen dürfen “?”, “&\" oder Anführungszeichen nicht enthalten."
 
-#: zp-core/admin-tabs/users.php:1006
+#: zp-core/admin-tabs/users.php:1016
 #, php-format
 msgid "The user “%s” already exists."
 msgstr "Der Benutzer „%s“ existiert bereits."
@@ -8873,7 +8882,7 @@ msgstr "Standard-Thumbnail-Auswahl für Alben."
 #, fuzzy
 #| msgid "Sort gallery by:"
 msgid "Sort gallery by"
-msgstr "Galeriesortierung:"
+msgstr "Galeriesortierung: "
 
 #: zp-core/admin_options/gallery.php:451
 msgid ""
@@ -9692,7 +9701,9 @@ msgstr "Prüfung auf verschmutzte Formulare"
 #: zp-core/admin_options/general.php:744
 #, fuzzy
 msgid "ignore"
-msgstr "Ignorieren"
+msgstr ""
+"Wähle Felder aus deiner CSV-Datei aus, um sie den Produktfeldern zuzuordnen "
+"oder beim Import zu ignorieren."
 
 #: zp-core/admin_options/general.php:748
 #, fuzzy
@@ -10254,7 +10265,7 @@ msgstr "deaktivieren"
 msgid "restore defaults"
 msgstr "Standardwerte wiederherstellen."
 
-#: zp-core/admin_options/image.php:833
+#: zp-core/admin_options/image.php:833 zp-core/lib-auth.php:93
 #: zp-core/zp-extensions/multiple_layouts.php:273
 msgid "default"
 msgstr "Voreinstellung"
@@ -11019,7 +11030,7 @@ msgstr "Für Bildseiten gibt es %1$u Reihen von Thumbnails."
 #, fuzzy
 #| msgid "Transition:"
 msgid "Transition"
-msgstr "Übergang:"
+msgstr "Übergang"
 
 #: zp-core/admin_options/theme.php:371
 msgid "separate"
@@ -11383,7 +11394,7 @@ msgid "Error: The “albums” directory (%s) is not readable."
 msgstr "Fehler: Das „albums“-Verzeichnis (%s) ist nicht lesbar."
 
 #: zp-core/class-gallery.php:372 zp-core/exif/exifTranslations.php:231
-#: zp-core/setup/setup-functions.php:342
+#: zp-core/setup/setup-functions.php:347
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -12652,19 +12663,19 @@ msgstr "STRICT NOTICE"
 msgid "%1$s: \"%2$s\" in %3$s on line %4$s"
 msgstr "%1$s: %2$s in %3$s in Zeile %4$s"
 
-#: zp-core/functions-basic.php:496 zp-core/setup/index.php:439
+#: zp-core/functions-basic.php:512 zp-core/setup/index.php:439
 #: zp-core/setup/index.php:449 zp-core/utilities/installation_analysis.php:43
 #: zp-core/zp-extensions/cloneZenphoto.php:56
 #: zp-core/zp-extensions/security-logger.php:134
 msgid "clone"
 msgstr "Klon"
 
-#: zp-core/functions-basic.php:1738
+#: zp-core/functions-basic.php:1743
 #, php-format
 msgid "%s log size limit exceeded"
 msgstr "%s Protokolldatei-Größenlimit überschritten"
 
-#: zp-core/functions-basic.php:1738
+#: zp-core/functions-basic.php:1743
 #, php-format
 msgid "The %1$s log has exceeded its size limit and has been renamed to %2$s."
 msgstr ""
@@ -13274,7 +13285,7 @@ msgstr "Cache: [%s]"
 msgid "Image: [%s]"
 msgstr "Bild: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:611
+#: zp-core/functions-image.php:59 zp-core/lib-auth.php:668
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 msgid "Debug"
 msgstr "Fehlersuche"
@@ -13440,17 +13451,17 @@ msgstr ""
 msgid "0 Bytes"
 msgstr "0 Bytes"
 
-#: zp-core/functions.php:2573
+#: zp-core/functions.php:2580
 #, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a number."
 msgstr "<em>[%1$s]</em> Parameter %2$d sollte eine Zahl sein."
 
-#: zp-core/functions.php:2581
+#: zp-core/functions.php:2588
 #, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a string."
 msgstr "<em>[%1$s]</em> Parameter %2$d sollte eine Zeichenkette sein."
 
-#: zp-core/functions.php:2594
+#: zp-core/functions.php:2601
 #, php-format
 msgid ""
 "<em>[%1$s]</em> parameter %2$d should be <code>true</code> or <code>false</"
@@ -13459,39 +13470,39 @@ msgstr ""
 "<em>[%1$s]</em> Parameter %2$d sollte <code>true</code> oder <code>false</"
 "code> sein."
 
-#: zp-core/functions.php:2613
+#: zp-core/functions.php:2620
 #, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is incorrectly defined."
 msgstr "<em>[%1$s]</em> Parameter %2$d ist nicht korrekt definiert."
 
-#: zp-core/functions.php:2619
+#: zp-core/functions.php:2626
 #, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is missing."
 msgstr "<em>[%1$s]</em> Parameter %2$d fehlt."
 
-#: zp-core/functions.php:2628
+#: zp-core/functions.php:2635
 #, php-format
 msgid "<em>[%1$s]</em> macro does not take parameters"
 msgstr "<em>[%1$s]</em>-Macro verarbeitet keine Parameter"
 
-#: zp-core/functions.php:2654 zp-core/functions.php:2681
+#: zp-core/functions.php:2661 zp-core/functions.php:2688
 #, php-format
 msgid "<em>[%1$s]</em> retuned no data"
 msgstr "<em>%1$s</em> hat keine Daten zurückgegeben"
 
-#: zp-core/functions.php:2659
+#: zp-core/functions.php:2666
 #, php-format
 msgid "<em>[%1$s]</em> <code>%2$s</code> is not callable"
 msgstr "<em>[%1$s]</em> <code>%2$s</code> kann nicht aufgerufen werden"
 
-#: zp-core/functions.php:2686
+#: zp-core/functions.php:2693
 #, php-format
 msgid "<em>[%1$s]</em> takes %2$d parameter"
 msgid_plural "<em>[%1$s]</em> takes %2$d parameters"
 msgstr[0] "<em>%1$s</em> sollte %2$d Parameter haben"
 msgstr[1] "<em>%1$s</em> sollte %2$d Parameter haben"
 
-#: zp-core/functions.php:3071 zp-core/zp-extensions/comment_form.php:112
+#: zp-core/functions.php:3078 zp-core/zp-extensions/comment_form.php:112
 #: zp-core/zp-extensions/contact_form.php:133
 #: zp-core/zp-extensions/register_user.php:80
 msgid "No captcha handler is enabled."
@@ -13685,11 +13696,11 @@ msgstr "PHP Imagick library <em>%s</em>"
 msgid "There is no PHP Graphics support."
 msgstr "Keine PHP-Bildbearbeitungunterstützung"
 
-#: zp-core/lib-auth.php:91
+#: zp-core/lib-auth.php:114
 msgid "Primary album edit"
 msgstr "Primäres Album bearbeiten"
 
-#: zp-core/lib-auth.php:93
+#: zp-core/lib-auth.php:116
 msgid ""
 "Check if you want <em>edit rights</em> automatically assigned when a user "
 "<em>primary album</em> is created."
@@ -13697,11 +13708,11 @@ msgstr ""
 "Aktivieren, wenn Sie einem Benutzer automatisch<em>Bearbeiten-Rechte</em> "
 "zuweisen möchten, wenn ein <em>Primäralbum</em> erstellt wird."
 
-#: zp-core/lib-auth.php:94
+#: zp-core/lib-auth.php:118
 msgid "Minimum password strength"
 msgstr "Minimale Passwortstärke"
 
-#: zp-core/lib-auth.php:96
+#: zp-core/lib-auth.php:120
 #, php-format
 msgid ""
 "Users must provide passwords a strength of at least %s. The repeat password "
@@ -13710,11 +13721,11 @@ msgstr ""
 "Benutzer müssen ein Passwort mindestens mit der Stärke %s angeben. Das "
 "Wiederholenfeld ist bis dahin deaktiviert."
 
-#: zp-core/lib-auth.php:97
+#: zp-core/lib-auth.php:121
 msgid "Password hash algorithm"
 msgstr "Passwort-Verschlüsselungsalgorithmus"
 
-#: zp-core/lib-auth.php:100
+#: zp-core/lib-auth.php:124
 #, php-format
 msgid ""
 "The hashing algorithm to be used. In order of robustness the choices are %s"
@@ -13722,25 +13733,35 @@ msgstr ""
 "Der von ZenPhoto20 verwendete Zerstückelungsalgorithmus. In der Reihenfolge "
 "der Robustheit: %s"
 
-#: zp-core/lib-auth.php:101
+#: zp-core/lib-auth.php:124
+#, fuzzy
+msgid ""
+"Note: The <code>default</code> choice  is designed to change over time as "
+"new and stronger algorithms are added to PHP."
+msgstr ""
+"Hinweis: Die Option <code>default</code> wurde entwickelt, um sich im Laufe "
+"der Zeit zu ändern, da neue und stärkere Algorithmen zu PHP hinzugefügt "
+"werden."
+
+#: zp-core/lib-auth.php:125
 #, fuzzy
 #| msgid "Challenge phrase"
 msgid "Enable Challenge phrase"
 msgstr "Sicherheitsabfrage aktivieren"
 
-#: zp-core/lib-auth.php:103
+#: zp-core/lib-auth.php:127
 #, fuzzy
 msgid "Check to allow password reset by challenge phrase responses."
 msgstr ""
 "Aktivieren Sie dieses Kontrollkästchen, um das Zurücksetzen des Passworts "
 "durch Antworten auf die Fragephrase zu ermöglichen."
 
-#: zp-core/lib-auth.php:106
+#: zp-core/lib-auth.php:130
 #, fuzzy
 msgid "Challenge phrase foils"
 msgstr "Folien für Schlagworte"
 
-#: zp-core/lib-auth.php:108
+#: zp-core/lib-auth.php:132
 #, fuzzy
 msgid ""
 "These <em>foil</em> challenge phrases will be presented randomly. This list "
@@ -13752,7 +13773,12 @@ msgstr ""
 "Benutzer-IDs entdecken und wissen, dass es eine Antwort auf eine "
 "vorgestellte Fragestellung gibt."
 
-#: zp-core/lib-auth.php:422
+#: zp-core/lib-auth.php:138
+#, fuzzy
+msgid "You should use a more robust hashing algorithm."
+msgstr "Sie sollten einen robusteren Hashing-Algorithmus verwenden."
+
+#: zp-core/lib-auth.php:479
 #, php-format
 msgid ""
 "Cannot migrate rights to version %1$s (Zenphoto_Authority supports only %2$s "
@@ -13761,45 +13787,45 @@ msgstr ""
 "Benutzerrechte können nicht auf Version %1$s übertragen werden "
 "(Zenphoto_Authority unterstützt nur %2$s und %3$s.)"
 
-#: zp-core/lib-auth.php:549 zp-core/lib-auth.php:564 zp-core/lib-auth.php:583
-#: zp-core/lib-auth.php:608
+#: zp-core/lib-auth.php:606 zp-core/lib-auth.php:621 zp-core/lib-auth.php:640
+#: zp-core/lib-auth.php:665
 msgid "No rights"
 msgstr "Keine Rechte"
 
-#: zp-core/lib-auth.php:550 zp-core/lib-auth.php:565 zp-core/lib-auth.php:584
-#: zp-core/lib-auth.php:609 zp-core/template-functions.php:95
+#: zp-core/lib-auth.php:607 zp-core/lib-auth.php:622 zp-core/lib-auth.php:641
+#: zp-core/lib-auth.php:666 zp-core/template-functions.php:95
 msgid "Overview"
 msgstr "Überblick"
 
-#: zp-core/lib-auth.php:551 zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:608 zp-core/lib-auth.php:623
 msgid "View all"
 msgstr "Alle anzeigen"
 
-#: zp-core/lib-auth.php:552 zp-core/lib-auth.php:567 zp-core/lib-auth.php:594
-#: zp-core/lib-auth.php:622 zp-core/template-functions.php:102
+#: zp-core/lib-auth.php:609 zp-core/lib-auth.php:624 zp-core/lib-auth.php:651
+#: zp-core/lib-auth.php:679 zp-core/template-functions.php:102
 #: zp-core/zp-extensions/uploader_http/upload_form.php:69
 #: zp-core/zp-extensions/uploader_http/upload_form.php:71
 msgid "Upload"
 msgstr "Hochladen"
 
-#: zp-core/lib-auth.php:553 zp-core/lib-auth.php:568 zp-core/lib-auth.php:592
-#: zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:625 zp-core/lib-auth.php:649
+#: zp-core/lib-auth.php:677
 msgid "Post comments"
 msgstr "Kommentare senden"
 
-#: zp-core/lib-auth.php:556 zp-core/lib-auth.php:576
+#: zp-core/lib-auth.php:613 zp-core/lib-auth.php:633
 msgid "Manage all albums"
 msgstr "Alle Alben verwalten"
 
-#: zp-core/lib-auth.php:558
+#: zp-core/lib-auth.php:615
 msgid "Zenpage"
 msgstr "Zenpage"
 
-#: zp-core/lib-auth.php:565 zp-core/lib-auth.php:584 zp-core/lib-auth.php:609
+#: zp-core/lib-auth.php:622 zp-core/lib-auth.php:641 zp-core/lib-auth.php:666
 msgid "Users with this right may view the admin overview page."
 msgstr "Benutzer mit diesem Recht können die Admin-Übersichtseite ansehen."
 
-#: zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:623
 msgid ""
 "Users with this right may view all of the gallery regardless of protection "
 "of the page. Without this right, the user can view only public ones and "
@@ -13811,7 +13837,7 @@ msgstr ""
 "die öffentlichen, die, die in ihrer Verwaltungsliste ausgewählten, oder die "
 "von \"Suche ansehen\" und \"Galerie ansehen\" freigegebenen, ansehen."
 
-#: zp-core/lib-auth.php:567 zp-core/lib-auth.php:594 zp-core/lib-auth.php:622
+#: zp-core/lib-auth.php:624 zp-core/lib-auth.php:651 zp-core/lib-auth.php:679
 msgid ""
 "Users with this right may upload to the albums for which they have "
 "management rights."
@@ -13819,7 +13845,7 @@ msgstr ""
 "Benutzer mit diesem Recht können in die Alben, die in ihrer Verwaltungsliste "
 "angewählt sind, hochladen"
 
-#: zp-core/lib-auth.php:568 zp-core/lib-auth.php:592 zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:625 zp-core/lib-auth.php:649 zp-core/lib-auth.php:677
 msgid ""
 "When the comment_form plugin is used for comments and its \"Only members can "
 "comment\" option is set, only users with this right may post comments."
@@ -13828,31 +13854,31 @@ msgstr ""
 "Einstellung \"Nur Mitglieder können kommentieren\" aktiviert ist, können nur "
 "Benutzer mit diesem Recht kommentieren."
 
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:650 zp-core/lib-auth.php:678
 msgid "Users with this right may make comments tab changes."
 msgstr "Benutzer mit diesem Recht können Kommentare bearbeiten."
 
-#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:598 zp-core/lib-auth.php:627
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:655 zp-core/lib-auth.php:684
 msgid "Users with this right may access the “albums” tab to make changes."
 msgstr ""
 "Benutzer mit diesem Recht können auf den „Alben“-Tab zugreifen, um "
 "Änderungen vorzunehmen."
 
-#: zp-core/lib-auth.php:571 zp-core/lib-auth.php:596 zp-core/lib-auth.php:625
+#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:653 zp-core/lib-auth.php:682
 msgid "Users with this right may edit and manage Zenpage pages."
 msgstr "Benutzer mit diesem Recht können Zenpage Seiten verwalten."
 
-#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:595 zp-core/lib-auth.php:624
+#: zp-core/lib-auth.php:629 zp-core/lib-auth.php:652 zp-core/lib-auth.php:681
 msgid ""
 "Users with this right may edit and manage Zenpage articles and categories."
 msgstr ""
 "Benutzer mit diesem Recht können Zenpage Artikel und Kategorien verwalten."
 
-#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:597 zp-core/lib-auth.php:626
+#: zp-core/lib-auth.php:630 zp-core/lib-auth.php:654 zp-core/lib-auth.php:683
 msgid "Files"
 msgstr "Dateien"
 
-#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:597 zp-core/lib-auth.php:626
+#: zp-core/lib-auth.php:630 zp-core/lib-auth.php:654 zp-core/lib-auth.php:683
 msgid ""
 "Allows the user access to the “filemanager” located on the upload: files sub-"
 "tab."
@@ -13860,11 +13886,11 @@ msgstr ""
 "Erlaubt dem Benutzer, den Dateimanager zu verwenden, der als Subtab auf dem "
 "Hochladen-Tag zu finden ist."
 
-#: zp-core/lib-auth.php:574
+#: zp-core/lib-auth.php:631
 msgid "Manage all pages"
 msgstr "Alle Seiten verwalten"
 
-#: zp-core/lib-auth.php:574 zp-core/lib-auth.php:600 zp-core/lib-auth.php:629
+#: zp-core/lib-auth.php:631 zp-core/lib-auth.php:657 zp-core/lib-auth.php:686
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
 "objects to which they have been assigned. This right allows them to manage "
@@ -13874,11 +13900,11 @@ msgstr ""
 "normalerweise darauf beschränkt, die Objekte zu verwalten, die ihnen "
 "zugewiesen sind. Diese Recht erlaubt ihnen jede Zenpage Seite zu verwalten."
 
-#: zp-core/lib-auth.php:575
+#: zp-core/lib-auth.php:632
 msgid "Manage all news"
 msgstr "Alle Artikel verwalten"
 
-#: zp-core/lib-auth.php:575 zp-core/lib-auth.php:599 zp-core/lib-auth.php:628
+#: zp-core/lib-auth.php:632 zp-core/lib-auth.php:656 zp-core/lib-auth.php:685
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
 "objects to which they have been assigned. This right allows them to manage "
@@ -13888,7 +13914,7 @@ msgstr ""
 "die ihnen zugewiesen wurden. Dieses Recht erlaubt es ihnen, alle Zenpage "
 "Artikel und Kategorien zu verwalten."
 
-#: zp-core/lib-auth.php:576 zp-core/lib-auth.php:601 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:633 zp-core/lib-auth.php:658 zp-core/lib-auth.php:687
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
 "objects to which they have been assigned. This right allows them to manage "
@@ -13898,7 +13924,7 @@ msgstr ""
 "die ihnen zugewiesen wurden. Dieses Recht erlaubt es ihnen, alle Alben der "
 "Galerie zu verwalten."
 
-#: zp-core/lib-auth.php:577 zp-core/lib-auth.php:602 zp-core/lib-auth.php:633
+#: zp-core/lib-auth.php:634 zp-core/lib-auth.php:659 zp-core/lib-auth.php:690
 msgid ""
 "Users with this right may make themes related changes. These are limited to "
 "the themes associated with albums checked in their managed albums list."
@@ -13907,18 +13933,18 @@ msgstr ""
 "sind auf die Themes beschränkt, die Alben zugewiesen sind, die diesem "
 "Benutzer in seiner Verwaltungsliste zugewiesen sind."
 
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:660 zp-core/lib-auth.php:692
 msgid ""
 "Users with this right may make additions and changes to the set of tags."
 msgstr "Benutzer mit diesem Recht können Schlagwörter bearbeiten."
 
-#: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
+#: zp-core/lib-auth.php:636 zp-core/lib-auth.php:661 zp-core/lib-auth.php:693
 #, fuzzy
 #| msgid "Users with this right may make changes on the options tabs."
 msgid "Users with this right may make changes on the options."
 msgstr "Benutzer mit diesem Recht können Einstellungen verändern."
 
-#: zp-core/lib-auth.php:580 zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:637 zp-core/lib-auth.php:662 zp-core/lib-auth.php:694
 msgid ""
 "The master privilege. A user with \"Admin\" can do anything. (No matter what "
 "his other rights might indicate!)"
@@ -13926,103 +13952,103 @@ msgstr ""
 "Das Masterrecht. Ein Benutzer hiermit kann alles machen (Egal, was die "
 "anderen Rechte vorgeben!)"
 
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:612
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:669
 msgid "View gallery"
 msgstr "Galerie ansehen"
 
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:612
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:669
 msgid ""
 "Users with this right may view otherwise protected generic gallery pages."
 msgstr ""
 "Benutzer mit diesem Recht können ansonsten geschützte Galerie-Seiten "
 "betrachten."
 
-#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:613
+#: zp-core/lib-auth.php:643 zp-core/lib-auth.php:670
 msgid "View search"
 msgstr "Suche ansehen"
 
-#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:613
+#: zp-core/lib-auth.php:643 zp-core/lib-auth.php:670
 msgid "Users with this right may view search pages even if password protected."
 msgstr ""
 "Benutzer mit diesem Recht können Suchseiten betrachten, auch wenn diese "
 "passwortgeschützt sind."
 
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:671
 msgid "View fullimage"
 msgstr "Originalbild ansehen"
 
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:671
 msgid "Users with this right may view all full sized (raw) images."
 msgstr "Benutzer mit diesem Recht können die Originalbilder betrachten."
 
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:589 zp-core/lib-auth.php:590
-#: zp-core/lib-auth.php:615 zp-core/lib-auth.php:616 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:645 zp-core/lib-auth.php:646 zp-core/lib-auth.php:647
+#: zp-core/lib-auth.php:672 zp-core/lib-auth.php:673 zp-core/lib-auth.php:674
 msgid "Access all"
 msgstr "Auf alle zugreifen"
 
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:615
+#: zp-core/lib-auth.php:645 zp-core/lib-auth.php:672
 msgid "Users with this right have access to all zenpage news articles."
 msgstr "Benutzer mit diesem Recht können auf alle Zenpage-Artikel zugreifen."
 
-#: zp-core/lib-auth.php:589 zp-core/lib-auth.php:616
+#: zp-core/lib-auth.php:646 zp-core/lib-auth.php:673
 msgid "Users with this right have access to all zenpage pages."
 msgstr "Benutzer mit diesem Recht können auf alle Zenpage-Seiten zugreifen."
 
-#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:647 zp-core/lib-auth.php:674
 msgid "Users with this right have access to all albums."
 msgstr "Benutzer mit diesem Recht können auf alle Alben zugreifen."
 
-#: zp-core/lib-auth.php:591 zp-core/lib-auth.php:618 zp-core/lib-auth.php:619
-#: zp-core/lib-auth.php:623
+#: zp-core/lib-auth.php:648 zp-core/lib-auth.php:675 zp-core/lib-auth.php:676
+#: zp-core/lib-auth.php:680
 msgid "View unpublished"
 msgstr "Unveröffentlichtes ansehen"
 
-#: zp-core/lib-auth.php:591 zp-core/lib-auth.php:618 zp-core/lib-auth.php:619
-#: zp-core/lib-auth.php:623
+#: zp-core/lib-auth.php:648 zp-core/lib-auth.php:675 zp-core/lib-auth.php:676
+#: zp-core/lib-auth.php:680
 msgid "Users with this right will see all unpublished items."
 msgstr ""
 "Benutzer mit diesem Recht werden alle unveröffentlichten Einträge sehen."
 
-#: zp-core/lib-auth.php:599 zp-core/lib-auth.php:600 zp-core/lib-auth.php:601
-#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:629 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:656 zp-core/lib-auth.php:657 zp-core/lib-auth.php:658
+#: zp-core/lib-auth.php:685 zp-core/lib-auth.php:686 zp-core/lib-auth.php:687
 msgid "Manage all"
 msgstr "Alle verwalten"
 
-#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:1004 zp-core/lib-auth.php:1107
+#: zp-core/lib-auth.php:667 zp-core/lib-auth.php:1066 zp-core/lib-auth.php:1169
 #: zp-core/zp-extensions/favoritesHandler.php:272
 msgid "User"
 msgstr "Benutzer"
 
-#: zp-core/lib-auth.php:610
+#: zp-core/lib-auth.php:667
 msgid "Users must have this right to change their credentials."
 msgstr "Benutzer benötigen dieses Recht, um ihre Einstellungen zu ändern."
 
-#: zp-core/lib-auth.php:611
+#: zp-core/lib-auth.php:668
 #, fuzzy
 msgid "Allows viewing of the debug tab items."
 msgstr "Ermöglicht die Anzeige der Elemente der Registerkarte Debugging."
 
-#: zp-core/lib-auth.php:632
+#: zp-core/lib-auth.php:689
 msgid "Codeblock"
 msgstr "Codeblock"
 
-#: zp-core/lib-auth.php:632
+#: zp-core/lib-auth.php:689
 msgid "Users with this right may edit Codeblocks."
 msgstr "Benutzer mit diesem Recht können Codeblöcke bearbeiten."
 
-#: zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:701
 msgid "All rights"
 msgstr "Alle Rechte"
 
-#: zp-core/lib-auth.php:645 zp-core/zp-extensions/register_user.php:117
+#: zp-core/lib-auth.php:702 zp-core/zp-extensions/register_user.php:117
 msgid "Default rights"
 msgstr "Standardrechte"
 
-#: zp-core/lib-auth.php:734
+#: zp-core/lib-auth.php:791
 msgid "Sorry, that is not the answer."
 msgstr "Entschuldigung, dies ist nicht die Antwort."
 
-#: zp-core/lib-auth.php:741
+#: zp-core/lib-auth.php:798
 #, fuzzy
 #| msgid ""
 #| "You are receiving this e-mail because of a password reset request on your "
@@ -14034,7 +14060,7 @@ msgstr ""
 "Sie erhalten diese E-Mail aufgrund einer Passwortresetanfrage auf Ihrer "
 "Zenphoto-Galerie."
 
-#: zp-core/lib-auth.php:743
+#: zp-core/lib-auth.php:800
 #, fuzzy, php-format
 #| msgid ""
 #| "You are receiving this e-mail because of a password reset request on your "
@@ -14047,17 +14073,17 @@ msgstr ""
 "Zenphoto-Galerie aufgrund eines Benutzers, der sich als %s anzumelden "
 "versuchte."
 
-#: zp-core/lib-auth.php:783
+#: zp-core/lib-auth.php:840
 msgid "There was no one to which to send the reset request."
 msgstr ""
 "Es existiert niemand, dem eine Reset-Anforderung geschickt werden könnte."
 
-#: zp-core/lib-auth.php:788
+#: zp-core/lib-auth.php:845
 #, php-format
 msgid "To reset your Admin passwords visit: %s"
 msgstr "Um Ihr Administrations-Passwort zurückzusetzen, besuchen Sie: %s"
 
-#: zp-core/lib-auth.php:789
+#: zp-core/lib-auth.php:846
 msgid ""
 "If you do not wish to reset your passwords just ignore this message. This "
 "ticket will automatically expire in 3 days."
@@ -14065,54 +14091,54 @@ msgstr ""
 "Wenn Sie Ihr Passwort nicht zurücksetzen wollen, ignorieren Sie einfach "
 "diese Nachricht. Das Ticket wird automatisch nach 3 Tagen ungültig."
 
-#: zp-core/lib-auth.php:791
+#: zp-core/lib-auth.php:848
 #, fuzzy
 #| msgid "No image effects found."
 msgid "No matching user was found."
 msgstr "Es wurde kein passender Benutzer gefunden."
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:850
 #, fuzzy
 #| msgid "The ZenPhoto20 information you requested"
 msgid "The information you requested"
 msgstr "Die Zenphoto-Information, die Sie angefordert haben"
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:850
 #, fuzzy, php-format
 #| msgid "Emails a password reset request to a newly created user."
 msgid "%1$s password reset request mail failed."
 msgstr "%1$s Passwort Reset Anfrage Mail ist fehlgeschlagen."
 
-#: zp-core/lib-auth.php:798
+#: zp-core/lib-auth.php:855
 #, fuzzy
 #| msgid "Restore failed"
 msgid "Reset request failed."
 msgstr "Rücksetzanforderung fehlgeschlagen."
 
-#: zp-core/lib-auth.php:802
+#: zp-core/lib-auth.php:859
 #: zp-core/zp-extensions/comment_form/functions.php:380
 #: zp-core/zp-extensions/register_user.php:466
 msgid "CAPTCHA verification failed."
 msgstr "CAPTCHA-Verifizierung gescheitert."
 
-#: zp-core/lib-auth.php:966
+#: zp-core/lib-auth.php:1028
 msgid "There was an error logging in."
 msgstr "Es ist ein Fehler beim Anmelden aufgetreten."
 
-#: zp-core/lib-auth.php:969
+#: zp-core/lib-auth.php:1031
 msgid "Check your username and password and try again."
 msgstr ""
 "Überprüfen Sie Ihren Benutzer und Ihr Passwort und versuchen Sie es erneut."
 
-#: zp-core/lib-auth.php:971
+#: zp-core/lib-auth.php:1033
 msgid "Check password and try again."
 msgstr "Überprüfen Sie Ihr Benutzer-Passwort und versuchen Sie es erneut."
 
-#: zp-core/lib-auth.php:980
+#: zp-core/lib-auth.php:1042
 msgid "A reset request has been sent."
 msgstr "Eine Reset-Anfrage wurde gesendet."
 
-#: zp-core/lib-auth.php:1010
+#: zp-core/lib-auth.php:1072
 msgid ""
 "Supply the correct response to the question below and you will be directed "
 "to a page where you can change your password."
@@ -14120,15 +14146,15 @@ msgstr ""
 "Geben Sie die korrekte Antwort auf die untenstehende Frage und Sie werden "
 "auf die Seite zum Ändern Ihres Passwortes geleitet."
 
-#: zp-core/lib-auth.php:1011
+#: zp-core/lib-auth.php:1073
 msgid "Challenge question:"
 msgstr "Geheimfrage:"
 
-#: zp-core/lib-auth.php:1016
+#: zp-core/lib-auth.php:1078
 msgid "Your response"
 msgstr "Geheimfrage-Antwort:"
 
-#: zp-core/lib-auth.php:1025
+#: zp-core/lib-auth.php:1087
 msgid ""
 "Enter your User ID and press <code>Refresh</code> to get your challenge "
 "question."
@@ -14136,72 +14162,72 @@ msgstr ""
 "Geben Sie Ihre Benutzer-ID ein und drücken Sie auf  <code>Neuladen</code>, "
 "um Ihre Geheimfrage zu erhalten."
 
-#: zp-core/lib-auth.php:1036 zp-core/lib-auth.php:1038
+#: zp-core/lib-auth.php:1098 zp-core/lib-auth.php:1100
 #: zp-core/setup/index.php:1652
 #: zp-core/zp-extensions/cacheManager/cacheDBImages.php:214
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:366
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: zp-core/lib-auth.php:1040 zp-core/lib-auth.php:1042
-#: zp-core/lib-auth.php:1212 zp-core/lib-auth.php:1214
+#: zp-core/lib-auth.php:1102 zp-core/lib-auth.php:1104
+#: zp-core/lib-auth.php:1274 zp-core/lib-auth.php:1276
 msgid "Return"
 msgstr "Zurück"
 
-#: zp-core/lib-auth.php:1053
+#: zp-core/lib-auth.php:1115
 msgid "Request reset by e-mail"
 msgstr "Eine Reset-Anfrage per E-Mail anfordern"
 
-#: zp-core/lib-auth.php:1086
+#: zp-core/lib-auth.php:1148
 #, php-format
 msgid "Logon using:%s"
 msgstr "Anmeldung verwendet: %s"
 
-#: zp-core/lib-auth.php:1122 zp-core/lib-auth.php:1124
+#: zp-core/lib-auth.php:1184 zp-core/lib-auth.php:1186
 msgid "Log in"
 msgstr "Anmelden"
 
-#: zp-core/lib-auth.php:1144 zp-core/lib-auth.php:1153
+#: zp-core/lib-auth.php:1206 zp-core/lib-auth.php:1215
 msgid "I forgot my <strong>User ID</strong>/<strong>Password</strong>"
 msgstr ""
 "Ich habe meine <strong>Benutzer-ID</strong>/mein <strong>Passwort</strong> "
 "vergessen!"
 
-#: zp-core/lib-auth.php:1186
+#: zp-core/lib-auth.php:1248
 #, fuzzy
 #| msgid "Enter a valid email address."
 msgid "User name or e-mail address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: zp-core/lib-auth.php:1210
+#: zp-core/lib-auth.php:1272
 msgid "Request password reset"
 msgstr "Passwort-Reset anfordern"
 
-#: zp-core/lib-auth.php:1295
+#: zp-core/lib-auth.php:1357
 msgid "password strength weak"
 msgstr "Passwortstärke schwach"
 
-#: zp-core/lib-auth.php:1298
+#: zp-core/lib-auth.php:1360
 msgid "password strength good"
 msgstr "Passwortstärke gut"
 
-#: zp-core/lib-auth.php:1301
+#: zp-core/lib-auth.php:1363
 msgid "password strength strong"
 msgstr "Passwortstärke stark"
 
-#: zp-core/lib-auth.php:1306
+#: zp-core/lib-auth.php:1368
 msgid "password strength too weak"
 msgstr "Passwortstärke zu schwach"
 
-#: zp-core/lib-auth.php:1326
+#: zp-core/lib-auth.php:1388
 msgid "passwords match"
 msgstr "Passwörter stimmen überein"
 
-#: zp-core/lib-auth.php:1330
+#: zp-core/lib-auth.php:1392
 msgid "passwords do not match"
 msgstr "Passwörter stimmen nicht überein"
 
-#: zp-core/lib-auth.php:1421
+#: zp-core/lib-auth.php:1483
 msgid "Repeat password"
 msgstr "Passwort wiederholen"
 
@@ -16172,64 +16198,64 @@ msgstr "Die Datei %1$s existiert nicht."
 msgid "Testing %s."
 msgstr "%s testen"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 msgid "Fail: "
 msgstr "Fehlgeschlagen:"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 msgid "Warn: "
 msgstr "Warnung:"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 msgid "Pass: "
 msgstr "In Ordnung:"
 
-#: zp-core/setup/setup-functions.php:132
+#: zp-core/setup/setup-functions.php:137
 msgid "Error!"
 msgstr "Fehler!"
 
-#: zp-core/setup/setup-functions.php:141 zp-core/setup/setup-functions.php:156
+#: zp-core/setup/setup-functions.php:146 zp-core/setup/setup-functions.php:161
 msgid "Warning!"
 msgstr "Warnung!"
 
-#: zp-core/setup/setup-functions.php:153
+#: zp-core/setup/setup-functions.php:158
 msgid "<strong>Warning!</strong> click for details"
 msgstr "<strong>Anmerkung!</strong> Für mehr Details klicken"
 
-#: zp-core/setup/setup-functions.php:161
+#: zp-core/setup/setup-functions.php:166
 msgid "<strong>Notice!</strong> click for details"
 msgstr "<strong>Anmerkung!</strong> Für mehr Details klicken"
 
-#: zp-core/setup/setup-functions.php:164
+#: zp-core/setup/setup-functions.php:169
 msgid "Notice!"
 msgstr "Anmerkung!"
 
-#: zp-core/setup/setup-functions.php:186
+#: zp-core/setup/setup-functions.php:191
 msgid "Autorun aborted"
 msgstr "Automatisches Ausführen abgebrochen"
 
-#: zp-core/setup/setup-functions.php:240
+#: zp-core/setup/setup-functions.php:245
 #, php-format
 msgid "<em>%1$s</em> folder%2$s [subfolder creation failure]"
 msgstr "<em>%1$s</em> Ordner%2$s [Unterordnererstellung fehlgeschlagen]"
 
-#: zp-core/setup/setup-functions.php:240
+#: zp-core/setup/setup-functions.php:245
 #, php-format
 msgid "Setup could not create the following subfolders:<br />%s"
 msgstr "Setup konnte die folgenden Unterordner nicht erstellen:<br />%s"
 
-#: zp-core/setup/setup-functions.php:259 zp-core/setup/setup-functions.php:264
+#: zp-core/setup/setup-functions.php:264 zp-core/setup/setup-functions.php:269
 #: zp-core/zp-extensions/deprecated-functions.php:179
 #: zp-core/zp-extensions/purgeOptions.php:93
 msgid "unknown"
 msgstr "Unbekannt"
 
-#: zp-core/setup/setup-functions.php:266
+#: zp-core/setup/setup-functions.php:271
 #, php-format
 msgid "<em>%1$s</em> folder%2$s [permissions failure]"
 msgstr "<em>%1$s</em> Ordner%2$s [Dateizugriffsrechte fehlgeschlagen]"
 
-#: zp-core/setup/setup-functions.php:266
+#: zp-core/setup/setup-functions.php:271
 #, php-format
 msgid ""
 "Setup could not change the file permissions from <em>%1$s</em> (<code>0%2$o</"
@@ -16240,7 +16266,7 @@ msgstr ""
 "code>) auf <em>%3$s</em> (<code>0%4$o</code>) setzen. Sie müssen diese "
 "manuell einstellen."
 
-#: zp-core/setup/setup-functions.php:303
+#: zp-core/setup/setup-functions.php:308
 #, php-format
 msgid ""
 "You must create the folder <em>%1$s</em><br /><code>mkdir(%2$s, 0777)</code>."
@@ -16248,12 +16274,12 @@ msgstr ""
 "Sie müssen den Ordner <em>%1$s</em><br /><code>mkdir(%2$s, 0777)</code> "
 "erstellen."
 
-#: zp-core/setup/setup-functions.php:305
+#: zp-core/setup/setup-functions.php:310
 #, php-format
 msgid "<em>%1$s</em> folder [<em>%2$s</em> does not exist]"
 msgstr "Ordner <em>%1$s</em> [<em>%2$s</em> existiert nicht]"
 
-#: zp-core/setup/setup-functions.php:307
+#: zp-core/setup/setup-functions.php:312
 #, php-format
 msgid ""
 "<em>%1$s</em> folder [<em>%2$s</em> does not exist and <strong>setup</"
@@ -16262,7 +16288,7 @@ msgstr ""
 "Ordner <em>%1$s</em> [<em>%2$s</em> existiert nicht und <strong>setup</"
 "strong> konnte ihn nicht erstellen]"
 
-#: zp-core/setup/setup-functions.php:310
+#: zp-core/setup/setup-functions.php:315
 #, php-format
 msgid ""
 "Change the permissions on the <code>%1$s</code> folder to be writable by the "
@@ -16271,7 +16297,7 @@ msgstr ""
 "Ändern Sie die Zugriffsrechte des <code>%1$s</code>-Ordners auf schreibbar "
 "durch den Server (<code>chmod 777 %2$s</code>)"
 
-#: zp-core/setup/setup-functions.php:311
+#: zp-core/setup/setup-functions.php:316
 #, php-format
 msgid ""
 "<em>%1$s</em> folder [<em>%2$s</em> is not writeable and <strong>setup</"
@@ -16280,29 +16306,29 @@ msgstr ""
 "Ordner <em>%1$s</em> [<em>%2$s</em> ist nicht beschreibbar und "
 "<strong>setup</strong> konnte dies nicht ändern]"
 
-#: zp-core/setup/setup-functions.php:313
+#: zp-core/setup/setup-functions.php:318
 #, php-format
 msgid "<em>%1$s</em> folder%2$s"
 msgstr "<em>%1$s</em> Ordner %2$s"
 
-#: zp-core/setup/setup-functions.php:353 zp-core/setup/setup-functions.php:367
+#: zp-core/setup/setup-functions.php:358 zp-core/setup/setup-functions.php:372
 msgid "change the definition"
 msgstr "Definition ändern"
 
-#: zp-core/setup/setup-functions.php:353 zp-core/setup/setup-functions.php:367
+#: zp-core/setup/setup-functions.php:358 zp-core/setup/setup-functions.php:372
 msgid "apply"
 msgstr "Anwenden"
 
-#: zp-core/setup/setup-functions.php:363
+#: zp-core/setup/setup-functions.php:368
 #, php-format
 msgid "%1$s (0%2$o)"
 msgstr "%1$s (0%2$o)"
 
-#: zp-core/setup/setup-functions.php:409
+#: zp-core/setup/setup-functions.php:414
 msgid "An attempt at cross site reference forgery has been blocked."
 msgstr "Der Versuch eines  Cross-Site Request Forgery wurde blockiert."
 
-#: zp-core/setup/setup-functions.php:436
+#: zp-core/setup/setup-functions.php:441
 #, php-format
 msgid ""
 "Click <a href=\"%s\">here</a> to acknowledge that you wish to ignore this "
@@ -16311,7 +16337,7 @@ msgstr ""
 "Klicken Sie <a href=\"%s\">here</a>, um zu bestätigen, dass Sie dieses "
 "Problem ignorieren möchten. Es wird dann als Warnung angezeigt."
 
-#: zp-core/setup/setup-functions.php:495
+#: zp-core/setup/setup-functions.php:500
 #, fuzzy, php-format
 #| msgid ""
 #| "<strong>Warning:</strong> the <code>%s</code> table appears not to have a "
@@ -16336,31 +16362,31 @@ msgstr ""
 "und dann aus dem Backup wiederhergestellt wird. Beachten Sie jedoch, dass "
 "die doppelten Einträge verloren gehen."
 
-#: zp-core/setup/setup-functions.php:518
+#: zp-core/setup/setup-functions.php:523
 #, fuzzy, php-format
 #| msgid "Query failure: %s"
 msgid "Query Success: %s"
 msgstr "Abfrageerfolg: %s"
 
-#: zp-core/setup/setup-functions.php:523
+#: zp-core/setup/setup-functions.php:528
 #, fuzzy, php-format
 #| msgid "Query failure: %s"
 msgid "Query Failed: %1$s "
 msgstr "Abfrage fehlgeschlagen: %1$s"
 
-#: zp-core/setup/setup-functions.php:555
+#: zp-core/setup/setup-functions.php:560
 #, fuzzy, php-format
 #| msgid "%1$s: %2$s in %3$s on line %4$s"
 msgid "%1$s *ERROR* \"%2$s\" in %3$s on line %4$s"
 msgstr "%1$s *ERROR* \"%2$s\" in %3$s on line %4$s"
 
-#: zp-core/setup/setup-functions.php:560
+#: zp-core/setup/setup-functions.php:565
 #, fuzzy, php-format
 #| msgid "disabled"
 msgid "%1$s disabled."
 msgstr "%1$s deaktiviert."
 
-#: zp-core/setup/setup-functions.php:562
+#: zp-core/setup/setup-functions.php:567
 #, fuzzy, php-format
 #| msgid "Plugin:%s setup started"
 msgid "%1$s setup failed."
@@ -16737,133 +16763,133 @@ msgstr "Zurück zum Archiv"
 msgid "The image is marked un-published."
 msgstr "Das Bild ist unveröffentlicht."
 
-#: zp-core/template-functions.php:3887
+#: zp-core/template-functions.php:3885
 #, php-format
 msgid "%s within previous results"
 msgstr "%s innerhalb bisheriger Treffer"
 
-#: zp-core/template-functions.php:3964
+#: zp-core/template-functions.php:3962
 msgid "search options"
 msgstr "Sucheinstellungen"
 
-#: zp-core/template-functions.php:3964
+#: zp-core/template-functions.php:3962
 msgid "fields"
 msgstr "Felder"
 
-#: zp-core/template-functions.php:4003
+#: zp-core/template-functions.php:4001
 msgid "Within"
 msgstr "Innerhalb"
 
-#: zp-core/template-functions.php:4007
+#: zp-core/template-functions.php:4005
 #: zp-core/zp-extensions/flag_thumbnail.php:93
 msgid "New"
 msgstr "Neu"
 
-#: zp-core/template-functions.php:4066
+#: zp-core/template-functions.php:4064
 msgid "no date"
 msgstr "kein Datum"
 
-#: zp-core/template-functions.php:4266
+#: zp-core/template-functions.php:4264
 msgid "The page you are trying to view is password protected."
 msgstr "Die Seite, die Sie sehen möchten, ist passwortgeschützt."
 
-#: zp-core/template-functions.php:4271
+#: zp-core/template-functions.php:4269
 msgid "login"
 msgstr "Anmelden"
 
-#: zp-core/template-functions.php:4290
+#: zp-core/template-functions.php:4288
 #, fuzzy
 msgid "A media oriented content management system"
 msgstr "Ein medienorientiertes Content-Management-System"
 
-#: zp-core/template-functions.php:4291
+#: zp-core/template-functions.php:4289
 #, fuzzy, php-format
 msgid "Powered by %s"
 msgstr "Bereitgestellt von %s"
 
-#: zp-core/template-functions.php:4532
+#: zp-core/template-functions.php:4530
 msgid "Error:</strong> the requested object was not found."
 msgstr "ZenPhoto20Fehler:</strong> Das Objekt wurde nicht gefunden. "
 
-#: zp-core/template-functions.php:4534
+#: zp-core/template-functions.php:4532
 #, php-format
 msgid "Album: %s"
 msgstr "Album: %s"
 
-#: zp-core/template-functions.php:4536
+#: zp-core/template-functions.php:4534
 #, php-format
 msgid "Image: %s"
 msgstr "Bild: %s"
 
-#: zp-core/template-functions.php:4539
+#: zp-core/template-functions.php:4537
 #, php-format
 msgid "Page: %s"
 msgstr "Seite: %s"
 
-#: zp-core/utilities/backup_restore.php:170
+#: zp-core/utilities/backup_restore.php:169
 #, php-format
 msgid "Failed to open %s for writing."
 msgstr "%s konnte nicht zum Schreiben geöffnet werden."
 
-#: zp-core/utilities/backup_restore.php:176
-#: zp-core/utilities/backup_restore.php:195
+#: zp-core/utilities/backup_restore.php:175
+#: zp-core/utilities/backup_restore.php:194
 msgid "failed writing to backup!"
 msgstr "konnte nicht als Backup gespeichert werden!"
 
-#: zp-core/utilities/backup_restore.php:213
+#: zp-core/utilities/backup_restore.php:212
 msgid "SHOW TABLES failed!"
 msgstr "SHOW TABLES fehlgeschlagen!"
 
-#: zp-core/utilities/backup_restore.php:223
+#: zp-core/utilities/backup_restore.php:222
 #, php-format
 msgid "backup completed using <em>%1$s(%2$s)</em> compression"
 msgstr "Backup komplett mit <em>%1$s(%2$s)</em> Komprimierung"
 
-#: zp-core/utilities/backup_restore.php:225
+#: zp-core/utilities/backup_restore.php:224
 msgid "backup completed"
 msgstr "Backup komplett"
 
-#: zp-core/utilities/backup_restore.php:238
+#: zp-core/utilities/backup_restore.php:237
 msgid "backup failed"
 msgstr "Backup fehlgeschlagen"
 
-#: zp-core/utilities/backup_restore.php:246
+#: zp-core/utilities/backup_restore.php:245
 msgid "No backup set found."
 msgstr "Keine Backupdatei gefunden."
 
-#: zp-core/utilities/backup_restore.php:321
+#: zp-core/utilities/backup_restore.php:320
 msgid "Truncate table<br />"
 msgstr "Tabelle kürzen<br />"
 
-#: zp-core/utilities/backup_restore.php:393
+#: zp-core/utilities/backup_restore.php:392
 msgid "Restore encountered exceptions"
 msgstr "Bei der Wiederherstellung sind Probleme augetreten."
 
-#: zp-core/utilities/backup_restore.php:396
+#: zp-core/utilities/backup_restore.php:395
 msgid ""
 "The following tables were not restored because the table no longer exists:"
 msgstr ""
 "Die folgenden Tabellen wurden nicht wiederhergestellt, da die Tabellen nicht "
 "mehr existieren:"
 
-#: zp-core/utilities/backup_restore.php:409
+#: zp-core/utilities/backup_restore.php:408
 msgid ""
 "The following fields were not restored because the field no longer exists:"
 msgstr ""
 "Die folgenden Felder wurden nicht wiederhergestellt, da die Felder nicht "
 "mehr existieren:"
 
-#: zp-core/utilities/backup_restore.php:429
+#: zp-core/utilities/backup_restore.php:428
 msgid "The maximum error count was exceeded and the restore aborted."
 msgstr ""
 "Die maximale Fehleranzahl wurde überschritten und die Wiederherstellung "
 "abgebrochen."
 
-#: zp-core/utilities/backup_restore.php:432
+#: zp-core/utilities/backup_restore.php:431
 msgid "Restore encountered the following errors:"
 msgstr "Bei der Wiederherstellung sind folgende Probleme augetreten:"
 
-#: zp-core/utilities/backup_restore.php:455
+#: zp-core/utilities/backup_restore.php:454
 #, fuzzy, php-format
 msgid ""
 "You have restored your database from a different instance of the software. "
@@ -16873,78 +16899,78 @@ msgstr ""
 "wiederhergestellt. Du solltest %1$ssetup%2$s ausführen, um eine korrekte "
 "Migration zu gewährleisten."
 
-#: zp-core/utilities/backup_restore.php:464
+#: zp-core/utilities/backup_restore.php:463
 msgid "Rights migration failed!"
 msgstr "Rechteübertragung fehlgeschlagen."
 
-#: zp-core/utilities/backup_restore.php:478
+#: zp-core/utilities/backup_restore.php:477
 msgid "Restore completed"
 msgstr "Wiederherstellung komplett"
 
-#: zp-core/utilities/backup_restore.php:480
+#: zp-core/utilities/backup_restore.php:479
 #, php-format
 msgid "Restore completed using %s compression"
 msgstr "Wiederherstellung mit  %s-Komprimierung komplett "
 
-#: zp-core/utilities/backup_restore.php:499
+#: zp-core/utilities/backup_restore.php:498
 msgid "Restore your Database"
 msgstr "Datenbank wiederherstellen"
 
-#: zp-core/utilities/backup_restore.php:501
+#: zp-core/utilities/backup_restore.php:500
 msgid "Backup and Restore your Database"
 msgstr "Backup und Wiederherstellung Ihrer Datenbank."
 
-#: zp-core/utilities/backup_restore.php:511
+#: zp-core/utilities/backup_restore.php:510
 #, php-format
 msgid "Database software <strong>%s</strong>"
 msgstr "Datenbanksoftware <strong>%s</strong>"
 
-#: zp-core/utilities/backup_restore.php:512
+#: zp-core/utilities/backup_restore.php:511
 #, php-format
 msgid "Database name <strong>%s</strong>"
 msgstr "Datenbankname <strong>%s</strong>"
 
-#: zp-core/utilities/backup_restore.php:513
+#: zp-core/utilities/backup_restore.php:512
 #, php-format
 msgid "Tables prefix <strong>%s</strong>"
 msgstr "Tabellenvorsilbe <strong>%s</strong>"
 
-#: zp-core/utilities/backup_restore.php:525
+#: zp-core/utilities/backup_restore.php:524
 msgid "Backup the tables in your database."
 msgstr "Backup der Tabellen Ihrer Datenbank."
 
-#: zp-core/utilities/backup_restore.php:527
+#: zp-core/utilities/backup_restore.php:526
 msgid "Backup the Database"
 msgstr "Datenbank-Backup"
 
-#: zp-core/utilities/backup_restore.php:537
+#: zp-core/utilities/backup_restore.php:536
 msgid "Compression level"
 msgstr "Kompressionsstufe"
 
-#: zp-core/utilities/backup_restore.php:548
+#: zp-core/utilities/backup_restore.php:547
 msgid "You have not yet created a backup set."
 msgstr "Sie haben bisher noch kein Backup erstellt."
 
-#: zp-core/utilities/backup_restore.php:563
+#: zp-core/utilities/backup_restore.php:562
 msgid "Select the database restore file:"
 msgstr "Wählen Sie die Datenbank-Wiederherstellungsdatei aus:"
 
-#: zp-core/utilities/backup_restore.php:573
+#: zp-core/utilities/backup_restore.php:572
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to restore."
 msgstr "Wählen Sie die wiederherzustellenden Tabellen aus."
 
-#: zp-core/utilities/backup_restore.php:597
+#: zp-core/utilities/backup_restore.php:595
 msgid "Restore the tables in your database from a previous backup."
 msgstr ""
 "Wiederherstellung der Tabellen Ihrer Datenbank von einen vorigen Backup."
 
-#: zp-core/utilities/backup_restore.php:599
+#: zp-core/utilities/backup_restore.php:597
 msgid "Restore the Database"
 msgstr "Datenbank wiederherstellen"
 
-#: zp-core/utilities/backup_restore.php:610
+#: zp-core/utilities/backup_restore.php:608
 msgid ""
 "The backup facility creates database snapshots in the <code>backup</code> "
 "folder of your installation. These backups are named in according to the "
@@ -16959,7 +16985,7 @@ msgstr ""
 "erfordert mehr Prozessorleistung und resultiert möglicherweise nicht in "
 "wirklicher Platzersparniss."
 
-#: zp-core/utilities/backup_restore.php:614
+#: zp-core/utilities/backup_restore.php:612
 msgid ""
 "You restore your database by selecting a backup and pressing the <em>Restore "
 "the Database</em> button."
@@ -16967,7 +16993,7 @@ msgstr ""
 "Stellen Sie Ihre Datenbank wieder her, indem Sie ein Backup auswählen und "
 "auf <em>Datenbank wiederherstellen</em> klicken."
 
-#: zp-core/utilities/backup_restore.php:615
+#: zp-core/utilities/backup_restore.php:613
 msgid ""
 "<strong>Note:</strong> Each database table is emptied before the restore is "
 "attempted. After a successful restore the database will be in the same state "
@@ -16978,7 +17004,7 @@ msgstr ""
 "wird die Datenbank den selben Zustand wie zum Zeitpunkt der Backuperstellung "
 "haben."
 
-#: zp-core/utilities/backup_restore.php:617
+#: zp-core/utilities/backup_restore.php:615
 #, fuzzy
 #| msgid ""
 #| "Ideally a restore should be done only on the same version on which the "
@@ -18433,7 +18459,7 @@ msgstr "Graustufen"
 
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:228
 msgid "Hide"
 msgstr "Verbergen"
 
@@ -18942,13 +18968,13 @@ msgstr "Abmessung"
 msgid "Play Time"
 msgstr "Spieldauer"
 
-#: zp-core/zp-extensions/class-video.php:332
+#: zp-core/zp-extensions/class-video.php:333
 #, fuzzy
 #| msgid "Your server does not support symbolic linking."
 msgid "Your browser does not support the audio tag"
 msgstr "Ihr Browser unterstützt das Audio-Tag nicht."
 
-#: zp-core/zp-extensions/class-video.php:337
+#: zp-core/zp-extensions/class-video.php:338
 #, fuzzy
 #| msgid "Your server does not support symbolic linking."
 msgid "Your browser does not support the video tag"
@@ -19771,13 +19797,13 @@ msgstr "Anonym"
 msgid "Article"
 msgstr "Artikel"
 
-#: zp-core/zp-extensions/common/fieldExtender.php:550
+#: zp-core/zp-extensions/common/fieldExtender.php:552
 #, fuzzy
 msgid "There is no defined context, you must pass a comment object."
 msgstr ""
 "Es gibt keinen definierten Kontext, Sie müssen ein Kommentarobjekt übergeben."
 
-#: zp-core/zp-extensions/common/fieldExtender.php:568
+#: zp-core/zp-extensions/common/fieldExtender.php:570
 #, fuzzy
 msgid "Field not defined."
 msgstr "Feld nicht definiert."
@@ -23507,47 +23533,54 @@ msgid_plural "Page %1$u (Current Page)"
 msgstr[0] "Seite %1$u (Aktuelle Seite)"
 msgstr[1] "Seite %1$u (Aktuelle Seite)"
 
-#: zp-core/zp-extensions/menu_manager.php:817
+#: zp-core/zp-extensions/menu_manager.php:842
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:488
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:276
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:108
 msgid "News index"
 msgstr "Neuigkeiten-Index"
 
-#: zp-core/zp-extensions/menu_manager.php:841
-#: zp-core/zp-extensions/menu_manager.php:854
-#: zp-core/zp-extensions/menu_manager.php:867
-#, php-format
-msgid "createMenuIfNotExists item %s has an empty link."
+#: zp-core/zp-extensions/menu_manager.php:866
+#: zp-core/zp-extensions/menu_manager.php:879
+#: zp-core/zp-extensions/menu_manager.php:892
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %s has an empty link."
+msgid "createMenu item %s has an empty link."
 msgstr "createMenuIfNotExists-Eintrag %s hat einen leeren Link."
 
-#: zp-core/zp-extensions/menu_manager.php:847
-#: zp-core/zp-extensions/menu_manager.php:861
-#: zp-core/zp-extensions/menu_manager.php:881
-#: zp-core/zp-extensions/menu_manager.php:889
-#, php-format
-msgid "createMenuIfNotExists item %s has an empty title."
+#: zp-core/zp-extensions/menu_manager.php:872
+#: zp-core/zp-extensions/menu_manager.php:886
+#: zp-core/zp-extensions/menu_manager.php:906
+#: zp-core/zp-extensions/menu_manager.php:914
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %s has an empty title."
+msgid "createMenu item %s has an empty title."
 msgstr "createMenuIfNotExists-Eintrag %s hat einen leeren Titel."
 
-#: zp-core/zp-extensions/menu_manager.php:874
-#: zp-core/zp-extensions/menu_manager.php:897
-#, php-format
-msgid "createMenuIfNotExists item %s has an empty title or link."
+#: zp-core/zp-extensions/menu_manager.php:899
+#: zp-core/zp-extensions/menu_manager.php:922
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %s has an empty title or link."
+msgid "createMenu item %s has an empty title or link."
 msgstr "createMenuIfNotExists-Eintrag %s hat einen leeren Titel oder Link."
 
-#: zp-core/zp-extensions/menu_manager.php:902
+#: zp-core/zp-extensions/menu_manager.php:927
 #, fuzzy, php-format
 #| msgid "createMenuIfNotExists item %s has an invalid type."
-msgid "createMenuIfNotExists item %1$s has an invalid type (%2$s)."
+msgid "createMenu item %1$s has an invalid type (%2$s)."
 msgstr "createMenuIfNotExists-Eintrag %s ist ein ungültiger Typ."
 
-#: zp-core/zp-extensions/menu_manager.php:919
-#, php-format
-msgid "createMenuIfNotExists item %1$s query (%2$s) failed: %3$s."
+#: zp-core/zp-extensions/menu_manager.php:944
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %1$s query (%2$s) failed: %3$s."
+msgid "createMenu item %1$s query (%2$s) failed: %3$s."
 msgstr "createMenuIfNotExists Element %1$s Abfrage (%2$s) gescheitert: %3$s."
 
-#: zp-core/zp-extensions/menu_manager.php:927
-msgid "createMenuIfNotExists has posted processing errors to your debug log."
+#: zp-core/zp-extensions/menu_manager.php:950
+#, fuzzy
+#| msgid ""
+#| "createMenuIfNotExists has posted processing errors to your debug log."
+msgid "createMenu has posted processing errors to your debug log."
 msgstr ""
 "createMenuIfNotExists hat die festgestellten Fehler im Debuglog dokumentiert."
 
@@ -23723,42 +23756,42 @@ msgstr "Menüeintrag gelöscht"
 msgid "Menu “%s” deleted"
 msgstr "Menü „%s“gelöscht"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:96
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:97
 #, php-format
 msgid "Menu “%s” duplicated"
 msgstr "Menuü „%s“ dupliziert"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:98
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:99
 #, php-format
 msgid "Menu “%s” already exists"
 msgstr "Menü „%s“ existiert bereits"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:135
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:141
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:137
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
 msgid "Name for new menu:"
 msgstr "Name für das neue Menü:"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:141
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
 #, php-format
 msgid "Copy_of_%s"
 msgstr "Kopie_von_%s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:147
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:149
 #, php-format
 msgid "Ok to delete menu %s? This cannot be undone!"
 msgstr ""
 "Wollen Sie das Menü %s löschen? Dies kann nicht rückgängig gemacht werden!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:170
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:172
 msgid "Menu Manager"
 msgstr "Menü-Manager"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:171
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:173
 #, php-format
 msgid " (Menu: %s)"
 msgstr " (Menü: %s)"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:178
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:180
 msgid ""
 "Drag the items into the order and nesting you wish displayed. Place the menu "
 "on your theme pages by calling printCustomMenu()."
@@ -23767,7 +23800,7 @@ msgstr ""
 "Untereinträgen. Platzieren Sie dazu printCustomMenu() auf Ihren Themeseiten, "
 "um es anzuzeigen."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:181
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:183
 #, fuzzy
 #| msgid ""
 #| "<strong>IMPORTANT:</strong> This menu’s order is completely independent "
@@ -23789,57 +23822,57 @@ msgstr ""
 "Breadcrumb-Funktionen und die next_album()-Schleife spiegeln NICHT die "
 "Struktur dieses Menüs wider!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:195
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:197
 msgid "New Menu"
 msgstr "Neues Menü"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:218
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:220
 msgid "Edit the menu"
 msgstr "Menü bearbeiten"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
 #, php-format
 msgid "Duplicate %s menu"
 msgstr "Menü %s duplizieren"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
 msgid "Duplicate menu"
 msgstr "Menü duplizieren"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:237
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
 #, php-format
 msgid "Delete %s menu"
 msgstr "Menü %s löschen"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:241
 msgid "Delete menu"
 msgstr "Menü löschen"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:243
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
 #, fuzzy, php-format
 #| msgid "Duplicate %s menu"
 msgid "Export %s menu"
 msgstr "Menü %s duplizieren"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:247
 #, fuzzy
 msgid "Export menu"
 msgstr "Belichtungszeit"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:254
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:256
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:245
 msgid "Add Menu Items"
 msgstr "Menüeinträge hinzufügen"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:277
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:279
 msgid "No menus exist"
 msgstr "Keine Menüs vorhanden"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:294
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:296
 msgid "Menu target is password protected"
 msgstr "Menü-Ziel ist passwortgeschützt"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:299
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:301
 #, fuzzy
 #| msgid "Visible items"
 msgid "Visible/Hidden"

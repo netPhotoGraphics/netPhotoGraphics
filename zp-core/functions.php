@@ -1917,8 +1917,9 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 	}
 // Handle the login form.
 	if (DEBUG_LOGIN) {
-		debugLogVar("zp_handle_password:", $auth);
+		debugLogVar(["zp_handle_password:" => $auth]);
 	}
+
 	if (isset($_POST['password']) && isset($_POST['pass'])) { // process login form
 		if (isset($_POST['user'])) {
 			$post_user = sanitize($_POST['user'], 0);
@@ -1936,11 +1937,17 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				$check_auth = $try['check_auth'];
 				$check_user = $try['check_user'];
 				foreach ($alternates as $auth) {
-					$success = ($auth == $check_auth) && $post_user == $check_user;
-					if (DEBUG_LOGIN)
-						debugLog("zp_handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
-					if ($success) {
-						break 2;
+					if ($post_user == $check_user) {
+						if (strpos($auth, '$') === 0) {
+							$success = password_verify($post_pass, $auth);
+						} else {
+							$success = ($auth == $check_auth);
+						}
+						if (DEBUG_LOGIN)
+							debugLog("zp_handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
+						if ($success) {
+							break 2;
+						}
 					}
 				}
 			}
@@ -2238,7 +2245,7 @@ function scriptLoader($script, $inline = 1) {
 			if (!$found) { //	no unresolved self relative links
 				if (getSuffix($scriptFS) == 'css') {
 					?>
-					<style type="text/css">/* src="<?php echo $script; ?>" */
+					<style type="text/css">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
 					<?php
 					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
 					$content = str_replace(': ', ':', $content);
@@ -2248,7 +2255,7 @@ function scriptLoader($script, $inline = 1) {
 					<?php
 				} else {
 					?>
-					<script type="text/javascript">/* src="<?php echo $script; ?>" */
+					<script type="text/javascript">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
 					<?php
 					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
 					$content = preg_replace('~//.*~', '', $content);
@@ -2417,14 +2424,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

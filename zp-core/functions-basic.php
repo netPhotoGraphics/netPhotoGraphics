@@ -459,6 +459,20 @@ function mkdir_recursive($pathname, $mode) {
 	return is_dir($pathname) || @mkdir($pathname, $mode);
 }
 
+function debug_var($args) {
+	if (!is_array($args)) {
+		$args = array($args);
+	}
+	echo "<pre>\n";
+	foreach ($args as $arg => $v) {
+		if (is_string($arg)) {
+			echo $arg . ' = ';
+		}
+		echo var_export($v, true) . "\n";
+	}
+	echo '</pre>';
+}
+
 /**
  * Write output to the debug log
  * Use this for debugging when echo statements would come before headers are sent
@@ -467,7 +481,9 @@ function mkdir_recursive($pathname, $mode) {
  *
  * @param string $message the debug information
  * @param bool $reset set to true to reset the log to zero before writing the message
- * @param string $log alternative log file
+ * @param string $log
+
+  alternative log file
  */
 function debugLog($message, $reset = false, $log = 'debug') {
 	global $_adminCript;
@@ -518,7 +534,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			if ($_logCript) {
 				$message = $_logCript->encrypt($message);
 			}
-			fwrite($f, "  " . $message . NEWLINE);
+			fwrite($f, " " . $message . NEWLINE);
 			fclose($f);
 			clearstatcache();
 		}
@@ -532,7 +548,9 @@ function debugLog($message, $reset = false, $log = 'debug') {
  *
  * @param string $message Message to prefix the backtrace
  * @param int $omit count of "callers" to remove from backtrace
- * @param string $log alternative log file
+ * @param string $log
+
+  alternative log file
  */
 function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 	global $_zp_current_admin_obj, $_index_theme;
@@ -558,7 +576,7 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
 	}
 	$output .= $uri . NEWLINE;
-	// Get a backtrace.
+// Get a backtrace.
 	$bt = debug_backtrace();
 	while ($omit >= 0) {
 		array_shift($bt); // Get rid of debug_backtrace, callers in the backtrace.
@@ -591,36 +609,24 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 /**
  * Records a Var to the debug log
  *
- * @param string $message message to insert in log [optional]
- * @param mixed $var the variable to record
+ * @param string $var an array of variables to log [optional]
  * @param string $log alternative log file
  */
-function debugLogVar($message) {
+function debugLogVar($var) {
 	$args = func_get_args();
-	if (count($args) == 1) {
-		$var = $message;
-		$message = '';
-	} else {
-		$message .= ' ';
-		$var = $args[1];
-	}
-	if (count($args) == 3) {
-		$log = $args[2];
+	if (count($args) == 2) {
+		$log = $args[1];
 	} else {
 		$log = 'debug';
 	}
 	ob_start();
-	var_dump($var);
+	debug_var($var);
 	$str = ob_get_contents();
 	ob_end_clean();
-
-	$formatting = array('<[/]*font(.*?)>', "<[/]*pre(.*?)>", '<[/]*i>', '<[/]*b>', '<[/]*small>');
-	foreach ($formatting as $pattern) {
-		$str = preg_replace('~' . $pattern . '~', '', $str);
-	}
-	$str = ksesProcess($str, array());
-
-	debugLog(trim($message) . "\r" . html_decode($str), false, $log);
+	$str = preg_replace('~<[/]*pre(.*?)>~', '', $str);
+	$str = html_decode($str);
+	$str = str_replace('  ', "\t", $str);
+	debugLog($str, false, $log);
 }
 
 /**
@@ -960,7 +966,6 @@ function setOption($key, $value, $persistent = true) {
 			$v = db_quote($value);
 		}
 		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' . ' ON DUPLICATE KEY UPDATE `value`=' . $v;
-		;
 		$result = query($sql, false);
 		if ($result) {
 			if (array_key_exists($keylc, $_zp_conf_options_associations)) {
