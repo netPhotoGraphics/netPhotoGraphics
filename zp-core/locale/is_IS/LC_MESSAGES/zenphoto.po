@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 13:06-0800\n"
-"PO-Revision-Date: 2019-02-07 13:07-0800\n"
+"POT-Creation-Date: 2019-02-19 09:51-0800\n"
+"PO-Revision-Date: 2019-02-19 09:52-0800\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: is_IS\n"
@@ -112,14 +112,14 @@ msgstr "Þú getur sett hámarksaldur, í sekúndum, sem hnýtur upphafsheitið.
 #: themes/zpskeleton/search.php:26 zp-core/admin-tabs/edit.php:1721
 #: zp-core/admin-tabs/themes.php:103 zp-core/admin-tabs/themes.php:104
 #: zp-core/admin_options/theme.php:10 zp-core/admin_options/theme.php:11
-#: zp-core/allTranslations.php:9 zp-core/lib-auth.php:565
-#: zp-core/lib-auth.php:566 zp-core/lib-auth.php:567 zp-core/lib-auth.php:568
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:573 zp-core/lib-auth.php:577
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:586 zp-core/lib-auth.php:592
-#: zp-core/lib-auth.php:593 zp-core/lib-auth.php:597 zp-core/lib-auth.php:602
-#: zp-core/lib-auth.php:603 zp-core/lib-auth.php:612 zp-core/lib-auth.php:613
-#: zp-core/lib-auth.php:620 zp-core/lib-auth.php:621 zp-core/lib-auth.php:626
-#: zp-core/lib-auth.php:633 zp-core/lib-auth.php:635
+#: zp-core/allTranslations.php:9 zp-core/lib-auth.php:622
+#: zp-core/lib-auth.php:623 zp-core/lib-auth.php:624 zp-core/lib-auth.php:625
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:630 zp-core/lib-auth.php:634
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:643 zp-core/lib-auth.php:649
+#: zp-core/lib-auth.php:650 zp-core/lib-auth.php:654 zp-core/lib-auth.php:659
+#: zp-core/lib-auth.php:660 zp-core/lib-auth.php:669 zp-core/lib-auth.php:670
+#: zp-core/lib-auth.php:677 zp-core/lib-auth.php:678 zp-core/lib-auth.php:683
+#: zp-core/lib-auth.php:690 zp-core/lib-auth.php:692
 #: zp-core/setup/setup-option-defaults.php:686
 #: zp-core/setup/setup-option-defaults.php:687
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:151
@@ -131,8 +131,8 @@ msgstr "Gallerý"
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
 #: zp-core/admin.php:278 zp-core/admin.php:343 zp-core/admin.php:357
-#: zp-core/admin.php:373 zp-core/lib-auth.php:561 zp-core/lib-auth.php:580
-#: zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
+#: zp-core/admin.php:373 zp-core/lib-auth.php:618 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:662 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
 #: zp-core/zp-extensions/site_upgrade.php:173
@@ -145,7 +145,7 @@ msgstr "Admin"
 #: themes/garland/sidebar.php:73 themes/zenFluid/inc-sidebar.php:60
 #: themes/zenpage/sidebar.php:16 themes/zpArdoise/news.php:30
 #: themes/zpEnlighten/sidebar.php:6 themes/zpmobile/functions.php:186
-#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4014
+#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4012
 #: zp-core/zp-extensions/zenpage/admin-functions.php:835
 #, fuzzy
 msgid "All"
@@ -254,7 +254,7 @@ msgstr "Sjálfgefið stafasett fyrir IPTC lýsigögn myndar."
 msgid "Default new users to \"allowed\""
 msgstr "Sjálfgefin nýir notendur að &quot;leyfa&quot;"
 
-#: plugins/create_album.php:136 zp-core/admin-tabs/users.php:313
+#: plugins/create_album.php:136 zp-core/admin-tabs/users.php:312
 #: zp-core/template-functions.php:134
 #, fuzzy
 msgid "Users"
@@ -350,11 +350,11 @@ msgstr "Sía út skrár úr albúmum og myndaleitum sem við viljum ekki sjást.
 #: themes/zpskeleton/inc-bottom.php:51 zp-core/admin-functions.php:2562
 #: zp-core/admin-functions.php:3847 zp-core/admin-tabs/edit.php:1794
 #: zp-core/admin_options/theme.php:262 zp-core/allTranslations.php:11
-#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:576 zp-core/lib-auth.php:587
-#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:591 zp-core/lib-auth.php:594
-#: zp-core/lib-auth.php:598 zp-core/lib-auth.php:601 zp-core/lib-auth.php:614
-#: zp-core/lib-auth.php:617 zp-core/lib-auth.php:618 zp-core/lib-auth.php:622
-#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:633 zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:647 zp-core/lib-auth.php:648 zp-core/lib-auth.php:651
+#: zp-core/lib-auth.php:655 zp-core/lib-auth.php:658 zp-core/lib-auth.php:671
+#: zp-core/lib-auth.php:674 zp-core/lib-auth.php:675 zp-core/lib-auth.php:679
+#: zp-core/lib-auth.php:684 zp-core/lib-auth.php:687
 #: zp-core/template-functions.php:117
 #: zp-core/utilities/gallery_statistics.php:68
 #: zp-core/utilities/gallery_statistics.php:579
@@ -757,8 +757,8 @@ msgstr[0] "%s skrá uppfærð"
 msgstr[1] "%s skrár uppfærðar"
 
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:193
-#: zp-core/lib-auth.php:557 zp-core/lib-auth.php:577 zp-core/lib-auth.php:602
-#: zp-core/lib-auth.php:633 zp-core/template-functions.php:154
+#: zp-core/lib-auth.php:614 zp-core/lib-auth.php:634 zp-core/lib-auth.php:659
+#: zp-core/lib-auth.php:690 zp-core/template-functions.php:154
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 msgid "Themes"
 msgstr "Þemu"
@@ -783,8 +783,8 @@ msgstr "íbætur"
 #: zp-core/admin-tabs/edit.php:1739 zp-core/admin-tabs/edit.php:1776
 #: zp-core/admin-tabs/edit.php:1860 zp-core/admin-tabs/edit.php:1913
 #: zp-core/admin-tabs/plugins.php:171 zp-core/admin-tabs/plugins.php:488
-#: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:519
-#: zp-core/admin-tabs/users.php:521 zp-core/admin-tabs/users.php:950
+#: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:510
+#: zp-core/admin-tabs/users.php:512 zp-core/admin-tabs/users.php:960
 #: zp-core/admin_options/gallery.php:68 zp-core/admin_options/gallery.php:525
 #: zp-core/admin_options/general.php:167 zp-core/admin_options/general.php:169
 #: zp-core/admin_options/general.php:809 zp-core/admin_options/image.php:245
@@ -802,8 +802,8 @@ msgstr "íbætur"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
 #: zp-core/zp-extensions/crop_image.php:484
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:190
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:288
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:192
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:290
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:409
 #: zp-core/zp-extensions/publishContent/publishContent.php:249
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:179
@@ -844,7 +844,7 @@ msgstr "Virkja"
 #: zp-core/admin-tabs/plugins.php:172 zp-core/admin-tabs/plugins.php:174
 #: zp-core/admin-tabs/plugins.php:489 zp-core/admin-tabs/plugins.php:491
 #: zp-core/admin-tabs/tags.php:249 zp-core/admin-tabs/thumbcrop.php:302
-#: zp-core/admin-tabs/users.php:525 zp-core/admin-tabs/users.php:954
+#: zp-core/admin-tabs/users.php:516 zp-core/admin-tabs/users.php:964
 #: zp-core/admin_options/gallery.php:71 zp-core/admin_options/gallery.php:528
 #: zp-core/admin_options/general.php:173 zp-core/admin_options/general.php:813
 #: zp-core/admin_options/image.php:250 zp-core/admin_options/image.php:964
@@ -852,7 +852,7 @@ msgstr "Virkja"
 #: zp-core/admin_options/search.php:108 zp-core/admin_options/search.php:626
 #: zp-core/admin_options/security.php:85 zp-core/admin_options/security.php:330
 #: zp-core/admin_options/theme.php:248 zp-core/admin_options/theme.php:580
-#: zp-core/lib-auth.php:1126 zp-core/lib-auth.php:1128
+#: zp-core/lib-auth.php:1188 zp-core/lib-auth.php:1190
 #: zp-core/zp-extensions/contact_form/form.php:143
 #: zp-core/zp-extensions/crop_image.php:491
 #: zp-core/zp-extensions/debug/admin_tab.php:313
@@ -1070,7 +1070,7 @@ msgstr "<strong>Tög:</strong>"
 #: themes/basic/album.php:91 themes/zenFluid/404.php:19
 #: themes/zenpage/sidebar.php:80 themes/zpminimal/inc-footer.php:26
 #: themes/zpmobile/functions.php:45 zp-core/admin-functions.php:587
-#: zp-core/admin-functions.php:5519 zp-core/lib-auth.php:555
+#: zp-core/admin-functions.php:5519 zp-core/lib-auth.php:612
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:76
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:80
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:270
@@ -1177,7 +1177,7 @@ msgid "close"
 msgstr "loka"
 
 #: themes/basic/image.php:49 themes/paradigm/image.php:22
-#: themes/zenFluid/image.php:139 themes/zenpage/image.php:48
+#: themes/zenFluid/image.php:141 themes/zenpage/image.php:48
 #: themes/zpArdoise/image.php:10 themes/zpBootstrap/image.php:21
 #: themes/zpEnlighten/image.php:48 themes/zpmasonry/image.php:24
 #: themes/zpminimal/image.php:42 themes/zpmobile/image.php:36
@@ -1186,7 +1186,7 @@ msgid "Previous Image"
 msgstr "Fyrri mynd"
 
 #: themes/basic/image.php:53 themes/paradigm/image.php:24
-#: themes/zenFluid/image.php:151 themes/zenpage/image.php:50
+#: themes/zenFluid/image.php:153 themes/zenpage/image.php:50
 #: themes/zpArdoise/image.php:15 themes/zpBootstrap/image.php:27
 #: themes/zpEnlighten/image.php:52 themes/zpmasonry/image.php:25
 #: themes/zpminimal/image.php:43 themes/zpmobile/image.php:39
@@ -1383,7 +1383,7 @@ msgstr "Síður ( %s)"
 #: themes/basic/search.php:80 themes/basic/search.php:113
 #: themes/effervescence+/search.php:152 themes/effervescence+/search.php:185
 #: themes/garland/search.php:117 themes/garland/search.php:150
-#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:307
+#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:310
 #: themes/zenpage/functions.php:46 themes/zpEnlighten/functions.php:66
 #: themes/zpfocus/functions.php:158 themes/zpmobile/functions.php:287
 #: themes/zpskeleton/functions.php:236
@@ -1394,7 +1394,7 @@ msgstr "Sýna fleiri niðurstöður"
 #: themes/basic/search.php:81 themes/basic/search.php:114
 #: themes/effervescence+/search.php:153 themes/effervescence+/search.php:186
 #: themes/garland/search.php:118 themes/garland/search.php:151
-#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:308
+#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:311
 #: themes/zenpage/functions.php:47 themes/zpEnlighten/functions.php:67
 #: themes/zpfocus/functions.php:159 themes/zpmobile/functions.php:288
 #: themes/zpskeleton/functions.php:237
@@ -1462,28 +1462,28 @@ msgstr ""
 "getur þú valið þema litinn með því að fara á flipann Admin Options og breyta "
 "<em>þema litum</em> valkostinum."
 
-#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
-#: themes/garland/themeoptions.php:77 themes/paradigm/themeoptions.php:95
-#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:65
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:94
+#: themes/garland/themeoptions.php:76 themes/paradigm/themeoptions.php:95
+#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:64
 #: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:119
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:35
 msgid "Allow search"
 msgstr "Leyfa leit"
 
-#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
-#: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:65
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:94
+#: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:64
 #: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:123
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:35
 msgid "Check to enable search form."
 msgstr "Smelltu til að opna fyrir leit."
 
-#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:102
 msgid "Theme colors"
 msgstr "Þemalitir"
 
-#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:102
 msgid "Select the colors of the theme"
 msgstr "Veldu liti þemans"
 
@@ -1562,7 +1562,7 @@ msgid "Random picture..."
 msgstr "Mynd af handahófi..."
 
 #: themes/effervescence+/functions.php:251
-#: zp-core/zp-extensions/menu_manager.php:1074
+#: zp-core/zp-extensions/menu_manager.php:1097
 #: zp-core/zp-extensions/print_album_menu.php:253
 #, fuzzy, php-format
 msgid "%u album"
@@ -1571,7 +1571,7 @@ msgstr[0] "% u albúmið"
 msgstr[1] "% u albúm"
 
 #: themes/effervescence+/functions.php:257
-#: zp-core/zp-extensions/menu_manager.php:1080
+#: zp-core/zp-extensions/menu_manager.php:1103
 #: zp-core/zp-extensions/print_album_menu.php:259
 #, fuzzy, php-format
 msgid "%u image"
@@ -1669,7 +1669,7 @@ msgid_plural "%u Images"
 msgstr[0] "% u mynd"
 msgstr[1] "% u myndir"
 
-#: themes/effervescence+/functions.php:404 themes/zenFluid/image.php:180
+#: themes/effervescence+/functions.php:404 themes/zenFluid/image.php:182
 #: themes/zenFluid/news.php:63 themes/zenFluid/news.php:152
 #: themes/zenFluid/pages.php:41 themes/zpArdoise/inc_print_comment.php:32
 #: themes/zpBootstrap/inc_print_comment.php:37
@@ -1763,7 +1763,7 @@ msgstr "Leita innan flokks"
 #: themes/zpskeleton/inc-header.php:69 themes/zpskeleton/inc-search.php:1
 #: themes/zpskeleton/search.php:28 zp-core/template-functions.php:467
 #: zp-core/template-functions.php:1301 zp-core/template-functions.php:1332
-#: zp-core/template-functions.php:3876
+#: zp-core/template-functions.php:3874
 #: zp-core/zp-extensions/deprecated-functions/check_for_deprecated.php:71
 #: zp-core/zp-extensions/html_meta_tags.php:252
 #: zp-core/zp-extensions/scriptless-socialsharing.php:179
@@ -1822,9 +1822,9 @@ msgstr "Bæði"
 #: themes/zpmobile/functions.php:201 themes/zpmobile/pagelist.php:29
 #: themes/zpmobile/pages.php:29 zp-core/admin-functions.php:3732
 #: zp-core/admin-functions.php:3903 zp-core/allTranslations.php:13
-#: zp-core/lib-auth.php:571 zp-core/lib-auth.php:574 zp-core/lib-auth.php:589
-#: zp-core/lib-auth.php:596 zp-core/lib-auth.php:600 zp-core/lib-auth.php:616
-#: zp-core/lib-auth.php:623 zp-core/lib-auth.php:625 zp-core/lib-auth.php:629
+#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:631 zp-core/lib-auth.php:646
+#: zp-core/lib-auth.php:653 zp-core/lib-auth.php:657 zp-core/lib-auth.php:673
+#: zp-core/lib-auth.php:680 zp-core/lib-auth.php:682 zp-core/lib-auth.php:686
 #: zp-core/utilities/gallery_statistics.php:76
 #: zp-core/utilities/gallery_statistics.php:597
 #: zp-core/zp-extensions/cacheManager.php:156
@@ -1876,7 +1876,7 @@ msgid ""
 msgstr ""
 "Byggt á Effervescence 1.1 með mörgum litasamningum og persónuleika bætt við."
 
-#: themes/effervescence+/themeoptions.php:85
+#: themes/effervescence+/themeoptions.php:84
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> This option is valid only if the Zenpage plugin is "
@@ -1887,7 +1887,7 @@ msgstr ""
 "er virkt eða valið valkostur fyrir aðgreina gallerí vísitölu. Að sjálfsögðu "
 "verður einnig valið að setja inn <em>menningarstýringu menu_manager</em> ."
 
-#: themes/effervescence+/themeoptions.php:88 themes/garland/themeoptions.php:69
+#: themes/effervescence+/themeoptions.php:87 themes/garland/themeoptions.php:68
 #, fuzzy, php-format
 msgid ""
 "<strong>Note:</strong> The <em>%s</em> custom menu makes use of the "
@@ -1896,35 +1896,35 @@ msgstr ""
 "<strong>Athugaðu:</strong> Sérsniðið valmynd <em> %s</em> notar "
 "<em>print_album_menu tappann</em> ."
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "Separate gallery index"
 msgstr "Aðgreina gallerí vísitölu"
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "Check to move the gallery index from the home page to gallery.php."
 msgstr "Athugaðu að færa gallerí vísitölu frá heimasíðu til gallery.php."
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "<strong>Note:</strong> this is assumed the zenpage plugin is enabled."
 msgstr ""
 "<strong>Ath .:</strong> Þetta er gert ráð fyrir ef zenpage tappi er virkt."
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 msgid "Theme logo"
 msgstr "Þemamerki"
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 msgid "The text for the theme logo"
 msgstr "Textinn fyrir þemamerkið"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid "Watermark head image"
 msgstr "Vatnsmerkja hausmynd"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid ""
 "Check to place a watermark on the heading image. (Image watermarking must be "
 "set.)"
@@ -1932,12 +1932,12 @@ msgstr ""
 "Veldu þetta til að setja vatnsmerki á hausmyndina. (Vatnsmerking mynda þarf "
 "að vera virk.)"
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 #, fuzzy
 msgid "Daily image"
 msgstr "Daglegt mynd"
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 #, fuzzy
 msgid ""
 "If checked the heading image will change daily rather than on each page load."
@@ -1945,7 +1945,7 @@ msgstr ""
 "Ef merktur fyrirsögnin mun myndin breytast daglega fremur en á hverri síðu "
 "hlaða."
 
-#: themes/effervescence+/themeoptions.php:96 themes/zpArdoise/album.php:11
+#: themes/effervescence+/themeoptions.php:95 themes/zpArdoise/album.php:11
 #: themes/zpArdoise/favorites.php:14 themes/zpArdoise/image.php:24
 #: themes/zpArdoise/inc_header.php:162 themes/zpArdoise/search.php:65
 #: themes/zpArdoise/slideshow.php:6 themes/zpBootstrap/home.php:42
@@ -1958,18 +1958,18 @@ msgstr ""
 msgid "Slideshow"
 msgstr "Glærusýning"
 
-#: themes/effervescence+/themeoptions.php:96
+#: themes/effervescence+/themeoptions.php:95
 msgid "Check to enable slideshow for the <em>Smoothgallery</em> personality."
 msgstr ""
 "Veldu þetta til að virkja glærusýningu fyrir <em>Smoothgallery</em> "
 "persónuleikann."
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 #, fuzzy
 msgid "Graphic logo"
 msgstr "Grafísk merki"
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 #, fuzzy, php-format
 msgid ""
 "Select a logo (PNG files in the <em>%s/images</em> folder) or leave empty for "
@@ -1978,57 +1978,57 @@ msgstr ""
 "Veldu lógó (PNG-skrár í möppunni <em> %s / myndum</em> ) eða farðu tómt fyrir "
 "textamerki."
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "Display theme info"
 msgstr "Birta upplýsingar um þemu"
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "If checked the theme settings summary will be displayed in the footer."
 msgstr "Ef valið er yfirlit yfir þema stillingar verða birtar á síðunni."
 
-#: themes/effervescence+/themeoptions.php:99 themes/garland/themeoptions.php:74
+#: themes/effervescence+/themeoptions.php:98 themes/garland/themeoptions.php:73
 msgid "Theme personality"
 msgstr "Þemapersónuleiki"
 
-#: themes/effervescence+/themeoptions.php:102 themes/garland/themeoptions.php:76
+#: themes/effervescence+/themeoptions.php:101 themes/garland/themeoptions.php:75
 msgid "Select the theme personality"
 msgstr "Veldu þemapersónuleika"
 
-#: themes/effervescence+/themeoptions.php:104 themes/garland/themeoptions.php:79
+#: themes/effervescence+/themeoptions.php:103 themes/garland/themeoptions.php:78
 #, fuzzy
 msgid "Custom menu"
 msgstr "Sérsniðin valmynd"
 
-#: themes/effervescence+/themeoptions.php:104 themes/garland/themeoptions.php:79
+#: themes/effervescence+/themeoptions.php:103 themes/garland/themeoptions.php:78
 #, fuzzy
 msgid "Set this to the <em>menu_manager</em> menu you wish to use."
 msgstr "Stilltu þetta í valmyndina <em>menu_manager sem</em> þú vilt nota."
 
-#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:107 themes/garland/themeoptions.php:97
 #, fuzzy
 msgid "Image gallery transition"
 msgstr "Myndasýning umskipti"
 
-#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
 #: zp-core/exif/exifTranslations.php:149 zp-core/zp-extensions/googleMap.php:93
 #: zp-core/zp-extensions/user_login-out.php:37
 msgid "None"
 msgstr "Ekkert"
 
-#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:90
 #, fuzzy
 msgid "Fade"
 msgstr "Hverfa"
 
-#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
 #, fuzzy
 msgid "Shrink/grow"
 msgstr "Skreppa saman / vaxa"
 
-#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:88
 #: zp-core/zp-extensions/googleMap.php:96
 #: zp-core/zp-extensions/slideshow2.php:132
@@ -2036,7 +2036,7 @@ msgstr "Skreppa saman / vaxa"
 msgid "Horizontal"
 msgstr "Lárétt"
 
-#: themes/effervescence+/themeoptions.php:109 themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108 themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:89
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:78
 #: zp-core/zp-extensions/slideshow2.php:133
@@ -2044,32 +2044,32 @@ msgstr "Lárétt"
 msgid "Vertical"
 msgstr "Lóðrétt"
 
-#: themes/effervescence+/themeoptions.php:111
-#: themes/garland/themeoptions.php:101
+#: themes/effervescence+/themeoptions.php:110
+#: themes/garland/themeoptions.php:100
 #, fuzzy
 msgid "Transition effect for Image gallery"
 msgstr "Umskipti áhrif fyrir Myndasafn"
 
-#: themes/effervescence+/themeoptions.php:112
-#: themes/garland/themeoptions.php:102
+#: themes/effervescence+/themeoptions.php:111
+#: themes/garland/themeoptions.php:101
 #, fuzzy
 msgid "Image gallery caption"
 msgstr "Myndasöfn myndasafns"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #, fuzzy
 msgid "On image"
 msgstr "% af mynd"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #, fuzzy
 msgid "Separate"
 msgstr "Aðskilja"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103 zp-core/zp-extensions/comment_form.php:99
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102 zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
 #: zp-core/zp-extensions/comment_form.php:111
@@ -2079,21 +2079,21 @@ msgstr "Aðskilja"
 msgid "Omit"
 msgstr "Sleppa"
 
-#: themes/effervescence+/themeoptions.php:115
-#: themes/garland/themeoptions.php:105
+#: themes/effervescence+/themeoptions.php:114
+#: themes/garland/themeoptions.php:104
 #, fuzzy
 msgid "Location for Image gallery picture caption"
 msgstr "Staðsetning myndasafns myndatöku"
 
-#: themes/effervescence+/themeoptions.php:125
+#: themes/effervescence+/themeoptions.php:124
+#: themes/effervescence+/themeoptions.php:129
 #: themes/effervescence+/themeoptions.php:130
-#: themes/effervescence+/themeoptions.php:131
 #, fuzzy
 msgid "Index Image"
 msgstr "Index Image"
 
-#: themes/effervescence+/themeoptions.php:126 themes/garland/themeoptions.php:94
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/inc_header.php:337
+#: themes/effervescence+/themeoptions.php:125 themes/garland/themeoptions.php:93
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/inc_header.php:337
 #: themes/zpArdoise/themeoptions.php:125 themes/zpArdoise/themeoptions.php:127
 #: themes/zpEnlighten/themeoptions.php:45 themes/zpfocus/themeoptions.php:459
 #: themes/zpskeleton/themeoptions.php:103 zp-core/admin-tabs/edit.php:1596
@@ -2113,28 +2113,28 @@ msgstr "Index Image"
 msgid "none"
 msgstr "enginn"
 
-#: themes/effervescence+/themeoptions.php:128
+#: themes/effervescence+/themeoptions.php:127
 #, fuzzy
 msgid "Apply this effect to the index page image."
 msgstr "Beita þessum áhrifum á vísitölusíðuna."
 
-#: themes/effervescence+/themeoptions.php:131
+#: themes/effervescence+/themeoptions.php:130
 #, fuzzy
 msgid "This option requires the <em>image_effects</em> plugin to be enabled."
 msgstr "Þessi valkostur krefst þess að tappi <em>image_effects</em> sé virkt."
 
-#: themes/effervescence+/themeoptions.php:161
-#: themes/garland/themeoptions.php:124
+#: themes/effervescence+/themeoptions.php:160
+#: themes/garland/themeoptions.php:123
 #, fuzzy
 msgid "*standard menu"
 msgstr "* staðall valmynd"
 
-#: themes/effervescence+/themeoptions.php:168
+#: themes/effervescence+/themeoptions.php:167
 #, fuzzy
 msgid "*no logo selected"
 msgstr "* ekkert merki valið"
 
-#: themes/effervescence+/themeoptions.php:169
+#: themes/effervescence+/themeoptions.php:168
 #, fuzzy
 msgid "Effervescence"
 msgstr "Effervescence %s"
@@ -2174,7 +2174,7 @@ msgstr "Fyrra albúm"
 #: themes/garland/album.php:122 themes/garland/image.php:141
 #: themes/garland/news.php:122 themes/garland/pages.php:69
 #: themes/garland/summary.php:72 themes/zenFluid/album.php:127
-#: themes/zenFluid/image.php:115 themes/zenFluid/news.php:108
+#: themes/zenFluid/image.php:117 themes/zenFluid/news.php:108
 #: themes/zenFluid/news.php:163 themes/zenFluid/pages.php:77
 #, fuzzy
 msgid "Tags: "
@@ -2206,7 +2206,7 @@ msgid "Next image"
 msgstr "Næsta mynd"
 
 #: themes/garland/image.php:123 themes/garland/summary.php:54
-#: themes/zenFluid/image.php:151 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:153 themes/zpmasonry/news.php:88
 #, fuzzy
 msgid "Next »"
 msgstr "næsta"
@@ -2256,27 +2256,27 @@ msgstr ""
 "Modded Wordpress þema frá <a href=\"http://garlandtheme.blogspot.com/"
 "\">Garland</a>"
 
-#: themes/garland/themeoptions.php:77
+#: themes/garland/themeoptions.php:76
 #, fuzzy
 msgid "Set to enable search form."
 msgstr "Stilltu til að virkja leitarform."
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 #, fuzzy
 msgid "Allow cloud"
 msgstr "Leyfa skýinu"
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 #, fuzzy
 msgid "Set to enable tag cloud for album page."
 msgstr "Stilltu til að virkja merkjaskýja fyrir albúmssíðu."
 
-#: themes/garland/themeoptions.php:92
+#: themes/garland/themeoptions.php:91
 #, fuzzy
 msgid "Custom Homepage"
 msgstr "Sérsniðna heimasíðu"
 
-#: themes/garland/themeoptions.php:95
+#: themes/garland/themeoptions.php:94
 #, fuzzy
 msgid ""
 "Select the <em>pages</em> titlelink for the home page. Only unpublished pages "
@@ -2287,8 +2287,8 @@ msgstr ""
 
 #: themes/paradigm/album.php:31 themes/paradigm/image.php:99
 #: themes/zpBootstrap/archive.php:41 themes/zpBootstrap/themeoptions.php:134
-#: zp-core/admin-tabs/tags.php:259 zp-core/lib-auth.php:559
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
+#: zp-core/admin-tabs/tags.php:259 zp-core/lib-auth.php:616
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:660 zp-core/lib-auth.php:692
 #: zp-core/template-functions.php:127
 #: zp-core/utilities/gallery_statistics.php:91
 #: zp-core/utilities/gallery_statistics.php:591
@@ -2493,7 +2493,7 @@ msgstr "Þema notað:"
 msgid "by"
 msgstr "eftir"
 
-#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3563
+#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3561
 #, fuzzy
 msgid "No popular tags"
 msgstr "Vinsæl tög"
@@ -2599,7 +2599,7 @@ msgstr "Blogg"
 #: themes/zpminimal/search.php:29 themes/zpminimal/summary.php:4
 #: themes/zpmobile/functions.php:66 themes/zpskeleton/inc-header.php:180
 #: zp-core/template-functions.php:1448
-#: zp-core/zp-extensions/menu_manager.php:812
+#: zp-core/zp-extensions/menu_manager.php:837
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:484
 msgid "Home"
 msgstr "Heim"
@@ -2987,21 +2987,21 @@ msgstr "Þema síðu"
 msgid "View: "
 msgstr "Skoða"
 
-#: themes/zenFluid/functions.php:266 zp-core/zp-extensions/themeSwitcher.php:187
+#: themes/zenFluid/functions.php:269 zp-core/zp-extensions/themeSwitcher.php:187
 msgid "Close"
 msgstr "Loka"
 
-#: themes/zenFluid/image.php:139 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:141 themes/zpmasonry/news.php:88
 #, fuzzy
 msgid "« Prev"
 msgstr "fyrri"
 
-#: themes/zenFluid/image.php:172 themes/zenFluid/pages.php:33
+#: themes/zenFluid/image.php:174 themes/zenFluid/pages.php:33
 #, fuzzy
 msgid "Views: "
 msgstr "Skoðanir:"
 
-#: themes/zenFluid/image.php:178 themes/zenFluid/news.php:61
+#: themes/zenFluid/image.php:180 themes/zenFluid/news.php:61
 #: themes/zenFluid/news.php:150 themes/zenFluid/pages.php:39
 #: themes/zpArdoise/inc_print_comment.php:30
 #: themes/zpBootstrap/inc_print_comment.php:35
@@ -3030,7 +3030,7 @@ msgstr "RSS straumar"
 msgid "The ZenFluid theme requires that the zenpage plugin be enabled."
 msgstr "The ZenFluid þema krefst þess að zenpage tappi sé virkt."
 
-#: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:316
+#: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:315
 #, fuzzy
 msgid "Profile"
 msgstr "Prófíll"
@@ -3148,7 +3148,7 @@ msgstr "Veldu landamæri kerfisins."
 msgid "Enable search form."
 msgstr "Smelltu til að opna fyrir leit."
 
-#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:66
+#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:65
 #: themes/zpEnlighten/themeoptions.php:22 themes/zpfocus/themeoptions.php:75
 #, fuzzy
 msgid "Use Colorbox"
@@ -3307,7 +3307,7 @@ msgstr "Stig hámark breidd"
 #, fuzzy
 msgid ""
 "Enter the maximum width (in pixels) that the stage (everything to the right "
-"of the sidebar) should take."
+"of the sidebar) should take. (Enter 0 (zero) to use the maximum width)"
 msgstr ""
 "Sláðu inn hámarksbreiddina (í punktum) sem stigið (allt til hægri við "
 "hliðarstikuna) ætti að taka."
@@ -3513,17 +3513,17 @@ msgstr ""
 "fyrir albúmslistar í skenkur), dynamic_locale tappi, nýja paged_thumbs_nav "
 "tappi og jCarousel_thumb_nav tappi."
 
-#: themes/zenpage/themeoptions.php:66 themes/zpEnlighten/themeoptions.php:22
+#: themes/zenpage/themeoptions.php:65 themes/zpEnlighten/themeoptions.php:22
 #, fuzzy
 msgid "Check to display of the full size image with Colorbox."
 msgstr "Athugaðu að sýna fullri stærð með Colorbox."
 
-#: themes/zenpage/themeoptions.php:67 themes/zpEnlighten/themeoptions.php:23
+#: themes/zenpage/themeoptions.php:66 themes/zpEnlighten/themeoptions.php:23
 #, fuzzy
 msgid "News on index page"
 msgstr "Fréttir á vísitölusíðu"
 
-#: themes/zenpage/themeoptions.php:67
+#: themes/zenpage/themeoptions.php:66
 #, fuzzy
 msgid ""
 "Enable this if you want to show the news section’s first page on the "
@@ -3532,14 +3532,14 @@ msgstr ""
 "Virkja þetta ef þú vilt birta fyrstu síðu fréttasíðunnar á síðunni "
 "<code>index.php</code> ."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/themeoptions.php:63
 #: themes/zpBootstrap/themeoptions.php:64 themes/zpEnlighten/themeoptions.php:24
 #: themes/zpfocus/themeoptions.php:72 themes/zpskeleton/themeoptions.php:72
 #, fuzzy
 msgid "Homepage"
 msgstr "Forsíða"
 
-#: themes/zenpage/themeoptions.php:68
+#: themes/zenpage/themeoptions.php:67
 #, fuzzy
 msgid ""
 "Choose here any <em>un-published Zenpage page</em> (listed by <em>titlelink</"
@@ -3549,7 +3549,7 @@ msgstr ""
 "em> ) til að starfa sem heimasíðan þín í staðinn fyrir venjulegan gallerí "
 "vísitölu."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/themeoptions.php:63
 #: themes/zpEnlighten/themeoptions.php:24
 #, fuzzy
 msgid ""
@@ -3561,12 +3561,12 @@ msgstr ""
 "síðunni um vísitölu</em> og þemað verður að vera uppsetning fyrir þennan "
 "möguleika! Farðu í kennsluefni fyrir nánari upplýsingar."
 
-#: themes/zenpage/themeoptions.php:69 themes/zpEnlighten/themeoptions.php:25
+#: themes/zenpage/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:25
 #, fuzzy
 msgid "Use standard contact page"
 msgstr "Notaðu staðlaða tengiliðasíðu"
 
-#: themes/zenpage/themeoptions.php:69 themes/zpEnlighten/themeoptions.php:25
+#: themes/zenpage/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:25
 #, fuzzy
 msgid ""
 "Disable this if you do not want to use the separate contact page with the "
@@ -3577,12 +3577,12 @@ msgstr ""
 "snertingunni. Þú getur líka notað kóðablokk á síðu fyrir þetta. Sjá "
 "upplýsingar um tengiliðinn fyrir tengiliðinn fyrir frekari upplýsingar."
 
-#: themes/zenpage/themeoptions.php:70
+#: themes/zenpage/themeoptions.php:69
 #, fuzzy
 msgid "Use custom menu"
 msgstr "Notaðu sérsniðna valmynd"
 
-#: themes/zenpage/themeoptions.php:70
+#: themes/zenpage/themeoptions.php:69
 #, fuzzy
 msgid ""
 "Check this if you want to use the <em>menu_manager</em> plugin if enabled to "
@@ -3854,7 +3854,7 @@ msgstr "Skera smámyndir:"
 #: themes/zpmasonry/inc-menu.php:36 themes/zpminimal/inc-header.php:91
 #: themes/zpminimal/inc-sidemenu.php:47 themes/zpminimal/login.php:4
 #: themes/zpskeleton/inc-footer.php:15 themes/zpskeleton/inc-header.php:96
-#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1065
+#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1127
 #: zp-core/zp-extensions/user_login-out.php:114
 #, fuzzy
 msgid "Login"
@@ -4002,9 +4002,9 @@ msgstr "Notaðu óendanlega fletta"
 
 #: themes/zpBootstrap/themeoptions.php:97 zp-core/admin-functions.php:3732
 #: zp-core/admin-functions.php:3875 zp-core/allTranslations.php:53
-#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:575 zp-core/lib-auth.php:588
-#: zp-core/lib-auth.php:595 zp-core/lib-auth.php:599 zp-core/lib-auth.php:615
-#: zp-core/lib-auth.php:619 zp-core/lib-auth.php:624 zp-core/lib-auth.php:628
+#: zp-core/lib-auth.php:629 zp-core/lib-auth.php:632 zp-core/lib-auth.php:645
+#: zp-core/lib-auth.php:652 zp-core/lib-auth.php:656 zp-core/lib-auth.php:672
+#: zp-core/lib-auth.php:676 zp-core/lib-auth.php:681 zp-core/lib-auth.php:685
 #: zp-core/zp-extensions/cacheManager.php:155
 #: zp-core/zp-extensions/comment_form.php:90
 #: zp-core/zp-extensions/externalFeed.php:75
@@ -4162,13 +4162,13 @@ msgstr "Glærusýning"
 msgid "Send me a message of Love"
 msgstr "Sendu mér skilaboð um ást"
 
-#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1117
-#: zp-core/lib-auth.php:1290 zp-core/lib-auth.php:1394
+#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1179
+#: zp-core/lib-auth.php:1352 zp-core/lib-auth.php:1456
 msgid "Password"
 msgstr "Aðgangsorð"
 
-#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1032
-#: zp-core/lib-auth.php:1034 zp-core/zp-extensions/googleTFA/auth_code.php:61
+#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1094
+#: zp-core/lib-auth.php:1096 zp-core/zp-extensions/googleTFA/auth_code.php:61
 #: zp-core/zp-extensions/register_user/register_user_form.php:112
 #, fuzzy
 msgid "Submit"
@@ -4332,8 +4332,8 @@ msgstr "404 Ekki fundið..."
 
 #: themes/zpfocus/inc-header.php:122 themes/zpmasonry/inc-menu.php:24
 #: themes/zpmasonry/inc-menu.php:26 themes/zpskeleton/inc-bottom.php:59
-#: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:554
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
+#: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:611
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:650 zp-core/lib-auth.php:678
 #: zp-core/zp-extensions/comment_form.php:183
 #: zp-core/zp-extensions/comment_form/admin-comments.php:268
 msgid "Comments"
@@ -4925,7 +4925,7 @@ msgstr "Ónafngreindur"
 
 #: themes/zpmasonry/comment_form/comment_form.php:66
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:63
-#: zp-core/lib-auth.php:1196
+#: zp-core/lib-auth.php:1258
 #, fuzzy
 msgid "Enter CAPTCHA"
 msgstr "Sláðu inn CAPTCHA"
@@ -5008,7 +5008,7 @@ msgstr "Velkomin(n)"
 
 #: themes/zpmasonry/index.php:53 themes/zpmasonry/index.php:57
 #: themes/zpminimal/index.php:50 themes/zpminimal/index.php:54
-#: zp-core/template-functions.php:3369
+#: zp-core/template-functions.php:3367
 #, php-format
 msgid "View image: %s"
 msgstr "Skoða mynd: %s"
@@ -5686,12 +5686,12 @@ msgstr "Veldu hvort myndarlistinn neðst sýnir slemma myndir eða nýjustu mynd
 msgid "Return to %s"
 msgstr "Aftur á %s"
 
-#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:465
+#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:470
 #, fuzzy
 msgid "A simpler media content management system"
 msgstr "Einfalt fjölmiðlunastjórnunarkerfi"
 
-#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:465
+#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:470
 #, fuzzy, php-format
 msgid "version %1$s"
 msgstr "útgáfa%1$s"
@@ -5707,7 +5707,7 @@ msgstr "netPhotoGraphics leyfi"
 msgid "License"
 msgstr "Leyfi"
 
-#: zp-core/admin-functions.php:49 zp-core/setup/setup-functions.php:466
+#: zp-core/admin-functions.php:49 zp-core/setup/setup-functions.php:471
 #, fuzzy
 msgid "Support"
 msgstr ""
@@ -5820,9 +5820,9 @@ msgstr "Afturkallað."
 
 #: zp-core/admin-functions.php:1092 zp-core/admin-functions.php:1134
 #: zp-core/admin-functions.php:5283 zp-core/admin-tabs/edit.php:1134
-#: zp-core/admin-tabs/tags.php:262 zp-core/admin-tabs/users.php:550
+#: zp-core/admin-tabs/tags.php:262 zp-core/admin-tabs/users.php:541
 #: zp-core/admin_options/image.php:830 zp-core/admin_options/search.php:270
-#: zp-core/utilities/backup_restore.php:576
+#: zp-core/utilities/backup_restore.php:575
 #: zp-core/zp-extensions/publishContent/publishContent.php:301
 #: zp-core/zp-extensions/publishContent/publishContent.php:567
 #: zp-core/zp-extensions/publishContent/publishContent.php:631
@@ -5933,7 +5933,7 @@ msgstr "Vísbending aðgangsorðs:"
 
 #: zp-core/admin-functions.php:1930 zp-core/admin_options/gallery.php:251
 #: zp-core/admin_options/image.php:699 zp-core/admin_options/search.php:197
-#: zp-core/lib-auth.php:1115 zp-core/lib-auth.php:1398
+#: zp-core/lib-auth.php:1177 zp-core/lib-auth.php:1460
 #: zp-core/utilities/gallery_statistics.php:761
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
@@ -5944,7 +5944,7 @@ msgstr "Vísbending aðgangsorðs:"
 #: zp-core/zp-extensions/comment_form.php:107
 #: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/downloadList.php:148
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:227
 #: zp-core/zp-extensions/register_user.php:85
 #: zp-core/zp-extensions/zenpage/edit.php:645
 #, fuzzy
@@ -6051,10 +6051,10 @@ msgid "Thumbnail"
 msgstr "Smámynd:"
 
 #: zp-core/admin-functions.php:2251 zp-core/admin-tabs/edit.php:1393
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:579 zp-core/lib-auth.php:580
-#: zp-core/lib-auth.php:584 zp-core/lib-auth.php:604 zp-core/lib-auth.php:605
-#: zp-core/lib-auth.php:609 zp-core/lib-auth.php:610 zp-core/lib-auth.php:611
-#: zp-core/lib-auth.php:632 zp-core/lib-auth.php:636 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:636 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:641 zp-core/lib-auth.php:661 zp-core/lib-auth.php:662
+#: zp-core/lib-auth.php:666 zp-core/lib-auth.php:667 zp-core/lib-auth.php:668
+#: zp-core/lib-auth.php:689 zp-core/lib-auth.php:693 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/zenpage/edit.php:805
 #, fuzzy
 msgid "General"
@@ -6463,9 +6463,9 @@ msgstr "Stýrðar síður:"
 msgid "Select one or more %1$s for the %2$s to manage."
 msgstr "Veldu einn eða fleiri%1$s fyrir%2$s til að stjórna."
 
-#: zp-core/admin-functions.php:3910 zp-core/admin-tabs/users.php:880
-#: zp-core/admin-tabs/users.php:899 zp-core/admin-tabs/users.php:905
-#: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:555
+#: zp-core/admin-functions.php:3910 zp-core/admin-tabs/users.php:890
+#: zp-core/admin-tabs/users.php:909 zp-core/admin-tabs/users.php:915
+#: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:573
 #, fuzzy
 msgid "user"
 msgstr "Notandakenni fyrir gestaleitarnotandann"
@@ -6506,7 +6506,7 @@ msgstr "í lagi"
 #: zp-core/admin-functions.php:4429 zp-core/admin-tabs/edit.php:1024
 #: zp-core/admin-tabs/edit.php:1891
 #: zp-core/zp-extensions/comment_form/admin-comments.php:382
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:265
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:267
 #: zp-core/zp-extensions/zenpage/categories.php:185
 #: zp-core/zp-extensions/zenpage/news.php:306
 #: zp-core/zp-extensions/zenpage/pages.php:191
@@ -6685,13 +6685,13 @@ msgstr "%s var ekki hægt að eyða."
 msgid "%s deleted successfully."
 msgstr "%s var eytt."
 
-#: zp-core/admin-functions.php:5530 zp-core/admin-tabs/users.php:465
+#: zp-core/admin-functions.php:5530 zp-core/admin-tabs/users.php:456
 #, fuzzy
 msgid "You must supply a password."
 msgstr "Þú verður að gefa upp lykilorð."
 
 #: zp-core/admin-functions.php:5532 zp-core/admin-tabs/options.php:154
-#: zp-core/admin-tabs/users.php:474 zp-core/zp-extensions/register_user.php:434
+#: zp-core/admin-tabs/users.php:465 zp-core/zp-extensions/register_user.php:434
 msgid "Your passwords did not match."
 msgstr "Aðgangsorðin þín samsvarast ekki."
 
@@ -6973,7 +6973,7 @@ msgstr "Gallerý"
 msgid "plugin"
 msgstr "stinga inn"
 
-#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:558
+#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:576
 #, fuzzy
 msgid "theme"
 msgstr "Veldu liti þemans"
@@ -7006,7 +7006,7 @@ msgstr "Gagnasafn Tilvísun"
 
 #: zp-core/admin-tabs/albumsort.php:85 zp-core/admin-tabs/edit.php:745
 #: zp-core/zp-extensions/comment_form/admin-comments.php:369
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:223
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
 #: zp-core/zp-extensions/zenpage/categories.php:172
 #: zp-core/zp-extensions/zenpage/news.php:271
 #: zp-core/zp-extensions/zenpage/pages.php:174
@@ -7025,8 +7025,8 @@ msgstr "* Magn aðgerða *"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:370
 #: zp-core/zp-extensions/comment_form/admin-comments.php:534
 #: zp-core/zp-extensions/debug/admin_tab.php:309
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:224
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:307
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:309
 #: zp-core/zp-extensions/publishContent/publishContent.php:473
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:61
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:157
@@ -7233,7 +7233,7 @@ msgstr "Nýtt albúm nafn?"
 
 #: zp-core/admin-tabs/edit.php:689
 #: zp-core/zp-extensions/comment_form/admin-comments.php:98
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:158
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:160
 #: zp-core/zp-extensions/zenpage/categories.php:78
 #: zp-core/zp-extensions/zenpage/news.php:82
 #: zp-core/zp-extensions/zenpage/pages.php:93
@@ -7341,7 +7341,7 @@ msgstr "Zoom"
 
 #: zp-core/admin-tabs/edit.php:1262 zp-core/utilities/gallery_statistics.php:447
 #: zp-core/utilities/gallery_statistics.php:451
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:303
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:305
 #: zp-core/zp-extensions/publishContent/publishContent.php:481
 #: zp-core/zp-extensions/publishContent/publishContent.php:539
 #: zp-core/zp-extensions/publishContent/publishContent.php:604
@@ -7542,7 +7542,7 @@ msgstr ""
 "Breyting þín á leyfilegum merkingum tókst ekki að flokka með góðum árangri."
 
 #: zp-core/admin-tabs/options.php:122 zp-core/admin-tabs/plugins.php:150
-#: zp-core/admin-tabs/users.php:324
+#: zp-core/admin-tabs/users.php:323
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:146
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:137
 #, fuzzy
@@ -7550,7 +7550,7 @@ msgid "Error"
 msgstr "Villa!"
 
 #: zp-core/admin-tabs/options.php:123 zp-core/admin-tabs/plugins.php:151
-#: zp-core/admin-tabs/users.php:325
+#: zp-core/admin-tabs/users.php:324
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:138
 #, fuzzy
 msgid ""
@@ -7763,10 +7763,10 @@ msgstr "Þema tappi"
 msgid "Usage info"
 msgstr "Notkunarupplýsingar"
 
-#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:560
-#: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
+#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:636 zp-core/lib-auth.php:661 zp-core/lib-auth.php:693
 #: zp-core/template-functions.php:147
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:199
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:201
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:139
 msgid "Options"
 msgstr "Stillingar"
@@ -8245,41 +8245,41 @@ msgstr "Búa til nýtt albúm"
 msgid "There are no albums to which you can upload."
 msgstr "Það eru engar plötur sem þú getur hlaðið inn."
 
-#: zp-core/admin-tabs/users.php:157
+#: zp-core/admin-tabs/users.php:156
 #, fuzzy, php-format
 msgid "%s password may not be empty!"
 msgstr "%s lykilorð kann ekki að vera tómt!"
 
-#: zp-core/admin-tabs/users.php:308
+#: zp-core/admin-tabs/users.php:307
 #, fuzzy
 msgid "Password reset request."
 msgstr "Beiðni um endurstillingu aðgangsorðs."
 
-#: zp-core/admin-tabs/users.php:330
+#: zp-core/admin-tabs/users.php:329
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:148
 msgid "Saved"
 msgstr "Vistað"
 
-#: zp-core/admin-tabs/users.php:453
+#: zp-core/admin-tabs/users.php:444
 #, fuzzy
 msgid "Rights migration failed."
 msgstr "Réttindi fólksflutningur mistókst."
 
-#: zp-core/admin-tabs/users.php:458
+#: zp-core/admin-tabs/users.php:449
 #, fuzzy
 msgid "User id already used."
 msgstr "Notandanafn þegar notað."
 
-#: zp-core/admin-tabs/users.php:468
+#: zp-core/admin-tabs/users.php:459
 #, fuzzy
 msgid "User name not provided"
 msgstr "Notandanafn ekki veitt"
 
-#: zp-core/admin-tabs/users.php:481
+#: zp-core/admin-tabs/users.php:472
 msgid "Your Website URL is not valid"
 msgstr "Tengill vefsíðu þinnar er ógildur"
 
-#: zp-core/admin-tabs/users.php:523 zp-core/admin_options/gallery.php:69
+#: zp-core/admin-tabs/users.php:514 zp-core/admin_options/gallery.php:69
 #: zp-core/admin_options/gallery.php:526 zp-core/admin_options/general.php:171
 #: zp-core/admin_options/general.php:811 zp-core/admin_options/image.php:248
 #: zp-core/admin_options/image.php:962 zp-core/admin_options/plugin.php:92
@@ -8294,72 +8294,72 @@ msgstr "Tengill vefsíðu þinnar er ógildur"
 msgid "reset"
 msgstr "Núllstilla"
 
-#: zp-core/admin-tabs/users.php:536
+#: zp-core/admin-tabs/users.php:527
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:222
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:435
 msgid "Expand all"
 msgstr "Opna allt"
 
-#: zp-core/admin-tabs/users.php:538
+#: zp-core/admin-tabs/users.php:529
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:224
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:437
 msgid "Collapse all"
 msgstr "Loka öllu"
 
-#: zp-core/admin-tabs/users.php:547 zp-core/admin_options/image.php:809
+#: zp-core/admin-tabs/users.php:538 zp-core/admin_options/image.php:809
 #: zp-core/admin_options/image.php:835 zp-core/zp-extensions/contact_form.php:74
 #: zp-core/zp-extensions/googleMap.php:87
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:122
 msgid "show"
 msgstr "sýna"
 
-#: zp-core/admin-tabs/users.php:554 zp-core/admin-tabs/users.php:615
+#: zp-core/admin-tabs/users.php:545 zp-core/admin-tabs/users.php:618
 msgid "pending verification"
 msgstr "bíður staðfestingar"
 
-#: zp-core/admin-tabs/users.php:560
+#: zp-core/admin-tabs/users.php:551
 #, fuzzy
 msgid "no group"
 msgstr "engin hópur"
 
-#: zp-core/admin-tabs/users.php:621
+#: zp-core/admin-tabs/users.php:624
 msgid "Master"
 msgstr "Aðal"
 
-#: zp-core/admin-tabs/users.php:652
+#: zp-core/admin-tabs/users.php:655
 #, fuzzy
 msgid "Show details"
 msgstr "Sýna smáatriði"
 
-#: zp-core/admin-tabs/users.php:653
+#: zp-core/admin-tabs/users.php:656
 #, fuzzy
 msgid "Hide details"
 msgstr "Fela upplýsingar"
 
-#: zp-core/admin-tabs/users.php:655
+#: zp-core/admin-tabs/users.php:658
 #, fuzzy, php-format
 msgid "Show details for user %s"
 msgstr "Sýna upplýsingar um notanda %s"
 
-#: zp-core/admin-tabs/users.php:656
+#: zp-core/admin-tabs/users.php:659
 #, fuzzy, php-format
 msgid "Hide details for user %s"
 msgstr "Fela upplýsingar um notanda %s"
 
-#: zp-core/admin-tabs/users.php:667
+#: zp-core/admin-tabs/users.php:670
 #, fuzzy
 msgid "New User"
 msgstr "Nýr notandi"
 
-#: zp-core/admin-tabs/users.php:695
+#: zp-core/admin-tabs/users.php:698
 msgid "Authenticate user"
 msgstr "Sannvotta notanda"
 
-#: zp-core/admin-tabs/users.php:707
+#: zp-core/admin-tabs/users.php:710
 msgid "Are you sure you want to delete this user?"
 msgstr "Ertu viss um að þú viljir eyða þessum notanda?"
 
-#: zp-core/admin-tabs/users.php:709
+#: zp-core/admin-tabs/users.php:712
 #, fuzzy
 msgid ""
 "This is the master user account. If you delete it another user will be "
@@ -8368,16 +8368,25 @@ msgstr ""
 "Þetta er aðalnotandareikningurinn. Ef þú eyðir því verður annar notandi "
 "kynntur til aðalnotanda."
 
-#: zp-core/admin-tabs/users.php:717
+#: zp-core/admin-tabs/users.php:718
+#, fuzzy, php-format
+msgid ""
+"User's password is encrypted with the %1$s password hashing algorithm which "
+"is less secure than %2$s."
+msgstr ""
+"Lykilorð notandans er dulkóðuð með%1$s lykilorða reikniritinu sem er minna "
+"öruggt en%2$s."
+
+#: zp-core/admin-tabs/users.php:723
 #, fuzzy, php-format
 msgid "Log on as %s."
 msgstr "Skráðu þig inn sem %s."
 
-#: zp-core/admin-tabs/users.php:724
+#: zp-core/admin-tabs/users.php:734
 msgid "Delete this user."
 msgstr "Eyða þessum notanda."
 
-#: zp-core/admin-tabs/users.php:748
+#: zp-core/admin-tabs/users.php:758
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> You must have ADMIN rights to alter anything but your "
@@ -8386,37 +8395,37 @@ msgstr ""
 "<strong>Athugaðu:</strong> Þú verður að hafa ADMIN réttindi til að breyta "
 "öllu en persónulegum upplýsingum þínum."
 
-#: zp-core/admin-tabs/users.php:785
+#: zp-core/admin-tabs/users.php:795
 #, fuzzy
 msgid "Challenge phrase"
 msgstr "Áskorun orðasamband"
 
-#: zp-core/admin-tabs/users.php:788
+#: zp-core/admin-tabs/users.php:798
 #, fuzzy
 msgid "Challenge response"
 msgstr "Áskorun viðbrögð"
 
-#: zp-core/admin-tabs/users.php:795
+#: zp-core/admin-tabs/users.php:805
 #, fuzzy
 msgid "Full name"
 msgstr "Fullt nafn"
 
-#: zp-core/admin-tabs/users.php:800 zp-core/admin_options/general.php:633
+#: zp-core/admin-tabs/users.php:810 zp-core/admin_options/general.php:633
 #: zp-core/zp-extensions/register_user/register_user_form.php:39
 msgid "Email"
 msgstr "Netfang"
 
-#: zp-core/admin-tabs/users.php:813
+#: zp-core/admin-tabs/users.php:823
 #, fuzzy
 msgid "create primary album"
 msgstr "búa til aðalalbúmið"
 
-#: zp-core/admin-tabs/users.php:823
+#: zp-core/admin-tabs/users.php:833
 #, fuzzy, php-format
 msgid "delink primary album <strong>%1$s</strong>(<em>%2$s</em>)"
 msgstr "Delink aðalalbúmið <strong>%1$s</strong> ( <em>%2$s</em> )"
 
-#: zp-core/admin-tabs/users.php:827
+#: zp-core/admin-tabs/users.php:837
 #, fuzzy
 msgid ""
 "The primary album was created in association with the user. It will be "
@@ -8425,21 +8434,21 @@ msgstr ""
 "Aðalpallurinn var búinn til í tengslum við notandann. Það verður fjarlægt ef "
 "notandinn er eytt. Að sleppa þessu plötu fjarlægir þetta samband."
 
-#: zp-core/admin-tabs/users.php:836
+#: zp-core/admin-tabs/users.php:846
 msgid "Language:"
 msgstr "Tungumál:"
 
-#: zp-core/admin-tabs/users.php:873
+#: zp-core/admin-tabs/users.php:883
 #, fuzzy
 msgid "The <em>master</em> account has full rights to all objects."
 msgstr "<em>Stjórnaforritið</em> hefur fullan rétt á öllum hlutum."
 
-#: zp-core/admin-tabs/users.php:894 zp-core/functions.php:849
+#: zp-core/admin-tabs/users.php:904 zp-core/functions.php:849
 #, fuzzy
 msgid "un-categorized"
 msgstr "óflokkað"
 
-#: zp-core/admin-tabs/users.php:967
+#: zp-core/admin-tabs/users.php:977
 #, fuzzy, php-format
 msgid ""
 "The <em>Zenphoto_Authority</em> object supports a higher version of user "
@@ -8450,12 +8459,12 @@ msgstr ""
 "en það er valið. Þú gætir viljað flytja notandann rétt til að fá nýja virkni "
 "þessa útgáfu veitir."
 
-#: zp-core/admin-tabs/users.php:970
+#: zp-core/admin-tabs/users.php:980
 #, fuzzy
 msgid "Migrate rights"
 msgstr "Flytja réttindi"
 
-#: zp-core/admin-tabs/users.php:980
+#: zp-core/admin-tabs/users.php:990
 #, fuzzy, php-format
 msgid ""
 "You may wish to revert the <em>Zenphoto_Authority</em> user rights to version "
@@ -8464,19 +8473,19 @@ msgstr ""
 "Þú gætir viljað snúa aftur á <em>Zenphoto_Authority</em> notendaskírteininu "
 "til útgáfu %s fyrir <em>bakhliðarsamhæfni</em> við fyrri útgáfur."
 
-#: zp-core/admin-tabs/users.php:983
+#: zp-core/admin-tabs/users.php:993
 #, fuzzy
 msgid "Revert rights"
 msgstr "Afturkalla réttindi"
 
-#: zp-core/admin-tabs/users.php:1001
+#: zp-core/admin-tabs/users.php:1011
 #, fuzzy
 msgid "User names may not contain “?”, “&\", or quotation marks."
 msgstr ""
 "Notendanöfn mega ekki innihalda &quot;?&quot;, &quot;&amp;&quot; Eða "
 "tilvitnunarmerki."
 
-#: zp-core/admin-tabs/users.php:1006
+#: zp-core/admin-tabs/users.php:1016
 #, fuzzy, php-format
 msgid "The user “%s” already exists."
 msgstr "Notandinn &quot; %s&quot; er þegar til."
@@ -10214,7 +10223,7 @@ msgstr "afvirkja"
 msgid "restore defaults"
 msgstr "endurheimta sjálfgefið"
 
-#: zp-core/admin_options/image.php:833
+#: zp-core/admin_options/image.php:833 zp-core/lib-auth.php:93
 #: zp-core/zp-extensions/multiple_layouts.php:273
 #, fuzzy
 msgid "default"
@@ -11347,7 +11356,7 @@ msgid "Error: The “albums” directory (%s) is not readable."
 msgstr "Villa: Skráin &quot;albúm&quot; ( %s) er ekki læsileg."
 
 #: zp-core/class-gallery.php:372 zp-core/exif/exifTranslations.php:231
-#: zp-core/setup/setup-functions.php:342
+#: zp-core/setup/setup-functions.php:347
 #, fuzzy
 msgid "Unknown"
 msgstr "Óþekktur"
@@ -12861,7 +12870,7 @@ msgstr "STRIKT TILKYNNING"
 msgid "%1$s: \"%2$s\" in %3$s on line %4$s"
 msgstr "%1$s: &quot;%2$s&quot; í%3$s á línu%4$s"
 
-#: zp-core/functions-basic.php:496 zp-core/setup/index.php:439
+#: zp-core/functions-basic.php:512 zp-core/setup/index.php:439
 #: zp-core/setup/index.php:449 zp-core/utilities/installation_analysis.php:43
 #: zp-core/zp-extensions/cloneZenphoto.php:56
 #: zp-core/zp-extensions/security-logger.php:134
@@ -12869,12 +12878,12 @@ msgstr "%1$s: &quot;%2$s&quot; í%3$s á línu%4$s"
 msgid "clone"
 msgstr "klón"
 
-#: zp-core/functions-basic.php:1738
+#: zp-core/functions-basic.php:1743
 #, fuzzy, php-format
 msgid "%s log size limit exceeded"
 msgstr "%s skráarstærðarmörk yfir"
 
-#: zp-core/functions-basic.php:1738
+#: zp-core/functions-basic.php:1743
 #, fuzzy, php-format
 msgid "The %1$s log has exceeded its size limit and has been renamed to %2$s."
 msgstr "Skráin%1$s hefur farið yfir stærðarmörk og hefur verið breytt í%2$s."
@@ -13479,7 +13488,7 @@ msgstr "Skyndiminni: [ %s]"
 msgid "Image: [%s]"
 msgstr "Mynd: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:611
+#: zp-core/functions-image.php:59 zp-core/lib-auth.php:668
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 #, fuzzy
 msgid "Debug"
@@ -13656,17 +13665,17 @@ msgstr ""
 msgid "0 Bytes"
 msgstr "0 bæti"
 
-#: zp-core/functions.php:2573
+#: zp-core/functions.php:2580
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a number."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d ætti að vera númer."
 
-#: zp-core/functions.php:2581
+#: zp-core/functions.php:2588
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a string."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d ætti að vera strengur."
 
-#: zp-core/functions.php:2594
+#: zp-core/functions.php:2601
 #, fuzzy, php-format
 msgid ""
 "<em>[%1$s]</em> parameter %2$d should be <code>true</code> or <code>false</"
@@ -13675,39 +13684,39 @@ msgstr ""
 "<em>[%1$s]</em> breytu% 2 $ d ætti að vera <code>true</code> eða <code>false</"
 "code> ."
 
-#: zp-core/functions.php:2613
+#: zp-core/functions.php:2620
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is incorrectly defined."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d er rangt skilgreind."
 
-#: zp-core/functions.php:2619
+#: zp-core/functions.php:2626
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is missing."
 msgstr "<em>[%1$s]</em> breytu% 2 $ d vantar."
 
-#: zp-core/functions.php:2628
+#: zp-core/functions.php:2635
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> macro does not take parameters"
 msgstr "<em>[%1$s]</em> Macro tekur ekki við breytur"
 
-#: zp-core/functions.php:2654 zp-core/functions.php:2681
+#: zp-core/functions.php:2661 zp-core/functions.php:2688
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> retuned no data"
 msgstr "<em>[%1$s]</em> retuned engar upplýsingar"
 
-#: zp-core/functions.php:2659
+#: zp-core/functions.php:2666
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> <code>%2$s</code> is not callable"
 msgstr "<em>[%1$s]</em> <code>%2$s</code> er ekki hægt að kalla"
 
-#: zp-core/functions.php:2686
+#: zp-core/functions.php:2693
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> takes %2$d parameter"
 msgid_plural "<em>[%1$s]</em> takes %2$d parameters"
 msgstr[0] "<em>[%1$s]</em> tekur% 2 $ d breytu"
 msgstr[1] "<em>[%1$s]</em> tekur% 2 $ d breytur"
 
-#: zp-core/functions.php:3071 zp-core/zp-extensions/comment_form.php:112
+#: zp-core/functions.php:3078 zp-core/zp-extensions/comment_form.php:112
 #: zp-core/zp-extensions/contact_form.php:133
 #: zp-core/zp-extensions/register_user.php:80
 #, fuzzy
@@ -13912,12 +13921,12 @@ msgstr "PHP Imagick bókasafn <em> %s</em>"
 msgid "There is no PHP Graphics support."
 msgstr "Það er engin PHP Graphics stuðningur."
 
-#: zp-core/lib-auth.php:91
+#: zp-core/lib-auth.php:114
 #, fuzzy
 msgid "Primary album edit"
 msgstr "Aðalritgerð albúms"
 
-#: zp-core/lib-auth.php:93
+#: zp-core/lib-auth.php:116
 #, fuzzy
 msgid ""
 "Check if you want <em>edit rights</em> automatically assigned when a user "
@@ -13926,12 +13935,12 @@ msgstr ""
 "Athugaðu hvort þú vilt <em>breyta réttindi</em> úthlutað sjálfkrafa þegar "
 "notandinn <em>fyrst og fremst plata</em> er búin."
 
-#: zp-core/lib-auth.php:94
+#: zp-core/lib-auth.php:118
 #, fuzzy
 msgid "Minimum password strength"
 msgstr "Lágmarks lykilorðsstyrkur"
 
-#: zp-core/lib-auth.php:96
+#: zp-core/lib-auth.php:120
 #, fuzzy, php-format
 msgid ""
 "Users must provide passwords a strength of at least %s. The repeat password "
@@ -13940,34 +13949,43 @@ msgstr ""
 "Notendur verða að gefa lykilorð að minnsta kosti %s. Endurtaktu lykilorðið "
 "verður óvirk fyrr en þessi hæð er uppfyllt."
 
-#: zp-core/lib-auth.php:97
+#: zp-core/lib-auth.php:121
 #, fuzzy
 msgid "Password hash algorithm"
 msgstr "Lykilorðið hash reiknirit"
 
-#: zp-core/lib-auth.php:100
+#: zp-core/lib-auth.php:124
 #, fuzzy, php-format
 msgid ""
 "The hashing algorithm to be used. In order of robustness the choices are %s"
 msgstr ""
 "The hestur reiknirit til að nota. Í því skyni að vera robust eru valin %s"
 
-#: zp-core/lib-auth.php:101
+#: zp-core/lib-auth.php:124
+#, fuzzy
+msgid ""
+"Note: The <code>default</code> choice  is designed to change over time as new "
+"and stronger algorithms are added to PHP."
+msgstr ""
+"Athugaðu: <code>default</code> val er ætlað að breytast með tímanum þar sem "
+"nýr og sterkari reiknirit er bætt við PHP."
+
+#: zp-core/lib-auth.php:125
 #, fuzzy
 msgid "Enable Challenge phrase"
 msgstr "Virkja áskorun setningu"
 
-#: zp-core/lib-auth.php:103
+#: zp-core/lib-auth.php:127
 #, fuzzy
 msgid "Check to allow password reset by challenge phrase responses."
 msgstr "Athugaðu að leyfa endurstillingu aðgangsorðs með svörum við áskorun."
 
-#: zp-core/lib-auth.php:106
+#: zp-core/lib-auth.php:130
 #, fuzzy
 msgid "Challenge phrase foils"
 msgstr "Áskorun setningu filmu"
 
-#: zp-core/lib-auth.php:108
+#: zp-core/lib-auth.php:132
 #, fuzzy
 msgid ""
 "These <em>foil</em> challenge phrases will be presented randomly. This list "
@@ -13978,7 +13996,12 @@ msgstr ""
 "ætti ekki að vera tómur, annars geta tölvusnápur fundið gilt notendanafn og "
 "vitað að svarið sé fyrir hendi af öllum áskorunum."
 
-#: zp-core/lib-auth.php:422
+#: zp-core/lib-auth.php:138
+#, fuzzy
+msgid "You should use a more robust hashing algorithm."
+msgstr "Þú ættir að nota sterkari hestunarreiknirit."
+
+#: zp-core/lib-auth.php:479
 #, fuzzy, php-format
 msgid ""
 "Cannot migrate rights to version %1$s (Zenphoto_Authority supports only %2$s "
@@ -13987,48 +14010,48 @@ msgstr ""
 "Get ekki flutt réttindi til útgáfu%1$s (Zenphoto_Authority styður aðeins %2$s "
 "og%3$s.)"
 
-#: zp-core/lib-auth.php:549 zp-core/lib-auth.php:564 zp-core/lib-auth.php:583
-#: zp-core/lib-auth.php:608
+#: zp-core/lib-auth.php:606 zp-core/lib-auth.php:621 zp-core/lib-auth.php:640
+#: zp-core/lib-auth.php:665
 #, fuzzy
 msgid "No rights"
 msgstr "Engin réttindi"
 
-#: zp-core/lib-auth.php:550 zp-core/lib-auth.php:565 zp-core/lib-auth.php:584
-#: zp-core/lib-auth.php:609 zp-core/template-functions.php:95
+#: zp-core/lib-auth.php:607 zp-core/lib-auth.php:622 zp-core/lib-auth.php:641
+#: zp-core/lib-auth.php:666 zp-core/template-functions.php:95
 msgid "Overview"
 msgstr "Yfirlit"
 
-#: zp-core/lib-auth.php:551 zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:608 zp-core/lib-auth.php:623
 msgid "View all"
 msgstr "Skoða allt"
 
-#: zp-core/lib-auth.php:552 zp-core/lib-auth.php:567 zp-core/lib-auth.php:594
-#: zp-core/lib-auth.php:622 zp-core/template-functions.php:102
+#: zp-core/lib-auth.php:609 zp-core/lib-auth.php:624 zp-core/lib-auth.php:651
+#: zp-core/lib-auth.php:679 zp-core/template-functions.php:102
 #: zp-core/zp-extensions/uploader_http/upload_form.php:69
 #: zp-core/zp-extensions/uploader_http/upload_form.php:71
 msgid "Upload"
 msgstr "Uppflytja"
 
-#: zp-core/lib-auth.php:553 zp-core/lib-auth.php:568 zp-core/lib-auth.php:592
-#: zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:625 zp-core/lib-auth.php:649
+#: zp-core/lib-auth.php:677
 #, fuzzy
 msgid "Post comments"
 msgstr "Senda athugasemdir"
 
-#: zp-core/lib-auth.php:556 zp-core/lib-auth.php:576
+#: zp-core/lib-auth.php:613 zp-core/lib-auth.php:633
 msgid "Manage all albums"
 msgstr "Sjá um öll albúm"
 
-#: zp-core/lib-auth.php:558
+#: zp-core/lib-auth.php:615
 msgid "Zenpage"
 msgstr "Zenpage"
 
-#: zp-core/lib-auth.php:565 zp-core/lib-auth.php:584 zp-core/lib-auth.php:609
+#: zp-core/lib-auth.php:622 zp-core/lib-auth.php:641 zp-core/lib-auth.php:666
 #, fuzzy
 msgid "Users with this right may view the admin overview page."
 msgstr "Notendur með þennan rétt geta skoðað yfirlitssíðu stjórnenda."
 
-#: zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:623
 #, fuzzy
 msgid ""
 "Users with this right may view all of the gallery regardless of protection of "
@@ -14041,7 +14064,7 @@ msgstr ""
 "og þau sem eru skoðuð í listum sem hann tókst að stjórna eða sem gefinn er af "
 "Skoða leit eða Skoða gallerí."
 
-#: zp-core/lib-auth.php:567 zp-core/lib-auth.php:594 zp-core/lib-auth.php:622
+#: zp-core/lib-auth.php:624 zp-core/lib-auth.php:651 zp-core/lib-auth.php:679
 #, fuzzy
 msgid ""
 "Users with this right may upload to the albums for which they have management "
@@ -14049,7 +14072,7 @@ msgid ""
 msgstr ""
 "Notendur með þennan rétt geta sent í albúm sem þeir hafa stjórnunarréttindi."
 
-#: zp-core/lib-auth.php:568 zp-core/lib-auth.php:592 zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:625 zp-core/lib-auth.php:649 zp-core/lib-auth.php:677
 #, fuzzy
 msgid ""
 "When the comment_form plugin is used for comments and its \"Only members can "
@@ -14059,36 +14082,36 @@ msgstr ""
 "geta skrifað ummæli&quot; er valið getur aðeins notandi með þessa hægri sent "
 "eftir athugasemdir."
 
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:650 zp-core/lib-auth.php:678
 #, fuzzy
 msgid "Users with this right may make comments tab changes."
 msgstr "Notendur með þennan rétt geta gert breytingar á athugasemdum flipa."
 
-#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:598 zp-core/lib-auth.php:627
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:655 zp-core/lib-auth.php:684
 #, fuzzy
 msgid "Users with this right may access the “albums” tab to make changes."
 msgstr ""
 "Notendur með þennan rétt geta fengið aðgang að flipanum &quot;Albums&quot; "
 "til að gera breytingar."
 
-#: zp-core/lib-auth.php:571 zp-core/lib-auth.php:596 zp-core/lib-auth.php:625
+#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:653 zp-core/lib-auth.php:682
 #, fuzzy
 msgid "Users with this right may edit and manage Zenpage pages."
 msgstr "Notendur með þennan rétt geta breytt og stjórnað Zenpage síðum."
 
-#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:595 zp-core/lib-auth.php:624
+#: zp-core/lib-auth.php:629 zp-core/lib-auth.php:652 zp-core/lib-auth.php:681
 #, fuzzy
 msgid ""
 "Users with this right may edit and manage Zenpage articles and categories."
 msgstr ""
 "Notendur með þennan rétt geta breytt og stjórnað Zenpage greinar og flokka."
 
-#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:597 zp-core/lib-auth.php:626
+#: zp-core/lib-auth.php:630 zp-core/lib-auth.php:654 zp-core/lib-auth.php:683
 #, fuzzy
 msgid "Files"
 msgstr "Skjöl"
 
-#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:597 zp-core/lib-auth.php:626
+#: zp-core/lib-auth.php:630 zp-core/lib-auth.php:654 zp-core/lib-auth.php:683
 #, fuzzy
 msgid ""
 "Allows the user access to the “filemanager” located on the upload: files sub-"
@@ -14097,12 +14120,12 @@ msgstr ""
 "Leyfir notandanum aðgang að &quot;filemanager&quot; sem er staðsett á "
 "upphleðslunni: undirflipi skrár."
 
-#: zp-core/lib-auth.php:574
+#: zp-core/lib-auth.php:631
 #, fuzzy
 msgid "Manage all pages"
 msgstr "Stjórna öllum síðum"
 
-#: zp-core/lib-auth.php:574 zp-core/lib-auth.php:600 zp-core/lib-auth.php:629
+#: zp-core/lib-auth.php:631 zp-core/lib-auth.php:657 zp-core/lib-auth.php:686
 #, fuzzy
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
@@ -14113,12 +14136,12 @@ msgstr ""
 "við að stjórna aðeins hlutum sem þau hafa verið úthlutað. Þessi rétt gerir "
 "þeim kleift að stjórna hvaða Zenpage síðu sem er."
 
-#: zp-core/lib-auth.php:575
+#: zp-core/lib-auth.php:632
 #, fuzzy
 msgid "Manage all news"
 msgstr "Stjórna öllum fréttum"
 
-#: zp-core/lib-auth.php:575 zp-core/lib-auth.php:599 zp-core/lib-auth.php:628
+#: zp-core/lib-auth.php:632 zp-core/lib-auth.php:656 zp-core/lib-auth.php:685
 #, fuzzy
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
@@ -14129,7 +14152,7 @@ msgstr ""
 "við að stjórna aðeins hlutum sem þau hafa verið úthlutað. Þessi réttur gerir "
 "þeim kleift að stjórna hvaða Zenpage frétta grein eða flokki."
 
-#: zp-core/lib-auth.php:576 zp-core/lib-auth.php:601 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:633 zp-core/lib-auth.php:658 zp-core/lib-auth.php:687
 #, fuzzy
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
@@ -14140,7 +14163,7 @@ msgstr ""
 "við að stjórna aðeins hlutum sem þau hafa verið úthlutað. Þessi rétt gerir "
 "þeim kleift að stjórna öllum plötum í galleríinu."
 
-#: zp-core/lib-auth.php:577 zp-core/lib-auth.php:602 zp-core/lib-auth.php:633
+#: zp-core/lib-auth.php:634 zp-core/lib-auth.php:659 zp-core/lib-auth.php:690
 #, fuzzy
 msgid ""
 "Users with this right may make themes related changes. These are limited to "
@@ -14150,18 +14173,18 @@ msgstr ""
 "takmarkaðar við þemu sem tengjast albúmum sem eru skoðuð í lista yfir "
 "albúmalistann."
 
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:660 zp-core/lib-auth.php:692
 #, fuzzy
 msgid "Users with this right may make additions and changes to the set of tags."
 msgstr ""
 "Notendur með þennan rétt geta gert viðbætur og breytingar á settum merkjum."
 
-#: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
+#: zp-core/lib-auth.php:636 zp-core/lib-auth.php:661 zp-core/lib-auth.php:693
 #, fuzzy
 msgid "Users with this right may make changes on the options."
 msgstr "Notendur með þennan rétt geta gert breytingar á valkostunum."
 
-#: zp-core/lib-auth.php:580 zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:637 zp-core/lib-auth.php:662 zp-core/lib-auth.php:694
 #, fuzzy
 msgid ""
 "The master privilege. A user with \"Admin\" can do anything. (No matter what "
@@ -14170,123 +14193,123 @@ msgstr ""
 "Leiðbeinandi forréttindi. Notandi með &quot;Admin&quot; getur gert neitt. "
 "(Sama hvað önnur réttindi hans gætu bent til!)"
 
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:612
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:669
 #, fuzzy
 msgid "View gallery"
 msgstr "Skoða myndasafn"
 
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:612
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:669
 #, fuzzy
 msgid ""
 "Users with this right may view otherwise protected generic gallery pages."
 msgstr ""
 "Notendur með þennan rétt geta skoðað annars konar almennar gallerísíður."
 
-#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:613
+#: zp-core/lib-auth.php:643 zp-core/lib-auth.php:670
 #, fuzzy
 msgid "View search"
 msgstr "Skoða leit"
 
-#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:613
+#: zp-core/lib-auth.php:643 zp-core/lib-auth.php:670
 #, fuzzy
 msgid "Users with this right may view search pages even if password protected."
 msgstr ""
 "Notendur með þennan rétt geta skoðað leitarsíður jafnvel þótt lykilorð sé "
 "varið."
 
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:671
 #, fuzzy
 msgid "View fullimage"
 msgstr "Skoða fullimage"
 
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:671
 #, fuzzy
 msgid "Users with this right may view all full sized (raw) images."
 msgstr ""
 "Notendur með þessa hægri geta skoðað allar myndir af fullri stærð (hrár)."
 
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:589 zp-core/lib-auth.php:590
-#: zp-core/lib-auth.php:615 zp-core/lib-auth.php:616 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:645 zp-core/lib-auth.php:646 zp-core/lib-auth.php:647
+#: zp-core/lib-auth.php:672 zp-core/lib-auth.php:673 zp-core/lib-auth.php:674
 #, fuzzy
 msgid "Access all"
 msgstr "Aðgangur að öllum"
 
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:615
+#: zp-core/lib-auth.php:645 zp-core/lib-auth.php:672
 #, fuzzy
 msgid "Users with this right have access to all zenpage news articles."
 msgstr "Notendur með þennan rétt hafa aðgang að öllum zenpage fréttum."
 
-#: zp-core/lib-auth.php:589 zp-core/lib-auth.php:616
+#: zp-core/lib-auth.php:646 zp-core/lib-auth.php:673
 #, fuzzy
 msgid "Users with this right have access to all zenpage pages."
 msgstr "Notendur með þennan rétt hafa aðgang að öllum zenpage síðum."
 
-#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:647 zp-core/lib-auth.php:674
 #, fuzzy
 msgid "Users with this right have access to all albums."
 msgstr "Notendur með þennan rétt hafa aðgang að öllum albúmum."
 
-#: zp-core/lib-auth.php:591 zp-core/lib-auth.php:618 zp-core/lib-auth.php:619
-#: zp-core/lib-auth.php:623
+#: zp-core/lib-auth.php:648 zp-core/lib-auth.php:675 zp-core/lib-auth.php:676
+#: zp-core/lib-auth.php:680
 #, fuzzy
 msgid "View unpublished"
 msgstr "Skoða óútgefnar"
 
-#: zp-core/lib-auth.php:591 zp-core/lib-auth.php:618 zp-core/lib-auth.php:619
-#: zp-core/lib-auth.php:623
+#: zp-core/lib-auth.php:648 zp-core/lib-auth.php:675 zp-core/lib-auth.php:676
+#: zp-core/lib-auth.php:680
 #, fuzzy
 msgid "Users with this right will see all unpublished items."
 msgstr "Notendur með þennan rétt munu sjá öll óútgefnar vörur."
 
-#: zp-core/lib-auth.php:599 zp-core/lib-auth.php:600 zp-core/lib-auth.php:601
-#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:629 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:656 zp-core/lib-auth.php:657 zp-core/lib-auth.php:658
+#: zp-core/lib-auth.php:685 zp-core/lib-auth.php:686 zp-core/lib-auth.php:687
 #, fuzzy
 msgid "Manage all"
 msgstr "Stjórna öllum"
 
-#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:1004 zp-core/lib-auth.php:1107
+#: zp-core/lib-auth.php:667 zp-core/lib-auth.php:1066 zp-core/lib-auth.php:1169
 #: zp-core/zp-extensions/favoritesHandler.php:272
 #, fuzzy
 msgid "User"
 msgstr "Notandakenni fyrir gestaleitarnotandann"
 
-#: zp-core/lib-auth.php:610
+#: zp-core/lib-auth.php:667
 #, fuzzy
 msgid "Users must have this right to change their credentials."
 msgstr ""
 "Notendur verða að hafa þennan rétt til að breyta persónuskilríkjunum sínum."
 
-#: zp-core/lib-auth.php:611
+#: zp-core/lib-auth.php:668
 #, fuzzy
 msgid "Allows viewing of the debug tab items."
 msgstr "Leyfir þér að skoða flipa flipa."
 
-#: zp-core/lib-auth.php:632
+#: zp-core/lib-auth.php:689
 #, fuzzy
 msgid "Codeblock"
 msgstr "Codeblock"
 
-#: zp-core/lib-auth.php:632
+#: zp-core/lib-auth.php:689
 #, fuzzy
 msgid "Users with this right may edit Codeblocks."
 msgstr "Notendur með þennan rétt geta breytt kóða."
 
-#: zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:701
 #, fuzzy
 msgid "All rights"
 msgstr "Öll réttindi"
 
-#: zp-core/lib-auth.php:645 zp-core/zp-extensions/register_user.php:117
+#: zp-core/lib-auth.php:702 zp-core/zp-extensions/register_user.php:117
 #, fuzzy
 msgid "Default rights"
 msgstr "Sjálfgefin réttindi"
 
-#: zp-core/lib-auth.php:734
+#: zp-core/lib-auth.php:791
 #, fuzzy
 msgid "Sorry, that is not the answer."
 msgstr "Því miður er þetta ekki svarið."
 
-#: zp-core/lib-auth.php:741
+#: zp-core/lib-auth.php:798
 #, fuzzy
 #| msgid ""
 #| "You are receiving this e-mail because of a password reset request on your "
@@ -14299,7 +14322,7 @@ msgstr ""
 "með nafninu %s bað um að láta núllstilla aðgangsorð sitt á ZenPhoto20 "
 "gallerýinu þínu."
 
-#: zp-core/lib-auth.php:743
+#: zp-core/lib-auth.php:800
 #, fuzzy, php-format
 #| msgid ""
 #| "You are receiving this e-mail because of a password reset request on your "
@@ -14312,17 +14335,17 @@ msgstr ""
 "með nafninu %s bað um að láta núllstilla aðgangsorð sitt á ZenPhoto20 "
 "gallerýinu þínu."
 
-#: zp-core/lib-auth.php:783
+#: zp-core/lib-auth.php:840
 #, fuzzy
 msgid "There was no one to which to send the reset request."
 msgstr "Enginn átti að senda endurstillingarbeiðnina."
 
-#: zp-core/lib-auth.php:788
+#: zp-core/lib-auth.php:845
 #, php-format
 msgid "To reset your Admin passwords visit: %s"
 msgstr "Til að núllstilla ZenPhoto20 stjórnandaaðgangsorðin þín, farðu á %s"
 
-#: zp-core/lib-auth.php:789
+#: zp-core/lib-auth.php:846
 msgid ""
 "If you do not wish to reset your passwords just ignore this message. This "
 "ticket will automatically expire in 3 days."
@@ -14330,51 +14353,51 @@ msgstr ""
 "Eg þú vilt ekki núllstilla aðgangsorðin þín skaltu hundsa þessi skilaboð. "
 "Fyrirspurning mun fyrnast eftir 3 daga."
 
-#: zp-core/lib-auth.php:791
+#: zp-core/lib-auth.php:848
 #, fuzzy
 msgid "No matching user was found."
 msgstr "Engin samsvarandi notandi fannst."
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:850
 #, fuzzy
 #| msgid "The ZenPhoto20 information you requested"
 msgid "The information you requested"
 msgstr "ZenPhoto20 upplýsingarnar sem þú baðst um"
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:850
 #, fuzzy, php-format
 msgid "%1$s password reset request mail failed."
 msgstr "%1$s beiðni um endurstillingu beiðni um endurstillingu mistókst."
 
-#: zp-core/lib-auth.php:798
+#: zp-core/lib-auth.php:855
 #, fuzzy
 msgid "Reset request failed."
 msgstr "Endurstilla beiðni mistókst."
 
-#: zp-core/lib-auth.php:802 zp-core/zp-extensions/comment_form/functions.php:380
+#: zp-core/lib-auth.php:859 zp-core/zp-extensions/comment_form/functions.php:380
 #: zp-core/zp-extensions/register_user.php:466
 #, fuzzy
 msgid "CAPTCHA verification failed."
 msgstr "CAPTCHA staðfesting mistókst."
 
-#: zp-core/lib-auth.php:966
+#: zp-core/lib-auth.php:1028
 msgid "There was an error logging in."
 msgstr "Það kom upp villa við innskráninu."
 
-#: zp-core/lib-auth.php:969
+#: zp-core/lib-auth.php:1031
 msgid "Check your username and password and try again."
 msgstr "Endurskoðaðu notandanafn þitt og aðgangs orð og reyndu svo aftur."
 
-#: zp-core/lib-auth.php:971
+#: zp-core/lib-auth.php:1033
 #, fuzzy
 msgid "Check password and try again."
 msgstr "Athugaðu lykilorð og reyndu aftur."
 
-#: zp-core/lib-auth.php:980
+#: zp-core/lib-auth.php:1042
 msgid "A reset request has been sent."
 msgstr "Núllstillingarbeiðni hefur verið send."
 
-#: zp-core/lib-auth.php:1010
+#: zp-core/lib-auth.php:1072
 #, fuzzy
 msgid ""
 "Supply the correct response to the question below and you will be directed to "
@@ -14383,17 +14406,17 @@ msgstr ""
 "Gefðu réttu svari við spurningunni hér fyrir neðan og þú verður beint á síðu "
 "þar sem þú getur breytt lykilorðinu þínu."
 
-#: zp-core/lib-auth.php:1011
+#: zp-core/lib-auth.php:1073
 #, fuzzy
 msgid "Challenge question:"
 msgstr "Áskorun spurning:"
 
-#: zp-core/lib-auth.php:1016
+#: zp-core/lib-auth.php:1078
 #, fuzzy
 msgid "Your response"
 msgstr "Svar þitt"
 
-#: zp-core/lib-auth.php:1025
+#: zp-core/lib-auth.php:1087
 #, fuzzy
 msgid ""
 "Enter your User ID and press <code>Refresh</code> to get your challenge "
@@ -14402,7 +14425,7 @@ msgstr ""
 "Sláðu inn notendanafnið þitt og ýttu á <code>Refresh</code> til að fá "
 "áskorunina þína."
 
-#: zp-core/lib-auth.php:1036 zp-core/lib-auth.php:1038
+#: zp-core/lib-auth.php:1098 zp-core/lib-auth.php:1100
 #: zp-core/setup/index.php:1652
 #: zp-core/zp-extensions/cacheManager/cacheDBImages.php:214
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:366
@@ -14410,73 +14433,73 @@ msgstr ""
 msgid "Refresh"
 msgstr "Endurnýja lýsingargögn fyrir albúmið %s"
 
-#: zp-core/lib-auth.php:1040 zp-core/lib-auth.php:1042 zp-core/lib-auth.php:1212
-#: zp-core/lib-auth.php:1214
+#: zp-core/lib-auth.php:1102 zp-core/lib-auth.php:1104 zp-core/lib-auth.php:1274
+#: zp-core/lib-auth.php:1276
 #, fuzzy
 msgid "Return"
 msgstr "þú ættir að koma aftur sjálfkrafa. Ef ekki, ýttu á: "
 
-#: zp-core/lib-auth.php:1053
+#: zp-core/lib-auth.php:1115
 #, fuzzy
 msgid "Request reset by e-mail"
 msgstr "Beiðni endurstilla með tölvupósti"
 
-#: zp-core/lib-auth.php:1086
+#: zp-core/lib-auth.php:1148
 #, fuzzy, php-format
 msgid "Logon using:%s"
 msgstr "Innskráning með: %s"
 
-#: zp-core/lib-auth.php:1122 zp-core/lib-auth.php:1124
+#: zp-core/lib-auth.php:1184 zp-core/lib-auth.php:1186
 msgid "Log in"
 msgstr "Innskrá"
 
-#: zp-core/lib-auth.php:1144 zp-core/lib-auth.php:1153
+#: zp-core/lib-auth.php:1206 zp-core/lib-auth.php:1215
 #, fuzzy
 msgid "I forgot my <strong>User ID</strong>/<strong>Password</strong>"
 msgstr ""
 "Ég gleymdi <strong>notandanafninu</strong> mínu / <strong>lykilorði</strong>"
 
-#: zp-core/lib-auth.php:1186
+#: zp-core/lib-auth.php:1248
 #, fuzzy
 msgid "User name or e-mail address"
 msgstr "Notandanafn eða tölvupóstfang"
 
-#: zp-core/lib-auth.php:1210
+#: zp-core/lib-auth.php:1272
 #, fuzzy
 msgid "Request password reset"
 msgstr "Beiðni um endurstillingu lykilorðs"
 
-#: zp-core/lib-auth.php:1295
+#: zp-core/lib-auth.php:1357
 #, fuzzy
 msgid "password strength weak"
 msgstr "lykilorð styrkur veikur"
 
-#: zp-core/lib-auth.php:1298
+#: zp-core/lib-auth.php:1360
 #, fuzzy
 msgid "password strength good"
 msgstr "lykilorð styrkur góður"
 
-#: zp-core/lib-auth.php:1301
+#: zp-core/lib-auth.php:1363
 #, fuzzy
 msgid "password strength strong"
 msgstr "lykilorð styrkur sterkur"
 
-#: zp-core/lib-auth.php:1306
+#: zp-core/lib-auth.php:1368
 #, fuzzy
 msgid "password strength too weak"
 msgstr "lykilorð styrkur of veik"
 
-#: zp-core/lib-auth.php:1326
+#: zp-core/lib-auth.php:1388
 #, fuzzy
 msgid "passwords match"
 msgstr "lykilorð passa"
 
-#: zp-core/lib-auth.php:1330
+#: zp-core/lib-auth.php:1392
 #, fuzzy
 msgid "passwords do not match"
 msgstr "lykilorð passa ekki saman"
 
-#: zp-core/lib-auth.php:1421
+#: zp-core/lib-auth.php:1483
 #, fuzzy
 msgid "Repeat password"
 msgstr "Lykilorð (endurtaka)"
@@ -16505,72 +16528,72 @@ msgstr "Skráin%1$s er ekki til."
 msgid "Testing %s."
 msgstr "Prófun %s."
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 #, fuzzy
 msgid "Fail: "
 msgstr "Mistakast:"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 #, fuzzy
 msgid "Warn: "
 msgstr "Varið:"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 #, fuzzy
 msgid "Pass: "
 msgstr "Pass:"
 
-#: zp-core/setup/setup-functions.php:132
+#: zp-core/setup/setup-functions.php:137
 msgid "Error!"
 msgstr "Villa!"
 
-#: zp-core/setup/setup-functions.php:141 zp-core/setup/setup-functions.php:156
+#: zp-core/setup/setup-functions.php:146 zp-core/setup/setup-functions.php:161
 msgid "Warning!"
 msgstr "Aðvörun!"
 
-#: zp-core/setup/setup-functions.php:153
+#: zp-core/setup/setup-functions.php:158
 #, fuzzy
 msgid "<strong>Warning!</strong> click for details"
 msgstr "<strong>Viðvörun!</strong> smelltu til að fá frekari upplýsingar"
 
-#: zp-core/setup/setup-functions.php:161
+#: zp-core/setup/setup-functions.php:166
 #, fuzzy
 msgid "<strong>Notice!</strong> click for details"
 msgstr "<strong>Tilkynning!</strong> smelltu til að fá frekari upplýsingar"
 
-#: zp-core/setup/setup-functions.php:164
+#: zp-core/setup/setup-functions.php:169
 #, fuzzy
 msgid "Notice!"
 msgstr "Tilkynning!"
 
-#: zp-core/setup/setup-functions.php:186
+#: zp-core/setup/setup-functions.php:191
 #, fuzzy
 msgid "Autorun aborted"
 msgstr "Autorun hætt"
 
-#: zp-core/setup/setup-functions.php:240
+#: zp-core/setup/setup-functions.php:245
 #, fuzzy, php-format
 msgid "<em>%1$s</em> folder%2$s [subfolder creation failure]"
 msgstr "<em>%1$s</em> mappa%2$s [bilun í undirmöppu]"
 
-#: zp-core/setup/setup-functions.php:240
+#: zp-core/setup/setup-functions.php:245
 #, fuzzy, php-format
 msgid "Setup could not create the following subfolders:<br />%s"
 msgstr "Uppsetning gat ekki búið til eftirfarandi undirmöppur: <br />  %s"
 
-#: zp-core/setup/setup-functions.php:259 zp-core/setup/setup-functions.php:264
+#: zp-core/setup/setup-functions.php:264 zp-core/setup/setup-functions.php:269
 #: zp-core/zp-extensions/deprecated-functions.php:179
 #: zp-core/zp-extensions/purgeOptions.php:93
 #, fuzzy
 msgid "unknown"
 msgstr "óþekkt"
 
-#: zp-core/setup/setup-functions.php:266
+#: zp-core/setup/setup-functions.php:271
 #, fuzzy, php-format
 msgid "<em>%1$s</em> folder%2$s [permissions failure]"
 msgstr "<em>%1$s</em> mappa%2$s [heimildarmynd]"
 
-#: zp-core/setup/setup-functions.php:266
+#: zp-core/setup/setup-functions.php:271
 #, fuzzy, php-format
 msgid ""
 "Setup could not change the file permissions from <em>%1$s</em> (<code>0%2$o</"
@@ -16581,7 +16604,7 @@ msgstr ""
 "code> ) til <em>%3$s</em> ( <code>0%4$o</code> ). Þú verður að setja "
 "heimildir handvirkt."
 
-#: zp-core/setup/setup-functions.php:303
+#: zp-core/setup/setup-functions.php:308
 #, php-format
 msgid ""
 "You must create the folder <em>%1$s</em><br /><code>mkdir(%2$s, 0777)</code>."
@@ -16589,12 +16612,12 @@ msgstr ""
 "Þú verður að búa til möppuna <em>%1$s</em><br /><code>mkdir(%2$s, 0777)</"
 "code>."
 
-#: zp-core/setup/setup-functions.php:305
+#: zp-core/setup/setup-functions.php:310
 #, fuzzy, php-format
 msgid "<em>%1$s</em> folder [<em>%2$s</em> does not exist]"
 msgstr "<em>%1$s</em> mappa [ <em>%2$s</em> er ekki til]"
 
-#: zp-core/setup/setup-functions.php:307
+#: zp-core/setup/setup-functions.php:312
 #, fuzzy, php-format
 msgid ""
 "<em>%1$s</em> folder [<em>%2$s</em> does not exist and <strong>setup</strong> "
@@ -16603,7 +16626,7 @@ msgstr ""
 "<em>%1$s</em> mappa [ <em>%2$s</em> er ekki til og <strong>skipulag</strong> "
 "gat ekki búið til]"
 
-#: zp-core/setup/setup-functions.php:310
+#: zp-core/setup/setup-functions.php:315
 #, php-format
 msgid ""
 "Change the permissions on the <code>%1$s</code> folder to be writable by the "
@@ -16612,7 +16635,7 @@ msgstr ""
 "Breyttu réttindunum á <code>%1$s</code> möppunni svo hún sé skrifanleg af "
 "vefþjóninum (<code>chmod 777 %2$s</code>)"
 
-#: zp-core/setup/setup-functions.php:311
+#: zp-core/setup/setup-functions.php:316
 #, fuzzy, php-format
 msgid ""
 "<em>%1$s</em> folder [<em>%2$s</em> is not writeable and <strong>setup</"
@@ -16621,32 +16644,32 @@ msgstr ""
 "<em>%1$s</em> mappa [ <em>%2$s</em> er ekki skriflegt og <strong>skipulag</"
 "strong> gæti ekki gert það þannig]"
 
-#: zp-core/setup/setup-functions.php:313
+#: zp-core/setup/setup-functions.php:318
 #, fuzzy, php-format
 msgid "<em>%1$s</em> folder%2$s"
 msgstr "<em>%1$s</em> mappa%2$s"
 
-#: zp-core/setup/setup-functions.php:353 zp-core/setup/setup-functions.php:367
+#: zp-core/setup/setup-functions.php:358 zp-core/setup/setup-functions.php:372
 #, fuzzy
 msgid "change the definition"
 msgstr "breyta skilgreiningunni"
 
-#: zp-core/setup/setup-functions.php:353 zp-core/setup/setup-functions.php:367
+#: zp-core/setup/setup-functions.php:358 zp-core/setup/setup-functions.php:372
 #, fuzzy
 msgid "apply"
 msgstr "sækja um"
 
-#: zp-core/setup/setup-functions.php:363
+#: zp-core/setup/setup-functions.php:368
 #, fuzzy, php-format
 msgid "%1$s (0%2$o)"
 msgstr "%1$s (0% 2 $ o)"
 
-#: zp-core/setup/setup-functions.php:409
+#: zp-core/setup/setup-functions.php:414
 #, fuzzy
 msgid "An attempt at cross site reference forgery has been blocked."
 msgstr "Tilraun til að falsa yfirferðarstaðla hefur verið læst."
 
-#: zp-core/setup/setup-functions.php:436
+#: zp-core/setup/setup-functions.php:441
 #, fuzzy, php-format
 msgid ""
 "Click <a href=\"%s\">here</a> to acknowledge that you wish to ignore this "
@@ -16655,7 +16678,7 @@ msgstr ""
 "Smelltu <a href=\"%s\">hér</a> til að viðurkenna að þú viljir hunsa þetta "
 "mál. Það mun þá verða viðvörun."
 
-#: zp-core/setup/setup-functions.php:495
+#: zp-core/setup/setup-functions.php:500
 #, fuzzy, php-format
 msgid ""
 "<strong>Warning:</strong> the <code>%s</code> table appears not to have a "
@@ -16672,27 +16695,27 @@ msgstr ""
 "að endurheimta borðið og þá endurheimta úr öryggisafritinu. Athugaðu þó að "
 "afrita færslurnar týnast."
 
-#: zp-core/setup/setup-functions.php:518
+#: zp-core/setup/setup-functions.php:523
 #, fuzzy, php-format
 msgid "Query Success: %s"
 msgstr "Fyrirspurnir velgengni: %s"
 
-#: zp-core/setup/setup-functions.php:523
+#: zp-core/setup/setup-functions.php:528
 #, fuzzy, php-format
 msgid "Query Failed: %1$s "
 msgstr "Fyrirspurn mistókst:%1$s"
 
-#: zp-core/setup/setup-functions.php:555
+#: zp-core/setup/setup-functions.php:560
 #, fuzzy, php-format
 msgid "%1$s *ERROR* \"%2$s\" in %3$s on line %4$s"
 msgstr "%1$s * ERROR * &quot;%2$s&quot; í%3$s á línu%4$s"
 
-#: zp-core/setup/setup-functions.php:560
+#: zp-core/setup/setup-functions.php:565
 #, fuzzy, php-format
 msgid "%1$s disabled."
 msgstr "%1$s óvirkt."
 
-#: zp-core/setup/setup-functions.php:562
+#: zp-core/setup/setup-functions.php:567
 #, fuzzy, php-format
 msgid "%1$s setup failed."
 msgstr "%1$s skipulag mistókst."
@@ -17096,122 +17119,122 @@ msgstr "Fara aftur í skjalasafn"
 msgid "The image is marked un-published."
 msgstr "Myndin er merkt án birtingar."
 
-#: zp-core/template-functions.php:3887
+#: zp-core/template-functions.php:3885
 #, fuzzy, php-format
 msgid "%s within previous results"
 msgstr "%s innan fyrri niðurstaðna"
 
-#: zp-core/template-functions.php:3964
+#: zp-core/template-functions.php:3962
 #, fuzzy
 msgid "search options"
 msgstr "leitarmöguleikar"
 
-#: zp-core/template-functions.php:3964
+#: zp-core/template-functions.php:3962
 #, fuzzy
 msgid "fields"
 msgstr "sviðum"
 
-#: zp-core/template-functions.php:4003
+#: zp-core/template-functions.php:4001
 #, fuzzy
 msgid "Within"
 msgstr "Innan"
 
-#: zp-core/template-functions.php:4007
+#: zp-core/template-functions.php:4005
 #: zp-core/zp-extensions/flag_thumbnail.php:93
 #, fuzzy
 msgid "New"
 msgstr "Búa til nýtt albúm"
 
-#: zp-core/template-functions.php:4066
+#: zp-core/template-functions.php:4064
 msgid "no date"
 msgstr "engin dagsetning"
 
-#: zp-core/template-functions.php:4266
+#: zp-core/template-functions.php:4264
 #, fuzzy
 msgid "The page you are trying to view is password protected."
 msgstr "Síðan sem þú ert að reyna að skoða er varið með lykilorði."
 
-#: zp-core/template-functions.php:4271
+#: zp-core/template-functions.php:4269
 #, fuzzy
 msgid "login"
 msgstr "innskrá"
 
-#: zp-core/template-functions.php:4290
+#: zp-core/template-functions.php:4288
 #, fuzzy
 msgid "A media oriented content management system"
 msgstr "A fjölmiðla stilla innihald stjórnun kerfi"
 
-#: zp-core/template-functions.php:4291
+#: zp-core/template-functions.php:4289
 #, fuzzy, php-format
 msgid "Powered by %s"
 msgstr "Keyrt af %s"
 
-#: zp-core/template-functions.php:4532
+#: zp-core/template-functions.php:4530
 msgid "Error:</strong> the requested object was not found."
 msgstr "ZenPhoto20 villa:</strong> umbeðinn hlutur fannst ekki."
 
-#: zp-core/template-functions.php:4534
+#: zp-core/template-functions.php:4532
 #, php-format
 msgid "Album: %s"
 msgstr "Albúm: %s"
 
-#: zp-core/template-functions.php:4536
+#: zp-core/template-functions.php:4534
 #, php-format
 msgid "Image: %s"
 msgstr "Mynd: %s"
 
-#: zp-core/template-functions.php:4539
+#: zp-core/template-functions.php:4537
 #, php-format
 msgid "Page: %s"
 msgstr "Síða: %s"
 
-#: zp-core/utilities/backup_restore.php:170
+#: zp-core/utilities/backup_restore.php:169
 #, fuzzy, php-format
 msgid "Failed to open %s for writing."
 msgstr "Mistókst að opna %s til að skrifa."
 
-#: zp-core/utilities/backup_restore.php:176
-#: zp-core/utilities/backup_restore.php:195
+#: zp-core/utilities/backup_restore.php:175
+#: zp-core/utilities/backup_restore.php:194
 #, fuzzy
 msgid "failed writing to backup!"
 msgstr "mistókst að skrifa til öryggisafrit!"
 
-#: zp-core/utilities/backup_restore.php:213
+#: zp-core/utilities/backup_restore.php:212
 #, fuzzy
 msgid "SHOW TABLES failed!"
 msgstr "Sýnishorn mistókst!"
 
-#: zp-core/utilities/backup_restore.php:223
+#: zp-core/utilities/backup_restore.php:222
 #, fuzzy, php-format
 msgid "backup completed using <em>%1$s(%2$s)</em> compression"
 msgstr "öryggisafrit lokið með <em>%1$s (%2$s)</em> samþjöppun"
 
-#: zp-core/utilities/backup_restore.php:225
+#: zp-core/utilities/backup_restore.php:224
 #, fuzzy
 msgid "backup completed"
 msgstr "öryggisafrit lokið"
 
-#: zp-core/utilities/backup_restore.php:238
+#: zp-core/utilities/backup_restore.php:237
 #, fuzzy
 msgid "backup failed"
 msgstr "öryggisafrit mistókst"
 
-#: zp-core/utilities/backup_restore.php:246
+#: zp-core/utilities/backup_restore.php:245
 #, fuzzy
 msgid "No backup set found."
 msgstr "Engin öryggisafrit fannst."
 
-#: zp-core/utilities/backup_restore.php:321
+#: zp-core/utilities/backup_restore.php:320
 #, fuzzy
 msgid "Truncate table<br />"
 msgstr "Niðurfellingartafla <br />"
 
-#: zp-core/utilities/backup_restore.php:393
+#: zp-core/utilities/backup_restore.php:392
 #, fuzzy
 msgid "Restore encountered exceptions"
 msgstr "Endurheimta fundur undantekningar"
 
-#: zp-core/utilities/backup_restore.php:396
+#: zp-core/utilities/backup_restore.php:395
 #, fuzzy
 msgid ""
 "The following tables were not restored because the table no longer exists:"
@@ -17219,7 +17242,7 @@ msgstr ""
 "Eftirfarandi töflur voru ekki endurheimtar vegna þess að töflan er ekki "
 "lengur til staðar:"
 
-#: zp-core/utilities/backup_restore.php:409
+#: zp-core/utilities/backup_restore.php:408
 #, fuzzy
 msgid ""
 "The following fields were not restored because the field no longer exists:"
@@ -17227,17 +17250,17 @@ msgstr ""
 "Eftirfarandi reitir voru ekki endurheimtar vegna þess að reitinn er ekki "
 "lengur til:"
 
-#: zp-core/utilities/backup_restore.php:429
+#: zp-core/utilities/backup_restore.php:428
 #, fuzzy
 msgid "The maximum error count was exceeded and the restore aborted."
 msgstr "Hámarksfjölda villafjölda var farið yfir og endurheimt fellt niður."
 
-#: zp-core/utilities/backup_restore.php:432
+#: zp-core/utilities/backup_restore.php:431
 #, fuzzy
 msgid "Restore encountered the following errors:"
 msgstr "Endurheimta fundur eftirfarandi villur:"
 
-#: zp-core/utilities/backup_restore.php:455
+#: zp-core/utilities/backup_restore.php:454
 #, fuzzy, php-format
 msgid ""
 "You have restored your database from a different instance of the software. "
@@ -17246,88 +17269,88 @@ msgstr ""
 "Þú hefur endurheimt gagnagrunninn frá öðru dæmi af hugbúnaðinum. Þú ættir að "
 "keyra%1$ssetup%2$s til að tryggja rétta flutning."
 
-#: zp-core/utilities/backup_restore.php:464
+#: zp-core/utilities/backup_restore.php:463
 #, fuzzy
 msgid "Rights migration failed!"
 msgstr "Réttindi fólksflutningur mistókst!"
 
-#: zp-core/utilities/backup_restore.php:478
+#: zp-core/utilities/backup_restore.php:477
 #, fuzzy
 msgid "Restore completed"
 msgstr "Endurheimta lokið"
 
-#: zp-core/utilities/backup_restore.php:480
+#: zp-core/utilities/backup_restore.php:479
 #, fuzzy, php-format
 msgid "Restore completed using %s compression"
 msgstr "Endurheimtu lokið með %s samþjöppun"
 
-#: zp-core/utilities/backup_restore.php:499
+#: zp-core/utilities/backup_restore.php:498
 #, fuzzy
 msgid "Restore your Database"
 msgstr "Endurheimtu gagnagrunninn þinn"
 
-#: zp-core/utilities/backup_restore.php:501
+#: zp-core/utilities/backup_restore.php:500
 #, fuzzy
 msgid "Backup and Restore your Database"
 msgstr "Afritaðu og endurheimtu gagnagrunninn þinn"
 
-#: zp-core/utilities/backup_restore.php:511
+#: zp-core/utilities/backup_restore.php:510
 #, fuzzy, php-format
 msgid "Database software <strong>%s</strong>"
 msgstr "Gagnasafn hugbúnaður <strong> %s</strong>"
 
-#: zp-core/utilities/backup_restore.php:512
+#: zp-core/utilities/backup_restore.php:511
 #, fuzzy, php-format
 msgid "Database name <strong>%s</strong>"
 msgstr "Nafn gagnagrunns: <strong>%1$s</strong>"
 
-#: zp-core/utilities/backup_restore.php:513
+#: zp-core/utilities/backup_restore.php:512
 #, fuzzy, php-format
 msgid "Tables prefix <strong>%s</strong>"
 msgstr "Taflaforskeyti <strong> %s</strong>"
 
-#: zp-core/utilities/backup_restore.php:525
+#: zp-core/utilities/backup_restore.php:524
 #, fuzzy
 msgid "Backup the tables in your database."
 msgstr "Afritaðu töflurnar í gagnagrunninum þínum."
 
-#: zp-core/utilities/backup_restore.php:527
+#: zp-core/utilities/backup_restore.php:526
 #, fuzzy
 msgid "Backup the Database"
 msgstr "Afritaðu gagnagrunninn"
 
-#: zp-core/utilities/backup_restore.php:537
+#: zp-core/utilities/backup_restore.php:536
 #, fuzzy
 msgid "Compression level"
 msgstr "Þjöppunarstig"
 
-#: zp-core/utilities/backup_restore.php:548
+#: zp-core/utilities/backup_restore.php:547
 #, fuzzy
 msgid "You have not yet created a backup set."
 msgstr "Þú hefur ekki búið til öryggisafrit."
 
-#: zp-core/utilities/backup_restore.php:563
+#: zp-core/utilities/backup_restore.php:562
 #, fuzzy
 msgid "Select the database restore file:"
 msgstr "Veldu gagnagrunninn endurheimt skrá:"
 
-#: zp-core/utilities/backup_restore.php:573
+#: zp-core/utilities/backup_restore.php:572
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the tables to restore."
 msgstr "Veldu töflurnar til að endurheimta."
 
-#: zp-core/utilities/backup_restore.php:597
+#: zp-core/utilities/backup_restore.php:595
 #, fuzzy
 msgid "Restore the tables in your database from a previous backup."
 msgstr "Endurheimtu töflurnar í gagnagrunninum þínum frá fyrri öryggisafriti."
 
-#: zp-core/utilities/backup_restore.php:599
+#: zp-core/utilities/backup_restore.php:597
 #, fuzzy
 msgid "Restore the Database"
 msgstr "Endurheimta gagnagrunninn"
 
-#: zp-core/utilities/backup_restore.php:610
+#: zp-core/utilities/backup_restore.php:608
 #, fuzzy
 msgid ""
 "The backup facility creates database snapshots in the <code>backup</code> "
@@ -17342,7 +17365,7 @@ msgstr ""
 "þjöppun) í 9 (hámarksþjöppun). Hærri þjöppun krefst meiri vinnslu og getur "
 "ekki leitt til mikillar sparnaðar."
 
-#: zp-core/utilities/backup_restore.php:614
+#: zp-core/utilities/backup_restore.php:612
 #, fuzzy
 msgid ""
 "You restore your database by selecting a backup and pressing the <em>Restore "
@@ -17351,7 +17374,7 @@ msgstr ""
 "Þú endurheimtir gagnagrunninn með því að velja öryggisafrit og ýta á "
 "<em>Restore the Database</em> hnappinn."
 
-#: zp-core/utilities/backup_restore.php:615
+#: zp-core/utilities/backup_restore.php:613
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> Each database table is emptied before the restore is "
@@ -17362,7 +17385,7 @@ msgstr ""
 "reynt. Eftir árangursríka endurheimt mun gagnagrunnurinn vera í sama ástandi "
 "og þegar varabúnaðurinn var búinn til."
 
-#: zp-core/utilities/backup_restore.php:617
+#: zp-core/utilities/backup_restore.php:615
 #, fuzzy
 msgid ""
 "Ideally a restore should be done only on the same version on which the backup "
@@ -18829,7 +18852,7 @@ msgstr "Grátóna"
 
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:228
 #, fuzzy
 msgid "Hide"
 msgstr "Fela"
@@ -19384,12 +19407,12 @@ msgstr "Stærðarhlutföll"
 msgid "Play Time"
 msgstr "Spila tíma"
 
-#: zp-core/zp-extensions/class-video.php:332
+#: zp-core/zp-extensions/class-video.php:333
 #, fuzzy
 msgid "Your browser does not support the audio tag"
 msgstr "Vafrinn þinn styður ekki hljóðmerkið"
 
-#: zp-core/zp-extensions/class-video.php:337
+#: zp-core/zp-extensions/class-video.php:338
 #, fuzzy
 msgid "Your browser does not support the video tag"
 msgstr "Vafrinn þinn styður ekki vídeómerkið"
@@ -20265,14 +20288,14 @@ msgstr "Ónafngreindur"
 msgid "Article"
 msgstr "Bæta við grein"
 
-#: zp-core/zp-extensions/common/fieldExtender.php:550
+#: zp-core/zp-extensions/common/fieldExtender.php:552
 #, fuzzy
 msgid "There is no defined context, you must pass a comment object."
 msgstr ""
 "Það er engin skilgreind samhengi, þú verður að fara framhjá "
 "athugasemdareikningi."
 
-#: zp-core/zp-extensions/common/fieldExtender.php:568
+#: zp-core/zp-extensions/common/fieldExtender.php:570
 #, fuzzy
 msgid "Field not defined."
 msgstr "Svæði ekki skilgreint."
@@ -24202,7 +24225,7 @@ msgid_plural "Page %1$u (Current Page)"
 msgstr[0] "Page% 1 $ u (núverandi síða)"
 msgstr[1] "Page% 1 $ u (núverandi síða)"
 
-#: zp-core/zp-extensions/menu_manager.php:817
+#: zp-core/zp-extensions/menu_manager.php:842
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:488
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:276
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:108
@@ -24210,40 +24233,40 @@ msgstr[1] "Page% 1 $ u (núverandi síða)"
 msgid "News index"
 msgstr "Fréttir vísitölu"
 
-#: zp-core/zp-extensions/menu_manager.php:841
-#: zp-core/zp-extensions/menu_manager.php:854
-#: zp-core/zp-extensions/menu_manager.php:867
+#: zp-core/zp-extensions/menu_manager.php:866
+#: zp-core/zp-extensions/menu_manager.php:879
+#: zp-core/zp-extensions/menu_manager.php:892
 #, fuzzy, php-format
-msgid "createMenuIfNotExists item %s has an empty link."
+msgid "createMenu item %s has an empty link."
 msgstr "createMenuIfNotExists atriði %s hefur tómt tengil."
 
-#: zp-core/zp-extensions/menu_manager.php:847
-#: zp-core/zp-extensions/menu_manager.php:861
-#: zp-core/zp-extensions/menu_manager.php:881
-#: zp-core/zp-extensions/menu_manager.php:889
+#: zp-core/zp-extensions/menu_manager.php:872
+#: zp-core/zp-extensions/menu_manager.php:886
+#: zp-core/zp-extensions/menu_manager.php:906
+#: zp-core/zp-extensions/menu_manager.php:914
 #, fuzzy, php-format
-msgid "createMenuIfNotExists item %s has an empty title."
+msgid "createMenu item %s has an empty title."
 msgstr "createMenuIfNotExists atriði %s hefur tóm titil."
 
-#: zp-core/zp-extensions/menu_manager.php:874
-#: zp-core/zp-extensions/menu_manager.php:897
+#: zp-core/zp-extensions/menu_manager.php:899
+#: zp-core/zp-extensions/menu_manager.php:922
 #, fuzzy, php-format
-msgid "createMenuIfNotExists item %s has an empty title or link."
+msgid "createMenu item %s has an empty title or link."
 msgstr "createMenuIfNotExists atriði %s hefur tómt titil eða tengil."
 
-#: zp-core/zp-extensions/menu_manager.php:902
+#: zp-core/zp-extensions/menu_manager.php:927
 #, fuzzy, php-format
-msgid "createMenuIfNotExists item %1$s has an invalid type (%2$s)."
+msgid "createMenu item %1$s has an invalid type (%2$s)."
 msgstr "createMenuIfNotExists atriði %s hefur ógilt tegund."
 
-#: zp-core/zp-extensions/menu_manager.php:919
+#: zp-core/zp-extensions/menu_manager.php:944
 #, fuzzy, php-format
-msgid "createMenuIfNotExists item %1$s query (%2$s) failed: %3$s."
+msgid "createMenu item %1$s query (%2$s) failed: %3$s."
 msgstr "CreateMenuIfNotExists atriði%1$s fyrirspurn (%2$s) mistókst:%3$s."
 
-#: zp-core/zp-extensions/menu_manager.php:927
+#: zp-core/zp-extensions/menu_manager.php:950
 #, fuzzy
-msgid "createMenuIfNotExists has posted processing errors to your debug log."
+msgid "createMenu has posted processing errors to your debug log."
 msgstr ""
 "createMenuIfNotExists hefur sent frá sér vinnsluvillur til "
 "villuleitarskrárinnar."
@@ -24434,44 +24457,44 @@ msgstr "Valmyndaratriði eytt"
 msgid "Menu “%s” deleted"
 msgstr "Valmyndin &quot; %s&quot; eytt"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:96
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:97
 #, fuzzy, php-format
 msgid "Menu “%s” duplicated"
 msgstr "Valmynd &quot; %s&quot; afrituð"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:98
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:99
 #, fuzzy, php-format
 msgid "Menu “%s” already exists"
 msgstr "Valmyndin &quot; %s&quot; er þegar til"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:135
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:141
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:137
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
 #, fuzzy
 msgid "Name for new menu:"
 msgstr "Nafn fyrir nýja valmynd:"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:141
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
 #, fuzzy, php-format
 msgid "Copy_of_%s"
 msgstr "Copy_of_ %s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:147
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:149
 #, fuzzy, php-format
 msgid "Ok to delete menu %s? This cannot be undone!"
 msgstr ""
 "Allt í lagi til að eyða valmyndinni %s? Þetta er ekki hægt að afturkalla!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:170
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:172
 #, fuzzy
 msgid "Menu Manager"
 msgstr "Valmyndarstjóri"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:171
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:173
 #, fuzzy, php-format
 msgid " (Menu: %s)"
 msgstr "(Valmynd: %s)"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:178
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:180
 #, fuzzy
 msgid ""
 "Drag the items into the order and nesting you wish displayed. Place the menu "
@@ -24480,7 +24503,7 @@ msgstr ""
 "Dragðu hlutina í röðina og hreiður þú vilt birtast. Settu valmyndina á "
 "þemasíður þínar með því að hringja í printCustomMenu ()."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:181
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:183
 #, fuzzy
 msgid ""
 "<strong>IMPORTANT:</strong> This menu’s order is completely independent from "
@@ -24495,63 +24518,63 @@ msgstr ""
 "og breadcrumb aðgerðir og next_album () lykkjan munu ekki endurspegla "
 "uppbyggingu þessa valmyndar!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:195
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:197
 #, fuzzy
 msgid "New Menu"
 msgstr "Nýr valmynd"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:218
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:220
 #, fuzzy
 msgid "Edit the menu"
 msgstr "Breyta valmyndinni"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
 #, fuzzy, php-format
 msgid "Duplicate %s menu"
 msgstr "Afrita %s valmynd"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
 #, fuzzy
 msgid "Duplicate menu"
 msgstr "Afrita valmynd"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:237
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
 #, fuzzy, php-format
 msgid "Delete %s menu"
 msgstr "Eyða %s valmyndinni"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:241
 #, fuzzy
 msgid "Delete menu"
 msgstr "Eyða valmyndinni"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:243
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
 #, fuzzy, php-format
 msgid "Export %s menu"
 msgstr "Afrita %s valmynd"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:247
 #, fuzzy
 msgid "Export menu"
 msgstr "Lýsingar tími"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:254
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:256
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:245
 #, fuzzy
 msgid "Add Menu Items"
 msgstr "Bæta við valmöguleikum"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:277
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:279
 #, fuzzy
 msgid "No menus exist"
 msgstr "Engar valmyndir eru til"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:294
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:296
 #, fuzzy
 msgid "Menu target is password protected"
 msgstr "Valmyndarmarkmið er varið með lykilorði"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:299
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:301
 #, fuzzy
 msgid "Visible/Hidden"
 msgstr "Sýnilegt / Falið"
@@ -31269,7 +31292,7 @@ msgstr "Smelltu á myndina breyta hve mikið skal skera af smámyndinni."
 #: zp-core/zp-extensions/zoomImage.php:63
 #, fuzzy
 msgid "Toggle"
-msgstr "Skipta um"
+msgstr "Skipta"
 
 #: zp-core/zp-extensions/zoomImage.php:64
 #, fuzzy

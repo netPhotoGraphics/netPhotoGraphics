@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 13:00-0800\n"
-"PO-Revision-Date: 2019-02-07 13:01-0800\n"
+"POT-Creation-Date: 2019-02-19 09:44-0800\n"
+"PO-Revision-Date: 2019-02-19 09:45-0800\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: pasi@pilm.se\n"
 "Language: sv_SE\n"
@@ -114,13 +114,13 @@ msgstr ""
 #: zp-core/admin-tabs/edit.php:1721 zp-core/admin-tabs/themes.php:103
 #: zp-core/admin-tabs/themes.php:104 zp-core/admin_options/theme.php:10
 #: zp-core/admin_options/theme.php:11 zp-core/allTranslations.php:9
-#: zp-core/lib-auth.php:565 zp-core/lib-auth.php:566 zp-core/lib-auth.php:567
-#: zp-core/lib-auth.php:568 zp-core/lib-auth.php:569 zp-core/lib-auth.php:573
-#: zp-core/lib-auth.php:577 zp-core/lib-auth.php:585 zp-core/lib-auth.php:586
-#: zp-core/lib-auth.php:592 zp-core/lib-auth.php:593 zp-core/lib-auth.php:597
-#: zp-core/lib-auth.php:602 zp-core/lib-auth.php:603 zp-core/lib-auth.php:612
-#: zp-core/lib-auth.php:613 zp-core/lib-auth.php:620 zp-core/lib-auth.php:621
-#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:633 zp-core/lib-auth.php:635
+#: zp-core/lib-auth.php:622 zp-core/lib-auth.php:623 zp-core/lib-auth.php:624
+#: zp-core/lib-auth.php:625 zp-core/lib-auth.php:626 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:634 zp-core/lib-auth.php:642 zp-core/lib-auth.php:643
+#: zp-core/lib-auth.php:649 zp-core/lib-auth.php:650 zp-core/lib-auth.php:654
+#: zp-core/lib-auth.php:659 zp-core/lib-auth.php:660 zp-core/lib-auth.php:669
+#: zp-core/lib-auth.php:670 zp-core/lib-auth.php:677 zp-core/lib-auth.php:678
+#: zp-core/lib-auth.php:683 zp-core/lib-auth.php:690 zp-core/lib-auth.php:692
 #: zp-core/setup/setup-option-defaults.php:686
 #: zp-core/setup/setup-option-defaults.php:687
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:151
@@ -132,8 +132,8 @@ msgstr "Galleri"
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
 #: zp-core/admin.php:278 zp-core/admin.php:343 zp-core/admin.php:357
-#: zp-core/admin.php:373 zp-core/lib-auth.php:561 zp-core/lib-auth.php:580
-#: zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
+#: zp-core/admin.php:373 zp-core/lib-auth.php:618 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:662 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
 #: zp-core/zp-extensions/site_upgrade.php:173
@@ -145,7 +145,7 @@ msgstr "Administrera"
 #: themes/garland/sidebar.php:73 themes/zenFluid/inc-sidebar.php:60
 #: themes/zenpage/sidebar.php:16 themes/zpArdoise/news.php:30
 #: themes/zpEnlighten/sidebar.php:6 themes/zpmobile/functions.php:186
-#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4014
+#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4012
 #: zp-core/zp-extensions/zenpage/admin-functions.php:835
 #, fuzzy
 msgid "All"
@@ -249,7 +249,7 @@ msgstr "*standard"
 msgid "Default new users to \"allowed\""
 msgstr "Standard nya användare att &quot;tillåtas&quot;"
 
-#: plugins/create_album.php:136 zp-core/admin-tabs/users.php:313
+#: plugins/create_album.php:136 zp-core/admin-tabs/users.php:312
 #: zp-core/template-functions.php:134
 #, fuzzy
 msgid "Users"
@@ -352,11 +352,11 @@ msgstr ""
 #: themes/zpskeleton/inc-bottom.php:51 zp-core/admin-functions.php:2562
 #: zp-core/admin-functions.php:3847 zp-core/admin-tabs/edit.php:1794
 #: zp-core/admin_options/theme.php:262 zp-core/allTranslations.php:11
-#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:576 zp-core/lib-auth.php:587
-#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:591 zp-core/lib-auth.php:594
-#: zp-core/lib-auth.php:598 zp-core/lib-auth.php:601 zp-core/lib-auth.php:614
-#: zp-core/lib-auth.php:617 zp-core/lib-auth.php:618 zp-core/lib-auth.php:622
-#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:633 zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:647 zp-core/lib-auth.php:648 zp-core/lib-auth.php:651
+#: zp-core/lib-auth.php:655 zp-core/lib-auth.php:658 zp-core/lib-auth.php:671
+#: zp-core/lib-auth.php:674 zp-core/lib-auth.php:675 zp-core/lib-auth.php:679
+#: zp-core/lib-auth.php:684 zp-core/lib-auth.php:687
 #: zp-core/template-functions.php:117
 #: zp-core/utilities/gallery_statistics.php:68
 #: zp-core/utilities/gallery_statistics.php:579
@@ -683,7 +683,7 @@ msgstr "Ingen <em>mod_rewrite_suffix</em> har ställts in."
 #: zp-core/zp-extensions/rating.php:212
 #, fuzzy
 msgid "Database"
-msgstr "databasen ansluten"
+msgstr "Färdig med skapa databas och uppdatering"
 
 #: plugins/titlelinkMigration.php:34
 #, fuzzy
@@ -770,8 +770,8 @@ msgstr[0] "%s fil uppdaterad"
 msgstr[1] "%s filer uppdaterade"
 
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:193
-#: zp-core/lib-auth.php:557 zp-core/lib-auth.php:577 zp-core/lib-auth.php:602
-#: zp-core/lib-auth.php:633 zp-core/template-functions.php:154
+#: zp-core/lib-auth.php:614 zp-core/lib-auth.php:634 zp-core/lib-auth.php:659
+#: zp-core/lib-auth.php:690 zp-core/template-functions.php:154
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 msgid "Themes"
 msgstr "Teman"
@@ -795,8 +795,8 @@ msgstr "Insticksmoduler"
 #: zp-core/admin-tabs/edit.php:1739 zp-core/admin-tabs/edit.php:1776
 #: zp-core/admin-tabs/edit.php:1860 zp-core/admin-tabs/edit.php:1913
 #: zp-core/admin-tabs/plugins.php:171 zp-core/admin-tabs/plugins.php:488
-#: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:519
-#: zp-core/admin-tabs/users.php:521 zp-core/admin-tabs/users.php:950
+#: zp-core/admin-tabs/thumbcrop.php:298 zp-core/admin-tabs/users.php:510
+#: zp-core/admin-tabs/users.php:512 zp-core/admin-tabs/users.php:960
 #: zp-core/admin_options/gallery.php:68 zp-core/admin_options/gallery.php:525
 #: zp-core/admin_options/general.php:167 zp-core/admin_options/general.php:169
 #: zp-core/admin_options/general.php:809 zp-core/admin_options/image.php:245
@@ -814,8 +814,8 @@ msgstr "Insticksmoduler"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
 #: zp-core/zp-extensions/crop_image.php:484
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:190
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:288
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:192
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:290
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:409
 #: zp-core/zp-extensions/publishContent/publishContent.php:249
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:179
@@ -858,7 +858,7 @@ msgstr ""
 #: zp-core/admin-tabs/plugins.php:172 zp-core/admin-tabs/plugins.php:174
 #: zp-core/admin-tabs/plugins.php:489 zp-core/admin-tabs/plugins.php:491
 #: zp-core/admin-tabs/tags.php:249 zp-core/admin-tabs/thumbcrop.php:302
-#: zp-core/admin-tabs/users.php:525 zp-core/admin-tabs/users.php:954
+#: zp-core/admin-tabs/users.php:516 zp-core/admin-tabs/users.php:964
 #: zp-core/admin_options/gallery.php:71 zp-core/admin_options/gallery.php:528
 #: zp-core/admin_options/general.php:173 zp-core/admin_options/general.php:813
 #: zp-core/admin_options/image.php:250 zp-core/admin_options/image.php:964
@@ -866,7 +866,7 @@ msgstr ""
 #: zp-core/admin_options/search.php:108 zp-core/admin_options/search.php:626
 #: zp-core/admin_options/security.php:85 zp-core/admin_options/security.php:330
 #: zp-core/admin_options/theme.php:248 zp-core/admin_options/theme.php:580
-#: zp-core/lib-auth.php:1126 zp-core/lib-auth.php:1128
+#: zp-core/lib-auth.php:1188 zp-core/lib-auth.php:1190
 #: zp-core/zp-extensions/contact_form/form.php:143
 #: zp-core/zp-extensions/crop_image.php:491
 #: zp-core/zp-extensions/debug/admin_tab.php:313
@@ -1086,7 +1086,7 @@ msgstr "<strong>Taggar:</strong>"
 #: themes/basic/album.php:91 themes/zenFluid/404.php:19
 #: themes/zenpage/sidebar.php:80 themes/zpminimal/inc-footer.php:26
 #: themes/zpmobile/functions.php:45 zp-core/admin-functions.php:587
-#: zp-core/admin-functions.php:5519 zp-core/lib-auth.php:555
+#: zp-core/admin-functions.php:5519 zp-core/lib-auth.php:612
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:76
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:80
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:270
@@ -1194,7 +1194,7 @@ msgid "close"
 msgstr "Stäng"
 
 #: themes/basic/image.php:49 themes/paradigm/image.php:22
-#: themes/zenFluid/image.php:139 themes/zenpage/image.php:48
+#: themes/zenFluid/image.php:141 themes/zenpage/image.php:48
 #: themes/zpArdoise/image.php:10 themes/zpBootstrap/image.php:21
 #: themes/zpEnlighten/image.php:48 themes/zpmasonry/image.php:24
 #: themes/zpminimal/image.php:42 themes/zpmobile/image.php:36
@@ -1203,7 +1203,7 @@ msgid "Previous Image"
 msgstr "Föregående Bild"
 
 #: themes/basic/image.php:53 themes/paradigm/image.php:24
-#: themes/zenFluid/image.php:151 themes/zenpage/image.php:50
+#: themes/zenFluid/image.php:153 themes/zenpage/image.php:50
 #: themes/zpArdoise/image.php:15 themes/zpBootstrap/image.php:27
 #: themes/zpEnlighten/image.php:52 themes/zpmasonry/image.php:25
 #: themes/zpminimal/image.php:43 themes/zpmobile/image.php:39
@@ -1398,7 +1398,7 @@ msgstr "Sidor (%s)"
 #: themes/basic/search.php:80 themes/basic/search.php:113
 #: themes/effervescence+/search.php:152 themes/effervescence+/search.php:185
 #: themes/garland/search.php:117 themes/garland/search.php:150
-#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:307
+#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:310
 #: themes/zenpage/functions.php:46 themes/zpEnlighten/functions.php:66
 #: themes/zpfocus/functions.php:158 themes/zpmobile/functions.php:287
 #: themes/zpskeleton/functions.php:236
@@ -1408,7 +1408,7 @@ msgstr "Visa fler resultat"
 #: themes/basic/search.php:81 themes/basic/search.php:114
 #: themes/effervescence+/search.php:153 themes/effervescence+/search.php:186
 #: themes/garland/search.php:118 themes/garland/search.php:151
-#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:308
+#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:311
 #: themes/zenpage/functions.php:47 themes/zpEnlighten/functions.php:67
 #: themes/zpfocus/functions.php:159 themes/zpmobile/functions.php:288
 #: themes/zpskeleton/functions.php:237
@@ -1475,28 +1475,28 @@ msgstr ""
 "välja temafärgen genom att gå till fliken Admin Options och ändra "
 "alternativet <em>Tema färger</em> ."
 
-#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
-#: themes/garland/themeoptions.php:77 themes/paradigm/themeoptions.php:95
-#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:65
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:94
+#: themes/garland/themeoptions.php:76 themes/paradigm/themeoptions.php:95
+#: themes/zenFluid/themeoptions.php:108 themes/zenpage/themeoptions.php:64
 #: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:119
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:35
 msgid "Allow search"
 msgstr "Tillåt sök"
 
-#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:95
-#: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:65
+#: themes/basic/themeoptions.php:41 themes/effervescence+/themeoptions.php:94
+#: themes/paradigm/themeoptions.php:95 themes/zenpage/themeoptions.php:64
 #: themes/zpArdoise/themeoptions.php:65 themes/zpBootstrap/themeoptions.php:123
 #: themes/zpEnlighten/themeoptions.php:21 themes/zpfocus/themeoptions.php:69
 #: themes/zpmobile/themeoptions.php:35
 msgid "Check to enable search form."
 msgstr "Markera för att aktivera sökformulär."
 
-#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:102
 msgid "Theme colors"
 msgstr "Temafärger"
 
-#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:103
+#: themes/basic/themeoptions.php:42 themes/effervescence+/themeoptions.php:102
 msgid "Select the colors of the theme"
 msgstr "Välj färger för temat"
 
@@ -1573,7 +1573,7 @@ msgid "Random picture..."
 msgstr "Slumpmässig bild..."
 
 #: themes/effervescence+/functions.php:251
-#: zp-core/zp-extensions/menu_manager.php:1074
+#: zp-core/zp-extensions/menu_manager.php:1097
 #: zp-core/zp-extensions/print_album_menu.php:253
 #, php-format
 msgid "%u album"
@@ -1582,7 +1582,7 @@ msgstr[0] "%u Album"
 msgstr[1] "%u Album"
 
 #: themes/effervescence+/functions.php:257
-#: zp-core/zp-extensions/menu_manager.php:1080
+#: zp-core/zp-extensions/menu_manager.php:1103
 #: zp-core/zp-extensions/print_album_menu.php:259
 #, php-format
 msgid "%u image"
@@ -1676,7 +1676,7 @@ msgid_plural "%u Images"
 msgstr[0] "%u Bild"
 msgstr[1] "%u Bilder"
 
-#: themes/effervescence+/functions.php:404 themes/zenFluid/image.php:180
+#: themes/effervescence+/functions.php:404 themes/zenFluid/image.php:182
 #: themes/zenFluid/news.php:63 themes/zenFluid/news.php:152
 #: themes/zenFluid/pages.php:41 themes/zpArdoise/inc_print_comment.php:32
 #: themes/zpBootstrap/inc_print_comment.php:37
@@ -1769,7 +1769,7 @@ msgstr "Sök inom kategorin"
 #: themes/zpskeleton/inc-header.php:69 themes/zpskeleton/inc-search.php:1
 #: themes/zpskeleton/search.php:28 zp-core/template-functions.php:467
 #: zp-core/template-functions.php:1301 zp-core/template-functions.php:1332
-#: zp-core/template-functions.php:3876
+#: zp-core/template-functions.php:3874
 #: zp-core/zp-extensions/deprecated-functions/check_for_deprecated.php:71
 #: zp-core/zp-extensions/html_meta_tags.php:252
 #: zp-core/zp-extensions/scriptless-socialsharing.php:179
@@ -1826,9 +1826,9 @@ msgstr "Båda"
 #: themes/zpmobile/functions.php:201 themes/zpmobile/pagelist.php:29
 #: themes/zpmobile/pages.php:29 zp-core/admin-functions.php:3732
 #: zp-core/admin-functions.php:3903 zp-core/allTranslations.php:13
-#: zp-core/lib-auth.php:571 zp-core/lib-auth.php:574 zp-core/lib-auth.php:589
-#: zp-core/lib-auth.php:596 zp-core/lib-auth.php:600 zp-core/lib-auth.php:616
-#: zp-core/lib-auth.php:623 zp-core/lib-auth.php:625 zp-core/lib-auth.php:629
+#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:631 zp-core/lib-auth.php:646
+#: zp-core/lib-auth.php:653 zp-core/lib-auth.php:657 zp-core/lib-auth.php:673
+#: zp-core/lib-auth.php:680 zp-core/lib-auth.php:682 zp-core/lib-auth.php:686
 #: zp-core/utilities/gallery_statistics.php:76
 #: zp-core/utilities/gallery_statistics.php:597
 #: zp-core/zp-extensions/cacheManager.php:156
@@ -1881,7 +1881,7 @@ msgstr ""
 "Baserat på Effervescence 1.1 med flera färgscheman och personligheter "
 "tillagda."
 
-#: themes/effervescence+/themeoptions.php:85
+#: themes/effervescence+/themeoptions.php:84
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> This option is valid only if the Zenpage plugin is "
@@ -1893,7 +1893,7 @@ msgstr ""
 "Naturligtvis <em>måste</em> plugin för <em>menymanager</em> också vara "
 "aktiverat."
 
-#: themes/effervescence+/themeoptions.php:88 themes/garland/themeoptions.php:69
+#: themes/effervescence+/themeoptions.php:87 themes/garland/themeoptions.php:68
 #, fuzzy, php-format
 msgid ""
 "<strong>Note:</strong> The <em>%s</em> custom menu makes use of the "
@@ -1902,34 +1902,34 @@ msgstr ""
 "<strong>Obs!</strong> Den anpassade menyn i <em> %s</em> använder "
 "<em>pluginet print_album_menu</em> ."
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "Separate gallery index"
 msgstr "Separat galleri index"
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "Check to move the gallery index from the home page to gallery.php."
 msgstr "Kolla för att flytta galleriindexet från hemsidan till gallery.php."
 
-#: themes/effervescence+/themeoptions.php:91
+#: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "<strong>Note:</strong> this is assumed the zenpage plugin is enabled."
 msgstr "<strong>Obs!</strong> Detta antas om zenpage plugin är aktiverat."
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 msgid "Theme logo"
 msgstr "Temalogotyp"
 
-#: themes/effervescence+/themeoptions.php:92
+#: themes/effervescence+/themeoptions.php:91
 msgid "The text for the theme logo"
 msgstr "Texten för temalogotypen"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid "Watermark head image"
 msgstr "Vattenstämpel huvudbild"
 
-#: themes/effervescence+/themeoptions.php:93
+#: themes/effervescence+/themeoptions.php:92
 msgid ""
 "Check to place a watermark on the heading image. (Image watermarking must be "
 "set.)"
@@ -1937,19 +1937,19 @@ msgstr ""
 "Markera för att placera vattenstämpel på huvudbilden (Vattenstämpel måsta "
 "vara inställt)."
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 #, fuzzy
 msgid "Daily image"
 msgstr "Daglig bild"
 
-#: themes/effervescence+/themeoptions.php:94
+#: themes/effervescence+/themeoptions.php:93
 #, fuzzy
 msgid ""
 "If checked the heading image will change daily rather than on each page load."
 msgstr ""
 "Om markerat ändras rubrikbilden dagligen snarare än på varje sidbelastning."
 
-#: themes/effervescence+/themeoptions.php:96 themes/zpArdoise/album.php:11
+#: themes/effervescence+/themeoptions.php:95 themes/zpArdoise/album.php:11
 #: themes/zpArdoise/favorites.php:14 themes/zpArdoise/image.php:24
 #: themes/zpArdoise/inc_header.php:162 themes/zpArdoise/search.php:65
 #: themes/zpArdoise/slideshow.php:6 themes/zpBootstrap/home.php:42
@@ -1962,16 +1962,16 @@ msgstr ""
 msgid "Slideshow"
 msgstr "Bildspel"
 
-#: themes/effervescence+/themeoptions.php:96
+#: themes/effervescence+/themeoptions.php:95
 msgid "Check to enable slideshow for the <em>Smoothgallery</em> personality."
 msgstr ""
 "Markera för att aktivera bildspel för <em>Smoothgallery</em>-varianten."
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 msgid "Graphic logo"
 msgstr "Grafisk logotyp"
 
-#: themes/effervescence+/themeoptions.php:97
+#: themes/effervescence+/themeoptions.php:96
 #, fuzzy, php-format
 msgid ""
 "Select a logo (PNG files in the <em>%s/images</em> folder) or leave empty "
@@ -1980,64 +1980,64 @@ msgstr ""
 "Välj en logotyp (PNG-filer i mappen <em> %s / bilder</em> ) eller lämna tomt "
 "för textlogotyp."
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "Display theme info"
 msgstr "Visa temainformation"
 
-#: themes/effervescence+/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:97
 #, fuzzy
 msgid "If checked the theme settings summary will be displayed in the footer."
 msgstr "Om markerat visas sammanfattningen av temainställningar i sidfoten."
 
-#: themes/effervescence+/themeoptions.php:99 themes/garland/themeoptions.php:74
+#: themes/effervescence+/themeoptions.php:98 themes/garland/themeoptions.php:73
 msgid "Theme personality"
 msgstr "Temavarianter"
 
-#: themes/effervescence+/themeoptions.php:102
-#: themes/garland/themeoptions.php:76
+#: themes/effervescence+/themeoptions.php:101
+#: themes/garland/themeoptions.php:75
 msgid "Select the theme personality"
 msgstr "Välj temavariant"
 
-#: themes/effervescence+/themeoptions.php:104
-#: themes/garland/themeoptions.php:79
+#: themes/effervescence+/themeoptions.php:103
+#: themes/garland/themeoptions.php:78
 msgid "Custom menu"
 msgstr "Anpassad meny"
 
-#: themes/effervescence+/themeoptions.php:104
-#: themes/garland/themeoptions.php:79
+#: themes/effervescence+/themeoptions.php:103
+#: themes/garland/themeoptions.php:78
 #, fuzzy
 msgid "Set this to the <em>menu_manager</em> menu you wish to use."
 msgstr "Ställ in det <em>på</em> menyn <em>menymanager</em> du vill använda."
 
-#: themes/effervescence+/themeoptions.php:108
-#: themes/garland/themeoptions.php:98
+#: themes/effervescence+/themeoptions.php:107
+#: themes/garland/themeoptions.php:97
 #, fuzzy
 msgid "Image gallery transition"
 msgstr "Bildgalleriövergång"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99 zp-core/exif/exifTranslations.php:149
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98 zp-core/exif/exifTranslations.php:149
 #: zp-core/zp-extensions/googleMap.php:93
 #: zp-core/zp-extensions/user_login-out.php:37
 msgid "None"
 msgstr "Ingen"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:90
 #, fuzzy
 msgid "Fade"
 msgstr "tona"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #, fuzzy
 msgid "Shrink/grow"
 msgstr "Krymp / växa"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:88
 #: zp-core/zp-extensions/googleMap.php:96
 #: zp-core/zp-extensions/slideshow2.php:132
@@ -2045,8 +2045,8 @@ msgstr "Krymp / växa"
 msgid "Horizontal"
 msgstr "Horisontell"
 
-#: themes/effervescence+/themeoptions.php:109
-#: themes/garland/themeoptions.php:99
+#: themes/effervescence+/themeoptions.php:108
+#: themes/garland/themeoptions.php:98
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:89
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:78
 #: zp-core/zp-extensions/slideshow2.php:133
@@ -2054,32 +2054,32 @@ msgstr "Horisontell"
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: themes/effervescence+/themeoptions.php:111
-#: themes/garland/themeoptions.php:101
+#: themes/effervescence+/themeoptions.php:110
+#: themes/garland/themeoptions.php:100
 #, fuzzy
 msgid "Transition effect for Image gallery"
 msgstr "Övergångseffekt för bildgalleri"
 
-#: themes/effervescence+/themeoptions.php:112
-#: themes/garland/themeoptions.php:102
+#: themes/effervescence+/themeoptions.php:111
+#: themes/garland/themeoptions.php:101
 #, fuzzy
 msgid "Image gallery caption"
 msgstr "Bildgalleri bildtext"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #, fuzzy
 msgid "On image"
 msgstr "% av bilden"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #, fuzzy
 msgid "Separate"
 msgstr "Separat"
 
-#: themes/effervescence+/themeoptions.php:113
-#: themes/garland/themeoptions.php:103
+#: themes/effervescence+/themeoptions.php:112
+#: themes/garland/themeoptions.php:102
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -2089,21 +2089,21 @@ msgstr "Separat"
 msgid "Omit"
 msgstr "Förbise"
 
-#: themes/effervescence+/themeoptions.php:115
-#: themes/garland/themeoptions.php:105
+#: themes/effervescence+/themeoptions.php:114
+#: themes/garland/themeoptions.php:104
 #, fuzzy
 msgid "Location for Image gallery picture caption"
 msgstr "Plats för bildgalleri bildtextning"
 
-#: themes/effervescence+/themeoptions.php:125
+#: themes/effervescence+/themeoptions.php:124
+#: themes/effervescence+/themeoptions.php:129
 #: themes/effervescence+/themeoptions.php:130
-#: themes/effervescence+/themeoptions.php:131
 #, fuzzy
 msgid "Index Image"
 msgstr "Index Image"
 
-#: themes/effervescence+/themeoptions.php:126
-#: themes/garland/themeoptions.php:94 themes/zenpage/themeoptions.php:68
+#: themes/effervescence+/themeoptions.php:125
+#: themes/garland/themeoptions.php:93 themes/zenpage/themeoptions.php:67
 #: themes/zpArdoise/inc_header.php:337 themes/zpArdoise/themeoptions.php:125
 #: themes/zpArdoise/themeoptions.php:127 themes/zpEnlighten/themeoptions.php:45
 #: themes/zpfocus/themeoptions.php:459 themes/zpskeleton/themeoptions.php:103
@@ -2123,28 +2123,28 @@ msgstr "Index Image"
 msgid "none"
 msgstr "Ingen"
 
-#: themes/effervescence+/themeoptions.php:128
+#: themes/effervescence+/themeoptions.php:127
 #, fuzzy
 msgid "Apply this effect to the index page image."
 msgstr "Tillämpa denna effekt på indexbilden."
 
-#: themes/effervescence+/themeoptions.php:131
+#: themes/effervescence+/themeoptions.php:130
 #, fuzzy
 msgid "This option requires the <em>image_effects</em> plugin to be enabled."
 msgstr ""
 "Det här alternativet kräver att <em>pluginet image_effects</em> ska "
 "aktiveras."
 
-#: themes/effervescence+/themeoptions.php:161
-#: themes/garland/themeoptions.php:124
+#: themes/effervescence+/themeoptions.php:160
+#: themes/garland/themeoptions.php:123
 msgid "*standard menu"
 msgstr "*standard meny"
 
-#: themes/effervescence+/themeoptions.php:168
+#: themes/effervescence+/themeoptions.php:167
 msgid "*no logo selected"
 msgstr "*ingen logo vald"
 
-#: themes/effervescence+/themeoptions.php:169
+#: themes/effervescence+/themeoptions.php:168
 #, fuzzy
 msgid "Effervescence"
 msgstr "Effervescence %s"
@@ -2185,7 +2185,7 @@ msgstr "«Förra albumet"
 #: themes/garland/album.php:122 themes/garland/image.php:141
 #: themes/garland/news.php:122 themes/garland/pages.php:69
 #: themes/garland/summary.php:72 themes/zenFluid/album.php:127
-#: themes/zenFluid/image.php:115 themes/zenFluid/news.php:108
+#: themes/zenFluid/image.php:117 themes/zenFluid/news.php:108
 #: themes/zenFluid/news.php:163 themes/zenFluid/pages.php:77
 #, fuzzy
 msgid "Tags: "
@@ -2217,7 +2217,7 @@ msgid "Next image"
 msgstr "Nästa Bild"
 
 #: themes/garland/image.php:123 themes/garland/summary.php:54
-#: themes/zenFluid/image.php:151 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:153 themes/zpmasonry/news.php:88
 #, fuzzy
 msgid "Next »"
 msgstr "framåt"
@@ -2266,27 +2266,27 @@ msgstr ""
 "Modded Wordpress tema från, <a href=\"http://garlandtheme.blogspot.com/"
 "\">krans</a>"
 
-#: themes/garland/themeoptions.php:77
+#: themes/garland/themeoptions.php:76
 #, fuzzy
 msgid "Set to enable search form."
 msgstr "Ange för att aktivera sökformulär."
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 #, fuzzy
 msgid "Allow cloud"
 msgstr "Tillåt moln"
 
-#: themes/garland/themeoptions.php:78
+#: themes/garland/themeoptions.php:77
 #, fuzzy
 msgid "Set to enable tag cloud for album page."
 msgstr "Ställ in för att aktivera taggmoln för albumsidan."
 
-#: themes/garland/themeoptions.php:92
+#: themes/garland/themeoptions.php:91
 #, fuzzy
 msgid "Custom Homepage"
 msgstr "Anpassad hemsida"
 
-#: themes/garland/themeoptions.php:95
+#: themes/garland/themeoptions.php:94
 #, fuzzy
 msgid ""
 "Select the <em>pages</em> titlelink for the home page. Only unpublished "
@@ -2297,8 +2297,8 @@ msgstr ""
 
 #: themes/paradigm/album.php:31 themes/paradigm/image.php:99
 #: themes/zpBootstrap/archive.php:41 themes/zpBootstrap/themeoptions.php:134
-#: zp-core/admin-tabs/tags.php:259 zp-core/lib-auth.php:559
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
+#: zp-core/admin-tabs/tags.php:259 zp-core/lib-auth.php:616
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:660 zp-core/lib-auth.php:692
 #: zp-core/template-functions.php:127
 #: zp-core/utilities/gallery_statistics.php:91
 #: zp-core/utilities/gallery_statistics.php:591
@@ -2503,7 +2503,7 @@ msgstr "Tema som används:"
 msgid "by"
 msgstr "av"
 
-#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3563
+#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3561
 #, fuzzy
 msgid "No popular tags"
 msgstr "Populära Taggar:"
@@ -2612,7 +2612,7 @@ msgstr "Blogg"
 #: themes/zpminimal/register.php:4 themes/zpminimal/search.php:29
 #: themes/zpminimal/summary.php:4 themes/zpmobile/functions.php:66
 #: themes/zpskeleton/inc-header.php:180 zp-core/template-functions.php:1448
-#: zp-core/zp-extensions/menu_manager.php:812
+#: zp-core/zp-extensions/menu_manager.php:837
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:484
 msgid "Home"
 msgstr "Hem"
@@ -3012,23 +3012,23 @@ msgstr "Tema sida"
 msgid "View: "
 msgstr "Visa"
 
-#: themes/zenFluid/functions.php:266
+#: themes/zenFluid/functions.php:269
 #: zp-core/zp-extensions/themeSwitcher.php:187
 msgid "Close"
 msgstr "Stäng"
 
-#: themes/zenFluid/image.php:139 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:141 themes/zpmasonry/news.php:88
 #, fuzzy
 msgid "« Prev"
 msgstr "bakåt"
 
-#: themes/zenFluid/image.php:172 themes/zenFluid/pages.php:33
+#: themes/zenFluid/image.php:174 themes/zenFluid/pages.php:33
 #, fuzzy
 #| msgid "Views: %u"
 msgid "Views: "
 msgstr "Visningar: %u"
 
-#: themes/zenFluid/image.php:178 themes/zenFluid/news.php:61
+#: themes/zenFluid/image.php:180 themes/zenFluid/news.php:61
 #: themes/zenFluid/news.php:150 themes/zenFluid/pages.php:39
 #: themes/zpArdoise/inc_print_comment.php:30
 #: themes/zpBootstrap/inc_print_comment.php:35
@@ -3057,7 +3057,7 @@ msgstr "RSS-flöden"
 msgid "The ZenFluid theme requires that the zenpage plugin be enabled."
 msgstr "ZenFluid-temat kräver att zenpage-plugin aktiveras."
 
-#: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:316
+#: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:315
 #, fuzzy
 msgid "Profile"
 msgstr "Profil"
@@ -3176,7 +3176,7 @@ msgstr "Välj gränsschemat."
 msgid "Enable search form."
 msgstr "Markera för att aktivera sökformulär."
 
-#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:66
+#: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:65
 #: themes/zpEnlighten/themeoptions.php:22 themes/zpfocus/themeoptions.php:75
 msgid "Use Colorbox"
 msgstr "Använd Colorbox"
@@ -3341,7 +3341,7 @@ msgstr "Stegets maximala bredd"
 #, fuzzy
 msgid ""
 "Enter the maximum width (in pixels) that the stage (everything to the right "
-"of the sidebar) should take."
+"of the sidebar) should take. (Enter 0 (zero) to use the maximum width)"
 msgstr ""
 "Ange maximal bredd (i pixlar) som scenen (allt till höger om sidofältet) ska "
 "ta."
@@ -3547,15 +3547,15 @@ msgstr ""
 "aktiverade för albumlänkar i sidofältet), plugin dynamic_locale, den nya "
 "paged_thumbs_nav plugin och plugin jCarousel_thumb_nav."
 
-#: themes/zenpage/themeoptions.php:66 themes/zpEnlighten/themeoptions.php:22
+#: themes/zenpage/themeoptions.php:65 themes/zpEnlighten/themeoptions.php:22
 msgid "Check to display of the full size image with Colorbox."
 msgstr "Markera för att visa fullstorleksbild med Colorbox"
 
-#: themes/zenpage/themeoptions.php:67 themes/zpEnlighten/themeoptions.php:23
+#: themes/zenpage/themeoptions.php:66 themes/zpEnlighten/themeoptions.php:23
 msgid "News on index page"
 msgstr "Nyheter på indexsidan"
 
-#: themes/zenpage/themeoptions.php:67
+#: themes/zenpage/themeoptions.php:66
 #, fuzzy
 msgid ""
 "Enable this if you want to show the news section’s first page on the "
@@ -3564,14 +3564,14 @@ msgstr ""
 "Aktivera detta om du vill visa nyhetssektionens första sida på <code>index."
 "php</code> sidan."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/themeoptions.php:63
 #: themes/zpBootstrap/themeoptions.php:64
 #: themes/zpEnlighten/themeoptions.php:24 themes/zpfocus/themeoptions.php:72
 #: themes/zpskeleton/themeoptions.php:72
 msgid "Homepage"
 msgstr "Hemsida"
 
-#: themes/zenpage/themeoptions.php:68
+#: themes/zenpage/themeoptions.php:67
 #, fuzzy
 msgid ""
 "Choose here any <em>un-published Zenpage page</em> (listed by <em>titlelink</"
@@ -3581,7 +3581,7 @@ msgstr ""
 "<em>titlelink</em> ) för att fungera som webbplatsens hemsida istället för "
 "det normala galleriindexet."
 
-#: themes/zenpage/themeoptions.php:68 themes/zpArdoise/themeoptions.php:63
+#: themes/zenpage/themeoptions.php:67 themes/zpArdoise/themeoptions.php:63
 #: themes/zpEnlighten/themeoptions.php:24
 msgid ""
 "<strong>Note:</strong> This of course overrides the <em>News on index page</"
@@ -3592,11 +3592,11 @@ msgstr ""
 "alternativet och ditt tema måste vara inställt för detta! Besök "
 "temahandledningssidan för detaljer."
 
-#: themes/zenpage/themeoptions.php:69 themes/zpEnlighten/themeoptions.php:25
+#: themes/zenpage/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:25
 msgid "Use standard contact page"
 msgstr "Använd standard kontakt-sida"
 
-#: themes/zenpage/themeoptions.php:69 themes/zpEnlighten/themeoptions.php:25
+#: themes/zenpage/themeoptions.php:68 themes/zpEnlighten/themeoptions.php:25
 msgid ""
 "Disable this if you do not want to use the separate contact page with the "
 "contact form. You can also use the codeblock of a page for this. See the "
@@ -3606,11 +3606,11 @@ msgstr ""
 "formuläret. Du kan även använda kod-delen av en sida för detta. Se "
 "dokumentation för contact_form insticksmodulen för mer info."
 
-#: themes/zenpage/themeoptions.php:70
+#: themes/zenpage/themeoptions.php:69
 msgid "Use custom menu"
 msgstr "Använd anpassad meny"
 
-#: themes/zenpage/themeoptions.php:70
+#: themes/zenpage/themeoptions.php:69
 #, fuzzy
 msgid ""
 "Check this if you want to use the <em>menu_manager</em> plugin if enabled to "
@@ -3887,7 +3887,7 @@ msgstr "Återställ dina albumtumnaglar"
 #: themes/zpmasonry/inc-menu.php:36 themes/zpminimal/inc-header.php:91
 #: themes/zpminimal/inc-sidemenu.php:47 themes/zpminimal/login.php:4
 #: themes/zpskeleton/inc-footer.php:15 themes/zpskeleton/inc-header.php:96
-#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1065
+#: themes/zpskeleton/login.php:6 zp-core/lib-auth.php:1127
 #: zp-core/zp-extensions/user_login-out.php:114
 msgid "Login"
 msgstr "Användarnamn"
@@ -4035,9 +4035,9 @@ msgstr "Använd oändlig bläddring"
 
 #: themes/zpBootstrap/themeoptions.php:97 zp-core/admin-functions.php:3732
 #: zp-core/admin-functions.php:3875 zp-core/allTranslations.php:53
-#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:575 zp-core/lib-auth.php:588
-#: zp-core/lib-auth.php:595 zp-core/lib-auth.php:599 zp-core/lib-auth.php:615
-#: zp-core/lib-auth.php:619 zp-core/lib-auth.php:624 zp-core/lib-auth.php:628
+#: zp-core/lib-auth.php:629 zp-core/lib-auth.php:632 zp-core/lib-auth.php:645
+#: zp-core/lib-auth.php:652 zp-core/lib-auth.php:656 zp-core/lib-auth.php:672
+#: zp-core/lib-auth.php:676 zp-core/lib-auth.php:681 zp-core/lib-auth.php:685
 #: zp-core/zp-extensions/cacheManager.php:155
 #: zp-core/zp-extensions/comment_form.php:90
 #: zp-core/zp-extensions/externalFeed.php:75
@@ -4192,13 +4192,13 @@ msgstr "Visa Bildspel"
 msgid "Send me a message of Love"
 msgstr "Skicka mig ett meddelande om kärlek"
 
-#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1117
-#: zp-core/lib-auth.php:1290 zp-core/lib-auth.php:1394
+#: themes/zpEnlighten/password_form.php:17 zp-core/lib-auth.php:1179
+#: zp-core/lib-auth.php:1352 zp-core/lib-auth.php:1456
 msgid "Password"
 msgstr "Lösenord"
 
-#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1032
-#: zp-core/lib-auth.php:1034 zp-core/zp-extensions/googleTFA/auth_code.php:61
+#: themes/zpEnlighten/password_form.php:22 zp-core/lib-auth.php:1094
+#: zp-core/lib-auth.php:1096 zp-core/zp-extensions/googleTFA/auth_code.php:61
 #: zp-core/zp-extensions/register_user/register_user_form.php:112
 msgid "Submit"
 msgstr "Skicka"
@@ -4212,7 +4212,7 @@ msgstr "Vink: %s"
 #: themes/zpEnlighten/search.php:126
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%s"
+msgstr "Sidor (%s)"
 
 #: themes/zpEnlighten/search.php:129
 #, fuzzy, php-format
@@ -4367,8 +4367,8 @@ msgstr "404 Ej Hittad..."
 
 #: themes/zpfocus/inc-header.php:122 themes/zpmasonry/inc-menu.php:24
 #: themes/zpmasonry/inc-menu.php:26 themes/zpskeleton/inc-bottom.php:59
-#: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:554
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
+#: themes/zpskeleton/inc-bottom.php:71 zp-core/lib-auth.php:611
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:650 zp-core/lib-auth.php:678
 #: zp-core/zp-extensions/comment_form.php:183
 #: zp-core/zp-extensions/comment_form/admin-comments.php:268
 msgid "Comments"
@@ -4961,7 +4961,7 @@ msgstr "Anonym"
 
 #: themes/zpmasonry/comment_form/comment_form.php:66
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:63
-#: zp-core/lib-auth.php:1196
+#: zp-core/lib-auth.php:1258
 msgid "Enter CAPTCHA"
 msgstr "Skriv CAPTCHA"
 
@@ -5043,7 +5043,7 @@ msgstr "Välkommen"
 
 #: themes/zpmasonry/index.php:53 themes/zpmasonry/index.php:57
 #: themes/zpminimal/index.php:50 themes/zpminimal/index.php:54
-#: zp-core/template-functions.php:3369
+#: zp-core/template-functions.php:3367
 #, php-format
 msgid "View image: %s"
 msgstr "Visa bild: %s"
@@ -5729,12 +5729,12 @@ msgstr ""
 msgid "Return to %s"
 msgstr "Tillbaka till %s"
 
-#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:465
+#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:470
 #, fuzzy
 msgid "A simpler media content management system"
 msgstr "Ett enklare mediainnehållssystem"
 
-#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:465
+#: zp-core/admin-functions.php:42 zp-core/setup/setup-functions.php:470
 #, fuzzy, php-format
 msgid "version %1$s"
 msgstr "version%1$s"
@@ -5750,7 +5750,7 @@ msgstr "netPhotoGraphics-licens"
 msgid "License"
 msgstr "Licens"
 
-#: zp-core/admin-functions.php:49 zp-core/setup/setup-functions.php:466
+#: zp-core/admin-functions.php:49 zp-core/setup/setup-functions.php:471
 #, fuzzy
 msgid "Support"
 msgstr "Grafikstödet saknar stöd för rotering av bilder."
@@ -5857,9 +5857,9 @@ msgstr "Borttagen."
 
 #: zp-core/admin-functions.php:1092 zp-core/admin-functions.php:1134
 #: zp-core/admin-functions.php:5283 zp-core/admin-tabs/edit.php:1134
-#: zp-core/admin-tabs/tags.php:262 zp-core/admin-tabs/users.php:550
+#: zp-core/admin-tabs/tags.php:262 zp-core/admin-tabs/users.php:541
 #: zp-core/admin_options/image.php:830 zp-core/admin_options/search.php:270
-#: zp-core/utilities/backup_restore.php:576
+#: zp-core/utilities/backup_restore.php:575
 #: zp-core/zp-extensions/publishContent/publishContent.php:301
 #: zp-core/zp-extensions/publishContent/publishContent.php:567
 #: zp-core/zp-extensions/publishContent/publishContent.php:631
@@ -5970,7 +5970,7 @@ msgstr "Lösenordsvink:"
 
 #: zp-core/admin-functions.php:1930 zp-core/admin_options/gallery.php:251
 #: zp-core/admin_options/image.php:699 zp-core/admin_options/search.php:197
-#: zp-core/lib-auth.php:1115 zp-core/lib-auth.php:1398
+#: zp-core/lib-auth.php:1177 zp-core/lib-auth.php:1460
 #: zp-core/utilities/gallery_statistics.php:761
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
@@ -5981,7 +5981,7 @@ msgstr "Lösenordsvink:"
 #: zp-core/zp-extensions/comment_form.php:107
 #: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/downloadList.php:148
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:227
 #: zp-core/zp-extensions/register_user.php:85
 #: zp-core/zp-extensions/zenpage/edit.php:645
 msgid "Show"
@@ -6081,10 +6081,10 @@ msgid "Thumbnail"
 msgstr "Tumnagel"
 
 #: zp-core/admin-functions.php:2251 zp-core/admin-tabs/edit.php:1393
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:579 zp-core/lib-auth.php:580
-#: zp-core/lib-auth.php:584 zp-core/lib-auth.php:604 zp-core/lib-auth.php:605
-#: zp-core/lib-auth.php:609 zp-core/lib-auth.php:610 zp-core/lib-auth.php:611
-#: zp-core/lib-auth.php:632 zp-core/lib-auth.php:636 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:636 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:641 zp-core/lib-auth.php:661 zp-core/lib-auth.php:662
+#: zp-core/lib-auth.php:666 zp-core/lib-auth.php:667 zp-core/lib-auth.php:668
+#: zp-core/lib-auth.php:689 zp-core/lib-auth.php:693 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/zenpage/edit.php:805
 msgid "General"
 msgstr "Allmänna"
@@ -6485,9 +6485,9 @@ msgstr "Hanterade sidor:"
 msgid "Select one or more %1$s for the %2$s to manage."
 msgstr "Välj en eller flera%1$s för att%2$s ska hantera."
 
-#: zp-core/admin-functions.php:3910 zp-core/admin-tabs/users.php:880
-#: zp-core/admin-tabs/users.php:899 zp-core/admin-tabs/users.php:905
-#: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:555
+#: zp-core/admin-functions.php:3910 zp-core/admin-tabs/users.php:890
+#: zp-core/admin-tabs/users.php:909 zp-core/admin-tabs/users.php:915
+#: zp-core/admin_options/image.php:664 zp-core/functions-basic.php:573
 #, fuzzy
 msgid "user"
 msgstr "användare:"
@@ -6528,7 +6528,7 @@ msgstr "ok"
 #: zp-core/admin-functions.php:4429 zp-core/admin-tabs/edit.php:1024
 #: zp-core/admin-tabs/edit.php:1891
 #: zp-core/zp-extensions/comment_form/admin-comments.php:382
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:265
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:267
 #: zp-core/zp-extensions/zenpage/categories.php:185
 #: zp-core/zp-extensions/zenpage/news.php:306
 #: zp-core/zp-extensions/zenpage/pages.php:191
@@ -6711,13 +6711,13 @@ msgstr "%s kunde inte radera."
 msgid "%s deleted successfully."
 msgstr "%s raderades."
 
-#: zp-core/admin-functions.php:5530 zp-core/admin-tabs/users.php:465
+#: zp-core/admin-functions.php:5530 zp-core/admin-tabs/users.php:456
 #, fuzzy
 msgid "You must supply a password."
 msgstr "Du måste ange ett lösenord."
 
 #: zp-core/admin-functions.php:5532 zp-core/admin-tabs/options.php:154
-#: zp-core/admin-tabs/users.php:474 zp-core/zp-extensions/register_user.php:434
+#: zp-core/admin-tabs/users.php:465 zp-core/zp-extensions/register_user.php:434
 msgid "Your passwords did not match."
 msgstr "Dina lösenord överensstämde inte."
 
@@ -6986,7 +6986,7 @@ msgstr "Galleri"
 msgid "plugin"
 msgstr "Insticksmodul"
 
-#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:558
+#: zp-core/admin-globals.php:249 zp-core/functions-basic.php:576
 msgid "theme"
 msgstr "Tema"
 
@@ -7017,7 +7017,7 @@ msgstr "Databasreferens"
 
 #: zp-core/admin-tabs/albumsort.php:85 zp-core/admin-tabs/edit.php:745
 #: zp-core/zp-extensions/comment_form/admin-comments.php:369
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:223
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
 #: zp-core/zp-extensions/zenpage/categories.php:172
 #: zp-core/zp-extensions/zenpage/news.php:271
 #: zp-core/zp-extensions/zenpage/pages.php:174
@@ -7036,8 +7036,8 @@ msgstr "*Massåtgärder*"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:370
 #: zp-core/zp-extensions/comment_form/admin-comments.php:534
 #: zp-core/zp-extensions/debug/admin_tab.php:309
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:224
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:307
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:309
 #: zp-core/zp-extensions/publishContent/publishContent.php:473
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:61
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:157
@@ -7240,7 +7240,7 @@ msgstr "Nytt albumnamn?"
 
 #: zp-core/admin-tabs/edit.php:689
 #: zp-core/zp-extensions/comment_form/admin-comments.php:98
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:158
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:160
 #: zp-core/zp-extensions/zenpage/categories.php:78
 #: zp-core/zp-extensions/zenpage/news.php:82
 #: zp-core/zp-extensions/zenpage/pages.php:93
@@ -7350,7 +7350,7 @@ msgstr "zooma"
 #: zp-core/admin-tabs/edit.php:1262
 #: zp-core/utilities/gallery_statistics.php:447
 #: zp-core/utilities/gallery_statistics.php:451
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:303
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:305
 #: zp-core/zp-extensions/publishContent/publishContent.php:481
 #: zp-core/zp-extensions/publishContent/publishContent.php:539
 #: zp-core/zp-extensions/publishContent/publishContent.php:604
@@ -7541,7 +7541,7 @@ msgid "Your Allowed tags change did not parse successfully."
 msgstr "Dina tag-ändringar fullföljdes inte."
 
 #: zp-core/admin-tabs/options.php:122 zp-core/admin-tabs/plugins.php:150
-#: zp-core/admin-tabs/users.php:324
+#: zp-core/admin-tabs/users.php:323
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:146
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:137
 #, fuzzy
@@ -7549,7 +7549,7 @@ msgid "Error"
 msgstr "Fel!"
 
 #: zp-core/admin-tabs/options.php:123 zp-core/admin-tabs/plugins.php:151
-#: zp-core/admin-tabs/users.php:325
+#: zp-core/admin-tabs/users.php:324
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:138
 #, fuzzy
 msgid ""
@@ -7770,10 +7770,10 @@ msgstr "Tema-plugin"
 msgid "Usage info"
 msgstr "Användningsinformation"
 
-#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:560
-#: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
+#: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:636 zp-core/lib-auth.php:661 zp-core/lib-auth.php:693
 #: zp-core/template-functions.php:147
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:199
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:201
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:139
 msgid "Options"
 msgstr "Inställningar"
@@ -8232,40 +8232,40 @@ msgstr "Skapa nytt album"
 msgid "There are no albums to which you can upload."
 msgstr "Det finns inga album att ladda upp till."
 
-#: zp-core/admin-tabs/users.php:157
+#: zp-core/admin-tabs/users.php:156
 #, fuzzy, php-format
 msgid "%s password may not be empty!"
 msgstr "%s lösenord kanske inte är tomt!"
 
-#: zp-core/admin-tabs/users.php:308
+#: zp-core/admin-tabs/users.php:307
 #, fuzzy
 msgid "Password reset request."
 msgstr "Förfrågan om återställning av lösenord."
 
-#: zp-core/admin-tabs/users.php:330
+#: zp-core/admin-tabs/users.php:329
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:148
 msgid "Saved"
 msgstr "Sparat"
 
-#: zp-core/admin-tabs/users.php:453
+#: zp-core/admin-tabs/users.php:444
 #, fuzzy
 msgid "Rights migration failed."
 msgstr "Rättsmigration misslyckades."
 
-#: zp-core/admin-tabs/users.php:458
+#: zp-core/admin-tabs/users.php:449
 #, fuzzy
 msgid "User id already used."
 msgstr "Användar-ID som redan används."
 
-#: zp-core/admin-tabs/users.php:468
+#: zp-core/admin-tabs/users.php:459
 msgid "User name not provided"
 msgstr "Användarnamn ej angivet"
 
-#: zp-core/admin-tabs/users.php:481
+#: zp-core/admin-tabs/users.php:472
 msgid "Your Website URL is not valid"
 msgstr "Din Webbplats adress är inte giltig."
 
-#: zp-core/admin-tabs/users.php:523 zp-core/admin_options/gallery.php:69
+#: zp-core/admin-tabs/users.php:514 zp-core/admin_options/gallery.php:69
 #: zp-core/admin_options/gallery.php:526 zp-core/admin_options/general.php:171
 #: zp-core/admin_options/general.php:811 zp-core/admin_options/image.php:248
 #: zp-core/admin_options/image.php:962 zp-core/admin_options/plugin.php:92
@@ -8279,19 +8279,19 @@ msgstr "Din Webbplats adress är inte giltig."
 msgid "reset"
 msgstr "Återställ"
 
-#: zp-core/admin-tabs/users.php:536
+#: zp-core/admin-tabs/users.php:527
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:222
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:435
 msgid "Expand all"
 msgstr "Utvidga alla"
 
-#: zp-core/admin-tabs/users.php:538
+#: zp-core/admin-tabs/users.php:529
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:224
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:437
 msgid "Collapse all"
 msgstr "Förminska alla"
 
-#: zp-core/admin-tabs/users.php:547 zp-core/admin_options/image.php:809
+#: zp-core/admin-tabs/users.php:538 zp-core/admin_options/image.php:809
 #: zp-core/admin_options/image.php:835
 #: zp-core/zp-extensions/contact_form.php:74
 #: zp-core/zp-extensions/googleMap.php:87
@@ -8299,51 +8299,51 @@ msgstr "Förminska alla"
 msgid "show"
 msgstr "Visa"
 
-#: zp-core/admin-tabs/users.php:554 zp-core/admin-tabs/users.php:615
+#: zp-core/admin-tabs/users.php:545 zp-core/admin-tabs/users.php:618
 msgid "pending verification"
 msgstr "väntar på verifiering"
 
-#: zp-core/admin-tabs/users.php:560
+#: zp-core/admin-tabs/users.php:551
 #, fuzzy
 msgid "no group"
 msgstr "grupp"
 
-#: zp-core/admin-tabs/users.php:621
+#: zp-core/admin-tabs/users.php:624
 msgid "Master"
 msgstr "Huvudkonto"
 
-#: zp-core/admin-tabs/users.php:652
+#: zp-core/admin-tabs/users.php:655
 msgid "Show details"
 msgstr "Visa detaljer"
 
-#: zp-core/admin-tabs/users.php:653
+#: zp-core/admin-tabs/users.php:656
 msgid "Hide details"
 msgstr "Göm detaljer"
 
-#: zp-core/admin-tabs/users.php:655
+#: zp-core/admin-tabs/users.php:658
 #, php-format
 msgid "Show details for user %s"
 msgstr "Visa detaljer för användare %s"
 
-#: zp-core/admin-tabs/users.php:656
+#: zp-core/admin-tabs/users.php:659
 #, php-format
 msgid "Hide details for user %s"
 msgstr "Göm detaljer för användare %s"
 
-#: zp-core/admin-tabs/users.php:667
+#: zp-core/admin-tabs/users.php:670
 #, fuzzy
 msgid "New User"
 msgstr "Ny användare"
 
-#: zp-core/admin-tabs/users.php:695
+#: zp-core/admin-tabs/users.php:698
 msgid "Authenticate user"
 msgstr "Verifiera användare"
 
-#: zp-core/admin-tabs/users.php:707
+#: zp-core/admin-tabs/users.php:710
 msgid "Are you sure you want to delete this user?"
 msgstr "Är det säkert att du vill radera denna användare?"
 
-#: zp-core/admin-tabs/users.php:709
+#: zp-core/admin-tabs/users.php:712
 msgid ""
 "This is the master user account. If you delete it another user will be "
 "promoted to master user."
@@ -8351,16 +8351,25 @@ msgstr ""
 "Detta är administratörskontot. Om du raderar den kommer en annan användare "
 "att väljas som administratör."
 
-#: zp-core/admin-tabs/users.php:717
+#: zp-core/admin-tabs/users.php:718
+#, fuzzy, php-format
+msgid ""
+"User's password is encrypted with the %1$s password hashing algorithm which "
+"is less secure than %2$s."
+msgstr ""
+"Användarens lösenord krypteras med%1$s lösenordshastighetsalgoritmen, vilket "
+"är mindre säkert än%2$s."
+
+#: zp-core/admin-tabs/users.php:723
 #, fuzzy, php-format
 msgid "Log on as %s."
 msgstr "Logga in som %s."
 
-#: zp-core/admin-tabs/users.php:724
+#: zp-core/admin-tabs/users.php:734
 msgid "Delete this user."
 msgstr "Radera denna användare."
 
-#: zp-core/admin-tabs/users.php:748
+#: zp-core/admin-tabs/users.php:758
 msgid ""
 "<strong>Note:</strong> You must have ADMIN rights to alter anything but your "
 "personal information."
@@ -8368,37 +8377,37 @@ msgstr ""
 "<strong>Notera:</strong> Du måste ha Administratörsrättigheter för att ändra "
 "annat än personlig information."
 
-#: zp-core/admin-tabs/users.php:785
+#: zp-core/admin-tabs/users.php:795
 #, fuzzy
 msgid "Challenge phrase"
 msgstr "Utmaningsfras"
 
-#: zp-core/admin-tabs/users.php:788
+#: zp-core/admin-tabs/users.php:798
 #, fuzzy
 msgid "Challenge response"
 msgstr "Utmaningssvar"
 
-#: zp-core/admin-tabs/users.php:795
+#: zp-core/admin-tabs/users.php:805
 #, fuzzy
 msgid "Full name"
 msgstr "Fullständigt namn"
 
-#: zp-core/admin-tabs/users.php:800 zp-core/admin_options/general.php:633
+#: zp-core/admin-tabs/users.php:810 zp-core/admin_options/general.php:633
 #: zp-core/zp-extensions/register_user/register_user_form.php:39
 msgid "Email"
 msgstr "E-Post"
 
-#: zp-core/admin-tabs/users.php:813
+#: zp-core/admin-tabs/users.php:823
 #, fuzzy
 msgid "create primary album"
 msgstr "skapa primära album"
 
-#: zp-core/admin-tabs/users.php:823
+#: zp-core/admin-tabs/users.php:833
 #, fuzzy, php-format
 msgid "delink primary album <strong>%1$s</strong>(<em>%2$s</em>)"
 msgstr "delink primära albumet <strong>%1$s</strong> ( <em>%2$s</em> )"
 
-#: zp-core/admin-tabs/users.php:827
+#: zp-core/admin-tabs/users.php:837
 #, fuzzy
 msgid ""
 "The primary album was created in association with the user. It will be "
@@ -8408,21 +8417,21 @@ msgstr ""
 "tas bort om användaren raderas. Om du avlägsnar albumet tas bort denna "
 "associering."
 
-#: zp-core/admin-tabs/users.php:836
+#: zp-core/admin-tabs/users.php:846
 msgid "Language:"
 msgstr "Språk:"
 
-#: zp-core/admin-tabs/users.php:873
+#: zp-core/admin-tabs/users.php:883
 #, fuzzy
 msgid "The <em>master</em> account has full rights to all objects."
 msgstr "<em>Befälhavaren</em> kontot har fulla rättigheter till alla objekt."
 
-#: zp-core/admin-tabs/users.php:894 zp-core/functions.php:849
+#: zp-core/admin-tabs/users.php:904 zp-core/functions.php:849
 #, fuzzy
 msgid "un-categorized"
 msgstr "okategoriserad"
 
-#: zp-core/admin-tabs/users.php:967
+#: zp-core/admin-tabs/users.php:977
 #, fuzzy, php-format
 msgid ""
 "The <em>Zenphoto_Authority</em> object supports a higher version of user "
@@ -8434,12 +8443,12 @@ msgstr ""
 "användarrättigheterna för att få den nya funktionaliteten i den här "
 "versionen."
 
-#: zp-core/admin-tabs/users.php:970
+#: zp-core/admin-tabs/users.php:980
 #, fuzzy
 msgid "Migrate rights"
 msgstr "Migrera rättigheter"
 
-#: zp-core/admin-tabs/users.php:980
+#: zp-core/admin-tabs/users.php:990
 #, fuzzy, php-format
 msgid ""
 "You may wish to revert the <em>Zenphoto_Authority</em> user rights to "
@@ -8448,19 +8457,19 @@ msgstr ""
 "Du kanske vill återställa användarrättigheterna för <em>Zenphoto_Authority</"
 "em> till version %s för bakåtkompatibilitet med tidigare versioner."
 
-#: zp-core/admin-tabs/users.php:983
+#: zp-core/admin-tabs/users.php:993
 #, fuzzy
 msgid "Revert rights"
 msgstr "Återgå rättigheter"
 
-#: zp-core/admin-tabs/users.php:1001
+#: zp-core/admin-tabs/users.php:1011
 #, fuzzy
 msgid "User names may not contain “?”, “&\", or quotation marks."
 msgstr ""
 "Användarnamnen får inte innehålla &quot;?&quot;, &quot;&amp;&quot; Eller "
 "citattecken."
 
-#: zp-core/admin-tabs/users.php:1006
+#: zp-core/admin-tabs/users.php:1016
 #, fuzzy, php-format
 msgid "The user “%s” already exists."
 msgstr "Användaren &quot; %s&quot; finns redan."
@@ -10208,7 +10217,7 @@ msgstr "ta bort"
 msgid "restore defaults"
 msgstr "återgå till grundinställningarna"
 
-#: zp-core/admin_options/image.php:833
+#: zp-core/admin_options/image.php:833 zp-core/lib-auth.php:93
 #: zp-core/zp-extensions/multiple_layouts.php:273
 #, fuzzy
 msgid "default"
@@ -10869,7 +10878,7 @@ msgstr "Alternativ för <em>%s</em>"
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show theme for"
-msgstr "Visa tema för:"
+msgstr "Visa tema för: "
 
 #: zp-core/admin_options/theme.php:241 zp-core/admin_options/theme.php:244
 #: zp-core/admin_options/theme.php:573 zp-core/admin_options/theme.php:576
@@ -11345,7 +11354,7 @@ msgid "Error: The “albums” directory (%s) is not readable."
 msgstr "Fel: Albumet &quot;Album&quot; ( %s) kan inte läsas."
 
 #: zp-core/class-gallery.php:372 zp-core/exif/exifTranslations.php:231
-#: zp-core/setup/setup-functions.php:342
+#: zp-core/setup/setup-functions.php:347
 msgid "Unknown"
 msgstr "Okänt"
 
@@ -12647,7 +12656,7 @@ msgstr "STRICT MEDDELANDE"
 msgid "%1$s: \"%2$s\" in %3$s on line %4$s"
 msgstr "%1$s: &quot;%2$s&quot; i%3$s på rad%4$s"
 
-#: zp-core/functions-basic.php:496 zp-core/setup/index.php:439
+#: zp-core/functions-basic.php:512 zp-core/setup/index.php:439
 #: zp-core/setup/index.php:449 zp-core/utilities/installation_analysis.php:43
 #: zp-core/zp-extensions/cloneZenphoto.php:56
 #: zp-core/zp-extensions/security-logger.php:134
@@ -12655,12 +12664,12 @@ msgstr "%1$s: &quot;%2$s&quot; i%3$s på rad%4$s"
 msgid "clone"
 msgstr "klona:"
 
-#: zp-core/functions-basic.php:1738
+#: zp-core/functions-basic.php:1743
 #, fuzzy, php-format
 msgid "%s log size limit exceeded"
 msgstr "%s loggstorlek överskrids"
 
-#: zp-core/functions-basic.php:1738
+#: zp-core/functions-basic.php:1743
 #, fuzzy, php-format
 msgid "The %1$s log has exceeded its size limit and has been renamed to %2$s."
 msgstr ""
@@ -12730,7 +12739,7 @@ msgstr ""
 #: zp-core/functions-db-NULL.php:95
 #, fuzzy
 msgid "No database"
-msgstr "databasen ansluten"
+msgstr "Databasanvändare"
 
 #: zp-core/functions-db-NULL.php:103
 #, fuzzy
@@ -13259,7 +13268,7 @@ msgstr "Cache: [ %s]"
 msgid "Image: [%s]"
 msgstr "Bild: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:611
+#: zp-core/functions-image.php:59 zp-core/lib-auth.php:668
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 msgid "Debug"
 msgstr "Felsökning"
@@ -13427,17 +13436,17 @@ msgstr ""
 msgid "0 Bytes"
 msgstr "0 byte"
 
-#: zp-core/functions.php:2573
+#: zp-core/functions.php:2580
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a number."
 msgstr "<em>[%1$s]</em> parametern% 2 $ d ska vara ett nummer."
 
-#: zp-core/functions.php:2581
+#: zp-core/functions.php:2588
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d should be a string."
 msgstr "<em>[%1$s]</em> -parametern% 2 $ d ska vara en sträng."
 
-#: zp-core/functions.php:2594
+#: zp-core/functions.php:2601
 #, fuzzy, php-format
 msgid ""
 "<em>[%1$s]</em> parameter %2$d should be <code>true</code> or <code>false</"
@@ -13446,39 +13455,39 @@ msgstr ""
 "<em>[%1$s]</em> -parametern% 2 $ d borde vara <code>true</code> eller "
 "<code>false</code> ."
 
-#: zp-core/functions.php:2613
+#: zp-core/functions.php:2620
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is incorrectly defined."
 msgstr "<em>[%1$s]</em> -parametern% 2 $ d är felaktigt definierad."
 
-#: zp-core/functions.php:2619
+#: zp-core/functions.php:2626
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> parameter %2$d is missing."
 msgstr "<em>[%1$s]</em> -parametern% 2 $ d saknas."
 
-#: zp-core/functions.php:2628
+#: zp-core/functions.php:2635
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> macro does not take parameters"
 msgstr "<em>[%1$s]</em> makro tar inte parametrar"
 
-#: zp-core/functions.php:2654 zp-core/functions.php:2681
+#: zp-core/functions.php:2661 zp-core/functions.php:2688
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> retuned no data"
 msgstr "<em>[%1$s]</em> retuned ingen data"
 
-#: zp-core/functions.php:2659
+#: zp-core/functions.php:2666
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> <code>%2$s</code> is not callable"
 msgstr "<em>[%1$s]</em> <code>%2$s</code> inte ringas"
 
-#: zp-core/functions.php:2686
+#: zp-core/functions.php:2693
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> takes %2$d parameter"
 msgid_plural "<em>[%1$s]</em> takes %2$d parameters"
 msgstr[0] "<em>[%1$s]</em> tar% 2 $ d parametern"
 msgstr[1] "<em>[%1$s]</em> tar% 2 $ d parametrar"
 
-#: zp-core/functions.php:3071 zp-core/zp-extensions/comment_form.php:112
+#: zp-core/functions.php:3078 zp-core/zp-extensions/comment_form.php:112
 #: zp-core/zp-extensions/contact_form.php:133
 #: zp-core/zp-extensions/register_user.php:80
 #, fuzzy
@@ -13677,12 +13686,12 @@ msgstr "PHP Imagick bibliotek <em> %s</em>"
 msgid "There is no PHP Graphics support."
 msgstr "Det finns inget PHP Graphics-stöd."
 
-#: zp-core/lib-auth.php:91
+#: zp-core/lib-auth.php:114
 #, fuzzy
 msgid "Primary album edit"
 msgstr "Ändra primäralbum"
 
-#: zp-core/lib-auth.php:93
+#: zp-core/lib-auth.php:116
 #, fuzzy
 msgid ""
 "Check if you want <em>edit rights</em> automatically assigned when a user "
@@ -13691,12 +13700,12 @@ msgstr ""
 "Kontrollera om du vill ha <em>redigeringsrättigheter som</em> automatiskt är "
 "tilldelade när ett användarens <em>primära album</em> skapas."
 
-#: zp-core/lib-auth.php:94
+#: zp-core/lib-auth.php:118
 #, fuzzy
 msgid "Minimum password strength"
 msgstr "Minsta lösenordsstyrka"
 
-#: zp-core/lib-auth.php:96
+#: zp-core/lib-auth.php:120
 #, fuzzy, php-format
 msgid ""
 "Users must provide passwords a strength of at least %s. The repeat password "
@@ -13705,36 +13714,45 @@ msgstr ""
 "Användare måste ge lösenord en styrka på minst %s. Fältet Upprepa lösenord "
 "kommer att inaktiveras tills det här golvet är uppfyllt."
 
-#: zp-core/lib-auth.php:97
+#: zp-core/lib-auth.php:121
 #, fuzzy
 msgid "Password hash algorithm"
 msgstr "Lösenordshastighetsalgoritm"
 
-#: zp-core/lib-auth.php:100
+#: zp-core/lib-auth.php:124
 #, fuzzy, php-format
 msgid ""
 "The hashing algorithm to be used. In order of robustness the choices are %s"
 msgstr ""
 "Den hashingalgoritm som ska användas. I enlighet med robusthet är valen %s"
 
-#: zp-core/lib-auth.php:101
+#: zp-core/lib-auth.php:124
+#, fuzzy
+msgid ""
+"Note: The <code>default</code> choice  is designed to change over time as "
+"new and stronger algorithms are added to PHP."
+msgstr ""
+"Obs! <code>default</code> är utformat för att förändras över tiden, eftersom "
+"nya och starkare algoritmer läggs till i PHP."
+
+#: zp-core/lib-auth.php:125
 #, fuzzy
 msgid "Enable Challenge phrase"
 msgstr "Aktivera Challenge-fras"
 
-#: zp-core/lib-auth.php:103
+#: zp-core/lib-auth.php:127
 #, fuzzy
 msgid "Check to allow password reset by challenge phrase responses."
 msgstr ""
 "Kontrollera om du vill tillåta återställning av lösenord genom att utmana "
 "formulärsvar."
 
-#: zp-core/lib-auth.php:106
+#: zp-core/lib-auth.php:130
 #, fuzzy
 msgid "Challenge phrase foils"
 msgstr "Utmaningsfraser"
 
-#: zp-core/lib-auth.php:108
+#: zp-core/lib-auth.php:132
 #, fuzzy
 msgid ""
 "These <em>foil</em> challenge phrases will be presented randomly. This list "
@@ -13745,7 +13763,12 @@ msgstr ""
 "listan ska inte vara tom, annars kan hackare upptäcka giltiga användar-ID "
 "och vet att det finns ett svar på alla presenterade utmaningar."
 
-#: zp-core/lib-auth.php:422
+#: zp-core/lib-auth.php:138
+#, fuzzy
+msgid "You should use a more robust hashing algorithm."
+msgstr "Du bör använda en mer robust hashingalgoritm."
+
+#: zp-core/lib-auth.php:479
 #, fuzzy, php-format
 msgid ""
 "Cannot migrate rights to version %1$s (Zenphoto_Authority supports only %2$s "
@@ -13754,46 +13777,46 @@ msgstr ""
 "Kan inte migrera rättigheter till version%1$s (Zenphoto_Authority stöder "
 "endast%2$s och%3$s.)"
 
-#: zp-core/lib-auth.php:549 zp-core/lib-auth.php:564 zp-core/lib-auth.php:583
-#: zp-core/lib-auth.php:608
+#: zp-core/lib-auth.php:606 zp-core/lib-auth.php:621 zp-core/lib-auth.php:640
+#: zp-core/lib-auth.php:665
 msgid "No rights"
 msgstr "Inga rättigheter"
 
-#: zp-core/lib-auth.php:550 zp-core/lib-auth.php:565 zp-core/lib-auth.php:584
-#: zp-core/lib-auth.php:609 zp-core/template-functions.php:95
+#: zp-core/lib-auth.php:607 zp-core/lib-auth.php:622 zp-core/lib-auth.php:641
+#: zp-core/lib-auth.php:666 zp-core/template-functions.php:95
 msgid "Overview"
 msgstr "Överblick"
 
-#: zp-core/lib-auth.php:551 zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:608 zp-core/lib-auth.php:623
 msgid "View all"
 msgstr "Visa alla"
 
-#: zp-core/lib-auth.php:552 zp-core/lib-auth.php:567 zp-core/lib-auth.php:594
-#: zp-core/lib-auth.php:622 zp-core/template-functions.php:102
+#: zp-core/lib-auth.php:609 zp-core/lib-auth.php:624 zp-core/lib-auth.php:651
+#: zp-core/lib-auth.php:679 zp-core/template-functions.php:102
 #: zp-core/zp-extensions/uploader_http/upload_form.php:69
 #: zp-core/zp-extensions/uploader_http/upload_form.php:71
 msgid "Upload"
 msgstr "Ladda upp"
 
-#: zp-core/lib-auth.php:553 zp-core/lib-auth.php:568 zp-core/lib-auth.php:592
-#: zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:625 zp-core/lib-auth.php:649
+#: zp-core/lib-auth.php:677
 msgid "Post comments"
 msgstr "Skicka kommentarer"
 
-#: zp-core/lib-auth.php:556 zp-core/lib-auth.php:576
+#: zp-core/lib-auth.php:613 zp-core/lib-auth.php:633
 msgid "Manage all albums"
 msgstr "Hantera alla album"
 
-#: zp-core/lib-auth.php:558
+#: zp-core/lib-auth.php:615
 msgid "Zenpage"
 msgstr "Zenpage"
 
-#: zp-core/lib-auth.php:565 zp-core/lib-auth.php:584 zp-core/lib-auth.php:609
+#: zp-core/lib-auth.php:622 zp-core/lib-auth.php:641 zp-core/lib-auth.php:666
 #, fuzzy
 msgid "Users with this right may view the admin overview page."
 msgstr "Användare med denna rätt kan se administratörsöversiktssidan."
 
-#: zp-core/lib-auth.php:566
+#: zp-core/lib-auth.php:623
 #, fuzzy
 msgid ""
 "Users with this right may view all of the gallery regardless of protection "
@@ -13806,7 +13829,7 @@ msgstr ""
 "sina hanterade objektlistor eller som beviljas av Visa sök eller Visa "
 "galleri."
 
-#: zp-core/lib-auth.php:567 zp-core/lib-auth.php:594 zp-core/lib-auth.php:622
+#: zp-core/lib-auth.php:624 zp-core/lib-auth.php:651 zp-core/lib-auth.php:679
 #, fuzzy
 msgid ""
 "Users with this right may upload to the albums for which they have "
@@ -13815,7 +13838,7 @@ msgstr ""
 "Användare med denna rätt kan ladda upp till albumen som de har "
 "ledningsrättigheter för."
 
-#: zp-core/lib-auth.php:568 zp-core/lib-auth.php:592 zp-core/lib-auth.php:620
+#: zp-core/lib-auth.php:625 zp-core/lib-auth.php:649 zp-core/lib-auth.php:677
 #, fuzzy
 msgid ""
 "When the comment_form plugin is used for comments and its \"Only members can "
@@ -13825,24 +13848,24 @@ msgstr ""
 "Endast medlemmar kan kommentera&quot; är inställt, kan bara användare med "
 "denna rätt skriva in kommentarer."
 
-#: zp-core/lib-auth.php:569 zp-core/lib-auth.php:593 zp-core/lib-auth.php:621
+#: zp-core/lib-auth.php:626 zp-core/lib-auth.php:650 zp-core/lib-auth.php:678
 #, fuzzy
 msgid "Users with this right may make comments tab changes."
 msgstr "Användare med den här rätten kan göra ändringar i kommentarfliken."
 
-#: zp-core/lib-auth.php:570 zp-core/lib-auth.php:598 zp-core/lib-auth.php:627
+#: zp-core/lib-auth.php:627 zp-core/lib-auth.php:655 zp-core/lib-auth.php:684
 #, fuzzy
 msgid "Users with this right may access the “albums” tab to make changes."
 msgstr ""
 "Användare med denna rätt får komma åt fliken &quot;Album&quot; för att göra "
 "ändringar."
 
-#: zp-core/lib-auth.php:571 zp-core/lib-auth.php:596 zp-core/lib-auth.php:625
+#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:653 zp-core/lib-auth.php:682
 #, fuzzy
 msgid "Users with this right may edit and manage Zenpage pages."
 msgstr "Användare med denna rätt kan redigera och hantera Zenpage-sidor."
 
-#: zp-core/lib-auth.php:572 zp-core/lib-auth.php:595 zp-core/lib-auth.php:624
+#: zp-core/lib-auth.php:629 zp-core/lib-auth.php:652 zp-core/lib-auth.php:681
 #, fuzzy
 msgid ""
 "Users with this right may edit and manage Zenpage articles and categories."
@@ -13850,11 +13873,11 @@ msgstr ""
 "Användare med denna rätt kan redigera och hantera Zenpage-artiklar och "
 "kategorier."
 
-#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:597 zp-core/lib-auth.php:626
+#: zp-core/lib-auth.php:630 zp-core/lib-auth.php:654 zp-core/lib-auth.php:683
 msgid "Files"
 msgstr "Filer"
 
-#: zp-core/lib-auth.php:573 zp-core/lib-auth.php:597 zp-core/lib-auth.php:626
+#: zp-core/lib-auth.php:630 zp-core/lib-auth.php:654 zp-core/lib-auth.php:683
 #, fuzzy
 msgid ""
 "Allows the user access to the “filemanager” located on the upload: files sub-"
@@ -13863,11 +13886,11 @@ msgstr ""
 "Tillåter användaren tillgång till &quot;filhanteraren&quot; som finns på "
 "uppladdningen: underfliken för filer."
 
-#: zp-core/lib-auth.php:574
+#: zp-core/lib-auth.php:631
 msgid "Manage all pages"
 msgstr "Hantera alla sidor"
 
-#: zp-core/lib-auth.php:574 zp-core/lib-auth.php:600 zp-core/lib-auth.php:629
+#: zp-core/lib-auth.php:631 zp-core/lib-auth.php:657 zp-core/lib-auth.php:686
 #, fuzzy
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
@@ -13878,11 +13901,11 @@ msgstr ""
 "till att hantera endast objekt som de har tilldelats. Denna rättighet "
 "tillåter dem att hantera någon Zenpage-sida."
 
-#: zp-core/lib-auth.php:575
+#: zp-core/lib-auth.php:632
 msgid "Manage all news"
 msgstr "Hantera alla nyheter"
 
-#: zp-core/lib-auth.php:575 zp-core/lib-auth.php:599 zp-core/lib-auth.php:628
+#: zp-core/lib-auth.php:632 zp-core/lib-auth.php:656 zp-core/lib-auth.php:685
 #, fuzzy
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
@@ -13894,7 +13917,7 @@ msgstr ""
 "det möjligt för dem att hantera någon nyhetsartikel eller kategori för "
 "Zenpage."
 
-#: zp-core/lib-auth.php:576 zp-core/lib-auth.php:601 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:633 zp-core/lib-auth.php:658 zp-core/lib-auth.php:687
 #, fuzzy
 msgid ""
 "Users who do not have “Admin” rights normally are restricted to manage only "
@@ -13905,7 +13928,7 @@ msgstr ""
 "till att hantera endast objekt som de har tilldelats. Med denna rätt kan de "
 "hantera album i galleriet."
 
-#: zp-core/lib-auth.php:577 zp-core/lib-auth.php:602 zp-core/lib-auth.php:633
+#: zp-core/lib-auth.php:634 zp-core/lib-auth.php:659 zp-core/lib-auth.php:690
 #, fuzzy
 msgid ""
 "Users with this right may make themes related changes. These are limited to "
@@ -13915,7 +13938,7 @@ msgstr ""
 "begränsade till teman som är associerade med album som kontrolleras i listan "
 "över hanterade album."
 
-#: zp-core/lib-auth.php:578 zp-core/lib-auth.php:603 zp-core/lib-auth.php:635
+#: zp-core/lib-auth.php:635 zp-core/lib-auth.php:660 zp-core/lib-auth.php:692
 #, fuzzy
 msgid ""
 "Users with this right may make additions and changes to the set of tags."
@@ -13923,12 +13946,12 @@ msgstr ""
 "Användare med denna rätt kan göra tillägg och ändringar i uppsättningen "
 "taggar."
 
-#: zp-core/lib-auth.php:579 zp-core/lib-auth.php:604 zp-core/lib-auth.php:636
+#: zp-core/lib-auth.php:636 zp-core/lib-auth.php:661 zp-core/lib-auth.php:693
 #, fuzzy
 msgid "Users with this right may make changes on the options."
 msgstr "Användare med denna rätt kan göra ändringar på alternativen."
 
-#: zp-core/lib-auth.php:580 zp-core/lib-auth.php:605 zp-core/lib-auth.php:637
+#: zp-core/lib-auth.php:637 zp-core/lib-auth.php:662 zp-core/lib-auth.php:694
 #, fuzzy
 msgid ""
 "The master privilege. A user with \"Admin\" can do anything. (No matter what "
@@ -13937,117 +13960,117 @@ msgstr ""
 "Befälhavarens privilegium. En användare med &quot;Admin&quot; kan göra "
 "någonting. (Oavsett vad hans andra rättigheter kan indikera!)"
 
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:612
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:669
 #, fuzzy
 msgid "View gallery"
 msgstr "Visa galleri-index"
 
-#: zp-core/lib-auth.php:585 zp-core/lib-auth.php:612
+#: zp-core/lib-auth.php:642 zp-core/lib-auth.php:669
 #, fuzzy
 msgid ""
 "Users with this right may view otherwise protected generic gallery pages."
 msgstr "Användare med denna rätt får se andra skyddade generiska gallerisidor."
 
-#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:613
+#: zp-core/lib-auth.php:643 zp-core/lib-auth.php:670
 #, fuzzy
 msgid "View search"
 msgstr "Visa sökning"
 
-#: zp-core/lib-auth.php:586 zp-core/lib-auth.php:613
+#: zp-core/lib-auth.php:643 zp-core/lib-auth.php:670
 #, fuzzy
 msgid "Users with this right may view search pages even if password protected."
 msgstr "Användare med denna rätt kan visa söksidor även om lösenordsskyddad."
 
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:671
 #, fuzzy
 msgid "View fullimage"
 msgstr "Visa fullimage"
 
-#: zp-core/lib-auth.php:587 zp-core/lib-auth.php:614
+#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:671
 #, fuzzy
 msgid "Users with this right may view all full sized (raw) images."
 msgstr "Användare med den här rätten kan se alla fullständiga (rå) bilder."
 
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:589 zp-core/lib-auth.php:590
-#: zp-core/lib-auth.php:615 zp-core/lib-auth.php:616 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:645 zp-core/lib-auth.php:646 zp-core/lib-auth.php:647
+#: zp-core/lib-auth.php:672 zp-core/lib-auth.php:673 zp-core/lib-auth.php:674
 #, fuzzy
 msgid "Access all"
 msgstr "Få tillgång till alla"
 
-#: zp-core/lib-auth.php:588 zp-core/lib-auth.php:615
+#: zp-core/lib-auth.php:645 zp-core/lib-auth.php:672
 #, fuzzy
 msgid "Users with this right have access to all zenpage news articles."
 msgstr ""
 "Användare med denna rätt har tillgång till alla zenpage-nyhetsartiklar."
 
-#: zp-core/lib-auth.php:589 zp-core/lib-auth.php:616
+#: zp-core/lib-auth.php:646 zp-core/lib-auth.php:673
 #, fuzzy
 msgid "Users with this right have access to all zenpage pages."
 msgstr "Användare med denna rätt har tillgång till alla zenpage-sidor."
 
-#: zp-core/lib-auth.php:590 zp-core/lib-auth.php:617
+#: zp-core/lib-auth.php:647 zp-core/lib-auth.php:674
 #, fuzzy
 msgid "Users with this right have access to all albums."
 msgstr "Användare med denna rätt har tillgång till alla album."
 
-#: zp-core/lib-auth.php:591 zp-core/lib-auth.php:618 zp-core/lib-auth.php:619
-#: zp-core/lib-auth.php:623
+#: zp-core/lib-auth.php:648 zp-core/lib-auth.php:675 zp-core/lib-auth.php:676
+#: zp-core/lib-auth.php:680
 #, fuzzy
 msgid "View unpublished"
 msgstr "Visa opublicerad"
 
-#: zp-core/lib-auth.php:591 zp-core/lib-auth.php:618 zp-core/lib-auth.php:619
-#: zp-core/lib-auth.php:623
+#: zp-core/lib-auth.php:648 zp-core/lib-auth.php:675 zp-core/lib-auth.php:676
+#: zp-core/lib-auth.php:680
 #, fuzzy
 msgid "Users with this right will see all unpublished items."
 msgstr "Användare med den här rätten kommer se alla opublicerade objekt."
 
-#: zp-core/lib-auth.php:599 zp-core/lib-auth.php:600 zp-core/lib-auth.php:601
-#: zp-core/lib-auth.php:628 zp-core/lib-auth.php:629 zp-core/lib-auth.php:630
+#: zp-core/lib-auth.php:656 zp-core/lib-auth.php:657 zp-core/lib-auth.php:658
+#: zp-core/lib-auth.php:685 zp-core/lib-auth.php:686 zp-core/lib-auth.php:687
 #, fuzzy
 msgid "Manage all"
 msgstr "Hantera alla nyheter"
 
-#: zp-core/lib-auth.php:610 zp-core/lib-auth.php:1004 zp-core/lib-auth.php:1107
+#: zp-core/lib-auth.php:667 zp-core/lib-auth.php:1066 zp-core/lib-auth.php:1169
 #: zp-core/zp-extensions/favoritesHandler.php:272
 #, fuzzy
 msgid "User"
 msgstr "användare:"
 
-#: zp-core/lib-auth.php:610
+#: zp-core/lib-auth.php:667
 #, fuzzy
 msgid "Users must have this right to change their credentials."
 msgstr "Användare måste ha rätt att ändra sina uppgifter."
 
-#: zp-core/lib-auth.php:611
+#: zp-core/lib-auth.php:668
 #, fuzzy
 msgid "Allows viewing of the debug tab items."
 msgstr "Tillåter visning av felsökningsflikarna."
 
-#: zp-core/lib-auth.php:632
+#: zp-core/lib-auth.php:689
 #, fuzzy
 msgid "Codeblock"
 msgstr "Du kan även använda kodblock fälten som anpassade fält."
 
-#: zp-core/lib-auth.php:632
+#: zp-core/lib-auth.php:689
 #, fuzzy
 msgid "Users with this right may edit Codeblocks."
 msgstr "Användare med denna rätt kan redigera Codeblocks."
 
-#: zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:701
 msgid "All rights"
 msgstr "Alla rättigheter"
 
-#: zp-core/lib-auth.php:645 zp-core/zp-extensions/register_user.php:117
+#: zp-core/lib-auth.php:702 zp-core/zp-extensions/register_user.php:117
 msgid "Default rights"
 msgstr "Standard rättigheter"
 
-#: zp-core/lib-auth.php:734
+#: zp-core/lib-auth.php:791
 #, fuzzy
 msgid "Sorry, that is not the answer."
 msgstr "Tyvärr, det är inte svaret."
 
-#: zp-core/lib-auth.php:741
+#: zp-core/lib-auth.php:798
 #, fuzzy
 msgid ""
 "You are receiving this e-mail because of a password reset request on your "
@@ -14056,7 +14079,7 @@ msgstr ""
 "Du får denna e-post på grund av en begäran om återställning av lösenord på "
 "ditt galleri."
 
-#: zp-core/lib-auth.php:743
+#: zp-core/lib-auth.php:800
 #, fuzzy, php-format
 msgid ""
 "You are receiving this e-mail because of a password reset request on your "
@@ -14065,16 +14088,16 @@ msgstr ""
 "Du får denna e-post på grund av en begäran om återställning av lösenord på "
 "ditt galleri från en användare som försökte logga in som %s."
 
-#: zp-core/lib-auth.php:783
+#: zp-core/lib-auth.php:840
 msgid "There was no one to which to send the reset request."
 msgstr "Det fanns ingen att skicka återställningsförfrågan till."
 
-#: zp-core/lib-auth.php:788
+#: zp-core/lib-auth.php:845
 #, fuzzy, php-format
 msgid "To reset your Admin passwords visit: %s"
 msgstr "För att återställa dina administratörslösenord besök: %s"
 
-#: zp-core/lib-auth.php:789
+#: zp-core/lib-auth.php:846
 msgid ""
 "If you do not wish to reset your passwords just ignore this message. This "
 "ticket will automatically expire in 3 days."
@@ -14082,51 +14105,51 @@ msgstr ""
 "Vill du inte återställa ditt lösenord ignorera då detta meddelande. Begäran "
 "kommer att förfalla efter 3 dagar."
 
-#: zp-core/lib-auth.php:791
+#: zp-core/lib-auth.php:848
 #, fuzzy
 msgid "No matching user was found."
 msgstr "Ingen matchande användare hittades."
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:850
 #, fuzzy
 msgid "The information you requested"
 msgstr "Den information du begärde"
 
-#: zp-core/lib-auth.php:793
+#: zp-core/lib-auth.php:850
 #, fuzzy, php-format
 msgid "%1$s password reset request mail failed."
 msgstr "%1$s återställningsförfrågan för e-post misslyckades."
 
-#: zp-core/lib-auth.php:798
+#: zp-core/lib-auth.php:855
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Reset request failed."
 msgstr "Återställningsförfrågan misslyckades"
 
-#: zp-core/lib-auth.php:802
+#: zp-core/lib-auth.php:859
 #: zp-core/zp-extensions/comment_form/functions.php:380
 #: zp-core/zp-extensions/register_user.php:466
 msgid "CAPTCHA verification failed."
 msgstr "CAPTCHA-verifiering misslyckades."
 
-#: zp-core/lib-auth.php:966
+#: zp-core/lib-auth.php:1028
 msgid "There was an error logging in."
 msgstr "Kunde inte logga in."
 
-#: zp-core/lib-auth.php:969
+#: zp-core/lib-auth.php:1031
 msgid "Check your username and password and try again."
 msgstr "Verifiera användarnamn och lösenord, försök sedan på nytt"
 
-#: zp-core/lib-auth.php:971
+#: zp-core/lib-auth.php:1033
 #, fuzzy
 msgid "Check password and try again."
 msgstr "Kontrollera lösenordet och försök igen."
 
-#: zp-core/lib-auth.php:980
+#: zp-core/lib-auth.php:1042
 msgid "A reset request has been sent."
 msgstr "Återställningsförfrågan har sänts."
 
-#: zp-core/lib-auth.php:1010
+#: zp-core/lib-auth.php:1072
 #, fuzzy
 msgid ""
 "Supply the correct response to the question below and you will be directed "
@@ -14135,17 +14158,17 @@ msgstr ""
 "Ange rätt svar på frågan nedan och du kommer att riktas till en sida där du "
 "kan ändra ditt lösenord."
 
-#: zp-core/lib-auth.php:1011
+#: zp-core/lib-auth.php:1073
 #, fuzzy
 msgid "Challenge question:"
 msgstr "Utmaningsfråga:"
 
-#: zp-core/lib-auth.php:1016
+#: zp-core/lib-auth.php:1078
 #, fuzzy
 msgid "Your response"
 msgstr "Ditt svar"
 
-#: zp-core/lib-auth.php:1025
+#: zp-core/lib-auth.php:1087
 #, fuzzy
 msgid ""
 "Enter your User ID and press <code>Refresh</code> to get your challenge "
@@ -14154,7 +14177,7 @@ msgstr ""
 "Ange ditt användar-ID och tryck på <code>Refresh</code> att få din "
 "utmaningsfråga."
 
-#: zp-core/lib-auth.php:1036 zp-core/lib-auth.php:1038
+#: zp-core/lib-auth.php:1098 zp-core/lib-auth.php:1100
 #: zp-core/setup/index.php:1652
 #: zp-core/zp-extensions/cacheManager/cacheDBImages.php:214
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:366
@@ -14162,73 +14185,73 @@ msgstr ""
 msgid "Refresh"
 msgstr "Uppdatera metadata för albumet %s"
 
-#: zp-core/lib-auth.php:1040 zp-core/lib-auth.php:1042
-#: zp-core/lib-auth.php:1212 zp-core/lib-auth.php:1214
+#: zp-core/lib-auth.php:1102 zp-core/lib-auth.php:1104
+#: zp-core/lib-auth.php:1274 zp-core/lib-auth.php:1276
 #, fuzzy
 msgid "Return"
 msgstr "Tillbaka"
 
-#: zp-core/lib-auth.php:1053
+#: zp-core/lib-auth.php:1115
 #, fuzzy
 msgid "Request reset by e-mail"
 msgstr "Begär återställning via e-post"
 
-#: zp-core/lib-auth.php:1086
+#: zp-core/lib-auth.php:1148
 #, fuzzy, php-format
 msgid "Logon using:%s"
 msgstr "Inloggning med: %s"
 
-#: zp-core/lib-auth.php:1122 zp-core/lib-auth.php:1124
+#: zp-core/lib-auth.php:1184 zp-core/lib-auth.php:1186
 msgid "Log in"
 msgstr "Logga in"
 
-#: zp-core/lib-auth.php:1144 zp-core/lib-auth.php:1153
+#: zp-core/lib-auth.php:1206 zp-core/lib-auth.php:1215
 #, fuzzy
 msgid "I forgot my <strong>User ID</strong>/<strong>Password</strong>"
 msgstr ""
 "Jag har glömt mitt <strong>användarnamn</strong> / <strong>lösenord</strong>"
 
-#: zp-core/lib-auth.php:1186
+#: zp-core/lib-auth.php:1248
 #, fuzzy
 msgid "User name or e-mail address"
 msgstr "Användarnamn eller e-mailadress"
 
-#: zp-core/lib-auth.php:1210
+#: zp-core/lib-auth.php:1272
 #, fuzzy
 msgid "Request password reset"
 msgstr "Begär lösenordsåterställning"
 
-#: zp-core/lib-auth.php:1295
+#: zp-core/lib-auth.php:1357
 #, fuzzy
 msgid "password strength weak"
 msgstr "Lösenordsstyrka: Svag"
 
-#: zp-core/lib-auth.php:1298
+#: zp-core/lib-auth.php:1360
 #, fuzzy
 msgid "password strength good"
 msgstr "lösenordsstyrkan bra"
 
-#: zp-core/lib-auth.php:1301
+#: zp-core/lib-auth.php:1363
 #, fuzzy
 msgid "password strength strong"
 msgstr "Lösenordsstyrkan är stark"
 
-#: zp-core/lib-auth.php:1306
+#: zp-core/lib-auth.php:1368
 #, fuzzy
 msgid "password strength too weak"
 msgstr "Lösenordsstyrkan är för svag"
 
-#: zp-core/lib-auth.php:1326
+#: zp-core/lib-auth.php:1388
 #, fuzzy
 msgid "passwords match"
 msgstr "Lösenorden matchar"
 
-#: zp-core/lib-auth.php:1330
+#: zp-core/lib-auth.php:1392
 #, fuzzy
 msgid "passwords do not match"
 msgstr "Lösenorden matchar inte"
 
-#: zp-core/lib-auth.php:1421
+#: zp-core/lib-auth.php:1483
 #, fuzzy
 msgid "Repeat password"
 msgstr "Upprepa lösenord"
@@ -16216,69 +16239,69 @@ msgstr "Filen%1$s existerar inte."
 msgid "Testing %s."
 msgstr "Testning %s."
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 #, fuzzy
 msgid "Fail: "
 msgstr "Misslyckas:"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 #, fuzzy
 msgid "Warn: "
 msgstr "Varna:"
 
-#: zp-core/setup/setup-functions.php:73
+#: zp-core/setup/setup-functions.php:75
 #, fuzzy
 msgid "Pass: "
 msgstr "Släpp igenom"
 
-#: zp-core/setup/setup-functions.php:132
+#: zp-core/setup/setup-functions.php:137
 msgid "Error!"
 msgstr "Fel!"
 
-#: zp-core/setup/setup-functions.php:141 zp-core/setup/setup-functions.php:156
+#: zp-core/setup/setup-functions.php:146 zp-core/setup/setup-functions.php:161
 msgid "Warning!"
 msgstr "Varning!"
 
-#: zp-core/setup/setup-functions.php:153
+#: zp-core/setup/setup-functions.php:158
 #, fuzzy
 msgid "<strong>Warning!</strong> click for details"
 msgstr "<strong>Varning!</strong> Klicka för detaljer"
 
-#: zp-core/setup/setup-functions.php:161
+#: zp-core/setup/setup-functions.php:166
 msgid "<strong>Notice!</strong> click for details"
 msgstr "<strong>Notera!</strong> klicka för detaljer"
 
-#: zp-core/setup/setup-functions.php:164
+#: zp-core/setup/setup-functions.php:169
 msgid "Notice!"
 msgstr "Notera!"
 
-#: zp-core/setup/setup-functions.php:186
+#: zp-core/setup/setup-functions.php:191
 #, fuzzy
 msgid "Autorun aborted"
 msgstr "Autorun avbröts"
 
-#: zp-core/setup/setup-functions.php:240
+#: zp-core/setup/setup-functions.php:245
 #, php-format
 msgid "<em>%1$s</em> folder%2$s [subfolder creation failure]"
 msgstr "<em>%1$s</em> folder%2$s [problem med skapa underalbum]"
 
-#: zp-core/setup/setup-functions.php:240
+#: zp-core/setup/setup-functions.php:245
 #, php-format
 msgid "Setup could not create the following subfolders:<br />%s"
 msgstr "Installationen kunde inte skapa följande undermappar:<br />%s"
 
-#: zp-core/setup/setup-functions.php:259 zp-core/setup/setup-functions.php:264
+#: zp-core/setup/setup-functions.php:264 zp-core/setup/setup-functions.php:269
 #: zp-core/zp-extensions/deprecated-functions.php:179
 #: zp-core/zp-extensions/purgeOptions.php:93
 msgid "unknown"
 msgstr "okänt"
 
-#: zp-core/setup/setup-functions.php:266
+#: zp-core/setup/setup-functions.php:271
 #, php-format
 msgid "<em>%1$s</em> folder%2$s [permissions failure]"
 msgstr "<em>%1$s</em> folder%2$s [rättighetsfel]"
 
-#: zp-core/setup/setup-functions.php:266
+#: zp-core/setup/setup-functions.php:271
 #, fuzzy, php-format
 msgid ""
 "Setup could not change the file permissions from <em>%1$s</em> (<code>0%2$o</"
@@ -16289,19 +16312,19 @@ msgstr ""
 "code> ) till <em>%3$s</em> ( <code>0%4$o</code> ). Du måste ställa in "
 "behörigheterna manuellt."
 
-#: zp-core/setup/setup-functions.php:303
+#: zp-core/setup/setup-functions.php:308
 #, php-format
 msgid ""
 "You must create the folder <em>%1$s</em><br /><code>mkdir(%2$s, 0777)</code>."
 msgstr ""
 "Du måste skapa mappen <em>%1$s</em><br /><code>mkdir(%2$s, 0777)</code>."
 
-#: zp-core/setup/setup-functions.php:305
+#: zp-core/setup/setup-functions.php:310
 #, php-format
 msgid "<em>%1$s</em> folder [<em>%2$s</em> does not exist]"
 msgstr "<em>%1$s</em>-mappen [<em>%2$s</em> existerar inte]"
 
-#: zp-core/setup/setup-functions.php:307
+#: zp-core/setup/setup-functions.php:312
 #, php-format
 msgid ""
 "<em>%1$s</em> folder [<em>%2$s</em> does not exist and <strong>setup</"
@@ -16310,7 +16333,7 @@ msgstr ""
 "<em>%1$s</em>-mappen [<em>%2$s</em> existerar inte och <strong>setup</"
 "strong> kunde inte skapa den]"
 
-#: zp-core/setup/setup-functions.php:310
+#: zp-core/setup/setup-functions.php:315
 #, php-format
 msgid ""
 "Change the permissions on the <code>%1$s</code> folder to be writable by the "
@@ -16319,7 +16342,7 @@ msgstr ""
 "Ändra rättigheter på mappen <code>%1$s</code> till att vara skrivbar för "
 "servern(<code>chmod 777 %2$s</code>)"
 
-#: zp-core/setup/setup-functions.php:311
+#: zp-core/setup/setup-functions.php:316
 #, php-format
 msgid ""
 "<em>%1$s</em> folder [<em>%2$s</em> is not writeable and <strong>setup</"
@@ -16328,34 +16351,34 @@ msgstr ""
 "<em>%1$s</em>-mappen [<em>%2$s</em> är inte skrivbar och <strong>setup</"
 "strong> kunde inte ändra]"
 
-#: zp-core/setup/setup-functions.php:313
+#: zp-core/setup/setup-functions.php:318
 #, php-format
 msgid "<em>%1$s</em> folder%2$s"
 msgstr "<em>%1$s</em>-mappen%2$s"
 
-#: zp-core/setup/setup-functions.php:353 zp-core/setup/setup-functions.php:367
+#: zp-core/setup/setup-functions.php:358 zp-core/setup/setup-functions.php:372
 #, fuzzy
 msgid "change the definition"
 msgstr "ändra definitionen"
 
-#: zp-core/setup/setup-functions.php:353 zp-core/setup/setup-functions.php:367
+#: zp-core/setup/setup-functions.php:358 zp-core/setup/setup-functions.php:372
 #, fuzzy
 msgid "apply"
 msgstr ""
 "Lägg på <em>effekt</em> på bilder som visas genom "
 "<code>printDefaultSizedImage()</code>-funktionen."
 
-#: zp-core/setup/setup-functions.php:363
+#: zp-core/setup/setup-functions.php:368
 #, php-format
 msgid "%1$s (0%2$o)"
 msgstr "%1$s (0%2$o)"
 
-#: zp-core/setup/setup-functions.php:409
+#: zp-core/setup/setup-functions.php:414
 #, fuzzy
 msgid "An attempt at cross site reference forgery has been blocked."
 msgstr "Ett försök på förfalskning på plats har blivit blockerad."
 
-#: zp-core/setup/setup-functions.php:436
+#: zp-core/setup/setup-functions.php:441
 #, fuzzy, php-format
 msgid ""
 "Click <a href=\"%s\">here</a> to acknowledge that you wish to ignore this "
@@ -16364,7 +16387,7 @@ msgstr ""
 "Klicka <a href=\"%s\">här för</a> att bekräfta att du vill ignorera denna "
 "fråga. Det blir då en varning."
 
-#: zp-core/setup/setup-functions.php:495
+#: zp-core/setup/setup-functions.php:500
 #, fuzzy, php-format
 msgid ""
 "<strong>Warning:</strong> the <code>%s</code> table appears not to have a "
@@ -16381,27 +16404,27 @@ msgstr ""
 "installationsprogrammet för att återställa tabellen och återställa från "
 "backupen. Observera dock att de dubbla inmatningarna kommer att gå vilse."
 
-#: zp-core/setup/setup-functions.php:518
+#: zp-core/setup/setup-functions.php:523
 #, fuzzy, php-format
 msgid "Query Success: %s"
 msgstr "Frågans framgång: %s"
 
-#: zp-core/setup/setup-functions.php:523
+#: zp-core/setup/setup-functions.php:528
 #, fuzzy, php-format
 msgid "Query Failed: %1$s "
 msgstr "Förfrågan misslyckades:%1$s"
 
-#: zp-core/setup/setup-functions.php:555
+#: zp-core/setup/setup-functions.php:560
 #, fuzzy, php-format
 msgid "%1$s *ERROR* \"%2$s\" in %3$s on line %4$s"
 msgstr "%1$s * ERROR * &quot;%2$s&quot; i%3$s på rad%4$s"
 
-#: zp-core/setup/setup-functions.php:560
+#: zp-core/setup/setup-functions.php:565
 #, fuzzy, php-format
 msgid "%1$s disabled."
 msgstr "%1$s inaktiverad."
 
-#: zp-core/setup/setup-functions.php:562
+#: zp-core/setup/setup-functions.php:567
 #, fuzzy, php-format
 msgid "%1$s setup failed."
 msgstr "Inställningen för%1$s misslyckades."
@@ -16794,136 +16817,136 @@ msgstr "Återgå till arkiv"
 msgid "The image is marked un-published."
 msgstr "Bilden är markerad opublicerad."
 
-#: zp-core/template-functions.php:3887
+#: zp-core/template-functions.php:3885
 #, fuzzy, php-format
 msgid "%s within previous results"
 msgstr "%s inom tidigare resultat"
 
-#: zp-core/template-functions.php:3964
+#: zp-core/template-functions.php:3962
 #, fuzzy
 msgid "search options"
 msgstr "sökmöjligheter"
 
-#: zp-core/template-functions.php:3964
+#: zp-core/template-functions.php:3962
 #, fuzzy
 msgid "fields"
 msgstr "Du kan även använda kodblock fälten som anpassade fält."
 
-#: zp-core/template-functions.php:4003
+#: zp-core/template-functions.php:4001
 #, fuzzy
 msgid "Within"
 msgstr "Inom"
 
-#: zp-core/template-functions.php:4007
+#: zp-core/template-functions.php:4005
 #: zp-core/zp-extensions/flag_thumbnail.php:93
 #, fuzzy
 msgid "New"
 msgstr "Kan inte skapa nytt tema."
 
-#: zp-core/template-functions.php:4066
+#: zp-core/template-functions.php:4064
 msgid "no date"
 msgstr "inget datum"
 
-#: zp-core/template-functions.php:4266
+#: zp-core/template-functions.php:4264
 msgid "The page you are trying to view is password protected."
 msgstr "Sidan du försöker visa är lösenordsskyddad."
 
-#: zp-core/template-functions.php:4271
+#: zp-core/template-functions.php:4269
 #, fuzzy
 msgid "login"
 msgstr "Användarnamn"
 
-#: zp-core/template-functions.php:4290
+#: zp-core/template-functions.php:4288
 #, fuzzy
 msgid "A media oriented content management system"
 msgstr "Ett mediaorienterat innehållshanteringssystem"
 
-#: zp-core/template-functions.php:4291
+#: zp-core/template-functions.php:4289
 #, fuzzy, php-format
 msgid "Powered by %s"
 msgstr "Drivs av %s"
 
-#: zp-core/template-functions.php:4532
+#: zp-core/template-functions.php:4530
 msgid "Error:</strong> the requested object was not found."
 msgstr "ZenPhoto20 Fel:</strong> objektet hittades inte. "
 
-#: zp-core/template-functions.php:4534
+#: zp-core/template-functions.php:4532
 #, php-format
 msgid "Album: %s"
 msgstr "Album: %s"
 
-#: zp-core/template-functions.php:4536
+#: zp-core/template-functions.php:4534
 #, php-format
 msgid "Image: %s"
 msgstr "Bild: %s"
 
-#: zp-core/template-functions.php:4539
+#: zp-core/template-functions.php:4537
 #, php-format
 msgid "Page: %s"
 msgstr "Sida: %s"
 
-#: zp-core/utilities/backup_restore.php:170
+#: zp-core/utilities/backup_restore.php:169
 #, php-format
 msgid "Failed to open %s for writing."
 msgstr "Kunde inte öppna %s för skrivning."
 
-#: zp-core/utilities/backup_restore.php:176
-#: zp-core/utilities/backup_restore.php:195
+#: zp-core/utilities/backup_restore.php:175
+#: zp-core/utilities/backup_restore.php:194
 msgid "failed writing to backup!"
 msgstr "Kunde inte skapa säkerhetskopia!"
 
-#: zp-core/utilities/backup_restore.php:213
+#: zp-core/utilities/backup_restore.php:212
 #, fuzzy
 msgid "SHOW TABLES failed!"
 msgstr "VISA TABELLER misslyckades!"
 
-#: zp-core/utilities/backup_restore.php:223
+#: zp-core/utilities/backup_restore.php:222
 #, php-format
 msgid "backup completed using <em>%1$s(%2$s)</em> compression"
 msgstr "Säkerhetskopiering färdig med <em>%1$s(%2$s)</em> komprimering"
 
-#: zp-core/utilities/backup_restore.php:225
+#: zp-core/utilities/backup_restore.php:224
 msgid "backup completed"
 msgstr "säkerhetskopiering färdig"
 
-#: zp-core/utilities/backup_restore.php:238
+#: zp-core/utilities/backup_restore.php:237
 msgid "backup failed"
 msgstr "Säkerhetskopiering misslyckades"
 
-#: zp-core/utilities/backup_restore.php:246
+#: zp-core/utilities/backup_restore.php:245
 msgid "No backup set found."
 msgstr "Ingen säkerhetskopia hittades."
 
-#: zp-core/utilities/backup_restore.php:321
+#: zp-core/utilities/backup_restore.php:320
 #, fuzzy
 msgid "Truncate table<br />"
 msgstr "Avkorta bordet <br />"
 
-#: zp-core/utilities/backup_restore.php:393
+#: zp-core/utilities/backup_restore.php:392
 msgid "Restore encountered exceptions"
 msgstr "Återställning stötte på problem"
 
-#: zp-core/utilities/backup_restore.php:396
+#: zp-core/utilities/backup_restore.php:395
 msgid ""
 "The following tables were not restored because the table no longer exists:"
 msgstr "Följande tabeller återställdes inte eftersom tabellerna saknas:"
 
-#: zp-core/utilities/backup_restore.php:409
+#: zp-core/utilities/backup_restore.php:408
 msgid ""
 "The following fields were not restored because the field no longer exists:"
 msgstr "Följande fält återställdes inte eftersom fälten saknas:"
 
-#: zp-core/utilities/backup_restore.php:429
+#: zp-core/utilities/backup_restore.php:428
 #, fuzzy
 msgid "The maximum error count was exceeded and the restore aborted."
 msgstr "Maximal felräkning överskreds och återställningen avbröts."
 
-#: zp-core/utilities/backup_restore.php:432
+#: zp-core/utilities/backup_restore.php:431
 #, fuzzy
 msgid "Restore encountered the following errors:"
 msgstr "Återställningen stötte på följande fel:"
 
-#: zp-core/utilities/backup_restore.php:455
+#: zp-core/utilities/backup_restore.php:454
 #, fuzzy, php-format
 msgid ""
 "You have restored your database from a different instance of the software. "
@@ -16932,80 +16955,80 @@ msgstr ""
 "Du har återställt din databas från en annan instans av programmet. Du bör "
 "köra%1$ssetup%2$s för att säkerställa korrekt migrering."
 
-#: zp-core/utilities/backup_restore.php:464
+#: zp-core/utilities/backup_restore.php:463
 #, fuzzy
 msgid "Rights migration failed!"
 msgstr "Rättighetsmigration misslyckades!"
 
-#: zp-core/utilities/backup_restore.php:478
+#: zp-core/utilities/backup_restore.php:477
 msgid "Restore completed"
 msgstr "återställning färdig"
 
-#: zp-core/utilities/backup_restore.php:480
+#: zp-core/utilities/backup_restore.php:479
 #, php-format
 msgid "Restore completed using %s compression"
 msgstr "återställning färdig med %s komprimering"
 
-#: zp-core/utilities/backup_restore.php:499
+#: zp-core/utilities/backup_restore.php:498
 #, fuzzy
 msgid "Restore your Database"
 msgstr "Säkerhetskopiera och Återställ din databas"
 
-#: zp-core/utilities/backup_restore.php:501
+#: zp-core/utilities/backup_restore.php:500
 msgid "Backup and Restore your Database"
 msgstr "Säkerhetskopiera och Återställ din databas"
 
-#: zp-core/utilities/backup_restore.php:511
+#: zp-core/utilities/backup_restore.php:510
 #, fuzzy, php-format
 msgid "Database software <strong>%s</strong>"
 msgstr "Databasprogramvara <strong> %s</strong>"
 
-#: zp-core/utilities/backup_restore.php:512
+#: zp-core/utilities/backup_restore.php:511
 #, fuzzy, php-format
 msgid "Database name <strong>%s</strong>"
 msgstr "Databasnamn: <strong>%1$s</strong>"
 
-#: zp-core/utilities/backup_restore.php:513
+#: zp-core/utilities/backup_restore.php:512
 #, fuzzy, php-format
 msgid "Tables prefix <strong>%s</strong>"
 msgstr "Tabell prefix <strong> %s</strong>"
 
-#: zp-core/utilities/backup_restore.php:525
+#: zp-core/utilities/backup_restore.php:524
 msgid "Backup the tables in your database."
 msgstr "Säkerhetskopiera tabellerna i din databas."
 
-#: zp-core/utilities/backup_restore.php:527
+#: zp-core/utilities/backup_restore.php:526
 msgid "Backup the Database"
 msgstr "Säkerhetskopiera databasen"
 
-#: zp-core/utilities/backup_restore.php:537
+#: zp-core/utilities/backup_restore.php:536
 #, fuzzy
 msgid "Compression level"
 msgstr "Kompressionsnivå"
 
-#: zp-core/utilities/backup_restore.php:548
+#: zp-core/utilities/backup_restore.php:547
 msgid "You have not yet created a backup set."
 msgstr "Du har ännu inte skapat någon säkerhetskopia."
 
-#: zp-core/utilities/backup_restore.php:563
+#: zp-core/utilities/backup_restore.php:562
 msgid "Select the database restore file:"
 msgstr "Välj återställningsfil:"
 
-#: zp-core/utilities/backup_restore.php:573
+#: zp-core/utilities/backup_restore.php:572
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to restore."
 msgstr "Välj tabellerna för att återställa."
 
-#: zp-core/utilities/backup_restore.php:597
+#: zp-core/utilities/backup_restore.php:595
 msgid "Restore the tables in your database from a previous backup."
 msgstr "Återställ tabellerna i din databas från en tidigare säkerhetskopia."
 
-#: zp-core/utilities/backup_restore.php:599
+#: zp-core/utilities/backup_restore.php:597
 msgid "Restore the Database"
 msgstr "Återställ databasen"
 
-#: zp-core/utilities/backup_restore.php:610
+#: zp-core/utilities/backup_restore.php:608
 msgid ""
 "The backup facility creates database snapshots in the <code>backup</code> "
 "folder of your installation. These backups are named in according to the "
@@ -17019,7 +17042,7 @@ msgstr ""
 "komprimering) till 9 (max komprimering). Högre komprimering kräver mer "
 "resurser."
 
-#: zp-core/utilities/backup_restore.php:614
+#: zp-core/utilities/backup_restore.php:612
 #, fuzzy
 msgid ""
 "You restore your database by selecting a backup and pressing the <em>Restore "
@@ -17028,7 +17051,7 @@ msgstr ""
 "Du återställer din databas genom att välja en säkerhetskopia och trycka "
 "<em>på</em> knappen <em>Återställ databasen</em> ."
 
-#: zp-core/utilities/backup_restore.php:615
+#: zp-core/utilities/backup_restore.php:613
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> Each database table is emptied before the restore is "
@@ -17039,7 +17062,7 @@ msgstr ""
 "försökas. Efter en lyckad återställning kommer databasen att vara i samma "
 "skick som när säkerhetskopieringen skapades."
 
-#: zp-core/utilities/backup_restore.php:617
+#: zp-core/utilities/backup_restore.php:615
 #, fuzzy
 msgid ""
 "Ideally a restore should be done only on the same version on which the "
@@ -18475,7 +18498,7 @@ msgstr "Gråskala"
 
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:228
 #, fuzzy
 msgid "Hide"
 msgstr "Göm detaljer för användare %s"
@@ -19027,12 +19050,12 @@ msgstr "Bildförhållande"
 msgid "Play Time"
 msgstr "Play Time"
 
-#: zp-core/zp-extensions/class-video.php:332
+#: zp-core/zp-extensions/class-video.php:333
 #, fuzzy
 msgid "Your browser does not support the audio tag"
 msgstr "Din webbläsare stöder inte ljudetiketten"
 
-#: zp-core/zp-extensions/class-video.php:337
+#: zp-core/zp-extensions/class-video.php:338
 #, fuzzy
 msgid "Your browser does not support the video tag"
 msgstr "Din webbläsare stöder inte videotaggen"
@@ -19885,13 +19908,13 @@ msgstr "Anonym"
 msgid "Article"
 msgstr "Textlängd för nyhetsartikel"
 
-#: zp-core/zp-extensions/common/fieldExtender.php:550
+#: zp-core/zp-extensions/common/fieldExtender.php:552
 #, fuzzy
 msgid "There is no defined context, you must pass a comment object."
 msgstr ""
 "Det finns inget definierat sammanhang, du måste skicka ett kommentarobjekt."
 
-#: zp-core/zp-extensions/common/fieldExtender.php:568
+#: zp-core/zp-extensions/common/fieldExtender.php:570
 #, fuzzy
 msgid "Field not defined."
 msgstr "Fält ej definierat."
@@ -23048,7 +23071,7 @@ msgstr "Verktyg för att blockera hacker åtkomst till din webbplats."
 #: zp-core/zp-extensions/ipBlocker.php:80
 #, fuzzy
 msgid "Allow"
-msgstr "Tillåt privata meddelanden"
+msgstr "Tillåt skalning uppåt:"
 
 #: zp-core/zp-extensions/ipBlocker.php:80
 #, fuzzy
@@ -23807,47 +23830,53 @@ msgid_plural "Page %1$u (Current Page)"
 msgstr[0] "Sida %1$u (Aktuell Sida)"
 msgstr[1] "Sida %1$u (Aktuell Sida)"
 
-#: zp-core/zp-extensions/menu_manager.php:817
+#: zp-core/zp-extensions/menu_manager.php:842
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:488
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:276
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:108
 msgid "News index"
 msgstr "Nyhetsindex"
 
-#: zp-core/zp-extensions/menu_manager.php:841
-#: zp-core/zp-extensions/menu_manager.php:854
-#: zp-core/zp-extensions/menu_manager.php:867
-#, php-format
-msgid "createMenuIfNotExists item %s has an empty link."
+#: zp-core/zp-extensions/menu_manager.php:866
+#: zp-core/zp-extensions/menu_manager.php:879
+#: zp-core/zp-extensions/menu_manager.php:892
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %s has an empty link."
+msgid "createMenu item %s has an empty link."
 msgstr "createMenuIfNotExists post %s har en tom länk."
 
-#: zp-core/zp-extensions/menu_manager.php:847
-#: zp-core/zp-extensions/menu_manager.php:861
-#: zp-core/zp-extensions/menu_manager.php:881
-#: zp-core/zp-extensions/menu_manager.php:889
-#, php-format
-msgid "createMenuIfNotExists item %s has an empty title."
+#: zp-core/zp-extensions/menu_manager.php:872
+#: zp-core/zp-extensions/menu_manager.php:886
+#: zp-core/zp-extensions/menu_manager.php:906
+#: zp-core/zp-extensions/menu_manager.php:914
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %s has an empty title."
+msgid "createMenu item %s has an empty title."
 msgstr "createMenuIfNotExists post %s har ingen titel."
 
-#: zp-core/zp-extensions/menu_manager.php:874
-#: zp-core/zp-extensions/menu_manager.php:897
-#, php-format
-msgid "createMenuIfNotExists item %s has an empty title or link."
+#: zp-core/zp-extensions/menu_manager.php:899
+#: zp-core/zp-extensions/menu_manager.php:922
+#, fuzzy, php-format
+#| msgid "createMenuIfNotExists item %s has an empty title or link."
+msgid "createMenu item %s has an empty title or link."
 msgstr "createMenuIfNotExists post %s har ingen titel eller länk."
 
-#: zp-core/zp-extensions/menu_manager.php:902
+#: zp-core/zp-extensions/menu_manager.php:927
 #, fuzzy, php-format
 #| msgid "createMenuIfNotExists item %s has an invalid type."
-msgid "createMenuIfNotExists item %1$s has an invalid type (%2$s)."
+msgid "createMenu item %1$s has an invalid type (%2$s)."
 msgstr "createMenuIfNotExists post %s har felaktig typ."
 
-#: zp-core/zp-extensions/menu_manager.php:919
+#: zp-core/zp-extensions/menu_manager.php:944
 #, fuzzy, php-format
-msgid "createMenuIfNotExists item %1$s query (%2$s) failed: %3$s."
+msgid "createMenu item %1$s query (%2$s) failed: %3$s."
 msgstr "CreateMenuIfNotExists-föremålet%1$s-fråga (%2$s) misslyckades:%3$s."
 
-#: zp-core/zp-extensions/menu_manager.php:927
-msgid "createMenuIfNotExists has posted processing errors to your debug log."
+#: zp-core/zp-extensions/menu_manager.php:950
+#, fuzzy
+#| msgid ""
+#| "createMenuIfNotExists has posted processing errors to your debug log."
+msgid "createMenu has posted processing errors to your debug log."
 msgstr "createMenuIfNotExists har rapporterat fel till din debug-logg."
 
 #: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:26
@@ -24020,42 +24049,42 @@ msgstr "Menypost raderad"
 msgid "Menu “%s” deleted"
 msgstr "Menyn &quot; %s&quot; raderas"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:96
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:97
 #, fuzzy, php-format
 msgid "Menu “%s” duplicated"
 msgstr "Menyn &quot; %s&quot; dupliceras"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:98
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:99
 #, fuzzy, php-format
 msgid "Menu “%s” already exists"
 msgstr "Menyn &quot; %s&quot; finns redan"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:135
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:141
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:137
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
 #, fuzzy
 msgid "Name for new menu:"
 msgstr "Namn på ny meny:"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:141
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
 #, fuzzy, php-format
 msgid "Copy_of_%s"
 msgstr "Copy_of_ %s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:147
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:149
 #, fuzzy, php-format
 msgid "Ok to delete menu %s? This cannot be undone!"
 msgstr "Okej att radera meny %s? Detta kan inte göras ogjort!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:170
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:172
 msgid "Menu Manager"
 msgstr "Menyhanterare"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:171
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:173
 #, fuzzy, php-format
 msgid " (Menu: %s)"
 msgstr "(Meny: %s)"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:178
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:180
 #, fuzzy
 msgid ""
 "Drag the items into the order and nesting you wish displayed. Place the menu "
@@ -24064,7 +24093,7 @@ msgstr ""
 "Dra in föremålen i den ordning och höljet du önskar visas. Placera menyn på "
 "dina temasidor genom att ringa printCustomMenu ()."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:181
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:183
 #, fuzzy
 #| msgid ""
 #| "<strong>IMPORTANT:</strong> This menu’s order is completely independent "
@@ -24085,60 +24114,60 @@ msgstr ""
 "standardvisningsstrukturen. Funktioner som breadcrumb-funktionerna och "
 "nästa_album () -locket återspeglar inte denna menys struktur!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:195
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:197
 #, fuzzy
 msgid "New Menu"
 msgstr "Ny meny"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:218
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:220
 msgid "Edit the menu"
 msgstr "Redigera menyn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
 #, fuzzy, php-format
 msgid "Duplicate %s menu"
 msgstr "Duplicera %s-menyn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
 #, fuzzy
 msgid "Duplicate menu"
 msgstr "Duplicera menyn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:237
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
 #, fuzzy, php-format
 msgid "Delete %s menu"
 msgstr "Ta bort %s-menyn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:241
 #, fuzzy
 msgid "Delete menu"
 msgstr "Radera menyn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:243
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
 #, fuzzy, php-format
 msgid "Export %s menu"
 msgstr "Duplicera %s-menyn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:247
 #, fuzzy
 msgid "Export menu"
 msgstr "Exponeringstid"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:254
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:256
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:245
 msgid "Add Menu Items"
 msgstr "Lägg till Menyposter"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:277
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:279
 #, fuzzy
 msgid "No menus exist"
 msgstr "Inga menyer finns"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:294
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:296
 msgid "Menu target is password protected"
 msgstr "Menymål är lösenordsskyddad"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:299
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:301
 #, fuzzy
 #| msgid "Visible items"
 msgid "Visible/Hidden"
