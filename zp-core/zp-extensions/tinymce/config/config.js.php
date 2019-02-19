@@ -33,7 +33,7 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  */
-$filehandler = zp_apply_filter('tinymce_config', NULL);
+zp_apply_filter('tinymce_config', NULL);
 
 if ($MCEcss) {
 	$MCEcss = getPlugin('tinymce/config/' . $MCEcss, true, true);
@@ -83,11 +83,6 @@ if ($MCEdirection) {
 if ($MCEcss) {
 	?>
 		content_css: "<?php echo $MCEcss; ?>",
-	<?php
-}
-if ($filehandler) {
-	?>
-		elements : "<?php echo $filehandler; ?>", file_browser_callback : <?php echo $filehandler; ?>,
 	<?php
 }
 ?>
