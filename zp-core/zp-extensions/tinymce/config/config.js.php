@@ -105,7 +105,7 @@ if (in_array('pagebreak', $MCEplugins)) {
 	<?php
 }
 if ($MCEspecial) {
-	echo $MCEspecial . ",\n";
+	echo rtrim($MCEspecial, '\n');
 }
 if ($MCEskin) {
 	?>

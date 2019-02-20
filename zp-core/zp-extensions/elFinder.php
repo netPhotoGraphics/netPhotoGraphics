@@ -97,7 +97,7 @@ function elFinder_tinymce($discard) {
 	global $MCEspecial;
 
 	$file = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/elfinder.php?XSRFToken=' . getXSRFToken('elFinder');
-	$MCEspecial = 'elements : "elFinderBrowser", file_browser_callback : elFinderBrowser';
+	$MCEspecial .= 'elements : "elFinderBrowser", file_browser_callback : elFinderBrowser,' . "\n";
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
