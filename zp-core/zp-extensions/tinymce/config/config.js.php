@@ -105,7 +105,9 @@ if (in_array('pagebreak', $MCEplugins)) {
 	<?php
 }
 if ($MCEspecial) {
-	echo rtrim($MCEspecial, '\n');
+	foreach ($MCEspecial as $element => $value) {
+		echo $element . ': ' . $value . ",\n";
+	}
 }
 if ($MCEskin) {
 	?>
@@ -123,7 +125,9 @@ if (empty($MCEtoolbars)) {
 		<?php
 	}
 }
-
+?>
+	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
+<?php
 if ($MCEmenubar) {
 	if (is_array($MCEmenubar)) {
 		$menu = $MCEmenubar;
@@ -167,10 +171,8 @@ if ($MCEmenubar) {
 } else {
 	$MCEmenubar = "false";
 }
-?>
-
-	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
-<?php echo $MCEmenubar; ?>,
+echo $MCEmenubar;
+?>,
 					setup: function(editor) {
 					editor.on('blur', function(ed, e) {
 					form = $(editor.getContainer()).closest('form');
