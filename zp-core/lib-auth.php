@@ -78,13 +78,16 @@ class _Authority {
 	}
 
 	/**
-	 * Declares options used by lib-auth
+	 * returns a list of allowable hashing algorithms
 	 *
+	 * @param bool $full_list set to true to include all algorithms
 	 * @return array
 	 */
-	function getOptionsSupported() {
+	static function getHashAlgorithms($fullList = false) {
 		$encodings = self::$hashList;
-		unset($encodings['pbkdf2*']); // don't use this one any more
+		if (!$fullList) {
+			unset($encodings['pbkdf2*']); // don't use this one any more
+		}
 		if (function_exists('password_hash')) {
 			$default = 3 + PASSWORD_DEFAULT;
 		} else {
@@ -92,23 +95,45 @@ class _Authority {
 		}
 		$encodings = array_reverse(array_merge(array_slice($encodings, 0, $default, true), array(gettext('default') . ' (' . array_search($default, $encodings) . ')' => 9), array_slice($encodings, $default, NULL, true)));
 
+		$full = $encodings;
+
 		if (function_exists('password_hash')) {
-			$default = array_search(3 + PASSWORD_DEFAULT, $encodings);
+			$exists = $encodings['Argon2id'];
 			//	deprecate these encodings
 			if (!defined('PASSWORD_ARGON2ID')) {
 				unset($encodings['Argon2id']);
+				$exists--;
 			}
 			if (!defined('PASSWORD_ARGON2I')) {
 				unset($encodings['Argon2i']);
-			}
-			if (!defined('PASSWORD_BCRYPT')) {
-				unset($encodings['Bcrypt']);
+				$exists--;
 			}
 
 			unset($encodings['pbkdf2']);
 			unset($encodings['sha1']);
 			unset($encodings['md5']);
 		}
+		if ($fullList) {
+			$full = array_flip($full);
+			$full[2] = '<del>' . $full[2] . '</del>';
+			foreach ($full as $key => $name) {
+				if ($key > $exists && $key != 9) {
+					$full[$key] = '<del>' . $full[$key] . '</del>';
+				}
+			}
+			return array_flip($full);
+		} else {
+			return $encodings;
+		}
+	}
+
+	/**
+	 * Declares options used by lib-auth
+	 *
+	 * @return array
+	 */
+	function getOptionsSupported() {
+		$encodings = self::getHashAlgorithms();
 
 		$options = array(
 				gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
@@ -232,9 +257,10 @@ class _Authority {
 			$hash_type = getOption('strong_hash');
 		}
 		if ($hash_type == 9) { //	default
-			$hash_type = 3;
 			if (function_exists('password_hash')) {
-				$hash_type = $hash_type + PASSWORD_DEFAULT;
+				$hash_type = 3 + PASSWORD_DEFAULT;
+			} else {
+				$hash_type = 3;
 			}
 		};
 		switch ($hash_type) {
@@ -1464,7 +1490,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1480,7 +1506,7 @@ class _Authority {
 		</p>
 		<p class="password_field password_field_<?php echo $id; ?>">
 			<label for="pass_r<?php echo $id; ?>" id="match<?php echo $id; ?>">
-				<?php echo gettext("Repeat password") . $flag; ?>
+				<?php echo gettext("Repeat password"); ?>
 			</label>
 			<input type="password" size="<?php echo TEXT_INPUT_SIZE; ?>"
 						 name="<?php printf($format, 'pass_r', $id); ?>" value="<?php echo $x; ?>"

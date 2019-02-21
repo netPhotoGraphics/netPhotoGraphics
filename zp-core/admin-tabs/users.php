@@ -278,6 +278,8 @@ if (!$_zp_current_admin_obj && $_zp_current_admin_obj->getID()) {
 	exit();
 }
 
+$hashes = array_flip(_Authority::getHashAlgorithms(TRUE));
+
 printAdminHeader($_current_tab);
 echo $refresh;
 ?>
@@ -779,7 +781,12 @@ echo $refresh;
 															} else {
 																$password_disable = '';
 															}
-															Zenphoto_Authority::printPasswordForm($id, $pad, $password_disable, $clearPass);
+															if (!is_null($hash = $userobj->get('passhash'))) {
+																$hash = '<small> (' . $hashes[$hash] . ')</small>';
+															} else {
+																$hash = '';
+															}
+															Zenphoto_Authority::printPasswordForm($id, $pad, $password_disable, $clearPass, $hash);
 															?>
 														</p>
 														<?php
