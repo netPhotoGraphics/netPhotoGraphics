@@ -513,7 +513,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 				}
 				$preamble = '<span class="lognotice">{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} netPhotoGraphics v" . ZENPHOTO_VERSION . $clone . '</span>';
 				if ($_logCript) {
-					$preamble = $_logCript->encrypt($message);
+					$preamble = $_logCript->encrypt($preamble);
 				}
 				fwrite($f, $preamble . NEWLINE);
 				if (defined('LOG_MOD')) {
