@@ -7592,7 +7592,6 @@ zp-core/zp-extensions/elFinder
 zp-core/zp-extensions/elFinder/connector.mce.php
 zp-core/zp-extensions/elFinder/elfinder-logo.png
 zp-core/zp-extensions/elFinder/filemanager.php
-zp-core/zp-extensions/elFinder/main.mce.js
 zp-core/zp-extensions/elFinder/css
 zp-core/zp-extensions/elFinder/css/elfinder.min.css
 zp-core/zp-extensions/elFinder/css/theme.css
@@ -8418,4 +8417,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8420
+8419
