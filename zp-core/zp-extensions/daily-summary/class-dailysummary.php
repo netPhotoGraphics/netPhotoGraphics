@@ -43,9 +43,9 @@ class DailySummary extends Gallery {
 		}
 		db_free_result($result);
 		$this->imagaecount = count($cleandates);
-		$datecount = array_count_values($cleandates);
-		krsort($datecount);
-
+		if ($datecount = array_count_values($cleandates)) {
+			krsort($datecount);
+		}
 		$items = array_keys($datecount);
 
 		return $items;
