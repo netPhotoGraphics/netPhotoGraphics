@@ -7589,8 +7589,8 @@ zp-core/zp-extensions/downloadList/download_statistics.php
 zp-core/zp-extensions/dynamic-locale
 zp-core/zp-extensions/dynamic-locale/locale.css
 zp-core/zp-extensions/elFinder
+zp-core/zp-extensions/elFinder/connector.mce.php
 zp-core/zp-extensions/elFinder/elfinder-logo.png
-zp-core/zp-extensions/elFinder/elfinder.php
 zp-core/zp-extensions/elFinder/filemanager.php
 zp-core/zp-extensions/elFinder/css
 zp-core/zp-extensions/elFinder/css/elfinder.min.css

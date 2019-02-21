@@ -1,5 +1,7 @@
 <?php
 /**
+ * elFInder connector for  tinyMCE file handler instance
+ *
  * @package plugins/elFinder
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
