@@ -11,6 +11,20 @@ require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
+$logtabs = $zenphoto_tabs['logs']['subtabs'];
+if (isset($_GET['tab']) && isset($logtabs[$_GET['tab']])) {
+	$logname = $subtab = $_GET['tab'];
+} else {
+	$logname = $subtab = $zenphoto_tabs['logs']['default'];
+}
+$baseName = preg_replace('~-\d*$~', '', $logname);
+
+if (getOption($baseName . '_log_encryption')) {
+	$_logCrypt = $_adminCript;
+} else {
+	$_logCrypt = NULL;
+}
+
 if (isset($_GET['action'])) {
 	$action = sanitize($_GET['action'], 3);
 	$what = sanitize($_GET['filename'], 3);
@@ -58,24 +72,21 @@ if (isset($_GET['action'])) {
 				exit();
 			case 'download_log':
 				XSRFdefender($action, $what);
-				putZip($what . '.zip', $file);
+				if ($_logCrypt) { //	an encrypted file is not so useful outside of netPhotoGraphics
+					$logtext = explode(NEWLINE, file_get_contents($file));
+					$logtextclear = array_map(array($_logCrypt, 'decrypt'), $logtext);
+					$file = SERVERPATH . '/' . DATA_FOLDER . '/' . basename($file);
+					file_put_contents($file, implode("\n", $logtextclear));
+					putZip($what . '.zip', $file);
+					unlink($file);
+				} else {
+					putZip($what . '.zip', $file);
+				}
 				exit();
 		}
 	}
 }
 
-$logtabs = $zenphoto_tabs['logs']['subtabs'];
-if (isset($_GET['tab']) && isset($logtabs[$_GET['tab']])) {
-	$logname = $subtab = $_GET['tab'];
-} else {
-	$logname = $subtab = $zenphoto_tabs['logs']['default'];
-}
-$baseName = preg_replace('~-\d*$~', '', $logname);
-if (getOption($baseName . '_log_encryption')) {
-	$_logCrypt = $_adminCript;
-} else {
-	$_logCrypt = NULL;
-}
 
 printAdminHeader('logs', $subtab);
 
