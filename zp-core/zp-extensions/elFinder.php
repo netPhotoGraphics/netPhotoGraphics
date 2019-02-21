@@ -97,24 +97,41 @@ function elFinder_tinymce($discard) {
 	global $MCEspecial;
 
 	$file = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/connector.mce.php?XSRFToken=' . getXSRFToken('elFinder');
-	$MCEspecial ['elements'] = '"elFinderBrowser"';
-	$MCEspecial ['file_browser_callback'] = 'elFinderBrowser';
+	$MCEspecial ['file_picker_callback'] = 'elFinderBrowser';
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
-		function elFinderBrowser(field_name, url, type, win) {
+		function elFinderBrowser(callback, value, meta) {
 			tinymce.activeEditor.windowManager.open({
-				file: '<?php echo $file; ?>&type=' + type, // use an absolute path!
-				title: 'elFinder 2.0',
+				file: '<?php echo $file; ?>&type=' + meta.type, // use an absolute path!
+				title: 'elFinder 2.1',
 				width: 900,
 				height: 450,
-				close_previous: 'no',
-				inline: 'yes', // This parameter only has an effect if you use the inlinepopups plugin!
-				popup_css: false, // Disable TinyMCE's default popup CSS
 				resizable: 'yes'
 			}, {
-				setUrl: function (url) {
-					win.document.getElementById(field_name).value = url;
+				oninsert: function (file, fm) {
+					var url, reg, info;
+
+					// URL normalization
+					url = fm.convAbsUrl(file.url);
+
+					// Make file info
+					info = file.name + ' (' + fm.formatSize(file.size) + ')';
+
+					// Provide file and text for the link dialog
+					if (meta.filetype == 'file') {
+						callback(url, {text: info, title: info});
+					}
+
+					// Provide image and alt text for the image dialog
+					if (meta.filetype == 'image') {
+						callback(url, {alt: info});
+					}
+
+					// Provide alternative source and posted for the media dialog
+					if (meta.filetype == 'media') {
+						callback(url);
+					}
 				}
 			});
 			return false;
