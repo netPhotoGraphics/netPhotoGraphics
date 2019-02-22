@@ -8116,6 +8116,10 @@ zp-core/zp-extensions/tinymce/langs/sk.js
 zp-core/zp-extensions/tinymce/langs/sv_SE.js
 zp-core/zp-extensions/tinymce/langs/zh_CN.js
 zp-core/zp-extensions/tinymce/langs/zh_TW.js
+zp-core/zp-extensions/tinymce/pasteobj
+zp-core/zp-extensions/tinymce/pasteobj/pasteobj.php
+zp-core/zp-extensions/tinymce/pasteobj/pasteobj_popup.js
+zp-core/zp-extensions/tinymce/pasteobj/plugin.js
 zp-core/zp-extensions/tinymce/plugins
 zp-core/zp-extensions/tinymce/plugins/advlist
 zp-core/zp-extensions/tinymce/plugins/advlist/plugin.min.js
@@ -8196,10 +8200,6 @@ zp-core/zp-extensions/tinymce/plugins/pagebreak
 zp-core/zp-extensions/tinymce/plugins/pagebreak/plugin.min.js
 zp-core/zp-extensions/tinymce/plugins/paste
 zp-core/zp-extensions/tinymce/plugins/paste/plugin.min.js
-zp-core/zp-extensions/tinymce/plugins/pasteobj
-zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj.php
-zp-core/zp-extensions/tinymce/plugins/pasteobj/pasteobj_popup.js
-zp-core/zp-extensions/tinymce/plugins/pasteobj/plugin.min.js
 zp-core/zp-extensions/tinymce/plugins/preview
 zp-core/zp-extensions/tinymce/plugins/preview/plugin.min.js
 zp-core/zp-extensions/tinymce/plugins/print

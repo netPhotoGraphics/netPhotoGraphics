@@ -15,7 +15,7 @@ tinymce.PluginManager.add('pasteobj', function (editor, url) {
 			width: 800,
 			height: 600,
 			buttons: [],
-			url: url + '/pasteobj.php'
+			url: url.replace('/plugins/pasteobj', '/pasteobj/pasteobj.php')
 		});
 	}
 

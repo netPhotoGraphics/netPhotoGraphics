@@ -60,6 +60,9 @@ if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 if ($MCEplugins && !is_array($MCEplugins)) {
 	$MCEplugins = explode(' ', preg_replace('/\s\s+/', ' ', trim($MCEplugins)));
 }
+if (array_search('pasteobj', $MCEplugins)) {
+	scriptLoader(TINYMCE . '/pasteobj/plugin.js');
+}
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[
