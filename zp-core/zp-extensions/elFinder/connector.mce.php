@@ -36,12 +36,12 @@ if (empty($locale))
 		<!-- elFinder initialization (REQUIRED) -->
 		<script type="text/javascript" charset="utf-8">
 			var FileBrowserDialogue = {
-			init: function() {
+			init: function(file, fm) {
 			// Here goes your code for setting your custom things onLoad.
 			},
-							mySubmit: function(URL) {
-							// pass selected file path to TinyMCE
-							top.tinymce.activeEditor.windowManager.getParams().setUrl(URL);
+							mySubmit: function(file, fm) {
+							// pass selected file data to TinyMCE
+							parent.tinymce.activeEditor.windowManager.getParams().oninsert(file, fm);
 							// close popup window
 							top.tinymce.activeEditor.windowManager.close();
 							}
@@ -71,8 +71,8 @@ if (zp_loggedin(FILES_RIGHTS)) {
 											'type':'<?php echo sanitize(@$_GET['type']); ?>'
 							},
 							url : '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/elFinder/php/connector_zp.php', // connector URL (REQUIRED)
-							getFileCallback: function(file) { // editor callback
-							FileBrowserDialogue.mySubmit(file.url); // pass selected file path to TinyMCE
+							getFileCallback: function(file, fm) { // editor callback
+							FileBrowserDialogue.mySubmit(file, fm); // pass selected file path to TinyMCE
 							}
 			}).elfinder('instance');
 			});
