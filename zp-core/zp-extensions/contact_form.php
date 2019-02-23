@@ -323,6 +323,7 @@ function printContactForm($subject_override = '') {
 					<?PHP
 					$_processing_post = true;
 					include(getPlugin('contact_form/form.php', true));
+					$message = str_replace("\n", '<br />', $message);
 					?>
 					<form id="confirm" action="<?php echo html_encode(getRequestURI()); ?>" method="post" accept-charset="UTF-8" style="float: left">
 						<input type="hidden" id="confirm" name="confirm" value="confirm" />
@@ -356,6 +357,7 @@ function printContactForm($subject_override = '') {
 		$message = getField('message', 1);
 		$mailaddress = getField('mailaddress');
 		$name = getField('name');
+		$message = str_replace('<br>', "\n", sanitize($_POST['message'], 1));
 		$mailinglist = explode(';', getOption("contactform_mailaddress"));
 		if (getOption('contactform_sendcopy')) {
 			$sendcopy = array($name => $mailaddress);

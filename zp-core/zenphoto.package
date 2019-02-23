@@ -274,6 +274,7 @@ themes/zenpage/functions.php
 themes/zenpage/gallery.php
 themes/zenpage/image.php
 themes/zenpage/index.php
+themes/zenpage/jcarousel.css
 themes/zenpage/news.php
 themes/zenpage/pages.php
 themes/zenpage/password.php
@@ -8373,4 +8374,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8375
+8376
