@@ -8078,6 +8078,7 @@ zp-core/zp-extensions/themeSwitcher/themeSwitcher.css
 zp-core/zp-extensions/tinymce
 zp-core/zp-extensions/tinymce/jquery.tinymce.min.js
 zp-core/zp-extensions/tinymce/license.txt
+zp-core/zp-extensions/tinymce/postAcceptor.php
 zp-core/zp-extensions/tinymce/tinymce.min.js
 zp-core/zp-extensions/tinymce/config
 zp-core/zp-extensions/tinymce/config/comment-full.php
@@ -8374,4 +8375,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8376
+8377
