@@ -102,38 +102,40 @@ function elFinder_tinymce($discard) {
 	<script type="text/javascript">
 		// <!-- <![CDATA[
 		function elFinderBrowser(callback, value, meta) {
-			tinymce.activeEditor.windowManager.open({
-				file: '<?php echo $file; ?>&type=' + meta.type, // use an absolute path!
-				title: 'elFinder 2.1',
-				width: 900,
-				height: 450,
-				resizable: 'yes'
-			}, {
-				oninsert: function (file, fm) {
-					var url, reg, info;
-
-					// URL normalization
-					url = fm.convAbsUrl(file.url);
-
-					// Make file info
-					info = file.name + ' (' + fm.formatSize(file.size) + ')';
-
-					// Provide file and text for the link dialog
-					if (meta.filetype == 'file') {
-						callback(url, {text: info, title: info});
-					}
-
-					// Provide image and alt text for the image dialog
-					if (meta.filetype == 'image') {
-						callback(url, {alt: info});
-					}
-
-					// Provide alternative source and posted for the media dialog
-					if (meta.filetype == 'media') {
-						callback(url);
+			var windowManagerURL = '<?php echo $file; ?>&type=' + meta.type,
+							windowManagerCSS = '<style type="text/css">' +
+							'.tox-dialog {max-width: 100%!important; width:900px!important; overflow: hidden; height:500px!important; bborder-radius:0.25em;}' +
+							'.tox-dialog__header{ border-bottom: 1px solid lightgray!important; }' + // for custom header in filemanage
+							'.tox-dialog__footer { display: none!important; }' + // for custom footer in filemanage
+							'.tox-dialog__body { padding: 5!important; }' +
+							'.tox-dialog__body-content > div { height: 100%; overflow:hidden}' +
+							'</style > ';
+			window.tinymceCallBackURL = '';
+			window.tinymceWindowManager = tinymce.activeEditor.windowManager;
+			tinymceWindowManager.open({
+				title: 'elFinder',
+				body: {
+					type: 'panel',
+					items: [{
+							type: 'htmlpanel',
+							html: windowManagerCSS + '<iframe src="' + windowManagerURL + '"  frameborder="0" style="width:100%; height:100%"></iframe>'
+						}]
+				},
+				buttons: [],
+				onClose: function () {
+					//to set selected file path
+					if (tinymceCallBackURL != '') {
+						if (meta.filetype == 'image') {
+							callback(tinymceCallBackURL, {alt: tinymceCallBackInfo});
+						} else {
+							callback(tinymceCallBackURL, {});
+						}
 					}
 				}
-			});
+
+
+			}
+			);
 			return false;
 		}
 		// ]]> -->

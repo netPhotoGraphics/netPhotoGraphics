@@ -41,7 +41,18 @@ if (empty($locale))
 			},
 							mySubmit: function(file, fm) {
 							// pass selected file data to TinyMCE
-							parent.tinymce.activeEditor.windowManager.getParams().oninsert(file, fm);
+							var url, info;
+							// URL normalization
+							url = fm.convAbsUrl(file.url);
+							info = file.name + ' (' + fm.formatSize(file.size) + ')';
+							var windowManager = top != undefined && top.tinymceWindowManager != undefined ? top.tinymceWindowManager : '';
+							if (windowManager != '') {
+							if (top.tinymceCallBackURL != undefined){
+							top.tinymceCallBackURL = url;
+							top.tinymceCallBackInfo = info;
+							}
+							windowManager.close();
+							}
 							// close popup window
 							top.tinymce.activeEditor.windowManager.close();
 							}

@@ -28,7 +28,6 @@ var pasteObjPopup = {
 		parentWin = self.getWin();
 		tinymce = tinyMCE = parentWin.tinymce;
 		self.editor = tinymce.EditorManager.activeEditor;
-		self.params = self.editor.windowManager.getParams();
 
 		uiWindow = self.editor.windowManager.windows[self.editor.windowManager.windows.length - 1];
 		self.features = uiWindow.features;
