@@ -29,7 +29,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		if (!empty($_zp_DB_connection)) {
 			mysql_close($_zp_DB_connection); //	don't want to leave connections open
 		}
-		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
+		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
 			$_zp_DB_connection = @mysql_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
@@ -37,7 +37,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			if ($_zp_DB_connection || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
 				break;
 			}
-			sleep(1);
+			sleep($i);
 		}
 	} else {
 		$_zp_DB_connection = NULL;

@@ -34,7 +34,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		if (is_object($_zp_DB_connection)) {
 			$_zp_DB_connection = NULL; //	don't want to leave connections open
 		}
-		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
+		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
 			try {
 				$_zp_DB_connection = new PDO("mysql:host=$hostname;dbname=$db", $username, $password);
 				break;
@@ -47,7 +47,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 					$_zp_DB_connection = NULL;
 					return false;
 				}
-				sleep(1);
+				sleep($i);
 			}
 		}
 	} else {
