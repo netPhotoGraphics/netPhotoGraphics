@@ -15,6 +15,7 @@ if (!defined('OFFSET_PATH')) {
  * Executes the configuration change code
  */
 function reconfigureAction($mandatory) {
+	global $_zp_conf_vars;
 	list($diff, $needs) = checkSignature($mandatory);
 	$diffkeys = array_keys($diff);
 	if ($mandatory) {
@@ -25,6 +26,23 @@ function reconfigureAction($mandatory) {
 				echo $xml;
 			}
 			exit(); //	can't really run setup from an RSS feed.
+		}
+		switch ($mandatory) {
+			case 11:
+				$reason = gettext('no configuration file');
+				break;
+			case 12:
+				$reason = sprintf(gettext('no %1$s PHP support'), $_zp_conf_vars['db_software']);
+				break;
+			case 13:
+				$reason = gettext('database connection failed');
+				break;
+			default:
+				$reason = FALSE; //	install signature option not set
+				break;
+		}
+		if ($reason) {
+			debugLog(sprintf(gettext('Setup required: %1$s'), $reason));
 		}
 		if (empty($needs)) {
 			$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
