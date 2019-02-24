@@ -90,22 +90,21 @@ if ($MCEcss) {
 }
 ?>
 	plugins: ["<?php echo implode(' ', $MCEplugins); ?>"],
-					images_upload_url: '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/tinymce/postAcceptor.php?XSRFToken=<?php echo getXSRFToken('postAcceptor'); ?>',
 <?php
 if ($MCEexternal) {
 	?>
-							external_plugins: {
+		external_plugins: {
 	<?php
 	foreach ($MCEexternal as $plugin => $url) {
 		echo "		  '" . $plugin . "': '" . $url . "'\n";
 	}
 	?>
-							},
+		},
 	<?php
 }
 if (in_array('pagebreak', $MCEplugins)) {
 	?>
-							pagebreak_split_block: true,
+		pagebreak_split_block: true,
 	<?php
 }
 if ($MCEspecial) {
@@ -115,22 +114,22 @@ if ($MCEspecial) {
 }
 if ($MCEskin) {
 	?>
-							skin: "<?php echo $MCEskin; ?>",
+		skin: "<?php echo $MCEskin; ?>",
 	<?php
 }
 if (empty($MCEtoolbars)) {
 	?>
-							toolbar: false,
+		toolbar: false,
 	<?php
 } else {
 	foreach ($MCEtoolbars as $key => $toolbar) {
 		?>
-								toolbar<?php if (count($MCEtoolbars) > 1) echo $key; ?>: "<?php echo $toolbar; ?>",
+			toolbar<?php if (count($MCEtoolbars) > 1) echo $key; ?>: "<?php echo $toolbar; ?>",
 		<?php
 	}
 }
 ?>
-						statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
+	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
 <?php
 if ($MCEmenubar) {
 	if (is_array($MCEmenubar)) {
@@ -177,29 +176,29 @@ if ($MCEmenubar) {
 }
 echo $MCEmenubar;
 ?>,
-										setup: function(editor) {
-										editor.on('blur', function(ed, e) {
-										form = $(editor.getContainer()).closest('form');
-										if (editor.isDirty()) {
-										$(form).addClass('tinyDirty');
-										} else {
-										$(form).removeClass('tinyDirty');
-										}
-										});
+					setup: function(editor) {
+					editor.on('blur', function(ed, e) {
+					form = $(editor.getContainer()).closest('form');
+					if (editor.isDirty()) {
+					$(form).addClass('tinyDirty');
+					} else {
+					$(form).removeClass('tinyDirty');
+					}
+					});
 <?php
 if (getOption('dirtyform_enable') > 1) {
 	?>
-											editor.on('postRender', function(e) {
-											//	clear the form from any tinyMCE dirtying once it has loaded
-											form = $(editor.getContainer()).closest('form');
-											$(form).trigger("reset");
-											});
+						editor.on('postRender', function(e) {
+						//	clear the form from any tinyMCE dirtying once it has loaded
+						form = $(editor.getContainer()).closest('form');
+						$(form).trigger("reset");
+						});
 	<?php
 }
 ?>
-										}
+					}
 
 
-						});
-						// ]]> -->
+	});
+	// ]]> -->
 </script>
