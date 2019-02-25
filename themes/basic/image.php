@@ -89,7 +89,7 @@ if (!defined('WEBPATH'))
 							$fullimage = NULL;
 						}
 
-						if (empty($fullimage)) {
+						if (!empty($fullimage)) {
 							?>
 							<a href="<?php echo pathurlencode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="fullimage">
 								<?php
@@ -99,7 +99,7 @@ if (!defined('WEBPATH'))
 							} else {
 								printDefaultSizedImage(getImageTitle());
 							}
-							if (empty($fullimage)) {
+							if (!empty($fullimage)) {
 								?>
 							</a>
 							<?php
