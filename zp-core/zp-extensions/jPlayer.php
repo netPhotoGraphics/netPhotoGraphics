@@ -333,7 +333,7 @@ class jPlayer {
 			$playerconfig .= '
 				,	size: {
 			width: "100%",
-			height: "' . $this->height . 'px",
+			height: "100%",
 			cssClass: "' . $this->playersize . '"
 		},';
 		} else {
@@ -556,12 +556,12 @@ class jPlayer {
 			case 'mp3':
 			case 'm4a':
 			case 'fla':
-				$suffixes = array('oga', 'webma');
+				$suffixes = array('oga', 'webma', 'webm');
 				break;
 			case 'mp4':
 			case 'm4v':
 			case 'flv':
-				$suffixes = array('ogv', 'webmv');
+				$suffixes = array('ogv', 'webmv', 'webm');
 				break;
 			default:
 				$suffixes = array();
