@@ -300,7 +300,7 @@ class Page extends CMSItems {
 		if (parent::isMyItem($action)) {
 			return true;
 		}
-		if ($_zp_current_admin_obj && $_zp_current_admin_obj->getUser() == $this->getAuthor()) {
+		if ($_zp_current_admin_obj && $_zp_current_admin_obj->getUser() == $this->getOwner()) {
 			return true;
 		}
 

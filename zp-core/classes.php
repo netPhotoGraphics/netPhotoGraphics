@@ -981,6 +981,65 @@ class MediaObject extends ThemeObject {
 		$this->set('password_hint', zpFunctions::tagURLs($hint));
 	}
 
+	/**
+	 * returns the owner of the object
+	 *
+	 * @return string
+	 */
+	function getOwner() {
+		return $this->get('owner');
+	}
+
+	/**
+	 * sets the owner of an the object
+	 *
+	 * @param string $user
+	 */
+	function setOwner($user) {
+		$this->set('owner');
+	}
+
+	/**
+	 * Returns the last change date
+	 *
+	 * @return string
+	 */
+	function getLastchange() {
+		return $this->get("lastchange");
+	}
+
+	/**
+	 *
+	 * sets the last change date
+	 */
+	function setLastchange($d) {
+		if ($d) {
+			$newtime = dateTimeConvert($d);
+			if ($newtime === false)
+				return;
+			$this->set('lastchange', $newtime);
+		} else {
+			$this->set('lastchange', NULL);
+		}
+	}
+
+	/**
+	 * Returns the last change author
+	 *
+	 * @return string
+	 */
+	function getlastchangeuser() {
+		return $this->get("lastchangeuser");
+	}
+
+	/**
+	 *
+	 * stores the last change author
+	 */
+	function setlastchangeuser($a) {
+		$this->set("lastchangeuser", $a);
+	}
+
 }
 
 ?>

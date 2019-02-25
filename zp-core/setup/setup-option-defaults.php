@@ -117,8 +117,10 @@ foreach (array('albums', 'images', 'news', 'pages') as $table) {
 	$sql = 'UPDATE ' . prefix($table) . ' SET `publishdate`=`date` WHERE `publishdate` IS NULL AND `show`="1"';
 	query($sql);
 }
-foreach (array('news', 'pages') as $table) {
+foreach (array('news', 'pages', 'imges', 'albums') as $table) {
 	$sql = 'UPDATE ' . prefix($table) . ' SET `lastchange`=`date` WHERE `lastchange` IS NULL';
+	query($sql);
+	$sql = 'UPDATE ' . prefix($table) . ' SET `lastchangeuser`=`owner` WHERE `lastchangeuser` IS NULL';
 	query($sql);
 }
 // published albums where both the `publishdate` and the `date` were NULL

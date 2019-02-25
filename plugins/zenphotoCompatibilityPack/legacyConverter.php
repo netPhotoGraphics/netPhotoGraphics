@@ -54,7 +54,9 @@ $legacyReplacements = array(
 		'exitZP\(\)' => 'exit()',
 		'printZenphotoLink\(.*\)' => 'print_SW_Link()',
 		'scriptEnabled\(.*?\)' => '/*scriptEnabled removed*/',
-		'registerScripts\(.*?\)' => '/*registerScripts removed*/'
+		'registerScripts\(.*?\)' => '/*registerScripts removed*/',
+		'->getAuthor\(' => '->getOwner(',
+		'->setAuthor\(' => '->setOwner('
 );
 
 /**

@@ -118,7 +118,7 @@ class SearchEngine {
 			//zenpage fields
 			$this->search_structure['content'] = gettext('Content');
 			$this->search_structure['author'] = gettext('Author');
-			$this->search_structure['lastchangeauthor'] = gettext('Last Editor');
+			$this->search_structure['lastchangeuser'] = gettext('Last Editor');
 			$this->search_structure['titlelink'] = gettext('TitleLink');
 			$this->search_structure['news_categories'] = gettext('Categories');
 		}

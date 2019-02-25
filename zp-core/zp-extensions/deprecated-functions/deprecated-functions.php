@@ -24,6 +24,23 @@ class internal_deprecations {
 #	public static function next_album() {
 #		deprecated_functions::notify(gettext('Sort parameter options should be set instead with the setSortType() and setSortDirection() object methods at the head of your script.'));
 #	}
+
+	/**
+	 * @deprecated
+	 * @since 1.9.2
+	 */
+	static function getAuthor() {
+		return $this->get('owner');
+	}
+
+	/**
+	 * @deprecated
+	 * @since 1.9.2
+	 */
+	static function setAuthor($owner) {
+		$this->set('owner', $owner);
+	}
+
 }
 
 # For other deprecated functions simply move them here.

@@ -211,8 +211,8 @@ class galleryArticles {
 			$date = date('Y-m-d H:i:s');
 		$article->setDateTime($date);
 		$article->setLastchange(date('Y-m-d H:i:s'));
-		$article->setAuthor('galleryArticles');
-		$article->setLastchangeauthor('galleryArticles');
+		$article->setOwner('galleryArticles');
+		$article->setlastchangeuser('galleryArticles');
 		$article->setShow(true);
 		$article->save();
 

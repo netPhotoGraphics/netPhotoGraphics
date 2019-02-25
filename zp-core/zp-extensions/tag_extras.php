@@ -23,9 +23,7 @@ $plugin_description = gettext("Provides functions to print a tag cloud of all ta
  */
 function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 	global $_zp_gallery;
-	$passwordcheck = '';
-	$imageWhere = '';
-	$tagWhere = "";
+	$imageWhere = $tagWhere = $tags = FALSE;
 	if (zp_loggedin(TAGS_RIGHTS)) {
 		$private = '';
 	} else {
