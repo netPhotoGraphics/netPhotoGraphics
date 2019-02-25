@@ -752,10 +752,8 @@ $tagsort = 'alpha';
 															});
 															// ]]> -->
 														</script>
-														<?php
-														echo gettext('Publish date (YYYY-MM-DD) ');
-														$date = $result->getPublishDate();
-														?>
+														<?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small>
+														<?php $date = $result->getPublishDate(); ?>
 														<input name="pubdate" type="text" id="pubdate" value="<?php echo $date; ?>" onchange="checkFuturePub();" <?php if ($date > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
 													</p>
 													<p>
@@ -773,10 +771,8 @@ $tagsort = 'alpha';
 															// ]]> -->
 														</script>
 
-														<?php
-														echo gettext("Expiration date (YYYY-MM-DD)");
-														$date = $result->getExpireDate();
-														?>
+														<?php echo gettext("Expiration date"); ?>  <small>(YYYY-MM-DD)</small>
+														<?php $date = $result->getExpireDate(); ?>
 														<br />
 														<input name="expiredate" type="text" id="expiredate" value="<?php echo $date; ?>" onchange="checkFutureExpiry();" />
 														<br />
@@ -789,9 +785,9 @@ $tagsort = 'alpha';
 														</strong>
 													</p>
 													<?php
-													if ($result->getlastchangeuser() != "") {
+													if ($result->getlastchangeuser()) {
 														?>
-														<hr /><p><?php printf(gettext('Last change<br />%1$s<br />by %2$s'), $result->getLastchange(), $result->getlastchangeuser()); ?>
+														<hr /><p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
 														</p>
 														<?php
 													}

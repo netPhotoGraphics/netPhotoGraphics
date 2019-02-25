@@ -2356,6 +2356,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 								}
 								?>
 							</strong>
+							<?php
+							if ($album->getlastchangeuser()) {
+								?>
+							<hr />
+							<?php
+							printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
+						}
+						?>
 						</p>
 					</div>
 					<!-- **************** Move/Copy/Rename ****************** -->
@@ -2899,6 +2907,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since 1.1.3
 	 */
 	function processAlbumEdit($index, &$album, &$redirectto) {
+		global $_zp_current_admin_obj;
 		$redirectto = NULL; // no redirection required
 		if ($index == 0) {
 			$prefix = $suffix = '';
@@ -2968,6 +2977,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
 		$album->setShow(isset($_POST[$prefix . 'Published']));
+		$album->setLastchange(date('Y-m-d H:i:s'));
+		$album->setlastchangeuser($_zp_current_admin_obj->getUser());
+
 
 		zp_apply_filter('save_album_custom_data', NULL, $prefix, $album);
 		zp_apply_filter('save_album_utilities_data', $album, $prefix);
@@ -4393,13 +4405,13 @@ function printBulkActions($checkarray, $checkAll = false) {
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
 					case '<?php echo $key; ?>':
-									mark = '<?php echo $mark; ?>';
+					mark = '<?php echo $mark; ?>';
 									break;
 			<?php
 		}
 		?>
 				default:
-								mark = false;
+				mark = false;
 								break;
 			}
 			if (mark) {
