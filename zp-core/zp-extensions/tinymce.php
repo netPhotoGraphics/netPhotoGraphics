@@ -79,8 +79,9 @@ class tinymce {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 		$MCEspecial['browser_spellcheck'] = "true";
-		$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
-
+		if (zp_loggedin(UPLOAD_RIGHTS)) {
+			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
+		}
 		if (empty($_editorconfig)) { // only if we get here first!
 			$MCElocale = 'en';
 			$loc = str_replace('_', '-', getOption('locale'));
@@ -120,4 +121,5 @@ class tinymce {
 	}
 
 }
+
 ?>
