@@ -459,7 +459,7 @@ span.jp-artist {
 
 .jp-video-play {
 	width:100%;
-	overflow:hidden; /* Important for nested negative margins to work in modern browsers */
+/*	overflow:hidden; /* Important for nested negative margins to work in modern browsers */
 	cursor:pointer;
 	background-color:rgba(0,0,0,0); /* Makes IE9 work with the active area over the whole video area. IE6/7/8 only have the button as active area. */
 }
@@ -481,7 +481,7 @@ span.jp-artist {
 	height: 100px;
 
 	margin-left:-56px;
-	margin-top:-50px;
+	margin-top:-100px;
 	left:50%;
 	top:50%;
 
