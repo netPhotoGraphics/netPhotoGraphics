@@ -30,6 +30,24 @@ $sql = "ALTER TABLE " . prefix('comments') . " CHANGE `custom_data` `address_dat
 if (setupQuery($sql, false)) {
 	$_DB_Structure_change = TRUE;
 }
+//rename author and lastchangeauthor fields
+$sql = "ALTER TABLE " . prefix('pages') . " CHANGE `author` `owner` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
+if (setupQuery($sql, false)) {
+	$_DB_Structure_change = TRUE;
+}
+$sql = "ALTER TABLE " . prefix('pages') . " CHANGE `lastchangeauthor` `lastchangeuser` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
+if (setupQuery($sql, false)) {
+	$_DB_Structure_change = TRUE;
+}
+$sql = "ALTER TABLE " . prefix('news') . " CHANGE `author` `owner` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
+if (setupQuery($sql, false)) {
+	$_DB_Structure_change = TRUE;
+}
+$sql = "ALTER TABLE " . prefix('news') . " CHANGE `lastchangeauthor` `lastchangeuser` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
+if (setupQuery($sql, false)) {
+	$_DB_Structure_change = TRUE;
+}
+
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
 	foreach ($tablecols as $key => $datum) {
@@ -292,21 +310,21 @@ foreach ($template as $tablename => $table) {
 			$string = "ALTER TABLE " . prefix($tablename) . ' ADD ';
 			$i = $k = $index['Column_name'];
 			if (!empty($index['Sub_part'])) {
-				$k .=" (" . $index['Sub_part'] . ")";
+				$k .= " (" . $index['Sub_part'] . ")";
 			}
 
 			if ($index['Non_unique']) {
 				$string .= "INDEX ";
 				$u = "KEY";
 			} else {
-				$string .="UNIQUE ";
+				$string .= "UNIQUE ";
 				$u = "UNIQUE `$key`";
 				$uniquekeys[$tablename][$key] = explode(',', $i);
 			}
 
 			$alterString = "$string`$key` ($k)";
 			if ($indexComments) {
-				$alterString.=" COMMENT 'zp20';";
+				$alterString .= " COMMENT 'zp20';";
 			} else {
 				unset($index['Index_comment']);
 			}
