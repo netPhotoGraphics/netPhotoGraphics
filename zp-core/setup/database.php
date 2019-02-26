@@ -25,27 +25,25 @@ if (isset($_SESSION['admin']['db_admin_fields'])) { //	we are in a clone install
 }
 $_DB_Structure_change = FALSE;
 
-/* rename Comment table custom_data since it is really address data */
-$sql = "ALTER TABLE " . prefix('comments') . " CHANGE `custom_data` `address_data` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
-if (setupQuery($sql, false)) {
-	$_DB_Structure_change = TRUE;
-}
-//rename author and lastchangeauthor fields
-$sql = "ALTER TABLE " . prefix('pages') . " CHANGE `author` `owner` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
-if (setupQuery($sql, false)) {
-	$_DB_Structure_change = TRUE;
-}
-$sql = "ALTER TABLE " . prefix('pages') . " CHANGE `lastchangeauthor` `lastchangeuser` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
-if (setupQuery($sql, false)) {
-	$_DB_Structure_change = TRUE;
-}
-$sql = "ALTER TABLE " . prefix('news') . " CHANGE `author` `owner` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
-if (setupQuery($sql, false)) {
-	$_DB_Structure_change = TRUE;
-}
-$sql = "ALTER TABLE " . prefix('news') . " CHANGE `lastchangeauthor` `lastchangeuser` TINYTEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
-if (setupQuery($sql, false)) {
-	$_DB_Structure_change = TRUE;
+//	handle column renaming as the template will assume a drop and add.
+$renames = array(
+		array('table' => 'comments', 'was' => 'custom_data', 'is' => 'address_data'),
+		array('table' => 'pages', 'was' => 'author', 'is' => 'owner'),
+		array('table' => 'pages', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
+		array('table' => 'news', 'was' => 'author', 'is' => 'owner'),
+		array('table' => 'news', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser')
+);
+foreach ($renames as $change) {
+	$table = $change['table'];
+	$is = $change['is'];
+	$new = $template[$table]['fields'][$is];
+	$sql = 'ALTER TABLE ' . prefix($table) . ' CHANGE `' . $change['was'] . '` `' . $is . '` ' . strtoupper($new['Type']);
+	if (!empty($new['Comment'])) {
+		$sql .= " COMMENT '" . $new['Comment'] . "'";
+	}
+	if (setupQuery($sql, FALSE)) {
+		$_DB_Structure_change = TRUE;
+	}
 }
 
 foreach (getDBTables() as $table) {
