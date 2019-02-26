@@ -27,11 +27,11 @@ $_DB_Structure_change = FALSE;
 
 //	handle column renaming as the template will assume a drop and add.
 $renames = array(
-		array('table' => 'comments', 'was' => 'custom_data', 'is' => 'address_data'),
 		array('table' => 'pages', 'was' => 'author', 'is' => 'owner'),
 		array('table' => 'pages', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
 		array('table' => 'news', 'was' => 'author', 'is' => 'owner'),
-		array('table' => 'news', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser')
+		array('table' => 'news', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
+		array('table' => 'comments', 'was' => 'custom_data', 'is' => 'address_data')
 );
 foreach ($renames as $change) {
 	$table = $change['table'];
