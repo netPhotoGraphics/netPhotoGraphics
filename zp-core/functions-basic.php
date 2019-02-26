@@ -468,7 +468,7 @@ function debug_var($args) {
 		if (is_string($arg)) {
 			echo $arg . ' = ';
 		}
-		echo var_export($v, true) . "\n";
+		echo print_r($v, true) . "\n";
 	}
 	echo '</pre>';
 }
