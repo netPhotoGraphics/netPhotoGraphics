@@ -68,6 +68,13 @@ function reconfigureAction($mandatory) {
 			// because we are loading the script from within a function!
 			global $subtabs, $zenphoto_tabs, $_zp_admin_tab, $_zp_invisible_execute, $_zp_gallery;
 			$_zp_invisible_execute = 1;
+			require_once(dirname(__FILE__) . '/functions-basic.php');
+			require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
+			if (!defined('FULLWEBPATH')) {
+				$protocol = (@$_SERVER['https']) ? 'HTTPS' : 'HTTP';
+				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
+				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
+			}
 			require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-globals.php');
 			header('Last-Modified: ' . ZP_LAST_MODIFIED);
 			header('Content-Type: text/html; charset=UTF-8');

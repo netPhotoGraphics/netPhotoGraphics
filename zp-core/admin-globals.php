@@ -12,12 +12,6 @@
 $_zp_button_actions = $zenphoto_tabs = array();
 require_once(dirname(__FILE__) . '/functions-basic.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
-if (!defined('FULLWEBPATH')) {
-	$protocol = ($_SERVER['https']) ? 'HTTPS' : 'HTTP';
-	define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
-	define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
-}
-
 
 zp_session_start();
 require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');

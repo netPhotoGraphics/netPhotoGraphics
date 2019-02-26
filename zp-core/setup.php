@@ -6,7 +6,7 @@
  *
  * @package admin
  */
-define('OFFSET_PATH', 1);
+define('OFFSET_PATH', 2);
 require_once(dirname(__FILE__) . '/admin-globals.php');
 require_once(dirname(__FILE__) . '/reconfigure.php');
 
