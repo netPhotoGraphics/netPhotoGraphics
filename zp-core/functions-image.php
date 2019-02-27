@@ -28,7 +28,7 @@ function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.p
 				$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . sanitize($newfilename, 3));
 			}
 			if ($image || $album) {
-				$msg.= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
+				$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
 			}
 			debugLog($msg);
 		}
@@ -408,6 +408,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 					$newim = zp_imageResizeTransparent($newim, $neww, $newh);
 					break;
 				case 'png':
+				case 'webp':
 					$newim = zp_createImage($neww, $newh);
 					$newim = zp_imageResizeAlpha($newim, $neww, $newh);
 					break;
