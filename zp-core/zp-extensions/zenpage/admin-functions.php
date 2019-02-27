@@ -526,11 +526,11 @@ function printNewsCategories($obj) {
 }
 
 function printAuthorDropdown() {
-	$rslt = query_full_array('SELECT DISTINCT `author` FROM ' . prefix('news'));
+	$rslt = query_full_array('SELECT DISTINCT `owner` FROM ' . prefix('news'));
 	if (count($rslt) > 1) {
 		$authors = array();
 		foreach ($rslt as $row) {
-			$authors[] = $row['author'];
+			$authors[] = $row['owner'];
 		}
 		if (isset($_GET['author'])) {
 			$authors[] = $cur_author = sanitize($_GET['author']);
