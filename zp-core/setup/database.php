@@ -241,6 +241,8 @@ foreach ($template as $tablename => $table) {
 		$create[] = "  `id` int(11) UNSIGNED NOT NULL auto_increment,";
 	}
 	$after = ' FIRST';
+	$templateorder = array_keys($table['fields']);
+	$dborder = array_keys($database[$tablename]['fields']);
 	foreach ($table['fields'] as $key => $field) {
 		if ($key != 'id') {
 			$dbType = strtoupper($field['Type']);
@@ -248,8 +250,9 @@ foreach ($template as $tablename => $table) {
 			if ($utf8mb4 && ($dbType == 'TEXT' || $dbType == 'LONGTEXT')) {
 				$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 			}
-			if ($field['Null'] === 'NO')
+			if ($field['Null'] === 'NO') {
 				$string .= " NOT NULL";
+			}
 			if (!empty($field['Default']) || $field['Default'] === '0' || $field['Null'] !== 'NO') {
 				if (is_null($field['Default'])) {
 					if ($field['Null'] !== 'NO') {
@@ -265,10 +268,10 @@ foreach ($template as $tablename => $table) {
 				$comment = " COMMENT '" . $field['Comment'] . "'";
 			}
 			$addString = sprintf($string, 'ADD COLUMN') . $comment . $after . ';';
-			$changeString = sprintf($string, "CHANGE `" . $field['Field'] . "`") . $comment . ';';
+			$changeString = sprintf($string, "CHANGE `" . $field['Field'] . "`") . $comment . $after . ';';
 			if ($exists) {
 				if (array_key_exists($key, $database[$tablename]['fields'])) {
-					if ($field != $database[$tablename]['fields'][$key]) {
+					if ($field != $database[$tablename]['fields'][$key] || array_search($key, $templateorder) != array_search($key, $dborder)) {
 						if (setupQuery($changeString)) {
 							$_DB_Structure_change = TRUE;
 						}
