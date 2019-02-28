@@ -70,6 +70,8 @@ function reconfigureAction($mandatory) {
 			$_zp_invisible_execute = 1;
 			require_once(dirname(__FILE__) . '/functions-basic.php');
 			require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
+			require_once(dirname(__FILE__) . '/functions-filter.php');
+
 			if (!defined('FULLWEBPATH')) {
 				$protocol = (@$_SERVER['https']) ? 'HTTPS' : 'HTTP';
 				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
