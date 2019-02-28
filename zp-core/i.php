@@ -186,15 +186,8 @@ if ($debug) {
 		case 'wbm':
 			$suffix = 'wbmp';
 			break;
-		case 'png':
-		case 'gif':
-		case 'jpeg':
-		case 'wbmp':
-		case 'webp':
-			// these are the correct content type
-			break;
 		default:
-			imageError(405, 'Method Not Allowed', sprintf(gettext("Suffix Not Allowed: %s"), filesystemToInternal(basename($newfilename))));
+		// use suffix as is
 	}
 	if (OPEN_IMAGE_CACHE) {
 		// send the right headers
