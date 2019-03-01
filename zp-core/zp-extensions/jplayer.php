@@ -535,6 +535,7 @@ class jPlayer {
 	 *
 	 */
 	function setModeAndSuppliedFormat($ext) {
+		$this->supplied = $ext;
 		switch ($ext) {
 			case 'm4a':
 			case 'mp3':
@@ -542,12 +543,12 @@ class jPlayer {
 				$this->mode = 'audio';
 				break;
 			case 'mp4':
+				$this->supplied = 'm4v';
 			case 'm4v':
 			case 'flv':
 				$this->mode = 'video';
 				break;
 		}
-		$this->supplied = $ext;
 	}
 
 	/** TODO: Could not get this to work with Firefox. Low priority so postponed for sometime later...
