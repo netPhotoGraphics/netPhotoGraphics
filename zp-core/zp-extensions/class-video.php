@@ -320,24 +320,11 @@ class Video extends Image {
 	 */
 	function getContent($w = NULL, $h = NULL) {
 		global $_zp_multimedia_extension;
-		if (is_null($w))
+		if (is_null($w)) {
 			$w = $this->getWidth();
-		if (is_null($h))
+		}
+		if (is_null($h)) {
 			$h = $this->getHeight();
-		if (Video::multimediaExtension() == "pseudoPlayer") {
-			$ext = getSuffix($link = $this->getFullImageURL());
-			switch ($ext) {
-				case 'mp3':
-					return '<audio class="audio-cv" controls>
-							<source src="' . $link . '" type="audio/mpeg">
-									' . gettext('Your browser does not support the audio tag') . '
-						</audio>';
-				case 'mp4':
-					return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
-							<source src="' . $this->getFullImageURL() . '" type="video/' . $ext . '">
-									' . gettext('Your browser does not support the video tag') . '
-						</video>';
-			}
 		}
 		return $_zp_multimedia_extension->getPlayerConfig($this, NULL, NULL, $w, $h);
 	}
@@ -454,28 +441,30 @@ class pseudoPlayer {
 		return $this->height;
 	}
 
-	function getPlayerConfig($obj, $movietitle = NULL, $count = NULL) {
-		$movie = $obj->getFullImage(FULLWEBPATH);
-		$suffix = getSuffix($movie);
-		$poster = $obj->getCustomImage(null, $obj->getWidth(), $obj->getHeight(), $obj->getWidth(), $obj->getHeight(), null, null, true);
-		$content = '';
-		switch ($suffix) {
-			case 'mp4':
-			case 'm4v':
-				$content = '<video poster="' . html_encode($poster) . '" src="' . html_encode($movie) . '" controls width="' . $this->width . '" height="' . $this->height . '">';
-				$content .= '<p>' . gettext('Your browser does not support this video format.') . '</p>';
-				$content .= '</video>';
-				break;
+	function getPlayerConfig($obj, $movietitle = NULL, $count = NULL, $w = NULL, $h = NULL) {
+		if (is_null($w)) {
+			$w = $this->getWidth();
+		}
+		if (is_null($h)) {
+			$h = $this->getHeight();
+		}
+
+		$ext = getSuffix($link = $obj->getFullImageURL());
+		switch ($ext) {
 			case 'mp3':
 			case 'm4a':
-				$content = '<audio src="' . html_encode($movie) . '" controls>';
-				$content .= '<p>' . gettext('Your browser does not support this audio format.') . '</p>';
-				$content .= '</audio>';
-				break;
+				return '<audio class="audio-cv" controls>
+							<source src="' . $link . '" type="audio/mpeg">
+									' . gettext('Your browser does not support the audio tag') . '
+						</audio>';
+			case 'mp4':
+			case 'm4v':
+				return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
+							<source src="' . $obj->getFullImageURL() . '" type="video/' . $ext . '">
+									' . gettext('Your browser does not support the video tag') . '
+						</video>';
 		}
-		if (empty($content)) {
-			return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-noflashplayer.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
-		}
+		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-noflashplayer.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
 	}
 
 }

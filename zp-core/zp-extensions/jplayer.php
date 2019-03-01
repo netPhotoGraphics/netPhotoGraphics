@@ -277,7 +277,14 @@ class jPlayer {
 	 * @param string $height Not supported as jPlayer is dependend on its CSS based skin to change sizes. Can only be set via plugin options.
 	 *
 	 */
-	function getPlayerConfig($movie, $movietitle = NULL, $count = NULL) {
+	function getPlayerConfig($movie, $movietitle = NULL, $count = NULL, $w = NULL, $h = NULL) {
+		if (is_null($w)) {
+			$w = $this->getWidth();
+		}
+		if (is_null($h)) {
+			$h = $this->getHeight();
+		}
+
 		$moviepath = $movie->getFullImageURL(FULLWEBPATH);
 		if (is_null($movietitle)) {
 			$movietitle = $movie->getTitle();
@@ -300,10 +307,10 @@ class jPlayer {
 		}
 		$videoThumb = '';
 		if (getOption('jplayer_poster') && ($this->mode == 'video' || ($this->mode == 'audio' && getOption('jplayer_audioposter')))) {
-//$splashimagerwidth = $this->width;
-//$splashimageheight = $this->height;
-//getMaxSpaceContainer($splashimagerwidth, $splashimageheight, $movie, true); // jplayer squishes always if not the right aspect ratio
-			$videoThumb = ',poster:"' . $movie->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true) . '"';
+			//$splashimagerwidth = $w;
+			//$splashimageheight = $h;
+			//getMaxSpaceContainer($splashimagerwidth, $splashimageheight, $movie, true); // jplayer squishes always if not the right aspect ratio
+			$videoThumb = ',poster:"' . $movie->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
 		}
 		$playerconfig = '
 		<script type="text/javascript">
