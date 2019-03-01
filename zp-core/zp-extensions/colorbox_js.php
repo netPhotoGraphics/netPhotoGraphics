@@ -51,6 +51,13 @@ class colorbox {
 
 	function getOptionsSupported() {
 		global $_zp_gallery;
+		$themes = getPluginFiles('colorbox_js/themes/*.*');
+		$list = array('Custom (theme based)' => 'custom');
+		foreach ($themes as $theme) {
+			$theme = stripSuffix(basename($theme));
+			$list[ucfirst($theme)] = $theme;
+		}
+
 		return array(gettext('Colorbox theme') => array('key' => 'colorbox_theme', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 0,
 						'selections' => $list,
