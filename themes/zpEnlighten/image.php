@@ -84,12 +84,15 @@ if (!defined('WEBPATH'))
 
 				<div id="image">
 					<?php
-					if (getOption("Use_thickbox")) {
-						$boxclass = " class=\"thickbox\"";
-						$tburl = getUnprotectedImageURL();
-					} else {
-						$boxclass = "";
-						$tburl = getFullImageURL();
+					$tburl = "";
+					$boxclass = "";
+					if (isImagePhoto()) {
+						if (getOption("Use_thickbox")) {
+							$boxclass = " class=\"thickbox\"";
+							$tburl = getUnprotectedImageURL();
+						} else {
+							$tburl = getFullImageURL();
+						}
 					}
 					if (!empty($tburl)) {
 						?>
@@ -121,7 +124,7 @@ if (!defined('WEBPATH'))
 					}
 					?>
 					<?php
-					if (function_exists('printSlideShowLink')) {
+					if (function_exists('printSlideShowLink') && isImagePhoto()) {
 						echo '<span id="slideshowlink">';
 						printSlideShowLink(gettext('View Slideshow'));
 						echo '</span>';
