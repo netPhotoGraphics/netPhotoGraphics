@@ -77,7 +77,7 @@ if (!defined('WEBPATH'))
 					?>
 					<br style="clear:both" />
 					<?php
-					if (function_exists('printSlideShowLink')) {
+					if (function_exists('printSlideShowLink') && isImagePhoto()) {
 						echo '<span id="slideshowlink">';
 						printSlideShowLink();
 						echo '</span>';

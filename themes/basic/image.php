@@ -128,7 +128,7 @@ if (!defined('WEBPATH'))
 					&nbsp;&nbsp;
 					<?php
 				}
-				If (function_exists('printSlideShowLink')) {
+				If (function_exists('printSlideShowLink') && isImagePhoto()) {
 					printSlideShowLink(NULL, NULL, '&nbsp;&nbsp;');
 				}
 

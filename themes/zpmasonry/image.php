@@ -37,7 +37,7 @@
 <?php if ((strlen($tagstring) > 0) || (zp_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
 					</ul>
 				</div>
-				<?php if ($useGslideshow) { ?>
+				<?php if ($useGslideshow && isImagePhoto()) { ?>
 					<div id="slideshowlink" class="sidebar-divide gslideshowlink"><?php printSlideShowLink(gettext('Start Slideshow')); ?></div>
 				<?php } ?>
 

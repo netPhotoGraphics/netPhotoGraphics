@@ -19,7 +19,7 @@
 				</ul>
 			</div>
 
-			<?php if (function_exists('printSlideShowLink')) { ?>
+			<?php if (function_exists('printSlideShowLink') && isImagePhoto()) { ?>
 				<div class="control-slide">
 					<?php printSlideShowLink(gettext('Slideshow')); ?>
 				</div>
