@@ -216,30 +216,40 @@ echo "\n</head>";
 								if ($image->exists) {
 									?>
 									<li id="id_<?php echo $image->getID(); ?>">
-										<label>
-											<img class="imagethumb"
-													 src="<?php echo getAdminThumb($image, 'large'); ?>"
-													 alt="<?php echo html_encode($image->getTitle()); ?>"
-													 title="<?php
-													 echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
-													 ?>"
-													 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
-											<p>
-												<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
-												<a href="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
-													<?php echo PENCIL_ICON; ?>
+										<div  class="images_publishstatus">
+											<?php
+											if (!$image->getShow()) {
+												$publishstatus_text = gettext('Unpublished');
+												$publishstatus_icon = '/images/action.png';
+												?>
+												<img src="<?php echo WEBPATH . '/' . ZENFOLDER . $publishstatus_icon; ?>" alt="<?php echo $publishstatus_text; ?>" title="<?php echo $publishstatus_text; ?>">
+												<?php
+											}
+											?>
+										</div>
+										<img class="imagethumb"
+												 src="<?php echo getAdminThumb($image, 'large'); ?>"
+												 alt="<?php echo html_encode($image->getTitle()); ?>"
+												 title="<?php
+												 echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
+												 ?>"
+												 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
+										<p>
+											<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
+											<a href="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
+												<?php echo PENCIL_ICON; ?>
+											</a>
+											<?php
+											if (isImagePhoto($image)) {
+												?>
+												<a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
+													<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="">
 												</a>
 												<?php
-												if (isImagePhoto($image)) {
-													?>
-													<a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
-														<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="">
-													</a>
-													<?php
-												}
-												linkPickerIcon($image);
-												?>
-											</p>
+											}
+											linkPickerIcon($image);
+											?>
+										</p>
 										</label>
 									</li>
 									<?php
