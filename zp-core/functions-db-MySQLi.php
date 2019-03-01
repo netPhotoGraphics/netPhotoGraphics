@@ -33,7 +33,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$_zp_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
-			if (is_object($_zp_DB_connection) || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
+			if (is_object($_zp_DB_connection) || !in_array($e, array(ER_TOO_MANY_USER_CONNECTIONS, ER_CON_COUNT_ERROR, ER_SERVER_GONE))) {
 				break;
 			}
 			sleep($i);

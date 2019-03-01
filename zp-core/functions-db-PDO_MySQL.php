@@ -40,7 +40,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				break;
 			} catch (PDOException $e) {
 				$_zp_DB_last_result = $e;
-				if ($i >= MYSQL_CONNECTION_RETRIES - 1 || !(($er = $e->getCode()) == ER_TOO_MANY_USER_CONNECTIONS || $er == ER_CON_COUNT_ERROR)) {
+				if ($i >= MYSQL_CONNECTION_RETRIES || !(in_array($er = $e->getCode(), array(ER_TOO_MANY_USER_CONNECTIONS, ER_CON_COUNT_ERROR, ER_SERVER_GONE)))) {
 					if ($errorstop) {
 						trigger_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ': ' . $e->getMessage()), $errorstop);
 					}
