@@ -29,7 +29,7 @@
 		<span id="img-title"><?php printImageTitle(true); ?></span>
 	</div>
 	<div class="album-details">
-		<?php if ($useGslideshow) { ?>
+		<?php if ($useGslideshow && isImagePhoto()) { ?>
 			<div class="slideshowlink"><?php printSlideShowLink(gettext('Slideshow')); ?></div>
 		<?php } ?>
 		<ul>
