@@ -167,9 +167,9 @@ updatePublished('news');
 						foreach ($list as $key => $article) {
 							$article = newArticle($article['titlelink']);
 							$subrights = $article->subRights();
-							$author = $article->getAuthor();
+							$author = $article->getOwner();
 							if (!($author == $admin || $article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT) ||
-											($cur_author && $cur_author != $article->getAuthor()) ||
+											($cur_author && $cur_author != $article->getOwner()) ||
 											(is_null($catobj) && !is_null($category) && !empty($article->getCategories()))) {
 								unset($$which[$key]);
 							}
@@ -337,7 +337,7 @@ updatePublished('news');
 											<?php printNewsCategories($article) ?><br />
 										</td>
 										<td>
-											<?php echo html_encode($article->getAuthor()); ?>
+											<?php echo html_encode($article->getOwner()); ?>
 										</td>
 										<td>
 											<?php

@@ -13,7 +13,6 @@ $_zp_button_actions = $zenphoto_tabs = array();
 require_once(dirname(__FILE__) . '/functions-basic.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
 
-
 zp_session_start();
 require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
 httpsRedirect();
@@ -152,7 +151,7 @@ if (@$_zp_loggedin) {
 				$pagelist = $_zp_CMS->getPages();
 				foreach ($pagelist as $key => $apage) {
 					$pageobj = newPage($apage['titlelink']);
-					if (!($admin == $pageobj->getAuthor() || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+					if (!($admin == $pageobj->getOwner() || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 						unset($pagelist[$key]);
 					}
 				}
@@ -168,7 +167,7 @@ if (@$_zp_loggedin) {
 				foreach ($articles as $key => $article) {
 					$article = newArticle($article['titlelink']);
 					$subrights = $article->subRights();
-					if (!($admin == $article->getAuthor() || $article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT)) {
+					if (!($admin == $article->getOwner() || $article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT)) {
 						unset($articles[$key]);
 					}
 				}

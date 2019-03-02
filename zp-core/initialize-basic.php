@@ -106,7 +106,7 @@ foreach ($_zp_conf_vars as $name => $value) {
 
 if (!defined('DATABASE_SOFTWARE') && (extension_loaded(strtolower($_zp_conf_vars['db_software'])) || $_zp_conf_vars['db_software'] == 'NULL')) {
 	require_once(dirname(__FILE__) . '/functions-db-' . $_zp_conf_vars['db_software'] . '.php');
-	$data = db_connect(array_intersect_key($_zp_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), false);
+	$data = db_connect(array_intersect_key($_zp_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
 	if ($data) {
 		$software = db_software();
 		define('MySQL_VERSION', $software['version']);
@@ -192,6 +192,8 @@ switch (SERVER_PROTOCOL) {
 		}
 		break;
 }
+define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
+define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 
 if (!defined('COOKIE_PERSISTENCE')) {
 	$persistence = getOption('cookie_persistence');
@@ -208,8 +210,6 @@ if ($c = getOption('zenphoto_cookie_path')) {
 unset($c);
 
 define('SAFE_MODE', preg_match('#(1|ON)#i', ini_get('safe_mode')));
-define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
-define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 define('SAFE_MODE_ALBUM_SEP', '__');
 define('SERVERCACHE', SERVERPATH . '/' . CACHEFOLDER);
 define('MOD_REWRITE', getOption('mod_rewrite'));

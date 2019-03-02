@@ -28,7 +28,7 @@ function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.p
 				$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . sanitize($newfilename, 3));
 			}
 			if ($image || $album) {
-				$msg.= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
+				$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
 			}
 			debugLog($msg);
 		}
@@ -363,19 +363,17 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 				$ch = $ch + $cy;
 				$cy = 0;
 			}
-			if (DEBUG_IMAGE)
+			if (DEBUG_IMAGE) {
 				debugLog("cacheImage:crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate");
-			switch (getSuffix($newfilename)) {
+			}
+			$newim = zp_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
+			switch ($suffix) {
 				case 'gif':
-					$newim = zp_createImage($neww, $newh, false);
 					$newim = zp_imageResizeTransparent($newim, $neww, $newh);
 					break;
 				case 'png':
-					$newim = zp_createImage($neww, $newh);
+				case 'webp':
 					$newim = zp_imageResizeAlpha($newim, $neww, $newh);
-					break;
-				default:
-					$newim = zp_createImage($neww, $newh);
 					break;
 			}
 			if (!zp_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
@@ -400,19 +398,17 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 				$sizes = propSizes($size, $width, $height, $w, $h, $thumb, $image_use_side, $dim);
 				list($neww, $newh) = $sizes;
 			}
-			if (DEBUG_IMAGE)
+			if (DEBUG_IMAGE) {
 				debugLog("cacheImage:no crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
-			switch (getSuffix($newfilename)) {
+			}
+			$newim = zp_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
+			switch ($suffix) {
 				case 'gif':
-					$newim = zp_createImage($neww, $newh, false);
 					$newim = zp_imageResizeTransparent($newim, $neww, $newh);
 					break;
 				case 'png':
-					$newim = zp_createImage($neww, $newh);
+				case 'webp':
 					$newim = zp_imageResizeAlpha($newim, $neww, $newh);
-					break;
-				default:
-					$newim = zp_createImage($neww, $newh);
 					break;
 			}
 			if (!zp_resampleImage($newim, $im, 0, 0, 0, 0, $neww, $newh, $w, $h)) {

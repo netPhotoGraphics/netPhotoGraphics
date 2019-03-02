@@ -92,7 +92,7 @@ function stickyNews($newsobj = NULL) {
  *
  * @return string
  */
-function getAuthor($fullname = false) {
+function getOwner($fullname = false) {
 	global $_zp_current_page, $_zp_current_article, $_zp_authority;
 
 	if (is_Pages()) {
@@ -104,12 +104,12 @@ function getAuthor($fullname = false) {
 	}
 	if ($obj) {
 		if ($fullname) {
-			$admin = $_zp_authority->getAnAdmin(array('`user`=' => $obj->getAuthor(), '`valid`=' => 1));
+			$admin = $_zp_authority->getAnAdmin(array('`user`=' => $obj->getOwner(), '`valid`=' => 1));
 			if (is_object($admin) && $admin->getName()) {
 				return $admin->getName();
 			}
 		}
-		return $obj->getAuthor();
+		return $obj->getOwner();
 	}
 	return false;
 }
@@ -445,7 +445,7 @@ function getNewsReadMore() {
  */
 function getNewsAuthor($fullname = false) {
 	if (is_News()) {
-		return getAuthor($fullname);
+		return getOwner($fullname);
 	}
 	return false;
 }
@@ -1935,7 +1935,7 @@ function printPageExtraContent($titlelink = NULL, $published = true) {
  */
 function getPageAuthor($fullname = false) {
 	if (is_Pages()) {
-		return getAuthor($fullname);
+		return getOwner($fullname);
 	}
 	return false;
 }

@@ -25,11 +25,27 @@ if (isset($_SESSION['admin']['db_admin_fields'])) { //	we are in a clone install
 }
 $_DB_Structure_change = FALSE;
 
-/* rename Comment table custom_data since it is really address data */
-$sql = "ALTER TABLE " . prefix('comments') . " CHANGE `custom_data` `address_data` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'zp20';";
-if (setupQuery($sql, false)) {
-	$_DB_Structure_change = TRUE;
+//	handle column renaming as the template will assume a drop and add.
+$renames = array(
+		array('table' => 'pages', 'was' => 'author', 'is' => 'owner'),
+		array('table' => 'pages', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
+		array('table' => 'news', 'was' => 'author', 'is' => 'owner'),
+		array('table' => 'news', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
+		array('table' => 'comments', 'was' => 'custom_data', 'is' => 'address_data')
+);
+foreach ($renames as $change) {
+	$table = $change['table'];
+	$is = $change['is'];
+	$new = $template[$table]['fields'][$is];
+	$sql = 'ALTER TABLE ' . prefix($table) . ' CHANGE `' . $change['was'] . '` `' . $is . '` ' . strtoupper($new['Type']);
+	if (!empty($new['Comment'])) {
+		$sql .= " COMMENT '" . $new['Comment'] . "'";
+	}
+	if (setupQuery($sql, FALSE)) {
+		$_DB_Structure_change = TRUE;
+	}
 }
+
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
 	foreach ($tablecols as $key => $datum) {
@@ -225,6 +241,8 @@ foreach ($template as $tablename => $table) {
 		$create[] = "  `id` int(11) UNSIGNED NOT NULL auto_increment,";
 	}
 	$after = ' FIRST';
+	$templateorder = array_keys($table['fields']);
+	$dborder = array_keys($database[$tablename]['fields']);
 	foreach ($table['fields'] as $key => $field) {
 		if ($key != 'id') {
 			$dbType = strtoupper($field['Type']);
@@ -232,8 +250,9 @@ foreach ($template as $tablename => $table) {
 			if ($utf8mb4 && ($dbType == 'TEXT' || $dbType == 'LONGTEXT')) {
 				$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 			}
-			if ($field['Null'] === 'NO')
+			if ($field['Null'] === 'NO') {
 				$string .= " NOT NULL";
+			}
 			if (!empty($field['Default']) || $field['Default'] === '0' || $field['Null'] !== 'NO') {
 				if (is_null($field['Default'])) {
 					if ($field['Null'] !== 'NO') {
@@ -249,10 +268,10 @@ foreach ($template as $tablename => $table) {
 				$comment = " COMMENT '" . $field['Comment'] . "'";
 			}
 			$addString = sprintf($string, 'ADD COLUMN') . $comment . $after . ';';
-			$changeString = sprintf($string, "CHANGE `" . $field['Field'] . "`") . $comment . ';';
+			$changeString = sprintf($string, "CHANGE `" . $field['Field'] . "`") . $comment . $after . ';';
 			if ($exists) {
 				if (array_key_exists($key, $database[$tablename]['fields'])) {
-					if ($field != $database[$tablename]['fields'][$key]) {
+					if ($field != $database[$tablename]['fields'][$key] || array_search($key, $templateorder) != array_search($key, $dborder)) {
 						if (setupQuery($changeString)) {
 							$_DB_Structure_change = TRUE;
 						}
@@ -292,21 +311,21 @@ foreach ($template as $tablename => $table) {
 			$string = "ALTER TABLE " . prefix($tablename) . ' ADD ';
 			$i = $k = $index['Column_name'];
 			if (!empty($index['Sub_part'])) {
-				$k .=" (" . $index['Sub_part'] . ")";
+				$k .= " (" . $index['Sub_part'] . ")";
 			}
 
 			if ($index['Non_unique']) {
 				$string .= "INDEX ";
 				$u = "KEY";
 			} else {
-				$string .="UNIQUE ";
+				$string .= "UNIQUE ";
 				$u = "UNIQUE `$key`";
 				$uniquekeys[$tablename][$key] = explode(',', $i);
 			}
 
 			$alterString = "$string`$key` ($k)";
 			if ($indexComments) {
-				$alterString.=" COMMENT 'zp20';";
+				$alterString .= " COMMENT 'zp20';";
 			} else {
 				unset($index['Index_comment']);
 			}

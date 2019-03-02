@@ -46,7 +46,7 @@ if (time() > getOption('last_garbage_collect') + 864000) {
 	$_zp_gallery->garbageCollect();
 }
 if (isset($_GET['report'])) {
-	$class = 'messagebox';
+	$class = 'messagebox fade-message';
 	$msg = sanitize($_GET['report']);
 } else {
 	$msg = '';
@@ -68,7 +68,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 				case "clear_cache":
 					XSRFdefender('clear_cache');
 					Gallery::clearCache();
-					$class = 'messagebox';
+					$class = 'messagebox fade-message';
 					$msg = gettext('Image cache cleared.');
 					break;
 
@@ -78,7 +78,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						XSRFdefender('clear_cache');
 						$RSS = new RSS(array('rss' => 'null'));
 						$RSS->clearCache();
-						$class = 'messagebox';
+						$class = 'messagebox fade-message';
 						$msg = gettext('RSS cache cleared.');
 					}
 					break;
@@ -88,14 +88,14 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					XSRFdefender('ClearHTMLCache');
 					require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/static_html_cache.php');
 					static_html_cache::clearHTMLCache();
-					$class = 'messagebox';
+					$class = 'messagebox fade-message';
 					$msg = gettext('HTML cache cleared.');
 					break;
 				/** clear the search cache ****************************************************** */
 				case 'clear_search_cache':
 					XSRFdefender('ClearSearchCache');
 					SearchEngine::clearSearchCache(NULL);
-					$class = 'messagebox';
+					$class = 'messagebox fade-message';
 					$msg = gettext('Search cache cleared.');
 					break;
 				/** restore the setup files ************************************************** */
@@ -103,11 +103,11 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					XSRFdefender('restore_setup');
 					list($diff, $needs) = checkSignature(2);
 					if (empty($needs)) {
-						$class = 'messagebox';
+						$class = 'messagebox fade-message';
 						$msg = gettext('Setup files restored.');
 					} else {
 						zp_apply_filter('log_setup', false, 'restore', implode(', ', $needs));
-						$class = 'errorbox';
+						$class = 'errorbox fade-message';
 						$msg = gettext('Setup files restore failed.');
 					}
 					break;
@@ -133,11 +133,11 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					}
 					if (empty($rslt)) {
 						zp_apply_filter('log_setup', true, 'protect', gettext('protected'));
-						$class = 'messagebox';
+						$class = 'messagebox fade-message';
 						$msg = gettext('Setup files protected.');
 					} else {
 						zp_apply_filter('log_setup', false, 'protect', implode(', ', $rslt));
-						$class = 'errorbox';
+						$class = 'errorbox fade-message';
 						$msg = gettext('Protecting setup files failed.');
 					}
 					break;
@@ -147,15 +147,22 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					if (isset($_GET['error'])) {
 						$class = sanitize($_GET['error']);
 						if (empty($class)) {
-							$class = 'errorbox';
+							$class = 'errorbox fade-message';
 						}
 					} else {
-						$class = 'messagebox';
+						$class = 'messagebox fade-message';
 					}
 					if (isset($_GET['msg'])) {
 						$msg = sanitize($_GET['msg']);
 					} else {
 						$msg = '';
+					}
+					if (isset($_GET['more'])) {
+						$class = 'messagebox'; //	no fade!
+						$more = $_SESSION[$_GET['more']];
+						foreach ($more as $detail) {
+							$msg .= '<br />' . $detail;
+						}
 					}
 					break;
 
@@ -168,7 +175,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					break;
 			}
 		} else {
-			$class = 'errorbox';
+			$class = 'errorbox fade-message';
 			$actions = array(
 					'clear_cache' => gettext('purge Image cache'),
 					'clear_rss_cache' => gettext('purge RSS cache'),
@@ -184,7 +191,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 		}
 	} else {
 		if (isset($_GET['from'])) {
-			$class = 'errorbox';
+			$class = 'errorbox fade-message';
 			$msg = sprintf(gettext('You do not have proper rights to access %s.'), html_encode(sanitize($_GET['from'])));
 		}
 	}
@@ -302,8 +309,8 @@ $buttonlist = array();
 
 			if (!empty($msg)) {
 				?>
-				<div class="<?php echo html_encode($class); ?> fade-message">
-					<h2><?php echo html_encode($msg); ?></h2>
+				<div class="<?php echo html_encode($class); ?>">
+					<h2><?php echo html_encodeTagged($msg); ?></h2>
 				</div>
 				<?php
 			}

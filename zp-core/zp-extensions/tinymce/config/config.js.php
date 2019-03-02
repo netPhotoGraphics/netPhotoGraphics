@@ -33,7 +33,7 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  */
-$filehandler = zp_apply_filter('tinymce_config', NULL);
+zp_apply_filter('tinymce_config', NULL);
 
 if ($MCEcss) {
 	$MCEcss = getPlugin('tinymce/config/' . $MCEcss, true, true);
@@ -60,6 +60,9 @@ if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 if ($MCEplugins && !is_array($MCEplugins)) {
 	$MCEplugins = explode(' ', preg_replace('/\s\s+/', ' ', trim($MCEplugins)));
 }
+if (array_search('pasteobj', $MCEplugins)) {
+	scriptLoader(TINYMCE . '/pasteobj/plugin.js');
+}
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[
@@ -85,11 +88,6 @@ if ($MCEcss) {
 		content_css: "<?php echo $MCEcss; ?>",
 	<?php
 }
-if ($filehandler) {
-	?>
-		elements : "<?php echo $filehandler; ?>", file_browser_callback : <?php echo $filehandler; ?>,
-	<?php
-}
 ?>
 	plugins: ["<?php echo implode(' ', $MCEplugins); ?>"],
 <?php
@@ -110,7 +108,9 @@ if (in_array('pagebreak', $MCEplugins)) {
 	<?php
 }
 if ($MCEspecial) {
-	echo $MCEspecial . ",\n";
+	foreach ($MCEspecial as $element => $value) {
+		echo $element . ': ' . $value . ",\n";
+	}
 }
 if ($MCEskin) {
 	?>
@@ -128,7 +128,9 @@ if (empty($MCEtoolbars)) {
 		<?php
 	}
 }
-
+?>
+	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
+<?php
 if ($MCEmenubar) {
 	if (is_array($MCEmenubar)) {
 		$menu = $MCEmenubar;
@@ -172,10 +174,8 @@ if ($MCEmenubar) {
 } else {
 	$MCEmenubar = "false";
 }
-?>
-
-	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
-<?php echo $MCEmenubar; ?>,
+echo $MCEmenubar;
+?>,
 					setup: function(editor) {
 					editor.on('blur', function(ed, e) {
 					form = $(editor.getContainer()).closest('form');

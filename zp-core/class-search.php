@@ -117,8 +117,8 @@ class SearchEngine {
 		if (extensionEnabled('zenpage') && !$dynamic_album) {
 			//zenpage fields
 			$this->search_structure['content'] = gettext('Content');
-			$this->search_structure['author'] = gettext('Author');
-			$this->search_structure['lastchangeauthor'] = gettext('Last Editor');
+			$this->search_structure['owner'] = gettext('Author');
+			$this->search_structure['lastchangeuser'] = gettext('Last Editor');
 			$this->search_structure['titlelink'] = gettext('TitleLink');
 			$this->search_structure['news_categories'] = gettext('Categories');
 		}
@@ -332,7 +332,7 @@ class SearchEngine {
 			$r .= '&date=' . $d;
 			$d = trim($this->whichdates);
 			if ($d != 'date') {
-				$r.= '&whichdates=' . $d;
+				$r .= '&whichdates=' . $d;
 			}
 		}
 		$r .= $this->getSearchFieldsText($this->fieldList);
@@ -366,10 +366,10 @@ class SearchEngine {
 				$r .= '&page=' . $_zp_page;
 			}
 			if ($this->search_unpublished) {
-				$r.='&unpublished';
+				$r .= '&unpublished';
 			}
 			if ($this->searchprivatetags) {
-				$r.='&privatetags';
+				$r .= '&privatetags';
 			}
 		}
 		if ($long !== 0) {

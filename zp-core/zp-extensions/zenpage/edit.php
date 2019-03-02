@@ -349,10 +349,6 @@ $tagsort = 'alpha';
 
 							<input type="hidden" name="id" value="<?php echo $result->getID(); ?>" />
 							<input type="hidden" name="titlelink-old" id="titlelink-old" value="<?php echo html_encode($result->getTitlelink()); ?>" />
-							<input type="hidden" name="lastchange" id="lastchange" value="<?php echo date('Y-m-d H:i:s'); ?>" />
-							<input type="hidden" name="lastchangeauthor" id="lastchangeauthor" value="<?php echo $_zp_current_admin_obj->getUser(); ?>" />
-							<input type="hidden" name="hitcounter" id="hitcounter" value="<?php echo $result->getHitcounter(); ?>" />
-
 							<?php
 							if ($reports) {
 								$show = array();
@@ -537,7 +533,7 @@ $tagsort = 'alpha';
 												<?php
 												if (!is_AdminEditPage("newscategory")) {
 													?>
-													<p><?php echo gettext("Author"); ?> <?php authorSelector($result->getAuthor()); ?></p>
+													<p><?php echo gettext("Author"); ?> <?php authorSelector($result->getOwner()); ?></p>
 													<?php
 												}
 												?>
@@ -756,10 +752,8 @@ $tagsort = 'alpha';
 															});
 															// ]]> -->
 														</script>
-														<?php
-														echo gettext('Publish date (YYYY-MM-DD) ');
-														$date = $result->getPublishDate();
-														?>
+														<?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small>
+														<?php $date = $result->getPublishDate(); ?>
 														<input name="pubdate" type="text" id="pubdate" value="<?php echo $date; ?>" onchange="checkFuturePub();" <?php if ($date > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
 													</p>
 													<p>
@@ -777,10 +771,8 @@ $tagsort = 'alpha';
 															// ]]> -->
 														</script>
 
-														<?php
-														echo gettext("Expiration date (YYYY-MM-DD)");
-														$date = $result->getExpireDate();
-														?>
+														<?php echo gettext("Expiration date"); ?>  <small>(YYYY-MM-DD)</small>
+														<?php $date = $result->getExpireDate(); ?>
 														<br />
 														<input name="expiredate" type="text" id="expiredate" value="<?php echo $date; ?>" onchange="checkFutureExpiry();" />
 														<br />
@@ -793,9 +785,9 @@ $tagsort = 'alpha';
 														</strong>
 													</p>
 													<?php
-													if ($result->getLastchangeAuthor() != "") {
+													if ($result->getlastchangeuser()) {
 														?>
-														<hr /><p><?php printf(gettext('Last change<br />%1$s<br />by %2$s'), $result->getLastchange(), $result->getLastchangeauthor()); ?>
+														<hr /><p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
 														</p>
 														<?php
 													}

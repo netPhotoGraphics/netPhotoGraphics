@@ -126,7 +126,7 @@ if (!file_exists($imgfile)) {
 	}
 	if (!file_exists($imgfile)) {
 		if (DEBUG_IMAGE)
-			debugLogVar(['image not found' =>  $args]);
+			debugLogVar(['image not found' => $args]);
 		imageError('404 Not Found', sprintf(gettext("Image not found; file %s does not exist."), html_encode(filesystemToInternal($album . '/' . $image))), 'err-imagenotfound.png');
 	}
 }
@@ -186,14 +186,8 @@ if ($debug) {
 		case 'wbm':
 			$suffix = 'wbmp';
 			break;
-		case 'png':
-		case 'gif':
-		case 'jpeg':
-		case 'wbmp':
-			// these are the correct content type
-			break;
 		default:
-			imageError(405, 'Method Not Allowed', sprintf(gettext("Suffix Not Allowed: %s"), filesystemToInternal(basename($newfilename))));
+		// use suffix as is
 	}
 	if (OPEN_IMAGE_CACHE) {
 		// send the right headers

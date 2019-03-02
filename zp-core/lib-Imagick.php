@@ -140,6 +140,7 @@ if ($_zp_imagick_present && (getOption('use_imagick') || !extension_loaded('gd')
 			'GIF' => 'gif', 'GIF87' => 'gif',
 			'JPG' => 'jpg', 'JPEG' => 'jpg',
 			'PNG' => 'png', 'PNG8' => 'png', 'PNG24' => 'png', 'PNG32' => 'png',
+			'WEBP' => 'webp',
 			'TIFF' => 'jpg', 'TIFF64' => 'jpg'
 	);
 
@@ -269,7 +270,7 @@ if ($_zp_imagick_present && (getOption('use_imagick') || !extension_loaded('gd')
 	function zp_createImage($w, $h, $truecolor = true) {
 		$im = new Imagick();
 		$im->newImage($w, $h, 'none');
-		if($truecolor) {
+		if ($truecolor) {
 			$im->setImageType(Imagick::IMGTYPE_TRUECOLORMATTE);
 		} else {
 			$imagetype = $im->getImageType();
@@ -420,10 +421,10 @@ if ($_zp_imagick_present && (getOption('use_imagick') || !extension_loaded('gd')
 		$src->scaleImage($w, $h);
 		return $src;
 	}
-	
+
 	/**
 	 * Uses zp_imageResizeAlpha() internally as Imagick does not make a difference
-	 * 
+	 *
 	 * @param type $src
 	 * @param type $w
 	 * @param type $h

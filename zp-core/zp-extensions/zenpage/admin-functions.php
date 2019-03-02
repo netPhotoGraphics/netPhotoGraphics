@@ -48,12 +48,11 @@ function processTags($object) {
  * @return object
  */
 function updatePage(&$reports, $newpage = false) {
+	global $_zp_current_admin_obj;
 	$title = process_language_string_save("title", 2);
 	$author = sanitize($_POST['author']);
 	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$date = sanitize($_POST['date']);
-	$lastchange = sanitize($_POST['lastchange']);
-	$lastchangeauthor = sanitize($_POST['lastchangeauthor']);
 	$pubdate = sanitize($_POST['pubdate']);
 	$expiredate = getExpiryDatePost();
 	$commentson = getcheckboxState('commentson');
@@ -117,9 +116,9 @@ function updatePage(&$reports, $newpage = false) {
 	$page->setTitle($title);
 	$page->setContent($content);
 	$page->setCommentsAllowed($commentson);
-	$page->setAuthor($author);
-	$page->setLastchange($lastchange);
-	$page->setLastchangeauthor($lastchangeauthor);
+	$page->setOwner($author);
+	$page->setLastchange(date('Y-m-d H:i:s'));
+	$page->setlastchangeuser($_zp_current_admin_obj->getUser());
 	$page->setPermalink($permalink);
 	$page->setLocked($locked);
 	$page->setExpiredate($expiredate);
@@ -238,7 +237,7 @@ function printPagesListTable($page, $toodeep) {
 		</div>
 		<div class="page-list_extra">
 			<span>
-				<?php echo html_encode($page->getAuthor()); ?>
+				<?php echo html_encode($page->getOwner()); ?>
 			</span>
 		</div>
 		<div class="page-list_extra">
@@ -369,8 +368,6 @@ function updateArticle(&$reports, $newarticle = false) {
 	$pubdate = sanitize($_POST['pubdate']);
 	$expiredate = getExpiryDatePost();
 	$permalink = getcheckboxState('permalink');
-	$lastchange = sanitize($_POST['lastchange']);
-	$lastchangeauthor = sanitize($_POST['lastchangeauthor']);
 	$commentson = getcheckboxState('commentson');
 	$locked = getcheckboxState('locked');
 
@@ -432,9 +429,9 @@ function updateArticle(&$reports, $newarticle = false) {
 	$article->setContent($content);
 	$article->setDateTime($date);
 	$article->setCommentsAllowed($commentson);
-	$article->setAuthor($author);
-	$article->setLastchange($lastchange);
-	$article->setLastchangeauthor($lastchangeauthor);
+	$article->setOwner($author);
+	$article->setLastchange(date('Y-m-d H:i:s'));
+	$article->setlastchangeuser($_zp_current_admin_obj->getUser());
 	$article->setPermalink($permalink);
 	$article->setLocked($locked);
 	$article->setExpiredate($expiredate);
@@ -529,11 +526,11 @@ function printNewsCategories($obj) {
 }
 
 function printAuthorDropdown() {
-	$rslt = query_full_array('SELECT DISTINCT `author` FROM ' . prefix('news'));
+	$rslt = query_full_array('SELECT DISTINCT `owner` FROM ' . prefix('news'));
 	if (count($rslt) > 1) {
 		$authors = array();
 		foreach ($rslt as $row) {
-			$authors[] = $row['author'];
+			$authors[] = $row['owner'];
 		}
 		if (isset($_GET['author'])) {
 			$authors[] = $cur_author = sanitize($_GET['author']);
@@ -1535,7 +1532,7 @@ function checkIfLocked($obj) {
 		if (zp_loggedin($obj->manage_rights)) {
 			return true;
 		}
-		return $obj->getAuthor() == $_zp_current_admin_obj->getUser();
+		return $obj->getOwner() == $_zp_current_admin_obj->getUser();
 	} else {
 		return true;
 	}

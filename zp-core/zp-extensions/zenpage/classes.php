@@ -781,8 +781,8 @@ class CMSItems extends CMSRoot {
 	 *
 	 * @return string
 	 */
-	function getAuthor() {
-		return $this->get("author");
+	function getOwner() {
+		return $this->get("owner");
 	}
 
 	/**
@@ -790,8 +790,8 @@ class CMSItems extends CMSRoot {
 	 * sets the author attribute
 
 	 */
-	function setAuthor($a) {
-		$this->set("author", $a);
+	function setOwner($a) {
+		$this->set("owner", $a);
 	}
 
 	/**
@@ -816,47 +816,6 @@ class CMSItems extends CMSRoot {
 	function setContent($c) {
 		$c = zpFunctions::tagURLs($c);
 		$this->set("content", $c);
-	}
-
-	/**
-	 * Returns the last change date
-	 *
-	 * @return string
-	 */
-	function getLastchange() {
-		return $this->get("lastchange");
-	}
-
-	/**
-	 *
-	 * sets the last change date
-	 */
-	function setLastchange($d) {
-		if ($d) {
-			$newtime = dateTimeConvert($d);
-			if ($newtime === false)
-				return;
-			$this->set('lastchange', $newtime);
-		} else {
-			$this->set('lastchange', NULL);
-		}
-	}
-
-	/**
-	 * Returns the last change author
-	 *
-	 * @return string
-	 */
-	function getLastchangeAuthor() {
-		return $this->get("lastchangeauthor");
-	}
-
-	/**
-	 *
-	 * stores the last change author
-	 */
-	function setLastchangeAuthor($a) {
-		$this->set("lastchangeauthor", $a);
 	}
 
 	/**

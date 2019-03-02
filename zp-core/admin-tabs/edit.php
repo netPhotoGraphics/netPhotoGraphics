@@ -422,6 +422,9 @@ if (isset($_GET['action'])) {
 										}
 										$image->set('filesize', filesize($image->localpath));
 										$image->setShow(isset($_POST["$i-Visible"]));
+										$image->setLastchange(date('Y-m-d H:i:s'));
+										$image->setlastchangeuser($_zp_current_admin_obj->getUser());
+
 										zp_apply_filter('save_image_custom_data', NULL, $i, $image);
 										zp_apply_filter('save_image_utilities_data', $image, $i);
 
@@ -1499,6 +1502,14 @@ echo "\n</head>";
 																}
 																?>
 															</strong>
+															<?php
+															if ($image->getlastchangeuser()) {
+																?>
+															<hr />
+															<?php
+															printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
+														}
+														?>
 														</p>
 													</div>
 

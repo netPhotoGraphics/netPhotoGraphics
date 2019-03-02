@@ -468,7 +468,7 @@ function debug_var($args) {
 		if (is_string($arg)) {
 			echo $arg . ' = ';
 		}
-		echo var_export($v, true) . "\n";
+		echo print_r($v, true) . "\n";
 	}
 	echo '</pre>';
 }
@@ -513,7 +513,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 				}
 				$preamble = '<span class="lognotice">{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} netPhotoGraphics v" . ZENPHOTO_VERSION . $clone . '</span>';
 				if ($_logCript) {
-					$preamble = $_logCript->encrypt($message);
+					$preamble = $_logCript->encrypt($preamble);
 				}
 				fwrite($f, $preamble . NEWLINE);
 				if (defined('LOG_MOD')) {
@@ -1007,7 +1007,7 @@ function getOptionOwner() {
 		$theme = '';
 	}
 	if (isset($b['line'])) {
-		$creator.='[' . $b['line'] . ']';
+		$creator .= '[' . $b['line'] . ']';
 	}
 	return array($theme, $creator);
 }
@@ -1448,7 +1448,7 @@ function getImageProcessorURI($args, $album, $image) {
 	}
 	$args[14] = $z;
 
-	$uri .='&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
+	$uri .= '&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
 	$uri = zp_apply_filter('image_processor_uri', $uri, $args, $album, $image);
 
@@ -1909,7 +1909,7 @@ function safe_glob($pattern, $flags = 0) {
 			if (@preg_match($match, $file) && $file{0} != '.') {
 				if (is_dir("$path/$file")) {
 					if ($flags & GLOB_MARK)
-						$file.='/';
+						$file .= '/';
 					$glob[] = $path_return . $file;
 				} else if (!is_dir("$path/$file") && !($flags & GLOB_ONLYDIR)) {
 					$glob[] = $path_return . $file;
@@ -1931,16 +1931,7 @@ function safe_glob($pattern, $flags = 0) {
  */
 function checkInstall() {
 	if (OFFSET_PATH != 2) {
-		preg_match('|([^-]*)|', ZENPHOTO_VERSION, $version);
-		if ($i = getOption('zenphoto_install')) {
-			$install = getSerializedArray($i);
-			if (isset($install['ZENPHOTO'])) {
-				preg_match('|([^-]*).*\[(.*)\]|', $install['ZENPHOTO'], $matches);
-				if (isset($matches[1]) && $matches[1] != $version[1]) {
-					_setup(14);
-				}
-			}
-		}
+		$i = getOption('zenphoto_install');
 		if ($i != serialize(installSignature())) {
 			_setup((int) ($i === NULL));
 		}

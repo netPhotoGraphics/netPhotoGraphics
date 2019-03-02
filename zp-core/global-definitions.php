@@ -92,6 +92,7 @@ define('DB_NOT_CONNECTED', serialize($_zp_DB_details));
 define('MYSQL_CONNECTION_RETRIES', 10);
 define('ER_TOO_MANY_USER_CONNECTIONS', 1203);
 define('ER_CON_COUNT_ERROR', 1040);
+define('ER_SERVER_GONE', 2006);
 /**
  * OFFSET_PATH definitions:
  * 		0		root scripts (e.g. the root index.php)

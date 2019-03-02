@@ -67,6 +67,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		$_lib_GD_info['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
 		$_lib_GD_info['WBM'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
 		$_lib_GD_info['WBMP'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
+		$_lib_GD_info['WEBP'] = ($imgtypes & IMG_WEBP) ? 'webp' : false;
 		unset($imgtypes);
 		unset($info);
 
@@ -93,6 +94,8 @@ if (!function_exists('zp_graphicsLibInfo')) {
 					return imagecreatefromjpeg($imgfile);
 				case 'gif':
 					return imagecreatefromgif($imgfile);
+				case 'webp':
+					return imagecreatefromwebp($imgfile);
 			}
 			return false;
 		}
@@ -122,6 +125,8 @@ if (!function_exists('zp_graphicsLibInfo')) {
 					return imagejpeg($im, $filename, $qual);
 				case 'gif':
 					return imagegif($im, $filename);
+				case 'webp':
+					return imagewebp($im, $filename);
 			}
 			return false;
 		}
@@ -309,47 +314,47 @@ if (!function_exists('zp_graphicsLibInfo')) {
 			}
 			return $img;
 		}
-		
+
 		/**
 		 * Resize a PNG file with transparency to given dimensions
 		 * and still retain the alpha channel information
-		 * 
+		 *
 		 * Note: You have to apply zp_resampleImage() afterwards as the function does not handle this internally
-		 * 
+		 *
 		 * @param image $src
 		 * @param int $w
 		 * @param int $h
 		 * @return image
 		 */
-		function zp_imageResizeAlpha(&$src, $w, $h) {
-			if ($temp = @imagecreatetruecolor($h, $w)) {
-				imagealphablending($temp, false);
-				imagesavealpha($temp, true);
-				$transparentindex = imagecolorallocatealpha($temp, 255, 255, 255, 127);
-				imagefill($temp, 0, 0, $transparentindex);
+		function zp_imageResizeAlpha($src, $w, $h) {
+			if ($src) {
+				imagealphablending($src, false);
+				imagesavealpha($src, true);
+				$transparentindex = imagecolorallocatealpha($src, 255, 255, 255, 127);
+				imagefill($src, 0, 0, $transparentindex);
 			}
-			return $temp;
+			return $src;
 		}
 
 		/**
 		 * Resize a GIF file with transparency to given dimensions
 		 * and still retain the transparency information
-		 * 
+		 *
 		 * Note: You have to apply zp_resampleImage() afterwards as the function does not handle this internally
-		 * 
+		 *
 		 * @since ZenphotoCMS 1.5.2
-		 * 
+		 *
 		 * @param image $src
 		 * @param int $w
 		 * @param int $h
 		 * @return image
 		 */
-		function zp_imageResizeTransparent(&$src, $w, $h) {
-			if ($temp = @imagecreate($h, $w)) {
-				$transparent = zp_colorAllocate($temp, 255, 255, 255);
-				zp_imageColorTransparent($temp, $transparent);
+		function zp_imageResizeTransparent($src, $w, $h) {
+			if ($src) {
+				$transparent = zp_colorAllocate($src, 255, 255, 255);
+				zp_imageColorTransparent($src, $transparent);
 			}
-			return $temp;
+			return $src;
 		}
 
 		/**

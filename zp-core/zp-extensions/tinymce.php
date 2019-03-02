@@ -78,8 +78,10 @@ class tinymce {
 	static function configJS($mode) {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
-		$MCEspecial = 'browser_spellcheck: true';
-
+		$MCEspecial['browser_spellcheck'] = "true";
+		if (zp_loggedin(UPLOAD_RIGHTS)) {
+			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
+		}
 		if (empty($_editorconfig)) { // only if we get here first!
 			$MCElocale = 'en';
 			$loc = str_replace('_', '-', getOption('locale'));
@@ -105,7 +107,7 @@ class tinymce {
 	}
 
 	static function getConfigFiles($mode) {
-		// get only those that work!
+// get only those that work!
 		$files = getPluginFiles($mode . '-*.php', stripSuffix(basename(__FILE__)) . '/config/');
 		$array = array();
 		foreach ($files as $file) {

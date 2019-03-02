@@ -94,33 +94,54 @@ function elFinder_admin_tabs($tabs) {
 }
 
 function elFinder_tinymce($discard) {
+	global $MCEspecial;
 
-	$file = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/elfinder.php?XSRFToken=' . getXSRFToken('elFinder');
+	$file = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/connector.mce.php?XSRFToken=' . getXSRFToken('elFinder');
+	$MCEspecial ['file_picker_callback'] = 'elFinderBrowser';
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
-		function elFinderBrowser(field_name, url, type, win) {
-			tinymce.activeEditor.windowManager.open({
-				file: '<?php echo $file; ?>&type=' + type, // use an absolute path!
-				title: 'elFinder 2.0',
-				width: 900,
-				height: 450,
-				close_previous: 'no',
-				inline: 'yes', // This parameter only has an effect if you use the inlinepopups plugin!
-				popup_css: false, // Disable TinyMCE's default popup CSS
-				resizable: 'yes'
-			}, {
-				setUrl: function (url) {
-					win.document.getElementById(field_name).value = url;
+		function elFinderBrowser(callback, value, meta) {
+			var windowManagerURL = '<?php echo $file; ?>&type=' + meta.type,
+							windowManagerCSS = '<style type="text/css">' +
+							'.tox-dialog {max-width: 100%!important; width:900px!important; overflow: hidden; height:500px!important; bborder-radius:0.25em;}' +
+							'.tox-dialog__header{ border-bottom: 1px solid lightgray!important; }' + // for custom header in filemanage
+							'.tox-dialog__footer { display: none!important; }' + // for custom footer in filemanage
+							'.tox-dialog__body { padding: 5!important; }' +
+							'.tox-dialog__body-content > div { height: 100%; overflow:hidden}' +
+							'</style > ';
+			window.tinymceCallBackURL = '';
+			window.tinymceWindowManager = tinymce.activeEditor.windowManager;
+			tinymceWindowManager.open({
+				title: 'elFinder',
+				body: {
+					type: 'panel',
+					items: [{
+							type: 'htmlpanel',
+							html: windowManagerCSS + '<iframe src="' + windowManagerURL + '"  frameborder="0" style="width:100%; height:100%"></iframe>'
+						}]
+				},
+				buttons: [],
+				onClose: function () {
+					//to set selected file path
+					if (tinymceCallBackURL != '') {
+						if (meta.filetype == 'image') {
+							callback(tinymceCallBackURL, {alt: tinymceCallBackInfo});
+						} else {
+							callback(tinymceCallBackURL, {});
+						}
+					}
 				}
-			});
+
+
+			}
+			);
 			return false;
 		}
 		// ]]> -->
 	</script>
 
 	<?php
-	return 'elFinderBrowser';
 }
 
 function elFinderThemeEdit($html, $theme) {

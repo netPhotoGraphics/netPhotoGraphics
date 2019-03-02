@@ -15,6 +15,7 @@ if (!defined('OFFSET_PATH')) {
  * Executes the configuration change code
  */
 function reconfigureAction($mandatory) {
+	global $_zp_conf_vars;
 	list($diff, $needs) = checkSignature($mandatory);
 	$diffkeys = array_keys($diff);
 	if ($mandatory) {
@@ -25,6 +26,23 @@ function reconfigureAction($mandatory) {
 				echo $xml;
 			}
 			exit(); //	can't really run setup from an RSS feed.
+		}
+		switch ($mandatory) {
+			case 11:
+				$reason = gettext('no configuration file');
+				break;
+			case 12:
+				$reason = sprintf(gettext('no %1$s PHP support'), $_zp_conf_vars['db_software']);
+				break;
+			case 13:
+				$reason = gettext('database connection failed');
+				break;
+			default:
+				$reason = FALSE; //	install signature option not set
+				break;
+		}
+		if ($reason) {
+			debugLog(sprintf(gettext('Setup required: %1$s'), $reason));
 		}
 		if (empty($needs)) {
 			$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
@@ -50,6 +68,15 @@ function reconfigureAction($mandatory) {
 			// because we are loading the script from within a function!
 			global $subtabs, $zenphoto_tabs, $_zp_admin_tab, $_zp_invisible_execute, $_zp_gallery;
 			$_zp_invisible_execute = 1;
+			require_once(dirname(__FILE__) . '/functions-basic.php');
+			require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
+			require_once(dirname(__FILE__) . '/functions-filter.php');
+
+			if (!defined('FULLWEBPATH')) {
+				$protocol = (@$_SERVER['https']) ? 'HTTPS' : 'HTTP';
+				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
+				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
+			}
 			require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-globals.php');
 			header('Last-Modified: ' . ZP_LAST_MODIFIED);
 			header('Content-Type: text/html; charset=UTF-8');

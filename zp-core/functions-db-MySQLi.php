@@ -29,14 +29,14 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		if (is_object($_zp_DB_connection)) {
 			$_zp_DB_connection->close(); //	don't want to leave connections open
 		}
-		for ($i = 0; $i < MYSQL_CONNECTION_RETRIES; $i++) {
+		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
 			$_zp_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
-			if (is_object($_zp_DB_connection) || !($e == ER_TOO_MANY_USER_CONNECTIONS || $e == ER_CON_COUNT_ERROR)) {
+			if (is_object($_zp_DB_connection) || !in_array($e, array(ER_TOO_MANY_USER_CONNECTIONS, ER_CON_COUNT_ERROR, ER_SERVER_GONE))) {
 				break;
 			}
-			sleep(1);
+			sleep($i);
 		}
 	} else {
 		$_zp_DB_connection = NULL;
@@ -88,7 +88,7 @@ function db_query($sql, $errorstop = true) {
 				while ($row = $result->fetch_assoc()) {
 					$explaination[] = $row;
 				}
-				debugLogVar(["EXPLAIN $sql" =>  $explaination]);
+				debugLogVar(["EXPLAIN $sql" => $explaination]);
 			}
 		}
 		if ($result = @$_zp_DB_connection->query($sql)) {

@@ -102,8 +102,14 @@ class VideoJS {
 	 * @param string $movietitle the title of the movie
 	 *
 	 */
-	function getPlayerConfig($movie, $movietitle = NULL) {
+	function getPlayerConfig($movie, $movietitle = NULL, $w = NULL, $h = NULL) {
 		global $_zp_current_album;
+		if (is_null($w)) {
+			$w = $this->getWidth();
+		}
+		if (is_null($h)) {
+			$h = $this->getHeight();
+		}
 
 		$moviepath = $movie->getFullImageURL(FULLWEBPATH);
 
@@ -119,7 +125,7 @@ class VideoJS {
 
 		$videoThumb = '';
 		if (getOption('VideoJS_poster')) {
-			$videoThumb = $movie->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true);
+			$videoThumb = $movie->getCustomImage(null, $w, $h, $w, $h, null, null, true);
 		}
 
 		$videoRes = getOption('VideoJS_resolution');

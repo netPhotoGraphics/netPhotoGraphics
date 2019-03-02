@@ -17,6 +17,8 @@ class DailySummaryItem extends Album {
 	 */
 	function __construct($dateValue) {
 
+		$imageAlbums = array();
+
 		$this->linkname = $dateValue;
 
 		$d1 = $dateValue . " 00:00:00";
@@ -52,8 +54,10 @@ class DailySummaryItem extends Album {
 				$imageAlbums[$folder] = $text;
 			}
 		}
-		ksort($imageAlbums, SORT_NATURAL | SORT_FLAG_CASE);
-		$albumCount = count($imageAlbums);
+
+		if ($albumCount = count($imageAlbums)) {
+			ksort($imageAlbums, SORT_NATURAL | SORT_FLAG_CASE);
+		}
 
 		$this->set('albums', $imageAlbums);
 		$this->set('imagecount', $count);
