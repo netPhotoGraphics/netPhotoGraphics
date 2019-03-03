@@ -148,7 +148,7 @@ class Image extends MediaObject {
 	}
 
 	/**
-	 * Comon validity check function
+	 * Common validity check function
 	 *
 	 * @param type $album
 	 * @param type $filename

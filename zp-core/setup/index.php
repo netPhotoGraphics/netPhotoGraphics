@@ -1756,10 +1756,32 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 									setupLog($msg, true);
 									?>
-									<script type="text/javascript">
+									<h3><?php echo $msg; ?></h3>
+									<?php
+									// convert old style cache file names
+									primeMark(gettext('Cachefile renaming'));
+									$conversions = migrate_folder(SERVERPATH . '/' . CACHEFOLDER . '/');
+									if ($conversions) {
+										$msg = sprintf(gettext('%1$s cached images were renamed.'), $conversions);
+										setupLog($msg, true);
+										?>
+										<h3><?php echo $msg; ?></h3>
+										<?php
+									}
+
+									primeMark(gettext('DB Cache reference renaming'));
+									$conversions = migrateDB();
+									if ($conversions) {
+										$msg = sprintf(gettext('%1$s database image references were updated.'), $conversions);
+										setupLog($msg, true);
+										?>
+										<h3><?php echo $msg; ?></h3>
+										<?php
+									}
+									?>
+									<script type = "text/javascript">
 										$("#prime<?php echo $primeid; ?>").remove();
 									</script>
-									<h3><?php echo $msg; ?></h3>
 									<?php
 									// set defaults on any options that need it
 									require(dirname(__FILE__) . '/setup-option-defaults.php');

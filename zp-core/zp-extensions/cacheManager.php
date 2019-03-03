@@ -50,14 +50,14 @@
  * 			are shown below:
  * 			<ol>
  * 					<li>
- * 					<var>_595</var>: sized to 595 pixels
+ * 					<var>_s595</var>: sized to 595 pixels
  * 				</li>
  * 				<li>
  * 					<var>_w180_cw180_ch80_thumb</var>: a size of 180px wide and 80px high
  * 							and it is a thumbnail (<var>thumb</var>)
  * 				</li>
  * 				<li>
- * 					<var>_85_cw72_ch72_thumb_copyright_gray</var>: sized 85px cropped at about
+ * 					<var>_s85_cw72_ch72_thumb_copyright_gray</var>: sized 85px cropped at about
  * 							7.6% (one half of 72/85) from the horizontal and vertical sides with a
  * 							watermark (<var>copyright</var>) and rendered in grayscale (<var>gray</var>)
  * 				</li>

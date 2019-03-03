@@ -21,6 +21,7 @@ admin_securityChecks($localrights, $return = currentRelativeURL());
 function loadAlbum($album) {
 	global $_zp_current_album, $_zp_current_image, $_zp_gallery, $custom, $enabled;
 	$subalbums = $album->getAlbums();
+	sort($subalbums);
 	$started = false;
 	$tcount = $count = 0;
 	foreach ($subalbums as $folder) {
@@ -56,7 +57,7 @@ function loadAlbum($album) {
 						?>
 						<a href="<?php echo html_encode($uri); ?>&amp;debug">
 							<?php
-							echo '<img src="' . pathurlencode($uri) . '" height="30" width="30" alt="X" />' . "\n";
+							echo '<img src="' . pathurlencode($uri) . '" height="16" width="16" alt="X" />' . "\n";
 							?>
 						</a>
 						<?php
@@ -98,21 +99,21 @@ function loadAlbum($album) {
 						if (strpos($uri, 'i.php?') !== false) {
 							$uri = str_replace('check=', '', $uri);
 							if (!($count + $countit)) {
-								echo "{ ";
+								echo '{ ';
 							} else {
 								echo ' | ';
 							}
 							$countit = 1;
 							?>
-							<a href="<?php echo html_encode($uri); ?>&amp;debug">
+							<span>
 								<?php
 								if ($thumbstandin) {
-									echo '<img src="' . pathurlencode($uri) . '" height="15" width="15" alt="x" />' . "\n";
+									echo '<img src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 								} else {
-									echo '<img src="' . pathurlencode($uri) . '" height="20" width="20" alt="X" />' . "\n";
+									echo '<img src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
 								}
 								?>
-							</a>
+							</span>
 							<?php
 						}
 					}
@@ -121,8 +122,7 @@ function loadAlbum($album) {
 			}
 		}
 		if ($count)
-			echo '
-						} ';
+			echo '} ';
 		printf(ngettext('[%u image]', '[%u images]', $count), $count);
 		echo "<br />\n";
 	}
@@ -188,6 +188,17 @@ if ($alb) {
 	echo "\n<h1>" . $clear . "</h1>";
 }
 ?>
+
+<script type="text/javascript">
+	$(function () {
+		$('img').on("error", function () {
+			var link = $(this).attr('src');
+			var title = $(this).attr('title');
+			$(this).parent().html('<a href="' + link + '&debug" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+		});
+	});
+</script>
+
 <div class="tabbox">
 	<?php
 	$cachesizes = 0;
@@ -352,7 +363,7 @@ if ($alb) {
 					$count = loadAlbum($album);
 				} else {
 					$albums = $_zp_gallery->getAlbums();
-					shuffle($albums);
+					sort($albums);
 					foreach ($albums as $folder) {
 						$album = newAlbum($folder);
 						if (!$album->isDynamic()) {

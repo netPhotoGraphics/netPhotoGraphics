@@ -1361,7 +1361,6 @@ zp-core/js/jQueryui
 zp-core/js/jQueryui/base-1.12.min.css
 zp-core/js/jQueryui/jquery-ui-1.12.1.min.js
 zp-core/js/jQueryui/jquery-ui-1.12.min.css
-zp-core/js/jQueryui/readme.txt
 zp-core/js/jQueryui/i18n
 zp-core/js/jQueryui/i18n/datepicker-af.js
 zp-core/js/jQueryui/i18n/datepicker-ar-DZ.js
@@ -8377,4 +8376,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8379
+8378
