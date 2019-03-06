@@ -85,13 +85,17 @@ class sitemap {
 		$options = array(
 				gettext('Album date') => array('key' => 'sitemap_lastmod_albums', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 0,
-						'selections' => array(gettext("date") => "date",
-								gettext("mtime") => "mtime"),
+						'selections' => array(
+								gettext("date") => "date",
+								gettext("mtime") => "mtime",
+								gettext("lastchange date") => 'lastchange'),
 						'desc' => gettext('Field to use for the last modification date of albums.')),
 				gettext('Image date') => array('key' => 'sitemap_lastmod_images', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 1,
-						'selections' => array(gettext("date") => "date",
-								gettext("mtime") => "mtime"),
+						'selections' => array(
+								gettext("date") => "date",
+								gettext("mtime") => "mtime",
+								gettext("last change date") => 'lastchange'),
 						'desc' => gettext('Field to use for the last modification date of images.')),
 				gettext('Change frequency - Gallery index') => array('key' => 'sitemap_changefreq_index', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 2,
@@ -287,6 +291,9 @@ class sitemap {
 					// For more streamlined but PHP5-only equivalent, remove the above line and uncomment the following:
 					// return gmstrftime(DATE_ISO8601, $timestamp);
 				}
+				break;
+			case 'lastchange':
+				$date = sitemap::getLastChangeDate($obj, true);
 				break;
 		}
 		return date(DATE_ISO8601, $date);
