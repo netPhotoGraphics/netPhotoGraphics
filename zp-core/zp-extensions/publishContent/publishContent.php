@@ -8,11 +8,12 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
 
 function unpublishSubalbums($album) {
-	global $_zp_gallery;
+	global $_zp_gallery, $_zp_current_admin_obj;
 	$albums = $album->getAlbums();
 	foreach ($albums as $albumname) {
 		$subalbum = newAlbum($albumname);
 		$subalbum->setShow(false);
+		$subalbum->setLastChangeUser($_zp_current_admin_obj->getUser());
 		$subalbum->save();
 		unpublishSubalbums($subalbum);
 	}
@@ -59,6 +60,7 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $albumid) {
 				$album = newAlbum(sanitize(postIndexDecode($key)));
 				$album->setShow(1);
+				$album->setLastChangeUser($_zp_current_admin_obj->getUser());
 				$album->save();
 			}
 			$report = 'albums';
@@ -74,6 +76,7 @@ if (isset($_POST['set_defaults'])) {
 				switch (substr($action, 0, $i)) {
 					case 'pub':
 						$image->setShow(1);
+						$image->setLastChangeUser($_zp_current_admin_obj->getUser());
 						$image->save();
 						break;
 					case 'del':
@@ -88,6 +91,7 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $titlelink) {
 				$obj = newCategory($titlelink);
 				$obj->setShow(1);
+				$obj->setLastChangeUser($_zp_current_admin_obj->getUser());
 				$obj->save();
 			}
 			break;
@@ -96,6 +100,7 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $titlelink) {
 				$obj = newArticle($titlelink);
 				$obj->setShow(1);
+				$obj->setLastChangeUser($_zp_current_admin_obj->getUser());
 				$obj->save();
 			}
 			break;
@@ -103,6 +108,7 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $key => $titlelink) {
 				$obj = newPage($titlelink);
 				$obj->setShow(1);
+				$obj->setLastChangeUser($_zp_current_admin_obj->getUser());
 				$obj->save();
 			}
 			$report = 'pages';

@@ -459,10 +459,15 @@ function mkdir_recursive($pathname, $mode) {
 	return is_dir($pathname) || @mkdir($pathname, $mode);
 }
 
+function array_map_recursive(callable $func, array $array) {
+	return filter_var($array, \FILTER_CALLBACK, ['options' => $func]);
+}
+
 function debug_var($args) {
 	if (!is_array($args)) {
 		$args = array($args);
 	}
+	$args = array_map_recursive('html_encode', $args);
 	echo "<pre>\n";
 	foreach ($args as $arg => $v) {
 		if (is_string($arg)) {
@@ -1175,6 +1180,9 @@ function getImageCacheFilename($album8, $image8, $args) {
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
+		$image = internalToFilesystem($image8);
+	} else {
+		$image = stripSuffix(internalToFilesystem($image8));
 	}
 	if (IMAGE_CACHE_SUFFIX) {
 		$suffix = IMAGE_CACHE_SUFFIX;
@@ -1184,13 +1192,8 @@ function getImageCacheFilename($album8, $image8, $args) {
 			$suffix = 'jpg';
 		}
 	}
-	if (is_array($image8)) {
-		$image = internalToFilesystem($image8['name']);
-	} else {
-		$image = stripSuffix(internalToFilesystem($image8));
-	}
 
-// Set default variable values.
+	// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 	if (empty($album)) {
 		$albumsep = '';
@@ -1218,7 +1221,7 @@ function getImageCacheFilename($album8, $image8, $args) {
  */
 function getImageCachePostfix($args) {
 	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbStandin, $passedWM, $adminrequest, $effects) = $args;
-	$postfix_string = ($size ? "_$size" : "") .
+	$postfix_string = ($size ? "_s$size" : "") .
 					($width ? "_w$width" : "") .
 					($height ? "_h$height" : "") .
 					($cw ? "_cw$cw" : "") .
@@ -1885,7 +1888,7 @@ function getRequestURI($decode = true) {
 }
 
 /**
- * Provide an alternative to glob which does not return filenames with accented charactes in them
+ * Provide an alternative to glob which does not return filenames with accented characters in them
  *
  * NOTE: this function ignores "hidden" files whose name starts with a period!
  *

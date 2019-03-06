@@ -46,6 +46,16 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 	}
 }
 ?>
+<script type="text/javascript">
+	$(function () {
+		$('img').on("error", function () {
+			var link = $(this).attr('src');
+			var title = $(this).attr('title');
+			$(this).parent().html('<a href="' + link + '&debug" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+		});
+	});
+</script>
+
 <div class="tabbox">
 	<p>
 		<?php
@@ -83,7 +93,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 								$update = true;
 
 								if (strpos($uri, 'i.php') !== false) {
-									$url = '<img src="' . zpFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" />';
+									$url = '<span><img src="' . zpFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
 									$title = getTitle($table, $row) . ' ' . gettext('image processor reference');
 									?>
 									<a href="<?php echo $uri; ?>&amp;debug" title="<?php echo $title; ?>">
@@ -137,9 +147,9 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
 											<?php
 											if (isset($args[10])) {
-												echo '<img class="iplink" src="' . pathurlencode($uri) . '" height="15" width="15" alt="x" />' . "\n";
+												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 											} else {
-												echo '<img class="iplink" src="' . pathurlencode($uri) . '" height="20" width="20" alt="X" />' . "\n";
+												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
 											}
 											?>
 										</a>

@@ -177,6 +177,12 @@ if ($debug) {
 	//	i.php is being accessed directly via an image debug link
 	echo "\n<p>Image: <img src=\"" . $path . "\" /></p>";
 } else {
+	if (isset($_GET['returncheckmark'])) {
+		//	from the cachemanager cache image generator
+		require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
+		sendImage((int) ($thumb && true), 'i.php');
+		exit();
+	}
 	// ... and redirect the browser to it.
 	$suffix = getSuffix($newfilename);
 	switch ($suffix) {

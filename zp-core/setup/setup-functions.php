@@ -532,6 +532,13 @@ function setupQuery($sql, $failNotify = true, $log = true) {
 	return $result;
 }
 
+/**
+ * outputs a checkmark image
+ *
+ * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @param type $class
+ * @param type $which
+ */
 function sendImage($class, $which) {
 	switch ($class) {
 		case 0:
@@ -553,6 +560,13 @@ function sendImage($class, $which) {
 	echo $image;
 }
 
+/**
+ * error handler for setup
+ *
+ * @global type $__script
+ *
+ * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ */
 function shutDownFunction() {
 	global $__script;
 	$error = error_get_last();
@@ -570,4 +584,118 @@ function shutDownFunction() {
 	db_close();
 	exit();
 }
-?>
+
+/**
+ * Renames old style cache images to new style name
+ *
+ * @global array $_zp_images_classes
+ * @param string $folder
+ * @return string
+ *
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ */
+function migrate_folder($folder) {
+	global $_zp_images_classes;
+	$conversions = 0;
+	$album = str_replace(SERVERPATH . '/' . CACHEFOLDER . '/', '', $folder);
+	$files = safe_glob($folder . '*');
+	foreach ($files as $file) {
+		if (is_dir($file)) {
+			$conversions = $conversions + migrate_folder($file . '/');
+		} else {
+			$suffix = strtolower(getSuffix($file));
+			if (isset($_zp_images_classes[$suffix]) && $_zp_images_classes[$suffix] == 'Image') {
+				list($basename, $newname) = newCacheName(basename($file));
+				if ($newname) {
+					$image = SERVERPATH . '/' . ALBUMFOLDER . '/' . $album . $basename . '.' . getSuffix($file);
+					$newname = SERVERPATH . '/' . CACHEFOLDER . '/' . $album . $newname;
+					if (file_exists($image)) {
+						if (rename($file, $newname)) {
+							$conversions++;
+						}
+					}
+				}
+			}
+		}
+	}
+	return $conversions;
+}
+
+/**
+ * Migrates database references to old style cache image names
+ *
+ * @return int
+ *
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ */
+function migrateDB() {
+	$conversions = 0;
+	$tables = array(
+			'albums' => array('desc'),
+			'images' => array('desc'),
+			'pages' => array('content'),
+			'news' => array('content')
+	);
+	// "extracontent" is optional
+	foreach (array('albums', 'images', 'pages', 'news') as $table) {
+		$fields = db_list_fields($table);
+		if (array_key_exists('extracontent', $fields)) {
+			$tables[$table][] = 'extracontent';
+		}
+		if (array_key_exists('codeblock', $fields)) {
+			$tables[$table][] = 'codeblock';
+		}
+	}
+	foreach ($tables as $table => $fields) {
+		foreach ($fields as $field) {
+			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*/' . CACHEFOLDER . '/((\\.|[^\"])*)"';
+			$result = query($sql);
+			if ($result) {
+				while ($row = db_fetch_assoc($result)) {
+					$update = false;
+					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*/' . CACHEFOLDER . '/.*)\"|U', zpFunctions::unTagURLs($row[$field]), $matches);
+					$updated = false;
+					foreach ($matches[1] as $file) {
+						list($basename, $newname) = newCacheName(basename($file));
+						if ($newname) {
+							$image = SERVERPATH . '/' . ALBUMFOLDER . '/' . str_replace(WEBPATH . '/' . CACHEFOLDER . '/', '', dirname($file)) . '/' . urldecode($basename) . '.' . getSuffix($file);
+							if (file_exists($image)) {
+								$row[$field] = str_replace(basename($file), $newname, $row[$field]);
+								$conversions++;
+								$updated = true;
+							}
+						}
+					}
+					if ($updated) {
+						$sql = 'UPDATE ' . prefix($table) . ' SET `' . $field . '`=' . db_quote($row[$field]) . ' WHERE `id`=' . $row['id'];
+						query($sql);
+					}
+				}
+			}
+		}
+	}
+	return $conversions;
+}
+
+/**
+ * Checks if the file is an old style cache image name and returns an new style name if it is.
+ *
+ * @param string $file
+ * @return string
+ *
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ */
+function newCacheName($file) {
+	$postfix = array();
+	$parts = explode('_', stripSuffix($file));
+	do {
+		$part = array_pop($parts);
+		array_unshift($postfix, $part);
+	} while (!empty($parts) && !is_numeric($part));
+	if (!empty($parts) && is_numeric($part)) {
+		$newname = implode('_', $parts) . '_s' . implode('_', $postfix) . '.' . getSuffix($file);
+		$basename = implode('_', $parts);
+		return array($basename, $newname);
+	}
+	return array(FALSE, FALSE);
+}
