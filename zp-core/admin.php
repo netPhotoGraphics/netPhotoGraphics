@@ -37,11 +37,41 @@ if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
 
 use Milo\Github;
 
+if (zp_loggedin(ADMIN_RIGHTS)) {
+	checkInstall();
+
+	if (class_exists('Milo\Github\Api') && zpFunctions::hasPrimaryScripts()) {
+		/*
+		 * Update check Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
+		 */
+		if (getOption('getUpdates_lastCheck') + 8640 < time()) {
+			setOption('getUpdates_lastCheck', time());
+			try {
+				$api = new Github\Api;
+				$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => GITHUB_ORG, 'repo' => 'netPhotoGraphics'));
+				$fullRepoData = $api->decode($fullRepoResponse);
+				$assets = $fullRepoData->assets;
+				if (!empty($assets)) {
+					$item = array_pop($assets);
+					setOption('getUpdates_latest', $item->browser_download_url);
+				}
+			} catch (Exception $e) {
+				debugLog(gettext('GitHub repository not accessible. ') . $e);
+			}
+		}
+
+		$newestVersionURI = getOption('getUpdates_latest');
+		$repro = basename(dirname(dirname(dirname(dirname($newestVersionURI)))));
+		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
+		$zenphoto_version = explode('-', ZENPHOTO_VERSION);
+		$zenphoto_version = preg_replace('~[^0-9,.]~', '', array_shift($zenphoto_version));
+	}
+}
+
 if (isset($_GET['_zp_login_error'])) {
 	$_zp_login_error = sanitize($_GET['_zp_login_error']);
 }
 
-checkInstall();
 if (time() > getOption('last_garbage_collect') + 864000) {
 	$_zp_gallery->garbageCollect();
 }
@@ -151,6 +181,22 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
 					}
 					break;
+				case'download_update':
+					XSRFdefender('download_update');
+					if (copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
+						if (!unzip(SERVERPATH . '/setupnpg.zip', SERVERPATH)) {
+							$class = 'errorbox fade-message';
+							$msg = gettext('Could not extract extract.php.bin from zip file.');
+						} else {
+							unlink(SERVERPATH . '/readme.txt');
+							unlink(SERVERPATH . '/release notes.htm');
+							unlink(SERVERPATH . '/setupnpg.zip');
+						}
+					} else {
+						$class = 'errorbox fade-message';
+						$msg = gettext('Could not download the update.');
+					}
+					break;
 
 				/** external script return *************************************************** */
 				case 'external':
@@ -253,33 +299,8 @@ $buttonlist = array();
 
 	if (zp_loggedin(ADMIN_RIGHTS)) {
 
-		if (class_exists('Milo\Github\Api') && zpFunctions::hasPrimaryScripts()) {
-			/*
-			 * Update check Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
-			 */
-			$failures = array();
-			if (getOption('getUpdates_lastCheck') + 8640 < time()) {
-				setOption('getUpdates_lastCheck', time());
-				try {
-					$api = new Github\Api;
-					$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => GITHUB_ORG, 'repo' => 'netPhotoGraphics'));
-					$fullRepoData = $api->decode($fullRepoResponse);
-					$assets = $fullRepoData->assets;
-					if (!empty($assets)) {
-						$item = array_pop($assets);
-						setOption('getUpdates_latest', $item->browser_download_url);
-					}
-				} catch (Exception $e) {
-					debugLog(gettext('GitHub repository not accessible. ') . $e);
-				}
-			}
-
-			$newestVersionURI = getOption('getUpdates_latest');
-			$repro = basename(dirname(dirname(dirname(dirname($newestVersionURI)))));
-			$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
-			$zenphoto_version = explode('-', ZENPHOTO_VERSION);
-			$zenphoto_version = preg_replace('~[^0-9,.]~', '', array_shift($zenphoto_version));
-			if (version_compare($newestVersion, $zenphoto_version, '>')) {
+		if ($newVersionAvailable = isset($newestVersion)) {
+			if ($newVersionAvailable = version_compare($newestVersion, $zenphoto_version, '>')) {
 				if (!isset($_SESSION['new_version_available'])) {
 					$_SESSION['new_version_available'] = $newestVersion;
 					?>
@@ -298,7 +319,7 @@ $buttonlist = array();
 						'formname' => 'getUpdates_button',
 						'action' => $newestVersionURI,
 						'icon' => ARROW_DOWN_GREEN,
-						'title' => sprintf(gettext('Download %1$s version %2$s.'), $repro, $newestVersion),
+						'title' => sprintf(gettext('Download %1$s version %2$s to your computer.'), $repro, $newestVersion),
 						'alt' => '',
 						'hidden' => '',
 						'rights' => ADMIN_RIGHTS
@@ -363,14 +384,14 @@ $buttonlist = array();
 				}
 			}
 			if (zp_loggedin(ADMIN_RIGHTS)) {
-				//	button to restore setup files if needed
+
 				if ($newVersion) {
 					$buttonlist[] = array(
 							'XSRFTag' => 'install_update',
 							'category' => gettext('Admin'),
 							'enable' => true,
 							'button_text' => gettext('Install update'),
-							'formname' => 'restore_setup',
+							'formname' => 'install_update',
 							'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=install_update',
 							'icon' => BADGE_GOLD,
 							'alt' => '',
@@ -378,7 +399,25 @@ $buttonlist = array();
 							'hidden' => '<input type="hidden" name="action" value="install_update" />',
 							'rights' => ADMIN_RIGHTS
 					);
+				} else {
+					if ($newVersionAvailable) {
+						$buttonlist[] = array(
+								'XSRFTag' => 'download_update',
+								'category' => gettext('Admin'),
+								'enable' => true,
+								'button_text' => 'extract.php.bin ' . $newestVersion,
+								'formname' => 'download_update',
+								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=download_update',
+								'icon' => ARROW_DOWN_GREEN,
+								'alt' => '',
+								'title' => sprintf(gettext('Copy the %1$s version %2$s extract.php.bin file to your website root folder.'), $repro, $newestVersion),
+								'hidden' => '<input type="hidden" name="action" value="download_update" />',
+								'rights' => ADMIN_RIGHTS
+						);
+					}
 				}
+
+				//	button to restore setup files if needed
 				switch (abs($setupUnprotected)) {
 					case 1:
 						$buttonlist[] = array(
