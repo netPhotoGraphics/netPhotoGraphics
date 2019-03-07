@@ -563,11 +563,13 @@ function getOptionContent() {
 						<?php
 						$cachesuffix = array_unique($_zp_cachefileSuffix);
 						foreach ($cachesuffix as $suffix) {
-							?>
-							<label>
-								<input type="radio" name="image_cache_suffix" value="<?php echo $suffix; ?>"<?php if ($type == $suffix) echo ' checked="checked"'; ?> />&nbsp;<?php echo $suffix; ?>
-							</label>
-							<?php
+							if ($suffix) {
+								?>
+								<label>
+									<input type="radio" name="image_cache_suffix" value="<?php echo $suffix; ?>"<?php if ($type == $suffix) echo ' checked="checked"'; ?> />&nbsp;<?php echo $suffix; ?>
+								</label>
+								<?php
+							}
 						}
 						?>
 					</td>
@@ -695,7 +697,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																 togglePassword('');" />
+																		 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 
