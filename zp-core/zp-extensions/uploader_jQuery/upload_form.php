@@ -182,7 +182,7 @@ function upload_extra($uploadlimit, $passedalbum) {
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-video.js');
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-validate.js');
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-ui.js');
-	//NOTE: haas some self relative references, so cannot be served inline
+	//NOTE: has some self relative references, so cannot be served inline
 	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/main.js', false);
 	?>
 	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
