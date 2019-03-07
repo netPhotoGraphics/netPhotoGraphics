@@ -145,6 +145,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					XSRFdefender('install_update');
 					if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
 						header('Location: ' . FULLWEBPATH . '/extract.php');
+						exit();
 					} else {
 						$class = 'errorbox fade-message';
 						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
