@@ -141,6 +141,15 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						$msg = gettext('Protecting setup files failed.');
 					}
 					break;
+				case 'install_update':
+					XSRFdefender('install_update');
+					if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
+						header('Location: ' . FULLWEBPATH . '/extract.php');
+					} else {
+						$class = 'errorbox fade-message';
+						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
+					}
+					break;
 
 				/** external script return *************************************************** */
 				case 'external':
@@ -304,6 +313,16 @@ $buttonlist = array();
 			/*			 * * HOME ************************************************************************** */
 			/*			 * ********************************************************************************* */
 			$setupUnprotected = printSetupWarning();
+			if ($newVersion = file_exists(SERVERPATH . '/extract.php.bin') && zp_loggedin(ADMIN_RIGHTS)) {
+				?>
+				<div class="notebox">
+					<h2><?php echo gettext('Extract file detected.'); ?></h2>
+					<?php
+					echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an <code>extract.php.bin</code> file. To install the update click on the <em>Install update</em> button below.') . ' ';
+					?>
+				</div>
+				<?php
+			}
 
 			zp_apply_filter('admin_note', 'overview', '');
 
@@ -344,20 +363,52 @@ $buttonlist = array();
 			}
 			if (zp_loggedin(ADMIN_RIGHTS)) {
 				//	button to restore setup files if needed
-				switch ($setupUnprotected) {
-					case 2:
+				if ($newVersion) {
+					$buttonlist[] = array(
+							'XSRFTag' => 'install_update',
+							'category' => gettext('Admin'),
+							'enable' => true,
+							'button_text' => gettext('Install update'),
+							'formname' => 'restore_setup',
+							'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=install_update',
+							'icon' => BADGE_GOLD,
+							'alt' => '',
+							'title' => gettext('Extracts and installs the netPhotoGraphics update.'),
+							'hidden' => '<input type="hidden" name="action" value="install_update" />',
+							'rights' => ADMIN_RIGHTS
+					);
+				}
+				switch (abs($setupUnprotected)) {
+					case 1:
 						$buttonlist[] = array(
+								'XSRFTag' => 'restore_setup',
 								'category' => gettext('Admin'),
 								'enable' => true,
-								'button_text' => gettext('Run setup'),
-								'formname' => 'run_setup',
-								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/setup.php',
-								'icon' => BADGE_GOLD,
+								'button_text' => gettext('Setup » restore scripts'),
+								'formname' => 'restore_setup',
+								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=restore_setup',
+								'icon' => LOCK_OPEN,
 								'alt' => '',
-								'title' => gettext('Run the setup script.'),
-								'hidden' => '',
+								'title' => gettext('Restores setup files so setup can be run.'),
+								'hidden' => '<input type="hidden" name="action" value="restore_setup" />',
 								'rights' => ADMIN_RIGHTS
 						);
+						break;
+					case 2:
+						if (!$newVersion) {
+							$buttonlist[] = array(
+									'category' => gettext('Admin'),
+									'enable' => true,
+									'button_text' => gettext('Run setup'),
+									'formname' => 'run_setup',
+									'action' => FULLWEBPATH . '/' . ZENFOLDER . '/setup.php',
+									'icon' => BADGE_GOLD,
+									'alt' => '',
+									'title' => gettext('Run the setup script.'),
+									'hidden' => '',
+									'rights' => ADMIN_RIGHTS
+							);
+						}
 						if (zpFunctions::hasPrimaryScripts()) {
 							$buttonlist[] = array(
 									'XSRFTag' => 'protect_setup',
@@ -374,22 +425,6 @@ $buttonlist = array();
 							);
 						}
 						break;
-					case 1:
-						$buttonlist[] = array(
-								'XSRFTag' => 'restore_setup',
-								'category' => gettext('Admin'),
-								'enable' => true,
-								'button_text' => gettext('Setup » restore scripts'),
-								'formname' => 'restore_setup',
-								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=restore_setup',
-								'icon' => LOCK_OPEN,
-								'alt' => '',
-								'title' => gettext('Restores setup files so setup can be run.'),
-								'hidden' => '<input type="hidden" name="action" value="restore_setup" />',
-								'rights' => ADMIN_RIGHTS
-						);
-						break;
-					default:
 				}
 			}
 
