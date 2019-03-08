@@ -171,22 +171,14 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						$msg = gettext('Protecting setup files failed.');
 					}
 					break;
-				case 'install_update':
-					XSRFdefender('install_update');
-					if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
-						header('Location: ' . FULLWEBPATH . '/extract.php');
-						exit();
-					} else {
-						$class = 'errorbox fade-message';
-						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
-					}
-					break;
+
 				case'download_update':
-					XSRFdefender('download_update');
+					XSRFdefender('install_update');
 					if (copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
 						if (!unzip(SERVERPATH . '/setupnpg.zip', SERVERPATH)) {
 							$class = 'errorbox fade-message';
 							$msg = gettext('Could not extract extract.php.bin from zip file.');
+							break;
 						} else {
 							unlink(SERVERPATH . '/readme.txt');
 							unlink(SERVERPATH . '/release notes.htm');
@@ -195,6 +187,17 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					} else {
 						$class = 'errorbox fade-message';
 						$msg = gettext('Could not download the update.');
+						break;
+					}
+
+				case 'install_update':
+					XSRFdefender('install_update');
+					if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
+						header('Location: ' . FULLWEBPATH . '/extract.php');
+						exit();
+					} else {
+						$class = 'errorbox fade-message';
+						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
 					}
 					break;
 
@@ -395,22 +398,22 @@ $buttonlist = array();
 							'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=install_update',
 							'icon' => BADGE_GOLD,
 							'alt' => '',
-							'title' => gettext('Extracts and installs the netPhotoGraphics update.'),
+							'title' => gettext('Extract and install the netPhotoGraphics update.'),
 							'hidden' => '<input type="hidden" name="action" value="install_update" />',
 							'rights' => ADMIN_RIGHTS
 					);
 				} else {
 					if ($newVersionAvailable) {
 						$buttonlist[] = array(
-								'XSRFTag' => 'download_update',
+								'XSRFTag' => 'install_update',
 								'category' => gettext('Admin'),
 								'enable' => true,
-								'button_text' => 'extract.php.bin ' . $newestVersion,
+								'button_text' => gettext('Install update'),
 								'formname' => 'download_update',
 								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=download_update',
-								'icon' => ARROW_DOWN_GREEN,
+								'icon' => BADGE_GOLD,
 								'alt' => '',
-								'title' => sprintf(gettext('Copy the %1$s version %2$s extract.php.bin file to your website root folder.'), $repro, $newestVersion),
+								'title' => sprintf(gettext('Download and install %1$s version %2$s.'), $repro, $newestVersion),
 								'hidden' => '<input type="hidden" name="action" value="download_update" />',
 								'rights' => ADMIN_RIGHTS
 						);
