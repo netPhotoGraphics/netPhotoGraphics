@@ -1762,7 +1762,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									primeMark(gettext('Cachefile renaming'));
 									$conversions = migrate_folder(SERVERPATH . '/' . CACHEFOLDER . '/');
 									if ($conversions) {
-										$msg = sprintf(gettext('%1$s cached images were renamed.'), $conversions);
+										$msg = sprintf(ngettext('%1$s cached image was renamed.', '%1$s cached images were renamed.', $conversions), $conversions);
 										setupLog($msg, true);
 										?>
 										<h3><?php echo $msg; ?></h3>
@@ -1772,7 +1772,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									primeMark(gettext('DB Cache reference renaming'));
 									$conversions = migrateDB();
 									if ($conversions) {
-										$msg = sprintf(gettext('%1$s database image references were updated.'), $conversions);
+										$msg = sprintf(ngettext('%1$s database image reference was updated.', '%1$s database image references were updated.', $conversions), $conversions);
 										setupLog($msg, true);
 										?>
 										<h3><?php echo $msg; ?></h3>
