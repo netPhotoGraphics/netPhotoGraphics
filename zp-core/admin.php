@@ -63,8 +63,6 @@ if (zp_loggedin(ADMIN_RIGHTS)) {
 		$newestVersionURI = getOption('getUpdates_latest');
 		$repro = basename(dirname(dirname(dirname(dirname($newestVersionURI)))));
 		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
-		$zenphoto_version = explode('-', ZENPHOTO_VERSION);
-		$zenphoto_version = preg_replace('~[^0-9,.]~', '', array_shift($zenphoto_version));
 	}
 }
 
@@ -172,26 +170,26 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					}
 					break;
 
+				case 'install_update':
 				case'download_update':
 					XSRFdefender('install_update');
-					if (copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
-						if (!unzip(SERVERPATH . '/setupnpg.zip', SERVERPATH)) {
-							$class = 'errorbox fade-message';
-							$msg = gettext('Could not extract extract.php.bin from zip file.');
-							break;
+					if ($action == 'download_update') {
+						if (copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
+							if (!unzip(SERVERPATH . '/setupnpg.zip', SERVERPATH)) {
+								$class = 'errorbox fade-message';
+								$msg = gettext('Could not extract extract.php.bin from zip file.');
+								break;
+							} else {
+								unlink(SERVERPATH . '/readme.txt');
+								unlink(SERVERPATH . '/release notes.htm');
+								unlink(SERVERPATH . '/setupnpg.zip');
+							}
 						} else {
-							unlink(SERVERPATH . '/readme.txt');
-							unlink(SERVERPATH . '/release notes.htm');
-							unlink(SERVERPATH . '/setupnpg.zip');
+							$class = 'errorbox fade-message';
+							$msg = gettext('Could not download the update.');
+							break;
 						}
-					} else {
-						$class = 'errorbox fade-message';
-						$msg = gettext('Could not download the update.');
-						break;
 					}
-
-				case 'install_update':
-					XSRFdefender('install_update');
 					if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
 						header('Location: ' . FULLWEBPATH . '/extract.php');
 						exit();
@@ -303,6 +301,8 @@ $buttonlist = array();
 	if (zp_loggedin(ADMIN_RIGHTS)) {
 
 		if ($newVersionAvailable = isset($newestVersion)) {
+			$zenphoto_version = explode('-', ZENPHOTO_VERSION);
+			$zenphoto_version = preg_replace('~[^0-9,.]~', '', array_shift($zenphoto_version));
 			if ($newVersionAvailable = version_compare($newestVersion, $zenphoto_version, '>')) {
 				if (!isset($_SESSION['new_version_available'])) {
 					$_SESSION['new_version_available'] = $newestVersion;
