@@ -20,6 +20,7 @@ admin_securityChecks($localrights, $return = currentRelativeURL());
 
 function loadAlbum($album) {
 	global $_zp_current_album, $_zp_current_image, $_zp_gallery, $custom, $enabled;
+	@set_time_limit(200);
 	$subalbums = $album->getAlbums();
 	sort($subalbums);
 	$started = false;

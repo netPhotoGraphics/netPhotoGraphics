@@ -991,13 +991,13 @@ echo "\n</head>";
 										</button>
 										<div class="floatright" style="padding-right: 5px">
 											<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-												<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
-														 <strong><?php echo gettext('New subalbum'); ?></strong>
+												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+												<strong><?php echo gettext('New subalbum'); ?></strong>
 											</button>
 											<?php if (!$album->isDynamic()) { ?>
 												<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-													<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
-															 <strong><?php echo gettext('New dynamic subalbum'); ?></strong>
+													<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+													<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 												</button>
 											<?php } ?>
 										</div>
@@ -1057,13 +1057,13 @@ echo "\n</head>";
 									</button>
 									<div class="floatright">
 										<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-											<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
-													 <strong><?php echo gettext('New subalbum'); ?></strong>
+											<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+											<strong><?php echo gettext('New subalbum'); ?></strong>
 										</button>
 										<?php if (!$album->isDynamic()) { ?>
 											<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-												<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
-														 <strong><?php echo gettext('New dynamic subalbum'); ?></strong>
+												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+												<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 											</button>
 										<?php } ?>
 									</div>
@@ -1879,8 +1879,8 @@ echo "\n</head>";
 								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright" style="padding-right: 3px;">
-										<button type="button" onclick="newAlbumJS('', false);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
-										<button type="button" onclick="newAlbumJS('', true);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', true);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
 									</span>
 									<?php
 								}
@@ -1932,8 +1932,8 @@ echo "\n</head>";
 								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright">
-										<button type="button" onclick="newAlbumJS('', false);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
-										<button type="button" onclick="newAlbumJS('', true);"><img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', true);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
 									</span>
 									<?php
 								}
@@ -1952,10 +1952,10 @@ echo "\n</head>";
 						<span class="floatright">
 							<p class="buttons">
 								<button type="button" onclick="newAlbumJS('', false);">
-									<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong>
+									<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong>
 								</button>
 								<button type="button" onclick="newAlbumJS('', true);">
-									<img src="<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong>
+									<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong>
 								</button>
 							</p>
 						</span>
