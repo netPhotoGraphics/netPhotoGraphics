@@ -601,6 +601,7 @@ function migrate_folder($folder) {
 	$files = safe_glob($folder . '*');
 	foreach ($files as $file) {
 		if (is_dir($file)) {
+			@set_time_limit(200);
 			$conversions = $conversions + migrate_folder($file . '/');
 		} else {
 			$suffix = strtolower(getSuffix($file));
@@ -647,6 +648,7 @@ function migrateDB() {
 		}
 	}
 	foreach ($tables as $table => $fields) {
+		@set_time_limit(200);
 		foreach ($fields as $field) {
 			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*/' . CACHEFOLDER . '/((\\.|[^\"])*)"';
 			$result = query($sql);
