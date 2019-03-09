@@ -662,7 +662,14 @@ function migrateDB() {
 						if ($newname) {
 							$image = safe_glob(SERVERPATH . '/' . ALBUMFOLDER . '/' . str_replace(WEBPATH . '/' . CACHEFOLDER . '/', '', dirname($file)) . '/' . urldecode($basename) . '.*');
 							if (!empty($image)) {
-								$row[$field] = str_replace(basename($file), $newname, $row[$field]);
+								if (FALSE !== $data = @unserialize($row[$field])) {
+									foreach ($data as $key => $v) {
+										$data[$key] = str_replace(basename($file), $newname, $data[$key]);
+									}
+									$row[$field] = serialize($data);
+								} else {
+									$row[$field] = str_replace(basename($file), $newname, $row[$field]);
+								}
 								$conversions++;
 								$updated = true;
 							}
