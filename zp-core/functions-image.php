@@ -32,9 +32,11 @@ function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.p
 			}
 			debugLog($msg);
 		}
-		header("HTTP/1.0 $status_text");
-		header("Status: $status_text");
-		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/images/' . $errorimg);
+		if (!isset($_GET['returncheckmark'])) {
+			header("HTTP/1.0 $status_text");
+			header("Status: $status_text");
+			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/images/' . $errorimg);
+		}
 	}
 	exit();
 }
