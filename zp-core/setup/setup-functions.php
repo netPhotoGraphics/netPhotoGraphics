@@ -608,9 +608,9 @@ function migrate_folder($folder) {
 			if (isset($_zp_images_classes[$suffix]) && $_zp_images_classes[$suffix] == 'Image') {
 				list($basename, $newname) = newCacheName(basename($file));
 				if ($newname) {
-					$image = SERVERPATH . '/' . ALBUMFOLDER . '/' . $album . $basename . '.' . getSuffix($file);
+					$image = safe_glob(SERVERPATH . '/' . ALBUMFOLDER . '/' . $album . $basename . '.*');
 					$newname = SERVERPATH . '/' . CACHEFOLDER . '/' . $album . $newname;
-					if (file_exists($image)) {
+					if (!empty($image)) {
 						if (rename($file, $newname)) {
 							$conversions++;
 						}
@@ -660,8 +660,8 @@ function migrateDB() {
 					foreach ($matches[1] as $file) {
 						list($basename, $newname) = newCacheName(basename($file));
 						if ($newname) {
-							$image = SERVERPATH . '/' . ALBUMFOLDER . '/' . str_replace(WEBPATH . '/' . CACHEFOLDER . '/', '', dirname($file)) . '/' . urldecode($basename) . '.' . getSuffix($file);
-							if (file_exists($image)) {
+							$image = safe_glob(SERVERPATH . '/' . ALBUMFOLDER . '/' . str_replace(WEBPATH . '/' . CACHEFOLDER . '/', '', dirname($file)) . '/' . urldecode($basename) . '.*');
+							if (!empty($image)) {
 								$row[$field] = str_replace(basename($file), $newname, $row[$field]);
 								$conversions++;
 								$updated = true;
