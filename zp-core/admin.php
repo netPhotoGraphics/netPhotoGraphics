@@ -171,7 +171,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					break;
 
 				case 'install_update':
-				case'download_update':
+				case 'download_update':
 					XSRFdefender('install_update');
 					if ($action == 'download_update') {
 						if (copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
