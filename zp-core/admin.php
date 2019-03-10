@@ -82,6 +82,7 @@ if (isset($_GET['report'])) {
 if (extensionEnabled('zenpage')) {
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
+
 if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 	if (isset($_GET['action'])) {
 		$action = sanitize($_GET['action']);
@@ -173,20 +174,27 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 				case 'install_update':
 				case 'download_update':
 					XSRFdefender('install_update');
+					$msg = FALSE;
 					if ($action == 'download_update') {
-						if (copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
+						@ini_set('allow_url_fopen', 1);
+						if (($fopen = ini_get('allow_url_fopen')) && copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
 							if (!unzip(SERVERPATH . '/setupnpg.zip', SERVERPATH)) {
-								$class = 'errorbox fade-message';
-								$msg = gettext('Could not extract extract.php.bin from zip file.');
-								break;
+								$class = 'errorbox';
+								$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');
 							} else {
 								unlink(SERVERPATH . '/readme.txt');
 								unlink(SERVERPATH . '/release notes.htm');
 								unlink(SERVERPATH . '/setupnpg.zip');
 							}
 						} else {
-							$class = 'errorbox fade-message';
-							$msg = gettext('Could not download the update.');
+							$class = 'errorbox';
+							$msg = gettext('netPhotoGraphics could not download the update.');
+							if (!$fopen) {
+								$msg .= ' ' . gettext('<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. ');
+							}
+						}
+						if ($msg) {
+							$msg .= ' ' . sprintf(gettext('Click on the <code>%1$s</code> button to download the release to your computer, FTP the <code>extract.php.bin</code> file to your site, and revisit the overview page. Then there will be an <code>Install update</code> button that will install the update.'), ARROW_DOWN_GREEN . 'netPhotoGraphics ' . $newestVersion);
 							break;
 						}
 					}
@@ -194,7 +202,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						header('Location: ' . FULLWEBPATH . '/extract.php');
 						exit();
 					} else {
-						$class = 'errorbox fade-message';
+						$class = 'errorbox';
 						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
 					}
 					break;
@@ -408,7 +416,7 @@ $buttonlist = array();
 								'XSRFTag' => 'install_update',
 								'category' => gettext('Admin'),
 								'enable' => true,
-								'button_text' => gettext('Install update'),
+								'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
 								'formname' => 'download_update',
 								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=download_update',
 								'icon' => BADGE_GOLD,
