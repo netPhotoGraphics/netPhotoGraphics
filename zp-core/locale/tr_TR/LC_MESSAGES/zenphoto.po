@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 15:46-0800\n"
-"PO-Revision-Date: 2019-03-08 15:47-0800\n"
+"POT-Creation-Date: 2019-03-11 13:33-0700\n"
+"PO-Revision-Date: 2019-03-11 13:34-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -127,7 +127,7 @@ msgstr ""
 #: zp-core/lib-auth.php:716 zp-core/lib-auth.php:718
 #: zp-core/setup/setup-option-defaults.php:688
 #: zp-core/setup/setup-option-defaults.php:689
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:151
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:152
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:73 zp-core/zp-extensions/rss.php:44
 msgid "Gallery"
@@ -135,8 +135,8 @@ msgstr "Galeri"
 
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
-#: zp-core/admin.php:319 zp-core/admin.php:394 zp-core/admin.php:409
-#: zp-core/admin.php:428 zp-core/admin.php:443 zp-core/admin.php:458
+#: zp-core/admin.php:338 zp-core/admin.php:422 zp-core/admin.php:437
+#: zp-core/admin.php:456 zp-core/admin.php:471 zp-core/admin.php:486
 #: zp-core/lib-auth.php:644 zp-core/lib-auth.php:663 zp-core/lib-auth.php:688
 #: zp-core/lib-auth.php:720 zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
@@ -812,8 +812,8 @@ msgstr "Eklentiler"
 #: zp-core/admin_options/security.php:326 zp-core/admin_options/theme.php:237
 #: zp-core/admin_options/theme.php:239 zp-core/admin_options/theme.php:569
 #: zp-core/admin_options/theme.php:571
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:339
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:340
 #: zp-core/zp-extensions/comment_form/admin-comments.php:137
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
@@ -3115,7 +3115,7 @@ msgstr "Kare köşeler"
 #, fuzzy
 #| msgid "Image order"
 msgid "No Border"
-msgstr "Border Yok"
+msgstr "Çerçeve Yok"
 
 #: themes/zenFluid/themeoptions.php:75
 #, fuzzy
@@ -6003,7 +6003,7 @@ msgstr "Şifre ipucu:"
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:308
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:309
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -8499,250 +8499,281 @@ msgstr "&quot; %s&quot; kullanıcısı zaten var."
 msgid "GitHub repository not accessible. "
 msgstr "GitHub deposu erişilebilir değil."
 
-#: zp-core/admin.php:102
+#: zp-core/admin.php:101
 msgid "Image cache cleared."
 msgstr "Resim önbelleği silindi"
 
-#: zp-core/admin.php:112
+#: zp-core/admin.php:111
 msgid "RSS cache cleared."
 msgstr "RSS önbelleği silindi."
 
-#: zp-core/admin.php:122
+#: zp-core/admin.php:121
 #, fuzzy
 msgid "HTML cache cleared."
 msgstr "HTML önbelleği temizlendi."
 
-#: zp-core/admin.php:129
+#: zp-core/admin.php:128
 #, fuzzy
 msgid "Search cache cleared."
 msgstr "Arama önbelleği temizlendi."
 
-#: zp-core/admin.php:137
+#: zp-core/admin.php:136
 #, fuzzy
 msgid "Setup files restored."
 msgstr "Kurulum dosyaları geri yüklendi."
 
-#: zp-core/admin.php:141
+#: zp-core/admin.php:140
 #, fuzzy
 msgid "Setup files restore failed."
 msgstr "Kurulum dosyaları geri yüklenemedi."
 
-#: zp-core/admin.php:165
+#: zp-core/admin.php:164
 #, fuzzy
 msgid "protected"
 msgstr "Bu albüm şifre korumalıdır."
 
-#: zp-core/admin.php:167
+#: zp-core/admin.php:166
 #, fuzzy
 msgid "Setup files protected."
 msgstr "Kurulum dosyaları korunuyor."
 
-#: zp-core/admin.php:171
+#: zp-core/admin.php:170
 #, fuzzy
 msgid "Protecting setup files failed."
 msgstr "Kurulum dosyalarının korunması başarısız oldu."
 
-#: zp-core/admin.php:180
+#: zp-core/admin.php:182
 #, fuzzy
-msgid "Could not extract extract.php.bin from zip file."
-msgstr "Extract.php.bin zip dosyasından çıkartılamadı."
-
-#: zp-core/admin.php:189
-#, fuzzy
-msgid "Could not download the update."
+msgid "netPhotoGraphics could not download the update."
 msgstr "Güncelleme indirilemedi."
 
-#: zp-core/admin.php:200
+#: zp-core/admin.php:184
+#, fuzzy
+msgid ""
+"<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. "
+msgstr "<em>allow_url_fopen</em> PHP.ini yapılandırma dosyanızda etkin değil."
+
+#: zp-core/admin.php:188
+#, fuzzy, php-format
+msgid ""
+"Click on the <code>%1$s</code> button to download the release to your "
+"computer, FTP the <code>extract.php.bin</code> file to your site, and revisit "
+"the overview page. Then there will be an <code>Install update</code> button "
+"that will install the update."
+msgstr ""
+"Serbest bırakma dosyasını bilgisayarınıza indirmek, FTP'yi <code>extract.php."
+"bin</code> dosyasını sitenize indirmek ve genel bakış sayfasını tekrar "
+"ziyaret etmek için <code>%1$s</code> düğmesine tıklayın. Daha sonra "
+"<code>Install update</code> yükleyecek bir <code>Install update</code> "
+"düğmesi bulunacaktır."
+
+#: zp-core/admin.php:197
+#, fuzzy
+msgid "netPhotoGraphics could not extract extract.php.bin from zip file."
+msgstr "Extract.php.bin zip dosyasından çıkartılamadı."
+
+#: zp-core/admin.php:213
 #, fuzzy
 msgid "Renaming the <code>extract.php.bin</code> file failed."
 msgstr ""
 "<code>extract.php.bin</code> dosyasını yeniden adlandırmak başarısız oldu."
 
-#: zp-core/admin.php:239
+#: zp-core/admin.php:217
+#, fuzzy
+msgid "Did not find the <code>extract.php.bin</code> file."
+msgstr ""
+"<code>extract.php.bin</code> dosyasını yeniden adlandırmak başarısız oldu."
+
+#: zp-core/admin.php:256
 #, fuzzy
 msgid "purge Image cache"
 msgstr "görüntü önbelleği temizle"
 
-#: zp-core/admin.php:240
+#: zp-core/admin.php:257
 #, fuzzy
 msgid "purge RSS cache"
 msgstr "RSS önbelleği temizle"
 
-#: zp-core/admin.php:241
+#: zp-core/admin.php:258
 msgid "reset all hitcounters"
 msgstr "tüm sayaçları sıfırla"
 
-#: zp-core/admin.php:242
+#: zp-core/admin.php:259
 #, fuzzy
 msgid "purge search cache"
 msgstr "arama önbelleğini temizle"
 
-#: zp-core/admin.php:249
+#: zp-core/admin.php:266
 #, php-format
 msgid "You do not have proper rights to %s."
 msgstr "%s için gerekli izinlere sahip değilsiniz."
 
-#: zp-core/admin.php:254
+#: zp-core/admin.php:271
 #, php-format
 msgid "You do not have proper rights to access %s."
 msgstr "%s öğesine ulaşmak için gerekli izinlere sahip değilsiniz."
 
-#: zp-core/admin.php:311
+#: zp-core/admin.php:330
 #, fuzzy
 msgid "There is a new version is available."
 msgstr "Yeni bir versiyon var."
 
-#: zp-core/admin.php:313
+#: zp-core/admin.php:332
 #, fuzzy, php-format
 msgid "Version %s can be downloaded by the utility button."
 msgstr "%s sürümü, yardımcı program düğmesiyle indirilebilir."
 
-#: zp-core/admin.php:325
+#: zp-core/admin.php:344
 #, fuzzy, php-format
 msgid "Download %1$s version %2$s to your computer."
 msgstr "%1$s sürümünü%2$s indirin."
 
-#: zp-core/admin.php:344
-#, fuzzy
-msgid "Extract file detected."
-msgstr "Kurulum dosyaları korunuyor."
-
-#: zp-core/admin.php:346
-#, fuzzy
-msgid ""
-"<strong>netPhotoGraphics</strong> has detected the presence of an "
-"<code>extract.php.bin</code> file. To install the update click on the "
-"<em>Install update</em> button below."
-msgstr ""
-"<strong>netPhotoGraphics</strong> , <code>extract.php.bin</code> dosyasının "
-"varlığını tespit etti. Güncellemeyi yüklemek için aşağıdaki <em>Güncellemeyi "
-"yükle</em> düğmesine tıklayın."
-
-#: zp-core/admin.php:383
-#, fuzzy
-msgid "Misc"
-msgstr "Çeşitli"
-
-#: zp-core/admin.php:396 zp-core/admin.php:411
+#: zp-core/admin.php:364
 #, fuzzy
 #| msgid "Installed themes"
 msgid "Install update"
 msgstr "Kurulmuş temalar"
 
-#: zp-core/admin.php:401
+#: zp-core/admin.php:365
+#, fuzzy
+msgid "Install the netPhotoGraphics update."
+msgstr "NetPhotoGraphics v %s yükleniyor"
+
+#: zp-core/admin.php:368 zp-core/admin.php:439
+#, fuzzy, php-format
+msgid "Install version %1$s"
+msgstr "%1$s sürümü"
+
+#: zp-core/admin.php:369
 #, fuzzy
 msgid "Extract and install the netPhotoGraphics update."
 msgstr "NetPhotoGraphics v %s yükleniyor"
 
-#: zp-core/admin.php:416
+#: zp-core/admin.php:374
+#, fuzzy
+msgid ""
+"<strong>netPhotoGraphics</strong> has detected the presence of an "
+"installation file. To install the update click on the <em>Install</em> button "
+"below."
+msgstr ""
+"<strong>netPhotoGraphics</strong> , <code>extract.php.bin</code> dosyasının "
+"varlığını tespit etti. Güncellemeyi yüklemek için aşağıdaki <em>Güncellemeyi "
+"yükle</em> düğmesine tıklayın."
+
+#: zp-core/admin.php:411
+#, fuzzy
+msgid "Misc"
+msgstr "Çeşitli"
+
+#: zp-core/admin.php:444
 #, fuzzy, php-format
 msgid "Download and install %1$s version %2$s."
 msgstr "%1$s sürümünü%2$s indirin."
 
-#: zp-core/admin.php:430
+#: zp-core/admin.php:458
 #, fuzzy
 msgid "Setup » restore scripts"
 msgstr "Kurulum »komut dosyalarını geri yükle"
 
-#: zp-core/admin.php:435
+#: zp-core/admin.php:463
 #, fuzzy
 msgid "Restores setup files so setup can be run."
 msgstr ""
 "Kurulum dosyalarını geri yükleyebilmek için kurulum dosyaları geri "
 "yüklenebilir."
 
-#: zp-core/admin.php:445
+#: zp-core/admin.php:473
 #, fuzzy
 msgid "Run setup"
 msgstr "Kurulumu başlat"
 
-#: zp-core/admin.php:450
+#: zp-core/admin.php:478
 #, fuzzy
 msgid "Run the setup script."
 msgstr "Kurulum komut dosyasını çalıştırın."
 
-#: zp-core/admin.php:460
+#: zp-core/admin.php:488
 #, fuzzy
 msgid "Setup » protect scripts"
 msgstr "Kurulum »komut dosyalarını koru"
 
-#: zp-core/admin.php:465
+#: zp-core/admin.php:493
 #, fuzzy
 msgid "Protects setup files so setup cannot be run."
 msgstr "Kurulum dosyalarını koruyun, böylece kurulum çalıştırılamaz."
 
-#: zp-core/admin.php:478 zp-core/utilities/installation_analysis.php:35
+#: zp-core/admin.php:506 zp-core/utilities/installation_analysis.php:35
 #, fuzzy
 msgid "<em>Debug build</em>"
 msgstr "<em>Hata ayıklama yapısı</em>"
 
-#: zp-core/admin.php:489 zp-core/utilities/installation_analysis.php:37
+#: zp-core/admin.php:517 zp-core/utilities/installation_analysis.php:37
 #, fuzzy
 msgid "Official build"
 msgstr "Resmi yapı"
 
-#: zp-core/admin.php:496 zp-core/utilities/installation_analysis.php:73
+#: zp-core/admin.php:524 zp-core/utilities/installation_analysis.php:73
 #, fuzzy
 msgid "release notes"
 msgstr "sürüm notları"
 
-#: zp-core/admin.php:497 zp-core/utilities/installation_analysis.php:77
+#: zp-core/admin.php:525 zp-core/utilities/installation_analysis.php:77
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgstr "netPhotoGraphics sürümü <strong>%1$s (%2$s)</strong>"
 
-#: zp-core/admin.php:504
+#: zp-core/admin.php:532
 msgid "Utility functions"
 msgstr "Faydalı fonksiyonlar"
 
-#: zp-core/admin.php:577
+#: zp-core/admin.php:605
 msgid "Gallery Stats"
 msgstr "Galeri İstatistikleri"
 
-#: zp-core/admin.php:584
+#: zp-core/admin.php:612
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Album (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Albums (%2$u un-published)"
 msgstr[0] "<strong>% 1 $ u</strong> Albüm (% 2 $ u yayınlanmadı)"
 
-#: zp-core/admin.php:586
+#: zp-core/admin.php:614
 #, php-format
 msgid "<strong>%u</strong> Album"
 msgid_plural "<strong>%u</strong> Albums"
 msgstr[0] "<strong>%u</strong> Albüm"
 
-#: zp-core/admin.php:595
+#: zp-core/admin.php:623
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgstr[0] "<strong>% 1 $ u</strong> Resim (% 2 $ u yayınlanmadı)"
 
-#: zp-core/admin.php:597
+#: zp-core/admin.php:625
 #, php-format
 msgid "<strong>%u</strong> Image"
 msgid_plural "<strong>%u</strong> Images"
 msgstr[0] "<strong>%u</strong> Resim"
 
-#: zp-core/admin.php:621
+#: zp-core/admin.php:649
 #, php-format
 msgid "<strong>%1$u</strong> Comment (%2$u in moderation)"
 msgid_plural "<strong>%1$u</strong> Comments (%2$u in moderation)"
 msgstr[0] "<strong>%1$u</strong> Yorum (%2$u onay bekliyor)"
 
-#: zp-core/admin.php:623
+#: zp-core/admin.php:651
 #, php-format
 msgid "<strong>%u</strong> Comment"
 msgid_plural "<strong>%u</strong> Comments"
 msgstr[0] "<strong>%u</strong> Yorum"
 
-#: zp-core/admin.php:638
+#: zp-core/admin.php:666
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
 msgstr[0] "<strong>% 1 $ u</strong> Kullanıcı (% 2 $ u süresi doldu)"
 
-#: zp-core/admin.php:640
+#: zp-core/admin.php:668
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8750,7 +8781,7 @@ msgid "<strong>%u</strong> User"
 msgid_plural "<strong>%u</strong> Users"
 msgstr[0] "<strong>%</strong> Kullanıcı"
 
-#: zp-core/admin.php:657
+#: zp-core/admin.php:685
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Album"
 #| msgid_plural "<strong>%u</strong> Albums"
@@ -8758,7 +8789,7 @@ msgid "<strong>%u</strong> Group"
 msgid_plural "<strong>%u</strong> Groups"
 msgstr[0] "<strong>% u</strong> Grup"
 
-#: zp-core/admin.php:664
+#: zp-core/admin.php:692
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8766,7 +8797,7 @@ msgid "<strong>%u</strong> Template"
 msgid_plural "<strong>%u</strong> Templates"
 msgstr[0] "<strong>% u</strong> Şablon"
 
-#: zp-core/admin.php:681
+#: zp-core/admin.php:709
 #, fuzzy
 msgid "Your user rights do not allow access to administrative functions."
 msgstr "Kullanıcı haklarınız yönetim işlevlerine erişime izin vermiyor."
@@ -10265,7 +10296,7 @@ msgstr "%s kullancısı için detayları gizle"
 #: zp-core/admin_options/image.php:820 zp-core/admin_options/image.php:845
 #, fuzzy
 msgid "disable"
-msgstr "devre dışı"
+msgstr "Yorumlara kapatın"
 
 #: zp-core/admin_options/image.php:833
 #, fuzzy
@@ -13439,115 +13470,115 @@ msgstr "Önbellek: [ %s]"
 msgid "Image: [%s]"
 msgstr "Resim: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:694
+#: zp-core/functions-image.php:61 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 msgid "Debug"
 msgstr "Hata ayıkla"
 
-#: zp-core/functions-image.php:59
+#: zp-core/functions-image.php:61
 msgid "Arguments:"
 msgstr "Argümanlar:"
 
-#: zp-core/functions-image.php:62
+#: zp-core/functions-image.php:64
 msgid "size ="
 msgstr "boyut ="
 
-#: zp-core/functions-image.php:63
+#: zp-core/functions-image.php:65
 msgid "width ="
 msgstr "genişlik ="
 
-#: zp-core/functions-image.php:64
+#: zp-core/functions-image.php:66
 msgid "height ="
 msgstr "yükseklik ="
 
-#: zp-core/functions-image.php:65
+#: zp-core/functions-image.php:67
 #, fuzzy
 msgid "cw ="
 msgstr "cw ="
 
-#: zp-core/functions-image.php:66
+#: zp-core/functions-image.php:68
 #, fuzzy
 msgid "ch ="
 msgstr "ch ="
 
-#: zp-core/functions-image.php:67
+#: zp-core/functions-image.php:69
 #, fuzzy
 msgid "cx ="
 msgstr "cx ="
 
-#: zp-core/functions-image.php:68
+#: zp-core/functions-image.php:70
 #, fuzzy
 msgid "cy ="
 msgstr "cy ="
 
-#: zp-core/functions-image.php:69
+#: zp-core/functions-image.php:71
 msgid "quality ="
 msgstr "kalite ="
 
-#: zp-core/functions-image.php:70
+#: zp-core/functions-image.php:72
 msgid "thumb ="
 msgstr "küçük resim ="
 
-#: zp-core/functions-image.php:71
+#: zp-core/functions-image.php:73
 msgid "crop ="
 msgstr "kes = "
 
-#: zp-core/functions-image.php:175
+#: zp-core/functions-image.php:177
 #, fuzzy, php-format
 msgid "Image %s not found or is unreadable."
 msgstr "Resim %s bulunamadı veya okunamıyor."
 
-#: zp-core/functions-image.php:193
+#: zp-core/functions-image.php:195
 #, fuzzy, php-format
 msgid "Using %1$ux%2$u %3$s thumbnail image."
 msgstr "% 1 $ ux% 2 $ u%3$s küçük resim görüntüsünü kullanma."
 
-#: zp-core/functions-image.php:205
+#: zp-core/functions-image.php:207
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
 msgstr "Görüntü %s yenilenemez (imageGet)."
 
-#: zp-core/functions-image.php:212
+#: zp-core/functions-image.php:214
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
 msgstr "Resim %s döndürülemez."
 
-#: zp-core/functions-image.php:255
+#: zp-core/functions-image.php:257
 #, fuzzy, php-format
 msgid "Unknown error processing %s! Please report to the <a href=\""
 msgstr "<html> Bilinmeyen hata işleme %s! Lütfen rapor"
 
-#: zp-core/functions-image.php:380 zp-core/functions-image.php:415
+#: zp-core/functions-image.php:382 zp-core/functions-image.php:417
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
 msgstr "Görüntü %s yenilenemez (resample)."
 
-#: zp-core/functions-image.php:419
+#: zp-core/functions-image.php:421
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
 msgstr "Görüntü %s yenilenemez (bozulmayan)."
 
-#: zp-core/functions-image.php:435
+#: zp-core/functions-image.php:437
 #, fuzzy, php-format
 msgid "Watermark %s not renderable."
 msgstr "Filigran %s yenilenemez."
 
-#: zp-core/functions-image.php:453
+#: zp-core/functions-image.php:455
 #, fuzzy, php-format
 msgid "Watermark %s not resizeable."
 msgstr "Filigran %s yeniden boyutlandırılamaz."
 
-#: zp-core/functions-image.php:462
+#: zp-core/functions-image.php:464
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
 msgstr "Görüntü %s yenilenemez (copycanvas)."
 
-#: zp-core/functions-image.php:524
+#: zp-core/functions-image.php:526
 #, fuzzy, php-format
 msgid "cacheImage: failed to create %s"
 msgstr "cacheImage: %s oluşturulamadı"
 
-#: zp-core/functions-image.php:531
+#: zp-core/functions-image.php:533
 #, fuzzy, php-format
 msgid "cacheImage(%1$s) exception: %2$s"
 msgstr "cacheImage (%1$s) istisnası:%2$s"
@@ -14353,8 +14384,8 @@ msgstr ""
 
 #: zp-core/lib-auth.php:1124 zp-core/lib-auth.php:1126
 #: zp-core/setup/index.php:1652
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:224
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:225
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 #, fuzzy
 msgid "Refresh"
 msgstr "%s albümü için üstveriyi tazele"
@@ -17655,8 +17686,8 @@ msgstr "RSS beslemeleri için istatistikler"
 #, fuzzy
 msgid "From "
 msgstr ""
-"ZenPhoto20 dağıtımının bir parçası olarak veya 3.parti olarak sağlanıyor "
-"olabilirler."
+"netPhotoGraphics dağıtımının bir parçası olarak veya 3.parti olarak "
+"sağlanıyor olabilirler."
 
 #: zp-core/utilities/gallery_statistics.php:757
 #, fuzzy
@@ -18920,12 +18951,12 @@ msgstr ""
 msgid "If these are enabled."
 msgstr "RSS beslemeleri aktifleştirildi:"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:97
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:98
 #, fuzzy
 msgid "image processor reference"
 msgstr "görüntü işlemcisi referansı"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:185
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:186
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> the following objects have images that appear to no "
@@ -18934,13 +18965,13 @@ msgstr ""
 "<strong>Not:</strong> Aşağıdaki nesneler artık mevcut olmayan görüntülere "
 "sahiptir."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:199
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:200
 #, fuzzy, php-format
 msgid "%u image processor reference found."
 msgid_plural "%u image processor references found."
 msgstr[0] "% u görüntü işlemci referansı bulundu."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:201
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:202
 #, fuzzy
 msgid ""
 "You should use the refresh button to convert these to cached image references"
@@ -18948,25 +18979,25 @@ msgstr ""
 "Önbelleğe alınmış görüntü referanslarına dönüştürmek için yenileme düğmesini "
 "kullanmalısınız."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:206
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:207
 #, fuzzy, php-format
 msgid "%u cached image reference found."
 msgid_plural "%u cached image references found."
 msgstr[0] "Önbelleğe alınmış resim referansı bulundu."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:210
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:211
 #, fuzzy, php-format
 msgid "%s reference re-cached."
 msgid_plural "%s references re-cached."
 msgstr[0] "%s referansı yeniden önbelleğe alındı."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:215
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:216
 #, fuzzy, php-format
 msgid "%s cache folder reference fixed."
 msgid_plural "%s cache folder references fixed."
 msgstr[0] "%s önbellek klasörü başvurusu düzeltildi."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:222
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:223
 #, fuzzy
 msgid ""
 "Refresh the caching of the images stored in the database if some images did "
@@ -18975,73 +19006,73 @@ msgstr ""
 "Bazı görüntüler oluşmazsa, veritabanında saklanan görüntülerin önbelleğe "
 "alınmasını yenileyin."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:126
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:127
 #, php-format
 msgid "[%u image]"
 msgid_plural "[%u images]"
 msgstr[0] "[%u resim]"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:180
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:181
 #, fuzzy, php-format
 msgid "Refresh cache for %s"
 msgstr "%s için önbelleği yenile"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
 #, fuzzy
 msgid "Full Image"
 msgstr "tam resim"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:287
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:288
 #, fuzzy
 msgid "invalid MaxSpace"
 msgstr "geçersiz MaksSpace"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:292
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:293
 #, fuzzy
 msgid "invalid Cache Set"
 msgstr "geçersiz Önbellek Kümesi"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:313
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:314
 #, fuzzy, php-format
 msgid "all sizes for <em>%1$s</em>"
 msgstr "<em>%1$s</em> için tüm boyutlar"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:359
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:360
 #, fuzzy, php-format
 msgid "%u cache size to apply."
 msgid_plural "%u cache sizes to apply."
 msgstr[0] "Uygulanacak% u önbellek boyutu."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:374
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
 #, fuzzy, php-format
 msgid "%u cache size requested"
 msgid_plural "%u cache sizes requested"
 msgstr[0] "İstenen% u önbellek boyutu"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:376
 #, fuzzy, php-format
 msgid "Finished processing %1$u image (%2$s)."
 msgid_plural "Finished processing %1$u images (%2$s)."
 msgstr[0] "Tamamlanan işlem% 1 $ u görüntü (%2$s)."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 #, fuzzy
 msgid ""
 "Refresh the caching of the selected image sizes if some images did not render."
 msgstr ""
 "Bazı görüntüler oluşmazsa, seçilen görüntü boyutlarının önbelleğini yenileyin."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:384
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:385
 #, fuzzy
 msgid "No cache sizes enabled."
 msgstr "Önbellek boyutu etkin değil."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 #, fuzzy
 msgid "Cache the images"
 msgstr "Resimleri önbelleğe al"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 #, fuzzy
 msgid "Executes the caching of the selected image sizes."
 msgstr "Seçilen görüntü boyutlarının önbelleğini yürütür."
@@ -24718,11 +24749,7 @@ msgstr "<em>Açıklıklı</em> etiket ekle"
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:381
 #, fuzzy
 msgid "Class"
-msgstr ""
-"Tarih için biçimlendirme. Listeden bir öğe seçin veya \"ayarla\" seçeneğini "
-"kullanın ve <code>özel</code> bir <a href=\"http://us2.php.net/manual/en/"
-"function.strftime.php\"><span style=\"white-space:nowrap\"><code>strftime()</"
-"code></span></a> çıktısı ayarlayın."
+msgstr "Sınıf"
 
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:397
 #, fuzzy
@@ -29258,7 +29285,7 @@ msgstr "Yüklemeyi iptal et"
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:106
 #, fuzzy
 msgid "Processing..."
-msgstr "ZenPhoto20 betik işleme toplam:%.4f saniye"
+msgstr "netPhotoGraphics betik işleme toplam:%.4f saniye"
 
 #: zp-core/zp-extensions/user-expiry.php:33
 #, fuzzy
@@ -29421,7 +29448,7 @@ msgstr "%1$s <strong>%2$s</strong> (% 3 $ yüksek oturum açma:%4$s)"
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:215
 #, fuzzy
 msgid "Disable"
-msgstr "Devre Dışı"
+msgstr "Yorumlara kapatın"
 
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:217
 #, fuzzy
@@ -31295,6 +31322,10 @@ msgstr ""
 #, fuzzy
 msgid "Sample CAPTCHA image"
 msgstr "CAPTCHA resmi örneği"
+
+#, fuzzy
+#~ msgid "Extract file detected."
+#~ msgstr "Kurulum dosyaları korunuyor."
 
 #, fuzzy
 #~ msgid "Suffix Not Allowed: %s"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: webmaster at momo-i.org\n"
-"POT-Creation-Date: 2019-03-08 15:54-0800\n"
-"PO-Revision-Date: 2019-03-08 15:55-0800\n"
+"POT-Creation-Date: 2019-03-11 13:54-0700\n"
+"PO-Revision-Date: 2019-03-11 13:55-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -122,7 +122,7 @@ msgstr ""
 #: zp-core/lib-auth.php:709 zp-core/lib-auth.php:716 zp-core/lib-auth.php:718
 #: zp-core/setup/setup-option-defaults.php:688
 #: zp-core/setup/setup-option-defaults.php:689
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:151
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:152
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:73 zp-core/zp-extensions/rss.php:44
 msgid "Gallery"
@@ -130,8 +130,8 @@ msgstr "ギャラリー"
 
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
-#: zp-core/admin.php:319 zp-core/admin.php:394 zp-core/admin.php:409
-#: zp-core/admin.php:428 zp-core/admin.php:443 zp-core/admin.php:458
+#: zp-core/admin.php:338 zp-core/admin.php:422 zp-core/admin.php:437
+#: zp-core/admin.php:456 zp-core/admin.php:471 zp-core/admin.php:486
 #: zp-core/lib-auth.php:644 zp-core/lib-auth.php:663 zp-core/lib-auth.php:688
 #: zp-core/lib-auth.php:720 zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
@@ -806,8 +806,8 @@ msgstr "プラグイン"
 #: zp-core/admin_options/security.php:326 zp-core/admin_options/theme.php:237
 #: zp-core/admin_options/theme.php:239 zp-core/admin_options/theme.php:569
 #: zp-core/admin_options/theme.php:571
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:339
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:340
 #: zp-core/zp-extensions/comment_form/admin-comments.php:137
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
@@ -4841,7 +4841,7 @@ msgstr "404エラー"
 #: themes/zpmasonry/album.php:16 themes/zpmasonry/favorites.php:18
 #, fuzzy
 msgid "subalbum"
-msgstr "サブアルバムサムネイルを表示"
+msgstr "%u個のサブアルバム"
 
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 #, fuzzy
@@ -5283,7 +5283,7 @@ msgstr "ギャラリーインデックスに戻る→"
 #: themes/zpminimal/inc-footer.php:24
 #, fuzzy
 msgid "Subalbum"
-msgstr "サブアルバムサムネイルを表示"
+msgstr "%u個のサブアルバム"
 
 #: themes/zpminimal/index.php:59
 #, fuzzy
@@ -5925,7 +5925,7 @@ msgstr "パスワードのヒント:"
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:308
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:309
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -7179,7 +7179,7 @@ msgstr "これらを表示したい順番にアルバムをドラッグします
 #, fuzzy
 #| msgid " descending"
 msgid "descending"
-msgstr "降順"
+msgstr " 降順"
 
 #: zp-core/admin-tabs/edit.php:954
 msgid "Sort subalbums by:"
@@ -8357,233 +8357,265 @@ msgstr "ユーザー &quot;％s&quot;はすでに存在します。"
 msgid "GitHub repository not accessible. "
 msgstr "GitHubリポジトリにアクセスできません。"
 
-#: zp-core/admin.php:102
+#: zp-core/admin.php:101
 msgid "Image cache cleared."
 msgstr "画像キャッシュをクリアしました。"
 
-#: zp-core/admin.php:112
+#: zp-core/admin.php:111
 msgid "RSS cache cleared."
 msgstr "RSSキャッシュをクリアしました。"
 
-#: zp-core/admin.php:122
+#: zp-core/admin.php:121
 msgid "HTML cache cleared."
 msgstr "HTMLキャッシュをクリアしました。"
 
-#: zp-core/admin.php:129
+#: zp-core/admin.php:128
 #, fuzzy
 #| msgid "RSS cache cleared."
 msgid "Search cache cleared."
 msgstr "検索キャッシュがクリアされました。"
 
-#: zp-core/admin.php:137
+#: zp-core/admin.php:136
 msgid "Setup files restored."
 msgstr "セットアップファイルを復元しました。"
 
-#: zp-core/admin.php:141
+#: zp-core/admin.php:140
 #, fuzzy
 msgid "Setup files restore failed."
 msgstr "セットアップファイルの復元に失敗しました。"
 
-#: zp-core/admin.php:165
+#: zp-core/admin.php:164
 msgid "protected"
 msgstr "保護"
 
-#: zp-core/admin.php:167
+#: zp-core/admin.php:166
 msgid "Setup files protected."
 msgstr "セットアップファイルを保護しました。"
 
-#: zp-core/admin.php:171
+#: zp-core/admin.php:170
 #, fuzzy
 msgid "Protecting setup files failed."
 msgstr "セットアップファイルの保護に失敗しました。"
 
-#: zp-core/admin.php:180
+#: zp-core/admin.php:182
 #, fuzzy
-msgid "Could not extract extract.php.bin from zip file."
-msgstr "zipファイルからextract.php.binを抽出できませんでした。"
-
-#: zp-core/admin.php:189
-#, fuzzy
-msgid "Could not download the update."
+msgid "netPhotoGraphics could not download the update."
 msgstr "更新をダウンロードできませんでした。"
 
-#: zp-core/admin.php:200
+#: zp-core/admin.php:184
+#, fuzzy
+msgid ""
+"<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. "
+msgstr "PHP.ini設定ファイルで<em>allow_url_fopen</em>が有効になっていません。"
+
+#: zp-core/admin.php:188
+#, fuzzy, php-format
+msgid ""
+"Click on the <code>%1$s</code> button to download the release to your "
+"computer, FTP the <code>extract.php.bin</code> file to your site, and "
+"revisit the overview page. Then there will be an <code>Install update</code> "
+"button that will install the update."
+msgstr ""
+"<code>%1$s</code>ボタンをクリックしてリリースをあなたのコンピュータにダウン"
+"ロードし、 <code>extract.php.bin</code>ファイルをあなたのサイトにFTPで"
+"<code>extract.php.bin</code> 、そして概要ページに<code>extract.php.bin</code>"
+"ください。その後、アップデートをインストールする<code>Install update</code>の"
+"<code>Install update</code> ]ボタンが表示されます。"
+
+#: zp-core/admin.php:197
+#, fuzzy
+msgid "netPhotoGraphics could not extract extract.php.bin from zip file."
+msgstr "zipファイルからextract.php.binを抽出できませんでした。"
+
+#: zp-core/admin.php:213
 #, fuzzy
 msgid "Renaming the <code>extract.php.bin</code> file failed."
 msgstr "<code>extract.php.bin</code>ファイルの名前変更に失敗しました。"
 
-#: zp-core/admin.php:239
+#: zp-core/admin.php:217
+#, fuzzy
+msgid "Did not find the <code>extract.php.bin</code> file."
+msgstr "<code>extract.php.bin</code>ファイルの名前変更に失敗しました。"
+
+#: zp-core/admin.php:256
 msgid "purge Image cache"
 msgstr "画像キャッシュの削除"
 
-#: zp-core/admin.php:240
+#: zp-core/admin.php:257
 msgid "purge RSS cache"
 msgstr "RSSキャッシュの削除"
 
-#: zp-core/admin.php:241
+#: zp-core/admin.php:258
 msgid "reset all hitcounters"
 msgstr "全てのヒットカウンターのリセット"
 
-#: zp-core/admin.php:242
+#: zp-core/admin.php:259
 #, fuzzy
 #| msgid "purge Image cache"
 msgid "purge search cache"
 msgstr "検索キャッシュを消去する"
 
-#: zp-core/admin.php:249
+#: zp-core/admin.php:266
 #, php-format
 msgid "You do not have proper rights to %s."
 msgstr "%sへの権限を持っていません。"
 
-#: zp-core/admin.php:254
+#: zp-core/admin.php:271
 #, php-format
 msgid "You do not have proper rights to access %s."
 msgstr "%sへのアクセス権を持っていません。"
 
-#: zp-core/admin.php:311
+#: zp-core/admin.php:330
 #, fuzzy
 msgid "There is a new version is available."
 msgstr "新しいバージョンがあります。"
 
-#: zp-core/admin.php:313
+#: zp-core/admin.php:332
 #, fuzzy, php-format
 msgid "Version %s can be downloaded by the utility button."
 msgstr "バージョン％sはユーティリティー・ボタンでダウンロードできます。"
 
-#: zp-core/admin.php:325
+#: zp-core/admin.php:344
 #, fuzzy, php-format
 #| msgid "%1$s version %2$s"
 msgid "Download %1$s version %2$s to your computer."
 msgstr "%1$sバージョン%2$sをダウンロードしてください。"
 
-#: zp-core/admin.php:344
-#, fuzzy
-#| msgid "Setup files protected."
-msgid "Extract file detected."
-msgstr "セットアップファイルを保護しました。"
-
-#: zp-core/admin.php:346
-#, fuzzy
-msgid ""
-"<strong>netPhotoGraphics</strong> has detected the presence of an "
-"<code>extract.php.bin</code> file. To install the update click on the "
-"<em>Install update</em> button below."
-msgstr ""
-"<strong>netPhotoGraphics</strong>が<code>extract.php.bin</code>ファイルの存在"
-"を検出しました。アップデートをインストールするには、下の<em>[アップデート</"
-"em>の<em>インストール</em> ]ボタンをクリックしてください。"
-
-#: zp-core/admin.php:383
-msgid "Misc"
-msgstr "その他"
-
-#: zp-core/admin.php:396 zp-core/admin.php:411
+#: zp-core/admin.php:364
 #, fuzzy
 #| msgid "Installed themes"
 msgid "Install update"
 msgstr "インストール済みテーマ"
 
-#: zp-core/admin.php:401
+#: zp-core/admin.php:365
+#, fuzzy
+#| msgid "Installing netPhotoGraphics v%s"
+msgid "Install the netPhotoGraphics update."
+msgstr "netPhotoGraphics v％sのインストール"
+
+#: zp-core/admin.php:368 zp-core/admin.php:439
+#, fuzzy, php-format
+msgid "Install version %1$s"
+msgstr ""
+"バージョン%1$s(Zenphoto_Authorityは%2$s及び%3$sのみサポートします)へ権限を統"
+"合できません。"
+
+#: zp-core/admin.php:369
 #, fuzzy
 #| msgid "Installing netPhotoGraphics v%s"
 msgid "Extract and install the netPhotoGraphics update."
 msgstr "netPhotoGraphics v％sのインストール"
 
-#: zp-core/admin.php:416
+#: zp-core/admin.php:374
+#, fuzzy
+msgid ""
+"<strong>netPhotoGraphics</strong> has detected the presence of an "
+"installation file. To install the update click on the <em>Install</em> "
+"button below."
+msgstr ""
+"<strong>netPhotoGraphics</strong>が<code>extract.php.bin</code>ファイルの存在"
+"を検出しました。アップデートをインストールするには、下の<em>[アップデート</"
+"em>の<em>インストール</em> ]ボタンをクリックしてください。"
+
+#: zp-core/admin.php:411
+msgid "Misc"
+msgstr "その他"
+
+#: zp-core/admin.php:444
 #, fuzzy, php-format
 #| msgid "%1$s version %2$s"
 msgid "Download and install %1$s version %2$s."
 msgstr "%1$sバージョン%2$sをダウンロードしてください。"
 
-#: zp-core/admin.php:430
+#: zp-core/admin.php:458
 msgid "Setup » restore scripts"
 msgstr "セットアップ » スクリプトを復元"
 
-#: zp-core/admin.php:435
+#: zp-core/admin.php:463
 msgid "Restores setup files so setup can be run."
 msgstr "セットアップが実行できるようにセットアップファイルを復元します。"
 
-#: zp-core/admin.php:445
+#: zp-core/admin.php:473
 #, fuzzy
 msgid "Run setup"
 msgstr "セットアップの実行"
 
-#: zp-core/admin.php:450
+#: zp-core/admin.php:478
 #, fuzzy
 msgid "Run the setup script."
 msgstr "セットアップスクリプトを実行します。"
 
-#: zp-core/admin.php:460
+#: zp-core/admin.php:488
 msgid "Setup » protect scripts"
 msgstr "セットアップ » スクリプトを保護"
 
-#: zp-core/admin.php:465
+#: zp-core/admin.php:493
 msgid "Protects setup files so setup cannot be run."
 msgstr "セットアップが実行できないようにセットアップファイルを保護します。"
 
-#: zp-core/admin.php:478 zp-core/utilities/installation_analysis.php:35
+#: zp-core/admin.php:506 zp-core/utilities/installation_analysis.php:35
 msgid "<em>Debug build</em>"
 msgstr "<em>デバッグ Build</em>"
 
-#: zp-core/admin.php:489 zp-core/utilities/installation_analysis.php:37
+#: zp-core/admin.php:517 zp-core/utilities/installation_analysis.php:37
 msgid "Official build"
 msgstr "公式ビルド"
 
-#: zp-core/admin.php:496 zp-core/utilities/installation_analysis.php:73
+#: zp-core/admin.php:524 zp-core/utilities/installation_analysis.php:73
 #, fuzzy
 msgid "release notes"
 msgstr "リリースノート"
 
-#: zp-core/admin.php:497 zp-core/utilities/installation_analysis.php:77
+#: zp-core/admin.php:525 zp-core/utilities/installation_analysis.php:77
 #, fuzzy, php-format
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgstr "netPhotoGraphicsバージョン<strong>%1$s（%2$s）</strong>"
 
-#: zp-core/admin.php:504
+#: zp-core/admin.php:532
 msgid "Utility functions"
 msgstr "ユーティリティ機能"
 
-#: zp-core/admin.php:577
+#: zp-core/admin.php:605
 msgid "Gallery Stats"
 msgstr "ギャラリー統計"
 
-#: zp-core/admin.php:584
+#: zp-core/admin.php:612
 #, php-format
 msgid "<strong>%1$u</strong> Album (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Albums (%2$u un-published)"
 msgstr[0] "<strong>%1$u</strong>個のアルバム (内%2$u件は非公開)"
 
-#: zp-core/admin.php:586
+#: zp-core/admin.php:614
 #, php-format
 msgid "<strong>%u</strong> Album"
 msgid_plural "<strong>%u</strong> Albums"
 msgstr[0] "<strong>%u</strong>個のアルバム"
 
-#: zp-core/admin.php:595
+#: zp-core/admin.php:623
 #, php-format
 msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgstr[0] "<strong>%1$u</strong>個の画像 (内%2$u件は非表示)"
 
-#: zp-core/admin.php:597
+#: zp-core/admin.php:625
 #, php-format
 msgid "<strong>%u</strong> Image"
 msgid_plural "<strong>%u</strong> Images"
 msgstr[0] "<strong>%u</strong>件の画像"
 
-#: zp-core/admin.php:621
+#: zp-core/admin.php:649
 #, php-format
 msgid "<strong>%1$u</strong> Comment (%2$u in moderation)"
 msgid_plural "<strong>%1$u</strong> Comments (%2$u in moderation)"
 msgstr[0] "<strong>%1$u</strong>件のコメント (内%2$u件がモデレート中)"
 
-#: zp-core/admin.php:623
+#: zp-core/admin.php:651
 #, php-format
 msgid "<strong>%u</strong> Comment"
 msgid_plural "<strong>%u</strong> Comments"
 msgstr[0] "<strong>%u</strong>件のコメント"
 
-#: zp-core/admin.php:638
+#: zp-core/admin.php:666
 #, fuzzy, php-format
 #| msgid "<strong>%1$u</strong> Page (%2$u un-published)"
 #| msgid_plural "<strong>%1$u</strong> Pages (%2$u un-published)"
@@ -8591,7 +8623,7 @@ msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
 msgstr[0] "<strong>％1 $ u</strong>ユーザー（％2 $ u期限切れ）"
 
-#: zp-core/admin.php:640
+#: zp-core/admin.php:668
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8599,7 +8631,7 @@ msgid "<strong>%u</strong> User"
 msgid_plural "<strong>%u</strong> Users"
 msgstr[0] "<strong>％u</strong>ユーザー"
 
-#: zp-core/admin.php:657
+#: zp-core/admin.php:685
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Album"
 #| msgid_plural "<strong>%u</strong> Albums"
@@ -8607,7 +8639,7 @@ msgid "<strong>%u</strong> Group"
 msgid_plural "<strong>%u</strong> Groups"
 msgstr[0] "<strong>％u</strong>グループ"
 
-#: zp-core/admin.php:664
+#: zp-core/admin.php:692
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8615,7 +8647,7 @@ msgid "<strong>%u</strong> Template"
 msgid_plural "<strong>%u</strong> Templates"
 msgstr[0] "<strong>％u</strong>テンプレート"
 
-#: zp-core/admin.php:681
+#: zp-core/admin.php:709
 msgid "Your user rights do not allow access to administrative functions."
 msgstr "あなたのユーザー権限は管理機能にアクセスをする許可がありません。"
 
@@ -8795,7 +8827,7 @@ msgstr "アルバムのデフォルトサムネイルの選択です。"
 #, fuzzy
 #| msgid "Sort gallery by:"
 msgid "Sort gallery by"
-msgstr "ギャラリーのソート方法:"
+msgstr "ギャラリーのソート"
 
 #: zp-core/admin_options/gallery.php:451
 msgid ""
@@ -13095,111 +13127,111 @@ msgstr "キャッシュ：[％s]"
 msgid "Image: [%s]"
 msgstr "画像: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:694
+#: zp-core/functions-image.php:61 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 msgid "Debug"
 msgstr "デバッグ"
 
-#: zp-core/functions-image.php:59
+#: zp-core/functions-image.php:61
 msgid "Arguments:"
 msgstr "引数:"
 
-#: zp-core/functions-image.php:62
+#: zp-core/functions-image.php:64
 msgid "size ="
 msgstr "サイズ ="
 
-#: zp-core/functions-image.php:63
+#: zp-core/functions-image.php:65
 msgid "width ="
 msgstr "幅 ="
 
-#: zp-core/functions-image.php:64
+#: zp-core/functions-image.php:66
 msgid "height ="
 msgstr "高さ ="
 
-#: zp-core/functions-image.php:65
+#: zp-core/functions-image.php:67
 msgid "cw ="
 msgstr "cw ="
 
-#: zp-core/functions-image.php:66
+#: zp-core/functions-image.php:68
 msgid "ch ="
 msgstr "ch ="
 
-#: zp-core/functions-image.php:67
+#: zp-core/functions-image.php:69
 msgid "cx ="
 msgstr "cx ="
 
-#: zp-core/functions-image.php:68
+#: zp-core/functions-image.php:70
 msgid "cy ="
 msgstr "cy ="
 
-#: zp-core/functions-image.php:69
+#: zp-core/functions-image.php:71
 msgid "quality ="
 msgstr "品質 ="
 
-#: zp-core/functions-image.php:70
+#: zp-core/functions-image.php:72
 msgid "thumb ="
 msgstr "サムネイル ="
 
-#: zp-core/functions-image.php:71
+#: zp-core/functions-image.php:73
 msgid "crop ="
 msgstr "トリミング ="
 
-#: zp-core/functions-image.php:175
+#: zp-core/functions-image.php:177
 #, php-format
 msgid "Image %s not found or is unreadable."
 msgstr "画像%sは見つからないか読み込めません。"
 
-#: zp-core/functions-image.php:193
+#: zp-core/functions-image.php:195
 #, php-format
 msgid "Using %1$ux%2$u %3$s thumbnail image."
 msgstr "%1$ux%2$u %3$sのサムネイル画像を使用します。"
 
-#: zp-core/functions-image.php:205
+#: zp-core/functions-image.php:207
 #, php-format
 msgid "Image %s not renderable (imageGet)."
 msgstr "画像 %s はレンダリング可能ではありません。(imageGet)"
 
-#: zp-core/functions-image.php:212
+#: zp-core/functions-image.php:214
 #, php-format
 msgid "Image %s not rotatable."
 msgstr "画像 %s は回転可能ではありません。"
 
-#: zp-core/functions-image.php:255
+#: zp-core/functions-image.php:257
 #, fuzzy, php-format
 msgid "Unknown error processing %s! Please report to the <a href=\""
 msgstr "<html> ％sを処理中の不明なエラー！あなたに報告してください"
 
-#: zp-core/functions-image.php:380 zp-core/functions-image.php:415
+#: zp-core/functions-image.php:382 zp-core/functions-image.php:417
 #, php-format
 msgid "Image %s not renderable (resample)."
 msgstr "画像 %s はレンダリング可能ではありません。(resample)"
 
-#: zp-core/functions-image.php:419
+#: zp-core/functions-image.php:421
 #, php-format
 msgid "Image %s not renderable (unsharp)."
 msgstr "画像 %s はレンダリング可能ではありません。(unsharp)"
 
-#: zp-core/functions-image.php:435
+#: zp-core/functions-image.php:437
 #, php-format
 msgid "Watermark %s not renderable."
 msgstr "透かし %s はレンダリング可能ではありません。"
 
-#: zp-core/functions-image.php:453
+#: zp-core/functions-image.php:455
 #, php-format
 msgid "Watermark %s not resizeable."
 msgstr "透かし %s はリサイズ可能ではありません。"
 
-#: zp-core/functions-image.php:462
+#: zp-core/functions-image.php:464
 #, php-format
 msgid "Image %s not renderable (copycanvas)."
 msgstr "画像 %s はレンダリング可能ではありません。(copycanvas)"
 
-#: zp-core/functions-image.php:524
+#: zp-core/functions-image.php:526
 #, php-format
 msgid "cacheImage: failed to create %s"
 msgstr "キャッシュ画像: 作成に失敗しました: %s"
 
-#: zp-core/functions-image.php:531
+#: zp-core/functions-image.php:533
 #, php-format
 msgid "cacheImage(%1$s) exception: %2$s"
 msgstr "キャッシュ画像(%1$s) 期限: %2$s"
@@ -13968,8 +14000,8 @@ msgstr ""
 
 #: zp-core/lib-auth.php:1124 zp-core/lib-auth.php:1126
 #: zp-core/setup/index.php:1652
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:224
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:225
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 msgid "Refresh"
 msgstr "リフレッシュ"
 
@@ -18293,11 +18325,11 @@ msgstr ""
 msgid "If these are enabled."
 msgstr "これらが有効になっている場合"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:97
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:98
 msgid "image processor reference"
 msgstr "画像プロセッサーの参照"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:185
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:186
 msgid ""
 "<strong>Note:</strong> the following objects have images that appear to no "
 "longer exist."
@@ -18305,38 +18337,38 @@ msgstr ""
 "<strong>注:</strong> 以下のオブジェクトは存在しなくなったように見える画像を"
 "持っています。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:199
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:200
 #, php-format
 msgid "%u image processor reference found."
 msgid_plural "%u image processor references found."
 msgstr[0] "%u 画像プロセッサーの参照が見つかりました。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:201
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:202
 msgid ""
 "You should use the refresh button to convert these to cached image references"
 msgstr ""
 "あなたは、キャッシュされた画像の参照にこれらを変換するには更新ボタンを使用す"
 "る必要があります"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:206
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:207
 #, php-format
 msgid "%u cached image reference found."
 msgid_plural "%u cached image references found."
 msgstr[0] "%u キャッシュ済み画像の参照が見つかりました。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:210
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:211
 #, php-format
 msgid "%s reference re-cached."
 msgid_plural "%s references re-cached."
 msgstr[0] "%s 参照が再キャッシュされました。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:215
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:216
 #, fuzzy, php-format
 msgid "%s cache folder reference fixed."
 msgid_plural "%s cache folder references fixed."
 msgstr[0] "％sキャッシュフォルダの参照を修正しました。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:222
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:223
 msgid ""
 "Refresh the caching of the images stored in the database if some images did "
 "not render."
@@ -18344,59 +18376,59 @@ msgstr ""
 "いくつかの画像がレンダリングされなかった場合、データベースに格納された画像の"
 "キャッシュをリフレッシュします。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:126
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:127
 #, php-format
 msgid "[%u image]"
 msgid_plural "[%u images]"
 msgstr[0] "【%u個の画像】"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:180
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:181
 #, fuzzy, php-format
 #| msgid "Refreshing cache for %s"
 msgid "Refresh cache for %s"
 msgstr "％sのキャッシュをリフレッシュする"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
 msgid "Full Image"
 msgstr "フル画像"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:287
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:288
 #, fuzzy
 #| msgid "invalid_MaxSpace"
 msgid "invalid MaxSpace"
 msgstr "invalid_MaxSpace"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:292
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:293
 #, fuzzy
 #| msgid "invalid_MaxSpace"
 msgid "invalid Cache Set"
 msgstr "無効なキャッシュセット"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:313
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:314
 #, fuzzy, php-format
 #| msgid "all sizes for <i>%1$s</i>"
 msgid "all sizes for <em>%1$s</em>"
 msgstr "<em>%1$sの</em>すべてのサイズ"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:359
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:360
 #, php-format
 msgid "%u cache size to apply."
 msgid_plural "%u cache sizes to apply."
 msgstr[0] "%uキャッシュサイズが適用されます。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:374
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
 #, php-format
 msgid "%u cache size requested"
 msgid_plural "%u cache sizes requested"
 msgstr[0] "%uキャッシュサイズが要求されます。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:376
 #, php-format
 msgid "Finished processing %1$u image (%2$s)."
 msgid_plural "Finished processing %1$u images (%2$s)."
 msgstr[0] "%1$u個の画像(%2$s)の処理が完了しました。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 msgid ""
 "Refresh the caching of the selected image sizes if some images did not "
 "render."
@@ -18404,15 +18436,15 @@ msgstr ""
 "いくつかのイメージがレンダリングされなかった場合、選択した画像サイズのキャッ"
 "シュをリフレッシュします。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:384
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:385
 msgid "No cache sizes enabled."
 msgstr "キャッシュサイズは有効ではありません。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 msgid "Cache the images"
 msgstr "画像をキャッシュ"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 msgid "Executes the caching of the selected image sizes."
 msgstr "選択した画像サイズのキャッシュを除外します。"
 
@@ -20407,7 +20439,7 @@ msgstr "<code>SQLモード</code> 【SET SESSIONに失敗】"
 #: zp-core/zp-extensions/debug.php:217
 #, fuzzy
 msgid "SERVER"
-msgstr "サーバ日付: %s"
+msgstr "サーバのパス:"
 
 #: zp-core/zp-extensions/debug.php:218
 #, fuzzy
@@ -27908,7 +27940,7 @@ msgstr "アップロードキャンセル"
 #, fuzzy
 #| msgid "Process changes"
 msgid "Processing..."
-msgstr "ZenPhoto20 合計スクリプト処理時間: %.4f秒"
+msgstr "netPhotoGraphics 合計スクリプト処理時間: %.4f秒"
 
 #: zp-core/zp-extensions/user-expiry.php:33
 msgid "Provides management of users based on when they were created."
@@ -29767,6 +29799,11 @@ msgstr ""
 #: zp-core/zp-extensions/zpCaptcha.php:70
 msgid "Sample CAPTCHA image"
 msgstr "シンプルCAPTCHA画像"
+
+#, fuzzy
+#~| msgid "Setup files protected."
+#~ msgid "Extract file detected."
+#~ msgstr "セットアップファイルを保護しました。"
 
 #~ msgid "Suffix Not Allowed: %s"
 #~ msgstr "不許可の拡張子: %s"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 15:51-0800\n"
+"POT-Creation-Date: 2019-03-11 13:45-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: http://www.artpixel.ru/forum/viewtopic.php?t=146 <Doctor Kru>\n"
@@ -121,7 +121,7 @@ msgstr ""
 #: zp-core/lib-auth.php:709 zp-core/lib-auth.php:716 zp-core/lib-auth.php:718
 #: zp-core/setup/setup-option-defaults.php:688
 #: zp-core/setup/setup-option-defaults.php:689
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:151
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:152
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:73 zp-core/zp-extensions/rss.php:44
 msgid "Gallery"
@@ -129,8 +129,8 @@ msgstr "Галерея"
 
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
-#: zp-core/admin.php:319 zp-core/admin.php:394 zp-core/admin.php:409
-#: zp-core/admin.php:428 zp-core/admin.php:443 zp-core/admin.php:458
+#: zp-core/admin.php:338 zp-core/admin.php:422 zp-core/admin.php:437
+#: zp-core/admin.php:456 zp-core/admin.php:471 zp-core/admin.php:486
 #: zp-core/lib-auth.php:644 zp-core/lib-auth.php:663 zp-core/lib-auth.php:688
 #: zp-core/lib-auth.php:720 zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
@@ -797,8 +797,8 @@ msgstr "Плагины"
 #: zp-core/admin_options/security.php:326 zp-core/admin_options/theme.php:237
 #: zp-core/admin_options/theme.php:239 zp-core/admin_options/theme.php:569
 #: zp-core/admin_options/theme.php:571
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:339
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:340
 #: zp-core/zp-extensions/comment_form/admin-comments.php:137
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
@@ -4852,7 +4852,9 @@ msgstr "Номер порта входящей почты POP."
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 #, fuzzy
 msgid "total"
-msgstr "всего"
+msgstr ""
+"Максимальный обьем загружаемых файлов не может превышать <strong>%sB</strong> "
+"(лимит конфигурации PHP вашего сервера <code>post_max_size</code>). "
 
 #: themes/zpmasonry/album.php:52 themes/zpmasonry/album.php:123
 #: themes/zpmasonry/favorites.php:54 themes/zpmasonry/favorites.php:125
@@ -5934,7 +5936,7 @@ msgstr "Подсказка для пароля:"
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:308
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:309
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -7054,7 +7056,7 @@ msgstr "Ваши критерии поиска пустые."
 #: zp-core/zp-extensions/favoritesAlbums/admin-album.php:74
 #, fuzzy
 msgid "dynamic"
-msgstr "динамика"
+msgstr "Альбомы (динамические)"
 
 #: zp-core/admin-tabs/dynamic-album.php:134
 #, fuzzy
@@ -8395,203 +8397,232 @@ msgstr "Пользователь « %s» уже существует."
 msgid "GitHub repository not accessible. "
 msgstr "Репозиторий GitHub недоступен."
 
-#: zp-core/admin.php:102
+#: zp-core/admin.php:101
 msgid "Image cache cleared."
 msgstr "Кэш изображений удален."
 
-#: zp-core/admin.php:112
+#: zp-core/admin.php:111
 msgid "RSS cache cleared."
 msgstr "RSS кэш удален."
 
-#: zp-core/admin.php:122
+#: zp-core/admin.php:121
 msgid "HTML cache cleared."
 msgstr "Кэш HTML удален."
 
-#: zp-core/admin.php:129
+#: zp-core/admin.php:128
 #, fuzzy
 msgid "Search cache cleared."
 msgstr "Кэш поиска очищен."
 
-#: zp-core/admin.php:137
+#: zp-core/admin.php:136
 #, fuzzy
 msgid "Setup files restored."
 msgstr "Файлы настроек восстановлены."
 
-#: zp-core/admin.php:141
+#: zp-core/admin.php:140
 #, fuzzy
 msgid "Setup files restore failed."
 msgstr "Не удалось восстановить файлы установки."
 
-#: zp-core/admin.php:165
+#: zp-core/admin.php:164
 #, fuzzy
 msgid "protected"
 msgstr "Защищено"
 
-#: zp-core/admin.php:167
+#: zp-core/admin.php:166
 #, fuzzy
 msgid "Setup files protected."
 msgstr "Файлы настроек защищены."
 
-#: zp-core/admin.php:171
+#: zp-core/admin.php:170
 #, fuzzy
 msgid "Protecting setup files failed."
 msgstr "Не удалось защитить файлы установки."
 
-#: zp-core/admin.php:180
+#: zp-core/admin.php:182
 #, fuzzy
-msgid "Could not extract extract.php.bin from zip file."
-msgstr "Не удалось извлечь файл zip.php.bin из архива."
-
-#: zp-core/admin.php:189
-#, fuzzy
-msgid "Could not download the update."
+msgid "netPhotoGraphics could not download the update."
 msgstr "Не удалось загрузить обновление."
 
-#: zp-core/admin.php:200
+#: zp-core/admin.php:184
+#, fuzzy
+msgid ""
+"<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. "
+msgstr "<em>allow_url_fopen</em> не включен в конфигурационном файле PHP.ini."
+
+#: zp-core/admin.php:188
+#, fuzzy, php-format
+msgid ""
+"Click on the <code>%1$s</code> button to download the release to your "
+"computer, FTP the <code>extract.php.bin</code> file to your site, and revisit "
+"the overview page. Then there will be an <code>Install update</code> button "
+"that will install the update."
+msgstr ""
+"Нажмите на кнопку <code>%1$s</code>, чтобы загрузить релиз на ваш компьютер, "
+"FTP файл <code>extract.php.bin</code> на ваш сайт и перейдите на страницу "
+"обзора. Затем появится кнопка <code>Установить обновление</code>, которая "
+"установит обновление."
+
+#: zp-core/admin.php:197
+#, fuzzy
+msgid "netPhotoGraphics could not extract extract.php.bin from zip file."
+msgstr "Не удалось извлечь файл zip.php.bin из архива."
+
+#: zp-core/admin.php:213
 #, fuzzy
 msgid "Renaming the <code>extract.php.bin</code> file failed."
 msgstr "Переименование файла <code>extract.php.bin</code> не удалось."
 
-#: zp-core/admin.php:239
+#: zp-core/admin.php:217
+#, fuzzy
+msgid "Did not find the <code>extract.php.bin</code> file."
+msgstr "Переименование файла <code>extract.php.bin</code> не удалось."
+
+#: zp-core/admin.php:256
 msgid "purge Image cache"
 msgstr "очистить кэш изображений"
 
-#: zp-core/admin.php:240
+#: zp-core/admin.php:257
 msgid "purge RSS cache"
 msgstr "очистить кэш RSS"
 
-#: zp-core/admin.php:241
+#: zp-core/admin.php:258
 msgid "reset all hitcounters"
 msgstr "сбросить счетчики посещений"
 
-#: zp-core/admin.php:242
+#: zp-core/admin.php:259
 #, fuzzy
 msgid "purge search cache"
 msgstr "очистить кэш поиска"
 
-#: zp-core/admin.php:249
+#: zp-core/admin.php:266
 #, php-format
 msgid "You do not have proper rights to %s."
 msgstr "Вы не обладаете достаточными правами для %s."
 
-#: zp-core/admin.php:254
+#: zp-core/admin.php:271
 #, php-format
 msgid "You do not have proper rights to access %s."
 msgstr "Вы не имеете достаточно прав редактировать %s."
 
-#: zp-core/admin.php:311
+#: zp-core/admin.php:330
 #, fuzzy
 msgid "There is a new version is available."
 msgstr "Доступна новая версия."
 
-#: zp-core/admin.php:313
+#: zp-core/admin.php:332
 #, fuzzy, php-format
 msgid "Version %s can be downloaded by the utility button."
 msgstr "Версия %s может быть загружена кнопкой утилиты."
 
-#: zp-core/admin.php:325
+#: zp-core/admin.php:344
 #, fuzzy, php-format
 #| msgid "%1$s version %2$s"
 msgid "Download %1$s version %2$s to your computer."
 msgstr "Загрузите%1$s версию%2$s."
 
-#: zp-core/admin.php:344
-#, fuzzy
-msgid "Extract file detected."
-msgstr "Файлы настроек защищены."
-
-#: zp-core/admin.php:346
-#, fuzzy
-msgid ""
-"<strong>netPhotoGraphics</strong> has detected the presence of an "
-"<code>extract.php.bin</code> file. To install the update click on the "
-"<em>Install update</em> button below."
-msgstr ""
-"<strong>netPhotoGraphics</strong> обнаружил наличие файла <code>extract.php."
-"bin</code>. Для установки обновления нажмите на кнопку <em>Инсталлировать "
-"обновление</em>, расположенную ниже."
-
-#: zp-core/admin.php:383
-#, fuzzy
-msgid "Misc"
-msgstr "разное"
-
-#: zp-core/admin.php:396 zp-core/admin.php:411
+#: zp-core/admin.php:364
 #, fuzzy
 #| msgid "Installed themes"
 msgid "Install update"
 msgstr "Доступные темы оформления"
 
-#: zp-core/admin.php:401
+#: zp-core/admin.php:365
+#, fuzzy
+#| msgid "Installing netPhotoGraphics v%s"
+msgid "Install the netPhotoGraphics update."
+msgstr "Установка netPhotoGraphics v %s"
+
+#: zp-core/admin.php:368 zp-core/admin.php:439
+#, fuzzy, php-format
+msgid "Install version %1$s"
+msgstr "Версия %1$s"
+
+#: zp-core/admin.php:369
 #, fuzzy
 #| msgid "Installing netPhotoGraphics v%s"
 msgid "Extract and install the netPhotoGraphics update."
 msgstr "Установка netPhotoGraphics v %s"
 
-#: zp-core/admin.php:416
+#: zp-core/admin.php:374
+#, fuzzy
+msgid ""
+"<strong>netPhotoGraphics</strong> has detected the presence of an installation "
+"file. To install the update click on the <em>Install</em> button below."
+msgstr ""
+"<strong>netPhotoGraphics</strong> обнаружил наличие файла <code>extract.php."
+"bin</code>. Для установки обновления нажмите на кнопку <em>Инсталлировать "
+"обновление</em>, расположенную ниже."
+
+#: zp-core/admin.php:411
+#, fuzzy
+msgid "Misc"
+msgstr "разное"
+
+#: zp-core/admin.php:444
 #, fuzzy, php-format
 #| msgid "%1$s version %2$s"
 msgid "Download and install %1$s version %2$s."
 msgstr "Загрузите%1$s версию%2$s."
 
-#: zp-core/admin.php:430
+#: zp-core/admin.php:458
 #, fuzzy
 msgid "Setup » restore scripts"
 msgstr "Setup »восстановить скрипты"
 
-#: zp-core/admin.php:435
+#: zp-core/admin.php:463
 #, fuzzy
 msgid "Restores setup files so setup can be run."
 msgstr "Восстанавливает файлы настроек, поэтому настройка может быть запущена."
 
-#: zp-core/admin.php:445
+#: zp-core/admin.php:473
 #, fuzzy
 msgid "Run setup"
 msgstr "начать установку"
 
-#: zp-core/admin.php:450
+#: zp-core/admin.php:478
 #, fuzzy
 msgid "Run the setup script."
 msgstr "Запустите скрипт установки."
 
-#: zp-core/admin.php:460
+#: zp-core/admin.php:488
 #, fuzzy
 msgid "Setup » protect scripts"
 msgstr "Настройка »защищать скрипты"
 
-#: zp-core/admin.php:465
+#: zp-core/admin.php:493
 #, fuzzy
 msgid "Protects setup files so setup cannot be run."
 msgstr "Защищает файлы настроек, поэтому настройка не может быть выполнена."
 
-#: zp-core/admin.php:478 zp-core/utilities/installation_analysis.php:35
+#: zp-core/admin.php:506 zp-core/utilities/installation_analysis.php:35
 msgid "<em>Debug build</em>"
 msgstr "<em>Отладочный релиз</em>"
 
-#: zp-core/admin.php:489 zp-core/utilities/installation_analysis.php:37
+#: zp-core/admin.php:517 zp-core/utilities/installation_analysis.php:37
 msgid "Official build"
 msgstr "Официальный релиз"
 
-#: zp-core/admin.php:496 zp-core/utilities/installation_analysis.php:73
+#: zp-core/admin.php:524 zp-core/utilities/installation_analysis.php:73
 #, fuzzy
 msgid "release notes"
 msgstr "выпуск"
 
-#: zp-core/admin.php:497 zp-core/utilities/installation_analysis.php:77
+#: zp-core/admin.php:525 zp-core/utilities/installation_analysis.php:77
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgstr "версия netPhotoGraphics <strong>%1$s (%2$s)</strong>"
 
-#: zp-core/admin.php:504
+#: zp-core/admin.php:532
 msgid "Utility functions"
 msgstr "Инструменты"
 
-#: zp-core/admin.php:577
+#: zp-core/admin.php:605
 msgid "Gallery Stats"
 msgstr "Статистика галереи"
 
-#: zp-core/admin.php:584
+#: zp-core/admin.php:612
 #, php-format
 msgid "<strong>%1$u</strong> Album (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Albums (%2$u un-published)"
@@ -8599,7 +8630,7 @@ msgstr[0] "<strong>%1$u</strong> Альбом (%2$u неопубликовано
 msgstr[1] "<strong>%1$u</strong> Альбома (%2$u неопубликовано)"
 msgstr[2] "<strong>%1$u</strong> Альбомов (%2$u неопубликовано)"
 
-#: zp-core/admin.php:586
+#: zp-core/admin.php:614
 #, php-format
 msgid "<strong>%u</strong> Album"
 msgid_plural "<strong>%u</strong> Albums"
@@ -8607,7 +8638,7 @@ msgstr[0] "<strong>%u</strong> Альбом"
 msgstr[1] "<strong>%u</strong> Альбома"
 msgstr[2] "<strong>%u</strong> Альбомов"
 
-#: zp-core/admin.php:595
+#: zp-core/admin.php:623
 #, php-format
 msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
@@ -8615,7 +8646,7 @@ msgstr[0] "<strong>%1$u</strong> Изображение (%2$u неопублик
 msgstr[1] "<strong>%1$u</strong> Изображения (%2$u неопубликовано)"
 msgstr[2] "<strong>%1$u</strong> Изображений (%2$u неопубликовано)"
 
-#: zp-core/admin.php:597
+#: zp-core/admin.php:625
 #, php-format
 msgid "<strong>%u</strong> Image"
 msgid_plural "<strong>%u</strong> Images"
@@ -8623,7 +8654,7 @@ msgstr[0] "<strong>%u</strong> Изображение"
 msgstr[1] "<strong>%u</strong> Изображения"
 msgstr[2] "<strong>%u</strong> Изображений"
 
-#: zp-core/admin.php:621
+#: zp-core/admin.php:649
 #, php-format
 msgid "<strong>%1$u</strong> Comment (%2$u in moderation)"
 msgid_plural "<strong>%1$u</strong> Comments (%2$u in moderation)"
@@ -8631,7 +8662,7 @@ msgstr[0] "<strong>%1$u</strong> Комментарий (%2$u в обработ�
 msgstr[1] "<strong>%1$u</strong> Комментария (%2$u в обработке)"
 msgstr[2] "<strong>%1$u</strong> Комментариев (%2$u в обработке)"
 
-#: zp-core/admin.php:623
+#: zp-core/admin.php:651
 #, php-format
 msgid "<strong>%u</strong> Comment"
 msgid_plural "<strong>%u</strong> Comments"
@@ -8639,7 +8670,7 @@ msgstr[0] "<strong>%u</strong> Комментарий"
 msgstr[1] "<strong>%u</strong> Комментария"
 msgstr[2] "<strong>%u</strong> Комментариев"
 
-#: zp-core/admin.php:638
+#: zp-core/admin.php:666
 #, fuzzy, php-format
 #| msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 #| msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
@@ -8649,7 +8680,7 @@ msgstr[0] "<strong>% 1 $ u</strong> Пользователь (% 2 $ u истек
 msgstr[1] "<strong>%1$u</strong> Изображения (%2$u неопубликовано)"
 msgstr[2] "<strong>%1$u</strong> Изображений (%2$u неопубликовано)"
 
-#: zp-core/admin.php:640
+#: zp-core/admin.php:668
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8659,7 +8690,7 @@ msgstr[0] "<strong>% u</strong> Пользователь"
 msgstr[1] "<strong>%u</strong> Изображения"
 msgstr[2] "<strong>%u</strong> Изображений"
 
-#: zp-core/admin.php:657
+#: zp-core/admin.php:685
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Album"
 #| msgid_plural "<strong>%u</strong> Albums"
@@ -8669,7 +8700,7 @@ msgstr[0] "<strong>% u</strong> Group"
 msgstr[1] "<strong>%u</strong> Альбома"
 msgstr[2] "<strong>%u</strong> Альбомов"
 
-#: zp-core/admin.php:664
+#: zp-core/admin.php:692
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8679,7 +8710,7 @@ msgstr[0] "<strong>% u</strong> Шаблон"
 msgstr[1] "<strong>%u</strong> Изображения"
 msgstr[2] "<strong>%u</strong> Изображений"
 
-#: zp-core/admin.php:681
+#: zp-core/admin.php:709
 #, fuzzy
 msgid "Your user rights do not allow access to administrative functions."
 msgstr ""
@@ -10096,7 +10127,7 @@ msgstr "Кэшировать оригиналы"
 #, fuzzy
 #| msgid "password:"
 msgid "password"
-msgstr "пароль:"
+msgstr "Пароль"
 
 #: zp-core/admin_options/image.php:718
 #, fuzzy
@@ -13412,112 +13443,112 @@ msgstr "Кэш: [ %s]"
 msgid "Image: [%s]"
 msgstr "Изображение: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:694
+#: zp-core/functions-image.php:61 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 msgid "Debug"
 msgstr "Отладка"
 
-#: zp-core/functions-image.php:59
+#: zp-core/functions-image.php:61
 msgid "Arguments:"
 msgstr "Аргументы:"
 
-#: zp-core/functions-image.php:62
+#: zp-core/functions-image.php:64
 msgid "size ="
 msgstr "размер ="
 
-#: zp-core/functions-image.php:63
+#: zp-core/functions-image.php:65
 msgid "width ="
 msgstr "ширина ="
 
-#: zp-core/functions-image.php:64
+#: zp-core/functions-image.php:66
 msgid "height ="
 msgstr "высота ="
 
-#: zp-core/functions-image.php:65
+#: zp-core/functions-image.php:67
 msgid "cw ="
 msgstr "cw ="
 
-#: zp-core/functions-image.php:66
+#: zp-core/functions-image.php:68
 msgid "ch ="
 msgstr "ch ="
 
-#: zp-core/functions-image.php:67
+#: zp-core/functions-image.php:69
 msgid "cx ="
 msgstr "cx ="
 
-#: zp-core/functions-image.php:68
+#: zp-core/functions-image.php:70
 msgid "cy ="
 msgstr "cy ="
 
-#: zp-core/functions-image.php:69
+#: zp-core/functions-image.php:71
 msgid "quality ="
 msgstr "качество ="
 
-#: zp-core/functions-image.php:70
+#: zp-core/functions-image.php:72
 msgid "thumb ="
 msgstr "миниатюра ="
 
-#: zp-core/functions-image.php:71
+#: zp-core/functions-image.php:73
 #, fuzzy
 msgid "crop ="
 msgstr "Выбрать фрагмент %s для отображения в качестве миниатюры"
 
-#: zp-core/functions-image.php:175
+#: zp-core/functions-image.php:177
 #, php-format
 msgid "Image %s not found or is unreadable."
 msgstr "Изображение %s не найдено или нечитабельно."
 
-#: zp-core/functions-image.php:193
+#: zp-core/functions-image.php:195
 #, fuzzy, php-format
 msgid "Using %1$ux%2$u %3$s thumbnail image."
 msgstr "Использование% 1 $ ux% 2 $ u%3$s thumbnail image."
 
-#: zp-core/functions-image.php:205
+#: zp-core/functions-image.php:207
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
 msgstr "Изображение %s не выводится (imageGet)."
 
-#: zp-core/functions-image.php:212
+#: zp-core/functions-image.php:214
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
 msgstr "Изображение %s не вращается."
 
-#: zp-core/functions-image.php:255
+#: zp-core/functions-image.php:257
 #, fuzzy, php-format
 msgid "Unknown error processing %s! Please report to the <a href=\""
 msgstr "<html> Неизвестная обработка ошибок %s! Пожалуйста, сообщите"
 
-#: zp-core/functions-image.php:380 zp-core/functions-image.php:415
+#: zp-core/functions-image.php:382 zp-core/functions-image.php:417
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
 msgstr "Изображение %s не отображается (resample)."
 
-#: zp-core/functions-image.php:419
+#: zp-core/functions-image.php:421
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
 msgstr "Изображение %s не выводится (нерезкий)."
 
-#: zp-core/functions-image.php:435
+#: zp-core/functions-image.php:437
 #, fuzzy, php-format
 msgid "Watermark %s not renderable."
 msgstr "Водяной знак %s не отображается."
 
-#: zp-core/functions-image.php:453
+#: zp-core/functions-image.php:455
 #, fuzzy, php-format
 msgid "Watermark %s not resizeable."
 msgstr "Водяной знак %s не может быть изменен."
 
-#: zp-core/functions-image.php:462
+#: zp-core/functions-image.php:464
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
 msgstr "Изображение %s не отображается (copycanvas)."
 
-#: zp-core/functions-image.php:524
+#: zp-core/functions-image.php:526
 #, php-format
 msgid "cacheImage: failed to create %s"
 msgstr "cacheImage: не удалось создать %s"
 
-#: zp-core/functions-image.php:531
+#: zp-core/functions-image.php:533
 #, fuzzy, php-format
 msgid "cacheImage(%1$s) exception: %2$s"
 msgstr "cacheImage (%1$s) исключение:%2$s"
@@ -14289,8 +14320,8 @@ msgstr ""
 
 #: zp-core/lib-auth.php:1124 zp-core/lib-auth.php:1126
 #: zp-core/setup/index.php:1652
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:224
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:225
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 msgid "Refresh"
 msgstr "Обновить"
 
@@ -16919,7 +16950,7 @@ msgstr "настройки поиска"
 #: zp-core/template-functions.php:3962
 #, fuzzy
 msgid "fields"
-msgstr "поменять местами значения высоты и ширины"
+msgstr "пользовательские поля:"
 
 #: zp-core/template-functions.php:4001
 msgid "Within"
@@ -18707,12 +18738,12 @@ msgstr ""
 msgid "If these are enabled."
 msgstr "Модуль <code>Suhosin</code>  [включен]"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:97
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:98
 #, fuzzy
 msgid "image processor reference"
 msgstr "ссылка на процессор изображения"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:185
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:186
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> the following objects have images that appear to no "
@@ -18721,7 +18752,7 @@ msgstr ""
 "<strong>Примечание.</strong> Следующие объекты имеют изображения, которые "
 "больше не существуют."
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:199
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:200
 #, fuzzy, php-format
 msgid "%u image processor reference found."
 msgid_plural "%u image processor references found."
@@ -18729,7 +18760,7 @@ msgstr[0] "Ссылка на обработчик изображения% u."
 msgstr[1] ""
 msgstr[2] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:201
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:202
 #, fuzzy
 msgid ""
 "You should use the refresh button to convert these to cached image references"
@@ -18737,7 +18768,7 @@ msgstr ""
 "Вы должны использовать кнопку обновления, чтобы преобразовать их в ссылки на "
 "кешированные изображения"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:206
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:207
 #, fuzzy, php-format
 msgid "%u cached image reference found."
 msgid_plural "%u cached image references found."
@@ -18745,7 +18776,7 @@ msgstr[0] "найдено% u кэшированное изображение."
 msgstr[1] "по запросу о создании %u кэш-копий"
 msgstr[2] "по запросу о создании %u кэш-копий"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:210
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:211
 #, fuzzy, php-format
 msgid "%s reference re-cached."
 msgid_plural "%s references re-cached."
@@ -18753,7 +18784,7 @@ msgstr[0] "Ссылка %s повторно кэширована."
 msgstr[1] ""
 msgstr[2] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:215
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:216
 #, fuzzy, php-format
 msgid "%s cache folder reference fixed."
 msgid_plural "%s cache folder references fixed."
@@ -18761,7 +18792,7 @@ msgstr[0] "Ссылка на папку с кешем %s исправлена."
 msgstr[1] ""
 msgstr[2] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:222
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:223
 #, fuzzy
 msgid ""
 "Refresh the caching of the images stored in the database if some images did "
@@ -18770,7 +18801,7 @@ msgstr ""
 "Обновите кеширование изображений, хранящихся в базе данных, если некоторые "
 "изображения не отображаются."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:126
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:127
 #, php-format
 msgid "[%u image]"
 msgid_plural "[%u images]"
@@ -18778,34 +18809,34 @@ msgstr[0] "[%u изображение]"
 msgstr[1] "[%u изображения]"
 msgstr[2] "[%u изображений]"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:180
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:181
 #, fuzzy, php-format
 #| msgid "Refreshing cache for %s"
 msgid "Refresh cache for %s"
 msgstr "Обновить кеш для %s"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
 #, fuzzy
 msgid "Full Image"
 msgstr "Защита оригиналов:"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:287
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:288
 #, fuzzy
 msgid "invalid MaxSpace"
 msgstr "недопустимый MaxSpace"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:292
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:293
 #, fuzzy
 msgid "invalid Cache Set"
 msgstr "неверный набор кешей"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:313
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:314
 #, fuzzy, php-format
 #| msgid "all sizes for <i>%1$s</i>"
 msgid "all sizes for <em>%1$s</em>"
 msgstr "все размеры для <em>%1$s</em>"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:359
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:360
 #, fuzzy, php-format
 msgid "%u cache size to apply."
 msgid_plural "%u cache sizes to apply."
@@ -18813,7 +18844,7 @@ msgstr[0] "% u размер кеша для применения."
 msgstr[1] ""
 msgstr[2] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:374
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
 #, php-format
 msgid "%u cache size requested"
 msgid_plural "%u cache sizes requested"
@@ -18821,7 +18852,7 @@ msgstr[0] "по запросу о создании %u кэш-копии"
 msgstr[1] "по запросу о создании %u кэш-копий"
 msgstr[2] "по запросу о создании %u кэш-копий"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:376
 #, php-format
 msgid "Finished processing %1$u image (%2$s)."
 msgid_plural "Finished processing %1$u images (%2$s)."
@@ -18829,7 +18860,7 @@ msgstr[0] "Обработка %1$u изображения завершена (%2
 msgstr[1] "Обработка %1$u изображений завершена (%2$s)."
 msgstr[2] "Обработка %1$u изображений завершена (%2$s)."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 #, fuzzy
 msgid ""
 "Refresh the caching of the selected image sizes if some images did not render."
@@ -18837,16 +18868,16 @@ msgstr ""
 "Обновите кеширование выбранных размеров изображения, если некоторые "
 "изображения не отображались."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:384
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:385
 #, fuzzy
 msgid "No cache sizes enabled."
 msgstr "Нет размеров кеша."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 msgid "Cache the images"
 msgstr "Кэшировать изображения"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 msgid "Executes the caching of the selected image sizes."
 msgstr "Создать кэш изображений отмеченных размеров"
 
@@ -30814,6 +30845,10 @@ msgstr ""
 #: zp-core/zp-extensions/zpCaptcha.php:70
 msgid "Sample CAPTCHA image"
 msgstr "Пример отображения CAPTCHA"
+
+#, fuzzy
+#~ msgid "Extract file detected."
+#~ msgstr "Файлы настроек защищены."
 
 #, fuzzy
 #~ msgid "Suffix Not Allowed: %s"
