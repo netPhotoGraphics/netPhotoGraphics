@@ -177,16 +177,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					$msg = FALSE;
 					if ($action == 'download_update') {
 						@ini_set('allow_url_fopen', 1);
-						if (($fopen = ini_get('allow_url_fopen')) && copy($newestVersionURI, SERVERPATH . '/setupnpg.zip')) {
-							if (!unzip(SERVERPATH . '/setupnpg.zip', SERVERPATH)) {
-								$class = 'errorbox';
-								$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');
-							} else {
-								unlink(SERVERPATH . '/readme.txt');
-								unlink(SERVERPATH . '/release notes.htm');
-								unlink(SERVERPATH . '/setupnpg.zip');
-							}
-						} else {
+						if (!(($fopen = ini_get('allow_url_fopen')) && copy($newestVersionURI, SERVERPATH . '/' . basename($newestVersionURI)))) {
 							$class = 'errorbox';
 							$msg = gettext('netPhotoGraphics could not download the update.');
 							if (!$fopen) {
@@ -198,12 +189,32 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 							break;
 						}
 					}
-					if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
-						header('Location: ' . FULLWEBPATH . '/extract.php');
-						exit();
+					$found = safe_glob(SERVERPATH . '/setup-master*.zip');
+					if (!empty($found)) {
+						$file = array_shift($found);
+						if (!unzip($file, SERVERPATH)) {
+							$class = 'errorbox';
+							$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');
+							break;
+						} else {
+							unlink(SERVERPATH . '/readme.txt');
+							unlink(SERVERPATH . '/release notes.htm');
+						}
+					}
+					if (file_exists(SERVERPATH . '/extract.php.bin')) {
+						if (isset($file)) {
+							unlink($file);
+						}
+						if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
+							header('Location: ' . FULLWEBPATH . '/extract.php');
+							exit();
+						} else {
+							$class = 'errorbox';
+							$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
+						}
 					} else {
 						$class = 'errorbox';
-						$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
+						$msg = gettext('Did not find the <code>extract.php.bin</code> file.');
 					}
 					break;
 
@@ -346,12 +357,21 @@ $buttonlist = array();
 			/*			 * * HOME ************************************************************************** */
 			/*			 * ********************************************************************************* */
 			$setupUnprotected = printSetupWarning();
-			if ($newVersion = file_exists(SERVERPATH . '/extract.php.bin') && zp_loggedin(ADMIN_RIGHTS)) {
+
+			$found = safe_glob(SERVERPATH . '/setup-master*.zip');
+			if ($newVersion = zp_loggedin(ADMIN_RIGHTS) && ($extract = file_exists(SERVERPATH . '/extract.php.bin') || !empty($found) )) {
+				if ($extract) {
+					$buttonText = gettext('Install update');
+					$buttonTitle = gettext('Install the netPhotoGraphics update.');
+				} else {
+					$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($found[0]))));
+					$buttonetxt = sprintf(gettext('Install version %1$s'), $newestVersion);
+					$buttonTitle = gettext('Extract and install the netPhotoGraphics update.');
+				}
 				?>
 				<div class="notebox">
-					<h2><?php echo gettext('Extract file detected.'); ?></h2>
 					<?php
-					echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an <code>extract.php.bin</code> file. To install the update click on the <em>Install update</em> button below.') . ' ';
+					echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an installation file. To install the update click on the <em>Install</em> button below.') . ' ';
 					?>
 				</div>
 				<?php
@@ -401,12 +421,12 @@ $buttonlist = array();
 							'XSRFTag' => 'install_update',
 							'category' => gettext('Admin'),
 							'enable' => true,
-							'button_text' => gettext('Install update'),
+							'button_text' => $buttonText,
 							'formname' => 'install_update',
 							'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=install_update',
 							'icon' => BADGE_GOLD,
 							'alt' => '',
-							'title' => gettext('Extract and install the netPhotoGraphics update.'),
+							'title' => $buttonTitle,
 							'hidden' => '<input type="hidden" name="action" value="install_update" />',
 							'rights' => ADMIN_RIGHTS
 					);

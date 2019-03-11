@@ -316,7 +316,7 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext('Maximum image size'); ?></td>
 					<td class="option_value">
-						<input type="textbox" name="image_max_size" value="<?php echo getOption('image_max_size'); ?>" />
+						<input type="textbox" name="image_max_size" size="10" value="<?php echo getOption('image_max_size'); ?>" /> px
 					</td>
 					<td class="option_desc">
 						<span class="option_info">

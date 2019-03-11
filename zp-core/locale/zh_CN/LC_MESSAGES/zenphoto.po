@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-08 15:45-0800\n"
+"POT-Creation-Date: 2019-03-11 13:32-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
@@ -119,7 +119,7 @@ msgstr "您可以设置max-age（以秒为单位），它将覆盖过期标头�
 #: zp-core/lib-auth.php:709 zp-core/lib-auth.php:716 zp-core/lib-auth.php:718
 #: zp-core/setup/setup-option-defaults.php:688
 #: zp-core/setup/setup-option-defaults.php:689
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:151
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:152
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:73 zp-core/zp-extensions/rss.php:44
 msgid "Gallery"
@@ -127,8 +127,8 @@ msgstr "相馆"
 
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
-#: zp-core/admin.php:319 zp-core/admin.php:394 zp-core/admin.php:409
-#: zp-core/admin.php:428 zp-core/admin.php:443 zp-core/admin.php:458
+#: zp-core/admin.php:338 zp-core/admin.php:422 zp-core/admin.php:437
+#: zp-core/admin.php:456 zp-core/admin.php:471 zp-core/admin.php:486
 #: zp-core/lib-auth.php:644 zp-core/lib-auth.php:663 zp-core/lib-auth.php:688
 #: zp-core/lib-auth.php:720 zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
@@ -665,7 +665,7 @@ msgstr "没有设置<em>mod_rewrite_suffix</em> 。"
 #: zp-core/zp-extensions/rating.php:212
 #, fuzzy
 msgid "Database"
-msgstr "资料库未连接"
+msgstr "定期去备份 ZenPhoto20 资料库."
 
 #: plugins/titlelinkMigration.php:34
 #, fuzzy
@@ -785,8 +785,8 @@ msgstr "外挂"
 #: zp-core/admin_options/security.php:326 zp-core/admin_options/theme.php:237
 #: zp-core/admin_options/theme.php:239 zp-core/admin_options/theme.php:569
 #: zp-core/admin_options/theme.php:571
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:339
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:340
 #: zp-core/zp-extensions/comment_form/admin-comments.php:137
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
@@ -5794,7 +5794,7 @@ msgstr "密码提示:"
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:308
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:309
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -6520,7 +6520,7 @@ msgstr "Categories"
 #: zp-core/admin-functions.php:5433
 #, fuzzy
 msgid "CLASS"
-msgstr "等级"
+msgstr "netPhotoGraphics 向外电邮递器基于 <em>PHPMailer</em> 电邮设施."
 
 #: zp-core/admin-functions.php:5539
 #, php-format
@@ -8236,249 +8236,277 @@ msgstr "用户“％s”已存在。"
 msgid "GitHub repository not accessible. "
 msgstr "GitHub存储库不可访问。"
 
-#: zp-core/admin.php:102
+#: zp-core/admin.php:101
 msgid "Image cache cleared."
 msgstr "图片快取已清除."
 
-#: zp-core/admin.php:112
+#: zp-core/admin.php:111
 msgid "RSS cache cleared."
 msgstr "RSS 快取已清除."
 
-#: zp-core/admin.php:122
+#: zp-core/admin.php:121
 msgid "HTML cache cleared."
 msgstr "HTML 快取已清除."
 
-#: zp-core/admin.php:129
+#: zp-core/admin.php:128
 #, fuzzy
 msgid "Search cache cleared."
 msgstr "搜索缓存已清除。"
 
-#: zp-core/admin.php:137
+#: zp-core/admin.php:136
 #, fuzzy
 msgid "Setup files restored."
 msgstr "恢复安装文件。"
 
-#: zp-core/admin.php:141
+#: zp-core/admin.php:140
 #, fuzzy
 msgid "Setup files restore failed."
 msgstr "安装文件还原失败。"
 
-#: zp-core/admin.php:165
+#: zp-core/admin.php:164
 #, fuzzy
 msgid "protected"
 msgstr "这相簿受密码保护."
 
-#: zp-core/admin.php:167
+#: zp-core/admin.php:166
 #, fuzzy
 msgid "Setup files protected."
 msgstr "设置文件受保护。"
 
-#: zp-core/admin.php:171
+#: zp-core/admin.php:170
 #, fuzzy
 msgid "Protecting setup files failed."
 msgstr "保护安装文件失败。"
 
-#: zp-core/admin.php:180
+#: zp-core/admin.php:182
 #, fuzzy
-msgid "Could not extract extract.php.bin from zip file."
-msgstr "无法从zip文件中提取extract.php.bin。"
-
-#: zp-core/admin.php:189
-#, fuzzy
-msgid "Could not download the update."
+msgid "netPhotoGraphics could not download the update."
 msgstr "无法下载更新。"
 
-#: zp-core/admin.php:200
+#: zp-core/admin.php:184
+#, fuzzy
+msgid ""
+"<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. "
+msgstr "您的PHP.ini配置文件中未启用<em>allow_url_fopen</em> 。"
+
+#: zp-core/admin.php:188
+#, fuzzy, php-format
+msgid ""
+"Click on the <code>%1$s</code> button to download the release to your "
+"computer, FTP the <code>extract.php.bin</code> file to your site, and "
+"revisit the overview page. Then there will be an <code>Install update</code> "
+"button that will install the update."
+msgstr ""
+"单击<code>%1$s</code>按钮将版本下载到您的计算机，将<code>extract.php.bin</"
+"code>文件FTP到您的站点，然后重新访问概述页面。然后会有一个<code>Install "
+"update</code>按钮，用于安装更新。"
+
+#: zp-core/admin.php:197
+#, fuzzy
+msgid "netPhotoGraphics could not extract extract.php.bin from zip file."
+msgstr "无法从zip文件中提取extract.php.bin。"
+
+#: zp-core/admin.php:213
 #, fuzzy
 msgid "Renaming the <code>extract.php.bin</code> file failed."
 msgstr "重命名<code>extract.php.bin</code>文件失败。"
 
-#: zp-core/admin.php:239
+#: zp-core/admin.php:217
+#, fuzzy
+msgid "Did not find the <code>extract.php.bin</code> file."
+msgstr "重命名<code>extract.php.bin</code>文件失败。"
+
+#: zp-core/admin.php:256
 msgid "purge Image cache"
 msgstr "清除图片快取"
 
-#: zp-core/admin.php:240
+#: zp-core/admin.php:257
 msgid "purge RSS cache"
 msgstr "清除 RSS 快取"
 
-#: zp-core/admin.php:241
+#: zp-core/admin.php:258
 msgid "reset all hitcounters"
 msgstr "重设所用观看次数"
 
-#: zp-core/admin.php:242
+#: zp-core/admin.php:259
 #, fuzzy
 msgid "purge search cache"
 msgstr "清除搜索缓存"
 
-#: zp-core/admin.php:249
+#: zp-core/admin.php:266
 #, php-format
 msgid "You do not have proper rights to %s."
 msgstr "你没有相应权限去 %s."
 
-#: zp-core/admin.php:254
+#: zp-core/admin.php:271
 #, php-format
 msgid "You do not have proper rights to access %s."
 msgstr "你没有相应权限去存取 %s."
 
-#: zp-core/admin.php:311
+#: zp-core/admin.php:330
 #, fuzzy
 msgid "There is a new version is available."
 msgstr "有一个新版本可用。"
 
-#: zp-core/admin.php:313
+#: zp-core/admin.php:332
 #, fuzzy, php-format
 msgid "Version %s can be downloaded by the utility button."
 msgstr "可以通过实用程序按钮下载版本％s。"
 
-#: zp-core/admin.php:325
+#: zp-core/admin.php:344
 #, fuzzy, php-format
 msgid "Download %1$s version %2$s to your computer."
 msgstr "下载%1$s版本%2$s。"
 
-#: zp-core/admin.php:344
-#, fuzzy
-msgid "Extract file detected."
-msgstr "设置文件受保护。"
-
-#: zp-core/admin.php:346
-#, fuzzy
-msgid ""
-"<strong>netPhotoGraphics</strong> has detected the presence of an "
-"<code>extract.php.bin</code> file. To install the update click on the "
-"<em>Install update</em> button below."
-msgstr ""
-"<strong>netPhotoGraphics</strong>检测到<code>extract.php.bin</code>文件的存"
-"在。要安装更新，请单击下面的“ <em>安装更新”</em>按钮。"
-
-#: zp-core/admin.php:383
-#, fuzzy
-msgid "Misc"
-msgstr "杂项"
-
-#: zp-core/admin.php:396 zp-core/admin.php:411
+#: zp-core/admin.php:364
 #, fuzzy
 #| msgid "Installed themes"
 msgid "Install update"
 msgstr "已安装布景主题"
 
-#: zp-core/admin.php:401
+#: zp-core/admin.php:365
+#, fuzzy
+msgid "Install the netPhotoGraphics update."
+msgstr "安装netPhotoGraphics v％s"
+
+#: zp-core/admin.php:368 zp-core/admin.php:439
+#, fuzzy, php-format
+msgid "Install version %1$s"
+msgstr "版本 %1$s"
+
+#: zp-core/admin.php:369
 #, fuzzy
 msgid "Extract and install the netPhotoGraphics update."
 msgstr "安装netPhotoGraphics v％s"
 
-#: zp-core/admin.php:416
+#: zp-core/admin.php:374
+#, fuzzy
+msgid ""
+"<strong>netPhotoGraphics</strong> has detected the presence of an "
+"installation file. To install the update click on the <em>Install</em> "
+"button below."
+msgstr ""
+"<strong>netPhotoGraphics</strong>检测到<code>extract.php.bin</code>文件的存"
+"在。要安装更新，请单击下面的“ <em>安装更新”</em>按钮。"
+
+#: zp-core/admin.php:411
+#, fuzzy
+msgid "Misc"
+msgstr "杂项"
+
+#: zp-core/admin.php:444
 #, fuzzy, php-format
 msgid "Download and install %1$s version %2$s."
 msgstr "下载%1$s版本%2$s。"
 
-#: zp-core/admin.php:430
+#: zp-core/admin.php:458
 #, fuzzy
 msgid "Setup » restore scripts"
 msgstr "设置»恢复脚本"
 
-#: zp-core/admin.php:435
+#: zp-core/admin.php:463
 #, fuzzy
 msgid "Restores setup files so setup can be run."
 msgstr "恢复安装文件，以便运行安装程序。"
 
-#: zp-core/admin.php:445
+#: zp-core/admin.php:473
 msgid "Run setup"
 msgstr "netPhotoGraphics 设定"
 
-#: zp-core/admin.php:450
+#: zp-core/admin.php:478
 #, fuzzy
 msgid "Run the setup script."
 msgstr "运行安装脚本。"
 
-#: zp-core/admin.php:460
+#: zp-core/admin.php:488
 #, fuzzy
 msgid "Setup » protect scripts"
 msgstr "设置»保护脚本"
 
-#: zp-core/admin.php:465
+#: zp-core/admin.php:493
 #, fuzzy
 msgid "Protects setup files so setup cannot be run."
 msgstr "保护设置文件，以便无法运行安装程序。"
 
-#: zp-core/admin.php:478 zp-core/utilities/installation_analysis.php:35
+#: zp-core/admin.php:506 zp-core/utilities/installation_analysis.php:35
 #, fuzzy
 msgid "<em>Debug build</em>"
 msgstr "<em>调试构建</em>"
 
-#: zp-core/admin.php:489 zp-core/utilities/installation_analysis.php:37
+#: zp-core/admin.php:517 zp-core/utilities/installation_analysis.php:37
 #, fuzzy
 msgid "Official build"
 msgstr "官方建设"
 
-#: zp-core/admin.php:496 zp-core/utilities/installation_analysis.php:73
+#: zp-core/admin.php:524 zp-core/utilities/installation_analysis.php:73
 #, fuzzy
 msgid "release notes"
 msgstr "发行说明"
 
-#: zp-core/admin.php:497 zp-core/utilities/installation_analysis.php:77
+#: zp-core/admin.php:525 zp-core/utilities/installation_analysis.php:77
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgstr "netPhotoGraphics版本<strong>%1$s（%2$s）</strong>"
 
-#: zp-core/admin.php:504
+#: zp-core/admin.php:532
 msgid "Utility functions"
 msgstr "工具功能"
 
-#: zp-core/admin.php:577
+#: zp-core/admin.php:605
 msgid "Gallery Stats"
 msgstr "相馆统计"
 
-#: zp-core/admin.php:584
+#: zp-core/admin.php:612
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Album (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Albums (%2$u un-published)"
 msgstr[0] "<strong>％1 $ u</strong>专辑（％2 $ u未发布）"
 msgstr[1] "<strong>%1$u</strong> 个相簿(%2$u 未发布)"
 
-#: zp-core/admin.php:586
+#: zp-core/admin.php:614
 #, php-format
 msgid "<strong>%u</strong> Album"
 msgid_plural "<strong>%u</strong> Albums"
 msgstr[0] "<strong>%u</strong> 个相簿"
 msgstr[1] "<strong>%u</strong> 个相簿"
 
-#: zp-core/admin.php:595
+#: zp-core/admin.php:623
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgstr[0] "<strong>％1 $ u</strong>图片（％2 $ u未发布）"
 msgstr[1] "<strong>%1$u</strong> 页面(%2$u 未发表)"
 
-#: zp-core/admin.php:597
+#: zp-core/admin.php:625
 #, php-format
 msgid "<strong>%u</strong> Image"
 msgid_plural "<strong>%u</strong> Images"
 msgstr[0] "<strong>%u</strong> 张图片"
 msgstr[1] "<strong>%u</strong> 张图片"
 
-#: zp-core/admin.php:621
+#: zp-core/admin.php:649
 #, php-format
 msgid "<strong>%1$u</strong> Comment (%2$u in moderation)"
 msgid_plural "<strong>%1$u</strong> Comments (%2$u in moderation)"
 msgstr[0] "<strong>%1$u</strong> 个留言 (%2$u 在审核中)"
 msgstr[1] "<strong>%1$u</strong> 个留言 (%2$u 在审核中)"
 
-#: zp-core/admin.php:623
+#: zp-core/admin.php:651
 #, php-format
 msgid "<strong>%u</strong> Comment"
 msgid_plural "<strong>%u</strong> Comments"
 msgstr[0] "<strong>%u</strong> 个留言"
 msgstr[1] "<strong>%u</strong> 个留言"
 
-#: zp-core/admin.php:638
+#: zp-core/admin.php:666
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
 msgstr[0] "<strong>％1 $ u</strong>用户（％2 $ u已过期）"
 msgstr[1] "<strong>%1$u</strong> 页面(%2$u 未发表)"
 
-#: zp-core/admin.php:640
+#: zp-core/admin.php:668
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8487,7 +8515,7 @@ msgid_plural "<strong>%u</strong> Users"
 msgstr[0] "<strong>％u</strong>用户"
 msgstr[1] "<strong>%u</strong> 张图片"
 
-#: zp-core/admin.php:657
+#: zp-core/admin.php:685
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Album"
 #| msgid_plural "<strong>%u</strong> Albums"
@@ -8496,7 +8524,7 @@ msgid_plural "<strong>%u</strong> Groups"
 msgstr[0] "<strong>％u</strong>组"
 msgstr[1] "<strong>%u</strong> 个相簿"
 
-#: zp-core/admin.php:664
+#: zp-core/admin.php:692
 #, fuzzy, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
@@ -8505,7 +8533,7 @@ msgid_plural "<strong>%u</strong> Templates"
 msgstr[0] "<strong>％u</strong>模板"
 msgstr[1] "<strong>%u</strong> 张图片"
 
-#: zp-core/admin.php:681
+#: zp-core/admin.php:709
 #, fuzzy
 msgid "Your user rights do not allow access to administrative functions."
 msgstr "您的用户权限不允许访问管理功能。"
@@ -12898,111 +12926,111 @@ msgstr "缓存：[％s]"
 msgid "Image: [%s]"
 msgstr "相片: %s"
 
-#: zp-core/functions-image.php:59 zp-core/lib-auth.php:694
+#: zp-core/functions-image.php:61 zp-core/lib-auth.php:694
 #: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
 msgid "Debug"
 msgstr "除错"
 
-#: zp-core/functions-image.php:59
+#: zp-core/functions-image.php:61
 msgid "Arguments:"
 msgstr "参数:"
 
-#: zp-core/functions-image.php:62
+#: zp-core/functions-image.php:64
 msgid "size ="
 msgstr "size ="
 
-#: zp-core/functions-image.php:63
+#: zp-core/functions-image.php:65
 msgid "width ="
 msgstr "width ="
 
-#: zp-core/functions-image.php:64
+#: zp-core/functions-image.php:66
 msgid "height ="
 msgstr "height ="
 
-#: zp-core/functions-image.php:65
+#: zp-core/functions-image.php:67
 msgid "cw ="
 msgstr "cw ="
 
-#: zp-core/functions-image.php:66
+#: zp-core/functions-image.php:68
 msgid "ch ="
 msgstr "ch ="
 
-#: zp-core/functions-image.php:67
+#: zp-core/functions-image.php:69
 msgid "cx ="
 msgstr "cx ="
 
-#: zp-core/functions-image.php:68
+#: zp-core/functions-image.php:70
 msgid "cy ="
 msgstr "cy ="
 
-#: zp-core/functions-image.php:69
+#: zp-core/functions-image.php:71
 msgid "quality ="
 msgstr "quality ="
 
-#: zp-core/functions-image.php:70
+#: zp-core/functions-image.php:72
 msgid "thumb ="
 msgstr "thumb ="
 
-#: zp-core/functions-image.php:71
+#: zp-core/functions-image.php:73
 msgid "crop ="
 msgstr "crop ="
 
-#: zp-core/functions-image.php:175
+#: zp-core/functions-image.php:177
 #, fuzzy, php-format
 msgid "Image %s not found or is unreadable."
 msgstr "图像％s未找到或不可读。"
 
-#: zp-core/functions-image.php:193
+#: zp-core/functions-image.php:195
 #, fuzzy, php-format
 msgid "Using %1$ux%2$u %3$s thumbnail image."
 msgstr "使用％1 $ ux％2 $ u%3$s缩略图。"
 
-#: zp-core/functions-image.php:205
+#: zp-core/functions-image.php:207
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
 msgstr "图像％s不可渲染（imageGet）。"
 
-#: zp-core/functions-image.php:212
+#: zp-core/functions-image.php:214
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
 msgstr "图像％s不可旋转。"
 
-#: zp-core/functions-image.php:255
+#: zp-core/functions-image.php:257
 #, fuzzy, php-format
 msgid "Unknown error processing %s! Please report to the <a href=\""
 msgstr "<html>处理％s的未知错误！请报告给"
 
-#: zp-core/functions-image.php:380 zp-core/functions-image.php:415
+#: zp-core/functions-image.php:382 zp-core/functions-image.php:417
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
 msgstr "图像％s不可渲染（重新采样）。"
 
-#: zp-core/functions-image.php:419
+#: zp-core/functions-image.php:421
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
 msgstr "图像％s不可渲染（不清晰）。"
 
-#: zp-core/functions-image.php:435
+#: zp-core/functions-image.php:437
 #, fuzzy, php-format
 msgid "Watermark %s not renderable."
 msgstr "水印％s不可渲染。"
 
-#: zp-core/functions-image.php:453
+#: zp-core/functions-image.php:455
 #, fuzzy, php-format
 msgid "Watermark %s not resizeable."
 msgstr "水印％s不可调整大小。"
 
-#: zp-core/functions-image.php:462
+#: zp-core/functions-image.php:464
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
 msgstr "图像％s不可渲染（copycanvas）。"
 
-#: zp-core/functions-image.php:524
+#: zp-core/functions-image.php:526
 #, fuzzy, php-format
 msgid "cacheImage: failed to create %s"
 msgstr "cacheImage：无法创建％s"
 
-#: zp-core/functions-image.php:531
+#: zp-core/functions-image.php:533
 #, fuzzy, php-format
 msgid "cacheImage(%1$s) exception: %2$s"
 msgstr "cacheImage（%1$s）异常：%2$s"
@@ -13763,8 +13791,8 @@ msgstr "输入您的用户ID并按“ <code>Refresh</code>以获取您的质询�
 
 #: zp-core/lib-auth.php:1124 zp-core/lib-auth.php:1126
 #: zp-core/setup/index.php:1652
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:224
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:225
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 #, fuzzy
 msgid "Refresh"
 msgstr "资料库刷新未完成"
@@ -14163,7 +14191,7 @@ msgstr "%1$s%2$s：%3$s"
 #, fuzzy
 msgid "Option:"
 msgid_plural "Options:"
-msgstr[0] "ZenPhoto20 选项 \"mod_rewrite\"  会设为  \"启动\"."
+msgstr[0] "netPhotoGraphics 选项 \"mod_rewrite\"  会设为  \"启动\"."
 msgstr[1] "选项"
 
 #: zp-core/pluginDoc.php:487
@@ -18064,131 +18092,131 @@ msgstr "如果图像的缓存文件不存在，则将为该图像进行缓存图
 msgid "If these are enabled."
 msgstr "如果这些已启用。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:97
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:98
 #, fuzzy
 msgid "image processor reference"
 msgstr "图像处理器参考"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:185
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:186
 #, fuzzy
 msgid ""
 "<strong>Note:</strong> the following objects have images that appear to no "
 "longer exist."
 msgstr "<strong>注意：</strong>以下对象的图像似乎不再存在。"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:199
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:200
 #, fuzzy, php-format
 msgid "%u image processor reference found."
 msgid_plural "%u image processor references found."
 msgstr[0] "找到％u图像处理器参考。"
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:201
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:202
 #, fuzzy
 msgid ""
 "You should use the refresh button to convert these to cached image references"
 msgstr "您应该使用刷新按钮将这些转换为缓存的图像引用"
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:206
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:207
 #, fuzzy, php-format
 msgid "%u cached image reference found."
 msgid_plural "%u cached image references found."
 msgstr[0] "找到％u缓存的图像引用。"
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:210
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:211
 #, fuzzy, php-format
 msgid "%s reference re-cached."
 msgid_plural "%s references re-cached."
 msgstr[0] "％s引用重新缓存。"
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:215
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:216
 #, fuzzy, php-format
 msgid "%s cache folder reference fixed."
 msgid_plural "%s cache folder references fixed."
 msgstr[0] "％s缓存文件夹引用已修复。"
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:222
+#: zp-core/zp-extensions/cacheManager/cacheDBImages.php:223
 #, fuzzy
 msgid ""
 "Refresh the caching of the images stored in the database if some images did "
 "not render."
 msgstr "如果某些图像未呈现，则刷新存储在数据库中的图像的缓存。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:126
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:127
 #, php-format
 msgid "[%u image]"
 msgid_plural "[%u images]"
 msgstr[0] "[%u 张图片]"
 msgstr[1] "[%u 张图片]"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:180
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:181
 #, fuzzy, php-format
 #| msgid "Refreshing cache for %s"
 msgid "Refresh cache for %s"
 msgstr "刷新％s的缓存"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:239
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
 #, fuzzy
 msgid "Full Image"
 msgstr "全尺寸图片"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:287
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:288
 #, fuzzy
 msgid "invalid MaxSpace"
 msgstr "无效的MaxSpace"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:292
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:293
 #, fuzzy
 msgid "invalid Cache Set"
 msgstr "无效的缓存集"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:313
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:314
 #, fuzzy, php-format
 msgid "all sizes for <em>%1$s</em>"
 msgstr "<em>%1$s的</em>所有尺寸"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:359
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:360
 #, fuzzy, php-format
 msgid "%u cache size to apply."
 msgid_plural "%u cache sizes to apply."
 msgstr[0] "要应用的％u缓存大小。"
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:374
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
 #, fuzzy, php-format
 msgid "%u cache size requested"
 msgid_plural "%u cache sizes requested"
 msgstr[0] "请求％u缓存大小"
 msgstr[1] ""
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:376
 #, fuzzy, php-format
 msgid "Finished processing %1$u image (%2$s)."
 msgid_plural "Finished processing %1$u images (%2$s)."
 msgstr[0] "完成处理％1 $ u图像（%2$s）。"
 msgstr[1] "完成: 总共 %u 张图片."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:377
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 #, fuzzy
 msgid ""
 "Refresh the caching of the selected image sizes if some images did not "
 "render."
 msgstr "如果某些图像未渲染，请刷新所选图像大小的缓存。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:384
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:385
 #, fuzzy
 msgid "No cache sizes enabled."
 msgstr "没有启用缓存大小。"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 #, fuzzy
 msgid "Cache the images"
 msgstr "缓存图像"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:388
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
 #, fuzzy
 msgid "Executes the caching of the selected image sizes."
 msgstr "执行所选图像大小的缓存。"
@@ -23566,7 +23594,7 @@ msgstr "添加<em>范围</em>标记"
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:381
 #, fuzzy
 msgid "Class"
-msgstr "类"
+msgstr "netPhotoGraphics 向外电邮递器基于 <em>PHPMailer</em> 电邮设施."
 
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:397
 #, fuzzy
@@ -25326,7 +25354,7 @@ msgstr "站点重写规则子选项卡。"
 #: zp-core/zp-extensions/rewriteRules/admin_tab.php:12
 #, fuzzy
 msgid "rewrite"
-msgstr "ZenPhoto20 选项 \"mod_rewrite\" 已  \"启动\"."
+msgstr "netPhotoGraphics 选项 \"mod_rewrite\" 已  \"启动\"."
 
 #: zp-core/zp-extensions/rewriteRules/admin_tab.php:27
 #, fuzzy
@@ -29685,6 +29713,10 @@ msgstr "字体可缩放时使用的大小（ <em>TTF</em>和<em>Imagick</em>字�
 #: zp-core/zp-extensions/zpCaptcha.php:70
 msgid "Sample CAPTCHA image"
 msgstr "验证码图片例子 "
+
+#, fuzzy
+#~ msgid "Extract file detected."
+#~ msgstr "设置文件受保护。"
 
 #, fuzzy
 #~ msgid "Suffix Not Allowed: %s"

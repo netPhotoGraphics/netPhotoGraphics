@@ -225,7 +225,7 @@ class cmsFilters {
 
 	/**
 	 * Handles item ownership
-	 * returns true for allowed access, false for denyed, returns original parameter if not my gallery page
+	 * returns true for allowed access, false for denied, returns original parameter if not my gallery page
 	 * @param bool $fail
 	 */
 	static function isMyItemToView($fail) {
