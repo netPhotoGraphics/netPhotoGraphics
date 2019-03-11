@@ -82,7 +82,7 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 1.9.2.08</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 1.9.2.09</h2>
 <h2>General</h2>
 <p>Bug fixes and security improvements.</p>
 <p>The scripts for the administrative tabs have been reorganized. They are now located in the <em>admin-tabs</em> folder. This is not a functional change, but any third party themes or plugins which directly link to these scripts will need updating.</p>
@@ -93,7 +93,7 @@
 <p>Part of this security enhancement is to require a new log-on for users whose passwords are hashed with a less robust algorithm than the current option setting. This logon will automatically update their saved password hash to the new algorithm.</p>
 <p>The <em>admin/user</em> page will show administrators which users currently have the less robustly hashed passwords.</p>
 <h2>Upgrade aids</h2>
-<p>Two new features have been added to streamline installing upgrades on your site. When a new version is made available there will now be two buttons in the admin utility functions. One is the familiar button to download the setup zip file to your computer. The new button will copy the <code>extract.php.bin</code> file directly to your server's root folder then run the install. This button requires that file URLs be enabled in your server's PHP settings. If this is not the case you can still download the setup zip file, extract the <code>extract.php.bin</code> file and upload it to your server. Then the install button will then simply rename and run the <code>extract.php</code> file.</p>
+<p>Two new features have been added to streamline installing upgrades on your site. When a new version is made available there will now be two buttons in the admin utility functions. One is the familiar button to download the setup zip file to your computer. The new button will copy the <code>extract.php.bin</code> file directly to your server's root folder then run the install. This button requires that <em>allow_url_fopen</em> be enabled in your server's PHP.ini settings. If this is not the case you can still download the setup zip file, extract the <code>extract.php.bin</code> file and upload it to your server. Then the install button will then simply rename and run the <code>extract.php</code> file.</p>
 <h2>Plugins</h2>
 <p><em>nanospell</em></p>
 <p>This plugin has been deprecated and will be removed. The tinyMCE configurations now enable the browser's spell checker. <em>nanospell </em>required custom installations and special licensing. Modern browsers provide a more seamless spell checking solution</p>
