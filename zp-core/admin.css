@@ -2255,7 +2255,7 @@ fieldset,
 	white-space: nowrap;
 }
 
-.log_buttons a,.buttons button {
+.log_buttons a {
 	display: block;
 	float: left;
 	margin: 0 7px 0 0;
