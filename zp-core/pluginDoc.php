@@ -303,7 +303,7 @@ if (!defined('OFFSET_PATH')) {
 					width: 200px;
 					margin: 0 7px 0 0;
 					background-color: #f5f5f5;
-					background-image: url(images/admin-buttonback.jpg);
+					background-image: url(../images/admin-buttonback.jpg);
 					background-repeat: repeat-x;
 					border: 1px solid #dedede;
 					border-top: 1px solid #eee;
