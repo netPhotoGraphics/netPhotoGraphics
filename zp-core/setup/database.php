@@ -232,6 +232,7 @@ if (is_array($result)) {
 } else {
 	$dbmigrate = true;
 }
+
 if ($utf8mb4) {
 	if ($dbmigrate) {
 		$sql = 'ALTER DATABASE `' . db_name() . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;';
@@ -265,15 +266,13 @@ foreach ($template as $tablename => $table) {
 		if ($key != 'id') {
 			$dbType = strtoupper($field['Type']);
 			$string = "ALTER TABLE " . prefix($tablename) . " %s `" . $field['Field'] . "` " . $dbType;
-			if ($database[$tablename]['fields'][$key]['Collation'] != $field['Collation']) {
-				switch ($field['Collation']) {
-					case 'utf8mb4_unicode_ci':
-						$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
-						break;
-					case 'utf8_unicode_ci':
-						$string .= ' CHARACTER SET utf8 COLLATE utf8_unicode_ci';
-						break;
-				}
+			switch ($field['Collation']) {
+				case 'utf8mb4_unicode_ci':
+					$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
+					break;
+				case 'utf8_unicode_ci':
+					$string .= ' CHARACTER SET utf8 COLLATE utf8_unicode_ci';
+					break;
 			}
 			if ($field['Null'] === 'NO') {
 				$string .= " NOT NULL";
