@@ -20,7 +20,7 @@ if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_sta
 	$fullLog = false;
 }
 
-loadConfiguration();
+require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést');
 if (!file_exists($testFile)) {

@@ -14,21 +14,6 @@
 require_once(dirname(__FILE__) . '/global-definitions.php');
 
 /**
- * functions common to both the core and setup's basic environment
- *
- * @author Stephen Billard (sbillard)
- *
- * @package core
- */
-function loadConfiguration() {
-	global $_zp_conf_vars;
-	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	if (!isset($_zp_conf_vars['UTF-8']) || $_zp_conf_vars['UTF-8'] === true) {
-		$_zp_conf_vars['UTF-8'] = 'utf8';
-	}
-}
-
-/**
  * Common error reporting for query errors
  * @param type $sql
  */

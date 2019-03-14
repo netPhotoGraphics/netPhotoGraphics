@@ -1169,7 +1169,6 @@ zp-core/full-image.php
 zp-core/functions-basic.php
 zp-core/functions-config.php
 zp-core/functions-controller.php
-zp-core/functions-db-MySQL.php
 zp-core/functions-db-MySQLi.php
 zp-core/functions-db-NULL.php
 zp-core/functions-db-PDO_MySQL.php
@@ -8376,4 +8375,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8378
+8377

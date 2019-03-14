@@ -147,7 +147,7 @@ class optionalObjectFields extends fieldExtender {
 						'table' => 'images',
 						'name' => 'watermark',
 						'desc' => gettext('Image watermark'),
-						'type' => 'varchar', 'size' => 255,
+						'type' => 'tinytext',
 						'edit' => 'function',
 						'function' => 'optionalObjectFields::watermark',
 						'default' => NULL

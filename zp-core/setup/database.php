@@ -50,7 +50,6 @@ foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
 	foreach ($tablecols as $key => $datum) {
 		//remove don't care fields
-		unset($datum['Collation']);
 		unset($datum['Key']);
 		unset($datum['Extra']);
 		unset($datum['Privileges']);
@@ -83,7 +82,6 @@ foreach (getDBTables() as $table) {
 		}
 		unset($index['Table']);
 		unset($index['Seq_in_index']);
-		unset($index['Collation']);
 		unset($index['Cardinality']);
 		unset($index['Comment']);
 		if (!$indexComments) {
@@ -184,17 +182,25 @@ foreach ($metadataProviders as $source => $handler) {
 				default:
 				case 'string':
 					$type = "text";
+					if ($utf8mb4) {
+						$collation = 'utf8mb4_unicode_ci';
+					} else {
+						$collation = 'utf8_unicode_ci';
+					}
 					break;
 				case 'number':
 					$type = 'tinytext';
+					$collation = 'utf8_unicode_ci';
 					break;
 				case 'time':
 					$type = 'datetime';
+					$collation = NULL;
 					break;
 			}
 			$field = array(
 					'Field' => $key,
 					'Type' => $type,
+					'Collation' => $collation,
 					'Null' => 'YES',
 					'Default' => null,
 					'Comment' => 'optional_metadata'
@@ -226,12 +232,24 @@ if (is_array($result)) {
 } else {
 	$dbmigrate = true;
 }
-if ($utf8mb4 && $dbmigrate) {
-	$sql = 'ALTER DATABASE `' . db_name() . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;';
-	if (setupQuery($sql)) {
-		$_DB_Structure_change = TRUE;
+if ($utf8mb4) {
+	if ($dbmigrate) {
+		$sql = 'ALTER DATABASE `' . db_name() . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;';
+		if (setupQuery($sql)) {
+			$_DB_Structure_change = TRUE;
+		}
+	}
+} else {
+	// change the template to utf8_unicode_ci
+	foreach ($template as $tablename => $table) {
+		foreach ($table['fields'] as $key => $field) {
+			if ($field['Collation'] == 'utf8mb4_unicode_ci') {
+				$template[$tablename]['fields'][$key]['Collation'] = 'utf8_unicode_ci';
+			}
+		}
 	}
 }
+
 $uniquekeys = $tablePresent = array();
 foreach ($template as $tablename => $table) {
 	$tablePresent[$tablename] = $exists = array_key_exists($tablename, $database);
@@ -247,8 +265,15 @@ foreach ($template as $tablename => $table) {
 		if ($key != 'id') {
 			$dbType = strtoupper($field['Type']);
 			$string = "ALTER TABLE " . prefix($tablename) . " %s `" . $field['Field'] . "` " . $dbType;
-			if ($utf8mb4 && ($dbType == 'TEXT' || $dbType == 'LONGTEXT')) {
-				$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
+			if ($database[$tablename]['fields'][$key]['Collation'] != $field['Collation']) {
+				switch ($field['Collation']) {
+					case 'utf8mb4_unicode_ci':
+						$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
+						break;
+					case 'utf8_unicode_ci':
+						$string .= ' CHARACTER SET utf8 COLLATE utf8_unicode_ci';
+						break;
+				}
 			}
 			if ($field['Null'] === 'NO') {
 				$string .= " NOT NULL";

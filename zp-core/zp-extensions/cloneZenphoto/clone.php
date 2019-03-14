@@ -155,7 +155,6 @@ if (isset($_GET['purge'])) {
 			$adminTable = array();
 			foreach ($adminTableDB as $key => $datum) {
 				// remove don't care fields
-				unset($datum['Collation']);
 				unset($datum['Key']);
 				unset($datum['Extra']);
 				unset($datum['Privileges']);
