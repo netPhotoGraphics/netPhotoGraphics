@@ -446,7 +446,6 @@ class optionalObjectFields extends fieldExtender {
 	}
 
 	static function date($obj, $instance, $field, $type) {
-		global $albumHeritage;
 		if ($type == 'save') {
 			if (isset($_POST[$instance . '-' . $field['name']])) {
 				return sanitize($_POST[$instance . '-' . $field['name']]);

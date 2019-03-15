@@ -110,6 +110,7 @@ if (@$_zp_loggedin) {
 		$zenphoto_tabs['options'] = NULL;
 		$zenphoto_tabs['logs'] = NULL;
 		$zenphoto_tabs['admin'] = NULL;
+		$zenphoto_tabs['images'] = NULL;
 		$zenphoto_tabs['edit'] = NULL;
 		$zenphoto_tabs['pages'] = NULL;
 		$zenphoto_tabs['news'] = NULL;
@@ -219,8 +220,16 @@ if (@$_zp_loggedin) {
 					'text' => gettext("my profile"),
 					'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
 					'ordered' => true,
-					'subtabs' => array(gettext('users') => 'admin-tabs/users.php?page=admin&tab=users')
+					'subtabs' => NULL
 			);
+			if (FALSE && $_zp_loggedin & UPLOAD_RIGHTS) {
+				$zenphoto_tabs['images'] = array(
+						'text' => gettext("my images"),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/images.php?page=admin&tab=images',
+						'ordered' => true,
+						'subtabs' => NULL
+				);
+			}
 		}
 
 		$subtabs = array();
