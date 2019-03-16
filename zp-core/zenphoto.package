@@ -8267,8 +8267,14 @@ zp-core/zp-extensions/uploader_jQuery/css/jquery.fileupload-ui.css
 zp-core/zp-extensions/uploader_jQuery/css/jquery.fileupload.css
 zp-core/zp-extensions/uploader_jQuery/css/uploader_bootstrap.css
 zp-core/zp-extensions/uploader_jQuery/img
+zp-core/zp-extensions/uploader_jQuery/img/error.png
+zp-core/zp-extensions/uploader_jQuery/img/error.svg
 zp-core/zp-extensions/uploader_jQuery/img/loading.gif
+zp-core/zp-extensions/uploader_jQuery/img/play-pause.png
+zp-core/zp-extensions/uploader_jQuery/img/play-pause.svg
 zp-core/zp-extensions/uploader_jQuery/img/progressbar.gif
+zp-core/zp-extensions/uploader_jQuery/img/video-play.png
+zp-core/zp-extensions/uploader_jQuery/img/video-play.svg
 zp-core/zp-extensions/uploader_jQuery/js
 zp-core/zp-extensions/uploader_jQuery/js/app.js
 zp-core/zp-extensions/uploader_jQuery/js/canvas-to-blob.min.js
@@ -8380,4 +8386,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8382
+8388
