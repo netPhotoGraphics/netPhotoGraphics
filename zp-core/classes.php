@@ -996,7 +996,7 @@ class MediaObject extends ThemeObject {
 	 * @param string $user
 	 */
 	function setOwner($user) {
-		$this->set('owner');
+		$this->set('owner', $user);
 	}
 
 	/**

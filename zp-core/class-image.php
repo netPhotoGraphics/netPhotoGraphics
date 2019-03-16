@@ -128,6 +128,7 @@ class Image extends MediaObject {
 		if ($new || $this->filemtime != $this->get('mtime')) {
 			if ($new) {
 				$this->setTitle($this->displayname);
+				$this->setOwner($_zp_current_admin_obj->getUser());
 			}
 			$this->updateMetaData(); // extract info from image
 			$this->updateDimensions(); // deal with rotation issues
@@ -1396,10 +1397,6 @@ class Image extends MediaObject {
 			$owner = $this->album->getOwner();
 		}
 		return $owner;
-	}
-
-	function setOwner($owner) {
-		$this->set('owner', $owner);
 	}
 
 	function isMyItem($action) {

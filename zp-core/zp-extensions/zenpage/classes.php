@@ -786,15 +786,6 @@ class CMSItems extends CMSRoot {
 	}
 
 	/**
-	 *
-	 * sets the author attribute
-
-	 */
-	function setOwner($a) {
-		$this->set("owner", $a);
-	}
-
-	/**
 	 * Returns the content
 	 *
 	 * @return string
