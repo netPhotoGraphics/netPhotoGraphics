@@ -82,7 +82,8 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 1.9.2.09</h2>
+<h1>netPhotoGraphics release notes</h1><p>a:1:{s:5:"en_US";s:72298:"</p>
+<h2 style="text-align: center;">Version 1.9.2.10</h2>
 <h2>General</h2>
 <p>Bug fixes and security improvements.</p>
 <p>The scripts for the administrative tabs have been reorganized. They are now located in the <em>admin-tabs</em> folder. This is not a functional change, but any third party themes or plugins which directly link to these scripts will need updating.</p>
@@ -94,6 +95,8 @@
 <p>The <em>admin/user</em> page will show administrators which users currently have the less robustly hashed passwords.</p>
 <h2>Upgrade aids</h2>
 <p>Two new features have been added to streamline installing upgrades on your site. When a new version is made available there will now be two buttons in the admin utility functions. One is the familiar button to download the setup zip file to your computer. The new button will copy the <code>extract.php.bin</code> file directly to your server's root folder then run the install. This button requires that <em>allow_url_fopen</em> be enabled in your server's PHP.ini settings. If this is not the case you can still download the setup zip file, extract the <code>extract.php.bin</code> file and upload it to your server. Then the install button will then simply rename and run the <code>extract.php</code> file.</p>
+<h2>User control of "owned" images</h2>
+<p>Non-admin users now have the ability to edit images that they are the "owner" of. If a user owns any images he will see the admin tab <code>My Images</code> just below the <code>My Profile</code> tab. That link will take him to a page listing all the albums which contain images he owns. The links on that page will take him to the <em>image edit</em> page for those owned images.</p>
 <h2>Plugins</h2>
 <p><em>nanospell</em></p>
 <p>This plugin has been deprecated and will be removed. The tinyMCE configurations now enable the browser's spell checker. <em>nanospell </em>required custom installations and special licensing. Modern browsers provide a more seamless spell checking solution</p>
@@ -237,7 +240,7 @@
 <p>The <code>shortenContent()</code> function has been rewritten. It will now count only text characters in shortening the string. Before HTML tags were counted as part of the allowed total. Page break handling is now incorporated in the function. Truncation will prefer to happen at a page break indication (<code>&lt;-- pagebreak --&gt;.</code>) This allows for simplification of <code>getContentShorten()</code> which had been including HTML tags in its character count when deciding what page break to select. The <code>$forceindicator</code> parameter has been removed. It really made no sense and was used only by <code>getContentShorten()</code> when it rolled back to a page break. It was also not applied if no shortening was done even though that was the promise in the comment block.</p>
 <p>Warnings about configuration changes will no longer be displayed on theme pages. In addition, when the warning is displayed on an admin page a button will be included to dismiss the warning. If you are comfortable that the change does not impact your site you may dismiss it and it will no longer be shown.</p>
 <h2>Trans-BMP character</h2>
-<p>The MySQL<em> utf8</em> encoding supports only <em>Basic Multilingual Plane</em> (BMP) characters. Many recently defined Emoji characters are coded in with <em>trans-BMP</em> codes. E.g. 🌞, 🏝️, 🥑. etc. For MySql to handle these the data field character set must be set to <em>utf8mb4</em>. Existing ZenPhoto20 installations encode all text fields as <em>utf8</em> so trying to store a <em>trans-BMP</em> character will result in data truncation at that character as it is not valid in <em>utf8</em>.</p>
+<p>The MySQL<em> utf8</em> encoding supports only <em>Basic Multilingual Plane</em> (BMP) characters. Many recently defined Emoji characters are coded in with <em>trans-BMP</em> codes. E.g. ?, ?️, ?. etc. For MySql to handle these the data field character set must be set to <em>utf8mb4</em>. Existing ZenPhoto20 installations encode all text fields as <em>utf8</em> so trying to store a <em>trans-BMP</em> character will result in data truncation at that character as it is not valid in <em>utf8</em>.</p>
 <p>New ZenPhoto20 installations will use <em>utf8mb4 encoding</em> on text fields so long as the MySql version of the site supports that encoding. For existing installation that wish to be able to use these Emoji it will be necessary to migrate the database. See the <em>utf8mb4Migration</em> plugin below.</p>
 <p>MySQL software version MUST be 5.5.3 or greater is required for support of utf8mb4 encoding.</p>
 <h2>Social Media Login</h2>
@@ -501,5 +504,6 @@
 <li><em>themeEditor</em>: This is the legacy theme editor which may be used instead of elFinder.</li>
 <li><em>zenphotoCompatibilityPack</em>: A plugin that provides a bridge to Zenphoto.org's 1.4.6 release compatible plugins and themes.</li>
 </ul>
+<p>";}</p>
 	</body>
 </html>
