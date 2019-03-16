@@ -1223,6 +1223,7 @@ zp-core/admin-tabs/dynamic-album.php
 zp-core/admin-tabs/edit.php
 zp-core/admin-tabs/image_edit.php
 zp-core/admin-tabs/image_save.php
+zp-core/admin-tabs/images.php
 zp-core/admin-tabs/logs.php
 zp-core/admin-tabs/options.php
 zp-core/admin-tabs/plugins.php
@@ -8379,4 +8380,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8381
+8382

@@ -222,7 +222,9 @@ if (@$_zp_loggedin) {
 					'ordered' => true,
 					'subtabs' => NULL
 			);
-			if (FALSE && $_zp_loggedin & UPLOAD_RIGHTS) {
+			$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_zp_current_admin_obj->getUser()) . ' LIMIT 1';
+			$result = query_single_row($sql);
+			if (!empty($result)) {
 				$zenphoto_tabs['images'] = array(
 						'text' => gettext("my images"),
 						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/images.php?page=admin&tab=images',

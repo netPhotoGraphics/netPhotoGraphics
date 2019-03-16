@@ -622,163 +622,163 @@ echo "\n</head>";
 
 <body onresize="resizeTable()">
 
-<?php printLogoAndLinks(); ?>
+	<?php printLogoAndLinks(); ?>
 	<div id="main">
-	<?php printTabs(); ?>
+		<?php printTabs(); ?>
 		<div id="content">
-		<?php
-		$key = is_object($album) ? $album->name : '*';
-		$showthumb = !in_array($key, $showDefaultThumbs);
-		if ($showthumb) {
-			$thumbshow = 'no';
-			$thumbmsg = gettext('Show thumbnail stand-in');
-		} else {
-			$thumbshow = 'yes';
-			$thumbmsg = gettext('Show album thumb');
-		}
-		$checkarray_images = array(
-				gettext('*Bulk actions*') => 'noaction',
-				gettext('Delete') => 'deleteall',
-				gettext('Set to published') => 'showall',
-				gettext('Set to unpublished') => 'hideall',
-				gettext('Disable comments') => 'commentsoff',
-				gettext('Enable comments') => 'commentson'
-		);
-		if (extensionEnabled('hitcounter')) {
-			$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
-		}
-		$checkarray_albums = array_merge($checkarray_images, array(
-				gettext('Delete') => 'deleteallalbum'
-						)
-		);
-		$checkarray_images = array_merge($checkarray_images, array(
-				gettext('Delete') => 'deleteall',
-				gettext('Move') => array('name' => 'moveimages', 'action' => 'mass_movecopy_data'),
-				gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
-						)
-		);
-		$checkarray_images = zp_apply_filter('bulk_image_actions', $checkarray_images);
-		$checkarray_albums = zp_apply_filter('bulk_album_actions', $checkarray_albums);
-
-		/** EDIT ***************************************************************************
-		 *
-		 *  ********************************************************************************
-		 */
-		if (isset($_GET['album']) && !$is_massedit) {
-			/** SINGLE ALBUM ******************************************************************* */
-			// one time generation of this list.
-			$mcr_albumlist = array();
-			genAlbumList($mcr_albumlist);
-
-			$oldalbumimagesort = $_zp_gallery->getSortType('image');
-			$direction = $_zp_gallery->getSortDirection('image');
-
-			if ($album->isDynamic()) {
-				$subalbums = array();
-				$allimages = array();
+			<?php
+			$key = is_object($album) ? $album->name : '*';
+			$showthumb = !in_array($key, $showDefaultThumbs);
+			if ($showthumb) {
+				$thumbshow = 'no';
+				$thumbmsg = gettext('Show thumbnail stand-in');
 			} else {
-				$subalbums = getNestedAlbumList($album, $subalbum_nesting);
-				if (!($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+				$thumbshow = 'yes';
+				$thumbmsg = gettext('Show album thumb');
+			}
+			$checkarray_images = array(
+					gettext('*Bulk actions*') => 'noaction',
+					gettext('Delete') => 'deleteall',
+					gettext('Set to published') => 'showall',
+					gettext('Set to unpublished') => 'hideall',
+					gettext('Disable comments') => 'commentsoff',
+					gettext('Enable comments') => 'commentson'
+			);
+			if (extensionEnabled('hitcounter')) {
+				$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
+			}
+			$checkarray_albums = array_merge($checkarray_images, array(
+					gettext('Delete') => 'deleteallalbum'
+							)
+			);
+			$checkarray_images = array_merge($checkarray_images, array(
+					gettext('Delete') => 'deleteall',
+					gettext('Move') => array('name' => 'moveimages', 'action' => 'mass_movecopy_data'),
+					gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
+							)
+			);
+			$checkarray_images = zp_apply_filter('bulk_image_actions', $checkarray_images);
+			$checkarray_albums = zp_apply_filter('bulk_album_actions', $checkarray_albums);
+
+			/** EDIT ***************************************************************************
+			 *
+			 *  ********************************************************************************
+			 */
+			if (isset($_GET['album']) && !$is_massedit) {
+				/** SINGLE ALBUM ******************************************************************* */
+				// one time generation of this list.
+				$mcr_albumlist = array();
+				genAlbumList($mcr_albumlist);
+
+				$oldalbumimagesort = $_zp_gallery->getSortType('image');
+				$direction = $_zp_gallery->getSortDirection('image');
+
+				if ($album->isDynamic()) {
+					$subalbums = array();
 					$allimages = array();
-					$requestor = $_zp_current_admin_obj->getUser();
-					$albumowner = $album->getOwner();
-					if ($albumowner == $requestor) {
-						$retunNull = '`owner` IS NULL OR ';
-					} else {
-						$retunNull = '';
-					}
-					$sql = 'SELECT * FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (' . $retunNull . ' `owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
-					if ($direction)
-						$sql .= ' DESC';
-
-					$result = query($sql);
-					if ($result) {
-						while ($row = db_fetch_assoc($result)) {
-							$allimages[] = $row['filename'];
+				} else {
+					$subalbums = getNestedAlbumList($album, $subalbum_nesting);
+					if (!($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+						$allimages = array();
+						$requestor = $_zp_current_admin_obj->getUser();
+						$albumowner = $album->getOwner();
+						if ($albumowner == $requestor) {
+							$retunNull = '`owner` IS NULL OR ';
+						} else {
+							$retunNull = '';
 						}
-						db_free_result($result);
-					}
-				} else {
-					$allimages = $album->getImages(0, 0, $oldalbumimagesort, $direction ? 'desc' : 'asc');
-				}
-			}
+						$sql = 'SELECT * FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (' . $retunNull . ' `owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
+						if ($direction)
+							$sql .= ' DESC';
 
-			if (isset($_GET['filter'])) {
-				$filter = sanitize($_GET['filter']);
-			} else {
-				$filter = '';
-			}
-			switch ($filter) {
-				case'unpublished':
-					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="0"';
-					$select = query_full_array($sql);
-					break;
-				case'published':
-					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="1"';
-					$select = query_full_array($sql);
-					break;
-				default:
-					$select = false;
-			}
-			if (!empty($select)) {
-				$include = array();
-				foreach ($select as $img) {
-					$include[] = $img['filename'];
-				}
-				$allimages = array_intersect($allimages, $include);
-			}
-
-			$allimagecount = count($allimages);
-			if (isset($_GET['tab']) && $_GET['tab'] == 'imageinfo' && isset($_GET['image'])) { // directed to an image
-				$target_image = urldecode(sanitize($_GET['image']));
-				$imageno = array_search($target_image, $allimages);
-				if ($imageno !== false) {
-					$pagenum = ceil(($imageno + 1) / $imagesTab_imageCount);
-				}
-			} else {
-				$target_image = '';
-			}
-			if (!isset($pagenum)) {
-				if (isset($_GET['subpage'])) {
-					if (is_numeric($_GET['subpage'])) {
-						$pagenum = max(intval($_GET['subpage']), 1);
-						if (($pagenum - 1) * $imagesTab_imageCount >= $allimagecount)
-							$pagenum--;
+						$result = query($sql);
+						if ($result) {
+							while ($row = db_fetch_assoc($result)) {
+								$allimages[] = $row['filename'];
+							}
+							db_free_result($result);
+						}
 					} else {
-						$pagenum = sanitize($_GET['subpage']);
+						$allimages = $album->getImages(0, 0, $oldalbumimagesort, $direction ? 'desc' : 'asc');
+					}
+				}
+
+				if (isset($_GET['filter'])) {
+					$filter = sanitize($_GET['filter']);
+				} else {
+					$filter = '';
+				}
+				switch ($filter) {
+					case'unpublished':
+						$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="0"';
+						$select = query_full_array($sql);
+						break;
+					case'published':
+						$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="1"';
+						$select = query_full_array($sql);
+						break;
+					default:
+						$select = false;
+				}
+				if (!empty($select)) {
+					$include = array();
+					foreach ($select as $img) {
+						$include[] = $img['filename'];
+					}
+					$allimages = array_intersect($allimages, $include);
+				}
+
+				$allimagecount = count($allimages);
+				if (isset($_GET['tab']) && $_GET['tab'] == 'imageinfo' && isset($_GET['image'])) { // directed to an image
+					$target_image = urldecode(sanitize($_GET['image']));
+					$imageno = array_search($target_image, $allimages);
+					if ($imageno !== false) {
+						$pagenum = ceil(($imageno + 1) / $imagesTab_imageCount);
 					}
 				} else {
-					$pagenum = 1;
+					$target_image = '';
 				}
-			}
-			if (is_numeric($pagenum)) {
-				$images = array_slice($allimages, ($pagenum - 1) * $imagesTab_imageCount, $imagesTab_imageCount);
-			} else {
-				$images = $allimages;
-			}
+				if (!isset($pagenum)) {
+					if (isset($_GET['subpage'])) {
+						if (is_numeric($_GET['subpage'])) {
+							$pagenum = max(intval($_GET['subpage']), 1);
+							if (($pagenum - 1) * $imagesTab_imageCount >= $allimagecount)
+								$pagenum--;
+						} else {
+							$pagenum = sanitize($_GET['subpage']);
+						}
+					} else {
+						$pagenum = 1;
+					}
+				}
+				if (is_numeric($pagenum)) {
+					$images = array_slice($allimages, ($pagenum - 1) * $imagesTab_imageCount, $imagesTab_imageCount);
+				} else {
+					$images = $allimages;
+				}
 
-			$totalimages = count($images);
+				$totalimages = count($images);
 
-			$parent = dirname($album->name);
-			if (($parent == '/') || ($parent == '.') || empty($parent)) {
-				$parent = '';
-			} else {
-				$parent = "&amp;album=" . pathurlencode($parent);
-			}
-			if (isset($_GET['metadata_refresh'])) {
-				echo '<div class="messagebox fade-message">';
-				echo "<h2>" . gettext("Image metadata refreshed.") . "</h2>";
-				echo '</div>';
-			}
+				$parent = dirname($album->name);
+				if (($parent == '/') || ($parent == '.') || empty($parent)) {
+					$parent = '';
+				} else {
+					$parent = "&amp;album=" . pathurlencode($parent);
+				}
+				if (isset($_GET['metadata_refresh'])) {
+					echo '<div class="messagebox fade-message">';
+					echo "<h2>" . gettext("Image metadata refreshed.") . "</h2>";
+					echo '</div>';
+				}
 
-			if ($album->getParent()) {
-				$link = getAlbumBreadcrumbAdmin($album);
-			} else {
-				$link = '';
-			}
-			$alb = removeParentAlbumNames($album);
-			zp_apply_filter('admin_note', 'albums', $subtab);
-			?>
+				if ($album->getParent()) {
+					$link = getAlbumBreadcrumbAdmin($album);
+				} else {
+					$link = '';
+				}
+				$alb = removeParentAlbumNames($album);
+				zp_apply_filter('admin_note', 'albums', $subtab);
+				?>
 				<h1><?php printf(gettext('Edit Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
 				<?php
 				$subtab = getCurrentTab();
@@ -786,26 +786,26 @@ echo "\n</head>";
 					?>
 					<!-- Album info box -->
 					<div id="tab_albuminfo" class="tabbox">
-		<?php consolidatedEditMessages('albuminfo'); ?>
+						<?php consolidatedEditMessages('albuminfo'); ?>
 						<form class="dirtylistening" onReset="toggle_passwords('', false);setClean('form_albumedit');$('.resetHide').hide();" name="albumedit1" id="form_albumedit" autocomplete="off" action="?page=edit&amp;action=save<?php echo "&amp;album=" . pathurlencode($album->name); ?>"	method="post" >
-						<?php XSRFToken('albumedit'); ?>
+							<?php XSRFToken('albumedit'); ?>
 							<input type="hidden" name="album"	value="<?php echo $album->name; ?>" />
 							<input type="hidden"	name="savealbuminfo" value="1" />
-		<?php printAlbumEditForm(0, $album); ?>
+							<?php printAlbumEditForm(0, $album); ?>
 						</form>
 						<br class="clearall">
 
 					</div>
-		<?php
-	} else if ($subtab == 'subalbuminfo' && !$album->isDynamic()) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/album_edit.php');
-	} else if ($subtab == 'imageinfo') {
-		$backButton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent;
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/image_edit.php');
-	}
+					<?php
+				} else if ($subtab == 'subalbuminfo' && !$album->isDynamic()) {
+					require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/album_edit.php');
+				} else if ($subtab == 'imageinfo') {
+					$backButton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent;
+					require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/image_edit.php');
+				}
 
-	if ($subtab != "albuminfo") {
-		?>
+				if ($subtab != "albuminfo") {
+					?>
 					<!-- page trailer -->
 					<?php
 				}
@@ -819,19 +819,19 @@ echo "\n</head>";
 				?>
 				<h1><?php echo gettext("Albums"); ?></h1>
 				<div class="tabbox">
-	<?php
-	consolidatedEditMessages('');
-	$albums = getNestedAlbumList(NULL, $album_nesting);
-	if (count($albums) > 0) {
-		if (zp_loggedin(ADMIN_RIGHTS) && (count($albums)) > 1) {
+					<?php
+					consolidatedEditMessages('');
+					$albums = getNestedAlbumList(NULL, $album_nesting);
+					if (count($albums) > 0) {
+						if (zp_loggedin(ADMIN_RIGHTS) && (count($albums)) > 1) {
 
-			printEditDropdown('', array('1', '2', '3', '4', '5'), $album_nesting);
+							printEditDropdown('', array('1', '2', '3', '4', '5'), $album_nesting);
 
-			$sort = $_zp_sortby;
-			foreach ($sort as $name => $action) {
-				$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
-			}
-			?>
+							$sort = $_zp_sortby;
+							foreach ($sort as $name => $action) {
+								$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
+							}
+							?>
 							<br clear="all"><br />
 							<?php
 							$type = strtolower($_zp_gallery->getSortType());
@@ -854,77 +854,78 @@ echo "\n</head>";
 							echo gettext('Drag the albums into the order you wish them displayed.');
 							?>
 							<form name="gallery_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&action=gallery_sortorder" >
-							<?php XSRFToken('gallery_sortorder'); ?>
+								<?php XSRFToken('gallery_sortorder'); ?>
 								<span class="nowrap">
-								<?php echo gettext('Sort albums by:'); ?>
+									<?php echo gettext('Sort albums by:'); ?>
 									<select id="albumsortselect" name="gallery_sortby" onchange="this.form.submit();">
-									<?php generateListFromArray($cv, $sort, false, true); ?>
+										<?php generateListFromArray($cv, $sort, false, true); ?>
 									</select>
 								</span>
 							</form>
 							<br clear="all">
 							<p class="notebox">
-			<?php echo gettext('<strong>Note:</strong> Dragging an album under a different parent will move the album. You cannot move albums under a <em>dynamic</em> album.'); ?>
+								<?php echo gettext('<strong>Note:</strong> Dragging an album under a different parent will move the album. You cannot move albums under a <em>dynamic</em> album.'); ?>
 							</p>
-								<?php
-							}
-							?>
-						<p>
-						<?php
-						echo gettext('Select an album to edit its description and data.');
+							<?php
+						}
 						?>
+						<p>
+							<?php
+							echo gettext('Select an album to edit its description and data.');
+							?>
 						</p>
 
 						<form class="dirtylistening" onReset="setClean('sortableListForm');$('#albumsort').sortable('cancel');" action="?page=edit&amp;action=savealbumorder" method="post" name="sortableListForm" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off" >
-		<?php XSRFToken('savealbumorder'); ?>
+							<?php XSRFToken('savealbumorder'); ?>
 							<span class="buttons">
-							<?php
-							if ($album_nesting > 1 || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-								?>
+								<?php
+								if ($album_nesting > 1 || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+									?>
 									<button class="serialize buttons" type="submit" >
-									<?php echo CHECKMARK_GREEN; ?>
+										<?php echo CHECKMARK_GREEN; ?>
 										<strong><?php echo gettext("Apply"); ?></strong>
 									</button>
 									<button type="reset" value="<?php echo gettext('Reset') ?>">
-			<?php echo CROSS_MARK_RED; ?>
+										<?php echo CROSS_MARK_RED; ?>
 										<strong><?php echo gettext("Reset"); ?></strong>
 									</button>
-			<?php
-		}
-		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-			?>
+									<?php
+								}
+								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+									?>
 									<span class="floatright" style="padding-right: 3px;">
 										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
 										<button type="button" onclick="newAlbumJS('', true);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
 									</span>
-			<?php
-		}
-		?>
+									<?php
+								}
+								?>
 							</span>
 							<br class="clearall">
 							<br />
 
 							<div class="headline"><?php echo gettext("Edit this album"); ?>
-		<?php printBulkActions($checkarray_albums); ?>
+								<?php printBulkActions($checkarray_albums); ?>
 							</div>
 							<div class="subhead">
 								<label class="buttons" style="float: left;padding-top:3px;">
-									<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/edit.php?showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
-		<?php echo $thumbmsg; ?>
+									<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=admin&tab=edit
+										 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
+											 <?php echo $thumbmsg; ?>
 									</a>
 								</label>
 								<label style="float: right;padding-right:20px;">
-		<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
+									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
 							</div>
 							<div class="bordered">
 								<ul class="page-list" id="albumsort">
-		<?php printNestedAlbumsList($albums, $showthumb, NULL); ?>
+									<?php printNestedAlbumsList($albums, $showthumb, NULL); ?>
 								</ul>
 
 							</div>
 							<div>
-		<?php printAlbumLegend(); ?>
+								<?php printAlbumLegend(); ?>
 							</div>
 
 							<br class="clearall">
@@ -932,38 +933,38 @@ echo "\n</head>";
 							<input name="update" type="hidden" value="Save Order" />
 
 							<div class="buttons">
-		<?php
-		if ($album_nesting > 1 || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-			?>
+								<?php
+								if ($album_nesting > 1 || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+									?>
 									<button class="serialize buttons" type="submit" >
-									<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
+										<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 									</button>
 									<button type="reset" value="<?php echo gettext('Reset') ?>">
-			<?php echo CROSS_MARK_RED; ?>
+										<?php echo CROSS_MARK_RED; ?>
 										<strong><?php echo gettext("Reset"); ?></strong>
 									</button>
-			<?php
-		}
-		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-			?>
+									<?php
+								}
+								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+									?>
 									<span class="floatright">
 										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
 										<button type="button" onclick="newAlbumJS('', true);"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
 									</span>
-			<?php
-		}
-		?>
+									<?php
+								}
+								?>
 							</div>
 
 						</form>
 						<br class="clearall">
 					</div>
 
-		<?php
-	} else {
-		echo gettext("There are no albums for you to edit.");
-		if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-			?>
+					<?php
+				} else {
+					echo gettext("There are no albums for you to edit.");
+					if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+						?>
 						<span class="floatright">
 							<p class="buttons">
 								<button type="button" onclick="newAlbumJS('', false);">
@@ -974,14 +975,14 @@ echo "\n</head>";
 								</button>
 							</p>
 						</span>
-			<?php
-		}
-	}
-}
-?>
+						<?php
+					}
+				}
+			}
+			?>
 		</div><!-- content -->
 
-<?php printAdminFooter(); ?>
+		<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 <?php

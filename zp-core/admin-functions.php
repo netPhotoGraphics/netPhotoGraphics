@@ -2898,6 +2898,64 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 	}
 
+	function printImageEditRow($album, $show_thumb, $owner, $count) {
+		global $_zp_current_admin_obj;
+		$enableEdit = $album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT;
+		if (is_object($owner)) {
+			$owner = $owner->name;
+		}
+		?>
+		<div class="page-list_row">
+			<div class="page-list_handle">
+
+			</div>
+			<div class="page-list_albumthumb">
+				<?php
+				if ($show_thumb) {
+					$thumbimage = $album->getAlbumThumbImage();
+					$thumb = getAdminThumb($thumbimage, 'small');
+				} else {
+					$thumb = WEBPATH . '/' . ZENFOLDER . '/images/thumb_standin.png';
+				}
+				$imgi = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$ci = $count;
+				$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
+				if ($ci) {
+					?>
+					<a href="?page=images&amp;album=<?php echo pathurlencode($album->name) . '&amp;tab=imageinfo" title="' . sprintf(ngettext('Edit %1$s image', 'Edit %1$s images', $ci), $ci); ?>">
+						<?php
+					}
+					?>
+					<img src="<?php echo pathurlencode($thumb); ?>" width="<?php echo ADMIN_THUMB_SMALL; ?>" height="<?php echo ADMIN_THUMB_SMALL; ?>" alt="album thumb" />
+					<?php
+					if ($ci) {
+						?>
+					</a>
+					<?php
+				}
+				?>
+			</div>
+			<div class = "page-list_albumtitle">
+				<?php
+				if ($ci) {
+					?>
+					<a href="?page=images&amp;album=<?php echo pathurlencode($album->name) . '&amp;tab=imageinfo" title="' . sprintf(ngettext('Edit %1$s image', 'Edit %1$s images', $ci), $ci); ?>">
+						<?php
+					}
+					echo html_encode(getBare($album->getTitle()));
+					if ($ci) {
+						echo ' (' . $ci . ')';
+						?>
+					</a>
+					<?php
+				}
+				?>
+			</div>
+		</div>
+
+		<?php
+	}
+
 	/**
 	 * processes the post from the above
 	 * @param int $index the index of the entry in mass edit or 0 if single album
@@ -4290,6 +4348,60 @@ function printNestedAlbumsList($albums, $show_thumb, $owner) {
 		echo "\n";
 	}
 	return $rslt;
+}
+
+function printNestedImageList($albums, $show_thumb, $owner) {
+
+	$indent = 1;
+	$open = array(1 => 0);
+	$rslt = false;
+	foreach ($albums as $album) {
+		$order = $album['sort_order'];
+		$level = max(1, count($order));
+
+		if ($level > $indent) {
+			echo "\n" . str_pad("\t", $indent, "\t") . "<ul class=\"page-list\">\n";
+			$indent++;
+			$open[$indent] = 0;
+		} else if ($level < $indent) {
+			while ($indent > $level) {
+				$open[$indent] --;
+				$indent--;
+				echo "</li>\n" . str_pad("\t", $indent, "\t") . "</ul>\n";
+			}
+		} else { // indent == level
+			if ($open[$indent]) {
+				echo str_pad("\t", $indent, "\t") . "</li>\n";
+				$open[$indent] --;
+			} else {
+				echo "\n";
+			}
+		}
+		if ($open[$indent]) {
+			echo str_pad("\t", $indent, "\t") . "</li>\n";
+			$open[$indent] --;
+		}
+		$albumobj = newAlbum($album['name']);
+		if ($albumobj->isDynamic()) {
+			$nonest = ' class="no-nest"';
+		} else {
+			$nonest = '';
+		}
+		echo str_pad("\t", $indent - 1, "\t") . "<li id=\"id_" . $albumobj->getID() . "\"$nonest >";
+		printImageEditRow($albumobj, $show_thumb, $owner, $album['image_count']);
+		$open[$indent] ++;
+	}
+	while ($indent > 1) {
+		echo "</li>\n";
+		$open[$indent] --;
+		$indent--;
+		echo str_pad("\t", $indent, "\t") . "</ul>";
+	}
+	if ($open[$indent]) {
+		echo "</li>\n";
+	} else {
+		echo "\n";
+	}
 }
 
 /**
