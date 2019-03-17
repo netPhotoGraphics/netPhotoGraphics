@@ -7,11 +7,12 @@
  * <b>NOTE:</b> The website must be visited and live pages must be served for this
  * plugin to be able to check if it is time to run.
  *
- * Inacative or heavily cached sites may not get backed up as frequently as the
+ * Inactive or heavily cached sites may not get backed up as frequently as the
  * interval specifies. Of course, if there is no dynamic activity on the site,
  * there probably is little need to do the backup in the first place.
  *
- * Backups are run under the master administrator authority.
+ * The plugin causes the <code>Backups utility</code> to be run under the master
+ * administrator authority. See the utility for details of site backups.
  *
  * @author Stephen Billard (sbillard)
  *
