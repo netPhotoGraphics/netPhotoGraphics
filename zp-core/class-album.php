@@ -1196,6 +1196,7 @@ class Album extends AlbumBase {
 	 * @return Album
 	 */
 	function __construct($folder8, $cache = true, $quiet = false) {
+		global $_zp_current_admin_obj;
 		$folder8 = trim($folder8, '/');
 		$folderFS = internalToFilesystem($folder8);
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS . "/";
@@ -1207,7 +1208,9 @@ class Album extends AlbumBase {
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
 		$this->checkForPublish();
 		if ($new) {
-			$this->setOwner($_zp_current_admin_obj->getUser());
+			if ($_zp_current_admin_obj) {
+				$this->setOwner($_zp_current_admin_obj->getUser());
+			}
 			$this->save();
 			zp_apply_filter('new_album', $this);
 		}
