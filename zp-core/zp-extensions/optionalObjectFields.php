@@ -23,10 +23,10 @@
  *
  * 	<dl>
  * 		<dt><b>albums table</b></dt>
- * 			<dd>date</dd> <dd>location</dd> <dd>tags</dd> <dd>codeblock</dd>
+ * 			<dd>location</dd> <dd>tags</dd> <dd>codeblock</dd>
  *
  * 		<dt><b>images table</b></dt>
- * 			<dd>date</dd> <dd>location</dd> <dd>album_thumb</dd> <dd>watermark</dd>
+ * 			<dd>location</dd> <dd>album_thumb</dd> <dd>watermark</dd>
  * 			<dd>watermark_use</dd> <dd>location</dd> <dd>city</dd> <dd>state</dd> <dd>country</dd>
  * 			<dd>credit</dd> <dd>copyright</dd> <dd>tags</dd> <dd>codeblock</dd>
  *
@@ -63,14 +63,6 @@ class optionalObjectFields extends fieldExtender {
 				/*
 				 * album fields
 				 */
-				array(
-						'table' => 'albums',
-						'name' => 'date',
-						'desc' => gettext('Date'),
-						'type' => 'datetime',
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::date'
-				),
 				array(
 						'table' => 'albums',
 						'name' => 'location',
@@ -111,14 +103,6 @@ class optionalObjectFields extends fieldExtender {
 						'desc' => gettext('Set as thumbnail for'),
 						'type' => NULL, 'edit' => 'function',
 						'function' => 'optionalObjectFields::thumb'
-				),
-				array(
-						'table' => 'images',
-						'name' => 'date',
-						'desc' => gettext('Date'),
-						'type' => 'datetime',
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::date'
 				),
 				array(
 						'table' => 'images',
@@ -287,15 +271,7 @@ class optionalObjectFields extends fieldExtender {
 	}
 
 	function __construct() {
-		$protected = array('date');
-		$fields = self::fields();
-		//do not add/remove some critical DB fields
-		foreach ($fields as $key => $field) {
-			if (in_array($field['name'], $protected))
-				unset($fields[$key]);
-		}
-		parent::constructor('optionalObjectFields', $fields);
-//  for translations need to define the display names
+		parent::constructor('optionalObjectFields', self::fields());
 	}
 
 	static function addToSearch($list) {
@@ -391,41 +367,6 @@ class optionalObjectFields extends fieldExtender {
 					<option value=""></option>
 					<?php generateListFromArray(array(), $albumHeritage, false, true); ?>
 				</select>
-				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
-			}
-			return $item;
-		}
-	}
-
-	static function date($obj, $instance, $field, $type) {
-		if ($type == 'save') {
-			if (isset($_POST[$instance . '-' . $field['name']])) {
-				return sanitize($_POST[$instance . '-' . $field['name']]);
-			} else {
-				return NULL;
-			}
-		} else {
-			$item = NULL;
-			if ($obj->isMyItem($obj->manage_some_rights)) {
-				$d = $obj->getDateTime();
-				ob_start();
-				?>
-				<script type="text/javascript">
-					// <!-- <![CDATA[
-					$(function () {
-						$("#datepicker_<?php echo $instance; ?>").datepicker({
-							dateFormat: 'yy-mm-dd',
-							showOn: 'button',
-							buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
-							buttonText: '<?php echo gettext('calendar'); ?>',
-							buttonImageOnly: true
-						});
-					});
-					// ]]> -->
-				</script>
-				<input type="text" id="datepicker_<?php echo $instance; ?>" size="20" name="<?php echo $instance; ?>-date" value="<?php echo $d; ?>" />
 				<?php
 				$item = ob_get_contents();
 				ob_end_clean();

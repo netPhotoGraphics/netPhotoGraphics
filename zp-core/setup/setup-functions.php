@@ -518,7 +518,7 @@ function checkUnique($table, $unique) {
 function setupQuery($sql, $failNotify = true, $log = true) {
 	global $updateErrors;
 	$result = db_table_update($sql);
-	if (OFFSET_PATH == 2) { //don't write to setup log if not running setup
+	if (abs(OFFSET_PATH) == 2) { //don't write to setup log if not running setup
 		if ($result) {
 			setupLog(sprintf(gettext('Query Success: %s'), $sql), $log);
 		} else {
