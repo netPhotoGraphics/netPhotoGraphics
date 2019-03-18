@@ -530,13 +530,6 @@ $tagsort = 'alpha';
 										<div class="rightcolumn">
 											<h2 class="h2_bordered_edit"><?php echo gettext("Publish"); ?></h2>
 											<div class="box-edit">
-												<?php
-												if (!is_AdminEditPage("newscategory")) {
-													?>
-													<p><?php echo gettext("Author"); ?> <?php authorSelector($result->getOwner()); ?></p>
-													<?php
-												}
-												?>
 												<p class="checkbox">
 													<input name="show"
 																 type="checkbox"
@@ -797,6 +790,11 @@ $tagsort = 'alpha';
 												<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
 												<div class="box-edit">
 													<?php
+													if (!is_AdminEditPage("newscategory")) {
+														?>
+														<p><?php echo gettext("Author"); ?> <?php authorSelector($result->getOwner()); ?></p>
+														<?php
+													}
 													if (extensionEnabled('comment_form')) {
 														?>
 														<p class="checkbox">

@@ -239,16 +239,6 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<td class="leftcolumn"><?php echo gettext("Description"); ?></td>
 										<td class="middlecolumn"><?php print_language_string_list($image->getDesc('all'), $currentimage . '-desc', true, NULL, 'texteditor', '100%'); ?></td>
 									</tr>
-									<tr>
-										<td class="leftcolumn">
-											<?php echo gettext("Owner"); ?>
-										</td>
-										<td class="middlecolumn">
-											<select name="<?php echo $currentimage; ?>-owner">
-												<?php echo admin_album_list($image->getOwner()); ?>
-											</select>
-										</td>
-									</tr>
 									<?php
 									if ($image->get('hasMetadata')) {
 										?>
@@ -441,11 +431,18 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php
 										if ($image->getlastchangeuser()) {
 											?>
-										<hr />
-										<?php
-										printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
-									}
-									?>
+
+											<?php
+											printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
+										}
+										?>
+									<hr />
+									<?php echo gettext("Owner"); ?>
+
+									<select name="<?php echo $currentimage; ?>-owner">
+										<?php echo admin_album_list($image->getOwner()); ?>
+									</select>
+
 									</p>
 								</div>
 

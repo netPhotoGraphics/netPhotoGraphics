@@ -1853,16 +1853,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<?php print_language_string_list($album->getDesc('all'), $prefix . "albumdesc", true, NULL, 'texteditor', '100%'); ?>
 							</td>
 						</tr>
-						<tr>
-							<td class="leftcolumn">
-								<?php echo gettext("Owner"); ?>
-							</td>
-							<td class="middlecolumn">
-								<select name="<?php echo $suffix; ?>owner">
-									<?php echo admin_album_list($album->getOwner()); ?>
-								</select>
-							</td>
-						</tr>
+
 						<?php
 						if (GALLERY_SECURITY == 'public') {
 							?>
@@ -2353,6 +2344,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 							// ]]> -->
 						</script>
 						<br class="clearall">
+
+						<hr>
+
+
 						<p>
 							<label for="<?php echo $prefix; ?>publishdate"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
 							<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>publishdate" <?php if ($publishdate > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
@@ -2367,12 +2362,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</strong>
 							<?php
 							if ($album->getlastchangeuser()) {
-								?>
-							<hr />
-							<?php
-							printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
-						}
-						?>
+								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
+							}
+							?>
+						<hr />
+						<?php echo gettext("Owner"); ?>
+						<select name="<?php echo $suffix; ?>owner">
+							<?php echo admin_album_list($album->getOwner()); ?>
+						</select>
+						<br />
 						</p>
 					</div>
 					<!-- **************** Move/Copy/Rename ****************** -->
