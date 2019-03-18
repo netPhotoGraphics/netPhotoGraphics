@@ -23,10 +23,10 @@
  *
  * 	<dl>
  * 		<dt><b>albums table</b></dt>
- * 			<dd>owner</dd> <dd>date</dd> <dd>location</dd> <dd>tags</dd> <dd>codeblock</dd>
+ * 			<dd>date</dd> <dd>location</dd> <dd>tags</dd> <dd>codeblock</dd>
  *
  * 		<dt><b>images table</b></dt>
- * 			<dd>owner</dd> <dd>date</dd> <dd>location</dd> <dd>album_thumb</dd> <dd>watermark</dd>
+ * 			<dd>date</dd> <dd>location</dd> <dd>album_thumb</dd> <dd>watermark</dd>
  * 			<dd>watermark_use</dd> <dd>location</dd> <dd>city</dd> <dd>state</dd> <dd>country</dd>
  * 			<dd>credit</dd> <dd>copyright</dd> <dd>tags</dd> <dd>codeblock</dd>
  *
@@ -63,18 +63,6 @@ class optionalObjectFields extends fieldExtender {
 				/*
 				 * album fields
 				 */
-				array(
-						'table' => 'albums',
-						'name' => 'owner',
-						'desc' => gettext('Owner'),
-						'type' => 'varchar', 'size' => 64,
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::owner',
-						'default' => 'NULL',
-						'bulkAction' => array(
-								gettext('Change owner') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
-						)
-				),
 				array(
 						'table' => 'albums',
 						'name' => 'date',
@@ -117,17 +105,6 @@ class optionalObjectFields extends fieldExtender {
 				/*
 				 * image fields
 				 */
-				array(
-						'table' => 'images',
-						'name' => 'owner',
-						'desc' => gettext('Owner'),
-						'type' => 'varchar', 'size' => 64,
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::owner', 'default' => 'NULL',
-						'bulkAction' => array(
-								gettext('Change owner') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
-						)
-				),
 				array(
 						'table' => 'images',
 						'name' => 'album_thumb',
@@ -310,7 +287,7 @@ class optionalObjectFields extends fieldExtender {
 	}
 
 	function __construct() {
-		$protected = array('date', 'owner');
+		$protected = array('date');
 		$fields = self::fields();
 		//do not add/remove some critical DB fields
 		foreach ($fields as $key => $field) {
@@ -388,29 +365,6 @@ class optionalObjectFields extends fieldExtender {
 
 	static function bulkCMSSave($result, $action, $type) {
 		return parent::bulkSave($result, $action, $type, NULL, self::fields());
-	}
-
-	static function owner($obj, $instance, $field, $type) {
-		if ($type == 'save') {
-			if (isset($_POST[$instance . '-' . $field['name']])) {
-				return sanitize($_POST[$instance . '-' . $field['name']]);
-			} else {
-				return NULL;
-			}
-		} else {
-			$item = NULL;
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-				ob_start();
-				?>
-				<select name="<?php echo $instance . '-' . $field['name']; ?>">
-					<?php echo admin_album_list($obj->getOwner()); ?>
-				</select>
-				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
-			}
-			return $item;
-		}
 	}
 
 	static function thumb($image, $i, $field, $type) {
@@ -630,7 +584,7 @@ class optionalObjectFields extends fieldExtender {
 }
 
 function optionalObjectFields_enable($enabled) {
-	requestSetup('optionalObjectFields', $enabled ? NULL : gettext('The "owner", "date", "location", "watermark", "credit", "copyright", "extra content", and "codeblocks" Database fields will be dropped'));
+	requestSetup('optionalObjectFields', $enabled ? NULL : gettext('The "location", "watermark", "credit", "copyright", "extra content", and "codeblocks" Database fields will be dropped'));
 }
 
 if (OFFSET_PATH == 2) { // setup call: add the fields into the database

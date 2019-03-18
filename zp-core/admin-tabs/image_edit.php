@@ -219,12 +219,12 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 							<div class="floatleft">
 								<table class="width100percent" id="image-<?php echo $currentimage; ?>">
 									<tr>
-										<td class="leftcolumn"><?php echo gettext("Title");
-								?></td>
+										<td class="leftcolumn">
+											<?php echo gettext("Title"); ?>
+										</td>
 										<td class="middlecolumn">
 											<?php print_language_string_list($image->getTitle('all'), $currentimage . '-title', false, NULL, '', '100%'); ?>
 										</td>
-
 									</tr>
 									<tr>
 										<td class="leftcolumn">
@@ -238,6 +238,16 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<tr>
 										<td class="leftcolumn"><?php echo gettext("Description"); ?></td>
 										<td class="middlecolumn"><?php print_language_string_list($image->getDesc('all'), $currentimage . '-desc', true, NULL, 'texteditor', '100%'); ?></td>
+									</tr>
+									<tr>
+										<td class="leftcolumn">
+											<?php echo gettext("Owner"); ?>
+										</td>
+										<td class="middlecolumn">
+											<select name="<?php echo $currentimage; ?>-owner">
+												<?php echo admin_album_list($image->getOwner()); ?>
+											</select>
+										</td>
 									</tr>
 									<?php
 									if ($image->get('hasMetadata')) {
@@ -326,9 +336,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-															 $('.expire-<?php echo $currentimage; ?>').html('');"
+																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																		 $('.expire-<?php echo $currentimage; ?>').html('');"
 													 />
 													 <?php echo gettext("Published"); ?>
 									</label>
@@ -453,7 +463,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall">
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">
