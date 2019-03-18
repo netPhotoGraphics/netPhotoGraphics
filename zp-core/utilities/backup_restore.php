@@ -525,7 +525,7 @@ if (isset($_GET['compression'])) {
 								<?php echo gettext('Database backup'); ?>
 							</h1>
 
-							<select name="compress">
+							<?php echo gettext('Compression level'); ?> <select name="compress">
 								<?php
 								for ($v = 0; $v <= 9; $v++) {
 									?>
@@ -533,7 +533,7 @@ if (isset($_GET['compression'])) {
 									<?php
 								}
 								?>
-							</select> <?php echo gettext('Compression level'); ?>
+							</select>
 							<br class="clearall">
 							<br />
 							<div class="buttons pad_button" id="dbbackup">
