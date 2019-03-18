@@ -22,10 +22,8 @@ if (isset($_GET['action'])) {
 		case 'newtags':
 			XSRFdefender('new_tags');
 			$language = sanitize($_POST['language']);
-			unset($_POST['language']);
-			unset($_POST['XSRFToken']);
 			$multi = getOption('multi_lingual') && !empty($language);
-			foreach ($_POST as $value) {
+			foreach ($_POST['new_tag'] as $value) {
 				if (!empty($value)) {
 					$value = html_decode(sanitize($value, 3));
 					$sql = 'SELECT `id` FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($value) . ' AND `language`=' . db_quote($language);
@@ -394,7 +392,7 @@ printAdminHeader('admin');
 								for ($i = 0; $i < 40; $i++) {
 									?>
 									<li>
-										<input id="new_tag_<?php echo $i; ?>" name="new_tag_<?php echo $i; ?>" type="text" size='33'/>
+										<input name="new_tag[]" type="text" size='33'/>
 									</li>
 									<?php
 								}
