@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This plugin provides a facility to periodically run the backup utility. Use it to
- * insure that database backups are done on a regular basis.
+ * This plugin provides a facility to periodically run the <code>Backups utility</code>.
+ * Use it to insure that database backups are done on a regular basis.
  *
  * <b>NOTE:</b> The website must be visited and live pages must be served for this
  * plugin to be able to check if it is time to run.
