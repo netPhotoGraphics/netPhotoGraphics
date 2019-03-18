@@ -87,7 +87,7 @@ class auto_backup {
 		if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) {
 			//	maybe a race condition? Only need one execution
 			$curdir = getcwd();
-			$folder = SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER;
+			$folder = SERVERPATH . "/" . BACKUPFOLDER;
 			if (!is_dir($folder)) {
 				mkdir($folder, FOLDER_MOD);
 			}
@@ -103,8 +103,8 @@ class auto_backup {
 			$keep = getOption('backups_to_keep');
 			while (!empty($list) && count($list) >= $keep) {
 				$file = array_shift($list);
-				@chmod(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/' . $file, 0777);
-				unlink(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/' . $file);
+				@chmod(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file, 0777);
+				unlink(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file);
 			}
 			cron_starter(SERVERPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php', array('action' => 'backup', 'autobackup' => 1, 'compress' => sprintf('%u', getOption('backup_compression')), 'XSRFTag' => 'backup'), 3);
 			setOption('last_backup_run', time());

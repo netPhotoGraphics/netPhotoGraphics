@@ -223,7 +223,7 @@ if ($_REQUEST['origin'] == 'upload') {
 			$excludepattern = '';
 			$noteditpattern = '';
 			foreach ($sidecars as $car) {
-				$excludepattern .='|' . implode('.' . $car . '|', $excluded_folders) . '.' . $car;
+				$excludepattern .= '|' . implode('.' . $car . '|', $excluded_folders) . '.' . $car;
 				$noteditpattern .= '|' . implode('.' . $car . '|', $_not_edit) . '.' . $car;
 			}
 
@@ -321,9 +321,9 @@ if ($_REQUEST['origin'] == 'upload') {
 		);
 		$opts['roots'][5] = array(
 				'driver' => 'LocalFileSystem',
-				'startPath' => SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/',
-				'path' => SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/',
-				'URL' => WEBPATH . "/" . DATA_FOLDER . '/' . BACKUPFOLDER . '/',
+				'startPath' => SERVERPATH . "/" . BACKUPFOLDER . '/',
+				'path' => SERVERPATH . "/" . BACKUPFOLDER . '/',
+				'URL' => WEBPATH . "/" . BACKUPFOLDER . '/',
 				'alias' => sprintf(gettext('Backup files (%s)'), BACKUPFOLDER),
 				'mimeDetect' => 'internal',
 				'tmbPath' => '.tmb',

@@ -114,18 +114,18 @@ $zptime = filemtime($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFI
 @copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
 @chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
 
-if (file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
+if (file_exists(SERVERPATH . '/backup')) {
 	/* move the files */
-	@chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER, 0777);
-	@rename(SERVERPATH . '/' . BACKUPFOLDER, SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER);
-	@chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER, $chmod | 0311);
+	@chmod(SERVERPATH . '/' . DATA_FOLDER . '/backup', 0777);
+	@rename(SERVERPATH . '/backup', SERVERPATH . '/' . BACKUPFOLDER);
+	@chmod(SERVERPATH . '/' . BACKUPFOLDER, $chmod | 0311);
 }
-if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER)) {
-	@mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER, $chmod | 0311);
+if (!file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
+	@mkdir(SERVERPATH . '/' . BACKUPFOLDER, $chmod | 0311);
 }
-@chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER . '/.htaccess', 0777);
-@copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER . '/.htaccess');
-@chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . BACKUPFOLDER . '/.htaccess', 0444);
+@chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
+@copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
+@chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
 
 
 
@@ -1561,77 +1561,77 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						$good = folderCheck(gettext('Third party plugins'), SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/', 'std', $plugin_subfolders, true, $chmod | 0311, $updatechmod) && $good;
 						?>
 					</ul>
-						<?php
-						if ($good) {
-							$dbmsg = "";
-						} else {
-							if (setupUserAuthorized()) {
-								?>
+					<?php
+					if ($good) {
+						$dbmsg = "";
+					} else {
+						if (setupUserAuthorized()) {
+							?>
 							<div class="error">
-							<?php echo gettext("You need to address the problems indicated above then run <code>setup</code> again."); ?>
+								<?php echo gettext("You need to address the problems indicated above then run <code>setup</code> again."); ?>
 							</div>
 							<p class='buttons'>
 								<a href="?refresh" title="<?php echo gettext("Setup failed."); ?>" style="font-size: 15pt; font-weight: bold;">
-			<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED; ?>
 									<?php echo gettext("Refresh"); ?>
 								</a>
 							</p>
 							<br class="clearall">
 								<br />
-			<?php
-		} else {
-			?>
-								<div class="error">
 								<?php
-								if (zp_loggedin()) {
-									echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
-								} else {
-									echo gettext('You must be logged in to run setup.');
-								}
-								?>
-								</div>
-									<?php
-									$_zp_authority->printLoginForm('', false);
-								}
-								?>
-							<br class="clearall">
-							<?php
-							echo "\n</div><!-- content -->";
-							printSetupFooter($setup_checked);
-							echo "\n</div><!-- main -->";
-							echo "</body>";
-							echo "</html>";
-							exit();
-						}
-					} else {
-						$dbmsg = gettext("database connected");
-					} // system check
-					if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-						require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-
-						$task = '';
-						if (isset($_GET['create'])) {
-							$task = 'create';
-							$create = array_flip(explode(',', sanitize($_REQUEST['create'])));
-						}
-						if (isset($_REQUEST['update'])) {
-							$task = 'update';
-						}
-						$updateErrors = false;
-						if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_zp_conf_vars, false)) {
-
-							primeMark(gettext('Database update'));
-							require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/database.php');
-							if ($updateErrors) {
-								$autorun = false;
-								$msg = gettext('Database structure update completed with errors. See the <code>setup</code> log for details.');
-							} else if ($_DB_Structure_change) {
-								$msg = gettext('Database structure updated.');
 							} else {
-								$msg = gettext('Database update is not required.');
+								?>
+								<div class="error">
+									<?php
+									if (zp_loggedin()) {
+										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
+									} else {
+										echo gettext('You must be logged in to run setup.');
+									}
+									?>
+								</div>
+								<?php
+								$_zp_authority->printLoginForm('', false);
 							}
-							setupLog($msg, true);
 							?>
+							<br class="clearall">
+								<?php
+								echo "\n</div><!-- content -->";
+								printSetupFooter($setup_checked);
+								echo "\n</div><!-- main -->";
+								echo "</body>";
+								echo "</html>";
+								exit();
+							}
+						} else {
+							$dbmsg = gettext("database connected");
+						} // system check
+						if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+							require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+
+							$task = '';
+							if (isset($_GET['create'])) {
+								$task = 'create';
+								$create = array_flip(explode(',', sanitize($_REQUEST['create'])));
+							}
+							if (isset($_REQUEST['update'])) {
+								$task = 'update';
+							}
+							$updateErrors = false;
+							if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_zp_conf_vars, false)) {
+
+								primeMark(gettext('Database update'));
+								require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/database.php');
+								if ($updateErrors) {
+									$autorun = false;
+									$msg = gettext('Database structure update completed with errors. See the <code>setup</code> log for details.');
+								} else if ($_DB_Structure_change) {
+									$msg = gettext('Database structure updated.');
+								} else {
+									$msg = gettext('Database update is not required.');
+								}
+								setupLog($msg, true);
+								?>
 								<h3><?php echo $msg; ?></h3>
 								<?php
 								// convert old style cache file names
@@ -1658,51 +1658,51 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								<script type = "text/javascript">
 									$("#prime<?php echo $primeid; ?>").remove();
 								</script>
-		<?php
-		// set defaults on any options that need it
-		require(dirname(__FILE__) . '/setup-option-defaults.php');
+								<?php
+								// set defaults on any options that need it
+								require(dirname(__FILE__) . '/setup-option-defaults.php');
 
-		if ($debug == 'albumids') {
-			// fixes 1.2 move/copy albums with wrong ids
-			$albums = $_zp_gallery->getAlbums();
-			foreach ($albums as $album) {
-				checkAlbumParentid($album, NULL, 'setuplog');
-			}
-		}
+								if ($debug == 'albumids') {
+									// fixes 1.2 move/copy albums with wrong ids
+									$albums = $_zp_gallery->getAlbums();
+									foreach ($albums as $album) {
+										checkAlbumParentid($album, NULL, 'setuplog');
+									}
+								}
 
 
-		$clones = array();
+								$clones = array();
 
-		if ($_zp_loggedin == ADMIN_RIGHTS) {
-			$filelist = safe_glob(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/*.zdb');
-			if (count($filelist) > 0) {
-				$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php">', '</a>');
-				$autorun = false;
-			} else {
-				$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '</a>');
-				if ($autorun == 'admin' || $autorun == 'gallery') {
-					$autorun = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin';
-				}
-			}
-		} else {
-			if (extensionEnabled('cloneZenphoto')) {
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
-				if (class_exists('cloneZenphoto'))
-					$clones = cloneZenphoto::clones();
-			}
-			$autorun = false;
-			foreach ($clones as $clone => $data) {
-				$url = $data['url'];
-				?>
-										<p class = "delayshow" style = "display:none;">
-										<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . ZENFOLDER . '/setup/index.php?autorun', $clone);
-										?>
-										</p>
-											<?php
+								if ($_zp_loggedin == ADMIN_RIGHTS) {
+									$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
+									if (count($filelist) > 0) {
+										$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php">', '</a>');
+										$autorun = false;
+									} else {
+										$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '</a>');
+										if ($autorun == 'admin' || $autorun == 'gallery') {
+											$autorun = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin';
 										}
 									}
-									$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin.php">', '</a>');
-									?>
+								} else {
+									if (extensionEnabled('cloneZenphoto')) {
+										require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
+										if (class_exists('cloneZenphoto'))
+											$clones = cloneZenphoto::clones();
+									}
+									$autorun = false;
+									foreach ($clones as $clone => $data) {
+										$url = $data['url'];
+										?>
+										<p class = "delayshow" style = "display:none;">
+											<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . ZENFOLDER . '/setup/index.php?autorun', $clone);
+											?>
+										</p>
+										<?php
+									}
+								}
+								$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin.php">', '</a>');
+								?>
 								<p id="golink" class="delayshow" style="display:none;"><?php echo $link; ?></p>
 								<?php
 								switch ($autorun) {
@@ -1743,12 +1743,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		?>
 									}
 								</script>
-		<?php
-	} else if (db_connect($_zp_conf_vars, false)) {
-		$task = '';
-		if (setupUserAuthorized() || $blindInstall) {
-			if (!empty($dbmsg)) {
-				?>
+								<?php
+							} else if (db_connect($_zp_conf_vars, false)) {
+								$task = '';
+								if (setupUserAuthorized() || $blindInstall) {
+									if (!empty($dbmsg)) {
+										?>
 										<h2><?php echo $dbmsg; ?></h2>
 										<?php
 									}
@@ -1780,28 +1780,28 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								if ($stop) {
 									?>
 									<div class="error">
-									<?php
-									if (zp_loggedin()) {
-										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
-									} else {
-										echo gettext('You must be logged in to run setup.');
-									}
-									?>
-									</div>
 										<?php
-										$_zp_authority->printLoginForm('', false);
-									} else {
-										if (!empty($task) && substr($task, 0, 1) != '&') {
-											$task = '&' . $task;
+										if (zp_loggedin()) {
+											echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
+										} else {
+											echo gettext('You must be logged in to run setup.');
 										}
-										$task = html_encode($task);
 										?>
+									</div>
+									<?php
+									$_zp_authority->printLoginForm('', false);
+								} else {
+									if (!empty($task) && substr($task, 0, 1) != '&') {
+										$task = '&' . $task;
+									}
+									$task = html_encode($task);
+									?>
 									<form id="setup" action="<?php echo WEBPATH . '/' . ZENFOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
 										<input type="hidden" name="setUTF8URI" id="setUTF8URI" value="internal" />
 										<input type="hidden" name="xsrfToken" value="<?php echo setupXSRFToken(); ?>" />
-			<?php
-			if ($autorun) {
-				?>
+										<?php
+										if ($autorun) {
+											?>
 											<input type="hidden" id="autorun" name="autorun" value="<?php echo html_encode($autorun); ?>" />
 											<?php
 										}
@@ -1810,48 +1810,48 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										<br class="clearall">
 											<br />
 									</form>
-			<?php
-		}
-		if ($autorun) {
-			?>
+									<?php
+								}
+								if ($autorun) {
+									?>
 									<script type="text/javascript">
 										$('#submitbutton').hide();
 										$('#setup').submit();
 									</script>
-			<?php
-		}
-	} else {
-		?>
+									<?php
+								}
+							} else {
+								?>
 								<div class="error">
 									<h3><?php echo gettext("database did not connect"); ?></h3>
 									<p>
-		<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
+										<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
 									</p>
 								</div>
-		<?php
-	}
-} else {
-	// The config file hasn't been created yet. Show the steps.
-	?>
-							<div class="error">
-							<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
-							</div>
 								<?php
 							}
-
-							if ($blindInstall) {
-								ob_end_clean();
-							}
+						} else {
+							// The config file hasn't been created yet. Show the steps.
 							?>
+							<div class="error">
+								<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
+							</div>
+							<?php
+						}
+
+						if ($blindInstall) {
+							ob_end_clean();
+						}
+						?>
 						<br class="clearall">
 							</div><!-- content -->
-<?php
-printSetupFooter($setup_checked);
-?>
+							<?php
+							printSetupFooter($setup_checked);
+							?>
 							</div><!-- main -->
 							</body>
 							</html>
-<?php
-$setupMutex->unlock();
-exit();
-?>
+							<?php
+							$setupMutex->unlock();
+							exit();
+							?>

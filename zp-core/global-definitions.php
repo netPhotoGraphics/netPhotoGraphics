@@ -29,14 +29,14 @@ define('COMMON_FOLDER', PLUGIN_FOLDER . '/common');
 define('USER_PLUGIN_FOLDER', 'plugins');
 define('ALBUMFOLDER', 'albums');
 define('THEMEFOLDER', 'themes');
-define('BACKUPFOLDER', 'backup');
-define('UTILITIES_FOLDER', 'utilities');
 define('DATA_FOLDER', 'zp-data');
+define('BACKUPFOLDER', DATA_FOLDER . '/backup');
 define('CACHEFOLDER', 'cache');
 define('UPLOAD_FOLDER', 'uploaded');
-define("STATIC_CACHE_FOLDER", "cache_html");
+define('STATIC_CACHE_FOLDER', "cache_html");
 define('CONFIGFILE', 'zenphoto.cfg.php');
 define('MUTEX_FOLDER', '.mutex');
+define('UTILITIES_FOLDER', 'utilities');
 
 //used by scriptLoader() to decide whether to inline the script (js or css)
 define('INLINE_LOAD_THRESHOLD', 4096);
