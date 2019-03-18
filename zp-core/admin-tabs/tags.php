@@ -80,7 +80,7 @@ if (isset($_GET['action'])) {
 								$sqltags .= "`id`='" . $tag['id'] . "' OR ";
 								$sqlobjects .= "`tagid`='" . $tag['id'] . "' OR ";
 								if (is_null($tag['masterid'])) {
-									$sqltags .="`masterid`='" . $tag['id'] . "' OR ";
+									$sqltags .= "`masterid`='" . $tag['id'] . "' OR ";
 									$sqlSub = "SELECT `id`, `masterid` FROM " . prefix('tags') . " WHERE `masterid`=" . $tag['id'];
 									$subTags = query_full_array($sqlSub);
 									if (is_array($subTags) && count($subTags) > 0) {
@@ -122,7 +122,7 @@ if (isset($_GET['action'])) {
 						$languageList = generateLanguageList(false);
 
 						foreach ($tags as $key => $tagname) {
-							$lang = $langs[$key];
+							$lang = @$langs[$key];
 							$sql = 'UPDATE ' . prefix('tags') . ' SET `language`=' . db_quote($language) . ' WHERE `name`=' . db_quote($tagname) . ' AND `language`=' . db_quote($lang);
 							$success = query($sql, false);
 							if ($success) {
@@ -154,28 +154,22 @@ if (isset($_GET['action'])) {
 			break;
 		case 'rename':
 			XSRFdefender('tag_rename');
-			unset($_POST['XSRFToken']);
-			$langs = sanitize($_POST['lang_list_tags']);
-			unset($_POST['lang_list_tags']);
-			foreach ($_POST as $postkey => $newName) {
-				if (!empty($newName)) {
-					if (isset($langs[$postkey])) {
-						$lang = $langs[$postkey];
-					} else {
-						$lang = '';
-					}
+			$oldNames = $_POST['oldname'];
+			$newNames = $_POST['newname'];
+			$languages = $_POST['language'];
+			foreach ($newNames as $key => $newName) {
+				if (!empty($newName) && $newName != $oldNames[$key]) {
+					$lang = $languages[$key];
 					$newName = sanitize($newName, 3);
-					$key = substr($postkey, 2); // strip off the 'R_'
-					$key = postIndexDecode($key);
 					$newtag = query_single_row('SELECT * FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($newName) . ' AND `language`=' . db_quote($lang));
-					$oldtag = query_single_row('SELECT * FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($key) . ' AND `language`=' . db_quote($lang));
+					$oldtag = query_single_row('SELECT * FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($oldNames[$key]) . ' AND `language`=' . db_quote($lang));
 					if (is_array($newtag)) { // there is an existing tag of the same name
 						$existing = $newtag['id'] != $oldtag['id']; // but maybe it is actually the original in a different case.
 					} else {
 						$existing = false;
 					}
 					if ($existing) {
-						$subaction[] = ltrim(sprintf(gettext('%1$s: %2$s not changed, duplicate tag.'), $lang, $key), ': ');
+						$subaction[] = ltrim(sprintf(gettext('%1$s: %2$s not changed, duplicate tag.'), $lang, $oldNames[$key]), ': ');
 					} else {
 						query('UPDATE ' . prefix('tags') . ' SET `name`=' . db_quote($newName) . ' WHERE `id`=' . $oldtag['id']) . ' AND `language`=' . db_quote($lang);
 					}
@@ -339,8 +333,6 @@ printAdminHeader('admin');
 								<?php
 								foreach ($list as $tagitem) {
 									$item = $tagitem['tag'];
-									$tagLC = mb_strtolower($item);
-									$listitem = 'R_' . postIndexEncode($item);
 									?>
 									<li>
 										<span class="nowrap">
@@ -351,15 +343,10 @@ printAdminHeader('admin');
 												<?php
 											}
 											?>
-											<input id="<?php echo $listitem; ?>" name="<?php echo $listitem; ?>" type="text" size='33' value="<?php echo $item; ?>" />
+											<input name="newname[]" type="text" size='33' value="<?php echo $item; ?>" />
 										</span>
-										<?php
-										if ($lang) {
-											?>
-											<input type="hidden" name="lang_list_tags[<?php echo $listitem; ?>]" value="<?php echo html_encode($lang); ?>" />
-											<?php
-										}
-										?>
+										<input type="hidden" name="oldname[]" value="<?php echo $item; ?>">
+										<input type="hidden" name="language[]" value="<?php echo html_encode($lang); ?>" />
 
 										<?php
 										if (is_array($tagitem['subtags'])) {
@@ -367,18 +354,14 @@ printAdminHeader('admin');
 											ksort($itemarray);
 											foreach ($itemarray as $lang => $tagitem) {
 												$tag = $tagitem['tag'];
-												$LCtag = mb_strtolower($tag);
-												$listitem = 'R_' . postIndexEncode($tag);
 												?>
-												<span class="nowrap">&nbsp;&nbsp;<img src="<?php echo $flags[$lang]; ?>" height="10" width="16" />
-													<input id="<?php echo $listitem; ?>" name="<?php echo $listitem; ?>" type="text" size='33' value="<?php echo $tag; ?>"/>
+												<span class="nowrap">
+													&nbsp;&nbsp;<img src="<?php echo $flags[$lang]; ?>" height="10" width="16" />
+													<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
 												</span>
+												<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">
+												<input type="hidden" name="language[]" value="<?php echo html_encode($lang); ?>" />
 												<?php
-												if ($lang) {
-													?>
-													<input type="hidden" name="lang_list_tags[<?php echo $listitem; ?>]" value="<?php echo html_encode($lang); ?>" />
-													<?php
-												}
 											}
 										}
 										?>

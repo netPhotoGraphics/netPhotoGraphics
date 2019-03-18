@@ -1528,13 +1528,22 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 				}
 				db_free_result($tagresult);
+
 				foreach ($translations as $master => $list) {
 					$subtags = array();
 					foreach ($list as $lang => $tagname) {
 						$subtags[$lang] = $_zp_admin_ordered_taglist[$lang . $tagname];
 						unset($_zp_admin_ordered_taglist[$lang . $tagname]);
 					}
-					$_zp_admin_ordered_taglist[$masters[$master]]['subtags'] = $subtags;
+					if (!isset($masters[$master])) {
+						//	missing master tag record, fix it and insert result at the beginning of the list
+						$i = '__' . $master . '__';
+						$_zp_admin_ordered_taglist = array($i => array('tag' => $i, 'lang' => '', 'count' => 0, 'private' => 1, 'subtags' => $subtags)) + $_zp_admin_ordered_taglist;
+						$sql = 'INSERT INTO ' . prefix('tags') . " (`id`,`masterid`,`name`,`language`,`private`) VALUES ('$master',NULL,'$i','','1')";
+						query($sql);
+					} else {
+						$_zp_admin_ordered_taglist[$masters[$master]]['subtags'] = $subtags;
+					}
 				}
 			}
 		}
