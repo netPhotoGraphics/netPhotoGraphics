@@ -64,6 +64,7 @@ function adminToolbox() {
 		if (!$name = $_zp_current_admin_obj->getName()) {
 			$name = $_zp_current_admin_obj->getUser();
 		}
+
 		if (zp_loggedin(UPLOAD_RIGHTS) && in_array($_zp_gallery_page, array('index.php', 'gallery.php', 'album.php'))) {
 			?>
 			<script type="text/javascript">
@@ -119,6 +120,8 @@ function adminToolbox() {
 						<?php
 					}
 				}
+
+
 				zp_apply_filter('admin_toolbox_global', $zf);
 
 				if (zp_loggedin(TAGS_RIGHTS)) {
@@ -134,12 +137,23 @@ function adminToolbox() {
 						<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("Users"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
-				} else if (zp_loggedin(USER_RIGHTS)) {
-					?>
-					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("My profile"), NULL, NULL, NULL); ?>
-					</li>
-					<?php
+				} else {
+					if (zp_loggedin(USER_RIGHTS)) {
+						?>
+						<li>
+							<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("My profile"), NULL, NULL, NULL); ?>
+						</li>
+						<?php
+					}
+					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_zp_current_admin_obj->getUser()) . ' LIMIT 1';
+					$result = query_single_row($sql);
+					if (!empty($result)) {
+						?>
+						<li>
+							<?php printLinkHTML($zf . '/admin-tabs/images.php?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>
+						</li>
+						<?php
+					}
 				}
 				if (zp_loggedin(OPTIONS_RIGHTS)) {
 					?>
