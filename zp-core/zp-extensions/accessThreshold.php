@@ -7,7 +7,7 @@
  * A mask is used to control the scope of the data collection. For a IPv4 addresses
  * 	255.255.255.255 will resolve to the Host.
  *  255.255.255.0 will resolve to the Sub-net (data for all hosts in the Sub-net are grouped.)
- *  255.255.0.0 will resolve to the Network (data for the Newtork is grouped.)
+ *  255.255.0.0 will resolve to the Network (data for the Network is grouped.)
  *
  * Access data is not acted upon until there is at least 10 access attempts. This insures
  * that flooding is not prematurely indicated.
