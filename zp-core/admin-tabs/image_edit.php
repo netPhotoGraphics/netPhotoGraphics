@@ -66,6 +66,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				</select>
 				<?php
 				$sort = $_zp_sortby;
+				unset($sort[gettext('Owner')]); //	there is only him
 				foreach ($sort as $key => $value) {
 					$sort[sprintf(gettext('%s (descending)'), $key)] = $value . '_DESC';
 				}

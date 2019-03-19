@@ -215,13 +215,15 @@ if (@$_zp_loggedin) {
 					'ordered' => true,
 					'subtabs' => array(gettext('users') => 'admin-tabs/users.php?page=admin&tab=users')
 			);
-		} else if ($_zp_loggedin & USER_RIGHTS) {
-			$zenphoto_tabs['admin'] = array(
-					'text' => gettext("my profile"),
-					'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
-					'ordered' => true,
-					'subtabs' => NULL
-			);
+		} else {
+			if ($_zp_loggedin & USER_RIGHTS) {
+				$zenphoto_tabs['admin'] = array(
+						'text' => gettext("my profile"),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
+						'ordered' => true,
+						'subtabs' => NULL
+				);
+			}
 			$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_zp_current_admin_obj->getUser()) . ' LIMIT 1';
 			$result = query_single_row($sql);
 			if (!empty($result)) {
