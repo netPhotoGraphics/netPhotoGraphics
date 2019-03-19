@@ -1586,6 +1586,9 @@ function processZenpageBulkActions($type) {
 						$cats = array();
 					}
 				}
+				if ($action == 'changeowner') {
+					$newowner = sanitize($_POST['massownerselect']);
+				}
 				$n = 0;
 				foreach ($links as $titlelink) {
 
@@ -1650,6 +1653,9 @@ function processZenpageBulkActions($type) {
 								break;
 							case 'resethitcounter':
 								$obj->set('hitcounter', 0);
+								break;
+							case 'changeowner':
+								$obj->setOwner($newowner);
 								break;
 						}
 					} else {

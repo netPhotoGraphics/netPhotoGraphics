@@ -275,7 +275,8 @@ updatePublished('news');
 											gettext('Disable comments') => 'commentsoff',
 											gettext('Enable comments') => 'commentson',
 											gettext('Add categories') => array('name' => 'addcats', 'action' => 'mass_cats_data'),
-											gettext('Clear categories') => 'clearcats'
+											gettext('Clear categories') => 'clearcats',
+											gettext('Change author') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
 									);
 									if (extensionEnabled('hitcounter')) {
 										$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';

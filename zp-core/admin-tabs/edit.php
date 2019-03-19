@@ -643,7 +643,7 @@ echo "\n</head>";
 					gettext('Set to unpublished') => 'hideall',
 					gettext('Disable comments') => 'commentsoff',
 					gettext('Enable comments') => 'commentson',
-					gettext('Change owner') => 'changeowner'
+					gettext('Change owner') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
 			);
 			if (extensionEnabled('hitcounter')) {
 				$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
