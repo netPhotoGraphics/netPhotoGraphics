@@ -224,6 +224,8 @@ if (@$_zp_loggedin) {
 						'subtabs' => NULL
 				);
 			}
+		}
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_zp_current_admin_obj->getUser()) . ' LIMIT 1';
 			$result = query_single_row($sql);
 			if (!empty($result)) {
