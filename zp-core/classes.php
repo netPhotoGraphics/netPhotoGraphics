@@ -1024,7 +1024,7 @@ class MediaObject extends ThemeObject {
 	}
 
 	/**
-	 * Returns the last change author
+	 * Returns the last change user
 	 *
 	 * @return string
 	 */
@@ -1034,7 +1034,7 @@ class MediaObject extends ThemeObject {
 
 	/**
 	 *
-	 * stores the last change author
+	 * stores the last change user
 	 */
 	function setlastchangeuser($a) {
 		$this->set("lastchangeuser", $a);

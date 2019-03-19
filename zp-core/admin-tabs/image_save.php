@@ -33,7 +33,9 @@ if (isset($_POST['checkForPostTruncation'])) {
 					$image->setExpireDate(sanitize($_POST['expirationdate-' . $i]));
 					$image->setTitle(process_language_string_save("$i-title", 2));
 					$image->setDesc(process_language_string_save("$i-desc", EDITOR_SANITIZE_LEVEL));
-					$image->setOwner(sanitize($_POST[$i . '-owner']));
+					if (isset($_POST[$i . '-owner'])) {
+						$image->setOwner(sanitize($_POST[$i . '-owner']));
+					}
 					$image->set('GPSLatitude', NULL);
 					$image->set('GPSLongitude', NULL);
 					foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {

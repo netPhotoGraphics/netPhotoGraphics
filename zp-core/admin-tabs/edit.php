@@ -642,9 +642,11 @@ echo "\n</head>";
 					gettext('Set to published') => 'showall',
 					gettext('Set to unpublished') => 'hideall',
 					gettext('Disable comments') => 'commentsoff',
-					gettext('Enable comments') => 'commentson',
-					gettext('Change owner') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
+					gettext('Enable comments') => 'commentson'
 			);
+			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+				$checkarray_images[gettext('Change owner')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
+			}
 			if (extensionEnabled('hitcounter')) {
 				$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
 			}

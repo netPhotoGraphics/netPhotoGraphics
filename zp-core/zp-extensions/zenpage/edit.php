@@ -791,9 +791,23 @@ $tagsort = 'alpha';
 												<div class="box-edit">
 													<?php
 													if (!is_AdminEditPage("newscategory")) {
-														?>
-														<p><?php echo gettext("Author"); ?> <?php authorSelector($result->getOwner()); ?></p>
-														<?php
+														if (is_AdminEditPage("newsarticle")) {
+															$manager = MANAGE_ALL_NEWS_RIGHTS;
+															$rightsDesired = ADMIN_RIGHTS | ZENPAGE_NEWS_RIGHTS;
+														} else {
+															$manager = MANAGE_ALL_NEWS_RIGHTS;
+															$rightsDesired = ADMIN_RIGHTS | ZENPAGE_PAGES_RIGHTS;
+														}
+														if (zp_loggedin($manager)) {
+															?>
+															<p>
+																<?php
+																echo gettext("Author");
+																authorSelector($result->getOwner(), $rightsDesired);
+																?>
+															</p>
+															<?php
+														}
 													}
 													if (extensionEnabled('comment_form')) {
 														?>

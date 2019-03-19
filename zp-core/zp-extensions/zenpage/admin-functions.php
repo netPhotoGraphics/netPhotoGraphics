@@ -50,7 +50,6 @@ function processTags($object) {
 function updatePage(&$reports, $newpage = false) {
 	global $_zp_current_admin_obj;
 	$title = process_language_string_save("title", 2);
-	$author = sanitize($_POST['author']);
 	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$date = sanitize($_POST['date']);
 	$pubdate = sanitize($_POST['pubdate']);
@@ -116,7 +115,9 @@ function updatePage(&$reports, $newpage = false) {
 	$page->setTitle($title);
 	$page->setContent($content);
 	$page->setCommentsAllowed($commentson);
-	$page->setOwner($author);
+	if (isset($_POST['author'])) {
+		$page->setOwner(sanitize($_POST['author']));
+	}
 	$page->setLastchange(date('Y-m-d H:i:s'));
 	$page->setlastchangeuser($_zp_current_admin_obj->getUser());
 	$page->setPermalink($permalink);
@@ -361,7 +362,6 @@ function updateArticle(&$reports, $newarticle = false) {
 	global $_zp_current_admin_obj;
 
 	$title = process_language_string_save("title", 2);
-	$author = sanitize($_POST['author']);
 	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$show = getcheckboxState('show');
 	$date = sanitize($_POST['date']);
@@ -429,7 +429,9 @@ function updateArticle(&$reports, $newarticle = false) {
 	$article->setContent($content);
 	$article->setDateTime($date);
 	$article->setCommentsAllowed($commentson);
-	$article->setOwner($author);
+	if (isset($_POST['author'])) {
+		$article->setOwner(sanitize($_POST['author']));
+	}
 	$article->setLastchange(date('Y-m-d H:i:s'));
 	$article->setlastchangeuser($_zp_current_admin_obj->getUser());
 	$article->setPermalink($permalink);
@@ -1421,18 +1423,13 @@ function printZenpageIconLegend() {
  *
  * @param string $currentadmin The current admin is selected if adding a new article, otherwise the original author
  */
-function authorSelector($author = NULL) {
+function authorSelector($author, $rightsDesired) {
 	global $_zp_authority, $_zp_current_admin_obj;
-	if (empty($author)) {
-		$author = $_zp_current_admin_obj->getUser();
-	}
 	$authors = array($author => $author);
-	if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS | MANAGE_ALL_NEWS_RIGHTS)) {
-		$admins = $_zp_authority->getAdministrators();
-		foreach ($admins as $admin) {
-			if ($admin['rights'] & (ADMIN_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) {
-				$authors[$admin['user']] = $admin['user'];
-			}
+	$admins = $_zp_authority->getAdministrators();
+	foreach ($admins as $admin) {
+		if ($admin['rights'] & $rightsDesired) {
+			$authors[$admin['user']] = $admin['user'];
 		}
 	}
 	?>

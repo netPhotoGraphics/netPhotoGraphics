@@ -436,14 +436,16 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<?php
 											printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
 										}
-										?>
-									<hr />
-									<?php echo gettext("Owner"); ?>
-
-									<select name="<?php echo $currentimage; ?>-owner">
-										<?php echo admin_album_list($image->getOwner()); ?>
-									</select>
-
+										if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+											?>
+										<hr />
+										<?php echo gettext("Owner"); ?>
+										<select name="<?php echo $currentimage; ?>-owner">
+											<?php echo admin_album_list($image->getOwner()); ?>
+										</select>
+										<?php
+									}
+									?>
 									</p>
 								</div>
 
