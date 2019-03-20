@@ -1,7 +1,7 @@
 <?php
 /**
  * Responsive JavaScript carousel thumb nav plugin adapted from
- * http://bxslider.com
+ * https://bxslider.com
  *
  * Place <var>printThumbNav()</var> on your theme's image.php where you want it to appear.
  *
@@ -78,7 +78,7 @@ class bxslider {
 						'desc' => "",
 						'order' => 6),
 				gettext('Speed') => array('key' => 'bxslider_speed', 'type' => OPTION_TYPE_NUMBER,
-						'desc' => gettext("The speed in milliseconds the slides advance when clicked."),
+						'desc' => gettext("The speed in milliseconds that the slides advance."),
 						'order' => 7),
 				gettext('Full image link') => array('key' => 'bxslider_fullimagelink', 'type' => OPTION_TYPE_CHECKBOX,
 						'desc' => gettext("If checked the thumbs link to the full image instead of the image page."),
