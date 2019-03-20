@@ -542,7 +542,7 @@ function sortByMultilingual($dbresult, $field, $descending) {
  *
  */
 function accessAllAlbums($action) {
-	global $_zp_admin_album_list, $_zp_loggedin;
+	global $_zp_admin_owner_list, $_zp_loggedin;
 	if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 		if (zp_loggedin($action))
 			return true;
@@ -755,33 +755,33 @@ function defaultExtension($priority) {
 }
 
 /**
- * Populates and returns the $_zp_admin_album_list array
+ * Populates and returns the $_zp_admin_owner_list array
  * @return array
  */
 function getManagedAlbumList() {
-	global $_zp_admin_album_list, $_zp_current_admin_obj;
-	$_zp_admin_album_list = array();
+	global $_zp_admin_owner_list, $_zp_current_admin_obj;
+	$_zp_admin_owner_list = array();
 	if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 		$sql = "SELECT `folder` FROM " . prefix('albums') . ' WHERE `parentid` IS NULL';
 		$albums = query($sql);
 		if ($albums) {
 			while ($album = db_fetch_assoc($albums)) {
-				$_zp_admin_album_list[$album['folder']] = 32767;
+				$_zp_admin_owner_list[$album['folder']] = 32767;
 			}
 			db_free_result($albums);
 		}
 	} else {
 		if ($_zp_current_admin_obj) {
-			$_zp_admin_album_list = array();
+			$_zp_admin_owner_list = array();
 			$objects = $_zp_current_admin_obj->getObjects();
 			foreach ($objects as $object) {
 				if ($object['type'] == 'albums') {
-					$_zp_admin_album_list[$object['data']] = $object['edit'];
+					$_zp_admin_owner_list[$object['data']] = $object['edit'];
 				}
 			}
 		}
 	}
-	return array_keys($_zp_admin_album_list);
+	return array_keys($_zp_admin_owner_list);
 }
 
 /**

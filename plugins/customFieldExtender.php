@@ -199,8 +199,8 @@ class customFieldExtender extends fieldExtender {
 			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				ob_start();
 				?>
-				<select name="<?php echo $instance . '-' . $field['name']; ?>">
-					<?php echo admin_album_list($item); ?>
+				<select name="<?php echo $instance . '-' . $field['name']; ?>" size='1'>
+					<?php echo admin_owner_list($item, UPLOAD_RIGHTS | ADMIN_RIGHTS | ALBUM_RIGHTS); ?>
 				</select>
 				<?php
 				$item = ob_get_contents();

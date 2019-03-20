@@ -1419,29 +1419,6 @@ function printZenpageIconLegend() {
 }
 
 /**
- * Prints a dropdown to select the author of a page or news article (Admin rights users only)
- *
- * @param string $currentadmin The current admin is selected if adding a new article, otherwise the original author
- */
-function authorSelector($author, $rightsDesired) {
-	global $_zp_authority, $_zp_current_admin_obj;
-	$authors = array($author => $author);
-	$admins = $_zp_authority->getAdministrators();
-	foreach ($admins as $admin) {
-		if ($admin['rights'] & $rightsDesired) {
-			$authors[$admin['user']] = $admin['user'];
-		}
-	}
-	?>
-	<select size='1' name="author" id="author">
-		<?php
-		generateListFromArray(array($author), $authors, false, false);
-		?>
-	</select>
-	<?php
-}
-
-/**
  * Prints data info for objects
  *
  * @param string $object Object of the page or news article to check
