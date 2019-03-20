@@ -441,7 +441,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<hr />
 										<?php echo gettext("Owner"); ?>
 										<select name="<?php echo $currentimage; ?>-owner" size='1'>
-											<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ADMIN_RIGHTS | ALBUM_RIGHTS); ?>
+											<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 										</select>
 										<?php
 									}

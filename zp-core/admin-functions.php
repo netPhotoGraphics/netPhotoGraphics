@@ -2378,7 +2378,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<hr />
 							<?php echo gettext("Owner"); ?>
 							<select name="<?php echo $suffix; ?>owner" size='1'>
-								<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ADMIN_RIGHTS | ALBUM_RIGHTS); ?>
+								<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 							</select>
 							<?php
 						}
@@ -4654,7 +4654,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 				<ul>
 					<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="" size='1'>
 						<?php
-						echo admin_owner_list(NULL, UPLOAD_RIGHTS | ADMIN_RIGHTS | ALBUM_RIGHTS);
+						echo admin_owner_list(NULL, UPLOAD_RIGHTS | ALBUM_RIGHTS);
 						?>
 					</select>
 				</ul>
@@ -5344,7 +5344,7 @@ function unQuote($string) {
  */
 function admin_owner_list($owner, $rightsNeeded) {
 	global $_zp_authority;
-	$adminlist = '';
+	$rightsNeeded = $rightsNeeded | ADMIN_RIGHTS;
 	$admins = $_zp_authority->getAdministrators();
 	foreach ($admins as $user) {
 		if ($user['rights'] & $rightsNeeded) {
