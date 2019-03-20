@@ -200,7 +200,7 @@ class customFieldExtender extends fieldExtender {
 				ob_start();
 				?>
 				<select name="<?php echo $instance . '-' . $field['name']; ?>" size='1'>
-					<?php echo admin_owner_list($item, UPLOAD_RIGHTS | ADMIN_RIGHTS | ALBUM_RIGHTS); ?>
+					<?php echo admin_owner_list($item, UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 				</select>
 				<?php
 				$item = ob_get_contents();
