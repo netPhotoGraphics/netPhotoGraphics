@@ -337,6 +337,12 @@ class PersistentObject {
 	 * true if successful, false if not.
 	 */
 	function save() {
+		global $_zp_current_admin_obj, $_zp_authority;
+		if ($_zp_current_admin_obj) {
+			$updateUser = $_zp_current_admin_obj->getUser();
+		} else {
+			$updateUser = $_zp_authority->getMasterUser();
+		}
 		if ($this->transient)
 			return false; // If this object isn't supposed to be persisted, don't save it.
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
@@ -357,6 +363,10 @@ class PersistentObject {
 			if (empty($insert_data)) {
 				return true;
 			}
+			if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
+				$insert_data = array_merge($insert_data, array('lastchange' => date('Y-m-d H:i:s'), 'lastchangeuser' => $updateUser));
+			}
+
 			$cols = $vals = '';
 			foreach ($insert_data as $col => $value) {
 				if (!empty($cols)) {
@@ -389,23 +399,29 @@ class PersistentObject {
 			} else {
 				$sql = '';
 				foreach ($this->updates as $col => $value) {
-					if ($sql) {
-						$sql .= ",";
+					if ($this->data[$col] != $value) {
+						if ($sql) {
+							$sql .= ",";
+						}
+						if (is_null($value)) {
+							$sql .= " `$col` = NULL";
+						} else {
+							$sql .= " `$col` = " . db_quote($value);
+						}
+						$this->data[$col] = $value;
 					}
-					if (is_null($value)) {
-						$sql .= " `$col` = NULL";
-					} else {
-						$sql .= " `$col` = " . db_quote($value);
-					}
-					$this->data[$col] = $value;
 				}
-				$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
-				$success = query($sql);
-				if (!$success || db_affected_rows() != 1) {
+				if (empty($sql)) {
+					$success = true;
+				} else {
+					if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
+						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser);
+					}
+					$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
+					$success = query($sql) && db_affected_rows() == 1;
+				}
+				if (!$success) {
 					return false;
-				}
-				foreach ($this->updates as $key => $value) {
-					$this->data[$key] = $value;
 				}
 				$this->updates = array();
 			}
@@ -1009,35 +1025,12 @@ class MediaObject extends ThemeObject {
 	}
 
 	/**
-	 *
-	 * sets the last change date
-	 */
-	function setLastchange($d) {
-		if ($d) {
-			$newtime = dateTimeConvert($d);
-			if ($newtime === false)
-				return;
-			$this->set('lastchange', $newtime);
-		} else {
-			$this->set('lastchange', NULL);
-		}
-	}
-
-	/**
 	 * Returns the last change user
 	 *
 	 * @return string
 	 */
 	function getlastchangeuser() {
 		return $this->get("lastchangeuser");
-	}
-
-	/**
-	 *
-	 * stores the last change user
-	 */
-	function setlastchangeuser($a) {
-		$this->set("lastchangeuser", $a);
 	}
 
 }

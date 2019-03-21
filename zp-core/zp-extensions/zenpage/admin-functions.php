@@ -118,8 +118,6 @@ function updatePage(&$reports, $newpage = false) {
 	if (isset($_POST['author'])) {
 		$page->setOwner(sanitize($_POST['author']));
 	}
-	$page->setLastchange(date('Y-m-d H:i:s'));
-	$page->setlastchangeuser($_zp_current_admin_obj->getUser());
 	$page->setPermalink($permalink);
 	$page->setLocked($locked);
 	$page->setExpiredate($expiredate);
@@ -432,8 +430,6 @@ function updateArticle(&$reports, $newarticle = false) {
 	if (isset($_POST['author'])) {
 		$article->setOwner(sanitize($_POST['author']));
 	}
-	$article->setLastchange(date('Y-m-d H:i:s'));
-	$article->setlastchangeuser($_zp_current_admin_obj->getUser());
 	$article->setPermalink($permalink);
 	$article->setLocked($locked);
 	$article->setExpiredate($expiredate);

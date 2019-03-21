@@ -2999,7 +2999,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$notify = '';
 		$album->setTitle(process_language_string_save($prefix . 'albumtitle', 2));
 		$album->setDesc(process_language_string_save($prefix . 'albumdesc', EDITOR_SANITIZE_LEVEL));
-		if (isser($_POST[$prefix . 'owner'])) {
+		if (isset($_POST[$prefix . 'owner'])) {
 			$album->setOwner(sanitize($_POST[$prefix . 'owner']));
 		}
 		if (isset($_POST['tag_list_tags_' . $prefix])) {
@@ -3060,9 +3060,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
 		$album->setShow(isset($_POST[$prefix . 'Published']));
-		$album->setLastchange(date('Y-m-d H:i:s'));
-		$album->setlastchangeuser($_zp_current_admin_obj->getUser());
-
 
 		zp_apply_filter('save_album_custom_data', NULL, $prefix, $album);
 		zp_apply_filter('save_album_utilities_data', $album, $prefix);
