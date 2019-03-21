@@ -339,7 +339,7 @@ class PersistentObject {
 	function save() {
 		global $_zp_current_admin_obj, $_zp_authority;
 		if ($_zp_current_admin_obj) {
-			$updateUser = $_zp_current_admin_obj->getUser();
+			$updateUser = $_zp_current_admin_obj;
 		} else {
 			$updateUser = $_zp_authority->getMasterUser();
 		}
@@ -364,7 +364,7 @@ class PersistentObject {
 				return true;
 			}
 			if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
-				$insert_data = array_merge($insert_data, array('lastchange' => date('Y-m-d H:i:s'), 'lastchangeuser' => $updateUser));
+				$insert_data = array_merge($insert_data, array('lastchange' => date('Y-m-d H:i:s'), 'lastchangeuser' => $updateUser->getUser()));
 			}
 
 			$cols = $vals = '';
@@ -415,7 +415,7 @@ class PersistentObject {
 					$success = true;
 				} else {
 					if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
-						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser);
+						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser->getUser());
 					}
 					$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
 					$success = query($sql) && db_affected_rows() == 1;
