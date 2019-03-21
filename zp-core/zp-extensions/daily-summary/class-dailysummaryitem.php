@@ -9,13 +9,12 @@
 class DailySummaryItem extends Album {
 
 	/**
-	 * Constructor for DailySummaryItem
 	 *
-	 * @param object &$gallery The parent gallery
-	 * @param string $albumData Array data for this Album, from the earlier Photostream DB query
-	 * @return Album
+	 * @param type $dateValue date of the summary
+	 * @param type $cache ignored
+	 * @param type $quiet ignored
 	 */
-	function __construct($dateValue) {
+	function __construct($dateValue, $cache = true, $quiet = false) {
 
 		$imageAlbums = array();
 
@@ -108,7 +107,7 @@ class DailySummaryItem extends Album {
 
 	// don't want these ones to do anything
 	function save() {
-
+		return 2; //	nohing changed
 	}
 
 }
