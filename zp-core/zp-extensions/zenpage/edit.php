@@ -536,9 +536,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																		 $('#expiredate').val('');
-																		 $('#pubdate').css('color', 'black');
-																		 $('.expire').html('');"
+																			 $('#expiredate').val('');
+																			 $('#pubdate').css('color', 'black');
+																			 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -630,7 +630,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																					 togglePassword('');">
+																								 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -798,10 +798,10 @@ $tagsort = 'alpha';
 															$manager = MANAGE_ALL_NEWS_RIGHTS;
 															$rightsDesired = ADMIN_RIGHTS | ZENPAGE_PAGES_RIGHTS;
 														}
-														if (zp_loggedin($manager)) {
-															?>
-															<p>
-																<?php
+														?>
+														<p>
+															<?php
+															if (zp_loggedin($manager)) {
 																echo gettext("Author");
 																?>
 																<select size='1' name="author" id="author">
@@ -809,6 +809,8 @@ $tagsort = 'alpha';
 																</select>
 															</p>
 															<?php
+														} else {
+															printf(gettext('Author: %1$s'), $result->getOwner());
 														}
 													}
 													if (extensionEnabled('comment_form')) {
