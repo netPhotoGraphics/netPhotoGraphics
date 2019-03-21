@@ -270,26 +270,22 @@ class fieldExtender {
 	/**
 	 * Process the save of user object type elements
 	 *
-	 * @param boolean $updated
 	 * @param object $userobj
 	 * @param int $i
 	 * @param boolean $alter
 	 * @return boolean
 	 */
-	static function _adminSave($updated, $userobj, $i, $alter, $fields) {
+	static function _adminSave($userobj, $i, $alter, $fields) {
 		if ($userobj->getValid()) {
 			foreach ($fields as $field) {
 				if ($field['table'] == 'administrators') {
-					$olddata = $userobj->get($field['name']);
 					$newdata = fieldExtender::_saveHandler($userobj, $i, $field, 'user');
-					if (!is_null($newdata))
+					if (!is_null($newdata)) {
 						$userobj->set($field['name'], $newdata);
-					if ($olddata != $newdata) {
-						$updated = true;
 					}
 				}
 			}
-			return $updated;
+			return $userobj;
 		}
 	}
 

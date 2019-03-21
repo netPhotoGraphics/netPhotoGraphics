@@ -84,29 +84,25 @@ class user_groups {
 		$userobj->setGroup($newgroups = implode(',', $groups));
 		$userobj->setRights($rights);
 		$userobj->setObjects($objects);
-
-		$updated = $newgroups != $oldgroups || $oldobjects != $objects || (empty($newgroups) && $rights != $oldrights);
-		return $updated;
 	}
 
 	/**
 	 * Saves admin custom data
 	 * Called when an admin is saved
 	 *
-	 * @param string $updated true if there has been an update to the user
 	 * @param object $userobj admin user object
 	 * @param string $i prefix for the admin
 	 * @param bool $alter will be true if critical admin data may be altered
 	 * @return bool
 	 */
-	static function save_admin($updated, $userobj, $i, $alter) {
+	static function save_admin($userobj, $i, $alter) {
 		if ($alter && $userobj->getValid()) {
 			if (isset($_POST['user'][$i]['group'])) {
 				$newgroups = sanitize($_POST['user'][$i]['group']);
-				$updated = self::merge_rights($userobj, $newgroups, self::getPrimeObjects($userobj)) || $updated;
+				self::merge_rights($userobj, $newgroups, self::getPrimeObjects($userobj));
 			}
 		}
-		return $updated;
+		return $userobj;
 	}
 
 	static function groupList($userobj, $i, $background, $current, $template) {

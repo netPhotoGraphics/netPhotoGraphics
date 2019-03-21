@@ -87,21 +87,16 @@ class quota_manager {
 	 * Saves admin custom data
 	 * Called when an admin is saved
 	 *
-	 * @param string $updated true if data has changed
 	 * @param object $userobj admin user object
 	 * @param string $i prefix for the admin
 	 * @param bool $alter will be true if critical admin data may be altered
 	 * @return bool
 	 */
-	static function save_admin($updated, $userobj, $i, $alter) {
+	static function save_admin($userobj, $i, $alter) {
 		if (isset($_POST['user'][$i]['quota']) && $alter) {
-			$oldquota = $userobj->getQuota();
 			$userobj->setQuota(sanitize_numeric($_POST['user'][$i]['quota']));
-			if ($oldquota != $userobj->getQuota()) {
-				$updated = true;
-			}
 		}
-		return $updated;
+		return $userobj;
 	}
 
 	/**

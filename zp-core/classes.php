@@ -361,7 +361,7 @@ class PersistentObject {
 			$this->transient = false;
 			$insert_data = array_merge($this->unique_set, $this->updates);
 			if (empty($insert_data)) {
-				return true;
+				return 2;
 			}
 			if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
 				$insert_data = array_merge($insert_data, array('lastchange' => date('Y-m-d H:i:s'), 'lastchangeuser' => $updateUser->getUser()));
@@ -395,7 +395,7 @@ class PersistentObject {
 		} else {
 			// Save the existing object (updates only) based on the existing id.
 			if (empty($this->updates)) {
-				return true;
+				return 2;
 			} else {
 				$sql = '';
 				foreach ($this->updates as $col => $value) {
@@ -412,22 +412,22 @@ class PersistentObject {
 					}
 				}
 				if (empty($sql)) {
-					$success = true;
+					$success = 2;
 				} else {
 					if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
 						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser->getUser());
 					}
 					$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
-					$success = query($sql) && db_affected_rows() == 1;
-				}
-				if (!$success) {
-					return false;
+					$success = query($sql);
+					if (!$success || db_affected_rows() != 1) {
+						return false;
+					}
 				}
 				$this->updates = array();
 			}
 		}
 		$this->addToCache($this->data);
-		return true;
+		return $success;
 	}
 
 	/**

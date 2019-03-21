@@ -10,12 +10,6 @@
 
 define('OFFSET_PATH', 1);
 
-function markUpdated($user) {
-	global $updated;
-	$updated = true;
-//for finding out who did it!	debugLogBacktrace('updated');
-}
-
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
 
@@ -85,7 +79,7 @@ if (isset($_GET['action'])) {
 		case 'deleteadmin':
 			XSRFdefender('deleteadmin');
 			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
-			zp_apply_filter('save_user', '', $adminobj, 'delete');
+			zp_apply_filter('save_user_complete', '', $adminobj, 'delete');
 			$adminobj->remove();
 			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?page=admin&deleted&subpage=" . $subpage);
 			exit();
@@ -110,7 +104,6 @@ if (isset($_GET['action'])) {
 					$nouser = true;
 					$returntab = $newuser = false;
 					for ($i = 0; $i < sanitize_numeric($_POST['totaladmins']); $i++) {
-						$updated = false;
 						$error = false;
 						$userobj = NULL;
 						$pass = trim(sanitize($userlist[$i]['pass'], 0));
@@ -131,7 +124,6 @@ if (isset($_GET['action'])) {
 									$what = 'new';
 									$userobj = Zenphoto_Authority::newAdministrator('');
 									$userobj->setUser($user);
-									markUpdated($user);
 								}
 							} else {
 								$what = 'update';
@@ -140,14 +132,12 @@ if (isset($_GET['action'])) {
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
 								if ($admin_n != $userobj->getName()) {
-									markUpdated($user);
 									$userobj->setName($admin_n);
 								}
 							}
 							if (isset($userlist[$i]['admin_email'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
 								if ($admin_e != $userobj->getEmail()) {
-									markUpdated($user);
 									$userobj->setEmail($admin_e);
 								}
 							}
@@ -169,7 +159,6 @@ if (isset($_GET['action'])) {
 										$notify = '?mismatch=format&error=' . urlencode($msg);
 									} else {
 										$userobj->setPass($pass);
-										markUpdated($user);
 									}
 								} else {
 									$notify = '?mismatch=password&whom=' . $user . $pass;
@@ -182,14 +171,12 @@ if (isset($_GET['action'])) {
 								$info = $userobj->getChallengePhraseInfo();
 								if ($challenge != $info['challenge'] || $response != $info['response']) {
 									$userobj->setChallengePhraseInfo($challenge, $response);
-									markUpdated($user);
 								}
 							}
 							$lang = sanitize($userlist[$i]['admin_language'], 3);
 							if ($lang != $userobj->getLanguage()) {
 								$userobj->setLanguage($lang);
 								zp_clearCookie('dynamic_locale');
-								markUpdated($user);
 							}
 							$rights = 0;
 							if ($alter && (!isset($userlist[$i]['group']) || $userlist[$i]['group'] == array(''))) {
@@ -199,7 +186,6 @@ if (isset($_GET['action'])) {
 
 									if (($rights & ~(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) != $oldrights) {
 										$userobj->setRights($rights | NO_RIGHTS);
-										markUpdated($user);
 									}
 								}
 								$oldobjects = $userobj->getObjects();
@@ -209,37 +195,34 @@ if (isset($_GET['action'])) {
 									$userobj->setObjects(NULL); //	indicates no change
 								} else {
 									$userobj->setObjects($objects);
-									markUpdated($user);
 								}
 								if ($rights != $oldrights) {
 									$userobj->setRights($rights | NO_RIGHTS);
-									markUpdated($user);
 								}
 							} else {
 								$userobj->setObjects($oldobjects = NULL); // indicates no change
 							}
 							if (isset($userlist[$i]['delinkAlbum'])) {
 								$userobj->setAlbum(NULL);
-								markUpdated($user);
 							}
 							if (isset($userlist[$i]['createAlbum'])) {
 								$userobj->createPrimealbum();
-								markUpdated($user);
 							}
-							$updated = zp_apply_filter('save_admin_custom_data', $updated, $userobj, $i, $alter);
+							zp_apply_filter('save_admin_custom_data', $userobj, $i, $alter);
 							if (!($error && !$_zp_current_admin_obj->getID())) { //	new install and password problems, leave with no admin
-								if ($updated) {
+								$msg = zp_apply_filter('save_user', $msg, $userobj, $what);
+								if (!empty($msg)) {
+									$notify = '?mismatch=format&error=' . urlencode($msg);
+								}
+								$userobj->transient = false;
+								$saved = $userobj->save();
+								if ($saved === TRUE) {
+									zp_apply_filter('save_user_complete', $msg, $userobj, $what);
 									$returntab .= '&show[]=' . $user;
-									$msg = zp_apply_filter('save_user', $msg, $userobj, $what);
-									if (!empty($msg)) {
-										$notify = '?mismatch=format&error=' . urlencode($msg);
-									}
-									$userobj->transient = false;
-									$userobj->save();
-									if (!$_zp_current_admin_obj->getID()) {
-										// avoid the logon screen for first user established
-										Zenphoto_Authority::logUser($userobj);
-									}
+								}
+								if (!$_zp_current_admin_obj->getID()) {
+									// avoid the logon screen for first user established
+									Zenphoto_Authority::logUser($userobj);
 								}
 							}
 						}

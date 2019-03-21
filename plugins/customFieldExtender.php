@@ -131,8 +131,8 @@ class customFieldExtender extends fieldExtender {
 		return parent::_addToSearch($list, self::$fields);
 	}
 
-	static function adminSave($updated, $userobj, $i, $alter) {
-		parent::_adminSave($updated, $userobj, $i, $alter, self::$fields);
+	static function adminSave($userobj, $i, $alter) {
+		return parent::_adminSave($userobj, $i, $alter, self::$fields);
 	}
 
 	static function adminEdit($html, $userobj, $i, $background, $current) {
