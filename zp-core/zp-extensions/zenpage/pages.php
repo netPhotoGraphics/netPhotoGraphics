@@ -63,7 +63,7 @@ if (isset($_POST['checkallaction']) && $_POST['checkallaction'] != 'noaction') {
 	}
 }
 if ($nothing & empty($reports)) {
-	$reports[] = "<p class='notebox fade-message'>" . gettext("Nothing changed.") . "</p>";
+	$reports[] = "<p class='messagebox fade-message'>" . gettext("Nothing changed.") . "</p>";
 }
 if (empty($reports)) {
 	if (isset($_SESSION['reports'])) {

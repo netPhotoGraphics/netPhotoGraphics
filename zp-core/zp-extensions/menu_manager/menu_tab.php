@@ -23,7 +23,7 @@ if (isset($_POST['update'])) {
 		if ($report) {
 			$reports[] = $report;
 		} else {
-			$reports[] = '<p class="notebox fade-message">' . gettext('Nothing changed') . '</p>';
+			$reports[] = '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>';
 		}
 	}
 }

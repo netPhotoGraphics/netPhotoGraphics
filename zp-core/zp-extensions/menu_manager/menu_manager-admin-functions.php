@@ -10,7 +10,7 @@
  */
 function updateItemsSortorder() {
 	if (empty($_POST['order'])) { // if someone didn't sort anything there are no values!
-		return '<p class="notebox fade-message">' . gettext('Nothing changed') . '</p>';
+		return '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>';
 	} else {
 		$order = processOrder($_POST['order']);
 		$parents = array('NULL');
