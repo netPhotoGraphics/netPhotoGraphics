@@ -155,11 +155,14 @@ function updatePage(&$reports, $newpage = false) {
 		} else if ($notice) {
 			echo "<p class='errorbox fade-message'>" . gettext('Your passwords were empty or did not match') . '</p>';
 		} else {
-			$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Page <em>%s</em> updated"), $titlelink) . '</p>';
+			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Page <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
 	zp_apply_filter('save_page_custom_data', NULL, $page);
-	$page->save();
+	if ($page->save() == 2) {
+		$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
+	}
+
 	$msg = zp_apply_filter('edit_error', $msg);
 	if ($msg) {
 		$reports[] = $msg;
@@ -481,25 +484,25 @@ function updateArticle(&$reports, $newarticle = false) {
 	if ($newarticle) {
 		$msg = zp_apply_filter('new_article', '', $article);
 		if (empty($title)) {
-			$reports['success'] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> added but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
+			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> added but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
 		} else {
-			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> added"), $titlelink) . '</p>';
+			$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> added"), $titlelink) . '</p>';
 		}
 	} else {
 		$msg = zp_apply_filter('update_article', '', $article, $oldtitlelink);
 		if (!$rslt) {
 			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("An article with the title/titlelink <em>%s</em> already exists!"), $titlelink) . '</p>';
 		} else if (empty($title)) {
-			$reports['success'] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
+			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
 		} else {
 			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
 	zp_apply_filter('save_article_custom_data', NULL, $article);
-	$article->save();
-
+	if ($article->save() == 2) {
+		$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
+	}
 	$msg = zp_apply_filter('edit_error', $msg);
-
 	if ($msg) {
 		$reports[] = $msg;
 	}

@@ -3063,7 +3063,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 		zp_apply_filter('save_album_custom_data', NULL, $prefix, $album);
 		zp_apply_filter('save_album_utilities_data', $album, $prefix);
-		$album->save();
+		if ($album->save() == 2) {
+			$notify = '&noaction';
+		}
 
 		// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
@@ -5709,7 +5711,7 @@ function consolidatedEditMessages($subtab) {
 		$messagebox[] = gettext("Changes applied");
 	}
 	if (isset($_GET['noaction'])) {
-		$notebox[] = gettext("Nothing changed");
+		$messagebox[] = gettext("Nothing changed");
 	}
 	if (isset($_GET['bulkmessage'])) {
 		$action = sanitize($_GET['bulkmessage']);

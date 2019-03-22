@@ -1110,7 +1110,7 @@ class Gallery {
 			return 2;
 		}
 		setOption('gallery_data', $newdata);
-		return true;
+		return 1;
 	}
 
 	/**

@@ -344,21 +344,21 @@ class PersistentObject {
 			$updateUser = $_zp_authority->getMasterUser();
 		}
 		if ($this->transient)
-			return false; // If this object isn't supposed to be persisted, don't save it.
+			return 0; // If this object isn't supposed to be persisted, don't save it.
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
 			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
-			return false;
+			return 0;
 		}
-		if (!zp_apply_filter('save_object', true, $this)) {
+		if (!zp_apply_filter('save_object', TRUE, $this)) {
 			// filter aborted the save
-			return false;
+			return 0;
 		}
 
 		if (!$this->id) {
 			//	prevent recursive save form default processing
-			$this->transient = true;
+			$this->transient = TRUE;
 			$this->setDefaults();
-			$this->transient = false;
+			$this->transient = FALSE;
 			$insert_data = array_merge($this->unique_set, $this->updates);
 			if (empty($insert_data)) {
 				return 2;
@@ -383,7 +383,7 @@ class PersistentObject {
 			$sql = 'INSERT INTO ' . prefix($this->table) . ' (' . $cols . ') VALUES (' . $vals . ')';
 			$success = query($sql);
 			if (!$success || db_affected_rows() != 1) {
-				return false;
+				return 0;
 			}
 			foreach ($insert_data as $key => $value) { // copy over any changes
 				$this->data[$key] = $value;
@@ -391,7 +391,7 @@ class PersistentObject {
 			$this->updates = array();
 
 			$this->data['id'] = $this->id = (int) db_insert_id(); // so 'get' will retrieve it!
-			$this->loaded = true;
+			$this->loaded = TRUE;
 		} else {
 			// Save the existing object (updates only) based on the existing id.
 			if (empty($this->updates)) {
@@ -418,9 +418,9 @@ class PersistentObject {
 						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser->getUser());
 					}
 					$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
-					$success = query($sql);
+					$success = (int) query($sql);
 					if (!$success || db_affected_rows() != 1) {
-						return false;
+						return 0;
 					}
 				}
 				$this->updates = array();

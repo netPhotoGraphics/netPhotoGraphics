@@ -10,6 +10,8 @@ if (isset($_POST['checkForPostTruncation'])) {
 	if (isset($_POST['singleimage'])) {
 		$single = sanitize($_POST['singleimage']);
 	}
+
+	$changed = FALSE;
 	for ($i = 0; $i <= $_POST['totalimages']; $i++) {
 		if (isset($_POST["$i-filename"])) {
 			$filename = sanitize($_POST["$i-filename"]);
@@ -67,8 +69,9 @@ if (isset($_POST['checkForPostTruncation'])) {
 
 					zp_apply_filter('save_image_custom_data', NULL, $i, $image);
 					zp_apply_filter('save_image_utilities_data', $image, $i);
-
-					$image->save();
+					if ($image->save() == 1) {
+						$changed = true;
+					}
 
 					// Process move/copy/rename
 					if ($movecopyrename_action == 'move') {
@@ -110,6 +113,9 @@ if (isset($_POST['checkForPostTruncation'])) {
 		if (!empty($action)) {
 			$bulknotify = '&bulkmessage=' . $action;
 		}
+	}
+	if (empty($notify) && !$changed) {
+		$notify = '&noaction';
 	}
 } else {
 	$notify = '&post_error';

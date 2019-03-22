@@ -350,11 +350,8 @@ if (isset($_GET['action'])) {
 					$returntab = '&tagsort=' . $tagsort . '&tab=albuminfo';
 				}
 
-				if (isset($single)) {
-					$qs_albumsuffix = '&singleimage=' . $single;
-				} else {
-					$qs_albumsuffix = '';
-				}
+				$qs_albumsuffix = '';
+
 				// Redirect to the same album we saved.
 				if (isset($folder) && !empty($folder)) {
 					$qs_albumsuffix .= '&album=' . pathurlencode($folder);
@@ -366,6 +363,9 @@ if (isset($_GET['action'])) {
 				}
 				if (isset($_POST['totalimages']) && $album->exists) {
 					require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/image_save.php');
+					if (isset($single)) {
+						$qs_albumsuffix = '&album=' . $album->name . '&singleimage=' . $single;
+					}
 				}
 				if (!is_null($returnalbum)) {
 					$folder = $returnalbum;
