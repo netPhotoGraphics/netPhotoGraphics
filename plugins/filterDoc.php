@@ -10,7 +10,9 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Generates and displays a Doc file for filters.');
 
-zp_register_filter('admin_utilities_buttons', 'filterDoc_button');
+if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/filterDoc/process.php')) {
+	zp_register_filter('admin_utilities_buttons', 'filterDoc_button');
+}
 if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/filterDoc/filter list_index.html')) {
 	zp_register_filter('admin_tabs', 'filterDoc_tabs');
 }
