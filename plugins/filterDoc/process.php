@@ -10,7 +10,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
 function processFilters() {
 	global $_zp_resident_files;
 
-	$classes = $subclasses = $oldfilterlist = array();
+	$classes = $subclasses = array();
 	$htmlfile = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/filterDoc/filter list.html';
 	$prolog = $epilog = '';
 	if (file_exists($htmlfile)) {
@@ -23,13 +23,7 @@ function processFilters() {
 		if ($i !== false) {
 			$epilog = trim(substr($oldhtml, $i + 32));
 		}
-		preg_match_all('|<!-- description(.+?)-(.+?) -->(.+?)<!--e-->|', $oldhtml, $matches);
-		foreach ($matches[2] as $key => $filter) {
-			$oldfilterlist[$filter]['desc'] = $matches[3][$key];
-			$class = explode('.', trim($matches[1][$key], '()'));
-			$oldfilterlist[$filter]['class'] = $class[0];
-			$oldfilterlist[$filter]['subclass'] = $class[1];
-		}
+
 		preg_match_all('|<!-- classhead (.+?) -->(.+?)<!--e-->|', $oldhtml, $classheads);
 		foreach ($classheads[1] as $key => $head) {
 			$classes[$head] = $classheads[2][$key];
@@ -65,13 +59,19 @@ function processFilters() {
 	unset($_zp_resident_files[$key]);
 	$filterlist = array();
 	$useagelist = array();
+
 	foreach ($_zp_resident_files as $file) {
 		if (getSuffix($file) == 'php') {
 			$size = filesize($file);
 			$text = file_get_contents($file);
-			$script = str_replace(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/', '<em>plugin</em>/', $file);
-			$script = str_replace(SERVERPATH . '/' . ZENFOLDER . '/', '<!--sort first-->/', $script);
-			$script = str_replace(SERVERPATH . '/' . THEMEFOLDER . '/', '<em>theme</em>/', $script);
+			if ($lcFilesystem) {
+				$script = str_replace(strtolower(SERVERPATH) . '/', '', $file);
+			} else {
+				$script = str_replace(SERVERPATH . '/', '', $file);
+			}
+			$script = str_replace(ZENFOLDER . '/' . PLUGIN_FOLDER . '/', '<em>plugin</em>/', $script);
+			$script = str_replace(ZENFOLDER . '/', '<!--sort first-->/', $script);
+			$script = str_replace(THEMEFOLDER . '/', '<em>theme</em>/', $script);
 			preg_match_all('|zp_apply_filter\s*\((.+?)\).?|', $text, $matches);
 			foreach ($matches[1] as $paramsstr) {
 				$filter = explode(',', $paramsstr);
@@ -177,12 +177,7 @@ function processFilters() {
 					if (!$subclass) {
 						$subclass = 'Miscellaneous';
 					}
-					if (array_key_exists($key, $oldfilterlist)) {
-						if ($class != $oldfilterlist[$key]['class'] || $subclass != $oldfilterlist[$key]['subclass']) {
-							$class = $oldfilterlist[$key]['class'];
-							$subclass = $oldfilterlist[$key]['subclass'];
-						}
-					}
+
 					if (!array_key_exists($class, $filterCategories)) {
 						$filterCategories[$class] = array('class' => $class, 'subclass' => '', 'count' => 0);
 					}
@@ -316,6 +311,9 @@ function processFilters() {
 				}
 			}
 			fwrite($f, "\t\t\t\t\t" . "</ul><!-- calls -->\n");
+			if ($limit > 0) {
+				fwrite($f, "\t\t\t\t\t" . '<br />');
+			}
 
 			fwrite($f, "\t\t\t\t" . '</li><!-- filterdetail -->' . "\n");
 		}
