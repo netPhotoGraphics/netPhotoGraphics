@@ -5,10 +5,11 @@
 	ul ul {
 		padding-left: 20px;
 	}
-	h5, h6{
+
+	h4, h5, h6{
 		line-height: 2;
 	}
-	h5 {
+	h4, h5 {
 		font-size: x-large;
 	}
 	h6 {
@@ -26,13 +27,13 @@
 <h4><a name="filters"></a>netPhotoGraphics filters</h4>
 
 <p>
-	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of filter use are found noted with each filter. Filters are applied to the output of other functions and may make modifications to that output. So, for instance, <tt>filter_zenphoto_seo</tt> has a filter for the <tt>seoFriendlyURL</tt> function that changes accented characters into non accented equivalents.
+	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of filter use are found noted with each filter. Filters are applied to the output of other functions and may make modifications to that output. So, for instance, <span class="tt">filter_zenphoto_seo</span> has a filter for the <span class="tt">seoFriendlyURL</span> function that changes accented characters into non accented equivalents.
 </p>
 <p>
-	Filters are added to a function (which has filtering support) by using the function <tt>zp_register_filter($hook, $function_name, $priority)</tt>. <tt>$hook</tt> is the name of the filter item, <tt>$function_name</tt> is the function that will be invoked to filter the item, and <tt>$priority</tt> is the rank of this filter among the list of filters for this item (defaults to plugin's priority as set with <tt>$plugin_is_filter</tt>). Filters are applied in ascending <tt>$priority</tt> order.
+	Filters are added to a function (which has filtering support) by using the function <span class="tt">zp_register_filter($hook, $function_name, $priority)</span>. <span class="tt">$hook</span> is the name of the filter item, <span class="tt">$function_name</span> is the function that will be invoked to filter the item, and <span class="tt">$priority</span> is the rank of this filter among the list of filters for this item (defaults to plugin's priority as set with <span class="tt">$plugin_is_filter</span>). Filters are applied in ascending <span class="tt">$priority</span> order.
 </p>
 <p>
-	The registered function will be passed the parameters(with the exception of the filter name string) from the <tt>zp_apply_filter()</tt> call. The function must always return the initial parameter of the list (if it exists) as this is then passed on to subsequent filters in the chain. This provides a means of filters operating on the changes made by other filters.
+	The registered function will be passed the parameters(with the exception of the filter name string) from the <span class="tt">zp_apply_filter()</span> call. The function must always return the initial parameter of the list (if it exists) as this is then passed on to subsequent filters in the chain. This provides a means of filters operating on the changes made by other filters.
 </p>
 <p>
 	netPhotoGraphics currently provides filter invocation for the following. Function parameters are indicated within the parens:
