@@ -6,7 +6,7 @@
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>new_article</strong></span>(<em>string, article</em>)</p>
-					<!-- description(Admin.CMS)-new_article --><p>Invoked when a new news article is created.</p><!--e-->
+					<!-- description(Admin.CMS)-new_article --><p>Invoked when a new CMS article is created.</p><!--e-->
 					<p class="handlers">For example see <em>plugin</em>/tweet_news.php</p>
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -15,7 +15,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>new_category</strong></span>(<em>string, cat</em>)</p>
-					<!-- description(Admin.CMS)-new_category --><p>Invoked when a new Zenpage category is created.</p><!--e-->
+					<!-- description(Admin.CMS)-new_category --><p>Invoked when a new CMS category is created.</p><!--e-->
 					<p class="handlers">For example see <em>plugin</em>/multiple_layouts.php</p>
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -24,7 +24,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>new_page</strong></span>(<em>string, page</em>)</p>
-					<!-- description(Admin.CMS)-new_page --><p>Invoked when a new Zenpage page is created.</p><!--e-->
+					<!-- description(Admin.CMS)-new_page --><p>Invoked when a new CMS page is created.</p><!--e-->
 					<p class="handlers">For example see <em>plugin</em>/tweet_news.php</p>
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -641,7 +641,7 @@
 	<h5><span id="Object"></span>Object filters</h5>
 	<!-- classhead Object --><p>These filters provide modifications to the behavior of object methods.</p><!--e-->
 			<h6 class="filter"><span id="Object_Media"></span>Media</h6>
-			<!-- subclasshead Object.Media --><p>These filtera apply to "media" objects</p><!--e-->
+			<!-- subclasshead Object.Media --><p>These filters apply to "media" objects</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>album_filter</strong></span>(<em>files</em>)</p>
@@ -1071,9 +1071,9 @@
 					<p class="handlers">For example see <em>plugin</em>/dynamic-locale.php</p>
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
+						<li class="call_list">404.php</li>
 						<li class="call_list"><em>theme</em>/basic/404.php</li>
 						<li class="call_list"><em>theme</em>/basic/album.php</li>
-						<li class="call_list"><em>theme</em>/basic/archive.php</li>
 						<li>...</li>
 					</ul><!-- calls -->
 				</li><!-- filterdetail -->
@@ -1083,9 +1083,9 @@
 					<p class="handlers">For example see <em>plugin</em>/site_upgrade.php</p>
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
+						<li class="call_list">404.php</li>
 						<li class="call_list"><em>theme</em>/basic/404.php</li>
 						<li class="call_list"><em>theme</em>/basic/album.php</li>
-						<li class="call_list"><em>theme</em>/basic/archive.php</li>
 						<li>...</li>
 					</ul><!-- calls -->
 				</li><!-- filterdetail -->
@@ -1137,6 +1137,7 @@
 					<!-- description(Theme.Script)-theme_headers --><p>Allows adding headers to the theme output. Called after the standard headers are sent</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
+						<li class="call_list">404.php</li>
 						<li class="call_list">index.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
