@@ -982,7 +982,8 @@ class _Authority {
 				$requestor = sanitize($_GET['ref']);
 			}
 		}
-		$alt_handlers = zp_apply_filter('alt_login_handler', array());
+		$alt_handlers = array();
+		$alt_handlers = zp_apply_filter('alt_login_handler', $alt_handlers);
 		ksort($alt_handlers);
 
 		$star = false;
