@@ -336,6 +336,20 @@ function adminToolbox() {
 						}
 						$redirect = "&amp;p=search" . $_zp_current_search->getSearchParams() . "&amp;page=$page";
 						break;
+					case 'pages.php':
+						$redirect = "&amp;p=pages";
+						if ($page > 1) {
+							$redirect .= "&amp;page=$page";
+						}
+						$redirect = zp_apply_filter('admin_toolbox_pages', $redirect, $zf);
+						break;
+					case'news.php':
+						$redirect = "&amp;p=news";
+						if ($page > 1) {
+							$redirect .= "&amp;page=$page";
+						}
+						$redirect = zp_apply_filter('admin_toolbox_news', $redirect, $zf);
+						break;
 					default:
 						// arbitrary custom page
 						$gal = stripSuffix($_zp_gallery_page);
@@ -4352,7 +4366,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
