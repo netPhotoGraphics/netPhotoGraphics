@@ -107,6 +107,15 @@ echo "\n</head>";
 						</h1>
 						<?php
 						break;
+					case 'filters':
+						?>
+						<h1>
+							<?php
+							echo gettext('Defined filters.');
+							?>
+						</h1>
+						<?php
+						break;
 				}
 				?>
 				<div class="tabbox">
@@ -316,8 +325,16 @@ echo "\n</head>";
 							</form>
 							<?php
 							break;
+						case 'filters':
+							?>
+							<div class="tabbox">
+								<?php include (SERVERPATH . '/docs/filterDoc.htm'); ?>
+							</div>
+						<?php
 					}
 					?>
+					break;
+
 				</div>
 			</div>
 		</div>

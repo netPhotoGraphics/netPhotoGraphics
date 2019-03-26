@@ -33,7 +33,7 @@ function isMac() {
  * enumerates the files in folder(s)
  * @param $folder
  */
-function getResidentZPFiles($folder, $lcFilesystem, $exclude) {
+function getResidentZPFiles($folder, $exclude) {
 	global $_zp_resident_files;
 	$dir = opendir($folder);
 	while (($file = readdir($dir)) !== false) {
@@ -41,15 +41,15 @@ function getResidentZPFiles($folder, $lcFilesystem, $exclude) {
 		if ($file != '.' && $file != '..' && !in_array($file, $exclude)) {
 			if (is_dir($folder . '/' . $file)) {
 				if ($file != 'session') {
-					getResidentZPFiles($folder . '/' . $file, $lcFilesystem, $exclude);
+					getResidentZPFiles($folder . '/' . $file, $exclude);
 					$entry = $folder . '/' . $file;
-					if ($lcFilesystem)
+					if (CASE_INSENSITIVE)
 						$entry = strtolower($entry);
 					$_zp_resident_files[] = $entry;
 				}
 			} else {
 				$entry = $folder . '/' . $file;
-				if ($lcFilesystem)
+				if (CASE_INSENSITIVE)
 					$entry = strtolower($entry);
 				$_zp_resident_files[] = $entry;
 			}
