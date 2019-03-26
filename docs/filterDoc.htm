@@ -1,4 +1,82 @@
-<!-- Begin filter descriptions -->
+<div style="float:left;width:70%;"><style>
+	ul {
+		list-style-type: none;
+	}
+	ul ul {
+		padding-left: 20px;
+	}
+
+	h4, h5, h6{
+		line-height: 2;
+	}
+	h4, h5 {
+		font-size: x-large;
+	}
+	h6 {
+		font-size: large;
+	}
+	.inlinecode {
+		font-size: 120%;
+	}
+	.tt {
+		font-family: serif;
+		font-size: 120%;
+		font-weight: 600;
+	}
+</style>
+<h4><a name="filters"></a>netPhotoGraphics filters</h4>
+
+<p>
+	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of filter use are found noted with each filter. Filters are applied to the output of other functions and may make modifications to that output. So, for instance, <span class="tt">filter_zenphoto_seo</span> has a filter for the <span class="tt">seoFriendlyURL</span> function that changes accented characters into non accented equivalents.
+</p>
+<p>
+	Filters are added to a function (which has filtering support) by using the function <span class="tt">zp_register_filter($hook, $function_name, $priority)</span>. <span class="tt">$hook</span> is the name of the filter item, <span class="tt">$function_name</span> is the function that will be invoked to filter the item, and <span class="tt">$priority</span> is the rank of this filter among the list of filters for this item (defaults to plugin's priority as set with <span class="tt">$plugin_is_filter</span>). Filters are applied in ascending <span class="tt">$priority</span> order.
+</p>
+<p>
+	The registered function will be passed the parameters(with the exception of the filter name string) from the <span class="tt">zp_apply_filter()</span> call. The function must always return the initial parameter of the list (if it exists) as this is then passed on to subsequent filters in the chain. This provides a means of filters operating on the changes made by other filters.
+</p>
+<p>
+	netPhotoGraphics currently provides filter invocation for the following. Function parameters are indicated within the parens:
+</p>
+</div><div style="float:right;width:30%;">	<ul>
+		<li><a title="Admin filters" href="#Admin">Admin filters</a>
+		<ul>
+				<li><a title="CMS Admin filters" href="#Admin_CMS">CMS</a></li>
+				<li><a title="Comment Admin filters" href="#Admin_Comment">Comment</a></li>
+				<li><a title="Media Admin filters" href="#Admin_Media">Media</a></li>
+				<li><a title="Miscellaneous Admin filters" href="#Admin_Miscellaneous">Miscellaneous</a></li>
+		</ul>
+		</li>
+		<li><a title="CMS filters" href="#CMS">CMS filters</a>
+		</li>
+		<li><a title="Comment filters" href="#Comment">Comment filters</a>
+		</li>
+		<li><a title="Media filters" href="#Media">Media filters</a>
+		</li>
+		<li><a title="Miscellaneous filters" href="#Miscellaneous">Miscellaneous filters</a>
+		</li>
+		<li><a title="Object filters" href="#Object">Object filters</a>
+		<ul>
+				<li><a title="Media Object filters" href="#Object_Media">Media</a></li>
+				<li><a title="Miscellaneous Object filters" href="#Object_Miscellaneous">Miscellaneous</a></li>
+				<li><a title="Root_class Object filters" href="#Object_Root_class">Root_class</a></li>
+				<li><a title="Search Object filters" href="#Object_Search">Search</a></li>
+		</ul>
+		</li>
+		<li><a title="Template filters" href="#Template">Template filters</a>
+		</li>
+		<li><a title="Theme filters" href="#Theme">Theme filters</a>
+		<ul>
+				<li><a title="Miscellaneous Theme filters" href="#Theme_Miscellaneous">Miscellaneous</a></li>
+				<li><a title="Script Theme filters" href="#Theme_Script">Script</a></li>
+		</ul>
+		</li>
+		<li><a title="Upload filters" href="#Upload">Upload filters</a>
+		</li>
+		<li><a title="User_management filters" href="#User_management">User_management filters</a>
+		</li>
+	</ul>
+</div><br clear="all"><!-- Begin filter descriptions -->
 	<h5><span id="Admin"></span>Admin filters</h5>
 	<!-- classhead Admin --><p>These filters allow for the extension of the administrator interface.</p><!--e-->
 			<h6 class="filter"><span id="Admin_CMS"></span>CMS</h6>
