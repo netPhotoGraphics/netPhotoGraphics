@@ -2703,8 +2703,7 @@ function applyMacros($text) {
 function getMacros() {
 	global $_zp_content_macros;
 	if (is_null($_zp_content_macros)) {
-		$p = array();
-		$_zp_content_macros = zp_apply_filter('content_macro', $p);
+		$_zp_content_macros = zp_apply_filter('content_macro', array());
 	}
 	return $_zp_content_macros;
 }

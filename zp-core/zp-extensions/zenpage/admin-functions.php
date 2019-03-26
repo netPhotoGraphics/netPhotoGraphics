@@ -941,7 +941,6 @@ function updateCategory(&$reports, $newcategory = false) {
 			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("A category with the title/titlelink <em>%s</em> already exists!"), html_encode($cat->getTitle())) . "</p>";
 		}
 	}
-	zp_apply_filter('save_category_custom_data', NULL, $cat);
 	$cat->save();
 	$msg = zp_apply_filter('edit_error', $msg);
 	if ($msg) {

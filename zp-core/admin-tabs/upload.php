@@ -32,8 +32,7 @@ if (isset($_GET['tab'])) {
 	$uploadtype = zp_getcookie('uploadtype');
 	$_GET['tab'] = $uploadtype;
 }
-$p = array();
-$handlers = array_keys($uploadHandlers = zp_apply_filter('upload_handlers', $p));
+$handlers = array_keys($uploadHandlers = zp_apply_filter('upload_handlers', array()));
 if (!zp_loggedin(UPLOAD_RIGHTS) || empty($handlers)) {
 	//	redirect to the files page if present
 	if (isset($zenphoto_tabs['upload']['subtabs'])) {
@@ -139,8 +138,7 @@ foreach ($albumlist as $key => $value) {
 				?>
 				<br />
 				<?php
-				$message = gettext('Don’t forget, you can also use <acronym title="File Transfer Protocol">FTP</acronym> to upload folders of images into the albums directory!');
-				echo zp_apply_filter('get_upload_header_text', $message);
+				echo zp_apply_filter('get_upload_header_text', gettext('Don’t forget, you can also use <acronym title="File Transfer Protocol">FTP</acronym> to upload folders of images into the albums directory!'));
 				?>
 			</p>
 			<?php

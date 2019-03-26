@@ -3057,7 +3057,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		$album->setShow(isset($_POST[$prefix . 'Published']));
 
-		zp_apply_filter('save_album_custom_data', NULL, $prefix, $album);
 		zp_apply_filter('save_album_utilities_data', $album, $prefix);
 		if ($album->save() == 2) {
 			$notify = '&noaction';
