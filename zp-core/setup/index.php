@@ -1622,6 +1622,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 								primeMark(gettext('Database update'));
 								require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/database.php');
+								unset($tableFields);
 								if ($updateErrors) {
 									$autorun = false;
 									$msg = gettext('Database structure update completed with errors. See the <code>setup</code> log for details.');
