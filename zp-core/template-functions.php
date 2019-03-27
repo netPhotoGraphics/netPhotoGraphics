@@ -2348,6 +2348,21 @@ function printImageData($field, $label = '') {
 }
 
 /**
+/**
+ * Returns the file size of the full original image
+ * 
+ * @since ZenphotoCMS 1.5.2
+ * 
+ * @global obj $_zp_current_image
+ * @return int
+ */
+function getFullImageFilesize() {
+	global $_zp_current_image;
+	$filesize = $_zp_current_image->getFilesize();
+	if($filesize) {
+		return byteConvert($filesize);
+	}
+}
  * True if there is a next image
  *
  * @return bool
