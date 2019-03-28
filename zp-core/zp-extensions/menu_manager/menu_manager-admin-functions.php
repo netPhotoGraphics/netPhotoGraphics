@@ -503,6 +503,8 @@ function addItem(&$reports) {
 			}
 			$successmsg = sprintf(gettext("Album menu item <em>%s</em> added"), $result['link']);
 			break;
+			$successmsg = sprintf(gettext("Home page menu item <em>%s</em> added"), $result['link']);
+			break;
 		case 'galleryindex':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = NULL;
@@ -555,6 +557,15 @@ function addItem(&$reports) {
 				return $result;
 			}
 			$successmsg = sprintf(gettext("Custom page menu item <em>%s</em> added"), $result['link']);
+			break;
+		case 'albumindex':
+			$result['title'] = process_language_string_save("title", 2);
+			$result['link'] = NULL;
+			if (empty($result['title'])) {
+				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
+				return $result;
+			}
+			$successmsg = gettext("Album index menu item added");
 			break;
 		case 'dynamiclink':
 		case 'customlink':
@@ -695,6 +706,14 @@ function updateMenuItem(&$reports) {
 		case 'custompage':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = sanitize($_POST['custompageselect']);
+			if (empty($result['title'])) {
+				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
+				return $result;
+			}
+			break;
+		case 'albumindex':
+			$result['title'] = process_language_string_save("title", 2);
+			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
@@ -905,9 +924,30 @@ function printCustomPageSelector($current) {
 		chdir($root);
 		$filelist = safe_glob('*.php');
 		$list = array();
+		$exclude = array(
+				'404.php',
+				'index.php',
+				'gallery.php',
+				'album.php',
+				'image.php',
+				'pages.php',
+				'news.php',
+				'functions.php',
+				'inc-footer.php',
+				'footer.php',
+				'inc-header.php',
+				'header.php',
+				'inc-sidebar.php',
+				'sidebar.php',
+				'slideshow.php',
+				'theme_description.php',
+				'themeoptions.php'
+		);
 		foreach ($filelist as $file) {
-			$file = filesystemToInternal($file);
-			$list[$file] = str_replace('.php', '', $file);
+			if (!in_array($file, $exclude)) {
+				$file = filesystemToInternal($file);
+				$list[$file] = str_replace('.php', '', $file);
+			}
 		}
 		generateListFromArray(array($current), $list, false, true);
 		chdir($curdir);

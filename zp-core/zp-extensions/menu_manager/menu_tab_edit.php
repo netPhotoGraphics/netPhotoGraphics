@@ -66,6 +66,14 @@ $menuset = checkChosenMenuset();
 							$('#titleinput').show();
 							$('#link').val('<?php echo WEBPATH; ?>/');
 							break;
+						case "albumindex":
+							$('#albumselector,#pageselector,#categoryselector,#custompageselector,#link_row').hide();
+							$('#selector').html('<?php echo js_encode(gettext("Album index")); ?>');
+							$('#description').html('<?php echo js_encode(gettext("Creates a link to Album index page for themes which do not show the albums on the Gallery index.")); ?>');
+							$('#link').attr('disabled', true);
+							$('#titleinput').show();
+							$('#link').val('<?php echo WEBPATH; ?>/');
+							break;
 						case 'all_albums':
 							$('#albumselector,#pageselector,#categoryselector,#titleinput,#titlelabel,#link_row,#visible_row,#span_row').hide();
 							$('#selector').html('<?php echo js_encode(gettext("All Albums")); ?>');
@@ -266,6 +274,7 @@ if (is_array($result)) {
 							<option value=""><?php echo gettext("*Select the type of the menus item you wish to add*"); ?></option>
 							<option value="all_items"><?php echo gettext("All menu items"); ?></option>
 							<option value="galleryindex"><?php echo gettext("Gallery index"); ?></option>
+							<option value="albumindex"><?php echo gettext("Album index"); ?></option>
 							<option value="all_albums"><?php echo gettext("All Albums"); ?></option>
 							<option value="album"><?php echo gettext("Album"); ?></option>
 							<?php
