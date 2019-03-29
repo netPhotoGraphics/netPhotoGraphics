@@ -141,6 +141,7 @@ if ($priority = extensionEnabled('reCaptche_v2')) {
 
 //migrate rotation and GPS data
 $result = db_list_fields('images');
+
 $where = '';
 if (isset($result['EXIFOrientation'])) {
 	$where = ' OR (`rotation` IS NULL AND `EXIFOrientation`!="")';
@@ -779,6 +780,8 @@ foreach ($data as $key => $value) {
 }
 
 $_zp_gallery = new Gallery(); // insure we have the proper options instantiated
+
+setOptionDefault('albumIndexToken_link', 'gallery.php');
 
 setOptionDefault('search_cache_duration', 30);
 setOptionDefault('cache_random_search', 1);

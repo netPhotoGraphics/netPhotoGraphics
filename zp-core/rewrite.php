@@ -29,11 +29,11 @@
 /*
  * add "standard" (non-plugin dependent) rewrite rules here
  */
-$_zp_conf_vars['special_pages']['gallery'] = array('define' => '_GALLERY_PAGE_', 'rewrite' => getOption('galleryToken_link'),
-		'option' => 'galleryToken_link', 'default' => '_PAGE_/gallery');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%GALLERY_PAGE%', 'rewrite' => '_GALLERY_PAGE_');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '%GALLERY_PAGE%/([0-9]+)', 'rule' => '^%REWRITE%/*$		index.php?p=gallery&page=$1' . ' [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '%GALLERY_PAGE%', 'rule' => '^%REWRITE%/*$		index.php?p=gallery [L,QSA]');
+$_zp_conf_vars['special_pages']['album'] = array('define' => '_ALBUM_PAGE_', 'rewrite' => getOption('albumIndexToken_link'),
+		'option' => 'albumIndexToken_link', 'default' => '_PAGE_/gallery');
+$_zp_conf_vars['special_pages'][] = array('definition' => '%ALBUM_PAGE%', 'rewrite' => '_ALBUM_PAGE_');
+$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '%ALBUM_PAGE%/([0-9]+)', 'rule' => '^%REWRITE%/*gallery.php?p=gallery&page=$1' . ' [L,QSA]');
+$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '%ALBUM_PAGE%', 'rule' => '^%REWRITE%/*$gallery.php?p=gallery [L,QSA]');
 
 /**
  * applies the rewrite rules
