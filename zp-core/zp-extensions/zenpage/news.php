@@ -171,7 +171,7 @@ updatePublished('news');
 							if (!($author == $admin || $article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT) ||
 											($cur_author && $cur_author != $article->getOwner()) ||
 											(is_null($catobj) && !is_null($category) && !empty($article->getCategories()))) {
-								unset($$which[$key]);
+								unset($which[$key]);
 							}
 						}
 					}
