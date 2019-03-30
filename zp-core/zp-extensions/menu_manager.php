@@ -199,6 +199,7 @@ function getItemTitleAndURL($item) {
 	}
 	switch ($item['type']) {
 		case "galleryindex":
+		case 'siteindex':
 			$array = array(
 					"title" => get_language_string($item['title']),
 					"url" => getGalleryIndexURL(),
@@ -918,7 +919,7 @@ function createMenu($menuitems, $menuset = 'default') {
 			case 'all_items':
 				$orders[$nesting] ++;
 				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
-								"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','galleryindex','1'," . db_quote($menuset) . ',' . db_quote($orders), true);
+								"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','siteindex','1'," . db_quote($menuset) . ',' . db_quote($orders), true);
 				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
 				if (extensionEnabled('zenpage')) {
 					$orders[$nesting] ++;
@@ -951,6 +952,7 @@ function createMenu($menuitems, $menuset = 'default') {
 				}
 				break;
 			case 'galleryindex':
+			case 'siteindex':
 				$result['link'] = NULL;
 				if (empty($result['title'])) {
 					$success = -1;

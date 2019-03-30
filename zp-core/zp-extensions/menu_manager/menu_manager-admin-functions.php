@@ -481,7 +481,7 @@ function addItem(&$reports) {
 	switch ($result['type']) {
 		case 'all_items':
 			query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
-							"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','galleryindex','1'," . db_quote($menuset) . ",'000')", true);
+							"VALUES ('" . gettext('Home') . "', '','siteindex','1'," . db_quote($menuset) . ",'000')", true);
 			addAlbumsToDatabase($menuset);
 			if (extensionEnabled('zenpage')) {
 				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
@@ -506,6 +506,7 @@ function addItem(&$reports) {
 			$successmsg = sprintf(gettext("Home page menu item <em>%s</em> added"), $result['link']);
 			break;
 		case 'galleryindex':
+		case 'siteindex':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
@@ -672,6 +673,7 @@ function updateMenuItem(&$reports) {
 			}
 			break;
 		case 'galleryindex':
+		case 'siteindex':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
