@@ -90,7 +90,7 @@ function printItemsListTable($item, $toodeep) {
 			<em><?php echo $item['type']; ?></em>
 			<?php
 			if ($link) {
-				echo '&rArr;&nbsp;' . $link;
+				echo '&rArr;&nbsp;' . $array['name'] . '.php&nbsp;' . $link;
 			}
 			?>
 		</div>
