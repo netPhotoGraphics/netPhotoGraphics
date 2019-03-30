@@ -10,7 +10,7 @@
 
 $subpage = (int) filter_var(@$_REQUEST['subpage'], FILTER_SANITIZE_NUMBER_FLOAT);
 if (isset($_GET['action'])) {
-	define('OFFSET_PATH', 2);
+	define('OFFSET_PATH', -2); //	prevent conflicting plugin loads
 } else {
 	define('OFFSET_PATH', 1);
 }

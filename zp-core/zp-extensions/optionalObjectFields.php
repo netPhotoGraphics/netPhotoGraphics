@@ -23,10 +23,10 @@
  *
  * 	<dl>
  * 		<dt><b>albums table</b></dt>
- * 			<dd>owner</dd> <dd>date</dd> <dd>location</dd> <dd>tags</dd> <dd>codeblock</dd>
+ * 			<dd>location</dd> <dd>tags</dd> <dd>codeblock</dd>
  *
  * 		<dt><b>images table</b></dt>
- * 			<dd>owner</dd> <dd>date</dd> <dd>location</dd> <dd>album_thumb</dd> <dd>watermark</dd>
+ * 			<dd>location</dd> <dd>album_thumb</dd> <dd>watermark</dd>
  * 			<dd>watermark_use</dd> <dd>location</dd> <dd>city</dd> <dd>state</dd> <dd>country</dd>
  * 			<dd>credit</dd> <dd>copyright</dd> <dd>tags</dd> <dd>codeblock</dd>
  *
@@ -65,26 +65,6 @@ class optionalObjectFields extends fieldExtender {
 				 */
 				array(
 						'table' => 'albums',
-						'name' => 'owner',
-						'desc' => gettext('Owner'),
-						'type' => 'varchar', 'size' => 64,
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::owner',
-						'default' => 'NULL',
-						'bulkAction' => array(
-								gettext('Change owner') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
-						)
-				),
-				array(
-						'table' => 'albums',
-						'name' => 'date',
-						'desc' => gettext('Date'),
-						'type' => 'datetime',
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::date'
-				),
-				array(
-						'table' => 'albums',
 						'name' => 'location',
 						'desc' => gettext('Location'),
 						'type' => 'text',
@@ -119,17 +99,6 @@ class optionalObjectFields extends fieldExtender {
 				 */
 				array(
 						'table' => 'images',
-						'name' => 'owner',
-						'desc' => gettext('Owner'),
-						'type' => 'varchar', 'size' => 64,
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::owner', 'default' => 'NULL',
-						'bulkAction' => array(
-								gettext('Change owner') => array('name' => 'changeowner', 'action' => 'mass_owner_data')
-						)
-				),
-				array(
-						'table' => 'images',
 						'name' => 'album_thumb',
 						'desc' => gettext('Set as thumbnail for'),
 						'type' => NULL, 'edit' => 'function',
@@ -137,17 +106,9 @@ class optionalObjectFields extends fieldExtender {
 				),
 				array(
 						'table' => 'images',
-						'name' => 'date',
-						'desc' => gettext('Date'),
-						'type' => 'datetime',
-						'edit' => 'function',
-						'function' => 'optionalObjectFields::date'
-				),
-				array(
-						'table' => 'images',
 						'name' => 'watermark',
 						'desc' => gettext('Image watermark'),
-						'type' => 'varchar', 'size' => 255,
+						'type' => 'tinytext',
 						'edit' => 'function',
 						'function' => 'optionalObjectFields::watermark',
 						'default' => NULL
@@ -310,15 +271,7 @@ class optionalObjectFields extends fieldExtender {
 	}
 
 	function __construct() {
-		$protected = array('date', 'owner');
-		$fields = self::fields();
-		//do not add/remove some critical DB fields
-		foreach ($fields as $key => $field) {
-			if (in_array($field['name'], $protected))
-				unset($fields[$key]);
-		}
-		parent::constructor('optionalObjectFields', $fields);
-//  for translations need to define the display names
+		parent::constructor('optionalObjectFields', self::fields());
 	}
 
 	static function addToSearch($list) {
@@ -390,29 +343,6 @@ class optionalObjectFields extends fieldExtender {
 		return parent::bulkSave($result, $action, $type, NULL, self::fields());
 	}
 
-	static function owner($obj, $instance, $field, $type) {
-		if ($type == 'save') {
-			if (isset($_POST[$instance . '-' . $field['name']])) {
-				return sanitize($_POST[$instance . '-' . $field['name']]);
-			} else {
-				return NULL;
-			}
-		} else {
-			$item = NULL;
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-				ob_start();
-				?>
-				<select name="<?php echo $instance . '-' . $field['name']; ?>">
-					<?php echo admin_album_list($obj->getOwner()); ?>
-				</select>
-				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
-			}
-			return $item;
-		}
-	}
-
 	static function thumb($image, $i, $field, $type) {
 		global $albumHeritage;
 		if ($type == 'save') {
@@ -445,42 +375,6 @@ class optionalObjectFields extends fieldExtender {
 		}
 	}
 
-	static function date($obj, $instance, $field, $type) {
-		global $albumHeritage;
-		if ($type == 'save') {
-			if (isset($_POST[$instance . '-' . $field['name']])) {
-				return sanitize($_POST[$instance . '-' . $field['name']]);
-			} else {
-				return NULL;
-			}
-		} else {
-			$item = NULL;
-			if ($obj->isMyItem($obj->manage_some_rights)) {
-				$d = $obj->getDateTime();
-				ob_start();
-				?>
-				<script type="text/javascript">
-					// <!-- <![CDATA[
-					$(function () {
-						$("#datepicker_<?php echo $instance; ?>").datepicker({
-							dateFormat: 'yy-mm-dd',
-							showOn: 'button',
-							buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
-							buttonText: '<?php echo gettext('calendar'); ?>',
-							buttonImageOnly: true
-						});
-					});
-					// ]]> -->
-				</script>
-				<input type="text" id="datepicker_<?php echo $instance; ?>" size="20" name="<?php echo $instance; ?>-date" value="<?php echo $d; ?>" />
-				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
-			}
-			return $item;
-		}
-	}
-
 	static function watermark($image, $i, $field, $type) {
 		if ($type == 'save') {
 			if (isset($_POST[$i . '-' . $field['name']])) {
@@ -494,7 +388,6 @@ class optionalObjectFields extends fieldExtender {
 				if (isset($_POST['wm_full-' . $i]))
 					$wmuse = $wmuse | WATERMARK_FULL;
 				$image->setWMUse($wmuse);
-				$image->save();
 			}
 			return NULL;
 		} else {
@@ -559,7 +452,6 @@ class optionalObjectFields extends fieldExtender {
 				}
 				$tags = array_unique($tags);
 				$object->setTags($tags);
-				$object->save();
 			}
 			return NULL;
 		} else {
@@ -601,7 +493,6 @@ class optionalObjectFields extends fieldExtender {
 		if ($type == 'save') {
 			if (zp_loggedin(CODEBLOCK_RIGHTS)) {
 				processCodeblockSave((int) $instance, $obj);
-				$obj->save();
 			}
 			return NULL;
 		} else {
@@ -617,7 +508,6 @@ class optionalObjectFields extends fieldExtender {
 		if ($type == 'save') {
 			$extracontent = zpFunctions::updateImageProcessorLink(process_language_string_save("extracontent", EDITOR_SANITIZE_LEVEL));
 			$obj->setExtracontent($extracontent);
-			$obj->save();
 			return NULL;
 		} else {
 			ob_start();
@@ -631,7 +521,7 @@ class optionalObjectFields extends fieldExtender {
 }
 
 function optionalObjectFields_enable($enabled) {
-	requestSetup('optionalObjectFields', $enabled ? NULL : gettext('The "owner", "date", "location", "watermark", "credit", "copyright", "extra content", and "codeblocks" Database fields will be dropped'));
+	requestSetup('optionalObjectFields', $enabled ? NULL : gettext('The "location", "watermark", "credit", "copyright", "extra content", and "codeblocks" Database fields will be dropped'));
 }
 
 if (OFFSET_PATH == 2) { // setup call: add the fields into the database

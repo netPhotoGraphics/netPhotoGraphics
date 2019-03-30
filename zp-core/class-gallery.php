@@ -528,7 +528,7 @@ class Gallery {
 			}
 			if (!empty($dead)) {
 				if (DEBUG_OBJECTS) {
-					debugLogVar(['Garbage Collect `obj_to_tag`' =>  $dead]);
+					debugLogVar(['Garbage Collect `obj_to_tag`' => $dead]);
 				}
 				query('DELETE FROM ' . prefix('obj_to_tag') . ' WHERE `id`=' . implode(' OR `id`=', array_keys($dead)));
 			}
@@ -550,7 +550,7 @@ class Gallery {
 			}
 			if (!empty($dead)) {
 				if (DEBUG_OBJECTS) {
-					debugLogVar(['Garbage Collect `admin_to_object`' =>  $dead]);
+					debugLogVar(['Garbage Collect `admin_to_object`' => $dead]);
 				}
 				query('DELETE FROM ' . prefix('admin_to_object') . ' WHERE `id`=' . implode(' OR `id`=', array_keys($dead)));
 			}
@@ -572,7 +572,7 @@ class Gallery {
 			}
 			if (!empty($dead)) {
 				if (DEBUG_OBJECTS) {
-					debugLogVar(['Garbage Collect `news2cat`' =>  $dead]);
+					debugLogVar(['Garbage Collect `news2cat`' => $dead]);
 				}
 				query('DELETE FROM ' . prefix('news2cat') . ' WHERE `id`=' . implode(' OR `id`=', array_keys($dead)));
 			}
@@ -1104,7 +1104,13 @@ class Gallery {
 	}
 
 	function save() {
-		setOption('gallery_data', serialize($this->data));
+		$olddata = getOption('gallery_data');
+		$newdata = serialize($this->data);
+		if ($newdata == $olddata) {
+			return 2;
+		}
+		setOption('gallery_data', $newdata);
+		return 1;
 	}
 
 	/**
@@ -1159,7 +1165,7 @@ class Gallery {
 		$rewrite = '';
 		$plain = '/index.php';
 		if ($page > 1) {
-			$rewrite .=_PAGE_ . '/' . $page;
+			$rewrite .= _PAGE_ . '/' . $page;
 			$plain .= "&page=$page";
 		}
 		return zp_apply_filter('getLink', rewrite_path($rewrite, $plain), $this, $page);

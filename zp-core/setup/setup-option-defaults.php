@@ -20,7 +20,7 @@ if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_sta
 	$fullLog = false;
 }
 
-loadConfiguration();
+require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést');
 if (!file_exists($testFile)) {
@@ -141,6 +141,7 @@ if ($priority = extensionEnabled('reCaptche_v2')) {
 
 //migrate rotation and GPS data
 $result = db_list_fields('images');
+
 $where = '';
 if (isset($result['EXIFOrientation'])) {
 	$where = ' OR (`rotation` IS NULL AND `EXIFOrientation`!="")';

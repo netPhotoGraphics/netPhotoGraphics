@@ -588,10 +588,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 			);
 			$default = 'albuminfo';
 		}
-		$extra = zp_apply_filter('album_page_subtabs', array(), $album);
-		if (!empty($extra)) {
-			$zenphoto_tabs['edit']['subtabs'] = array_merge($zenphoto_tabs['edit']['subtabs'], $extra);
-		}
 
 		$zenphoto_tabs['edit']['default'] = $default;
 		if (isset($_GET['tab'])) {
@@ -1528,13 +1524,22 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 				}
 				db_free_result($tagresult);
+
 				foreach ($translations as $master => $list) {
 					$subtags = array();
 					foreach ($list as $lang => $tagname) {
 						$subtags[$lang] = $_zp_admin_ordered_taglist[$lang . $tagname];
 						unset($_zp_admin_ordered_taglist[$lang . $tagname]);
 					}
-					$_zp_admin_ordered_taglist[$masters[$master]]['subtags'] = $subtags;
+					if (!isset($masters[$master])) {
+						//	missing master tag record, fix it and insert result at the beginning of the list
+						$i = '__' . $master . '__';
+						$_zp_admin_ordered_taglist = array($i => array('tag' => $i, 'lang' => '', 'count' => 0, 'private' => 1, 'subtags' => $subtags)) + $_zp_admin_ordered_taglist;
+						$sql = 'INSERT INTO ' . prefix('tags') . " (`id`,`masterid`,`name`,`language`,`private`) VALUES ('$master',NULL,'$i','','1')";
+						query($sql);
+					} else {
+						$_zp_admin_ordered_taglist[$masters[$master]]['subtags'] = $subtags;
+					}
 				}
 			}
 		}
@@ -1842,7 +1847,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 									?>
 								</td>
 							</tr>
-
 							<?php
 						}
 						?>
@@ -1854,6 +1858,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<?php print_language_string_list($album->getDesc('all'), $prefix . "albumdesc", true, NULL, 'texteditor', '100%'); ?>
 							</td>
 						</tr>
+
 						<?php
 						if (GALLERY_SECURITY == 'public') {
 							?>
@@ -2344,6 +2349,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 							// ]]> -->
 						</script>
 						<br class="clearall">
+
+						<hr>
+
+
 						<p>
 							<label for="<?php echo $prefix; ?>publishdate"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
 							<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>publishdate" <?php if ($publishdate > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
@@ -2358,10 +2367,20 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</strong>
 							<?php
 							if ($album->getlastchangeuser()) {
-								?>
-							<hr />
+								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
+							}
+							?>
+						<hr />
+						<?php
+						if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+							echo gettext("Owner");
+							?>
+							<select name="<?php echo $suffix; ?>owner" size='1'>
+								<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
+							</select>
 							<?php
-							printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
+						} else {
+							printf(gettext('Owner: %1$s'), $album->getOwner());
 						}
 						?>
 						</p>
@@ -2898,6 +2917,64 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 	}
 
+	function printImageEditRow($album, $show_thumb, $owner, $count) {
+		global $_zp_current_admin_obj;
+		$enableEdit = $album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT;
+		if (is_object($owner)) {
+			$owner = $owner->name;
+		}
+		?>
+		<div class="page-list_row">
+			<div class="page-list_handle">
+
+			</div>
+			<div class="page-list_albumthumb">
+				<?php
+				if ($show_thumb) {
+					$thumbimage = $album->getAlbumThumbImage();
+					$thumb = getAdminThumb($thumbimage, 'small');
+				} else {
+					$thumb = WEBPATH . '/' . ZENFOLDER . '/images/thumb_standin.png';
+				}
+				$imgi = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$ci = $count;
+				$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
+				if ($ci) {
+					?>
+					<a href="?page=images&amp;album=<?php echo pathurlencode($album->name) . '&amp;tab=imageinfo" title="' . sprintf(ngettext('Edit %1$s image', 'Edit %1$s images', $ci), $ci); ?>">
+						<?php
+					}
+					?>
+					<img src="<?php echo pathurlencode($thumb); ?>" width="<?php echo ADMIN_THUMB_SMALL; ?>" height="<?php echo ADMIN_THUMB_SMALL; ?>" alt="album thumb" />
+					<?php
+					if ($ci) {
+						?>
+					</a>
+					<?php
+				}
+				?>
+			</div>
+			<div class = "page-list_albumtitle">
+				<?php
+				if ($ci) {
+					?>
+					<a href="?page=images&amp;album=<?php echo pathurlencode($album->name) . '&amp;tab=imageinfo" title="' . sprintf(ngettext('Edit %1$s image', 'Edit %1$s images', $ci), $ci); ?>">
+						<?php
+					}
+					echo html_encode(getBare($album->getTitle()));
+					if ($ci) {
+						echo ' (' . $ci . ')';
+						?>
+					</a>
+					<?php
+				}
+				?>
+			</div>
+		</div>
+
+		<?php
+	}
+
 	/**
 	 * processes the post from the above
 	 * @param int $index the index of the entry in mass edit or 0 if single album
@@ -2918,7 +2995,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$notify = '';
 		$album->setTitle(process_language_string_save($prefix . 'albumtitle', 2));
 		$album->setDesc(process_language_string_save($prefix . 'albumdesc', EDITOR_SANITIZE_LEVEL));
-
+		if (isset($_POST[$prefix . 'owner'])) {
+			$album->setOwner(sanitize($_POST[$prefix . 'owner']));
+		}
 		if (isset($_POST['tag_list_tags_' . $prefix])) {
 			$tags = sanitize($_POST['tag_list_tags_' . $prefix]);
 		} else {
@@ -2977,13 +3056,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
 		$album->setShow(isset($_POST[$prefix . 'Published']));
-		$album->setLastchange(date('Y-m-d H:i:s'));
-		$album->setlastchangeuser($_zp_current_admin_obj->getUser());
 
-
-		zp_apply_filter('save_album_custom_data', NULL, $prefix, $album);
 		zp_apply_filter('save_album_utilities_data', $album, $prefix);
-		$album->save();
+		if ($album->save() == 2) {
+			$notify = '&noaction';
+		}
 
 		// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
@@ -3542,9 +3619,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			return gettext('Cannot create new theme.') . ' ' . gettext('Could not create directory for the new theme');
 		}
 		@chmod($target, FOLDER_MOD);
-
-		// Get a list of files to copy: get all files from the directory, remove those containing '/.svn/'
-		$source_files = array_filter(listDirectoryFiles($source), create_function('$str', 'return strpos($str, "/.svn/") === false;'));
+		$source_files = listDirectoryFiles($source);
 
 		// Determine nested (sub)directories structure to create: go through each file, explode path on "/"
 		// and collect every unique directory
@@ -4292,6 +4367,60 @@ function printNestedAlbumsList($albums, $show_thumb, $owner) {
 	return $rslt;
 }
 
+function printNestedImageList($albums, $show_thumb, $owner) {
+
+	$indent = 1;
+	$open = array(1 => 0);
+	$rslt = false;
+	foreach ($albums as $album) {
+		$order = $album['sort_order'];
+		$level = max(1, count($order));
+
+		if ($level > $indent) {
+			echo "\n" . str_pad("\t", $indent, "\t") . "<ul class=\"page-list\">\n";
+			$indent++;
+			$open[$indent] = 0;
+		} else if ($level < $indent) {
+			while ($indent > $level) {
+				$open[$indent] --;
+				$indent--;
+				echo "</li>\n" . str_pad("\t", $indent, "\t") . "</ul>\n";
+			}
+		} else { // indent == level
+			if ($open[$indent]) {
+				echo str_pad("\t", $indent, "\t") . "</li>\n";
+				$open[$indent] --;
+			} else {
+				echo "\n";
+			}
+		}
+		if ($open[$indent]) {
+			echo str_pad("\t", $indent, "\t") . "</li>\n";
+			$open[$indent] --;
+		}
+		$albumobj = newAlbum($album['name']);
+		if ($albumobj->isDynamic()) {
+			$nonest = ' class="no-nest"';
+		} else {
+			$nonest = '';
+		}
+		echo str_pad("\t", $indent - 1, "\t") . "<li id=\"id_" . $albumobj->getID() . "\"$nonest >";
+		printImageEditRow($albumobj, $show_thumb, $owner, $album['image_count']);
+		$open[$indent] ++;
+	}
+	while ($indent > 1) {
+		echo "</li>\n";
+		$open[$indent] --;
+		$indent--;
+		echo str_pad("\t", $indent, "\t") . "</ul>";
+	}
+	if ($open[$indent]) {
+		echo "</li>\n";
+	} else {
+		echo "\n";
+	}
+}
+
 /**
  * Prints the dropdown menu for the nesting level depth for the album sorting
  *
@@ -4506,17 +4635,22 @@ function printBulkActions($checkarray, $checkAll = false) {
 		</div>
 		<?php
 	}
-	if (in_array('mass_owner_data', $colorboxBookmark)) {
+	if ($whom = array_search('mass_owner_data', $colorboxBookmark)) {
 		?>
 		<div id="mass_owner" style="display:none;">
 			<div id="mass_owner_data">
 				<?php
-				echo gettext('New owner:');
+				$what = array_search($whom, $checkarray);
+				if ($what == gettext('Change author')) {
+					echo gettext('New author:');
+				} else {
+					echo gettext('New owner:');
+				}
 				?>
 				<ul>
-					<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="">
+					<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="" size='1'>
 						<?php
-						echo admin_album_list(NULL);
+						echo admin_owner_list(NULL, UPLOAD_RIGHTS | ALBUM_RIGHTS);
 						?>
 					</select>
 				</ul>
@@ -5201,14 +5335,16 @@ function unQuote($string) {
 /**
  * Returns an option list of administrators who can own albums or images
  * @param string $owner
+ * @param bit $rightsNeeded the rights that a user must have to appear in the selector
  * @return string
  */
-function admin_album_list($owner) {
+function admin_owner_list($owner, $rightsNeeded) {
 	global $_zp_authority;
 	$adminlist = '';
+	$rightsNeeded = $rightsNeeded | ADMIN_RIGHTS;
 	$admins = $_zp_authority->getAdministrators();
 	foreach ($admins as $user) {
-		if (($user['rights'] & (UPLOAD_RIGHTS | ADMIN_RIGHTS | ALBUM_RIGHTS))) {
+		if ($user['rights'] & $rightsNeeded) {
 			$adminlist .= '<option value="' . $user['user'] . '"';
 			if ($owner == $user['user']) {
 				$adminlist .= ' SELECTED="SELECTED"';
@@ -5570,7 +5706,7 @@ function consolidatedEditMessages($subtab) {
 		$messagebox[] = gettext("Changes applied");
 	}
 	if (isset($_GET['noaction'])) {
-		$notebox[] = gettext("Nothing changed");
+		$messagebox[] = gettext("Nothing changed");
 	}
 	if (isset($_GET['bulkmessage'])) {
 		$action = sanitize($_GET['bulkmessage']);

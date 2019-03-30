@@ -871,7 +871,7 @@ class _Authority {
 								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?ticket=$ref&user=" . $user['user']) .
 												"\n" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.");
 							} else {
-								$msg.= "\n" . gettext('No matching user was found.');
+								$msg .= "\n" . gettext('No matching user was found.');
 							}
 							$err_msg = zp_mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
@@ -1844,7 +1844,7 @@ class _Administrator extends PersistentObject {
 		if (is_null($this->get('date'))) {
 			$this->set('date', date('Y-m-d H:i:s'));
 		}
-		parent::save();
+		$updated = parent::save();
 
 		if (is_array($this->objects)) {
 			if (DEBUG_OBJECTS) {
@@ -1856,8 +1856,12 @@ class _Administrator extends PersistentObject {
 				debugLogVar(['objects' => $this->objects]);
 			}
 			$id = $this->getID();
-			$sql = "DELETE FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
+			$old = array();
+			$sql = "SELECT * FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
 			$result = query($sql, false);
+			while ($row = db_fetch_assoc($result)) {
+				$old[$row['id']] = array($row['objectid'], $row['type'], $row['edit']);
+			}
 			foreach ($this->objects as $object) {
 				$edit = MANAGED_OBJECT_MEMBER;
 				if (array_key_exists('edit', $object)) {
@@ -1882,10 +1886,22 @@ class _Administrator extends PersistentObject {
 						}
 						break;
 				}
-				$sql = "INSERT INTO " . prefix('admin_to_object') . " (adminid, objectid, type, edit) VALUES ($id, $objectid, '$table', $edit)";
-				$result = query($sql);
+				if ($keys = array_keys($old, array($objectid, $table, $edit))) {
+					$key = array_shift($keys);
+					unset($old[$key]);
+				} else {
+					$sql = 'INSERT INTO ' . prefix('admin_to_object') . " (adminid, objectid, type, edit) VALUES ($id, $objectid, '$table', $edit)";
+					$result = query($sql);
+					$updated = TRUE;
+				}
+			}
+			if (!empty($old)) {
+				$sql = 'DELETE FROM ' . prefix('admin_to_object') . ' WHERE `id` IN(' . implode(',', array_keys($old)) . ')';
+				query($sql);
+				$updates = TRUE;
 			}
 		}
+		return $updated;
 	}
 
 	/**

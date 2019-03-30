@@ -28,16 +28,16 @@ if (getOption('security_log_encryption')) {
 	$_logCript = $_adminCript;
 }
 if (getOption('logger_log_admin')) {
-	zp_register_filter('admin_login_attempt', 'security_logger::adminLoginLogger');
-	zp_register_filter('federated_login_attempt', 'security_logger::federatedLoginLogger');
+	zp_register_filter('admin_login_attempt', 'security_logger::adminLoginlogger');
+	zp_register_filter('federated_login_attempt', 'security_logger::federatedLoginlogger');
 }
 if (getOption('logger_log_guests')) {
-	zp_register_filter('guest_login_attempt', 'security_logger::guestLoginLogger');
+	zp_register_filter('guest_login_attempt', 'security_logger::guestLoginlogger');
 }
 zp_register_filter('admin_allow_access', 'security_logger::adminGate');
 zp_register_filter('authorization_cookie', 'security_logger::adminCookie', 0);
 zp_register_filter('admin_managed_albums_access', 'security_logger::adminAlbumGate');
-zp_register_filter('save_user', 'security_logger::UserSave');
+zp_register_filter('save_user_complete', 'security_logger::userSave');
 zp_register_filter('admin_XSRF_access', 'security_logger::admin_XSRF_access');
 zp_register_filter('admin_log_actions', 'security_logger::log_action');
 zp_register_filter('log_setup', 'security_logger::log_setup');
@@ -98,7 +98,7 @@ class security_logger {
 	 * @param string $authority kind of login
 	 * @param string $addl more info
 	 */
-	private static function Logger($success, $user, $name, $action, $authority, $addl = NULL) {
+	private static function logger($success, $user, $name, $action, $authority, $addl = NULL) {
 		global $_zp_authority, $_zp_mutex, $_logCript;
 		$ip = sanitize($_SERVER['REMOTE_ADDR']);
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -243,7 +243,7 @@ class security_logger {
 	 * @param string $pass
 	 * @return int
 	 */
-	static function adminLoginLogger($success, $user, $pass, $auth = 'zp_admin_auth') {
+	static function adminLoginlogger($success, $user, $pass, $auth = 'zp_admin_auth') {
 		global $_zp_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
@@ -265,7 +265,7 @@ class security_logger {
 				$name = $admin->getName();
 			}
 		}
-		security_logger::Logger((int) ($success && true), $user, $name, 'Back-end', $auth, $pass);
+		security_logger::logger((int) ($success && true), $user, $name, 'Back-end', $auth, $pass);
 		return $success;
 	}
 
@@ -278,8 +278,8 @@ class security_logger {
 	 * @param string $pass
 	 * @return int
 	 */
-	static function federatedLoginLogger($success, $user, $auth) {
-		return security_logger::adminLoginLogger($success, $user, 'n/a', $auth);
+	static function federatedLoginlogger($success, $user, $auth) {
+		return security_logger::adminLoginlogger($success, $user, 'n/a', $auth);
 	}
 
 	/**
@@ -292,7 +292,7 @@ class security_logger {
 	 * @param string $athority what kind of login
 	 * @return bool
 	 */
-	static function guestLoginLogger($success, $user, $pass, $athority) {
+	static function guestLoginlogger($success, $user, $pass, $athority) {
 		global $_zp_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
@@ -314,7 +314,7 @@ class security_logger {
 				$name = $admin->getName();
 			}
 		}
-		security_logger::Logger((int) ($success && true), $user, $name, 'Front-end', $athority, $pass);
+		security_logger::logger((int) ($success && true), $user, $name, 'Front-end', $athority, $pass);
 		return $success;
 	}
 
@@ -334,7 +334,7 @@ class security_logger {
 						return $allow;
 					break;
 			}
-			security_logger::Logger(0, $user, $name, 'blocked_access', '', getRequestURI());
+			security_logger::logger(0, $user, $name, 'blocked_access', '', getRequestURI());
 		}
 		return $allow;
 	}
@@ -344,7 +344,7 @@ class security_logger {
 			switch (getOption('logger_log_type')) {
 				case 'all':
 				case 'fail':
-					security_logger::Logger(0, NULL, NULL, 'auth_cookie', '', (int) $id . ':' . $auth);
+					security_logger::logger(0, NULL, NULL, 'auth_cookie', '', (int) $id . ':' . $auth);
 			}
 		}
 		return $allow;
@@ -366,7 +366,7 @@ class security_logger {
 				break;
 		}
 		if (!$allow)
-			security_logger::Logger(2, $user, $name, 'blocked_album', '', getRequestURI());
+			security_logger::logger(2, $user, $name, 'blocked_album', '', getRequestURI());
 		return $allow;
 	}
 
@@ -376,14 +376,14 @@ class security_logger {
 	 * @param object $userobj user object upon which the save was targeted
 	 * @param string $class what the action was.
 	 */
-	static function UserSave($discard, $userobj, $class) {
+	static function userSave($discard, $userobj, $class) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::Logger(1, $user, $name, 'user_' . $class, 'zp_admin_auth', $userobj->getUser());
+		security_logger::logger(1, $user, $name, 'user_' . $class, 'zp_admin_auth', $userobj->getUser());
 		return $discard;
 	}
 
 	/**
-	 * Loggs Cross Site Request Forgeries
+	 * Logs Cross Site Request Forgeries
 	 *
 	 * @param bool $discard
 	 * @param string $token
@@ -392,7 +392,7 @@ class security_logger {
 	static function admin_XSRF_access($discard, $token) {
 		list($user, $name) = security_logger::populate_user();
 		$uri = getRequestURI();
-		security_logger::Logger(2, $user, $name, 'XSRF_blocked', $token, $uri);
+		security_logger::logger(2, $user, $name, 'XSRF_blocked', $token, $uri);
 		return false;
 	}
 
@@ -404,7 +404,7 @@ class security_logger {
 	 */
 	static function log_action($allow, $log, $action) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::Logger((int) ($allow && true), $user, $name, $action, 'zp_admin_auth', basename($log));
+		security_logger::logger((int) ($allow && true), $user, $name, $action, 'zp_admin_auth', basename($log));
 		return $allow;
 	}
 
@@ -416,7 +416,7 @@ class security_logger {
 	 */
 	static function log_setup($success, $action, $txt) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::Logger((int) ($success && true), $user, $name, 'setup_' . $action, 'zp_admin_auth', $txt);
+		security_logger::logger((int) ($success && true), $user, $name, 'setup_' . $action, 'zp_admin_auth', $txt);
 		return $success;
 	}
 
@@ -429,7 +429,7 @@ class security_logger {
 	 */
 	static function security_misc($success, $requestor, $auth, $txt) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::Logger((int) $success, $name, NULL, $requestor, $auth, $txt);
+		security_logger::logger((int) $success, $name, NULL, $requestor, $auth, $txt);
 		return $success;
 	}
 

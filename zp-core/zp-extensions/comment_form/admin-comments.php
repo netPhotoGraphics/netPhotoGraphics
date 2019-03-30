@@ -284,7 +284,7 @@ printLogoAndLinks();
 								break;
 							default:
 								$message = gettext("Nothing changed");
-								$class = 'notebox';
+								$class = 'messagebox';
 								break;
 						}
 						?>
@@ -310,7 +310,7 @@ printLogoAndLinks();
 						}
 						if (isset($_GET['saved'])) {
 							?>
-							<div class="notebox fade-message">
+							<div class="messagebox fade-message">
 								<h2>
 									<?php echo gettext("Nothing changed"); ?>
 								</h2>

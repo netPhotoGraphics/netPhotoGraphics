@@ -64,6 +64,7 @@ function adminToolbox() {
 		if (!$name = $_zp_current_admin_obj->getName()) {
 			$name = $_zp_current_admin_obj->getUser();
 		}
+
 		if (zp_loggedin(UPLOAD_RIGHTS) && in_array($_zp_gallery_page, array('index.php', 'gallery.php', 'album.php'))) {
 			?>
 			<script type="text/javascript">
@@ -119,6 +120,8 @@ function adminToolbox() {
 						<?php
 					}
 				}
+
+
 				zp_apply_filter('admin_toolbox_global', $zf);
 
 				if (zp_loggedin(TAGS_RIGHTS)) {
@@ -134,13 +137,29 @@ function adminToolbox() {
 						<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("Users"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
-				} else if (zp_loggedin(USER_RIGHTS)) {
-					?>
-					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("My profile"), NULL, NULL, NULL); ?>
-					</li>
-					<?php
+				} else {
+					if (zp_loggedin(USER_RIGHTS)) {
+						?>
+						<li>
+							<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("My profile"), NULL, NULL, NULL); ?>
+						</li>
+						<?php
+					}
 				}
+
+
+				if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_zp_current_admin_obj->getUser()) . ' LIMIT 1';
+					$result = query_single_row($sql);
+					if (!empty($result)) {
+						?>
+						<li>
+							<?php printLinkHTML($zf . '/admin-tabs/images.php?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>
+						</li>
+						<?php
+					}
+				}
+
 				if (zp_loggedin(OPTIONS_RIGHTS)) {
 					?>
 					<li>
@@ -316,6 +335,20 @@ function adminToolbox() {
 							zp_apply_filter('admin_toolbox_search', $zf);
 						}
 						$redirect = "&amp;p=search" . $_zp_current_search->getSearchParams() . "&amp;page=$page";
+						break;
+					case 'pages.php':
+						$redirect = "&amp;p=pages";
+						if ($page > 1) {
+							$redirect .= "&amp;page=$page";
+						}
+						$redirect = zp_apply_filter('admin_toolbox_pages', $redirect, $zf);
+						break;
+					case'news.php':
+						$redirect = "&amp;p=news";
+						if ($page > 1) {
+							$redirect .= "&amp;page=$page";
+						}
+						$redirect = zp_apply_filter('admin_toolbox_news', $redirect, $zf);
 						break;
 					default:
 						// arbitrary custom page
@@ -2311,6 +2344,22 @@ function printImageData($field, $label = '') {
 	$text = getImageData($field);
 	if (!empty($text)) {
 		echo html_encodeTagged($label . $text);
+	}
+}
+
+/**
+ * Returns the file size of the full original image
+ *
+ * @since ZenphotoCMS 1.5.2
+ *
+ * @global obj $_zp_current_image
+ * @return int
+ */
+function getFullImageFilesize() {
+	global $_zp_current_image;
+	$filesize = $_zp_current_image->getFilesize();
+	if ($filesize) {
+		return byteConvert($filesize);
 	}
 }
 
@@ -4333,7 +4382,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

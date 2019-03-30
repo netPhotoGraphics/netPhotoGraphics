@@ -10,7 +10,7 @@
  */
 function updateItemsSortorder() {
 	if (empty($_POST['order'])) { // if someone didn't sort anything there are no values!
-		return '<p class="notebox fade-message">' . gettext('Nothing changed') . '</p>';
+		return '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>';
 	} else {
 		$order = processOrder($_POST['order']);
 		$parents = array('NULL');
@@ -90,7 +90,7 @@ function printItemsListTable($item, $toodeep) {
 			<em><?php echo $item['type']; ?></em>
 			<?php
 			if ($link) {
-				echo '&rArr;&nbsp;' . $link;
+				echo '&rArr;&nbsp;' . $array['name'] . '.php&nbsp;' . $link;
 			}
 			?>
 		</div>
@@ -481,7 +481,7 @@ function addItem(&$reports) {
 	switch ($result['type']) {
 		case 'all_items':
 			query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
-							"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','galleryindex','1'," . db_quote($menuset) . ",'000')", true);
+							"VALUES ('" . gettext('Home') . "', '','siteindex','1'," . db_quote($menuset) . ",'000')", true);
 			addAlbumsToDatabase($menuset);
 			if (extensionEnabled('zenpage')) {
 				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
@@ -503,7 +503,10 @@ function addItem(&$reports) {
 			}
 			$successmsg = sprintf(gettext("Album menu item <em>%s</em> added"), $result['link']);
 			break;
+			$successmsg = sprintf(gettext("Home page menu item <em>%s</em> added"), $result['link']);
+			break;
 		case 'galleryindex':
+		case 'siteindex':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
@@ -555,6 +558,15 @@ function addItem(&$reports) {
 				return $result;
 			}
 			$successmsg = sprintf(gettext("Custom page menu item <em>%s</em> added"), $result['link']);
+			break;
+		case 'albumindex':
+			$result['title'] = process_language_string_save("title", 2);
+			$result['link'] = NULL;
+			if (empty($result['title'])) {
+				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
+				return $result;
+			}
+			$successmsg = gettext("Album index menu item added");
 			break;
 		case 'dynamiclink':
 		case 'customlink':
@@ -661,6 +673,7 @@ function updateMenuItem(&$reports) {
 			}
 			break;
 		case 'galleryindex':
+		case 'siteindex':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
@@ -695,6 +708,14 @@ function updateMenuItem(&$reports) {
 		case 'custompage':
 			$result['title'] = process_language_string_save("title", 2);
 			$result['link'] = sanitize($_POST['custompageselect']);
+			if (empty($result['title'])) {
+				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
+				return $result;
+			}
+			break;
+		case 'albumindex':
+			$result['title'] = process_language_string_save("title", 2);
+			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
@@ -905,9 +926,30 @@ function printCustomPageSelector($current) {
 		chdir($root);
 		$filelist = safe_glob('*.php');
 		$list = array();
+		$exclude = array(
+				'404.php',
+				'index.php',
+				'gallery.php',
+				'album.php',
+				'image.php',
+				'pages.php',
+				'news.php',
+				'functions.php',
+				'inc-footer.php',
+				'footer.php',
+				'inc-header.php',
+				'header.php',
+				'inc-sidebar.php',
+				'sidebar.php',
+				'slideshow.php',
+				'theme_description.php',
+				'themeoptions.php'
+		);
 		foreach ($filelist as $file) {
-			$file = filesystemToInternal($file);
-			$list[$file] = str_replace('.php', '', $file);
+			if (!in_array($file, $exclude)) {
+				$file = filesystemToInternal($file);
+				$list[$file] = str_replace('.php', '', $file);
+			}
 		}
 		generateListFromArray(array($current), $list, false, true);
 		chdir($curdir);

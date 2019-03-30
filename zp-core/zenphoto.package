@@ -1169,7 +1169,6 @@ zp-core/full-image.php
 zp-core/functions-basic.php
 zp-core/functions-config.php
 zp-core/functions-controller.php
-zp-core/functions-db-MySQL.php
 zp-core/functions-db-MySQLi.php
 zp-core/functions-db-NULL.php
 zp-core/functions-db-PDO_MySQL.php
@@ -1217,9 +1216,14 @@ zp-core/zenphoto.package
 zp-core/zenphoto_cfg.txt
 zp-core/zenphotoLogin.php
 zp-core/admin-tabs
+zp-core/admin-tabs/album_edit.php
+zp-core/admin-tabs/album_masedit.php
 zp-core/admin-tabs/albumsort.php
 zp-core/admin-tabs/dynamic-album.php
 zp-core/admin-tabs/edit.php
+zp-core/admin-tabs/image_edit.php
+zp-core/admin-tabs/image_save.php
+zp-core/admin-tabs/images.php
 zp-core/admin-tabs/logs.php
 zp-core/admin-tabs/options.php
 zp-core/admin-tabs/plugins.php
@@ -8263,8 +8267,14 @@ zp-core/zp-extensions/uploader_jQuery/css/jquery.fileupload-ui.css
 zp-core/zp-extensions/uploader_jQuery/css/jquery.fileupload.css
 zp-core/zp-extensions/uploader_jQuery/css/uploader_bootstrap.css
 zp-core/zp-extensions/uploader_jQuery/img
+zp-core/zp-extensions/uploader_jQuery/img/error.png
+zp-core/zp-extensions/uploader_jQuery/img/error.svg
 zp-core/zp-extensions/uploader_jQuery/img/loading.gif
+zp-core/zp-extensions/uploader_jQuery/img/play-pause.png
+zp-core/zp-extensions/uploader_jQuery/img/play-pause.svg
 zp-core/zp-extensions/uploader_jQuery/img/progressbar.gif
+zp-core/zp-extensions/uploader_jQuery/img/video-play.png
+zp-core/zp-extensions/uploader_jQuery/img/video-play.svg
 zp-core/zp-extensions/uploader_jQuery/js
 zp-core/zp-extensions/uploader_jQuery/js/app.js
 zp-core/zp-extensions/uploader_jQuery/js/canvas-to-blob.min.js
@@ -8376,4 +8386,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8378
+8388

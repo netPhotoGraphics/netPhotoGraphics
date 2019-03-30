@@ -42,7 +42,6 @@ if (isset($_GET['album'])) {
 				}
 				$album->setSortType("manual");
 				$album->setSortDirection(false, 'image');
-				$album->setLastChangeUser($_zp_current_admin_obj->getUser());
 				$album->save();
 				$_GET['saved'] = 1;
 			}

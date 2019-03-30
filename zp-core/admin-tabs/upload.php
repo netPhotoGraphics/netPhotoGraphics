@@ -222,7 +222,7 @@ foreach ($albumlist as $key => $value) {
 									$passedalbum = NULL;
 								} else {
 									reset($albumlist);
-									$passedalbum = kry($albumlist);
+									$passedalbum = key($albumlist);
 								}
 							}
 							foreach ($albumlist as $fullfolder => $albumtitle) {

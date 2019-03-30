@@ -594,7 +594,7 @@ class AlbumBase extends MediaObject {
 		$rewrite = pathurlencode($this->linkname) . '/';
 		$plain = '/index.php?album=' . pathurlencode($this->name);
 		if ($page > 1) {
-			$rewrite .=_PAGE_ . '/' . $page;
+			$rewrite .= _PAGE_ . '/' . $page;
 			$plain .= "&page=$page";
 		}
 		return zp_apply_filter('getLink', rewrite_path($rewrite, $plain), $this, $page);
@@ -906,10 +906,6 @@ class AlbumBase extends MediaObject {
 		return $owner;
 	}
 
-	function setOwner($owner) {
-		$this->set('owner', $owner);
-	}
-
 	/**
 	 *
 	 * Date at which the album last discovered an image
@@ -993,7 +989,7 @@ class AlbumBase extends MediaObject {
 	 * returns NULL if not a managed album
 	 */
 	function subRights() {
-		global $_zp_admin_album_list;
+		global $_zp_admin_owner_list;
 		if (!is_null($this->subrights)) {
 			return $this->subrights;
 		}
@@ -1004,11 +1000,11 @@ class AlbumBase extends MediaObject {
 				return $this->subrights;
 			}
 			getManagedAlbumList();
-			if (count($_zp_admin_album_list) > 0) {
+			if (count($_zp_admin_owner_list) > 0) {
 				$uralbum = getUrAlbum($this);
 				if ($uralbum->name == $this->name) {
-					if (isset($_zp_admin_album_list[$uralbum->name])) {
-						$this->subrights = $_zp_admin_album_list[$uralbum->name] | MANAGED_OBJECT_MEMBER;
+					if (isset($_zp_admin_owner_list[$uralbum->name])) {
+						$this->subrights = $_zp_admin_owner_list[$uralbum->name] | MANAGED_OBJECT_MEMBER;
 						if (zp_loggedin(VIEW_UNPUBLISHED_RIGHTS))
 							$this->subrights = $this->subrights | MANAGED_OBJECT_RIGHTS_VIEW;
 					}
@@ -1200,6 +1196,7 @@ class Album extends AlbumBase {
 	 * @return Album
 	 */
 	function __construct($folder8, $cache = true, $quiet = false) {
+		global $_zp_current_admin_obj;
 		$folder8 = trim($folder8, '/');
 		$folderFS = internalToFilesystem($folder8);
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS . "/";
@@ -1211,6 +1208,9 @@ class Album extends AlbumBase {
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
 		$this->checkForPublish();
 		if ($new) {
+			if ($_zp_current_admin_obj) {
+				$this->setOwner($_zp_current_admin_obj->getUser());
+			}
 			$this->save();
 			zp_apply_filter('new_album', $this);
 		}

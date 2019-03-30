@@ -128,6 +128,9 @@ class Image extends MediaObject {
 		if ($new || $this->filemtime != $this->get('mtime')) {
 			if ($new) {
 				$this->setTitle($this->displayname);
+				if ($_zp_current_admin_obj) {
+					$this->setOwner($_zp_current_admin_obj->getUser());
+				}
 			}
 			$this->updateMetaData(); // extract info from image
 			$this->updateDimensions(); // deal with rotation issues
@@ -1398,10 +1401,6 @@ class Image extends MediaObject {
 		return $owner;
 	}
 
-	function setOwner($owner) {
-		$this->set('owner', $owner);
-	}
-
 	function isMyItem($action) {
 		$album = $this->album;
 		return $album->isMyItem($action);
@@ -1430,13 +1429,26 @@ class Image extends MediaObject {
 		$album = $this->getAlbum();
 		return $album->checkforGuest($hint, $show);
 	}
-
+	
 	/**
 	 *
 	 * returns true if there is any protection on the image
 	 */
 	function isProtected() {
 		return $this->checkforGuest() != 'zp_public_access';
+	}
+	
+	/**
+	 * Returns the filesize in bytes of the full image
+	 * 
+	 * @since ZenphotoCMS 1.5.2
+	 * 
+	 * @return int|false
+	 */
+	function getFilesize() {
+		$album = $this->getAlbum();
+		$filesize = filesize($this->getFullImage(SERVERPATH));
+		return $filesize;
 	}
 
 }

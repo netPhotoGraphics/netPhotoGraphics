@@ -58,10 +58,10 @@ $menuset = checkChosenMenuset();
 							$('#selector').html('<?php echo js_encode(gettext("All menu items")); ?>');
 							$('#description').html('<?php echo js_encode(gettext('This adds menu items for all objects. (It creates a "default" menuset.)')); ?>');
 							break;
-						case "galleryindex":
+						case 'siteindex':
 							$('#albumselector,#pageselector,#categoryselector,#custompageselector,#link_row').hide();
-							$('#selector').html('<?php echo js_encode(gettext("Gallery index")); ?>');
-							$('#description').html('<?php echo js_encode(gettext("This is the normal gallery Index page.")); ?>');
+							$('#selector').html('<?php echo js_encode(gettext("Site index")); ?>');
+							$('#description').html('<?php echo js_encode(gettext("This is the site Index page.")); ?>');
 							$('#link').attr('disabled', true);
 							$('#titleinput').show();
 							$('#link').val('<?php echo WEBPATH; ?>/');
@@ -128,6 +128,15 @@ if (extensionEnabled('zenpage')) {
 	<?php
 }
 ?>
+						case "albumindex":
+							$('#albumselector,#pageselector,#categoryselector,#custompageselector,#link_row').hide();
+							$('#selector').html('<?php echo js_encode(gettext("Album index")); ?>');
+							$('#description').html('<?php echo js_encode(gettext("Creates a link to Album index page for themes which do not show the albums on the Gallery index.")); ?>');
+							$('#link').attr('disabled', true);
+							$('#titleinput').show();
+							$('#link').val('<?php echo WEBPATH; ?>/');
+							break;
+
 						case 'custompage':
 							$('#albumselector,#pageselector,#categoryselector,#link').hide();
 							$('#custompageselector').show();
@@ -265,7 +274,8 @@ if (is_array($result)) {
 						<select id="typeselector" name="typeselector" >
 							<option value=""><?php echo gettext("*Select the type of the menus item you wish to add*"); ?></option>
 							<option value="all_items"><?php echo gettext("All menu items"); ?></option>
-							<option value="galleryindex"><?php echo gettext("Gallery index"); ?></option>
+							<option value="siteindex"><?php echo gettext("Site index"); ?></option>
+							<option value="albumindex"><?php echo gettext("Album index"); ?></option>
 							<option value="all_albums"><?php echo gettext("All Albums"); ?></option>
 							<option value="album"><?php echo gettext("Album"); ?></option>
 							<?php

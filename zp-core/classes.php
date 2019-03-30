@@ -337,26 +337,36 @@ class PersistentObject {
 	 * true if successful, false if not.
 	 */
 	function save() {
+		global $_zp_current_admin_obj, $_zp_authority;
+		if ($_zp_current_admin_obj) {
+			$updateUser = $_zp_current_admin_obj;
+		} else {
+			$updateUser = $_zp_authority->getMasterUser();
+		}
 		if ($this->transient)
-			return false; // If this object isn't supposed to be persisted, don't save it.
+			return 0; // If this object isn't supposed to be persisted, don't save it.
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
 			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
-			return false;
+			return 0;
 		}
-		if (!zp_apply_filter('save_object', true, $this)) {
+		if (!zp_apply_filter('save_object', TRUE, $this)) {
 			// filter aborted the save
-			return false;
+			return 0;
 		}
 
 		if (!$this->id) {
 			//	prevent recursive save form default processing
-			$this->transient = true;
+			$this->transient = TRUE;
 			$this->setDefaults();
-			$this->transient = false;
+			$this->transient = FALSE;
 			$insert_data = array_merge($this->unique_set, $this->updates);
 			if (empty($insert_data)) {
-				return true;
+				return 2;
 			}
+			if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
+				$insert_data = array_merge($insert_data, array('lastchange' => date('Y-m-d H:i:s'), 'lastchangeuser' => $updateUser->getUser()));
+			}
+
 			$cols = $vals = '';
 			foreach ($insert_data as $col => $value) {
 				if (!empty($cols)) {
@@ -373,7 +383,7 @@ class PersistentObject {
 			$sql = 'INSERT INTO ' . prefix($this->table) . ' (' . $cols . ') VALUES (' . $vals . ')';
 			$success = query($sql);
 			if (!$success || db_affected_rows() != 1) {
-				return false;
+				return 0;
 			}
 			foreach ($insert_data as $key => $value) { // copy over any changes
 				$this->data[$key] = $value;
@@ -381,37 +391,43 @@ class PersistentObject {
 			$this->updates = array();
 
 			$this->data['id'] = $this->id = (int) db_insert_id(); // so 'get' will retrieve it!
-			$this->loaded = true;
+			$this->loaded = TRUE;
 		} else {
 			// Save the existing object (updates only) based on the existing id.
 			if (empty($this->updates)) {
-				return true;
+				return 2;
 			} else {
 				$sql = '';
 				foreach ($this->updates as $col => $value) {
-					if ($sql) {
-						$sql .= ",";
+					if ($this->data[$col] != $value) {
+						if ($sql) {
+							$sql .= ",";
+						}
+						if (is_null($value)) {
+							$sql .= " `$col` = NULL";
+						} else {
+							$sql .= " `$col` = " . db_quote($value);
+						}
+						$this->data[$col] = $value;
 					}
-					if (is_null($value)) {
-						$sql .= " `$col` = NULL";
-					} else {
-						$sql .= " `$col` = " . db_quote($value);
+				}
+				if (empty($sql)) {
+					$success = 2;
+				} else {
+					if (array_key_exists('lastchange', $this->data)) { //	if the object has these keys, provide the data
+						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser->getUser());
 					}
-					$this->data[$col] = $value;
-				}
-				$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
-				$success = query($sql);
-				if (!$success || db_affected_rows() != 1) {
-					return false;
-				}
-				foreach ($this->updates as $key => $value) {
-					$this->data[$key] = $value;
+					$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
+					$success = (int) query($sql);
+					if (!$success || db_affected_rows() != 1) {
+						return 0;
+					}
 				}
 				$this->updates = array();
 			}
 		}
 		$this->addToCache($this->data);
-		return true;
+		return $success;
 	}
 
 	/**
@@ -996,7 +1012,7 @@ class MediaObject extends ThemeObject {
 	 * @param string $user
 	 */
 	function setOwner($user) {
-		$this->set('owner');
+		$this->set('owner', $user);
 	}
 
 	/**
@@ -1009,35 +1025,12 @@ class MediaObject extends ThemeObject {
 	}
 
 	/**
-	 *
-	 * sets the last change date
-	 */
-	function setLastchange($d) {
-		if ($d) {
-			$newtime = dateTimeConvert($d);
-			if ($newtime === false)
-				return;
-			$this->set('lastchange', $newtime);
-		} else {
-			$this->set('lastchange', NULL);
-		}
-	}
-
-	/**
-	 * Returns the last change author
+	 * Returns the last change user
 	 *
 	 * @return string
 	 */
 	function getlastchangeuser() {
 		return $this->get("lastchangeuser");
-	}
-
-	/**
-	 *
-	 * stores the last change author
-	 */
-	function setlastchangeuser($a) {
-		$this->set("lastchangeuser", $a);
 	}
 
 }

@@ -210,9 +210,7 @@ class galleryArticles {
 		if (!$date)
 			$date = date('Y-m-d H:i:s');
 		$article->setDateTime($date);
-		$article->setLastchange(date('Y-m-d H:i:s'));
 		$article->setOwner('galleryArticles');
-		$article->setlastchangeuser('galleryArticles');
 		$article->setShow(true);
 		$article->save();
 

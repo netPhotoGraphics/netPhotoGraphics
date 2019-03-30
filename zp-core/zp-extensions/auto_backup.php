@@ -1,17 +1,18 @@
 <?php
 
 /**
- * This plugin provides a facility to periodically run the backup utility. Use it to
- * insure that database backups are done on a regular basis.
+ * This plugin provides a facility to periodically run the <code>Backups utility</code>.
+ * Use it to insure that database backups are done on a regular basis.
  *
  * <b>NOTE:</b> The website must be visited and live pages must be served for this
  * plugin to be able to check if it is time to run.
  *
- * Inacative or heavily cached sites may not get backed up as frequently as the
+ * Inactive or heavily cached sites may not get backed up as frequently as the
  * interval specifies. Of course, if there is no dynamic activity on the site,
  * there probably is little need to do the backup in the first place.
  *
- * Backups are run under the master administrator authority.
+ * The plugin causes the <code>Backups utility</code> to be run under the master
+ * administrator authority. See the utility for details of site backups.
  *
  * @author Stephen Billard (sbillard)
  *
@@ -86,7 +87,7 @@ class auto_backup {
 		if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) {
 			//	maybe a race condition? Only need one execution
 			$curdir = getcwd();
-			$folder = SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER;
+			$folder = SERVERPATH . "/" . BACKUPFOLDER;
 			if (!is_dir($folder)) {
 				mkdir($folder, FOLDER_MOD);
 			}
@@ -102,8 +103,8 @@ class auto_backup {
 			$keep = getOption('backups_to_keep');
 			while (!empty($list) && count($list) >= $keep) {
 				$file = array_shift($list);
-				@chmod(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/' . $file, 0777);
-				unlink(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/' . $file);
+				@chmod(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file, 0777);
+				unlink(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file);
 			}
 			cron_starter(SERVERPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php', array('action' => 'backup', 'autobackup' => 1, 'compress' => sprintf('%u', getOption('backup_compression')), 'XSRFTag' => 'backup'), 3);
 			setOption('last_backup_run', time());

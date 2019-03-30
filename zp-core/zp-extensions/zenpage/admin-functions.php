@@ -50,7 +50,6 @@ function processTags($object) {
 function updatePage(&$reports, $newpage = false) {
 	global $_zp_current_admin_obj;
 	$title = process_language_string_save("title", 2);
-	$author = sanitize($_POST['author']);
 	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$date = sanitize($_POST['date']);
 	$pubdate = sanitize($_POST['pubdate']);
@@ -116,9 +115,9 @@ function updatePage(&$reports, $newpage = false) {
 	$page->setTitle($title);
 	$page->setContent($content);
 	$page->setCommentsAllowed($commentson);
-	$page->setOwner($author);
-	$page->setLastchange(date('Y-m-d H:i:s'));
-	$page->setlastchangeuser($_zp_current_admin_obj->getUser());
+	if (isset($_POST['author'])) {
+		$page->setOwner(sanitize($_POST['author']));
+	}
 	$page->setPermalink($permalink);
 	$page->setLocked($locked);
 	$page->setExpiredate($expiredate);
@@ -156,11 +155,14 @@ function updatePage(&$reports, $newpage = false) {
 		} else if ($notice) {
 			echo "<p class='errorbox fade-message'>" . gettext('Your passwords were empty or did not match') . '</p>';
 		} else {
-			$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Page <em>%s</em> updated"), $titlelink) . '</p>';
+			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Page <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
 	zp_apply_filter('save_page_custom_data', NULL, $page);
-	$page->save();
+	if ($page->save() == 2) {
+		$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
+	}
+
 	$msg = zp_apply_filter('edit_error', $msg);
 	if ($msg) {
 		$reports[] = $msg;
@@ -361,7 +363,6 @@ function updateArticle(&$reports, $newarticle = false) {
 	global $_zp_current_admin_obj;
 
 	$title = process_language_string_save("title", 2);
-	$author = sanitize($_POST['author']);
 	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$show = getcheckboxState('show');
 	$date = sanitize($_POST['date']);
@@ -429,9 +430,9 @@ function updateArticle(&$reports, $newarticle = false) {
 	$article->setContent($content);
 	$article->setDateTime($date);
 	$article->setCommentsAllowed($commentson);
-	$article->setOwner($author);
-	$article->setLastchange(date('Y-m-d H:i:s'));
-	$article->setlastchangeuser($_zp_current_admin_obj->getUser());
+	if (isset($_POST['author'])) {
+		$article->setOwner(sanitize($_POST['author']));
+	}
 	$article->setPermalink($permalink);
 	$article->setLocked($locked);
 	$article->setExpiredate($expiredate);
@@ -483,25 +484,25 @@ function updateArticle(&$reports, $newarticle = false) {
 	if ($newarticle) {
 		$msg = zp_apply_filter('new_article', '', $article);
 		if (empty($title)) {
-			$reports['success'] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> added but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
+			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> added but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
 		} else {
-			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> added"), $titlelink) . '</p>';
+			$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> added"), $titlelink) . '</p>';
 		}
 	} else {
 		$msg = zp_apply_filter('update_article', '', $article, $oldtitlelink);
 		if (!$rslt) {
 			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("An article with the title/titlelink <em>%s</em> already exists!"), $titlelink) . '</p>';
 		} else if (empty($title)) {
-			$reports['success'] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
+			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated but you need to give it a <strong>title</strong> before publishing!"), get_language_string($titlelink)) . '</p>';
 		} else {
 			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
 	zp_apply_filter('save_article_custom_data', NULL, $article);
-	$article->save();
-
+	if ($article->save() == 2) {
+		$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
+	}
 	$msg = zp_apply_filter('edit_error', $msg);
-
 	if ($msg) {
 		$reports[] = $msg;
 	}
@@ -940,7 +941,6 @@ function updateCategory(&$reports, $newcategory = false) {
 			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("A category with the title/titlelink <em>%s</em> already exists!"), html_encode($cat->getTitle())) . "</p>";
 		}
 	}
-	zp_apply_filter('save_category_custom_data', NULL, $cat);
 	$cat->save();
 	$msg = zp_apply_filter('edit_error', $msg);
 	if ($msg) {
@@ -1417,34 +1417,6 @@ function printZenpageIconLegend() {
 }
 
 /**
- * Prints a dropdown to select the author of a page or news article (Admin rights users only)
- *
- * @param string $currentadmin The current admin is selected if adding a new article, otherwise the original author
- */
-function authorSelector($author = NULL) {
-	global $_zp_authority, $_zp_current_admin_obj;
-	if (empty($author)) {
-		$author = $_zp_current_admin_obj->getUser();
-	}
-	$authors = array($author => $author);
-	if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS | MANAGE_ALL_NEWS_RIGHTS)) {
-		$admins = $_zp_authority->getAdministrators();
-		foreach ($admins as $admin) {
-			if ($admin['rights'] & (ADMIN_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) {
-				$authors[$admin['user']] = $admin['user'];
-			}
-		}
-	}
-	?>
-	<select size='1' name="author" id="author">
-		<?php
-		generateListFromArray(array($author), $authors, false, false);
-		?>
-	</select>
-	<?php
-}
-
-/**
  * Prints data info for objects
  *
  * @param string $object Object of the page or news article to check
@@ -1586,6 +1558,9 @@ function processZenpageBulkActions($type) {
 						$cats = array();
 					}
 				}
+				if ($action == 'changeowner') {
+					$newowner = sanitize($_POST['massownerselect']);
+				}
 				$n = 0;
 				foreach ($links as $titlelink) {
 
@@ -1650,6 +1625,9 @@ function processZenpageBulkActions($type) {
 								break;
 							case 'resethitcounter':
 								$obj->set('hitcounter', 0);
+								break;
+							case 'changeowner':
+								$obj->setOwner($newowner);
 								break;
 						}
 					} else {

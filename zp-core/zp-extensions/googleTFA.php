@@ -79,22 +79,20 @@ class googleTFA extends fieldExtender {
 		return $loggedin;
 	}
 
-	static function save($updated, $userobj, $i, $alter) {
+	static function save($userobj, $i, $alter) {
 		if (isset($_POST['user'][$i]['otp']) && $alter) {
 			if (!$userobj->getOTAsecret()) {
 				$secretFactory = new \Dolondro\GoogleAuthenticator\SecretFactory();
 				$secret = $secretFactory->create(WEBPATH, $userobj->getUser());
 				$userobj->setOTAsecret($secret->getSecretKey());
 				$userobj->setQRuri($secret->getUri());
-				$updated = true;
 			}
 		} else {
 			if ($userobj->getOTAsecret()) {
 				$userobj->setOTAsecret(NULL);
-				$updated = true;
 			}
 		}
-		return $updated;
+		return $userobj;
 	}
 
 	static function head() {

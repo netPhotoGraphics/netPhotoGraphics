@@ -131,8 +131,8 @@ class customFieldExtender extends fieldExtender {
 		return parent::_addToSearch($list, self::$fields);
 	}
 
-	static function adminSave($updated, $userobj, $i, $alter) {
-		parent::_adminSave($updated, $userobj, $i, $alter, self::$fields);
+	static function adminSave($userobj, $i, $alter) {
+		return parent::_adminSave($userobj, $i, $alter, self::$fields);
 	}
 
 	static function adminEdit($html, $userobj, $i, $background, $current) {
@@ -199,8 +199,8 @@ class customFieldExtender extends fieldExtender {
 			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				ob_start();
 				?>
-				<select name="<?php echo $instance . '-' . $field['name']; ?>">
-					<?php echo admin_album_list($item); ?>
+				<select name="<?php echo $instance . '-' . $field['name']; ?>" size='1'>
+					<?php echo admin_owner_list($item, UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 				</select>
 				<?php
 				$item = ob_get_contents();

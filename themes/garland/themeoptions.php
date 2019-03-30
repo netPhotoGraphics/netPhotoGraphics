@@ -38,7 +38,7 @@ class ThemeOptions {
 							'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,"inner_ul",false,"list",false,getOption("menu_manager_truncate_string"));',
 							'show' => 1, 'include_li' => 0, 'nesting' => 1),
 					array('type' => 'html', 'title' => getAllTranslations('Articles Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
-					array('type' => 'custompage', 'title' => getAllTranslations('Gallery'), 'link' => 'gallery', 'show' => 1, 'nesting' => 0),
+					array('type' => 'albumindex', 'title' => getAllTranslations('Gallery'), 'link' => NULL, 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'), 'link' => 'printAlbumMenuList("list",NULL,"","menu-active","inner_ul","menu-active","",false,false,false,false,getOption("menu_manager_truncate_string"));', 'show' => 1, 'include_li' => 0, 'nesting' => 1),
 					array('type' => 'html', 'title' => getAllTranslations('Gallery Rule'), 'link' => '<li class="menu_rule menu_menulabel"></li>', 'show' => 1, 'include_li' => 0, 'nesting' => 0),
 					array('type' => 'menulabel', 'title' => getAllTranslations('Pages'), 'link' => '', 'show' => 1, 'nesting' => 0),

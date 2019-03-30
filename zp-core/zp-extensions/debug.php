@@ -219,6 +219,7 @@ class debug {
 			}
 			$tabs['development']['subtabs'][gettext("HTTP accept")] = PLUGIN_FOLDER . '/debug/admin_tab.php?page=develpment&tab=http';
 			$tabs['development']['subtabs'][gettext("Cookies")] = PLUGIN_FOLDER . '/debug/admin_tab.php?page=develpment&tab=cookie';
+			$tabs['development']['subtabs'][gettext("filters")] = PLUGIN_FOLDER . '/debug/admin_tab.php?page=development&tab=filters';
 		}
 		return $tabs;
 	}

@@ -158,7 +158,7 @@ if ($action == 'backup') {
 	}
 
 	if (!empty($tables)) {
-		$folder = SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER;
+		$folder = SERVERPATH . "/" . BACKUPFOLDER;
 		$filename = $folder . '/backup-' . date('Y_m_d-H_i_s') . '.zdb';
 		if (!is_dir($folder)) {
 			mkdir($folder, FOLDER_MOD);
@@ -247,7 +247,7 @@ if ($action == 'backup') {
 	if (isset($_REQUEST['backupfile'])) {
 		$file_version = 0;
 		$compression_handler = 'gzip';
-		$folder = SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/';
+		$folder = SERVERPATH . "/" . BACKUPFOLDER . '/';
 		$filename = $folder . internalToFilesystem(sanitize($_REQUEST['backupfile'], 3)) . '.zdb';
 		if (file_exists($filename)) {
 			$handle = fopen($filename, 'r');
@@ -332,7 +332,7 @@ if ($action == 'backup') {
 									}
 								}
 								if (array_search($key, $tables[$prefix . $table]) === false) {
-									//	Flag it if data will be lost
+//	Flag it if data will be lost
 									$missing_element[] = $table . '->' . $key;
 									unset($row[$key]);
 								} else {
@@ -512,20 +512,20 @@ if (isset($_GET['compression'])) {
 					<?php printf(gettext("Tables prefix <strong>%s</strong>"), trim(prefix(), '`')); ?>
 				</p>
 				<br />
-				<br />
-				<?php
-				if (!$_zp_current_admin_obj->reset) {
-					?>
-					<form name="backup_gallery" method="post" action="?tab=backup&action=backup">
-						<?php XSRFToken('backup'); ?>
-						<input type="hidden" name="tab" value="backup" />
-						<input type="hidden" name="backup" value="true" />
-						<div class="buttons pad_button" id="dbbackup">
-							<button class="fixedwidth tooltip" type="submit" title="<?php echo gettext("Backup the tables in your database."); ?>">
-								<?php echo BURST_BLUE; ?>
-								<?php echo gettext("Backup the Database"); ?>
-							</button>
-							<select name="compress">
+				<div>
+					<?php
+					if (!$_zp_current_admin_obj->reset) {
+						?>
+						<form name="backup_gallery" method="post" action="?tab=backup&action=backup">
+							<?php XSRFToken('backup'); ?>
+							<input type="hidden" name="tab" value="backup" />
+							<input type="hidden" name="backup" value="true" />
+
+							<h1>
+								<?php echo gettext('Database backup'); ?>
+							</h1>
+
+							<?php echo gettext('Compression level'); ?> <select name="compress">
 								<?php
 								for ($v = 0; $v <= 9; $v++) {
 									?>
@@ -533,91 +533,111 @@ if (isset($_GET['compression'])) {
 									<?php
 								}
 								?>
-							</select> <?php echo gettext('Compression level'); ?>
-						</div>
-						<br class="clearall">
-						<br class="clearall">
-					</form>
-					<br />
-					<br />
-					<?php
-				}
-				$filelist = safe_glob(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/*.zdb');
-				if (count($filelist) <= 0) {
-					echo gettext('You have not yet created a backup set.');
-				} else {
-					$curdir = getcwd();
-					chdir(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER);
-					$filelist = safe_glob('*.zdb');
-					$list = array('' => NULL);
-					foreach ($filelist as $file) {
-						$file = str_replace('.zdb', '', $file);
-						$list[] = filesystemToInternal($file);
-					}
-					chdir($curdir);
-					?>
-					<form name="restore_gallery" method="post" action="?tab=backup&action=restore">
-						<input type="hidden" name="tab" value="backup" />
-						<?php XSRFToken('restore'); ?>
-						<?php echo gettext('Select the database restore file:'); ?>
-						<br />
-						<select id="backupfile" name="backupfile" onchange="$('#restore_button').prop('disabled', false)">
-							<?php generateListFromArray(array(''), $list, true, false);
-							?>
-						</select>
-						<input type="hidden" name="restore" value="true" />
-						<br />
-						<span class="nowrap">
-							<?php
-							echo gettext('Select the tables to restore.');
-							?>
-							<label>
-								<input type="checkbox" name="all" id="checkAllAuto" value="1" checked="checked" onclick="$('.checkAuto').prop('checked', $('#checkAllAuto').prop('checked'));" /><?php echo gettext('all'); ?>
-							</label>
-						</span>
-						<br />
-						<div  style="max-width: 750px;">
-							<?php
-							foreach (unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate')) as $table => $row) {
-								?>
-								<span class="nowrap">
-									<label>
-										<input type="checkbox" class="checkAuto" name="restore_<?php echo $table; ?>" value="1" checked="checked" /><?php echo $table; ?>
-									</label>
-								</span>
+							</select>
+							<br class="clearall">
+							<br />
+							<div class="buttons pad_button" id="dbbackup">
+								<button class="fixedwidth tooltip" type="submit" title="<?php echo gettext("Backup the tables in your database."); ?>">
+									<?php echo BURST_BLUE; ?>
+									<?php echo gettext("Backup the Database"); ?>
+								</button>
+							</div>
+							<br class="clearall">
+							<br />
+							<p>
 								<?php
-							}
-							?>
-						</div>
+								printf(gettext('The backup facility creates database snapshots in the <code>%1$s</code> folder of your installation. These backups are named in according to the date and time the backup was taken. ' .
+																'The compression level goes from 0 (no compression) to 9 (maximum compression). Higher compression requires more processing and may not result in much space savings.'), BACKUPFOLDER);
+								?>
+							</p>
+						</form>
+						<br class="clearall">
+						<br />
+					</div>
+					<div>
+						<h1>
+							<?php echo gettext('Database restoration'); ?>
+						</h1>
+						<?php
+					}
+					$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
+					if (count($filelist) <= 0) {
+						echo gettext('You have not yet created a backup set.');
+					} else {
+						$curdir = getcwd();
+						chdir(SERVERPATH . "/" . BACKUPFOLDER);
+						$filelist = safe_glob('*.zdb');
+						$list = array('' => NULL);
+						foreach ($filelist as $file) {
+							$file = str_replace('.zdb', '', $file);
+							$list[] = filesystemToInternal($file);
+						}
+						chdir($curdir);
+						?>
+						<form name="restore_gallery" method="post" action="?tab=backup&action=restore">
+							<input type="hidden" name="tab" value="backup" />
+							<?php XSRFToken('restore'); ?>
+							<?php echo gettext('Select the database restore file:'); ?>
+							<br />
+							<select id="backupfile" name="backupfile" onchange="$('#restore_button').prop('disabled', false)">
+								<?php generateListFromArray(array(''), $list, true, false);
+								?>
+							</select>
+							<input type="hidden" name="restore" value="true" />
+							<br />
+							<br />
+							<span class="nowrap">
+								<?php
+								echo gettext('Select the tables to restore.');
+								?>
+								<label>
+									<input type="checkbox" name="all" id="checkAllAuto" value="1" checked="checked" onclick="$('.checkAuto').prop('checked', $('#checkAllAuto').prop('checked'));" /><?php echo gettext('all'); ?>
+								</label>
+							</span>
+							<br />
+							<div style="max-width: 750px;">
+								<p>
+									<?php
+									foreach (unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate')) as $table => $row) {
+										?>
+										<span class="nowrap">
+											<label>
+												<input type="checkbox" class="checkAuto" name="restore_<?php echo $table; ?>" value="1" checked="checked" /><?php echo $table; ?>
+											</label>
+										</span>
+										<?php
+									}
+									?>
+								</p>
+							</div>
 
-						<br class="clearall">
-						<div class="buttons pad_button" id="dbrestore">
-							<button id="restore_button" class="fixedwidth tooltip" type="submit" title="<?php echo gettext("Restore the tables in your database from a previous backup."); ?>" disabled="disabled">
-								<?php echo CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE; ?>
-								<?php echo gettext("Restore the Database"); ?>
-							</button>
-						</div>
-						<br class="clearall">
-						<br class="clearall">
-					</form>
-					<?php
-				}
-
-				echo '<p>';
-				if (!$_zp_current_admin_obj->reset) {
-					echo gettext('The backup facility creates database snapshots in the <code>backup</code> folder of your installation. These backups are named in according to the date and time the backup was taken. ' .
-									'The compression level goes from 0 (no compression) to 9 (maximum compression). Higher compression requires more processing and may not result in much space savings.');
-					echo '</p><p>';
-				}
-				echo gettext('You restore your database by selecting a backup and pressing the <em>Restore the Database</em> button.');
-				echo '</p><p class="notebox">' . gettext('<strong>Note:</strong> Each database table is emptied before the restore is attempted. After a successful restore the database will be in the same state as when the backup was created.');
-				echo '</p><p>';
-				echo gettext('Ideally a restore should be done only on the same version on which the backup was created. If you are intending to upgrade, first do the restore on the version you were running, then install the new version. If this is not possible the restore can still be done, but if the database fields have changed between versions, data from changed fields will not be restored.');
-				echo '</p>'
-				?>
-			</div>
-		</div><!-- content -->
-		<?php printAdminFooter(); ?>
-	</div><!-- main -->
+							<div class="buttons pad_button" id="dbrestore">
+								<button id="restore_button" class="fixedwidth tooltip" type="submit" title="<?php echo gettext("Restore the tables in your database from a previous backup."); ?>" disabled="disabled">
+									<?php echo CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE; ?>
+									<?php echo gettext("Restore the Database"); ?>
+								</button>
+							</div>
+							<br class="clearall">
+							<br />
+							<p class="notebox">
+								<?php
+								echo gettext('<strong>Note:</strong> Each database table is emptied before the restore is attempted. After a successful restore the database will be in the same state as when the backup was created.');
+								?>
+							</p>
+							<p>
+								<?php
+								echo gettext('Ideally a restore should be done only on the same version on which the backup was created. If you are intending to upgrade, first do the restore on the version you were running, then install the new version. If this is not possible the restore can still be done, but if the database fields have changed between versions, data from changed fields will not be restored.');
+								?>
+							</p>
+							<br class="clearall">
+						</form>
+						<?php
+					}
+					?>
+				</div>
+			</div><!--content -->
+			<?php printAdminFooter();
+			?>
+		</div><!-- main -->
 </body>
 <?php echo "</html>"; ?>

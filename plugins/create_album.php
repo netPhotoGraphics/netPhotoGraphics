@@ -230,12 +230,11 @@ class create_album {
 	/**
 	 *
 	 * Admin Save handler
-	 * @param $updated
 	 * @param $userobj
 	 * @param $i
 	 * @param $alter
 	 */
-	static function save($updated, $userobj, $i, $alter) {
+	static function save($userobj, $i, $alter) {
 		global $_create_album_errors;
 		if (isset($_POST['createalbum']) && $userobj->getValid()) {
 			if (isset($_POST['folderdisplay'])) {
@@ -271,7 +270,7 @@ class create_album {
 				}
 			}
 		}
-		return $updated;
+		return $userobj;
 	}
 
 	/**

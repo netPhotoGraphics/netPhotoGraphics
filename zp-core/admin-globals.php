@@ -110,6 +110,7 @@ if (@$_zp_loggedin) {
 		$zenphoto_tabs['options'] = NULL;
 		$zenphoto_tabs['logs'] = NULL;
 		$zenphoto_tabs['admin'] = NULL;
+		$zenphoto_tabs['images'] = NULL;
 		$zenphoto_tabs['edit'] = NULL;
 		$zenphoto_tabs['pages'] = NULL;
 		$zenphoto_tabs['news'] = NULL;
@@ -214,13 +215,27 @@ if (@$_zp_loggedin) {
 					'ordered' => true,
 					'subtabs' => array(gettext('users') => 'admin-tabs/users.php?page=admin&tab=users')
 			);
-		} else if ($_zp_loggedin & USER_RIGHTS) {
-			$zenphoto_tabs['admin'] = array(
-					'text' => gettext("my profile"),
-					'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
-					'ordered' => true,
-					'subtabs' => array(gettext('users') => 'admin-tabs/users.php?page=admin&tab=users')
-			);
+		} else {
+			if ($_zp_loggedin & USER_RIGHTS) {
+				$zenphoto_tabs['admin'] = array(
+						'text' => gettext("my profile"),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
+						'ordered' => true,
+						'subtabs' => NULL
+				);
+			}
+		}
+		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+			$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_zp_current_admin_obj->getUser()) . ' LIMIT 1';
+			$result = query_single_row($sql);
+			if (!empty($result)) {
+				$zenphoto_tabs['images'] = array(
+						'text' => gettext("my images"),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/images.php?page=admin&tab=images',
+						'ordered' => true,
+						'subtabs' => NULL
+				);
+			}
 		}
 
 		$subtabs = array();
@@ -283,7 +298,7 @@ if (@$_zp_loggedin) {
 		}
 
 		if (!$_zp_current_admin_obj->getID()) {
-			$filelist = safe_glob(SERVERPATH . "/" . DATA_FOLDER . "/" . BACKUPFOLDER . '/*.zdb');
+			$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 			if (count($filelist) > 0) {
 				$zenphoto_tabs['admin']['subtabs']['restore'] = 'utilities/backup_restore.php?tab=backup';
 			}

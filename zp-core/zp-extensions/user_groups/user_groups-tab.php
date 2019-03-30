@@ -61,7 +61,7 @@ if (isset($_GET['action'])) {
 						$group->setName(trim(sanitize($groupelement['type'], 3)));
 						$group->setValid(0);
 						$group->setDesc(trim(sanitize($groupelement['desc'], 3)));
-						zp_apply_filter('save_admin_custom_data', true, $group, $i, true);
+						zp_apply_filter('save_admin_custom_data', $group, $i, true);
 						$group->save();
 
 						if ($group->getName() == 'group') {
@@ -73,7 +73,10 @@ if (isset($_GET['action'])) {
 									if (in_array($groupname, $hisgroups)) {
 										$userobj = Zenphoto_Authority::newAdministrator($admin['user'], $admin['valid']);
 										user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
-										$userobj->save();
+										$success = $userobj->save();
+										if ($success === TRUE) {
+											zp_apply_filter('save_user_complete', '', $userobj, 'update');
+										}
 									}
 								}
 							}
@@ -85,7 +88,10 @@ if (isset($_GET['action'])) {
 									$username = $list['checked'];
 									$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
 									user_groups::merge_rights($userobj, array(1 => $groupname), user_groups::getPrimeObjects($userobj));
-									$userobj->save();
+									$success = $userobj->save();
+									if ($success === TRUE) {
+										zp_apply_filter('save_user_complete', '', $userobj, 'update');
+									}
 								}
 							}
 						}
@@ -108,7 +114,10 @@ if (isset($_GET['action'])) {
 						$username = trim(sanitize($user['userid'], 3));
 						$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
 						user_groups::merge_rights($userobj, $newgroups, user_groups::getPrimeObjects($userobj));
-						$userobj->save();
+						$success = $userobj->save();
+						if ($success === TRUE) {
+							zp_apply_filter('save_user_complete', '', $userobj, 'update');
+						}
 					}
 				}
 				$notify = '&saved';
@@ -285,11 +294,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />

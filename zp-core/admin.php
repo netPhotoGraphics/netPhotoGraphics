@@ -189,7 +189,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 							break;
 						}
 					}
-					$found = safe_glob(SERVERPATH . '/setup-master*.zip');
+					$found = safe_glob(SERVERPATH . '/setup-*.zip');
 					if (!empty($found)) {
 						$file = array_shift($found);
 						if (!unzip($file, SERVERPATH)) {
@@ -358,14 +358,14 @@ $buttonlist = array();
 			/*			 * ********************************************************************************* */
 			$setupUnprotected = printSetupWarning();
 
-			$found = safe_glob(SERVERPATH . '/setup-master*.zip');
-			if ($newVersion = zp_loggedin(ADMIN_RIGHTS) && ($extract = file_exists(SERVERPATH . '/extract.php.bin') || !empty($found) )) {
+			$found = safe_glob(SERVERPATH . '/setup-*.zip');
+			if ($newVersion = zp_loggedin(ADMIN_RIGHTS) && (($extract = file_exists(SERVERPATH . '/extract.php.bin')) || !empty($found))) {
 				if ($extract) {
 					$buttonText = gettext('Install update');
 					$buttonTitle = gettext('Install the netPhotoGraphics update.');
 				} else {
 					$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($found[0]))));
-					$buttonetxt = sprintf(gettext('Install version %1$s'), $newestVersion);
+					$buttonText = sprintf(gettext('Install version %1$s'), $newestVersion);
 					$buttonTitle = gettext('Extract and install the netPhotoGraphics update.');
 				}
 				?>

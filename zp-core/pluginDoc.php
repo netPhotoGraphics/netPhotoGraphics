@@ -435,17 +435,15 @@ if (!defined('OFFSET_PATH')) {
 								$options = array_keys($supportedOptions);
 								sort($options, SORT_NATURAL | SORT_FLAG_CASE);
 							}
-							$notes = array();
+
 							foreach ($options as $key => $option) {
 								if (array_key_exists($option, $supportedOptions)) {
 									$row = $supportedOptions[$option];
 									if ($row['type'] == OPTION_TYPE_NOTE) {
 										$n = getBare($row['desc']);
 										if (!empty($n)) {
-											$row['desc'] = $n;
-											$notes[] = $row;
+											$options[$key] = $n;
 										}
-										unset($options[$key]);
 									} else {
 										if (false !== $i = stripos($option, chr(0))) {
 											$option = substr($option, 0, $i);
@@ -453,6 +451,7 @@ if (!defined('OFFSET_PATH')) {
 										if (!$option) {
 											unset($options[$key]);
 										}
+										$options[$key] = '<code>' . $option . '</code>';
 									}
 								} else {
 									unset($options[$key]);
@@ -471,26 +470,9 @@ if (!defined('OFFSET_PATH')) {
 											}
 											if ($option) {
 												?>
-												<li><code><?php echo $option; ?></code></li>
+												<li><?php echo $option; ?></li>
 												<?php
 											}
-										}
-										?>
-									</ol>
-								</p>
-								<?php
-							}
-							if (!empty($notes)) {
-								?>
-								<hr />
-								<p>
-									<?php echo gettext('Notes:'); ?>
-									<ol>
-										<?php
-										foreach ($notes as $note) {
-											?>
-											<li><?php echo $note['desc']; ?></li>
-											<?php
 										}
 										?>
 									</ol>
@@ -508,30 +490,30 @@ if (!defined('OFFSET_PATH')) {
 							?>
 							<div class="box" id="overview-section">
 								<h2 class="h2_bordered">Utility functions</h2>
-								<?php
-								$category = '';
-								foreach ($buttonlist as $button) {
-									$button_category = @$button['category'];
-									$button_icon = @$button['icon'];
-									if ($category != $button_category) {
-										if ($category) {
-											?>
+			<?php
+			$category = '';
+			foreach ($buttonlist as $button) {
+				$button_category = @$button['category'];
+				$button_icon = @$button['icon'];
+				if ($category != $button_category) {
+					if ($category) {
+						?>
 											</fieldset>
 											<?php
 										}
 										$category = $button_category;
 										?>
 										<fieldset class="doc_box_field"><legend><?php echo $category; ?></legend>
-											<?php
-										}
-										?>
+										<?php
+									}
+									?>
 										<form class="overview_utility_buttons">
 											<div class="moc_button tip" title="<?php echo @$button['title']; ?>" >
-												<?php
-												if (!empty($button_icon)) {
-													if (strpos($button_icon, 'images/') === 0) {
-														// old style icon image
-														?>
+				<?php
+				if (!empty($button_icon)) {
+					if (strpos($button_icon, 'images/') === 0) {
+						// old style icon image
+						?>
 														<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
 														<?php
 													} else {
@@ -542,45 +524,45 @@ if (!defined('OFFSET_PATH')) {
 												?>
 											</div>
 										</form>
+				<?php
+			}
+			if ($category) {
+				?>
+									</fieldset>
 										<?php
 									}
-									if ($category) {
-										?>
-									</fieldset>
-									<?php
-								}
-								?>
+									?>
 							</div>
 							<br class="clearall" />
-							<?php
-						}
-						if ($albumbuttons) {
-							$albumbuttons = preg_replace('|<hr(\s*)(/)>|', '', $albumbuttons);
-							?>
+			<?php
+		}
+		if ($albumbuttons) {
+			$albumbuttons = preg_replace('|<hr(\s*)(/)>|', '', $albumbuttons);
+			?>
 							<h2 class="h2_bordered_edit">Album Utilities</h2>
 							<div class="box-edit">
-								<?php echo $albumbuttons; ?>
+			<?php echo $albumbuttons; ?>
 							</div>
 							<br class="clearall" />
-							<?php
-						}
-						if ($imagebuttons) {
-							$imagebuttons = preg_replace('|<hr(\s*)(/)>|', '', $imagebuttons);
-							?>
+			<?php
+		}
+		if ($imagebuttons) {
+			$imagebuttons = preg_replace('|<hr(\s*)(/)>|', '', $imagebuttons);
+			?>
 							<h2 class="h2_bordered_edit">Image Utilities</h2>
 							<div class="box-edit">
-								<?php echo $imagebuttons; ?>
+			<?php echo $imagebuttons; ?>
 							</div>
 							<br class="clearall" />
-							<?php
-						}
-						if (!empty($content_macros)) {
-							echo ngettext('Macro defined:', 'Macros defined:', count($content_macros));
-							foreach ($content_macros as $macro => $detail) {
-								unset($detail['owner']);
-								macroList_show($macro, $detail);
-							}
-							?>
+			<?php
+		}
+		if (!empty($content_macros)) {
+			echo ngettext('Macro defined:', 'Macros defined:', count($content_macros));
+			foreach ($content_macros as $macro => $detail) {
+				unset($detail['owner']);
+				macroList_show($macro, $detail);
+			}
+			?>
 							<br class="clearall" />
 							<?php
 						}

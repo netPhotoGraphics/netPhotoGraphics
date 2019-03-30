@@ -51,7 +51,7 @@ if (isset($_POST['checkallaction'])) { // true if apply is pressed
 		$reports[] = $report;
 	} else {
 		if (empty($reports)) {
-			$reports[] = "<p class='notebox fade-message'>" . gettext("Nothing changed.") . "</p>";
+			$reports[] = "<p class='messagebox fade-message'>" . gettext("Nothing changed.") . "</p>";
 		}
 	}
 }
@@ -277,6 +277,9 @@ updatePublished('news');
 											gettext('Add categories') => array('name' => 'addcats', 'action' => 'mass_cats_data'),
 											gettext('Clear categories') => 'clearcats'
 									);
+									if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+										$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
+									}
 									if (extensionEnabled('hitcounter')) {
 										$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
 									}

@@ -49,9 +49,6 @@ $_zp_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset'
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	define('DATA_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
 	@eval('?>' . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	if (!isset($_zp_conf_vars['UTF-8']) || $_zp_conf_vars['UTF-8'] === true) {
-		$_zp_conf_vars['UTF-8'] = 'utf8';
-	}
 } else {
 	define('DATA_MOD', 0777);
 }

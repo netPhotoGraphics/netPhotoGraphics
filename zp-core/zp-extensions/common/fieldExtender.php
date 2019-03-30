@@ -71,96 +71,97 @@ class fieldExtender {
 	 * @param array $newfields
 	 */
 	function constructor($me, $newfields) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
-
 		if (OFFSET_PATH == 2) {
+			require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
+
 			//clean up creator fields
 			$sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(replaceScriptPath(__FILE__) . '[' . __LINE__ . ']') . ' WHERE `name`=' . db_quote($me . '_addedFields') . ' AND `creator` IS NULL;';
 			query($sql);
-		}
-		$utf8mb4 = version_compare(MySQL_VERSION, '5.5.3', '>=');
 
-		$database = array();
-		foreach (getDBTables() as $table) {
-			$tablecols = db_list_fields($table);
-			foreach ($tablecols as $key => $datum) {
-				$database[$table][$datum['Field']] = $datum;
-			}
-		}
-		$current = $fields = $searchDefault = array();
-		if (extensionEnabled($me)) { //need to update the database tables.
-			foreach ($newfields as $newfield) {
-				$table = $newfield['table'];
-				$name = $newfield['name'];
-				if (!$existng = isset($database[$table][$name])) {
-					if (isset($newfield['searchDefault']) && $newfield['searchDefault']) {
-						$searchDefault[] = $name;
-					}
+			$utf8mb4 = version_compare(MySQL_VERSION, '5.5.3', '>=');
+
+			$database = array();
+			foreach (getDBTables() as $table) {
+				$tablecols = db_list_fields($table);
+				foreach ($tablecols as $key => $datum) {
+					$database[$table][$datum['Field']] = $datum;
 				}
-				if (is_null($newfield['type'])) {
-					if ($name == 'tags') {
-						setOption('adminTagsTab', 1);
-					}
-				} else {
-					switch (strtolower($newfield['type'])) {
-						default:
-							$dbType = strtoupper($newfield['type']);
-							break;
-						case 'int':
-							$dbType = strtoupper($newfield['type']) . '(' . min(255, $newfield['size']) . ')';
-							if (isset($newfield['attribute'])) {
-								$dbType.=' ' . $newfield['attribute'];
-								unset($newfield['attribute']);
-							}
-							break;
-						case 'varchar':
-							$dbType = strtoupper($newfield['type']) . '(' . min(255, $newfield['size']) . ')';
-							break;
-					}
-					if ($existng) {
-						if (strtoupper($database[$table][$name]['Type']) != $dbType || empty($database[$table][$name]['Comment'])) {
-							$cmd = ' CHANGE `' . $name . '`';
-						} else {
-							$cmd = NULL;
+			}
+			$current = $fields = $searchDefault = array();
+			if (extensionEnabled($me)) { //need to update the database tables.
+				foreach ($newfields as $newfield) {
+					$table = $newfield['table'];
+					$name = $newfield['name'];
+					if (!$existng = isset($database[$table][$name])) {
+						if (isset($newfield['searchDefault']) && $newfield['searchDefault']) {
+							$searchDefault[] = $name;
 						}
-						unset($database[$table][$name]);
+					}
+					if (is_null($newfield['type'])) {
+						if ($name == 'tags') {
+							setOption('adminTagsTab', 1);
+						}
 					} else {
-						$cmd = ' ADD COLUMN';
+						switch (strtolower($newfield['type'])) {
+							default:
+								$dbType = strtoupper($newfield['type']);
+								break;
+							case 'int':
+								$dbType = strtoupper($newfield['type']) . '(' . min(255, $newfield['size']) . ')';
+								if (isset($newfield['attribute'])) {
+									$dbType .= ' ' . $newfield['attribute'];
+									unset($newfield['attribute']);
+								}
+								break;
+							case 'varchar':
+								$dbType = strtoupper($newfield['type']) . '(' . min(255, $newfield['size']) . ')';
+								break;
+						}
+						if ($existng) {
+							if (strtoupper($database[$table][$name]['Type']) != $dbType || empty($database[$table][$name]['Comment'])) {
+								$cmd = ' CHANGE `' . $name . '`';
+							} else {
+								$cmd = NULL;
+							}
+							unset($database[$table][$name]);
+						} else {
+							$cmd = ' ADD COLUMN';
+						}
+						$sql = 'ALTER TABLE ' . prefix($newfield['table']) . $cmd . ' `' . $name . '` ' . $dbType;
+						if ($utf8mb4 && ($dbType == 'TEXT' || $dbType == 'LONGTEXT')) {
+							$sql .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
+						}
+						if (isset($newfield['attribute']))
+							$sql .= ' ' . $newfield['attribute'];
+						if (isset($newfield['default']))
+							$sql .= ' DEFAULT ' . $newfield['default'];
+						$sql .= " COMMENT 'optional_$me'";
+						if ((!$cmd || setupQuery($sql)) && in_array($newfield['table'], array('albums', 'images', 'news', 'news_categories', 'pages'))) {
+							$fields[] = strtolower($newfield['name']);
+						}
+						$current[$newfield['table']][$newfield['name']] = $dbType;
 					}
-					$sql = 'ALTER TABLE ' . prefix($newfield['table']) . $cmd . ' `' . $name . '` ' . $dbType;
-					if ($utf8mb4 && ($dbType == 'TEXT' || $dbType == 'LONGTEXT')) {
-						$sql .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
-					}
-					if (isset($newfield['attribute']))
-						$sql.= ' ' . $newfield['attribute'];
-					if (isset($newfield['default']))
-						$sql.= ' DEFAULT ' . $newfield['default'];
-					$sql .= " COMMENT 'optional_$me'";
-					if ((!$cmd || setupQuery($sql)) && in_array($newfield['table'], array('albums', 'images', 'news', 'news_categories', 'pages'))) {
-						$fields[] = strtolower($newfield['name']);
-					}
-					$current[$newfield['table']][$newfield['name']] = $dbType;
 				}
+				setOption(get_class($this) . '_addedFields', serialize($current));
+				if (!empty($searchDefault)) {
+					$fieldExtenderMutex = new zpMutex('fE');
+					$fieldExtenderMutex->lock();
+					$engine = new SearchEngine();
+					$set_fields = $engine->allowedSearchFields();
+					$set_fields = array_unique(array_merge($set_fields, $searchDefault));
+					setOption('search_fields', implode(',', $set_fields));
+					$fieldExtenderMutex->unlock();
+				}
+			} else {
+				purgeOption(get_class($this) . '_addedFields');
 			}
-			setOption(get_class($this) . '_addedFields', serialize($current));
-			if (!empty($searchDefault)) {
-				$fieldExtenderMutex = new zpMutex('fE');
-				$fieldExtenderMutex->lock();
-				$engine = new SearchEngine();
-				$set_fields = $engine->allowedSearchFields();
-				$set_fields = array_unique(array_merge($set_fields, $searchDefault));
-				setOption('search_fields', implode(',', $set_fields));
-				$fieldExtenderMutex->unlock();
-			}
-		} else {
-			purgeOption(get_class($this) . '_addedFields');
-		}
 
-		foreach ($database as $table => $fields) { //drop fields no longer defined
-			foreach ($fields as $field => $orphaned) {
-				if ($orphaned['Comment'] == "optional_$me") {
-					$sql = 'ALTER TABLE ' . prefix($table) . ' DROP `' . $field . '`';
-					setupQuery($sql);
+			foreach ($database as $table => $fields) { //drop fields no longer defined
+				foreach ($fields as $field => $orphaned) {
+					if ($orphaned['Comment'] == "optional_$me") {
+						$sql = 'ALTER TABLE ' . prefix($table) . ' DROP `' . $field . '`';
+						setupQuery($sql);
+					}
 				}
 			}
 		}
@@ -269,26 +270,22 @@ class fieldExtender {
 	/**
 	 * Process the save of user object type elements
 	 *
-	 * @param boolean $updated
 	 * @param object $userobj
 	 * @param int $i
 	 * @param boolean $alter
 	 * @return boolean
 	 */
-	static function _adminSave($updated, $userobj, $i, $alter, $fields) {
+	static function _adminSave($userobj, $i, $alter, $fields) {
 		if ($userobj->getValid()) {
 			foreach ($fields as $field) {
 				if ($field['table'] == 'administrators') {
-					$olddata = $userobj->get($field['name']);
 					$newdata = fieldExtender::_saveHandler($userobj, $i, $field, 'user');
-					if (!is_null($newdata))
+					if (!is_null($newdata)) {
 						$userobj->set($field['name'], $newdata);
-					if ($olddata != $newdata) {
-						$updated = true;
 					}
 				}
 			}
-			return $updated;
+			return $userobj;
 		}
 	}
 
@@ -319,7 +316,7 @@ class fieldExtender {
 							$input .= '<textarea name = "user[' . $i . '][' . $field['name'] . ']" cols = "' . TEXTAREA_COLUMNS . '"rows = "1">' . $item . '</textarea>';
 						}
 					}
-					$input .='</fieldset>';
+					$input .= '</fieldset>';
 					$list[] = $input;
 				}
 			}
@@ -332,14 +329,12 @@ class fieldExtender {
 			$output = array_chunk($list, round($count / 2));
 
 
-			$html .=
-							'<div class="user_left">' .
+			$html .= '<div class="user_left">' .
 							implode($output[0], "\n") .
 							'</div>';
 
 			if (!empty($output[1])) {
-				$html .=
-								'<div class="user_right">' .
+				$html .= '<div class="user_right">' .
 								implode($output[1], "\n") .
 								'</div>';
 			}
@@ -388,7 +383,7 @@ class fieldExtender {
 							$html .= '<textarea name="' . $field['name'] . '_' . $i . '" style = "width:100%;" rows = "6">' . $item . '</textarea>';
 						}
 					}
-					$html .="</td>\n</tr>\n";
+					$html .= "</td>\n</tr>\n";
 				}
 			}
 		}
