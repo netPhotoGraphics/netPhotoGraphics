@@ -108,6 +108,11 @@ class rewriteTokens {
 		foreach ($this->plugin_vars as $page => $element) {
 			$options[$page] = self::anOption($page, $element, $_definitions);
 		}
+		ksort($options);
+		$order = 0;
+		foreach ($options as $key => $option) {
+			$options[$key]['order'] = $order++;
+		}
 		return $options;
 	}
 

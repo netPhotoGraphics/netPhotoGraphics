@@ -66,14 +66,6 @@ $menuset = checkChosenMenuset();
 							$('#titleinput').show();
 							$('#link').val('<?php echo WEBPATH; ?>/');
 							break;
-						case "albumindex":
-							$('#albumselector,#pageselector,#categoryselector,#custompageselector,#link_row').hide();
-							$('#selector').html('<?php echo js_encode(gettext("Album index")); ?>');
-							$('#description').html('<?php echo js_encode(gettext("Creates a link to Album index page for themes which do not show the albums on the Gallery index.")); ?>');
-							$('#link').attr('disabled', true);
-							$('#titleinput').show();
-							$('#link').val('<?php echo WEBPATH; ?>/');
-							break;
 						case 'all_albums':
 							$('#albumselector,#pageselector,#categoryselector,#titleinput,#titlelabel,#link_row,#visible_row,#span_row').hide();
 							$('#selector').html('<?php echo js_encode(gettext("All Albums")); ?>');
@@ -136,6 +128,15 @@ if (extensionEnabled('zenpage')) {
 	<?php
 }
 ?>
+						case "albumindex":
+							$('#albumselector,#pageselector,#categoryselector,#custompageselector,#link_row').hide();
+							$('#selector').html('<?php echo js_encode(gettext("Album index")); ?>');
+							$('#description').html('<?php echo js_encode(gettext("Creates a link to Album index page for themes which do not show the albums on the Gallery index.")); ?>');
+							$('#link').attr('disabled', true);
+							$('#titleinput').show();
+							$('#link').val('<?php echo WEBPATH; ?>/');
+							break;
+
 						case 'custompage':
 							$('#albumselector,#pageselector,#categoryselector,#link').hide();
 							$('#custompageselector').show();

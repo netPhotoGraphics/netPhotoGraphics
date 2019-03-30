@@ -286,11 +286,12 @@ function getItemTitleAndURL($item) {
 					'theme' => $themename
 			);
 			break;
-		case "custompage":
 		case "albumindex":
+			$item['link'] = 'gallery';
+		case "custompage":
 			$root = SERVERPATH . '/' . THEMEFOLDER . '/' . $themename . '/';
-			if (file_exists($root . _ALBUM_PAGE_)) {
-				$url = zp_apply_filter('getLink', rewrite_path(_PAGE_ . '/' . stripSuffix(_ALBUM_PAGE_), '/index.php?p=' . stripSuffix(_ALBUM_PAGE_)), _ALBUM_PAGE_, NULL);
+			if (file_exists($root . $item['link'] . '.php')) {
+				$url = getCustomPageURL($item['link']);
 			} else {
 				$valid = false;
 				$url = '';

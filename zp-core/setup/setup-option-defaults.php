@@ -781,8 +781,6 @@ foreach ($data as $key => $value) {
 
 $_zp_gallery = new Gallery(); // insure we have the proper options instantiated
 
-setOptionDefault('albumIndexToken_link', 'gallery.php');
-
 setOptionDefault('search_cache_duration', 30);
 setOptionDefault('cache_random_search', 1);
 setOptionDefault('search_within', 1);
