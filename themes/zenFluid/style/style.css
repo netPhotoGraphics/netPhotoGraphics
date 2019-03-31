@@ -121,6 +121,12 @@ body {
 .videocontainer {
 	margin: 0px 0px 4px 4px;
 }
+.video-cv, .video-js, .jp-video {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
 
 /* Page and News
 -------------------------------*/
