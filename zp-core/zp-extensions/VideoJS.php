@@ -56,22 +56,49 @@ class VideoJS_options {
 		setOptionDefault('VideoJS_autoplay', '');
 		setOptionDefault('VideoJS_poster', 1);
 		setOptionDefault('VideoJS_resolution', 'high');
+		setOptionDefault('VideoJS_size', 'video-JS-270p');
+		setOptionDefault('VideoJS_customsize', '0');
+		setOptionDefault('VideoJS_aspect', 'wide');
 	}
 
 	function getOptionsSupported() {
 
 		return array(gettext('Poster (Videothumb)') => array('key' => 'VideoJS_poster',
 						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 0,
 						'desc' => gettext('If the videothumb should be shown (VideoJS calls it poster).')),
 				gettext('Autoplay') => array('key' => 'VideoJS_autoplay',
 						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 1,
 						'desc' => gettext('Disabled automatically if several players on one page')),
 				gettext('Default Resolution') => array('key' => 'VideoJS_resolution',
 						'type' => OPTION_TYPE_SELECTOR,
+						'order' => 2,
 						'selections' => array(
 								gettext('High (HD)') => 'high',
 								gettext('Low (SD)') => 'low'),
-						'desc' => gettext("Default resolution where multiple resolutions are available"))
+						'desc' => gettext("Default resolution where multiple resolutions are available")),
+				gettext('Default Player size') => array('key' => 'VideoJS_size',
+						'type' => OPTION_TYPE_SELECTOR,
+						'order' => 3,
+						'selections' => array(
+								gettext('VideoJS-270p (480x270px)') => "video-JS-270p",
+								gettext('VideoJS-360p (640x360px)') => "video-JS-360p",
+								gettext('VideoJS-405p (720x405px)') => "video-JS-405p",
+								gettext('VideoJS-720p (1280x720px)') => "video-JS-720p",
+								gettext('VideoJS-1080p (1920x1080px)') => "video-JS-1080p"),
+						'desc' => gettext("Default player size")),
+				gettext('Custom Player Size') => array('key' => 'VideoJS_customsize',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'order' => 4,
+						'desc' => gettext("Custom player size (width in pixels). Set to 0 to use default player size")),
+				gettext('Custom Aspect Ratio') => array('key' => 'VideoJS_aspect',
+						'type' => OPTION_TYPE_SELECTOR,
+						'order' => 5,
+						'selections' => array(
+								gettext('Widescreen') => 'wide',
+								gettext('Standard') => 'standard'),
+						'desc' => gettext("Aspect ratio for custom player size"))
 		);
 	}
 
@@ -83,8 +110,38 @@ class VideoJS {
 	public $height = '';
 
 	function __construct() {
-		$this->width = 1280;
-		$this->height = 720;
+		if (getOption('VideoJS_customsize') == 0) {
+			$this->playersize = getOption('VideoJS_size');
+			switch ($this->playersize) {
+				case 'video-JS-270p':
+					$this->width = 480;
+					$this->height = 270;
+					break;
+				case 'video-JS-360p':
+					$this->width = 640;
+					$this->height = 360;
+					break;
+				case 'video-JS-405p':
+					$this->width = 720;
+					$this->height = 405;
+					break;
+				case 'video-JS-720p':
+					$this->width = 1280;
+					$this->height = 720;
+					break;
+				case 'video-JS-1080p':
+					$this->width = 1920;
+					$this->height = 1080;
+					break;
+			}
+		} else {
+			$w = getOption('VideoJS_customsize');
+			$aspectW = (getOption('VideoJS_aspect') == "wide") ? 16 : 4;
+			$aspectH = (getOption('VideoJS_aspect') == "wide") ? 9 : 3;
+			$h = $w * $aspectH / $aspectW;
+			$this->width = $w;
+			$this->height = $h;
+		}
 	}
 
 	static function headJS() {
@@ -93,6 +150,7 @@ class VideoJS {
 		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
 		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
 		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.js');
+		echo '<style type="text/css"> .video-js {margin-left: auto; margin-right: auto} </style>';
 	}
 
 	/**
@@ -102,7 +160,7 @@ class VideoJS {
 	 * @param string $movietitle the title of the movie
 	 *
 	 */
-	function getPlayerConfig($movie, $movietitle = NULL, $w = NULL, $h = NULL) {
+	function getPlayerConfig($movie, $movietitle = NULL, $count = NULL, $w = NULL, $h = NULL) {
 		global $_zp_current_album;
 		if (is_null($w)) {
 			$w = $this->getWidth();
@@ -118,9 +176,9 @@ class VideoJS {
 			return '<span class="error">' . gettext('This multimedia format is not supported by VideoJS') . '</span>';
 		}
 
-		$autoplay = '';
+		$autoplay = 'false';
 		if (getOption('VideoJS_autoplay')) {
-			$autoplay = ' autoplay';
+			$autoplay = 'true';
 		}
 
 		$videoThumb = '';
@@ -130,37 +188,37 @@ class VideoJS {
 
 		$videoRes = getOption('VideoJS_resolution');
 
-		$metadata = getImageMetaData(NULL, false);
-		$vidWidth = $metadata['VideoResolution_x'];
-		$vidHeight = $metadata['VideoResolution_y'];
-
 		$playerconfig = '
-      <div id="player" >
-        <video id="MyPlayer" class="video-js vjs-default-skin" controls' . $autoplay . ' preload="auto" width=' . $vidWidth . ' poster="' . $videoThumb . '">
-          ' . $this->getCounterpartFile($moviepath, "mp4", "HD") . '
-          ' . $this->getCounterpartFile($moviepath, "mp4", "SD") . '
-          ' . $this->getCounterpartFile($moviepath, "ogv", "HD") . '
-          ' . $this->getCounterpartFile($moviepath, "ogv", "SD") . '
-          ' . $this->getCounterpartFile($moviepath, "webm", "HD") . '
-          ' . $this->getCounterpartFile($moviepath, "webm", "SD") . '
-			  </video>
-      </div>
-      <script type="text/javascript">
-        videojs("MyPlayer", {
-          plugins: {
-            videoJsResolutionSwitcher: {
-              default: "' . $videoRes . '",
-              dynamicLabel: true
-            }
-          }
-        }, function(){
-          var player = this;
-          window.player = player
-          player.on("play", function(){
-            player.poster("")
-          })
-        })
-      </script>';
+				<video id="MyPlayer" class="video-js vjs-default-skin">
+					' . $this->getCounterpartFile($moviepath, "mp4", "HD") . '
+					' . $this->getCounterpartFile($moviepath, "mp4", "SD") . '
+					' . $this->getCounterpartFile($moviepath, "ogv", "HD") . '
+					' . $this->getCounterpartFile($moviepath, "ogv", "SD") . '
+					' . $this->getCounterpartFile($moviepath, "webm", "HD") . '
+					' . $this->getCounterpartFile($moviepath, "webm", "SD") . '
+				</video>
+			<script type="text/javascript">
+				videojs("MyPlayer", {
+					plugins: {
+						videoJsResolutionSwitcher: {
+							default: "' . $videoRes . '",
+							dynamicLabel: true
+						}
+					},
+					width: ' . $w . ',
+					height: ' . $h . ',
+					controls: true,
+					autoplay: ' . $autoplay . ',
+					poster: "' . $videoThumb . '"
+				},
+				function(){
+					var player = this;
+					window.player = player
+					player.on("play", function(){
+						player.poster("")
+					})
+				})
+			</script>';
 		return $playerconfig;
 	}
 
@@ -224,4 +282,4 @@ class VideoJS {
 }
 
 $_zp_multimedia_extension = new VideoJS(); // claim to be the flash player.
-zp_register_filter('theme_body_close', 'VideoJS::headJS');
+zp_register_filter('theme_head', 'VideoJS::headJS');
