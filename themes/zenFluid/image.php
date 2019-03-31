@@ -50,7 +50,7 @@ zp_apply_filter('theme_file_top')
 				if (!empty($tburl)) {
 					echo '<a href="' . pathurlencode($tburl) . '" ' . $boxclass . ' title="' . getBareImageTitle() . '">' . "\n";
 				}
-				printCustomSizedImageMaxSpace(getBareImageTitle(), $imgWidth, $imgHeight, "imgheight border");
+				printCustomSizedImageMaxSpace(getBareImageTitle(), null, null, "imgheight border");
 				if (!empty($tburl)) {
 					echo "\n</a>\n";
 				}
@@ -58,15 +58,13 @@ zp_apply_filter('theme_file_top')
 			</div>
 			<?php
 		} else {
-			$vidWidth = $_zp_current_image->getWidth();
-			$vidHeight = $_zp_current_image->getHeight();
-			echo vidJS($vidWidth, $vidHeight, $titleMargin, $stageWidth, getOption('zenfluid_stageimage'));
-			//jPlayer adds a 40 px controls bar below the video. Others add the bar in the video.
-			$playerMarginBottom = (extensionEnabled('jPlayer')) ? 'style="margin-bottom: 44px;"' : '';
-			?>
-			<div class="videocontainer" <?php echo $playerMarginBottom; ?>>
+			$metadata = getImageMetaData(NULL,false);
+			$vidWidth = $metadata['VideoResolution_x'];
+			$vidHeight = $metadata['VideoResolution_y'];
+			echo vidJS($vidWidth, $vidHeight, $titleMargin, $stageWidth, getOption('zenfluid_stageimage'));?>
+			<div class="videocontainer">
 				<div class="video" <?php echo $stageStyle; ?>>
-	<?php printCustomSizedImageMaxSpace(getBareImageTitle(), $vidWidth, $vidHeight); ?>
+					<?php printCustomSizedImageMaxSpace(getBareImageTitle(), $vidWidth, $vidHeight); ?>
 				</div>
 			</div>
 			<?php
@@ -94,7 +92,7 @@ zp_apply_filter('theme_file_top')
 				<div class="content border colour">
 					<div class="imagedesc" <?php echo $descriptionStyle; ?>>
 						<div class="description" <?php echo $justifyStyle; ?>>
-	<?php printImageDesc(); ?>
+							<?php printImageDesc(); ?>
 						</div>
 					</div>
 				</div>
@@ -124,7 +122,7 @@ zp_apply_filter('theme_file_top')
 		}
 		?>
 		</div>
-<?php include("inc-footer.php"); ?>
+		<?php include("inc-footer.php"); ?>
 	</body>
 </html>
 <?php

@@ -146,10 +146,13 @@ function ImageJS($titleMargin = 0, $stageWidth = 0, $stageImage = true) {
 		var viewportheight;
 		var imgheight;
 		var imgwidth;
-		var headerheight = 0;
-		var footerheight = 0;
-		var titleheight = 0;
+		var headerheight;
+		var footerheight;
+		var titleheight;
 		function setStage(){
+			headerheight = 0;
+			footerheight = 0;
+			titleheight = 0;
 			viewportwidth = $(window).width();
 			viewportheight = $(window).height();
 			if ($(".title").outerHeight(true)) { titleheight = $(".title").outerHeight(true) + 4; };
@@ -195,7 +198,7 @@ EOJS;
 /**
  * Javascript to resize the video whenever the browser is resized.
  */
-function vidJS($vidWidth, $vidHeight, $titleMargin = 50, $stageWidth = 0, $stageImage = true) {
+function vidJS($vidWidth = 480, $vidHeight = 360, $titleMargin = 50, $stageWidth = 0, $stageImage = true) {
 	return <<<EOJS
 	<script type="text/javascript">
 	// <!-- <![CDATA[
@@ -229,13 +232,13 @@ function vidJS($vidWidth, $vidHeight, $titleMargin = 50, $stageWidth = 0, $stage
 				vidwidth = $stageWidth - 4;
 				vidheight = vidwidth * vidratio;
 			}
-			$("video").attr({"width" : vidwidth + "px"});
-			$("video").attr({"height" : vidheight + "px"});
-			$(".video").css({"max-width" : vidwidth + "px"});
-			$(".video").css({"max-height" : vidheight + "px"});
-			$(".video-js").css({"max-height" : vidheight + "px"});
-			$(".video-js").css({"max-width" : vidwidth + "px"});
-			$(".jp-video-play").css({"max-height" : vidheight + "px"});
+			if ($(".jp-interface").outerHeight(true)) { vidheight = vidheight + $(".jp-interface").outerHeight(true); }
+			$(".video-cv").css({"width" : vidwidth + "px"});
+			$(".video-cv").css({"height" : vidheight + "px"});
+			$(".video-js").css({"width" : vidwidth + "px"});
+			$(".video-js").css({"height" : vidheight + "px"});
+			$(".jp-video").css({"width" : vidwidth + "px"});
+			$(".jp-video").css({"height" : vidheight + "px"});
 		};
 		$(document).ready(function() {
 			setStage();
