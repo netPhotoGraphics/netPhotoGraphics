@@ -55,8 +55,6 @@ function printItemsListTable($item, $toodeep) {
 					$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 					break;
 				case 'dynamiclink':
-					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-					break;
 				case 'customlink':
 					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
 					break;

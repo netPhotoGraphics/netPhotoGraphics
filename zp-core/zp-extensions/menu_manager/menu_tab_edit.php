@@ -146,7 +146,7 @@ if (extensionEnabled('zenpage')) {
 							break;
 						case "dynamiclink":
 							$('#albumselector,#pageselector,#categoryselector,#custompageselector').hide();
-							$('#selector').html('<?php echo js_encode(gettext("Custom link")); ?>');
+							$('#selector').html('<?php echo js_encode(gettext("Dynamic link")); ?>');
 							$('#description').html('<?php echo js_encode(gettext("Creates a dynamic link. The string will be evaluated by PHP to create the link.")); ?>');
 							$('#link').prop('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
@@ -290,6 +290,7 @@ if (is_array($result)) {
 							?>
 							<option value="custompage"><?php echo gettext("Custom theme page"); ?></option>
 							<option value="customlink"><?php echo gettext("Custom link"); ?></option>
+							<option value="dynamiclink"><?php echo gettext("Dynamic link"); ?></option>
 							<option value="menulabel"><?php echo gettext("Label"); ?></option>
 							<option value="menufunction"><?php echo gettext("Function"); ?></option>
 							<option value="html"><?php echo gettext("HTML"); ?></option>
