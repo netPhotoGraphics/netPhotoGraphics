@@ -14,6 +14,8 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 $page = 'edit';
 
+define('MENU_ITEM_TRUNCATION', 40);
+
 $reports = array();
 if (isset($_POST['update'])) {
 	XSRFdefender('update_menu');
@@ -169,10 +171,10 @@ printSortableHead();
 			?>
 
 			<h1><?php
-			echo gettext("Menu Manager") . "<small>";
-			printf(gettext(" (Menu: %s)"), html_encode($menuset));
-			echo "</small>";
-			?></h1>
+				echo gettext("Menu Manager") . "<small>";
+				printf(gettext(" (Menu: %s)"), html_encode($menuset));
+				echo "</small>";
+				?></h1>
 			<div class="tabbox">
 				<form class="dirtylistening" onReset="setClean('update_form');" id="update_form" action="menu_tab.php?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
 					<?php XSRFToken('update_menu'); ?>

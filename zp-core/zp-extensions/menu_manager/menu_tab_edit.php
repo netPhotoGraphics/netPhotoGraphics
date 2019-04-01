@@ -136,7 +136,6 @@ if (extensionEnabled('zenpage')) {
 							$('#titleinput').show();
 							$('#link').val('<?php echo WEBPATH; ?>/');
 							break;
-
 						case 'custompage':
 							$('#albumselector,#pageselector,#categoryselector,#link').hide();
 							$('#custompageselector').show();
@@ -399,15 +398,13 @@ if (is_array($result)) {
 									?>
 									<tr>
 										<td colspan="100%">
-											<span class="notebox">
-												<?php
+											<span class="notebox"><?php
 												if (array_key_exists('theme', $array)) {
 													printf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']);
 												} else {
 													echo gettext('Target does not exist.');
 												}
-												?>
-											</span>
+												?></span>
 										</td>
 									</tr>
 									<?php

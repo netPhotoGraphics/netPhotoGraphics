@@ -255,7 +255,8 @@ class jPlayer {
 	}
 
 	static function headJS() {
-		$skin = @array_shift(getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin')));
+		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
 			$skin = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}

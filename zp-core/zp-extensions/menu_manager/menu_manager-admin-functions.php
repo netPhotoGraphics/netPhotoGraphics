@@ -45,35 +45,53 @@ function printItemsListTable($item, $toodeep) {
 	if ($array['valid']) {
 		switch ($item['type']) {
 			case "album":
-				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 				break;
 			case "page":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 				break;
 			case "category":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
+				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 				break;
 			case 'dynamiclink':
-				$link = html_encodeTagged(shortenContent($item['link'], 40, '...')) . '</a>';
+				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 				break;
 			case 'customlink':
-				$link = html_encodeTagged(shortenContent($item['link'], 40, '...'));
+				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
 				break;
 			case 'menulabel':
 				$link = '';
 				break;
 			case 'html':
-				$link = html_encode(truncate_string($item['link'], 40, '...'));
+				$link = html_encode(truncate_string($item['link'], MENU_ITEM_TRUNCATION, '...'));
+				break;
+			case 'albumindex':
+				$link = 'gallery.php';
+				break;
+			case 'custompage':
+				$link = $item['link'] . '.php';
 				break;
 			default:
-				$link = html_encodeTagged(shortenContent($item['link'], 40, '...'));
+				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
 				break;
 		}
 	} else {
+		switch ($item['type']) {
+			case 'albumindex':
+				$link = 'gallery.php ';
+				break;
+			case 'custompage':
+				$link = $item['link'] . '.php ';
+				break;
+			default:
+				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' ';
+				break;
+		}
 		if (array_key_exists('theme', $array)) {
-			$link = '<span class="notebox">' . sprintf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']) . '</span>';
+
+			$link = $link . '<span class="notebox">' . sprintf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']) . '</span>';
 		} else {
-			$link = '<span class="notebox">' . gettext('Target does not exist');
+			$link = $link . '<span class="notebox">' . gettext('Target does not exist');
 		}
 	}
 	?>
@@ -90,7 +108,7 @@ function printItemsListTable($item, $toodeep) {
 			<em><?php echo $item['type']; ?></em>
 			<?php
 			if ($link) {
-				echo '&rArr;&nbsp;' . $array['name'] . '.php&nbsp;' . $link;
+				echo '&rArr;&nbsp;' . $link;
 			}
 			?>
 		</div>
