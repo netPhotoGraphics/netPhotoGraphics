@@ -101,19 +101,17 @@ foreach ($_zp_conf_vars as $name => $value) {
 	}
 }
 
-if (!defined('DATABASE_SOFTWARE') && (extension_loaded(strtolower($_zp_conf_vars['db_software'])) || $_zp_conf_vars['db_software'] == 'NULL')) {
+if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_zp_conf_vars['db_software']))) {
 	require_once(dirname(__FILE__) . '/functions-db-' . $_zp_conf_vars['db_software'] . '.php');
 	$data = db_connect(array_intersect_key($_zp_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
-	if ($data) {
-		$software = db_software();
-		define('MySQL_VERSION', $software['version']);
-	}
 } else {
 	$data = false;
 }
-if (!defined('MySQL_VERSION')) {
-	define('MySQL_VERSION', '0.0.0');
+if (!function_exists('db_query')) {
+	require_once(dirname(__FILE__) . '/functions-db-NULL.php');
 }
+$software = db_software();
+define('MySQL_VERSION', $software['version']);
 
 if (!$data && OFFSET_PATH != 2) {
 	_setup(13);
