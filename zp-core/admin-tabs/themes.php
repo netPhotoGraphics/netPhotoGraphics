@@ -321,16 +321,18 @@ if (count($themelist) == 0) {
 							</li>
 							<?php
 							if ($theme != $current_theme) {
+								$delete_url = 'admin-themes.php?action=deletetheme&amp;themealbum=' . pathurlencode($alb) . '&amp;theme=' . $theme . '&amp;XSRFToken=' . getXSRFToken('admin-themes');
+								$delete_msg = gettext('Do you really want to delete this theme?');
 								?>
 								<li>
 									<p class="buttons">
-										<a onclick="launchScript('', ['action=deletetheme', 'themealbum=<?php echo pathurlencode($alb); ?>', 'theme=<?php echo urlencode($theme); ?>', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes') ?>']);">
+										<button onclick="javascript:confirmDelete('<?php echo $delete_url; ?>', '<?php echo $delete_msg; ?>');">
 											<?php echo WASTEBASKET; ?>
 											<?php echo gettext("Delete"); ?>
-										</a>
+										</button>
 									</p>
 								</li>
-								<?php
+							<?php
 							}
 						} else {
 							?>
