@@ -394,11 +394,22 @@ if (is_array($result)) {
 							<?php
 							if (is_array($result) && !empty($result['type'])) {
 								$array = getItemTitleAndURL($result);
-								if (!$array['valid']) {
+								if ($array['invalid']) {
 									?>
 									<tr>
 										<td colspan="100%">
 											<span class="notebox"><?php
+												switch ($array['invalid']) {
+													case 1:
+														printf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']);
+														break;
+													case 2:
+														echo gettext('Target does not exist');
+														break;
+													case 3:
+														echo gettext('Zenpage plugin not enabled');
+														break;
+												}
 												if (array_key_exists('theme', $array)) {
 													printf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']);
 												} else {

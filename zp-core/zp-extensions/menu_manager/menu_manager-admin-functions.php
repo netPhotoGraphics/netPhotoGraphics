@@ -42,57 +42,53 @@ function printItemsListTable($item, $toodeep) {
 	}
 	$link = '';
 	$array = getItemTitleAndURL($item);
-	if ($array['valid']) {
-		switch ($item['type']) {
-			case "album":
-				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case "page":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case "category":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case 'dynamiclink':
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case 'customlink':
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
-				break;
-			case 'menulabel':
-				$link = '';
-				break;
-			case 'html':
-				$link = html_encode(truncate_string($item['link'], MENU_ITEM_TRUNCATION, '...'));
-				break;
-			case 'albumindex':
-				$link = 'gallery.php';
-				break;
-			case 'custompage':
-				$link = $item['link'] . '.php';
-				break;
-			default:
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
-				break;
-		}
-	} else {
-		switch ($item['type']) {
-			case 'albumindex':
-				$link = 'gallery.php ';
-				break;
-			case 'custompage':
-				$link = $item['link'] . '.php ';
-				break;
-			default:
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' ';
-				break;
-		}
-		if (array_key_exists('theme', $array)) {
-
-			$link = $link . '<span class="notebox">' . sprintf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']) . '</span>';
-		} else {
-			$link = $link . '<span class="notebox">' . gettext('Target does not exist');
-		}
+	switch ($array['invalid']) {
+		case 0:
+			switch ($item['type']) {
+				case "album":
+					$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case "page":
+					$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case "category":
+					$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case 'dynamiclink':
+					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case 'customlink':
+					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
+					break;
+				case 'menulabel':
+					$link = '';
+					break;
+				case 'html':
+					$link = html_encode(truncate_string($item['link'], MENU_ITEM_TRUNCATION, '...'));
+					break;
+				case 'albumindex':
+					$link = 'gallery.php';
+					break;
+				case 'custompage':
+					$link = $item['link'] . '.php';
+					break;
+				default:
+					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
+					break;
+			}
+			break;
+		case 1:
+			if ($item['type'] == 'albumindex') {
+				$item['link'] = 'gallery';
+			}
+			$link = $item['link'] . '.php <span class="notebox">' . sprintf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']) . '</span>';
+			break;
+		case 2:
+			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('Target does not exist') . '</span>';
+			break;
+		case 3:
+			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('Zenpage plugin not enabled') . '</span>';
+			break;
 	}
 	?>
 	<div class="page-list_row">
@@ -101,7 +97,7 @@ function printItemsListTable($item, $toodeep) {
 		</div>
 		<div class="page-list_title">
 			<?php
-			printItemEditLink($item, !$array['valid']);
+			printItemEditLink($item, $array['invalid']);
 			?>
 		</div>
 		<div class="page-list_extra">

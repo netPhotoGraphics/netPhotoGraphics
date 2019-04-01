@@ -191,8 +191,9 @@ function getItemTitleAndURL($item) {
 			"url" => '',
 			"name" => '',
 			'protected' => false,
+			'error' => 0,
 			'theme' => $themename);
-	$valid = true;
+	$error = 0;
 	$title = get_language_string($item['title']);
 	if (empty($title)) {
 		$title = $item['link'];
@@ -212,9 +213,8 @@ function getItemTitleAndURL($item) {
 			$folderFS = internalToFilesystem($item['link']);
 			$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS;
 			$dynamic = hasDynamicAlbumSuffix($folderFS) && !is_dir($folderFS);
-			$valid = file_exists($localpath) && ($dynamic || is_dir($localpath));
-			if (!$valid || strpos($localpath, '..') !== false) {
-				$valid = false;
+			if (!file_exists($localpath) && ($dynamic || is_dir($localpath)) || strpos($localpath, '..') !== false) {
+				$error = 2;
 				$url = '';
 				$protected = 0;
 			} else {
@@ -240,7 +240,7 @@ function getItemTitleAndURL($item) {
 				$protected = $obj->isProtected();
 				$title = $obj->getTitle();
 			} else {
-				$valid = false;
+				$error = 3 - extensionEnabled('zenpage');
 				$url = '';
 				$protected = 0;
 			}
@@ -253,9 +253,10 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "newsindex":
-			if ($valid = extensionEnabled('zenpage')) {
+			if (extensionEnabled('zenpage')) {
 				$url = getNewsIndexURL();
 			} else {
+				$error = 3;
 				$url = '';
 			}
 			$array = array(
@@ -266,16 +267,15 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "category":
-			$valid = extensionEnabled('zenpage');
 			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink = '" . $item['link'] . "'";
 			$obj = query_single_row($sql, false);
-			if ($obj && $valid) {
+			if ($obj && extensionEnabled('zenpage')) {
 				$obj = newCategory($item['link']);
 				$title = $obj->getTitle();
 				$protected = $obj->isProtected();
 				$url = $obj->getLink(0);
 			} else {
-				$valid = false;
+				$error = 3 - (int) extensionEnabled('zenpage');
 				$url = '';
 				$protected = 0;
 			}
@@ -294,7 +294,7 @@ function getItemTitleAndURL($item) {
 			if (file_exists($root . $item['link'] . '.php')) {
 				$url = getCustomPageURL($item['link']);
 			} else {
-				$valid = false;
+				$error = 1;
 				$url = '';
 			}
 			$array = array(
@@ -338,7 +338,7 @@ function getItemTitleAndURL($item) {
 	if (MENU_TRUNCATE_STRING) {
 		$array['title'] = shortenContent($array['title'], MENU_TRUNCATE_STRING, MENU_TRUNCATE_INDICATOR);
 	}
-	$array['valid'] = $valid;
+	$array['invalid'] = $error;
 
 	return $array;
 }
@@ -990,6 +990,7 @@ function createMenu($menuitems, $menuset = 'default') {
 					$success = -1;
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) => $result]);
 				}
+				$result['link'] = NULL;
 				break;
 			case 'dynamiclink':
 			case 'customlink':
