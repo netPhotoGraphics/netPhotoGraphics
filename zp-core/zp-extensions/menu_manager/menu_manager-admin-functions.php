@@ -9,9 +9,7 @@
  *
  */
 function updateItemsSortorder() {
-	if (empty($_POST['order'])) { // if someone didn't sort anything there are no values!
-		return '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>';
-	} else {
+	if (!empty($_POST['order'])) { // if someone didn't sort anything there are no values!
 		$order = processOrder($_POST['order']);
 		$parents = array('NULL');
 		foreach ($order as $id => $orderlist) {
@@ -25,6 +23,7 @@ function updateItemsSortorder() {
 		}
 		return "<p class='messagebox fade-message'>" . gettext("Sort order saved.") . "</p>";
 	}
+	return false;
 }
 
 /**
@@ -42,57 +41,51 @@ function printItemsListTable($item, $toodeep) {
 	}
 	$link = '';
 	$array = getItemTitleAndURL($item);
-	if ($array['valid']) {
-		switch ($item['type']) {
-			case "album":
-				$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case "page":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case "category":
-				$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case 'dynamiclink':
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
-				break;
-			case 'customlink':
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
-				break;
-			case 'menulabel':
-				$link = '';
-				break;
-			case 'html':
-				$link = html_encode(truncate_string($item['link'], MENU_ITEM_TRUNCATION, '...'));
-				break;
-			case 'albumindex':
-				$link = 'gallery.php';
-				break;
-			case 'custompage':
-				$link = $item['link'] . '.php';
-				break;
-			default:
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
-				break;
-		}
-	} else {
-		switch ($item['type']) {
-			case 'albumindex':
-				$link = 'gallery.php ';
-				break;
-			case 'custompage':
-				$link = $item['link'] . '.php ';
-				break;
-			default:
-				$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' ';
-				break;
-		}
-		if (array_key_exists('theme', $array)) {
-
-			$link = $link . '<span class="notebox">' . sprintf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']) . '</span>';
-		} else {
-			$link = $link . '<span class="notebox">' . gettext('Target does not exist');
-		}
+	switch ($array['invalid']) {
+		case 0:
+			switch ($item['type']) {
+				case "album":
+					$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case "page":
+					$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case "category":
+					$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					break;
+				case 'dynamiclink':
+				case 'customlink':
+					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
+					break;
+				case 'menulabel':
+					$link = '';
+					break;
+				case 'html':
+					$link = html_encode(truncate_string($item['link'], MENU_ITEM_TRUNCATION, '...'));
+					break;
+				case 'albumindex':
+					$link = 'gallery.php';
+					break;
+				case 'custompage':
+					$link = $item['link'] . '.php';
+					break;
+				default:
+					$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...'));
+					break;
+			}
+			break;
+		case 1:
+			if ($item['type'] == 'albumindex') {
+				$item['link'] = 'gallery';
+			}
+			$link = $item['link'] . '.php <span class="notebox">' . sprintf(gettext('Target does not exist in <em>%1$s</em> theme'), $array['theme']) . '</span>';
+			break;
+		case 2:
+			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('Target does not exist') . '</span>';
+			break;
+		case 3:
+			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('Zenpage plugin not enabled') . '</span>';
+			break;
 	}
 	?>
 	<div class="page-list_row">
@@ -101,7 +94,7 @@ function printItemsListTable($item, $toodeep) {
 		</div>
 		<div class="page-list_title">
 			<?php
-			printItemEditLink($item, !$array['valid']);
+			printItemEditLink($item, $array['invalid']);
 			?>
 		</div>
 		<div class="page-list_extra">
@@ -414,8 +407,8 @@ function addPagesToDatabase($menuset, $base = NULL) {
 	}
 	$result = $pagebase;
 	$parents = array('NULL');
-	$result = query_full_array("SELECT * FROM " . prefix('pages') . " ORDER BY sort_order");
-	foreach ($result as $key => $item) {
+	$query = query("SELECT * FROM " . prefix('pages') . " ORDER BY sort_order");
+	while ($item = db_fetch_assoc($query)) {
 		$sorts = explode('-', $item['sort_order']);
 		$level = count($sorts);
 		$sorts[0] = sprintf('%03u', $result = $sorts[0] + $pagebase);
@@ -453,8 +446,8 @@ function addCategoriesToDatabase($menuset, $base = NULL) {
 	}
 	$result = $categorybase;
 	$parents = array('NULL');
-	$result = query_full_array("SELECT * FROM " . prefix('news_categories') . " ORDER BY sort_order");
-	foreach ($result as $key => $item) {
+	$query = query("SELECT * FROM " . prefix('news_categories') . " ORDER BY sort_order");
+	while ($item = db_fetch_assoc($query)) {
 		$sorts = explode('-', $item['sort_order']);
 		$level = count($sorts);
 		$sorts[0] = sprintf('%03u', $result = $sorts[0] + $categorybase);
