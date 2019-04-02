@@ -468,8 +468,8 @@ $buttonlist = array();
 						break;
 					case 2:
 						if (!$newVersion) {
-							$buttonlist[] = array(
-									'category' => gettext('Admin'),
+							$updateButtons[] = array(
+									'category' => gettext('Update'),
 									'enable' => true,
 									'button_text' => gettext('Run setup'),
 									'formname' => 'run_setup',
