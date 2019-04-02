@@ -1146,7 +1146,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						) || ($option == 'list-sub' && ($item['parentid'] == $pageid) // offspring of the current page
 						)
 						);
-		if ($process && $itemarray['valid']) {
+		if ($process && !$itemarray['invalid']) {
 			if ($level > $indent) {
 				echo "\n" . str_pad("\t", $indent, "\t") . "<ul class=\"$css_class menu_{$item['type']}\">\n";
 				$indent++;
