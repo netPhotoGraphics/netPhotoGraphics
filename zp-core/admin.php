@@ -318,6 +318,7 @@ $buttonlist = array();
 	printLogoAndLinks();
 
 	if (zp_loggedin(ADMIN_RIGHTS)) {
+		$updateButtons = array();
 
 		if ($newVersionAvailable = isset($newestVersion)) {
 			$zenphoto_version = explode('-', ZENPHOTO_VERSION);
@@ -327,17 +328,17 @@ $buttonlist = array();
 					$_SESSION['new_version_available'] = $newestVersion;
 					?>
 					<div class="newVersion" style="height:78px;">
-						<h2><?php echo gettext('There is a new version is available.'); ?></h2>
+						<h2><?php echo gettext('There is a new version available.'); ?></h2>
 						<?php
 						printf(gettext('Version %s can be downloaded by the utility button.'), $newestVersion);
 						?>
 					</div>
 					<?php
 				}
-				$buttonlist[] = array(
-						'category' => gettext('Admin'),
+				$updateButtons[] = array(
+						'category' => gettext('Updates'),
 						'enable' => 2,
-						'button_text' => $repro . ' ' . $newestVersion,
+						'button_text' => $buttonText = sprintf(gettext('Download version %1$s'), $newestVersion),
 						'formname' => 'getUpdates_button',
 						'action' => $newestVersionURI,
 						'icon' => ARROW_DOWN_GREEN,
@@ -417,14 +418,14 @@ $buttonlist = array();
 			if (zp_loggedin(ADMIN_RIGHTS)) {
 
 				if ($newVersion) {
-					$buttonlist[] = array(
+					$updateButtons[] = array(
 							'XSRFTag' => 'install_update',
-							'category' => gettext('Admin'),
-							'enable' => true,
+							'category' => gettext('Updates'),
+							'enable' => 2,
 							'button_text' => $buttonText,
 							'formname' => 'install_update',
 							'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=install_update',
-							'icon' => BADGE_GOLD,
+							'icon' => INSTALL,
 							'alt' => '',
 							'title' => $buttonTitle,
 							'hidden' => '<input type="hidden" name="action" value="install_update" />',
@@ -432,14 +433,14 @@ $buttonlist = array();
 					);
 				} else {
 					if ($newVersionAvailable) {
-						$buttonlist[] = array(
+						$updateButtons[] = array(
 								'XSRFTag' => 'install_update',
-								'category' => gettext('Admin'),
-								'enable' => true,
+								'category' => gettext('Updates'),
+								'enable' => 2,
 								'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
 								'formname' => 'download_update',
 								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=download_update',
-								'icon' => BADGE_GOLD,
+								'icon' => INSTALL,
 								'alt' => '',
 								'title' => sprintf(gettext('Download and install %1$s version %2$s.'), $repro, $newestVersion),
 								'hidden' => '<input type="hidden" name="action" value="download_update" />',
@@ -473,7 +474,7 @@ $buttonlist = array();
 									'button_text' => gettext('Run setup'),
 									'formname' => 'run_setup',
 									'action' => FULLWEBPATH . '/' . ZENFOLDER . '/setup.php',
-									'icon' => BADGE_GOLD,
+									'icon' => SETUP,
 									'alt' => '',
 									'title' => gettext('Run the setup script.'),
 									'hidden' => '',
@@ -500,6 +501,7 @@ $buttonlist = array();
 			}
 
 			$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false, true, true);
+			$buttonlist = array_merge($updateButtons, $buttonlist);
 
 			if (zp_loggedin(OVERVIEW_RIGHTS)) {
 				if (TEST_RELEASE) {
