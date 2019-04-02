@@ -221,9 +221,20 @@ class cycle {
 			$cropw = NULL;
 			$croph = NULL;
 		}
-//echo $imagenumber;
-		$slides = $albumobj->getImages(0);
-		$numslides = $albumobj->getNumImages();
+		//echo $imagenumber;
+		$slides_temp = $albumobj->getImages(0);
+		$slides = array();
+		//sort out non image types as the script does not work with them
+		foreach ($slides_temp as $slide) {
+			$imgobj = newImage($albumobj, $slide);
+			if ($imgobj->isPhoto()) {
+				$slides[] = $slide;
+			}
+		}
+		if (empty($slides)) {
+			return '';
+		}
+		$numslides = count($slides);
 		if ($shuffle) { // means random order, not the effect!
 			shuffle($slides);
 		}
@@ -325,9 +336,9 @@ class cycle {
 				$slideshow .= "---\n"; // delimiter for the progressive slide loading
 			}
 		}
-		$slideshow .='</script>' . "\n";
-		$slideshow .='</div>' . "\n";
-		$slideshow .='</section>' . "\n";
+		$slideshow .= '</script>' . "\n";
+		$slideshow .= '</div>' . "\n";
+		$slideshow .= '</section>' . "\n";
 		return $slideshow;
 	}
 
@@ -379,7 +390,7 @@ class cycle {
 				$active = '';
 			}
 		}
-		$slidecontent .='<img src="' . pathurlencode($imageurl) . '" alt=""' . $active . '>' . "\n";
+		$slidecontent .= '<img src="' . pathurlencode($imageurl) . '" alt=""' . $active . '>' . "\n";
 		if ($linkslides || $carousel) {
 			$slidecontent .= '</a>' . "\n";
 		}
