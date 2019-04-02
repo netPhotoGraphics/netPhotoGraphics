@@ -48,7 +48,7 @@ class ThemeOptions {
 		global $_zp_gallery;
 		$albumlist = array();
 		$albumlist['Entire Gallery'] = '';
-		$albums = getNestedAlbumList(null, 9999999, false);
+		$albums = getNestedAlbumList(null, 9999999);
 		foreach ($albums as $album) {
 			$albumobj = newAlbum($album['name'], true);
 			$albumlist[$album['name']] = $album['name'];
