@@ -9,9 +9,7 @@
  *
  */
 function updateItemsSortorder() {
-	if (empty($_POST['order'])) { // if someone didn't sort anything there are no values!
-		return '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>';
-	} else {
+	if (!empty($_POST['order'])) { // if someone didn't sort anything there are no values!
 		$order = processOrder($_POST['order']);
 		$parents = array('NULL');
 		foreach ($order as $id => $orderlist) {
@@ -25,6 +23,7 @@ function updateItemsSortorder() {
 		}
 		return "<p class='messagebox fade-message'>" . gettext("Sort order saved.") . "</p>";
 	}
+	return false;
 }
 
 /**
@@ -408,8 +407,8 @@ function addPagesToDatabase($menuset, $base = NULL) {
 	}
 	$result = $pagebase;
 	$parents = array('NULL');
-	$result = query_full_array("SELECT * FROM " . prefix('pages') . " ORDER BY sort_order");
-	foreach ($result as $key => $item) {
+	$query = query("SELECT * FROM " . prefix('pages') . " ORDER BY sort_order");
+	while ($item = db_fetch_assoc($query)) {
 		$sorts = explode('-', $item['sort_order']);
 		$level = count($sorts);
 		$sorts[0] = sprintf('%03u', $result = $sorts[0] + $pagebase);
@@ -447,8 +446,8 @@ function addCategoriesToDatabase($menuset, $base = NULL) {
 	}
 	$result = $categorybase;
 	$parents = array('NULL');
-	$result = query_full_array("SELECT * FROM " . prefix('news_categories') . " ORDER BY sort_order");
-	foreach ($result as $key => $item) {
+	$query = query("SELECT * FROM " . prefix('news_categories') . " ORDER BY sort_order");
+	while ($item = db_fetch_assoc($query)) {
 		$sorts = explode('-', $item['sort_order']);
 		$level = count($sorts);
 		$sorts[0] = sprintf('%03u', $result = $sorts[0] + $categorybase);

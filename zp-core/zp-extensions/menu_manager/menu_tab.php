@@ -16,16 +16,17 @@ $page = 'edit';
 
 define('MENU_ITEM_TRUNCATION', 40);
 
-$reports = array();
+$reports = array('updated' => '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>');
 if (isset($_POST['update'])) {
 	XSRFdefender('update_menu');
-	$reports[] = updateItemsSortorder();
+	if ($report = updateItemsSortorder()) {
+		$reports[] = $report;
+	}
 	if ($_POST['checkallaction'] != 'noaction') {
 		$report = processMenuBulkActions();
 		if ($report) {
 			$reports[] = $report;
-		} else {
-			$reports[] = '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>';
+			unset($reports['updated']);
 		}
 	}
 }
@@ -44,6 +45,7 @@ if (isset($_GET['delete'])) {
 		query($sql);
 		$reports[] = "<p class='messagebox fade-message'>" . gettext('Menu item deleted') . "</p>";
 	}
+	unset($reports['updated']);
 }
 if (isset($_GET['deletemenuset'])) {
 	XSRFdefender('delete_menu');
@@ -51,6 +53,7 @@ if (isset($_GET['deletemenuset'])) {
 	query($sql);
 	purgeOption('menu_lastChanged');
 	$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” deleted"), html_encode(sanitize($_GET['deletemenuset']))) . "</p>";
+	unset($reports['updated']);
 }
 if (isset($_GET['exportmenuset'])) {
 	XSRFdefender('dup_menu');
@@ -84,6 +87,7 @@ if (isset($_GET['exportmenuset'])) {
 					'<h2>' . $menuEpxorted . '</h2>' .
 					$text .
 					'</div>';
+	unset($reports['updated']);
 }
 if (isset($_GET['dupmenuset'])) {
 	if (!menuExists($menuset)) {
@@ -100,6 +104,7 @@ if (isset($_GET['dupmenuset'])) {
 	} else {
 		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” already exists"), html_encode($menuset)) . "</p>";
 	}
+	unset($reports['updated']);
 }
 
 // publish or un-publish page by click
