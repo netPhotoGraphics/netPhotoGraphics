@@ -1295,7 +1295,6 @@ zp-core/images/placeholder.png
 zp-core/images/reset.png
 zp-core/images/rss.png
 zp-core/images/searchfields_icon.png
-zp-core/images/setup.png
 zp-core/images/shape_handles.png
 zp-core/images/show.png
 zp-core/images/stock_copy.png
@@ -8385,4 +8384,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8387
+8386
