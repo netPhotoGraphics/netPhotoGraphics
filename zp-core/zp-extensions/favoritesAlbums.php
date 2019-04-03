@@ -81,6 +81,7 @@ class favoritesAlbum extends favorites {
 			$title = $this->get('title');
 			$this->set('title', stripSuffix($title)); // Strip the suffix
 			$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
+			$this->setSortOrder(999);
 			$this->save();
 			zp_apply_filter('new_album', $this);
 		}
