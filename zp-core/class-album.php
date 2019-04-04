@@ -1211,6 +1211,7 @@ class Album extends AlbumBase {
 			if ($_zp_current_admin_obj) {
 				$this->setOwner($_zp_current_admin_obj->getUser());
 			}
+			$this->setSortOrder(999);
 			$this->save();
 			zp_apply_filter('new_album', $this);
 		}
@@ -1642,6 +1643,7 @@ class dynamicAlbum extends AlbumBase {
 				$title = $this->get('title');
 				$this->set('title', stripSuffix($title)); // Strip the suffix
 				$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
+				$this->setSortOrder(999);
 				$this->save();
 				zp_apply_filter('new_album', $this);
 			}

@@ -1097,10 +1097,9 @@ function getMenuItemChildren($menuset = 'default', $all = false) {
  * @param string $css_class_topactive class of the active item in the top level list
  * @param string $css_class CSS class of the sub level list(s)
  * @param string $css_class_active CSS class of the sub level list(s)
-  rt "" (default) if you don't use it, it is not printed then.
  * @param int $showsubs Set to depth of sublevels that should be shown always. 0 by default. To show all, set to a true! Only valid if option=="list".
- * @param bool $counter TRUE (FALSE default) if you want the count of articles for Zenpage news categories or images/subalbums for albums.
-
+ * @param bool $counter TRUE (FALSE default) if you want the count of articles for news categories or images/subalbums for albums.
+ *
  * @return string
  */
 function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $css_class_topactive = '', $css_class = '', $css_class_active = '', $showsubs = 0, $counter = false) {
@@ -1251,8 +1250,6 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						break;
 					case'dynamiclink':
 						eval('$itemURL=' . $itemURL . ';');
-						echo '<a href="' . $itemURL . '" title="' . html_encode(getBare($itemtitle)) . '">' . $itemtitle . '</a>' . $itemcounter;
-						break;
 					default:
 						if (empty($itemURL)) {
 							$itemURL = FULLWEBPATH;

@@ -132,7 +132,11 @@ if ($result) {
 		query($sql);
 	}
 }
-
+//	fix empty sort_order
+foreach (array('news_categories', 'pages', 'images', 'albums', 'menu') as $table) {
+	$sql = 'UPDATE ' . prefix($table) . ' SET `sort_order`="000" WHERE (`sort_order` IS NULL OR `sort_order`="")';
+	query($sql);
+}
 //original was mis-spelled
 if ($priority = extensionEnabled('reCaptche_v2')) {
 	purgeOption('zp_plugin_reCaptche_v2');
