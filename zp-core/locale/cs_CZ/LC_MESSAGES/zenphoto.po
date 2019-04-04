@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: netPhotoGraphics 1.9.2.08\n"
+"Project-Id-Version: netPhotoGraphics 1.9.3.03\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-30 12:58-0700\n"
-"PO-Revision-Date: 2019-03-30 13:00-0700\n"
+"POT-Creation-Date: 2019-04-04 16:40-0700\n"
+"PO-Revision-Date: 2019-04-04 16:41-0700\n"
 "Last-Translator: Martin Kroul <martin.kroul@skaut.cz>\n"
 "Language-Team: Martin Kroul <martin.kroul@skaut.cz>\n"
 "Language: cs_CZ\n"
@@ -112,8 +112,8 @@ msgstr ""
 #: zp-core/lib-auth.php:685 zp-core/lib-auth.php:686 zp-core/lib-auth.php:695
 #: zp-core/lib-auth.php:696 zp-core/lib-auth.php:703 zp-core/lib-auth.php:704
 #: zp-core/lib-auth.php:709 zp-core/lib-auth.php:716 zp-core/lib-auth.php:718
-#: zp-core/setup/setup-option-defaults.php:689
-#: zp-core/setup/setup-option-defaults.php:690
+#: zp-core/setup/setup-option-defaults.php:693
+#: zp-core/setup/setup-option-defaults.php:694
 #: zp-core/zp-extensions/cacheManager/cacheImages.php:152
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:73 zp-core/zp-extensions/rss.php:44
@@ -122,10 +122,9 @@ msgstr "Galerie"
 
 #: plugins/cacheHeader.php:50 plugins/cookieInvalidator.php:32
 #: themes/zpmobile/functions.php:121 zp-core/admin-functions.php:156
-#: zp-core/admin.php:338 zp-core/admin.php:422 zp-core/admin.php:437
-#: zp-core/admin.php:456 zp-core/admin.php:471 zp-core/admin.php:486
-#: zp-core/lib-auth.php:644 zp-core/lib-auth.php:663 zp-core/lib-auth.php:688
-#: zp-core/lib-auth.php:720 zp-core/zp-extensions/site_upgrade.php:141
+#: zp-core/admin.php:456 zp-core/admin.php:486 zp-core/lib-auth.php:644
+#: zp-core/lib-auth.php:663 zp-core/lib-auth.php:688 zp-core/lib-auth.php:720
+#: zp-core/zp-extensions/site_upgrade.php:141
 #: zp-core/zp-extensions/site_upgrade.php:157
 #: zp-core/zp-extensions/site_upgrade.php:173
 #: zp-core/zp-extensions/site_upgrade.php:200
@@ -136,7 +135,7 @@ msgstr "Administrace"
 #: themes/garland/sidebar.php:73 themes/zenFluid/inc-sidebar.php:60
 #: themes/zenpage/sidebar.php:16 themes/zpArdoise/news.php:30
 #: themes/zpEnlighten/sidebar.php:6 themes/zpmobile/functions.php:186
-#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4061
+#: zp-core/allTranslations.php:7 zp-core/template-functions.php:4084
 #: zp-core/zp-extensions/zenpage/admin-functions.php:833
 msgid "All"
 msgstr "Všechny"
@@ -151,7 +150,7 @@ msgstr "Záhlaví"
 
 #: plugins/cacheHeader.php:55
 msgid "The header that will be generated"
-msgstr "Záhlaví, která bude vygenerováno"
+msgstr "Záhlaví, které bude vygenerováno."
 
 #: plugins/cacheHeader.php:72 plugins/create_album.php:144
 #: plugins/disableAction.php:119 plugins/disableWatermark.php:93
@@ -229,7 +228,7 @@ msgid "Default new users to \"allowed\""
 msgstr "Noví uživatelé budou mít tuto možnost standardně \"povolenu\"."
 
 #: plugins/create_album.php:136 zp-core/admin-tabs/users.php:297
-#: zp-core/template-functions.php:137
+#: zp-core/template-functions.php:144
 msgid "Users"
 msgstr "Uživatelé"
 
@@ -319,7 +318,7 @@ msgstr "Odstraní z vyhledávání alba a fotografie, které nechcete zobrazit."
 #: zp-core/lib-auth.php:674 zp-core/lib-auth.php:677 zp-core/lib-auth.php:681
 #: zp-core/lib-auth.php:684 zp-core/lib-auth.php:697 zp-core/lib-auth.php:700
 #: zp-core/lib-auth.php:701 zp-core/lib-auth.php:705 zp-core/lib-auth.php:710
-#: zp-core/lib-auth.php:713 zp-core/template-functions.php:118
+#: zp-core/lib-auth.php:713 zp-core/template-functions.php:125
 #: zp-core/utilities/gallery_statistics.php:68
 #: zp-core/utilities/gallery_statistics.php:579
 #: zp-core/zp-extensions/cacheManager.php:153
@@ -465,9 +464,8 @@ msgid "Disables all plugins except pluginEnabler."
 msgstr "Zakáže všechny pluginy s výjimkou pluginEnabler."
 
 #: plugins/pluginEnabler/handler.php:22
-#, fuzzy
 msgid "Plugins disabled"
-msgstr "Zásuvné moduly zakázány"
+msgstr "Pluginy zakázány"
 
 #: plugins/pluginEnabler/handler.php:25
 #, fuzzy
@@ -480,7 +478,6 @@ msgid "Remembered plugins enabled"
 msgstr "Zapamatované plugins povolena"
 
 #: plugins/pluginEnabler/handler.php:32
-#, fuzzy
 msgid "All plugins enabled"
 msgstr "Všechny pluginy povoleny"
 
@@ -653,7 +650,7 @@ msgstr[2] "naposledy aktualizované"
 
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:195
 #: zp-core/lib-auth.php:640 zp-core/lib-auth.php:660 zp-core/lib-auth.php:685
-#: zp-core/lib-auth.php:716 zp-core/template-functions.php:173
+#: zp-core/lib-auth.php:716 zp-core/template-functions.php:180
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 msgid "Themes"
 msgstr "Vzhled"
@@ -665,7 +662,7 @@ msgid " (already processed)"
 msgstr "(již zpracované)"
 
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:226
-#: zp-core/template-functions.php:180
+#: zp-core/template-functions.php:187
 msgid "Plugins"
 msgstr "Pluginy"
 
@@ -696,9 +693,9 @@ msgstr "Pluginy"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:509
 #: zp-core/zp-extensions/crop_image.php:484
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:192
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:290
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:419
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:199
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:297
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:428
 #: zp-core/zp-extensions/publishContent/publishContent.php:249
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:179
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:181
@@ -749,7 +746,7 @@ msgstr "Použít"
 #: zp-core/zp-extensions/contact_form/form.php:143
 #: zp-core/zp-extensions/crop_image.php:491
 #: zp-core/zp-extensions/debug/admin_tab.php:322
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:422
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:431
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:185
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:320
 #: zp-core/zp-extensions/rewriteTokens.php:102
@@ -809,7 +806,7 @@ msgstr "Index galerie"
 #: themes/zenpage/404.php:28 themes/zpArdoise/404.php:6
 #: themes/zpArdoise/inc_header.php:21 themes/zpBootstrap/404.php:8
 #: themes/zpBootstrap/inc_header.php:29 themes/zpEnlighten/404.php:22
-#: themes/zpmobile/404.php:30 zp-core/template-functions.php:493
+#: themes/zpmobile/404.php:30 zp-core/template-functions.php:516
 msgid "Object not found"
 msgstr "Objekt nenalezen"
 
@@ -897,8 +894,8 @@ msgstr "Prohlížet album:"
 #: themes/zpskeleton/gallery.php:55 zp-core/admin-functions.php:5289
 #: zp-core/zp-extensions/comment_form/functions.php:118
 #: zp-core/zp-extensions/slideshow.php:587
-#: zp-core/zp-extensions/slideshow2.php:283
-#: zp-core/zp-extensions/slideshow2.php:589
+#: zp-core/zp-extensions/slideshow2.php:294
+#: zp-core/zp-extensions/slideshow2.php:600
 msgid "prev"
 msgstr "zpět"
 
@@ -938,9 +935,9 @@ msgstr "zpět"
 #: themes/zpmobile/search.php:192 themes/zpskeleton/gallery.php:55
 #: zp-core/admin-functions.php:5316
 #: zp-core/zp-extensions/comment_form/functions.php:119
-#: zp-core/zp-extensions/jPlayer.php:479 zp-core/zp-extensions/slideshow.php:588
-#: zp-core/zp-extensions/slideshow2.php:287
-#: zp-core/zp-extensions/slideshow2.php:590
+#: zp-core/zp-extensions/jPlayer.php:480 zp-core/zp-extensions/slideshow.php:588
+#: zp-core/zp-extensions/slideshow2.php:298
+#: zp-core/zp-extensions/slideshow2.php:601
 msgid "next"
 msgstr "další"
 
@@ -964,7 +961,7 @@ msgstr "<strong>Tagy:</strong>"
 #: zp-core/admin-functions.php:5671 zp-core/lib-auth.php:638
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:76
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:80
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:280
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:279
 msgid "Album"
 msgstr "Album"
 
@@ -1059,13 +1056,13 @@ msgstr "Barva vzhledu"
 #: zp-core/zp-extensions/googleMap.php:528
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:74
 #: zp-core/zp-extensions/slideshow.php:589
-#: zp-core/zp-extensions/slideshow2.php:591
+#: zp-core/zp-extensions/slideshow2.php:602
 #: zp-core/zp-extensions/user_login-out.php:155
 msgid "close"
 msgstr "zavřít"
 
 #: themes/basic/image.php:49 themes/paradigm/image.php:22
-#: themes/zenFluid/image.php:144 themes/zenpage/image.php:48
+#: themes/zenFluid/image.php:142 themes/zenpage/image.php:48
 #: themes/zpArdoise/image.php:10 themes/zpBootstrap/image.php:21
 #: themes/zpEnlighten/image.php:48 themes/zpmasonry/image.php:24
 #: themes/zpminimal/image.php:42 themes/zpmobile/image.php:36
@@ -1074,7 +1071,7 @@ msgid "Previous Image"
 msgstr "Předchozí fotografie"
 
 #: themes/basic/image.php:53 themes/paradigm/image.php:24
-#: themes/zenFluid/image.php:156 themes/zenpage/image.php:50
+#: themes/zenFluid/image.php:154 themes/zenpage/image.php:50
 #: themes/zpArdoise/image.php:15 themes/zpBootstrap/image.php:27
 #: themes/zpEnlighten/image.php:52 themes/zpmasonry/image.php:25
 #: themes/zpminimal/image.php:43 themes/zpmobile/image.php:39
@@ -1223,9 +1220,9 @@ msgstr "Pro zobrazení požadované stránky je nutné znát heslo"
 #: themes/zpmasonry/inc-menu.php:70 themes/zpminimal/inc-header.php:95
 #: themes/zpminimal/inc-sidemenu.php:39 themes/zpskeleton/inc-footer.php:20
 #: themes/zpskeleton/inc-header.php:100 zp-core/allTranslations.php:84
-#: zp-core/template-functions.php:499
+#: zp-core/template-functions.php:522
 #: zp-core/zp-extensions/html_meta_tags.php:252
-#: zp-core/zp-extensions/scriptless-socialsharing.php:176
+#: zp-core/zp-extensions/scriptless-socialsharing.php:175
 #, fuzzy
 msgid "Register"
 msgstr "Klikněte pro registraci na těchto stránkách"
@@ -1263,7 +1260,7 @@ msgstr "Stránky (%s)"
 #: themes/basic/search.php:80 themes/basic/search.php:113
 #: themes/effervescence+/search.php:152 themes/effervescence+/search.php:185
 #: themes/garland/search.php:117 themes/garland/search.php:150
-#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:310
+#: themes/paradigm/functions.php:384 themes/zenFluid/functions.php:313
 #: themes/zenpage/functions.php:46 themes/zpEnlighten/functions.php:66
 #: themes/zpfocus/functions.php:158 themes/zpmobile/functions.php:287
 #: themes/zpskeleton/functions.php:236
@@ -1273,7 +1270,7 @@ msgstr "Zobrazit více výsledků"
 #: themes/basic/search.php:81 themes/basic/search.php:114
 #: themes/effervescence+/search.php:153 themes/effervescence+/search.php:186
 #: themes/garland/search.php:118 themes/garland/search.php:151
-#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:311
+#: themes/paradigm/functions.php:385 themes/zenFluid/functions.php:314
 #: themes/zenpage/functions.php:47 themes/zpEnlighten/functions.php:67
 #: themes/zpfocus/functions.php:159 themes/zpmobile/functions.php:288
 #: themes/zpskeleton/functions.php:237
@@ -1393,10 +1390,10 @@ msgstr "Album je prázdné"
 #: themes/zpmasonry/inc-header.php:90 themes/zpmasonry/inc-menu.php:63
 #: themes/zpminimal/contact.php:4 themes/zpminimal/inc-header.php:87
 #: themes/zpminimal/inc-sidemenu.php:37 themes/zpskeleton/inc-header.php:92
-#: themes/zpskeleton/inc-header.php:197 zp-core/class-image.php:199
-#: zp-core/template-functions.php:498
+#: themes/zpskeleton/inc-header.php:197 zp-core/class-image.php:200
+#: zp-core/template-functions.php:521
 #: zp-core/zp-extensions/html_meta_tags.php:252
-#: zp-core/zp-extensions/scriptless-socialsharing.php:170
+#: zp-core/zp-extensions/scriptless-socialsharing.php:169
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -1482,7 +1479,7 @@ msgstr "Effervescence %s"
 msgid "Effervescence %1$s %2$s"
 msgstr "Effervescence %1$s %2$s"
 
-#: themes/effervescence+/functions.php:348 zp-core/template-functions.php:1139
+#: themes/effervescence+/functions.php:348 zp-core/template-functions.php:1162
 msgid "The album is password protected."
 msgstr "Toto album je chráněno heslem."
 
@@ -1541,7 +1538,7 @@ msgstr[0] "%u fotografií"
 msgstr[1] "%u fotografií"
 msgstr[2] ""
 
-#: themes/effervescence+/functions.php:403 themes/zenFluid/image.php:185
+#: themes/effervescence+/functions.php:403 themes/zenFluid/image.php:183
 #: themes/zenFluid/news.php:63 themes/zenFluid/news.php:152
 #: themes/zenFluid/pages.php:41 themes/zpArdoise/inc_print_comment.php:32
 #: themes/zpBootstrap/inc_print_comment.php:37
@@ -1586,7 +1583,7 @@ msgstr "Prohledat alba"
 #: themes/garland/sidebar.php:89 themes/garland/sidebar.php:108
 #: themes/zenpage/sidebar.php:28 themes/zpEnlighten/sidebar.php:17
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:133
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:278
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:277
 msgid "Album index"
 msgstr "Index alba"
 
@@ -1631,14 +1628,14 @@ msgstr "Hledat v kategorii"
 #: themes/zpminimal/inc-header.php:54 themes/zpminimal/inc-header.php:237
 #: themes/zpminimal/search.php:29 themes/zpmobile/functions.php:68
 #: themes/zpskeleton/inc-header.php:69 themes/zpskeleton/inc-search.php:1
-#: themes/zpskeleton/search.php:28 zp-core/template-functions.php:500
-#: zp-core/template-functions.php:1334 zp-core/template-functions.php:1365
-#: zp-core/template-functions.php:3923
+#: themes/zpskeleton/search.php:28 zp-core/template-functions.php:523
+#: zp-core/template-functions.php:1357 zp-core/template-functions.php:1388
+#: zp-core/template-functions.php:3946
 #: zp-core/zp-extensions/deprecated-functions/check_for_deprecated.php:71
 #: zp-core/zp-extensions/html_meta_tags.php:252
-#: zp-core/zp-extensions/scriptless-socialsharing.php:179
+#: zp-core/zp-extensions/scriptless-socialsharing.php:178
 #: zp-core/zp-extensions/slideshow.php:749
-#: zp-core/zp-extensions/slideshow2.php:732
+#: zp-core/zp-extensions/slideshow2.php:743
 #: zp-core/zp-extensions/zenpage/template-functions.php:1594
 msgid "Search"
 msgstr "Vyhledat"
@@ -1718,8 +1715,8 @@ msgstr "Stránky"
 #: themes/zpmasonry/inc-menu.php:51 themes/zpminimal/inc-sidemenu.php:16
 #: themes/zpmobile/functions.php:85 themes/zpskeleton/archive.php:6
 #: themes/zpskeleton/inc-header.php:185 zp-core/allTranslations.php:16
-#: zp-core/template-functions.php:1317 zp-core/template-functions.php:1372
-#: zp-core/zp-extensions/scriptless-socialsharing.php:173
+#: zp-core/template-functions.php:1340 zp-core/template-functions.php:1395
+#: zp-core/zp-extensions/scriptless-socialsharing.php:172
 #: zp-core/zp-extensions/zenpage/template-functions.php:1597
 msgid "Archive"
 msgstr "Archiv"
@@ -1768,7 +1765,7 @@ msgstr ""
 #: themes/effervescence+/themeoptions.php:90
 #, fuzzy
 msgid "Separate gallery index"
-msgstr "Samostatné Galerie indexu"
+msgstr "Samostatný index galerie"
 
 #: themes/effervescence+/themeoptions.php:90
 #, fuzzy
@@ -2019,7 +2016,7 @@ msgstr "« Předchozí album"
 #: themes/garland/album.php:122 themes/garland/image.php:141
 #: themes/garland/news.php:122 themes/garland/pages.php:69
 #: themes/garland/summary.php:72 themes/zenFluid/album.php:127
-#: themes/zenFluid/image.php:119 themes/zenFluid/news.php:108
+#: themes/zenFluid/image.php:117 themes/zenFluid/news.php:108
 #: themes/zenFluid/news.php:163 themes/zenFluid/pages.php:77
 msgid "Tags: "
 msgstr "Tagy:"
@@ -2048,7 +2045,7 @@ msgid "Next image"
 msgstr "Další fotografie"
 
 #: themes/garland/image.php:123 themes/garland/summary.php:54
-#: themes/zenFluid/image.php:156 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:154 themes/zpmasonry/news.php:88
 msgid "Next »"
 msgstr "Další »"
 
@@ -2064,7 +2061,7 @@ msgstr "« Předchozí"
 #: themes/paradigm/includes/_head.php:176 themes/zenFluid/password.php:15
 #: themes/zpArdoise/inc_header.php:63 themes/zpArdoise/password.php:6
 #: themes/zpBootstrap/password.php:8 zp-core/password.php:6
-#: zp-core/template-functions.php:502
+#: zp-core/template-functions.php:525
 #: zp-core/zp-extensions/html_meta_tags.php:252
 msgid "Password required"
 msgstr "Požadováno heslo"
@@ -2122,7 +2119,7 @@ msgstr ""
 #: themes/zpBootstrap/archive.php:41 themes/zpBootstrap/themeoptions.php:134
 #: zp-core/admin-tabs/tags.php:251 zp-core/lib-auth.php:642
 #: zp-core/lib-auth.php:661 zp-core/lib-auth.php:686 zp-core/lib-auth.php:718
-#: zp-core/template-functions.php:130 zp-core/utilities/gallery_statistics.php:91
+#: zp-core/template-functions.php:137 zp-core/utilities/gallery_statistics.php:91
 #: zp-core/utilities/gallery_statistics.php:591
 #: zp-core/zp-extensions/optionalObjectFields.php:77
 #: zp-core/zp-extensions/optionalObjectFields.php:174
@@ -2320,12 +2317,12 @@ msgstr "Téma používá:"
 msgid "by"
 msgstr "od"
 
-#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3610
+#: themes/paradigm/functions.php:131 zp-core/template-functions.php:3633
 msgid "No popular tags"
 msgstr "Žádné oblíbené tagy"
 
 #: themes/paradigm/functions.php:320 themes/zpEnlighten/image.php:136
-#: zp-core/template-functions.php:2524
+#: zp-core/template-functions.php:2547
 msgid "Image Info"
 msgstr "Informace o fotografii"
 
@@ -2382,7 +2379,7 @@ msgstr "Copyright:"
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "Omlouvám se, nic jsem nenašel."
+msgstr "Soubor nenalezen."
 
 #: themes/paradigm/includes/_gallery.php:12 themes/zpfocus/inc-sidebar.php:43
 msgid "About"
@@ -2390,7 +2387,7 @@ msgstr "O nás"
 
 #: themes/paradigm/includes/_head.php:52 themes/paradigm/includes/_head.php:146
 #: themes/zpArdoise/inc_header.php:36 themes/zpBootstrap/inc_header.php:47
-#: zp-core/allTranslations.php:68 zp-core/template-functions.php:505
+#: zp-core/allTranslations.php:68 zp-core/template-functions.php:528
 #: zp-core/zp-extensions/downloadList.php:586
 #: zp-core/zp-extensions/html_meta_tags.php:254
 msgid "My favorites"
@@ -2417,8 +2414,8 @@ msgstr "Blog"
 #: themes/zpminimal/password.php:4 themes/zpminimal/register.php:4
 #: themes/zpminimal/search.php:29 themes/zpminimal/summary.php:4
 #: themes/zpmobile/functions.php:66 themes/zpskeleton/inc-header.php:180
-#: zp-core/template-functions.php:1481 zp-core/zp-extensions/menu_manager.php:922
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:484
+#: zp-core/template-functions.php:1504 zp-core/zp-extensions/menu_manager.php:922
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:495
 msgid "Home"
 msgstr "Home"
 
@@ -2486,19 +2483,16 @@ msgid "Check to include a slideshow on the homepage."
 msgstr "Zaškrtnutím zahrnete prezentaci na hompepage."
 
 #: themes/paradigm/themeoptions.php:60
-#, fuzzy
 msgid "Slideshow Type"
 msgstr "Typ prezentace"
 
 #: themes/paradigm/themeoptions.php:63
-#, fuzzy
 msgid "Random"
-msgstr "náhodný"
+msgstr "Náhodné"
 
 #: themes/paradigm/themeoptions.php:64
-#, fuzzy
 msgid "Popular"
-msgstr "Nejvíce oblíbené alba"
+msgstr "Populární"
 
 #: themes/paradigm/themeoptions.php:65
 msgid "Latest by ID"
@@ -2778,27 +2772,23 @@ msgstr "Náhledů na stránku"
 
 #: themes/zenFluid/album.php:36 themes/zenFluid/album.php:68
 #: themes/zenFluid/search.php:114 themes/zenFluid/search.php:146
-#, fuzzy
-#| msgid "Views:"
 msgid "View: "
-msgstr "prohlížet"
+msgstr "Shlédnutí: "
 
-#: themes/zenFluid/functions.php:269 zp-core/zp-extensions/themeSwitcher.php:187
+#: themes/zenFluid/functions.php:272 zp-core/zp-extensions/themeSwitcher.php:187
 #, fuzzy
 msgid "Close"
 msgstr "zavřít"
 
-#: themes/zenFluid/image.php:144 themes/zpmasonry/news.php:88
+#: themes/zenFluid/image.php:142 themes/zpmasonry/news.php:88
 msgid "« Prev"
 msgstr "« Předchozí"
 
-#: themes/zenFluid/image.php:177 themes/zenFluid/pages.php:33
-#, fuzzy
-#| msgid "Views:"
+#: themes/zenFluid/image.php:175 themes/zenFluid/pages.php:33
 msgid "Views: "
-msgstr "Shlédnutí:"
+msgstr "Shlédnutí: "
 
-#: themes/zenFluid/image.php:183 themes/zenFluid/news.php:61
+#: themes/zenFluid/image.php:181 themes/zenFluid/news.php:61
 #: themes/zenFluid/news.php:150 themes/zenFluid/pages.php:39
 #: themes/zpArdoise/inc_print_comment.php:30
 #: themes/zpBootstrap/inc_print_comment.php:35
@@ -2812,21 +2802,16 @@ msgid "zenFluid theme designed by "
 msgstr "zenFluid motiv navržený"
 
 #: themes/zenFluid/inc-sidebar.php:40
-#, fuzzy
 msgid "The ZenFluid theme requires that the print_album_menu plugin be enabled."
-msgstr "Téma ZenFluid vyžaduje, aby byl povolen plugin print_album_menu."
+msgstr "Vzhled ZenFluid vyžaduje, aby byl print_album_menu plugin povolen."
 
 #: themes/zenFluid/inc-sidebar.php:70
-#, fuzzy
-#| msgid "RSS feeds"
 msgid "RSS Feeds"
 msgstr "RSS kanály"
 
 #: themes/zenFluid/inc-sidebar.php:81
-#, fuzzy
-#| msgid "This option requires the <em>image_effects</em> plugin to be enabled."
 msgid "The ZenFluid theme requires that the zenpage plugin be enabled."
-msgstr "ZenFluid vzhled vyžaduje povolený plugin zenpage."
+msgstr "Vzhled ZenFluid vyžaduje, aby byl zenpage plugin povolen."
 
 #: themes/zenFluid/inc-sidebar.php:107 zp-core/admin-tabs/users.php:300
 #, fuzzy
@@ -2863,30 +2848,22 @@ msgid "White"
 msgstr "Bílá"
 
 #: themes/zenFluid/themeoptions.php:73
-#, fuzzy
-#| msgid "Light"
 msgid "Light Green"
 msgstr "Světle zelená"
 
 #: themes/zenFluid/themeoptions.php:73
-#, fuzzy
-#| msgid "Dark"
 msgid "Dark gray"
 msgstr "Tmavě šedá"
 
 #: themes/zenFluid/themeoptions.php:74
-#, fuzzy
 msgid "Round corners"
 msgstr "Kulaté rohy"
 
 #: themes/zenFluid/themeoptions.php:74
-#, fuzzy
 msgid "Square corners"
 msgstr "Hranaté rohy"
 
 #: themes/zenFluid/themeoptions.php:74
-#, fuzzy
-#| msgid "Page order"
 msgid "No Border"
 msgstr "Bez ohraničení"
 
@@ -2928,8 +2905,6 @@ msgid "Select the colorscheme."
 msgstr "Výchozí barevné schéma vzhledu."
 
 #: themes/zenFluid/themeoptions.php:94
-#, fuzzy
-#| msgid "Link type"
 msgid "Font type"
 msgstr "Typ fontu"
 
@@ -2940,8 +2915,6 @@ msgid "Select the font style."
 msgstr "Vyberte vzhled písma."
 
 #: themes/zenFluid/themeoptions.php:101
-#, fuzzy
-#| msgid "Order by"
 msgid "Border type"
 msgstr "Typ ohraničení"
 
@@ -2959,9 +2932,8 @@ msgstr "Povolit vyhledávací formulář."
 
 #: themes/zenFluid/themeoptions.php:114 themes/zenpage/themeoptions.php:65
 #: themes/zpEnlighten/themeoptions.php:22 themes/zpfocus/themeoptions.php:75
-#, fuzzy
 msgid "Use Colorbox"
-msgstr "Použit Colorbox"
+msgstr "Použití Colorbox"
 
 #: themes/zenFluid/themeoptions.php:118
 #, fuzzy
@@ -3003,8 +2975,6 @@ msgid ""
 msgstr "Povolte pro zobrazení názvu a popisku vedle každého náhledu."
 
 #: themes/zenFluid/themeoptions.php:138
-#, fuzzy
-#| msgid "Random images"
 msgid "Use random image"
 msgstr "Použít náhodnou fotografii"
 
@@ -3099,10 +3069,8 @@ msgstr ""
 "obrazovky namísto v horní části postranního panelu."
 
 #: themes/zenFluid/themeoptions.php:181
-#, fuzzy
-#| msgid "Show title"
 msgid "Show footer"
-msgstr "Zobrazit zápatí"
+msgstr "Zobrazit patičku"
 
 #: themes/zenFluid/themeoptions.php:185
 #, fuzzy
@@ -3302,9 +3270,8 @@ msgstr "Zenpage Theme od <a href=\"http://www.maltem.de\">Malte Müller</a>"
 
 #: themes/zenpage/image.php:73 themes/zpEnlighten/image.php:81
 #: zp-core/allTranslations.php:79
-#, fuzzy
 msgid "« prev thumbs"
-msgstr "« předchozí náhledy"
+msgstr "«předchozí náhledy"
 
 #: themes/zenpage/image.php:73 themes/zpEnlighten/image.php:81
 #: zp-core/allTranslations.php:80
@@ -3413,7 +3380,7 @@ msgstr "Galerii můžete procházet šipkami na klávesnici."
 #: themes/zpfocus/inc-header.php:169 themes/zpfocus/inc-header.php:183
 #: themes/zpmasonry/inc-footer.php:35 themes/zpmasonry/inc-header.php:151
 #: themes/zpmasonry/inc-header.php:167 zp-core/zp-extensions/slideshow.php:585
-#: zp-core/zp-extensions/slideshow2.php:587
+#: zp-core/zp-extensions/slideshow2.php:598
 msgid "start slideshow"
 msgstr "Spustit prezentaci"
 
@@ -3421,7 +3388,7 @@ msgstr "Spustit prezentaci"
 #: themes/zpfocus/inc-header.php:170 themes/zpfocus/inc-header.php:184
 #: themes/zpmasonry/inc-footer.php:36 themes/zpmasonry/inc-header.php:152
 #: themes/zpmasonry/inc-header.php:168 zp-core/zp-extensions/slideshow.php:586
-#: zp-core/zp-extensions/slideshow2.php:588
+#: zp-core/zp-extensions/slideshow2.php:599
 msgid "stop slideshow"
 msgstr "Zastavit prezentaci"
 
@@ -3682,10 +3649,8 @@ msgid "Next page"
 msgstr "Další stránka"
 
 #: themes/zpBootstrap/inc_print_infinitescroll_news.php:7
-#, fuzzy
-#| msgid "View more"
 msgid "View more news"
-msgstr "Zobrazit více"
+msgstr "Zobrazit více novinek"
 
 #: themes/zpBootstrap/inc_print_infinitescroll_news.php:17
 #, fuzzy
@@ -3943,7 +3908,7 @@ msgstr ""
 #: themes/zpminimal/album.php:62 themes/zpminimal/favorites.php:60
 #: themes/zpminimal/image.php:55 themes/zpminimal/search.php:116
 #: themes/zpmobile/search.php:187 zp-core/zp-extensions/slideshow.php:512
-#: zp-core/zp-extensions/slideshow2.php:515
+#: zp-core/zp-extensions/slideshow2.php:526
 msgid "View Slideshow"
 msgstr "Spustit prezentaci"
 
@@ -4057,7 +4022,6 @@ msgstr "Výsledek hledání"
 
 #: themes/zpfocus/gallery.php:19 themes/zpmasonry/functions.php:213
 #: themes/zpmasonry/inc-header.php:120 themes/zpskeleton/inc-header.php:123
-#, fuzzy
 msgid "Latest Albums"
 msgstr "Nejnovější alba"
 
@@ -4134,7 +4098,7 @@ msgstr "Obrázek {current} {celkem}"
 
 #: themes/zpfocus/inc-header.php:172 themes/zpfocus/inc-header.php:186
 #: themes/zpmasonry/inc-footer.php:38 themes/zpmasonry/inc-header.php:154
-#: themes/zpmasonry/inc-header.php:170 zp-core/zp-extensions/jPlayer.php:475
+#: themes/zpmasonry/inc-header.php:170 zp-core/zp-extensions/jPlayer.php:476
 msgid "previous"
 msgstr "Předchozí"
 
@@ -4156,7 +4120,7 @@ msgstr "Náhodné galerie obrázků"
 #: themes/zpfocus/inc-sidebar.php:52
 #, fuzzy
 msgid "More"
-msgstr "Zobrazit více výsledků"
+msgstr "Správci jednoho nebo více alb"
 
 #: themes/zpfocus/inc-sidebar.php:75
 #, fuzzy
@@ -4626,7 +4590,7 @@ msgstr "Podalbum"
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 #, fuzzy
 msgid "number"
-msgstr "Číslo fotografie/Celkem fotografií"
+msgstr "Číslo portu pro POP."
 
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 msgid "total"
@@ -4773,7 +4737,7 @@ msgstr "Vítejte"
 
 #: themes/zpmasonry/index.php:53 themes/zpmasonry/index.php:57
 #: themes/zpminimal/index.php:50 themes/zpminimal/index.php:54
-#: zp-core/template-functions.php:3416
+#: zp-core/template-functions.php:3439
 #, php-format
 msgid "View image: %s"
 msgstr "Zobrazit fotografii: %s"
@@ -4783,8 +4747,8 @@ msgstr "Zobrazit fotografii: %s"
 msgid "No Images Exist..."
 msgstr "Neexistují žádné obrázky..."
 
-#: themes/zpmasonry/index.php:105 zp-core/template-functions.php:878
-#: zp-core/template-functions.php:1077 zp-core/zp-extensions/menu_manager.php:723
+#: themes/zpmasonry/index.php:105 zp-core/template-functions.php:901
+#: zp-core/template-functions.php:1100 zp-core/zp-extensions/menu_manager.php:723
 msgid "Next Page"
 msgstr "Další stránka"
 
@@ -5034,9 +4998,8 @@ msgid "Gallery index"
 msgstr "Galerie"
 
 #: themes/zpminimal/404.php:14
-#, fuzzy
 msgid "Back to Gallery Index →"
-msgstr "Zpět na galerie Index →"
+msgstr "Zpět na hlavní stránku galerie →"
 
 #: themes/zpminimal/inc-footer.php:24
 msgid "Subalbum"
@@ -5171,7 +5134,7 @@ msgstr ""
 "jako obrázek logo. Nebo ponechte prázdné použít textovou reprezentaci název "
 "galerie.  Jako příklad je logo.gif obrázek v adresáři images."
 
-#: themes/zpmobile/archive.php:29 zp-core/template-functions.php:501
+#: themes/zpmobile/archive.php:29 zp-core/template-functions.php:524
 #: zp-core/zp-extensions/html_meta_tags.php:252
 #, fuzzy
 msgid "Archive view"
@@ -5258,13 +5221,10 @@ msgid "Tag Cloud"
 msgstr "Tag Cloud"
 
 #: themes/zpskeleton/functions.php:188
-#, fuzzy
-#| msgid "Slideshow"
 msgid "Sllideshow"
 msgstr "Prezentace"
 
 #: themes/zpskeleton/image.php:79
-#, fuzzy
 msgid "Download Original"
 msgstr "Stáhnout originál"
 
@@ -5278,12 +5238,10 @@ msgid "Menu"
 msgstr "Menu"
 
 #: themes/zpskeleton/news.php:19 themes/zpskeleton/news.php:62
-#, fuzzy
 msgid "Comment(s)"
-msgstr "Komentář"
+msgstr "Komentář(e)"
 
 #: themes/zpskeleton/news.php:117
-#, fuzzy
 msgid "Comments of this article"
 msgstr "Komentáře tohoto článku"
 
@@ -5325,9 +5283,8 @@ msgid "Small"
 msgstr "Malé"
 
 #: themes/zpskeleton/themeoptions.php:55
-#, fuzzy
 msgid "Choose the relative thumb size for the album and search pages."
-msgstr "Zvolit relativní velikost palce pro album a vyhledávacích stránkách."
+msgstr "Zvolte relativní velikost náhledu pro album a stránku s vyhledáváním."
 
 #: themes/zpskeleton/themeoptions.php:56
 #, fuzzy
@@ -5580,7 +5537,7 @@ msgstr "Přidat tag"
 #: zp-core/zp-extensions/crop_image.php:467
 #: zp-core/zp-extensions/crop_image.php:474
 #: zp-core/zp-extensions/crop_image.php:476
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:248
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:247
 #: zp-core/zp-extensions/tagFromSearch/tag.php:140
 #: zp-core/zp-extensions/themeEditor/themes-editor.php:109
 #: zp-core/zp-extensions/zenpage/edit.php:368
@@ -5592,7 +5549,7 @@ msgstr "Zpět"
 #: zp-core/admin-functions.php:2519 zp-core/admin-functions.php:2521
 #: zp-core/admin-tabs/album_edit.php:89 zp-core/admin-tabs/album_edit.php:91
 #: zp-core/admin-tabs/album_edit.php:155 zp-core/admin-tabs/album_edit.php:157
-#: zp-core/template-functions.php:277
+#: zp-core/template-functions.php:300
 msgid "New subalbum"
 msgstr "Nové podalbum"
 
@@ -5671,7 +5628,7 @@ msgstr "Nápověda hesla:"
 #: zp-core/zp-extensions/comment_form.php:107
 #: zp-core/zp-extensions/comment_form.php:115
 #: zp-core/zp-extensions/downloadList.php:148
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:227
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:234
 #: zp-core/zp-extensions/register_user.php:85
 #: zp-core/zp-extensions/zenpage/edit.php:634
 msgid "Show"
@@ -5826,10 +5783,9 @@ msgstr "Datum konce platnosti"
 
 #: zp-core/admin-functions.php:2370 zp-core/admin-tabs/image_edit.php:437
 #: zp-core/zp-extensions/zenpage/edit.php:783
-#, fuzzy, php-format
-#| msgid "Last change<br />%1$s<br />by %2$s"
+#, php-format
 msgid "Last changed %1$s by %2$s"
-msgstr "Poslední změna:<br />%2$s dne<br />%1$s"
+msgstr "Poslední změnu  %1$s provedl %2$s"
 
 #: zp-core/admin-functions.php:2376 zp-core/admin-globals.php:75
 #: zp-core/admin-tabs/image_edit.php:69 zp-core/admin-tabs/image_edit.php:443
@@ -5863,7 +5819,7 @@ msgstr "Kopírovat"
 msgid "Rename Folder"
 msgstr "Přejmenovat adresář"
 
-#: zp-core/admin-functions.php:2424 zp-core/template-functions.php:266
+#: zp-core/admin-functions.php:2424 zp-core/template-functions.php:288
 msgid "Delete album"
 msgstr "Smazat album"
 
@@ -5902,9 +5858,8 @@ msgid "Clear album image cache"
 msgstr "Smazat mezipaměť alba"
 
 #: zp-core/admin-functions.php:2562
-#, fuzzy
 msgid "Resets album’s hit counters."
-msgstr "Obnoví počitadla hitů alb."
+msgstr "Vynulovat počítadla alb."
 
 #: zp-core/admin-functions.php:2565
 msgid "Reset album hit counters"
@@ -6206,7 +6161,7 @@ msgstr "ok"
 #: zp-core/admin-functions.php:4574 zp-core/admin-tabs/album_edit.php:123
 #: zp-core/admin-tabs/edit.php:921
 #: zp-core/zp-extensions/comment_form/admin-comments.php:382
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:267
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:274
 #: zp-core/zp-extensions/zenpage/categories.php:185
 #: zp-core/zp-extensions/zenpage/news.php:309
 #: zp-core/zp-extensions/zenpage/pages.php:195
@@ -6219,15 +6174,12 @@ msgstr "Nové kategorie:"
 
 #: zp-core/admin-functions.php:4644 zp-core/zp-extensions/zenpage/news.php:281
 #: zp-core/zp-extensions/zenpage/pages.php:182
-#, fuzzy
-#| msgid "Change owner"
 msgid "Change author"
-msgstr "Změnit vlastníka"
+msgstr "Změnit autora"
 
 #: zp-core/admin-functions.php:4645
-#, fuzzy
 msgid "New author:"
-msgstr "Nové žadatele:"
+msgstr "Nové autor:"
 
 #: zp-core/admin-functions.php:4647
 msgid "New owner:"
@@ -6407,33 +6359,32 @@ msgid "<em>%s</em> already exists."
 msgstr "<em>%s</em> již existuje."
 
 #: zp-core/admin-functions.php:5706
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:239
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:238
 msgid "Changes applied"
 msgstr "Změny uloženy"
 
 #: zp-core/admin-functions.php:5709 zp-core/admin-tabs/albumsort.php:176
 #: zp-core/zp-extensions/comment_form/admin-comments.php:286
 #: zp-core/zp-extensions/comment_form/admin-comments.php:315
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:13
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:26
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:19
 msgid "Nothing changed"
 msgstr "Nic se nezměnilo"
 
 #: zp-core/admin-functions.php:5716 zp-core/admin-tabs/albumsort.php:142
 #: zp-core/zp-extensions/comment_form/admin-comments.php:277
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:993
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:1004
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1647
 msgid "Selected items deleted"
 msgstr "Vybrané položky smazány"
 
 #: zp-core/admin-functions.php:5719 zp-core/admin-tabs/albumsort.php:145
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:997
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:1008
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1650
 msgid "Selected items published"
 msgstr "Vybrané položky publikovany"
 
 #: zp-core/admin-functions.php:5722 zp-core/admin-tabs/albumsort.php:148
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:1001
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:1012
 #: zp-core/zp-extensions/zenpage/admin-functions.php:1653
 msgid "Selected items unpublished"
 msgstr "Vybrané položky nepublikovany"
@@ -6601,13 +6552,13 @@ msgstr "Kategorie"
 #, fuzzy
 #| msgid "files"
 msgid "my profile"
-msgstr "Soubory"
+msgstr "Můj profil"
 
 #: zp-core/admin-globals.php:233
 #, fuzzy
 #| msgid "most images"
 msgid "my images"
-msgstr "nejvíce fotografií"
+msgstr "Moje fotografie"
 
 #: zp-core/admin-globals.php:246
 msgid "general"
@@ -6699,7 +6650,7 @@ msgstr "Editovat všechna alba v"
 #: zp-core/admin-tabs/edit.php:641 zp-core/admin-tabs/edit.php:654
 #: zp-core/admin-tabs/edit.php:658 zp-core/admin-tabs/images.php:349
 #: zp-core/admin-tabs/images.php:359 zp-core/admin-tabs/images.php:363
-#: zp-core/admin-tabs/logs.php:151 zp-core/admin-tabs/themes.php:329
+#: zp-core/admin-tabs/logs.php:151 zp-core/admin-tabs/themes.php:331
 #: zp-core/setup/index.php:1086 zp-core/zp-extensions/cacheManager.php:253
 #: zp-core/zp-extensions/cacheManager.php:286
 #: zp-core/zp-extensions/comment_form/admin-comments.php:149
@@ -6707,8 +6658,8 @@ msgstr "Editovat všechna alba v"
 #: zp-core/zp-extensions/comment_form/admin-comments.php:370
 #: zp-core/zp-extensions/comment_form/admin-comments.php:534
 #: zp-core/zp-extensions/debug/admin_tab.php:318
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:226
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:309
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:233
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:316
 #: zp-core/zp-extensions/publishContent/publishContent.php:473
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:61
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:157
@@ -6722,7 +6673,7 @@ msgstr "Smazat"
 #: zp-core/admin-tabs/albumsort.php:85 zp-core/admin-tabs/edit.php:640
 #: zp-core/admin-tabs/images.php:348
 #: zp-core/zp-extensions/comment_form/admin-comments.php:369
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:225
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:232
 #: zp-core/zp-extensions/zenpage/categories.php:172
 #: zp-core/zp-extensions/zenpage/news.php:271
 #: zp-core/zp-extensions/zenpage/pages.php:174
@@ -6796,9 +6747,8 @@ msgid "dynamic"
 msgstr "dynamické"
 
 #: zp-core/admin-tabs/dynamic-album.php:134
-#, fuzzy
 msgid "Create Dynamic Album"
-msgstr "Vytvořit dynamický Album"
+msgstr "Vytvořit Dynamické album"
 
 #: zp-core/admin-tabs/dynamic-album.php:183
 #: zp-core/zp-extensions/favoritesAlbums/admin-album.php:126
@@ -6842,7 +6792,7 @@ msgstr "do"
 #: zp-core/admin-tabs/dynamic-album.php:301
 #, fuzzy
 msgid "tagged"
-msgstr "Vyberte ikonu, která se bude zobrazovat pro obrázky s GPS."
+msgstr "Štítky"
 
 #: zp-core/admin-tabs/dynamic-album.php:308
 #, fuzzy
@@ -6906,12 +6856,12 @@ msgid "Mass-edit albums"
 msgstr "Hromadná úprava alb"
 
 #: zp-core/admin-tabs/edit.php:569 zp-core/admin-tabs/images.php:277
-#: zp-core/template-functions.php:257
+#: zp-core/template-functions.php:279
 msgid "Are you sure you want to delete this entire album?"
 msgstr "Jste si jisti, že chcete smazat toto celé album?"
 
 #: zp-core/admin-tabs/edit.php:570 zp-core/admin-tabs/images.php:278
-#: zp-core/template-functions.php:258
+#: zp-core/template-functions.php:280
 msgid ""
 "Are you Absolutely Positively sure you want to delete the album? THIS CANNOT "
 "BE UNDONE!"
@@ -6920,13 +6870,13 @@ msgstr ""
 "ZPĚT!"
 
 #: zp-core/admin-tabs/edit.php:572 zp-core/admin-tabs/images.php:280
-#: zp-core/template-functions.php:73
+#: zp-core/template-functions.php:84
 msgid "New album name?"
 msgstr "Jméno nového alba?"
 
 #: zp-core/admin-tabs/edit.php:584 zp-core/admin-tabs/images.php:292
 #: zp-core/zp-extensions/comment_form/admin-comments.php:98
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:160
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:167
 #: zp-core/zp-extensions/zenpage/categories.php:78
 #: zp-core/zp-extensions/zenpage/news.php:82
 #: zp-core/zp-extensions/zenpage/pages.php:93
@@ -7005,7 +6955,7 @@ msgstr "Zvětšit"
 #: zp-core/admin-tabs/image_edit.php:192
 #: zp-core/utilities/gallery_statistics.php:447
 #: zp-core/utilities/gallery_statistics.php:451
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:305
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:312
 #: zp-core/zp-extensions/publishContent/publishContent.php:481
 #: zp-core/zp-extensions/publishContent/publishContent.php:539
 #: zp-core/zp-extensions/publishContent/publishContent.php:604
@@ -7088,7 +7038,7 @@ msgstr "Přejmenovat"
 msgid "Are you sure you want to select this image for deletion?"
 msgstr "Jste si jisti, že chcete smazat vybranou fotografii?"
 
-#: zp-core/admin-tabs/image_edit.php:470 zp-core/template-functions.php:301
+#: zp-core/admin-tabs/image_edit.php:470 zp-core/template-functions.php:324
 msgid "Delete image"
 msgstr "Smazat fotografii"
 
@@ -7357,7 +7307,7 @@ msgstr "Plugin je zastaralý!"
 #: zp-core/admin-tabs/plugins.php:391
 #, php-format
 msgid "Go to &quot;%s&quot; plugin page."
-msgstr "Přejít na stránku č. &quot;%s&quot; s pluginy."
+msgstr "Přejít na &quot;%s&quot; stránku s pluginy."
 
 #: zp-core/admin-tabs/plugins.php:402
 msgid "Show plugin usage information."
@@ -7390,8 +7340,8 @@ msgstr "Návod k použití"
 
 #: zp-core/admin-tabs/plugins.php:480 zp-core/lib-auth.php:643
 #: zp-core/lib-auth.php:662 zp-core/lib-auth.php:687 zp-core/lib-auth.php:719
-#: zp-core/template-functions.php:166
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:201
+#: zp-core/template-functions.php:173
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:208
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:139
 msgid "Options"
 msgstr "Nastavení "
@@ -7584,7 +7534,7 @@ msgstr "Nenalezen žádný vzhled, který máte právo upravovat."
 #: zp-core/admin-tabs/themes.php:159
 #, php-format
 msgid "Current theme for <code><strong>%1$s</strong></code>: <em>%2$s</em>"
-msgstr "Aktuální téma pro <code><strong>%1$s</strong></code>: <em>%2$s</em>"
+msgstr "Aktuální vzhled pro <code><strong>%1$s</strong></code>: <em>%2$s</em>"
 
 #: zp-core/admin-tabs/themes.php:163
 #, php-format
@@ -7675,7 +7625,11 @@ msgstr "Současný vzhled"
 msgid "Edit"
 msgstr "Editace"
 
-#: zp-core/admin-tabs/themes.php:340
+#: zp-core/admin-tabs/themes.php:325
+msgid "Do you really want to delete this theme?"
+msgstr "Jste si jisti, že chcete smazat tento vzhled?"
+
+#: zp-core/admin-tabs/themes.php:342
 msgid "Duplicate"
 msgstr "Kopírovat"
 
@@ -7791,10 +7745,8 @@ msgid "Upload to:"
 msgstr "Náhrát do: "
 
 #: zp-core/admin-tabs/upload.php:260
-#, fuzzy
-#| msgid "upload to album"
 msgid "Go to album"
-msgstr "Nahrát do alba"
+msgstr "Jít k albu"
 
 #: zp-core/admin-tabs/upload.php:283
 msgid "Make a new Album"
@@ -7863,7 +7815,7 @@ msgstr "Sbalit všechna pole"
 #: zp-core/admin-tabs/users.php:523 zp-core/admin_options/image.php:811
 #: zp-core/admin_options/image.php:837 zp-core/zp-extensions/contact_form.php:74
 #: zp-core/zp-extensions/googleMap.php:87
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:122
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:133
 msgid "show"
 msgstr "zobrazit"
 
@@ -8031,55 +7983,55 @@ msgstr "Uživatel \"%s\" již existuje."
 msgid "GitHub repository not accessible. "
 msgstr "GitHub repositář není dostupný. "
 
-#: zp-core/admin.php:101
+#: zp-core/admin.php:100
 msgid "Image cache cleared."
 msgstr "Mezipaměť fotografií vymazána."
 
-#: zp-core/admin.php:111
+#: zp-core/admin.php:110
 msgid "RSS cache cleared."
 msgstr "Mezipaměť pro RSS vymazána."
 
-#: zp-core/admin.php:121
+#: zp-core/admin.php:120
 msgid "HTML cache cleared."
 msgstr "Mezipaměť pro HTML vymazána."
 
-#: zp-core/admin.php:128
+#: zp-core/admin.php:127
 msgid "Search cache cleared."
 msgstr "Mezipaměť pro vyhledávání vymazána."
 
-#: zp-core/admin.php:136
+#: zp-core/admin.php:135
 msgid "Setup files restored."
 msgstr "Instalační soubory obnoveny."
 
-#: zp-core/admin.php:140
+#: zp-core/admin.php:139
 msgid "Setup files restore failed."
 msgstr "Obnovení instalačních souborů selhalo."
 
-#: zp-core/admin.php:164
+#: zp-core/admin.php:163
 msgid "protected"
 msgstr "chráněné"
 
-#: zp-core/admin.php:166
+#: zp-core/admin.php:165
 msgid "Setup files protected."
 msgstr "Instalační soubory chráněny."
 
-#: zp-core/admin.php:170
+#: zp-core/admin.php:169
 msgid "Protecting setup files failed."
 msgstr "Zabezpečení instalačních souborů selhalo."
 
-#: zp-core/admin.php:182
+#: zp-core/admin.php:181
 #, fuzzy
 #| msgid "netPhotoGraphics captcha handler."
 msgid "netPhotoGraphics could not download the update."
 msgstr "Nastavení captcha v netPhotoGraphics."
 
-#: zp-core/admin.php:184
+#: zp-core/admin.php:183
 #, fuzzy
 msgid ""
 "<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. "
 msgstr "<em>allow_url_fopen</em> není povolen v konfiguračním souboru php.ini."
 
-#: zp-core/admin.php:188
+#: zp-core/admin.php:187
 #, fuzzy, php-format
 msgid ""
 "Click on the <code>%1$s</code> button to download the release to your "
@@ -8092,50 +8044,46 @@ msgstr ""
 "<code>extract.php.bin</code> stránku. Potom se objeví tlačítko <code>Install "
 "update</code> , které nainstaluje aktualizaci."
 
-#: zp-core/admin.php:197
-#, fuzzy
+#: zp-core/admin.php:196
 msgid "netPhotoGraphics could not extract extract.php.bin from zip file."
-msgstr "netPhotoGraphics nemohl extrahovat extract.php.bin ze souboru zip."
+msgstr "netPhotoGraphics nemohlo rozbnalit extract.php.bin ze ZIP souboru."
 
-#: zp-core/admin.php:213
-#, fuzzy
+#: zp-core/admin.php:212
 msgid "Renaming the <code>extract.php.bin</code> file failed."
-msgstr "Přejmenování souboru <code>extract.php.bin</code> nezdařilo."
+msgstr "Přejmenování souboru <code>extract.php.bin</code> selhalo."
 
-#: zp-core/admin.php:217
-#, fuzzy
-#| msgid "Setup could not find the  <em>example_robots.txt</em> file."
+#: zp-core/admin.php:216
 msgid "Did not find the <code>extract.php.bin</code> file."
-msgstr "Instalace nemohla najít soubor <em>example_robots.txt</em>."
+msgstr "Soubor <code>extract.php.bin</code> nenalezen."
 
-#: zp-core/admin.php:256
+#: zp-core/admin.php:255
 msgid "purge Image cache"
 msgstr "Vymazat mezipaměť fotografií"
 
-#: zp-core/admin.php:257
+#: zp-core/admin.php:256
 msgid "purge RSS cache"
 msgstr "Vymazat mezipaměť RSS"
 
-#: zp-core/admin.php:258
+#: zp-core/admin.php:257
 msgid "reset all hitcounters"
 msgstr "Smazat všechna počítadla"
 
-#: zp-core/admin.php:259
+#: zp-core/admin.php:258
 msgid "purge search cache"
 msgstr "Vymazat mezipaměť vyhledávání"
 
-#: zp-core/admin.php:266
+#: zp-core/admin.php:265
 #, php-format
 msgid "You do not have proper rights to %s."
 msgstr "Nemáte práva k %s."
 
-#: zp-core/admin.php:271
+#: zp-core/admin.php:270
 #, php-format
 msgid "You do not have proper rights to access %s."
 msgstr "Nemáte práva pro přístup k %s."
 
 #: zp-core/admin.php:330
-msgid "There is a new version is available."
+msgid "There is a new version available."
 msgstr "Je dostupná nová verze."
 
 #: zp-core/admin.php:332
@@ -8143,36 +8091,36 @@ msgstr "Je dostupná nová verze."
 msgid "Version %s can be downloaded by the utility button."
 msgstr "Verzi %s si můžete stáhnout pomocí tlačítka v sekci Administrace."
 
+#: zp-core/admin.php:338 zp-core/admin.php:422 zp-core/admin.php:437
+msgid "Updates"
+msgstr "Aktualizace"
+
+#: zp-core/admin.php:340
+#, php-format
+msgid "Download version %1$s"
+msgstr "Stáhnout verzi %1$s"
+
 #: zp-core/admin.php:344
-#, fuzzy, php-format
-#| msgid "Download %1$s version %2$s."
-msgid "Download %1$s version %2$s to your computer."
-msgstr "Stáhnout %1$s verzi %2$s."
+#, php-format
+msgid "Download netPhotoGraphics version %1$s to your computer."
+msgstr "Stáhne netPhotoGraphics verzi %1$s do Vašeho počítače."
 
 #: zp-core/admin.php:364
-#, fuzzy
-#| msgid "Installed themes"
 msgid "Install update"
-msgstr "Instalované vzhledy"
+msgstr "Instalovat aktualizaci"
 
 #: zp-core/admin.php:365
-#, fuzzy
-#| msgid "Installing ZenPhoto20 v%s"
 msgid "Install the netPhotoGraphics update."
-msgstr "Instaluji ZenPhoto20 v%s"
+msgstr "Nainstaluje aktualizace netPhotoGraphics."
 
 #: zp-core/admin.php:368 zp-core/admin.php:439
-#, fuzzy, php-format
+#, php-format
 msgid "Install version %1$s"
-msgstr ""
-"Je požadována PHP verze %1$s nebo vyšší. Důrazně doporučujeme používat verzi "
-"%2$s a vyšší. Nižší verze používejte pouze na vlastní nebezpečí."
+msgstr "Instalovat verzi %1$s"
 
 #: zp-core/admin.php:369
-#, fuzzy
-#| msgid "Installing ZenPhoto20 v%s"
 msgid "Extract and install the netPhotoGraphics update."
-msgstr "Instaluji ZenPhoto20 v%s"
+msgstr "Rozbalí a nainstaluje aktualizaci netPhotoGraphic."
 
 #: zp-core/admin.php:374
 #, fuzzy
@@ -8189,10 +8137,9 @@ msgid "Misc"
 msgstr "různé"
 
 #: zp-core/admin.php:444
-#, fuzzy, php-format
-#| msgid "Download %1$s version %2$s."
-msgid "Download and install %1$s version %2$s."
-msgstr "Stáhnout %1$s verzi %2$s."
+#, php-format
+msgid "Download and install netPhotoGraphics version %1$s on your site."
+msgstr "Stáhne a nainstalujte na svém webu netPhotoGraphics verzi%1$s."
 
 #: zp-core/admin.php:458
 msgid "Setup » restore scripts"
@@ -8200,7 +8147,11 @@ msgstr "Obnovení instalačních souborů"
 
 #: zp-core/admin.php:463
 msgid "Restores setup files so setup can be run."
-msgstr "Obnovení instalačních souborů pro znovuspuštění instalace."
+msgstr "Obnoví instalační soubory pro znovuspuštění instalace."
+
+#: zp-core/admin.php:471 zp-core/setup/index.php:1086
+msgid "Update"
+msgstr "Aktualizace"
 
 #: zp-core/admin.php:473
 msgid "Run setup"
@@ -8208,7 +8159,7 @@ msgstr "Spustit instalaci"
 
 #: zp-core/admin.php:478
 msgid "Run the setup script."
-msgstr "Spustit skript instalace."
+msgstr "Spustí instalační skript."
 
 #: zp-core/admin.php:488
 msgid "Setup » protect scripts"
@@ -8216,34 +8167,34 @@ msgstr "Instalace » Ochránit soubory"
 
 #: zp-core/admin.php:493
 msgid "Protects setup files so setup cannot be run."
-msgstr "Ochrání instalační soubory tak, že nemůže být spuštěna instalace."
+msgstr "Ochrání instalační soubory tak, aby nemohla být spuštěna instalace."
 
-#: zp-core/admin.php:506 zp-core/utilities/installation_analysis.php:35
+#: zp-core/admin.php:507 zp-core/utilities/installation_analysis.php:35
 msgid "<em>Debug build</em>"
 msgstr "<em>Ladící sestavení</em>"
 
-#: zp-core/admin.php:517 zp-core/utilities/installation_analysis.php:37
+#: zp-core/admin.php:518 zp-core/utilities/installation_analysis.php:37
 msgid "Official build"
 msgstr "oficiální vydání"
 
-#: zp-core/admin.php:524 zp-core/utilities/installation_analysis.php:73
+#: zp-core/admin.php:525 zp-core/utilities/installation_analysis.php:73
 msgid "release notes"
 msgstr "poznámky k vydání"
 
-#: zp-core/admin.php:525 zp-core/utilities/installation_analysis.php:77
+#: zp-core/admin.php:526 zp-core/utilities/installation_analysis.php:77
 #, php-format
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
 msgstr "netPhotoGraphics verze <strong>%1$s (%2$s)</strong>"
 
-#: zp-core/admin.php:532
+#: zp-core/admin.php:533
 msgid "Utility functions"
 msgstr "Užitečné funkce"
 
-#: zp-core/admin.php:605
+#: zp-core/admin.php:606
 msgid "Gallery Stats"
 msgstr "Statistika galerie"
 
-#: zp-core/admin.php:612
+#: zp-core/admin.php:613
 #, php-format
 msgid "<strong>%1$u</strong> Album (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Albums (%2$u un-published)"
@@ -8251,7 +8202,7 @@ msgstr[0] "<strong>%1$u</strong> album (%2$u nepublikováno)"
 msgstr[1] "<strong>%1$u</strong> alba (%2$u nepublikováno)"
 msgstr[2] "<strong>%1$u</strong> alb (%2$u nepublikováno)"
 
-#: zp-core/admin.php:614
+#: zp-core/admin.php:615
 #, php-format
 msgid "<strong>%u</strong> Album"
 msgid_plural "<strong>%u</strong> Albums"
@@ -8259,7 +8210,7 @@ msgstr[0] "<strong>%u</strong> album"
 msgstr[1] "<strong>%u</strong> alba"
 msgstr[2] "<strong>%u</strong> alb"
 
-#: zp-core/admin.php:623
+#: zp-core/admin.php:624
 #, php-format
 msgid "<strong>%1$u</strong> Image (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
@@ -8267,7 +8218,7 @@ msgstr[0] "<strong>%1$u</strong> fotografie (%2$u nepublikováno)"
 msgstr[1] "<strong>%1$u</strong> fotografie (%2$u nepublikováno)"
 msgstr[2] "<strong>%1$u</strong> fotografií (%2$u nepublikováno)"
 
-#: zp-core/admin.php:625
+#: zp-core/admin.php:626
 #, php-format
 msgid "<strong>%u</strong> Image"
 msgid_plural "<strong>%u</strong> Images"
@@ -8275,7 +8226,7 @@ msgstr[0] "<strong>%u</strong> fotografie"
 msgstr[1] "<strong>%u</strong> fotografie"
 msgstr[2] "<strong>%u</strong> fotografií"
 
-#: zp-core/admin.php:649
+#: zp-core/admin.php:650
 #, php-format
 msgid "<strong>%1$u</strong> Comment (%2$u in moderation)"
 msgid_plural "<strong>%1$u</strong> Comments (%2$u in moderation)"
@@ -8283,7 +8234,7 @@ msgstr[0] "<strong>%1$u</strong> komentář (%2$u ke schválení)"
 msgstr[1] "<strong>%1$u</strong> komentáře (%2$u ke schválení)"
 msgstr[2] "<strong>%1$u</strong> komentářů (%2$u ke schválení)"
 
-#: zp-core/admin.php:651
+#: zp-core/admin.php:652
 #, php-format
 msgid "<strong>%u</strong> Comment"
 msgid_plural "<strong>%u</strong> Comments"
@@ -8291,7 +8242,7 @@ msgstr[0] "<strong>%u</strong> komentář"
 msgstr[1] "<strong>%u</strong> komentáře"
 msgstr[2] "<strong>%u</strong> komentářů"
 
-#: zp-core/admin.php:666
+#: zp-core/admin.php:667
 #, php-format
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
@@ -8299,7 +8250,7 @@ msgstr[0] "<strong>%1$u</strong> uživatel (%2$u s vypršenou platností)"
 msgstr[1] "<strong>%1$u</strong> uživatelé (%2$u s vypršenou platností)"
 msgstr[2] "<strong>%1$u</strong> uživatelů (%2$u s vypršenou platností)"
 
-#: zp-core/admin.php:668
+#: zp-core/admin.php:669
 #, php-format
 msgid "<strong>%u</strong> User"
 msgid_plural "<strong>%u</strong> Users"
@@ -8307,7 +8258,7 @@ msgstr[0] "<strong>%u</strong> uživatel"
 msgstr[1] "<strong>%u</strong> uživatelé"
 msgstr[2] "<strong>%u</strong> uživatelů"
 
-#: zp-core/admin.php:685
+#: zp-core/admin.php:686
 #, php-format
 msgid "<strong>%u</strong> Group"
 msgid_plural "<strong>%u</strong> Groups"
@@ -8315,7 +8266,7 @@ msgstr[0] "<strong>%u</strong> skupina uživatelů"
 msgstr[1] "<strong>%u</strong> skupiny uživatelů"
 msgstr[2] "<strong>%u</strong> skupin uživatelů"
 
-#: zp-core/admin.php:692
+#: zp-core/admin.php:693
 #, php-format
 msgid "<strong>%u</strong> Template"
 msgid_plural "<strong>%u</strong> Templates"
@@ -8323,7 +8274,7 @@ msgstr[0] "<strong>%u</strong> šablona uživatelských skupin"
 msgstr[1] "<strong>%u</strong> šablony uživatelských skupin"
 msgstr[2] "<strong>%u</strong> šablon uživatelských skupin"
 
-#: zp-core/admin.php:709
+#: zp-core/admin.php:710
 msgid "Your user rights do not allow access to administrative functions."
 msgstr "Vaše uživatelská práva neumožňují přístup k funkcím administrátora."
 
@@ -9662,7 +9613,7 @@ msgstr ""
 
 #: zp-core/admin_options/image.php:816 zp-core/admin_options/image.php:841
 #: zp-core/zp-extensions/googleMap.php:88
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:116
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:127
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:292
 msgid "hide"
 msgstr "skrýt"
@@ -10552,24 +10503,20 @@ msgstr ""
 "vyplňování formuláře.</p>"
 
 #: zp-core/allTranslations.php:63
-#, fuzzy
 msgid "Agree"
-msgstr "Souhlasit"
+msgstr "Souhlasím"
 
 #: zp-core/allTranslations.php:64
-#, fuzzy
-#| msgid "Usage info"
 msgid "More info"
 msgstr "Více informací"
 
 #: zp-core/allTranslations.php:65
-#, fuzzy
 msgid ""
 "This website uses cookies. By continuing to browse the site, you agree to our "
 "use of cookies."
 msgstr ""
-"Tento web používá cookies. Pokračováním v prohlížení stránek vyjadřujete svůj "
-"souhlas s používáním cookies."
+"Tato webová stránka používá cookies. Pokračováním prohlížení stránek "
+"vyjadřujete svůj souhlas s používáním cookies."
 
 #: zp-core/allTranslations.php:70
 msgid "The albums and images selected as favorites."
@@ -10640,12 +10587,12 @@ msgstr "Invalid album instantiation: %1$s!=%2$s"
 msgid "Invalid album instantiation: %s does not exist."
 msgstr "Invalid album instantiation: %s neexistuje."
 
-#: zp-core/class-album.php:1538
+#: zp-core/class-album.php:1539
 #, fuzzy, php-format
 msgid "Error: The album %s is not readable."
-msgstr "Chyba: Album %s není čitelný."
+msgstr "Chyba: Album %s není čitelné."
 
-#: zp-core/class-album.php:1540
+#: zp-core/class-album.php:1541
 #, php-format
 msgid "Error: The album named %s cannot be found."
 msgstr "Chyba: album %s nenalezeno."
@@ -10724,185 +10671,185 @@ msgstr "Parametr objektu špatné album na newImage(%s)"
 msgid "Bad filename suffix in newImage(%s)"
 msgstr "Chybný název souboru příponu v newImage(%s)"
 
-#: zp-core/class-image.php:163
+#: zp-core/class-image.php:164
 #, fuzzy, php-format
 msgid "Invalid %s instantiation: Album does not exist"
 msgstr "%s neplatná instance: Album neexistuje"
 
-#: zp-core/class-image.php:165
+#: zp-core/class-image.php:166
 #, fuzzy, php-format
 msgid "Invalid %s instantiation: file does not exist"
 msgstr "%s neplatná instance: soubor neexistuje"
 
-#: zp-core/class-image.php:180 zp-core/zp-extensions/xmpMetadata.php:636
+#: zp-core/class-image.php:181 zp-core/zp-extensions/xmpMetadata.php:636
 msgid "Camera Maker"
 msgstr "Výrobce fotoaparátu"
 
-#: zp-core/class-image.php:181 zp-core/zp-extensions/xmpMetadata.php:638
+#: zp-core/class-image.php:182 zp-core/zp-extensions/xmpMetadata.php:638
 msgid "Camera Model"
 msgstr "Model fotoaparátu"
 
-#: zp-core/class-image.php:182
+#: zp-core/class-image.php:183
 msgid "Image Title"
 msgstr "Popis fotografie"
 
-#: zp-core/class-image.php:183 zp-core/zp-extensions/xmpMetadata.php:652
+#: zp-core/class-image.php:184 zp-core/zp-extensions/xmpMetadata.php:652
 msgid "Object Name"
 msgstr "Název objektu"
 
-#: zp-core/class-image.php:184 zp-core/zp-extensions/xmpMetadata.php:648
+#: zp-core/class-image.php:185 zp-core/zp-extensions/xmpMetadata.php:648
 msgid "Image Headline"
 msgstr "Nadpis fotografie"
 
-#: zp-core/class-image.php:185 zp-core/zp-extensions/xmpMetadata.php:646
+#: zp-core/class-image.php:186 zp-core/zp-extensions/xmpMetadata.php:646
 msgid "Image Caption"
 msgstr "Titulek fotografie"
 
-#: zp-core/class-image.php:186
+#: zp-core/class-image.php:187
 msgid "Image Caption Writer"
 msgstr "Autor titulku fotografie "
 
-#: zp-core/class-image.php:187
+#: zp-core/class-image.php:188
 msgid "Time Taken"
 msgstr "Čas pořízení"
 
-#: zp-core/class-image.php:188 zp-core/zp-extensions/xmpMetadata.php:623
+#: zp-core/class-image.php:189 zp-core/zp-extensions/xmpMetadata.php:623
 msgid "Original Time Taken"
 msgstr "Původní čas pořízení"
 
-#: zp-core/class-image.php:189
+#: zp-core/class-image.php:190
 msgid "Time Digitized"
 msgstr "Čas digitalizace"
 
-#: zp-core/class-image.php:190
+#: zp-core/class-image.php:191
 msgid "Date Created"
 msgstr "Datum pořízení"
 
-#: zp-core/class-image.php:191
+#: zp-core/class-image.php:192
 msgid "Time Created"
 msgstr "Čas pořízení"
 
-#: zp-core/class-image.php:192
+#: zp-core/class-image.php:193
 msgid "Digital Creation Date"
 msgstr "Datum digitálního vytvoření"
 
-#: zp-core/class-image.php:193
+#: zp-core/class-image.php:194
 msgid "Digital Creation Time"
 msgstr "Čas digitální vytvoření"
 
-#: zp-core/class-image.php:194 zp-core/zp-extensions/xmpMetadata.php:621
+#: zp-core/class-image.php:195 zp-core/zp-extensions/xmpMetadata.php:621
 msgid "Artist"
 msgstr "Umělec"
 
-#: zp-core/class-image.php:195 zp-core/zp-extensions/xmpMetadata.php:647
+#: zp-core/class-image.php:196 zp-core/zp-extensions/xmpMetadata.php:647
 msgid "Image Credit"
 msgstr "Zásluhy na fotografii"
 
-#: zp-core/class-image.php:196
+#: zp-core/class-image.php:197
 msgid "Byline"
 msgstr "Podtitulek"
 
-#: zp-core/class-image.php:197
+#: zp-core/class-image.php:198
 msgid "Byline Title"
 msgstr "Název podtitulku"
 
-#: zp-core/class-image.php:198 zp-core/zp-extensions/xmpMetadata.php:653
+#: zp-core/class-image.php:199 zp-core/zp-extensions/xmpMetadata.php:653
 msgid "Image Source"
 msgstr "Zdroj fotografie"
 
-#: zp-core/class-image.php:200
+#: zp-core/class-image.php:201
 msgid "Copyright Holder"
 msgstr "Vlatník copyrightu"
 
-#: zp-core/class-image.php:201 zp-core/zp-extensions/xmpMetadata.php:645
+#: zp-core/class-image.php:202 zp-core/zp-extensions/xmpMetadata.php:645
 msgid "Copyright Notice"
 msgstr "Autorská práva"
 
-#: zp-core/class-image.php:202 zp-core/zp-extensions/xmpMetadata.php:649
+#: zp-core/class-image.php:203 zp-core/zp-extensions/xmpMetadata.php:649
 msgid "Keywords"
 msgstr "Klíčová slova"
 
-#: zp-core/class-image.php:203 zp-core/zp-extensions/xmpMetadata.php:626
+#: zp-core/class-image.php:204 zp-core/zp-extensions/xmpMetadata.php:626
 msgid "Exposure time"
 msgstr "Čas expozice"
 
-#: zp-core/class-image.php:204 zp-core/zp-extensions/xmpMetadata.php:642
+#: zp-core/class-image.php:205 zp-core/zp-extensions/xmpMetadata.php:642
 msgid "Shutter Speed"
 msgstr "Rychlost uzávěrky"
 
-#: zp-core/class-image.php:205 zp-core/zp-extensions/xmpMetadata.php:627
+#: zp-core/class-image.php:206 zp-core/zp-extensions/xmpMetadata.php:627
 msgid "Aperture"
 msgstr "Clona"
 
-#: zp-core/class-image.php:206 zp-core/zp-extensions/xmpMetadata.php:633
+#: zp-core/class-image.php:207 zp-core/zp-extensions/xmpMetadata.php:633
 msgid "ISO Sensitivity"
 msgstr "ISO citlivost"
 
-#: zp-core/class-image.php:207 zp-core/zp-extensions/xmpMetadata.php:624
+#: zp-core/class-image.php:208 zp-core/zp-extensions/xmpMetadata.php:624
 msgid "Exposure Compensation"
 msgstr "Kompenzace expozice"
 
-#: zp-core/class-image.php:208 zp-core/zp-extensions/xmpMetadata.php:637
+#: zp-core/class-image.php:209 zp-core/zp-extensions/xmpMetadata.php:637
 msgid "Metering Mode"
 msgstr "Mód měření"
 
-#: zp-core/class-image.php:209 zp-core/exif/exifTranslations.php:101
+#: zp-core/class-image.php:210 zp-core/exif/exifTranslations.php:101
 msgid "Flash Fired"
 msgstr "Blesk"
 
-#: zp-core/class-image.php:210
+#: zp-core/class-image.php:211
 msgid "Original Width"
 msgstr "Původní šířka"
 
-#: zp-core/class-image.php:211
+#: zp-core/class-image.php:212
 msgid "Original Height"
 msgstr "Původní výška"
 
-#: zp-core/class-image.php:212 zp-core/zp-extensions/xmpMetadata.php:639
+#: zp-core/class-image.php:213 zp-core/zp-extensions/xmpMetadata.php:639
 msgid "Orientation"
 msgstr "Orientace"
 
-#: zp-core/class-image.php:213
+#: zp-core/class-image.php:214
 msgid "Software"
 msgstr "Program"
 
-#: zp-core/class-image.php:214 zp-core/zp-extensions/xmpMetadata.php:622
+#: zp-core/class-image.php:215 zp-core/zp-extensions/xmpMetadata.php:622
 msgid "Contrast Setting"
 msgstr "Nastavení kontrastu"
 
-#: zp-core/class-image.php:215 zp-core/zp-extensions/xmpMetadata.php:641
+#: zp-core/class-image.php:216 zp-core/zp-extensions/xmpMetadata.php:641
 msgid "Sharpness Setting"
 msgstr "Nastavení ostrosti"
 
-#: zp-core/class-image.php:216 zp-core/zp-extensions/xmpMetadata.php:640
+#: zp-core/class-image.php:217 zp-core/zp-extensions/xmpMetadata.php:640
 msgid "Saturation Setting"
 msgstr "Nastavení sytosti"
 
-#: zp-core/class-image.php:217 zp-core/zp-extensions/xmpMetadata.php:643
+#: zp-core/class-image.php:218 zp-core/zp-extensions/xmpMetadata.php:643
 msgid "White Balance"
 msgstr "Vyvážení bílé"
 
-#: zp-core/class-image.php:218
+#: zp-core/class-image.php:219
 msgid "Subject Distance"
 msgstr "Vzdálenost objektu"
 
-#: zp-core/class-image.php:219 zp-core/zp-extensions/xmpMetadata.php:628
+#: zp-core/class-image.php:220 zp-core/zp-extensions/xmpMetadata.php:628
 msgid "Focal Length"
 msgstr "Ohnisková vzdálenost"
 
-#: zp-core/class-image.php:220 zp-core/zp-extensions/xmpMetadata.php:635
+#: zp-core/class-image.php:221 zp-core/zp-extensions/xmpMetadata.php:635
 msgid "Lens Type"
 msgstr "Typ objektivu"
 
-#: zp-core/class-image.php:221 zp-core/zp-extensions/xmpMetadata.php:634
+#: zp-core/class-image.php:222 zp-core/zp-extensions/xmpMetadata.php:634
 msgid "Lens Info"
 msgstr "Informace o objektivu"
 
-#: zp-core/class-image.php:222
+#: zp-core/class-image.php:223
 msgid "35mm Focal Length Equivalent"
 msgstr "Ohnisková vzdálenost ekvivalentní ke 35mm kinofilmu"
 
-#: zp-core/class-image.php:223 zp-core/zp-extensions/contact_form.php:113
+#: zp-core/class-image.php:224 zp-core/zp-extensions/contact_form.php:113
 #: zp-core/zp-extensions/contact_form.php:115
 #: zp-core/zp-extensions/optionalObjectFields.php:136
 #: zp-core/zp-extensions/userAddressFields.php:62
@@ -10910,63 +10857,63 @@ msgstr "Ohnisková vzdálenost ekvivalentní ke 35mm kinofilmu"
 msgid "City"
 msgstr "Město"
 
-#: zp-core/class-image.php:224 zp-core/zp-extensions/xmpMetadata.php:655
+#: zp-core/class-image.php:225 zp-core/zp-extensions/xmpMetadata.php:655
 msgid "Sub-location"
 msgstr "Podoblast"
 
-#: zp-core/class-image.php:225 zp-core/zp-extensions/xmpMetadata.php:654
+#: zp-core/class-image.php:226 zp-core/zp-extensions/xmpMetadata.php:654
 msgid "Province/State"
 msgstr "Provincie/Stát"
 
-#: zp-core/class-image.php:226 zp-core/zp-extensions/xmpMetadata.php:650
+#: zp-core/class-image.php:227 zp-core/zp-extensions/xmpMetadata.php:650
 msgid "Country/Primary Location Code"
 msgstr "Stát/Kód primárního umístění"
 
-#: zp-core/class-image.php:227 zp-core/zp-extensions/xmpMetadata.php:651
+#: zp-core/class-image.php:228 zp-core/zp-extensions/xmpMetadata.php:651
 msgid "Country/Primary Location Name"
 msgstr "Stát/Název primárního umístění"
 
-#: zp-core/class-image.php:228
+#: zp-core/class-image.php:229
 msgid "Content Location Code"
 msgstr "Kód umístění obsahu"
 
-#: zp-core/class-image.php:229
+#: zp-core/class-image.php:230
 msgid "Content Location Name"
 msgstr "Název umístění obsahu"
 
-#: zp-core/class-image.php:230 zp-core/zp-extensions/xmpMetadata.php:631
+#: zp-core/class-image.php:231 zp-core/zp-extensions/xmpMetadata.php:631
 msgid "Latitude"
 msgstr "Zeměpisná šířka"
 
-#: zp-core/class-image.php:231
+#: zp-core/class-image.php:232
 msgid "Latitude Reference"
 msgstr "Poznámka k zeměpisné šířce"
 
-#: zp-core/class-image.php:232 zp-core/zp-extensions/xmpMetadata.php:632
+#: zp-core/class-image.php:233 zp-core/zp-extensions/xmpMetadata.php:632
 msgid "Longitude"
 msgstr "Zeměpisná délka"
 
-#: zp-core/class-image.php:233
+#: zp-core/class-image.php:234
 msgid "Longitude Reference"
 msgstr "Poznámka k zeměpisné šířce"
 
-#: zp-core/class-image.php:234 zp-core/zp-extensions/xmpMetadata.php:629
+#: zp-core/class-image.php:235 zp-core/zp-extensions/xmpMetadata.php:629
 msgid "Altitude"
 msgstr "Nadmořská výška"
 
-#: zp-core/class-image.php:235 zp-core/zp-extensions/xmpMetadata.php:630
+#: zp-core/class-image.php:236 zp-core/zp-extensions/xmpMetadata.php:630
 msgid "Altitude Reference"
 msgstr "Poznámka k nadmořské výšce"
 
-#: zp-core/class-image.php:236
+#: zp-core/class-image.php:237
 msgid "Originating Program "
 msgstr "Původní program"
 
-#: zp-core/class-image.php:237
+#: zp-core/class-image.php:238
 msgid "Program Version"
 msgstr "Verze programu"
 
-#: zp-core/class-image.php:274
+#: zp-core/class-image.php:275
 #, fuzzy
 msgid "An image object was instantiated without using the newImage() function."
 msgstr "Objekt byl vytvořena bez použití newImage() funkce."
@@ -11003,7 +10950,7 @@ msgstr "Číselná vyhledávací pole jsou zastaralá"
 #: zp-core/classes.php:442
 #, fuzzy
 msgid "Object"
-msgstr "Předmět"
+msgstr "<strong>Chybějící objekt</strong> "
 
 #: zp-core/classes.php:467
 #, php-format
@@ -11015,25 +10962,22 @@ msgid "Could not Find SubIFD"
 msgstr "SubIFD nenalezen"
 
 #: zp-core/exif/exif.php:1355
-#, fuzzy
 msgid "Illegal size for SubIFD"
-msgstr "Ilegální velikost pro SubIFD"
+msgstr "Neplatná velikost pro SubIFD"
 
 #: zp-core/exif/exif.php:1376
 msgid "Could not Find IFD1"
 msgstr "IFD1 nenalezen"
 
 #: zp-core/exif/exif.php:1393
-#, fuzzy
 msgid "Illegal size for IFD1"
-msgstr "Ilegální velikost pro IFD1"
+msgstr "Neplatná velikost pro IFD1"
 
 #: zp-core/exif/exif.php:1417
 msgid "Could not Find InteroperabilityIFD"
 msgstr "InteroperabilityIFD nenalezen"
 
 #: zp-core/exif/exif.php:1434
-#, fuzzy
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "Neplatná velikost pro interoperabilituIFD"
 
@@ -11050,7 +10994,6 @@ msgid "10s"
 msgstr "10s"
 
 #: zp-core/exif/exifTranslations.php:25
-#, fuzzy
 msgid "Normal (0 deg)"
 msgstr "Normální (0 deg)"
 
@@ -11074,7 +11017,6 @@ msgid "3-area-focusing (High speed)"
 msgstr "3-area-focusing (High speed)"
 
 #: zp-core/exif/exifTranslations.php:30
-#, fuzzy
 msgid "Upside-down"
 msgstr "Vzhůru nohama"
 
@@ -11214,16 +11156,12 @@ msgid "Centimeter"
 msgstr "Centimetr"
 
 #: zp-core/exif/exifTranslations.php:62
-#, fuzzy
-#| msgid "Centimeter"
 msgid "Millimeter"
-msgstr "Centimetr"
+msgstr "Milimetr"
 
 #: zp-core/exif/exifTranslations.php:63
-#, fuzzy
-#| msgid "Centimeter"
 msgid "Micrometer"
-msgstr "Centimetr"
+msgstr "Mikrometr"
 
 #: zp-core/exif/exifTranslations.php:64
 #, fuzzy
@@ -11445,7 +11383,7 @@ msgstr "Těžké"
 #: zp-core/exif/exifTranslations.php:114
 #, fuzzy
 msgid "High"
-msgstr "1-area-focusing (High speed)"
+msgstr "Vysoké (HD)"
 
 #: zp-core/exif/exifTranslations.php:115
 msgid "High Sensitivity"
@@ -11652,7 +11590,7 @@ msgstr "Částečné"
 #: zp-core/exif/exifTranslations.php:164
 #, fuzzy
 msgid "Party"
-msgstr "Vzhled třetí strany"
+msgstr "<em>Třetí strany</em>"
 
 #: zp-core/exif/exifTranslations.php:165
 #, fuzzy
@@ -11843,7 +11781,7 @@ msgstr "Místo zaostřování"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: zp-core/exif/exifTranslations.php:210
+#: zp-core/exif/exifTranslations.php:210 zp-core/zp-extensions/VideoJS.php:100
 msgid "Standard"
 msgstr "Standard"
 
@@ -12066,22 +12004,22 @@ msgid "\"extension not loaded\""
 msgstr "není povoleno rozšíření php_ldap"
 
 #: zp-core/functions-db-MySQLi.php:47
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "MySQLi Error: netPhotoGraphics received the error %s when connecting to the "
 "database server."
 msgstr ""
-"MySQL: ZenPhoto20 přijata chyba Chyba %s při připojování k databázovému "
-"serveru."
+"Chyba MySQL: netPhotoGraphics obdrželo chybu %s při pokusu o připojení k "
+"databázovému serveru."
 
 #: zp-core/functions-db-MySQLi.php:54
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "MySQLi Error: MySQLi returned the error %1$s when netPhotoGraphics tried to "
 "select the database %2$s."
 msgstr ""
-"MySQLi Chyba: MySQLi vrátil chybu %1$s, když se snažil vybrat databáze %2$s "
-"ZenPhoto20."
+"Chyba MySQLi: MySQLi vrátilo chybu %1$s při pokusu netPhotoGraphics se "
+"připojit k databázi %2$s."
 
 #: zp-core/functions-db-MySQLi.php:209 zp-core/functions-db-PDO_MySQL.php:316
 #, fuzzy, php-format
@@ -12101,13 +12039,13 @@ msgid "No databases are configured."
 msgstr "Není nastavený žádný spam filtr"
 
 #: zp-core/functions-db-PDO_MySQL.php:45
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the "
 "database server."
 msgstr ""
-"MySql: ZenPhoto20 přijata chyba Chyba %s při připojování k databázovému "
-"serveru."
+"PDO_MySql Error: netPhotoGraphics obdrželo chybu %s při pokusu o připojení k "
+"databázovému serveru."
 
 #: zp-core/functions-db-PDO_MySQL.php:54
 #, fuzzy
@@ -12330,9 +12268,8 @@ msgid "Galician"
 msgstr "galicijský"
 
 #: zp-core/functions-i18n.php:67
-#, fuzzy
 msgid "Gujarati"
-msgstr "gudžarátština"
+msgstr "Gujarati"
 
 #: zp-core/functions-i18n.php:68
 msgid "Greek"
@@ -12617,7 +12554,7 @@ msgstr "Identifikátor URI požadavku: [%s]"
 #: zp-core/functions-image.php:28
 #, fuzzy, php-format
 msgid "Cache: [%s]"
-msgstr "Cache: [%s]"
+msgstr "Obnovit cache pro %s"
 
 #: zp-core/functions-image.php:31
 #, fuzzy, php-format
@@ -13103,9 +13040,8 @@ msgstr ""
 "odpověď na nějakou z bezpečnostních otázek."
 
 #: zp-core/lib-auth.php:163
-#, fuzzy
 msgid "You should use a more robust hashing algorithm."
-msgstr "Měli byste použít robustnější algoritmus hash."
+msgstr "Měli byste používat více robustní hashovací algoritmus."
 
 #: zp-core/lib-auth.php:505
 #, php-format
@@ -13122,7 +13058,7 @@ msgid "No rights"
 msgstr "Žádná práva"
 
 #: zp-core/lib-auth.php:633 zp-core/lib-auth.php:648 zp-core/lib-auth.php:667
-#: zp-core/lib-auth.php:692 zp-core/template-functions.php:96
+#: zp-core/lib-auth.php:692 zp-core/template-functions.php:110
 msgid "Overview"
 msgstr "Přehled"
 
@@ -13131,7 +13067,7 @@ msgid "View all"
 msgstr "Prohlížet vše"
 
 #: zp-core/lib-auth.php:635 zp-core/lib-auth.php:650 zp-core/lib-auth.php:677
-#: zp-core/lib-auth.php:705 zp-core/template-functions.php:103
+#: zp-core/lib-auth.php:705 zp-core/template-functions.php:117
 #: zp-core/zp-extensions/uploader_http/upload_form.php:69
 #: zp-core/zp-extensions/uploader_http/upload_form.php:71
 msgid "Upload"
@@ -13786,12 +13722,10 @@ msgstr ""
 "href=\"%s\">zde</a>."
 
 #: zp-core/license.php:47
-#, fuzzy
-#| msgid "You must accept this license to continue to use ZenPhoto20."
 msgid "You must accept this license to continue to use netPhotoGraphics."
 msgstr ""
-"Aby jste mohli pokračovat v používaní ZenPhoto20, musíte souhlasit s touto "
-"licencí."
+"Aby jste mohli pokračovat v používaní netPhotoGraphics, musíte souhlasit s "
+"touto licencí."
 
 #: zp-core/license.php:47
 msgid "I agree to these terms and conditions"
@@ -13867,16 +13801,13 @@ msgid "The database connection failed."
 msgstr "Připojení databáze se nezdařilo."
 
 #: zp-core/reconfigure.php:274
-#, fuzzy
-#| msgid "ZenPhoto20 has detected a change in your installation."
 msgid "A change has been detected in your installation."
-msgstr "ZenPhoto20 zjistilo změny ve Vaší instalaci."
+msgstr "Byly zjištěny změny ve Vaší instalaci."
 
 #: zp-core/reconfigure.php:282
-#, fuzzy, php-format
-#| msgid "ZenPhoto20 %1$s has been copied over %2$s."
+#, php-format
 msgid "Version %1$s has been copied over %2$s."
-msgstr "Vaše současná verze ZenPhoto20 %2$s byla přepsána verzí %1$s."
+msgstr "Verze %1$s byla nakopírována přes %2$s."
 
 #: zp-core/reconfigure.php:285
 #, php-format
@@ -14072,7 +14003,7 @@ msgstr "vytvořit"
 #: zp-core/setup/index.php:463
 #, fuzzy
 msgid "update"
-msgstr "Poslední aktualizace: %s"
+msgstr "Aktualizace"
 
 #: zp-core/setup/index.php:493
 #, fuzzy
@@ -14301,23 +14232,21 @@ msgstr ""
 "hlášky. Ty mohou obsahovat citlivé informace o Vašich stránkách."
 
 #: zp-core/setup/index.php:666
-#, fuzzy
 msgid "PHP extensions"
-msgstr "Proces rozšíření"
+msgstr "PHP rozšíření"
 
 #: zp-core/setup/index.php:666
-#, fuzzy
 msgid "PHP extensions [missing]"
-msgstr "Rozšíření PHP [chybí]"
+msgstr "PHP rozšíření [chybí]"
 
 #: zp-core/setup/index.php:666
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To improve netPhotoGraphics performance and functionality you should enable "
 "the following PHP extensions: %s"
 msgstr ""
-"Chcete-li zlepšit výkon a funkce netPhotoGraphics, měli byste povolit "
-"následující rozšíření PHP: %s"
+"Pro zvýšení výkonu a rozšíření funkcí netPhotoGraphic byste měli povolit "
+"následující PHP rozšíření: %s"
 
 #: zp-core/setup/index.php:668
 msgid "PHP <code>flock</code> support"
@@ -14836,11 +14765,6 @@ msgstr "Vložit"
 
 #: zp-core/setup/index.php:1086
 #, fuzzy
-msgid "Update"
-msgstr "Poslední aktualizace: %s"
-
-#: zp-core/setup/index.php:1086
-#, fuzzy
 msgid "Alter"
 msgstr ""
 "Nástroj pro změnu přepisu symbolů substitučních polí v konfiguračním souboru."
@@ -14871,10 +14795,8 @@ msgid "Your Database user must have %s rights."
 msgstr "Používateľ databázy musí mať %s práva"
 
 #: zp-core/setup/index.php:1130
-#, fuzzy
-#| msgid "ZenPhoto20 files"
 msgid "netPhotoGraphics files"
-msgstr "ZenPhoto20 soubory"
+msgstr "netPhotoGraphics soubory"
 
 #: zp-core/setup/index.php:1159
 #, fuzzy
@@ -14892,28 +14814,21 @@ msgstr ""
 "instalace může být poškozen!"
 
 #: zp-core/setup/index.php:1165
-#, fuzzy, php-format
+#, php-format
 msgid "Setting permissions (0%o) for netPhotoGraphics package."
-msgstr "Nastavení oprávnění (0 %o) pro ZenPhoto20 balíček."
+msgstr "Nastavení oprávnění (0%o) pro netPhotoGraphic balíček."
 
 #: zp-core/setup/index.php:1279
-#, fuzzy
-#| msgid ""
-#| "ZenPhoto20 core files [This is a <em>debug</em> build. Some files are "
-#| "missing or seem wrong]"
 msgid ""
 "Core files [This is a <em>debug</em> build. Some files are missing or seem "
 "wrong]"
 msgstr ""
-"Instalační soubory ZenPhoto20 [toto je <em>debug</em> verze, některé soubory "
-"chybí nebo jsou změněny]"
+"Základní soubory [toto je <em>debug</em> verze, některé soubory chybí nebo "
+"jsou změněny]"
 
 #: zp-core/setup/index.php:1281
-#, fuzzy
-#| msgid "ZenPhoto20 core files [Some files are missing or seem wrong]"
 msgid "Core files [Some files are missing or seem wrong]"
-msgstr ""
-"Instalační soubory ZenPhoto20 [některé soubory chybí nebo se zdají být chybné]."
+msgstr "Základní soubory [některé soubory chybí nebo se zdají být chybné]."
 
 #: zp-core/setup/index.php:1283
 msgid ""
@@ -14923,13 +14838,10 @@ msgstr ""
 "Pravděpodobně se vyskytl problém s uploadem. Zkontrolujte následující soubory:"
 
 #: zp-core/setup/index.php:1288
-#, fuzzy
-#| msgid ""
-#| "ZenPhoto20 core files [Could not update the root <em>index.php</em> file.]"
 msgid "Core files [Could not update the root <em>index.php</em> file.]"
 msgstr ""
-"Instalační soubory ZenPhoto20 [nelze aktualizovat soubor <em>index.php</em> v "
-"kořenovém adresáři]."
+"Základní soubory [nelze aktualizovat soubor <em>index.php</em> v kořenovém "
+"adresáři]."
 
 #: zp-core/setup/index.php:1289
 #, fuzzy, php-format
@@ -14943,22 +14855,16 @@ msgstr ""
 "<em>index.php.</em>"
 
 #: zp-core/setup/index.php:1294
-#, fuzzy
-#| msgid "ZenPhoto20 core files [This is a <em>debug</em> build]"
 msgid "Core files [This is a <em>debug</em> build]"
-msgstr "Instalační soubory ZenPhoto20 [toto je <em>debug</em> verze]."
+msgstr "Základní soubory [toto je <em>debug</em> verze]."
 
 #: zp-core/setup/index.php:1301
-#, fuzzy
-#| msgid "ZenPhoto20 core files [This is a <em>debug</em> build]"
 msgid "Core files [This is a <em>clone</em> installation]"
-msgstr "ZenPhoto20 základní soubory [to je <em>klon</em> instalace]"
+msgstr "Základní soubory [toto je <em>klon</em> instalace]"
 
 #: zp-core/setup/index.php:1306
-#, fuzzy
-#| msgid "files"
 msgid "Core files"
-msgstr "Soubory"
+msgstr "Základní soubory"
 
 #: zp-core/setup/index.php:1309
 msgid "Installation files"
@@ -14982,7 +14888,7 @@ msgstr[2] ".svn [%s príklady]"
 
 #: zp-core/setup/index.php:1368 zp-core/setup/index.php:1371
 msgid "Core folders [Some unknown files were found]"
-msgstr "Instalační adresáře [byly nalezeny některé neznámé soubory]"
+msgstr "Základní adresáře [byly nalezeny některé neznámé soubory]"
 
 #: zp-core/setup/index.php:1368
 msgid "The following files could not be deleted."
@@ -14997,16 +14903,12 @@ msgid "Delete extra files"
 msgstr "Smazat zbytečné soubory"
 
 #: zp-core/setup/index.php:1375
-#, fuzzy
-#| msgid "File permissions"
 msgid "Core file permissions"
-msgstr "Oprávnění instalačních souborů ZenPhoto20 [není správné]"
+msgstr "Oprávnění základních souborů"
 
 #: zp-core/setup/index.php:1375
-#, fuzzy
-#| msgid "ZenPhoto20 core file permissions [not correct]"
 msgid "Core file permissions [not correct]"
-msgstr "Oprávnění instalačních souborů ZenPhoto20 [není správné]"
+msgstr "Oprávnění základních souborů [není správné]"
 
 #: zp-core/setup/index.php:1375
 msgid ""
@@ -15335,7 +15237,7 @@ msgid "You need to %1$sset your admin user and password%2$s"
 msgstr "Musíte %1$snastavit Vaše administrátorské jméno a heslo%2$s."
 
 #: zp-core/setup/index.php:1698
-#, fuzzy, php-format
+#, php-format
 msgid "Setup <a href=\"%1$s\" target=\"_blank\">%2$s</a>"
 msgstr "Instalace <a href=\"%1$s\" target=\"_blank\">%2$s</a>"
 
@@ -15346,7 +15248,7 @@ msgstr "A nyní si již můžete %1$supravovat Vaši galerii%2$s."
 
 #: zp-core/setup/index.php:1809
 msgid "run setup"
-msgstr "spustit instalaci"
+msgstr "Spustí instalaci."
 
 #: zp-core/setup/index.php:1809
 msgid "Go"
@@ -15567,105 +15469,105 @@ msgstr "Plugin:%1$s instalace selhala."
 msgid "Set default options"
 msgstr "Vytvářím standardní nastavení."
 
-#: zp-core/setup/setup-option-defaults.php:247
+#: zp-core/setup/setup-option-defaults.php:251
 #, fuzzy, php-format
 msgid "Migrating lib-auth data version %1$s => version %2$s "
 msgstr "Přenášení lib-auth dat verze %1$s => verze %2$s"
 
-#: zp-core/setup/setup-option-defaults.php:249
+#: zp-core/setup/setup-option-defaults.php:253
 #, fuzzy
 msgid "failed"
-msgstr "Smazání alba selhalo"
+msgstr "%s se nepodařilo odstranit."
 
-#: zp-core/setup/setup-option-defaults.php:324
+#: zp-core/setup/setup-option-defaults.php:328
 msgid "Mod_Rewrite check:"
 msgstr "Kontrola Mod_rewrite:"
 
-#: zp-core/setup/setup-option-defaults.php:327
+#: zp-core/setup/setup-option-defaults.php:331
 msgid "Mod_rewrite"
 msgstr "Mod_rewrite"
 
-#: zp-core/setup/setup-option-defaults.php:336
+#: zp-core/setup/setup-option-defaults.php:340
 msgid ""
 "Setup could not find a configuration that allows image URIs containing "
 "diacritical marks."
 msgstr ""
 "Instalace nemohla nalézt konfiguraci, která by povolovala diakritiku v URI."
 
-#: zp-core/setup/setup-option-defaults.php:490
+#: zp-core/setup/setup-option-defaults.php:494
 msgid "Users with full privileges"
 msgstr "Uživatelé se všemi právy"
 
-#: zp-core/setup/setup-option-defaults.php:499
+#: zp-core/setup/setup-option-defaults.php:503
 #, fuzzy
 msgid "Users allowed only to view and comment"
 msgstr "Uživatelé mohou pouze zobrazit objekty zenphoto"
 
-#: zp-core/setup/setup-option-defaults.php:508
+#: zp-core/setup/setup-option-defaults.php:512
 msgid "Banned users"
 msgstr "Blokovaní uživatelé"
 
-#: zp-core/setup/setup-option-defaults.php:517
+#: zp-core/setup/setup-option-defaults.php:521
 msgid "Managers of one or more albums"
 msgstr "Správci jednoho nebo více alb"
 
-#: zp-core/setup/setup-option-defaults.php:526
+#: zp-core/setup/setup-option-defaults.php:530
 msgid "Default user settings"
 msgstr "Výchozí nastavení uživatele"
 
-#: zp-core/setup/setup-option-defaults.php:535
+#: zp-core/setup/setup-option-defaults.php:539
 msgid "Newly registered and verified users"
 msgstr "Nově registrovaní a ověření uživatelé"
 
-#: zp-core/setup/setup-option-defaults.php:608
+#: zp-core/setup/setup-option-defaults.php:612
 msgid "Theme setup:"
 msgstr "Instalace vzhledů:"
 
-#: zp-core/setup/setup-option-defaults.php:646
+#: zp-core/setup/setup-option-defaults.php:650
 #, fuzzy, php-format
 msgid "Copyright %1$u  : %2$s "
 msgstr "U $ Copyright %1: %2$s"
 
-#: zp-core/setup/setup-option-defaults.php:696
+#: zp-core/setup/setup-option-defaults.php:700
 msgid "You can insert your Gallery description on the Admin Options Gallery tab."
 msgstr "Popis své galerie si můžete nastavit v Nastavení > Galerie."
 
-#: zp-core/setup/setup-option-defaults.php:864
+#: zp-core/setup/setup-option-defaults.php:868
 #: zp-core/setup/setup_pluginOptions.php:32
 #, fuzzy, php-format
 msgid "Plugin:%s setup started"
 msgstr "Plugin:%s instalace zahájena"
 
-#: zp-core/setup/setup-option-defaults.php:882
+#: zp-core/setup/setup-option-defaults.php:886
 #: zp-core/setup/setup_pluginOptions.php:56
 #, fuzzy, php-format
 msgid "Plugin:%s enabled (%2$s)"
 msgstr "Plugin:%s povoleno (%2$s)"
 
-#: zp-core/setup/setup-option-defaults.php:884
+#: zp-core/setup/setup-option-defaults.php:888
 #: zp-core/setup/setup_pluginOptions.php:63
 #, fuzzy, php-format
 msgid "Plugin:%1$s option interface instantiated (%2$s)"
 msgstr "Plugin:%1$s možností rozhraní instance (%2$s)"
 
-#: zp-core/setup/setup-option-defaults.php:887
+#: zp-core/setup/setup-option-defaults.php:891
 #: zp-core/setup/setup_pluginOptions.php:70
 #, fuzzy, php-format
 msgid "Plugin:%1$s setup completed in %2$.4f seconds"
 msgstr "Plugin:%1$s instalace byla dokončena v %2$.4f sekund"
 
-#: zp-core/setup/setup-option-defaults.php:892
+#: zp-core/setup/setup-option-defaults.php:896
 msgid "Plugin setup:"
 msgstr "Instalace pluginů:"
 
-#: zp-core/setup/setup-option-defaults.php:926
+#: zp-core/setup/setup-option-defaults.php:930
 #, fuzzy
 msgid ""
 "There has been a change in function deprecation. The deprecated-functions "
 "plugin has been enabled."
 msgstr "Došlo ke změně funkce odmítání. Zastaralé funkce plugin je povoleno."
 
-#: zp-core/setup/setup-option-defaults.php:932
+#: zp-core/setup/setup-option-defaults.php:936
 #, fuzzy
 msgid ""
 "There has been a change of themes or plugins. The zenphotoCompatibilityPack "
@@ -15722,8 +15624,6 @@ msgid "Database table prefix"
 msgstr "Prefix tabulek v databázi"
 
 #: zp-core/setup/setupComplete.php:17
-#, fuzzy
-#| msgid "Done with table update with errors"
 msgid "Completed with errors"
 msgstr "Dokončeno s chybami"
 
@@ -15788,100 +15688,93 @@ msgstr "Téma: %s možností rozhraní instance"
 msgid "Theme:%s setup completed in %2$.4f seconds"
 msgstr "Téma: %s instalace byla dokončena v %2$.4f sekund"
 
-#: zp-core/template-functions.php:73
+#: zp-core/template-functions.php:84
 msgid "new album"
 msgstr "nové album"
 
-#: zp-core/template-functions.php:84
+#: zp-core/template-functions.php:98
 msgid "Logged in as"
 msgstr "Přihlášen jako"
 
-#: zp-core/template-functions.php:144
-#, fuzzy
-#| msgid "files"
+#: zp-core/template-functions.php:151
 msgid "My profile"
 msgstr "Můj profil"
 
-#: zp-core/template-functions.php:157
-#, fuzzy
-#| msgid "images"
+#: zp-core/template-functions.php:164
 msgid "My images"
-msgstr "Fotografie"
+msgstr "Moje fotografie"
 
-#: zp-core/template-functions.php:183
+#: zp-core/template-functions.php:190
 msgid "Logs"
 msgstr "Záznamy"
 
-#: zp-core/template-functions.php:196
+#: zp-core/template-functions.php:203
 msgid "Sort Gallery"
 msgstr "Seřadit alba"
 
-#: zp-core/template-functions.php:205
+#: zp-core/template-functions.php:215
 msgid "New Album"
 msgstr "Nové album"
 
-#: zp-core/template-functions.php:233
+#: zp-core/template-functions.php:255
 msgid "Edit album"
 msgstr "Editovat album"
 
-#: zp-core/template-functions.php:240
+#: zp-core/template-functions.php:262
 msgid "Sort subalbums"
 msgstr "Seřadit alba"
 
-#: zp-core/template-functions.php:247
+#: zp-core/template-functions.php:269
 msgid "Sort images"
 msgstr "Seřadit fotografie"
 
-#: zp-core/template-functions.php:266
+#: zp-core/template-functions.php:288
 msgid "Delete the album"
 msgstr "Smazat album"
 
-#: zp-core/template-functions.php:274
-#, fuzzy
-#| msgid "Upload Here"
+#: zp-core/template-functions.php:296
 msgid "Upload here"
 msgstr "Náhrát sem"
 
-#: zp-core/template-functions.php:293
+#: zp-core/template-functions.php:316
 msgid "Are you sure you want to delete the image? THIS CANNOT BE UNDONE!"
 msgstr ""
 "Jste si jisti, že chcete smazat tuto fotografii? SMAZÁNÍ NELZE VRÁTIT ZPĚT!"
 
-#: zp-core/template-functions.php:300
+#: zp-core/template-functions.php:323
 msgid "Delete the image"
 msgstr "Smazat fotografii"
 
-#: zp-core/template-functions.php:306
+#: zp-core/template-functions.php:329
 msgid "Edit image"
 msgstr "Editovat fotografii"
 
-#: zp-core/template-functions.php:331
-#, fuzzy
+#: zp-core/template-functions.php:354
 msgid "Create an album from the search"
 msgstr "Vytvořit album z vyhledávání"
 
-#: zp-core/template-functions.php:331
-#: zp-core/zp-extensions/favoritesAlbums.php:154
+#: zp-core/template-functions.php:354
+#: zp-core/zp-extensions/favoritesAlbums.php:155
 msgid "Create Album"
 msgstr "Vytvořit dynamické album"
 
-#: zp-core/template-functions.php:370
+#: zp-core/template-functions.php:393
 #: zp-core/zp-extensions/user_login-out.php:116
 msgid "Logout"
 msgstr "Odhlásit"
 
-#: zp-core/template-functions.php:876 zp-core/template-functions.php:971
+#: zp-core/template-functions.php:899 zp-core/template-functions.php:994
 #: zp-core/zp-extensions/menu_manager.php:683
 msgid "Previous Page"
 msgstr "Předchozí stránka"
 
-#: zp-core/template-functions.php:994 zp-core/zp-extensions/menu_manager.php:689
+#: zp-core/template-functions.php:1017 zp-core/zp-extensions/menu_manager.php:689
 msgid "Page 1"
 msgstr "Stránka 1"
 
-#: zp-core/template-functions.php:1009 zp-core/template-functions.php:1018
-#: zp-core/template-functions.php:1048 zp-core/template-functions.php:1055
-#: zp-core/template-functions.php:1065
+#: zp-core/template-functions.php:1032 zp-core/template-functions.php:1041
+#: zp-core/template-functions.php:1071 zp-core/template-functions.php:1078
+#: zp-core/template-functions.php:1088
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:203
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:219
 #: zp-core/zp-extensions/menu_manager.php:694
@@ -15895,7 +15788,7 @@ msgstr[0] "Stránka %u"
 msgstr[1] "Stránka %u"
 msgstr[2] "Stránka %u"
 
-#: zp-core/template-functions.php:1029
+#: zp-core/template-functions.php:1052
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:186
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:212
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:235
@@ -15908,94 +15801,92 @@ msgstr[0] "Stránka %1$u"
 msgstr[1] "Stránka %1$u"
 msgstr[2] "Stránka %1$u"
 
-#: zp-core/template-functions.php:1142
+#: zp-core/template-functions.php:1165
 msgid "The album is un-published."
 msgstr "Toto album není publikováno."
 
-#: zp-core/template-functions.php:1265
+#: zp-core/template-functions.php:1288
 msgid "Album Thumbnails"
 msgstr "Náhledy fotografií v albu"
 
-#: zp-core/template-functions.php:1365
+#: zp-core/template-functions.php:1388
 #: zp-core/zp-extensions/tagFromSearch/tag.php:138
 #: zp-core/zp-extensions/zenpage/template-functions.php:1593
 #, fuzzy
 msgid "Return to search"
 msgstr "Návrat na hledání"
 
-#: zp-core/template-functions.php:1372
+#: zp-core/template-functions.php:1395
 #: zp-core/zp-extensions/zenpage/template-functions.php:1596
 #, fuzzy
 msgid "Return to archive"
 msgstr "Návrat k archivaci"
 
-#: zp-core/template-functions.php:2151
+#: zp-core/template-functions.php:2174
 msgid "The image is marked un-published."
 msgstr "Tato fotografie je označena jako nepublikovaná."
 
-#: zp-core/template-functions.php:3934
+#: zp-core/template-functions.php:3957
 #, php-format
 msgid "%s within previous results"
 msgstr "%s v predchádzajúcich výsledkoch"
 
-#: zp-core/template-functions.php:4011
+#: zp-core/template-functions.php:4034
 msgid "search options"
 msgstr "možnosti vyhledávání"
 
-#: zp-core/template-functions.php:4011
+#: zp-core/template-functions.php:4034
 msgid "fields"
 msgstr "pole"
 
-#: zp-core/template-functions.php:4050
+#: zp-core/template-functions.php:4073
 #, fuzzy
 msgid "Within"
 msgstr "Uvnitř"
 
-#: zp-core/template-functions.php:4054
+#: zp-core/template-functions.php:4077
 #: zp-core/zp-extensions/flag_thumbnail.php:93
 msgid "New"
 msgstr "Nové"
 
-#: zp-core/template-functions.php:4113
+#: zp-core/template-functions.php:4136
 #, fuzzy
 msgid "no date"
 msgstr "Datum:"
 
-#: zp-core/template-functions.php:4313
+#: zp-core/template-functions.php:4336
 msgid "The page you are trying to view is password protected."
 msgstr "Stránka, kterou zkoušíte prohlížet, je chráněna heslem."
 
-#: zp-core/template-functions.php:4318
+#: zp-core/template-functions.php:4341
 #, fuzzy
 msgid "login"
 msgstr "Přihlášení"
 
-#: zp-core/template-functions.php:4337
-#, fuzzy
-#| msgid "A simpler media content management system"
+#: zp-core/template-functions.php:4360
 msgid "A media oriented content management system"
-msgstr "Jednodušší systém pro správu mediálního obsahu"
+msgstr "Systém pro správu mediálně orientovaného obsahu"
 
-#: zp-core/template-functions.php:4338
-#, fuzzy, php-format
+#: zp-core/template-functions.php:4361
+#, php-format
 msgid "Powered by %s"
-msgstr "Web pohání %s"
+msgstr "Poháněno pomocí  %s"
 
-#: zp-core/template-functions.php:4579
+#: zp-core/template-functions.php:4602
 msgid "Error:</strong> the requested object was not found."
 msgstr "Chyba:</strong> požadovaný objekt nebyl nalezen."
 
-#: zp-core/template-functions.php:4581
+#: zp-core/template-functions.php:4604
 #, php-format
 msgid "Album: %s"
 msgstr "Album: %s"
 
-#: zp-core/template-functions.php:4583
+#: zp-core/template-functions.php:4606
 #, php-format
 msgid "Image: %s"
 msgstr "Fotografie: %s"
 
-#: zp-core/template-functions.php:4586
+#: zp-core/template-functions.php:4609
 #, php-format
 msgid "Page: %s"
 msgstr "Strana: %s"
@@ -16061,15 +15952,12 @@ msgid "Restore encountered the following errors:"
 msgstr "Při obnovení se vyskytly následující chyby:"
 
 #: zp-core/utilities/backup_restore.php:454
-#, fuzzy, php-format
-#| msgid ""
-#| "You have restored your database from a different instance of zenphoto. You "
-#| "should run %1$ssetup%2$s to insure proper migration."
+#, php-format
 msgid ""
 "You have restored your database from a different instance of the software. You "
 "should run %1$ssetup%2$s to insure proper migration."
 msgstr ""
-"Obnovili jste databázi z jiné instance ZenPhoto. Měli byste spustit "
+"Obnovili jste databázi z jiné instance galerie. Měli byste spustit "
 "%1$sinstalaci%2$s k zajištění správné migrace."
 
 #: zp-core/utilities/backup_restore.php:463
@@ -16092,7 +15980,7 @@ msgstr "Obnovit databázi"
 
 #: zp-core/utilities/backup_restore.php:500
 msgid "Backup and Restore your Database"
-msgstr "Záloha a Obnovení Vaší databáze"
+msgstr "Zálohování a obnovení Vaší databáze"
 
 #: zp-core/utilities/backup_restore.php:510
 #, php-format
@@ -16110,10 +15998,8 @@ msgid "Tables prefix <strong>%s</strong>"
 msgstr "Prefix tabulek <strong>%s</strong>"
 
 #: zp-core/utilities/backup_restore.php:525
-#, fuzzy
-#| msgid "Database update"
 msgid "Database backup"
-msgstr "Aktualizace databáze"
+msgstr "Zálohování databáze"
 
 #: zp-core/utilities/backup_restore.php:528
 msgid "Compression level"
@@ -16128,13 +16014,7 @@ msgid "Backup the Database"
 msgstr "Zálohovat databázi"
 
 #: zp-core/utilities/backup_restore.php:549
-#, fuzzy, php-format
-#| msgid ""
-#| "The backup facility creates database snapshots in the <code>backup</code> "
-#| "folder of your installation. These backups are named in according to the "
-#| "date and time the backup was taken. The compression level goes from 0 (no "
-#| "compression) to 9 (maximum compression). Higher compression requires more "
-#| "processing and may not result in much space savings."
+#, php-format
 msgid ""
 "The backup facility creates database snapshots in the <code>%1$s</code> folder "
 "of your installation. These backups are named in according to the date and "
@@ -16142,17 +16022,15 @@ msgid ""
 "to 9 (maximum compression). Higher compression requires more processing and "
 "may not result in much space savings."
 msgstr ""
-"Zálohovací nástroj vytvoří zálohu aktuálního stavu databáze v  adresáři "
-"<code>backup</code> ve Vaší instalaci. Zálohy jsou pojmenované podle data a "
-"času, kdy byly pořízeny. Stupeň komprese je od 0 (bez komprese) do 9 "
-"(maximální komprese). Vyšší komprese znamená vyšší zátěž pro server a stejně "
-"pravděpodobně mnoho místa neušetří."
+"Zálohovací nástroj vytvoří zálohu aktuálního stavu databáze v adresáři <code>"
+"%1$s</code> Vaší instalace. Zálohy jsou pojmenovany podle data a času, kdy "
+"byly pořízeny. Stupeň komprese je od 0 (bez komprese) do 9 (maximální "
+"komprese). Vyšší komprese znamená vyšší zátěž pro server a nemusí mít za "
+"následek úsporu místa."
 
 #: zp-core/utilities/backup_restore.php:559
-#, fuzzy
-#| msgid "Database connection"
 msgid "Database restoration"
-msgstr "Připojení databáze"
+msgstr "Obnovení databáze"
 
 #: zp-core/utilities/backup_restore.php:565
 msgid "You have not yet created a backup set."
@@ -16160,7 +16038,7 @@ msgstr "Ještě jste neprovedli zálohu databáze."
 
 #: zp-core/utilities/backup_restore.php:580
 msgid "Select the database restore file:"
-msgstr "Vyberte zálohu databáze:"
+msgstr "Vyberte zálohu databáze, kterou chcete obnovit:"
 
 #: zp-core/utilities/backup_restore.php:591
 msgid "Select the tables to restore."
@@ -16239,12 +16117,10 @@ msgid "Table prefix: <strong>%1$s</strong>"
 msgstr "Prefix tabulek: <strong>%1$s</strong>"
 
 #: zp-core/utilities/database_reference.php:190
-#, fuzzy
 msgid "Key"
 msgstr "Klíč"
 
 #: zp-core/utilities/database_reference.php:193
-#, fuzzy
 msgid "Column"
 msgstr "Sloupec"
 
@@ -16450,7 +16326,7 @@ msgstr "Velikost adresáře s nahranými soubory: <strong>%s</strong>"
 #: zp-core/utilities/gallery_statistics.php:562
 #, php-format
 msgid "Core scripts size: <strong>%s</strong>"
-msgstr "Velikost instalačních souborů: <strong>%s</strong>"
+msgstr "Velikost základních skriptů: <strong>%s</strong>"
 
 #: zp-core/utilities/gallery_statistics.php:605
 msgid "News articles"
@@ -16903,7 +16779,6 @@ msgid "LDAP group"
 msgstr "Skupina LDAP"
 
 #: zp-core/zp-extensions/LDAP_auth/LDAP auth.php:224
-#, fuzzy
 msgid "Could not connect to LDAP server."
 msgstr "Nepodařilo se připojit k LDAP serveru."
 
@@ -17046,46 +16921,117 @@ msgstr ""
 msgid "This player does not support <em>External Albums</em>."
 msgstr "Tento prehrávač nepodporuje <em>externé albumy</em>."
 
-#: zp-core/zp-extensions/VideoJS.php:63 zp-core/zp-extensions/jPlayer.php:136
+#: zp-core/zp-extensions/VideoJS.php:66 zp-core/zp-extensions/jPlayer.php:136
 msgid "Poster (Videothumb)"
 msgstr "Poster (náhled videa)"
 
-#: zp-core/zp-extensions/VideoJS.php:65
+#: zp-core/zp-extensions/VideoJS.php:69
 #, fuzzy
 #| msgid "If the videothumb should be shown (jplayer calls it poster)."
 msgid "If the videothumb should be shown (VideoJS calls it poster)."
 msgstr "Povolte pro zobrazení náhledů videa (VideoJS je nazývá poster)."
 
-#: zp-core/zp-extensions/VideoJS.php:66 zp-core/zp-extensions/jPlayer.php:134
+#: zp-core/zp-extensions/VideoJS.php:70 zp-core/zp-extensions/jPlayer.php:134
 msgid "Autoplay"
 msgstr "Automatické přehrávání"
 
-#: zp-core/zp-extensions/VideoJS.php:68 zp-core/zp-extensions/jPlayer.php:135
+#: zp-core/zp-extensions/VideoJS.php:73 zp-core/zp-extensions/jPlayer.php:135
 msgid "Disabled automatically if several players on one page"
 msgstr "Automaticky zakázáno v případě, že je na stránce více přehrávačů."
 
-#: zp-core/zp-extensions/VideoJS.php:69
+#: zp-core/zp-extensions/VideoJS.php:74
 #, fuzzy
 #| msgid "X Resolution"
 msgid "Default Resolution"
 msgstr "Výchozí rozlišení"
 
-#: zp-core/zp-extensions/VideoJS.php:72
+#: zp-core/zp-extensions/VideoJS.php:78
 #, fuzzy
 msgid "High (HD)"
 msgstr "Vysoké (HD)"
 
-#: zp-core/zp-extensions/VideoJS.php:73
+#: zp-core/zp-extensions/VideoJS.php:79
 #, fuzzy
 msgid "Low (SD)"
 msgstr "Nízké (SD)"
 
-#: zp-core/zp-extensions/VideoJS.php:74
+#: zp-core/zp-extensions/VideoJS.php:80
 #, fuzzy
 msgid "Default resolution where multiple resolutions are available"
 msgstr "Výchozí rozlišení v případě, že je k dispozici více rozlišení."
 
-#: zp-core/zp-extensions/VideoJS.php:118
+#: zp-core/zp-extensions/VideoJS.php:81
+#, fuzzy
+#| msgid "Default size"
+msgid "Default Player size"
+msgstr "Standardní velikost"
+
+#: zp-core/zp-extensions/VideoJS.php:85
+#, fuzzy
+#| msgid "jp-video-270p (480x270px)"
+msgid "VideoJS-270p (480x270px)"
+msgstr "jp-video-270p (480x270px)"
+
+#: zp-core/zp-extensions/VideoJS.php:86
+#, fuzzy
+#| msgid "jp-video-360p (640x360px)"
+msgid "VideoJS-360p (640x360px)"
+msgstr "jp-video-360p (640x360px)"
+
+#: zp-core/zp-extensions/VideoJS.php:87
+#, fuzzy
+#| msgid "jp-video-480p (720x405px)*"
+msgid "VideoJS-405p (720x405px)"
+msgstr "jp-video-480p (720x405 px)*"
+
+#: zp-core/zp-extensions/VideoJS.php:88
+#, fuzzy
+#| msgid "jp-video-720p (1280x720px)*"
+msgid "VideoJS-720p (1280x720px)"
+msgstr "jp-video-720p (1280x720 px)*"
+
+#: zp-core/zp-extensions/VideoJS.php:89
+#, fuzzy
+#| msgid "jp-video-1080p (1920x1080px)*"
+msgid "VideoJS-1080p (1920x1080px)"
+msgstr "jp-video-1080p (1920x1080 px)*"
+
+#: zp-core/zp-extensions/VideoJS.php:90
+#, fuzzy
+#| msgid "Default size"
+msgid "Default player size"
+msgstr "Standardní velikost"
+
+#: zp-core/zp-extensions/VideoJS.php:91
+#, fuzzy
+msgid "Custom Player Size"
+msgstr "Uživatelská index stránka:"
+
+#: zp-core/zp-extensions/VideoJS.php:94
+#, fuzzy
+msgid "Custom player size (width in pixels). Set to 0 to use default player size"
+msgstr ""
+"Vlastní velikost přehrávače (šířka v pixelech). Chcete-li použít výchozí "
+"velikost přehrávače, nastavte hodnotu 0"
+
+#: zp-core/zp-extensions/VideoJS.php:95
+#, fuzzy
+#| msgid "Aspect ratio"
+msgid "Custom Aspect Ratio"
+msgstr "Poměr stran"
+
+#: zp-core/zp-extensions/VideoJS.php:99
+#, fuzzy
+#| msgid "fullscreen"
+msgid "Widescreen"
+msgstr "celá obrazovka "
+
+#: zp-core/zp-extensions/VideoJS.php:101
+#, fuzzy
+msgid "Aspect ratio for custom player size"
+msgstr "Poměr stran pro vlastní velikost přehrávače"
+
+#: zp-core/zp-extensions/VideoJS.php:176
 #, fuzzy
 #| msgid "This multimedia format is not supported by jPlayer"
 msgid "This multimedia format is not supported by VideoJS"
@@ -17293,7 +17239,7 @@ msgid ""
 "com'>http://bxslider.com</a>"
 msgstr ""
 "Responsivní jQuery bxSlider plugin pro náhledy založený na <a href='http://"
-"bxslider.com'>http://bxslider.com</a>"
+"bxslider.com'>http://bxslider.com</a>."
 
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:16
 #: zp-core/zp-extensions/jCarousel_thumb_nav.php:13
@@ -17376,11 +17322,11 @@ msgstr ""
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:82
 #: zp-core/zp-extensions/slideshow.php:96
 msgid "Mode"
-msgstr "Mód"
+msgstr "Provedení"
 
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:87
 msgid "The mode of the thumb nav. Note this might require theme changes."
-msgstr "Režim náhledů. Může vyžadovat změny ve vzhledu."
+msgstr "Způsob provedení náhledů. Může vyžadovat změny ve vzhledu."
 
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:93
 msgid ""
@@ -17491,7 +17437,7 @@ msgid ""
 "If a <em>type</em> is checked, the HTML and RSS caches for the item will be "
 "purged when the published state of an item of <em>type</em> changes."
 msgstr ""
-"Pokud je nějaký <em>typ</em> označený, HTML a RSS mezipaměť bude při změně "
+"Pokud je nějaký <em>typ</em> zatržený, HTML a RSS mezipaměť bude při změně "
 "publikované položky daného <em>typu</em> vymazána."
 
 #: zp-core/zp-extensions/cacheManager.php:165
@@ -17499,7 +17445,7 @@ msgid ""
 "<strong>NOTE:</strong> The entire cache is cleared since there is no way to "
 "ascertain if a gallery page contains dependencies on the item."
 msgstr ""
-"<strong>Poznámka:</strong> Celá mezipaměť je vymazána, protože neexistuje "
+"<strong>Poznámka:</strong> Celá mezipaměť bude vymazána, protože neexistuje "
 "žádný způsob, jak zjistit, zda stránka galerie obsahuje závislosti na položce."
 
 #: zp-core/zp-extensions/cacheManager.php:246
@@ -17535,7 +17481,7 @@ msgstr "Odstíny šedé"
 
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:228
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:235
 msgid "Hide"
 msgstr "Skrýt"
 
@@ -17932,22 +17878,16 @@ msgid "The <em>audio-video</em> handler."
 msgstr "Správa <em>audio-videa</em>."
 
 #: zp-core/zp-extensions/class-video.php:19
-#, fuzzy
-#| msgid ""
-#| "This plugin handles <code>mp3</code>, <code>mp4</code>, <code>3gp</code>, "
-#| "and <code>mov</code> multi-media files. <strong>Note:</strong> <code>mp3</"
-#| "code> and <code>mp4</code> require HTML5 browser support. You should enable "
-#| "a multimedia player plugin to handle other media files."
 msgid ""
 "This plugin handles <code>mp3</code> and <code>mp4</code> multi-media files. "
 "<strong>Note:</strong> <code>mp3</code> and <code>mp4</code> require HTML5 "
 "browser support. You should enable a multimedia player plugin to handle other "
 "media files."
 msgstr ""
-"Tento modul zpracovává <code>mp3</code>, <code>mp4</code>, <code>3gp</code>, "
-"and <code>mov</code> multimediální soubory. <strong>Poznámka:</strong> soubory "
-"<code>mp3</code> a <code>mp4</code> vyžadují v prohlížeči podporu HTML5. Měli "
-"byste také povolit multimediální přehrávač pro ostatní soubory."
+"Tento modul zpracovává <code>mp3</code>, <code>mp4</code> multimediální "
+"soubory. <strong>Poznámka:</strong> soubory <code>mp3</code> a <code>mp4</"
+"code> vyžadují v prohlížeči podporu HTML5. Měli byste také povolit "
+"multimediální přehrávač pro ostatní soubory."
 
 #: zp-core/zp-extensions/class-video.php:60
 msgid "High quality alternate"
@@ -18689,7 +18629,7 @@ msgstr "Novinky"
 #: zp-core/zp-extensions/comment_form/functions.php:184
 #, fuzzy
 msgid "[page]"
-msgstr "stránka"
+msgstr "Strana"
 
 #: zp-core/zp-extensions/comment_form/functions.php:196
 #, php-format
@@ -19029,7 +18969,7 @@ msgstr "Kraj"
 
 #: zp-core/zp-extensions/contact_form.php:125
 #: zp-core/zp-extensions/contact_form.php:127
-#: zp-core/zp-extensions/scriptless-socialsharing.php:89
+#: zp-core/zp-extensions/scriptless-socialsharing.php:88
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -19055,7 +18995,7 @@ msgstr "Telefon"
 #: zp-core/zp-extensions/contact_form.php:195
 #, fuzzy
 msgid "a title"
-msgstr "Název:"
+msgstr "Název"
 
 #: zp-core/zp-extensions/contact_form.php:198
 #, fuzzy
@@ -19261,7 +19201,7 @@ msgstr "Vzhled"
 #, fuzzy
 #| msgid "Custom"
 msgid "custom"
-msgstr "Vlastní"
+msgstr "Vlastní:"
 
 #: zp-core/zp-extensions/cookieconsent.php:86
 #, fuzzy
@@ -19483,7 +19423,7 @@ msgstr "Skript tématu pro zobrazení souhrnu."
 #, fuzzy
 #| msgid "Daily image"
 msgid "Daily Summary"
-msgstr "Obrázek dne"
+msgstr "Denní přehled"
 
 #: zp-core/zp-extensions/daily-summary/daily-summary_content.php:18
 #, fuzzy, php-format
@@ -19533,7 +19473,7 @@ msgstr "Fotografie: %s"
 #, fuzzy
 #| msgid "Link text"
 msgid "Link: "
-msgstr "Zobrazit odkaz na Archív:"
+msgstr "V zápatí zobrazit odkaz na archív."
 
 #: zp-core/zp-extensions/daily-summary/daily-summary_content.php:40
 #, fuzzy
@@ -19592,7 +19532,7 @@ msgstr[2] "1 shlédnutí tohoto %s"
 
 #: zp-core/zp-extensions/daily-summary/dailysummary-template-functions.php:197
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:99
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:285
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:284
 #: zp-core/zp-extensions/zenpage/edit.php:228
 #: zp-core/zp-extensions/zenpage/template-functions.php:929
 msgid "Page"
@@ -20058,10 +19998,10 @@ msgstr "Zdroj zip"
 #, fuzzy
 msgid "From album"
 msgstr ""
-"Nastavení <em>výběru náhledu i z podalba</em> umožňuje výběr fotografií z "
-"vnořených alb stejně jako z alba. Toto nastavení způsobuje zátěž serveru. "
-"Pokud se stránka s úpravou alba načítá příliš pomalu, odškrtněte toto "
-"nastavení."
+"Pokud je počet <em>náhledů na řádek</em> u alb i u fotografií nastavení na "
+"více než 1 a náhledy alb a fotografií jsou společně na jedné stránce, můžete "
+"si zvolit, zda budou tyto náhledy zobrazovány spolu na jedné stránce nebo "
+"zvlášť, odděleny přechodovou stránkou."
 
 #: zp-core/zp-extensions/downloadList.php:83
 #, fuzzy
@@ -20096,7 +20036,7 @@ msgstr "Zatrhněte pokud uživatel musí mít pro stahování práva <em>Soubor<
 #: zp-core/zp-extensions/downloadList.php:93
 #, fuzzy
 msgid "credentials"
-msgstr "Môžete sa tiež zaregistrovať použitím združených údajov"
+msgstr "Uživatelé s tímto oprávněním mohou upravovat podrobnosti o sobě."
 
 #: zp-core/zp-extensions/downloadList.php:95
 #, fuzzy
@@ -20252,8 +20192,8 @@ msgstr "subdoména"
 #: zp-core/zp-extensions/dynamic-locale.php:216
 #: zp-core/zp-extensions/dynamic-locale.php:219
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:52
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:153
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:161
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:152
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:160
 msgid "URL"
 msgstr "URL"
 
@@ -20743,7 +20683,7 @@ msgid "Publish <em>favorites</em> into albums that others can view."
 msgstr ""
 "Publikuje <em>Oblíbené</em> do alb, takže si je ostatní mohou prohlédnout."
 
-#: zp-core/zp-extensions/favoritesAlbums.php:154
+#: zp-core/zp-extensions/favoritesAlbums.php:155
 #, fuzzy
 msgid "Create an album from favorites"
 msgstr "Vytvořit album z oblíbených položek"
@@ -21298,7 +21238,7 @@ msgstr "Skráťte názvy <em>bodov</em>"
 #, fuzzy
 #| msgid "OpenID Authentication"
 msgid "Two Factor Authentication."
-msgstr "Potvrdenie OpenID"
+msgstr "Dvoufázové ověření (TFA)"
 
 #: zp-core/zp-extensions/googleTFA.php:59
 #, fuzzy
@@ -21437,11 +21377,11 @@ msgstr "Vynulovat všechna počítadla"
 
 #: zp-core/zp-extensions/hitcounter.php:213
 msgid "Reset all hitcounters to zero"
-msgstr "Nastavit všechna počítadla na nulu."
+msgstr "Nastaví všechna počítadla na nulu."
 
 #: zp-core/zp-extensions/hitcounter/reset_hitcounts.php:27
 msgid "All hitcounters have been set to zero."
-msgstr "Všechna počítadla budou vynulována"
+msgstr "Všechna počítadla budou vynulována."
 
 #: zp-core/zp-extensions/html_meta_tags.php:20
 #, fuzzy
@@ -21690,7 +21630,7 @@ msgstr ""
 #: zp-core/zp-extensions/image_effects.php:125
 #, fuzzy
 msgid "No effects"
-msgstr "Toto nastavení vyžaduje povolený plugin <em>image_effects</em>."
+msgstr "Výběr efektů pro <em>náhodné</em> nastavení."
 
 #: zp-core/zp-extensions/image_effects.php:131
 #, php-format
@@ -22166,47 +22106,47 @@ msgstr ""
 "Zadejte název alba (%1), název souboru médií (%2) a jedinečné číslo (%3). "
 "(Existuje-li pouze instance přehrávače na stránce parametr může vynechat.)"
 
-#: zp-core/zp-extensions/jPlayer.php:294
+#: zp-core/zp-extensions/jPlayer.php:295
 msgid "This multimedia format is not supported by jPlayer"
 msgstr "Tento multimediálny formát nie je podporovaný jPlayerom"
 
-#: zp-core/zp-extensions/jPlayer.php:368 zp-core/zp-extensions/jPlayer.php:477
-#: zp-core/zp-extensions/jPlayer.php:719 zp-core/zp-extensions/slideshow2.php:286
+#: zp-core/zp-extensions/jPlayer.php:369 zp-core/zp-extensions/jPlayer.php:478
+#: zp-core/zp-extensions/jPlayer.php:720 zp-core/zp-extensions/slideshow2.php:297
 msgid "play"
 msgstr "Přehrát"
 
-#: zp-core/zp-extensions/jPlayer.php:382 zp-core/zp-extensions/jPlayer.php:419
-#: zp-core/zp-extensions/jPlayer.php:732 zp-core/zp-extensions/jPlayer.php:768
+#: zp-core/zp-extensions/jPlayer.php:383 zp-core/zp-extensions/jPlayer.php:420
+#: zp-core/zp-extensions/jPlayer.php:733 zp-core/zp-extensions/jPlayer.php:769
 msgid "mute"
 msgstr "Ztlumit"
 
-#: zp-core/zp-extensions/jPlayer.php:383 zp-core/zp-extensions/jPlayer.php:420
-#: zp-core/zp-extensions/jPlayer.php:733 zp-core/zp-extensions/jPlayer.php:769
+#: zp-core/zp-extensions/jPlayer.php:384 zp-core/zp-extensions/jPlayer.php:421
+#: zp-core/zp-extensions/jPlayer.php:734 zp-core/zp-extensions/jPlayer.php:770
 msgid "max volume"
 msgstr "Maximální hlasitost"
 
-#: zp-core/zp-extensions/jPlayer.php:481 zp-core/zp-extensions/slideshow2.php:284
+#: zp-core/zp-extensions/jPlayer.php:482 zp-core/zp-extensions/slideshow2.php:295
 msgid "stop"
 msgstr "Zastavit"
 
-#: zp-core/zp-extensions/jPlayer.php:487
+#: zp-core/zp-extensions/jPlayer.php:488
 msgid "repeat"
 msgstr "opakovat"
 
-#: zp-core/zp-extensions/jPlayer.php:489 zp-core/zp-extensions/slideshow.php:115
+#: zp-core/zp-extensions/jPlayer.php:490 zp-core/zp-extensions/slideshow.php:115
 #: zp-core/zp-extensions/slideshow2.php:121
 msgid "shuffle"
 msgstr "Náhodné přehrávání"
 
-#: zp-core/zp-extensions/jPlayer.php:492
+#: zp-core/zp-extensions/jPlayer.php:493
 msgid "full screen"
 msgstr "Celá obrazovka"
 
-#: zp-core/zp-extensions/jPlayer.php:499
+#: zp-core/zp-extensions/jPlayer.php:500
 msgid "Update Required"
 msgstr "Je nutná aktualizace"
 
-#: zp-core/zp-extensions/jPlayer.php:500
+#: zp-core/zp-extensions/jPlayer.php:501
 msgid ""
 "To play the media you will need to either update your browser to a recent "
 "version or update your <a href=\"http://get.adobe.com/flashplayer/\" target="
@@ -22577,8 +22517,8 @@ msgstr[1] "Stránka %1$u (současná stránka)"
 msgstr[2] "Stránka %1$u (současná stránka)"
 
 #: zp-core/zp-extensions/menu_manager.php:927
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:488
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:286
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:499
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:285
 #: zp-core/zp-extensions/sitemap-extended/sitemap-extended-admin.php:108
 #, fuzzy
 msgid "News index"
@@ -22594,196 +22534,203 @@ msgstr "createMenuIfNotExists položky %s má prázdný odkaz."
 #: zp-core/zp-extensions/menu_manager.php:959
 #: zp-core/zp-extensions/menu_manager.php:972
 #: zp-core/zp-extensions/menu_manager.php:991
-#: zp-core/zp-extensions/menu_manager.php:998
-#: zp-core/zp-extensions/menu_manager.php:1006
+#: zp-core/zp-extensions/menu_manager.php:999
+#: zp-core/zp-extensions/menu_manager.php:1007
 #, fuzzy, php-format
 msgid "createMenu item %s has an empty title."
 msgstr "createMenuIfNotExists položky %s má prázdný název."
 
 #: zp-core/zp-extensions/menu_manager.php:985
-#: zp-core/zp-extensions/menu_manager.php:1014
+#: zp-core/zp-extensions/menu_manager.php:1015
 #, fuzzy, php-format
 msgid "createMenu item %s has an empty title or link."
 msgstr "createMenuIfNotExists položky %s má prázdný název nebo odkaz."
 
-#: zp-core/zp-extensions/menu_manager.php:1019
+#: zp-core/zp-extensions/menu_manager.php:1020
 #, fuzzy, php-format
 msgid "createMenu item %1$s has an invalid type (%2$s)."
 msgstr "createMenuIfNotExists položky %s je neplatného typu."
 
-#: zp-core/zp-extensions/menu_manager.php:1036
+#: zp-core/zp-extensions/menu_manager.php:1037
 #, fuzzy, php-format
 #| msgid "createMenuIfNotExists item %1$s query (%2$s) failed: %3$s."
 msgid "createMenu item %1$s query (%2$s) failed: %3$s."
 msgstr "createMenuIfNotExists položka %1$s dopyt (%2$s) zlyhal: %3$s."
 
-#: zp-core/zp-extensions/menu_manager.php:1042
+#: zp-core/zp-extensions/menu_manager.php:1043
 #, fuzzy
 msgid "createMenu has posted processing errors to your debug log."
 msgstr "createMenuIfNotExists zveřejnil zpracování chyby do protokolu ladění."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:26
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:24
 #: zp-core/zp-extensions/zenpage/categories.php:19
 #: zp-core/zp-extensions/zenpage/pages.php:22
 msgid "Sort order saved."
 msgstr "Nastavení pořadí uloženo."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:74
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:81
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:405
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:415
 #, fuzzy, php-format
 msgid "Target does not exist in <em>%1$s</em> theme"
 msgstr "Cíl v motivu <em>%1$s</em> neexistuje."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:76
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:84
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:408
 #, fuzzy
 msgid "Target does not exist"
 msgstr "Cíl neexistuje"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:157
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:87
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:411
+msgid "Zenpage plugin not enabled"
+msgstr "Zenpage pugin není povolen"
+
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:168
 #, php-format
 msgid "Ok to delete %s? This cannot be undone."
 msgstr "Opravdu smazat %s? Tuto akci nelze vrátit."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:267
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:278
 msgid "Hidden and visible items"
 msgstr "Skryté a viditelné položky"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:268
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:279
 msgid "Visible items"
 msgstr "Viditelné položky"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:269
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:280
 #, fuzzy
 msgid "hidden items"
 msgstr "skryté položky"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:492
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:503
 #, fuzzy
 msgid "Menu items for all objects added."
 msgstr "Položky v menu pro všechny objekty přidané."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:496
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:507
 #, fuzzy
 msgid "Menu items for all albums added."
 msgstr "Položky v menu pro všechna alba přidán."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:501
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:671
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:512
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:682
 msgid "You forgot to select an album."
 msgstr "Zapomněl jste vybrat album."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:504
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:515
 #, fuzzy, php-format
 msgid "Album menu item <em>%s</em> added"
 msgstr "Album menu položku <em>%s</em> byl přidán"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:506
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:517
 #, fuzzy, php-format
 msgid "Home page menu item <em>%s</em> added"
 msgstr "Vlastní stránky menu položku <em>%s</em> byl přidán"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:513
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:539
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:557
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:566
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:575
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:589
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:597
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:610
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:680
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:696
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:712
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:720
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:728
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:742
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:749
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:761
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:783
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:524
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:550
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:568
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:577
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:586
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:600
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:608
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:621
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:691
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:707
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:723
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:731
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:739
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:753
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:760
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:772
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:794
 #, fuzzy
 msgid "You forgot to give your menu item a <strong>title</strong>!"
 msgstr "Jste zapomněli dát položky nabídky <strong>titul</strong>!"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:516
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:527
 #, fuzzy, php-format
 msgid "Gallery index menu item <em>%s</em> added"
 msgstr "Přidána Galerie indexu menu položku <em>%s</em>"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:520
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:531
 #, fuzzy
 msgid "Menu items for all Zenpage pages added."
 msgstr "Položky v menu pro všechny Zenpage stránky přidány."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:524
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:535
 #, fuzzy
 msgid "Menu items for all Zenpage categories added."
 msgstr "Položky v menu pro všechny kategorie Zenpage přidán."
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:530
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:548
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:688
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:704
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:785
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:541
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:559
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:699
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:715
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:796
 #, fuzzy
 msgid "You forgot to give your menu item a <strong>link</strong>!"
 msgstr "Jste zapomněli dát položky nabídky <strong>odkaz</strong>!"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:533
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:544
 #, fuzzy, php-format
 msgid "Zenpage page menu item <em>%s</em> added"
 msgstr "Přidán Zenpage stránka menu položku <em>%s</em>"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:542
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:553
 #, fuzzy, php-format
 msgid "Zenpage news index menu item <em>%s</em> added"
 msgstr "Přidán Zenpage news index menu položku <em>%s</em>"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:551
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:562
 #, fuzzy, php-format
 msgid "Zenpage news category menu item <em>%s</em> added"
 msgstr "Přidán Zenpage novinky kategorie menu položku <em>%s</em>"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:560
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:583
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:571
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:594
 #, fuzzy, php-format
 msgid "Custom page menu item <em>%s</em> added"
 msgstr "Vlastní stránky menu položku <em>%s</em> byl přidán"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:569
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:580
 #, fuzzy
 msgid "Album index menu item added"
 msgstr "Album menu položku <em>%s</em> byl přidán"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:580
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:602
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:615
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:733
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:754
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:766
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:591
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:613
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:626
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:744
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:765
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:777
 #, fuzzy
 msgid "You forgot to provide a <strong>function</strong>!"
 msgstr "Zapomněli jste poskytnout <strong>funkce</strong>!"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:592
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:603
 #, fuzzy
 msgid "Custom label added"
 msgstr "Vlastní štítek přidány"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:605
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:616
 #, fuzzy, php-format
 msgid "Function menu item <em>%s</em> added"
 msgstr "Funkce menu položku <em>%s</em> byl přidán"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:618
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:629
 #, fuzzy
 msgid "<em>HTML</em> added"
 msgstr "<em>HTML</em> přidán"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:640
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:651
 #, fuzzy, php-format
 msgid "A <em>%1$s</em> item already exists in <em>%2$s </em>!"
 msgstr "V <em>%2$s </em>již existuje položka <em>%1$s</em> !"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:642
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:653
 #, fuzzy, php-format
 msgid ""
 "A <em>%1$s</em> item with the link <em>%2$s</em> already exists in <em>%3$s </"
@@ -22791,66 +22738,66 @@ msgid ""
 msgstr ""
 "Položku <em>%1$s</em> s odkazem <em>%2$s</em> již existuje v <em>%3$s </em>!"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:787
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:798
 #, fuzzy
 msgid "Menu item updated!"
 msgstr "Menu položka aktualizovány!"
 
-#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:801
+#: zp-core/zp-extensions/menu_manager/menu_manager-admin-functions.php:812
 #, fuzzy
 msgid "Custom menu item successfully deleted!"
 msgstr "Vlastní menu položka byla úspěšně odstraněna!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:36
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:39
 #, fuzzy
 msgid "Menu item deleted failed"
 msgstr "Menu položka odstraněna selhalo"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:43
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:46
 #, fuzzy
 msgid "Menu item deleted"
 msgstr "položka zrušena"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:51
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:55
 #, fuzzy, php-format
 msgid "Menu “%s” deleted"
 msgstr "Nabídka \"%s\" byl odstraněn"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:97
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:103
 #, fuzzy, php-format
 msgid "Menu “%s” duplicated"
 msgstr "Nabídka \"%s\" duplicitní"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:99
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:105
 #, fuzzy, php-format
 msgid "Menu “%s” already exists"
 msgstr "Menu \"%s\" již existuje"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:137
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:144
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:150
 msgid "Name for new menu:"
 msgstr "Názov nového menu:"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:143
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:150
 #, fuzzy, php-format
 msgid "Copy_of_%s"
-msgstr "Kopie vzhledu %s"
+msgstr "kopie %s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:149
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:156
 #, php-format
 msgid "Ok to delete menu %s? This cannot be undone!"
 msgstr "Chcete vymazať menu %s? NEVRATNÁ OPERÁCIA!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:172
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:179
 msgid "Menu Manager"
 msgstr "Správce menu"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:173
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:180
 #, fuzzy, php-format
 msgid " (Menu: %s)"
 msgstr "(Nabídka: %s)"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:180
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:187
 msgid ""
 "Drag the items into the order and nesting you wish displayed. Place the menu "
 "on your theme pages by calling printCustomMenu()."
@@ -22858,7 +22805,7 @@ msgstr ""
 "Presuňte položky do požadovaného poradia ako chcete aby sa zobrazovali. "
 "Umiestniť menu na stránkach témy môžezte pomocou príkazu printCustomMenu()."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:183
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:190
 #, fuzzy
 msgid ""
 "<strong>IMPORTANT:</strong> This menu’s order is completely independent from "
@@ -22873,69 +22820,69 @@ msgstr ""
 "strukturu. zenphoto funkce jako popisu struktury funkcí a next_album () smyčka "
 "se neodrazí struktury Toto menu je!"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:197
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:204
 #, fuzzy
 msgid "New Menu"
 msgstr "Nová nabídka"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:220
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:227
 msgid "Edit the menu"
 msgstr "Editovat menu"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:243
 #, fuzzy, php-format
 msgid "Duplicate %s menu"
 msgstr "Nabídka duplicitní %s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:236
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:243
 #, fuzzy
 msgid "Duplicate menu"
 msgstr "Duplicitní menu"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:239
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:246
 #, fuzzy, php-format
 msgid "Delete %s menu"
 msgstr "Odstranit %s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:241
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:248
 #, fuzzy
 msgid "Delete menu"
 msgstr "Odstranit nabídku"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:245
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:252
 #, fuzzy, php-format
 msgid "Export %s menu"
 msgstr "Nabídka duplicitní %s"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:247
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:254
 #, fuzzy
 #| msgid "Exposure time"
 msgid "Export menu"
 msgstr "Čas expozice"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:256
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:254
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:263
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:253
 msgid "Add Menu Items"
 msgstr "Přidat položky menu"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:279
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:286
 #, fuzzy
 msgid "No menus exist"
 msgstr "Neexistují žádné menu"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:296
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:303
 #, fuzzy
 msgid "Menu target is password protected"
 msgstr "Nabídka cíl je chráněn heslem"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab.php:301
+#: zp-core/zp-extensions/menu_manager/menu_tab.php:308
 #, fuzzy
 #| msgid "Visible items"
 msgid "Visible/Hidden"
 msgstr "Viditelný/skrytý"
 
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:58
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:276
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:275
 #, fuzzy
 msgid "All menu items"
 msgstr "položky menu"
@@ -22948,7 +22895,7 @@ msgstr ""
 "\"výchozí\".)"
 
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:63
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:277
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:276
 #, fuzzy
 #| msgid "Website field"
 msgid "Site index"
@@ -22960,7 +22907,7 @@ msgid "This is the site Index page."
 msgstr "To je normální zenphoto galerie Stránka s náhledy."
 
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:71
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:279
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:278
 msgid "All Albums"
 msgstr "Všechna alba"
 
@@ -23032,36 +22979,40 @@ msgstr ""
 "Vytvoří odkaz na stránku indexu alba pro témata, která nezobrazují alba v "
 "indexu galerie."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:143
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:142
 #, fuzzy
 msgid "Custom page"
 msgstr "Vlastní stránka"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:144
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:143
 #, fuzzy
 msgid "Creates a link to a custom theme script page."
 msgstr "Vytvoří odkaz na stránku skript vlastní motiv."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:145
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:144
 #, fuzzy
 msgid "Script page"
 msgstr "Stránka Script stránka"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:150
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:158
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:149
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:293
-#, fuzzy
-msgid "Custom link"
-msgstr "Vlastní odkaz"
+msgid "Dynamic link"
+msgstr "Dynamický odkaz"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:151
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:150
 #, fuzzy
 msgid ""
 "Creates a dynamic link. The string will be evaluated by PHP to create the link."
 msgstr ""
 "Vytvoří dynamické propojení. Řetězec bude vyhodnocena php vytvořit odkaz."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:159
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:157
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:292
+#, fuzzy
+msgid "Custom link"
+msgstr "Vlastní odkaz"
+
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:158
 #, fuzzy
 msgid ""
 "Creates a link outside the standard structure. Use of a full URL is "
@@ -23070,70 +23021,70 @@ msgstr ""
 "Vytvoří odkaz mimo struktury zenphoto. Použití plné URL je doporučeno (např "
 "http://www.domain.com)."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:166
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:165
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:294
 #, fuzzy
 msgid "Label"
 msgstr "Štítek"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:167
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:166
 #, fuzzy
 msgid "Creates a <em>label</em> to use in menu structures)."
 msgstr "Vytvoří <em>popisek</em> v menu struktur)."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:172
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:174
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:171
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:173
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:295
 #, fuzzy
 msgid "Function"
 msgstr "Funkce"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:173
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:172
 #, fuzzy
 msgid "Executes the PHP function provided."
 msgstr "Provede funkci PHP k dispozici."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:181
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:183
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:180
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:182
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:296
 msgid "HTML"
 msgstr "HTML"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:182
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:181
 #, fuzzy
 msgid "Inserts custom HTML."
 msgstr "Vloží vlastní HTML."
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:224
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:223
 #, fuzzy
 msgid "Menu Manager: Edit Menu Item"
 msgstr "Položka nabídky Upravit menu správce:"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:226
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:225
 #, fuzzy
 msgid "Menu Manager: Add Menu Item"
 msgstr "Menu správce: přidat položku nabídky"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:275
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:274
 #, fuzzy
 msgid "*Select the type of the menus item you wish to add*"
 msgstr "* Vyberte typ položky nabídky, chcete-li přidat *"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:284
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:283
 msgid "All pages"
 msgstr "Všechny stránky"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:287
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:286
 #, fuzzy
 msgid "All news categories"
 msgstr "Všechny novinky kategorie"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:288
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:287
 #, fuzzy
 msgid "News category"
 msgstr "Kategorie novinek"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:292
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:291
 #, fuzzy
 msgid "Custom theme page"
 msgstr "Vlastní motiv stránky"
@@ -23162,14 +23113,14 @@ msgstr "Přidání značky <em>span</em>"
 msgid "Class"
 msgstr "Třída"
 
-#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:407
+#: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:417
 #, fuzzy
 msgid "Target does not exist."
 msgstr "Cíl není k dispozici."
 
 #: zp-core/zp-extensions/mergedRSS.php:19
 msgid "Merges several RSS feeds into one."
-msgstr "Zlúči viaceré RSS kanaly do jedného."
+msgstr "Sloučí více RSS kanálů do jednoho."
 
 #: zp-core/zp-extensions/mergedRSS.php:20
 #, fuzzy
@@ -24195,7 +24146,7 @@ msgstr "Poskytuje prostředky k odstranění možnosti pro témata a pluginy."
 #: zp-core/zp-extensions/purgeOptions.php:34
 #, fuzzy
 msgid "purge"
-msgstr "vytěsnění (vzduchu k kapalinového potrubí)"
+msgstr "Vymazat cache pro fotografie"
 
 #: zp-core/zp-extensions/purgeOptions.php:77
 #, fuzzy
@@ -24210,7 +24161,7 @@ msgstr "V Pluginech"
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "Extensions"
-msgstr "Rozšíření"
+msgstr "PHP rozšíření"
 
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:73
 #, fuzzy
@@ -24290,7 +24241,7 @@ msgstr "skrytý"
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:277
 #, fuzzy
 msgid "empty"
-msgstr "%s heslo nemůže být prázdné!"
+msgstr "Heslo nemůže být prázdné."
 
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:288
 #, fuzzy
@@ -24904,7 +24855,7 @@ msgstr "Pravidla přepisování Site podkartu."
 #: zp-core/zp-extensions/rewriteRules/admin_tab.php:12
 #, fuzzy
 msgid "rewrite"
-msgstr "mod_rewrite přípona"
+msgstr "Prepisovacie pravidlá aktualizované [neaktulizované]"
 
 #: zp-core/zp-extensions/rewriteRules/admin_tab.php:27
 #, fuzzy
@@ -25166,7 +25117,7 @@ msgstr "(Nejnovější novinky a obrázky)"
 msgid "Date: %s"
 msgstr "Datum: %s"
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:50
+#: zp-core/zp-extensions/scriptless-socialsharing.php:49
 #, fuzzy
 msgid "Provides scriptless and privacy friendly sharing buttons."
 msgstr "Poskytuje skripty bez omezení a soukromí."
@@ -25177,23 +25128,23 @@ msgstr "Poskytuje skripty bez omezení a soukromí."
 msgid "Social networks"
 msgstr "Sociální sítě"
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:81
+#: zp-core/zp-extensions/scriptless-socialsharing.php:80
 #, fuzzy
 msgid "iOS only"
 msgstr "Pouze obrázek"
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:91
+#: zp-core/zp-extensions/scriptless-socialsharing.php:90
 #, fuzzy
 #| msgid "Select the mail protocol you wish to be used."
 msgid "Select the social networks for which you wish buttons."
 msgstr "Vyberte typ protokolu, který chcete použít."
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:92
+#: zp-core/zp-extensions/scriptless-socialsharing.php:91
 #, fuzzy
 msgid "Icon font and default CSS"
 msgstr "Ikona písma a výchozí CSS"
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:96
+#: zp-core/zp-extensions/scriptless-socialsharing.php:95
 #, fuzzy
 msgid ""
 "Uncheck to disable loading the included font and CSS and use your own theme "
@@ -25202,22 +25153,22 @@ msgstr ""
 "Zrušte zaškrtnutí, pokud chcete zakázat načítání zahrnutého písma a CSS a "
 "použít vlastní písmo založené na motivu a CSS."
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:97
+#: zp-core/zp-extensions/scriptless-socialsharing.php:96
 #, fuzzy
 msgid "Icons only"
 msgstr "Pouze ikony"
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:101
+#: zp-core/zp-extensions/scriptless-socialsharing.php:100
 #, fuzzy
 msgid "Check to hide the service name and only show icon buttons."
 msgstr "Zaškrtněte, chcete-li skrýt název služby a zobrazit pouze tlačítka ikon."
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:102
+#: zp-core/zp-extensions/scriptless-socialsharing.php:101
 #, fuzzy
 msgid "Twitter user name"
 msgstr "Twitter jméno"
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:106
+#: zp-core/zp-extensions/scriptless-socialsharing.php:105
 #, fuzzy
 msgid ""
 "Enter your Twitter name without @ here if you like to have it appended to "
@@ -25226,7 +25177,7 @@ msgstr ""
 "Pokud chcete, aby byl váš Twitter přidán ke tweetu, zadejte své jméno na "
 "Twitteru."
 
-#: zp-core/zp-extensions/scriptless-socialsharing.php:327
+#: zp-core/zp-extensions/scriptless-socialsharing.php:319
 #, fuzzy
 #| msgid "E-mail"
 msgid "e-mail"
@@ -25476,7 +25427,7 @@ msgstr ""
 #: zp-core/zp-extensions/security-logger.php:196
 #, fuzzy
 msgid "Failed"
-msgstr "Smazání alba selhalo"
+msgstr "%s se nepodařilo odstranit."
 
 #: zp-core/zp-extensions/security-logger.php:199
 #, fuzzy
@@ -25805,9 +25756,10 @@ msgid "Album date"
 msgstr "& Datum alba: Selects the date of the oldest image"
 
 #: zp-core/zp-extensions/sitemap-extended.php:91
+#: zp-core/zp-extensions/sitemap-extended.php:98
 #, fuzzy
 #| msgid "Last changed"
-msgid "lastchange date"
+msgid "last change date"
 msgstr "Poslední změna"
 
 #: zp-core/zp-extensions/sitemap-extended.php:92
@@ -25819,12 +25771,6 @@ msgstr "Pole použít k poslednímu dni modifikace alb."
 #, fuzzy
 msgid "Image date"
 msgstr "Obrázek dne"
-
-#: zp-core/zp-extensions/sitemap-extended.php:98
-#, fuzzy
-#| msgid "Last changed"
-msgid "last change date"
-msgstr "Poslední změna"
 
 #: zp-core/zp-extensions/sitemap-extended.php:99
 #, fuzzy
@@ -26293,7 +26239,7 @@ msgid "This album is password protected!"
 msgstr "Toto album je chráněno heslem!"
 
 #: zp-core/zp-extensions/slideshow.php:197
-#: zp-core/zp-extensions/slideshow2.php:278
+#: zp-core/zp-extensions/slideshow2.php:289
 #, fuzzy
 msgid "No images for the slideshow!"
 msgstr "Šírka fotografií v prezentaci."
@@ -26315,7 +26261,7 @@ msgid "Play"
 msgstr "Přehrát"
 
 #: zp-core/zp-extensions/slideshow.php:461
-#: zp-core/zp-extensions/slideshow2.php:429
+#: zp-core/zp-extensions/slideshow2.php:440
 #, fuzzy
 msgid ""
 "provide the album name as %1 and (optionally) <code>true</code> (or "
@@ -26329,13 +26275,13 @@ msgstr ""
 "výchozí hodnoty."
 
 #: zp-core/zp-extensions/slideshow.php:590
-#: zp-core/zp-extensions/slideshow2.php:592
+#: zp-core/zp-extensions/slideshow2.php:603
 #, fuzzy, php-format
 msgid "image %1$s of %2$s"
 msgstr "Obrázek %1$s z %2$s"
 
 #: zp-core/zp-extensions/slideshow.php:698
-#: zp-core/zp-extensions/slideshow2.php:680
+#: zp-core/zp-extensions/slideshow2.php:691
 msgid "Invalid linking to the slideshow page."
 msgstr "Neplatný odkaz na stránku s prezentací."
 
@@ -26481,7 +26427,7 @@ msgstr "ColorBox: Image titul"
 msgid "Colorbox: Slide width"
 msgstr "ColorBox: Šířka snímku"
 
-#: zp-core/zp-extensions/slideshow2.php:285
+#: zp-core/zp-extensions/slideshow2.php:296
 msgid "pause"
 msgstr "Pauza"
 
@@ -27147,7 +27093,7 @@ msgstr "Vyberte jazyk pro pípání zprávu."
 #: zp-core/zp-extensions/tweet_news.php:116
 #, fuzzy
 msgid "*not categorized*"
-msgstr "bez kategorie"
+msgstr "Bez kategorie"
 
 #: zp-core/zp-extensions/tweet_news.php:125
 msgid ""
@@ -27167,7 +27113,7 @@ msgstr "Tweeting Chyba <code>%1$s</code> : %2$s"
 #: zp-core/zp-extensions/tweet_news.php:323
 #, fuzzy, php-format
 msgid "New image: [%2$s]%1$s "
-msgstr "Nový obrázek: [%2$s] %1$s"
+msgstr "Nová fotografie: [%2$s] %1$s"
 
 #: zp-core/zp-extensions/tweet_news.php:325
 #, fuzzy, php-format
@@ -27658,7 +27604,7 @@ msgstr "Přiřazení skupin"
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:152
 #, fuzzy
 msgid "Deleted"
-msgstr "Po uložení změn bude album smazáno."
+msgstr "%s bude smazána po uložení změn."
 
 #: zp-core/zp-extensions/user_groups/user_groups-tab.php:166
 msgid "Groups"
@@ -29165,7 +29111,7 @@ msgstr "Urvat"
 #, fuzzy
 #| msgid "Click on"
 msgid "Click"
-msgstr "Pro změnu ořezu náhledu klikněte na fotografii."
+msgstr "<strong>Varování!</strong> klikněte pro podrobnosti"
 
 #: zp-core/zp-extensions/zoomImage.php:63
 #, fuzzy
@@ -29261,14 +29207,10 @@ msgstr ""
 msgid "Sample CAPTCHA image"
 msgstr "Ukázka obrázku CAPTCHA."
 
-#~ msgid "Generates and displays a Doc file for filters."
-#~ msgstr "Vygeneruje a zobrazí soubor Doc pro filtry."
-
-#~ msgid "Filter Doc Gen"
-#~ msgstr "Filtr Doc Gen"
-
-#~ msgid "Generate filter document"
-#~ msgstr "Generuje dokument filtra"
+#, fuzzy
+#~| msgid "Last changed"
+#~ msgid "lastchange date"
+#~ msgstr "Poslední změna"
 
 #, fuzzy
 #~| msgid "Check to enable slideshow for the <em>Smoothgallery</em> personality."
@@ -29283,6 +29225,15 @@ msgstr "Ukázka obrázku CAPTCHA."
 #~ "enabled."
 #~ msgstr ""
 #~ "vyžaduje, <em>galleryToken</em> <code>mod_rewrite</code> možnost povolit."
+
+#~ msgid "Generates and displays a Doc file for filters."
+#~ msgstr "Vygeneruje a zobrazí soubor Doc pro filtry."
+
+#~ msgid "Filter Doc Gen"
+#~ msgstr "Filtr Doc Gen"
+
+#~ msgid "Generate filter document"
+#~ msgstr "Generuje dokument filtra"
 
 #, fuzzy
 #~| msgid "Setup files protected."
@@ -29403,7 +29354,7 @@ msgstr "Ukázka obrázku CAPTCHA."
 #~ "<em>Obnovit databázi</em>."
 
 #~ msgid "The speed in milliseconds the slides advance when clicked."
-#~ msgstr "Rychlost posunutí v milisekundách po kliknutí."
+#~ msgstr "Rychlost posunutí na další slide v milisekundách - po kliknutí."
 
 #, fuzzy
 #~ msgid "Suffix Not Allowed: %s"
@@ -31969,10 +31920,6 @@ msgstr "Ukázka obrázku CAPTCHA."
 #~ msgid "tinyZenpage plugin"
 #~ msgstr "Povolit Zenpage CMS plugin"
 
-#, fuzzy
-#~ msgid "Custom image size"
-#~ msgstr "Uživatelská index stránka:"
-
 #~ msgid ""
 #~ "Predefined size (px) for custom size images included using tinyZenpage."
 #~ msgstr ""
@@ -33752,9 +33699,6 @@ msgstr "Ukázka obrázku CAPTCHA."
 
 #~ msgid "Controls autohide"
 #~ msgstr "Automatické skrývání ovládacích prvků:"
-
-#~ msgid "fullscreen"
-#~ msgstr "celá obrazovka "
 
 #~ msgid ""
 #~ "Specifies whether the controlbar should be hidden when the user is not "
