@@ -88,7 +88,7 @@ class sitemap {
 						'selections' => array(
 								gettext("date") => "date",
 								gettext("mtime") => "mtime",
-								gettext("lastchange date") => 'lastchange'),
+								gettext("last change date") => 'lastchange'),
 						'desc' => gettext('Field to use for the last modification date of albums.')),
 				gettext('Image date') => array('key' => 'sitemap_lastmod_images', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 1,

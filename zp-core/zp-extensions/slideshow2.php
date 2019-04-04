@@ -227,7 +227,7 @@ class cycle {
 		//sort out non image types as the script does not work with them
 		foreach ($slides_temp as $slide) {
 			$imgobj = newImage($albumobj, $slide);
-			if ($imgobj->isPhoto()) {
+			if (isImagePhoto($imgobj)) {
 				$slides[] = $slide;
 			}
 		}
