@@ -64,9 +64,6 @@ function adminToolbox() {
 		if (!$name = $_zp_current_admin_obj->getName()) {
 			$name = $_zp_current_admin_obj->getUser();
 		}
-
-
-
 		if (zp_loggedin(UPLOAD_RIGHTS) && in_array($_zp_gallery_page, array('index.php', 'gallery.php', 'album.php'))) {
 			$myAlbums = array();
 			if (is_null($_zp_current_album)) {
@@ -78,13 +75,7 @@ function adminToolbox() {
 					}
 				}
 			} else {
-				$albumsprime = $_zp_current_album->getAlbums(0);
-				foreach ($albumsprime as $album) {
-					$albumobj = newAlbum($album);
-					if (!$albumobj->isDynamic()) {
-						$myAlbums[$albumobj->getFileName()] = $albumobj->getTitle();
-					}
-				}
+				$myAlbums[$_zp_current_album->getFileName()] = $_zp_current_album->getTitle();
 			}
 			?>
 			<script type="text/javascript">
@@ -305,7 +296,8 @@ function adminToolbox() {
 								<?php printLinkHTML($zf . '/admin-tabs/upload.php?album=' . pathurlencode($albumname), gettext("Upload here"), NULL, NULL, NULL); ?>
 							</li>
 							<li>
-								<a href="javascript:newAlbum('<?php echo pathurlencode($albumname); ?>',true);"><?php echo gettext("New subalbum"); ?></a>
+								<input id="newAlbumFolder" name="newAlbumFolder" type="hidden" value="<?php echo html_encode($albumname); ?>">
+								<a href="javascript:newAlbum(true);"><?php echo gettext("New subalbum"); ?></a>
 							</li>
 							<?php
 						}
