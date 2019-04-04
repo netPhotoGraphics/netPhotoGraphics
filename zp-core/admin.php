@@ -61,7 +61,6 @@ if (zp_loggedin(ADMIN_RIGHTS)) {
 		}
 
 		$newestVersionURI = getOption('getUpdates_latest');
-		$repro = basename(dirname(dirname(dirname(dirname($newestVersionURI)))));
 		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
 	}
 }
@@ -342,7 +341,7 @@ $buttonlist = array();
 						'formname' => 'getUpdates_button',
 						'action' => $newestVersionURI,
 						'icon' => ARROW_DOWN_GREEN,
-						'title' => sprintf(gettext('Download %1$s version %2$s to your computer.'), $repro, $newestVersion),
+						'title' => sprintf(gettext('Download netPhotoGraphics version %1$s to your computer.'), $newestVersion),
 						'alt' => '',
 						'hidden' => '',
 						'rights' => ADMIN_RIGHTS
@@ -442,7 +441,7 @@ $buttonlist = array();
 								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=download_update',
 								'icon' => INSTALL,
 								'alt' => '',
-								'title' => sprintf(gettext('Download and install %1$s version %2$s.'), $repro, $newestVersion),
+								'title' => sprintf(gettext('Download and install netPhotoGraphics version %1$s on your site.'), $newestVersion),
 								'hidden' => '<input type="hidden" name="action" value="download_update" />',
 								'rights' => ADMIN_RIGHTS
 						);

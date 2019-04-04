@@ -1664,10 +1664,10 @@ function isImageVideo($image = NULL) {
  * @return bool
  */
 function isImagePhoto($image = NULL) {
+	global $_zp_current_image;
 	if (is_null($image)) {
 		if (!in_context(ZP_IMAGE))
 			return false;
-		global $_zp_current_image;
 		$image = $_zp_current_image;
 	}
 	$class = strtolower(get_class($image));
