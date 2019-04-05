@@ -105,12 +105,13 @@ function adminToolbox() {
 					<?php
 				}
 				if (zp_loggedin(ALBUM_RIGHTS)) {
-					$albums = false;
-					foreach ($_zp_gallery->getAlbums() as $key => $analbum) {
-						$albumobj = newAlbum($analbum);
-						if ($albumobj->isMyItem(ALBUM_RIGHTS)) {
-							$albums = true;
-							break;
+					if (!$albums = zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+						foreach ($_zp_gallery->getAlbums() as $key => $analbum) {
+							$albumobj = newAlbum($analbum);
+							if ($albumobj->isMyItem(ALBUM_RIGHTS)) {
+								$albums = true;
+								break;
+							}
 						}
 					}
 					if ($albums) {
