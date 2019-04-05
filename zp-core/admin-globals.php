@@ -9,13 +9,15 @@
  */
 // force UTF-8 Ø
 
-$_zp_button_actions = $zenphoto_tabs = array();
 require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(dirname(__FILE__) . '/global-definitions.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
 
 zp_session_start();
 require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
 httpsRedirect();
+
+$_zp_button_actions = $zenphoto_tabs = array();
 
 if (abs(OFFSET_PATH) != 2) {
 	if (TEST_RELEASE) {

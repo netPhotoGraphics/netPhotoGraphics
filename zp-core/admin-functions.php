@@ -7,7 +7,6 @@
  * @package admin
  */
 // force UTF-8 Ø
-
 require_once(dirname(__FILE__) . '/functions.php');
 
 define('TEXTAREA_COLUMNS', 50);
