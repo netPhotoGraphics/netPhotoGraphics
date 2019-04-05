@@ -131,14 +131,15 @@ if (@$_zp_loggedin) {
 		zp_register_filter('admin_tabs', 'refresh_subtabs', -1800);
 
 		if ($_zp_loggedin & ALBUM_RIGHTS) {
-			$albums = $_zp_gallery->getAlbums();
-			foreach ($albums as $key => $analbum) {
+			$albums = false;
+			foreach ($_zp_gallery->getAlbums() as $key => $analbum) {
 				$albumobj = newAlbum($analbum);
-				if (!$albumobj->isMyItem(ALBUM_RIGHTS)) {
-					unset($albums[$key]);
+				if ($albumobj->isMyItem(ALBUM_RIGHTS)) {
+					$albums = true;
+					break;
 				}
 			}
-			if (!empty($albums)) {
+			if ($albums) {
 				$zenphoto_tabs['edit'] = array('text' => gettext("albums"),
 						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/edit.php',
 						'subtabs' => NULL);
