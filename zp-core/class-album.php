@@ -852,7 +852,7 @@ class AlbumBase extends MediaObject {
 			$subRights = $this->subRights();
 			if ($subRights) {
 				$rights = LIST_RIGHTS;
-				if ($subRights & (MANAGED_OBJECT_RIGHTS_EDIT)) {
+				if ($subRights & MANAGED_OBJECT_RIGHTS_EDIT) {
 					$rights = $rights | ALBUM_RIGHTS;
 				}
 				if ($subRights & MANAGED_OBJECT_RIGHTS_UPLOAD) {

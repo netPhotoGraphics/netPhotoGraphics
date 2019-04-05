@@ -105,14 +105,16 @@ function adminToolbox() {
 					<?php
 				}
 				if (zp_loggedin(ALBUM_RIGHTS)) {
-					$albums = $_zp_gallery->getAlbums();
-					foreach ($albums as $key => $analbum) {
-						$albumobj = newAlbum($analbum);
-						if (!$albumobj->isMyItem(ALBUM_RIGHTS)) {
-							unset($albums[$key]);
+					if (!$albums = zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+						foreach ($_zp_gallery->getAlbums() as $key => $analbum) {
+							$albumobj = newAlbum($analbum);
+							if ($albumobj->isMyItem(ALBUM_RIGHTS)) {
+								$albums = true;
+								break;
+							}
 						}
 					}
-					if (!empty($albums)) {
+					if ($albums) {
 						?>
 						<li>
 							<?php printLinkHTML($zf . '/admin-tabs/edit.php', gettext("Albums"), NULL, NULL, NULL); ?>
@@ -4379,7 +4381,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

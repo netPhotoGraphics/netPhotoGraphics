@@ -7,7 +7,6 @@
  * @package admin
  */
 // force UTF-8 Ø
-
 require_once(dirname(__FILE__) . '/functions.php');
 
 define('TEXTAREA_COLUMNS', 50);
@@ -134,6 +133,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 	$multi = getOption('multi_lingual');
 	header('Last-Modified: ' . ZP_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
+	if (!zp_loggedin()) {
+		//	try to prevent browser, etc. from caching login form
+		header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
+	}
 	zp_apply_filter('admin_headers');
 	?>
 	<!DOCTYPE html>

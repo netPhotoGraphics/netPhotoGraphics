@@ -11,8 +11,6 @@
  */
 // force UTF-8 Ø
 
-require_once(dirname(__FILE__) . '/global-definitions.php');
-
 /**
  * Common error reporting for query errors
  * @param type $sql
@@ -450,15 +448,23 @@ function array_map_recursive(callable $func, array $array) {
 
 function debug_var($args) {
 	if (!is_array($args)) {
-		$args = array($args);
+		$args = array('var' => $args);
 	}
-	$args = array_map_recursive('html_encode', $args);
-	echo "<pre>\n";
-	foreach ($args as $arg => $v) {
-		if (is_string($arg)) {
-			echo $arg . ' = ';
+	$dump = explode("\n", var_export($args, true));
+	//get rid of the
+	array_shift($dump);
+	array_pop($dump);
+	$br = '';
+	echo '<pre>' . "\n";
+	foreach ($dump as $i => $line) {
+		if (trim($line) == 'array (') {
+			echo 'array (';
+		} else {
+			$line = html_encode($line);
+			$line = str_replace(' ', '&nbsp;', $line);
+			echo $br . $line;
+			$br = '<br />';
 		}
-		echo print_r($v, true) . "\n";
 	}
 	echo '</pre>';
 }

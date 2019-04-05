@@ -9,13 +9,15 @@
  */
 // force UTF-8 Ø
 
-$_zp_button_actions = $zenphoto_tabs = array();
 require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(dirname(__FILE__) . '/global-definitions.php');
 require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
 
 zp_session_start();
 require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
 httpsRedirect();
+
+$_zp_button_actions = $zenphoto_tabs = array();
 
 if (abs(OFFSET_PATH) != 2) {
 	if (TEST_RELEASE) {
@@ -131,14 +133,16 @@ if (@$_zp_loggedin) {
 		zp_register_filter('admin_tabs', 'refresh_subtabs', -1800);
 
 		if ($_zp_loggedin & ALBUM_RIGHTS) {
-			$albums = $_zp_gallery->getAlbums();
-			foreach ($albums as $key => $analbum) {
-				$albumobj = newAlbum($analbum);
-				if (!$albumobj->isMyItem(ALBUM_RIGHTS)) {
-					unset($albums[$key]);
+			if (!$albums = zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+				foreach ($_zp_gallery->getAlbums() as $key => $analbum) {
+					$albumobj = newAlbum($analbum);
+					if ($albumobj->isMyItem(ALBUM_RIGHTS)) {
+						$albums = true;
+						break;
+					}
 				}
 			}
-			if (!empty($albums)) {
+			if ($albums) {
 				$zenphoto_tabs['edit'] = array('text' => gettext("albums"),
 						'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/edit.php',
 						'subtabs' => NULL);
