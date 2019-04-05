@@ -8,6 +8,7 @@
 // force UTF-8 Ø
 
 require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(dirname(__FILE__) . '/global-definitions.php');
 require_once(dirname(__FILE__) . '/initialize-basic.php');
 require_once(dirname(__FILE__) . '/initialize-general.php');
 
@@ -90,30 +91,6 @@ function truncate_string($string, $length, $elipsis = '...') {
 		}
 	}
 	return $string;
-}
-
-/**
- *
- * fixes unbalanced HTML tags. Used by shortenContent, html_encodeTagged
- * @param string $html
- * @return string
- */
-if (class_exists('tidy')) {
-
-	function cleanHTML($html) {
-		$tidy = new tidy();
-		$tidy->parseString($html, array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
-		$tidy->cleanRepair();
-		return $tidy;
-	}
-
-} else {
-	require_once( SERVERPATH . '/' . ZENFOLDER . '/htmLawed.php');
-
-	function cleanHTML($html) {
-		return htmLawed($html, array('tidy' => '2s2n'));
-	}
-
 }
 
 /**
@@ -2320,20 +2297,6 @@ function load_jQuery_scripts($where, $ui = true) {
 	if ($ui) {
 		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/jquery-ui-1.12.1.min.js');
 	}
-}
-
-if (!function_exists('hex2bin')) {
-
-	function hex2bin($h) {
-		if (!is_string($h))
-			return null;
-		$r = '';
-		for ($a = 0; $a < strlen($h); $a += 2) {
-			$r .= chr(hexdec($h{$a} . $h{($a + 1)}));
-		}
-		return $r;
-	}
-
 }
 
 /**

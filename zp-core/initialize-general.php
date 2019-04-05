@@ -14,6 +14,36 @@ if (!function_exists("json_encode")) {
 require_once(dirname(__FILE__) . '/functions-filter.php');
 require_once(dirname(__FILE__) . '/lib-kses.php');
 
+if (class_exists('tidy')) {
+
+	function cleanHTML($html) {
+		$tidy = new tidy();
+		$tidy->parseString($html, array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
+		$tidy->cleanRepair();
+		return $tidy;
+	}
+
+} else {
+	require_once( SERVERPATH . '/' . ZENFOLDER . '/htmLawed.php');
+
+	function cleanHTML($html) {
+		return htmLawed($html, array('tidy' => '2s2n'));
+	}
+
+}
+if (!function_exists('hex2bin')) {
+
+	function hex2bin($h) {
+		if (!is_string($h))
+			return null;
+		$r = '';
+		for ($a = 0; $a < strlen($h); $a += 2) {
+			$r .= chr(hexdec($h{$a} . $h{($a + 1)}));
+		}
+		return $r;
+	}
+
+}
 
 $_zp_captcha = new _zp_captcha(); // this will be overridden by the plugin if enabled.
 $_zp_HTML_cache = new _zp_HTML_cache(); // this will be overridden by the plugin if enabled.
