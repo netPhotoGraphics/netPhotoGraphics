@@ -121,7 +121,6 @@ function adminToolbox() {
 					}
 				}
 
-
 				zp_apply_filter('admin_toolbox_global', $zf);
 
 				if (zp_loggedin(TAGS_RIGHTS)) {
@@ -197,10 +196,8 @@ function adminToolbox() {
 							</li>
 							<?php
 						}
-						if (zp_loggedin(UPLOAD_RIGHTS)) {
-							// admin has upload rights, provide an upload link for a new album
+						if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 							?>
-
 							<li>
 								<a href="javascript:newAlbum('',true);"><?php echo gettext("New Album"); ?></a>
 							</li>
@@ -4382,7 +4379,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
