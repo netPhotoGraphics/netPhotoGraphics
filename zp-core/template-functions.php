@@ -64,28 +64,14 @@ function adminToolbox() {
 		if (!$name = $_zp_current_admin_obj->getName()) {
 			$name = $_zp_current_admin_obj->getUser();
 		}
+
 		if (zp_loggedin(UPLOAD_RIGHTS) && in_array($_zp_gallery_page, array('index.php', 'gallery.php', 'album.php'))) {
-			$myAlbums = array();
-			if (is_null($_zp_current_album)) {
-				$albumsprime = $_zp_gallery->getAlbums(0);
-				foreach ($albumsprime as $album) { // check for rights
-					$albumobj = newAlbum($album);
-					if (!$albumobj->isDynamic() && $albumobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-						$myAlbums[$albumobj->getFileName()] = $albumobj->getTitle();
-					}
-				}
-			} else {
-				$myAlbums[$_zp_current_album->getFileName()] = $_zp_current_album->getTitle();
-			}
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
-				function newAlbum(albumtab) {
+				function newAlbum(folder, albumtab) {
 					var album = prompt('<?php echo gettext('New album name?'); ?>', '<?php echo gettext('new album'); ?>');
 					if (album) {
-
-						folder = $('#newAlbumFolder').val();
-
 						window.location = '<?php echo PROTOCOL . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . "/" . ZENFOLDER; ?>/admin-tabs/edit.php?action=newalbum&folder=' + encodeURIComponent(folder) + '&name=' + encodeURIComponent(album) + '&albumtab=' + albumtab + '&XSRFToken=<?php echo getXSRFToken('newalbum'); ?>';
 					}
 				}
@@ -119,7 +105,14 @@ function adminToolbox() {
 					<?php
 				}
 				if (zp_loggedin(ALBUM_RIGHTS)) {
-					if (!empty($myAlbums)) {
+					$albums = $_zp_gallery->getAlbums();
+					foreach ($albums as $key => $analbum) {
+						$albumobj = newAlbum($analbum);
+						if (!$albumobj->isMyItem(ALBUM_RIGHTS)) {
+							unset($albums[$key]);
+						}
+					}
+					if (!empty($albums)) {
 						?>
 						<li>
 							<?php printLinkHTML($zf . '/admin-tabs/edit.php', gettext("Albums"), NULL, NULL, NULL); ?>
@@ -127,7 +120,6 @@ function adminToolbox() {
 						<?php
 					}
 				}
-
 
 				zp_apply_filter('admin_toolbox_global', $zf);
 
@@ -204,28 +196,11 @@ function adminToolbox() {
 							</li>
 							<?php
 						}
-						if (zp_loggedin(UPLOAD_RIGHTS) && !empty($myAlbums)) {
-							// user has edit rights, provide an link for a new album
+						if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 							?>
 							<li>
-								<a href="javascript:newAlbum(true);">
+								<a href="javascript:newAlbum('',true);"><?php echo gettext("New Album"); ?></a>
 							</li>
-							<?php
-							if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-								echo gettext("New Album");
-								?>
-								<input id="newAlbumFolder" name="newAlbumFolder" type="hidden" value="">
-								<?php
-							} else {
-								$list = '<select id="newAlbumFolder" name="newAlbumFolder" >';
-								foreach ($myAlbums as $folder => $display) {
-									$list .= '<option value="' . html_encode($folder) . '">' . html_encode($display) . '</option>';
-								}
-								$list .= '</select>';
-								printf('New Album in %1$s', $list);
-							}
-							?>
-							</a>
 							<?php
 						}
 						if ($_zp_gallery_page == 'index.php') {
@@ -296,8 +271,7 @@ function adminToolbox() {
 								<?php printLinkHTML($zf . '/admin-tabs/upload.php?album=' . pathurlencode($albumname), gettext("Upload here"), NULL, NULL, NULL); ?>
 							</li>
 							<li>
-								<input id="newAlbumFolder" name="newAlbumFolder" type="hidden" value="<?php echo html_encode($albumname); ?>">
-								<a href="javascript:newAlbum(true);"><?php echo gettext("New subalbum"); ?></a>
+								<a href="javascript:newAlbum('<?php echo pathurlencode($albumname); ?>',true);"><?php echo gettext("New subalbum"); ?></a>
 							</li>
 							<?php
 						}

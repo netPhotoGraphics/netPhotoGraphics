@@ -30,8 +30,12 @@ $setupMutex->lock();
 
 if ($debug = isset($_REQUEST['debug'])) {
 	if (!$debug = $_REQUEST['debug']) {
-		$debug = true;
+		$debug = 'debug';
 	}
+
+	$debugq = '&' . $debug;
+} else {
+	$debugq = '';
 }
 
 $upgrade = false;
@@ -45,8 +49,9 @@ if (isset($_REQUEST['autorun'])) {
 	} else {
 		$autorun = 'admin';
 	}
+	$autorunq = '&autorun=' . $autorun;
 } else {
-	$displayLimited = $autorun = false;
+	$displayLimited = $autorun = $autorunq = false;
 }
 
 session_cache_limiter('nocache');
@@ -497,7 +502,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		<div id="content">
 			<?php
 			$blindInstall = $warn = false;
-
 			if ($connection && empty($_zp_options)) {
 				primeOptions();
 			}
@@ -770,7 +774,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						if ($cfg) {
 							primeMark(gettext('File permissions'));
 							if ($environ) {
-								$chmodselector = '<form action="#"><input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
+								$chmodselector = '<form action="#">' .
+												'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
+												'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
+												'<input type="hidden" name="debug" value="' . $debug . '">' .
 												'<p>' . sprintf(gettext('Set File permissions to %s.'), permissionsSelector($permission_names, $chmod)) .
 												'</p></form>';
 							} else {
@@ -845,9 +852,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												break;
 										}
 										$msg2 = '<p>' . sprintf(gettext('If your server filesystem character set is different from <code>%s</code> and you create album or image filenames names containing characters with diacritical marks you may have problems with these objects.'), $charset_defined) . '</p>' .
-														'<form action="#"><input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" /><input type="hidden" name="charset_attempts" value="' . $tries . '" /><p>' .
+														'<form action="#">' .
+														'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
+														'<input type="hidden" name="charset_attempts" value="' . $tries . '" />' .
+														'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
+														'<input type="hidden" name="debug" value="' . $debug . '">' . ''
+														. '<p>' .
 														gettext('Change the filesystem character set define to %1$s') .
-														'</p></form><br class="clearall">';
+														'</p><input type="hidden" name="autorun" value="' . ltrim($autorunq, '&') . '><input type="hidden" name="debug" value="' . ltrim($debugq, '&') . '></form><br class="clearall">';
 
 										if (isset($_zp_conf_vars['FILESYSTEM_CHARSET'])) {
 											$selectedset = $_zp_conf_vars['FILESYSTEM_CHARSET'];
@@ -1304,7 +1316,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
-
 						if (setupUserAuthorized() && $connection && zpFunctions::hasPrimaryScripts()) {
 							primeMark(gettext('Installation files'));
 							$systemlist = $filelist = array();
@@ -1369,7 +1380,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										}
 									} else {
 										checkMark(-1, '', gettext('Core folders [Some unknown files were found]'), gettext('You should remove the following files: ') . '<br /><code>' . $_zp_UTF8->convert(implode('<br />', $systemlist), FILESYSTEM_CHARSET, 'UTF-8') .
-														'</code><p class="buttons"><a href="?delete_extra' . ($debug ? '&amp;debug' : '') . '">' . gettext("Delete extra files") . '</a></p><br class="clearall"><br />');
+														'</code><p class="buttons"><a href="?delete_extra' . html_encode($autorunq . $debugq) . '">' . gettext("Delete extra files") . '</a></p><br class="clearall"><br />');
 									}
 								}
 								checkMark($permissions, gettext("Core file permissions"), gettext("Core file permissions [not correct]"), gettext('Setup could not set the one or more components to the selected permissions level. You will have to set the permissions manually.'));
@@ -1752,10 +1763,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										<h2><?php echo $dbmsg; ?></h2>
 										<?php
 									}
-									$task = "update";
-									if ($debug) {
-										$task .= '&debug=' . $debug;
-									}
+									$task = "update" . $debugq . $autorunq;
 									if ($copyaccess) {
 										$task .= '&copyhtaccess';
 									}
@@ -1767,9 +1775,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								} else {
 									$icon = CHECKMARK_GREEN;
 								}
-								if ($autorun) {
-									$task .= '&autorun = ' . $autorun;
-								}
+
+								$task .= $autorunq;
 								if ($blindInstall) {
 									ob_end_clean();
 									$blindInstall = false;
