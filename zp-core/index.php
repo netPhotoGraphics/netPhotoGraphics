@@ -44,7 +44,7 @@ foreach (getEnabledPlugins() as $extension => $plugin) {
 $_zp_script_timer['feature plugins'] = microtime();
 
 require_once(SERVERPATH . "/" . ZENFOLDER . '/rewrite.php');
-require_once(SERVERPATH.'/'.ZENFOLDER . '/template-functions.php');
+require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
 	define('SEO_WEBPATH', WEBPATH);
@@ -130,6 +130,9 @@ if ($zp_request && $_zp_script && file_exists($_zp_script = SERVERPATH . "/" . i
 	if (!checkAccess($hint, $show)) { // not ok to view
 		//	don't cache the logon page or you can never see the real one
 		$_zp_HTML_cache->abortHTMLCache(true);
+		header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
 		$_zp_gallery_page = 'password.php';
 		$_zp_script = SERVERPATH . '/' . THEMEFOLDER . '/' . $_index_theme . '/password.php';
 		if (!file_exists(internalToFilesystem($_zp_script))) {
