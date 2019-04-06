@@ -187,20 +187,20 @@ echo '</head>' . "\n";
 								$id = postIndexEncode($user['id']);
 								?>
 								<label class="displayinline">
-									<?php echo WASTEBASKET; ?><input type="radio" name="r_<?php echo $id; ?>" value="delete"<?php echo $checked_delete; ?> />
+									<?php echo WASTEBASKET; ?><input type="radio" name="r_<?php echo $id; ?>" value="delete"<?php echo $checked_delete; ?> title="<?php echo gettext('Delete'); ?>" />
 								</label>&nbsp;&nbsp;
 								<label class="displayinline">
 									<?php
 									if ($user['valid'] == 2) {
 										echo LOCK;
 										?>
-										<input type="radio" name="r_<?php echo $id; ?>" value="enable"<?php echo $checked_disable; ?> />
+										<input type="radio" name="r_<?php echo $id; ?>" value="enable"<?php echo $checked_disable; ?> title="<?php echo gettext('Enable'); ?>" />
 										<?php
 										$userid = '<span style="color: darkred;">' . $userid . '</span>';
 									} else {
 										echo LOCK_OPEN;
 										?>
-										<input type="radio" name="r_<?php echo $id; ?>" value="disable"<?php echo $checked_disable; ?> />
+										<input type="radio" name="r_<?php echo $id; ?>" value="disable"<?php echo $checked_disable; ?> title="<?php echo gettext('Disable'); ?>" />
 										<?php
 									}
 									?>
@@ -210,7 +210,7 @@ echo '</head>' . "\n";
 									?>
 									<label class="displayinline">
 										<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
-										<input type="radio" name="r_<?php echo $id; ?>" value="force"<?php echo $checked_delete; ?> />
+										<input type="radio" name="r_<?php echo $id; ?>" value="force"<?php echo $checked_delete; ?> title="<?php echo gettext('Force password change'); ?>" />
 									</label>&nbsp;&nbsp;
 									<?php
 								}
@@ -220,7 +220,7 @@ echo '</head>' . "\n";
 										<?php
 										echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN;
 										?>
-										</span> <input type="radio" name="r_<?php echo $id; ?>" value="renew"<?php echo $checked_renew . $checked_disable; ?> />
+										</span> <input type="radio" name="r_<?php echo $id; ?>" value="renew"<?php echo $checked_renew . $checked_disable; ?> title="<?php echo gettext('Renew'); ?>" />
 									</label>&nbsp;&nbsp;
 									<label class="displayinline">
 										<?php
@@ -229,7 +229,7 @@ echo '</head>' . "\n";
 										}
 										echo ENVELOPE;
 										?>
-										<input type="radio" name="r_<?php echo $id; ?>" value="revalidate"<?php echo $checked_disable; ?> />
+										<input type="radio" name="r_<?php echo $id; ?>" value="revalidate"<?php echo $checked_disable; ?> title="<?php echo gettext('Email renewal link'); ?>" />
 									</label>&nbsp;&nbsp;
 									<?php
 								}
@@ -242,8 +242,8 @@ echo '</head>' . "\n";
 					</ul>
 					<?php
 					echo WASTEBASKET . ' ' . gettext('Remove') . '&nbsp;&nbsp;';
-					echo LOCK_OPEN . ' ' . gettext('Disable') . '&nbsp;&nbsp;';
-					echo LOCK . gettext('Enable') . '&nbsp;&nbsp;';
+					echo LOCK . ' ' . gettext('Disabled') . '&nbsp;&nbsp;';
+					echo LOCK_OPEN . gettext('Enabled') . '&nbsp;&nbsp;';
 					if (getOption('user_expiry_password_cycle')) {
 						echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED . ' ' . gettext('Force password renewal') . '&nbsp;&nbsp;';
 					}
