@@ -8,7 +8,6 @@
 // force UTF-8 Ø
 
 require_once(dirname(__FILE__) . '/functions-basic.php');
-require_once(dirname(__FILE__) . '/global-definitions.php');
 require_once(dirname(__FILE__) . '/initialize-basic.php');
 require_once(dirname(__FILE__) . '/initialize-general.php');
 
@@ -2389,14 +2388,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

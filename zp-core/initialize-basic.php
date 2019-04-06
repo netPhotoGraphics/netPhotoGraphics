@@ -3,7 +3,7 @@
 /*
  * one time initialization code for basic execution
  */
-
+require_once(dirname(__FILE__) . '/global-definitions.php');
 require_once(dirname(__FILE__) . '/lib-encryption.php');
 require_once(dirname(__FILE__) . '/lib-utf8.php');
 $_zp_UTF8 = new utf8();
