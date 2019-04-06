@@ -10,8 +10,7 @@
 // force UTF-8 Ø
 
 require_once(dirname(__FILE__) . '/functions-basic.php');
-require_once(dirname(__FILE__) . '/global-definitions.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
+require_once(dirname(__FILE__) . '/initialize-basic.php');
 
 zp_session_start();
 require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');

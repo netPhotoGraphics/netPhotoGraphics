@@ -634,6 +634,7 @@ echo $refresh;
 									<td colspan="100%" style="margin: 0pt; padding: 0pt;<?php echo $background; ?>">
 										<table class="unbordered" id='user-<?php echo $id; ?>'>
 											<tr>
+
 												<td style="margin-top: 0px; width: 48en;<?php echo $background; ?>" valign="top">
 													<?php
 													if (empty($userid)) {
@@ -677,8 +678,8 @@ echo $refresh;
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-															echo NO_RIGHTS;
-															echo $alterrights;
+												echo NO_RIGHTS;
+												echo $alterrights;
 															?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
 																		 <?php
@@ -686,6 +687,9 @@ echo $refresh;
 																		 ?>
 															<input type = "hidden" name="user[<?php echo $id ?>][confirmed]"	value="<?php echo NO_RIGHTS; ?>" />
 															<?php
+														}
+														if ($oldHash !== false) {
+															echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, Zenphoto_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
 														}
 														?>
 													</td>
@@ -699,9 +703,6 @@ echo $refresh;
 															?>
 															<span class="floatright">
 																<?php
-																if ($oldHash !== false) {
-																	echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, Zenphoto_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
-																}
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
 																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
