@@ -263,6 +263,7 @@ class _Authority {
 				$hash_type = 3;
 			}
 		};
+		$hash = NULL;
 		switch ($hash_type) {
 			case 0:
 				$hash = md5($user . $pass . HASH_SEED);
@@ -278,17 +279,30 @@ class _Authority {
 				$hash = str_replace('+', '-', base64_encode(self::pbkdf2($pass, $user . HASH_SEED)));
 				break;
 			case 4:
-				$hash = password_hash($pass, PASSWORD_BCRYPT);
+				if (defined('PASSWORD_BCRYPT')) {
+					$hash = password_hash($pass, PASSWORD_BCRYPT);
+				}
 				break;
 			case 5:
-				$hash = password_hash($pass, PASSWORD_ARGON2I);
+				if (defined('PASSWORD_ARGON2I')) {
+					$hash = password_hash($pass, PASSWORD_ARGON2I);
+				}
 				break;
 			case 6:
-				$hash = password_hash($pass, PASSWORD_ARGON2ID);
+				if (true || defined('PASSWORD_ARGON2ID')) {
+					$hash = password_hash($pass, PASSWORD_ARGON2ID);
+				}
 				break;
+			default:
+				$hash = NULL; //	current PHP version does not support the algorithm.
 		}
-		if (DEBUG_LOGIN) {
-			debugLog("passwordHash($user, $pass, $hash_type)[ " . HASH_SEED . " ]:$hash");
+		if (DEBUG_LOGIN || !$hash) {
+			$hashNames = array_flip(self::$hashList);
+			$algorithm = $hashNames[$hash_type];
+			if (!$hash) {
+				$hash = gettext('No PHP support');
+			}
+			debugLog("passwordHash($user, $pass, $algorithm)[ " . HASH_SEED . " ]:$hash");
 		}
 		return $hash;
 	}
@@ -1490,7 +1504,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
