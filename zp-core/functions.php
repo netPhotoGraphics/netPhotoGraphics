@@ -1904,10 +1904,12 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			$post_user = '';
 		}
 		$post_pass = sanitize($_POST['pass'], 0);
-		if (!empty($auth)) {
+		if (!empty($auth) && !empty($post_pass)) {
 			$alternates = array();
 			foreach (Zenphoto_Authority::$hashList as $hash => $hi) {
-				$alternates[] = Zenphoto_Authority::passwordHash($post_user, $post_pass, $hi);
+				if ($h = Zenphoto_Authority::passwordHash($post_user, $post_pass, $hi)) {
+					array_push($alternates, $h);
+				}
 			}
 			foreach ($auth as $try) {
 				$authType = $try['authType'];
@@ -2387,14 +2389,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
