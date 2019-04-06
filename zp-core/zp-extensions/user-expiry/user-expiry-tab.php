@@ -224,12 +224,15 @@ echo '</head>' . "\n";
 									</label>&nbsp;&nbsp;
 									<label class="displayinline">
 										<?php
-										if (!$user['email']) {
+										if ($user['email']) {
+											$title = gettext('Email renewal link');
+										} else {
+											$title = gettext('User has no email address');
 											$checked_disable = ' disabled="disabled"';
 										}
 										echo ENVELOPE;
 										?>
-										<input type="radio" name="r_<?php echo $id; ?>" value="revalidate"<?php echo $checked_disable; ?> title="<?php echo gettext('Email renewal link'); ?>" />
+										<input type="radio" name="r_<?php echo $id; ?>" value="revalidate"<?php echo $checked_disable; ?> title="<?php echo $title; ?>" />
 									</label>&nbsp;&nbsp;
 									<?php
 								}
