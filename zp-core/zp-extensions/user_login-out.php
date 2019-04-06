@@ -4,6 +4,23 @@
  *
  * Place a call on <var>printUserLogin_out()</var> where you want the link or form to appear.
  *
+ * <b>Login form options:</b>
+ * <dl>
+ * 	<dt><i>None</i></dt><dd><i>Provides a link to the login form.</i></dd>
+ *  <dt><i>Form</i></dt><dd><i>Displays the login form on the theme page.</i></dd>
+ *  <dt><i>Colorbox link</i>*</dt><dd><i>Provides a link that when clicked will pop-up a login form.</i></dd>
+ *  <dt><i>Colorbox inline</i>*</dt><dd><i>Displays the login form as a pop-up.</i></dd>
+ * </dl>
+ *
+ * *If the <code>colorbox_js</code> plugin is not enabled, these options default to <I>None</i>.
+ *
+ *
+ * <b>Note:</b> if your site is <i>private</i> you can use <i>Colorbox inline</i> to show a pop-up
+ * login form on your index page instead of displaying just the login page.
+ * To do this <code>index.php</code> must be checked in the <i>Unprotected pages</i> Gallery option.
+ * There will be no button to close the pop-up without logging in, but be aware that if the visitor types an escape
+ * the form will close and your index page will be visible.
+ *
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/user_login-out
@@ -34,7 +51,7 @@ class user_logout_options {
 
 	function getOptionsSupported() {
 		return array(gettext('Login form') => array('key' => 'user_logout_login_form', 'type' => OPTION_TYPE_RADIO,
-						'buttons' => array(gettext('None') => 0, gettext('Form') => 1, gettext('Colorbox') => 2),
+						'buttons' => array(gettext('None') => 0, gettext('Form') => 1, gettext('Colorbox link') => 2, gettext('Colorbox inline') => 3),
 						'desc' => gettext('If the user is not logged-in display an <em>in-line</em> logon form or a link to a modal <em>Colorbox</em> form.'))
 		);
 	}
@@ -140,6 +157,7 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 					<?php
 					break;
 				case 2:
+				case 3:
 					if (extensionEnabled('colorbox_js')) {
 						if (!zp_has_filter('theme_head', 'colorbox::css')) {
 							colorbox::css();
@@ -148,25 +166,31 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 						<script type="text/javascript">
 							// <!-- <![CDATA[
 							window.addEventListener('load', function () {
-								$(".logonlink").colorbox({
-								inline: true,
-												innerWidth: "400px",
-												href: "#passwordform",
-												close: '<?php echo gettext("close"); ?>',
+							$(".logonlink").colorbox({
+							inline: true,
+											innerWidth: "400px",
+											href: "#passwordform",
+											close: '<?php echo gettext("close"); ?>',
 						<?php
-						if (isset($_GET['logon_step'])) {
+						if ($showLoginForm == 3) {
 							?>
-									open: 1
+								closeButton:false,
+												open: 1
+							<?php
+						} else if (isset($_GET['logon_step'])) {
+							?>
+								open: 1
 							<?php
 						} else {
 							?>
-									open: $('#passwordform_enclosure .errorbox').length
+								open: $('#passwordform_enclosure .errorbox').length
 							<?php
 						}
 						?>
 							});
-							}, false);
-											// ]]> -->
+							}
+							, false);
+							// ]]> -->
 						</script>
 						<?php
 						if ($before) {
