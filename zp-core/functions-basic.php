@@ -446,7 +446,7 @@ function array_map_recursive(callable $func, array $array) {
 	return filter_var($array, \FILTER_CALLBACK, ['options' => $func]);
 }
 
-function debug_var($args) {
+function varDebug($args) {
 	if (!is_array($args)) {
 		$args = array('var' => $args);
 	}
@@ -616,7 +616,7 @@ function debugLogVar($var) {
 		$log = 'debug';
 	}
 	ob_start();
-	debug_var($var);
+	varDebug($var);
 	$str = ob_get_contents();
 	ob_end_clean();
 	$str = preg_replace('~<[/]*pre(.*?)>~', '', $str);
@@ -643,7 +643,9 @@ function zp_session_start() {
 	if ($result) {
 		return $result;
 	} else {
-		session_name('Session_' . str_replace('.', '_', ZENPHOTO_VERSION));
+		$v = explode('-', ZENPHOTO_VERSION);
+		$p = str_replace('/', '_', WEBPATH);
+		session_name('Session' . $p . '_' . str_replace('.', '_', $v[0]));
 		@ini_set('session.use_strict_mode', 1);
 		//	insure that the session data has a place to be saved
 		if (getOption('session_save_path')) {
