@@ -644,8 +644,8 @@ function zp_session_start() {
 		return $result;
 	} else {
 		$v = explode('-', ZENPHOTO_VERSION);
-		$p = str_replace('/', '_', WEBPATH);
-		session_name('Session' . $p . '_' . str_replace('.', '_', $v[0]));
+		$p = preg_replace('~/+~', '_', substr(FULLWEBPATH, strpos(FULLWEBPATH, ':') + 1));
+		session_name('Session' . str_replace('.', '_', $p . '_' . $v[0]));
 		@ini_set('session.use_strict_mode', 1);
 		//	insure that the session data has a place to be saved
 		if (getOption('session_save_path')) {
