@@ -44,7 +44,7 @@ class userAddressFields extends fieldExtender {
 					if (!empty($custom)) {
 						$sql = 'UPDATE ' . prefix('administrators') . ' SET ';
 						foreach ($custom as $field => $val) {
-							$sql.= '`' . $field . '`=' . db_quote($val) . ',';
+							$sql .= '`' . $field . '`=' . db_quote($val) . ',';
 						}
 						setupQuery($sql);
 					}
@@ -70,8 +70,8 @@ class userAddressFields extends fieldExtender {
 		return parent::_addToSearch($list, self::fields());
 	}
 
-	static function adminSave($updated, $userobj, $i, $alter) {
-		return parent::_adminSave($updated, $userobj, $i, $alter, self::fields());
+	static function adminSave($userobj, $i, $alter) {
+		return parent::_adminSave($userobj, $i, $alter, self::fields());
 	}
 
 	static function adminEdit($html, $userobj, $i, $background, $current) {
