@@ -64,11 +64,12 @@ if ($str = isolate('$option_interface', $p)) {
 	$option_interface = new $option_interface;
 }
 
+sendImage($_GET['class'], 'plugin_' . $extension);
+
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
 setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $startPO), $fullLog);
 
-sendImage($_GET['class'], 'plugin_' . $extension);
 exit();
 ?>

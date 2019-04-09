@@ -39,11 +39,12 @@ if (is_null($mod_rewrite)) {
 setOption('mod_rewrite_detected', 1);
 setupLog(gettext('Notice: “Module mod_rewrite” is working.') . ' ' . $msg, $fullLog);
 
+sendImage(0, 'mod_rewrite');
+
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
 setupLog(sprintf(gettext('Mod_rewrite setup completed in %1$.4f seconds'), $last - $start), $fullLog);
 
-sendImage(0, 'mod_rewrite');
 exit();
 ?>

@@ -648,17 +648,6 @@ if (!file_exists(SERVERPATH . '/favicon.ico')) {
 }
 
 setOptionDefault('default_copyright', sprintf(gettext('Copyright %1$u  : %2$s '), date('Y'), $_SERVER["HTTP_HOST"]));
-
-if (getOption('comment_name_required') == 1) {
-	setOption('comment_name_required', 'required');
-}
-if (getOption('comment_email_required') == 1) {
-	setOption('comment_email_required', 'required');
-}
-if (getOption('comment_web_required') == 1) {
-	setOption('comment_web_required', 'required');
-}
-
 setOptionDefault('fullsizeimage_watermark', getOption('fullimage_watermark'));
 
 
