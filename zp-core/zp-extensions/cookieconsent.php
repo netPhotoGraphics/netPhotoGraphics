@@ -1,9 +1,11 @@
 <?php
 /**
- * A plugin to add a cookie notify dialog to comply with the EU cookie law and Google's requirement for Google Ads and more
- * https://www.cookiechoices.org
+ * A plugin to add a cookie notify dialog to comply with the EU cookie law and Google's
+ * requirement for Google Ads and more. See
+ * {@link https://www.cookiechoices.org Helping publishers and advertisers with consent }
  *
- * Adapted of https://cookieconsent.insites.com
+ * Adapted of
+ * {@link https://cookieconsent.insites.com COOKIE CONSENT by Insites }
  *
  * @author Malte Müller (acrylian), Fred Sondaar (fretzl), Vincent Bourganel (vincent3569)
  * @license GPL v3 or later
@@ -14,7 +16,7 @@
  * @pluginCategory theme
  */
 $plugin_is_filter = 5 | THEME_PLUGIN;
-$plugin_description = gettext("A plugin to add a cookie notify dialog to comply with the EU cookie law and Google's request regarding usages of Google Adwords, Analytics and more");
+$plugin_description = gettext("A plugin to add a cookie notify dialog");
 $option_interface = 'cookieConsent';
 
 if (!isset($_COOKIE['cookieconsent_status'])) {
@@ -26,6 +28,7 @@ class cookieConsent {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			setOptionDefault('zpcookieconsent_domain', $_SERVER['HTTP_HOST']);
 			setOptionDefault('zpcookieconsent_expirydays', 365);
 			setOptionDefault('zpcookieconsent_theme', 'block');
 			setOptionDefault('zpcookieconsent_position', 'bottom');
@@ -153,8 +156,8 @@ class cookieConsent {
 					"theme": "<?php echo js_encode($theme); ?>",
 					"dismissOnScroll": <?php echo js_encode($dismiss_on_scroll); ?>,
 					"cookie": {
-						"domain": "<?php echo js_encode($domain); ?>",
-						"expiryDays": <?php echo js_encode($cookie_expiry); ?>
+						"expiryDays": <?php echo js_encode($cookie_expiry); ?>,
+						"domain": "<?php echo js_encode($domain); ?>"
 					},
 					"content": {
 						"message": "<?php echo js_encode($message); ?>",

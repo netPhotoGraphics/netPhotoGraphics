@@ -21,6 +21,11 @@ class rss_options {
 	function __construct() {
 		global $plugin_is_filter;
 		if (OFFSET_PATH == 2) {
+			setOptionDefault('RSS_album_image', 1);
+			setOptionDefault('RSS_comments', 1);
+			setOptionDefault('RSS_articles', 1);
+			setOptionDefault('RSS_pages', 1);
+			setOptionDefault('RSS_article_comments', 1);
 			setOptionDefault('RSS_truncate_length', '100');
 			setOptionDefault('RSS_zenpage_items', '10');
 			setOptionDefault('RSS_items', 10); // options for standard images rss

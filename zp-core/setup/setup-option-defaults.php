@@ -9,6 +9,8 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
+$setOptions = getOptionList();
+
 if (isset($_GET['debug'])) {
 	$debug = '&debug';
 } else {
@@ -27,28 +29,33 @@ if (!file_exists($testFile)) {
 	file_put_contents($testFile, '');
 }
 
+if (!isset($setOptions['extra_auth_hash_text'])) {
 // setup a hash seed
-$auth_extratext = "";
-$salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
-$list = range(0, strlen($salt) - 1);
-shuffle($list);
-for ($i = 0; $i < 30; $i++) {
-	$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	$auth_extratext = "";
+	$salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
+	$list = range(0, strlen($salt) - 1);
+	shuffle($list);
+	for ($i = 0; $i < 30; $i++) {
+		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	}
+	setOptionDefault('extra_auth_hash_text', $auth_extratext);
 }
-setOptionDefault('extra_auth_hash_text', $auth_extratext);
-$auth_extratext = "";
-shuffle($list);
-for ($i = 0; $i < 30; $i++) {
-	$auth_extratext = $auth_extratext . $salt{$list[$i]};
+if (!isset($setOptions['secret_key_text'])) {
+	$auth_extratext = "";
+	shuffle($list);
+	for ($i = 0; $i < 30; $i++) {
+		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	}
+	setOptionDefault('secret_key_text', $auth_extratext);
 }
-setOptionDefault('secret_key_text', $auth_extratext);
-$auth_extratext = "";
-shuffle($list);
-for ($i = 0; $i < 30; $i++) {
-	$auth_extratext = $auth_extratext . $salt{$list[$i]};
+if (!isset($setOptions['secret_init_vector'])) {
+	$auth_extratext = "";
+	shuffle($list);
+	for ($i = 0; $i < 30; $i++) {
+		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	}
+	setOptionDefault('secret_init_vector', $auth_extratext);
 }
-setOptionDefault('secret_init_vector', $auth_extratext);
-
 purgeOption('adminTagsTab', 0);
 
 //	if your are installing, you must be OK
@@ -136,11 +143,6 @@ if ($result) {
 foreach (array('news_categories', 'pages', 'images', 'albums', 'menu') as $table) {
 	$sql = 'UPDATE ' . prefix($table) . ' SET `sort_order`="000" WHERE (`sort_order` IS NULL OR `sort_order`="")';
 	query($sql);
-}
-//original was mis-spelled
-if ($priority = extensionEnabled('reCaptche_v2')) {
-	purgeOption('zp_plugin_reCaptche_v2');
-	enableExtension('reCAPTCHA_v2', $priority);
 }
 
 //migrate rotation and GPS data
@@ -445,23 +447,7 @@ setOptionDefault('GDPR_text', getAllTranslations('Check to acknowledge the site 
 setOptionDefault('GDPR_cookie', microtime());
 
 setOptionDefault('full_image_quality', 75);
-
-if (getOption('protect_full_image') === '0') {
-	$protection = 'Unprotected';
-} else if (getOption('protect_full_image') === '1') {
-	if (getOption('full_image_download')) {
-		$protection = 'Download';
-	} else {
-		$protection = 'Protected view';
-	}
-} else {
-	$protection = false;
-}
-if ($protection) {
-	setOption('protect_full_image', $protection);
-} else {
-	setOptionDefault('protect_full_image', 'Protected view');
-}
+setOptionDefault('protect_full_image', 'Protected view');
 
 setOptionDefault('locale', '');
 setOptionDefault('date_format', '%x');
@@ -543,15 +529,6 @@ if (!in_array('newuser', $groupsdefined)) {
 }
 setOption('defined_groups', serialize($groupsdefined)); // record that these have been set once (and never again)
 
-setOptionDefault('RSS_album_image', 1);
-setOptionDefault('RSS_comments', 1);
-setOptionDefault('RSS_articles', 1);
-setOptionDefault('RSS_pages', 1);
-setOptionDefault('RSS_article_comments', 1);
-
-setOptionDefault('menu_truncate_string', 0);
-setOptionDefault('menu_truncate_indicator', '');
-
 setOptionDefault('AlbumThumbSelect', 1);
 
 setOptionDefault('site_email', "zenphoto@" . $_SERVER['SERVER_NAME']);
@@ -629,10 +606,6 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 </p>
 
 <?php
-// migrate search space is opton
-if (getOption('search_space_is_OR')) {
-	setOption('search_space_is', '|');
-}
 query('DELETE FROM ' . prefix('options') . ' WHERE  `name` ="search_space_is_OR"', false);
 
 if (!file_exists(SERVERPATH . '/favicon.ico')) {
@@ -828,7 +801,6 @@ setOptionDefault('locale_disallowed', serialize($disallow));
 
 foreach ($_languages as $language => $dirname) {
 	if (!empty($dirname) && $dirname != 'en_US') {
-		purgeOption('unsupported_' . $dirname);
 		if (!i18nSetLocale($dirname)) {
 			$unsupported[$dirname] = $dirname;
 		}
