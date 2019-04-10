@@ -9,6 +9,8 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
+$setOptions = getOptionList();
+
 if (isset($_GET['debug'])) {
 	$debug = '&debug';
 } else {
@@ -27,28 +29,33 @@ if (!file_exists($testFile)) {
 	file_put_contents($testFile, '');
 }
 
+if (!isset($setOptions['extra_auth_hash_text'])) {
 // setup a hash seed
-$auth_extratext = "";
-$salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
-$list = range(0, strlen($salt) - 1);
-shuffle($list);
-for ($i = 0; $i < 30; $i++) {
-	$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	$auth_extratext = "";
+	$salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
+	$list = range(0, strlen($salt) - 1);
+	shuffle($list);
+	for ($i = 0; $i < 30; $i++) {
+		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	}
+	setOptionDefault('extra_auth_hash_text', $auth_extratext);
 }
-setOptionDefault('extra_auth_hash_text', $auth_extratext);
-$auth_extratext = "";
-shuffle($list);
-for ($i = 0; $i < 30; $i++) {
-	$auth_extratext = $auth_extratext . $salt{$list[$i]};
+if (!isset($setOptions['secret_key_text'])) {
+	$auth_extratext = "";
+	shuffle($list);
+	for ($i = 0; $i < 30; $i++) {
+		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	}
+	setOptionDefault('secret_key_text', $auth_extratext);
 }
-setOptionDefault('secret_key_text', $auth_extratext);
-$auth_extratext = "";
-shuffle($list);
-for ($i = 0; $i < 30; $i++) {
-	$auth_extratext = $auth_extratext . $salt{$list[$i]};
+if (!isset($setOptions['secret_init_vector'])) {
+	$auth_extratext = "";
+	shuffle($list);
+	for ($i = 0; $i < 30; $i++) {
+		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+	}
+	setOptionDefault('secret_init_vector', $auth_extratext);
 }
-setOptionDefault('secret_init_vector', $auth_extratext);
-
 purgeOption('adminTagsTab', 0);
 
 //	if your are installing, you must be OK
@@ -136,11 +143,6 @@ if ($result) {
 foreach (array('news_categories', 'pages', 'images', 'albums', 'menu') as $table) {
 	$sql = 'UPDATE ' . prefix($table) . ' SET `sort_order`="000" WHERE (`sort_order` IS NULL OR `sort_order`="")';
 	query($sql);
-}
-//original was mis-spelled
-if ($priority = extensionEnabled('reCaptche_v2')) {
-	purgeOption('zp_plugin_reCaptche_v2');
-	enableExtension('reCAPTCHA_v2', $priority);
 }
 
 //migrate rotation and GPS data
