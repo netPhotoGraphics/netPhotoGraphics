@@ -35,6 +35,13 @@ if (OFFSET_PATH) {
  */
 class menu_manager {
 
+	function __construct() {
+		if (OFFSET_PATH == 2) {
+			setOptionDefault('menu_truncate_string', 0);
+			setOptionDefault('menu_truncate_indicator', '');
+		}
+	}
+
 	function getOptionsSupported() {
 
 		$options = array(
