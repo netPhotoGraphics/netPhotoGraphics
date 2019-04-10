@@ -254,14 +254,17 @@ if ($utf8mb4) {
 $uniquekeys = $tablePresent = array();
 foreach ($template as $tablename => $table) {
 	$tablePresent[$tablename] = $exists = array_key_exists($tablename, $database);
-	if (!$exists) {
+	if ($exists) {
+		$dborder = array_keys($database[$tablename]['fields']);
+	} else {
 		$create = array();
 		$create[] = "CREATE TABLE IF NOT EXISTS " . prefix($tablename) . " (";
 		$create[] = "  `id` int(11) UNSIGNED NOT NULL auto_increment,";
+		$dborder = array();
 	}
 	$after = ' FIRST';
 	$templateorder = array_keys($table['fields']);
-	$dborder = array_keys($database[$tablename]['fields']);
+
 	foreach ($table['fields'] as $key => $field) {
 		if ($key != 'id') {
 			$dbType = strtoupper($field['Type']);
