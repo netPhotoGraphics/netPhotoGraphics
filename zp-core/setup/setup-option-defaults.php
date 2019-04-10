@@ -445,23 +445,7 @@ setOptionDefault('GDPR_text', getAllTranslations('Check to acknowledge the site 
 setOptionDefault('GDPR_cookie', microtime());
 
 setOptionDefault('full_image_quality', 75);
-
-if (getOption('protect_full_image') === '0') {
-	$protection = 'Unprotected';
-} else if (getOption('protect_full_image') === '1') {
-	if (getOption('full_image_download')) {
-		$protection = 'Download';
-	} else {
-		$protection = 'Protected view';
-	}
-} else {
-	$protection = false;
-}
-if ($protection) {
-	setOption('protect_full_image', $protection);
-} else {
-	setOptionDefault('protect_full_image', 'Protected view');
-}
+setOptionDefault('protect_full_image', 'Protected view');
 
 setOptionDefault('locale', '');
 setOptionDefault('date_format', '%x');
@@ -629,10 +613,6 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 </p>
 
 <?php
-// migrate search space is opton
-if (getOption('search_space_is_OR')) {
-	setOption('search_space_is', '|');
-}
 query('DELETE FROM ' . prefix('options') . ' WHERE  `name` ="search_space_is_OR"', false);
 
 if (!file_exists(SERVERPATH . '/favicon.ico')) {
@@ -828,7 +808,6 @@ setOptionDefault('locale_disallowed', serialize($disallow));
 
 foreach ($_languages as $language => $dirname) {
 	if (!empty($dirname) && $dirname != 'en_US') {
-		purgeOption('unsupported_' . $dirname);
 		if (!i18nSetLocale($dirname)) {
 			$unsupported[$dirname] = $dirname;
 		}
