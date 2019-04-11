@@ -1018,9 +1018,11 @@ function getOptionOwner() {
  * @param string $key the option name
  * @param mixed $default the value to be used as the default
  */
-function setOptionDefault($key, $default) {
+function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	global $_zp_options;
-	list($theme, $creator) = getOptionOwner();
+	if (is_null($creator)) {
+		list($theme, $creator) = getOptionOwner();
+	}
 	$sql = 'INSERT INTO ' . prefix('options') . ' (`name`, `value`, `ownerid`, `theme`, `creator`) VALUES (' . db_quote($key) . ',';
 	if (is_null($default)) {
 		$value = 'NULL';

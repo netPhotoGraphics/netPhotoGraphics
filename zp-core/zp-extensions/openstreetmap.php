@@ -28,34 +28,37 @@ class openStreetMapOptions {
 
 	function __construct() {
 		/* clean up old options */
-		replaceOption('osmap_controlpos', 'osmap_zoomcontrolpos', 'topleft');
-		replaceOption('osmap_maptiles', 'osmap_defaultlayer', 'OpenStreetMap.Mapnik');
+		if (OFFSET_PATH == 2) {
+			replaceOption('osmap_controlpos', 'osmap_zoomcontrolpos', 'topleft');
+			replaceOption('osmap_maptiles', 'osmap_defaultlayer', 'OpenStreetMap.Mapnik');
 
-		setOptionDefault('osmap_width', '100%'); //responsive by default!
-		setOptionDefault('osmap_height', '300px');
-		setOptionDefault('osmap_zoom', 4);
-		setOptionDefault('osmap_minzoom', 2);
-		setOptionDefault('osmap_maxzoom', 18);
-		setOptionDefault('osmap_clusterradius', 40);
-		setOptionDefault('osmap_markerpopup', 1);
-		setOptionDefault('osmap_markerpopup_title', 1);
-		setOptionDefault('osmap_markerpopup_desc', 1);
-		setOptionDefault('osmap_markerpopup_thumb', 1);
-		setOptionDefault('osmap_showlayerscontrol', 0);
-		setOptionDefault('osmap_layerscontrolpos', 'topright');
-		foreach (openStreetMap::getLayersList() as $layer_dbname) {
-			setOptionDefault($layer_dbname, 0);
-		}
-		setOptionDefault('osmap_showscale', 1);
-		setOptionDefault('osmap_showalbummarkers', 0);
-		setOptionDefault('osmap_showminimap', 0);
-		setOptionDefault('osmap_minimap_width', 100);
-		setOptionDefault('osmap_minimap_height', 100);
-		setOptionDefault('osmap_minimap_zoom', -5);
-		setOptionDefault('osmap_cluster_showcoverage_on_hover', 0);
-		if (class_exists('cacheManager')) {
-			cacheManager::deleteCacheSizes('openstreetmap');
-			cacheManager::addCacheSize('openstreetmap', 150, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
+			setOptionDefault('osmap_width', '100%'); //responsive by default!
+			setOptionDefault('osmap_height', '300px');
+			setOptionDefault('osmap_zoom', 4);
+			setOptionDefault('osmap_minzoom', 2);
+			setOptionDefault('osmap_maxzoom', 18);
+			setOptionDefault('osmap_clusterradius', 40);
+			setOptionDefault('osmap_markerpopup', 1);
+			setOptionDefault('osmap_markerpopup_title', 1);
+			setOptionDefault('osmap_markerpopup_desc', 1);
+			setOptionDefault('osmap_markerpopup_thumb', 1);
+			setOptionDefault('osmap_showlayerscontrol', 0);
+			setOptionDefault('osmap_layerscontrolpos', 'topright');
+			foreach (openStreetMap::getLayersList() as $layer_dbname) {
+				setOptionDefault($layer_dbname, 0);
+			}
+			setOptionDefault('osmap_showscale', 1);
+			setOptionDefault('osmap_showalbummarkers', 0);
+			setOptionDefault('osmap_showminimap', 0);
+			setOptionDefault('osmap_minimap_width', 100);
+			setOptionDefault('osmap_minimap_height', 100);
+			setOptionDefault('osmap_minimap_zoom', -5);
+			setOptionDefault('osmap_cluster_showcoverage_on_hover', 0);
+
+			if (class_exists('cacheManager')) {
+				cacheManager::deleteCacheSizes('openstreetmap');
+				cacheManager::addCacheSize('openstreetmap', 150, NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
+			}
 		}
 	}
 
