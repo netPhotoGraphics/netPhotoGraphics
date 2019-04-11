@@ -44,7 +44,7 @@ class openStreetMapOptions {
 			setOptionDefault('osmap_markerpopup_thumb', 1);
 			setOptionDefault('osmap_showlayerscontrol', 0);
 			setOptionDefault('osmap_layerscontrolpos', 'topright');
-			foreach (openStreetMap::getLayersList() as $layer_dbname) {
+			foreach (openStreetMap::getTileProviders() as $layer_dbname) {
 				setOptionDefault($layer_dbname, 0);
 			}
 			setOptionDefault('osmap_showscale', 1);
@@ -63,8 +63,7 @@ class openStreetMapOptions {
 	}
 
 	function getOptionsSupported() {
-		$providers = array_combine(openStreetMap::getTitleProviders(), openStreetMap::getTitleProviders());
-		$layerslist = openStreetMap::getLayersList();
+		$layerslist = openStreetMap::getTileProviders();
 		$options = array(
 				gettext('Map dimensions—width') => array(
 						'key' => 'osmap_width',
@@ -95,7 +94,7 @@ class openStreetMapOptions {
 						'key' => 'osmap_defaultlayer',
 						'type' => OPTION_TYPE_SELECTOR,
 						'order' => 7,
-						'selections' => $providers,
+						'selections' => array_combine(array_keys($layerslist), array_keys($layerslist)),
 						'desc' => gettext('The default map tile provider to use. Only free providers are included.'
 										. ' Some providers (Here, Mapbox, Thunderforest, Geoportail) require access credentials and registration.'
 										. ' More info on <a href="https://github.com/leaflet-extras/leaflet-providers">leaflet-providers</a>')),
@@ -223,19 +222,6 @@ class openStreetMapOptions {
 						'order' => 26,
 						'desc' => ''),
 		);
-
-		// the default layer is selected, well, by default!
-		$id = postIndexEncode($layerslist[getOption('osmap_defaultlayer')]);
-		?>
-		<script type="text/javascript">
-			window.addEventListener('load', function () {
-				$('#<?php echo $id; ?>').prop('checked', 'checked');					//show it as selected
-				$('#<?php echo $id; ?>').prop('disabled', 'disabled');				// but do not allow user to deselect it
-				$('#<?php echo $id; ?>_element').parent().prepend($('#<?php echo $id; ?>_element'));	// move it to top of UL
-				$('[name="_ZP_CUSTOM_chkbox-<?php echo $id; ?>"]').remove();	// disable changing the DB setting of this option
-			});
-		</script>
-		<?php
 		return $options;
 	}
 
@@ -492,14 +478,15 @@ class openStreetMap {
 		$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 		$this->showlayerscontrol = getOption('osmap_showlayerscontrol');
 		// generate an array of selected layers
-		$layerslist = self::getLayersList();
+		$layerslist = self::getTileProviders();
+		$selectedlayerslist = array();
 		foreach ($layerslist as $layer => $layer_dbname) {
 			if (getOption($layer_dbname)) {
 				$selectedlayerslist[$layer] = $layer;
 			}
 		}
 		// remove default Layer from layers list
-		unset($selectedlayerslist[array_search($this->defaultlayer, $selectedlayerslist)]);
+		unset($selectedlayerslist[$this->defaultlayer]);
 		$this->layerslist = $selectedlayerslist;
 		$this->layerscontrolpos = getOption('osmap_layerscontrolpos');
 		$this->showscale = getOption('osmap_showscale');
@@ -889,20 +876,6 @@ class openStreetMap {
 	}
 
 	/**
-	 * It returns an array of layer option db name
-	 *
-	 * @param array $providers provider list
-	 * @return array
-	 */
-	static function getLayersList() {
-		$providers = openStreetMap::getTitleProviders();
-		foreach ($providers as $provider) {
-			$layers_list[$provider] = 'osmap_' . $provider;
-		}
-		return $layers_list;
-	}
-
-	/**
 	 * It returns the provider chosen if it is valid or the default 'OpenStreetMap.Mapnik' tile
 	 *
 	 * @param string $tileprovider The tile provider to validate
@@ -921,114 +894,87 @@ class openStreetMap {
 	 *
 	 * @return array
 	 */
-	static function getTitleProviders() {
+	static function getTileProviders() {
 		return array(
-				'OpenStreetMap.Mapnik',
-				'OpenStreetMap.BlackAndWhite',
-				'OpenStreetMap.DE',
-				'OpenStreetMap.France',
-				'OpenStreetMap.HOT',
-				'OpenSeaMap',
-				'OpenTopoMap',
-				'Thunderforest.OpenCycleMap',
-				'Thunderforest.TransportDark',
-				'Thunderforest.SpinalMap',
-				'Thunderforest.Landscape',
-				'OpenMapSurfer.Roads',
-				'OpenMapSurfer.Grayscale',
-				'Hydda.Full',
-				// should be mapbox.streets,... but follow leaflet-providers behavior
-				'MapBox.streets',
-				'MapBox.light',
-				'MapBox.dark',
-				'MapBox.satellite',
-				'MapBox.streets-satellite',
-				'MapBox.wheatpaste',
-				'MapBox.streets-basic',
-				'MapBox.comic',
-				'MapBox.outdoors',
-				'MapBox.run-bike-hike',
-				'MapBox.pencil',
-				'MapBox.pirates',
-				'MapBox.emerald',
-				'MapBox.high-contrast',
-				'Stamen.Toner',
-				'Stamen.Watercolor',
-				'Stamen.Terrain',
-				'Stamen.TerrainBackground',
-				'Stamen.TopOSMRelief',
-				'Stamen.TopOSMFeatures',
-				'Esri.WorldStreetMap',
-				'Esri.DeLorme',
-				'Esri.WorldTopoMap',
-				'Esri.WorldImagery',
-				'Esri.WorldTerrain',
-				'Esri.WorldShadedRelief',
-				'Esri.WorldPhysical',
-				'Esri.OceanBasemap',
-				'Esri.NatGeoWorldMap',
-				'Esri.WorldGrayCanvas',
-				'OpenWeatherMap.Clouds',
-				'OpenWeatherMap.CloudsClassic',
-				'OpenWeatherMap.Precipitation',
-				'OpenWeatherMap.PrecipitationClassic',
-				'OpenWeatherMap.Rain',
-				'OpenWeatherMap.RainClassic',
-				'OpenWeatherMap.Pressure',
-				'OpenWeatherMap.PressureContour',
-				'OpenWeatherMap.Wind',
-				'OpenWeatherMap.Temperature',
-				'OpenWeatherMap.Snow',
-				'HERE.normalDay',
-				'HERE.normalDayCustom',
-				'HERE.normalDayGrey',
-				'HERE.normalDayMobile',
-				'HERE.normalDayGreyMobile',
-				'HERE.normalDayTransit',
-				'HERE.normalDayTransitMobile',
-				'HERE.normalNight',
-				'HERE.normalNightMobile',
-				'HERE.normalNightGrey',
-				'HERE.normalNightGreyMobile',
-				'HERE.basicMap',
-				'HERE.mapLabels',
-				'HERE.trafficFlow',
-				'HERE.carnavDayGrey',
-				'HERE.hybridDayMobile',
-				'HERE.pedestrianDay',
-				'HERE.pedestrianNight',
-				'HERE.satelliteDay',
-				'HERE.terrainDay',
-				'HERE.terrainDayMobile',
-				'FreeMapSK',
-				'MtbMap',
-				'CartoDB.Positron',
-				'CartoDB.PositronNoLabels',
-				'CartoDB.PositronOnlyLabels',
-				'CartoDB.DarkMatter',
-				'CartoDB.DarkMatterNoLabels',
-				'CartoDB.DarkMatterOnlyLabels',
-				'HikeBike.HikeBike',
-				'HikeBike.HillShading',
-				'BasemapAT.basemap',
-				'BasemapAT.grau',
-				'BasemapAT.highdpi',
-				'BasemapAT.orthofoto',
-				'NASAGIBS.ModisTerraTrueColorCR',
-				'NASAGIBS.ModisTerraLSTDay',
-				'NASAGIBS.ModisTerraSnowCover',
-				'NASAGIBS.ModisTerraAOD',
-				'NASAGIBS.ModisTerraChlorophyll',
-				'NLS',
-				'JusticeMap.income',
-				'JusticeMap.americanIndian',
-				'JusticeMap.asian',
-				'JusticeMap.black',
-				'JusticeMap.hispanic',
-				'JusticeMap.multi',
-				'JusticeMap.nonWhite',
-				'JusticeMap.white',
-				'JusticeMap.plurality'
+				'OpenStreetMap.Mapnik' => 'osmap_openstreetmap_mapnik',
+				'OpenStreetMap.BlackAndWhite' => 'osmap_openstreetmap_blackandwhite',
+				'OpenStreetMap.DE' => 'osmap_openstreetmap_de',
+				'OpenStreetMap.France' => 'osmap_openstreetmap_france',
+				'OpenStreetMap.HOT' => 'osmap_openstreetmap_hot',
+				'OpenTopoMap' => 'osmap_opentopomap',
+				'Thunderforest.OpenCycleMap' => 'osmap_thunderforest_opencyclemap',
+				'Thunderforest.TransportDark' => 'osmap_thunderforest_transportdark',
+				'Thunderforest.SpinalMap' => 'osmap_thunderforest_spinalmap',
+				'Thunderforest.Landscape' => 'osmap_thunderforest_landscape',
+				'Hydda.Full' => 'osmap_hydda_full',
+				'MapBox.streets' => 'osmap_mapbox_streets',
+				'MapBox.light' => 'osmap_mapbox_light',
+				'MapBox.dark' => 'osmap_mapbox_dark',
+				'MapBox.satellite' => 'osmap_mapbox_satellite',
+				'MapBox.streets-satellite' => 'osmap_mapbox_streets-satellite',
+				'MapBox.wheatpaste' => 'osmap_mapbox_wheatpaste',
+				'MapBox.streets-basic' => 'osmap_mapbox_streets-basic',
+				'MapBox.comic' => 'osmap_mapbox_comic',
+				'MapBox.outdoors' => 'osmap_mapbox_outdoors',
+				'MapBox.run-bike-hike' => 'osmap_mapbox_run-bike-hike',
+				'MapBox.pencil' => 'osmap_mapbox_pencil',
+				'MapBox.pirates' => 'osmap_mapbox_pirates',
+				'MapBox.emerald' => 'osmap_mapbox_emerald',
+				'MapBox.high-contrast' => 'osmap_mapbox_high-contrast',
+				'Stamen.Watercolor' => 'osmap_stamen_watercolor',
+				'Stamen.Terrain' => 'osmap_stamen_terrain',
+				'Stamen.TerrainBackground' => 'osmap_stamen_terrainbackground',
+				'Stamen.TopOSMRelief' => 'osmap_stamen_toposmrelief',
+				'Stamen.TopOSMFeatures' => 'osmap_stamen_toposmfeatures',
+				'Esri.WorldStreetMap' => 'osmap_esri_worldstreetmap',
+				'Esri.DeLorme' => 'osmap_esri_delorme',
+				'Esri.WorldTopoMap' => 'osmap_esri_worldtopomap',
+				'Esri.WorldImagery' => 'osmap_esri_worldimagery',
+				'Esri.WorldTerrain' => 'osmap_esri_worldterrain',
+				'Esri.WorldShadedRelief' => 'osmap_esri_worldshadedrelief',
+				'Esri.WorldPhysical' => 'osmap_esri_worldphysical',
+				'Esri.OceanBasemap' => 'osmap_esri_oceanbasemap',
+				'Esri.NatGeoWorldMap' => 'osmap_esri_natgeoworldmap',
+				'Esri.WorldGrayCanvas' => 'osmap_esri_worldgraycanvas',
+				'HERE.normalDay' => 'osmap_here_normalday',
+				'HERE.normalDayCustom' => 'osmap_here_normaldaycustom',
+				'HERE.normalDayGrey' => 'osmap_here_normaldaygrey',
+				'HERE.normalDayMobile' => 'osmap_here_normaldaymobile',
+				'HERE.normalDayGreyMobile' => 'osmap_here_normaldaygreymobile',
+				'HERE.normalDayTransit' => 'osmap_here_normaldaytransit',
+				'HERE.normalDayTransitMobile' => 'osmap_here_normaldaytransitmobile',
+				'HERE.normalNight' => 'osmap_here_normalnight',
+				'HERE.normalNightMobile' => 'osmap_here_normalnightmobile',
+				'HERE.normalNightGrey' => 'osmap_here_normalnightgrey',
+				'HERE.normalNightGreyMobile' => 'osmap_here_normalnightgreymobile',
+				'HERE.basicMap' => 'osmap_here_basicmap',
+				'HERE.mapLabels' => 'osmap_here_maplabels',
+				'HERE.trafficFlow' => 'osmap_here_trafficflow',
+				'HERE.carnavDayGrey' => 'osmap_here_carnavdaygrey',
+				'HERE.hybridDay' => 'osmap_here_hybridday',
+				'HERE.hybridDayMobile' => 'osmap_here_hybriddaymobile',
+				'HERE.pedestrianDay' => 'osmap_here_pedestrianday',
+				'HERE.pedestrianNight' => 'osmap_here_pedestriannight',
+				'HERE.satelliteDay' => 'osmap_here_satelliteday',
+				'HERE.terrainDay' => 'osmap_here_terrainday',
+				'HERE.terrainDayMobile' => 'osmap_here_terraindaymobile',
+				'FreeMapSK' => 'osmap_freemapsk',
+				'MtbMap' => 'osmap_mtbmap',
+				'CartoDB.Positron' => 'osmap_cartodb_positron',
+				'CartoDB.PositronNoLabels' => 'osmap_cartodb_positronnolabels',
+				'CartoDB.PositronOnlyLabels' => 'osmap_cartodb_positrononlylabels',
+				'CartoDB.DarkMatter' => 'osmap_cartodb_darkmatter',
+				'CartoDB.DarkMatterNoLabels' => 'osmap_cartodb_darkmatternolabels',
+				'CartoDB.DarkMatterOnlyLabels' => 'osmap_cartodb_darkmatteronlylabels',
+				'HikeBike.HikeBike' => 'osmap_hikebike_hikebike',
+				'HikeBike.HillShading' => 'osmap_hikebike_hillshading',
+				'BasemapAT.basemap' => 'osmap_basemapat_basemap',
+				'BasemapAT.grau' => 'osmap_basemapat_grau',
+				'BasemapAT.highdpi' => 'osmap_basemapat_highdpi',
+				'BasemapAT.orthofoto' => 'osmap_basemapat_orthofoto',
+				'NLS' => 'osmap_nls',
+				'GeoportailFrance.ignMaps' => 'osmap_geoportailfrance_ignmaps',
+				'GeoportailFrance.orthos' => 'osmap_geoportailfrance_orthos'
 		);
 	}
 
