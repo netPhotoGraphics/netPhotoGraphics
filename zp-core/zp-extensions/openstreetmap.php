@@ -44,7 +44,7 @@ class openStreetMapOptions {
 			setOptionDefault('osmap_markerpopup_thumb', 1);
 			setOptionDefault('osmap_showlayerscontrol', 0);
 			setOptionDefault('osmap_layerscontrolpos', 'topright');
-			foreach (openStreetMap::getTileProviders() as $layer_dbname) {
+			foreach (openStreetMap::tileProviders as $layer_dbname) {
 				setOptionDefault($layer_dbname, 0);
 			}
 			setOptionDefault('osmap_showscale', 1);
@@ -63,7 +63,7 @@ class openStreetMapOptions {
 	}
 
 	function getOptionsSupported() {
-		$layerslist = openStreetMap::getTileProviders();
+		$layerslist = openStreetMap::$tileProviders;
 		$options = array(
 				gettext('Map dimensions—width') => array(
 						'key' => 'osmap_width',
@@ -316,13 +316,6 @@ class openStreetMap {
 	var $zoom = NULL;
 	var $minzoom = NULL;
 	var $maxzoom = NULL;
-
-	/**
-	 * The tile providers to use. Select from the $tileproviders property like $this->maptiles = $this->tileproviders['<desired provider>']
-	 * Must be like array('<map provider url>','<attribution as requested>')
-	 * Default taken from plugin options
-	 * @var array
-	 */
 	var $defaultlayer = NULL;
 	var $layerslist = NULL;
 	var $layer = NULL;
@@ -379,9 +372,90 @@ class openStreetMap {
 
 	/**
 	 * The predefined array of all free map tile providers for Open Street Map
+	 * array index is the provider, value is the option
 	 * @var array
 	 */
-	var $tileproviders = NULL;
+	static $tileProviders = array(
+			'OpenStreetMap.Mapnik' => 'osmap_openstreetmap_mapnik',
+			'OpenStreetMap.BlackAndWhite' => 'osmap_openstreetmap_blackandwhite',
+			'OpenStreetMap.DE' => 'osmap_openstreetmap_de',
+			'OpenStreetMap.France' => 'osmap_openstreetmap_france',
+			'OpenStreetMap.HOT' => 'osmap_openstreetmap_hot',
+			'OpenTopoMap' => 'osmap_opentopomap',
+			'Thunderforest.OpenCycleMap' => 'osmap_thunderforest_opencyclemap',
+			'Thunderforest.TransportDark' => 'osmap_thunderforest_transportdark',
+			'Thunderforest.SpinalMap' => 'osmap_thunderforest_spinalmap',
+			'Thunderforest.Landscape' => 'osmap_thunderforest_landscape',
+			'Hydda.Full' => 'osmap_hydda_full',
+			'MapBox.streets' => 'osmap_mapbox_streets',
+			'MapBox.light' => 'osmap_mapbox_light',
+			'MapBox.dark' => 'osmap_mapbox_dark',
+			'MapBox.satellite' => 'osmap_mapbox_satellite',
+			'MapBox.streets-satellite' => 'osmap_mapbox_streets-satellite',
+			'MapBox.wheatpaste' => 'osmap_mapbox_wheatpaste',
+			'MapBox.streets-basic' => 'osmap_mapbox_streets-basic',
+			'MapBox.comic' => 'osmap_mapbox_comic',
+			'MapBox.outdoors' => 'osmap_mapbox_outdoors',
+			'MapBox.run-bike-hike' => 'osmap_mapbox_run-bike-hike',
+			'MapBox.pencil' => 'osmap_mapbox_pencil',
+			'MapBox.pirates' => 'osmap_mapbox_pirates',
+			'MapBox.emerald' => 'osmap_mapbox_emerald',
+			'MapBox.high-contrast' => 'osmap_mapbox_high-contrast',
+			'Stamen.Watercolor' => 'osmap_stamen_watercolor',
+			'Stamen.Terrain' => 'osmap_stamen_terrain',
+			'Stamen.TerrainBackground' => 'osmap_stamen_terrainbackground',
+			'Stamen.TopOSMRelief' => 'osmap_stamen_toposmrelief',
+			'Stamen.TopOSMFeatures' => 'osmap_stamen_toposmfeatures',
+			'Esri.WorldStreetMap' => 'osmap_esri_worldstreetmap',
+			'Esri.DeLorme' => 'osmap_esri_delorme',
+			'Esri.WorldTopoMap' => 'osmap_esri_worldtopomap',
+			'Esri.WorldImagery' => 'osmap_esri_worldimagery',
+			'Esri.WorldTerrain' => 'osmap_esri_worldterrain',
+			'Esri.WorldShadedRelief' => 'osmap_esri_worldshadedrelief',
+			'Esri.WorldPhysical' => 'osmap_esri_worldphysical',
+			'Esri.OceanBasemap' => 'osmap_esri_oceanbasemap',
+			'Esri.NatGeoWorldMap' => 'osmap_esri_natgeoworldmap',
+			'Esri.WorldGrayCanvas' => 'osmap_esri_worldgraycanvas',
+			'HERE.normalDay' => 'osmap_here_normalday',
+			'HERE.normalDayCustom' => 'osmap_here_normaldaycustom',
+			'HERE.normalDayGrey' => 'osmap_here_normaldaygrey',
+			'HERE.normalDayMobile' => 'osmap_here_normaldaymobile',
+			'HERE.normalDayGreyMobile' => 'osmap_here_normaldaygreymobile',
+			'HERE.normalDayTransit' => 'osmap_here_normaldaytransit',
+			'HERE.normalDayTransitMobile' => 'osmap_here_normaldaytransitmobile',
+			'HERE.normalNight' => 'osmap_here_normalnight',
+			'HERE.normalNightMobile' => 'osmap_here_normalnightmobile',
+			'HERE.normalNightGrey' => 'osmap_here_normalnightgrey',
+			'HERE.normalNightGreyMobile' => 'osmap_here_normalnightgreymobile',
+			'HERE.basicMap' => 'osmap_here_basicmap',
+			'HERE.mapLabels' => 'osmap_here_maplabels',
+			'HERE.trafficFlow' => 'osmap_here_trafficflow',
+			'HERE.carnavDayGrey' => 'osmap_here_carnavdaygrey',
+			'HERE.hybridDay' => 'osmap_here_hybridday',
+			'HERE.hybridDayMobile' => 'osmap_here_hybriddaymobile',
+			'HERE.pedestrianDay' => 'osmap_here_pedestrianday',
+			'HERE.pedestrianNight' => 'osmap_here_pedestriannight',
+			'HERE.satelliteDay' => 'osmap_here_satelliteday',
+			'HERE.terrainDay' => 'osmap_here_terrainday',
+			'HERE.terrainDayMobile' => 'osmap_here_terraindaymobile',
+			'FreeMapSK' => 'osmap_freemapsk',
+			'MtbMap' => 'osmap_mtbmap',
+			'CartoDB.Positron' => 'osmap_cartodb_positron',
+			'CartoDB.PositronNoLabels' => 'osmap_cartodb_positronnolabels',
+			'CartoDB.PositronOnlyLabels' => 'osmap_cartodb_positrononlylabels',
+			'CartoDB.DarkMatter' => 'osmap_cartodb_darkmatter',
+			'CartoDB.DarkMatterNoLabels' => 'osmap_cartodb_darkmatternolabels',
+			'CartoDB.DarkMatterOnlyLabels' => 'osmap_cartodb_darkmatteronlylabels',
+			'HikeBike.HikeBike' => 'osmap_hikebike_hikebike',
+			'HikeBike.HillShading' => 'osmap_hikebike_hillshading',
+			'BasemapAT.basemap' => 'osmap_basemapat_basemap',
+			'BasemapAT.grau' => 'osmap_basemapat_grau',
+			'BasemapAT.highdpi' => 'osmap_basemapat_highdpi',
+			'BasemapAT.orthofoto' => 'osmap_basemapat_orthofoto',
+			'NLS' => 'osmap_nls',
+			'GeoportailFrance.ignMaps' => 'osmap_geoportailfrance_ignmaps',
+			'GeoportailFrance.orthos' => 'osmap_geoportailfrance_orthos'
+	);
 
 	/**
 	 * If no $geodata array is passed the function gets geodata from the current image or the images of the current album
@@ -416,7 +490,6 @@ class openStreetMap {
 		global $_zp_gallery_page, $_zp_current_album, $_zp_current_image;
 
 		$this->showalbummarkers = getOption('osmap_showalbummarkers');
-		$this->tileproviders = self::getTitleProviders();
 		if (is_object($obj)) {
 			if (isImageClass($obj)) {
 				$this->obj = $obj;
@@ -478,7 +551,7 @@ class openStreetMap {
 		$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 		$this->showlayerscontrol = getOption('osmap_showlayerscontrol');
 		// generate an array of selected layers
-		$layerslist = self::getTileProviders();
+		$layerslist = self::tileProviders;
 		$selectedlayerslist = array();
 		foreach ($layerslist as $layer => $layer_dbname) {
 			if (getOption($layer_dbname)) {
@@ -882,105 +955,15 @@ class openStreetMap {
 	 * @return string
 	 */
 	function setMapTiles($tileprovider = null) {
-		if (in_array($tileprovider, $this->tileproviders)) {
+		if (isset(self::tileproviders[$tileprovider])) {
 			return $tileprovider;
 		} else {
-			return $this->tileproviders[0];
+			return 'OpenStreetMap.Mapnik';
 		}
 	}
 
-	/**
-	 * Returns an array of all defined tile provider names from and for use with leaflet-providers.js and the plugin options
-	 *
-	 * @return array
-	 */
-	static function getTileProviders() {
-		return array(
-				'OpenStreetMap.Mapnik' => 'osmap_openstreetmap_mapnik',
-				'OpenStreetMap.BlackAndWhite' => 'osmap_openstreetmap_blackandwhite',
-				'OpenStreetMap.DE' => 'osmap_openstreetmap_de',
-				'OpenStreetMap.France' => 'osmap_openstreetmap_france',
-				'OpenStreetMap.HOT' => 'osmap_openstreetmap_hot',
-				'OpenTopoMap' => 'osmap_opentopomap',
-				'Thunderforest.OpenCycleMap' => 'osmap_thunderforest_opencyclemap',
-				'Thunderforest.TransportDark' => 'osmap_thunderforest_transportdark',
-				'Thunderforest.SpinalMap' => 'osmap_thunderforest_spinalmap',
-				'Thunderforest.Landscape' => 'osmap_thunderforest_landscape',
-				'Hydda.Full' => 'osmap_hydda_full',
-				'MapBox.streets' => 'osmap_mapbox_streets',
-				'MapBox.light' => 'osmap_mapbox_light',
-				'MapBox.dark' => 'osmap_mapbox_dark',
-				'MapBox.satellite' => 'osmap_mapbox_satellite',
-				'MapBox.streets-satellite' => 'osmap_mapbox_streets-satellite',
-				'MapBox.wheatpaste' => 'osmap_mapbox_wheatpaste',
-				'MapBox.streets-basic' => 'osmap_mapbox_streets-basic',
-				'MapBox.comic' => 'osmap_mapbox_comic',
-				'MapBox.outdoors' => 'osmap_mapbox_outdoors',
-				'MapBox.run-bike-hike' => 'osmap_mapbox_run-bike-hike',
-				'MapBox.pencil' => 'osmap_mapbox_pencil',
-				'MapBox.pirates' => 'osmap_mapbox_pirates',
-				'MapBox.emerald' => 'osmap_mapbox_emerald',
-				'MapBox.high-contrast' => 'osmap_mapbox_high-contrast',
-				'Stamen.Watercolor' => 'osmap_stamen_watercolor',
-				'Stamen.Terrain' => 'osmap_stamen_terrain',
-				'Stamen.TerrainBackground' => 'osmap_stamen_terrainbackground',
-				'Stamen.TopOSMRelief' => 'osmap_stamen_toposmrelief',
-				'Stamen.TopOSMFeatures' => 'osmap_stamen_toposmfeatures',
-				'Esri.WorldStreetMap' => 'osmap_esri_worldstreetmap',
-				'Esri.DeLorme' => 'osmap_esri_delorme',
-				'Esri.WorldTopoMap' => 'osmap_esri_worldtopomap',
-				'Esri.WorldImagery' => 'osmap_esri_worldimagery',
-				'Esri.WorldTerrain' => 'osmap_esri_worldterrain',
-				'Esri.WorldShadedRelief' => 'osmap_esri_worldshadedrelief',
-				'Esri.WorldPhysical' => 'osmap_esri_worldphysical',
-				'Esri.OceanBasemap' => 'osmap_esri_oceanbasemap',
-				'Esri.NatGeoWorldMap' => 'osmap_esri_natgeoworldmap',
-				'Esri.WorldGrayCanvas' => 'osmap_esri_worldgraycanvas',
-				'HERE.normalDay' => 'osmap_here_normalday',
-				'HERE.normalDayCustom' => 'osmap_here_normaldaycustom',
-				'HERE.normalDayGrey' => 'osmap_here_normaldaygrey',
-				'HERE.normalDayMobile' => 'osmap_here_normaldaymobile',
-				'HERE.normalDayGreyMobile' => 'osmap_here_normaldaygreymobile',
-				'HERE.normalDayTransit' => 'osmap_here_normaldaytransit',
-				'HERE.normalDayTransitMobile' => 'osmap_here_normaldaytransitmobile',
-				'HERE.normalNight' => 'osmap_here_normalnight',
-				'HERE.normalNightMobile' => 'osmap_here_normalnightmobile',
-				'HERE.normalNightGrey' => 'osmap_here_normalnightgrey',
-				'HERE.normalNightGreyMobile' => 'osmap_here_normalnightgreymobile',
-				'HERE.basicMap' => 'osmap_here_basicmap',
-				'HERE.mapLabels' => 'osmap_here_maplabels',
-				'HERE.trafficFlow' => 'osmap_here_trafficflow',
-				'HERE.carnavDayGrey' => 'osmap_here_carnavdaygrey',
-				'HERE.hybridDay' => 'osmap_here_hybridday',
-				'HERE.hybridDayMobile' => 'osmap_here_hybriddaymobile',
-				'HERE.pedestrianDay' => 'osmap_here_pedestrianday',
-				'HERE.pedestrianNight' => 'osmap_here_pedestriannight',
-				'HERE.satelliteDay' => 'osmap_here_satelliteday',
-				'HERE.terrainDay' => 'osmap_here_terrainday',
-				'HERE.terrainDayMobile' => 'osmap_here_terraindaymobile',
-				'FreeMapSK' => 'osmap_freemapsk',
-				'MtbMap' => 'osmap_mtbmap',
-				'CartoDB.Positron' => 'osmap_cartodb_positron',
-				'CartoDB.PositronNoLabels' => 'osmap_cartodb_positronnolabels',
-				'CartoDB.PositronOnlyLabels' => 'osmap_cartodb_positrononlylabels',
-				'CartoDB.DarkMatter' => 'osmap_cartodb_darkmatter',
-				'CartoDB.DarkMatterNoLabels' => 'osmap_cartodb_darkmatternolabels',
-				'CartoDB.DarkMatterOnlyLabels' => 'osmap_cartodb_darkmatteronlylabels',
-				'HikeBike.HikeBike' => 'osmap_hikebike_hikebike',
-				'HikeBike.HillShading' => 'osmap_hikebike_hillshading',
-				'BasemapAT.basemap' => 'osmap_basemapat_basemap',
-				'BasemapAT.grau' => 'osmap_basemapat_grau',
-				'BasemapAT.highdpi' => 'osmap_basemapat_highdpi',
-				'BasemapAT.orthofoto' => 'osmap_basemapat_orthofoto',
-				'NLS' => 'osmap_nls',
-				'GeoportailFrance.ignMaps' => 'osmap_geoportailfrance_ignmaps',
-				'GeoportailFrance.orthos' => 'osmap_geoportailfrance_orthos'
-		);
-	}
-
-}
-
 // osm class end
+}
 
 /**
  * Template function wrapper for the openStreetMap class to show a map with geodata markers
