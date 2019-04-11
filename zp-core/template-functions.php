@@ -3224,7 +3224,7 @@ function printSizedImageURL($size, $text, $title, $class = NULL, $id = NULL) {
 function filterImageQueryList($result, $source, $limit = 1, $photo = true) {
 	$list = array();
 	if ($result) {
-		while ($row = db_fetch_assoc($result)) {
+		while ($limit && $row = db_fetch_assoc($result)) {
 			$image = getItemByID('images', $row['id']);
 			if ($image && $image->exists) {
 				$album = $image->album;
@@ -3232,9 +3232,7 @@ function filterImageQueryList($result, $source, $limit = 1, $photo = true) {
 					if (!$photo || isImagePhoto($image)) {
 						if ($image->checkAccess()) {
 							$list[] = $image;
-							if ($limit-- == 0) {
-								break;
-							}
+							$limit--;
 						}
 					}
 				}
