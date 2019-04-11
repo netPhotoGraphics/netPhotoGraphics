@@ -28,6 +28,9 @@
 				} else {
 					printRandomImages(8, 'latest', 'all', '', 190, 190, true);
 				}
+				?>
+				<br clear="left">
+				<?php
 				if (($zenpage) && (function_exists('printCommentForm')) && ($zpskel_usenews)) {
 					?>
 					<div class="sixteen columns<?php echo $class; ?>"><hr /></div>
