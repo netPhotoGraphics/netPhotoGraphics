@@ -21,61 +21,60 @@
 				}
 				?>
 			</div>
-			<?php if ($zpskel_strip == 'latest') { ?>
-				<div<?php echo $classfull; ?>>
-					<?php printImageStatistic(8, 'latest', '', false, false, false, 40, '', 190, 190, true, false); ?>
-				</div>
-			<?php } else { ?>
-				<div<?php echo $classfull; ?>>
-					<?php printRandomImages(8, 'random-image', 'all', '', 190, 190, true); ?>
-				</div>
+			<div<?php echo $classfull; ?>>
+				<?php
+				if ($zpskel_strip == 'latest') {
+					printImageStatistic(8, 'latest', '', false, false, false, 40, '', 190, 190, true, false);
+				} else {
+					printRandomImages(8, 'latest', 'all', '', 190, 190, true);
+				}
+				if (($zenpage) && (function_exists('printCommentForm')) && ($zpskel_usenews)) {
+					?>
+					<div class="sixteen columns<?php echo $class; ?>"><hr /></div>
+					<div class="eight columns latest-list<?php echo $class; ?>">
+						<h3><?php echo NEWS_LABEL; ?></h3>
+						<?php printLatestNews(1, '', true, true, 250, false, 'Read More...'); ?>
+					</div>
+					<div class="eight columns latest-list<?php echo $class; ?>">
+						<h3><?php echo gettext('Latest Comments'); ?></h3>
+						<?php printLatestComments(2, '125', 'all'); ?>
+					</div>
+				<?php } ?>
 			<?php } ?>
-			<?php if (($zenpage) && (function_exists('printCommentForm')) && ($zpskel_usenews)) { ?>
-				<div class="sixteen columns<?php echo $class; ?>"><hr /></div>
-				<div class="eight columns latest-list<?php echo $class; ?>">
-					<h3><?php echo NEWS_LABEL; ?></h3>
-					<?php printLatestNews(1, '', true, true, 250, false, 'Read More...'); ?>
-				</div>
-				<div class="eight columns latest-list<?php echo $class; ?>">
-					<h3><?php echo gettext('Latest Comments'); ?></h3>
-					<?php printLatestComments(2, '125', 'all'); ?>
-				</div>
-			<?php } ?>
-		<?php } ?>
-		<div class="sixteen columns">
-			<hr <?php echo $classfull; ?>/>
-			<?php if (extensionEnabled('rss')) { ?>
-				<ul class="taglist rss">
-					<?php if (getOption('RSS_album_image')) { ?>
-						<li><?php printRSSLink('Gallery', '', gettext('Images'), '', false); ?></li>
-						<li><?php printRSSLink('AlbumsRSS', '', gettext('Albums'), '', false); ?></li>
-					<?php } ?>
-					<?php if (($zenpage) && ($zpskel_usenews) && (getOption('RSS_articles'))) { ?>
-						<li><?php printRSSLink('News', '', NEWS_LABEL, '', false); ?></li>
-						<?php
-						if ((function_exists('printCommentForm')) && getOption('RSS_article_comments')) {
-							?>
-							<li>
-								<?php printRSSLink('Comments-all', '', gettext('Comments'), '', false); ?>
-							</li>
+			<div class="sixteen columns">
+				<hr <?php echo $classfull; ?>/>
+				<?php if (extensionEnabled('rss')) { ?>
+					<ul class="taglist rss">
+						<?php if (getOption('RSS_album_image')) { ?>
+							<li><?php printRSSLink('Gallery', '', gettext('Images'), '', false); ?></li>
+							<li><?php printRSSLink('AlbumsRSS', '', gettext('Albums'), '', false); ?></li>
+						<?php } ?>
+						<?php if (($zenpage) && ($zpskel_usenews) && (getOption('RSS_articles'))) { ?>
+							<li><?php printRSSLink('News', '', NEWS_LABEL, '', false); ?></li>
 							<?php
-						}
-						?>
-						<?php
-					} else {
-						?>
-						<?php
-						if ((function_exists('printCommentForm')) && getOption('RSS_comments')) {
+							if ((function_exists('printCommentForm')) && getOption('RSS_article_comments')) {
+								?>
+								<li>
+									<?php printRSSLink('Comments-all', '', gettext('Comments'), '', false); ?>
+								</li>
+								<?php
+							}
 							?>
-							<li>
-								<?php printRSSLink('Comments', '', gettext('Comments'), '', false); ?>
-							</li>
 							<?php
-						}
-						?>
-					<?php } ?>
-				</ul>
-			<?php } ?>
+						} else {
+							?>
+							<?php
+							if ((function_exists('printCommentForm')) && getOption('RSS_comments')) {
+								?>
+								<li>
+									<?php printRSSLink('Comments', '', gettext('Comments'), '', false); ?>
+								</li>
+								<?php
+							}
+							?>
+						<?php } ?>
+					</ul>
+				<?php } ?>
+			</div>
 		</div>
 	</div>
-</div>
