@@ -44,7 +44,7 @@ class openStreetMapOptions {
 			setOptionDefault('osmap_markerpopup_thumb', 1);
 			setOptionDefault('osmap_showlayerscontrol', 0);
 			setOptionDefault('osmap_layerscontrolpos', 'topright');
-			foreach (openStreetMap::tileProviders as $layer_dbname) {
+			foreach (openStreetMap::$tileProviders as $layer_dbname) {
 				setOptionDefault($layer_dbname, 0);
 			}
 			setOptionDefault('osmap_showscale', 1);
@@ -551,7 +551,7 @@ class openStreetMap {
 		$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 		$this->showlayerscontrol = getOption('osmap_showlayerscontrol');
 		// generate an array of selected layers
-		$layerslist = self::tileProviders;
+		$layerslist = self::$tileProviders;
 		$selectedlayerslist = array();
 		foreach ($layerslist as $layer => $layer_dbname) {
 			if (getOption($layer_dbname)) {
@@ -955,7 +955,7 @@ class openStreetMap {
 	 * @return string
 	 */
 	function setMapTiles($tileprovider = null) {
-		if (isset(self::tileproviders[$tileprovider])) {
+		if (isset(self::$tileProviders[$tileprovider])) {
 			return $tileprovider;
 		} else {
 			return 'OpenStreetMap.Mapnik';
