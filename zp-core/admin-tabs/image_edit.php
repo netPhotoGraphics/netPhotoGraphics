@@ -165,7 +165,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<?php
 									if ($close = (isImagePhoto($image) || !is_null($image->objectsThumb))) {
 										?>
-										<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
+										<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
 											<?php
 										}
 										?>
@@ -583,7 +583,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
 										?>
 										<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
-											<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
+											<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
 												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
 											</a>
 											<br class="clearall">

@@ -900,7 +900,7 @@ ul.pagelist li a, ul.pagelist span.disabledlink {
 	padding: 4px;
 }
 ul.pagelist li.current a {
-	color: __C_50__ ; /*denotes the current page were on (1..5 etc) (I'm hiding it in the background)*/
+	color: gray; /*denotes the current page were on (1..5 etc) (I'm hiding it in the background)*/
 }
 ul.pagelist li.prev {
 	margin-right: 10px;
@@ -910,4 +910,10 @@ ul.pagelist li.next {
 }
 .pagenav {
 	clear: both;
+}
+
+#latest li, .latest li{
+	float: left;
+	padding-left: 25px;
+	padding-right: 25px;
 }

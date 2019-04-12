@@ -62,6 +62,16 @@ if ($str = isolate('$option_interface', $p)) {
 	eval($str);
 	setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $extension, $option_interface), $fullLog);
 	$option_interface = new $option_interface;
+	if (method_exists($option_interface, 'getOptionsSupported')) {
+		ob_start(); //	some plugins emit output from the getOptionsSupported() method
+		$options = $option_interface->getOptionsSupported();
+		ob_end_clean();
+		foreach ($options as $option) {
+			if (isset($option['key'])) {
+				setOptionDefault($option['key'], NULL, '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+			}
+		}
+	}
 }
 
 sendImage($_GET['class'], 'plugin_' . $extension);

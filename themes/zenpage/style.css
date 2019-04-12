@@ -67,8 +67,7 @@ body {
 
 #breadcrumb {
 	width: 904px;
-	height: 1.5em;
-	/* background-color: gray; */
+	height: 2.5em;
 	margin-left: 5px;
 	font-size: 1.3em;
 	padding-top: 7px;
@@ -78,6 +77,7 @@ body {
 	border-bottom: 1px solid darkgray;
 	border-top: 1px solid darkgray;
 	color: white;
+	overflow: hidden;
 	background-image:url(images/breadcrumb-back.jpg);
 }
 
@@ -87,7 +87,7 @@ body {
 	font-size: 1em;
 	font-weight: normal;
 	float: left;
-	width: 590px;
+	width: 867px;
 	font-family: "Helvetica Neue", "Lucida Grande", Arial, Helvetica, sans-serif;
 }
 

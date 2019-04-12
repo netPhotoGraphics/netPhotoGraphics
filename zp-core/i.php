@@ -117,9 +117,6 @@ if (!is_writable(SERVERCACHE)) {
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
-		$args[3] = $args[4] = 0;
-		$args[5] = 1; // full crops for these default images
-		$args[9] = NULL;
 		if (DEBUG_IMAGE)
 			debugLog("Transient image:$rimage=>$newfile");
 		$imgfile = SERVERPATH . '/' . sanitize_path($_GET['z']);

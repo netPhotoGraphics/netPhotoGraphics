@@ -208,21 +208,16 @@ if (count($themelist) == 0) {
 			$themedir = SERVERPATH . '/themes/' . internalToFilesystem($theme);
 
 			$themeweb = WEBPATH . "/themes/$theme";
+			if (protectedTheme($theme)) {
+				$whose = 'Official theme';
+				$ico = '<img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
+			} else {
+				$whose = gettext('Third party theme');
+				$ico = BULLSEYE_BLUE;
+			}
 			$path = $themedir . '/logo.png';
 			if (file_exists($path)) {
 				$ico = '<img class="zp_logoicon" src="' . $themeweb . '/logo.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
-			} else {
-				$ico = NULL;
-			}
-			if (protectedTheme($theme)) {
-				$whose = 'Official theme';
-				if (!$ico) {
-					$ico = '<img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
-				}
-			} else {
-				$whose = gettext('Third party theme');
-				if (!$ico)
-					$ico = BULLSEYE_BLUE;
 			}
 			?>
 			<tr>
@@ -332,7 +327,7 @@ if (count($themelist) == 0) {
 										</button>
 									</p>
 								</li>
-							<?php
+								<?php
 							}
 						} else {
 							?>
