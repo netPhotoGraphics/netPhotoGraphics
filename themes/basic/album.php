@@ -18,7 +18,7 @@ if (!defined('WEBPATH'))
 		?>
 	</head>
 	<body>
-<?php zp_apply_filter('theme_body_open'); ?>
+		<?php zp_apply_filter('theme_body_open'); ?>
 		<div id="main">
 			<div id="gallerytitle">
 				<?php
@@ -31,9 +31,9 @@ if (!defined('WEBPATH'))
 					<span>
 						<?php printHomeLink('', ' | '); ?>
 						<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Albums Index'); ?>"><?php printGalleryTitle(); ?></a> |
-					<?php printParentBreadcrumb(); ?>
+						<?php printParentBreadcrumb(); ?>
 					</span>
-<?php printAlbumTitle(); ?>
+					<?php printAlbumTitle(); ?>
 				</h2>
 			</div>
 			<div id="padbox">
@@ -42,7 +42,7 @@ if (!defined('WEBPATH'))
 				printCodeblock(1);
 				?>
 				<div id="albums">
-<?php while (next_album()): ?>
+					<?php while (next_album()): ?>
 						<div class="album">
 							<div class="thumb">
 								<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printAnnotatedAlbumTitle(); ?>"><?php printAlbumThumbImage(getAnnotatedAlbumTitle()); ?></a>
@@ -54,19 +54,19 @@ if (!defined('WEBPATH'))
 							</div>
 
 						</div>
-<?php endwhile; ?>
+					<?php endwhile; ?>
 				</div>
 				<br class="clearall">
 				<div id="images">
-<?php while (next_image()): ?>
+					<?php while (next_image()): ?>
 						<div class="image">
 							<div class="imagethumb">
 								<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>">
-	<?php printImageThumb(getAnnotatedImageTitle()); ?>
+									<?php printImageThumb(getAnnotatedImageTitle()); ?>
 								</a>
 							</div>
 						</div>
-<?php endwhile; ?>
+					<?php endwhile; ?>
 				</div>
 				<br class="clearall">
 				<?php
@@ -76,6 +76,7 @@ if (!defined('WEBPATH'))
 					printAddToFavorites($_zp_current_album);
 				printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', '');
 				@call_user_func('printGoogleMap');
+				@call_user_func('printOpenStreetMap');
 				@call_user_func('printSlideShowLink');
 				@call_user_func('printRating');
 				@call_user_func('printCommentForm');

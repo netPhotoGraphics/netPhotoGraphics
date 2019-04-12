@@ -138,6 +138,12 @@ if (!defined('WEBPATH'))
 					&nbsp;&nbsp;
 					<?php
 				}
+				if (function_exists('printOpenStreetMap')) {
+					printOpenStreetMap();
+					?>
+					&nbsp;&nbsp;
+					<?php
+				}
 				if (getImageMetaData()) {
 					printImageMetadata(NULL, 'colorbox');
 				}
