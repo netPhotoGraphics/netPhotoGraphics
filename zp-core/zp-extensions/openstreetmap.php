@@ -723,8 +723,8 @@ class openStreetMap {
 			foreach ($geodata as $geo) {
 				$count++;
 				$js_geodata .= ' geodata[' . $count . '] = {
-                  lat : "' . $geo['lat'] . '",
-                  long : "' . $geo['long'] . '",
+                  lat : "' . number_format($geo['lat'], 12, '.', '') . '",
+                  long : "' . number_format($geo['lat'], 12, '.', '') . '",
                   title : "' . js_encode(shortenContent($geo['title'], 50, '...')) . '",
                   desc : "' . js_encode(shortenContent($geo['desc'], 100, '...')) . '",
                   thumb : "' . $geo['thumb'] . '",
@@ -842,7 +842,7 @@ class openStreetMap {
 				var geodata = new Array();
 			<?php echo $geodataJS; ?>
 				var map = L.map('osm_map<?php echo $this->mapnumber; ?>', {
-					center: [<?php echo $this->center[0]; ?>,<?php echo $this->center[1]; ?>],
+					center: [<?php echo number_format($this->center[0], 12, '.', ''); ?>,<?php echo number_format($this->center[1], 12, '.', ''); ?>],
 					zoom: <?php echo $this->zoom; ?>, //option
 					zoomControl: false, // disable so we can position it below
 					minZoom: <?php echo $this->minzoom; ?>,
