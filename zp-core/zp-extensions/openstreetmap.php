@@ -724,7 +724,7 @@ class openStreetMap {
 				$count++;
 				$js_geodata .= ' geodata[' . $count . '] = {
                   lat : "' . number_format($geo['lat'], 12, '.', '') . '",
-                  long : "' . number_format($geo['lat'], 12, '.', '') . '",
+                  long : "' . number_format($geo['long'], 12, '.', '') . '",
                   title : "' . js_encode(shortenContent($geo['title'], 50, '...')) . '",
                   desc : "' . js_encode(shortenContent($geo['desc'], 100, '...')) . '",
                   thumb : "' . $geo['thumb'] . '",

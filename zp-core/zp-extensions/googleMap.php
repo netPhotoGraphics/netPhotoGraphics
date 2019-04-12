@@ -142,6 +142,113 @@ class GoogleMap {
 		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/googleMap.css');
 	}
 
+	/**
+	 * converts a cordinate in string format to a float
+	 * NOTE: this function presumes that there are no thousands separators!!!
+	 *
+	 * @param string $num
+	 * @return float
+	 */
+	static function inputConvert($num) {
+		if (is_string($num)) {
+			$d = preg_split('/[,\.]/', $num . '.0');
+			$float = abs($d[0]) + $d[1] * pow(10, -strlen($d[1]));
+			if (strpos($num, '-') !== FALSE) {
+				$float = - $float;
+			}
+		} else {
+			$float = (float) $num;
+		}
+		return $float;
+	}
+
+	/**
+	 * $returns coordinate informations for an image
+	 * @param $image		image object
+	 */
+	static function getGeoCoord($image) {
+		if (isImageClass($image)) {
+			$lat = $image->get('GPSLatitude');
+			$long = $image->get('GPSLongitude');
+			$thumbimg = $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true);
+			if (!empty($lat) && !empty($long)) {
+				$lat_f = self::inputConvert($lat);
+				$long_f = self::inputConvert($long);
+				$thumb = '<a href="javascript:image(\'' . $image->albumname . '\',\'' . $image->filename . '\');"><img src="' . $thumbimg . '" /></a>';
+				return array('lat' => $lat_f, 'long' => $long_f, 'title' => $image->getTitle(), 'desc' => $image->getDesc(), 'thumb' => $thumb);
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Add a point to a map object
+	 * @param $map			google map object
+	 * @param $coord		coordinates array
+	 */
+	static function addGeoCoord($map, $coord) {
+		global $_x, $_y, $_z, $_n;
+		if ($coord) {
+			$marker = array();
+
+			$title = str_replace('/', '\/', str_replace('"', '\"', str_replace(array("\n", "\r"), "", html_encodeTagged($coord['title']))));
+			$desc = str_replace('/', '\/', str_replace('"', '\"', str_replace(array("\n", "\r"), "", html_encodeTagged($coord['desc']))));
+			$thumb = str_replace('/', '\/', str_replace('"', '\"', str_replace(array("\n", "\r"), "", html_encodeTagged($coord['thumb']))));
+			if ($title <> '') {
+				$title = '<h3 class="map_title">' . $title . '</h3>';
+			}
+			if ($desc <> '') {
+				$desc = '<div class="map_desc">' . $desc . '</div>';
+			}
+			if ($coord['thumb'] <> '') {
+				$thumb = '<p class="map_img">' . $coord['thumb'] . '</p>';
+			}
+
+			$marker['position'] = number_format($coord['lat'], 12, '.', '') . ", " . number_format($coord['long'], 12, '.', '');
+			$marker['title'] = addslashes($coord['title']);
+			$marker['infowindow_content'] = $title . $thumb . $desc;
+			$map->add_marker($marker);
+			$lat_f = $coord['lat'] * M_PI / 180;
+			$long_f = $coord['long'] * M_PI / 180;
+			$_x = $_x + cos($lat_f) * cos($long_f);
+			$_y = $_y + cos($lat_f) * sin($long_f);
+			$_z = $_z + sin($lat_f);
+			$_n++;
+		}
+	}
+
+	/**
+	 * Gathers the data for an image
+	 * @param $image		image object
+	 * @param $map			google map object
+	 */
+	static function getImageGeodata($image, $map) {
+		$coord = self::getGeoCoord($image);
+		if ($coord) {
+			self::addGeoCoord($map, $coord);
+		}
+		return $coord;
+	}
+
+	/**
+	 * Gathers the map data for an album
+	 * @param $album		album object
+	 * @param $map			google map object
+	 */
+	static function getAlbumGeodata($album, $map) {
+		$result = false;
+		$images = $album->getImages(0, 0, null, null, false);
+		foreach ($images as $an_image) {
+			$image = newImage($album, $an_image);
+			$coord = self::getGeoCoord($image);
+			if ($coord) {
+				$result = true; // at least one image has geodata
+				self::addGeoCoord($map, $coord);
+			}
+		}
+		return $result;
+	}
+
 }
 
 // codeIgniter stuff
@@ -190,111 +297,26 @@ function omsAdditions() {
 	return '';
 }
 
-/**
- * converts a cordinate in string format to a float
- * NOTE: this function presumes that there are no thousands separators!!!
- *
- * @param string $num
- * @return float
- */
+// legacy interface functions
+
 function inputConvert($num) {
-	if (is_string($num)) {
-		$d = preg_split('/[,\.]/', $num . '.0');
-		$float = abs($d[0]) + $d[1] * pow(10, -strlen($d[1]));
-		if (strpos($num, '-') !== FALSE) {
-			$float = - $float;
-		}
-	} else {
-		$float = (float) $num;
-	}
-	return $float;
+	return GoogleMap::inputConvert($num);
 }
 
-/**
- * $returns coordinate informations for an image
- * @param $image		image object
- */
 function getGeoCoord($image) {
-	if (isImageClass($image)) {
-		$lat = $image->get('GPSLatitude');
-		$long = $image->get('GPSLongitude');
-		$thumbimg = $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true);
-		if (!empty($lat) && !empty($long)) {
-			$lat_f = inputConvert($lat);
-			$long_f = inputConvert($long);
-			$thumb = '<a href="javascript:image(\'' . $image->albumname . '\',\'' . $image->filename . '\');"><img src="' . $thumbimg . '" /></a>';
-			return array('lat' => $lat_f, 'long' => $long_f, 'title' => $image->getTitle(), 'desc' => $image->getDesc(), 'thumb' => $thumb);
-		}
-	}
-	return false;
+	return GoogleMap::getGeoCoord($image);
 }
 
-/**
- * Add a point to a map object
- * @param $map			google map object
- * @param $coord		coordinates array
- */
 function addGeoCoord($map, $coord) {
-	global $_x, $_y, $_z, $_n;
-	if ($coord) {
-		$marker = array();
-
-		$title = str_replace('/', '\/', str_replace('"', '\"', str_replace(array("\n", "\r"), "", html_encodeTagged($coord['title']))));
-		$desc = str_replace('/', '\/', str_replace('"', '\"', str_replace(array("\n", "\r"), "", html_encodeTagged($coord['desc']))));
-		$thumb = str_replace('/', '\/', str_replace('"', '\"', str_replace(array("\n", "\r"), "", html_encodeTagged($coord['thumb']))));
-		if ($title <> '') {
-			$title = '<h3 class="map_title">' . $title . '</h3>';
-		}
-		if ($desc <> '') {
-			$desc = '<div class="map_desc">' . $desc . '</div>';
-		}
-		if ($coord['thumb'] <> '') {
-			$thumb = '<p class="map_img">' . $coord['thumb'] . '</p>';
-		}
-
-		$marker['position'] = number_format($coord['lat'], 12, '.', '') . ", " . number_format($coord['long'], 12, '.', '');
-		$marker['title'] = addslashes($coord['title']);
-		$marker['infowindow_content'] = $title . $thumb . $desc;
-		$map->add_marker($marker);
-		$lat_f = $coord['lat'] * M_PI / 180;
-		$long_f = $coord['long'] * M_PI / 180;
-		$_x = $_x + cos($lat_f) * cos($long_f);
-		$_y = $_y + cos($lat_f) * sin($long_f);
-		$_z = $_z + sin($lat_f);
-		$_n++;
-	}
+	return GoogleMap::addGeoCoord($map, $coord);
 }
 
-/**
- * Gathers the data for an image
- * @param $image		image object
- * @param $map			google map object
- */
 function getImageGeodata($image, $map) {
-	$coord = getGeoCoord($image);
-	if ($coord) {
-		addGeoCoord($map, $coord);
-	}
-	return $coord;
+	return GoogleMap::getImageGeodata($image, $map);
 }
 
-/**
- * Gathers the map data for an album
- * @param $album		album object
- * @param $map			google map object
- */
 function getAlbumGeodata($album, $map) {
-	$result = false;
-	$images = $album->getImages(0, 0, null, null, false);
-	foreach ($images as $an_image) {
-		$image = newImage($album, $an_image);
-		$coord = getGeoCoord($image);
-		if ($coord) {
-			$result = true; // at least one image has geodata
-			addGeoCoord($map, $coord);
-		}
-	}
-	return $result;
+	return GoogleMap::getAlbumGeodata($album, $map);
 }
 
 /**
@@ -314,7 +336,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 		?>
 		<br clear="all">
 		<div class="errorbox">
-		<?php echo gettext('No Google Map API key has been set.'); ?>
+			<?php echo gettext('No Google Map API key has been set.'); ?>
 		</div>
 		<?php
 		return;
@@ -397,14 +419,14 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 	/* add markers from geocoded pictures */
 	switch ($type) {
 		case 'images':
-			if (getImageGeodata($obj, $map)) {
+			if (GoogleMap::getImageGeodata($obj, $map)) {
 				break;
 			} else {
 				$map = NULL;
 				return false;
 			}
 		case 'albums':
-			if (getAlbumGeodata($obj, $map)) {
+			if (GoogleMap::getAlbumGeodata($obj, $map)) {
 				break;
 			} else {
 				$map = NULL;
@@ -455,7 +477,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				//]]>
 			</script>
 			<div id="<?php echo $id_data; ?>">
-			<?php echo $map->output_html; ?>
+				<?php echo $map->output_html; ?>
 			</div>
 			<?php
 			break;
@@ -492,7 +514,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $text; ?></a>
 			</span>
 			<div id="<?php echo $id_data; ?>" class="hidden_map">
-			<?php echo $map->output_html; ?>
+				<?php echo $map->output_html; ?>
 			</div>
 			<?php
 			break;
