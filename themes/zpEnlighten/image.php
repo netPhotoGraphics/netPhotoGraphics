@@ -146,8 +146,7 @@ if (!defined('WEBPATH'))
 						printRating();
 					}
 					?>
-					<?php if (function_exists('printGoogleMap')) printGoogleMap(); ?>
-
+					<?php simpleMap::printMap(); ?>
 				</div>
 				<?php if (function_exists('printCommentForm')) { ?>
 					<div id="comments">

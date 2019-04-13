@@ -4,7 +4,7 @@
 if (!defined('WEBPATH'))
 	die();
 
-$map = function_exists('printGoogleMap');
+$map = simpleMap::mapPlugin();
 ?>
 <!DOCTYPE html>
 <html>

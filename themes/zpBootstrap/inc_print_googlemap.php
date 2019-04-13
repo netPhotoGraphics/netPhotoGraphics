@@ -34,7 +34,7 @@
 					</h4>
 				</div>
 			</div>
-			<?php printGoogleMap('', 'gmap_collapse'); ?>
+			<?php simpleMap::printMap(NULL, NULL, $id); ?>
 			<script type="text/javascript">
 				//<![CDATA[
 				;

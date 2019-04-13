@@ -4379,7 +4379,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4585,6 +4585,85 @@ function print404status() {
 	if ($page > 1) {
 		echo '/' . $page;
 	}
+}
+
+/**
+ * A class to allow simple geo map printing independent of which plugin is enabled.
+ *
+ * Note: it will gracefully do nothing if there is no map plugin enabled.
+ */
+class simpleMap {
+
+	/**
+	 * returns the name of the map print function (if there is one)
+	 *
+	 * @return string
+	 */
+	static function mapPlugin() {
+		if (class_exists('googleMap')) {
+			return 'GoogleMap';
+		}
+		if (class_exists('openStreetMap')) {
+			return 'openStreetMap';
+		}
+		return NULL;
+	}
+
+	/**
+	 * used to collect geo coordinate points (typically for album pages)
+	 *
+	 * @param type $image
+	 * @return boolean
+	 */
+	static function getGeoCoord($image) {
+		if (class_exists('googleMap')) {
+			return GoogleMap::getGeoCoord($image);
+		}
+		if (class_exists('openStreetMap')) {
+			return openStreetMap::getGeoCoord($image);
+		}
+		return false;
+	}
+
+	/**
+	 * This is the generic print map function. If you want any refinement then
+	 * you will have to call the appropriate plugin directly since there is no
+	 * mapping of their parameters.
+	 *
+	 * @global array $_simpleMap_map_points
+	 * @param array $points
+	 * @param mixed $obj the "thing" which the map is showing
+	 * @param string $id css id of the map†
+	 * @param string $class css class of the map†
+	 *
+	 * † use is plugin dependent
+	 */
+	static function printMap($points = NULL, $obj = NULL, $id = NULL, $class = '') {
+		if (class_exists('googleMap')) {
+			global $_simpleMap_map_points;
+			if (!is_null($callback = $points)) {
+				$_simpleMap_map_points = $points;
+				$callback = 'simpleMap::callback';
+			}
+			printGoogleMap(NULL, $id, NULL, $obj, $callback);
+		} else if (class_exists('openStreetMap')) {
+			printOpenStreetMap($points, NULL, NULL, NULL, NULL, NULL, $class, NULL, $obj, false);
+		}
+	}
+
+	/**
+	 * callback function for printGoogleMap
+	 *
+	 * @global type $_simpleMap_map_points
+	 * @param object $map
+	 */
+	static function callback($map) {
+		global $_simpleMap_map_points;
+		foreach ($_simpleMap_map_points as $coord) {
+			GoogleMap::addGeoCoord($map, $coord);
+		}
+	}
+
 }
 
 require_once(SERVERPATH . '/' . ZENFOLDER . '/template-filters.php');

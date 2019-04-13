@@ -57,8 +57,8 @@ $legacyReplacements = array(
 		'registerScripts\(.*?\)' => '/*registerScripts removed*/',
 		'->getAuthor\(' => '->getOwner(',
 		'->setAuthor\(' => '->setOwner(',
-		'getGeoCoord\(' => 'GoogleMap::getGeoCoord(',
-		'addGeoCoord\(' => 'GoogleMap::addGeoCoord('
+		'getGeoCoord\(' => 'simpleMap::getGeoCoord(',
+		'addGeoCoord\(' => 'simpleMap::addGeoCoord('
 );
 
 /**

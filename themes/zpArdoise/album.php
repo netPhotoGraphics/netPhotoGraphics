@@ -85,8 +85,8 @@
 	<div class="favorites"><?php printAddToFavorites($_zp_current_album); ?></div>
 <?php } ?>
 
-<?php if (extensionEnabled('GoogleMap')) { ?>
-	<div class="googlemap"><?php printGoogleMap(NULL, 'googlemap'); ?></div>
+<?php if (simplemap::mapPlugin()) { ?>
+	<div class="googlemap"><?php simplemap::printMap(); ?></div>
 	<script type="text/javascript">
 		//<![CDATA[
 	<?php if (getOption('gmap_display') == 'colorbox') { ?>

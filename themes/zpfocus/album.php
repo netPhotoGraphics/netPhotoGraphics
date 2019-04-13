@@ -150,10 +150,10 @@
 		<?php printPageListWithNav('« ' . gettext('Prev'), gettext('Next') . ' »', false, 'true', 'page-nav', '', true, '5'); ?>
 	<?php } ?>
 
-	<?php if (function_exists('printGoogleMap')) { ?>
+	<?php if (simpleMap::mapPlugin()) { ?>
 		<div class="gmap">
 			<?php
-			printGoogleMap();
+			simpleMap::printMap();
 			?>
 		</div>
 	<?php } ?>

@@ -71,8 +71,8 @@ $tags_album = getAllTagsFromAlbum($name, false, 'images');
 					?>
 				</a>
 			</div>
+		<?php } ?>
 	<?php } ?>
-<?php } ?>
 </div>
 <?php
 scriptLoader($_zp_themeroot . '/js/imagesloaded.pkgd.min.js');
@@ -110,13 +110,13 @@ scriptLoader($_zp_themeroot . '/js/packery-mode.pkgd.min.js');
 //]]>
 </script>
 
-	<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
 	<div class="favorites panel-group" role="tablist">
-	<?php printAddToFavorites($_zp_current_album); ?>
+		<?php printAddToFavorites($_zp_current_album); ?>
 	</div>
 <?php } ?>
 
-<?php if (extensionEnabled('GoogleMap')) { ?>
+<?php if (simplemap::mapPlugin()) { ?>
 	<?php include('inc_print_googlemap.php'); ?>
 <?php } ?>
 

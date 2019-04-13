@@ -628,7 +628,10 @@ class openStreetMap {
 			if (!empty($lat) && !empty($long)) {
 				$lat_f = self::inputConvert($lat);
 				$long_f = self::inputConvert($long);
-				return array('lat' => $lat_f, 'long' => $long_f);
+				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
+				$title = shortenContent($image->getTitle(), 50, '...') . '<br />';
+				$desc = shortenContent($image->getDesc(), 100, '...');
+				return array('lat' => $lat_f, 'long' => $long_f, 'title' => $title, 'desc' => $desc, 'thumb' => $thumb, 'current' => 0);
 			}
 		}
 		return false;
@@ -643,15 +646,9 @@ class openStreetMap {
 		global $_zp_current_image;
 		$result = self::getGeoCoord($image);
 		if ($result) {
-			$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
-			$current = 0;
 			if ($this->mode == 'single-cluster' && isset($_zp_current_image) && ($image->filename == $_zp_current_image->filename && $image->getAlbumname() == $_zp_current_image->getAlbumname())) {
-				$current = 1;
+				$result['current'] = 1;
 			}
-			$result['title'] = shortenContent($image->getTitle(), 50, '...') . '<br />';
-			$result['desc'] = shortenContent($image->getDesc(), 100, '...');
-			$result['thumb'] = $thumb;
-			$result['current'] = $current;
 		}
 		return $result;
 	}

@@ -117,9 +117,9 @@ if (class_exists('favorites')) {
 				<?php if ((hasNextPage()) || (hasPrevPage())) printPageListWithNav("«", "»", false, true, 'pagination', null, true, 5); ?>
 				<?php printPPSlideShowLink(gettext('Slideshow')); ?>
 				<?php if ($zpskel_social) include ('inc-social.php'); ?>
-				<?php if ((function_exists('printGoogleMap'))) { ?>
+				<?php if (simpleMap::mapPlugin()) { ?>
 					<div id="map">
-						<?php printGoogleMap(); ?>
+						<?php simpleMap::printMap(); ?>
 					</div>
 				<?php } ?>
 			</div>

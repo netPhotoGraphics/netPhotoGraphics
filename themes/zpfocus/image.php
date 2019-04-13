@@ -81,10 +81,10 @@
 		</div>
 	<?php } ?>
 
-	<?php if (function_exists('printGoogleMap')) { ?>
+	<?php if (simplemap::mapPlugin()) { ?>
 		<div class="gmap">
 			<?php
-			printGoogleMap();
+			simplemap::printMap();
 			?>
 		</div>
 	<?php } ?>

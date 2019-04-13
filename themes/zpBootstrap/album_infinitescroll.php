@@ -39,7 +39,7 @@ if ((getNumAlbums() > 0) && (getNumImages() > 0)) {
 		</div>
 	<?php } ?>
 
-	<?php if (extensionEnabled('GoogleMap')) { ?>
+	<?php if (simplemap::mapPlugin()) { ?>
 		<?php include('inc_print_googlemap.php'); ?>
 	<?php } ?>
 

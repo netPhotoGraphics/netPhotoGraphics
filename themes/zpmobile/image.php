@@ -89,8 +89,8 @@ if (!defined('WEBPATH'))
 						printRating();
 						echo '</div>';
 					}
-					if (function_exists('printGoogleMap'))
-						printGoogleMap();
+
+					simpleMap::printMap();
 					if (function_exists('printCommentForm')) {
 						echo '<hr />';
 						printCommentForm();
@@ -99,14 +99,14 @@ if (!defined('WEBPATH'))
 
 				</div>
 				<div class="content-secondary">
-			<?php jqm_printMenusLinks(); ?>
+					<?php jqm_printMenusLinks(); ?>
 				</div>
 			</div><!-- /content -->
-<?php jqm_printBacktoTopLink(); ?>
-		<?php jqm_printFooterNav(); ?>
+			<?php jqm_printBacktoTopLink(); ?>
+			<?php jqm_printFooterNav(); ?>
 		</div><!-- /page -->
 
-<?php zp_apply_filter('theme_body_close'); ?>
+		<?php zp_apply_filter('theme_body_close'); ?>
 
 	</body>
 </html>

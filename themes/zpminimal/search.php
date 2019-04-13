@@ -68,8 +68,7 @@ if (!empty($searchdate)) {
 				<?php printPageListWithNav("← " . gettext("prev"), gettext("next") . " →"); ?>
 			</div>
 		<?php } ?>
-		<?php if (function_exists('printGoogleMap')) { ?><div class="section">
-				?></div><?php } ?>
+		<?php if (simpleMap::mapPlugin()) { ?><div class="section"><?php simpleMap::printMap(); ?></div><?php } ?>
 
 		<?php
 		if ($_zp_page == 1) { //test of zenpage searches

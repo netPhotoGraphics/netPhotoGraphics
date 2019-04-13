@@ -65,7 +65,7 @@ class ef_colorbox {
 							<div class="imagethumb">
 								<?php
 								if ($map) {
-									$coord = GoogleMap::getGeoCoord($_zp_current_image);
+									$coord = simpleMap::getGeoCoord($_zp_current_image);
 									if ($coord) {
 										$points[] = $coord;
 									}
@@ -87,16 +87,9 @@ class ef_colorbox {
 					}
 					echo '<div class="clearage"></div>';
 					if (!empty($points) && $map) {
-
-						function map_callback($map) {
-							global $points;
-							foreach ($points as $coord) {
-								GoogleMap::addGeoCoord($map, $coord);
-							}
-						}
 						?>
 						<div id="map_link">
-							<?php printGoogleMap(NULL, NULL, NULL, 'album_page', 'map_callback'); ?>
+							<?php simpleMap::printMap($points, 'album_page'); ?>
 						</div>
 						<?php
 					}
