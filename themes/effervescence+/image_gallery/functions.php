@@ -112,7 +112,7 @@ class imagegallery {
 											<?php
 											while (next_image(true)) {
 												if ($map) {
-													$coord = getGeoCoord($_zp_current_image);
+													$coord = GoogleMap::getGeoCoord($_zp_current_image);
 													if ($coord) {
 														$points[] = $coord;
 													}
@@ -154,7 +154,7 @@ class imagegallery {
 							function map_callback($map) {
 								global $points;
 								foreach ($points as $coord) {
-									addGeoCoord($map, $coord);
+									GoogleMap::addGeoCoord($map, $coord);
 								}
 							}
 							?>

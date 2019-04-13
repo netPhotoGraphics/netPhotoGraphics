@@ -119,6 +119,20 @@ class GoogleMap {
 
 	}
 
+	static function log_message($class, $msg) {
+		// do nothing
+	}
+
+	static function get_instance() {
+		// standin for CI library
+		return new codeIgniter_kludge();
+	}
+
+	static function omsAdditions() {
+		// maybe we can move some of the zenphoto hacks here.
+		return '';
+	}
+
 	/**
 	 * Add required informations in the header
 	 */
@@ -283,42 +297,6 @@ class codeIgniter_kludge { //	dummy for all the CI stuff in the CodeIngnter-Goog
 
 }
 
-function log_message($class, $msg) {
-	// do nothing
-}
-
-function get_instance() {
-	// standin for CI library
-	return new codeIgniter_kludge();
-}
-
-function omsAdditions() {
-	// maybe we can move some of the zenphoto hacks here.
-	return '';
-}
-
-// legacy interface functions
-
-function inputConvert($num) {
-	return GoogleMap::inputConvert($num);
-}
-
-function getGeoCoord($image) {
-	return GoogleMap::getGeoCoord($image);
-}
-
-function addGeoCoord($map, $coord) {
-	return GoogleMap::addGeoCoord($map, $coord);
-}
-
-function getImageGeodata($image, $map) {
-	return GoogleMap::getImageGeodata($image, $map);
-}
-
-function getAlbumGeodata($album, $map) {
-	return GoogleMap::getAlbumGeodata($album, $map);
-}
-
 /**
  * Output the google map
  *
@@ -468,7 +446,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				//<![CDATA[
 			<?php
 			echo $map->output_js_contents;
-			echo omsAdditions();
+			echo GoogleMap::omsAdditions();
 			?>
 
 				function image(album, image) {
@@ -488,7 +466,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				//<![CDATA[
 			<?php
 			echo $map->output_js_contents;
-			echo omsAdditions();
+			echo GoogleMap::omsAdditions();
 			?>
 
 				function image(album, image) {

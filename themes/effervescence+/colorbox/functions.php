@@ -65,7 +65,7 @@ class ef_colorbox {
 							<div class="imagethumb">
 								<?php
 								if ($map) {
-									$coord = getGeoCoord($_zp_current_image);
+									$coord = GoogleMap::getGeoCoord($_zp_current_image);
 									if ($coord) {
 										$points[] = $coord;
 									}
@@ -91,7 +91,7 @@ class ef_colorbox {
 						function map_callback($map) {
 							global $points;
 							foreach ($points as $coord) {
-								addGeoCoord($map, $coord);
+								GoogleMap::addGeoCoord($map, $coord);
 							}
 						}
 						?>

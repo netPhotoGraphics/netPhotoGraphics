@@ -74,7 +74,7 @@ function gMapOptionsImage($map) {
 function gMapOptionsAlbum($map) {
 	global $points;
 	foreach ($points as $coord) {
-		addGeoCoord($map, $coord);
+		GoogleMap::addGeoCoord($map, $coord);
 	}
 }
 

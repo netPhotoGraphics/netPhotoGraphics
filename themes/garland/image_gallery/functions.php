@@ -110,7 +110,7 @@ class imagegallery {
 									<?php
 									while (next_image(true)) {
 										if ($map) {
-											$coord = getGeoCoord($_zp_current_image);
+											$coord = GoogleMap::getGeoCoord($_zp_current_image);
 											if ($coord) {
 												$points[] = $coord;
 											}
