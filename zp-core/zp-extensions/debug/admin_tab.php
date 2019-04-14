@@ -159,11 +159,11 @@ echo "\n</head>";
 						case 'env':
 							?>
 							<style type="text/css">
-								.list{
-									width: 80%;
-								}
 								.var {
 									vertical-align: top;
+								}
+								.val{
+									word-wrap: break-word;
 								}
 							</style>
 							<?php
@@ -176,7 +176,7 @@ echo "\n</head>";
 									<?php
 									foreach ($env as $var => $val) {
 										?>
-										<dt class="var"><?php echo $var; ?></dt><dd><?php echo $val; ?></dd>
+										<dt class="var"><?php echo $var; ?></dt><dd class="val"><?php echo $val; ?></dd>
 										<?php
 									}
 									?>
