@@ -24,7 +24,7 @@
  *
  * Note: Since no scripts are involved no share counts!
  *
- * To have it work correctly you should to enable the html_meta_tags plugin
+ * To have it work correctly you should enable the html_meta_tags plugin
  * and the Open Graph (og:) meta data elements.
  *
  * The plugin loads an default CSS styling using an icon font optionally. If you wish to use theme based custom icons
