@@ -491,11 +491,10 @@ class openStreetMap {
 
 		$this->showalbummarkers = getOption('osmap_showalbummarkers');
 		if (is_object($obj)) {
+			$this->obj = $obj;
 			if (isImageClass($obj)) {
-				$this->obj = $obj;
 				$this->mode = 'single';
 			} else if (isAlbumClass($obj)) {
-				$this->obj = $obj;
 				$this->mode = 'cluster';
 			}
 		} else {
@@ -520,10 +519,6 @@ class openStreetMap {
 					case 'album.php':
 					case 'favorites.php':
 						$this->obj = $_zp_current_album;
-						$this->mode = 'cluster';
-						$this->markerpopup_title = getOption('osmap_markerpopup_title');
-						$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
-						$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 					case 'search.php':
 						$this->mode = 'cluster';
 						$this->markerpopup_title = getOption('osmap_markerpopup_title');

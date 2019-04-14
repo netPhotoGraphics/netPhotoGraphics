@@ -149,6 +149,8 @@ unset($matches);
 unset($const_webpath);
 unset($const_serverpath);
 
+define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,mbstring,openssl,session,tidy,zip');
+
 // Contexts (Bitwise and combinable)
 define("ZP_INDEX", 1);
 define("ZP_ALBUM", 2);
@@ -209,5 +211,4 @@ define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange;
 define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/trashcan.png" /></span>');
 define('BADGE_BLUE', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png" /></span>');
 define('BADGE_GOLD', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" /></span>');
-
-define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,mbstring,openssl,session,tidy,zip');
+//end icons

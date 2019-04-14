@@ -4593,6 +4593,23 @@ function print404status() {
  * Note: it will gracefully do nothing if there is no map plugin enabled.
  */
 class simpleMap {
+	/*
+	 * You can customize (within reason) some of these by copying this class
+	 * and changing these values. But note, of course, that the two plugins do
+	 * things differently.
+	 */
+
+	// default values for printGoogleMap parameters
+	static $text = NULL;
+	static $hide = NULL;
+	// default values for printOpenStreetMap parameters
+	static $width = NULL;
+	static $height = NULL;
+	static $mapcenter = NULL;
+	static $zoom = NULL;
+	static $fitbounds = NULL;
+	static $mapnumber = NULL;
+	static $minimap = false;
 
 	/**
 	 * returns the name of the map print function (if there is one)
@@ -4645,9 +4662,9 @@ class simpleMap {
 				$_simpleMap_map_points = $points;
 				$callback = 'simpleMap::callback';
 			}
-			printGoogleMap(NULL, $id, NULL, $obj, $callback);
+			printGoogleMap(self::$text, $id, self::$hide, $obj, $callback);
 		} else if (class_exists('openStreetMap')) {
-			printOpenStreetMap($points, NULL, NULL, NULL, NULL, NULL, $class, NULL, $obj, false);
+			printOpenStreetMap($points, self::$width, self::$height, self::$mapcenter, self::$zoom, self::$fitbounds, $class, self::$mapnumber, $obj, self::$minimap);
 		}
 	}
 
