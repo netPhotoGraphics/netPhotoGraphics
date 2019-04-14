@@ -157,11 +157,31 @@ echo "\n</head>";
 							echo $phpinfo;
 							break;
 						case 'env':
+							?>
+							<style type="text/css">
+								.list{
+									width: 80%;
+								}
+								.var {
+									vertical-align: top;
+								}
+							</style>
+							<?php
 							$env = getenv();
 							if (empty($env)) {
 								echo gettext('There are no environmental variables passed.');
 							} else {
-								varDebug($env);
+								?>
+								<dl class="list">
+									<?php
+									foreach ($env as $var => $val) {
+										?>
+										<dt class="var"><?php echo $var; ?></dt><dd><?php echo $val; ?></dd>
+										<?php
+									}
+									?>
+								</dl>
+								<?php
 							}
 							break;
 						case 'server':
