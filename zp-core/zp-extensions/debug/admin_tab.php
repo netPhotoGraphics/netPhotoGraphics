@@ -58,7 +58,6 @@ echo "\n</head>";
 								<?php echo gettext('Environmental variables will not be provide unless your PHP.ini directive <code>variables_order</code> includes "E". e.g. <code>variables_order = "EGPCS"</code>'); ?>
 							</div>
 						</span>
-
 						<?php
 						break;
 					case 'server':
@@ -158,11 +157,11 @@ echo "\n</head>";
 							echo $phpinfo;
 							break;
 						case 'env':
-							if (empty($_ENV)) {
+							$env = getenv();
+							if (empty($env)) {
 								echo gettext('There are no environmental variables passed.');
 							} else {
-								$env = preg_replace('/^Array\n/', '<pre>', print_r($_ENV, true)) . '</pre>';
-								echo $env;
+								varDebug($env);
 							}
 							break;
 						case 'server':
@@ -330,10 +329,11 @@ echo "\n</head>";
 							<div class="tabbox">
 								<?php include (SERVERPATH . '/docs/filterDoc.htm'); ?>
 							</div>
-						<?php
+							<?php
+							break;
 					}
 					?>
-					break;
+
 
 				</div>
 			</div>
