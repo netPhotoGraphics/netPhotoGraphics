@@ -38,7 +38,6 @@ class openStreetMapOptions {
 			setOptionDefault('osmap_minzoom', 2);
 			setOptionDefault('osmap_maxzoom', 18);
 			setOptionDefault('osmap_clusterradius', 40);
-			setOptionDefault('osmap_markerpopup', 1);
 			setOptionDefault('osmap_markerpopup_title', 1);
 			setOptionDefault('osmap_markerpopup_desc', 1);
 			setOptionDefault('osmap_markerpopup_thumb', 1);
@@ -120,7 +119,7 @@ class openStreetMapOptions {
 						'order' => 10,
 						'desc' => gettext("Enable if you want to show the bounds of a marker cluster on hover.")),
 				gettext('Marker popups') => array(
-						'key' => 'osmap_markerpopup_array',
+						'key' => 'osmap_markerpopup',
 						'type' => OPTION_TYPE_CHECKBOX_ARRAY,
 						'checkboxes' => array(
 								gettext('Thumb') => 'osmap_markerpopup_thumb',
@@ -318,14 +317,6 @@ class openStreetMap {
 	var $clusterradius = NULL;
 
 	/**
-	 * If used on albums or several custom markers if you wish popups on the markers
-	 * If using custom markers you need to provide the content for the popups withn the $geodata property
-	 * Default taken from plugin options
-	 * @var bool
-	 */
-	var $markerpopup = false;
-
-	/**
 	 * Only if on an album page and if $imagepopups are enabled.
 	 * If the imagepopus should contain thumbs of the images
 	 * Default taken from plugin options
@@ -511,9 +502,6 @@ class openStreetMap {
 						$this->obj = $_zp_current_album;
 					case 'search.php':
 						$this->mode = 'cluster';
-						$this->markerpopup_title = getOption('osmap_markerpopup_title');
-						$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
-						$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 						break;
 				}
 			}
