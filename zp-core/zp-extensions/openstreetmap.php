@@ -118,27 +118,17 @@ class openStreetMapOptions {
 						'key' => 'osmap_cluster_showcoverage_on_hover',
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 10,
-						'desc' => gettext("Enable if you want to the bounds of a marker cluster on hover.")),
+						'desc' => gettext("Enable if you want to show the bounds of a marker cluster on hover.")),
 				gettext('Marker popups') => array(
-						'key' => 'osmap_markerpopup',
-						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 11,
-						'desc' => gettext("Enable this if you wish info popups on the map markers. Only for album context or custom geodata.")),
-				gettext('Marker popups with thumbs') => array(
-						'key' => 'osmap_markerpopup_thumb',
-						'type' => OPTION_TYPE_CHECKBOX,
+						'key' => 'osmap_markerpopup_array',
+						'type' => OPTION_TYPE_CHECKBOX_ARRAY,
+						'checkboxes' => array(
+								gettext('Thumb') => 'osmap_markerpopup_thumb',
+								gettext('Title') => 'osmap_markerpopup_title',
+								gettext('Description') => 'osmap_markerpopup_desc'
+						),
 						'order' => 12,
-						'desc' => gettext("Enable if you want to show thumb of images in the marker popups. Only for album context.")),
-				gettext('Marker popups with title') => array(
-						'key' => 'osmap_markerpopup_title',
-						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 13,
-						'desc' => gettext("Enable if you want to show title of images in the marker popups. Only for album context.")),
-				gettext('Marker popups with description') => array(
-						'key' => 'osmap_markerpopup_desc',
-						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 14,
-						'desc' => gettext("Enable if you want to show desc of images in the marker popups. Only for album context.")),
+						'desc' => gettext("Enable the popups you want shown. Popups occur only in the <em>album</em> context.")),
 				gettext('Show layers controls') => array(
 						'key' => 'osmap_showlayerscontrol',
 						'type' => OPTION_TYPE_CHECKBOX,
@@ -540,7 +530,6 @@ class openStreetMap {
 		$this->defaultlayer = $this->setMapTiles(getOption('osmap_defaultlayer'));
 		$this->clusterradius = getOption('osmap_clusterradius');
 		$this->cluster_showcoverage_on_hover = getOption('osmap_cluster_showcoverage_on_hover');
-		$this->markerpopup = getOption('osmap_markerpopup');
 		$this->markerpopup_title = getOption('osmap_markerpopup_title');
 		$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
 		$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
@@ -777,8 +766,22 @@ class openStreetMap {
 					}
 					break;
 				case 'cluster':
-					//for demo tests only needs to be calculated properly later on!
-					$this->center = array($geodata[0]['lat'], $geodata[0]['long']);
+					$_x = $_y = $_z = 0;
+					$_n = count($geodata);
+					foreach ($geodata as $coord) {
+						$lat_f = $coord['lat'] * M_PI / 180;
+						$long_f = $coord['long'] * M_PI / 180;
+						$_x = $_x + cos($lat_f) * cos($long_f);
+						$_y = $_y + cos($lat_f) * sin($long_f);
+						$_z = $_z + sin($lat_f);
+					}
+					$_x = $_x / $_n;
+					$_y = $_y / $_n;
+					$_z = $_z / $_n;
+					$lon = number_format(atan2($_y, $_x) * 180 / M_PI, 12, '.', '');
+					$hyp = sqrt($_x * $_x + $_y * $_y);
+					$lat = number_format(atan2($_z, $hyp) * 180 / M_PI, 12, '.', '');
+					$this->center = array($lat, $lon);
 					break;
 			}
 		}
@@ -912,16 +915,14 @@ class openStreetMap {
 							}); //radius > Option
 							$.each(geodata, function (index, value) {
 								var text = '';
-						<?php if ($this->markerpopup) { ?>
-							<?php if ($this->markerpopup_title) { ?>
-										text = value.title;
-							<?php } ?>
-							<?php if ($this->markerpopup_thumb) { ?>
-										text += value.thumb;
-							<?php } ?>
-							<?php if ($this->markerpopup_desc) { ?>
-										text += value.desc;
-							<?php } ?>
+						<?php if ($this->markerpopup_title) { ?>
+									text = value.title;
+						<?php } ?>
+						<?php if ($this->markerpopup_thumb) { ?>
+									text += value.thumb;
+						<?php } ?>
+						<?php if ($this->markerpopup_desc) { ?>
+									text += value.desc;
 						<?php } ?>
 								if (text === '') {
 									markers_cluster.addLayer(L.marker([value.lat, value.long]));
