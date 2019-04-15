@@ -126,7 +126,7 @@ $map = simpleMap::mapPlugin();
 							?>
 							<div id="map_link">
 								<?php
-								simpleMap::printMap($pints, 'album_page');
+								simpleMap::printMap($points, 'album_page');
 								?>
 							</div>
 							<br class="clearall">

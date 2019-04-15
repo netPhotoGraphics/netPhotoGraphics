@@ -10,9 +10,11 @@ if (!defined('WEBPATH'))
 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
 
 <div id="background-main" class="background">
-	<div class="container<?php if (getOption('full_width')) {
-	echo '-fluid';
-} ?>">
+	<div class="container<?php
+	if (getOption('full_width')) {
+		echo '-fluid';
+	}
+	?>">
 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 
@@ -143,7 +145,7 @@ if (!defined('WEBPATH'))
 				<?php printCodeBlock(1); ?>
 
 				<?php
-				setOption(gmap_display, 'show', false);
+				setOption('gmap_display', 'show', false);
 				simpleMap::printMap();
 				?>
 

@@ -1,7 +1,8 @@
 <?php
 /**
  * A plugin for showing OpenStreetMap maps using {@link http://leafletjs.com LeafletJS} for images, images from
- * albums with embeded geodata, or from custom geodata.
+ * albums with embeded geodata, or from custom geodata. To invoke add <code>printOpenStreetmap()</code> to your
+ * image and album scripts.
  *
  * Also includes
  *
@@ -112,7 +113,7 @@ class openStreetMapOptions {
 						'key' => 'osmap_clusterradius',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 9,
-						'desc' => gettext("The radius when marker clusters should be used.")),
+						'desc' => gettext("The maximum radius that a cluster will cover from the central marker (in pixels). Decreasing will make more, smaller clusters.")),
 				gettext('Show cluster coverage on hover') => array(
 						'key' => 'osmap_cluster_showcoverage_on_hover',
 						'type' => OPTION_TYPE_CHECKBOX,
@@ -138,7 +139,7 @@ class openStreetMapOptions {
 						'type' => OPTION_TYPE_CHECKBOX_UL,
 						'order' => 14.4,
 						'checkboxes' => $layerslist,
-						'desc' => gettext("Choose layers list to show in layers controls.")),
+						'desc' => gettext('Choose layers list to show in layers controls. You can preview the layers <a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html">here</a>.')),
 				gettext('Layers controls position') => array(
 						'key' => 'osmap_layerscontrolpos',
 						'type' => OPTION_TYPE_SELECTOR,
@@ -719,7 +720,7 @@ class openStreetMap {
 			$count = '';
 			foreach ($geodata as $g) {
 				$count++;
-				$bounds .= '[' . $g['lat'] . ',' . $g['long'] . ']';
+				$bounds .= '[' . number_format($g['lat'], 12, '.', '') . ',' . number_format($g['long'], 12, '.', '') . ']';
 				if ($count < $geocount) {
 					$bounds .= ',';
 				}
@@ -969,9 +970,7 @@ class openStreetMap {
  * @param bool $minimap True to show the minimap in the lower right corner
  */
 function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false) {
-	if (!empty($class)) {
-		$class = ' class="' . $class . '"';
-	}
+
 	$map = new openStreetMap($geodata, $obj);
 	if (!is_null($width)) {
 		$map->width = $width;

@@ -10,9 +10,11 @@ if (!defined('WEBPATH'))
 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
 
 <div id="background-main" class="background">
-	<div class="container<?php if (getOption('full_width')) {
-	echo '-fluid';
-} ?>">
+	<div class="container<?php
+	if (getOption('full_width')) {
+		echo '-fluid';
+	}
+	?>">
 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/ImageGallery">
 			<section class="col-sm-9" id="main" itemprop="mainContentOfPage">
@@ -56,7 +58,7 @@ if (!defined('WEBPATH'))
 				?>
 
 				<?php
-				setOption(gmap_display, 'show', false);
+				setOption('gmap_display', 'show', false);
 				simpleMap::printMap();
 				?>
 
@@ -71,7 +73,7 @@ if (!defined('WEBPATH'))
 
 				<br style="clear:both;" />
 
-			<?php @call_user_func('printCommentForm'); ?>
+<?php @call_user_func('printCommentForm'); ?>
 
 			</section>
 
