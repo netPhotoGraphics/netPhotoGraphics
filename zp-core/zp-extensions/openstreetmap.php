@@ -353,6 +353,11 @@ class openStreetMap {
 	var $obj = NULL;
 
 	/**
+	 * the prefix text for the map css ID
+	 */
+	var $mapid = 'osm_map';
+
+	/**
 	 * The predefined array of all free map tile providers for Open Street Map
 	 * array index is the provider, value is the option
 	 * @var array
@@ -821,11 +826,11 @@ class openStreetMap {
 		$geodataJS = $this->getGeoDataJS();
 		if (!empty($geodataJS)) {
 			?>
-			<div id="osm_map<?php echo $this->mapnumber; ?>"<?php echo $class; ?> style="width:<?php echo $this->width; ?>; height:<?php echo $this->height; ?>;"></div>
+			<div id="<?php echo $this->mapid . $this->mapnumber; ?>"<?php echo $class; ?> style="width:<?php echo $this->width; ?>; height:<?php echo $this->height; ?>;"></div>
 			<script>
 				var geodata = new Array();
 			<?php echo $geodataJS; ?>
-				var map = L.map('osm_map<?php echo $this->mapnumber; ?>', {
+				var map = L.map('<?php echo $this->mapid . $this->mapnumber; ?>', {
 					center: [<?php echo number_format($this->center[0], 12, '.', ''); ?>,<?php echo number_format($this->center[1], 12, '.', ''); ?>],
 					zoom: <?php echo $this->zoom; ?>, //option
 					zoomControl: false, // disable so we can position it below
@@ -968,8 +973,10 @@ class openStreetMap {
  * @param int $mapnumber If calling more than one map per page an unique number is required
  * @param obj $obj Image or album object to skip current image or album and also $geodata
  * @param bool $minimap True to show the minimap in the lower right corner
+ * @param string $id the CSS id for the map. NOTE: the map number will be appended to this string!
+ * @param string $hide the initial display state for the map. Not yet implemented
  */
-function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false) {
+function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false, $id = NULL, $hide = NULL) {
 
 	$map = new openStreetMap($geodata, $obj);
 	if (!is_null($width)) {
@@ -995,6 +1002,12 @@ function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $map
 	}
 	if ($minimap) {
 		$map->showminimap = true;
+	}
+	if ($id) {
+		$map->mapid = $id;
+	}
+	if ($hide) {
+		$map->hide = $hide;
 	}
 	$map->printMap();
 }

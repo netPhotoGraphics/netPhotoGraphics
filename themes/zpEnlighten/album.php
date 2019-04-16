@@ -17,11 +17,11 @@ if (!defined('WEBPATH'))
 	?>
 </head>
 <body>
-<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 
 	<div id="main">
 
-<?php include("header.php"); ?>
+		<?php include("header.php"); ?>
 		<div id="content">
 
 			<div id="breadcrumb">
@@ -30,7 +30,7 @@ if (!defined('WEBPATH'))
 						<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
 					<?php } ?>
 					<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
-<?php printParentBreadcrumb(" » ", " » ", " » "); ?><strong><?php printAlbumTitle(true); ?></strong></h2>
+					<?php printParentBreadcrumb(" » ", " » ", " » "); ?><strong><?php printAlbumTitle(true); ?></strong></h2>
 			</div>
 
 			<div id="content-left">
@@ -57,7 +57,7 @@ if (!defined('WEBPATH'))
 							<p style="clear: both; "></p>
 						</div>
 					<?php endwhile; ?>
-<?php while ($u % 2 != 0) : $u++; ?>
+					<?php while ($u % 2 != 0) : $u++; ?>
 						<div class="album" style="margin-left: 8px;">
 							<div class="thumb"><a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_zp_themeroot ?>/images/trans.png" /></a></div>
 							<div class="albumdesc">
@@ -65,21 +65,21 @@ if (!defined('WEBPATH'))
 								<h3 class="date" style="color: transparent;">No Date</h3>
 							</div>
 						</div>
-<?php endwhile ?>
+					<?php endwhile ?>
 				</div>
 
 				<div id="images">
 					<?php $u = 0; ?>
-<?php while (next_image()): $u++; ?>
+					<?php while (next_image()): $u++; ?>
 						<div class="image">
 							<div class="imagethumb"><a href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getBareImageTitle()); ?></a></div>
 						</div>
 					<?php endwhile; ?>
-<?php while ($u % 5 != 0) : $u++; ?>
+					<?php while ($u % 5 != 0) : $u++; ?>
 						<div class="image">
 							<div class="imagethumb"><a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_zp_themeroot ?>/images/trans.png" /></a></div>
 						</div>
-<?php endwhile ?>
+					<?php endwhile ?>
 				</div>
 				<p style="clear: both; "></p>
 				<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
@@ -92,6 +92,7 @@ if (!defined('WEBPATH'))
 				}
 				?>
 				<?php
+				simpleMap::printMap();
 				if (function_exists('printSlideShowLink')) {
 					echo '<span id="slideshowlink">';
 					printSlideShowLink(gettext('View Slideshow'));
@@ -108,7 +109,7 @@ if (!defined('WEBPATH'))
 				if (function_exists('printCommentForm')) {
 					?>
 					<div id="comments">
-					<?php printCommentForm(); ?>
+						<?php printCommentForm(); ?>
 					</div>
 					<?php
 				}
@@ -120,17 +121,17 @@ if (!defined('WEBPATH'))
 
 
 			<div id="sidebar">
-<?php include("sidebar.php"); ?>
+				<?php include("sidebar.php"); ?>
 			</div><!-- sidebar -->
 
 
 			<div id="footer">
-<?php include("footer.php"); ?>
+				<?php include("footer.php"); ?>
 			</div>
 
 		</div><!-- content -->
 
 	</div><!-- main -->
-<?php zp_apply_filter('theme_body_close'); ?>
+	<?php zp_apply_filter('theme_body_close'); ?>
 </body>
 </html>
