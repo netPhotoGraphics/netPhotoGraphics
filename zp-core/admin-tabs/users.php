@@ -131,15 +131,27 @@ if (isset($_GET['action'])) {
 							}
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
-								if ($admin_n != $userobj->getName()) {
-									$userobj->setName($admin_n);
-								}
+								$userobj->setName($admin_n);
 							}
 							if (isset($userlist[$i]['admin_email'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
-								if ($admin_e != $userobj->getEmail()) {
+								if (empty($admin_e) || filter_var($admin_e, FILTER_VALIDATE_EMAIL)) {
+									if ($admin_e) {
+										$list = $_zp_authority->getAdministrators('users');
+										unset($list[$userobj->getID()]);
+										foreach ($list as $user) {
+											if ($user['email'] == $admin_e) {
+												$msg = sprintf(gettext('%s is already used by another user.'), $admin_e);
+												break;
+											}
+										}
+									}
+								}
+								if (empty($msg)) {
 									$userobj->setEmail($admin_e);
 								}
+							} else {
+								$msg = sprintf(gettext('%s is not a valid e-mail address.'), $admin_e);
 							}
 							if (empty($pass)) {
 								if ($newuser || @$userlist[$i]['passrequired']) {
@@ -646,8 +658,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -656,7 +668,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -678,8 +690,8 @@ echo $refresh;
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-												echo NO_RIGHTS;
-												echo $alterrights;
+															echo NO_RIGHTS;
+															echo $alterrights;
 															?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
 																		 <?php

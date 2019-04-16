@@ -7816,6 +7816,7 @@ zp-core/zp-extensions/googleLogin
 zp-core/zp-extensions/googleLogin/google.php
 zp-core/zp-extensions/googleLogin/login_button.png
 zp-core/zp-extensions/googleMap
+zp-core/zp-extensions/googleMap/deprecated-functions.php
 zp-core/zp-extensions/googleMap/googleMap.css
 zp-core/zp-extensions/googleMap/map.php
 zp-core/zp-extensions/googleMap/CodeIgniter-Google-Maps-V3-API
@@ -8384,4 +8385,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8386
+8387

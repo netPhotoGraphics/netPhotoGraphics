@@ -103,6 +103,10 @@
 <p><em>TinyMCE</em> has been updated to version 5. If you have implemented any tinyMCE plugins please see <a href="https://www.tiny.cloud/docs/migration-from-4x/">Migrating from TinyMCE 4</a> for migrating your code.</p>
 <p><em>userlogin-out</em></p>
 <p>A new choice has been added to the <code>login form</code> option. <em>Colorbox inline</em> will display the login form in a colorbox pop-up window directly (no need to click on the login link.) This allows a protected site to show its index page darkened out behind the login form when a visitor is not logged in. To do this i<code>ndex.php</code> must be checked in the <em>Unprotected pages</em> Gallery option. There will be no button to close the pop-up without logging in, but be aware that if the visitor types an escape the form will close and your index page will be visible.</p>
+<p><em>googleMap &amp; opeanstreetmap</em></p>
+<p>A new class has been added to theme support named simpleMap to simplify incorporating map display into themes. For most uses of map display you can use this class and your theme will not need to be cognisant of which map plugin (if any) is enabled. For a basc map you can call <code>simpleMap::printMap()</code>. It is also possible to collect a set of geo coordinate points using <code>simpleMap::getGeoCoord($image)</code> and pass an array of such points as the parameter to <code>simpleMap::printMap()</code>, If you need to know if a map plugin is enabled simpleMap::mapPlugin() will return the class name of the enabled plugin.</p>
+<p>With this implementation, all distributed themes that included googleMap have been converted to use simpleMap so they will now also support openstreatmap. Also as part of this change, the googleMap functions <code>getGeoCoord()</code> and <code>addGeoCoord()</code> have been deprecated. </p>
+<p>Note: if both <em>googleMap</em> and <em>simplestreetmap</em> are enabled, <em>googleMap</em> will be the plugin reported and used to display maps.</p>
 <hr />
 <h2 style="text-align: center;">Version 1.9</h2>
 <h2>General</h2>

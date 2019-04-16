@@ -117,9 +117,9 @@
 			?>
 			<?php printPPSlideShowLink(gettext('Slideshow')); ?>
 			<?php if ($zpskel_social) include ('inc-social.php'); ?>
-			<?php if ((function_exists('printGoogleMap'))) { ?>
+			<?php if (simpleMap::mapPlugin()) { ?>
 				<div id="map">
-					<?php printGoogleMap(); ?>
+					<?php simplemap::printMap(); ?>
 				</div>
 			<?php } ?>
 		</div>

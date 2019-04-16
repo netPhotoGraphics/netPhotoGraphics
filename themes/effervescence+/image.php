@@ -160,10 +160,10 @@ if (!defined('WEBPATH'))
 				@call_user_func('printRating');
 				If (function_exists('printAddToFavorites'))
 					printAddToFavorites($_zp_current_image);
-				if (function_exists('printGoogleMap')) {
+				if (simpleMap::mapPlugin()) {
 					?>
 					<div id="map_link">
-						<?php printGoogleMap(); ?>
+						<?php simpleMap::printMap(); ?>
 					</div>
 					<br class="clearall">
 					<?php

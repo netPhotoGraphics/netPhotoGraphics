@@ -150,7 +150,7 @@ class Googlemaps {
 			$this->initialize($config);
 		}
 
-		log_message('debug', "Google Maps Class Initialized");
+		GoogleMap::log_message('debug', "Google Maps Class Initialized");
 	}
 
 	function initialize($config = array()) {
@@ -2115,7 +2115,7 @@ class Googlemaps {
 		}
 		//
 
-		$this->output_html .= '<div id="'.$this->map_div_id.'"></div>';
+		$this->output_html .= '<div id="' . $this->map_div_id . '"></div>';
 
 		return array('js' => $this->output_js, 'html' => $this->output_html, 'markers' => $this->markersInfo);
 	}
@@ -2196,4 +2196,5 @@ class Googlemaps {
 	}
 
 }
+
 ?>

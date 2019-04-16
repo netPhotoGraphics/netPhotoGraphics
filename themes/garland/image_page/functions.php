@@ -32,7 +32,7 @@ class image_page {
 			$points = array();
 			while (next_image()) {
 				if ($map) {
-					$coord = getGeoCoord($_zp_current_image);
+					$coord = simpleMap::getGeoCoord($_zp_current_image);
 					if ($coord) {
 						$points[] = $coord;
 					}

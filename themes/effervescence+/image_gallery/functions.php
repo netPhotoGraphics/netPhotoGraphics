@@ -112,7 +112,7 @@ class imagegallery {
 											<?php
 											while (next_image(true)) {
 												if ($map) {
-													$coord = getGeoCoord($_zp_current_image);
+													$coord = simpleMap::getGeoCoord($_zp_current_image);
 													if ($coord) {
 														$points[] = $coord;
 													}
@@ -150,16 +150,9 @@ class imagegallery {
 						<div class="clearage"></div>
 						<?php
 						if (!empty($points) && $map) {
-
-							function map_callback($map) {
-								global $points;
-								foreach ($points as $coord) {
-									addGeoCoord($map, $coord);
-								}
-							}
 							?>
 							<div id="map_link">
-								<?php printGoogleMap(NULL, NULL, NULL, 'album_page', 'map_callback'); ?>
+								<?php simplemap::printMap($points, 'album_page'); ?>
 							</div>
 							<?php
 						}

@@ -178,7 +178,7 @@ if (class_exists('favorites')) {
 		<?php } ?>
 		<div id="page">
 			<?php printCodeblock(); ?>
-			<?php if (function_exists('printGoogleMap')) { ?><div class="post"><?php printGoogleMap(); ?></div><?php } ?>
+			<?php if (simplemap::mapPlugin()) { ?><div class="post"><?php simpleMap::printMap(); ?></div><?php } ?>
 			<?php if (function_exists('printRating')) { ?><div class="post"><?php printRating(); ?></div><?php } ?>
 			<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>
 		</div>

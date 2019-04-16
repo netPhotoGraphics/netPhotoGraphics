@@ -77,11 +77,11 @@ if (!defined('WEBPATH'))
 							<br class="clearall">
 							<?php
 						}
-						if (function_exists('printGoogleMap')) {
+						if (simplemap::mapPlugin()) {
 							setOption('gmap_display', 'colorbox', false);
 							?>
 							<span id="map_link">
-								<?php printGoogleMap(NULL, NULL, NULL, NULL, 'gMapOptionsImage'); ?>
+								<?php simpleMap::printMap(); ?>
 							</span>
 							<br class="clearall">
 							<?php

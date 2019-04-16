@@ -67,17 +67,6 @@ function switcher_controllink($html) {
 	return $html;
 }
 
-function gMapOptionsImage($map) {
-
-}
-
-function gMapOptionsAlbum($map) {
-	global $points;
-	foreach ($points as $coord) {
-		addGeoCoord($map, $coord);
-	}
-}
-
 function footer() {
 	global $_zp_gallery_page, $_zp_current_category, $_zp_gallery;
 	?>

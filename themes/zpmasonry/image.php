@@ -34,7 +34,7 @@
 					<ul class="image-info">
 						<?php if ((strlen(getImageDate()) > 0) || (zp_loggedin())) { ?><li class="date"><?php printImageDate(''); ?></li><?php } ?>
 						<?php if ((strlen(getImageDesc()) > 0) || (zp_loggedin())) { ?><li class="desc"><?php printImageDesc(); ?></li><?php } ?>
-<?php if ((strlen($tagstring) > 0) || (zp_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
+						<?php if ((strlen($tagstring) > 0) || (zp_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
 					</ul>
 				</div>
 				<?php if ($useGslideshow && isImagePhoto()) { ?>
@@ -44,7 +44,7 @@
 				<?php if (!$zpmas_disablemeta) { ?>
 					<?php if ((getImageMetaData()) || (zp_loggedin())) { ?><div class="sidebar-divide"><?php printImageMetadata('', false, null, 'full-image-meta', true); ?></div><?php } ?>
 				<?php } ?>
-<?php include ("inc-copy.php"); ?>
+				<?php include ("inc-copy.php"); ?>
 			</div>
 		</div>
 	</div>
@@ -64,7 +64,7 @@
 					 }
 					 ?>
 				<?php if (($zpmas_finallink) == 'standard') { ?><a href="<?php echo html_encode(getFullImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printDefaultSizedImage(getAnnotatedImageTitle()); ?></a><?php } ?>
-<?php if (($zpmas_finallink) == 'standard-new') { ?><a target="_blank" href="<?php echo html_encode(getFullImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printDefaultSizedImage(getAnnotatedImageTitle()); ?></a><?php } ?>
+				<?php if (($zpmas_finallink) == 'standard-new') { ?><a target="_blank" href="<?php echo html_encode(getFullImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printDefaultSizedImage(getAnnotatedImageTitle()); ?></a><?php } ?>
 			</div>
 		</div>
 		<?php if (function_exists('printThumbNav')) { ?>
@@ -73,13 +73,13 @@
 			<div class="post"><?php printPagedThumbsNav(6, true, ' ', ' ', 108, 108); ?></div>
 		<?php } ?>
 		<?php printCodeblock(); ?>
-		<?php if (function_exists('printGoogleMap')) { ?><div class="post"><?php printGoogleMap(); ?></div><?php } ?>
+		<?php if (simplemap::mapPlugin()) { ?><div class="post"><?php simpleMap::printMap(); ?></div><?php } ?>
 		<?php
 		if (function_exists('printAddToFavorites'))
 			printAddToFavorites($_zp_current_image);
 		?>
 		<?php if (function_exists('printRating')) { ?><div class="post"><?php printRating(); ?></div><?php } ?>
-<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>
+		<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>
 	</div>
 </div>
 

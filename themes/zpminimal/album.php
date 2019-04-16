@@ -47,8 +47,8 @@
 			echo '</div>';
 		}
 		?>
-		<?php if (function_exists('printGoogleMap')) { ?><div class="section"><?php
-			printGoogleMap();
+		<?php if (simpleMap::mapPlugin()) { ?><div class="section"><?php
+			simpleMap::printMap();
 			?></div><?php } ?>
 		<?php if (function_exists('printRating')) { ?><div class="section"><?php printRating(); ?></div><?php } ?>
 		<?php if (function_exists('printCommentForm')) { ?><div class="section"><?php printCommentForm(); ?></div><?php } ?>

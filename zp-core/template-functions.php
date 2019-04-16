@@ -4587,5 +4587,101 @@ function print404status() {
 	}
 }
 
+/**
+ * A class to allow simple geo map printing independent of which plugin is enabled.
+ *
+ * Note: it will gracefully do nothing if there is no map plugin enabled.
+ */
+class simpleMap {
+	/*
+	 * You can customize (within reason) some of these by copying this class
+	 * and changing these values. But note, of course, that the two plugins do
+	 * things differently.
+	 */
+
+	// default values for printGoogleMap parameters
+	static $text = NULL;
+	static $hide = NULL;
+	// default values for printOpenStreetMap parameters
+	static $width = NULL;
+	static $height = NULL;
+	static $mapcenter = NULL;
+	static $zoom = NULL;
+	static $fitbounds = NULL;
+	static $mapnumber = NULL;
+	static $minimap = false;
+
+	/**
+	 * returns the name of the map print function (if there is one)
+	 *
+	 * @return string
+	 */
+	static function mapPlugin() {
+		if (class_exists('googleMap')) {
+			return 'googleMap';
+		}
+		if (class_exists('openStreetMap')) {
+			return 'openStreetMap';
+		}
+		return NULL;
+	}
+
+	/**
+	 * used to collect geo coordinate points (typically for album pages)
+	 *
+	 * @param type $image
+	 * @return boolean
+	 */
+	static function getGeoCoord($image) {
+		if (class_exists('googleMap')) {
+			return GoogleMap::getGeoCoord($image);
+		}
+		if (class_exists('openStreetMap')) {
+			return openStreetMap::getGeoCoord($image);
+		}
+		return false;
+	}
+
+	/**
+	 * This is the generic print map function. If you want any refinement then
+	 * you will have to call the appropriate plugin directly since there is no
+	 * mapping of their parameters.
+	 *
+	 * @global array $_simpleMap_map_points
+	 * @param array $points
+	 * @param mixed $obj the "thing" which the map is showing
+	 * @param string $id css id of the map†
+	 * @param string $class css class of the map†
+	 *
+	 * † use is plugin dependent
+	 */
+	static function printMap($points = NULL, $obj = NULL, $id = NULL, $class = '') {
+		if (class_exists('googleMap')) {
+			global $_simpleMap_map_points;
+			if (!is_null($callback = $points)) {
+				$_simpleMap_map_points = $points;
+				$callback = 'simpleMap::callback';
+			}
+			printGoogleMap(self::$text, $id, self::$hide, $obj, $callback);
+		} else if (class_exists('openStreetMap')) {
+			printOpenStreetMap($points, self::$width, self::$height, self::$mapcenter, self::$zoom, self::$fitbounds, $class, self::$mapnumber, $obj, self::$minimap);
+		}
+	}
+
+	/**
+	 * callback function for printGoogleMap
+	 *
+	 * @global type $_simpleMap_map_points
+	 * @param object $map
+	 */
+	static function callback($map) {
+		global $_simpleMap_map_points;
+		foreach ($_simpleMap_map_points as $coord) {
+			GoogleMap::addGeoCoord($map, $coord);
+		}
+	}
+
+}
+
 require_once(SERVERPATH . '/' . ZENFOLDER . '/template-filters.php');
 ?>

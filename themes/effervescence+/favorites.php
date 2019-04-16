@@ -4,7 +4,7 @@
 if (!defined('WEBPATH'))
 	die();
 if (class_exists('favorites')) {
-	$map = function_exists('printGoogleMap');
+	$map = simpleMap::mapPlugin();
 	?>
 	<!DOCTYPE html>
 	<html>
@@ -161,7 +161,7 @@ if (class_exists('favorites')) {
 										<div class="imagethumb">
 											<?php
 											if ($map) {
-												$coord = getGeoCoord($_zp_current_image);
+												$coord = simpleMap::getGeoCoord($_zp_current_image);
 												if ($coord) {
 													$points[] = $coord;
 												}

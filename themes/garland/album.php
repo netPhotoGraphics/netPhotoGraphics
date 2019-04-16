@@ -1,7 +1,7 @@
 <?php
 if (!defined('WEBPATH'))
 	die();
-$map = function_exists('printGoogleMap');
+$map = simpleMap::mapPlugin();
 ?>
 <!DOCTYPE html>
 <html>
@@ -126,7 +126,7 @@ $map = function_exists('printGoogleMap');
 							?>
 							<div id="map_link">
 								<?php
-								printGoogleMap(NULL, NULL, NULL, 'album_page', 'gMapOptionsAlbum');
+								simpleMap::printMap($points, 'album_page');
 								?>
 							</div>
 							<br class="clearall">

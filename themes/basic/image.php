@@ -132,14 +132,8 @@ if (!defined('WEBPATH'))
 					printSlideShowLink(NULL, NULL, '&nbsp;&nbsp;');
 				}
 
-				if (function_exists('printGoogleMap')) {
-					printGoogleMap();
-					?>
-					&nbsp;&nbsp;
-					<?php
-				}
-				if (function_exists('printOpenStreetMap')) {
-					printOpenStreetMap();
+				if (simpleMap::mapPlugin()) {
+					simpleMap::printMap();
 					?>
 					&nbsp;&nbsp;
 					<?php

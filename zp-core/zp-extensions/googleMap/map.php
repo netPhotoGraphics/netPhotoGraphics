@@ -85,7 +85,7 @@ GoogleMap::js();
 				//<![CDATA[
 	<?php
 	echo $map->output_js_contents;
-	echo omsAdditions();
+	echo GoogleMap::omsAdditions();
 	?>
 
 				function image(album, image) {

@@ -75,8 +75,7 @@ if (!defined('WEBPATH'))
 				if (function_exists('printAddToFavorites'))
 					printAddToFavorites($_zp_current_album);
 				printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', '');
-				@call_user_func('printGoogleMap');
-				@call_user_func('printOpenStreetMap');
+				simpleMap::printMap();
 				@call_user_func('printSlideShowLink');
 				@call_user_func('printRating');
 				@call_user_func('printCommentForm');

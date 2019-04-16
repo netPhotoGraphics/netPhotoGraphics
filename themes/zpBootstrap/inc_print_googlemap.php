@@ -1,4 +1,4 @@
-<?php if (getOption('gmap_display') == 'colorbox') { ?>
+<?php if (simpleMap::mapPlugin() == 'googleMap' && getOption('gmap_display') == 'colorbox') { ?>
 	<div class="alert alert-danger"><?php echo gettext('The theme doesn\'t support colorbox option for googlemap plugin.'); ?></div>
 	<?php
 } else {
@@ -18,9 +18,10 @@
 
 	// display map only if they are geodata
 	if ($hasAlbumGeodata) {
-		if (getOption('gmap_display') == 'hide') {
+		$googleMap = simpleMap::mapPlugin() == 'googleMap';
+		if ($googleMap && getOption('gmap_display') == 'hide') {
 			$gmap_display = 'gmap_hide';
-		} else if (getOption('gmap_display') == 'show') {
+		} else {
 			$gmap_display = 'gmap_show';
 		}
 		?>
@@ -28,16 +29,19 @@
 			<div class="panel panel-default">
 				<div id="gmap_heading" class="panel-heading" role="tab">
 					<h4 class="panel-title">
-						<a id="<?php echo $gmap_display; ?>" data-toggle="collapse" data-parent="#gmap_accordion" href="#gmap_collapse_data">
-							<span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?php echo gettext('Google Map'); ?>
-						</a>
+						<?php if ($googleMap) { ?>
+							<a id="<?php echo $gmap_display; ?>" data-toggle="collapse" data-parent="#gmap_accordion" href="#gmap_collapse_data">
+							<?php } ?>
+							<span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?php echo gettext('Map'); ?>
+							<?php if ($googleMap) { ?>
+							</a>
+						<?php } ?>
 					</h4>
 				</div>
 			</div>
-			<?php printGoogleMap('', 'gmap_collapse'); ?>
+			<?php simpleMap::printMap(NULL, NULL, 'gmap_collapse'); ?>
 			<script type="text/javascript">
 				//<![CDATA[
-				;
 				$('#gmap_collapse_data').on('show.bs.collapse', function () {
 					$('.hidden_map').removeClass('hidden_map');
 				})

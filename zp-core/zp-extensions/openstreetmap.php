@@ -1,7 +1,8 @@
 <?php
 /**
  * A plugin for showing OpenStreetMap maps using {@link http://leafletjs.com LeafletJS} for images, images from
- * albums with embeded geodata, or from custom geodata.
+ * albums with embeded geodata, or from custom geodata. To invoke add <code>printOpenStreetmap()</code> to your
+ * image and album scripts.
  *
  * Also includes
  *
@@ -38,7 +39,6 @@ class openStreetMapOptions {
 			setOptionDefault('osmap_minzoom', 2);
 			setOptionDefault('osmap_maxzoom', 18);
 			setOptionDefault('osmap_clusterradius', 40);
-			setOptionDefault('osmap_markerpopup', 1);
 			setOptionDefault('osmap_markerpopup_title', 1);
 			setOptionDefault('osmap_markerpopup_desc', 1);
 			setOptionDefault('osmap_markerpopup_thumb', 1);
@@ -113,32 +113,22 @@ class openStreetMapOptions {
 						'key' => 'osmap_clusterradius',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 9,
-						'desc' => gettext("The radius when marker clusters should be used.")),
+						'desc' => gettext("The maximum radius that a cluster will cover from the central marker (in pixels). Decreasing will make more, smaller clusters.")),
 				gettext('Show cluster coverage on hover') => array(
 						'key' => 'osmap_cluster_showcoverage_on_hover',
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 10,
-						'desc' => gettext("Enable if you want to the bounds of a marker cluster on hover.")),
+						'desc' => gettext("Enable if you want to show the bounds of a marker cluster on hover.")),
 				gettext('Marker popups') => array(
 						'key' => 'osmap_markerpopup',
-						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 11,
-						'desc' => gettext("Enable this if you wish info popups on the map markers. Only for album context or custom geodata.")),
-				gettext('Marker popups with thumbs') => array(
-						'key' => 'osmap_markerpopup_thumb',
-						'type' => OPTION_TYPE_CHECKBOX,
+						'type' => OPTION_TYPE_CHECKBOX_ARRAY,
+						'checkboxes' => array(
+								gettext('Thumb') => 'osmap_markerpopup_thumb',
+								gettext('Title') => 'osmap_markerpopup_title',
+								gettext('Description') => 'osmap_markerpopup_desc'
+						),
 						'order' => 12,
-						'desc' => gettext("Enable if you want to show thumb of images in the marker popups. Only for album context.")),
-				gettext('Marker popups with title') => array(
-						'key' => 'osmap_markerpopup_title',
-						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 13,
-						'desc' => gettext("Enable if you want to show title of images in the marker popups. Only for album context.")),
-				gettext('Marker popups with description') => array(
-						'key' => 'osmap_markerpopup_desc',
-						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 14,
-						'desc' => gettext("Enable if you want to show desc of images in the marker popups. Only for album context.")),
+						'desc' => gettext("Enable the popups you want shown. Popups occur only in the <em>album</em> context.")),
 				gettext('Show layers controls') => array(
 						'key' => 'osmap_showlayerscontrol',
 						'type' => OPTION_TYPE_CHECKBOX,
@@ -149,7 +139,7 @@ class openStreetMapOptions {
 						'type' => OPTION_TYPE_CHECKBOX_UL,
 						'order' => 14.4,
 						'checkboxes' => $layerslist,
-						'desc' => gettext("Choose layers list to show in layers controls.")),
+						'desc' => gettext('Choose layers list to show in layers controls. You can preview the layers <a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html">here</a>.')),
 				gettext('Layers controls position') => array(
 						'key' => 'osmap_layerscontrolpos',
 						'type' => OPTION_TYPE_SELECTOR,
@@ -328,14 +318,6 @@ class openStreetMap {
 	var $clusterradius = NULL;
 
 	/**
-	 * If used on albums or several custom markers if you wish popups on the markers
-	 * If using custom markers you need to provide the content for the popups withn the $geodata property
-	 * Default taken from plugin options
-	 * @var bool
-	 */
-	var $markerpopup = false;
-
-	/**
 	 * Only if on an album page and if $imagepopups are enabled.
 	 * If the imagepopus should contain thumbs of the images
 	 * Default taken from plugin options
@@ -491,11 +473,10 @@ class openStreetMap {
 
 		$this->showalbummarkers = getOption('osmap_showalbummarkers');
 		if (is_object($obj)) {
+			$this->obj = $obj;
 			if (isImageClass($obj)) {
-				$this->obj = $obj;
 				$this->mode = 'single';
 			} else if (isAlbumClass($obj)) {
-				$this->obj = $obj;
 				$this->mode = 'cluster';
 			}
 		} else {
@@ -520,15 +501,8 @@ class openStreetMap {
 					case 'album.php':
 					case 'favorites.php':
 						$this->obj = $_zp_current_album;
-						$this->mode = 'cluster';
-						$this->markerpopup_title = getOption('osmap_markerpopup_title');
-						$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
-						$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 					case 'search.php':
 						$this->mode = 'cluster';
-						$this->markerpopup_title = getOption('osmap_markerpopup_title');
-						$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
-						$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
 						break;
 				}
 			}
@@ -545,7 +519,6 @@ class openStreetMap {
 		$this->defaultlayer = $this->setMapTiles(getOption('osmap_defaultlayer'));
 		$this->clusterradius = getOption('osmap_clusterradius');
 		$this->cluster_showcoverage_on_hover = getOption('osmap_cluster_showcoverage_on_hover');
-		$this->markerpopup = getOption('osmap_markerpopup');
 		$this->markerpopup_title = getOption('osmap_markerpopup_title');
 		$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
 		$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
@@ -628,7 +601,10 @@ class openStreetMap {
 			if (!empty($lat) && !empty($long)) {
 				$lat_f = self::inputConvert($lat);
 				$long_f = self::inputConvert($long);
-				return array('lat' => $lat_f, 'long' => $long_f);
+				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
+				$title = shortenContent($image->getTitle(), 50, '...') . '<br />';
+				$desc = shortenContent($image->getDesc(), 100, '...');
+				return array('lat' => $lat_f, 'long' => $long_f, 'title' => $title, 'desc' => $desc, 'thumb' => $thumb, 'current' => 0);
 			}
 		}
 		return false;
@@ -643,15 +619,9 @@ class openStreetMap {
 		global $_zp_current_image;
 		$result = self::getGeoCoord($image);
 		if ($result) {
-			$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
-			$current = 0;
 			if ($this->mode == 'single-cluster' && isset($_zp_current_image) && ($image->filename == $_zp_current_image->filename && $image->getAlbumname() == $_zp_current_image->getAlbumname())) {
-				$current = 1;
+				$result['current'] = 1;
 			}
-			$result['title'] = shortenContent($image->getTitle(), 50, '...') . '<br />';
-			$result['desc'] = shortenContent($image->getDesc(), 100, '...');
-			$result['thumb'] = $thumb;
-			$result['current'] = $current;
 		}
 		return $result;
 	}
@@ -750,7 +720,7 @@ class openStreetMap {
 			$count = '';
 			foreach ($geodata as $g) {
 				$count++;
-				$bounds .= '[' . $g['lat'] . ',' . $g['long'] . ']';
+				$bounds .= '[' . number_format($g['lat'], 12, '.', '') . ',' . number_format($g['long'], 12, '.', '') . ']';
 				if ($count < $geocount) {
 					$bounds .= ',';
 				}
@@ -785,8 +755,22 @@ class openStreetMap {
 					}
 					break;
 				case 'cluster':
-					//for demo tests only needs to be calculated properly later on!
-					$this->center = array($geodata[0]['lat'], $geodata[0]['long']);
+					$_x = $_y = $_z = 0;
+					$_n = count($geodata);
+					foreach ($geodata as $coord) {
+						$lat_f = $coord['lat'] * M_PI / 180;
+						$long_f = $coord['long'] * M_PI / 180;
+						$_x = $_x + cos($lat_f) * cos($long_f);
+						$_y = $_y + cos($lat_f) * sin($long_f);
+						$_z = $_z + sin($lat_f);
+					}
+					$_x = $_x / $_n;
+					$_y = $_y / $_n;
+					$_z = $_z / $_n;
+					$lon = number_format(atan2($_y, $_x) * 180 / M_PI, 12, '.', '');
+					$hyp = sqrt($_x * $_x + $_y * $_y);
+					$lat = number_format(atan2($_z, $hyp) * 180 / M_PI, 12, '.', '');
+					$this->center = array($lat, $lon);
 					break;
 			}
 		}
@@ -920,16 +904,14 @@ class openStreetMap {
 							}); //radius > Option
 							$.each(geodata, function (index, value) {
 								var text = '';
-						<?php if ($this->markerpopup) { ?>
-							<?php if ($this->markerpopup_title) { ?>
-										text = value.title;
-							<?php } ?>
-							<?php if ($this->markerpopup_thumb) { ?>
-										text += value.thumb;
-							<?php } ?>
-							<?php if ($this->markerpopup_desc) { ?>
-										text += value.desc;
-							<?php } ?>
+						<?php if ($this->markerpopup_title) { ?>
+									text = value.title;
+						<?php } ?>
+						<?php if ($this->markerpopup_thumb) { ?>
+									text += value.thumb;
+						<?php } ?>
+						<?php if ($this->markerpopup_desc) { ?>
+									text += value.desc;
 						<?php } ?>
 								if (text === '') {
 									markers_cluster.addLayer(L.marker([value.lat, value.long]));
@@ -988,9 +970,7 @@ class openStreetMap {
  * @param bool $minimap True to show the minimap in the lower right corner
  */
 function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false) {
-	if (!empty($class)) {
-		$class = ' class="' . $class . '"';
-	}
+
 	$map = new openStreetMap($geodata, $obj);
 	if (!is_null($width)) {
 		$map->width = $width;
