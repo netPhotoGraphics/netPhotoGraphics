@@ -4669,7 +4669,7 @@ class simpleMap {
 			}
 			printGoogleMap(self::$text, $id, $hide, $obj, $callback);
 		} else if (class_exists('openStreetMap')) {
-			printOpenStreetMap($points, self::$width, self::$height, self::$mapcenter, self::$zoom, self::$fitbounds, $class, '', $obj, self::$minimap, $id);
+			printOpenStreetMap($points, self::$width, self::$height, self::$mapcenter, self::$zoom, self::$fitbounds, $class, '', $obj, self::$minimap, $id, $hide, $text);
 		}
 	}
 
