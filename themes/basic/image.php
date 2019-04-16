@@ -128,16 +128,17 @@ if (!defined('WEBPATH'))
 					&nbsp;&nbsp;
 					<?php
 				}
-				If (function_exists('printSlideShowLink') && isImagePhoto()) {
-					printSlideShowLink(NULL, NULL, '&nbsp;&nbsp;');
-				}
-
 				if (simpleMap::mapPlugin()) {
 					simpleMap::printMap();
 					?>
 					&nbsp;&nbsp;
 					<?php
 				}
+				If (function_exists('printSlideShowLink') && isImagePhoto()) {
+					printSlideShowLink(NULL, NULL, '&nbsp;&nbsp;');
+				}
+
+
 				if (getImageMetaData()) {
 					printImageMetadata(NULL, 'colorbox');
 				}

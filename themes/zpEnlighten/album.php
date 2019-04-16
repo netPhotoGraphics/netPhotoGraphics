@@ -92,7 +92,6 @@ if (!defined('WEBPATH'))
 				}
 				?>
 				<?php
-				simpleMap::printMap();
 				if (function_exists('printSlideShowLink')) {
 					echo '<span id="slideshowlink">';
 					printSlideShowLink(gettext('View Slideshow'));
@@ -104,8 +103,8 @@ if (!defined('WEBPATH'))
 				if (function_exists('printRating')) {
 					printRating();
 				}
-				?>
-				<?php
+				simpleMap::printMap();
+
 				if (function_exists('printCommentForm')) {
 					?>
 					<div id="comments">

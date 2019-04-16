@@ -858,6 +858,18 @@ class openStreetMap {
 				<?php
 				if ($this->hide == 'hide') {
 					?>
+					<script type="text/javascript">
+						function toggle_<?php echo $id_data; ?>() {
+							if ($('#<?php echo $id_data; ?>').hasClass('hidden_map')) {
+								$('#<?php echo $id_data; ?>').removeClass('hidden_map');
+							} else {
+								$('#<?php echo $id_data; ?>').addClass('hidden_map');
+							}
+						}
+						window.addEventListener('load', function () {
+							$('#<?php echo $id_data; ?>').addClass('hidden_map');
+						});
+					</script>
 					<span class="map_ref">
 						<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $this->label; ?></a>
 					</span>
@@ -868,23 +880,7 @@ class openStreetMap {
 			</div>
 			<script>
 
-			<?php
-			if ($this->hide == 'hide') {
-				?>
-					function toggle_<?php echo $id_data; ?>() {
-						if ($('#<?php echo $id_data; ?>').hasClass('hidden_map')) {
-							$('#<?php echo $id_data; ?>').removeClass('hidden_map');
-						} else {
-							$('#<?php echo $id_data; ?>').addClass('hidden_map');
-						}
-					}
-					window.addEventListener('load', function () {
-						$('#<?php echo $id_data; ?>').addClass('hidden_map');
-					});
 
-				<?php
-			}
-			?>
 				var geodata = new Array();
 			<?php echo $geodataJS; ?>
 				var map = L.map('<?php echo $this->mapid . $this->mapnumber; ?>_data', {
@@ -954,7 +950,7 @@ class openStreetMap {
 				switch ($this->mode) {
 					case 'single':
 						?>
-							var marker = L.marker([number_format(geodata[0]['lat'], 12, '.'.''), number_format(geodata[0]['long'], 12, '.', '']).addTo(map); // from image
+							var marker = L.marker([<?php echo number_format($this->geodata[0]['lat'], 12, '.', ''); ?>, <?php echo number_format($this->geodata[0]['long'], 12, '.', ''); ?>]).addTo(map); // from image
 						<?php
 						break;
 					case 'single-cluster':
