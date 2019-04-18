@@ -122,11 +122,11 @@ $map = simpleMap::mapPlugin();
 						<?php printTags('links', gettext('Tags: '), NULL, ''); ?>
 						<?php
 						if (!empty($points) && $map) {
-							setOption('gmap_display', 'colorbox', false);
+							simpleMap::setMapDisplay('colorbox');
 							?>
 							<div id="map_link">
 								<?php
-								simpleMap::printMap($points, NULL, NULL, 'album_page');
+								simpleMap::printMap($points, array('obj' => 'album_page'));
 								?>
 							</div>
 							<br class="clearall">

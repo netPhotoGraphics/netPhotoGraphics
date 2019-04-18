@@ -89,7 +89,7 @@
 	<div class="googlemap"><?php simplemap::printMap(); ?></div>
 	<script type="text/javascript">
 		//<![CDATA[
-	<?php if (getOption('gmap_display') == 'colorbox') { ?>
+	<?php if (simpleMap::mapDisplay() == 'colorbox') { ?>
 			$('.google_map').addClass('fadetoggler');
 			$('.google_map').prepend('<img id="icon-map" alt="icon-map" src="<?php echo $_zp_themeroot; ?>/images/map.png" />');
 	<?php } else { ?>

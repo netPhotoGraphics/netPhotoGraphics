@@ -41,7 +41,6 @@ class GoogleMap {
 			setOptionDefault('gmap_zoom_size', 'LARGE');
 			setOptionDefault('gmap_cluster_max_zoom', 13);
 			setOptionDefault('gmap_sessions', 1);
-			setOptionDefault('gmap_display', 'hide');
 			setOptionDefault('gmap_display', 'show');
 
 			if (class_exists('cacheManager')) {

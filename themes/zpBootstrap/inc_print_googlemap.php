@@ -22,7 +22,7 @@
 		if (simpleMap::mapPlugin() == 'googleMap' && getOption('gmap_display') == 'hide') {
 			$gmap_display = 'gmap_hide';
 			$hide = NULL;
-		} else if (getOption('osmap_display') == 'hide') {
+		} else if (getOption('osmap_display') != 'show') {
 			$gmap_display = 'gmap_show';
 			$hide = 'show';
 		}
@@ -33,9 +33,6 @@
 					<h4 class="panel-title">
 						<?php
 						if (simpleMap::mapPlugin() == 'googleMap') {
-							if (getOption('gmap_display') == 'hide') {
-								$gmap_display = 'gmap_hide';
-							}
 							$hide = NULL;
 							?>
 							<a id="<?php echo $gmap_display; ?>" data-toggle="collapse" data-parent="#gmap_accordion" href="#gmap_collapse_data">
@@ -52,7 +49,7 @@
 					</h4>
 				</div>
 			</div>
-			<?php simpleMap::printMap(NULL, '', 'gmap_collapse', $hide); ?>
+			<?php simpleMap::printMap(NULL, array('id' => 'gmap_collapse', 'hide' => $hide)); ?>
 			<script type="text/javascript">
 				//<![CDATA[
 				$('#gmap_collapse_data').on('show.bs.collapse', function () {

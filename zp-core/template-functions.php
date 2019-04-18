@@ -4642,6 +4642,25 @@ class simpleMap {
 		return false;
 	}
 
+	static function mapDisplay() {
+		if (class_exists('googleMap')) {
+			return getOption('gmap_display');
+		}
+		if (class_exists('openStreetMap')) {
+			return getOption('osmap_display');
+		}
+		return 'show';
+	}
+
+	static function setMapDisplay($hide) {
+		if (class_exists('googleMap')) {
+			setOption('gmap_display', $hide, false);
+		}
+		if (class_exists('openStreetMap')) {
+			setOption('osmap_display', $hide, false);
+		}
+	}
+
 	/**
 	 * This is the generic print map function. If you want any refinement then
 	 * you will have to call the appropriate plugin directly since there is no
@@ -4650,16 +4669,22 @@ class simpleMap {
 	 * @global type $_simpleMap_map_points collector for the map points
 	 *
 	 * @param array $points
-	 * @param string $text label for the map†
-	 * @param string $id css id of the map
-	 * @param string $hide show/hide the map†
-	 * @param mixed $obj the "thing" which the map is showing
-	 * @param string $class css class of the map†
-	 * @param string $hide show or hide the map on initial page load
+	 * @param array $options an array of index=>value as per below
+	 *        text label for the map†
+	 *        id css id of the map
+	 *        hide show/hide the map†
+	 *        obj the "thing" which the map is showing
+	 *        class css class of the map†
 	 *
 	 * † use is plugin dependent
 	 */
-	static function printMap($points = NULL, $text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $class = '') {
+	static function printMap($points = NULL, $options = array()) {
+		$text = NULL;
+		$id = NULL;
+		$hide = NULL;
+		$obj = NULL;
+		$class = '';
+		extract($options);
 		global $_simpleMap_map_points;
 		if (class_exists('googleMap')) {
 			global $_simpleMap_map_points;

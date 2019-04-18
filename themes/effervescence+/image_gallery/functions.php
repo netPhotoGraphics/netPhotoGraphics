@@ -152,7 +152,7 @@ class imagegallery {
 						if (!empty($points) && $map) {
 							?>
 							<div id="map_link">
-								<?php simplemap::printMap($points, NULL, NULL, 'album_page'); ?>
+								<?php simplemap::printMap($points, array('obj' => 'album_page')); ?>
 							</div>
 							<?php
 						}

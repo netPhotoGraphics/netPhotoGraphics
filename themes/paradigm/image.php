@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		echo '-fluid';
 	}
 	?>">
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 
 			<section class="col-sm-9" id="main"  itemscope itemtype="http://schema.org/ImageObject">
@@ -26,7 +26,7 @@ if (!defined('WEBPATH'))
 						<li><a href="<?php echo html_encode(getPrevImageURL()); ?>" title="<?php echo gettext("Previous Image"); ?>">« <?php echo gettext("prev"); ?></a></li>
 					<?php } if (hasNextImage()) { ?>
 						<li><a href="<?php echo html_encode(getNextImageURL()); ?>" title="<?php echo gettext("Next Image"); ?>"><?php echo gettext("next"); ?> »</a></li>
-<?php } ?>
+					<?php } ?>
 				</ul>
 
 				<h1 itemprop="name"><?php printImageTitle(); ?></h1>
@@ -145,16 +145,16 @@ if (!defined('WEBPATH'))
 				<?php printCodeBlock(1); ?>
 
 				<?php
-				setOption('gmap_display', 'show', false);
+				simpleMap::setMapDisplay('colorbox');
 				simpleMap::printMap();
 				?>
 
 				<br style="clear:both" />
 
-			<?php @call_user_func('printCommentForm'); ?>
+				<?php @call_user_func('printCommentForm'); ?>
 
 			</section>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+			<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
 		</div>
 	</div>
 </div>

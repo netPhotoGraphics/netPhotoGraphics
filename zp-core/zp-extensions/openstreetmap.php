@@ -93,7 +93,9 @@ class openStreetMapOptions {
 						'desc' => gettext("Default maximum zoom level possible. If no value is defined, use the maximum zoom level of the map used (may be different for each map).")),
 				gettext('Map display') => array('key' => 'osmap_display', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 6.5,
-						'selections' => array(gettext('show') => 'show', gettext('hide') => 'hide'),
+						'selections' => array(gettext('show') => 'show',
+								gettext('hide') => 'hide',
+								gettext('colorbox') => 'colorbox'),
 						'desc' => gettext('Select <em>hide</em> to initially hide the map. Select <em>show</em> and the map will display when the page loads.')),
 				gettext('Default layer') => array(
 						'key' => 'osmap_defaultlayer',
@@ -835,15 +837,60 @@ class openStreetMap {
 	 * Prints the required HTML and JS for the map
 	 */
 	function printMap() {
-		$class = $this->class;
-		$id = $this->mapid . $this->mapnumber;
-		$id_data = $id . '_data';
-		$id_toggle = $id . '_toggle';
 		$geodataJS = $this->getGeoDataJS();
 		if (!empty($geodataJS)) {
-			if ($this->hide == 'hide') {
+			$class = $this->class;
+			$id = $this->mapid . $this->mapnumber;
+			$id_data = $id . '_data';
+			$id_toggle = $id . '_toggle';
+			if ($this->hide != 'show') {
 				if (is_null($this->label)) {
 					$this->label = gettext('OpenStreetMap Map');
+				}
+			}
+			?>
+			<div id="<?php echo $this->mapid . $this->mapnumber; ?>">
+				<?php
+				if ($this->hide == 'hide') {
+					$class = $class . ' hidden_map';
+					?>
+					<script type="text/javascript">
+						function toggle_<?php echo $id_data; ?>() {
+							if ($('#<?php echo $id_data; ?>').hasClass('hidden_map')) {
+								$('#<?php echo $id_data; ?>').removeClass('hidden_map');
+								map.invalidateSize();
+							} else {
+								$('#<?php echo $id_data; ?>').addClass('hidden_map');
+							}
+						}
+					</script>
+					<span class="map_ref">
+						<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $this->label; ?></a>
+					</span>
+					<?php
+				} else if ($this->hide == 'colorbox') {
+					?>
+					<script type="text/javascript">
+						window.addEventListener('load', function () {
+							$('.google_map').colorbox({
+								inline: true,
+								innerWidth: $(window).width() * 0.8,
+								href: "#<?php echo $id_data ?>",
+								close: '<?php echo gettext("close"); ?>',
+								onComplete: function () {
+									map.invalidateSize(false);
+								}
+							});
+						}, false);
+					</script>
+					<span class="map_ref">
+						<a href="#" title="<?php echo $this->label; ?>" class="google_map"><?php echo $this->label; ?></a>
+					</span>
+
+					<?php
+				}
+				if ($class) {
+					$class = ' class="' . $class . '"';
 				}
 				?>
 				<style>
@@ -852,31 +899,20 @@ class openStreetMap {
 					}
 				</style>
 				<?php
-			}
-			?>
-			<div id="<?php echo $this->mapid . $this->mapnumber; ?>">
-				<?php
-				if ($this->hide == 'hide') {
+				if ($this->hide == 'colorbox') {
 					?>
-					<script type="text/javascript">
-						function toggle_<?php echo $id_data; ?>() {
-							if ($('#<?php echo $id_data; ?>').hasClass('hidden_map')) {
-								$('#<?php echo $id_data; ?>').removeClass('hidden_map');
-							} else {
-								$('#<?php echo $id_data; ?>').addClass('hidden_map');
-							}
-						}
-						window.addEventListener('load', function () {
-							$('#<?php echo $id_data; ?>').addClass('hidden_map');
-						});
-					</script>
-					<span class="map_ref">
-						<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $this->label; ?></a>
-					</span>
+					<div class="colorboxmap hidden_map">
+						<?php
+					}
+					?>
+					<div id="<?php echo $id_data ?>"<?php echo $class; ?> style="width:<?php echo $this->width; ?>; height:<?php echo $this->height; ?>;"></div>
+					<?php
+					if ($this->hide == 'colorbox') {
+						?>
+					</div>
 					<?php
 				}
 				?>
-				<div id="<?php echo $id_data ?>"<?php echo $class; ?> style="width:<?php echo $this->width; ?>; height:<?php echo $this->height; ?>;"></div>
 			</div>
 			<script>
 
@@ -1065,5 +1101,6 @@ function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $map
 	if (!is_null($text)) {
 		$map->label = $text;
 	}
+
 	$map->printMap();
 }
