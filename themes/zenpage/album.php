@@ -79,7 +79,6 @@ if (!defined('WEBPATH'))
 					?>
 					<br style="clear:both;" /><br />
 					<?php
-					simpleMap::printMap();
 					if (function_exists('printSlideShowLink')) {
 						echo '<span id="slideshowlink">';
 						printSlideShowLink();
@@ -91,6 +90,8 @@ if (!defined('WEBPATH'))
 					if (function_exists('printAddToFavorites'))
 						printAddToFavorites($_zp_current_album);
 					@call_user_func('printRating');
+					simpleMap::printMap();
+
 					@call_user_func('printCommentForm');
 					?>
 				</div><!-- content left-->

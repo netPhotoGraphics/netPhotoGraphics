@@ -4642,36 +4642,67 @@ class simpleMap {
 		return false;
 	}
 
+	static function mapDisplay() {
+		if (class_exists('googleMap')) {
+			return getOption('gmap_display');
+		}
+		if (class_exists('openStreetMap')) {
+			return getOption('osmap_display');
+		}
+		return 'show';
+	}
+
+	static function setMapDisplay($hide) {
+		if (class_exists('googleMap')) {
+			setOption('gmap_display', $hide, false);
+		}
+		if (class_exists('openStreetMap')) {
+			setOption('osmap_display', $hide, false);
+		}
+	}
+
 	/**
 	 * This is the generic print map function. If you want any refinement then
 	 * you will have to call the appropriate plugin directly since there is no
 	 * mapping of their parameters.
 	 *
-	 * @global array $_simpleMap_map_points
+	 * @global type $_simpleMap_map_points collector for the map points
+	 *
 	 * @param array $points
-	 * @param mixed $obj the "thing" which the map is showing
-	 * @param string $id css id of the map†
-	 * @param string $class css class of the map†
+	 * @param array $options an array of index=>value as per below
+	 *        text label for the map†
+	 *        id css id of the map
+	 *        hide show/hide the map†
+	 *        obj the "thing" which the map is showing
+	 *        class css class of the map†
 	 *
 	 * † use is plugin dependent
 	 */
-	static function printMap($points = NULL, $obj = NULL, $id = NULL, $class = '') {
+	static function printMap($points = NULL, $options = array()) {
+		$text = NULL;
+		$id = NULL;
+		$hide = NULL;
+		$obj = NULL;
+		$class = '';
+		extract($options);
+		global $_simpleMap_map_points;
 		if (class_exists('googleMap')) {
 			global $_simpleMap_map_points;
 			if (!is_null($callback = $points)) {
 				$_simpleMap_map_points = $points;
 				$callback = 'simpleMap::callback';
 			}
-			printGoogleMap(self::$text, $id, self::$hide, $obj, $callback);
+			printGoogleMap(self::$text, $id, $hide, $obj, $callback);
 		} else if (class_exists('openStreetMap')) {
-			printOpenStreetMap($points, self::$width, self::$height, self::$mapcenter, self::$zoom, self::$fitbounds, $class, self::$mapnumber, $obj, self::$minimap);
+			printOpenStreetMap($points, self::$width, self::$height, self::$mapcenter, self::$zoom, self::$fitbounds, $class, '', $obj, self::$minimap, $id, $hide, $text);
 		}
 	}
 
 	/**
 	 * callback function for printGoogleMap
 	 *
-	 * @global type $_simpleMap_map_points
+	 * @global type $_simpleMap_map_points collector for the map points
+	 *
 	 * @param object $map
 	 */
 	static function callback($map) {

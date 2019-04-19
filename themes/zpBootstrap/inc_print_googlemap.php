@@ -18,28 +18,38 @@
 
 	// display map only if they are geodata
 	if ($hasAlbumGeodata) {
-		$googleMap = simpleMap::mapPlugin() == 'googleMap';
-		if ($googleMap && getOption('gmap_display') == 'hide') {
+		$gmap_display = 'gmap_show';
+		if (simpleMap::mapPlugin() == 'googleMap' && getOption('gmap_display') == 'hide') {
 			$gmap_display = 'gmap_hide';
-		} else {
+			$hide = NULL;
+		} else if (getOption('osmap_display') != 'show') {
 			$gmap_display = 'gmap_show';
+			$hide = 'show';
 		}
 		?>
 		<div id="gmap_accordion" class="panel-group" role="tablist">
 			<div class="panel panel-default">
 				<div id="gmap_heading" class="panel-heading" role="tab">
 					<h4 class="panel-title">
-						<?php if ($googleMap) { ?>
+						<?php
+						if (simpleMap::mapPlugin() == 'googleMap') {
+							$hide = NULL;
+							?>
 							<a id="<?php echo $gmap_display; ?>" data-toggle="collapse" data-parent="#gmap_accordion" href="#gmap_collapse_data">
-							<?php } ?>
-							<span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?php echo gettext('Map'); ?>
-							<?php if ($googleMap) { ?>
+								<span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?php echo gettext('Map'); ?>
 							</a>
-						<?php } ?>
+							<?php
+						} else {
+							$hide = 'show'; //	the bootstrap stuff does not work for OpenStreetMap
+							?>
+							<span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?php echo gettext('Map'); ?>
+							<?php
+						}
+						?>
 					</h4>
 				</div>
 			</div>
-			<?php simpleMap::printMap(NULL, NULL, 'gmap_collapse'); ?>
+			<?php simpleMap::printMap(NULL, array('id' => 'gmap_collapse', 'hide' => $hide)); ?>
 			<script type="text/javascript">
 				//<![CDATA[
 				$('#gmap_collapse_data').on('show.bs.collapse', function () {

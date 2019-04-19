@@ -89,7 +89,7 @@ class ef_colorbox {
 					if (!empty($points) && $map) {
 						?>
 						<div id="map_link">
-							<?php simpleMap::printMap($points, 'album_page'); ?>
+							<?php simpleMap::printMap($points, array('obj' => 'album_page')); ?>
 						</div>
 						<?php
 					}

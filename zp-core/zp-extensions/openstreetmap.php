@@ -54,6 +54,7 @@ class openStreetMapOptions {
 			setOptionDefault('osmap_minimap_height', 100);
 			setOptionDefault('osmap_minimap_zoom', -5);
 			setOptionDefault('osmap_cluster_showcoverage_on_hover', 0);
+			setOptionDefault('osmap_display', 'show');
 
 			if (class_exists('cacheManager')) {
 				cacheManager::deleteCacheSizes('openstreetmap');
@@ -90,6 +91,12 @@ class openStreetMapOptions {
 						'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 6,
 						'desc' => gettext("Default maximum zoom level possible. If no value is defined, use the maximum zoom level of the map used (may be different for each map).")),
+				gettext('Map display') => array('key' => 'osmap_display', 'type' => OPTION_TYPE_SELECTOR,
+						'order' => 6.5,
+						'selections' => array(gettext('show') => 'show',
+								gettext('hide') => 'hide',
+								gettext('colorbox') => 'colorbox'),
+						'desc' => gettext('Select <em>hide</em> to initially hide the map. Select <em>show</em> and the map will display when the page loads.')),
 				gettext('Default layer') => array(
 						'key' => 'osmap_defaultlayer',
 						'type' => OPTION_TYPE_SELECTOR,
@@ -353,6 +360,21 @@ class openStreetMap {
 	var $obj = NULL;
 
 	/**
+	 * the prefix text for the map css ID
+	 */
+	var $mapid = 'osm_map';
+
+	/**
+	 * show or hide the map
+	 */
+	var $hide = NULL;
+
+	/**
+	 * Text to display in the show/hide link
+	 */
+	var $label = NULL;
+
+	/**
 	 * The predefined array of all free map tile providers for Open Street Map
 	 * array index is the provider, value is the option
 	 * @var array
@@ -541,6 +563,7 @@ class openStreetMap {
 		$this->minimap_width = getOption('osmap_minimap_width');
 		$this->minimap_height = getOption('osmap_minimap_height');
 		$this->minimap_zoom = getOption('osmap_minimap_zoom');
+		$this->hide = getOption('osmap_display');
 	}
 
 	/**
@@ -767,9 +790,9 @@ class openStreetMap {
 					$_x = $_x / $_n;
 					$_y = $_y / $_n;
 					$_z = $_z / $_n;
-					$lon = number_format(atan2($_y, $_x) * 180 / M_PI, 12, '.', '');
+					$lon = atan2($_y, $_x) * 180 / M_PI;
 					$hyp = sqrt($_x * $_x + $_y * $_y);
-					$lat = number_format(atan2($_z, $hyp) * 180 / M_PI, 12, '.', '');
+					$lat = atan2($_z, $hyp) * 180 / M_PI;
 					$this->center = array($lat, $lon);
 					break;
 			}
@@ -814,18 +837,89 @@ class openStreetMap {
 	 * Prints the required HTML and JS for the map
 	 */
 	function printMap() {
-		$class = '';
-		if (!empty($this->class)) {
-			$class = ' class="' . $this->class . '"';
-		}
 		$geodataJS = $this->getGeoDataJS();
 		if (!empty($geodataJS)) {
+			$class = $this->class;
+			$id = $this->mapid . $this->mapnumber;
+			$id_data = $id . '_data';
+			$id_toggle = $id . '_toggle';
+			if ($this->hide != 'show') {
+				if (is_null($this->label)) {
+					$this->label = gettext('OpenStreetMap Map');
+				}
+			}
 			?>
-			<div id="osm_map<?php echo $this->mapnumber; ?>"<?php echo $class; ?> style="width:<?php echo $this->width; ?>; height:<?php echo $this->height; ?>;"></div>
+			<div id="<?php echo $this->mapid . $this->mapnumber; ?>">
+				<?php
+				if ($this->hide == 'hide') {
+					$class = $class . ' hidden_map';
+					?>
+					<script type="text/javascript">
+						function toggle_<?php echo $id_data; ?>() {
+							if ($('#<?php echo $id_data; ?>').hasClass('hidden_map')) {
+								$('#<?php echo $id_data; ?>').removeClass('hidden_map');
+								map.invalidateSize();
+							} else {
+								$('#<?php echo $id_data; ?>').addClass('hidden_map');
+							}
+						}
+					</script>
+					<span class="map_ref">
+						<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $this->label; ?></a>
+					</span>
+					<?php
+				} else if ($this->hide == 'colorbox') {
+					?>
+					<script type="text/javascript">
+						window.addEventListener('load', function () {
+							$('.google_map').colorbox({
+								inline: true,
+								innerWidth: $(window).width() * 0.8,
+								href: "#<?php echo $id_data ?>",
+								close: '<?php echo gettext("close"); ?>',
+								onComplete: function () {
+									map.invalidateSize(false);
+								}
+							});
+						}, false);
+					</script>
+					<span class="map_ref">
+						<a href="#" title="<?php echo $this->label; ?>" class="google_map"><?php echo $this->label; ?></a>
+					</span>
+
+					<?php
+				}
+				if ($class) {
+					$class = ' class="' . $class . '"';
+				}
+				?>
+				<style>
+					.hidden_map {
+						display: none;
+					}
+				</style>
+				<?php
+				if ($this->hide == 'colorbox') {
+					?>
+					<div class="colorboxmap hidden_map">
+						<?php
+					}
+					?>
+					<div id="<?php echo $id_data ?>"<?php echo $class; ?> style="width:<?php echo $this->width; ?>; height:<?php echo $this->height; ?>;"></div>
+					<?php
+					if ($this->hide == 'colorbox') {
+						?>
+					</div>
+					<?php
+				}
+				?>
+			</div>
 			<script>
+
+
 				var geodata = new Array();
 			<?php echo $geodataJS; ?>
-				var map = L.map('osm_map<?php echo $this->mapnumber; ?>', {
+				var map = L.map('<?php echo $this->mapid . $this->mapnumber; ?>_data', {
 					center: [<?php echo number_format($this->center[0], 12, '.', ''); ?>,<?php echo number_format($this->center[1], 12, '.', ''); ?>],
 					zoom: <?php echo $this->zoom; ?>, //option
 					zoomControl: false, // disable so we can position it below
@@ -892,7 +986,7 @@ class openStreetMap {
 				switch ($this->mode) {
 					case 'single':
 						?>
-							var marker = L.marker([geodata[0]['lat'], geodata[0]['long']]).addTo(map); // from image
+							var marker = L.marker([<?php echo number_format($this->geodata[0]['lat'], 12, '.', ''); ?>, <?php echo number_format($this->geodata[0]['long'], 12, '.', ''); ?>]).addTo(map); // from image
 						<?php
 						break;
 					case 'single-cluster':
@@ -968,8 +1062,10 @@ class openStreetMap {
  * @param int $mapnumber If calling more than one map per page an unique number is required
  * @param obj $obj Image or album object to skip current image or album and also $geodata
  * @param bool $minimap True to show the minimap in the lower right corner
+ * @param string $id the CSS id for the map. NOTE: the map number will be appended to this string!
+ * @param string $hide the initial display state for the map. Not yet implemented
  */
-function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false) {
+function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false, $id = NULL, $hide = NULL, $text = NULL) {
 
 	$map = new openStreetMap($geodata, $obj);
 	if (!is_null($width)) {
@@ -996,5 +1092,15 @@ function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $map
 	if ($minimap) {
 		$map->showminimap = true;
 	}
+	if ($id) {
+		$map->mapid = $id;
+	}
+	if ($hide) {
+		$map->hide = $hide;
+	}
+	if (!is_null($text)) {
+		$map->label = $text;
+	}
+
 	$map->printMap();
 }

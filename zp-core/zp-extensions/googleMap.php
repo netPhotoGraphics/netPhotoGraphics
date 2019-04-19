@@ -41,7 +41,6 @@ class GoogleMap {
 			setOptionDefault('gmap_zoom_size', 'LARGE');
 			setOptionDefault('gmap_cluster_max_zoom', 13);
 			setOptionDefault('gmap_sessions', 1);
-			setOptionDefault('gmap_display', 'hide');
 			setOptionDefault('gmap_display', 'show');
 
 			if (class_exists('cacheManager')) {
@@ -488,7 +487,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				}
 				//]]>
 			</script>
-			<span class="google_map_ref">
+			<span class="map_ref">
 				<a id="<?php echo $id_toggle; ?>" href="javascript:toggle_<?php echo $id_data; ?>();" title="<?php echo gettext('Display or hide the Google Map.'); ?>"><?php echo $text; ?></a>
 			</span>
 			<div id="<?php echo $id_data; ?>" class="hidden_map">
@@ -515,7 +514,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 					$param = '?map_data=' . base64_encode($data);
 				}
 				?>
-				<span class="google_map_ref">
+				<span class="map_ref">
 					<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/map.php' . $param ?>" title="<?php echo $text; ?>" class="google_map"><?php echo $text; ?></a>
 				</span>
 				<script type="text/javascript">

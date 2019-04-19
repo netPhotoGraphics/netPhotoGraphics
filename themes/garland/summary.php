@@ -78,7 +78,7 @@ if (!defined('WEBPATH'))
 							<?php
 						}
 						if (simplemap::mapPlugin()) {
-							setOption('gmap_display', 'colorbox', false);
+							simpleMap::setMapDisplay('colorbox');
 							?>
 							<span id="map_link">
 								<?php simpleMap::printMap(); ?>

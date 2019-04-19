@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		echo '-fluid';
 	}
 	?>">
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/ImageGallery">
 			<section class="col-sm-9" id="main" itemprop="mainContentOfPage">
 
@@ -58,7 +58,7 @@ if (!defined('WEBPATH'))
 				?>
 
 				<?php
-				setOption('gmap_display', 'show', false);
+				simpleMap::setMapDisplay('colorbox');
 				simpleMap::printMap();
 				?>
 
@@ -73,11 +73,11 @@ if (!defined('WEBPATH'))
 
 				<br style="clear:both;" />
 
-<?php @call_user_func('printCommentForm'); ?>
+				<?php @call_user_func('printCommentForm'); ?>
 
 			</section>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+			<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
 		</div>
 	</div>
 </div>
