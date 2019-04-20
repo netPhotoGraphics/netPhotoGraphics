@@ -289,7 +289,7 @@ class _Authority {
 				}
 				break;
 			case 6:
-				if (true || defined('PASSWORD_ARGON2ID')) {
+				if (defined('PASSWORD_ARGON2ID')) {
 					$hash = password_hash($pass, PASSWORD_ARGON2ID);
 				}
 				break;
@@ -1504,7 +1504,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
