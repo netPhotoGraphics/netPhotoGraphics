@@ -15,9 +15,16 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ../../../..\n"
-"X-Poedit-SearchPath-0: zp-core/locale/sv_SE/LC_MESSAGES/zenphoto.po\n"
-"X-Poedit-SearchPath-1: .\n"
+"X-Poedit-SearchPath-0: zp-core\n"
+"X-Poedit-SearchPath-1: themes\n"
+"X-Poedit-SearchPath-2: plugins\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: zp-core/js\n"
+"X-Poedit-SearchPathExcluded-2: zp-core/locale\n"
+"X-Poedit-SearchPathExcluded-3: zp-core/images\n"
+"X-Poedit-SearchPathExcluded-4: zp-core/gd_fonts\n"
+"X-Poedit-SearchPathExcluded-5: zp-core/FreeSerif\n"
+"X-Poedit-SearchPathExcluded-6: zp-core/watermarks\n"
 
 #: plugins/cacheHeader.php:16
 #, fuzzy
