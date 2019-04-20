@@ -317,7 +317,6 @@ $buttonlist = array();
 	printLogoAndLinks();
 
 	if (zp_loggedin(ADMIN_RIGHTS)) {
-		$updateButtons = array();
 
 		if ($newVersionAvailable = isset($newestVersion)) {
 			$zenphoto_version = explode('-', ZENPHOTO_VERSION);
@@ -334,7 +333,7 @@ $buttonlist = array();
 					</div>
 					<?php
 				}
-				$updateButtons[] = array(
+				$buttonlist[] = array(
 						'category' => gettext('Updates'),
 						'enable' => 2,
 						'button_text' => $buttonText = sprintf(gettext('Download version %1$s'), $newestVersion),
@@ -417,7 +416,7 @@ $buttonlist = array();
 			if (zp_loggedin(ADMIN_RIGHTS)) {
 
 				if ($newVersion) {
-					$updateButtons[] = array(
+					$buttonlist[] = array(
 							'XSRFTag' => 'install_update',
 							'category' => gettext('Updates'),
 							'enable' => 2,
@@ -432,7 +431,7 @@ $buttonlist = array();
 					);
 				} else {
 					if ($newVersionAvailable) {
-						$updateButtons[] = array(
+						$buttonlist[] = array(
 								'XSRFTag' => 'install_update',
 								'category' => gettext('Updates'),
 								'enable' => 2,
@@ -467,8 +466,8 @@ $buttonlist = array();
 						break;
 					case 2:
 						if (!$newVersion) {
-							$updateButtons[] = array(
-									'category' => gettext('Update'),
+							$buttonlist[] = array(
+									'category' => gettext('Updates'),
 									'enable' => true,
 									'button_text' => gettext('Run setup'),
 									'formname' => 'run_setup',
@@ -499,8 +498,15 @@ $buttonlist = array();
 				}
 			}
 
+			$updates = array();
 			$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false, true, true);
-			$buttonlist = array_merge($updateButtons, $buttonlist);
+			foreach ($buttonlist as $key => $button) {
+				if ($button['category'] == 'Updates') {
+					$updates[] = $button;
+					unset($buttonlist[$key]);
+				}
+			}
+			$buttonlist = array_merge($updates, $buttonlist);
 
 			if (zp_loggedin(OVERVIEW_RIGHTS)) {
 				if (TEST_RELEASE) {
