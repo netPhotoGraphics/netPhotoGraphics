@@ -1906,7 +1906,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 		if (!empty($auth) && !empty($post_pass)) {
 			$alternates = array();
 			foreach (Zenphoto_Authority::$hashList as $hash => $hi) {
-				if ($h = Zenphoto_Authority::passwordHash($post_user, $post_pass, $hi)) {
+				if ($h = Zenphoto_Authority::passwordHash($post_user, $post_pass, $hi, false)) {
 					array_push($alternates, $h);
 				}
 			}

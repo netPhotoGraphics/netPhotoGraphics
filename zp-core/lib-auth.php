@@ -252,7 +252,7 @@ class _Authority {
 	 * @param string $pass
 	 * @return string
 	 */
-	static function passwordHash($user, $pass, $hash_type = NULL) {
+	static function passwordHash($user, $pass, $hash_type = NULL, $debug = true) {
 		if (is_null($hash_type)) {
 			$hash_type = getOption('strong_hash');
 		}
@@ -296,13 +296,13 @@ class _Authority {
 			default:
 				$hash = NULL; //	current PHP version does not support the algorithm.
 		}
-		if (DEBUG_LOGIN || !$hash) {
+		if ($debug && (DEBUG_LOGIN || !$hash)) {
 			$hashNames = array_flip(self::$hashList);
 			$algorithm = $hashNames[$hash_type];
 			if (!$hash) {
 				$hash = gettext('No PHP support');
 			}
-			debugLog("passwordHash($user, $pass, $algorithm)[ " . HASH_SEED . " ]:$hash");
+			debugLog("passwordHash($user, $algorithm)[ " . HASH_SEED . " ]:$hash");
 		}
 		return $hash;
 	}
