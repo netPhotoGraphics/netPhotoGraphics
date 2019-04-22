@@ -2271,21 +2271,21 @@ function load_jQuery_CSS() {
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		case 0: //	no migration script
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.3.1.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.3.1.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.1.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.3.1.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.0.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.1.js');
 			break;
 		case 3: //	use legacy jQuery
 			?>
@@ -2388,14 +2388,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
