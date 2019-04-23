@@ -951,17 +951,20 @@ class _Authority {
 	 * Checks saved cookies to see if a user is logged in
 	 */
 	function checkCookieCredentials() {
-		$cookie = zp_getCookie('zp_user_auth');
+		$auth = $cookie = zp_getCookie('zp_user_auth');
 		$idLoc = strrpos($cookie, '.');
 		if ($idLoc) {
 			$id = (int) substr($cookie, $idLoc + 1);
 			$auth = substr($cookie, 0, $idLoc);
-			$loggedin = $this->checkAuthorization($auth, $id);
-			$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
-			if ($loggedin) {
-				return $loggedin;
-			}
+		} else {
+			$id = 0;
 		}
+		$loggedin = $this->checkAuthorization($auth, $id);
+		$loggedin = zp_apply_filter('authorization_cookie', $loggedin, $auth, $id);
+		if ($loggedin) {
+			return $loggedin;
+		}
+
 		zp_clearCookie("zp_user_auth");
 		return NULL;
 	}
