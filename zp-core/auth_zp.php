@@ -40,12 +40,13 @@ if (defined('VIEW_ALL_RIGHTS')) {
 	define('VIEW_ALL_RIGHTS', ALL_ALBUMS_RIGHTS | ALL_PAGES_RIGHTS | ALL_NEWS_RIGHTS);
 }
 
-// If the auth variable gets set somehow before this, get rid of it.
-$_zp_loggedin = false;
-
 // we have the ssl marker cookie, normally we are already logged in
 // but we need to redirect to ssl to retrive the auth cookie (set as secure).
 httpsRedirect();
+
+
+// If the auth variable gets set somehow before this, get rid of it.
+$_zp_loggedin = false;
 
 if (isset($_POST['login'])) { //	Handle the login form.
 	$_zp_loggedin = $_zp_authority->handleLogon();
