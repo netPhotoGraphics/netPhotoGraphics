@@ -46,6 +46,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		if ($errorstop) {
 			trigger_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er), $errorstop);
 		}
+		$_zp_DB_connection = NULL;
 		return false;
 	}
 	$_zp_DB_details['mysql_host'] = $config['mysql_host'];
