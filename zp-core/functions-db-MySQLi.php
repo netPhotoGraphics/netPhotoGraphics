@@ -39,13 +39,13 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			sleep($i);
 		}
 	} else {
-		$_zp_DB_connection = NULL;
 		$er = gettext('"extension not loaded"');
 	}
 	if (!is_object($_zp_DB_connection)) {
 		if ($errorstop) {
 			trigger_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er), $errorstop);
 		}
+		$_zp_DB_connection = false;
 		return false;
 	}
 	$_zp_DB_details['mysql_host'] = $config['mysql_host'];
@@ -259,8 +259,12 @@ function db_close() {
 
 function db_software() {
 	global $_zp_DB_connection;
-	$dbversion = trim(@$_zp_DB_connection->get_server_info());
-	preg_match('/[0-9,\.]*/', $dbversion, $matches);
+	if (is_object($_zp_DB_connection)) {
+		$dbversion = trim($_zp_DB_connection->get_server_info());
+		preg_match('/[0-9,\.]*/', $dbversion, $matches);
+	} else {
+		$matches[0] = '?.?.?';
+	}
 	return array('application' => DATABASE_SOFTWARE, 'required' => DATABASE_MIN_VERSION, 'desired' => DATABASE_DESIRED_VERSION, 'version' => $matches[0]);
 }
 

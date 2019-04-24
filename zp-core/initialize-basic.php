@@ -103,9 +103,9 @@ foreach ($_zp_conf_vars as $name => $value) {
 
 if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_zp_conf_vars['db_software']))) {
 	require_once(dirname(__FILE__) . '/functions-db-' . $_zp_conf_vars['db_software'] . '.php');
-	$data = db_connect(array_intersect_key($_zp_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
+	$__initialDBConnection = db_connect(array_intersect_key($_zp_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
 } else {
-	$data = false;
+	$__initialDBConnection = false;
 }
 if (!function_exists('db_query')) {
 	require_once(dirname(__FILE__) . '/functions-db-NULL.php');
@@ -113,7 +113,7 @@ if (!function_exists('db_query')) {
 $software = db_software();
 define('MySQL_VERSION', $software['version']);
 
-if (!$data && OFFSET_PATH != 2) {
+if (!$__initialDBConnection && OFFSET_PATH != 2) {
 	_setup(13);
 }
 
