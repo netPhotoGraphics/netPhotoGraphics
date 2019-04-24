@@ -245,7 +245,13 @@ if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 
 if ($updatezp_config) {
 	storeConfig($zp_cfg);
-	$updatezp_config = false;
+	//	reload the page so that the database config takes effect
+	$q = rtrim($debugq . $autorunq, '&');
+	if ($q) {
+		$q = '?' . $q;
+	}
+	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/setup/index.php' . $q);
+	exit();
 }
 
 // Important. when adding new database support this switch may need to be extended,
@@ -310,10 +316,6 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		<?php
 		exit();
 	}
-	if ($updatezp_config) {
-		storeConfig($zp_cfg);
-		$updatezp_config = false;
-	}
 }
 
 if ($updatezp_config) {
@@ -328,7 +330,7 @@ $connectDBErr = '';
 
 if ($selected_database) {
 	$connectDBErr = '';
-	$connection = db_connect($_zp_conf_vars, false);
+	$connection = $__initialDBConnection;
 	if ($connection) { // got the database handler and the database itself connected
 		$result = query("SELECT `id` FROM " . $_zp_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
 		if ($result) {
@@ -999,7 +1001,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 						}
-						$connection = db_connect($_zp_conf_vars, false);
 						if ($connection) {
 							if (empty($_zp_conf_vars['mysql_database'])) {
 								$connection = false;

@@ -83,8 +83,12 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 
 function db_software() {
 	global $_zp_DB_connection;
-	$dbversion = trim($_zp_DB_connection->getAttribute(PDO::ATTR_SERVER_VERSION));
-	preg_match('/[0-9,\.]*/', $dbversion, $matches);
+	if (is_object($_zp_DB_connection)) {
+		$dbversion = trim($_zp_DB_connection->getAttribute(PDO::ATTR_SERVER_VERSION));
+		preg_match('/[0-9,\.]*/', $dbversion, $matches);
+	} else {
+		$matches[0] = '?.?.?';
+	}
 	return array('application' => DATABASE_SOFTWARE, 'required' => DATABASE_MIN_VERSION, 'desired' => DATABASE_DESIRED_VERSION, 'version' => $matches[0]);
 }
 
