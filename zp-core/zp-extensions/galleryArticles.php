@@ -161,9 +161,10 @@ class galleryArticles {
 		global $_zp_CMS;
 		$galleryitem_text = array();
 		$locale = getOption('locale');
+
 		switch ($type = $obj->table) {
 			case 'albums':
-				$album = $obj->name;
+				$folder = $album = $obj->name;
 				$dbstring = getOption('galleryArticles_album_text');
 				$localtext = get_language_string($dbstring);
 				$galleryitem_text[$locale] = sprintf($localtext, $obj->getTitle($locale));
@@ -174,7 +175,7 @@ class galleryArticles {
 					}
 				}
 				$ref = '"' . $album . '"';
-				$title = $folder = $album;
+				$title = $album;
 				$img = $obj->getAlbumThumbImage();
 				$class = 'galleryarticles-newalbum';
 				break;
@@ -203,7 +204,7 @@ class galleryArticles {
 		$article = newArticle(seoFriendly('galleryArticles-' . $title));
 		$article->setTitle(serialize($galleryitem_text));
 		$imglink = $img->getCustomImage(getOption('galleryArticles_size'), NULL, NULL, NULL, NULL, NULL, NULL, -1);
-		$desc = '<p><a class="' . $class . '" href="' . $obj->getLink() . '"><img src="' . $imglink . '"></a></p><p>[GALLERYARTICLEDESC ' . $ref . ']</p>';
+		$desc = '<p><a class="' . $class . '" href="' . $obj->getLink() . '" title="' . sprintf(gettext('View %1$s'), $title) . '"><img src="' . $imglink . '"></a></p><p>[GALLERYARTICLEDESC ' . $ref . ']</p>';
 
 		$article->setContent($desc);
 		$date = $obj->getPublishDate();

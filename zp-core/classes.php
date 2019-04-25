@@ -317,7 +317,6 @@ class PersistentObject {
 				$new = true;
 				$this->save();
 				$entry = query_single_row($sql);
-
 				// If we still don't have an entry, something went wrong...
 				if (!$entry)
 					return null;
