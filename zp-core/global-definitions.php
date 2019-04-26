@@ -151,7 +151,7 @@ unset($matches);
 unset($const_webpath);
 unset($const_serverpath);
 
-define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,mbstring,openssl,session,tidy,zip');
+define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,intl,mbstring,openssl,session,tidy,zip');
 
 // Contexts (Bitwise and combinable)
 define("ZP_INDEX", 1);
