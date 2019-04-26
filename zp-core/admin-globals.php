@@ -14,7 +14,6 @@ require_once(dirname(__FILE__) . '/initialize-basic.php');
 
 zp_session_start();
 require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
-httpsRedirect();
 
 $_zp_button_actions = $zenphoto_tabs = array();
 
