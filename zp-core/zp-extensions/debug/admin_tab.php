@@ -234,35 +234,39 @@ echo "\n</head>";
 							?>
 							<h2><?php echo gettext('The following locals are reported by your server.'); ?></h2>
 							<div>
-								<?php echo gettext('Ones flagged by † have translations.'); ?>
+								<?php echo gettext('Languages in boldface have translations.'); ?>
 							</div>
 							<br />
 							<?php
-							$list = getSystemLocales();
-							$output = array();
-							$last = '';
+							$list = ResourceBundle::getLocales('');
+							$support = array();
 							foreach ($list as $locale) {
 								$parts = explode('_', $locale);
-								if ($last != $parts[0]) {
-									if (class_exists('locale')) {
-										$language = locale::getDisplayName($locale);
-									} else {
-										$language = $locale;
+								if (count($parts) > 1) { // only pay attention to the connical xx_YY locales
+									$support[$parts[0]]['locales'][] = $locale;
+									if (!isset($support[$parts[0]]['text'])) {
+										$language = locale::getDisplayName($parts[0]);
+										if ($language) {
+											$support[$parts[0]]['text'] = $language;
+										}
 									}
-									$output[$language] = '<strong>' . $language . '</strong> ';
-									$npgSupport[$language] = '&nbsp;';
-									$last = $parts[0];
-								} else {
-									$output[$language] .= ', ';
-								}
-								$output[$language] .= $locale;
-								if (is_dir(SERVERPATH . '/' . ZENFOLDER . '/locale/' . $locale)) {
-									$npgSupport[$language] = '†';
+									if (is_dir(SERVERPATH . '/' . ZENFOLDER . '/locale/' . $locale)) {
+										$support[$parts[0]]['npgsupport'] = true;
+									}
 								}
 							}
-							asort($output);
-							foreach ($output as $key => $text) {
-								echo $npgSupport[$key] . $text . '<br />';
+							foreach ($support as $key => $lang) {
+								if (!isset($lang['text'])) {
+									$support[$key]['text'] = $key;
+								}
+							}
+							$support = sortMultiArray($support, array('text'));
+							foreach ($support as $key => $lang) {
+								$text = '<em>' . $lang['text'] . '</em>';
+								if (isset($lang['npgsupport'])) {
+									$text = '<strong>' . $text . '</strong>';
+								}
+								echo $text . ':&nbsp;&nbsp;' . implode(', ', $lang['locales']) . '<br />';
 							}
 							break;
 						case 'cookie':
