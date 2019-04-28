@@ -37,9 +37,9 @@ switch (OFFSET_PATH) {
 }
 $_zp_conf_vars['special_pages']['tiny'] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
 		'option' => 'tinyURL_text', 'default' => 'tiny/');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%TINY%([0-9]+)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=$1&t [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [L,QSA]');
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%TINY%', 'rewrite' => '_TINY_');
 
 class tinyURL {
@@ -126,7 +126,7 @@ class tinyURL {
 		$tiny = ($obj->getID() << 3) | $asoc[$obj->table];
 		if (MOD_REWRITE) {
 			if ($page > 1)
-				$tiny.='/' . $page;
+				$tiny .= '/' . $page;
 			if (class_exists('seo_locale')) {
 				return seo_locale::localePath(false) . '/' . _TINY_ . $tiny;
 			} else {
@@ -134,7 +134,7 @@ class tinyURL {
 			}
 		} else {
 			if ($page > 1)
-				$tiny.= '&page=' . $page;
+				$tiny .= '&page=' . $page;
 			return WEBPATH . '/index.php?p=' . $tiny . '&t';
 		}
 	}

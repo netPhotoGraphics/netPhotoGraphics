@@ -52,23 +52,23 @@ $_zp_conf_vars['special_pages'][] = array('definition' => '%CATEGORY%', 'rewrite
 $_zp_conf_vars['special_pages'][] = array('definition' => '%NEWS_ARCHIVE%', 'rewrite' => '_NEWS_ARCHIVE_');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%PAGES%', 'rewrite' => '_PAGES_');
 
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%PAGES%/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/*$',
 		'rule' => '%REWRITE% index.php?p=pages [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%PAGES%/(.+?)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=pages&title=$1 [L, QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%CATEGORY%/(.+)/([0-9]+)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&category=$1&page=$2 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%CATEGORY%/(.+?)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&category=$1 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%NEWS_ARCHIVE%/(.+)/([0-9]+)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&date=$1&page=$2 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%NEWS_ARCHIVE%/(.+?)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&date=$1 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%NEWS%/([0-9]+)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&page=$1 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%NEWS%/(.+?)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&title=$1 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%NEWS%/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/*$',
 		'rule' => '%REWRITE% index.php?p=news [L,QSA]');
 
 

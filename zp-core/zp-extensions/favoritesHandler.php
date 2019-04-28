@@ -301,13 +301,13 @@ class favoritesHandler {
 $_zp_conf_vars['special_pages']['favorites'] = array('define' => '_FAVORITES_', 'rewrite' => getOption('favorites_link'),
 		'option' => 'favorites_link', 'default' => '_PAGE_/favorites');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/* $',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/* $',
 		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%FAVORITES%/([0-9]+)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=favorites&page=$1 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%FAVORITES%/(.+)/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/*$',
 		'rule' => '%REWRITE% index.php?p=favorites&instance=$1 [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '^%FAVORITES%/*$',
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/*$',
 		'rule' => '%REWRITE% index.php?p=favorites [L,QSA]');
 
 if (OFFSET_PATH) {

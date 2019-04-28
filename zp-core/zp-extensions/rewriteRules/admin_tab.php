@@ -26,7 +26,8 @@ echo "\n</head>";
 					<?php
 					echo gettext('Rewrite Rules');
 					?>
-				</h1>			<div class="tabbox">
+				</h1>
+				<div class="tabbox">
 
 					<dl class="code">
 						<?php
