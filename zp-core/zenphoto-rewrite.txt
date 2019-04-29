@@ -20,7 +20,7 @@
 	RewriteRule ^%SEARCH%/(.+?)/([0-9]+)/*$    						index.php?p=search&words=$1&page=$2 [L,QSA]
 	RewriteRule ^%SEARCH%/(.+?)/*$     										index.php?p=search&words=$1 [L,QSA]
 
-	#### Rules created by plugins
+	#### Rules from the "special_pages" array
 	_SPECIAL_
 
 	#### image, album, and custom page references

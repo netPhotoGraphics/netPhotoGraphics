@@ -9,31 +9,50 @@
  * of three elements: <var>define</var>, <var>rewrite</var>, and (optionally) <var>rule</rule>.
  *
  * Elemments which have a <var>define</var> and no <var>rule</rule> are processed by rewrite rules in the
- * zenphoto-rewrite.txt file and the <var>define</var> is used internally to zenphoto to reference
+ * zenphoto-rewrite.txt file and the <var>define</var> is used internally to netPhotoGraphics to reference
  * the rewrite text when building links.
  *
  * Elements with a <var>rule</rule> defined are processed after Search, Pages, and News rewrite rules and before
  * Image and album rewrite rules. The tag %REWRITE% in the rule is replaced with the <var>rewrite</var> text
- * before processing the rule. Thus <var>rewrite</var> is the token that should appear in the acutal URL.
+ * before processing the rule. Thus <var>rewrite</var> is the token that should appear in the actual URL.
  *
  * It makes no sense to have an element without either a <var>define</var> or a <var>rule</rule> as nothing will happen.
  *
- * At present all rules are presumed to to stop processing the rule set. Historically that is what all our rules have done, but I suppose
- * we could change that. The "R" flag may be used to cause a <var>header</var> status to be sent. However, we do not redirect
- * back to index.php, so the "R" flag is only useful if the target is a different script.
+ * At present all rules are presumed to to stop processing the rule set. Historically that is what all our rules have done.
+ *
+ * If the target of the rewrite is index.php, no redirection will occur unless the "R" flag is set. Index.php is executed
+ * in the normal loading sequence. The "R" flag may be used to cause a redirection with a status <var>header</var> even if
+ * index.php is the target of the redirect.
  *
  * @author Stephen Billard (sbillard)
  *
  * @package admin
  */
-/*
- * add "standard" (non-plugin dependent) rewrite rules here
- */
-$_zp_conf_vars['special_pages']['gallery'] = array('define' => '_GALLERY_PAGE_', 'rewrite' => getOption('galleryToken_link'),
-		'option' => 'galleryToken_link', 'default' => '_PAGE_/gallery');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%GALLERY_PAGE%', 'rewrite' => '_GALLERY_PAGE_');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '%GALLERY_PAGE%/([0-9]+)', 'rule' => '^%REWRITE%/*$		index.php?p=gallery&page=$1' . ' [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('define' => false, 'rewrite' => '%GALLERY_PAGE%', 'rule' => '^%REWRITE%/*$		index.php?p=gallery [L,QSA]');
+// add "standard" (non-plugin dependent) rewrite rules here
+//	setup definitions for the "gallery" page link
+$_zp_conf_vars['special_pages']['gallery'] = array(
+		'define' => '_GALLERY_PAGE_', //	The netPhotoGraphics "define" for the link token
+		'option' => 'galleryToken_link', //	the name of the option for storing the link token
+		'default' => '_PAGE_/gallery', //	The default (initial value) of the link token
+		'rewrite' => getOption('galleryToken_link') //	this will be "evaled" to yield the current link token for "gallery"
+);
+//	add the rewrite definition of the rewrite target
+$_zp_conf_vars['special_pages'][] = array(
+		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules
+		'rewrite' => '_GALLERY_PAGE_' //	the value that will be substituted for the above reference
+);
+//	the next two entries are rewrite rules for the "gallery" page
+//	If the option for 'galleryToken_link' is "albumindex" then these will produce the rules
+//		rewriterule ^albumindex/([0-9]+)/*$  index.php?p=gallery&page=$1 [L,QSA]
+//		rewriterule ^albumindex/*$  index.php?p=gallery [L,QSA]
+$_zp_conf_vars['special_pages'][] = array(
+		'rewrite' => '%GALLERY_PAGE%/([0-9]+)',
+		'rule' => '^%REWRITE%/*$		index.php?p=gallery&page=$1' . ' [L,QSA]'
+);
+$_zp_conf_vars['special_pages'][] = array(
+		'rewrite' => '%GALLERY_PAGE%',
+		'rule' => '^%REWRITE%/*$		index.php?p=gallery [L,QSA]'
+);
 
 /**
  * applies the rewrite rules
@@ -93,7 +112,7 @@ function rewriteHandler() {
 							}
 							//	we will execute the index.php script in due course. But if the rule
 							//	action takes us elsewhere we will have to re-direct to that script.
-							if (isset($action[1]) && $action[1] != 'index.php') {
+							if (array_key_exists('R', $flags) || isset($action[1]) && $action[1] != 'index.php') {
 								$qs = http_build_query($_GET);
 								if ($qs) {
 									$qs = '?' . $qs;

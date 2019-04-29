@@ -175,16 +175,9 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 					XSRFdefender('install_update');
 					$msg = FALSE;
 					if ($action == 'download_update') {
-						@ini_set('allow_url_fopen', 1);
-						if (!(($fopen = ini_get('allow_url_fopen')) && @copy($newestVersionURI, SERVERPATH . '/' . basename($newestVersionURI)))) {
+						if ($msg = getRemoteFile($newestVersionURI, SERVERPATH)) {
 							$class = 'errorbox';
-							$msg = gettext('netPhotoGraphics could not download the update.');
-							if (!$fopen) {
-								$msg .= ' ' . gettext('<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. ');
-							}
-						}
-						if ($msg) {
-							$msg .= ' ' . sprintf(gettext('Click on the <code>%1$s</code> button to download the release to your computer, FTP the zip file to your site, and revisit the overview page. Then there will be an <code>Install</code> button that will install the update.'), ARROW_DOWN_GREEN . 'netPhotoGraphics ' . $newestVersion);
+							$msg .= '<br /><br />' . sprintf(gettext('Click on the <code>%1$s</code> button to download the release to your computer, FTP the zip file to your site, and revisit the overview page. Then there will be an <code>Install</code> button that will install the update.'), ARROW_DOWN_GREEN . 'netPhotoGraphics ' . $newestVersion);
 							break;
 						}
 					}

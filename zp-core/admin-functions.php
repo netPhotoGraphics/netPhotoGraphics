@@ -2712,7 +2712,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<a href="?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>" title="<?php echo sprintf(gettext('Edit this album: %s'), $album->name); ?>">
 						<?php
 					}
-					echo html_encode(getBare($album->getTitle()));
+					echo html_encode(shortenContent(getBare($album->getTitle()), 100));
 					if ($enableEdit) {
 						?>
 					</a>
@@ -5950,4 +5950,28 @@ function parse_size($size) {
 function convert_size($size, $round = 0) {
 	$unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
 	return @round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $unit[$i];
+}
+
+/**
+ * Use to fetch files from a remote website (e.g. GitHub)
+ *
+ * @param type $source URL to the remote file
+ * @param type $dest folder where you want it locally
+ * @return string error message if any
+ */
+function getRemoteFile($source, $dest) {
+	$msg = NULL;
+	@ini_set('allow_url_fopen', 1);
+	error_clear_last();
+	if (!(($fopen = ini_get('allow_url_fopen')) && @copy($source, $dest . '/' . basename($source)))) {
+		$msg = sprintf(gettext('netPhotoGraphics could not download %1$s.'), basename($source));
+		if (!$fopen) {
+			$msg .= '<br />' . gettext('<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. ');
+		} else {
+			if ($m = error_get_last()) {
+				$msg .= '<br />' . $m['message'];
+			}
+		}
+	}
+	return $msg;
 }
