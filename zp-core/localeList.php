@@ -727,6 +727,7 @@ $__languages = array(
 		'zh_Hans_HK' => gettext('Chinese (Simplified, Hong Kong SAR China)'),
 		'zh_Hans_MO' => gettext('Chinese (Simplified, Macau SAR China)'),
 		'zh_Hans_SG' => gettext('Chinese (Simplified, Singapore)'),
+		'zh_Hans_TW' => gettext('Chinese (Simplified, Taiwan)'),
 		'zh_Hant' => gettext('Chinese (Traditional)'),
 		'zh_Hant_HK' => gettext('Chinese (Traditional, Hong Kong SAR China)'),
 		'zh_Hant_MO' => gettext('Chinese (Traditional, Macau SAR China)'),

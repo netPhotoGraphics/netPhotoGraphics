@@ -17,7 +17,11 @@ if (!class_exists('locale')) {
 
 		static function getDisplayName($locale) {
 			global $__languages;
-			return @$__languages[$locale];
+			if (isset($__languages[$locale])) {
+				return $__languages[$locale];
+			} else {
+				return $locale;
+			}
 		}
 
 	}
