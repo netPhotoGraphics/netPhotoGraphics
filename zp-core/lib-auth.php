@@ -1507,7 +1507,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1909,13 +1909,13 @@ class _Administrator extends PersistentObject {
 				} else {
 					$sql = 'INSERT INTO ' . prefix('admin_to_object') . " (adminid, objectid, type, edit) VALUES ($id, $objectid, '$table', $edit)";
 					$result = query($sql);
-					$updated = TRUE;
+					$updated = 1;
 				}
 			}
 			if (!empty($old)) {
 				$sql = 'DELETE FROM ' . prefix('admin_to_object') . ' WHERE `id` IN(' . implode(',', array_keys($old)) . ')';
 				query($sql);
-				$updates = TRUE;
+				$updated = 1;
 			}
 		}
 		return $updated;

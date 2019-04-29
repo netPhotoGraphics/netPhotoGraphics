@@ -139,8 +139,8 @@ if (isset($_GET['action'])) {
 									if ($admin_e) {
 										$list = $_zp_authority->getAdministrators('users');
 										unset($list[$userobj->getID()]);
-										foreach ($list as $user) {
-											if ($user['email'] == $admin_e) {
+										foreach ($list as $anuser) {
+											if ($anuser['email'] == $admin_e) {
 												$msg = sprintf(gettext('%s is already used by another user.'), $admin_e);
 												break;
 											}
@@ -228,7 +228,7 @@ if (isset($_GET['action'])) {
 								}
 								$userobj->transient = false;
 								$saved = $userobj->save();
-								if ($saved === TRUE) {
+								if ($saved == 1) {
 									zp_apply_filter('save_user_complete', $msg, $userobj, $what);
 									$returntab .= '&show[]=' . $user;
 								}
