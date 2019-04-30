@@ -1544,11 +1544,11 @@ zp-core/locale/zh_Hans_CN/flag.png
 zp-core/locale/zh_Hans_CN/LC_MESSAGES
 zp-core/locale/zh_Hans_CN/LC_MESSAGES/zenphoto.mo
 zp-core/locale/zh_Hans_CN/LC_MESSAGES/zenphoto.po
-zp-core/locale/zh_Hans_TW
-zp-core/locale/zh_Hans_TW/flag.png
-zp-core/locale/zh_Hans_TW/LC_MESSAGES
-zp-core/locale/zh_Hans_TW/LC_MESSAGES/zenphoto.mo
-zp-core/locale/zh_Hans_TW/LC_MESSAGES/zenphoto.po
+zp-core/locale/zh_Hant_TW
+zp-core/locale/zh_Hant_TW/flag.png
+zp-core/locale/zh_Hant_TW/LC_MESSAGES
+zp-core/locale/zh_Hant_TW/LC_MESSAGES/zenphoto.mo
+zp-core/locale/zh_Hant_TW/LC_MESSAGES/zenphoto.po
 zp-core/php-gettext
 zp-core/php-gettext/gettext.inc
 zp-core/php-gettext/gettext.php

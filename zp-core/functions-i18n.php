@@ -9,7 +9,7 @@
  */
 // force UTF-8 Ø
 
-if (!class_exists('locale')) {
+if (!extension_loaded('intl')) {
 
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/localeList.php');
 
@@ -19,15 +19,11 @@ if (!class_exists('locale')) {
 			global $__languages;
 			if (isset($__languages[$locale])) {
 				return $__languages[$locale];
-			} else {
-				return $locale;
 			}
+			return $locale;
 		}
 
 	}
-
-}
-if (!class_exists('ResourceBundle')) {
 
 	class ResourceBundle {
 

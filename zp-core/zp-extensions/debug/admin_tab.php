@@ -236,6 +236,15 @@ echo "\n</head>";
 							<div>
 								<?php echo gettext('Languages in boldface have translations.'); ?>
 							</div>
+							<?php
+							if (!extension_loaded('intl')) {
+								?>
+								<div class="warningbox">
+									<?php echo gettext('Note: the PHP Internationalization Functions module is not enabled.'); ?>
+								</div>
+								<?php
+							}
+							?>
 							<br />
 							<?php
 							$list = ResourceBundle::getLocales('');
