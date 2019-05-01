@@ -184,7 +184,6 @@ printAdminHeader('admin');
 <body>
 	<?php
 	printLogoAndLinks();
-	$flags = getLanguageFlags();
 	?>
 	<div id="main">
 		<?php
@@ -208,7 +207,7 @@ printAdminHeader('admin');
 							if (preg_match('~([a-z]{2}_*[A-Z]{0,2}.*):\s*(.*)~', $action, $matches)) {
 								$action = $matches[2];
 								if ($matches[1]) {
-									$flag = '<img src="' . $flags[$matches[1]] . '" height="10" width="15" /> ';
+									$flag = '<img src="' . getLanguageFlag($matches[1]) . '" height="10" width="15" /> ';
 								}
 							}
 							echo $br . $flag . $action;
@@ -337,7 +336,7 @@ printAdminHeader('admin');
 											<?php
 											if ($lang = $tagitem['lang']) {
 												?>
-												<img src="<?php echo $flags[$lang]; ?>" height="10" width="16" />
+												<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo locale::getDisplayName($lang); ?>" />
 												<?php
 											}
 											?>
@@ -354,7 +353,7 @@ printAdminHeader('admin');
 												$tag = $tagitem['tag'];
 												?>
 												<span class="nowrap">
-													&nbsp;&nbsp;<img src="<?php echo $flags[$lang]; ?>" height="10" width="16" />
+													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo locale::getDisplayName($lang); ?>" />
 													<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
 												</span>
 												<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">
