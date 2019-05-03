@@ -785,7 +785,7 @@ while (count($vers) < 3) {
 	$vers[] = 0;
 }
 $zpversion = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
-$_languages = generateLanguageList('all');
+$_languages = i18n::generateLanguageList('all');
 
 $unsupported = $disallow = array();
 $disallowd = getOptionsLike('disallow_');
@@ -801,13 +801,13 @@ setOptionDefault('locale_disallowed', serialize($disallow));
 
 foreach ($_languages as $language => $dirname) {
 	if (!empty($dirname) && $dirname != 'en_US') {
-		if (!i18nSetLocale($dirname)) {
+		if (!i18n::setLocale($dirname)) {
 			$unsupported[$dirname] = $dirname;
 		}
 	}
 }
 setOption('locale_unsupported', serialize($unsupported));
-setupCurrentLocale($_zp_setupCurrentLocale_result);
+i18n::setupCurrentLocale($_zp_setupCurrentLocale_result);
 
 //The following should be done LAST so it catches anything done above
 //set plugin default options by instantiating the options interface

@@ -219,7 +219,7 @@ class register_user {
 					$userobj->setRights(0);
 					$userobj->setObjects(NULL);
 					$userobj->setGroup('');
-					$userobj->setLanguage(getUserLocale());
+					$userobj->setLanguage(i18n::getUserLocale());
 					if (extensionEnabled('userAddressFields')) {
 						$addresses = getOption('register_user_address_info');
 						$userinfo = register_user::getUserInfo(0);

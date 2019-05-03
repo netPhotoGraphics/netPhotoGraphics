@@ -1012,7 +1012,7 @@ class _Authority {
 				$info = array('challenge' => '');
 			}
 			if (empty($info['challenge']) || ($cycle > 2 && ($cycle % 5) != 1)) {
-				$locale = getUserLocale();
+				$locale = i18n::getUserLocale();
 				$questions = array();
 				foreach (getSerializedArray(getOption('challenge_foils')) as $question) {
 					$questions[] = get_language_string($question);

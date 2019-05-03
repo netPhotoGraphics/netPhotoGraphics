@@ -461,7 +461,7 @@ if ($setup_checked) {
 if (!isset($_zp_setupCurrentLocale_result) || empty($_zp_setupCurrentLocale_result)) {
 	if (DEBUG_LOCALE)
 		debugLog('Setup checking locale');
-	$_zp_setupCurrentLocale_result = setMainDomain();
+	$_zp_setupCurrentLocale_result = i18n::setMainDomain();
 	if (DEBUG_LOCALE)
 		debugLog('$_zp_setupCurrentLocale_result = ' . $_zp_setupCurrentLocale_result);
 }

@@ -19,7 +19,7 @@ function saveOptions() {
 	}
 	$oldloc = SITE_LOCALE; // get the option as stored in the database, not what might have been set by a cookie
 	$newloc = sanitize($_POST['locale'], 3);
-	$languages = generateLanguageList(true);
+	$languages = i18n::generateLanguageList(true);
 	$languages[''] = '';
 
 	$disallow = array();
@@ -35,7 +35,7 @@ function saveOptions() {
 			$notify = '?local_failed=' . $newloc;
 		} else {
 			zp_clearCookie('dynamic_locale'); // clear the language cookie
-			$result = i18nSetLocale($newloc);
+			$result = i18n::setLocale($newloc);
 			if (!empty($newloc) && ($result === false)) {
 				$notify = '?local_failed=' . $newloc;
 			}
@@ -146,7 +146,7 @@ function getOptionContent() {
 	<div id="tab_gallery" class="tabbox">
 		<?php
 		if (isset($_GET['local_failed'])) {
-			$languages = array_flip(generateLanguageList('all'));
+			$languages = array_flip(i18n::generateLanguageList('all'));
 			$locale = sanitize($_GET['local_failed']);
 			echo '<div class="errorbox">';
 			echo "<h2>" .
@@ -307,7 +307,7 @@ function getOptionContent() {
 								<?php
 								$unsupported = getSerializedArray(getOption('locale_unsupported'));
 								$disallow = getSerializedArray(getOption('locale_disallowed'));
-								$locales = generateLanguageList('all');
+								$locales = i18n::generateLanguageList('all');
 								$locales[gettext("HTTP_Accept_Language")] = '';
 								ksort($locales, SORT_LOCALE_STRING);
 								$vers = explode('-', ZENPHOTO_VERSION);

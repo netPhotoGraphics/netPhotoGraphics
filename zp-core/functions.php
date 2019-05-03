@@ -1335,7 +1335,7 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  * Central place for meta header handling
  */
 function printStandardMeta() {
-	$lang = substr(getUserLocale(), 0, 2);
+	$lang = substr(i18n::getUserLocale(), 0, 2);
 	echo '<meta http-equiv="content-type" content="text/html; charset=' . LOCAL_CHARSET . '"';
 	if ($lang)
 		echo ' lang="' . $lang . '"';
@@ -2716,7 +2716,7 @@ class zpFunctions {
 	 */
 	static function LanguageSubdomains() {
 		$domains = array();
-		$langs = generateLanguageList();
+		$langs = i18n::generateLanguageList();
 		$domains = array();
 		foreach ($langs as $value) {
 			$domains[substr($value, 0, 2)][] = $value;

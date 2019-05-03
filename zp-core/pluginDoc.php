@@ -190,7 +190,7 @@ if (!defined('OFFSET_PATH')) {
 	header('Last-Modified: ' . ZP_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
-	$real_locale = getUserLocale();
+	$real_locale = i18n::getUserLocale();
 
 	$pluginType = @$_GET['type'];
 	if ($pluginType) {
@@ -271,7 +271,7 @@ if (!defined('OFFSET_PATH')) {
 		}
 		$pluginusage = gettext('Plugin usage information');
 		$pagetitle = sprintf(gettext('%1$s %2$s: %3$s'), html_encode($_zp_gallery->getTitle()), gettext('admin'), html_encode($extension));
-		setupCurrentLocale('en_US');
+		i18n::setupCurrentLocale('en_US');
 		?>
 		<!DOCTYPE html>
 		<html xmlns="http://www.w3.org/1999/xhtml" />

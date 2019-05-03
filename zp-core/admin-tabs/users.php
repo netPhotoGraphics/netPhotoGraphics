@@ -852,7 +852,7 @@ echo $refresh;
 														<input type="hidden" name="user[<?php echo $id ?>][admin_language]" id="admin_language_<?php echo $id ?>" value="<?php echo $currentValue; ?>" />
 														<ul class="flags" style="margin-left: 0px;">
 															<?php
-															$languages = generateLanguageList();
+															$languages = i18n::generateLanguageList();
 															asort($languages);
 															$flags = getLanguageFlags();
 															$flags[''] = WEBPATH . '/' . ZENFOLDER . '/locale/auto.png';

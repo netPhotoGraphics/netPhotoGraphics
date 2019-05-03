@@ -69,7 +69,7 @@ class matomoStats {
 
 	function getOptionsSupported() {
 		$langs = $langs_list = array();
-		$langs_list = generateLanguageList();
+		$langs_list = i18n::generateLanguageList();
 		foreach ($langs_list as $text => $lang) {
 			$langs[$text] = $lang;
 		}
@@ -198,7 +198,7 @@ class matomoStats {
 	 * @return string
 	 */
 	static function getOptOutiFrame() {
-		$userlocale = substr(getUserLocale(), 0, 2);
+		$userlocale = substr(i18n::getUserLocale(), 0, 2);
 		$url = getOption('matomo_url');
 		$src = $url . '/index.php?module=CoreAdminHome&action=optOut&language=' . $userlocale;
 		return '<iframe style="border: 0; height: 200px; width: 100%;" src="' . $src . '"></iframe>';
@@ -231,12 +231,12 @@ class matomoStats {
 		if ($locale_to_track != $_zp_current_locale && $locale_to_track != NULL) {
 			$original_locale = getOption('locale');
 			setOption('locale', $locale_to_track, false);
-			setupCurrentLocale($locale_to_track);
+			i18n::setupCurrentLocale($locale_to_track);
 		}
 		echo js_encode(getHeadTitle());
 		if (isset($original_locale)) {
 			setOption('locale', $original_locale, false);
-			setupCurrentLocale($original_locale);
+			i18n::setupCurrentLocale($original_locale);
 		}
 	}
 

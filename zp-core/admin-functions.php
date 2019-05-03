@@ -1472,7 +1472,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		global $_zp_language_flags;
 		if (is_null($_zp_language_flags)) {
 			$_zp_language_flags = array('' => WEBPATH . '/' . ZENFOLDER . '/locale/UN.png');
-			foreach (generateLanguageList('all') as $dirname) {
+			foreach (i18n::generateLanguageList('all') as $dirname) {
 				$_zp_language_flags[$dirname] = getLanguageFlag($dirname);
 			}
 		}
@@ -3229,7 +3229,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (!empty($edit))
 			$edit = ' class="' . $edit . '"';
 		if (is_null($locale)) {
-			$locale = getUserLocale();
+			$locale = i18n::getUserLocale();
 		}
 		$strings = getSerializedArray($dbstring);
 		if (count($strings) == 1) {
@@ -3239,13 +3239,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$strings = array($locale => array_shift($strings));
 			}
 		}
-		$activelang = generateLanguageList();
-		$allLang = array_flip(generateLanguageList('all'));
+		$activelang = i18n::generateLanguageList();
+		$allLang = array_flip(i18n::generateLanguageList('all'));
 		$multi = getOption('multi_lingual');
 		foreach ($strings as $lang => $v) {
 			if (!array_key_exists($lang, $activelang)) {
 				if (!isset($allLang[$lang])) {
-					$allLang[$lang] = locale::getDisplayName($lang);
+					$allLang[$lang] = i18n::getDisplayName($lang);
 				}
 				$activelang[$allLang[$lang]] = $lang;
 			}
@@ -3273,7 +3273,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			if ($_zp_current_locale) {
 				$preferred[] = $_zp_current_locale;
 			}
-			foreach (parseHttpAcceptLanguage() as $lang) {
+			foreach (i18n::parseHttpAcceptLanguage() as $lang) {
 				$preferred[] = str_replace('-', '_', $lang['fullcode']);
 			}
 			$preferred = array_unique($preferred);
@@ -3376,7 +3376,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @return string
 	 */
 	function process_language_string_save($name, $sanitize_level = 3) {
-		$languages = generateLanguageList('all');
+		$languages = i18n::generateLanguageList('all');
 		$l = strlen($name) + 1;
 		$strings = array();
 		foreach ($_POST as $key => $value) {

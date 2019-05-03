@@ -64,16 +64,16 @@ class tagsFromMetadata {
 	}
 
 	static function new_image($image) {
-		$entry_locale = getUserLocale();
-		$languages = generateLanguageList();
+		$entry_locale = i18n::getUserLocale();
+		$languages = i18n::generateLanguageList();
 		$languageTags = $element = array();
 		$candidates = self::getTaggingItems();
 		foreach ($candidates as $key) {
 			if ($meta = $image->get($key)) {
-				setupCurrentLocale('en_US');
+				i18n::setupCurrentLocale('en_US');
 				$en_us = $element[] = exifTranslate($meta);
 				foreach ($languages as $language) {
-					setupCurrentLocale($language);
+					i18n::setupCurrentLocale($language);
 					$xlated = exifTranslate($meta);
 					if ($xlated != $en_us) { // the string has a translation in this language
 						$element[] = $xlated;
@@ -82,7 +82,7 @@ class tagsFromMetadata {
 				}
 			}
 		}
-		setupCurrentLocale($entry_locale);
+		i18n::setupCurrentLocale($entry_locale);
 		$element = array_unique(array_merge($image->getTags(), $element));
 		$image->setTags($element);
 		$image->save();

@@ -172,7 +172,7 @@ if (OFFSET_PATH) {
 				exit();
 			} else {
 				$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
-				$__locale = getUserLocale();
+				$__locale = i18n::getUserLocale();
 				if (isset($recentIP[$ip]['locales'][$__locale])) {
 					$recentIP[$ip]['locales'][$__locale]['ip'][$full_ip] = $__time;
 				} else {

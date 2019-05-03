@@ -33,7 +33,7 @@ if (isset($_GET['action'])) {
 						if ($success) {
 							if ($multi) {
 								$master = db_insert_id();
-								foreach (generateLanguageList(false)as $text => $dirname) {
+								foreach (i18n::generateLanguageList(false)as $text => $dirname) {
 									if ($dirname != $language) {
 										query('INSERT INTO ' . prefix('tags') . ' (`name`, `masterid`,`language`) VALUES (' . db_quote($value) . ',' . $master . ',' . db_quote($dirname) . ')', false);
 									}
@@ -117,7 +117,7 @@ if (isset($_GET['action'])) {
 					if (count($tags) > 0) {
 						$tbdeleted = array();
 						$multi = getOption('multi_lingual');
-						$languageList = generateLanguageList(false);
+						$languageList = i18n::generateLanguageList(false);
 
 						foreach ($tags as $key => $tagname) {
 							$lang = @$langs[$key];
@@ -336,7 +336,7 @@ printAdminHeader('admin');
 											<?php
 											if ($lang = $tagitem['lang']) {
 												?>
-												<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo locale::getDisplayName($lang); ?>" />
+												<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
 												<?php
 											}
 											?>
@@ -353,7 +353,7 @@ printAdminHeader('admin');
 												$tag = $tagitem['tag'];
 												?>
 												<span class="nowrap">
-													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo locale::getDisplayName($lang); ?>" />
+													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::SetLocale($locale)::getDisplayName($lang); ?>" />
 													<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
 												</span>
 												<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">

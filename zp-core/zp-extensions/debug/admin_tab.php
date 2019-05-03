@@ -194,7 +194,7 @@ echo "\n</head>";
 							break;
 						default:
 						case 'http':
-							$httpaccept = parseHttpAcceptLanguage();
+							$httpaccept = i18n::parseHttpAcceptLanguage();
 							if (count($httpaccept) > 0) {
 								$accept = reset($httpaccept);
 								?>
