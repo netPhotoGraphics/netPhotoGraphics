@@ -234,7 +234,7 @@ class i18n {
 			}
 		}
 
-// sorting the list by coefficient desc
+		// sorting the list by coefficient desc
 		krsort($accepted);
 		if (DEBUG_LOCALE) {
 			debugLog("self::parseHttpAcceptLanguage($str)");
@@ -372,10 +372,10 @@ class i18n {
 }
 
 /**
- * Returns the sring for the current language from a serialized set of language strings
+ * Returns the string for the current language from a serialized set of language strings
  * Defaults to the string for the current locale, the en_US string, or the first string which ever is present
  *
- * @param string $dbstring either a serialized languag string array or a single string
+ * @param string $dbstring either a serialized language string array or a single string
  * @param string $locale optional locale of the translation desired
  * @return string
  */
@@ -396,7 +396,7 @@ function get_language_string($dbstring, $locale = NULL) {
 }
 
 /**
- * Returns a list of timezones
+ * Returns a list of time zones
  *
  * @return unknown
  */
@@ -407,7 +407,7 @@ function getTimezones() {
 		foreach ($timezones as $key => $zones) {
 			foreach ($zones as $id => $zone) {
 				/**
-				 * Only get timezones explicitely not part of "Others".
+				 * Only get time zones explicitely not part of "Others".
 				 * @see http://www.php.net/manual/en/timezones.others.php
 				 */
 				if (preg_match('/^(Africa|America|Antarctica|Arctic|Asia|Atlantic|Australia|Europe|Indian|Pacific)\//', $zone['timezone_id'])) {
