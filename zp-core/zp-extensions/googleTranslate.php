@@ -15,7 +15,7 @@
  * PHP Curl extension must be enabled.
  *
  * <b>Note:</b> Mechanical translations such as supplied by this plugin are intended as
- * a starting point. They may not properly represent the content translated nor may they be
+ * a starting point. They may not accurately represent the content translated nor may they be
  * gramatically proper.
  *
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
@@ -28,7 +28,7 @@
 
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Provides a Google translation facility.');
-$plugin_disable = !function_exists('curl_version') ? gettext('The PHP <em>Curl</em> extensionmust be enabled for this plugin to function.') : false;
+$plugin_disable = !function_exists('curl_version') ? gettext('The PHP <em>Curl</em> extension must be enabled for this plugin to function.') : false;
 
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTranslate/GoogleTranslate.php');
 
@@ -55,12 +55,14 @@ class translator {
 		$getField = 'get' . $field;
 		$source = $obj->$getField();
 		$text = get_language_string($source, $sourceLocale);
-		$translations = array($sourceLocale => $text);
-		foreach ($active_languages as $target) {
-			$translations[$target] = $trans->translate($sourceLocale, $target, $text);
+		if ($text) { //	don't bother if there is no text
+			$translations = array($sourceLocale => $text);
+			foreach ($active_languages as $target) {
+				$translations[$target] = $trans->translate($sourceLocale, $target, $text);
+			}
+			$setField = 'set' . $field;
+			$obj->$setField(serialize($translations));
 		}
-		$setField = 'set' . $field;
-		$obj->$setField(serialize($translations));
 	}
 
 	static function cms_utilities($before, $object) {
@@ -118,13 +120,3 @@ class translator {
 	}
 
 }
-
-/*
-$article = newArticle('My-first-article-1.htm');
-
-translator::doTranslation('en_us', $article, 'Content');
-
-varDebug([$article]);
-
-*/
-
