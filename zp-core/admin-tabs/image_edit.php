@@ -438,7 +438,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php
 										if ($image->getlastchangeuser()) {
 											?>
-
+											<br />
 											<?php
 											printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
 										}

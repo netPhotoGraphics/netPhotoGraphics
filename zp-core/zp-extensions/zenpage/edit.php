@@ -536,9 +536,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -630,7 +630,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																								 togglePassword('');">
+																					 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -779,7 +779,7 @@ $tagsort = 'alpha';
 													<?php
 													if ($result->getlastchangeuser()) {
 														?>
-														<hr /><p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
+														<p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
 														</p>
 														<?php
 													}

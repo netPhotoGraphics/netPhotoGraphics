@@ -2372,6 +2372,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</strong>
 							<?php
 							if ($album->getlastchangeuser()) {
+								?>
+								<br />
+								<?php
 								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
 							}
 							?>
@@ -2490,7 +2493,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						</div>
 						<div class="clearall" ></div>
 						<?php
-						echo zp_apply_filter('edit_album_utilities', '', $album, $prefix);
+						echo zp_apply_filter('edit_album_utilities', ' ', $album, $prefix);
 						printAlbumButtons($album);
 						?>
 						<span class="clearall" ></span>

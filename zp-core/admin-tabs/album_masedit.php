@@ -69,7 +69,7 @@ zp_apply_filter('admin_note', 'albums', $subtab);
 				<div class="innerbox<?php if (!($currentalbum % 2)) echo '_dark'; ?>" style="padding-left: 15px;padding-right: 15px;">
 
 					<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo urlencode($album->name); ?>&tab=albuminfo">
-						<em><strong><?php echo urlencode($album->name); ?></strong></em></a>
+						<em><strong><?php echo html_encode($album->name); ?></strong></em></a>
 					<br /><br />
 					<?php
 					printAlbumEditForm($currentalbum, $album, false);
