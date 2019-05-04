@@ -222,7 +222,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						$class = 'messagebox fade-message';
 					}
 					if (isset($_GET['msg'])) {
-						$msg = sanitize($_GET['msg']);
+						$msg = sanitize($_GET['msg'], 1);
 					} else {
 						$msg = '';
 					}
