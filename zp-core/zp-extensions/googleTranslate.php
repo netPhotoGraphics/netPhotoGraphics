@@ -18,7 +18,7 @@
  * a starting point. They may not properly represent the content translated nor may they be
  * gramatically proper.
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  *
  * @author Stephen Billard (sbillard)
  *
