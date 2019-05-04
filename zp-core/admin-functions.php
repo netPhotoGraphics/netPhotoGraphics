@@ -3300,7 +3300,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$emptylang[$active] = $key;
 			}
 			asort($emptylang);
-			$editHidden = '';
 			?>
 			<div id="ls_<?php echo ++$_lsInstance; ?>">
 				<select class="languageSelector ignoredirty" onchange="lsclick(this.value,<?php echo $_lsInstance; ?>);">
@@ -3325,7 +3324,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 					?>
 
-					<div id="lb<?php echo $key . '-' . $_lsInstance ?>" class="lbx-<?php echo $_lsInstance ?>"<?php echo $editHidden; ?>>
+					<div id="lb<?php echo $key . '-' . $_lsInstance ?>" class="lbx-<?php echo $_lsInstance ?>"<?php if ($key != $locale) echo ' style="display:none;"' ?>>
 						<?php
 						if ($textbox) {
 							?>
@@ -3339,7 +3338,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 						?>
 					</div>
 					<?php
-					$editHidden = ' style="display:none;"';
 				}
 				?>
 			</div>
