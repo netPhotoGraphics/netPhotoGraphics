@@ -695,18 +695,17 @@ $tagsort = 'alpha';
 													</div>
 													<?php
 												}
-												if (is_AdminEditPage("newsarticle")) {
-													echo zp_apply_filter('publish_article_utilities', '', $result);
-												}
-												if (is_AdminEditPage("newscategory")) {
-													echo zp_apply_filter('publish_category_utilities', '', $result);
-												}
-												if (is_AdminEditPage("page")) {
-													echo zp_apply_filter('publish_page_utilities', '', $result);
-												}
 												?>
 											</div>
 											<?php
+											if ($utilities = zp_apply_filter('edit_cms_utilities', '', $result)) {
+												?>
+												<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
+												<div class="box-edit">
+													<?php echo $utilities; ?>
+												</div>
+												<?php
+											}
 											if (!is_AdminEditPage("newscategory")) {
 												?>
 												<h2 class="h2_bordered_edit"><?php echo gettext("Date"); ?></h2>
@@ -857,8 +856,8 @@ $tagsort = 'alpha';
 														</p>
 														<?php
 													}
+													echo zp_apply_filter('general_zenpage_utilities', '', $result);
 													?>
-													<?php echo zp_apply_filter('general_zenpage_utilities', '', $result); ?>
 												</div>
 												<?php
 												if (is_AdminEditPage("newsarticle")) {

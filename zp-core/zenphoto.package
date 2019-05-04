@@ -1600,6 +1600,7 @@ zp-core/zp-extensions/GDPR_required.php
 zp-core/zp-extensions/googleLogin.php
 zp-core/zp-extensions/googleMap.php
 zp-core/zp-extensions/googleTFA.php
+zp-core/zp-extensions/googleTranslate.php
 zp-core/zp-extensions/hitcounter.php
 zp-core/zp-extensions/html_meta_tags.php
 zp-core/zp-extensions/http_auth.php
@@ -7838,6 +7839,8 @@ zp-core/zp-extensions/googleTFA/auth_code.php
 zp-core/zp-extensions/googleTFA/GoogleAuthenticator.php
 zp-core/zp-extensions/googleTFA/Secret.php
 zp-core/zp-extensions/googleTFA/SecretFactory.php
+zp-core/zp-extensions/googleTranslate
+zp-core/zp-extensions/googleTranslate/GoogleTranslate.php
 zp-core/zp-extensions/hitcounter
 zp-core/zp-extensions/hitcounter/reset_hitcounts.php
 zp-core/zp-extensions/image_effects
@@ -8386,4 +8389,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8388
+8391
