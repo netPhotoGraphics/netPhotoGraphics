@@ -12,11 +12,14 @@
  * It is based on the {@link https://statickidz.com/ Statickidz} GoogleTranslator class by
  * Adrián Barrio Andrés and Paris N. Baltazar Salguero.
  * Source language text is limited to 5000 characters. The
- * PHP Curl extension must be enabled.
+ * PHP <code>Curl</code> extension must be enabled.
  *
  * <b>Note:</b> Mechanical translations such as supplied by this plugin are intended as
  * a starting point. They may not accurately represent the content translated nor may they be
  * gramatically proper.
+ *
+ * In particular, HTML tags may be mishandled. HTML comments are especially prone to being broken. The successful rendering
+ * of other HTML tags seems to be destination language dependent.
  *
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  *
@@ -35,7 +38,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTransl
 zp_register_filter('edit_cms_utilities', 'translator::cms_utilities');
 zp_register_filter('save_article_custom_data', 'translator::save');
 zp_register_filter('save_page_custom_data', 'translator::save');
-zp_register_filter('save_category_custom_data', 'translator::translate_save');
+zp_register_filter('save_category_custom_data', 'translator::save');
 
 zp_register_filter('edit_album_utilities', 'translator::media_utilities');
 zp_register_filter('edit_image_utilities', 'translator::media_utilities');
@@ -50,14 +53,14 @@ class translator {
 
 	static function doTranslation($sourceLocale, $obj, $field) {
 		global $trans;
-		$active_languages = i18n::generateLanguageList();
+		$active_languages = array_flip(i18n::generateLanguageList());
 		unset($active_languages[$sourceLocale]);
 		$getField = 'get' . $field;
 		$source = $obj->$getField();
 		$text = get_language_string($source, $sourceLocale);
 		if ($text) { //	don' t bother if there is no text
 			$translations = array($sourceLocale => $text);
-			foreach ($active_languages as $target) {
+			foreach ($active_languages as $target => $l) {
 				$translations[$target] = $trans->translate($sourceLocale, $target, $text);
 			}
 			$setField = 'set' . $field;

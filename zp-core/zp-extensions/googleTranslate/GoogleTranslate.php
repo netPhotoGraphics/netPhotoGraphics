@@ -57,7 +57,7 @@ class GoogleTranslate {
 	 * @param string $source
 	 *            Original language taken from the 'translate' function
 	 * @param string $target
-	 *            Target language taken from the ' translate' function
+	 *            Target language taken from the 'translate' function
 	 * @param string $text
 	 *            Text to translate taken from the 'translate' function
 	 *
@@ -66,7 +66,7 @@ class GoogleTranslate {
 	protected static function requestTranslation($source, $target, $text) {
 
 		// Google translate URL
-		$url = "https://translate.google.com/translate_a/single?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e";
+		$url = "https://translate.google.com/translate_a/single?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&ie=UTF-8&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e";
 
 		$fields = array(
 				'sl' => urlencode($source),
