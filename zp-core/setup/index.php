@@ -1706,7 +1706,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									foreach ($clones as $clone => $data) {
 										$url = $data['url'];
 										?>
-										<p class = "delayshow" style = "display:none;">
+										<p>
 											<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . ZENFOLDER . '/setup/index.php?autorun', $clone);
 											?>
 										</p>
