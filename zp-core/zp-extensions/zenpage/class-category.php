@@ -59,52 +59,6 @@ class Category extends CMSRoot {
 	}
 
 	/**
-	 * Returns the content
-	 *
-	 * @return string
-	 */
-	function getContent($locale = NULL) {
-		$content = $this->get("content");
-		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($content);
-		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($content, $locale)));
-		}
-	}
-
-	/**
-	 *
-	 * Set the content datum
-	 * @param $c full language string
-	 */
-	function setContent($c) {
-		$c = zpFunctions::tagURLs($c);
-		$this->set("content", $c);
-	}
-
-	/**
-	 * Returns the extra content
-	 *
-	 * @return string
-	 */
-	function getExtraContent($locale = NULL) {
-		$text = $this->get("extracontent");
-		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
-		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
-		}
-	}
-
-	/**
-	 * sets the extra content
-	 *
-	 */
-	function setExtraContent($ec) {
-		$this->set("extracontent", zpFunctions::tagURLs($ec));
-	}
-
-	/**
 	 * Returns the sort order
 	 *
 	 * @return string
