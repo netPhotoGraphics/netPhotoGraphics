@@ -18,8 +18,10 @@
  * a starting point. They may not accurately represent the content translated nor may they be
  * gramatically proper.
  *
- * In particular, HTML tags may be mishandled. HTML comments are especially prone to being broken. The successful rendering
- * of other HTML tags seems to be destination language dependent.
+ * In particular, HTML tags may be mishandled. HTML comments such as <code>&lt;!&#8209;&#8209;&nbsp;pagebreak&nbsp;&#8209;&#8209;&gt;</code>
+ * (used to mark truncation points in text) and <code>&lt;img&nbsp;src=...&gt;</code> links are especially prone to being
+ * broken. The successful rendering
+ * of other HTML tags seems to be target language dependent.
  *
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  *
