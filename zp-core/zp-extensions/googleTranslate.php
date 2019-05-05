@@ -33,14 +33,14 @@ $plugin_disable = !function_exists('curl_version') ? gettext('The PHP <em>Curl</
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTranslate/GoogleTranslate.php');
 
 zp_register_filter('edit_cms_utilities', 'translator::cms_utilities');
-zp_register_filter('save_article_custom_data', 'translator::cms_save');
-zp_register_filter('save_page_custom_data', 'translator::cms_save');
-zp_register_filter('save_category_custom_data', 'translator::cms_save');
+zp_register_filter('save_article_custom_data', 'translator::save');
+zp_register_filter('save_page_custom_data', 'translator::save');
+zp_register_filter('save_category_custom_data', 'translator::translate_save');
 
 zp_register_filter('edit_album_utilities', 'translator::media_utilities');
 zp_register_filter('edit_image_utilities', 'translator::media_utilities');
-zp_register_filter('save_album_utilities_data', 'translator::media_save');
-zp_register_filter('save_image_utilities_data', 'translator::media_save');
+zp_register_filter('save_album_utilities_data', 'translator::save');
+zp_register_filter('save_image_utilities_data', 'translator::save');
 
 use \Statickidz\GoogleTranslate;
 
@@ -55,7 +55,7 @@ class translator {
 		$getField = 'get' . $field;
 		$source = $obj->$getField();
 		$text = get_language_string($source, $sourceLocale);
-		if ($text) { //	don't bother if there is no text
+		if ($text) { //	don' t bother if there is no text
 			$translations = array($sourceLocale => $text);
 			foreach ($active_languages as $target) {
 				$translations[$target] = $trans->translate($sourceLocale, $target, $text);
@@ -72,18 +72,25 @@ class translator {
 		$output = '<p class="checkbox">' . "\n" . '<label>' . "\n" .
 						'<input type="checkbox" name="translateTitle' . '" id="translateTitle' .
 						'" value="1" /> ' . gettext('Translate Title') . "\n</label>\n</p>\n";
-		$output .= '<p class="checkbox">' . "\n" . '<label>' . "\n" .
-						'<input type="checkbox" name="translateContent' . '" id="translateContent' .
-						'" value="1" /> ' . gettext('Translate Content') . "\n</label>\n</p>\n";
-		if (get_class($object) != 'Category') {
+		if (get_class($object) == 'Category') {
 			$output .= '<p class="checkbox">' . "\n" . '<label>' . "\n" .
-							'<input type="checkbox" name="translateExtraContent' . '" id="translateExtraContent' .
-							'" value="1" /> ' . gettext('Translate Extra Content') . "\n</label>\n</p>\n";
+							'<input type="checkbox" name="translateDesc' . '" id="translateDesc' .
+							'" value="1" /> ' . gettext('Translate Description') . "\n</label>\n</p>\n";
+		} else {
+			$output .= '<p class="checkbox">' . "\n" . '<label>' . "\n" .
+							'<input type="checkbox" name="translateContent' . '" id="translateContent' .
+							'" value="1" /> ' . gettext('Translate Content') . "\n</label>\n</p>\n";
+			$fields = db_list_fields($object->table);
+			if (isset($fields['extracontent'])) {
+				$output .= '<p class="checkbox">' . "\n" . '<label>' . "\n" .
+								'<input type="checkbox" name="translateExtraContent' . '" id="translateExtraContent' .
+								'" value="1" /> ' . gettext('Translate Extra Content') . "\n</label>\n</p>\n";
+			}
 		}
 		return $before . $output;
 	}
 
-	static function cms_save($custom, $obj) {
+	static function save($custom, $obj) {
 		$sourceLocale = i18n::getUserLocale();
 		if (isset($_POST['translateTitle'])) {
 			translator::doTranslation($sourceLocale, $obj, 'title');
@@ -93,6 +100,9 @@ class translator {
 		}
 		if (isset($_POST['translateExtraContent'])) {
 			translator::doTranslation($sourceLocale, $obj, 'ExtraContent');
+		}
+		if (isset($_POST['translateDesc'])) {
+			translator::doTranslation($sourceLocale, $obj, 'Desc');
 		}
 	}
 
@@ -107,16 +117,6 @@ class translator {
 						'<input type="checkbox" name="translateDesc' . $prefix . '" id="translateDesc' . $prefix .
 						'" value="1" /> ' . gettext('Translate Description') . "\n</label>\n";
 		return $before . $output;
-	}
-
-	static function media_save($obj, $prefix) {
-		$sourceLocale = i18n::getUserLocale();
-		if (isset($_POST['translateTitle' . $prefix])) {
-			translator::doTranslation($sourceLocale, $obj, 'title');
-		}
-		if (isset($_POST['translateDesc' . $prefix])) {
-			translator::doTranslation($sourceLocale, $obj, 'Desc');
-		}
 	}
 
 }

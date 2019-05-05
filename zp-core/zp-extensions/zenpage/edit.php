@@ -492,7 +492,13 @@ $tagsort = 'alpha';
 											</tr>
 
 											<tr>
-												<td class="leftcolumn"><?php echo gettext("Content"); ?></td>
+												<td class="leftcolumn"><?php
+													if (is_AdminEditPage("newscategory")) {
+														echo gettext('Description');
+													} else {
+														echo gettext("Content");
+													}
+													?></td>
 												<td class="middlecolumn">
 													<?php
 													if (is_AdminEditPage("newscategory")) {
@@ -898,12 +904,12 @@ $tagsort = 'alpha';
 											</strong>
 										</a>
 										<button type="submit" title="<?php echo $updateitem; ?>"><?php echo CHECKMARK_GREEN; ?> <?php
-											if ($result->transient) {
-												echo $saveitem;
-											} else {
-												echo $updateitem;
-											}
-											?></strong></button>
+												if ($result->transient) {
+													echo $saveitem;
+												} else {
+													echo $updateitem;
+												}
+												?></strong></button>
 										<button type="reset" onclick="$('.copydelete').hide();">
 											<?php echo CROSS_MARK_RED; ?>
 											<strong><?php echo gettext("Reset"); ?></strong>
