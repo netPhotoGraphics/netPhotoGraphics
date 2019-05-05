@@ -179,6 +179,9 @@ class jquery_rating {
 	 * @return string Combined HTML
 	 */
 	static function optionVoteStatus($prior, $object, $prefix) {
+		if ($prior) {
+			$prior .= '<hr />';
+		}
 		$me = new jquery_rating();
 		$currentvalue = $object->get('rating_status');
 		$output = gettext('Vote Status:') . '<br />' . "\n";

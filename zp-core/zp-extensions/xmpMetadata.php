@@ -1150,8 +1150,9 @@ class xmpMetadata {
 	}
 
 	static function create($html, $object, $prefix) {
-		if ($html)
+		if ($html) {
 			$html .= '<hr />';
+		}
 		$html .= '<label><input type="checkbox" name="xmpMedadataPut_' . $prefix . '" value="1" /> ' . gettext('Export metadata info to XMP sidecar.') . '</label>';
 		return $html;
 	}
