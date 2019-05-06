@@ -90,7 +90,8 @@ class translator {
 			foreach ($active_languages as $target => $l) {
 				$translated = '';
 				foreach ($parts as $key => $part) {
-					if (preg_match('~^\s*$~', $part)) {
+					if (preg_match('~^\s*$~u', $part) || preg_match('~^ *$~u', $part)) {
+						// don't translate whitespace incluging unicode NBSP
 						$translated .= $part;
 					} else {
 						$translated .= $trans->translate($sourceLocale, $target, $part);
