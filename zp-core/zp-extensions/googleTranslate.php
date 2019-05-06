@@ -11,7 +11,7 @@
  * The plugin uses the Google Translation API.
  * It is based on the {@link https://statickidz.com/ Statickidz} GoogleTranslator class by
  * Adrián Barrio Andrés and Paris N. Baltazar Salguero.
- * Source language text chunks are limited to 5000 characters. (Chunks are the text between HTML tags.)
+ * Source language text is limited to approximately 5000 characters.
  * The PHP <code>Curl</code> extension must be enabled.
  *
  * <b>Note 1:</b> Mechanical translations such as supplied by this plugin are intended as
@@ -58,7 +58,7 @@ class translator {
 		$getField = 'get' . $field;
 		$source = $obj->$getField();
 		$text = get_language_string($source, $sourceLocale);
-		if ($text) { //	don' t bother if there is no text
+		if ($text) { //	don't bother if there is no text
 			$translations = array($sourceLocale => $text);
 
 			//remove comments to be added back later
@@ -87,15 +87,13 @@ class translator {
 			}
 
 			$parts = preg_split("~</?\w+((\s+(\w|\w[\w-]*\w)(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>~i", $text);
+			$offered = implode('<p>', $parts);
 			foreach ($active_languages as $target => $l) {
+				$translated = $trans->translate($sourceLocale, $target, $offered);
+				$parts = explode('<p>', $translated);
 				$translated = '';
 				foreach ($parts as $key => $part) {
-					if (preg_match('~^\s*$~u', $part) || preg_match('~^ *$~u', $part)) {
-						// don't translate whitespace incluging unicode NBSP
-						$translated .= $part;
-					} else {
-						$translated .= $trans->translate($sourceLocale, $target, $part);
-					}
+					$translated .= $part;
 					if (isset($markup[$key])) {
 						$translated .= $markup[$key];
 					}
