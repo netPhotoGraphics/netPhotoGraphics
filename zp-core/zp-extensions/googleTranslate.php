@@ -11,7 +11,7 @@
  * The plugin uses the Google Translation API.
  * It is based on the {@link https://statickidz.com/ Statickidz} GoogleTranslator class by
  * Adrián Barrio Andrés and Paris N. Baltazar Salguero.
- * Source language text is limited to approximately 5000 characters.
+ * Source language text submitted for translation is limited to approximately 5000 characters.
  * The PHP <code>Curl</code> extension must be enabled.
  *
  * <b>Note 1:</b> Mechanical translations such as supplied by this plugin are intended as
@@ -19,7 +19,11 @@
  * gramatically proper.
  *
  * <b>Note 2:</b> The Google Translate site monitors the amount of traffic from your computer and
- * may suspend translations thinking (rightfully) that it is a robot asking for them.
+ * may suspend translations thinking (rightfully) that it is a robot asking for them. If this happens,
+ * any content changes you have made will <b>NOT</b> be saved as you will be redirected to a Google "sorry" web page
+ * explaining that they have detected unusual traffic from your computer. We suggest that you save any edits
+ * you have made <b>BEFORE</b> attempting the translations.
+ *
  *
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  *
