@@ -106,9 +106,9 @@ class GoogleTranslate {
 
 		// Close connection
 		curl_close($ch);
-
 		if ($statusCode == 302) {
-			echo $result;
+			preg_match('~<a href="(.*?)">~i', $result, $matches);
+			header('location:' . $matches[1]);
 			exit();
 		}
 		return $result;
