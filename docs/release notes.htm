@@ -107,6 +107,8 @@
 <p>A new class has been added to theme support named simpleMap to simplify incorporating map display into themes. For most uses of map display you can use this class and your theme will not need to be cognisant of which map plugin (if any) is enabled. For a basc map you can call <code>simpleMap::printMap()</code>. It is also possible to collect a set of geo coordinate points using <code>simpleMap::getGeoCoord($image)</code> and pass an array of such points as the parameter to <code>simpleMap::printMap()</code>, If you need to know if a map plugin is enabled simpleMap::mapPlugin() will return the class name of the enabled plugin.</p>
 <p>With this implementation, all distributed themes that included googleMap have been converted to use simpleMap so they will now also support openstreatmap. Also as part of this change, the googleMap functions <code>getGeoCoord()</code> and <code>addGeoCoord()</code> have been deprecated. </p>
 <p>Note: if both <em>googleMap</em> and <em>simplestreetmap</em> are enabled, <em>googleMap</em> will be the plugin reported and used to display maps.</p>
+<p><em>googleTranslate</em></p>
+<p>This is a new plugin to aid translating of Titles, Descriptions, and CMS content of an object. You can  use it to make a first path translation of the text associated with your locale into the site's other enabled languages. Note: the plugin is an <strong>AID</strong> in translation. You should expect to clean up its results prior to exposing the translations on your site.</p>
 <hr />
 <h2 style="text-align: center;">Version 1.9</h2>
 <h2>General</h2>
