@@ -11,17 +11,15 @@
  * The plugin uses the Google Translation API.
  * It is based on the {@link https://statickidz.com/ Statickidz} GoogleTranslator class by
  * Adrián Barrio Andrés and Paris N. Baltazar Salguero.
- * Source language text is limited to 5000 characters. The
- * PHP <code>Curl</code> extension must be enabled.
+ * Source language text chunks are limited to 5000 characters. (Chunks are the text between HTML tags.)
+ * The PHP <code>Curl</code> extension must be enabled.
  *
- * <b>Note:</b> Mechanical translations such as supplied by this plugin are intended as
+ * <b>Note 1:</b> Mechanical translations such as supplied by this plugin are intended as
  * a starting point. They may not accurately represent the content translated nor may they be
  * gramatically proper.
  *
- * In particular, HTML tags may be mishandled. HTML comments such as <code>&lt;!&#8209;&#8209;&nbsp;pagebreak&nbsp;&#8209;&#8209;&gt;</code>
- * (used to mark truncation points in text) and <code>&lt;img&nbsp;src=...&gt;</code> links are especially prone to being
- * broken. The successful rendering
- * of other HTML tags seems to be target language dependent.
+ * <b>Note 2:</b> The Google Translate site monitors the amount of traffic from your computer and
+ * may suspend translations thinking (rightfully) that it is a robot asking for them.
  *
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  *
@@ -62,8 +60,46 @@ class translator {
 		$text = get_language_string($source, $sourceLocale);
 		if ($text) { //	don' t bother if there is no text
 			$translations = array($sourceLocale => $text);
+
+			//remove comments to be added back later
+			preg_match_all('~<!--.*-->~isU', $text, $comments);
+			$text = preg_replace('~<!--.*-->~isU', '<_Comment_>', $text);
+			$comments = $comments[0];
+
+			//remove scripts to be added back later
+			preg_match_all('~<script.*>.*</script>~isU', $text, $scripts);
+			$text = preg_replace('~<script.*>.*</script>~isU', '<_Script_>', $text);
+			$scripts = $scripts[0];
+
+			//separate out the HTML
+			preg_match_all("~</?\w+((\s+(\w|\w[\w-]*\w)(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>~i", $text, $markup);
+			$markup = $markup[0];
+
+			foreach ($markup as $key => $mark) {
+				switch ($mark) {
+					case '<_Script_>':
+						$markup[$key] = array_shift($scripts);
+						break;
+					case '<_Comment_>':
+						$markup[$key] = array_shift($comments);
+						break;
+				}
+			}
+
+			$parts = preg_split("~</?\w+((\s+(\w|\w[\w-]*\w)(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>~i", $text);
 			foreach ($active_languages as $target => $l) {
-				$translations[$target] = $trans->translate($sourceLocale, $target, $text);
+				$translated = '';
+				foreach ($parts as $key => $part) {
+					if (preg_match('~^\s*$~', $part)) {
+						$translated .= $part;
+					} else {
+						$translated .= $trans->translate($sourceLocale, $target, $part);
+					}
+					if (isset($markup[$key])) {
+						$translated .= $markup[$key];
+					}
+				}
+				$translations[$target] = $translated;
 			}
 			$setField = 'set' . $field;
 			$obj->$setField(serialize($translations));

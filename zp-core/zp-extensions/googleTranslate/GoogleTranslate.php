@@ -101,9 +101,16 @@ class GoogleTranslate {
 		// Execute post
 		$result = curl_exec($ch);
 
+		//Get the HTTP status code.
+		$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
 		// Close connection
 		curl_close($ch);
 
+		if ($statusCode == 302) {
+			echo $result;
+			exit();
+		}
 		return $result;
 	}
 
@@ -118,7 +125,6 @@ class GoogleTranslate {
 	protected static function getSentencesFromJSON($json) {
 		$sentencesArray = json_decode($json, true);
 		$sentences = "";
-
 		foreach ($sentencesArray["sentences"] as $s) {
 			$sentences .= isset($s["trans"]) ? $s["trans"] : '';
 		}
