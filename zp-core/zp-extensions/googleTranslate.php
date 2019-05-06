@@ -109,6 +109,19 @@ class translator {
 		}
 	}
 
+	static function media_utilities($before, $object, $instance = NULL) {
+		if ($before) {
+			$before .= '<hr />';
+		}
+		$output = '<label>' . "\n" .
+						'<input type="checkbox" name="translateTitle' . $instance . '" id="translateTitle' . $instance .
+						'" value="1" /> ' . gettext('Translate Title') . "\n</label>\n";
+		$output .= '<label><br />' . "\n" .
+						'<input type="checkbox" name="translateDesc' . $instance . '" id="translateDesc' . $instance .
+						'" value="1" /> ' . gettext('Translate Description') . "\n</label>\n";
+		return $before . $output;
+	}
+
 	static function cms_utilities($before, $object) {
 		if ($before) {
 			$before .= '<hr />';
@@ -134,33 +147,20 @@ class translator {
 		return $before . $output;
 	}
 
-	static function save($custom, $obj) {
+	static function save($obj, $instance = NULL) {
 		$sourceLocale = i18n::getUserLocale();
-		if (isset($_POST['translateTitle'])) {
+		if (isset($_POST['translateTitle' . $instance])) {
 			translator::doTranslation($sourceLocale, $obj, 'title');
 		}
-		if (isset($_POST['translateContent'])) {
+		if (isset($_POST['translateContent' . $instance])) {
 			translator::doTranslation($sourceLocale, $obj, 'Content');
 		}
-		if (isset($_POST['translateExtraContent'])) {
+		if (isset($_POST['translateExtraContent' . $instance])) {
 			translator::doTranslation($sourceLocale, $obj, 'ExtraContent');
 		}
-		if (isset($_POST['translateDesc'])) {
+		if (isset($_POST['translateDesc' . $instance])) {
 			translator::doTranslation($sourceLocale, $obj, 'Desc');
 		}
-	}
-
-	static function media_utilities($before, $object, $prefix = NULL) {
-		if ($before) {
-			$before .= '<hr />';
-		}
-		$output = '<label>' . "\n" .
-						'<input type="checkbox" name="translateTitle' . $prefix . '" id="translateTitle' . $prefix .
-						'" value="1" /> ' . gettext('Translate Title') . "\n</label>\n";
-		$output .= '<label><br />' . "\n" .
-						'<input type="checkbox" name="translateDesc' . $prefix . '" id="translateDesc' . $prefix .
-						'" value="1" /> ' . gettext('Translate Description') . "\n</label>\n";
-		return $before . $output;
 	}
 
 }

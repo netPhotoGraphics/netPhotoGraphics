@@ -147,8 +147,8 @@ class customFieldExtender extends fieldExtender {
 		return parent::_mediaItemEdit($html, $object, $i, self::$fields);
 	}
 
-	static function cmsItemSave($custom, $object) {
-		return parent::_cmsItemSave($custom, $object, self::$fields);
+	static function cmsItemSave($object) {
+		return parent::_cmsItemSave($object, self::$fields);
 	}
 
 	static function cmsItemEdit($html, $object) {

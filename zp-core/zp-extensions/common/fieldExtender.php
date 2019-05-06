@@ -394,11 +394,10 @@ class fieldExtender {
 	/**
 	 * Processes the save of zenpage objects
 	 *
-	 * @param string $custom
 	 * @param object $object
 	 * @return string
 	 */
-	static function _cmsItemSave($custom, $object, $fields) {
+	static function _cmsItemSave($object, $fields) {
 		foreach ($fields as $field) {
 			if ($field['table'] == $object->table) {
 				$newdata = fieldExtender::_saveHandler($object, NULL, $field);
@@ -406,7 +405,7 @@ class fieldExtender {
 					$object->set($field['name'], $newdata);
 			}
 		}
-		return $custom;
+		return $object;
 	}
 
 	/**
