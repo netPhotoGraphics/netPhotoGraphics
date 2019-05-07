@@ -158,7 +158,7 @@ function updatePage(&$reports, $newpage = false) {
 			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Page <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
-	zp_apply_filter('save_page_custom_data', $page);
+	zp_apply_filter('save_page_data', $page);
 	if ($page->save() == 2) {
 		$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
 	}
@@ -498,7 +498,7 @@ function updateArticle(&$reports, $newarticle = false) {
 			$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Article <em>%s</em> updated"), $titlelink) . '</p>';
 		}
 	}
-	zp_apply_filter('save_article_custom_data', $article);
+	zp_apply_filter('save_article_data', $article);
 	if ($article->save() == 2) {
 		$reports['success'] = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
 	}
@@ -941,7 +941,7 @@ function updateCategory(&$reports, $newcategory = false) {
 			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("A category with the title/titlelink <em>%s</em> already exists!"), html_encode($cat->getTitle())) . "</p>";
 		}
 	}
-	zp_apply_filter('save_category_custom_data', $cat);
+	zp_apply_filter('save_category_data', $cat);
 	if ($cat->save() == 2) {
 		$msg = "<p class='messagebox fade-message'>" . sprintf(gettext("Nothing was changed."), $titlelink) . '</p>';
 	}

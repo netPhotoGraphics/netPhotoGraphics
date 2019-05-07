@@ -220,16 +220,12 @@ if (isset($_GET['action'])) {
 							if (isset($userlist[$i]['createAlbum'])) {
 								$userobj->createPrimealbum();
 							}
-							zp_apply_filter('save_admin_custom_data', $userobj, $i, $alter);
+							zp_apply_filter('save_admin_data', $userobj, $i, $alter);
 							if (!($error && !$_zp_current_admin_obj->getID())) { //	new install and password problems, leave with no admin
-								$msg = zp_apply_filter('save_user', $msg, $userobj, $what);
-								if (!empty($msg)) {
-									$notify = '?mismatch=format&error=' . urlencode($msg);
-								}
 								$userobj->transient = false;
 								$saved = $userobj->save();
 								if ($saved == 1) {
-									zp_apply_filter('save_user_complete', $msg, $userobj, $what);
+									$msg = zp_apply_filter('save_user_complete', $msg, $userobj, $what);
 									$returntab .= '&show[]=' . $user;
 								}
 								if (!$_zp_current_admin_obj->getID()) {

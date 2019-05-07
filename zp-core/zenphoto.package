@@ -1356,7 +1356,7 @@ zp-core/js/Jcrop/jquery.Jcrop.css
 zp-core/js/Jcrop/jquery.Jcrop.js
 zp-core/js/jQuery
 zp-core/js/jQuery/jquery-1.12.4.min.js
-zp-core/js/jQuery/jquery-3.4.0.min.js
+zp-core/js/jQuery/jquery-3.4.1.min.js
 zp-core/js/jQuery/jquery-migrate-1.4.1.js
 zp-core/js/jQuery/jquery-migrate-3.0.1.js
 zp-core/js/jQuery/jquery-migrate-3.0.1.min.js

@@ -115,16 +115,16 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_article_custom_data</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Admin.CMS)-save_article_custom_data --><p>Allows a plugin to manage custom data for news articles. This invocation is for when the article is saved.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>save_article_data</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.CMS)-save_article_data --><p>Allows a plugin to manage custom data for news articles. This invocation is for when the article is saved.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/admin-functions.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_page_custom_data</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Admin.CMS)-save_page_custom_data --><p>Allows a plugin to manage image data for Zenpage page. This invocation is for when the page is saved.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>save_page_data</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.CMS)-save_page_data --><p>Allows a plugin to manage image data for Zenpage page. This invocation is for when the page is saved.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/admin-functions.php</li>
@@ -255,16 +255,16 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_album_utilities_data</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Admin.Media)-save_album_utilities_data --><p>Allows a plugin to process saves of items in the album <em>Utilities</em> area.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>save_album_data</strong></span>(<em>var, var</em>)</p>
+					<!-- description(Admin.Media)-save_album_data --><p>Allows a plugin to process saves of items in the album <em>Utilities</em> area.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-functions.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_image_utilities_data</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Admin.Media)-save_image_utilities_data --><p>Allows a plugin to place items in the <em>utilities</em> area for images. This invocation is for when the image is saved.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>save_image_data</strong></span>(<em>var, var</em>)</p>
+					<!-- description(Admin.Media)-save_image_data --><p>Allows a plugin to place items in the <em>utilities</em> area for images. This invocation is for when the image is saved.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/image_save.php</li>
@@ -458,6 +458,14 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>edit_cms_utilities</strong></span>(<em>string, var</em>)</p>
+					<!-- description(CMS.Miscellaneous)-edit_cms_utilities --><p>Allows a plugin to place items in the <em>Utilities</em> area of the edit page for CMS objects.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>plugin</em>/zenpage/edit.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>edit_page_custom_data</strong></span>(<em>string, var</em>)</p>
 					<!-- description(CMS.Miscellaneous)-edit_page_custom_data --><p>Allows a plugin to manage custom data for Zenpage pages. This invocation is for when the page object is presented for editing.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -468,30 +476,6 @@
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>general_zenpage_utilities</strong></span>(<em>string, var</em>)</p>
 					<!-- description(CMS.Miscellaneous)-general_zenpage_utilities --><p>Allows plugins to add items to the <em>General</em> area of the Zenpage edit pages.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>plugin</em>/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>publish_article_utilities</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-publish_article_utilities --><p>Allows a plugin to process saves of items in the news article <em>Utilities</em> area.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>plugin</em>/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>publish_category_utilities</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-publish_category_utilities --><p>Allows a plugin to process saves of items in the Zenpage category <em>Utilities</em> area.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>plugin</em>/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>publish_page_utilities</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-publish_page_utilities --><p>Allows a plugin to process saves of items in the Zenpage page <em>Utilities</em> area.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/edit.php</li>
@@ -1336,8 +1320,8 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_admin_custom_data</strong></span>(<em>var, var, bool</em>)</p>
-					<!-- description(User_management.Miscellaneous)-save_admin_custom_data --><p>Allows a plugin to manage custom data for users. This invocation is for when the user object is saved.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>save_admin_data</strong></span>(<em>var, var, bool</em>)</p>
+					<!-- description(User_management.Miscellaneous)-save_admin_data --><p>Allows a plugin to manage custom data for users. This invocation is for when the user object is saved.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/users.php</li>

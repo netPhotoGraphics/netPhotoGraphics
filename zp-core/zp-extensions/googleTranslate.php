@@ -40,14 +40,14 @@ $plugin_disable = !function_exists('curl_version') ? gettext('The PHP <em>Curl</
 require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTranslate/GoogleTranslate.php');
 
 zp_register_filter('edit_cms_utilities', 'translator::cms_utilities');
-zp_register_filter('save_article_custom_data', 'translator::save');
-zp_register_filter('save_page_custom_data', 'translator::save');
-zp_register_filter('save_category_custom_data', 'translator::save');
+zp_register_filter('save_article_data', 'translator::save');
+zp_register_filter('save_page_data', 'translator::save');
+zp_register_filter('save_category_data', 'translator::save');
 
 zp_register_filter('edit_album_utilities', 'translator::media_utilities');
 zp_register_filter('edit_image_utilities', 'translator::media_utilities');
-zp_register_filter('save_album_utilities_data', 'translator::save');
-zp_register_filter('save_image_utilities_data', 'translator::save');
+zp_register_filter('save_album_data', 'translator::save');
+zp_register_filter('save_image_data', 'translator::save');
 
 use \Statickidz\GoogleTranslate;
 

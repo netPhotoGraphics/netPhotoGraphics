@@ -58,7 +58,10 @@ $legacyReplacements = array(
 		'->getAuthor\(' => '->getOwner(',
 		'->setAuthor\(' => '->setOwner(',
 		'getGeoCoord\(' => 'simpleMap::getGeoCoord(',
-		'addGeoCoord\(' => 'simpleMap::addGeoCoord('
+		'addGeoCoord\(' => 'simpleMap::addGeoCoord(',
+		'save_admin_custom_data' => 'save_admin_data',
+		'save_album_utilities_data' => 'save_album_data',
+		'save_image_utilities_data' => 'save_image_data'
 );
 
 /**

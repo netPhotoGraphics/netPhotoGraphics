@@ -35,12 +35,12 @@ if ($plugin_disable) {
 	zp_register_filter('admin_overview', 'tweet::errorsOnOverview');
 	zp_register_filter('admin_note', 'tweet::errorsOnAdmin');
 	zp_register_filter('edit_album_utilities', 'tweet::tweeter');
-	zp_register_filter('save_album_utilities_data', 'tweet::tweeterExecute');
+	zp_register_filter('save_album_data', 'tweet::tweeterExecute');
 	zp_register_filter('edit_image_utilities', 'tweet::tweeter');
-	zp_register_filter('save_image_utilities_data', 'tweet::tweeterExecute');
+	zp_register_filter('save_image_data', 'tweet::tweeterExecute');
 	zp_register_filter('general_zenpage_utilities', 'tweet::tweeter');
-	zp_register_filter('save_article_custom_data', 'tweet::tweeterZenpageExecute');
-	zp_register_filter('save_page_custom_data', 'tweet::tweeterZenpageExecute');
+	zp_register_filter('save_article_data', 'tweet::tweeterZenpageExecute');
+	zp_register_filter('save_page_data', 'tweet::tweeterZenpageExecute');
 
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 }

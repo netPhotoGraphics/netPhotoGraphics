@@ -13,7 +13,7 @@ $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Emails a password reset request to a newly created user.");
 
 
-zp_register_filter('save_user', 'email_new_user::save');
+zp_register_filter('save_user_complete', 'email_new_user::save');
 zp_register_filter('edit_admin_custom_data', 'email_new_user::edit_admin', 9999);
 
 class email_new_user {
