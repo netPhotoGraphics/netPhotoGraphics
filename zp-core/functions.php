@@ -2271,17 +2271,17 @@ function load_jQuery_CSS() {
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		case 0: //	no migration script
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
 			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.1.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
