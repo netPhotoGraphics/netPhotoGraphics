@@ -43,7 +43,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth
 $option_interface = 'twitterLogin';
 
 zp_register_filter('alt_login_handler', 'twitterLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom_data', 'twitterLogin::edit_admin');
+zp_register_filter('edit_admin_custom', 'twitterLogin::edit_admin');
 
 /**
  * Option class

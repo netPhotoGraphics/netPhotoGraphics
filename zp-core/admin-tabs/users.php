@@ -634,7 +634,7 @@ echo $refresh;
 									?>
 									<!-- apply admin_custom_data filter -->
 									<?php
-									$custom_row = zp_apply_filter('edit_admin_custom_data', '', $userobj, $id, $background, $current, $local_alterrights);
+									$custom_row = zp_apply_filter('edit_admin_custom', '', $userobj, $id, $background, $current, $local_alterrights);
 								}
 								?>
 								<!-- finished with filters -->

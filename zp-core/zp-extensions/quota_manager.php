@@ -38,7 +38,7 @@ if ($plugin_disable) {
 	enableExtension('quota_manager', 0);
 } else {
 	zp_register_filter('save_admin_data', 'quota_manager::save_admin');
-	zp_register_filter('edit_admin_custom_data', 'quota_manager::edit_admin');
+	zp_register_filter('edit_admin_custom', 'quota_manager::edit_admin');
 	zp_register_filter('new_image', 'quota_manager::new_image');
 	zp_register_filter('image_refresh', 'quota_manager::image_refresh');
 	zp_register_filter('check_upload_quota', 'quota_manager::checkQuota');

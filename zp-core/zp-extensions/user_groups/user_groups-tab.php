@@ -422,7 +422,7 @@ echo '</head>' . "\n";
 											<br class="clearall">
 											<div class="userextrainfo" <?php echo $display; ?>>
 												<?php
-												$custom = zp_apply_filter('edit_admin_custom_data', '', $groupobj, $id, $background, true, '');
+												$custom = zp_apply_filter('edit_admin_custom', '', $groupobj, $id, $background, true, '');
 												if ($custom) {
 													echo stripTableRows($custom);
 												}

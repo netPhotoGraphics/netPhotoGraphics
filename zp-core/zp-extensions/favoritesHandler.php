@@ -311,8 +311,8 @@ $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/*$',
 		'rule' => '%REWRITE% index.php?p=favorites [L,QSA]');
 
 if (OFFSET_PATH) {
-	zp_register_filter('edit_album_custom_data', 'favoritesHandler::showWatchers');
-	zp_register_filter('edit_image_custom_data', 'favoritesHandler::showWatchers');
+	zp_register_filter('edit_album_custom', 'favoritesHandler::showWatchers');
+	zp_register_filter('edit_image_custom', 'favoritesHandler::showWatchers');
 } else {
 	zp_register_filter('load_theme_script', 'favorites::loadScript');
 	zp_register_filter('checkPageValidity', 'favorites::pageCount');

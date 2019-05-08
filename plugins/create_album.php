@@ -19,7 +19,7 @@ $plugin_description = gettext('Allow a user to create a root level album when he
 $option_interface = 'create_album';
 
 zp_register_filter('admin_head', 'create_album::JS');
-zp_register_filter('edit_admin_custom_data', 'create_album::edit', 1);
+zp_register_filter('edit_admin_custom', 'create_album::edit', 1);
 zp_register_filter('save_admin_data', 'create_album::save');
 zp_register_filter('save_user_complete', 'create_album::save_user');
 zp_register_filter('upload_root_ui', 'create_album::upload_root_ui');

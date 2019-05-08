@@ -308,7 +308,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</td>
 									</tr>
 									<?php
-									echo zp_apply_filter('edit_image_custom_data', '', $image, $currentimage);
+									echo zp_apply_filter('edit_image_custom', '', $image, $currentimage);
 									if (!$singleimage) {
 										?>
 										<tr>

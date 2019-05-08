@@ -39,7 +39,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth
 $option_interface = 'instagramLogin';
 
 zp_register_filter('alt_login_handler', 'instagramLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom_data', 'instagramLogin::edit_admin');
+zp_register_filter('edit_admin_custom', 'instagramLogin::edit_admin');
 
 /**
  * Option class

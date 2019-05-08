@@ -39,7 +39,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth
 $option_interface = 'facebookLogin';
 
 zp_register_filter('alt_login_handler', 'facebookLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom_data', 'facebookLogin::edit_admin');
+zp_register_filter('edit_admin_custom', 'facebookLogin::edit_admin');
 
 /**
  * Option class

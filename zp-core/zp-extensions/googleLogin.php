@@ -40,7 +40,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth
 $option_interface = 'googleLogin';
 
 zp_register_filter('alt_login_handler', 'googleLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom_data', 'googleLogin::edit_admin');
+zp_register_filter('edit_admin_custom', 'googleLogin::edit_admin');
 
 /**
  * Option class

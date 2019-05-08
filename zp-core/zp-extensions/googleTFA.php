@@ -41,7 +41,7 @@ require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/S
 
 zp_register_filter('admin_login_attempt', 'googleTFA::check');
 zp_register_filter('save_admin_data', 'googleTFA::save');
-zp_register_filter('edit_admin_custom_data', 'googleTFA::edit', 999);
+zp_register_filter('edit_admin_custom', 'googleTFA::edit', 999);
 zp_register_filter('admin_head', 'googleTFA::head');
 
 class googleTFA extends fieldExtender {

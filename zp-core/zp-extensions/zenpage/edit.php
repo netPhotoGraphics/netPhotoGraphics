@@ -511,13 +511,13 @@ $tagsort = 'alpha';
 											</tr>
 											<?php
 											if (is_AdminEditPage("newsarticle")) {
-												$custom = zp_apply_filter('edit_article_custom_data', '', $result);
+												$custom = zp_apply_filter('edit_article_custom', '', $result);
 											}
 											if (is_AdminEditPage("newscategory")) {
-												$custom = zp_apply_filter('edit_category_custom_data', '', $result);
+												$custom = zp_apply_filter('edit_category_custom', '', $result);
 											}
 											if (is_AdminEditPage("page")) {
-												$custom = zp_apply_filter('edit_page_custom_data', '', $result);
+												$custom = zp_apply_filter('edit_page_custom', '', $result);
 											}
 											echo $custom;
 											?>
@@ -542,9 +542,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																		 $('#expiredate').val('');
-																		 $('#pubdate').css('color', 'black');
-																		 $('.expire').html('');"
+																			 $('#expiredate').val('');
+																			 $('#pubdate').css('color', 'black');
+																			 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -636,7 +636,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																					 togglePassword('');">
+																								 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -904,12 +904,12 @@ $tagsort = 'alpha';
 											</strong>
 										</a>
 										<button type="submit" title="<?php echo $updateitem; ?>"><?php echo CHECKMARK_GREEN; ?> <?php
-												if ($result->transient) {
-													echo $saveitem;
-												} else {
-													echo $updateitem;
-												}
-												?></strong></button>
+											if ($result->transient) {
+												echo $saveitem;
+											} else {
+												echo $updateitem;
+											}
+											?></strong></button>
 										<button type="reset" onclick="$('.copydelete').hide();">
 											<?php echo CROSS_MARK_RED; ?>
 											<strong><?php echo gettext("Reset"); ?></strong>
