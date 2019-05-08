@@ -13,6 +13,6 @@ $MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
 				"emoticons template paste ";
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";
 $MCEtoolbars[2] = "media | emoticons | ltr rtl code";
-$MCEstatusbar = false;
+$MCEstatusbar = true;
 $MCEmenubar = true;
 include(TINYMCE . '/config/config.js.php');
