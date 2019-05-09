@@ -95,14 +95,6 @@ if (@$_zp_loggedin) {
 				// these are lock-step linked!
 				$_zp_loggedin = $_zp_loggedin | ALBUM_RIGHTS;
 			}
-			if ($_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
-				// these are lock-step linked!
-				$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
-			}
-			if ($_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
-				// these are lock-step linked!
-				$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
-			}
 		}
 
 		//	establish the menu order
@@ -149,69 +141,32 @@ if (@$_zp_loggedin) {
 
 
 		if (isset($_zp_CMS)) {
-			if ($_zp_CMS->news_enabled) {
-				$articlestab = $categorystab = $_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS;
-				if (!$articlestab) {
-					$articles = query('SELECT `titlelink` FROM ' . prefix('news'));
-					while ($article = db_fetch_assoc($articles)) {
-						$article = newArticle($article['titlelink']);
-						if ($admin == $article->getOwner() || $article->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-							$articlestab = true;
-							$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
-							break;
-						}
-					}
-				}
-				if (!$categorystab) {
-					$categories = query('SELECT `titlelink` FROM ' . prefix('news_categories'));
-					while ($cat = db_fetch_assoc($categories)) {
-						$catobj = newCategory($cat['titlelink']);
-						if ($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-							$categorystab = true;
-							$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
-							break;
-						}
-					}
-				}
-				if ($articlestab && $categorystab) {
-					$zenphoto_tabs['news'] = array('text' => gettext('news'),
-							'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php',
-							'subtabs' => array(gettext('articles') => PLUGIN_FOLDER . '/zenpage/news.php?page=news&tab=articles',
-									gettext('categories') => PLUGIN_FOLDER . '/zenpage/categories.php?page=news&tab=categories'),
-							'ordered' => true,
-							'default' => 'articles');
-				} else if ($articlestab) {
-					$zenphoto_tabs['news'] = array('text' => gettext('news'),
-							'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php',
-							'subtabs' => NULL,
-							'ordered' => true,
-							'default' => 'articles');
-				} else if ($categorystab) {
-					$zenphoto_tabs['news'] = array('text' => gettext('categories'),
-							'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/categories.php',
-							'subtabs' => NULL,
-							'ordered' => true,
-							'default' => 'categories');
-				}
+			list($articlestab, $categorystab, $pagestab) = cmsFilters::admin_pages();
+			if ($articlestab && $categorystab) {
+				$zenphoto_tabs['news'] = array('text' => gettext('news'),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php',
+						'subtabs' => array(gettext('articles') => PLUGIN_FOLDER . '/zenpage/news.php?page=news&tab=articles',
+								gettext('categories') => PLUGIN_FOLDER . '/zenpage/categories.php?page=news&tab=categories'),
+						'ordered' => true,
+						'default' => 'articles');
+			} else if ($articlestab) {
+				$zenphoto_tabs['news'] = array('text' => gettext('news'),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php',
+						'subtabs' => NULL,
+						'ordered' => true,
+						'default' => 'articles');
+			} else if ($categorystab) {
+				$zenphoto_tabs['news'] = array('text' => gettext('categories'),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/categories.php',
+						'subtabs' => NULL,
+						'ordered' => true,
+						'default' => 'categories');
 			}
-			if ($_zp_CMS->pages_enabled) {
-				$pagestab = $_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS;
-				if (!$pagestab) {
-					$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages'));
-					while ($apage = db_fetch_assoc($pagelist)) {
-						$pageobj = newPage($apage['titlelink']);
-						if ($admin == $pageobj->getOwner() || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-							$pagestab = true;
-							break;
-						}
-					}
-				}
-				if ($pagestab) {
-					$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
-					$zenphoto_tabs['pages'] = array('text' => gettext("pages"),
-							'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/pages.php',
-							'subtabs' => NULL);
-				}
+			if ($pagestab) {
+				$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
+				$zenphoto_tabs['pages'] = array('text' => gettext("pages"),
+						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/pages.php',
+						'subtabs' => NULL);
 			}
 		}
 

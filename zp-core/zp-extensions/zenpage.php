@@ -256,69 +256,60 @@ class cmsFilters {
 		return $fail;
 	}
 
+	static function admin_pages() {
+		global $_zp_CMS, $_zp_loggedin, $_zp_current_admin_obj;
+		$articlestab = $categorystab = $pagestab = false;
+		if ($_zp_CMS) {
+			if ($_zp_loggedin & ADMIN_RIGHTS) {
+				$_zp_loggedin = ALL_RIGHTS;
+			} else {
+				if ($_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
+					// these are lock-step linked!
+					$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
+				}
+				if ($_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
+					// these are lock-step linked!
+					$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
+				}
+			}
+			$admin = $_zp_current_admin_obj->getUser();
+			if ($_zp_CMS->news_enabled) {
+				$articlestab = $categorystab = $_zp_loggedin & (MANAGE_ALL_NEWS_RIGHTS | ZENPAGE_NEWS_RIGHTS);
+				if (!$articlestab) {
+					$articles = query('SELECT `titlelink` FROM ' . prefix('news') . ' WHERE `owner`=' . db_quote($admin));
+					if ($articles) {
+						$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
+						$articlestab = true;
+					}
+				}
+
+				if ($_zp_CMS->pages_enabled) {
+					$pagestab = $_zp_loggedin & (MANAGE_ALL_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS);
+					if (!$pagestab) {
+						$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `owner`=' . db_quote($admin));
+						if ($pagelist) {
+							$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
+							$pagestab = true;
+						}
+					}
+				}
+			}
+		}
+		return array($articlestab, $categorystab, $pagestab);
+	}
+
 	/**
 	 *
 	 * Zenpage admin toolbox links
 	 */
 	static function admin_toolbox_global($zf) {
-		global $_zp_CMS, $_zp_loggedin, $_zp_current_admin_obj;
-		if ($_zp_loggedin & ADMIN_RIGHTS) {
-			$_zp_loggedin = ALL_RIGHTS;
-		} else {
-			if ($_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
-				// these are lock-step linked!
-				$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
-			}
-			if ($_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
-				// these are lock-step linked!
-				$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
-			}
+		list($articlestab, $categorystab, $pagestab) = self::admin_pages();
+		if ($articlestab || $categorystab) {
+			// admin has zenpage rights, provide link to the Zenpage admin tab
+			echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
 		}
-		$admin = $_zp_current_admin_obj->getUser();
-		if ($_zp_CMS) {
-			if ($_zp_CMS->news_enabled) {
-				$articlestab = $categorystab = $_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS;
-				if (!$articlestab) {
-					$articles = query('SELECT `titlelink` FROM ' . prefix('news'));
-					while ($article = db_fetch_assoc($articles)) {
-						$article = newArticle($article['titlelink']);
-						if ($admin == $article->getOwner() || $article->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-							$articlestab = true;
-							break;
-						}
-					}
-				}
-				if (!$categorystab) {
-					$categories = query('SELECT `titlelink` FROM ' . prefix('news_categories'));
-					while ($cat = db_fetch_assoc($categories)) {
-						$catobj = newCategory($cat['titlelink']);
-						if ($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-							$categorystab = true;
-							break;
-						}
-					}
-				}
-				if ($articlestab || $categorystab) {
-					// admin has zenpage rights, provide link to the Zenpage admin tab
-					echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
-				}
-			}
-			if ($_zp_CMS->pages_enabled) {
-				$pagestab = $_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS;
-				if (!$pagestab) {
-					$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages'));
-					while ($apage = db_fetch_assoc($pagelist)) {
-						$pageobj = newPage($apage['titlelink']);
-						if ($admin == $pageobj->getOwner() || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
-							$pagestab = true;
-							break;
-						}
-					}
-				}
-				if ($pagestab) {
-					echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
-				}
-			}
+		if ($pagestab) {
+			echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
 		}
 		return $zf;
 	}
