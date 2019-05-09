@@ -344,17 +344,17 @@ function db_show($what, $aux = '') {
 }
 
 function db_list_fields($table) {
-	global $tableFields;
-	if (!isset($tableFields[$table])) {
-		$tableFields[$table] = array();
+	global $_tableFields;
+	if (!isset($_tableFields[$table])) {
+		$_tableFields[$table] = array();
 		$result = db_show('columns', $table);
 		if (is_object($result)) {
 			while ($row = db_fetch_assoc($result)) {
-				$tableFields[$table][$row['Field']] = $row;
+				$_tableFields[$table][$row['Field']] = $row;
 			}
 		}
 	}
-	return $tableFields[$table];
+	return $_tableFields[$table];
 }
 
 function db_truncate_table($table) {

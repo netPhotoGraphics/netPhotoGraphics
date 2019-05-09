@@ -144,12 +144,22 @@ function comment_form_visualEditor() {
 	zp_apply_filter('texteditor_config', 'comments');
 }
 
+function getCommentOwner($table, $ownerid) {
+	global $__comment_cache;
+	if (isset($__comment_cache[$table][$ownerid])) {
+		return $__comment_cache[$table][$ownerid];
+	} else {
+		return $__comment_cache[$table][$ownerid] = getItemByID($table, $ownerid);
+	}
+}
+
 /**
  * Admin overview summary
  */
 function comment_form_print10Most() {
 	$comments = fetchComments(10);
 	$count = count($comments);
+	$comment_cache = array();
 	if (!empty($comments)) {
 		?>
 		<div class="box overview-section">
@@ -164,14 +174,14 @@ function comment_form_print10Most() {
 					$link = gettext('<strong>database error</strong> '); // incase of such
 					switch ($comment['type']) {
 						case "albums":
-							$album = getItemByID('albums', $comment['ownerid']);
+							$album = getCommentOwner('albums', $comment['ownerid']);
 							if ($album) {
 								$link = "<a href=\"" . $album->getlink() . "\">" . $album->gettitle() . "</a>";
 							}
 							break;
 						case "news": // ZENPAGE: if plugin is installed
 							if (extensionEnabled('zenpage')) {
-								$news = getItemByID('news', $comment['ownerid']);
+								$news = getCommentOwner('news', $comment['ownerid']);
 								if ($news) {
 									$link = "<a href=\"" . $news->getLink() . "\">" . $news->getTitle() . "</a> " . gettext("[news]");
 								}
@@ -179,14 +189,14 @@ function comment_form_print10Most() {
 							break;
 						case "pages": // ZENPAGE: if plugin is installed
 							if (extensionEnabled('zenpage')) {
-								$page = getItemByID('pages', $comment['ownerid']);
+								$page = getCommentOwner('pages', $comment['ownerid']);
 								if ($page) {
 									$link = "<a href=\"" . $page->getlink() . "\">" . $page->getTitle() . "</a> " . gettext("[page]");
 								}
 							}
 							break;
 						default: // all of the image types
-							$image = getItemByID('images', $comment['ownerid']);
+							$image = getCommentOwner('images', $comment['ownerid']);
 							if ($image) {
 								$link = "<a href=\"" . $image->getLink() . "\">" . $image->getTitle() . "</a>";
 							}

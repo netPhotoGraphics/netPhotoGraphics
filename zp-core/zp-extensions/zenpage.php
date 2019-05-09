@@ -261,39 +261,63 @@ class cmsFilters {
 	 * Zenpage admin toolbox links
 	 */
 	static function admin_toolbox_global($zf) {
-		global $_zp_CMS;
-		if (zp_loggedin(ZENPAGE_NEWS_RIGHTS) && $_zp_CMS && $_zp_CMS->news_enabled) {
-			$articles = $_zp_CMS->getArticles(0, 'all', false, NULL, NULL, false, NULL);
-			foreach ($articles as $key => $article) {
-				$article = newArticle($article['titlelink']);
-				$subrights = $article->subRights();
-				if (!($article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT)) {
-					unset($articles[$key]);
-				}
+		global $_zp_CMS, $_zp_loggedin, $_zp_current_admin_obj;
+		if ($_zp_loggedin & ADMIN_RIGHTS) {
+			$_zp_loggedin = ALL_RIGHTS;
+		} else {
+			if ($_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
+				// these are lock-step linked!
+				$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
 			}
-
-			$categories = $_zp_CMS->getAllCategories();
-			foreach ($categories as $key => $cat) {
-				$catobj = newCategory($cat['titlelink']);
-				if (!($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
-					unset($categories[$key]);
-				}
-			}
-			if (!empty($articles) || !empty($categories)) {
-				// admin has zenpage rights, provide link to the Zenpage admin tab
-				echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
+			if ($_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
+				// these are lock-step linked!
+				$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
 			}
 		}
-		if (zp_loggedin(ZENPAGE_PAGES_RIGHTS) && $_zp_CMS && $_zp_CMS->pages_enabled) {
-			$pagelist = $_zp_CMS->getPages();
-			foreach ($pagelist as $key => $apage) {
-				$pageobj = newPage($apage['titlelink']);
-				if (!($pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
-					unset($pagelist[$key]);
+		$admin = $_zp_current_admin_obj->getUser();
+		if ($_zp_CMS) {
+			if ($_zp_CMS->news_enabled) {
+				$articlestab = $categorystab = $_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS;
+				if (!$articlestab) {
+					$articles = query('SELECT `titlelink` FROM ' . prefix('news'));
+					while ($article = db_fetch_assoc($articles)) {
+						$article = newArticle($article['titlelink']);
+						if ($admin == $article->getOwner() || $article->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
+							$articlestab = true;
+							break;
+						}
+					}
+				}
+				if (!$categorystab) {
+					$categories = query('SELECT `titlelink` FROM ' . prefix('news_categories'));
+					while ($cat = db_fetch_assoc($categories)) {
+						$catobj = newCategory($cat['titlelink']);
+						if ($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
+							$categorystab = true;
+							break;
+						}
+					}
+				}
+				if ($articlestab || $categorystab) {
+					// admin has zenpage rights, provide link to the Zenpage admin tab
+					echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
 				}
 			}
-			if (!empty($pagelist)) {
-				echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
+			if ($_zp_CMS->pages_enabled) {
+				$pagestab = $_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS;
+				if (!$pagestab) {
+					$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages'));
+					while ($apage = db_fetch_assoc($pagelist)) {
+						$pageobj = newPage($apage['titlelink']);
+						if ($admin == $pageobj->getOwner() || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT) {
+							$pagestab = true;
+							break;
+						}
+					}
+				}
+				if ($pagestab) {
+					echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
+				}
 			}
 		}
 		return $zf;
