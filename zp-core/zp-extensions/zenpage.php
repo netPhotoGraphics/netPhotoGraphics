@@ -278,7 +278,7 @@ class cmsFilters {
 				if (!$articlestab) {
 					$articles = query('SELECT `titlelink` FROM ' . prefix('news') . ' WHERE `owner`=' . db_quote($admin));
 					if ($articles) {
-						$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
+						$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS; //	Owners get rights to edit their articles
 						$articlestab = true;
 					}
 				}
@@ -288,7 +288,7 @@ class cmsFilters {
 					if (!$pagestab) {
 						$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `owner`=' . db_quote($admin));
 						if ($pagelist) {
-							$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
+							$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS; //	Owners get rights to edit their pages
 							$pagestab = true;
 						}
 					}
