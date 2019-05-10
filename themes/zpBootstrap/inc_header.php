@@ -273,7 +273,7 @@ if (!defined('WEBPATH'))
 							<?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?>
 						</li>
 
-						<?php if ($_zenpage_news_enabled && (getNumNews(true) > 0)) { ?>
+						<?php if ($_zenpage_news_enabled && hasNews(true)) { ?>
 							<li<?php if ($_zp_gallery_page == 'news.php') { ?> class="active"<?php } ?>>
 								<?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?>
 							</li>

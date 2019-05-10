@@ -207,6 +207,18 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
 }
 
 /**
+ * Returns true if there are any news articles to show.
+ *
+ * @return bool
+ * @global object $_zp_CMS
+ */
+function hasNews() {
+	global $_zp_CMS;
+	$news = $_zp_CMS->news_enabled && $_zp_CMS->getArticles(0, NULL, false, NULL, NULL, NULL, NULL, null, 1);
+	return $news;
+}
+
+/**
  * Returns the number of news articles.
  *
  * When in search context this is the count of the articles found. Otherwise
@@ -1634,6 +1646,16 @@ function printZenpageItemsBreadcrumb($before = NULL, $after = NULL) {
 /* Pages functions
   /*********************************************** */
 $_zp_CMS_pagelist = NULL;
+
+/**
+ *
+ * Returns true if there are any pages to show
+ *
+ * @return bool
+ */
+function hasPages() {
+	return getNumPages();
+}
 
 /**
  * Returns a count of the pages

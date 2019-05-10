@@ -6,14 +6,16 @@
 	}
 	?>
 
-<?php zp_apply_filter('theme_body_open'); ?>
+	<?php zp_apply_filter('theme_body_open'); ?>
 
 	<!-- page header -->
 
 	<header id="background-header" class="background">
-		<div class="container<?php if (getOption('full_width')) {
-	echo '-fluid';
-} ?>">
+		<div class="container<?php
+		if (getOption('full_width')) {
+			echo '-fluid';
+		}
+		?>">
 			<!-- main navigation -->
 			<nav class="navbar navbar-default css-dropdown" id="nav-global">
 				<div>
@@ -40,26 +42,26 @@
 							</li>
 
 							<!-- news -->
-							<?php if (function_exists("printAllNewsCategories") && ((getNumNews(true)) > 0)) { ?>
+								<?php if (function_exists("printAllNewsCategories") && hasNews()) { ?>
 								<li class="level1 dropdown<?php if ($_zp_gallery_page == 'news.php') { ?> active<?php } ?>"><a href="<?php echo getNewsIndexURL(); ?>"><?php echo gettext('Blog') ?></a>
 								<?php printAllNewsCategories("", false, "", "open", true, "submenu", "open", "list-top"); ?>
 								</li>
 							<?php } ?>
 
 							<!-- pages-->
-							<?php if (function_exists("printPageMenu") && ((getNumPages(true)) > 0)) { ?>
-								<?php printPageMenu("list", "", "active", "submenu", "active", "", "2", false); ?>
+							<?php if (function_exists("printPageMenu") && hasPages()) { ?>
+	<?php printPageMenu("list", "", "active", "submenu", "active", "", "2", false); ?>
 							<?php } ?>
 
 							<!-- archive-->
 							<?php if (getOption('show_archive')) { ?>
 								<li class="level1<?php if ($_zp_gallery_page == 'archive.php') { ?> active<?php } ?>"><?php printCustomPageURL(gettext('Archive View'), 'archive'); ?></li>
-								<?php } ?>
+							<?php } ?>
 
 							<!-- contact page -->
-						<?php if (extensionEnabled('contact_form')) { ?>
+								<?php if (extensionEnabled('contact_form')) { ?>
 								<li class="level1<?php if ($_zp_gallery_page == 'contact.php') { ?> active<?php } ?>"><?php printCustomPageURL(gettext('Contact'), 'contact'); ?></li>
-<?php } ?>
+						<?php } ?>
 						</ul>
 <?php printSearchForm('', 'navbar_search', $_zp_themeroot . '/img/magnifying_glass_16x16.png', gettext('Search'), $_zp_themeroot . '/img/list_12x11.png'); ?>
 					</div><!-- /.navbar-collapse -->

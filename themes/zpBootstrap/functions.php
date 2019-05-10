@@ -52,8 +52,8 @@ if (!OFFSET_PATH) {
 	$_zp_page_check = 'my_checkPageValidity';
 
 	$_zenpage_enabled = extensionEnabled('zenpage');
-	$_zenpage_news_enabled = extensionEnabled('zenpage') && getNumNews(true);
-	$_zenpage_pages_enabled = extensionEnabled('zenpage') && getNumpages(true);
+	$_zenpage_news_enabled = extensionEnabled('zenpage') && hasNews();
+	$_zenpage_pages_enabled = extensionEnabled('zenpage') && hasPages();
 }
 
 function my_checkPageValidity($request, $gallery_page, $page) {

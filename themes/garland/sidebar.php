@@ -65,7 +65,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 	?>
 	<!-- standard menu -->	<?php
 	if (extensionEnabled('zenpage')) {
-		if (getNumNews(true)) {
+		if (hasNews()) {
 			?>
 			<div class="menu">
 				<h3><?php echo NEWS_LABEL; ?></h3>
@@ -116,7 +116,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 
 	<?php
 	if (extensionEnabled('zenpage')) {
-		if (getNumPages(true)) {
+		if (hasPages()) {
 			?>
 			<div class="menu">
 				<h3><?php echo gettext("Pages"); ?></h3>

@@ -46,7 +46,7 @@
 					if (getOption('RSS_items_albums')) {
 						printRSSLink("Gallery", "", (gettext('Gallery Images')), "", false, "rsslink");
 					}
-					if (function_exists('getBarePageTitle') && getOption('RSS_zenpage_items') && getNumNews(true)) {
+					if (function_exists('getBarePageTitle') && getOption('RSS_zenpage_items') && hasNews()) {
 						printRSSLink("News", ' | ', NEWS_LABEL, '', false);
 					}
 					?>

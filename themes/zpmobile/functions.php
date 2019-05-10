@@ -32,7 +32,7 @@ function jqm_printRSSlinks() {
 		<ul>
 			<?php
 			// these links must change to ones with rel="external" so they are actually loaded via jquerymobile!
-			if (extensionEnabled('zenpage') && getNumNews(true)) {
+			if (extensionEnabled('zenpage') && hasNews()) {
 				?>
 				<li class="rsslink"><a href="<?php echo html_encode(getRSSLink('News')); ?>" rel="external" data-ajax="false"><?php echo NEWS_LABEL; ?></a></li>
 				<?php
@@ -71,12 +71,12 @@ function jqm_printMainHeaderNav() {
 			<ul>
 				<li><a href="<?php echo getCustomPageURL('gallery'); ?>"><?php echo gettext('Gallery'); ?></a></li>
 				<?php
-				if (extensionEnabled('zenpage') && getNumNews(true)) {
+				if (extensionEnabled('zenpage') && hasNews()) {
 					?>
 					<li><a href="<?php echo getNewsIndexURL(); ?>"><?php echo NEWS_LABEL; ?></a></li>
 					<?php
 				}
-				if (extensionEnabled('zenpage') && getNumPages(true)) {
+				if (extensionEnabled('zenpage') && hasPages()) {
 					?>
 					<li><a href="<?php echo getCustomPageURL('pagelist'); ?>"><?php echo gettext('Pages'); ?></a></li>
 					<?php
@@ -179,7 +179,7 @@ function jqm_printMenusLinks() {
 	?>
 	<div id="collapsible-lists" data-collapsed="false">
 		<?php
-		if (extensionEnabled('zenpage') && getNumNews(true)) {
+		if (extensionEnabled('zenpage') && hasNews()) {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_zp_gallery_page == 'news.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo NEWS_LABEL; ?></h3>
@@ -195,7 +195,7 @@ function jqm_printMenusLinks() {
 			</div>
 			<?php
 		}
-		if (extensionEnabled('zenpage') && getNumPages(true)) {
+		if (extensionEnabled('zenpage') && hasPages()) {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_zp_gallery_page == 'pages.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo gettext('Pages'); ?></h3>

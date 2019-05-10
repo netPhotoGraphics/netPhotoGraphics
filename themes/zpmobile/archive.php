@@ -33,7 +33,7 @@ if (!defined('WEBPATH'))
 						<?php printAllDates(); ?>
 						<hr />
 						<?php
-						if (extensionEnabled('zenpage') && getNumNews(true)) {
+						if (extensionEnabled('zenpage') && hasNews()) {
 							?>
 							<h3><?php echo NEWS_LABEL; ?></h3>
 							<?php printNewsArchive("archive"); ?>

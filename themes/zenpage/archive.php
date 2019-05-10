@@ -18,7 +18,7 @@ if (!defined('WEBPATH'))
 	</head>
 
 	<body>
-<?php zp_apply_filter('theme_body_open'); ?>
+		<?php zp_apply_filter('theme_body_open'); ?>
 
 		<div id="main">
 
@@ -43,15 +43,15 @@ if (!defined('WEBPATH'))
 						<h3><?php echo gettext('Gallery'); ?></h3>
 						<?php printAllDates(); ?>
 						<hr />
-						<?php if (extensionEnabled('zenpage') && getNumNews(true)) { ?>
+						<?php if (extensionEnabled('zenpage') && hasNews()) { ?>
 							<h3><?php echo NEWS_LABEL; ?></h3>
 							<?php printNewsArchive("archive"); ?>
 							<hr />
-<?php } ?>
+						<?php } ?>
 
 						<h3><?php echo gettext('Popular Tags'); ?></h3>
 						<div id="tag_cloud">
-<?php printAllTagsAs('cloud', 'tags'); ?>
+							<?php printAllTagsAs('cloud', 'tags'); ?>
 						</div>
 					</div>
 				</div><!-- content left-->
@@ -59,11 +59,11 @@ if (!defined('WEBPATH'))
 
 
 				<div id="sidebar">
-<?php include("sidebar.php"); ?>
+					<?php include("sidebar.php"); ?>
 				</div><!-- sidebar -->
 
 				<div id="footer">
-<?php include("footer.php"); ?>
+					<?php include("footer.php"); ?>
 				</div>
 			</div><!-- content -->
 
