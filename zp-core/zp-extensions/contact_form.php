@@ -469,7 +469,7 @@ function getContactFormMacros($macros) {
 			'params' => array('string*'),
 			'value' => 'printContactFormMacro',
 			'owner' => 'contact_form',
-			'desc' => gettext('Provide the subject (optionally) as %1.')
+			'desc' => gettext('Dynamically insert a contact form. Provide the subject (optionally) as %1.')
 	);
 	return $macros;
 }
