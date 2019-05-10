@@ -30,6 +30,7 @@ if (isset($_GET['action'])) {
 					$is = (int) isset($_POST['zp_plugin_' . $matches[1]]);
 					if ($is) {
 						$nv = sanitize_numeric($_POST['zp_plugin_' . $matches[1]]);
+						$is = (int) ($nv && true);
 					} else {
 						$nv = NULL;
 					}

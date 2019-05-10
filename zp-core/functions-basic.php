@@ -232,7 +232,7 @@ function sanitize_numeric($num) {
 	if ($f === false) {
 		return 0;
 	} else {
-		return round($f);
+		return (int) round($f);
 	}
 }
 
