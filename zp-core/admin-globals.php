@@ -142,7 +142,7 @@ if (@$_zp_loggedin) {
 
 		if (isset($_zp_CMS)) {
 			list($articlestab, $categorystab, $pagestab) = cmsFilters::admin_pages();
-			if ($articlestab && $categorystab) {
+			if ($categorystab) {
 				$zenphoto_tabs['news'] = array('text' => gettext('news'),
 						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php',
 						'subtabs' => array(gettext('articles') => PLUGIN_FOLDER . '/zenpage/news.php?page=news&tab=articles',
@@ -155,12 +155,6 @@ if (@$_zp_loggedin) {
 						'subtabs' => NULL,
 						'ordered' => true,
 						'default' => 'articles');
-			} else if ($categorystab) {
-				$zenphoto_tabs['news'] = array('text' => gettext('categories'),
-						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/categories.php',
-						'subtabs' => NULL,
-						'ordered' => true,
-						'default' => 'categories');
 			}
 			if ($pagestab) {
 				$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
