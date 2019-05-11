@@ -34,6 +34,9 @@
  * 	Define %REWRITE_RULES%						=>	"rules-list"
  * 	<br />
  * 	Define &percnt;PLUGIN_FOLDER&percnt;						=>	PLUGIN_FOLDER
+ * 	<br />
+ * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH,'',newCategory("Breaking-news")->getLink(1));
+ *
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
  * 	<br />
@@ -42,6 +45,17 @@
  * 	### Rewite rule to cause "back-end" to redirect to the admin overview page
  * 	<br />
  * 	RewriteRule ^back-end/*$													&percnt;ZENFOLDER&percnt;/admin.php [L,QSA]
+ * 	<br />
+ * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
+ * 	<br />
+ * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
+ * 	<br />
+ * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
+ * 	<br />
+ * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
+ * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page
+ * 	<br />
+ * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS%
  * </code>
  *
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>

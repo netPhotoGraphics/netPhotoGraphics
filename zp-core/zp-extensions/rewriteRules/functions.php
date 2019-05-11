@@ -27,7 +27,7 @@ function rulesList() {
 				if (preg_match('~^rewriterule~i', $rule)) {
 					// it is a rewrite rule, see if it is applicable
 					$rule = strtr($rule, $definitions);
-					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\]$~i', $rule, $matches);
+					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\].*$~i', $rule . ' [L,QSA]', $matches);
 					if (array_key_exists(1, $matches)) {
 						$parts = preg_split('`\s+`', $rule);
 						$part1 = $parts[1];
