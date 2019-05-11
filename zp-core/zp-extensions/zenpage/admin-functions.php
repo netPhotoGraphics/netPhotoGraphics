@@ -35,6 +35,38 @@ function processTags($object) {
 	$object->setTags($tags);
 }
 
+/**
+ * Returns a title link for a new object. Title link is based on the title.
+ * If the title is a duplicate, a date/time string will be appended to insure
+ * no duplication.
+ *
+ * @param db serialized string $title
+ * @param string $table
+ * @param array $reports
+ * @return string
+ */
+function makeNewTitleLink($title, $table, &$reports) {
+	$titlelink = seoFriendly(get_language_string($title));
+	$append = RW_SUFFIX;
+	if (RW_SUFFIX && $table == 'news_categories') {
+		$append = '';
+	}
+	if (empty($titlelink)) {
+		$titlelink = gettext('untitled');
+	}
+
+	$sql = 'SELECT `id` FROM ' . prefix($table) . ' WHERE `titlelink`=' . db_quote($titlelink . $append);
+	$rslt = query_single_row($sql, false);
+	if ($rslt) {
+		//already exists
+		$titlelink = $titlelink . '_' . date_format(date_create('now'), 'Y-m-d-H-i-s-u') . $append;
+		$reports[] = "<p class='warningbox fade-message'>" . gettext('Duplicate page title') . '</p>';
+	} else {
+		$titlelink .= $append;
+	}
+	return $titlelink;
+}
+
 /* * ************************
   /* page functions
  * ************************* */
@@ -43,11 +75,10 @@ function processTags($object) {
  * Updates or adds a page and returns the object of that page
  *
  * @param array $reports report display
- * @param bool $newpage true if it is a new page
  *
  * @return object
  */
-function updatePage(&$reports, $newpage = false) {
+function updatePage(&$reports) {
 	global $_zp_current_admin_obj;
 	$title = process_language_string_save("title", 2);
 	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
@@ -58,26 +89,15 @@ function updatePage(&$reports, $newpage = false) {
 	$permalink = getcheckboxState('permalink');
 	$locked = getcheckboxState('locked');
 	$show = getcheckboxState('show');
+	$id = sanitize($_POST['id']);
+	$newpage = $id == 0;
 
 	if ($newpage) {
-		$titlelink = seoFriendly(get_language_string($title));
-		if (empty($titlelink)) {
-			$titlelink = seoFriendly($date);
-		}
-		$sql = 'SELECT `id` FROM ' . prefix('pages') . ' WHERE `titlelink`=' . db_quote($titlelink);
-		$rslt = query_single_row($sql, false);
-		if ($rslt) {
-			//already exists
-			$time = explode(' ', microtime());
-			$titlelink = $titlelink . '_' . ($time[1] + $time[0]);
-			$reports[] = "<p class='warningbox fade-message'>" . gettext('Duplicate page title') . '</p>';
-		}
-		$oldtitlelink = $titlelink;
-		$id = 0;
+		$oldtitlelink = $titlelink = makeNewTitleLink($title, 'pages', $reports);
 	} else {
 		$titlelink = $oldtitlelink = sanitize($_POST['titlelink-old']);
-		$id = sanitize($_POST['id']);
 	}
+
 	if (getcheckboxState('edittitlelink')) {
 		$titlelink = sanitize($_POST['titlelink'], 3);
 		if (empty($titlelink)) {
@@ -96,7 +116,7 @@ function updatePage(&$reports, $newpage = false) {
 	}
 
 	$rslt = true;
-	if (RW_SUFFIX && ($newpage || $titlelink != $oldtitlelink)) {
+	if (RW_SUFFIX && $titlelink != $oldtitlelink) {
 		//append RW_SUFFIX
 		if (!preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $titlelink)) {
 			$titlelink .= RW_SUFFIX;
@@ -371,25 +391,13 @@ function updateArticle(&$reports, $newarticle = false) {
 	$permalink = getcheckboxState('permalink');
 	$commentson = getcheckboxState('commentson');
 	$locked = getcheckboxState('locked');
+	$id = sanitize($_POST['id']);
+	$newarticle = $id == 0;
 
 	if ($newarticle) {
-		$titlelink = seoFriendly(get_language_string($title));
-		if (empty($titlelink)) {
-			$titlelink = seoFriendly($date);
-		}
-		$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink);
-		$rslt = query_single_row($sql, false);
-		if ($rslt) {
-			//already exists
-			$time = explode(' ', microtime());
-			$titlelink = $titlelink . '_' . ($time[1] + $time[0]);
-			$reports[] = "<p class='warningbox fade-message'>" . gettext('Duplicate article title') . '</p>';
-		}
-		$oldtitlelink = $titlelink;
-		$id = 0;
+		$oldtitlelink = $titlelink = makeNewTitleLink($title, 'news', $reports);
 	} else {
 		$titlelink = $oldtitlelink = sanitize($_POST['titlelink-old'], 3);
-		$id = sanitize($_POST['id']);
 	}
 
 	if (getcheckboxState('edittitlelink')) {
@@ -845,30 +853,19 @@ function printArticlesPerPageDropdown($subpage) {
  * Updates or adds a category
  *
  * @param array $reports the results display
- * @param bool $newcategory true if a new article
  *
  */
-function updateCategory(&$reports, $newcategory = false) {
+function updateCategory(&$reports) {
 	$date = date('Y-m-d_H-i-s');
 	$id = sanitize_numeric($_POST['id']);
 	$permalink = getcheckboxState('permalink');
 	$title = process_language_string_save("title", 2);
 	$desc = process_language_string_save("desc", EDITOR_SANITIZE_LEVEL);
+	$id = sanitize($_POST['id']);
+	$newcategory = $id == 0;
 
 	if ($newcategory) {
-		$titlelink = seoFriendly(get_language_string($title));
-		if (empty($titlelink))
-			$titlelink = seoFriendly($date);
-		$sql = 'SELECT `id` FROM ' . prefix('news_categories') . ' WHERE `titlelink`=' . db_quote($titlelink);
-		$rslt = query_single_row($sql, false);
-		if ($rslt) {
-			//already exists
-			$time = explode(' ', microtime());
-			$titlelink = $titlelink . '_' . ($time[
-							1] + $time[0]);
-			$reports[] = "<p class='warningbox fade-message'>" . gettext('Duplicate category title') . '</p>';
-		}
-		$oldtitlelink = $titlelink;
+		$oldtitlelink = $titlelink = makeNewTitleLink($title, 'news_categories', $reports);
 	} else {
 		$titlelink = $oldtitlelink = sanitize($_POST['titlelink-old'], 3);
 		if (getcheckboxState('edittitlelink')) {
