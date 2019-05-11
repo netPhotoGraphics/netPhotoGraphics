@@ -20,8 +20,12 @@
  *
  * The <code>definition</code> will be evaluated by PHP before processing the rules.
  * Thus you may use netPhotoGraphic defines, expressions such as <code>getOption('<em>option name<em>')</code>,
- * etc. and the runtime value will be what the definition resolves to.
- * There are already definitions for many useful rewrite tokens. You can view these
+ * etc. and the runtime value will be what the definition resolves to. (<b>Note:</b> the set of functions
+ * available at the time rewrite rules are processed is limited. In particular, template functions and functions
+ * from plugins that are not <code>CLASS</code> or <code>FEATURE</code> plugins will not be available for use.)
+ *
+ *
+ * There are already definitions for many useful rewrite tokens. You can view these and see the standard rewrite rules
  * on the {@link %FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/rewriteRules/admin_tab.php DEVELOPMENT/REWRITE} admin page.
  *
  * An example <em>rules.txt</em> file:
@@ -35,7 +39,7 @@
  * 	<br />
  * 	Define &percnt;PLUGIN_FOLDER&percnt;						=>	PLUGIN_FOLDER
  * 	<br />
- * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH,'',newCategory("Breaking-news")->getLink(1));
+ * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH.'/','',newCategory("Breaking-news")->getLink(1));
  *
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
@@ -61,7 +65,11 @@
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
  * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the netPhotoGraphics define <code>PLUGIN_FOLDER</code>
  * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;ZENFOLDER&percnt;</code> used in the rules
- * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>.
+ * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>. The third Define is an example
+ * of a complex expression. In this case computing the link to the theme category page with the titlelink "Breaking-news".
+ * The code strips off the WEB path since the rewrite rule redirection prepends that to the
+ * link before redirecting.
+ *
  *
  * netPhotoGraphics rules processing follows a simplified version of the
  * {@link https://httpd.apache.org/docs/2.2/mod/mod_rewrite.html#RewriteRule Apache RewriteRule Directive}.
@@ -71,7 +79,7 @@
  * stops when a match is made.) The redirect ("R") and query string append ("QSA")
  * <em>flags</em> are honored. All other <em>flags</em> are ignored. If the <em>substitution path</em>
  * is not to "index.php" or the "R" <em>flag</em> is present, rules processing will force a page
- * reload to the <em>substitution path<em>.
+ * reload to the <em>substitution path</em>. Redirection away from the netPhotoGraphics site is not supported.
  *
  * @author Stephen Billard (sbillard)
  *
@@ -81,7 +89,7 @@
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
  */
 
-$plugin_is_filter = 5 | FEATURE_PLUGIN;
+$plugin_is_filter = 1 | FEATURE_PLUGIN;
 $plugin_description = gettext("Site rewrite rules.");
 
 zp_register_filter('admin_tabs', 'rewriteRules::tabs', 100);
