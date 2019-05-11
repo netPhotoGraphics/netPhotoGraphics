@@ -30,29 +30,33 @@
  */
 // add "standard" (non-plugin dependent) rewrite rules here
 //	setup definitions for the "gallery" page link
-$_zp_conf_vars['special_pages']['gallery'] = array(
+$rules['gallery'] = array(
 		'define' => '_GALLERY_PAGE_', //	The netPhotoGraphics "define" for the link token
 		'option' => 'galleryToken_link', //	the name of the option for storing the link token
 		'default' => '_PAGE_/gallery', //	The default (initial value) of the link token
 		'rewrite' => getOption('galleryToken_link') //	this will be "evaled" to yield the current link token for "gallery"
 );
 //	add the rewrite definition of the rewrite target
-$_zp_conf_vars['special_pages'][] = array(
+$rules[] = array(
 		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules
 		'rewrite' => '_GALLERY_PAGE_' //	the value that will be substituted for the above reference
 );
+$rules[] = array('comment' => "\t#### Rules from rewrite.php");
 //	the next two entries are rewrite rules for the "gallery" page
 //	If the option for 'galleryToken_link' is "albumindex" then these will produce the rules
 //		rewriterule ^albumindex/([0-9]+)/*$  index.php?p=gallery&page=$1 [L,QSA]
 //		rewriterule ^albumindex/*$  index.php?p=gallery [L,QSA]
-$_zp_conf_vars['special_pages'][] = array(
+$rules[] = array(
 		'rewrite' => '%GALLERY_PAGE%/([0-9]+)',
 		'rule' => '^%REWRITE%/*$		index.php?p=gallery&page=$1' . ' [L,QSA]'
 );
-$_zp_conf_vars['special_pages'][] = array(
+$rules[] = array(
 		'rewrite' => '%GALLERY_PAGE%',
 		'rule' => '^%REWRITE%/*$		index.php?p=gallery [L,QSA]'
 );
+$rules[] = array('comment' => "\t#### Rules from \"plugins\"");
+$_zp_conf_vars['special_pages'] = array_merge($rules, $_zp_conf_vars['special_pages']);
+unset($rules);
 
 /**
  * applies the rewrite rules
@@ -69,7 +73,6 @@ function rewriteHandler() {
 	//rewrite base
 	$requesturi = ltrim(substr($request[0], strlen(WEBPATH)), '/');
 	list($definitions, $rules) = getRules();
-
 	//process the rules
 	foreach ($rules as $rule) {
 		if ($rule = trim($rule)) {
@@ -149,10 +152,10 @@ function getRules() {
 	global $_zp_conf_vars;
 	//	load rewrite rules
 	$rules = trim(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto-rewrite.txt'));
-
 	$definitions = $specialPageRules = array();
 
 	foreach ($_zp_conf_vars['special_pages'] as $key => $special) {
+
 		if (array_key_exists('definition', $special)) {
 			eval('$v = ' . $special['rewrite'] . ';');
 			if (empty($v)) {
@@ -162,6 +165,9 @@ function getRules() {
 		}
 		if (array_key_exists('rule', $special)) {
 			$specialPageRules[$key] = "\tRewriteRule " . str_replace('%REWRITE%', $special['rewrite'], $special['rule']);
+		}
+		if (array_key_exists('comment', $special)) {
+			$specialPageRules[$key] = $special['comment'];
 		}
 	}
 
