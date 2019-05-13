@@ -72,6 +72,7 @@ $_zp_sortby = array(
 		gettext('Title') => 'title',
 		gettext('ID') => 'id',
 		gettext('Filemtime') => 'mtime',
+		gettext('Last change date') => 'lastchange',
 		gettext('Owner') => 'owner',
 		gettext('Published') => 'show'
 );

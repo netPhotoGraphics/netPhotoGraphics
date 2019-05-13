@@ -296,8 +296,9 @@ if (isset($_GET['action'])) {
 		case "gallery_sortorder":
 			XSRFdefender('gallery_sortorder');
 			$oldsort = strtolower($_zp_gallery->getSortType('album'));
-			if ($_zp_gallery->getSortDirection('albums'))
+			if ($_zp_gallery->getSortDirection('albums')) {
 				$oldsort = $oldsort . '_DESC';
+			}
 			$newsort = sanitize($_POST['gallery_sortby'], 3);
 			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_zp_sortby)) {
 				if (strpos($newsort, '_DESC')) {
