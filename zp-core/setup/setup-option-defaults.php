@@ -9,6 +9,7 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
+
 $setOptions = getOptionList();
 
 if (isset($_GET['debug'])) {

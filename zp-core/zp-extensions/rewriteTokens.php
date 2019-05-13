@@ -63,12 +63,6 @@ class rewriteTokens {
 				$this->handleOptionSave(NULL, NULL);
 				setupLog(gettext('rewriteTokens restored to default'), true);
 			}
-			foreach ($this->plugin_vars as $page => $element) {
-				if (isset($element['option'])) {
-					$this->plugin_vars[$page]['rewrite'] = $element['default'];
-					setOptionDefault($element['option'], $element['default']);
-				}
-			}
 		} else {
 			enableExtension('rewriteTokens', 97 | ADMIN_PLUGIN); //	plugin must be enabled for saving options
 		}

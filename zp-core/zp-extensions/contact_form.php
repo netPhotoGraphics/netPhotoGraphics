@@ -35,7 +35,6 @@ class contactformOptions {
 	function __construct() {
 		global $_zp_authority;
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('contactform_rewrite', '_PAGE_/contact');
 			setOptionDefault('contactform_introtext', getAllTranslations('<p>Fields with <strong>*</strong> are required. HTML or any other code is not allowed.</p>'));
 			setOptionDefault('contactform_confirmtext', getAllTranslations('<p>Please confirm that you really want to send this email. Thanks.</p>'));
 			setOptionDefault('contactform_thankstext', getAllTranslations('<p>Thanks for your message.</p>'));

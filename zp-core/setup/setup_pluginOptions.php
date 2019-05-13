@@ -57,6 +57,11 @@ if (extensionEnabled($extension)) {
 	enableExtension($extension, $plugin_is_filter);
 }
 require_once($path); //	If it faults the shutdown functioin will disable it
+foreach ($_zp_conf_vars['special_pages'] as $definition) {
+	if (isset($definition['option'])) {
+		setOptionDefault($definition['option'], $definition['default'], '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+	}
+}
 if ($str = isolate('$option_interface', $p)) {
 	//	prime the default options
 	eval($str);

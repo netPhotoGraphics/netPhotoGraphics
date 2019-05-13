@@ -36,6 +36,7 @@ $rules['gallery'] = array(
 		'default' => '_PAGE_/gallery', //	The default (initial value) of the link token
 		'rewrite' => getOption('galleryToken_link') //	this will be "evaled" to yield the current link token for "gallery"
 );
+setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 //	add the rewrite definition of the rewrite target
 $rules[] = array(
 		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules
@@ -55,8 +56,12 @@ $rules[] = array(
 		'rule' => '^%REWRITE%/*$		index.php?p=gallery [L,QSA]'
 );
 $rules[] = array('comment' => "\t#### Rules from \"plugins\"");
-$_zp_conf_vars['special_pages'] = array_merge($rules, $_zp_conf_vars['special_pages']);
+$primary = array_slice($_zp_conf_vars['special_pages'], 0, 4, true);
+$secondary = array_slice($_zp_conf_vars['special_pages'], 4, NULL, true);
+$_zp_conf_vars['special_pages'] = array_merge($primary, $rules, $secondary);
 unset($rules);
+unset($primary);
+unset($secondary);
 
 /**
  * applies the rewrite rules

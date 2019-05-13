@@ -30,13 +30,6 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 }
 $option_interface = 'cmsFilters';
 
-if (OFFSET_PATH == 2) {
-	setOptionDefault('NewsLink', array_key_exists('news', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['news']['rewrite'] : 'news');
-	setOptionDefault('categoryLink', array_key_exists('category', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['category']['rewrite'] : 'category');
-	setOptionDefault('NewsArchiveLink', array_key_exists('news_archive', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['news_archive']['rewrite'] : '_NEWS_/archive');
-	setOptionDefault('PagesLink', array_key_exists('pages', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['pages']['rewrite'] : 'pages');
-}
-
 //Zenpage rewrite definitions
 $_zp_conf_vars['special_pages']['news'] = array('define' => '_NEWS_', 'rewrite' => getOption('NewsLink'),
 		'option' => 'NewsLink', 'default' => 'news');

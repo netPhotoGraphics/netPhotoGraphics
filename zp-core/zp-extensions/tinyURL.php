@@ -30,7 +30,6 @@ switch (OFFSET_PATH) {
 		break;
 	case 2:
 		setOptionDefault('tinyURL_agressive', 0);
-		setOptionDefault('tinyURL_text', 'tiny');
 		break;
 	default:
 		break;
