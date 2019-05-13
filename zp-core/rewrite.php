@@ -36,7 +36,9 @@ $rules['gallery'] = array(
 		'default' => '_PAGE_/gallery', //	The default (initial value) of the link token
 		'rewrite' => getOption('galleryToken_link') //	this will be "evaled" to yield the current link token for "gallery"
 );
-setOptionDefault('galleryToken_link', '_PAGE_/gallery');
+if (OFFSET_PATH == 2) {
+	setOptionDefault('galleryToken_link', '_PAGE_/gallery');
+}
 //	add the rewrite definition of the rewrite target
 $rules[] = array(
 		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules

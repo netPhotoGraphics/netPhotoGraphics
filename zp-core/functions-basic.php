@@ -1029,7 +1029,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	} else {
 		$value = $default;
 		if (is_bool($value)) {
-			$value = (int) $default;
+			$default = $value = (int) $default;
 		}
 		$value = db_quote($value);
 	}
