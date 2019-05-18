@@ -61,9 +61,14 @@
  * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
  * 	<br />
  * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
+ * 	<br />
  * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page
  * 	<br />
  * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS%
+ * 	<br />
+ * 	### Rewite rule to cause redirect the "register-me" link as permanantly moved (R=301) to the theme registration page
+ * 	<br />
+ * 	RewriteRule ^register-me/*$												page/register [R=301]
  * </code>
  *
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
