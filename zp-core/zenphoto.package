@@ -1633,7 +1633,6 @@ zp-core/zp-extensions/reCAPTCHA_v2.php
 zp-core/zp-extensions/register_user.php
 zp-core/zp-extensions/related_items.php
 zp-core/zp-extensions/rewriteRules.php
-zp-core/zp-extensions/rewriteTokens.php
 zp-core/zp-extensions/rss.php
 zp-core/zp-extensions/scriptless-socialsharing.php
 zp-core/zp-extensions/search_statistics.php
@@ -8018,10 +8017,9 @@ zp-core/zp-extensions/rating/update.php
 zp-core/zp-extensions/register_user
 zp-core/zp-extensions/register_user/register_user_form.php
 zp-core/zp-extensions/rewriteRules
-zp-core/zp-extensions/rewriteRules/admin_tab.php
 zp-core/zp-extensions/rewriteRules/functions.php
-zp-core/zp-extensions/rewriteTokens
-zp-core/zp-extensions/rewriteTokens/admin_tab.php
+zp-core/zp-extensions/rewriteRules/rules_tab.php
+zp-core/zp-extensions/rewriteRules/tokens_tab.php
 zp-core/zp-extensions/rss
 zp-core/zp-extensions/rss/rss.css
 zp-core/zp-extensions/scriptless-socialsharing
@@ -8389,4 +8387,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8391
+8389
