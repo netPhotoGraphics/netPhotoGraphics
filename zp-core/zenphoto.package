@@ -1198,6 +1198,7 @@ zp-core/load_objectClasses.php
 zp-core/localeList.php
 zp-core/loginForm.css
 zp-core/no_uploader.php
+zp-core/page_error.php
 zp-core/password.php
 zp-core/pickSource.php
 zp-core/pluginDoc.php
@@ -1270,11 +1271,10 @@ zp-core/images/ajax-loader.gif
 zp-core/images/calendar.png
 zp-core/images/chevron-hover.png
 zp-core/images/chevron.png
-zp-core/images/err-cachewrite.png
+zp-core/images/err-broken-page.png
 zp-core/images/err-failimage.png
 zp-core/images/err-imagegeneral.png
 zp-core/images/err-imagenotfound.png
-zp-core/images/err-noflashplayer.png
 zp-core/images/err-passwordprotected.png
 zp-core/images/favicon.ico
 zp-core/images/folder.png

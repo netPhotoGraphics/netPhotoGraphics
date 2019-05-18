@@ -464,7 +464,7 @@ class pseudoPlayer {
 									' . gettext('Your browser does not support the video tag') . '
 						</video>';
 		}
-		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-noflashplayer.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
+		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-imagegeneral.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
 	}
 
 }
