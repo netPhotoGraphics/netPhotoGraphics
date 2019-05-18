@@ -94,53 +94,20 @@
  */
 $plugin_is_filter = 1 | FEATURE_PLUGIN;
 $plugin_description = gettext("Site rewrite rules.");
+$plugin_notice = (($ruleFile = getPlugin('/rewriteRules/rules.txt')) && !extensionEnabled('rewriteRules')) ? gettext('The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> plugin is disabled.') : '';
 
-$option_interface = 'rewriteTokens';
+$option_interface = 'rewriteRules';
+
+if ($ruleFile) {
+	rewriteRules::processRules(file_get_contents($ruleFile));
+}
 
 zp_register_filter('admin_tabs', 'rewriteRules::tabs', 100);
 
-class rewriteRules {
-
-	static function tabs($tabs) {
-		if (zp_loggedin(ADMIN_RIGHTS)) {
-			if (!isset($tabs['development'])) {
-				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rewriteRules/rules_tab.php?page=development&tab=rewrite',
-						'default' => "rewrite",
-						'subtabs' => NULL);
-			}
-			$tabs['development']['subtabs'][gettext("rewrite")] = PLUGIN_FOLDER . '/rewriteRules/rules_tab.php?page=development&tab=rewrite';
-			$tabs['development']['subtabs'][gettext("tokens")] = PLUGIN_FOLDER . '/rewriteRules/tokens_tab.php?page=development&tab=tokens';
-		}
-		return $tabs;
-	}
-
-	static function processRules($ruleFile) {
-		global $_zp_conf_vars;
-		$customRules = explode("\n", $ruleFile);
-
-		$definitions = array();
-		$rules[] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
-		foreach ($customRules as $rule) {
-			$rule = trim($rule);
-			if (strlen($rule) > 0 && $rule{0} != '#') {
-				if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
-					$definitions[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
-				} else {
-					if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
-						$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
-					}
-				}
-			}
-		}
-		$_zp_conf_vars['special_pages'] = array_merge($_zp_conf_vars['special_pages'], $definitions, $rules);
-	}
-
-}
 
 require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
 
-class rewriteTokens {
+class rewriteRules {
 
 	private $zp_cfg_a;
 	private $zp_cfg_b;
@@ -149,6 +116,11 @@ class rewriteTokens {
 
 	function __construct() {
 		global $_configMutex, $_zp_conf_vars;
+
+		if (OFFSET_PATH == 2 && getPlugin('/rewriteRules/rules.txt')) {
+			enableExtension('rewriteRules', 1 | FEATURE_PLUGIN);
+		}
+
 		$_configMutex->lock();
 		$zp_cfg = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 		$i = strpos($zp_cfg, "\$conf['special_pages']");
@@ -279,12 +251,8 @@ class rewriteTokens {
 				foreach ($this->plugin_vars as $page => $element) {
 					if (isset($element['option'])) {
 						$rewrite = sanitize($_POST['rewriteTokens_' . $page]);
-//						if (empty($rewrite)) {
-//							$notify = '&custom=' . gettext('Rewrite tokens may not be empty.');
-//						} else {
 						$this->plugin_vars[$page]['rewrite'] = $rewrite;
 						setOption($element['option'], $rewrite);
-//						}
 					}
 				}
 			}
@@ -311,9 +279,46 @@ class rewriteTokens {
 		return $notify;
 	}
 
+	static function tabs($tabs) {
+		if (zp_loggedin(ADMIN_RIGHTS)) {
+			if (!isset($tabs['development'])) {
+				$tabs['development'] = array('text' => gettext("development"),
+						'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rewriteRules/rules_tab.php?page=development&tab=rewrite',
+						'default' => "rewrite",
+						'subtabs' => NULL);
+			}
+			$tabs['development']['subtabs'][gettext("rewrite")] = PLUGIN_FOLDER . '/rewriteRules/rules_tab.php?page=development&tab=rewrite';
+			$tabs['development']['subtabs'][gettext("tokens")] = PLUGIN_FOLDER . '/rewriteRules/tokens_tab.php?page=development&tab=tokens';
+		}
+		return $tabs;
+	}
+
+	static function processRules($ruleFile) {
+		global $_zp_conf_vars;
+		$customRules = explode("\n", $ruleFile);
+
+		$definitions = array();
+		$rules[] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
+		foreach ($customRules as $rule) {
+			$rule = trim($rule);
+			if (strlen($rule) > 0 && $rule{0} != '#') {
+				if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
+					$definitions[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
+				} else {
+					if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
+						$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
+					}
+				}
+			}
+		}
+		$_zp_conf_vars['special_pages'] = array_merge($_zp_conf_vars['special_pages'], $definitions, $rules);
+	}
+
 }
 
-if ($ruleFile = getPlugin('/rewriteRules/rules.txt')) {
-	rewriteRules::processRules(file_get_contents($ruleFile));
+function rewriteRules_enable($enabled) {
+	if (!$enabled && getPlugin('/rewriteRules/rules.txt')) {
+		requestSetup('rewriteRules', gettext('The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> plugin is disabled.'));
+	}
 }
 ?>
