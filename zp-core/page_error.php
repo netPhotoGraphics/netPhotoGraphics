@@ -63,19 +63,37 @@ function http_response_text($code) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/2002/REC-xhtml1-20020801/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
+		<style>
+			body {
+				padding: 50px;
+			}
+			div {
+				margin: auto;
+				text-align: center;
+				width: 50%;
+				background-color:rgb(255,255,215);
+				border: 1px solid black;
+			}
+			p {
+				text-align: center;
+			}
+			.large {
+				font-size: x-large;
+			}
+		</style>
 	</head>
 	<body>
-		<div style="padding: 50px;">
-			<p style="text-align: center;font-size: x-large;">
-				<?php echo gettext('Something went wrong.'); ?>
+		<div>
+			<p class="large">
+				<?php echo gettext('Something went wrong'); ?>
 			</p>
-			<p style="text-align: center">
+			<p >
 				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/err-broken-page.png" />
 			</p>
-			<p style="text-align: center">
+			<p>
 				<?php printf(gettext('URL: %1$s'), getRequestURI()); ?>
 			</p>
-			<p style="text-align: center">
+			<p>
 				<?php printf(gettext('HTTP status: %1$s'), http_response_text($_GET['code'])); ?>
 			</p>
 		</div>
