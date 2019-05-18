@@ -3991,7 +3991,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				return true;
 			});
 			function search_all() {
-				//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}. All rights reserved
+				//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives. All rights reserved
 				var check = $('#SEARCH_checkall').prop('checked');
 				$('.SEARCH_checkall').prop('checked', check);
 			}

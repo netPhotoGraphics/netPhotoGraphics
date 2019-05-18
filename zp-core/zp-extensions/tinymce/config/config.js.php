@@ -31,7 +31,7 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 zp_apply_filter('tinymce_config', NULL);
 

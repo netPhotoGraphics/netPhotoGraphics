@@ -25,7 +25,7 @@
  * you have made <b>BEFORE</b> attempting the translations.
  *
  *
- * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @author Stephen Billard (sbillard)
  *
