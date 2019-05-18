@@ -38,11 +38,13 @@ global $_zp_CMS;
 function processCommentBlock($commentBlock) {
 	global $plugin_author, $plugin_copyright, $subpackage;
 	$markup = array(
+			'&amp;gt;' => '>',
+			'&amp;lt;' => '<',
+			'&amp;percnt;' => '%',
 			'&lt;i&gt;' => '<em>',
 			'&lt;/i&gt;' => '</em>',
 			'&lt;b&gt;' => '<strong>',
 			'&lt;/b&gt;' => '</strong>',
-			'&amp;percnt;' => '%',
 			'&lt;code&gt;' => '<span class="inlinecode">',
 			'&lt;/code&gt;' => '</span>',
 			'&lt;sup&gt;' => '<span class="superscript">',
@@ -370,6 +372,9 @@ if (!defined('OFFSET_PATH')) {
 				}
 				.superscript {
 					vertical-align: super;
+				}
+				.nowrap {
+					white-space: nowrap;
 				}
 			</style>
 		</head>

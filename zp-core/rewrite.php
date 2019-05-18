@@ -74,7 +74,6 @@ function rewriteHandler() {
 	global $_zp_conf_vars, $_zp_rewritten;
 	$_zp_rewritten = false;
 	$definitions = array();
-
 	//	query parameters should already be loaded into the $_GET and $_REQUEST arrays, so we discard them here
 	$request = explode('?', getRequestURI());
 	//rewrite base
@@ -87,27 +86,31 @@ function rewriteHandler() {
 				if (preg_match('~^rewriterule~i', $rule)) {
 					// it is a rewrite rule, see if it is applicable
 					$rule = strtr($rule, $definitions);
-					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\]*.$~i', $rule . ' [L,QSA]', $matches);
+					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\]*.$~i', $rule, $matches);
+					if ($nc = preg_match('~\[.*NC.*\]~i', $rule)) { //	nonor the NC flag
+						$i = 'i';
+					} else {
+						$i = '';
+					}
 					if (array_key_exists(1, $matches)) {
-						if (preg_match('~' . $matches[1] . '~', $requesturi, $subs)) {
+						if (preg_match('~' . $matches[1] . '~' . $i, $requesturi, $subs)) {
 							$params = array();
 							//	setup the rule replacement values
 							foreach ($subs as $key => $sub) {
 								$params['$' . $key] = urlencode($sub); // parse_str is going to decode the string!
 							}
+							if ($matches[2] == '-') {
+								$matches[2] = $subs[0];
+							}
 							//	parse rewrite rule flags
 							$flags = array();
-							$banner = explode(',', strtoupper($matches[3]));
-							foreach ($banner as $flag) {
-								$flag = strtoupper(trim($flag));
-								$f = explode('=', $flag);
-								$flags[trim($f[0])] = isset($f[1]) ? trim($f[1]) : NULL;
-							}
-
-							if (!array_key_exists('QSA', $flags)) {
-								//	QSA means merge the query parameters. Otherwise we clear them
-								$_REQUEST = array_diff($_REQUEST, $_GET);
-								$_GET = array();
+							if (isset($matches[3])) {
+								$banner = explode(',', strtoupper($matches[3]));
+								foreach ($banner as $flag) {
+									$flag = strtoupper(trim($flag));
+									$f = explode('=', $flag);
+									$flags[trim($f[0])] = isset($f[1]) ? trim($f[1]) : NULL;
+								}
 							}
 							preg_match('~(.*?)\?(.*)~', $matches[2], $action);
 							if (empty($action)) {
@@ -117,23 +120,46 @@ function rewriteHandler() {
 								//	process the rules replacements
 								$query = strtr($action[2], $params);
 								parse_str($query, $gets);
-								$_GET = array_merge($_GET, $gets);
-								$_REQUEST = array_merge($_REQUEST, $gets);
+							} else {
+								$gets = array();
+							}
+							//	handle query string(s)
+							if (array_key_exists('QSD', $flags) || (!empty($gets) && !array_key_exists('QSA', $flags))) {
+								//	clear the query parameters.
+								$_REQUEST = array_diff($_REQUEST, $_GET);
+								$_GET = array();
+							}
+							$_GET = array_merge($_GET, $gets);
+							$_REQUEST = array_merge($_REQUEST, $_GET);
+							if (array_key_exists('G', $flags)) {
+								$flags['R'] = 410;
+							}
+							if (array_key_exists('F', $flags)) {
+								$flags['R'] = 403;
 							}
 							//	we will execute the index.php script in due course. But if the rule
 							//	action takes us elsewhere we will have to re-direct to that script.
 							if (array_key_exists('R', $flags) || isset($action[1]) && $action[1] != 'index.php') {
-								$qs = http_build_query($_GET);
-								if ($qs) {
-									$qs = '?' . $qs;
+								if (isset($flags['R']) && $flags['R'] >= 400) { //	redirect to the npg error page
+									$_GET = array(
+											'code' => $flags['R'],
+											'z' => '',
+											'p' => 'page_error'
+									);
+								} else {
+									$qs = http_build_query($_GET);
+									if ($qs) {
+										$qs = '?' . $qs;
+									}
+									if (array_key_exists('R', $flags)) {
+										header('Status: ' . $flags['R']);
+									}
+									header('Location: ' . WEBPATH . '/' . $action[1] . $qs);
+									exit();
 								}
-								if (array_key_exists('R', $flags)) {
-									header('Status: ' . $flags['R']);
-								}
-								header('Location: ' . WEBPATH . '/' . $action[1] . $qs);
-								exit();
 							}
 							$_zp_rewritten = true;
+							//	fall through to index.php
 							break;
 						}
 					} else {

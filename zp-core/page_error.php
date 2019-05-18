@@ -1,0 +1,84 @@
+<?php
+// force UTF-8  Ø
+require_once(dirname(__FILE__) . '/functions.php');
+
+function http_response_text($code) {
+	switch ($code) {
+
+		case 400:
+			$text = gettext('Bad Request');
+			break;
+		case 401:
+			$text = gettext('Unauthorized');
+			break;
+		case 402:
+			$text = gettext('Payment Required');
+			break;
+		case 403:
+			$text = gettext('Forbidden');
+			break;
+		case 404:
+			$text = gettext('Not Found');
+			break;
+		case 405:
+			$text = gettext('Method Not Allowed');
+			break;
+		case 406:
+			$text = gettext('Not Acceptable');
+			break;
+		case 407:
+			$text = gettext('Proxy Authentication Required');
+			break;
+		case 408:
+			$text = gettext('Request Time-out');
+			break;
+		case 409:
+			$text = gettext('Conflict');
+			break;
+		case 410:
+			$text = gettext('Gone');
+			break;
+		case 411:
+			$text = gettext('Length Required');
+			break;
+		case 412:
+			$text = gettext('Precondition Failed');
+			break;
+		case 413:
+			$text = gettext('Request Entity Too Large');
+			break;
+		case 414:
+			$text = gettext('Request-URI Too Large');
+			break;
+		case 415:
+			$text = gettext('Unsupported Media Type');
+			break;
+		default:
+			$text = $code;
+			break;
+	}
+	return $text;
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/2002/REC-xhtml1-20020801/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	</head>
+	<body>
+		<div style="padding: 50px;">
+			<p style="text-align: center;font-size: x-large;">
+				<?php echo gettext('Something went wrong.'); ?>
+			</p>
+			<p style="text-align: center">
+				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/err-broken-page.png" />
+			</p>
+			<p style="text-align: center">
+				<?php printf(gettext('URL: %1$s'), getRequestURI()); ?>
+			</p>
+			<p style="text-align: center">
+				<?php printf(gettext('HTTP status: %1$s'), http_response_text($_GET['code'])); ?>
+			</p>
+		</div>
+	</body>
+</html>
+<?php ?>

@@ -1,20 +1,18 @@
 <?php
 /**
  *
- * This plugin creates two development pages that list the netPhotoGraphic rewrite rules and the
+ * This plugin creates two development pages that list the <b>netPhotoGraphics</b> rewrite rules and the
  * rewrite token definitions. It also provides an option interface to change the definition of
  * the rewrite tokens.
  *
  *
- * The netPhotoGraphics rewrite rules are shown as "active". That is the rules will
+ * The <b>netPhotoGraphics</b> rewrite rules are shown as "active". That is the rules will
  * have had all definitions replaced with the definition value so that the rule
  * is shown in the state in which it is applied.
  *
- * It will read the "rules.txt" plugin file if present
- * and create netPhotoGraphics rewrite rules from the text.
- *
- * The %USER_PLUGIN_FOLDER%/rewriteRules/rules.txt file consists of the
- * following kinds of lines:
+ * The plugin will read the <em>%USER_PLUGIN_FOLDER%/rewriteRules/rules.txt</em> file if present
+ * and create <b>netPhotoGraphics</b> rewrite rules from the text.
+ * The rules.txt file consists of the following kinds of lines:
  *
  * <dl>
  * <dt>comments</dt><dd>any line beginning in a crosshatch (#)</dd>
@@ -23,7 +21,7 @@
  * </dl>
  *
  * The <code>definition</code> will be evaluated by PHP before processing the rules.
- * Thus you may use netPhotoGraphic defines, expressions such as <code>getOption('<em>option name<em>')</code>,
+ * Thus you may use <b>netPhotoGraphics</b> defines, expressions such as <code>getOption('<em>option name<em>')</code>,
  * etc. and the runtime value will be what the definition resolves to. (<b>Note:</b> the set of functions
  * available at the time rewrite rules are processed is limited. In particular, template functions and functions
  * from plugins that are not <code>CLASS</code> or <code>FEATURE</code> plugins will not be available for use.)
@@ -43,8 +41,18 @@
  * 	<br />
  * 	Define &percnt;PLUGIN_FOLDER&percnt;						=>	PLUGIN_FOLDER
  * 	<br />
- * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH.'/','',newCategory("Breaking-news")->getLink(1));
+ * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH.'/', '', <span class="nowrap">newCategory("Breaking-news")->getLink(1)</span>);
  *
+ * </code>
+ * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
+ * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the <b>netPhotoGraphics</b> define <code>PLUGIN_FOLDER</code>
+ * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;ZENFOLDER&percnt;</code> used in the rules
+ * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>. The third Define is an example
+ * of a complex expression. In this case computing the link to the theme category page with the titlelink "Breaking-news".
+ * The code strips off the WEB path since the rewrite rule redirection prepends that to the
+ * link before redirecting.
+ *
+ * <code>
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
  * 	<br />
@@ -53,49 +61,44 @@
  * 	### Rewite rule to cause "back-end" to redirect to the admin overview page
  * 	<br />
  * 	RewriteRule ^back-end/*$													&percnt;ZENFOLDER&percnt;/admin.php [L,QSA]
- * 	<br />
+ * 	<br /><br />
  * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
  * 	<br />
  * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
- * 	<br />
- * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
- * 	<br />
- * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
- * 	<br />
+ * 	<br /><br />
  * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page
  * 	<br />
- * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS%
- * 	<br />
+ * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS% [NC]
+ * 	<br /><br />
  * 	### Rewite rule to cause redirect the "register-me" link as permanantly moved (R=301) to the theme registration page
  * 	<br />
  * 	RewriteRule ^register-me/*$												page/register [R=301]
+ * 	<br /><br />
+ * 	### Rewite rules to cause any link in the "iambad" tree to be rejected as forbidden
+ * 	<br />
+ * 	RewriteRule ^iambad/*$													- [F]
+ * 	<br />
+ * 	RewriteRule ^iambad/(.*)/*$											- [F]
  * </code>
  *
- * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
- * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the netPhotoGraphics define <code>PLUGIN_FOLDER</code>
- * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;ZENFOLDER&percnt;</code> used in the rules
- * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>. The third Define is an example
- * of a complex expression. In this case computing the link to the theme category page with the titlelink "Breaking-news".
- * The code strips off the WEB path since the rewrite rule redirection prepends that to the
- * link before redirecting.
  *
- *
- * netPhotoGraphics rules processing follows a simplified version of the
+ * <b>netPhotoGraphics</b> rules processing follows a simplified version of the
  * {@link https://httpd.apache.org/docs/2.2/mod/mod_rewrite.html#RewriteRule Apache RewriteRule Directive}.
- * At this time the netPhotoGraphics rewrite rules only handle full URL
+ * At this time the <b>netPhotoGraphics</b> rewrite rules only handle full URL
  * rewrite.  Thus the rewrite token must be proceded by a caret(<code>^</code>) and consume the full
  * URL (the <code>/*$</code> termination.) The "L" <em>flag</em> is implied (i.e. processing
- * stops when a match is made.) The redirect ("R") and query string append ("QSA")
+ * stops when a match is made.) The redirect ("R"), gone (G), forbidden (F), no case (NC),
+ * query string discard (QSD), and query string append ("QSA")
  * <em>flags</em> are honored. All other <em>flags</em> are ignored. If the <em>substitution path</em>
  * is not to "index.php" or the "R" <em>flag</em> is present, rules processing will force a page
- * reload to the <em>substitution path</em>. Redirection away from the netPhotoGraphics site is not supported.
+ * reload to the <em>substitution path</em>. Redirection away from the <b>netPhotoGraphics</b> site is not supported.
  *
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/rewriteRules
  * @pluginCategory admin
  *
- * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 $plugin_is_filter = 1 | FEATURE_PLUGIN;
 $plugin_description = gettext("Site rewrite rules.");
