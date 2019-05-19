@@ -81,18 +81,18 @@ function rewriteHandler() {
 	list($definitions, $rules) = getRules();
 	//process the rules
 	foreach ($rules as $rule) {
-		if ($rule = trim($rule)) {
-			if ($rule{0} != '#') {
-				if (preg_match('~^rewriterule~i', $rule)) {
-
+		$rule = trim($rule);
+		if (!empty($rule) && $rule{0} != '#') {
+			if (preg_match('~^rewriterule~i', $rule)) {
+				if (array_key_exists(1, $matches)) {
+					// it is a rewrite rule, see if it is applicable
+					$rule = strtr($rule, $definitions);
+					preg_match('~^^rewriterule\s+(.*?)\s+(.*?)\s*(\[.*?\])\s.*$~i', $rule . ' [Z] ', $matches);
 					if (array_key_exists(1, $matches)) {
-						// it is a rewrite rule, see if it is applicable
-						$rule = strtr($rule, $definitions);
-						preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\]*.$~i', $rule, $matches);
 						//	parse rewrite rule flags
 						$flags = array();
 						if (isset($matches[3])) {
-							$banner = explode(',', $matches[3]);
+							$banner = explode(',', trim($matches[3], '[]'));
 							foreach ($banner as $flag) {
 								$f = explode('=', trim($flag));
 								$flags[strtoupper(trim($f[0]))] = isset($f[1]) ? trim($f[1]) : NULL;
@@ -113,7 +113,6 @@ function rewriteHandler() {
 							if ($matches[2] == '-') {
 								$matches[2] = $subs[0];
 							}
-
 							preg_match('~(.*?)\?(.*)~', $matches[2], $action);
 							if (empty($action)) {
 								$action[1] = $matches[2];
@@ -142,7 +141,9 @@ function rewriteHandler() {
 							//	we will execute the index.php script in due course. But if the rule
 							//	action takes us elsewhere we will have to re-direct to that script.
 							if (array_key_exists('R', $flags) || isset($action[1]) && $action[1] != 'index.php') {
-								if (isset($flags['R']) && $flags['R'] >= 400) { //	redirect to the npg error page
+								if (isset($flags['R']) && $flags['R'] >= 400) {
+									//	redirect to the npg error page because the http response code gets lost in
+									//	the .htaccess redirection process
 									$_GET = array(
 											'code' => $flags['R'],
 											'z' => '',
@@ -165,13 +166,13 @@ function rewriteHandler() {
 							break;
 						}
 					} else {
-						trigger_error(sprintf(gettext('Error processing rewrite rule: “%s”'), trim(preg_replace('~^rewriterule~i', '', $rule))), E_USER_WARNING);
+						trigger_error(sprintf(gettext('Error processing rewrite rule: “%s”'), $rule), E_USER_WARNING);
 					}
-				} else {
-					if (preg_match('~define\s+(.*?)\s*\=\>\s*(.*)$~i', $rule, $matches)) {
-						//	store definitions
-						eval('$definitions[$matches[1]] = ' . $matches[2] . ';');
-					}
+				}
+			} else {
+				if (preg_match('~define\s+(.*?)\s*\=\>\s*(.*)$~i', $rule, $matches)) {
+					//	store definitions
+					eval('$definitions[$matches[1]] = ' . $matches[2] . ';');
 				}
 			}
 		}

@@ -66,19 +66,19 @@
  * 	<br />
  * 	RewriteRule ^contact-us/*$												index.php?p=contact [NC,L,QSA]
  * 	<br /><br />
- * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page. Note the pattern match is case insensitive
+ * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page.
  * 	<br />
- * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS% [NC]
+ * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS% [NC]	#Note: the pattern match is case insensitive
  * 	<br /><br />
  * 	### Rewite rule to cause redirect the "register-me" link as permanantly moved (R=301) to the theme registration page
  * 	<br />
- * 	RewriteRule ^register-me/*$												page/register [R=301]
+ * 	RewriteRule ^register-me/*$												%REGISTER_USER% [R=301]
  * 	<br /><br />
  * 	### Rewite rules to cause any link in the "iambad" tree to be rejected as forbidden
  * 	<br />
- * 	RewriteRule ^iambad/(.*)/*$													- [F]
+ * 	RewriteRule ^iambad/(.*)/*$												- [F]
  * 	<br />
- * 	RewriteRule ^iambad/*$											- [F]
+ * 	RewriteRule ^iambad/*$														- [F]
  * </code>
  *
  *
