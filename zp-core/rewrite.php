@@ -47,15 +47,15 @@ $rules[] = array(
 $rules[] = array('comment' => "\t#### Rules from rewrite.php");
 //	the next two entries are rewrite rules for the "gallery" page
 //	If the option for 'galleryToken_link' is "albumindex" then these will produce the rules
-//		rewriterule ^albumindex/([0-9]+)/*$  index.php?p=gallery&page=$1 [L,QSA]
-//		rewriterule ^albumindex/*$  index.php?p=gallery [L,QSA]
+//		rewriterule ^albumindex/([0-9]+)/*$  index.php?p=gallery&page=$1 [NC,L,QSA]
+//		rewriterule ^albumindex/*$  index.php?p=gallery [NC,L,QSA]
 $rules[] = array(
 		'rewrite' => '%GALLERY_PAGE%/([0-9]+)',
-		'rule' => '^%REWRITE%/*$		index.php?p=gallery&page=$1' . ' [L,QSA]'
+		'rule' => '^%REWRITE%/*$		index.php?p=gallery&page=$1' . ' [NC,L,QSA]'
 );
 $rules[] = array(
 		'rewrite' => '%GALLERY_PAGE%',
-		'rule' => '^%REWRITE%/*$		index.php?p=gallery [L,QSA]'
+		'rule' => '^%REWRITE%/*$		index.php?p=gallery [NC,L,QSA]'
 );
 $rules[] = array('comment' => "\t#### Rules from \"plugins\"");
 $primary = array_slice($_zp_conf_vars['special_pages'], 0, 4, true);
@@ -201,7 +201,7 @@ function getRules() {
 		}
 	}
 	$rules = explode("_SPECIAL_", trim($rules));
-	$rules = array_merge(explode("\n", $rules[0]), $specialPageRules, explode("\n", $rules[1]), array("\t#### Catch-all", "\t" . 'RewriteRule ^(.*?)/*$	index.php?album=$1 [L,QSA]'));
+	$rules = array_merge(explode("\n", $rules[0]), $specialPageRules, explode("\n", $rules[1]), array("\t#### Catch-all", "\t" . 'RewriteRule ^(.*?)/*$	index.php?album=$1 [NC,L,QSA]'));
 	return array($definitions, $rules);
 }
 

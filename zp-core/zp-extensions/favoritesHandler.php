@@ -301,13 +301,13 @@ $_zp_conf_vars['special_pages']['favorites'] = array('define' => '_FAVORITES_', 
 		'option' => 'favorites_link', 'default' => '_PAGE_/favorites');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=favorites&page=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites&page=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/*$',
-		'rule' => '%REWRITE% index.php?p=favorites&instance=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites&instance=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/*$',
-		'rule' => '%REWRITE% index.php?p=favorites [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites [NC,L,QSA]');
 
 if (OFFSET_PATH) {
 	zp_register_filter('edit_album_custom', 'favoritesHandler::showWatchers');

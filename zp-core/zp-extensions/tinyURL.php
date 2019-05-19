@@ -37,8 +37,8 @@ switch (OFFSET_PATH) {
 $_zp_conf_vars['special_pages']['tiny'] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
 		'option' => 'tinyURL_text', 'default' => 'tiny/');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=$1&t [L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=$1&t [NC,L,QSA]');
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%TINY%', 'rewrite' => '_TINY_');
 
 class tinyURL {

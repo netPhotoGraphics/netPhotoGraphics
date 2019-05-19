@@ -56,15 +56,15 @@
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
  * 	<br />
- * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;ZENFOLDER&percnt;/&percnt;PLUGIN_FOLDER&percnt;/rewriteRules/admin_tab.php [L,QSA]
+ * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;ZENFOLDER&percnt;/&percnt;PLUGIN_FOLDER&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
  *
  * 	### Rewite rule to cause "back-end" to redirect to the admin overview page
  * 	<br />
- * 	RewriteRule ^back-end/*$													&percnt;ZENFOLDER&percnt;/admin.php [L,QSA]
+ * 	RewriteRule ^back-end/*$													&percnt;ZENFOLDER&percnt;/admin.php [NC,L,QSA]
  * 	<br /><br />
  * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
  * 	<br />
- * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
+ * 	RewriteRule ^contact-us/*$												index.php?p=contact [NC,L,QSA]
  * 	<br /><br />
  * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page. Note the pattern match is case insensitive
  * 	<br />
