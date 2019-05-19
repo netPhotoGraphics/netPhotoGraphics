@@ -84,16 +84,27 @@ function rewriteHandler() {
 		if ($rule = trim($rule)) {
 			if ($rule{0} != '#') {
 				if (preg_match('~^rewriterule~i', $rule)) {
-					// it is a rewrite rule, see if it is applicable
-					$rule = strtr($rule, $definitions);
-					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\]*.$~i', $rule, $matches);
-					if ($nc = preg_match('~\[.*NC.*\]~i', $rule)) { //	nonor the NC flag
-						$i = 'i';
-					} else {
-						$i = '';
-					}
+
 					if (array_key_exists(1, $matches)) {
+						// it is a rewrite rule, see if it is applicable
+						$rule = strtr($rule, $definitions);
+						preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\]*.$~i', $rule, $matches);
+						//	parse rewrite rule flags
+						$flags = array();
+						if (isset($matches[3])) {
+							$banner = explode(',', $matches[3]);
+							foreach ($banner as $flag) {
+								$f = explode('=', trim($flag));
+								$flags[strtoupper(trim($f[0]))] = isset($f[1]) ? trim($f[1]) : NULL;
+							}
+						}
+						if (array_key_exists('NC', $flags)) { //	nonor the NC flag
+							$i = 'i';
+						} else {
+							$i = '';
+						}
 						if (preg_match('~' . $matches[1] . '~' . $i, $requesturi, $subs)) {
+							//	it is a match
 							$params = array();
 							//	setup the rule replacement values
 							foreach ($subs as $key => $sub) {
@@ -102,16 +113,7 @@ function rewriteHandler() {
 							if ($matches[2] == '-') {
 								$matches[2] = $subs[0];
 							}
-							//	parse rewrite rule flags
-							$flags = array();
-							if (isset($matches[3])) {
-								$banner = explode(',', strtoupper($matches[3]));
-								foreach ($banner as $flag) {
-									$flag = strtoupper(trim($flag));
-									$f = explode('=', $flag);
-									$flags[trim($f[0])] = isset($f[1]) ? trim($f[1]) : NULL;
-								}
-							}
+
 							preg_match('~(.*?)\?(.*)~', $matches[2], $action);
 							if (empty($action)) {
 								$action[1] = $matches[2];

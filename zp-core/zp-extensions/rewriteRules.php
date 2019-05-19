@@ -66,7 +66,7 @@
  * 	<br />
  * 	RewriteRule ^contact-us/*$												index.php?p=contact [L,QSA]
  * 	<br /><br />
- * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page
+ * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page. Note the pattern match is case insensitive
  * 	<br />
  * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS% [NC]
  * 	<br /><br />
@@ -76,9 +76,9 @@
  * 	<br /><br />
  * 	### Rewite rules to cause any link in the "iambad" tree to be rejected as forbidden
  * 	<br />
- * 	RewriteRule ^iambad/*$													- [F]
+ * 	RewriteRule ^iambad/(.*)/*$													- [F]
  * 	<br />
- * 	RewriteRule ^iambad/(.*)/*$											- [F]
+ * 	RewriteRule ^iambad/*$											- [F]
  * </code>
  *
  *
