@@ -27,12 +27,14 @@ function rulesList() {
 				if (preg_match('~^rewriterule~i', $rule)) {
 					// it is a rewrite rule, see if it is applicable
 					$rule = strtr($rule, $definitions);
-					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*\[(.*)\].*$~i', $rule . ' [L,QSA]', $matches);
+					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*(\[.*?\])\s.*$~i', $rule . ' [Z] ', $matches);
 					if (array_key_exists(1, $matches)) {
-						$parts = preg_split('`\s+`', $rule);
-						$part1 = $parts[1];
-						$parts = array_slice($parts, 2);
-						$list[] = array('rewriterule', $part1, implode(' ', $parts));
+						if ($matches[3] == '[Z]') {
+							$matches[3] = '';
+						} else {
+							$matches[3] = str_replace(' ', '', $matches[3]);
+						}
+						$list[] = array('rewriterule', $matches[1], $matches[2] . ' ' . $matches[3]);
 					} else {
 						$list[] = array(gettext('Error processing rewrite rule:'), '', $rule);
 					}

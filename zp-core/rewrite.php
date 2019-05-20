@@ -79,6 +79,7 @@ function rewriteHandler() {
 	//rewrite base
 	$requesturi = ltrim(substr($request[0], strlen(WEBPATH)), '/');
 	list($definitions, $rules) = getRules();
+	$skip = 0;
 	//process the rules
 	foreach ($rules as $rule) {
 		$rule = trim($rule);
@@ -86,8 +87,12 @@ function rewriteHandler() {
 			if (preg_match('~^rewriterule~i', $rule)) {
 				if (array_key_exists(1, $matches)) {
 					// it is a rewrite rule, see if it is applicable
+					if ($skip) {
+						$skip--;
+						continue;
+					}
 					$rule = strtr($rule, $definitions);
-					preg_match('~^^rewriterule\s+(.*?)\s+(.*?)\s*(\[.*?\])\s.*$~i', $rule . ' [Z] ', $matches);
+					preg_match('~^rewriterule\s+(.*?)\s+(.*?)\s*(\[.*?\])\s.*$~i', $rule . ' [Z] ', $matches);
 					if (array_key_exists(1, $matches)) {
 						//	parse rewrite rule flags
 						$flags = array();
@@ -105,22 +110,21 @@ function rewriteHandler() {
 						}
 						if (preg_match('~' . $matches[1] . '~' . $i, $requesturi, $subs)) {
 							//	it is a match
-							$params = array();
-							//	setup the rule replacement values
-							foreach ($subs as $key => $sub) {
-								$params['$' . $key] = urlencode($sub); // parse_str is going to decode the string!
+							if (array_key_exists('S', $flags)) {
+								$skip = $flags['S'];
 							}
 							if ($matches[2] == '-') {
-								$matches[2] = $subs[0];
+								$substitution = $subs[0];
+							} else {
+								$substitution = preg_replace('~' . $matches[1] . '~' . $i, $matches[2], $requesturi);
 							}
-							preg_match('~(.*?)\?(.*)~', $matches[2], $action);
+							preg_match('~(.*?)\?(.*)~', $substitution, $action);
 							if (empty($action)) {
-								$action[1] = $matches[2];
+								$action[1] = $substitution;
 							}
 							if (array_key_exists(2, $action)) {
 								//	process the rules replacements
-								$query = strtr($action[2], $params);
-								parse_str($query, $gets);
+								parse_str($action[2], $gets);
 							} else {
 								$gets = array();
 							}
@@ -138,32 +142,37 @@ function rewriteHandler() {
 							if (array_key_exists('F', $flags)) {
 								$flags['R'] = 403;
 							}
-							//	we will execute the index.php script in due course. But if the rule
-							//	action takes us elsewhere we will have to re-direct to that script.
-							if (array_key_exists('R', $flags) || isset($action[1]) && $action[1] != 'index.php') {
-								if (isset($flags['R']) && $flags['R'] >= 400) {
-									//	redirect to the npg error page because the http response code gets lost in
-									//	the .htaccess redirection process
-									$_GET = array(
-											'code' => $flags['R'],
-											'z' => '',
-											'p' => 'page_error'
-									);
-								} else {
-									$qs = http_build_query($_GET);
-									if ($qs) {
-										$qs = '?' . $qs;
+							if (array_key_exists('R', $flags) || array_key_exists('L', $flags)) {
+								//	we will execute the index.php script in due course. But if the rule
+								//	action takes us elsewhere we will have to re-direct to that script.
+								if (array_key_exists('R', $flags) || isset($action[1]) && $action[1] != 'index.php') {
+									if (isset($flags['R']) && $flags['R'] >= 400) {
+										//	redirect to the npg error page because the http response code gets lost in
+										//	the .htaccess redirection process
+										$_GET = array(
+												'code' => $flags['R'],
+												'z' => '',
+												'p' => 'page_error'
+										);
+									} else {
+										$qs = http_build_query($_GET);
+										if ($qs) {
+											$qs = '?' . $qs;
+										}
+										if (isset($flags['R'])) {
+											header('Status: ' . $flags['R']);
+										}
+										header('Location: ' . WEBPATH . '/' . $action[1] . $qs);
+										exit();
 									}
-									if (array_key_exists('R', $flags)) {
-										header('Status: ' . $flags['R']);
-									}
-									header('Location: ' . WEBPATH . '/' . $action[1] . $qs);
-									exit();
 								}
+								$_zp_rewritten = true;
+								//	fall through to index.php
+								break;
 							}
-							$_zp_rewritten = true;
-							//	fall through to index.php
-							break;
+							$requesturi = $action[1];
+						} else {
+							$skip = (int) array_key_exists('C', $flags);
 						}
 					} else {
 						trigger_error(sprintf(gettext('Error processing rewrite rule: “%s”'), $rule), E_USER_WARNING);

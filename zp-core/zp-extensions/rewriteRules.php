@@ -1,23 +1,22 @@
 <?php
 /**
  *
- * This plugin creates two development pages that list the <b>netPhotoGraphics</b> rewrite rules and the
- * rewrite token definitions. It also provides an option interface to change the definition of
- * the rewrite tokens.
+ * This plugin creates two development pages. One that list the <b>netPhotoGraphics</b> <em>rewrite rules</em> and one that lists
+ * <em>rewrite token</em> definitions. It provides an option interface to change the definition of
+ * <em>rewrite tokens</em>. It also allows you to define custom rewrite rules via a text file.
  *
- *
- * The <b>netPhotoGraphics</b> rewrite rules are shown as "active". That is the rules will
+ * The <b>netPhotoGraphics</b> <em>rewrite rules</em> are shown as "active". That is the rules will
  * have had all definitions replaced with the definition value so that the rule
  * is shown in the state in which it is applied.
  *
  * The plugin will read the <em>%USER_PLUGIN_FOLDER%/rewriteRules/rules.txt</em> file if present
- * and create <b>netPhotoGraphics</b> rewrite rules from the text.
+ * and create <b>netPhotoGraphics</b> <em>rewrite rules</em> from the text.
  * The rules.txt file consists of the following kinds of lines:
  *
  * <dl>
  * <dt>comments</dt><dd>any line beginning in a crosshatch (#)</dd>
  * <dt>definitions</dt><dd>define <code>token</code> => <code>definition</code></dd>
- * <dt>rule</dt><dd>rewriterule <em>pattern</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>substitution</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>flags</em></dd>
+ * <dt>rule</dt><dd>rewriterule <em>pattern</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>substitution</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<em>flags</em>]</dd>
  * </dl>
  *
  * The <code>definition</code> will be evaluated by PHP before processing the rules.
@@ -29,6 +28,13 @@
  *
  * There are already definitions for many useful rewrite tokens. You can view these and see the standard rewrite rules
  * on the {@link %FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/rewriteRules/admin_tab.php DEVELOPMENT/REWRITE} admin page.
+ *
+ * <em>pattern</em> is a perl compatible regular expression. The incoming path is matched against the <en>pattern</em> and if
+ * there is a match, the
+ * rule is executed--that is, match in the path is replaced by the <em>substitution</em> after replacing parameters with
+ * the appropriate capturing group content. [<em>flags</em>] (if present) is an array of rewrite flags. E.g. <code>[L,QSA]</code>
+ * provides the <b>L</b>ast and the <b>Q</b>uery<b>S</b>tring<b>A</b>ppend flags. <em>flags</em> modify the behavior of the
+ * rewrite processing.
  *
  * An example <em>rules.txt</em> file:
  *
@@ -45,7 +51,8 @@
  *
  * </code>
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
- * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the <b>netPhotoGraphics</b> define <code>PLUGIN_FOLDER</code>
+ * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the <b>netPhotoGraphics</b>
+ * define <code>PLUGIN_FOLDER</code>
  * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;ZENFOLDER&percnt;</code> used in the rules
  * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>. The third Define is an example
  * of a complex expression. In this case computing the link to the theme category page with the titlelink "Breaking-news".
@@ -76,6 +83,10 @@
  * 	<br /><br />
  * 	### Rewite rules to cause any link in the "iambad" tree to be rejected as forbidden
  * 	<br />
+ *  ### the dash("-") <em>substitution</em> indicates that no substitution should be performed
+ * 	<br />
+ * 	### (the existing path is passed through untouched)
+ * 	<br />
  * 	RewriteRule ^iambad/(.*)/*$												- [F]
  * 	<br />
  * 	RewriteRule ^iambad/*$														- [F]
@@ -84,11 +95,8 @@
  *
  * <b>netPhotoGraphics</b> rules processing follows a simplified version of the
  * {@link https://httpd.apache.org/docs/2.2/mod/mod_rewrite.html#RewriteRule Apache RewriteRule Directive}.
- * At this time the <b>netPhotoGraphics</b> rewrite rules only handle full URL
- * rewrite.  Thus the rewrite token must be proceded by a caret(<code>^</code>) and consume the full
- * URL (the <code>/*$</code> termination.) The "L" <em>flag</em> is implied (i.e. processing
- * stops when a match is made.) The redirect ("R"), gone (G), forbidden (F), no case (NC),
- * query string discard (QSD), and query string append ("QSA")
+ * The chain ("C"), forbidden (F), gone (G), last ("L"), no case (NC),
+ * query string append ("QSA"), query string discard (QSD), redirect ("R"), and skip("S")
  * <em>flags</em> are honored. All other <em>flags</em> are ignored. If the <em>substitution path</em>
  * is not to "index.php" or the "R" <em>flag</em> is present, rules processing will force a page
  * reload to the <em>substitution path</em>. Redirection away from the <b>netPhotoGraphics</b> site is not supported.

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: webmaster at momo-i.org\n"
-"POT-Creation-Date: 2019-05-14 12:39-0700\n"
-"PO-Revision-Date: 2019-05-14 12:40-0700\n"
+"POT-Creation-Date: 2019-05-19 13:27-0700\n"
+"PO-Revision-Date: 2019-05-19 13:31-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.2\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SearchPath-0: zp-core\n"
 "X-Poedit-SearchPath-1: themes\n"
@@ -36,7 +36,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Restore"
 msgid "Store"
-msgstr "RSSフィード上にヒットカウントをおきたい場合、チェックします。"
+msgstr "店舗"
 
 #: plugins/cacheHeader.php:42
 #, fuzzy
@@ -691,8 +691,7 @@ msgstr "Zenphotoとの互換性。"
 #: zp-core/zp-extensions/debug.php:208
 #: zp-core/zp-extensions/deprecated-functions.php:93
 #: zp-core/zp-extensions/macroList.php:86
-#: zp-core/zp-extensions/rewriteRules.php:102
-#: zp-core/zp-extensions/rewriteTokens.php:194
+#: zp-core/zp-extensions/rewriteRules.php:293
 #: zp-core/zp-extensions/wordpress_import.php:21
 msgid "development"
 msgstr "開発"
@@ -822,7 +821,7 @@ msgstr "適用"
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:431
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:185
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:320
-#: zp-core/zp-extensions/rewriteTokens.php:102
+#: zp-core/zp-extensions/rewriteRules.php:205
 #: zp-core/zp-extensions/tagFromSearch/tag.php:232
 #: zp-core/zp-extensions/themeEditor/themes-editor.php:161
 #: zp-core/zp-extensions/themeEditor/themes-editor.php:163
@@ -2466,9 +2465,7 @@ msgstr "見つかったアルバムに戻る"
 #: themes/paradigm/includes/_gallery.php:12 themes/zpfocus/inc-sidebar.php:43
 #, fuzzy
 msgid "About"
-msgstr ""
-"ここのこのアイテムについて全てのコメントを見ることが出来ます:\n"
-"%1$s"
+msgstr "概要"
 
 #: themes/paradigm/includes/_head.php:52 themes/paradigm/includes/_head.php:146
 #: themes/zpArdoise/inc_header.php:36 themes/zpBootstrap/inc_header.php:47
@@ -2576,7 +2573,7 @@ msgstr "ホームページにスライドショーを含める場合にオンに
 #, fuzzy
 #| msgid "Slideshow: Speed"
 msgid "Slideshow Type"
-msgstr "スライドショー"
+msgstr "スライドショー タイプ"
 
 #: themes/paradigm/themeoptions.php:63
 #, fuzzy
@@ -2680,13 +2677,13 @@ msgstr "8"
 #: themes/paradigm/themeoptions.php:85
 #, fuzzy
 msgid "9"
-msgstr "Latin 9 (ISO)"
+msgstr "9"
 
 #: themes/paradigm/themeoptions.php:86
 #, fuzzy
 #| msgid "10s"
 msgid "10"
-msgstr "10件の新着コメント"
+msgstr "10"
 
 #: themes/paradigm/themeoptions.php:87
 #, fuzzy
@@ -2960,9 +2957,7 @@ msgstr "ZenFluidテーマでは、zenpageプラグインを有効にする必要
 #: themes/zenFluid/inc-sidebar.php:108 zp-core/admin-tabs/users.php:308
 #, fuzzy
 msgid "Profile"
-msgstr ""
-"<strong>注:</strong> 有効な<em>メール</em>アドレスでプロフィールを更新して、"
-"サイトへのアクセスを検証するリンクを送信します。"
+msgstr "プロフィール"
 
 #: themes/zenFluid/inc-sidebar.php:108
 #, fuzzy
@@ -2997,12 +2992,12 @@ msgstr "白"
 #, fuzzy
 #| msgid "Night"
 msgid "Light Green"
-msgstr "スタンダードライト B"
+msgstr "ライトグリーン"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "Dark gray"
-msgstr "グレイスケール変換:"
+msgstr "ダークグレー"
 
 #: themes/zenFluid/themeoptions.php:74
 #, fuzzy
@@ -3057,7 +3052,7 @@ msgstr "レイアウトの選択:"
 #: themes/zenFluid/themeoptions.php:94
 #, fuzzy
 msgid "Font type"
-msgstr "CAPTCHAフォント"
+msgstr "フォントタイプ"
 
 #: themes/zenFluid/themeoptions.php:99
 #, fuzzy
@@ -3173,7 +3168,7 @@ msgstr ""
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "タイトル%s"
+msgstr "タイトル上マージン（外側の余白）"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -3216,7 +3211,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show header"
-msgstr "表示テーマ: "
+msgstr "ヘッダー表示"
 
 #: themes/zenFluid/themeoptions.php:179
 #, fuzzy
@@ -3231,7 +3226,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show title"
 msgid "Show footer"
-msgstr "表示テーマ: "
+msgstr "フッターを表示"
 
 #: themes/zenFluid/themeoptions.php:185
 #, fuzzy
@@ -3314,7 +3309,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:219
 #, fuzzy
 msgid "Title position"
-msgstr "位置:"
+msgstr "タイトルの位置"
 
 #: themes/zenFluid/themeoptions.php:225
 #, fuzzy
@@ -3336,7 +3331,7 @@ msgstr "デフォルトアルバム画像レイアウトの選択:"
 #: themes/zenFluid/themeoptions.php:234
 #, fuzzy
 msgid "Button position"
-msgstr "位置:"
+msgstr "ボタン位置"
 
 #: themes/zenFluid/themeoptions.php:239
 #, fuzzy
@@ -3649,7 +3644,7 @@ msgstr "アーカイブリストへのメニューリンクを表示します。
 #: themes/zpArdoise/themeoptions.php:66
 #, fuzzy
 msgid "Show Tags"
-msgstr "表示"
+msgstr "タグを表示"
 
 #: themes/zpArdoise/themeoptions.php:66
 #, fuzzy
@@ -4049,7 +4044,7 @@ msgstr ""
 #: themes/zpBootstrap/themeoptions.php:114
 #, fuzzy
 msgid "Social Links"
-msgstr "(直接リンクのみ！)"
+msgstr "ソーシャルリンク"
 
 #: themes/zpBootstrap/themeoptions.php:118
 #, fuzzy
@@ -4060,7 +4055,7 @@ msgstr "ソーシャルリンクを表示するには、チェックします。
 #, fuzzy
 #| msgid "Feed text length"
 msgid "Excerpt length"
-msgstr "CAPTCHAの長さ"
+msgstr "抜粋の長さ"
 
 #: themes/zpBootstrap/themeoptions.php:128
 #, fuzzy
@@ -4212,7 +4207,7 @@ msgstr "画像:"
 #: themes/zpskeleton/functions.php:103
 #, fuzzy
 msgid "Search Result"
-msgstr "検索"
+msgstr "検索結果："
 
 #: themes/zpfocus/gallery.php:19 themes/zpmasonry/functions.php:213
 #: themes/zpmasonry/inc-header.php:120 themes/zpskeleton/inc-header.php:123
@@ -4255,7 +4250,7 @@ msgstr "アルバム"
 #: themes/zpfocus/inc-footer.php:47 themes/zpminimal/inc-footer.php:13
 #, fuzzy
 msgid "Gallery Images"
-msgstr "ギャラリー"
+msgstr "イメージギャラリー"
 
 #: themes/zpfocus/inc-header.php:35 themes/zpfocus/inc-header.php:49
 #: themes/zpfocus/inc-sidebar.php:66 themes/zpfocus/inc-sidebar.php:80
@@ -4294,7 +4289,7 @@ msgstr "コメント"
 #: themes/zpmasonry/inc-header.php:169
 #, fuzzy
 msgid "image {current} of {total}"
-msgstr "netPhotoGraphics 合計スクリプト処理時間: %.4f秒"
+msgstr "画像 {current} / {total}"
 
 #: themes/zpfocus/inc-header.php:172 themes/zpfocus/inc-header.php:186
 #: themes/zpmasonry/inc-footer.php:38 themes/zpmasonry/inc-header.php:154
@@ -4337,7 +4332,7 @@ msgstr "タグ:"
 #: themes/zpskeleton/password.php:15
 #, fuzzy
 msgid "Please Login"
-msgstr "ログイン"
+msgstr "ログインしてください"
 
 #: themes/zpfocus/password.php:17 themes/zpmasonry/password.php:21
 #: themes/zpminimal/password.php:17 themes/zpskeleton/password.php:19
@@ -4611,7 +4606,7 @@ msgstr "オンにすると、「Powered by」リンクがフッターに表示�
 #: themes/zpskeleton/themeoptions.php:79
 #, fuzzy
 msgid "Custom CSS"
-msgstr "カスタム"
+msgstr "カスタムCSS"
 
 #: themes/zpfocus/themeoptions.php:86 themes/zpmasonry/themeoptions.php:148
 #: themes/zpskeleton/themeoptions.php:79
@@ -4814,7 +4809,7 @@ msgstr "POPのポート番号です。"
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 #, fuzzy
 msgid "total"
-msgstr "<em>%1$s</em>の合計一致数: %2$u"
+msgstr "合計"
 
 #: themes/zpmasonry/album.php:52 themes/zpmasonry/album.php:123
 #: themes/zpmasonry/favorites.php:54 themes/zpmasonry/favorites.php:125
@@ -4849,7 +4844,7 @@ msgstr "画像"
 #: themes/zpmasonry/search.php:129
 #, fuzzy
 msgid "Preview"
-msgstr "サムネイルプレビュー"
+msgstr "プレビュー"
 
 #: themes/zpmasonry/comment_form/comment_form.php:18
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:18
@@ -5072,11 +5067,7 @@ msgstr ""
 #: themes/zpmasonry/themeoptions.php:93 themes/zpminimal/themeoptions.php:42
 #, fuzzy
 msgid "Logo Image"
-msgstr ""
-"完全なURLを特定のサイトのロゴ画像を入力します。Facebookは、Googleの+と他の記"
-"事内のリンクのプレビューに示すように、サムネイルのようにそれを使用します。イ"
-"メージまたはアルバムページのデフォルトのサイズのアルバムや画像のサムネイルが"
-"自動的に使用されます。"
+msgstr "ロゴ画像"
 
 #: themes/zpmasonry/themeoptions.php:95
 #, fuzzy
@@ -5095,7 +5086,7 @@ msgstr ""
 #: themes/zpmasonry/themeoptions.php:98
 #, fuzzy
 msgid "Logo Height"
-msgstr "高さ"
+msgstr "ロゴの高さ"
 
 #: themes/zpmasonry/themeoptions.php:100
 #, fuzzy
@@ -5468,7 +5459,7 @@ msgstr " (新着コメント)"
 #: themes/zpskeleton/archive.php:22
 #, fuzzy
 msgid "Tag Cloud"
-msgstr "アルバムページでタグクラウドを有効にする設定です。"
+msgstr "タグ クラウド"
 
 #: themes/zpskeleton/functions.php:188
 #, fuzzy
@@ -5616,7 +5607,7 @@ msgstr ""
 #: themes/zpskeleton/themeoptions.php:66
 #, fuzzy
 msgid "Download Button"
-msgstr "追加ボタン"
+msgstr "ダウンロードボタン"
 
 #: themes/zpskeleton/themeoptions.php:68
 #, fuzzy
@@ -6087,7 +6078,7 @@ msgstr "所有者"
 #, fuzzy, php-format
 #| msgid "Owner"
 msgid "Owner: %1$s"
-msgstr "所有者"
+msgstr "投稿者：%1$s"
 
 #: zp-core/admin-functions.php:2397 zp-core/admin-tabs/image_edit.php:462
 #: zp-core/zp-extensions/zenpage/edit.php:709
@@ -6550,9 +6541,7 @@ msgstr "セキュア管理"
 #, fuzzy
 #| msgid "Simple"
 msgid "example"
-msgstr ""
-"セットアップは<em>example_robots.txt</em>ファイルを見つけることが出来ませんで"
-"した。"
+msgstr "example"
 
 #: zp-core/admin-functions.php:5435
 msgid "mail"
@@ -6819,10 +6808,13 @@ msgid "Reset album thumbs"
 msgstr "アルバムサムネイルをリセット"
 
 #: zp-core/admin-functions.php:5983
+#, fuzzy
 msgid ""
 "Either the PHP <code>curl</code> extension or the PHP ini setting "
 "<code>allow_url_fopen</code> must be enabled."
 msgstr ""
+"PHPの<code>curl</code>エクステンションまたはPHPのini設定"
+"<code>allow_url_fopen</code>いずれかを有効にする必要があります。"
 
 #: zp-core/admin-functions.php:5986
 #, fuzzy, php-format
@@ -6842,9 +6834,9 @@ msgid "Curl returned the error: %1$s"
 msgstr "エラーで完了"
 
 #: zp-core/admin-functions.php:6031
-#, php-format
+#, fuzzy, php-format
 msgid "Curl received the HTTP status code %1$s"
-msgstr ""
+msgstr "CurlはHTTPステータスコード%1$sを受け取りました"
 
 #: zp-core/admin-functions.php:6052
 #, fuzzy, php-format
@@ -6897,7 +6889,7 @@ msgid "Last change date"
 msgstr "日付:"
 
 #: zp-core/admin-globals.php:85 zp-core/admin-globals.php:173
-#: zp-core/pluginDoc.php:281 zp-core/zp-extensions/accessThreshold.php:112
+#: zp-core/pluginDoc.php:283 zp-core/zp-extensions/accessThreshold.php:112
 #: zp-core/zp-extensions/cloneZenphoto.php:57
 #: zp-core/zp-extensions/user-expiry.php:100
 msgid "admin"
@@ -6934,7 +6926,7 @@ msgstr "ページ数"
 #: zp-core/admin-globals.php:181
 #, fuzzy
 msgid "my profile"
-msgstr "お気に入り"
+msgstr "プロフィールを編集"
 
 #: zp-core/admin-globals.php:193
 #, fuzzy
@@ -7320,7 +7312,7 @@ msgstr "サムネイルのトリミングを変更するには画像をクリッ
 #, fuzzy
 #| msgid "Image Title"
 msgid "Image filter"
-msgstr "フィルタ"
+msgstr "画像フィルター"
 
 #: zp-core/admin-tabs/image_edit.php:64
 #, fuzzy
@@ -8580,7 +8572,7 @@ msgstr "バージョン％sはユーティリティー・ボタンでダウン�
 #, fuzzy
 #| msgid "Update"
 msgid "Updates"
-msgstr "テーブルの更新を開始します"
+msgstr "更新"
 
 #: zp-core/admin.php:333
 #, fuzzy, php-format
@@ -9725,9 +9717,7 @@ msgstr "検索フォームを有効にするにはチェックします"
 #: zp-core/admin_options/general.php:744
 #, fuzzy
 msgid "ignore"
-msgstr ""
-"パスワードのリセットを望まない場合、このメッセージは無視してください。このチ"
-"ケットは3日で自動的に期限が切れます。"
+msgstr "無視"
 
 #: zp-core/admin_options/general.php:748
 #, fuzzy
@@ -10728,7 +10718,7 @@ msgstr "画像のソート方法:"
 #, fuzzy
 #| msgid "Image order"
 msgid "Page order"
-msgstr "画像の並び順"
+msgstr "ページオーダー"
 
 #: zp-core/admin_options/search.php:564
 #, fuzzy
@@ -10875,7 +10865,7 @@ msgstr "ログイン"
 #, fuzzy
 #| msgid "Debug"
 msgid "Debug log"
-msgstr "createMenuIfNotExistsはデバッグログへの処理エラーを記入しました。"
+msgstr "デバッグログ"
 
 #: zp-core/admin_options/security.php:244
 #, fuzzy
@@ -11047,9 +11037,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
-msgstr ""
-"カスタムサムネイル: 一番長いサイド/トリミング幅xトリミングの高さのサイズで"
-"す。TinyMCEプラグインのオプションでこれのデフォルトサイズを設定できます。"
+msgstr "サムネイルサイズ"
 
 #: zp-core/admin_options/theme.php:409
 #, php-format
@@ -11243,16 +11231,13 @@ msgstr "<p>メールのコピーは自動的にあなたのメールアドレス
 #: zp-core/allTranslations.php:63
 #, fuzzy
 msgid "Agree"
-msgstr "私はこれらの諸条件に同意します"
+msgstr "同意する"
 
 #: zp-core/allTranslations.php:64
 #, fuzzy
 #| msgid "Usage info"
 msgid "More info"
-msgstr ""
-"問合せフォームでページを区切りたくない場合、これを無効にします。また、これ用"
-"のページのコードブロックを使用することも出来ます。詳細についてはcontact_form"
-"プラグインのドキュメントを見てください。"
+msgstr "詳細情報"
 
 #: zp-core/allTranslations.php:65
 #, fuzzy
@@ -12590,7 +12575,8 @@ msgstr "YCbCr"
 msgid "Yes"
 msgstr "はい"
 
-#: zp-core/full-image.php:18 zp-core/zp-extensions/downloadList.php:384
+#: zp-core/full-image.php:18 zp-core/page_error.php:18
+#: zp-core/zp-extensions/downloadList.php:384
 #: zp-core/zp-extensions/downloadList.php:655
 #: zp-core/zp-extensions/downloadList.php:657
 #: zp-core/zp-extensions/downloadList.php:658
@@ -13962,28 +13948,34 @@ msgid "Afrikaans (South Africa)"
 msgstr "英語(南アフリカ)"
 
 #: zp-core/localeList.php:7
+#, fuzzy
 msgid "Aghem"
-msgstr ""
+msgstr "アグヘム"
 
 #: zp-core/localeList.php:8
+#, fuzzy
 msgid "Aghem (Cameroon)"
-msgstr ""
+msgstr "アグヘム（カメルーン）"
 
 #: zp-core/localeList.php:9
+#, fuzzy
 msgid "Akan"
-msgstr ""
+msgstr "阿寒"
 
 #: zp-core/localeList.php:10
+#, fuzzy
 msgid "Akan (Ghana)"
-msgstr ""
+msgstr "阿寒（ガーナ）"
 
 #: zp-core/localeList.php:11
+#, fuzzy
 msgid "Amharic"
-msgstr ""
+msgstr "アムハラ語"
 
 #: zp-core/localeList.php:12
+#, fuzzy
 msgid "Amharic (Ethiopia)"
-msgstr ""
+msgstr "アムハラ語（エチオピア）"
 
 #: zp-core/localeList.php:14
 #, fuzzy
@@ -14119,8 +14111,9 @@ msgid "Arabic (Yemen)"
 msgstr "アラビア語(イエメン)"
 
 #: zp-core/localeList.php:42
+#, fuzzy
 msgid "Assamese"
-msgstr ""
+msgstr "アッサム"
 
 #: zp-core/localeList.php:43
 #, fuzzy
@@ -14128,16 +14121,19 @@ msgid "Assamese (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:44
+#, fuzzy
 msgid "Asu"
-msgstr ""
+msgstr "あす"
 
 #: zp-core/localeList.php:45
+#, fuzzy
 msgid "Asu (Tanzania)"
-msgstr ""
+msgstr "アス（タンザニア）"
 
 #: zp-core/localeList.php:46
+#, fuzzy
 msgid "Asturian"
-msgstr ""
+msgstr "アストゥリアス"
 
 #: zp-core/localeList.php:47
 #, fuzzy
@@ -14146,8 +14142,9 @@ msgid "Asturian (Spain)"
 msgstr "スペイン語(スペイン)"
 
 #: zp-core/localeList.php:48
+#, fuzzy
 msgid "Azerbaijani"
-msgstr ""
+msgstr "アゼルバイジャン語"
 
 #: zp-core/localeList.php:49
 #, fuzzy
@@ -14171,12 +14168,14 @@ msgid "Azerbaijani (Latin, Azerbaijan)"
 msgstr "スペイン語(ラテンアメリカ)"
 
 #: zp-core/localeList.php:53
+#, fuzzy
 msgid "Basaa"
-msgstr ""
+msgstr "バサ"
 
 #: zp-core/localeList.php:54
+#, fuzzy
 msgid "Basaa (Cameroon)"
-msgstr ""
+msgstr "バサ（カメルーン）"
 
 #: zp-core/localeList.php:55
 msgid "Belarusian"
@@ -14189,20 +14188,24 @@ msgid "Belarusian (Belarus)"
 msgstr "ベラルーシ語"
 
 #: zp-core/localeList.php:57
+#, fuzzy
 msgid "Bemba"
-msgstr ""
+msgstr "ベンバ"
 
 #: zp-core/localeList.php:58
+#, fuzzy
 msgid "Bemba (Zambia)"
-msgstr ""
+msgstr "ベンバ（ザンビア）"
 
 #: zp-core/localeList.php:59
+#, fuzzy
 msgid "Bena"
-msgstr ""
+msgstr "ベナ"
 
 #: zp-core/localeList.php:60
+#, fuzzy
 msgid "Bena (Tanzania)"
-msgstr ""
+msgstr "ベナ（タンザニア）"
 
 #: zp-core/localeList.php:61
 msgid "Bulgarian"
@@ -14215,20 +14218,24 @@ msgid "Bulgarian (Bulgaria)"
 msgstr "ブルガリア語"
 
 #: zp-core/localeList.php:63
+#, fuzzy
 msgid "Bambara"
-msgstr ""
+msgstr "バンバラ"
 
 #: zp-core/localeList.php:64
+#, fuzzy
 msgid "Bambara (Mali)"
-msgstr ""
+msgstr "バンバラ（マリ）"
 
 #: zp-core/localeList.php:65
+#, fuzzy
 msgid "Bangla"
-msgstr ""
+msgstr "バングラ"
 
 #: zp-core/localeList.php:66
+#, fuzzy
 msgid "Bangla (Bangladesh)"
-msgstr ""
+msgstr "バングラ（バングラデシュ）"
 
 #: zp-core/localeList.php:67
 #, fuzzy
@@ -14237,12 +14244,14 @@ msgid "Bangla (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:68
+#, fuzzy
 msgid "Tibetan"
-msgstr ""
+msgstr "チベット人"
 
 #: zp-core/localeList.php:69
+#, fuzzy
 msgid "Tibetan (China)"
-msgstr ""
+msgstr "チベット（中国）"
 
 #: zp-core/localeList.php:70
 #, fuzzy
@@ -14251,8 +14260,9 @@ msgid "Tibetan (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:71
+#, fuzzy
 msgid "Breton"
-msgstr ""
+msgstr "ブルトン語"
 
 #: zp-core/localeList.php:72
 #, fuzzy
@@ -14261,8 +14271,9 @@ msgid "Breton (France)"
 msgstr "フランス語(フランス)"
 
 #: zp-core/localeList.php:73
+#, fuzzy
 msgid "Bodo"
-msgstr ""
+msgstr "ボードー"
 
 #: zp-core/localeList.php:74
 #, fuzzy
@@ -14273,7 +14284,7 @@ msgstr "英語(インド)"
 #, fuzzy
 #| msgid "Estonian"
 msgid "Bosnian"
-msgstr "エストニア語"
+msgstr "ボスニア語"
 
 #: zp-core/localeList.php:76
 #, fuzzy
@@ -14281,8 +14292,9 @@ msgid "Bosnian (Cyrillic)"
 msgstr "キリル文字(Windows)"
 
 #: zp-core/localeList.php:77
+#, fuzzy
 msgid "Bosnian (Cyrillic, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "ボスニア語（キリル、ボスニアヘルツェゴビナ）"
 
 #: zp-core/localeList.php:78
 #, fuzzy
@@ -14291,8 +14303,9 @@ msgid "Bosnian (Latin)"
 msgstr "Latin 9 (ISO)"
 
 #: zp-core/localeList.php:79
+#, fuzzy
 msgid "Bosnian (Latin, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "ボスニア語（ラテン、ボスニアヘルツェゴビナ）"
 
 #: zp-core/localeList.php:80
 msgid "Catalan"
@@ -14322,12 +14335,14 @@ msgid "Catalan (Italy)"
 msgstr "カタロニア語"
 
 #: zp-core/localeList.php:85
+#, fuzzy
 msgid "Chakma"
-msgstr ""
+msgstr "チャクマ"
 
 #: zp-core/localeList.php:86
+#, fuzzy
 msgid "Chakma (Bangladesh)"
-msgstr ""
+msgstr "チャクマ（バングラデシュ）"
 
 #: zp-core/localeList.php:87
 #, fuzzy
@@ -14336,8 +14351,9 @@ msgid "Chakma (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:88
+#, fuzzy
 msgid "Chechen"
-msgstr ""
+msgstr "チェチェン"
 
 #: zp-core/localeList.php:89
 #, fuzzy
@@ -14346,16 +14362,19 @@ msgid "Chechen (Russia)"
 msgstr "ロシア語(ロシア)"
 
 #: zp-core/localeList.php:90
+#, fuzzy
 msgid "Chiga"
-msgstr ""
+msgstr "ちが"
 
 #: zp-core/localeList.php:91
+#, fuzzy
 msgid "Chiga (Uganda)"
-msgstr ""
+msgstr "チガ（ウガンダ）"
 
 #: zp-core/localeList.php:92
+#, fuzzy
 msgid "Cherokee"
-msgstr ""
+msgstr "チェロキー"
 
 #: zp-core/localeList.php:93
 #, fuzzy
@@ -14416,17 +14435,19 @@ msgid "Danish (Greenland)"
 msgstr "デンマーク語"
 
 #: zp-core/localeList.php:104
+#, fuzzy
 msgid "Taita"
-msgstr ""
+msgstr "タイタ"
 
 #: zp-core/localeList.php:105
+#, fuzzy
 msgid "Taita (Kenya)"
-msgstr ""
+msgstr "タイタ（ケニア）"
 
 #: zp-core/localeList.php:106
 #, fuzzy
 msgid "German"
-msgstr "ドイツ語(オーストリア)"
+msgstr "ドイツ語"
 
 #: zp-core/localeList.php:107
 msgid "German (Austria)"
@@ -14461,12 +14482,14 @@ msgid "German (Luxembourg)"
 msgstr "ドイツ語(ルクセンブルグ)"
 
 #: zp-core/localeList.php:114
+#, fuzzy
 msgid "Zarma"
-msgstr ""
+msgstr "ザルマ"
 
 #: zp-core/localeList.php:115
+#, fuzzy
 msgid "Zarma (Niger)"
-msgstr ""
+msgstr "ザルマ（ニジェール）"
 
 #: zp-core/localeList.php:116
 #, fuzzy
@@ -14481,48 +14504,59 @@ msgid "Lower Sorbian (Germany)"
 msgstr "ドイツ語(ドイツ)"
 
 #: zp-core/localeList.php:118
+#, fuzzy
 msgid "Duala"
-msgstr ""
+msgstr "ドゥアラ"
 
 #: zp-core/localeList.php:119
+#, fuzzy
 msgid "Duala (Cameroon)"
-msgstr ""
+msgstr "ドゥアラ（カメルーン）"
 
 #: zp-core/localeList.php:120
+#, fuzzy
 msgid "Jola-Fonyi"
-msgstr ""
+msgstr "Jola-Fonyi"
 
 #: zp-core/localeList.php:121
+#, fuzzy
 msgid "Jola-Fonyi (Senegal)"
-msgstr ""
+msgstr "Jola-Fonyi（セネガル）"
 
 #: zp-core/localeList.php:122
+#, fuzzy
 msgid "Dzongkha"
-msgstr ""
+msgstr "ゾンカ語"
 
 #: zp-core/localeList.php:123
+#, fuzzy
 msgid "Dzongkha (Bhutan)"
-msgstr ""
+msgstr "ゾンカ語（ブータン）"
 
 #: zp-core/localeList.php:124
+#, fuzzy
 msgid "Embu"
-msgstr ""
+msgstr "エンブー"
 
 #: zp-core/localeList.php:125
+#, fuzzy
 msgid "Embu (Kenya)"
-msgstr ""
+msgstr "エンブ（ケニア）"
 
 #: zp-core/localeList.php:126
+#, fuzzy
 msgid "Ewe"
-msgstr ""
+msgstr "エウェ"
 
 #: zp-core/localeList.php:127
+#, fuzzy
 msgid "Ewe (Ghana)"
-msgstr ""
+msgstr "エウェ（ガーナ）"
 
 #: zp-core/localeList.php:128
+#, fuzzy
 msgid "Ewe (Togo)"
-msgstr ""
+msgstr "エウェ（トーゴ）"
 
 #: zp-core/localeList.php:129
 msgid "Greek"
@@ -14633,8 +14667,9 @@ msgid "English (Canada)"
 msgstr "英語(カナダ)"
 
 #: zp-core/localeList.php:148
+#, fuzzy
 msgid "English (Cocos [Keeling] Islands)"
-msgstr ""
+msgstr "英語（ココス[キーリング]諸島）"
 
 #: zp-core/localeList.php:149
 #, fuzzy
@@ -14767,8 +14802,9 @@ msgid "English (Guyana)"
 msgstr "英語(カナダ)"
 
 #: zp-core/localeList.php:171
+#, fuzzy
 msgid "English (Hong Kong SAR China)"
-msgstr ""
+msgstr "英語（香港特別行政区）"
 
 #: zp-core/localeList.php:172
 #, fuzzy
@@ -14793,8 +14829,9 @@ msgid "English (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:176
+#, fuzzy
 msgid "English (British Indian Ocean Territory)"
-msgstr ""
+msgstr "英語（イギリス領インド洋地域）"
 
 #: zp-core/localeList.php:177
 #, fuzzy
@@ -15109,12 +15146,14 @@ msgid "English (United States, Computer)"
 msgstr "英語(アメリカ合衆国)"
 
 #: zp-core/localeList.php:230
+#, fuzzy
 msgid "English (St. Vincent & Grenadines)"
-msgstr ""
+msgstr "英語（セントビンセント＆グレナディン諸島）"
 
 #: zp-core/localeList.php:231
+#, fuzzy
 msgid "English (British Virgin Islands)"
-msgstr ""
+msgstr "英語（英領バージン諸島）"
 
 #: zp-core/localeList.php:232
 #, fuzzy
@@ -15156,7 +15195,7 @@ msgstr "エスペラント語"
 #, fuzzy
 #| msgid "Danish"
 msgid "Spanish"
-msgstr "スペイン語(チリ)"
+msgstr "スペイン語"
 
 #: zp-core/localeList.php:240
 msgid "Spanish (Latin America)"
@@ -15299,7 +15338,7 @@ msgstr "エストニア語"
 #: zp-core/localeList.php:270
 #, fuzzy
 msgid "Basque"
-msgstr "バスク語(バスク)"
+msgstr "バスク語"
 
 #: zp-core/localeList.php:271
 #, fuzzy
@@ -15308,12 +15347,14 @@ msgid "Basque (Spain)"
 msgstr "バスク語(バスク)"
 
 #: zp-core/localeList.php:272
+#, fuzzy
 msgid "Ewondo"
-msgstr ""
+msgstr "エウォンド"
 
 #: zp-core/localeList.php:273
+#, fuzzy
 msgid "Ewondo (Cameroon)"
-msgstr ""
+msgstr "エウォンド（カメルーン）"
 
 #: zp-core/localeList.php:274
 msgid "Persian"
@@ -15331,8 +15372,9 @@ msgid "Persian (Iran)"
 msgstr "ペルシャ語"
 
 #: zp-core/localeList.php:277
+#, fuzzy
 msgid "Fulah"
-msgstr ""
+msgstr "フラ"
 
 #: zp-core/localeList.php:278
 msgid "Finnish"
@@ -15345,8 +15387,9 @@ msgid "Finnish (Finland)"
 msgstr "フィンランド語"
 
 #: zp-core/localeList.php:280
+#, fuzzy
 msgid "Filipino"
-msgstr ""
+msgstr "フィリピン語"
 
 #: zp-core/localeList.php:281
 #, fuzzy
@@ -15371,7 +15414,7 @@ msgstr "フェロー語"
 #: zp-core/localeList.php:285
 #, fuzzy
 msgid "French"
-msgstr "フランス語(カナダ)"
+msgstr "フランス語"
 
 #: zp-core/localeList.php:286
 msgid "French (Belgium)"
@@ -15428,8 +15471,9 @@ msgid "French (Switzerland)"
 msgstr "フランス語(スイス)"
 
 #: zp-core/localeList.php:296
+#, fuzzy
 msgid "French (Côte d’Ivoire)"
-msgstr ""
+msgstr "フランス語（コートジボワール）"
 
 #: zp-core/localeList.php:297
 #, fuzzy
@@ -15638,8 +15682,9 @@ msgid "French (Mayotte)"
 msgstr "フランス語(ベルギー)"
 
 #: zp-core/localeList.php:332
+#, fuzzy
 msgid "Friulian"
-msgstr ""
+msgstr "フリウリア語"
 
 #: zp-core/localeList.php:333
 #, fuzzy
@@ -15659,8 +15704,9 @@ msgid "Western Frisian (Netherlands)"
 msgstr "オランダ語(オランダ)"
 
 #: zp-core/localeList.php:336
+#, fuzzy
 msgid "Irish"
-msgstr ""
+msgstr "アイルランド語"
 
 #: zp-core/localeList.php:337
 #, fuzzy
@@ -15669,8 +15715,9 @@ msgid "Irish (Ireland)"
 msgstr "アラビア語(イラン)"
 
 #: zp-core/localeList.php:338
+#, fuzzy
 msgid "Scottish Gaelic"
-msgstr ""
+msgstr "スコットランド語"
 
 #: zp-core/localeList.php:339
 #, fuzzy
@@ -15721,40 +15768,49 @@ msgid "Gujarati (India)"
 msgstr "グジャラート語"
 
 #: zp-core/localeList.php:348
+#, fuzzy
 msgid "Gusii"
-msgstr ""
+msgstr "グシイ"
 
 #: zp-core/localeList.php:349
+#, fuzzy
 msgid "Gusii (Kenya)"
-msgstr ""
+msgstr "グシイ（ケニア）"
 
 #: zp-core/localeList.php:350
+#, fuzzy
 msgid "Manx"
-msgstr ""
+msgstr "Manx"
 
 #: zp-core/localeList.php:351
+#, fuzzy
 msgid "Manx (Isle of Man)"
-msgstr ""
+msgstr "マン島（マン島）"
 
 #: zp-core/localeList.php:352
+#, fuzzy
 msgid "Hausa"
-msgstr ""
+msgstr "ハウサ"
 
 #: zp-core/localeList.php:353
+#, fuzzy
 msgid "Hausa (Ghana)"
-msgstr ""
+msgstr "ハウサ（ガーナ）"
 
 #: zp-core/localeList.php:354
+#, fuzzy
 msgid "Hausa (Niger)"
-msgstr ""
+msgstr "ハウス（ニジェール）"
 
 #: zp-core/localeList.php:355
+#, fuzzy
 msgid "Hausa (Nigeria)"
-msgstr ""
+msgstr "ハウサ（ナイジェリア）"
 
 #: zp-core/localeList.php:356
+#, fuzzy
 msgid "Hawaiian"
-msgstr ""
+msgstr "ハワイアン"
 
 #: zp-core/localeList.php:357
 #, fuzzy
@@ -15823,7 +15879,7 @@ msgstr "ハンガリー語"
 #, fuzzy
 #| msgid "Albanian"
 msgid "Armenian"
-msgstr "アルバニア語"
+msgstr "アルメニア数字"
 
 #: zp-core/localeList.php:370
 #, fuzzy
@@ -15838,8 +15894,9 @@ msgid "Interlingua"
 msgstr "インターレース:"
 
 #: zp-core/localeList.php:372
+#, fuzzy
 msgid "Interlingua (World)"
-msgstr ""
+msgstr "インターリングア（世界）"
 
 #: zp-core/localeList.php:373
 msgid "Indonesian"
@@ -15852,8 +15909,9 @@ msgid "Indonesian (Indonesia)"
 msgstr "インドネシア語"
 
 #: zp-core/localeList.php:375
+#, fuzzy
 msgid "Igbo"
-msgstr ""
+msgstr "イボ語"
 
 #: zp-core/localeList.php:376
 #, fuzzy
@@ -15865,7 +15923,7 @@ msgstr "アラビア語(アルジェリア)"
 #, fuzzy
 #| msgid "Lithuanian"
 msgid "Sichuan Yi"
-msgstr "リトアニア語"
+msgstr "四川彝語"
 
 #: zp-core/localeList.php:378
 #, fuzzy
@@ -15887,7 +15945,7 @@ msgstr "アイスランド語"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian"
-msgstr "イタリア語(イタリア)"
+msgstr "イタリア語"
 
 #: zp-core/localeList.php:382
 msgid "Italian (Switzerland)"
@@ -15920,26 +15978,30 @@ msgid "Japanese (Japan)"
 msgstr "日本語"
 
 #: zp-core/localeList.php:388
+#, fuzzy
 msgid "Ngomba"
-msgstr ""
+msgstr "ゴンバ"
 
 #: zp-core/localeList.php:389
+#, fuzzy
 msgid "Ngomba (Cameroon)"
-msgstr ""
+msgstr "ゴンバ（カメルーン）"
 
 #: zp-core/localeList.php:390
+#, fuzzy
 msgid "Machame"
-msgstr ""
+msgstr "マカメ"
 
 #: zp-core/localeList.php:391
+#, fuzzy
 msgid "Machame (Tanzania)"
-msgstr ""
+msgstr "マカメ（タンザニア）"
 
 #: zp-core/localeList.php:392
 #, fuzzy
 #| msgid "Japanese"
 msgid "Javanese"
-msgstr "日本語"
+msgstr "ジャワ語"
 
 #: zp-core/localeList.php:393
 #, fuzzy
@@ -15951,7 +16013,7 @@ msgstr "日本語(JIS)"
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Georgian"
-msgstr "ノルウェー語"
+msgstr "グルジア語"
 
 #: zp-core/localeList.php:395
 #, fuzzy
@@ -15960,8 +16022,9 @@ msgid "Georgian (Georgia)"
 msgstr "ドイツ語(ドイツ)"
 
 #: zp-core/localeList.php:396
+#, fuzzy
 msgid "Kabyle"
-msgstr ""
+msgstr "カビル"
 
 #: zp-core/localeList.php:397
 #, fuzzy
@@ -15970,80 +16033,99 @@ msgid "Kabyle (Algeria)"
 msgstr "アラビア語(アルジェリア)"
 
 #: zp-core/localeList.php:398
+#, fuzzy
 msgid "Kamba"
-msgstr ""
+msgstr "かんば"
 
 #: zp-core/localeList.php:399
+#, fuzzy
 msgid "Kamba (Kenya)"
-msgstr ""
+msgstr "カンバ（ケニア）"
 
 #: zp-core/localeList.php:400
+#, fuzzy
 msgid "Makonde"
-msgstr ""
+msgstr "マコンデ"
 
 #: zp-core/localeList.php:401
+#, fuzzy
 msgid "Makonde (Tanzania)"
-msgstr ""
+msgstr "マコンデ（タンザニア）"
 
 #: zp-core/localeList.php:402
+#, fuzzy
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "カベルヴェディアヌ"
 
 #: zp-core/localeList.php:403
+#, fuzzy
 msgid "Kabuverdianu (Cape Verde)"
-msgstr ""
+msgstr "Kabuverdianu（カーボベルデ）"
 
 #: zp-core/localeList.php:404
+#, fuzzy
 msgid "Koyra Chiini"
-msgstr ""
+msgstr "コイラチイニ"
 
 #: zp-core/localeList.php:405
+#, fuzzy
 msgid "Koyra Chiini (Mali)"
-msgstr ""
+msgstr "コイラチーニ（マリ）"
 
 #: zp-core/localeList.php:406
+#, fuzzy
 msgid "Kikuyu"
-msgstr ""
+msgstr "キクユ"
 
 #: zp-core/localeList.php:407
+#, fuzzy
 msgid "Kikuyu (Kenya)"
-msgstr ""
+msgstr "キクユ（ケニア）"
 
 #: zp-core/localeList.php:408
+#, fuzzy
 msgid "Kazakh"
-msgstr ""
+msgstr "カザフ"
 
 #: zp-core/localeList.php:409
+#, fuzzy
 msgid "Kazakh (Kazakhstan)"
-msgstr ""
+msgstr "カザフ（カザフスタン）"
 
 #: zp-core/localeList.php:410
+#, fuzzy
 msgid "Kako"
-msgstr ""
+msgstr "加古"
 
 #: zp-core/localeList.php:411
+#, fuzzy
 msgid "Kako (Cameroon)"
-msgstr ""
+msgstr "カコ（カメルーン）"
 
 #: zp-core/localeList.php:412
+#, fuzzy
 msgid "Kalaallisut"
-msgstr ""
+msgstr "カララリスト"
 
 #: zp-core/localeList.php:413
+#, fuzzy
 msgid "Kalaallisut (Greenland)"
-msgstr ""
+msgstr "カララリスト（グリーンランド）"
 
 #: zp-core/localeList.php:414
+#, fuzzy
 msgid "Kalenjin"
-msgstr ""
+msgstr "カレンジン"
 
 #: zp-core/localeList.php:415
+#, fuzzy
 msgid "Kalenjin (Kenya)"
-msgstr ""
+msgstr "カレンジン（ケニア）"
 
 #: zp-core/localeList.php:416
+#, fuzzy
 msgid "Khmer"
-msgstr ""
+msgstr "クメール語"
 
 #: zp-core/localeList.php:417
 #, fuzzy
@@ -16052,8 +16134,9 @@ msgid "Khmer (Cambodia)"
 msgstr "カンボジア語"
 
 #: zp-core/localeList.php:418
+#, fuzzy
 msgid "Kannada"
-msgstr ""
+msgstr "カンナダ語"
 
 #: zp-core/localeList.php:419
 #, fuzzy
@@ -16074,8 +16157,9 @@ msgid "Korean (South Korea)"
 msgstr "韓国語(EUC)"
 
 #: zp-core/localeList.php:423
+#, fuzzy
 msgid "Konkani"
-msgstr ""
+msgstr "コンカニ"
 
 #: zp-core/localeList.php:424
 #, fuzzy
@@ -16084,8 +16168,9 @@ msgid "Konkani (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:425
+#, fuzzy
 msgid "Kashmiri"
-msgstr ""
+msgstr "カシミリ"
 
 #: zp-core/localeList.php:426
 #, fuzzy
@@ -16094,20 +16179,24 @@ msgid "Kashmiri (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:427
+#, fuzzy
 msgid "Shambala"
-msgstr ""
+msgstr "シャンバラ"
 
 #: zp-core/localeList.php:428
+#, fuzzy
 msgid "Shambala (Tanzania)"
-msgstr ""
+msgstr "シャンバラ（タンザニア）"
 
 #: zp-core/localeList.php:429
+#, fuzzy
 msgid "Bafia"
-msgstr ""
+msgstr "バフィア"
 
 #: zp-core/localeList.php:430
+#, fuzzy
 msgid "Bafia (Cameroon)"
-msgstr ""
+msgstr "バフィア（カメルーン）"
 
 #: zp-core/localeList.php:431
 #, fuzzy
@@ -16122,12 +16211,14 @@ msgid "Colognian (Germany)"
 msgstr "ドイツ語(ドイツ)"
 
 #: zp-core/localeList.php:433
+#, fuzzy
 msgid "Kurdish"
-msgstr ""
+msgstr "クルド語"
 
 #: zp-core/localeList.php:434
+#, fuzzy
 msgid "Kurdish (Turkey)"
-msgstr ""
+msgstr "クルド語（トルコ）"
 
 #: zp-core/localeList.php:435
 #, fuzzy
@@ -16142,12 +16233,14 @@ msgid "Cornish (United Kingdom)"
 msgstr "英語(イギリス)"
 
 #: zp-core/localeList.php:437
+#, fuzzy
 msgid "Kyrgyz"
-msgstr ""
+msgstr "キルギス"
 
 #: zp-core/localeList.php:438
+#, fuzzy
 msgid "Kyrgyz (Kyrgyzstan)"
-msgstr ""
+msgstr "キルギス（キルギス）"
 
 #: zp-core/localeList.php:439
 #, fuzzy
@@ -16155,14 +16248,15 @@ msgid "Langi"
 msgstr "言語:"
 
 #: zp-core/localeList.php:440
+#, fuzzy
 msgid "Langi (Tanzania)"
-msgstr ""
+msgstr "ランギ（タンザニア）"
 
 #: zp-core/localeList.php:441
 #, fuzzy
 #| msgid "French (Luxembourg)"
 msgid "Luxembourgish"
-msgstr "フランス語(ルクセンブルグ)"
+msgstr "ルクセンブルグ語"
 
 #: zp-core/localeList.php:442
 #, fuzzy
@@ -16177,12 +16271,14 @@ msgid "Ganda"
 msgstr "基本"
 
 #: zp-core/localeList.php:444
+#, fuzzy
 msgid "Ganda (Uganda)"
-msgstr ""
+msgstr "ガンダ（ウガンダ）"
 
 #: zp-core/localeList.php:445
+#, fuzzy
 msgid "Lakota"
-msgstr ""
+msgstr "ラコタ"
 
 #: zp-core/localeList.php:446
 #, fuzzy
@@ -16191,24 +16287,29 @@ msgid "Lakota (United States)"
 msgstr "英語(アメリカ合衆国)"
 
 #: zp-core/localeList.php:447
+#, fuzzy
 msgid "Lingala"
-msgstr ""
+msgstr "リンガラ"
 
 #: zp-core/localeList.php:448
+#, fuzzy
 msgid "Lingala (Angola)"
-msgstr ""
+msgstr "リンガラ語（アンゴラ）"
 
 #: zp-core/localeList.php:449
+#, fuzzy
 msgid "Lingala (Congo - Kinshasa)"
-msgstr ""
+msgstr "リンガラ（コンゴ - キンシャサ）"
 
 #: zp-core/localeList.php:450
+#, fuzzy
 msgid "Lingala (Central African Republic)"
-msgstr ""
+msgstr "リンガラ（中央アフリカ共和国）"
 
 #: zp-core/localeList.php:451
+#, fuzzy
 msgid "Lingala (Congo - Brazzaville)"
-msgstr ""
+msgstr "リンガラ語（コンゴ - ブラザビル）"
 
 #: zp-core/localeList.php:452
 #, fuzzy
@@ -16217,12 +16318,14 @@ msgid "Lao"
 msgstr "Low"
 
 #: zp-core/localeList.php:453
+#, fuzzy
 msgid "Lao (Laos)"
-msgstr ""
+msgstr "ラオス語"
 
 #: zp-core/localeList.php:454
+#, fuzzy
 msgid "Northern Luri"
-msgstr ""
+msgstr "北部ルリ"
 
 #: zp-core/localeList.php:455
 #, fuzzy
@@ -16245,12 +16348,14 @@ msgid "Lithuanian (Lithuania)"
 msgstr "リトアニア語"
 
 #: zp-core/localeList.php:459
+#, fuzzy
 msgid "Luba-Katanga"
-msgstr ""
+msgstr "ルバカタンガ"
 
 #: zp-core/localeList.php:460
+#, fuzzy
 msgid "Luba-Katanga (Congo - Kinshasa)"
-msgstr ""
+msgstr "ルバカタンガ（コンゴ - キンシャサ）"
 
 #: zp-core/localeList.php:461
 #, fuzzy
@@ -16259,16 +16364,19 @@ msgid "Luo"
 msgstr "Low"
 
 #: zp-core/localeList.php:462
+#, fuzzy
 msgid "Luo (Kenya)"
-msgstr ""
+msgstr "羅（ケニア）"
 
 #: zp-core/localeList.php:463
+#, fuzzy
 msgid "Luyia"
-msgstr ""
+msgstr "ルイア"
 
 #: zp-core/localeList.php:464
+#, fuzzy
 msgid "Luyia (Kenya)"
-msgstr ""
+msgstr "ルイア（ケニア）"
 
 #: zp-core/localeList.php:465
 msgid "Latvian"
@@ -16281,32 +16389,39 @@ msgid "Latvian (Latvia)"
 msgstr "ラトビア語"
 
 #: zp-core/localeList.php:467
+#, fuzzy
 msgid "Masai"
-msgstr ""
+msgstr "マサイ"
 
 #: zp-core/localeList.php:468
+#, fuzzy
 msgid "Masai (Kenya)"
-msgstr ""
+msgstr "マサイ（ケニア）"
 
 #: zp-core/localeList.php:469
+#, fuzzy
 msgid "Masai (Tanzania)"
-msgstr ""
+msgstr "マサイ（タンザニア）"
 
 #: zp-core/localeList.php:470
+#, fuzzy
 msgid "Meru"
-msgstr ""
+msgstr "メル"
 
 #: zp-core/localeList.php:471
+#, fuzzy
 msgid "Meru (Kenya)"
-msgstr ""
+msgstr "メル（ケニア）"
 
 #: zp-core/localeList.php:472
+#, fuzzy
 msgid "Morisyen"
-msgstr ""
+msgstr "モリシエン"
 
 #: zp-core/localeList.php:473
+#, fuzzy
 msgid "Morisyen (Mauritius)"
-msgstr ""
+msgstr "Morisyen（モーリシャス）"
 
 #: zp-core/localeList.php:474
 msgid "Malagasy"
@@ -16318,24 +16433,29 @@ msgid "Malagasy (Madagascar)"
 msgstr "マダガスカル語"
 
 #: zp-core/localeList.php:476
+#, fuzzy
 msgid "Makhuwa-Meetto"
-msgstr ""
+msgstr "マクファミート"
 
 #: zp-core/localeList.php:477
+#, fuzzy
 msgid "Makhuwa-Meetto (Mozambique)"
-msgstr ""
+msgstr "マクワミート（モザンビーク）"
 
 #: zp-core/localeList.php:478
+#, fuzzy
 msgid "Metaʼ"
-msgstr ""
+msgstr "メタ"
 
 #: zp-core/localeList.php:479
+#, fuzzy
 msgid "Metaʼ (Cameroon)"
-msgstr ""
+msgstr "メタ（カメルーン）"
 
 #: zp-core/localeList.php:480
+#, fuzzy
 msgid "Maori"
-msgstr ""
+msgstr "マオリ語"
 
 #: zp-core/localeList.php:481
 #, fuzzy
@@ -16357,7 +16477,7 @@ msgstr "マケドニア語"
 #, fuzzy
 #| msgid "Malay"
 msgid "Malayalam"
-msgstr "マレー語"
+msgstr "マラヤーラム語"
 
 #: zp-core/localeList.php:485
 #, fuzzy
@@ -16378,7 +16498,7 @@ msgstr "モンゴル語"
 #, fuzzy
 #| msgid "Gujarati"
 msgid "Marathi"
-msgstr "グジャラート語"
+msgstr "マラーティー語"
 
 #: zp-core/localeList.php:489
 #, fuzzy
@@ -16406,8 +16526,9 @@ msgid "Malay (Singapore)"
 msgstr "マレー語"
 
 #: zp-core/localeList.php:494
+#, fuzzy
 msgid "Maltese"
-msgstr ""
+msgstr "マルタ語"
 
 #: zp-core/localeList.php:495
 #, fuzzy
@@ -16416,24 +16537,29 @@ msgid "Maltese (Malta)"
 msgstr "Malte Müller (acrylian)"
 
 #: zp-core/localeList.php:496
+#, fuzzy
 msgid "Mundang"
-msgstr ""
+msgstr "ムンダン"
 
 #: zp-core/localeList.php:497
+#, fuzzy
 msgid "Mundang (Cameroon)"
-msgstr ""
+msgstr "ムンダン（カメルーン）"
 
 #: zp-core/localeList.php:498
+#, fuzzy
 msgid "Burmese"
-msgstr ""
+msgstr "ビルマ語"
 
 #: zp-core/localeList.php:499
+#, fuzzy
 msgid "Burmese (Myanmar [Burma])"
-msgstr ""
+msgstr "ビルマ語（ミャンマー[ビルマ]）"
 
 #: zp-core/localeList.php:500
+#, fuzzy
 msgid "Mazanderani"
-msgstr ""
+msgstr "マザンデラニ"
 
 #: zp-core/localeList.php:501
 #, fuzzy
@@ -16442,12 +16568,14 @@ msgid "Mazanderani (Iran)"
 msgstr "アラビア語(イラン)"
 
 #: zp-core/localeList.php:502
+#, fuzzy
 msgid "Nama"
-msgstr ""
+msgstr "なま"
 
 #: zp-core/localeList.php:503
+#, fuzzy
 msgid "Nama (Namibia)"
-msgstr ""
+msgstr "なま（ナミビア）"
 
 #: zp-core/localeList.php:504
 #, fuzzy
@@ -16468,8 +16596,9 @@ msgid "Norwegian Bokmål (Svalbard & Jan Mayen)"
 msgstr "ノルウェー語(ブークモール)"
 
 #: zp-core/localeList.php:507
+#, fuzzy
 msgid "North Ndebele"
-msgstr ""
+msgstr "北ンデベレ語"
 
 #: zp-core/localeList.php:508
 #, fuzzy
@@ -16494,8 +16623,9 @@ msgid "Low German (Netherlands)"
 msgstr "オランダ語(オランダ)"
 
 #: zp-core/localeList.php:512
+#, fuzzy
 msgid "Nepali"
-msgstr ""
+msgstr "ネパール語"
 
 #: zp-core/localeList.php:513
 #, fuzzy
@@ -16504,13 +16634,14 @@ msgid "Nepali (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:514
+#, fuzzy
 msgid "Nepali (Nepal)"
-msgstr ""
+msgstr "ネパール語（ネパール）"
 
 #: zp-core/localeList.php:515
 #, fuzzy
 msgid "Dutch"
-msgstr "オランダ語(ベルギー)"
+msgstr "オランダ語"
 
 #: zp-core/localeList.php:516
 #, fuzzy
@@ -16551,18 +16682,20 @@ msgid "Dutch (Sint Maarten)"
 msgstr "オランダ語(オランダ)"
 
 #: zp-core/localeList.php:523
+#, fuzzy
 msgid "Kwasio"
-msgstr ""
+msgstr "クワシオ"
 
 #: zp-core/localeList.php:524
+#, fuzzy
 msgid "Kwasio (Cameroon)"
-msgstr ""
+msgstr "クワシオ（カメルーン）"
 
 #: zp-core/localeList.php:525
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Norwegian Nynorsk"
-msgstr "ノルウェー語"
+msgstr "ノルウェー語 (ニーノシュク)"
 
 #: zp-core/localeList.php:526
 #, fuzzy
@@ -16570,16 +16703,19 @@ msgid "Norwegian Nynorsk (Norway)"
 msgstr "ノルウェー語(ブークモール)"
 
 #: zp-core/localeList.php:527
+#, fuzzy
 msgid "Ngiemboon"
-msgstr ""
+msgstr "ギエンブーン"
 
 #: zp-core/localeList.php:528
+#, fuzzy
 msgid "Ngiemboon (Cameroon)"
-msgstr ""
+msgstr "Ngiemboon（カメルーン）"
 
 #: zp-core/localeList.php:529
+#, fuzzy
 msgid "Nuer"
-msgstr ""
+msgstr "ニュル"
 
 #: zp-core/localeList.php:530
 #, fuzzy
@@ -16587,28 +16723,34 @@ msgid "Nuer (South Sudan)"
 msgstr "アラビア語(スーダン)"
 
 #: zp-core/localeList.php:531
+#, fuzzy
 msgid "Nyankole"
-msgstr ""
+msgstr "ニャンコレ"
 
 #: zp-core/localeList.php:532
+#, fuzzy
 msgid "Nyankole (Uganda)"
-msgstr ""
+msgstr "ニャンコレ（ウガンダ）"
 
 #: zp-core/localeList.php:533
+#, fuzzy
 msgid "Oromo"
-msgstr ""
+msgstr "オロモ"
 
 #: zp-core/localeList.php:534
+#, fuzzy
 msgid "Oromo (Ethiopia)"
-msgstr ""
+msgstr "オロモ（エチオピア）"
 
 #: zp-core/localeList.php:535
+#, fuzzy
 msgid "Oromo (Kenya)"
-msgstr ""
+msgstr "オロモ（ケニア）"
 
 #: zp-core/localeList.php:536
+#, fuzzy
 msgid "Odia"
-msgstr ""
+msgstr "オディア"
 
 #: zp-core/localeList.php:537
 #, fuzzy
@@ -16617,12 +16759,14 @@ msgid "Odia (India)"
 msgstr "英語(インド)"
 
 #: zp-core/localeList.php:538
+#, fuzzy
 msgid "Ossetic"
-msgstr ""
+msgstr "オセティック"
 
 #: zp-core/localeList.php:539
+#, fuzzy
 msgid "Ossetic (Georgia)"
-msgstr ""
+msgstr "Ossetic（ジョージア州）"
 
 #: zp-core/localeList.php:540
 #, fuzzy
@@ -16631,8 +16775,9 @@ msgid "Ossetic (Russia)"
 msgstr "ロシア語(ロシア)"
 
 #: zp-core/localeList.php:541
+#, fuzzy
 msgid "Punjabi"
-msgstr ""
+msgstr "パンジャーブ語"
 
 #: zp-core/localeList.php:542
 #, fuzzy
@@ -16645,8 +16790,9 @@ msgid "Punjabi (Arabic, Pakistan)"
 msgstr "アラビア語"
 
 #: zp-core/localeList.php:544
+#, fuzzy
 msgid "Punjabi (Gurmukhi)"
-msgstr ""
+msgstr "パンジャブ語（Gurmukhi）"
 
 #: zp-core/localeList.php:545
 #, fuzzy
@@ -16664,18 +16810,20 @@ msgid "Polish (Poland)"
 msgstr "ポーランド語"
 
 #: zp-core/localeList.php:548
+#, fuzzy
 msgid "Pashto"
-msgstr ""
+msgstr "パシュトゥー語"
 
 #: zp-core/localeList.php:549
+#, fuzzy
 msgid "Pashto (Afghanistan)"
-msgstr ""
+msgstr "パシュト（アフガニスタン）"
 
 #: zp-core/localeList.php:550
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese"
-msgstr "ポルトガル語(ブラジル)"
+msgstr "ポルトガル語"
 
 #: zp-core/localeList.php:551
 #, fuzzy
@@ -16734,8 +16882,9 @@ msgid "Portuguese (Portugal)"
 msgstr "ポルトガル語(ポルトガル)"
 
 #: zp-core/localeList.php:561
+#, fuzzy
 msgid "Portuguese (São Tomé & Príncipe)"
-msgstr ""
+msgstr "ポルトガル語（サントメプリンシペ）"
 
 #: zp-core/localeList.php:562
 #, fuzzy
@@ -16744,8 +16893,9 @@ msgid "Portuguese (Timor-Leste)"
 msgstr "ポルトガル語(ポルトガル)"
 
 #: zp-core/localeList.php:563
+#, fuzzy
 msgid "Quechua"
-msgstr ""
+msgstr "ケチュア語"
 
 #: zp-core/localeList.php:564
 #, fuzzy
@@ -16777,12 +16927,14 @@ msgid "Romansh (Switzerland)"
 msgstr "イタリア語(スイス)"
 
 #: zp-core/localeList.php:569
+#, fuzzy
 msgid "Rundi"
-msgstr ""
+msgstr "ルンディ"
 
 #: zp-core/localeList.php:570
+#, fuzzy
 msgid "Rundi (Burundi)"
-msgstr ""
+msgstr "ルンディ語（ブルンジ）"
 
 #: zp-core/localeList.php:571
 msgid "Romanian"
@@ -16801,18 +16953,20 @@ msgid "Romanian (Romania)"
 msgstr "ルーマニア語"
 
 #: zp-core/localeList.php:574
+#, fuzzy
 msgid "Rombo"
-msgstr ""
+msgstr "ロンボー"
 
 #: zp-core/localeList.php:575
+#, fuzzy
 msgid "Rombo (Tanzania)"
-msgstr ""
+msgstr "ロンボ（タンザニア）"
 
 #: zp-core/localeList.php:576
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Russian"
-msgstr "ロシア語(ロシア)"
+msgstr "ロシア語"
 
 #: zp-core/localeList.php:577
 #, fuzzy
@@ -16847,24 +17001,29 @@ msgid "Russian (Ukraine)"
 msgstr "ロシア語(ウクライナ)"
 
 #: zp-core/localeList.php:583
+#, fuzzy
 msgid "Kinyarwanda"
-msgstr ""
+msgstr "ルワンダ"
 
 #: zp-core/localeList.php:584
+#, fuzzy
 msgid "Kinyarwanda (Rwanda)"
-msgstr ""
+msgstr "ルワンダ"
 
 #: zp-core/localeList.php:585
+#, fuzzy
 msgid "Rwa"
-msgstr ""
+msgstr "ルワ"
 
 #: zp-core/localeList.php:586
+#, fuzzy
 msgid "Rwa (Tanzania)"
-msgstr ""
+msgstr "ルワ（タンザニア）"
 
 #: zp-core/localeList.php:587
+#, fuzzy
 msgid "Sakha"
-msgstr ""
+msgstr "サハ"
 
 #: zp-core/localeList.php:588
 #, fuzzy
@@ -16873,12 +17032,14 @@ msgid "Sakha (Russia)"
 msgstr "ロシア語(ロシア)"
 
 #: zp-core/localeList.php:589
+#, fuzzy
 msgid "Samburu"
-msgstr ""
+msgstr "サンブル"
 
 #: zp-core/localeList.php:590
+#, fuzzy
 msgid "Samburu (Kenya)"
-msgstr ""
+msgstr "サンブル（ケニア）"
 
 #: zp-core/localeList.php:591
 #, fuzzy
@@ -16886,12 +17047,14 @@ msgid "Sangu"
 msgstr "言語:"
 
 #: zp-core/localeList.php:592
+#, fuzzy
 msgid "Sangu (Tanzania)"
-msgstr ""
+msgstr "Sangu（タンザニア）"
 
 #: zp-core/localeList.php:593
+#, fuzzy
 msgid "Sindhi"
-msgstr ""
+msgstr "シンディ"
 
 #: zp-core/localeList.php:594
 #, fuzzy
@@ -16900,8 +17063,9 @@ msgid "Sindhi (Pakistan)"
 msgstr "ウルドゥー語(パキスタン)"
 
 #: zp-core/localeList.php:595
+#, fuzzy
 msgid "Northern Sami"
-msgstr ""
+msgstr "北サーミ"
 
 #: zp-core/localeList.php:596
 #, fuzzy
@@ -16910,8 +17074,9 @@ msgid "Northern Sami (Finland)"
 msgstr "スウェーデン語(フィンランド)"
 
 #: zp-core/localeList.php:597
+#, fuzzy
 msgid "Northern Sami (Norway)"
-msgstr ""
+msgstr "北サーミ（ノルウェー）"
 
 #: zp-core/localeList.php:598
 #, fuzzy
@@ -16919,24 +17084,29 @@ msgid "Northern Sami (Sweden)"
 msgstr "スウェーデン語(スウェーデン)"
 
 #: zp-core/localeList.php:599
+#, fuzzy
 msgid "Sena"
-msgstr ""
+msgstr "セナ"
 
 #: zp-core/localeList.php:600
+#, fuzzy
 msgid "Sena (Mozambique)"
-msgstr ""
+msgstr "セナ（モザンビーク）"
 
 #: zp-core/localeList.php:601
+#, fuzzy
 msgid "Koyraboro Senni"
-msgstr ""
+msgstr "こコラボロセンニ"
 
 #: zp-core/localeList.php:602
+#, fuzzy
 msgid "Koyraboro Senni (Mali)"
-msgstr ""
+msgstr "コラボロ・センニ（マリ）"
 
 #: zp-core/localeList.php:603
+#, fuzzy
 msgid "Sango"
-msgstr ""
+msgstr "三郷"
 
 #: zp-core/localeList.php:604
 #, fuzzy
@@ -16961,8 +17131,9 @@ msgid "Tachelhit (Latin, Morocco)"
 msgstr "アラビア語(モロッコ)"
 
 #: zp-core/localeList.php:608
+#, fuzzy
 msgid "Tachelhit (Tifinagh)"
-msgstr ""
+msgstr "Tachelhit（Tifinagh）"
 
 #: zp-core/localeList.php:609
 #, fuzzy
@@ -16998,8 +17169,9 @@ msgid "Slovenian (Slovenia)"
 msgstr "スロベニア語"
 
 #: zp-core/localeList.php:616
+#, fuzzy
 msgid "Inari Sami"
-msgstr ""
+msgstr "稲荷沙美"
 
 #: zp-core/localeList.php:617
 #, fuzzy
@@ -17008,8 +17180,9 @@ msgid "Inari Sami (Finland)"
 msgstr "スウェーデン語(フィンランド)"
 
 #: zp-core/localeList.php:618
+#, fuzzy
 msgid "Shona"
-msgstr ""
+msgstr "ショナ"
 
 #: zp-core/localeList.php:619
 #, fuzzy
@@ -17018,24 +17191,29 @@ msgid "Shona (Zimbabwe)"
 msgstr "英語(ジンバブエ)"
 
 #: zp-core/localeList.php:620
+#, fuzzy
 msgid "Somali"
-msgstr ""
+msgstr "ソマリア語"
 
 #: zp-core/localeList.php:621
+#, fuzzy
 msgid "Somali (Djibouti)"
-msgstr ""
+msgstr "ソマリア語（ジブチ）"
 
 #: zp-core/localeList.php:622
+#, fuzzy
 msgid "Somali (Ethiopia)"
-msgstr ""
+msgstr "ソマリア（エチオピア）"
 
 #: zp-core/localeList.php:623
+#, fuzzy
 msgid "Somali (Kenya)"
-msgstr ""
+msgstr "ソマリア（ケニア）"
 
 #: zp-core/localeList.php:624
+#, fuzzy
 msgid "Somali (Somalia)"
-msgstr ""
+msgstr "ソマリア（ソマリア）"
 
 #: zp-core/localeList.php:625
 msgid "Albanian"
@@ -17069,8 +17247,9 @@ msgid "Serbian (Cyrillic)"
 msgstr "セルビア語"
 
 #: zp-core/localeList.php:631
+#, fuzzy
 msgid "Serbian (Cyrillic, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "セルビア語（キリル、ボスニア、ヘルツェゴビナ）"
 
 #: zp-core/localeList.php:632
 #, fuzzy
@@ -17094,8 +17273,9 @@ msgid "Serbian (Latin)"
 msgstr "セルビア語"
 
 #: zp-core/localeList.php:636
+#, fuzzy
 msgid "Serbian (Latin, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "セルビア語（ラテン語、ボスニア・ヘルツェゴビナ）"
 
 #: zp-core/localeList.php:637
 #, fuzzy
@@ -17117,7 +17297,7 @@ msgstr "セルビア語"
 #, fuzzy
 #| msgid "Swedish (Sweden)"
 msgid "Swedish"
-msgstr "スウェーデン語(スウェーデン)"
+msgstr "スウェーデン語"
 
 #: zp-core/localeList.php:641
 #, fuzzy
@@ -17134,24 +17314,29 @@ msgid "Swedish (Sweden)"
 msgstr "スウェーデン語(スウェーデン)"
 
 #: zp-core/localeList.php:644
+#, fuzzy
 msgid "Swahili"
-msgstr ""
+msgstr "スワヒリ語"
 
 #: zp-core/localeList.php:645
+#, fuzzy
 msgid "Swahili (Congo - Kinshasa)"
-msgstr ""
+msgstr "スワヒリ語（コンゴ - キンシャサ）"
 
 #: zp-core/localeList.php:646
+#, fuzzy
 msgid "Swahili (Kenya)"
-msgstr ""
+msgstr "スワヒリ語（ケニア）"
 
 #: zp-core/localeList.php:647
+#, fuzzy
 msgid "Swahili (Tanzania)"
-msgstr ""
+msgstr "スワヒリ語（タンザニア）"
 
 #: zp-core/localeList.php:648
+#, fuzzy
 msgid "Swahili (Uganda)"
-msgstr ""
+msgstr "スワヒリ語（ウガンダ）"
 
 #: zp-core/localeList.php:649
 msgid "Tamil"
@@ -17189,12 +17374,14 @@ msgid "Telugu (India)"
 msgstr "テルグ語"
 
 #: zp-core/localeList.php:656
+#, fuzzy
 msgid "Teso"
-msgstr ""
+msgstr "テソ"
 
 #: zp-core/localeList.php:657
+#, fuzzy
 msgid "Teso (Kenya)"
-msgstr ""
+msgstr "テソ（ケニア）"
 
 #: zp-core/localeList.php:658
 #, fuzzy
@@ -17203,8 +17390,9 @@ msgid "Teso (Uganda)"
 msgstr "画像 (スタンダード)"
 
 #: zp-core/localeList.php:659
+#, fuzzy
 msgid "Tajik"
-msgstr ""
+msgstr "タジク"
 
 #: zp-core/localeList.php:660
 #, fuzzy
@@ -17223,32 +17411,39 @@ msgid "Thai (Thailand)"
 msgstr "タイ語(Windows)"
 
 #: zp-core/localeList.php:663
+#, fuzzy
 msgid "Tigrinya"
-msgstr ""
+msgstr "ティグリニャ"
 
 #: zp-core/localeList.php:664
+#, fuzzy
 msgid "Tigrinya (Eritrea)"
-msgstr ""
+msgstr "ティグリニャ（エリトリア）"
 
 #: zp-core/localeList.php:665
+#, fuzzy
 msgid "Tigrinya (Ethiopia)"
-msgstr ""
+msgstr "ティグリニャ（エチオピア）"
 
 #: zp-core/localeList.php:666
+#, fuzzy
 msgid "Turkmen"
-msgstr ""
+msgstr "トルクメン"
 
 #: zp-core/localeList.php:667
+#, fuzzy
 msgid "Turkmen (Turkmenistan)"
-msgstr ""
+msgstr "トルクメン（トルクメニスタン）"
 
 #: zp-core/localeList.php:668
+#, fuzzy
 msgid "Tongan"
-msgstr ""
+msgstr "トンガ"
 
 #: zp-core/localeList.php:669
+#, fuzzy
 msgid "Tongan (Tonga)"
-msgstr ""
+msgstr "トンガ（トンガ）"
 
 #: zp-core/localeList.php:670
 msgid "Turkish"
@@ -17267,8 +17462,9 @@ msgid "Turkish (Turkey)"
 msgstr "トルコ語"
 
 #: zp-core/localeList.php:673
+#, fuzzy
 msgid "Tatar"
-msgstr ""
+msgstr "タタール語"
 
 #: zp-core/localeList.php:674
 #, fuzzy
@@ -17277,12 +17473,14 @@ msgid "Tatar (Russia)"
 msgstr "ロシア語(ロシア)"
 
 #: zp-core/localeList.php:675
+#, fuzzy
 msgid "Tasawaq"
-msgstr ""
+msgstr "タサワック"
 
 #: zp-core/localeList.php:676
+#, fuzzy
 msgid "Tasawaq (Niger)"
-msgstr ""
+msgstr "タサワック（ニジェール）"
 
 #: zp-core/localeList.php:677
 #, fuzzy
@@ -17290,16 +17488,19 @@ msgid "Central Atlas Tamazight"
 msgstr "中央ヨーロッパ(DOS)"
 
 #: zp-core/localeList.php:678
+#, fuzzy
 msgid "Central Atlas Tamazight (Morocco)"
-msgstr ""
+msgstr "中央アトラスタマザイト（モロッコ）"
 
 #: zp-core/localeList.php:679
+#, fuzzy
 msgid "Uyghur"
-msgstr ""
+msgstr "ウイグル語"
 
 #: zp-core/localeList.php:680
+#, fuzzy
 msgid "Uyghur (China)"
-msgstr ""
+msgstr "ウイグル（中国）"
 
 #: zp-core/localeList.php:681
 msgid "Ukrainian"
@@ -17314,7 +17515,7 @@ msgstr "ウクライナ語"
 #: zp-core/localeList.php:683
 #, fuzzy
 msgid "Urdu"
-msgstr "ウルドゥー語(パキスタン)"
+msgstr "ウルドゥー語"
 
 #: zp-core/localeList.php:684
 #, fuzzy
@@ -17363,8 +17564,9 @@ msgid "Uzbek (Latin, Uzbekistan)"
 msgstr "ウズベキスタン語"
 
 #: zp-core/localeList.php:693
+#, fuzzy
 msgid "Vai"
-msgstr ""
+msgstr "ヴァイ"
 
 #: zp-core/localeList.php:694
 #, fuzzy
@@ -17378,12 +17580,14 @@ msgid "Vai (Latin, Liberia)"
 msgstr "スペイン語(ラテンアメリカ)"
 
 #: zp-core/localeList.php:696
+#, fuzzy
 msgid "Vai (Vai)"
-msgstr ""
+msgstr "ヴァイ（Vai）"
 
 #: zp-core/localeList.php:697
+#, fuzzy
 msgid "Vai (Vai, Liberia)"
-msgstr ""
+msgstr "ヴァイ（ヴァイ、リベリア）"
 
 #: zp-core/localeList.php:698
 msgid "Vietnamese"
@@ -17396,16 +17600,19 @@ msgid "Vietnamese (Vietnam)"
 msgstr "ベトナム語"
 
 #: zp-core/localeList.php:700
+#, fuzzy
 msgid "Vunjo"
-msgstr ""
+msgstr "ブンジョー"
 
 #: zp-core/localeList.php:701
+#, fuzzy
 msgid "Vunjo (Tanzania)"
-msgstr ""
+msgstr "ブンジョー（タンザニア）"
 
 #: zp-core/localeList.php:702
+#, fuzzy
 msgid "Walser"
-msgstr ""
+msgstr "ウォルサー"
 
 #: zp-core/localeList.php:703
 #, fuzzy
@@ -17414,16 +17621,19 @@ msgid "Walser (Switzerland)"
 msgstr "フランス語(スイス)"
 
 #: zp-core/localeList.php:704
+#, fuzzy
 msgid "Wolof"
-msgstr ""
+msgstr "ウォロフ"
 
 #: zp-core/localeList.php:705
+#, fuzzy
 msgid "Wolof (Senegal)"
-msgstr ""
+msgstr "ウォロフ（セネガル）"
 
 #: zp-core/localeList.php:706
+#, fuzzy
 msgid "Xhosa"
-msgstr ""
+msgstr "コーサ"
 
 #: zp-core/localeList.php:707
 #, fuzzy
@@ -17432,36 +17642,44 @@ msgid "Xhosa (South Africa)"
 msgstr "英語(南アフリカ)"
 
 #: zp-core/localeList.php:708
+#, fuzzy
 msgid "Soga"
-msgstr ""
+msgstr "そが"
 
 #: zp-core/localeList.php:709
+#, fuzzy
 msgid "Soga (Uganda)"
-msgstr ""
+msgstr "蘇我（ウガンダ）"
 
 #: zp-core/localeList.php:710
+#, fuzzy
 msgid "Yangben"
-msgstr ""
+msgstr "ヤンベン"
 
 #: zp-core/localeList.php:711
+#, fuzzy
 msgid "Yangben (Cameroon)"
-msgstr ""
+msgstr "ヤンベン（カメルーン）"
 
 #: zp-core/localeList.php:712
+#, fuzzy
 msgid "Yiddish"
-msgstr ""
+msgstr "イディッシュ語"
 
 #: zp-core/localeList.php:713
+#, fuzzy
 msgid "Yiddish (World)"
-msgstr ""
+msgstr "イディッシュ語（世界）"
 
 #: zp-core/localeList.php:714
+#, fuzzy
 msgid "Yoruba"
-msgstr ""
+msgstr "ヨルバ"
 
 #: zp-core/localeList.php:715
+#, fuzzy
 msgid "Yoruba (Benin)"
-msgstr ""
+msgstr "ヨルバ（ベナン）"
 
 #: zp-core/localeList.php:716
 #, fuzzy
@@ -17470,8 +17688,9 @@ msgid "Yoruba (Nigeria)"
 msgstr "アラビア語(アルジェリア)"
 
 #: zp-core/localeList.php:717
+#, fuzzy
 msgid "Cantonese"
-msgstr ""
+msgstr "広東語"
 
 #: zp-core/localeList.php:718
 #, fuzzy
@@ -17492,8 +17711,9 @@ msgid "Cantonese (Traditional)"
 msgstr "繁体字"
 
 #: zp-core/localeList.php:721
+#, fuzzy
 msgid "Cantonese (Traditional, Hong Kong SAR China)"
-msgstr ""
+msgstr "広東語（繁体字、香港特別行政区）"
 
 #: zp-core/localeList.php:722
 #, fuzzy
@@ -17502,14 +17722,15 @@ msgid "Standard Moroccan Tamazight"
 msgstr "*基本メニュー"
 
 #: zp-core/localeList.php:723
+#, fuzzy
 msgid "Standard Moroccan Tamazight (Morocco)"
-msgstr ""
+msgstr "標準モロッコタマザイト（モロッコ）"
 
 #: zp-core/localeList.php:724
 #, fuzzy
 #| msgid "Chinese (Taiwan)"
 msgid "Chinese"
-msgstr "中国語(香港)"
+msgstr "簡体字(EUC)"
 
 #: zp-core/localeList.php:725
 #, fuzzy
@@ -17576,8 +17797,9 @@ msgid "Chinese (Traditional, Taiwan)"
 msgstr "中国語(台湾)"
 
 #: zp-core/localeList.php:736
+#, fuzzy
 msgid "Zulu"
-msgstr ""
+msgstr "ズールー語"
 
 #: zp-core/localeList.php:737
 #, fuzzy
@@ -17590,21 +17812,120 @@ msgid "There are no upload handlers enabled that can service your request."
 msgstr ""
 "あなたの要求にサービスを提供できる有効なアップロードハンドラはありません。"
 
-#: zp-core/pluginDoc.php:280
+#: zp-core/page_error.php:9
+#, fuzzy
+msgid "Bad Request"
+msgstr "間違ったリクエスト"
+
+#: zp-core/page_error.php:12
+#, fuzzy
+#| msgid "*not categorized*"
+msgid "Unauthorized"
+msgstr "無許可"
+
+#: zp-core/page_error.php:15
+#, fuzzy
+#| msgid "Update Required"
+msgid "Payment Required"
+msgstr "支払いが必要"
+
+#: zp-core/page_error.php:21
+#, fuzzy
+msgid "Not Found"
+msgstr "見つかったアルバムに戻る"
+
+#: zp-core/page_error.php:24
+#, fuzzy
+#| msgid "Filetype not allowed"
+msgid "Method Not Allowed"
+msgstr "メソッドは許可されていません。"
+
+#: zp-core/page_error.php:27
+#, fuzzy
+msgid "Not Acceptable"
+msgstr "許容できない"
+
+#: zp-core/page_error.php:30
+#, fuzzy
+#| msgid "Authenticate user"
+msgid "Proxy Authentication Required"
+msgstr "プロキシ認証が必要"
+
+#: zp-core/page_error.php:33
+#, fuzzy
+#| msgid "Timeout"
+msgid "Request Time-out"
+msgstr "タイムアウト"
+
+#: zp-core/page_error.php:36
+#, fuzzy
+#| msgid "Confirm"
+msgid "Conflict"
+msgstr "確認"
+
+#: zp-core/page_error.php:39
+#, fuzzy
+msgid "Gone"
+msgstr "なくなった"
+
+#: zp-core/page_error.php:42
+#, fuzzy
+#| msgid "Require"
+msgid "Length Required"
+msgstr "必要な長さ"
+
+#: zp-core/page_error.php:45
+#, fuzzy
+#| msgid "database connected"
+msgid "Precondition Failed"
+msgstr "前提条件失敗"
+
+#: zp-core/page_error.php:48
+#, fuzzy
+msgid "Request Entity Too Large"
+msgstr "要求エンティティが大きすぎます"
+
+#: zp-core/page_error.php:51
+#, fuzzy
+msgid "Request-URI Too Large"
+msgstr "要求URIが大きすぎる"
+
+#: zp-core/page_error.php:54
+#, fuzzy
+msgid "Unsupported Media Type"
+msgstr "サポートされていないメディアタイプ"
+
+#: zp-core/page_error.php:88
+#, fuzzy
+msgid "Something went wrong"
+msgstr "問題がありました"
+
+#: zp-core/page_error.php:94
+#, fuzzy, php-format
+#| msgid "Owner"
+msgid "URL: %1$s"
+msgstr "所有者"
+
+#: zp-core/page_error.php:97
+#, fuzzy, php-format
+msgid "HTTP status: %1$s"
+msgstr "HTTPステータス：%1$s"
+
+#: zp-core/pluginDoc.php:282
 msgid "Plugin usage information"
 msgstr "プラグインの使用方法の情報"
 
-#: zp-core/pluginDoc.php:281
+#: zp-core/pluginDoc.php:283
 #, php-format
 msgid "%1$s %2$s: %3$s"
 msgstr "%1$s %2$s: %3$s"
 
-#: zp-core/pluginDoc.php:472
+#: zp-core/pluginDoc.php:477
 msgid "Option:"
 msgid_plural "Options:"
 msgstr[0] "オプション:"
 
-#: zp-core/pluginDoc.php:568
+#: zp-core/pluginDoc.php:573
 msgid "Macro defined:"
 msgid_plural "Macros defined:"
 msgstr[0] "定義済みマクロ:"
@@ -17730,7 +18051,7 @@ msgstr "管理"
 msgid "by cloning"
 msgstr "クローニングによって"
 
-#: zp-core/rewrite.php:140
+#: zp-core/rewrite.php:169
 #, fuzzy, php-format
 msgid "Error processing rewrite rule: “%s”"
 msgstr "Rewriteルールの処理中のエラー:"
@@ -17832,7 +18153,7 @@ msgstr "データベース証明のPOST"
 #: zp-core/setup/index.php:422
 #, fuzzy
 msgid "Started"
-msgstr "テーマ:%s のセットアップを開始しました"
+msgstr "始めた"
 
 #: zp-core/setup/index.php:447
 #, fuzzy, php-format
@@ -19617,7 +19938,7 @@ msgstr "セットアップを実行するにはログインが必要です。"
 #: zp-core/template-functions.php:145
 #, fuzzy
 msgid "My profile"
-msgstr "お気に入り"
+msgstr "プロフィール"
 
 #: zp-core/template-functions.php:158
 #, fuzzy
@@ -19785,7 +20106,7 @@ msgstr "メディア指向コンテンツ管理システム"
 #: zp-core/template-functions.php:4335
 #, fuzzy, php-format
 msgid "Powered by %s"
-msgstr "%1$s: %2$s"
+msgstr "Powered by %s"
 
 #: zp-core/template-functions.php:4576
 msgid "Error:</strong> the requested object was not found."
@@ -19916,10 +20237,7 @@ msgstr "テーブルのプレフィックス <strong>%s</strong>"
 #, fuzzy
 #| msgid "Database user"
 msgid "Database backup"
-msgstr ""
-"<strong>警告！</strong> このアップグレードは簡単に逆転されていないデータベー"
-"スに構造的な変更を行ないます。先に進む前に、データベースのバックアップがある"
-"ことを確認してください。"
+msgstr "データベースのバックアップ"
 
 #: zp-core/utilities/backup_restore.php:528
 msgid "Compression level"
@@ -20953,9 +21271,12 @@ msgid "Custom Player Size"
 msgstr "プレーヤーサイズ"
 
 #: zp-core/zp-extensions/VideoJS.php:94
+#, fuzzy
 msgid ""
 "Custom player size (width in pixels). Set to 0 to use default player size"
 msgstr ""
+"カスタムプレーヤーのサイズ（ピクセル単位の幅）デフォルトのプレーヤーサイズを"
+"使用するには、0に設定します"
 
 #: zp-core/zp-extensions/VideoJS.php:95
 #, fuzzy
@@ -20970,8 +21291,9 @@ msgid "Widescreen"
 msgstr "降順"
 
 #: zp-core/zp-extensions/VideoJS.php:101
+#, fuzzy
 msgid "Aspect ratio for custom player size"
-msgstr ""
+msgstr "カスタムプレーヤーサイズの縦横比"
 
 #: zp-core/zp-extensions/VideoJS.php:176
 #, fuzzy
@@ -21007,7 +21329,7 @@ msgstr "平均アクセス間隔がこの秒数未満の場合は、試行がブ
 #, fuzzy
 #| msgid "Thai (Windows)"
 msgid "Window"
-msgstr "画像を続けて含めることが出来るため、ウィンドウは自動的に閉じません。"
+msgstr "ウィンドウ"
 
 #: zp-core/zp-extensions/accessThreshold.php:55
 #, fuzzy
@@ -21019,9 +21341,7 @@ msgstr "アクセス間隔は、最後のアクセスが数秒以上前の場合
 #: zp-core/zp-extensions/accessThreshold.php:56
 #, fuzzy
 msgid "Mask"
-msgstr ""
-"<em>範囲</em>: シャープするマスクのピクセル範囲です。より小さな範囲はより小さ"
-"な詳細をシャープにします。より大きな範囲はより大きな詳細をシャープにします。"
+msgstr "マスク"
 
 #: zp-core/zp-extensions/accessThreshold.php:58
 #, fuzzy
@@ -23098,8 +23418,9 @@ msgid ""
 msgstr "件名を（オプションで）％1として指定してください。"
 
 #: zp-core/zp-extensions/cookieconsent.php:19
+#, fuzzy
 msgid "A plugin to add a cookie notify dialog"
-msgstr ""
+msgstr "クッキー通知ダイアログを追加するプラグイン"
 
 #: zp-core/zp-extensions/cookieconsent.php:46
 #, fuzzy
@@ -23153,10 +23474,7 @@ msgstr ""
 #: zp-core/zp-extensions/cookieconsent.php:69
 #, fuzzy
 msgid "Domain"
-msgstr ""
-"チェックした場合、代替言語へのリンクは<code><em>language</em>.domain</code>の"
-"<code><em>language</em></code>は言語コードである形式になります、例としてフラ"
-"ンス語の場合は<code><em>fr</em></code>。"
+msgstr "ドメイン"
 
 #: zp-core/zp-extensions/cookieconsent.php:73
 #, fuzzy
@@ -23229,7 +23547,7 @@ msgstr "トップ"
 #, fuzzy
 #| msgid "scroll left"
 msgid "Top left"
-msgstr "トップ"
+msgstr "トップ左"
 
 #: zp-core/zp-extensions/cookieconsent.php:97
 #: zp-core/zp-extensions/openstreetmap.php:114
@@ -23237,7 +23555,7 @@ msgstr "トップ"
 #, fuzzy
 #| msgid "No rights"
 msgid "Top right"
-msgstr "右"
+msgstr "トップ右"
 
 #: zp-core/zp-extensions/cookieconsent.php:98
 #, fuzzy
@@ -23251,7 +23569,7 @@ msgstr "チェックした場合、RSSリンクはコメントセクションの
 #, fuzzy
 #| msgid "Vote Status:"
 msgid "Bottom left"
-msgstr "左"
+msgstr "ボタン左"
 
 #: zp-core/zp-extensions/cookieconsent.php:100
 #: zp-core/zp-extensions/openstreetmap.php:116
@@ -23259,7 +23577,7 @@ msgstr "左"
 #, fuzzy
 #| msgid "Vote Status:"
 msgid "Bottom right"
-msgstr "右"
+msgstr "ボタン右"
 
 #: zp-core/zp-extensions/cookieconsent.php:102
 #, fuzzy
@@ -23376,7 +23694,7 @@ msgstr "画像へのリンク"
 #: zp-core/zp-extensions/crop_image.php:469
 #, fuzzy
 msgid "Done"
-msgstr "テーブルの更新が完了しました"
+msgstr "完了"
 
 #: zp-core/zp-extensions/daily-summary.php:31
 #, fuzzy
@@ -23399,7 +23717,7 @@ msgstr "何日目に戻るか。"
 #, fuzzy
 #| msgid "Users per page:"
 msgid "Items per page"
-msgstr "ページ毎のユーザ:"
+msgstr "ページあたりの項目数"
 
 #: zp-core/zp-extensions/daily-summary.php:80
 #, fuzzy
@@ -23421,7 +23739,7 @@ msgstr "要約を表示するためのテーマスクリプト。"
 #, fuzzy
 #| msgid "Daily image"
 msgid "Daily Summary"
-msgstr "毎日"
+msgstr "1日の概要"
 
 #: zp-core/zp-extensions/daily-summary/daily-summary_content.php:18
 #, fuzzy, php-format
@@ -23765,12 +24083,14 @@ msgid "The following locals are reported by your server."
 msgstr "言語%sはサーバで未対応です。"
 
 #: zp-core/zp-extensions/debug/admin_tab.php:237
+#, fuzzy
 msgid "Languages in boldface have translations."
-msgstr ""
+msgstr "太字の言語は翻訳されています。"
 
 #: zp-core/zp-extensions/debug/admin_tab.php:243
+#, fuzzy
 msgid "Note: the PHP Internationalization Functions module is not enabled."
-msgstr ""
+msgstr "注：PHP国際化機能モジュールは有効になっていません。"
 
 #: zp-core/zp-extensions/defaultCodeblocks.php:21
 msgid "Create default codeblocks."
@@ -24191,7 +24511,7 @@ msgid "URL"
 msgstr "URL"
 
 #: zp-core/zp-extensions/dynamic-locale.php:214
-#: zp-core/zp-extensions/rewriteTokens.php:81
+#: zp-core/zp-extensions/rewriteRules.php:184
 msgid "disabled"
 msgstr "無効"
 
@@ -24640,7 +24960,7 @@ msgstr "PHPカールが必要です。"
 #: zp-core/zp-extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "IDで新着"
+msgstr "App ID"
 
 #: zp-core/zp-extensions/facebookLogin.php:66
 #, fuzzy
@@ -24652,7 +24972,7 @@ msgstr "これはあなたのFacebook <em>App ID</em>です。"
 #, fuzzy
 #| msgid "Secret"
 msgid "App Secret"
-msgstr "シークレット"
+msgstr "Appシークレット"
 
 #: zp-core/zp-extensions/facebookLogin.php:69
 #, fuzzy
@@ -24979,7 +25299,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View %s"
 msgid "View %1$s"
-msgstr "%sの閲覧"
+msgstr "%1$sを表示"
 
 #: zp-core/zp-extensions/galleryArticles.php:241
 #, fuzzy
@@ -25028,7 +25348,7 @@ msgstr "これはGoogle <em>OAuthクライアントの秘密</em>です。"
 #: zp-core/zp-extensions/googleMap.php:109
 #, fuzzy
 msgid "API key"
-msgstr "キー"
+msgstr "APIキー"
 
 #: zp-core/zp-extensions/googleLogin.php:74
 #, fuzzy
@@ -25355,7 +25675,7 @@ msgstr "このページを翻訳します。"
 #: zp-core/zp-extensions/googleTranslate.php:139
 #, fuzzy
 msgid "Translate Content"
-msgstr "このページを翻訳します。"
+msgstr "コンテンツを翻訳"
 
 #: zp-core/zp-extensions/googleTranslate.php:144
 #, fuzzy
@@ -25578,7 +25898,7 @@ msgstr ""
 #: zp-core/zp-extensions/html_meta_tags.php:124
 #, fuzzy
 msgid "Facebook app id"
-msgstr "IDで新着"
+msgstr "Facebook ID"
 
 #: zp-core/zp-extensions/html_meta_tags.php:125
 #, fuzzy
@@ -25795,7 +26115,7 @@ msgstr "ユーザーの<em>Instagram</em>アカウントを介してログオン
 #: zp-core/zp-extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "IDで新着"
+msgstr "クライアント ID"
 
 #: zp-core/zp-extensions/instagramLogin.php:66
 #, fuzzy
@@ -25806,7 +26126,7 @@ msgstr "これはInstagram <em>Client ID</em>です。"
 #, fuzzy
 #| msgid "Secret"
 msgid "Client Secret"
-msgstr "シークレット"
+msgstr "クライアントシークレット"
 
 #: zp-core/zp-extensions/instagramLogin.php:69
 #, fuzzy
@@ -26417,7 +26737,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Disable comments"
 msgid "Disable cookies"
-msgstr "無効"
+msgstr "Cookie を無効化"
 
 #: zp-core/zp-extensions/matomo.php:115
 #, fuzzy
@@ -27362,10 +27682,13 @@ msgid "Cluster radius"
 msgstr "範囲"
 
 #: zp-core/zp-extensions/openstreetmap.php:123
+#, fuzzy
 msgid ""
 "The maximum radius that a cluster will cover from the central marker (in "
 "pixels). Decreasing will make more, smaller clusters."
 msgstr ""
+"クラスタが中心マーカーからカバーする最大半径（ピクセル単位）。減少させること"
+"はより多くの、より小さなクラスターを作るでしょう。"
 
 #: zp-core/zp-extensions/openstreetmap.php:124
 #, fuzzy
@@ -27389,10 +27712,13 @@ msgid "Thumb"
 msgstr "サムネイル"
 
 #: zp-core/zp-extensions/openstreetmap.php:138
+#, fuzzy
 msgid ""
 "Enable the popups you want shown. Popups occur only in the <em>album</em> "
 "context."
 msgstr ""
+"表示したいポップアップを有効にします。ポップアップは<em>アルバムの</em>コンテ"
+"キストでのみ発生します。"
 
 #: zp-core/zp-extensions/openstreetmap.php:139
 #, fuzzy
@@ -27415,11 +27741,16 @@ msgid "Layers list"
 msgstr "一覧をインポート"
 
 #: zp-core/zp-extensions/openstreetmap.php:149
+#, fuzzy
 msgid ""
 "Choose layers list to show in layers controls. You can preview the layers <a "
 "href=\"http://leaflet-extras.github.io/leaflet-providers/preview/index.html"
 "\">here</a>."
 msgstr ""
+"レイヤーコントロールに表示するレイヤーリストを選択します。 <a href=\"http://"
+"leaflet-extras.github.io/leaflet-providers/preview/index.html\">ここで</a>レ"
+"イヤーをプレビューでき<a href=\"http://leaflet-extras.github.io/leaflet-"
+"providers/preview/index.html\">ます</a> 。"
 
 #: zp-core/zp-extensions/openstreetmap.php:150
 #, fuzzy
@@ -27496,7 +27827,7 @@ msgstr "地図の大きさ-幅"
 #, fuzzy
 #| msgid "Slide width"
 msgid "Pixel width"
-msgstr "ピクセルアレイのセンター"
+msgstr "モザイクの横幅"
 
 #: zp-core/zp-extensions/openstreetmap.php:186
 #, fuzzy
@@ -27508,7 +27839,7 @@ msgstr "地図の大きさ-高さ"
 #, fuzzy
 #| msgid "Slide height"
 msgid "Pixel height"
-msgstr "ピクセルアレイのセンター"
+msgstr "モザイクの縦幅"
 
 #: zp-core/zp-extensions/openstreetmap.php:191
 #, fuzzy
@@ -27595,9 +27926,7 @@ msgstr "サムネイル:"
 #: zp-core/zp-extensions/optionalObjectFields.php:110
 #, fuzzy
 msgid "Image watermark"
-msgstr ""
-"透かし画像がこれらの<em>画像クラス</em>で選択された場合、画像サムネイルの透か"
-"しの場所に使用されます。"
+msgstr "画像透かし"
 
 #: zp-core/zp-extensions/optionalObjectFields.php:162
 msgid "Credit"
@@ -28092,7 +28421,7 @@ msgstr "サイトマップのキャッシュファイルを生成または削除
 #: zp-core/zp-extensions/purgeOptions.php:77
 #, fuzzy
 msgid "Active Extension"
-msgstr "サイドカーファイル拡張子"
+msgstr "拡張機能を有効化"
 
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
@@ -28102,7 +28431,7 @@ msgstr "ユーザプラグインで"
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "Extensions"
-msgstr "拡張を処理します"
+msgstr "拡張機能"
 
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:73
 #, fuzzy
@@ -28357,7 +28686,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Image size"
 msgid "Icon size"
-msgstr "アイコン"
+msgstr "アイコンサイズ"
 
 #: zp-core/zp-extensions/rating.php:82
 #, fuzzy
@@ -28518,7 +28847,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Private key"
 msgid "Site key"
-msgstr "コンシューマーキー"
+msgstr "サイトキー"
 
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:53
 #, fuzzy
@@ -28544,12 +28873,7 @@ msgstr "スタンダードライト B"
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:59
 #, fuzzy
 msgid "Dark"
-msgstr ""
-"このページはGalleryのより多くの詳細な統計を表示します。アルバム統計について、"
-"棒グラフは常にそのアルバム内での画像総数を表示します。画像統計について、常に"
-"画像があるアルバムが表示されます。公開されていないアイテムは、ダークレッドの"
-"中でマークされます。それらの(直接)アルバムもある場合、画像は公開されていな"
-"く、マークされます。"
+msgstr "ダーク"
 
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:59
 #, fuzzy
@@ -28576,7 +28900,7 @@ msgstr "ウィジェット"
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:63
 #, fuzzy
 msgid "Audio"
-msgstr "音声の課題を取得"
+msgstr "オーディオ"
 
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:64
 #, fuzzy
@@ -28814,55 +29138,33 @@ msgstr "タグ検索に基づいてアイテムに関連アイテムを取得す
 msgid "Related %s"
 msgstr "人気の%s"
 
-#: zp-core/zp-extensions/rewriteRules.php:93
+#: zp-core/zp-extensions/rewriteRules.php:104
 #, fuzzy
 #| msgid "Site rewrite rules tab."
 msgid "Site rewrite rules."
 msgstr "サイトのrewriteルールタブです。"
 
-#: zp-core/zp-extensions/rewriteRules.php:107
-#: zp-core/zp-extensions/rewriteRules/admin_tab.php:11
-msgid "rewrite"
-msgstr "rewrite"
-
-#: zp-core/zp-extensions/rewriteRules/admin_tab.php:26
-msgid "Rewrite Rules"
-msgstr "Rewriteルール"
-
-#: zp-core/zp-extensions/rewriteRules/functions.php:37
-msgid "Error processing rewrite rule:"
-msgstr "Rewriteルールの処理中のエラー:"
-
-#: zp-core/zp-extensions/rewriteTokens.php:11
-#, fuzzy
-#| msgid ""
-#| "Utility to alter the rewrite token substitutions array in the "
-#| "configuration file."
-msgid "Utility to alter the rewrite token substitutions."
-msgstr ""
-"構成ファイル内の書き換えトークンの置換配列を変更するためのユーティリティで"
-"す。"
-
-#: zp-core/zp-extensions/rewriteTokens.php:12
+#: zp-core/zp-extensions/rewriteRules.php:105
+#: zp-core/zp-extensions/rewriteRules.php:329
 #, fuzzy
 msgid ""
-"Rewrite Tokens are not useful unless the <code>mod_rewrite</code> option is "
-"enabled."
+"The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> "
+"plugin is disabled."
 msgstr ""
-"書き換えトークンは、 <code>mod_rewrite</code>オプションが有効になっていないと"
-"便利ではありません。"
+"<em>rewriteRules</em>プラグインが無効になっていると、 <em>rules.txt</em>ファ"
+"イルは処理されません。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:37
+#: zp-core/zp-extensions/rewriteRules.php:140
 #, fuzzy
 msgid ""
 "The Configuration file is corrupt. You will need to restore it from a backup."
 msgstr "構成ファイルが破損しています。バックアップから復元する必要があります。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:64
+#: zp-core/zp-extensions/rewriteRules.php:167
 msgid "rewriteTokens restored to default"
 msgstr "rewriteTokensをデフォルトに復元しました"
 
-#: zp-core/zp-extensions/rewriteTokens.php:83
+#: zp-core/zp-extensions/rewriteRules.php:186
 #, php-format
 msgid ""
 "The <code>%1$s</code> rule defines <strong>%2$s</strong> as <em>%3$s</em>."
@@ -28870,13 +29172,13 @@ msgstr ""
 "<code>%1$s</code>ルールは<em>%3$s</em>として<strong>%2$s</strong>を定義しま"
 "す。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:85
-#: zp-core/zp-extensions/rewriteTokens.php:176
+#: zp-core/zp-extensions/rewriteRules.php:188
+#: zp-core/zp-extensions/rewriteRules.php:275
 #, php-format
 msgid "Link for <em>%s</em> script page."
 msgstr "<em>%s</em>スクリプトページのリンクです。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:99
+#: zp-core/zp-extensions/rewriteRules.php:202
 #, fuzzy
 msgid ""
 "<p class=\"notebox\">Rewrite Tokens are not useful unless the "
@@ -28885,31 +29187,44 @@ msgstr ""
 "<p class=\"notebox\">書き換えトークンは、 <code>mod_rewrite</code>オプション"
 "が有効になっていないと便利ではありません。 </p>"
 
-#: zp-core/zp-extensions/rewriteTokens.php:104
+#: zp-core/zp-extensions/rewriteRules.php:207
 msgid "Restore defaults."
 msgstr "デフォルトをレストアします。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:152
+#: zp-core/zp-extensions/rewriteRules.php:255
 msgid "Rewrite tokens may not be empty."
 msgstr "Rewriteトークンが空です。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:173
+#: zp-core/zp-extensions/rewriteRules.php:272
 #, php-format
 msgid "Link for <em>%s</em> rule."
 msgstr "<em>%s</em>ルールのリンクです。"
 
-#: zp-core/zp-extensions/rewriteTokens.php:199
+#: zp-core/zp-extensions/rewriteRules.php:298
+#: zp-core/zp-extensions/rewriteRules/rules_tab.php:11
+msgid "rewrite"
+msgstr "rewrite"
+
+#: zp-core/zp-extensions/rewriteRules.php:299
 #, fuzzy
 msgid "tokens"
 msgstr ""
 "マクロパラメータの数は、式中の置換トークンの数と一致する必要があります。"
 
-#: zp-core/zp-extensions/rewriteTokens/admin_tab.php:10
+#: zp-core/zp-extensions/rewriteRules/functions.php:37
+msgid "Error processing rewrite rule:"
+msgstr "Rewriteルールの処理中のエラー:"
+
+#: zp-core/zp-extensions/rewriteRules/rules_tab.php:26
+msgid "Rewrite Rules"
+msgstr "Rewriteルール"
+
+#: zp-core/zp-extensions/rewriteRules/tokens_tab.php:10
 #, fuzzy
 msgid "rewriteTokens"
 msgstr "rewriteTokensをデフォルトに復元しました"
 
-#: zp-core/zp-extensions/rewriteTokens/admin_tab.php:29
+#: zp-core/zp-extensions/rewriteRules/tokens_tab.php:29
 #, fuzzy
 msgid "Rewrite Tokens"
 msgstr "Rewriteトークンが空です。"
@@ -30683,7 +30998,7 @@ msgstr "ニュースカテゴリ"
 #: zp-core/zp-extensions/tinymce.php:22
 #, fuzzy
 msgid "TinyMCE WYSIWYG editor"
-msgstr "最新エディタ"
+msgstr "TinyMCE WYSIWYG エディター"
 
 #: zp-core/zp-extensions/tinymce.php:54
 #, fuzzy
@@ -30727,7 +31042,7 @@ msgstr ""
 #: zp-core/zp-extensions/tinymce.php:66
 #, fuzzy
 msgid "numeric"
-msgstr "拡張文字、その基本的な英数字と同等に変換するためのSEOフィルタです。"
+msgstr "数値"
 
 #: zp-core/zp-extensions/tinymce.php:66
 #, fuzzy
@@ -30970,10 +31285,7 @@ msgstr "これがあなたのTwitter <em>コンシューマーキー</em>です�
 #, fuzzy
 #| msgid "Consumer key"
 msgid "Consumer Secret"
-msgstr ""
-"これはこのサイトが<em>コンシューマーキー</em>、<em>コンシューマーキーシーク"
-"レット</em>、<em>アクセストークン</em>、及び<em>アクセストークンシークレット"
-"</em>を必要とする<code>tweet_news</code>アプリです。"
+msgstr "Consumer Secret"
 
 #: zp-core/zp-extensions/tweet_news.php:84
 #: zp-core/zp-extensions/twitterLogin.php:73
@@ -31205,13 +31517,13 @@ msgstr "ファイルがupload_max_filesize(php.iniのディレクティブ)を�
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
-msgstr "ファイルがMAX_FILE_SIZE(HTMLフォームのディレクティブ)を超えます"
+msgstr "アップロードしたファイルがHTMLフォームで設定された大きさを超えています"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:26
 #, fuzzy
 #| msgid "File was only partially uploaded"
 msgid "The uploaded file was only partially uploaded"
-msgstr "ファイルは一部のみしかアップロードされませんでした"
+msgstr "アップロードされたファイルの一部のみがアップロードされました"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:27
 #, fuzzy
@@ -31230,7 +31542,7 @@ msgstr "ディスクへのファイルの書き込みに失敗しました"
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:30
 #, fuzzy
 msgid "A PHP extension stopped the file upload"
-msgstr "ファイルのアップロードが拡張子で停止されました"
+msgstr "PHP拡張機能がファイルのアップロードを停止しました"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:31
 #, fuzzy
@@ -31253,7 +31565,7 @@ msgstr "ファイルタイプは許可されていません"
 #, fuzzy
 #| msgid "Max number of files exceeded"
 msgid "Maximum number of files exceeded"
-msgstr "最大ファイル数を超えました"
+msgstr "ファイルの最大数を超えました"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:36
 #, fuzzy
@@ -33121,9 +33433,7 @@ msgstr "サムネイルのトリミングを変更するには画像をクリッ
 #: zp-core/zp-extensions/zoomImage.php:63
 #, fuzzy
 msgid "Toggle"
-msgstr ""
-"PHP <code>%1$s</code>サポート (<a onclick=\"$('#%1$s').toggle('show')\" >実験"
-"的</a>)"
+msgstr "切り替え"
 
 #: zp-core/zp-extensions/zoomImage.php:64
 #, fuzzy
@@ -33217,6 +33527,23 @@ msgstr ""
 #: zp-core/zp-extensions/zpCaptcha.php:70
 msgid "Sample CAPTCHA image"
 msgstr "シンプルCAPTCHA画像"
+
+#, fuzzy
+#~| msgid ""
+#~| "Utility to alter the rewrite token substitutions array in the "
+#~| "configuration file."
+#~ msgid "Utility to alter the rewrite token substitutions."
+#~ msgstr ""
+#~ "構成ファイル内の書き換えトークンの置換配列を変更するためのユーティリティで"
+#~ "す。"
+
+#, fuzzy
+#~ msgid ""
+#~ "Rewrite Tokens are not useful unless the <code>mod_rewrite</code> option "
+#~ "is enabled."
+#~ msgstr ""
+#~ "書き換えトークンは、 <code>mod_rewrite</code>オプションが有効になっていな"
+#~ "いと便利ではありません。"
 
 #, fuzzy
 #~ msgid ""
