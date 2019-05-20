@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-14 12:40-0700\n"
-"PO-Revision-Date: 2019-05-14 12:40-0700\n"
+"POT-Creation-Date: 2019-05-20 09:51-0700\n"
+"PO-Revision-Date: 2019-05-20 09:57-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.2\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SearchPath-0: zp-core\n"
 "X-Poedit-SearchPath-1: themes\n"
@@ -35,7 +35,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Restore"
 msgid "Store"
-msgstr "Selezionare se si vuole includere il conto delle visite nei feed RSS."
+msgstr "Negozio"
 
 #: plugins/cacheHeader.php:42
 #, fuzzy
@@ -595,7 +595,7 @@ msgstr "Colore"
 #, fuzzy
 #| msgid "Theme colors"
 msgid "Text color."
-msgstr "Colore"
+msgstr "Colore testo."
 
 #: plugins/text_watermark.php:37
 #, fuzzy
@@ -711,8 +711,7 @@ msgstr "Compatibilità Zenphoto."
 #: zp-core/zp-extensions/debug.php:208
 #: zp-core/zp-extensions/deprecated-functions.php:93
 #: zp-core/zp-extensions/macroList.php:86
-#: zp-core/zp-extensions/rewriteRules.php:102
-#: zp-core/zp-extensions/rewriteTokens.php:194
+#: zp-core/zp-extensions/rewriteRules.php:301
 #: zp-core/zp-extensions/wordpress_import.php:21
 #, fuzzy
 msgid "development"
@@ -844,7 +843,7 @@ msgstr "Applica"
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:431
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:185
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:320
-#: zp-core/zp-extensions/rewriteTokens.php:102
+#: zp-core/zp-extensions/rewriteRules.php:213
 #: zp-core/zp-extensions/tagFromSearch/tag.php:232
 #: zp-core/zp-extensions/themeEditor/themes-editor.php:161
 #: zp-core/zp-extensions/themeEditor/themes-editor.php:163
@@ -1137,7 +1136,7 @@ msgstr "Schema di colori del tema predefinito."
 #: themes/zpArdoise/functions.php:65 themes/zpmasonry/functions.php:36
 #, fuzzy
 msgid "Theme Color"
-msgstr "Colore"
+msgstr "Colore Tema"
 
 #: themes/basic/image.php:24 themes/basic/image.php:30
 #: themes/effervescence+/colorbox/functions.php:32
@@ -2512,9 +2511,7 @@ msgstr "Elenca gli album trovati"
 #: themes/paradigm/includes/_gallery.php:12 themes/zpfocus/inc-sidebar.php:43
 #, fuzzy
 msgid "About"
-msgstr ""
-"È possibile vedere tutti i commenti per questo elemento qui:\n"
-"%1$s"
+msgstr "Info"
 
 #: themes/paradigm/includes/_head.php:52 themes/paradigm/includes/_head.php:146
 #: themes/zpArdoise/inc_header.php:36 themes/zpBootstrap/inc_header.php:47
@@ -2523,7 +2520,7 @@ msgstr ""
 #: zp-core/zp-extensions/html_meta_tags.php:254
 #, fuzzy
 msgid "My favorites"
-msgstr "Inserisci il mio IP"
+msgstr "I miei preferiti"
 
 #: themes/paradigm/includes/_head.php:69 themes/paradigm/includes/_head.php:75
 #: themes/paradigm/includes/_head.php:156
@@ -2623,7 +2620,7 @@ msgstr "Controlla per includere una presentazione sulla homepage."
 #: themes/paradigm/themeoptions.php:60
 #, fuzzy
 msgid "Slideshow Type"
-msgstr "Presentazione"
+msgstr "Tipo della Slideshow"
 
 #: themes/paradigm/themeoptions.php:63
 #, fuzzy
@@ -2731,13 +2728,13 @@ msgstr "8"
 #: themes/paradigm/themeoptions.php:85
 #, fuzzy
 msgid "9"
-msgstr "Latin 9 (ISO)"
+msgstr "9"
 
 #: themes/paradigm/themeoptions.php:86
 #, fuzzy
 #| msgid "10s"
 msgid "10"
-msgstr "10 commenti più recenti"
+msgstr "10"
 
 #: themes/paradigm/themeoptions.php:87
 #, fuzzy
@@ -3017,10 +3014,7 @@ msgstr "Il tema ZenFluid richiede che il plugin zenpage sia abilitato."
 #, fuzzy
 #| msgid "files"
 msgid "Profile"
-msgstr ""
-"<strong>NOTA:</strong> aggiornare il profilo con un indirizzo <em>e-mail</"
-"em> valido e verrà inviato un collegamento per validare il proprio accesso "
-"al sito."
+msgstr "Profilo"
 
 #: themes/zenFluid/inc-sidebar.php:108
 #, fuzzy
@@ -3049,13 +3043,13 @@ msgstr "Ultime immagini per %s"
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "White"
-msgstr "Bilanciamento del bianco"
+msgstr "Bianco"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 #| msgid "Night"
 msgid "Light Green"
-msgstr "Luce standard B"
+msgstr "Verde chiaro"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
@@ -3114,7 +3108,7 @@ msgstr "Seleziona impaginazione:"
 #: themes/zenFluid/themeoptions.php:94
 #, fuzzy
 msgid "Font type"
-msgstr "fonte captcha"
+msgstr "Tipo di carattere"
 
 #: themes/zenFluid/themeoptions.php:99
 #, fuzzy
@@ -3236,7 +3230,7 @@ msgstr ""
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "un titolo"
+msgstr "Margine Titolo"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -3281,7 +3275,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show header"
-msgstr "Visualizza tema per: "
+msgstr "Mostra header"
 
 #: themes/zenFluid/themeoptions.php:179
 #, fuzzy
@@ -3297,7 +3291,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show title"
 msgid "Show footer"
-msgstr "Visualizza tema per: "
+msgstr "Mostra footer"
 
 #: themes/zenFluid/themeoptions.php:185
 #, fuzzy
@@ -3384,13 +3378,13 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:219
 #, fuzzy
 msgid "Title position"
-msgstr "Posizione:"
+msgstr "Posizione titolo"
 
 #: themes/zenFluid/themeoptions.php:225
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the position of the title"
-msgstr "Posizione:"
+msgstr "Selezione la posizione del titolo"
 
 #: themes/zenFluid/themeoptions.php:227
 #, fuzzy
@@ -3406,7 +3400,7 @@ msgstr "Seleziona l'impaginazione predefinita per le immagini negli album"
 #: themes/zenFluid/themeoptions.php:234
 #, fuzzy
 msgid "Button position"
-msgstr "Posizione:"
+msgstr "Posizione del pulsante"
 
 #: themes/zenFluid/themeoptions.php:239
 #, fuzzy
@@ -3694,7 +3688,7 @@ msgstr "Controlla per visualizzare il logo sulla pagina Immagine."
 #: themes/zpArdoise/themeoptions.php:61 themes/zpmasonry/themeoptions.php:73
 #, fuzzy
 msgid "Style"
-msgstr "Fogli di stile (.css)"
+msgstr "Stile"
 
 #: themes/zpArdoise/themeoptions.php:61
 #, fuzzy
@@ -3736,7 +3730,7 @@ msgstr "Visualizza un link di menu all'elenco Archivio."
 #: themes/zpArdoise/themeoptions.php:66
 #, fuzzy
 msgid "Show Tags"
-msgstr "Mostra"
+msgstr "Mostra Tags"
 
 #: themes/zpArdoise/themeoptions.php:66
 #, fuzzy
@@ -3868,7 +3862,7 @@ msgstr "RSS ultime immagini"
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "%s miniature"
+msgstr "miniature per riga"
 
 #: themes/zpBootstrap/inc_header.php:311 themes/zpBootstrap/inc_header.php:325
 #: themes/zpEnlighten/password_form.php:10 themes/zpfocus/inc-footer.php:33
@@ -4137,7 +4131,7 @@ msgstr ""
 #: themes/zpBootstrap/themeoptions.php:114
 #, fuzzy
 msgid "Social Links"
-msgstr "Il numero di collegamenti per la lista delle pagine."
+msgstr "Link Social"
 
 #: themes/zpBootstrap/themeoptions.php:118
 #, fuzzy
@@ -4147,7 +4141,7 @@ msgstr "Controlla per mostrare alcuni link sociali."
 #: themes/zpBootstrap/themeoptions.php:124
 #, fuzzy
 msgid "Excerpt length"
-msgstr "lunghezza captcha"
+msgstr "Lunghezza dell’estratto"
 
 #: themes/zpBootstrap/themeoptions.php:128
 #, fuzzy
@@ -4302,7 +4296,7 @@ msgstr "Immagini:"
 #: themes/zpskeleton/functions.php:103
 #, fuzzy
 msgid "Search Result"
-msgstr "cerca"
+msgstr "Risultato della ricerca"
 
 #: themes/zpfocus/gallery.php:19 themes/zpmasonry/functions.php:213
 #: themes/zpmasonry/inc-header.php:120 themes/zpskeleton/inc-header.php:123
@@ -4331,7 +4325,7 @@ msgstr ""
 #: themes/zpfocus/inc-footer.php:6
 #, fuzzy
 msgid "all rights reserved"
-msgstr "Tutti i permessi"
+msgstr "tutti i diritti riservati"
 
 #: themes/zpfocus/inc-footer.php:41 themes/zpminimal/inc-footer.php:8
 #, fuzzy
@@ -4346,7 +4340,7 @@ msgstr "Album"
 #: themes/zpfocus/inc-footer.php:47 themes/zpminimal/inc-footer.php:13
 #, fuzzy
 msgid "Gallery Images"
-msgstr "Galleria"
+msgstr "Galleria Immagini"
 
 #: themes/zpfocus/inc-header.php:35 themes/zpfocus/inc-header.php:49
 #: themes/zpfocus/inc-sidebar.php:66 themes/zpfocus/inc-sidebar.php:80
@@ -4385,7 +4379,7 @@ msgstr "Commenti"
 #: themes/zpmasonry/inc-header.php:169
 #, fuzzy
 msgid "image {current} of {total}"
-msgstr "Tema corrente"
+msgstr "immagine {current} di {total}"
 
 #: themes/zpfocus/inc-header.php:172 themes/zpfocus/inc-header.php:186
 #: themes/zpmasonry/inc-footer.php:38 themes/zpmasonry/inc-header.php:154
@@ -4428,7 +4422,7 @@ msgstr "Tag:"
 #: themes/zpskeleton/password.php:15
 #, fuzzy
 msgid "Please Login"
-msgstr "Accesso"
+msgstr "Accedi"
 
 #: themes/zpfocus/password.php:17 themes/zpmasonry/password.php:21
 #: themes/zpminimal/password.php:17 themes/zpskeleton/password.php:19
@@ -4486,7 +4480,7 @@ msgstr ""
 #: themes/zpfocus/themeoptions.php:68
 #, fuzzy
 msgid "Show Archive Link"
-msgstr "Vista archivio"
+msgstr "Mostra Archivio Link"
 
 #: themes/zpfocus/themeoptions.php:68
 #, fuzzy
@@ -4708,7 +4702,7 @@ msgstr "Controllare per visualizzare il link \"Powered by\" nel piè di pagina."
 #: themes/zpskeleton/themeoptions.php:79
 #, fuzzy
 msgid "Custom CSS"
-msgstr "Fogli di stile (.css)"
+msgstr "CSS personalizzato"
 
 #: themes/zpfocus/themeoptions.php:86 themes/zpmasonry/themeoptions.php:148
 #: themes/zpskeleton/themeoptions.php:79
@@ -4891,12 +4885,12 @@ msgstr "Messaggio <strong>%s</strong>:"
 #: themes/zpmasonry/404.php:4
 #, fuzzy
 msgid "404 error"
-msgstr "Errore!"
+msgstr "Errore 404"
 
 #: themes/zpmasonry/album.php:16 themes/zpmasonry/favorites.php:18
 #, fuzzy
 msgid "subalbum"
-msgstr "%u sub-album"
+msgstr "mostra miniature sub-album"
 
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 #, fuzzy
@@ -4906,7 +4900,7 @@ msgstr "Numero porta POP."
 #: themes/zpmasonry/album.php:40 themes/zpmasonry/favorites.php:42
 #, fuzzy
 msgid "total"
-msgstr "Corrispondenze totali per <em>%1$s</em>: %2$u"
+msgstr "totale"
 
 #: themes/zpmasonry/album.php:52 themes/zpmasonry/album.php:123
 #: themes/zpmasonry/favorites.php:54 themes/zpmasonry/favorites.php:125
@@ -4941,7 +4935,7 @@ msgstr "immagini"
 #: themes/zpmasonry/search.php:129
 #, fuzzy
 msgid "Preview"
-msgstr "anteprima miniature"
+msgstr "Anteprima"
 
 #: themes/zpmasonry/comment_form/comment_form.php:18
 #: themes/zpminimal/z_disable_comment_form/comment_form.php:18
@@ -5170,7 +5164,7 @@ msgstr ""
 #: themes/zpmasonry/themeoptions.php:93 themes/zpminimal/themeoptions.php:42
 #, fuzzy
 msgid "Logo Image"
-msgstr "Logo tema"
+msgstr "Immagine logo"
 
 #: themes/zpmasonry/themeoptions.php:95
 #, fuzzy
@@ -5192,7 +5186,7 @@ msgstr ""
 #: themes/zpmasonry/themeoptions.php:98
 #, fuzzy
 msgid "Logo Height"
-msgstr "altezza"
+msgstr "Altezza logo"
 
 #: themes/zpmasonry/themeoptions.php:100
 #, fuzzy
@@ -5357,7 +5351,7 @@ msgstr "Visualizza l'indice della galleria"
 #: themes/zpminimal/inc-footer.php:24
 #, fuzzy
 msgid "Subalbum"
-msgstr "%u sub-album"
+msgstr "mostra miniature sub-album"
 
 #: themes/zpminimal/index.php:59
 #, fuzzy
@@ -5377,7 +5371,7 @@ msgstr "« prec"
 #: themes/zpminimal/password.php:4
 #, fuzzy
 msgid "Enter Login"
-msgstr "Accesso"
+msgstr "Inserisci Nome Utente"
 
 #: themes/zpminimal/themeoptions.php:33
 #, fuzzy
@@ -5509,7 +5503,7 @@ msgstr "Tema zpMobile di"
 #: zp-core/zp-extensions/favoritesHandler.php:294
 #, fuzzy
 msgid "Favorites"
-msgstr "Il gestore <em>audio-video</em> di netPhotoGraphics."
+msgstr "Preferiti"
 
 #: themes/zpmobile/functions.php:217
 msgid "Back to top"
@@ -5568,7 +5562,7 @@ msgstr ""
 #: themes/zpskeleton/404.php:6
 #, fuzzy
 msgid "404 not found"
-msgstr "Permessi trovati:"
+msgstr "Errore 404: Non trovato"
 
 #: themes/zpskeleton/album.php:139 themes/zpskeleton/favorites.php:134
 #: themes/zpskeleton/image.php:93
@@ -5736,7 +5730,7 @@ msgstr ""
 #: themes/zpskeleton/themeoptions.php:66
 #, fuzzy
 msgid "Download Button"
-msgstr "Scarica"
+msgstr "Pulsante Scarica"
 
 #: themes/zpskeleton/themeoptions.php:68
 #, fuzzy
@@ -6128,7 +6122,7 @@ msgstr "predefinita"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "%s miniature"
+msgstr "miniature per riga"
 
 #: zp-core/admin-functions.php:2166 zp-core/zp-extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -6690,7 +6684,8 @@ msgstr ""
 #: zp-core/admin-functions.php:5435
 #, fuzzy
 msgid "mail"
-msgstr "%sE-mail:"
+msgstr ""
+"Invio della posta fallito. Non c'è alcun gestore della posta configurato."
 
 #: zp-core/admin-functions.php:5436
 msgid "media"
@@ -6953,10 +6948,13 @@ msgid "Reset album thumbs"
 msgstr "reimposta miniature album"
 
 #: zp-core/admin-functions.php:5983
+#, fuzzy
 msgid ""
 "Either the PHP <code>curl</code> extension or the PHP ini setting "
 "<code>allow_url_fopen</code> must be enabled."
 msgstr ""
+"L'estensione <code>curl</code> di PHP o l'impostazione "
+"<code>allow_url_url_fopen</code> di PHP ini deve essere abilitata."
 
 #: zp-core/admin-functions.php:5986
 #, fuzzy, php-format
@@ -6976,9 +6974,9 @@ msgid "Curl returned the error: %1$s"
 msgstr "Completato con errori"
 
 #: zp-core/admin-functions.php:6031
-#, php-format
+#, fuzzy, php-format
 msgid "Curl received the HTTP status code %1$s"
-msgstr ""
+msgstr "Curl ha ricevuto il codice di stato HTTP %1$s"
 
 #: zp-core/admin-functions.php:6052
 #, fuzzy, php-format
@@ -7031,7 +7029,7 @@ msgid "Last change date"
 msgstr "Data:"
 
 #: zp-core/admin-globals.php:85 zp-core/admin-globals.php:173
-#: zp-core/pluginDoc.php:281 zp-core/zp-extensions/accessThreshold.php:112
+#: zp-core/pluginDoc.php:283 zp-core/zp-extensions/accessThreshold.php:112
 #: zp-core/zp-extensions/cloneZenphoto.php:57
 #: zp-core/zp-extensions/user-expiry.php:100
 msgid "admin"
@@ -7069,7 +7067,7 @@ msgstr "pagine"
 #, fuzzy
 #| msgid "files"
 msgid "my profile"
-msgstr "Inserisci il mio IP"
+msgstr "il mio profilo"
 
 #: zp-core/admin-globals.php:193
 #, fuzzy
@@ -7323,7 +7321,7 @@ msgstr "All'interno"
 #: zp-core/admin-tabs/dynamic-album.php:301
 #, fuzzy
 msgid "tagged"
-msgstr "Testo di marcatura per immagini <em>contenenti dati geografici</em>."
+msgstr "taggato"
 
 #: zp-core/admin-tabs/dynamic-album.php:308
 #, fuzzy
@@ -7429,7 +7427,7 @@ msgstr "Mostra miniatura album"
 #: zp-core/admin-tabs/edit.php:649
 #, fuzzy
 msgid "Change owner"
-msgstr "Proprietario"
+msgstr "Modifica intestatario"
 
 #: zp-core/admin-tabs/edit.php:774 zp-core/admin-tabs/images.php:469
 msgid "Image metadata refreshed."
@@ -8367,7 +8365,7 @@ msgstr "Carica in:"
 #, fuzzy
 #| msgid "Next album"
 msgid "Go to album"
-msgstr "Vai!"
+msgstr "Vai all'album"
 
 #: zp-core/admin-tabs/upload.php:283
 msgid "Make a new Album"
@@ -8742,7 +8740,7 @@ msgstr "Le versioni %s possono essere scaricate dal pulsante di utilità."
 #, fuzzy
 #| msgid "Update"
 msgid "Updates"
-msgstr "Update"
+msgstr "Aggiornamenti"
 
 #: zp-core/admin.php:333
 #, fuzzy, php-format
@@ -9787,7 +9785,7 @@ msgstr "percorso"
 #: zp-core/admin_options/general.php:597
 #, fuzzy
 msgid "duration"
-msgstr "Durata cookie"
+msgstr "durata"
 
 #: zp-core/admin_options/general.php:607
 msgid "enable gallery sessions"
@@ -9920,9 +9918,7 @@ msgstr "Per abilitare il form di ricerca."
 #: zp-core/admin_options/general.php:744
 #, fuzzy
 msgid "ignore"
-msgstr ""
-"Se non si vuole modificare la password, ignorare questo messaggio. Questa "
-"richiesta scadrà automaticamente tra 3 giorni."
+msgstr "ignorare"
 
 #: zp-core/admin_options/general.php:748
 #, fuzzy
@@ -10969,7 +10965,7 @@ msgstr "Ordina sub-album per:"
 #, fuzzy
 #| msgid "Image order"
 msgid "Page order"
-msgstr "Ordine immagini"
+msgstr "Ordine pagine"
 
 #: zp-core/admin_options/search.php:564
 #, fuzzy
@@ -11112,9 +11108,7 @@ msgstr "Accedi"
 #, fuzzy
 #| msgid "Debug"
 msgid "Debug log"
-msgstr ""
-"\"createMenuIfNotExists ha scritto gli errori di processamento nel log di "
-"debug."
+msgstr "Log di debug"
 
 #: zp-core/admin_options/security.php:244
 #, fuzzy
@@ -11289,7 +11283,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
-msgstr "dimensione = "
+msgstr "Dimensioni dell'anteprima"
 
 #: zp-core/admin_options/theme.php:409
 #, php-format
@@ -11492,7 +11486,7 @@ msgstr ""
 #: zp-core/allTranslations.php:63
 #, fuzzy
 msgid "Agree"
-msgstr "Accetto questi termini e condizioni"
+msgstr "Accetto"
 
 #: zp-core/allTranslations.php:64
 #, fuzzy
@@ -11652,7 +11646,7 @@ msgstr "cartella%2$s <em>%1$s</em> [impostazione permessi fallita]"
 #: zp-core/class-gallery.php:594
 #, fuzzy
 msgid "fixed"
-msgstr "Il RewriteBase in <em>.htaccess</em> è <code>%s</code> (risolto)"
+msgstr "fisso"
 
 #: zp-core/class-gallery.php:594
 #, fuzzy
@@ -11770,7 +11764,7 @@ msgstr "Parole chiave"
 #: zp-core/class-image.php:204 zp-core/zp-extensions/xmpMetadata.php:626
 #, fuzzy
 msgid "Exposure time"
-msgstr "Sovraesposta"
+msgstr "Posizione time"
 
 #: zp-core/class-image.php:205 zp-core/zp-extensions/xmpMetadata.php:642
 msgid "Shutter Speed"
@@ -11811,7 +11805,7 @@ msgstr "Orientazione"
 #: zp-core/class-image.php:214
 #, fuzzy
 msgid "Software"
-msgstr "Il software del proprio server è cambiato da %1$s a %2$s."
+msgstr "Software"
 
 #: zp-core/class-image.php:215 zp-core/zp-extensions/xmpMetadata.php:622
 msgid "Contrast Setting"
@@ -12859,7 +12853,8 @@ msgstr "YCbCr"
 msgid "Yes"
 msgstr "Sì"
 
-#: zp-core/full-image.php:18 zp-core/zp-extensions/downloadList.php:384
+#: zp-core/full-image.php:18 zp-core/page_error.php:18
+#: zp-core/zp-extensions/downloadList.php:384
 #: zp-core/zp-extensions/downloadList.php:655
 #: zp-core/zp-extensions/downloadList.php:657
 #: zp-core/zp-extensions/downloadList.php:658
@@ -14290,28 +14285,34 @@ msgid "Afrikaans (South Africa)"
 msgstr "Inglese (Sudafrica)"
 
 #: zp-core/localeList.php:7
+#, fuzzy
 msgid "Aghem"
-msgstr ""
+msgstr "Agem"
 
 #: zp-core/localeList.php:8
+#, fuzzy
 msgid "Aghem (Cameroon)"
-msgstr ""
+msgstr "Aghem (Camerun)"
 
 #: zp-core/localeList.php:9
+#, fuzzy
 msgid "Akan"
-msgstr ""
+msgstr "Akan"
 
 #: zp-core/localeList.php:10
+#, fuzzy
 msgid "Akan (Ghana)"
-msgstr ""
+msgstr "Akan (Ghana)"
 
 #: zp-core/localeList.php:11
+#, fuzzy
 msgid "Amharic"
-msgstr ""
+msgstr "Amarico"
 
 #: zp-core/localeList.php:12
+#, fuzzy
 msgid "Amharic (Ethiopia)"
-msgstr ""
+msgstr "Amarico (Etiopia)"
 
 #: zp-core/localeList.php:14
 #, fuzzy
@@ -14447,8 +14448,9 @@ msgid "Arabic (Yemen)"
 msgstr "Arabo (Yemen)"
 
 #: zp-core/localeList.php:42
+#, fuzzy
 msgid "Assamese"
-msgstr ""
+msgstr "Assamese"
 
 #: zp-core/localeList.php:43
 #, fuzzy
@@ -14456,16 +14458,19 @@ msgid "Assamese (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:44
+#, fuzzy
 msgid "Asu"
-msgstr ""
+msgstr "Asu"
 
 #: zp-core/localeList.php:45
+#, fuzzy
 msgid "Asu (Tanzania)"
-msgstr ""
+msgstr "Asu (Tanzania)"
 
 #: zp-core/localeList.php:46
+#, fuzzy
 msgid "Asturian"
-msgstr ""
+msgstr "Asturiano"
 
 #: zp-core/localeList.php:47
 #, fuzzy
@@ -14474,8 +14479,9 @@ msgid "Asturian (Spain)"
 msgstr "Spagnolo (Spagna)"
 
 #: zp-core/localeList.php:48
+#, fuzzy
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azera"
 
 #: zp-core/localeList.php:49
 #, fuzzy
@@ -14499,12 +14505,14 @@ msgid "Azerbaijani (Latin, Azerbaijan)"
 msgstr "Spagnolo (Latino americano)"
 
 #: zp-core/localeList.php:53
+#, fuzzy
 msgid "Basaa"
-msgstr ""
+msgstr "Basaa"
 
 #: zp-core/localeList.php:54
+#, fuzzy
 msgid "Basaa (Cameroon)"
-msgstr ""
+msgstr "Basaa (Camerun)"
 
 #: zp-core/localeList.php:55
 msgid "Belarusian"
@@ -14517,20 +14525,24 @@ msgid "Belarusian (Belarus)"
 msgstr "Bielorusso"
 
 #: zp-core/localeList.php:57
+#, fuzzy
 msgid "Bemba"
-msgstr ""
+msgstr "Bemba"
 
 #: zp-core/localeList.php:58
+#, fuzzy
 msgid "Bemba (Zambia)"
-msgstr ""
+msgstr "Bemba (Zambia)"
 
 #: zp-core/localeList.php:59
+#, fuzzy
 msgid "Bena"
-msgstr ""
+msgstr "Bena"
 
 #: zp-core/localeList.php:60
+#, fuzzy
 msgid "Bena (Tanzania)"
-msgstr ""
+msgstr "Bena (Tanzania)"
 
 #: zp-core/localeList.php:61
 msgid "Bulgarian"
@@ -14543,20 +14555,24 @@ msgid "Bulgarian (Bulgaria)"
 msgstr "Bulgaro"
 
 #: zp-core/localeList.php:63
+#, fuzzy
 msgid "Bambara"
-msgstr ""
+msgstr "Bambara"
 
 #: zp-core/localeList.php:64
+#, fuzzy
 msgid "Bambara (Mali)"
-msgstr ""
+msgstr "Bambara (Mali)"
 
 #: zp-core/localeList.php:65
+#, fuzzy
 msgid "Bangla"
-msgstr ""
+msgstr "Bangla"
 
 #: zp-core/localeList.php:66
+#, fuzzy
 msgid "Bangla (Bangladesh)"
-msgstr ""
+msgstr "Bangla (Bangladesh)"
 
 #: zp-core/localeList.php:67
 #, fuzzy
@@ -14565,12 +14581,14 @@ msgid "Bangla (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:68
+#, fuzzy
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetano"
 
 #: zp-core/localeList.php:69
+#, fuzzy
 msgid "Tibetan (China)"
-msgstr ""
+msgstr "Tibetano (Cina)"
 
 #: zp-core/localeList.php:70
 #, fuzzy
@@ -14579,8 +14597,9 @@ msgid "Tibetan (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:71
+#, fuzzy
 msgid "Breton"
-msgstr ""
+msgstr "Breton"
 
 #: zp-core/localeList.php:72
 #, fuzzy
@@ -14589,8 +14608,9 @@ msgid "Breton (France)"
 msgstr "Francese (Francia)"
 
 #: zp-core/localeList.php:73
+#, fuzzy
 msgid "Bodo"
-msgstr ""
+msgstr "Bodo"
 
 #: zp-core/localeList.php:74
 #, fuzzy
@@ -14601,7 +14621,7 @@ msgstr "Inglese (India)"
 #, fuzzy
 #| msgid "Estonian"
 msgid "Bosnian"
-msgstr "Estone"
+msgstr "Bosnian"
 
 #: zp-core/localeList.php:76
 #, fuzzy
@@ -14609,8 +14629,9 @@ msgid "Bosnian (Cyrillic)"
 msgstr "Cirillico (Windows)"
 
 #: zp-core/localeList.php:77
+#, fuzzy
 msgid "Bosnian (Cyrillic, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "Bosniaco (cirillico, Bosnia-Erzegovina)"
 
 #: zp-core/localeList.php:78
 #, fuzzy
@@ -14619,8 +14640,9 @@ msgid "Bosnian (Latin)"
 msgstr "Latin 9 (ISO)"
 
 #: zp-core/localeList.php:79
+#, fuzzy
 msgid "Bosnian (Latin, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "Bosniaco (latino, Bosnia-Erzegovina)"
 
 #: zp-core/localeList.php:80
 msgid "Catalan"
@@ -14650,12 +14672,14 @@ msgid "Catalan (Italy)"
 msgstr "Catalano"
 
 #: zp-core/localeList.php:85
+#, fuzzy
 msgid "Chakma"
-msgstr ""
+msgstr "Chakma"
 
 #: zp-core/localeList.php:86
+#, fuzzy
 msgid "Chakma (Bangladesh)"
-msgstr ""
+msgstr "Chakma (Bangladesh)"
 
 #: zp-core/localeList.php:87
 #, fuzzy
@@ -14664,8 +14688,9 @@ msgid "Chakma (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:88
+#, fuzzy
 msgid "Chechen"
-msgstr ""
+msgstr "Cecena"
 
 #: zp-core/localeList.php:89
 #, fuzzy
@@ -14674,16 +14699,19 @@ msgid "Chechen (Russia)"
 msgstr "Russo (Russia)"
 
 #: zp-core/localeList.php:90
+#, fuzzy
 msgid "Chiga"
-msgstr ""
+msgstr "Chiga"
 
 #: zp-core/localeList.php:91
+#, fuzzy
 msgid "Chiga (Uganda)"
-msgstr ""
+msgstr "Chiga (Uganda)"
 
 #: zp-core/localeList.php:92
+#, fuzzy
 msgid "Cherokee"
-msgstr ""
+msgstr "Cherokee"
 
 #: zp-core/localeList.php:93
 #, fuzzy
@@ -14744,17 +14772,19 @@ msgid "Danish (Greenland)"
 msgstr "Danese"
 
 #: zp-core/localeList.php:104
+#, fuzzy
 msgid "Taita"
-msgstr ""
+msgstr "Taita"
 
 #: zp-core/localeList.php:105
+#, fuzzy
 msgid "Taita (Kenya)"
-msgstr ""
+msgstr "Taita (Kenya)"
 
 #: zp-core/localeList.php:106
 #, fuzzy
 msgid "German"
-msgstr "Tedesco (Austria)"
+msgstr "Tedesco"
 
 #: zp-core/localeList.php:107
 msgid "German (Austria)"
@@ -14789,12 +14819,14 @@ msgid "German (Luxembourg)"
 msgstr "Tedesco (Lussemburgo)"
 
 #: zp-core/localeList.php:114
+#, fuzzy
 msgid "Zarma"
-msgstr ""
+msgstr "Zarma"
 
 #: zp-core/localeList.php:115
+#, fuzzy
 msgid "Zarma (Niger)"
-msgstr ""
+msgstr "Zarma (Niger)"
 
 #: zp-core/localeList.php:116
 #, fuzzy
@@ -14809,48 +14841,59 @@ msgid "Lower Sorbian (Germany)"
 msgstr "Tedesco (Germania)"
 
 #: zp-core/localeList.php:118
+#, fuzzy
 msgid "Duala"
-msgstr ""
+msgstr "Duala"
 
 #: zp-core/localeList.php:119
+#, fuzzy
 msgid "Duala (Cameroon)"
-msgstr ""
+msgstr "Duala (Camerun)"
 
 #: zp-core/localeList.php:120
+#, fuzzy
 msgid "Jola-Fonyi"
-msgstr ""
+msgstr "Jola-Fonyi"
 
 #: zp-core/localeList.php:121
+#, fuzzy
 msgid "Jola-Fonyi (Senegal)"
-msgstr ""
+msgstr "Jola-Fonyi (Senegal)"
 
 #: zp-core/localeList.php:122
+#, fuzzy
 msgid "Dzongkha"
-msgstr ""
+msgstr "Dzongkha"
 
 #: zp-core/localeList.php:123
+#, fuzzy
 msgid "Dzongkha (Bhutan)"
-msgstr ""
+msgstr "Dzongkha (Bhutan)"
 
 #: zp-core/localeList.php:124
+#, fuzzy
 msgid "Embu"
-msgstr ""
+msgstr "Embu"
 
 #: zp-core/localeList.php:125
+#, fuzzy
 msgid "Embu (Kenya)"
-msgstr ""
+msgstr "Embu (Kenya)"
 
 #: zp-core/localeList.php:126
+#, fuzzy
 msgid "Ewe"
-msgstr ""
+msgstr "Ewe"
 
 #: zp-core/localeList.php:127
+#, fuzzy
 msgid "Ewe (Ghana)"
-msgstr ""
+msgstr "Pecora (Ghana)"
 
 #: zp-core/localeList.php:128
+#, fuzzy
 msgid "Ewe (Togo)"
-msgstr ""
+msgstr "Pecora (Togo)"
 
 #: zp-core/localeList.php:129
 msgid "Greek"
@@ -14961,8 +15004,9 @@ msgid "English (Canada)"
 msgstr "Inglese (Canada)"
 
 #: zp-core/localeList.php:148
+#, fuzzy
 msgid "English (Cocos [Keeling] Islands)"
-msgstr ""
+msgstr "Inglese (Isole Cocos [Keeling])"
 
 #: zp-core/localeList.php:149
 #, fuzzy
@@ -15095,14 +15139,15 @@ msgid "English (Guyana)"
 msgstr "Inglese (Canada)"
 
 #: zp-core/localeList.php:171
+#, fuzzy
 msgid "English (Hong Kong SAR China)"
-msgstr ""
+msgstr "Inglese (Hong Kong SAR Cina)"
 
 #: zp-core/localeList.php:172
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Ireland)"
-msgstr "Inglese (Zimbabwe)"
+msgstr "Inglese (Irlanda)"
 
 #: zp-core/localeList.php:173
 #, fuzzy
@@ -15121,8 +15166,9 @@ msgid "English (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:176
+#, fuzzy
 msgid "English (British Indian Ocean Territory)"
-msgstr ""
+msgstr "Inglese (Territorio Britannico dell'Oceano Indiano)"
 
 #: zp-core/localeList.php:177
 #, fuzzy
@@ -15212,7 +15258,7 @@ msgstr "Inglese (Filippine)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Malta)"
-msgstr "Inglese (India)"
+msgstr "Inglese (Malta)"
 
 #: zp-core/localeList.php:192
 #, fuzzy
@@ -15340,7 +15386,7 @@ msgstr "Svedese (Svezia)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Singapore)"
-msgstr "Inglese (Australia)"
+msgstr "Inglese (Singapore)"
 
 #: zp-core/localeList.php:214
 #, fuzzy
@@ -15437,12 +15483,14 @@ msgid "English (United States, Computer)"
 msgstr "Inglese (USA)"
 
 #: zp-core/localeList.php:230
+#, fuzzy
 msgid "English (St. Vincent & Grenadines)"
-msgstr ""
+msgstr "Inglese (St. Vincent & Grenadine)"
 
 #: zp-core/localeList.php:231
+#, fuzzy
 msgid "English (British Virgin Islands)"
-msgstr ""
+msgstr "Inglese (Isole Vergini Britanniche)"
 
 #: zp-core/localeList.php:232
 #, fuzzy
@@ -15484,7 +15532,7 @@ msgstr "Esperanto"
 #, fuzzy
 #| msgid "Danish"
 msgid "Spanish"
-msgstr "Spagnolo (Cile)"
+msgstr "Spagnolo"
 
 #: zp-core/localeList.php:240
 msgid "Spanish (Latin America)"
@@ -15636,12 +15684,14 @@ msgid "Basque (Spain)"
 msgstr "Basco"
 
 #: zp-core/localeList.php:272
+#, fuzzy
 msgid "Ewondo"
-msgstr ""
+msgstr "Ewondo"
 
 #: zp-core/localeList.php:273
+#, fuzzy
 msgid "Ewondo (Cameroon)"
-msgstr ""
+msgstr "Ewondo (Camerun)"
 
 #: zp-core/localeList.php:274
 msgid "Persian"
@@ -15659,8 +15709,9 @@ msgid "Persian (Iran)"
 msgstr "Persiano"
 
 #: zp-core/localeList.php:277
+#, fuzzy
 msgid "Fulah"
-msgstr ""
+msgstr "Fulah"
 
 #: zp-core/localeList.php:278
 msgid "Finnish"
@@ -15673,8 +15724,9 @@ msgid "Finnish (Finland)"
 msgstr "Finlandese"
 
 #: zp-core/localeList.php:280
+#, fuzzy
 msgid "Filipino"
-msgstr ""
+msgstr "Filippino"
 
 #: zp-core/localeList.php:281
 #, fuzzy
@@ -15699,7 +15751,7 @@ msgstr "Faroese"
 #: zp-core/localeList.php:285
 #, fuzzy
 msgid "French"
-msgstr "Francese (Canada)"
+msgstr "Francese"
 
 #: zp-core/localeList.php:286
 msgid "French (Belgium)"
@@ -15756,8 +15808,9 @@ msgid "French (Switzerland)"
 msgstr "Francese (Svizzera)"
 
 #: zp-core/localeList.php:296
+#, fuzzy
 msgid "French (Côte d’Ivoire)"
-msgstr ""
+msgstr "Francese (Costa d'Avorio)"
 
 #: zp-core/localeList.php:297
 #, fuzzy
@@ -15966,8 +16019,9 @@ msgid "French (Mayotte)"
 msgstr "Francese (Belgio)"
 
 #: zp-core/localeList.php:332
+#, fuzzy
 msgid "Friulian"
-msgstr ""
+msgstr "Friulano"
 
 #: zp-core/localeList.php:333
 #, fuzzy
@@ -15978,7 +16032,7 @@ msgstr "Italiano (Italia)"
 #: zp-core/localeList.php:334
 #, fuzzy
 msgid "Western Frisian"
-msgstr "Europeo occidentale (DOS)"
+msgstr "Frisone Occidentale"
 
 #: zp-core/localeList.php:335
 #, fuzzy
@@ -15987,8 +16041,9 @@ msgid "Western Frisian (Netherlands)"
 msgstr "Olandese (Olanda)"
 
 #: zp-core/localeList.php:336
+#, fuzzy
 msgid "Irish"
-msgstr ""
+msgstr "Irlandese"
 
 #: zp-core/localeList.php:337
 #, fuzzy
@@ -15997,8 +16052,9 @@ msgid "Irish (Ireland)"
 msgstr "Arabo (Iran)"
 
 #: zp-core/localeList.php:338
+#, fuzzy
 msgid "Scottish Gaelic"
-msgstr ""
+msgstr "Gaelico scozzese"
 
 #: zp-core/localeList.php:339
 #, fuzzy
@@ -16049,40 +16105,49 @@ msgid "Gujarati (India)"
 msgstr "Gujarati"
 
 #: zp-core/localeList.php:348
+#, fuzzy
 msgid "Gusii"
-msgstr ""
+msgstr "Gusii"
 
 #: zp-core/localeList.php:349
+#, fuzzy
 msgid "Gusii (Kenya)"
-msgstr ""
+msgstr "Gusii (Kenya)"
 
 #: zp-core/localeList.php:350
+#, fuzzy
 msgid "Manx"
-msgstr ""
+msgstr "Manx"
 
 #: zp-core/localeList.php:351
+#, fuzzy
 msgid "Manx (Isle of Man)"
-msgstr ""
+msgstr "Manx (Isola di Man)"
 
 #: zp-core/localeList.php:352
+#, fuzzy
 msgid "Hausa"
-msgstr ""
+msgstr "Hausa"
 
 #: zp-core/localeList.php:353
+#, fuzzy
 msgid "Hausa (Ghana)"
-msgstr ""
+msgstr "Hausa (Ghana)"
 
 #: zp-core/localeList.php:354
+#, fuzzy
 msgid "Hausa (Niger)"
-msgstr ""
+msgstr "Hausa (Niger)"
 
 #: zp-core/localeList.php:355
+#, fuzzy
 msgid "Hausa (Nigeria)"
-msgstr ""
+msgstr "Hausa (Nigeria)"
 
 #: zp-core/localeList.php:356
+#, fuzzy
 msgid "Hawaiian"
-msgstr ""
+msgstr "Hawaiano"
 
 #: zp-core/localeList.php:357
 #, fuzzy
@@ -16151,7 +16216,7 @@ msgstr "Ungherese"
 #, fuzzy
 #| msgid "Albanian"
 msgid "Armenian"
-msgstr "Albanese"
+msgstr "Armeno"
 
 #: zp-core/localeList.php:370
 #, fuzzy
@@ -16166,8 +16231,9 @@ msgid "Interlingua"
 msgstr "Interlaccia:"
 
 #: zp-core/localeList.php:372
+#, fuzzy
 msgid "Interlingua (World)"
-msgstr ""
+msgstr "Interlingua (Mondo)"
 
 #: zp-core/localeList.php:373
 msgid "Indonesian"
@@ -16180,8 +16246,9 @@ msgid "Indonesian (Indonesia)"
 msgstr "Indonesiano"
 
 #: zp-core/localeList.php:375
+#, fuzzy
 msgid "Igbo"
-msgstr ""
+msgstr "Igbo"
 
 #: zp-core/localeList.php:376
 #, fuzzy
@@ -16215,7 +16282,7 @@ msgstr "Islandese"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian"
-msgstr "Italiano (Italia)"
+msgstr "Italiano"
 
 #: zp-core/localeList.php:382
 msgid "Italian (Switzerland)"
@@ -16248,26 +16315,30 @@ msgid "Japanese (Japan)"
 msgstr "Giapponese"
 
 #: zp-core/localeList.php:388
+#, fuzzy
 msgid "Ngomba"
-msgstr ""
+msgstr "Ngomba"
 
 #: zp-core/localeList.php:389
+#, fuzzy
 msgid "Ngomba (Cameroon)"
-msgstr ""
+msgstr "Ngomba (Camerun)"
 
 #: zp-core/localeList.php:390
+#, fuzzy
 msgid "Machame"
-msgstr ""
+msgstr "Macchina"
 
 #: zp-core/localeList.php:391
+#, fuzzy
 msgid "Machame (Tanzania)"
-msgstr ""
+msgstr "Machame (Tanzania)"
 
 #: zp-core/localeList.php:392
 #, fuzzy
 #| msgid "Japanese"
 msgid "Javanese"
-msgstr "Giapponese"
+msgstr "Giavanese"
 
 #: zp-core/localeList.php:393
 #, fuzzy
@@ -16279,7 +16350,7 @@ msgstr "Giapponese (JIS)"
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Georgian"
-msgstr "Norvegese"
+msgstr "Georgiano"
 
 #: zp-core/localeList.php:395
 #, fuzzy
@@ -16288,8 +16359,9 @@ msgid "Georgian (Georgia)"
 msgstr "Tedesco (Germania)"
 
 #: zp-core/localeList.php:396
+#, fuzzy
 msgid "Kabyle"
-msgstr ""
+msgstr "Kabyle"
 
 #: zp-core/localeList.php:397
 #, fuzzy
@@ -16298,80 +16370,99 @@ msgid "Kabyle (Algeria)"
 msgstr "Arabo (Algeria)"
 
 #: zp-core/localeList.php:398
+#, fuzzy
 msgid "Kamba"
-msgstr ""
+msgstr "Kamba"
 
 #: zp-core/localeList.php:399
+#, fuzzy
 msgid "Kamba (Kenya)"
-msgstr ""
+msgstr "Kamba (Kenya)"
 
 #: zp-core/localeList.php:400
+#, fuzzy
 msgid "Makonde"
-msgstr ""
+msgstr "Makonde"
 
 #: zp-core/localeList.php:401
+#, fuzzy
 msgid "Makonde (Tanzania)"
-msgstr ""
+msgstr "Makonde (Tanzania)"
 
 #: zp-core/localeList.php:402
+#, fuzzy
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "Kabuverdianu"
 
 #: zp-core/localeList.php:403
+#, fuzzy
 msgid "Kabuverdianu (Cape Verde)"
-msgstr ""
+msgstr "Kabuverdianu (Capo Verde)"
 
 #: zp-core/localeList.php:404
+#, fuzzy
 msgid "Koyra Chiini"
-msgstr ""
+msgstr "Koyra Chiini"
 
 #: zp-core/localeList.php:405
+#, fuzzy
 msgid "Koyra Chiini (Mali)"
-msgstr ""
+msgstr "Koyra Chiini (Mali)"
 
 #: zp-core/localeList.php:406
+#, fuzzy
 msgid "Kikuyu"
-msgstr ""
+msgstr "Kikuyu"
 
 #: zp-core/localeList.php:407
+#, fuzzy
 msgid "Kikuyu (Kenya)"
-msgstr ""
+msgstr "Kikuyu (Kenya)"
 
 #: zp-core/localeList.php:408
+#, fuzzy
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazako"
 
 #: zp-core/localeList.php:409
+#, fuzzy
 msgid "Kazakh (Kazakhstan)"
-msgstr ""
+msgstr "Kazakistan (Kazakistan)"
 
 #: zp-core/localeList.php:410
+#, fuzzy
 msgid "Kako"
-msgstr ""
+msgstr "Kako"
 
 #: zp-core/localeList.php:411
+#, fuzzy
 msgid "Kako (Cameroon)"
-msgstr ""
+msgstr "Kako (Camerun)"
 
 #: zp-core/localeList.php:412
+#, fuzzy
 msgid "Kalaallisut"
-msgstr ""
+msgstr "Kalaallisut"
 
 #: zp-core/localeList.php:413
+#, fuzzy
 msgid "Kalaallisut (Greenland)"
-msgstr ""
+msgstr "Kalaallisut (Groenlandia)"
 
 #: zp-core/localeList.php:414
+#, fuzzy
 msgid "Kalenjin"
-msgstr ""
+msgstr "Kalenjin"
 
 #: zp-core/localeList.php:415
+#, fuzzy
 msgid "Kalenjin (Kenya)"
-msgstr ""
+msgstr "Kalenjin (Kenya)"
 
 #: zp-core/localeList.php:416
+#, fuzzy
 msgid "Khmer"
-msgstr ""
+msgstr "Khmer"
 
 #: zp-core/localeList.php:417
 #, fuzzy
@@ -16380,8 +16471,9 @@ msgid "Khmer (Cambodia)"
 msgstr "Cambogiano"
 
 #: zp-core/localeList.php:418
+#, fuzzy
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #: zp-core/localeList.php:419
 #, fuzzy
@@ -16402,8 +16494,9 @@ msgid "Korean (South Korea)"
 msgstr "Coreano (EUC)"
 
 #: zp-core/localeList.php:423
+#, fuzzy
 msgid "Konkani"
-msgstr ""
+msgstr "Konkani"
 
 #: zp-core/localeList.php:424
 #, fuzzy
@@ -16412,8 +16505,9 @@ msgid "Konkani (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:425
+#, fuzzy
 msgid "Kashmiri"
-msgstr ""
+msgstr "Kashmir"
 
 #: zp-core/localeList.php:426
 #, fuzzy
@@ -16422,20 +16516,24 @@ msgid "Kashmiri (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:427
+#, fuzzy
 msgid "Shambala"
-msgstr ""
+msgstr "Shambala"
 
 #: zp-core/localeList.php:428
+#, fuzzy
 msgid "Shambala (Tanzania)"
-msgstr ""
+msgstr "Shambala (Tanzania)"
 
 #: zp-core/localeList.php:429
+#, fuzzy
 msgid "Bafia"
-msgstr ""
+msgstr "Bafia"
 
 #: zp-core/localeList.php:430
+#, fuzzy
 msgid "Bafia (Cameroon)"
-msgstr ""
+msgstr "Bafia (Camerun)"
 
 #: zp-core/localeList.php:431
 #, fuzzy
@@ -16450,18 +16548,20 @@ msgid "Colognian (Germany)"
 msgstr "Tedesco (Germania)"
 
 #: zp-core/localeList.php:433
+#, fuzzy
 msgid "Kurdish"
-msgstr ""
+msgstr "Curdo"
 
 #: zp-core/localeList.php:434
+#, fuzzy
 msgid "Kurdish (Turkey)"
-msgstr ""
+msgstr "Curdo (Turchia)"
 
 #: zp-core/localeList.php:435
 #, fuzzy
 #| msgid "Danish"
 msgid "Cornish"
-msgstr "Danese"
+msgstr "Cornish"
 
 #: zp-core/localeList.php:436
 #, fuzzy
@@ -16470,12 +16570,14 @@ msgid "Cornish (United Kingdom)"
 msgstr "Inglese (Inghilterra)"
 
 #: zp-core/localeList.php:437
+#, fuzzy
 msgid "Kyrgyz"
-msgstr ""
+msgstr "Kirghizistan"
 
 #: zp-core/localeList.php:438
+#, fuzzy
 msgid "Kyrgyz (Kyrgyzstan)"
-msgstr ""
+msgstr "Kirghizistan (Kirghizistan)"
 
 #: zp-core/localeList.php:439
 #, fuzzy
@@ -16483,8 +16585,9 @@ msgid "Langi"
 msgstr "Lingua:"
 
 #: zp-core/localeList.php:440
+#, fuzzy
 msgid "Langi (Tanzania)"
-msgstr ""
+msgstr "Langi (Tanzania)"
 
 #: zp-core/localeList.php:441
 #, fuzzy
@@ -16502,15 +16605,17 @@ msgstr "Francese (Lussemburgo)"
 #, fuzzy
 #| msgid "Standard"
 msgid "Ganda"
-msgstr "Standard"
+msgstr "Ganda"
 
 #: zp-core/localeList.php:444
+#, fuzzy
 msgid "Ganda (Uganda)"
-msgstr ""
+msgstr "Ganda (Uganda)"
 
 #: zp-core/localeList.php:445
+#, fuzzy
 msgid "Lakota"
-msgstr ""
+msgstr "Lakota"
 
 #: zp-core/localeList.php:446
 #, fuzzy
@@ -16519,38 +16624,45 @@ msgid "Lakota (United States)"
 msgstr "Inglese (USA)"
 
 #: zp-core/localeList.php:447
+#, fuzzy
 msgid "Lingala"
-msgstr ""
+msgstr "Lingala"
 
 #: zp-core/localeList.php:448
+#, fuzzy
 msgid "Lingala (Angola)"
-msgstr ""
+msgstr "Lingala (Angola)"
 
 #: zp-core/localeList.php:449
+#, fuzzy
 msgid "Lingala (Congo - Kinshasa)"
-msgstr ""
+msgstr "Lingala (Congo - Kinshasa)"
 
 #: zp-core/localeList.php:450
+#, fuzzy
 msgid "Lingala (Central African Republic)"
-msgstr ""
+msgstr "Lingala (Repubblica Centrafricana)"
 
 #: zp-core/localeList.php:451
+#, fuzzy
 msgid "Lingala (Congo - Brazzaville)"
-msgstr ""
+msgstr "Lingala (Congo - Brazzaville)"
 
 #: zp-core/localeList.php:452
 #, fuzzy
 #| msgid "Low"
 msgid "Lao"
-msgstr "Bassa"
+msgstr "Laos (Repubblica Popolare Democratica del Laos)"
 
 #: zp-core/localeList.php:453
+#, fuzzy
 msgid "Lao (Laos)"
-msgstr ""
+msgstr "Lao (Laos)"
 
 #: zp-core/localeList.php:454
+#, fuzzy
 msgid "Northern Luri"
-msgstr ""
+msgstr "Luri Nord"
 
 #: zp-core/localeList.php:455
 #, fuzzy
@@ -16573,12 +16685,14 @@ msgid "Lithuanian (Lithuania)"
 msgstr "Lituano"
 
 #: zp-core/localeList.php:459
+#, fuzzy
 msgid "Luba-Katanga"
-msgstr ""
+msgstr "Luba-Katanga"
 
 #: zp-core/localeList.php:460
+#, fuzzy
 msgid "Luba-Katanga (Congo - Kinshasa)"
-msgstr ""
+msgstr "Luba-Katanga (Congo - Kinshasa)"
 
 #: zp-core/localeList.php:461
 #, fuzzy
@@ -16587,16 +16701,19 @@ msgid "Luo"
 msgstr "Bassa"
 
 #: zp-core/localeList.php:462
+#, fuzzy
 msgid "Luo (Kenya)"
-msgstr ""
+msgstr "Luo (Kenya)"
 
 #: zp-core/localeList.php:463
+#, fuzzy
 msgid "Luyia"
-msgstr ""
+msgstr "Luyia"
 
 #: zp-core/localeList.php:464
+#, fuzzy
 msgid "Luyia (Kenya)"
-msgstr ""
+msgstr "Luyia (Kenya)"
 
 #: zp-core/localeList.php:465
 msgid "Latvian"
@@ -16609,32 +16726,39 @@ msgid "Latvian (Latvia)"
 msgstr "Lettone"
 
 #: zp-core/localeList.php:467
+#, fuzzy
 msgid "Masai"
-msgstr ""
+msgstr "Masai"
 
 #: zp-core/localeList.php:468
+#, fuzzy
 msgid "Masai (Kenya)"
-msgstr ""
+msgstr "Masai (Kenya)"
 
 #: zp-core/localeList.php:469
+#, fuzzy
 msgid "Masai (Tanzania)"
-msgstr ""
+msgstr "Masai (Tanzania)"
 
 #: zp-core/localeList.php:470
+#, fuzzy
 msgid "Meru"
-msgstr ""
+msgstr "Meru"
 
 #: zp-core/localeList.php:471
+#, fuzzy
 msgid "Meru (Kenya)"
-msgstr ""
+msgstr "Meru (Kenya)"
 
 #: zp-core/localeList.php:472
+#, fuzzy
 msgid "Morisyen"
-msgstr ""
+msgstr "Morisyen"
 
 #: zp-core/localeList.php:473
+#, fuzzy
 msgid "Morisyen (Mauritius)"
-msgstr ""
+msgstr "Morisyen (Mauritius)"
 
 #: zp-core/localeList.php:474
 msgid "Malagasy"
@@ -16646,24 +16770,37 @@ msgid "Malagasy (Madagascar)"
 msgstr "Malgascio"
 
 #: zp-core/localeList.php:476
+#, fuzzy
 msgid "Makhuwa-Meetto"
-msgstr ""
+msgstr "Makhuwa-Meetto"
 
 #: zp-core/localeList.php:477
+#, fuzzy
 msgid "Makhuwa-Meetto (Mozambique)"
-msgstr ""
+msgstr "Makhuwa-Meetto (Mozambico)"
 
 #: zp-core/localeList.php:478
+#, fuzzy
 msgid "Metaʼ"
 msgstr ""
+"Metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, "
+"metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, "
+"metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, "
+"metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, "
+"metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, "
+"metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, "
+"metaʼ, metaʼ, metaʼ, metaʼ metaʼ, metaʼ, metaʼ, metaʼ, metaʼ, metaʼ metaʼ "
+"metaʼ, metaʼ"
 
 #: zp-core/localeList.php:479
+#, fuzzy
 msgid "Metaʼ (Cameroon)"
-msgstr ""
+msgstr "Metaʼ (Camerun)"
 
 #: zp-core/localeList.php:480
+#, fuzzy
 msgid "Maori"
-msgstr ""
+msgstr "Maori"
 
 #: zp-core/localeList.php:481
 #, fuzzy
@@ -16685,7 +16822,7 @@ msgstr "Macedone"
 #, fuzzy
 #| msgid "Malay"
 msgid "Malayalam"
-msgstr "Malese"
+msgstr "Malesia"
 
 #: zp-core/localeList.php:485
 #, fuzzy
@@ -16734,8 +16871,9 @@ msgid "Malay (Singapore)"
 msgstr "Malese"
 
 #: zp-core/localeList.php:494
+#, fuzzy
 msgid "Maltese"
-msgstr ""
+msgstr "Maltese"
 
 #: zp-core/localeList.php:495
 #, fuzzy
@@ -16744,24 +16882,29 @@ msgid "Maltese (Malta)"
 msgstr "Malte Müller (acrylian)"
 
 #: zp-core/localeList.php:496
+#, fuzzy
 msgid "Mundang"
-msgstr ""
+msgstr "Mundang"
 
 #: zp-core/localeList.php:497
+#, fuzzy
 msgid "Mundang (Cameroon)"
-msgstr ""
+msgstr "Mundang (Camerun)"
 
 #: zp-core/localeList.php:498
+#, fuzzy
 msgid "Burmese"
-msgstr ""
+msgstr "Birmano"
 
 #: zp-core/localeList.php:499
+#, fuzzy
 msgid "Burmese (Myanmar [Burma])"
-msgstr ""
+msgstr "Birmano (Myanmar [Birmania])"
 
 #: zp-core/localeList.php:500
+#, fuzzy
 msgid "Mazanderani"
-msgstr ""
+msgstr "Mazanderani"
 
 #: zp-core/localeList.php:501
 #, fuzzy
@@ -16770,12 +16913,14 @@ msgid "Mazanderani (Iran)"
 msgstr "Arabo (Iran)"
 
 #: zp-core/localeList.php:502
+#, fuzzy
 msgid "Nama"
-msgstr ""
+msgstr "Nama"
 
 #: zp-core/localeList.php:503
+#, fuzzy
 msgid "Nama (Namibia)"
-msgstr ""
+msgstr "Nama (Namibia)"
 
 #: zp-core/localeList.php:504
 #, fuzzy
@@ -16796,8 +16941,9 @@ msgid "Norwegian Bokmål (Svalbard & Jan Mayen)"
 msgstr "Norvegese (Bokmål)"
 
 #: zp-core/localeList.php:507
+#, fuzzy
 msgid "North Ndebele"
-msgstr ""
+msgstr "Ndebele settentrionale"
 
 #: zp-core/localeList.php:508
 #, fuzzy
@@ -16822,8 +16968,9 @@ msgid "Low German (Netherlands)"
 msgstr "Olandese (Olanda)"
 
 #: zp-core/localeList.php:512
+#, fuzzy
 msgid "Nepali"
-msgstr ""
+msgstr "Nepalese"
 
 #: zp-core/localeList.php:513
 #, fuzzy
@@ -16832,13 +16979,14 @@ msgid "Nepali (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:514
+#, fuzzy
 msgid "Nepali (Nepal)"
-msgstr ""
+msgstr "Nepali (Nepal)"
 
 #: zp-core/localeList.php:515
 #, fuzzy
 msgid "Dutch"
-msgstr "Olandese (Belgio)"
+msgstr "Olandese"
 
 #: zp-core/localeList.php:516
 #, fuzzy
@@ -16879,18 +17027,20 @@ msgid "Dutch (Sint Maarten)"
 msgstr "Olandese (Olanda)"
 
 #: zp-core/localeList.php:523
+#, fuzzy
 msgid "Kwasio"
-msgstr ""
+msgstr "Kwasio"
 
 #: zp-core/localeList.php:524
+#, fuzzy
 msgid "Kwasio (Cameroon)"
-msgstr ""
+msgstr "Kwasio (Camerun)"
 
 #: zp-core/localeList.php:525
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Norwegian Nynorsk"
-msgstr "Norvegese"
+msgstr "Norvegese Nynorsk"
 
 #: zp-core/localeList.php:526
 #, fuzzy
@@ -16898,16 +17048,19 @@ msgid "Norwegian Nynorsk (Norway)"
 msgstr "Norvegese (Bokmål)"
 
 #: zp-core/localeList.php:527
+#, fuzzy
 msgid "Ngiemboon"
-msgstr ""
+msgstr "Ngiemboon"
 
 #: zp-core/localeList.php:528
+#, fuzzy
 msgid "Ngiemboon (Cameroon)"
-msgstr ""
+msgstr "Ngiemboon (Camerun)"
 
 #: zp-core/localeList.php:529
+#, fuzzy
 msgid "Nuer"
-msgstr ""
+msgstr "Nuer"
 
 #: zp-core/localeList.php:530
 #, fuzzy
@@ -16915,28 +17068,34 @@ msgid "Nuer (South Sudan)"
 msgstr "Inglese (Sudafrica)"
 
 #: zp-core/localeList.php:531
+#, fuzzy
 msgid "Nyankole"
-msgstr ""
+msgstr "Nyankole"
 
 #: zp-core/localeList.php:532
+#, fuzzy
 msgid "Nyankole (Uganda)"
-msgstr ""
+msgstr "Nyankole (Uganda)"
 
 #: zp-core/localeList.php:533
+#, fuzzy
 msgid "Oromo"
-msgstr ""
+msgstr "Oromo"
 
 #: zp-core/localeList.php:534
+#, fuzzy
 msgid "Oromo (Ethiopia)"
-msgstr ""
+msgstr "Oromo (Etiopia)"
 
 #: zp-core/localeList.php:535
+#, fuzzy
 msgid "Oromo (Kenya)"
-msgstr ""
+msgstr "Oromo (Kenya)"
 
 #: zp-core/localeList.php:536
+#, fuzzy
 msgid "Odia"
-msgstr ""
+msgstr "Odia"
 
 #: zp-core/localeList.php:537
 #, fuzzy
@@ -16945,12 +17104,14 @@ msgid "Odia (India)"
 msgstr "Inglese (India)"
 
 #: zp-core/localeList.php:538
+#, fuzzy
 msgid "Ossetic"
-msgstr ""
+msgstr "Ossetico"
 
 #: zp-core/localeList.php:539
+#, fuzzy
 msgid "Ossetic (Georgia)"
-msgstr ""
+msgstr "Ossetico (Georgia)"
 
 #: zp-core/localeList.php:540
 #, fuzzy
@@ -16959,8 +17120,9 @@ msgid "Ossetic (Russia)"
 msgstr "Russo (Russia)"
 
 #: zp-core/localeList.php:541
+#, fuzzy
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #: zp-core/localeList.php:542
 #, fuzzy
@@ -16973,8 +17135,9 @@ msgid "Punjabi (Arabic, Pakistan)"
 msgstr "Arabo"
 
 #: zp-core/localeList.php:544
+#, fuzzy
 msgid "Punjabi (Gurmukhi)"
-msgstr ""
+msgstr "Punjabi (Gurmukhi)"
 
 #: zp-core/localeList.php:545
 #, fuzzy
@@ -16992,18 +17155,20 @@ msgid "Polish (Poland)"
 msgstr "Polacco"
 
 #: zp-core/localeList.php:548
+#, fuzzy
 msgid "Pashto"
-msgstr ""
+msgstr "Pashto"
 
 #: zp-core/localeList.php:549
+#, fuzzy
 msgid "Pashto (Afghanistan)"
-msgstr ""
+msgstr "Pashto (Afghanistan)"
 
 #: zp-core/localeList.php:550
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese"
-msgstr "Portoghese (Brasile)"
+msgstr "Portoghese"
 
 #: zp-core/localeList.php:551
 #, fuzzy
@@ -17062,8 +17227,9 @@ msgid "Portuguese (Portugal)"
 msgstr "Portoghese (Portogallo)"
 
 #: zp-core/localeList.php:561
+#, fuzzy
 msgid "Portuguese (São Tomé & Príncipe)"
-msgstr ""
+msgstr "Portoghese (São Tomé & Príncipe)"
 
 #: zp-core/localeList.php:562
 #, fuzzy
@@ -17072,8 +17238,9 @@ msgid "Portuguese (Timor-Leste)"
 msgstr "Portoghese (Portogallo)"
 
 #: zp-core/localeList.php:563
+#, fuzzy
 msgid "Quechua"
-msgstr ""
+msgstr "Quechua"
 
 #: zp-core/localeList.php:564
 #, fuzzy
@@ -17096,7 +17263,7 @@ msgstr "Spagnolo (Perù)"
 #, fuzzy
 #| msgid "Romanian"
 msgid "Romansh"
-msgstr "Rumeno"
+msgstr "Romancio"
 
 #: zp-core/localeList.php:568
 #, fuzzy
@@ -17105,12 +17272,14 @@ msgid "Romansh (Switzerland)"
 msgstr "Italiano (Svizzera)"
 
 #: zp-core/localeList.php:569
+#, fuzzy
 msgid "Rundi"
-msgstr ""
+msgstr "Rundi"
 
 #: zp-core/localeList.php:570
+#, fuzzy
 msgid "Rundi (Burundi)"
-msgstr ""
+msgstr "Rundi (Burundi)"
 
 #: zp-core/localeList.php:571
 msgid "Romanian"
@@ -17129,18 +17298,20 @@ msgid "Romanian (Romania)"
 msgstr "Rumeno"
 
 #: zp-core/localeList.php:574
+#, fuzzy
 msgid "Rombo"
-msgstr ""
+msgstr "Rombo"
 
 #: zp-core/localeList.php:575
+#, fuzzy
 msgid "Rombo (Tanzania)"
-msgstr ""
+msgstr "Rombo (Tanzania)"
 
 #: zp-core/localeList.php:576
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Russian"
-msgstr "Russo (Russia)"
+msgstr "Russo"
 
 #: zp-core/localeList.php:577
 #, fuzzy
@@ -17175,24 +17346,29 @@ msgid "Russian (Ukraine)"
 msgstr "Russo (Ucraina)"
 
 #: zp-core/localeList.php:583
+#, fuzzy
 msgid "Kinyarwanda"
-msgstr ""
+msgstr "Kinyarwanda"
 
 #: zp-core/localeList.php:584
+#, fuzzy
 msgid "Kinyarwanda (Rwanda)"
-msgstr ""
+msgstr "Kinyarwanda (Ruanda)"
 
 #: zp-core/localeList.php:585
+#, fuzzy
 msgid "Rwa"
-msgstr ""
+msgstr "Rwa"
 
 #: zp-core/localeList.php:586
+#, fuzzy
 msgid "Rwa (Tanzania)"
-msgstr ""
+msgstr "Rwa (Tanzania)"
 
 #: zp-core/localeList.php:587
+#, fuzzy
 msgid "Sakha"
-msgstr ""
+msgstr "Sakha"
 
 #: zp-core/localeList.php:588
 #, fuzzy
@@ -17201,12 +17377,14 @@ msgid "Sakha (Russia)"
 msgstr "Russo (Russia)"
 
 #: zp-core/localeList.php:589
+#, fuzzy
 msgid "Samburu"
-msgstr ""
+msgstr "Samburu"
 
 #: zp-core/localeList.php:590
+#, fuzzy
 msgid "Samburu (Kenya)"
-msgstr ""
+msgstr "Samburu (Kenya)"
 
 #: zp-core/localeList.php:591
 #, fuzzy
@@ -17214,12 +17392,14 @@ msgid "Sangu"
 msgstr "Lingua:"
 
 #: zp-core/localeList.php:592
+#, fuzzy
 msgid "Sangu (Tanzania)"
-msgstr ""
+msgstr "Sangu (Tanzania)"
 
 #: zp-core/localeList.php:593
+#, fuzzy
 msgid "Sindhi"
-msgstr ""
+msgstr "Sindhi"
 
 #: zp-core/localeList.php:594
 #, fuzzy
@@ -17228,8 +17408,9 @@ msgid "Sindhi (Pakistan)"
 msgstr "Urdu (Pakistan)"
 
 #: zp-core/localeList.php:595
+#, fuzzy
 msgid "Northern Sami"
-msgstr ""
+msgstr "Sami settentrionale"
 
 #: zp-core/localeList.php:596
 #, fuzzy
@@ -17238,8 +17419,9 @@ msgid "Northern Sami (Finland)"
 msgstr "Svedese (Finlandia)"
 
 #: zp-core/localeList.php:597
+#, fuzzy
 msgid "Northern Sami (Norway)"
-msgstr ""
+msgstr "Sami settentrionale (Norvegia)"
 
 #: zp-core/localeList.php:598
 #, fuzzy
@@ -17247,24 +17429,29 @@ msgid "Northern Sami (Sweden)"
 msgstr "Svedese (Svezia)"
 
 #: zp-core/localeList.php:599
+#, fuzzy
 msgid "Sena"
-msgstr ""
+msgstr "Sena"
 
 #: zp-core/localeList.php:600
+#, fuzzy
 msgid "Sena (Mozambique)"
-msgstr ""
+msgstr "Sena (Mozambico)"
 
 #: zp-core/localeList.php:601
+#, fuzzy
 msgid "Koyraboro Senni"
-msgstr ""
+msgstr "Koyraboro Senni"
 
 #: zp-core/localeList.php:602
+#, fuzzy
 msgid "Koyraboro Senni (Mali)"
-msgstr ""
+msgstr "Koyraboro Senni (Mali)"
 
 #: zp-core/localeList.php:603
+#, fuzzy
 msgid "Sango"
-msgstr ""
+msgstr "Sango"
 
 #: zp-core/localeList.php:604
 #, fuzzy
@@ -17288,8 +17475,9 @@ msgid "Tachelhit (Latin, Morocco)"
 msgstr "Arabo (Marocco)"
 
 #: zp-core/localeList.php:608
+#, fuzzy
 msgid "Tachelhit (Tifinagh)"
-msgstr ""
+msgstr "Tachelhit (Tifinagh)"
 
 #: zp-core/localeList.php:609
 #, fuzzy
@@ -17325,8 +17513,9 @@ msgid "Slovenian (Slovenia)"
 msgstr "Sloveno"
 
 #: zp-core/localeList.php:616
+#, fuzzy
 msgid "Inari Sami"
-msgstr ""
+msgstr "Inari Sami"
 
 #: zp-core/localeList.php:617
 #, fuzzy
@@ -17335,8 +17524,9 @@ msgid "Inari Sami (Finland)"
 msgstr "Svedese (Finlandia)"
 
 #: zp-core/localeList.php:618
+#, fuzzy
 msgid "Shona"
-msgstr ""
+msgstr "Shona"
 
 #: zp-core/localeList.php:619
 #, fuzzy
@@ -17345,24 +17535,29 @@ msgid "Shona (Zimbabwe)"
 msgstr "Inglese (Zimbabwe)"
 
 #: zp-core/localeList.php:620
+#, fuzzy
 msgid "Somali"
-msgstr ""
+msgstr "Somalo"
 
 #: zp-core/localeList.php:621
+#, fuzzy
 msgid "Somali (Djibouti)"
-msgstr ""
+msgstr "Somalo (Gibuti)"
 
 #: zp-core/localeList.php:622
+#, fuzzy
 msgid "Somali (Ethiopia)"
-msgstr ""
+msgstr "Somalo (Etiopia)"
 
 #: zp-core/localeList.php:623
+#, fuzzy
 msgid "Somali (Kenya)"
-msgstr ""
+msgstr "Somalo (Kenya)"
 
 #: zp-core/localeList.php:624
+#, fuzzy
 msgid "Somali (Somalia)"
-msgstr ""
+msgstr "Somalo (Somalia)"
 
 #: zp-core/localeList.php:625
 msgid "Albanian"
@@ -17396,8 +17591,9 @@ msgid "Serbian (Cyrillic)"
 msgstr "Serbo"
 
 #: zp-core/localeList.php:631
+#, fuzzy
 msgid "Serbian (Cyrillic, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "Serbo (cirillico, Bosnia-Erzegovina)"
 
 #: zp-core/localeList.php:632
 #, fuzzy
@@ -17418,11 +17614,12 @@ msgstr "Serbo"
 #, fuzzy
 #| msgid "Serbian"
 msgid "Serbian (Latin)"
-msgstr "Serbo"
+msgstr "Serbo (latino)"
 
 #: zp-core/localeList.php:636
+#, fuzzy
 msgid "Serbian (Latin, Bosnia & Herzegovina)"
-msgstr ""
+msgstr "Serbo (latino, Bosnia-Erzegovina)"
 
 #: zp-core/localeList.php:637
 #, fuzzy
@@ -17444,7 +17641,7 @@ msgstr "Serbo"
 #, fuzzy
 #| msgid "Swedish (Sweden)"
 msgid "Swedish"
-msgstr "Svedese (Svezia)"
+msgstr "Svedese"
 
 #: zp-core/localeList.php:641
 #, fuzzy
@@ -17461,24 +17658,29 @@ msgid "Swedish (Sweden)"
 msgstr "Svedese (Svezia)"
 
 #: zp-core/localeList.php:644
+#, fuzzy
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: zp-core/localeList.php:645
+#, fuzzy
 msgid "Swahili (Congo - Kinshasa)"
-msgstr ""
+msgstr "Swahili (Congo - Kinshasa)"
 
 #: zp-core/localeList.php:646
+#, fuzzy
 msgid "Swahili (Kenya)"
-msgstr ""
+msgstr "Swahili (Kenya)"
 
 #: zp-core/localeList.php:647
+#, fuzzy
 msgid "Swahili (Tanzania)"
-msgstr ""
+msgstr "Swahili (Tanzania)"
 
 #: zp-core/localeList.php:648
+#, fuzzy
 msgid "Swahili (Uganda)"
-msgstr ""
+msgstr "Swahili (Uganda)"
 
 #: zp-core/localeList.php:649
 msgid "Tamil"
@@ -17516,12 +17718,14 @@ msgid "Telugu (India)"
 msgstr "Telugu"
 
 #: zp-core/localeList.php:656
+#, fuzzy
 msgid "Teso"
-msgstr ""
+msgstr "Teso"
 
 #: zp-core/localeList.php:657
+#, fuzzy
 msgid "Teso (Kenya)"
-msgstr ""
+msgstr "Teso (Kenya)"
 
 #: zp-core/localeList.php:658
 #, fuzzy
@@ -17530,8 +17734,9 @@ msgid "Teso (Uganda)"
 msgstr "Immagini (standard)"
 
 #: zp-core/localeList.php:659
+#, fuzzy
 msgid "Tajik"
-msgstr ""
+msgstr "Tagiko"
 
 #: zp-core/localeList.php:660
 #, fuzzy
@@ -17550,32 +17755,39 @@ msgid "Thai (Thailand)"
 msgstr "Thai (Windows)"
 
 #: zp-core/localeList.php:663
+#, fuzzy
 msgid "Tigrinya"
-msgstr ""
+msgstr "Tigrino"
 
 #: zp-core/localeList.php:664
+#, fuzzy
 msgid "Tigrinya (Eritrea)"
-msgstr ""
+msgstr "Tigrino (Eritrea)"
 
 #: zp-core/localeList.php:665
+#, fuzzy
 msgid "Tigrinya (Ethiopia)"
-msgstr ""
+msgstr "Tigrinya (Etiopia)"
 
 #: zp-core/localeList.php:666
+#, fuzzy
 msgid "Turkmen"
-msgstr ""
+msgstr "Turkmeno"
 
 #: zp-core/localeList.php:667
+#, fuzzy
 msgid "Turkmen (Turkmenistan)"
-msgstr ""
+msgstr "Turkmeno (Turkmenistan)"
 
 #: zp-core/localeList.php:668
+#, fuzzy
 msgid "Tongan"
-msgstr ""
+msgstr "Tongan"
 
 #: zp-core/localeList.php:669
+#, fuzzy
 msgid "Tongan (Tonga)"
-msgstr ""
+msgstr "Tongan (Tonga)"
 
 #: zp-core/localeList.php:670
 msgid "Turkish"
@@ -17594,8 +17806,9 @@ msgid "Turkish (Turkey)"
 msgstr "Turco"
 
 #: zp-core/localeList.php:673
+#, fuzzy
 msgid "Tatar"
-msgstr ""
+msgstr "Tataro"
 
 #: zp-core/localeList.php:674
 #, fuzzy
@@ -17604,12 +17817,14 @@ msgid "Tatar (Russia)"
 msgstr "Russo (Russia)"
 
 #: zp-core/localeList.php:675
+#, fuzzy
 msgid "Tasawaq"
-msgstr ""
+msgstr "Tasawaq"
 
 #: zp-core/localeList.php:676
+#, fuzzy
 msgid "Tasawaq (Niger)"
-msgstr ""
+msgstr "Tasawaq (Niger)"
 
 #: zp-core/localeList.php:677
 #, fuzzy
@@ -17617,16 +17832,19 @@ msgid "Central Atlas Tamazight"
 msgstr "Europeo centrale (DOS)"
 
 #: zp-core/localeList.php:678
+#, fuzzy
 msgid "Central Atlas Tamazight (Morocco)"
-msgstr ""
+msgstr "Atlante centrale di Tamazight (Marocco)"
 
 #: zp-core/localeList.php:679
+#, fuzzy
 msgid "Uyghur"
-msgstr ""
+msgstr "Uiguri"
 
 #: zp-core/localeList.php:680
+#, fuzzy
 msgid "Uyghur (China)"
-msgstr ""
+msgstr "Uiguri (Cina)"
 
 #: zp-core/localeList.php:681
 msgid "Ukrainian"
@@ -17641,7 +17859,7 @@ msgstr "Ucraino"
 #: zp-core/localeList.php:683
 #, fuzzy
 msgid "Urdu"
-msgstr "Urdu (Pakistan)"
+msgstr "Urdu"
 
 #: zp-core/localeList.php:684
 #, fuzzy
@@ -17690,8 +17908,9 @@ msgid "Uzbek (Latin, Uzbekistan)"
 msgstr "Uzbeco"
 
 #: zp-core/localeList.php:693
+#, fuzzy
 msgid "Vai"
-msgstr ""
+msgstr "Vai"
 
 #: zp-core/localeList.php:694
 #, fuzzy
@@ -17705,12 +17924,14 @@ msgid "Vai (Latin, Liberia)"
 msgstr "Spagnolo (Latino americano)"
 
 #: zp-core/localeList.php:696
+#, fuzzy
 msgid "Vai (Vai)"
-msgstr ""
+msgstr "Vai (Vai)"
 
 #: zp-core/localeList.php:697
+#, fuzzy
 msgid "Vai (Vai, Liberia)"
-msgstr ""
+msgstr "Vai (Vai, Liberia)"
 
 #: zp-core/localeList.php:698
 msgid "Vietnamese"
@@ -17723,16 +17944,19 @@ msgid "Vietnamese (Vietnam)"
 msgstr "Vietnamita"
 
 #: zp-core/localeList.php:700
+#, fuzzy
 msgid "Vunjo"
-msgstr ""
+msgstr "Vunjo"
 
 #: zp-core/localeList.php:701
+#, fuzzy
 msgid "Vunjo (Tanzania)"
-msgstr ""
+msgstr "Vunjo (Tanzania)"
 
 #: zp-core/localeList.php:702
+#, fuzzy
 msgid "Walser"
-msgstr ""
+msgstr "Walser"
 
 #: zp-core/localeList.php:703
 #, fuzzy
@@ -17741,16 +17965,19 @@ msgid "Walser (Switzerland)"
 msgstr "Francese (Svizzera)"
 
 #: zp-core/localeList.php:704
+#, fuzzy
 msgid "Wolof"
-msgstr ""
+msgstr "Wolof"
 
 #: zp-core/localeList.php:705
+#, fuzzy
 msgid "Wolof (Senegal)"
-msgstr ""
+msgstr "Wolof (Senegal)"
 
 #: zp-core/localeList.php:706
+#, fuzzy
 msgid "Xhosa"
-msgstr ""
+msgstr "Xhosa"
 
 #: zp-core/localeList.php:707
 #, fuzzy
@@ -17759,36 +17986,44 @@ msgid "Xhosa (South Africa)"
 msgstr "Inglese (Sudafrica)"
 
 #: zp-core/localeList.php:708
+#, fuzzy
 msgid "Soga"
-msgstr ""
+msgstr "Soga"
 
 #: zp-core/localeList.php:709
+#, fuzzy
 msgid "Soga (Uganda)"
-msgstr ""
+msgstr "Soga (Uganda)"
 
 #: zp-core/localeList.php:710
+#, fuzzy
 msgid "Yangben"
-msgstr ""
+msgstr "Yangben"
 
 #: zp-core/localeList.php:711
+#, fuzzy
 msgid "Yangben (Cameroon)"
-msgstr ""
+msgstr "Yangben (Camerun)"
 
 #: zp-core/localeList.php:712
+#, fuzzy
 msgid "Yiddish"
-msgstr ""
+msgstr "Yiddish"
 
 #: zp-core/localeList.php:713
+#, fuzzy
 msgid "Yiddish (World)"
-msgstr ""
+msgstr "Yiddish (Mondo)"
 
 #: zp-core/localeList.php:714
+#, fuzzy
 msgid "Yoruba"
-msgstr ""
+msgstr "Yoruba"
 
 #: zp-core/localeList.php:715
+#, fuzzy
 msgid "Yoruba (Benin)"
-msgstr ""
+msgstr "Yoruba (Benin)"
 
 #: zp-core/localeList.php:716
 #, fuzzy
@@ -17797,8 +18032,9 @@ msgid "Yoruba (Nigeria)"
 msgstr "Arabo (Algeria)"
 
 #: zp-core/localeList.php:717
+#, fuzzy
 msgid "Cantonese"
-msgstr ""
+msgstr "Cantonese"
 
 #: zp-core/localeList.php:718
 #, fuzzy
@@ -17819,8 +18055,9 @@ msgid "Cantonese (Traditional)"
 msgstr "Cinese tradizionale"
 
 #: zp-core/localeList.php:721
+#, fuzzy
 msgid "Cantonese (Traditional, Hong Kong SAR China)"
-msgstr ""
+msgstr "Cantonese (Tradizionale, Hong Kong SAR Cina)"
 
 #: zp-core/localeList.php:722
 #, fuzzy
@@ -17829,14 +18066,15 @@ msgid "Standard Moroccan Tamazight"
 msgstr "menu standard"
 
 #: zp-core/localeList.php:723
+#, fuzzy
 msgid "Standard Moroccan Tamazight (Morocco)"
-msgstr ""
+msgstr "Tamazight marocchino standard (Marocco)"
 
 #: zp-core/localeList.php:724
 #, fuzzy
 #| msgid "Chinese (Taiwan)"
 msgid "Chinese"
-msgstr "Cinese (Hong Kong)"
+msgstr "Cinese semplificato (EUC)"
 
 #: zp-core/localeList.php:725
 #, fuzzy
@@ -17903,8 +18141,9 @@ msgid "Chinese (Traditional, Taiwan)"
 msgstr "Cinese (Taiwan)"
 
 #: zp-core/localeList.php:736
+#, fuzzy
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
 #: zp-core/localeList.php:737
 #, fuzzy
@@ -17918,22 +18157,119 @@ msgid "There are no upload handlers enabled that can service your request."
 msgstr ""
 "Non ci sono gestori di upload abilitati che possono servire la tua richiesta."
 
-#: zp-core/pluginDoc.php:280
+#: zp-core/page_error.php:9
+#, fuzzy
+msgid "Bad Request"
+msgstr "Richiesta errata"
+
+#: zp-core/page_error.php:12
+#, fuzzy
+msgid "Unauthorized"
+msgstr "Non Autorizzato"
+
+#: zp-core/page_error.php:15
+#, fuzzy
+#| msgid "Update Required"
+msgid "Payment Required"
+msgstr "Aggiornamento richiesto"
+
+#: zp-core/page_error.php:21
+#, fuzzy
+msgid "Not Found"
+msgstr "Elenca gli album trovati"
+
+#: zp-core/page_error.php:24
+#, fuzzy
+#| msgid "Filetype not allowed"
+msgid "Method Not Allowed"
+msgstr "Tipo di file non permesso"
+
+#: zp-core/page_error.php:27
+#, fuzzy
+msgid "Not Acceptable"
+msgstr "Non è accettabile"
+
+#: zp-core/page_error.php:30
+#, fuzzy
+#| msgid "Authenticate user"
+msgid "Proxy Authentication Required"
+msgstr "Autenticazione utente"
+
+#: zp-core/page_error.php:33
+#, fuzzy
+#| msgid "Timeout"
+msgid "Request Time-out"
+msgstr "Richiedi time-out"
+
+#: zp-core/page_error.php:36
+#, fuzzy
+#| msgid "Confirm"
+msgid "Conflict"
+msgstr "Conflittualità"
+
+#: zp-core/page_error.php:39
+#, fuzzy
+msgid "Gone"
+msgstr "Gone"
+
+#: zp-core/page_error.php:42
+#, fuzzy
+#| msgid "Require"
+msgid "Length Required"
+msgstr "richiesto"
+
+#: zp-core/page_error.php:45
+#, fuzzy
+msgid "Precondition Failed"
+msgstr "Connessione al database"
+
+#: zp-core/page_error.php:48
+#, fuzzy
+msgid "Request Entity Too Large"
+msgstr "Entità richiesta troppo grande"
+
+#: zp-core/page_error.php:51
+#, fuzzy
+msgid "Request-URI Too Large"
+msgstr "RICHIESTA-URI troppo grande"
+
+#: zp-core/page_error.php:54
+#, fuzzy
+msgid "Unsupported Media Type"
+msgstr "Tipo di supporto non supportato"
+
+#: zp-core/page_error.php:88
+#, fuzzy
+msgid "Something went wrong"
+msgstr "Qualcosa è andato storto"
+
+#: zp-core/page_error.php:94
+#, fuzzy, php-format
+#| msgid "Owner"
+msgid "URL: %1$s"
+msgstr "Proprietario"
+
+#: zp-core/page_error.php:97
+#, fuzzy, php-format
+msgid "HTTP status: %1$s"
+msgstr "Stato HTTP: %1$s"
+
+#: zp-core/pluginDoc.php:282
 msgid "Plugin usage information"
 msgstr "Informazioni sull'utilizzo del plug-in"
 
-#: zp-core/pluginDoc.php:281
+#: zp-core/pluginDoc.php:283
 #, php-format
 msgid "%1$s %2$s: %3$s"
 msgstr "%2$s %1$s: %3$s"
 
-#: zp-core/pluginDoc.php:472
+#: zp-core/pluginDoc.php:477
 msgid "Option:"
 msgid_plural "Options:"
 msgstr[0] "Opzione:"
 msgstr[1] "Opzioni:"
 
-#: zp-core/pluginDoc.php:568
+#: zp-core/pluginDoc.php:573
 #, fuzzy
 msgid "Macro defined:"
 msgid_plural "Macros defined:"
@@ -18039,7 +18375,7 @@ msgstr "Supporto grafico [errore di configurazione]"
 #: zp-core/reconfigure.php:327
 #, fuzzy
 msgid "dismiss"
-msgstr "destituire"
+msgstr "rifiuta"
 
 #: zp-core/reconfigure.php:356
 #, fuzzy, php-format
@@ -18056,7 +18392,7 @@ msgstr "Amministratore"
 msgid "by cloning"
 msgstr "per clonazione"
 
-#: zp-core/rewrite.php:140
+#: zp-core/rewrite.php:178
 #, fuzzy, php-format
 msgid "Error processing rewrite rule: “%s”"
 msgstr "Errore processamento immagine netPhotoGraphics: %s"
@@ -19993,7 +20329,7 @@ msgstr "È necessario essere autenticati per lanciare il setup."
 #, fuzzy
 #| msgid "files"
 msgid "My profile"
-msgstr "Inserisci il mio IP"
+msgstr "Il mio profilo"
 
 #: zp-core/template-functions.php:158
 #, fuzzy
@@ -20167,7 +20503,7 @@ msgstr "Un sistema di gestione dei contenuti orientato ai media"
 #: zp-core/template-functions.php:4335
 #, fuzzy, php-format
 msgid "Powered by %s"
-msgstr "Pagine (%s)"
+msgstr "Powered by %s"
 
 #: zp-core/template-functions.php:4576
 msgid "Error:</strong> the requested object was not found."
@@ -20301,21 +20637,12 @@ msgstr "Prefisso tabelle: <strong>%s</strong>"
 #, fuzzy
 #| msgid "Database user"
 msgid "Database backup"
-msgstr ""
-"<strong>Attenzione!</strong> Questo aggiornamento apporta delle modifiche "
-"alla struttura del database che non sono facilmente revertibili. Assicurarsi "
-"di avere un backup del database prima di procedere."
+msgstr "Backup del database"
 
 #: zp-core/utilities/backup_restore.php:528
 #, fuzzy
 msgid "Compression level"
-msgstr ""
-"L'utilità di backup crea delle istantanee del database nella cartella "
-"<code>backup</code> dell'installazione. Il nome viene dato in base all'ora e "
-"alla data in cui è stato effettuato il backup. Il livello di compressione "
-"varia tra 0 (nessuna compressione) e 9 (compressione massima). Una "
-"compressione più alta richiede un tempo di processamento più lungo e non "
-"comporta un grande risparmio di spazio."
+msgstr "Livello di compressione"
 
 #: zp-core/utilities/backup_restore.php:540
 msgid "Backup the tables in your database."
@@ -20455,7 +20782,7 @@ msgstr "Prefisso tabelle: <strong>%1$s</strong>"
 #: zp-core/utilities/database_reference.php:190
 #, fuzzy
 msgid "Key"
-msgstr "Chiave hash"
+msgstr "Chiave"
 
 #: zp-core/utilities/database_reference.php:193
 #, fuzzy
@@ -20951,7 +21278,7 @@ msgstr "Iniettare una pagina di riconoscimento della politica del sito."
 #, fuzzy
 #| msgid "Custom menu"
 msgid "Custom url"
-msgstr "Personalizzato"
+msgstr "Se scegli un link personalizzato per questo reindirizzamento"
 
 #: zp-core/zp-extensions/GDPR_required.php:63
 #, fuzzy
@@ -21366,9 +21693,12 @@ msgid "Custom Player Size"
 msgstr "Dimensione lettore"
 
 #: zp-core/zp-extensions/VideoJS.php:94
+#, fuzzy
 msgid ""
 "Custom player size (width in pixels). Set to 0 to use default player size"
 msgstr ""
+"Dimensione personalizzata del lettore (larghezza in pixel). Impostare a 0 "
+"per utilizzare le dimensioni predefinite del lettore"
 
 #: zp-core/zp-extensions/VideoJS.php:95
 #, fuzzy
@@ -21382,8 +21712,9 @@ msgid "Widescreen"
 msgstr "Discendente"
 
 #: zp-core/zp-extensions/VideoJS.php:101
+#, fuzzy
 msgid "Aspect ratio for custom player size"
-msgstr ""
+msgstr "Rapporto d'aspetto per le dimensioni personalizzate del giocatore"
 
 #: zp-core/zp-extensions/VideoJS.php:176
 #, fuzzy
@@ -21434,10 +21765,7 @@ msgstr ""
 #: zp-core/zp-extensions/accessThreshold.php:56
 #, fuzzy
 msgid "Mask"
-msgstr ""
-"<em>Raggio</em>: il raggio dei pixel della maschera di nitidezza. Un raggio "
-"piccolo rende nitidi i dettagli più piccoli, mentre un raggio grande rende "
-"nitidi i dettagli più grandi."
+msgstr "Maschera"
 
 #: zp-core/zp-extensions/accessThreshold.php:58
 #, fuzzy
@@ -21474,7 +21802,7 @@ msgstr ""
 #: zp-core/zp-extensions/accessThreshold.php:68
 #, fuzzy
 msgid "Clear list"
-msgstr "Elimina tag"
+msgstr "Pulisci la lista"
 
 #: zp-core/zp-extensions/accessThreshold.php:70
 #, fuzzy
@@ -21563,7 +21891,7 @@ msgstr "IP:"
 #: zp-core/zp-extensions/accessThreshold/admin_tab.php:151
 #, fuzzy
 msgid "blocked"
-msgstr "È stato bloccato un tentativo di cross site reference forgery."
+msgstr "bloccato"
 
 #: zp-core/zp-extensions/admin-approval.php:14
 msgid ""
@@ -21646,7 +21974,7 @@ msgstr ""
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:64
 #, fuzzy
 msgid "Maximum items"
-msgstr "Elementi visibili"
+msgstr "Numero massimo di articoli"
 
 #: zp-core/zp-extensions/bxslider_thumb_nav.php:65
 #, fuzzy
@@ -23562,8 +23890,10 @@ msgid ""
 msgstr "Indicare il soggetto (facoltativamente) come %1."
 
 #: zp-core/zp-extensions/cookieconsent.php:19
+#, fuzzy
 msgid "A plugin to add a cookie notify dialog"
 msgstr ""
+"Un plugin per aggiungere una finestra di dialogo di notifica dei cookie"
 
 #: zp-core/zp-extensions/cookieconsent.php:46
 #, fuzzy
@@ -23692,7 +24022,7 @@ msgstr "torna in cima"
 #, fuzzy
 #| msgid "scroll left"
 msgid "Top left"
-msgstr "torna in cima"
+msgstr "Alto a sinistra"
 
 #: zp-core/zp-extensions/cookieconsent.php:97
 #: zp-core/zp-extensions/openstreetmap.php:114
@@ -23700,7 +24030,7 @@ msgstr "torna in cima"
 #, fuzzy
 #| msgid "No rights"
 msgid "Top right"
-msgstr "Destra"
+msgstr "Alto a destra"
 
 #: zp-core/zp-extensions/cookieconsent.php:98
 #, fuzzy
@@ -23716,7 +24046,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Vote Status:"
 msgid "Bottom left"
-msgstr "Sinistra"
+msgstr "Basso a sinistra"
 
 #: zp-core/zp-extensions/cookieconsent.php:100
 #: zp-core/zp-extensions/openstreetmap.php:116
@@ -23724,7 +24054,7 @@ msgstr "Sinistra"
 #, fuzzy
 #| msgid "Vote Status:"
 msgid "Bottom right"
-msgstr "Destra"
+msgstr "In basso a destra"
 
 #: zp-core/zp-extensions/cookieconsent.php:102
 #, fuzzy
@@ -23840,7 +24170,7 @@ msgstr "Filigrana immagine testata"
 #: zp-core/zp-extensions/crop_image.php:469
 #, fuzzy
 msgid "Done"
-msgstr "Creazione database e aggiornamento tabella completati"
+msgstr "Fatto"
 
 #: zp-core/zp-extensions/daily-summary.php:31
 #, fuzzy
@@ -23863,7 +24193,7 @@ msgstr "Quanti giorni indietro nel tempo per mostrarlo."
 #: zp-core/zp-extensions/daily-summary.php:76
 #, fuzzy
 msgid "Items per page"
-msgstr "Miniature per pagina"
+msgstr "Elementi per pagina"
 
 #: zp-core/zp-extensions/daily-summary.php:80
 #, fuzzy
@@ -23906,7 +24236,7 @@ msgstr[1] "C'è stata un'immagine caricata negli ultimi 1$s giorni."
 #: zp-core/zp-extensions/daily-summary/daily-summary_content.php:30
 #, fuzzy, php-format
 msgid "Title: %s"
-msgstr "Titolo <strong>%s</strong>:"
+msgstr "Titolo: %s"
 
 #: zp-core/zp-extensions/daily-summary/daily-summary_content.php:31
 #, fuzzy, php-format
@@ -24160,7 +24490,7 @@ msgstr "Lingue"
 #: zp-core/zp-extensions/debug.php:216
 #, fuzzy
 msgid "Session"
-msgstr "<code>SQL mode</code> [SET SESSION fallita]"
+msgstr "Sessione"
 
 #: zp-core/zp-extensions/debug.php:217
 #, fuzzy
@@ -24181,7 +24511,7 @@ msgstr "HTTP_Accept_Language"
 #, fuzzy
 #| msgid "Filter"
 msgid "filters"
-msgstr "%u filtri attivi:"
+msgstr "filtri"
 
 #: zp-core/zp-extensions/debug/admin_tab.php:43
 msgid "Your PHP configuration information."
@@ -24240,12 +24570,14 @@ msgid "The following locals are reported by your server."
 msgstr "La localizzazione %s non è supportata dal vostro server."
 
 #: zp-core/zp-extensions/debug/admin_tab.php:237
+#, fuzzy
 msgid "Languages in boldface have translations."
-msgstr ""
+msgstr "Le lingue in grassetto hanno traduzioni."
 
 #: zp-core/zp-extensions/debug/admin_tab.php:243
+#, fuzzy
 msgid "Note: the PHP Internationalization Functions module is not enabled."
-msgstr ""
+msgstr "Nota: il modulo PHP Internationalization Functions non è abilitato."
 
 #: zp-core/zp-extensions/defaultCodeblocks.php:21
 #, fuzzy
@@ -24670,7 +25002,7 @@ msgid "URL"
 msgstr "URL"
 
 #: zp-core/zp-extensions/dynamic-locale.php:214
-#: zp-core/zp-extensions/rewriteTokens.php:81
+#: zp-core/zp-extensions/rewriteRules.php:192
 msgid "disabled"
 msgstr "disabilitati"
 
@@ -24743,7 +25075,7 @@ msgstr "Utilizzare come sottotab per caricare <em>file</em>."
 #, fuzzy
 #| msgid "Edit the menu"
 msgid "Edit themes"
-msgstr "Nei temi"
+msgstr "Modificare i temi"
 
 #: zp-core/zp-extensions/elFinder.php:57
 #, fuzzy
@@ -24854,7 +25186,7 @@ msgstr "Questo ticket scadrà automaticamente in 3 giorin."
 #, fuzzy
 #| msgid "watermark with"
 msgid "User created"
-msgstr "L'utente di ZenPhoto20 ha creato"
+msgstr "Utente creato"
 
 #: zp-core/zp-extensions/email-newuser.php:42
 msgid "New users will be mailed a password set link"
@@ -25154,7 +25486,7 @@ msgstr "Il PHP Curl è richiesto."
 #: zp-core/zp-extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "ultima(o) per id"
+msgstr "App ID"
 
 #: zp-core/zp-extensions/facebookLogin.php:66
 #, fuzzy
@@ -25166,7 +25498,7 @@ msgstr "Questo è il tuo Facebook <em>App ID</em>."
 #, fuzzy
 #| msgid "Secret"
 msgid "App Secret"
-msgstr "Segreto"
+msgstr "App Secret"
 
 #: zp-core/zp-extensions/facebookLogin.php:69
 #, fuzzy
@@ -25191,7 +25523,7 @@ msgstr "Creazione album dinamico netPhotoGraphics"
 #: zp-core/zp-extensions/favoritesAlbums/admin-album.php:94
 #, fuzzy
 msgid "favorite"
-msgstr "Chi era il tuo cantante preferito?"
+msgstr "Preferito"
 
 #: zp-core/zp-extensions/favoritesHandler.php:48
 msgid "Support for <em>favorites</em> handling."
@@ -25225,7 +25557,7 @@ msgstr "Abilita impaginazioni multiple per"
 #: zp-core/zp-extensions/favoritesHandler.php:103
 #, fuzzy
 msgid "Add button"
-msgstr "aggiungi"
+msgstr "Aggiungi pulsante"
 
 #: zp-core/zp-extensions/favoritesHandler.php:106
 #, fuzzy
@@ -25528,7 +25860,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View %s"
 msgid "View %1$s"
-msgstr "Visualizza %s"
+msgstr "Vedi %1$s"
 
 #: zp-core/zp-extensions/galleryArticles.php:241
 #, fuzzy
@@ -25557,7 +25889,7 @@ msgstr "Gestisce l'accesso tramite l'account dell'utente <em>Google</em>."
 #: zp-core/zp-extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "ultima(o) per id"
+msgstr "ID Client Google OAuth"
 
 #: zp-core/zp-extensions/googleLogin.php:68
 #, fuzzy
@@ -25578,7 +25910,7 @@ msgstr "Questo è il tuo Google <em>Outh Client Secret</em>."
 #: zp-core/zp-extensions/googleMap.php:109
 #, fuzzy
 msgid "API key"
-msgstr "Chiave hash"
+msgstr "Chiave API"
 
 #: zp-core/zp-extensions/googleLogin.php:74
 #, fuzzy
@@ -25683,7 +26015,7 @@ msgstr "Opzioni di visualizzazione per il controllo Zoom."
 #: zp-core/zp-extensions/googleMap.php:103
 #, fuzzy
 msgid "Max zoom level"
-msgstr "volume massimo"
+msgstr "Livello di zoom massimo"
 
 #: zp-core/zp-extensions/googleMap.php:105
 #, fuzzy
@@ -26106,7 +26438,7 @@ msgstr ""
 #: zp-core/zp-extensions/html_meta_tags.php:118
 #, fuzzy
 msgid "Twitter name"
-msgstr "con la cartella di nome:"
+msgstr "Nome Twitter"
 
 #: zp-core/zp-extensions/html_meta_tags.php:119
 #, fuzzy
@@ -26382,7 +26714,7 @@ msgstr "Gestisce l'accesso tramite l'account dell'utente <em>Instagram</em>."
 #: zp-core/zp-extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "ultima(o) per id"
+msgstr "ID Cliente"
 
 #: zp-core/zp-extensions/instagramLogin.php:66
 #, fuzzy
@@ -26393,7 +26725,7 @@ msgstr "Questo è il tuo Instagram <em>Client ID</em>."
 #, fuzzy
 #| msgid "Secret"
 msgid "Client Secret"
-msgstr "Segreto"
+msgstr "Client Secret"
 
 #: zp-core/zp-extensions/instagramLogin.php:69
 #, fuzzy
@@ -26418,7 +26750,7 @@ msgstr "Permetti commenti privati"
 #: zp-core/zp-extensions/ipBlocker.php:80
 #, fuzzy
 msgid "Block"
-msgstr "Abilita/disabilita blocco commento"
+msgstr "Blocco"
 
 #: zp-core/zp-extensions/ipBlocker.php:90
 #, fuzzy
@@ -27049,7 +27381,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Disable comments"
 msgid "Disable cookies"
-msgstr "disabilita"
+msgstr "Disattiva cookies"
 
 #: zp-core/zp-extensions/matomo.php:115
 #, fuzzy
@@ -27942,7 +28274,7 @@ msgstr ""
 #, fuzzy
 #| msgid "zoom"
 msgid "Map zoom"
-msgstr "Mappa"
+msgstr "Zoom Mappa"
 
 #: zp-core/zp-extensions/openstreetmap.php:83
 #, fuzzy
@@ -28026,10 +28358,13 @@ msgid "Cluster radius"
 msgstr "Raggio"
 
 #: zp-core/zp-extensions/openstreetmap.php:123
+#, fuzzy
 msgid ""
 "The maximum radius that a cluster will cover from the central marker (in "
 "pixels). Decreasing will make more, smaller clusters."
 msgstr ""
+"Il raggio massimo che un cluster coprirà dal marcatore centrale (in pixel). "
+"Diminuendo si otterranno più cluster più piccoli."
 
 #: zp-core/zp-extensions/openstreetmap.php:124
 #, fuzzy
@@ -28053,10 +28388,13 @@ msgid "Thumb"
 msgstr "miniatura"
 
 #: zp-core/zp-extensions/openstreetmap.php:138
+#, fuzzy
 msgid ""
 "Enable the popups you want shown. Popups occur only in the <em>album</em> "
 "context."
 msgstr ""
+"Attivare i popup che si desidera visualizzare. I popup si verificano solo "
+"nel contesto dell'<em>album</em>."
 
 #: zp-core/zp-extensions/openstreetmap.php:139
 #, fuzzy
@@ -28080,11 +28418,15 @@ msgid "Layers list"
 msgstr "Lista campi:"
 
 #: zp-core/zp-extensions/openstreetmap.php:149
+#, fuzzy
 msgid ""
 "Choose layers list to show in layers controls. You can preview the layers <a "
 "href=\"http://leaflet-extras.github.io/leaflet-providers/preview/index.html"
 "\">here</a>."
 msgstr ""
+"Scegliere l'elenco dei livelli da mostrare nei controlli dei livelli. È "
+"possibile visualizzare in anteprima i livelli <a href=\"http://leaflet-"
+"extras.github.io/leaflet-providers/preview/index.html\">qui</a>."
 
 #: zp-core/zp-extensions/openstreetmap.php:150
 #, fuzzy
@@ -28786,7 +29128,7 @@ msgstr "Nei plug-in utente"
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "Extensions"
-msgstr "Processa estensioni"
+msgstr "Estensioni"
 
 #: zp-core/zp-extensions/purgeOptions/purgeOptions_tab.php:73
 #, fuzzy
@@ -29044,7 +29386,7 @@ msgstr ""
 #: zp-core/zp-extensions/rating.php:80
 #, fuzzy
 msgid "Icon size"
-msgstr "Icona"
+msgstr "Dimensione icona"
 
 #: zp-core/zp-extensions/rating.php:82
 #, fuzzy
@@ -29148,11 +29490,7 @@ msgstr "Non ancora giudicato"
 #: zp-core/zp-extensions/rating.php:372
 #, fuzzy
 msgid "like"
-msgstr ""
-"Le relazioni interne tra le tabelle di netPhotoGraphics possono essere viste "
-"nel riferimento del database in PDF che è incluso nel pacchetto di "
-"installazione di Zenphoto all'interno della cartella /docs_files. Per "
-"ulteriori dettagli sul database usare strumenti come phpMyAdmin."
+msgstr "like"
 
 #: zp-core/zp-extensions/rating.php:374
 #, php-format
@@ -29206,7 +29544,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Private key"
 msgid "Site key"
-msgstr "Consumer key"
+msgstr "Chiave Sito"
 
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:53
 #, fuzzy
@@ -29232,13 +29570,7 @@ msgstr "Luce standard B"
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:59
 #, fuzzy
 msgid "Dark"
-msgstr ""
-"Questa pagina mostra statistiche dettagliate della propria galleria. Per le "
-"statistiche degli album, la barra del grafico indica sempre il numero totale "
-"di immagini nell'album. Per le statistiche delle immagini il numero di volte "
-"in cui viene mostrato l'album dov'è contenuta.<br />Gli elementi non "
-"pubblicati sono marcati in rosso scuro. Le immagini sono marcate come non "
-"pubblicate se lo è anche il loro album."
+msgstr "Scuro"
 
 #: zp-core/zp-extensions/reCAPTCHA_v2.php:59
 #, fuzzy
@@ -29321,7 +29653,7 @@ msgstr "Testo di suggerimento predefinito per il link utente del registro."
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration text"
-msgstr "Testo"
+msgstr "Testo di Registrazione"
 
 #: zp-core/zp-extensions/register_user.php:67
 #, fuzzy
@@ -29509,44 +29841,24 @@ msgstr ""
 #: zp-core/zp-extensions/related_items.php:161
 #, fuzzy, php-format
 msgid "Related %s"
-msgstr "%s"
+msgstr "%s Correlati"
 
-#: zp-core/zp-extensions/rewriteRules.php:93
+#: zp-core/zp-extensions/rewriteRules.php:112
 #, fuzzy
 msgid "Site rewrite rules."
 msgstr "L'opzione \"mod_rewrite\" di netPhotoGraphics è \"abilitata\"."
 
-#: zp-core/zp-extensions/rewriteRules.php:107
-#: zp-core/zp-extensions/rewriteRules/admin_tab.php:11
-#, fuzzy
-msgid "rewrite"
-msgstr "L'opzione \"mod_rewrite\" di netPhotoGraphics è \"abilitata\"."
-
-#: zp-core/zp-extensions/rewriteRules/admin_tab.php:26
-#, fuzzy
-msgid "Rewrite Rules"
-msgstr "mod rewrite"
-
-#: zp-core/zp-extensions/rewriteRules/functions.php:37
-#, fuzzy
-msgid "Error processing rewrite rule:"
-msgstr "Errore processamento immagine netPhotoGraphics: %s"
-
-#: zp-core/zp-extensions/rewriteTokens.php:11
-#, fuzzy
-msgid "Utility to alter the rewrite token substitutions."
-msgstr "Utilità per modificare le sostituzioni del gettone di riscrittura."
-
-#: zp-core/zp-extensions/rewriteTokens.php:12
+#: zp-core/zp-extensions/rewriteRules.php:113
+#: zp-core/zp-extensions/rewriteRules.php:337
 #, fuzzy
 msgid ""
-"Rewrite Tokens are not useful unless the <code>mod_rewrite</code> option is "
-"enabled."
+"The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> "
+"plugin is disabled."
 msgstr ""
-"Riscrivi i gettoni non sono utili a meno che l'opzione <code>mod_rewrite</"
-"code> non sia abilitata."
+"Il file <em>rules.txt</em> non viene elaborato quando il plugin "
+"<em>rewriteRules</em> è disabilitato."
 
-#: zp-core/zp-extensions/rewriteTokens.php:37
+#: zp-core/zp-extensions/rewriteRules.php:148
 #, fuzzy
 msgid ""
 "The Configuration file is corrupt. You will need to restore it from a backup."
@@ -29554,12 +29866,12 @@ msgstr ""
 "Il file di configurazione è danneggiato. Sarà necessario ripristinarlo da un "
 "backup."
 
-#: zp-core/zp-extensions/rewriteTokens.php:64
+#: zp-core/zp-extensions/rewriteRules.php:175
 #, fuzzy
 msgid "rewriteTokens restored to default"
 msgstr "Permessi predefiniti"
 
-#: zp-core/zp-extensions/rewriteTokens.php:83
+#: zp-core/zp-extensions/rewriteRules.php:194
 #, fuzzy, php-format
 msgid ""
 "The <code>%1$s</code> rule defines <strong>%2$s</strong> as <em>%3$s</em>."
@@ -29567,13 +29879,13 @@ msgstr ""
 "La regola <code>%1$s</code> definisce <strong>%2$s</strong> come <em>%3$s</"
 "em>."
 
-#: zp-core/zp-extensions/rewriteTokens.php:85
-#: zp-core/zp-extensions/rewriteTokens.php:176
+#: zp-core/zp-extensions/rewriteRules.php:196
+#: zp-core/zp-extensions/rewriteRules.php:283
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> script page."
 msgstr "Pagina <em>%s</em> non trovata"
 
-#: zp-core/zp-extensions/rewriteTokens.php:99
+#: zp-core/zp-extensions/rewriteRules.php:210
 #, fuzzy
 msgid ""
 "<p class=\"notebox\">Rewrite Tokens are not useful unless the "
@@ -29582,32 +29894,48 @@ msgstr ""
 "<p class=\"notebox\">Riscrivi i gettoni non sono utili a meno che l'opzione "
 "<code>mod_rewrite</code> non sia abilitata.</p>."
 
-#: zp-core/zp-extensions/rewriteTokens.php:104
+#: zp-core/zp-extensions/rewriteRules.php:215
 #, fuzzy
 msgid "Restore defaults."
 msgstr "Predefiniti"
 
-#: zp-core/zp-extensions/rewriteTokens.php:152
+#: zp-core/zp-extensions/rewriteRules.php:263
 #, fuzzy
 msgid "Rewrite tokens may not be empty."
 msgstr "La password di %s non deve essere vuota."
 
-#: zp-core/zp-extensions/rewriteTokens.php:173
+#: zp-core/zp-extensions/rewriteRules.php:280
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> rule."
 msgstr "<em>%s</em> esiste già."
 
-#: zp-core/zp-extensions/rewriteTokens.php:199
+#: zp-core/zp-extensions/rewriteRules.php:306
+#: zp-core/zp-extensions/rewriteRules/rules_tab.php:11
+#, fuzzy
+msgid "rewrite"
+msgstr "L'opzione \"mod_rewrite\" di netPhotoGraphics è \"abilitata\"."
+
+#: zp-core/zp-extensions/rewriteRules.php:307
 #, fuzzy
 msgid "tokens"
 msgstr "buoni"
 
-#: zp-core/zp-extensions/rewriteTokens/admin_tab.php:10
+#: zp-core/zp-extensions/rewriteRules/functions.php:39
+#, fuzzy
+msgid "Error processing rewrite rule:"
+msgstr "Errore processamento immagine netPhotoGraphics: %s"
+
+#: zp-core/zp-extensions/rewriteRules/rules_tab.php:26
+#, fuzzy
+msgid "Rewrite Rules"
+msgstr "Riscrivi Regole"
+
+#: zp-core/zp-extensions/rewriteRules/tokens_tab.php:10
 #, fuzzy
 msgid "rewriteTokens"
 msgstr "riscriviGettoni"
 
-#: zp-core/zp-extensions/rewriteTokens/admin_tab.php:29
+#: zp-core/zp-extensions/rewriteRules/tokens_tab.php:29
 #, fuzzy
 msgid "Rewrite Tokens"
 msgstr "L'opzione \"mod_rewrite\" di netPhotoGraphics è \"abilitata\"."
@@ -30132,7 +30460,7 @@ msgstr "Successo"
 #: zp-core/zp-extensions/security-logger.php:202
 #, fuzzy
 msgid "Blocked"
-msgstr "È stato bloccato un tentativo di cross site reference forgery."
+msgstr "Bloccato"
 
 #: zp-core/zp-extensions/seo_cleanup.php:17
 #, fuzzy
@@ -31454,7 +31782,7 @@ msgstr "Questi temi sono abilitati ma non hanno le opzioni predefinite:"
 #: zp-core/zp-extensions/themeSwitcher.php:179
 #, fuzzy
 msgid "Switch themes"
-msgstr "Nei temi"
+msgstr "Cambia i temi"
 
 #: zp-core/zp-extensions/themeSwitcher.php:194
 #, fuzzy
@@ -31789,10 +32117,7 @@ msgstr "Questo è il tuo Twitter <em>Consumer Key</em>."
 #, fuzzy
 #| msgid "Consumer key"
 msgid "Consumer Secret"
-msgstr ""
-"L'applicazione <code>tweet_news</code> per questo sito necessita di una "
-"<em>consumer key</em>, una <em>secret key</em>, un <em>token di accesso</"
-"em>, e un <em>secret token</em>."
+msgstr "Consumer Secret"
 
 #: zp-core/zp-extensions/tweet_news.php:84
 #: zp-core/zp-extensions/twitterLogin.php:73
@@ -32033,13 +32358,15 @@ msgstr ""
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
-msgstr "Il file supera il valore di MAX_FILE_SIZE (direttiva del form HTML)"
+msgstr ""
+"Il file inviato eccede il valore \"MAX_FILE_SIZE\" che è stato specificato "
+"nel modulo HTML"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:26
 #, fuzzy
 #| msgid "File was only partially uploaded"
 msgid "The uploaded file was only partially uploaded"
-msgstr "Il file è stato caricato solo parzialmente"
+msgstr "Il file è stato solo parzialmente caricato"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:27
 #, fuzzy
@@ -32058,7 +32385,7 @@ msgstr "Scrittura del file sul disco fallita"
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:30
 #, fuzzy
 msgid "A PHP extension stopped the file upload"
-msgstr "Caricamento del file fermato dall'estensione"
+msgstr "Caricamento del file interrotto da una estensione PHP"
 
 #: zp-core/zp-extensions/uploader_jQuery/server/php/UploadHandler.php:31
 #, fuzzy
@@ -32113,7 +32440,7 @@ msgstr "Esecuzione automatica abortita"
 #, fuzzy
 #| msgid "Failed to write file to disk"
 msgid "Failed to resize image"
-msgstr "Setup fallito."
+msgstr "Impossibile ridimensionare l’immagine"
 
 #: zp-core/zp-extensions/uploader_jQuery/upload_form.php:29
 #, fuzzy
@@ -32296,7 +32623,7 @@ msgstr "Disabilita"
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:213
 #, fuzzy
 msgid "Force password change"
-msgstr "Password"
+msgstr "Forza un cambiamento della password"
 
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:223
 #: zp-core/zp-extensions/user-expiry/user-expiry-tab.php:254
@@ -33299,7 +33626,7 @@ msgstr "Aggiornato articolo <em>%s</em>"
 #: zp-core/zp-extensions/zenpage/admin-functions.php:558
 #, fuzzy
 msgid "All authors"
-msgstr "Seleziona tutti"
+msgstr "Tutti gli autori"
 
 #: zp-core/zp-extensions/zenpage/admin-functions.php:597
 msgid "View all months"
@@ -34033,9 +34360,7 @@ msgstr "Fare clic sull'immagine per modificare il ritaglio della miniatura."
 #: zp-core/zp-extensions/zoomImage.php:63
 #, fuzzy
 msgid "Toggle"
-msgstr ""
-" supporto a <code>%1$s</code> (<a onclick=\"$('#%1$s').toggle('show')\" "
-">sperimentale</a>)"
+msgstr "Seleziona"
 
 #: zp-core/zp-extensions/zoomImage.php:64
 #, fuzzy
@@ -34131,6 +34456,18 @@ msgstr ""
 #: zp-core/zp-extensions/zpCaptcha.php:70
 msgid "Sample CAPTCHA image"
 msgstr "Immagine captcha di esempio"
+
+#, fuzzy
+#~ msgid "Utility to alter the rewrite token substitutions."
+#~ msgstr "Utilità per modificare le sostituzioni del gettone di riscrittura."
+
+#, fuzzy
+#~ msgid ""
+#~ "Rewrite Tokens are not useful unless the <code>mod_rewrite</code> option "
+#~ "is enabled."
+#~ msgstr ""
+#~ "Riscrivi i gettoni non sono utili a meno che l'opzione <code>mod_rewrite</"
+#~ "code> non sia abilitata."
 
 #, fuzzy
 #~ msgid ""
