@@ -15,7 +15,7 @@
  * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example5.jpg" />
  *
  * If you select <i>custom (within theme)</i> on the plugin option for Colorbox you need to place a folder
- * <i>colorbox</i> containing a <i>colorbox.css</i> file and a folder <i>images</i> within the current theme
+ * <i>colorbox_js</i> containing a <i>colorbox.css</i> file and a folder <i>images</i> within the current theme
  * to use a custom Colorbox theme.
  *
  * @author Stephen Billard (sbillard)
