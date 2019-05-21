@@ -636,9 +636,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
  * first file found is used
  *
  * @param string $plugin is the name of the plugin file, typically something.php
- * @param bool $inTheme tells where to find the plugin.
- *   true means look in the current theme
- *   false means look in the zp-core/plugins folder.
+ * @param bool $inTheme tells where to find the plugin file.
  * @param bool $webpath return a WEBPATH rather than a SERVERPATH
  *
  * @return string
@@ -2388,14 +2386,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
