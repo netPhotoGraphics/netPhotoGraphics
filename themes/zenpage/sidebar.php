@@ -8,7 +8,7 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 	</div>
 	<?php
 } else {
-	if (extensionEnabled('zenpage') && ($news = getNumNews(true))) {
+	if (extensionEnabled('zenpage') && ($news = hasNews())) {
 		?>
 		<div class="menu">
 			<h3><?php echo NEWS_LABEL; ?></h3>
@@ -43,7 +43,7 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 		</div>
 	<?php } ?>
 
-	<?php if (extensionEnabled('zenpage') && (getNumPages(true))) { ?>
+	<?php if (extensionEnabled('zenpage') && (hasPages())) { ?>
 		<div class="menu">
 			<h3><?php echo gettext("Pages"); ?></h3>
 			<?php printPageMenu("list", "", "menu-active", "submenu", "menu-active"); ?>

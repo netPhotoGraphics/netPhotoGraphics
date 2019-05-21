@@ -4,7 +4,7 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/debug
  */
@@ -194,7 +194,7 @@ echo "\n</head>";
 							break;
 						default:
 						case 'http':
-							$httpaccept = parseHttpAcceptLanguage();
+							$httpaccept = i18n::parseHttpAcceptLanguage();
 							if (count($httpaccept) > 0) {
 								$accept = reset($httpaccept);
 								?>
@@ -236,6 +236,15 @@ echo "\n</head>";
 							<div>
 								<?php echo gettext('Languages in boldface have translations.'); ?>
 							</div>
+							<?php
+							if (!extension_loaded('intl')) {
+								?>
+								<div class="warningbox">
+									<?php echo gettext('Note: the PHP Internationalization Functions module is not enabled.'); ?>
+								</div>
+								<?php
+							}
+							?>
 							<br />
 							<?php
 							$list = ResourceBundle::getLocales('');

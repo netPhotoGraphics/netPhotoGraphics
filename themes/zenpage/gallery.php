@@ -59,7 +59,7 @@ if (!defined('WEBPATH'))
 						<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
 
 						<?php
-					} else if (getNumNews(true)) { // news article loop
+					} else if (hasNews()) { // news article loop
 						printNewsPageListWithNav(gettext('next »'), gettext('« prev'), true, 'pagelist', true);
 						echo "<hr />";
 						while (next_news()):;

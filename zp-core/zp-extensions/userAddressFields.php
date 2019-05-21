@@ -89,14 +89,6 @@ class userAddressFields extends fieldExtender {
 		return parent::_mediaItemEdit($html, $object, $i, self::fields());
 	}
 
-	static function zenpageItemSave($custom, $object) {
-		return parent::_cmsItemSave($custom, $object, self::fields());
-	}
-
-	static function zenpageItemEdit($html, $object) {
-		return parent::_cmsItemEdit($html, $object, self::fields());
-	}
-
 	static function register() {
 		parent::_register('userAddressFields', self::fields());
 	}

@@ -71,7 +71,7 @@ if (OFFSET_PATH != 2) {
 
 /**
  * prints a form for selecting a locale
- * The POST handling is by getUserLocale() called in functions.php
+ * The POST handling is by i18n::getUserLocale() called in functions.php
  *
  */
 function printLanguageSelector($flags = NULL) {
@@ -88,7 +88,7 @@ function printLanguageSelector($flags = NULL) {
 		}
 	}
 
-	$languages = generateLanguageList();
+	$languages = i18n::generateLanguageList();
 	$disallow = getSerializedArray(getOption('locale_disallowed'));
 
 	if (isset($_REQUEST['locale'])) {
@@ -196,7 +196,7 @@ class dynamic_locale {
 			$seo_locale = extensionEnabled('seo_locale') && getOption('dynamic_locale_subdomain') != 2;
 			setOptionDefault('dynamic_locale_visual', 0);
 			setOptionDefault('dynamic_locale_subdomain', (int) $seo_locale);
-			setOptionDefault('dynamic_locale_base', getUserLocale());
+			setOptionDefault('dynamic_locale_base', i18n::getUserLocale());
 		}
 	}
 
@@ -204,13 +204,13 @@ class dynamic_locale {
 		$host = $_SERVER['HTTP_HOST'];
 		$matches = explode('.', $host);
 		$webpath = ltrim(WEBPATH, '/');
-		if (validateLocale($matches[0], 'Dynamic Locale')) {
+		if (i18n::validateLocale($matches[0], 'Dynamic Locale')) {
 			array_shift($matches);
 			$host = implode('.', $matches);
 		}
 		$localdesc = '<p>' . sprintf(gettext('Select <em>Use subdomains</em> and links will be in the form <code><em>language</em>.%s/...</code> where <code><em>language</em></code> is the language code, e.g. <code><em>fr</em></code> for French.'), $host . '/' . $webpath) . '</p>';
 
-		$locales = generateLanguageList();
+		$locales = i18n::generateLanguageList();
 		$buttons = array(gettext('subdomain') => 2, gettext('URL') => 1, gettext('disabled') => 0);
 		if (MOD_REWRITE) {
 			$buttons[gettext('URL')] = 1;
@@ -246,7 +246,7 @@ class dynamic_locale {
 		global $_locale_Subdomains;
 		$host = $_SERVER['HTTP_HOST'];
 		$matches = explode('.', $host);
-		if (validateLocale($matches[0], 'Dynamic Locale')) {
+		if (i18n::validateLocale($matches[0], 'Dynamic Locale')) {
 			array_shift($matches);
 			$host = implode('.', $matches);
 		}
@@ -299,7 +299,7 @@ class seo_locale {
 				$l = substr($path, 0, $rest);
 			}
 		}
-		$locale = validateLocale($l, 'seo_locale');
+		$locale = i18n::validateLocale($l, 'seo_locale');
 		if ($locale) {
 			// set the language cookie and redirect to the "base" url
 			zp_setCookie('dynamic_locale', $locale);

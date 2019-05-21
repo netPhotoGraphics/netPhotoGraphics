@@ -9,7 +9,7 @@
  * @package plugins/lazyImage
  * @pluginCategory media
  *
- * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 
 $plugin_is_filter = 9 | THEME_PLUGIN;

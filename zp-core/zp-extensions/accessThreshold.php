@@ -13,7 +13,7 @@
  * that flooding is not prematurely indicated.
  *
  * @author Stephen Billard (sbillard)
- * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/accessThreshold
  * @pluginCategory admin
@@ -172,7 +172,7 @@ if (OFFSET_PATH) {
 				exit();
 			} else {
 				$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
-				$__locale = getUserLocale();
+				$__locale = i18n::getUserLocale();
 				if (isset($recentIP[$ip]['locales'][$__locale])) {
 					$recentIP[$ip]['locales'][$__locale]['ip'][$full_ip] = $__time;
 				} else {

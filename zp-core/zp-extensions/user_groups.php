@@ -20,8 +20,8 @@ $plugin_description = gettext("Provides rudimentary user groups.");
 
 zp_register_filter('admin_tabs', 'user_groups::admin_tabs', 2000);
 zp_register_filter('admin_alterrights', 'user_groups::admin_alterrights');
-zp_register_filter('save_admin_custom_data', 'user_groups::save_admin');
-zp_register_filter('edit_admin_custom_data', 'user_groups::edit_admin');
+zp_register_filter('save_admin_data', 'user_groups::save_admin');
+zp_register_filter('edit_admin_custom', 'user_groups::edit_admin');
 
 class user_groups {
 

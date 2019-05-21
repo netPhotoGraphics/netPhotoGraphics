@@ -9,7 +9,7 @@ include('inc_header.php');
 </div><!-- .header -->
 </div><!-- /.page-header -->
 
-<?php if (getNumPages()) { ?>
+<?php if (hasPages()) { ?>
 	<div class="row margin-bottom ">
 		<div class="col-sm-offset-1 col-sm-10">
 			<?php printPageMenu('list-sub', '', '', 'pages-list nav nav-pills', 'active'); ?>

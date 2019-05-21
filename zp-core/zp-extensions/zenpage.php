@@ -30,13 +30,6 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 }
 $option_interface = 'cmsFilters';
 
-if (OFFSET_PATH == 2) {
-	setOptionDefault('NewsLink', array_key_exists('news', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['news']['rewrite'] : 'news');
-	setOptionDefault('categoryLink', array_key_exists('category', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['category']['rewrite'] : 'category');
-	setOptionDefault('NewsArchiveLink', array_key_exists('news_archive', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['news_archive']['rewrite'] : '_NEWS_/archive');
-	setOptionDefault('PagesLink', array_key_exists('pages', $_zp_conf_vars['special_pages']) ? $_zp_conf_vars['special_pages']['pages']['rewrite'] : 'pages');
-}
-
 //Zenpage rewrite definitions
 $_zp_conf_vars['special_pages']['news'] = array('define' => '_NEWS_', 'rewrite' => getOption('NewsLink'),
 		'option' => 'NewsLink', 'default' => 'news');
@@ -53,23 +46,23 @@ $_zp_conf_vars['special_pages'][] = array('definition' => '%NEWS_ARCHIVE%', 'rew
 $_zp_conf_vars['special_pages'][] = array('definition' => '%PAGES%', 'rewrite' => '_PAGES_');
 
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/*$',
-		'rule' => '%REWRITE% index.php?p=pages [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=pages [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=pages&title=$1 [L, QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+)/([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=news&category=$1&page=$2 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news&category=$1&page=$2 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+?)/*$',
-		'rule' => '%REWRITE% index.php?p=news&category=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news&category=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+)/([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=news&date=$1&page=$2 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news&date=$1&page=$2 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+?)/*$',
-		'rule' => '%REWRITE% index.php?p=news&date=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news&date=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=news&page=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news&page=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/(.+?)/*$',
-		'rule' => '%REWRITE% index.php?p=news&title=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news&title=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/*$',
-		'rule' => '%REWRITE% index.php?p=news [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=news [NC,L,QSA]');
 
 
 zp_register_filter('checkForGuest', 'cmsFilters::checkForGuest');
@@ -256,45 +249,60 @@ class cmsFilters {
 		return $fail;
 	}
 
+	static function admin_pages() {
+		global $_zp_CMS, $_zp_loggedin, $_zp_current_admin_obj;
+		$articlestab = $categorystab = $pagestab = false;
+		if ($_zp_CMS) {
+			if ($_zp_loggedin & ADMIN_RIGHTS) {
+				$_zp_loggedin = ALL_RIGHTS;
+			} else {
+				if ($_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
+					// these are lock-step linked!
+					$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
+				}
+				if ($_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
+					// these are lock-step linked!
+					$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
+				}
+			}
+			$admin = $_zp_current_admin_obj->getUser();
+			if ($_zp_CMS->news_enabled) {
+				$articlestab = $categorystab = $_zp_loggedin & (MANAGE_ALL_NEWS_RIGHTS | ZENPAGE_NEWS_RIGHTS);
+				if (!$articlestab) {
+					$articles = query('SELECT `titlelink` FROM ' . prefix('news') . ' WHERE `owner`=' . db_quote($admin));
+					if ($articles) {
+						$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS; //	Owners get rights to edit their articles
+						$articlestab = true;
+					}
+				}
+
+				if ($_zp_CMS->pages_enabled) {
+					$pagestab = $_zp_loggedin & (MANAGE_ALL_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS);
+					if (!$pagestab) {
+						$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `owner`=' . db_quote($admin));
+						if ($pagelist) {
+							$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS; //	Owners get rights to edit their pages
+							$pagestab = true;
+						}
+					}
+				}
+			}
+		}
+		return array($articlestab, $categorystab, $pagestab);
+	}
+
 	/**
 	 *
 	 * Zenpage admin toolbox links
 	 */
 	static function admin_toolbox_global($zf) {
-		global $_zp_CMS;
-		if (zp_loggedin(ZENPAGE_NEWS_RIGHTS) && $_zp_CMS && $_zp_CMS->news_enabled) {
-			$articles = $_zp_CMS->getArticles(0, 'all', false, NULL, NULL, false, NULL);
-			foreach ($articles as $key => $article) {
-				$article = newArticle($article['titlelink']);
-				$subrights = $article->subRights();
-				if (!($article->isMyItem(ZENPAGE_NEWS_RIGHTS) && $subrights & MANAGED_OBJECT_RIGHTS_EDIT)) {
-					unset($articles[$key]);
-				}
-			}
-
-			$categories = $_zp_CMS->getAllCategories();
-			foreach ($categories as $key => $cat) {
-				$catobj = newCategory($cat['titlelink']);
-				if (!($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
-					unset($categories[$key]);
-				}
-			}
-			if (!empty($articles) || !empty($categories)) {
-				// admin has zenpage rights, provide link to the Zenpage admin tab
-				echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
-			}
+		list($articlestab, $categorystab, $pagestab) = self::admin_pages();
+		if ($articlestab || $categorystab) {
+			// admin has zenpage rights, provide link to the Zenpage admin tab
+			echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
 		}
-		if (zp_loggedin(ZENPAGE_PAGES_RIGHTS) && $_zp_CMS && $_zp_CMS->pages_enabled) {
-			$pagelist = $_zp_CMS->getPages();
-			foreach ($pagelist as $key => $apage) {
-				$pageobj = newPage($apage['titlelink']);
-				if (!($pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
-					unset($pagelist[$key]);
-				}
-			}
-			if (!empty($pagelist)) {
-				echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
-			}
+		if ($pagestab) {
+			echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
 		}
 		return $zf;
 	}

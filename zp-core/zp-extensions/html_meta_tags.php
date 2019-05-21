@@ -163,7 +163,7 @@ class htmlmetatags {
 		$url = FULLHOSTPATH . getRequestURI();
 
 		// Convert locale shorttag to allowed html meta format
-		$locale_ = getUserLocale();
+		$locale_ = i18n::getUserLocale();
 		$locale = zpFunctions::getLanguageText($locale_, '-');
 		$canonicalurl = '';
 		// generate page title, get date
@@ -358,7 +358,7 @@ class htmlmetatags {
 		if (getOption('htmlmeta_canonical-url')) {
 			$meta .= '<link rel="canonical" href="' . $canonicalurl . '">' . "\n";
 			if (METATAG_LOCALE_TYPE) {
-				$langs = generateLanguageList();
+				$langs = i18n::generateLanguageList();
 				if (count($langs) != 1) {
 
 					if (METATAG_LOCALE_TYPE == 1) {

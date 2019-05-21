@@ -338,7 +338,7 @@ if (!defined('WEBPATH'))
 						<li <?php if (getPageTitleLink() == $zenpage_homepage) { ?>class="active"<?php } ?>><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a></li>
 					<?php } ?>
 					<li <?php if ($galleryactive) { ?>class="active"<?php } ?>><?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?></li>
-					<?php if (($_zenpage_enabled) && ((getNumNews(true)) > 0)) { ?>
+					<?php if (($_zenpage_enabled) && hasNews()) { ?>
 						<li <?php if ($_zp_gallery_page == 'news.php') { ?>class="active"<?php } ?>><?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?></li>
 					<?php } ?>
 					<?php

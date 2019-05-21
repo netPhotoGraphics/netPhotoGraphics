@@ -187,9 +187,10 @@ class CMS {
 	 * @param bool $sticky set to true to place "sticky" articles at the front of the list.
 	 * @param obj $category Optional category to get the article from
 	 * @param string $author Optional author name to get the articles of
+	 * @param int $limit if passed, the max number of articles to return
 	 * @return array
 	 */
-	function getArticles($articles_per_page = 0, $published = NULL, $ignorepagination = false, $sortorder = NULL, $sortdirection = NULL, $sticky = NULL, $category = NULL, $author = null) {
+	function getArticles($articles_per_page = 0, $published = NULL, $ignorepagination = false, $sortorder = NULL, $sortdirection = NULL, $sticky = NULL, $category = NULL, $author = null, $limit = NULL) {
 		global $_zp_current_category, $_zp_post_date, $_zp_newsCache;
 		if (empty($published)) {
 			if (zp_loggedin(ZENPAGE_NEWS_RIGHTS | VIEW_UNPUBLISHED_NEWS_RIGHTS)) {
@@ -223,6 +224,9 @@ class CMS {
 			}
 		}
 		$newsCacheIndex = "$sortorder-$sortdirection-$published-$cat-$author-" . (int) $sticky;
+		if ($limit) {
+			$newsCacheIndex .= '_' . $limit;
+		}
 
 		if (isset($_zp_newsCache[$newsCacheIndex])) {
 			$result = $_zp_newsCache[$newsCacheIndex];
@@ -385,6 +389,9 @@ class CMS {
 									|| $article->isMyItem(ZENPAGE_NEWS_RIGHTS)
 					) {
 						$result[] = $item;
+						if ($limit && count($result) >= $limit) {
+							break;
+						}
 					}
 				}
 				db_free_result($resource);

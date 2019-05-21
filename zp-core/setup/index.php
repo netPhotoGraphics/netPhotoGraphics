@@ -461,7 +461,7 @@ if ($setup_checked) {
 if (!isset($_zp_setupCurrentLocale_result) || empty($_zp_setupCurrentLocale_result)) {
 	if (DEBUG_LOCALE)
 		debugLog('Setup checking locale');
-	$_zp_setupCurrentLocale_result = setMainDomain();
+	$_zp_setupCurrentLocale_result = i18n::setMainDomain();
 	if (DEBUG_LOCALE)
 		debugLog('$_zp_setupCurrentLocale_result = ' . $_zp_setupCurrentLocale_result);
 }
@@ -1633,7 +1633,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 								primeMark(gettext('Database update'));
 								require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/database.php');
-								unset($tableFields);
+								unset($_tableFields);
 								if ($updateErrors) {
 									$autorun = false;
 									$msg = gettext('Database structure update completed with errors. See the <code>setup</code> log for details.');
@@ -1706,7 +1706,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									foreach ($clones as $clone => $data) {
 										$url = $data['url'];
 										?>
-										<p class = "delayshow" style = "display:none;">
+										<p>
 											<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . ZENFOLDER . '/setup/index.php?autorun', $clone);
 											?>
 										</p>

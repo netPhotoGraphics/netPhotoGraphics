@@ -1472,7 +1472,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		global $_zp_language_flags;
 		if (is_null($_zp_language_flags)) {
 			$_zp_language_flags = array('' => WEBPATH . '/' . ZENFOLDER . '/locale/UN.png');
-			foreach (generateLanguageList('all') as $dirname) {
+			foreach (i18n::generateLanguageList('all') as $dirname) {
 				$_zp_language_flags[$dirname] = getLanguageFlag($dirname);
 			}
 		}
@@ -1552,9 +1552,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	function tagListElement($postit, $class, $tagLC, $item, $lang, $private, $count, $indent, $checked = false) {
-		global $_zp_language_flags, $_tagListIndex;
+		global $_tagListIndex;
 		$listitem = $postit . postIndexEncode($item);
-		$flag = $_zp_language_flags[$lang];
+		$flag = getLanguageFlag($lang);
 		?>
 		<li id="<?php echo $listitem; ?>_element">
 			<label class="displayinline">
@@ -1585,7 +1585,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 				if (!$checked && $lang) {
 					?>
-					<img src="<?php echo $flag; ?>" height="10" width="15" />
+					<img src="<?php echo $flag; ?>" height="10" width="15" title="<?php echo locale::getDisplayName($lang); ?>" />
 					<?php
 				}
 
@@ -1936,7 +1936,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2251,7 +2251,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</tr>
 							<?php
 						}
-						echo $custom = zp_apply_filter('edit_album_custom_data', '', $album, $prefix);
+						echo $custom = zp_apply_filter('edit_album_custom', '', $album, $prefix);
 						?>
 					</table>
 				</div>
@@ -2265,9 +2265,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2372,6 +2372,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</strong>
 							<?php
 							if ($album->getlastchangeuser()) {
+								?>
+								<br />
+								<?php
 								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
 							}
 							?>
@@ -2422,7 +2425,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2490,7 +2493,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						</div>
 						<div class="clearall" ></div>
 						<?php
-						echo zp_apply_filter('edit_album_utilities', '', $album, $prefix);
+						echo zp_apply_filter('edit_album_utilities', ' ', $album, $prefix);
 						printAlbumButtons($album);
 						?>
 						<span class="clearall" ></span>
@@ -3062,7 +3065,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		$album->setShow(isset($_POST[$prefix . 'Published']));
 
-		zp_apply_filter('save_album_utilities_data', $album, $prefix);
+		zp_apply_filter('save_album_data', $album, $prefix);
 		if ($album->save() == 2) {
 			$notify = '&noaction';
 		}
@@ -3229,7 +3232,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (!empty($edit))
 			$edit = ' class="' . $edit . '"';
 		if (is_null($locale)) {
-			$locale = getUserLocale();
+			$locale = i18n::getUserLocale();
 		}
 		$strings = getSerializedArray($dbstring);
 		if (count($strings) == 1) {
@@ -3239,11 +3242,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$strings = array($locale => array_shift($strings));
 			}
 		}
-		$activelang = generateLanguageList();
-		$allLang = array_flip(generateLanguageList('all'));
+		$activelang = i18n::generateLanguageList();
+		$allLang = array_flip(i18n::generateLanguageList('all'));
 		$multi = getOption('multi_lingual');
 		foreach ($strings as $lang => $v) {
 			if (!array_key_exists($lang, $activelang)) {
+				if (!isset($allLang[$lang])) {
+					$allLang[$lang] = i18n::getDisplayName($lang);
+				}
 				$activelang[$allLang[$lang]] = $lang;
 			}
 		}
@@ -3270,7 +3276,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			if ($_zp_current_locale) {
 				$preferred[] = $_zp_current_locale;
 			}
-			foreach (parseHttpAcceptLanguage() as $lang) {
+			foreach (i18n::parseHttpAcceptLanguage() as $lang) {
 				$preferred[] = str_replace('-', '_', $lang['fullcode']);
 			}
 			$preferred = array_unique($preferred);
@@ -3296,8 +3302,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			foreach ($activelang as $key => $active) {
 				$emptylang[$active] = $key;
 			}
-
-			$editHidden = '';
+			asort($emptylang);
 			?>
 			<div id="ls_<?php echo ++$_lsInstance; ?>">
 				<select class="languageSelector ignoredirty" onchange="lsclick(this.value,<?php echo $_lsInstance; ?>);">
@@ -3322,7 +3327,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 					?>
 
-					<div id="lb<?php echo $key . '-' . $_lsInstance ?>" class="lbx-<?php echo $_lsInstance ?>"<?php echo $editHidden; ?>>
+					<div id="lb<?php echo $key . '-' . $_lsInstance ?>" class="lbx-<?php echo $_lsInstance ?>"<?php if ($key != $locale) echo ' style="display:none;"' ?>>
 						<?php
 						if ($textbox) {
 							?>
@@ -3336,7 +3341,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 						?>
 					</div>
 					<?php
-					$editHidden = ' style="display:none;"';
 				}
 				?>
 			</div>
@@ -3373,7 +3377,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @return string
 	 */
 	function process_language_string_save($name, $sanitize_level = 3) {
-		$languages = generateLanguageList('all');
+		$languages = i18n::generateLanguageList('all');
 		$l = strlen($name) + 1;
 		$strings = array();
 		foreach ($_POST as $key => $value) {
@@ -4004,7 +4008,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 	if (empty($alterrights)) {
 		$hint = sprintf(gettext('Select one or more %1$s for the %2$s to manage.'), $simplename, $kind) . ' ';
 		if ($kind == gettext('user')) {
-			$hint .= sprintf(gettext('Users with "Admin" or "Manage all %1$s" rights can manage all %2$s. All others may manage only those that are selected.'), $type, $objectname);
+			$hint .= sprintf(gettext('Users with "Admin" or "Manage all %1$s" rights can manage all %2$s. All others may manage only those that are selected.'), $simplename, $objectname);
 		}
 	} else {
 		$hint = sprintf(gettext('You may manage these %s subject to the above rights.'), $simplename);
@@ -4536,30 +4540,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -4943,27 +4947,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5901,7 +5905,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
@@ -5961,16 +5965,93 @@ function convert_size($size, $round = 0) {
  */
 function getRemoteFile($source, $dest) {
 	$msg = NULL;
-	@ini_set('allow_url_fopen', 1);
+	if (function_exists('curl_version')) {
+		try {
+			$msg = curlDL($source, $dest);
+		} catch (Exception $ex) {
+			$msg = $ex->getMessage();
+			@unlink($dest . '/' . basename($source));
+		}
+	} else if (ini_get('allow_url_fopen')) {
+		try {
+			$msg = url_fopenDL($source, $dest);
+		} catch (Exception $ex) {
+			$msg = $ex->getMessage();
+			@unlink($dest . '/' . basename($source));
+		}
+	} else {
+		$msg = gettext('Either the PHP <code>curl</code> extension or the PHP ini setting <code>allow_url_fopen</code> must be enabled.');
+	}
+	if ($msg) {
+		$msg = sprintf(gettext('netPhotoGraphics could not download %1$s.'), basename($source)) . '<br />' . $msg;
+	}
+	return $msg;
+}
+
+/**
+ * download a file via curl
+ * requires curl to be enabled
+ *
+ * @param string $fileUrl The resource that we want to download.
+ * @param string $saveTo The path to save to.
+ *
+ */
+function curlDL($fileUrl, $saveTo) {
+	$fp = fopen($saveTo . '/' . basename($fileUrl), 'w+');
+	if ($fp === false) {
+		throw new Exception(sprintf(gettext('Could not create: %1$s') . $saveTo . '/' . basename($fileUrl)));
+	}
+
+	//Create a cURL handle.
+	$ch = curl_init($fileUrl);
+	curl_setopt_array($ch, array(
+			CURLOPT_FILE => $fp, //Pass file handle to cURL.
+			CURLOPT_TIMEOUT => 50, //Timeout if the file doesn't download.
+			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
+			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
+	));
+	//Execute the request.
+	curl_exec($ch);
+
+	//If there was an error, throw an Exception
+	if (curl_errno($ch)) {
+		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
+	}
+
+	//Get the HTTP status code.
+	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+	//Close the cURL handler.
+	curl_close($ch);
+
+	//Close the file handle.
+	fclose($fp);
+
+	if ($statusCode != 200) {
+		return sprintf(gettext('Curl received the HTTP status code %1$s'), $statusCode);
+	}
+
+
+	return NULL;
+}
+
+/**
+ * download a file via the copy function
+ *
+ * requires allow_url_fopen to be set
+ *
+ * @param string $fileUrl The resource that we want to download.
+ * @param string $saveTo The path to save to.
+ *
+ */
+function url_fopenDL($fileUrl, $saveTo) {
+	$msg = NULL;
 	error_clear_last();
-	if (!(($fopen = ini_get('allow_url_fopen')) && @copy($source, $dest . '/' . basename($source)))) {
-		$msg = sprintf(gettext('netPhotoGraphics could not download %1$s.'), basename($source));
-		if (!$fopen) {
-			$msg .= '<br />' . gettext('<em>allow_url_fopen</em> is not enabled in your PHP.ini configuration file. ');
+	if (!@copy($fileUrl, $saveTo . '/' . basename($fileUrl))) {
+		if ($m = error_get_last()) {
+			$msg = sprintf(gettext('PHP <code>copy(%1$s)</code> failed: %2$s'), $fileUrl, $m['message']);
 		} else {
-			if ($m = error_get_last()) {
-				$msg .= '<br />' . $m['message'];
-			}
+			$msg = sprintf(gettext('PHP <code>copy(%1$s)</code> failed'), $fileUrl);
 		}
 	}
 	return $msg;

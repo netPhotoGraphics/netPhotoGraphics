@@ -10,7 +10,8 @@
 				<a href="<?php echo getGalleryIndexURL(); ?>"><?php printGalleryTitle(); ?></a>
 			</div>
 			<div class="sidebarsubtitle" <?php echo $titleStyle; ?>>
-				<?php printFormattedGalleryDesc(getGalleryDesc());
+				<?php
+				printFormattedGalleryDesc(getGalleryDesc());
 				echo "\n";
 				?>
 			</div>
@@ -25,7 +26,7 @@
 		if (getOption('Allow_search')) {
 			?>
 			<div class="menu border colour">
-			<?php printSearchForm(NULL, "search", NULL, gettext("Search gallery")); ?>
+				<?php printSearchForm(NULL, "search", NULL, gettext("Search gallery")); ?>
 			</div>
 			<?php
 		}
@@ -43,15 +44,15 @@
 		</div>
 		<?php
 		if (extensionEnabled('zenpage')) {
-			if (getNumPages(true)) {
+			if (hasPages()) {
 				?>
 				<div class="menu border colour">
 					<?php if (getOption('zenfluid_menutitles')) echo '<div class="menutitle">' . gettext('Pages') . '</div>';echo "\n"; ?>
-				<?php printPageMenu("list", "", "menu-active", "submenu", "menu-active"); ?>
+					<?php printPageMenu("list", "", "menu-active", "submenu", "menu-active"); ?>
 				</div>
 				<?php
 			}
-			if (getNumNews(true)) {
+			if (hasNews()) {
 				?>
 				<div class="menu border colour">
 					<?php
@@ -69,7 +70,7 @@
 					if (getOption('zenfluid_menutitles'))
 						echo '<div class="menutitle">' . gettext('RSS Feeds') . '</div>';echo "\n";
 					printRSSLink('Gallery', '<ul>', gettext('Gallery'), '</ul>');
-					if (getNumNews(true))
+					if (hasNews())
 						printRSSLink('News', '<ul>', NEWS_LABEL, '</ul>');
 					?>
 				</div>
@@ -78,7 +79,7 @@
 		} else {
 			?>
 			<div class="menu border colour">
-			<?php echo gettext("The ZenFluid theme requires that the zenpage plugin be enabled."); ?>
+				<?php echo gettext("The ZenFluid theme requires that the zenpage plugin be enabled."); ?>
 			</div>
 			<?php
 		}
@@ -121,7 +122,7 @@
 	if (!zp_loggedin(ADMIN_RIGHTS) && function_exists('printGoogleAdSense')) {
 		?>
 		<div class="adsense border">
-		<?php printGoogleAdSense() ?>
+			<?php printGoogleAdSense() ?>
 		</div>
 		<?php
 	}
@@ -129,7 +130,7 @@
 		?>
 		<div class="sidebarfooter border colour" <?php echo $titleStyle; ?>>
 			<?php echo gettext('zenFluid theme designed by '); ?> <br>Jim Brown<br>
-		<?php print_SW_Link(); ?>
+			<?php print_SW_Link(); ?>
 		</div>
 		<?php
 	}

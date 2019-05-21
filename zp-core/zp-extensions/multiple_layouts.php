@@ -50,11 +50,11 @@ zp_register_filter('remove_object', 'deleteLayoutSelection');
 zp_register_filter('copy_object', 'copyLayoutSelection');
 if (getOption('multiple_layouts_albums')) {
 	zp_register_filter('edit_album_utilities', 'layoutSelector_album');
-	zp_register_filter('save_album_utilities_data', 'saveZenphotoLayoutSelection');
+	zp_register_filter('save_album_data', 'saveZenphotoLayoutSelection');
 }
 if (getOption('multiple_layouts_images')) {
 	zp_register_filter('edit_image_utilities', 'layoutSelector');
-	zp_register_filter('save_image_utilities_data', 'saveZenphotoLayoutSelection');
+	zp_register_filter('save_image_data', 'saveZenphotoLayoutSelection');
 }
 if (extensionEnabled('zenpage')) {
 	if (getOption('multiple_layouts_pages')) {

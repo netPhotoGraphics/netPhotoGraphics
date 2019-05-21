@@ -38,6 +38,9 @@ global $_zp_CMS;
 function processCommentBlock($commentBlock) {
 	global $plugin_author, $plugin_copyright, $subpackage;
 	$markup = array(
+			'&amp;gt;' => '>',
+			'&amp;lt;' => '<',
+			'&amp;percnt;' => '%',
 			'&lt;i&gt;' => '<em>',
 			'&lt;/i&gt;' => '</em>',
 			'&lt;b&gt;' => '<strong>',
@@ -80,7 +83,8 @@ function processCommentBlock($commentBlock) {
 			'%WEBPATH%' => WEBPATH,
 			'%RW_SUFFIX%' => RW_SUFFIX,
 			'%GITHUB_ORG%' => GITHUB_ORG,
-			'%GITHUB%' => GITHUB
+			'%GITHUB%' => GITHUB,
+			'%LOCALE%' => i18n::getUserLocale()
 	);
 	$body = $doc = '';
 	$par = false;
@@ -190,7 +194,7 @@ if (!defined('OFFSET_PATH')) {
 	header('Last-Modified: ' . ZP_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
-	$real_locale = getUserLocale();
+	$real_locale = i18n::getUserLocale();
 
 	$pluginType = @$_GET['type'];
 	if ($pluginType) {
@@ -218,7 +222,13 @@ if (!defined('OFFSET_PATH')) {
 		$buttonlist[$key]['enable'] = false;
 	}
 	$imagebuttons = preg_replace('/<a href=[^>]*/i', '<a', zp_apply_filter('edit_image_utilities', '', $_zp_missing_image, 0, '', '', ''));
-	$albumbuttons = preg_replace('/<a href=[^>]*/i', '<a', zp_apply_filter('edit_album_utilities', '', $_zp_missing_album, ''));
+	if (!preg_match('~class\s*=.+button~', $imagebuttons)) {
+		$imagebuttons = NULL;
+	}
+	$albumbuttons = preg_replace('/<a href=[^>]*/i', '<a', zp_apply_filter('edit_album_utilities', ' ', $_zp_missing_album, ''));
+	if (!preg_match('~class\s*=.+button~', $albumbuttons)) {
+		$albumbuttons = NULL;
+	}
 
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/macroList.php');
 
@@ -271,7 +281,7 @@ if (!defined('OFFSET_PATH')) {
 		}
 		$pluginusage = gettext('Plugin usage information');
 		$pagetitle = sprintf(gettext('%1$s %2$s: %3$s'), html_encode($_zp_gallery->getTitle()), gettext('admin'), html_encode($extension));
-		setupCurrentLocale('en_US');
+		i18n::setupCurrentLocale('en_US');
 		?>
 		<!DOCTYPE html>
 		<html xmlns="http://www.w3.org/1999/xhtml" />
@@ -362,6 +372,9 @@ if (!defined('OFFSET_PATH')) {
 				}
 				.superscript {
 					vertical-align: super;
+				}
+				.nowrap {
+					white-space: nowrap;
 				}
 			</style>
 		</head>
@@ -490,30 +503,30 @@ if (!defined('OFFSET_PATH')) {
 							?>
 							<div class="box" id="overview-section">
 								<h2 class="h2_bordered">Utility functions</h2>
-			<?php
-			$category = '';
-			foreach ($buttonlist as $button) {
-				$button_category = @$button['category'];
-				$button_icon = @$button['icon'];
-				if ($category != $button_category) {
-					if ($category) {
-						?>
+								<?php
+								$category = '';
+								foreach ($buttonlist as $button) {
+									$button_category = @$button['category'];
+									$button_icon = @$button['icon'];
+									if ($category != $button_category) {
+										if ($category) {
+											?>
 											</fieldset>
 											<?php
 										}
 										$category = $button_category;
 										?>
 										<fieldset class="doc_box_field"><legend><?php echo $category; ?></legend>
-										<?php
-									}
-									?>
+											<?php
+										}
+										?>
 										<form class="overview_utility_buttons">
 											<div class="moc_button tip" title="<?php echo @$button['title']; ?>" >
-				<?php
-				if (!empty($button_icon)) {
-					if (strpos($button_icon, 'images/') === 0) {
-						// old style icon image
-						?>
+												<?php
+												if (!empty($button_icon)) {
+													if (strpos($button_icon, 'images/') === 0) {
+														// old style icon image
+														?>
 														<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
 														<?php
 													} else {
@@ -524,45 +537,45 @@ if (!defined('OFFSET_PATH')) {
 												?>
 											</div>
 										</form>
-				<?php
-			}
-			if ($category) {
-				?>
-									</fieldset>
 										<?php
 									}
-									?>
+									if ($category) {
+										?>
+									</fieldset>
+									<?php
+								}
+								?>
 							</div>
 							<br class="clearall" />
-			<?php
-		}
-		if ($albumbuttons) {
-			$albumbuttons = preg_replace('|<hr(\s*)(/)>|', '', $albumbuttons);
-			?>
+							<?php
+						}
+						if ($albumbuttons) {
+							$albumbuttons = preg_replace('|<hr(\s*)(/)>|', '', $albumbuttons);
+							?>
 							<h2 class="h2_bordered_edit">Album Utilities</h2>
 							<div class="box-edit">
-			<?php echo $albumbuttons; ?>
+								<?php echo $albumbuttons; ?>
 							</div>
 							<br class="clearall" />
-			<?php
-		}
-		if ($imagebuttons) {
-			$imagebuttons = preg_replace('|<hr(\s*)(/)>|', '', $imagebuttons);
-			?>
+							<?php
+						}
+						if ($imagebuttons) {
+							$imagebuttons = preg_replace('|<hr(\s*)(/)>|', '', $imagebuttons);
+							?>
 							<h2 class="h2_bordered_edit">Image Utilities</h2>
 							<div class="box-edit">
-			<?php echo $imagebuttons; ?>
+								<?php echo $imagebuttons; ?>
 							</div>
 							<br class="clearall" />
-			<?php
-		}
-		if (!empty($content_macros)) {
-			echo ngettext('Macro defined:', 'Macros defined:', count($content_macros));
-			foreach ($content_macros as $macro => $detail) {
-				unset($detail['owner']);
-				macroList_show($macro, $detail);
-			}
-			?>
+							<?php
+						}
+						if (!empty($content_macros)) {
+							echo ngettext('Macro defined:', 'Macros defined:', count($content_macros));
+							foreach ($content_macros as $macro => $detail) {
+								unset($detail['owner']);
+								macroList_show($macro, $detail);
+							}
+							?>
 							<br class="clearall" />
 							<?php
 						}

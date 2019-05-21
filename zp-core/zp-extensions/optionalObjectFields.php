@@ -43,7 +43,7 @@
  * @package plugins/optionalObjectFields
  * @pluginCategory admin
  *
- * Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = defaultExtension(1 | CLASS_PLUGIN); //	we want this done last so the codeblocks go at the end
@@ -299,8 +299,8 @@ class optionalObjectFields extends fieldExtender {
 		}
 	}
 
-	static function cmsItemSave($custom, $object) {
-		return parent::_cmsItemSave($custom, $object, self::fields());
+	static function cmsItemSave($object) {
+		return parent::_cmsItemSave($object, self::fields());
 	}
 
 	static function cmsItemEdit($html, $object) {

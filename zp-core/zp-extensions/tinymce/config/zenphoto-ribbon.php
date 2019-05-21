@@ -13,6 +13,6 @@ $MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
 				"emoticons template paste directionality ";
 
 $MCEtoolbars = array();
-$MCEstatusbar = false;
+$MCEstatusbar = true;
 $MCEmenubar = true;
 include(TINYMCE . '/config/config.js.php');

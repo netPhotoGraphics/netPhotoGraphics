@@ -513,7 +513,7 @@ function checkUnique($table, $unique) {
  * @param string $sql
  *
  * @author Stephen Billard
- * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function setupQuery($sql, $failNotify = true, $log = true) {
 	global $updateErrors;
@@ -535,7 +535,7 @@ function setupQuery($sql, $failNotify = true, $log = true) {
 /**
  * outputs a checkmark image
  *
- * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  * @param type $class
  * @param type $which
  */
@@ -565,7 +565,7 @@ function sendImage($class, $which) {
  *
  * @global type $__script
  *
- * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function shutDownFunction() {
 	global $__script;
@@ -592,7 +592,7 @@ function shutDownFunction() {
  * @param string $folder
  * @return string
  *
- * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function migrate_folder($folder) {
 	global $_zp_images_classes;
@@ -627,7 +627,7 @@ function migrate_folder($folder) {
  *
  * @return int
  *
- * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function migrateDB() {
 	$conversions = 0;
@@ -692,7 +692,7 @@ function migrateDB() {
  * @param string $file
  * @return string
  *
- * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function newCacheName($file) {
 	$postfix = array();

@@ -45,9 +45,9 @@ zp_register_filter('album_refresh', 'xmpMetadata::new_album');
 zp_register_filter('image_instantiate', 'xmpMetadata::image_instantiate');
 zp_register_filter('image_metadata', 'xmpMetadata::new_image');
 zp_register_filter('upload_filetypes', 'xmpMetadata::sidecars');
-zp_register_filter('save_album_utilities_data', 'xmpMetadata::putXMP');
+zp_register_filter('save_album_data', 'xmpMetadata::putXMP');
 zp_register_filter('edit_album_utilities', 'xmpMetadata::create');
-zp_register_filter('save_image_utilities_data', 'xmpMetadata::putXMP');
+zp_register_filter('save_image_data', 'xmpMetadata::putXMP');
 zp_register_filter('edit_image_utilities', 'xmpMetadata::create');
 zp_register_filter('bulk_image_actions', 'xmpMetadata::bulkActions');
 zp_register_filter('bulk_album_actions', 'xmpMetadata::bulkActions');
@@ -612,7 +612,7 @@ class xmpMetadata {
 	 * @return array
 	 *
 	 * @author Stephen Billard
-	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function getMetadataFields() {
 		return array(
@@ -1150,8 +1150,9 @@ class xmpMetadata {
 	}
 
 	static function create($html, $object, $prefix) {
-		if ($html)
+		if ($html) {
 			$html .= '<hr />';
+		}
 		$html .= '<label><input type="checkbox" name="xmpMedadataPut_' . $prefix . '" value="1" /> ' . gettext('Export metadata info to XMP sidecar.') . '</label>';
 		return $html;
 	}

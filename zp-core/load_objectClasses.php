@@ -48,7 +48,7 @@ foreach ($enabled as $extension => $plugin) {
 
 //	check for logged in users and set up the locale
 require_once(dirname(__FILE__) . '/auth_zp.php');
-define('ZENPHOTO_LOCALE', setMainDomain());
+define('ZENPHOTO_LOCALE', i18n::setMainDomain());
 //	process any differred language strings
 $_zp_active_languages = $_zp_all_languages = NULL; //	clear out so that they will get translated properly
 foreach ($_zp_plugin_differed_actions as $callback) {

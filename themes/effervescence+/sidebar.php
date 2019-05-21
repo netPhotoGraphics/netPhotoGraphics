@@ -4,10 +4,10 @@
 rem_context(ZP_ALBUM | ZP_IMAGE);
 $archivlinktext = gettext('Gallery');
 if (extensionEnabled('zenpage')) {
-	if ($news = getNumNews(true)) {
+	if ($news = hasNews()) {
 		$archivlinktext = gettext('Both');
 	}
-	$pages = getNumPages(true);
+	$pages = hasPages();
 } else {
 	$news = $pages = NULL;
 }

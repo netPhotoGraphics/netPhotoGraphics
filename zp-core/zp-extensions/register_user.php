@@ -32,7 +32,7 @@ $_zp_conf_vars['special_pages']['register_user'] = array('define' => '_REGISTER_
 		'option' => 'register_user_link', 'default' => '_PAGE_/register');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%REGISTER_USER%', 'rewrite' => '_REGISTER_USER_');
 
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '%REGISTER_USER%', 'rule' => '^%REWRITE%/*$		index.php?p=' . 'register' . ' [L,QSA]');
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '%REGISTER_USER%', 'rule' => '^%REWRITE%/*$		index.php?p=' . 'register' . ' [NC,L,QSA]');
 
 /**
  * Plugin class
@@ -43,7 +43,6 @@ class register_user {
 	function __construct() {
 		global $_zp_authority;
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('register_user_link', '_PAGE_/register');
 			setOptionDefault('register_user_page_tip', getAllTranslations('Click here to register for this site.'));
 			setOptionDefault('register_user_page_link', getAllTranslations('Register'));
 			setOptionDefault('register_user_captcha', 0);
@@ -219,7 +218,7 @@ class register_user {
 					$userobj->setRights(0);
 					$userobj->setObjects(NULL);
 					$userobj->setGroup('');
-					$userobj->setLanguage(getUserLocale());
+					$userobj->setLanguage(i18n::getUserLocale());
 					if (extensionEnabled('userAddressFields')) {
 						$addresses = getOption('register_user_address_info');
 						$userinfo = register_user::getUserInfo(0);

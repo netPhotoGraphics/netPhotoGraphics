@@ -61,7 +61,7 @@ if (isset($_GET['action'])) {
 						$group->setName(trim(sanitize($groupelement['type'], 3)));
 						$group->setValid(0);
 						$group->setDesc(trim(sanitize($groupelement['desc'], 3)));
-						zp_apply_filter('save_admin_custom_data', $group, $i, true);
+						zp_apply_filter('save_admin_data', $group, $i, true);
 						$group->save();
 
 						if ($group->getName() == 'group') {
@@ -422,7 +422,7 @@ echo '</head>' . "\n";
 											<br class="clearall">
 											<div class="userextrainfo" <?php echo $display; ?>>
 												<?php
-												$custom = zp_apply_filter('edit_admin_custom_data', '', $groupobj, $id, $background, true, '');
+												$custom = zp_apply_filter('edit_admin_custom', '', $groupobj, $id, $background, true, '');
 												if ($custom) {
 													echo stripTableRows($custom);
 												}

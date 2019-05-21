@@ -3,7 +3,7 @@
  * utility to convert legacy zenphoto themes/plugins to netPhotoGraphics syntax.
  *
  * @author Stephen Billard
- * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/zenphotoCompatibilityPack
  */
@@ -19,8 +19,8 @@ $legacyReplacements = array(
 		'new ZenpageNews' => 'newArticle',
 		'new ZenpageCategory' => 'newCategory',
 		'\$_zp_zenpage' => '$_zp_CMS',
-		'ZP_NEWS_ENABLED' => 'extensionEnabled(\'zenpage\') && getNumNews(true)/* TODO:replaced ZP_NEWS_ENABLED */',
-		'ZP_PAGES_ENABLED' => 'extensionEnabled(\'zenpage\') && getNumpages(true)/* TODO:replaced ZP_PAGES_ENABLED */',
+		'ZP_NEWS_ENABLED' => 'extensionEnabled(\'zenpage\') && hasNews()/* TODO:replaced ZP_NEWS_ENABLED */',
+		'ZP_PAGES_ENABLED' => 'extensionEnabled(\'zenpage\') && hasPages()/* TODO:replaced ZP_PAGES_ENABLED */',
 		'getAllTagsCount\(.*?\)' => 'getAllTagsUnique(NULL, 1, true)',
 		'printHeadTitle\(.*?\);?' => '/* TODO:replaced printHeadTitle() */',
 		'getSiteHomeURL\(.*?\)' => 'getGalleryIndexURL() /* TODO:replaced getSiteHomeURL() */',
@@ -58,7 +58,16 @@ $legacyReplacements = array(
 		'->getAuthor\(' => '->getOwner(',
 		'->setAuthor\(' => '->setOwner(',
 		'getGeoCoord\(' => 'simpleMap::getGeoCoord(',
-		'addGeoCoord\(' => 'simpleMap::addGeoCoord('
+		'addGeoCoord\(' => 'simpleMap::addGeoCoord(',
+		'edit_admin_custom_data' => 'edit_admin_custom',
+		'edit_album_custom_data' => 'edit_album_custom',
+		'edit_image_custom_data' => 'edit_image_custom',
+		'edit_article_custom_data' => 'edit_article_custom',
+		'edit_category_custom_data' => 'edit_category_custom',
+		'edit_page_custom_data' => 'edit_page_custom',
+		'save_admin_custom_data' => 'save_admin_data',
+		'save_album_utilities_data' => 'save_album_data',
+		'save_image_utilities_data' => 'save_image_data'
 );
 
 /**

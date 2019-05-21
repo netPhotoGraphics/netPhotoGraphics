@@ -240,7 +240,7 @@ class feed {
 	 */
 	protected function getLang() {
 		if (isset($this->options['lang'])) {
-			$langs = generateLanguageList();
+			$langs = i18n::generateLanguageList();
 			$valid = array_values($langs);
 			if (in_array($this->options['lang'], $valid)) {
 				return $this->options['lang'];

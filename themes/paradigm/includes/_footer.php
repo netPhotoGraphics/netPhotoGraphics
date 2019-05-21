@@ -25,13 +25,13 @@
 						<?php
 					}
 
-					if (function_exists("printAllNewsCategories") && ((getNumNews(true)) > 0)) {
+					if (function_exists("printAllNewsCategories") && ((hasNews()) > 0)) {
 						?>
 						<li><?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?></li>
 						<?php
 					}
 
-					if (function_exists("printPageMenu") && ((getNumPages(true)) > 0)) {
+					if (function_exists("printPageMenu") && ((hasPages()) > 0)) {
 						printPageMenu("list-top", "", "", "", "", "", "1", false);
 					}
 					if (function_exists('printFavoritesURL')) {

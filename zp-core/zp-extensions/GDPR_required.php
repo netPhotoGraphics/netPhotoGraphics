@@ -34,13 +34,11 @@
  * direct him to your site index.
  *
  * @author Stephen Billard (sbillard)
- * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/GDPR_required
  * @pluginCategory theme
  */
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage.php');
-
 $plugin_is_filter = 980 | FEATURE_PLUGIN;
 $plugin_description = gettext('Inject a site policy acknowledgement page.');
 
@@ -54,44 +52,37 @@ class GDPR_required {
 
 	function getOptionsSupported() {
 		global $_zp_CMS;
-		if (extensionEnabled('zenpage')) {
-			if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem(getCurrentTheme()) . '/pages.php')) {
-				$possibilities = array('*' . gettext('Custom url') . '*' => '');
-				foreach ($_zp_CMS->getPages(false) as $page) {
-					$possibilities[get_language_string($page['title'])] = $page['titlelink'];
-				}
-				if (empty($possibilities)) {
-					$options = array(
-							NULL => array('key' => 'GDPR_page', 'type' => OPTION_TYPE_NOTE,
-									'desc' => gettext('There are no pages to select from.'))
-					);
-				} else {
-					$options = array(
-							gettext('Policy page') => array('key' => 'GDPR_page', 'type' => OPTION_TYPE_SELECTOR,
-									'selections' => $possibilities,
-									'order' => 1,
-									'desc' => gettext('The <em>zenpage page</em> object to use as the policy page.')),
-							gettext('Policy page URL') => array('key' => 'GDPR_URL', 'type' => OPTION_TYPE_CUSTOM,
-									'order' => 2,
-									'desc' => gettext('The URL to the site policy page. This will be the link to the <em>Policy page</em> object if a <em>zenpage page</em> is selected.')),
-							gettext('disable list') => array('key' => 'GDPR_Bots_Allowed', 'type' => OPTION_TYPE_TEXTAREA,
-									'order' => 3,
-									'multilingual' => false,
-									'desc' => gettext('Provide a comma separated list of user agents (web crawlers) that may bypass the acknowledgement. This is useful to allow indexing robots to browse your site.'))
-					);
-				}
-			} else {
-				$options = array(
-						gettext('Policy page') => array('key' => 'GDPR_page', 'type' => OPTION_TYPE_NOTE,
-								'desc' => gettext('The active theme has no <em>pages.php</em> script.'))
-				);
+
+		$possibilities = array('*' . gettext('Custom url') . '*' => '');
+		if ($_zp_CMS) {
+			foreach ($_zp_CMS->getPages(false) as $page) {
+				$possibilities[get_language_string($page['title'])] = $page['titlelink'];
 			}
-		} else {
-			$options = array(
-					NULL => array('key' => 'GDPR_page', 'type' => OPTION_TYPE_NOTE,
-							'desc' => gettext('The zenpage plugin is required but not enabled.'))
-			);
 		}
+		$options = array(
+				gettext('Policy page') => array('key' => 'GDPR_page', 'type' => OPTION_TYPE_SELECTOR,
+						'selections' => $possibilities,
+						'order' => 1,
+						'desc' => gettext('The <em>script page</em> or zenpage <em>page</em> object to use as the policy page.')),
+				gettext('Policy page URL') => array('key' => 'GDPR_URL', 'type' => OPTION_TYPE_CUSTOM,
+						'order' => 2,
+						'desc' => gettext('The URL to the site policy page. This will be the link to the <em>Policy page</em> object if a zenpage <em>page</em> is selected.')),
+				gettext('disable list') => array('key' => 'GDPR_Bots_Allowed', 'type' => OPTION_TYPE_TEXTAREA,
+						'order' => 4,
+						'multilingual' => false,
+						'desc' => gettext('Provide a comma separated list of user agents (web crawlers) that may bypass the acknowledgement. This is useful to allow indexing robots to browse your site.'))
+		);
+		$notice = array();
+		if (!extensionEnabled('zenpage')) {
+			$notice [] = gettext('The zenpage plugin is not enabled.');
+			if (!file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem(getCurrentTheme()) . '/pages.php')) {
+				$notice[] = gettext('The active theme has no <em>pages.php</em> script.');
+			}
+			$options['note'] = array('key' => 'GDPR_note', 'type' => OPTION_TYPE_NOTE,
+					'order' => 3,
+					'desc' => '<p class="warningbox">' . implode('<br />', $notice) . '</p>');
+		}
+
 		return $options;
 	}
 

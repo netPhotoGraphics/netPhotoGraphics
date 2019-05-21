@@ -636,9 +636,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
  * first file found is used
  *
  * @param string $plugin is the name of the plugin file, typically something.php
- * @param bool $inTheme tells where to find the plugin.
- *   true means look in the current theme
- *   false means look in the zp-core/plugins folder.
+ * @param bool $inTheme tells where to find the plugin file.
  * @param bool $webpath return a WEBPATH rather than a SERVERPATH
  *
  * @return string
@@ -1056,7 +1054,7 @@ function setupTheme($album = NULL) {
  * @return array
  *
  * @author Stephen Billard
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 	global $_zp_unique_tags, $_zp_count_tags, $_zp_current_locale, $_zp_loggedin;
@@ -1335,7 +1333,7 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  * Central place for meta header handling
  */
 function printStandardMeta() {
-	$lang = substr(getUserLocale(), 0, 2);
+	$lang = substr(i18n::getUserLocale(), 0, 2);
 	echo '<meta http-equiv="content-type" content="text/html; charset=' . LOCAL_CHARSET . '"';
 	if ($lang)
 		echo ' lang="' . $lang . '"';
@@ -1442,7 +1440,7 @@ function sortByKey($results, $sortkey, $order) {
  * @param array $removeCriteria		Fields to be removed from the array
  * @return array									The sorted array
  *
- * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  */
 function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array()) {
@@ -2271,17 +2269,17 @@ function load_jQuery_CSS() {
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		case 0: //	no migration script
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
 			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.1.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.0.min.js');
+			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
@@ -2388,14 +2386,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -2716,7 +2714,7 @@ class zpFunctions {
 	 */
 	static function LanguageSubdomains() {
 		$domains = array();
-		$langs = generateLanguageList();
+		$langs = i18n::generateLanguageList();
 		$domains = array();
 		foreach ($langs as $value) {
 			$domains[substr($value, 0, 2)][] = $value;
@@ -2759,7 +2757,7 @@ class zpFunctions {
 	 * initializes the $_zp_exifvars array display state
 	 *
 	 * @author Stephen Billard
-	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function exifvars($default = false) {
 		global $_zp_images_classes;
@@ -2804,7 +2802,7 @@ class zpFunctions {
 	 * @param array $list
 	 *
 	 * @author Stephen Billard
-	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function exifOptions($whom, $disable, $list) {
 		$reenable = false;
@@ -3018,7 +3016,7 @@ class zpFunctions {
 	 * @return boolean
 	 *
 	 * @author Stephen Billard
-	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function pluginDisable($criteria) {
 		foreach ($criteria as $try) {

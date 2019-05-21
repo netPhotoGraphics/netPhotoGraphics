@@ -11,7 +11,7 @@
 					printRSSLink("Collection", "", gettext('This Album'), ", ", false, "rsslink");
 				}
 				printRSSLink("Gallery", "", (gettext('Gallery Images')), "", false, "rsslink");
-				if (extensionEnabled('zenpage') && getNumNews(true)) {
+				if (extensionEnabled('zenpage') && hasNews()) {
 					printRSSLink("News", '', ', ', NEWS_LABEL, '', false);
 				}
 				?>

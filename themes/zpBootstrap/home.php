@@ -46,7 +46,7 @@ include('inc_header.php');
 
 <div class="row site-description">
 	<?php
-	$_latest_news_homepage = (getNumNews() > 0) && (getOption('zpB_latest_news_homepage'));
+	$_latest_news_homepage = hasNews() && (getOption('zpB_latest_news_homepage'));
 	if ($_latest_news_homepage) {
 		$col_sd = 'col-sm-offset-1 col-sm-6';
 	} else {

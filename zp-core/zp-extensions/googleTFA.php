@@ -25,7 +25,7 @@
  * @package plugins/googleTFA
  * @pluginCategory admin
  *
- * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  */
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
@@ -40,8 +40,8 @@ require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/S
 require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
 zp_register_filter('admin_login_attempt', 'googleTFA::check');
-zp_register_filter('save_admin_custom_data', 'googleTFA::save');
-zp_register_filter('edit_admin_custom_data', 'googleTFA::edit', 999);
+zp_register_filter('save_admin_data', 'googleTFA::save');
+zp_register_filter('edit_admin_custom', 'googleTFA::edit', 999);
 zp_register_filter('admin_head', 'googleTFA::head');
 
 class googleTFA extends fieldExtender {

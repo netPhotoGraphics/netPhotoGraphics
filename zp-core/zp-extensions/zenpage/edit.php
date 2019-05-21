@@ -492,7 +492,13 @@ $tagsort = 'alpha';
 											</tr>
 
 											<tr>
-												<td class="leftcolumn"><?php echo gettext("Content"); ?></td>
+												<td class="leftcolumn"><?php
+													if (is_AdminEditPage("newscategory")) {
+														echo gettext('Description');
+													} else {
+														echo gettext("Content");
+													}
+													?></td>
 												<td class="middlecolumn">
 													<?php
 													if (is_AdminEditPage("newscategory")) {
@@ -505,13 +511,13 @@ $tagsort = 'alpha';
 											</tr>
 											<?php
 											if (is_AdminEditPage("newsarticle")) {
-												$custom = zp_apply_filter('edit_article_custom_data', '', $result);
+												$custom = zp_apply_filter('edit_article_custom', '', $result);
 											}
 											if (is_AdminEditPage("newscategory")) {
-												$custom = zp_apply_filter('edit_category_custom_data', '', $result);
+												$custom = zp_apply_filter('edit_category_custom', '', $result);
 											}
 											if (is_AdminEditPage("page")) {
-												$custom = zp_apply_filter('edit_page_custom_data', '', $result);
+												$custom = zp_apply_filter('edit_page_custom', '', $result);
 											}
 											echo $custom;
 											?>
@@ -695,18 +701,17 @@ $tagsort = 'alpha';
 													</div>
 													<?php
 												}
-												if (is_AdminEditPage("newsarticle")) {
-													echo zp_apply_filter('publish_article_utilities', '', $result);
-												}
-												if (is_AdminEditPage("newscategory")) {
-													echo zp_apply_filter('publish_category_utilities', '', $result);
-												}
-												if (is_AdminEditPage("page")) {
-													echo zp_apply_filter('publish_page_utilities', '', $result);
-												}
 												?>
 											</div>
 											<?php
+											if ($utilities = zp_apply_filter('edit_cms_utilities', '', $result)) {
+												?>
+												<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
+												<div class="box-edit">
+													<?php echo $utilities; ?>
+												</div>
+												<?php
+											}
 											if (!is_AdminEditPage("newscategory")) {
 												?>
 												<h2 class="h2_bordered_edit"><?php echo gettext("Date"); ?></h2>
@@ -780,7 +785,7 @@ $tagsort = 'alpha';
 													<?php
 													if ($result->getlastchangeuser()) {
 														?>
-														<hr /><p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
+														<p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
 														</p>
 														<?php
 													}
@@ -857,8 +862,8 @@ $tagsort = 'alpha';
 														</p>
 														<?php
 													}
+													echo zp_apply_filter('general_zenpage_utilities', '', $result);
 													?>
-													<?php echo zp_apply_filter('general_zenpage_utilities', '', $result); ?>
 												</div>
 												<?php
 												if (is_AdminEditPage("newsarticle")) {

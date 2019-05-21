@@ -19,9 +19,9 @@ $plugin_description = gettext('Allow a user to create a root level album when he
 $option_interface = 'create_album';
 
 zp_register_filter('admin_head', 'create_album::JS');
-zp_register_filter('edit_admin_custom_data', 'create_album::edit', 1);
-zp_register_filter('save_admin_custom_data', 'create_album::save');
-zp_register_filter('save_user', 'create_album::save_user');
+zp_register_filter('edit_admin_custom', 'create_album::edit', 1);
+zp_register_filter('save_admin_data', 'create_album::save');
+zp_register_filter('save_user_complete', 'create_album::save_user');
 zp_register_filter('upload_root_ui', 'create_album::upload_root_ui');
 zp_register_filter('admin_upload_process', 'create_album::admin_upload_process');
 zp_register_filter('plugin_tabs', 'create_album::tab');
@@ -262,7 +262,6 @@ class create_album {
 							}
 							$album->save();
 							$userobj->setObjects(array_merge($userobj->getObjects(), array('data' => $alb, 'name' => $title, 'edit' => MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_UPLOAD | MANAGED_OBJECT_RIGHTS_VIEW)));
-							$userobj->save();
 						} else {
 							$_create_album_errors[$user] = sprintf(gettext('Unable to create %s.'), $alb);
 						}

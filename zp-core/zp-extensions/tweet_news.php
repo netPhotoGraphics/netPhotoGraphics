@@ -35,12 +35,12 @@ if ($plugin_disable) {
 	zp_register_filter('admin_overview', 'tweet::errorsOnOverview');
 	zp_register_filter('admin_note', 'tweet::errorsOnAdmin');
 	zp_register_filter('edit_album_utilities', 'tweet::tweeter');
-	zp_register_filter('save_album_utilities_data', 'tweet::tweeterExecute');
+	zp_register_filter('save_album_data', 'tweet::tweeterExecute');
 	zp_register_filter('edit_image_utilities', 'tweet::tweeter');
-	zp_register_filter('save_image_utilities_data', 'tweet::tweeterExecute');
+	zp_register_filter('save_image_data', 'tweet::tweeterExecute');
 	zp_register_filter('general_zenpage_utilities', 'tweet::tweeter');
-	zp_register_filter('save_article_custom_data', 'tweet::tweeterZenpageExecute');
-	zp_register_filter('save_page_custom_data', 'tweet::tweeterZenpageExecute');
+	zp_register_filter('save_article_data', 'tweet::tweeterZenpageExecute');
+	zp_register_filter('save_page_data', 'tweet::tweeterZenpageExecute');
 
 	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 }
@@ -107,7 +107,7 @@ class tweet {
 		If (getOption('multi_lingual')) {
 			$options[gettext('Tweet Language')] = array('key' => 'tweet_language', 'type' => OPTION_TYPE_SELECTOR,
 					'order' => 5.5,
-					'selections' => generateLanguageList(),
+					'selections' => i18n::generateLanguageList(),
 					'desc' => gettext('Select the language for the Tweet message.'));
 		}
 		if (getOption('tweet_news_news') && is_object($_zp_CMS)) {
@@ -303,8 +303,8 @@ class tweet {
 	 */
 	private static function tweetObject($obj) {
 		if (getOption('multi_lingual')) {
-			$cur_locale = getUserLocale();
-			setupCurrentLocale(getOption('tweet_language')); //	the log will be in the language of the master user.
+			$cur_locale = i18n::getUserLocale();
+			i18n::setupCurrentLocale(getOption('tweet_language')); //	the log will be in the language of the master user.
 		}
 		$error = '';
 		if (class_exists('tinyURL')) {
@@ -331,7 +331,7 @@ class tweet {
 				break;
 		}
 		if (isset($cur_locale)) {
-			setupCurrentLocale($cur_locale); //	restore to whatever was in effect.
+			i18n::setupCurrentLocale($cur_locale); //	restore to whatever was in effect.
 		}
 		return $error;
 	}
@@ -418,7 +418,7 @@ class tweet {
 	 * @param unknown_type $custom
 	 * @param unknown_type $object
 	 */
-	static function tweeterZenpageExecute($custom, $object) {
+	static function tweeterZenpageExecute($object) {
 		self::tweeterExecute($object, '');
 		return $custom;
 	}

@@ -24,7 +24,7 @@
  * You can place a login button on your webpage by calling the function <var>googleLogin::loginButton();</var>
  *
  * @author Stephen Billard (sbillard)
- * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/googleLogin
  * @pluginCategory users
@@ -40,7 +40,7 @@ require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth
 $option_interface = 'googleLogin';
 
 zp_register_filter('alt_login_handler', 'googleLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom_data', 'googleLogin::edit_admin');
+zp_register_filter('edit_admin_custom', 'googleLogin::edit_admin');
 
 /**
  * Option class

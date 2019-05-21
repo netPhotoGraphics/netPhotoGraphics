@@ -11,6 +11,6 @@ $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace visualchars visualblocks code fullscreen " .
 				"insertdatetime media paste directionality ";
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | ltr rtl code";
-$MCEstatusbar = false;
+$MCEstatusbar = true;
 $MCEmenubar = false;
 include(TINYMCE . '/config/config.js.php');

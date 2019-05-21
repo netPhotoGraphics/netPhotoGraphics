@@ -56,7 +56,14 @@ if (extensionEnabled($extension)) {
 	setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $extension, $priority), $fullLog);
 	enableExtension($extension, $plugin_is_filter);
 }
+
+$_zp_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
 require_once($path); //	If it faults the shutdown functioin will disable it
+foreach ($_zp_conf_vars['special_pages'] as $definition) {
+	if (isset($definition['option'])) {
+		setOptionDefault($definition['option'], $definition['default'], '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+	}
+}
 if ($str = isolate('$option_interface', $p)) {
 	//	prime the default options
 	eval($str);

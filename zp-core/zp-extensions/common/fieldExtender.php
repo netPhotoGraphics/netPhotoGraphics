@@ -56,7 +56,7 @@
  * @author Stephen Billard (sbillard)
  * @package plugins/fieldExtender
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 
 class fieldExtender {
@@ -394,11 +394,10 @@ class fieldExtender {
 	/**
 	 * Processes the save of zenpage objects
 	 *
-	 * @param string $custom
 	 * @param object $object
 	 * @return string
 	 */
-	static function _cmsItemSave($custom, $object, $fields) {
+	static function _cmsItemSave($object, $fields) {
 		foreach ($fields as $field) {
 			if ($field['table'] == $object->table) {
 				$newdata = fieldExtender::_saveHandler($object, NULL, $field);
@@ -406,7 +405,7 @@ class fieldExtender {
 					$object->set($field['name'], $newdata);
 			}
 		}
-		return $custom;
+		return $object;
 	}
 
 	/**
@@ -457,29 +456,29 @@ value="' . $item . '" />';
 		$registerCMSSave = false;
 
 		if (isset($items['albums'])) {
-			zp_register_filter("save_album_utilities_data", "$me::mediaItemSave");
-			zp_register_filter("edit_album_custom_data", "$me::mediaItemEdit");
+			zp_register_filter("save_album_data", "$me::mediaItemSave");
+			zp_register_filter("edit_album_custom", "$me::mediaItemEdit");
 			if (isset($actions['albums'])) {
 				zp_register_filter('bulk_album_actions', "$me::bulkAlbum");
 				zp_register_filter('processBulkAlbumsSave', "$me::bulkAlbumSave");
 			}
 		}
 		if (isset($items['images'])) {
-			zp_register_filter("save_image_utilities_data", "$me::mediaItemSave");
-			zp_register_filter("edit_image_custom_data", "$me::mediaItemEdit");
+			zp_register_filter("save_image_data", "$me::mediaItemSave");
+			zp_register_filter("edit_image_custom", "$me::mediaItemEdit");
 			if (isset($actions['images'])) {
 				zp_register_filter('bulk_image_actions', "$me::bulkImage");
 				zp_register_filter('processBulkImageSave', "$me::bulkImageSave");
 			}
 		}
 		if (isset($items['administrators'])) {
-			zp_register_filter("save_admin_custom_data", "$me::adminSave");
-			zp_register_filter("edit_admin_custom_data", "$me::adminEdit");
+			zp_register_filter("save_admin_data", "$me::adminSave");
+			zp_register_filter("edit_admin_custom", "$me::adminEdit");
 			//there are no admin bulk actions currently
 		}
 		if (isset($items['news'])) {
-			zp_register_filter("save_article_custom_data", "$me::cmsItemSave");
-			zp_register_filter("edit_article_custom_data", "$me::cmsItemEdit");
+			zp_register_filter("save_article_data", "$me::cmsItemSave");
+			zp_register_filter("edit_article_custom", "$me::cmsItemEdit");
 			if (isset($actions['news'])) {
 				zp_register_filter('bulk_article_actions', "$me::bulkArticle");
 				$registerCMSSave = true;
@@ -487,8 +486,8 @@ value="' . $item . '" />';
 		}
 
 		if (isset($items['pages'])) {
-			zp_register_filter("save_page_custom_data", "$me::cmsItemSave");
-			zp_register_filter("edit_page_custom_data", "$me::cmsItemEdit");
+			zp_register_filter("save_page_data", "$me::cmsItemSave");
+			zp_register_filter("edit_page_custom", "$me::cmsItemEdit");
 			if (isset($actions['pages'])) {
 				zp_register_filter('bulk_page_actions', "$me::bulkPage");
 				$registerCMSSave = true;

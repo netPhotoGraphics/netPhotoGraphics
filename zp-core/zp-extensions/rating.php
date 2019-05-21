@@ -20,12 +20,12 @@ $plugin_description = gettext("Adds several theme functions to enable images, al
 $option_interface = 'jquery_rating';
 
 zp_register_filter('edit_album_utilities', 'jquery_rating::optionVoteStatus');
-zp_register_filter('save_album_utilities_data', 'jquery_rating::optionVoteStatusSave');
+zp_register_filter('save_album_data', 'jquery_rating::optionVoteStatusSave');
 zp_register_filter('admin_utilities_buttons', 'jquery_rating::rating_purgebutton');
 
 if (getOption('rating_image_individual_control')) {
 	zp_register_filter('edit_image_utilities', 'jquery_rating::optionVoteStatus');
-	zp_register_filter('save_image_utilities_data', 'jquery_rating::optionVoteStatusSave');
+	zp_register_filter('save_image_data', 'jquery_rating::optionVoteStatusSave');
 }
 
 // register the scripts needed
@@ -179,6 +179,9 @@ class jquery_rating {
 	 * @return string Combined HTML
 	 */
 	static function optionVoteStatus($prior, $object, $prefix) {
+		if ($prior) {
+			$prior .= '<hr />';
+		}
 		$me = new jquery_rating();
 		$currentvalue = $object->get('rating_status');
 		$output = gettext('Vote Status:') . '<br />' . "\n";

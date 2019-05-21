@@ -14,7 +14,7 @@
 			<div id="random-image">
 				<?php printRandomImages(1, null, 'all', '', 190, 225, true); ?>
 			</div>
-			<?php if ($zenpage && getNumNews(true)) { ?>
+			<?php if ($zenpage && hasNews()) { ?>
 				<h4><?php echo NEWS_LABEL; ?></h4>
 				<?php printNewsArchive(); ?>
 			<?php } ?>

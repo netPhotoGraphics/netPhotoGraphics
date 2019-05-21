@@ -22,7 +22,7 @@ $option_interface = 'contactformOptions';
 
 $_zp_conf_vars['special_pages']['contact'] = array('define' => '_CONTACT_', 'rewrite' => getOption('contactform_rewrite'), 'option' => 'contactform_rewrite', 'default' => '_PAGE_/contact');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%CONTACT%', 'rewrite' => '_CONTACT_');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '%CONTACT%', 'rule' => '^%REWRITE%/*$		index.php?p=contact [L,QSA]');
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '%CONTACT%', 'rule' => '^%REWRITE%/*$		index.php?p=contact [NC,L,QSA]');
 
 zp_register_filter('content_macro', 'getContactFormMacros');
 
@@ -35,7 +35,6 @@ class contactformOptions {
 	function __construct() {
 		global $_zp_authority;
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('contactform_rewrite', '_PAGE_/contact');
 			setOptionDefault('contactform_introtext', getAllTranslations('<p>Fields with <strong>*</strong> are required. HTML or any other code is not allowed.</p>'));
 			setOptionDefault('contactform_confirmtext', getAllTranslations('<p>Please confirm that you really want to send this email. Thanks.</p>'));
 			setOptionDefault('contactform_thankstext', getAllTranslations('<p>Thanks for your message.</p>'));
@@ -469,7 +468,7 @@ function getContactFormMacros($macros) {
 			'params' => array('string*'),
 			'value' => 'printContactFormMacro',
 			'owner' => 'contact_form',
-			'desc' => gettext('Provide the subject (optionally) as %1.')
+			'desc' => gettext('Dynamically insert a contact form. Provide the subject (optionally) as %1.')
 	);
 	return $macros;
 }

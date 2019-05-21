@@ -18,7 +18,7 @@ if (!defined('WEBPATH'))
 		?>
 	</head>
 	<body>
-<?php zp_apply_filter('theme_body_open'); ?>
+		<?php zp_apply_filter('theme_body_open'); ?>
 		<div id="main">
 			<div id="gallerytitle">
 				<?php
@@ -28,10 +28,10 @@ if (!defined('WEBPATH'))
 				?>
 				<h2>
 					<span>
-<?php printHomeLink('', ' | '); ?>
+						<?php printHomeLink('', ' | '); ?>
 						<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php printGalleryTitle(); ?></a>
 					</span> |
-<?php echo gettext("Archive View"); ?>
+					<?php echo gettext("Archive View"); ?>
 				</h2>
 			</div>
 			<div id="padbox">
@@ -41,7 +41,7 @@ if (!defined('WEBPATH'))
 				<div id="archive"><?php printAllDates(); ?></div>
 				<?php
 				if (extensionEnabled('zenpage')) {
-					if (getNumNews(true)) {
+					if (hasNews()) {
 						?>
 						<div class="news_header">
 							<p><?php echo(NEWS_LABEL); ?></p>
@@ -53,7 +53,7 @@ if (!defined('WEBPATH'))
 				?>
 				<div id="tag_cloud">
 					<p><?php echo gettext('Popular Tags'); ?></p>
-<?php printAllTagsAs('cloud', 'tags'); ?>
+					<?php printAllTagsAs('cloud', 'tags'); ?>
 				</div>
 			</div>
 		</div>

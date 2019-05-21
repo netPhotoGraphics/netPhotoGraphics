@@ -232,7 +232,7 @@ function sanitize_numeric($num) {
 	if ($f === false) {
 		return 0;
 	} else {
-		return round($f);
+		return (int) round($f);
 	}
 }
 
@@ -1029,7 +1029,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	} else {
 		$value = $default;
 		if (is_bool($value)) {
-			$value = (int) $default;
+			$default = $value = (int) $default;
 		}
 		$value = db_quote($value);
 	}
@@ -1942,7 +1942,7 @@ function checkInstall() {
  * @param string $addl additional information for request message
  *
  * @author Stephen Billard
- * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function requestSetup($whom, $addl = NULL) {
 	$sig = getSerializedArray(getOption('zenphoto_install'));
@@ -1960,7 +1960,7 @@ function requestSetup($whom, $addl = NULL) {
  * @param int $action if positive the setup is mandatory
  *
  * @author Stephen Billard
- * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+ * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function _setup($action) {
 	require_once(dirname(__FILE__) . '/reconfigure.php');

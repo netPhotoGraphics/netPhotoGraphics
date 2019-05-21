@@ -30,6 +30,7 @@ if (isset($_GET['action'])) {
 					$is = (int) isset($_POST['zp_plugin_' . $matches[1]]);
 					if ($is) {
 						$nv = sanitize_numeric($_POST['zp_plugin_' . $matches[1]]);
+						$is = (int) ($nv && true);
 					} else {
 						$nv = NULL;
 					}
@@ -159,7 +160,6 @@ zp_apply_filter('admin_note', 'plugins', '');
 		echo sprintf(gettext("Third party plugins are placed in the <code>%s</code> folder and are automatically discovered."), USER_PLUGIN_FOLDER) . ' ';
 		echo gettext("If the plugin checkbox is checked, the plugin will be loaded and its functions made available. If the checkbox is not checked the plugin is disabled and occupies no resources.");
 		?>
-		<a href="http://www.zenphoto.org/news/category/extensions" alt="Extensions section"> <?php echo gettext('Find more plugins'); ?></a>
 	</p>
 	<p class='notebox'><?php echo gettext("<strong>Note:</strong> Support for a particular plugin may be theme dependent! You may need to add the plugin theme functions if the theme does not currently provide support."); ?>
 	</p>

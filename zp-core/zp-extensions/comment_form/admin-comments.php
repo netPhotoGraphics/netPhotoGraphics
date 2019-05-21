@@ -390,6 +390,9 @@ printLogoAndLinks();
 								$id = $comment['id'];
 								$author = $comment['name'];
 								$email = $comment['email'];
+								if (empty($author)) {
+									$author = $email;
+								}
 								$link = '<a title="' . gettext('The item upon which this comment was posted no longer exists.') . '">' . gettext('<strong>Missing Object</strong> ') . '</a>'; // in case of such
 								// ZENPAGE: switch added for zenpage comment support
 								switch ($comment['type']) {
@@ -468,7 +471,7 @@ printLogoAndLinks();
 													?>
 													<a href="?action=spam&amp;id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('comment_update') ?>" title="<?php echo gettext('Mark this message as SPAM'); ?>">
 														<?php echo CHECKMARK_GREEN; ?> </a>
-													<?php
+														<?php
 												}
 												?>
 											</div>

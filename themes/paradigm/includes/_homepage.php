@@ -50,7 +50,7 @@ if (getOption('homepage_slideshow')) {
 			</div>
 		</div>
 	</div>
-	<?php if (class_exists("CMS") && getNumNews(true) && (getOption('homepage_blog'))) { ?>
+	<?php if (class_exists("CMS") && getOption('homepage_blog') && hasnews()) { ?>
 		<div class="container<?php
 		if (getOption('full_width')) {
 			echo '-fluid';

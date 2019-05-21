@@ -56,7 +56,6 @@ class favoritesHandler {
 	function __construct() {
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('favorites_multi', 0);
-			setOptionDefault('favorites_link', '_PAGE_/favorites');
 			setOptionDefault('favorites_title', getAllTranslations('My favorites'));
 			setOptionDefault('favorites_linktext', getAllTranslations('My favorites'));
 			setOptionDefault('favorites_desc', getAllTranslations('The albums and images selected as favorites.'));
@@ -301,18 +300,18 @@ class favoritesHandler {
 $_zp_conf_vars['special_pages']['favorites'] = array('define' => '_FAVORITES_', 'rewrite' => getOption('favorites_link'),
 		'option' => 'favorites_link', 'default' => '_PAGE_/favorites');
 $_zp_conf_vars['special_pages'][] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/* $',
-		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [L,QSA]');
+$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/*$',
+		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/([0-9]+)/*$',
-		'rule' => '%REWRITE% index.php?p=favorites&page=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites&page=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/*$',
-		'rule' => '%REWRITE% index.php?p=favorites&instance=$1 [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites&instance=$1 [NC,L,QSA]');
 $_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/*$',
-		'rule' => '%REWRITE% index.php?p=favorites [L,QSA]');
+		'rule' => '%REWRITE% index.php?p=favorites [NC,L,QSA]');
 
 if (OFFSET_PATH) {
-	zp_register_filter('edit_album_custom_data', 'favoritesHandler::showWatchers');
-	zp_register_filter('edit_image_custom_data', 'favoritesHandler::showWatchers');
+	zp_register_filter('edit_album_custom', 'favoritesHandler::showWatchers');
+	zp_register_filter('edit_image_custom', 'favoritesHandler::showWatchers');
 } else {
 	zp_register_filter('load_theme_script', 'favorites::loadScript');
 	zp_register_filter('checkPageValidity', 'favorites::pageCount');

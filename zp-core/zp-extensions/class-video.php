@@ -116,7 +116,7 @@ class Video extends Image {
 	 * @return array
 	 *
 	 * @author Stephen Billard
-	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function getMetadataFields() {
 		return array(
@@ -419,7 +419,7 @@ class Video extends Image {
 	 * @return string
 	 *
 	 * @author Stephen Billard
-	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics and derivatives}
+	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function multimediaExtension() {
 		global $_zp_multimedia_extension;
@@ -464,7 +464,7 @@ class pseudoPlayer {
 									' . gettext('Your browser does not support the video tag') . '
 						</video>';
 		}
-		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-noflashplayer.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
+		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-imagegeneral.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
 	}
 
 }

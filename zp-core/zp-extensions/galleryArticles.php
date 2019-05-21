@@ -168,7 +168,7 @@ class galleryArticles {
 				$dbstring = getOption('galleryArticles_album_text');
 				$localtext = get_language_string($dbstring);
 				$galleryitem_text[$locale] = sprintf($localtext, $obj->getTitle($locale));
-				foreach (generateLanguageList() as $key) {
+				foreach (i18n::generateLanguageList() as $key) {
 					$languagetext = get_language_string($dbstring, $key);
 					if ($localtext != $languagetext) {
 						$galleryitem_text[$key] = sprintf($languagetext, $obj->getTitle($key));
@@ -185,7 +185,7 @@ class galleryArticles {
 				$dbstring = unserialize(getOption('galleryArticles_image_text'));
 				$localtext = get_language_string($dbstring);
 				$galleryitem_text[$locale] = sprintf($localtext, $obj->getTitle($locale), $obj->album->getTitle($locale));
-				foreach (generateLanguageList() as $key => $val) {
+				foreach (i18n::generateLanguageList() as $key => $val) {
 					$languagetext = get_language_string($dbstring, $key);
 					if ($localtext != $languagetext) {
 						$galleryitem_text[$key] = sprintf($localtext, $obj->getTitle($key), $obj->album->getTitle($key));
