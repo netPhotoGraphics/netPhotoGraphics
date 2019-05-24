@@ -439,7 +439,7 @@ updatePublished('news');
 												}
 												?>
 												<div class="page-list_icon">
-													<a href="javascript:confirmDelete('news.php<?php echo $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
+													<a href="javascript:confirmDelete('<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
 														<?php echo WASTEBASKET; ?>
 													</a>
 												</div>

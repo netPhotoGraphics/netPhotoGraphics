@@ -110,7 +110,7 @@ if (isset($_POST['set_defaults'])) {
 	}
 }
 if ($report) {
-	header('Location: ' . getAdminLink('publishContent/publishContent.php') . '?tab=content&report=' . $report);
+	header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/publishContent/publishContent.php') . '?tab=content&report=' . $report);
 	exit();
 } else {
 	if (isset($_GET['report'])) {

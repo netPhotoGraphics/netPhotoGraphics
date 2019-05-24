@@ -13,7 +13,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 admin_securityChecks(THEMES_RIGHTS, currentRelativeURL());
 
 if (!isset($_GET['theme'])) {
-	header("Location: " . getAdminLink('admin-themes.php'));
+	header("Location: " . getAdminLink('admin-tabs/themes.php'));
 	exit();
 }
 
@@ -104,7 +104,7 @@ if (!empty($messages)) {
 ?>
 
 <p class="buttons">
-	<a title="<?php echo gettext('Back to the theme list'); ?>" href="<?php echo getAdminLink('admin-themes.php'); ?>">
+	<a title="<?php echo gettext('Back to the theme list'); ?>" href="<?php echo getAdminLink('admin-tabs/themes.php'); ?>">
 		<?php echo BACK_ARROW_BLUE; ?>
 		<strong><?php echo gettext("Back"); ?></strong>
 	</a>

@@ -22,8 +22,8 @@ $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 @ini_set('display_errors', 1);
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cacheManager.php');
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 $fullLog = isset($_GET['fullLog']);
 
 $extension = sanitize($_REQUEST['plugin']);
@@ -73,9 +73,10 @@ if ($str = isolate('$option_interface', $p)) {
 		ob_start(); //	some plugins emit output from the getOptionsSupported() method
 		$options = $option_interface->getOptionsSupported();
 		ob_end_clean();
+		$owner = replaceScriptPath($path);
 		foreach ($options as $option) {
 			if (isset($option['key'])) {
-				setOptionDefault($option['key'], NULL, '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+				setOptionDefault($option['key'], NULL, '', $owner);
 			}
 		}
 	}

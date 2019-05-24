@@ -124,13 +124,13 @@ function printItemsListTable($item, $toodeep) {
 				<?php
 				if ($item['show'] === '1') {
 					?>
-					<a href="menu_tab.php?publish&amp;id=<?php echo $item['id'] . "&amp;show=0&amp;menuset=" . html_encode($item['menuset']); ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('update_menu') ?>" title="<?php echo gettext('hide'); ?>" >
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?publish&amp;id=<?php echo $item['id'] . "&amp;show=0&amp;menuset=" . html_encode($item['menuset']); ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('update_menu') ?>" title="<?php echo gettext('hide'); ?>" >
 						<?php echo CHECKMARK_GREEN; ?>
 					</a>
 					<?php
 				} else {
 					?>
-					<a href="menu_tab.php?publish&amp;id=<?php echo $item['id'] . "&amp;show=1&amp;menuset=" . html_encode($item['menuset']) ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('update_menu') ?>"  title="<?php echo gettext('show'); ?>">
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?publish&amp;id=<?php echo $item['id'] . "&amp;show=1&amp;menuset=" . html_encode($item['menuset']) ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('update_menu') ?>"  title="<?php echo gettext('show'); ?>">
 						<?php echo EXCLAMATION_RED; ?>
 					</a>
 					<?php
@@ -165,7 +165,7 @@ function printItemsListTable($item, $toodeep) {
 				?>
 			</div>
 			<div class="page-list_icon">
-				<a href="javascript:deleteMenuItem('<?php echo $item['id']; ?>','<?php printf(gettext('Ok to delete %s? This cannot be undone.'), html_encode($array['name'])); ?>');" >
+				<a href="javascript:deleteMenuItem('<?php echo $item['id']; ?>','<?php printf(gettext('Ok to delete %s? This cannot be undone.'), html_encode(get_language_string($array['name']))); ?>');" >
 					<?php echo WASTEBASKET; ?>
 				</a>
 			</div>
@@ -247,7 +247,7 @@ function printItemEditLink($item, $strike) {
 	if ($strike) {
 		$title = '<span class="strike">' . $title . '</span>';
 	}
-	$link = '<a href="menu_tab_edit.php?edit&amp;id=' . $item['id'] . "&amp;type=" . $item['type'] . "&amp;menuset=" . html_encode($item['menuset']) . '">' . $title . '</a>';
+	$link = '<a href="' . getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?edit&amp;id=' . $item['id'] . "&amp;type=" . $item['type'] . "&amp;menuset=" . html_encode($item['menuset']) . '">' . $title . '</a>';
 	echo $link;
 }
 

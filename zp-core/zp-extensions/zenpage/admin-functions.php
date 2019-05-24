@@ -338,7 +338,7 @@ function printPagesListTable($page, $toodeep) {
 				}
 				?>
 				<div class="page-list_icon">
-					<a href="javascript:confirmDelete('pages.php?delete=<?php echo $page->getTitlelink(); ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>',deletePage)" title="<?php echo gettext("Delete page"); ?>">
+					<a href="javascript:confirmDelete('<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php'); ?>?delete=<?php echo $page->getTitlelink(); ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>',deletePage)" title="<?php echo gettext("Delete page"); ?>">
 						<?php echo WASTEBASKET; ?>
 					</a>
 				</div>
@@ -1039,7 +1039,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			}
 			?>
 			<div class="page-list_icon">
-				<a href="javascript:confirmDelete('categories.php?delete=<?php echo js_encode($cat->getTitlelink()); ?>&amp;tab=categories&amp;XSRFToken=<?php echo getXSRFToken('delete_category') ?>',deleteCategory)"
+				<a href="javascript:confirmDelete('<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php'); ?>?delete=<?php echo js_encode($cat->getTitlelink()); ?>&amp;tab=categories&amp;XSRFToken=<?php echo getXSRFToken('delete_category') ?>',deleteCategory)"
 					 title="<?php echo gettext("Delete Category"); ?>">
 						 <?php echo WASTEBASKET; ?>
 				</a>

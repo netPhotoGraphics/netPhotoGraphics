@@ -650,7 +650,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
  * Note: order of selection is:
  * 	1-theme folder file (if $inTheme is set)
  *  2-user plugin folder file
- *  3-zp-extensions file
+ *  3-extensions folder file
  * first file found is used
  *
  * @param string $plugin is the name of the plugin file, typically something.php

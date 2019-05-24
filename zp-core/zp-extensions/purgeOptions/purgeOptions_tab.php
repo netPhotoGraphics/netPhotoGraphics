@@ -16,7 +16,7 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
-$xlate = array('plugins' => gettext('User plugins'), 'zp-core/zp-extensions' => gettext('Extensions'), 'themes' => gettext('Themes'));
+$xlate = array(USER_PLUGIN_FOLDER => gettext('User plugins'), CORE_FOLDER . '/' . PLUGIN_FOLDER => gettext('Extensions'), THEMEFOLDER => gettext('Themes'));
 
 if (isset($_POST['purge'])) {
 	XSRFdefender('purgeOptions');
@@ -72,7 +72,7 @@ if (isset($_POST['purge'])) {
 	if (!empty($purgedActive)) {
 		requestSetup('purgeOptions', gettext('Active plugins have been disabled.'));
 	}
-	header("Location: " . getAdminLink(PLUGIN_FOLDER . 'purgeOptions/purgeOptions_tab.php') . '?tab=purge');
+	header("Location: " . getAdminLink(PLUGIN_FOLDER . '/purgeOptions/purgeOptions_tab.php') . '?tab=purge');
 	exit();
 }
 
@@ -192,14 +192,13 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 								echo gettext('Check an item to purge options associated with it.');
 								?>
 								<span class="highlighted">
-									<?php echo gettext('Items that are <span class = "missing_owner">highlighted</span> appear to no longer to exist.') ?>
+									<?php echo gettext('Items that are <span class="missing_owner">highlighted</span> appear to no longer to exist.') ?>
 								</span>
 							</p>
 							<div class="highlighted purgeOptions_list">
-
-								<span class = "missing_owner purgeOptionsClass">
+								<span class="missing_owner purgeOptionsClass">
 									<?php echo gettext('highlighted'); ?>
-									<input type = "checkbox" id = "missing" checked = "checked" onclick = "$('.missing').prop('checked', $('#missing').prop('checked'));">
+									<input type="checkbox" id="missing" checked="checked" onclick="$('.missing').prop('checked', $('#missing').prop('checked'));">
 								</span>
 
 							</div>

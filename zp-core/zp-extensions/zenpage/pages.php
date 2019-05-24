@@ -135,7 +135,7 @@ updatePublished('pages');
 				if (!empty($pagelist) || zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printPagesStatistic(); ?></span>
-					<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="pages.php" method="post" name="update" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="<?php echo getAdminLink('pages.php'); ?>" method="post" name="update" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('update'); ?>
 
 						<p><?php echo gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."); ?></p>

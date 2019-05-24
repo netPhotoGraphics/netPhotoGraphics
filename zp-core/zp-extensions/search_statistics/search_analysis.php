@@ -15,7 +15,7 @@ if (isset($_GET['reset'])) {
 	XSRFdefender('search_statistics');
 	$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
 	query($sql);
-	header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'search_statistics/search_analysis.php'));
+	header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/search_statistics/search_analysis.php'));
 	exit();
 }
 printAdminHeader('overview', 'analysis');

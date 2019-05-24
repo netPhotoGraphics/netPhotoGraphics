@@ -84,7 +84,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 		}
-		header("Location: " . getAdminLink('user-expiry/user-expiry-tab.php') . '?page=admin&tab=expiry&applied=' . $msg);
+		header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user-expiry/user-expiry-tab.php') . '?page=admin&tab=expiry&applied=' . $msg);
 		exit();
 	}
 }

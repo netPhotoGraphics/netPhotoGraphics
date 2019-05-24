@@ -47,6 +47,7 @@ if (isset($_GET['delete'])) {
 	}
 	unset($reports['updated']);
 }
+
 if (isset($_GET['deletemenuset'])) {
 	XSRFdefender('delete_menu');
 	$sql = 'DELETE FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote(sanitize($_GET['deletemenuset']));
@@ -55,6 +56,7 @@ if (isset($_GET['deletemenuset'])) {
 	$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” deleted"), html_encode(sanitize($_GET['deletemenuset']))) . "</p>";
 	unset($reports['updated']);
 }
+
 if (isset($_GET['exportmenuset'])) {
 	XSRFdefender('dup_menu');
 	$menuEpxorted = sanitize($_GET['exportmenuset']);
@@ -89,11 +91,14 @@ if (isset($_GET['exportmenuset'])) {
 					'</div>';
 	unset($reports['updated']);
 }
+
 if (isset($_GET['dupmenuset'])) {
-	if (!menuExists($menuset)) {
+	$menuset = sanitize($_GET['targetname']);
+	if (menuExists($menuset)) {
+		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” already exists"), html_encode($menuset)) . "</p>";
+	} else {
 		XSRFdefender('dup_menu');
 		$oldmenuset = sanitize($_GET['dupmenuset']);
-		$menuset = sanitize($_GET['targetname']);
 		$menuitems = query_full_array('SELECT * FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote($oldmenuset) . ' ORDER BY `sort_order`');
 		foreach ($menuitems as $key => $item) {
 			$order = count(explode('-', $item['sort_order'])) - 1;
@@ -101,8 +106,6 @@ if (isset($_GET['dupmenuset'])) {
 		}
 		createMenu($menuitems, $menuset);
 		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” duplicated"), html_encode($oldmenuset)) . "</p>";
-	} else {
-		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” already exists"), html_encode($menuset)) . "</p>";
 	}
 	unset($reports['updated']);
 }
@@ -181,7 +184,7 @@ printSortableHead();
 				echo "</small>";
 				?></h1>
 			<div class="tabbox">
-				<form class="dirtylistening" onReset="setClean('update_form');" id="update_form" action="menu_tab.php?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
+				<form class="dirtylistening" onReset="setClean('update_form');" id="update_form" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
 					<?php XSRFToken('update_menu'); ?>
 					<p>
 						<?php echo gettext("Drag the items into the order and nesting you wish displayed. Place the menu on your theme pages by calling printCustomMenu()."); ?>
@@ -258,7 +261,7 @@ printSortableHead();
 									}
 									?>
 									<span class="buttons">
-										<a href="menu_tab_edit.php?add&amp;menuset=<?php echo urlencode($menuset); ?>">
+										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?add&amp;menuset=<?php echo urlencode($menuset); ?>">
 											<?php echo PLUS_ICON; ?>
 											<strong><?php echo gettext("Add Menu Items"); ?></strong>
 										</a>

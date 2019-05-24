@@ -195,7 +195,7 @@ $tagsort = 'alpha';
 				$themepage = 'news';
 				$locked = !checkIfLocked($result);
 				$me = 'news';
-				$backurl = 'news.php?' . $page;
+				$backurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . '?' . $page;
 				if (isset($_GET['category']))
 					$backurl .= '&amp;category=' . html_encode(sanitize($_GET['category']));
 				if (isset($_GET['date']))
@@ -219,7 +219,7 @@ $tagsort = 'alpha';
 				$themepage = 'news';
 				$locked = false;
 				$me = 'news';
-				$backurl = 'categories.php?';
+				$backurl = $backurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php') . '?';
 			}
 
 			if (is_AdminEditPage('page')) {
@@ -229,7 +229,7 @@ $tagsort = 'alpha';
 				$themepage = 'pages';
 				$locked = !checkIfLocked($result);
 				$me = 'page';
-				$backurl = 'pages.php';
+				$backurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php');
 			}
 			if (!is_numeric($pageno)) {
 				$backurl = $result->getLink();
@@ -312,7 +312,7 @@ $tagsort = 'alpha';
 			if ($result->loaded || $result->transient) {
 				if ($result->transient) {
 					?>
-					<form class="dirtylistening" onReset="setClean('addnews_form');" id="addnews_form" method="post" name="addnews" action="edit.php?<?php echo $admintype; ?>&amp;save" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('addnews_form');" id="addnews_form" method="post" name="addnews" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;save" autocomplete="off">
 						<?php
 						XSRFToken('save');
 					} else {
@@ -331,7 +331,7 @@ $tagsort = 'alpha';
 
 						<div id="tab_articles" class="tabbox">
 
-							<form class="dirtylistening" onReset="setClean('form_cmsItemEdit');$('.resetHide').hide();" method="post" name="update" id="form_cmsItemEdit" action="edit.php?<?php echo $admintype; ?>&amp;update<?php echo $page; ?>" autocomplete="off">
+							<form class="dirtylistening" onReset="setClean('form_cmsItemEdit');$('.resetHide').hide();" method="post" name="update" id="form_cmsItemEdit" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;update<?php echo $page; ?>" autocomplete="off">
 								<?php
 								XSRFToken('update');
 							}
@@ -916,7 +916,7 @@ $tagsort = 'alpha';
 										</button>
 										<div class="floatright">
 											<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
-												 <?php echo PLUS_ICON; ?>
+												<?php echo PLUS_ICON; ?>
 												<strong><?php echo $additem; ?></strong>
 											</a>
 											<?php

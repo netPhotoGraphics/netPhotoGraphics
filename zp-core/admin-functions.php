@@ -2586,7 +2586,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($imagcount || (!$album->isDynamic() && $album->getNumAlbums())) {
 			?>
 			<div class="button buttons tooltip" title="<?php echo gettext("Refreshes the metadata for the album."); ?>">
-				<a href="<?php echo getAdminLink('utilities/refresh-metadata.php', $size); ?>?album=<?php echo html_encode($album->name); ?>&amp;return=<?php echo html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh'); ?>">
+				<a href="<?php echo getAdminLink('utilities/refresh-metadata.php'); ?>?album=<?php echo html_encode($album->name); ?>&amp;return=<?php echo html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh'); ?>">
 					<?php echo CIRCLED_BLUE_STAR; ?>
 					<?php echo gettext('Refresh album metadata'); ?>
 				</a>

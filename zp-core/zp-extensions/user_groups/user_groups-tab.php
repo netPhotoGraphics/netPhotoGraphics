@@ -34,7 +34,7 @@ if (isset($_GET['action'])) {
 			$groupobj->remove();
 			// clear out existing user assignments
 			Zenphoto_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
-			header("Location: " . getAdminLink('user_groups/user_groups-tab.php') . '?page=admin&tab=groups&deleted&subpage=' . $subpage);
+			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=groups&deleted&subpage=' . $subpage);
 			exit();
 		case 'savegroups':
 			XSRFdefender('savegroups');
@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
 				$notify = '&post_error';
 			}
 
-			header("Location: " . getAdminLink('user_groups/user_groups-tab.php') . '?page=admin&tab=groups&subpage=' . $subpage . $notify);
+			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=groups&subpage=' . $subpage . $notify);
 			exit();
 		case 'saveauserassignments':
 			XSRFdefender('saveauserassignments');
@@ -124,7 +124,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '&post_error';
 			}
-			header("Location: " . getAdminLink('user_groups/user_groups-tab.php') . '?page=admin&tab=assignments&subpage=' . $subpage . $notify);
+			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=assignments&subpage=' . $subpage . $notify);
 			exit();
 	}
 }

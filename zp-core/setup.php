@@ -18,7 +18,7 @@ if (isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == getXSRFToken('setup')) {
 list($diff, $needs, $found) = checkSignature($must);
 
 if (empty($needs)) {
-	header('Location: setup/index.php');
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php');
 } else {
 	header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 	header('Content-Type: text/html; charset=utf-8');
