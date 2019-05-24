@@ -37,7 +37,7 @@ class show_not_loggedin {
 
 	static function adminLoginAttempt($success, $user, $pass, $athority) {
 		if ($athority == 'zp_admin_auth' && $success) {
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+			header('Location: ' . getAdminLink('admin.php'));
 			exit();
 		}
 		return $success;
@@ -46,7 +46,7 @@ class show_not_loggedin {
 	static function loginRedirect($link) {
 		global $_showNotLoggedin_real_auth;
 		if (is_object($_showNotLoggedin_real_auth)) {
-			$link = WEBPATH . '/' . ZENFOLDER . '/admin.php';
+			$link = getAdminLink('admin.php');
 			?>
 			<div class="error">
 				<?php echo gettext('show_not_logged-in is active.'); ?>
@@ -59,7 +59,7 @@ class show_not_loggedin {
 	static function note($where) {
 		?>
 		<p class="errorbox">
-			<strong><?php echo sprintf(gettext('%s is enabled!'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . 'admin-tabs/plugins.php?page=plugins&tab=development#show_not_logged-in">show_not_logged-in</a>'); ?></strong>
+			<strong><?php echo sprintf(gettext('%s is enabled!'), '<a href="' . getAdminLink('admin-tabs/plugins.php') . '?page=plugins&tab=development#show_not_logged-in">show_not_logged-in</a>'); ?></strong>
 		</p>
 		<?php
 	}

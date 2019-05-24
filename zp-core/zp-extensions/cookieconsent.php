@@ -139,7 +139,7 @@ class cookieConsent {
 		}
 		$color_popup = getOption('zpcookieconsent_colorpopup');
 		$color_button = getOption('zpcookieconsent_colorbutton');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
 		?>
 		<script>
 			window.addEventListener("load", function () {

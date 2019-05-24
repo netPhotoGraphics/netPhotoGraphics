@@ -570,26 +570,26 @@ class openStreetMap {
 	 * Assigns the needed JS and CSS
 	 */
 	static function scripts() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.Default.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/openstreetmap.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.Default.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/openstreetmap.css');
 
 		if (getOption('osmap_showcursorpos')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.css');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.css');
 		}
 		if (getOption('osmap_showminimap')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.css');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.css');
 		}
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet.markercluster.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet-providers.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet.markercluster.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet-providers.js');
 
 		if (getOption('osmap_showcursorpos')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.js');
 		}
 		if (getOption('osmap_showminimap')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.js');
 		}
 	}
 

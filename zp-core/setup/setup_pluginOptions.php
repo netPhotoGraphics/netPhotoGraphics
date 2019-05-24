@@ -22,8 +22,8 @@ $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 @ini_set('display_errors', 1);
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cacheManager.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 $fullLog = isset($_GET['fullLog']);
 
 $extension = sanitize($_REQUEST['plugin']);
@@ -61,7 +61,7 @@ $_zp_conf_vars['special_pages'] = array(); //	we want to look only at ones set b
 require_once($path); //	If it faults the shutdown functioin will disable it
 foreach ($_zp_conf_vars['special_pages'] as $definition) {
 	if (isset($definition['option'])) {
-		setOptionDefault($definition['option'], $definition['default'], '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
 	}
 }
 if ($str = isolate('$option_interface', $p)) {
@@ -75,7 +75,7 @@ if ($str = isolate('$option_interface', $p)) {
 		ob_end_clean();
 		foreach ($options as $option) {
 			if (isset($option['key'])) {
-				setOptionDefault($option['key'], NULL, '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+				setOptionDefault($option['key'], NULL, '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
 			}
 		}
 	}

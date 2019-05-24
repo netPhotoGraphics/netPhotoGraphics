@@ -16,8 +16,8 @@ class imagegallery {
 	}
 
 	function theme_head($_zp_themeroot) {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
+		scriptLoader(CORE_SERVERPATH .  COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
+		scriptLoader(CORE_SERVERPATH .  COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
 	}
 
 	function theme_bodyopen($_zp_themeroot) {
@@ -36,7 +36,7 @@ class imagegallery {
 								display_next_and_prev: true, // Can you navigate by clicking on the left/right on the image?
 								display_back_and_forward: true, // Are you allowed to scroll the thumb list?
 								scroll_jump: 0, // If 0, it jumps the width of the container
-								loader_image: '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER; ?>/adGallery/loader.gif',
+								loader_image: '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . COMMON_FOLDER; ?>/adGallery/loader.gif',
 								slideshow: {
 									enable: true,
 									autostart: true,

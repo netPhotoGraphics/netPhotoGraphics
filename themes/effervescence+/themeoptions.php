@@ -79,7 +79,7 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 		global $personalities;
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_effects.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_effects.php');
 
 		$note = '<p class="notebox">' . gettext('<strong>Note:</strong> This option is valid only if the Zenpage plugin is enabled or the Separate gallery index option is checked. Of course the <em>menu_manager</em> plugin must also be enabled.') . '</p>';
 

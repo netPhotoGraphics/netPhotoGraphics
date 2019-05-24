@@ -20,14 +20,14 @@ if (isset($_REQUEST['themeEdit'])) {
 	$theme = false;
 	$title = gettext('File Manager');
 }
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/theme.css');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js');
+scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css');
+scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/css/theme.css');
+scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js');
 if ($locale != 'en') {
 	?>
 	<!-- elFinder translation (OPTIONAL) -->
 	<?php
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
 }
 
 echo "\n</head>";
@@ -67,7 +67,7 @@ if ($theme) {
 ?>
 									'origin': 'upload'
 								},
-								url: '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/elFinder/php/connector_zp.php'  				// connector URL (REQUIRED)
+								url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/elFinder/php/connector_zp.php'); ?>'  		// connector URL (REQUIRED)
 							}).elfinder('instance');
 						});
 					</script>

@@ -115,7 +115,7 @@ GoogleMap::js();
 					<?php
 					if (!getOption('gmap_sessions')) {
 						?>
-						<li><?php printf(gettext('Enable the <a href="javascript:parent.window.location=%s;">GoogleMap option</a> <em>Map sessions</em>.'), "'" . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?tab=plugin&show-GoogleMap' . "'"); ?></li>
+						<li><?php printf(gettext('Enable the <a href="javascript:parent.window.location=%s;">GoogleMap option</a> <em>Map sessions</em>.'), "'" . getAdminLink('admin-tabs/options.php') . '?tab=plugin&show-GoogleMap' . "'"); ?></li>
 						<?php
 					}
 					?>

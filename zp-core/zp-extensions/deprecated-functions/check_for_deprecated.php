@@ -68,7 +68,7 @@ echo '</head>' . "\n";
 					</select>
 					<br class="clearall"><br />
 					<span class="buttons">
-						<button type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" ><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext("Search"); ?></strong></button>
+						<button type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" ><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext("Search"); ?></strong></button>
 					</span>
 					<span id="progress"></span>
 				</form>
@@ -114,8 +114,8 @@ echo '</head>' . "\n";
 									$userfiles[] = stripSuffix(basename($path));
 								}
 
-								$path = SERVERPATH . '/' . ZENFOLDER;
-								echo "<em><strong>" . ZENFOLDER . "</strong></em><br />\n";
+								$path = SERVERPATH . '/' . CORE_FOLDER;
+								echo "<em><strong>" . CORE_FOLDER . "</strong></em><br />\n";
 								if (listUses(getPHPFiles($path, array()), $path, $pattern)) {
 									echo '<br />';
 								}

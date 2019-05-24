@@ -13,7 +13,7 @@ $indexComments = version_compare($dbSoftware['version'], '5.5.0') >= 0;
 $utf8mb4 = version_compare($dbSoftware['version'], '5.5.3', '>=');
 
 $database = $orphans = $datefields = array();
-$template = unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate'));
+$template = unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate'));
 
 if (isset($_SESSION['admin']['db_admin_fields'])) { //	we are in a clone install, be srue admin fields match
 	$adminTable = $template['administrators']['fields'];

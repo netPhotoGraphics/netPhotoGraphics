@@ -540,7 +540,7 @@ class AlbumBase extends MediaObject {
 			}
 		}
 
-		$nullimage = SERVERPATH . '/' . ZENFOLDER . '/images/imageDefault.png';
+		$nullimage = CORE_SERVERPATH . 'images/imageDefault.png';
 		// check for theme imageDefault.png
 		$theme = '';
 		$uralbum = getUralbum($this);

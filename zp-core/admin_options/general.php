@@ -260,7 +260,7 @@ function getOptionContent() {
 								<p>
 									<?php
 									echo gettext("If you have Apache <em>mod rewrite</em> (or equivalent), put a checkmark on the <em>mod rewrite</em> option and you will get nice cruft-free URLs.");
-									echo sprintf(gettext('The <em>tokens</em> used in rewritten URIs may be altered to your taste. See the <a href="%s">plugin options</a> for <code>rewriteTokens</code>.'), WEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?page=options&tab=plugin&single=rewriteTokens');
+									echo sprintf(gettext('The <em>tokens</em> used in rewritten URIs may be altered to your taste. See the <a href="%s">plugin options</a> for <code>rewriteTokens</code>.'), getAdminLink('admin-tabs/options.php') . '?page=options&tab=plugin&single=rewriteTokens');
 									if (!getOption('mod_rewrite_detected'))
 										echo '<p class="notebox">' . gettext('Setup did not detect a working <em>mod_rewrite</em> facility.'), '</p>';
 									?>
@@ -322,8 +322,8 @@ function getOptionContent() {
 									$languageP = '';
 									if (!empty($dirname)) {
 										$flag = getLanguageFlag($dirname);
-										if (file_exists(SERVERPATH . "/" . ZENFOLDER . "/locale/" . $dirname . '/LC_MESSAGES')) {
-											$po = file_get_contents(SERVERPATH . "/" . ZENFOLDER . "/locale/" . $dirname . '/LC_MESSAGES/zenphoto.po');
+										if (file_exists(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES')) {
+											$po = file_get_contents(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/zenphoto.po');
 											preg_match_all('~^#,\sfuzzy\s+~ims', $po, $fuzzy);
 											if (count($fuzzy[0])) {
 												preg_match_all('~^#:.*?msgid~ims', $po, $msgid);
@@ -332,7 +332,7 @@ function getOptionContent() {
 											}
 										}
 									} else {
-										$flag = WEBPATH . '/' . ZENFOLDER . '/locale/auto.png';
+										$flag = WEBPATH . '/' . CORE_FOLDER . '/locale/auto.png';
 									}
 									if (isset($unsupported[$dirname])) {
 										$c_attrs = $r_attrs = ' disabled="disabled"';

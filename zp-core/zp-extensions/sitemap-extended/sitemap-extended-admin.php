@@ -9,12 +9,12 @@
 define('OFFSET_PATH', 3);
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 if (!zp_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . currentRelativeURL());
+	header('Location: ' . getAdminLink('admin.php') . '?from=' . currentRelativeURL());
 	exit();
 }
 if (isset($_GET['clearsitemapcache'])) {
@@ -24,7 +24,7 @@ if (isset($_GET['clearsitemapcache'])) {
 		$robots = str_replace(' sitemap:', '# sitemap:', $robots);
 		file_put_contents(SERVERPATH . '/robots.txt', $robots);
 	}
-	header('location:' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php');
+	header('location:' . getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'));
 	exit();
 }
 
@@ -43,7 +43,7 @@ if (isset($_GET['generatesitemaps'])) {
 	}
 	$numberAppend = '';
 	if (isset($_GET['generatesitemaps']) && (!empty($sitemap_index) || !empty($sitemap_albums) || !empty($sitemap_images) || !empty($sitemap_newsindex) || !empty($sitemap_articles) || !empty($sitemap_categories) || !empty($sitemap_pages))) {
-		$numberAppend = '-' . floor( ($_sitemap_number / SITEMAP_CHUNK) + 1 );
+		$numberAppend = '-' . floor(($_sitemap_number / SITEMAP_CHUNK) + 1);
 		$metaURL = 'sitemap-extended-admin.php?generatesitemaps&amp;number=' . ($_sitemap_number + SITEMAP_CHUNK);
 	} else {
 		$metaURL = '';
@@ -60,7 +60,7 @@ if (isset($_GET['generatesitemaps'])) {
 		<?php
 	}
 } // if(isset($_GET['generatesitemaps']) end
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[
@@ -149,14 +149,14 @@ echo '</head>';
 					}
 					echo '</ul>';
 					if (!empty($metaURL)) {
-						echo '<p><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/ajax-loader.gif" alt="" /><br /><br />' . gettext('Sitemap files are being generated...Patience please.') . '</p>';
+						echo '<p><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/ajax-loader.gif" alt="" /><br /><br />' . gettext('Sitemap files are being generated...Patience please.') . '</p>';
 					} else {
 						sitemap::generateIndexCacheFile();
 						?>
 						<script type="text/javascript">
 							// <!-- <![CDATA[
 							window.addEventListener('load', function () {
-								window.location = "<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/sitemap-extended/sitemap-extended-admin.php";
+								window.location = "<?php echo getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'); ?>";
 							}, false);
 							// ]]> -->
 						</script>

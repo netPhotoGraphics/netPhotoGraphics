@@ -110,13 +110,13 @@ class jcarousel {
 			})(jQuery);
 		</script>
 		<?php
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
 		$theme = getCurrentTheme();
 		if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css')) {
 			// this should comply with the standard!
 			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 			deprecated_functions::notify_handler(gettext('The jCarousel css files should be placed in the theme subfolder "jCarousel_thumb_nav"'), NULL);
 		} else {
 			$css = getPlugin('jCarousel_thumb_nav/jcarousel.css', $theme);

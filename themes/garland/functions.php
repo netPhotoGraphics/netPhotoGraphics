@@ -1,6 +1,6 @@
 <?php
 // force UTF-8 Ø
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
+require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
 zp_register_filter('themeSwitcher_head', 'switcher_head');
 zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
 

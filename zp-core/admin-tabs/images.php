@@ -12,7 +12,7 @@
 define('OFFSET_PATH', 1);
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (!isset($zenphoto_tabs['images'])) { //	if the tab is set he owns some images so is allowed access
 	admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
@@ -63,7 +63,7 @@ if (isset($_GET['action'])) {
 					$return .= '&tab=subalbuminfo';
 				}
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit' . $return);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page=edit' . $return);
 			exit();
 
 		case 'sorttags':
@@ -74,7 +74,7 @@ if (isset($_GET['action'])) {
 				$pg = '';
 				$tab = '';
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit&album=' . $folder . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page=edit&album=' . $folder . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
 			exit();
 			break;
 
@@ -85,12 +85,12 @@ if (isset($_GET['action'])) {
 			$album->save();
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album=' . $return;
+				$return = '&album = ' . $return;
 				if (strpos($r, '*') === 0) {
-					$return .= '&tab=subalbuminfo';
+					$return .= '&tab = subalbuminfo';
 				}
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit' . $return);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit' . $return);
 			exit();
 			break;
 
@@ -99,16 +99,16 @@ if (isset($_GET['action'])) {
 		case "reset_hitcounters":
 			XSRFdefender('hitcounter');
 			$id = sanitize_numeric($_REQUEST['albumid']);
-			$imgwhere = ' WHERE `albumid`=' . $id;
+			$imgwhere = ' WHERE `albumid` = ' . $id;
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album=' . $return;
+				$return = '&album = ' . $return;
 				if (strpos($r, '*') === 0) {
-					$return .= '&tab=subalbuminfo';
+					$return .= '&tab = subalbuminfo';
 				}
 			}
 			query("UPDATE " . prefix('images') . " SET `hitcounter`= 0" . $imgwhere);
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit' . $return . '&counters_reset');
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit' . $return . '&counters_reset');
 			exit();
 			break;
 
@@ -125,7 +125,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$nd = 2;
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit&album=' . pathurlencode($albumname) . '&ndeleted=' . $nd);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit&album = ' . pathurlencode($albumname) . '&ndeleted = ' . $nd);
 			exit();
 			break;
 
@@ -143,11 +143,11 @@ if (isset($_GET['action'])) {
 				$return = pathurlencode(sanitize_path(urldecode($_POST['album'])));
 			}
 
-			$return = '?page=edit&tab=imageinfo&album=' . $return . '&metadata_refresh';
+			$return = '?page = edit&tab = imageinfo&album = ' . $return . '&metadata_refresh';
 			if (isset($_REQUEST['singleimage'])) {
-				$return .= '&singleimage=' . sanitize($_REQUEST['singleimage']);
+				$return .= '&singleimage = ' . sanitize($_REQUEST['singleimage']);
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php' . $return);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . $return);
 			exit();
 			break;
 
@@ -164,25 +164,25 @@ if (isset($_GET['action'])) {
 				$returnalbum = NULL;
 				if (isset($_POST['savealbuminfo']) && $album->exists) {
 					$notify = processAlbumEdit(0, $album, $returnalbum);
-					$returntab = '&tagsort=' . $tagsort . '&tab=albuminfo';
+					$returntab = '&tagsort = ' . $tagsort . '&tab = albuminfo';
 				}
 
 				if (isset($single)) {
-					$qs_albumsuffix = '&singleimage=' . $single;
+					$qs_albumsuffix = '&singleimage = ' . $single;
 				} else {
 					$qs_albumsuffix = '';
 				}
 // Redirect to the same album we saved.
 				if (isset($folder) && !empty($folder)) {
-					$qs_albumsuffix .= '&album=' . pathurlencode($folder);
+					$qs_albumsuffix .= '&album = ' . pathurlencode($folder);
 				}
 				if (isset($_POST['subpage'])) {
-					$pg = '&subpage=' . ($subpage = sanitize($_POST['subpage']));
+					$pg = '&subpage = ' . ($subpage = sanitize($_POST['subpage']));
 				} else {
 					$subpage = $pg = false;
 				}
 				if (isset($_POST['totalimages']) && $album->exists) {
-					require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/image_save.php');
+					require_once(CORE_SERVERPATH . 'admin-tabs/image_save.php');
 				}
 				if (!is_null($returnalbum)) {
 					$folder = $returnalbum;
@@ -191,7 +191,7 @@ if (isset($_GET['action'])) {
 
 			$msg = zp_apply_filter('edit_error', '');
 			if ($msg) {
-				$notify .= '&edit_error=' . $msg;
+				$notify .= '&edit_error = ' . $msg;
 			}
 			if ($notify == '&') {
 				$notify = '';
@@ -208,7 +208,7 @@ if (isset($_GET['action'])) {
 				header('Location: ' . $link);
 				exit();
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
 			exit();
 			break;
 	} // end of switch
@@ -242,7 +242,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo')) {
 		}
 	}
 	sort($dbfields);
-	$albumdbfields = implode(',', $dbfields);
+	$albumdbfields = implode(', ', $dbfields);
 	$result = db_list_fields('images');
 	$dbfields = array();
 	if ($result) {
@@ -251,7 +251,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo')) {
 		}
 	}
 	sort($dbfields);
-	$imagedbfields = implode(',', $dbfields);
+	$imagedbfields = implode(', ', $dbfields);
 	?>
 	<script type="text/javascript">
 		//<!-- <![CDATA[
@@ -280,7 +280,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo')) {
 		var album = prompt('<?php echo addslashes(gettext('New album name?')); ?>', '<?php echo gettext('album'); ?>.' + $.now());
 		if (album) {
 			if (dynamic) {
-				launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/dynamic-album.php', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
+				launchScript('<?php echo getAdminLink('admin-tabs/dynamic-album.php') ?>', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
 			} else {
 				launchScript('', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album), 'XSRFToken=<?php echo getXSRFToken('newalbum'); ?>']);
 			}
@@ -318,7 +318,7 @@ if ($subtab == 'imageinfo') {
 ?>
 		resizeTable();
 	}, false);
-// ]]> -->
+	// ]]> -->
 </script>
 
 <?php
@@ -482,8 +482,8 @@ echo "\n</head>";
 				<?php
 				$subtab = getCurrentTab();
 				if ($subtab == 'imageinfo') {
-					$backButton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/images.php?page=edit' . $parent;
-					require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-tabs/image_edit.php');
+					$backButton = getAdminLink('admin-tabs/images.php') . '?page=edit' . $parent;
+					require_once(CORE_SERVERPATH . 'admin-tabs/image_edit.php');
 				}
 			} else { /* Display a list of albums to edit. */
 				zp_apply_filter('admin_note', 'albums', $subtab);
@@ -534,7 +534,7 @@ echo "\n</head>";
 						</div>
 						<div class="subhead">
 							<label class="buttons" style="float: left;padding-top:3px;">
-								<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/images.php?page=admin&tab=images
+								<a href="<?php echo getAdminLink('admin-tabs/images.php') ?>?page=admin&tab=images
 									 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
 										 <?php echo $thumbmsg; ?>
 								</a>

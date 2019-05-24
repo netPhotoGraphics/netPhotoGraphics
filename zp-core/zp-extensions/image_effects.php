@@ -28,7 +28,7 @@
  * 		<li><var>%SERVERPATH%</var> to represent the server path to the installation.</li>
  * 		<li><var>%PLUGIN_FOLDER%</var> to represent the "extensions" folder.</li>
  * 		<li><var>%USER_PLUGIN_FOLDER%</var> to represent the root "plugin" folder.</li>
- * 		<li><var>%ZENFOLDER%</var> to represent the zp-core folder.</li>
+ * 		<li><var>%CORE_FOLDER%</var> to represent the zp-core folder.</li>
  * </ul>
  *
  * Pixastic effects:<br>
@@ -262,7 +262,7 @@ class image_effects {
 				if ($i !== false) {
 					$j = strpos($text, '</' . $tag . '>');
 					if ($j !== false) {
-						$effectdata[$tag] = str_replace('%ZENFOLDER%', ZENFOLDER, str_replace('%SERVERPATH%', SERVERPATH, str_replace('%USER_PLUGIN_FOLDER%', USER_PLUGIN_FOLDER, str_replace('%PLUGIN_FOLDER%', PLUGIN_FOLDER, str_replace('%WEBPATH%', WEBPATH, substr($text, $s = $i + strlen($tag) + 2, $j - $s))))));
+						$effectdata[$tag] = str_replace('%CORE_FOLDER%', CORE_FOLDER, str_replace('%SERVERPATH%', SERVERPATH, str_replace('%USER_PLUGIN_FOLDER%', USER_PLUGIN_FOLDER, str_replace('%PLUGIN_FOLDER%', PLUGIN_FOLDER, str_replace('%WEBPATH%', WEBPATH, substr($text, $s = $i + strlen($tag) + 2, $j - $s))))));
 					}
 				}
 			}

@@ -1,6 +1,6 @@
 <?php
 include('inc_header.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_extras.php');
+require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_extras.php');
 ?>
 
 <!-- .container main -->

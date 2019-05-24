@@ -33,8 +33,8 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Publish <em>favorites</em> into albums that others can view.');
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
-define("FAVORITESALBUM_FOLDER", ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesAlbums/');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+define("FAVORITESALBUM_FOLDER", CORE_FOLDER . '/' . PLUGIN_FOLDER . '/favoritesAlbums/');
 
 class favoritesAlbum extends favorites {
 
@@ -146,7 +146,7 @@ class favoritesAlbum extends favorites {
 		return NULL;
 	}
 
-	static function toolbox($zf) {
+	static function toolbox() {
 		global $_zp_gallery_page;
 		if (zp_loggedin(ALBUM_RIGHTS)) {
 			if ($_zp_gallery_page == 'favorites.php') {
@@ -157,7 +157,6 @@ class favoritesAlbum extends favorites {
 				<?php
 			}
 		}
-		return $zf;
 	}
 
 }

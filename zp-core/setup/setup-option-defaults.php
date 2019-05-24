@@ -84,7 +84,7 @@ foreach ($result as $row) {
 }
 
 //clean up plugin enable options
-$sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(ZENFOLDER . '/setup/setup-option-defaults.php[' . __LINE__ . ']') . ' WHERE `name` LIKE "zp_plugin_%" AND `creator` IS NULL;';
+$sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(CORE_FOLDER . '/setup/setup-option-defaults.php[' . __LINE__ . ']') . ' WHERE `name` LIKE "zp_plugin_%" AND `creator` IS NULL;';
 query($sql);
 
 
@@ -599,7 +599,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -610,14 +610,14 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 query('DELETE FROM ' . prefix('options') . ' WHERE  `name` ="search_space_is_OR"', false);
 
 if (!file_exists(SERVERPATH . '/favicon.ico')) {
-	@copy(SERVERPATH . '/' . ZENFOLDER . '/images/favicon.ico', SERVERPATH . '/favicon.ico');
+	@copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
 } else {
 	$ico = md5_file(SERVERPATH . '/favicon.ico');
 	$ico_L = '2a479b69ab8479876cb5a7e6384e7a85'; //	hash of legacy zenphoto favicon
 	$ico_20 = '8eac492afff6cbb0d3f1e4b913baa8a3'; //	hash of zenphoto20 favicon
 	if ($ico_L == $ico || $ico_20 == $ico) {
 		unlink(SERVERPATH . '/favicon.ico');
-		@copy(SERVERPATH . '/' . ZENFOLDER . '/images/favicon.ico', SERVERPATH . '/favicon.ico');
+		@copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
 	}
 }
 
@@ -828,7 +828,7 @@ $plugins = array_keys($plugins);
 			list($usec, $sec) = explode(" ", microtime());
 			$start = (float) $usec + (float) $sec;
 			setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/' . $extension . '.php');
 			$priority = $plugin_is_filter & PLUGIN_PRIORITY;
 			if ($plugin_is_filter & CLASS_PLUGIN) {
 				$priority .= ' | CLASS_PLUGIN';
@@ -871,7 +871,7 @@ $plugins = array_keys($plugins);
 		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -883,7 +883,7 @@ setOptionDefault('deprecated_functions_signature', NULL);
 $compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
 
 if ($deprecate) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 	$deprecated = new deprecated_functions();
 	$listed = sha1(serialize($deprecated->listed_functions));
 	if ($listed != getOption('deprecated_functions_signature')) {

@@ -46,7 +46,7 @@ function reconfigureAction($mandatory) {
 		}
 		if (empty($needs)) {
 			$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-			$p = strpos($dir, ZENFOLDER);
+			$p = strpos($dir, CORE_FOLDER);
 			if ($p !== false) {
 				$dir = substr($dir, 0, $p);
 			}
@@ -61,7 +61,7 @@ function reconfigureAction($mandatory) {
 			} else {
 				$protocol = 'http';
 			}
-			$location = $protocol . '://' . $_SERVER['HTTP_HOST'] . $dir . "/" . ZENFOLDER . "/setup/index.php?autorun=$where";
+			$location = $protocol . '://' . $_SERVER['HTTP_HOST'] . $dir . "/" . CORE_FOLDER . "/setup/index.php?autorun=$where";
 			header("Location: $location");
 			exit();
 		} else {
@@ -69,7 +69,7 @@ function reconfigureAction($mandatory) {
 			global $subtabs, $zenphoto_tabs, $_zp_admin_tab, $_zp_invisible_execute, $_zp_gallery;
 			$_zp_invisible_execute = 1;
 			require_once(dirname(__FILE__) . '/functions-basic.php');
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/initialize-basic.php');
+			require_once(CORE_SERVERPATH . 'initialize-basic.php');
 			require_once(dirname(__FILE__) . '/functions-filter.php');
 
 			if (!defined('FULLWEBPATH')) {
@@ -77,7 +77,7 @@ function reconfigureAction($mandatory) {
 				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
 				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 			}
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-globals.php');
+			require_once(CORE_SERVERPATH . 'admin-globals.php');
 			header('Last-Modified: ' . ZP_LAST_MODIFIED);
 			header('Content-Type: text/html; charset=UTF-8');
 			?>
@@ -85,7 +85,7 @@ function reconfigureAction($mandatory) {
 			<html xmlns="http://www.w3.org/1999/xhtml" />
 			<head>
 				<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-				<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
+				<?php scriptLoader(CORE_SERVERPATH . 'admin.css'); ?>
 				<?php reconfigureCS(); ?>
 			</head>
 			<body>
@@ -157,7 +157,7 @@ function checkSignature($mandatory) {
 	}
 
 	$package = file_get_contents(dirname(__FILE__) . '/zenphoto.package');
-	preg_match_all('|' . ZENFOLDER . '/setup/(.*)|', $package, $matches);
+	preg_match_all('|' . CORE_FOLDER . '/setup/(.*)|', $package, $matches);
 	$needs = array();
 	$restore = $found = false;
 	foreach ($matches[1] as $need) {
@@ -266,7 +266,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where .= '&amp;notoken';
 	}
-	$l1 = '<a href="' . WEBPATH . '/' . ZENFOLDER . '/setup.php?autorun=' . $where . '">';
+	$l1 = '<a href="' . getAdminLink('setup.php') . '?autorun=' . $where . '">';
 	$l2 = '</a>';
 	?>
 	<div class="reconfigbox">
@@ -300,7 +300,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							}
 							break;
 						default:
-							$sz = @filesize(SERVERPATH . '/' . ZENFOLDER . '/' . $thing);
+							$sz = @filesize(CORE_SERVERPATH .  $thing);
 							echo '<li>' . sprintf(gettext('The script <code>%1$s</code> has changed.'), $thing) . '</li>';
 							break;
 					}
@@ -350,7 +350,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
  */
 function restoreSetupScrpts($reason) {
 //log setup file restore no matter what!
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/security-logger.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/security-logger.php');
 	switch ($reason) {
 		default:
 			$addl = sprintf(gettext('to run setup [%s]'), $reason);

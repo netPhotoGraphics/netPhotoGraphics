@@ -71,10 +71,10 @@ class menu_manager {
  *
  * Add menu to the admin toolbox
  */
-function menu_admin_toolbox_global($zf) {
+function menu_admin_toolbox_global() {
 	if (zp_loggedin(ADMIN_RIGHTS)) {
 		echo "<li>";
-		printLinkHTML($zf . '/' . PLUGIN_FOLDER . '/menu_manager/menu_tab.php', gettext("Menu"), NULL, NULL, NULL);
+		printLinkHTML(getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'), gettext("Menu"), NULL, NULL, NULL);
 		echo "</li>\n";
 	}
 }
@@ -89,7 +89,7 @@ function menu_admin_toolbox_global($zf) {
 function menu_tabs($tabs) {
 	if (zp_loggedin(ADMIN_RIGHTS)) {
 		$tabs['menu'] = array('text' => gettext("menu"),
-				'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/menu_manager/menu_tab.php?page=menu&amp;tab=menu',
+				'link' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php') . '?page=menu&amp;tab=menu',
 				'default' => 'menu',
 				'subtabs' => NULL
 		);

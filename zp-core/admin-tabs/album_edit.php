@@ -44,7 +44,7 @@ if (count($subalbums) > 0) {
 			$dsp = 'inline';
 		}
 		?>
-		<form name="subalbum_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo pathurlencode($album->name); ?>&tab=subalbuminfo&action=subalbum_sortorder" >
+		<form name="subalbum_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&album=<?php echo pathurlencode($album->name); ?>&tab=subalbuminfo&action=subalbum_sortorder" >
 			<?php XSRFToken('subalbum_sortorder'); ?>
 			<span class="nowrap">
 				<?php echo gettext('Sort subalbums by:'); ?>
@@ -70,7 +70,7 @@ if (count($subalbums) > 0) {
 			}
 			?>
 			<span class="buttons">
-				<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>">
+				<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</a>
@@ -88,14 +88,14 @@ if (count($subalbums) > 0) {
 
 					<div class="floatright" style="padding-right: 5px">
 						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php
 						if (!$album->isDynamic()) {
 							?>
 							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+								<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
 							<?php
@@ -121,7 +121,7 @@ if (count($subalbums) > 0) {
 			</div>
 			<div class="subhead">
 				<label class="buttons" style="float: left;padding-top:3px;">
-					<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
+					<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
 						<?php echo $thumbmsg; ?>
 					</a>
 				</label>
@@ -148,7 +148,7 @@ if (count($subalbums) > 0) {
 			<input name="update" type="hidden" value="Save Order" />
 			<br />
 			<span class="buttons">
-				<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>&filter=<?php echo $filter; ?>">
+				<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>&filter=<?php echo $filter; ?>">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</a>
@@ -162,12 +162,12 @@ if (count($subalbums) > 0) {
 				</button>
 				<div class="floatright">
 					<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-						<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 						<strong><?php echo gettext('New subalbum'); ?></strong>
 					</button>
 					<?php if (!$album->isDynamic()) { ?>
 						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>
 					<?php } ?>

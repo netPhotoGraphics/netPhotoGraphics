@@ -45,7 +45,7 @@ $plugin_description = gettext("Provides a function to display an image that can 
 
 $option_interface = 'zoomImage';
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-image.php');
+require_once(CORE_SERVERPATH . 'functions-image.php');
 
 zp_register_filter('theme_body_close', 'zoomImage::body_close');
 
@@ -70,7 +70,7 @@ class zoomImage {
 	static function body_close() {
 		global $_zoomImage_id_list;
 		scriptLoader(getPlugin('zoomImage/zoom.css', true));
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
 		?>
 		<script type="text/javascript">
 		<?php

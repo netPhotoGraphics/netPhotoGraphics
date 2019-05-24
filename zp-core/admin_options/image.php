@@ -4,8 +4,8 @@
  */
 $optionRights = OPTIONS_RIGHTS;
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-Imagick.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-GD.php');
+require_once(CORE_SERVERPATH . 'lib-Imagick.php');
+require_once(CORE_SERVERPATH . 'lib-GD.php');
 
 function saveOptions() {
 	global $_zp_gallery, $_zp_images_classes, $_zp_exifvars;
@@ -72,7 +72,7 @@ function saveOptions() {
 	setOption('secure_image_processor', (int) isset($_POST['secure_image_processor']));
 	if (isset($_POST['protected_image_cache'])) {
 		setOption('protected_image_cache', 1);
-		copy(SERVERPATH . '/' . ZENFOLDER . '/cacheprotect', SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
+		copy(CORE_SERVERPATH . 'cacheprotect', SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
 		@chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0444);
 	} else {
 		@chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0777);

@@ -42,7 +42,7 @@ if (isset($_REQUEST['markRelease'])) {
 	$version = debug::version($_REQUEST['markRelease'] == 'released');
 	setOption('markRelease_state', $version);
 	debug::updateVersion($version);
-	header('location:' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+	header('location:' . getAdminLink('admin.php'));
 	exit();
 } else {
 	if (!TEST_RELEASE && strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
@@ -157,10 +157,10 @@ class debug {
 	}
 
 	static function updateVersion($version) {
-		$v = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/version.php');
+		$v = file_get_contents(CORE_SERVERPATH . 'version.php');
 		$version = "define('ZENPHOTO_VERSION', '$version');\n";
 		$v = preg_replace("~define\('ZENPHOTO_VERSION.*\n~", $version, $v);
-		file_put_contents(SERVERPATH . '/' . ZENFOLDER . '/version.php', $v);
+		file_put_contents(CORE_SERVERPATH . 'version.php', $v);
 	}
 
 	static function version($released) {
@@ -206,7 +206,7 @@ class debug {
 		if (zp_loggedin(DEBUG_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/debug/admin_tab.php',
+						'link' => getAdminLink(PLUGIN_FOLDER . '/debug/admin_tab.php'),
 						'default' => (zp_loggedin(ADMIN_RIGHTS)) ? 'phpinfo' : 'http',
 						'rights' => DEBUG_RIGHTS);
 			}

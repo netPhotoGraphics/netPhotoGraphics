@@ -16,11 +16,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
 zp_session_start();
 
 //Google API PHP Library includes
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/googleAPI/autoload.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/googleAPI/autoload.php');
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
 $client_id = getOption('googleLogin_ClientID');
 $client_secret = getOption('googleLogin_ClientSecret');
-$redirect_uri = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleLogin/google.php';
+$redirect_uri = getAdminLink(PLUGIN_FOLDER . '/googleLogin/google.php');
 $simple_api_key = getOption('gmap_map_api_key');
 
 //Create Client Request to access Google API

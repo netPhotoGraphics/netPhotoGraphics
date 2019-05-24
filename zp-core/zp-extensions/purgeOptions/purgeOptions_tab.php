@@ -12,7 +12,7 @@
 
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
@@ -72,13 +72,13 @@ if (isset($_POST['purge'])) {
 	if (!empty($purgedActive)) {
 		requestSetup('purgeOptions', gettext('Active plugins have been disabled.'));
 	}
-	header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/purgeOptions_tab.php?tab=purge');
+	header("Location: " . getAdminLink(PLUGIN_FOLDER . 'purgeOptions/purgeOptions_tab.php') . '?tab=purge');
 	exit();
 }
 
 printAdminHeader('options', '');
 $orphaned = array();
-scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css');
+scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css');
 ?>
 </head>
 <body>
@@ -91,7 +91,7 @@ scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions
 				<h1><?php echo gettext('purge options'); ?></h1>
 				<div class="tabbox">
 					<?php
-					$owners = array(THEMEFOLDER => array(), ZENFOLDER . '/' . PLUGIN_FOLDER => array(), USER_PLUGIN_FOLDER => array());
+					$owners = array(THEMEFOLDER => array(), CORE_FOLDER . '/' . PLUGIN_FOLDER => array(), USER_PLUGIN_FOLDER => array());
 					$sql = 'SELECT `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
 					$result = query_full_array($sql);
 					foreach ($result as $row) {
@@ -116,7 +116,7 @@ scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions
 						$file = str_replace(SERVERPATH, '', getPlugin($plugin . '.php', false));
 						if ($file) {
 							if (strpos($file, PLUGIN_FOLDER) !== false) {
-								$owners[ZENFOLDER . '/' . PLUGIN_FOLDER][strtolower($plugin)] = $plugin;
+								$owners[CORE_FOLDER . '/' . PLUGIN_FOLDER][strtolower($plugin)] = $plugin;
 							} else if (strpos($file, USER_PLUGIN_FOLDER) !== false) {
 								$owners[USER_PLUGIN_FOLDER][strtolower($plugin)] = $plugin;
 							}
@@ -127,9 +127,9 @@ scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions
 					$result = query_full_array($sql);
 					foreach ($result as $owner) {
 						$highlight = '';
-						if (preg_match('~' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/([^\[]*)~', $owner['creator'], $matches)) {
+						if (preg_match('~' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/([^\[]*)~', $owner['creator'], $matches)) {
 							$creator = stripSuffix($matches[1]);
-							$owners[ZENFOLDER . '/' . PLUGIN_FOLDER][strtolower($creator)] = $creator;
+							$owners[CORE_FOLDER . '/' . PLUGIN_FOLDER][strtolower($creator)] = $creator;
 						} else
 						if (preg_match('~' . THEMEFOLDER . '/([^/|^\[]*)~', $owner['creator'], $matches)) {
 							$creator = $matches[1];
@@ -140,7 +140,7 @@ scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions
 							$owners[USER_PLUGIN_FOLDER][strtolower($creator)] = $creator;
 						}
 					}
-					ksort($owners[ZENFOLDER . '/' . PLUGIN_FOLDER]);
+					ksort($owners[CORE_FOLDER . '/' . PLUGIN_FOLDER]);
 					ksort($owners[USER_PLUGIN_FOLDER]);
 					ksort($owners[THEMEFOLDER]);
 

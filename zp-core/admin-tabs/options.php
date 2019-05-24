@@ -10,8 +10,8 @@
 
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(CORE_SERVERPATH . 'functions-config.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (isset($_GET['tab'])) {
 	$_zp_admin_subtab = sanitize($_GET['tab'], 3);
@@ -22,8 +22,8 @@ if (isset($_GET['tab'])) {
 		$_zp_admin_subtab = 'general';
 	}
 }
-if (file_exists(SERVERPATH . '/' . ZENFOLDER . '/admin_options/' . $_zp_admin_subtab . '.php')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/admin_options/' . $_zp_admin_subtab . '.php');
+if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php')) {
+	require_once(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php');
 
 	admin_securityChecks($optionRights, currentRelativeURL());
 	define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
@@ -50,8 +50,8 @@ if (file_exists(SERVERPATH . '/' . ZENFOLDER . '/admin_options/' . $_zp_admin_su
 	}
 	printAdminHeader('options');
 	?>
-	<script src='<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/spectrum/spectrum.js'></script>
-	<link rel='stylesheet' href='<?php echo WEBPATH . '/' . ZENFOLDER; ?>/js/spectrum/spectrum.css' />
+	<script src='<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/js/spectrum/spectrum.js'></script>
+	<link rel='stylesheet' href='<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/js/spectrum/spectrum.css' />
 	<?php
 	$table = NULL;
 

@@ -119,7 +119,7 @@ class Gallery {
 	function getSiteLogo() {
 		$image = $this->get('sitelogoimage');
 		if (empty($image) || !file_exists(SERVERPATH . '/' . $image)) {
-			return WEBPATH . '/' . ZENFOLDER . '/images/admin-logo.png';
+			return WEBPATH . '/' . CORE_FOLDER . '/images/admin-logo.png';
 		} else {
 			return WEBPATH . '/' . $image;
 		}

@@ -58,7 +58,7 @@ if (isset($_GET['action'])) {
 			XSRFdefender('viewadmin');
 			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
 			Zenphoto_Authority::logUser($adminobj);
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin.php");
+			header("Location: " . getAdminLink('admin.php'));
 			exit();
 
 		case 'migrate_rights':
@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '&migration_error';
 			}
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?page=admin&subpage=" . $subpage . $notify);
+			header("Location: " . getAdminLink('admin-tabs/users.php') . '?page=admin&subpage=' . $subpage . $notify);
 			exit();
 
 		case 'deleteadmin':
@@ -81,7 +81,7 @@ if (isset($_GET['action'])) {
 			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
 			zp_apply_filter('save_user_complete', '', $adminobj, 'delete');
 			$adminobj->remove();
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?page=admin&deleted&subpage=" . $subpage);
+			header('Location: ' . getAdminLink('admin-tabs/users.php') . '?page=admin&deleted&subpage=' . $subpage);
 			exit();
 			break;
 		case 'saveoptions':
@@ -265,7 +265,7 @@ if ($_zp_current_admin_obj->reset) {
 if (!$_zp_current_admin_obj && $_zp_current_admin_obj->getID()) {
 	header("HTTP/1.0 302 Found");
 	header("Status: 302 Found");
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+	header('Location: ' . getAdminLink('admin.php'));
 	exit();
 }
 
@@ -530,7 +530,7 @@ echo $refresh;
 									if (count($userlist) != 1 && ($pending || count($seenGroups) > 0)) {
 										echo gettext('show');
 										?>
-										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php', ['showgroup=' + $('#showgroup').val()]);" >
+										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo getAdminLink('admin-tabs/users.php'); ?>', ['showgroup=' + $('#showgroup').val()]);" >
 											<option value=""<?php if (!$showgroup) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 											<?php
 											if ($pending) {
@@ -654,8 +654,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -664,7 +664,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -713,14 +713,14 @@ echo $refresh;
 																<?php
 																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
 																	?>
-																	<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/users.php?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
+																	<a href="<?php echo getAdminLink('admin-tabs/users.php'); ?>?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
 																			 <?php echo BULLSEYE_BLUE; ?>
 																	</a>
 																	<?php
 																} else {
 																	?>
-																	<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+																	<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 																	<?php
 																}
 																?>
@@ -861,7 +861,7 @@ echo $refresh;
 															$languages = i18n::generateLanguageList();
 															asort($languages);
 															$flags = getLanguageFlags();
-															$flags[''] = WEBPATH . '/' . ZENFOLDER . '/locale/auto.png';
+															$flags[''] = WEBPATH . '/' . CORE_FOLDER . '/locale/auto.png';
 															$c = 0;
 															foreach ($languages as $text => $lang) {
 																$current = $lang == $currentValue;

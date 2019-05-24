@@ -7,7 +7,7 @@
  * Support is included for <i>CAPTCHA</i> and for confirmation before the message is sent. No other spam filter support is provided.
  * Your mail client will provide filtering on receipt of the message.
  *
- * The contact form itself is a separate file and located within <var>%ZENFOLDER%/%PLUGIN_FOLDER%/contact_form/form.php</var>. Place a customized
+ * The contact form itself is a separate file and located within <var>%CORE_FOLDER%/%PLUGIN_FOLDER%/contact_form/form.php</var>. Place a customized
  * version of the form in a similar folder in your theme if you wish something different from the standard form.
  *
  * @author Malte Müller (acrylian), Stephen Billard (sbillard)

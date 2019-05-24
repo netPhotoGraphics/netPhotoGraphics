@@ -72,7 +72,7 @@ if (empty($reports)) {
 	}
 } else {
 	$_SESSION['reports'] = $reports;
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/pages.php';
+	$uri = getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php');
 	header('Location: ' . $uri);
 	exit();
 }
@@ -155,7 +155,7 @@ updatePublished('pages');
 							if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<a href="edit.php?page&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
+									<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?page&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
 										<?php echo PLUS_ICON; ?>
 										<strong>
 											<?php echo gettext('New Page'); ?>

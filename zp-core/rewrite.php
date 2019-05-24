@@ -196,7 +196,7 @@ function rewriteHandler() {
 function getRules() {
 	global $_zp_conf_vars;
 	//	load rewrite rules
-	$rules = trim(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto-rewrite.txt'));
+	$rules = trim(file_get_contents(CORE_SERVERPATH . 'zenphoto-rewrite.txt'));
 	$definitions = $specialPageRules = array();
 	foreach ($_zp_conf_vars['special_pages'] as $key => $special) {
 		if (array_key_exists('definition', $special)) {

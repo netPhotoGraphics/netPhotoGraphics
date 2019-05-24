@@ -3,7 +3,6 @@
 /**
  * @package plugins/instagramLogin
  */
-
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
@@ -11,7 +10,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
 
 define('INSTAGRAM_CLIENT_ID', getOption('instagramClientID'));
 define('INSTAGRAM_CLIENT_SECRET', getOption('instagramClientSecret'));
-define('INSTAGRAM_REDIRECT_URI', FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/instagramLogin/instagram-auth.php');
+define('INSTAGRAM_REDIRECT_URI', getAdminLink(PLUGIN_FOLDER . '/instagramLogin/instagram-auth.php'));
 
 zp_session_start();
 

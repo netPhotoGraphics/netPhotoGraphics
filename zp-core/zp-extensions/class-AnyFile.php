@@ -113,7 +113,7 @@ class AnyFile extends TextObject {
 			if (!file_exists($imgfile)) {
 				$imgfile = $path . "/" . USER_PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . $img;
 				if (!file_exists($imgfile)) {
-					$imgfile = $path . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/anyFileDefault.png';
+					$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/anyFileDefault.png';
 				}
 			}
 		} else {

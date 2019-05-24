@@ -27,22 +27,21 @@ if ($plugin_disable) {
 }
 
 function jQueryUploadHandler($uploadHandlers) {
-	$uploadHandlers['jQuery'] = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery';
+	$uploadHandlers['jQuery'] = CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery';
 	return $uploadHandlers;
 }
 
 function jQueryUploadHandler_admin_tabs($tabs) {
 	if (zp_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('images (%s)'), 'jQuery');
-		$mylink = 'admin-tabs/upload.php?page=upload&tab=jQuery&type=' . gettext('images');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),
-					'link' => WEBPATH . "/" . ZENFOLDER . '/' . $mylink,
+					'link' => getAdminLink('admin-tabs/upload.php') . '?page=upload&tab=jQuery&type=' . gettext('images'),
 					'subtabs' => NULL,
 					'default' => 'jQuery'
 			);
 		}
-		$tabs['upload']['subtabs'][$me] = $mylink;
+		$tabs['upload']['subtabs'][$me] = 'admin-tabs/upload.php?page=upload&tab=jQuery&type=' . gettext('images');
 	}
 	return $tabs;
 }

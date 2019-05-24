@@ -970,7 +970,7 @@ function setOption($key, $value, $persistent = true) {
 				$configKey = $_zp_conf_options_associations[$keylc];
 				if ($_zp_conf_vars[$configKey] !== $value) {
 					//	it is stored in the config file, update that too
-					require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
+					require_once(CORE_SERVERPATH . 'functions-config.php');
 					$_configMutex->lock();
 					$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 					$zp_cfg = updateConfigItem($configKey, $value, $zp_cfg);
@@ -1370,7 +1370,7 @@ function ipProtectTag($album, $image, $args) {
 function getImageProcessorURI($args, $album, $image) {
 	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 	$args[8] = NULL; // not used by image processor
-	$uri = WEBPATH . '/' . ZENFOLDER . '/i.php?a=' . $album;
+	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . $album;
 	if (is_array($image)) {
 		$uri .= '&i=' . $image['name'] . '&z=' . ($z = $image['source']);
 	} else {
@@ -1849,7 +1849,7 @@ function imageThemeSetup($album) {
  * @return string
  */
 function getWatermarkPath($wm) {
-	$path = SERVERPATH . '/' . ZENFOLDER . '/watermarks/' . internalToFilesystem($wm) . '.png';
+	$path = CORE_SERVERPATH . 'watermarks/' . internalToFilesystem($wm) . '.png';
 	if (!file_exists($path)) {
 		$path = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/watermarks/' . internalToFilesystem($wm) . '.png';
 	}

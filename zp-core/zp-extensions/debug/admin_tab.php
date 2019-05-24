@@ -259,7 +259,7 @@ echo "\n</head>";
 											$support[$parts[0]]['text'] = $language;
 										}
 									}
-									if (is_dir(SERVERPATH . '/' . ZENFOLDER . '/locale/' . $locale)) {
+									if (is_dir(CORE_SERVERPATH . 'locale/' . $locale)) {
 										$support[$parts[0]]['npgsupport'] = true;
 									}
 								}

@@ -8,11 +8,11 @@
  *
  * The plugin has built in support for 5 example Colorbox themes shown below:
  *
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example1.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example2.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example3.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example4.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example5.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example1.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example2.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example3.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example4.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example5.jpg" />
  *
  * If you select <i>custom (within theme)</i> on the plugin option for Colorbox you need to place a folder
  * <i>colorbox_js</i> containing a <i>colorbox.css</i> file and a folder <i>images</i> within the current theme
@@ -77,7 +77,7 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -93,7 +93,7 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function scriptEnabled($theme, $script) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('scriptEnabled() is no longer used. You may delete the calls.');
 		return true;
 	}
@@ -120,8 +120,8 @@ class colorbox {
 	}
 
 	static function js() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/functions.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/functions.js');
 	}
 
 }

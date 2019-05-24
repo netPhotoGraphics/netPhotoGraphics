@@ -128,7 +128,7 @@
 		<meta name="description" content="<?php echo html_encode($zpfocus_metadesc); ?>" />
 
 		<?php
-		require_once(SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/print_album_menu.php");
+		require_once(CORE_SERVERPATH . 'zp-extensions/print_album_menu.php');
 		scriptLoader($_zp_themeroot . '/css/main.css');
 		if (getOption('zpfocus_center_site')) {
 			scriptLoader($_zp_themeroot . '/css/center.css');
@@ -157,10 +157,10 @@
 		</script>
 		<?php
 		if (($zpfocus_showrandom) == 'rotator') {
-			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		}
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-		scriptloader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpfocus_cbstyle . '/colorbox.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptloader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpfocus_cbstyle . '/colorbox.css');
 		?>
 		<script type="text/javascript">
 			window.addEventListener('load', function () {

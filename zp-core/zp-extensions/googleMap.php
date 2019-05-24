@@ -150,9 +150,9 @@ class GoogleMap {
 		?>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
 		<?php
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/googleMap.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleMap/googleMap.css');
 	}
 
 	/**
@@ -265,7 +265,7 @@ class GoogleMap {
 }
 
 // codeIgniter stuff
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . COMMON_FOLDER . '/jsMin/JSMin.php');
+require_once(CORE_SERVERPATH .  COMMON_FOLDER . '/jsMin/JSMin.php');
 
 class CI_load {
 
@@ -515,7 +515,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				}
 				?>
 				<span class="map_ref">
-					<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/map.php' . $param ?>" title="<?php echo $text; ?>" class="google_map"><?php echo $text; ?></a>
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/googleMap/map.php') . $param ?>" title="<?php echo $text; ?>" class="google_map"><?php echo $text; ?></a>
 				</span>
 				<script type="text/javascript">
 					//<![CDATA[

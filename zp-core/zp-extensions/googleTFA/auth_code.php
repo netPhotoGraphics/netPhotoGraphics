@@ -3,8 +3,8 @@
  * presents a form to get the user's googleAuthenticator authorization code.
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/Secret.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
+require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/Secret.php');
+require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
 if (isset($_SESSION['OTA'])) {
 	$user = $_SESSION['OTA']['user'];
@@ -13,8 +13,8 @@ if (isset($_SESSION['OTA'])) {
 	if ($userobj && $userobj->getOTAsecret()) {
 
 		if (isset($_POST['authenticate'])) {
-			require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/Base32.php');
-			require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/GoogleAuthenticator.php');
+			require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/Base32.php');
+			require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/GoogleAuthenticator.php');
 			$link = $_SESSION['OTA']['redirect'];
 			unset($_SESSION['OTA']); // kill the possibility of a replay
 			$secret = $userobj->getOTAsecret();
@@ -48,7 +48,7 @@ if (isset($_SESSION['OTA'])) {
 					<?php
 				}
 				?>
-				<form name="OTP" id="OTP" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/auth_code.php'; ?>" method="post">
+				<form name="OTP" id="OTP" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/googleTFA/auth_code.php'); ?>" method="post">
 					<input type="hidden" name="authenticate" value="1" />
 					<fieldset id="logon_box">
 						<legend><?php echo gettext('Google Authenticator Token'); ?></legend>

@@ -36,7 +36,7 @@ function printThemeHeadItems() {
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 	load_jQuery_scripts('theme');
 }
 
@@ -57,7 +57,6 @@ function printThemeCloseItems() {
 function adminToolbox() {
 	global $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery_page, $_zp_gallery, $_zp_current_admin_obj, $_zp_loggedin;
 	if (zp_loggedin()) {
-		$zf = PROTOCOL . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . "/" . ZENFOLDER;
 		$id = 'admin_tb';
 		$dataid = 'admin_tb_data';
 		$page = getCurrentPage();
@@ -72,7 +71,7 @@ function adminToolbox() {
 				function newAlbum(folder, albumtab) {
 					var album = prompt('<?php echo gettext('New album name?'); ?>', '<?php echo gettext('new album'); ?>');
 					if (album) {
-						window.location = '<?php echo PROTOCOL . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . "/" . ZENFOLDER; ?>/admin-tabs/edit.php?action=newalbum&folder=' + encodeURIComponent(folder) + '&name=' + encodeURIComponent(album) + '&albumtab=' + albumtab + '&XSRFToken=<?php echo getXSRFToken('newalbum'); ?>';
+						window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?action=newalbum&folder=' + encodeURIComponent(folder) + '&name=' + encodeURIComponent(album) + '&albumtab=' + albumtab + '&XSRFToken=<?php echo getXSRFToken('newalbum'); ?>';
 					}
 				}
 				// ]]> -->
@@ -93,14 +92,14 @@ function adminToolbox() {
 				if (zp_loggedin(OVERVIEW_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin.php', gettext("Overview"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin.php'), gettext("Overview"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				}
 				if (zp_loggedin(UPLOAD_RIGHTS | FILES_RIGHTS | THEMES_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/upload.php', gettext("Upload"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/upload.php'), gettext("Upload"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				}
@@ -117,32 +116,32 @@ function adminToolbox() {
 					if ($albums) {
 						?>
 						<li>
-							<?php printLinkHTML($zf . '/admin-tabs/edit.php', gettext("Albums"), NULL, NULL, NULL); ?>
+							<?php printLinkHTML(getAdminLink('admin-tabs/edit.php'), gettext("Albums"), NULL, NULL, NULL); ?>
 						</li>
 						<?php
 					}
 				}
 
-				zp_apply_filter('admin_toolbox_global', $zf);
+				zp_apply_filter('admin_toolbox_global');
 
 				if (zp_loggedin(TAGS_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/tags.php', gettext("Tags"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/tags.php'), gettext("Tags"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				}
 				if (zp_loggedin(ADMIN_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("Users"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/users.php'), gettext("Users"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				} else {
 					if (zp_loggedin(USER_RIGHTS)) {
 						?>
 						<li>
-							<?php printLinkHTML($zf . '/admin-tabs/users.php', gettext("My profile"), NULL, NULL, NULL); ?>
+							<?php printLinkHTML(getAdminLink('admin-tabs/users.php'), gettext("My profile"), NULL, NULL, NULL); ?>
 						</li>
 						<?php
 					}
@@ -155,7 +154,7 @@ function adminToolbox() {
 					if (!empty($result)) {
 						?>
 						<li>
-							<?php printLinkHTML($zf . '/admin-tabs/images.php?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>
+							<?php printLinkHTML(getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>
 						</li>
 						<?php
 					}
@@ -164,24 +163,24 @@ function adminToolbox() {
 				if (zp_loggedin(OPTIONS_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/options.php?tab=general', gettext("Options"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/options.php') . '?tab=general', gettext("Options"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				}
 				if (zp_loggedin(THEMES_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/themes.php', gettext("Themes"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/themes.php'), gettext("Themes"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				}
 				if (zp_loggedin(ADMIN_RIGHTS)) {
 					?>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/plugins.php', gettext("Plugins"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/plugins.php'), gettext("Plugins"), NULL, NULL, NULL); ?>
 					</li>
 					<li>
-						<?php printLinkHTML($zf . '/admin-tabs/logs.php', gettext("Logs"), NULL, NULL, NULL); ?>
+						<?php printLinkHTML(getAdminLink('admin-tabs/logs.php'), gettext("Logs"), NULL, NULL, NULL); ?>
 					</li>
 					<?php
 				}
@@ -194,7 +193,7 @@ function adminToolbox() {
 						if (zp_loggedin(ADMIN_RIGHTS)) {
 							?>
 							<li>
-								<?php printLinkHTML($zf . '/admin-tabs/edit.php?page=edit', gettext("Sort Gallery"), NULL, NULL, NULL); ?>
+								<?php printLinkHTML(getAdminLink('admin-tabs/edit.php') . '?page=edit', gettext("Sort Gallery"), NULL, NULL, NULL); ?>
 							</li>
 							<?php
 						}
@@ -213,7 +212,7 @@ function adminToolbox() {
 						if ($page > 1) {
 							$redirect .= "&amp;page=$page";
 						}
-						zp_apply_filter('admin_toolbox_gallery', $zf);
+						zp_apply_filter('admin_toolbox_gallery');
 						break;
 					case 'image.php':
 						$inImage = true; // images are also in albums[sic]
@@ -229,21 +228,21 @@ function adminToolbox() {
 							}
 							?>
 							<li>
-								<?php printLinkHTML($zf . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($_zp_current_album->name) . '&subpage=object' . $imagepart, gettext('Edit album'), NULL, NULL, NULL); ?>
+								<?php printLinkHTML(getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($_zp_current_album->name) . '&subpage=object' . $imagepart, gettext('Edit album'), NULL, NULL, NULL); ?>
 							</li>
 							<?php
 							if (!$_zp_current_album->isDynamic()) {
 								if ($_zp_current_album->getNumAlbums()) {
 									?>
 									<li>
-										<?php printLinkHTML($zf . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&tab=subalbuminfo', gettext("Sort subalbums"), NULL, NULL, NULL); ?>
+										<?php printLinkHTML(getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&tab=subalbuminfo', gettext("Sort subalbums"), NULL, NULL, NULL); ?>
 									</li>
 									<?php
 								}
 								if ($_zp_current_album->getNumImages() > 0) {
 									?>
 									<li>
-										<?php printLinkHTML($zf . '/admin-tabs/albumsort.php?page=edit&album=' . pathurlencode($albumname) . '&tab=sort', gettext("Sort images"), NULL, NULL, NULL); ?>
+										<?php printLinkHTML(getAdminLink('admin-tabs/albumsort.php') . '?page=edit&album=' . pathurlencode($albumname) . '&tab=sort', gettext("Sort images"), NULL, NULL, NULL); ?>
 									</li>
 									<?php
 								}
@@ -255,7 +254,7 @@ function adminToolbox() {
 								function confirmAlbumDelete(url) {
 									if (confirm("<?php echo gettext("Are you sure you want to delete this entire album?"); ?>")) {
 										if (confirm("<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>")) {
-											window.location = '<?php echo $zf; ?>/admin-tabs/edit.php?page=edit&action=deletealbum&album=<?php echo urlencode(pathurlencode($albumname)) ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+											window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deletealbum&album=<?php echo urlencode(pathurlencode($albumname)) ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 														}
 													}
 												}
@@ -270,7 +269,7 @@ function adminToolbox() {
 							// provide an album upload link if the admin has upload rights for this album and it is not a dynamic album
 							?>
 							<li>
-								<?php printLinkHTML($zf . '/admin-tabs/upload.php?album=' . pathurlencode($albumname), gettext("Upload here"), NULL, NULL, NULL); ?>
+								<?php printLinkHTML(getAdminLink('admin-tabs/upload.php') . '?album=' . pathurlencode($albumname), gettext("Upload here"), NULL, NULL, NULL); ?>
 							</li>
 							<li>
 								<a href="javascript:newAlbum('<?php echo pathurlencode($albumname); ?>',true);"><?php echo gettext("New subalbum"); ?></a>
@@ -279,7 +278,7 @@ function adminToolbox() {
 						}
 					case 'favorites.php';
 						$albumname = $_zp_current_album->name;
-						zp_apply_filter('admin_toolbox_album', $albumname, $zf);
+						zp_apply_filter('admin_toolbox_album', $albumname);
 						if ($inImage) {
 							// script is image.php
 							$imagename = $_zp_current_image->filename;
@@ -290,7 +289,7 @@ function adminToolbox() {
 									<script type='text/javascript'>
 										function confirmImageDelete() {
 											if (confirm('<?php echo gettext("Are you sure you want to delete the image? THIS CANNOT BE UNDONE!"); ?>')) {
-												window.location = '<?php echo $zf; ?>/admin-tabs/edit.php?page=edit&action=deleteimage&album=<?php echo urlencode(pathurlencode($albumname)); ?>&image=<?php echo urlencode($imagename); ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+												window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deleteimage&album=<?php echo urlencode(pathurlencode($albumname)); ?>&image=<?php echo urlencode($imagename); ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 														}
 													}
 									</script>
@@ -301,13 +300,13 @@ function adminToolbox() {
 										</a>
 									</li>
 									<li>
-										<a href="<?php echo $zf; ?>/admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($albumname); ?>&amp;singleimage=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo&amp;subpage=object"
+										<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($albumname); ?>&amp;singleimage=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo&amp;subpage=object"
 											 title="<?php echo gettext('Edit image'); ?>"><?php echo gettext('Edit image'); ?></a>
 									</li>
 									<?php
 								}
 								// set return to this image page
-								zp_apply_filter('admin_toolbox_image', $albumname, $imagename, $zf);
+								zp_apply_filter('admin_toolbox_image', $albumname, $imagename);
 							}
 							$redirect = "&amp;album=" . pathurlencode($albumname) . "&amp;image=" . urlencode($imagename);
 						} else {
@@ -323,7 +322,7 @@ function adminToolbox() {
 						if (!empty($words)) {
 							// script is search.php with a search string
 							if (zp_loggedin(UPLOAD_RIGHTS)) {
-								$link = $zf . '/admin-tabs/dynamic-album.php?' . substr($_zp_current_search->getSearchParams(), 1);
+								$link = getAdminLink('admin-tabs/dynamic-album.php') . '?' . substr($_zp_current_search->getSearchParams(), 1);
 								// if admin has edit rights allow him to create a dynamic album from the search
 								?>
 								<li>
@@ -331,7 +330,7 @@ function adminToolbox() {
 								</li>
 								<?php
 							}
-							zp_apply_filter('admin_toolbox_search', $zf);
+							zp_apply_filter('admin_toolbox_search');
 						}
 						$redirect = "&amp;p=search" . $_zp_current_search->getSearchParams() . "&amp;page=$page";
 						break;
@@ -340,14 +339,14 @@ function adminToolbox() {
 						if ($page > 1) {
 							$redirect .= "&amp;page=$page";
 						}
-						$redirect = zp_apply_filter('admin_toolbox_pages', $redirect, $zf);
+						$redirect = zp_apply_filter('admin_toolbox_pages', $redirect);
 						break;
 					case'news.php':
 						$redirect = "&amp;p=news";
 						if ($page > 1) {
 							$redirect .= "&amp;page=$page";
 						}
-						$redirect = zp_apply_filter('admin_toolbox_news', $redirect, $zf);
+						$redirect = zp_apply_filter('admin_toolbox_news', $redirect);
 						break;
 					default:
 						// arbitrary custom page
@@ -356,10 +355,10 @@ function adminToolbox() {
 						if ($page > 1) {
 							$redirect .= "&amp;page=$page";
 						}
-						$redirect = zp_apply_filter('admin_toolbox_' . $gal, $redirect, $zf);
+						$redirect = zp_apply_filter('admin_toolbox_' . $gal, $redirect);
 						break;
 				}
-				$redirect = zp_apply_filter('admin_toolbox_close', $redirect, $zf);
+				$redirect = zp_apply_filter('admin_toolbox_close', $redirect);
 				if ($_zp_current_admin_obj->logout_link) {
 					// logout link
 					$sec = (int) ((SERVER_PROTOCOL == 'https') & true);
@@ -1691,7 +1690,7 @@ function getPasswordProtectImage($extra) {
 	} else if (file_exists(internalToFilesystem($themedir . '/images/err-passwordprotected.gif'))) {
 		$image = $_zp_themeroot . '/images/err-passwordprotected.gif';
 	} else {
-		$image = WEBPATH . '/' . ZENFOLDER . '/images/err-passwordprotected.png';
+		$image = WEBPATH . '/' . CORE_FOLDER . '/images/err-passwordprotected.png';
 	}
 	return '<img src="' . $image . '" ' . $extra . ' alt="protected" />';
 }
@@ -2481,7 +2480,7 @@ function printImageURL($text, $title, $class = NULL, $id = NULL) {
  */
 function getImageMetaData($image = NULL, $displayonly = true) {
 	global $_zp_current_image, $_zp_exifvars;
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/exif/exifTranslations.php');
+	require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 	if (is_null($image))
 		$image = $_zp_current_image;
 	if (is_null($image) || !$image->get('hasMetadata')) {
@@ -2982,7 +2981,7 @@ function getProtectedImageURL($image = NULL, $disposal = NULL) {
 		}
 		$params .= '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
-		return WEBPATH . '/' . ZENFOLDER . '/full-image.php?a=' . $album . '&i=' . $image . $params;
+		return WEBPATH . '/' . CORE_FOLDER . '/full-image.php?a=' . $album . '&i=' . $image . $params;
 	}
 }
 
@@ -3919,7 +3918,6 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	if (empty($buttontext)) {
 		$buttontext = gettext("Search");
 	}
-	$zf = WEBPATH . "/" . ZENFOLDER;
 	$searchwords = $engine->codifySearchString();
 	if (substr($searchwords, -1, 1) == ',') {
 		$searchwords = substr($searchwords, 0, -1);
@@ -3944,7 +3942,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 		}
 	}
 	if (empty($iconsource)) {
-		$iconsource = WEBPATH . '/' . ZENFOLDER . '/images/searchfields_icon.png';
+		$iconsource = WEBPATH . '/' . CORE_FOLDER . '/images/searchfields_icon.png';
 	}
 	if (is_null($within)) {
 		$within = getOption('search_within');
@@ -4379,7 +4377,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4714,5 +4712,5 @@ class simpleMap {
 
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-filters.php');
+require_once(CORE_SERVERPATH . 'template-filters.php');
 ?>

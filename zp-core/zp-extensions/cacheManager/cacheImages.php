@@ -8,7 +8,7 @@
 // force UTF-8 Ø
 define('OFFSET_PATH', 3);
 require_once("../../admin-globals.php");
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 
 if (isset($_REQUEST['album'])) {
@@ -144,7 +144,7 @@ if ($alb) {
 	$album = newAlbum($folder);
 	if (!$album->isMyItem(ALBUM_RIGHTS)) {
 		if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+			header('Location: ' . getAdminLink('admin.php'));
 			exit();
 		}
 	}
@@ -230,7 +230,7 @@ if ($alb) {
 					if (!is_array($enabled)) {
 						?>
 						<span class="icons" id="<?php echo $theme; ?>_arrow">
-							<img class="icon-position-top4" src="<?php echo WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png'; ?>" alt="" />
+							<img class="icon-position-top4" src="<?php echo WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png'; ?>" alt="" />
 						</span>
 						<?php
 					}

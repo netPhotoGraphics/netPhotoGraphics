@@ -15,7 +15,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
 
 zp_session_start();
 
-$callbackURL = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/linkedinLogin/linkedin.php';
+$callbackURL = getAdminLink(PLUGIN_FOLDER . '/linkedinLogin/linkedin.php');
 $linkedinApiKey = getOption('linkedinLogin_ClientID');
 $linkedinApiSecret = getOption('linkedinLogin_ClientSecret');
 $linkedinScope = 'r_basicprofile r_emailaddress';
@@ -28,8 +28,8 @@ if (isset($_REQUEST['redirect'])) {
 	}
 }
 
-include_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/common/oAuth/http.php");
-include_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/common/oAuth/oauth_client.php");
+include_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/http.php");
+include_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/oauth_client.php");
 
 $client = new oauth_client_class;
 
@@ -66,7 +66,7 @@ if ($success) {
 	linkedinLogin::credentials($user->id, $user->emailAddress, $user->firstName . ' ' . $user->lastName, $_SESSION['redirect']);
 } else {
 	session_unset();
-	header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($client->error));
+	header('Location: ' . getAdminLink('admin.php') . '?_zp_login_error=' . html_encode($client->error));
 	exit();
 }
 ?>

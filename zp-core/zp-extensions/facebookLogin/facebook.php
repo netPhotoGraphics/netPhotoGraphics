@@ -43,7 +43,7 @@ use Facebook\HttpClients\FacebookHttpable;
 // init app with app id and secret
 FacebookSession::setDefaultApplication(getOption('facebookLogin_APPID'), getOption('facebookLogin_APPSecret'));
 // login helper with redirect_uri
-$helper = new FacebookRedirectLoginHelper(FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/facebookLogin/facebook.php');
+$helper = new FacebookRedirectLoginHelper(getAdminLink(PLUGIN_FOLDER . '/facebookLogin/facebook.php'));
 try {
 	$session = $helper->getSessionFromRedirect();
 } catch (FacebookRequestException $ex) {

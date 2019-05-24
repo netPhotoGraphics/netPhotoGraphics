@@ -115,7 +115,7 @@ function printItemsListTable($item, $toodeep) {
 					<?php
 				} else {
 					?>
-					<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 					<?php
 				}
 				?>
@@ -158,7 +158,7 @@ function printItemsListTable($item, $toodeep) {
 					case 'menufunction':
 					case 'html':
 						?>
-						<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png" />
+						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png" />
 						<?php
 						break;
 				}

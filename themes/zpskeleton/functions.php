@@ -92,7 +92,7 @@ if ($browser->isMobile()) {
 
 // include image statistics plugin if image strip set to latest images
 if ($zpskel_strip == 'latest')
-	require_once (SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/image_album_statistics.php");
+	require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 
 // Sets expanded titles (breadcrumbs) for Title meta
 function getTitleBreadcrumb($before = ' ( ', $between = ' / ', $after = ' ) ') {

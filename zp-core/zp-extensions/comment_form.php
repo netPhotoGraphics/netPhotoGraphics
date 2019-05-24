@@ -5,7 +5,7 @@
  * Place a call on the function <var>printCommentForm()</var> in your script where you
  * wish the comment items to appear.
  *
- * The plugin uses <var>%ZENFOLDER%/%PLUGIN_FOLDER%/comment_form/comment_form.php</var>.
+ * The plugin uses <var>%CORE_FOLDER%/%PLUGIN_FOLDER%/comment_form/comment_form.php</var>.
  * However, you may override this form by placing a script of the same name in a similar folder in your theme.
  * This will allow you to customize the appearance of the comments on your site.
  *
@@ -23,8 +23,8 @@ $option_interface = 'comment_form';
 
 zp_register_filter('admin_toolbox_global', 'comment_form::toolbox');
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/class-comment.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/functions.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/comment_form/class-comment.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/comment_form/functions.php');
 
 if (OFFSET_PATH) {
 	zp_register_filter('admin_overview', 'comment_form_print10Most');
@@ -170,7 +170,7 @@ class comment_form {
 	static function admin_tabs($tabs) {
 		if (zp_loggedin(COMMENT_RIGHTS)) {
 			$tabs['comments'] = array('text' => gettext("comments"),
-					'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . 'comment_form/admin-comments.php?page=comments&tab=' . gettext('comments'),
+					'link' => getAdminLink(PLUGIN_FOLDER . '/' . 'comment_form/admin-comments.php') . '?page=comments&tab=' . gettext('comments'),
 					'subtabs' => NULL);
 		}
 		return $tabs;
@@ -180,7 +180,7 @@ class comment_form {
 		if (zp_loggedin(COMMENT_RIGHTS)) {
 			?>
 			<li>
-				<?php printLinkHTML(WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . 'comment_form/admin-comments.php?page=comments&amp;tab=' . gettext('comments'), gettext("Comments"), NULL, NULL, NULL); ?>
+				<?php printLinkHTML(getAdminLink(PLUGIN_FOLDER . '/' . 'comment_form/admin-comments.php') . '?page=comments&amp;tab=' . gettext('comments'), gettext("Comments"), NULL, NULL, NULL); ?>
 			</li>
 			<?php
 		}

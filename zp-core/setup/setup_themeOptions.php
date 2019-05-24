@@ -33,10 +33,10 @@ setupLog(sprintf(gettext('Theme:%s setup started'), $theme), $fullLog);
 $requirePath = getPlugin('themeoptions.php', $theme);
 if (!empty($requirePath)) {
 	//	load some theme support plugins that have option interedependencies
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager.php');
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/menu_manager.php');
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js.php');
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cacheManager.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/menu_manager.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/themeoptions.php');
 	/* prime the default theme options */

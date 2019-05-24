@@ -102,6 +102,6 @@ if (class_exists('favorites')) {
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

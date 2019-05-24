@@ -253,7 +253,7 @@ class DownloadList {
 	}
 
 	static function admin_tabs($tabs) {
-		$tabs['overview']['subtabs'][gettext('Download statistics')] = '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/downloadList/download_statistics.php?tab=downloadlist';
+		$tabs['overview']['subtabs'][gettext('Download statistics')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/downloadList/download_statistics.php?tab=downloadlist';
 
 		return $tabs;
 	}
@@ -415,7 +415,7 @@ class AlbumZip {
 			// remove zip file from temp path
 			unlink($zipfileFS);
 		} else {
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-zipStream.php');
+			require_once(CORE_SERVERPATH . 'lib-zipStream.php');
 			$zip = new ZipStream(internalToFilesystem($zipname) . '.zip', $opt);
 			foreach ($_zp_zip_list as $path => $file) {
 				@set_time_limit(6000);
@@ -670,7 +670,7 @@ if (isset($_GET['download'])) {
 				$_zp_gallery_page = 'password.php';
 				$_zp_script = $_zp_themeroot . '/password.php';
 				if (!file_exists(internalToFilesystem($_zp_script))) {
-					$_zp_script = SERVERPATH . '/' . ZENFOLDER . '/password.php';
+					$_zp_script = CORE_SERVERPATH . 'password.php';
 				}
 				header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 				header("HTTP/1.0 302 Found");
@@ -707,7 +707,7 @@ if (isset($_GET['download'])) {
 		default:
 			$path = query_single_row("SELECT `aux` FROM " . prefix('plugin_storage') . " WHERE id=" . (int) $item);
 			if ($path && array_key_exists('aux', $path) && file_exists($_downloadFile = internalToFilesystem($path['aux']))) {
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-MimeTypes.php');
+				require_once(CORE_SERVERPATH . 'lib-MimeTypes.php');
 				DownloadList::updateListItemCount($_downloadFile);
 				$ext = getSuffix($_downloadFile);
 				$mimetype = getMimeString($ext);

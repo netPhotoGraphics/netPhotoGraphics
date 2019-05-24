@@ -4,10 +4,10 @@
  * @package plugins/uploader_http
  */
 function upload_head() {
-	$myfolder = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http';
+	$myfolder = CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_http';
 	scriptLoader($myfolder . '/httpupload.css');
 	scriptLoader($myfolder . '/httpupload.js');
-	return WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_http/uploader.php';
+	return getAdminLink(PLUGIN_FOLDER . '/uploader_http/uploader.php');
 }
 
 function upload_extra($uploadlimit, $passedalbum) {

@@ -110,7 +110,7 @@ class accessThreshold {
 			}
 			$subtabs[gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/admin_tab.php?page=admin&tab=access';
 			$tabs['admin']['text'] = gettext("admin");
-			$tabs['admin']['link'] = WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users';
+			$tabs['admin']['link'] = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users';
 			$tabs['admin']['subtabs'] = $subtabs;
 		}
 		return $tabs;

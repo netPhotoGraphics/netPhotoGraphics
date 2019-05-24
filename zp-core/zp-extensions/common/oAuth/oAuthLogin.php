@@ -55,7 +55,7 @@ class oAuthLogin {
 	static function alt_login_handler($handler_list) {
 		$class = get_called_class();
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
-		$link = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php';
+		$link = getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php');
 		$handler_list[$oAuthAuthority] = array('script' => $link, 'params' => array('request=login'));
 		return $handler_list;
 	}
@@ -142,7 +142,7 @@ class oAuthLogin {
 		}
 		session_unset(); //	need to cleanse out stuff or subsequent logins will fail[sic]
 		if ($more) {
-			header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($more));
+			header('Location: ' . getAdminLink('admin.php') . '?_zp_login_error=' . html_encode($more));
 			exit();
 		}
 		zp_apply_filter('federated_login_attempt', true, $user, $oAuthAuthority . 'oAuth'); //	we will mascerade as federated logon for this filter
@@ -193,8 +193,8 @@ class oAuthLogin {
 		if (!zp_loggedin()) {
 			?>
 			<span class="button">
-				<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php'; ?>?request=<?php echo $class; ?>&amp;redirect=/dev/index.php?userlog=1" title="<?php echo $oAuthAuthority; ?> login">
-					<img src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $class; ?>/login_button.png" alt="<?php echo $oAuthAuthority; ?> login">
+				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php'); ?>?request=<?php echo $class; ?>&amp;redirect=/dev/index.php?userlog=1" title="<?php echo $oAuthAuthority; ?> login">
+					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $class; ?>/login_button.png" alt="<?php echo $oAuthAuthority; ?> login">
 				</a>
 			</span>
 			<?php

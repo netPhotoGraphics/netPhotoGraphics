@@ -4,7 +4,7 @@
 	<head>
 		<?php zp_apply_filter('theme_head'); ?>
 		<title><?php echo gettext("Password required"); ?></title>
-		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
+		<?php scriptLoader(CORE_SERVERPATH . 'admin.css'); ?>
 	</head>
 
 	<body>

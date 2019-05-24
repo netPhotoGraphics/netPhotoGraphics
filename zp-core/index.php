@@ -16,7 +16,7 @@ if (GALLERY_SESSION || zp_loggedin(UPLOAD_RIGHTS | ALBUM_RIGHTS | ZENPAGE_PAGES_
 	zp_session_start();
 }
 if (function_exists('openssl_encrypt')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/class.ncrypt.php');
+	require_once(CORE_SERVERPATH . 'class.ncrypt.php');
 	$_themeCript = new mukto90\Ncrypt;
 	$_themeCript->set_secret_key(HASH_SEED);
 	$_themeCript->set_secret_iv(SECRET_IV);
@@ -42,8 +42,8 @@ foreach (getEnabledPlugins() as $extension => $plugin) {
 }
 $_zp_script_timer['feature plugins'] = microtime();
 
-require_once(SERVERPATH . "/" . ZENFOLDER . '/rewrite.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'rewrite.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
 	define('SEO_WEBPATH', WEBPATH);
@@ -57,8 +57,8 @@ $_zp_script_timer['general functions'] = microtime();
 /**
  * Invoke the controller to handle requests
  */
-require_once(SERVERPATH . "/" . ZENFOLDER . '/functions-controller.php');
-require_once(SERVERPATH . "/" . ZENFOLDER . '/controller.php');
+require_once(CORE_SERVERPATH . 'functions-controller.php');
+require_once(CORE_SERVERPATH . 'controller.php');
 
 $_index_theme = $_zp_script = '';
 $_zp_page_check = 'checkPageValidity';
@@ -81,7 +81,7 @@ if (isset($_GET['p'])) {
 $_zp_script_timer['controller'] = microtime();
 
 //	Load the THEME plugins
-if (preg_match('~' . ZENFOLDER . '~', $_zp_script)) {
+if (preg_match('~' . CORE_FOLDER . '~', $_zp_script)) {
 	$custom = false;
 } else {
 	if (DEBUG_PLUGINS) {
@@ -135,7 +135,7 @@ if ($zp_request && $_zp_script && file_exists($_zp_script = SERVERPATH . "/" . i
 		$_zp_gallery_page = 'password.php';
 		$_zp_script = SERVERPATH . '/' . THEMEFOLDER . '/' . $_index_theme . '/password.php';
 		if (!file_exists(internalToFilesystem($_zp_script))) {
-			$_zp_script = SERVERPATH . '/' . ZENFOLDER . '/password.php';
+			$_zp_script = CORE_SERVERPATH . 'password.php';
 		}
 	} else {
 		unset($hint);
@@ -166,7 +166,7 @@ if ($zp_request && $_zp_script && file_exists($_zp_script = SERVERPATH . "/" . i
 	// If the requested object does not exist, issue a 404 and redirect to the 404.php
 	// in the zp-core folder. This script will load the theme 404 page if it exists.
 	$_zp_HTML_cache->abortHTMLCache(false);
-	include(SERVERPATH . "/" . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 
 $_zp_script_timer['theme load'] = microtime();

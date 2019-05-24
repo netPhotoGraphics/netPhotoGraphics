@@ -54,7 +54,7 @@ if ($MCEdirection == NULL) {
 scriptLoader(TINYMCE . '/tinymce.5.0.4.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
-	scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
+	scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
 }
 
 if ($MCEplugins && !is_array($MCEplugins)) {
@@ -71,7 +71,7 @@ if ($pasteObjEnabled) {
 	?>
 		var pasteObjConfig = {	//	pasteObject window
 		title: 'netPhotoGraphics:obj',
-						url: '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'; ?>',
+						url: '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'; ?>',
 						height: 600,
 						width: 800
 		};

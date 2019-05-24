@@ -26,7 +26,7 @@ admin_securityChecks(OVERVIEW_RIGHTS, currentRelativeURL());
 $_zp_gallery->garbageCollect();
 
 printAdminHeader('overview', 'statistics');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 
 /*
  * http://php.net/manual/de/function.filesize.php
@@ -360,11 +360,11 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 
 		switch ($type) {
 			case "albums":
-				$editurl = WEBPATH . '/' . ZENFOLDER . "/admin-tabs/edit.php?page=edit&amp;album=" . $name;
+				$editurl = getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . $name;
 				$viewurl = WEBPATH . "/index.php?album=" . $name;
 				$title = get_language_string($item['title']);
 				break;
-			case "images":
+			case 'images':
 				if ($item['albumid']) {
 					$getalbumfolder = query_single_row("SELECT title, folder, `show` from " . prefix("albums") . " WHERE id = " . $item['albumid']);
 					if ($sortorder === "latest") {
@@ -374,28 +374,28 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 						}
 						$value = $value . ">" . get_language_string($getalbumfolder['title']) . "</span> (" . $getalbumfolder['folder'] . ")";
 					}
-					$editurl = WEBPATH . '/' . ZENFOLDER . "/admin-tabs/edit.php?page=edit&amp;album=" . $getalbumfolder['folder'] . "&amp;image=" . $item['filename'] . "&amp;tab=imageinfo#IT";
+					$editurl = getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . $getalbumfolder['folder'] . "&amp;image=" . $item['filename'] . "&amp;tab=imageinfo#IT";
 					$viewurl = WEBPATH . "/index.php?album=" . $getalbumfolder['folder'] . "&amp;image=" . $name;
 					$title = get_language_string($item['title']);
 				}
 				break;
 			case "pages":
-				$editurl = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/zenpage/edit.php?page&amp;titlelink=" . $name;
+				$editurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;titlelink=' . $name;
 				$viewurl = WEBPATH . "/index.php?p=pages&amp;title=" . $name;
 				$title = get_language_string($item['title']);
 				break;
 			case "news":
-				$editurl = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/zenpage/edit.php?newsarticle&amp;titlelink=" . $name;
+				$editurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;titlelink=' . $name;
 				$viewurl = WEBPATH . "/index.php?p=news&amp;title=" . $name;
 				$title = get_language_string($item['title']);
 				break;
 			case "newscategories":
-				$editurl = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/zenpage/edit.php?newscategory&amp;titlelink=" . $name;
+				$editurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newscategory&amp;titlelink=' . $name;
 				$viewurl = WEBPATH . "/index.php?p=news&amp;category=" . $name;
 				$title = get_language_string($item['titlelink']);
 				break;
 			case "tags":
-				$editurl = WEBPATH . '/' . ZENFOLDER . "/admin-tabs/tags.php";
+				$editurl = getAdminLink('admin-tabs/tags.php');
 				$viewurl = WEBPATH . "/index.php?p=search&amp;searchfields=tags&amp;words=" . $item['name'];
 				$title = get_language_string($item['name']);
 				break;
@@ -559,7 +559,7 @@ echo '</head>';
 					<li><nobr><?php printf(gettext("Image cache size: <strong>%s</strong>"), byteConvert(gallerystats_filesize_r(SERVERPATH . '/' . CACHEFOLDER))); ?></nobr></li>
 					<li><nobr><?php printf(gettext("HTML cache size: <strong>%s</strong>"), byteConvert(gallerystats_filesize_r(SERVERPATH . '/' . STATIC_CACHE_FOLDER))); ?></nobr></li>
 					<li><nobr><?php printf(gettext("Uploaded folder size: <strong>%s</strong>"), byteConvert(gallerystats_filesize_r(SERVERPATH . '/' . UPLOAD_FOLDER))); ?></nobr></li>
-					<li><nobr><?php printf(gettext("Core scripts size: <strong>%s</strong>"), byteConvert(gallerystats_filesize_r(SERVERPATH . '/' . ZENFOLDER))); ?></nobr></li>
+					<li><nobr><?php printf(gettext("Core scripts size: <strong>%s</strong>"), byteConvert(gallerystats_filesize_r(SERVERPATH . '/' . CORE_FOLDER))); ?></nobr></li>
 
 				</ul>
 

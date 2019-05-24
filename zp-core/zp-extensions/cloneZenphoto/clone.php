@@ -9,8 +9,8 @@
 // UTF-8 Ø
 define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/reconfigure.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
+require_once(CORE_SERVERPATH . 'reconfigure.php');
+require_once(CORE_SERVERPATH . 'functions-config.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 XSRFdefender('cloneZenphoto');
@@ -31,7 +31,7 @@ if (isset($_GET['purge'])) {
 		$success = false;
 	} else {
 		$success = true;
-		$targets = array('docs' => 'dir', ZENFOLDER => 'dir', USER_PLUGIN_FOLDER => 'dir', 'index.php' => 'file');
+		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir', USER_PLUGIN_FOLDER => 'dir', 'index.php' => 'file');
 
 		foreach ($_zp_gallery->getThemes() as $theme => $data) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
@@ -162,13 +162,13 @@ if (isset($_GET['purge'])) {
 			}
 			$_SESSION['admin']['db_admin_fields'] = $adminTable;
 			$_SESSION['admin'][$cloneid] = serialize($_zp_current_admin_obj);
-			$msg[] = '<p><span class="buttons"><a href="' . $newinstall . ZENFOLDER . '/setup/index.php?autorun" target=_newtab" onclick="reloadCloneTab();">' . gettext('setup the new install') . '</a></span><br class="clearall"></p>' . "\n";
+			$msg[] = '<p><span class="buttons"><a href="' . $newinstall . CORE_FOLDER . '/setup/index.php?autorun" target=_newtab" onclick="reloadCloneTab();">' . gettext('setup the new install') . '</a></span><br class="clearall"></p>' . "\n";
 		} else {
 			$reinstall = '<p>' . sprintf(gettext('Before running setup for <code>%1$s</code> please reinstall the following setup files from the %2$s to this installation:'), $newinstall, ZENPHOTO_VERSION) .
 							"\n" . '<ul>' . "\n";
 			if (!empty($needs)) {
 				foreach ($needs as $script) {
-					$reinstall .= '<li>' . ZENFOLDER . '/setup/' . $script . '</li>' . "\n";
+					$reinstall .= '<li>' . CORE_FOLDER . '/setup/' . $script . '</li>' . "\n";
 				}
 			}
 			$reinstall .= '</ul></p>' . "\n";
@@ -178,5 +178,5 @@ if (isset($_GET['purge'])) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Clone to <code>%s</code> failed'), $folder) . '</h2>');
 	}
 }
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php');
 ?>

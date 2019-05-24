@@ -30,7 +30,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 $option_interface = 'tagsFromMetadata';
 
 zp_register_filter('image_metadata', 'tagsFromMetadata::new_image', -99999);
-require_once(SERVERPATH . '/' . ZENFOLDER . '/exif/exifTranslations.php');
+require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 class tagsFromMetadata {
 

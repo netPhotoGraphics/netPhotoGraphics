@@ -593,7 +593,7 @@ function prepareCustomPage() {
 			$subfolder .= '/';
 		}
 		$_zp_gallery_page = $page . '.php';
-		$_zp_script = ZENFOLDER . '/' . $subfolder . $page . '.php';
+		$_zp_script = CORE_FOLDER . '/' . $subfolder . $page . '.php';
 	} else {
 		$_zp_gallery_page = $page . '.php';
 

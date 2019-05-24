@@ -13,7 +13,7 @@ define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 
 if (extensionEnabled('zenpage')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());

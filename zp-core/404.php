@@ -5,8 +5,8 @@ list($album, $image) = rewrite_get_album_image('album', 'image');
 $folders = explode('/', $album);
 if (array_key_exists(0, $folders) && $folders[0] == CACHEFOLDER) {
 	// a failed reference to a cached image?
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager/functions.php');
+	require_once(CORE_SERVERPATH . 'admin-functions.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cacheManager/functions.php');
 	unset($folders[0]);
 	if ($image) {
 		$folders[] = $image;

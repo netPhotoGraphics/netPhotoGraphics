@@ -625,7 +625,7 @@ if ($_zp_imagick_present && (getOption('use_imagick') || !extension_loaded('gd')
 			@$_imagick_fontlist = Imagick::queryFonts();
 			$_imagick_fontlist = array('system' => '') + array_combine($_imagick_fontlist, $_imagick_fontlist);
 
-			$paths = array(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/imagick_fonts', SERVERPATH . '/' . ZENFOLDER . '/FreeSerif');
+			$paths = array(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/imagick_fonts', CORE_SERVERPATH . 'FreeSerif');
 			foreach ($paths as $basefile) {
 				if (is_dir($basefile)) {
 					chdir($basefile);

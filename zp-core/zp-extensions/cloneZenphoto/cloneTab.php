@@ -12,11 +12,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 printAdminHeader('admin');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
+scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 ?>
 <script type="text/javascript">
 	function reloadCloneTab() {
-		this.document.location.href = '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/cloneZenphoto/cloneTab.php?tab=clone';
+		this.document.location.href = '<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php'); ?>?tab=clone';
 	}
 
 </script>
@@ -72,14 +72,14 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 						}
 						?>
 						<p<?php echo $strike; ?>>
-							<a href="<?php echo $data['url'] . ZENFOLDER . '/admin.php'; ?>" target="_blank" title="<?php echo $title; ?>"><?php echo $clone; ?></a><?php echo $version; ?>
+							<a href="<?php echo $data['url'] . CORE_FOLDER . '/admin.php'; ?>" target="_blank" title="<?php echo $title; ?>"><?php echo $clone; ?></a><?php echo $version; ?>
 						</p>
 						<?php
 					}
 					if ($invalid) {
 						?>
 						<p>
-							<span class="buttons"><a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/cloneZenphoto/clone.php?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('cloneZenphoto'); ?>">
+							<span class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/clone.php'); ?>?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('cloneZenphoto'); ?>">
 									<?php echo CROSS_MARK_RED; ?>
 									<?php echo gettext("Remove invalid clones."); ?>
 								</a>
@@ -144,7 +144,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 						if (substr($uppath, -1) != '/') {
 							$uppath .= '/';
 						}
-						$zp_folders = array(ALBUMFOLDER, CACHEFOLDER, STATIC_CACHE_FOLDER, USER_PLUGIN_FOLDER, THEMEFOLDER, UPLOAD_FOLDER, ZENFOLDER, DATA_FOLDER);
+						$zp_folders = array(ALBUMFOLDER, CACHEFOLDER, STATIC_CACHE_FOLDER, USER_PLUGIN_FOLDER, THEMEFOLDER, UPLOAD_FOLDER, CORE_FOLDER, DATA_FOLDER);
 
 						if (($dir = opendir($path)) !== false) {
 							while (($file = readdir($dir)) !== false) {
@@ -188,7 +188,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 							window.addEventListener('load', folderChange, false);
 							// ]]> -->
 						</script>
-						<form name="changeDir" id="changeDir" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php?tab=clone'; ?>" method="post">
+						<form name="changeDir" id="changeDir" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php'); ?>?tab=clone" method="post">
 							<input type="hidden" name="path" id="newDir" value = "" />
 							<?php
 							if (empty($folderlist)) {
@@ -222,7 +222,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 							</span>
 						</form>
 						<br class="clearall">
-						<form name="cloneZenphoto" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto/clone.php'; ?>">
+						<form name="cloneZenphoto" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/clone.php'); ?>">
 							<input type="hidden" name="tab" value="clone" />
 							<?php XSRFToken('cloneZenphoto'); ?>
 							<input type="hidden" name="clone" value="true" />
@@ -237,7 +237,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
 								if (empty($folderlist))
 									echo ' disabled="disabled"';
 								?> >
-									<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" /> <?php echo gettext("Clone installation"); ?>
+									<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /> <?php echo gettext("Clone installation"); ?>
 								</button>
 							</div>
 							<br class="clearall">

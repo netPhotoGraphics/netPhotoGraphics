@@ -277,7 +277,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 							$.ajax({
 								type: 'POST',
 								cache: false,
-								url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/setup/setup_permissions_changer.php',
+								url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setup_permissions_changer.php',
 								data: 'folder=<?php echo $path; ?>&key=<?php echo sha1(filemtime(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)); ?>'
 							});
 							// ]]> -->
@@ -292,7 +292,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 			if (empty($webpath)) {
 				$serverroot = SERVERPATH;
 			} else {
-				$i = strpos($webpath, '/' . ZENFOLDER);
+				$i = strpos($webpath, '/' . CORE_FOLDER);
 				$webpath = substr($webpath, 0, $i);
 				$serverroot = substr(SERVERPATH, 0, strpos(SERVERPATH, $webpath));
 			}
@@ -437,7 +437,7 @@ function checkPermissions($actual, $expected) {
 
 function acknowledge($value) {
 	global $_zp_conf_vars;
-	$link = WEBPATH . '/' . ZENFOLDER . '/setup/index.php?security_ack=' . ((isset($_zp_conf_vars['security_ack']) ? $_zp_conf_vars['security_ack'] : NULL) | $value) . '&amp;xsrfToken=' . setupXSRFToken();
+	$link = WEBPATH . '/' . CORE_FOLDER . '/setup/index.php?security_ack=' . ((isset($_zp_conf_vars['security_ack']) ? $_zp_conf_vars['security_ack'] : NULL) | $value) . '&amp;xsrfToken=' . setupXSRFToken();
 	return sprintf(gettext('Click <a href="%s">here</a> to acknowledge that you wish to ignore this issue. It will then become a warning.'), $link);
 }
 

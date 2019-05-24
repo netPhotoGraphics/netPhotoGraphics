@@ -67,7 +67,8 @@ $legacyReplacements = array(
 		'edit_page_custom_data' => 'edit_page_custom',
 		'save_admin_custom_data' => 'save_admin_data',
 		'save_album_utilities_data' => 'save_album_data',
-		'save_image_utilities_data' => 'save_image_data'
+		'save_image_utilities_data' => 'save_image_data',
+		'ZENFOLDER' => 'CORE_FOLDER'
 );
 
 /**

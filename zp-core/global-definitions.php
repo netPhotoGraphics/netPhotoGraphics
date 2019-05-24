@@ -23,7 +23,12 @@ if (!defined('SORT_LOCALE_STRING'))
 define('NEWLINE', "\n");
 
 define('SCRIPTPATH', str_replace('\\', '/', dirname(dirname(__FILE__))));
-define('ZENFOLDER', 'zp-core');
+
+//Note: these defines are for web path use only, they are rewritten to CORE_FOLDER and PLUGIN_FOLDER
+define('CORE_PATH', 'npg-core');
+define('PLUGIN_PATH', 'extensions');
+
+define('CORE_FOLDER', 'zp-core');
 define('PLUGIN_FOLDER', 'zp-extensions');
 define('COMMON_FOLDER', PLUGIN_FOLDER . '/common');
 define('USER_PLUGIN_FOLDER', 'plugins');
@@ -105,12 +110,13 @@ define('ER_SERVER_NO_RESPONSE', 2002);
  */
 $const_webpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 $const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']));
+
 /**
  * see if we are executing out of any of the known script folders. If so we know how to adjust the paths
  * if not we presume the script is in the root of the installation. If it is not the script better have set
  * the SERVERPATH and WEBPATH defines to the correct values
  */
-if (!preg_match('~(.*?)/(' . ZENFOLDER . ')~', $const_webpath, $matches)) {
+if (!preg_match('~(.*?)/(' . CORE_FOLDER . ')~', $const_webpath, $matches)) {
 	preg_match('~(.*?)/(' . USER_PLUGIN_FOLDER . '|' . THEMEFOLDER . ')~', $const_webpath, $matches);
 }
 if ($matches) {
@@ -119,7 +125,7 @@ if ($matches) {
 
 	if (!defined('OFFSET_PATH')) {
 		switch ($matches[2]) {
-			case ZENFOLDER:
+			case CORE_FOLDER:
 				define('OFFSET_PATH', 1);
 				break;
 			case USER_PLUGIN_FOLDER:
@@ -143,6 +149,7 @@ if ($const_webpath == '/' || $const_webpath == '.') {
 if (!defined('SERVERPATH')) {
 	define('SERVERPATH', $const_serverpath);
 }
+define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
@@ -194,13 +201,13 @@ define('DRAG_HANDLE_ALERT', '<span class="font_icon" style="color:red;font-size:
 define('ENVELOPE', '<span class="font_icon" style="font-size: large;">&#9993;</span>');
 define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-family: Times New Roman; font-weight: bold;font-size: large;">&#33;</span>');
 define('GEAR_SYMBOL', '&#9881;');
-define('HIDE_ICON', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/hide.png" /></span>');
+define('HIDE_ICON', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/hide.png" /></span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
-define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/install.png" /></span>');
+define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install.png" /></span>');
 define('SETUP', '<span class="font_icon" style="font-size: large;">&#x1F6E0;&#xFE0F;</span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
-define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/lock.png" /></span>');
-define('LOCK_OPEN', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/lock_open.png" /></span>');
+define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock.png" /></span>');
+define('LOCK_OPEN', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_open.png" /></span>');
 define('MENU_SYMBOL', '&#9776;');
 define('NO_ENTRY', '<span class="font_icon" style="color: red;">&#9940;</span>');
 define('NORTH_WEST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-weight: bold;">&#8689;</span>');
@@ -210,7 +217,7 @@ define('PLUS_ICON', '<span class="font_icon" style="color: green;font-size: larg
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red;font-size: large;font-weight: bold;">&#x2672;</span>');
 define('SOUTH_EAST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-weight: bold;">&#8690;</span>');
 define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange;font-size: large;">&#9888;</span>');
-define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/trashcan.png" /></span>');
-define('BADGE_BLUE', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png" /></span>');
-define('BADGE_GOLD', '<span class="font_icon"><img src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" /></span>');
+define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/trashcan.png" /></span>');
+define('BADGE_BLUE', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" /></span>');
+define('BADGE_GOLD', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" /></span>');
 //end icons

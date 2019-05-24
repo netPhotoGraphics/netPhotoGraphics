@@ -15,11 +15,11 @@ if (isset($_GET['reset'])) {
 	XSRFdefender('search_statistics');
 	$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
 	query($sql);
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/search_statistics/search_analysis.php');
+	header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'search_statistics/search_analysis.php'));
 	exit();
 }
 printAdminHeader('overview', 'analysis');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 echo '</head>';
 
 $nodata = gettext('No search criteria collected.');
@@ -302,7 +302,7 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 						</p>
 						<br class="clearall">
 						<p>
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER ?>/admin-tabs/options.php?tab=plugin&amp;single=search_statistics#search_statistics" ><?php echo gettext('Change <em>Threshold</em> values') ?></a>
+							<a href="<?php echo getAdminLink('admin-tabs/options.php') ?>?tab=plugin&amp;single=search_statistics#search_statistics" ><?php echo gettext('Change <em>Threshold</em> values') ?></a>
 						</p>
 						<?php
 					} else {

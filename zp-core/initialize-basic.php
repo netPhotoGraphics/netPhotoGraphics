@@ -46,6 +46,7 @@ $_zp_mutex = new zpMutex();
 $_zp_conf_options_associations = $_zp_options = array();
 $_zp_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
 // Including the config file more than once is OK, and avoids $conf missing.
+
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	define('DATA_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
 	@eval('?>' . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
@@ -62,7 +63,7 @@ define('LOCAL_CHARSET', $_zp_conf_vars['charset']);
 if (!isset($_zp_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
 	$cfg = $_zp_conf_vars;
-	@eval('?>' . file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto_cfg.txt'));
+	@eval('?>' . file_get_contents(CORE_SERVERPATH . 'zenphoto_cfg.txt'));
 	$cfg['special_pages'] = $_zp_conf_vars['special_pages'];
 	$_zp_conf_vars = $cfg;
 }

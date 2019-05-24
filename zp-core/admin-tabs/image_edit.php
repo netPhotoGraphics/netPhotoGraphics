@@ -3,7 +3,7 @@
  * This is the "guts" of the edit image page
  */
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/exif/exifTranslations.php');
+require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
 
@@ -59,7 +59,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<input type="hidden" name="filter" value="<?php echo html_encode($filter); ?>" />
 
 				<?php echo gettext('Image filter'); ?>
-				<select id="filter" name="filter" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php', ['page=edit', 'album=<?php echo html_encode($album->name); ?>', 'subpage=1', 'tab=imageinfo', 'filter=' + $('#filter').val()]);">
+				<select id="filter" name="filter" onchange="launchScript('<?php echo getAdminLink('admin-tabs/edit.php'); ?>', ['page=edit', 'album=<?php echo html_encode($album->name); ?>', 'subpage=1', 'tab=imageinfo', 'filter=' + $('#filter').val()]);">
 					<option value=""<?php if (empty($filter)) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 					<option value="unpublished"<?php if ($filter == 'unpublished') echo ' selected="selected"'; ?>><?php echo gettext('unpublished'); ?></option>
 					<option value="published"<?php if ($filter == 'published') echo ' selected="selected"'; ?>><?php echo gettext('published'); ?></option>
@@ -113,7 +113,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<p class="buttons">
 					<?php
 					if (is_numeric($pagenum)) {
-						$backbutton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent . '&filter=' . $filter;
+						$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent . '&filter=' . $filter;
 					} else {
 						$image = newImage($album, $singleimage);
 						$backbutton = $image->getLink();
@@ -171,7 +171,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<?php
 									if ($close = (isImagePhoto($image) || !is_null($image->objectsThumb))) {
 										?>
-										<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
+										<a href="<?php echo getAdminLink('admin-tabs/thumbcrop.php'); ?>?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
 											<?php
 										}
 										?>
@@ -188,7 +188,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								<?php
 								if (isImagePhoto($image)) {
 									?>
-									<p class="buttons"><a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
+									<p class="buttons"><a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
 									<?php
 								}
 								?>
@@ -313,7 +313,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										?>
 										<tr>
 											<td colspan="100%" style="border-bottom:none;">
-												<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&tab=imageinfo&album=' . $album->name . '&singleimage=' . $image->filename . '&subpage=' . $pagenum; ?>&filter=<?php echo $filter; ?>">
+												<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit&tab=imageinfo&album=' . $album->name . '&singleimage=' . $image->filename . '&subpage=' . $pagenum; ?>&filter=<?php echo $filter; ?>">
 													<?php echo PENCIL_ICON; ?>
 													<?php echo gettext('Edit all image data'); ?>
 												</a>
@@ -333,9 +333,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-															 $('.expire-<?php echo $currentimage; ?>').html('');"
+																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																		 $('.expire-<?php echo $currentimage; ?>').html('');"
 													 />
 													 <?php echo gettext("Published"); ?>
 									</label>
@@ -394,7 +394,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											$("#publishdate-<?php echo $currentimage; ?>,#expirationdate-<?php echo $currentimage; ?>").datepicker({
 												dateFormat: 'yy-mm-dd',
 												showOn: 'button',
-												buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+												buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 												buttonText: '<?php echo gettext("calendar"); ?>',
 												buttonImageOnly: true
 											});
@@ -473,7 +473,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall">
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">
@@ -579,7 +579,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<br class="clearall">
 									<hr />
 									<div class="button buttons tooltip" title="<?php printf(gettext('Refresh %s metadata'), $image->filename); ?>">
-										<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>admin-tabs/edit.php?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
+										<a href="<?php echo getAdminLink('admin-tabs/edit.php') ?>?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
 											<?php echo CIRCLED_BLUE_STAR; ?>
 											<?php echo gettext("Refresh Metadata"); ?>
 										</a>
@@ -589,8 +589,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
 										?>
 										<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
-											<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/thumbcrop.php?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
-												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
+											<a href="<?php echo getAdminLink('admin-tabs/thumbcrop.php') ?>?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
+												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
 											</a>
 											<br class="clearall">
 										</div>

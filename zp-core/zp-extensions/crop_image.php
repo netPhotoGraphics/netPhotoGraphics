@@ -37,8 +37,7 @@ class crop_image {
 			if (isImagePhoto($image)) {
 				?>
 				<li>
-					<a href="<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/crop_image.php?a=<?php echo pathurlencode($albumname); ?>
-						 &amp;i=<?php echo urlencode($imagename); ?>&amp;performcrop=frontend "><?php echo gettext("Crop image"); ?></a>
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/crop_image.php'); ?>?a=<?php echo pathurlencode($albumname); ?>						 &amp;i=<?php echo urlencode($imagename); ?>&amp;performcrop=frontend "><?php echo gettext("Crop image"); ?></a>
 				</li>
 				<?php
 			}
@@ -56,11 +55,10 @@ class crop_image {
 			}
 			if ($singleimage)
 				$singleimage = '&amp;singleimage=' . $singleimage;
-			$output .=
-							'<div class="button buttons tooltip" title="' . gettext('Permanently crop the actual image.') . '">' . "\n" .
-							'<a href="' . WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/crop_image.php?a=' . pathurlencode($albumname) . "\n" .
+			$output .= '<div class="button buttons tooltip" title="' . gettext('Permanently crop the actual image.') . '">' . "\n" .
+							'<a href="' . getAdminLink(PLUGIN_FOLDER . '/crop_image.php') . '?a=' . pathurlencode($albumname) . "\n" .
 							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n" .
-							'<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/shape_handles.png" alt="" />' . gettext("Crop image") . '</a>' . "\n" .
+							'<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/shape_handles.png" alt="" />' . gettext("Crop image") . '</a>' . "\n" .
 							'<br class="clearall">' .
 							'</div>' . "\n";
 		}
@@ -74,7 +72,7 @@ $imagename = sanitize(@$_REQUEST['i']);
 $album = newAlbum($albumname, true, true);
 if (!$album->exists || !$album->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return);
+		header('Location: ' . getAdminLink('admin.php') . '?from=' . $return);
 		exit();
 	}
 }
@@ -201,7 +199,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$imageobj->save();
 
 	if ($_REQUEST['performcrop'] == 'backend') {
-		$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . sanitize($_REQUEST['subpage']) . '&tagsort=' . sanitize($_REQUEST['tagsort']) . '&tab=imageinfo';
+		$return = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . sanitize($_REQUEST['subpage']) . '&tagsort=' . sanitize($_REQUEST['tagsort']) . '&tab=imageinfo';
 		if ($singleimage)
 			$return .= '&singleimage=' . html_encode($singleimage);
 	} else {
@@ -233,10 +231,10 @@ if ($pasteobj) {
 	</style>
 	<?php
 }
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/crop_image/crop_image.css');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/htmlencoder.js');
+scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.css');
+scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/crop_image/crop_image.css');
+scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
+scriptLoader(CORE_SERVERPATH . 'js/htmlencoder.js');
 ?>
 <script type="text/javascript" >
 	//<!-- <![CDATA[
@@ -348,7 +346,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 			wmk = '!';
 		}
 
-		uri = '<?php echo WEBPATH . '/' . ZENFOLDER . '/i.php?a=' . pathurlencode($albumname) . '&i=' . urlencode($imagename); ?>' + '&w=' + new_width + '&h=' + new_height + '&cw=' + cw + '&ch=' + ch + '&cx=' + cx + '&cy=' + cy + '&wmk=' + wmk;
+		uri = '<?php echo WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . pathurlencode($albumname) . '&i=' . urlencode($imagename); ?>' + '&w=' + new_width + '&h=' + new_height + '&cw=' + cw + '&ch=' + ch + '&cx=' + cx + '&cy=' + cy + '&wmk=' + wmk;
 		jQuery('#imageURI').val(uri);
 		jQuery('#imageURI').attr('size', uri.length + 10);
 		$('#crop').addClass('dirty');

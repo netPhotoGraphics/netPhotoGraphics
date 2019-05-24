@@ -18,7 +18,7 @@ foreach (getEnabledPlugins() as $extension => $plugin) {
 		require_once($plugin['path']);
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 if (isset($_REQUEST['album'])) {
 	$localrights = ALBUM_RIGHTS;
@@ -62,11 +62,11 @@ if (isset($_REQUEST['album'])) {
 }
 $albumparm = $folder = $albumwhere = $imagewhere = $id = $r = '';
 $ret = '';
-$backurl = FULLWEBPATH . '/' . ZENFOLDER . '/admin.php';
+$backurl = getAdminLink('admin.php');
 if (isset($_REQUEST['return'])) {
 	$return = $_REQUEST['return'];
 	if ($return == '*') {
-		$backurl = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php';
+		$backurl = getAdminLink('admin-tabs/edit.php');
 	} else {
 		$r = '?page=edit&amp;album=' . pathurlencode($ret = sanitize_path($return));
 		if (strpos($return, '*') === 0) {
@@ -75,7 +75,7 @@ if (isset($_REQUEST['return'])) {
 		} else {
 			$star = '';
 		}
-		$backurl = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php' . $r . '&amp;return=' . $star . pathurlencode($ret);
+		$backurl = getAdminLink('admin-tabs/edit.php') . $r . '&amp;return=' . $star . pathurlencode($ret);
 	}
 }
 
@@ -89,7 +89,7 @@ if (isset($_REQUEST['album'])) {
 		$album = newAlbum($folder);
 		if (!$album->isMyItem(ALBUM_RIGHTS)) {
 			if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+				header('Location: ' . getAdminLink('admin.php'));
 				exit();
 			}
 		}
@@ -111,7 +111,7 @@ if (isset($_GET['refresh'])) {
 			$album = newAlbum($folder);
 			if (!$album->isMyItem(ALBUM_RIGHTS)) {
 				if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-					header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+					header('Location: ' . getAdminLink('admin.php'));
 					exit();
 				}
 			}

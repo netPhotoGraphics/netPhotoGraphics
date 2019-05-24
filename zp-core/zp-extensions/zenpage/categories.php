@@ -58,7 +58,7 @@ if (empty($reports)) {
 	$_SESSION['reports'] = $reports;
 
 	var_dump($reports);
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/categories.php';
+	$uri = getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php');
 	header('Location: ' . $uri);
 	exit();
 }
@@ -150,7 +150,7 @@ zenpageJSCSS();
 							if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<a href="edit.php?newscategory&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo gettext('New category'); ?>">
+									<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newscategory&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo gettext('New category'); ?>">
 										<?php echo PLUS_ICON; ?>
 										<strong>
 											<?php echo gettext('New category'); ?>

@@ -63,7 +63,7 @@ if (empty($reports)) {
 	}
 } else {
 	$_SESSION['reports'] = $reports;
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php' . getNewsAdminOptionPath(getNewsAdminOption(NULL));
+	$uri = getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(getNewsAdminOption(NULL));
 	header('Location: ' . $uri);
 	exit();
 }
@@ -251,7 +251,7 @@ updatePublished('news');
 								</button>
 							</div>
 							<span class="buttons floatright">
-								<a href="edit.php?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
+								<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
 									<?php echo PLUS_ICON; ?>
 									<strong><?php echo gettext("New Article"); ?></strong>
 								</a>
@@ -330,7 +330,7 @@ updatePublished('news');
 											}
 
 
-											echo '<a href="edit.php' . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
+											echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
 											checkForEmptyTitle($article->getTitle(), "news");
 											echo '</a>' . checkHitcounterDisplay($article->getHitcounter()) . $sticky;
 											?>

@@ -5,7 +5,7 @@
  */
 define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
+require_once(CORE_SERVERPATH . 'functions-config.php');
 
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
 
@@ -16,7 +16,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		zp_apply_filter('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'closed');
 
 		if (extensionEnabled('cloneZenphoto')) {
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
+			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto.php');
 			if (class_exists('cloneZenphoto')) {
 				$clones = cloneZenphoto::clones();
 				foreach ($clones as $clone => $data) {
@@ -31,7 +31,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		zp_apply_filter('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'open');
 
 		if (extensionEnabled('cloneZenphoto')) {
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
+			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto.php');
 			if (class_exists('cloneZenphoto')) {
 				$clones = cloneZenphoto::clones();
 				foreach ($clones as $clone => $data) {
@@ -46,7 +46,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		zp_apply_filter('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'closed_for_test');
 
 		if (extensionEnabled('cloneZenphoto')) {
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
+			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto.php');
 			if (class_exists('cloneZenphoto')) {
 				$clones = cloneZenphoto::clones();
 				foreach ($clones as $clone => $data) {
@@ -57,7 +57,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		break;
 }
 
-header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?report=' . $report);
+header('Location: ' . getAdminLink('admin.php').'?report=' . $report);
 exit();
 
 /**

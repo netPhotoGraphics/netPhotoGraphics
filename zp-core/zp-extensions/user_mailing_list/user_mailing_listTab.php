@@ -45,7 +45,7 @@ printAdminHeader('admin', 'Mailing');
 				</p>
 
 				<h2><?php echo gettext('Please enter the message you want to send.'); ?></h2>
-				<form class="dirtylistening" onReset="setClean('massmail');" id="massmail" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER ?>/user_mailing_list/mail_handler.php?sendmail" method="post" accept-charset="UTF-8" autocomplete="off">
+				<form class="dirtylistening" onReset="setClean('massmail');" id="massmail" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/user_mailing_list/mail_handler.php'); ?>?sendmail" method="post" accept-charset="UTF-8" autocomplete="off">
 					<?php XSRFToken('mailing_list'); ?>
 
 

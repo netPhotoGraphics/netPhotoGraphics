@@ -35,7 +35,7 @@ function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.p
 		if (!isset($_GET['returncheckmark'])) {
 			header("HTTP/1.0 $status_text");
 			header("Status: $status_text");
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/images/' . $errorimg);
+			header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/images/' . $errorimg);
 		}
 	}
 	exit();
@@ -286,7 +286,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 			if ($passedWM != NO_WATERMARK) {
 				$watermark_image = getWatermarkPath($passedWM);
 				if (!file_exists($watermark_image)) {
-					$watermark_image = SERVERPATH . '/' . ZENFOLDER . '/images/imageDefault.png';
+					$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
 				}
 			}
 		} else {
@@ -296,7 +296,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 					if ($watermark_image != NO_WATERMARK) {
 						$watermark_image = getWatermarkPath($watermark_image);
 						if (!file_exists($watermark_image)) {
-							$watermark_image = SERVERPATH . '/' . ZENFOLDER . '/images/imageDefault.png';
+							$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
 						}
 					}
 				}

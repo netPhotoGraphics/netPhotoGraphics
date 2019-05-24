@@ -145,11 +145,11 @@ class VideoJS {
 	}
 
 	static function headJS() {
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/VideoJS/video.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.js');
 		echo '<style type="text/css"> .video-js {margin-left: auto; margin-right: auto} </style>';
 	}
 

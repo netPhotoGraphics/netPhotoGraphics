@@ -8,7 +8,7 @@
 define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 require_once("admin-functions.php");
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (is_AdminEditPage('page')) {
 	$rights = ZENPAGE_PAGES_RIGHTS;
@@ -36,7 +36,7 @@ if (is_AdminEditPage('page')) {
 	$returnpage = 'newscategory';
 } else {
 	//we should not be here!
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+	header('Location: ' . getAdminLink('admin.php'));
 	exit();
 }
 
@@ -80,7 +80,7 @@ if (isset($_GET['titlelink'])) {
 		}
 		header('Location: ' . $result->getLink($cat));
 	} else {
-		$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
+		$redirect = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
 	}
 } else {
 	$result = $new('');
@@ -88,7 +88,7 @@ if (isset($_GET['titlelink'])) {
 if (isset($_GET['save'])) {
 	XSRFdefender('save');
 	$result = $update($reports, true);
-	$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
+	$redirect = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
 }
 if (isset($_GET['delete'])) {
 	XSRFdefender('delete');
@@ -387,7 +387,7 @@ $tagsort = 'alpha';
 									<?php
 									if ($additem) {
 										?>
-										<a href="edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
 											<?php echo PLUS_ICON; ?>
 											<strong><?php echo $additem; ?></strong>
 										</a>
@@ -723,7 +723,7 @@ $tagsort = 'alpha';
 																$("#date").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -743,7 +743,7 @@ $tagsort = 'alpha';
 																$("#pubdate").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -761,7 +761,7 @@ $tagsort = 'alpha';
 																$("#expiredate").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -915,16 +915,16 @@ $tagsort = 'alpha';
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>
 										<div class="floatright">
-											<a href="edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
-												<?php echo PLUS_ICON; ?>
+											<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+												 <?php echo PLUS_ICON; ?>
 												<strong><?php echo $additem; ?></strong>
 											</a>
 											<?php
 											if (!$result->transient) {
 												if (is_AdminEditPage("newscategory")) {
-													$what = 'category=';
+													$what = 'category = ';
 												} else {
-													$what = 'title=';
+													$what = 'title = ';
 												}
 												?>
 												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">

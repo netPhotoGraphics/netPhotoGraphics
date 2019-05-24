@@ -43,7 +43,7 @@ if (isset($_GET['action'])) {
 					/* set any "standard" options that may not have been covered by the theme */
 					standardThemeOptions($newtheme, $_set_theme_album);
 				}
-				header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/themes.php?themealbum=" . sanitize($_GET['themealbum']));
+				header('Location: ' . getAdminLink('admin-tabs/themes.php') . '?themealbum=' . sanitize($_GET['themealbum']));
 				exit();
 			}
 			break;
@@ -70,7 +70,7 @@ if (isset($_GET['action'])) {
 printAdminHeader('themes');
 
 // Script for the "Duplicate theme" feature
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
+scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 ?>
 <script type="text/javascript">
 	//<!-- <![CDATA[
@@ -201,7 +201,7 @@ if (count($themelist) == 0) {
 		<?php
 		$zenphoto_version = explode('-', ZENPHOTO_VERSION);
 		$zenphoto_version = array_shift($zenphoto_version);
-		$zenphoto_date = date('Y-m-d', filemtime(SERVERPATH . '/' . ZENFOLDER . '/version.php'));
+		$zenphoto_date = date('Y-m-d', filemtime(CORE_SERVERPATH . 'version.php'));
 		$current_theme_style = 'class="currentselection"';
 		foreach ($themes as $theme => $themeinfo) {
 			$style = ($theme == $current_theme) ? ' ' . $current_theme_style : '';
@@ -210,7 +210,7 @@ if (count($themelist) == 0) {
 			$themeweb = WEBPATH . "/themes/$theme";
 			if (protectedTheme($theme)) {
 				$whose = 'Official theme';
-				$ico = '<img class="zp_logoicon" src="' . WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
+				$ico = '<img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
 			} else {
 				$whose = gettext('Third party theme');
 				$ico = BULLSEYE_BLUE;
@@ -264,7 +264,7 @@ if (count($themelist) == 0) {
 					}
 					?>
 					<br /><br />
-					<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?page=options&amp;tab=theme&amp;optiontheme=<?php echo $linkto; ?>" ><?php echo sprintf(gettext('Set <em>%s</em> theme options'), $themeinfo['name']); ?></a>
+					<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=theme&amp;optiontheme=<?php echo $linkto; ?>" ><?php echo sprintf(gettext('Set <em>%s</em> theme options'), $themeinfo['name']); ?></a>
 					<?php
 					if (!isset($knownThemes[$theme])) {
 						?>
@@ -334,7 +334,7 @@ if (count($themelist) == 0) {
 							<li class="zp_copy_theme">
 								<p class="buttons">
 									<a onclick="copyClick('<?php echo $theme; ?>');">
-										<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/page_white_copy.png" alt="" /><?php echo gettext("Duplicate"); ?>
+										<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/page_white_copy.png" alt="" /><?php echo gettext("Duplicate"); ?>
 									</a>
 								</p>
 							</li>

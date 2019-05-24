@@ -18,7 +18,7 @@
 				$zpmas_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 				$galleryactive = true;
 				if ($zpmas_ss)
-					require_once (SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/image_album_statistics.php");
+					require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 				break;
 			case 'album.php':
 			case 'favorites.php':
@@ -135,13 +135,13 @@
 		?>
 		<title><?php echo html_encode($zpmas_metatitle); ?></title>
 		<meta name="description" content="<?php echo $zpmas_metadesc; ?>" />
-		<?php scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js'); ?>
+		<?php scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js'); ?>
 
 		<?php
 		if ($zpmas_ss) {
-			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+			scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		}
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpmas_cbstyle . '/colorbox.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpmas_cbstyle . '/colorbox.css');
 		?>
 		<script type="text/javascript">
 			window.addEventListener('load', function () {

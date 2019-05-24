@@ -141,7 +141,7 @@ class TextObject extends Image {
 			}
 			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
+				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
 			}
 		} else {
 			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;

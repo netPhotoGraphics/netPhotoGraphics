@@ -97,9 +97,9 @@ if (($hash || !$albumobj->checkAccess()) && !zp_loggedin(VIEW_FULLIMAGE_RIGHTS))
 	}
 
 	if (empty($hash) || (!empty($hash) && zp_getCookie($authType) != $hash)) {
-		require_once(SERVERPATH . "/" . ZENFOLDER . '/rewrite.php');
+		require_once(CORE_SERVERPATH . 'rewrite.php');
 		require_once(dirname(__FILE__) . "/template-functions.php");
-		require_once(SERVERPATH . "/" . ZENFOLDER . '/functions-controller.php');
+		require_once(CORE_SERVERPATH . 'functions-controller.php');
 		zp_load_gallery();
 
 		foreach (getEnabledPlugins() as $extension => $plugin) {
@@ -117,7 +117,7 @@ if (($hash || !$albumobj->checkAccess()) && !zp_loggedin(VIEW_FULLIMAGE_RIGHTS))
 		$_zp_gallery_page = 'password.php';
 		$_zp_script = $_zp_themeroot . '/password.php';
 		if (!file_exists(internalToFilesystem($_zp_script))) {
-			$_zp_script = SERVERPATH . '/' . ZENFOLDER . '/password.php';
+			$_zp_script = CORE_SERVERPATH . 'password.php';
 		}
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		header("HTTP/1.0 302 Found");
@@ -245,7 +245,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		if ($watermark_use_image) {
 			$watermark_image = getWatermarkPath($watermark_use_image);
 			if (!file_exists($watermark_image))
-				$watermark_image = SERVERPATH . '/' . ZENFOLDER . '/images/imageDefault.png';
+				$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
 			$offset_h = getOption('watermark_h_offset') / 100;
 			$offset_w = getOption('watermark_w_offset') / 100;
 			$watermark = zp_imageGet($watermark_image);

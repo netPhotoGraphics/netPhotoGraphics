@@ -30,16 +30,15 @@ class tagFromSearch {
 		return $options;
 	}
 
-	static function toolbox($zf) {
+	static function toolbox() {
 		global $_zp_current_search;
 		if (zp_loggedin(TAGS_RIGHTS)) {
 			?>
 			<li>
-				<a href="<?php echo $zf . '/' . PLUGIN_FOLDER . '/tagFromSearch/tag.php?' . substr($_zp_current_search->getSearchParams(), 1); ?>" title="<?php echo gettext('Tag items found by the search'); ?>" ><?php echo gettext('Tag items'); ?></a>
+				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/tagFromSearch/tag.php') . '?' . substr($_zp_current_search->getSearchParams(), 1); ?>" title="<?php echo gettext('Tag items found by the search'); ?>" ><?php echo gettext('Tag items'); ?></a>
 			</li>
 			<?php
 		}
-		return $zf;
 	}
 
 	static function head() {

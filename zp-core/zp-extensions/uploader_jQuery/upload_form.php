@@ -10,12 +10,12 @@ function upload_head() {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<![endif]-->
 	<?php
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/css/uploader_bootstrap.css');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/css/blueimp-gallery.min.css');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload.css');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload-ui.css');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/css/uploader_bootstrap.css');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/css/blueimp-gallery.min.css');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload.css');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload-ui.css');
 
-	return WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/uploader.php';
+	return getAdminLink(PLUGIN_FOLDER . '/uploader_jQuery/uploader.php');
 }
 
 function upload_extra($uploadlimit, $passedalbum) {
@@ -24,7 +24,7 @@ function upload_extra($uploadlimit, $passedalbum) {
 
 	<div>
 		<!-- The file upload form used as target for the file upload widget -->
-		<form id="fileupload" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/uploader_jQuery/server/php/index.php" method="POST" enctype="multipart/form-data">
+		<form id="fileupload" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/uploader_jQuery/server/php/index.php'); ?>" method="POST" enctype="multipart/form-data">
 
 			<noscript><?php echo gettext('This uploader requires browser javaScript support.'); ?></noscript>
 
@@ -169,25 +169,25 @@ function upload_extra($uploadlimit, $passedalbum) {
 		{% } %}
 	</script>
 	<?php
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/tmpl.min.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/load-image.all.min.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/canvas-to-blob.min.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.blueimp-gallery.min.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.iframe-transport.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-process.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-image.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-audio.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-video.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-validate.js');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-ui.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/tmpl.min.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/load-image.all.min.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/canvas-to-blob.min.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.blueimp-gallery.min.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.iframe-transport.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-process.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-image.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-audio.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-video.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-validate.js');
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-ui.js');
 	//NOTE: has some self relative references, so cannot be served inline
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/main.js', false);
+	scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/main.js', false);
 	?>
 	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 	<!--[if (gte IE 8)&(lt IE 10)]>
-	<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/js/cors/jquery.xdr-transport.js'); ?>
+	<?php scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/uploader_jQuery/js/cors/jquery.xdr-transport.js'); ?>
 	<![endif]-->
 
 	<?php

@@ -27,7 +27,7 @@
  *
  *
  * There are already definitions for many useful rewrite tokens. You can view these and see the standard rewrite rules
- * on the {@link %FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/rewriteRules/admin_tab.php DEVELOPMENT/REWRITE} admin page.
+ * on the {@link %FULLWEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/rewriteRules/admin_tab.php DEVELOPMENT/REWRITE} admin page.
  *
  * <em>pattern</em> is a perl compatible regular expression. The incoming path is matched against the <en>pattern</em> and if
  * there is a match, the
@@ -45,7 +45,7 @@
  * 	<br />
  * 	Define %REWRITE_RULES%						=>	"rules-list"
  * 	<br />
- * 	Define &percnt;PLUGIN_FOLDER&percnt;						=>	PLUGIN_FOLDER
+ * 	Define &percnt;PLUGIN_PATH&percnt;						=>	PLUGIN_PATH
  * 	<br />
  * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH.'/', '', <span class="nowrap">newCategory("Breaking-news")->getLink(1)</span>);
  *
@@ -53,8 +53,8 @@
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
  * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the <b>netPhotoGraphics</b>
  * define <code>PLUGIN_FOLDER</code>
- * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;ZENFOLDER&percnt;</code> used in the rules
- * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>. The third Define is an example
+ * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;CORE_FOLDER&percnt;</code> used in the rules
+ * has previously been defined in the standard rewrite rules as <code>%CORE_FOLDER%</code>. The third Define is an example
  * of a complex expression. In this case computing the link to the theme category page with the titlelink "Breaking-news".
  * The code strips off the WEB path since the rewrite rule redirection prepends that to the
  * link before redirecting.
@@ -63,11 +63,11 @@
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
  * 	<br />
- * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;ZENFOLDER&percnt;/&percnt;PLUGIN_FOLDER&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
+ * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;CORE_PATH&percnt;/&percnt;PLUGIN_PATH&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
  *
  * 	### Rewite rule to cause "back-end" to redirect to the admin overview page
  * 	<br />
- * 	RewriteRule ^back-end/*$													&percnt;ZENFOLDER&percnt;/admin.php [NC,L,QSA]
+ * 	RewriteRule ^back-end/*$													&percnt;CORE_PATH&percnt;/admin.php [NC,L,QSA]
  * 	<br /><br />
  * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
  * 	<br />
@@ -121,7 +121,7 @@ if ($ruleFile) {
 zp_register_filter('admin_tabs', 'rewriteRules::tabs', 100);
 
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
+require_once(CORE_SERVERPATH . 'functions-config.php');
 
 class rewriteRules {
 
@@ -163,7 +163,7 @@ class rewriteRules {
 
 		if (OFFSET_PATH == 2) {
 			$old = array_keys($conf['special_pages']);
-			$zp_cfg = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto_cfg.txt');
+			$zp_cfg = file_get_contents(CORE_SERVERPATH . 'zenphoto_cfg.txt');
 			$i = strpos($zp_cfg, "\$conf['special_pages']");
 			$j = strpos($zp_cfg, '//', $i);
 			eval(substr($zp_cfg, $i, $j - $i));
@@ -244,7 +244,7 @@ class rewriteRules {
 		if (getOption('rewriteTokens_restore')) {
 			$updated = false;
 			purgeOption('rewriteTokens_restore');
-			$template = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto_cfg.txt');
+			$template = file_get_contents(CORE_SERVERPATH . 'zenphoto_cfg.txt');
 			$i = strpos($template, "\$conf['special_pages']");
 			$j = strpos($template, '//', $i);
 			$newtext = substr($template, $i, $j - $i);
@@ -299,7 +299,7 @@ class rewriteRules {
 		if (zp_loggedin(ADMIN_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rewriteRules/rules_tab.php?page=development&tab=rewrite',
+						'link' => getAdminLink(PLUGIN_FOLDER . '/rewriteRules/rules_tab.php') . '?page=development&tab=rewrite',
 						'default' => "rewrite",
 						'subtabs' => NULL);
 			}

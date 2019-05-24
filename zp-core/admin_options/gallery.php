@@ -57,7 +57,7 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="gallery" />
 			<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
@@ -106,7 +106,7 @@ function getOptionContent() {
 					<td class="option_value">
 						<?php
 						$sitelogo = ltrim(str_replace(WEBPATH, '', $_zp_gallery->getSiteLogo()), '/');
-						if ($sitelogo == ZENFOLDER . '/images/admin-logo.png') {
+						if ($sitelogo == CORE_FOLDER . '/images/admin-logo.png') {
 							$sitelogo = '';
 						}
 						?>
@@ -124,7 +124,7 @@ function getOptionContent() {
 						<span class="option_info">
 							<?php echo INFORMATION_BLUE; ?>
 							<div class="option_desc_hidden">
-								<?php echo gettext("A relative link to a logo image (e.g. <code>" . UPLOAD_FOLDER . "/custom_logo.png</code> for an image you have uploaded to your <em>UPLOAD_FOLDER</em> folder.) If this is set, your image will replace the netPhotoGraphics logo. For best results the image should be 78 pixels high."); ?>
+								<?php echo sprintf(gettext('A relative link to a logo image (e.g. <code>%1$s/custom_logo.png</code> for an image you have uploaded to your <em>%1$s</em> folder.) If this is set, your image will replace the netPhotoGraphics logo. For best results the image should be 78 pixels high.'), UPLOAD_FOLDER); ?>
 							</div>
 						</span>
 					</td>
@@ -248,7 +248,7 @@ function getOptionContent() {
 											 name="disclose_password"
 											 id="disclose_password"
 											 onclick="passwordClear('');
-													 togglePassword('');" /><?php echo gettext('Show'); ?>
+															 togglePassword('');" /><?php echo gettext('Show'); ?>
 							</label>
 
 							<br />

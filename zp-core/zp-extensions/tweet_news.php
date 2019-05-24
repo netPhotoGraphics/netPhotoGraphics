@@ -42,7 +42,7 @@ if ($plugin_disable) {
 	zp_register_filter('save_article_data', 'tweet::tweeterZenpageExecute');
 	zp_register_filter('save_page_data', 'tweet::tweeterZenpageExecute');
 
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 }
 
 /**
@@ -392,7 +392,7 @@ class tweet {
 	 * @param int $prefix
 	 */
 	static function tweeter($before, $object, $prefix = NULL) {
-		$output = '<p class="checkbox">' . "\n" . '<label>' . "\n" . '<input type="checkbox" name="tweet_me' . $prefix . '" id="tweet_me' . $prefix . '" value="1" /> <img src="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tweet_news/twitter_newbird_blue.png" /> ' . gettext('Tweet me') . "\n</label>\n</p>\n";
+		$output = '<p class="checkbox">' . "\n" . '<label>' . "\n" . '<input type="checkbox" name="tweet_me' . $prefix . '" id="tweet_me' . $prefix . '" value="1" /> <img src="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tweet_news/twitter_newbird_blue.png" /> ' . gettext('Tweet me') . "\n</label>\n</p>\n";
 		return $before . $output;
 	}
 

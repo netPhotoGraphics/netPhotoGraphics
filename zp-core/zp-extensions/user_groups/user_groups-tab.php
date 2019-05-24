@@ -34,7 +34,7 @@ if (isset($_GET['action'])) {
 			$groupobj->remove();
 			// clear out existing user assignments
 			Zenphoto_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups&deleted&subpage=' . $subpage);
+			header("Location: " . getAdminLink('user_groups/user_groups-tab.php') . '?page=admin&tab=groups&deleted&subpage=' . $subpage);
 			exit();
 		case 'savegroups':
 			XSRFdefender('savegroups');
@@ -102,7 +102,7 @@ if (isset($_GET['action'])) {
 				$notify = '&post_error';
 			}
 
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups&subpage=' . $subpage . $notify);
+			header("Location: " . getAdminLink('user_groups/user_groups-tab.php') . '?page=admin&tab=groups&subpage=' . $subpage . $notify);
 			exit();
 		case 'saveauserassignments':
 			XSRFdefender('saveauserassignments');
@@ -124,14 +124,14 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '&post_error';
 			}
-			header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=assignments&subpage=' . $subpage . $notify);
+			header("Location: " . getAdminLink('user_groups/user_groups-tab.php') . '?page=admin&tab=assignments&subpage=' . $subpage . $notify);
 			exit();
 	}
 }
 
 printAdminHeader('admin');
 $background = '';
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/sprintf.js');
+scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 echo '</head>' . "\n";
 ?>
 
@@ -294,11 +294,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />

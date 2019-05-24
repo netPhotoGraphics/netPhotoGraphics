@@ -27,7 +27,7 @@ if (isset($_POST['link'])) {
 		}
 	}
 	require_once('admin-globals.php');
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
+	require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 	zp_apply_filter('security_misc', true, 'cron_runner', 'zp_admin_auth', sprintf('executing %1$s', $link));

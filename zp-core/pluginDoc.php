@@ -24,7 +24,7 @@
  * The definitions for folder names and paths are represented by <var>%define%</var> (e.g. <var>%WEBPATH%</var>). The
  * document processor will substitute the actual value for these tags when it renders the document.
  * Image URIs are also processed. Use the appropriate definition tokens to cause the URI to point
- * to the actual image. E.g. <var><img src="%WEBPATH%/%ZENFOLDER%/images/admin-logo.png" /></var>
+ * to the actual image. E.g. <var><img src="%WEBPATH%/%CORE_FOLDER%/images/admin-logo.png" /></var>
  *
  * @author Stephen Billard (sbillard)
  *
@@ -68,8 +68,11 @@ function processCommentBlock($commentBlock) {
 			'&lt;var&gt;' => '<span class="inlinecode">',
 			'&lt;/var&gt;' => '</span>'
 	);
-	$const_tr = array('%ZENFOLDER%' => ZENFOLDER,
+	$const_tr = array(
+			'%CORE_FOLDER%' => CORE_FOLDER,
 			'%PLUGIN_FOLDER%' => PLUGIN_FOLDER,
+			'%CORE_PATH%' => CORE_PATH,
+			'%PLUGIN_PATH%' => PLUGIN_PATH,
 			'%USER_PLUGIN_FOLDER%' => USER_PLUGIN_FOLDER,
 			'%ALBUMFOLDER%' => ALBUMFOLDER,
 			'%THEMEFOLDER%' => THEMEFOLDER,
@@ -184,7 +187,7 @@ function processCommentBlock($commentBlock) {
 if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 2);
 	require_once(dirname(__FILE__) . '/admin-globals.php');
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+	require_once(CORE_SERVERPATH . 'template-functions.php');
 
 	$extension = sanitize($_GET['extension']);
 	if (!in_array($extension, array_keys(getPluginFiles('*.php')))) {
@@ -200,7 +203,7 @@ if (!defined('OFFSET_PATH')) {
 	if ($pluginType) {
 		$pluginToBeDocPath = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $extension . '.php';
 	} else {
-		$pluginToBeDocPath = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php';
+		$pluginToBeDocPath = CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $extension . '.php';
 	}
 	$plugin_description = '';
 	$plugin_notice = '';
@@ -230,7 +233,7 @@ if (!defined('OFFSET_PATH')) {
 		$albumbuttons = NULL;
 	}
 
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/macroList.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/macroList.php');
 
 	list($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink) = $macro_params;
 
@@ -257,7 +260,7 @@ if (!defined('OFFSET_PATH')) {
 				if (file_exists($path)) {
 					$ico = str_replace(SERVERPATH, WEBPATH, $path);
 				} else {
-					$ico = WEBPATH . '/' . ZENFOLDER . '/images/placeholder.png';
+					$ico = WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png';
 				}
 				break;
 			case 'supplemental':
@@ -265,14 +268,14 @@ if (!defined('OFFSET_PATH')) {
 					$sublink = $subpackage . '/';
 				}
 				$whose = 'Supplemental plugin';
-				$ico = WEBPATH . '/' . ZENFOLDER . '/images/np_blue.png';
+				$ico = WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png';
 				break;
 			default:
 				if ($subpackage) {
 					$sublink = $subpackage . '/';
 				}
 				$whose = 'Official plugin';
-				$ico = WEBPATH . '/' . ZENFOLDER . '/images/np_gold.png';
+				$ico = WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png';
 				break;
 		}
 
@@ -288,7 +291,7 @@ if (!defined('OFFSET_PATH')) {
 		<head>
 			<?php printStandardMeta(); ?>
 			<title><?php echo $pagetitle; ?></title>
-			<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css'); ?>
+			<?php scriptLoader(CORE_SERVERPATH . 'admin.css'); ?>
 			<style>
 				#heading {
 					height: 15px;

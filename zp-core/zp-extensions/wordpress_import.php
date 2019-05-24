@@ -19,7 +19,7 @@ function wordpress_import_admin_tabs($tabs) {
 	if (zp_loggedin(ADMIN_RIGHTS)) {
 		if (!isset($tabs['development'])) {
 			$tabs['development'] = array('text' => gettext("development"),
-					'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/wordpress_import/admin_tab.php?tab=wordpress',
+					'link' => getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin_tab.php') . '?tab=wordpress',
 					'subtabs' => NULL);
 		}
 		$tabs['development']['subtabs'][gettext("wordpress importer")] = PLUGIN_FOLDER . '/wordpress_import/admin_tab.php?tab=wordpress';

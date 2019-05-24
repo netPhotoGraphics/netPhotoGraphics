@@ -81,7 +81,7 @@ class search_statistics {
 
 	static function admin_tabs($tabs) {
 		if (zp_loggedin(OVERVIEW_RIGHTS)) {
-			$tabs['overview']['subtabs'][gettext('Search analysis')] = '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/search_statistics/search_analysis.php?tab=searchstat';
+			$tabs['overview']['subtabs'][gettext('Search analysis')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/search_statistics/search_analysis.php?tab=searchstat';
 		}
 		return $tabs;
 	}

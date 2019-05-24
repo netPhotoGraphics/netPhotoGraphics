@@ -31,7 +31,7 @@ $plugin_description = gettext("Provides a means for users to login/out from your
 
 $option_interface = 'user_logout_options';
 if (isset($_zp_gallery_page) && getOption('user_logout_login_form') > 1) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js.php');
 	if (!zp_has_filter('theme_head', 'colorbox::css')) {
 		zp_register_filter('theme_head', 'colorbox::css');
 	}
@@ -214,7 +214,7 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 					if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/password.php')) {
 						$link = getCustomPageURL('password');
 					} else {
-						$link = PROTOCOL . '://' . $_SERVER['HTTP_HOST'] . WEBPATH . "/" . ZENFOLDER . '/admin.php';
+						$link = getAdminLink('admin.php');
 					}
 					if ($loginlink = zp_apply_filter('login_link', $link)) {
 						if ($before) {

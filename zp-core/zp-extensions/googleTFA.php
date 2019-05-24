@@ -35,9 +35,9 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'googleTFA';
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/fieldExtender.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/Secret.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/Secret.php');
+require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
 zp_register_filter('admin_login_attempt', 'googleTFA::check');
 zp_register_filter('save_admin_data', 'googleTFA::save');
@@ -72,7 +72,7 @@ class googleTFA extends fieldExtender {
 		if ($loggedin && $userobj->getOTAsecret()) {
 			zp_session_start();
 			$_SESSION['OTA'] = array('user' => $post_user, 'redirect' => $_POST['redirect']);
-			header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/auth_code.php');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/googleTFA/auth_code.php'));
 			exit();
 		}
 		// redirect to form to have the user provide the googleAuth key
@@ -134,7 +134,7 @@ class googleTFA extends fieldExtender {
 							. '<fieldset id="googleTFA_' . $id . '">' . "\n"
 							. '<legend>' . gettext('Provide to GoogleAuthenticator') . "</legend>\n"
 							. '<div style="display: flex; justify-content: center;">' . "\n"
-							. '<img src="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/qrcode/image.php?content=' . html_encode($userobj->getQRuri())
+							. '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/qrcode/image.php?content=' . html_encode($userobj->getQRuri())
 							. '" title="' . gettext('Click to show secret') . '" onclick="googleTFA_exposeSecret(\'' . $id . '\')"'
 							. ' id="googleTFA_QR_' . $id . '"'
 							. '/>' . "\n"

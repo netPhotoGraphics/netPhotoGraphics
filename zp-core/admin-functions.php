@@ -44,7 +44,7 @@ function printAdminFooter($addl = '') {
 				echo ' | ' . $addl;
 			}
 			?>
-			| <a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/license.php' ?>" title="<?php echo gettext('netPhotoGraphics license'); ?>"><?php echo gettext('License'); ?></a>
+			| <a href="<?php echo getAdminLink('license.php'); ?>" title="<?php echo gettext('netPhotoGraphics license'); ?>"><?php echo gettext('License'); ?></a>
 			| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
 			| <a href="https://<?php echo GITHUB; ?>/commits/master" title="<?php echo gettext('View Change log'); ?>"><?php echo gettext('Change log'); ?></a>
 			| <?php printf(gettext('Server date: %s'), date('Y-m-d H:i:s')); ?>
@@ -79,14 +79,14 @@ function printAdminFooter($addl = '') {
 
 function datepickerJS() {
 	$lang = str_replace('_', '-', getOption('locale'));
-	if (!file_exists(SERVERPATH . '/' . ZENFOLDER . '/js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
+	if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
 		$lang = substr($lang, 0, 2);
-		if (!file_exists(SERVERPATH . '/' . ZENFOLDER . '/js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
+		if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
 			$lang = '';
 		}
 	}
 	if (!empty($lang)) {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jqueryui/i18n/datepicker-' . $lang . '.js');
+		scriptLoader(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js');
 	}
 }
 
@@ -147,31 +147,31 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 			printStandardMeta();
 			load_jQuery_CSS();
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+			scriptLoader(CORE_SERVERPATH . 'admin.css');
+			scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 
 			if ($_zp_RTL_css) {
-				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-rtl.css');
+				scriptLoader(CORE_SERVERPATH . 'admin-rtl.css');
 			}
 			if ($multi) {
-				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/dd.css');
+				scriptLoader(CORE_SERVERPATH . 'js/msdropdown/dd.css');
 			}
 			?>
 
 			<title><?php echo sprintf(gettext('%1$s %2$s: %3$s%4$s'), html_encode($_zp_gallery->getTitle()), gettext('Admin'), html_encode($tabtext), html_encode($subtabtext)); ?></title>
 			<?php
 			load_jQuery_scripts('admin');
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/admin.js');
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.scrollTo.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/admin.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jquery.scrollTo.min.js');
 
 			if (extensionEnabled('touchPunch')) {
-				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.ui.touch-punch.min.js');
+				scriptLoader(CORE_SERVERPATH . 'js/jquery.ui.touch-punch.min.js');
 			}
 			if ($multi) {
-				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/msdropdown/jquery.dd.min.js');
+				scriptLoader(CORE_SERVERPATH . 'js/msdropdown/jquery.dd.min.js');
 			}
 			if (getOption('dirtyform_enable')) {
-				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.min.js');
+				scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.min.js');
 			}
 			?>
 			<script type="text/javascript">
@@ -234,7 +234,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 
 		function printSortableHead() {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.mjs.nestedSortable.js')
+			scriptLoader(CORE_SERVERPATH . 'js/jquery.mjs.nestedSortable.js')
 			?>
 			<!--Nested Sortables-->
 			<script type="text/javascript">
@@ -296,12 +296,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$msg = gettext('Logged in as %1$s (last login %2$s)');
 					}
 					$user = $_zp_current_admin_obj->getUser();
-					printf($msg, '<a href = "' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?user=' . $user . '&page=admin&tab=users" title = "' . gettext('go to user profile') . '">' . $user . '</a>', $last);
+					printf($msg, '<a href = "' . getAdminLink('admin-tabs/users.php') . '?user=' . $user . '&page=admin&tab=users" title = "' . gettext('go to user profile') . '">' . $user . '</a>', $last);
 					?>
 					</a>
 					<?php
 					if ($_zp_current_admin_obj->logout_link) {
-						$link = WEBPATH . "/" . ZENFOLDER . "/admin.php?logout=" . (int) ((SERVER_PROTOCOL == 'https') & true);
+						$link = getAdminLink('admin.php') . '?logout=' . (int) ((SERVER_PROTOCOL == 'https') & true);
 						?>
 						&nbsp; | &nbsp; <a href="<?php echo $link; ?>" id="admin_logout"><?php echo gettext("Log Out"); ?></a> &nbsp; | &nbsp;
 						<?php
@@ -335,7 +335,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php
 					echo gettext('The Setup environment is not totally secure, you should protect the scripts to thwart hackers.') . ' ';
 					if (zpFunctions::hasPrimaryScripts()) {
-						echo '<a href="' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup') . '">' . gettext('Protect the scripts.') . '</a>';
+						echo '<a href="' . getAdminLink('admin.php') . '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup') . '">' . gettext('Protect the scripts.') . '</a>';
 					}
 					?>
 				</div>
@@ -439,7 +439,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 											}
 										}
 										if ($link) {
-											switch ($link[0]) {
+											switch ($link{0}) {
 												case'/':
 													$link = ' href="' . FULLWEBPATH . html_encode($link) . '"';
 													break;
@@ -448,10 +448,17 @@ function printAdminHeader($tab, $subtab = NULL) {
 													if (isset($request['query'])) {
 														$link .= '&' . $request['query'];
 													}
-													$link = ' href="' . FULLWEBPATH . $request['path'] . html_encode($link) . '"';
+													$link = ' href="' . getAdminLink($request['path']) . html_encode($link) . '"';
 													break;
 												default:
-													$link = ' href="' . FULLWEBPATH . '/' . ZENFOLDER . '/' . html_encode($link) . '"';
+													$parts = explode('?', $link);
+													$path = $parts[0];
+													if (isset($parts[1])) {
+														$q = '?' . $parts[1];
+													} else {
+														$q = '';
+													}
+													$link = ' href="' . getAdminLink($path) . html_encode($q) . '"';
 													break;
 											}
 
@@ -1471,7 +1478,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function getLanguageFlags() {
 		global $_zp_language_flags;
 		if (is_null($_zp_language_flags)) {
-			$_zp_language_flags = array('' => WEBPATH . '/' . ZENFOLDER . '/locale/UN.png');
+			$_zp_language_flags = array('' => WEBPATH . '/' . CORE_FOLDER . '/locale/UN.png');
 			foreach (i18n::generateLanguageList('all') as $dirname) {
 				$_zp_language_flags[$dirname] = getLanguageFlag($dirname);
 			}
@@ -1765,7 +1772,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$backbutton = $album->getLink();
 					}
 				} else {
-					$backbutton = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent;
+					$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
 				}
 				?>
 				<a href="<?php echo $backbutton ?>">
@@ -1786,11 +1793,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 					if (!$album->isDynamic()) {
 						?>
 						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-							<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>
 						<?php
@@ -2326,7 +2333,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
 									dateFormat: 'yy-mm-dd',
 									showOn: 'button',
-									buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+									buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 									buttonText: '<?php echo addslashes(gettext("calendar")); ?>',
 									buttonImageOnly: true
 								});
@@ -2525,12 +2532,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 					if (!$album->isDynamic()) {
 						?>
 						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php if (!$album->isDynamic()) { ?>
 							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder.png" alt="" />
+								<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
 							<?php
@@ -2559,7 +2566,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($imagcount = $album->getNumImages() > 0) {
 			?>
 			<div class="button buttons tooltip" title="<?php echo addslashes(gettext("Clears the album’s cached images.")); ?>">
-				<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?action=clear_cache&amp;album=' . html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_cache'); ?>">
+				<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_cache'); ?>">
 					<?php echo WASTEBASKET; ?>
 					<?php echo gettext('Clear album image cache'); ?></a>
 				<br class="clearall">
@@ -2568,7 +2575,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			if (extensionEnabled('hitcounter')) {
 				?>
 				<div class="button buttons tooltip" title="<?php echo gettext("Resets album’s hit counters."); ?>">
-					<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID(); ?>&amp;XSRFToken=<?php echo getXSRFToken('hitcounter'); ?>">
+					<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID(); ?>&amp;XSRFToken=<?php echo getXSRFToken('hitcounter'); ?>">
 						<?php echo RECYCLE_ICON; ?>
 						<?php echo gettext('Reset album hit counters'); ?></a>
 					<br class="clearall">
@@ -2579,7 +2586,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($imagcount || (!$album->isDynamic() && $album->getNumAlbums())) {
 			?>
 			<div class="button buttons tooltip" title="<?php echo gettext("Refreshes the metadata for the album."); ?>">
-				<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/utilities/refresh-metadata.php?album=<?php echo html_encode($album->name); ?>&amp;return=<?php echo html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh'); ?>">
+				<a href="<?php echo getAdminLink('utilities/refresh-metadata.php', $size); ?>?album=<?php echo html_encode($album->name); ?>&amp;return=<?php echo html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh'); ?>">
 					<?php echo CIRCLED_BLUE_STAR; ?>
 					<?php echo gettext('Refresh album metadata'); ?>
 				</a>
@@ -2593,19 +2600,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 		?>
 		<ul class="iconlegend-l">
 			<li>
-				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder_picture.png" alt="" />
+				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture.png" alt="" />
 				<?php echo gettext("Albums"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/pictures.png" alt="" />
+				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures.png" alt="" />
 				<?php echo gettext("Images"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/folder_picture_dn.png" alt="" />
+				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture_dn.png" alt="" />
 				<?php echo gettext("Albums (dynamic)"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/pictures_dn.png" alt="I" />
+				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures_dn.png" alt="I" />
 				<?php echo gettext("Images (dynamic)"); ?>
 			</li>
 		</ul>
@@ -2691,7 +2698,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$thumbimage = $album->getAlbumThumbImage();
 					$thumb = getAdminThumb($thumbimage, 'small');
 				} else {
-					$thumb = WEBPATH . '/' . ZENFOLDER . '/images/thumb_standin.png';
+					$thumb = WEBPATH . '/' . CORE_FOLDER . '/images/thumb_standin.png';
 				}
 				if ($enableEdit) {
 					?>
@@ -2725,11 +2732,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</div>
 			<?php
 			if ($album->isDynamic()) {
-				$imgi = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures_dn.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
-				$imga = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/folder_picture_dn.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
+				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$imga = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture_dn.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
 			} else {
-				$imgi = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
-				$imga = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/folder_picture.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
+				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$imga = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
 			}
 			$ci = count($album->getImages());
 			$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
@@ -2849,11 +2856,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php
 					if ($album->isDynamic() || !$enableEdit) {
 						?>
-						<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 						<?php
 					} else {
 						?>
-						<a class="warn" href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/utilities/refresh-metadata.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh') ?>" title="<?php echo sprintf(gettext('Refresh metadata for the album %s'), $album->name); ?>">
+						<a class="warn" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/utilities/refresh-metadata.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh') ?>" title="<?php echo sprintf(gettext('Refresh metadata for the album %s'), $album->name); ?>">
 							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 						</a>
 						<?php
@@ -2867,7 +2874,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 						if (!$enableEdit) {
 							?>
-							<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 							<?php
 						} else {
 							?>
@@ -2887,7 +2894,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$supress = !zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS) && $myalbum && $album->getID() == $myalbum->getID();
 					if (!$enableEdit || $supress) {
 						?>
-						<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 						<?php
 					} else {
 						?>
@@ -2942,9 +2949,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$thumbimage = $album->getAlbumThumbImage();
 					$thumb = getAdminThumb($thumbimage, 'small');
 				} else {
-					$thumb = WEBPATH . '/' . ZENFOLDER . '/images/thumb_standin.png';
+					$thumb = WEBPATH . '/' . CORE_FOLDER . '/images/thumb_standin.png';
 				}
-				$imgi = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
 				$ci = $count;
 				$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
 				if ($ci) {
@@ -3448,7 +3455,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			// remove zip file from temp path
 			unlink($zipfileFS);
 		} else {
-			include_once(SERVERPATH . '/' . ZENFOLDER . '/lib-zipStream.php');
+			include_once(CORE_SERVERPATH . 'lib-zipStream.php');
 			$zip = new ZipStream(internalToFilesystem(basename($zipname)));
 			$zip->add_file_from_path(basename($fileFS), $fileFS);
 			$zip->finish();
@@ -3567,7 +3574,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function protectedTheme($theme) {
 		global $_distributed_themes;
 		if (is_null($_distributed_themes)) {
-			$package = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto.package');
+			$package = file_get_contents(CORE_SERVERPATH . 'zenphoto.package');
 			preg_match_all('~' . THEMEFOLDER . '/(.*)/theme_description.php~', $package, $matches);
 			$_distributed_themes = $matches[1];
 		}
@@ -3586,7 +3593,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function distributedPlugin($plugin) {
 		global $_ZP20_plugins;
 		if (is_null($_ZP20_plugins)) {
-			$package = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto.package');
+			$package = file_get_contents(CORE_SERVERPATH . 'zenphoto.package');
 			preg_match_all('~' . USER_PLUGIN_FOLDER . '/([^/]*).php~', $package, $matches);
 			$_ZP20_plugins = $matches[1];
 		}
@@ -3785,7 +3792,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$link = '';
 		$parents = getParentAlbumsAdmin($album);
 		foreach ($parents as $parent) {
-			$link .= "<a href='" . WEBPATH . '/' . ZENFOLDER . "/admin-tabs/edit.php?page=edit&amp;album=" . pathurlencode($parent->name) . "'>" . removeParentAlbumNames($parent) . "</a>/";
+			$link .= "<a href='" . getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . pathurlencode($parent->name) . "'>" . removeParentAlbumNames($parent) . "</a>/";
 		}
 		return $link;
 	}
@@ -4206,7 +4213,7 @@ function standardScripts() {
 function getWatermarks() {
 	$list = array();
 	$curdir = getcwd();
-	chdir($basepath = SERVERPATH . "/" . ZENFOLDER . '/watermarks/');
+	chdir($basepath = CORE_SERVERPATH . '/watermarks/');
 	$filelist = safe_glob('*.png');
 	foreach ($filelist as $file) {
 		$list[filesystemToInternal(substr(basename($file), 0, -4))] = $basepath . $file;
@@ -4461,7 +4468,7 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 				} else {
 					$selected = "";
 				}
-				echo '<option ' . $selected . ' value="' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php' . $link . $nestinglevel . $query . '">';
+				echo '<option ' . $selected . ' value="' . getAdminLink('admin-tabs/edit.php') . $link . $nestinglevel . $query . '">';
 				switch ($subtab) {
 					case '':
 					case 'subalbuminfo':
@@ -5063,7 +5070,6 @@ function processCodeblockSave($id, $obj) {
 function admin_securityChecks($rights, $return) {
 	global $_zp_current_admin_obj, $_zp_loggedin;
 	checkInstall();
-
 	if (is_null($rights)) {
 		$rights = ADMIN_RIGHTS;
 	}
@@ -5077,10 +5083,10 @@ function admin_securityChecks($rights, $return) {
 	if (!($rights & $_zp_loggedin)) {
 		// prevent nefarious access to this page.
 		$uri = explode('?', $returnurl);
-		if ($uri[0] == WEBPATH . '/' . ZENFOLDER . '/admin.php') {
+		if ($uri[0] == WEBPATH . '/' . CORE_FOLDER . '/admin.php') {
 			$redirect = FULLWEBPATH;
 		} else {
-			$redirect = FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $uri[0];
+			$redirect = getAdminLink('admin.php') . '?from = ' . $uri[0];
 		}
 
 		header("HTTP/1.0 302 Found");
@@ -5102,7 +5108,7 @@ function XSRFdefender($action, $modifier = NULL) {
 		zp_apply_filter('admin_XSRF_access', false, $action);
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
-		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&error&msg=' . sprintf(gettext('“%s” Cross Site Request Forgery blocked.'), $action));
+		header('Location: ' . getAdminLink('admin.php') . '?action=external&error&msg=' . sprintf(gettext('“%s” Cross Site Request Forgery blocked.'), $action));
 		exit();
 	}
 	unset($_REQUEST['XSRFToken']);
@@ -5295,7 +5301,7 @@ function printPageSelector($subpage, $rangeset, $script, $queryParams) {
 	$query = '?' . $query;
 	if ($subpage > 0) {
 		?>
-		<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . $script . $query; ?>subpage=<?php echo ($subpage - 1); ?>" >« <?php echo gettext('prev'); ?></a>
+		<a href="<?php echo getAdminLink($script) . $query; ?>subpage=<?php echo ($subpage - 1); ?>" >« <?php echo gettext('prev'); ?></a>
 		<?php
 	}
 	if ($pages > 2) {
@@ -5305,7 +5311,7 @@ function printPageSelector($subpage, $rangeset, $script, $queryParams) {
 			<?php
 		}
 		?>
-		<select name="subpage" class="ignoredirty" id="subpage<?php echo $instances; ?>" onchange="launchScript('<?php echo WEBPATH . '/' . ZENFOLDER . '/' . $script; ?>', [<?php echo $jump; ?>'subpage=' + $('#subpage<?php echo $instances; ?>').val()]);" >
+		<select name="subpage" class="ignoredirty" id="subpage<?php echo $instances; ?>" onchange="launchScript('<?php echo getAdminLink($script); ?>', [<?php echo $jump; ?>'subpage=' + $('#subpage<?php echo $instances; ?>').val()]);" >
 			<?php
 			foreach ($rangeset as $page => $range) {
 				?>
@@ -5322,7 +5328,7 @@ function printPageSelector($subpage, $rangeset, $script, $queryParams) {
 			|
 		<?php }
 		?>
-		<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . $script . $query; ?>subpage=<?php echo ($subpage + 1); ?>" ><?php echo gettext('next'); ?> »</a>
+		<a href="<?php echo getAdminLink($script) . $query; ?>subpage=<?php echo ($subpage + 1); ?>" ><?php echo gettext('next'); ?> »</a>
 		<?php
 	}
 	$instances++;
@@ -5402,7 +5408,7 @@ function getLogTabs() {
 				$logfiletext = str_replace('_', ' ', $log);
 			}
 
-			$subtabs = array_merge($subtabs, array($logfiletext . $num => '/' . ZENFOLDER . '/admin-tabs/logs.php?page=logs&tab=' . $log));
+			$subtabs = array_merge($subtabs, array($logfiletext . $num => getAdminLink('admin-tabs/logs.php', '') . '?page=logs&tab=' . $log));
 			if (filesize($logfile) > 0 && empty($default)) {
 				$default_viewed = $log;
 			}
@@ -5860,7 +5866,7 @@ function clonedFrom() {
 	if (PRIMARY_INSTALLATION) {
 		return false;
 	} else {
-		$zen = str_replace('\\', '/', @readlink(SERVERPATH . '/' . ZENFOLDER));
+		$zen = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER));
 		return dirname($zen);
 	}
 }
@@ -5892,7 +5898,7 @@ function linkPickerPick($obj, $id = NULL, $extra = NULL) {
 	type: 'POST',
 	cache: false,
 	data: '<?php echo addslashes(pickSource($obj)); ?>'<?php echo $extra; ?>,
-	url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/pickSource.php'
+	url: '<?php echo getAdminLink('pickSource.php'); ?>'
 	});	<?php
 }
 
@@ -5919,19 +5925,19 @@ function tags_subtab($tabs) {
 }
 
 function backup_subtab($tabs) {
-	$tabs['admin']['subtabs'][gettext('Backup')] = "/" . ZENFOLDER . '/utilities/backup_restore.php?tab=backup';
+	$tabs['admin']['subtabs'][gettext('Backup')] = "/" . CORE_FOLDER . '/utilities/backup_restore.php?tab=backup';
 	return $tabs;
 }
 
 function refresh_subtabs($tabs) {
 	global $_zp_loggedin;
 	if ($_zp_loggedin & ADMIN_RIGHTS) {
-		$tabs['admin']['subtabs'][gettext('Refresh database')] = '/' . ZENFOLDER . '/utilities/refresh-metadata.php?tab=prune&XSRFToken=' . getXSRFToken('refresh');
+		$tabs['admin']['subtabs'][gettext('Refresh database')] = '/' . CORE_FOLDER . '/utilities/refresh-metadata.php?tab=prune&XSRFToken=' . getXSRFToken('refresh');
 	}
 
 	if ($_zp_loggedin & MANAGE_ALL_ALBUM_RIGHTS) {
-		$tabs['admin']['subtabs'][gettext('Refresh metadata')] = '/' . ZENFOLDER . '/utilities/refresh-metadata.php?tab=refresh&XSRFToken=' . getXSRFToken('refresh');
-		$tabs['admin']['subtabs'][gettext('Reset album thumbs')] = "/" . ZENFOLDER . '/utilities/reset_albumthumbs.php?tab=resetthumbs';
+		$tabs['admin']['subtabs'][gettext('Refresh metadata')] = '/' . CORE_FOLDER . '/utilities/refresh-metadata.php?tab=refresh&XSRFToken=' . getXSRFToken('refresh');
+		$tabs['admin']['subtabs'][gettext('Reset album thumbs')] = "/" . CORE_FOLDER . '/utilities/reset_albumthumbs.php?tab=resetthumbs';
 	}
 	return $tabs;
 }

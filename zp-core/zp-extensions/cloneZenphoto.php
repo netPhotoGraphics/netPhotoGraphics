@@ -35,7 +35,7 @@ if (OFFSET_PATH == 2) {
 	query($sql);
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/reconfigure.php');
+require_once(CORE_SERVERPATH . 'reconfigure.php');
 if ($plugin_disable) {
 	enableExtension('cloneZenphoto', 0);
 } else {
@@ -55,7 +55,7 @@ if ($plugin_disable) {
 				}
 				$subtabs[gettext("clone")] = PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php?page=admin&tab=clone';
 				$tabs['admin']['text'] = gettext("admin");
-				$tabs['admin']['link'] = WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users';
+				$tabs['admin']['link'] = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users';
 				$tabs['admin']['subtabs'] = $subtabs;
 			}
 			return $tabs;
@@ -71,14 +71,14 @@ if ($plugin_disable) {
 		static function clones($only_valid = true) {
 			global $_zp_current_admin_obj;
 			$clones = array();
-			$sig = @file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/version.php');
+			$sig = @file_get_contents(CORE_SERVERPATH . 'version.php');
 			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cloneZenphoto"')) {
 				while ($row = db_fetch_assoc($result)) {
 					if (SYMLINK) {
-						$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . ZENFOLDER));
-						$valid = !(empty($path) || $path != SERVERPATH . '/' . ZENFOLDER);
+						$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . CORE_FOLDER));
+						$valid = !(empty($path) || $path != SERVERPATH . '/' . CORE_FOLDER);
 					} else { //	best guess if the clone has been changed
-						$clonesig = @file_get_contents($row['aux'] . '/' . ZENFOLDER . '/version.php');
+						$clonesig = @file_get_contents($row['aux'] . '/' . CORE_FOLDER . '/version.php');
 						$valid = $sig == $clonesig;
 					}
 					$link = mb_parse_url($row['data']);

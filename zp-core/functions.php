@@ -93,6 +93,24 @@ function truncate_string($string, $length, $elipsis = '...') {
 }
 
 /**
+ * returns the path to a script in the core folders
+ * allows us to SEO the links
+ *
+ * @param string $script
+ * @return string
+ */
+function getAdminLink($script, $full = FULLWEBPATH) {
+	$script = str_replace(SERVERPATH . '/', '', $script);
+	if (MOD_REWRITE) {
+		$script = str_replace(CORE_FOLDER . '/', '', stripSuffix($script));
+		$script = str_replace(PLUGIN_FOLDER, PLUGIN_PATH, $script);
+		return ($full . '/' . CORE_PATH . '/' . $script);
+	} else {
+		return ($full . '/' . $script);
+	}
+}
+
+/**
  * HTML encodes the non-metatag part of the string.
  *
  * @param string $original string to be encoded
@@ -605,7 +623,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
 		$folder .= '/';
 	$list = array();
 	$curdir = getcwd();
-	$sources = array(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $folder, SERVERPATH . "/" . USER_PLUGIN_FOLDER . '/' . $folder);
+	$sources = array(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $folder, SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $folder);
 
 	foreach ($sources as $basepath) {
 		if (is_dir($basepath)) {
@@ -645,7 +663,7 @@ function getPlugin($plugin, $inTheme = false, $webpath = false) {
 	global $_zp_gallery;
 	$pluginFile = NULL;
 	$plugin_fs = internalToFilesystem($plugin);
-	$sources = array('/' . USER_PLUGIN_FOLDER . '/' . $plugin_fs, '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $plugin_fs, '/' . ZENFOLDER . '/' . $plugin_fs);
+	$sources = array('/' . USER_PLUGIN_FOLDER . '/' . $plugin_fs, '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $plugin_fs, '/' . CORE_FOLDER . '/' . $plugin_fs);
 	if ($inTheme === true) {
 		$inTheme = $_zp_gallery->getCurrentTheme();
 	}
@@ -2262,39 +2280,39 @@ function scriptLoader($script, $inline = 1) {
 }
 
 function load_jQuery_CSS() {
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/jquery-ui-1.12.min.css');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/base-1.12.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.12.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/base-1.12.min.css');
 }
 
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		case 0: //	no migration script
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.4.1.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.4.1.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.0.1.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-3.4.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.4.1.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-3.0.1.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.0.1.js');
 			break;
 		case 3: //	use legacy jQuery
 			?>
 			<!-- for migration to jQuery 1.9+ purposes -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-1.12.4.min.js');
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQuery/jquery-migrate-1.4.1.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-1.12.4.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-1.4.1.js');
 			break;
 	}
 	if ($ui) {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jQueryui/jquery-ui-1.12.1.min.js');
+		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.12.1.min.js');
 	}
 }
 
@@ -2386,14 +2404,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_zp_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
@@ -2448,10 +2466,10 @@ function read_exif_data_protected($path) {
 function getLanguageFlag($lang) {
 	if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/locale/' . $lang . '/flag.png')) {
 		$flag = WEBPATH . '/' . USER_PLUGIN_FOLDER . '/locale/' . $lang . '/flag.png';
-	} else if (file_exists(SERVERPATH . '/' . ZENFOLDER . '/locale/' . $lang . '/flag.png')) {
-		$flag = WEBPATH . '/' . ZENFOLDER . '/locale/' . $lang . '/flag.png';
+	} else if (file_exists(CORE_SERVERPATH . 'locale/' . $lang . '/flag.png')) {
+		$flag = WEBPATH . '/' . CORE_FOLDER . '/locale/' . $lang . '/flag.png';
 	} else {
-		$flag = WEBPATH . '/' . ZENFOLDER . '/locale/missing_flag.png';
+		$flag = WEBPATH . '/' . CORE_FOLDER . '/locale/missing_flag.png';
 	}
 	return $flag;
 }
@@ -2837,7 +2855,7 @@ class zpFunctions {
 	 */
 	static function hasPrimaryScripts() {
 		if (!defined('PRIMARY_INSTALLATION')) {
-			if (function_exists('readlink') && ($zen = str_replace('\\', '/', @readlink(SERVERPATH . '/' . ZENFOLDER)))) {
+			if (function_exists('readlink') && ($zen = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER)))) {
 // no error reading the link info
 				$os = strtoupper(PHP_OS);
 				$sp = SERVERPATH;

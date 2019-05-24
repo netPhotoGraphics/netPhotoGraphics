@@ -60,7 +60,7 @@
  *
  * @package classes
  */
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 class feed {
 
@@ -591,7 +591,7 @@ class feed {
 	}
 
 	static protected function feed404() {
-		include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+		include(CORE_SERVERPATH . '404.php');
 		exit();
 	}
 

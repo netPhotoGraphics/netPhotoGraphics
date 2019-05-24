@@ -316,7 +316,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
  */
 function printRSSLink($option, $prev, $linktext, $next, $printIcon = true, $class = null, $lang = '', $addl = NULL) {
 	if ($printIcon) {
-		$icon = ' <img src="' . FULLWEBPATH . '/' . ZENFOLDER . '/images/rss.png" alt="RSS Feed" />';
+		$icon = ' <img src="' . FULLWEBPATH . '/' . CORE_FOLDER . '/images/rss.png" alt="RSS Feed" />';
 	} else {
 		$icon = '';
 	}
@@ -350,8 +350,8 @@ function printRSSHeaderLink($option, $linktext, $lang = '', $addl = NULL) {
 	PROTOCOL . '://' . html_encode($_SERVER["HTTP_HOST"]) . html_encode(getRSSLink($option, $lang, $addl)) . "\" />\n";
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/class-feed.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-MimeTypes.php');
+require_once(CORE_SERVERPATH . 'class-feed.php');
+require_once(CORE_SERVERPATH . 'lib-MimeTypes.php');
 
 class RSS extends feed {
 
@@ -428,7 +428,7 @@ class RSS extends feed {
 				$albumname = $this->getChannelTitleExtra();
 
 				$this->channel_title = html_encode($this->channel_title . ' ' . getBare($albumname));
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
 				break;
 
 			case 'news': //Zenpage News RSS
@@ -468,8 +468,8 @@ class RSS extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $this->cattitle . $titleappendix);
 				$this->itemnumber = getOption("RSS_zenpage_items"); // # of Items displayed on the feed
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 
 				break;
 
@@ -495,7 +495,7 @@ class RSS extends feed {
 						break;
 				}
 				$this->channel_title = html_encode($this->channel_title . $titleappendix);
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				break;
 
 			case 'comments': //Comments RSS
@@ -516,7 +516,7 @@ class RSS extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
 				if (extensionEnabled('zenpage')) {
-					require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+					require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				}
 				break;
 
@@ -684,8 +684,8 @@ class RSS extends feed {
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css');
-			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
+			$this->startCache(CORE_SERVERPATH .  PLUGIN_FOLDER . '/rss/rss.css');
+			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 				<channel>

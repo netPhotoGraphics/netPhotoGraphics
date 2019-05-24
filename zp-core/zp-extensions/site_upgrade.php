@@ -142,7 +142,7 @@ class site_upgrade {
 					'enable' => true,
 					'button_text' => gettext('Restore site_upgrade files'),
 					'formname' => 'refreshHTML',
-					'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php',
+					'action' => getAdminLink('admin.php'),
 					'icon' => CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN,
 					'title' => gettext('Restores the files in the "plugins/site_upgrade" folder to their default state. Note: this will overwrite any custom edits you may have made.'),
 					'alt' => '',
@@ -158,7 +158,7 @@ class site_upgrade {
 						'enable' => 3,
 						'button_text' => gettext('Site » test mode'),
 						'formname' => 'site_upgrade',
-						'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
+						'action' => getAdminLink(PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php'),
 						'icon' => LOCK_OPEN,
 						'title' => gettext('Make the site available for viewing administrators only.'),
 						'onclick' => "$('#site_upgrade_form').dirtyForms('setClean');this.form.submit();",
@@ -174,7 +174,7 @@ class site_upgrade {
 						'enable' => 2,
 						'button_text' => gettext('Site » open'),
 						'formname' => 'site_upgrade',
-						'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
+						'action' => getAdminLink(PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php'),
 						'icon' => LOCK_OPEN,
 						'title' => gettext('Make site available for viewing.'),
 						'alt' => '',
@@ -201,7 +201,7 @@ class site_upgrade {
 						'enable' => true,
 						'button_text' => gettext('Site » close'),
 						'formname' => 'site_upgrade.php',
-						'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
+						'action' => getAdminLink(PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php'),
 						'icon' => LOCK,
 						'title' => gettext('Make site unavailable for viewing by redirecting to the "closed.html" page.'),
 						'alt' => '',
@@ -228,12 +228,12 @@ class site_upgrade {
 			if ($force || !file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name)) {
 				switch ($source) {
 					case '*':
-						$data = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/' . $name);
+						$data = file_get_contents(CORE_SERVERPATH .  PLUGIN_FOLDER . '/site_upgrade/' . $name);
 						$data = str_replace('SITEINDEX', FULLWEBPATH . "/index.php", $data);
 						break;
 					case '+':
-						$data = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/' . $name);
-						$data = sprintf($data, sprintf(gettext('%s upgrade'), $_zp_gallery->getTitle()), FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/closed.png', sprintf(gettext('<strong><em>%s</em></strong> is undergoing an upgrade'), $_zp_gallery->getTitle()), '<a href="' . FULLWEBPATH . '/index.php">' . gettext('Please return later') . '</a>', FULLWEBPATH . '/index.php');
+						$data = file_get_contents(CORE_SERVERPATH .  PLUGIN_FOLDER . '/site_upgrade/' . $name);
+						$data = sprintf($data, sprintf(gettext('%s upgrade'), $_zp_gallery->getTitle()), FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/closed.png', sprintf(gettext('<strong><em>%s</em></strong> is undergoing an upgrade'), $_zp_gallery->getTitle()), '<a href="' . FULLWEBPATH . '/index.php">' . gettext('Please return later') . '</a>', FULLWEBPATH . '/index.php');
 						break;
 					default:
 						// Feed plugin

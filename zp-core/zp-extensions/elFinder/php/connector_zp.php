@@ -3,14 +3,14 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/admin-globals.php');
 XSRFdefender('elFinder');
 
-include_once SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/php/elFinderConnector.class.php';
-include_once SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/php/elFinder.class.php';
-include_once SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeDriver.class.php';
-include_once SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeLocalFileSystem.class.php';
+include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinderConnector.class.php';
+include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinder.class.php';
+include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeDriver.class.php';
+include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeLocalFileSystem.class.php';
 // Required for MySQL storage connector
-// include_once SERVERPATH.'/'.ZENFOLDER.'/'.PLUGIN_FOLDER.'/elFinder/php/elFinderVolumeMySQL.class.php';
+// include_once CORE_SERVERPATH .  PLUGIN_FOLDER.'/elFinder/php/elFinderVolumeMySQL.class.php';
 // Required for FTP connector support
-// include_once SERVERPATH.'/'.ZENFOLDER.'/'.PLUGIN_FOLDER.'/elFinder/php/elFinderVolumeFTP.class.php';
+// include_once CORE_SERVERPATH . PLUGIN_FOLDER.'/elFinder/php/elFinderVolumeFTP.class.php';
 // Required for Dropbox.com connector support
 // include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinderVolumeDropbox.class.php';
 // # Dropbox volume driver need "dropbox-php's Dropbox" and "PHP OAuth extension" or "PEAR's HTTP_OAUTH package"

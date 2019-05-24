@@ -12,7 +12,7 @@ if (isset($_POST['auth'])) {
 	$id = sanitize($_POST['id']);
 	$_zp_loggedin = $_zp_authority->checkAuthorization($hash, $id);
 } else {
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/upload.php?page=upload&tab=http&type=images&uploaded=1');
+	header('Location: ' . getAdminLink('admin-tabs/upload.php') . '?page=upload&tab=http&type=images&uploaded=1');
 	exit();
 }
 
@@ -121,7 +121,7 @@ if (isset($_POST['processed'])) {
 				}
 			}
 			if ($error == UPLOAD_ERR_OK && ($filecount || isset($_POST['newalbum']))) {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/upload.php?page=upload&tab=http&type=images&uploaded=1&album=' . $folder);
+				header('Location: ' . getAdminLink('admin-tabs/upload.php') . '?page=upload&tab=http&type=images&uploaded=1&album=' . $folder);
 				exit();
 			}
 		}
@@ -157,6 +157,6 @@ if (!isset($_POST['processed'])) {
 			break;
 	}
 }
-header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/upload.php?page=upload&tab=http&album=' . $folder . '&error=' . $errormsg);
+header('Location: ' . getAdminLink('admin-tabs/upload.php') . '?page = upload&tab = http&album = ' . $folder . '&error = ' . $errormsg);
 exit();
 ?>

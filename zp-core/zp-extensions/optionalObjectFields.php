@@ -51,7 +51,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_notice = (extensionEnabled('optionalObjectFields')) ? '' : gettext('<strong>IMPORTANT</strong>: This plugin enables the "tags" database fields. If disabled the admin <em>tags</em> tab will not be present. Click on the <em>More information</em> icon for details.');
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php');
 
 class optionalObjectFields extends fieldExtender {
 

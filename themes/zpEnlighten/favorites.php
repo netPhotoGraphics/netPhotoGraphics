@@ -25,7 +25,7 @@ if (class_exists('favorites')) {
 				<div id="breadcrumb">
 					<h2>
 						<?php if (extensionEnabled('zenpage')) { ?>
-							<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
+							<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
 						<?php } ?>
 						<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
 						<?php printParentBreadcrumb(" » ", " » ", " » "); ?><strong><?php printAlbumTitle(true); ?></strong></h2>
@@ -141,6 +141,6 @@ if (class_exists('favorites')) {
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

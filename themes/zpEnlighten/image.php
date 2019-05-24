@@ -61,7 +61,7 @@ if (!defined('WEBPATH'))
 			<div id="breadcrumb">
 				<h2>
 					<?php if (extensionEnabled('zenpage')) { ?>
-						<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
+						<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
 					<?php } ?>
 					<a href="<?php echo html_encode(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a><?php
 					printParentBreadcrumb(" » ", " » ", " » ");

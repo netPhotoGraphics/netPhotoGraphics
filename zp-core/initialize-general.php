@@ -24,7 +24,7 @@ if (class_exists('tidy')) {
 	}
 
 } else {
-	require_once( SERVERPATH . '/' . ZENFOLDER . '/htmLawed.php');
+	require_once( CORE_SERVERPATH . 'htmLawed.php');
 
 	function cleanHTML($html) {
 		return htmLawed($html, array('tidy' => '2s2n'));
@@ -76,7 +76,7 @@ $_zp_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' 
 $_zp_current_context_stack = array();
 
 $_zp_missing_album = new TransientAlbum(gettext('missing'));
-$_zp_missing_image = new Transientimage($_zp_missing_album, SERVERPATH . '/' . ZENFOLDER . '/images/err-imagenotfound.png');
+$_zp_missing_image = new Transientimage($_zp_missing_album, CORE_SERVERPATH . 'images/err-imagenotfound.png');
 
 define('SELECT_IMAGES', 1);
 define('SELECT_ALBUMS', 2);
@@ -89,5 +89,5 @@ $_locale_Subdomains = zpFunctions::LanguageSubdomains();
 //	use this for labeling "News" pages, etc.
 define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('zenpage_news_label'))));
 
-$_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*ZENFOLDER*}', '{*PLUGIN_FOLDER*}', '{*USER_PLUGIN_FOLDER*}');
-$_tagURLs_values = array(FULLWEBPATH, WEBPATH, ZENFOLDER, PLUGIN_FOLDER, USER_PLUGIN_FOLDER);
+$_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*CORE_FOLDER*}', '{*CORE_PATH*}', '{*PLUGIN_FOLDER*}', '{*PLUGIN_PATH*}', '{*USER_PLUGIN_FOLDER*}');
+$_tagURLs_values = array(FULLWEBPATH, WEBPATH, CORE_FOLDER, CORE_PATH, PLUGIN_FOLDER, PLUGIN_PATH, USER_PLUGIN_FOLDER);

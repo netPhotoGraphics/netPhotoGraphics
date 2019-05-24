@@ -80,6 +80,7 @@ switch (OFFSET_PATH) {
 			//define the useless legacy definitions
 			define('ZP_NEWS_ENABLED', $_zp_CMS->news_enabled);
 			define('ZP_PAGES_ENABLED', $_zp_CMS->pages_enabled);
+			define('ZENFOLDER', CORE_FOLDER);
 		}
 }
 define('SERVER_HTTP_HOST', FULLHOSTPATH);

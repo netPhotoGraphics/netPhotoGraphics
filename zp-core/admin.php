@@ -12,7 +12,7 @@
 define('OFFSET_PATH', 1);
 
 require_once(dirname(__FILE__) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/reconfigure.php');
+require_once(CORE_SERVERPATH . 'reconfigure.php');
 
 $came_from = NULL;
 if (zp_loggedin() && !empty($zenphoto_tabs)) {
@@ -32,7 +32,7 @@ if (zp_loggedin() && !empty($zenphoto_tabs)) {
 }
 
 if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
-	require_once( SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
+	require_once( CORE_SERVERPATH . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
 }
 
 use Milo\Github;
@@ -79,7 +79,7 @@ if (isset($_GET['report'])) {
 	$msg = '';
 }
 if (extensionEnabled('zenpage')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 
 if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
@@ -114,7 +114,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 				/** clear the HTMLcache ****************************************************** */
 				case 'clear_html_cache':
 					XSRFdefender('ClearHTMLCache');
-					require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/static_html_cache.php');
+					require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/static_html_cache.php');
 					static_html_cache::clearHTMLCache();
 					$class = 'messagebox fade-message';
 					$msg = gettext('HTML cache cleared.');
@@ -143,7 +143,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 				/** protect the setup files ************************************************** */
 				case 'protect_setup':
 					XSRFdefender('protect_setup');
-					chdir(SERVERPATH . '/' . ZENFOLDER . '/setup/');
+					chdir(CORE_SERVERPATH . 'setup/');
 					$list = safe_glob('*.php');
 
 					$rslt = array();
@@ -151,11 +151,11 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						if ($component == 'setup-functions.php') { // some plugins may need these.
 							continue;
 						}
-						@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, 0777);
-						if (@rename(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, SERVERPATH . '/' . ZENFOLDER . '/setup/' . stripSuffix($component) . '.xxx')) {
-							@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
+						@chmod(CORE_SERVERPATH . 'setup/' . $component, 0777);
+						if (@rename(CORE_SERVERPATH . 'setup/' . $component, CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx')) {
+							@chmod(CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
 						} else {
-							@chmod(SERVERPATH . '/' . ZENFOLDER . '/setup/' . $component, FILE_MOD);
+							@chmod(CORE_SERVERPATH . 'setup/' . $component, FILE_MOD);
 							$rslt[] = $component;
 						}
 					}
@@ -277,7 +277,7 @@ if (zp_loggedin() && $zenphoto_tabs) {
 
 // Print our header
 printAdminHeader('overview');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min.js');
+scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min.js');
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[
@@ -382,7 +382,7 @@ $buttonlist = array();
 
 
 			$curdir = getcwd();
-			chdir(SERVERPATH . "/" . ZENFOLDER . '/' . UTILITIES_FOLDER . '/');
+			chdir(CORE_SERVERPATH . UTILITIES_FOLDER . '/');
 			$filelist = safe_glob('*' . 'php');
 			natcasesort($filelist);
 			foreach ($filelist as $utility) {
@@ -416,7 +416,7 @@ $buttonlist = array();
 							'enable' => 2,
 							'button_text' => $buttonText,
 							'formname' => 'install_update',
-							'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=install_update',
+							'action' => getAdminLink('admin.php') . '?action=install_update',
 							'icon' => INSTALL,
 							'alt' => '',
 							'title' => $buttonTitle,
@@ -431,7 +431,7 @@ $buttonlist = array();
 								'enable' => 2,
 								'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
 								'formname' => 'download_update',
-								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=download_update',
+								'action' => getAdminLink('admin.php') . '?action=download_update',
 								'icon' => INSTALL,
 								'alt' => '',
 								'title' => sprintf(gettext('Download and install netPhotoGraphics version %1$s on your site.'), $newestVersion),
@@ -450,7 +450,7 @@ $buttonlist = array();
 								'enable' => true,
 								'button_text' => gettext('Setup » restore scripts'),
 								'formname' => 'restore_setup',
-								'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=restore_setup',
+								'action' => getAdminLink('admin.php') . '?action=restore_setup',
 								'icon' => LOCK_OPEN,
 								'alt' => '',
 								'title' => gettext('Restores setup files so setup can be run.'),
@@ -465,7 +465,7 @@ $buttonlist = array();
 									'enable' => true,
 									'button_text' => gettext('Run setup'),
 									'formname' => 'run_setup',
-									'action' => FULLWEBPATH . '/' . ZENFOLDER . '/setup.php',
+									'action' => getAdminLink('setup.php'),
 									'icon' => SETUP,
 									'alt' => '',
 									'title' => gettext('Run the setup script.'),
@@ -480,7 +480,7 @@ $buttonlist = array();
 									'enable' => 3,
 									'button_text' => gettext('Setup » protect scripts'),
 									'formname' => 'restore_setup',
-									'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=protect_setup',
+									'action' => getAdminLink('admin.php') . '?action=protect_setup',
 									'icon' => KEY_RED,
 									'alt' => '',
 									'title' => gettext('Protects setup files so setup cannot be run.'),

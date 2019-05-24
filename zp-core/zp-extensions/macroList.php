@@ -84,7 +84,7 @@ function macro_admin_tabs($tabs) {
 		if (!empty($macros)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/macroList/macroList_tab.php?page=development&tab=macros',
+						'link' => getAdminLink(PLUGIN_FOLDER . '/macroList/macroList_tab.php') . '?page=development&tab=macros',
 						'default' => "macros",
 						'subtabs' => NULL);
 			}

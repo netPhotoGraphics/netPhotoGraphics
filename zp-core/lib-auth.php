@@ -178,7 +178,7 @@ class _Authority {
 				<script type="text/javascript">
 					// <!-- <![CDATA[
 					function sliderColor(strength) {
-						var url = 'url(<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/strengths/strength' + strength + '.png)';
+						var url = 'url(<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/strengths/strength' + strength + '.png)';
 						$('#slider-password_strength').css('background-image', url);
 					}
 					$(function () {
@@ -390,7 +390,6 @@ class _Authority {
 		if (DEBUG_LOGIN) {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
-
 		$admins = $this->getAdministrators();
 		if (count($admins) == 0) {
 			if (DEBUG_LOGIN) {
@@ -824,7 +823,7 @@ class _Authority {
 						$info = $user->getChallengePhraseInfo();
 						if ($post_pass && $info['response'] == $post_pass) {
 							$ref = self::getResetTicket($post_user, $user->getPass());
-							header('location:' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?ticket=' . $ref . '&user=' . $post_user);
+							header('location:' . getAdminLink('admin-tabs/users.php') . '?ticket=' . $ref . '&user=' . $post_user);
 							exit();
 						}
 					}
@@ -882,7 +881,7 @@ class _Authority {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
 							$msg = "\n" . $requestor;
 							if ($found) {
-								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/users.php?ticket=$ref&user=" . $user['user']) .
+								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=' . $user['user']) .
 												"\n" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.");
 							} else {
 								$msg .= "\n" . gettext('No matching user was found.');
@@ -1100,7 +1099,7 @@ class _Authority {
 			switch ($whichForm) {
 				case 'challenge':
 					?>
-					<form name="login" id="login" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.php" method="post">
+					<form name="login" id="login" action="<?php echo getAdminLink('admin.php') ?>" method="post">
 						<fieldset id="logon_box">
 							<input type="hidden" name="login" value="1" />
 							<input type="hidden" name="password" value="challenge" />
@@ -1279,7 +1278,7 @@ class _Authority {
 							}
 						}
 					</script>
-					<form name="login" id="login" action="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin.php" method="post">
+					<form name="login" id="login" action="<?php echo getAdminLink('admin.php'); ?>" method="post">
 						<?php
 						if (isset($captcha['hidden']))
 							echo $captcha['hidden'];
@@ -1334,8 +1333,8 @@ class _Authority {
 		if (!zp_loggedin()) {
 			?>
 			<span class="button">
-				<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/zenphotoLogin.php?request=zenphoto&amp;redirect=/dev/index.php?userlog=1">
-					<img src="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/images/login_button.png" alt="login">
+				<a href="<?php echo getAdminLink('zenphotoLogin.php') ?>?request=zenphoto&amp;redirect=/dev/index.php?userlog=1">
+					<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/login_button.png" alt="login">
 				</a>
 			</span>
 			<?php
@@ -1414,7 +1413,7 @@ class _Authority {
 							$(inputb).prop('disabled', false);
 							passwordMatch(id);
 						}
-						var url = 'url(<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/strengths/strength' + strength + '.png)';
+						var url = 'url(<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/strengths/strength' + strength + '.png)';
 						$(inputa).css('background-image', url);
 						$(inputa).css('background-size', '100%');
 					}

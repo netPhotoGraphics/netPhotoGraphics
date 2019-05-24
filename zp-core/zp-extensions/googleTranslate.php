@@ -37,7 +37,7 @@ $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Provides a Google translation facility.');
 $plugin_disable = !function_exists('curl_version') ? gettext('The PHP <em>Curl</em> extension must be enabled for this plugin to function.') : false;
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTranslate/GoogleTranslate.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTranslate/GoogleTranslate.php');
 
 zp_register_filter('edit_cms_utilities', 'translator::cms_utilities');
 zp_register_filter('save_article_data', 'translator::save');

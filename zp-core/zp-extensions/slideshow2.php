@@ -187,7 +187,7 @@ class cycle {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -444,42 +444,42 @@ class cycle {
 
 	static function js() {
 		global $__cycle_css;
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.min.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.center.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.center.min.js');
 		?>
 		<!-- effect plugins -->
 		<?php
 		if (getOption('cycle-slideshow_effect') == 'flipHorz' || getOption('cycle-slideshow_effect') == 'flipVert') {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.flip.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.flip.min.js');
 		}
 		?>
 		<!--[if lt IE 9]>
-		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.ie-fade.min.js'); ?>
+		<?php scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.ie-fade.min.js'); ?>
 		<![endif]-->
 		<?php
 		if (getOption('cycle-slideshow_effect') == 'shuffle') {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.shuffle.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.shuffle.min.js');
 		}
 
 		if (getOption('cycle-slideshow_effect') == 'tileSlide' || getOption('cycle-slideshow_effect') == 'tileBlind') {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/query.cycle2.tile.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/query.cycle2.tile.min.js');
 		}
 		if (getOption('cycle-slideshow_effect') == 'scrollVert') {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.scrollVert.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.scrollVert.min.js');
 		}
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.carousel.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.carousel.min.js');
 		?>
 		<!--  swipe with iOS fix -->
 		<?php
 		if (getOption('cycle-slideshow_swipe')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.swipe.min.js');
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/ios6fix.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/jquery.cycle2.swipe.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/ios6fix.js');
 		}
 		scriptLoader($__cycle_css = getPlugin('slideshow2/slideshow2.css', getCurrentTheme()));
 		?>
 		<!--[if lte IE 7]>
-		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/fonts/ie7.css'); ?>
-		<?php scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow2/fonts/ie7.js'); ?>
+		<?php scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/fonts/ie7.css'); ?>
+		<?php scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow2/fonts/ie7.js'); ?>
 		<![endif]-->
 		<?php
 	}

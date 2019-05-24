@@ -37,7 +37,7 @@ class user_mailing_list {
 	}
 
 	static function admin_tabs($tabs) {
-		$tabs['admin']['subtabs'][gettext('Mailing list')] = '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_mailing_list/user_mailing_listTab.php?tab=mailinglist';
+		$tabs['admin']['subtabs'][gettext('Mailing list')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/user_mailing_list/user_mailing_listTab.php?tab=mailinglist';
 		return $tabs;
 	}
 

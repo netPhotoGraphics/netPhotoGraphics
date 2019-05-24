@@ -35,7 +35,7 @@ if (isset($_GET['action'])) {
 			$comment->setInModeration(1);
 			zp_apply_filter('comment_disapprove', $comment);
 			$comment->save();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php'));
 			exit();
 
 		case "notspam":
@@ -44,16 +44,16 @@ if (isset($_GET['action'])) {
 			$comment->setInModeration(0);
 			zp_apply_filter('comment_approve', $comment);
 			$comment->save();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php'));
 			exit();
 
 		case 'applycomments':
 			XSRFdefender('applycomments');
 			if (isset($_POST['ids'])) {
 				$action = processCommentBulkActions();
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?bulk=' . $action);
+				header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php') . '?bulk=' . $action);
 			} else {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?saved');
+				header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php') . '?saved');
 			}
 			exit();
 		case 'deletecomment':
@@ -61,12 +61,12 @@ if (isset($_GET['action'])) {
 			$id = sanitize_numeric($_GET['id']);
 			$comment = new Comment($id);
 			$comment->remove();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?ndeleted=1');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php') . '?ndeleted=1');
 			exit();
 
 		case 'savecomment':
 			if (!isset($_POST['id'])) {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
+				header('Location: ' . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php'));
 				exit();
 			}
 			XSRFdefender('savecomment');
@@ -82,7 +82,7 @@ if (isset($_GET['action'])) {
 			$comment->setComment(sanitize($_POST['comment'], 1));
 			$comment->setAddressData($_comment_form_save_post = serialize(getCommentAddress(0)));
 			$comment->save();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?saved&page=editcomment&id=' . $comment->getID());
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?saved&page=editcomment&id=' . $comment->getID());
 			exit();
 	}
 }
@@ -471,7 +471,7 @@ printLogoAndLinks();
 													?>
 													<a href="?action=spam&amp;id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('comment_update') ?>" title="<?php echo gettext('Mark this message as SPAM'); ?>">
 														<?php echo CHECKMARK_GREEN; ?> </a>
-														<?php
+													<?php
 												}
 												?>
 											</div>

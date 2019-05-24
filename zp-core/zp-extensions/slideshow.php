@@ -158,7 +158,7 @@ class slideshow {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -302,13 +302,13 @@ class slideshow {
 			$slideshow .= '
 					//Only register at hit count the first time the image is viewed.
 					if ($(next).attr("viewed") != 1) {
-					$.get("' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/slideshow-counter.php?album=' . pathurlencode($albumobj->name) . '&img="+ImageNameList[opts.currSlide]);
+					$.get("' . getAdminLink(PLUGIN_FOLDER . '/slideshow/slideshow-counter.php') . '?album=' . pathurlencode($albumobj->name) . '&img="+ImageNameList[opts.currSlide]);
 					$(next).attr("viewed", 1 );
 				}
 				';
 		}
-		$slideshow .='}';
-		$slideshow .='
+		$slideshow .= '}';
+		$slideshow .= '
 				$("#slides").cycle({
 				fx:     "' . getOption("slideshow_effect") . '",
 				speed:   "' . getOption("slideshow_speed") . '",
@@ -466,7 +466,7 @@ class slideshow {
 	static function js() {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		scriptLoader(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
 	}
 

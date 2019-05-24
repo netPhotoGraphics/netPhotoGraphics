@@ -342,7 +342,7 @@
 
 		<!-- css -->
 		<?php
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
 		scriptLoader($_zp_themeroot . '/css/site.css');
 		scriptLoader($_zp_themeroot . '/css/icons.css');
 		scriptLoader($_zp_themeroot . '/css/slimbox2.css');
@@ -355,7 +355,7 @@
 
 		<!-- js -->
 		<?php
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
 		scriptLoader($_zp_themeroot . '/js/slimbox2-ar.js');
 		?>
 

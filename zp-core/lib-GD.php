@@ -553,9 +553,9 @@ if (!function_exists('zp_graphicsLibInfo')) {
 			if (!is_array($_gd_fontlist)) {
 				$_gd_fontlist = array('system' => '');
 				$curdir = getcwd();
-				$paths = array(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/gd_fonts/', SERVERPATH . '/' . ZENFOLDER . '/gd_fonts');
+				$paths = array(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/gd_fonts/', CORE_SERVERPATH . 'gd_fonts');
 				if (GD_FREETYPE) {
-					array_push($paths, SERVERPATH . '/' . ZENFOLDER . '/FreeSerif');
+					array_push($paths, CORE_SERVERPATH . 'FreeSerif');
 					if (($basefile = getOption('GD_FreeType_Path')) != SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/gd_fonts') {
 						array_push($paths, $basefile);
 					}

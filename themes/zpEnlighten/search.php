@@ -35,7 +35,7 @@ if (!defined('WEBPATH'))
 			?>
 			<h2>
 				<?php if (extensionEnabled('zenpage')) { ?>
-					<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php gettext('Index'); ?>"><?php echo gettext("Index") . " » "; ?></a>
+					<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index") . " » "; ?></a>
 				<?php } else { ?>
 					<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
 				<?php } ?>

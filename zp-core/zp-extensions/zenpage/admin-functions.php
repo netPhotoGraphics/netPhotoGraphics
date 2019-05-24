@@ -203,7 +203,8 @@ function deleteZenpageObj($obj, $redirect = false) {
 			} else {
 				$redirect .= '?deleted';
 			}
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/' . $redirect);
+			$parts = explode('?', $redirect);
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/zenpage/' . $parts[0]) . isset($parts[1]) ? '?' . $parts[1] : '');
 			exit();
 		}
 		switch ($obj->table) {
@@ -252,7 +253,7 @@ function printPagesListTable($page, $toodeep) {
 		</div>
 		<div class="page-list_title">
 			<?php
-			echo "<a href='edit.php?page&amp;titlelink=" . urlencode($page->getTitlelink()) . "'> ";
+			echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;titlelink = ' . urlencode($page->getTitlelink()) . '"> ';
 			checkForEmptyTitle($page->getTitle(), "page");
 			echo "</a>" . checkHitcounterDisplay($page->getHitcounter());
 			?>
@@ -309,10 +310,10 @@ function printPagesListTable($page, $toodeep) {
 			} else {
 				?>
 				<div class="page-list_icon">
-					<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 				</div>
 				<div class="page-list_icon">
-					<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 				</div>
 				<?php
 			}
@@ -976,7 +977,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			<?php echo $handle; ?>
 		</div>
 		<div class="page-list_title">
-			<?php echo "<a href='edit.php?newscategory&amp;titlelink=" . $cat->getTitlelink() . "' title='" . gettext('Edit this category') . "'>" . $cattitle . "</a>" . checkHitcounterDisplay($cat->getHitcounter()); ?>
+			<?php echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newscategory&amp;titlelink=' . $cat->getTitlelink() . '" title="' . gettext('Edit this category') . '">' . $cattitle . '</a>' . checkHitcounterDisplay($cat->getHitcounter()); ?>
 		</div>
 		<div class="page-list_extra">
 			<?php echo $count; ?>
@@ -1017,7 +1018,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			</div>
 			<div class="page-list_icon">
 				<?php if ($count == 0) { ?>
-					<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
 					<?php
 				} else {
 					?>
@@ -1070,7 +1071,7 @@ function printCategoryCheckboxListEntry($cat, $articleid, $option, $class = '') 
 	$catname = $cat->getTitle();
 	$catlink = $cat->getTitlelink();
 	if ($cat->getPassword()) {
-		$protected = '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/lock.png" />';
+		$protected = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock.png" />';
 	} else {
 		$protected = '';
 	}
@@ -1354,7 +1355,7 @@ function printCategoriesStatistic() {
  *
  */
 function zenpageJSCSS() {
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
+	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/zenpage.css');
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[

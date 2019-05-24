@@ -49,7 +49,7 @@ $plugin_description = gettext('Support for <em>favorites</em> handling.');
 
 $option_interface = 'favoritesHandler';
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
 
 class favoritesHandler {
 
@@ -290,9 +290,8 @@ class favoritesHandler {
 		return $html;
 	}
 
-	static function toolbox($zf) {
+	static function toolbox() {
 		printFavoritesURL(gettext('Favorites'), '<li>', '</li><li>', '</li>');
-		return $zf;
 	}
 
 }

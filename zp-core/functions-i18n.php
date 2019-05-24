@@ -11,7 +11,7 @@
 
 if (!extension_loaded('intl')) {
 
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/localeList.php');
+	require_once(CORE_SERVERPATH . 'localeList.php');
 
 	class locale {
 
@@ -64,11 +64,11 @@ class i18n {
 		global $_zp_active_languages, $_zp_all_languages;
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		if (is_null($_zp_all_languages)) {
-			$dir = @opendir(SERVERPATH . "/" . ZENFOLDER . "/locale/");
+			$dir = @opendir(CORE_SERVERPATH . 'locale/');
 			$_zp_active_languages = $_zp_all_languages = array();
 			if ($dir !== false) {
 				while ($dirname = readdir($dir)) {
-					if (is_dir(SERVERPATH . "/" . ZENFOLDER . "/locale/" . $dirname) && (substr($dirname, 0, 1) != '.')) {
+					if (is_dir(CORE_SERVERPATH . 'locale/' . $dirname) && (substr($dirname, 0, 1) != '.')) {
 						$language = self::getDisplayName($dirname);
 						$_zp_all_languages[$language] = $dirname;
 						if (!isset($disallow[$dirname])) {
@@ -140,7 +140,7 @@ class i18n {
 				break;
 			default:
 				$domain = 'zenphoto';
-				$domainpath = SERVERPATH . "/" . ZENFOLDER . "/locale/";
+				$domainpath = CORE_SERVERPATH . 'locale/';
 				break;
 		}
 		bindtextdomain($domain, $domainpath);

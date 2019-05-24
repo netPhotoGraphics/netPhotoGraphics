@@ -27,7 +27,7 @@ if (extensionEnabled('class-video')) {
 }
 $option_interface = 'VideoObject_Options';
 
-define('GETID3_INCLUDEPATH', SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/class-video/getid3/');
+define('GETID3_INCLUDEPATH', CORE_SERVERPATH .  PLUGIN_FOLDER . '/class-video/getid3/');
 require_once(dirname(__FILE__) . '/class-video/getid3/getid3.php');
 
 /**
@@ -170,7 +170,7 @@ class Video extends Image {
 			$path = SERVERPATH;
 		if (is_null($this->objectsThumb)) {
 			$suffix = getSuffix($this->filename);
-			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
+			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
 				$imgfile = $path . '/' . $folder . '/' . $suffix . 'Default.png';
 				if (file_exists($imgfile)) {
 					break;
@@ -464,7 +464,7 @@ class pseudoPlayer {
 									' . gettext('Your browser does not support the video tag') . '
 						</video>';
 		}
-		return '<img src="' . WEBPATH . '/' . ZENFOLDER . '/images/err-imagegeneral.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
+		return '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
 	}
 
 }

@@ -203,7 +203,7 @@ printSortableHead();
 								<?php echo PLUS_ICON; ?>
 								<strong><?php echo gettext("New Menu"); ?></strong>
 							</a>
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?'page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
+							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
 								<?php echo OPTIONS_ICON; ?>
 								<strong><?php echo gettext('Options') ?></strong>
 							</a>
@@ -240,7 +240,7 @@ printSortableHead();
 									if ($count > 0) {
 										?>
 										<span class="buttons">
-											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/page_white_copy.png" alt="" /><strong><?php echo gettext("Duplicate menu"); ?></strong></a>
+											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/page_white_copy.png" alt="" /><strong><?php echo gettext("Duplicate menu"); ?></strong></a>
 										</span>
 										<span class="buttons">
 											<a href="javascript:deleteMenuSet();" title="<?php printf(gettext('Delete %s menu'), $menuset); ?>">
@@ -250,7 +250,7 @@ printSortableHead();
 										</span>
 										<span class="buttons">
 											<a href="?exportmenuset=<?php echo html_encode($menuset); ?>&amp;XSRFToken=<?php echo getXSRFToken('dup_menu') ?>" title="<?php printf(gettext('Export %s menu'), $menuset); ?>">
-												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/stock_copy.png" alt="" />
+												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/stock_copy.png" alt="" />
 												<strong><?php echo gettext("Export menu"); ?></strong>
 											</a>
 										</span>

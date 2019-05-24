@@ -12,7 +12,7 @@
  * {@link https://console.developers.google.com/apis/dashboard Google Developers Console}
  *
  * Your <i>OAuth2 client ID</i> will need an <i>Authorized redirect URI</i> that
- * points to <var>%FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/googleLogin/google.php</var>
+ * points to <var>%FULLWEBPATH%/%CORE_PATHR%/%PLUGIN_PATH%/googleLogin/google.php</var>
  *
  * The gmail address supplied by Google OAuth2 will become the user's <i>user ID</i>
  * if present. If no e-mail address is supplied with the login, a user ID will be created
@@ -35,7 +35,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_disable = zpFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
 
 $option_interface = 'googleLogin';
 

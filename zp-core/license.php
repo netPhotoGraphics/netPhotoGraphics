@@ -44,7 +44,7 @@ echo "\n</head>";
 					$_SESSION['license_return'] = getRequestURI();
 					?>
 					<p class="buttons">
-						<a href="<?php echo FULLWEBPATH . '/' . ZENFOLDER . '/license.php?licenseAccept&amp;XSRFToken=' . getXSRFToken('ZenphotoLicense'); ?>" alt="<?php echo gettext('You must accept this license to continue to use netPhotoGraphics.'); ?>"><?php echo gettext('I agree to these terms and conditions'); ?></a>
+						<a href="<?php echo getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('ZenphotoLicense'); ?>" alt="<?php echo gettext('You must accept this license to continue to use netPhotoGraphics.'); ?>"><?php echo gettext('I agree to these terms and conditions'); ?></a>
 					</p>
 					<br class="clearall">
 					<?php
@@ -52,7 +52,7 @@ echo "\n</head>";
 				?>
 				<br class="clearall">
 				<div class="tabbox">
-					<iframe src="<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/gpl-2.0-standalone.htm" width="100%" height="480" style="border: 0">
+					<iframe src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/gpl-2.0-standalone.htm" width="100%" height="480" style="border: 0">
 					</iframe>
 				</div>
 			</div>

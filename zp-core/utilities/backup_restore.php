@@ -442,14 +442,14 @@ if ($action == 'backup') {
 		$messages = '
 			<script type="text/javascript">
 				window.addEventListener(\'load\',  function() {
-					window.location = "' . FULLWEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php?tab=backup&compression=' . $compression_handler . '";
+					window.location = "' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '?tab=backup&compression=' . $compression_handler . '";
 				}, false);
 			</script>
 		';
 	}
 	primeOptions(); //invalidate any options from before the restore
 	if (getOption('zenphoto_install') !== $signaure) {
-		$l1 = '<a href="' . WEBPATH . '/' . ZENFOLDER . '/setup.php">';
+		$l1 = '<a href="' . getAdminLink('setup.php') . '">';
 		$messages .= '<div class="notebox">
 			<h2>' . sprintf(gettext('You have restored your database from a different instance of the software. You should run %1$ssetup%2$s to insure proper migration.'), $l1, '</a>') . '</h2>
 			</div>';
@@ -598,7 +598,7 @@ if (isset($_GET['compression'])) {
 							<div style="max-width: 750px;">
 								<p>
 									<?php
-									foreach (unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate')) as $table => $row) {
+									foreach (unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
 										?>
 										<span class="nowrap">
 											<label>

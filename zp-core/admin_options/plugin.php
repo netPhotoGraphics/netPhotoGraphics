@@ -162,7 +162,7 @@ function getOptionContent() {
 
 											<?php
 										} else {
-											$optionlink = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?page=options&amp;tab=plugin&amp;single=' . html_encode($extension);
+											$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=' . html_encode($extension);
 											?>
 											<span class="icons">
 												<a href="<?php echo $optionlink; ?>" title="<?php printf(gettext("Change %s options"), html_encode($extension)); ?>">

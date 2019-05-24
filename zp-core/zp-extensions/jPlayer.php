@@ -166,7 +166,7 @@ class jplayer_options {
 	 *
 	 */
 	static function getSkin() {
-		$default_skins_dir = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/';
+		$default_skins_dir = CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/skin/';
 		$user_skins_dir = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/jPlayer/skin/';
 		$filestoignore = array('.', '..', '.DS_Store', 'Thumbs.db', '.htaccess', '.svn');
 		$skins = array_diff(scandir($default_skins_dir), array_merge($filestoignore));
@@ -258,14 +258,14 @@ class jPlayer {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
-			$skin = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
+			$skin = CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}
 		scriptLoader($skin);
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**
@@ -325,7 +325,7 @@ class jPlayer {
 						' . $videoThumb . '
 					})' . $autoplay . ';
 				},
-				swfPath: "' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js",
+				swfPath: "' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js",
 				supplied: "' . $this->supplied . $this->supplied_counterparts . '",
 				cssSelectorAncestor: "#jp_container_' . $count . '"';
 
@@ -683,7 +683,7 @@ class jPlayer {
 // Seems the flash fallback fails here
 			?>
 				], {
-				swfPath: "<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js",
+				swfPath: "<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js",
 								solution: "flash,html",
 			<?php if ($option == 'playlist') { ?>
 					supplied: "m4v, mp4, m4a, mp3, fla, flv<?php echo $this->supplied_counterparts; ?>"

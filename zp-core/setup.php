@@ -28,9 +28,9 @@ if (empty($needs)) {
 		<head>
 			<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
+			scriptLoader(CORE_SERVERPATH . 'admin.css');
 			if (!zp_loggedin(ADMIN_RIGHTS)) {
-				scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+				scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 			}
 			reconfigureCS();
 			?>
@@ -57,7 +57,7 @@ if (empty($needs)) {
 							<?php
 							if (zpFunctions::hasPrimaryScripts()) {
 								if ($found) {
-									echo '<a href="' . WEBPATH . '/' . ZENFOLDER . '/setup.php?xsrfToken=' . getXSRFToken('setup') . '">' . gettext('Click to restore the setup scripts and run setup.') . '</a>';
+									echo '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php?xsrfToken=' . getXSRFToken('setup') . '">' . gettext('Click to restore the setup scripts and run setup.') . '</a>';
 								} else {
 									printf(gettext('You must restore the setup files from the %1$s release.'), ZENPHOTO_VERSION);
 								}

@@ -26,7 +26,7 @@ if (isset($_REQUEST['singleimage'])) {
 }
 if (!$albumobj->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : '');
+		header('Location: ' . getAdminLink('admin.php') . '?from=' . $return . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : '');
 		exit();
 	}
 }
@@ -163,15 +163,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$imageobj->set('thumbH', $ch);
 	$imageobj->save();
 
-	$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
-	if ($singleimage)
+	$return = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
+	if ($singleimage) {
 		$return .= '&singleimage=' . html_encode($singleimage);
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . $return);
+	}
+	header('Location: ' . $return);
 	exit();
 }
 printAdminHeader('edit', 'thumbcrop');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
+scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.css');
+scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 ?>
 <script type="text/javascript" >
 	//<!-- <![CDATA[
@@ -301,7 +302,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
 									<?php echo CROSS_MARK_RED; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
-								<button type="reset" value="<?php echo gettext('Back') ?>" onclick="window.location = '<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo html_encode($subpage) ?><?php if ($singleimage) echo '&singleimage=' . html_encode($singleimage); ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
+								<button type="reset" value="<?php echo gettext('Back') ?>" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') ?>?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo html_encode($subpage) ?><?php if ($singleimage) echo '&singleimage=' . html_encode($singleimage); ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
 									<span style="color:blue;font-size:large;line-height: 60%;">&lArr;</span>
 									<strong><?php echo gettext("Back"); ?></strong>
 								</button>

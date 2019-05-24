@@ -288,7 +288,7 @@ class register_user {
  */
 function printRegistrationForm($thanks = NULL) {
 	global $admin_e, $admin_n, $user, $_zp_authority, $_zp_captcha, $_zp_gallery, $_notify, $_link, $_message;
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/admin-functions.php');
+	require_once(CORE_SERVERPATH . 'admin-functions.php');
 	$userobj = NULL;
 	// handle any postings
 	if (isset($_GET['verify'])) {
@@ -388,7 +388,7 @@ function printRegistrationForm($thanks = NULL) {
 				} else {
 					$_SERVER['REQUEST_URI'] = $_link . '&login=true';
 				}
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_login-out.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/user_login-out.php');
 				printPasswordForm(NULL, true, false, FULLWEBPATH);
 				$_notify = 'success';
 				break;

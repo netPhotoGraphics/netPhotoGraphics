@@ -84,7 +84,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 		}
-		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user-expiry/user-expiry-tab.php?page=admin&tab=expiry&applied=' . $msg);
+		header("Location: " . getAdminLink('user-expiry/user-expiry-tab.php') . '?page=admin&tab=expiry&applied=' . $msg);
 		exit();
 	}
 }
@@ -134,7 +134,7 @@ echo '</head>' . "\n";
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>
 						<div class="floatright">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?'page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
+							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
 								<?php echo OPTIONS_ICON; ?>
 								<strong><?php echo gettext('Options') ?></strong>
 							</a>

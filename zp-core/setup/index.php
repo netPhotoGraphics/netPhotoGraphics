@@ -93,13 +93,13 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE))
 		configMod();
 	}
 	$newconfig = false;
-} else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . ZENFOLDER . '/zp-config.php')) {
+} else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php')) {
 	//migrate old root configuration file.
 	$zpconfig = file_get_contents($oldconfig);
 	$i = strpos($zpconfig, '/** Do not edit above this line. **/');
 	$zpconfig = "<?php\nglobal \$_zp_conf_vars;\n\$conf = array()\n" . substr($zpconfig, $i);
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $zpconfig);
-	$result = @unlink(dirname(dirname(dirname(__FILE__))) . '/' . ZENFOLDER . '/zp-config.php');
+	$result = @unlink(dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php');
 	$newconfig = false;
 	configMod();
 } else if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg')) {
@@ -250,7 +250,7 @@ if ($updatezp_config) {
 	if ($q) {
 		$q = '?' . $q;
 	}
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/setup/index.php' . $q);
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 }
 
@@ -390,7 +390,7 @@ setOptionDefault('zp_plugin_security-logger', 9 | CLASS_PLUGIN);
 
 $cloneid = bin2hex(FULLWEBPATH);
 $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION['clone'][$cloneid]['mod_rewrite'] && !file_exists(SERVERPATH . '/.htaccess');
-$newht = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/htaccess');
+$newht = file_get_contents(CORE_SERVERPATH . 'htaccess');
 if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 	if (($newconfig || $forcerewrite) && !file_exists(SERVERPATH . '/.htaccess') || setupUserAuthorized()) {
 		@chmod(SERVERPATH . '/.htaccess', 0777);
@@ -435,11 +435,12 @@ if ($setup_checked) {
 				$clone = ' ' . gettext('clone');
 			}
 			$index = $mine . '/index.php';
-			$rootupdate = @copy(dirname(dirname(__FILE__)) . '/root_index.php', $index);
+			$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
+			$script = strtr($script, array('CORE_FOLDER' => "'" . CORE_FOLDER . "'", 'CORE_PATH' => "'" . CORE_PATH . "'", 'PLUGIN_PATH' => "'" . PLUGIN_PATH . "'", 'PLUGIN_FOLDER' => "'" . PLUGIN_FOLDER . "'", 'DATA_FOLDER' => "'" . DATA_FOLDER . "'"));
+			$rootupdate = @file_put_contents($index, $script);
 			if (!$rootupdate) {
 				$f1 = @file_get_contents($index);
-				$f2 = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
-				$rootupdate = $f1 == $f2; // it is ok, the contents is correct
+				$rootupdate = $f1 == $script; // it is ok, the contents is correct
 			}
 		} else {
 			$clone = ' ' . gettext('clone');
@@ -475,7 +476,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
 	<?php
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin.css');
+	scriptLoader(CORE_SERVERPATH . 'admin.css');
 	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
 	?>
@@ -490,8 +491,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		}
 	</script>
 	<?php
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/setup/setup.css');
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/loginForm.css');
+	scriptLoader(CORE_SERVERPATH . 'setup/setup.css');
+	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 	?>
 </head>
 <body>
@@ -772,7 +773,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						}
 
 
-						$good = checkMark($cfg, sprintf(gettext('<em>%1$s</em> file'), CONFIGFILE), sprintf(gettext('<em>%1$s</em> file [does not exist]'), CONFIGFILE), sprintf(gettext('Setup was not able to create this file. You will need to copy the <code>%1$s/zenphoto_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it as indicated in the file’s comments.'), ZENFOLDER, DATA_FOLDER, CONFIGFILE)) && $good;
+						$good = checkMark($cfg, sprintf(gettext('<em>%1$s</em> file'), CONFIGFILE), sprintf(gettext('<em>%1$s</em> file [does not exist]'), CONFIGFILE), sprintf(gettext('Setup was not able to create this file. You will need to copy the <code>%1$s/zenphoto_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it as indicated in the file’s comments.'), CORE_FOLDER, DATA_FOLDER, CONFIGFILE)) && $good;
 						if ($cfg) {
 							primeMark(gettext('File permissions'));
 							if ($environ) {
@@ -907,7 +908,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 									// UTF-8 URI
 									if ($notice != -1) {
-										$test = copy(SERVERPATH . '/' . ZENFOLDER . '/images/placeholder.png', $testjpg = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('tést.jpg'));
+										$test = copy(CORE_SERVERPATH . 'images/placeholder.png', $testjpg = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('tést.jpg'));
 										if (file_exists($testjpg)) {
 											?>
 											<li id="internal" class="pass limited">
@@ -1145,21 +1146,21 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						$stdExclude = Array('Thumbs.db', 'readme.md', 'data');
 
 						$base = SERVERPATH . '/';
-						getResidentZPFiles(SERVERPATH . '/' . ZENFOLDER, $stdExclude);
+						getResidentZPFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
 						if (CASE_INSENSITIVE) {
-							$res = array_search(strtolower($base . ZENFOLDER . '/zenphoto.package'), $_zp_resident_files);
+							$res = array_search(strtolower($base . CORE_FOLDER . '/zenphoto.package'), $_zp_resident_files);
 							$base = strtolower($base);
 						} else {
-							$res = array_search($base . ZENFOLDER . '/zenphoto.package', $_zp_resident_files);
+							$res = array_search($base . CORE_FOLDER . '/zenphoto.package', $_zp_resident_files);
 						}
 						unset($_zp_resident_files[$res]);
-						$cum_mean = filemtime(SERVERPATH . '/' . ZENFOLDER . '/zenphoto.package');
+						$cum_mean = filemtime(CORE_SERVERPATH . 'zenphoto.package');
 						$hours = 3600;
 						$lowset = $cum_mean - $hours;
 						$highset = $cum_mean + $hours;
 
 						$package_file_count = false;
-						$package = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto.package');
+						$package = file_get_contents(CORE_SERVERPATH . 'zenphoto.package');
 						if (CASE_INSENSITIVE) { // case insensitive file systems
 							$package = strtolower($package);
 						}
@@ -1299,7 +1300,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							if (isset($rootupdate) && !$rootupdate) {
 								$mark = 0;
 								$msg1 = gettext("Core files [Could not update the root <em>index.php</em> file.]");
-								$msg2 = sprintf(gettext('Perhaps there is a permissions issue. You should manually copy the %s <em>root_index.php</em> file to the installation root and rename it <em>index.php</em>.'), ZENFOLDER);
+								$msg2 = sprintf(gettext('Perhaps there is a permissions issue. You should manually copy the %s <em>root_index.php</em> file to the installation root and rename it <em>index.php</em>.'), CORE_FOLDER) . ' ' . gettext('Then manually edit the file to replace the defines with their definition values.');
 							} else {
 								if (zpFunctions::hasPrimaryScripts()) {
 									if ($testRelease) {
@@ -1440,7 +1441,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$desc = gettext("Server seems not to be Apache or Apache-compatible, <code>.htaccess</code> not required.");
 									$ch = -1;
 								} else {
-									$desc = sprintf(gettext("The <em>.htaccess</em> file in your root folder is not the same version as the one distributed with this version of netPhotoGraphics. If you have made changes to <em>.htaccess</em>, merge those changes with the <em>%s/htaccess</em> file to produce a new <em>.htaccess</em> file."), ZENFOLDER);
+									$desc = sprintf(gettext("The <em>.htaccess</em> file in your root folder is not the same version as the one distributed with this version of netPhotoGraphics. If you have made changes to <em>.htaccess</em>, merge those changes with the <em>%s/htaccess</em> file to produce a new <em>.htaccess</em> file."), CORE_FOLDER);
 									if (setupUserAuthorized()) {
 										$desc .= ' ' . gettext('<p class="buttons"><a href="?copyhtaccess" >Replace the existing <em>.htaccess</em> file with the current version</a></p><br style="clear:both" /><br />');
 									}
@@ -1632,7 +1633,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_zp_conf_vars, false)) {
 
 								primeMark(gettext('Database update'));
-								require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/database.php');
+								require_once(CORE_SERVERPATH . 'setup/database.php');
 								unset($_tableFields);
 								if ($updateErrors) {
 									$autorun = false;
@@ -1688,17 +1689,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								if ($_zp_loggedin == ADMIN_RIGHTS) {
 									$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 									if (count($filelist) > 0) {
-										$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '<a href="' . WEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php">', '</a>');
+										$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '<a href="' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '">', '</a>');
 										$autorun = false;
 									} else {
-										$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin">', '</a>');
+										$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '</a>');
 										if ($autorun == 'admin' || $autorun == 'gallery') {
-											$autorun = WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin';
+											$autorun = getAdminLink('admin-tabs/users.php') . '?page=admin';
 										}
 									}
 								} else {
 									if (extensionEnabled('cloneZenphoto')) {
-										require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cloneZenphoto.php');
+										require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cloneZenphoto.php');
 										if (class_exists('cloneZenphoto'))
 											$clones = cloneZenphoto::clones();
 									}
@@ -1707,13 +1708,13 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										$url = $data['url'];
 										?>
 										<p>
-											<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . ZENFOLDER . '/setup/index.php?autorun', $clone);
+											<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . CORE_FOLDER . '/setup/index.php?autorun', $clone);
 											?>
 										</p>
 										<?php
 									}
 								}
-								$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . WEBPATH . '/' . ZENFOLDER . '/admin.php">', '</a>');
+								$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . getAdminLink('admin.php') . '">', '</a>');
 								?>
 								<p id="golink" class="delayshow" style="display:none;"><?php echo $link; ?></p>
 								<?php
@@ -1722,7 +1723,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										break;
 									case 'gallery':
 									case 'admin':
-										$autorun = WEBPATH . '/' . ZENFOLDER . '/admin.php';
+										$autorun = getAdminLink('admin.php');
 										break;
 									default:
 										break;
@@ -1731,7 +1732,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 								<script type="text/javascript">
 									function launchAdmin() {
-										window.location = '<?php echo WEBPATH . '/' . ZENFOLDER . '/admin.php'; ?>';
+										window.location = '<?php echo getAdminLink('admin.php'); ?>';
 									}
 									window.onload = function () {
 										var errors = $('#setupErrors').val();
@@ -1740,7 +1741,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											type: 'POST',
 											cache: false,
 											data: 'errors=' + errors,
-											url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/setup/setupComplete.php'
+											url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setupComplete.php'
 										});
 										$('.delayshow').show();
 		<?php
@@ -1804,7 +1805,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 									$task = html_encode($task);
 									?>
-									<form id="setup" action="<?php echo WEBPATH . '/' . ZENFOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
+									<form id="setup" action="<?php echo WEBPATH . '/' . CORE_FOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
 										<input type="hidden" name="setUTF8URI" id="setUTF8URI" value="internal" />
 										<input type="hidden" name="xsrfToken" value="<?php echo setupXSRFToken(); ?>" />
 										<?php

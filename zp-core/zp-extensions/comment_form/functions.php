@@ -91,7 +91,7 @@ function fetchComments($number) {
 }
 
 function comment_form_PaginationJS() {
-	scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/jquery.pagination.js');
+	scriptLoader(CORE_SERVERPATH . 'js/jquery.pagination.js');
 	?>
 	<script type="text/javascript">
 		var current_comment_N, addrBar_hash = window.location.hash, Comm_ID_found = !addrBar_hash.search(/#zp_comment_id_/);
@@ -476,7 +476,7 @@ function comment_form_addComment($name, $email, $website, $comment, $code, $code
 			$message = $action . "\n\n" .
 							sprintf(gettext('Author: %1$s' . "\n" . 'Email: %2$s' . "\n" . 'Website: %3$s' . "\n" . 'Comment:' . "\n\n" . '%4$s'), $commentobj->getname(), $commentobj->getEmail(), $commentobj->getWebsite(), $commentobj->getComment()) . "\n\n" .
 							sprintf(gettext('You can view all comments about this item here:' . "\n" . '%1$s'), 'http://' . $_SERVER['SERVER_NAME'] . WEBPATH . '/index.php?' . $url) . "\n\n" .
-							sprintf(gettext('You can edit the comment here:' . "\n" . '%1$s'), 'http://' . $_SERVER['SERVER_NAME'] . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?page=editcomment&id=' . $commentobj->getID());
+							sprintf(gettext('You can edit the comment here:' . "\n" . '%1$s'), 'http://' . $_SERVER['SERVER_NAME'] . getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php') . '?page=editcomment&id=' . $commentobj->getID());
 			$emails = array();
 			$admin_users = $_zp_authority->getAdministrators();
 			foreach ($admin_users as $admin) {
@@ -764,7 +764,7 @@ function printEditCommentLink($text, $before = '', $after = '', $title = NULL, $
 		if ($before) {
 			echo '<span class="beforetext">' . html_encode($before) . '</span>';
 		}
-		printLinkHTML(WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form//admin-comments.php?page=editcomment&id=' . $_zp_current_comment['id'], $text, $title, $class, $id);
+		printLinkHTML(getAdminLink(PLUGIN_FOLDER . 'comment_form/admin-comments.php') . '?page=editcomment&id=' . $_zp_current_comment['id'], $text, $title, $class, $id);
 		if ($after) {
 			echo '<span class="aftertext">' . html_encode($after) . '</span>';
 		}

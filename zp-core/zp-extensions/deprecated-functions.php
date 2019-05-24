@@ -91,11 +91,11 @@ class deprecated_functions {
 		if (zp_loggedin(ADMIN_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions/admin_tab.php?page=development&tab=deprecated',
+						'link' => getAdminLink(PLUGIN_FOLDER . '/deprecated-functions/admin_tab.php') . '?page=development&tab=deprecated',
 						'subtabs' => NULL);
 			}
 			$tabs['development']['subtabs'][gettext("deprecated")] = PLUGIN_FOLDER . '/deprecated-functions/admin_tab.php?page=development&tab=deprecated';
-			$tabs['development']['subtabs'][gettext('Check deprecated')] = '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions/check_for_deprecated.php?tab=checkdeprecated';
+			$tabs['development']['subtabs'][gettext('Check deprecated')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions/check_for_deprecated.php?tab=checkdeprecated';
 		}
 		return $tabs;
 	}
@@ -166,7 +166,7 @@ class deprecated_functions {
 				case PLUGIN_FOLDER:
 					$script = sprintf(gettext('standard plugin %1$s:%2$s'), array_shift($path), array_pop($path));
 					break;
-				case ZENFOLDER:
+				case CORE_FOLDER:
 					$script = sprintf(gettext('core:%s'), array_pop($path));
 					break;
 

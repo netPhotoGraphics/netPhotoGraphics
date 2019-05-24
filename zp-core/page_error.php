@@ -88,7 +88,7 @@ function http_response_text($code) {
 				<?php echo gettext('Something went wrong'); ?>
 			</p>
 			<p >
-				<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/err-broken-page.png" />
+				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/err-broken-page.png" />
 			</p>
 			<p>
 				<?php printf(gettext('URL: %1$s'), getRequestURI()); ?>

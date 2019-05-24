@@ -207,7 +207,7 @@ function getIPSizedImage($size, $image) {
 							type: 'POST',
 							cache: false,
 							data: 'pasteImageSize=' + $('#imagesize').val(),
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/pickSource.php'
+							url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/pickSource.php'
 						});
 					}
 					pasteObjPopup.execCommand('mceInsertContent', false, $('#content').html());
@@ -350,8 +350,8 @@ function getIPSizedImage($size, $image) {
 			<?php
 			if ($image && !$picture && isImagePhoto($obj)) {
 				?>
-				<a href="javascript:launchScript('<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/crop_image.php',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>">
-					<img src="<?php echo WEBPATH . "/" . ZENFOLDER . '/'; ?>images/shape_handles.png" alt="" /><?php echo gettext("Custom crop"); ?></a>
+				<a href="javascript:launchScript('<?php echo WEBPATH . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/crop_image.php',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>">
+					<img src="<?php echo WEBPATH . "/" . CORE_FOLDER . '/'; ?>images/shape_handles.png" alt="" /><?php echo gettext("Custom crop"); ?></a>
 				<?php
 			}
 		} else {

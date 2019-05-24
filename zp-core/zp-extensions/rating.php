@@ -151,8 +151,8 @@ class jquery_rating {
 
 	static function ratingJS() {
 		$ME = substr(basename(__FILE__), 0, -4);
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
 
 		$size = getOption('rating_star_size');
 		if (getOption('rating_like-dislike')) {
@@ -216,7 +216,7 @@ class jquery_rating {
 				'enable' => true,
 				'button_text' => gettext('Reset all ratings'),
 				'formname' => 'clearrating_button',
-				'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rating/update.php?action=clear_rating',
+				'action' => getAdminLink(PLUGIN_FOLDER . '/rating/update.php') . '?action=clear_rating',
 				'icon' => RECYCLE_ICON,
 				'title' => gettext('Sets all ratings to unrated.'),
 				'alt' => '',
@@ -428,8 +428,8 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 				$.ajax({
 					type: 'POST',
 					cache: false,
-					url: '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4); ?>/update.php',
-					data: dataString + '&id=<?php echo $id; ?>&table=<?php echo $table; ?>'
+					url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/update.php'); ?>,
+									data: dataString + '&id=<?php echo $id; ?>&table=<?php echo $table; ?>'
 				});
 				recast<?php echo $unique; ?> = <?php printf('%u', $recast); ?>;
 				$('#vote<?php echo $unique; ?>').html('<?php echo gettext('Vote Submitted'); ?>');

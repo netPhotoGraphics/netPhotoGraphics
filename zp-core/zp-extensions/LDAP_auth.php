@@ -20,7 +20,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 $option_interface = 'LDAP_auth_options';
 
 if (!(function_exists('ldap_connect') || class_exists('Zenphoto_Authority'))) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
 }
 
 class LDAP_auth_options {

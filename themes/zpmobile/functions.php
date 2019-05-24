@@ -1,7 +1,7 @@
 <?php
 //	Required plugins:
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/print_album_menu.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/print_album_menu.php');
 
 /**
  * Prints the scripts needed for the header
@@ -118,7 +118,7 @@ function jqm_printFooterNav() {
 		$adminlink = '';
 		$favoriteslink = '';
 		if (zp_loggedin()) {
-			$adminlink = '<li><a rel="external" href="' . PROTOCOL . '://' . html_encode($_SERVER['HTTP_HOST'] . WEBPATH . '/' . ZENFOLDER) . '/admin.php">' . gettext('Admin') . '</a></li>';
+			$adminlink = '<li><a rel="external" href="' . getAdminLink('admin.php') . '">' . gettext('Admin') . '</a></li>';
 		} else {
 			if ($_zp_gallery_page != 'register.php' && function_exists('printRegisterURL')) {
 				$_linktext = get_language_string(getOption('register_user_page_link'));

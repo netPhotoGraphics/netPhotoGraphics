@@ -44,7 +44,7 @@ echo '</head>';
 								$base = substr(SERVERPATH, 0, -strlen(WEBPATH));
 								if (strpos($base, $clone) == 0) {
 									$base = substr($clone, strlen($base));
-									$link = $base . '/' . ZENFOLDER . '/admin.php';
+									$link = $base . '/' . CORE_FOLDER . '/admin.php';
 									$source = '<a href="' . $link . '">' . $clone . '</a>';
 								} else {
 									$source = $clone;
@@ -272,7 +272,7 @@ echo '</head>';
 						</ul>
 
 						<?php
-						require_once(SERVERPATH . '/' . ZENFOLDER . '/template-filters.php');
+						require_once(CORE_SERVERPATH . 'template-filters.php');
 						$plugins = array_keys(getEnabledPlugins());
 						$filters = $_zp_filters;
 						$c = count($plugins);

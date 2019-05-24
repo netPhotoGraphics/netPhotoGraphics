@@ -105,7 +105,7 @@
 							<?php
 						} else {
 							?>
-							<li><?php printLinkHTML(WEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users', gettext('Profile'), gettext('Your user profile')); ?></li>
+							<li><?php printLinkHTML(getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users', gettext('Profile'), gettext('Your user profile')); ?></li>
 							<?php
 						}
 					}

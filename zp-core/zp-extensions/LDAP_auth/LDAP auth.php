@@ -17,9 +17,9 @@ define('LDAP_READER_USER', getOption('ldap_reader_user'));
 define('LDAP_REAER_PASS', getOption('ldap_reader_pass'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-auth.php');
+require_once(CORE_SERVERPATH . 'lib-auth.php');
 if (extensionEnabled('user_groups')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups.php');
+	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/user_groups.php');
 }
 
 class Zenphoto_Authority extends _Authority {
