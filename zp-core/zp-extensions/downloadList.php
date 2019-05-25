@@ -253,7 +253,7 @@ class DownloadList {
 	}
 
 	static function admin_tabs($tabs) {
-		$tabs['overview']['subtabs'][gettext('Download statistics')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/downloadList/download_statistics.php?tab=downloadlist';
+		$tabs['overview']['subtabs'][gettext('Download statistics')] = PLUGIN_FOLDER . '/downloadList/download_statistics.php?tab=downloadlist';
 
 		return $tabs;
 	}

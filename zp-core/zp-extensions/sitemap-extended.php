@@ -191,7 +191,7 @@ class sitemap {
 
 	static function admin_tabs($tabs) {
 		if (zp_loggedin(OVERVIEW_RIGHTS)) {
-			$tabs['overview']['subtabs'][gettext('Sitemap')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php?tab=sitemap';
+			$tabs['overview']['subtabs'][gettext('Sitemap')] = PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php?tab=sitemap';
 		}
 		return $tabs;
 	}

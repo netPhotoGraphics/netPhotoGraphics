@@ -98,7 +98,7 @@ function updatePage(&$reports) {
 		$titlelink = $oldtitlelink = sanitize($_POST['titlelink-old']);
 	}
 
-	if (getcheckboxState('edittitlelink')) {
+	if ($edit_titlelink = getcheckboxState('edittitlelink')) {
 		$titlelink = sanitize($_POST['titlelink'], 3);
 		if (empty($titlelink)) {
 			$titlelink = seoFriendly(get_language_string($title));
@@ -122,10 +122,14 @@ function updatePage(&$reports) {
 			$titlelink .= RW_SUFFIX;
 		}
 	}
+
 	if ($titlelink != $oldtitlelink) { // title link change must be reflected in DB before any other updates
 		$rslt = query('UPDATE ' . prefix('pages') . ' SET `titlelink`=' . db_quote($titlelink) . ' WHERE `id`=' . $id, false);
 		if (!$rslt) {
 			$titlelink = $oldtitlelink; // force old link so data gets saved
+			if (!$edit_titlelink) { //	we did this behind his back, don't complain
+				$rslt = true;
+			}
 		}
 	}
 
@@ -253,7 +257,7 @@ function printPagesListTable($page, $toodeep) {
 		</div>
 		<div class="page-list_title">
 			<?php
-			echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;titlelink = ' . urlencode($page->getTitlelink()) . '"> ';
+			echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;titlelink=' . urlencode($page->getTitlelink()) . '"> ';
 			checkForEmptyTitle($page->getTitle(), "page");
 			echo "</a>" . checkHitcounterDisplay($page->getHitcounter());
 			?>
@@ -401,7 +405,7 @@ function updateArticle(&$reports, $newarticle = false) {
 		$titlelink = $oldtitlelink = sanitize($_POST['titlelink-old'], 3);
 	}
 
-	if (getcheckboxState('edittitlelink')) {
+	if ($edit_titlelink = getcheckboxState('edittitlelink')) {
 		$titlelink = sanitize($_POST['titlelink'], 3);
 		if (empty($titlelink)) {
 			$titlelink = seoFriendly(get_language_string($title));
@@ -426,13 +430,16 @@ function updateArticle(&$reports, $newarticle = false) {
 	}
 
 	$rslt = true;
-
 	if ($titlelink != $oldtitlelink) { // title link change must be reflected in DB before any other updates
 		$rslt = query('UPDATE ' . prefix('news') . ' SET `titlelink`=' . db_quote($titlelink) . ' WHERE `id`=' . $id, false);
 		if (!$rslt) {
 			$titlelink = $oldtitlelink; // force old link so data gets saved
+			if (!$edit_titlelink) { //	we did this behind his back, don't complain
+				$rslt = true;
+			}
 		}
 	}
+
 	// update article
 	$article = newArticle($titlelink, true);
 	$article->setTitle($title);

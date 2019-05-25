@@ -21,7 +21,7 @@ if (zp_loggedin(ADMIN_RIGHTS)) {
 }
 
 function seo_cleanup_admin_tabs($tabs) {
-	$tabs['admin']['subtabs'][gettext('SEO cleaner')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/seo_cleanup/admin_tab.php?tab=seocleaner&XSRFToken=' . getXSRFToken('seo_cleanup');
+	$tabs['admin']['subtabs'][gettext('SEO cleaner')] = PLUGIN_FOLDER . '/seo_cleanup/admin_tab.php?tab=seocleaner&XSRFToken=' . getXSRFToken('seo_cleanup');
 	return $tabs;
 }
 

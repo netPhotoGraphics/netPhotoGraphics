@@ -274,7 +274,7 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "category":
-			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink = '" . $item['link'] . "'";
+			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink='" . $item['link'] . "'";
 			$obj = query_single_row($sql, false);
 			if ($obj && extensionEnabled('zenpage')) {
 				$obj = newCategory($item['link']);

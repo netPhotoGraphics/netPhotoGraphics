@@ -216,6 +216,7 @@ define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font
 define('PLUS_ICON', '<span class="font_icon" style="color: green;font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red;font-size: large;font-weight: bold;">&#x2672;</span>');
 define('SOUTH_EAST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-weight: bold;">&#8690;</span>');
+define('SWAP_ICON', '<span class="font_icon" style="font-size: x-large;">&#x21C4;</span>');
 define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange;font-size: large;">&#9888;</span>');
 define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/trashcan.png" /></span>');
 define('BADGE_BLUE', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" /></span>');

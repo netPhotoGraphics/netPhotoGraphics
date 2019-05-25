@@ -20,7 +20,7 @@
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext('Provides a means to purge options for Themes and Plugins.');
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
 if (strpos(__FILE__, CORE_FOLDER) === false) {
 	define("PURGEOPTIONS_FOLDER", USER_PLUGIN_FOLDER . '/purgeOptions/');
 } else {
@@ -31,7 +31,7 @@ zp_register_filter('admin_tabs', 'purgeOptions_admin_tabs');
 
 function purgeOptions_admin_tabs($tabs) {
 	if (zp_loggedin(ADMIN_RIGHTS))
-		$tabs['options']['subtabs'][gettext("purge")] = "/" . PURGEOPTIONS_FOLDER . 'purgeOptions_tab.php?page=options&tab=purge';
+		$tabs['options']['subtabs'][gettext("purge")] = PLUGIN_FOLDER . '/purgeOptions_tab.php?page=options&tab=purge';
 	return $tabs;
 }
 

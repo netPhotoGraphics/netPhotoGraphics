@@ -95,7 +95,7 @@ class deprecated_functions {
 						'subtabs' => NULL);
 			}
 			$tabs['development']['subtabs'][gettext("deprecated")] = PLUGIN_FOLDER . '/deprecated-functions/admin_tab.php?page=development&tab=deprecated';
-			$tabs['development']['subtabs'][gettext('Check deprecated')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions/check_for_deprecated.php?tab=checkdeprecated';
+			$tabs['development']['subtabs'][gettext('Check deprecated')] = PLUGIN_FOLDER . '/deprecated-functions/check_for_deprecated.php?tab=checkdeprecated';
 		}
 		return $tabs;
 	}

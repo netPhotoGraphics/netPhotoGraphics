@@ -101,8 +101,6 @@ printAdminHeader('admin', 'Mailing');
 							<?php echo CHECKMARK_GREEN; ?>
 							<strong><?php echo gettext("Send mail"); ?></strong>
 						</button>
-					</p>
-					<p class="buttons">
 						<button class="submitbutton" type="reset" title="<?php echo gettext("Reset"); ?>">
 							<?php echo CROSS_MARK_RED; ?>
 							<strong><?php echo gettext("Reset"); ?></strong>

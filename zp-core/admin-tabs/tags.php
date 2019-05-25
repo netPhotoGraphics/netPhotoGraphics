@@ -353,7 +353,7 @@ printAdminHeader('admin');
 												$tag = $tagitem['tag'];
 												?>
 												<span class="nowrap">
-													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::SetLocale($locale)::getDisplayName($lang); ?>" />
+													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
 													<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
 												</span>
 												<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">

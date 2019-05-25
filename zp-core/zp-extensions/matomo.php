@@ -188,7 +188,7 @@ class matomoStats {
 
 	static function admin_tabs($tabs) {
 		if (zp_loggedin(OVERVIEW_RIGHTS)) {
-			$tabs['overview']['subtabs'][gettext('Matomo statistics')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/matomo/matomo_tab.php';
+			$tabs['overview']['subtabs'][gettext('Matomo statistics')] = PLUGIN_FOLDER . '/matomo/matomo_tab.php';
 		}
 		return $tabs;
 	}

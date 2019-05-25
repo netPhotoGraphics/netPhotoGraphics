@@ -36,7 +36,7 @@ if (zp_loggedin(ADMIN_RIGHTS)) {
 class publishContent {
 
 	static function admin_tabs($tabs) {
-		$tabs['admin']['subtabs'][gettext('Publish content')] = '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/publishContent/publishContent.php?tab=content';
+		$tabs['admin']['subtabs'][gettext('Publish content')] = PLUGIN_FOLDER . '/publishContent/publishContent.php?tab=content';
 		return $tabs;
 	}
 
