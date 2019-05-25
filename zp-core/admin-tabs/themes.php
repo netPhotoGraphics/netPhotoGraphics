@@ -316,7 +316,7 @@ if (count($themelist) == 0) {
 							</li>
 							<?php
 							if ($theme != $current_theme) {
-								$delete_url = getAdminLink('admin-tabs/themes.php') . '?action=deletetheme&amp;themealbum=' . pathurlencode($alb) . '&amp;theme=' . $theme . '&amp;XSRFToken=' . getXSRFToken('admin-themes');
+								$delete_url = getAdminLink('admin-tabs/themes.php') . '?action=deletetheme&amp;themealbum=' . pathurlencode($alb) . '&amp;theme=' . $theme . '&amp;XSRFToken=' . getXSRFToken('admin-tabs/themes');
 								$delete_msg = gettext('Do you really want to delete this theme?');
 								?>
 								<li>
