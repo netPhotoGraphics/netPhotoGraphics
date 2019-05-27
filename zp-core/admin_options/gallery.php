@@ -124,7 +124,7 @@ function getOptionContent() {
 						<span class="option_info">
 							<?php echo INFORMATION_BLUE; ?>
 							<div class="option_desc_hidden">
-								<?php echo gettext("A relative link to a logo image (e.g. <code>" . UPLOAD_FOLDER . "/custom_logo.png</code> for an image you have uploaded to your <em>UPLOAD_FOLDER</em> folder.) If this is set, your image will replace the netPhotoGraphics logo. For best results the image should be 78 pixels high."); ?>
+								<?php echo sprintf(gettext('A relative link to a logo image (e.g. <code>%1$s/custom_logo.png</code> for an image you have uploaded to your <em>%1$s</em> folder.) If this is set, your image will replace the netPhotoGraphics logo. For best results the image should be 78 pixels high.'), UPLOAD_FOLDER); ?>
 							</div>
 						</span>
 					</td>
