@@ -33,7 +33,7 @@ class titlelinkMigration {
 				'enable' => true,
 				'button_text' => gettext('Migrate titlelinks'),
 				'formname' => 'titlelink',
-				'action' => FULLWEBPATH . '/' . USER_PLUGIN_FOLDER . '/titlelinkMigration/migrate.php',
+				'action' => getAdminLink(USER_PLUGIN_FOLDER . '/titlelinkMigration/migrate.php'),
 				'icon' => BADGE_BLUE,
 				'title' => gettext('A utility to append the mod_rewrite_suffix to zenpage titlelinks.'),
 				'alt' => '',

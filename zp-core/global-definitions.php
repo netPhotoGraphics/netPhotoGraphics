@@ -27,6 +27,7 @@ define('SCRIPTPATH', str_replace('\\', '/', dirname(dirname(__FILE__))));
 //Note: these defines are for web path use only, they are rewritten to CORE_FOLDER and PLUGIN_FOLDER
 define('CORE_PATH', 'npg-core');
 define('PLUGIN_PATH', 'extensions');
+define('USER_PLUGIN_PATH', 'extensions');
 
 define('CORE_FOLDER', 'zp-core');
 define('PLUGIN_FOLDER', 'zp-extensions');

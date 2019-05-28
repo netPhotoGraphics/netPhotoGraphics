@@ -435,8 +435,14 @@ if ($setup_checked) {
 				$clone = ' ' . gettext('clone');
 			}
 			$index = $mine . '/index.php';
+			$defines = array(
+					'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
+					'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
+					'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
+					'DATA_FOLDER' => DATA_FOLDER
+			);
 			$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
-			$script = strtr($script, array('CORE_FOLDER' => "'" . CORE_FOLDER . "'", 'CORE_PATH' => "'" . CORE_PATH . "'", 'PLUGIN_PATH' => "'" . PLUGIN_PATH . "'", 'PLUGIN_FOLDER' => "'" . PLUGIN_FOLDER . "'", 'DATA_FOLDER' => "'" . DATA_FOLDER . "'"));
+			$script = strtr($script, $defines);
 			$rootupdate = @file_put_contents($index, $script);
 			if (!$rootupdate) {
 				$f1 = @file_get_contents($index);

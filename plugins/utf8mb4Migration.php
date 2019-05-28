@@ -46,7 +46,7 @@ class utf8mb4Migration {
 						'enable' => true,
 						'button_text' => gettext('Migrate to utf8mb4'),
 						'formname' => 'utf8button',
-						'action' => FULLWEBPATH . '/' . USER_PLUGIN_FOLDER . '/utf8mb4Migration/migrate.php',
+						'action' => getAdminLink(USER_PLUGIN_FOLDER . '/utf8mb4Migration/migrate.php'),
 						'icon' => BADGE_BLUE,
 						'title' => gettext('A utility to migrate TEXT and LONGTEXT database fields to utf8mb4 so as to allow 4-byte unicode characters.'),
 						'alt' => '',

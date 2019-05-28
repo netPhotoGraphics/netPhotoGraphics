@@ -42,10 +42,10 @@ class zenPhotoCompatibilityPack {
 		if (zp_loggedin(ADMIN_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . '/' . USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyConverter.php?page=development&tab=legacyConverter',
+						'link' => getAdminLink(USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyConverter.php') . '?page=development&tab=legacyConverter',
 						'subtabs' => NULL);
 			}
-			$tabs['development']['subtabs'][gettext("legacy Converter")] = '/' . USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyConverter.php?page=development&tab=legacyConverter';
+			$tabs['development']['subtabs'][gettext("legacy Converter")] = USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyConverter.php?page=development&tab=legacyConverter';
 		}
 		return $tabs;
 	}

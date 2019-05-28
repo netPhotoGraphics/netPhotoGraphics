@@ -102,9 +102,14 @@ function truncate_string($string, $length, $elipsis = '...') {
 function getAdminLink($script, $full = FULLWEBPATH) {
 	$script = str_replace(SERVERPATH . '/', '', $script);
 	if (MOD_REWRITE) {
-		$script = str_replace(CORE_FOLDER . '/', '', stripSuffix($script));
-		$script = str_replace(PLUGIN_FOLDER, PLUGIN_PATH, $script);
-		return ($full . '/' . CORE_PATH . '/' . $script);
+		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
+			$script = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, stripSuffix($script));
+			return($full . '/' . $script);
+		} else {
+			$script = preg_replace('~^' . CORE_FOLDER . '/' . '~i', '', $script);
+			$script = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $script);
+			return ($full . '/' . CORE_PATH . '/' . stripSuffix($script));
+		}
 	} else {
 		return ($full . '/' . $script);
 	}

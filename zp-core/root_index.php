@@ -11,9 +11,9 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 } else {
 	$uri = str_replace('\\', '/', @$_SERVER['SCRIPT_NAME']);
 }
-if (preg_match('~(.*?)/(' . CORE_PATH . '.*?)\?~i', $uri . '?', $matches)) {
+if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matches)) {
 	unset($uri);
-	$base = '/' . strtr($matches[2], array('npg-core' => 'zp-core', 'extensions' => 'zp-extensions')) . '.php';
+	$base = '/' . strtr($matches[2] . $matches[3], array('CORE_PATH/PLUGIN_PATH' => 'CORE_FOLDER/PLUGIN_FOLDER', 'CORE_PATH' => 'CORE_FOLDER', 'USER_PLUGIN_PATH' => 'USER_PLUGIN_FOLDER')) . '.php';
 	if (file_exists(dirname(__FILE__) . $base)) {
 		//	mock up things as if the the uri went directly to the script
 		$_SERVER['SCRIPT_NAME'] = $matches[1] . $base;
@@ -30,7 +30,7 @@ define('OFFSET_PATH', 0);
 if (!$_zp_script = @$_SERVER['SCRIPT_FILENAME']) {
 	$_zp_script = __FILE__;
 }
-$_contents = @file_get_contents(dirname($_zp_script) . '/' . DATA_FOLDER . '/zenphoto.cfg.php');
+$_contents = @file_get_contents(dirname($_zp_script) . '/DATA_FOLDER/zenphoto.cfg.php');
 
 if ($_contents) {
 	if (strpos($_contents, '<?php') !== false)
@@ -56,5 +56,5 @@ if ($_contents) {
 	}
 }
 unset($_contents);
-include (dirname(__FILE__) . '/' . CORE_FOLDER . '/index.php');
+include (dirname(__FILE__) . '/CORE_FOLDER/index.php');
 ?>
