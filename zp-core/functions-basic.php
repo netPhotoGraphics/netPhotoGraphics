@@ -631,7 +631,8 @@ function debugLogVar($var) {
  * @return bool
  */
 function secureServer() {
-	return isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false;
+	global $_zp_conf_vars;
+	return isset($_zp_conf_vars['server_protocol']) && $_zp_conf_vars['server_protocol'] == 'https' || isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false;
 }
 
 /**

@@ -93,6 +93,8 @@ if (!defined('FILESYSTEM_CHARSET')) {
 // If the server protocol is not set, set it to the default.
 if (!isset($_zp_conf_vars['server_protocol'])) {
 	$_zp_conf_vars['server_protocol'] = 'http';
+} else {
+	$_zp_conf_vars['server_protocol'] = strtolower($_zp_conf_vars['server_protocol']);
 }
 
 foreach ($_zp_conf_vars as $name => $value) {
@@ -174,20 +176,12 @@ foreach ($_zp_cachefileSuffix as $key => $type) {
 	}
 }
 
-//NOTE: SERVER_PROTOCOL is the option PROTOCOL is what should be used in links!!!!
-define('SERVER_PROTOCOL', getOption('server_protocol'));
-switch (SERVER_PROTOCOL) {
-	case 'https':
-		define('PROTOCOL', 'https');
-		break;
-	default:
-		if (secureServer()) {
-			define('PROTOCOL', 'https');
-		} else {
-			define('PROTOCOL', 'http');
-		}
-		break;
+if (secureServer()) {
+	define('PROTOCOL', 'https');
+} else {
+	define('PROTOCOL', 'http');
 }
+
 define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
 define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 

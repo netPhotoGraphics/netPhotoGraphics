@@ -348,7 +348,6 @@ if (isset($_POST['setUTF8URI'])) {
 }
 setOptionDefault('unique_image_prefix', NULL);
 
-setOptionDefault('server_protocol', "http");
 setOptionDefault('charset', "UTF-8");
 setOptionDefault('image_quality', 85);
 setOptionDefault('thumb_quality', 75);
@@ -828,7 +827,7 @@ $plugins = array_keys($plugins);
 			list($usec, $sec) = explode(" ", microtime());
 			$start = (float) $usec + (float) $sec;
 			setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
-			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/' . $extension . '.php');
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $extension . '.php');
 			$priority = $plugin_is_filter & PLUGIN_PRIORITY;
 			if ($plugin_is_filter & CLASS_PLUGIN) {
 				$priority .= ' | CLASS_PLUGIN';
@@ -883,7 +882,7 @@ setOptionDefault('deprecated_functions_signature', NULL);
 $compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
 
 if ($deprecate) {
-	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 	$deprecated = new deprecated_functions();
 	$listed = sha1(serialize($deprecated->listed_functions));
 	if ($listed != getOption('deprecated_functions_signature')) {

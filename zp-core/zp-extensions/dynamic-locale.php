@@ -239,7 +239,7 @@ class dynamic_locale {
 	}
 
 	static function dynamic_localeCSS() {
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/dynamic-locale/locale.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
 	}
 
 	static function fullHostPath($lang) {
@@ -253,7 +253,7 @@ class dynamic_locale {
 		if (($lang != BASE_LOCALE) && $l = $_locale_Subdomains[$lang]) {
 			$host = $l . '.' . $host;
 		}
-		if (SERVER_PROTOCOL == 'https') {
+		if (secureServer()) {
 			$host = 'https://' . $host;
 		} else {
 			$host = 'http://' . $host;

@@ -361,8 +361,7 @@ function adminToolbox() {
 				$redirect = zp_apply_filter('admin_toolbox_close', $redirect);
 				if ($_zp_current_admin_obj->logout_link) {
 					// logout link
-					$sec = (int) ((SERVER_PROTOCOL == 'https') & true);
-					$link = SEO_FULLWEBPATH . '/index.php?logout=' . $sec . $redirect;
+					$link = SEO_FULLWEBPATH . '/index.php?logout=1' . $redirect;
 					?>
 					<li>
 						<a href="<?php echo $link; ?>" id="toolbox_logout"><?php echo gettext("Logout"); ?> </a>

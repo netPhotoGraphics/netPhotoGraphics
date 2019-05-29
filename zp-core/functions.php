@@ -2368,7 +2368,7 @@ function XSRFToken($action, $modifier = NULL) {
  * Checks if protocol not https and redirects if https required
  */
 function httpsRedirect() {
-	if (zp_getCookie('zenphoto_ssl') || defined('SERVER_PROTOCOL') && SERVER_PROTOCOL !== 'http') {
+	if (zp_getCookie('zenphoto_ssl')) {
 		// force https login
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();

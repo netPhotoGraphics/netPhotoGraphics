@@ -116,14 +116,10 @@ if (isset($_REQUEST['logout'])) {
 	if (isset($_GET['page'])) {
 		$redirect .= "&page=" . sanitize($_GET['page']);
 	}
-	if (!empty($redirect))
+	if (!empty($redirect)) {
 		$redirect = '?' . substr($redirect, 1);
-	if ($_REQUEST['logout']) {
-		$rd_protocol = 'https';
-	} else {
-		$rd_protocol = 'http';
 	}
-	$location = $rd_protocol . "://" . $_SERVER['HTTP_HOST'] . WEBPATH . '/index.php' . $redirect;
+	$location = FULLWEBPATH . '/index.php' . $redirect;
 	$location = Zenphoto_Authority::handleLogout($location);
 	header("Location: " . $location);
 	exit();

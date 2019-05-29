@@ -31,21 +31,6 @@ function logSecuritySwitch($log) {
 
 function saveOptions() {
 	global $_zp_gallery, $_zp_authority, $zp_cfg, $_configMutex;
-
-	$protocol = sanitize($_POST['server_protocol'], 3);
-	if (getOption('server_protocol') != $protocol) {
-		switch ($protocol) {
-			case'https_admin':
-			case'https':
-				if (!secureServer()) {
-					//don't do it if we are not running secure!
-					break;
-				}
-			case'http':
-				setOption('server_protocol', $protocol);
-				break;
-		}
-	}
 	if (method_exists($_zp_authority, 'handleOptionSave')) {
 		$_zp_authority->handleOptionSave(NULL, NULL);
 	}
@@ -85,64 +70,6 @@ function getOptionContent() {
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
 						</p>
-					</td>
-				</tr>
-				<tr>
-					<td class="option_name"><?php echo gettext("Server protocol"); ?></td>
-					<td class="option_value">
-						<?php
-						if (secureServer()) {
-							?>
-
-							<script type="text/javascript">
-								function warn_http(sel) {
-									if (sel.value == 'http') {
-										alert('<?php echo gettext('Changing to http may require clearing secured authentication cookies!'); ?>');
-									}
-
-								}
-							</script>
-							<?php
-						}
-						$current = getOption('server_protocol');
-						?>
-						<select id="server_protocol" name="server_protocol"<?php if (secureServer()) echo ' onchange="warn_http(this);"' ?>>
-							<option value="http"<?php
-							if ($current == 'http' && !secureServer())
-								echo 'selected = "selected"';
-							?>>http</option>
-							<option value="https"<?php
-							if (secureServer()) {
-								if ($current == 'https')
-									echo ' selected="selected"';
-							} else {
-								echo ' disabled="disabled"';
-							}
-							?>>https</option>
-							<option value="https_admin"<?php
-							if (secureServer()) {
-								if ($current == 'https_admin')
-									echo ' selected="selected"';
-							} else {
-								echo ' disabled="disabled"';
-							}
-							?>><?php echo gettext('secure admin'); ?></option>
-						</select>
-					</td>
-					<td class="option_desc">
-						<span class="option_info">
-							<?php echo INFORMATION_BLUE; ?>
-							<div class="option_desc_hidden">
-								<p><?php printf(gettext("Normally this option should be set to <em>http</em>. If you are running a secure server, change this to <em>https</em>. Select <em>%s</em> if you need only to insure secure access to <code>admin</code> pages."), gettext('secure admin')); ?></p>
-								<p class="notebox"><?php
-									printf(gettext("<strong>Note:</strong>" .
-																	"<br /><br />Login from the front-end user login form is secure only if <em>https</em> is selected." .
-																	"<br /><br /><em>https</em> and <em>%s</em> are disabled unless you have used a secure link to the administrative pages. " .
-																	'This is to insure that the site supports secure protocols. Otherwise if one of these options were set you could be locked out of your site.'), gettext('secure admin'));
-									?>
-								</p>
-							</div>
-						</span>
 					</td>
 				</tr>
 				<tr>
