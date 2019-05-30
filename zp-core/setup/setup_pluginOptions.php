@@ -23,7 +23,9 @@ $startPO = (float) $usec + (float) $sec;
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 @ini_set('display_errors', 1);
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+
+define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
+
 $fullLog = isset($_GET['fullLog']);
 
 $extension = sanitize($_REQUEST['plugin']);

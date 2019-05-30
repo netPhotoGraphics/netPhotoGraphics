@@ -80,12 +80,12 @@ switch (OFFSET_PATH) {
 			//define the useless legacy definitions
 			define('ZP_NEWS_ENABLED', $_zp_CMS->news_enabled);
 			define('ZP_PAGES_ENABLED', $_zp_CMS->pages_enabled);
-			define('ZENFOLDER', CORE_FOLDER);
 		}
+		define('ZENFOLDER', CORE_FOLDER);
+		define('SERVER_HTTP_HOST', FULLHOSTPATH);
+
+		zp_register_filter('load_theme_script', 'zenphotoCompatibilityPack::filter');
+		zp_register_filter('next_object_loop', 'zenphotoCompatibilityPack::filter');
+		zp_register_filter('admin_tabs', 'zenphotoCompatibilityPack::admin_tabs');
 }
-define('SERVER_HTTP_HOST', FULLHOSTPATH);
 
-
-zp_register_filter('load_theme_script', 'zenphotoCompatibilityPack::filter');
-zp_register_filter('next_object_loop', 'zenphotoCompatibilityPack::filter');
-zp_register_filter('admin_tabs', 'zenphotoCompatibilityPack::admin_tabs');
