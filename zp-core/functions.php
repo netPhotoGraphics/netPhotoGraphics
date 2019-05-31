@@ -93,25 +93,26 @@ function truncate_string($string, $length, $elipsis = '...') {
 }
 
 /**
- * returns the path to a script in the core folders
+ * returns the web path to a script
+ * The script must either include USER_PLUGIN_FOLDER or be relative to the CORE_FOLDER
  * allows us to SEO the links
  *
- * @param string $script
+ * @param string $script the path to the script file
  * @return string
  */
-function getAdminLink($script, $full = FULLWEBPATH) {
-	$script = str_replace(SERVERPATH . '/', '', $script);
+function getAdminLink($script) {
 	if (MOD_REWRITE) {
 		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
 			$script = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, stripSuffix($script));
-			return($full . '/' . $script);
-		} else {
-			$script = preg_replace('~^' . CORE_FOLDER . '/' . '~i', '', $script);
-			$script = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $script);
-			return ($full . '/' . CORE_PATH . '/' . stripSuffix($script));
+			return(FULLWEBPATH . '/' . '/' . $script);
 		}
+		$script = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $script);
+		return (FULLWEBPATH . '/' . CORE_PATH . '/' . stripSuffix($script));
 	} else {
-		return ($full . '/' . $script);
+		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
+			return (FULLWEBPATH . '/' . $script);
+		}
+		return (FULLWEBPATH . '/' . CORE_FOLDER . '/' . $script);
 	}
 }
 

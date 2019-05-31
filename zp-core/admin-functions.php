@@ -5413,7 +5413,7 @@ function getLogTabs() {
 				$logfiletext = str_replace('_', ' ', $log);
 			}
 
-			$subtabs = array_merge($subtabs, array($logfiletext . $num => getAdminLink('admin-tabs/logs.php', '') . '?page=logs&tab=' . $log));
+			$subtabs = array_merge($subtabs, array($logfiletext . $num => 'admin-tabs/logs.php?page=logs&tab=' . $log));
 			if (filesize($logfile) > 0 && empty($default)) {
 				$default_viewed = $log;
 			}
