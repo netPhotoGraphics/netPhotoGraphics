@@ -428,29 +428,29 @@ if ($setup_checked) {
 			$me = strtolower($me);
 			$mine = strtolower($mine);
 		}
-		if ($mine == $me || !file_exists($mine . '/index.php')) {
-			if ($mine == $me) {
-				$clone = '';
-			} else {
-				$clone = ' ' . gettext('clone');
-			}
-			$index = $mine . '/index.php';
-			$defines = array(
-					'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
-					'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
-					'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
-					'DATA_FOLDER' => DATA_FOLDER
-			);
-			$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
-			$script = strtr($script, $defines);
-			$rootupdate = @file_put_contents($index, $script);
-			if (!$rootupdate) {
-				$f1 = @file_get_contents($index);
-				$rootupdate = $f1 == $script; // it is ok, the contents is correct
-			}
+
+		if ($mine == $me) {
+			$clone = '';
 		} else {
 			$clone = ' ' . gettext('clone');
 		}
+
+		$index = SERVERPATH . '/index.php';
+		unlink($index);
+		$defines = array(
+				'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
+				'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
+				'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
+				'DATA_FOLDER' => DATA_FOLDER
+		);
+		$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
+		$script = strtr($script, $defines);
+		$rootupdate = @file_put_contents($index, $script);
+		if (!$rootupdate) {
+			$f1 = @file_get_contents($index);
+			$rootupdate = $f1 == $script; // it is ok, the contents is correct
+		}
+
 		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s'), ZENPHOTO_VERSION, $clone, date('r')), true, true); // initialize the log file
 	}
 

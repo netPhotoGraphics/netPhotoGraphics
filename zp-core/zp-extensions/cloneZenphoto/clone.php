@@ -31,7 +31,7 @@ if (isset($_GET['purge'])) {
 		$success = false;
 	} else {
 		$success = true;
-		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir', USER_PLUGIN_FOLDER => 'dir', 'index.php' => 'file');
+		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir', USER_PLUGIN_FOLDER => 'dir');
 
 		foreach ($_zp_gallery->getThemes() as $theme => $data) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
@@ -178,5 +178,5 @@ if (isset($_GET['purge'])) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Clone to <code>%s</code> failed'), $folder) . '</h2>');
 	}
 }
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php');
 ?>
