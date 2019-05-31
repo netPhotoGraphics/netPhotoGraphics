@@ -24,7 +24,7 @@ if (isset($_POST['purge'])) {
 
 	if (isset($_POST['del'])) {
 		foreach ($_POST['del'] as $owner) {
-			$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `creator` LIKE ' . db_quote($owner . '%');
+			$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `creator` LIKE ' . db_quote('%' . $owner . '%');
 			query($sql);
 			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`=' . db_quote(basename($owner));
 			query($sql);
@@ -40,7 +40,7 @@ if (isset($_POST['purge'])) {
 						$purgedActive[$plugin] = true;
 					}
 					purgeOption('zp_plugin_' . $plugin);
-//invoke the enable method if it exists
+					//invoke the enable method if it exists
 					$f = str_replace('-', '_', $plugin) . '_enable';
 					if (function_exists($f)) {
 						$f(false);
