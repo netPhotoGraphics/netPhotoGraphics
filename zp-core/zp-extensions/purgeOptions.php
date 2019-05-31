@@ -26,7 +26,7 @@ zp_register_filter('admin_tabs', 'purgeOptions_admin_tabs');
 
 function purgeOptions_admin_tabs($tabs) {
 	if (zp_loggedin(ADMIN_RIGHTS))
-		$tabs['options']['subtabs'][gettext("purge")] = PLUGIN_FOLDER . '/purgeOptions_tab.php?page=options&tab=purge';
+		$tabs['options']['subtabs'][gettext("purge")] = PLUGIN_FOLDER . '/purgeOptions/purgeOptions_tab.php?page=options&tab=purge';
 	return $tabs;
 }
 
