@@ -3,7 +3,7 @@
  * Clone tab
  *
  *
- * @package admin/cloneZenphoto
+ * @package admin/clone
  */
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 4);
@@ -16,7 +16,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 ?>
 <script type="text/javascript">
 	function reloadCloneTab() {
-		this.document.location.href = '<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php'); ?>?tab=clone';
+		this.document.location.href = '<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/cloneTab.php'); ?>?tab=clone';
 	}
 
 </script>
@@ -35,7 +35,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 			<div id="container">
 				<div class="tabbox">
 					<?php
-					$clones = cloneZenphoto::clones(false);
+					$clones = npgClone::clones(false);
 					$invalid = false;
 					foreach ($clones as $clone => $data) {
 						$version = '';
@@ -79,7 +79,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					if ($invalid) {
 						?>
 						<p>
-							<span class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/clone.php'); ?>?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('cloneZenphoto'); ?>">
+							<span class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/clone.php'); ?>?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('clone'); ?>">
 									<?php echo CROSS_MARK_RED; ?>
 									<?php echo gettext("Remove invalid clones."); ?>
 								</a>
@@ -188,7 +188,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							window.addEventListener('load', folderChange, false);
 							// ]]> -->
 						</script>
-						<form name="changeDir" id="changeDir" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php'); ?>?tab=clone" method="post">
+						<form name="changeDir" id="changeDir" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/cloneTab.php'); ?>?tab=clone" method="post">
 							<input type="hidden" name="path" id="newDir" value = "" />
 							<?php
 							if (empty($folderlist)) {
@@ -222,14 +222,14 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							</span>
 						</form>
 						<br class="clearall">
-						<form name="cloneZenphoto" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/cloneZenphoto/clone.php'); ?>">
+						<form name="clone" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/clone.php'); ?>">
 							<input type="hidden" name="tab" value="clone" />
-							<?php XSRFToken('cloneZenphoto'); ?>
+							<?php XSRFToken('clone'); ?>
 							<input type="hidden" name="clone" value="true" />
 							<input type="hidden" name="clonePath" id="clonePath" value="" />
 							<?php echo gettext('Verify WEB link to this install:'); ?><br />
 							<input type="text" name="cloneWebPath" id="cloneWebPath" value="" size="100">
-							<?php XSRFToken('cloneZenphoto'); ?>
+							<?php XSRFToken('clone'); ?>
 							<br />
 							<br />
 							<div class="buttons pad_button" id="cloneZP">

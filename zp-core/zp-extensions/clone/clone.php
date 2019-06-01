@@ -4,7 +4,7 @@
  *
  * site cloner
  *
- * @package admin/cloneZenphoto
+ * @package admin/clone
  */
 // UTF-8 Ø
 define('OFFSET_PATH', 4);
@@ -13,13 +13,13 @@ require_once(CORE_SERVERPATH . 'reconfigure.php');
 require_once(CORE_SERVERPATH . 'functions-config.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
-XSRFdefender('cloneZenphoto');
+XSRFdefender('clone');
 
 if (isset($_GET['purge'])) {
-	$clones = cloneZenphoto::clones(false);
+	$clones = npgClone::clones(false);
 	foreach ($clones as $clone => $data) {
 		if (!$data['valid']) {
-			query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="cloneZenphoto" AND `aux`=' . db_quote($clone));
+			query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone" AND `aux`=' . db_quote($clone));
 		}
 	}
 } else {
@@ -133,9 +133,9 @@ if (isset($_GET['purge'])) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Successful clone to %s'), $folder) . '</h2>' . "\n");
 		list($diff, $needs) = checkSignature(4);
 		if (empty($needs)) {
-			$rslt = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cloneZenphoto" AND `aux`=' . db_quote(rtrim($folder, '/')));
+			$rslt = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone" AND `aux`=' . db_quote(rtrim($folder, '/')));
 			if (empty($rslt)) {
-				query('INSERT INTO ' . prefix('plugin_storage') . '(`type`,`aux`,`data`) VALUES("cloneZenphoto",' . db_quote(rtrim($folder, '/')) . ',' . db_quote(trim($newinstall, '/')) . ')');
+				query('INSERT INTO ' . prefix('plugin_storage') . '(`type`,`aux`,`data`) VALUES("clone",' . db_quote(rtrim($folder, '/')) . ',' . db_quote(trim($newinstall, '/')) . ')');
 			} else {
 				query('UPDATE ' . prefix('plugin_storage') . 'SET `data`=' . db_quote(trim($newinstall, '/')) . ' WHERE `id`=' . $rslt['id']);
 			}
@@ -178,5 +178,5 @@ if (isset($_GET['purge'])) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Clone to <code>%s</code> failed'), $folder) . '</h2>');
 	}
 }
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone/cloneTab.php');
 ?>

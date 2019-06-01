@@ -1154,19 +1154,19 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						$base = SERVERPATH . '/';
 						getResidentZPFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
 						if (CASE_INSENSITIVE) {
-							$res = array_search(strtolower($base . CORE_FOLDER . '/zenphoto.package'), $_zp_resident_files);
+							$res = array_search(strtolower($base . CORE_FOLDER . '/netphotographics.package'), $_zp_resident_files);
 							$base = strtolower($base);
 						} else {
-							$res = array_search($base . CORE_FOLDER . '/zenphoto.package', $_zp_resident_files);
+							$res = array_search($base . CORE_FOLDER . '/netphotographics.package', $_zp_resident_files);
 						}
 						unset($_zp_resident_files[$res]);
-						$cum_mean = filemtime(CORE_SERVERPATH . 'zenphoto.package');
+						$cum_mean = filemtime(CORE_SERVERPATH . 'netphotographics.package');
 						$hours = 3600;
 						$lowset = $cum_mean - $hours;
 						$highset = $cum_mean + $hours;
 
 						$package_file_count = false;
-						$package = file_get_contents(CORE_SERVERPATH . 'zenphoto.package');
+						$package = file_get_contents(CORE_SERVERPATH . 'netphotographics.package');
 						if (CASE_INSENSITIVE) { // case insensitive file systems
 							$package = strtolower($package);
 						}
@@ -1176,7 +1176,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$package_file_count = is_numeric($count) && ($count > 0) && ($count == count($installed_files));
 						}
 						if (!$package_file_count) {
-							checkMark(-1, '', gettext("netPhotoGraphics package [missing]"), gettext('The file <code>zenphoto.package</code> is either missing, not readable, or defective. Your installation may be corrupt!'));
+							checkMark(-1, '', gettext("netPhotoGraphics package [missing]"), gettext('The file <code>netphotographics.package</code> is either missing, not readable, or defective. Your installation may be corrupt!'));
 							$installed_files = array();
 						}
 						$folders = array();
@@ -1704,10 +1704,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										}
 									}
 								} else {
-									if (extensionEnabled('cloneZenphoto')) {
-										require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cloneZenphoto.php');
-										if (class_exists('cloneZenphoto'))
-											$clones = cloneZenphoto::clones();
+									if (extensionEnabled('clone')) {
+										require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+										if (class_exists('clone'))
+											$clones = npgClone::clones();
 									}
 									$autorun = false;
 									foreach ($clones as $clone => $data) {

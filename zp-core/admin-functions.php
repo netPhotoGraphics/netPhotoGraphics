@@ -3579,7 +3579,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function protectedTheme($theme) {
 		global $_distributed_themes;
 		if (is_null($_distributed_themes)) {
-			$package = file_get_contents(CORE_SERVERPATH . 'zenphoto.package');
+			$package = file_get_contents(CORE_SERVERPATH . 'netphotographics.package');
 			preg_match_all('~' . THEMEFOLDER . '/(.*)/theme_description.php~', $package, $matches);
 			$_distributed_themes = $matches[1];
 		}
@@ -3598,7 +3598,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function distributedPlugin($plugin) {
 		global $_ZP20_plugins;
 		if (is_null($_ZP20_plugins)) {
-			$package = file_get_contents(CORE_SERVERPATH . 'zenphoto.package');
+			$package = file_get_contents(CORE_SERVERPATH . 'netphotographics.package');
 			preg_match_all('~' . USER_PLUGIN_FOLDER . '/([^/]*).php~', $package, $matches);
 			$_ZP20_plugins = $matches[1];
 		}

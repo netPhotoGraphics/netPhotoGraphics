@@ -156,7 +156,7 @@ function checkSignature($mandatory) {
 		}
 	}
 
-	$package = file_get_contents(dirname(__FILE__) . '/zenphoto.package');
+	$package = file_get_contents(dirname(__FILE__) . '/netphotographics.package');
 	preg_match_all('|' . CORE_FOLDER . '/setup/(.*)|', $package, $matches);
 	$needs = array();
 	$restore = $found = false;

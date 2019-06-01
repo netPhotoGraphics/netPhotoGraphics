@@ -15,10 +15,10 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		setSiteState('closed');
 		zp_apply_filter('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'closed');
 
-		if (extensionEnabled('cloneZenphoto')) {
-			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto.php');
-			if (class_exists('cloneZenphoto')) {
-				$clones = cloneZenphoto::clones();
+		if (extensionEnabled('clone')) {
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+			if (class_exists('clone')) {
+				$clones = npgClone::clones();
 				foreach ($clones as $clone => $data) {
 					setSiteState('closed', $clone . '/');
 				}
@@ -30,10 +30,10 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		setSiteState('open');
 		zp_apply_filter('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'open');
 
-		if (extensionEnabled('cloneZenphoto')) {
-			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto.php');
-			if (class_exists('cloneZenphoto')) {
-				$clones = cloneZenphoto::clones();
+		if (extensionEnabled('clone')) {
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+			if (class_exists('clone')) {
+				$clones = npgClone::clones();
 				foreach ($clones as $clone => $data) {
 					setSiteState('open', $clone . '/');
 				}
@@ -45,10 +45,10 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		setSiteState('closed_for_test');
 		zp_apply_filter('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'closed_for_test');
 
-		if (extensionEnabled('cloneZenphoto')) {
-			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cloneZenphoto.php');
-			if (class_exists('cloneZenphoto')) {
-				$clones = cloneZenphoto::clones();
+		if (extensionEnabled('clone')) {
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+			if (class_exists('clone')) {
+				$clones = npgClone::clones();
 				foreach ($clones as $clone => $data) {
 					setSiteState('closed_for_test', $clone . '/');
 				}
@@ -57,7 +57,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		break;
 }
 
-header('Location: ' . getAdminLink('admin.php').'?report=' . $report);
+header('Location: ' . getAdminLink('admin.php') . '?report=' . $report);
 exit();
 
 /**

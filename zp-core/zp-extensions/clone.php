@@ -23,7 +23,7 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @package plugins/cloneZenphoto
+ * @package plugins/clone
  * @pluginCategory admin
  */
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
@@ -31,17 +31,17 @@ $plugin_description = gettext('Allows multiple installations to share a single s
 $plugin_disable = (SYMLINK) ? (zpFunctions::hasPrimaryScripts()) ? false : gettext('Only the primary installation may clone offspring installations.') : gettext('Your server does not support symbolic linking.');
 
 if (OFFSET_PATH == 2) {
-	$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="cloneZenphoto" WHERE `type`="clone"';
+	$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="clone" WHERE `type`="clone"';
 	query($sql);
 }
 
 require_once(CORE_SERVERPATH . 'reconfigure.php');
 if ($plugin_disable) {
-	enableExtension('cloneZenphoto', 0);
+	enableExtension('clone', 0);
 } else {
-	zp_register_filter('admin_tabs', 'cloneZenphoto::tabs', -312);
+	zp_register_filter('admin_tabs', 'npgClone::tabs', -312);
 
-	class cloneZenphoto {
+	class npgClone {
 
 		static function tabs($tabs) {
 			global $_zp_current_admin_obj;
@@ -64,7 +64,7 @@ if ($plugin_disable) {
 			global $_zp_current_admin_obj;
 			$clones = array();
 			$sig = @file_get_contents(CORE_SERVERPATH . 'version.php');
-			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cloneZenphoto"')) {
+			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone"')) {
 				while ($row = db_fetch_assoc($result)) {
 					if (SYMLINK) {
 						$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . CORE_FOLDER));
