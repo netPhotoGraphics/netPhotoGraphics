@@ -101,13 +101,7 @@ class accessThreshold {
 	static function admin_tabs($tabs) {
 		global $_zp_current_admin_obj;
 		if ((zp_loggedin(ADMIN_RIGHTS) && $_zp_current_admin_obj->getID())) {
-			if (isset($tabs['admin']['subtabs'])) {
-				$subtabs = $tabs['admin']['subtabs'];
-			} else {
-				$subtabs = array(
-						gettext('users') => 'admin-tabs/users.php?page=admin&tab=users'
-				);
-			}
+			$subtabs = $tabs['admin']['subtabs'];
 			$subtabs[gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/admin_tab.php?page=admin&tab=access';
 			$tabs['admin']['text'] = gettext("admin");
 			$tabs['admin']['link'] = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users';

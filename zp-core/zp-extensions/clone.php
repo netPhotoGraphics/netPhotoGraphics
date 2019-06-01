@@ -46,16 +46,8 @@ if ($plugin_disable) {
 		static function tabs($tabs) {
 			global $_zp_current_admin_obj;
 			if ((zp_loggedin(ADMIN_RIGHTS) && $_zp_current_admin_obj->getID())) {
-				if (isset($tabs['admin']['subtabs'])) {
-					$subtabs = $tabs['admin']['subtabs'];
-				} else {
-					$subtabs = array(
-							gettext('users') => 'admin-tabs/users.php?page=admin&tab=users'
-					);
-				}
-				$subtabs[gettext("clone")] = PLUGIN_FOLDER . '/cloneZenphoto/cloneTab.php?page=admin&tab=clone';
-				$tabs['admin']['text'] = gettext("admin");
-				$tabs['admin']['link'] = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users';
+				$subtabs = $tabs['admin']['subtabs'];
+				$subtabs[gettext("clone")] = PLUGIN_FOLDER . '/clone/cloneTab.php?page=admin&tab=clone';
 				$tabs['admin']['subtabs'] = $subtabs;
 			}
 			return $tabs;
