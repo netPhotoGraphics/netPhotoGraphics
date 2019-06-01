@@ -1641,6 +1641,7 @@ zp-core/zp-extensions/seo_cleanup.php
 zp-core/zp-extensions/seo_null.php
 zp-core/zp-extensions/seo_zenphoto.php
 zp-core/zp-extensions/show_not_logged-in.php
+zp-core/zp-extensions/simple_sendmail.php
 zp-core/zp-extensions/simpleSpam.php
 zp-core/zp-extensions/site_upgrade.php
 zp-core/zp-extensions/sitemap-extended.php
@@ -1671,7 +1672,6 @@ zp-core/zp-extensions/viewer_size_image.php
 zp-core/zp-extensions/wordpress_import.php
 zp-core/zp-extensions/xmpMetadata.php
 zp-core/zp-extensions/zenpage.php
-zp-core/zp-extensions/zenphoto_sendmail.php
 zp-core/zp-extensions/zoomImage.php
 zp-core/zp-extensions/zpCaptcha.php
 zp-core/zp-extensions/accessThreshold
