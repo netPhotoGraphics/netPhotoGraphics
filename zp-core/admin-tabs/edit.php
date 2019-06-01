@@ -281,15 +281,15 @@ if (isset($_GET['action'])) {
 			}
 			$albumname = sanitize_path($_REQUEST['album']);
 			if (isset($_POST['subpage'])) {
-				$pg = '&subpage = ' . sanitize($_POST['subpage']);
+				$pg = '&subpage=' . sanitize($_POST['subpage']);
 			} else {
 				$pg = false;
 			}
 			$filter = sanitize($_REQUEST['filter']);
 			if ($filter)
-				$filter = '&filter = ' . $filter;
+				$filter = '&filter=' . $filter;
 
-			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page = edit&album = ' . $albumname . $pg . '&tagsort = ' . $tagsort . '&tab = imageinfo' . $filter);
+			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . $albumname . $pg . '&tagsort=' . $tagsort . '&tab=imageinfo' . $filter);
 			exit();
 			break;
 
@@ -331,7 +331,7 @@ if (isset($_GET['action'])) {
 				$album->save();
 			}
 			$albumname = sanitize_path($_REQUEST['album']);
-			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page = edit&album = ' . $albumname . '&tab = subalbuminfo');
+			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . $albumname . '&tab=subalbuminfo');
 			exit();
 			break;
 
@@ -348,24 +348,24 @@ if (isset($_GET['action'])) {
 				$returnalbum = NULL;
 				if (isset($_POST['savealbuminfo']) && $album->exists) {
 					$notify = processAlbumEdit(0, $album, $returnalbum);
-					$returntab = '&tagsort = ' . $tagsort . '&tab = albuminfo';
+					$returntab = '&tagsort=' . $tagsort . '&tab=albuminfo';
 				}
 
 				$qs_albumsuffix = '';
 
 				// Redirect to the same album we saved.
 				if (isset($folder) && !empty($folder)) {
-					$qs_albumsuffix .= '&album = ' . pathurlencode($folder);
+					$qs_albumsuffix .= '&album=' . pathurlencode($folder);
 				}
 				if (isset($_POST['subpage'])) {
-					$pg = '&subpage = ' . ($subpage = sanitize($_POST['subpage']));
+					$pg = '&subpage=' . ($subpage = sanitize($_POST['subpage']));
 				} else {
 					$subpage = $pg = false;
 				}
 				if (isset($_POST['totalimages']) && $album->exists) {
 					require_once(CORE_SERVERPATH . 'admin-tabs/image_save.php');
 					if (isset($single)) {
-						$qs_albumsuffix = '&album = ' . $album->name . '&singleimage = ' . $single;
+						$qs_albumsuffix = '&album=' . $album->name . '&singleimage=' . $single;
 					}
 				}
 				if (!is_null($returnalbum)) {
@@ -388,15 +388,15 @@ if (isset($_GET['action'])) {
 						$notify = $rslt;
 					}
 				}
-				$qs_albumsuffix = '&tab = massedit';
+				$qs_albumsuffix = '&tab=massedit';
 				if (isset($_GET['album'])) {
-					$qs_albumsuffix = '&album = ' . sanitize($_GET['album']) . $qs_albumsuffix;
+					$qs_albumsuffix = '&album=' . sanitize($_GET['album']) . $qs_albumsuffix;
 				}
 			}
 
 			$msg = zp_apply_filter('edit_error', '');
 			if ($msg) {
-				$notify .= '&edit_error = ' . $msg;
+				$notify .= '&edit_error=' . $msg;
 			}
 			if ($notify == '&') {
 				$notify = '';
@@ -465,10 +465,10 @@ if (isset($_GET['action'])) {
 					if (empty($albumdir)) {
 						$tab = '';
 					} else {
-						$tab = '&tab = subalbuminfo';
+						$tab = '&tab=subalbuminfo';
 					}
 				} else {
-					$tab = '&tab = albuminfo';
+					$tab = '&tab=albuminfo';
 				}
 				header("Location: " . getAdminLink('admin-tabs/edit.php') . '?page=edit$albumdir&exists=' . urlencode($name) . $tab);
 				exit();
@@ -506,12 +506,12 @@ if (isset($_GET['album'])) {
 	if ($folder == '/' || $folder == '.') {
 		$parent = '';
 	} else {
-		$parent = ' & amp;album = ' . $folder . ' & amp;tab = subalbuminfo';
+		$parent = '&amp;album=' . $folder . '&amp;tab=subalbuminfo';
 	}
 	$album = newAlbum($folder);
 	$subtab = setAlbumSubtabs($album);
 } else {
-	$zenphoto_tabs['edit']['subtabs'][gettext('Mass-edit albums')] = "/" . CORE_FOLDER . '/admin-tabs/edit.php?tab = massedit';
+	$zenphoto_tabs['edit']['subtabs'][gettext('Mass-edit albums')] = "/" . CORE_FOLDER . '/admin-tabs/edit.php?tab=massedit';
 }
 if (empty($subtab)) {
 	if (isset($_GET['album'])) {
@@ -670,9 +670,14 @@ echo "\n</head>";
 			 */
 			if (isset($_GET['album']) && !$is_massedit) {
 				/** SINGLE ALBUM ******************************************************************* */
-				// one time generation of this list.
-				$mcr_albumlist = array();
-				genAlbumList($mcr_albumlist);
+				if (isset($_SESSION['mcr_albumlist'])) {
+					$mcr_albumlist = $_SESSION['mcr_albumlist'];
+				} else {
+					// one time generation of this list.
+					$mcr_albumlist = array();
+					genAlbumList($mcr_albumlist);
+					$_SESSION['mcr_albumlist'] = $mcr_albumlist;
+				}
 
 				$oldalbumimagesort = $_zp_gallery->getSortType('image');
 				$direction = $_zp_gallery->getSortDirection('image');
