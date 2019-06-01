@@ -85,9 +85,9 @@ if (isset($_GET['action'])) {
 			$album->save();
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album = ' . $return;
+				$return = '&album=' . $return;
 				if (strpos($r, '*') === 0) {
-					$return .= '&tab = subalbuminfo';
+					$return .= '&tab=subalbuminfo';
 				}
 			}
 			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit' . $return);
@@ -102,9 +102,9 @@ if (isset($_GET['action'])) {
 			$imgwhere = ' WHERE `albumid` = ' . $id;
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album = ' . $return;
+				$return = '&album=' . $return;
 				if (strpos($r, '*') === 0) {
-					$return .= '&tab = subalbuminfo';
+					$return .= '&tab=subalbuminfo';
 				}
 			}
 			query("UPDATE " . prefix('images') . " SET `hitcounter`= 0" . $imgwhere);
@@ -125,7 +125,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$nd = 2;
 			}
-			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit&album = ' . pathurlencode($albumname) . '&ndeleted = ' . $nd);
+			header('Location: ' . getAdminLink('admin-tabs/images.php') . '?page = edit&album=' . pathurlencode($albumname) . '&ndeleted = ' . $nd);
 			exit();
 			break;
 
@@ -143,9 +143,9 @@ if (isset($_GET['action'])) {
 				$return = pathurlencode(sanitize_path(urldecode($_POST['album'])));
 			}
 
-			$return = '?page = edit&tab = imageinfo&album = ' . $return . '&metadata_refresh';
+			$return = '?page = edit&tab=imageinfo&album=' . $return . '&metadata_refresh';
 			if (isset($_REQUEST['singleimage'])) {
-				$return .= '&singleimage = ' . sanitize($_REQUEST['singleimage']);
+				$return .= '&singleimage=' . sanitize($_REQUEST['singleimage']);
 			}
 			header('Location: ' . getAdminLink('admin-tabs/images.php') . $return);
 			exit();
@@ -164,20 +164,20 @@ if (isset($_GET['action'])) {
 				$returnalbum = NULL;
 				if (isset($_POST['savealbuminfo']) && $album->exists) {
 					$notify = processAlbumEdit(0, $album, $returnalbum);
-					$returntab = '&tagsort = ' . $tagsort . '&tab = albuminfo';
+					$returntab = '&tagsort=' . $tagsort . '&tab=albuminfo';
 				}
 
 				if (isset($single)) {
-					$qs_albumsuffix = '&singleimage = ' . $single;
+					$qs_albumsuffix = '&singleimage=' . $single;
 				} else {
 					$qs_albumsuffix = '';
 				}
 // Redirect to the same album we saved.
 				if (isset($folder) && !empty($folder)) {
-					$qs_albumsuffix .= '&album = ' . pathurlencode($folder);
+					$qs_albumsuffix .= '&album=' . pathurlencode($folder);
 				}
 				if (isset($_POST['subpage'])) {
-					$pg = '&subpage = ' . ($subpage = sanitize($_POST['subpage']));
+					$pg = '&subpage=' . ($subpage = sanitize($_POST['subpage']));
 				} else {
 					$subpage = $pg = false;
 				}
@@ -191,7 +191,7 @@ if (isset($_GET['action'])) {
 
 			$msg = zp_apply_filter('edit_error', '');
 			if ($msg) {
-				$notify .= '&edit_error = ' . $msg;
+				$notify .= '&edit_error=' . $msg;
 			}
 			if ($notify == '&') {
 				$notify = '';
