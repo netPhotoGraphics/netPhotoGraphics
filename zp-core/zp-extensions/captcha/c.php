@@ -2,7 +2,7 @@
 
 /**
  * creates the CAPTCHA images
- * @package core/zpCaptcha
+ * @package core/captcha
  */
 // force UTF-8 Ø
 define('OFFSET_PATH', 3);
@@ -69,7 +69,7 @@ for ($i = 0; $i < $len; $i++) {
 
 $w = $w + 5;
 $image = zp_createImage($w, $h);
-$background = zp_imageGet(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zpCaptcha/captcha_background.png');
+$background = zp_imageGet(CORE_SERVERPATH . PLUGIN_FOLDER . '/captcha/captcha_background.png');
 zp_copyCanvas($image, $background, 0, 0, rand(0, 9), rand(0, 9), $w, $h);
 
 $l = $kern[0] - $kernOffset;

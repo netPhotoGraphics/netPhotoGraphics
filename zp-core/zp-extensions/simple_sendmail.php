@@ -5,18 +5,25 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @package plugins/zenphoto_sendmail
+ * @package plugins/simple_sendmail
  * @pluginCategory mail
  */
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext("Outgoing mail handler based on the PHP <em>mail</em> facility.");
-	$plugin_disable = (zp_has_filter('sendmail') && !extensionEnabled('zenphoto_sendmail')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(get_filterScript('sendmail'))) : '';
+	$plugin_disable = (zp_has_filter('sendmail') && !extensionEnabled('simple_sendmail')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(get_filterScript('sendmail'))) : '';
 }
 
-zp_register_filter('sendmail', 'zenphoto_sendmail');
+if (OFFSET_PATH == 2) {
+	if ($priority = extensionEnabled('zenphoto_sendmail')) {
+		enableExtension('simple_sendmail', $priority);
+		enableExtension('zenphoto_sendmail', 0);
+	}
+}
 
-function zenphoto_sendmail($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo, $html = false) {
+zp_register_filter('sendmail', 'simple_sendmail');
+
+function simple_sendmail($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo, $html = false) {
 	$headers = sprintf('From: %1$s <%2$s>', $from_name, $from_mail) . "\n";
 	if (count($cc_addresses) > 0) {
 		$cclist = '';
@@ -37,7 +44,7 @@ function zenphoto_sendmail($msg, $email_list, $subject, $message, $from_mail, $f
 	if (!$result) {
 		if (!empty($msg))
 			$msg .= '<br />';
-		$msg .= sprintf(gettext('<code>zenphoto_sendmail</code> failed to send <em>%s</em> to one or more recipients.'), $subject);
+		$msg .= sprintf(gettext('<code>simple_sendmail</code> failed to send <em>%s</em> to one or more recipients.'), $subject);
 	}
 	return $msg;
 }

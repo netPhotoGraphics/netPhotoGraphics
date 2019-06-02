@@ -31,14 +31,19 @@ $plugin_description = gettext('Allows multiple installations to share a single s
 $plugin_disable = (SYMLINK) ? (zpFunctions::hasPrimaryScripts()) ? false : gettext('Only the primary installation may clone offspring installations.') : gettext('Your server does not support symbolic linking.');
 
 if (OFFSET_PATH == 2) {
-	$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="clone" WHERE `type`="clone"';
+	if ($priority = extensionEnabled('cloneZenphoto')) {
+		enableExtension('clone', $priority);
+		enableExtension('cloneZenphoto', 0);
+	}
+	$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="clone" WHERE `type`="cloneZenphoto"';
 	query($sql);
 }
 
-require_once(CORE_SERVERPATH . 'reconfigure.php');
+
 if ($plugin_disable) {
 	enableExtension('clone', 0);
 } else {
+	require_once(CORE_SERVERPATH . 'reconfigure.php');
 	zp_register_filter('admin_tabs', 'npgClone::tabs', -312);
 
 	class npgClone {
