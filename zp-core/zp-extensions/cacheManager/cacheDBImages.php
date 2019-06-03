@@ -9,7 +9,7 @@
 define('OFFSET_PATH', 3);
 require_once("../../admin-globals.php");
 require_once(CORE_SERVERPATH . 'template-functions.php');
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cacheManager/functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager/functions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
@@ -87,7 +87,6 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 						$params = mb_parse_url(html_decode($uri));
 						if (array_key_exists('query', $params)) {
 							parse_str($params['query'], $query);
-
 							if (!file_exists(getAlbumFolder() . $query['a'] . '/' . $query['i'])) {
 								recordMissing($table, $row, $query['a'] . '/' . $query['i']);
 							} else {
@@ -128,6 +127,22 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 							$match = urldecode($match);
 							$found++;
 							list($image_uri, $args) = getImageProcessorURIFromCacheName($match, $watermarks);
+							if (preg_match('~(.*)/' . CORE_FOLDER . '_images_(.*)\.(.*)$~i', $image_uri, $matches)) {
+								$cachefile = SERVERPATH . '/' . CACHEFOLDER . getImageCacheFilename($matches[1], CORE_FOLDER . '_images_' . $matches[2] . '.' . $matches[3], $args);
+								if (!file_exists($cachefile)) {
+									$uri = getImageProcessorURI($args, $matches[1], CORE_FOLDER . '_images_' . $matches[2] . '.' . $matches[3]) . '&z=' . CORE_FOLDER . '/images/' . $matches[2] . '.png';
+									$fixed++;
+									$title = getTitle($table, $row);
+									?>
+									<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
+										<?php
+										echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+										?>
+									</a>
+									<?php
+								}
+								continue;
+							}
 							$try = $_zp_supported_images;
 							$base = stripSuffix($image = $image_uri);
 							$prime = getSuffix($image);
@@ -147,11 +162,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										?>
 										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
 											<?php
-											if (isset($args[10])) {
-												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
-											} else {
-												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
-											}
+											echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 											?>
 										</a>
 										<?php
