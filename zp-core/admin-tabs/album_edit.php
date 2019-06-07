@@ -14,7 +14,7 @@ if (count($subalbums) > 0) {
 		echo gettext('Drag the albums into the order you wish them displayed.');
 
 		printEditDropdown('subalbuminfo', array('1', '2', '3', '4', '5'), $subalbum_nesting);
-		$sort = $_zp_sortby;
+		$sort = $_sortby;
 		foreach ($sort as $name => $action) {
 			$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
 		}

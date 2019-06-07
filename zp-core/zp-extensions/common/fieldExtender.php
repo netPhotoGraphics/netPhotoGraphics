@@ -445,7 +445,7 @@ value="' . $item . '" />';
 	 * registers filters for handling display and edit of objects as appropriate
 	 */
 	static function _register($me, $fields) {
-		zp_register_filter('searchable_fields', "$me::addToSearch");
+		npgFilters::register('searchable_fields', "$me::addToSearch");
 		$actions = $items = array();
 		foreach ($fields as $field) {
 			$items[$field['table']] = true;
@@ -456,45 +456,45 @@ value="' . $item . '" />';
 		$registerCMSSave = false;
 
 		if (isset($items['albums'])) {
-			zp_register_filter("save_album_data", "$me::mediaItemSave");
-			zp_register_filter("edit_album_custom", "$me::mediaItemEdit");
+			npgFilters::register("save_album_data", "$me::mediaItemSave");
+			npgFilters::register("edit_album_custom", "$me::mediaItemEdit");
 			if (isset($actions['albums'])) {
-				zp_register_filter('bulk_album_actions', "$me::bulkAlbum");
-				zp_register_filter('processBulkAlbumsSave', "$me::bulkAlbumSave");
+				npgFilters::register('bulk_album_actions', "$me::bulkAlbum");
+				npgFilters::register('processBulkAlbumsSave', "$me::bulkAlbumSave");
 			}
 		}
 		if (isset($items['images'])) {
-			zp_register_filter("save_image_data", "$me::mediaItemSave");
-			zp_register_filter("edit_image_custom", "$me::mediaItemEdit");
+			npgFilters::register("save_image_data", "$me::mediaItemSave");
+			npgFilters::register("edit_image_custom", "$me::mediaItemEdit");
 			if (isset($actions['images'])) {
-				zp_register_filter('bulk_image_actions', "$me::bulkImage");
-				zp_register_filter('processBulkImageSave', "$me::bulkImageSave");
+				npgFilters::register('bulk_image_actions', "$me::bulkImage");
+				npgFilters::register('processBulkImageSave', "$me::bulkImageSave");
 			}
 		}
 		if (isset($items['administrators'])) {
-			zp_register_filter("save_admin_data", "$me::adminSave");
-			zp_register_filter("edit_admin_custom", "$me::adminEdit");
+			npgFilters::register("save_admin_data", "$me::adminSave");
+			npgFilters::register("edit_admin_custom", "$me::adminEdit");
 			//there are no admin bulk actions currently
 		}
 		if (isset($items['news'])) {
-			zp_register_filter("save_article_data", "$me::cmsItemSave");
-			zp_register_filter("edit_article_custom", "$me::cmsItemEdit");
+			npgFilters::register("save_article_data", "$me::cmsItemSave");
+			npgFilters::register("edit_article_custom", "$me::cmsItemEdit");
 			if (isset($actions['news'])) {
-				zp_register_filter('bulk_article_actions', "$me::bulkArticle");
+				npgFilters::register('bulk_article_actions', "$me::bulkArticle");
 				$registerCMSSave = true;
 			}
 		}
 
 		if (isset($items['pages'])) {
-			zp_register_filter("save_page_data", "$me::cmsItemSave");
-			zp_register_filter("edit_page_custom", "$me::cmsItemEdit");
+			npgFilters::register("save_page_data", "$me::cmsItemSave");
+			npgFilters::register("edit_page_custom", "$me::cmsItemEdit");
 			if (isset($actions['pages'])) {
-				zp_register_filter('bulk_page_actions', "$me::bulkPage");
+				npgFilters::register('bulk_page_actions', "$me::bulkPage");
 				$registerCMSSave = true;
 			}
 		}
 		if ($registerCMSSave) {
-			zp_register_filter('processBulkCMSSave', "$me::bulkCMSSave");
+			npgFilters::register('processBulkCMSSave', "$me::bulkCMSSave");
 		}
 
 		if (OFFSET_PATH && !getOption($me . "_addedFields")) {
@@ -525,23 +525,23 @@ value="' . $item . '" />';
 	}
 
 	static function getField($field, $object = NULL, &$detail = NULL, $fields) {
-		global $_zp_current_admin_obj, $_zp_current_album, $_zp_current_image
-		, $_zp_current_article, $_zp_current_page, $_zp_current_category;
+		global $_current_admin_obj, $_current_album, $_current_image
+		, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category;
 		$objects = $tables = array();
 		if (is_null($object)) {
 			if (in_context(ZP_IMAGE)) {
-				$object = $_zp_current_image;
-				$objects[$tables[] = 'albums'] = $_zp_current_album;
+				$object = $_current_image;
+				$objects[$tables[] = 'albums'] = $_current_album;
 			} else if (in_context(ZP_ALBUM)) {
-				$object = $_zp_current_album;
+				$object = $_current_album;
 			} else if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
-				$object = $_zp_current_article;
-				if ($_zp_current_category)
-					$objects[$tables[] = 'news_categories'] = $_zp_current_category;
+				$object = $_CMS_current_article;
+				if ($_CMS_current_category)
+					$objects[$tables[] = 'news_categories'] = $_CMS_current_category;
 			} else if (in_context(ZP_ZENPAGE_PAGE)) {
-				$object = $_zp_current_page;
+				$object = $_CMS_current_page;
 			} else if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
-				$object = $_zp_current_category;
+				$object = $_CMS_current_category;
 			} else {
 				trigger_error(gettext('There is no defined context, you must pass a comment object.'), E_USER_ERROR);
 			}

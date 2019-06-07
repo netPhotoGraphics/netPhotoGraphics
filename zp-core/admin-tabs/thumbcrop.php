@@ -25,7 +25,7 @@ if (isset($_REQUEST['singleimage'])) {
 	$singleimage = '';
 }
 if (!$albumobj->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
-	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
+	if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
 		header('Location: ' . getAdminLink('admin.php') . '?from=' . $return . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : '');
 		exit();
 	}

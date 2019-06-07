@@ -20,8 +20,8 @@ if (isset($_REQUEST['performcrop'])) {
 	require_once(dirname(dirname(__FILE__)) . '/functions-image.php');
 	admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 } else {
-	zp_register_filter('admin_toolbox_image', 'crop_image::toolbox');
-	zp_register_filter('edit_image_utilities', 'crop_image::edit', 99999); // we want this one to come right after the crop thumbnail button
+	npgFilters::register('admin_toolbox_image', 'crop_image::toolbox');
+	npgFilters::register('edit_image_utilities', 'crop_image::edit', 99999); // we want this one to come right after the crop thumbnail button
 	$plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 	$plugin_description = gettext("An image cropping tool.");
 
@@ -71,7 +71,7 @@ $albumname = sanitize_path(@$_REQUEST['a']);
 $imagename = sanitize(@$_REQUEST['i']);
 $album = newAlbum($albumname, true, true);
 if (!$album->exists || !$album->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
-	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
+	if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
 		header('Location: ' . getAdminLink('admin.php') . '?from=' . $return);
 		exit();
 	}
@@ -377,7 +377,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 			<div id="main">
 				<?php printTabs(); ?>
 				<div id="content">
-					<?php zp_apply_filter('admin_note', 'crop_image', ''); ?>
+					<?php npgFilters::apply('admin_note', 'crop_image', ''); ?>
 					<h1><?php echo gettext("Image cropping") . ": <em>" . $albumobj->name . " (" . $albumobj->getTitle() . ") /" . $imageobj->filename . " (" . $imageobj->getTitle() . ")</em>"; ?></h1>
 					<div id="notice_div">
 						<p><?php echo gettext('You can crop your image by dragging the crop handles on the image'); ?></p>

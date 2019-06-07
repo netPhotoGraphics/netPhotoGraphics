@@ -83,7 +83,7 @@ function zpExceptionHandler($ex) {
  * @return void|boolean
  */
 function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
-	global $_zp_current_admin_obj, $_index_theme;
+	global $_current_admin_obj, $_index_theme;
 	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
 		return false;
@@ -154,9 +154,9 @@ function zpShutDownFunction() {
  * @return string
  */
 function filesystemToInternal($filename) {
-	global $_zp_UTF8;
-	if ($_zp_UTF8 && FILESYSTEM_CHARSET != LOCAL_CHARSET) {
-		$filename = str_replace('\\', '/', $_zp_UTF8->convert($filename, FILESYSTEM_CHARSET, LOCAL_CHARSET));
+	global $_UTF8;
+	if ($_UTF8 && FILESYSTEM_CHARSET != LOCAL_CHARSET) {
+		$filename = str_replace('\\', '/', $_UTF8->convert($filename, FILESYSTEM_CHARSET, LOCAL_CHARSET));
 	}
 	return $filename;
 }
@@ -168,9 +168,9 @@ function filesystemToInternal($filename) {
  * @return string
  */
 function internalToFilesystem($filename) {
-	global $_zp_UTF8;
+	global $_UTF8;
 	if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
-		$filename = $_zp_UTF8->convert($filename, LOCAL_CHARSET, FILESYSTEM_CHARSET);
+		$filename = $_UTF8->convert($filename, LOCAL_CHARSET, FILESYSTEM_CHARSET);
 	}
 	return $filename;
 }
@@ -382,7 +382,7 @@ function getSetClause($new_unique_set) {
  * @param type $errorstop
  */
 function query($sql, $errorstop = true) {
-	$result = function_exists('zp_apply_filter') ? zp_apply_filter('database_query', NULL, $sql) : NULL;
+	$result = function_exists('npgFilters::apply') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
 	if (is_null($result)) {
 		return db_query($sql, $errorstop);
 	}
@@ -490,11 +490,11 @@ function debugLog($message, $reset = false, $log = 'debug') {
 	}
 
 	if (defined('SERVERPATH')) {
-		global $_zp_mutex;
+		global $_mutex;
 		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
 		$me = getmypid();
-		if (is_object($_zp_mutex))
-			$_zp_mutex->lock();
+		if (is_object($_mutex))
+			$_mutex->lock();
 		if ($reset || ($size = @filesize($path)) == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
 			if (!$reset && $size > 0) {
 				$perms = fileperms($path);
@@ -507,7 +507,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 				} else {
 					$clone = ' ' . gettext('clone');
 				}
-				$preamble = '<span class="lognotice">{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} netPhotoGraphics v" . ZENPHOTO_VERSION . $clone . '</span>';
+				$preamble = '<span class="lognotice">{' . $me . ':' . gmdate('D, d M Y H:i:s') . " GMT} netPhotoGraphics v" . NETPHOTOGRAPHICS_VERSION . $clone . '</span>';
 				if ($_logCript) {
 					$preamble = $_logCript->encrypt($preamble);
 				}
@@ -534,8 +534,8 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			fclose($f);
 			clearstatcache();
 		}
-		if (is_object($_zp_mutex))
-			$_zp_mutex->unlock();
+		if (is_object($_mutex))
+			$_mutex->unlock();
 	}
 }
 
@@ -549,7 +549,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
   alternative log file
  */
 function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
-	global $_zp_current_admin_obj, $_index_theme;
+	global $_current_admin_obj, $_index_theme;
 	$output = trim($message) . NEWLINE;
 	if (array_key_exists('REQUEST_URI', $_SERVER)) {
 		$uri = sanitize($_SERVER['REQUEST_URI']);
@@ -565,8 +565,8 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri = "\n URI:" . urldecode(str_replace('\\', '/', $uri));
 	}
 	$uri .= "\n IP `" . getUserIP() . '`';
-	if (is_object($_zp_current_admin_obj)) {
-		$uri .= "\n " . gettext('user') . ':' . $_zp_current_admin_obj->getUser();
+	if (is_object($_current_admin_obj)) {
+		$uri .= "\n " . gettext('user') . ':' . $_current_admin_obj->getUser();
 	}
 	if ($_index_theme) {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
@@ -631,8 +631,8 @@ function debugLogVar($var) {
  * @return bool
  */
 function secureServer() {
-	global $_zp_conf_vars;
-	return isset($_zp_conf_vars['server_protocol']) && $_zp_conf_vars['server_protocol'] == 'https' || isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false;
+	global $_conf_vars;
+	return isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https' || isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false;
 }
 
 /**
@@ -644,13 +644,13 @@ function zp_session_start() {
 	if ($result) {
 		return $result;
 	} else {
-		$v = explode('-', ZENPHOTO_VERSION);
+		$v = explode('-', NETPHOTOGRAPHICS_VERSION);
 		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
 		session_name('Session_' . str_replace('.', '_', $p . '_' . $v[0]));
 		@ini_set('session.use_strict_mode', 1);
 		//	insure that the session data has a place to be saved
 		if (getOption('session_save_path')) {
-			session_save_path($_zp_conf_vars['session_save_path']);
+			session_save_path($_conf_vars['session_save_path']);
 		}
 		$_session_path = session_save_path();
 
@@ -662,7 +662,7 @@ function zp_session_start() {
 		session_set_cookie_params($sessionCookie['lifetime'], WEBPATH . '/', $_SERVER['HTTP_HOST'], secureServer(), true);
 
 		$result = session_start();
-		$_SESSION['version'] = ZENPHOTO_VERSION;
+		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
 		return $result;
 	}
 }
@@ -684,7 +684,7 @@ function zp_session_destroy() {
  *
  * @param string $name the name of the cookie
  */
-function zp_getCookie($name) {
+function getNPGCookie($name) {
 	if (isset($_COOKIE[$name])) {
 		$cookiev = $_COOKIE[$name];
 	} else {
@@ -696,7 +696,7 @@ function zp_getCookie($name) {
 		} else {
 			$sessionv = '';
 		}
-		debugLog("zp_getCookie($name)::" . 'album_session=' . GALLERY_SESSION . "; SESSION[" . session_id() . "]=" . $sessionv . ", COOKIE=" . $cookiev);
+		debugLog("getNPGCookie($name)::" . 'album_session=' . GALLERY_SESSION . "; SESSION[" . session_id() . "]=" . $sessionv . ", COOKIE=" . $cookiev);
 	}
 	if ($cookiev || !defined('GALLERY_SESSION') || !GALLERY_SESSION) {
 		return zp_cookieEncode($cookiev);
@@ -729,7 +729,7 @@ function zp_cookieEncode($value) {
  * 									set to FALSE to expire at end of session
  * @param bool $security set to false to make the cookie send for any kind of connection
  */
-function zp_setCookie($name, $value, $time = NULL, $security = true) {
+function setNPGCookie($name, $value, $time = NULL, $security = true) {
 	$secure = $security && secureServer();
 	if (empty($value)) {
 		$cookiev = '';
@@ -747,7 +747,7 @@ function zp_setCookie($name, $value, $time = NULL, $security = true) {
 			$tString = (int) $time;
 		}
 	}
-	$path = getOption('zenphoto_cookie_path');
+	$path = getOption('cookie_path');
 	if (empty($path)) {
 		$path = WEBPATH;
 	}
@@ -755,7 +755,7 @@ function zp_setCookie($name, $value, $time = NULL, $security = true) {
 		$path .= '/';
 	}
 	if (DEBUG_LOGIN) {
-		debugLog("zp_setCookie($name, $value, $tString)::path=" . $path . "; secure=" . sprintf('%u', $secure) . "; album_session=" . GALLERY_SESSION . "; SESSION=" . session_id());
+		debugLog("setNPGCookie($name, $value, $tString)::path=" . $path . "; secure=" . sprintf('%u', $secure) . "; album_session=" . GALLERY_SESSION . "; SESSION=" . session_id());
 	}
 	if (($time < 0) || !GALLERY_SESSION) {
 		setcookie($name, $cookiev, (int) $t, $path, "", $secure, true);
@@ -780,8 +780,8 @@ function zp_setCookie($name, $value, $time = NULL, $security = true) {
  * Clears a cookie
  * @param string $name
  */
-function zp_clearCookie($name) {
-	zp_setCookie($name, 'null', -368000, false);
+function clearNPGCookie($name) {
+	setNPGCookie($name, 'null', -368000, false);
 }
 
 /**
@@ -840,7 +840,7 @@ class zpMutex {
 	// returns the integer id of the lock to be obtained
 	// rotates locks sequentially mod $concurrent
 	private static function which_lock($lock, $concurrent, $folder) {
-		global $_zp_mutex;
+		global $_mutex;
 		$count = false;
 		$counter_file = $folder . '/' . $lock . '_counter';
 		if ($f = fopen($counter_file, 'a+')) {
@@ -900,12 +900,12 @@ class zpMutex {
 }
 
 function primeOptions() {
-	global $_zp_options;
+	global $_options;
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
 	$rslt = query($sql, false);
 	if ($rslt) {
 		while ($option = db_fetch_assoc($rslt)) {
-			$_zp_options[strtolower($option['name'])] = $option['value'];
+			$_options[strtolower($option['name'])] = $option['value'];
 		}
 	}
 }
@@ -916,9 +916,9 @@ function primeOptions() {
  * @param string $key the name of the option.
  */
 function getOption($key) {
-	global $_zp_options;
-	if (isset($_zp_options[$key = strtolower($key)])) {
-		return $_zp_options[$key];
+	global $_options;
+	if (isset($_options[$key = strtolower($key)])) {
+		return $_options[$key];
 	} else {
 		return NULL;
 	}
@@ -952,8 +952,8 @@ function getOptionsLike($pattern) {
  * otherwise it is preserved in the database
  */
 function setOption($key, $value, $persistent = true) {
-	global $_zp_options, $_zp_conf_options_associations, $_zp_conf_vars, $_configMutex;
-	$_zp_options[$keylc = strtolower($key)] = $value;
+	global $_options, $_conf_options_associations, $_conf_vars, $_configMutex;
+	$_options[$keylc = strtolower($key)] = $value;
 	if ($persistent) {
 		list($theme, $creator) = getOptionOwner();
 		if (is_null($value)) {
@@ -967,15 +967,15 @@ function setOption($key, $value, $persistent = true) {
 		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' . ' ON DUPLICATE KEY UPDATE `value`=' . $v;
 		$result = query($sql, false);
 		if ($result) {
-			if (array_key_exists($keylc, $_zp_conf_options_associations)) {
-				$configKey = $_zp_conf_options_associations[$keylc];
-				if ($_zp_conf_vars[$configKey] !== $value) {
+			if (array_key_exists($keylc, $_conf_options_associations)) {
+				$configKey = $_conf_options_associations[$keylc];
+				if ($_conf_vars[$configKey] !== $value) {
 					//	it is stored in the config file, update that too
 					require_once(CORE_SERVERPATH . 'functions-config.php');
 					$_configMutex->lock();
-					$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-					$zp_cfg = updateConfigItem($configKey, $value, $zp_cfg);
-					storeConfig($zp_cfg);
+					$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+					$_config_contents = updateConfigItem($configKey, $value, $_config_contents);
+					storeConfig($_config_contents);
 					$_configMutex->unlock();
 				}
 			}
@@ -1020,7 +1020,7 @@ function getOptionOwner() {
  * @param mixed $default the value to be used as the default
  */
 function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
-	global $_zp_options;
+	global $_options;
 	if (is_null($creator)) {
 		list($theme, $creator) = getOptionOwner();
 	}
@@ -1036,7 +1036,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	}
 	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ');';
 	if (query($sql, false)) {
-		$_zp_options[strtolower($key)] = $default;
+		$_options[strtolower($key)] = $default;
 	} else {
 		if (is_null(getOption($key))) {
 			$v = ', `value`=' . $value;
@@ -1055,25 +1055,25 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  * @param string $theme
  */
 function loadLocalOptions($albumid, $theme) {
-	global $_zp_options;
+	global $_options;
 	//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
 	if (!empty($optionlist)) {
 		foreach ($optionlist as $option) {
-			$_zp_options[$option['name']] = $option['value'];
+			$_options[$option['name']] = $option['value'];
 		}
 	}
 }
 
 /**
  *
- * @global array $_zp_options
+ * @global array $_options
  * @param string $key
  */
 function purgeOption($key) {
-	global $_zp_options;
-	unset($_zp_options[strtolower($key)]);
+	global $_options;
+	unset($_options[strtolower($key)]);
 	$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `name`=' . db_quote($key);
 	query($sql, false);
 }
@@ -1084,8 +1084,8 @@ function purgeOption($key) {
  * @return array
  */
 function getOptionList() {
-	global $_zp_options;
-	return $_zp_options;
+	global $_options;
+	return $_options;
 }
 
 /**
@@ -1112,8 +1112,8 @@ function replaceScriptPath($file, $replace = '') {
  * @return bool
  */
 function hasDynamicAlbumSuffix($path) {
-	global $_zp_albumHandlers;
-	return array_key_exists(getSuffix($path), $_zp_albumHandlers);
+	global $_albumHandlers;
+	return array_key_exists(getSuffix($path), $_albumHandlers);
 }
 
 /**
@@ -1127,11 +1127,11 @@ function hasDynamicAlbumSuffix($path) {
  * @param string $imagevar	$_GET index for "images"
  */
 function rewrite_get_album_image($albumvar, $imagevar) {
-	global $_zp_rewritten, $_zp_albumHandlers;
+	global $_rewritten, $_albumHandlers;
 	$ralbum = isset($_GET[$albumvar]) ? trim(sanitize($_GET[$albumvar]), '/') : NULL;
 	$rimage = isset($_GET[$imagevar]) ? sanitize($_GET[$imagevar]) : NULL;
 	//	we assume that everything is correct if rewrite rules were not applied
-	if ($_zp_rewritten) {
+	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
 			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
@@ -1171,7 +1171,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  * @return string
  */
 function getImageCacheFilename($album8, $image8, $args) {
-	global $_zp_supported_images, $_zp_cachefileSuffix;
+	global $_supported_images, $_cachefileSuffix;
 // this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
@@ -1183,7 +1183,7 @@ function getImageCacheFilename($album8, $image8, $args) {
 	if (IMAGE_CACHE_SUFFIX) {
 		$suffix = IMAGE_CACHE_SUFFIX;
 	} else {
-		$suffix = @$_zp_cachefileSuffix[strtoupper(getSuffix($image8))];
+		$suffix = @$_cachefileSuffix[strtoupper(getSuffix($image8))];
 		if (empty($suffix)) {
 			$suffix = 'jpg';
 		}
@@ -1449,7 +1449,7 @@ function getImageProcessorURI($args, $album, $image) {
 
 	$uri .= '&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
-	$uri = zp_apply_filter('image_processor_uri', $uri, $args, $album, $image);
+	$uri = npgFilters::apply('image_processor_uri', $uri, $args, $album, $image);
 
 	return $uri;
 }
@@ -1688,27 +1688,27 @@ function pathurlencode($path) {
  * @return sting
  */
 function getAlbumFolder($root = SERVERPATH) {
-	global $_zp_album_folder;
-	if (is_null($_zp_album_folder)) {
+	global $_album_folder;
+	if (is_null($_album_folder)) {
 		if (empty(getOption('external_album_folder'))) {
 			if (empty(getOption('album_folder'))) {
-				setOption('album_folder', $_zp_album_folder = '/' . ALBUMFOLDER . '/');
+				setOption('album_folder', $_album_folder = '/' . ALBUMFOLDER . '/');
 			} else {
-				$_zp_album_folder = str_replace('\\', '/', getOption('album_folder'));
+				$_album_folder = str_replace('\\', '/', getOption('album_folder'));
 			}
 		} else {
 			setOption('album_folder_class', 'external');
-			$_zp_album_folder = str_replace('\\', '/', getOption('external_album_folder'));
+			$_album_folder = str_replace('\\', '/', getOption('external_album_folder'));
 		}
-		if (substr($_zp_album_folder, -1) != '/')
-			$_zp_album_folder .= '/';
+		if (substr($_album_folder, -1) != '/')
+			$_album_folder .= '/';
 	}
 	$root = str_replace('\\', '/', $root);
 	switch (getOption('album_folder_class')) {
 		default:
 			setOption('album_folder_class', 'std');
 		case 'std':
-			return $root . $_zp_album_folder;
+			return $root . $_album_folder;
 		case 'in_webpath':
 			if (WEBPATH) { // strip off the WEBPATH
 				$pos = strrpos($root, WEBPATH);
@@ -1719,9 +1719,9 @@ function getAlbumFolder($root = SERVERPATH) {
 					$root = '';
 				}
 			}
-			return $root . $_zp_album_folder;
+			return $root . $_album_folder;
 		case 'external':
-			return $_zp_album_folder;
+			return $_album_folder;
 	}
 }
 
@@ -1749,14 +1749,14 @@ function switchLog($log) {
  * @param string $point location identifier
  */
 function instrument($point) {
-	global $_zp_timer;
+	global $_run_timer;
 	$now = microtime(true);
-	if (empty($_zp_timer)) {
+	if (empty($_run_timer)) {
 		$delta = '';
 	} else {
-		$delta = ' (' . ($now - $_zp_timer) . ')';
+		$delta = ' (' . ($now - $_run_timer) . ')';
 	}
-	$_zp_timer = microtime(true);
+	$_run_timer = microtime(true);
 	debugLogBacktrace($point . ' ' . $now . $delta);
 }
 
@@ -1930,7 +1930,7 @@ function safe_glob($pattern, $flags = 0) {
  */
 function checkInstall() {
 	if (OFFSET_PATH != 2) {
-		$i = getOption('zenphoto_install');
+		$i = getOption('netphotographics_install');
 		if ($i != serialize(installSignature())) {
 			_setup((int) ($i === NULL));
 		}
@@ -1946,13 +1946,13 @@ function checkInstall() {
  * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function requestSetup($whom, $addl = NULL) {
-	$sig = getSerializedArray(getOption('zenphoto_install'));
+	$sig = getSerializedArray(getOption('netphotographics_install'));
 	$sig['REQUESTS'][$whom] = $whom;
 	if (!is_null($addl)) {
 		$sig['REQUESTS'][$whom] .= ' (' . $addl . ')';
 	}
 
-	setOption('zenphoto_install', serialize($sig));
+	setOption('netphotographics_install', serialize($sig));
 }
 
 /**
@@ -1987,14 +1987,27 @@ function installSignature() {
 	);
 
 	$dbs = db_software();
-	$version = ZENPHOTO_VERSION;
+	$version = NETPHOTOGRAPHICS_VERSION;
 	$i = strpos($version, '-');
 	if ($i !== false) {
 		$version = substr($version, 0, $i);
 	}
 	return array_merge($testFiles, array(
-			'ZENPHOTO' => $version,
+			'NETPHOTOGRAPHICS' => $version,
 			'FOLDER' => dirname(dirname(__FILE__)),
 					)
 	);
+}
+
+/**
+ * centralize evaluating the config file
+ * @global type $_conf_vars
+ * @param type $from the config file name
+ */
+function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
+	@eval('?>' . file_get_contents(SERVERPATH . '/' . $from));
+	if (isset($conf)) {
+		return $conf;
+	}
+	return $_zp_conf_vars;
 }

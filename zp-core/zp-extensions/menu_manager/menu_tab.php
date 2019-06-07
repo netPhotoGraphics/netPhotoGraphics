@@ -175,7 +175,7 @@ printSortableHead();
 				// ]]> -->
 			</script>
 			<?php
-			zp_apply_filter('admin_note', 'menu', '');
+			npgFilters::apply('admin_note', 'menu', '');
 			?>
 
 			<h1><?php

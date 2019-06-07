@@ -23,24 +23,24 @@ $option_interface = 'tweet';
 if ($plugin_disable) {
 	enableExtension('tweet_news', 0);
 } else {
-	zp_register_filter('show_change', 'tweet::published');
+	npgFilters::register('show_change', 'tweet::published');
 	if (getOption('tweet_news_albums'))
-		zp_register_filter('new_album', 'tweet::published');
+		npgFilters::register('new_album', 'tweet::published');
 	if (getOption('tweet_news_images'))
-		zp_register_filter('new_image', 'tweet::published');
+		npgFilters::register('new_image', 'tweet::published');
 	if (getOption('tweet_news_news'))
-		zp_register_filter('new_article', 'tweet::newZenpageObject');
+		npgFilters::register('new_article', 'tweet::newZenpageObject');
 	if (getOption('tweet_news_pages'))
-		zp_register_filter('new_page', 'tweet::newZenpageObject');
-	zp_register_filter('admin_overview', 'tweet::errorsOnOverview');
-	zp_register_filter('admin_note', 'tweet::errorsOnAdmin');
-	zp_register_filter('edit_album_utilities', 'tweet::tweeter');
-	zp_register_filter('save_album_data', 'tweet::tweeterExecute');
-	zp_register_filter('edit_image_utilities', 'tweet::tweeter');
-	zp_register_filter('save_image_data', 'tweet::tweeterExecute');
-	zp_register_filter('general_zenpage_utilities', 'tweet::tweeter');
-	zp_register_filter('save_article_data', 'tweet::tweeterZenpageExecute');
-	zp_register_filter('save_page_data', 'tweet::tweeterZenpageExecute');
+		npgFilters::register('new_page', 'tweet::newZenpageObject');
+	npgFilters::register('admin_overview', 'tweet::errorsOnOverview');
+	npgFilters::register('admin_note', 'tweet::errorsOnAdmin');
+	npgFilters::register('edit_album_utilities', 'tweet::tweeter');
+	npgFilters::register('save_album_data', 'tweet::tweeterExecute');
+	npgFilters::register('edit_image_utilities', 'tweet::tweeter');
+	npgFilters::register('save_image_data', 'tweet::tweeterExecute');
+	npgFilters::register('general_utilities', 'tweet::tweeter');
+	npgFilters::register('save_article_data', 'tweet::tweeterZenpageExecute');
+	npgFilters::register('save_page_data', 'tweet::tweeterZenpageExecute');
 
 	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 }
@@ -74,7 +74,7 @@ class tweet {
 	 * supported options
 	 */
 	function getOptionsSupported() {
-		global $_zp_CMS;
+		global $_CMS;
 		$options = array(
 				gettext('Consumer Key') => array('key' => 'tweet_news_consumer', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 1,
@@ -110,9 +110,9 @@ class tweet {
 					'selections' => i18n::generateLanguageList(),
 					'desc' => gettext('Select the language for the Tweet message.'));
 		}
-		if (getOption('tweet_news_news') && is_object($_zp_CMS)) {
+		if (getOption('tweet_news_news') && is_object($_CMS)) {
 			$catlist = getSerializedArray(getOption('tweet_news_categories'));
-			$news_categories = $_zp_CMS->getAllCategories(false);
+			$news_categories = $_CMS->getAllCategories(false);
 			$catlist = array(gettext('*not categorized*') => 'tweet_news_categories_none');
 			foreach ($news_categories as $category) {
 				$option = 'tweet_news_categories_' . $category['titlelink'];

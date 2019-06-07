@@ -6,7 +6,7 @@
 require_once(dirname(__FILE__) . '/global-definitions.php');
 require_once(dirname(__FILE__) . '/lib-encryption.php');
 require_once(dirname(__FILE__) . '/lib-utf8.php');
-$_zp_UTF8 = new utf8();
+$_UTF8 = new utf8();
 
 switch (PHP_MAJOR_VERSION) {
 	case 5:
@@ -41,15 +41,15 @@ set_error_handler("zpErrorHandler");
 set_exception_handler("zpExceptionHandler");
 register_shutdown_function('zpShutDownFunction');
 $_configMutex = new zpMutex('cF');
-$_zp_mutex = new zpMutex();
+$_mutex = new zpMutex();
 
-$_zp_conf_options_associations = $_zp_options = array();
-$_zp_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
+$_conf_options_associations = $_options = array();
+$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
 // Including the config file more than once is OK, and avoids $conf missing.
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	define('DATA_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
-	@eval('?>' . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	$_conf_vars = getConfig();
 } else {
 	define('DATA_MOD', 0777);
 }
@@ -58,14 +58,12 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 } else {
 	define('LOG_MOD', DATA_MOD);
 }
-define('DATABASE_PREFIX', $_zp_conf_vars['mysql_prefix']);
-define('LOCAL_CHARSET', $_zp_conf_vars['charset']);
-if (!isset($_zp_conf_vars['special_pages'])) {
+define('DATABASE_PREFIX', $_conf_vars['mysql_prefix']);
+define('LOCAL_CHARSET', $_conf_vars['charset']);
+if (!isset($_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
-	$cfg = $_zp_conf_vars;
-	@eval('?>' . file_get_contents(CORE_SERVERPATH . 'zenphoto_cfg.txt'));
-	$cfg['special_pages'] = $_zp_conf_vars['special_pages'];
-	$_zp_conf_vars = $cfg;
+	$stdConfig = getConfig(CORE_FOLDER . '/netPhotoGraphics_cfg.txt');
+	$_conf_vars['special_pages'] = $stdConfig['special_pages'];
 }
 
 if (!defined('CHMOD_VALUE')) {
@@ -77,36 +75,36 @@ define('FILE_MOD', CHMOD_VALUE & 0666);
 if (OFFSET_PATH != 2) {
 	if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		_setup(11);
-	} else if (!file_exists(dirname(__FILE__) . '/functions-db-' . $_zp_conf_vars['db_software'] . '.php')) {
+	} else if (!file_exists(dirname(__FILE__) . '/functions-db-' . $_conf_vars['db_software'] . '.php')) {
 		_setup(12);
 	}
 }
 
 if (!defined('FILESYSTEM_CHARSET')) {
-	if (isset($_zp_conf_vars['FILESYSTEM_CHARSET']) && $_zp_conf_vars['FILESYSTEM_CHARSET'] != 'unknown') {
-		define('FILESYSTEM_CHARSET', $_zp_conf_vars['FILESYSTEM_CHARSET']);
+	if (isset($_conf_vars['FILESYSTEM_CHARSET']) && $_conf_vars['FILESYSTEM_CHARSET'] != 'unknown') {
+		define('FILESYSTEM_CHARSET', $_conf_vars['FILESYSTEM_CHARSET']);
 	} else {
 		define('FILESYSTEM_CHARSET', 'UTF-8');
 	}
 }
 
 // If the server protocol is not set, set it to the default.
-if (!isset($_zp_conf_vars['server_protocol'])) {
-	$_zp_conf_vars['server_protocol'] = 'http';
+if (!isset($_conf_vars['server_protocol'])) {
+	$_conf_vars['server_protocol'] = 'http';
 } else {
-	$_zp_conf_vars['server_protocol'] = strtolower($_zp_conf_vars['server_protocol']);
+	$_conf_vars['server_protocol'] = strtolower($_conf_vars['server_protocol']);
 }
 
-foreach ($_zp_conf_vars as $name => $value) {
+foreach ($_conf_vars as $name => $value) {
 	if (!is_array($value)) {
-		$_zp_conf_options_associations[strtolower($name)] = $name;
-		$_zp_options[strtolower($name)] = $value;
+		$_conf_options_associations[strtolower($name)] = $name;
+		$_options[strtolower($name)] = $value;
 	}
 }
 
-if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_zp_conf_vars['db_software']))) {
-	require_once(dirname(__FILE__) . '/functions-db-' . $_zp_conf_vars['db_software'] . '.php');
-	$__initialDBConnection = db_connect(array_intersect_key($_zp_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
+if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db_software']))) {
+	require_once(dirname(__FILE__) . '/functions-db-' . $_conf_vars['db_software'] . '.php');
+	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
 } else {
 	$__initialDBConnection = false;
 }
@@ -136,9 +134,9 @@ unset($data);
 // insure a correct timezone
 if (function_exists('date_default_timezone_set')) {
 	$level = error_reporting(0);
-	$_zp_server_timezone = date_default_timezone_get();
-	date_default_timezone_set($_zp_server_timezone);
-	@ini_set('date.timezone', $_zp_server_timezone);
+	$_server_timezone = date_default_timezone_get();
+	date_default_timezone_set($_server_timezone);
+	@ini_set('date.timezone', $_server_timezone);
 	error_reporting($level);
 }
 
@@ -154,7 +152,7 @@ if (function_exists('mb_internal_encoding')) {
 // load graphics libraries in priority order
 // once a library has concented to load, all others will
 // abdicate.
-$_zp_graphics_optionhandlers = array();
+$_graphics_optionhandlers = array();
 $try = array('lib-GD.php', 'lib-NoGraphics.php');
 if (getOption('use_imagick')) {
 	array_unshift($try, 'lib-Imagick.php');
@@ -163,16 +161,16 @@ while (!function_exists('zp_graphicsLibInfo')) {
 	require_once(dirname(__FILE__) . '/' . array_shift($try));
 }
 unset($try);
-$_zp_cachefileSuffix = zp_graphicsLibInfo();
+$_cachefileSuffix = zp_graphicsLibInfo();
 
 
-define('GRAPHICS_LIBRARY', $_zp_cachefileSuffix['Library']);
-unset($_zp_cachefileSuffix['Library']);
-unset($_zp_cachefileSuffix['Library_desc']);
-$_zp_supported_images = $_zp_images_classes = array();
-foreach ($_zp_cachefileSuffix as $key => $type) {
+define('GRAPHICS_LIBRARY', $_cachefileSuffix['Library']);
+unset($_cachefileSuffix['Library']);
+unset($_cachefileSuffix['Library_desc']);
+$_supported_images = $_images_classes = array();
+foreach ($_cachefileSuffix as $key => $type) {
 	if ($type) {
-		$_zp_images_classes[$_zp_supported_images[] = strtolower($key)] = 'Image';
+		$_images_classes[$_supported_images[] = strtolower($key)] = 'Image';
 	}
 }
 
@@ -192,7 +190,7 @@ if (!defined('COOKIE_PERSISTENCE')) {
 	define('COOKIE_PERSISTENCE', $persistence);
 	unset($persistence);
 }
-if ($c = getOption('zenphoto_cookie_path')) {
+if ($c = getOption('cookie_path')) {
 	define('COOKIE_PATH', $c);
 } else {
 	define('COOKIE_PATH', WEBPATH);

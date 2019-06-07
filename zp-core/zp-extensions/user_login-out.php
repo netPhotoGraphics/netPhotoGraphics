@@ -30,10 +30,10 @@ $plugin_is_filter = 900 | THEME_PLUGIN;
 $plugin_description = gettext("Provides a means for users to login/out from your theme pages.");
 
 $option_interface = 'user_logout_options';
-if (isset($_zp_gallery_page) && getOption('user_logout_login_form') > 1) {
+if (isset($_gallery_page) && getOption('user_logout_login_form') > 1) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js.php');
-	if (!zp_has_filter('theme_head', 'colorbox::css')) {
-		zp_register_filter('theme_head', 'colorbox::css');
+	if (!npgFilters::has_filter('theme_head', 'colorbox::css')) {
+		npgFilters::register('theme_head', 'colorbox::css');
 	}
 }
 
@@ -67,19 +67,19 @@ if (in_context(ZP_INDEX)) {
 		if ($_GET['userlog'] == 0) {
 			$__redirect = array();
 			if (in_context(ZP_ALBUM)) {
-				$__redirect['album'] = $_zp_current_album->name;
+				$__redirect['album'] = $_current_album->name;
 			}
 			if (in_context(ZP_IMAGE)) {
-				$__redirect['image'] = $_zp_current_image->filename;
+				$__redirect['image'] = $_current_image->filename;
 			}
 			if (in_context(ZP_ZENPAGE_PAGE)) {
-				$__redirect['title'] = $_zp_current_page->getTitlelink();
+				$__redirect['title'] = $_CMS_current_page->getTitlelink();
 			}
 			if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
-				$__redirect['title'] = $_zp_current_article->getTitlelink();
+				$__redirect['title'] = $_CMS_current_article->getTitlelink();
 			}
 			if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
-				$__redirect['category'] = $_zp_current_category->getTitlelink();
+				$__redirect['category'] = $_CMS_current_category->getTitlelink();
 			}
 			if (isset($_GET['p'])) {
 				$__redirect['p'] = sanitize($_GET['p']);
@@ -106,7 +106,7 @@ if (in_context(ZP_INDEX)) {
 					$params .= '&' . $param . '=' . $value;
 				}
 			}
-			$location = Zenphoto_Authority::handleLogout(FULLWEBPATH . '/index.php?fromlogout' . $params);
+			$location = npg_Authority::handleLogout(FULLWEBPATH . '/index.php?fromlogout' . $params);
 			header("Location: " . $location);
 			exit();
 		}
@@ -126,7 +126,7 @@ if (in_context(ZP_INDEX)) {
  * @param string $logouttext optional replacement text for "Logout"
  */
 function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $logouttext = NULL) {
-	global $_zp_gallery, $__redirect, $_zp_current_admin_obj, $_zp_login_error, $_zp_gallery_page;
+	global $_gallery, $__redirect, $_current_admin_obj, $_login_error, $_gallery_page;
 	$excludedPages = array('password.php', 'register.php', 'favorites.php', '404.php');
 	$logintext = gettext('Login');
 	if (is_null($logouttext))
@@ -140,14 +140,14 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 	if (is_null($showLoginForm)) {
 		$showLoginForm = getOption('user_logout_login_form');
 	}
-	if (is_object($_zp_current_admin_obj)) {
-		if (!$_zp_current_admin_obj->logout_link) {
+	if (is_object($_current_admin_obj)) {
+		if (!$_current_admin_obj->logout_link) {
 			return;
 		}
 	}
-	$cookies = Zenphoto_Authority::getAuthCookies();
-	if (empty($cookies) || !zp_loggedin()) {
-		if (!in_array($_zp_gallery_page, $excludedPages)) {
+	$cookies = npg_Authority::getAuthCookies();
+	if (empty($cookies) || !npg_loggedin()) {
+		if (!in_array($_gallery_page, $excludedPages)) {
 			switch ($showLoginForm) {
 				case 1:
 					?>
@@ -159,7 +159,7 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 				case 2:
 				case 3:
 					if (extensionEnabled('colorbox_js')) {
-						if (!zp_has_filter('theme_head', 'colorbox::css')) {
+						if (!npgFilters::has_filter('theme_head', 'colorbox::css')) {
 							colorbox::css();
 						}
 						?>
@@ -210,13 +210,13 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 						break;
 					}
 				default:
-					$theme = $_zp_gallery->getCurrentTheme();
+					$theme = $_gallery->getCurrentTheme();
 					if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/password.php')) {
 						$link = getCustomPageURL('password');
 					} else {
 						$link = getAdminLink('admin.php');
 					}
-					if ($loginlink = zp_apply_filter('login_link', $link)) {
+					if ($loginlink = npgFilters::apply('login_link', $link)) {
 						if ($before) {
 							echo '<span class="beforetext">' . html_encodeTagged($before) . '</span>';
 						}

@@ -61,30 +61,30 @@ class i18n {
 	 *
 	 */
 	static function generateLanguageList($all = false) {
-		global $_zp_active_languages, $_zp_all_languages;
+		global $_active_languages, $_all_languages;
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
-		if (is_null($_zp_all_languages)) {
+		if (is_null($_all_languages)) {
 			$dir = @opendir(CORE_SERVERPATH . 'locale/');
-			$_zp_active_languages = $_zp_all_languages = array();
+			$_active_languages = $_all_languages = array();
 			if ($dir !== false) {
 				while ($dirname = readdir($dir)) {
 					if (is_dir(CORE_SERVERPATH . 'locale/' . $dirname) && (substr($dirname, 0, 1) != '.')) {
 						$language = self::getDisplayName($dirname);
-						$_zp_all_languages[$language] = $dirname;
+						$_all_languages[$language] = $dirname;
 						if (!isset($disallow[$dirname])) {
-							$_zp_active_languages[$language] = $dirname;
+							$_active_languages[$language] = $dirname;
 						}
 					}
 				}
 				closedir($dir);
 			}
-			ksort($_zp_all_languages);
-			ksort($_zp_active_languages);
+			ksort($_all_languages);
+			ksort($_active_languages);
 		}
 		if ($all) {
-			return $_zp_all_languages;
+			return $_all_languages;
 		} else {
-			return $_zp_active_languages;
+			return $_active_languages;
 		}
 	}
 
@@ -95,7 +95,7 @@ class i18n {
 	 * @return string
 	 */
 	static function setLocale($locale) {
-		global $_zp_RTL_css;
+		global $_RTL_css;
 		$en2 = str_replace('ISO-', 'ISO', LOCAL_CHARSET);
 		$locale_hyphen = str_replace('_', '-', $locale);
 		$simple = explode('-', $locale_hyphen);
@@ -117,7 +117,7 @@ class i18n {
 			T_setlocale(LC_ALL, $locale);
 		}
 
-		$_zp_RTL_css = in_array(substr($rslt, 0, 2), array('fa', 'ar', 'he', 'hi', 'ur'));
+		$_RTL_css = in_array(substr($rslt, 0, 2), array('fa', 'ar', 'he', 'hi', 'ur'));
 		if (DEBUG_LOCALE) {
 			debugLog("setlocale(" . implode(',', $try) . ") returned: $rslt");
 		}
@@ -130,7 +130,7 @@ class i18n {
 	 * @param $type NULL (main translation), "theme" or "plugin"
 	 */
 	static function setupDomain($domain = NULL, $type = NULL) {
-		global $_zp_active_languages, $_zp_all_languages;
+		global $_active_languages, $_all_languages;
 		switch ($type) {
 			case "plugin":
 				$domainpath = getPlugin($domain . "/locale/");
@@ -150,7 +150,7 @@ class i18n {
 		}
 		textdomain($domain);
 		//invalidate because the locale was not setup until now
-		$_zp_active_languages = $_zp_all_languages = NULL;
+		$_active_languages = $_all_languages = NULL;
 	}
 
 	/**
@@ -183,7 +183,7 @@ class i18n {
 				if (isset($_REQUEST['oldlocale'])) {
 					$locale = sanitize($_REQUEST['oldlocale'], 3);
 					setOption('locale', $locale, false);
-					zp_clearCookie('dynamic_locale');
+					clearNPGCookie('dynamic_locale');
 				}
 			}
 		}
@@ -279,64 +279,64 @@ class i18n {
 	 *
 	 */
 	static function setMainDomain() {
-		global $_zp_current_admin_obj, $_zp_current_locale;
+		global $_current_admin_obj, $_current_locale;
 		if (DEBUG_LOCALE)
 			debugLogBackTrace("i18n::setMainDomain()");
 
 		//	check url language for language
 		if (isset($_REQUEST['locale'])) {
-			$_zp_current_locale = self::validateLocale(sanitize($_REQUEST['locale']), (isset($_POST['locale'])) ? 'POST' : 'URI string');
-			if ($_zp_current_locale) {
-				zp_setCookie('dynamic_locale', $_zp_current_locale);
+			$_current_locale = self::validateLocale(sanitize($_REQUEST['locale']), (isset($_POST['locale'])) ? 'POST' : 'URI string');
+			if ($_current_locale) {
+				setNPGCookie('dynamic_locale', $_current_locale);
 			} else {
-				zp_clearCookie('dynamic_locale');
+				clearNPGCookie('dynamic_locale');
 			}
 			if (DEBUG_LOCALE)
-				debugLog("dynamic_locale from URL: " . sanitize($_REQUEST['locale']) . "=>$_zp_current_locale");
+				debugLog("dynamic_locale from URL: " . sanitize($_REQUEST['locale']) . "=>$_current_locale");
 		} else {
 			$matches = explode('.', @$_SERVER['HTTP_HOST']);
-			$_zp_current_locale = self::validateLocale($matches[0], 'HTTP_HOST');
-			if ($_zp_current_locale && zp_getCookie('dynamic_locale')) {
-				zp_clearCookie('dynamic_locale');
+			$_current_locale = self::validateLocale($matches[0], 'HTTP_HOST');
+			if ($_current_locale && getNPGCookie('dynamic_locale')) {
+				clearNPGCookie('dynamic_locale');
 			}
 			if (DEBUG_LOCALE)
-				debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$_zp_current_locale");
+				debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$_current_locale");
 		}
 
 		//	check for a language cookie
-		if (!$_zp_current_locale) {
-			$_zp_current_locale = zp_getCookie('dynamic_locale');
+		if (!$_current_locale) {
+			$_current_locale = getNPGCookie('dynamic_locale');
 			if (DEBUG_LOCALE)
-				debugLog("locale from cookie: " . $_zp_current_locale . ';');
+				debugLog("locale from cookie: " . $_current_locale . ';');
 		}
 
 		//	check if the user has a language selected
-		if (!$_zp_current_locale && is_object($_zp_current_admin_obj)) {
-			$_zp_current_locale = $_zp_current_admin_obj->getLanguage();
+		if (!$_current_locale && is_object($_current_admin_obj)) {
+			$_current_locale = $_current_admin_obj->getLanguage();
 			if (DEBUG_LOCALE)
-				debugLog("locale from user: " . $_zp_current_locale);
+				debugLog("locale from user: " . $_current_locale);
 		}
 
 		//	check the language option
-		if (!$_zp_current_locale) {
-			$_zp_current_locale = getOption('locale');
+		if (!$_current_locale) {
+			$_current_locale = getOption('locale');
 			if (DEBUG_LOCALE)
-				debugLog("locale from option: " . $_zp_current_locale);
+				debugLog("locale from option: " . $_current_locale);
 		}
 
 		//check the HTTP accept lang
-		if (empty($_zp_current_locale)) { // if one is not set, see if there is a match from 'HTTP_ACCEPT_LANGUAGE'
+		if (empty($_current_locale)) { // if one is not set, see if there is a match from 'HTTP_ACCEPT_LANGUAGE'
 			$languageSupport = self::generateLanguageList();
 			$userLang = self::parseHttpAcceptLanguage();
 			foreach ($userLang as $lang) {
 				$l = strtoupper($lang['fullcode']);
-				$_zp_current_locale = self::validateLocale($l, 'HTTP Accept Language');
-				if ($_zp_current_locale)
+				$_current_locale = self::validateLocale($l, 'HTTP Accept Language');
+				if ($_current_locale)
 					break;
 			}
 		}
 
-		if (empty($_zp_current_locale)) {
+		if (empty($_current_locale)) {
 			// return "default" language, English if allowed, otherwise whatever is the "first" allowed language
 			$languageSupport = self::generateLanguageList();
 			if (defined('BASE_LOCALE') && BASE_LOCALE) {
@@ -345,18 +345,18 @@ class i18n {
 				$loc = 'en_US';
 			}
 			if (empty($languageSupport) || in_array($loc, $languageSupport)) {
-				$_zp_current_locale = $loc;
+				$_current_locale = $loc;
 			} else {
-				$_zp_current_locale = array_shift($languageSupport);
+				$_current_locale = array_shift($languageSupport);
 			}
 			if (DEBUG_LOCALE)
-				debugLog("locale from language list: " . $_zp_current_locale);
+				debugLog("locale from language list: " . $_current_locale);
 		} else {
-			setOption('locale', $_zp_current_locale, false);
+			setOption('locale', $_current_locale, false);
 		}
 		if (DEBUG_LOCALE)
-			debugLog("self::getUserLocale Returning locale: " . $_zp_current_locale);
-		return self::setupCurrentLocale($_zp_current_locale);
+			debugLog("self::getUserLocale Returning locale: " . $_current_locale);
+		return self::setupCurrentLocale($_current_locale);
 	}
 
 	/**
@@ -365,8 +365,8 @@ class i18n {
 	 * Sets the 'locale' option to the result (non-persistent)
 	 */
 	static function getUserLocale() {
-		global $_zp_current_locale;
-		return $_zp_current_locale;
+		global $_current_locale;
+		return $_current_locale;
 	}
 
 }
@@ -488,9 +488,9 @@ function getAllTranslations($text) {
  * @return string
  */
 function gettext_th($string, $theme = Null) {
-	global $_zp_gallery;
+	global $_gallery;
 	if (empty($theme)) {
-		$theme = $_zp_gallery->getCurrentTheme();
+		$theme = $_gallery->getCurrentTheme();
 	}
 	i18n::setupDomain($theme, 'theme');
 	$translation = gettext($string);
@@ -507,9 +507,9 @@ function gettext_th($string, $theme = Null) {
  * @return string
  */
 function ngettext_th($msgid1, $msgid2, $n, $theme = NULL) {
-	global $_zp_gallery;
+	global $_gallery;
 	if (empty($theme)) {
-		$theme = $_zp_gallery->getCurrentTheme();
+		$theme = $_gallery->getCurrentTheme();
 	}
 	i18n::setupDomain($theme, 'theme');
 	$translation = ngettext($msgid1, $msgid2, $n);

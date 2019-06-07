@@ -12,13 +12,13 @@
 			?>
 		</div>
 		<div>
-			<?php print_SW_Link(); ?> & <a href="http://getbootstrap.com/" target="_blank" title="Bootstrap">Bootstrap</a>
+			<?php print_SW_Link(); ?> & <a href="https://getbootstrap.com/docs/3.4/" target="_blank" title="Bootstrap">Bootstrap</a>
 		</div>
 	</div>
 </footer>
 
-<?php zp_apply_filter('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 
 </body>
 </html>
-<!-- zpBootstrap 2.1 - a theme by Vincent3569 -->
+<!-- zpBootstrap 2.2 - a theme by Vincent3569 -->

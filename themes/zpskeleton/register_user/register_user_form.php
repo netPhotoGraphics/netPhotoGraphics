@@ -23,7 +23,7 @@
 	</div>
 
 	<div>
-		<?php Zenphoto_Authority::printPasswordForm(NULL, false, NULL, false, $flag = '<strong>*</strong>'); ?>
+		<?php npg_Authority::printPasswordForm(NULL, false, NULL, false, $flag = '<strong>*</strong>'); ?>
 	</div>
 
 
@@ -35,7 +35,7 @@
 	<?php } ?>
 
 	<?php
-	$html = zp_apply_filter('register_user_form', '');
+	$html = npgFilters::apply('register_user_form', '');
 	if (!empty($html))
 		echo $html;
 	?>
@@ -45,7 +45,7 @@
 		?>
 		<div>
 			<?php
-			$captcha = $_zp_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>:"));
+			$captcha = $_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>:"));
 			if (isset($captcha['submitButton'])) {
 				$class = ' ' . $captcha['submitButton']['class'];
 				$buttonExtra = ' ' . $captcha['submitButton']['extra'];

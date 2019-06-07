@@ -6,7 +6,7 @@
  */
 // force UTF-8 Ø
 
-$_zp_graphics_optionhandlers[] = new lib_NoGraphics(); // register option handler
+$_graphics_optionhandlers[] = new lib_NoGraphics(); // register option handler
 /**
  * Option class for lib-GD
  *

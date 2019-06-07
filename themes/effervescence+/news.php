@@ -8,13 +8,13 @@ if (class_exists('CMS')) {
 	<html>
 		<head>
 
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php npgFilters::apply('theme_head'); ?>
 
 			<?php if (class_exists('RSS')) printRSSHeaderLink("News", "Zenpage news", ""); ?>
 		</head>
 
 		<body onload="blurAnchors()">
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<!-- Wrap Header -->
 			<div id="header">
 				<div id="gallerytitle">
@@ -24,11 +24,11 @@ if (class_exists('CMS')) {
 						<?php
 						if (getOption('Allow_search')) {
 							if (is_NewsCategory()) {
-								$catlist = array('news' => array($_zp_current_category->getTitlelink()), 'albums' => '0', 'images' => '0', 'pages' => '0');
-								printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search within category'), NULL, NULL, $catlist);
+								$catlist = array('news' => array($_CMS_current_category->getTitlelink()), 'albums' => '0', 'images' => '0', 'pages' => '0');
+								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within category'), NULL, NULL, $catlist);
 							} else {
 								$catlist = array('news' => '1', 'albums' => '0', 'images' => '0', 'pages' => '0');
-								printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search'), NULL, NULL, $catlist);
+								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search'), NULL, NULL, $catlist);
 							}
 						}
 						printLogo();
@@ -118,7 +118,7 @@ if (class_exists('CMS')) {
 
 			<?php
 			printFooter();
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 
 		</body>

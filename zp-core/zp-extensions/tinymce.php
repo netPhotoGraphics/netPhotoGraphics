@@ -27,7 +27,7 @@ if (!defined('EDITOR_SANITIZE_LEVEL'))
 if (!defined('TINYMCE')) {
 	define('TINYMCE', CORE_SERVERPATH .  PLUGIN_FOLDER . '/tinymce');
 }
-zp_register_filter('texteditor_config', 'tinymce::configJS');
+npgFilters::register('texteditor_config', 'tinymce::configJS');
 
 /**
  * Plugin option handling class
@@ -44,8 +44,8 @@ class tinymce {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_RTL_css;
-		if ($_zp_RTL_css) {
+		global $_RTL_css;
+		if ($_RTL_css) {
 			setOption('tiny_mce_rtl_override', 1, false);
 		}
 		$configs_zenpage = self::getConfigFiles('zenpage');
@@ -79,7 +79,7 @@ class tinymce {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 		$MCEspecial['browser_spellcheck'] = "true";
-		if (zp_loggedin(UPLOAD_RIGHTS)) {
+		if (npg_loggedin(UPLOAD_RIGHTS)) {
 			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tinymce/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
 		}
 		if (empty($_editorconfig)) { // only if we get here first!

@@ -1,7 +1,7 @@
 <?php
 // force UTF-8 Ø
 if (!defined('WEBPATH')) die();
-zp_apply_filter('theme_file_top');
+npgFilters::apply('theme_file_top');
 if (function_exists('printRegistrationForm')) {
 	?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,7 +25,7 @@ if (function_exists('printRegistrationForm')) {
 		</body>
 	</html>
 	<?php
-	zp_apply_filter('theme_file_end');
+	npgFilters::apply('theme_file_end');
 } else {
 	include(dirname(__FILE__) . '/404.php');
 }

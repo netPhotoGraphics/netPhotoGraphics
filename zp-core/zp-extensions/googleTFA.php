@@ -39,10 +39,10 @@ require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php');
 require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/Secret.php');
 require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
-zp_register_filter('admin_login_attempt', 'googleTFA::check');
-zp_register_filter('save_admin_data', 'googleTFA::save');
-zp_register_filter('edit_admin_custom', 'googleTFA::edit', 999);
-zp_register_filter('admin_head', 'googleTFA::head');
+npgFilters::register('admin_login_attempt', 'googleTFA::check');
+npgFilters::register('save_admin_data', 'googleTFA::save');
+npgFilters::register('edit_admin_custom', 'googleTFA::edit', 999);
+npgFilters::register('admin_head', 'googleTFA::head');
 
 class googleTFA extends fieldExtender {
 

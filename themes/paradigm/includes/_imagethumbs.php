@@ -8,15 +8,15 @@
 		?>" itemscope itemtype="http://schema.org/ImageObject">
 			<div class="thumbnail"  itemprop="thumbnail">
 				<?php if (isImagePhoto()) { ?>
-					<a href="<?php echo html_encode(getDefaultSizedImage()); ?>" rel="lightbox-<?php echo $_zp_current_album->getID(); ?>" title="<?php printBareImageTitle(); ?>"><?php printImageThumb(getBareImageTitle()); ?></a>
+					<a href="<?php echo html_encode(getDefaultSizedImage()); ?>" rel="lightbox-<?php echo $_current_album->getID(); ?>" title="<?php printBareImageTitle(); ?>"><?php printImageThumb(getBareImageTitle()); ?></a>
 					<?php
 				} else {
 					?>
 					<a href="<?php echo html_encode(getImageURL()); ?>"><?php printImageThumb(getBareImageTitle()); ?></a>
 					<?php
 				}
-				if ($_zp_gallery_page == 'favorites.php') {
-					printAddToFavorites($_zp_current_image, '', gettext('Remove'));
+				if ($_gallery_page == 'favorites.php') {
+					printAddToFavorites($_current_image, '', gettext('Remove'));
 				}
 				?>
 				<div class="caption">

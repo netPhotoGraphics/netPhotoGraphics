@@ -12,13 +12,13 @@
 define('OFFSET_PATH', 1);
 
 require_once(dirname(__FILE__) . '/admin-globals.php');
-zp_register_filter('alt_login_handler', 'removeAltHandlers', 0);
+npgFilters::register('alt_login_handler', 'removeAltHandlers', 0);
 
 printAdminHeader('login');
 echo "\n</head>";
 ?>
 <body style="background-image: none">
-	<?php $_zp_authority->printLoginForm($_GET['redirect']); ?>
+	<?php $_authority->printLoginForm($_GET['redirect']); ?>
 </body>
 <?php
 echo "\n</html>";

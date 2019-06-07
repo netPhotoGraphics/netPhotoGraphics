@@ -25,7 +25,7 @@
 $plugin_is_filter = 1000 | CLASS_PLUGIN;
 $plugin_description = gettext('Use the EXIF "desc" field for image titles');
 
-zp_register_filter('image_metadata', 'exifDescIsZPdesc');
+npgFilters::register('image_metadata', 'exifDescIsZPdesc');
 
 function exifDescIsZPdesc($image) {
 	$desc = $image->get('EXIFDescription');

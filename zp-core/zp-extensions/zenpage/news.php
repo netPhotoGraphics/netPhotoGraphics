@@ -104,7 +104,7 @@ updatePublished('news');
 		printTabs();
 		?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'news', $subtab); ?>
+			<?php npgFilters::apply('admin_note', 'news', $subtab); ?>
 			<h1>
 				<?php echo gettext('Articles'); ?>
 			</h1>
@@ -135,8 +135,8 @@ updatePublished('news');
 						echo "<em><small>" . html_encode($category) . '</small></em>';
 					}
 					if (isset($_GET['date'])) {
-						$_zp_post_date = sanitize($_GET['date']);
-						echo '<em><small> (' . html_encode($_zp_post_date) . ')</small></em>';
+						$_post_date = sanitize($_GET['date']);
+						echo '<em><small> (' . html_encode($_post_date) . ')</small></em>';
 						// require so the date dropdown is working
 						set_context(ZP_ZENPAGE_NEWS_DATE);
 					}
@@ -160,9 +160,9 @@ updatePublished('news');
 						list($sortorder, $sortdirection) = explode('-', $_GET['sortorder']);
 						$direction = $sortdirection && $sortdirection == 'desc';
 					}
-					$admin = $_zp_current_admin_obj->getUser();
-					$resultU = $_zp_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
-					$result = $_zp_CMS->getArticles(0, $published, false, $sortorder, $direction, false, $catobj);
+					$admin = $_current_admin_obj->getUser();
+					$resultU = $_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
+					$result = $_CMS->getArticles(0, $published, false, $sortorder, $direction, false, $catobj);
 					foreach (array('result' => $result, 'resultU' => $resultU) as $which => $list) {
 						foreach ($list as $key => $article) {
 							$article = newArticle($article['titlelink']);
@@ -176,7 +176,7 @@ updatePublished('news');
 						}
 					}
 
-					$categories = $_zp_CMS->getAllCategories();
+					$categories = $_CMS->getAllCategories();
 					foreach ($categories as $key => $cat) {
 						$catobj = newCategory($cat['titlelink']);
 						if (!($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
@@ -186,7 +186,7 @@ updatePublished('news');
 
 					$total = 1;
 					$articles = count($result);
-					if ($articles || !empty($categories) || zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+					if ($articles || !empty($categories) || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 						$articles_page = max(1, getOption('articles_per_page'));
 						if (isset($_GET['articles_page'])) {
 							if ($_GET['articles_page'] == 'all') {
@@ -277,13 +277,13 @@ updatePublished('news');
 											gettext('Add categories') => array('name' => 'addcats', 'action' => 'mass_cats_data'),
 											gettext('Clear categories') => 'clearcats'
 									);
-									if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+									if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 										$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
 									}
 									if (extensionEnabled('hitcounter')) {
 										$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
 									}
-									$checkarray = zp_apply_filter('bulk_article_actions', $checkarray);
+									$checkarray = npgFilters::apply('bulk_article_actions', $checkarray);
 									printBulkActions($checkarray);
 									?>
 								</span>

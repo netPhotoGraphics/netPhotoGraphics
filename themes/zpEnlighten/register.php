@@ -5,13 +5,13 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <head>
 	<?php
-	zp_apply_filter('theme_head');
+	npgFilters::apply('theme_head');
 
-	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_themeroot . '/style.css');
 	?>
 </head>
 <body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 
 	<div id="main">
 
@@ -47,6 +47,6 @@ if (!defined('WEBPATH'))
 		</div><!-- content -->
 
 	</div><!-- main -->
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

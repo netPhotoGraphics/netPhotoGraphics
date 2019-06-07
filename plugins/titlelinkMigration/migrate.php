@@ -2,7 +2,7 @@
 
 /*
  * This plugin is a migration tool append the <em>mod_rewrite_suffix</em> to
- * uzenpage titlelilnks
+ * CMS titlelilnks
  *
  * @author Stephen Billard (sbillard)
  *
@@ -22,5 +22,5 @@ XSRFdefender('titlelinkMigration');
 
 migrateTitleLinks('', RW_SUFFIX);
 
-header('Location: ' . getAdminLink('admin.php').'?action=external&msg=' . gettext('titlelink migration completed.'));
+header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('titlelink migration completed.'));
 exit();

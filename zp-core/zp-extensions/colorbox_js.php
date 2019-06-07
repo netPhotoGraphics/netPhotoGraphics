@@ -29,11 +29,11 @@ $plugin_notice = gettext('Note that this plugin does not attach Colorbox to any 
 $option_interface = 'colorbox';
 
 if (OFFSET_PATH) {
-	zp_register_filter('admin_head', 'colorbox::js');
-	zp_register_filter('admin_head', 'colorbox::css');
+	npgFilters::register('admin_head', 'colorbox::js');
+	npgFilters::register('admin_head', 'colorbox::css');
 } else {
-	zp_register_filter('theme_body_close', 'colorbox::js');
-	zp_register_filter('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
+	npgFilters::register('theme_body_close', 'colorbox::js');
+	npgFilters::register('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
 }
 
 class colorbox {
@@ -50,7 +50,7 @@ class colorbox {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
+		global $_gallery;
 		$themes = getPluginFiles('colorbox_js/themes/*.*');
 		$list = array('Custom (theme based)' => 'custom');
 		foreach ($themes as $theme) {
@@ -85,8 +85,8 @@ class colorbox {
 	 * Checks if the theme script is registered for colorbox. If not it will register the script
 	 * so next time things will workl
 	 *
-	 * @global type $_zp_gallery
-	 * @global type $_zp_gallery_page
+	 * @global type $_gallery
+	 * @global type $_gallery_page
 	 * @param string $theme
 	 * @param string $script
 	 * @return boolean true registered
@@ -99,7 +99,7 @@ class colorbox {
 	}
 
 	static function css() {
-		global $_zp_gallery;
+		global $_gallery;
 		$inTheme = false;
 		if (OFFSET_PATH) {
 			$themepath = 'colorbox_js/themes/example4/colorbox.css';
@@ -109,11 +109,11 @@ class colorbox {
 				$themepath = 'colorbox_js/themes/example4/colorbox.css';
 			} else {
 				if ($theme == 'custom') {
-					$themepath = zp_apply_filter('colorbox_themepath', 'colorbox_js/colorbox.css');
+					$themepath = npgFilters::apply('colorbox_themepath', 'colorbox_js/colorbox.css');
 				} else {
 					$themepath = 'colorbox_js/themes/' . $theme . '/colorbox.css';
 				}
-				$inTheme = $_zp_gallery->getCurrentTheme();
+				$inTheme = $_gallery->getCurrentTheme();
 			}
 		}
 		scriptLoader(getPlugin($themepath, $inTheme));

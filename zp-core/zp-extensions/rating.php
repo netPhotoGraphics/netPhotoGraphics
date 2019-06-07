@@ -19,18 +19,18 @@ $plugin_description = gettext("Adds several theme functions to enable images, al
 
 $option_interface = 'jquery_rating';
 
-zp_register_filter('edit_album_utilities', 'jquery_rating::optionVoteStatus');
-zp_register_filter('save_album_data', 'jquery_rating::optionVoteStatusSave');
-zp_register_filter('admin_utilities_buttons', 'jquery_rating::rating_purgebutton');
+npgFilters::register('edit_album_utilities', 'jquery_rating::optionVoteStatus');
+npgFilters::register('save_album_data', 'jquery_rating::optionVoteStatusSave');
+npgFilters::register('admin_utilities_buttons', 'jquery_rating::rating_purgebutton');
 
 if (getOption('rating_image_individual_control')) {
-	zp_register_filter('edit_image_utilities', 'jquery_rating::optionVoteStatus');
-	zp_register_filter('save_image_data', 'jquery_rating::optionVoteStatusSave');
+	npgFilters::register('edit_image_utilities', 'jquery_rating::optionVoteStatus');
+	npgFilters::register('save_image_data', 'jquery_rating::optionVoteStatusSave');
 }
 
 // register the scripts needed
 if (in_context(ZP_INDEX)) {
-	zp_register_filter('theme_body_close', 'jquery_rating::ratingJS');
+	npgFilters::register('theme_body_close', 'jquery_rating::ratingJS');
 }
 
 /**
@@ -257,16 +257,16 @@ class jquery_rating {
 	 * @return object
 	 */
 	static function getCurrentPageObject() {
-		global $_zp_gallery_page, $_zp_current_album, $_zp_current_image, $_zp_current_article, $_zp_current_page;
-		switch ($_zp_gallery_page) {
+		global $_gallery_page, $_current_album, $_current_image, $_CMS_current_article, $_CMS_current_page;
+		switch ($_gallery_page) {
 			case 'album.php':
-				return $_zp_current_album;
+				return $_current_album;
 			case 'image.php':
-				return $_zp_current_image;
+				return $_current_image;
 			case 'news.php':
-				return $_zp_current_article;
+				return $_CMS_current_article;
 			case 'pages.php':
-				return $_zp_current_page;
+				return $_CMS_current_page;
 			default:
 				return NULL;
 		}
@@ -289,7 +289,7 @@ class jquery_rating {
  * @param bool $text if false, no annotation text is displayed
  */
 function printRating($vote = 3, $object = NULL, $text = true) {
-	global $_zp_gallery_page;
+	global $_gallery_page;
 	if (is_null($object)) {
 		$object = jquery_rating::getCurrentPageObject();
 	}
@@ -300,29 +300,29 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 	$vote = min($vote, getOption('rating_status'), $object->get('rating_status'));
 	switch ($vote) {
 		case 1: // members only
-			if (!zp_loggedin()) {
+			if (!npg_loggedin()) {
 				$vote = 0;
 			}
 			break;
 		case 2: // members & guests
-			switch ($_zp_gallery_page) {
+			switch ($_gallery_page) {
 				case 'album.php':
 					$album = $object;
 					$hint = '';
-					if (!(zp_loggedin() || checkAlbumPassword($album->name))) {
+					if (!(npg_loggedin() || checkAlbumPassword($album->name))) {
 						$vote = 0;
 					}
 					break;
 				case 'pages.php':
 				case 'news.php':
-					if (!zp_loggedin()) { // no guest password
+					if (!npg_loggedin()) { // no guest password
 						$vote = 0;
 					}
 					break;
 				default:
 					$album = $object->getAlbum();
 					$hint = '';
-					if (!(zp_loggedin() || checkAlbumPassword($album->name))) {
+					if (!(npg_loggedin() || checkAlbumPassword($album->name))) {
 						$vote = 0;
 					}
 					break;

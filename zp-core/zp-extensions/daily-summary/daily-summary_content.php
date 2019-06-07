@@ -9,8 +9,8 @@
  * @package plugins/daily-summary
  */
 $d = getOption('DailySummaryDays');
-if ($_zp_current_DailySummary->getTotalItems()) {
-	$count = $_zp_current_DailySummary->getTotalImages();
+if ($_current_DailySummary->getTotalItems()) {
+	$count = $_current_DailySummary->getTotalImages();
 	?>
 	<p>
 		<?php

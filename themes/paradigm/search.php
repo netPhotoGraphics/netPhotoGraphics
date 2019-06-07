@@ -28,7 +28,7 @@ if (!defined('WEBPATH'))
 					$numpages = $numnews = 0;
 				}
 				if ($total == 0) {
-					$_zp_current_search->clearSearchWords();
+					$_current_search->clearSearchWords();
 				}
 				?>
 
@@ -50,7 +50,7 @@ if (!defined('WEBPATH'))
 					</h1>
 					<?php
 				}
-				if ($_zp_page == 1) { //test of zenpage searches
+				if ($_current_page == 1) { //test of zenpage searches
 					if ($numpages > 0) {
 						$number_to_show = 5;
 						$c = 0;

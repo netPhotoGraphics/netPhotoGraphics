@@ -15,16 +15,16 @@ class image_page {
 		return false;
 	}
 
-	function theme_head($_zp_themeroot) {
+	function theme_head($_themeroot) {
 		return false;
 	}
 
-	function theme_bodyopen($_zp_themeroot) {
+	function theme_bodyopen($_themeroot) {
 
 	}
 
 	function theme_content($map) {
-		global $_zp_current_image, $_zp_current_album, $points;
+		global $_current_image, $_current_album, $points;
 		?>
 		<!-- Image page section -->
 		<div id="content">
@@ -46,7 +46,7 @@ class image_page {
 							<div class="imagethumb">
 								<?php
 								if ($map) {
-									$coord = simpleMap::getGeoCoord($_zp_current_image);
+									$coord = simpleMap::getCoord($_current_image);
 									if ($coord) {
 										$points[] = $coord;
 									}
@@ -72,7 +72,7 @@ class image_page {
 					@call_user_func('printSlideShowLink', NULL, 'text-align:center;');
 					?>
 				</div><!-- images -->
-				<?php if (function_exists('printAddToFavorites')) printAddToFavorites($_zp_current_album); ?>
+				<?php if (function_exists('printAddToFavorites')) printAddToFavorites($_current_album); ?>
 				<?php @call_user_func('printRating'); ?>
 			</div> <!-- main -->
 			<div class="clearage"></div>

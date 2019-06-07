@@ -56,7 +56,7 @@ class jcarousel {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
+		global $_gallery;
 		$options = array(gettext('Thumbs number') => array('key' => 'jcarousel_scroll', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 0,
 						'desc' => gettext("The number of thumbs to scroll by. Note that the CSS might need to be adjusted.")),
@@ -126,8 +126,8 @@ class jcarousel {
 
 }
 
-if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page))) {
-	zp_register_filter('theme_body_close', 'jcarousel::themeJS');
+if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_gallery->getCurrentTheme() . '_' . stripSuffix($_gallery_page))) {
+	npgFilters::register('theme_body_close', 'jcarousel::themeJS');
 
 	/** Prints the jQuery jCarousel HTML setup to be replaced by JS
 	 *
@@ -143,11 +143,11 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 	 * @param int $speed not supported
 	 */
 	function printThumbNav($minitems = NULL, $maxitems = NULL, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $fullimagelink = NULL, $vertical = NULL, $speed = NULL, $thumbscroll = NULL) {
-		global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery_page;
+		global $_gallery, $_current_album, $_current_image, $_current_search, $_gallery_page;
 		//	Just incase the theme has not set the option, at least second try will work!
-		setOptionDefault('jcarousel_' . $_zp_gallery->getCurrentTheme() . '_' . stripSuffix($_zp_gallery_page), 1);
+		setOptionDefault('jcarousel_' . $_gallery->getCurrentTheme() . '_' . stripSuffix($_gallery_page), 1);
 		$items = "";
-		if (is_object($_zp_current_album) && $_zp_current_album->getNumImages() >= 2) {
+		if (is_object($_current_album) && $_current_album->getNumImages() >= 2) {
 			if (is_null($thumbscroll)) {
 				$thumbscroll = getOption('jcarousel_scroll');
 			} else {
@@ -185,7 +185,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 				$vertical = 'false';
 			}
 			if (in_context(ZP_SEARCH_LINKED)) {
-				if ($_zp_current_search->getNumImages() === 0) {
+				if ($_current_search->getNumImages() === 0) {
 					$searchimages = false;
 				} else {
 					$searchimages = true;
@@ -194,31 +194,31 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 				$searchimages = false;
 			}
 			if (in_context(ZP_SEARCH_LINKED) && $searchimages) {
-				$jcarousel_items = $_zp_current_search->getImages();
+				$jcarousel_items = $_current_search->getImages();
 			} else {
-				$jcarousel_items = $_zp_current_album->getImages();
+				$jcarousel_items = $_current_album->getImages();
 			}
 			if (count($jcarousel_items) >= 2) {
 				foreach ($jcarousel_items as $item) {
 					if (is_array($item)) {
-						$imgobj = newImage($_zp_current_album, $item['filename']);
+						$imgobj = newImage($_current_album, $item['filename']);
 					} else {
-						$imgobj = newImage($_zp_current_album, $item);
+						$imgobj = newImage($_current_album, $item);
 					}
 					if ($fullimagelink) {
 						$link = $imgobj->getFullImageURL();
 					} else {
 						$link = $imgobj->getLink();
 					}
-					if (!is_null($_zp_current_image)) {
-						if ($_zp_current_album->isDynamic()) {
-							if ($_zp_current_image->filename == $imgobj->filename && $_zp_current_image->getAlbum()->name == $imgobj->getAlbum()->name) {
+					if (!is_null($_current_image)) {
+						if ($_current_album->isDynamic()) {
+							if ($_current_image->filename == $imgobj->filename && $_current_image->getAlbum()->name == $imgobj->getAlbum()->name) {
 								$active = 'active';
 							} else {
 								$active = '';
 							}
 						} else {
-							if ($_zp_current_image->filename == $imgobj->filename) {
+							if ($_current_image->filename == $imgobj->filename) {
 								$active = 'active';
 							} else {
 								$active = '';
@@ -234,7 +234,7 @@ if (!$plugin_disable && !OFFSET_PATH && getOption('jcarousel_' . $_zp_gallery->g
 			}
 			$items = substr($items, 0, -2);
 			$numimages = getNumImages();
-			if (!is_null($_zp_current_image)) {
+			if (!is_null($_current_image)) {
 				$imgnumber = imageNumber();
 			} else {
 				$imgnumber = 1;

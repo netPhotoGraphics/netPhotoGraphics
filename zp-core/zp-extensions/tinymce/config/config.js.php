@@ -33,16 +33,16 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-zp_apply_filter('tinymce_config', NULL);
+npgFilters::apply('tinymce_config', NULL);
 
 if ($MCEcss) {
 	$MCEcss = getPlugin('tinymce/config/' . $MCEcss, true, true);
 } else {
 	$MCEcss = getPlugin('tinymce/config/content.css', true, true);
 }
-global $_zp_RTL_css;
+global $_RTL_css;
 if ($MCEdirection == NULL) {
-	if ($_zp_RTL_css) {
+	if ($_RTL_css) {
 		$MCEdirection = 'rtl';
 	} else {
 		if (getOption('tiny_mce_rtl_override')) {

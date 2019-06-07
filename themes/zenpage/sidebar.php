@@ -22,7 +22,7 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 		<div class="menu">
 			<?php
 			if (extensionEnabled('zenpage')) {
-				if ($_zp_gallery_page == 'index.php' || $_zp_gallery_page != 'gallery.php') {
+				if ($_gallery_page == 'index.php' || $_gallery_page != 'gallery.php') {
 					?>
 					<h3>
 						<a href="<?php echo html_encode(getCustomPageURL('gallery')); ?>" title="<?php echo gettext('Album index'); ?>"><?php echo gettext("Gallery"); ?></a>
@@ -76,7 +76,7 @@ if (class_exists('RSS') && (getOption('RSS_album_image') || getOption('RSS_artic
 		<h3><?php echo gettext("RSS"); ?></h3>
 		<ul>
 			<?php
-			if (!is_null($_zp_current_album)) {
+			if (!is_null($_current_album)) {
 				printRSSLink('Album', '<li>', gettext('Album'), '</li>');
 				?>
 				<?php
@@ -103,7 +103,7 @@ if (getOption("zenpage_contactpage") && extensionEnabled('contact_form')) {
 		<ul>
 			<li>
 				<?php
-				if ($_zp_gallery_page != 'contact.php') {
+				if ($_gallery_page != 'contact.php') {
 					printCustomPageURL(gettext('Contact us'), 'contact', '', '');
 				} else {
 					echo gettext("Contact us");
@@ -113,16 +113,16 @@ if (getOption("zenpage_contactpage") && extensionEnabled('contact_form')) {
 	</div>
 	<?php
 }
-if ((function_exists("printUserLogin_out") ) || !zp_loggedin() && function_exists('printRegistrationForm') || class_exists('mobileTheme')) {
+if ((function_exists("printUserLogin_out") ) || !npg_loggedin() && function_exists('printRegistrationForm') || class_exists('mobileTheme')) {
 	?>
 	<div class="menu">
 		<ul>
 			<?php
-			if (!zp_loggedin() && function_exists('printRegisterURL')) {
+			if (!npg_loggedin() && function_exists('printRegisterURL')) {
 				?>
 				<li>
 					<?php
-					if ($_zp_gallery_page != 'register.php') {
+					if ($_gallery_page != 'register.php') {
 						printRegisterURL(gettext('Register for this site'));
 					} else {
 						echo gettext("Register for this site");

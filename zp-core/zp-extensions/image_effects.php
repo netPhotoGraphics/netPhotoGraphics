@@ -61,14 +61,14 @@ $plugin_description = gettext('Attaches “Image effects” to images and thumbn
 
 $option_interface = 'image_effects';
 
-zp_register_filter('standard_image_html', 'image_effects::std_images');
-zp_register_filter('custom_image_html', 'image_effects::custom_images');
-zp_register_filter('standard_album_thumb_html', 'image_effects::std_album_thumbs');
-zp_register_filter('standard_image_thumb_html', 'image_effects::std_image_thumbs');
-zp_register_filter('custom_album_thumb_html', 'image_effects::custom_album_thumbs');
+npgFilters::register('standard_image_html', 'image_effects::std_images');
+npgFilters::register('custom_image_html', 'image_effects::custom_images');
+npgFilters::register('standard_album_thumb_html', 'image_effects::std_album_thumbs');
+npgFilters::register('standard_image_thumb_html', 'image_effects::std_image_thumbs');
+npgFilters::register('custom_album_thumb_html', 'image_effects::custom_album_thumbs');
 
 if (defined('OFFSET_PATH') && OFFSET_PATH == 0) {
-	zp_register_filter('theme_body_close', 'image_effects::effectsJS');
+	npgFilters::register('theme_body_close', 'image_effects::effectsJS');
 }
 
 class image_effects {

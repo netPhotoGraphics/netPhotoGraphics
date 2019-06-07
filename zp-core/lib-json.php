@@ -799,14 +799,14 @@ if (class_exists('PEAR_Error')) {
 
 // Future-friendly json_encode
 if( !function_exists('json_encode') ) {
-	$_zp_json = new Services_JSON();
+	$_services_JSON = new Services_JSON();
 	function json_encode($data) {
-		global $_zp_json;
-		return( $_zp_json->encode($data) );
+		global $_services_JSON;
+		return( $_services_JSON->encode($data) );
 	}
 	function json_decode($data) {
-		global $_zp_json;
-		return( $_zp_json->decode($data) );
+		global $_services_JSON;
+		return( $_services_JSON->decode($data) );
 	}
 }
 

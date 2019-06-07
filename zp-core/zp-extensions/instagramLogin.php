@@ -38,8 +38,8 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
 
 $option_interface = 'instagramLogin';
 
-zp_register_filter('alt_login_handler', 'instagramLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom', 'instagramLogin::edit_admin');
+npgFilters::register('alt_login_handler', 'instagramLogin::alt_login_handler');
+npgFilters::register('edit_admin_custom', 'instagramLogin::edit_admin');
 
 /**
  * Option class

@@ -1,5 +1,5 @@
 <?php
-// force UTF-8 ø
+// force UTF-8 Ø
 if (!defined('WEBPATH'))
 	die();
 ?>
@@ -9,15 +9,16 @@ if (!defined('WEBPATH'))
 		<meta charset="<?php echo getOption('charset'); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 		<?php
-		if (!( (($_zp_gallery_page == 'pages.php') && ((getPageTitleLink() == 'map')) ) || ($_zp_gallery_page == 'album.php'))) {
-			zp_remove_filter('theme_head', 'GoogleMap::js');
+		if (!((($_gallery_page == 'pages.php') && (getPageTitleLink() == 'map')) || ($_gallery_page == 'album.php'))) {
+			npgFilters::remove('theme_head', 'GoogleMap::js');
+			npgFilters::remove('theme_head', 'openStreetMap::scripts');
 		}
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 		?>
 		<title>
 			<?php
 			echo getMainSiteName() . ' | ';
-			switch ($_zp_gallery_page) {
+			switch ($_gallery_page) {
 				case 'index.php':
 					if ($isHomePage) {
 						echo gettext('Home');
@@ -30,8 +31,8 @@ if (!defined('WEBPATH'))
 					break;
 				case 'album.php':
 					echo getBareAlbumTitle();
-					if ($_zp_page > 1) {
-						echo ' [' . $_zp_page . ']';
+					if ($_current_page > 1) {
+						echo ' [' . $_current_page . ']';
 					};
 					break;
 				case 'archive.php':
@@ -45,14 +46,14 @@ if (!defined('WEBPATH'))
 					break;
 				case 'favorites.php':
 					echo gettext('My favorites');
-					if ($_zp_page > 1) {
-						echo ' [' . $_zp_page . ']';
+					if ($_current_page > 1) {
+						echo ' [' . $_current_page . ']';
 					};
 					break;
 				case 'gallery.php':
 					echo gettext('Gallery');
-					if ($_zp_page > 1) {
-						echo ' [' . $_zp_page . ']';
+					if ($_current_page > 1) {
+						echo ' [' . $_current_page . ']';
 					};
 					break;
 				case 'image.php':
@@ -63,8 +64,8 @@ if (!defined('WEBPATH'))
 						echo getBareNewsTitle();
 					} else {
 						echo NEWS_LABEL;
-						if ($_zp_page > 1) {
-							echo ' [' . $_zp_page . ']';
+						if ($_current_page > 1) {
+							echo ' [' . $_current_page . ']';
 						};
 					};
 					break;
@@ -79,8 +80,8 @@ if (!defined('WEBPATH'))
 					break;
 				case 'search.php':
 					echo gettext('Search');
-					if ($_zp_page > 1) {
-						echo ' [' . $_zp_page . ']';
+					if ($_current_page > 1) {
+						echo ' [' . $_current_page . ']';
 					};
 					break;
 			}
@@ -95,15 +96,17 @@ if (!defined('WEBPATH'))
 				printRSSHeaderLink('Gallery', gettext('Latest images RSS'));
 			}
 		}
-		scriptLoader($_zp_themeroot . '/images/favicon.ico');
-		scriptLoader($_zp_themeroot . '/css/bootstrap.min.css');
-		if (($_zp_gallery_page == 'index.php') && ($isHomePage)) {
-			scriptLoader($_zp_themeroot . '/css/flexslider.css');
+		?>
+		<link rel="shortcut icon" href="<?php echo $_themeroot; ?>/images/favicon.ico" />
+		<?php
+		scriptLoader($_themeroot . '/css/bootstrap.min.css');
+		if (($_gallery_page == 'index.php') && ($isHomePage)) {
+			scriptLoader($_themeroot . '/css/flexslider.css');
 		}
-		if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) {
-			scriptLoader($_zp_themeroot . '/css/jquery.fancybox.min.css');
+		if (($_gallery_page == 'album.php') || ($_gallery_page == 'favorites.php') || ($_gallery_page == 'news.php') || ($_gallery_page == 'pages.php') || ($_gallery_page == 'search.php')) {
+			scriptLoader($_themeroot . '/css/jquery.fancybox.min.css');
 		}
-		scriptLoader($_zp_themeroot . '/css/zpBootstrap.css');
+		scriptLoader($_themeroot . '/css/zpBootstrap.css');
 		?>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -111,11 +114,11 @@ if (!defined('WEBPATH'))
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<?php
-		scriptLoader($_zp_themeroot . '/js/bootstrap.min.js');
-		scriptLoader($_zp_themeroot . '/js/zpBootstrap.js');
+		scriptLoader($_themeroot . '/js/bootstrap.min.js');
+		scriptLoader($_themeroot . '/js/zpBootstrap.js');
 
-		if (($_zp_gallery_page == 'index.php') && ($isHomePage)) {
-			scriptLoader($_zp_themeroot . '/js/jquery.flexslider-min.js');
+		if (($_gallery_page == 'index.php') && ($isHomePage)) {
+			scriptLoader($_themeroot . '/js/jquery.flexslider-min.js');
 			?>
 			<script type="text/javascript">
 				//<![CDATA[
@@ -133,12 +136,10 @@ if (!defined('WEBPATH'))
 		<?php } ?>
 
 		<?php
-		if (($_zp_gallery_page == 'album.php') || ($_zp_gallery_page == 'favorites.php') || ($_zp_gallery_page == 'news.php') || ($_zp_gallery_page == 'pages.php') || ($_zp_gallery_page == 'search.php')) {
-			scriptLoader($_zp_themeroot . '/js/jquery.fancybox.min.js');
-			scriptLoader($_zp_themeroot . '/js/zpB_fancybox_config.js');
-			'
-							. '
-			?>'
+		if (($_gallery_page == 'album.php') || ($_gallery_page == 'favorites.php') || ($_gallery_page == 'news.php') || ($_gallery_page == 'pages.php') || ($_gallery_page == 'search.php')) {
+			scriptLoader($_themeroot . '/js/jquery.fancybox.min.js');
+			scriptLoader($_themeroot . '/js/zpB_fancybox_config.js');
+			?>
 			<script type="text/javascript">
 				//<![CDATA[
 				$(document).ready(function() {
@@ -167,12 +168,12 @@ if (!defined('WEBPATH'))
 			</script>
 		<?php } ?>
 
-		<?php if (($_zp_gallery_page == 'image.php') || ($_zenpage_news_enabled && is_NewsArticle())) { ?>
+		<?php if (($_gallery_page == 'image.php') || ($_zenpage_news_enabled && is_NewsArticle())) { ?>
 			<script type="text/javascript">
 				//<![CDATA[
 	<?php
 	$NextURL = $PrevURL = false;
-	if ($_zp_gallery_page == 'image.php') {
+	if ($_gallery_page == 'image.php') {
 		if (hasNextImage()) {
 			?>var nextURL = "<?php
 			echo html_encode(getNextImageURL());
@@ -238,12 +239,12 @@ if (!defined('WEBPATH'))
 
 	<body>
 		<?php
-		zp_apply_filter('theme_body_open');
+		npgFilters::apply('theme_body_open');
 
-		if (((!getOption('zpB_homepage')) && ($_zp_gallery_page == 'index.php')) ||
-						($_zp_gallery_page == 'gallery.php') ||
-						($_zp_gallery_page == 'album.php') ||
-						($_zp_gallery_page == 'image.php')) {
+		if (((!getOption('zpB_homepage')) && ($_gallery_page == 'index.php')) ||
+						($_gallery_page == 'gallery.php') ||
+						($_gallery_page == 'album.php') ||
+						($_gallery_page == 'image.php')) {
 			$galleryactive = true;
 		} else {
 			$galleryactive = false;
@@ -263,46 +264,51 @@ if (!defined('WEBPATH'))
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav pull-right">
-						<?php if (getOption('zpB_homepage')) { ?>
-							<li<?php if ((isset($isHomePage)) && ($isHomePage)) { ?> class="active"<?php } ?>>
-								<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a>
+						<?php if ((extensionEnabled('menu_manager')) && (getThemeOption('zpB_custom_menu'))) { ?>
+							<?php printCustomMenu('zpBootstrap', 'list-top', '', 'active'); ?>
+						<?php } else { ?>
+
+							<?php if (getOption('zpB_homepage')) { ?>
+								<li<?php if ((isset($isHomePage)) && ($isHomePage)) { ?> class="active"<?php } ?>>
+									<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a>
+								</li>
+							<?php } ?>
+
+							<li<?php if ($galleryactive) { ?> class="active"<?php } ?>>
+								<?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?>
 							</li>
+
+							<?php if ($_zenpage_news_enabled && hasNews(true)) { ?>
+								<li<?php if ($_gallery_page == 'news.php') { ?> class="active"<?php } ?>>
+									<?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?>
+								</li>
+							<?php } ?>
+
+							<?php if ($_zenpage_pages_enabled) { ?>
+								<?php printPageMenu('list-top', '', 'active', '', '', '', 0, false); ?>
+							<?php } ?>
 						<?php } ?>
 
-						<li<?php if ($galleryactive) { ?> class="active"<?php } ?>>
-							<?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?>
-						</li>
-
-						<?php if ($_zenpage_news_enabled && hasNews(true)) { ?>
-							<li<?php if ($_zp_gallery_page == 'news.php') { ?> class="active"<?php } ?>>
-								<?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?>
-							</li>
-						<?php } ?>
-
-						<?php if ($_zenpage_pages_enabled) { ?>
-							<?php printPageMenu('list-top', '', 'active', '', '', '', 0, false); ?>
-						<?php } ?>
-
-						<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
-							<li<?php if ($_zp_gallery_page == 'favorites.php') { ?> class="active"<?php } ?>>
+						<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+							<li<?php if ($_gallery_page == 'favorites.php') { ?> class="active"<?php } ?>>
 								<?php printFavoritesURL(); ?>
 							</li>
 						<?php } ?>
 
 						<?php if (extensionEnabled('contact_form')) { ?>
-							<li<?php if ($_zp_gallery_page == 'contact.php') { ?> class="active"<?php } ?>>
+							<li<?php if ($_gallery_page == 'contact.php') { ?> class="active"<?php } ?>>
 								<?php printCustomPageURL(gettext('Contact'), 'contact'); ?>
 							</li>
 						<?php } ?>
 
 						<?php if (getOption('zpB_allow_search')) { ?>
-							<li id="look"<?php if ($_zp_gallery_page == 'archive.php') { ?> class="active"<?php } ?>>
+							<li id="look"<?php if ($_gallery_page == 'archive.php') { ?> class="active"<?php } ?>>
 								<a id="search-icon" class="text-center" href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Search'); ?>"><span class="glyphicon glyphicon-search"></span></a>
 							</li>
 						<?php } ?>
 
 						<?php if ((extensionEnabled('user_login-out')) && (!extensionEnabled('register_user'))) { ?>
-							<?php if (zp_loggedin()) { ?>
+							<?php if (npg_loggedin()) { ?>
 								<li id="admin-single">
 									<?php printUserLogin_out(); ?>
 								</li>
@@ -311,12 +317,12 @@ if (!defined('WEBPATH'))
 									<a href="#login-modal" class="logonlink-single" data-toggle="modal" title="<?php echo gettext('Login'); ?>"></a>
 								</li>
 							<?php } ?>
-						<?php } else if ((extensionEnabled('user_login-out')) || ((!zp_loggedin()) && (extensionEnabled('register_user')))) { ?>
+						<?php } else if ((extensionEnabled('user_login-out')) || ((!npg_loggedin()) && (extensionEnabled('register_user')))) { ?>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon glyphicon-user"></span>&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></a>
 								<ul class="dropdown-menu">
 									<?php if (extensionEnabled('user_login-out')) { ?>
-										<?php if (zp_loggedin()) { ?>
+										<?php if (npg_loggedin()) { ?>
 											<li id="admin">
 												<?php printUserLogin_out(); ?>
 											</li>
@@ -326,7 +332,7 @@ if (!defined('WEBPATH'))
 											</li>
 										<?php } ?>
 									<?php } ?>
-									<?php if ((!zp_loggedin()) && (extensionEnabled('register_user'))) { ?>
+									<?php if ((!npg_loggedin()) && (extensionEnabled('register_user'))) { ?>
 										<li>
 											<?php printRegisterURL(gettext('Register')); ?>
 										</li>
@@ -337,9 +343,7 @@ if (!defined('WEBPATH'))
 
 						<?php if (extensionEnabled('dynamic-locale')) { ?>
 							<li id="flags" class="dropdown">
-								<?php
-								printLanguageSelector(true);
-								?>
+								<?php printLanguageSelector(); ?>
 							</li>
 						<?php } ?>
 					</ul>
@@ -347,7 +351,7 @@ if (!defined('WEBPATH'))
 			</div>
 		</nav><!--/.navbar -->
 
-		<?php if ((extensionEnabled('user_login-out')) && (!zp_loggedin()) && ($_zp_gallery_page <> 'password.php') && ($_zp_gallery_page <> 'register.php')) { ?>
+		<?php if ((extensionEnabled('user_login-out')) && (!npg_loggedin()) && ($_gallery_page <> 'password.php') && ($_gallery_page <> 'register.php')) { ?>
 			<div id="login-modal" class="modal" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -385,7 +389,7 @@ if (!defined('WEBPATH'))
 								</div>
 								<script type="text/javascript">
 									//<![CDATA[
-									$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_zp_themeroot; ?>/images/feed_icon.png">');
+									$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_themeroot; ?>/images/feed_icon.png">');
 									//]]>
 								</script>
 							<?php } ?>

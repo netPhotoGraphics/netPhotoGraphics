@@ -20,8 +20,8 @@ $plugin_description = gettext("Enables jQuery tag suggestions on the search fiel
 
 $option_interface = 'tag_suggest';
 
-zp_register_filter('theme_body_close', 'tag_suggest::JS');
-zp_register_filter('admin_head', 'tag_suggest::JS');
+npgFilters::register('theme_body_close', 'tag_suggest::JS');
+npgFilters::register('admin_head', 'tag_suggest::JS');
 
 class tag_suggest {
 

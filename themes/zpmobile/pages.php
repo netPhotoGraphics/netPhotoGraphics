@@ -7,20 +7,20 @@ if (class_exists('CMS')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php npgFilters::apply('theme_head'); ?>
 
 
 
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
 			<?php
-			scriptLoader($_zp_themeroot . '/style.css');
+			scriptLoader($_themeroot . '/style.css');
 			jqm_loadScripts();
 			?>
 		</head>
 
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 
 			<div data-role="page" id="mainpage">
 				<?php jqm_printMainHeaderNav(); ?>
@@ -34,7 +34,7 @@ if (class_exists('CMS')) {
 						<?php
 						printPageContent();
 						printCodeblock(1);
-						$subpages = $_zp_current_page->getPages();
+						$subpages = $_CMS_current_page->getPages();
 						if ($subpages) {
 							?>
 							<ul data-role="listview" data-inset="true" data-theme="a" class="ui-listview ui-group-theme-a">
@@ -65,7 +65,7 @@ if (class_exists('CMS')) {
 				<?php jqm_printFooterNav(); ?>
 			</div><!-- /page -->
 
-			<?php zp_apply_filter('theme_body_close');
+			<?php npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>

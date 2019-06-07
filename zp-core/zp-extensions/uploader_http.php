@@ -13,9 +13,9 @@
 $plugin_is_filter = defaultExtension(30 | ADMIN_PLUGIN);
 $plugin_description = gettext('<em>http</em> image upload handler.');
 
-zp_register_filter('admin_tabs', 'httpUploadHandler_admin_tabs');
-if (zp_loggedin(UPLOAD_RIGHTS)) {
-	zp_register_filter('upload_handlers', 'httpUploadHandler');
+npgFilters::register('admin_tabs', 'httpUploadHandler_admin_tabs');
+if (npg_loggedin(UPLOAD_RIGHTS)) {
+	npgFilters::register('upload_handlers', 'httpUploadHandler');
 }
 
 function httpUploadHandler($uploadHandlers) {
@@ -24,7 +24,7 @@ function httpUploadHandler($uploadHandlers) {
 }
 
 function httpUploadHandler_admin_tabs($tabs) {
-	if (zp_loggedin(UPLOAD_RIGHTS)) {
+	if (npg_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('images (%s)'), 'http');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),

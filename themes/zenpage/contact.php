@@ -9,14 +9,13 @@ if (function_exists('printContactForm')) {
 	<html>
 		<head>
 			<?php
-			zp_apply_filter('theme_head');
-			printHeadTitle();
+			npgFilters::apply('theme_head');
 
-			scriptLoader($_zp_themeroot . '/style.css');
+			scriptLoader($_themeroot . '/style.css');
 			?>
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 
 			<div id="main">
 
@@ -55,7 +54,7 @@ if (function_exists('printContactForm')) {
 
 			</div><!-- main -->
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>

@@ -118,43 +118,43 @@ if ($ruleFile) {
 	rewriteRules::processRules(file_get_contents($ruleFile));
 }
 
-zp_register_filter('admin_tabs', 'rewriteRules::tabs', 100);
+npgFilters::register('admin_tabs', 'rewriteRules::tabs', 100);
 
 
 require_once(CORE_SERVERPATH . 'functions-config.php');
 
 class rewriteRules {
 
-	private $zp_cfg_a;
-	private $zp_cfg_b;
+	private $_config_contents_a;
+	private $_config_contents_b;
 	private $conf_vars = array();
 	private $plugin_vars = array();
 
 	function __construct() {
-		global $_configMutex, $_zp_conf_vars;
+		global $_configMutex, $_conf_vars;
 
 		if (OFFSET_PATH == 2 && getPlugin('/rewriteRules/rules.txt')) {
 			enableExtension('rewriteRules', 1 | FEATURE_PLUGIN);
 		}
 
 		$_configMutex->lock();
-		$zp_cfg = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-		$i = strpos($zp_cfg, "\$conf['special_pages']");
-		$j = strpos($zp_cfg, '//', $i);
+		$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+		$i = strpos($_config_contents, "\$conf['special_pages']");
+		$j = strpos($_config_contents, '//', $i);
 		if ($i === false || $j === false) {
-			$this->conf_vars = $_zp_conf_vars['special_pages'];
-			$i = strpos($zp_cfg, '/** Do not edit below this line. **/');
+			$this->conf_vars = $_conf_vars['special_pages'];
+			$i = strpos($_config_contents, '/** Do not edit below this line. **/');
 			if ($i === false) {
 				trigger_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 			}
-			$this->zp_cfg_a = substr($zp_cfg, 0, $i);
-			$this->zp_cfg_b = "//\n" . substr($zp_cfg, $i);
+			$this->zp_cfg_a = substr($_config_contents, 0, $i);
+			$this->zp_cfg_b = "//\n" . substr($_config_contents, $i);
 		} else {
-			$this->zp_cfg_a = substr($zp_cfg, 0, $i);
-			$this->zp_cfg_b = substr($zp_cfg, $j);
-			eval(substr($zp_cfg, $i, $j - $i));
+			$this->zp_cfg_a = substr($_config_contents, 0, $i);
+			$this->zp_cfg_b = substr($_config_contents, $j);
+			eval(substr($_config_contents, $i, $j - $i));
 			$this->conf_vars = $conf['special_pages'];
-			foreach ($_zp_conf_vars['special_pages'] as $page => $element) {
+			foreach ($_conf_vars['special_pages'] as $page => $element) {
 				if (isset($element['option'])) {
 					$this->plugin_vars[$page] = $element;
 				}
@@ -163,10 +163,10 @@ class rewriteRules {
 
 		if (OFFSET_PATH == 2) {
 			$old = array_keys($conf['special_pages']);
-			$zp_cfg = file_get_contents(CORE_SERVERPATH . 'zenphoto_cfg.txt');
-			$i = strpos($zp_cfg, "\$conf['special_pages']");
-			$j = strpos($zp_cfg, '//', $i);
-			eval(substr($zp_cfg, $i, $j - $i));
+			$_config_contents = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
+			$i = strpos($_config_contents, "\$conf['special_pages']");
+			$j = strpos($_config_contents, '//', $i);
+			eval(substr($_config_contents, $i, $j - $i));
 			$new = array_keys($conf['special_pages']);
 			if ($old != $new) {
 				//Things have changed, need to reset to defaults;
@@ -244,7 +244,7 @@ class rewriteRules {
 		if (getOption('rewriteTokens_restore')) {
 			$updated = false;
 			purgeOption('rewriteTokens_restore');
-			$template = file_get_contents(CORE_SERVERPATH . 'zenphoto_cfg.txt');
+			$template = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
 			$i = strpos($template, "\$conf['special_pages']");
 			$j = strpos($template, '//', $i);
 			$newtext = substr($template, $i, $j - $i);
@@ -290,13 +290,13 @@ class rewriteRules {
 			$newtext .= $token = "\n														'$page'=>			array('define'=>$define,						'rewrite'=>'{$element['rewrite']}'$rule),";
 		}
 		$newtext = substr($newtext, 0, -1) . "\n												);\n";
-		$zp_cfg = $this->zp_cfg_a . $newtext . $this->zp_cfg_b;
-		storeConfig($zp_cfg);
+		$_config_contents = $this->zp_cfg_a . $newtext . $this->zp_cfg_b;
+		storeConfig($_config_contents);
 		return $notify;
 	}
 
 	static function tabs($tabs) {
-		if (zp_loggedin(ADMIN_RIGHTS)) {
+		if (npg_loggedin(ADMIN_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
 						'link' => getAdminLink(PLUGIN_FOLDER . '/rewriteRules/rules_tab.php') . '?page=development&tab=rewrite',
@@ -310,7 +310,7 @@ class rewriteRules {
 	}
 
 	static function processRules($ruleFile) {
-		global $_zp_conf_vars;
+		global $_conf_vars;
 		$customRules = explode("\n", $ruleFile);
 
 		$definitions = array();
@@ -327,7 +327,7 @@ class rewriteRules {
 				}
 			}
 		}
-		$_zp_conf_vars['special_pages'] = array_merge($_zp_conf_vars['special_pages'], $definitions, $rules);
+		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $definitions, $rules);
 	}
 
 }

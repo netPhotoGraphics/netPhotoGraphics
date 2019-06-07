@@ -11,11 +11,11 @@ require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-$logtabs = $zenphoto_tabs['logs']['subtabs'];
+$logtabs = $_admin_menu['logs']['subtabs'];
 if (isset($_GET['tab']) && isset($logtabs[$_GET['tab']])) {
 	$logname = $subtab = $_GET['tab'];
 } else {
-	$logname = $subtab = $zenphoto_tabs['logs']['default'];
+	$logname = $subtab = $_admin_menu['logs']['default'];
 }
 $baseName = preg_replace('~-\d*$~', '', $logname);
 
@@ -30,11 +30,11 @@ if (isset($_GET['action'])) {
 	$what = sanitize($_GET['filename'], 3);
 	$file = SERVERPATH . '/' . DATA_FOLDER . '/' . $what . '.log';
 
-	if (zp_apply_filter('admin_log_actions', true, $file, $action)) {
+	if (npgFilters::apply('admin_log_actions', true, $file, $action)) {
 		switch ($action) {
 			case 'clear_log':
 				XSRFdefender($action, $what);
-				$_zp_mutex->lock();
+				$_mutex->lock();
 				$f = fopen($file, 'w');
 				if (@ftruncate($f, 0)) {
 					$class = 'messagebox';
@@ -46,15 +46,15 @@ if (isset($_GET['action'])) {
 				fclose($f);
 				@chmod($file, LOGS_MOD);
 				clearstatcache();
-				$_zp_mutex->unlock();
+				$_mutex->unlock();
 				if (basename($file) == 'security.log') {
-					zp_apply_filter('admin_log_actions', true, $file, $action); // have to record the fact
+					npgFilters::apply('admin_log_actions', true, $file, $action); // have to record the fact
 				}
 				break;
 			case 'delete_log':
 				XSRFdefender($action, $what);
 				purgeOption('logviewed_' . $what);
-				$_zp_mutex->lock();
+				$_mutex->lock();
 				@chmod($file, 0777);
 				if (@unlink($file)) {
 					$class = 'messagebox';
@@ -64,9 +64,9 @@ if (isset($_GET['action'])) {
 					$result = sprintf(gettext('%s log could not be removed.'), $what);
 				}
 				clearstatcache();
-				$_zp_mutex->unlock();
+				$_mutex->unlock();
 				if (basename($file) == 'security.log') {
-					zp_apply_filter('admin_log_actions', true, $file, $action); // have to record the fact
+					npgFilters::apply('admin_log_actions', true, $file, $action); // have to record the fact
 				}
 				header('location: ' . getAdminLink('admin-tabs/logs.php'));
 				exit();
@@ -113,7 +113,7 @@ echo "\n</head>";
 		}
 		?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'logs', $subtab); ?>
+			<?php npgFilters::apply('admin_note', 'logs', $subtab); ?>
 			<h1><?php echo ucfirst($logname); ?></h1>
 
 			<div id="container">

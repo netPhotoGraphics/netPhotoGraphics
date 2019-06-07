@@ -8,7 +8,7 @@ if (!defined('WEBPATH'))
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
 		scriptLoader($zenCSS);
 		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
@@ -18,12 +18,12 @@ if (!defined('WEBPATH'))
 		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="main">
 			<div id="gallerytitle">
 				<?php
 				if (getOption('Allow_search')) {
-					$album_list = array('albums' => array($_zp_current_album->name), 'pages' => '0', 'news' => '0');
+					$album_list = array('albums' => array($_current_album->name), 'pages' => '0', 'news' => '0');
 					printSearchForm('', 'search', gettext('Search within album'), gettext('search'), NULL, NULL, $album_list);
 				}
 				?>
@@ -73,7 +73,7 @@ if (!defined('WEBPATH'))
 				printCodeblock(2);
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 				if (function_exists('printAddToFavorites'))
-					printAddToFavorites($_zp_current_album);
+					printAddToFavorites($_current_album);
 				printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', '');
 				simpleMap::printMap();
 				@call_user_func('printSlideShowLink');
@@ -95,7 +95,7 @@ if (!defined('WEBPATH'))
 			?>
 		</div>
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

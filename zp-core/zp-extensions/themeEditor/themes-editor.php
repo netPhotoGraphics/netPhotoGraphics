@@ -27,7 +27,7 @@ function isTextFile($file) {
 
 $messages = $file_to_edit = $file_content = null;
 $what = 'edit';
-$themes = $_zp_gallery->getThemes();
+$themes = $_gallery->getThemes();
 $theme = basename(sanitize($_GET['theme']));
 $themedir = SERVERPATH . '/themes/' . internalToFilesystem($theme);
 $themefiles = listDirectoryFiles($themedir);

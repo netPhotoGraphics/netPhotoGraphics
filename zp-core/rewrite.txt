@@ -1,5 +1,5 @@
 	#### Definitions
-	Define %CORE_PATH%			=>	CORE_PATH
+	Define %CORE_FOLDER%		=>	CORE_FOLDER
 	Define %PAGE%						=>	_PAGE_
 	Define %SEARCH%					=>	_SEARCH_
 	Define %ARCHIVE%				=>	_ARCHIVE_
@@ -8,7 +8,7 @@
 	#### Quick links
 	RewriteRule ^$                     										index.php [L,QSA]
 	RewriteRule ^index\.php$                     					index.php [L,QSA]
-	RewriteRule ^admin/*$																	%CORE_PATH%/admin [NC,L,QSA]
+	RewriteRule ^admin/*$																	%CORE_FOLDER%/admin.php [NC,L,QSA]
 
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [NC,L,QSA]

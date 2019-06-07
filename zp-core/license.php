@@ -18,7 +18,7 @@ if (isset($_GET['licenseAccept'])) {
 	} else {
 		$return_to = 'admin.php';
 	}
-	setOption('license_accepted', ZENPHOTO_VERSION);
+	setOption('license_accepted', NETPHOTOGRAPHICS_VERSION);
 	header('Location: ' . $return_to);
 	exit();
 }
@@ -44,7 +44,7 @@ echo "\n</head>";
 					$_SESSION['license_return'] = getRequestURI();
 					?>
 					<p class="buttons">
-						<a href="<?php echo getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('ZenphotoLicense'); ?>" alt="<?php echo gettext('You must accept this license to continue to use netPhotoGraphics.'); ?>"><?php echo gettext('I agree to these terms and conditions'); ?></a>
+						<a href="<?php echo getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('acceptLicense'); ?>" alt="<?php echo gettext('You must accept this license to continue to use netPhotoGraphics.'); ?>"><?php echo gettext('I agree to these terms and conditions'); ?></a>
 					</p>
 					<br class="clearall">
 					<?php

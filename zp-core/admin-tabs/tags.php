@@ -219,7 +219,7 @@ printAdminHeader('admin');
 				}
 			}
 
-			zp_apply_filter('admin_note', 'tags', '');
+			npgFilters::apply('admin_note', 'tags', '');
 
 			echo "<h1>" . gettext("Tag Management") . "</h1>";
 			?>
@@ -259,7 +259,7 @@ printAdminHeader('admin');
 						<div class="box-tags-unpadded">
 							<?php
 							tagSelector(NULL, 'tags_', true, $tagsort, false);
-							$list = $_zp_admin_ordered_taglist;
+							$list = $_admin_ordered_taglist;
 							?>
 						</div>
 
@@ -294,7 +294,7 @@ printAdminHeader('admin');
 									<select name="language" id="language" class="ignoredirty" >
 										<option value=""><?php echo gettext('Universal'); ?></option>
 										<?php
-										foreach ($_zp_active_languages as $text => $lang) {
+										foreach ($_active_languages as $text => $lang) {
 											?>
 											<option value="<?php echo $lang; ?>"><?php echo html_encode($text); ?></option>
 											<?php
@@ -411,7 +411,7 @@ printAdminHeader('admin');
 									<select name="language" id="language" class="ignoredirty">
 										<option value="" selected="language"><?php echo gettext('Universal'); ?></option>
 										<?php
-										foreach ($_zp_active_languages as $text => $lang) {
+										foreach ($_active_languages as $text => $lang) {
 											?>
 											<option value="<?php echo $lang; ?>" ><?php echo html_encode($text); ?></option>
 											<?php

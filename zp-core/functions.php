@@ -1,6 +1,6 @@
 <?php
 /**
- * basic functions used by zenphoto
+ * basic functions used by netPhotoGraphics
  *
  * @package core
  *
@@ -59,12 +59,12 @@ function parseAllowedTags(&$source) {
  * @return string
  */
 function checkObjectsThumb($localpath) {
-	global $_zp_supported_images;
+	global $_supported_images;
 	$image = stripSuffix($localpath);
 	$candidates = safe_glob($image . '.*');
 	foreach ($candidates as $file) {
 		$ext = substr($file, strrpos($file, '.') + 1);
-		if (in_array(strtolower($ext), $_zp_supported_images)) {
+		if (in_array(strtolower($ext), $_supported_images)) {
 			return basename($image . '.' . $ext);
 		}
 	}
@@ -301,7 +301,7 @@ function getUrAlbum($album) {
  * @return string
  */
 function lookupSortKey($sorttype, $default, $table) {
-	global $_zp_fieldLists;
+	global $_fieldLists;
 	switch (strtolower($sorttype)) {
 		case 'random':
 			return 'RAND()';
@@ -320,8 +320,8 @@ function lookupSortKey($sorttype, $default, $table) {
 			if ($table == 'albums') { // filename is synonomon for folder with albums
 				$sorttype = str_replace('filename', 'folder', $sorttype);
 			}
-			if (is_array($_zp_fieldLists) && isset($_zp_fieldLists[$table])) {
-				$dbfields = $_zp_fieldLists[$table];
+			if (is_array($_fieldLists) && isset($_fieldLists[$table])) {
+				$dbfields = $_fieldLists[$table];
 			} else {
 				$result = db_list_fields($table);
 				$dbfields = array();
@@ -330,7 +330,7 @@ function lookupSortKey($sorttype, $default, $table) {
 						$dbfields[strtolower($row['Field'])] = $row['Field'];
 					}
 				}
-				$_zp_fieldLists[$table] = $dbfields;
+				$_fieldLists[$table] = $dbfields;
 			}
 			$sorttype = strtolower($sorttype);
 			$list = explode(',', $sorttype);
@@ -355,7 +355,7 @@ function lookupSortKey($sorttype, $default, $table) {
  * @return string
  */
 function zpFormattedDate($format, $dt) {
-	global $_zp_UTF8;
+	global $_UTF8;
 	$fdate = strftime($format, $dt);
 	$charset = 'ISO-8859-1';
 	if (function_exists('mb_internal_encoding')) {
@@ -363,7 +363,7 @@ function zpFormattedDate($format, $dt) {
 			return $fdate;
 		}
 	}
-	return $_zp_UTF8->convert($fdate, $charset, LOCAL_CHARSET);
+	return $_UTF8->convert($fdate, $charset, LOCAL_CHARSET);
 }
 
 /**
@@ -402,7 +402,7 @@ function is_valid_email_zp($input_email) {
  * @since  1.0.0
  */
 function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $bcc_addresses = NULL, $replyTo = NULL, $failMessage = NULL, $fromMail = NULL) {
-	global $_zp_authority, $_zp_gallery, $_zp_UTF8;
+	global $_authority, $_gallery, $_UTF8;
 	if (is_null($failMessage)) {
 		$failMessage = gettext('Mail send failed.') . ' ';
 	}
@@ -417,8 +417,8 @@ function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $
 		}
 	}
 	if (is_null($email_list)) {
-		if ($_zp_authority) {
-			$email_list = $_zp_authority->getAdminEmail();
+		if ($_authority) {
+			$email_list = $_authority->getAdminEmail();
 		} else {
 			return $failMessage . gettext('There is no administrator with an e-mail address.');
 		}
@@ -468,7 +468,7 @@ function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $
 	}
 	if (count($email_list) + count($bcc_addresses) > 0) {
 
-		if (zp_has_filter('sendmail')) {
+		if (npgFilters::has_filter('sendmail')) {
 
 			if (is_array($fromMail)) {
 				$from_name = reset($fromMail);
@@ -480,8 +480,8 @@ function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $
 
 			// Convert to UTF-8
 			if (LOCAL_CHARSET != 'UTF-8') {
-				$subject = $_zp_UTF8->convert($subject, LOCAL_CHARSET);
-				$message = $_zp_UTF8->convert($message, LOCAL_CHARSET);
+				$subject = $_UTF8->convert($subject, LOCAL_CHARSET);
+				$message = $_UTF8->convert($message, LOCAL_CHARSET);
 			}
 
 			//	we do not support rich text
@@ -498,7 +498,7 @@ function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $
 			$message = preg_replace('~\n\n\n+~', "\n\n", $message);
 
 			// Send the mail
-			$result = zp_apply_filter('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
+			$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
 		} else {
 			$result = gettext('Mail send failed. There is no mail handler configured.');
 		}
@@ -542,13 +542,13 @@ function sortByMultilingual($dbresult, $field, $descending) {
  *
  */
 function accessAllAlbums($action) {
-	global $_zp_admin_owner_list, $_zp_loggedin;
-	if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-		if (zp_loggedin($action))
+	global $_admin_owner_list, $_loggedin;
+	if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		if (npg_loggedin($action))
 			return true;
 	}
-	if (zp_loggedin(ALL_ALBUMS_RIGHTS) && ($action == LIST_RIGHTS)) { // sees all
-		return $_zp_loggedin;
+	if (npg_loggedin(ALL_ALBUMS_RIGHTS) && ($action == LIST_RIGHTS)) { // sees all
+		return $_loggedin;
 	}
 	return false;
 }
@@ -563,14 +563,14 @@ function accessAllAlbums($action) {
  * @return bool
  */
 function checkAlbumPassword($album, &$hint = NULL) {
-	global $_zp_pre_authorization, $_zp_gallery;
+	global $_pre_authorization, $_gallery;
 	if (is_object($album)) {
 		$albumname = $album->name;
 	} else {
 		$album = newAlbum($albumname = $album, true, true);
 	}
-	if (isset($_zp_pre_authorization[$albumname])) {
-		return $_zp_pre_authorization[$albumname];
+	if (isset($_pre_authorization[$albumname])) {
+		return $_pre_authorization[$albumname];
 	}
 	$hash = $album->getPassword();
 	if (empty($hash)) {
@@ -578,11 +578,11 @@ function checkAlbumPassword($album, &$hint = NULL) {
 		while (!is_null($album)) {
 			$hash = $album->getPassword();
 			$authType = "zp_album_auth_" . $album->getID();
-			$saved_auth = zp_getCookie($authType);
+			$saved_auth = getNPGCookie($authType);
 
 			if (!empty($hash)) {
 				if ($saved_auth == $hash) {
-					$_zp_pre_authorization[$albumname] = $authType;
+					$_pre_authorization[$albumname] = $authType;
 					return $authType;
 				} else {
 					$hint = $album->getPasswordHint();
@@ -592,26 +592,26 @@ function checkAlbumPassword($album, &$hint = NULL) {
 			$album = $album->getParent();
 		}
 // revert all tlhe way to the gallery
-		$hash = $_zp_gallery->getPassword();
+		$hash = $_gallery->getPassword();
 		$authType = 'zp_gallery_auth';
-		$saved_auth = zp_getCookie($authType);
+		$saved_auth = getNPGCookie($authType);
 		if (empty($hash)) {
 			$authType = 'zp_public_access';
 		} else {
 			if ($saved_auth != $hash) {
-				$hint = $_zp_gallery->getPasswordHint();
+				$hint = $_gallery->getPasswordHint();
 				return false;
 			}
 		}
 	} else {
 		$authType = "zp_album_auth_" . $album->getID();
-		$saved_auth = zp_getCookie($authType);
+		$saved_auth = getNPGCookie($authType);
 		if ($saved_auth != $hash) {
 			$hint = $album->getPasswordHint();
 			return false;
 		}
 	}
-	$_zp_pre_authorization[$albumname] = $authType;
+	$_pre_authorization[$albumname] = $authType;
 	return $authType;
 }
 
@@ -666,12 +666,12 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
  * @return string
  */
 function getPlugin($plugin, $inTheme = false, $webpath = false) {
-	global $_zp_gallery;
+	global $_gallery;
 	$pluginFile = NULL;
 	$plugin_fs = internalToFilesystem($plugin);
 	$sources = array('/' . USER_PLUGIN_FOLDER . '/' . $plugin_fs, '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $plugin_fs, '/' . CORE_FOLDER . '/' . $plugin_fs);
 	if ($inTheme === true) {
-		$inTheme = $_zp_gallery->getCurrentTheme();
+		$inTheme = $_gallery->getCurrentTheme();
 	}
 	if ($inTheme) {
 		array_unshift($sources, '/' . THEMEFOLDER . '/' . internalToFilesystem($inTheme . '/' . $plugin));
@@ -753,33 +753,33 @@ function defaultExtension($priority) {
 }
 
 /**
- * Populates and returns the $_zp_admin_owner_list array
+ * Populates and returns the $_admin_owner_list array
  * @return array
  */
 function getManagedAlbumList() {
-	global $_zp_admin_owner_list, $_zp_current_admin_obj;
-	$_zp_admin_owner_list = array();
-	if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+	global $_admin_owner_list, $_current_admin_obj;
+	$_admin_owner_list = array();
+	if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 		$sql = "SELECT `folder` FROM " . prefix('albums') . ' WHERE `parentid` IS NULL';
 		$albums = query($sql);
 		if ($albums) {
 			while ($album = db_fetch_assoc($albums)) {
-				$_zp_admin_owner_list[$album['folder']] = 32767;
+				$_admin_owner_list[$album['folder']] = 32767;
 			}
 			db_free_result($albums);
 		}
 	} else {
-		if ($_zp_current_admin_obj) {
-			$_zp_admin_owner_list = array();
-			$objects = $_zp_current_admin_obj->getObjects();
+		if ($_current_admin_obj) {
+			$_admin_owner_list = array();
+			$objects = $_current_admin_obj->getObjects();
 			foreach ($objects as $object) {
 				if ($object['type'] == 'albums') {
-					$_zp_admin_owner_list[$object['data']] = $object['edit'];
+					$_admin_owner_list[$object['data']] = $object['edit'];
 				}
 			}
 		}
 	}
-	return array_keys($_zp_admin_owner_list);
+	return array_keys($_admin_owner_list);
 }
 
 /**
@@ -856,10 +856,10 @@ function populateManagedObjectsList($type, $id, $rights = false) {
  * @return array
  */
 function getAllSubAlbumIDs($albumfolder = '') {
-	global $_zp_current_album;
+	global $_current_album;
 	if (empty($albumfolder)) {
-		if (isset($_zp_current_album)) {
-			$albumfolder = $_zp_current_album->getFileName();
+		if (isset($_current_album)) {
+			$albumfolder = $_current_album->getFileName();
 		} else {
 			return null;
 		}
@@ -877,46 +877,46 @@ function getAllSubAlbumIDs($albumfolder = '') {
  * @param string $image Name of the image
  */
 function handleSearchParms($what, $album = NULL, $image = NULL) {
-	global $_zp_current_search, $zp_request, $_zp_last_album, $_zp_current_album,
-	$_zp_current_article, $_zp_current_page, $_zp_gallery, $_zp_loggedin, $_zp_HTML_cache;
-	$_zp_last_album = zp_getCookie('zenphoto_last_album');
-	if (is_object($zp_request) && get_class($zp_request) == 'SearchEngine') { //	we are are on a search
+	global $_current_search, $_requested_object, $_last_album, $_current_album,
+	$_CMS_current_article, $_CMS_current_page, $_gallery, $_loggedin, $_HTML_cache;
+	$_last_album = getNPGCookie('last_album');
+	if (is_object($_requested_object) && get_class($_requested_object) == 'SearchEngine') { //	we are are on a search
 		if (is_null($album)) {
-			zp_clearCookie('zenphoto_last_album');
+			clearNPGCookie('last_album');
 		}
-		return $zp_request->getAlbumList();
+		return $_requested_object->getAlbumList();
 	}
-	$params = zp_getCookie('zenphoto_search_params');
+	$params = getNPGCookie('search_params');
 	if (!empty($params)) {
 		$context = get_context();
-		$_zp_current_search = new SearchEngine();
-		$_zp_current_search->setSearchParams($params);
+		$_current_search = new SearchEngine();
+		$_current_search->setSearchParams($params);
 		// check to see if we are still "in the search context"
 		if (!is_null($image)) {
-			$dynamic_album = $_zp_current_search->getDynamicAlbum();
-			if ($_zp_current_search->getImageIndex($album->name, $image->filename) !== false) {
+			$dynamic_album = $_current_search->getDynamicAlbum();
+			if ($_current_search->getImageIndex($album->name, $image->filename) !== false) {
 				if ($dynamic_album) {
-					$dynamic_album->linkname = $_zp_current_album->linkname;
-					$dynamic_album->parentLinks = $_zp_current_album->parentLinks;
-					$dynamic_album->index = $_zp_current_album->index;
-					$_zp_current_album = $dynamic_album;
+					$dynamic_album->linkname = $_current_album->linkname;
+					$dynamic_album->parentLinks = $_current_album->parentLinks;
+					$dynamic_album->index = $_current_album->index;
+					$_current_album = $dynamic_album;
 				}
 				$context = $context | ZP_SEARCH_LINKED | ZP_IMAGE_LINKED;
 			}
 		}
 		if (is_null($album)) {
-			zp_clearCookie('zenphoto_last_album');
+			clearNPGCookie('last_album');
 		} else {
 			$albumname = $album->name;
-			zp_setCookie('zenphoto_last_album', $albumname);
+			setNPGCookie('last_album', $albumname);
 			if (hasDynamicAlbumSuffix($albumname) && !is_dir(ALBUM_FOLDER_SERVERPATH . $albumname)) {
 				$albumname = stripSuffix($albumname); // strip off the suffix as it will not be reflected in the search path
 			}
 			//	see if the album is within the search context. NB for these purposes we need to look at all albums!
-			$save_logon = $_zp_loggedin;
-			$_zp_loggedin = $_zp_loggedin | VIEW_ALL_RIGHTS;
-			$search_album_list = $_zp_current_search->getAlbums(0);
-			$_zp_loggedin = $save_logon;
+			$save_logon = $_loggedin;
+			$_loggedin = $_loggedin | VIEW_ALL_RIGHTS;
+			$search_album_list = $_current_search->getAlbums(0);
+			$_loggedin = $save_logon;
 			foreach ($search_album_list as $searchalbum) {
 				if (strpos($albumname, $searchalbum) !== false) {
 					$context = $context | ZP_SEARCH_LINKED | ZP_ALBUM_LINKED;
@@ -924,10 +924,10 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 				}
 			}
 		}
-		if (!is_null($_zp_current_page)) {
-			$pages = $_zp_current_search->getPages();
+		if (!is_null($_CMS_current_page)) {
+			$pages = $_current_search->getPages();
 			if (!empty($pages)) {
-				$titlelink = $_zp_current_page->getTitlelink();
+				$titlelink = $_CMS_current_page->getTitlelink();
 				foreach ($pages as $apage) {
 					if ($apage == $titlelink) {
 						$context = $context | ZP_SEARCH_LINKED;
@@ -936,10 +936,10 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 				}
 			}
 		}
-		if (!is_null($_zp_current_article)) {
-			$news = $_zp_current_search->getArticles(0, NULL, true);
+		if (!is_null($_CMS_current_article)) {
+			$news = $_current_search->getArticles(0, NULL, true);
 			if (!empty($news)) {
-				$titlelink = $_zp_current_article->getTitlelink();
+				$titlelink = $_CMS_current_article->getTitlelink();
 				foreach ($news as $anews) {
 					if ($anews['titlelink'] == $titlelink) {
 						$context = $context | ZP_SEARCH_LINKED;
@@ -950,12 +950,12 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 		}
 		if (($context & ZP_SEARCH_LINKED)) {
 			set_context($context);
-			$_zp_HTML_cache->abortHTMLCache(true);
+			$_HTML_cache->abortHTMLCache(true);
 		} else { // not an object in the current search path
-			$_zp_current_search = null;
+			$_current_search = null;
 			rem_context(ZP_SEARCH);
 			if (!isset($_REQUEST['preserve_serch_params'])) {
-				zp_clearCookie("zenphoto_search_params");
+				clearNPGCookie("search_params");
 			}
 		}
 	}
@@ -1012,18 +1012,18 @@ function galleryAlbumsPerPage() {
  * @return string
  */
 function setupTheme($album = NULL) {
-	global $_zp_gallery, $_zp_current_album, $_zp_current_search, $_zp_themeroot;
+	global $_gallery, $_current_album, $_current_search, $_themeroot;
 	$albumtheme = '';
 	if (is_null($album)) {
 		if (in_context(ZP_SEARCH_LINKED)) {
-			if (!$album = $_zp_current_search->getDynamicAlbum()) {
-				$album = $_zp_current_album;
+			if (!$album = $_current_search->getDynamicAlbum()) {
+				$album = $_current_album;
 			}
 		} else {
-			$album = $_zp_current_album;
+			$album = $_current_album;
 		}
 	}
-	$theme = $_zp_gallery->getCurrentTheme();
+	$theme = $_gallery->getCurrentTheme();
 	$id = 0;
 	if (!is_null($album)) {
 		$parent = getUrAlbum($album);
@@ -1035,8 +1035,8 @@ function setupTheme($album = NULL) {
 			}
 		}
 	}
-	$theme = zp_apply_filter('setupTheme', $theme);
-	$_zp_gallery->setCurrentTheme($theme, true); //	don't make it permanant if someone saves the gallery
+	$theme = npgFilters::apply('setupTheme', $theme);
+	$_gallery->setCurrentTheme($theme, true); //	don't make it permanant if someone saves the gallery
 	$themeindex = getPlugin('index.php', $theme);
 	if (empty($theme) || empty($themeindex)) {
 		header('Last-Modified: ' . ZP_LAST_MODIFIED);
@@ -1054,7 +1054,7 @@ function setupTheme($album = NULL) {
 		exit();
 	} else {
 		loadLocalOptions($id, $theme);
-		$_zp_themeroot = WEBPATH . "/" . THEMEFOLDER . "/$theme";
+		$_themeroot = WEBPATH . "/" . THEMEFOLDER . "/$theme";
 	}
 	return $theme;
 }
@@ -1081,19 +1081,19 @@ function setupTheme($album = NULL) {
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
-	global $_zp_unique_tags, $_zp_count_tags, $_zp_current_locale, $_zp_loggedin;
+	global $_unique_tags, $_count_tags, $_current_locale, $_loggedin;
 	if (is_null($returnCount)) {
-		$list = &$_zp_unique_tags;
+		$list = &$_unique_tags;
 	} else {
-		$list = &$_zp_count_tags;
+		$list = &$_count_tags;
 	}
 	if (is_null($language)) {
 		switch (getOption('languageTagSearch')) {
 			case 1:
-				$language = substr($_zp_current_locale, 0, 2);
+				$language = substr($_current_locale, 0, 2);
 				break;
 			case 2:
-				$language = $_zp_current_locale;
+				$language = $_current_locale;
 				break;
 			default:
 				$language = 0;
@@ -1104,7 +1104,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 	if (!isset($list[$language][$count])) {
 		$list[$language][$count] = array();
 
-		if (($_zp_loggedin & TAGS_RIGHTS) || ($_zp_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
+		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
 			$source = prefix('obj_to_tag');
 		} else {
 // create a table of only "published" tag assignments
@@ -1121,7 +1121,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
 			}
 			foreach ($tables as $table => $rights) {
-				if ($_zp_loggedin & $rights) {
+				if ($_loggedin & $rights) {
 					$show = '';
 				} else {
 					$show = ' AND tag.objectid=object.id AND object.show=1';
@@ -1136,7 +1136,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 		} else {
 			$lang = ' AND (tag.language="" OR tag.language LIKE ' . db_quote(db_LIKE_escape($language) . '%') . ')';
 		}
-		if ($_zp_loggedin & TAGS_RIGHTS) {
+		if ($_loggedin & TAGS_RIGHTS) {
 			$private = '';
 		} else {
 			$private = ' AND (tag.private=0)';
@@ -1220,21 +1220,21 @@ function storeTags($tags, $id, $tbl) {
  * @return array
  */
 function readTags($id, $tbl, $language, $full = false) {
-	global $_zp_current_locale;
+	global $_current_locale;
 	if (is_null($language)) {
 		switch (getOption('languageTagSearch')) {
 			case 1:
-				$language = substr($_zp_current_locale, 0, 2);
+				$language = substr($_current_locale, 0, 2);
 				break;
 			case 2:
-				$language = $_zp_current_locale;
+				$language = $_current_locale;
 				break;
 			default:
 				$langage = '';
 				break;
 		}
 	}
-	if (zp_loggedin(TAGS_RIGHTS)) {
+	if (npg_loggedin(TAGS_RIGHTS)) {
 		$private = '';
 	} else {
 		$private = ' AND tags.private=0';
@@ -1375,18 +1375,18 @@ function swLogo() {
 
 /**
  *
- * @global object $_zp_gallery
+ * @global object $_gallery
  * @param string $title title for the image
  */
 function printSiteLogoImage($title = NULL) {
-	global $_zp_gallery;
+	global $_gallery;
 	if (empty($title)) {
-		$title = $_zp_gallery->getSiteLogoTitle();
+		$title = $_gallery->getSiteLogoTitle();
 		if (empty($title)) {
 			$title = 'netPhotoGraphics';
 		}
 	}
-	$logo = $_zp_gallery->getSiteLogo();
+	$logo = $_gallery->getSiteLogo();
 	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so the 78px is hard coded
 	?>
 	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="<?php echo $title; ?>" style="height:78px; width:auto;" />
@@ -1524,24 +1524,24 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
  * @return array
  */
 function getNotViewableAlbums() {
-	global $_zp_not_viewable_album_list;
-	if (zp_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))
+	global $_not_viewable_album_list;
+	if (npg_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))
 		return array(); //admins can see all
-	if (is_null($_zp_not_viewable_album_list)) {
+	if (is_null($_not_viewable_album_list)) {
 		$sql = 'SELECT `folder`, `id` FROM ' . prefix('albums');
 		$result = query($sql);
 		if ($result) {
-			$_zp_not_viewable_album_list = array();
+			$_not_viewable_album_list = array();
 			while ($row = db_fetch_assoc($result)) {
 				$album = newAlbum($row['folder'], false, true);
 				if (!$album || !$album->exists || !$album->checkAccess()) {
-					$_zp_not_viewable_album_list[] = $row['id'];
+					$_not_viewable_album_list[] = $row['id'];
 				}
 			}
 			db_free_result($result);
 		}
 	}
-	return $_zp_not_viewable_album_list;
+	return $_not_viewable_album_list;
 }
 
 /**
@@ -1629,8 +1629,8 @@ function getWatermarkParam($image, $use) {
  * @return string
  */
 function zp_image_types($quote) {
-	global $_zp_images_classes;
-	$types = array_unique($_zp_images_classes);
+	global $_images_classes;
+	$types = array_unique($_images_classes);
 	$typelist = '';
 	foreach ($types as $type) {
 		$typelist .= $quote . strtolower($type) . 's' . $quote . ',';
@@ -1649,8 +1649,8 @@ function isImageVideo($image = NULL) {
 	if (is_null($image)) {
 		if (!in_context(ZP_IMAGE))
 			return false;
-		global $_zp_current_image;
-		$image = $_zp_current_image;
+		global $_current_image;
+		$image = $_current_image;
 	}
 	return strtolower(get_class($image)) == 'video';
 }
@@ -1662,11 +1662,11 @@ function isImageVideo($image = NULL) {
  * @return bool
  */
 function isImagePhoto($image = NULL) {
-	global $_zp_current_image;
+	global $_current_image;
 	if (is_null($image)) {
 		if (!in_context(ZP_IMAGE))
 			return false;
-		$image = $_zp_current_image;
+		$image = $_current_image;
 	}
 	$class = strtolower(get_class($image));
 	return $class == 'image' || $class == 'transientimage';
@@ -1749,13 +1749,13 @@ function dateTimeConvert($datetime, $raw = false) {
  */
 
 function get_context() {
-	global $_zp_current_context;
-	return $_zp_current_context;
+	global $_current_context;
+	return $_current_context;
 }
 
 function set_context($context) {
-	global $_zp_current_context;
-	$_zp_current_context = $context;
+	global $_current_context;
+	$_current_context = $context;
 }
 
 function in_context($context) {
@@ -1767,19 +1767,19 @@ function add_context($context) {
 }
 
 function rem_context($context) {
-	global $_zp_current_context;
+	global $_current_context;
 	set_context(get_context() & ~$context);
 }
 
 // Use save and restore rather than add/remove when modifying contexts.
 function save_context() {
-	global $_zp_current_context, $_zp_current_context_stack;
-	array_push($_zp_current_context_stack, $_zp_current_context);
+	global $_current_context, $_current_context_stack;
+	array_push($_current_context_stack, $_current_context);
 }
 
 function restore_context() {
-	global $_zp_current_context, $_zp_current_context_stack;
-	$_zp_current_context = array_pop($_zp_current_context_stack);
+	global $_current_context, $_current_context_stack;
+	$_current_context = array_pop($_current_context_stack);
 }
 
 /**
@@ -1828,7 +1828,7 @@ function sanitizeRedirect($redirectTo, $forceHost = true) {
  * @return bool true if authorized
  */
 function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = NULL) {
-	global $_zp_loggedin, $_zp_login_error, $_zp_current_album, $_zp_current_page, $_zp_current_category, $_zp_current_article, $_zp_gallery;
+	global $_loggedin, $_login_error, $_current_album, $_CMS_current_page, $_CMS_current_category, $_CMS_current_article, $_gallery;
 	$success = false;
 	if (empty($authType)) { // not supplied by caller
 		$check_auth = '';
@@ -1844,11 +1844,11 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			$check_user = getOption('search_user');
 			$auth = array(array($authType, $check_auth, $check_user));
 		} else if (in_context(ZP_ALBUM)) { // album page
-			$authType = "zp_album_auth_" . $_zp_current_album->getID();
-			$check_auth = $_zp_current_album->getPassword();
-			$check_user = $_zp_current_album->getUser();
+			$authType = "zp_album_auth_" . $_current_album->getID();
+			$check_auth = $_current_album->getPassword();
+			$check_user = $_current_album->getUser();
 			if (empty($check_auth)) {
-				$parent = $_zp_current_album->getParent();
+				$parent = $_current_album->getParent();
 				while (!is_null($parent)) {
 					$check_auth = $parent->getPassword();
 					$check_user = $parent->getUser();
@@ -1861,11 +1861,11 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			}
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 		} else if (in_context(ZP_ZENPAGE_PAGE)) {
-			$authType = "zp_page_auth_" . $_zp_current_page->getID();
-			$check_auth = $_zp_current_page->getPassword();
-			$check_user = $_zp_current_page->getUser();
+			$authType = "zp_page_auth_" . $_CMS_current_page->getID();
+			$check_auth = $_CMS_current_page->getPassword();
+			$check_user = $_CMS_current_page->getUser();
 			if (empty($check_auth)) {
-				$pageobj = $_zp_current_page;
+				$pageobj = $_CMS_current_page;
 				while (empty($check_auth)) {
 					$parentID = $pageobj->getParentID();
 					if ($parentID == 0)
@@ -1881,9 +1881,9 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 		} else if (in_context(ZP_ZENPAGE_NEWS_CATEGORY) || in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
 			if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
-				$categories = array(array('titlelink' => $_zp_current_category->getTitleLink()));
+				$categories = array(array('titlelink' => $_CMS_current_category->getTitleLink()));
 			} else {
-				$categories = $_zp_current_article->getCategories();
+				$categories = $_CMS_current_article->getCategories();
 			}
 			foreach ($categories as $category) {
 				$cat = newCategory($category['titlelink']);
@@ -1906,8 +1906,8 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 		}
 		if (empty($auth)) { // anything else is controlled by the gallery credentials
 			$authType = 'zp_gallery_auth';
-			$check_auth = $_zp_gallery->getPassword();
-			$check_user = $_zp_gallery->getUser();
+			$check_auth = $_gallery->getPassword();
+			$check_user = $_gallery->getUser();
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 		}
 	} else {
@@ -1927,8 +1927,8 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 		$post_pass = sanitize($_POST['pass'], 0);
 		if (!empty($auth) && !empty($post_pass)) {
 			$alternates = array();
-			foreach (Zenphoto_Authority::$hashList as $hash => $hi) {
-				if ($h = Zenphoto_Authority::passwordHash($post_user, $post_pass, $hi, false)) {
+			foreach (npg_Authority::$hashList as $hash => $hi) {
+				if ($h = npg_Authority::passwordHash($post_user, $post_pass, $hi, false)) {
 					array_push($alternates, $h);
 				}
 			}
@@ -1952,13 +1952,13 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				}
 			}
 
-			$success = zp_apply_filter('guest_login_attempt', $success, $post_user, $post_pass, $authType);
+			$success = npgFilters::apply('guest_login_attempt', $success, $post_user, $post_pass, $authType);
 
 			if ($success) {
 				// Correct auth info. Set the cookie.
 				if (DEBUG_LOGIN)
 					debugLog("zp_handle_password: valid credentials");
-				zp_setCookie($authType, $auth);
+				setNPGCookie($authType, $auth);
 				if (isset($_POST['redirect'])) {
 					$redirect_to = sanitizeRedirect($_POST['redirect']);
 					if (!empty($redirect_to)) {
@@ -1970,8 +1970,8 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				// Clear the cookie, just in case
 				if (DEBUG_LOGIN)
 					debugLog("zp_handle_password: invalid credentials");
-				zp_clearCookie($authType);
-				$_zp_login_error = true;
+				clearNPGCookie($authType);
+				$_login_error = true;
 			}
 			return $success;
 		}
@@ -1981,7 +1981,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 	}
 	foreach ($auth as $try) {
 		$authType = $try['authType'];
-		if (($saved_auth = zp_getCookie($authType)) != '') {
+		if (($saved_auth = getNPGCookie($authType)) != '') {
 			if ($saved_auth == $check_auth) {
 				if (DEBUG_LOGIN)
 					debugLog("zp_handle_password: valid cookie");
@@ -1990,7 +1990,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 // Clear the cookie
 				if (DEBUG_LOGIN)
 					debugLog("zp_handle_password: invalid cookie");
-				zp_clearCookie($authType);
+				clearNPGCookie($authType);
 			}
 		}
 	}
@@ -2020,7 +2020,7 @@ function getOptionFromDB($key) {
  * @param string $creator the caller of setThemeOptionDefault()
  */
 function setThemeOption($key, $value, $album = NULL, $theme = NULL, $default = false, $creator = NULL) {
-	global $_zp_options;
+	global $_options;
 	if (is_null($album)) {
 		$id = 0;
 	} else {
@@ -2051,11 +2051,11 @@ function setThemeOption($key, $value, $album = NULL, $theme = NULL, $default = f
 	}
 	$sql .= ') ';
 	if ($default) {
-		if (!isset($_zp_options[$key = strtolower($key)]))
-			$_zp_options[$key] = $value;
+		if (!isset($_options[$key = strtolower($key)]))
+			$_options[$key] = $value;
 	} else {
 		$sql .= $sqlu;
-		$_zp_options[strtolower($key)] = $value;
+		$_options[strtolower($key)] = $value;
 	}
 	$result = query($sql, false);
 }
@@ -2080,7 +2080,7 @@ function setThemeOptionDefault($key, $value) {
  * @return mixed
  */
 function getThemeOption($option, $album = NULL, $theme = NULL) {
-	global $_set_theme_album, $_zp_gallery;
+	global $_set_theme_album, $_gallery;
 	if (is_null($album)) {
 		$album = $_set_theme_album;
 	}
@@ -2091,7 +2091,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 		$theme = $album->getAlbumTheme();
 	}
 	if (empty($theme)) {
-		$theme = $_zp_gallery->getCurrentTheme();
+		$theme = $_gallery->getCurrentTheme();
 	}
 	// album-theme order of preference is: Album theme => Theme => album => general
 	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme`="") ORDER BY `theme` DESC, `id` DESC LIMIT 1';
@@ -2156,7 +2156,7 @@ function getDBTables() {
  * @return bool
  */
 function commentsAllowed($type) {
-	return getOption($type) && (!MEMBERS_ONLY_COMMENTS || zp_loggedin(ADMIN_RIGHTS | POST_COMMENT_RIGHTS));
+	return getOption($type) && (!MEMBERS_ONLY_COMMENTS || npg_loggedin(ADMIN_RIGHTS | POST_COMMENT_RIGHTS));
 }
 
 /**
@@ -2167,8 +2167,8 @@ function commentsAllowed($type) {
  */
 function seoFriendly($string) {
 	$string = trim(preg_replace('~\s+\.\s*~', '.', $string));
-	if (zp_has_filter('seoFriendly')) {
-		$string = zp_apply_filter('seoFriendly', $string);
+	if (npgFilters::has_filter('seoFriendly')) {
+		$string = npgFilters::apply('seoFriendly', $string);
 	} else { // no filter, do basic cleanup
 		$string = preg_replace("/[^a-zA-Z0-9_.-]/", "-", $string);
 	}
@@ -2187,8 +2187,8 @@ function seoFriendlyJS() {
 	fname = fname.trim();
 	fname = fname.replace(/\s+\.\s*/,'.');
 	<?php
-	if (zp_has_filter('seoFriendly_js')) {
-		echo zp_apply_filter('seoFriendly_js', '');
+	if (npgFilters::has_filter('seoFriendly_js')) {
+		echo npgFilters::apply('seoFriendly_js', '');
 	} else { // no filter, do basic cleanup
 		?>
 		fname = fname.replace(/[^a-zA-Z0-9_.-]/g, '-');
@@ -2269,7 +2269,7 @@ function scriptLoader($script, $inline = 1) {
 		}
 	}
 	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
-	$version = explode('-', ZENPHOTO_VERSION);
+	$version = explode('-', NETPHOTOGRAPHICS_VERSION);
 	$version = array_shift($version);
 	if (TESTING_MODE) {
 		$version .= '.' . time();
@@ -2341,9 +2341,9 @@ function js_encode($this_string) {
  * 																							parts of URL being used for more security
  */
 function getXSRFToken($action, $modifier = NULL) {
-	global $_zp_current_admin_obj;
-	if (is_object($_zp_current_admin_obj)) {
-		$modifier .= serialize($_zp_current_admin_obj->getData());
+	global $_current_admin_obj;
+	if (is_object($_current_admin_obj)) {
+		$modifier .= serialize($_current_admin_obj->getData());
 	} else {
 		$modifier = microtime();
 	}
@@ -2369,7 +2369,7 @@ function XSRFToken($action, $modifier = NULL) {
  * Checks if protocol not https and redirects if https required
  */
 function httpsRedirect() {
-	if (zp_getCookie('zenphoto_ssl')) {
+	if (getNPGCookie('ssl_state')) {
 		// force https login
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
@@ -2386,12 +2386,12 @@ function httpsRedirect() {
  * @param bool $inline set to true to run the task "in-line". Set false run asynchronously
  */
 function cron_starter($script, $params, $offsetPath, $inline = false) {
-	global $_zp_authority, $_zp_loggedin, $_zp_current_admin_obj, $_zp_HTML_cache;
-	$admin = $_zp_authority->getMasterUser();
+	global $_authority, $_loggedin, $_current_admin_obj, $_HTML_cache;
+	$admin = $_authority->getMasterUser();
 	if ($admin) {
 		if ($inline) {
-			$_zp_current_admin_obj = $admin;
-			$_zp_loggedin = $_zp_current_admin_obj->getRights();
+			$_current_admin_obj = $admin;
+			$_loggedin = $_current_admin_obj->getRights();
 			foreach ($params as $key => $value) {
 				if ($key == 'XSRFTag') {
 					$key = 'XSRFToken';
@@ -2407,7 +2407,7 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 				$paramlist .= '&' . $key . '=' . $value;
 			}
 			$paramlist .= '&auth=' . $auth . '&offsetPath=' . $offsetPath;
-			$_zp_HTML_cache->abortHTMLCache(true);
+			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
 						// <!-- <![CDATA[
@@ -2433,9 +2433,9 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
  *
  * @return bool
  */
-function zp_loggedin($rights = ALL_RIGHTS) {
-	global $_zp_loggedin;
-	return $_zp_loggedin & ($rights | ADMIN_RIGHTS);
+function npg_loggedin($rights = ALL_RIGHTS) {
+	global $_loggedin;
+	return $_loggedin & ($rights | ADMIN_RIGHTS);
 }
 
 /**
@@ -2527,7 +2527,7 @@ function getItemByID($table, $id, $quiet = true) {
  * @return string
  */
 function applyMacros($text) {
-	global $_zp_UTF8;
+	global $_UTF8;
 	$content_macros = getMacros();
 	preg_match_all('/\[(\w+)(.*?)\]/i', $text, $instances);
 
@@ -2539,7 +2539,7 @@ function applyMacros($text) {
 			$data = NULL;
 			$class = $macro['class'];
 			if ($p) {
-				$p = trim($_zp_UTF8->sanitize(str_replace("\xC2\xA0", ' ', strip_tags($p)))); //	remove hard spaces and invalid characters
+				$p = trim($_UTF8->sanitize(str_replace("\xC2\xA0", ' ', strip_tags($p)))); //	remove hard spaces and invalid characters
 				$p = preg_replace("~\s+=\s+(?=(?:[^\"]*+\"[^\"]*+\")*+[^\"]*+$)~", "=", $p); //	deblank assignment operator
 				preg_match_all("~'[^'\"]++'|\"[^\"]++\"|[^\s]++~", $p, $l); //	parse the parameter list
 				$parms = array();
@@ -2687,11 +2687,11 @@ function applyMacros($text) {
 }
 
 function getMacros() {
-	global $_zp_content_macros;
-	if (is_null($_zp_content_macros)) {
-		$_zp_content_macros = zp_apply_filter('content_macro', array());
+	global $_content_macros;
+	if (is_null($_content_macros)) {
+		$_content_macros = npgFilters::apply('content_macro', array());
 	}
-	return $_zp_content_macros;
+	return $_content_macros;
 }
 
 /**
@@ -2706,12 +2706,12 @@ function getMacros() {
  * @return array
  */
 function getNestedAlbumList($subalbum, $levels, $level = array()) {
-	global $_zp_gallery;
+	global $_gallery;
 
 	$cur = count($level);
 	$levels--; // make it 0 relative to sync with $cur
 	if (is_null($subalbum)) {
-		$albums = $_zp_gallery->getAlbums();
+		$albums = $_gallery->getAlbums();
 	} else {
 		$albums = $subalbum->getAlbums();
 	}
@@ -2767,7 +2767,7 @@ class zpFunctions {
 	static function getLanguageText($loc = NULL, $separator = NULL) {
 		global $_locale_Subdomains;
 		if (is_null($loc)) {
-			$text = @$_locale_Subdomains[zp_getCookie('dynamic_locale')];
+			$text = @$_locale_Subdomains[getNPGCookie('dynamic_locale')];
 		} else {
 			$text = @$_locale_Subdomains[$loc];
 		}
@@ -2778,13 +2778,13 @@ class zpFunctions {
 	}
 
 	/**
-	 * initializes the $_zp_exifvars array display state
+	 * initializes the $_exifvars array display state
 	 *
 	 * @author Stephen Billard
 	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function exifvars($default = false) {
-		global $_zp_images_classes;
+		global $_images_classes;
 
 		/*
 		 * Note: If fields are added or deleted, setup should be run or the new data won't be stored
@@ -2794,7 +2794,7 @@ class zpFunctions {
 		 * is displayed
 		 */
 		$exifvars = array();
-		$handlers = array_unique($_zp_images_classes);
+		$handlers = array_unique($_images_classes);
 		$handlers[] = 'xmpMetadata';
 		foreach ($handlers as $handler) {
 			if (class_exists($handler)) {
@@ -2861,15 +2861,15 @@ class zpFunctions {
 	 */
 	static function hasPrimaryScripts() {
 		if (!defined('PRIMARY_INSTALLATION')) {
-			if (function_exists('readlink') && ($zen = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER)))) {
+			if (function_exists('readlink') && ($f = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER)))) {
 // no error reading the link info
 				$os = strtoupper(PHP_OS);
 				$sp = SERVERPATH;
 				if (substr($os, 0, 3) == 'WIN' || $os == 'DARWIN') { // canse insensitive file systems
 					$sp = strtolower($sp);
-					$zen = strtolower($zen);
+					$f = strtolower($f);
 				}
-				define('PRIMARY_INSTALLATION', $sp == dirname($zen));
+				define('PRIMARY_INSTALLATION', $sp == dirname($f));
 			} else {
 				define('PRIMARY_INSTALLATION', true);
 			}
@@ -3056,7 +3056,7 @@ class zpFunctions {
 /**
  * Standins for when no captcha is enabled
  */
-class _zp_captcha {
+class _captcha {
 
 	var $name = NULL; // "captcha" name if no captcha plugin loaded
 

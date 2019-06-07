@@ -19,7 +19,7 @@
 				$numpages = $numnews = 0;
 			}
 			if ($total == 0) {
-				$_zp_current_search->clearSearchWords();
+				$_current_search->clearSearchWords();
 			}
 			?>
 			<h5>
@@ -46,7 +46,7 @@
 </div>
 <div class="wrapper">
 	<div class="container">
-		<?php if ($_zp_page == 1) { //test of zenpage searches  ?>
+		<?php if ($_current_page == 1) { //test of zenpage searches  ?>
 			<div class="eight columns">
 				<?php
 				if ($numpages > 0) {

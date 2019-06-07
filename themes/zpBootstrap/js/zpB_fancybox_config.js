@@ -3,6 +3,7 @@ $(document).ready( function() {
 		// FancyBox shows only filtered items with Isotope
 		selector : $("#isotope-wrap").length ? '.isotope-item:visible > [data-fancybox="images"]' : '[data-fancybox="images"]',
 		loop : true,
+		preventCaptionOverlap: false,
 		margin : [20, 0],
 		buttons : [
 			'thumbs',

@@ -9,7 +9,7 @@
 		<div id="random-image">
 			<?php printRandomImages(1, null, 'all', '', 190, 225, true); ?>
 		</div>
-		<?php if (!zp_loggedin()) { ?>
+		<?php if (!npg_loggedin()) { ?>
 			<div class="error"><?php echo gettext("Please Login"); ?></div>
 			<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
 		<?php } else { ?>
@@ -19,7 +19,7 @@
 		<?php } ?>
 
 		<?php
-		if (!zp_loggedin() && function_exists('printRegistrationForm') && $_zp_gallery->isUnprotectedPage('register')) {
+		if (!npg_loggedin() && function_exists('printRegistrationForm') && $_gallery->isUnprotectedPage('register')) {
 			printCustomPageURL(gettext('Register for this site'), 'register', '', '<br />');
 			echo '<br />';
 		}

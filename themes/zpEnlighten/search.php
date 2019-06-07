@@ -6,16 +6,16 @@ if (!defined('WEBPATH'))
 <head>
 	<?php
 	printZDRoundedCornerJS();
-	zp_apply_filter('theme_head');
+	npgFilters::apply('theme_head');
 
-	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_themeroot . '/style.css');
 
 	printRSSHeaderLink('Gallery', gettext('Gallery'));
 	printZDSearchToggleJS();
 	?>
 </head>
 <body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 	<div id="main">
 		<?php include("header.php"); ?>
 
@@ -59,7 +59,7 @@ if (!defined('WEBPATH'))
 
 					<?php
 				}
-				if ($_zp_page == 1) { //test of zenpage searches
+				if ($_current_page == 1) { //test of zenpage searches
 					if ($numpages > 0) {
 						$number_to_show = 5;
 						$c = 0;
@@ -188,6 +188,6 @@ if (!defined('WEBPATH'))
 		</div><!-- content -->
 
 	</div><!-- main -->
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

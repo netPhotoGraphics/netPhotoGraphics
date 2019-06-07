@@ -22,7 +22,7 @@ $plugin_description = gettext('Create default codeblocks.');
 
 $option_interface = 'defaultCodeblocks';
 
-zp_register_filter('codeblock', 'defaultCodeblocks::codeblock');
+npgFilters::register('codeblock', 'defaultCodeblocks::codeblock');
 
 class defaultCodeblocks {
 
@@ -79,7 +79,7 @@ class defaultCodeblocks {
 	}
 
 	function handleOptionSave($themename, $themealbum) {
-		if (zp_loggedin(CODEBLOCK_RIGHTS)) {
+		if (npg_loggedin(CODEBLOCK_RIGHTS)) {
 			foreach ($this->blocks as $object => $block) {
 				$this->currentObject = $object;
 				processCodeblockSave($object, $this);

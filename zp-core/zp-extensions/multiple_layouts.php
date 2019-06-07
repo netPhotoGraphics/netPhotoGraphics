@@ -45,32 +45,32 @@ $plugin_description = gettext("Multiple <em>Theme</em> layouts");
 
 $option_interface = 'multipleLayoutOptions';
 
-zp_register_filter('load_theme_script', 'getLayout');
-zp_register_filter('remove_object', 'deleteLayoutSelection');
-zp_register_filter('copy_object', 'copyLayoutSelection');
+npgFilters::register('load_theme_script', 'getLayout');
+npgFilters::register('remove_object', 'deleteLayoutSelection');
+npgFilters::register('copy_object', 'copyLayoutSelection');
 if (getOption('multiple_layouts_albums')) {
-	zp_register_filter('edit_album_utilities', 'layoutSelector_album');
-	zp_register_filter('save_album_data', 'saveZenphotoLayoutSelection');
+	npgFilters::register('edit_album_utilities', 'layoutSelector_album');
+	npgFilters::register('save_album_data', 'saveLayoutSelectionFilter');
 }
 if (getOption('multiple_layouts_images')) {
-	zp_register_filter('edit_image_utilities', 'layoutSelector');
-	zp_register_filter('save_image_data', 'saveZenphotoLayoutSelection');
+	npgFilters::register('edit_image_utilities', 'layoutSelector');
+	npgFilters::register('save_image_data', 'saveLayoutSelectionFilter');
 }
 if (extensionEnabled('zenpage')) {
 	if (getOption('multiple_layouts_pages')) {
-		zp_register_filter('publish_page_utilities', 'layoutSelector');
-		zp_register_filter('new_page', 'saveLayoutSelection');
-		zp_register_filter('update_page', 'saveLayoutSelection');
+		npgFilters::register('publish_page_utilities', 'layoutSelector');
+		npgFilters::register('new_page', 'saveLayoutSelection');
+		npgFilters::register('update_page', 'saveLayoutSelection');
 	}
 	if (getOption('multiple_layouts_news')) {
-		zp_register_filter('publish_article_utilities', 'layoutSelector');
-		zp_register_filter('new_article', 'saveLayoutSelection');
-		zp_register_filter('update_article', 'saveLayoutSelection');
+		npgFilters::register('publish_article_utilities', 'layoutSelector');
+		npgFilters::register('new_article', 'saveLayoutSelection');
+		npgFilters::register('update_article', 'saveLayoutSelection');
 	}
 	if (getOption('multiple_layouts_news_categories')) {
-		zp_register_filter('publish_category_utilities', 'layoutSelector');
-		zp_register_filter('new_category', 'saveLayoutSelection');
-		zp_register_filter('update_category', 'saveLayoutSelection');
+		npgFilters::register('publish_category_utilities', 'layoutSelector');
+		npgFilters::register('new_category', 'saveLayoutSelection');
+		npgFilters::register('update_category', 'saveLayoutSelection');
 	}
 }
 
@@ -261,14 +261,14 @@ function layoutSelector_album($html, $obj, $prefix) {
  * @param string$secondary
  */
 function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false) {
-	global $_zp_gallery;
+	global $_gallery;
 	$selectdefault = '';
 	$selected = '';
 	$files = array();
 	$list = array();
 	$getlayout = '';
 	$table = $obj->table;
-	$path = SERVERPATH . '/' . THEMEFOLDER . '/' . $_zp_gallery->getCurrentTheme() . '/';
+	$path = SERVERPATH . '/' . THEMEFOLDER . '/' . $_gallery->getCurrentTheme() . '/';
 	$defaultlayout = '';
 	$defaulttext = gettext('default');
 	switch ($table) {
@@ -370,26 +370,26 @@ function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false)
  * @return string
  */
 function getLayout($path) {
-	global $_zp_gallery, $_zp_gallery_page, $_zp_current_image, $_zp_current_album, $_zp_current_page, $_zp_current_article, $_zp_current_category, $_zp_current_search;
+	global $_gallery, $_gallery_page, $_current_image, $_current_album, $_CMS_current_page, $_CMS_current_article, $_CMS_current_category, $_current_search;
 	if ($path) {
-		$themepath = THEMEFOLDER . '/' . $_zp_gallery->getCurrentTheme() . '/';
+		$themepath = THEMEFOLDER . '/' . $_gallery->getCurrentTheme() . '/';
 		$getlayout = false;
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case 'album.php':
 				if (getOption('multiple_layouts_albums')) {
-					$getlayout = getSelectedLayout($_zp_current_album, 'albums');
+					$getlayout = getSelectedLayout($_current_album, 'albums');
 				}
 				break;
 			case 'image.php':
 				if (getOption('multiple_layouts_images')) {
-					$currentalbumname = $_zp_current_album->name;
+					$currentalbumname = $_current_album->name;
 					if (in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) {
-						if (!$album = $_zp_current_search->getDynamicAlbum()) {
-							$album = $_zp_current_album;
+						if (!$album = $_current_search->getDynamicAlbum()) {
+							$album = $_current_album;
 						}
 					} else {
-						$getlayout = getSelectedLayout($_zp_current_image, 'images');
-						$album = $_zp_current_album;
+						$getlayout = getSelectedLayout($_current_image, 'images');
+						$album = $_current_album;
 					}
 					if ($album && !$getlayout) {
 						$getlayout = checkLayoutUseForImages($album);
@@ -398,14 +398,14 @@ function getLayout($path) {
 				break;
 			case 'pages.php':
 				if (getOption('multiple_layouts_pages')) {
-					$getlayout = getSelectedLayout($_zp_current_page, 'pages');
+					$getlayout = getSelectedLayout($_CMS_current_page, 'pages');
 				}
 				break;
 			case 'news.php':
 				if (getOption('multiple_layouts_news_categories') && in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
-					$getlayout = getSelectedLayout($_zp_current_category, 'news_categories');
+					$getlayout = getSelectedLayout($_CMS_current_category, 'news_categories');
 				} elseif (getOption('multiple_layouts_news') && in_context(ZP_ZENPAGE_SINGLE)) {
-					$getlayout = getSelectedLayout($_zp_current_article, 'news');
+					$getlayout = getSelectedLayout($_CMS_current_article, 'news');
 				}
 				break;
 		}
@@ -455,7 +455,7 @@ function saveLayoutSelection($message, $obj) {
  * @param object $obj Object of the item to assign the layout
  * @return string
  */
-function saveZenphotoLayoutSelection($obj, $prefix) {
+function saveLayoutSelectionFilter($obj, $prefix) {
 	$cssIDappend = '';
 	$selectedlayout = '';
 	$titlelink = '';

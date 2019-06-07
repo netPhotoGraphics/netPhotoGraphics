@@ -99,7 +99,7 @@
 						?>
 						<li><?php printUserLogin_out(); ?></li>
 						<?php
-						if (!zp_loggedin()) {
+						if (!npg_loggedin()) {
 							?>
 							<li><?php printCustomPageURL(gettext('Register'), 'register', '', ''); ?></li>
 							<?php
@@ -119,7 +119,7 @@
 		</div>
 		<?php
 	}
-	if (!zp_loggedin(ADMIN_RIGHTS) && function_exists('printGoogleAdSense')) {
+	if (!npg_loggedin(ADMIN_RIGHTS) && function_exists('printGoogleAdSense')) {
 		?>
 		<div class="adsense border">
 			<?php printGoogleAdSense() ?>

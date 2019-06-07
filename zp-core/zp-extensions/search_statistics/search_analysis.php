@@ -136,7 +136,7 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'albums', ''); ?>
+			<?php npgFilters::apply('admin_note', 'albums', ''); ?>
 			<h1><?php echo (gettext('Search analysis')); ?></h1>
 			<div class="tabbox">
 				<?php
@@ -295,7 +295,7 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 						?>
 					</table>
 					<?php
-					if (zp_loggedin(ADMIN_RIGHTS)) {
+					if (npg_loggedin(ADMIN_RIGHTS)) {
 						?>
 						<p class="buttons">
 							<a href="?reset&amp;XSRFToken=<?php echo getXSRFToken('search_statistics'); ?>"><?php echo gettext('reset'); ?></a>

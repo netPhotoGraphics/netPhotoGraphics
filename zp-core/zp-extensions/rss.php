@@ -14,7 +14,7 @@ $plugin_notice = gettext('This plugin must be enabled to supply <em>RSS</em> fee
 
 $option_interface = 'rss_options';
 
-zp_register_filter('site_upgrade_xml', 'rss_options::xmlfile');
+npgFilters::register('site_upgrade_xml', 'rss_options::xmlfile');
 
 class rss_options {
 
@@ -175,7 +175,7 @@ class rss_options {
  * @param string $addl provided additional data for feeds (e.g. album object for album feeds, $categorylink for zenpage categories
  */
 function getRSSLink($option, $lang = NULL, $addl = NULL) {
-	global $_zp_current_album, $_zp_current_image, $_zp_current_admin_obj, $_zp_current_category;
+	global $_current_album, $_current_image, $_current_admin_obj, $_CMS_current_category;
 	if (empty($lang)) {
 		$lang = zpFunctions::getLanguageText(getOption('locale'));
 	}
@@ -191,7 +191,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 				if (is_object($addl)) {
 					$album = $addl;
 				} else {
-					$album = $_zp_current_album;
+					$album = $_current_album;
 				}
 				$link = array('rss' => 'gallery', 'albumname' => $album->getFileName());
 				break;
@@ -201,7 +201,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 				if (is_object($addl)) {
 					$album = $addl;
 				} else {
-					$album = $_zp_current_album;
+					$album = $_current_album;
 				}
 				$link = array('rss' => 'gallery', 'folder' => $album->getFileName());
 			}
@@ -213,12 +213,12 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 			break;
 		case 'comments-image':
 			if (getOption('RSS_comments')) {
-				$link = array('rss' => 'comments', 'type' => 'images', 'id' => (string) $_zp_current_image->getID());
+				$link = array('rss' => 'comments', 'type' => 'images', 'id' => (string) $_current_image->getID());
 			}
 			break;
 		case 'comments-album':
 			if (getOption('RSS_comments')) {
-				$link = array('rss' => 'comments', 'type' => 'albums', 'id' => (string) $_zp_current_album->getID());
+				$link = array('rss' => 'comments', 'type' => 'albums', 'id' => (string) $_current_album->getID());
 			}
 			break;
 		case 'albumsrss':
@@ -228,7 +228,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 			break;
 		case 'albumsrsscollection':
 			if (getOption('RSS_album_image')) {
-				$link = array('rss' => 'gallery', 'folder' => $_zp_current_album->getFileName(), 'albumsmode' => '');
+				$link = array('rss' => 'gallery', 'folder' => $_current_album->getFileName(), 'albumsmode' => '');
 			}
 			break;
 		case 'pages':
@@ -243,8 +243,8 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 			break;
 		case 'category':
 			if (getOption('RSS_articles')) {
-				if (empty($addl) && !is_null($_zp_current_category)) {
-					$addl = $_zp_current_category->getTitlelink();
+				if (empty($addl) && !is_null($_CMS_current_category)) {
+					$addl = $_CMS_current_category->getTitlelink();
 				}
 				if (empty($addl)) {
 					$link = array('rss' => 'news');
@@ -292,9 +292,9 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 				break;
 		}
 
-		if (zp_loggedin() && getOption('RSS_portable_link')) {
-			$link['user'] = (string) $_zp_current_admin_obj->getID();
-			$link['token'] = Zenphoto_Authority::passwordHash(serialize($link), '');
+		if (npg_loggedin() && getOption('RSS_portable_link')) {
+			$link['user'] = (string) $_current_admin_obj->getID();
+			$link['token'] = npg_Authority::passwordHash(serialize($link), '');
 		}
 		$uri = WEBPATH . '/index.php?' . rtrim(str_replace('=&', '&', http_build_query($link)), '=');
 		return $uri;
@@ -362,8 +362,8 @@ class RSS extends feed {
 	 *
 	 */
 	function __construct($options = NULL) {
-		global $_zp_gallery, $_zp_authority, $_zp_current_admin_obj, $_zp_loggedin, $_zp_gallery_page;
-		$_zp_gallery_page = 'RSS.php';
+		global $_gallery, $_authority, $_current_admin_obj, $_loggedin, $_gallery_page;
+		$_gallery_page = 'RSS.php';
 		if (empty($options))
 			self::feed404();
 
@@ -374,12 +374,12 @@ class RSS extends feed {
 			//	The link camed from a logged in user, see if it is valid
 			$link = $options;
 			unset($link['token']);
-			$token = Zenphoto_Authority::passwordHash(serialize($link), '');
+			$token = npg_Authority::passwordHash(serialize($link), '');
 			if ($token == $options['token']) {
-				$adminobj = $_zp_authority->getAnAdmin(array('`id`=' => (int) $link['user']));
+				$adminobj = $_authority->getAnAdmin(array('`id`=' => (int) $link['user']));
 				if ($adminobj) {
-					$_zp_current_admin_obj = $adminobj;
-					$_zp_loggedin = $_zp_current_admin_obj->getRights();
+					$_current_admin_obj = $adminobj;
+					$_loggedin = $_current_admin_obj->getRights();
 				}
 			}
 		}
@@ -390,14 +390,14 @@ class RSS extends feed {
 		//channeltitle general
 		switch ($channeltitlemode) {
 			case 'gallery':
-				$this->channel_title = $_zp_gallery->getBareTitle($this->locale);
+				$this->channel_title = $_gallery->getBareTitle($this->locale);
 				break;
 			case 'website':
-				$this->channel_title = getBare($_zp_gallery->getWebsiteTitle($this->locale));
+				$this->channel_title = getBare($_gallery->getWebsiteTitle($this->locale));
 				break;
 			case 'both':
-				$website_title = $_zp_gallery->getWebsiteTitle($this->locale);
-				$this->channel_title = $_zp_gallery->getBareTitle($this->locale);
+				$website_title = $_gallery->getWebsiteTitle($this->locale);
+				$this->channel_title = $_gallery->getBareTitle($this->locale);
 				if (!empty($website_title)) {
 					$this->channel_title = $website_title . ' - ' . $this->channel_title;
 				}
@@ -428,7 +428,7 @@ class RSS extends feed {
 				$albumname = $this->getChannelTitleExtra();
 
 				$this->channel_title = html_encode($this->channel_title . ' ' . getBare($albumname));
-				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 				break;
 
 			case 'news': //Zenpage News RSS
@@ -468,8 +468,8 @@ class RSS extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $this->cattitle . $titleappendix);
 				$this->itemnumber = getOption("RSS_zenpage_items"); // # of Items displayed on the feed
-				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
-				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 
 				break;
 
@@ -495,7 +495,7 @@ class RSS extends feed {
 						break;
 				}
 				$this->channel_title = html_encode($this->channel_title . $titleappendix);
-				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				break;
 
 			case 'comments': //Comments RSS
@@ -516,7 +516,7 @@ class RSS extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
 				if (extensionEnabled('zenpage')) {
-					require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
+					require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				}
 				break;
 
@@ -535,7 +535,7 @@ class RSS extends feed {
 	 *
 	 */
 	protected function hitcounter() {
-		if (!zp_loggedin() && getOption('RSS_hitcounter')) {
+		if (!npg_loggedin() && getOption('RSS_hitcounter')) {
 			$rssuri = $this->getCacheFilename();
 			$sql = "UPDATE " . prefix('plugin_storage') . " SET `data`=`data`+1 WHERE `type`='hitcounter' AND `subtype`='rss' AND `aux`=" . db_quote($rssuri);
 			query($sql, false);
@@ -674,7 +674,7 @@ class RSS extends feed {
 	 *
 	 */
 	public function printFeed($feeditems = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($feeditems)) {
 			$feeditems = $this->getitems();
 		}
@@ -684,7 +684,7 @@ class RSS extends feed {
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache(CORE_SERVERPATH .  PLUGIN_FOLDER . '/rss/rss.css');
+			$this->startCache(CORE_SERVERPATH . PLUGIN_FOLDER . '/rss/rss.css');
 			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
@@ -692,7 +692,7 @@ class RSS extends feed {
 					<title><![CDATA[<?php echo $this->channel_title; ?>]]></title>
 					<link><?php echo PROTOCOL . '://' . $this->host . WEBPATH; ?></link>
 					<atom:link href="<?php echo PROTOCOL; ?>://<?php echo $this->host; ?><?php echo html_encode(getRequestURI()); ?>" rel="self"	type="application/rss+xml" />
-					<description><![CDATA[<?php echo html_encode(getBare($_zp_gallery->getDesc($this->locale))); ?>]]></description>
+					<description><![CDATA[<?php echo html_encode(getBare($_gallery->getDesc($this->locale))); ?>]]></description>
 					<language><?php echo $this->locale_xml; ?></language>
 					<pubDate><?php echo date("r", time()); ?></pubDate>
 					<lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
@@ -759,7 +759,7 @@ function executeRSS() {
 	if (!$_GET['rss']) {
 		$_GET['rss'] = 'gallery';
 	}
-	$_zp_gallery_page = 'rss.php';
+	$_gallery_page = 'rss.php';
 	$rss = new RSS(sanitize($_GET));
 	$rss->printFeed();
 	exit();
@@ -767,6 +767,6 @@ function executeRSS() {
 
 // RSS feed calls before anything else
 if (!OFFSET_PATH && isset($_GET['rss'])) {
-	zp_register_filter('load_theme_script', 'executeRSS', 9999);
+	npgFilters::register('load_theme_script', 'executeRSS', 9999);
 }
 ?>

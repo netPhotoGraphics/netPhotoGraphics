@@ -12,7 +12,7 @@
  * @since 1.1
  */
 function printTags_zb($option = 'links', $preText = NULL, $class = NULL, $separator = ', ') {
-	global $_zp_current_search;
+	global $_current_search;
 	if (is_null($class)) {
 		$class = 'taglist';
 	}
@@ -35,8 +35,8 @@ function printTags_zb($option = 'links', $preText = NULL, $class = NULL, $separa
 			echo "<span class=\"tags_title\">" . $preText . "</span>";
 		}
 		echo '<ul class="' . $class . '" itemprop="keywords">';
-		if (is_object($_zp_current_search)) {
-			$albumlist = $_zp_current_search->getAlbumList();
+		if (is_object($_current_search)) {
+			$albumlist = $_current_search->getAlbumList();
 		} else {
 			$albumlist = NULL;
 		}
@@ -76,7 +76,7 @@ function printTags_zb($option = 'links', $preText = NULL, $class = NULL, $separa
  * @since 1.1
  */
 function printAllTagsAs_zb($option, $class = '', $sort = 'abc', $counter = FALSE, $links = TRUE, $maxfontsize = 2, $maxcount = 50, $mincount = 15, $limit = NULL, $minfontsize = 0.8) {
-	global $_zp_current_search;
+	global $_current_search;
 	$option = strtolower($option);
 	if ($class != "") {
 		$class = "class=\"" . $class . "\"";
@@ -112,8 +112,8 @@ function printAllTagsAs_zb($option, $class = '', $sort = 'abc', $counter = FALSE
 		}
 		if ($val >= $mincount) {
 			if ($links) {
-				if (is_object($_zp_current_search)) {
-					$albumlist = $_zp_current_search->getAlbumList();
+				if (is_object($_current_search)) {
+					$albumlist = $_current_search->getAlbumList();
 				} else {
 					$albumlist = NULL;
 				}
@@ -183,15 +183,15 @@ function printAlbumBreadcrumb_zb() {
  * @param string $after Text to place after the breadcrumb item
  */
 function printZenpageItemsBreadcrumb_zb() {
-	global $_zp_current_page, $_zp_current_category;
+	global $_CMS_current_page, $_CMS_current_category;
 	$parentitems = array();
 	if (is_Pages()) {
-		//$parentid = $_zp_current_page->getParentID();
-		$parentitems = $_zp_current_page->getParents();
+		//$parentid = $_CMS_current_page->getParentID();
+		$parentitems = $_CMS_current_page->getParents();
 	}
 	if (is_NewsCategory()) {
-		//$parentid = $_zp_current_category->getParentID();
-		$parentitems = $_zp_current_category->getParents();
+		//$parentid = $_CMS_current_category->getParentID();
+		$parentitems = $_CMS_current_category->getParents();
 	}
 
 	foreach ($parentitems as $item) {
@@ -215,10 +215,10 @@ function printZenpageItemsBreadcrumb_zb() {
  * @param string $before insert what you want to be show before it
  */
 function printCurrentNewsCategory_zb() {
-	global $_zp_current_category;
+	global $_CMS_current_category;
 	if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
 		echo '<li>';
-		echo html_encode($_zp_current_category->getTitle());
+		echo html_encode($_CMS_current_category->getTitle());
 		echo '</li>';
 	}
 }
@@ -287,7 +287,7 @@ function printRandomImages_zb($number = 12, $class = null, $option = 'all', $roo
 					$html = '<img src="' . pathurlencode($randomImage->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" rel="lightbox" />' . "\n";
 					break;
 			}
-			echo zp_apply_filter('custom_image_html', $html, false);
+			echo npgFilters::apply('custom_image_html', $html, false);
 			echo '</a>';
 			echo '<div class="caption">';
 			echo '<a href="' . html_encode($randomImage->getLink()) . '" title="' . html_encode($randomImage->getTitle()) . '">';
@@ -311,8 +311,8 @@ function printRandomImages_zb($number = 12, $class = null, $option = 'all', $roo
  * @author Ozh, modified by OF
  */
 function printImageMetadata_zb() {
-	global $_zp_exifvars, $_zp_current_image;
-	if (false === ($exif = getImageMetaData($_zp_current_image, true))) {
+	global $_exifvars, $_current_image;
+	if (false === ($exif = getImageMetaData($_current_image, true))) {
 		return;
 	}
 	?>
@@ -322,9 +322,9 @@ function printImageMetadata_zb() {
 	<table class="table table-striped" itemprop="exifData">
 		<?php
 		foreach ($exif as $field => $value) {
-			$label = $_zp_exifvars[$field][2];
+			$label = $_exifvars[$field][2];
 			echo "<tr><th>$label:</th><td>";
-			switch ($_zp_exifvars[$field][6]) {
+			switch ($_exifvars[$field][6]) {
 				case 'time':
 					echo zpFormattedDate(DATE_FORMAT, strtotime($value));
 					break;
@@ -455,9 +455,9 @@ function newsOnIndex($link, $obj, $page) {
 if (!OFFSET_PATH) {
 	enableExtension('print_album_menu', 1 | THEME_PLUGIN, false);
 	setOption('user_logout_login_form', 2, false);
-	$_zp_page_check = 'my_checkPageValidity';
+	$_current_page_check = 'my_checkPageValidity';
 	if (extensionEnabled('zenpage') && getOption('zenpage_zp_index_news')) { // only one index page if zenpage plugin is enabled & displaying
-		zp_register_filter('getLink', 'newsOnIndex');
+		npgFilters::register('getLink', 'newsOnIndex');
 	}
 }
 

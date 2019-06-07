@@ -9,7 +9,7 @@ require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/SecretFactory.php')
 if (isset($_SESSION['OTA'])) {
 	$user = $_SESSION['OTA']['user'];
 
-	$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+	$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 	if ($userobj && $userobj->getOTAsecret()) {
 
 		if (isset($_POST['authenticate'])) {
@@ -23,7 +23,7 @@ if (isset($_SESSION['OTA'])) {
 			$authOK = $googleAuth->authenticate($secret, $code);
 			if ($authOK) {
 				if (googleTFA::checkCache(crypt($secret . "|" . $code, md5($code)))) {
-					_Authority::logUser($userobj);
+					npg_Authority::logUser($userobj);
 					header('Location: ' . $link);
 					exit();
 				}

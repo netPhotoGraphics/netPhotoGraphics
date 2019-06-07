@@ -83,17 +83,17 @@ Gallery::addImageHandler('mp4', 'Video');
 Gallery::addImageHandler('m4v', 'Video');
 Gallery::addImageHandler('m4a', 'Video');
 
-$_zp_multimedia_extension = new jPlayer(); // claim to be the flash player.
-zp_register_filter('content_macro', 'jPlayer::macro');
-zp_register_filter('theme_body_close', 'jplayer::headJS');
+$_multimedia_extension = new jPlayer(); // claim to be the flash player.
+npgFilters::register('content_macro', 'jPlayer::macro');
+npgFilters::register('theme_body_close', 'jplayer::headJS');
 if (getOption('jplayer_playlist')) {
-	zp_register_filter('theme_body_close', 'jplayer::playlistJS');
+	npgFilters::register('theme_body_close', 'jplayer::playlistJS');
 }
 
 // theme function wrapper for user convenience
 function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
-	global $_zp_multimedia_extension;
-	$_zp_multimedia_extension->printjPlayerPlaylist($option, $albumfolder);
+	global $_multimedia_extension;
+	$_multimedia_extension->printjPlayerPlaylist($option, $albumfolder);
 }
 
 class jplayer_options {
@@ -234,10 +234,10 @@ class jPlayer {
 	}
 
 	static function getMacrojplayer($albumname, $imagename, $count = 1) {
-		global $_zp_multimedia_extension;
+		global $_multimedia_extension;
 		$movie = newImage(array('folder' => $albumname, 'filename' => $imagename), true);
 		if ($movie->exists) {
-			return $_zp_multimedia_extension->getPlayerConfig($movie, NULL, (int) $count);
+			return $_multimedia_extension->getPlayerConfig($movie, NULL, (int) $count);
 		} else {
 			return '<span class = "error">' . sprintf(gettext('%1$s::%2$s not found.'), $albumname, $imagename) . '</span>';
 		}
@@ -453,9 +453,9 @@ class jPlayer {
 	 * @param string $count unique text for when there are multiple player items on a page
 	 */
 	function printPlayerConfig($movie = NULL, $movietitle = NULL, $count = NULL) {
-		global $_zp_current_image;
+		global $_current_image;
 		if (empty($movie)) {
-			$movie = $_zp_current_image;
+			$movie = $_current_image;
 		}
 		echo $this->getPlayerConfig($movie, $movietitle, $count, NULL, NULL);
 	}
@@ -604,12 +604,12 @@ class jPlayer {
 	 * @param string $albumfolder album name to get a playlist from directly
 	 */
 	function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
-		global $_zp_current_album, $_zp_current_search;
+		global $_current_album, $_current_search;
 		if (empty($albumfolder)) {
 			if (in_context(ZP_SEARCH)) {
-				$albumobj = $_zp_current_search;
+				$albumobj = $_current_search;
 			} else {
-				$albumobj = $_zp_current_album;
+				$albumobj = $_current_album;
 			}
 		} else {
 			$albumobj = newAlbum($albumfolder);

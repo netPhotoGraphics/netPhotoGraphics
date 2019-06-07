@@ -11,14 +11,14 @@
  */
 $plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext("Trivial SPAM filter.");
-$plugin_disable = (isset($_zp_spamFilter) && !extensionEnabled('trivialSpam')) ? sprintf(gettext('Only one SPAM handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_zp_spamFilter->name) : '';
+$plugin_disable = (isset($_spamFilter) && !extensionEnabled('trivialSpam')) ? sprintf(gettext('Only one SPAM handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_spamFilter->name) : '';
 
 $option_interface = 'zpTrivialSpam';
 
 if ($plugin_disable) {
 	enableExtension('trivialSpam', 0);
 } else {
-	$_zp_spamFilter = new zpTrivialSpam();
+	$_spamFilter = new zpTrivialSpam();
 }
 
 /**
@@ -91,7 +91,7 @@ class zpTrivialSpam {
 	 * @return int
 	 */
 	function filterMessage($author, $email, $website, $body, $receiver, $ip) {
-		if (zp_loggedin($receiver->manage_rights) || $receiver->isMyItem($receiver->manage_some_rights)) { //	trust "managers"
+		if (npg_loggedin($receiver->manage_rights) || $receiver->isMyItem($receiver->manage_some_rights)) { //	trust "managers"
 			return 2;
 		}
 		$strategy = getOption('spamFilter_none_action');

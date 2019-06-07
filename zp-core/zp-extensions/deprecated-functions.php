@@ -32,7 +32,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 define('DEPRECATED_LOG', SERVERPATH . '/' . DATA_FOLDER . '/deprecated.log');
 
-zp_register_filter('admin_tabs', 'deprecated_functions::tabs', -308);
+npgFilters::register('admin_tabs', 'deprecated_functions::tabs', -308);
 
 class deprecated_functions {
 
@@ -88,7 +88,7 @@ class deprecated_functions {
 	}
 
 	static function tabs($tabs) {
-		if (zp_loggedin(ADMIN_RIGHTS)) {
+		if (npg_loggedin(ADMIN_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
 						'link' => getAdminLink(PLUGIN_FOLDER . '/deprecated-functions/admin_tab.php') . '?page=development&tab=deprecated',
@@ -105,9 +105,9 @@ class deprecated_functions {
 	 * @param type $msg
 	 */
 	static function log($msg) {
-		global $_zp_mutex;
-		if (is_object($_zp_mutex))
-			$_zp_mutex->lock();
+		global $_mutex;
+		if (is_object($_mutex))
+			$_mutex->lock();
 		$f = fopen(DEPRECATED_LOG, 'a');
 		if ($f) {
 			fwrite($f, strip_tags($msg) . "\n");
@@ -115,8 +115,8 @@ class deprecated_functions {
 			clearstatcache();
 			chmod(DEPRECATED_LOG, LOG_MOD);
 		}
-		if (is_object($_zp_mutex))
-			$_zp_mutex->unlock();
+		if (is_object($_mutex))
+			$_mutex->unlock();
 	}
 
 	/*
@@ -153,9 +153,6 @@ class deprecated_functions {
 		//get the container folder
 		if (isset($traces[0]['file']) && isset($traces[0]['line'])) {
 			$path = explode('/', replaceScriptPath($traces[0]['file'])); //	NB: this fails if symlinking is involved
-
-			var_dump($path);
-
 			switch (array_shift($path)) {
 				case THEMEFOLDER:
 					$script = sprintf(gettext('theme %1$s:%2$s'), array_shift($path), array_pop($path));

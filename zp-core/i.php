@@ -71,7 +71,7 @@ $adminrequest = $args[12];
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
 	zp_session_start();
-	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['zp_user_auth'];
+	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
 }
 
 if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
@@ -97,9 +97,9 @@ if (trim($album) == '') {
 	$imgfile = ALBUM_FOLDER_SERVERPATH . $album . '/' . $image;
 }
 
-if ($debug)
+if ($debug) {
 	imageDebug($album, $image, $args, $imgfile);
-
+}
 
 /** Check for possible problems ***********
  * **************************************** */
@@ -117,13 +117,15 @@ if (!is_writable(SERVERCACHE)) {
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
-		if (DEBUG_IMAGE)
+		if (DEBUG_IMAGE) {
 			debugLog("Transient image:$rimage=>$newfile");
+		}
 		$imgfile = SERVERPATH . '/' . sanitize_path($_GET['z']);
 	}
 	if (!file_exists($imgfile)) {
-		if (DEBUG_IMAGE)
+		if (DEBUG_IMAGE) {
 			debugLogVar(['image not found' => $args]);
+		}
 		imageError('404 Not Found', sprintf(gettext("Image not found; file %s does not exist."), html_encode(filesystemToInternal($album . '/' . $image))), 'err-imagenotfound.png');
 	}
 }

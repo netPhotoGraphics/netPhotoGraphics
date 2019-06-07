@@ -21,24 +21,24 @@ $plugin_description = gettext("Provides a unified comment handling facility.");
 
 $option_interface = 'comment_form';
 
-zp_register_filter('admin_toolbox_global', 'comment_form::toolbox');
+npgFilters::register('admin_toolbox_global', 'comment_form::toolbox');
 
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/class-comment.php');
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/functions.php');
 
 if (OFFSET_PATH) {
-	zp_register_filter('admin_overview', 'comment_form_print10Most');
-	zp_register_filter('admin_tabs', 'comment_form::admin_tabs');
+	npgFilters::register('admin_overview', 'comment_form_print10Most');
+	npgFilters::register('admin_tabs', 'comment_form::admin_tabs');
 } else {
-	zp_register_filter('handle_comment', 'comment_form_postcomment');
-	zp_register_filter('object_addComment', 'comment_form_addComment');
+	npgFilters::register('handle_comment', 'comment_form_postcomment');
+	npgFilters::register('object_addComment', 'comment_form_addComment');
 	if (getOption('comment_form_pagination')) {
-		zp_register_filter('theme_body_close', 'comment_form_PaginationJS');
+		npgFilters::register('theme_body_close', 'comment_form_PaginationJS');
 	}
 
 	if (getOption('tinymce_comments')) {
 		require_once(getPlugin('tinymce.php'));
-		zp_register_filter('theme_body_close', 'comment_form_visualEditor');
+		npgFilters::register('theme_body_close', 'comment_form_visualEditor');
 	}
 }
 
@@ -74,7 +74,7 @@ class comment_form {
 		}
 		if (getOption('tinymce_comments')) {
 			require_once(getPlugin('tinymce.php'));
-			zp_register_filter('theme_body_close', 'comment_form_visualEditor');
+			npgFilters::register('theme_body_close', 'comment_form_visualEditor');
 		}
 	}
 
@@ -84,7 +84,7 @@ class comment_form {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		global $_zp_captcha;
+		global $_captcha;
 		$checkboxes = array(gettext('Albums') => 'comment_form_albums', gettext('Images') => 'comment_form_images');
 		if (extensionEnabled('zenpage')) {
 			$checkboxes = array_merge($checkboxes, array(gettext('Pages') => 'comment_form_pages', gettext('News') => 'comment_form_articles'));
@@ -109,7 +109,7 @@ class comment_form {
 				gettext('Captcha field') => array('key' => 'Use_Captcha', 'type' => OPTION_TYPE_RADIO,
 						'order' => 0.4,
 						'buttons' => array(gettext('Omit') => 0, gettext('For guests') => 2, gettext('Require') => 1),
-						'desc' => ($_zp_captcha->name) ? gettext('If <em>Captcha</em> is required, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
+						'desc' => ($_captcha->name) ? gettext('If <em>Captcha</em> is required, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
 				gettext('Address fields') => array('key' => 'comment_form_addresses', 'type' => OPTION_TYPE_RADIO,
 						'order' => 7,
 						'buttons' => array(gettext('Omit') => 0, gettext('Show') => 1, gettext('Require') => 'required'),
@@ -168,7 +168,7 @@ class comment_form {
 	}
 
 	static function admin_tabs($tabs) {
-		if (zp_loggedin(COMMENT_RIGHTS)) {
+		if (npg_loggedin(COMMENT_RIGHTS)) {
 			$tabs['comments'] = array('text' => gettext("comments"),
 					'link' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?page=comments&tab=' . gettext('comments'),
 					'subtabs' => NULL);
@@ -177,7 +177,7 @@ class comment_form {
 	}
 
 	static function toolbox() {
-		if (zp_loggedin(COMMENT_RIGHTS)) {
+		if (npg_loggedin(COMMENT_RIGHTS)) {
 			?>
 			<li>
 				<?php printLinkHTML(getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?page=comments&amp;tab=' . gettext('comments'), gettext("Comments"), NULL, NULL, NULL); ?>
@@ -198,10 +198,10 @@ class comment_form {
  * @param bool $desc_order default false, set to true to change the comment order to descending ( = newest to oldest)
  */
 function printCommentForm($showcomments = true, $addcommenttext = NULL, $addheader = true, $comment_commententry_mod = '', $desc_order = false) {
-	global $_zp_gallery_page, $_zp_current_admin_obj, $_zp_current_comment, $_zp_captcha, $_zp_authority, $_zp_HTML_cache, $_zp_current_image, $_zp_current_album, $_zp_current_page, $_zp_current_article;
+	global $_gallery_page, $_current_admin_obj, $_current_comment, $_captcha, $_authority, $_HTML_cache, $_current_image, $_current_album, $_CMS_current_page, $_CMS_current_article;
 
 	if (getOption('email_new_comments')) {
-		$email_list = $_zp_authority->getAdminEmail();
+		$email_list = $_authority->getAdminEmail();
 		if (empty($email_list)) {
 			setOption('email_new_comments', 0);
 		}
@@ -209,26 +209,26 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 	if (is_null($addcommenttext)) {
 		$addcommenttext = '<h3>' . gettext('Add a comment:') . '</h3>';
 	}
-	switch ($_zp_gallery_page) {
+	switch ($_gallery_page) {
 		case 'album.php':
 			if (!getOption('comment_form_albums'))
 				return;
-			$obj = $_zp_current_album;
+			$obj = $_current_album;
 			break;
 		case 'image.php':
 			if (!getOption('comment_form_images'))
 				return;
-			$obj = $_zp_current_image;
+			$obj = $_current_image;
 			break;
 		case 'pages.php':
 			if (!getOption('comment_form_pages'))
 				return;
-			$obj = $_zp_current_page;
+			$obj = $_CMS_current_page;
 			break;
 		case 'news.php':
 			if (!getOption('comment_form_articles') || !is_NewsArticle())
 				return;
-			$obj = $_zp_current_article;
+			$obj = $_CMS_current_article;
 			break;
 		default:
 			return;
@@ -291,13 +291,13 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 					<?php
 					while (next_comment($desc_order)) {
 						if (!getOption('comment_form_showURL')) {
-							$_zp_current_comment['website'] = '';
+							$_current_comment['website'] = '';
 						}
 						?>
 						<div class="comment" <?php echo $display; ?>>
 							<div class="commentinfo">
-								<h4 id="zp_comment_id_<?php echo $_zp_current_comment['id']; ?>"><?php printCommentAuthorLink(); ?>: <?php echo gettext('on'); ?> <?php
-									echo $_zp_current_comment['date'];
+								<h4 id="zp_comment_id_<?php echo $_current_comment['id']; ?>"><?php printCommentAuthorLink(); ?>: <?php echo gettext('on'); ?> <?php
+									echo $_current_comment['date'];
 									printEditCommentLink(gettext('Edit'), ', ', '');
 									?></h4>
 							</div><!-- class "commentinfo" -->
@@ -318,7 +318,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 			<!-- Comment Box -->
 			<?php
 			if ($comments_open) {
-				if (MEMBERS_ONLY_COMMENTS && !zp_loggedin(POST_COMMENT_RIGHTS)) {
+				if (MEMBERS_ONLY_COMMENTS && !npg_loggedin(POST_COMMENT_RIGHTS)) {
 					echo gettext('Only registered users may post comments.');
 				} else {
 					$disabled = array('name' => '', 'website' => '', 'anon' => '', 'private' => '', 'comment' => '',
@@ -334,9 +334,9 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 						$disabled[$key] = false;
 					}
 
-					if (zp_loggedin()) {
+					if (npg_loggedin()) {
 						if (extensionEnabled('userAddressFields')) {
-							$address = userAddressFields::getCustomDataset($_zp_current_admin_obj);
+							$address = userAddressFields::getCustomDataset($_current_admin_obj);
 							foreach ($address as $key => $value) {
 								if (!empty($value)) {
 									$disabled[$key] = true;
@@ -344,18 +344,18 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 								}
 							}
 						}
-						$name = $_zp_current_admin_obj->getName();
+						$name = $_current_admin_obj->getName();
 						if (!empty($name)) {
 							$stored['name'] = $name;
 							$disabled['name'] = ' disabled="disabled"';
 						} else {
-							$user = $_zp_current_admin_obj->getUser();
+							$user = $_current_admin_obj->getUser();
 							if (!empty($user)) {
 								$stored['name'] = $user;
 								$disabled['name'] = ' disabled="disabled"';
 							}
 						}
-						$email = $_zp_current_admin_obj->getEmail();
+						$email = $_current_admin_obj->getEmail();
 						if (!empty($email)) {
 							$stored['email'] = $email;
 							$disabled['email'] = ' disabled="disabled"';
@@ -365,14 +365,14 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 							$disabled['website'] = ' disabled="disabled"';
 						}
 					}
-					$data = zp_apply_filter('comment_form_data', array('data' => $stored, 'disabled' => $disabled));
+					$data = npgFilters::apply('comment_form_data', array('data' => $stored, 'disabled' => $disabled));
 					$disabled = $data['disabled'];
 					$stored = $data['data'];
 
 					foreach ($data as $check) {
 						foreach ($check as $v) {
 							if ($v) {
-								$_zp_HTML_cache->disable(); //	shouldn't cache partially filled in pages
+								$_HTML_cache->disable(); //	shouldn't cache partially filled in pages
 								break 2;
 							}
 						}
@@ -406,7 +406,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 			<br clear="all" />
 			<?php
 			if (class_exists('RSS')) {
-				switch ($_zp_gallery_page) {
+				switch ($_gallery_page) {
 					case "image.php":
 						printRSSLink("Comments-image", "", gettext("Subscribe to comments"), "");
 						break;

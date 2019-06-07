@@ -17,7 +17,7 @@ $plugin_description = gettext('Display Google Maps based on <em>latitude</em> an
 $plugin_notice = sprintf(gettext('<strong>Note</strong>: Google does place limits on the use of its <a href="%s"><em>Maps API</em></a>. Please review these to be sure your site is in compliance.'), 'http://googlegeodevelopers.blogspot.com/2011/10/introduction-of-usage-limits-to-maps.html');
 
 $option_interface = 'GoogleMap';
-if (isset($_zp_gallery_page) && $_zp_gallery_page != 'index.php') {
+if (isset($_gallery_page) && $_gallery_page != 'index.php') {
 	if (getOption('gmap_sessions')) {
 		zp_session_start();
 	}
@@ -306,7 +306,7 @@ class codeIgniter_kludge { //	dummy for all the CI stuff in the CodeIngnter-Goog
  * @param function $callback optional callback function to set map options.
  */
 function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $callback = NULL) {
-	global $_zp_current_album, $_zp_current_image, $_x, $_y, $_z, $_n;
+	global $_current_album, $_current_image, $_x, $_y, $_z, $_n;
 
 	/* API keys are required post June 2016 */
 	if (!getOption('gmap_map_api_key')) {
@@ -321,10 +321,10 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 
 	/* controls of parameters */
 	if (is_null($obj)) {
-		if (is_null($_zp_current_image)) {
-			$obj = $_zp_current_album;
+		if (is_null($_current_image)) {
+			$obj = $_current_album;
 		} else {
-			$obj = $_zp_current_image;
+			$obj = $_current_image;
 		}
 	}
 	if (is_null($obj)) {
@@ -496,7 +496,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 			<?php
 			break;
 		case 'colorbox':
-			if (zp_has_filter('theme_head', 'colorbox::css')) {
+			if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 				$map->create_map();
 				$map_data["output_js_contents"] = $map->output_js_contents;
 				$map_data["output_html"] = $map->output_html;

@@ -51,11 +51,11 @@ class GDPR_required {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_CMS;
+		global $_CMS;
 
 		$possibilities = array('*' . gettext('Custom url') . '*' => '');
-		if ($_zp_CMS) {
-			foreach ($_zp_CMS->getPages(false) as $page) {
+		if ($_CMS) {
+			foreach ($_CMS->getPages(false) as $page) {
 				$possibilities[get_language_string($page['title'])] = $page['titlelink'];
 			}
 		}
@@ -110,8 +110,8 @@ class GDPR_required {
 	 */
 
 	static function page() {
-		global $_zp_current_admin_obj, $_GDPR_acknowledge_loaded;
-		if (!($_zp_current_admin_obj && $_zp_current_admin_obj->getPolicyAck()) && zp_getCookie('policyACK') != getOption('GDPR_cookie')) {
+		global $_current_admin_obj, $_GDPR_acknowledge_loaded;
+		if (!($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') != getOption('GDPR_cookie')) {
 			if ($link = getOption('GDPR_URL')) {
 				if (getRequestURI() == $link) {
 					$_GDPR_acknowledge_loaded = true;
@@ -181,5 +181,5 @@ class GDPR_required {
 
 }
 
-zp_register_filter('load_theme_script', 'GDPR_required::page');
-zp_register_filter('content_macro', 'GDPR_required::macro');
+npgFilters::register('load_theme_script', 'GDPR_required::page');
+npgFilters::register('content_macro', 'GDPR_required::macro');

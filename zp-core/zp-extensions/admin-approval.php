@@ -13,14 +13,14 @@
 $plugin_is_filter = 980 | ADMIN_PLUGIN;
 $plugin_description = gettext('Allows only users with Admin or Manage All rights to change the publish state of objects.');
 
-zp_register_filter('save_object', 'admin_approval::publish_object');
-zp_register_filter('edit_error', 'admin_approval::post_error');
+npgFilters::register('save_object', 'admin_approval::publish_object');
+npgFilters::register('edit_error', 'admin_approval::post_error');
 
 class admin_approval {
 
 	static function publish_object($save, $object) {
 		global $_admin_approval_error;
-		if (is_subclass_of($object, 'ThemeObject') && !zp_loggedin($object->manage_rights)) { // not allowed to change the published status
+		if (is_subclass_of($object, 'ThemeObject') && !npg_loggedin($object->manage_rights)) { // not allowed to change the published status
 			//	retrieve the original value of publish details
 			$data = $object->getData();
 			$show = (int) @$data['show'];

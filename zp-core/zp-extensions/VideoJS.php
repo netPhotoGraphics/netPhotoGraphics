@@ -10,7 +10,7 @@
  *
  * IMPORTANT NOTE ON OGG AND WEBM COUNTERPART FORMATS:
  *
- * The counterpart formats are not valid formats for Zenphoto itself as that would confuse the management.
+ * The counterpart formats are not valid formats for saveLayoutSelection itself as that would confuse the management.
  * Therefore these formats can be uploaded via ftp only.
  * The files needed to have the same file name except extension (beware the character case!).
  *
@@ -161,7 +161,7 @@ class VideoJS {
 	 *
 	 */
 	function getPlayerConfig($movie, $movietitle = NULL, $count = NULL, $w = NULL, $h = NULL) {
-		global $_zp_current_album;
+		global $_current_album;
 		if (is_null($w)) {
 			$w = $this->getWidth();
 		}
@@ -230,9 +230,9 @@ class VideoJS {
 	 * @param string $count unique text for when there are multiple player items on a page
 	 */
 	function printPlayerConfig($movie = NULL, $movietitle = NULL) {
-		global $_zp_current_image;
+		global $_current_image;
 		if (empty($movie)) {
-			$movie = $_zp_current_image;
+			$movie = $_current_image;
 		}
 		echo $this->getPlayerConfig($movie, $movietitle);
 	}
@@ -281,5 +281,5 @@ class VideoJS {
 
 }
 
-$_zp_multimedia_extension = new VideoJS(); // claim to be the flash player.
-zp_register_filter('theme_head', 'VideoJS::headJS');
+$_multimedia_extension = new VideoJS(); // claim to be the flash player.
+npgFilters::register('theme_head', 'VideoJS::headJS');

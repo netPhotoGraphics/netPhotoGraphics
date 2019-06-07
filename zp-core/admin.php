@@ -15,10 +15,10 @@ require_once(dirname(__FILE__) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
 
 $came_from = NULL;
-if (zp_loggedin() && !empty($zenphoto_tabs)) {
-	if (!$_zp_current_admin_obj->getID() || empty($msg) && !zp_loggedin(OVERVIEW_RIGHTS)) {
+if (npg_loggedin() && !empty($_admin_menu)) {
+	if (!$_current_admin_obj->getID() || empty($msg) && !npg_loggedin(OVERVIEW_RIGHTS)) {
 		// admin access without overview rights, redirect to first tab
-		$tab = array_shift($zenphoto_tabs);
+		$tab = array_shift($_admin_menu);
 		$link = $tab['link'];
 		header('location:' . $link);
 		exit();
@@ -32,12 +32,12 @@ if (zp_loggedin() && !empty($zenphoto_tabs)) {
 }
 
 if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
-	require_once( CORE_SERVERPATH . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
 }
 
 use Milo\Github;
 
-if (zp_loggedin(ADMIN_RIGHTS)) {
+if (npg_loggedin(ADMIN_RIGHTS)) {
 	checkInstall();
 
 	if (class_exists('Milo\Github\Api') && zpFunctions::hasPrimaryScripts()) {
@@ -66,11 +66,11 @@ if (zp_loggedin(ADMIN_RIGHTS)) {
 }
 
 if (isset($_GET['_zp_login_error'])) {
-	$_zp_login_error = sanitize($_GET['_zp_login_error']);
+	$_login_error = sanitize($_GET['_zp_login_error']);
 }
 
 if (time() > getOption('last_garbage_collect') + 864000) {
-	$_zp_gallery->garbageCollect();
+	$_gallery->garbageCollect();
 }
 if (isset($_GET['report'])) {
 	$class = 'messagebox fade-message';
@@ -82,7 +82,7 @@ if (extensionEnabled('zenpage')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 
-if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
+if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 	if (isset($_GET['action'])) {
 		$action = sanitize($_GET['action']);
 		if ($action == 'external') {
@@ -90,7 +90,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 		} else {
 			$needs = ADMIN_RIGHTS;
 		}
-		if (zp_loggedin($needs)) {
+		if (npg_loggedin($needs)) {
 			switch ($action) {
 				/** clear the image cache **************************************************** */
 				case "clear_cache":
@@ -134,7 +134,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						$class = 'messagebox fade-message';
 						$msg = gettext('Setup files restored.');
 					} else {
-						zp_apply_filter('log_setup', false, 'restore', implode(', ', $needs));
+						npgFilters::apply('log_setup', false, 'restore', implode(', ', $needs));
 						$class = 'errorbox fade-message';
 						$msg = gettext('Setup files restore failed.');
 					}
@@ -160,11 +160,11 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 						}
 					}
 					if (empty($rslt)) {
-						zp_apply_filter('log_setup', true, 'protect', gettext('protected'));
+						npgFilters::apply('log_setup', true, 'protect', gettext('protected'));
 						$class = 'messagebox fade-message';
 						$msg = gettext('Setup files protected.');
 					} else {
-						zp_apply_filter('log_setup', false, 'protect', implode(', ', $rslt));
+						npgFilters::apply('log_setup', false, 'protect', implode(', ', $rslt));
 						$class = 'errorbox fade-message';
 						$msg = gettext('Protecting setup files failed.');
 					}
@@ -238,7 +238,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 				/** default ****************************************************************** */
 				default:
 					$func = preg_replace('~\(.*\);*~', '', $action);
-					if (in_array($func, $_zp_button_actions)) {
+					if (in_array($func, $_admin_button_actions)) {
 						call_user_func($action);
 					}
 					break;
@@ -270,7 +270,7 @@ if (zp_loggedin()) { /* Display the admin pages. Do action handling first. */
 	/*	 * ********************************************************************************* */
 }
 
-if (zp_loggedin() && $zenphoto_tabs) {
+if (npg_loggedin() && $_admin_menu) {
 	//	check rights if logged in, if not we will display the logon form below
 	admin_securityChecks(OVERVIEW_RIGHTS, currentRelativeURL());
 }
@@ -293,11 +293,11 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min
 <?php
 echo "\n</head>";
 
-if (!zp_loggedin()) {
+if (!npg_loggedin()) {
 	// If they are not logged in, display the login form and exit
 	?>
 	<body style="background-image: none">
-		<?php $_zp_authority->printLoginForm($came_from); ?>
+		<?php $_authority->printLoginForm($came_from); ?>
 	</body>
 	<?php
 	echo "\n</html>";
@@ -310,12 +310,12 @@ $buttonlist = array();
 	/* Admin-only content safe from here on. */
 	printLogoAndLinks();
 
-	if (zp_loggedin(ADMIN_RIGHTS)) {
+	if (npg_loggedin(ADMIN_RIGHTS)) {
 
 		if ($newVersionAvailable = isset($newestVersion)) {
-			$zenphoto_version = explode('-', ZENPHOTO_VERSION);
-			$zenphoto_version = preg_replace('~[^0-9,.]~', '', array_shift($zenphoto_version));
-			if ($newVersionAvailable = version_compare($newestVersion, $zenphoto_version, '>')) {
+			$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
+			$npg_version = preg_replace('~[^0-9,.]~', '', array_shift($npg_version));
+			if ($newVersionAvailable = version_compare($newestVersion, $npg_version, '>')) {
 				if (!isset($_SESSION['new_version_available'])) {
 					$_SESSION['new_version_available'] = $newestVersion;
 					?>
@@ -352,7 +352,7 @@ $buttonlist = array();
 			$setupUnprotected = printSetupWarning();
 
 			$found = safe_glob(SERVERPATH . '/setup-*.zip');
-			if ($newVersion = zp_loggedin(ADMIN_RIGHTS) && (($extract = file_exists(SERVERPATH . '/extract.php.bin')) || !empty($found))) {
+			if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists(SERVERPATH . '/extract.php.bin')) || !empty($found))) {
 				if ($extract) {
 					$buttonText = gettext('Install update');
 					$buttonTitle = gettext('Install the netPhotoGraphics update.');
@@ -370,7 +370,7 @@ $buttonlist = array();
 				<?php
 			}
 
-			zp_apply_filter('admin_note', 'overview', '');
+			npgFilters::apply('admin_note', 'overview', '');
 
 			if (!empty($msg)) {
 				?>
@@ -396,10 +396,10 @@ $buttonlist = array();
 					}
 				}
 			}
-			$buttonlist = zp_apply_filter('admin_utilities_buttons', $buttonlist);
+			$buttonlist = npgFilters::apply('admin_utilities_buttons', $buttonlist);
 
 			foreach ($buttonlist as $key => $button) {
-				if (zp_loggedin($button['rights'])) {
+				if (npg_loggedin($button['rights'])) {
 					if (!array_key_exists('category', $button)) {
 						$buttonlist[$key]['category'] = gettext('Misc');
 					}
@@ -407,7 +407,7 @@ $buttonlist = array();
 					unset($buttonlist[$key]);
 				}
 			}
-			if (zp_loggedin(ADMIN_RIGHTS)) {
+			if (npg_loggedin(ADMIN_RIGHTS)) {
 
 				if ($newVersion) {
 					$buttonlist[] = array(
@@ -502,10 +502,10 @@ $buttonlist = array();
 			}
 			$buttonlist = array_merge($updates, $buttonlist);
 
-			if (zp_loggedin(OVERVIEW_RIGHTS)) {
+			if (npg_loggedin(OVERVIEW_RIGHTS)) {
 				if (TEST_RELEASE) {
 					$official = gettext('<em>Debug build</em>');
-					$debug = explode('-', ZENPHOTO_VERSION);
+					$debug = explode('-', NETPHOTOGRAPHICS_VERSION);
 					$v = $debug[0];
 					$debug = explode('_', $debug[1]);
 					array_shift($debug);
@@ -516,7 +516,7 @@ $buttonlist = array();
 					}
 				} else {
 					$official = gettext('Official build');
-					$v = ZENPHOTO_VERSION;
+					$v = NETPHOTOGRAPHICS_VERSION;
 				}
 				?>
 				<div id="overviewboxes">
@@ -607,8 +607,8 @@ $buttonlist = array();
 							<ul>
 								<li>
 									<?php
-									$t = $_zp_gallery->getNumAlbums(true);
-									$c = $t - $_zp_gallery->getNumAlbums(true, true);
+									$t = $_gallery->getNumAlbums(true);
+									$c = $t - $_gallery->getNumAlbums(true, true);
 									if ($c > 0) {
 										printf(ngettext('<strong>%1$u</strong> Album (%2$u un-published)', '<strong>%1$u</strong> Albums (%2$u un-published)', $t), $t, $c);
 									} else {
@@ -618,8 +618,8 @@ $buttonlist = array();
 								</li>
 								<li>
 									<?php
-									$t = $_zp_gallery->getNumImages();
-									$c = $t - $_zp_gallery->getNumImages(true);
+									$t = $_gallery->getNumImages();
+									$c = $t - $_gallery->getNumImages(true);
 									if ($c > 0) {
 										printf(ngettext('<strong>%1$u</strong> Image (%2$u un-published)', '<strong>%1$u</strong> Images (%2$u un-published)', $t), $t, $c);
 									} else {
@@ -644,8 +644,8 @@ $buttonlist = array();
 								?>
 								<li>
 									<?php
-									$t = $_zp_gallery->getNumComments(true);
-									$c = $t - $_zp_gallery->getNumComments(false);
+									$t = $_gallery->getNumComments(true);
+									$c = $t - $_gallery->getNumComments(false);
 									if ($c > 0) {
 										printf(ngettext('<strong>%1$u</strong> Comment (%2$u in moderation)', '<strong>%1$u</strong> Comments (%2$u in moderation)', $t), $t, $c);
 									} else {
@@ -655,7 +655,7 @@ $buttonlist = array();
 								</li>
 								<li>
 									<?php
-									$users = $_zp_authority->getAdministrators('allusers');
+									$users = $_authority->getAdministrators('allusers');
 									$t = count($users);
 									$c = 0;
 									foreach ($users as $key => $user) {
@@ -673,7 +673,7 @@ $buttonlist = array();
 
 								<?php
 								$g = $t = 0;
-								foreach ($_zp_authority->getAdministrators('groups') as $element) {
+								foreach ($_authority->getAdministrators('groups') as $element) {
 									if ($element['name'] == 'group') {
 										$g++;
 									} else {
@@ -699,7 +699,7 @@ $buttonlist = array();
 						</div><!-- overview-gallerystats -->
 
 						<?php
-						zp_apply_filter('admin_overview');
+						npgFilters::apply('admin_overview');
 						?>
 					</div><!-- boxouter -->
 				</div><!-- content -->

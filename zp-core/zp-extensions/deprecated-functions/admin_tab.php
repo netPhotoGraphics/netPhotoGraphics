@@ -21,7 +21,7 @@ echo "\n</head>";
 		<?php printTabs(); ?>
 		<div id="content">
 			<div id="container">
-				<?php zp_apply_filter('admin_note', 'development', ''); ?>
+				<?php npgFilters::apply('admin_note', 'development', ''); ?>
 				<h1>
 					<?php
 					echo gettext('Deprecated Functions');

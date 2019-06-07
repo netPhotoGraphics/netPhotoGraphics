@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Note: zenphoto does not want html entities encoded. This script has been modified
+ * Note: we do not want html entities encoded. This script has been modified
  * to prevent the encodings.
  *
  * Additionally it has been modified so css properties within style attributes are not mistaken
@@ -9,7 +9,7 @@
  *
  * Also some re-formatting has been done and function documentation has been changed to follow standard phpdoc blocks
  *
- * Search for zenphoto for changes.
+ * Search for netPhotoGraphics for changes.
  *
  * -------------------------------------------------
  *
@@ -59,9 +59,9 @@ function kses($string, $allowed_html, $allowed_protocols = array('http', 'https'
 		'gopher', 'mailto')) {
 	$string = kses_no_null($string);
 	$string = kses_js_entities($string);
-// $string = kses_normalize_entities($string); zenphoto does not want & encoded
+// $string = kses_normalize_entities($string); netPhotoGraphics does not want & encoded
 	$string = kses_hook($string);
-// $allowed_html = kses_array_lc($allowed_html); zenphoto insures that these are already lowercase
+// $allowed_html = kses_array_lc($allowed_html); netPhotoGraphics insures that these are already lowercase
 	return kses_split($string, $allowed_html, $allowed_protocols);
 }
 
@@ -85,7 +85,7 @@ function kses_version() {
  */
 function kses_split($string, $allowed_html, $allowed_protocols) {
 	global $_allowed_html, $_allowed_protocols;
-	//zenphoto:preg_replace with the "e" modifier is deprecated, use callback
+	//netPhotoGraphics:preg_replace with the "e" modifier is deprecated, use callback
 	$_allowed_html = $allowed_html;
 	$_allowed_protocols = $allowed_protocols;
 
@@ -108,7 +108,7 @@ function kses_split($string, $allowed_html, $allowed_protocols) {
  * @return string
  */
 function kses_split2($matches) {
-	//zenphoto:preg_replace with the "e" modifier is deprecated, this is the callback
+	//netPhotoGraphics:preg_replace with the "e" modifier is deprecated, this is the callback
 	global $_allowed_html, $_allowed_protocols;
 	$allowed_html = $_allowed_html;
 	$allowed_protocols = $_allowed_protocols;
@@ -505,7 +505,7 @@ function kses_html_error($string) {
  */
 function kses_bad_protocol_once($string, $allowed_protocols) {
 	global $_allowed_protocols;
-	//zenphoto:preg_replace with the "e" modifier is deprecated, use callback
+	//netPhotoGraphics:preg_replace with the "e" modifier is deprecated, use callback
 	$_allowed_protocols = $allowed_protocols;
 	return preg_replace_callback('/^((&[^;]*;|[\sA-Za-z0-9])*)' .
 					'(:|&#58;|&#[Xx]3[Aa];)\s*/', 'kses_bad_protocol_once2', $string);
@@ -520,7 +520,7 @@ function kses_bad_protocol_once($string, $allowed_protocols) {
  * @return string
  */
 function kses_bad_protocol_once2($matches) {
-	//zenphoto:preg_replace with the "e" modifier is deprecated, this is the callback
+	//netPhotoGraphics:preg_replace with the "e" modifier is deprecated, this is the callback
 	global $_allowed_protocols;
 	$allowed_protocols = $_allowed_protocols;
 

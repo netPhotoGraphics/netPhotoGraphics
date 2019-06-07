@@ -40,7 +40,7 @@ $plugin_disable = (extensionEnabled('slideshow')) ? sprintf(gettext('Only one sl
 
 $option_interface = 'cycle';
 
-global $_zp_gallery, $_zp_gallery_page;
+global $_gallery, $_gallery_page;
 
 if ($plugin_disable) {
 	enableExtension('slideshow2', 0);
@@ -53,7 +53,7 @@ if ($plugin_disable) {
 class cycle {
 
 	function __construct() {
-		global $_zp_gallery;
+		global $_gallery;
 		if (OFFSET_PATH == 2) {
 			$found = array();
 			$result = getOptionsLike('cycle_');
@@ -205,7 +205,7 @@ class cycle {
 	}
 
 	static function getShow($heading, $speedctl, $albumobj, $imageobj, $width, $height, $crop, $shuffle, $linkslides, $controls, $returnpath, $imagenumber) {
-		global $_zp_gallery, $_zp_gallery_page;
+		global $_gallery, $_gallery_page;
 		if (!$albumobj->isMyItem(LIST_RIGHTS) && !checkAlbumPassword($albumobj)) {
 			return '<div class="errorbox" id="message"><h2>' . gettext('This album is password protected!') . '</h2></div>';
 		}
@@ -357,7 +357,7 @@ class cycle {
 	 * @param bool $carousel if the slideshow is a carousel so we can enable full image linking (only images allowed!)
 	 */
 	static function getSlide($albumobj, $imgobj, $width, $height, $cropw, $croph, $linkslides, $crop = false, $carousel = false) {
-		global $_zp_current_image;
+		global $_current_image;
 		if ($crop) {
 			$imageurl = $imgobj->getCustomImage(NULL, $width, $height, $cropw, $croph, NULL, NULL, true, NULL);
 		} else {
@@ -383,8 +383,8 @@ class cycle {
 			$slidecontent .= '<a href="' . $imgobj->getLink() . '">' . "\n";
 		}
 		$active = '';
-		if ($carousel && !is_null($_zp_current_image)) {
-			if ($_zp_current_image->filename == $imgobj->filename) {
+		if ($carousel && !is_null($_current_image)) {
+			if ($_current_image->filename == $imgobj->filename) {
 				$active = ' class="activeslide"';
 			} else {
 				$active = '';
@@ -506,7 +506,7 @@ class cycle {
 
 // cycle class end
 if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
-	zp_register_filter('content_macro', 'cycle::macro');
+	npgFilters::register('content_macro', 'cycle::macro');
 
 	/**
 	 * Prints a link to call the slideshow (not shown if there are no images in the album)
@@ -521,7 +521,7 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 	 * @param string $after text to be placed after the link
 	 */
 	function printSlideShowLink($linktext = NULL, $linkstyle = Null, $after = NULL) {
-		global $_zp_gallery, $_zp_current_image, $_zp_current_album, $_zp_current_search, $slideshow_instance, $_zp_gallery_page, $_myFavorites;
+		global $_gallery, $_current_image, $_current_album, $_current_search, $slideshow_instance, $_gallery_page, $_myFavorites;
 		if (is_null($linktext)) {
 			$linktext = gettext('View Slideshow');
 		}
@@ -538,20 +538,20 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 			$imagenumber = '';
 			$imagefile = '';
 			$albumnr = 0;
-			$slideshowhidden = '<input type="hidden" name="preserve_search_params" value="' . html_encode($_zp_current_search->getSearchParams()) . '" />';
+			$slideshowhidden = '<input type="hidden" name="preserve_search_params" value="' . html_encode($_current_search->getSearchParams()) . '" />';
 		} else {
 			if (in_context(ZP_IMAGE)) {
 				$imagenumber = imageNumber();
-				$imagefile = $_zp_current_image->filename;
+				$imagefile = $_current_image->filename;
 			} else {
 				$imagenumber = '';
 				$imagefile = '';
 			}
 			if (in_context(ZP_SEARCH_LINKED)) {
-				$albumnr = -$_zp_current_album->getID();
-				$slideshowhidden = '<input type="hidden" name="preserve_search_params" value="' . html_encode($_zp_current_search->getSearchParams()) . '" />';
+				$albumnr = -$_current_album->getID();
+				$slideshowhidden = '<input type="hidden" name="preserve_search_params" value="' . html_encode($_current_search->getSearchParams()) . '" />';
 			} else {
-				$albumnr = $_zp_current_album->getID();
+				$albumnr = $_current_album->getID();
 			}
 			if (!$albumnr) {
 				$slideshowhidden = '<input type="hidden" name="favorites_page" value="1" />' . "\n" . '<input type="hidden" name="title" value="' . $_myFavorites->instance . '" />';
@@ -581,10 +581,10 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 				break;
 			case 'colorbox':
 				if ($numberofimages > 1) {
-					if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_zp_current_album)) {
-						$images = $_zp_current_search->getImages(0);
+					if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_current_album)) {
+						$images = $_current_search->getImages(0);
 					} else {
-						$images = $_zp_current_album->getImages(0);
+						$images = $_current_album->getImages(0);
 					}
 					$count = '';
 					?>
@@ -621,16 +621,16 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 								$albobj = newAlbum($image['folder']);
 								$imgobj = newImage($albobj, $image['filename']);
 							} else {
-								$imgobj = newImage($_zp_current_album, $image);
+								$imgobj = newImage($_current_album, $image);
 							}
-							if (in_context(ZP_SEARCH_LINKED) || $_zp_gallery_page != 'image.php') {
+							if (in_context(ZP_SEARCH_LINKED) || $_gallery_page != 'image.php') {
 								if ($count == 1) {
 									$style = '';
 								} else {
 									$style = ' style="display:none"';
 								}
 							} else {
-								if ($_zp_current_image->filename == $image) {
+								if ($_current_image->filename == $image) {
 									$style = '';
 								} else {
 									$style = ' style="display:none"';
@@ -686,7 +686,7 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 	 *
 	 */
 	function printSlideShow($heading = true, $speedctl = false, $albumobj = NULL, $imageobj = NULL, $width = NULL, $height = NULL, $crop = false, $shuffle = false, $linkslides = false, $controls = true) {
-		global $_myFavorites, $_zp_conf_vars, $_zp_gallery, $_zp_gallery_page, $__cycle_css;
+		global $_myFavorites, $_conf_vars, $_gallery, $_gallery_page, $__cycle_css;
 		if (!isset($_POST['albumid']) && !is_object($albumobj)) {
 			echo '<div class="errorbox" id="message"><h2>' . gettext('Invalid linking to the slideshow page.') . '</h2></div>';
 			return;

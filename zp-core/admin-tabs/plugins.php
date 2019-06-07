@@ -136,7 +136,7 @@ if ($saved) {
 	echo "<h2>" . gettext("Applied") . "</h2>";
 	echo '</div>';
 }
-zp_apply_filter('admin_note', 'plugins', '');
+npgFilters::apply('admin_note', 'plugins', '');
 ?>
 <h1>
 	<?php

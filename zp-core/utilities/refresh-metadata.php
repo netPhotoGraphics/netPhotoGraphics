@@ -29,14 +29,14 @@ if (isset($_REQUEST['album'])) {
 admin_securityChecks($localrights, $return = currentRelativeURL());
 XSRFdefender('refresh');
 
-$zenphoto_tabs = $_SESSION['navigation_tabs']; //	Remembered since we are not loading all the plugins
+$_admin_menu = $_SESSION['navigation_tabs']; //	Remembered since we are not loading all the plugins
 
 $imageid = '';
 if (isset($_GET['refresh'])) {
 	if (isset($_GET['id'])) {
 		$imageid = sanitize_numeric($_GET['id']);
 	}
-	$imageid = $_zp_gallery->garbageCollect(true, true, $imageid);
+	$imageid = $_gallery->garbageCollect(true, true, $imageid);
 }
 
 if (isset($_GET['tab']) && $_GET['tab'] == 'prune') {
@@ -88,7 +88,7 @@ if (isset($_REQUEST['album'])) {
 	if (!empty($folder)) {
 		$album = newAlbum($folder);
 		if (!$album->isMyItem(ALBUM_RIGHTS)) {
-			if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
+			if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
 				header('Location: ' . getAdminLink('admin.php'));
 				exit();
 			}
@@ -110,7 +110,7 @@ if (isset($_GET['refresh'])) {
 		if (!empty($folder)) {
 			$album = newAlbum($folder);
 			if (!$album->isMyItem(ALBUM_RIGHTS)) {
-				if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
+				if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
 					header('Location: ' . getAdminLink('admin.php'));
 					exit();
 				}
@@ -168,7 +168,7 @@ printTabs();
 		} else {
 			if ($type !== 'tab=prune&amp;') {
 				if (!empty($id)) {
-					$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0" . ($_zp_gallery->getAlbumUseImagedate() ? ", `date`=NULL" : '') . " WHERE `id`=$id";
+					$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0" . ($_gallery->getAlbumUseImagedate() ? ", `date`=NULL" : '') . " WHERE `id`=$id";
 					query($sql);
 				}
 				$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0 $albumwhere";

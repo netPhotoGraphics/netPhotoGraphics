@@ -48,7 +48,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'database', ''); ?>
+			<?php npgFilters::apply('admin_note', 'database', ''); ?>
 			<h1><span id="top"><?php echo gettext('Database quick reference'); ?></span></h1>
 			<div class="tabbox">
 				<p>

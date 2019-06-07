@@ -5,16 +5,16 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <head>
 	<?php
-	zp_apply_filter('theme_head');
+	npgFilters::apply('theme_head');
 	printZDRoundedCornerJS();
 
-	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_themeroot . '/style.css');
 
 	printRSSHeaderLink('Gallery', gettext('Gallery'));
 	?>
 </head>
 <body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 
 	<div id="main">
 
@@ -51,7 +51,7 @@ if (!defined('WEBPATH'))
 						<?php endwhile; ?>
 						<?php while ($u % 2 != 0) : $u++; ?>
 							<div class="album">
-								<div class="thumb"><a><img style="width: 255px; height: 75px;"src="<?= $_zp_themeroot ?>/images/trans.png" /></a></div>
+								<div class="thumb"><a><img style="width: 255px; height: 75px;"src="<?= $_themeroot ?>/images/trans.png" /></a></div>
 								<div class="albumdesc">
 									<h3 style="color: transparent;">No album</h3>
 									<h3 class="date" style="color: transparent;">No Date</h3>
@@ -101,6 +101,6 @@ if (!defined('WEBPATH'))
 		</div><!-- content -->
 
 	</div><!-- main -->
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

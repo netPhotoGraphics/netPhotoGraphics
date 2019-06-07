@@ -5,10 +5,10 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <head>
 	<?php
-	zp_apply_filter('theme_head');
+	npgFilters::apply('theme_head');
 	printZDRoundedCornerJS();
 
-	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_themeroot . '/style.css');
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
@@ -34,14 +34,14 @@ if (!defined('WEBPATH'))
 	<?php if (extensionEnabled('rss')) printRSSHeaderLink('Album', getAlbumTitle()); ?>
 </head>
 <body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 
 	<div style="margin-top: 16px;"><!-- somehow the thickbox.css kills the top margin here that all other pages have... -->
 	</div>
 	<div id="main">
 		<div id="header">
 			<h3 style="float:left; padding-left: 32px;">
-        <a href="<?php echo html_encode(getGalleryIndexURL()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/banner.png"/></a>
+        <a href="<?php echo html_encode(getGalleryIndexURL()); ?>"><img src="<?php echo $_themeroot; ?>/images/banner.png"/></a>
 			</h3>
 			<div class="imgnav" style="margin-top: 33px;">
 				<?php if (hasPrevImage()) { ?>
@@ -119,7 +119,7 @@ if (!defined('WEBPATH'))
 					<br style="clear:both;" /><br />
 					<?php
 					if (function_exists('printAddToFavorites')) {
-						printAddToFavorites($_zp_current_image);
+						printAddToFavorites($_current_image);
 						echo '<br/>';
 					}
 					?>
@@ -168,6 +168,6 @@ if (!defined('WEBPATH'))
 		</div><!-- content -->
 
 	</div><!-- main -->
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

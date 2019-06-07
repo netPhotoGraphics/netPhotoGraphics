@@ -9,7 +9,7 @@ if (!isset($zenpage)) {
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 		if (getOption('effervescence_daily_album_image_effect')) {
 			setOption('image_custom_images', getOption('effervescence_daily_album_image_effect'), false);
 		}
@@ -18,7 +18,7 @@ if (!isset($zenpage)) {
 	</head>
 
 	<body onload="blurAnchors()">
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
 		<!-- Wrap Header -->
 		<div id="header">
@@ -28,7 +28,7 @@ if (!isset($zenpage)) {
 				<div id="logo">
 					<?php
 					if (getOption('Allow_search')) {
-						printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search gallery'));
+						printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search gallery'));
 					}
 					printLogo();
 					?>
@@ -39,7 +39,7 @@ if (!isset($zenpage)) {
 			<div id="wrapnav">
 				<div id="navbar">
 					<span><?php
-						if ($_zp_gallery->getWebsiteURL())
+						if ($_gallery->getWebsiteURL())
 							printHomeLink('', ' | ');
 						printGalleryTitle();
 						?></span>
@@ -123,7 +123,7 @@ if (!isset($zenpage)) {
 
 		<?php
 		printFooter();
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 
 	</body>

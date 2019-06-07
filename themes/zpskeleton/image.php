@@ -29,8 +29,8 @@
 <div class="wrapper">
 	<div class="container">
 		<?php
-		$nextimg = $_zp_current_image->getNextImage();
-		$previmg = $_zp_current_image->getPrevImage();
+		$nextimg = $_current_image->getNextImage();
+		$previmg = $_current_image->getPrevImage();
 		?>
 		<div class="ten columns">
 			<div class="image-wrap" id="image">
@@ -75,7 +75,7 @@
 			<?php } ?>
 			<?php
 			if (function_exists('printAddToFavorites')) {
-				printAddToFavorites($_zp_current_album);
+				printAddToFavorites($_current_album);
 			}
 			?>
 <?php if ($zpskel_download) { ?><a style="margin-bottom:10px;" class="button" href="<?php echo html_encode(getFullImageURL()); ?>" title="<?php echo gettext('Download Original'); ?>"><?php echo gettext('Download Original') . ' (' . getFullWidth() . ' x ' . getFullHeight() . ')'; ?></a><?php } ?>

@@ -19,7 +19,7 @@ define('WATERMARK_FULL', 4);
  * @return object
  */
 function newImage($album, $filename = NULL, $quiet = false) {
-	global $_zp_missing_image;
+	global $_missing_image;
 	if (is_array($album)) {
 		$xalbum = newAlbum($album['folder'], true, true);
 		$filename = $album['filename'];
@@ -48,18 +48,18 @@ function newImage($album, $filename = NULL, $quiet = false) {
 				$image->albumlink = $album->linkname;
 				$image->albumnamealbum = $album;
 			}
-			zp_apply_filter('image_instantiate', $image);
+			npgFilters::apply('image_instantiate', $image);
 			if ($image->exists) {
 				return $image;
 			}
-			return $_zp_missing_image;
+			return $_missing_image;
 		}
 		$msg = sprintf(gettext('Bad filename suffix in newImage(%s)'), $filename);
 	}
 	if (!$quiet) {
 		debugLogBacktrace($msg);
 	}
-	return $_zp_missing_image;
+	return $_missing_image;
 }
 
 /**
@@ -110,7 +110,7 @@ class Image extends MediaObject {
 	 */
 
 	function __construct($album, $filename, $quiet = false) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		// $album is an Album object; it should already be created.
 		$msg = $this->invalid($album, $filename);
 		if ($msg) {
@@ -128,8 +128,8 @@ class Image extends MediaObject {
 		if ($new || $this->filemtime != $this->get('mtime')) {
 			if ($new) {
 				$this->setTitle($this->displayname);
-				if ($_zp_current_admin_obj) {
-					$this->setOwner($_zp_current_admin_obj->getUser());
+				if ($_current_admin_obj) {
+					$this->setOwner($_current_admin_obj->getUser());
 				}
 				$this->setSortOrder(999);
 			}
@@ -138,7 +138,7 @@ class Image extends MediaObject {
 			$this->set('mtime', $this->filemtime);
 			$this->save();
 			if ($new)
-				zp_apply_filter('new_image', $this);
+				npgFilters::apply('new_image', $this);
 		}
 	}
 
@@ -244,10 +244,10 @@ class Image extends MediaObject {
 	 * @see PersistentObject::setDefaults()
 	 */
 	protected function setDefaults() {
-		global $_zp_gallery;
+		global $_gallery;
 		$this->set('mtime', $this->filemtime);
 		$this->updateDimensions(); // deal with rotation issues
-		$this->setShow($_zp_gallery->getImagePublish());
+		$this->setShow($_gallery->getImagePublish());
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Image extends MediaObject {
 	 *
 	 */
 	protected function classSetup(&$album, $filename) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 
 		if (TEST_RELEASE) {
 			$bt = debug_backtrace();
@@ -330,12 +330,12 @@ class Image extends MediaObject {
 	 * @return array
 	 */
 	function getMetaData() {
-		global $_zp_exifvars;
+		global $_exifvars;
 		$exif = array();
 		// Put together an array of EXIF data to return
-		foreach ($_zp_exifvars as $field => $exifvar) {
+		foreach ($_exifvars as $field => $exifvar) {
 			//	only enabled image metadata
-			if ($_zp_exifvars[$field][EXIF_FIELD_ENABLED]) {
+			if ($_exifvars[$field][EXIF_FIELD_ENABLED]) {
 				$exif[$field] = $this->get($field);
 			}
 		}
@@ -344,13 +344,13 @@ class Image extends MediaObject {
 
 	/**
 	 * check if a metadata field should be used
-	 * @global type $_zp_exifvars
+	 * @global type $_exifvars
 	 * @param type $field
 	 * @return type
 	 */
 	private function fetchMetadata($field) {
-		global $_zp_exifvars;
-		if ($_zp_exifvars[$field][EXIF_FIELD_ENABLED]) {
+		global $_exifvars;
+		if ($_exifvars[$field][EXIF_FIELD_ENABLED]) {
 			return $this->get($field);
 		} else {
 			return NULL;
@@ -362,8 +362,8 @@ class Image extends MediaObject {
 	 *
 	 */
 	function updateMetaData() {
-		global $_zp_exifvars, $_zp_gallery;
-		if ($_zp_exifvars) {
+		global $_exifvars, $_gallery;
+		if ($_exifvars) {
 			require_once(dirname(__FILE__) . '/exif/exif.php');
 			$IPTCtags = array(
 					'SKIP' => '2#000', //	Record Version										Size:64
@@ -417,7 +417,7 @@ class Image extends MediaObject {
 					'Subfile' => '8#010' //	Subfile														Size:2
 			);
 			$this->set('hasMetadata', 0);
-			foreach ($_zp_exifvars as $field => $exifvar) {
+			foreach ($_exifvars as $field => $exifvar) {
 				$this->set($field, NULL);
 			}
 
@@ -432,7 +432,7 @@ class Image extends MediaObject {
 				$exifraw = read_exif_data_protected($localpath);
 				if (isset($exifraw['ValidEXIFData'])) {
 					$this->set('hasMetadata', 1);
-					foreach ($_zp_exifvars as $field => $exifvar) {
+					foreach ($_exifvars as $field => $exifvar) {
 						$exif = NULL;
 						if (isset($exifraw[$exifvar[EXIF_SOURCE]][$exifvar[EXIF_KEY]])) {
 							$exif = trim(sanitize($exifraw[$exifvar[EXIF_SOURCE]][$exifvar[EXIF_KEY]], 1));
@@ -462,14 +462,14 @@ class Image extends MediaObject {
 							$characterset = 'UTF-8';
 						}
 						// Extract IPTC fields of interest
-						foreach ($_zp_exifvars as $field => $exifvar) {
+						foreach ($_exifvars as $field => $exifvar) {
 							if ($exifvar[EXIF_SOURCE] == 'IPTC') {
 								$datum = self::getIPTCTag($IPTCtags[$exifvar[EXIF_KEY]], $iptc);
 								$this->set($field, $this->prepIPTCString($datum, $characterset));
 							}
 						}
 						/* iptc keywords (tags) */
-						if ($_zp_exifvars['IPTCKeywords'][EXIF_FIELD_ENABLED]) {
+						if ($_exifvars['IPTCKeywords'][EXIF_FIELD_ENABLED]) {
 							$datum = self::getIPTCTagArray($IPTCtags['Keywords'], $iptc);
 							if (is_array($datum)) {
 								$tags = array();
@@ -587,7 +587,7 @@ class Image extends MediaObject {
 				$this->setCredit($credit);
 			}
 
-			zp_apply_filter('image_metadata', $this);
+			npgFilters::apply('image_metadata', $this);
 
 			$alb = $this->album;
 			if (is_object($alb)) {
@@ -599,7 +599,7 @@ class Image extends MediaObject {
 					$alb->setUpdatedDate($this->getDateTime());
 					$save = true;
 				}
-				if (is_null($albdate = $alb->getDateTime()) || ($_zp_gallery->getAlbumUseImagedate() && strtotime($albdate) < strtotime($this->getDateTime()))) {
+				if (is_null($albdate = $alb->getDateTime()) || ($_gallery->getAlbumUseImagedate() && strtotime($albdate) < strtotime($this->getDateTime()))) {
 					$alb->setDateTime($this->getDateTime()); //  not necessarily the right one, but will do. Can be changed in Admin
 					$save = true;
 				}
@@ -664,13 +664,13 @@ class Image extends MediaObject {
 	 * @return string
 	 */
 	private function prepIPTCString($iptcstring, $characterset) {
-		global $_zp_UTF8;
+		global $_UTF8;
 		// Remove null byte at the end of the string if it exists.
 		if (substr($iptcstring, -1) === 0x0) {
 			$iptcstring = substr($iptcstring, 0, -1);
 		}
 		if ($characterset != LOCAL_CHARSET) {
-			$iptcstring = $_zp_UTF8->convert($iptcstring, $characterset, LOCAL_CHARSET);
+			$iptcstring = $_UTF8->convert($iptcstring, $characterset, LOCAL_CHARSET);
 		}
 		return trim(sanitize($iptcstring, 1));
 	}
@@ -1078,7 +1078,7 @@ class Image extends MediaObject {
 			$image = stripSuffix($image);
 		}
 
-		return zp_apply_filter('getLink', rewrite_path(pathurlencode($album) . '/' . urlencode($image) . RW_SUFFIX . $addl, '/index.php?album=' . pathurlencode($albumq) . '&image=' . urlencode($image) . $addl_plain), $this, NULL);
+		return npgFilters::apply('getLink', rewrite_path(pathurlencode($album) . '/' . urlencode($image) . RW_SUFFIX . $addl, '/index.php?album=' . pathurlencode($albumq) . '&image=' . urlencode($image) . $addl_plain), $this, NULL);
 	}
 
 	/**
@@ -1106,7 +1106,7 @@ class Image extends MediaObject {
 	 * returns URL to the original image
 	 */
 	function getFullImageURL($path = WEBPATH) {
-		return zp_apply_filter('getLink', $this->getFullImage($path), 'full-image.php', NULL);
+		return npgFilters::apply('getLink', $this->getFullImage($path), 'full-image.php', NULL);
 	}
 
 	/**
@@ -1198,7 +1198,7 @@ class Image extends MediaObject {
 		$html = '<img src="' . pathurlencode($this->getSizedImage($size)) . '" alt="' . html_encode($this->getTitle()) . '"' .
 						' width="' . $neww . '" height="' . $newh . '"' .
 						(($class) ? " class=\"$class\"" : "") . " />";
-		$html = zp_apply_filter('standard_image_html', $html);
+		$html = npgFilters::apply('standard_image_html', $html);
 		return $html;
 	}
 
@@ -1277,16 +1277,16 @@ class Image extends MediaObject {
 	 * @return int
 	 */
 	function getIndex() {
-		global $_zp_current_search;
+		global $_current_search;
 		if ($this->index == NULL) {
 			$album = $this->albumnamealbum;
 			$filename = $this->filename;
-			if (!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED) || $album->isDynamic()) {
+			if (!is_null($_current_search) && !in_context(ZP_ALBUM_LINKED) || $album->isDynamic()) {
 				$imagefolder = $this->imagefolder;
 				if ($album->isDynamic()) {
 					$images = $album->getImages();
 				} else {
-					$images = $_zp_current_search->getImages(0);
+					$images = $_current_search->getImages(0);
 				}
 				$target = array_keys(array_filter($images, function($item) use($filename, $imagefolder) {
 									return $item['filename'] == $filename && $item['folder'] == $imagefolder;
@@ -1309,12 +1309,12 @@ class Image extends MediaObject {
 	 * @return object
 	 */
 	function getNextImage() {
-		global $_zp_current_search;
+		global $_current_search;
 		$index = $this->getIndex();
 		$album = $this->albumnamealbum;
 
-		if (!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
-			$image = $_zp_current_search->getImage($index + 1);
+		if (!is_null($_current_search) && !in_context(ZP_ALBUM_LINKED)) {
+			$image = $_current_search->getImage($index + 1);
 		} else {
 			$image = $album->getImage($index + 1);
 		}
@@ -1331,12 +1331,12 @@ class Image extends MediaObject {
 	 * @return object
 	 */
 	function getPrevImage() {
-		global $_zp_current_search;
+		global $_current_search;
 		$album = $this->albumnamealbum;
 		$index = $this->getIndex();
 
-		if (!is_null($_zp_current_search) && !in_context(ZP_ALBUM_LINKED)) {
-			$image = $_zp_current_search->getImage($index - 1);
+		if (!is_null($_current_search) && !in_context(ZP_ALBUM_LINKED)) {
+			$image = $_current_search->getImage($index - 1);
 		} else {
 			$image = $album->getImage($index - 1);
 		}
@@ -1441,8 +1441,6 @@ class Image extends MediaObject {
 
 	/**
 	 * Returns the filesize in bytes of the full image
-	 *
-	 * @since ZenphotoCMS 1.5.2
 	 *
 	 * @return int|false
 	 */

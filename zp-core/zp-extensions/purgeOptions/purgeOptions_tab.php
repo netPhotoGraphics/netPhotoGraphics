@@ -87,7 +87,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 		<?php printTabs(); ?>
 		<div id="content">
 			<div id="container">
-				<?php zp_apply_filter('admin_note', 'clone', ''); ?>
+				<?php npgFilters::apply('admin_note', 'clone', ''); ?>
 				<h1><?php echo gettext('purge options'); ?></h1>
 				<div class="tabbox">
 					<?php

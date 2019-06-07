@@ -106,7 +106,7 @@ if (function_exists('showOrNotShowField')) {
 		}
 		$class = $buttonExtra = '';
 		if (getOption("contactform_captcha") && !$_processing_post) {
-			$captcha = $_zp_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>"));
+			$captcha = $_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>"));
 			if (isset($captcha['submitButton'])) {
 				$class = ' ' . $captcha['submitButton']['class'];
 				$buttonExtra = ' ' . $captcha['submitButton']['extra'];

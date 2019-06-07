@@ -19,7 +19,7 @@ if (sanitize($_POST['errors'])) {
 	$result = gettext('Completed');
 }
 setupLog($result, true);
-zp_apply_filter('log_setup', true, 'install', $result);
+npgFilters::apply('log_setup', true, 'install', $result);
 unset($_SESSION['SetupStarted']);
 exit();
 ?>

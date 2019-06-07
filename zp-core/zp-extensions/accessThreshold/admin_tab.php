@@ -132,7 +132,7 @@ echo "\n</head>";
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'access', ''); ?>
+			<?php npgFilters::apply('admin_note', 'access', ''); ?>
 			<h1>
 				<?php
 				echo gettext('Access threshold');

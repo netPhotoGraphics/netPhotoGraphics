@@ -11,7 +11,7 @@
 $plugin_is_filter = 5 | THEME_PLUGIN | ADMIN_PLUGIN;
 $plugin_description = gettext("Adds example macros.");
 
-zp_register_filter('content_macro', 'exampleMacros::macro');
+npgFilters::register('content_macro', 'exampleMacros::macro');
 
 class exampleMacros {
 
@@ -27,9 +27,9 @@ class exampleMacros {
 						'value' => 'getCurrentPage',
 						'owner' => 'exampleMacros',
 						'desc' => gettext('Prints the current page number.')),
-				'ZENPHOTO_VERSION' => array('class' => 'constant',
+				'NETPHOTOGRAPHICS_VERSION' => array('class' => 'constant',
 						'params' => array(),
-						'value' => ZENPHOTO_VERSION,
+						'value' => NETPHOTOGRAPHICS_VERSION,
 						'owner' => 'exampleMacros',
 						'desc' => gettext('Prints the version of the installation.')),
 				'CURRENT_SCRIPT' => array('class' => 'expression',

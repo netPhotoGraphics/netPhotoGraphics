@@ -215,7 +215,7 @@ if (is_array($result)) {
 				//]]> -->
 			</script>
 			<?php
-			zp_apply_filter('admin_note', 'menu', 'edit');
+			npgFilters::apply('admin_note', 'menu', 'edit');
 			?>
 			<h1>
 				<?php

@@ -1,5 +1,4 @@
 <?php
-global $_zp_conf_vars;
 $conf = array();
 
 /** Do not edit above this line. **/
@@ -83,12 +82,9 @@ $conf['special_pages'] = array(
 // on your server, which might work better on some setups.
 ////////////////////////////////////////////////////////////////////////////////
 
-// define('WEBPATH', '/zenphoto');
-// define('SERVERPATH', '/full/server/path/to/zenphoto');
+// define('WEBPATH', '/netphotographics');
+// define('SERVERPATH', '/full/server/path/to/netphotographics');
 
 ////////////////////////////////////////////////////////////////////////////////
 /** Do not edit below this line. **/
 /**********************************/
-$_zp_conf_vars = $conf;
-unset($conf);
-?>

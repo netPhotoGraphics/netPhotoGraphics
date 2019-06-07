@@ -1,5 +1,5 @@
 <?php
-$_zp_page_check = 'my_checkPageValidity';
+$_current_page_check = 'my_checkPageValidity';
 
 setOption('zp_plugin_colorbox', false, false);
 $zenpage = getOption('zp_plugin_zenpage');
@@ -84,13 +84,13 @@ if (is_null($zpfocus_news))
 
 // Sets expanded titles (breadcrumbs) for Title meta
 function getTitleBreadcrumb($before = ' ( ', $between = ' | ', $after = ' ) ') {
-	global $_zp_gallery, $_zp_current_search, $_zp_current_album, $_zp_last_album;
+	global $_gallery, $_current_search, $_current_album, $_last_album;
 	$titlebreadcrumb = '';
 	if (in_context(ZP_SEARCH_LINKED)) {
-		$dynamic_album = $_zp_current_search->getDynamicAlbum();
+		$dynamic_album = $_current_search->getDynamicAlbum();
 		if (empty($dynamic_album)) {
 			$titlebreadcrumb .= $before . gettext("Search Result") . $after;
-			if (is_null($_zp_current_album)) {
+			if (is_null($_current_album)) {
 				return;
 			} else {
 				$parents = getParentAlbums();
@@ -173,7 +173,7 @@ function printZDToggleClass($option, $c, $number_to_show) {
 }
 
 function printLatestNewsCustom($number = 5, $category = '', $showdate = true, $showcontent = true, $contentlength = 70, $showcat = true) {
-	global $_zp_gallery, $_zp_current_article;
+	global $_gallery, $_CMS_current_article;
 	$latest = getLatestNews($number, $category);
 	echo "\n<div id=\"latestnews-spotlight\">\n";
 	$count = "";

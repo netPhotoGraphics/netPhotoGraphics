@@ -3,10 +3,10 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/admin-globals.php');
 XSRFdefender('elFinder');
 
-include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinderConnector.class.php';
-include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinder.class.php';
-include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeDriver.class.php';
-include_once CORE_SERVERPATH .  PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeLocalFileSystem.class.php';
+include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinderConnector.class.php';
+include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinder.class.php';
+include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeDriver.class.php';
+include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeLocalFileSystem.class.php';
 // Required for MySQL storage connector
 // include_once CORE_SERVERPATH .  PLUGIN_FOLDER.'/elFinder/php/elFinderVolumeMySQL.class.php';
 // Required for FTP connector support
@@ -72,9 +72,9 @@ function accessAlbums($attr, $path, $data, $volume) {
 }
 
 $opts = array();
-$rights = zp_loggedin();
-$sidecars = zp_apply_filter('upload_filetypes', array());
-$validSuffix = array_keys($_zp_images_classes);
+$rights = npg_loggedin();
+$sidecars = npgFilters::apply('upload_filetypes', array());
+$validSuffix = array_keys($_images_classes);
 $validSuffix = array_merge($validSuffix, $sidecars);
 
 if ($_REQUEST['origin'] == 'upload') {
@@ -82,7 +82,7 @@ if ($_REQUEST['origin'] == 'upload') {
 	if (isset($_REQUEST['themeEdit'])) {
 		$rights = 0;
 		$themeRequest = sanitize($_REQUEST['themeEdit']);
-		if (zp_loggedin(THEMES_RIGHTS) && file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $themeRequest)) {
+		if (npg_loggedin(THEMES_RIGHTS) && file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $themeRequest)) {
 			if (!protectedTheme($themeRequest)) {
 				$themeAlias = sprintf(gettext('%s'), $themeRequest);
 				$themeRequest .= '/';
@@ -117,10 +117,10 @@ if ($_REQUEST['origin'] == 'upload') {
 	}
 
 	if ($rights & THEMES_RIGHTS) {
-		$zplist = array();
-		foreach ($_zp_gallery->getThemes() as $theme => $data) {
+		$theme_list = array();
+		foreach ($_gallery->getThemes() as $theme => $data) {
 			if (protectedTheme($theme)) {
-				$zplist[] = preg_quote($theme);
+				$theme_list[] = preg_quote($theme);
 			}
 		}
 		$opts['roots'][1] = array(
@@ -138,13 +138,13 @@ if ($_REQUEST['origin'] == 'upload') {
 				'acceptedName' => '/^[^\.].*$/',
 				'attributes' => $attr = array(
 		array(
-				'pattern' => '/.(' . implode('$|', $zplist) . '$)/' . $i, // Dont write or delete to this but subfolders and files
+				'pattern' => '/.(' . implode('$|', $theme_list) . '$)/' . $i, // Dont write or delete to this but subfolders and files
 				'read' => true,
 				'write' => false,
 				'locked' => true
 		),
 		array(
-				'pattern' => '/.(' . implode('\/|', $zplist) . '\/)/' . $i, // Dont write or delete to this but subfolders and files
+				'pattern' => '/.(' . implode('\/|', $theme_list) . '\/)/' . $i, // Dont write or delete to this but subfolders and files
 				'read' => true,
 				'write' => false,
 				'locked' => true
@@ -178,7 +178,7 @@ if ($_REQUEST['origin'] == 'upload') {
 			}
 
 			$_managed_folders = getManagedAlbumList();
-			$excluded_folders = $_zp_gallery->getAlbums(0, null, null, false, true); //	get them all!
+			$excluded_folders = $_gallery->getAlbums(0, null, null, false, true); //	get them all!
 			$excluded_folders = array_diff($excluded_folders, $_managed_folders);
 			foreach ($excluded_folders as $key => $folder) {
 				$excluded_folders[$key] = preg_quote($folder);
@@ -195,7 +195,7 @@ if ($_REQUEST['origin'] == 'upload') {
 
 			$maxupload = ini_get('upload_max_filesize');
 			$maxuploadint = parse_size($maxupload);
-			$uploadlimit = zp_apply_filter('get_upload_limit', $maxuploadint);
+			$uploadlimit = npgFilters::apply('get_upload_limit', $maxuploadint);
 			$all_actions = $_not_upload = $_not_edit = array();
 
 			foreach ($_managed_folders as $key => $folder) {

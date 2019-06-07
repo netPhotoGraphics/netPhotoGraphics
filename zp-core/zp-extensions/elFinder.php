@@ -67,18 +67,18 @@ class elFinder_options {
 
 }
 
-if (getOption('elFinder_files') && zp_loggedin(FILES_RIGHTS | UPLOAD_RIGHTS)) {
-	zp_register_filter('admin_tabs', 'elFinder_admin_tabs');
+if (getOption('elFinder_files') && npg_loggedin(FILES_RIGHTS | UPLOAD_RIGHTS)) {
+	npgFilters::register('admin_tabs', 'elFinder_admin_tabs');
 	if (getOption('elFinder_themeeditor')) {
-		zp_register_filter('theme_editor', 'elFinderThemeEdit');
+		npgFilters::register('theme_editor', 'elFinderThemeEdit');
 	}
 }
 if (getOption('elFinder_tinymce')) {
-	zp_register_filter('tinymce_config', 'elFinder_tinymce');
+	npgFilters::register('tinymce_config', 'elFinder_tinymce');
 }
 
 function elFinder_admin_tabs($tabs) {
-	if (zp_loggedin(UPLOAD_RIGHTS)) {
+	if (npg_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('files (%s)'), 'elFinder');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),

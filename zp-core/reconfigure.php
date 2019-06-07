@@ -15,7 +15,7 @@ if (!defined('OFFSET_PATH')) {
  * Executes the configuration change code
  */
 function reconfigureAction($mandatory) {
-	global $_zp_conf_vars;
+	global $_conf_vars;
 	list($diff, $needs) = checkSignature($mandatory);
 	$diffkeys = array_keys($diff);
 	if ($mandatory) {
@@ -32,7 +32,7 @@ function reconfigureAction($mandatory) {
 				$reason = gettext('no configuration file');
 				break;
 			case 12:
-				$reason = sprintf(gettext('no %1$s PHP support'), $_zp_conf_vars['db_software']);
+				$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
 				break;
 			case 13:
 				$reason = gettext('database connection failed');
@@ -66,8 +66,8 @@ function reconfigureAction($mandatory) {
 			exit();
 		} else {
 			// because we are loading the script from within a function!
-			global $subtabs, $zenphoto_tabs, $_zp_admin_tab, $_zp_invisible_execute, $_zp_gallery;
-			$_zp_invisible_execute = 1;
+			global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
+			$_invisible_execute = 1;
 			require_once(dirname(__FILE__) . '/functions-basic.php');
 			require_once(CORE_SERVERPATH . 'initialize-basic.php');
 			require_once(dirname(__FILE__) . '/functions-filter.php');
@@ -89,9 +89,9 @@ function reconfigureAction($mandatory) {
 				<?php reconfigureCS(); ?>
 			</head>
 			<body>
-				<?php if ($_zp_gallery) printLogoAndLinks(); ?>
+				<?php if ($_gallery) printLogoAndLinks(); ?>
 				<div id="main">
-					<?php if ($_zp_gallery) printTabs(); ?>
+					<?php if ($_gallery) printTabs(); ?>
 					<div id="content">
 						<h1><?php echo gettext('Setup request'); ?></h1>
 						<div class="tabbox">
@@ -105,10 +105,10 @@ function reconfigureAction($mandatory) {
 			exit();
 		}
 	} else if (!empty($diff)) {
-		if (function_exists('zp_register_filter') && zp_loggedin(ADMIN_RIGHTS)) {
+		if (function_exists('npgFilters::register') && npg_loggedin(ADMIN_RIGHTS)) {
 			//	no point in telling someone who can't do anything about it
-			zp_register_filter('admin_note', 'signatureChange', 9999);
-			zp_register_filter('admin_head', 'reconfigureCS');
+			npgFilters::register('admin_note', 'signatureChange', 9999);
+			npgFilters::register('admin_head', 'reconfigureCS');
 		}
 	}
 }
@@ -118,10 +118,10 @@ function reconfigureAction($mandatory) {
  * Checks details of configuration change
  */
 function checkSignature($mandatory) {
-	global $_configMutex, $_zp_DB_connection, $_reconfigureMutex;
+	global $_configMutex, $_DB_connection, $_reconfigureMutex;
 	$old = NULL;
-	if (function_exists('query_full_array') && $_zp_DB_connection) {
-		$old = @unserialize(getOption('zenphoto_install'));
+	if (function_exists('query_full_array') && $_DB_connection) {
+		$old = @unserialize(getOption('netphotographics_install'));
 		unset($old['SERVER_SOFTWARE']);
 		unset($old['DATABASE']);
 		$new = installSignature();
@@ -156,7 +156,7 @@ function checkSignature($mandatory) {
 		}
 	}
 
-	$package = file_get_contents(dirname(__FILE__) . '/netphotographics.package');
+	$package = file_get_contents(dirname(__FILE__) . '/netPhotoGraphics.package');
 	preg_match_all('|' . CORE_FOLDER . '/setup/(.*)|', $package, $matches);
 	$needs = array();
 	$restore = $found = false;
@@ -178,7 +178,7 @@ function checkSignature($mandatory) {
 		}
 		$restore = safe_glob('*.xxx');
 
-		if (!empty($restore) && $mandatory > 1 && defined('ADMIN_RIGHTS') && zp_loggedin(ADMIN_RIGHTS)) {
+		if (!empty($restore) && $mandatory > 1 && defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS)) {
 			restoreSetupScrpts($mandatory);
 		}
 		$found = safe_glob('*.*');
@@ -259,7 +259,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	if (function_exists('getXSRFToken')) {
 		$token = getXSRFToken('setup');
 		if (isset($_GET['dismiss']) && isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == $token) {
-			setOption('zenphoto_install', serialize(installSignature()));
+			setOption('netphotographics_install', serialize(installSignature()));
 			return;
 		}
 		$where .= '&amp;xsrfToken=' . $token;
@@ -278,7 +278,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 				<?php
 				foreach ($diff as $thing => $rslt) {
 					switch ($thing) {
-						case 'ZENPHOTO':
+						case 'NETPHOTOGRAPHICS':
 							echo '<li>' . sprintf(gettext('Version %1$s has been copied over %2$s.'), $rslt['new'], $rslt['old']) . '</li>';
 							break;
 						case 'FOLDER':
@@ -300,7 +300,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							}
 							break;
 						default:
-							$sz = @filesize(CORE_SERVERPATH .  $thing);
+							$sz = @filesize(CORE_SERVERPATH . $thing);
 							echo '<li>' . sprintf(gettext('The script <code>%1$s</code> has changed.'), $thing) . '</li>';
 							break;
 					}
@@ -350,7 +350,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
  */
 function restoreSetupScrpts($reason) {
 //log setup file restore no matter what!
-	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/security-logger.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
 	switch ($reason) {
 		default:
 			$addl = sprintf(gettext('to run setup [%s]'), $reason);
@@ -362,7 +362,7 @@ function restoreSetupScrpts($reason) {
 			$addl = gettext('by cloning');
 			break;
 	}
-	$allowed = defined('ADMIN_RIGHTS') && zp_loggedin(ADMIN_RIGHTS) && zpFunctions::hasPrimaryScripts();
+	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && zpFunctions::hasPrimaryScripts();
 	security_logger::log_setup($allowed, 'restore', $addl);
 	if ($allowed) {
 		if (!defined('FILE_MOD')) {

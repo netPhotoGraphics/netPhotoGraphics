@@ -91,7 +91,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 	if (empty($wp_dbname) || empty($wp_dbbuser) || empty($wp_dbpassword) || empty($wp_dbhost)) {
 		$dbinfo_incomplete = wpimport_TryAgainError($message);
 	}
-	$wpdbconnection = @mysqli_connect($wp_dbhost, $wp_dbbuser, $wp_dbpassword, $wp_dbname); // open 2nd connection to Wordpress additionally to the existing Zenphoto connection
+	$wpdbconnection = @mysqli_connect($wp_dbhost, $wp_dbbuser, $wp_dbpassword, $wp_dbname); // open 2nd connection to Wordpress additionally to the existing connection
 
 	if ($wpdbconnection) {
 		mysqli_query($wpdbconnection, "SET NAMES 'utf8'");
@@ -120,8 +120,8 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 		if ($cats) {
 			foreach ($cats as $cat) {
 				$cattitlelink = $cat['slug'];
-				$cattitle = $_zp_UTF8->convert($cat['name']);
-				//$catdesc = $_zp_UTF8->convert($cat['description']);
+				$cattitle = $_UTF8->convert($cat['name']);
+				//$catdesc = $_UTF8->convert($cat['description']);
 				$catdesc = $cat['description'];
 				if (getcheckboxState('convertlinefeeds')) {
 					$catdesc = nl2br($catdesc);
@@ -200,9 +200,9 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 			} else {
 				$show = 0;
 			}
-			$post['title'] = $_zp_UTF8->convert($post['title']);
+			$post['title'] = $_UTF8->convert($post['title']);
 			$titlelink = $post['titlelink'];
-			$post['content'] = $_zp_UTF8->convert($post['content']);
+			$post['content'] = $_UTF8->convert($post['content']);
 			if (getcheckboxState('convertlinefeeds')) {
 				$post['content'] = nl2br($post['content']);
 			}
@@ -233,7 +233,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 					$postinfo .= "<ul>";
 					if ($termrelations) {
 						foreach ($termrelations as $term) {
-							$term['name'] = $_zp_UTF8->convert($term['name']);
+							$term['name'] = $_UTF8->convert($term['name']);
 							$term['slug'] = $term['slug'];
 							$term['taxonomy'] = $term['taxonomy'];
 							switch ($term['taxonomy']) {
@@ -303,11 +303,11 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 			if ($comments) {
 				$postinfo .= '<ul>';
 				foreach ($comments as $comment) {
-					$comment['comment_author'] = $_zp_UTF8->convert($comment['comment_author']);
+					$comment['comment_author'] = $_UTF8->convert($comment['comment_author']);
 					$comment['comment_author_email'] = $comment['comment_author_email'];
 					$comment['comment_author_url'] = $comment['comment_author_url'];
 					$comment['comment_date'] = $comment['comment_date'];
-					$comment['comment_content'] = nl2br($_zp_UTF8->convert($comment['comment_content']));
+					$comment['comment_content'] = nl2br($_UTF8->convert($comment['comment_content']));
 					if (getcheckboxState('convertlinefeeds')) {
 						$comment['comment_content'] = nl2br($comment['comment_content']);
 					}
@@ -375,7 +375,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'wordpress', ''); ?>
+			<?php npgFilters::apply('admin_note', 'wordpress', ''); ?>
 			<h1><?php echo (gettext('Wordpress Importer')); ?></h1>
 			<div class="tabbox">
 				<?php if (!isset($_REQUEST['dbname']) && !isset($_REQUEST['dbuser']) && !isset($_REQUEST['dbpass']) && !isset($_REQUEST['dbhost']) && !isset($_GET['refresh'])) { ?>

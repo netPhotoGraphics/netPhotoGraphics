@@ -6,16 +6,16 @@ if (class_exists('favorites')) {
 	<!DOCTYPE html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 		printZDRoundedCornerJS();
 
-		scriptLoader($_zp_themeroot . '/style.css');
+		scriptLoader($_themeroot . '/style.css');
 
 		printRSSHeaderLink('Album', getAlbumTitle());
 		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
 		<div id="main">
 
@@ -52,7 +52,7 @@ if (class_exists('favorites')) {
 										<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php echo html_encode(getBareAlbumTitle()); ?>"><?php printAlbumTitle(); ?></a>
 									</h3>
 									<h3 class="date">
-										<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
+										<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 									</h3>
 								<!-- p><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45)); ?></p --></h3>
 								</div>
@@ -63,7 +63,7 @@ if (class_exists('favorites')) {
 						<?php while ($u % 2 != 0) : $u++; ?>
 							<div class="album" style="margin-left: 8px;">
 								<div class="thumb">
-									<a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_zp_themeroot ?>/images/trans.png" /></a>
+									<a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a>
 								</div>
 								<div class="albumdesc">
 									<h3 style="color: transparent;">No album</h3>
@@ -79,14 +79,14 @@ if (class_exists('favorites')) {
 							<div class="image">
 								<div class="imagethumb">
 									<a href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getBareImageTitle()); ?></a>
-									<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
+									<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 								</div>
 							</div>
 						<?php endwhile; ?>
 						<?php while ($u % 5 != 0) : $u++; ?>
 							<div class="image">
 								<div class="imagethumb">
-									<a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_zp_themeroot ?>/images/trans.png" /></a>
+									<a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a>
 									<input type = "submit" class = "button buttons" value = "      " title = ""/>
 								</div>
 							</div>
@@ -136,7 +136,7 @@ if (class_exists('favorites')) {
 			</div><!-- content -->
 
 		</div><!-- main -->
-		<?php zp_apply_filter('theme_body_close'); ?>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</body>
 	</html>
 	<?php

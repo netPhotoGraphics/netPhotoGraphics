@@ -14,9 +14,9 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Disable publish/unpublish if user does not have <em>ADMIN_RIGHTS</em>.");
 
-zp_register_filter('admin_note', 'disableRight::disable'); // a convenient point since it is established what page and tab are selected
-zp_register_filter('admin_managed_albums_access', 'disableRight::save'); // this point allows us to alter the $_GET and $_POST arrays before they are used
-zp_register_filter('plugin_tabs', 'disableRight::tab');
+npgFilters::register('admin_note', 'disableRight::disable'); // a convenient point since it is established what page and tab are selected
+npgFilters::register('admin_managed_albums_access', 'disableRight::save'); // this point allows us to alter the $_GET and $_POST arrays before they are used
+npgFilters::register('plugin_tabs', 'disableRight::tab');
 
 class disableRight {
 
@@ -26,9 +26,9 @@ class disableRight {
 	 * @param string $subtab
 	 */
 	static function disable($tab, $subtab) {
-		global $_zp_admin_tab;
-		if (!zp_loggedin(ADMIN_RIGHTS)) {
-			switch ($_zp_admin_tab) {
+		global $_admin_tab;
+		if (!npg_loggedin(ADMIN_RIGHTS)) {
+			switch ($_admin_tab) {
 				case 'upload':
 					//	the upload tab.
 					?>
@@ -138,7 +138,7 @@ class disableRight {
 	 * @return unknown
 	 */
 	static function save($allow) {
-		if (!zp_loggedin(ADMIN_RIGHTS)) {
+		if (!npg_loggedin(ADMIN_RIGHTS)) {
 			if (isset($_GET['action'])) {
 				switch ($_GET['action']) {
 					case 'publish':

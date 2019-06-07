@@ -11,14 +11,14 @@
  */
 $plugin_is_filter = 800 | CLASS_PLUGIN;
 $plugin_description = gettext("Outgoing mail handler based on the <em>PHPMailer</em> class mailing facility.");
-$plugin_disable = (zp_has_filter('sendmail') && !extensionEnabled('PHPMailer')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(get_filterScript('sendmail'))) : '';
+$plugin_disable = (npgFilters::has_filter('sendmail') && !extensionEnabled('PHPMailer')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(npgFilters::script('sendmail'))) : '';
 
 $option_interface = 'zp_PHPMailer';
 
 if ($plugin_disable) {
 	enableExtension('PHPMailer', 0);
 } else {
-	zp_register_filter('sendmail', 'zenphoto_PHPMailer');
+	npgFilters::register('sendmail', '_PHPMailer');
 }
 
 /**
@@ -93,7 +93,7 @@ use PHPMailer\PHPMailer\POP3;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function zenphoto_PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo) {
+function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo) {
 	require_once(dirname(__FILE__) . '/PHPMailer/PHPMailer.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/POP3.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/SMTP.php');

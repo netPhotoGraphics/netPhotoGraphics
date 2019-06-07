@@ -65,7 +65,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 					<option value="published"<?php if ($filter == 'published') echo ' selected="selected"'; ?>><?php echo gettext('published'); ?></option>
 				</select>
 				<?php
-				$sort = $_zp_sortby;
+				$sort = $_sortby;
 				unset($sort[gettext('Owner')]); //	there is only him
 				foreach ($sort as $key => $value) {
 					$sort[sprintf(gettext('%s (descending)'), $key)] = $value . '_DESC';
@@ -257,10 +257,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												$exif = $image->getMetaData();
 												if (false !== $exif) {
 													foreach ($exif as $field => $value) {
-														if (!(empty($value) || $_zp_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value = '0000-00-00 00:00:00')) {
-															$display = $_zp_exifvars[$field][EXIF_DISPLAY];
+														if (!(empty($value) || $_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value = '0000-00-00 00:00:00')) {
+															$display = $_exifvars[$field][EXIF_DISPLAY];
 															if ($display) {
-																$label = $_zp_exifvars[$field][EXIF_DISPLAY_TEXT];
+																$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
 																$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value)) . "</td></tr>\n";
 															}
 														}
@@ -308,7 +308,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</td>
 									</tr>
 									<?php
-									echo zp_apply_filter('edit_image_custom', '', $image, $currentimage);
+									echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
 									if (!$singleimage) {
 										?>
 										<tr>
@@ -445,7 +445,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										?>
 									<hr />
 									<?php
-									if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+									if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 										echo gettext("Owner");
 										?>
 										<select name="<?php echo $currentimage; ?>-owner" size='1'>
@@ -596,7 +596,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</div>
 										<?php
 									}
-									echo zp_apply_filter('edit_image_utilities', '<!--image-->', $image, $currentimage, $pagenum, $tagsort, $singleimage); //pass space as HTML because there is already a button shown for cropimage
+									echo npgFilters::apply('edit_image_utilities', '<!--image-->', $image, $currentimage, $pagenum, $tagsort, $singleimage); //pass space as HTML because there is already a button shown for cropimage
 									?>
 									<span class="clearall" ></span>
 								</div>

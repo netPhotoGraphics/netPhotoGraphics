@@ -9,9 +9,9 @@ define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/functions.php');
 
 if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
-	if (!zp_loggedin(ADMIN_RIGHTS)) {
+	if (!npg_loggedin(ADMIN_RIGHTS)) {
 		// prevent nefarious access to this page.
-		header('Location: ' . getAdminLink('admin.php').'?from=' . currentRelativeURL());
+		header('Location: ' . getAdminLink('admin.php') . '?from=' . currentRelativeURL());
 		exit();
 	}
 
@@ -29,13 +29,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 	query('UPDATE ' . prefix('albums') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
 	query('UPDATE ' . prefix('news') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
 	query('UPDATE ' . prefix('pages') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-	header('Location: ' . getAdminLink('admin.php').'?action=external&msg=' . gettext('All ratings have been set to <em>unrated</em>.'));
+	header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('All ratings have been set to <em>unrated</em>.'));
 	exit();
 }
 
 if (extensionEnabled('rating') && isset($_POST['id']) && isset($_POST['table'])) {
-	require_once( CORE_SERVERPATH . 'template-functions.php');
-	require_once( CORE_SERVERPATH .  PLUGIN_FOLDER . '/rating.php');
+	require_once(CORE_SERVERPATH . 'template-functions.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/rating.php');
 	$id = sanitize_numeric($_POST['id']);
 	$table = sanitize($_POST['table'], 3);
 	$dbtable = prefix($table);

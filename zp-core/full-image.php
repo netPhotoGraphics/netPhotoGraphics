@@ -57,13 +57,13 @@ $adminrequest = $args[12];
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
 	zp_session_start();
-	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['zp_user_auth'];
+	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
 }
 
 $args[0] = 'FULL';
 
 $hash = getOption('protected_image_password');
-if (($hash || !$albumobj->checkAccess()) && !zp_loggedin(VIEW_FULLIMAGE_RIGHTS)) {
+if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)) {
 	//	handle password form if posted
 	zp_handle_password('zp_image_auth', getOption('protected_image_password'), getOption('protected_image_user'));
 	//check for passwords
@@ -90,40 +90,40 @@ if (($hash || !$albumobj->checkAccess()) && !zp_loggedin(VIEW_FULLIMAGE_RIGHTS))
 		}
 	}
 	if (empty($hash)) { // check for gallery password
-		$hash = $_zp_gallery->getPassword();
+		$hash = $_gallery->getPassword();
 		$authType = 'zp_gallery_auth';
-		$hint = $_zp_gallery->getPasswordHint();
-		$show = $_zp_gallery->getUser();
+		$hint = $_gallery->getPasswordHint();
+		$show = $_gallery->getUser();
 	}
 
-	if (empty($hash) || (!empty($hash) && zp_getCookie($authType) != $hash)) {
+	if (empty($hash) || (!empty($hash) && getNPGCookie($authType) != $hash)) {
 		require_once(CORE_SERVERPATH . 'rewrite.php');
 		require_once(dirname(__FILE__) . "/template-functions.php");
 		require_once(CORE_SERVERPATH . 'functions-controller.php');
-		zp_load_gallery();
+		Controller::load_gallery();
 
 		foreach (getEnabledPlugins() as $extension => $plugin) {
 			if ($plugin['priority'] & THEME_PLUGIN) {
 				require_once($plugin['path']);
-				$_zp_loaded_plugins[$extension] = $extension;
+				$_loaded_plugins[$extension] = $extension;
 			}
 		}
 
 		$theme = setupTheme($albumobj);
-		$custom = $_zp_themeroot . '/functions.php';
+		$custom = $_themeroot . '/functions.php';
 		if (file_exists($custom)) {
 			require_once($custom);
 		}
-		$_zp_gallery_page = 'password.php';
-		$_zp_script = $_zp_themeroot . '/password.php';
-		if (!file_exists(internalToFilesystem($_zp_script))) {
-			$_zp_script = CORE_SERVERPATH . 'password.php';
+		$_gallery_page = 'password.php';
+		$_themeScript = $_themeroot . '/password.php';
+		if (!file_exists(internalToFilesystem($_themeScript))) {
+			$_themeScript = CORE_SERVERPATH . 'password.php';
 		}
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Last-Modified: ' . ZP_LAST_MODIFIED);
-		include(internalToFilesystem($_zp_script));
+		include(internalToFilesystem($_themeScript));
 		exit();
 	}
 }

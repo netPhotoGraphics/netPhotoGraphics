@@ -28,9 +28,9 @@ $plugin_description = gettext("Collects and displays search criteria.");
 
 $option_interface = 'search_statistics';
 
-zp_register_filter('search_statistics', 'search_statistics::handler');
+npgFilters::register('search_statistics', 'search_statistics::handler');
 
-zp_register_filter('admin_tabs', 'search_statistics::admin_tabs');
+npgFilters::register('admin_tabs', 'search_statistics::admin_tabs');
 
 /**
  * Option handler class
@@ -80,7 +80,7 @@ class search_statistics {
 	}
 
 	static function admin_tabs($tabs) {
-		if (zp_loggedin(OVERVIEW_RIGHTS)) {
+		if (npg_loggedin(OVERVIEW_RIGHTS)) {
 			$tabs['overview']['subtabs'][gettext('Search analysis')] = PLUGIN_FOLDER . '/search_statistics/search_analysis.php?tab=searchstat';
 		}
 		return $tabs;

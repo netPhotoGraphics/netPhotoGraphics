@@ -14,12 +14,12 @@ class DailySummary extends Gallery {
 		$minDate = floor(strtotime('-' . getOption('DailySummaryDays') . ' days') / 86400) * 86400;
 		$cleandates = array();
 		$sql = "SELECT `id`,`date` FROM " . prefix('images');
-		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
+		if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql .= " WHERE `show`=1";
 		}
 		$hidealbums = getNotViewableAlbums();
 		if (!empty($hidealbums)) {
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
+			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
 				$sql .= ' WHERE ';
 			} else {
 				$sql .= ' AND ';
@@ -72,9 +72,9 @@ class DailySummary extends Gallery {
 	}
 
 	static function pageCount($count, $gallery_page, $page) {
-		global $_firstPageImages, $_zp_current_DailySummary;
+		global $_firstPageImages, $_current_DailySummary;
 		$items_per_page = max(1, getOption('DailySummaryItemsPage'));
-		return (int) ceil($_zp_current_DailySummary->getTotalItems() / $items_per_page);
+		return (int) ceil($_current_DailySummary->getTotalItems() / $items_per_page);
 	}
 
 }

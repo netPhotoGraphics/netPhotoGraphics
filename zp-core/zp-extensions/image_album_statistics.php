@@ -37,7 +37,7 @@ require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
  * @return array
  */
 function getAlbumStatistic($number = 5, $option, $albumfolder = '', $threshold = 0, $sortdirection = 'desc', $collection = false) {
-	global $_zp_gallery;
+	global $_gallery;
 	$where = '';
 	if ($albumfolder) {
 		$obj = newAlbum($albumfolder);
@@ -53,7 +53,7 @@ function getAlbumStatistic($number = 5, $option, $albumfolder = '', $threshold =
 			}
 		}
 	} else {
-		$obj = $_zp_gallery;
+		$obj = $_gallery;
 	}
 	switch (strtolower($sortdirection)) {
 		case false:
@@ -205,7 +205,7 @@ function printAlbumStatistic($number, $option, $showtitle = false, $showdate = f
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
 function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $firstimglink = false) {
-	global $_zp_gallery;
+	global $_gallery;
 	$twidth = $width;
 	$theight = $height;
 	if (is_null($crop) && is_null($width) && is_null($height)) {
@@ -426,7 +426,7 @@ function printLatestUpdatedAlbums($number = 5, $showtitle = false, $showdate = f
  * @return array
  */
 function getImageStatistic($number, $option, $albumfolder = NULL, $collection = false, $threshold = 0, $sortdirection = 'desc') {
-	global $_zp_gallery;
+	global $_gallery;
 	$where = '';
 	$obj = NULL;
 	if ($albumfolder) {
@@ -786,12 +786,12 @@ function checkIfNew($mode = "image", $timerange = 604800) {
  * @return bool
  */
 function getNumAllSubalbums($albumobj, $pre = '') {
-	global $_zp_gallery, $_zp_current_album;
+	global $_gallery, $_current_album;
 	if (is_null($albumobj)) {
-		$albumobj = $_zp_current_album;
+		$albumobj = $_current_album;
 	}
 	$count = '';
-	$albums = getAllAlbums($_zp_current_album);
+	$albums = getAllAlbums($_current_album);
 	if (count($albums) != 0) {
 		$count = '';
 		foreach ($albums as $album) {

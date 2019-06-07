@@ -26,12 +26,12 @@ class oAuthLogin {
 	/**
 	 * common option handling
 	 *
-	 * @global type $_zp_authority
+	 * @global type $_authority
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		global $_zp_authority;
-		$admins = $_zp_authority->getAdministrators('groups');
+		global $_authority;
+		$admins = $_authority->getAdministrators('groups');
 		$ordered = array();
 		foreach ($admins as $key => $admin) {
 			if ($admin['name'] == 'group' && $admin['rights'] && !($admin['rights'] & ADMIN_RIGHTS)) {
@@ -73,7 +73,7 @@ class oAuthLogin {
 	 * @param $redirect
 	 */
 	static function credentials($user, $email, $name, $redirect) {
-		global $_zp_authority;
+		global $_authority;
 		$class = get_called_class();
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
 		if (is_valid_email_zp($email)) { // prefer email as user id
@@ -82,7 +82,7 @@ class oAuthLogin {
 			$user = $oAuthAuthority . '_User_' . $user;
 		}
 
-		$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+		$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 		$more = false;
 		if ($userobj) { //	update if changed
 			$save = false;
@@ -106,13 +106,13 @@ class oAuthLogin {
 			}
 		} else { //	User does not exist, create him
 			$groupname = getOption($class . '_group');
-			$groupobj = $_zp_authority->getAnAdmin(array('`user`=' => $groupname, '`valid`=' => 0));
+			$groupobj = $_authority->getAnAdmin(array('`user`=' => $groupname, '`valid`=' => 0));
 			if ($groupobj) {
 				$group = NULL;
 				if ($groupobj->getName() != 'template') {
 					$group = $groupname;
 				}
-				$userobj = Zenphoto_Authority::newAdministrator('');
+				$userobj = npg_Authority::newAdministrator('');
 				$userobj->transient = false;
 				$userobj->setUser($user);
 				$credentials = array('auth' => $oAuthAuthority . 'OAuth', 'user' => 'user', 'email' => 'email');
@@ -145,8 +145,8 @@ class oAuthLogin {
 			header('Location: ' . getAdminLink('admin.php') . '?_zp_login_error=' . html_encode($more));
 			exit();
 		}
-		zp_apply_filter('federated_login_attempt', true, $user, $oAuthAuthority . 'oAuth'); //	we will mascerade as federated logon for this filter
-		Zenphoto_Authority::logUser($userobj);
+		npgFilters::apply('federated_login_attempt', true, $user, $oAuthAuthority . 'oAuth'); //	we will mascerade as federated logon for this filter
+		npg_Authority::logUser($userobj);
 		if ($redirect) {
 			header("Location: " . $redirect);
 		} else {
@@ -165,17 +165,17 @@ class oAuthLogin {
 	 * @param $local_alterrights
 	 */
 	static function edit_admin($html, $userobj, $i, $background, $current, $local_alterrights) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		$class = get_called_class();
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
-		if (empty($_zp_current_admin_obj) || !$userobj->getValid())
+		if (empty($_current_admin_obj) || !$userobj->getValid())
 			return $html;
 		$federated = $userobj->getCredentials(); //	came from federated logon, disable the e-mail field
 		if (!in_array($oAuthAuthority . 'OAuth', $federated)) {
 			$federated = false;
 		}
 
-		if ($userobj->getID() != $_zp_current_admin_obj->getID() && $federated) { //	The current logged on user
+		if ($userobj->getID() != $_current_admin_obj->getID() && $federated) { //	The current logged on user
 			$msg = sprintf(gettext("<strong>NOTE:</strong> This user was created by a %s Account logon."), $oAuthAuthority);
 			$myhtml = '<div class="user_left">' . "\n"
 							. '<p class="notebox">' . $msg . '</p>' . "\n"
@@ -190,7 +190,7 @@ class oAuthLogin {
 		$class = get_called_class();
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
 
-		if (!zp_loggedin()) {
+		if (!npg_loggedin()) {
 			?>
 			<span class="button">
 				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php'); ?>?request=<?php echo $class; ?>&amp;redirect=/dev/index.php?userlog=1" title="<?php echo $oAuthAuthority; ?> login">

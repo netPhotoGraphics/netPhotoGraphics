@@ -1,125 +1,128 @@
 ﻿<html>
 
-	<head>
-		<meta charset=utf-8">
-		<title>zpBootstrap 2.1</title>
-		<style>
-			<!--
-			body{background-color: #eee; color: #333; font-size: 90%; font-family: "Corbel","sans-serif";}
-			h2{font-size: 100%; font-style: italic;font-family: "Georgia","serif";}
-			h3{font-size: 110%; font-family: "Georgia","serif";}
-			h4{font-size: 90%; font-style: italic; font-family: "Georgia","serif";}
-			a, a:active{color: #0088CC; text-decoration: none;}
-			a:focus, a:hover{color: #005580; text-decoration: underline;}
-			ol{margin-bottom: 0cm;}
-			ul{margin-bottom: 0cm;}
-			-->
-		</style>
-	</head>
+<head>
+<meta charset=utf-8">
+<title>zpBootstrap 2.2</title>
+<style>
+<!--
+body{background-color: #eee; color: #333; font-size: 90%; font-family: "Corbel","sans-serif";}
+h2{font-size: 100%; font-style: italic;font-family: "Georgia","serif";}
+h3{font-size: 110%; font-family: "Georgia","serif";}
+h4{font-size: 90%; font-style: italic; font-family: "Georgia","serif";}
+a, a:active{color: #0088CC; text-decoration: none;}
+a:focus, a:hover{color: #005580; text-decoration: underline;}
+ol{margin-bottom: 0cm;}
+ul{margin-bottom: 0cm;}
+-->
+</style>
+</head>
 
-	<body>
+<body>
 
-		<!-- English -->
-		<h2><a name="english"></a>English version - <a title="Francais" href="#francais">Version Française</a></h2>
-		<h3>zpBootstrap – a netPhotoGraphics theme</h3>
-		<p>zpBootstrap is a « Responsive » theme for <a title="netPhotoGraphics" href="http://netPhotoGraphics.org/" target="_blank" rel="noopener noreferrer">netPhotoGraphics</a>, based on <a href="http://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap</a> framework.</p>
-
-		<p>You can report bugs on the <a title="netPhotoGraphics reposiotory" href="https://github.com/ZenPhoto20/netPhotoGraphics/issues" target="_blank" rel="noopener noreferrer">netPhotographics repository</a> or create an issue on <a title="GitHub" href="https://github.com/vincent3569/zpBootstrap/issues" target="_blank" rel="noopener noreferrer">GitHub</a>, I will fix it as soon as possible (only the latest version is supported).<br /> You can also improve theme via <a title="Pull requests" href="https://github.com/vincent3569/zpBootstrap/pulls" target="_blank" rel="noopener noreferrer">Pull requests</a>.</p>
-		<p>Please note that the netPhotoGraphics team advise to regularly upgrade its site with the latest version of netPhotoGraphics to benefit from the latest features of the application, to solve the various security holes, and to benefit from the support of the netPhotoGraphics team.</p>
-		<h4>Description</h4>
-		<p>Scripts used:</p>
-		<ul>
-			<li><a href="http://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap</a> (HTML, CSS, and JS toolkit for Responsive WebSite)</li>
-			<li><a href="http://www.woothemes.com/flexslider/" target="_blank" rel="noopener noreferrer">Flexslider</a> (a fully responsive jQuery slider plugin)</li>
-			<li><a href="http://fancyapps.com/fancybox/3/" target="_blank" rel="noopener noreferrer">FancyBox</a> (lightbox jQuery plugin for displaying images. Touch enabled, responsive and fully customizable)</li>
-			<li><a href="http://www.addthis.com/" target="_blank" rel="noopener noreferrer">AddThis</a> (snippet to add sharing tools to your site)</li>
-			<li>script for navigation with the arrow keys on single news pages and images pages.</li>
-		</ul>
-		<p>The theme supports the following netPhotographics plugins:</p>
-		<ul>
-			<li>cacheManager, comment_form, contact_form, dynamic-locale, favoritesHandler, flag_thumbnail, GoogleMap (colorbox option not supported), rating, register_user, user_login-out, zenpage</li>
-		</ul>
-		<h4>Major improvements of 2.1 release</h4>
-		<ul>
-			<li>upgrade to flexSlider 2.6.4</li>
-			<li>upgrade to FancyBox 3.1.28 to be compliant with infinite-scroll</li>
-			<li>management of infinite-scroll plugin on gallery, albums and news pages</li>
-			<li>page 404 managmement if some plugins are not enabled</li>
-			<li>Some graphical improvements <strong>(see changelog.txt)</strong></li>
-			<li>Some code improvements <strong>(see changelog.txt)</strong></li>
-			<li>Fix some issues <strong>(see changelog.txt)</strong></li>
-		</ul>
-		<h4>Installation</h4>
-		<ol>
-			<li>Upload the zip file to your computer,</li>
-			<li>Unzip the downloaded zip file locally, and upload the <span style="font-family: courier new,courier;">zpBoostrap</span> folder to the directory <span style="font-family: courier new,courier;">/themes/</span> of your netPhotoGraphics site,</li>
-			<li>In netPhotoGraphics administration, go to the Themes tab and activate the zpBootstrap theme,</li>
-			<li>Navigate to Options&gt;Theme to view and configure the available options for zpBootstrap.</li>
-		</ol>
-		<h4>Options</h4>
-		<ol>
-			<li>You can display a home page, with a slider of 5 random picts, the gallery description and the latest news (if zenpage is used)</li>
-			<li>You can use "isotope" jQuery plugin to display albums. This layout allows to display uncropped thumbnails and to filter them based on their tags</li>
-			<li>You can use "infinite-scroll" jQuery plugin. This layout will automatically load items of next page (albums, images or news) without pagination</li>
-			<li>Only one RSS Feed is displayed: go to options&gt;RSS and select the RSS feed to use (RSS Feed "All News" has priority over RSS Feed "Gallery")</li>
-		</ol>
-		<h4>For the theme works well, I advise you</h4>
-		<ul>
-			<li>In admin&gt;options&gt;gallery, enter <strong>the title of your <strong>website</strong>, the title and <strong>description</strong> of your gallery</strong>.</li>
-			<li><strong>To make responsive images in news and pages:</strong> edit the html source of your news and pages and add <span style="font-family: courier new,courier;">class="remove-attributes img-responsive"</span> on each image (the result should be <span style="font-family: courier new,courier;">&lt;img class="remove-attributes img-responsive" src="the_path_to_your_image"/&gt;</span>)</li>
-		</ul>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<!-- French -->
-		<h2><a name="francais"></a><a title="english" href="#english">English version</a> - Version Française</h2>
-		<h3>zpBootstrap – un thème netPhotoGraphics</h3>
-		<p>zpBootstrap est un thème « Responsive » pour <a title="netPhotoGraphics" href="http://netPhotoGraphics.org/" target="_blank" rel="noopener noreferrer">netPhotoGraphics</a>, basé sur framework <a href="http://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap</a>.</p>
-		<p><span style="color: red;"><strong>Important :</strong></span> Pour utiliser la version <strong>2.1</strong> du thème, vous devez utiliser netPhotoGraphics <strong>1.4.14</strong> ou plus.<br /> Si vous utilisez une autre version de netPhotoGraphics, consultez les <a title="archives de zpBootstrap sur GitHub" href="https://github.com/vincent3569/zpBootstrap/releases" target="_blank" rel="noopener noreferrer">archives de zpBootstrap sur GitHub</a>.</p>
-		<p>Vous pouvez rapporter des bugs sur le <a title="netPhotoGraphics forum" href="http://www.netPhotoGraphics.org/support/" target="_blank" rel="noopener noreferrer">forum netPhotoGraphics</a> ou en créant une issue sur <a title="GitHub" href="https://github.com/vincent3569/zpBootstrap/issues" target="_blank" rel="noopener noreferrer">GitHub</a>, j’essaierais de les corriger aussitôt que possible (seule la dernière version est supportée).<br /> Vous pouvez aussi contribuer à améliorer le thème via des <a title="Pull requests" href="https://github.com/vincent3569/zpBootstrap/pulls" target="_blank" rel="noopener noreferrer">Pull requests</a>.</p>
-		<p>Merci de noter que l'équipe netPhotoGraphics conseille d'upgrader régulièrement son site avec la dernière version de netPhotoGraphics afin de disposer des dernières fonctionnalités de l'application, de résoudre les différentes failles de sécurité et de bénéficier du support de l'équipe netPhotoGraphics.</p>
-		<h4>Description</h4>
-		<p>Scripts utilisés :</p>
-		<ul>
-			<li><a href="http://twitter.github.com/bootstrap/" target="_blank" rel="noopener noreferrer">Bootstrap</a> (Framework HTML, CSS, et JS pour construire des sites « Responsive »)</li>
-			<li><a href="http://www.woothemes.com/flexslider/" target="_blank" rel="noopener noreferrer">Flexslider</a> (plugin jQuery pour faire des diaporamas « Responsive »)</li>
-			<li><a href="http://fancyapps.com/fancybox/3/" target="_blank" rel="noopener noreferrer">FancyBox</a> (plugin jQuery pour afficher une lightbox. Permet la navigation au doigt, responsive et entièrement paramètrable</li>
-			<li><a href="http://www.addthis.com/" target="_blank" rel="noopener noreferrer">AddThis</a> (code pour ajouter des outils de partage à votre site)</li>
-			<li>navigation avec les flèches du clavier sur les actualités et les images.</li>
-		</ul>
-		<p>Le thème supporte les plugins netPhotoGraphics suivants :</p>
-		<ul>
-			<li>cacheManager, comment_form, contact_form, dynamic-locale, favoritesHandler, flag_thumbnail, GoogleMap (option colorbox non supportée), rating, register_user, user_login-out, zenpage</li>
-		</ul>
-		<h4>Améliorations majeures de la version 2.1</h4>
-		<ul>
-			<li>Utilisation de la version flexSlider 2.6.4</li>
-			<li>Utilisation de la version FancyBox 3.1.28 pour être compatible avec le plugin infinite-scroll</li>
-			<li>Utilisation du plugin infinite-scroll sur les pages gallerie, albums et actualités</li>
-			<li>Amélioration de la gestion des pages 404 si certains plugins sont désactivés</li>
-			<li>Quelques améliorations graphiques<strong> (voir changelog.txt)</strong></li>
-			<li>Quelques améliorations du code<strong>(voir changelog.txt)</strong></li>
-			<li>Corrections de quelques bugs <strong>(voir changelog.txt)</strong></li>
-		</ul>
-		<h4>Installation</h4>
-		<ol>
-			<li>Téléchargez le fichier zip sur votre ordinateur,</li>
-			<li>Décompressez le fichier zip localement, et télécharger le dossier <span style="font-family: courier new,courier;">zpBoostrap</span> dans le répertoire <span style="font-family: courier new,courier;">/themes/</span> de votre site netPhotoGraphics,</li>
-			<li>Dans l'administration netPhotoGraphics, allez sur l'onglet Thèmes et activer le thème zpBoostrap,</li>
-			<li>Allez sur Options&gt;Thème afin d'afficher et configurer les options disponibles pour zpBoostrap.</li>
-		</ol>
-		<h4>Options</h4>
-		<ol>
-			<li>Vous pouvez afficher une page d'accueil, avec un diaporama de 5 images aléatoires issues de la galerie, la description de la galerie et la dernière actualité</li>
-			<li>Vous pouvez afficher vos albums en utilisant le plugin jQuery "isotope". Cette présentation permet d'afficher des vignettes non redimensionnées et des les filtrer à partir de leurs tags</li>
-			<li>Vous pouvez utiliser le plugin jQuery "infinite-scroll". Cette présentation chargera automatiquement les items de la page suivante (albums, images ou actualités), sans pagination</li>
-			<li>Un seul flux RSS est affiché : allez sur Options&gt;Flux RSS et choisissez le flux à utiliser (le flux "Toutes les actualités" est prioritaire sur le flux "Galerie")</li>
-		</ol>
-		<h4>Pour que le thème fonctionne bien, je vous conseille</h4>
-		<ul>
-			<li>dans admin&gt;options&gt;galerie, entrer <strong>le titre de votre site, le titre et la description de la galerie</strong></li>
-			<li><strong>de rendre flexibles les images utilisées dans les actualités et les pages</strong> : modifiez le code html de vos actualités et de vos pages et ajoutez <span style="font-family: courier new,courier;">class="remove-attributes img-responsive"</span> <strong>sur chaque image</strong> (le résultat doit être <span style="font-family: courier new,courier;">&lt;img class="remove-attributes img-responsive" src="the_path_to_your_image"/&gt;</span>)</li>
-		</ul>
-
-	</body>
+<!-- English -->
+<h2><a name="english"></a>English version - <a title="Francais" href="#francais">Version Française</a></h2>
+<h3>zpBootstrap</h3>
+<p>zpBootstrap is a « Responsive » theme for <a title="Zenphoto" href="https://www.zenphoto.org/" target="_blank" rel="noopener noreferrer">Zenphoto</a>, based on <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener noreferrer">Bootstrap</a> framework.</p>
+<p><span style="color: red;"><strong>Important:</strong></span> To use the release <strong>2.2</strong> of the theme, you must have Zenphoto <strong>1.5.1</strong> or more.<br /> If you use another release of Zenphoto, see <a title="archives of zpBootstrap on GitHub" href="https://github.com/vincent3569/zpBootstrap/releases" target="_blank" rel="noopener noreferrer">archives of zpBootstrap on GitHub</a>.</p>
+<p>You can report bugs on the <a title="Zenphoto forum" href="https://forum.zenphoto.org/" target="_blank" rel="noopener noreferrer">Zenphoto forum</a> or create an issue on <a title="GitHub" href="https://github.com/vincent3569/zpBootstrap/issues" target="_blank" rel="noopener noreferrer">GitHub</a>, I will fix it as soon as possible (only the latest version is supported).<br /> You can also improve theme via <a title="Pull requests" href="https://github.com/vincent3569/zpBootstrap/pulls" target="_blank" rel="noopener noreferrer">Pull requests</a>.</p>
+<p>Please note that the Zenphoto team advise to regulary upgrade its site with the latest version of Zenphot to benefit from the latest features of the application, to solve the various security holes, and to benefit from the support of the Zenphoto team.</p>
+<h4>Description</h4>
+<p>Scripts used:</p>
+<ul>
+<li><a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener noreferrer">Bootstrap</a> (HTML, CSS, and JS toolkit for Responsive WebSite)</li>
+<li><a href="https://woocommerce.com/flexslider/" target="_blank" rel="noopener noreferrer">Flexslider</a> (a fully responsive jQuery slider plugin)</li>
+<li><a href="https://fancyapps.com/fancybox/3/" target="_blank" rel="noopener noreferrer">FancyBox</a> (lightbox jQuery plugin for displaying images. Touch enabled, responsive and fully customizable)</li>
+<li><a href="https://www.addthis.com/" target="_blank" rel="noopener noreferrer">AddThis</a> (snippet to add sharing tools to your site)</li>
+<li><a href="https://infinite-scroll.com/" target="_blank" rel="noopener">Inifite Scroll</a> (jQuery plugin that automatically adds the next page)</li>
+<li>script for navigation with the arrow keys on single news pages and images pages</li>
+</ul>
+<p>The theme supports the following Zenphoto plugins:</p>
+<ul>
+<li>cacheManager, comment_form, contact_form, dynamic-locale, favoritesHandler, flag_thumbnail, GoogleMap (colorbox option not supported), openstreetmap (<strong>new</strong>), rating, register_user, user_login-out, zenpage</li>
+</ul>
+<h4>Major improvements of 2.2 release</h4>
+<ul>
+<li>Upgrade to FancyBox 3.5.6 (support of mouse wheel and shows filtered items with Isotope)</li>
+<li>Supports plugin openstreetmap</li>
+<li>Managment of new GDPR options in comment, contact and register forms ; add of a link to <span class="tlid-translation translation"><span class="" title="">"Data privacy policy page"</span></span> in <span class="tlid-translation translation"><span class="" title="">the footer of the site</span></span></li>
+<li>Upgrade to latest releases of scripts Infinite Scroll, imagesLoaded, Isotope, Packery layout mode, FlexSlider</li>
+<li>Code improvements <strong>(see changelog.txt)</strong></li>
+<li>Fix issues <strong>(see changelog.txt)</strong></li>
+</ul>
+<h4>Installation</h4>
+<ol>
+<li>Upload the zip file to your computer,</li>
+<li>Unzip the downloaded zip file locally, and upload the <span style="font-family: courier new,courier;">zpBoostrap</span> folder to the directory <span style="font-family: courier new,courier;">/themes/</span> of your Zenphoto site,</li>
+<li>In Zenphoto administration, go to the Themes tab and activate the zpBootstrap theme,</li>
+<li>Navigate to Options&gt;Theme to view and configure the available options for zpBootstrap.</li>
+</ol>
+<h4>Options</h4>
+<ol>
+<li>You can display a home page, with a slider of 5 random picts, the gallery description and the latest news (if zenpage is used),</li>
+<li>You can use "isotope" jQuery plugin to display albums. This layout allows to display uncropped thumbnails and to filter them based on their tags,</li>
+<li>You can use "infinite-scroll" jQuery plugin. This layout will automatically load items of next page (albums, images or news) without pagination,</li>
+<li><span class="tlid-translation translation"><span class="" title="">With the GDPR requirements, you can create a page "Data privacy policy page" in Options&gt;Security.</span> <span class="" title="">A link in the footer will be automatically added to this page,</span></span></li>
+<li>Only one RSS Feed is displayed: go to options&gt;RSS and select the RSS feed to use (RSS Feed "All News" has priority over RSS Feed "Gallery").</li>
+</ol>
+<h4>For the theme works well, I advise you</h4>
+<ul>
+<li>In admin&gt;options&gt;gallery, enter <strong>the title of your <strong>website</strong>, the title and <strong>description</strong> of your gallery</strong></li>
+<li><strong>To make responsive images in news and pages:</strong> edit the html source of your news and pages and add <span style="font-family: courier new,courier;">class="remove-attributes img-responsive"</span> on each image (the result should be <span style="font-family: courier new,courier;">&lt;img class="remove-attributes img-responsive" src="the_path_to_your_image"/&gt;</span>)</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<!-- French -->
+<h2><a name="francais"></a><a title="english" href="#english">English version</a> - Version Française</h2>
+<h3>zpBootstrap – un thème Zenphoto</h3>
+<p>zpBootstrap est un thème « Responsive » pour <a title="Zenphoto" href="https://www.zenphoto.org/" target="_blank" rel="noopener noreferrer">Zenphoto</a>, basé sur framework <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener noreferrer">Bootstrap</a>.</p>
+<p><span style="color: red;"><strong>Important :</strong></span> Pour utiliser la version <strong>2.2</strong> du thème, vous devez utiliser Zenphoto <strong>1.5.1</strong> ou plus.<br /> Si vous utilisez une autre version de Zenphoto, consultez les <a title="archives de zpBootstrap sur GitHub" href="https://github.com/vincent3569/zpBootstrap/releases" target="_blank" rel="noopener noreferrer">archives de zpBootstrap sur GitHub</a>.</p>
+<p>Vous pouvez rapporter des bugs sur le <a title="Zenphoto forum" href="https://forum.zenphoto.org/" target="_blank" rel="noopener noreferrer">forum Zenphoto</a> ou en créant une issue sur <a title="GitHub" href="https://github.com/vincent3569/zpBootstrap/issues" target="_blank" rel="noopener noreferrer">GitHub</a>, j’essaierais de les corriger aussitôt que possible (seule la dernière version est supportée).<br /> Vous pouvez aussi contribuer à améliorer le thème via des <a title="Pull requests" href="https://github.com/vincent3569/zpBootstrap/pulls" target="_blank" rel="noopener noreferrer">Pull requests</a>.</p>
+<p>Merci de noter que l'équipe Zenphoto conseille d'upgrader régulièrement son site avec la dernière version de Zenphoto afin de disposer des dernières fonctionnalités de l'application, de résoudre les différentes failles de sécurité et de bénéficier du support de l'équipe Zenphoto.</p>
+<h4>Description</h4>
+<p>Scripts utilisés :</p>
+<ul>
+<li><a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener noreferrer">Bootstrap</a> (Framework HTML, CSS, et JS pour construire des sites « Responsive »)</li>
+<li><a href="https://woocommerce.com/flexslider/" target="_blank" rel="noopener noreferrer">Flexslider</a> (plugin jQuery pour faire des diaporamas « Responsive »)</li>
+<li><a href="https://fancyapps.com/fancybox/3/" target="_blank" rel="noopener noreferrer">FancyBox</a> (plugin jQuery pour afficher une lightbox. Permet la navigation au doigt, responsive et entièrement paramètrable</li>
+<li><a href="https://www.addthis.com/" target="_blank" rel="noopener noreferrer">AddThis</a> (code pour ajouter des outils de partage à votre site)</li>
+<li><a href="https://infinite-scroll.com/" target="_blank" rel="noopener">Inifite Scroll</a> (plugin jQuery permettant de charger automatiquement les pages suivantes)</li>
+<li>navigation avec les flèches du clavier sur les actualités et les images.</li>
+</ul>
+<p>Le thème supporte les plugins Zenphoto suivants :</p>
+<ul>
+<li>cacheManager, comment_form, contact_form, dynamic-locale, favoritesHandler, flag_thumbnail, GoogleMap (option colorbox non supportée), openstreetmap (<strong>nouveau</strong>), rating, register_user, user_login-out, zenpage</li>
+</ul>
+<h4>Améliorations majeures de la version 2.2</h4>
+<ul>
+<li>Utilisation de la version FancyBox 3.5.6 (support de la roue de la souris et affichage correct des items filtrés par Isotope)</li>
+<li>Prise en charge du plugin openstreetmap</li>
+<li>Gestion des nouvelles options liées à la RGPD dans les formulaires de commentaire, de contact et d'enregistrement ; ajout d'un lien vers la "Page de Politique de confidentialité" dans le footer du site</li>
+<li>Utilisation des dernières versions de scripts Infinite Scroll, imagesLoaded, Isotope, Packery layout mode, FlexSlider</li>
+<li>Améliorations du code<strong>(voir changelog.txt)</strong></li>
+<li>Corrections de bugs <strong>(voir changelog.txt)</strong></li>
+</ul>
+<h4>Installation</h4>
+<ol>
+<li>Téléchargez le fichier zip sur votre ordinateur,</li>
+<li>Décompressez le fichier zip localement, et télécharger le dossier <span style="font-family: courier new,courier;">zpBoostrap</span> dans le répertoire <span style="font-family: courier new,courier;">/themes/</span> de votre site Zenphoto,</li>
+<li>Dans l'administration Zenphoto, allez sur l'onglet Thèmes et activer le thème zpBoostrap,</li>
+<li>Allez sur Options&gt;Thème afin d'afficher et configurer les options disponibles pour zpBoostrap.</li>
+</ol>
+<h4>Options</h4>
+<ol>
+<li>Vous pouvez afficher une page d'accueil, avec un diaporama de 5 images aléatoires issues de la galerie, la description de la galerie et la dernière actualité,</li>
+<li>Vous pouvez afficher vos albums en utilisant le plugin jQuery "isotope". Cette présentation permet d'afficher des vignettes non redimensionnées et des les filtrer à partir de leurs tags,</li>
+<li>Vous pouvez utiliser le plugin jQuery "infinite-scroll". Cette présentation chargera automatiquement les items de la page suivante (albums, images ou actualités), sans pagination,</li>
+<li>Avec les exigences de la RGPD, vous pouvez créer une page "Page de Politique de confidentialité" dans les Options&gt;Sécurité. Un lien dans le pied de page sera automatiquement ajouté vers cette page,</li>
+<li>Un seul flux RSS est affiché : allez sur Options&gt;Flux RSS et choisissez le flux à utiliser (le flux "Toutes les actualités" est prioritaire sur le flux "Galerie").</li>
+</ol>
+<h4>Pour que le thème fonctionne bien, je vous conseille</h4>
+<ul>
+<li>dans admin&gt;options&gt;galerie, entrer <strong>le titre de votre site, le titre et la description de la galerie</strong></li>
+<li><strong>de rendre flexibles les images utilisées dans les actualités et les pages</strong> : modifiez le code html de vos actualités et de vos pages et ajoutez <span style="font-family: courier new,courier;">class="remove-attributes img-responsive"</span> <strong>sur chaque image</strong> (le résultat doit être <span style="font-family: courier new,courier;">&lt;img class="remove-attributes img-responsive" src="the_path_to_your_image"/&gt;</span>)</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
 
 </html>

@@ -23,7 +23,7 @@ foreach ($tables as $table) {
 
 admin_securityChecks(OVERVIEW_RIGHTS, currentRelativeURL());
 
-$_zp_gallery->garbageCollect();
+$_gallery->garbageCollect();
 
 printAdminHeader('overview', 'statistics');
 scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
@@ -54,7 +54,7 @@ function gallerystats_filesize_r($path) {
  * @param int $queryLimit Number of entries to show
  */
 function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number = 0, $to_number = NULL) {
-	global $_zp_gallery;
+	global $_gallery;
 	if (is_null($to_number)) {
 		$queryLimit = "0,11";
 		$limit = 10;
@@ -133,7 +133,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 					$maxvalue = 0;
 					$itemssorted = array();
 					$hitcounters = getSerializedArray(getOption('page_hitcounters'));
-					$hitcounters['index'] = $_zp_gallery->getHitcounter();
+					$hitcounters['index'] = $_gallery->getHitcounter();
 					arsort($hitcounters, SORT_NUMERIC);
 					foreach ($hitcounters as $script => $value) {
 						$itemssorted[] = array('type' => 'scripthitcounter', 'aux' => $script, 'hitcounter' => $value);
@@ -477,13 +477,13 @@ echo '</head>';
 		printTabs();
 
 // getting the counts
-		$albumcount = $_zp_gallery->getNumAlbums(true);
-		$albumscount_unpub = $albumcount - $_zp_gallery->getNumAlbums(true, true);
-		$imagecount = $_zp_gallery->getNumImages();
-		$imagecount_unpub = $imagecount - $_zp_gallery->getNumImages(true);
+		$albumcount = $_gallery->getNumAlbums(true);
+		$albumscount_unpub = $albumcount - $_gallery->getNumAlbums(true, true);
+		$imagecount = $_gallery->getNumImages();
+		$imagecount_unpub = $imagecount - $_gallery->getNumImages(true);
 		?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'statistics', ''); ?>
+			<?php npgFilters::apply('admin_note', 'statistics', ''); ?>
 			<h1><?php echo gettext("Gallery Statistics"); ?></h1>
 			<div class="tabbox">
 				<p><?php echo gettext("This page shows more detailed statistics of your gallery. For album statistics the bar graph always shows the total number of images in that album. For image statistics always the album the image is in is shown.<br />Un-published items are marked in dark red. Images are marked un-published if their (direct) album is, too."); ?></p>
@@ -509,8 +509,8 @@ echo '</head>';
 					</li>
 					<li>
 						<?php
-						$commentcount = $_zp_gallery->getNumComments(true);
-						$commentcount_mod = $commentcount - $_zp_gallery->getNumComments(false);
+						$commentcount = $_gallery->getNumComments(true);
+						$commentcount_mod = $commentcount - $_gallery->getNumComments(false);
 						if ($commentcount_mod > 0) {
 							if ($commentcount != 1) {
 								printf(gettext('<strong>%1$u</strong> comments (%2$u in moderation)'), $commentcount, $commentcount_mod);

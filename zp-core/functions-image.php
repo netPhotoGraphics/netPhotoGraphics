@@ -147,7 +147,7 @@ function iptc_make_tag($rec, $data, $value) {
  * @param string $album the album containing the image
  */
 function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $theme, $album) {
-	global $_zp_gallery;
+	global $_gallery;
 	try {
 		@list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 		// Set the config variables for convenience.
@@ -473,11 +473,11 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 		@chmod($newfile, 0777);
 		if (zp_imageOutput($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
 			if (getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
-				global $_zp_images_classes; //	because we are doing the require in a function!
+				global $_images_classes; //	because we are doing the require in a function!
 				require_once(dirname(__FILE__) . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
 				$iptc = array(
 						'1#090' => chr(0x1b) . chr(0x25) . chr(0x47), //	character set is UTF-8
-						'2#115' => $_zp_gallery->getTitle() //	source
+						'2#115' => $_gallery->getTitle() //	source
 				);
 				$iptc_data = zp_imageIPTC($imgfile);
 				if ($iptc_data) {

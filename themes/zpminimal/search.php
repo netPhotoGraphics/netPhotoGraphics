@@ -56,8 +56,8 @@ if (!empty($searchdate)) {
 					<a class="thumb-link" href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getAnnotatedImageTitle()); ?></a>
 					<?php if (($zpmin_colorbox) && ($cbscript) && (!isImageVideo())) { ?>
 						<div class="cblinks">
-							<a class="thickbox" href="<?php echo html_encode(getUnprotectedImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/zoom.png" /></a>
-							<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/details.png" /></a>
+							<a class="thickbox" href="<?php echo html_encode(getUnprotectedImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/zoom.png" /></a>
+							<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/details.png" /></a>
 						</div>
 					<?php } ?>
 				</div>
@@ -71,7 +71,7 @@ if (!empty($searchdate)) {
 		<?php if (simpleMap::mapPlugin()) { ?><div class="section"><?php simpleMap::printMap(); ?></div><?php } ?>
 
 		<?php
-		if ($_zp_page == 1) { //test of zenpage searches
+		if ($_current_page == 1) { //test of zenpage searches
 			if ($numpages > 0) {
 				$zpc = 0;
 				while (($zpc < $zpmin_zpsearchcount) && (next_page())) {

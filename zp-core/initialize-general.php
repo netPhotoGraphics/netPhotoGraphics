@@ -4,7 +4,7 @@
  * Standard initialization code
  */
 
-global $_zp_current_context_stack, $_zp_HTML_cache;
+global $_current_context_stack, $_HTML_cache;
 
 if (!function_exists("json_encode")) {
 // load the drop-in replacement library
@@ -24,7 +24,7 @@ if (class_exists('tidy')) {
 	}
 
 } else {
-	require_once( CORE_SERVERPATH . 'htmLawed.php');
+	require_once(CORE_SERVERPATH . 'htmLawed.php');
 
 	function cleanHTML($html) {
 		return htmLawed($html, array('tidy' => '2s2n'));
@@ -45,8 +45,8 @@ if (!function_exists('hex2bin')) {
 
 }
 
-$_zp_captcha = new _zp_captcha(); // this will be overridden by the plugin if enabled.
-$_zp_HTML_cache = new _zp_HTML_cache(); // this will be overridden by the plugin if enabled.
+$_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
+$_HTML_cache = new _zp_HTML_cache(); // this will be overridden by the plugin if enabled.
 require_once(dirname(__FILE__) . '/functions-i18n.php');
 
 //encrypt/decrypt constants
@@ -66,24 +66,24 @@ if (function_exists('openssl_encrypt')) {
 
 require_once(dirname(__FILE__) . '/load_objectClasses.php');
 
-$_zp_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => gettext('random')),
+$_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => gettext('random')),
 		array('field' => 'id', 'direction' => 'DESC', 'desc' => gettext('most recent')),
 		array('field' => 'mtime', 'direction' => '', 'desc' => gettext('oldest')),
 		array('field' => 'title', 'direction' => '', 'desc' => gettext('first alphabetically')),
 		array('field' => 'hitcounter', 'direction' => 'DESC', 'desc' => gettext('most viewed'))
 );
 
-$_zp_current_context_stack = array();
+$_current_context_stack = array();
 
-$_zp_missing_album = new TransientAlbum(gettext('missing'));
-$_zp_missing_image = new Transientimage($_zp_missing_album, CORE_SERVERPATH . 'images/err-imagenotfound.png');
+$_missing_album = new TransientAlbum(gettext('missing'));
+$_missing_image = new Transientimage($_missing_album, CORE_SERVERPATH . 'images/err-imagenotfound.png');
 
 define('SELECT_IMAGES', 1);
 define('SELECT_ALBUMS', 2);
 define('SELECT_PAGES', 4);
 define('SELECT_ARTICLES', 8);
 
-$_zp_exifvars = zpFunctions::exifvars();
+$_exifvars = zpFunctions::exifvars();
 $_locale_Subdomains = zpFunctions::LanguageSubdomains();
 
 //	use this for labeling "News" pages, etc.

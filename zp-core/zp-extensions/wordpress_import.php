@@ -13,10 +13,10 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Import Wordpress pages, posts, categories, and comments to Zenpage.");
 
-zp_register_filter('admin_tabs', 'wordpress_import_admin_tabs', -400);
+npgFilters::register('admin_tabs', 'wordpress_import_admin_tabs', -400);
 
 function wordpress_import_admin_tabs($tabs) {
-	if (zp_loggedin(ADMIN_RIGHTS)) {
+	if (npg_loggedin(ADMIN_RIGHTS)) {
 		if (!isset($tabs['development'])) {
 			$tabs['development'] = array('text' => gettext("development"),
 					'link' => getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin_tab.php') . '?tab=wordpress',

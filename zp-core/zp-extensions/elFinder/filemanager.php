@@ -6,7 +6,7 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 admin_securityChecks(FILES_RIGHTS | UPLOAD_RIGHTS, currentRelativeURL());
-zp_setCookie('uploadtype', 'elFinder');
+setNPGCookie('uploadtype', 'elFinder');
 $locale = substr(getOption('locale'), 0, 2);
 if (empty($locale))
 	$locale = 'en';
@@ -14,7 +14,7 @@ printAdminHeader('upload', 'files');
 
 if (isset($_REQUEST['themeEdit'])) {
 	$theme = sanitize($_REQUEST['themeEdit']);
-	$_zp_admin_tab = 'themes';
+	$_admin_tab = 'themes';
 	$title = gettext('Theme Manager');
 } else {
 	$theme = false;
@@ -43,7 +43,7 @@ echo "\n</head>";
 			<div id="container">
 				<?php
 				$subtab = getCurrentTab();
-				zp_apply_filter('admin_note', 'upload', $subtab);
+				npgFilters::apply('admin_note', 'upload', $subtab);
 				?>
 				<h1><?php echo $title; ?></h1>
 				<div class="tabbox">
@@ -53,10 +53,10 @@ echo "\n</head>";
 								lang: '<?php echo $locale; ?>', // language (OPTIONAL)
 								customData: {
 									'XSRFToken': '<?php echo getXSRFToken('elFinder'); ?>',
-									'zp_user_auth': '<?php echo zp_getCookie('zp_user_auth'); ?>',
+									'user_auth': '<?php echo getNPGCookie('user_auth'); ?>',
 <?php
 if ($theme) {
-	if (zp_loggedin(THEMES_RIGHTS) && is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
+	if (npg_loggedin(THEMES_RIGHTS) && is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
 		?>
 											'themeEdit': '<?php echo $theme; ?>',
 		<?php
@@ -72,7 +72,7 @@ if ($theme) {
 						});
 					</script>
 					<?php
-					if (zp_loggedin(ALBUM_RIGHTS) && !$theme) {
+					if (npg_loggedin(ALBUM_RIGHTS) && !$theme) {
 						?>
 						<p class="notebox">
 							<?php echo gettext('<strong>Note:</strong> Accessing the Albums folder with this utility is equivalent to using FTP to access it. <em>Copy</em> and <em>rename</em> do not carry the database data with the change.'); ?>

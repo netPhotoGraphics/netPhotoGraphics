@@ -4,12 +4,12 @@
 <div class="right">
 	<h1 id="tagline"><?php echo $zpfocus_tagline; ?></h1>
 	<?php if ($zpfocus_logotype) { ?>
-		<a style="display:block;" href="<?php echo getGalleryIndexURL(); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/<?php echo $zpfocus_logofile; ?>" alt="<?php echo html_encode(getBareGalleryTitle()); ?>" /></a>
+		<a style="display:block;" href="<?php echo getGalleryIndexURL(); ?>"><img src="<?php echo $_themeroot; ?>/images/<?php echo $zpfocus_logofile; ?>" alt="<?php echo html_encode(getBareGalleryTitle()); ?>" /></a>
 	<?php } else { ?>
 		<h2 id="logo"><a href="<?php echo html_encode(getGalleryIndexURL()); ?>"><?php echo html_encode(getBareGalleryTitle()); ?></a></h2>
 	<?php } ?>
 
-	<?php if (!zp_loggedin()) { ?>
+	<?php if (!npg_loggedin()) { ?>
 		<div class="error"><?php echo gettext("Please Login"); ?></div>
 		<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
 	<?php } else { ?>
@@ -19,7 +19,7 @@
 	<?php } ?>
 
 	<?php
-	if (!zp_loggedin() && function_exists('printRegistrationForm') && $_zp_gallery->isUnprotectedPage('register')) {
+	if (!npg_loggedin() && function_exists('printRegistrationForm') && $_gallery->isUnprotectedPage('register')) {
 		printCustomPageURL(gettext('Register for this site'), 'register', '', '<br />');
 		echo '<br />';
 	}

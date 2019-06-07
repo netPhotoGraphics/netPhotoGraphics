@@ -1,6 +1,6 @@
 <?php
 /**
- * install routine for zenphoto
+ * install routine
  *
  * @author Stephen Billard (sbillard)
  *
@@ -77,44 +77,47 @@ if (!file_exists($en_US)) {
 	@mkdir($en_US, $chmod | 0311);
 }
 
-$zptime = time();
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 	@mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
 }
-if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.bak')) {
-	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.bak'); //	remove any old backup file
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak')) {
+	unlink(SERVERPATH . '/' . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak'); //	remove any old backup file
 }
 
-if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	$zpconfig = file_get_contents($oldconfig);
-	if (strpos($zpconfig, '<?php') === false) {
-		$zpconfig = "<?php\n" . $zpconfig . "\n?>";
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $zpconfig);
-		configMod();
+$newconfig = false;
+if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php')) {
+	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.bak.php')) {
+		unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.bak.php');
 	}
-	$newconfig = false;
+	$config_contents = file_get_contents($oldconfig);
+	if (strpos($config_contents, '<?php') === false) {
+		$config_contents = "<?php\n" . $config_contents . "\n?>";
+	}
+	$config_contents = strtr($config_contents, array('global $_zp_conf_vars;' => '', '$_zp_conf_vars = $conf;' => '', 'unset($conf);' => ''));
+	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
+	configMod();
+	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php');
+	header('Location: ' . getRequestURI());
+	exit();
 } else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php')) {
 	//migrate old root configuration file.
-	$zpconfig = file_get_contents($oldconfig);
-	$i = strpos($zpconfig, '/** Do not edit above this line. **/');
-	$zpconfig = "<?php\nglobal \$_zp_conf_vars;\n\$conf = array()\n" . substr($zpconfig, $i);
-	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $zpconfig);
+	$config_contents = file_get_contents($oldconfig);
+	$i = strpos($config_contents, '/** Do not edit above this line. **/');
+	$config_contents = "<?php\nglobal \$_conf_vars;\n\$conf = array()\n" . substr($config_contents, $i);
+	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
 	$result = @unlink(dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php');
-	$newconfig = false;
 	configMod();
 } else if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg')) {
-	$zpconfig = "<?php\n" . file_get_contents($oldconfig) . "\n?>";
-	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $zpconfig);
+	$config_contents = "<?php\n" . file_get_contents($oldconfig) . "\n?>";
+	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
 	@unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg');
-	$newconfig = false;
 	configMod();
-} else {
+} else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$newconfig = true;
-	@copy(dirname(dirname(__FILE__)) . '/zenphoto_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	@copy(dirname(dirname(__FILE__)) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
 
-$zptime = filemtime($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 @chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0777);
 @copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
 @chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
@@ -140,33 +143,33 @@ if (isset($_GET['mod_rewrite'])) {
 	$mod = '';
 }
 
-$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
 $updatezp_config = false;
-if (strpos($zp_cfg, "\$conf['charset']") === false) {
-	$k = strpos($zp_cfg, "\$conf['UTF-8'] = true;");
-	$zp_cfg = substr($zp_cfg, 0, $k) . "\$conf['charset'] = 'UTF-8';\n" . substr($zp_cfg, $k);
+if (strpos($_config_contents, "\$conf['charset']") === false) {
+	$k = strpos($_config_contents, "\$conf['UTF-8'] = true;");
+	$_config_contents = substr($_config_contents, 0, $k) . "\$conf['charset'] = 'UTF-8';\n" . substr($_config_contents, $k);
 	$updatezp_config = true;
 }
 
-if (strpos($zp_cfg, "\$conf['special_pages']") === false) {
-	$template = file_get_contents(dirname(dirname(__FILE__)) . '/zenphoto_cfg.txt');
+if (strpos($_config_contents, "\$conf['special_pages']") === false) {
+	$template = file_get_contents(dirname(dirname(__FILE__)) . '/netPhotoGraphics_cfg.txt');
 	$i = strpos($template, "\$conf['special_pages']");
 	$j = strpos($template, '//', $i);
-	$k = strpos($zp_cfg, '/** Do not edit below this line. **/');
+	$k = strpos($_config_contents, '/** Do not edit below this line. **/');
 	if ($k !== false) {
-		$zp_cfg = substr($zp_cfg, 0, $k) . str_pad('', 80, '/') . "\n" .
+		$_config_contents = substr($_config_contents, 0, $k) . str_pad('', 80, '/') . "\n" .
 						substr($template, $i, $j - $i) . str_pad('', 5, '/') . "\n" .
-						substr($zp_cfg, $k);
+						substr($_config_contents, $k);
 		$updatezp_config = true;
 	}
 }
 
-$i = strpos($zp_cfg, 'define("DEBUG", false);');
+$i = strpos($_config_contents, 'define("DEBUG", false);');
 if ($i !== false) {
 	$updatezp_config = true;
-	$j = strpos($zp_cfg, "\n", $i);
-	$zp_cfg = substr($zp_cfg, 0, $i) . substr($zp_cfg, $j); // remove this so it won't be defined twice
+	$j = strpos($_config_contents, "\n", $i);
+	$_config_contents = substr($_config_contents, 0, $i) . substr($_config_contents, $j); // remove this so it won't be defined twice
 }
 
 if (isset($_POST['db'])) { //try to update the zp-config file
@@ -174,22 +177,22 @@ if (isset($_POST['db'])) { //try to update the zp-config file
 	setupLog(gettext("db POST handling"));
 	$updatezp_config = true;
 	if (isset($_POST['db_software'])) {
-		$zp_cfg = updateConfigItem('db_software', trim(sanitize($_POST['db_software'], 0)), $zp_cfg);
+		$_config_contents = updateConfigItem('db_software', trim(sanitize($_POST['db_software'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_user'])) {
-		$zp_cfg = updateConfigItem('mysql_user', trim(sanitize($_POST['db_user'], 0)), $zp_cfg);
+		$_config_contents = updateConfigItem('mysql_user', trim(sanitize($_POST['db_user'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_pass'])) {
-		$zp_cfg = updateConfigItem('mysql_pass', trim(sanitize($_POST['db_pass'], 0)), $zp_cfg);
+		$_config_contents = updateConfigItem('mysql_pass', trim(sanitize($_POST['db_pass'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_host'])) {
-		$zp_cfg = updateConfigItem('mysql_host', trim(sanitize($_POST['db_host'], 0)), $zp_cfg);
+		$_config_contents = updateConfigItem('mysql_host', trim(sanitize($_POST['db_host'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_database'])) {
-		$zp_cfg = updateConfigItem('mysql_database', trim(sanitize($_POST['db_database'], 0)), $zp_cfg);
+		$_config_contents = updateConfigItem('mysql_database', trim(sanitize($_POST['db_database'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_prefix'])) {
-		$zp_cfg = updateConfigItem('mysql_prefix', str_replace(array('.', '/', '\\', '`', '"', "'"), '_', trim(sanitize($_POST['db_prefix'], 0))), $zp_cfg);
+		$_config_contents = updateConfigItem('mysql_prefix', str_replace(array('.', '/', '\\', '`', '"', "'"), '_', trim(sanitize($_POST['db_prefix'], 0))), $_config_contents);
 	}
 }
 
@@ -198,7 +201,7 @@ define('ACK_DISPLAY_ERRORS', 2);
 
 if (isset($_GET['security_ack'])) {
 	setupXSRFDefender('security_ack');
-	$zp_cfg = updateConfigItem('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $zp_cfg, false);
+	$_config_contents = updateConfigItem('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
 	$updatezp_config = true;
 }
 
@@ -219,18 +222,18 @@ if ($updatechmod = isset($_REQUEST['chmod_permissions'])) {
 	}
 }
 if ($updatechmod || $newconfig) {
-	if ($updatechmod || isset($_zp_conf_vars['CHMOD'])) {
+	if ($updatechmod || isset($_conf_vars['CHMOD'])) {
 		$chmodval = "\$conf['CHMOD']";
 	} else {
 		$chmodval = sprintf('0%o', $chmod);
 	}
 	if ($updatechmod) {
-		$zp_cfg = updateConfigItem('CHMOD', sprintf('0%o', $chmod), $zp_cfg, false);
-		if (strpos($zp_cfg, "if (!defined('CHMOD_VALUE')) {") !== false) {
-			$zp_cfg = preg_replace("|if\s\(!defined\('CHMOD_VALUE'\)\)\s{\sdefine\(\'CHMOD_VALUE\'\,(.*)\);\s}|", "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n", $zp_cfg);
+		$_config_contents = updateConfigItem('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
+		if (strpos($_config_contents, "if (!defined('CHMOD_VALUE')) {") !== false) {
+			$_config_contents = preg_replace("|if\s\(!defined\('CHMOD_VALUE'\)\)\s{\sdefine\(\'CHMOD_VALUE\'\,(.*)\);\s}|", "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n", $_config_contents);
 		} else {
-			$i = strpos($zp_cfg, "/** Do not edit below this line. **/");
-			$zp_cfg = substr($zp_cfg, 0, $i) . "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n" . substr($zp_cfg, $i);
+			$i = strpos($_config_contents, "/** Do not edit below this line. **/");
+			$_config_contents = substr($_config_contents, 0, $i) . "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n" . substr($_config_contents, $i);
 		}
 	}
 	$updatezp_config = true;
@@ -239,12 +242,12 @@ if ($updatechmod || $newconfig) {
 if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 	setupXSRFDefender('FILESYSTEM_CHARSET');
 	$fileset = $_REQUEST['FILESYSTEM_CHARSET'];
-	$zp_cfg = updateConfigItem('FILESYSTEM_CHARSET', $fileset, $zp_cfg);
+	$_config_contents = updateConfigItem('FILESYSTEM_CHARSET', $fileset, $_config_contents);
 	$updatezp_config = true;
 }
 
 if ($updatezp_config) {
-	storeConfig($zp_cfg);
+	storeConfig($_config_contents);
 	//	reload the page so that the database config takes effect
 	$q = rtrim($debugq . $autorunq, '&');
 	if ($q) {
@@ -282,22 +285,25 @@ ksort($engines);
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	if (isset($_zp_conf_vars) && !isset($conf) && isset($_zp_conf_vars['special_pages'])) {
-		if (isset($_zp_conf_vars['db_software'])) {
-			$confDB = $_zp_conf_vars['db_software'];
+	if (isset($conf)) {
+		$_conf_vars = $conf;
+	}
+	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
+		if (isset($_conf_vars['db_software'])) {
+			$confDB = $_conf_vars['db_software'];
 			if (extension_loaded(strtolower($confDB)) && file_exists(dirname(dirname(__FILE__)) . '/functions-db-' . $confDB . '.php')) {
 				$selected_database = $confDB;
 			} else {
 				$selected_database = $preferred;
 				if ($preferred) {
-					$_zp_conf_vars['db_software'] = $preferred;
-					$zp_cfg = updateConfigItem('db_software', $preferred, $zp_cfg);
+					$_conf_vars['db_software'] = $preferred;
+					$_config_contents = updateConfigItem('db_software', $preferred, $_config_contents);
 					$updatezp_config = true;
 				}
 			}
 		} else {
-			$_zp_conf_vars['db_software'] = $selected_database = $preferred;
-			$zp_cfg = updateConfigItem('db_software', $zp_cfg, $preferred);
+			$_conf_vars['db_software'] = $selected_database = $preferred;
+			$_config_contents = updateConfigItem('db_software', $_config_contents, $preferred);
 			$updatezp_config = true;
 			$confDB = NULL;
 		}
@@ -319,7 +325,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 }
 
 if ($updatezp_config) {
-	storeConfig($zp_cfg);
+	storeConfig($_config_contents);
 }
 $result = true;
 $environ = false;
@@ -332,27 +338,27 @@ if ($selected_database) {
 	$connectDBErr = '';
 	$connection = $__initialDBConnection;
 	if ($connection) { // got the database handler and the database itself connected
-		$result = query("SELECT `id` FROM " . $_zp_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
+		$result = query("SELECT `id` FROM " . $_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
 		if ($result) {
 			if (db_num_rows($result) > 0) {
 				$upgrade = gettext("upgrade");
 				// apply some critical updates to the database for migration issues
-				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `valid` int(1) default 1', false);
-				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' CHANGE `password` `pass` TINYTEXT', false);
-				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `loggedin` datetime', false);
-				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `lastloggedin` datetime', false);
-				query('ALTER TABLE ' . $_zp_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `challenge_phrase` TEXT', false);
+				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `valid` int(1) default 1', false);
+				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' CHANGE `password` `pass` TINYTEXT', false);
+				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `loggedin` datetime', false);
+				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `lastloggedin` datetime', false);
+				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `challenge_phrase` TEXT', false);
 			}
 		} else {
 			$upgrade = gettext("install");
 		}
 		$environ = true;
 	} else {
-		if ($_zp_DB_connection) { // there was a connection to the database handler but not to the database.
-			if (!empty($_zp_conf_vars['mysql_database'])) {
+		if ($_DB_connection) { // there was a connection to the database handler but not to the database.
+			if (!empty($_conf_vars['mysql_database'])) {
 				if (isset($_GET['Create_Database'])) {
 					$result = db_create();
-					if ($result && ($connection = db_connect($_zp_conf_vars, false))) {
+					if ($result && ($connection = db_connect($_conf_vars, false))) {
 						$environ = true;
 					} else {
 						if ($result) {
@@ -406,9 +412,9 @@ if ($setup_checked) {
 	} else {
 		$setup_cookie = '';
 	}
-	if ($setup_cookie == ZENPHOTO_VERSION) {
+	if ($setup_cookie == NETPHOTOGRAPHICS_VERSION) {
 		setupLog(gettext('Setup cookie test successful'));
-		zp_clearCookie('setup_test_cookie');
+		clearNPGCookie('setup_test_cookie');
 	} else {
 		setupLog(gettext('Setup cookie test unsuccessful'), true);
 	}
@@ -417,9 +423,9 @@ if ($setup_checked) {
 		setupLog(gettext("Post of Database credentials"), true);
 	} else {
 
-		if (!isset($_SESSION['SetupStarted']) || $_SESSION['SetupStarted'] != ZENPHOTO_VERSION) {
-			$_SESSION['SetupStarted'] = ZENPHOTO_VERSION;
-			zp_apply_filter('log_setup', true, 'install', gettext('Started'));
+		if (!isset($_SESSION['SetupStarted']) || $_SESSION['SetupStarted'] != NETPHOTOGRAPHICS_VERSION) {
+			$_SESSION['SetupStarted'] = NETPHOTOGRAPHICS_VERSION;
+			npgFilters::apply('log_setup', true, 'install', gettext('Started'));
 		}
 
 		$me = realpath(dirname(dirname(dirname(str_replace('\\', '/', __FILE__)))));
@@ -441,7 +447,8 @@ if ($setup_checked) {
 				'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
 				'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
 				'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
-				'DATA_FOLDER' => DATA_FOLDER
+				'DATA_FOLDER' => DATA_FOLDER,
+				'CONFIGFILE' => CONFIGFILE
 		);
 		$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
 		$script = strtr($script, $defines);
@@ -451,7 +458,7 @@ if ($setup_checked) {
 			$rootupdate = $f1 == $script; // it is ok, the contents is correct
 		}
 
-		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s'), ZENPHOTO_VERSION, $clone, date('r')), true, true); // initialize the log file
+		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s'), NETPHOTOGRAPHICS_VERSION, $clone, date('r')), true, true); // initialize the log file
 	}
 
 	if ($environ) {
@@ -462,15 +469,15 @@ if ($setup_checked) {
 			setupLog(sprintf(gettext("Query error: %s"), $connectDBErr), true);
 		}
 	}
-	zp_setCookie('setup_test_cookie', ZENPHOTO_VERSION, 3600);
+	setNPGCookie('setup_test_cookie', NETPHOTOGRAPHICS_VERSION, 3600);
 }
 
-if (!isset($_zp_setupCurrentLocale_result) || empty($_zp_setupCurrentLocale_result)) {
+if (!isset($_setupCurrentLocale_result) || empty($_setupCurrentLocale_result)) {
 	if (DEBUG_LOCALE)
 		debugLog('Setup checking locale');
-	$_zp_setupCurrentLocale_result = i18n::setMainDomain();
+	$_setupCurrentLocale_result = i18n::setMainDomain();
 	if (DEBUG_LOCALE)
-		debugLog('$_zp_setupCurrentLocale_result = ' . $_zp_setupCurrentLocale_result);
+		debugLog('$_setupCurrentLocale_result = ' . $_setupCurrentLocale_result);
 }
 $testRelease = defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false;
 
@@ -511,7 +518,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		<div id="content">
 			<?php
 			$blindInstall = $warn = false;
-			if ($connection && empty($_zp_options)) {
+			if ($connection && empty($_options)) {
 				primeOptions();
 			}
 			if (!$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized())) {
@@ -520,7 +527,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 				}
 				?>
 				<p>
-					<?php printf(gettext('Welcome to netPhotoGraphics! This page will set up version %1$s on your web server.'), ZENPHOTO_VERSION); ?>
+					<?php printf(gettext('Welcome to netPhotoGraphics! This page will set up version %1$s on your web server.'), NETPHOTOGRAPHICS_VERSION); ?>
 				</p>
 				<h2><?php echo gettext("Systems Check:"); ?></h2>
 				<?php
@@ -531,9 +538,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 				 *                                                                        *
 				 * ************************************************************************
 				 */
-				global $_zp_conf_vars;
+				global $_conf_vars;
 				$good = true;
-				if ($connection && $_zp_loggedin != ADMIN_RIGHTS) {
+				if ($connection && $_loggedin != ADMIN_RIGHTS) {
 					if ($testRelease) {
 						?>
 						<div class="notebox">
@@ -549,7 +556,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						<ul>
 							<?php
 							$prevRel = false;
-							checkmark(1, sprintf(gettext('Installing netPhotoGraphics v%s'), ZENPHOTO_VERSION), '', '');
+							checkmark(1, sprintf(gettext('Installing netPhotoGraphics v%s'), NETPHOTOGRAPHICS_VERSION), '', '');
 						}
 						chdir(dirname(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
 						$test = safe_glob('*.log');
@@ -585,7 +592,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						$good = checkMark($strictSession, gettext('PHP <code>session.use_strict_mode</code>'), gettext('PHP <code>session.use_strict_mode</code> [is not set]'), gettext('Enabling <code>session.use_strict_mode</code> is mandatory for general session security. Change your PHP.ini settings to <code>session.use_strict_mode = on</code>.')) && $good;
 
 						if (preg_match('#(1|ON)#i', @ini_get('register_globals'))) {
-							if ((isset($_zp_conf_vars['security_ack']) ? $_zp_conf_vars['security_ack'] : NULL) & ACK_REGISTER_GLOBALS) {
+							if ((isset($_conf_vars['security_ack']) ? $_conf_vars['security_ack'] : NULL) & ACK_REGISTER_GLOBALS) {
 								$register_globals = -1;
 								$aux = '';
 							} else {
@@ -608,14 +615,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						if (!extension_loaded('suhosin')) {
 							$blacklist = @ini_get("suhosin.executor.func.blacklist");
 							if ($blacklist) {
-								$zpUses = array('symlink' => 0);
+								$requiredUses = array('symlink' => 0);
 								$abort = $issue = 0;
 								$blacklist = explode(',', $blacklist);
 								foreach ($blacklist as $key => $func) {
-									if (array_key_exists($func, $zpUses)) {
+									if (array_key_exists($func, $requiredUses)) {
 										$abort = true;
-										$issue = $issue | $zpUses[$func];
-										if ($zpUses[$func]) {
+										$issue = $issue | $requiredUses[$func];
+										if ($requiredUses[$func]) {
 											$blacklist[$key] = '<span style="color: red;">' . $func . '*</span>';
 										}
 									}
@@ -654,7 +661,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							case 'on':
 							case 'stdout':
 							default:
-								if ($testRelease || ((isset($_zp_conf_vars['security_ack']) ? $_zp_conf_vars['security_ack'] : NULL) & ACK_DISPLAY_ERRORS)) {
+								if ($testRelease || ((isset($_conf_vars['security_ack']) ? $_conf_vars['security_ack'] : NULL) & ACK_DISPLAY_ERRORS)) {
 									$display = -1;
 									$aux = '';
 								} else {
@@ -682,7 +689,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						if (function_exists('flock') && !$setupMutex) {
 							checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
 						}
-						if ($_zp_setupCurrentLocale_result === false) {
+						if ($_setupCurrentLocale_result === false) {
 							checkMark(-1, gettext('PHP <code>setlocale()</code>'), ' ' . gettext('PHP <code>setlocale()</code> failed'), gettext("Locale functionality is not implemented on your platform or the specified locale does not exist. Language translation may not work.") . '<br />');
 							echo gettext('You can use the <em>debug</em> plugin to see which locales your server supports.');
 						}
@@ -702,7 +709,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							} else {
 								$set = 'ISO-8859-1';
 							}
-							$test = $_zp_UTF8->convert('test', $set, LOCAL_CHARSET);
+							$test = $_UTF8->convert('test', $set, LOCAL_CHARSET);
 							if (empty($test)) {
 								$m2 = gettext("You need to install the <code>mbstring</code> package or correct the issue with <code>iconv()</code>");
 								checkMark(0, '', gettext("PHP <code>mbstring</code> package [is not present and <code>iconv()</code> is not working]"), $m2);
@@ -765,7 +772,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							} else {
 								$graphicsmsg = '';
-								foreach ($_zp_graphics_optionhandlers as $handler) {
+								foreach ($_graphics_optionhandlers as $handler) {
 									$graphicsmsg .= $handler->canLoadMsg($handler);
 								}
 								checkmark(0, '', gettext('Graphics support [configuration error]'), gettext('No image handling library was loaded. Be sure that your PHP has a graphics support.') . ' ' . trim($graphicsmsg));
@@ -779,7 +786,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						}
 
 
-						$good = checkMark($cfg, sprintf(gettext('<em>%1$s</em> file'), CONFIGFILE), sprintf(gettext('<em>%1$s</em> file [does not exist]'), CONFIGFILE), sprintf(gettext('Setup was not able to create this file. You will need to copy the <code>%1$s/zenphoto_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it as indicated in the file’s comments.'), CORE_FOLDER, DATA_FOLDER, CONFIGFILE)) && $good;
+						$good = checkMark($cfg, sprintf(gettext('<em>%1$s</em> file'), CONFIGFILE), sprintf(gettext('<em>%1$s</em> file [does not exist]'), CONFIGFILE), sprintf(gettext('Setup was not able to create this file. You will need to copy the <code>%1$s/netPhotoGraphics_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it as indicated in the file’s comments.'), CORE_FOLDER, DATA_FOLDER, CONFIGFILE)) && $good;
 						if ($cfg) {
 							primeMark(gettext('File permissions'));
 							if ($environ) {
@@ -798,7 +805,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), $chmod);
 							}
 							if ($chmod > 0664) {
-								if (isset($_zp_conf_vars['CHMOD'])) {
+								if (isset($_conf_vars['CHMOD'])) {
 									$severity = -3;
 								} else {
 									$severity = -1;
@@ -820,7 +827,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										<?php
 									} else {
 										primeMark(gettext('Character set'));
-										$sets = array_merge($_zp_UTF8->iconv_sets, $_zp_UTF8->mb_sets);
+										$sets = array_merge($_UTF8->iconv_sets, $_UTF8->mb_sets);
 										$charset_defined = @$sets[FILESYSTEM_CHARSET];
 										$test = '';
 										if (($dir = opendir(SERVERPATH . '/' . DATA_FOLDER . '/')) !== false) {
@@ -870,8 +877,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 														gettext('Change the filesystem character set define to %1$s') .
 														'</p><input type="hidden" name="autorun" value="' . ltrim($autorunq, '&') . '><input type="hidden" name="debug" value="' . ltrim($debugq, '&') . '></form><br class="clearall">';
 
-										if (isset($_zp_conf_vars['FILESYSTEM_CHARSET'])) {
-											$selectedset = $_zp_conf_vars['FILESYSTEM_CHARSET'];
+										if (isset($_conf_vars['FILESYSTEM_CHARSET'])) {
+											$selectedset = $_conf_vars['FILESYSTEM_CHARSET'];
 										} else {
 											$selectedset = 'unknown';
 										}
@@ -880,9 +887,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											//	fount the test file
 											if (file_exists(internalToFilesystem($test_internal))) {
 												//	and the active character set define worked
-												if (!isset($_zp_conf_vars['FILESYSTEM_CHARSET'])) {
-													$zp_cfg = updateConfigItem('FILESYSTEM_CHARSET', FILESYSTEM_CHARSET, $zp_cfg);
-													storeConfig($zp_cfg);
+												if (!isset($_conf_vars['FILESYSTEM_CHARSET'])) {
+													$_config_contents = updateConfigItem('FILESYSTEM_CHARSET', FILESYSTEM_CHARSET, $_config_contents);
+													storeConfig($_config_contents);
 												}
 												$notice = 1;
 												$msg = sprintf(gettext('The filesystem character define is %1$s [confirmed]'), $charset_defined);
@@ -902,7 +909,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											//	no test file
 											$msg1 = sprintf(gettext('The filesystem character define is %1$s [no test performed]'), $charset_defined);
 											$msg2 = '<p>' . sprintf(gettext('Setup did not perform a test of the filesystem character set. You can cause setup to test for a proper definition by creating a file in your <code>%1$s</code> folder named <strong><code>charset_tést</code></strong> and re-running setup.'), DATA_FOLDER) . '</p>' . $msg2;
-											if (isset($_zp_conf_vars['FILESYSTEM_CHARSET'])) {
+											if (isset($_conf_vars['FILESYSTEM_CHARSET'])) {
 												//	but we have a define value
 												$notice = -3;
 											} else {
@@ -1009,14 +1016,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						if ($connection) {
-							if (empty($_zp_conf_vars['mysql_database'])) {
+							if (empty($_conf_vars['mysql_database'])) {
 								$connection = false;
 								$connectDBErr = gettext('No database selected');
 							}
 						} else {
 							$connectDBErr = db_error();
 						}
-						if ($_zp_DB_connection) { // connected to DB software
+						if ($_DB_connection) { // connected to DB software
 							$dbsoftware = db_software();
 							$dbapp = $dbsoftware['application'];
 							$dbversion = $dbsoftware['version'];
@@ -1054,10 +1061,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 
-						if ($_zp_DB_connection) {
+						if ($_DB_connection) {
 							if ($connection) {
 								if ($DBcreated) {
-									checkMark(1, sprintf(gettext('Database <code>%s</code> created'), $_zp_conf_vars['mysql_database']), '');
+									checkMark(1, sprintf(gettext('Database <code>%s</code> created'), $_conf_vars['mysql_database']), '');
 								}
 							} else {
 								$good = 0;
@@ -1065,12 +1072,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 									<li class="note">
 										<div class="notebox">
-											<p><?php echo sprintf(gettext('Click here to attempt to create <a href="?Create_Database" >%s</a>.'), $_zp_conf_vars['mysql_database']); ?></p>
+											<p><?php echo sprintf(gettext('Click here to attempt to create <a href="?Create_Database" >%s</a>.'), $_conf_vars['mysql_database']); ?></p>
 										</div>
 									</li>
 									<?php
-								} else if (!empty($_zp_conf_vars['mysql_database'])) {
-									checkMark(0, '', sprintf(gettext('Database <code>%s</code> not created [<code>CREATE DATABASE</code> query failed]'), $_zp_conf_vars['mysql_database']), $connectDBErr);
+								} else if (!empty($_conf_vars['mysql_database'])) {
+									checkMark(0, '', sprintf(gettext('Database <code>%s</code> not created [<code>CREATE DATABASE</code> query failed]'), $_conf_vars['mysql_database']), $connectDBErr);
 								}
 							}
 							if ($environ && $connection) {
@@ -1097,7 +1104,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									checkMark(-1, '', gettext('<code>SQL mode</code> [SET SESSION failed]'), $msg);
 								}
 
-								$dbn = "`" . $_zp_conf_vars['mysql_database'] . "`.*";
+								$dbn = "`" . $_conf_vars['mysql_database'] . "`.*";
 								$db_results = db_permissions();
 
 								$access = -1;
@@ -1143,7 +1150,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								} else {
 									$report = "<br /><br />" . gettext("The <em>SHOW GRANTS</em> query failed.");
 								}
-								checkMark($access, sprintf(gettext('Database <code>access rights</code> for <em>%s</em>'), $_zp_conf_vars['mysql_database']), sprintf(gettext('Database <code>access rights</code> for <em>%1$s</em> [%2$s]'), $_zp_conf_vars['mysql_database'], $rightsfound), sprintf(gettext("Your Database user must have %s rights."), $neededlist) . $report);
+								checkMark($access, sprintf(gettext('Database <code>access rights</code> for <em>%s</em>'), $_conf_vars['mysql_database']), sprintf(gettext('Database <code>access rights</code> for <em>%1$s</em> [%2$s]'), $_conf_vars['mysql_database'], $rightsfound), sprintf(gettext("Your Database user must have %s rights."), $neededlist) . $report);
 							}
 						}
 
@@ -1152,21 +1159,21 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						$stdExclude = Array('Thumbs.db', 'readme.md', 'data');
 
 						$base = SERVERPATH . '/';
-						getResidentZPFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
+						getResidentFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
 						if (CASE_INSENSITIVE) {
-							$res = array_search(strtolower($base . CORE_FOLDER . '/netphotographics.package'), $_zp_resident_files);
+							$res = array_search(strtolower($base . CORE_FOLDER . '/netPhotoGraphics.package'), $_resident_files);
 							$base = strtolower($base);
 						} else {
-							$res = array_search($base . CORE_FOLDER . '/netphotographics.package', $_zp_resident_files);
+							$res = array_search($base . CORE_FOLDER . '/netPhotoGraphics.package', $_resident_files);
 						}
-						unset($_zp_resident_files[$res]);
-						$cum_mean = filemtime(CORE_SERVERPATH . 'netphotographics.package');
+						unset($_resident_files[$res]);
+						$cum_mean = filemtime(CORE_SERVERPATH . 'netPhotoGraphics.package');
 						$hours = 3600;
 						$lowset = $cum_mean - $hours;
 						$highset = $cum_mean + $hours;
 
 						$package_file_count = false;
-						$package = file_get_contents(CORE_SERVERPATH . 'netphotographics.package');
+						$package = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics.package');
 						if (CASE_INSENSITIVE) { // case insensitive file systems
 							$package = strtolower($package);
 						}
@@ -1176,7 +1183,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$package_file_count = is_numeric($count) && ($count > 0) && ($count == count($installed_files));
 						}
 						if (!$package_file_count) {
-							checkMark(-1, '', gettext("netPhotoGraphics package [missing]"), gettext('The file <code>netphotographics.package</code> is either missing, not readable, or defective. Your installation may be corrupt!'));
+							checkMark(-1, '', gettext("netPhotoGraphics package [missing]"), gettext('The file <code>netPhotoGraphics.package</code> is either missing, not readable, or defective. Your installation may be corrupt!'));
 							$installed_files = array();
 						}
 						$folders = array();
@@ -1196,9 +1203,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							$component = $base . $value;
 							if (file_exists($component)) {
-								$res = array_search($component, $_zp_resident_files);
+								$res = array_search($component, $_resident_files);
 								if ($res !== false) {
-									unset($_zp_resident_files[$res]);
+									unset($_resident_files[$res]);
 								}
 								if (is_dir($component)) {
 									if ($updatechmod) {
@@ -1216,7 +1223,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$folders[$component] = $component;
 									unset($installed_files[$key]);
 									if (dirname($value) == THEMEFOLDER) {
-										getResidentZPFiles($base . $value, $stdExclude);
+										getResidentFiles($base . $value, $stdExclude);
 									}
 								} else {
 									if ($updatechmod) {
@@ -1328,7 +1335,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							primeMark(gettext('Installation files'));
 							$systemlist = $filelist = array();
 							$phi_ini_count = $svncount = 0;
-							foreach ($_zp_resident_files as $extra) {
+							foreach ($_resident_files as $extra) {
 								if (getSuffix($extra) == 'xxx') {
 									@unlink($extra); //	presumed to be protected copies of the setup files
 								} else if (strpos($extra, 'php.ini') !== false) {
@@ -1349,7 +1356,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								if (!empty($systemlist)) {
 									if (isset($_GET['delete_extra'])) {
 										foreach ($systemlist as $key => $file_s) {
-											$file8 = $_zp_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
+											$file8 = $_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
 											$file = $base . $file_s;
 											if (!is_dir($file)) {
 												@chmod($file, 0777);
@@ -1362,14 +1369,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										}
 										rsort($systemlist);
 										foreach ($systemlist as $key => $file_s) {
-											$file8 = $_zp_UTF8->convert($file, FILESYSTEM_CHARSET, 'UTF-8');
+											$file8 = $_UTF8->convert($file, FILESYSTEM_CHARSET, 'UTF-8');
 											$file = $base . $file_s;
 											@chmod($file, 0777);
 											if (is_dir($file)) {
 												$offspring = safe_glob($file . '/*.*');
 												foreach ($offspring as $child) {
 													if (!(@unlink($child) || !file_exists($child))) {
-														$filelist[] = $file8 . '/' . $_zp_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
+														$filelist[] = $file8 . '/' . $_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
 													}
 												}
 												if (!@rmdir($file) || is_dir($file)) {
@@ -1387,7 +1394,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											checkmark(-1, '', gettext('Core folders [Some unknown files were found]'), gettext('The following files could not be deleted.') . '<br /><code>' . implode('<br />', $filelist) . '<code>');
 										}
 									} else {
-										checkMark(-1, '', gettext('Core folders [Some unknown files were found]'), gettext('You should remove the following files: ') . '<br /><code>' . $_zp_UTF8->convert(implode('<br />', $systemlist), FILESYSTEM_CHARSET, 'UTF-8') .
+										checkMark(-1, '', gettext('Core folders [Some unknown files were found]'), gettext('You should remove the following files: ') . '<br /><code>' . $_UTF8->convert(implode('<br />', $systemlist), FILESYSTEM_CHARSET, 'UTF-8') .
 														'</code><p class="buttons"><a href="?delete_extra' . html_encode($autorunq . $debugq) . '">' . gettext("Delete extra files") . '</a></p><br class="clearall"><br />');
 									}
 								}
@@ -1493,17 +1500,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$save = $base = true;
 								$b = sprintf(gettext("<em>.htaccess</em> RewriteBase is <code>%s</code> (fixed)"), $d);
 							}
-							// upgrade the site closed rewrite rules
-							preg_match_all('|[# ][ ]*RewriteRule(.*)plugins/site_upgrade/closed\.php|', $ht, $matches);
-							$siteupdate = false;
-							foreach ($matches[0] as $match) {
-								if (strpos($match, 'index\.php$') !== false) {
-									$match1 = str_replace('index\.php$', 'index\.php(.*)$', $match);
-									$match1 = str_replace('closed.php', 'closed.php%1', $match1);
-									$ht = str_replace($match, $match1, $ht);
-									$siteupdate = $save = true;
-								}
-							}
+
 							if ($save) {
 								// try and fix it
 								@chmod($htfile, 0777);
@@ -1515,11 +1512,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 								@chmod($htfile, 0444);
 							}
-							$good = checkMark($base, $b, $err, gettext("Setup was not able to write to the file change RewriteBase match the install folder.") .
+							$good = checkMark($base, $b, $err, gettext("Setup was not able to write to the file. Change RewriteBase match the install folder.") .
 															"<br />" . sprintf(gettext("Either make the file writeable or set <code>RewriteBase</code> in your <code>.htaccess</code> file to <code>%s</code>."), $d)) && $good;
-							if ($siteupdate) {
-								$good = checkMark($save, gettext('Rewrite rules updated'), gettext('Rewrite rules updated [not updated]'), gettext("Setup was not able to write to the file change the rewrite rules for site upgrades.")) && $good;
-							}
 						}
 						//robots.txt file
 						$robots = file_get_contents(dirname(dirname(__FILE__)) . '/robots.txt');
@@ -1540,17 +1534,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 
-						if (isset($_zp_conf_vars['external_album_folder']) && !is_null($_zp_conf_vars['external_album_folder'])) {
+						if (isset($_conf_vars['external_album_folder']) && !is_null($_conf_vars['external_album_folder'])) {
 							checkmark(-1, 'albums', gettext("albums [<code>\$conf['external_album_folder']</code> is deprecated]"), sprintf(gettext('You should update your configuration file to conform to the current %1$s example file.'), CONFIGFILE));
-							$_zp_conf_vars['album_folder_class'] = 'external';
-							$albumfolder = $_zp_conf_vars['external_album_folder'];
+							$_conf_vars['album_folder_class'] = 'external';
+							$albumfolder = $_conf_vars['external_album_folder'];
 						}
-						if (!isset($_zp_conf_vars['album_folder_class'])) {
-							$_zp_conf_vars['album_folder_class'] = 'std';
+						if (!isset($_conf_vars['album_folder_class'])) {
+							$_conf_vars['album_folder_class'] = 'std';
 						}
-						if (isset($_zp_conf_vars['album_folder'])) {
-							$albumfolder = str_replace('\\', '/', $_zp_conf_vars['album_folder']);
-							switch ($_zp_conf_vars['album_folder_class']) {
+						if (isset($_conf_vars['album_folder'])) {
+							$albumfolder = str_replace('\\', '/', $_conf_vars['album_folder']);
+							switch ($_conf_vars['album_folder_class']) {
 								case 'std':
 									$albumfolder = str_replace('\\', '/', SERVERPATH) . $albumfolder;
 									break;
@@ -1563,7 +1557,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$albumfolder = $root . $albumfolder;
 									break;
 							}
-							$good = folderCheck('albums', $albumfolder, $_zp_conf_vars['album_folder_class'], NULL, true, $chmod | 0311, $updatechmod) && $good;
+							$good = folderCheck('albums', $albumfolder, $_conf_vars['album_folder_class'], NULL, true, $chmod | 0311, $updatechmod) && $good;
 						} else {
 							checkmark(-1, gettext('<em>albums</em> folder'), gettext('<em>albums</em> folder [The line <code>\$conf[\'album_folder\']</code> is missing from your configuration file]'), sprintf(gettext('You should update your configuration file to conform to the current %1$s example file.'), CONFIGFILE));
 						}
@@ -1601,7 +1595,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								?>
 								<div class="error">
 									<?php
-									if (zp_loggedin()) {
+									if (npg_loggedin()) {
 										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
 									} else {
 										echo gettext('You must be logged in to run setup.');
@@ -1609,7 +1603,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 								</div>
 								<?php
-								$_zp_authority->printLoginForm('', false);
+								$_authority->printLoginForm('', false);
 							}
 							?>
 							<br class="clearall">
@@ -1636,7 +1630,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$task = 'update';
 							}
 							$updateErrors = false;
-							if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_zp_conf_vars, false)) {
+							if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
 
 								primeMark(gettext('Database update'));
 								require_once(CORE_SERVERPATH . 'setup/database.php');
@@ -1683,7 +1677,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 								if ($debug == 'albumids') {
 									// fixes 1.2 move/copy albums with wrong ids
-									$albums = $_zp_gallery->getAlbums();
+									$albums = $_gallery->getAlbums();
 									foreach ($albums as $album) {
 										checkAlbumParentid($album, NULL, 'setuplog');
 									}
@@ -1692,7 +1686,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 								$clones = array();
 
-								if ($_zp_loggedin == ADMIN_RIGHTS) {
+								if ($_loggedin == ADMIN_RIGHTS) {
 									$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 									if (count($filelist) > 0) {
 										$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '<a href="' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '">', '</a>');
@@ -1763,7 +1757,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 								</script>
 								<?php
-							} else if (db_connect($_zp_conf_vars, false)) {
+							} else if (db_connect($_conf_vars, false)) {
 								$task = '';
 								if (setupUserAuthorized() || $blindInstall) {
 									if (!empty($dbmsg)) {
@@ -1796,7 +1790,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 									<div class="error">
 										<?php
-										if (zp_loggedin()) {
+										if (npg_loggedin()) {
 											echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
 										} else {
 											echo gettext('You must be logged in to run setup.');
@@ -1804,7 +1798,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										?>
 									</div>
 									<?php
-									$_zp_authority->printLoginForm('', false);
+									$_authority->printLoginForm('', false);
 								} else {
 									if (!empty($task) && substr($task, 0, 1) != '&') {
 										$task = '&' . $task;

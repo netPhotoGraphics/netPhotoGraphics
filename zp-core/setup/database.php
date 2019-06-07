@@ -416,9 +416,9 @@ foreach ($uniquekeys as $table => $keys) {
 }
 //if this is a new database, update the config file for the utf8 encoding
 if ($utf8mb4 && !array_search(true, $tablePresent)) {
-	$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	$zp_cfg = updateConfigItem('UTF-8', 'utf8mb4', $zp_cfg);
-	storeConfig($zp_cfg);
+	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	$_config_contents = updateConfigItem('UTF-8', 'utf8mb4', $_config_contents);
+	storeConfig($_config_contents);
 }
 // now the database is setup we can store the options
 setOptionDefault('metadata_disabled', serialize($disable));

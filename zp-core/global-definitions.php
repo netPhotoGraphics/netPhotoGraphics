@@ -1,7 +1,7 @@
 <?php
 
-global $_zp_conf_vars;
-$_zp_options = array();
+global $_conf_vars;
+$_options = array();
 
 if (!isset($_SERVER['HTTP_HOST']))
 	die();
@@ -40,7 +40,7 @@ define('BACKUPFOLDER', DATA_FOLDER . '/backup');
 define('CACHEFOLDER', 'cache');
 define('UPLOAD_FOLDER', 'uploaded');
 define('STATIC_CACHE_FOLDER', "cache_html");
-define('CONFIGFILE', 'zenphoto.cfg.php');
+define('CONFIGFILE', 'npg.cfg.php');
 define('MUTEX_FOLDER', '.mutex');
 define('UTILITIES_FOLDER', 'utilities');
 
@@ -68,7 +68,7 @@ define('EXIF_FIELD_LINKED', 7);
 define('SYMLINK', function_exists('symlink') && strpos(@ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
 define('CASE_INSENSITIVE', file_exists(strtoupper(__FILE__)));
 
-$_debug = explode('-', ZENPHOTO_VERSION . '-');
+$_debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 $_debug = $_debug[1];
 define('TEST_RELEASE', !empty($_debug));
 
@@ -87,14 +87,14 @@ define('TESTING_MODE', strpos($_debug, 'TESTING'));
 
 unset($_debug);
 
-$_zp_DB_details = array(
+$_DB_details = array(
 		'mysql_host' => 'not connected',
 		'mysql_database' => 'not connected',
 		'mysql_prefix' => 'not connected',
 		'mysql_user' => '',
 		'mysql_pass' => ''
 );
-define('DB_NOT_CONNECTED', serialize($_zp_DB_details));
+define('DB_NOT_CONNECTED', serialize($_DB_details));
 define('MYSQL_CONNECTION_RETRIES', 10);
 define('ER_TOO_MANY_USER_CONNECTIONS', 1203);
 define('ER_CON_COUNT_ERROR', 1040);
@@ -120,6 +120,7 @@ $const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']))
 if (!preg_match('~(.*?)/(' . CORE_FOLDER . ')~', $const_webpath, $matches)) {
 	preg_match('~(.*?)/(' . USER_PLUGIN_FOLDER . '|' . THEMEFOLDER . ')~', $const_webpath, $matches);
 }
+
 if ($matches) {
 	$const_webpath = $matches[1];
 	$const_serverpath = substr($const_serverpath, 0, strpos($const_serverpath, '/' . $matches[2]));
@@ -142,8 +143,8 @@ if ($matches) {
 		define('OFFSET_PATH', 0);
 	}
 }
-
-if ($const_webpath == '/' || $const_webpath == '.') {
+$const_webpath = rtrim($const_webpath, '/');
+if ($const_webpath == '.') {
 	$const_webpath = '';
 }
 

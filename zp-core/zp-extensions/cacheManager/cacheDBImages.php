@@ -25,7 +25,7 @@ echo "\n" . '<div id="main">';
 printTabs();
 echo "\n" . '<div id="content">';
 
-zp_apply_filter('admin_note', 'cache', '');
+npgFilters::apply('admin_note', 'cache', '');
 echo '<h1>' . gettext('Cache images stored in the database') . '</h1>';
 
 $tables = array(
@@ -143,7 +143,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 								}
 								continue;
 							}
-							$try = $_zp_supported_images;
+							$try = $_supported_images;
 							$base = stripSuffix($image = $image_uri);
 							$prime = getSuffix($image);
 							array_unshift($try, $prime);

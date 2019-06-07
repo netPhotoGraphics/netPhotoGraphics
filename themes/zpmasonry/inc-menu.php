@@ -1,6 +1,6 @@
 
 <div id="menu">
-	<?php if ($_zp_gallery_page != '404.php') { ?>
+	<?php if ($_gallery_page != '404.php') { ?>
 		<div id="social">
 			<?php
 			if (extensionEnabled('rss')) {
@@ -31,7 +31,7 @@
 				}
 			}
 			?>
-			<?php if ((!zp_loggedin()) && (function_exists('printUserLogin_out'))) { ?>
+			<?php if ((!npg_loggedin()) && (function_exists('printUserLogin_out'))) { ?>
 				<?php if (checkAccess($hint, $show)) { ?>
 					<a onclick="$('#password-div').toggle();" class="pass" title="<?php echo gettext('Login'); ?>"></a>
 					<div id="password-div">
@@ -44,36 +44,36 @@
 	<ul id="nav">
 		<li <?php if ($galleryactive) { ?>class="active" <?php } ?>><a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery"); ?>"><?php echo gettext("Gallery"); ?></a></li>
 		<?php if ($zenpage) { ?>
-				<?php if ($zpmas_usenews) { ?><li <?php if ($_zp_gallery_page == "news.php") { ?>class="active" <?php } ?>><a href="<?php echo getNewsIndexURL(); ?>"><?php echo NEWS_LABEL; ?></a></li><?php } ?>
+				<?php if ($zpmas_usenews) { ?><li <?php if ($_gallery_page == "news.php") { ?>class="active" <?php } ?>><a href="<?php echo getNewsIndexURL(); ?>"><?php echo NEWS_LABEL; ?></a></li><?php } ?>
 				<?php printPageMenu('list-top', '', 'active', '', 'active', '', true, false); ?>
 			<?php } ?>
-		<li <?php if ($_zp_gallery_page == "archive.php") { ?>class="active" <?php } ?>>
+		<li <?php if ($_gallery_page == "archive.php") { ?>class="active" <?php } ?>>
 			<a href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Archive View'); ?>"><?php echo gettext('Archive'); ?></a>
 		</li>
 		<?php
 		if (extensionEnabled('daily-summary')) {
 			?>
-			<li <?php if ($_zp_gallery_page == "summary.php") { ?>class="active" <?php } ?>>
+			<li <?php if ($_gallery_page == "summary.php") { ?>class="active" <?php } ?>>
 				<a href="<?php echo getCustomPageURL('summary'); ?>" title="<?php echo gettext('Daily summary'); ?>"><?php echo gettext('Daily summary'); ?></a>
 			</li>
 			<?php
 		}
 		if (function_exists('printContactForm')) {
-			?><li <?php if ($_zp_gallery_page == "contact.php") { ?>class="active" <?php } ?>>
+			?><li <?php if ($_gallery_page == "contact.php") { ?>class="active" <?php } ?>>
 				<?php printCustomPageURL(gettext('Contact'), "contact"); ?></li><?php
 		}
 		?>
 		<?php
-		if ((!zp_loggedin()) && (function_exists('printRegistrationForm'))) {
+		if ((!npg_loggedin()) && (function_exists('printRegistrationForm'))) {
 			?>
-			<li <?php if ($_zp_gallery_page == "register.php") { ?>class="active" <?php } ?>>
+			<li <?php if ($_gallery_page == "register.php") { ?>class="active" <?php } ?>>
 				<a href="<?php echo getCustomPageURL('register'); ?>" title="<?php echo gettext('Register'); ?>"><?php echo gettext('Register'); ?></a>
 			</li>
 			<?php
 		}
 		?>
 		<?php
-		if (function_exists('printFavoritesURL') && $_zp_gallery_page != "favorites.php") {
+		if (function_exists('printFavoritesURL') && $_gallery_page != "favorites.php") {
 			printFavoritesURL(NULL, '<li>', '</li><li>', '</li>');
 		}
 		?>

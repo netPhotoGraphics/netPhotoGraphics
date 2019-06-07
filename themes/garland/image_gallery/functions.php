@@ -15,12 +15,12 @@ class imagegallery {
 		return true;
 	}
 
-	function theme_head($_zp_themeroot) {
+	function theme_head($_themeroot) {
 		scriptLoader(CORE_SERVERPATH .  COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
 		scriptLoader(CORE_SERVERPATH .  COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
 	}
 
-	function theme_bodyopen($_zp_themeroot) {
+	function theme_bodyopen($_themeroot) {
 		$location = getOption('garland_caption_location');
 		?>
 		<script type="text/javascript">
@@ -90,7 +90,7 @@ class imagegallery {
 	}
 
 	function theme_content($map) {
-		global $_zp_current_image, $points;
+		global $_current_image, $points;
 		if (isImagePage()) {
 			?>
 			<!-- Gallery section -->
@@ -110,7 +110,7 @@ class imagegallery {
 									<?php
 									while (next_image(true)) {
 										if ($map) {
-											$coord = simpleMap::getGeoCoord($_zp_current_image);
+											$coord = simpleMap::getCoord($_current_image);
 											if ($coord) {
 												$points[] = $coord;
 											}

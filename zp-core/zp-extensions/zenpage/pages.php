@@ -77,7 +77,7 @@ if (empty($reports)) {
 	exit();
 }
 
-$_zp_CMS = new CMS();
+$_CMS = new CMS();
 
 printAdminHeader('pages');
 printSortableHead();
@@ -106,7 +106,7 @@ updatePublished('pages');
 		<?php printTabs(); ?>
 		<div id="content">
 			<?php
-			zp_apply_filter('admin_note', 'pages', '');
+			npgFilters::apply('admin_note', 'pages', '');
 			?>
 			<h1><?php echo gettext('Pages'); ?></h1>
 
@@ -123,8 +123,8 @@ updatePublished('pages');
 					}
 				}
 
-				$admin = $_zp_current_admin_obj->getUser();
-				$pagelist = $_zp_CMS->getPages();
+				$admin = $_current_admin_obj->getUser();
+				$pagelist = $_CMS->getPages();
 				foreach ($pagelist as $key => $apage) {
 					$pageobj = newPage($apage['titlelink']);
 					if (!($pageobj->getOwner() == $admin || $pageobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
@@ -132,7 +132,7 @@ updatePublished('pages');
 					}
 				}
 
-				if (!empty($pagelist) || zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+				if (!empty($pagelist) || npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printPagesStatistic(); ?></span>
 					<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="<?php echo getAdminLink('pages.php'); ?>" method="post" name="update" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
@@ -152,7 +152,7 @@ updatePublished('pages');
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
 							<?php
-							if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+							if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								?>
 								<span class="floatright">
 									<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?page&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
@@ -178,14 +178,14 @@ updatePublished('pages');
 									gettext('Disable comments') => 'commentsoff',
 									gettext('Enable comments') => 'commentson'
 							);
-							if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+							if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
 							}
 
 							if (extensionEnabled('hitcounter')) {
 								$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
 							}
-							$checkarray = zp_apply_filter('bulk_page_actions', $checkarray);
+							$checkarray = npgFilters::apply('bulk_page_actions', $checkarray);
 							printBulkActions($checkarray);
 							?>
 						</div>

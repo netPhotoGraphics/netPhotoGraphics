@@ -33,7 +33,7 @@ if (isset($_GET['purge'])) {
 		$success = true;
 		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir', USER_PLUGIN_FOLDER => 'dir');
 
-		foreach ($_zp_gallery->getThemes() as $theme => $data) {
+		foreach ($_gallery->getThemes() as $theme => $data) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
 		}
 
@@ -51,9 +51,9 @@ if (isset($_GET['purge'])) {
 		}
 		if (!file_exists($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 			$path = str_replace(array(' ', '/'), '_', trim(str_replace(str_replace(WEBPATH, '/', SERVERPATH), '', $folder), '/')) . '_';
-			$zp_cfg = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-			$zp_cfg = updateConfigItem('mysql_prefix', $path, $zp_cfg);
-			file_put_contents($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE, $zp_cfg);
+			$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+			$_config_contents = updateConfigItem('mysql_prefix', $path, $_config_contents);
+			file_put_contents($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
 		}
 
 		foreach ($targets as $target => $type) {
@@ -161,10 +161,10 @@ if (isset($_GET['purge'])) {
 				$adminTable[$datum['Field']] = $datum;
 			}
 			$_SESSION['admin']['db_admin_fields'] = $adminTable;
-			$_SESSION['admin'][$cloneid] = serialize($_zp_current_admin_obj);
+			$_SESSION['admin'][$cloneid] = serialize($_current_admin_obj);
 			$msg[] = '<p><span class="buttons"><a href="' . $newinstall . CORE_FOLDER . '/setup/index.php?autorun" target=_newtab" onclick="reloadCloneTab();">' . gettext('setup the new install') . '</a></span><br class="clearall"></p>' . "\n";
 		} else {
-			$reinstall = '<p>' . sprintf(gettext('Before running setup for <code>%1$s</code> please reinstall the following setup files from the %2$s to this installation:'), $newinstall, ZENPHOTO_VERSION) .
+			$reinstall = '<p>' . sprintf(gettext('Before running setup for <code>%1$s</code> please reinstall the following setup files from the %2$s to this installation:'), $newinstall, NETPHOTOGRAPHICS_VERSION) .
 							"\n" . '<ul>' . "\n";
 			if (!empty($needs)) {
 				foreach ($needs as $script) {

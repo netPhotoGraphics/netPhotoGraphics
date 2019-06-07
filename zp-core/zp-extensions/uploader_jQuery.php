@@ -20,10 +20,10 @@ $plugin_disable = (version_compare(PHP_VERSION, '5.3') >= 0) ? false : gettext('
 if ($plugin_disable) {
 	enableExtension('uploader_jQuery', 0);
 } else {
-	if (zp_loggedin(UPLOAD_RIGHTS)) {
-		zp_register_filter('upload_handlers', 'jQueryUploadHandler');
+	if (npg_loggedin(UPLOAD_RIGHTS)) {
+		npgFilters::register('upload_handlers', 'jQueryUploadHandler');
 	}
-	zp_register_filter('admin_tabs', 'jQueryUploadHandler_admin_tabs');
+	npgFilters::register('admin_tabs', 'jQueryUploadHandler_admin_tabs');
 }
 
 function jQueryUploadHandler($uploadHandlers) {
@@ -32,7 +32,7 @@ function jQueryUploadHandler($uploadHandlers) {
 }
 
 function jQueryUploadHandler_admin_tabs($tabs) {
-	if (zp_loggedin(UPLOAD_RIGHTS)) {
+	if (npg_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('images (%s)'), 'jQuery');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),

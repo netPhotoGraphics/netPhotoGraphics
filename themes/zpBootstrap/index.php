@@ -1,8 +1,6 @@
 <?php
-
 // force UTF-8 Ø
-if (!defined('WEBPATH'))
-	die();
+if (!defined('WEBPATH')) die();
 
 global $isHomePage;
 

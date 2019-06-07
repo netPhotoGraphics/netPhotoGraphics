@@ -106,7 +106,7 @@ function checkFolder($album) {
 	return $count;
 }
 
-$_zp_gallery->garbageCollect();
+$_gallery->garbageCollect();
 
 printAdminHeader('admin', 'SEO cleaner');
 
@@ -120,7 +120,7 @@ if (isset($_GET['todo'])) {
 } else {
 	$count = 0;
 	$albumcount = 0;
-	$albums = $_zp_gallery->getAlbums();
+	$albums = $_gallery->getAlbums();
 }
 ?>
 <?php echo '</head>'; ?>
@@ -129,7 +129,7 @@ if (isset($_GET['todo'])) {
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'seo_cleanup', ''); ?>
+			<?php npgFilters::apply('admin_note', 'seo_cleanup', ''); ?>
 			<h1><?php echo gettext('Cleanup album and image names to be SEO friendly'); ?></h1>
 			<div class="tabbox">
 				<?php

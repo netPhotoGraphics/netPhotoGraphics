@@ -1,9 +1,9 @@
 <?php
 // force UTF-8 Ø
 
-zp_register_filter('themeSwitcher_head', 'switcher_head');
-zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
-zp_register_filter('theme_head', 'EF_head', 0);
+npgFilters::register('themeSwitcher_head', 'switcher_head');
+npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
+npgFilters::register('theme_head', 'EF_head', 0);
 
 define('ALBUM_THMB_WIDTH', 170);
 define('ALBUM_THUMB_HEIGHT', 80);
@@ -62,7 +62,7 @@ if (($_ef_menu = getOption('effervescence_menu')) == 'effervescence' || $_ef_men
 }
 require_once(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/' . $personality . '/functions.php');
 $_oneImagePage = $handler->onePage();
-$_zp_page_check = 'my_checkPageValidity';
+$_current_page_check = 'my_checkPageValidity';
 
 define('_IMAGE_PATH', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/');
 
@@ -145,8 +145,8 @@ function switcher_head($ignore) {
 }
 
 function switcher_controllink($ignore) {
-	global $personality, $personalities, $themecolors, $_zp_gallery_page, $themeColor;
-	$themeColor = zp_getCookie('themeSwitcher_themeColor');
+	global $personality, $personalities, $themecolors, $_gallery_page, $themeColor;
+	$themeColor = getNPGCookie('themeSwitcher_themeColor');
 	if (!$themeColor) {
 		list($personality, $themeColor) = getPersonality();
 	}
@@ -178,7 +178,7 @@ function switcher_controllink($ignore) {
 
 function get_subalbum_count() {
 	$where = "WHERE parentid IS NOT NULL";
-	if (!zp_loggedin()) {
+	if (!npg_loggedin()) {
 		$where .= " AND `show`=1";
 	} /* exclude the un-published albums */
 	return db_count('albums', $where);
@@ -189,9 +189,9 @@ function show_sub_count_index() {
 }
 
 function printHeadingImage($randomImage) {
-	global $_zp_themeroot, $_zp_current_album;
-	if ($_zp_current_album) {
-		$id = $_zp_current_album->getId();
+	global $_themeroot, $_current_album;
+	if ($_current_album) {
+		$id = $_current_album->getId();
 	} else {
 		$id = 0;
 	}
@@ -222,7 +222,7 @@ function printHeadingImage($randomImage) {
 						html_encode($randomAlt1) .
 						":\n" . html_encode($randomImage->getTitle()) .
 						'" />';
-		$html = zp_apply_filter('custom_image_html', $html, false);
+		$html = npgFilters::apply('custom_image_html', $html, false);
 		echo $html;
 		echo '</a>';
 	}
@@ -234,12 +234,12 @@ function printHeadingImage($randomImage) {
 function getCustomAlbumDesc() {
 	if (!in_context(ZP_ALBUM))
 		return false;
-	global $_zp_current_album;
-	$desc = $_zp_current_album->getDesc();
+	global $_current_album;
+	$desc = $_current_album->getDesc();
 	if (strlen($desc) == 0) {
-		$desc = $_zp_current_album->getTitle();
+		$desc = $_current_album->getTitle();
 	} else {
-		$desc = $_zp_current_album->getTitle() . "\n" . $desc;
+		$desc = $_current_album->getTitle() . "\n" . $desc;
 	}
 	return $desc;
 }
@@ -299,7 +299,7 @@ function printThemeInfo() {
 		if ($personality == 'Image page') {
 			$personality = '';
 		} else if (($personality == 'Simpleviewer' && !class_exists('simpleviewer')) ||
-						($personality == 'Colorbox' && !zp_has_filter('admin_head', 'colorbox::css'))) {
+						($personality == 'Colorbox' && !npgFilters::has_filter('admin_head', 'colorbox::css'))) {
 			$personality = "<strike>$personality</strike>";
 		}
 		$personality = str_replace('_', ' ', $personality);
@@ -321,14 +321,14 @@ function printLinkWithQuery($url, $query, $text) {
 }
 
 function printLogo() {
-	global $_zp_themeroot;
+	global $_themeroot;
 	$name = get_language_string(getOption('Theme_logo'));
 	if ($img = getOption('Graphic_logo')) {
 		$fullimg = '/' . UPLOAD_FOLDER . '/images/' . $img . '.png';
 		if (file_exists(SERVERPATH . $fullimg)) {
 			echo '<img src="' . pathurlencode(WEBPATH . $fullimg) . '" alt="Logo"/>';
 		} else {
-			echo '<img src="' . $_zp_themeroot . '/images/effervescence.png" alt="Logo"/>';
+			echo '<img src="' . $_themeroot . '/images/effervescence.png" alt="Logo"/>';
 		}
 	} else {
 		if (empty($name)) {
@@ -341,22 +341,22 @@ function printLogo() {
 }
 
 function annotateAlbum() {
-	global $_zp_current_album;
+	global $_current_album;
 	$tagit = '';
-	$pwd = $_zp_current_album->getPassword();
-	if (zp_loggedin() && !empty($pwd)) {
+	$pwd = $_current_album->getPassword();
+	if (npg_loggedin() && !empty($pwd)) {
 		$tagit = "\n" . gettext('The album is password protected.');
 	}
-	if (!$_zp_current_album->getShow()) {
+	if (!$_current_album->getShow()) {
 		$tagit .= "\n" . gettext('The album is not published.');
 	}
 	return sprintf(gettext('View the Album: %s'), getBareAlbumTitle()) . getImage_AlbumCount() . $tagit;
 }
 
 function annotateImage() {
-	global $_zp_current_image;
-	if (is_object($_zp_current_image)) {
-		if (!$_zp_current_image->getShow()) {
+	global $_current_image;
+	if (is_object($_current_image)) {
+		if (!$_current_image->getShow()) {
 			$tagit = "\n" . gettext('The image is marked not visible.');
 		} else {
 			$tagit = '';
@@ -366,7 +366,7 @@ function annotateImage() {
 }
 
 function printFooter($admin = true) {
-	global $_zp_themeroot, $_zp_gallery, $_zp_gallery_page;
+	global $_themeroot, $_gallery, $_gallery_page;
 	$h = NULL;
 	?>
 	<!-- Footer -->
@@ -380,7 +380,7 @@ function printFooter($admin = true) {
 			</p>
 			<?php
 		}
-		if ($_zp_gallery_page == 'gallery.php') {
+		if ($_gallery_page == 'gallery.php') {
 			?>
 			<p>
 				<small>
@@ -413,12 +413,12 @@ function printFooter($admin = true) {
 		<?php print_SW_Link(); ?>
 		<br />
 		<?php
-		if (function_exists('printFavoritesURL') && $_zp_gallery_page != 'password.php' && $_zp_gallery_page != 'favorites.php') {
+		if (function_exists('printFavoritesURL') && $_gallery_page != 'password.php' && $_gallery_page != 'favorites.php') {
 			printFavoritesURL(NULL, '', ' | ', '<br />');
 		}
 		?>
 		<?php
-		if ($_zp_gallery_page == 'gallery.php') {
+		if ($_gallery_page == 'gallery.php') {
 			if (class_exists('RSS'))
 				printRSSLink('Gallery', '', 'Gallery', '');
 			echo '<br />';
@@ -428,13 +428,13 @@ function printFooter($admin = true) {
 		@call_user_func('printUserLogin_out', '', '<br />');
 		?>
 		<?php
-		if ($_zp_gallery_page != 'contact.php' && extensionEnabled('contact_form') && ($_zp_gallery_page != 'password.php' || $_zp_gallery->isUnprotectedPage('contact'))) {
+		if ($_gallery_page != 'contact.php' && extensionEnabled('contact_form') && ($_gallery_page != 'password.php' || $_gallery->isUnprotectedPage('contact'))) {
 			printCustomPageURL(gettext('Contact us'), 'contact', '', '');
 			echo '<br />';
 		}
 		?>
 		<?php
-		if ($_zp_gallery_page != 'register.php' && function_exists('printRegisterURL') && !zp_loggedin() && ($_zp_gallery_page != 'password.php' || $_zp_gallery->isUnprotectedPage('register'))) {
+		if ($_gallery_page != 'register.php' && function_exists('printRegisterURL') && !npg_loggedin() && ($_gallery_page != 'password.php' || $_gallery->isUnprotectedPage('register'))) {
 			printRegisterURL(gettext('Register for this site'), '');
 			echo '<br />';
 		}

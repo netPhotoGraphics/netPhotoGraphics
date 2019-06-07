@@ -38,8 +38,8 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
 
 $option_interface = 'facebookLogin';
 
-zp_register_filter('alt_login_handler', 'facebookLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom', 'facebookLogin::edit_admin');
+npgFilters::register('alt_login_handler', 'facebookLogin::alt_login_handler');
+npgFilters::register('edit_admin_custom', 'facebookLogin::edit_admin');
 
 /**
  * Option class

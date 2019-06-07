@@ -6,8 +6,8 @@
  */
 // force UTF-8 Ø
 
-define('IMAGE_SORT_DIRECTION', $_zp_gallery->getSortDirection('image'));
-define('IMAGE_SORT_TYPE', $_zp_gallery->getSortType('image'));
+define('IMAGE_SORT_DIRECTION', $_gallery->getSortDirection('image'));
+define('IMAGE_SORT_TYPE', $_gallery->getSortType('image'));
 
 Gallery::addAlbumHandler('alb', 'dynamicAlbum');
 
@@ -19,13 +19,13 @@ Gallery::addAlbumHandler('alb', 'dynamicAlbum');
  * @return Album
  */
 function newAlbum($folder8, $cache = true, $quiet = false) {
-	global $_zp_albumHandlers;
+	global $_albumHandlers;
 	$folder8 = sanitize_path($folder8);
 	$suffix = getSuffix($folder8);
-	if (!$suffix || !array_key_exists($suffix, $_zp_albumHandlers) || is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($folder8))) {
+	if (!$suffix || !array_key_exists($suffix, $_albumHandlers) || is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($folder8))) {
 		return new Album($folder8, $cache, $quiet);
 	} else {
-		return new $_zp_albumHandlers[$suffix]($folder8, $cache, $quiet);
+		return new $_albumHandlers[$suffix]($folder8, $cache, $quiet);
 	}
 }
 
@@ -81,7 +81,7 @@ class AlbumBase extends MediaObject {
 	 * @return bool
 	 */
 	protected function setDefaults() {
-		global $_zp_gallery;
+		global $_gallery;
 		if (TEST_RELEASE) {
 			$bt = debug_backtrace();
 			$good = false;
@@ -104,7 +104,7 @@ class AlbumBase extends MediaObject {
 			$title = substr($title, strrpos($title, '/') + 1);
 		}
 		$this->set('title', $title);
-		$this->setShow($_zp_gallery->getAlbumPublish());
+		$this->setShow($_gallery->getAlbumPublish());
 
 		//	load images
 		if (is_null($this->getImages())) {
@@ -210,7 +210,7 @@ class AlbumBase extends MediaObject {
 	 * @return string
 	 */
 	function getSortDirection($what = 'image') {
-		global $_zp_gallery;
+		global $_gallery;
 		if ($what == 'image') {
 			$direction = $this->get('image_sortdirection');
 			$type = $this->get('sort_type');
@@ -225,7 +225,7 @@ class AlbumBase extends MediaObject {
 				if ($what == 'image') {
 					$direction = IMAGE_SORT_DIRECTION;
 				} else {
-					$direction = $_zp_gallery->getSortDirection();
+					$direction = $_gallery->getSortDirection();
 				}
 			} else {
 				$direction = $parentalbum->getSortDirection($what);
@@ -256,7 +256,7 @@ class AlbumBase extends MediaObject {
 	 * @return string
 	 */
 	function getSortType($what = 'image') {
-		global $_zp_gallery;
+		global $_gallery;
 		if ($what == 'image') {
 			$type = $this->get('sort_type');
 		} else {
@@ -268,7 +268,7 @@ class AlbumBase extends MediaObject {
 				if ($what == 'image') {
 					$type = IMAGE_SORT_TYPE;
 				} else {
-					$type = $_zp_gallery->getSortType();
+					$type = $_gallery->getSortType();
 				}
 			} else {
 				$type = $parentalbum->getSortType($what);
@@ -438,7 +438,7 @@ class AlbumBase extends MediaObject {
 	 * @return Image
 	 */
 	function getAlbumThumbImage($recurse = array()) {
-		global $_zp_albumthumb_selector, $_zp_gallery;
+		global $_albumthumb_selector, $_gallery;
 
 		if (!is_null($this->albumthumbnail)) {
 			return $this->albumthumbnail;
@@ -479,7 +479,7 @@ class AlbumBase extends MediaObject {
 		if ($shuffle = empty($thumb)) {
 			$thumbs = $this->getImages(0, 0, NULL, NULL, false);
 		} else {
-			$thumbs = $this->getImages(0, 0, $_zp_albumthumb_selector[(int) $thumb]['field'], $_zp_albumthumb_selector[(int) $thumb]['direction']);
+			$thumbs = $this->getImages(0, 0, $_albumthumb_selector[(int) $thumb]['field'], $_albumthumb_selector[(int) $thumb]['direction']);
 		}
 		if (!is_null($thumbs)) {
 			if ($shuffle) {
@@ -548,7 +548,7 @@ class AlbumBase extends MediaObject {
 		if (!empty($albumtheme)) {
 			$theme = $albumtheme;
 		} else {
-			$theme = $_zp_gallery->getCurrentTheme();
+			$theme = $_gallery->getCurrentTheme();
 		}
 		if (!empty($theme)) {
 			$themeimage = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/images/imageDefault.png';
@@ -586,10 +586,10 @@ class AlbumBase extends MediaObject {
 	 * @return string
 	 */
 	function getLink($page = NULL) {
-		global $_zp_current_album;
-		global $_zp_page;
-		if (is_null($page) && $_zp_current_album && $_zp_current_album->name == $this->name) {
-			$page = $_zp_page;
+		global $_current_album;
+		global $_current_page;
+		if (is_null($page) && $_current_album && $_current_album->name == $this->name) {
+			$page = $_current_page;
 		}
 		$rewrite = pathurlencode($this->linkname) . '/';
 		$plain = '/index.php?album=' . pathurlencode($this->name);
@@ -597,7 +597,7 @@ class AlbumBase extends MediaObject {
 			$rewrite .= _PAGE_ . '/' . $page;
 			$plain .= "&page=$page";
 		}
-		return zp_apply_filter('getLink', rewrite_path($rewrite, $plain), $this, $page);
+		return npgFilters::apply('getLink', rewrite_path($rewrite, $plain), $this, $page);
 	}
 
 	/**
@@ -841,14 +841,14 @@ class AlbumBase extends MediaObject {
 	 * returns true of access is allowed
 	 */
 	function isMyItem($action) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if ($parent = parent::isMyItem($action)) {
 			return $parent;
 		}
-		if ($_zp_current_admin_obj && $_zp_current_admin_obj->getUser() == $this->getOwner()) {
+		if ($_current_admin_obj && $_current_admin_obj->getUser() == $this->getOwner()) {
 			return true;
 		}
-		if (zp_loggedin($action)) {
+		if (npg_loggedin($action)) {
 			$subRights = $this->subRights();
 			if ($subRights) {
 				$rights = LIST_RIGHTS;
@@ -892,14 +892,14 @@ class AlbumBase extends MediaObject {
 	 * Owner functions
 	 */
 	function getOwner() {
-		global $_zp_authority;
+		global $_authority;
 		$owner = $this->get('owner');
 		if (empty($owner)) {
 			$p = $this->getParent();
 			if (is_object($p)) {
 				$owner = $p->getOwner();
 			} else {
-				$admin = $_zp_authority->getMasterUser();
+				$admin = $_authority->getMasterUser();
 				$owner = $admin->getUser();
 			}
 		}
@@ -924,9 +924,9 @@ class AlbumBase extends MediaObject {
 	 * @return string
 	 */
 	function getAlbumTheme() {
-		global $_zp_gallery;
+		global $_gallery;
 		if (in_context(ZP_SEARCH_LINKED)) {
-			return $_zp_gallery->getCurrentTheme();
+			return $_gallery->getCurrentTheme();
 		} else {
 			return $this->get('album_theme');
 		}
@@ -989,23 +989,23 @@ class AlbumBase extends MediaObject {
 	 * returns NULL if not a managed album
 	 */
 	function subRights() {
-		global $_zp_admin_owner_list;
+		global $_admin_owner_list;
 		if (!is_null($this->subrights)) {
 			return $this->subrights;
 		}
 		$this->subrights = 0;
-		if (zp_loggedin()) {
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		if (npg_loggedin()) {
+			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				$this->subrights = MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_UPLOAD | MANAGED_OBJECT_RIGHTS_VIEW;
 				return $this->subrights;
 			}
 			getManagedAlbumList();
-			if (count($_zp_admin_owner_list) > 0) {
+			if (count($_admin_owner_list) > 0) {
 				$uralbum = getUrAlbum($this);
 				if ($uralbum->name == $this->name) {
-					if (isset($_zp_admin_owner_list[$uralbum->name])) {
-						$this->subrights = $_zp_admin_owner_list[$uralbum->name] | MANAGED_OBJECT_MEMBER;
-						if (zp_loggedin(VIEW_UNPUBLISHED_RIGHTS))
+					if (isset($_admin_owner_list[$uralbum->name])) {
+						$this->subrights = $_admin_owner_list[$uralbum->name] | MANAGED_OBJECT_MEMBER;
+						if (npg_loggedin(VIEW_UNPUBLISHED_RIGHTS))
 							$this->subrights = $this->subrights | MANAGED_OBJECT_RIGHTS_VIEW;
 					}
 				} else {
@@ -1126,9 +1126,9 @@ class AlbumBase extends MediaObject {
 	 * @return object
 	 */
 	function getNextAlbum() {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($parent = $this->getParent())) {
-			$albums = $_zp_gallery->getAlbums(0);
+			$albums = $_gallery->getAlbums(0);
 		} else {
 			$albums = $parent->getAlbums(0);
 		}
@@ -1149,9 +1149,9 @@ class AlbumBase extends MediaObject {
 	 * @return object
 	 */
 	function getPrevAlbum() {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($parent = $this->getParent())) {
-			$albums = $_zp_gallery->getAlbums(0);
+			$albums = $_gallery->getAlbums(0);
 		} else {
 			$albums = $parent->getAlbums(0);
 		}
@@ -1172,10 +1172,10 @@ class AlbumBase extends MediaObject {
 	 * @return int
 	 */
 	function getGalleryPage() {
-		global $_zp_gallery;
+		global $_gallery;
 		if ($this->index == null) {
 			if (is_null($parent = $this->getParent())) {
-				$albums = $_zp_gallery->getAlbums(0);
+				$albums = $_gallery->getAlbums(0);
 			} else {
 				$albums = $parent->getAlbums(0);
 			}
@@ -1196,7 +1196,7 @@ class Album extends AlbumBase {
 	 * @return Album
 	 */
 	function __construct($folder8, $cache = true, $quiet = false) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		$folder8 = trim($folder8, '/');
 		$folderFS = internalToFilesystem($folder8);
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS . "/";
@@ -1208,14 +1208,14 @@ class Album extends AlbumBase {
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
 		$this->checkForPublish();
 		if ($new) {
-			if ($_zp_current_admin_obj) {
-				$this->setOwner($_zp_current_admin_obj->getUser());
+			if ($_current_admin_obj) {
+				$this->setOwner($_current_admin_obj->getUser());
 			}
 			$this->setSortOrder(999);
 			$this->save();
-			zp_apply_filter('new_album', $this);
+			npgFilters::apply('new_album', $this);
 		}
-		zp_apply_filter('album_instantiate', $this);
+		npgFilters::apply('album_instantiate', $this);
 	}
 
 	/**
@@ -1224,11 +1224,11 @@ class Album extends AlbumBase {
 	 * @return bool
 	 */
 	protected function setDefaults() {
-		global $_zp_gallery;
+		global $_gallery;
 		// Set default data for a new Album (title and parent_id)
 		parent::setDefaults();
 		$this->set('mtime', filemtime($this->localpath));
-		if (!$_zp_gallery->getAlbumUseImagedate()) {
+		if (!$_gallery->getAlbumUseImagedate()) {
 			$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
 		}
 		return true;
@@ -1259,7 +1259,7 @@ class Album extends AlbumBase {
 	 * @return array
 	 */
 	function getAlbums($page = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (!$this->exists)
 			return array();
 		if ($mine || is_null($this->subalbums) || $care && $sorttype . $sortdirection !== $this->lastsubalbumsort) {
@@ -1277,7 +1277,7 @@ class Album extends AlbumBase {
 				$subalbums[] = $dir;
 			}
 			$key = $this->getAlbumSortKey($sorttype);
-			$this->subalbums = $_zp_gallery->sortAlbumArray($this, $subalbums, $key, $sortdirection, $mine);
+			$this->subalbums = $_gallery->sortAlbumArray($this, $subalbums, $key, $sortdirection, $mine);
 			$this->lastsubalbumsort = $sorttype . $sortdirection;
 		}
 		return parent::getAlbums($page);
@@ -1580,9 +1580,9 @@ class Album extends AlbumBase {
 		}
 
 		if ($dirs) {
-			return zp_apply_filter('album_filter', $files);
+			return npgFilters::apply('album_filter', $files);
 		} else {
-			return zp_apply_filter('image_filter', $files);
+			return npgFilters::apply('image_filter', $files);
 		}
 	}
 
@@ -1645,10 +1645,10 @@ class dynamicAlbum extends AlbumBase {
 				$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
 				$this->setSortOrder(999);
 				$this->save();
-				zp_apply_filter('new_album', $this);
+				npgFilters::apply('new_album', $this);
 			}
 		}
-		zp_apply_filter('album_instantiate', $this);
+		npgFilters::apply('album_instantiate', $this);
 	}
 
 	/**
@@ -1662,7 +1662,7 @@ class dynamicAlbum extends AlbumBase {
 	 * @return array
 	 */
 	function getAlbums($page = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (!$this->exists)
 			return array();
 		if (is_null($sorttype)) {
@@ -1676,7 +1676,7 @@ class dynamicAlbum extends AlbumBase {
 			$searchengine = $this->getSearchEngine();
 			$subalbums = $searchengine->getAlbums(0, $sorttype, $sortdirection, $care, $mine);
 			$key = $this->getAlbumSortKey($sorttype);
-			$this->subalbums = $_zp_gallery->sortAlbumArray($this, $subalbums, $key, $sortdirection, $mine);
+			$this->subalbums = $_gallery->sortAlbumArray($this, $subalbums, $key, $sortdirection, $mine);
 			$this->lastsubalbumsort = $sorttype . $sortdirection;
 		}
 		return parent::getAlbums($page);

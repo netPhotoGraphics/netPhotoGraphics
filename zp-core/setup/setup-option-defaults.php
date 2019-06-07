@@ -60,9 +60,9 @@ if (!isset($setOptions['secret_init_vector'])) {
 purgeOption('adminTagsTab', 0);
 
 //	if your are installing, you must be OK
-if ($_zp_current_admin_obj) {
-	$_zp_current_admin_obj->setPolicyAck(1);
-	$_zp_current_admin_obj->save();
+if ($_current_admin_obj) {
+	$_current_admin_obj->setPolicyAck(1);
+	$_current_admin_obj->save();
 }
 
 /* fix for NULL theme name */
@@ -197,11 +197,11 @@ foreach ($list as $file) {
 	unlink($file);
 }
 
-$old = @unserialize(getOption('zenphoto_install'));
-$from = preg_replace('/\[.*\]/', '', @$old['ZENPHOTO']);
-purgeOption('zenphoto_install');
-setOption('zenphoto_install', serialize(installSignature()));
-$admins = $_zp_authority->getAdministrators('all');
+$old = @unserialize(getOption('netphotographics_install'));
+$from = preg_replace('/\[.*\]/', '', @$old['NETPHOTOGRAPHICS']);
+purgeOption('netphotographics_install');
+setOption('netphotographics_install', serialize(installSignature()));
+$admins = $_authority->getAdministrators('all');
 setOptionDefault('gallery_data', NULL);
 
 $questions[] = getSerializedArray(getAllTranslations("What is your father’s middle name?"));
@@ -231,28 +231,28 @@ if (empty($admins)) { //	empty administrators table
 		}
 		$admin_obj = unserialize($_SESSION['admin'][$cloneid]);
 		$admindata = $admin_obj->getData();
-		$myadmin = new Zenphoto_Administrator($admindata['user'], 1);
+		$myadmin = new npg_Administrator($admindata['user'], 1);
 		unset($admindata['id']);
 		unset($admindata['user']);
 		foreach ($admindata as $key => $value) {
 			$myadmin->set($key, $value);
 		}
 		$myadmin->save();
-		Zenphoto_Authority::logUser($myadmin);
-		$_zp_loggedin = ALL_RIGHTS;
-		setOption('license_accepted', ZENPHOTO_VERSION);
+		npg_Authority::logUser($myadmin);
+		$_loggedin = ALL_RIGHTS;
+		setOption('license_accepted', NETPHOTOGRAPHICS_VERSION);
 		unset($_SESSION['clone'][$cloneid]);
 		unset($_SESSION['admin'][$cloneid]);
 	} else {
-		if (Zenphoto_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
+		if (npg_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
 				//	The password hash of these old versions did not have the extra text.
 				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
 				purgeOption('extra_auth_hash_text');
 				setOptionDefault('extra_auth_hash_text', '');
 			} else {
-				$msg = sprintf(gettext('Migrating lib-auth data version %1$s => version %2$s '), $oldv, Zenphoto_Authority::$preferred_version);
-				if (!$_zp_authority->migrateAuth(Zenphoto_Authority::$preferred_version)) {
+				$msg = sprintf(gettext('Migrating lib-auth data version %1$s => version %2$s '), $oldv, npg_Authority::$preferred_version);
+				if (!$_authority->migrateAuth(npg_Authority::$preferred_version)) {
 					$msg .= ': ' . gettext('failed');
 				}
 				echo $msg;
@@ -274,7 +274,7 @@ if (empty($admins)) { //	empty administrators table
 purgeOption('defined_groups');
 
 // old configuration opitons. preserve them
-$conf = $_zp_conf_vars;
+$conf = $_conf_vars;
 
 $showDefaultThumbs = array();
 foreach (getOptionsLike('album_tab_default_thumbs_') as $option => $value) {
@@ -331,7 +331,7 @@ if (isset($_GET['mod_rewrite'])) {
 		<?php echo gettext('Mod_Rewrite check:'); ?>
 		<br />
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . $_zp_conf_vars['special_pages']['page']['rewrite']; ?>/setup_set-mod_rewrite?z=setup" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . $_conf_vars['special_pages']['page']['rewrite']; ?>/setup_set-mod_rewrite?z=setup" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
 		</span>
 	</p>
 	<?php
@@ -353,7 +353,7 @@ setOptionDefault('image_quality', 85);
 setOptionDefault('thumb_quality', 75);
 setOptionDefault('last_garbage_collect', time());
 setOptionDefault('cookie_persistence', 5184000);
-setOptionDefault('zenphoto_cookie_path', WEBPATH);
+setOptionDefault('cookie_path', WEBPATH);
 
 setOptionDefault('search_password', '');
 setOptionDefault('search_hint', NULL);
@@ -484,7 +484,7 @@ if (!is_array($groupsdefined)) {
 	$groupsdefined = array();
 }
 if (!in_array('administrators', $groupsdefined)) {
-	$groupobj = Zenphoto_Authority::newAdministrator('administrators', 0);
+	$groupobj = npg_Authority::newAdministrator('administrators', 0);
 	$groupobj->setName('group');
 	$groupobj->setRights(ALL_RIGHTS);
 	$groupobj->set('other_credentials', gettext('Users with full privileges'));
@@ -493,7 +493,7 @@ if (!in_array('administrators', $groupsdefined)) {
 	$groupsdefined[] = 'administrators';
 }
 if (!in_array('viewers', $groupsdefined)) {
-	$groupobj = Zenphoto_Authority::newAdministrator('viewers', 0);
+	$groupobj = npg_Authority::newAdministrator('viewers', 0);
 	$groupobj->setName('group');
 	$groupobj->setRights(NO_RIGHTS | POST_COMMENT_RIGHTS | VIEW_ALL_RIGHTS);
 	$groupobj->set('other_credentials', gettext('Users allowed only to view and comment'));
@@ -502,7 +502,7 @@ if (!in_array('viewers', $groupsdefined)) {
 	$groupsdefined[] = 'viewers';
 }
 if (!in_array('blocked', $groupsdefined)) {
-	$groupobj = Zenphoto_Authority::newAdministrator('blocked', 0);
+	$groupobj = npg_Authority::newAdministrator('blocked', 0);
 	$groupobj->setName('group');
 	$groupobj->setRights(0);
 	$groupobj->set('other_credentials', gettext('Banned users'));
@@ -511,7 +511,7 @@ if (!in_array('blocked', $groupsdefined)) {
 	$groupsdefined[] = 'blocked';
 }
 if (!in_array('album managers', $groupsdefined)) {
-	$groupobj = Zenphoto_Authority::newAdministrator('album managers', 0);
+	$groupobj = npg_Authority::newAdministrator('album managers', 0);
 	$groupobj->setName('template');
 	$groupobj->setRights(NO_RIGHTS | OVERVIEW_RIGHTS | POST_COMMENT_RIGHTS | VIEW_ALL_RIGHTS | UPLOAD_RIGHTS | COMMENT_RIGHTS | ALBUM_RIGHTS | THEMES_RIGHTS);
 	$groupobj->set('other_credentials', gettext('Managers of one or more albums'));
@@ -520,7 +520,7 @@ if (!in_array('album managers', $groupsdefined)) {
 	$groupsdefined[] = 'album managers';
 }
 if (!in_array('default', $groupsdefined)) {
-	$groupobj = Zenphoto_Authority::newAdministrator('default', 0);
+	$groupobj = npg_Authority::newAdministrator('default', 0);
 	$groupobj->setName('template');
 	$groupobj->setRights(DEFAULT_RIGHTS);
 	$groupobj->set('other_credentials', gettext('Default user settings'));
@@ -529,7 +529,7 @@ if (!in_array('default', $groupsdefined)) {
 	$groupsdefined[] = 'default';
 }
 if (!in_array('newuser', $groupsdefined)) {
-	$groupobj = Zenphoto_Authority::newAdministrator('newuser', 0);
+	$groupobj = npg_Authority::newAdministrator('newuser', 0);
 	$groupobj->setName('template');
 	$groupobj->setRights(NO_RIGHTS);
 	$groupobj->set('other_credentials', gettext('Newly registered and verified users'));
@@ -541,7 +541,7 @@ setOption('defined_groups', serialize($groupsdefined)); // record that these hav
 
 setOptionDefault('AlbumThumbSelect', 1);
 
-setOptionDefault('site_email', "zenphoto@" . $_SERVER['SERVER_NAME']);
+setOptionDefault('site_email', "netPhotoGraphics" . $_SERVER['SERVER_NAME']);
 setOptionDefault('site_email_name', 'netPhotoGraphics');
 
 setOptionDefault('register_user_notify', 1);
@@ -579,9 +579,9 @@ foreach (getOptionsLike('logviewed_') as $option => $value) {
 
 //effervescence_plus migration
 if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
-	if ($_zp_gallery->getCurrentTheme() == 'effervescence_plus') {
-		$_zp_gallery->setCurrentTheme('effervescence+');
-		$_zp_gallery->save();
+	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
+		$_gallery->setCurrentTheme('effervescence+');
+		$_gallery->save();
 	}
 	$options = query_full_array('SELECT LCASE(`name`) as name, `value` FROM ' . prefix('options') . ' WHERE `theme`="effervescence_plus"');
 	foreach ($options as $option) {
@@ -594,7 +594,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	<?php
 	setOption('known_themes', serialize(array())); //	reset known themes
 	$deprecate = false;
-	$themes = array_keys($_zp_gallery->getThemes());
+	$themes = array_keys($_gallery->getThemes());
 	natcasesort($themes);
 	echo gettext('Theme setup:') . '<br />';
 
@@ -755,7 +755,7 @@ foreach ($data as $key => $value) {
 	purgeOption($key);
 }
 
-$_zp_gallery = new Gallery(); // insure we have the proper options instantiated
+$_gallery = new Gallery(); // insure we have the proper options instantiated
 
 setOptionDefault('search_cache_duration', 30);
 setOptionDefault('cache_random_search', 1);
@@ -789,12 +789,12 @@ setOptionDefault('theme_head_separator', ' | ');
 setOptionDefault('tagsort', 'alpha');
 setOptionDefault('languageTagSearch', 1);
 
-$vers = explode('-', ZENPHOTO_VERSION);
+$vers = explode('-', NETPHOTOGRAPHICS_VERSION);
 $vers = explode('.', $vers[0]);
 while (count($vers) < 3) {
 	$vers[] = 0;
 }
-$zpversion = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
+$npg_version = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
 $_languages = i18n::generateLanguageList('all');
 
 $unsupported = $disallow = array();
@@ -817,7 +817,7 @@ foreach ($_languages as $language => $dirname) {
 	}
 }
 setOption('locale_unsupported', serialize($unsupported));
-i18n::setupCurrentLocale($_zp_setupCurrentLocale_result);
+i18n::setupCurrentLocale($_setupCurrentLocale_result);
 
 //The following should be done LAST so it catches anything done above
 //set plugin default options by instantiating the options interface
@@ -908,7 +908,7 @@ if ($deprecate) {
 	}
 }
 
-$_zp_gallery->garbageCollect();
+$_gallery->garbageCollect();
 
 setOption('zenphotoCompatibilityPack_signature', serialize($compatibilityIs));
 ?>

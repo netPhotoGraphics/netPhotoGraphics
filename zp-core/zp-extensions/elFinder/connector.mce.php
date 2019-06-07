@@ -63,7 +63,7 @@ if (empty($locale))
 			commands : [
 							'open', 'reload', 'home', 'up', 'back', 'forward', 'getfile', 'quicklook',
 <?php
-if (zp_loggedin(FILES_RIGHTS)) {
+if (npg_loggedin(FILES_RIGHTS)) {
 	?>
 				'download', 'rm', 'duplicate', 'rename', 'mkdir', 'mkfile', 'upload', 'copy',
 								'cut', 'paste', 'edit', 'extract', 'archive', 'search',
@@ -77,7 +77,7 @@ if (zp_loggedin(FILES_RIGHTS)) {
 							lang: '<?php echo $locale; ?>', // language (OPTIONAL)
 							customData: {
 							'XSRFToken':'<?php echo getXSRFToken('elFinder'); ?>',
-											'zp_user_auth':'<?php echo zp_getCookie('zp_user_auth'); ?>',
+											'user_auth':'<?php echo getNPGCookie('user_auth'); ?>',
 											'origin':'tinyMCE',
 											'type':'<?php echo sanitize(@$_GET['type']); ?>'
 							},

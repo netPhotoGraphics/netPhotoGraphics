@@ -7,7 +7,7 @@
  *
  * If you do not want particular pages to be tracked you should pass an array containing <var>"matomo_tag"</var> as the
  * <i>exclude</i> parameter to the theme page body close filter application. e.g.
- * <code>zp_apply_filter('theme_body_close',array("matomo_tag"));</code>
+ * <code>npgFilters::apply('theme_body_close',array("matomo_tag"));</code>
  *
  * Additionally a content macro [MATOMO_OPTOUT] is provided that embeds a facility for visitors to optout of tracking as required by the law of several countries.
  * Place this on your privacy statement page.
@@ -37,13 +37,13 @@ $plugin_description = gettext('A plugin to insert Matomo (formerly Piwik) JavaSc
 
 $option_interface = 'matomoStats';
 
-if (!getOption('matomo_admintracking') || !zp_loggedin(ADMIN_RIGHTS)) {
-	zp_register_filter('theme_body_close', 'matomoStats::script');
+if (!getOption('matomo_admintracking') || !npg_loggedin(ADMIN_RIGHTS)) {
+	npgFilters::register('theme_body_close', 'matomoStats::script');
 }
 if (getOption('matomo_widgets_code')) {
-	zp_register_filter('admin_tabs', 'matomoStats::admin_tabs');
+	npgFilters::register('admin_tabs', 'matomoStats::admin_tabs');
 }
-zp_register_filter('content_macro', 'matomoStats::macro');
+npgFilters::register('content_macro', 'matomoStats::macro');
 
 class matomoStats {
 
@@ -187,7 +187,7 @@ class matomoStats {
 	}
 
 	static function admin_tabs($tabs) {
-		if (zp_loggedin(OVERVIEW_RIGHTS)) {
+		if (npg_loggedin(OVERVIEW_RIGHTS)) {
 			$tabs['overview']['subtabs'][gettext('Matomo statistics')] = PLUGIN_FOLDER . '/matomo/matomo_tab.php';
 		}
 		return $tabs;
@@ -222,13 +222,13 @@ class matomoStats {
 
 	/**
 	 * Gets the document title of the current page to track. Gets the title in a single language only if the option for single_language_tracking is set
-	 * @global string $_zp_current_locale
+	 * @global string $_current_locale
 	 */
 	static function printDocumentTitle() {
-		global $_zp_current_locale;
+		global $_current_locale;
 
 		$locale_to_track = getOption('matomo_language_tracking');
-		if ($locale_to_track != $_zp_current_locale && $locale_to_track != NULL) {
+		if ($locale_to_track != $_current_locale && $locale_to_track != NULL) {
 			$original_locale = getOption('locale');
 			setOption('locale', $locale_to_track, false);
 			i18n::setupCurrentLocale($locale_to_track);

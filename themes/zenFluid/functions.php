@@ -4,15 +4,15 @@
 /**
  * Remove admin toolbox for all but site and album admins.
  */
-if (!zp_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))
-	zp_remove_filter('theme_body_close', 'adminToolbox');
+if (!npg_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))
+	npgFilters::remove('theme_body_close', 'adminToolbox');
 
 /**
  * Returns an image for the home page
  *
  */
 function printHomepageImage($imageRoot, $imageRandom, $titleStyle, $imageStyle) {
-	global $_zp_gallery;
+	global $_gallery;
 	if ($imageRoot == '*All Albums*')
 		$imageRoot = '';
 	if (empty($imageRoot)) {
@@ -62,9 +62,9 @@ function printHomepageImage($imageRoot, $imageRandom, $titleStyle, $imageStyle) 
  * @return object
  */
 function getLatestImagesAlbum($rootAlbum = '') {
-	global $_zp_current_album, $_zp_gallery, $_zp_current_search;
+	global $_current_album, $_gallery, $_current_search;
 	if (empty($rootAlbum)) {
-		$album = $_zp_current_album;
+		$album = $_current_album;
 	} else {
 		if (is_object($rootAlbum)) {
 			$album = $rootAlbum;
@@ -110,8 +110,8 @@ function getLatestImagesAlbum($rootAlbum = '') {
  * @return object
  */
 function getLatestImages() {
-	global $_zp_gallery;
-	if (zp_loggedin()) {
+	global $_gallery;
+	if (npg_loggedin()) {
 		$imageWhere = '';
 	} else {
 		$imageWhere = " AND " . prefix('images') . ".show=1";

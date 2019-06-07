@@ -20,8 +20,8 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = 99 | CLASS_PLUGIN;
 	$plugin_description = gettext('Invalidates all cookies that were created earlier than the invalidate action.');
 }
-zp_register_filter('admin_utilities_buttons', 'cookieInvalidator::button');
-$_zp_button_actions[] = 'cookieInvalidator::setBase';
+npgFilters::register('admin_utilities_buttons', 'cookieInvalidator::button');
+$_admin_button_actions[] = 'cookieInvalidator::setBase';
 
 class cookieInvalidator {
 
@@ -44,13 +44,13 @@ class cookieInvalidator {
 	}
 
 	static function invalidate($cookies) {
-		global $_zp_loggedin, $_zp_current_admin_obj;
-		if (zp_getCookie('cookieInvalidator') != ($newBase = getOption('cookieInvalidator_base'))) {
+		global $_loggedin, $_current_admin_obj;
+		if (getNPGCookie('cookieInvalidator') != ($newBase = getOption('cookieInvalidator_base'))) {
 			foreach ($cookies as $cookie => $value) {
-				zp_clearCookie($cookie);
+				clearNPGCookie($cookie);
 			}
-			zp_setCookie('cookieInvalidator', $newBase);
-			$_zp_current_admin_obj = $_zp_loggedin = NULL;
+			setNPGCookie('cookieInvalidator', $newBase);
+			$_current_admin_obj = $_loggedin = NULL;
 		}
 	}
 

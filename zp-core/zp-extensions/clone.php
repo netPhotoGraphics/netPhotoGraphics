@@ -44,13 +44,13 @@ if ($plugin_disable) {
 	enableExtension('clone', 0);
 } else {
 	require_once(CORE_SERVERPATH . 'reconfigure.php');
-	zp_register_filter('admin_tabs', 'npgClone::tabs', -312);
+	npgFilters::register('admin_tabs', 'npgClone::tabs', -312);
 
 	class npgClone {
 
 		static function tabs($tabs) {
-			global $_zp_current_admin_obj;
-			if ((zp_loggedin(ADMIN_RIGHTS) && $_zp_current_admin_obj->getID())) {
+			global $_current_admin_obj;
+			if ((npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID())) {
 				$subtabs = $tabs['admin']['subtabs'];
 				$subtabs[gettext("clone")] = PLUGIN_FOLDER . '/clone/cloneTab.php?page=admin&tab=clone';
 				$tabs['admin']['subtabs'] = $subtabs;
@@ -61,12 +61,12 @@ if ($plugin_disable) {
 		/**
 		 * get a list of cloned installations
 		 *
-		 * @global type $_zp_current_admin_obj
+		 * @global type $_current_admin_obj
 		 * @param bool $valid if true, do not return obsolete entries
 		 * @return array
 		 */
 		static function clones($only_valid = true) {
-			global $_zp_current_admin_obj;
+			global $_current_admin_obj;
 			$clones = array();
 			$sig = @file_get_contents(CORE_SERVERPATH . 'version.php');
 			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone"')) {

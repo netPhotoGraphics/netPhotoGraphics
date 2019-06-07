@@ -11,7 +11,7 @@
 $plugin_description = gettext('Provides functionality to get the related items to an item based on a tag search.');
 
 function getRelatedItems($type = 'news', $album = NULL) {
-	global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_gallery_page;
+	global $_gallery, $_current_album, $_current_image, $_gallery_page;
 	$tags = getTags();
 	if (!empty($tags)) { // if there are tags at all
 		$searchstring = '';
@@ -93,19 +93,19 @@ function getRelatedItems($type = 'news', $album = NULL) {
  * @param string $type "albums", "images", "news", "pages"
  */
 function createRelatedItemsResultArray($result, $type) {
-	global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_current_page, $_zp_current_article, $_zp_gallery_page;
-	switch ($_zp_gallery_page) {
+	global $_gallery, $_current_album, $_current_image, $_CMS_current_page, $_CMS_current_article, $_gallery_page;
+	switch ($_gallery_page) {
 		case 'album.php':
-			$current = $_zp_current_album;
+			$current = $_current_album;
 			break;
 		case 'image.php':
-			$current = $_zp_current_image;
+			$current = $_current_image;
 			break;
 		case 'news.php':
-			$current = $_zp_current_article;
+			$current = $_CMS_current_article;
 			break;
 		case 'pages.php':
-			$current = $_zp_current_page;
+			$current = $_CMS_current_page;
 			break;
 	}
 	$results = array();
@@ -150,7 +150,7 @@ function createRelatedItemsResultArray($result, $type) {
  * @param bool $thumb For $type = 'albums' or 'images' if a thumb should be shown (default size as set on the options)
  */
 function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excerpt = NULL, $thumb = false, $date = false) {
-	global $_zp_gallery, $_zp_current_album, $_zp_current_image;
+	global $_gallery, $_current_album, $_current_image;
 	$labels = array('albums' => gettext('Albums'), 'images' => gettext('Images'), 'news' => NEWS_LABEL, 'pages' => gettext('Pages'));
 
 	$result = getRelatedItems($type, $specific);

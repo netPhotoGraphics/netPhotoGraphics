@@ -1,9 +1,9 @@
 <?php
-zp_register_filter('themeSwitcher_head', 'switcher_head');
-zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
+npgFilters::register('themeSwitcher_head', 'switcher_head');
+npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 
 if (!OFFSET_PATH) {
-	if ((getOption('use_galleriffic')) && !(($_zp_gallery_page == 'image.php') || ($_zp_gallery_page == 'search.php') || ($_zp_gallery_page == 'favorites.php'))) {
+	if ((getOption('use_galleriffic')) && !(($_gallery_page == 'image.php') || ($_gallery_page == 'search.php') || ($_gallery_page == 'favorites.php'))) {
 		setOption('image_size', '555', false);
 		setOption('image_use_side', 'longest', false);
 		setOption('thumb_size', '85', false);
@@ -20,7 +20,7 @@ if (!OFFSET_PATH) {
 	setOption('tinymce_comments', null, false); // force this option to disable tinyMCE for comment form
 
 	$_zenpage_enabled = extensionEnabled('zenpage');
-	$_zp_page_check = 'my_checkPageValidity';
+	$_current_page_check = 'my_checkPageValidity';
 }
 $themecolors = array('light', 'dark');
 if (class_exists('themeSwitcher')) {
@@ -37,7 +37,7 @@ function iconColor($icon) {
 
 function switcher_head($ignore) {
 	global $personalities, $themecolors, $themeColor;
-	$themeColor = zp_getCookie('themeSwitcher_themeColor');
+	$themeColor = getNPGCookie('themeSwitcher_themeColor');
 	if (!empty($themeColor)) {
 		setOption('css_style', $themeColor, false);
 	}
@@ -56,7 +56,7 @@ function switcher_head($ignore) {
 
 function switcher_controllink($ignore) {
 	global $themecolors;
-	$color = zp_getCookie('themeSwitcher_themeColor');
+	$color = getNPGCookie('themeSwitcher_themeColor');
 	if (!$color) {
 		$color = getOption('css_style');
 	}
@@ -130,7 +130,7 @@ function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all'
 					$html = "<img src=\"" . pathurlencode($randomImage->getThumb()) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
 					break;
 			}
-			echo zp_apply_filter('custom_image_html', $html, false);
+			echo npgFilters::apply('custom_image_html', $html, false);
 			echo "</a>";
 			echo "</li>\n";
 		} else {

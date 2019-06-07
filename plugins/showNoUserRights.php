@@ -13,15 +13,15 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Hide the output of user rights and other info if user does NOT have ADMIN_RIGHTS.");
 
-zp_register_filter('admin_head', 'showNoUserRights::customDisplayRights');
-zp_register_filter('plugin_tabs', 'showNoUserRights::tab');
+npgFilters::register('admin_head', 'showNoUserRights::customDisplayRights');
+npgFilters::register('plugin_tabs', 'showNoUserRights::tab');
 
 class showNoUserRights {
 
 	static function customDisplayRights() {
-		global $_zp_admin_tab, $_zp_admin_subtab;
-		if (!zp_loggedin(ADMIN_RIGHTS)) {
-			if ($_zp_admin_tab == 'admin' && ($_zp_admin_subtab == 'users') || is_null($_zp_admin_subtab)) {
+		global $_admin_tab, $_admin_subtab;
+		if (!npg_loggedin(ADMIN_RIGHTS)) {
+			if ($_admin_tab == 'admin' && ($_admin_subtab == 'users') || is_null($_admin_subtab)) {
 				?>
 				<script type="text/javascript">
 					// <!-- <![CDATA[

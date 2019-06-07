@@ -14,16 +14,16 @@ require_once(CORE_SERVERPATH . 'functions-config.php');
 require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (isset($_GET['tab'])) {
-	$_zp_admin_subtab = sanitize($_GET['tab'], 3);
+	$_admin_subtab = sanitize($_GET['tab'], 3);
 } else {
 	if (isset($_POST['saveoptions'])) {
-		$_zp_admin_subtab = sanitize($_POST['saveoptions'], 3);
+		$_admin_subtab = sanitize($_POST['saveoptions'], 3);
 	} else {
-		$_zp_admin_subtab = 'general';
+		$_admin_subtab = 'general';
 	}
 }
-if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php')) {
-	require_once(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php');
+if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
+	require_once(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php');
 
 	admin_securityChecks($optionRights, currentRelativeURL());
 	define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
@@ -55,8 +55,8 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php')
 	<?php
 	$table = NULL;
 
-	if ($_zp_admin_subtab == 'gallery' || $_zp_admin_subtab == 'image') {
-		if ($_zp_admin_subtab == 'image') {
+	if ($_admin_subtab == 'gallery' || $_admin_subtab == 'image') {
+		if ($_admin_subtab == 'image') {
 			$table = 'images';
 			$targetid = 'customimagesort';
 		} else {
@@ -85,8 +85,8 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php')
 		</script>
 		<?php
 	}
-	zp_apply_filter('texteditor_config', 'zenphoto');
-	Zenphoto_Authority::printPasswordFormJS();
+	npgFilters::apply('texteditor_config', 'zenphoto');
+	npg_Authority::printPasswordFormJS();
 	?>
 	</head>
 	<body>
@@ -98,7 +98,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php')
 				/* Page code */
 				$subtab = getCurrentTab();
 				$name = getTabName('options', $subtab);
-				zp_apply_filter('admin_note', 'options', $subtab);
+				npgFilters::apply('admin_note', 'options', $subtab);
 				?>
 				<h1>
 					<?php
@@ -157,8 +157,8 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_zp_admin_subtab . '.php')
 					echo '</div>';
 				}
 
-				if (isset($_GET['cookiepath']) && @$_COOKIE['zenphoto_cookie_path'] != getOption('zenphoto_cookie_path')) {
-					setOption('zenphoto_cookie_path', NULL);
+				if (isset($_GET['cookiepath']) && @$_COOKIE['cookie_path'] != getOption('cookie_path')) {
+					setOption('cookie_path', NULL);
 					?>
 					<div class="errorbox">
 						<h2><?php echo gettext('The path you selected resulted in cookies not being retrievable. It has been reset.'); ?></h2>

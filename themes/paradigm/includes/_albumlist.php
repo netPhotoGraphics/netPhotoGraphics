@@ -9,8 +9,8 @@
 				<h2 class="media-heading"><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><i class="glyphicon glyphicon-folder-close">&nbsp;</i><?php printAlbumTitle(); ?></a></h3>
 					<p><?php
 						echo shortenContent(getAlbumDesc(), 200, '...');
-						if ($_zp_gallery_page == 'favorites.php') {
-							printAddToFavorites($_zp_current_album, '', gettext('Remove'));
+						if ($_gallery_page == 'favorites.php') {
+							printAddToFavorites($_current_album, '', gettext('Remove'));
 						}
 						?></p>
 			</div>

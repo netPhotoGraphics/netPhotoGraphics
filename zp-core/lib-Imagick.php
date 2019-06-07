@@ -18,20 +18,20 @@ $_imagick_version_pass = version_compare($_imagick_version, IMAGICK_REQUIRED_VER
 $_imagemagick_version = '';
 $_imagemagick_version_pass = false;
 
-$_zp_imagick_present = extension_loaded('imagick') && $_imagick_version_pass;
+$_imagick_present = extension_loaded('imagick') && $_imagick_version_pass;
 
-if ($_zp_imagick_present) {
+if ($_imagick_present) {
 	@$_imagemagick_version = Imagick::getVersion();
 	preg_match('/\d+(\.\d+)*/', $_imagemagick_version['versionString'], $matches);
 
 	$_imagemagick_version['versionNumber'] = $matches[0];
 	$_imagemagick_version_pass = version_compare($_imagemagick_version['versionNumber'], IMAGEMAGICK_REQUIRED_VERSION, '>=');
 
-	$_zp_imagick_present &= $_imagick_version_pass;
+	$_imagick_present &= $_imagick_version_pass;
 	unset($matches);
 }
 
-$_zp_graphics_optionhandlers += array('lib_Imagick_Options' => new lib_Imagick_Options());
+$_graphics_optionhandlers += array('lib_Imagick_Options' => new lib_Imagick_Options());
 
 /**
  * Option class for lib-Imagick
@@ -60,7 +60,7 @@ class lib_Imagick_Options {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		global $_zp_imagick_present, $_zp_graphics_optionhandlers;
+		global $_imagick_present, $_graphics_optionhandlers;
 		if ($disabled = $this->canLoadMsg()) {
 			setOption('use_imagick', 0, true);
 		}
@@ -130,7 +130,7 @@ class lib_Imagick_Options {
 /**
  * Image manipulation functions using the Imagick library
  */
-if ($_zp_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) {
+if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) {
 	$_lib_Imagick_info = array();
 	$_lib_Imagick_info['Library'] = 'Imagick';
 	$_lib_Imagick_info['Library_desc'] = sprintf(gettext('PHP Imagick library <em>%s</em>') . '<br /><em>%s</em>', $_imagick_version, $_imagemagick_version['versionString']);

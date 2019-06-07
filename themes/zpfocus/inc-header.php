@@ -4,12 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 		// Set some things depending on what page we are on...
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case 'index.php':
-				if ($_zp_page > 1) {
-					$metatitle = getBareGalleryTitle() . " ($_zp_page)";
+				if ($_current_page > 1) {
+					$metatitle = getBareGalleryTitle() . " ($_current_page)";
 				} else {
 					$metatitle = getBareGalleryTitle();
 				}
@@ -19,8 +19,8 @@
 				break;
 			case 'favorites.php':
 			case 'album.php':
-				if ($_zp_page > 1) {
-					$metatitle = getBareAlbumTitle() . " ($_zp_page)";
+				if ($_current_page > 1) {
+					$metatitle = getBareAlbumTitle() . " ($_current_page)";
 				} else {
 					$metatitle = getBareAlbumTitle();
 				}
@@ -37,7 +37,7 @@
 				}
 				break;
 			case 'image.php':
-				if (!$_zp_current_album->isDynamic()) {
+				if (!$_current_album->isDynamic()) {
 					$titlebreadcrumb = getTitleBreadcrumb();
 				} else {
 					$titlebreadcrumb = '';
@@ -70,8 +70,8 @@
 				if (is_NewsArticle()) {
 					$zpfocus_metatitle = NEWS_LABEL . ' | ' . getBareNewsTitle() . ' | ' . getBareGalleryTitle();
 					$zpfocus_metadesc = truncate_string(getBare(getNewsContent()), 150, '...');
-				} else if ($_zp_current_category) {
-					$zpfocus_metatitle = NEWS_LABEL . ' | ' . $_zp_current_category->getTitle() . ' | ' . getBareGalleryTitle();
+				} else if ($_CMS_current_category) {
+					$zpfocus_metatitle = NEWS_LABEL . ' | ' . $_CMS_current_category->getTitle() . ' | ' . getBareGalleryTitle();
 					$zpfocus_metadesc = truncate_string(getBare(getNewsCategoryDesc()), 150, '...');
 				} else if (getCurrentNewsArchive()) {
 					$zpfocus_metatitle = NEWS_LABEL . ' | ' . getCurrentNewsArchive() . ' | ' . getBareGalleryTitle();
@@ -129,21 +129,21 @@
 
 		<?php
 		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/print_album_menu.php');
-		scriptLoader($_zp_themeroot . '/css/main.css');
+		scriptLoader($_themeroot . '/css/main.css');
 		if (getOption('zpfocus_center_site')) {
-			scriptLoader($_zp_themeroot . '/css/center.css');
+			scriptLoader($_themeroot . '/css/center.css');
 		}
 
-		scriptLoader($_zp_themeroot . '/css/print.css');
+		scriptLoader($_themeroot . '/css/print.css');
 		?>
 		<!--[if lte IE 6]>
 		<?php
-		scriptLoader($_zp_themeroot . '/css/ie6.css');
+		scriptLoader($_themeroot . '/css/ie6.css');
 		?>
 		<![endif]-->
-		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico" />
+		<link rel="shortcut icon" href="<?php echo $_themeroot; ?>/images/favicon.ico" />
 		<?php
-		scriptLoader($_zp_themeroot . '/js/superfish.js');
+		scriptLoader($_themeroot . '/js/superfish.js');
 		?>
 		<script type="text/javascript">
 			jQuery(function () {
@@ -203,7 +203,7 @@
 			}, false);
 		</script>
 		<?php
-		if ($_zp_gallery_page == 'search.php') {
+		if ($_gallery_page == 'search.php') {
 			printZDSearchToggleJS();
 		}
 		?>
@@ -214,7 +214,7 @@
 		<?php } ?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="nav">
 			<div id="nav-wrap">
 				<ul class="sf-menu">
@@ -248,7 +248,7 @@
 							</ul>
 							<?php if ($zpfocus_allow_search) { ?>
 								<div>
-									<?php printSearchForm('', 'searchform', '', gettext('SEARCH'), "$_zp_themeroot/images/search-drop.jpg", null, null, null); ?>
+									<?php printSearchForm('', 'searchform', '', gettext('SEARCH'), "$_themeroot/images/search-drop.jpg", null, null, null); ?>
 								</div>
 							<?php } ?>
 							<?php if (($zpfocus_menutype) == 'jump') { ?>

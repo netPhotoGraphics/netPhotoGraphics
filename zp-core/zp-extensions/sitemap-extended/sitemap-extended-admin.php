@@ -13,7 +13,7 @@ require_once(CORE_SERVERPATH . 'template-functions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-if (!zp_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
+if (!npg_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
 	header('Location: ' . getAdminLink('admin.php') . '?from=' . currentRelativeURL());
 	exit();
 }
@@ -30,7 +30,7 @@ if (isset($_GET['clearsitemapcache'])) {
 
 printAdminHeader('overview', 'sitemap');
 if (isset($_GET['generatesitemaps'])) {
-	$_zp_loggedin = NULL;
+	$_loggedin = NULL;
 	$_sitemap_number = sanitize_numeric($_GET['number']);
 	$sitemap_index = sitemap::getIndexLinks();
 	$sitemap_albums = sitemap::getAlbums();
@@ -89,7 +89,7 @@ echo '</head>';
 		<?php printTabs();
 		?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'sitemap', ''); ?>
+			<?php npgFilters::apply('admin_note', 'sitemap', ''); ?>
 			<h1><?php echo gettext('Sitemap tools'); ?></h1>
 			<div class="tabbox">
 				<?php if (!isset($_GET['generatesitemaps']) && !isset($_GET['clearsitemapcache'])) { ?>

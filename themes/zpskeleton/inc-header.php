@@ -6,15 +6,15 @@ $zpskel_social = function_exists('printAddThis');
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php npgFilters::apply('theme_head'); ?>
 		<?php
 		// Set some things depending on what page we are on...
 		// Define some symbols
 		$prev = "&#9656;";
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case 'index.php':
-				if ($_zp_page > 1) {
-					$metatitle = getBareGalleryTitle() . " ($_zp_page)";
+				if ($_current_page > 1) {
+					$metatitle = getBareGalleryTitle() . " ($_current_page)";
 				} else {
 					$metatitle = getBareGalleryTitle();
 				}
@@ -30,8 +30,8 @@ $zpskel_social = function_exists('printAddThis');
 				break;
 			case 'album.php':
 			case 'favorites.php';
-				if ($_zp_page > 1) {
-					$metatitle = getBareAlbumTitle() . " ($_zp_page)";
+				if ($_current_page > 1) {
+					$metatitle = getBareAlbumTitle() . " ($_current_page)";
 				} else {
 					$metatitle = getBareAlbumTitle();
 				}
@@ -77,8 +77,8 @@ $zpskel_social = function_exists('printAddThis');
 				if (is_NewsArticle()) {
 					$zpskel_metatitle = NEWS_LABEL . ' | ' . getBareNewsTitle() . ' | ' . getBareGalleryTitle();
 					$zpskel_metadesc = truncate_string(getBare(getNewsContent()), 150, '...');
-				} else if ($_zp_current_category) {
-					$zpskel_metatitle = NEWS_LABEL . ' | ' . $_zp_current_category->getTitle() . ' | ' . getBareGalleryTitle();
+				} else if ($_CMS_current_category) {
+					$zpskel_metatitle = NEWS_LABEL . ' | ' . $_CMS_current_category->getTitle() . ' | ' . getBareGalleryTitle();
 					$zpskel_metadesc = truncate_string(getBare(getNewsCategoryDesc()), 150, '...');
 				} else if (getCurrentNewsArchive()) {
 					$zpskel_metatitle = NEWS_LABEL . ' | ' . getCurrentNewsArchive() . ' | ' . getBareGalleryTitle();
@@ -135,15 +135,15 @@ $zpskel_social = function_exists('printAddThis');
 				}
 			}
 		}
-		scriptLoader($_zp_themeroot . '/js/zpskeleton.js');
+		scriptLoader($_themeroot . '/js/zpskeleton.js');
 		?>
 		<meta name="description" content="<?php echo $zpskel_metadesc; ?>" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<?php
-		scriptLoader($_zp_themeroot . '/css/style.css');
+		scriptLoader($_themeroot . '/css/style.css');
 		if (!$zpskel_ismobile) {
-			scriptLoader($_zp_themeroot . '/css/prettyPhoto.css');
-			scriptLoader($_zp_themeroot . '/js/jquery.prettyPhoto.min.js');
+			scriptLoader($_themeroot . '/css/prettyPhoto.css');
+			scriptLoader($_themeroot . '/js/jquery.prettyPhoto.min.js');
 			?>
 			<script type="text/javascript" charset="utf-8">
 				$(document).ready(function () {
@@ -155,11 +155,11 @@ $zpskel_social = function_exists('printAddThis');
 				});
 			</script>
 		<?php } ?>
-		<?php if ($_zp_gallery_page == "search.php") printZDSearchToggleJS(); ?>
-		<link rel="shortcut icon" href="<?php echo $_zp_themeroot; ?>/images/favicon.ico">
-		<link rel="apple-touch-icon" href="<?php echo $_zp_themeroot; ?>/images/apple-touch-icon.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $_zp_themeroot; ?>/images/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $_zp_themeroot; ?>/images/apple-touch-icon-114x114.png">
+		<?php if ($_gallery_page == "search.php") printZDSearchToggleJS(); ?>
+		<link rel="shortcut icon" href="<?php echo $_themeroot; ?>/images/favicon.ico">
+		<link rel="apple-touch-icon" href="<?php echo $_themeroot; ?>/images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $_themeroot; ?>/images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $_themeroot; ?>/images/apple-touch-icon-114x114.png">
 		<?php if (getOption('zpskel_customcss') != null) { ?>
 			<style>
 	<?php echo getOption('zpskel_customcss'); ?>
@@ -167,7 +167,7 @@ $zpskel_social = function_exists('printAddThis');
 		<?php } ?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div class="wrapper topbar">
 			<div class="container">
 				<div class="sixteen columns">
@@ -177,24 +177,24 @@ $zpskel_social = function_exists('printAddThis');
 							<a class="menu" href="#"><?php echo gettext('Menu'); ?></a>
 							<ul class="menu-dropdown">
 								<?php if (($zenpage) && ($zenpage_homepage != 'none')) { ?>
-									<li <?php if ($_zp_gallery_page == "index.php") { ?>class="active" <?php } ?>><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a></li>
-									<li <?php if ((!empty($galleryactive)) && ($_zp_gallery_page != "index.php")) { ?>class="active" <?php } ?>><?php printCustomPageURL(gettext('Gallery'), "gallery"); ?></li>
+									<li <?php if ($_gallery_page == "index.php") { ?>class="active" <?php } ?>><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a></li>
+									<li <?php if ((!empty($galleryactive)) && ($_gallery_page != "index.php")) { ?>class="active" <?php } ?>><?php printCustomPageURL(gettext('Gallery'), "gallery"); ?></li>
 								<?php } else { ?>
 									<li <?php if (!empty($galleryactive)) { ?>class="active" <?php } ?>><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext('Gallery'); ?></a></li>
 								<?php } ?>
-									<?php if ($zpskel_archive) { ?><li <?php if ($_zp_gallery_page == "archive.php") { ?>class="active" <?php } ?>><a href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Archive View'); ?>"><?php echo gettext('Archive'); ?></a></li><?php } ?>
+									<?php if ($zpskel_archive) { ?><li <?php if ($_gallery_page == "archive.php") { ?>class="active" <?php } ?>><a href="<?php echo getCustomPageURL('archive'); ?>" title="<?php echo gettext('Archive View'); ?>"><?php echo gettext('Archive'); ?></a></li><?php } ?>
 									<?php if (extensionEnabled('daily-summary')) { ?>
-									<li <?php if ($_zp_gallery_page == "summary.php") { ?>class="active" <?php } ?>>
+									<li <?php if ($_gallery_page == "summary.php") { ?>class="active" <?php } ?>>
 										<a href="<?php echo getCustomPageURL('summary'); ?>"><?php echo gettext('Daily summary'); ?></a>
 									</li>
 								<?php } ?>
 								<?php if ((function_exists('getNewsIndexURL')) && ($zpskel_usenews)) { ?>
-									<li <?php if ($_zp_gallery_page == "news.php") { ?>class="active" <?php } ?>>
+									<li <?php if ($_gallery_page == "news.php") { ?>class="active" <?php } ?>>
 										<a href="<?php echo getNewsIndexURL(); ?>"><?php echo NEWS_LABEL; ?></a>
 									</li>
 								<?php } ?>
 
-								<?php if (function_exists('printContactForm')) { ?><li <?php if ($_zp_gallery_page == "contact.php") { ?>class="active" <?php } ?>><?php printCustomPageURL(gettext('Contact'), "contact"); ?></li><?php } ?>
+								<?php if (function_exists('printContactForm')) { ?><li <?php if ($_gallery_page == "contact.php") { ?>class="active" <?php } ?>><?php printCustomPageURL(gettext('Contact'), "contact"); ?></li><?php } ?>
 								<?php if (function_exists('printPageMenu')) { ?>
 									<li class="divider"></li>
 									<?php printPageMenu('list-top', '', 'active', '', 'active', '', true, false); ?>

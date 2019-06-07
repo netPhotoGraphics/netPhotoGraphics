@@ -13,7 +13,7 @@ admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 
 if (isset($_POST['delete_cookie'])) {
 	foreach ($_POST['delete_cookie']as $cookie => $v) {
-		zp_clearCookie(postIndexDecode($cookie));
+		clearNPGCookie(postIndexDecode($cookie));
 	}
 	header('location: ?page=develpment&tab=cookie');
 	exit();
@@ -33,7 +33,7 @@ echo "\n</head>";
 		<div id="content">
 			<div id="container">
 				<?php
-				zp_apply_filter('admin_note', 'development', $subtab);
+				npgFilters::apply('admin_note', 'development', $subtab);
 
 				switch ($subtab) {
 					case 'phpinfo':

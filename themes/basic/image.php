@@ -9,11 +9,11 @@ if (!defined('WEBPATH'))
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
 		scriptLoader($zenCSS);
 		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
-		if (zp_has_filter('theme_head', 'colorbox::css')) {
+		if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
@@ -39,7 +39,7 @@ if (!defined('WEBPATH'))
 		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="main">
 			<div id="gallerytitle">
 				<div class="imgnav">
@@ -123,7 +123,7 @@ if (!defined('WEBPATH'))
 				<br class="clearall" />
 				<?php
 				If (function_exists('printAddToFavorites')) {
-					printAddToFavorites($_zp_current_image);
+					printAddToFavorites($_current_image);
 					?>
 					&nbsp;&nbsp;
 					<?php
@@ -166,7 +166,7 @@ if (!defined('WEBPATH'))
 			<?php @call_user_func('printUserLogin_out', " | "); ?>
 		</div>
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

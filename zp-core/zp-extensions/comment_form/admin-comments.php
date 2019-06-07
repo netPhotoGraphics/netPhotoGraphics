@@ -33,7 +33,7 @@ if (isset($_GET['action'])) {
 			XSRFdefender('comment_update');
 			$comment = new Comment(sanitize_numeric($_GET['id']));
 			$comment->setInModeration(1);
-			zp_apply_filter('comment_disapprove', $comment);
+			npgFilters::apply('comment_disapprove', $comment);
 			$comment->save();
 			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'));
 			exit();
@@ -42,7 +42,7 @@ if (isset($_GET['action'])) {
 			XSRFdefender('comment_update');
 			$comment = new Comment(sanitize_numeric($_GET['id']));
 			$comment->setInModeration(0);
-			zp_apply_filter('comment_approve', $comment);
+			npgFilters::apply('comment_approve', $comment);
 			$comment->save();
 			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'));
 			exit();
@@ -89,7 +89,7 @@ if (isset($_GET['action'])) {
 
 
 printAdminHeader('comments');
-zp_apply_filter('texteditor_config', 'admin_comments');
+npgFilters::apply('texteditor_config', 'admin_comments');
 ?>
 <script type="text/javascript">
 	//<!-- <![CDATA[
@@ -113,7 +113,7 @@ printLogoAndLinks();
 		<?php
 		if ($page == "editcomment" && isset($_GET['id'])) {
 
-			zp_apply_filter('admin_note', 'comments', 'edit');
+			npgFilters::apply('admin_note', 'comments', 'edit');
 			?>
 			<h1><?php echo gettext("edit comment"); ?></h1>
 
@@ -263,7 +263,7 @@ printLogoAndLinks();
 				$allcommentscount = count($allcomments);
 				$totalpages = ceil(($allcommentscount / COMMENTS_PER_PAGE));
 				unset($allcomments);
-				zp_apply_filter('admin_note', '  comments', '  list');
+				npgFilters::apply('admin_note', 'comments', 'list');
 				?>
 				<h1><?php echo gettext("Comments"); ?></h1>
 				<div class="tabbox">
@@ -371,7 +371,7 @@ printLogoAndLinks();
 											gettext('Mark as spam') => 'spam',
 											gettext('Approve') => 'approve',
 									);
-									$checkarray = zp_apply_filter('bulk_comment_actions', $checkarray);
+									$checkarray = npgFilters::apply('bulk_comment_actions', $checkarray);
 									printBulkActions($checkarray);
 									?>
 								</th>

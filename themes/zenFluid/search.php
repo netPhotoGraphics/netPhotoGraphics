@@ -1,7 +1,7 @@
 <?php
 // force UTF-8 Ø
 if (!defined('WEBPATH')) die();
-zp_apply_filter('theme_file_top')
+npgFilters::apply('theme_file_top')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +26,7 @@ zp_apply_filter('theme_file_top')
 			$numpages = $numnews = 0;
 		}
 		if ($total == 0) {
-			$_zp_current_search->clearSearchWords();
+			$_current_search->clearSearchWords();
 		}
 		$searchwords = getSearchWords();
 		$searchdate = getSearchDate();
@@ -49,7 +49,7 @@ zp_apply_filter('theme_file_top')
 				</div>
 				<?php 
 			}
-			if ($_zp_page == 1) { //test of zenpage searches
+			if ($_current_page == 1) { //test of zenpage searches
 				if ($numpages > 0) {
 					$number_to_show = 1;
 					$c = 0; 
@@ -149,7 +149,7 @@ zp_apply_filter('theme_file_top')
 									printImageThumb(getBareImageTitle(),"border");
 									if (isImageVideo()) { 
 										?>
-										<img class="videoplay" src="<?php echo $_zp_themeroot; ?>/images/videoplay.png">
+										<img class="videoplay" src="<?php echo $_themeroot; ?>/images/videoplay.png">
 										<?php 
 									} 
 									?>
@@ -195,5 +195,5 @@ zp_apply_filter('theme_file_top')
 	</body>
 </html>
 <?php
-zp_apply_filter('theme_file_end')
+npgFilters::apply('theme_file_end')
 ?>

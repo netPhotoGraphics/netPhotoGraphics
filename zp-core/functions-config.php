@@ -14,32 +14,32 @@
  * @param unknown_type $value
  * @param unknown_type $quote
  */
-function updateConfigItem($item, $value, $zp_cfg, $quote = true) {
+function updateConfigItem($item, $value, $_config_contents, $quote = true) {
 	if ($quote) {
 		$value = "'" . addslashes($value) . "'";
 	}
-	$i = strpos($zp_cfg, $item);
+	$i = strpos($_config_contents, $item);
 	if ($i === false) {
-		$parts = preg_split('~\/\*.*Do not edit below this line.*\*\/~', $zp_cfg);
+		$parts = preg_split('~\/\*.*Do not edit below this line.*\*\/~', $_config_contents);
 		if (isset($parts[1])) {
-			$zp_cfg = $parts[0] . "\$conf['" . $item . "'] = " . $value . ";\n/** Do not edit below this line. **/" . $parts[1];
+			$_config_contents = $parts[0] . "\$conf['" . $item . "'] = " . $value . ";\n/** Do not edit below this line. **/" . $parts[1];
 		} else {
 			trigger_error(gettext('The configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 		}
 	} else {
-		$i = strpos($zp_cfg, '=', $i);
-		$j = strpos($zp_cfg, "\n", $i);
-		$zp_cfg = substr($zp_cfg, 0, $i) . '= ' . $value . ';' . substr($zp_cfg, $j);
+		$i = strpos($_config_contents, '=', $i);
+		$j = strpos($_config_contents, "\n", $i);
+		$_config_contents = substr($_config_contents, 0, $i) . '= ' . $value . ';' . substr($_config_contents, $j);
 	}
-	return $zp_cfg;
+	return $_config_contents;
 }
 
 /**
  * backs-up and updates the configuration file
  *
- * @param string $zp_cfg
+ * @param string $_config_contents
  */
-function storeConfig($zp_cfg, $folder = NULL) {
+function storeConfig($_config_contents, $folder = NULL) {
 	if (is_null($folder)) {
 		$folder = SERVERPATH . '/';
 	}
@@ -47,7 +47,7 @@ function storeConfig($zp_cfg, $folder = NULL) {
 
 	@rename($folder . DATA_FOLDER . '/' . CONFIGFILE, $backkup = $folder . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak.php');
 	@chmod($backup, $mod);
-	file_put_contents($folder . DATA_FOLDER . '/' . CONFIGFILE, $zp_cfg);
+	file_put_contents($folder . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
 	clearstatcache();
 	@chmod($folder . DATA_FOLDER . '/' . CONFIGFILE, $mod);
 }

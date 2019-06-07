@@ -13,16 +13,16 @@ $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Emails a password reset request to a newly created user.");
 
 
-zp_register_filter('save_user_complete', 'email_new_user::save');
-zp_register_filter('edit_admin_custom', 'email_new_user::edit_admin', 9999);
+npgFilters::register('save_user_complete', 'email_new_user::save');
+npgFilters::register('edit_admin_custom', 'email_new_user::edit_admin', 9999);
 
 class email_new_user {
 
 	static function save($savemsg, $userobj, $what) {
-		global $_zp_gallery;
+		global $_gallery;
 		if ($what == 'new' && ($mail = $userobj->getEmail())) {
-			$ref = Zenphoto_Authority::getResetTicket($adm = $userobj->getUser(), $userobj->getPass());
-			$msg = "\n" . sprintf(gettext('You are receiving this e-mail because a user code (%1$s) has been created for you on the %2$s gallery.'), $adm, $_zp_gallery->getTitle()) .
+			$ref = npg_Authority::getResetTicket($adm = $userobj->getUser(), $userobj->getPass());
+			$msg = "\n" . sprintf(gettext('You are receiving this e-mail because a user code (%1$s) has been created for you on the %2$s gallery.'), $adm, $_gallery->getTitle()) .
 							"\n" . sprintf(gettext('To set your User password visit: %s'), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=$adm') .
 							"\n" . gettext("This ticket will automatically expire in 3 days.");
 			$err_msg = zp_mail(gettext("User created"), $msg, array($mail));

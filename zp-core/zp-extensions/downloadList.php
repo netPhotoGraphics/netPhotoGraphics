@@ -41,8 +41,8 @@ $plugin_description = gettext("Plugin to generate file downloads.");
 
 $option_interface = "downloadList";
 
-if (zp_loggedin(OVERVIEW_RIGHTS)) {
-	zp_register_filter('admin_tabs', 'DownloadList::admin_tabs');
+if (npg_loggedin(OVERVIEW_RIGHTS)) {
+	npgFilters::register('admin_tabs', 'DownloadList::admin_tabs');
 }
 
 /**
@@ -297,8 +297,8 @@ class AlbumZip {
 	 * @param int $level recursion level
 	 */
 	static function AddAlbum($album, $fromcache, $subalbums, $level) {
-		global $_zp_zip_list, $_zp_albums_visited_albumMenu, $zip_gallery, $defaultSize;
-		$_zp_albums_visited_albumMenu[] = $album->name;
+		global $_zip_list, $_albums_visited_albumMenu, $zip_gallery, $defaultSize;
+		$_albums_visited_albumMenu[] = $album->name;
 		$albumfolders = explode('/', $album->name);
 		$subalbums = array();
 		for ($i = 0; $i < $level; $i++) {
@@ -312,7 +312,7 @@ class AlbumZip {
 
 		if ($level && !$fromcache) { // we don't collect the sidecars for the base album
 			foreach ($album->getSidecars() as $name => $path) {
-				$_zp_zip_list[$path] = '/' . $name;
+				$_zip_list[$path] = '/' . $name;
 			}
 		}
 
@@ -330,11 +330,11 @@ class AlbumZip {
 				$full = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($image->album->name) . '/' . internalToFilesystem($image->filename);
 			}
 			$f = $albumroot . $image->filename;
-			$_zp_zip_list[$full] = $f;
+			$_zip_list[$full] = $f;
 
 			if (!$fromcache) {
 				foreach ($image->getSidecars() as $name => $path) {
-					$_zp_zip_list[$path] = $albumroot . $name;
+					$_zip_list[$path] = $albumroot . $name;
 				}
 			}
 		}
@@ -342,7 +342,7 @@ class AlbumZip {
 		if ($subalbums) {
 			foreach ($album->getAlbums() as $albumname) {
 				$subalbum = newAlbum($albumname);
-				if (!in_array($subalbum->name, $_zp_albums_visited_albumMenu) && $subalbum->exists && $subalbum->checkAccess()) {
+				if (!in_array($subalbum->name, $_albums_visited_albumMenu) && $subalbum->exists && $subalbum->checkAccess()) {
 					self::AddAlbum($subalbum, $fromcache, $subalbums, $level + 1);
 				}
 			}
@@ -376,7 +376,7 @@ class AlbumZip {
 	 * @param bool subalbums recurse through subalbums collecting images
 	 */
 	static function create($album, $zipname, $fromcache, $subalbums) {
-		global $_zp_zip_list, $_zp_albums_visited_albumMenu, $_zp_gallery, $defaultSize;
+		global $_zip_list, $_albums_visited_albumMenu, $_gallery, $defaultSize;
 		if (!$album->exists) {
 			self::pageError(404, gettext('Album not found'));
 		}
@@ -384,10 +384,10 @@ class AlbumZip {
 			self::pageError(403, gettext("Forbidden"));
 		}
 
-		$_zp_albums_visited_albumMenu = $_zp_zip_list = array();
+		$_albums_visited_albumMenu = $_zip_list = array();
 		if ($fromcache) {
 			$opt = array('large_file_size' => 5 * 1024 * 1024, 'comment' => sprintf(gettext('Created from cached images of %1$s on %2$s.'), $album->name, zpFormattedDate(DATE_FORMAT, time())));
-			$defaultSize = getThemeOption('image_size', NULL, $_zp_gallery->getCurrentTheme());
+			$defaultSize = getThemeOption('image_size', NULL, $_gallery->getCurrentTheme());
 		} else {
 			$defaultSize = NULL;
 			$opt = array('large_file_size' => 5 * 1024 * 1024, 'comment' => sprintf(gettext('Created from images in %1$s on %2$s.'), $album->name, zpFormattedDate(DATE_FORMAT, time())));
@@ -397,7 +397,7 @@ class AlbumZip {
 			$zipfileFS = tempnam('', 'zip');
 			$zip = new ZipArchive;
 			$zip->open($zipfileFS, ZipArchive::CREATE);
-			foreach ($_zp_zip_list as $path => $file) {
+			foreach ($_zip_list as $path => $file) {
 				@set_time_limit(6000);
 				$zip->addFile($path, internalToFilesystem(trim($file, '/')));
 			}
@@ -417,7 +417,7 @@ class AlbumZip {
 		} else {
 			require_once(CORE_SERVERPATH . 'lib-zipStream.php');
 			$zip = new ZipStream(internalToFilesystem($zipname) . '.zip', $opt);
-			foreach ($_zp_zip_list as $path => $file) {
+			foreach ($_zip_list as $path => $file) {
 				@set_time_limit(6000);
 				$zip->add_file_from_path(internalToFilesystem($file), $path);
 			}
@@ -568,7 +568,7 @@ function printDownloadURL($file, $linktext = NULL) {
  * @param bool $fromcache if true get the images from the cache
  */
 function printDownloadAlbumZipURL($linktext = NULL, $albumobj = NULL, $fromcache = NULL, $subalbums = true) {
-	global $_zp_current_album, $_zp_current_search;
+	global $_current_album, $_current_search;
 	$request = mb_parse_url(getRequestURI());
 	if (isset($request['query'])) {
 		$query = parse_query($request['query']);
@@ -576,7 +576,7 @@ function printDownloadAlbumZipURL($linktext = NULL, $albumobj = NULL, $fromcache
 		$query = array();
 	}
 	if (is_null($albumobj)) {
-		$albumobj = $_zp_current_album;
+		$albumobj = $_current_album;
 	}
 	$link = preg_replace('~^' . WEBPATH . '/~', '', $request['path']);
 
@@ -594,7 +594,7 @@ function printDownloadAlbumZipURL($linktext = NULL, $albumobj = NULL, $fromcache
 				$query['type'] = 'albumzip';
 				break;
 			case'SearchEngine':
-				$params = parse_query($_zp_current_search->getSearchParams(0));
+				$params = parse_query($_current_search->getSearchParams(0));
 				$query['download'] = $file = gettext('search') . implode('_', $params);
 				$file .= '.zip';
 				$query['type'] = 'searchzip';
@@ -636,19 +636,19 @@ function printDownloadAlbumZipURL($linktext = NULL, $albumobj = NULL, $fromcache
  * Prints a download link for a zip of the current search result (therefore to be used only on search.php).
  * This function only creates a download and returns to the current page.
  *
- * @global type $_zp_current_search
+ * @global type $_current_search
  * @param type $linktext
  */
 function printDownloadSearchZipURL($linktext = NULL, $fromcache = NULL) {
-	global $_zp_current_search;
-	printDownloadAlbumZipURL($linktext, $_zp_current_search, $fromcache, false);
+	global $_current_search;
+	printDownloadAlbumZipURL($linktext, $_current_search, $fromcache, false);
 }
 
 /**
  * Process any download requests
  */
 if (isset($_GET['download'])) {
-	$_zp_HTML_cache->abortHTMLCache(true);
+	$_HTML_cache->abortHTMLCache(true);
 	$item = sanitize($_GET['download']);
 	if (empty($item) || !extensionEnabled('downloadList')) {
 		if (TEST_RELEASE) {
@@ -662,21 +662,21 @@ if (isset($_GET['download'])) {
 	$hash = getOption('downloadList_password');
 	if (GALLERY_SECURITY != 'public' || $hash) {
 		//	credentials required to download
-		if (!zp_loggedin((getOption('downloadList_rights')) ? FILES_RIGHTS : ALL_RIGHTS)) {
+		if (!npg_loggedin((getOption('downloadList_rights')) ? FILES_RIGHTS : ALL_RIGHTS)) {
 			$user = getOption('downloadList_user');
 			if (!zp_handle_password('download_auth', $hash, $user)) {
 				$show = ($user) ? true : NULL;
 				$hint = get_language_string(getOption('downloadList_hint'));
-				$_zp_gallery_page = 'password.php';
-				$_zp_script = $_zp_themeroot . '/password.php';
-				if (!file_exists(internalToFilesystem($_zp_script))) {
-					$_zp_script = CORE_SERVERPATH . 'password.php';
+				$_gallery_page = 'password.php';
+				$_themeScript = $_themeroot . '/password.php';
+				if (!file_exists(internalToFilesystem($_themeScript))) {
+					$_themeScript = CORE_SERVERPATH . 'password.php';
 				}
 				header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 				header("HTTP/1.0 302 Found");
 				header("Status: 302 Found");
 				header('Last-Modified: ' . ZP_LAST_MODIFIED);
-				include(internalToFilesystem($_zp_script));
+				include(internalToFilesystem($_themeScript));
 				exit();
 			}
 		}
@@ -723,7 +723,7 @@ if (isset($_GET['download'])) {
 				readfile($_downloadFile);
 				exit();
 			} else {
-				zp_register_filter('theme_body_open', 'DownloadList::noFile');
+				npgFilters::register('theme_body_open', 'DownloadList::noFile');
 			}
 	}
 }

@@ -96,7 +96,7 @@ class TextObject extends Image {
 	 * @param $filename
 	 */
 	function common_instantiate($album, $filename, $quiet = false) {
-		global $_zp_supported_images;
+		global $_supported_images;
 		$msg = $this->invalid($album, $filename);
 		if ($msg) {
 			$this->exists = false;
@@ -105,7 +105,7 @@ class TextObject extends Image {
 			}
 			return;
 		}
-		$this->sidecars = $_zp_supported_images;
+		$this->sidecars = $_supported_images;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 		$this->updateDimensions();
 		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()), 'filename');
@@ -117,7 +117,7 @@ class TextObject extends Image {
 			$this->set('mtime', $this->filemtime);
 			$this->save();
 			if ($new)
-				zp_apply_filter('new_image', $this);
+				npgFilters::apply('new_image', $this);
 		}
 	}
 
@@ -129,7 +129,7 @@ class TextObject extends Image {
 	 * @return s
 	 */
 	function getThumbImageFile($path = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($path)) {
 			$path = SERVERPATH;
 		}
@@ -139,7 +139,7 @@ class TextObject extends Image {
 					$img = '/textDefault.png';
 					break;
 			}
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/' . $img;
+			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
 				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
 			}

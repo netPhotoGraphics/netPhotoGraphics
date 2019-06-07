@@ -8,17 +8,17 @@ if (function_exists('printSlideShow')) {
 	<html>
 		<head>
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
-			scriptLoader($_zp_themeroot . '/style.css');
+			scriptLoader($_themeroot . '/style.css');
 			?>
 		</head>
 		<body>
-				<?php zp_apply_filter('theme_body_open'); ?>
+				<?php npgFilters::apply('theme_body_open'); ?>
 			<div id="slideshowpage">
 			<?php printSlideShow(true, true); ?>
 			</div>
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 
 		</body>
 	</html>

@@ -2,7 +2,7 @@
 
 <div id="breadcrumbs">
 	<?php
-	// if ($zpmas_infscroll) $_zp_current_search->page = '1';
+	// if ($zpmas_infscroll) $_current_search->page = '1';
 	?>
 	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo; <?php printParentBreadcrumb('', ' » ', ' » '); ?> <?php printAlbumTitle(true); ?>
 </div>
@@ -12,13 +12,13 @@
 			<div id="sidebar-padding">
 				<div class="image-nav">
 					<?php
-					if ($_zp_current_album->getParent()) {
+					if ($_current_album->getParent()) {
 						$linklabel = gettext('subalbum');
-						$parent = $_zp_current_album->getParent();
+						$parent = $_current_album->getParent();
 						$totalalbums = $parent->getNumAlbums();
 					} else {
 						$linklabel = gettext('album');
-						$totalalbums = $_zp_gallery->getNumAlbums();
+						$totalalbums = $_gallery->getNumAlbums();
 					}
 					?>
 					<div class="image-prev">
@@ -58,9 +58,9 @@
 							}
 							?>
 						</li>
-						<?php if ((strlen(getAlbumDate()) > 0) || (zp_loggedin())) { ?><li class="date"><?php printAlbumDate(''); ?></li><?php } ?>
-						<?php if ((strlen(getAlbumDesc()) > 0) || (zp_loggedin())) { ?><li class="desc"><?php printAlbumDesc(); ?></li><?php } ?>
-						<?php if ((strlen($tagstring) > 0) || (zp_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
+						<?php if ((strlen(getAlbumDate()) > 0) || (npg_loggedin())) { ?><li class="date"><?php printAlbumDate(''); ?></li><?php } ?>
+						<?php if ((strlen(getAlbumDesc()) > 0) || (npg_loggedin())) { ?><li class="desc"><?php printAlbumDesc(); ?></li><?php } ?>
+						<?php if ((strlen($tagstring) > 0) || (npg_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
 					</ul>
 				</div>
 
@@ -150,7 +150,7 @@
 							} else {
 								echo htmlspecialchars(getUnprotectedImageURL());
 							}
-							?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/full-screen<?php if ($zpmas_css == 'dark') echo "-inv"; ?>.png" alt="<?php echo gettext('Preview'); ?>" /></a>
+							?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/full-screen<?php if ($zpmas_css == 'dark') echo "-inv"; ?>.png" alt="<?php echo gettext('Preview'); ?>" /></a>
 						</div>
 					<?php } ?>
 				</div>
@@ -175,7 +175,7 @@
 		<?php if (simplemap::mapPlugin()) { ?><div class="post"><?php simplemap::printMap(); ?></div><?php } ?>
 		<?php
 		if (function_exists('printAddToFavorites'))
-			printAddToFavorites($_zp_current_album);
+			printAddToFavorites($_current_album);
 		?>
 		<?php if (function_exists('printRating')) { ?><div class="post"><?php printRating(); ?></div><?php } ?>
 		<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>

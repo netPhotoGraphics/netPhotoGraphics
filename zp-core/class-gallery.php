@@ -5,7 +5,7 @@
  * @package classes
  */
 // force UTF-8 Ø
-$_zp_gallery = new Gallery();
+$_gallery = new Gallery();
 
 class Gallery {
 
@@ -320,7 +320,7 @@ class Gallery {
 			}
 		}
 		closedir($dir);
-		return zp_apply_filter('album_filter', $albums);
+		return npgFilters::apply('album_filter', $albums);
 	}
 
 	/**
@@ -498,7 +498,7 @@ class Gallery {
 	 * @return bool
 	 */
 	function garbageCollect($cascade = true, $complete = false, $restart = '') {
-		global $_zp_gallery, $_zp_authority;
+		global $_gallery, $_authority;
 		if (empty($restart)) {
 			setOption('last_garbage_collect', time());
 			/* purge old search cache items */
@@ -541,7 +541,7 @@ class Gallery {
 			$result = query("SELECT * FROM " . prefix('admin_to_object'));
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
-					if (!$_zp_authority->validID($row['adminid'])) {
+					if (!$_authority->validID($row['adminid'])) {
 						$dead[$row['id']]['user'] = $row['adminid'];
 					}
 					$tbl = $row['type'];
@@ -634,7 +634,7 @@ class Gallery {
 		if ($complete) {
 			if (empty($restart)) {
 				/* check album parent linkage */
-				$albums = $_zp_gallery->getAlbums();
+				$albums = $_gallery->getAlbums();
 				foreach ($albums as $album) {
 					checkAlbumParentid($album, NULL, 'debuglog');
 				}
@@ -681,7 +681,7 @@ class Gallery {
 								$album->set('thumb', $thumb);
 							}
 							$album->save();
-							zp_apply_filter('album_refresh', $album);
+							npgFilters::apply('album_refresh', $album);
 						}
 					}
 					db_free_result($albumids);
@@ -732,7 +732,7 @@ class Gallery {
 							}
 							$album->garbageCollect(true);
 						}
-						zp_apply_filter('album_refresh', $album);
+						npgFilters::apply('album_refresh', $album);
 					}
 				}
 			}
@@ -759,7 +759,7 @@ class Gallery {
 							$imageobj->updateMetaData(); // prime the EXIF/IPTC fields
 							$imageobj->updateDimensions(); // update the width/height & account for rotation
 							$imageobj->save();
-							zp_apply_filter('image_refresh', $imageobj);
+							npgFilters::apply('image_refresh', $imageobj);
 						}
 					} else {
 						$sql = 'DELETE FROM ' . prefix('images') . ' WHERE `id`="' . $image['id'] . '";';
@@ -840,7 +840,7 @@ class Gallery {
 		if (count($albums) == 0) {
 			return array();
 		}
-		if (is_null($mine) && zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		if (is_null($mine) && npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$mine = true;
 		}
 		if (is_null($parentalbum)) {
@@ -850,7 +850,7 @@ class Gallery {
 		} else {
 			$albumid = '=' . $parentalbum->getID();
 			$obj = $parentalbum;
-			$viewUnpublished = (zp_loggedin() && $obj->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+			$viewUnpublished = (npg_loggedin() && $obj->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 		}
 
 		if ((trim($sortkey . '`') == 'sort_order') || ($sortkey == 'RAND()')) { // manual sort is always ascending
@@ -1132,8 +1132,8 @@ class Gallery {
 	 * @param type $objectName
 	 */
 	static function addImageHandler($suffix, $objectName) {
-		global $_zp_images_classes;
-		$_zp_images_classes[strtolower($suffix)] = $objectName;
+		global $_images_classes;
+		$_images_classes[strtolower($suffix)] = $objectName;
 	}
 
 	/**
@@ -1142,9 +1142,9 @@ class Gallery {
 	 * @return string
 	 */
 	static function imageObjectClass($filename) {
-		global $_zp_images_classes;
-		if (isset($_zp_images_classes[$suffix = getSuffix($filename)])) {
-			return $_zp_images_classes[$suffix];
+		global $_images_classes;
+		if (isset($_images_classes[$suffix = getSuffix($filename)])) {
+			return $_images_classes[$suffix];
 		} else {
 			return false;
 		}
@@ -1152,13 +1152,13 @@ class Gallery {
 
 	/**
 	 * registers object handlers for album varients
-	 * @global array $_zp_albumHandlers
+	 * @global array $_albumHandlers
 	 * @param type $suffix
 	 * @param type $objectName
 	 */
 	static function addAlbumHandler($suffix, $objectName) {
-		global $_zp_albumHandlers;
-		$_zp_albumHandlers[strtolower($suffix)] = $objectName;
+		global $_albumHandlers;
+		$_albumHandlers[strtolower($suffix)] = $objectName;
 	}
 
 	function getData() {
@@ -1172,7 +1172,7 @@ class Gallery {
 			$rewrite .= _PAGE_ . '/' . $page;
 			$plain .= "&page=$page";
 		}
-		return zp_apply_filter('getLink', rewrite_path($rewrite, $plain), $this, $page);
+		return npgFilters::apply('getLink', rewrite_path($rewrite, $plain), $this, $page);
 	}
 
 }

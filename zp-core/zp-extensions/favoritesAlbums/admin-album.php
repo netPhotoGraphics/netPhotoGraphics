@@ -20,7 +20,7 @@ admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 $imagelist = array();
 
 function getSubalbumImages($folder) {
-	global $imagelist, $_zp_gallery;
+	global $imagelist, $_gallery;
 	$album = newAlbum($folder);
 	if ($album->isDynamic())
 		return;
@@ -34,7 +34,7 @@ function getSubalbumImages($folder) {
 	}
 }
 
-$user = $_zp_current_admin_obj->getUser();
+$user = $_current_admin_obj->getUser();
 $favorite = trim(sanitize($_REQUEST['title']), '/');
 if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 	XSRFdefender('savealbum');
@@ -43,10 +43,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 		$albumobj = newAlbum($album);
 		$allow = $albumobj->isMyItem(UPLOAD_RIGHTS);
 	} else {
-		$allow = zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS);
+		$allow = npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS);
 	}
 	if (!$allow) {
-		if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
+		if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
 			trigger_error(gettext("You do not have edit rights on this album."), E_USER_ERROR);
 		}
 	}
@@ -65,7 +65,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 			fclose($f);
 			clearstatcache();
 			// redirct to edit of this album
-			header("Location: " . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=" . pathurlencode($redirect));
+			header("Location: " . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($redirect));
 			exit();
 		}
 	}
@@ -78,7 +78,7 @@ printLogoAndLinks();
 echo "\n" . '<div id="main">';
 printTabs();
 echo "\n" . '<div id="content">';
-zp_apply_filter('admin_note', 'albums', 'dynamic');
+npgFilters::apply('admin_note', 'albums', 'dynamic');
 echo "<h1>" . gettext("Create Favorites Album") . "</h1>\n";
 
 if (isset($_POST['savealbum'])) { // we fell through, some kind of error
@@ -162,11 +162,11 @@ while ($old != $albumname) {
 					<select id="thumb" name="thumb">
 						<?php
 						$selections = array();
-						foreach ($_zp_albumthumb_selector as $key => $selection) {
+						foreach ($_albumthumb_selector as $key => $selection) {
 							$selections[$selection['desc']] = $key;
 						}
 						generateListFromArray(array(getOption('AlbumThumbSelect')), $selections, false, true);
-						$showThumb = $_zp_gallery->getThumbSelectImages();
+						$showThumb = $_gallery->getThumbSelectImages();
 						foreach ($imagelist as $imagepath) {
 							$pieces = explode('/', $imagepath);
 							$filename = array_pop($pieces);

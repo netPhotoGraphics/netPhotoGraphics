@@ -1,6 +1,6 @@
 <?php
-zp_register_filter('themeSwitcher_head', 'switcher_head');
-zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
+npgFilters::register('themeSwitcher_head', 'switcher_head');
+npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 
 
 $themecolors = array('light', 'dark');
@@ -27,7 +27,7 @@ function switcher_head($ignore) {
 
 function switcher_controllink($ignore) {
 	global $themecolors;
-	$color = zp_getCookie('themeSwitcher_themeColor');
+	$color = getNPGCookie('themeSwitcher_themeColor');
 	if (!$color) {
 		$color = getOption('zpmas_css');
 	}
@@ -274,13 +274,13 @@ function iconColor($icon) {
 
 // Sets expanded titles (breadcrumbs) for Title meta
 function getTitleBreadcrumb($before = ' ( ', $between = ' | ', $after = ' ) ') {
-	global $_zp_gallery, $_zp_current_search, $_zp_current_album, $_zp_last_album;
+	global $_gallery, $_current_search, $_current_album, $_last_album;
 	$titlebreadcrumb = '';
 	if (in_context(ZP_SEARCH_LINKED)) {
-		$dynamic_album = $_zp_current_search->getDynamicAlbum();
+		$dynamic_album = $_current_search->getDynamicAlbum();
 		if (empty($dynamic_album)) {
 			$titlebreadcrumb .= $before . gettext("Search Result") . $after;
-			if (is_null($_zp_current_album)) {
+			if (is_null($_current_album)) {
 				return;
 			} else {
 				$parents = getParentAlbums();

@@ -4,7 +4,7 @@
  */
 // initialization stuff
 
-if (zp_has_filter('theme_head', 'colorbox::css')) {
+if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 	$handler = new ef_colorbox();
 } else {
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/image_page/functions.php');
@@ -20,7 +20,7 @@ class ef_colorbox {
 		return false;
 	}
 
-	function theme_head($_zp_themeroot) {
+	function theme_head($_themeroot) {
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
@@ -37,12 +37,12 @@ class ef_colorbox {
 		<?php
 	}
 
-	function theme_bodyopen($_zp_themeroot) {
+	function theme_bodyopen($_themeroot) {
 
 	}
 
 	function theme_content($map) {
-		global $_zp_current_image, $points;
+		global $_current_image, $points;
 		?>
 		<!-- Colorbox section -->
 		<div id="content">
@@ -65,7 +65,7 @@ class ef_colorbox {
 							<div class="imagethumb">
 								<?php
 								if ($map) {
-									$coord = simpleMap::getGeoCoord($_zp_current_image);
+									$coord = simpleMap::getCoord($_current_image);
 									if ($coord) {
 										$points[] = $coord;
 									}

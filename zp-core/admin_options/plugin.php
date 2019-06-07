@@ -5,7 +5,7 @@
 $optionRights = ADMIN_RIGHTS;
 
 function saveOptions() {
-	global $_zp_gallery;
+	global $_gallery;
 
 	$notify = $returntab = NULL;
 	if (isset($_GET['single'])) {
@@ -23,7 +23,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_zp_gallery;
+	global $_gallery;
 
 	if (isset($_GET['subpage'])) {
 		$subpage = sanitize_numeric($_GET['subpage']);
@@ -35,7 +35,7 @@ function getOptionContent() {
 		}
 	}
 
-	if (zp_loggedin(ADMIN_RIGHTS)) {
+	if (npg_loggedin(ADMIN_RIGHTS)) {
 		if (isset($_GET['single'])) {
 			$showExtension = sanitize($_GET['single']);
 			$_GET['show-' . $showExtension] = true;
@@ -43,7 +43,7 @@ function getOptionContent() {
 			$showExtension = NULL;
 		}
 
-		$_zp_plugin_count = 0;
+		$_plugin_count = 0;
 
 		$plugins = array();
 		$list = array_keys(getPluginFiles('*.php'));
@@ -136,7 +136,7 @@ function getOptionContent() {
 							}
 						}
 						if (!empty($option_interface)) {
-							$_zp_plugin_count++;
+							$_plugin_count++;
 							?>
 							<!-- <?php echo $extension; ?> -->
 							<tr>
@@ -215,7 +215,7 @@ function getOptionContent() {
 							}
 						}
 					}
-					if ($_zp_plugin_count == 0) {
+					if ($_plugin_count == 0) {
 						?>
 						<tr>
 							<td style="padding: 0;margin:0" colspan="100%">

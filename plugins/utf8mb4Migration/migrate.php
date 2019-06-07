@@ -70,9 +70,9 @@ foreach ($tables as $table) {
 	}
 }
 $_configMutex->lock();
-$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-$zp_cfg = updateConfigItem('UTF-8', 'utf8mb4', $zp_cfg);
-storeConfig($zp_cfg);
+$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+$_config_contents = updateConfigItem('UTF-8', 'utf8mb4', $_config_contents);
+storeConfig($_config_contents);
 $_configMutex->unlock();
 
 

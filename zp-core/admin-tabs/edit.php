@@ -53,7 +53,7 @@ if (isset($_GET['album'])) {
 
 $showDefaultThumbs = getSerializedArray(getOption('album_tab_showDefaultThumbs'));
 
-if (!zp_apply_filter('admin_managed_albums_access', $allow, $return)) {
+if (!npgFilters::apply('admin_managed_albums_access', $allow, $return)) {
 	header('Location: ' . getAdminLink('admin.php') . '?from=' . $return);
 	exit();
 }
@@ -95,9 +95,9 @@ if (isset($_GET['action'])) {
 				} else {
 					$notify = '&saved' . $notify;
 				}
-				$_zp_gallery->setSortDirection(0);
-				$_zp_gallery->setSortType('manual');
-				$_zp_gallery->save();
+				$_gallery->setSortDirection(0);
+				$_gallery->setSortType('manual');
+				$_gallery->save();
 			} else {
 				$notify = '&noaction';
 			}
@@ -262,22 +262,22 @@ if (isset($_GET['action'])) {
 		 */
 		case "sortorder":
 			XSRFdefender('albumsortorder');
-			$oldsort = strtolower($_zp_gallery->getSortType('image'));
-			if ($_zp_gallery->getSortDirection('image'))
+			$oldsort = strtolower($_gallery->getSortType('image'));
+			if ($_gallery->getSortDirection('image'))
 				$oldsort = $oldsort . '_DESC';
 			$newsort = sanitize($_POST['albumimagesort'], 3);
-			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_zp_sortby)) {
+			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_sortby)) {
 				if (strpos($newsort, '_DESC')) {
 
 					echo "<br/>descending";
 
-					$_zp_gallery->setSortType(substr($newsort, 0, -5), 'image');
-					$_zp_gallery->setSortDirection('1', 'image');
+					$_gallery->setSortType(substr($newsort, 0, -5), 'image');
+					$_gallery->setSortDirection('1', 'image');
 				} else {
-					$_zp_gallery->setSortType($newsort, 'image');
-					$_zp_gallery->setSortDirection('0', 'image');
+					$_gallery->setSortType($newsort, 'image');
+					$_gallery->setSortDirection('0', 'image');
 				}
-				$_zp_gallery->save();
+				$_gallery->save();
 			}
 			$albumname = sanitize_path($_REQUEST['album']);
 			if (isset($_POST['subpage'])) {
@@ -295,20 +295,20 @@ if (isset($_GET['action'])) {
 
 		case "gallery_sortorder":
 			XSRFdefender('gallery_sortorder');
-			$oldsort = strtolower($_zp_gallery->getSortType('album'));
-			if ($_zp_gallery->getSortDirection('albums')) {
+			$oldsort = strtolower($_gallery->getSortType('album'));
+			if ($_gallery->getSortDirection('albums')) {
 				$oldsort = $oldsort . '_DESC';
 			}
 			$newsort = sanitize($_POST['gallery_sortby'], 3);
-			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_zp_sortby)) {
+			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_sortby)) {
 				if (strpos($newsort, '_DESC')) {
-					$_zp_gallery->setSortType(substr($newsort, 0, -5), 'album');
-					$_zp_gallery->setSortDirection('1', 'album');
+					$_gallery->setSortType(substr($newsort, 0, -5), 'album');
+					$_gallery->setSortDirection('1', 'album');
 				} else {
-					$_zp_gallery->setSortType($newsort, 'album');
-					$_zp_gallery->setSortDirection('0', 'album');
+					$_gallery->setSortType($newsort, 'album');
+					$_gallery->setSortDirection('0', 'album');
 				}
-				$_zp_gallery->save();
+				$_gallery->save();
 			}
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page = edit');
 			exit();
@@ -320,7 +320,7 @@ if (isset($_GET['action'])) {
 			if ($album->getSortDirection('albums'))
 				$oldsort = $oldsort . '_DESC';
 			$newsort = sanitize($_POST['subalbum_sortby'], 3);
-			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_zp_sortby)) {
+			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_sortby)) {
 				if (strpos($newsort, '_DESC')) {
 					$album->setSortType(substr($newsort, 0, -5), 'albums');
 					$album->setSortDirection('1', 'albums');
@@ -394,7 +394,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 
-			$msg = zp_apply_filter('edit_error', '');
+			$msg = npgFilters::apply('edit_error', '');
 			if ($msg) {
 				$notify .= '&edit_error=' . $msg;
 			}
@@ -457,7 +457,7 @@ if (isset($_GET['action'])) {
 				$albumdir = "&album=" . pathurlencode($folder);
 				$folder = $folder . '/' . $seoname;
 			}
-			$uploaddir = $_zp_gallery->albumdir . internalToFilesystem($folder);
+			$uploaddir = $_gallery->albumdir . internalToFilesystem($folder);
 			if (is_dir($uploaddir)) {
 				if ($name != $seoname)
 					$name .= ' (' . $seoname . ')';
@@ -484,7 +484,7 @@ if (isset($_GET['action'])) {
 				header("Location: " . getAdminLink('admin-tabs/edit.php') . '?page=edit' . '&album=' . pathurlencode($folder));
 				exit();
 			} else {
-				$AlbumDirName = str_replace(SERVERPATH, '', $_zp_gallery->albumdir);
+				$AlbumDirName = str_replace(SERVERPATH, '', $_gallery->albumdir);
 				$errorbox[] = gettext("The album couldn’t be created in the “albums” folder. This is usually a permissions problem. Try setting the permissions on the albums and cache folders to be world-writable using a shell:") . " <code>chmod 777 " . $AlbumDirName . '/' . CACHEFOLDER . '/' . "</code>, "
 								. gettext("or use your FTP program to give everyone write permissions to those folders.");
 			}
@@ -511,7 +511,7 @@ if (isset($_GET['album'])) {
 	$album = newAlbum($folder);
 	$subtab = setAlbumSubtabs($album);
 } else {
-	$zenphoto_tabs['edit']['subtabs'][gettext('Mass-edit albums')] = "/" . CORE_FOLDER . '/admin-tabs/edit.php?tab=massedit';
+	$_admin_menu['edit']['subtabs'][gettext('Mass-edit albums')] = "/" . CORE_FOLDER . '/admin-tabs/edit.php?tab=massedit';
 }
 if (empty($subtab)) {
 	if (isset($_GET['album'])) {
@@ -615,8 +615,8 @@ if ($subtab == 'imageinfo') {
 </script>
 
 <?php
-zp_apply_filter('texteditor_config', 'zenphoto');
-Zenphoto_Authority::printPasswordFormJS();
+npgFilters::apply('texteditor_config', 'zenphoto');
+npg_Authority::printPasswordFormJS();
 
 echo "\n</head>";
 ?>
@@ -645,7 +645,7 @@ echo "\n</head>";
 					gettext('Disable comments') => 'commentsoff',
 					gettext('Enable comments') => 'commentson'
 			);
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				$checkarray_images[gettext('Change owner')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
 			}
 			if (extensionEnabled('hitcounter')) {
@@ -661,8 +661,8 @@ echo "\n</head>";
 					gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
 							)
 			);
-			$checkarray_images = zp_apply_filter('bulk_image_actions', $checkarray_images);
-			$checkarray_albums = zp_apply_filter('bulk_album_actions', $checkarray_albums);
+			$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
+			$checkarray_albums = npgFilters::apply('bulk_album_actions', $checkarray_albums);
 
 			/** EDIT ***************************************************************************
 			 *
@@ -679,8 +679,8 @@ echo "\n</head>";
 					$_SESSION['mcr_albumlist'] = $mcr_albumlist;
 				}
 
-				$oldalbumimagesort = $_zp_gallery->getSortType('image');
-				$direction = $_zp_gallery->getSortDirection('image');
+				$oldalbumimagesort = $_gallery->getSortType('image');
+				$direction = $_gallery->getSortDirection('image');
 
 				if ($album->isDynamic()) {
 					$subalbums = array();
@@ -689,7 +689,7 @@ echo "\n</head>";
 					$subalbums = getNestedAlbumList($album, $subalbum_nesting);
 					if (!($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 						$allimages = array();
-						$requestor = $_zp_current_admin_obj->getUser();
+						$requestor = $_current_admin_obj->getUser();
 						$albumowner = $album->getOwner();
 						if ($albumowner == $requestor) {
 							$retunNull = '`owner` IS NULL OR ';
@@ -786,7 +786,7 @@ echo "\n</head>";
 					$link = '';
 				}
 				$alb = removeParentAlbumNames($album);
-				zp_apply_filter('admin_note', 'albums', $subtab);
+				npgFilters::apply('admin_note', 'albums', $subtab);
 				?>
 				<h1><?php printf(gettext('Edit Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
 				<?php
@@ -824,7 +824,7 @@ echo "\n</head>";
 			if ($is_massedit) {
 				require_once(CORE_SERVERPATH . 'admin-tabs/album_masedit.php');
 			} else { /* Display a list of albums to edit. */
-				zp_apply_filter('admin_note', 'albums', $subtab);
+				npgFilters::apply('admin_note', 'albums', $subtab);
 				?>
 				<h1><?php echo gettext("Albums"); ?></h1>
 				<div class="tabbox">
@@ -832,18 +832,18 @@ echo "\n</head>";
 					consolidatedEditMessages('');
 					$albums = getNestedAlbumList(NULL, $album_nesting);
 					if (count($albums) > 0) {
-						if (zp_loggedin(ADMIN_RIGHTS) && (count($albums)) > 1) {
+						if (npg_loggedin(ADMIN_RIGHTS) && (count($albums)) > 1) {
 
 							printEditDropdown('', array('1', '2', '3', '4', '5'), $album_nesting);
 
-							$sort = $_zp_sortby;
+							$sort = $_sortby;
 							foreach ($sort as $name => $action) {
 								$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
 							}
 							?>
 							<br clear="all"><br />
 							<?php
-							$type = strtolower($_zp_gallery->getSortType());
+							$type = strtolower($_gallery->getSortType());
 							if ($type && !in_array($type, $sort)) {
 								if ($type == 'manual') {
 									$sort[gettext('Manual')] = $type;
@@ -851,7 +851,7 @@ echo "\n</head>";
 									$sort[gettext('Custom')] = $type = 'custom';
 								}
 							}
-							if ($_zp_gallery->getSortDirection()) {
+							if ($_gallery->getSortDirection()) {
 								$type .= '_DESC';
 							}
 							$cv = array($type);
@@ -888,7 +888,7 @@ echo "\n</head>";
 							<?php XSRFToken('savealbumorder'); ?>
 							<span class="buttons">
 								<?php
-								if ($album_nesting > 1 || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<button class="serialize buttons" type="submit" >
 										<?php echo CHECKMARK_GREEN; ?>
@@ -900,7 +900,7 @@ echo "\n</head>";
 									</button>
 									<?php
 								}
-								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright" style="padding-right: 3px;">
 										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
@@ -943,7 +943,7 @@ echo "\n</head>";
 
 							<div class="buttons">
 								<?php
-								if ($album_nesting > 1 || zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<button class="serialize buttons" type="submit" >
 										<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
@@ -954,7 +954,7 @@ echo "\n</head>";
 									</button>
 									<?php
 								}
-								if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright">
 										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
@@ -972,7 +972,7 @@ echo "\n</head>";
 					<?php
 				} else {
 					echo gettext("There are no albums for you to edit.");
-					if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+					if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 						?>
 						<span class="floatright">
 							<p class="buttons">

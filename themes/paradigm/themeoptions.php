@@ -45,7 +45,7 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 
-		global $_zp_gallery;
+		global $_gallery;
 		$albumlist = array();
 		$albumlist['Entire Gallery'] = '';
 		$albums = getNestedAlbumList(null, 9999999);

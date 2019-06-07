@@ -19,10 +19,10 @@ $option_interface = 'cacheHeader_options';
 
 $_cacheHeader_side = getOption('cacheHeader_sides');
 if ($_cacheHeader_side == 'admin' || $_cacheHeader_side == 'all')
-	zp_register_filter('admin_headers', 'cacheHeader');
+	npgFilters::register('admin_headers', 'cacheHeader');
 if ($_cacheHeader_side == 'gallery' || $_cacheHeader_side == 'all')
-	zp_register_filter('theme_headers', 'cacheHeader');
-zp_register_filter('plugin_tabs', 'cacheHeader_options::tab');
+	npgFilters::register('theme_headers', 'cacheHeader');
+npgFilters::register('plugin_tabs', 'cacheHeader_options::tab');
 unset($_cacheHeader_side);
 
 class cacheHeader_options {

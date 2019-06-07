@@ -56,8 +56,8 @@ if (isset($_GET['action'])) {
 	switch ($action) {
 		case 'viewadmin':
 			XSRFdefender('viewadmin');
-			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
-			Zenphoto_Authority::logUser($adminobj);
+			$adminobj = npg_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
+			npg_Authority::logUser($adminobj);
 			header("Location: " . getAdminLink('admin.php'));
 			exit();
 
@@ -66,9 +66,9 @@ if (isset($_GET['action'])) {
 			if (isset($_GET['revert'])) {
 				$v = getOption('libauth_version') - 1;
 			} else {
-				$v = Zenphoto_Authority::$supports_version;
+				$v = npg_Authority::$supports_version;
 			}
-			if ($_zp_authority->migrateAuth($v)) {
+			if ($_authority->migrateAuth($v)) {
 				$notify = '';
 			} else {
 				$notify = '&migration_error';
@@ -78,8 +78,8 @@ if (isset($_GET['action'])) {
 
 		case 'deleteadmin':
 			XSRFdefender('deleteadmin');
-			$adminobj = Zenphoto_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
-			zp_apply_filter('save_user_complete', '', $adminobj, 'delete');
+			$adminobj = npg_Authority::newAdministrator(sanitize($_GET['adminuser']), 1);
+			npgFilters::apply('save_user_complete', '', $adminobj, 'delete');
 			$adminobj->remove();
 			header('Location: ' . getAdminLink('admin-tabs/users.php') . '?page=admin&deleted&subpage=' . $subpage);
 			exit();
@@ -93,9 +93,9 @@ if (isset($_GET['action'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
 					if (isset($_POST['alter_enabled']) || sanitize_numeric($_POST['totaladmins']) > 1 ||
-									trim($userlist[0]['adminuser']) != $_zp_current_admin_obj->getUser() ||
+									trim($userlist[0]['adminuser']) != $_current_admin_obj->getUser() ||
 									$newuserid === 0) {
-						if (!$_zp_current_admin_obj->reset) {
+						if (!$_current_admin_obj->reset) {
 							admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 						}
 					}
@@ -116,18 +116,18 @@ if (isset($_GET['action'])) {
 							$nouser = false;
 							if ($i === $newuserid) {
 								$newuser = $user;
-								$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
+								$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 								if (is_object($userobj)) {
 									$notify = '?exists';
 									break;
 								} else {
 									$what = 'new';
-									$userobj = Zenphoto_Authority::newAdministrator('');
+									$userobj = npg_Authority::newAdministrator('');
 									$userobj->setUser($user);
 								}
 							} else {
 								$what = 'update';
-								$userobj = Zenphoto_Authority::newAdministrator($user);
+								$userobj = npg_Authority::newAdministrator($user);
 							}
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
@@ -137,7 +137,7 @@ if (isset($_GET['action'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
 								if (empty($admin_e) || filter_var($admin_e, FILTER_VALIDATE_EMAIL)) {
 									if ($admin_e) {
-										$list = $_zp_authority->getAdministrators('users');
+										$list = $_authority->getAdministrators('users');
 										unset($list[$userobj->getID()]);
 										foreach ($list as $anuser) {
 											if ($anuser['email'] == $admin_e) {
@@ -167,7 +167,7 @@ if (isset($_GET['action'])) {
 								}
 								if ($pass == $pass2) {
 									$pass2 = $userobj->getPass($pass);
-									if ($msg = zp_apply_filter('can_set_user_password', false, $pass, $userobj)) {
+									if ($msg = npgFilters::apply('can_set_user_password', false, $pass, $userobj)) {
 										$notify = '?mismatch=format&error=' . urlencode($msg);
 									} else {
 										$userobj->setPass($pass);
@@ -188,7 +188,7 @@ if (isset($_GET['action'])) {
 							$lang = sanitize($userlist[$i]['admin_language'], 3);
 							if ($lang != $userobj->getLanguage()) {
 								$userobj->setLanguage($lang);
-								zp_clearCookie('dynamic_locale');
+								clearNPGCookie('dynamic_locale');
 							}
 							$rights = 0;
 							if ($alter && (!isset($userlist[$i]['group']) || $userlist[$i]['group'] == array(''))) {
@@ -220,17 +220,17 @@ if (isset($_GET['action'])) {
 							if (isset($userlist[$i]['createAlbum'])) {
 								$userobj->createPrimealbum();
 							}
-							zp_apply_filter('save_admin_data', $userobj, $i, $alter);
-							if (!($error && !$_zp_current_admin_obj->getID())) { //	new install and password problems, leave with no admin
+							npgFilters::apply('save_admin_data', $userobj, $i, $alter);
+							if (!($error && !$_current_admin_obj->getID())) { //	new install and password problems, leave with no admin
 								$userobj->transient = false;
 								$saved = $userobj->save();
 								if ($saved == 1) {
-									$msg = zp_apply_filter('save_user_complete', $msg, $userobj, $what);
+									$msg = npgFilters::apply('save_user_complete', $msg, $userobj, $what);
 									$returntab .= '&show[]=' . $user;
 								}
-								if (!$_zp_current_admin_obj->getID()) {
+								if (!$_current_admin_obj->getID()) {
 									// avoid the logon screen for first user established
-									Zenphoto_Authority::logUser($userobj);
+									npg_Authority::logUser($userobj);
 								}
 							}
 						}
@@ -256,20 +256,20 @@ if (isset($_GET['action'])) {
 }
 $refresh = false;
 
-if ($_zp_current_admin_obj->reset) {
+if ($_current_admin_obj->reset) {
 	if (isset($_GET['saved'])) {
 		$refresh = '<meta http-equiv="refresh" content="3; url=admin.php" />';
 	}
 }
 
-if (!$_zp_current_admin_obj && $_zp_current_admin_obj->getID()) {
+if (!$_current_admin_obj && $_current_admin_obj->getID()) {
 	header("HTTP/1.0 302 Found");
 	header("Status: 302 Found");
 	header('Location: ' . getAdminLink('admin.php'));
 	exit();
 }
 
-$hashes = array_flip(_Authority::getHashAlgorithms(TRUE));
+$hashes = array_flip(npg_Authority::getHashAlgorithms(TRUE));
 
 printAdminHeader($_current_tab);
 echo $refresh;
@@ -287,7 +287,7 @@ echo $refresh;
 		return v;
 	}
 </script>
-<?php Zenphoto_Authority::printPasswordFormJS(); ?>
+<?php npg_Authority::printPasswordFormJS(); ?>
 </head>
 <body>
 	<?php printLogoAndLinks(); ?>
@@ -295,13 +295,13 @@ echo $refresh;
 		<?php printTabs(); ?>
 		<div id="content">
 			<?php
-			if ($_zp_current_admin_obj->exists && $_zp_current_admin_obj->reset && !$refresh) {
+			if ($_current_admin_obj->exists && $_current_admin_obj->reset && !$refresh) {
 				echo "<div class=\"errorbox space\">";
 				echo "<h2>" . gettext("Password reset request.") . "</h2>";
 				echo "</div>";
 			}
-			zp_apply_filter('admin_note', 'admin', 'users');
-			if (zp_loggedin(ADMIN_RIGHTS) && !$_zp_current_admin_obj->reset || !$_zp_current_admin_obj->getID()) {
+			npgFilters::apply('admin_note', 'admin', 'users');
+			if (npg_loggedin(ADMIN_RIGHTS) && !$_current_admin_obj->reset || !$_current_admin_obj->getID()) {
 				echo '<h1>' . gettext('Users') . '</h1>';
 				$alterrights = false;
 			} else {
@@ -329,20 +329,20 @@ echo $refresh;
 				}
 				?>
 				<?php
-				global $_zp_authority;
+				global $_authority;
 				?>
 				<div id="tab_admin" class="tabbox">
 					<?php
 					$pages = 0;
 					$clearPass = false;
-					if (!$_zp_current_admin_obj->getID() && $_zp_current_admin_obj->reset) {
+					if (!$_current_admin_obj->getID() && $_current_admin_obj->reset) {
 						$clearPass = true;
 					}
 					$alladmins = array();
 					$seenGroups = array();
 					$nogroup = $pending = false;
-					if (zp_loggedin(ADMIN_RIGHTS) && !$_zp_current_admin_obj->reset || !$_zp_current_admin_obj->getID()) {
-						$admins = $_zp_authority->getAdministrators('allusers');
+					if (npg_loggedin(ADMIN_RIGHTS) && !$_current_admin_obj->reset || !$_current_admin_obj->getID()) {
+						$admins = $_authority->getAdministrators('allusers');
 						foreach ($admins as $key => $user) {
 							$alladmins[] = $user['user'];
 							if ($user['valid'] > 1) {
@@ -360,7 +360,7 @@ echo $refresh;
 							}
 						}
 						$seenGroups = array_unique($seenGroups);
-						if (empty($admins) || !$_zp_current_admin_obj->getID()) {
+						if (empty($admins) || !$_current_admin_obj->getID()) {
 							$rights = ALL_RIGHTS;
 							$groupname = 'administrators';
 							$showset = array('');
@@ -400,9 +400,9 @@ echo $refresh;
 						$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
 					} else {
 						$rangeset = array();
-						if ($_zp_current_admin_obj) {
-							$admins = array($_zp_current_admin_obj->getUser() => $_zp_current_admin_obj->getData());
-							$showset = array($_zp_current_admin_obj->getUser());
+						if ($_current_admin_obj) {
+							$admins = array($_current_admin_obj->getUser() => $_current_admin_obj->getData());
+							$showset = array($_current_admin_obj->getUser());
 						} else {
 							$admins = $showset = array();
 						}
@@ -566,7 +566,7 @@ echo $refresh;
 							<?php
 							$id = 0;
 							$albumlist = array();
-							foreach ($_zp_gallery->getAlbums() as $folder) {
+							foreach ($_gallery->getAlbums() as $folder) {
 								$alb = newAlbum($folder);
 								$name = $alb->getTitle();
 								$albumlist[$name] = $folder;
@@ -583,7 +583,7 @@ echo $refresh;
 							} else {
 								$strongHash = 4;
 							}
-							$defaultHash = array_search($strongHash, Zenphoto_Authority::$hashList);
+							$defaultHash = array_search($strongHash, npg_Authority::$hashList);
 
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
@@ -593,10 +593,10 @@ echo $refresh;
 									$oldHash = false;
 								}
 								$current = in_array($userid, $showset);
-								if ($userid == $_zp_current_admin_obj->getuser()) {
-									$userobj = $_zp_current_admin_obj;
+								if ($userid == $_current_admin_obj->getuser()) {
+									$userobj = $_current_admin_obj;
 								} else {
-									$userobj = Zenphoto_Authority::newAdministrator($userid, 1, false);
+									$userobj = npg_Authority::newAdministrator($userid, 1, false);
 									if ($userid && $userobj->transient) {
 										continue;
 									}
@@ -612,8 +612,8 @@ echo $refresh;
 								} else {
 									$master = '&nbsp;';
 								}
-								if ($userobj->master && $_zp_current_admin_obj->getID()) {
-									if (zp_loggedin(ADMIN_RIGHTS)) {
+								if ($userobj->master && $_current_admin_obj->getID()) {
+									if (npg_loggedin(ADMIN_RIGHTS)) {
 										$master = "(<em>" . gettext("Master") . "</em>)";
 										$userobj->setRights($userobj->getRights() | ADMIN_RIGHTS);
 										$ismaster = true;
@@ -624,17 +624,17 @@ echo $refresh;
 								} else {
 									$background = "background-color:#f0f4f5;";
 								}
-								if ($_zp_current_admin_obj->reset) {
+								if ($_current_admin_obj->reset) {
 									$custom_row = NULL;
 								} else {
 									?>
 									<!-- apply alterrights filter -->
 									<?php
-									$local_alterrights = zp_apply_filter('admin_alterrights', $local_alterrights, $userobj);
+									$local_alterrights = npgFilters::apply('admin_alterrights', $local_alterrights, $userobj);
 									?>
 									<!-- apply admin_custom_data filter -->
 									<?php
-									$custom_row = zp_apply_filter('edit_admin_custom', '', $userobj, $id, $background, $current, $local_alterrights);
+									$custom_row = npgFilters::apply('edit_admin_custom', '', $userobj, $id, $background, $current, $local_alterrights);
 								}
 								?>
 								<!-- finished with filters -->
@@ -697,7 +697,7 @@ echo $refresh;
 															<?php
 														}
 														if ($oldHash !== false) {
-															echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, Zenphoto_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
+															echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, npg_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
 														}
 														?>
 													</td>
@@ -711,7 +711,7 @@ echo $refresh;
 															?>
 															<span class="floatright">
 																<?php
-																if (!$pending && $_zp_current_admin_obj && $user['user'] != $_zp_current_admin_obj->getUser()) {
+																if (!$pending && $_current_admin_obj && $user['user'] != $_current_admin_obj->getUser()) {
 																	?>
 																	<a href="<?php echo getAdminLink('admin-tabs/users.php'); ?>?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
@@ -744,7 +744,7 @@ echo $refresh;
 											</tr>
 											<?php
 											$no_change = array();
-											if (!zp_loggedin(ADMIN_RIGHTS) && !$_zp_current_admin_obj->reset) {
+											if (!npg_loggedin(ADMIN_RIGHTS) && !$_current_admin_obj->reset) {
 												?>
 												<tr <?php if (!$current) echo 'style="display:none;"'; ?> class="userextrainfo">
 													<td <?php if (!empty($background)) echo " style=\"$background\""; ?> colspan="100%">
@@ -778,7 +778,7 @@ echo $refresh;
 															} else {
 																$hash = '';
 															}
-															Zenphoto_Authority::printPasswordForm($id, $pad, $password_disable, $clearPass, $hash);
+															npg_Authority::printPasswordForm($id, $pad, $password_disable, $clearPass, $hash);
 															?>
 														</p>
 														<?php
@@ -812,7 +812,7 @@ echo $refresh;
 														</p>
 														<?php
 														$primeAlbum = $userobj->getAlbum();
-														if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+														if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 															if (empty($primeAlbum)) {
 																if (!($userobj->getRights() & (ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))) {
 																	?>
@@ -883,7 +883,7 @@ echo $refresh;
 													<div class="user_right">
 														<?php
 														printAdminRightsTable($id, $background, $local_alterrights, $userobj->getRights());
-														if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+														if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 															$alter_rights = $local_alterrights;
 														} else {
 															$alter_rights = ' disabled="disabled"';
@@ -899,24 +899,24 @@ echo $refresh;
 															printManagedObjects('albums', $albumlist, $alter_rights, $userobj, $id, gettext('user'), $flag);
 															if (extensionEnabled('zenpage')) {
 																$pagelist = array();
-																if (zp_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+																if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 																	$alter_rights = $local_alterrights;
 																} else {
 																	$alter_rights = ' disabled="disabled"';
 																}
-																$pages = $_zp_CMS->getPages(false);
+																$pages = $_CMS->getPages(false);
 																foreach ($pages as $page) {
 																	if (!$page['parentid']) {
 																		$pagelist[get_language_string($page['title'])] = $page['titlelink'];
 																	}
 																}
 																$newslist = array('"' . gettext('un-categorized') . '"' => '`');
-																$categories = $_zp_CMS->getAllCategories(false);
+																$categories = $_CMS->getAllCategories(false);
 																foreach ($categories as $category) {
 																	$newslist[get_language_string($category['title'])] = $category['titlelink'];
 																}
 																printManagedObjects('news_categories', $newslist, $alter_rights, $userobj, $id, gettext('user'), NULL);
-																if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+																if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 																	$alter_rights = $local_alterrights;
 																} else {
 																	$alter_rights = ' disabled = "disabled"';
@@ -962,7 +962,7 @@ echo $refresh;
 						<input type="hidden" name="checkForPostTruncation" value="1" />
 						<br />
 						<?php
-						if (!$_zp_current_admin_obj->transient) {
+						if (!$_current_admin_obj->transient) {
 							?>
 							<p class="buttons">
 								<button type="submit"><?php echo CHECKMARK_GREEN; ?>
@@ -978,12 +978,12 @@ echo $refresh;
 						?>
 					</form>
 					<?php
-					if (zp_loggedin(ADMIN_RIGHTS)) {
-						if (Zenphoto_Authority::getVersion() < Zenphoto_Authority::$supports_version) {
+					if (npg_loggedin(ADMIN_RIGHTS)) {
+						if (npg_Authority::getVersion() < npg_Authority::$supports_version) {
 							?>
 							<br class="clearall">
 							<p class="notebox">
-								<?php printf(gettext('The <em>Zenphoto_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), Zenphoto_Authority::getVersion(), Zenphoto_Authority::$supports_version); ?>
+								<?php printf(gettext('The <em>_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), npg_Authority::getVersion(), npg_Authority::$supports_version); ?>
 								<br class="clearall">
 								<span class="buttons">
 									<a onclick="launchScript('', ['action = migrate_rights', 'XSRFToken = <?php echo getXSRFToken('migrate_rights') ?>']);"> <?php echo gettext('Migrate rights'); ?></a>
@@ -992,11 +992,11 @@ echo $refresh;
 							</p>
 							<br class="clearall">
 							<?php
-						} else if (Zenphoto_Authority::getVersion() > Zenphoto_Authority::$preferred_version) {
+						} else if (npg_Authority::getVersion() > npg_Authority::$preferred_version) {
 							?>
 							<br class="clearall">
 							<p class="notebox">
-								<?php printf(gettext('You may wish to revert the <em>Zenphoto_Authority</em> user rights to version %s for backwards compatibility with prior releases.'), Zenphoto_Authority::getVersion() - 1); ?>
+								<?php printf(gettext('You may wish to revert the <em>_Authority</em> user rights to version %s for backwards compatibility with prior releases.'), npg_Authority::getVersion() - 1); ?>
 								<br class="clearall">
 								<span class="buttons">
 									<a onclick="launchScript('', ['action=migrate_rights', 'revert=true', 'XSRFToken=<?php echo getXSRFToken('migrate_rights') ?>']);"><?php echo gettext('Revert rights'); ?></a>

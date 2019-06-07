@@ -8,13 +8,13 @@ if (class_exists('CMS')) {
 	<html>
 		<head>
 
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php npgFilters::apply('theme_head'); ?>
 
 			<?php if (class_exists('RSS')) printRSSHeaderLink("Pages", "Zenpage news", ""); ?>
 		</head>
 
 		<body onload="blurAnchors()">
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 
 			<!-- Wrap Header -->
 			<div id="header">
@@ -77,7 +77,7 @@ if (class_exists('CMS')) {
 
 			<?php
 			printFooter();
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 
 		</body>

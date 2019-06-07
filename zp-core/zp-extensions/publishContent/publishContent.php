@@ -8,7 +8,7 @@ require_once(CORE_SERVERPATH . 'template-functions.php');
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
 
 function unpublishSubalbums($album) {
-	global $_zp_gallery, $_zp_current_admin_obj;
+	global $_gallery, $_current_admin_obj;
 	$albums = $album->getAlbums();
 	foreach ($albums as $albumname) {
 		$subalbum = newAlbum($albumname);
@@ -45,9 +45,9 @@ $publish_images_list = array();
 
 if (isset($_POST['set_defaults'])) {
 	XSRFdefender('publishContent');
-	$_zp_gallery->setAlbumPublish((int) isset($_POST['album_default']));
-	$_zp_gallery->setImagePublish((int) isset($_POST['image_default']));
-	$_zp_gallery->save();
+	$_gallery->setAlbumPublish((int) isset($_POST['album_default']));
+	$_gallery->setImagePublish((int) isset($_POST['image_default']));
+	$_gallery->save();
 	$report = 'defaults';
 } else if (isset($_POST['publish'])) {
 	$action = sanitize($_POST['publish']);
@@ -145,12 +145,12 @@ echo "</head>\n";
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'schedule', ''); ?>
+			<?php npgFilters::apply('admin_note', 'schedule', ''); ?>
 			<h1><?php echo (gettext('Manage content publication')); ?></h1>
 			<div class="tabbox">
 				<?php
-				$albpublish = $_zp_gallery->getAlbumPublish();
-				$imgpublish = $_zp_gallery->getImagePublish();
+				$albpublish = $_gallery->getAlbumPublish();
+				$imgpublish = $_gallery->getImagePublish();
 				if (isset($_POST['publish_date'])) {
 					$requestdate = dateTimeConvert(sanitize($_POST['publish_date']));
 				} else {
@@ -159,8 +159,8 @@ echo "</head>\n";
 
 				$albumidlist = '';
 				$albumids = '';
-				if (zp_loggedin(ADMIN_RIGHTS)) {
-					$albumlist = $_zp_gallery->getAlbums();
+				if (npg_loggedin(ADMIN_RIGHTS)) {
+					$albumlist = $_gallery->getAlbums();
 				} else {
 					$albumlist = getManagedAlbumList();
 					$albumIDs = array();
@@ -215,7 +215,7 @@ echo "</head>\n";
 					ksort($publish_images_list, SORT_LOCALE_STRING);
 				}
 
-				if (zp_loggedin(ADMIN_RIGHTS)) { //only admin should be allowed to do this
+				if (npg_loggedin(ADMIN_RIGHTS)) { //only admin should be allowed to do this
 					?>
 					<fieldset class="smallbox">
 						<legend><?php echo gettext('Image and album <em>Discovery</em> options'); ?></legend>
@@ -525,7 +525,7 @@ echo "</head>\n";
 				<?php
 				if (class_exists('CMS')) {
 					$visible = $report == 'categories';
-					$items = $_zp_CMS->getAllCategories(false);
+					$items = $_CMS->getAllCategories(false);
 					$output = '';
 					$c = 0;
 					foreach ($items as $key => $item) {
@@ -590,7 +590,7 @@ echo "</head>\n";
 					<br class="clearall">
 					<?php
 					$visible = $report == 'news';
-					$items = $_zp_CMS->getArticles(0, false);
+					$items = $_CMS->getArticles(0, false);
 					$output = '';
 					$c = 0;
 					foreach ($items as $key => $item) {
@@ -653,7 +653,7 @@ echo "</head>\n";
 					</fieldset>
 					<?php
 					$visible = $report == 'pages';
-					$items = $_zp_CMS->getPages(false);
+					$items = $_CMS->getPages(false);
 					$output = '';
 					$c = 0;
 					foreach ($items as $key => $item) {

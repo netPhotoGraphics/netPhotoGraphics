@@ -28,8 +28,8 @@ if (OFFSET_PATH == 2) {
 } else {
 	if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) { // register if it is time for a backup
 		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
-		zp_register_filter('admin_head', 'auto_backup::timer_handler');
-		zp_register_filter('theme_head', 'auto_backup::timer_handler');
+		npgFilters::register('admin_head', 'auto_backup::timer_handler');
+		npgFilters::register('theme_head', 'auto_backup::timer_handler');
 		$_backupMutex = new zpMutex('bK');
 	}
 }

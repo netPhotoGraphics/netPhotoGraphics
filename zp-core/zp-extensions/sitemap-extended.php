@@ -30,7 +30,7 @@ $plugin_notice = gettext('<strong>Note:</strong> The index links may not match i
 
 $option_interface = 'sitemap';
 
-zp_register_filter('admin_tabs', 'sitemap::admin_tabs');
+npgFilters::register('admin_tabs', 'sitemap::admin_tabs');
 
 
 $sitemapfolder = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/sitemap';
@@ -190,7 +190,7 @@ class sitemap {
 	}
 
 	static function admin_tabs($tabs) {
-		if (zp_loggedin(OVERVIEW_RIGHTS)) {
+		if (npg_loggedin(OVERVIEW_RIGHTS)) {
 			$tabs['overview']['subtabs'][gettext('Sitemap')] = PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php?tab=sitemap';
 		}
 		return $tabs;
@@ -322,10 +322,10 @@ class sitemap {
 	 * @return bool
 	 */
 	static function galleryIndex() {
-		global $_sitemapGalleryIndex, $_zp_gallery;
+		global $_sitemapGalleryIndex, $_gallery;
 		if (is_null($_sitemapGalleryIndex)) {
 			$_sitemapGalleryIndex = false;
-			$theme = $_zp_gallery->getCurrentTheme();
+			$theme = $_gallery->getCurrentTheme();
 			if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/gallery.php')) {
 				$_sitemapGalleryIndex = getThemeOption('gallery_index', NULL, $theme);
 				if (is_null($_sitemapGalleryIndex)) {
@@ -344,7 +344,7 @@ class sitemap {
 	 */
 
 	static function getIndexLinks() {
-		global $_zp_gallery, $_zp_conf_vars, $_sitemap_number;
+		global $_gallery, $_conf_vars, $_sitemap_number;
 		$data = '';
 		if ($_sitemap_number < 2) {
 			set_context(ZP_INDEX);
@@ -438,7 +438,7 @@ class sitemap {
 	 * @param string $gateway name of validation function
 	 */
 	static function getAlbumList($obj, &$albumlist, $gateway) {
-		global $_zp_gallery;
+		global $_gallery;
 		$locallist = $obj->getAlbums();
 		foreach ($locallist as $folder) {
 			$album = newAlbum($folder);
@@ -478,7 +478,7 @@ class sitemap {
 	 * @return string
 	 */
 	static function getAlbums() {
-		global $_zp_gallery, $_sitemap_number;
+		global $_gallery, $_sitemap_number;
 		$data = '';
 		$sitemap_locales = i18n::generateLanguageList();
 		$albumchangefreq = getOption('sitemap_changefreq_albums');
@@ -487,7 +487,7 @@ class sitemap {
 		$imagelastmod = getOption('sitemap_lastmod_images');
 
 		$albums = array();
-		self::getAlbumList($_zp_gallery, $albums, 'passAlbums');
+		self::getAlbumList($_gallery, $albums, 'passAlbums');
 		$offset = ($_sitemap_number - 1);
 		$albums = array_slice($albums, $offset, SITEMAP_CHUNK);
 		if (!empty($albums)) {
@@ -566,14 +566,14 @@ class sitemap {
 	 * @return string
 	 */
 	static function getImages() {
-		global $_zp_gallery, $_sitemap_number;
+		global $_gallery, $_sitemap_number;
 		$data = '';
 		$sitemap_locales = i18n::generateLanguageList();
 		$imagechangefreq = getOption('sitemap_changefreq_images');
 		$imagelastmod = getOption('sitemap_lastmod_images');
 		$limit = self::getDBLimit(1);
 		$albums = array();
-		self::getAlbumList($_zp_gallery, $albums, 'passImages');
+		self::getAlbumList($_gallery, $albums, 'passImages');
 		$offset = ($_sitemap_number - 1);
 		$albums = array_slice($albums, $offset, SITEMAP_CHUNK);
 		if ($albums) {
@@ -711,14 +711,14 @@ class sitemap {
 	 * @return string
 	 */
 	static function getPages() {
-		global $_zp_CMS, $_sitemap_number;
+		global $_CMS, $_sitemap_number;
 		//not splitted into several sitemaps yet
 		if ($_sitemap_number == 1) {
 			$data = '';
 			$limit = self::getDBLimit(2);
 			$sitemap_locales = i18n::generateLanguageList();
 			$changefreq = getOption('sitemap_changefreq_pages');
-			$pages = $_zp_CMS->getPages(true);
+			$pages = $_CMS->getPages(true);
 			if ($pages) {
 				$data .= self::echonl('<?xml version="1.0" encoding="UTF-8"?>');
 				$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
@@ -763,7 +763,7 @@ class sitemap {
 	 * @return string
 	 */
 	static function getNewsIndex() {
-		global $_zp_CMS, $_sitemap_number;
+		global $_CMS, $_sitemap_number;
 		//not splitted into several sitemaps yet
 		if ($_sitemap_number == 1) {
 			$data = '';
@@ -792,7 +792,7 @@ class sitemap {
 			}
 			// getting pages for the main news loop
 			$zenpage_articles_per_page = ZP_ARTICLES_PER_PAGE;
-			$newspages = ceil($_zp_CMS->getTotalArticles() / $zenpage_articles_per_page);
+			$newspages = ceil($_CMS->getTotalArticles() / $zenpage_articles_per_page);
 			if ($newspages > 1) {
 				for ($x = 2; $x <= $newspages; $x++) {
 					switch (SITEMAP_LOCALE_TYPE) {
@@ -827,13 +827,13 @@ class sitemap {
 	 * @return string
 	 */
 	static function getNewsArticles() {
-		global $_zp_CMS, $_sitemap_number;
+		global $_CMS, $_sitemap_number;
 		//not splitted into several sitemaps yet
 		if ($_sitemap_number == 1) {
 			$data = '';
 			$sitemap_locales = i18n::generateLanguageList();
 			$changefreq = getOption('sitemap_changefreq_news');
-			$articles = $_zp_CMS->getArticles('', 'published', true, "date", "desc");
+			$articles = $_CMS->getArticles('', 'published', true, "date", "desc");
 			if ($articles) {
 				$data .= self::echonl('<?xml version="1.0" encoding="UTF-8"?>');
 				$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
@@ -878,13 +878,13 @@ class sitemap {
 	 * @return string
 	 */
 	static function getNewsCategories() {
-		global $_zp_CMS, $_sitemap_number;
+		global $_CMS, $_sitemap_number;
 		//TODO not splitted into several sitemaps yet
 		if ($_sitemap_number == 1) {
 			$data = '';
 			$sitemap_locales = i18n::generateLanguageList();
 			$changefreq = getOption('sitemap_changefreq_newscats');
-			$newscats = $_zp_CMS->getAllCategories();
+			$newscats = $_CMS->getAllCategories();
 			if ($newscats) {
 				$data .= self::echonl('<?xml version="1.0" encoding="UTF-8"?>');
 				$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
@@ -995,7 +995,7 @@ class sitemap {
 
 }
 
-if (OFFSET_PATH === 0 && isset($_GET['sitemap']) && $_zp_gallery_page == 'index.php') { //	only front-end.
+if (OFFSET_PATH === 0 && isset($_GET['sitemap']) && $_gallery_page == 'index.php') { //	only front-end.
 	$sitemappath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/sitemap/sitemapindex.xml';
 	if (file_exists($sitemappath)) {
 		$sitemapfile = file_get_contents($sitemappath);

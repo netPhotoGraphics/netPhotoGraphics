@@ -34,8 +34,8 @@ $plugin_description = gettext("Debugging aids.");
 
 $option_interface = 'debug';
 
-zp_register_filter('admin_tabs', 'debug::tabs', 100);
-zp_register_filter('admin_utilities_buttons', 'debug::button');
+npgFilters::register('admin_tabs', 'debug::tabs', 100);
+npgFilters::register('admin_utilities_buttons', 'debug::button');
 
 if (isset($_REQUEST['markRelease'])) {
 	XSRFdefender('markRelease');
@@ -57,7 +57,7 @@ class debug {
 		if (OFFSET_PATH == 2) {
 			if (TEST_RELEASE) {
 				//	then the options must match the version tags
-				$options = explode('-', ZENPHOTO_VERSION . '-');
+				$options = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 				$options = explode('_', $options[1]);
 				array_shift($options);
 				setOption('debug_marks', serialize($options));
@@ -151,20 +151,20 @@ class debug {
 
 	function handleOptionSave($themename, $themealbum) {
 		$version = self::version(false);
-		if (TEST_RELEASE && ZENPHOTO_VERSION != $version) {
+		if (TEST_RELEASE && NETPHOTOGRAPHICS_VERSION != $version) {
 			self::updateVersion($version);
 		}
 	}
 
 	static function updateVersion($version) {
 		$v = file_get_contents(CORE_SERVERPATH . 'version.php');
-		$version = "define('ZENPHOTO_VERSION', '$version');\n";
-		$v = preg_replace("~define\('ZENPHOTO_VERSION.*\n~", $version, $v);
+		$version = "define('NETPHOTOGRAPHICS_VERSION', '$version');\n";
+		$v = preg_replace("~define\('NETPHOTOGRAPHICS_VERSION.*\n~", $version, $v);
 		file_put_contents(CORE_SERVERPATH . 'version.php', $v);
 	}
 
 	static function version($released) {
-		$o = explode('-', ZENPHOTO_VERSION . '-');
+		$o = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 		if ($released) {
 			return $o[0];
 		} else {
@@ -203,14 +203,14 @@ class debug {
 	}
 
 	static function tabs($tabs) {
-		if (zp_loggedin(DEBUG_RIGHTS)) {
+		if (npg_loggedin(DEBUG_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
 						'link' => getAdminLink(PLUGIN_FOLDER . '/debug/admin_tab.php'),
-						'default' => (zp_loggedin(ADMIN_RIGHTS)) ? 'phpinfo' : 'http',
+						'default' => (npg_loggedin(ADMIN_RIGHTS)) ? 'phpinfo' : 'http',
 						'rights' => DEBUG_RIGHTS);
 			}
-			if (zp_loggedin(ADMIN_RIGHTS)) {
+			if (npg_loggedin(ADMIN_RIGHTS)) {
 				$tabs['development']['subtabs'][gettext("phpinfo")] = PLUGIN_FOLDER . '/debug/admin_tab.php?page=develpment&tab=phpinfo';
 				$tabs['development']['subtabs'][gettext("Locales")] = PLUGIN_FOLDER . '/debug/admin_tab.php?page=develpment&tab=locale';
 				$tabs['development']['subtabs'][gettext("Session")] = PLUGIN_FOLDER . '/debug/admin_tab.php?page=develpment&tab=session';

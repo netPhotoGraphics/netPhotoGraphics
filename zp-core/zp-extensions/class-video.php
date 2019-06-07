@@ -77,7 +77,7 @@ class Video extends Image {
 	 * @return Image
 	 */
 	function __construct($album, $filename, $quiet = false) {
-		global $_zp_supported_images;
+		global $_supported_images;
 
 		$msg = $this->invalid($album, $filename);
 		if ($msg) {
@@ -91,7 +91,7 @@ class Video extends Image {
 		foreach ($alts as $alt) {
 			$this->videoalt[] = trim(strtolower($alt));
 		}
-		$this->sidecars = $_zp_supported_images;
+		$this->sidecars = $_supported_images;
 		$this->video = true;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 
@@ -107,7 +107,7 @@ class Video extends Image {
 			$this->set('mtime', $this->filemtime);
 			$this->save();
 			if ($new)
-				zp_apply_filter('new_image', $this);
+				npgFilters::apply('new_image', $this);
 		}
 	}
 
@@ -149,10 +149,10 @@ class Video extends Image {
 	 *
 	 */
 	function updateDimensions() {
-		global $_zp_multimedia_extension;
+		global $_multimedia_extension;
 		$ext = getSuffix($this->filename);
-		$h = $_zp_multimedia_extension->getHeight($this);
-		$w = $_zp_multimedia_extension->getWidth($this);
+		$h = $_multimedia_extension->getHeight($this);
+		$w = $_multimedia_extension->getWidth($this);
 		$this->set('width', $w);
 		$this->set('height', $h);
 	}
@@ -165,12 +165,12 @@ class Video extends Image {
 	 * @return string
 	 */
 	function getThumbImageFile($path = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($path))
 			$path = SERVERPATH;
 		if (is_null($this->objectsThumb)) {
 			$suffix = getSuffix($this->filename);
-			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
+			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
 				$imgfile = $path . '/' . $folder . '/' . $suffix . 'Default.png';
 				if (file_exists($imgfile)) {
 					break;
@@ -307,7 +307,7 @@ class Video extends Image {
 				}
 			}
 		}
-		return zp_apply_filter('getLink', $vid, 'full-image.php', NULL);
+		return npgFilters::apply('getLink', $vid, 'full-image.php', NULL);
 		return $vid;
 	}
 
@@ -319,14 +319,14 @@ class Video extends Image {
 	 * @return string
 	 */
 	function getContent($w = NULL, $h = NULL) {
-		global $_zp_multimedia_extension;
+		global $_multimedia_extension;
 		if (is_null($w)) {
 			$w = $this->getWidth();
 		}
 		if (is_null($h)) {
 			$h = $this->getHeight();
 		}
-		return $_zp_multimedia_extension->getPlayerConfig($this, NULL, NULL, $w, $h);
+		return $_multimedia_extension->getPlayerConfig($this, NULL, NULL, $w, $h);
 	}
 
 	/**
@@ -354,12 +354,12 @@ class Video extends Image {
 	 * @see zp-core/Image::updateMetaData()
 	 */
 	function updateMetaData() {
-		global $_zp_exifvars;
+		global $_exifvars;
 		parent::updateMetaData();
 		if (!SAFE_MODE) {
 			//see if there are any "enabled" VIDEO fields
 			$process = array();
-			foreach ($_zp_exifvars as $field => $exifvar) {
+			foreach ($_exifvars as $field => $exifvar) {
 				if ($exifvar[EXIF_FIELD_ENABLED] && $exifvar[EXIF_SOURCE] == 'VIDEO') {
 					$process[$field] = $exifvar;
 				}
@@ -415,15 +415,15 @@ class Video extends Image {
 
 	/**
 	 * returns the class of the active multi-media handler
-	 * @global pseudoPlayer $_zp_multimedia_extension
+	 * @global pseudoPlayer $_multimedia_extension
 	 * @return string
 	 *
 	 * @author Stephen Billard
 	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function multimediaExtension() {
-		global $_zp_multimedia_extension;
-		return get_class($_zp_multimedia_extension);
+		global $_multimedia_extension;
+		return get_class($_multimedia_extension);
 	}
 
 }
@@ -491,5 +491,5 @@ function class_video_enable($enabled) {
 	requestSetup('Video Metadata', $report);
 }
 
-$_zp_multimedia_extension = new pseudoPlayer();
+$_multimedia_extension = new pseudoPlayer();
 ?>

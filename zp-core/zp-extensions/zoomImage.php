@@ -21,7 +21,7 @@
  * <dt><em>target</em></dt>
  * <dd>CSS <em>id</em> of the DOM element where zoomed image will be displayed (defaults to displaying over the zoomable image)</dd>
  * <dt><em>image</em></dt>
- * <dd>image to display (defaults to <code>$_zp_current_image</code>)</dd>
+ * <dd>image to display (defaults to <code>$_current_image</code>)</dd>
  * <dt><em>id</em></dt>
  * <dd>CSS <em>id</em> for the zoomable image</dd>
  * <dt><em>class</em></dt>
@@ -47,7 +47,7 @@ $option_interface = 'zoomImage';
 
 require_once(CORE_SERVERPATH . 'functions-image.php');
 
-zp_register_filter('theme_body_close', 'zoomImage::body_close');
+npgFilters::register('theme_body_close', 'zoomImage::body_close');
 
 class zoomImage {
 
@@ -91,7 +91,7 @@ class zoomImage {
 /**
  * Prints a zoomable image
  *
- * @global type $_zp_current_image
+ * @global type $_current_image
  * @global type $_zoomImage_ID
  * @param int $size size to print the image
  * @param string $type zoom activation type
@@ -104,9 +104,9 @@ class zoomImage {
  * @param string $title
  */
 function printZoomImage($size = NULL, $type = NULL, $magnify = NULL, $target = NULL, $image = NULL, $id = NULL, $class = NULL, $alt = NULL, $title = NULL) {
-	global $_zp_current_image, $_zoomImage_ID, $_zoomImage_id_list;
+	global $_current_image, $_zoomImage_ID, $_zoomImage_id_list;
 	if (is_null($image)) {
-		$image = $_zp_current_image;
+		$image = $_current_image;
 	}
 	if (is_null($size)) {
 		$size = getOption('image_size');

@@ -53,8 +53,8 @@
 		<div class="headline-tags"><?php printTags('links', '', 'hor-list'); ?></div>
 	<?php } ?>
 
-	<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
-		<div class="favorites"><?php printAddToFavorites($_zp_current_image); ?></div>
+	<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+		<div class="favorites"><?php printAddToFavorites($_current_image); ?></div>
 	<?php } ?>
 
 	<?php if (extensionEnabled('rating')) { ?>

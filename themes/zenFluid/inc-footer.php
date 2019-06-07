@@ -14,5 +14,5 @@
 </div>
 
 <?php
-zp_apply_filter('theme_body_close');
+npgFilters::apply('theme_body_close');
 ?>

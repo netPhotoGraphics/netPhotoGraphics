@@ -9,17 +9,17 @@
  */
 // force UTF-8 Ø
 
-global $_zp_captcha;
+global $_captcha;
 
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext("netPhotoGraphics captcha handler.");
-	$plugin_disable = ($_zp_captcha->name && $_zp_captcha->name != 'captcha') ? sprintf(gettext('Only one Captcha handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_zp_captcha->name) : '';
+	$plugin_disable = ($_captcha->name && $_captcha->name != 'captcha') ? sprintf(gettext('Only one Captcha handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_captcha->name) : '';
 }
 
 $option_interface = 'captcha';
 
-class captcha extends _zp_captcha {
+class captcha {
 
 	var $name = 'captcha';
 
@@ -35,11 +35,25 @@ class captcha extends _zp_captcha {
 				enableExtension('captcha', $priority);
 				enableExtension('zpCaptcha', 0);
 			}
-			setOptionDefault('zenphoto_captcha_font', '');
-			setOptionDefault('zenphoto_captcha_length', 5);
-			setOptionDefault('zenphoto_captcha_font_size', 18);
-			setOptionDefault('zenphoto_captcha_key', sha1($_SERVER['HTTP_HOST'] . 'a9606420399a77387af2a4b541414ee5' . getUserIP()));
-			setOptionDefault('zenphoto_captcha_string', 'abcdefghijkmnpqrstuvwxyz23456789ABCDEFGHJKLMNPQRSTUVWXYZ');
+			if (getOption('zenphoto_captcha_key')) {
+				setOption('npg_captcha_font', getOption('zenphoto_captcha_font'));
+				setOption('npg_captcha_length', getOption('zenphoto_captcha_length'));
+				setOption('npg_captcha_font_size', getOption('zenphoto_captcha_font_size'));
+				setOption('npg_captcha_key', getOption('zenphoto_captcha_key'));
+				setOption('npg_captcha_string', getOption('zenphoto_captcha_string'));
+
+				purgeOption('zenphoto_captcha_font');
+				purgeOption('zenphoto_captcha_length');
+				purgeOption('zenphoto_captcha_font_size');
+				purgeOption('zenphoto_captcha_key');
+				purgeOption('zenphoto_captcha_string');
+			}
+
+			setOptionDefault('npg_captcha_font', '');
+			setOptionDefault('npg_captcha_length', 5);
+			setOptionDefault('npg_captcha_font_size', 18);
+			setOptionDefault('npg_captcha_key', sha1($_SERVER['HTTP_HOST'] . 'a9606420399a77387af2a4b541414ee5' . getUserIP()));
+			setOptionDefault('npg_captcha_string', 'abcdefghijkmnpqrstuvwxyz23456789ABCDEFGHJKLMNPQRSTUVWXYZ');
 		}
 	}
 
@@ -51,25 +65,25 @@ class captcha extends _zp_captcha {
 	function getOptionsSupported() {
 		$fontlist = zp_getFonts();
 		$options = array(
-				gettext('Hash key') => array('key' => 'zenphoto_captcha_key', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Hash key') => array('key' => 'npg_captcha_key', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 2,
 						'desc' => gettext('The key used in hashing the CAPTCHA string. Note: this key will change with each successful CAPTCHA verification.')),
-				gettext('Allowed characters') => array('key' => 'zenphoto_captcha_string', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Allowed characters') => array('key' => 'npg_captcha_string', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 1,
 						'desc' => gettext('The characters which may appear in the CAPTCHA string.')),
-				gettext('CAPTCHA length') => array('key' => 'zenphoto_captcha_length', 'type' => OPTION_TYPE_RADIO,
+				gettext('CAPTCHA length') => array('key' => 'npg_captcha_length', 'type' => OPTION_TYPE_RADIO,
 						'order' => 0,
 						'buttons' => array(gettext('3') => 3, gettext('4') => 4, gettext('5') => 5, gettext('6') => 6),
 						'desc' => gettext('The number of characters in the CAPTCHA.')),
-				gettext('CAPTCHA font') => array('key' => 'zenphoto_captcha_font', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('CAPTCHA font') => array('key' => 'npg_captcha_font', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 3,
 						'selections' => array_merge(array('*' . gettext('random') . '*' => '*'), $fontlist),
 						'desc' => gettext('The font to use for CAPTCHA characters.')),
-				gettext('CAPTCHA font size') => array('key' => 'zenphoto_captcha_font_size', 'type' => OPTION_TYPE_NUMBER,
+				gettext('CAPTCHA font size') => array('key' => 'npg_captcha_font_size', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 3.5,
-						'disabled' => getSuffix(getOption('zenphoto_captcha_font')) != 'ttf',
+						'disabled' => getSuffix(getOption('npg_captcha_font')) != 'ttf',
 						'desc' => gettext('The size to use if the font is scalable (<em>TTF</em> and <em>Imagick</em> fonts.)')),
-				'' => array('key' => 'zenphoto_captcha_image', 'type' => OPTION_TYPE_CUSTOM,
+				'' => array('key' => 'npg_captcha_image', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 4,
 						'desc' => gettext('Sample CAPTCHA image'))
 		);
@@ -80,32 +94,32 @@ class captcha extends _zp_captcha {
 		$captcha = $this->getCaptcha(NULL);
 		preg_match('/src=\"(.*?)\"/', $captcha['html'], $matches);
 		?>
-		<span id="zenphoto_captcha_image_loc">
+		<span id="npg_captcha_image_loc">
 			<?php echo $captcha['html']; ?>
 		</span>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
 			var path = '<?php echo $matches[1]; ?>';
 			window.addEventListener('load', function () {
-				$('#__zenphoto_captcha_font').change(function () {
-					newpath = path + '&amp;f=' + $('#__zenphoto_captcha_font').val() + '&amp;p=' + $('#__zenphoto_captcha_font_size').val();
-					nbase = $('#zenphoto_captcha_image_loc').html().replace(/src=".+?"/g, 'src="' + newpath + '"');
-					$('#zenphoto_captcha_image_loc').html(nbase);
-					suffix = $('#__zenphoto_captcha_font').val().split('.').pop().toLowerCase();
+				$('#__npg_captcha_font').change(function () {
+					newpath = path + '&amp;f=' + $('#__npg_captcha_font').val() + '&amp;p=' + $('#__npg_captcha_font_size').val();
+					nbase = $('#npg_captcha_image_loc').html().replace(/src=".+?"/g, 'src="' + newpath + '"');
+					$('#npg_captcha_image_loc').html(nbase);
+					suffix = $('#__npg_captcha_font').val().split('.').pop().toLowerCase();
 					if (suffix == 'ttf') {
-						$('#__zenphoto_captcha_font_size').prop('disabled', '');
+						$('#__npg_captcha_font_size').prop('disabled', '');
 					} else {
-						$('#__zenphoto_captcha_font_size').prop('disabled', 'disabled');
+						$('#__npg_captcha_font_size').prop('disabled', 'disabled');
 					}
 				});
-				$('#__zenphoto_captcha_font_size').change(function () {
-					newpath = path + '&amp;f=' + $('#__zenphoto_captcha_font').val() + '&amp;p=' + $('#__zenphoto_captcha_font_size').val();
-					nbase = $('#zenphoto_captcha_image_loc').html().replace(/src=".+?"/g, 'src="' + newpath + '"');
-					$('#zenphoto_captcha_image_loc').html(nbase);
+				$('#__npg_captcha_font_size').change(function () {
+					newpath = path + '&amp;f=' + $('#__npg_captcha_font').val() + '&amp;p=' + $('#__npg_captcha_font_size').val();
+					nbase = $('#npg_captcha_image_loc').html().replace(/src=".+?"/g, 'src="' + newpath + '"');
+					$('#npg_captcha_image_loc').html(nbase);
 				});
 				$('#form_options').on('reset', function () {
-					nbase = $('#zenphoto_captcha_image_loc').html().replace(/src=".+?"/g, 'src="' + path + '"');
-					$('#zenphoto_captcha_image_loc').html(nbase);
+					nbase = $('#npg_captcha_image_loc').html().replace(/src=".+?"/g, 'src="' + path + '"');
+					$('#npg_captcha_image_loc').html(nbase);
 				});
 			}, false);
 			// ]]> -->
@@ -119,17 +133,17 @@ class captcha extends _zp_captcha {
 	 * @return string
 	 */
 	function getCaptchaKey() {
-		global $_zp_authority;
-		$key = getOption('zenphoto_captcha_key');
+		global $_authority;
+		$key = getOption('npg_captcha_key');
 		if (empty($key)) {
-			$admin = $_zp_authority->getMasterUser();
+			$admin = $_authority->getMasterUser();
 			if (is_object($admin)) {
 				$key = $admin->getPass();
 			} else {
 				$key = 'No admin set';
 			}
-			$key = sha1('zenphoto' . $key . 'captcha key');
-			setOption('zenphoto_captcha_key', $key);
+			$key = sha1('npg' . $key . 'captcha key');
+			setOption('npg_captcha_key', $key);
 		}
 		return $key;
 	}
@@ -143,7 +157,7 @@ class captcha extends _zp_captcha {
 	 * @return bool
 	 */
 	function checkCaptcha($code, $code_ok) {
-		$captcha_len = getOption('zenphoto_captcha_length');
+		$captcha_len = getOption('npg_captcha_length');
 		$key = $this->getCaptchaKey();
 		$code_cypher = sha1(bin2hex(rc4($key, trim($code))));
 		$code_ok = trim($code_ok);
@@ -155,7 +169,7 @@ class captcha extends _zp_captcha {
 		if ($result && db_affected_rows() == 1) {
 			$len = rand(0, strlen($key) - 1);
 			$key = sha1(substr($key, 0, $len) . $code . substr($key, $len));
-			setOption('zenphoto_captcha_key', $key);
+			setOption('npg_captcha_key', $key);
 			return true;
 		}
 		return false;
@@ -167,11 +181,11 @@ class captcha extends _zp_captcha {
 	 * @return array;
 	 */
 	function getCaptcha($prompt = NULL) {
-		global $_zp_HTML_cache;
-		$_zp_HTML_cache->disable();
-		$captcha_len = getOption('zenphoto_captcha_length');
+		global $_HTML_cache;
+		$_HTML_cache->disable();
+		$captcha_len = getOption('npg_captcha_length');
 		$key = $this->getCaptchaKey();
-		$lettre = getOption('zenphoto_captcha_string');
+		$lettre = getOption('npg_captcha_string');
 		$numlettre = strlen($lettre) - 1;
 
 		$string = '';
@@ -190,4 +204,4 @@ class captcha extends _zp_captcha {
 
 }
 
-$_zp_captcha = new captcha();
+$_captcha = new captcha();

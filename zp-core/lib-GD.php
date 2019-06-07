@@ -6,7 +6,7 @@
  */
 // force UTF-8 Ø
 
-$_zp_graphics_optionhandlers[] = new lib_GD_Options(); // register option handler
+$_graphics_optionhandlers[] = new lib_GD_Options(); // register option handler
 /**
  * Option class for lib-GD
  *
@@ -341,8 +341,6 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * and still retain the transparency information
 		 *
 		 * Note: You have to apply zp_resampleImage() afterwards as the function does not handle this internally
-		 *
-		 * @since ZenphotoCMS 1.5.2
 		 *
 		 * @param image $src
 		 * @param int $w

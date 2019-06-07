@@ -37,7 +37,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 		<div class="menu">
 			<?php
 			if (extensionEnabled('zenpage')) {
-				if ($_zp_gallery_page == 'index.php' || $_zp_gallery_page != 'gallery.php') {
+				if ($_gallery_page == 'index.php' || $_gallery_page != 'gallery.php') {
 					?>
 					<h3>
 						<a href="<?php echo html_encode(getCustomPageURL('gallery')); ?>" title="<?php echo gettext('Album index'); ?>"><?php echo gettext("Gallery"); ?></a>
@@ -84,7 +84,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 	<div class="menu">
 		<h3>
 			<?php
-			if ($_zp_gallery_page == "archive.php") {
+			if ($_gallery_page == "archive.php") {
 				?>
 				<?php echo gettext("Archive"); ?>
 				<?php
@@ -100,7 +100,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 			?>
 			<h3>
 				<?php
-				if ($_zp_gallery_page == "summary.php") {
+				if ($_gallery_page == "summary.php") {
 					echo gettext("Daily summary");
 				} else {
 					printDailySummaryLink(gettext('Daily summary'), '', '', '');

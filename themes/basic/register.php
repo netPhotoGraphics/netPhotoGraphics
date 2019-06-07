@@ -10,14 +10,14 @@ if (function_exists('printRegistrationForm')) {
 		<head>
 
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
 			scriptLoader($zenCSS);
 			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 			?>
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<div id="main">
 				<div id="gallerytitle">
 					<h2>
@@ -37,7 +37,7 @@ if (function_exists('printRegistrationForm')) {
 				<?php printSoftwareLink(); ?>
 			</div>
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>

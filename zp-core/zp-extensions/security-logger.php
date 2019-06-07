@@ -28,20 +28,20 @@ if (getOption('security_log_encryption')) {
 	$_logCript = $_adminCript;
 }
 if (getOption('logger_log_admin')) {
-	zp_register_filter('admin_login_attempt', 'security_logger::adminLoginlogger');
-	zp_register_filter('federated_login_attempt', 'security_logger::federatedLoginlogger');
+	npgFilters::register('admin_login_attempt', 'security_logger::adminLoginlogger');
+	npgFilters::register('federated_login_attempt', 'security_logger::federatedLoginlogger');
 }
 if (getOption('logger_log_guests')) {
-	zp_register_filter('guest_login_attempt', 'security_logger::guestLoginlogger');
+	npgFilters::register('guest_login_attempt', 'security_logger::guestLoginlogger');
 }
-zp_register_filter('admin_allow_access', 'security_logger::adminGate');
-zp_register_filter('authorization_cookie', 'security_logger::adminCookie', 0);
-zp_register_filter('admin_managed_albums_access', 'security_logger::adminAlbumGate');
-zp_register_filter('save_user_complete', 'security_logger::userSave');
-zp_register_filter('admin_XSRF_access', 'security_logger::admin_XSRF_access');
-zp_register_filter('admin_log_actions', 'security_logger::log_action');
-zp_register_filter('log_setup', 'security_logger::log_setup');
-zp_register_filter('security_misc', 'security_logger::security_misc');
+npgFilters::register('admin_allow_access', 'security_logger::adminGate');
+npgFilters::register('authorization_cookie', 'security_logger::adminCookie', 0);
+npgFilters::register('admin_managed_albums_access', 'security_logger::adminAlbumGate');
+npgFilters::register('save_user_complete', 'security_logger::userSave');
+npgFilters::register('admin_XSRF_access', 'security_logger::admin_XSRF_access');
+npgFilters::register('admin_log_actions', 'security_logger::log_action');
+npgFilters::register('log_setup', 'security_logger::log_setup');
+npgFilters::register('security_misc', 'security_logger::security_misc');
 
 /**
  * Option handler class
@@ -99,7 +99,7 @@ class security_logger {
 	 * @param string $addl more info
 	 */
 	private static function logger($success, $user, $name, $action, $authority, $addl = NULL) {
-		global $_zp_authority, $_zp_mutex, $_logCript;
+		global $_authority, $_mutex, $_logCript;
 		$ip = sanitize($_SERVER['REMOTE_ADDR']);
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$proxy_list = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
@@ -108,7 +108,7 @@ class security_logger {
 				$ip .= ' {' . $forwardedIP . '}';
 			}
 		}
-		$admin = $_zp_authority->getMasterUser();
+		$admin = $_authority->getMasterUser();
 		$locale = $admin->getLanguage();
 		if (empty($locale)) {
 			$locale = 'en_US';
@@ -129,7 +129,7 @@ class security_logger {
 				$aux1 = $addl;
 				$success = 3;
 				$type = gettext('Install');
-				$addl = gettext('version') . ' ' . ZENPHOTO_VERSION;
+				$addl = gettext('version') . ' ' . NETPHOTOGRAPHICS_VERSION;
 				if (!zpFunctions::hasPrimaryScripts()) {
 					$addl .= ' ' . gettext('clone');
 				}
@@ -174,7 +174,7 @@ class security_logger {
 
 		$file = SERVERPATH . '/' . DATA_FOLDER . '/security.log';
 		$max = getOption('security_log_size');
-		$_zp_mutex->lock();
+		$_mutex->lock();
 		if ($max && @filesize($file) > $max) {
 			switchLog('security');
 		}
@@ -216,7 +216,7 @@ class security_logger {
 			fclose($f);
 			clearstatcache();
 		}
-		$_zp_mutex->unlock();
+		$_mutex->unlock();
 		i18n::setupCurrentLocale($cur_locale); //	restore to whatever was in effect.
 	}
 
@@ -224,10 +224,10 @@ class security_logger {
 	 * returns the user id and name of the logged in user
 	 */
 	private static function populate_user() {
-		global $_zp_current_admin_obj;
-		if (is_object($_zp_current_admin_obj)) {
-			$user = $_zp_current_admin_obj->getUser();
-			$name = $_zp_current_admin_obj->getName();
+		global $_current_admin_obj;
+		if (is_object($_current_admin_obj)) {
+			$user = $_current_admin_obj->getUser();
+			$name = $_current_admin_obj->getName();
 		} else {
 			$user = $name = NULL;
 		}
@@ -244,7 +244,7 @@ class security_logger {
 	 * @return int
 	 */
 	static function adminLoginlogger($success, $user, $pass, $auth = 'zp_admin_auth') {
-		global $_zp_authority;
+		global $_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
 				break;
@@ -259,7 +259,7 @@ class security_logger {
 		}
 		$name = '';
 		if ($success) {
-			$admin = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+			$admin = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 			$pass = ''; // mask it from display
 			if (is_object($admin)) {
 				$name = $admin->getName();
@@ -293,7 +293,7 @@ class security_logger {
 	 * @return bool
 	 */
 	static function guestLoginlogger($success, $user, $pass, $athority) {
-		global $_zp_authority;
+		global $_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
 				break;
@@ -308,7 +308,7 @@ class security_logger {
 		}
 		$name = '';
 		if ($success) {
-			$admin = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+			$admin = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 			$pass = ''; // mask it from display
 			if (is_object($admin)) {
 				$name = $admin->getName();

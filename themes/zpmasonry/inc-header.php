@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
-		scriptLoader($_zp_themeroot . '/css/' . $zpmas_css . '.css');
+		scriptLoader($_themeroot . '/css/' . $zpmas_css . '.css');
 
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case 'index.php':
-				if ($_zp_page > 1) {
-					$metatitle = getBareGalleryTitle() . " ($_zp_page)";
+				if ($_current_page > 1) {
+					$metatitle = getBareGalleryTitle() . " ($_current_page)";
 				} else {
 					$metatitle = getBareGalleryTitle();
 				}
@@ -23,8 +23,8 @@
 			case 'album.php':
 			case 'favorites.php':
 				$galleryactive = true;
-				if ($_zp_page > 1) {
-					$metatitle = getBareAlbumTitle() . " ($_zp_page)";
+				if ($_current_page > 1) {
+					$metatitle = getBareAlbumTitle() . " ($_current_page)";
 				} else {
 					$metatitle = getBareAlbumTitle();
 				}
@@ -41,7 +41,7 @@
 				break;
 			case 'image.php':
 				$galleryactive = true;
-				if (!$_zp_current_album->isDynamic()) {
+				if (!$_current_album->isDynamic()) {
 					$titlebreadcrumb = getTitleBreadcrumb();
 				} else {
 					$titlebreadcrumb = '';
@@ -75,8 +75,8 @@
 				if (is_NewsArticle()) {
 					$zpmas_metatitle = NEWS_LABEL . ' | ' . getBareNewsTitle() . ' | ' . getBareGalleryTitle();
 					$zpmas_metadesc = truncate_string(getBare(getNewsContent()), 150, '...');
-				} else if ($_zp_current_category) {
-					$zpmas_metatitle = NEWS_LABEL . ' | ' . $_zp_current_category->getTitle() . ' | ' . getBareGalleryTitle();
+				} else if ($_CMS_current_category) {
+					$zpmas_metatitle = NEWS_LABEL . ' | ' . $_CMS_current_category->getTitle() . ' | ' . getBareGalleryTitle();
 					$zpmas_metadesc = truncate_string(getBare(getNewsCategoryDesc()), 150, '...');
 				} else if (getCurrentNewsArchive()) {
 					$zpmas_metatitle = NEWS_LABEL . ' | ' . getCurrentNewsArchive() . ' | ' . getBareGalleryTitle();
@@ -219,7 +219,7 @@
 			}
 			?>
 			<style>
-				h1#logo.image-logo{height:<?php echo $zpmas_logoheight; ?>px;background:url('<?php echo $_zp_themeroot; ?>/images/<?php echo $zpmas_logo; ?>') no-repeat;}
+				h1#logo.image-logo{height:<?php echo $zpmas_logoheight; ?>px;background:url('<?php echo $_themeroot; ?>/images/<?php echo $zpmas_logo; ?>') no-repeat;}
 				#sidebar{margin-top:<?php echo $fixadjust; ?>px;}
 				h1#logo.image-logo a{height:<?php echo $zpmas_logoheight; ?>px;}
 			</style>
@@ -253,15 +253,15 @@
 		<?php } ?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="header">
 			<?php include ("inc-menu.php"); ?>
 			<div id="header-inner">
 				<?php
 				if ($zpmas_css == 'dark') {
-					printSearchForm('', 'searchform', '', gettext('Search'), "$_zp_themeroot/images/media-eject-inv.png", null, null, null);
+					printSearchForm('', 'searchform', '', gettext('Search'), "$_themeroot/images/media-eject-inv.png", null, null, null);
 				} else {
-					printSearchForm('', 'searchform', '', gettext('Search'), "$_zp_themeroot/images/media-eject.png", null, null, null);
+					printSearchForm('', 'searchform', '', gettext('Search'), "$_themeroot/images/media-eject.png", null, null, null);
 				}
 				?>
 				<h1 id="logo"<?php if (strlen($zpmas_logo) > 0) echo ' class="image-logo"'; ?>><a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo getGalleryTitle(); ?></a></h1>

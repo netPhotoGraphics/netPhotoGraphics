@@ -14,13 +14,13 @@ if (!defined('WEBPATH'))
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php npgFilters::apply('theme_head'); ?>
 			<meta name="viewport" content="width=device-width" />
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<?php printGslideshow(); ?>
-			<?php zp_apply_filter('theme_body_close'); ?>
+			<?php npgFilters::apply('theme_body_close'); ?>
 		</body>
 	</html>
 
@@ -30,17 +30,17 @@ if (!defined('WEBPATH'))
 	<html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 			scriptLoader(SEREVERPATH . '/' . THEMEFOLDER . '/zpmminimal/slideshow.css');
 			?>
 
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<div id="slideshowpage">
 				<?php printSlideShow(true, true); ?>
 			</div>
-			<?php zp_apply_filter('theme_body_close'); ?>
+			<?php npgFilters::apply('theme_body_close'); ?>
 
 		</body>
 	</html>

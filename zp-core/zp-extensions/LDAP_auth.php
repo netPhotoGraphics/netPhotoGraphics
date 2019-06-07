@@ -19,18 +19,18 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'LDAP_auth_options';
 
-if (!(function_exists('ldap_connect') || class_exists('Zenphoto_Authority'))) {
+if (!(function_exists('ldap_connect') || class_exists('_Authority'))) {
 	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
 }
 
 class LDAP_auth_options {
 
 	function __construct() {
-		global $_zp_authority;
+		global $_authority;
 		if (extensionEnabled('user_groups')) {
 			$ldap = getOption('ldap_group_map');
 			if (is_null($ldap)) {
-				$groups = $_zp_authority->getAdministrators('groups');
+				$groups = $_authority->getAdministrators('groups');
 				if (!empty($groups)) {
 					foreach ($groups as $group) {
 						if ($group['name'] != 'template') {
@@ -79,9 +79,9 @@ class LDAP_auth_options {
 	}
 
 	static function handleOption($option, $currentValue) {
-		global $_zp_authority;
+		global $_authority;
 		if ($option == 'ldap_group_map_custom') {
-			$groups = $_zp_authority->getAdministrators('groups');
+			$groups = $_authority->getAdministrators('groups');
 			$ldap = getSerializedArray(getOption('ldap_group_map'));
 			if (empty($groups)) {
 				echo gettext('No groups or templates are defined');
@@ -116,8 +116,8 @@ class LDAP_auth_options {
 	}
 
 	static function handleOptionSave($themename, $themealbum) {
-		global $_zp_authority;
-		$groups = $_zp_authority->getAdministrators('groups');
+		global $_authority;
+		$groups = $_authority->getAdministrators('groups');
 		if (!empty($groups)) {
 			$ldap = NULL;
 			foreach ($_POST as $key => $v) {

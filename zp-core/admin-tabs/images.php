@@ -14,7 +14,7 @@ define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
-if (!isset($zenphoto_tabs['images'])) { //	if the tab is set he owns some images so is allowed access
+if (!isset($_admin_menu['images'])) { //	if the tab is set he owns some images so is allowed access
 	admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 }
 updatePublished('albums');
@@ -189,7 +189,7 @@ if (isset($_GET['action'])) {
 				}
 			}
 
-			$msg = zp_apply_filter('edit_error', '');
+			$msg = npgFilters::apply('edit_error', '');
 			if ($msg) {
 				$notify .= '&edit_error=' . $msg;
 			}
@@ -322,8 +322,8 @@ if ($subtab == 'imageinfo') {
 </script>
 
 <?php
-zp_apply_filter('texteditor_config', 'zenphoto');
-Zenphoto_Authority::printPasswordFormJS();
+npgFilters::apply('texteditor_config', 'zenphoto');
+npg_Authority::printPasswordFormJS();
 
 echo "\n</head>";
 ?>
@@ -365,7 +365,7 @@ echo "\n</head>";
 					gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
 							)
 			);
-			$checkarray_images = zp_apply_filter('bulk_image_actions', $checkarray_images);
+			$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
 
 			/** EDIT ***************************************************************************
 			 *
@@ -377,12 +377,12 @@ echo "\n</head>";
 				$mcr_albumlist = array();
 				genAlbumList($mcr_albumlist);
 
-				$oldalbumimagesort = $_zp_gallery->getSortType('image');
-				$direction = $_zp_gallery->getSortDirection('image');
+				$oldalbumimagesort = $_gallery->getSortType('image');
+				$direction = $_gallery->getSortDirection('image');
 
 				if (!($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 					$allimages = array();
-					$requestor = $_zp_current_admin_obj->getUser();
+					$requestor = $_current_admin_obj->getUser();
 
 					$albumowner = $album->getOwner();
 
@@ -476,7 +476,7 @@ echo "\n</head>";
 					$link = '';
 				}
 				$alb = removeParentAlbumNames($album);
-				zp_apply_filter('admin_note', 'albums', $subtab);
+				npgFilters::apply('admin_note', 'albums', $subtab);
 				?>
 				<h1><?php printf(gettext('Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
 				<?php
@@ -486,7 +486,7 @@ echo "\n</head>";
 					require_once(CORE_SERVERPATH . 'admin-tabs/image_edit.php');
 				}
 			} else { /* Display a list of albums to edit. */
-				zp_apply_filter('admin_note', 'albums', $subtab);
+				npgFilters::apply('admin_note', 'albums', $subtab);
 				?>
 				<h1><?php echo gettext("Albums"); ?></h1>
 				<div class="tabbox">
@@ -494,7 +494,7 @@ echo "\n</head>";
 					consolidatedEditMessages('');
 
 					$albums = array();
-					$sql = 'SELECT * FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_zp_current_admin_obj->getUser()) . ' ORDER BY a.folder';
+					$sql = 'SELECT * FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_current_admin_obj->getUser()) . ' ORDER BY a.folder';
 					$result = query($sql);
 
 					while ($row = db_fetch_assoc($result)) {

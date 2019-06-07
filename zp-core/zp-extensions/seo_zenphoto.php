@@ -13,8 +13,8 @@ $plugin_description = gettext("SEO filter to translate extended characters into 
 
 $option_interface = 'zenphoto_seo';
 
-zp_register_filter('seoFriendly', 'zenphoto_seo::filter');
-zp_register_filter('seoFriendly_js', 'zenphoto_seo::js');
+npgFilters::register('seoFriendly', 'zenphoto_seo::filter');
+npgFilters::register('seoFriendly_js', 'zenphoto_seo::js');
 
 /**
  * Option handler class

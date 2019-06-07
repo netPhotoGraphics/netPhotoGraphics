@@ -11,7 +11,7 @@
 	<div class="container">
 		<div class="sixteen columns">
 			<div class="errorbox">
-				<?php if (!zp_loggedin()) { ?>
+				<?php if (!npg_loggedin()) { ?>
 					<div class="error"><?php echo gettext("Please Login"); ?></div>
 					<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
 				<?php } else { ?>
@@ -21,7 +21,7 @@
 				<?php } ?>
 
 				<?php
-				if (!zp_loggedin() && function_exists('printRegistrationForm') && $_zp_gallery->isUnprotectedPage('register')) {
+				if (!npg_loggedin() && function_exists('printRegistrationForm') && $_gallery->isUnprotectedPage('register')) {
 					printCustomPageURL(gettext('Register for this site'), 'register', '', '<br />');
 					echo '<br />';
 				}

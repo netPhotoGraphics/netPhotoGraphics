@@ -18,7 +18,7 @@ if (isset($_GET['album'])) {
 		$albums = array();
 	}
 } else {
-	$albumsprime = $_zp_gallery->getAlbums();
+	$albumsprime = $_gallery->getAlbums();
 	$albums = array();
 	foreach ($albumsprime as $folder) { // check for rights
 		$album = newAlbum($folder);
@@ -27,7 +27,7 @@ if (isset($_GET['album'])) {
 		}
 	}
 }
-zp_apply_filter('admin_note', 'albums', $subtab);
+npgFilters::apply('admin_note', 'albums', $subtab);
 ?>
 <h1>
 	<?php echo gettext("Edit All Albums in"); ?> <?php

@@ -33,7 +33,7 @@ if (isset($_GET['delete'])) {
 }
 if (isset($_GET['hitcounter'])) {
 	XSRFdefender('hitcounter');
-	$x = $_zp_CMS->getCategory(sanitize_numeric($_GET['id']));
+	$x = $_CMS->getCategory(sanitize_numeric($_GET['id']));
 	$obj = newCategory($x['titlelink']);
 	$obj->set('hitcounter', 0);
 	$obj->save();
@@ -63,10 +63,10 @@ if (empty($reports)) {
 	exit();
 }
 
-$_zp_CMS = new CMS();
+$_CMS = new CMS();
 
 printAdminHeader('news', 'categories');
-zp_apply_filter('texteditor_config', 'zenpage');
+npgFilters::apply('texteditor_config', 'zenpage');
 printSortableHead();
 zenpageJSCSS();
 ?>
@@ -110,7 +110,7 @@ zenpageJSCSS();
 		<div id="content">
 			<?php
 			$subtab = getCurrentTab();
-			zp_apply_filter('admin_note', 'categories', $subtab);
+			npgFilters::apply('admin_note', 'categories', $subtab);
 			?>
 			<h1>
 				<?php echo gettext('Categories'); ?>
@@ -128,7 +128,7 @@ zenpageJSCSS();
 						echo '<p class="' . $type . '">' . implode('<br />', $list) . '</p>';
 					}
 				}
-				$categories = $_zp_CMS->getAllCategories();
+				$categories = $_CMS->getAllCategories();
 				foreach ($categories as $key => $cat) {
 					$catobj = newCategory($cat['titlelink']);
 					if (!($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
@@ -136,7 +136,7 @@ zenpageJSCSS();
 					}
 				}
 
-				if (!empty($categories) || zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+				if (!empty($categories) || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printCategoriesStatistic(); ?></span>
 					<form class="dirtylistening" onReset="setClean('checkeditems');" action="categories.php?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
@@ -147,7 +147,7 @@ zenpageJSCSS();
 								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
 							</button>
 							<?php
-							if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+							if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 								?>
 								<span class="floatright">
 									<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newscategory&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo gettext('New category'); ?>">
@@ -175,7 +175,7 @@ zenpageJSCSS();
 							if (extensionEnabled('hitcounter')) {
 								$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
 							}
-							$checkarray = zp_apply_filter('bulk_category_actions', $checkarray);
+							$checkarray = npgFilters::apply('bulk_category_actions', $checkarray);
 							printBulkActions($checkarray);
 							?>
 						</div>

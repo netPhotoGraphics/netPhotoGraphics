@@ -7,10 +7,10 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
-		$handler->theme_head($_zp_themeroot);
+		npgFilters::apply('theme_head');
+		$handler->theme_head($_themeroot);
 
-		scriptLoader($_zp_themeroot . '/zen.css');
+		scriptLoader($_themeroot . '/zen.css');
 
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
@@ -33,8 +33,8 @@ if (!defined('WEBPATH'))
 	</head>
 	<body class="sidebars">
 		<?php
-		zp_apply_filter('theme_body_open');
-		$handler->theme_bodyopen($_zp_themeroot);
+		npgFilters::apply('theme_body_open');
+		$handler->theme_bodyopen($_themeroot);
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
@@ -55,7 +55,7 @@ if (!defined('WEBPATH'))
 			$searchwords .= $searchdate;
 		}
 		if (!$total) {
-			$_zp_current_search->clearSearchWords();
+			$_current_search->clearSearchWords();
 		}
 		?>
 		<div id="navigation"></div>
@@ -97,11 +97,11 @@ if (!defined('WEBPATH'))
 										<?php
 									} else {
 										echo "<p>" . gettext('Sorry, no matches for your search.') . "</p>";
-										$_zp_current_search->setSearchParams('words=');
+										$_current_search->setSearchParams('words=');
 									}
 									?>
 									<?php
-									if ($zenpage && $_zp_page == 1) { //test of zenpage searches
+									if ($zenpage && $_current_page == 1) { //test of zenpage searches
 										define('TRUNCATE_LENGTH', 80);
 										define('SHOW_ITEMS', 5);
 										?>
@@ -129,7 +129,7 @@ if (!defined('WEBPATH'))
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 			<?php printPageURL(); ?>
-																<p style="text-indent:1em;"><?php echo exerpt($_zp_current_page->getContent()); ?></p>
+																<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_page->getContent()); ?></p>
 															</li>
 															<?php
 														}
@@ -162,7 +162,7 @@ if (!defined('WEBPATH'))
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 			<?php printNewsURL(); ?>
-																<p style="text-indent:1em;"><?php echo exerpt($_zp_current_article->getContent()); ?></p>
+																<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_article->getContent()); ?></p>
 															</li>
 															<?php
 														}
@@ -241,7 +241,7 @@ if (!defined('WEBPATH'))
 					<span class="clear"></span>
 				</div>
 				<?php
-				zp_apply_filter('theme_body_close');
+				npgFilters::apply('theme_body_close');
 				?>
 				</body>
 				</html>

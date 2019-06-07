@@ -96,18 +96,18 @@ if ($zpskel_strip == 'latest')
 
 // Sets expanded titles (breadcrumbs) for Title meta
 function getTitleBreadcrumb($before = ' ( ', $between = ' / ', $after = ' ) ') {
-	global $_zp_gallery, $_zp_current_search, $_zp_current_album, $_zp_last_album;
+	global $_gallery, $_current_search, $_current_album, $_last_album;
 	$titlebreadcrumb = '';
 	if (in_context(ZP_SEARCH_LINKED)) {
-		if (empty($_zp_current_search->dynalbumname)) {
+		if (empty($_current_search->dynalbumname)) {
 			$titlebreadcrumb .= $before . gettext("Search Result") . $after;
-			if (is_null($_zp_current_album)) {
+			if (is_null($_current_album)) {
 				return;
 			} else {
 				$parents = getParentAlbums();
 			}
 		} else {
-			$album = newAlbum($_zp_current_search->dynalbumname);
+			$album = newAlbum($_current_search->dynalbumname);
 			$parents = getParentAlbums($album);
 			if (in_context(ZP_ALBUM_LINKED)) {
 				array_push($parents, $album);
@@ -141,13 +141,13 @@ $slideshow_instance = 0;
  * @param string $linkstyle Style of Text for the link
  */
 function printPPSlideShowLink($linktext = '', $linkstyle = '') {
-	global $_zp_gallery, $_zp_current_image, $_zp_current_album, $_zp_current_search, $slideshow_instance, $_zp_gallery_page, $zpskel_pptarget;
+	global $_gallery, $_current_image, $_current_album, $_current_search, $slideshow_instance, $_gallery_page, $zpskel_pptarget;
 	$numberofimages = getNumImages();
 	if ($numberofimages > 1) {
-		if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_zp_current_album)) {
-			$images = $_zp_current_search->getImages(0);
+		if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_current_album)) {
+			$images = $_current_search->getImages(0);
 		} else {
-			$images = $_zp_current_album->getImages(0);
+			$images = $_current_album->getImages(0);
 		}
 		$count = '';
 		foreach ($images as $image) {
@@ -159,20 +159,20 @@ function printPPSlideShowLink($linktext = '', $linkstyle = '') {
 			$suffixes = array('jpg', 'jpeg', 'gif', 'png');
 			if (in_array($suffix, $suffixes)) {
 				$count++;
-				$imgobj = newImage($_zp_current_album, $image);
+				$imgobj = newImage($_current_album, $image);
 				$style = '';
 
-				if ($_zp_gallery_page == 'image.php' || in_context(ZP_SEARCH_LINKED)) {
+				if ($_gallery_page == 'image.php' || in_context(ZP_SEARCH_LINKED)) {
 					if (in_context(ZP_SEARCH_LINKED)) {
 						if ($count != 1) {
 							$style = ' style="display:none"';
 						}
 					} else {
-						if ($_zp_current_image->filename != $image) {
+						if ($_current_image->filename != $image) {
 							$style = ' style="display:none"';
 						}
 					}
-				} elseif ($_zp_gallery_page == 'album.php' || $_zp_gallery_page == 'search.php' || $_zp_gallery_page == 'favorites.php') {
+				} elseif ($_gallery_page == 'album.php' || $_gallery_page == 'search.php' || $_gallery_page == 'favorites.php') {
 					if ($count != 1) {
 						$style = ' style="display:none"';
 					}

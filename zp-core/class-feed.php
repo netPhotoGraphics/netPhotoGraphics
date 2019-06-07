@@ -118,7 +118,7 @@ class feed {
 	 *
 	 */
 	protected function startCache() {
-		$caching = getOption($this->feed . "_cache") && !zp_loggedin();
+		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . internalToFilesystem($this->getCacheFilename());
 			if (file_exists($cachefilepath) AND time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
@@ -139,7 +139,7 @@ class feed {
 	 *
 	 */
 	protected function endCache() {
-		$caching = getOption($this->feed . "_cache") && !zp_loggedin();
+		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = internalToFilesystem($this->getCacheFilename());
 			if (!empty($cachefilepath)) {
@@ -235,7 +235,7 @@ class feed {
 	/**
 	 * Validates and gets the "lang" parameter option value
 	 *
-	 * @global array $_zp_active_languages
+	 * @global array $_active_languages
 	 * @return string
 	 */
 	protected function getLang() {
@@ -341,8 +341,8 @@ class feed {
 	 * @return int
 	 */
 	protected function getCategory() {
-		if (isset($this->options['category']) && class_exists('ZenpageCategory')) {
-			$catobj = new ZenpageCategory($this->options['category']);
+		if (isset($this->options['category']) && class_exists('Category')) {
+			$catobj = newCategory($this->options['category']);
 			if ($catobj->exists) {
 				return $this->options['category'];
 			}
@@ -433,7 +433,7 @@ class feed {
 	 * @return array
 	 */
 	public function getitems() {
-		global $_zp_CMS;
+		global $_CMS;
 		switch ($this->feedtype) {
 			case 'gallery':
 				if ($this->mode == "albums") {
@@ -466,7 +466,7 @@ class feed {
 				if ($this->sortorder) {
 					$items = getZenpageStatistic($this->itemnumber, 'pages', $this->sortorder, $this->sortdirection);
 				} else {
-					$items = $_zp_CMS->getPages(NULL, false, $this->itemnumber);
+					$items = $_CMS->getPages(NULL, false, $this->itemnumber);
 				}
 				break;
 			case 'comments':

@@ -19,7 +19,7 @@ if (isset($_GET['subpage'])) {
 	}
 }
 
-$admins = $_zp_authority->getAdministrators('all');
+$admins = $_authority->getAdministrators('all');
 
 $adminordered = sortMultiArray($admins, 'user');
 
@@ -30,10 +30,10 @@ if (isset($_GET['action'])) {
 		case 'deletegroup':
 			XSRFdefender('deletegroup');
 			$groupname = trim(sanitize($_GET['group']));
-			$groupobj = Zenphoto_Authority::newAdministrator($groupname, 0);
+			$groupobj = npg_Authority::newAdministrator($groupname, 0);
 			$groupobj->remove();
 			// clear out existing user assignments
-			Zenphoto_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
+			npg_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
 			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=groups&deleted&subpage=' . $subpage);
 			exit();
 		case 'savegroups':
@@ -45,10 +45,10 @@ if (isset($_GET['action'])) {
 					$groupname = trim(sanitize($groupelement['group']));
 					if (!empty($groupname)) {
 						$rights = 0;
-						$group = Zenphoto_Authority::newAdministrator($groupname, 0);
+						$group = npg_Authority::newAdministrator($groupname, 0);
 						if (isset($groupelement['initgroup']) && !empty($groupelement['initgroup'])) {
 							$initgroupname = trim(sanitize($groupelement['initgroup'], 3));
-							$initgroup = Zenphoto_Authority::newAdministrator($initgroupname, 0);
+							$initgroup = npg_Authority::newAdministrator($initgroupname, 0);
 							$rights = $initgroup->getRights();
 							$group->setObjects(processManagedObjects($group->getID(), $rights));
 							$group->setRights(NO_RIGHTS | $rights);
@@ -61,7 +61,7 @@ if (isset($_GET['action'])) {
 						$group->setName(trim(sanitize($groupelement['type'], 3)));
 						$group->setValid(0);
 						$group->setDesc(trim(sanitize($groupelement['desc'], 3)));
-						zp_apply_filter('save_admin_data', $group, $i, true);
+						npgFilters::apply('save_admin_data', $group, $i, true);
 						$group->save();
 
 						if ($group->getName() == 'group') {
@@ -71,26 +71,26 @@ if (isset($_GET['action'])) {
 								if ($admin['valid']) {
 									$hisgroups = explode(',', $admin['group']);
 									if (in_array($groupname, $hisgroups)) {
-										$userobj = Zenphoto_Authority::newAdministrator($admin['user'], $admin['valid']);
+										$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
 										user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
 										$success = $userobj->save();
 										if ($success === TRUE) {
-											zp_apply_filter('save_user_complete', '', $userobj, 'update');
+											npgFilters::apply('save_user_complete', '', $userobj, 'update');
 										}
 									}
 								}
 							}
 							//user assignments: first clear out existing ones
-							Zenphoto_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
+							npg_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
 							if (isset($groupelement['userlist'])) {
 								//then add the ones marked
 								foreach ($groupelement['userlist'] as $list) {
 									$username = $list['checked'];
-									$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
+									$userobj = $_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
 									user_groups::merge_rights($userobj, array(1 => $groupname), user_groups::getPrimeObjects($userobj));
 									$success = $userobj->save();
 									if ($success === TRUE) {
-										zp_apply_filter('save_user_complete', '', $userobj, 'update');
+										npgFilters::apply('save_user_complete', '', $userobj, 'update');
 									}
 								}
 							}
@@ -112,11 +112,11 @@ if (isset($_GET['action'])) {
 					if (isset($user['group'])) {
 						$newgroups = sanitize($user['group']);
 						$username = trim(sanitize($user['userid'], 3));
-						$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
+						$userobj = $_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
 						user_groups::merge_rights($userobj, $newgroups, user_groups::getPrimeObjects($userobj));
 						$success = $userobj->save();
 						if ($success === TRUE) {
-							zp_apply_filter('save_user_complete', '', $userobj, 'update');
+							npgFilters::apply('save_user_complete', '', $userobj, 'update');
 						}
 					}
 				}
@@ -158,7 +158,7 @@ echo '</head>' . "\n";
 				echo '</div>';
 			}
 			$subtab = getCurrentTab();
-			zp_apply_filter('admin_note', 'admin', $subtab);
+			npgFilters::apply('admin_note', 'admin', $subtab);
 			?>
 			<h1>
 				<?php
@@ -196,7 +196,7 @@ echo '</head>' . "\n";
 							$display = ' style="display:none"';
 						}
 						$albumlist = array();
-						foreach ($_zp_gallery->getAlbums() as $folder) {
+						foreach ($_gallery->getAlbums() as $folder) {
 							$alb = newAlbum($folder);
 							$name = $alb->getTitle();
 							$albumlist[$name] = $folder;
@@ -269,7 +269,7 @@ echo '</head>' . "\n";
 									$rights = $user['rights'];
 									$grouptype = $user['name'];
 									$desc = get_language_string($user['other_credentials']);
-									$groupobj = new Zenphoto_Administrator($groupname, 0);
+									$groupobj = new npg_Administrator($groupname, 0);
 									if ($grouptype == 'group') {
 										$kind = gettext('group');
 										$count = ' (' . (int) @$user_count[$groupname] . ')';
@@ -402,13 +402,13 @@ echo '</head>' . "\n";
 												printManagedObjects('albums', $albumlist, NULL, $groupobj, $id, $kind, array());
 												if (extensionEnabled('zenpage')) {
 													$newslist = array();
-													$categories = $_zp_CMS->getAllCategories(false);
+													$categories = $_CMS->getAllCategories(false);
 													foreach ($categories as $category) {
 														$newslist[get_language_string($category['title'])] = $category['titlelink'];
 													}
 													printManagedObjects('news_categories', $newslist, NULL, $groupobj, $id, $kind, NULL);
 													$pagelist = array();
-													$pages = $_zp_CMS->getPages(false);
+													$pages = $_CMS->getPages(false);
 													foreach ($pages as $page) {
 														if (!$page['parentid']) {
 															$pagelist[get_language_string($page['title'])] = $page['titlelink'];
@@ -422,7 +422,7 @@ echo '</head>' . "\n";
 											<br class="clearall">
 											<div class="userextrainfo" <?php echo $display; ?>>
 												<?php
-												$custom = zp_apply_filter('edit_admin_custom', '', $groupobj, $id, $background, true, '');
+												$custom = npgFilters::apply('edit_admin_custom', '', $groupobj, $id, $background, true, '');
 												if ($custom) {
 													echo stripTableRows($custom);
 												}
@@ -537,7 +537,7 @@ echo '</head>' . "\n";
 								$id = 0;
 								foreach ($adminordered as $user) {
 									if ($user['valid']) {
-										$userobj = new Zenphoto_Administrator($user['user'], $user['valid']);
+										$userobj = new npg_Administrator($user['user'], $user['valid']);
 										$group = $user['group'];
 										?>
 										<tr>

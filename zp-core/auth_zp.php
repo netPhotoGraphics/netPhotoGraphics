@@ -9,14 +9,14 @@
  */
 // force UTF-8 Ø
 
-global $_zp_current_admin_obj, $_zp_loggedin, $_zp_authority;
-$_zp_current_admin_obj = null;
-if (!class_exists('Zenphoto_Authority')) {
+global $_current_admin_obj, $_loggedin, $_authority;
+$_current_admin_obj = null;
+if (!class_exists('npg_Authority')) {
 	require_once(dirname(__FILE__) . '/class-auth.php');
 }
-$_zp_authority = new Zenphoto_Authority();
+$_authority = new npg_Authority();
 
-foreach (Zenphoto_Authority::getRights() as $key => $right) {
+foreach (npg_Authority::getRights() as $key => $right) {
 	define($key, $right['value']);
 }
 
@@ -46,11 +46,11 @@ httpsRedirect();
 
 
 // If the auth variable gets set somehow before this, get rid of it.
-$_zp_loggedin = false;
+$_loggedin = false;
 
 if (isset($_POST['login'])) { //	Handle the login form.
-	$_zp_loggedin = $_zp_authority->handleLogon();
-	if ($_zp_loggedin) {
+	$_loggedin = $_authority->handleLogon();
+	if ($_loggedin) {
 		if (isset($_POST['redirect'])) {
 			$redirect = sanitizeRedirect($_POST['redirect']);
 			if (!empty($redirect)) {
@@ -61,27 +61,27 @@ if (isset($_POST['login'])) { //	Handle the login form.
 	}
 } else { //	no login form, check the cookie
 	if (isset($_GET['ticket'])) { // password reset query
-		$_zp_authority->validateTicket(sanitize($_GET['ticket']), sanitize(@$_GET['user']));
+		$_authority->validateTicket(sanitize($_GET['ticket']), sanitize(@$_GET['user']));
 	} else {
-		$_zp_loggedin = $_zp_authority->checkCookieCredentials();
+		$_loggedin = $_authority->checkCookieCredentials();
 		$cloneid = bin2hex(FULLWEBPATH);
-		if (!$_zp_loggedin && isset($_SESSION['admin'][$cloneid])) { //	"passed" login
+		if (!$_loggedin && isset($_SESSION['admin'][$cloneid])) { //	"passed" login
 			$user = unserialize($_SESSION['admin'][$cloneid]);
-			$user2 = $_zp_authority->getAnAdmin(array('`user`=' => $user->getUser(), '`valid`=' => 1));
+			$user2 = $_authority->getAnAdmin(array('`user`=' => $user->getUser(), '`valid`=' => 1));
 			if ($user2 && $user->getPass() == $user2->getPass()) {
-				Zenphoto_Authority::logUser($user2);
-				$_zp_current_admin_obj = $user2;
-				$_zp_loggedin = $_zp_current_admin_obj->getRights();
+				npg_Authority::logUser($user2);
+				$_current_admin_obj = $user2;
+				$_loggedin = $_current_admin_obj->getRights();
 			}
 			unset($_SESSION['admin'][$cloneid]);
 		}
 		unset($cloneid);
 	}
 }
-if ($_zp_loggedin) {
+if ($_loggedin) {
 	if (secureServer()) {
-		// https: refresh the 'zenphoto_ssl' marker for redirection
-		zp_setCookie("zenphoto_ssl", "needed", NULL, false);
+		// https: refresh the 'ssl_state' marker for redirection
+		setNPGCookie("ssl_state", "needed", NULL, false);
 	}
 } else {
 	if (class_exists('ipBlocker')) {
@@ -120,7 +120,7 @@ if (isset($_REQUEST['logout'])) {
 		$redirect = '?' . substr($redirect, 1);
 	}
 	$location = FULLWEBPATH . '/index.php' . $redirect;
-	$location = Zenphoto_Authority::handleLogout($location);
+	$location = npg_Authority::handleLogout($location);
 	header("Location: " . $location);
 	exit();
 }

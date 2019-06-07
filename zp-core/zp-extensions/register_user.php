@@ -28,11 +28,11 @@ $plugin_description = gettext("Provides a means for placing a user registration 
 
 $option_interface = 'register_user';
 
-$_zp_conf_vars['special_pages']['register_user'] = array('define' => '_REGISTER_USER_', 'rewrite' => getOption('register_user_link'),
+$_conf_vars['special_pages']['register_user'] = array('define' => '_REGISTER_USER_', 'rewrite' => getOption('register_user_link'),
 		'option' => 'register_user_link', 'default' => '_PAGE_/register');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%REGISTER_USER%', 'rewrite' => '_REGISTER_USER_');
+$_conf_vars['special_pages'][] = array('definition' => '%REGISTER_USER%', 'rewrite' => '_REGISTER_USER_');
 
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '%REGISTER_USER%', 'rule' => '^%REWRITE%/*$		index.php?p=' . 'register' . ' [NC,L,QSA]');
+$_conf_vars['special_pages'][] = array('rewrite' => '%REGISTER_USER%', 'rule' => '^%REWRITE%/*$		index.php?p=' . 'register' . ' [NC,L,QSA]');
 
 /**
  * Plugin class
@@ -41,7 +41,7 @@ $_zp_conf_vars['special_pages'][] = array('rewrite' => '%REGISTER_USER%', 'rule'
 class register_user {
 
 	function __construct() {
-		global $_zp_authority;
+		global $_authority;
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('register_user_page_tip', getAllTranslations('Click here to register for this site.'));
 			setOptionDefault('register_user_page_link', getAllTranslations('Register'));
@@ -54,7 +54,7 @@ class register_user {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_authority, $_zp_captcha;
+		global $_authority, $_captcha;
 		$options = array(
 				gettext('Link text') => array('key' => 'register_user_page_link', 'type' => OPTION_TYPE_TEXTAREA,
 						'order' => 2,
@@ -76,7 +76,7 @@ class register_user {
 						'desc' => gettext('If checked, The use’s e-mail address will be used as his User ID.')),
 				gettext('CAPTCHA') => array('key' => 'register_user_captcha', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 5,
-						'desc' => ($_zp_captcha->name) ? gettext('If checked, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
+						'desc' => ($_captcha->name) ? gettext('If checked, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
 		);
 		if (extensionEnabled('userAddressFields')) {
 			$options[gettext('Address fields')] = array('key' => 'register_user_address_info', 'type' => OPTION_TYPE_RADIO,
@@ -86,7 +86,7 @@ class register_user {
 		}
 
 		if (class_exists('user_groups')) {
-			$admins = $_zp_authority->getAdministrators('groups');
+			$admins = $_authority->getAdministrators('groups');
 			$defaultrights = ALL_RIGHTS;
 			$ordered = array();
 			foreach ($admins as $key => $admin) {
@@ -121,7 +121,7 @@ class register_user {
 	}
 
 	function handleOption($option, $currentValue) {
-		global $_zp_gallery;
+		global $_gallery;
 		switch ($option) {
 			case 'register_user_user_rights':
 				printAdminRightsTable(0, '', '', getOption('register_user_user_rights'));
@@ -160,11 +160,11 @@ class register_user {
 	}
 
 	static function getLink() {
-		return zp_apply_filter('getLink', rewrite_path(_REGISTER_USER_ . '/', '/index.php?p=register'), 'register.php', NULL);
+		return npgFilters::apply('getLink', rewrite_path(_REGISTER_USER_ . '/', '/index.php?p=register'), 'register.php', NULL);
 	}
 
 	static function post_processor() {
-		global $admin_e, $admin_n, $user, $_zp_authority, $_zp_captcha, $_zp_gallery, $_notify, $_link, $_message;
+		global $admin_e, $admin_n, $user, $_authority, $_captcha, $_gallery, $_notify, $_link, $_message;
 		//Handle registration
 		if (isset($_POST['username']) && !empty($_POST['username'])) {
 			$_notify = 'honeypot'; // honey pot check
@@ -177,7 +177,7 @@ class register_user {
 				$code = '';
 				$code_ok = '';
 			}
-			if (!$_zp_captcha->checkCaptcha($code, $code_ok)) {
+			if (!$_captcha->checkCaptcha($code, $code_ok)) {
 				$_notify = 'invalidcaptcha';
 			}
 		}
@@ -200,16 +200,16 @@ class register_user {
 			$_notify = 'empty';
 		} else if (!empty($user) && !(empty($admin_n)) && !empty($admin_e)) {
 			if (isset($_POST['disclose_password']) || $pass == trim(sanitize(@$_POST['pass_r']))) {
-				$currentadmin = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
+				$currentadmin = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 				if (is_object($currentadmin)) {
 					$_notify = 'exists';
 				} else {
-					if ($_zp_authority->getAnAdmin(array('`email`=' => $admin_e, '`valid`=' => '1'))) {
+					if ($_authority->getAnAdmin(array('`email`=' => $admin_e, '`valid`=' => '1'))) {
 						$_notify = 'dup_email';
 					}
 				}
 				if (empty($_notify)) {
-					$userobj = $_zp_authority->newAdministrator('');
+					$userobj = $_authority->newAdministrator('');
 					$userobj->transient = false;
 					$userobj->setUser($user);
 					$userobj->setPass($pass);
@@ -245,11 +245,11 @@ class register_user {
 								$userobj->msg .= ' ' . gettext('You must supply the postal code field.');
 							}
 						}
-						zp_setCookie('reister_user_form_addresses', $_comment_form_save_post, false);
+						setNPGCookie('reister_user_form_addresses', $_comment_form_save_post, false);
 						userAddressFields::setCustomDataset($userobj, $userinfo);
 					}
 
-					zp_apply_filter('register_user_registered', $userobj);
+					npgFilters::apply('register_user_registered', $userobj);
 					if ($userobj->transient) {
 						if (empty($_notify)) {
 							$_notify = 'filter';
@@ -287,12 +287,12 @@ class register_user {
  * @param string $thanks the message shown on successful registration
  */
 function printRegistrationForm($thanks = NULL) {
-	global $admin_e, $admin_n, $user, $_zp_authority, $_zp_captcha, $_zp_gallery, $_notify, $_link, $_message;
+	global $admin_e, $admin_n, $user, $_authority, $_captcha, $_gallery, $_notify, $_link, $_message;
 	require_once(CORE_SERVERPATH . 'admin-functions.php');
 	$userobj = NULL;
 	// handle any postings
 	if (isset($_GET['verify'])) {
-		$currentadmins = $_zp_authority->getAdministrators();
+		$currentadmins = $_authority->getAdministrators();
 		$params = unserialize(pack("H*", trim(sanitize($_GET['verify']), '.')));
 		// expung the verify query string as it will cause us to come back here if login fails.
 		unset($_GET['verify']);
@@ -312,14 +312,14 @@ function printRegistrationForm($thanks = NULL) {
 			$_SERVER['REQUEST_URI'] .= '?' . implode('&', $p);
 		}
 
-		$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $params['user'], '`valid`=' => 1));
+		$userobj = $_authority->getAnAdmin(array('`user`=' => $params['user'], '`valid`=' => 1));
 		if ($userobj && $userobj->getEmail() == $params['email']) {
 			if (!$userobj->getRights()) {
 				$userobj->setCredentials(array('registered', 'user', 'email'));
 				$rights = getOption('register_user_user_rights');
 				$group = NULL;
 				if (!is_numeric($rights)) { //  a group or template
-					$admin = $_zp_authority->getAnAdmin(array('`user`=' => $rights, '`valid`=' => 0));
+					$admin = $_authority->getAnAdmin(array('`user`=' => $rights, '`valid`=' => 0));
 					if ($admin) {
 						$userobj->setObjects($admin->getObjects());
 						if ($admin->getName() != 'template') {
@@ -332,7 +332,7 @@ function printRegistrationForm($thanks = NULL) {
 				}
 				$userobj->setRights($rights | NO_RIGHTS);
 				$userobj->setGroup($group);
-				zp_apply_filter('register_user_verified', $userobj);
+				npgFilters::apply('register_user_verified', $userobj);
 				if (getOption('register_user_notify')) {
 					$_notify = zp_mail(gettext('netPhotoGraphics Gallery registration'), sprintf(gettext('%1$s (%2$s) has registered for the gallery providing an e-mail address of %3$s.'), $userobj->getName(), $userobj->getUser(), $userobj->getEmail()));
 				}
@@ -356,7 +356,7 @@ function printRegistrationForm($thanks = NULL) {
 		$_notify = 'loginfailed';
 	}
 
-	if (zp_loggedin()) {
+	if (npg_loggedin()) {
 		if (isset($_GET['login'])) {
 			echo '<meta http-equiv="refresh" content="1; url=' . WEBPATH . '/">';
 		} else {
@@ -515,7 +515,7 @@ function printRegistrationForm($thanks = NULL) {
  * @param string $class optional class
  */
 function printRegisterURL($_linktext = NULL, $prev = '', $next = '', $class = NULL, $hint = NULL) {
-	if (!zp_loggedin()) {
+	if (!npg_loggedin()) {
 		if (!is_null($class)) {
 			$class = 'class="' . $class . '"';
 		}
@@ -534,6 +534,6 @@ function printRegisterURL($_linktext = NULL, $prev = '', $next = '', $class = NU
 }
 
 if (isset($_POST['register_user'])) {
-	zp_register_filter('load_theme_script', 'register_user::post_processor');
+	npgFilters::register('load_theme_script', 'register_user::post_processor');
 }
 ?>

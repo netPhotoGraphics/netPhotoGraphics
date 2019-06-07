@@ -35,10 +35,10 @@ class Combi extends CMS {
 	 * @deprecated since version 1.4.6
 	 */
 	function getOldCombiNews($articles_per_page = '', $mode = '', $published = NULL, $sortorder = NULL, $sticky = true, $sortdirection = 'desc') {
-		global $_zp_combiNews_cache, $_zp_gallery;
+		global $_combiNews_cache, $_gallery;
 
 		if (is_null($published)) {
-			if (zp_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS)) {
+			if (npg_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS)) {
 				$published = "all";
 			} else {
 				$published = "published";
@@ -49,8 +49,8 @@ class Combi extends CMS {
 			$mode = getOption('zenpage_combinews_mode');
 		}
 
-		if (isset($_zp_combiNews_cache[$published . $mode . $sticky . $sortorder . $sortdirection])) {
-			return $_zp_combiNews_cache[$published . $mode . $sticky . $sortorder . $sortdirection];
+		if (isset($_combiNews_cache[$published . $mode . $sticky . $sortorder . $sortdirection])) {
+			return $_combiNews_cache[$published . $mode . $sticky . $sortorder . $sortdirection];
 		}
 
 		if ($published == "published") {
@@ -60,7 +60,7 @@ class Combi extends CMS {
 			$show = "";
 			$imagesshow = "";
 		}
-		self::getAllAccessibleAlbums($_zp_gallery, $albumlist);
+		self::getAllAccessibleAlbums($_gallery, $albumlist);
 		if (empty($albumlist)) {
 			$albumWhere = 'albums.`id` is NULL';
 		} else {
@@ -231,7 +231,7 @@ class Combi extends CMS {
 				}
 				break;
 		}
-		$_zp_combiNews_cache[$published . $mode . $sticky . $sortorder . $sortdirection] = $result;
+		$_combiNews_cache[$published . $mode . $sticky . $sortorder . $sortdirection] = $result;
 		return $result;
 	}
 

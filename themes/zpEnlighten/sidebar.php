@@ -11,7 +11,7 @@ if (function_exists("printAllNewsCategories")) {
 	<div class="menu">
 		<?php
 		if (extensionEnabled('zenpage')) {
-			if ($_zp_gallery_page == 'index.php' || $_zp_gallery_page != 'gallery.php') {
+			if ($_gallery_page == 'index.php' || $_gallery_page != 'gallery.php') {
 				?>
 				<h3>
 					<a href="<?php echo html_encode(getCustomPageURL('gallery')); ?>" title="<?php echo gettext('Album index'); ?>"><?php echo gettext("Gallery"); ?></a>
@@ -65,7 +65,7 @@ if (function_exists("printAllNewsCategories")) {
 			printFavoritesURL(NULL, '<li>', '</li><li>', '</li>');
 		}
 
-		if ($_zp_gallery_page == "archive.php") {
+		if ($_gallery_page == "archive.php") {
 			echo "<li class='menu-active'>" . gettext("Site archive view") . "</li>";
 		} else {
 			echo "<li>";
@@ -73,7 +73,7 @@ if (function_exists("printAllNewsCategories")) {
 			echo "</li>";
 		}
 		if (extensionEnabled('daily-summary')) {
-			if ($_zp_gallery_page == "summary.php") {
+			if ($_gallery_page == "summary.php") {
 				echo "<li class='menu-active'>" . gettext("Daily summary") . "</li>";
 			} else {
 				echo "<li>";
@@ -82,7 +82,7 @@ if (function_exists("printAllNewsCategories")) {
 			}
 		}
 		if (extensionEnabled('rss')) {
-			if (!is_null($_zp_current_album)) {
+			if (!is_null($_current_album)) {
 				printRSSLink('Album', '<li>', gettext('Albums'), '</li>', false);
 			}
 			printRSSLink('Gallery', '<li>', 'Gallery', '</li>', false);
@@ -101,7 +101,7 @@ if (getOption("zenpage_contactpage") && function_exists('printContactForm')) {
 		<ul>
 			<li>
 				<?php
-				if ($_zp_gallery_page != 'contact.php') {
+				if ($_gallery_page != 'contact.php') {
 					printCustomPageURL(gettext('Contact us'), 'contact', '', '');
 				} else {
 					echo gettext("Contact us");
@@ -113,13 +113,13 @@ if (getOption("zenpage_contactpage") && function_exists('printContactForm')) {
 }
 ?>
 <?php
-if (!zp_loggedin() && function_exists('printRegistrationForm')) {
+if (!npg_loggedin() && function_exists('printRegistrationForm')) {
 	?>
 	<div class="menu">
 		<ul>
 			<li>
 				<?php
-				if ($_zp_gallery_page != 'register.php') {
+				if ($_gallery_page != 'register.php') {
 					printCustomPageURL(gettext('Register for this site'), 'register', '', '');
 				} else {
 					echo gettext("Register for this site");
@@ -136,7 +136,7 @@ if (!zp_loggedin() && function_exists('printRegistrationForm')) {
 if (function_exists("printUserLogin_out")) {
 	?>
 	<?php
-	if (zp_loggedin()) {
+	if (npg_loggedin()) {
 		?>
 		<div class="menu">
 			<ul>
@@ -144,7 +144,7 @@ if (function_exists("printUserLogin_out")) {
 					<?php
 				}
 				printUserLogin_out("", "");
-				if (zp_loggedin()) {
+				if (npg_loggedin()) {
 					?>
 				</li>
 			</ul>

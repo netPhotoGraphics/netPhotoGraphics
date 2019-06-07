@@ -196,7 +196,7 @@ class customFieldExtender extends fieldExtender {
 			return sanitize($_POST[$instance . '-' . $field['name']]);
 		} else {
 			$item = $obj->get($field['name']);
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				ob_start();
 				?>
 				<select name="<?php echo $instance . '-' . $field['name']; ?>" size='1'>
@@ -240,6 +240,6 @@ function printCustomField($field, $label = NULL, $object = NULL) {
 if (OFFSET_PATH == 2) { // setup call: add the fields into the database
 	new customFieldExtender;
 } else {
-	$_zp_plugin_differed_actions['customFieldExtender'] = 'customFieldExtender::register';
+	$_plugin_differed_actions['customFieldExtender'] = 'customFieldExtender::register';
 }
 ?>

@@ -53,7 +53,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'http_auth';
 
-zp_register_filter('authorization_cookie', 'http_auth::check');
+npgFilters::register('authorization_cookie', 'http_auth::check');
 
 class http_auth {
 
@@ -84,7 +84,7 @@ class http_auth {
 	}
 
 	static function check($authorized) {
-		global $_zp_authority, $_zp_current_admin_obj;
+		global $_authority, $_current_admin_obj;
 		if (!$authorized) {
 			// not logged in via normal handling
 			// PHP-CGI auth fixd
@@ -105,14 +105,14 @@ class http_auth {
 				$user = $_SERVER['PHP_AUTH_USER'];
 				$pass = $_SERVER['PHP_AUTH_PW'];
 				if (getOption('http_auth_trust')) {
-					$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+					$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 				} else {
-					$userobj = Zenphoto_Authority::checkLogon($user, $pass);
+					$userobj = npg_Authority::checkLogon($user, $pass);
 				}
 				if ($userobj) {
-					$_zp_current_admin_obj = $userobj;
-					$_zp_current_admin_obj->logout_link = false;
-					$authorized = $_zp_current_admin_obj->getRights();
+					$_current_admin_obj = $userobj;
+					$_current_admin_obj->logout_link = false;
+					$authorized = $_current_admin_obj->getRights();
 				}
 			}
 		}

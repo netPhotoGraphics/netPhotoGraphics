@@ -20,7 +20,7 @@ if (isset($_GET['album'])) {
 	$folder = sanitize($_GET['album']);
 	$album = newAlbum($folder);
 	if (!$album->isMyItem(ALBUM_RIGHTS)) {
-		if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
+		if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
 			header('Location: ' . getAdminLink('admin.php'));
 			exit();
 		}
@@ -48,7 +48,7 @@ if (isset($_GET['album'])) {
 		}
 	}
 } else {
-	$album = $_zp_missing_album;
+	$album = $_missing_album;
 }
 
 // Print the admin header
@@ -92,7 +92,7 @@ echo "\n</head>";
 	if (extensionEnabled('hitcounter')) {
 		$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
 	}
-	$checkarray_images = zp_apply_filter('bulk_image_actions', $checkarray_images);
+	$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
 
 	// Layout the page
 	printLogoAndLinks();
@@ -109,7 +109,7 @@ echo "\n</head>";
 			}
 			$alb = removeParentAlbumNames($album);
 
-			zp_apply_filter('admin_note', 'albums', 'sort');
+			npgFilters::apply('admin_note', 'albums', 'sort');
 			?>
 			<h1><?php printf(gettext('Edit Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
 			<?php

@@ -59,9 +59,9 @@ if (extensionEnabled($extension)) {
 	enableExtension($extension, $plugin_is_filter);
 }
 
-$_zp_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
+$_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
 require_once($path); //	If it faults the shutdown functioin will disable it
-foreach ($_zp_conf_vars['special_pages'] as $definition) {
+foreach ($_conf_vars['special_pages'] as $definition) {
 	if (isset($definition['option'])) {
 		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
 	}

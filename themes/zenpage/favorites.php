@@ -9,13 +9,13 @@ if (class_exists('favorites')) {
 	<html>
 		<head>
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
-			scriptLoader($_zp_themeroot . '/style.css');
+			scriptLoader($_themeroot . '/style.css');
 			?>
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 
 			<div id="main">
 
@@ -50,7 +50,7 @@ if (class_exists('favorites')) {
 										<?php printAlbumDate(""); ?>
 										<div><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45, '...')); ?></div>
 										<br />
-										<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
+										<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 									</div>
 									<p style="clear: both; "></p>
 								</div>
@@ -61,7 +61,7 @@ if (class_exists('favorites')) {
 							<?php while (next_image()): ?>
 								<div class="image">
 									<div class="imagethumb"><a href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>"><?php printImageThumb(getBareImageTitle()); ?></a>
-										<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
+										<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 									</div>
 								</div>
 							<?php endwhile; ?>
@@ -96,7 +96,7 @@ if (class_exists('favorites')) {
 
 			</div><!-- main -->
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>

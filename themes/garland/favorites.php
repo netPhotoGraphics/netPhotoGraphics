@@ -7,16 +7,16 @@ if (class_exists('favorites')) {
 	<html>
 		<head>
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
-			scriptLoader($_zp_themeroot . '/zen.css');
+			scriptLoader($_themeroot . '/zen.css');
 
 			if (class_exists('RSS'))
 				printRSSHeaderLink('Album', getAlbumTitle());
 			?>
 		</head>
 		<body class="sidebars">
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 			<div id="navigation"></div>
 			<div id="wrapper">
 				<div id="container">
@@ -62,7 +62,7 @@ if (class_exists('favorites')) {
 														</h3>
 														<br />
 														<small><?php printAlbumDate(); ?></small>
-		<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
+		<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 													</div>
 													<p style="clear: both;"></p>
 												</div>
@@ -80,7 +80,7 @@ if (class_exists('favorites')) {
 												<div class="image">
 													<div class="imagethumb">
 														<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getImageTitle()); ?></a>
-		<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
+		<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 													</div>
 												</div>
 												<?php
@@ -137,7 +137,7 @@ if (class_exists('favorites')) {
 				<span class="clear"></span>
 			</div><!-- wrapper -->
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>

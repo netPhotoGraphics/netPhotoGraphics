@@ -17,9 +17,9 @@ $backgroundImagePath = "";
 <html>
 	<head>
 
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php npgFilters::apply('theme_head'); ?>
 
-		<?php $handler->theme_head($_zp_themeroot); ?>
+		<?php $handler->theme_head($_themeroot); ?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
 			function toggleExtraElements(category, show) {
@@ -39,8 +39,8 @@ $backgroundImagePath = "";
 
 	<body onload="blurAnchors()">
 		<?php
-		zp_apply_filter('theme_body_open');
-		$handler->theme_bodyopen($_zp_themeroot);
+		npgFilters::apply('theme_body_open');
+		$handler->theme_bodyopen($_themeroot);
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
@@ -61,7 +61,7 @@ $backgroundImagePath = "";
 			$searchwords .= $searchdate;
 		}
 		if (!$total) {
-			$_zp_current_search->clearSearchWords();
+			$_current_search->clearSearchWords();
 		}
 		?>
 
@@ -74,17 +74,17 @@ $backgroundImagePath = "";
 					<?php
 					$albumlist = NULL;
 					if (getOption('Allow_search')) {
-						$categorylist = $_zp_current_search->getCategoryList();
+						$categorylist = $_current_search->getCategoryList();
 						if (is_array($categorylist)) {
 							$catlist = array('news' => $categorylist, 'albums' => '0', 'images' => '0', 'pages' => '0');
-							printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search within category'), NULL, NULL, $catlist);
+							printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within category'), NULL, NULL, $catlist);
 						} else {
-							$albumlist = $_zp_current_search->getAlbumList();
+							$albumlist = $_current_search->getAlbumList();
 							if (is_array($albumlist)) {
 								$album_list = array('albums' => $albumlist, 'pages' => '0', 'news' => '0');
-								printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search within album'), NULL, NULL, $album_list);
+								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within album'), NULL, NULL, $album_list);
 							} else {
-								printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search gallery'));
+								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search gallery'));
 							}
 						}
 					}
@@ -136,7 +136,7 @@ $backgroundImagePath = "";
 					if ($total > 0) {
 						printf(ngettext('%1$u Hit for <em>%2$s</em>', '%1$u Hits for <em>%2$s</em>', $total), $total, html_encode($searchwords));
 					}
-					if ($zenpage && $_zp_page == 1) { //test of zenpage searches
+					if ($zenpage && $_current_page == 1) { //test of zenpage searches
 						define('TRUNCATE_LENGTH', 80);
 						define('SHOW_ITEMS', 5);
 						?>
@@ -164,7 +164,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 												<?php print printPageURL(); ?>
-												<p style="text-indent:1em;"><?php echo exerpt($_zp_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
 											</li>
 											<?php
 										}
@@ -197,7 +197,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 												<?php printNewsURL(); ?>
-												<p style="text-indent:1em;"><?php echo exerpt($_zp_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
 											</li>
 											<?php
 										}
@@ -310,7 +310,7 @@ $backgroundImagePath = "";
 		<br style="clear:all" />
 		<?php
 		printFooter();
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 
 	</body>

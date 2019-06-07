@@ -12,15 +12,15 @@ header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header("Content-type: image/png");
 $cypher = preg_replace('/[^0-9a-f]/', '', sanitize(isset($_GET['i']) ? $_GET['i'] : NULL));
 
-$key = getOption('zenphoto_captcha_key');
+$key = getOption('npg_captcha_key');
 $string = rc4($key, pack("H*", $cypher));
-$len = getOption('zenphoto_captcha_length');
+$len = getOption('npg_captcha_length');
 $string = str_pad($string, $len - strlen($string), '*');
 
 if (isset($_GET['f'])) {
 	$fontname = sanitize($_GET['f'], 3);
 } else {
-	$fontname = getOption('zenphoto_captcha_font');
+	$fontname = getOption('npg_captcha_font');
 	if ($fontname == '*') { //	Random selection
 		$fonts = zp_getFonts();
 		shuffle($fonts);
@@ -32,7 +32,7 @@ if (isset($_GET['f'])) {
 if (isset($_GET['p'])) {
 	$size = sanitize_numeric($_GET['p']);
 } else {
-	$size = getOption('zenphoto_captcha_font_size');
+	$size = getOption('npg_captcha_font_size');
 }
 
 $font = zp_imageLoadFont($fontname, $size);

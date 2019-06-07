@@ -35,10 +35,10 @@ function zenpagePublish($obj, $show) {
  * @since 1.4.0
  */
 function getNewsCustomData() {
-	global $_zp_current_article;
+	global $_CMS_current_article;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
-	if (!is_null($_zp_current_article)) {
-		return $_zp_current_article->getCustomData();
+	if (!is_null($_CMS_current_article)) {
+		return $_CMS_current_article->getCustomData();
 	}
 }
 
@@ -56,10 +56,10 @@ function printNewsCustomData() {
  * @since 1.4.0
  */
 function getNewsCategoryCustomData() {
-	global $_zp_current_category;
+	global $_CMS_current_category;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
-	if (!is_null($_zp_current_category)) {
-		return $_zp_current_category->getCustomData();
+	if (!is_null($_CMS_current_category)) {
+		return $_CMS_current_category->getCustomData();
 	}
 }
 
@@ -77,10 +77,10 @@ function printNewsCategoryCustomData() {
  * @since 1.4.0
  */
 function getPageCustomData() {
-	global $_zp_current_page;
+	global $_CMS_current_page;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
-	if (!is_null($_zp_current_page)) {
-		return $_zp_current_page->getCustomData();
+	if (!is_null($_CMS_current_page)) {
+		return $_CMS_current_page->getCustomData();
 	}
 }
 

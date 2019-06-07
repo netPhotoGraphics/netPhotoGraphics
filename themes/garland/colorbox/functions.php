@@ -4,7 +4,7 @@
  */
 // initialization stuff
 
-if (zp_has_filter('theme_head', 'colorbox::css')) {
+if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 	$handler = new ga_colorbox();
 } else {
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/garland/image_page/functions.php');
@@ -20,7 +20,7 @@ class ga_colorbox {
 		return false;
 	}
 
-	function theme_head($_zp_themeroot) {
+	function theme_head($_themeroot) {
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
@@ -40,12 +40,12 @@ class ga_colorbox {
 		<?php
 	}
 
-	function theme_bodyopen($_zp_themeroot) {
+	function theme_bodyopen($_themeroot) {
 
 	}
 
 	function theme_content($map) {
-		global $_zp_current_image, $points;
+		global $_current_image, $points;
 		?>
 		<!-- Colorbox section -->
 		<div id="images">
@@ -53,7 +53,7 @@ class ga_colorbox {
 			$points = array();
 			while (next_image()) {
 				if ($map) {
-					$coord = simpleMap::getGeoCoord($_zp_current_image);
+					$coord = simpleMap::getCoord($_current_image);
 					if ($coord) {
 						$points[] = $coord;
 					}

@@ -8,16 +8,16 @@ if (!defined('WEBPATH'))
 	printZDRoundedCornerJS();
 
 
-	zp_apply_filter('theme_head');
+	npgFilters::apply('theme_head');
 
-	scriptLoader($_zp_themeroot . '/style.css');
+	scriptLoader($_themeroot . '/style.css');
 
 	if (extensionEnabled('rss'))
 		printRSSHeaderLink('Album', getAlbumTitle());
 	?>
 </head>
 <body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 
 	<div id="main">
 
@@ -59,7 +59,7 @@ if (!defined('WEBPATH'))
 					<?php endwhile; ?>
 					<?php while ($u % 2 != 0) : $u++; ?>
 						<div class="album" style="margin-left: 8px;">
-							<div class="thumb"><a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_zp_themeroot ?>/images/trans.png" /></a></div>
+							<div class="thumb"><a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a></div>
 							<div class="albumdesc">
 								<h3 style="color: transparent;">No album</h3>
 								<h3 class="date" style="color: transparent;">No Date</h3>
@@ -77,7 +77,7 @@ if (!defined('WEBPATH'))
 					<?php endwhile; ?>
 					<?php while ($u % 5 != 0) : $u++; ?>
 						<div class="image">
-							<div class="imagethumb"><a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_zp_themeroot ?>/images/trans.png" /></a></div>
+							<div class="imagethumb"><a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a></div>
 						</div>
 					<?php endwhile ?>
 				</div>
@@ -87,7 +87,7 @@ if (!defined('WEBPATH'))
 				<br style="clear:both;" /><br />
 				<?php
 				if (function_exists('printAddToFavorites')) {
-					printAddToFavorites($_zp_current_album);
+					printAddToFavorites($_current_album);
 					echo '<br/>';
 				}
 				?>
@@ -131,6 +131,6 @@ if (!defined('WEBPATH'))
 		</div><!-- content -->
 
 	</div><!-- main -->
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

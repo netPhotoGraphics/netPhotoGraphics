@@ -6,20 +6,20 @@ if (!defined('WEBPATH'))
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php zp_apply_filter('theme_head'); ?>
+		<?php npgFilters::apply('theme_head'); ?>
 
 
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<?php
-		scriptLoader($_zp_themeroot . '/style.css');
+		scriptLoader($_themeroot . '/style.css');
 		jqm_loadScripts();
 		?>
 	</head>
 
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
 		<div data-role="page" id="mainpage">
 
@@ -44,7 +44,7 @@ if (!defined('WEBPATH'))
 							<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
 						</div>
 						<?php
-						if (!zp_loggedin() && function_exists('printRegisterURL') && $_zp_gallery->isUnprotectedPage('register')) {
+						if (!npg_loggedin() && function_exists('printRegisterURL') && $_gallery->isUnprotectedPage('register')) {
 							printRegisterURL(gettext('Register for this site'), '<br />');
 							echo '<br />';
 						}
@@ -58,7 +58,7 @@ if (!defined('WEBPATH'))
 			<?php jqm_printFooterNav(); ?>
 		</div><!-- /page -->
 
-		<?php zp_apply_filter('theme_body_close');
+		<?php npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

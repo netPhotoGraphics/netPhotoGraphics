@@ -491,7 +491,7 @@ class optionalObjectFields extends fieldExtender {
 
 	static function codeblocks($obj, $instance, $field, $type) {
 		if ($type == 'save') {
-			if (zp_loggedin(CODEBLOCK_RIGHTS)) {
+			if (npg_loggedin(CODEBLOCK_RIGHTS)) {
 				processCodeblockSave((int) $instance, $obj);
 			}
 			return NULL;
@@ -527,6 +527,6 @@ function optionalObjectFields_enable($enabled) {
 if (OFFSET_PATH == 2) { // setup call: add the fields into the database
 	new optionalObjectFields;
 } else {
-	$_zp_plugin_differed_actions['optionalObjectFields'] = 'optionalObjectFields::register';
+	$_plugin_differed_actions['optionalObjectFields'] = 'optionalObjectFields::register';
 }
 ?>

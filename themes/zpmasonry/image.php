@@ -1,14 +1,14 @@
 <?php include ("inc-header.php"); ?>
 
 <div id="breadcrumbs">
-	<?php if (($zpmas_infscroll) && (in_context(ZP_SEARCH_LINKED))) $_zp_current_search->page = '1'; ?>
+	<?php if (($zpmas_infscroll) && (in_context(ZP_SEARCH_LINKED))) $_current_search->page = '1'; ?>
 	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo;
 	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 	<?php
 	if ($zpmas_infscroll) {
-		$link = rewrite_path("/" . pathurlencode($_zp_current_album->name) . "/", "/index.php?album=" . pathurlencode($_zp_current_album->name));
+		$link = rewrite_path("/" . pathurlencode($_current_album->name) . "/", "/index.php?album=" . pathurlencode($_current_album->name));
 		?>
-		<a href="<?php echo $link; ?>" title="<?php echo $_zp_current_album->getTitle(); ?>"><?php echo $_zp_current_album->getTitle(); ?></a>&nbsp;&raquo;&nbsp;
+		<a href="<?php echo $link; ?>" title="<?php echo $_current_album->getTitle(); ?>"><?php echo $_current_album->getTitle(); ?></a>&nbsp;&raquo;&nbsp;
 		<?php
 	} else {
 		printAlbumBreadcrumb('', ' » ');
@@ -32,9 +32,9 @@
 					$tagstring = implode(', ', $singletag);
 					?>
 					<ul class="image-info">
-						<?php if ((strlen(getImageDate()) > 0) || (zp_loggedin())) { ?><li class="date"><?php printImageDate(''); ?></li><?php } ?>
-						<?php if ((strlen(getImageDesc()) > 0) || (zp_loggedin())) { ?><li class="desc"><?php printImageDesc(); ?></li><?php } ?>
-						<?php if ((strlen($tagstring) > 0) || (zp_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
+						<?php if ((strlen(getImageDate()) > 0) || (npg_loggedin())) { ?><li class="date"><?php printImageDate(''); ?></li><?php } ?>
+						<?php if ((strlen(getImageDesc()) > 0) || (npg_loggedin())) { ?><li class="desc"><?php printImageDesc(); ?></li><?php } ?>
+						<?php if ((strlen($tagstring) > 0) || (npg_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
 					</ul>
 				</div>
 				<?php if ($useGslideshow && isImagePhoto()) { ?>
@@ -42,7 +42,7 @@
 				<?php } ?>
 
 				<?php if (!$zpmas_disablemeta) { ?>
-					<?php if ((getImageMetaData()) || (zp_loggedin())) { ?><div class="sidebar-divide"><?php printImageMetadata('', false, null, 'full-image-meta', true); ?></div><?php } ?>
+					<?php if ((getImageMetaData()) || (npg_loggedin())) { ?><div class="sidebar-divide"><?php printImageMetadata('', false, null, 'full-image-meta', true); ?></div><?php } ?>
 				<?php } ?>
 				<?php include ("inc-copy.php"); ?>
 			</div>
@@ -76,7 +76,7 @@
 		<?php if (simplemap::mapPlugin()) { ?><div class="post"><?php simpleMap::printMap(); ?></div><?php } ?>
 		<?php
 		if (function_exists('printAddToFavorites'))
-			printAddToFavorites($_zp_current_image);
+			printAddToFavorites($_current_image);
 		?>
 		<?php if (function_exists('printRating')) { ?><div class="post"><?php printRating(); ?></div><?php } ?>
 		<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>

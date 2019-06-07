@@ -73,8 +73,8 @@ if (isset($_GET['titlelink'])) {
 	}
 	if (isset($_POST['subpage']) && $_POST['subpage'] == 'object' && count($reports) <= 1) {
 		if (isset($_POST['category'])) {
-			$_zp_current_category = newCategory(sanitize($_POST['category']), false);
-			$cat = $_zp_current_category->exists;
+			$_CMS_current_category = newCategory(sanitize($_POST['category']), false);
+			$cat = $_CMS_current_category->exists;
 		} else {
 			$cat = NULL;
 		}
@@ -111,10 +111,10 @@ if ($redirect) {
  * reporting code so is impractical. Instead we will presume that all that needs to be restarted
  * is the CMS object.
  */
-$_zp_CMS = new CMS();
+$_CMS = new CMS();
 
 printAdminHeader($page, $tab);
-zp_apply_filter('texteditor_config', 'zenpage');
+npgFilters::apply('texteditor_config', 'zenpage');
 zenpageJSCSS();
 datepickerJS();
 codeblocktabsJS();
@@ -166,7 +166,7 @@ $tagsort = 'alpha';
 	}, false);
 	// ]]> -->
 </script>
-<?php Zenphoto_Authority::printPasswordFormJS(); ?>
+<?php npg_Authority::printPasswordFormJS(); ?>
 </head>
 <body onresize="resizeTable()">
 	<?php
@@ -210,7 +210,7 @@ $tagsort = 'alpha';
 
 			if (is_AdminEditPage('newscategory')) {
 				$admintype = 'newscategory';
-				IF (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+				IF (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 					$additem = gettext('New Category');
 				} else {
 					$additem = '';
@@ -238,7 +238,7 @@ $tagsort = 'alpha';
 			if (!$result->isMyItem($result->manage_some_rights)) {
 				$locked = true;
 			}
-			zp_apply_filter('admin_note', $me, 'edit');
+			npgFilters::apply('admin_note', $me, 'edit');
 
 			if (!$result->loaded && !$result->transient) {
 				$result->transient = true;
@@ -511,13 +511,13 @@ $tagsort = 'alpha';
 											</tr>
 											<?php
 											if (is_AdminEditPage("newsarticle")) {
-												$custom = zp_apply_filter('edit_article_custom', '', $result);
+												$custom = npgFilters::apply('edit_article_custom', '', $result);
 											}
 											if (is_AdminEditPage("newscategory")) {
-												$custom = zp_apply_filter('edit_category_custom', '', $result);
+												$custom = npgFilters::apply('edit_category_custom', '', $result);
 											}
 											if (is_AdminEditPage("page")) {
-												$custom = zp_apply_filter('edit_page_custom', '', $result);
+												$custom = npgFilters::apply('edit_page_custom', '', $result);
 											}
 											echo $custom;
 											?>
@@ -704,7 +704,7 @@ $tagsort = 'alpha';
 												?>
 											</div>
 											<?php
-											if ($utilities = zp_apply_filter('edit_cms_utilities', '', $result)) {
+											if ($utilities = npgFilters::apply('edit_cms_utilities', '', $result)) {
 												?>
 												<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
 												<div class="box-edit">
@@ -806,7 +806,7 @@ $tagsort = 'alpha';
 														?>
 														<p>
 															<?php
-															if (zp_loggedin($manager)) {
+															if (npg_loggedin($manager)) {
 																echo gettext("Author");
 																?>
 																<select size='1' name="author" id="author">
@@ -862,7 +862,7 @@ $tagsort = 'alpha';
 														</p>
 														<?php
 													}
-													echo zp_apply_filter('general_zenpage_utilities', '', $result);
+													echo npgFilters::apply('general_utilities', '', $result);
 													?>
 												</div>
 												<?php

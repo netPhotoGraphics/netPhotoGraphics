@@ -16,7 +16,7 @@
 $plugin_is_filter = defaultExtension(900 | ADMIN_PLUGIN); // lowest priotiry so other instances will override
 $plugin_description = gettext('PHP based theme editor.');
 
-zp_register_filter('theme_editor', 'PHPThemeEdit');
+npgFilters::register('theme_editor', 'PHPThemeEdit');
 
 function phpThemeEdit($html, $theme) {
 	$html = "launchScript('" . PLUGIN_FOLDER . "/themeEditor/themes-editor.php', ['theme=" . urlencode($theme) . "'])";

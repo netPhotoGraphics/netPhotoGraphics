@@ -28,7 +28,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 		<div id="content">
 			<?php
 			printSetupWarning();
-			zp_apply_filter('admin_note', 'clone', '');
+			npgFilters::apply('admin_note', 'clone', '');
 			?>
 
 			<h1><?php echo gettext('Site clones'); ?></h1>
@@ -39,31 +39,31 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					$invalid = false;
 					foreach ($clones as $clone => $data) {
 						$version = '';
-						$v = explode('-', ZENPHOTO_VERSION . '-');
+						$v = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 						$myVersion = $v[0];
 						if ($data['valid']) {
 							$title = gettext('Visit the site.');
 							$strike = '';
 							if (file_exists($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-								$old = $_zp_conf_vars;
-								unset($_zp_conf_vars);
+								$old = $_conf_vars;
+								unset($_conf_vars);
 								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-								$saveDB = $_zp_DB_details;
+								$saveDB = $_DB_details;
 								db_close();
 								//	Setup for the MyBB database
-								$config = array('mysql_host' => $_zp_conf_vars['mysql_host'], 'mysql_database' => $_zp_conf_vars['mysql_database'], 'mysql_prefix' => $_zp_conf_vars['mysql_prefix'], 'mysql_user' => $_zp_conf_vars['mysql_user'], 'mysql_pass' => $_zp_conf_vars['mysql_pass']);
-								if ($_zp_DB_connection = db_connect($config, false)) {
-									$sql = 'SELECT * FROM `' . $config['mysql_prefix'] . 'options` WHERE `name`="zenphoto_install"';
+								$config = array('mysql_host' => $_conf_vars['mysql_host'], 'mysql_database' => $_conf_vars['mysql_database'], 'mysql_prefix' => $_conf_vars['mysql_prefix'], 'mysql_user' => $_conf_vars['mysql_user'], 'mysql_pass' => $_conf_vars['mysql_pass']);
+								if ($_DB_connection = db_connect($config, false)) {
+									$sql = 'SELECT * FROM `' . $config['mysql_prefix'] . 'options` WHERE `name`="netphotographics_install"';
 									if ($result = query_single_row($sql, FALSE)) {
 										$signature = @unserialize($result['value']);
-										if ($signature['ZENPHOTO'] != $myVersion) {
-											$version = ' (' . sprintf(gettext('Last setup run version: %s'), $signature['ZENPHOTO']) . ')';
+										if ($signature['NETPHOTOGRAPHICS'] != $myVersion) {
+											$version = ' (' . sprintf(gettext('Last setup run version: %s'), $signature['NETPHOTOGRAPHICS']) . ')';
 										}
 									}
 								}
 								db_close();
-								$_zp_DB_connection = db_connect($saveDB);
-								$_zp_conf_vars = $old;
+								$_DB_connection = db_connect($saveDB);
+								$_conf_vars = $old;
 							}
 						} else { // no longer a clone of this installation
 							$strike = ' style="text-decoration: line-through;"';
@@ -144,13 +144,13 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 						if (substr($uppath, -1) != '/') {
 							$uppath .= '/';
 						}
-						$zp_folders = array(ALBUMFOLDER, CACHEFOLDER, STATIC_CACHE_FOLDER, USER_PLUGIN_FOLDER, THEMEFOLDER, UPLOAD_FOLDER, CORE_FOLDER, DATA_FOLDER);
+						$npg_folders = array(ALBUMFOLDER, CACHEFOLDER, STATIC_CACHE_FOLDER, USER_PLUGIN_FOLDER, THEMEFOLDER, UPLOAD_FOLDER, CORE_FOLDER, DATA_FOLDER);
 
 						if (($dir = opendir($path)) !== false) {
 							while (($file = readdir($dir)) !== false) {
 								if ($file{0} != '.' && $file{0} != '$') {
 									if ((is_dir($path . $file))) {
-										if (!in_array($file, $zp_folders)) { // no clones "here" or in "hidden" files
+										if (!in_array($file, $npg_folders)) { // no clones "here" or in "hidden" files
 											$folderlist[$file] = $path . $file . '/';
 										}
 									}
