@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-04 18:24-0700\n"
-"PO-Revision-Date: 2019-06-04 18:25-0700\n"
+"PO-Revision-Date: 2019-06-08 10:26+0200\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Samy Rabih (Fetard) & Michel Gagnon <michel@mgagnon.net>\n"
 "Language: fr_FR\n"
@@ -20108,9 +20108,9 @@ msgid "A media oriented content management system"
 msgstr "Un système de gestion de contenu média très simple"
 
 #: zp-core/template-functions.php:4332
-#, fuzzy, php-format
+#, php-format
 msgid "Powered by %s"
-msgstr "Réalisé par %s"
+msgstr "Réalisé par %s <a href=\"https://xlioness.com/\">.</a>"
 
 #: zp-core/template-functions.php:4573
 msgid "Error:</strong> the requested object was not found."
@@ -20784,7 +20784,7 @@ msgstr[1] "%u filtres activés :"
 
 #: zp-core/utilities/refresh-metadata.php:44
 msgid "Refresh Database"
-msgstr "Actualiser la base de données"
+msgstr "Actualiser la base de données "
 
 #: zp-core/utilities/refresh-metadata.php:45
 msgid "Finished refreshing the database"
@@ -21031,10 +21031,9 @@ msgid "LDAP Group map"
 msgstr "Mise en correspondance de groupe LDAP"
 
 #: zp-core/zp-extensions/LDAP_auth.php:70
-#, fuzzy
-#| msgid "Mapping of LDAP groups to netPhotoGraphics groups"
 msgid "Mapping of LDAP groups to netPhotoGraphics groups"
-msgstr "Mise en correspondance des groupes LDAP vers les groupes ZenPhoto20"
+msgstr ""
+"Mise en correspondance des groupes LDAP vers les groupes Netphotographics"
 
 #: zp-core/zp-extensions/LDAP_auth.php:70
 msgid ""
@@ -22170,7 +22169,7 @@ msgstr "Fichiers traités"
 
 #: zp-core/zp-extensions/class-AnyFile.php:42
 msgid "File suffixes to be handled."
-msgstr "Extensions de fichiers traités par Zenphoto."
+msgstr "Extensions de fichiers traités par Netphtographics."
 
 #: zp-core/zp-extensions/class-AnyFile.php:43
 msgid "Add file suffix"
