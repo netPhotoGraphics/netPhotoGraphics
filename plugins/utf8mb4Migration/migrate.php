@@ -71,8 +71,8 @@ foreach ($tables as $table) {
 }
 $_configMutex->lock();
 $_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-$_config_contents = updateConfigItem('UTF-8', 'utf8mb4', $_config_contents);
-storeConfig($_config_contents);
+$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
+configFile::store($_config_contents);
 $_configMutex->unlock();
 
 

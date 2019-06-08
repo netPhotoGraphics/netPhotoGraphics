@@ -38,13 +38,13 @@ $iMutex = new zpMutex('i', @$_GET['limit']);
 $iMutex->lock();
 
 require_once(dirname(__FILE__) . '/initialize-basic.php');
-require_once(dirname(__FILE__) . '/functions-image.php');
+require_once(dirname(__FILE__) . '/lib-image.php');
 
 $debug = isset($_GET['debug']);
 
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageError('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
 }
 
 // Fix special characters in the album and image names if mod_rewrite is on:
@@ -60,7 +60,7 @@ if (getOption('secure_image_processor')) {
 	require_once(dirname(__FILE__) . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
-		imageError('403 Forbidden', gettext("Forbidden(1)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)"));
 	}
 	unset($albumobj);
 }
@@ -98,7 +98,7 @@ if (trim($album) == '') {
 }
 
 if ($debug) {
-	imageDebug($album, $image, $args, $imgfile);
+	imageProcessing::debug($album, $image, $args, $imgfile);
 }
 
 /** Check for possible problems ***********
@@ -108,12 +108,12 @@ if (!is_dir(SERVERCACHE)) {
 	@mkdir(SERVERCACHE, FOLDER_MOD);
 	@chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_dir(SERVERCACHE))
-		imageError('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-failimage.png');
+		imageProcessing::error('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-failimage.png');
 }
 if (!is_writable(SERVERCACHE)) {
 	@chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_writable(SERVERCACHE))
-		imageError('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-failimage.png');
+		imageProcessing::error('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-failimage.png');
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
@@ -126,7 +126,7 @@ if (!file_exists($imgfile)) {
 		if (DEBUG_IMAGE) {
 			debugLogVar(['image not found' => $args]);
 		}
-		imageError('404 Not Found', sprintf(gettext("Image not found; file %s does not exist."), html_encode(filesystemToInternal($album . '/' . $image))), 'err-imagenotfound.png');
+		imageProcessing::error('404 Not Found', sprintf(gettext("Image not found; file %s does not exist."), html_encode(filesystemToInternal($album . '/' . $image))), 'err-imagenotfound.png');
 	}
 }
 
@@ -159,11 +159,11 @@ if (file_exists($newfile) & !$adminrequest) {
 
 if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
-		imageError('403 Forbidden', gettext("Forbidden(2)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"));
 	}
-	$result = cacheImage($newfilename, $imgfile, $args, $allowWatermark, $theme, $album);
+	$result = imageProcessing::cache($newfilename, $imgfile, $args, $allowWatermark, $theme, $album);
 	if (!$result) {
-		imageError('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
+		imageProcessing::error('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
 	}
 	$fmt = filemtime($newfile);
 }

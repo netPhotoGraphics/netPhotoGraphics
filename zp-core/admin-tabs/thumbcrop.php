@@ -8,7 +8,7 @@
  */
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(dirname(dirname(__FILE__)) . '/functions-image.php');
+require_once(dirname(dirname(__FILE__)) . '/lib-image.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 

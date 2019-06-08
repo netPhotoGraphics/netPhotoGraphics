@@ -48,7 +48,7 @@ if (abs(OFFSET_PATH) != 2) {
 	}
 
 	//	just incase
-	require_once(CORE_SERVERPATH . 'functions-filter.php');
+	require_once(CORE_SERVERPATH . 'lib-filter.php');
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/dynamic-locale.php');
 }
 if (!defined('SEO_FULLWEBPATH')) {

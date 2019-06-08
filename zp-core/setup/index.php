@@ -177,22 +177,22 @@ if (isset($_POST['db'])) { //try to update the zp-config file
 	setupLog(gettext("db POST handling"));
 	$updatezp_config = true;
 	if (isset($_POST['db_software'])) {
-		$_config_contents = updateConfigItem('db_software', trim(sanitize($_POST['db_software'], 0)), $_config_contents);
+		$_config_contents = configFile::update('db_software', trim(sanitize($_POST['db_software'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_user'])) {
-		$_config_contents = updateConfigItem('mysql_user', trim(sanitize($_POST['db_user'], 0)), $_config_contents);
+		$_config_contents = configFile::update('mysql_user', trim(sanitize($_POST['db_user'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_pass'])) {
-		$_config_contents = updateConfigItem('mysql_pass', trim(sanitize($_POST['db_pass'], 0)), $_config_contents);
+		$_config_contents = configFile::update('mysql_pass', trim(sanitize($_POST['db_pass'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_host'])) {
-		$_config_contents = updateConfigItem('mysql_host', trim(sanitize($_POST['db_host'], 0)), $_config_contents);
+		$_config_contents = configFile::update('mysql_host', trim(sanitize($_POST['db_host'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_database'])) {
-		$_config_contents = updateConfigItem('mysql_database', trim(sanitize($_POST['db_database'], 0)), $_config_contents);
+		$_config_contents = configFile::update('mysql_database', trim(sanitize($_POST['db_database'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_prefix'])) {
-		$_config_contents = updateConfigItem('mysql_prefix', str_replace(array('.', '/', '\\', '`', '"', "'"), '_', trim(sanitize($_POST['db_prefix'], 0))), $_config_contents);
+		$_config_contents = configFile::update('mysql_prefix', str_replace(array('.', '/', '\\', '`', '"', "'"), '_', trim(sanitize($_POST['db_prefix'], 0))), $_config_contents);
 	}
 }
 
@@ -201,7 +201,7 @@ define('ACK_DISPLAY_ERRORS', 2);
 
 if (isset($_GET['security_ack'])) {
 	setupXSRFDefender('security_ack');
-	$_config_contents = updateConfigItem('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
+	$_config_contents = configFile::update('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
 	$updatezp_config = true;
 }
 
@@ -228,7 +228,7 @@ if ($updatechmod || $newconfig) {
 		$chmodval = sprintf('0%o', $chmod);
 	}
 	if ($updatechmod) {
-		$_config_contents = updateConfigItem('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
+		$_config_contents = configFile::update('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
 		if (strpos($_config_contents, "if (!defined('CHMOD_VALUE')) {") !== false) {
 			$_config_contents = preg_replace("|if\s\(!defined\('CHMOD_VALUE'\)\)\s{\sdefine\(\'CHMOD_VALUE\'\,(.*)\);\s}|", "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n", $_config_contents);
 		} else {
@@ -242,12 +242,12 @@ if ($updatechmod || $newconfig) {
 if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 	setupXSRFDefender('FILESYSTEM_CHARSET');
 	$fileset = $_REQUEST['FILESYSTEM_CHARSET'];
-	$_config_contents = updateConfigItem('FILESYSTEM_CHARSET', $fileset, $_config_contents);
+	$_config_contents = configFile::update('FILESYSTEM_CHARSET', $fileset, $_config_contents);
 	$updatezp_config = true;
 }
 
 if ($updatezp_config) {
-	storeConfig($_config_contents);
+	configFile::store($_config_contents);
 	//	reload the page so that the database config takes effect
 	$q = rtrim($debugq . $autorunq, '&');
 	if ($q) {
@@ -297,13 +297,13 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 				$selected_database = $preferred;
 				if ($preferred) {
 					$_conf_vars['db_software'] = $preferred;
-					$_config_contents = updateConfigItem('db_software', $preferred, $_config_contents);
+					$_config_contents = configFile::update('db_software', $preferred, $_config_contents);
 					$updatezp_config = true;
 				}
 			}
 		} else {
 			$_conf_vars['db_software'] = $selected_database = $preferred;
-			$_config_contents = updateConfigItem('db_software', $_config_contents, $preferred);
+			$_config_contents = configFile::update('db_software', $_config_contents, $preferred);
 			$updatezp_config = true;
 			$confDB = NULL;
 		}
@@ -325,7 +325,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 }
 
 if ($updatezp_config) {
-	storeConfig($_config_contents);
+	configFile::store($_config_contents);
 }
 $result = true;
 $environ = false;
@@ -888,8 +888,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											if (file_exists(internalToFilesystem($test_internal))) {
 												//	and the active character set define worked
 												if (!isset($_conf_vars['FILESYSTEM_CHARSET'])) {
-													$_config_contents = updateConfigItem('FILESYSTEM_CHARSET', FILESYSTEM_CHARSET, $_config_contents);
-													storeConfig($_config_contents);
+													$_config_contents = configFile::update('FILESYSTEM_CHARSET', FILESYSTEM_CHARSET, $_config_contents);
+													configFile::store($_config_contents);
 												}
 												$notice = 1;
 												$msg = sprintf(gettext('The filesystem character define is %1$s [confirmed]'), $charset_defined);

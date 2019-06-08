@@ -10,7 +10,7 @@
 
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(CORE_SERVERPATH . 'functions-config.php');
+require_once(CORE_SERVERPATH . 'lib-config.php');
 require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (isset($_GET['tab'])) {

@@ -57,7 +57,7 @@ $_themeScript_timer['general functions'] = microtime();
 /**
  * Invoke the controller to handle requests
  */
-require_once(CORE_SERVERPATH . 'functions-controller.php');
+require_once(CORE_SERVERPATH . 'lib-controller.php');
 require_once(CORE_SERVERPATH . 'controller.php');
 
 $_index_theme = $_themeScript = '';

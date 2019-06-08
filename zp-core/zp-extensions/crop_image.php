@@ -17,7 +17,7 @@ if (isset($_REQUEST['performcrop'])) {
 	if (!defined('OFFSET_PATH'))
 		define('OFFSET_PATH', 3);
 	require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-	require_once(dirname(dirname(__FILE__)) . '/functions-image.php');
+	require_once(dirname(dirname(__FILE__)) . '/lib-image.php');
 	admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 } else {
 	npgFilters::register('admin_toolbox_image', 'crop_image::toolbox');
@@ -165,7 +165,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$quality = getOption('full_image_quality');
 	$rotate = false;
 	if (zp_imageCanRotate()) {
-		$rotate = getImageRotation($imageobj);
+		$rotate = imageProcessing::getRotation($imageobj);
 	}
 	if (DEBUG_IMAGE)
 		debugLog("image_crop: crop " . basename($imgpath) . ":\$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy \$rotate=$rotate");

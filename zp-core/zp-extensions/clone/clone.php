@@ -10,7 +10,7 @@
 define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
-require_once(CORE_SERVERPATH . 'functions-config.php');
+require_once(CORE_SERVERPATH . 'lib-config.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 XSRFdefender('clone');
@@ -52,7 +52,7 @@ if (isset($_GET['purge'])) {
 		if (!file_exists($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 			$path = str_replace(array(' ', '/'), '_', trim(str_replace(str_replace(WEBPATH, '/', SERVERPATH), '', $folder), '/')) . '_';
 			$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-			$_config_contents = updateConfigItem('mysql_prefix', $path, $_config_contents);
+			$_config_contents = configFile::update('mysql_prefix', $path, $_config_contents);
 			file_put_contents($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
 		}
 

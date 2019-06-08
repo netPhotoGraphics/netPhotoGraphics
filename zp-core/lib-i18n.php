@@ -1,7 +1,7 @@
 <?php
 
 /**
- * functions-i18n.php -- support functions for internationalization
+ * lib-i18n.php -- support functions for internationalization
  *
  * @author Stephen Billard (sbillard)
  *

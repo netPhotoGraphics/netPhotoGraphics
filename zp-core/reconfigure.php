@@ -70,7 +70,7 @@ function reconfigureAction($mandatory) {
 			$_invisible_execute = 1;
 			require_once(dirname(__FILE__) . '/functions-basic.php');
 			require_once(CORE_SERVERPATH . 'initialize-basic.php');
-			require_once(dirname(__FILE__) . '/functions-filter.php');
+			require_once(dirname(__FILE__) . '/lib-filter.php');
 
 			if (!defined('FULLWEBPATH')) {
 				$protocol = (@$_SERVER['https']) ? 'HTTPS' : 'HTTP';

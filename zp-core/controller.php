@@ -10,7 +10,7 @@
  * **************************************** */
 // This is the main top-level action handler for user requests. It parses a
 // request, validates the input, loads the appropriate objects, and sets
-// the context. All that is done in functions-controller.php.
+// the context. All that is done in lib-controller.php.
 
 Controller::load_gallery(); //	load the gallery and set the context to be on the front-end
 $_requested_object = Controller::load_request();

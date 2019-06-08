@@ -45,7 +45,7 @@ $plugin_description = gettext("Provides a function to display an image that can 
 
 $option_interface = 'zoomImage';
 
-require_once(CORE_SERVERPATH . 'functions-image.php');
+require_once(CORE_SERVERPATH . 'lib-image.php');
 
 npgFilters::register('theme_body_close', 'zoomImage::body_close');
 

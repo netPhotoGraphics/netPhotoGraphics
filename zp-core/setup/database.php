@@ -417,8 +417,8 @@ foreach ($uniquekeys as $table => $keys) {
 //if this is a new database, update the config file for the utf8 encoding
 if ($utf8mb4 && !array_search(true, $tablePresent)) {
 	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	$_config_contents = updateConfigItem('UTF-8', 'utf8mb4', $_config_contents);
-	storeConfig($_config_contents);
+	$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
+	configFile::store($_config_contents);
 }
 // now the database is setup we can store the options
 setOptionDefault('metadata_disabled', serialize($disable));

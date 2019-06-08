@@ -121,7 +121,7 @@ if ($ruleFile) {
 npgFilters::register('admin_tabs', 'rewriteRules::tabs', 100);
 
 
-require_once(CORE_SERVERPATH . 'functions-config.php');
+require_once(CORE_SERVERPATH . 'lib-config.php');
 
 class rewriteRules {
 
@@ -291,7 +291,7 @@ class rewriteRules {
 		}
 		$newtext = substr($newtext, 0, -1) . "\n												);\n";
 		$_config_contents = $this->zp_cfg_a . $newtext . $this->zp_cfg_b;
-		storeConfig($_config_contents);
+		configFile::store($_config_contents);
 		return $notify;
 	}
 

@@ -5,7 +5,7 @@
  */
 define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(CORE_SERVERPATH . 'functions-config.php');
+require_once(CORE_SERVERPATH . 'lib-config.php');
 
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
 
@@ -71,8 +71,8 @@ function setSiteState($state, $folder = NULL) {
 	$_configMutex = new zpMutex('cF', NULL, $folder . DATA_FOLDER . '/.mutex');
 	$_configMutex->lock();
 	$_config_contents = @file_get_contents($folder . DATA_FOLDER . '/' . CONFIGFILE);
-	$_config_contents = updateConfigItem('site_upgrade_state', $state, $_config_contents);
-	storeConfig($_config_contents, $folder);
+	$_config_contents = configFile::update('site_upgrade_state', $state, $_config_contents);
+	configFile::store($_config_contents, $folder);
 	$_configMutex->unlock();
 }
 

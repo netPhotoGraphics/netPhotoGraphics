@@ -971,11 +971,11 @@ function setOption($key, $value, $persistent = true) {
 				$configKey = $_conf_options_associations[$keylc];
 				if ($_conf_vars[$configKey] !== $value) {
 					//	it is stored in the config file, update that too
-					require_once(CORE_SERVERPATH . 'functions-config.php');
+					require_once(CORE_SERVERPATH . 'lib-config.php');
 					$_configMutex->lock();
 					$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-					$_config_contents = updateConfigItem($configKey, $value, $_config_contents);
-					storeConfig($_config_contents);
+					$_config_contents = configFile::update($configKey, $value, $_config_contents);
+					configFile::store($_config_contents);
 					$_configMutex->unlock();
 				}
 			}
@@ -1977,13 +1977,13 @@ function installSignature() {
 	$folder = dirname(__FILE__);
 	$testFiles = array(
 			'template-functions.php' => filesize($folder . '/template-functions.php'),
-			'functions-filter.php' => filesize($folder . '/functions-filter.php'),
+			'lib-filter.php' => filesize($folder . '/lib-filter.php'),
 			'lib-auth.php' => filesize($folder . '/lib-auth.php'),
 			'lib-utf8.php' => filesize($folder . '/lib-utf8.php'),
 			'functions.php' => filesize($folder . '/functions.php'),
 			'functions-basic.php' => filesize($folder . '/functions-basic.php'),
-			'functions-controller.php' => filesize($folder . '/functions-controller.php'),
-			'functions-image.php' => filesize($folder . '/functions-image.php')
+			'lib-controller.php' => filesize($folder . '/lib-controller.php'),
+			'lib-image.php' => filesize($folder . '/lib-image.php')
 	);
 
 	$dbs = db_software();

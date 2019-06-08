@@ -11,11 +11,11 @@
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 1);
 require_once(dirname(__FILE__) . "/functions.php");
-require_once(dirname(__FILE__) . "/functions-image.php");
+require_once(dirname(__FILE__) . "/lib-image.php");
 
 $disposal = getOption('protect_full_image');
 if ($disposal == 'No access') { // illegal use of the script!
-	imageError('403 Forbidden', gettext("Forbidden"));
+	imageProcessing::error('403 Forbidden', gettext("Forbidden"));
 } else {
 	if (isset($_GET['dsp'])) {
 		$disposal = sanitize($_GET['dsp']);
@@ -23,7 +23,7 @@ if ($disposal == 'No access') { // illegal use of the script!
 }
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageError('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
 }
 
 list($album8, $image8) = rewrite_get_album_image('a', 'i');
@@ -99,7 +99,7 @@ if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)
 	if (empty($hash) || (!empty($hash) && getNPGCookie($authType) != $hash)) {
 		require_once(CORE_SERVERPATH . 'rewrite.php');
 		require_once(dirname(__FILE__) . "/template-functions.php");
-		require_once(CORE_SERVERPATH . 'functions-controller.php');
+		require_once(CORE_SERVERPATH . 'lib-controller.php');
 		Controller::load_gallery();
 
 		foreach (getEnabledPlugins() as $extension => $plugin) {
@@ -172,7 +172,7 @@ if ($force_cache = getOption('cache_full_image')) {
 
 $process = $rotate = false;
 if (zp_imageCanRotate()) {
-	$rotate = getImageRotation($imageobj);
+	$rotate = imageProcessing::getRotation($imageobj);
 	$process = $rotate;
 }
 $watermark_use_image = getWatermarkParam($imageobj, WATERMARK_FULL);
@@ -221,7 +221,7 @@ if ($disposal == 'Download') {
 
 if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 	if ($forbidden) {
-		imageError('403 Forbidden', gettext("Forbidden(2)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"));
 	}
 	if ($force_cache && !$process) {
 		// we can just use the original!
