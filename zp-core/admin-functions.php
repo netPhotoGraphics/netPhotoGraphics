@@ -2243,7 +2243,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 													echo "\n<option";
 													if ($_gallery->getThumbSelectImages()) {
 														echo " class=\"thumboption\"";
-														echo " style=\"background-image: url(" . pathurlencode(getAdminThumb($image, 'medium')) . "); background-repeat: no-repeat;\"";
+														echo " style=\"background-image: url(" . html_encode(getAdminThumb($image, 'medium')) . "); background-repeat: no-repeat;\"";
 													}
 													echo " value=\"" . $imagename . "\"";
 													if ($selected) {
@@ -2711,7 +2711,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 					}
 					?>
-					<img src="<?php echo pathurlencode($thumb); ?>" width="<?php echo ADMIN_THUMB_SMALL; ?>" height="<?php echo ADMIN_THUMB_SMALL; ?>" alt="" title="album thumb" />
+					<img src="<?php echo html_encode($thumb); ?>" width="<?php echo ADMIN_THUMB_SMALL; ?>" height="<?php echo ADMIN_THUMB_SMALL; ?>" alt="" title="album thumb" />
 					<?php
 					if ($enableEdit) {
 						?>

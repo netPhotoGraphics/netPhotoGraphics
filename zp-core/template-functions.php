@@ -1730,7 +1730,7 @@ function printAlbumThumbImage($alt, $class = NULL, $id = NULL, $title = NULL) {
 	$sizes = getSizeDefaultThumb($thumbobj);
 	$size = ' width="' . $sizes[0] . '" height="' . $sizes[1] . '"';
 	if (!getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || empty($pwd)) {
-		$html = '<img src="' . pathurlencode($thumbobj->getThumb('album')) . '"' . $size . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . ' />';
+		$html = '<img src="' . html_encode($thumbobj->getThumb('album')) . '"' . $size . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . ' />';
 		$html = npgFilters::apply('standard_album_thumb_html', $html);
 		echo $html;
 	} else {
@@ -1824,7 +1824,7 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 	}
 
 	if (!getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || empty($pwd)) {
-		$html = '<img src="' . pathurlencode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy)) . '"' . $sizing . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />";
+		$html = '<img src="' . html_encode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy)) . '"' . $sizing . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />";
 		$html = npgFilters::apply('custom_album_thumb_html', $html);
 		echo $html;
 	} else {
@@ -2796,7 +2796,7 @@ function printDefaultSizedImage($alt, $class = NULL, $id = NULL, $title = NULL) 
 	}
 
 	if (isImagePhoto()) { //Print images
-		$html = '<img src="' . pathurlencode(getDefaultSizedImage()) . '" alt="' . html_encode($alt) . '"' .
+		$html = '<img src="' . html_encode(getDefaultSizedImage()) . '" alt="' . html_encode($alt) . '"' .
 						' width="' . getDefaultWidth() . '" height="' . getDefaultHeight() . '"' . $class . $id . $title . " />";
 		$html = npgFilters::apply('standard_image_html', $html);
 		echo $html;
@@ -2849,7 +2849,7 @@ function printImageThumb($alt, $class = NULL, $id = NULL, $title = NULL) {
 		$title = ' title="' . html_encode($title) . '"';
 	}
 
-	$html = '<img src="' . pathurlencode($url) . '"' . $size . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />";
+	$html = '<img src="' . html_encode($url) . '"' . $size . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />";
 	$html = npgFilters::apply('standard_image_thumb_html', $html);
 	echo $html;
 }
@@ -2961,7 +2961,7 @@ function getProtectedImageURL($image = NULL, $disposal = NULL) {
 	$cache_file = getImageCacheFilename($album->name, $image->filename, $args);
 	$cache_path = SERVERCACHE . $cache_file;
 	if ($disposal != 'Download' && OPEN_IMAGE_CACHE && file_exists($cache_path)) {
-		return WEBPATH . '/' . CACHEFOLDER . imgSrcURI($cache_file);
+		return WEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cache_file));
 	} else if ($disposal == 'Unprotected') {
 		return getImageURI($args, $album->name, $image->filename, $image->filemtime);
 	} else {
@@ -3119,7 +3119,7 @@ function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $crop
 		$title = ' title="' . html_encode($title) . '"';
 	}
 	if (isImagePhoto() || $thumbStandin) {
-		$html = '<img src="' . pathurlencode(getCustomImageURL($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin, $effects)) . '"' .
+		$html = '<img src="' . html_encode(getCustomImageURL($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin, $effects)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
 		$html = npgFilters::apply('custom_image_html', $html, $thumbStandin);
@@ -3413,15 +3413,15 @@ function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlb
 			switch ($crop) {
 				case 0:
 					$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $randomImage);
-					$html = '<img src="' . pathurlencode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$html = '<img src="' . html_encode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					break;
 				case 1:
 					$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $randomImage);
-					$html = '<img src="' . pathurlencode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$html = '<img src="' . html_encode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					break;
 				case 2:
 					$sizes = getSizeDefaultThumb($randomImage);
-					$html = '<img src="' . pathurlencode($randomImage->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$html = '<img src="' . html_encode($randomImage->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					break;
 			}
 			echo npgFilters::apply('custom_image_html', $html, false);

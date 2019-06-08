@@ -99,4 +99,3 @@ function http_response_text($code) {
 		</div>
 	</body>
 </html>
-<?php ?>

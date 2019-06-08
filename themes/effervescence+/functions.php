@@ -217,7 +217,7 @@ function printHeadingImage($randomImage) {
 			$high = min(180, $randomImage->getHeight());
 		}
 		echo "<a href='" . $randomImageURL . "' title='" . gettext('Random picture...') . "'>";
-		$html = "<img src='" . pathurlencode($randomImage->getCustomImage(NULL, $wide, $high, $wide, $high, NULL, NULL, !getOption('Watermark_head_image'))) .
+		$html = "<img src='" . html_encode($randomImage->getCustomImage(NULL, $wide, $high, $wide, $high, NULL, NULL, !getOption('Watermark_head_image'))) .
 						"' width='$wide' height='$high' alt=" . '"' .
 						html_encode($randomAlt1) .
 						":\n" . html_encode($randomImage->getTitle()) .

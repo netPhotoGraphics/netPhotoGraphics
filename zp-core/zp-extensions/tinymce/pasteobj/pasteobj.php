@@ -101,9 +101,9 @@ function getIPSizedImage($size, $image) {
 				var alt1 = '<?php echo addslashes($alt1); ?>'.replace(/"/g, '\\"');
 				var title1 = '<?php echo addslashes($title1); ?>'.replace(/"/g, '\\"');
 				var title = '<?php echo sprintf($title, addslashes($title1)); ?>'.replace(/"/g, '\\"');
-				var image = '<img src="<?php echo pathurlencode($image); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
-				var imagec = '<img src="<?php echo pathurlencode($imageb); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
-				var imagef = '<?php echo pathurlencode($imagef); ?>';
+				var image = '<img src="<?php echo html_encode($image); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
+				var imagec = '<img src="<?php echo html_encode($imageb); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
+				var imagef = '<?php echo html_encode($imagef); ?>';
 				var picture = <?php echo (int) $picture; ?>;
 				function sizechange() {
 					var selectedlink = $('input:radio[name=link]:checked').val();

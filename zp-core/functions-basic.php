@@ -1371,11 +1371,11 @@ function ipProtectTag($album, $image, $args) {
 function getImageProcessorURI($args, $album, $image) {
 	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 	$args[8] = NULL; // not used by image processor
-	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . $album;
+	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . pathurlencode($album);
 	if (is_array($image)) {
-		$uri .= '&i=' . $image['name'] . '&z=' . ($z = $image['source']);
+		$uri .= '&i=' . urlencode($image['name']) . '&z=' . ($z = $image['source']);
 	} else {
-		$uri .= '&i=' . $image;
+		$uri .= '&i=' . urlencode($image);
 		$z = NULL;
 	}
 	if (empty($size)) {
@@ -1537,7 +1537,7 @@ function getImageURI($args, $album, $image, $mtime) {
 	$cachefilename = getImageCacheFilename($album, $image, $args);
 	if (OPEN_IMAGE_CACHE && file_exists(SERVERCACHE . $cachefilename)) {
 		if (($cachefiletime = filemtime(SERVERCACHE . $cachefilename)) >= $mtime) {
-			return WEBPATH . '/' . CACHEFOLDER . imgSrcURI($cachefilename) . '?cached=' . $cachefiletime;
+			return WEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cachefilename)) . '?cached=' . $cachefiletime;
 		}
 	}
 	return getImageProcessorURI($args, $album, $image);
@@ -1789,7 +1789,7 @@ function getAlbumArray($albumstring, $includepaths = false) {
  */
 function imgSrcURI($uri) {
 	if (UTF8_IMAGE_URI)
-		return filesystemToInternal($uri);
+		$uri = filesystemToInternal($uri);
 	return $uri;
 }
 

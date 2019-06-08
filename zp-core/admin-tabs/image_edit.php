@@ -176,7 +176,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										}
 										?>
 
-										<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo pathurlencode(getAdminThumb($image, 'medium')); ?>" alt="<?php echo html_encode($image->filename); ?>" />
+										<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'medium')); ?>" alt="<?php echo html_encode($image->filename); ?>" />
 										<?php
 										if ($close) {
 											?>

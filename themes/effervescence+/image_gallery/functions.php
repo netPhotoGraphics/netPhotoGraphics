@@ -16,8 +16,8 @@ class imagegallery {
 	}
 
 	function theme_head($_themeroot) {
-		scriptLoader(CORE_SERVERPATH .  COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
-		scriptLoader(CORE_SERVERPATH .  COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
+		scriptLoader(CORE_SERVERPATH . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.css');
+		scriptLoader(CORE_SERVERPATH . COMMON_FOLDER . '/adGallery/jquery.ad-gallery.js');
 	}
 
 	function theme_bodyopen($_themeroot) {
@@ -128,7 +128,7 @@ class imagegallery {
 													?>
 													<li>
 														<a href="<?php echo html_encode(getDefaultSizedImage()); ?>">
-															<img src="<?php echo pathurlencode(getImageThumb()); ?>"
+															<img src="<?php echo html_encode(getImageThumb()); ?>"
 																	 class="image<?php echo $lastImage; ?>"
 																	 alt="<?php echo html_encode(getImageDesc()); ?>">
 														</a>

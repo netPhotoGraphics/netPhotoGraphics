@@ -16,7 +16,7 @@ if (class_exists('favorites')) {
 			?>
 		</head>
 		<body class="sidebars">
-	<?php npgFilters::apply('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<div id="navigation"></div>
 			<div id="wrapper">
 				<div id="container">
@@ -32,7 +32,7 @@ if (class_exists('favorites')) {
 					</div><!-- header -->
 					<div class="sidebar">
 						<div id="leftsidebar">
-	<?php include("sidebar.php"); ?>
+							<?php include("sidebar.php"); ?>
 						</div>
 					</div>
 					<div id="center">
@@ -41,28 +41,28 @@ if (class_exists('favorites')) {
 								<div class="left-corner"><!-- begin content -->
 									<div class="main section" id="main">
 										<h2 id="gallerytitle">
-	<?php printHomeLink('', ' » '); ?>
+											<?php printHomeLink('', ' » '); ?>
 											<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php printGalleryTitle(); ?></a> » <?php printParentBreadcrumb("", " » ", " » "); ?><?php echo html_encode(getAlbumTitle()); ?>
 										</h2>
 										<?php printAlbumDesc(); ?>
-											<?php printCodeblock(1); ?>
+										<?php printCodeblock(1); ?>
 										<div id="albums">
 											<?php
 											while (next_album()) {
 												?>
 												<div class="album">
 													<a class="albumthumb" href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album:  %s'), html_encode(getBareAlbumTitle())); ?>">
-		<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
+														<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
 													</a>
 													<div class="albumdesc">
 														<h3>
 															<a href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album:  %s'), html_encode(getBareAlbumTitle())); ?>">
-		<?php printAlbumTitle(); ?>
+																<?php printAlbumTitle(); ?>
 															</a>
 														</h3>
 														<br />
 														<small><?php printAlbumDate(); ?></small>
-		<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
+														<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 													</div>
 													<p style="clear: both;"></p>
 												</div>
@@ -80,7 +80,7 @@ if (class_exists('favorites')) {
 												<div class="image">
 													<div class="imagethumb">
 														<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getImageTitle()); ?></a>
-		<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
+														<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 													</div>
 												</div>
 												<?php
@@ -117,7 +117,7 @@ if (class_exists('favorites')) {
 								if ($nextalbum) {
 									?>
 									<div id="nextalbum" class="slides">
-										<a href="<?php echo html_encode(getNextAlbumURL()); ?>" title="<?php echo gettext('Next album'); ?>"><?php echo gettext('Next album »'); ?><br /><img src="<?php echo pathurlencode($nextalbum->getThumb()); ?>" /></a>
+										<a href="<?php echo html_encode(getNextAlbumURL()); ?>" title="<?php echo gettext('Next album'); ?>"><?php echo gettext('Next album »'); ?><br /><img src="<?php echo html_encode($nextalbum->getThumb()); ?>" /></a>
 									</div>
 									<br />
 									<?php
@@ -125,7 +125,7 @@ if (class_exists('favorites')) {
 								if ($prevalbum) {
 									?>
 									<div id="prevalbum" class="slides">
-										<a href="<?php echo html_encode(getPrevAlbumURL()); ?>" title="<?php echo gettext('Prev Album'); ?>"><?php echo gettext('« Prev Album'); ?><br /><img src="<?php echo pathurlencode($prevalbum->getThumb()); ?>" /></a>
+										<a href="<?php echo html_encode(getPrevAlbumURL()); ?>" title="<?php echo gettext('Prev Album'); ?>"><?php echo gettext('« Prev Album'); ?><br /><img src="<?php echo html_encode($prevalbum->getThumb()); ?>" /></a>
 									</div>
 									<?php
 								}

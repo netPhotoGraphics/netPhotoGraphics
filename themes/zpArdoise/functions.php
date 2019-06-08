@@ -121,13 +121,13 @@ function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all'
 			echo '<a href="' . html_encode($randomImageURL) . '"' . $aa_class . ' title="' . html_encode($randomImage->getTitle()) . '">';
 			switch ($crop) {
 				case 0:
-					$html = "<img src=\"" . pathurlencode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+					$html = "<img src=\"" . html_encode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
 					break;
 				case 1:
-					$html = "<img src=\"" . pathurlencode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" />\n";
+					$html = "<img src=\"" . html_encode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" />\n";
 					break;
 				case 2:
-					$html = "<img src=\"" . pathurlencode($randomImage->getThumb()) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+					$html = "<img src=\"" . html_encode($randomImage->getThumb()) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
 					break;
 			}
 			echo npgFilters::apply('custom_image_html', $html, false);
@@ -168,25 +168,25 @@ function zpArdoise_printImageStatistic($number, $option, $albumfolder = '', $sho
 		foreach ($images as $image) {
 			if ($fullimagelink) {
 				$aa_class = ' class="' . $a_class . '"';
-				$imagelink = $image->getFullImageURL();
+				$imagelink = pathurlencode($image->getFullImageURL());
 			} else {
 				$aa_class = NULL;
 				$imagelink = $image->getLink();
 			}
-			echo "<li><a href=\"" . pathurlencode($imagelink) . "\"" . $aa_class . " title=\"" . html_encode($image->getTitle()) . "\">\n";
+			echo "<li><a href=\"" . html_encode($imagelink) . "\"" . $aa_class . " title=\"" . html_encode($image->getTitle()) . "\">\n";
 			switch ($crop) {
 				case 0:
-					echo "<img src=\"" . pathurlencode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($image->getTitle()) . "\" /></a>\n";
+					echo "<img src=\"" . html_encode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($image->getTitle()) . "\" /></a>\n";
 					break;
 				case 1:
-					echo "<img src=\"" . pathurlencode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($image->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" /></a>\n";
+					echo "<img src=\"" . html_encode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($image->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" /></a>\n";
 					break;
 				case 2:
-					echo "<img src=\"" . pathurlencode($image->getThumb()) . "\" alt=\"" . html_encode($image->getTitle()) . "\" /></a>\n<br />";
+					echo "<img src=\"" . html_encode($image->getThumb()) . "\" alt=\"" . html_encode($image->getTitle()) . "\" /></a>\n<br />";
 					break;
 			}
 			if ($showtitle) {
-				echo "<h3><a href=\"" . pathurlencode($image->getLink()) . "\" title=\"" . html_encode($image->getTitle()) . "\">\n";
+				echo "<h3><a href=\"" . html_encode($image->getLink()) . "\" title=\"" . html_encode($image->getTitle()) . "\">\n";
 				echo $image->getTitle() . "</a></h3>\n";
 			}
 			if ($showdate) {

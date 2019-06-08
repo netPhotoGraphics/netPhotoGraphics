@@ -245,7 +245,7 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 				<p><?php echo gettext("You can change the portion of your image which is shown in thumbnails by cropping it here."); ?></p>
 				<div style="display:block">
 					<div style="float: left; width:<?php echo $thumbcropwidth; ?>px; text-align: center;margin-right: 18px;  margin-bottom: 10px;">
-						<img src="<?php echo pathurlencode($currentthumbimage); ?>" style="width:<?php echo $thumbcropwidth; ?>px;height:<?php echo $thumbcropheight; ?>px; border: 4px solid gray; float: left"/>
+						<img src="<?php echo html_encode($currentthumbimage); ?>" style="width:<?php echo $thumbcropwidth; ?>px;height:<?php echo $thumbcropheight; ?>px; border: 4px solid gray; float: left"/>
 						<?php echo gettext("current thumbnail"); ?>
 					</div>
 
@@ -253,14 +253,14 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 
 						<div style="width: <?php echo $sizedwidth; ?>px; height: <?php echo $sizedheight; ?>px; margin-bottom: 10px; border: 4px solid gray;">
 							<!-- This is the image we're attaching Jcrop to -->
-							<img src="<?php echo $imageurl; ?>" id="cropbox" />
+							<img src="<?php echo html_encode($imageurl); ?>" id="cropbox" />
 						</div>
 
 					</div>
 
 					<div style="float: left; width:<?php echo $cropwidth; ?>px; text-align: center; margin-left: 10px; margin-bottom: 10px;">
 						<div style="width:<?php echo $cropwidth; ?>px;height:<?php echo $cropheight; ?>px; overflow:hidden; border: 4px solid green; float: left">
-							<img src="<?php echo pathurlencode($imageurl); ?>" id="preview" />
+							<img src="<?php echo html_encode($imageurl); ?>" id="preview" />
 						</div>
 						<?php echo gettext("thumbnail preview"); ?>
 					</div>

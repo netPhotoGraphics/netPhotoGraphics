@@ -136,7 +136,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 									?>
 									<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
 										<?php
-										echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+										echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 										?>
 									</a>
 									<?php
@@ -162,7 +162,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										?>
 										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
 											<?php
-											echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+											echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 											?>
 										</a>
 										<?php

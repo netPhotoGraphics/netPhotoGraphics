@@ -2991,7 +2991,7 @@ class zpFunctions {
 
 					if ($force) {
 						$cachefilename = getImageCacheFilename(urldecode($set['a']), urldecode($set['i']), $args);
-						$imageuri = '{*WEBPATH*}/' . CACHEFOLDER . imgSrcURI($cachefilename);
+						$imageuri = '{*WEBPATH*}/' . CACHEFOLDER . pathurlencode(imgSrcURI($cachefilename));
 						$text = str_replace($matches[1][$key], $imageuri, $text);
 					} else {
 						$imageuri = self::tagURLs(getImageURI($args, urldecode($set['a']), urldecode($set['i']), NULL));
