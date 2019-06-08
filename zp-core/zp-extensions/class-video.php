@@ -27,7 +27,7 @@ if (extensionEnabled('class-video')) {
 }
 $option_interface = 'VideoObject_Options';
 
-define('GETID3_INCLUDEPATH', CORE_SERVERPATH .  PLUGIN_FOLDER . '/class-video/getid3/');
+define('GETID3_INCLUDEPATH', CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video/getid3/');
 require_once(dirname(__FILE__) . '/class-video/getid3/getid3.php');
 
 /**
@@ -449,7 +449,7 @@ class pseudoPlayer {
 			$h = $this->getHeight();
 		}
 
-		$ext = getSuffix($link = $obj->getFullImageURL());
+		$ext = getSuffix($link = $obj->getFullImage());
 		switch ($ext) {
 			case 'mp3':
 			case 'm4a':

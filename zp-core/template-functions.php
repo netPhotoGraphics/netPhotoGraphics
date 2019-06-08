@@ -2981,7 +2981,7 @@ function getProtectedImageURL($image = NULL, $disposal = NULL) {
 		}
 		$params .= '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
-		return WEBPATH . '/' . CORE_FOLDER . '/full-image.php?a=' . $album . '&i=' . $image . $params;
+		return WEBPATH . '/' . CORE_FOLDER . '/full-image.php?a=' . pathurlencode($album) . '&i=' . urlencode($image) . $params;
 	}
 }
 

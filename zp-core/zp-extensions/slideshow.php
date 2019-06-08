@@ -158,7 +158,7 @@ class slideshow {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -432,7 +432,7 @@ class slideshow {
 						getMaxSpaceContainer($maxwidth, $maxheight, $image);
 						$img = $image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, NULL, NULL);
 					}
-					$slideshow .= '<img src="' . pathurlencode($img) . '" alt="" />';
+					$slideshow .= '<img src="' . html_encode($img) . '" alt="" />';
 					if ($linkslides)
 						$slideshow .= '</a>';
 				}
@@ -466,7 +466,7 @@ class slideshow {
 	static function js() {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		scriptLoader(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
 	}
 
@@ -636,7 +636,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 								$imagetitle = html_encode(getBare($imgobj->getTitle()));
 							}
 							?>
-							<a href="<?php echo pathurlencode($imagelink); ?>" rel="slideshow"<?php echo $style; ?> title="<?php echo $imagetitle; ?>"><?php echo $linktext; ?></a><?php echo html_encodeTagged($after); ?>
+							<a href="<?php echo html_encode($imagelink); ?>" rel="slideshow"<?php echo $style; ?> title="<?php echo $imagetitle; ?>"><?php echo $linktext; ?></a><?php echo html_encodeTagged($after); ?>
 							<?php
 						}
 					}

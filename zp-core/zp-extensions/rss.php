@@ -588,7 +588,7 @@ class RSS extends feed {
 			$ext = getSuffix($item->localpath);
 			$albumobj = $item->getAlbum();
 			$itemlink = $this->host . $item->getLink();
-			$fullimagelink = $this->host . pathurlencode($item->getFullImageURL());
+			$fullimagelink = $this->host . html_encode($item->getFullImageURL());
 			$thumburl = '<img border="0" src="' . PROTOCOL . '://' . $this->host . html_encode($item->getCustomImage($this->imagesize, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" alt="' . $item->getTitle($this->locale) . '" /><br />';
 			$title = $item->getTitle($this->locale);
 			$albumtitle = $albumobj->getTitle($this->locale);

@@ -48,7 +48,7 @@ npgFilters::apply('theme_file_top')
 				}
 				$tburl = getFullImageURL();
 				if (!empty($tburl)) {
-					echo '<a href="' . pathurlencode($tburl) . '" ' . $boxclass . ' title="' . getBareImageTitle() . '">' . "\n";
+					echo '<a href="' . html_encode($tburl) . '" ' . $boxclass . ' title="' . getBareImageTitle() . '">' . "\n";
 				}
 				printCustomSizedImageMaxSpace(getBareImageTitle(), null, null, "imgheight border");
 				if (!empty($tburl)) {
@@ -65,7 +65,7 @@ npgFilters::apply('theme_file_top')
 			?>
 			<div class="videocontainer">
 				<div class="video" <?php echo $stageStyle; ?>>
-	<?php printCustomSizedImageMaxSpace(getBareImageTitle(), $vidWidth, $vidHeight); ?>
+					<?php printCustomSizedImageMaxSpace(getBareImageTitle(), $vidWidth, $vidHeight); ?>
 				</div>
 			</div>
 			<?php
@@ -93,7 +93,7 @@ npgFilters::apply('theme_file_top')
 				<div class="content border colour">
 					<div class="imagedesc" <?php echo $descriptionStyle; ?>>
 						<div class="description" <?php echo $justifyStyle; ?>>
-	<?php printImageDesc(); ?>
+							<?php printImageDesc(); ?>
 						</div>
 					</div>
 				</div>
@@ -107,7 +107,7 @@ npgFilters::apply('theme_file_top')
 				<a id="readComment"></a>
 				<div class="content border colour">
 					<div class="commentbox" <?php echo $commentStyle; ?>>
-	<?php printCommentForm(true, '<a id="addComment"></a>', false); ?>
+						<?php printCommentForm(true, '<a id="addComment"></a>', false); ?>
 					</div>
 				</div>
 				<?php
@@ -116,7 +116,7 @@ npgFilters::apply('theme_file_top')
 				?>
 				<div class="albumbuttons" <?php echo $buttonStyle; ?>>
 					<div class="button border colour">
-	<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
+						<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
 					</div>
 				</div>
 				<div class="clearing" ></div>
@@ -124,7 +124,7 @@ npgFilters::apply('theme_file_top')
 			}
 			?>
 		</div>
-<?php include("inc-footer.php"); ?>
+		<?php include("inc-footer.php"); ?>
 	</body>
 </html>
 <?php
@@ -147,7 +147,7 @@ function printButtons() {
 		}
 		?>
 		<div class ="button border colour">
-		<?php echo imageNumber() . "/" . getNumImages(); ?>
+			<?php echo imageNumber() . "/" . getNumImages(); ?>
 		</div>
 		<?php
 		if (hasNextImage()) {
@@ -160,21 +160,21 @@ function printButtons() {
 		if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
 			?>
 			<div class="button border colour">
-			<?php printSlideShowLink(); ?>
+				<?php printSlideShowLink(); ?>
 			</div>
 			<?php
 		}
 		if (getImageMetaData()) {
 			?>
 			<div class="button border colour">
-			<?php printImageMetadata(NULL, 'colorbox'); ?>
+				<?php printImageMetadata(NULL, 'colorbox'); ?>
 			</div>
 			<?php
 		}
 		if (function_exists('getHitcounter')) {
 			?>
 			<div class="button border colour">
-			<?php echo gettext("Views: ") . getHitcounter() . "\n"; ?>
+				<?php echo gettext("Views: ") . getHitcounter() . "\n"; ?>
 			</div>
 			<?php
 		}
@@ -196,7 +196,7 @@ function printButtons() {
 		if (function_exists('printLikeButton')) {
 			?>
 			<div class="button fb-button border colour">
-			<?php printLikeButton(); ?>
+				<?php printLikeButton(); ?>
 			</div>
 			<?php
 		}

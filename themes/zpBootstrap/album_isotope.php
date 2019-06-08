@@ -1,6 +1,6 @@
 <?php
 include('inc_header.php');
-require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_extras.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_extras.php');
 ?>
 
 <!-- .container main -->
@@ -59,7 +59,7 @@ $tags_album = getAllTagsFromAlbum($name, false, 'images');
 			?>
 
 			<div class="isotope-item image-item<?php echo $class; ?>">
-				<a class="thumb" href="<?php echo html_encode(pathurlencode($fullimage)); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
+				<a class="thumb" href="<?php echo html_encode(html_encode($fullimage)); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 					<?php
 					if (getFullWidth() > getFullHeight()) {
 						printCustomSizedImage(getBareImageTitle(), NULL, 235, 150, 235, 150, NULL, NULL, 'remove-attributes img-responsive', NULL, true);

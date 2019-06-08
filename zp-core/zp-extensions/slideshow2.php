@@ -374,7 +374,7 @@ class cycle {
 		if ($carousel) {
 // on the carousel this means fullimage as they are always linked anyway
 			if ($linkslides) {
-				$url = pathurlencode($imgobj->getFullImageURL());
+				$url = $imgobj->getFullImageURL();
 			} else {
 				$url = $imgobj->getLink();
 			}
@@ -649,7 +649,7 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 								$imagetitle = html_encode(getBare($imgobj->getTitle()));
 							}
 							?>
-							<a class="slideshowlink" href="<?php echo pathurlencode($imagelink); ?>" rel="slideshow"<?php echo $style; ?> title="<?php echo $imagetitle; ?>"><?php echo $linktext; ?></a><?php echo html_encodeTagged($after); ?>
+							<a class="slideshowlink" href="<?php echo html_encode($imagelink); ?>" rel="slideshow"<?php echo $style; ?> title="<?php echo $imagetitle; ?>"><?php echo $linktext; ?></a><?php echo html_encodeTagged($after); ?>
 							<?php
 						}
 					}

@@ -87,7 +87,7 @@ if (!defined('WEBPATH'))
 										}
 										if (!empty($fullimage)) {
 											?>
-											<a href="<?php echo pathurlencode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="thickbox">
+											<a href="<?php echo html_encode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="thickbox">
 												<?php
 											}
 											printCustomSizedImage(getImageTitle(), null, 520);

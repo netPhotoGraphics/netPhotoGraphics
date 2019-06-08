@@ -168,7 +168,7 @@ function zpArdoise_printImageStatistic($number, $option, $albumfolder = '', $sho
 		foreach ($images as $image) {
 			if ($fullimagelink) {
 				$aa_class = ' class="' . $a_class . '"';
-				$imagelink = pathurlencode($image->getFullImageURL());
+				$imagelink = html_encode($image->getFullImageURL());
 			} else {
 				$aa_class = NULL;
 				$imagelink = $image->getLink();

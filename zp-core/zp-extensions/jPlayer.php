@@ -166,7 +166,7 @@ class jplayer_options {
 	 *
 	 */
 	static function getSkin() {
-		$default_skins_dir = CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/skin/';
+		$default_skins_dir = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/';
 		$user_skins_dir = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/jPlayer/skin/';
 		$filestoignore = array('.', '..', '.DS_Store', 'Thumbs.db', '.htaccess', '.svn');
 		$skins = array_diff(scandir($default_skins_dir), array_merge($filestoignore));
@@ -258,14 +258,14 @@ class jPlayer {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}
 		scriptLoader($skin);
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**
@@ -286,7 +286,7 @@ class jPlayer {
 			$h = $this->getHeight();
 		}
 
-		$moviepath = $movie->getFullImageURL(FULLWEBPATH);
+		$moviepath = $movie->getFullImage(FULLWEBPATH);
 		if (is_null($movietitle)) {
 			$movietitle = $movie->getTitle();
 		}
@@ -669,7 +669,7 @@ class jPlayer {
 					<?php if (getOption('jplayer_download')) { ?>
 							free:true,
 					<?php } ?>
-					<?php echo $this->supplied; ?>:"<?php echo pathurlencode($url = $video->getFullImageURL(FULLWEBPATH)); ?>"
+					<?php echo $this->supplied; ?>:"<?php echo $url = $video->getFullImageURL(FULLWEBPATH); ?>"
 					<?php echo $this->getCounterpartFiles($url, $ext); ?>
 					<?php echo $videoThumb; ?>
 						}

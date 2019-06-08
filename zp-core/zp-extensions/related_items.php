@@ -206,14 +206,14 @@ function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excer
 						}
 						if ($thumburl) {
 							?>
-							<a href="<?php echo pathurlencode($url); ?>" title="<?php echo html_encode($obj->getTitle()); ?>" class="relateditems_thumb">
+							<a href="<?php echo html_encode($url); ?>" title="<?php echo html_encode($obj->getTitle()); ?>" class="relateditems_thumb">
 								<img src="<?php echo html_encode($thumburl); ?>" alt="<?php echo html_encode($obj->getTitle()); ?>" />
 							</a>
 							<?php
 						}
 					}
 					?>
-					<h4><a href="<?php echo pathurlencode($url); ?>" title="<?php echo html_encode($obj->getTitle()); ?>"><?php echo html_encode($obj->getTitle()); ?></a>
+					<h4><a href="<?php echo html_encode($url); ?>" title="<?php echo html_encode($obj->getTitle()); ?>"><?php echo html_encode($obj->getTitle()); ?></a>
 						<?php
 						if ($date) {
 							?>

@@ -679,11 +679,11 @@ class sitemap {
 			if ($imageobj->getDesc()) {
 				$data .= self::echonl("\t\t\t<video:description>" . html_encode(getBare($imageobj->getDesc($locale))) . "</video:description>");
 			}
-			$data .= self::echonl("\t\t\t<video:content_loc>" . $host . pathurlencode($imageobj->getFullImageURL()) . "</video:content_loc>");
+			$data .= self::echonl("\t\t\t<video:content_loc>" . $host . html_encode($imageobj->getFullImageURL()) . "</video:content_loc>");
 			$data .= self::echonl("\t\t</video:video>");
 		} else if (in_array($ext, array('.jpg', '.jpeg', '.gif', '.png'))) { // this might need to be extended!
 			if (getOption('sitemap_google_fullimage')) {
-				$imagelocation = $host . pathurlencode($imageobj->getFullImageURL());
+				$imagelocation = $host . html_encode($imageobj->getFullImageURL());
 			} else {
 				$imagelocation = $host . html_encode($imageobj->getSizedImage(getOption('image_size')));
 			}

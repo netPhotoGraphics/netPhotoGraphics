@@ -1106,7 +1106,7 @@ class Image extends MediaObject {
 	 * returns URL to the original image
 	 */
 	function getFullImageURL($path = WEBPATH) {
-		return npgFilters::apply('getLink', $this->getFullImage($path), 'full-image.php', NULL);
+		return npgFilters::apply('getLink', pathurlencode($this->getFullImage($path)), 'full-image.php', NULL);
 	}
 
 	/**

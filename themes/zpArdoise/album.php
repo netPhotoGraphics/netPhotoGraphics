@@ -45,7 +45,7 @@
 									<?php } ?>
 									<?php printImageThumb(getAnnotatedImageTitle()); ?></a>
 								<?php $fullimage = getFullImageURL(); ?>
-								<a <?php if ((getOption('use_colorbox_album')) && (!empty($fullimage))) { ?>class="colorbox"<?php } ?> href="<?php echo pathurlencode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"></a>
+								<a <?php if ((getOption('use_colorbox_album')) && (!empty($fullimage))) { ?>class="colorbox"<?php } ?> href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"></a>
 								<div class="caption">
 									<?php if (getOption('show_exif')) { ?>
 										<div class="exif-infos-gal">
