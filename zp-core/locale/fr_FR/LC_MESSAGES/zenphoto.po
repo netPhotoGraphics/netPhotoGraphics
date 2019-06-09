@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-09 10:59+0200\n"
-"PO-Revision-Date: 2019-06-09 12:48+0200\n"
+"PO-Revision-Date: 2019-06-09 13:31+0200\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Samy Rabih (Fetard) & Michel Gagnon <michel@mgagnon.net>\n"
 "Language: fr_FR\n"
@@ -202,7 +202,7 @@ msgstr "Créer un album"
 
 #: plugins/create_album.php:47 zp-core/admin-tabs/upload.php:294
 msgid "titled:"
-msgstr "intitulé : "
+msgstr "intitulé :"
 
 #: plugins/create_album.php:49 plugins/create_album.php:192
 #: zp-core/admin-tabs/upload.php:199 zp-core/admin-tabs/upload.php:281
@@ -587,9 +587,8 @@ msgstr ""
 
 #: plugins/titlelinkMigration/migrate.php:25
 #, fuzzy
-#| msgid "Rights migration failed."
 msgid "titlelink migration completed."
-msgstr "Titre-lien"
+msgstr "Titre-lien migration complet."
 
 #: plugins/utf8mb4Migration.php:33
 #, fuzzy
