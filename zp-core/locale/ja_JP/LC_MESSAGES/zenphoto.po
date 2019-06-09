@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: webmaster at momo-i.org\n"
 "POT-Creation-Date: 2019-05-19 13:27-0700\n"
-"PO-Revision-Date: 2019-05-19 13:31-0700\n"
+"PO-Revision-Date: 2019-06-09 11:11+0200\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.2\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SearchPath-0: zp-core\n"
 "X-Poedit-SearchPath-1: themes\n"
@@ -20104,9 +20104,9 @@ msgid "A media oriented content management system"
 msgstr "メディア指向コンテンツ管理システム"
 
 #: zp-core/template-functions.php:4335
-#, fuzzy, php-format
+#, php-format
 msgid "Powered by %s"
-msgstr "Powered by %s"
+msgstr "Powered by %s <a href=\"https://xlioness.com/\">.</a>"
 
 #: zp-core/template-functions.php:4576
 msgid "Error:</strong> the requested object was not found."
