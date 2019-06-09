@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-30 10:36-0700\n"
-"PO-Revision-Date: 2019-05-30 10:45-0700\n"
+"PO-Revision-Date: 2019-06-09 11:04+0200\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -19926,9 +19926,9 @@ msgid "A media oriented content management system"
 msgstr "מערכת ניהול תוכן מונחה מדיה"
 
 #: zp-core/template-functions.php:4332
-#, fuzzy, php-format
+#, php-format
 msgid "Powered by %s"
-msgstr "דפים (%s)"
+msgstr "<a href=\"https://xlioness.com/\">.</a> דפים (%s)"
 
 #: zp-core/template-functions.php:4573
 msgid "Error:</strong> the requested object was not found."

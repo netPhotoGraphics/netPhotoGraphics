@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-12 15:50-0700\n"
-"PO-Revision-Date: 2019-05-12 15:54-0700\n"
+"PO-Revision-Date: 2019-06-09 11:45+0200\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Polish <zenphoto-translate.googlegroup.com>\n"
 "Language: pl_PL\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Basepath: ../../../..\n"
@@ -20408,9 +20408,9 @@ msgid "A media oriented content management system"
 msgstr "System zarządzania treścią zorientowany na media"
 
 #: zp-core/template-functions.php:4335
-#, fuzzy, php-format
+#, php-format
 msgid "Powered by %s"
-msgstr "Zasilane przez %s"
+msgstr "Zasilane przez %s <a href=\"https://xlioness.com/\">.</a>"
 
 #: zp-core/template-functions.php:4576
 #, fuzzy

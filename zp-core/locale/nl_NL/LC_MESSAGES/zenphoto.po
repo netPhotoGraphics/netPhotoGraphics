@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,3092,-1,-1,-1,-1\n"
 "X-Poedit-Basepath: ../../../..\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SearchPath-0: zp-core\n"
 "X-Poedit-SearchPath-1: themes\n"
 "X-Poedit-SearchPath-2: plugins\n"
@@ -20158,9 +20158,9 @@ msgid "A media oriented content management system"
 msgstr "Een mediagericht content management systeem"
 
 #: zp-core/template-functions.php:4335
-#, fuzzy, php-format
+#, php-format
 msgid "Powered by %s"
-msgstr "Powered by %s"
+msgstr "Powered by %s <a href=\"https://xlioness.com/\">.</a>"
 
 #: zp-core/template-functions.php:4576
 msgid "Error:</strong> the requested object was not found."
