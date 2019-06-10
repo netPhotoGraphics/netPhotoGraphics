@@ -3,8 +3,8 @@
 class cachemanager_internal_deprecations {
 
 	/**
-	 * @deprecated
-	 * @since 1.8.0.11
+	 *
+	 * @deprecated since 1.8.1
 	 */
 	static function addThemeCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark, $effects, $maxspace) {
 		deprecated_functions::notify(gettext('Use cacheManager::addCacheSize()'), E_USER_NOTICE);
@@ -12,8 +12,7 @@ class cachemanager_internal_deprecations {
 	}
 
 	/**
-	 * @deprecated
-	 * @since 1.8.0.11
+	 * @deprecated since 1.8.1
 	 */
 	static function deleteThemeCacheSizes($owner) {
 		deprecated_functions::notify(gettext('Use cacheManager::deleteCacheSizes()'), E_USER_NOTICE);
@@ -23,6 +22,8 @@ class cachemanager_internal_deprecations {
 	/**
 	 * Used to notify of legacy zenphoto cachemanager functions which are redundant in a properly implemented cache manager
 	 * @param string $what the "missing" function name
+	 *
+	 * @deprecated since 1.8.1
 	 */
 	static function generalDeprecation($method) {
 		$thumb = false;

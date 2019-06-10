@@ -9,8 +9,7 @@ class internal_deprecations {
 #
 # example deprecated method
 #	/**
-#	 * @deprecated
-#	 * @since 1.0.0
+#	 * @deprecated since 1.0.0
 #	 */
 #	static function PersistentObject() {
 #		deprecated_functions::notify(gettext('Use the instantiate method instead'));
@@ -18,24 +17,21 @@ class internal_deprecations {
 #
 # example of method with deprecated parameters
 #	/**
-#	 * @deprecated
-#	 * @since 1.0.0
+#	 * @deprecated since 1.0.0
 #	 */
 #	public static function next_album() {
 #		deprecated_functions::notify(gettext('Sort parameter options should be set instead with the setSortType() and setSortDirection() object methods at the head of your script.'));
 #	}
 
 	/**
-	 * @deprecated
-	 * @since 1.9.2
+	 * @deprecated since 1.9.2
 	 */
 	static function getAuthor() {
 		return $this->get('owner');
 	}
 
 	/**
-	 * @deprecated
-	 * @since 1.9.2
+	 * @deprecated since 1.9.2
 	 */
 	static function setAuthor($owner) {
 		$this->set('owner', $owner);
@@ -47,8 +43,7 @@ class internal_deprecations {
 #
 #
 #/**
-# * @deprecated
-# * @since 1.0.0
+# * @deprecated since 1.0.0
 # */
 #function printCustomSizedImageMaxHeight($maxheight) {
 #	deprecated_functions::notify(gettext('Use printCustomSizedImageMaxSpace().'));
@@ -60,8 +55,7 @@ class internal_deprecations {
 #}
 
 /**
- * @deprecated
- * @since 1.0.0
+ * @deprecated since 1.0.0
  */
 function printHeadTitle($separator = ' | ', $listparentalbums = true, $listparentpages = true) {
 	deprecated_functions::notify(gettext('This feature is handled in the "theme_head" filter. For parameters set the theme options.'));
@@ -77,8 +71,7 @@ function getAllTagsCount($language = NULL) {
 }
 
 /**
- * @deprecated
- * @since 1.4.0
+ * @deprecated since 1.4.0
  */
 function getAlbumCustomData() {
 	global $_current_album;
@@ -87,8 +80,7 @@ function getAlbumCustomData() {
 }
 
 /**
- * @deprecated
- * @since 1.4.0
+ * @deprecated since 1.4.0
  */
 function printAlbumCustomData() {
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
@@ -96,8 +88,7 @@ function printAlbumCustomData() {
 }
 
 /**
- * @deprecated
- * @since 1.4.0
+ * @deprecated since 1.4.0
  */
 function getImageCustomData() {
 	global $_current_image;
@@ -106,8 +97,7 @@ function getImageCustomData() {
 }
 
 /**
- * @deprecated
- * @since 1.4.0
+ * @deprecated since 1.4.0
  */
 function printImageCustomData() {
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
@@ -118,8 +108,7 @@ function printImageCustomData() {
 }
 
 /**
- * @deprecated
- * @since 1.4.1
+ * @deprecated since 1.4.1
  */
 function printSubtabs() {
 	deprecated_functions::notify(gettext('Subtabs are no longer separate from tabs. If you need the current subtab use getCurrentTab() otherwise remove the call'));
@@ -128,8 +117,7 @@ function printSubtabs() {
 }
 
 /**
- * @deprecated
- * @since 1.4.1
+ * @deprecated since 1.4.1
  */
 function getSubtabs() {
 	deprecated_functions::notify(gettext('Subtabs are no longer separate from tabs. If you need the current subtab use getCurrentTab() otherwise remove the call'));
@@ -138,8 +126,7 @@ function getSubtabs() {
 }
 
 /**
- * @deprecated
- * @since 1.6.2
+ * @deprecated since 1.6.2
  */
 function filterImageQuery($result, $source, $limit = 1, $photo = true) {
 	deprecated_functions::notify(gettext('Use array_shift(filterImageQueryList())'));
@@ -151,8 +138,7 @@ function filterImageQuery($result, $source, $limit = 1, $photo = true) {
 }
 
 /**
- * @deprecated
- * @since 1.9.0
+ * @deprecated since 1.9.0
  */
 function printZenphotoLink() {
 	deprecated_functions::notify(gettext('Use print_SW_Link()'));
@@ -211,6 +197,9 @@ function getSiteHomeURL() {
 	return getGalleryIndexURL();
 }
 
+/**
+ * @deprecated since version 1.9.06
+ */
 function getDataUsageNotice() {
 	deprecated_functions::notify(gettext('Use the GDPR_required plugin'));
 	return array();
@@ -243,7 +232,7 @@ function zp_getCookie($name) {
 /**
  * @deprecated since version 1.9.06
  */
-function zp_sclearCookie($name) {
+function zp_clearCookie($name) {
 	deprecated_functions::notify(gettext('Use clearNPGCookie()'));
 	clearNPGCookie($name);
 }

@@ -45,13 +45,11 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							$title = gettext('Visit the site.');
 							$strike = '';
 							if (file_exists($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-								$old = $_conf_vars;
-								unset($_conf_vars);
 								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 								$saveDB = $_DB_details;
 								db_close();
 								//	Setup for the MyBB database
-								$config = array('mysql_host' => $_conf_vars['mysql_host'], 'mysql_database' => $_conf_vars['mysql_database'], 'mysql_prefix' => $_conf_vars['mysql_prefix'], 'mysql_user' => $_conf_vars['mysql_user'], 'mysql_pass' => $_conf_vars['mysql_pass']);
+								$config = array('mysql_host' => $conf['mysql_host'], 'mysql_database' => $conf['mysql_database'], 'mysql_prefix' => $conf['mysql_prefix'], 'mysql_user' => $conf['mysql_user'], 'mysql_pass' => $conf['mysql_pass']);
 								if ($_DB_connection = db_connect($config, false)) {
 									$sql = 'SELECT * FROM `' . $config['mysql_prefix'] . 'options` WHERE `name`="netphotographics_install"';
 									if ($result = query_single_row($sql, FALSE)) {
@@ -63,7 +61,6 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								}
 								db_close();
 								$_DB_connection = db_connect($saveDB);
-								$_conf_vars = $old;
 							}
 						} else { // no longer a clone of this installation
 							$strike = ' style="text-decoration: line-through;"';

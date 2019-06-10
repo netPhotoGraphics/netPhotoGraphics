@@ -5,7 +5,7 @@
  * @package plugins/deprecated-functions
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 $subtab = getCurrentTab();
@@ -59,7 +59,8 @@ echo "\n</head>";
 										break;
 								}
 								$list[$details['since']][$details['plugin']][] = $details['function'] . $class;
-								krsort($list, SORT_NATURAL | SORT_FLAG_CASE);
+								uksort($list, 'version_compare');
+								$list = array_reverse($list);
 							}
 							?>
 						<ul style="list-style-type: none;">
