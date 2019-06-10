@@ -52,7 +52,7 @@ echo '</head>';
 								$source = '<br />&nbsp;&nbsp;&nbsp;' . sprintf(gettext('source: %s'), $source);
 							}
 
-							$graphics_lib = zp_graphicsLibInfo();
+							$graphics_lib = gl_graphicsLibInfo();
 							?>
 							<li>
 								<?php

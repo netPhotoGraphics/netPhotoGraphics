@@ -157,11 +157,11 @@ $try = array('lib-GD.php', 'lib-NoGraphics.php');
 if (getOption('use_imagick')) {
 	array_unshift($try, 'lib-Imagick.php');
 }
-while (!function_exists('zp_graphicsLibInfo')) {
+while (!function_exists('gl_graphicsLibInfo')) {
 	require_once(dirname(__FILE__) . '/' . array_shift($try));
 }
 unset($try);
-$_cachefileSuffix = zp_graphicsLibInfo();
+$_cachefileSuffix = gl_graphicsLibInfo();
 
 
 define('GRAPHICS_LIBRARY', $_cachefileSuffix['Library']);

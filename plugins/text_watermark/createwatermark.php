@@ -16,25 +16,25 @@ if (!empty($string)) {
 		$filename = dirname(dirname(__FILE__)) . '/watermarks/' . seoFriendly($string) . '.png';
 	}
 	$len = strlen($string);
-	$font = zp_imageLoadFont(sanitize(@$_GET['text_watermark_font'], 3));
-	$fw = zp_imageFontWidth($font);
-	$fh = zp_imageFontHeight($font);
-	$image = zp_createImage($fw * $len, $fh);
+	$font = gl_imageLoadFont(sanitize(@$_GET['text_watermark_font'], 3));
+	$fw = gl_imageFontWidth($font);
+	$fh = gl_imageFontHeight($font);
+	$image = gl_createImage($fw * $len, $fh);
 	$color = sanitize(@$_GET['text_watermark_color'], 3);
 	$cr = hexdec(substr($color, 1, 2));
 	$cg = hexdec(substr($color, 3, 2));
 	$cb = hexdec(substr($color, 5, 2));
-	$back = zp_colorAllocate($image, 255 - $cr, 255 - $cg, 255 - $cb);
+	$back = gl_colorAllocate($image, 255 - $cr, 255 - $cg, 255 - $cb);
 	if (!is_null($filename)) {
-		zp_imagecolortransparent($image, $back);
+		gl_imageColorTransparent($image, $back);
 	}
-	zp_imagefill($image, 0, 0, $back);
-	$ink = zp_colorAllocate($image, $cr, $cg, $cb);
+	gl_imageFill($image, 0, 0, $back);
+	$ink = gl_colorAllocate($image, $cr, $cg, $cb);
 	$l = 0;
 	for ($i = 0; $i < $len; $i++) {
-		zp_writeString($image, $font, $l, 0, substr($string, $i, 1), $ink);
+		gl_writeString($image, $font, $l, 0, substr($string, $i, 1), $ink);
 		$l = $l + $fw;
 	}
-	zp_imageOutput($image, 'png', $filename);
+	gl_imageOutputt($image, 'png', $filename);
 }
 ?>

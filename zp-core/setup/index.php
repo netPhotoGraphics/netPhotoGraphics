@@ -728,8 +728,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						if ($environ) {
 							/* Check for graphic library and image type support. */
 							primeMark(gettext('Graphics library'));
-							if (function_exists('zp_graphicsLibInfo')) {
-								$graphics_lib = zp_graphicsLibInfo();
+							if (function_exists('gl_graphicsLibInfo')) {
+								$graphics_lib = gl_graphicsLibInfo();
 								if (array_key_exists('Library_desc', $graphics_lib)) {
 									$library = $graphics_lib['Library_desc'];
 								} else {
@@ -766,7 +766,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 														"<br />" . gettext("The unsupported image types will not be viewable in your albums.") .
 														"<br />" . $mandate);
 									}
-									if (!zp_imageCanRotate()) {
+									if (!gl_imageCanRotate()) {
 										checkMark(-1, '', gettext('Graphics Library rotation support [is not present]'), gettext('The graphics support library does not provide support for image rotation.'));
 									}
 								}

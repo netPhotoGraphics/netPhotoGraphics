@@ -3712,24 +3712,24 @@ function printAdminHeader($tab, $subtab = NULL) {
 		else
 			$themeimage = false;
 		if ($themeimage) {
-			if ($im = zp_imageGet($themeimage)) {
-				$x = zp_imageWidth($im) / 2 - 45;
-				$y = zp_imageHeight($im) / 2 - 10;
+			if ($im = gl_imageGet($themeimage)) {
+				$x = gl_imageWidth($im) / 2 - 45;
+				$y = gl_imageHeight($im) / 2 - 10;
 				$text = "CUSTOM COPY";
-				$font = zp_imageLoadFont();
-				$ink = zp_colorAllocate($im, 0x0ff, 0x0ff, 0x0ff);
+				$font = gl_imageLoadFont();
+				$ink = gl_colorAllocate($im, 0x0ff, 0x0ff, 0x0ff);
 				// create a blueish overlay
-				$overlay = zp_createImage(zp_imageWidth($im), zp_imageHeight($im));
-				$back = zp_colorAllocate($overlay, 0x060, 0x060, 0x090);
-				zp_imageFill($overlay, 0, 0, $back);
+				$overlay = gl_createImage(gl_imageWidth($im), gl_imageHeight($im));
+				$back = gl_colorAllocate($overlay, 0x060, 0x060, 0x090);
+				gl_imageFill($overlay, 0, 0, $back);
 				// Merge theme image and overlay
-				zp_imageMerge($im, $overlay, 0, 0, 0, 0, zp_imageWidth($im), zp_imageHeight($im), 45);
+				gl_imageMerge($im, $overlay, 0, 0, 0, 0, gl_imageWidth($im), gl_imageHeight($im), 45);
 				// Add text
-				zp_writeString($im, $font, $x - 1, $y - 1, $text, $ink);
-				zp_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
-				zp_writeString($im, $font, $x, $y, $text, $ink);
+				gl_writeString($im, $font, $x - 1, $y - 1, $text, $ink);
+				gl_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
+				gl_writeString($im, $font, $x, $y, $text, $ink);
 				// Save new theme image
-				zp_imageOutput($im, 'png', $themeimage);
+				gl_imageOutputt($im, 'png', $themeimage);
 			}
 		}
 

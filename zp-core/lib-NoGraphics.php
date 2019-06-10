@@ -33,7 +33,7 @@ class lib_NoGraphics {
 
 }
 
-if (!function_exists('zp_graphicsLibInfo')) {
+if (!function_exists('gl_graphicsLibInfo')) {
 
 	$_lib_GD_info = array();
 	$_lib_GD_info['Library'] = 'None';
@@ -42,112 +42,112 @@ if (!function_exists('zp_graphicsLibInfo')) {
 	if (DEBUG_IMAGE)
 		debugLog($_lib_GD_info['Library_desc']);
 
-	function zp_imageGet($imgfile) {
+	function gl_imageGet($imgfile) {
 		return false;
 	}
 
-	function zp_imageOutput($im, $type, $filename = NULL, $qual = 75) {
+	function gl_imageOutputt($im, $type, $filename = NULL, $qual = 75) {
 		return false;
 	}
 
-	function zp_createImage($w, $h) {
+	function gl_createImage($w, $h) {
 		return false;
 	}
 
-	function zp_imageFill($image, $x, $y, $color) {
+	function gl_imageFill($image, $x, $y, $color) {
 		return false;
 	}
 
-	function zp_imageColorTransparent($image, $color) {
+	function gl_imageColorTransparent($image, $color) {
 		return false;
 	}
 
-	function zp_copyCanvas($imgCanvas, $img, $dest_x, $dest_y, $src_x, $src_y, $w, $h) {
+	function gl_copyCanvas($imgCanvas, $img, $dest_x, $dest_y, $src_x, $src_y, $w, $h) {
 		return false;
 	}
 
-	function zp_resampleImage($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h) {
+	function gl_resampleImage($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h) {
 		return false;
 	}
 
-	function zp_imageUnsharpMask($img, $amount, $radius, $threshold) {
+	function gl_imageUnsharpMask($img, $amount, $radius, $threshold) {
 		return false;
 	}
 
-	function zp_imageResizeAlpha($src, $w, $h) {
+	function gl_imageResizeAlpha($src, $w, $h) {
 		return false;
 	}
 	
-	function zp_imageResizeTransparent($src, $w, $h) {
+	function Gl_imageResizeTransparent($src, $w, $h) {
 		return false;
 	}
 
-	function zp_imageCanRotate() {
+	function gl_imageCanRotate() {
 		return false;
 	}
 
-	function zp_rotateImage($im, $rotate) {
+	function gl_rotateImage($im, $rotate) {
 		return false;
 	}
 
-	function zp_imageDims($filename) {
+	function gl_imageDims($filename) {
 		return false;
 	}
 
-	function zp_imageIPTC($filename) {
+	function gl_imageIPTC($filename) {
 		return false;
 	}
 
-	function zp_imageWidth($im) {
+	function gl_imageWidth($im) {
 		return false;
 	}
 
-	function zp_imageHeight($im) {
+	function gl_imageHeight($im) {
 		return false;
 	}
 
-	function zp_imageMerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
+	function gl_imageMerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
 		return false;
 	}
 
-	function zp_imageGray($image) {
+	function gl_imageGray($image) {
 
 	}
 
-	function zp_imageKill($im) {
+	function gl_imageKill($im) {
 		return false;
 	}
 
-	function zp_colorAllocate($image, $red, $green, $blue) {
+	function gl_colorAllocate($image, $red, $green, $blue) {
 		return false;
 	}
 
-	function zp_writeString($image, $font, $x, $y, $string, $color) {
+	function gl_writeString($image, $font, $x, $y, $string, $color) {
 
 	}
 
-	function zp_drawRectangle($image, $x1, $y1, $x2, $y2, $color) {
+	function gl_drawRectangle($image, $x1, $y1, $x2, $y2, $color) {
 		return false;
 	}
 
-	function zp_graphicsLibInfo() {
+	function gl_graphicsLibInfo() {
 		global $_lib_GD_info;
 		return $_lib_GD_info;
 	}
 
-	function zp_getFonts() {
+	function gl_getFonts() {
 		return $_gd_fontlist;
 	}
 
-	function zp_imageLoadFont($font = NULL, $size = 18) {
+	function gl_imageLoadFont($font = NULL, $size = 18) {
 		return false;
 	}
 
-	function zp_imageFontWidth($font) {
+	function gl_imageFontWidth($font) {
 		return false;
 	}
 
-	function zp_imageFontHeight($font) {
+	function gl_imageFontHeight($font) {
 		return false;
 	}
 
@@ -155,7 +155,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 
 	}
 
-	function zp_imageFromString($string) {
+	function gl_imageFromString($string) {
 		return false;
 	}
 

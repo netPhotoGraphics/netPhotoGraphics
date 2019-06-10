@@ -443,7 +443,7 @@ class Image extends MediaObject {
 					}
 				}
 				/* check IPTC data */
-				$iptcdata = zp_imageIPTC($localpath);
+				$iptcdata = gl_imageIPTC($localpath);
 				if (!empty($iptcdata)) {
 					$iptc = iptcparse($iptcdata);
 					if ($iptc) {
@@ -681,10 +681,10 @@ class Image extends MediaObject {
 	 */
 	function updateDimensions() {
 		$discard = NULL;
-		$size = zp_imageDims($this->localpath);
+		$size = gl_imageDims($this->localpath);
 		$width = $size['width'];
 		$height = $size['height'];
-		if (zp_imageCanRotate()) {
+		if (gl_imageCanRotate()) {
 			// Swap the width and height values if the image should be rotated
 			switch (substr(trim($this->get('rotation'), '!'), 0, 1)) {
 				case 5:

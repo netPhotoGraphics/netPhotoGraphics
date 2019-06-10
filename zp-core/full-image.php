@@ -171,7 +171,7 @@ if ($force_cache = getOption('cache_full_image')) {
 }
 
 $process = $rotate = false;
-if (zp_imageCanRotate()) {
+if (gl_imageCanRotate()) {
 	$rotate = imageProcessing::getRotation($imageobj);
 	$process = $rotate;
 }
@@ -238,9 +238,9 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		//	have to create the image
 		$iMutex = new npgMutex('i', getOption('imageProcessorConcurrency'));
 		$iMutex->lock();
-		$newim = zp_imageGet($image_path);
+		$newim = gl_imageGet($image_path);
 		if ($rotate) {
-			$newim = zp_rotateImage($newim, $rotate);
+			$newim = gl_rotateImage($newim, $rotate);
 		}
 		if ($watermark_use_image) {
 			$watermark_image = getWatermarkPath($watermark_use_image);
@@ -248,11 +248,11 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 				$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
 			$offset_h = getOption('watermark_h_offset') / 100;
 			$offset_w = getOption('watermark_w_offset') / 100;
-			$watermark = zp_imageGet($watermark_image);
-			$watermark_width = zp_imageWidth($watermark);
-			$watermark_height = zp_imageHeight($watermark);
-			$imw = zp_imageWidth($newim);
-			$imh = zp_imageHeight($newim);
+			$watermark = gl_imageGet($watermark_image);
+			$watermark_width = gl_imageWidth($watermark);
+			$watermark_height = gl_imageHeight($watermark);
+			$imw = gl_imageWidth($newim);
+			$imh = gl_imageHeight($newim);
 			$percent = getOption('watermark_scale') / 100;
 			$r = sqrt(($imw * $imh * $percent) / ($watermark_width * $watermark_height));
 			if (!getOption('watermark_allow_upscale')) {
@@ -261,16 +261,16 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 			$nw = round($watermark_width * $r);
 			$nh = round($watermark_height * $r);
 			if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-				$watermark = zp_imageResizeAlpha($watermark, $nw, $nh);
+				$watermark = gl_imageResizeAlpha($watermark, $nw, $nh);
 			}
 			// Position Overlay in Bottom Right
 			$dest_x = max(0, floor(($imw - $nw) * $offset_w));
 			$dest_y = max(0, floor(($imh - $nh) * $offset_h));
-			zp_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh);
-			zp_imageKill($watermark);
+			gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh);
+			gl_imageKill($watermark);
 		}
 		$iMutex->unlock();
-		if (!zp_imageOutput($newim, $suffix, $cache_path, $quality) && DEBUG_IMAGE) {
+		if (!gl_imageOutputt($newim, $suffix, $cache_path, $quality) && DEBUG_IMAGE) {
 			debugLog('full-image failed to create:' . $image);
 		}
 	}

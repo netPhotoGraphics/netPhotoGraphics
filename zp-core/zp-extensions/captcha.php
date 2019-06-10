@@ -63,7 +63,7 @@ class captcha {
 	 * @return unknown
 	 */
 	function getOptionsSupported() {
-		$fontlist = zp_getFonts();
+		$fontlist = gl_getFonts();
 		$options = array(
 				gettext('Hash key') => array('key' => 'npg_captcha_key', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 2,

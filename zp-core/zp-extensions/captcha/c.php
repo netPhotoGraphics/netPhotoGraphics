@@ -22,7 +22,7 @@ if (isset($_GET['f'])) {
 } else {
 	$fontname = getOption('npg_captcha_font');
 	if ($fontname == '*') { //	Random selection
-		$fonts = zp_getFonts();
+		$fonts = gl_getFonts();
 		shuffle($fonts);
 		$fontname = array_shift($fonts);
 	}
@@ -35,7 +35,7 @@ if (isset($_GET['p'])) {
 	$size = getOption('npg_captcha_font_size');
 }
 
-$font = zp_imageLoadFont($fontname, $size);
+$font = gl_imageLoadFont($fontname, $size);
 
 $pallet = array(
 		array('R' => 16, 'G' => 110, 'B' => 3),
@@ -44,8 +44,8 @@ $pallet = array(
 		array('R' => 143, 'G' => 32, 'B' => 3),
 		array('R' => 143, 'G' => 38, 'B' => 48),
 		array('R' => 0, 'G' => 155, 'B' => 18));
-$fw = zp_imageFontWidth($font);
-$fh = zp_imageFontHeight($font);
+$fw = gl_imageFontWidth($font);
+$fh = gl_imageFontHeight($font);
 
 if (strtoupper(getSuffix($fontname)) == 'TTF') {
 	$leadOffset = - $fh / 4;
@@ -55,7 +55,7 @@ if (strtoupper(getSuffix($fontname)) == 'TTF') {
 	$kernOffset = 0;
 }
 $w = 0;
-$h = $fh = zp_imagefontheight($font);
+$h = $fh = gl_imageFontHeight($font);
 $kerning = min(5, floor($fw / 4) - 1);
 $leading = $fh / 2 - 4;
 $ink = $lead = $kern = array();
@@ -68,20 +68,20 @@ for ($i = 0; $i < $len; $i++) {
 }
 
 $w = $w + 5;
-$image = zp_createImage($w, $h);
-$background = zp_imageGet(CORE_SERVERPATH . PLUGIN_FOLDER . '/captcha/captcha_background.png');
-zp_copyCanvas($image, $background, 0, 0, rand(0, 9), rand(0, 9), $w, $h);
+$image = gl_createImage($w, $h);
+$background = gl_imageGet(CORE_SERVERPATH . PLUGIN_FOLDER . '/captcha/captcha_background.png');
+gl_copyCanvas($image, $background, 0, 0, rand(0, 9), rand(0, 9), $w, $h);
 
 $l = $kern[0] - $kernOffset;
 for ($i = 0; $i < $len; $i++) {
-	$ink = zp_colorAllocate($image, $p[$i]['R'], $p[$i]['G'], $p[$i]['B']);
-	zp_writeString($image, $font, $l, $lead[$i] + $leadOffset, $string{$i}, $ink, rand(-10, 10));
+	$ink = gl_colorAllocate($image, $p[$i]['R'], $p[$i]['G'], $p[$i]['B']);
+	gl_writeString($image, $font, $l, $lead[$i] + $leadOffset, $string{$i}, $ink, rand(-10, 10));
 	$l = $l + $fw + $kern[$i];
 }
 
-$rectangle = zp_colorAllocate($image, 48, 57, 85);
-zp_drawRectangle($image, 0, 0, $w - 1, $h - 1, $rectangle);
+$rectangle = gl_colorAllocate($image, 48, 57, 85);
+gl_drawRectangle($image, 0, 0, $w - 1, $h - 1, $rectangle);
 
-zp_imageOutput($image, 'png', NULL);
+gl_imageOutputt($image, 'png', NULL);
 ?>
 

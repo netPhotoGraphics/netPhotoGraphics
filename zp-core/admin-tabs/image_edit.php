@@ -142,7 +142,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				$bglevels = array('#fff', '#f8f8f8', '#efefef', '#e8e8e8', '#dfdfdf', '#d8d8d8', '#cfcfcf', '#c8c8c8');
 
 				$currentimage = (int) (!$singleimage && true);
-				if (zp_imageCanRotate()) {
+				if (gl_imageCanRotate()) {
 					$disablerotate = '';
 				} else {
 					$disablerotate = ' disabled="disabled"';

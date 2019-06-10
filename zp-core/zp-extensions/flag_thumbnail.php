@@ -131,7 +131,7 @@ class flag_thumbnail {
 
 	protected static function image($html, $which, $where) {
 		$img = getPlugin($which);
-		$size = zp_imageDims($img);
+		$size = gl_imageDims($img);
 		$wide = $size['width'];
 		$high = $size['height'];
 		$img = str_replace(SERVERPATH, WEBPATH, $img);

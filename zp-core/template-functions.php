@@ -1846,9 +1846,9 @@ function getMaxSpaceContainer(&$width, &$height, $image, $thumb = false) {
 	$imagename = $image->filename;
 	if (!isImagePhoto($image) & $thumb) {
 		$imgfile = $image->getThumbImageFile();
-		$image = zp_imageGet($imgfile);
-		$s_width = zp_imageWidth($image);
-		$s_height = zp_imageHeight($image);
+		$image = gl_imageGet($imgfile);
+		$s_width = gl_imageWidth($image);
+		$s_height = gl_imageHeight($image);
 	} else {
 		$s_width = $image->get('width');
 		if ($s_width == 0)
@@ -4348,7 +4348,7 @@ function exposeSoftwareInformation($obj = '', $plugins = '', $theme = '') {
 	$a = basename($obj);
 	echo "\n<!-- netPhotoGraphics version " . NETPHOTOGRAPHICS_VERSION;
 	echo " THEME: " . $theme . " (" . $a . ")";
-	$graphics = zp_graphicsLibInfo();
+	$graphics = gl_graphicsLibInfo();
 	$graphics = str_replace('<br />', ', ', $graphics['Library_desc']);
 	echo " GRAPHICS LIB: " . $graphics;
 	echo ' PLUGINS: ';

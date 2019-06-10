@@ -179,7 +179,7 @@ class imageProcessing {
 				self::error('404 Not Found', sprintf(gettext('Image %s not found or is unreadable.'), filesystemToInternal($imgfile)), 'err-imagenotfound.png');
 			}
 			$rotate = false;
-			if (zp_imageCanRotate()) {
+			if (gl_imageCanRotate()) {
 				$rotate = self::getRotation($imgfile);
 			}
 			$s = getSuffix($imgfile);
@@ -192,7 +192,7 @@ class imageProcessing {
 						$big_enough = $tw >= $width && $th >= $height;
 					}
 					if ($big_enough) {
-						$im = zp_imageFromString($im);
+						$im = gl_imageFromString($im);
 						if (DEBUG_IMAGE && $im)
 							debugLog(sprintf(gettext('Using %1$ux%2$u %3$s thumbnail image.'), $tw, $th, image_type_to_mime_type($tt)));
 					} else {
@@ -203,7 +203,7 @@ class imageProcessing {
 				}
 			}
 			if (!$im) {
-				$im = zp_imageGet($imgfile);
+				$im = gl_imageGet($imgfile);
 			}
 			if (!$im) {
 				self::error('404 Not Found', sprintf(gettext('Image %s not renderable (imageGet).'), filesystemToInternal($imgfile)), 'err-failimage.png');
@@ -211,13 +211,13 @@ class imageProcessing {
 			if ($rotate) {
 				if (DEBUG_IMAGE)
 					debugLog("self::cache:rotate->$rotate");
-				$im = zp_rotateImage($im, $rotate);
+				$im = gl_rotateImage($im, $rotate);
 				if (!$im) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not rotatable.'), filesystemToInternal($imgfile)), 'err-failimage.png');
 				}
 			}
-			$w = zp_imageWidth($im);
-			$h = zp_imageHeight($im);
+			$w = gl_imageWidth($im);
+			$h = gl_imageHeight($im);
 			// Give the sizing dimension to $dim
 			$ratio_in = '';
 			$ratio_out = '';
@@ -370,17 +370,17 @@ class imageProcessing {
 				if (DEBUG_IMAGE) {
 					debugLog("imageProcessing::cache:crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate");
 				}
-				$newim = zp_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
+				$newim = gl_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
 				switch ($suffix) {
 					case 'gif':
-						$newim = zp_imageResizeTransparent($newim, $neww, $newh);
+						$newim = Gl_imageResizeTransparent($newim, $neww, $newh);
 						break;
 					case 'png':
 					case 'webp':
-						$newim = zp_imageResizeAlpha($newim, $neww, $newh);
+						$newim = gl_imageResizeAlpha($newim, $neww, $newh);
 						break;
 				}
-				if (!zp_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
+				if (!gl_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 				}
 			} else {
@@ -405,21 +405,21 @@ class imageProcessing {
 				if (DEBUG_IMAGE) {
 					debugLog("self::cache:no crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 				}
-				$newim = zp_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
+				$newim = gl_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
 				switch ($suffix) {
 					case 'gif':
-						$newim = zp_imageResizeTransparent($newim, $neww, $newh);
+						$newim = Gl_imageResizeTransparent($newim, $neww, $newh);
 						break;
 					case 'png':
 					case 'webp':
-						$newim = zp_imageResizeAlpha($newim, $neww, $newh);
+						$newim = gl_imageResizeAlpha($newim, $neww, $newh);
 						break;
 				}
-				if (!zp_resampleImage($newim, $im, 0, 0, 0, 0, $neww, $newh, $w, $h)) {
+				if (!gl_resampleImage($newim, $im, 0, 0, 0, 0, $neww, $newh, $w, $h)) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 				}
 				if (($thumb && $sharpenthumbs) || (!$thumb && $sharpenimages)) {
-					if (!zp_imageUnsharpMask($newim, getOption('sharpen_amount'), getOption('sharpen_radius'), getOption('sharpen_threshold'))) {
+					if (!gl_imageUnsharpMask($newim, getOption('sharpen_amount'), getOption('sharpen_radius'), getOption('sharpen_threshold'))) {
 						self::error('404 Not Found', sprintf(gettext('Image %s not renderable (unsharp).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 					}
 				}
@@ -427,21 +427,21 @@ class imageProcessing {
 
 			$imgEffects = explode(',', $effects);
 			if (in_array('gray', $imgEffects)) {
-				zp_imageGray($newim);
+				gl_imageGray($newim);
 			}
 
 			if ($watermark_image) {
 				$offset_h = getOption('watermark_h_offset') / 100;
 				$offset_w = getOption('watermark_w_offset') / 100;
 				$percent = getOption('watermark_scale') / 100;
-				$watermark = zp_imageGet($watermark_image);
+				$watermark = gl_imageGet($watermark_image);
 				if (!$watermark) {
 					self::error('404 Not Found', sprintf(gettext('Watermark %s not renderable.'), $watermark_image), 'err-failimage.png');
 				}
-				$watermark_width = zp_imageWidth($watermark);
-				$watermark_height = zp_imageHeight($watermark);
-				$imw = zp_imageWidth($newim);
-				$imh = zp_imageHeight($newim);
+				$watermark_width = gl_imageWidth($watermark);
+				$watermark_height = gl_imageHeight($watermark);
+				$imw = gl_imageWidth($newim);
+				$imh = gl_imageHeight($newim);
 				$nw = sqrt(($imw * $imh * $percent) * ($watermark_width / $watermark_height));
 				$nh = $nw * ($watermark_height / $watermark_width);
 				$r = sqrt(($imw * $imh * $percent) / ($watermark_width * $watermark_height));
@@ -452,8 +452,8 @@ class imageProcessing {
 				$nh = round($watermark_height * $r);
 				$watermark_new = false;
 				if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-					$watermark_new = zp_imageResizeAlpha($watermark, $nw, $nh);
-					if (!zp_resampleImage($watermark_new, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+					$watermark_new = gl_imageResizeAlpha($watermark, $nw, $nh);
+					if (!gl_resampleImage($watermark_new, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
 						self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
 					}
 				}
@@ -462,18 +462,18 @@ class imageProcessing {
 				$dest_y = max(0, floor(($imh - $nh) * $offset_h));
 				if (DEBUG_IMAGE)
 					debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
-				if (!zp_copyCanvas($newim, $watermark_new, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
+				if (!gl_copyCanvas($newim, $watermark_new, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 				}
-				zp_imageKill($watermark);
+				gl_imageKill($watermark);
 				if ($watermark_new) {
-					zp_imageKill($watermark_new);
+					gl_imageKill($watermark_new);
 				}
 			}
 
 			// Create the cached file (with lots of compatibility)...
 			@chmod($newfile, 0777);
-			if (zp_imageOutput($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
+			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
 				if (getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
 					global $_images_classes; //	because we are doing the require in a function!
 					require_once(dirname(__FILE__) . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
@@ -481,7 +481,7 @@ class imageProcessing {
 							'1#090' => chr(0x1b) . chr(0x25) . chr(0x47), //	character set is UTF-8
 							'2#115' => $_gallery->getTitle() //	source
 					);
-					$iptc_data = zp_imageIPTC($imgfile);
+					$iptc_data = gl_imageIPTC($imgfile);
 					if ($iptc_data) {
 						$iptc_data = iptcparse($iptc_data);
 						if ($iptc_data)
@@ -528,8 +528,8 @@ class imageProcessing {
 				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-failimage.png');
 			}
 			@chmod($newfile, FILE_MOD);
-			zp_imageKill($newim);
-			zp_imageKill($im);
+			gl_imageKill($newim);
+			gl_imageKill($im);
 		} catch (Exception $e) {
 			debugLog('imageProcessing::cache(' . $newfilename . ') exception: ' . $e->getMessage());
 			self::error('404 Not Found', sprintf(gettext('imageProcessing::cache(%1$s) exception: %2$s'), $newfilename, $e->getMessage()), 'err-failimage.png');
