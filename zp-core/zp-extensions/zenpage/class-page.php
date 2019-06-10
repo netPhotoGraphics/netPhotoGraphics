@@ -239,9 +239,9 @@ class Page extends CMSItems {
 			}
 		}
 		if (empty($hash)) { // no password required
-			return 'zp_public_access';
+			return 'public_access';
 		} else {
-			$authType = "zp_page_auth_" . $pageobj->getID();
+			$authType = "zenpage_page_auth_" . $pageobj->getID();
 			$saved_auth = getNPGCookie($authType);
 			if ($saved_auth == $hash) {
 				return $authType;
@@ -261,7 +261,7 @@ class Page extends CMSItems {
 	 * @return bool
 	 */
 	function isProtected() {
-		return $this->checkforGuest() != 'zp_public_access';
+		return $this->checkforGuest() != 'public_access';
 	}
 
 	function subRights() {

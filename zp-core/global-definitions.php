@@ -11,7 +11,7 @@ if (!function_exists("gettext")) {
 }
 require_once(dirname(__FILE__) . '/version.php'); // Include the version info.
 
-define('ZP_LAST_MODIFIED', gmdate('D, d M Y H:i:s') . ' GMT');
+define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s') . ' GMT');
 
 if (!defined('SORT_FLAG_CASE'))
 	define('SORT_FLAG_CASE', 0);
@@ -163,20 +163,20 @@ unset($const_serverpath);
 define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,intl,mbstring,openssl,session,tidy,zip');
 
 // Contexts (Bitwise and combinable)
-define("ZP_INDEX", 1);
-define("ZP_ALBUM", 2);
-define("ZP_IMAGE", 4);
-define("ZP_COMMENT", 8);
-define("ZP_SEARCH", 16);
-define("ZP_SEARCH_LINKED", 32);
-define("ZP_ALBUM_LINKED", 64);
-define('ZP_IMAGE_LINKED', 128);
-define('ZP_ZENPAGE_NEWS_PAGE', 256);
-define('ZP_ZENPAGE_NEWS_ARTICLE', 512);
-define('ZP_ZENPAGE_NEWS_CATEGORY', 1024);
-define('ZP_ZENPAGE_NEWS_DATE', 2048);
-define('ZP_ZENPAGE_PAGE', 4096);
-define('ZP_ZENPAGE_SINGLE', 8192);
+define("NPG_INDEX", 1);
+define("NPG_ALBUM", 2);
+define("NPG_IMAGE", 4);
+define("NPG_COMMENT", 8);
+define("NPG_SEARCH", 16);
+define("SEARCH_LINKED", 32);
+define("ALBUM_LINKED", 64);
+define('IMAGE_LINKED', 128);
+define('ZENPAGE_NEWS_PAGE', 256);
+define('ZENPAGE_NEWS_ARTICLE', 512);
+define('ZENPAGE_NEWS_CATEGORY', 1024);
+define('ZENPAGE_NEWS_DATE', 2048);
+define('ZENPAGE_PAGE', 4096);
+define('ZENPAGE_SINGLE', 8192);
 
 //icons
 define('ARROW_DOWN_GREEN', '<span class="font_icon" style="color: green;font-size: large;">&dArr;</span>');

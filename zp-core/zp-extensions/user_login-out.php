@@ -62,23 +62,23 @@ class user_logout_options {
 
 }
 
-if (in_context(ZP_INDEX)) {
+if (in_context(NPG_INDEX)) {
 	if (isset($_GET['userlog'])) { // process the logout.
 		if ($_GET['userlog'] == 0) {
 			$__redirect = array();
-			if (in_context(ZP_ALBUM)) {
+			if (in_context(NPG_ALBUM)) {
 				$__redirect['album'] = $_current_album->name;
 			}
-			if (in_context(ZP_IMAGE)) {
+			if (in_context(NPG_IMAGE)) {
 				$__redirect['image'] = $_current_image->filename;
 			}
-			if (in_context(ZP_ZENPAGE_PAGE)) {
+			if (in_context(ZENPAGE_PAGE)) {
 				$__redirect['title'] = $_CMS_current_page->getTitlelink();
 			}
-			if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+			if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 				$__redirect['title'] = $_CMS_current_article->getTitlelink();
 			}
-			if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+			if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 				$__redirect['category'] = $_CMS_current_category->getTitlelink();
 			}
 			if (isset($_GET['p'])) {

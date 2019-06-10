@@ -151,7 +151,7 @@ function commonNewsLoop($paged) {
 					?>
 				</span>
 				<?php
-				if (!empty($cat) && !in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+				if (!empty($cat) && !in_context(ZENPAGE_NEWS_CATEGORY)) {
 					echo ' | ';
 					printNewsCategories(", ", gettext("Categories: "), "newscategories");
 				}

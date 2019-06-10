@@ -12,7 +12,7 @@
  */
 require_once(dirname(dirname(__FILE__)) . '/functions.php');
 require_once(dirname(__FILE__) . '/setup-functions.php');
-zp_session_start();
+npg_session_start();
 if (sanitize($_POST['errors'])) {
 	$result = '<span class="logerror">' . gettext('Completed with errors') . '</span>';
 } else {

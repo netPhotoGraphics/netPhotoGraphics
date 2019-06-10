@@ -1,7 +1,7 @@
 <?php
 // force UTF-8 Ø
 
-rem_context(ZP_ALBUM | ZP_IMAGE);
+rem_context(NPG_ALBUM | NPG_IMAGE);
 $archivlinktext = gettext('Gallery');
 if (extensionEnabled('zenpage')) {
 	if ($news = hasNews()) {

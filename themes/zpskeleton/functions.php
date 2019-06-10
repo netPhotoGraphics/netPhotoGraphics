@@ -1,7 +1,7 @@
 <?php
 // Check some settings
 
-$zenpage = getOption('zp_plugin_zenpage');
+$zenpage = extensionEnabled('zenpage');
 $thumbcrop = getOption('thumb_crop');
 $zpskel_disablewarning = getOption('zpskel_disablewarning'); // test is disable warning is checked
 if (is_null(getOption('zpskel_thumbsize'))) {
@@ -13,27 +13,27 @@ if (is_null(getOption('zpskel_thumbsize'))) {
 if (!$zpskel_disablewarning) {
 	$plugincount = 0;
 	$warning_listitem = '';
-	if (getOption('zp_plugin_colorbox_js')) {
+	if (extensionEnabled('colorbox_js')) {
 		$warning_listitem .= '<li>Disable Plugin: <strong><em>Colorbox</em></strong> [ This theme uses and configures it\'s own javascript popup plugin for image previews ]</li>';
 		$plugincount++;
 	}
-	if (getOption('zp_plugin_deprecated-functions')) {
+	if (extensionEnabled('deprecated-functions')) {
 		$warning_listitem .= '<li>Disable Plugin: <strong><em>Deprecated Functions</em></strong> [ This theme should be current on core functions as of version 1.4.6 ]</li>';
 		$plugincount++;
 	}
-	if (getOption('zp_plugin_jcarousel_thumb_nav')) {
+	if (extensionEnabled('jcarousel_thumb_nav')) {
 		$warning_listitem .= '<li>Disable Plugin: <strong><em>jCarousel Thumb Nav</em></strong> [ Sorry no theme support for this plugin. ]</li>';
 		$plugincount++;
 	}
-	if (getOption('zp_plugin_paged_thumbs_nav')) {
+	if (extensionEnabled('paged_thumbs_nav')) {
 		$warning_listitem .= '<li>Disable Plugin: <strong><em>Paged Thumb Nav</em></strong> [ Sorry no theme support for this plugin. ]</li>';
 		$plugincount++;
 	}
-	if (getOption('zp_plugin_menu_manager')) {
+	if (extensionEnabled('menu_manager')) {
 		$warning_listitem .= '<li>Disable Plugin: <strong><em>Menu Manager</em></strong> [ Sorry no theme support for this plugin. ]</li>';
 		$plugincount++;
 	}
-	if (getOption('zp_plugin_slideshow')) {
+	if (extensionEnabled('slideshow')) {
 		$warning_listitem .= '<li>Disable Plugin: <strong><em>Slideshow</em></strong> [ This theme uses and configures it\'s own javascript popup plugin for slideshows ]</li>';
 		$plugincount++;
 	}
@@ -98,7 +98,7 @@ if ($zpskel_strip == 'latest')
 function getTitleBreadcrumb($before = ' ( ', $between = ' / ', $after = ' ) ') {
 	global $_gallery, $_current_search, $_current_album, $_last_album;
 	$titlebreadcrumb = '';
-	if (in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(SEARCH_LINKED)) {
 		if (empty($_current_search->dynalbumname)) {
 			$titlebreadcrumb .= $before . gettext("Search Result") . $after;
 			if (is_null($_current_album)) {
@@ -109,7 +109,7 @@ function getTitleBreadcrumb($before = ' ( ', $between = ' / ', $after = ' ) ') {
 		} else {
 			$album = newAlbum($_current_search->dynalbumname);
 			$parents = getParentAlbums($album);
-			if (in_context(ZP_ALBUM_LINKED)) {
+			if (in_context(ALBUM_LINKED)) {
 				array_push($parents, $album);
 			}
 		}
@@ -144,7 +144,7 @@ function printPPSlideShowLink($linktext = '', $linkstyle = '') {
 	global $_gallery, $_current_image, $_current_album, $_current_search, $slideshow_instance, $_gallery_page, $zpskel_pptarget;
 	$numberofimages = getNumImages();
 	if ($numberofimages > 1) {
-		if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_current_album)) {
+		if ((in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) || in_context(NPG_SEARCH) && is_null($_current_album)) {
 			$images = $_current_search->getImages(0);
 		} else {
 			$images = $_current_album->getImages(0);
@@ -162,8 +162,8 @@ function printPPSlideShowLink($linktext = '', $linkstyle = '') {
 				$imgobj = newImage($_current_album, $image);
 				$style = '';
 
-				if ($_gallery_page == 'image.php' || in_context(ZP_SEARCH_LINKED)) {
-					if (in_context(ZP_SEARCH_LINKED)) {
+				if ($_gallery_page == 'image.php' || in_context(SEARCH_LINKED)) {
+					if (in_context(SEARCH_LINKED)) {
 						if ($count != 1) {
 							$style = ' style="display:none"';
 						}

@@ -65,8 +65,8 @@ if (npg_loggedin(ADMIN_RIGHTS)) {
 	}
 }
 
-if (isset($_GET['_zp_login_error'])) {
-	$_login_error = sanitize($_GET['_zp_login_error']);
+if (isset($_GET['_login_error'])) {
+	$_login_error = sanitize($_GET['_login_error']);
 }
 
 if (time() > getOption('last_garbage_collect') + 864000) {

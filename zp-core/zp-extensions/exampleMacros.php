@@ -34,7 +34,7 @@ class exampleMacros {
 						'desc' => gettext('Prints the version of the installation.')),
 				'CURRENT_SCRIPT' => array('class' => 'expression',
 						'params' => array(),
-						'value' => '"current script: ".stripSuffix($GLOBALS["_zp_gallery_page"]);',
+						'value' => '"current script: ".stripSuffix($GLOBALS["_gallery_page"]);',
 						'owner' => 'exampleMacros',
 						'desc' => gettext('An example of how to reference global variables. In this case to dump the current gallery page variable.')),
 				'PARAM_DUMP' => array('class' => 'procedure',

@@ -383,7 +383,7 @@ function getLayout($path) {
 			case 'image.php':
 				if (getOption('multiple_layouts_images')) {
 					$currentalbumname = $_current_album->name;
-					if (in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) {
+					if (in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) {
 						if (!$album = $_current_search->getDynamicAlbum()) {
 							$album = $_current_album;
 						}
@@ -402,9 +402,9 @@ function getLayout($path) {
 				}
 				break;
 			case 'news.php':
-				if (getOption('multiple_layouts_news_categories') && in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+				if (getOption('multiple_layouts_news_categories') && in_context(ZENPAGE_NEWS_CATEGORY)) {
 					$getlayout = getSelectedLayout($_CMS_current_category, 'news_categories');
-				} elseif (getOption('multiple_layouts_news') && in_context(ZP_ZENPAGE_SINGLE)) {
+				} elseif (getOption('multiple_layouts_news') && in_context(ZENPAGE_SINGLE)) {
 					$getlayout = getSelectedLayout($_CMS_current_article, 'news');
 				}
 				break;

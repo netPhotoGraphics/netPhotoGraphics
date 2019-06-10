@@ -35,9 +35,9 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'googleTFA';
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php');
-require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/Secret.php');
-require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/Secret.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
 npgFilters::register('admin_login_attempt', 'googleTFA::check');
 npgFilters::register('save_admin_data', 'googleTFA::save');
@@ -70,7 +70,7 @@ class googleTFA extends fieldExtender {
 
 	static function check($loggedin, $post_user, $post_pass, $userobj) {
 		if ($loggedin && $userobj->getOTAsecret()) {
-			zp_session_start();
+			npg_session_start();
 			$_SESSION['OTA'] = array('user' => $post_user, 'redirect' => $_POST['redirect']);
 			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/googleTFA/auth_code.php'));
 			exit();
@@ -150,7 +150,7 @@ class googleTFA extends fieldExtender {
 
 	static function checkCache($key) {
 		global $otpCache;
-		$temp = sys_get_temp_dir() . '/ZP_OTP_cache.txt';
+		$temp = sys_get_temp_dir() . '/_OTP_cache.txt';
 		$validTags = array();
 		if (file_exists($temp)) {
 			$data = explode("\n", file_get_contents($temp));

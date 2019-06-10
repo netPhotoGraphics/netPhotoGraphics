@@ -160,7 +160,7 @@ class pagedThumbsNav {
 			$this->pagelistprevnext = $pagelistprevnext;
 		}
 		// get the image of current album
-		if (in_context(ZP_SEARCH_LINKED)) {
+		if (in_context(SEARCH_LINKED)) {
 			if ($_current_search->getNumImages() === 0) {
 				$this->searchimages = false;
 			} else {
@@ -170,7 +170,7 @@ class pagedThumbsNav {
 			$this->searchimages = false;
 		}
 
-		if (in_context(ZP_SEARCH_LINKED) && $this->searchimages) {
+		if (in_context(SEARCH_LINKED) && $this->searchimages) {
 			$this->images = $_current_search->getImages();
 		} else {
 			$this->images = $_current_album->getImages();

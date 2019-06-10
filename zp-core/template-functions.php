@@ -598,9 +598,9 @@ function printGalleryIndexURL($after = NULL, $text = NULL) {
  */
 function getNumAlbums() {
 	global $_gallery, $_current_album, $_current_search;
-	if (in_context(ZP_SEARCH) && is_null($_current_album)) {
+	if (in_context(NPG_SEARCH) && is_null($_current_album)) {
 		return $_current_search->getNumAlbums();
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		return $_current_album->getNumAlbums();
 	} else {
 		return $_gallery->getNumAlbums();
@@ -637,9 +637,9 @@ function next_album($all = false, $mine = NULL) {
 	global $__albums, $_gallery, $_current_album, $_current_page, $_current_album_restore, $_current_search;
 
 	if (is_null($__albums)) {
-		if (in_context(ZP_SEARCH)) {
+		if (in_context(NPG_SEARCH)) {
 			$__albums = $_current_search->getAlbums($all ? 0 : $_current_page, NULL, NULL, true, $mine);
-		} else if (in_context(ZP_ALBUM)) {
+		} else if (in_context(NPG_ALBUM)) {
 			$__albums = $_current_album->getAlbums($all ? 0 : $_current_page, NULL, NULL, true, $mine);
 		} else {
 			$__albums = $_gallery->getAlbums($all ? 0 : $_current_page, NULL, NULL, true, $mine);
@@ -654,7 +654,7 @@ function next_album($all = false, $mine = NULL) {
 			}
 
 			save_context();
-			add_context(ZP_ALBUM);
+			add_context(NPG_ALBUM);
 			$result = true;
 		}
 	} else if (empty($__albums)) {
@@ -716,7 +716,7 @@ function getAllAlbums($album = NULL) {
  */
 function getTotalPages($_oneImagePage = false) {
 	global $_gallery, $_current_album, $_firstPageImages, $_CMS, $_CMS_current_category;
-	if (in_context(ZP_ALBUM | ZP_SEARCH)) {
+	if (in_context(NPG_ALBUM | NPG_SEARCH)) {
 		$albums_per_page = max(1, getOption('albums_per_page'));
 		$pageCount = (int) ceil(getNumAlbums() / $albums_per_page);
 		$imageCount = getNumImages();
@@ -730,7 +730,7 @@ function getTotalPages($_oneImagePage = false) {
 		$images_per_page = max(1, getOption('images_per_page'));
 		$pageCount = ($pageCount + ceil(($imageCount - $_firstPageImages) / $images_per_page));
 		return $pageCount;
-	} else if (get_context() == ZP_INDEX) {
+	} else if (get_context() == NPG_INDEX) {
 		if (galleryAlbumsPerPage() != 0) {
 			return (int) ceil($_gallery->getNumAlbums() / galleryAlbumsPerPage());
 		} else {
@@ -738,12 +738,12 @@ function getTotalPages($_oneImagePage = false) {
 		}
 		return NULL;
 	} else if (isset($_CMS)) {
-		if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+		if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 			$cat = $_CMS_current_category;
 		} else {
 			$cat = NULL;
 		}
-		return (int) ceil(count($_CMS->getArticles(0, NULL, true, NULL, NULL, NULL, $cat)) / ZP_ARTICLES_PER_PAGE);
+		return (int) ceil(count($_CMS->getArticles(0, NULL, true, NULL, NULL, NULL, $cat)) / ARTICLES_PER_PAGE);
 	}
 }
 
@@ -762,16 +762,16 @@ function getPageNumURL($page, $total = null) {
 	if ($page <= 0 || $page > $total) {
 		return NULL;
 	}
-	if (in_context(ZP_SEARCH)) {
+	if (in_context(NPG_SEARCH)) {
 		$searchwords = $_current_search->codifySearchString();
 		$searchdate = $_current_search->getSearchDate();
 		$searchfields = $_current_search->getSearchFields(true);
 		$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $page, array('albums' => $_current_search->getAlbumList()));
 		return $searchpagepath;
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		return $_current_album->getLink($page);
 	} else if (in_array($_gallery_page, array('index.php', 'album.php', 'image.php'))) {
-		if (in_context(ZP_INDEX)) {
+		if (in_context(NPG_INDEX)) {
 			$pagination1 = '/';
 			$pagination2 = 'index.php';
 			if ($page > 1) {
@@ -1102,7 +1102,7 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 function makeAlbumCurrent($album) {
 	global $_current_album;
 	$_current_album = $album;
-	set_context(ZP_INDEX | ZP_ALBUM);
+	set_context(NPG_INDEX | NPG_ALBUM);
 }
 
 /**
@@ -1111,7 +1111,7 @@ function makeAlbumCurrent($album) {
  * @return string
  */
 function getAlbumTitle() {
-	if (!in_context(ZP_ALBUM))
+	if (!in_context(NPG_ALBUM))
 		return false;
 	global $_current_album;
 	return $_current_album->getTitle();
@@ -1170,9 +1170,9 @@ function printBareAlbumTitle($length = 35) {
 function albumNumber() {
 	global $_current_album, $_current_image, $_current_search, $_gallery;
 	$name = $_current_album->getFileName();
-	if (in_context(ZP_SEARCH)) {
+	if (in_context(NPG_SEARCH)) {
 		$albums = $_current_search->getAlbums();
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		$parent = $_current_album->getParent();
 		if (is_null($parent)) {
 			$albums = $_gallery->getAlbums();
@@ -1199,9 +1199,9 @@ function albumNumber() {
 function getParentAlbums($album = null) {
 	global $_current_album, $_current_search, $_gallery;
 	$parents = array();
-	if (in_context(ZP_ALBUM)) {
+	if (in_context(NPG_ALBUM)) {
 		if (is_null($album)) {
-			if (in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) {
+			if (in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) {
 				$album = $_current_search->getDynamicAlbum();
 				if (empty($album)) {
 					return $parents;
@@ -1234,17 +1234,17 @@ function getParentAlbums($album = null) {
 function getAlbumBreadcrumb($title = NULL) {
 	global $_current_search, $_gallery, $_current_album, $_last_album;
 	$output = array();
-	if (in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(SEARCH_LINKED)) {
 		$album = NULL;
 		$dynamic_album = $_current_search->getDynamicAlbum();
 		if (empty($dynamic_album)) {
 			if (!is_null($_current_album)) {
-				if (in_context(ZP_ALBUM_LINKED) && $_last_album == $_current_album->name) {
+				if (in_context(ALBUM_LINKED) && $_last_album == $_current_album->name) {
 					$album = $_current_album;
 				}
 			}
 		} else {
-			if (in_context(ZP_IMAGE) && in_context(ZP_ALBUM_LINKED)) {
+			if (in_context(NPG_IMAGE) && in_context(ALBUM_LINKED)) {
 				$album = $_current_album;
 			} else {
 				if ($_current_album) {
@@ -1349,7 +1349,7 @@ function printSearchBreadcrumb($between = NULL, $class = NULL, $search = NULL, $
 function getParentBreadcrumb() {
 	global $_gallery, $_current_search, $_current_album, $_last_album;
 	$output = array();
-	if (in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(SEARCH_LINKED)) {
 		$page = $_current_search->page;
 		$searchwords = $_current_search->getSearchWords();
 		$searchdate = $_current_search->getSearchDate();
@@ -1379,7 +1379,7 @@ function getParentBreadcrumb() {
 			}
 			$album = $dynamic_album;
 			$parents = getParentAlbums($album);
-			if (in_context(ZP_ALBUM_LINKED)) {
+			if (in_context(ALBUM_LINKED)) {
 				array_push($parents, $album);
 			}
 		}
@@ -1555,7 +1555,7 @@ function printAlbumLocation() {
  * @return string
  */
 function getAlbumDesc() {
-	if (!in_context(ZP_ALBUM))
+	if (!in_context(NPG_ALBUM))
 		return false;
 	global $_current_album;
 	return $_current_album->getDesc();
@@ -1591,7 +1591,7 @@ function printBareAlbumDesc() {
  * @return string
  */
 function getAlbumData($field) {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_album_image;
 	return get_language_string($_album_image->get($field));
@@ -1620,7 +1620,7 @@ function getAlbumPage($album = NULL) {
 	if (is_null($album)) {
 		$album = $_current_album;
 	}
-	if (in_context(ZP_IMAGE) && !in_context(ZP_SEARCH)) {
+	if (in_context(NPG_IMAGE) && !in_context(NPG_SEARCH)) {
 		$imageindex = $_current_image->getIndex();
 		$numalbums = $album->getNumAlbums();
 		$imagepage = floor(($imageindex - $_firstPageImages) / max(1, getOption('images_per_page'))) + 1;
@@ -1645,7 +1645,7 @@ function getAlbumURL($album = NULL) {
 	global $_current_album;
 	if (is_null($album))
 		$album = $_current_album;
-	if (in_context(ZP_IMAGE)) {
+	if (in_context(NPG_IMAGE)) {
 		$page = getAlbumPage($album);
 		if ($page <= 1)
 			$page = 0;
@@ -1919,9 +1919,9 @@ function printCustomAlbumThumbMaxSpace($alt, $width, $height, $class = NULL, $id
  */
 function getNextAlbum() {
 	global $_current_album, $_current_search, $_gallery;
-	if (in_context(ZP_SEARCH) || in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(NPG_SEARCH) || in_context(SEARCH_LINKED)) {
 		$nextalbum = $_current_search->getNextAlbum($_current_album->name);
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		$nextalbum = $_current_album->getNextAlbum();
 	} else {
 		return null;
@@ -1949,9 +1949,9 @@ function getNextAlbumURL() {
  */
 function getPrevAlbum() {
 	global $_current_album, $_current_search;
-	if (in_context(ZP_SEARCH) || in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(NPG_SEARCH) || in_context(SEARCH_LINKED)) {
 		$prevalbum = $_current_search->getPrevAlbum($_current_album->name);
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		$prevalbum = $_current_album->getPrevAlbum();
 	} else {
 		return null;
@@ -2006,7 +2006,7 @@ function isAlbumPage() {
  */
 function getNumImages() {
 	global $_current_album, $_current_search;
-	if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_current_album)) {
+	if ((in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) || in_context(NPG_SEARCH) && is_null($_current_album)) {
 		return $_current_search->getNumImages();
 	} else {
 		return $_current_album->getNumImages();
@@ -2071,7 +2071,7 @@ function next_image($all = false, $firstPageCount = NULL, $mine = NULL) {
 		$result = false; /* we are on an album page */
 	} else {
 		if (is_null($__images)) {
-			if (in_context(ZP_SEARCH)) {
+			if (in_context(NPG_SEARCH)) {
 				$__images = $_current_search->getImages($all ? 0 : ($imagePage), $firstPageCount, NULL, NULL, true, $mine);
 			} else {
 				$__images = $_current_album->getImages($all ? 0 : ($imagePage), $firstPageCount, NULL, NULL, true, $mine);
@@ -2083,7 +2083,7 @@ function next_image($all = false, $firstPageCount = NULL, $mine = NULL) {
 				$img = array_shift($__images);
 				$_current_image = newImage($_current_album, $img, true, true);
 				save_context();
-				add_context(ZP_IMAGE);
+				add_context(NPG_IMAGE);
 				$result = true;
 			}
 		} else if (empty($__images)) {
@@ -2115,7 +2115,7 @@ function makeImageCurrent($image) {
 	$_current_image = $image;
 	$_current_album = $_current_image->getAlbum();
 	save_context();
-	set_context(ZP_INDEX | ZP_ALBUM | ZP_IMAGE);
+	set_context(NPG_INDEX | NPG_ALBUM | NPG_IMAGE);
 }
 
 /**
@@ -2124,7 +2124,7 @@ function makeImageCurrent($image) {
  * @return string
  */
 function getImageTitle() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return $_current_image->getTitle();
@@ -2178,7 +2178,7 @@ function printBareImageTitle() {
 function imageNumber() {
 	global $_current_image, $_current_search, $_current_album;
 	$name = $_current_image->getFileName();
-	if (in_context(ZP_SEARCH) || (in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED))) {
+	if (in_context(NPG_SEARCH) || (in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED))) {
 		$folder = $_current_image->imagefolder;
 		$images = $_current_search->getImages();
 		$c = 0;
@@ -2202,7 +2202,7 @@ function imageNumber() {
  * @return string
  */
 function getImageDate($format = null) {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	$d = $_current_image->getDateTime();
@@ -2242,7 +2242,7 @@ function printImageDate($before = '', $format = null) {
  * @return string
  */
 function getImageLocation() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return $_current_image->getLocation();
@@ -2254,7 +2254,7 @@ function getImageLocation() {
  * @return string
  */
 function getImageCity() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return $_current_image->getcity();
@@ -2266,7 +2266,7 @@ function getImageCity() {
  * @return string
  */
 function getImageState() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return $_current_image->getState();
@@ -2278,7 +2278,7 @@ function getImageState() {
  * @return string
  */
 function getImageCountry() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return $_current_image->getCountry();
@@ -2291,7 +2291,7 @@ function getImageCountry() {
  * @return string
  */
 function getImageDesc() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return $_current_image->getDesc();
@@ -2326,7 +2326,7 @@ function printBareImageDesc() {
  * @return string
  */
 function getImageData($field) {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	return get_language_string($_current_image->get($field));
@@ -2392,7 +2392,7 @@ function hasPrevImage() {
  */
 function getNextImageURL() {
 	global $_current_image;
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	if (is_null($_current_image))
 		return false;
@@ -2407,7 +2407,7 @@ function getNextImageURL() {
  */
 function getPrevImageURL() {
 	global $_current_image;
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	if (is_null($_current_image))
 		return false;
@@ -2421,7 +2421,7 @@ function getPrevImageURL() {
  * @return string
  */
 function getPrevImageThumb() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	if (is_null($_current_image))
@@ -2436,7 +2436,7 @@ function getPrevImageThumb() {
  * @return string
  */
 function getNextImageThumb() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	if (is_null($_current_image))
@@ -2451,7 +2451,7 @@ function getNextImageThumb() {
  * @return string
  */
 function getImageURL() {
-	if (!in_context(ZP_IMAGE))
+	if (!in_context(NPG_IMAGE))
 		return false;
 	global $_current_image;
 	if (is_null($_current_image))
@@ -2943,7 +2943,7 @@ function getProtectedImageURL($image = NULL, $disposal = NULL) {
 	if ($disposal == 'No access')
 		return NULL;
 	if (is_null($image)) {
-		if (!in_context(ZP_IMAGE))
+		if (!in_context(NPG_IMAGE))
 			return false;
 		if (is_null($_current_image))
 			return false;
@@ -3441,16 +3441,16 @@ function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlb
  * @since 1.1
  */
 function getTags() {
-	if (in_context(ZP_IMAGE)) {
+	if (in_context(NPG_IMAGE)) {
 		global $_current_image;
 		$tags = $_current_image->getTags();
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		global $_current_album;
 		$tags = $_current_album->getTags();
-	} else if (in_context(ZP_ZENPAGE_PAGE)) {
+	} else if (in_context(ZENPAGE_PAGE)) {
 		global $_CMS_current_page;
 		$tags = $_CMS_current_page->getTags();
-	} else if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+	} else if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 		global $_CMS_current_article;
 		$tags = $_CMS_current_article->getTags();
 	} else {
@@ -3479,13 +3479,13 @@ function printTags($option = 'links', $preText = NULL, $class = NULL, $separator
 	if ($tagstring === '' or $tagstring === NULL) {
 		$preText = '';
 	}
-	if (in_context(ZP_IMAGE)) {
+	if (in_context(NPG_IMAGE)) {
 		$object = "image";
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		$object = "album";
-	} else if (in_context(ZP_ZENPAGE_PAGE)) {
+	} else if (in_context(ZENPAGE_PAGE)) {
 		$object = "pages";
-	} else if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+	} else if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 		$object = "news";
 	}
 	if (count($singletag) > 0) {
@@ -3748,7 +3748,7 @@ function getCustomPageURL($page, $q = '', $pageno = NULL) {
 	$result_r = getCustomPageRewrite($page);
 	$result = "index.php?p=$page";
 
-	if (is_null($pageno) && in_context(ZP_ALBUM) && $_gallery_page != $page . '.php') {
+	if (is_null($pageno) && in_context(NPG_ALBUM) && $_gallery_page != $page . '.php') {
 		$album = getUrAlbum($_current_album);
 		$pageno = $album->getGalleryPage();
 	}
@@ -4085,7 +4085,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
  */
 function getSearchWords() {
 	global $_current_search;
-	if (!in_context(ZP_SEARCH))
+	if (!in_context(NPG_SEARCH))
 		return '';
 	return stripcslashes($_current_search->codifySearchString());
 }
@@ -4098,7 +4098,7 @@ function getSearchWords() {
  * @since 1.1
  */
 function getSearchDate($format = '%B %Y') {
-	if (in_context(ZP_SEARCH)) {
+	if (in_context(NPG_SEARCH)) {
 		global $_current_search;
 		$date = $_current_search->getSearchDate();
 		if (empty($date)) {
@@ -4142,7 +4142,7 @@ function setThemeColumns() {
 	if (($imageColumns) && (($imgcount % $imageColumns) != 0)) {
 		setOption('images_per_page', $imgcount = ((floor($imgcount / $imageColumns) + 1) * $imageColumns), false);
 	}
-	if ((getOption('thumb_transition') && !$_oneImagePage) && in_context(ZP_ALBUM | ZP_SEARCH) && $albumColumns && $imageColumns) {
+	if ((getOption('thumb_transition') && !$_oneImagePage) && in_context(NPG_ALBUM | NPG_SEARCH) && $albumColumns && $imageColumns) {
 		$count = getNumAlbums();
 		if ($count == 0) {
 			$_firstPageImages = 0;
@@ -4172,18 +4172,18 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 	$authType = npgFilters::apply('checkForGuest', NULL);
 	if (!is_null($authType))
 		return $authType;
-	if (in_context(ZP_SEARCH)) { // search page
+	if (in_context(NPG_SEARCH)) { // search page
 		$hash = getOption('search_password');
 		if (getOption('search_user') != '')
 			$show = true;
 		$hint = get_language_string(getOption('search_hint'));
-		$authType = 'zp_search_auth';
+		$authType = 'search_auth';
 		if (empty($hash)) {
 			$hash = $_gallery->getPassword();
 			if ($_gallery->getUser() != '')
 				$show = true;
 			$hint = $_gallery->getPasswordHint();
-			$authType = 'zp_gallery_auth';
+			$authType = 'gallery_auth';
 		}
 		if (!empty($hash) && getNPGCookie($authType) == $hash) {
 			return $authType;
@@ -4206,12 +4206,12 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 		if ($_gallery->getUser() != '')
 			$show = true;
 		$hint = $_gallery->getPasswordHint();
-		if (!empty($hash) && getNPGCookie('zp_gallery_auth') == $hash) {
-			return 'zp_gallery_auth';
+		if (!empty($hash) && getNPGCookie('gallery_auth') == $hash) {
+			return 'gallery_auth';
 		}
 	}
 	if (empty($hash))
-		return 'zp_public_access';
+		return 'public_access';
 	return false;
 }
 
@@ -4419,7 +4419,7 @@ function recordPolicyACK($user = NULL) {
  * 	4: albums
  * 	5: gallery.
  *
- * This means, for instance, if we are in ZP_ZENPAGE_NEWS_ARTICLE context we will use the news article
+ * This means, for instance, if we are in ZENPAGE_NEWS_ARTICLE context we will use the news article
  * codeblock even if others are available.
  *
  * Note: Echoing this array's content does not execute it. Also no special chars will be escaped.
@@ -4439,18 +4439,18 @@ function getCodeblock($number = 1, $object = NULL) {
 		if ($_gallery_page == 'index.php' || $_gallery_page == 'gallery.php') {
 			$object = $_gallery;
 		}
-		if (in_context(ZP_ALBUM)) {
+		if (in_context(NPG_ALBUM)) {
 			$object = $_current_album;
 		}
-		if (in_context(ZP_IMAGE)) {
+		if (in_context(NPG_IMAGE)) {
 			$object = $_current_image;
 		}
-		if (in_context(ZP_ZENPAGE_PAGE)) {
+		if (in_context(ZENPAGE_PAGE)) {
 			if ($_CMS_current_page->checkAccess()) {
 				$object = $_CMS_current_page;
 			}
 		}
-		if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+		if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 			if ($_CMS_current_article->checkAccess()) {
 				$object = $_CMS_current_article;
 			}
@@ -4521,12 +4521,12 @@ function checkPageValidity($request, $gallery_page, $page) {
 			}
 			break;
 		case 'news.php':
-			if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+			if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 				$count = count($_CMS_current_category->getArticles());
 			} else {
 				$count = count($_CMS->getArticles());
 			}
-			$count = (int) ceil($count / ZP_ARTICLES_PER_PAGE);
+			$count = (int) ceil($count / ARTICLES_PER_PAGE);
 			break;
 		default:
 			$count = npgFilters::apply('checkPageValidity', NULL, $gallery_page, $page);

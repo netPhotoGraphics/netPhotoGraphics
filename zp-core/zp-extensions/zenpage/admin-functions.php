@@ -561,7 +561,7 @@ function printAuthorDropdown() {
 		$option = getNewsAdminOption('author');
 		?>
 		<form name="AutoListBox0" id="articleauthordropdown" style="float:left; margin:5px;" action="#" >
-			<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form)">
+			<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 				<?php
 				echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All authors") . "</option>";
 				foreach ($authors as $author) {
@@ -600,7 +600,7 @@ function printNewsDatesDropdown() {
 	}
 	?>
 	<form name="AutoListBox1" id="articledatesdropdown" style="float:left; margin:5px;" action="#" >
-		<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form)">
+		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 			<?php
 			echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("View all months") . "</option>\n";
 			foreach ($datecount as $key => $val) {
@@ -685,7 +685,7 @@ function printUnpublishedDropdown() {
 	global $_CMS;
 	?>
 	<form name="AutoListBox3" id="unpublisheddropdown" style="float:left; margin:5px;"	action="#">
-		<select name="ListBoxURL" size="1"	onchange="zp_gotoLink(this.form)">
+		<select name="ListBoxURL" size="1"	onchange="npg_gotoLink(this.form)">
 			<?php
 			$all = "";
 			$published = "";
@@ -728,7 +728,7 @@ function printSortOrderDropdown() {
 	global $_CMS;
 	?>
 	<form name="AutoListBox4" id="sortorderdropdown" style="float:left; margin:5px;"	action="#">
-		<select name="ListBoxURL" size="1"	onchange="zp_gotoLink(this.form)">
+		<select name="ListBoxURL" size="1"	onchange="npg_gotoLink(this.form)">
 			<?php
 			if (isset($_GET['sortorder'])) {
 				$selected = $_GET['sortorder'];
@@ -785,7 +785,7 @@ function printCategoryDropdown() {
 		$option = getNewsAdminOption('category');
 		?>
 		<form name ="AutoListBox2" id="categorydropdown" style="float:left; margin:5px;" action="#" >
-			<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form)">
+			<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 				<?php
 				echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All categories") . "</option>\n";
 				if ($category == '`') {
@@ -836,7 +836,7 @@ function printArticlesPerPageDropdown($subpage) {
 	$option = getNewsAdminOption('articles_page');
 	?>
 	<form name="AutoListBox5" id="articlesperpagedropdown" method="POST" style="float:left; margin:5px;"	action="#">
-		<select name="ListBoxURL" size="1"	onchange="zp_gotoLink(this.form)">
+		<select name="ListBoxURL" size="1"	onchange="npg_gotoLink(this.form)">
 			<?php
 			$list = array_unique(array(15, 30, 60, max(1, getOption('articles_per_page'))));
 			sort($list);

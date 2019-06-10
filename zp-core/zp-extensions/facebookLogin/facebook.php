@@ -16,7 +16,7 @@ if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
 
-zp_session_start();
+npg_session_start();
 
 if (isset($_REQUEST['redirect'])) {
 	$_SESSION['redirect'] = filter_var($_REQUEST['redirect'], FILTER_SANITIZE_URL);

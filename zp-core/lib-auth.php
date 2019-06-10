@@ -886,7 +886,7 @@ class _Authority {
 							} else {
 								$msg .= "\n" . gettext('No matching user was found.');
 							}
-							$err_msg = zp_mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
+							$err_msg = npg_mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
 								$_login_error = 2;
 							} else {
@@ -909,7 +909,7 @@ class _Authority {
 	 * returns an array of the active "password" cookies
 	 *
 	 * NOTE: this presumes the general form of an authrization cookie is:
-	 * zp_xxxxx_auth{_dddd) where xxxxx is the authority (e.g. gallery, image, search, ...)
+	 * npg_xxxxx_auth{_dddd) where xxxxx is the authority (e.g. gallery, image, search, ...)
 	 * and dddd if present is the object id.
 	 *
 	 */
@@ -942,7 +942,7 @@ class _Authority {
 		clearNPGCookie('ssl_state');
 		$_loggedin = false;
 		$_pre_authorization = array();
-		zp_session_destroy();
+		npg_session_destroy();
 		return $location;
 	}
 

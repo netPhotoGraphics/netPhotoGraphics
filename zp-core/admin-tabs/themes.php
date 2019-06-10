@@ -210,14 +210,14 @@ if (count($themelist) == 0) {
 			$themeweb = WEBPATH . "/themes/$theme";
 			if (protectedTheme($theme)) {
 				$whose = 'Official theme';
-				$ico = '<img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
+				$ico = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
 			} else {
 				$whose = gettext('Third party theme');
 				$ico = BULLSEYE_BLUE;
 			}
 			$path = $themedir . '/logo.png';
 			if (file_exists($path)) {
-				$ico = '<img class="zp_logoicon" src="' . $themeweb . '/logo.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
+				$ico = '<img class="npg_logoicon" src="' . $themeweb . '/logo.png" alt="' . gettext('logo') . '" title="' . $whose . '" />';
 			}
 			?>
 			<tr>
@@ -331,7 +331,7 @@ if (count($themelist) == 0) {
 							}
 						} else {
 							?>
-							<li class="zp_copy_theme">
+							<li class="copy_theme">
 								<p class="buttons">
 									<a onclick="copyClick('<?php echo $theme; ?>');">
 										<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/page_white_copy.png" alt="" /><?php echo gettext("Duplicate"); ?>

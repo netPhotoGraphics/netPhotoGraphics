@@ -126,8 +126,8 @@ if (function_exists('printAddThis')) {
 		?>
 
 		<?php
-		$zenpage = getOption('zp_plugin_zenpage');
-		//$cb = getOption('zp_plugin_colorbox');
+		$zenpage = extensionEnabled('zenpage');
+		//$cb = extensionEnabled('colorbox');
 		if (!is_null(getOption('zpmin_finallink'))) {
 			$zpmin_finallink = getOption('zpmin_finallink');
 		} else {
@@ -192,7 +192,7 @@ if (function_exists('printAddThis')) {
 			}
 			.cblinks{top:<?php echo $cblinks_top; ?>px;}
 		</style>
-		<?php if (getOption('zp_plugin_reCaptcha')) { ?>
+		<?php if (extensionEnabled('reCaptcha')) { ?>
 			<script type="text/javascript" charset="utf-8">
 				var RecaptchaOptions = {
 					theme: 'clean'

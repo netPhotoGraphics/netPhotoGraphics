@@ -21,13 +21,13 @@ function printTags_zb($option = 'links', $preText = NULL, $class = NULL, $separa
 	if ($tagstring === '' or $tagstring === NULL) {
 		$preText = '';
 	}
-	if (in_context(ZP_IMAGE)) {
+	if (in_context(NPG_IMAGE)) {
 		$object = "image";
-	} else if (in_context(ZP_ALBUM)) {
+	} else if (in_context(NPG_ALBUM)) {
 		$object = "album";
-	} else if (in_context(ZP_ZENPAGE_PAGE)) {
+	} else if (in_context(ZENPAGE_PAGE)) {
 		$object = "pages";
-	} else if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+	} else if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 		$object = "news";
 	}
 	if (count($singletag) > 0) {
@@ -216,7 +216,7 @@ function printZenpageItemsBreadcrumb_zb() {
  */
 function printCurrentNewsCategory_zb() {
 	global $_CMS_current_category;
-	if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 		echo '<li>';
 		echo html_encode($_CMS_current_category->getTitle());
 		echo '</li>';
@@ -408,7 +408,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			break;
 		case 'index.php':
 			if (extensionEnabled('zenpage')) {
-				if (getOption('zenpage_zp_index_news')) {
+				if (getOption('paradigm_index_news')) {
 					$gallery_page = 'news.php'; //	really a news page
 					break;
 				}
@@ -456,7 +456,7 @@ if (!OFFSET_PATH) {
 	enableExtension('print_album_menu', 1 | THEME_PLUGIN, false);
 	setOption('user_logout_login_form', 2, false);
 	$_current_page_check = 'my_checkPageValidity';
-	if (extensionEnabled('zenpage') && getOption('zenpage_zp_index_news')) { // only one index page if zenpage plugin is enabled & displaying
+	if (extensionEnabled('zenpage') && getOption('paradigm_index_news')) { // only one index page if zenpage plugin is enabled & displaying
 		npgFilters::register('getLink', 'newsOnIndex');
 	}
 }

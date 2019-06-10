@@ -1,8 +1,8 @@
 <?php
 $_current_page_check = 'my_checkPageValidity';
 
-setOption('zp_plugin_colorbox', false, false);
-$zenpage = getOption('zp_plugin_zenpage');
+enableExtension('colorbox', false, false);
+$zenpage = extensionEnabled('zenpage');
 if ((function_exists('printGslideshow')) && (function_exists('printSlideShow'))) {
 	$useGslideshow = true;
 } else {
@@ -86,7 +86,7 @@ if (is_null($zpfocus_news))
 function getTitleBreadcrumb($before = ' ( ', $between = ' | ', $after = ' ) ') {
 	global $_gallery, $_current_search, $_current_album, $_last_album;
 	$titlebreadcrumb = '';
-	if (in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(SEARCH_LINKED)) {
 		$dynamic_album = $_current_search->getDynamicAlbum();
 		if (empty($dynamic_album)) {
 			$titlebreadcrumb .= $before . gettext("Search Result") . $after;
@@ -98,7 +98,7 @@ function getTitleBreadcrumb($before = ' ( ', $between = ' | ', $after = ' ) ') {
 		} else {
 			$album = newAlbum($dynamic_album);
 			$parents = getParentAlbums($album);
-			if (in_context(ZP_ALBUM_LINKED)) {
+			if (in_context(ALBUM_LINKED)) {
 				array_push($parents, $album);
 			}
 		}

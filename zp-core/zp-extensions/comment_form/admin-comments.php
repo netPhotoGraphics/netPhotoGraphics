@@ -399,14 +399,14 @@ printLogoAndLinks();
 									case "albums":
 										$obj = getItemByID('albums', $comment['ownerid']);
 										if ($obj) {
-											$link = '<a href = "' . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext('album') . '] ' . $obj->getTitle() . '</a>';
+											$link = '<a href = "' . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext('album') . '] ' . $obj->getTitle() . '</a>';
 										}
 										break;
 									case "news": // ZENPAGE: if plugin is installed
 										if (extensionEnabled('zenpage')) {
 											$obj = getItemByID('news', $comment['ownerid']);
 											if ($obj) {
-												$link = '<a href = "' . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext("article") . '] ' . $obj->getTitle() . "</a> ";
+												$link = '<a href = "' . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext("article") . '] ' . $obj->getTitle() . "</a> ";
 											}
 										}
 										break;
@@ -414,14 +414,14 @@ printLogoAndLinks();
 										if (extensionEnabled('zenpage')) {
 											$obj = getItemByID('pages', $comment['ownerid']);
 											if ($obj) {
-												$link = "<a href=\"" . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext("page") . '] ' . $obj->getTitle() . "</a>";
+												$link = "<a href=\"" . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext("page") . '] ' . $obj->getTitle() . "</a>";
 											}
 										}
 										break;
 									default : // all the image types
 										$obj = getItemByID('images', $comment['ownerid']);
 										if ($obj) {
-											$link = "<a href=\"" . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext('image') . '] ' . $obj->getTitle() . "</a>";
+											$link = "<a href=\"" . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext('image') . '] ' . $obj->getTitle() . "</a>";
 										}
 										break;
 								}

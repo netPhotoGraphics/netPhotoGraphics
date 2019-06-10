@@ -13,7 +13,7 @@ require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
-zp_session_start();
+npg_session_start();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
 

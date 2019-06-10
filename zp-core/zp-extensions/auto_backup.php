@@ -30,7 +30,7 @@ if (OFFSET_PATH == 2) {
 		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
 		npgFilters::register('admin_head', 'auto_backup::timer_handler');
 		npgFilters::register('theme_head', 'auto_backup::timer_handler');
-		$_backupMutex = new zpMutex('bK');
+		$_backupMutex = new npgMutex('bK');
 	}
 }
 

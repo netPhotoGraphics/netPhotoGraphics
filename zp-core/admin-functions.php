@@ -131,7 +131,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	$multi = getOption('multi_lingual');
-	header('Last-Modified: ' . ZP_LAST_MODIFIED);
+	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	if (!npg_loggedin()) {
 		//	try to prevent browser, etc. from caching login form
@@ -716,7 +716,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 	}
 
-	define('CUSTOM_OPTION_PREFIX', '_ZP_CUSTOM_');
+	define('CUSTOM_OPTION_PREFIX', '_CUSTOM_');
 	/**
 	 * Generates the HTML for custom options (e.g. theme options, plugin options, etc.)
 	 * Note: option names may not contain '.', '+', nor '%' as PHP POST handling will replace
@@ -4465,7 +4465,7 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 	}
 	?>
 	<form name="AutoListBox2" style="float: right;padding-right: 14px;" action="#" >
-		<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form);">
+		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form);">
 			<?php
 			foreach ($nestinglevels as $nestinglevel) {
 				if ($nesting == $nestinglevel) {

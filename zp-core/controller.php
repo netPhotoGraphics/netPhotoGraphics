@@ -16,7 +16,7 @@ Controller::load_gallery(); //	load the gallery and set the context to be on the
 $_requested_object = Controller::load_request();
 // handle any passwords that might have been posted
 if (!npg_loggedin()) {
-	zp_handle_password();
+	handle_password();
 }
 
 // Handle any comments that might be posted.

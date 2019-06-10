@@ -137,12 +137,12 @@ class oAuthLogin {
 				$more = sprintf(gettext('Configuration error,%1$s login group %2$s does not exist.'), $class, $groupname);
 			}
 			if (!$more && getOption('register_user_notify')) {
-				$_notify = zp_mail(gettext('netPhotoGraphics Gallery registration'), sprintf(gettext('%1$s (%2$s) has registered for the gallery providing an e-mail address of %3$s.'), $userobj->getName(), $userobj->getUser(), $userobj->getEmail()));
+				$_notify = npg_mail(gettext('netPhotoGraphics Gallery registration'), sprintf(gettext('%1$s (%2$s) has registered for the gallery providing an e-mail address of %3$s.'), $userobj->getName(), $userobj->getUser(), $userobj->getEmail()));
 			}
 		}
 		session_unset(); //	need to cleanse out stuff or subsequent logins will fail[sic]
 		if ($more) {
-			header('Location: ' . getAdminLink('admin.php') . '?_zp_login_error=' . html_encode($more));
+			header('Location: ' . getAdminLink('admin.php') . '?_login_error=' . html_encode($more));
 			exit();
 		}
 		npgFilters::apply('federated_login_attempt', true, $user, $oAuthAuthority . 'oAuth'); //	we will mascerade as federated logon for this filter

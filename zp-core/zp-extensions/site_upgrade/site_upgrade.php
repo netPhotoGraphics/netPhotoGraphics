@@ -13,7 +13,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 	case 'closed':
 		$report = '';
 		setSiteState('closed');
-		npgFilters::apply('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'closed');
+		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed');
 
 		if (extensionEnabled('clone')) {
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
@@ -28,7 +28,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 	case 'open':
 		$report = gettext('Site is viewable.');
 		setSiteState('open');
-		npgFilters::apply('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'open');
+		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'open');
 
 		if (extensionEnabled('clone')) {
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
@@ -43,7 +43,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 	case 'closed_for_test':
 		$report = '';
 		setSiteState('closed_for_test');
-		npgFilters::apply('security_misc', true, 'site_upgrade', 'zp_admin_auth', 'closed_for_test');
+		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed_for_test');
 
 		if (extensionEnabled('clone')) {
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
@@ -68,7 +68,7 @@ function setSiteState($state, $folder = NULL) {
 	if (is_null($folder)) {
 		$folder = SERVERPATH . '/';
 	}
-	$_configMutex = new zpMutex('cF', NULL, $folder . DATA_FOLDER . '/.mutex');
+	$_configMutex = new npgMutex('cF', NULL, $folder . DATA_FOLDER . '/.mutex');
 	$_configMutex->lock();
 	$_config_contents = @file_get_contents($folder . DATA_FOLDER . '/' . CONFIGFILE);
 	$_config_contents = configFile::update('site_upgrade_state', $state, $_config_contents);

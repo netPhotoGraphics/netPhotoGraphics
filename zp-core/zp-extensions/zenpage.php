@@ -193,7 +193,7 @@ class cmsFilters {
 		if (extensionEnabled('zenpage')) {
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 		} else {
-			unset($GLOBALS['_zp_CMS']);
+			unset($GLOBALS['_CMS']);
 		}
 		return $ignore;
 	}
@@ -230,7 +230,7 @@ class cmsFilters {
 				}
 				return false;
 			case 'news.php':
-				if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+				if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 					if ($_CMS_current_article->isMyItem(LIST_RIGHTS)) {
 						return true;
 					}
@@ -377,8 +377,8 @@ add">' . gettext("Add Article") . '</a></li>';
 function getNewsIndexURL() {
 	global $_CMS_current_article;
 	$p_rewrite = $p = '';
-	if (in_context(ZP_ZENPAGE_NEWS_ARTICLE) && in_context(ZP_ZENPAGE_SINGLE)) {
-		$pos = floor(($_CMS_current_article->getIndex() / ZP_ARTICLES_PER_PAGE) + 1);
+	if (in_context(ZENPAGE_NEWS_ARTICLE) && in_context(ZENPAGE_SINGLE)) {
+		$pos = floor(($_CMS_current_article->getIndex() / ARTICLES_PER_PAGE) + 1);
 		if ($pos > 1) {
 			$p_rewrite = $pos;
 			$p = '&page=' . $pos;

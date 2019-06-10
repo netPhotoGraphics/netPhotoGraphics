@@ -284,7 +284,7 @@ class favorites extends AlbumBase {
 		if ($_gallery_page == "favorites.php") {
 			if (npg_loggedin()) {
 				$_current_album = $_myFavorites;
-				add_context(ZP_ALBUM);
+				add_context(NPG_ALBUM);
 				Controller::prepareAlbumPage();
 				$_gallery_page = 'favorites.php';
 			} else {

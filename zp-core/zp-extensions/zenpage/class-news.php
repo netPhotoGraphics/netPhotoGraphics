@@ -199,7 +199,7 @@ class Article extends CMSItems {
 		}
 		$categories = $this->getCategories();
 		if (empty($categories)) { //	cannot be protected!
-			return 'zp_public_access';
+			return 'public_access';
 		} else {
 			foreach ($categories as $cat) {
 				$catobj = newCategory($cat['titlelink']);
@@ -371,7 +371,7 @@ class Article extends CMSItems {
 		global$_CMS_current_category;
 		$context = $contextR = '';
 
-		if ($in_context && in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+		if ($in_context && in_context(ZENPAGE_NEWS_CATEGORY)) {
 			$context = 'category=' . $_CMS_current_category->getTitlelink();
 			$contextR = '?' . $context;
 			$context = '&' . $context;
@@ -386,7 +386,7 @@ class Article extends CMSItems {
 	 */
 	function getIndex() {
 		global $_CMS, $_CMS_current_category;
-		if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+		if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 			$cat = $_CMS_current_category;
 			$catI = $_CMS_current_category->getID();
 		} else {

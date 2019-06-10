@@ -144,7 +144,7 @@ class fieldExtender {
 				}
 				setOption(get_class($this) . '_addedFields', serialize($current));
 				if (!empty($searchDefault)) {
-					$fieldExtenderMutex = new zpMutex('fE');
+					$fieldExtenderMutex = new npgMutex('fE');
 					$fieldExtenderMutex->lock();
 					$engine = new SearchEngine();
 					$set_fields = $engine->allowedSearchFields();
@@ -529,18 +529,18 @@ value="' . $item . '" />';
 		, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category;
 		$objects = $tables = array();
 		if (is_null($object)) {
-			if (in_context(ZP_IMAGE)) {
+			if (in_context(NPG_IMAGE)) {
 				$object = $_current_image;
 				$objects[$tables[] = 'albums'] = $_current_album;
-			} else if (in_context(ZP_ALBUM)) {
+			} else if (in_context(NPG_ALBUM)) {
 				$object = $_current_album;
-			} else if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+			} else if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 				$object = $_CMS_current_article;
 				if ($_CMS_current_category)
 					$objects[$tables[] = 'news_categories'] = $_CMS_current_category;
-			} else if (in_context(ZP_ZENPAGE_PAGE)) {
+			} else if (in_context(ZENPAGE_PAGE)) {
 				$object = $_CMS_current_page;
-			} else if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+			} else if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 				$object = $_CMS_current_category;
 			} else {
 				trigger_error(gettext('There is no defined context, you must pass a comment object.'), E_USER_ERROR);

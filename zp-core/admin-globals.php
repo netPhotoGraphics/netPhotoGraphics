@@ -12,7 +12,7 @@
 require_once(dirname(__FILE__) . '/functions-basic.php');
 require_once(dirname(__FILE__) . '/initialize-basic.php');
 
-zp_session_start();
+npg_session_start();
 require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 $_admin_button_actions = $_admin_menu = array();

@@ -306,9 +306,9 @@ class Category extends CMSRoot {
 		}
 
 		if (empty($hash)) { // no password required
-			return 'zp_public_access';
+			return 'public_access';
 		} else {
-			$authType = "zp_category_auth_" . $id;
+			$authType = "zenpage_category_auth_" . $id;
 			$saved_auth = getNPGCookie($authType);
 			if ($saved_auth == $hash) {
 				return $authType;
@@ -329,7 +329,7 @@ class Category extends CMSRoot {
 	 * @return bool
 	 */
 	function isProtected() {
-		return GALLERY_SECURITY != 'public' || $this->checkforGuest() != 'zp_public_access';
+		return GALLERY_SECURITY != 'public' || $this->checkforGuest() != 'public_access';
 	}
 
 	function subRights() {

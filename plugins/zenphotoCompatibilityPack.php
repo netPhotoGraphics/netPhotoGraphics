@@ -83,6 +83,19 @@ $legacyReplacements = array(
 		'save_album_utilities_data' => 'save_album_data',
 		'save_image_utilities_data' => 'save_image_data',
 		'ZENFOLDER' => 'CORE_FOLDER',
+		'ZP_ALBUM' => 'NPG_ALBUM',
+		'ZP_IMAGE' => 'NPG_IMAGE',
+		'ZP_COMMENT' => 'NPG_COMMENT',
+		'ZP_SEARCH' => 'NPG_COMMENT',
+		'NPG_SEARCH_LINKED' => 'SEARCH_LINKED',
+		'NPG_ALBUM_LINKED' => 'ALBUM_LINKED',
+		'ZP_IMAGE_LINKED' => 'IMAGE_LINKED',
+		'ZP_ZENPAGE_NEWS_PAGE' => 'ZENPAGE_NEWS_PAG',
+		'ZP_ZENPAGE_NEWS_ARTICLE' => 'ZENPAGE_NEWS_ARTICLE',
+		'ZP_ZENPAGE_NEWS_CATEGORY' => 'ZENPAGE_NEWS_CATEGORY',
+		'ZP_ZENPAGE_NEWS_DATE' => 'ZENPAGE_NEWS_DATE',
+		'ZP_ZENPAGE_PAGE' => 'ZENPAGE_PAGE',
+		'ZP_ZENPAGE_SINGLE' => 'ZENPAGE_SINGLE',
 		'\$_zp_captcha' => '$_captcha',
 		'\$_zp_gallery_page' => '$_gallery_page',
 		'\$_zp_gallery' => '$_gallery',
@@ -221,6 +234,21 @@ switch (OFFSET_PATH) {
 
 		define('ZENFOLDER', CORE_FOLDER);
 		define('SERVER_HTTP_HOST', FULLHOSTPATH);
+
+		define("ZP_INDEX", NPG_INDEX);
+		define("ZP_ALBUM", NPG_ALBUM);
+		define("ZP_IMAGE", NPG_IMAGE);
+		define("ZP_COMMENT", NPG_COMMENT);
+		define("ZP_SEARCH", NPG_COMMENT);
+		define('ZP_SEARCH_LINKED', SEARCH_LINKED);
+		define('ZP_ALBUM_LINKED', ALBUM_LINKED);
+		define('ZP_IMAGE_LINKED', IMAGE_LINKED);
+		define('ZP_ZENPAGE_NEWS_PAGE', ZENPAGE_NEWS_PAGE);
+		define('ZP_ZENPAGE_NEWS_ARTICLE', ZENPAGE_NEWS_ARTICLE);
+		define('ZP_ZENPAGE_NEWS_CATEGORY', ZENPAGE_NEWS_CATEGORY);
+		define('ZP_ZENPAGE_NEWS_DATE', ZENPAGE_NEWS_DATE);
+		define('ZP_ZENPAGE_PAGE', ZENPAGE_PAGE);
+		define('ZP_ZENPAGE_SINGLE', ZENPAGE_SINGLE);
 
 		npgFilters::register('load_theme_script', 'zenphotoCompatibilityPack::scriptFilter');
 		npgFilters::register('next_object_loop', 'zenphotoCompatibilityPack::nextObjFilter');

@@ -34,7 +34,7 @@ if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
 require_once(dirname(__FILE__) . '/functions-basic.php');
 
-$iMutex = new zpMutex('i', @$_GET['limit']);
+$iMutex = new npgMutex('i', @$_GET['limit']);
 $iMutex->lock();
 
 require_once(dirname(__FILE__) . '/initialize-basic.php');
@@ -70,7 +70,7 @@ $adminrequest = $args[12];
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
-	zp_session_start();
+	npg_session_start();
 	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
 }
 

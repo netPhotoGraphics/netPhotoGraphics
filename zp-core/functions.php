@@ -401,7 +401,7 @@ function is_valid_email_zp($input_email) {
  * @author Todd Papaioannou (lucky@luckyspin.org)
  * @since  1.0.0
  */
-function zp_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $bcc_addresses = NULL, $replyTo = NULL, $failMessage = NULL, $fromMail = NULL) {
+function npg_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $bcc_addresses = NULL, $replyTo = NULL, $failMessage = NULL, $fromMail = NULL) {
 	global $_authority, $_gallery, $_UTF8;
 	if (is_null($failMessage)) {
 		$failMessage = gettext('Mail send failed.') . ' ';
@@ -577,7 +577,7 @@ function checkAlbumPassword($album, &$hint = NULL) {
 		$album = $album->getParent();
 		while (!is_null($album)) {
 			$hash = $album->getPassword();
-			$authType = "zp_album_auth_" . $album->getID();
+			$authType = "album_auth_" . $album->getID();
 			$saved_auth = getNPGCookie($authType);
 
 			if (!empty($hash)) {
@@ -593,10 +593,10 @@ function checkAlbumPassword($album, &$hint = NULL) {
 		}
 // revert all tlhe way to the gallery
 		$hash = $_gallery->getPassword();
-		$authType = 'zp_gallery_auth';
+		$authType = 'gallery_auth';
 		$saved_auth = getNPGCookie($authType);
 		if (empty($hash)) {
-			$authType = 'zp_public_access';
+			$authType = 'public_access';
 		} else {
 			if ($saved_auth != $hash) {
 				$hint = $_gallery->getPasswordHint();
@@ -604,7 +604,7 @@ function checkAlbumPassword($album, &$hint = NULL) {
 			}
 		}
 	} else {
-		$authType = "zp_album_auth_" . $album->getID();
+		$authType = "album_auth_" . $album->getID();
 		$saved_auth = getNPGCookie($authType);
 		if ($saved_auth != $hash) {
 			$hint = $album->getPasswordHint();
@@ -901,7 +901,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 					$dynamic_album->index = $_current_album->index;
 					$_current_album = $dynamic_album;
 				}
-				$context = $context | ZP_SEARCH_LINKED | ZP_IMAGE_LINKED;
+				$context = $context | SEARCH_LINKED | IMAGE_LINKED;
 			}
 		}
 		if (is_null($album)) {
@@ -919,7 +919,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 			$_loggedin = $save_logon;
 			foreach ($search_album_list as $searchalbum) {
 				if (strpos($albumname, $searchalbum) !== false) {
-					$context = $context | ZP_SEARCH_LINKED | ZP_ALBUM_LINKED;
+					$context = $context | SEARCH_LINKED | ALBUM_LINKED;
 					break;
 				}
 			}
@@ -930,7 +930,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 				$titlelink = $_CMS_current_page->getTitlelink();
 				foreach ($pages as $apage) {
 					if ($apage == $titlelink) {
-						$context = $context | ZP_SEARCH_LINKED;
+						$context = $context | SEARCH_LINKED;
 						break;
 					}
 				}
@@ -942,18 +942,18 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 				$titlelink = $_CMS_current_article->getTitlelink();
 				foreach ($news as $anews) {
 					if ($anews['titlelink'] == $titlelink) {
-						$context = $context | ZP_SEARCH_LINKED;
+						$context = $context | SEARCH_LINKED;
 						break;
 					}
 				}
 			}
 		}
-		if (($context & ZP_SEARCH_LINKED)) {
+		if (($context & SEARCH_LINKED)) {
 			set_context($context);
 			$_HTML_cache->abortHTMLCache(true);
 		} else { // not an object in the current search path
 			$_current_search = null;
-			rem_context(ZP_SEARCH);
+			rem_context(NPG_SEARCH);
 			if (!isset($_REQUEST['preserve_serch_params'])) {
 				clearNPGCookie("search_params");
 			}
@@ -1015,7 +1015,7 @@ function setupTheme($album = NULL) {
 	global $_gallery, $_current_album, $_current_search, $_themeroot;
 	$albumtheme = '';
 	if (is_null($album)) {
-		if (in_context(ZP_SEARCH_LINKED)) {
+		if (in_context(SEARCH_LINKED)) {
 			if (!$album = $_current_search->getDynamicAlbum()) {
 				$album = $_current_album;
 			}
@@ -1039,7 +1039,7 @@ function setupTheme($album = NULL) {
 	$_gallery->setCurrentTheme($theme, true); //	don't make it permanant if someone saves the gallery
 	$themeindex = getPlugin('index.php', $theme);
 	if (empty($theme) || empty($themeindex)) {
-		header('Last-Modified: ' . ZP_LAST_MODIFIED);
+		header('Last-Modified: ' . NPG_LAST_MODIFIED);
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		?>
 		<!DOCTYPE html>
@@ -1628,7 +1628,7 @@ function getWatermarkParam($image, $use) {
  *
  * @return string
  */
-function zp_image_types($quote) {
+function npg_image_types($quote) {
 	global $_images_classes;
 	$types = array_unique($_images_classes);
 	$typelist = '';
@@ -1647,7 +1647,7 @@ function zp_image_types($quote) {
  */
 function isImageVideo($image = NULL) {
 	if (is_null($image)) {
-		if (!in_context(ZP_IMAGE))
+		if (!in_context(NPG_IMAGE))
 			return false;
 		global $_current_image;
 		$image = $_current_image;
@@ -1664,7 +1664,7 @@ function isImageVideo($image = NULL) {
 function isImagePhoto($image = NULL) {
 	global $_current_image;
 	if (is_null($image)) {
-		if (!in_context(ZP_IMAGE))
+		if (!in_context(NPG_IMAGE))
 			return false;
 		$image = $_current_image;
 	}
@@ -1827,24 +1827,24 @@ function sanitizeRedirect($redirectTo, $forceHost = true) {
  *
  * @return bool true if authorized
  */
-function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = NULL) {
+function handle_password($authType = NULL, $check_auth = NULL, $check_user = NULL) {
 	global $_loggedin, $_login_error, $_current_album, $_CMS_current_page, $_CMS_current_category, $_CMS_current_article, $_gallery;
 	$success = false;
 	if (empty($authType)) { // not supplied by caller
 		$check_auth = '';
 		$auth = array();
 		if (isset($_GET['z']) && @$_GET['p'] == 'full-image' || isset($_GET['p']) && $_GET['p'] == '*full-image') {
-			$authType = 'zp_image_auth';
+			$authType = 'image_auth';
 			$check_auth = getOption('protected_image_password');
 			$check_user = getOption('protected_image_user');
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
-		} else if (in_context(ZP_SEARCH)) { // search page
-			$authType = 'zp_search_auth';
+		} else if (in_context(NPG_SEARCH)) { // search page
+			$authType = 'search_auth';
 			$check_auth = getOption('search_password');
 			$check_user = getOption('search_user');
 			$auth = array(array($authType, $check_auth, $check_user));
-		} else if (in_context(ZP_ALBUM)) { // album page
-			$authType = "zp_album_auth_" . $_current_album->getID();
+		} else if (in_context(NPG_ALBUM)) { // album page
+			$authType = "album_auth_" . $_current_album->getID();
 			$check_auth = $_current_album->getPassword();
 			$check_user = $_current_album->getUser();
 			if (empty($check_auth)) {
@@ -1852,7 +1852,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				while (!is_null($parent)) {
 					$check_auth = $parent->getPassword();
 					$check_user = $parent->getUser();
-					$authType = "zp_album_auth_" . $parent->getID();
+					$authType = "album_auth_" . $parent->getID();
 					if (!empty($check_auth)) {
 						break;
 					}
@@ -1860,8 +1860,8 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				}
 			}
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
-		} else if (in_context(ZP_ZENPAGE_PAGE)) {
-			$authType = "zp_page_auth_" . $_CMS_current_page->getID();
+		} else if (in_context(ZENPAGE_PAGE)) {
+			$authType = "zenpage_page_auth_" . $_CMS_current_page->getID();
 			$check_auth = $_CMS_current_page->getPassword();
 			$check_user = $_CMS_current_page->getUser();
 			if (empty($check_auth)) {
@@ -1872,15 +1872,15 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 						break;
 					$pageobj = getItemByID('pages', $parentID);
 					if ($pageobj) {
-						$authType = "zp_page_auth_" . $pageobj->getID();
+						$authType = "zenpage_page_auth_" . $pageobj->getID();
 						$check_auth = $pageobj->getPassword();
 						$check_user = $pageobj->getUser();
 					}
 				}
 			}
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
-		} else if (in_context(ZP_ZENPAGE_NEWS_CATEGORY) || in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
-			if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+		} else if (in_context(ZENPAGE_NEWS_CATEGORY) || in_context(ZENPAGE_NEWS_ARTICLE)) {
+			if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 				$categories = array(array('titlelink' => $_CMS_current_category->getTitleLink()));
 			} else {
 				$categories = $_CMS_current_article->getCategories();
@@ -1890,7 +1890,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 				while ($cat) { // all categories in the family
 					$check_auth = $cat->getPassword();
 					if (!empty($check_auth)) {
-						$authType = 'zp_category_auth_' . $cat->getID();
+						$authType = 'zenpage_category_auth_' . $cat->getID();
 						$check_user = $cat->getUser();
 						$auth[] = array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user);
 						break; //	only the deepest password is required
@@ -1905,7 +1905,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			}
 		}
 		if (empty($auth)) { // anything else is controlled by the gallery credentials
-			$authType = 'zp_gallery_auth';
+			$authType = 'gallery_auth';
 			$check_auth = $_gallery->getPassword();
 			$check_user = $_gallery->getUser();
 			$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
@@ -1915,7 +1915,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 	}
 // Handle the login form.
 	if (DEBUG_LOGIN) {
-		debugLogVar(["zp_handle_password:" => $auth]);
+		debugLogVar(["handle_password:" => $auth]);
 	}
 
 	if (isset($_POST['password']) && isset($_POST['pass'])) { // process login form
@@ -1944,7 +1944,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 							$success = ($auth == $check_auth);
 						}
 						if (DEBUG_LOGIN)
-							debugLog("zp_handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
+							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
 						if ($success) {
 							break 2;
 						}
@@ -1957,7 +1957,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			if ($success) {
 				// Correct auth info. Set the cookie.
 				if (DEBUG_LOGIN)
-					debugLog("zp_handle_password: valid credentials");
+					debugLog("handle_password: valid credentials");
 				setNPGCookie($authType, $auth);
 				if (isset($_POST['redirect'])) {
 					$redirect_to = sanitizeRedirect($_POST['redirect']);
@@ -1969,7 +1969,7 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 			} else {
 				// Clear the cookie, just in case
 				if (DEBUG_LOGIN)
-					debugLog("zp_handle_password: invalid credentials");
+					debugLog("handle_password: invalid credentials");
 				clearNPGCookie($authType);
 				$_login_error = true;
 			}
@@ -1984,12 +1984,12 @@ function zp_handle_password($authType = NULL, $check_auth = NULL, $check_user = 
 		if (($saved_auth = getNPGCookie($authType)) != '') {
 			if ($saved_auth == $check_auth) {
 				if (DEBUG_LOGIN)
-					debugLog("zp_handle_password: valid cookie");
+					debugLog("handle_password: valid cookie");
 				return true;
 			} else {
 // Clear the cookie
 				if (DEBUG_LOGIN)
-					debugLog("zp_handle_password: invalid cookie");
+					debugLog("handle_password: invalid cookie");
 				clearNPGCookie($authType);
 			}
 		}
@@ -3073,7 +3073,7 @@ class _captcha {
 /**
  * stand-in for when there is no HTML cache plugin enabled
  */
-class _zp_HTML_cache {
+class _npg_HTML_cache {
 
 	function disable() {
 

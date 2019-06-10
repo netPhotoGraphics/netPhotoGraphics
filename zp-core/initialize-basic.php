@@ -37,11 +37,11 @@ if (DISPLAY_ERRORS) {
 	@ini_set('display_errors', 0);
 }
 
-set_error_handler("zpErrorHandler");
-set_exception_handler("zpExceptionHandler");
-register_shutdown_function('zpShutDownFunction');
-$_configMutex = new zpMutex('cF');
-$_mutex = new zpMutex();
+set_error_handler("npgErrorHandler");
+set_exception_handler("npgExceptionHandler");
+register_shutdown_function('npgShutDownFunction');
+$_configMutex = new npgMutex('cF');
+$_mutex = new npgMutex();
 
 $_conf_options_associations = $_options = array();
 $_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');

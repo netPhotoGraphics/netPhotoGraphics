@@ -110,7 +110,7 @@ class ThemeOptions {
 	}
 
 	function getOptionsDisabled() {
-		return array('paradigm_zp_index_news', 'paradigm_homepage');
+		return array('paradigm_index_news', 'paradigm_homepage');
 	}
 
 	function handleOption($option, $currentValue) {

@@ -18,7 +18,7 @@ if (!OFFSET_PATH) {
 function no_show_hideImage($imageObj) {
 	$album = $imageObj->getAlbum();
 	$check = checkAlbumPassword($album);
-	if ($check == 'zp_public_access') {
+	if ($check == 'public_access') {
 		$imageObj->exists = $imageObj->getShow();
 	}
 	return $imageObj;
@@ -26,7 +26,7 @@ function no_show_hideImage($imageObj) {
 
 function no_show_hideAlbum($albumObj) {
 	$check = checkAlbumPassword($albumObj);
-	if ($check == 'zp_public_access') {
+	if ($check == 'public_access') {
 		$albumObj->exists = $albumObj->getShow();
 	}
 	return $albumObj;

@@ -12,7 +12,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/initialize-basic.php');
 
 require_once ('qrlib.php');
 
-$iMutex = new zpMutex('i', getOption('imageProcessorConcurrency'));
+$iMutex = new npgMutex('i', getOption('imageProcessorConcurrency'));
 $iMutex->lock();
 QRcode::png($_REQUEST['content']);
 $iMutex->unlock();

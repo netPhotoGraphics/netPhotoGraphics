@@ -266,7 +266,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 								}
 							}
 							window.addEventListener('load', function () {
-								toggleComments(window.location.hash.search(/#zp_comment_id_/));
+								toggleComments(window.location.hash.search(/#_comment_id_/));
 							}, false);
 							// ]]> -->
 						</script>
@@ -296,7 +296,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 						?>
 						<div class="comment" <?php echo $display; ?>>
 							<div class="commentinfo">
-								<h4 id="zp_comment_id_<?php echo $_current_comment['id']; ?>"><?php printCommentAuthorLink(); ?>: <?php echo gettext('on'); ?> <?php
+								<h4 id="_comment_id_<?php echo $_current_comment['id']; ?>"><?php printCommentAuthorLink(); ?>: <?php echo gettext('on'); ?> <?php
 									echo $_current_comment['date'];
 									printEditCommentLink(gettext('Edit'), ', ', '');
 									?></h4>

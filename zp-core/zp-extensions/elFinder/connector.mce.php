@@ -5,7 +5,7 @@
  * @package plugins/elFinder
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
-zp_session_start();
+npg_session_start();
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS, currentRelativeURL());
 XSRFdefender('elFinder');
 $locale = substr(getOption('locale'), 0, 2);

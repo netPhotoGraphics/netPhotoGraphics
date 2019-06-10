@@ -130,7 +130,7 @@ if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 } else {
 	if (getUserIP() != getOption('accessThreshold_Owner')) {
-		$mu = new zpMutex('aT');
+		$mu = new npgMutex('aT');
 		$mu->lock();
 		$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
 		if (array_key_exists('config', $recentIP)) {

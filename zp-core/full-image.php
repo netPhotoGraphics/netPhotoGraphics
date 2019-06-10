@@ -56,7 +56,7 @@ $adminrequest = $args[12];
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
-	zp_session_start();
+	npg_session_start();
 	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
 }
 
@@ -65,21 +65,21 @@ $args[0] = 'FULL';
 $hash = getOption('protected_image_password');
 if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)) {
 	//	handle password form if posted
-	zp_handle_password('zp_image_auth', getOption('protected_image_password'), getOption('protected_image_user'));
+	handle_password('image_auth', getOption('protected_image_password'), getOption('protected_image_user'));
 	//check for passwords
-	$authType = 'zp_image_auth';
+	$authType = 'image_auth';
 	$hint = get_language_string(getOption('protected_image_hint'));
 	$show = getOption('protected_image_user');
 	if (empty($hash)) { // check for album password
 		$hash = $albumobj->getPassword();
-		$authType = "zp_album_auth_" . $albumobj->getID();
+		$authType = "album_auth_" . $albumobj->getID();
 		$hint = $albumobj->getPasswordHint();
 		$show = $albumobj->getUser();
 		if (empty($hash)) {
 			$albumobj = $albumobj->getParent();
 			while (!is_null($albumobj)) {
 				$hash = $albumobj->getPassword();
-				$authType = "zp_album_auth_" . $albumobj->getID();
+				$authType = "album_auth_" . $albumobj->getID();
 				$hint = $albumobj->getPasswordHint();
 				$show = $albumobj->getUser();
 				if (!empty($hash)) {
@@ -91,7 +91,7 @@ if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)
 	}
 	if (empty($hash)) { // check for gallery password
 		$hash = $_gallery->getPassword();
-		$authType = 'zp_gallery_auth';
+		$authType = 'gallery_auth';
 		$hint = $_gallery->getPasswordHint();
 		$show = $_gallery->getUser();
 	}
@@ -122,7 +122,7 @@ if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
-		header('Last-Modified: ' . ZP_LAST_MODIFIED);
+		header('Last-Modified: ' . NPG_LAST_MODIFIED);
 		include(internalToFilesystem($_themeScript));
 		exit();
 	}
@@ -236,7 +236,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		}
 	} else {
 		//	have to create the image
-		$iMutex = new zpMutex('i', getOption('imageProcessorConcurrency'));
+		$iMutex = new npgMutex('i', getOption('imageProcessorConcurrency'));
 		$iMutex->lock();
 		$newim = zp_imageGet($image_path);
 		if ($rotate) {

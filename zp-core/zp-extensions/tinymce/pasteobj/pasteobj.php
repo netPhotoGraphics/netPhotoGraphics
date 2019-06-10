@@ -12,7 +12,7 @@ define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin-globals.php");
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS, NULL);
 
-header('Last-Modified: ' . ZP_LAST_MODIFIED);
+header('Last-Modified: ' . NPG_LAST_MODIFIED);
 header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
 function getIPSizedImage($size, $image) {

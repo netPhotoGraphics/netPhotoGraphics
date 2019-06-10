@@ -22,7 +22,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 			$CookieInfo = session_get_cookie_params();
 			session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
 		}
-		zp_session_start();
+		npg_session_start();
 	}
 	XSRFdefender('clear_rating');
 	query('UPDATE ' . prefix('images') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');

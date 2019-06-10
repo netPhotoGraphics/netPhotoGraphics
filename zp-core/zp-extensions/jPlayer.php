@@ -606,7 +606,7 @@ class jPlayer {
 	function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
 		global $_current_album, $_current_search;
 		if (empty($albumfolder)) {
-			if (in_context(ZP_SEARCH)) {
+			if (in_context(NPG_SEARCH)) {
 				$albumobj = $_current_search;
 			} else {
 				$albumobj = $_current_album;

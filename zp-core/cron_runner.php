@@ -30,7 +30,7 @@ if (isset($_POST['link'])) {
 	require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
-	npgFilters::apply('security_misc', true, 'cron_runner', 'zp_admin_auth', sprintf('executing %1$s', $link));
+	npgFilters::apply('security_misc', true, 'cron_runner', 'admin_auth', sprintf('executing %1$s', $link));
 
 	if (isset($_POST['XSRFTag'])) {
 		$_REQUEST['XSRFToken'] = $_POST['XSRFToken'] = $_GET['XSRFToken'] = getXSRFToken(sanitize($_POST['XSRFTag']));

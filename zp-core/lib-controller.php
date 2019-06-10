@@ -214,7 +214,7 @@ class Controller {
 		} return NULL;
 	}
 
-	protected static function zp_load_page() {
+	protected static function load_page() {
 		global $_current_page;
 		if (isset($_GET['page'])) {
 			$_current_page = sanitize_numeric($_GET['page']);
@@ -246,7 +246,7 @@ class Controller {
 		$_CMS_current_category = NULL;
 		$_post_date = NULL;
 		$_pre_authorization = array();
-		set_context(ZP_INDEX);
+		set_context(NPG_INDEX);
 	}
 
 	/**
@@ -258,7 +258,7 @@ class Controller {
 		if (!is_object($_current_search)) {
 			$_current_search = new SearchEngine();
 		}
-		add_context(ZP_SEARCH);
+		add_context(NPG_SEARCH);
 		$params = urldecode($_current_search->getSearchParams());
 		setNPGCookie("search_params", $params, SEARCH_DURATION);
 		return $_current_search;
@@ -362,7 +362,7 @@ class Controller {
 			}
 			return $image;
 		}
-		add_context(ZP_ALBUM);
+		add_context(NPG_ALBUM);
 		return $_current_album;
 	}
 
@@ -409,7 +409,7 @@ class Controller {
 		}
 		$_current_image->albumanmealbum = $album;
 
-		add_context(ZP_IMAGE | ZP_ALBUM);
+		add_context(NPG_IMAGE | NPG_ALBUM);
 		return $_current_image;
 	}
 
@@ -425,7 +425,7 @@ class Controller {
 		global $_CMS_current_page;
 		$_CMS_current_page = newPage($titlelink);
 		if ($_CMS_current_page->loaded) {
-			add_context(ZP_ZENPAGE_PAGE | ZP_ZENPAGE_SINGLE);
+			add_context(ZENPAGE_PAGE | ZENPAGE_SINGLE);
 		} else {
 			//check if it is an old link missing the suffix adn redirect if so
 			if (RW_SUFFIX && !preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $titlelink)) {
@@ -452,14 +452,14 @@ class Controller {
 	static function load_zenpage_news($request) {
 		global $_CMS_current_article, $_CMS_current_category, $_post_date;
 		if (isset($request['date'])) {
-			add_context(ZP_ZENPAGE_NEWS_DATE);
+			add_context(ZENPAGE_NEWS_DATE);
 			$_post_date = sanitize(trim($request['date'], '/'));
 		}
 		if (isset($request['category'])) {
 			$titlelink = sanitize(trim($request['category'], '/'));
 			$_CMS_current_category = new Category($titlelink);
 			if ($_CMS_current_category->loaded) {
-				add_context(ZP_ZENPAGE_NEWS_CATEGORY);
+				add_context(ZENPAGE_NEWS_CATEGORY);
 			} else {
 				$_GET['p'] = 'CATEGORY:' . $titlelink;
 				unset($_GET['category']);
@@ -471,7 +471,7 @@ class Controller {
 			$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink);
 			$result = query_single_row($sql);
 			if (is_array($result)) {
-				add_context(ZP_ZENPAGE_NEWS_ARTICLE | ZP_ZENPAGE_SINGLE);
+				add_context(ZENPAGE_NEWS_ARTICLE | ZENPAGE_SINGLE);
 				$_CMS_current_article = newArticle($titlelink);
 			} else {
 				//check if it is an old link missing the suffix and redirect if so
@@ -497,7 +497,7 @@ class Controller {
 	static function load_request() {
 		global $_CMS;
 		if ($success = npgFilters::apply('load_request', true)) { // filter allowed the load
-			self::zp_load_page();
+			self::load_page();
 			if (isset($_GET['p'])) {
 				$page = str_replace(array('/', '\\', '.'), '', sanitize($_GET['p']));
 				switch ($page) {

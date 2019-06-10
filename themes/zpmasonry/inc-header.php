@@ -119,7 +119,7 @@
 			if (getOption('RSS_album_image')) {
 				printRSSHeaderLink('AlbumsRSS', gettext('Latest Albums')) . "\n";
 			}
-			if (getOption('zp_plugin-zenpage') && getOption('zpmas_usenews')) {
+			if (extensionEnabled('zenpage') && getOption('zpmas_usenews')) {
 				if (getOption('RSS_articles')) {
 					printRSSHeaderLink('News', '', NEWS_LABEL) . "\n";
 				}
@@ -234,7 +234,7 @@
 					$(this).removeAttr('height');
 				});
 			});
-<?php if (getOption('zp_plugin_reCaptcha')) { ?>
+<?php if (extensionEnabled('reCaptcha')) { ?>
 				var RecaptchaOptions = {
 					theme: <?php
 	if ($zpmas_css == 'dark') {

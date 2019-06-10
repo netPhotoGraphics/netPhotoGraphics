@@ -40,7 +40,7 @@
 				<div id="rsslinks">
 					<span><?php echo gettext('Subscribe: '); ?></span>
 					<?php
-					if ((in_context(ZP_ALBUM)) && (getOption('RSS_album_image'))) {
+					if ((in_context(NPG_ALBUM)) && (getOption('RSS_album_image'))) {
 						printRSSLink("Collection", "", gettext('This Album'), "  |  ", false, "rsslink");
 					}
 					if (getOption('RSS_items_albums')) {

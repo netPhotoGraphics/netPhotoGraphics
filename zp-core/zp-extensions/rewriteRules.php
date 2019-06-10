@@ -147,11 +147,11 @@ class rewriteRules {
 			if ($i === false) {
 				trigger_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 			}
-			$this->zp_cfg_a = substr($_config_contents, 0, $i);
-			$this->zp_cfg_b = "//\n" . substr($_config_contents, $i);
+			$this->_cfg_a = substr($_config_contents, 0, $i);
+			$this->_cfg_b = "//\n" . substr($_config_contents, $i);
 		} else {
-			$this->zp_cfg_a = substr($_config_contents, 0, $i);
-			$this->zp_cfg_b = substr($_config_contents, $j);
+			$this->_cfg_a = substr($_config_contents, 0, $i);
+			$this->_cfg_b = substr($_config_contents, $j);
 			eval(substr($_config_contents, $i, $j - $i));
 			$this->conf_vars = $conf['special_pages'];
 			foreach ($_conf_vars['special_pages'] as $page => $element) {
@@ -290,7 +290,7 @@ class rewriteRules {
 			$newtext .= $token = "\n														'$page'=>			array('define'=>$define,						'rewrite'=>'{$element['rewrite']}'$rule),";
 		}
 		$newtext = substr($newtext, 0, -1) . "\n												);\n";
-		$_config_contents = $this->zp_cfg_a . $newtext . $this->zp_cfg_b;
+		$_config_contents = $this->_cfg_a . $newtext . $this->_cfg_b;
 		configFile::store($_config_contents);
 		return $notify;
 	}

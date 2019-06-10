@@ -13,7 +13,7 @@ if (isset($_GET['action'])) {
 			header('Location: ' . getAdminLink('admin.php').'?from=' . currentRelativeURL());
 			exit();
 		}
-		zp_session_start();
+		npg_session_start();
 		XSRFdefender('hitcounter');
 		$_gallery->set('hitcounter', 0);
 		$_gallery->save();

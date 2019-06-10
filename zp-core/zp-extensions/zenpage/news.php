@@ -138,7 +138,7 @@ updatePublished('news');
 						$_post_date = sanitize($_GET['date']);
 						echo '<em><small> (' . html_encode($_post_date) . ')</small></em>';
 						// require so the date dropdown is working
-						set_context(ZP_ZENPAGE_NEWS_DATE);
+						set_context(ZENPAGE_NEWS_DATE);
 					}
 					if (isset($_GET['published'])) {
 						switch ($_GET['published']) {

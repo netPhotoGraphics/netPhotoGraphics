@@ -78,7 +78,7 @@ function reconfigureAction($mandatory) {
 				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 			}
 			require_once(CORE_SERVERPATH . 'admin-globals.php');
-			header('Last-Modified: ' . ZP_LAST_MODIFIED);
+			header('Last-Modified: ' . NPG_LAST_MODIFIED);
 			header('Content-Type: text/html; charset=UTF-8');
 			?>
 			<!DOCTYPE html>

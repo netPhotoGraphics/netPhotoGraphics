@@ -36,7 +36,7 @@ class show_not_loggedin {
 	}
 
 	static function adminLoginAttempt($success, $user, $pass, $athority) {
-		if ($athority == 'zp_admin_auth' && $success) {
+		if ($athority == 'admin_auth' && $success) {
 			header('Location: ' . getAdminLink('admin.php'));
 			exit();
 		}

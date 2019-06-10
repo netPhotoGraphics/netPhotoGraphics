@@ -25,7 +25,7 @@ require_once(dirname(dirname(__FILE__)) . '/functions.php');
 require_once(dirname(__FILE__) . '/setup-functions.php');
 
 //allow only one setup to run
-$setupMutex = new zpMutex('sP');
+$setupMutex = new npgMutex('sP');
 $setupMutex->lock();
 
 if ($debug = isset($_REQUEST['debug'])) {
@@ -55,7 +55,7 @@ if (isset($_REQUEST['autorun'])) {
 }
 
 session_cache_limiter('nocache');
-$session = zp_session_start();
+$session = npg_session_start();
 $setup_checked = false;
 
 if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUEST['checked'])) {
@@ -145,11 +145,11 @@ if (isset($_GET['mod_rewrite'])) {
 
 $_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
-$updatezp_config = false;
+$update_config = false;
 if (strpos($_config_contents, "\$conf['charset']") === false) {
 	$k = strpos($_config_contents, "\$conf['UTF-8'] = true;");
 	$_config_contents = substr($_config_contents, 0, $k) . "\$conf['charset'] = 'UTF-8';\n" . substr($_config_contents, $k);
-	$updatezp_config = true;
+	$update_config = true;
 }
 
 if (strpos($_config_contents, "\$conf['special_pages']") === false) {
@@ -161,13 +161,13 @@ if (strpos($_config_contents, "\$conf['special_pages']") === false) {
 		$_config_contents = substr($_config_contents, 0, $k) . str_pad('', 80, '/') . "\n" .
 						substr($template, $i, $j - $i) . str_pad('', 5, '/') . "\n" .
 						substr($_config_contents, $k);
-		$updatezp_config = true;
+		$update_config = true;
 	}
 }
 
 $i = strpos($_config_contents, 'define("DEBUG", false);');
 if ($i !== false) {
-	$updatezp_config = true;
+	$update_config = true;
 	$j = strpos($_config_contents, "\n", $i);
 	$_config_contents = substr($_config_contents, 0, $i) . substr($_config_contents, $j); // remove this so it won't be defined twice
 }
@@ -175,7 +175,7 @@ if ($i !== false) {
 if (isset($_POST['db'])) { //try to update the zp-config file
 	setupXSRFDefender('db');
 	setupLog(gettext("db POST handling"));
-	$updatezp_config = true;
+	$update_config = true;
 	if (isset($_POST['db_software'])) {
 		$_config_contents = configFile::update('db_software', trim(sanitize($_POST['db_software'], 0)), $_config_contents);
 	}
@@ -202,7 +202,7 @@ define('ACK_DISPLAY_ERRORS', 2);
 if (isset($_GET['security_ack'])) {
 	setupXSRFDefender('security_ack');
 	$_config_contents = configFile::update('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
-	$updatezp_config = true;
+	$update_config = true;
 }
 
 $permission_names = array(
@@ -236,17 +236,17 @@ if ($updatechmod || $newconfig) {
 			$_config_contents = substr($_config_contents, 0, $i) . "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n" . substr($_config_contents, $i);
 		}
 	}
-	$updatezp_config = true;
+	$update_config = true;
 }
 
 if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 	setupXSRFDefender('FILESYSTEM_CHARSET');
 	$fileset = $_REQUEST['FILESYSTEM_CHARSET'];
 	$_config_contents = configFile::update('FILESYSTEM_CHARSET', $fileset, $_config_contents);
-	$updatezp_config = true;
+	$update_config = true;
 }
 
-if ($updatezp_config) {
+if ($update_config) {
 	configFile::store($_config_contents);
 	//	reload the page so that the database config takes effect
 	$q = rtrim($debugq . $autorunq, '&');
@@ -298,13 +298,13 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 				if ($preferred) {
 					$_conf_vars['db_software'] = $preferred;
 					$_config_contents = configFile::update('db_software', $preferred, $_config_contents);
-					$updatezp_config = true;
+					$update_config = true;
 				}
 			}
 		} else {
 			$_conf_vars['db_software'] = $selected_database = $preferred;
 			$_config_contents = configFile::update('db_software', $_config_contents, $preferred);
-			$updatezp_config = true;
+			$update_config = true;
 			$confDB = NULL;
 		}
 
@@ -324,7 +324,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	}
 }
 
-if ($updatezp_config) {
+if ($update_config) {
 	configFile::store($_config_contents);
 }
 $result = true;
@@ -385,14 +385,14 @@ header("HTTP/1.0 200 OK");
 header("Status: 200 OK");
 header("Cache-Control: no-cache, must-revalidate, no-store, pre-check=0, post-check=0, max-age=0");
 header("Pragma: no-cache");
-header('Last-Modified: ' . ZP_LAST_MODIFIED);
+header('Last-Modified: ' . NPG_LAST_MODIFIED);
 header("Expires: Thu, 19 Nov 1981 08:52:00 GMT");
 
 if (defined('CHMOD_VALUE')) {
 	$chmod = CHMOD_VALUE & 0666;
 }
 
-setOptionDefault('zp_plugin_security-logger', 9 | CLASS_PLUGIN);
+enableExtension('security-logger', 9 | CLASS_PLUGIN);
 
 $cloneid = bin2hex(FULLWEBPATH);
 $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION['clone'][$cloneid]['mod_rewrite'] && !file_exists(SERVERPATH . '/.htaccess');

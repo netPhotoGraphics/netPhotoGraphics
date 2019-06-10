@@ -13,7 +13,7 @@ $plugin_is_filter = 800 | CLASS_PLUGIN;
 $plugin_description = gettext("Outgoing mail handler based on the <em>PHPMailer</em> class mailing facility.");
 $plugin_disable = (npgFilters::has_filter('sendmail') && !extensionEnabled('PHPMailer')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(npgFilters::script('sendmail'))) : '';
 
-$option_interface = 'zp_PHPMailer';
+$option_interface = '_PHPMailer';
 
 if ($plugin_disable) {
 	enableExtension('PHPMailer', 0);
@@ -25,12 +25,12 @@ if ($plugin_disable) {
  * Option handler class
  *
  */
-class zp_PHPMailer {
+class _PHPMailer {
 
 	/**
 	 * class instantiation function
 	 *
-	 * @return zp_PHPMailer
+	 * @return _PHPMailer
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {

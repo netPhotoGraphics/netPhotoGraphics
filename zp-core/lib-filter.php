@@ -92,15 +92,15 @@ class npgFilters {
 		// Object Class Calling
 		else if (is_object($function[0])) {
 			$obj_idx = get_class($function[0]) . $function[1];
-			if (!isset($function[0]->_zp_filters_id)) {
+			if (!isset($function[0]->_npg_filters_id)) {
 				if (false === $priority)
 					return false;
 				$count = isset($_filters[$hook][$priority]) ? count((array) $_filters[$hook][$priority]) : 0;
-				$function[0]->_zp_filters_id = $count;
+				$function[0]->_npg_filters_id = $count;
 				$obj_idx .= $count;
 				unset($count);
 			} else {
-				$obj_idx .= $function[0]->_zp_filters_id;
+				$obj_idx .= $function[0]->_npg_filters_id;
 			}
 			return $obj_idx;
 		}

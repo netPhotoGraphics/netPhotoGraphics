@@ -519,20 +519,20 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 		$slideshowhidden = '';
 		$slideshowlink = rewrite_path(_PAGE_ . '/slideshow', "index.php?p=slideshow");
 		$numberofimages = 0;
-		if (in_context(ZP_SEARCH)) {
+		if (in_context(NPG_SEARCH)) {
 			$imagenumber = '';
 			$imagefile = '';
 			$albumnr = 0;
 			$slideshowhidden = '<input type="hidden" name="preserve_search_params" value="' . html_encode($_current_search->getSearchParams()) . '" />';
 		} else {
-			if (in_context(ZP_IMAGE)) {
+			if (in_context(NPG_IMAGE)) {
 				$imagenumber = imageNumber();
 				$imagefile = $_current_image->filename;
 			} else {
 				$imagenumber = '';
 				$imagefile = '';
 			}
-			if (in_context(ZP_SEARCH_LINKED)) {
+			if (in_context(SEARCH_LINKED)) {
 				$albumnr = -$_current_album->getID();
 				$slideshowhidden = '<input type="hidden" name="preserve_search_params" value="' . html_encode($_current_search->getSearchParams()) . '" />';
 			} else {
@@ -568,7 +568,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 				break;
 			case 'colorbox':
 				if ($numberofimages > 1) {
-					if ((in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) || in_context(ZP_SEARCH) && is_null($_current_album)) {
+					if ((in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) || in_context(NPG_SEARCH) && is_null($_current_album)) {
 						$images = $_current_search->getImages(0);
 					} else {
 						$images = $_current_album->getImages(0);
@@ -610,7 +610,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 							} else {
 								$imgobj = newImage($_current_album, $image);
 							}
-							if (in_context(ZP_SEARCH_LINKED) || $_gallery_page != 'image.php') {
+							if (in_context(SEARCH_LINKED) || $_gallery_page != 'image.php') {
 								if ($count == 1) {
 									$style = '';
 								} else {

@@ -46,7 +46,7 @@ if (!function_exists('hex2bin')) {
 }
 
 $_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
-$_HTML_cache = new _zp_HTML_cache(); // this will be overridden by the plugin if enabled.
+$_HTML_cache = new _npg_HTML_cache(); // this will be overridden by the plugin if enabled.
 require_once(dirname(__FILE__) . '/lib-i18n.php');
 
 //encrypt/decrypt constants

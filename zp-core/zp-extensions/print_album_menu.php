@@ -134,7 +134,7 @@ function printAlbumMenu($option, $showcount = NULL, $css_id = '', $css_class_top
 function printAlbumMenuList($option, $showcount = NULL, $css_id = '', $css_class_topactive = '', $css_class = '', $css_class_active = '', $indexname = "Gallery Index", $showsubs = NULL, $firstimagelink = false, $keeptopactive = false, $startlist = true, $limit = NULL) {
 	global $_gallery, $_current_album, $_gallery_page;
 	// if in search mode don't use the foldout contextsensitiveness and show only toplevel albums
-	if (in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(SEARCH_LINKED)) {
 		$option = "list-top";
 	}
 
@@ -168,7 +168,7 @@ function printAlbumMenuList($option, $showcount = NULL, $css_id = '', $css_class
 		}
 	}
 
-	if ($option == 'list-sub' && in_context(ZP_ALBUM)) {
+	if ($option == 'list-sub' && in_context(NPG_ALBUM)) {
 		$albums = $_current_album->getAlbums();
 	} else {
 		$albums = $_gallery->getAlbums();
@@ -262,9 +262,9 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 				}
 			}
 
-			if ((in_context(ZP_ALBUM) && !in_context(ZP_SEARCH_LINKED) && (@$_current_album->getID() == $albumobj->getID() ||
+			if ((in_context(NPG_ALBUM) && !in_context(SEARCH_LINKED) && (@$_current_album->getID() == $albumobj->getID() ||
 							$albumobj->name == $currenturalbumname)) ||
-							(in_context(ZP_SEARCH_LINKED)) && ($a = $_current_search->getDynamicAlbum()) && $a->name == $albumobj->name) {
+							(in_context(SEARCH_LINKED)) && ($a = $_current_search->getDynamicAlbum()) && $a->name == $albumobj->name) {
 				$current = $css_class_t;
 			} else {
 				$current = "";
@@ -329,7 +329,7 @@ function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $fi
 		?>
 		<form name="AutoListBox" action="#">
 			<p>
-				<select name="ListBoxURL" size="1" onchange="zp_gotoLink(this.form);">
+				<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form);">
 					<?php
 					if (!empty($indexname)) {
 						$selected = checkSelectedAlbum("", "index");

@@ -347,7 +347,7 @@ class sitemap {
 		global $_gallery, $_conf_vars, $_sitemap_number;
 		$data = '';
 		if ($_sitemap_number < 2) {
-			set_context(ZP_INDEX);
+			set_context(NPG_INDEX);
 			$albums_per_page = getOption('albums_per_page');
 			if (sitemap::galleryIndex()) {
 				$galleryindex_mod = ltrim(getCustomPageRewrite('gallery'), '/');
@@ -495,7 +495,7 @@ class sitemap {
 			$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 			foreach ($albums as $album) {
 				$albumobj = newAlbum($album['folder']);
-				set_context(ZP_ALBUM);
+				set_context(NPG_ALBUM);
 				makeAlbumCurrent($albumobj);
 				$pageCount = getTotalPages();
 				//$imageCount = getNumImages();
@@ -791,7 +791,7 @@ class sitemap {
 					Break;
 			}
 			// getting pages for the main news loop
-			$zenpage_articles_per_page = ZP_ARTICLES_PER_PAGE;
+			$zenpage_articles_per_page = ARTICLES_PER_PAGE;
 			$newspages = ceil($_CMS->getTotalArticles() / $zenpage_articles_per_page);
 			if ($newspages > 1) {
 				for ($x = 2; $x <= $newspages; $x++) {
@@ -913,7 +913,7 @@ class sitemap {
 
 						// getting pages for the categories
 
-						$zenpage_articles_per_page = ZP_ARTICLES_PER_PAGE;
+						$zenpage_articles_per_page = ARTICLES_PER_PAGE;
 						$articlecount = count($catobj->getArticles());
 						$catpages = ceil($articlecount / $zenpage_articles_per_page);
 						if ($catpages > 1) {

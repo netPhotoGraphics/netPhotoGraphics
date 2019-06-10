@@ -13,7 +13,7 @@ $_themeScript_timer['start'] = microtime();
 require_once(dirname(__FILE__) . '/functions.php');
 
 if (GALLERY_SESSION || npg_loggedin(UPLOAD_RIGHTS | ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) {
-	zp_session_start();
+	npg_session_start();
 }
 if (function_exists('openssl_encrypt')) {
 	require_once(CORE_SERVERPATH . 'class.ncrypt.php');
@@ -67,13 +67,13 @@ $_current_page_check = 'checkPageValidity';
 if (isset($_GET['p'])) {
 	$_index_theme = Controller::prepareCustomPage();
 	// Display an Image page.
-} else if (in_context(ZP_IMAGE)) {
+} else if (in_context(NPG_IMAGE)) {
 	$_index_theme = Controller::prepareImagePage();
 	// Display an Album page.
-} else if (in_context(ZP_ALBUM)) {
+} else if (in_context(NPG_ALBUM)) {
 	$_index_theme = Controller::prepareAlbumPage();
 	// Display the Index page.
-} else if (in_context(ZP_INDEX)) {
+} else if (in_context(NPG_INDEX)) {
 	$_index_theme = Controller::prepareIndexPage();
 } else {
 	$_index_theme = setupTheme();
@@ -159,7 +159,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	header("HTTP/1.0 200 OK");
 	header("Status: 200 OK");
-	header('Last-Modified: ' . ZP_LAST_MODIFIED);
+	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	npgFilters::apply('theme_headers');
 	include(internalToFilesystem($_themeScript));
 } else {

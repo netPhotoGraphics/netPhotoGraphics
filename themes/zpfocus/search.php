@@ -17,7 +17,7 @@
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
-		$zenpage = getOption('zp_plugin_zenpage');
+		$zenpage = extensionEnabled('zenpage');
 		if ($zenpage && !isArchive()) {
 			$numpages = getNumPages();
 			if ($zpfocus_news) {

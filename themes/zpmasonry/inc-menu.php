@@ -10,11 +10,11 @@
 					<a href="javascript:$('#subscribeextrashow').toggle();" class="rss" title="<?php echo gettext('RSS'); ?>"></a>
 					<div id="subscribeextrashow">
 						<ul>
-							<?php if (in_context(ZP_ALBUM)) { ?>
+							<?php if (in_context(NPG_ALBUM)) { ?>
 								<?php if (getOption('RSS_album_image')) { ?><li><?php printRSSLink('Collection', '', gettext('Images of this Album'), '', false); ?></li><?php } ?>
 								<?php if (getOption('RSS_comments')) { ?><li><?php printRSSLink('Comments-album', '', gettext('Comments of this Album'), '', false); ?></li><?php } ?>
 							<?php } ?>
-							<?php if (in_context(ZP_IMAGE)) { ?>
+							<?php if (in_context(NPG_IMAGE)) { ?>
 									<?php if (getOption('RSS_comments')) { ?><li><?php printRSSLink('Comments-image', '', gettext('Comments of this Image'), '', false); ?></li><?php } ?>
 								<?php } ?>
 								<?php if (getOption('RSS_album_image')) { ?><li><?php printRSSLink('Gallery', '', gettext('Images'), '', false); ?></li><?php } ?>

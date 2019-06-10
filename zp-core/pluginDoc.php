@@ -195,7 +195,7 @@ if (!defined('OFFSET_PATH')) {
 		exit();
 	}
 
-	header('Last-Modified: ' . ZP_LAST_MODIFIED);
+	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
 	$real_locale = i18n::getUserLocale();
@@ -399,7 +399,7 @@ if (!defined('OFFSET_PATH')) {
 				<br class="clearall" />
 
 				<div id="plugin-content">
-					<h1><img class="zp_logoicon" src="<?php echo $ico; ?>" alt="logo" title="<?php echo $whose; ?>" /><?php echo html_encode($extension); ?></h1>
+					<h1><img class="npg_logoicon" src="<?php echo $ico; ?>" alt="logo" title="<?php echo $whose; ?>" /><?php echo html_encode($extension); ?></h1>
 					<div class="border">
 						<?php echo $plugin_description; ?>
 					</div>

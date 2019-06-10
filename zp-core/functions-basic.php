@@ -64,12 +64,12 @@ function getUserID() {
  *
  * @param type $ex the exception
  */
-function zpExceptionHandler($ex) {
+function npgExceptionHandler($ex) {
 	$errno = $ex->getCode();
 	$errstr = $ex->getMessage();
 	$errfile = $ex->getFile();
 	$errline = $ex->getLine();
-	zpErrorHandler($errno, $errstr, $errfile, $errline);
+	npgErrorHandler($errno, $errstr, $errfile, $errline);
 	die();
 }
 
@@ -82,7 +82,7 @@ function zpExceptionHandler($ex) {
  * @param string $errline
  * @return void|boolean
  */
-function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
+function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 	global $_current_admin_obj, $_index_theme;
 	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
@@ -125,7 +125,7 @@ function zpErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 /**
  * shut-down handler, check for errors
  */
-function zpShutDownFunction() {
+function npgShutDownFunction() {
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_USER_ERROR, E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$file = str_replace('\\', '/', $error['file']);
@@ -138,7 +138,7 @@ function zpShutDownFunction() {
 				enableExtension($extension, 0);
 			}
 		}
-		zpErrorHandler($error['type'], $error['message'], $file, $error['line']);
+		npgErrorHandler($error['type'], $error['message'], $file, $error['line']);
 	}
 	if (function_exists('db_close')) {
 		db_close();
@@ -639,7 +639,7 @@ function secureServer() {
  *
  * Starts a session (perhaps a secure one)
  */
-function zp_session_start() {
+function npg_session_start() {
 	$result = session_id();
 	if ($result) {
 		return $result;
@@ -667,7 +667,7 @@ function zp_session_start() {
 	}
 }
 
-function zp_session_destroy() {
+function npg_session_destroy() {
 	if ($name = session_name()) {
 		$_SESSION = array();
 		if (ini_get("session.use_cookies")) {
@@ -699,7 +699,7 @@ function getNPGCookie($name) {
 		debugLog("getNPGCookie($name)::" . 'album_session=' . GALLERY_SESSION . "; SESSION[" . session_id() . "]=" . $sessionv . ", COOKIE=" . $cookiev);
 	}
 	if ($cookiev || !defined('GALLERY_SESSION') || !GALLERY_SESSION) {
-		return zp_cookieEncode($cookiev);
+		return encodeNPGCookie($cookiev);
 	}
 	if (isset($_SESSION[$name])) {
 		return $_SESSION[$name];
@@ -712,7 +712,7 @@ function getNPGCookie($name) {
  * Encodes a cookie value tying it to the user IP
  * @param $value
  */
-function zp_cookieEncode($value) {
+function encodeNPGCookie($value) {
 	if (defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
 		return rc4(getUserIP() . HASH_SEED, $value);
 	} else {
@@ -734,7 +734,7 @@ function setNPGCookie($name, $value, $time = NULL, $security = true) {
 	if (empty($value)) {
 		$cookiev = '';
 	} else {
-		$cookiev = zp_cookieEncode($value);
+		$cookiev = encodeNPGCookie($value);
 	}
 	if (is_null($t = $time)) {
 		$t = time() + COOKIE_PERSISTENCE;
@@ -813,7 +813,7 @@ function getSerializedArray($string) {
  * @author Stephen
  *
  */
-class zpMutex {
+class npgMutex {
 
 	private $locked = NULL;
 	private $ignoreUseAbort = NULL;
@@ -1739,7 +1739,7 @@ function switchLog($log) {
 	chdir($dir);
 	@copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log', SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '-' . $counter . '.log');
 	if (getOption($log . '_log_mail')) {
-		zp_mail(sprintf(gettext('%s log size limit exceeded'), $log), sprintf(gettext('The %1$s log has exceeded its size limit and has been renamed to %2$s.'), $log, $log . '-' . $counter . '.log'));
+		npg_mail(sprintf(gettext('%s log size limit exceeded'), $log), sprintf(gettext('The %1$s log has exceeded its size limit and has been renamed to %2$s.'), $log, $log . '-' . $counter . '.log'));
 	}
 }
 

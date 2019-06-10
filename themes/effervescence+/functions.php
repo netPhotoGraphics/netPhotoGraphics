@@ -232,7 +232,7 @@ function printHeadingImage($randomImage) {
 /* Custom caption functions */
 
 function getCustomAlbumDesc() {
-	if (!in_context(ZP_ALBUM))
+	if (!in_context(NPG_ALBUM))
 		return false;
 	global $_current_album;
 	$desc = $_current_album->getDesc();

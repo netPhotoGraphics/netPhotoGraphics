@@ -1281,7 +1281,7 @@ class Image extends MediaObject {
 		if ($this->index == NULL) {
 			$album = $this->albumnamealbum;
 			$filename = $this->filename;
-			if (!is_null($_current_search) && !in_context(ZP_ALBUM_LINKED) || $album->isDynamic()) {
+			if (!is_null($_current_search) && !in_context(ALBUM_LINKED) || $album->isDynamic()) {
 				$imagefolder = $this->imagefolder;
 				if ($album->isDynamic()) {
 					$images = $album->getImages();
@@ -1313,7 +1313,7 @@ class Image extends MediaObject {
 		$index = $this->getIndex();
 		$album = $this->albumnamealbum;
 
-		if (!is_null($_current_search) && !in_context(ZP_ALBUM_LINKED)) {
+		if (!is_null($_current_search) && !in_context(ALBUM_LINKED)) {
 			$image = $_current_search->getImage($index + 1);
 		} else {
 			$image = $album->getImage($index + 1);
@@ -1335,7 +1335,7 @@ class Image extends MediaObject {
 		$album = $this->albumnamealbum;
 		$index = $this->getIndex();
 
-		if (!is_null($_current_search) && !in_context(ZP_ALBUM_LINKED)) {
+		if (!is_null($_current_search) && !in_context(ALBUM_LINKED)) {
 			$image = $_current_search->getImage($index - 1);
 		} else {
 			$image = $album->getImage($index - 1);
@@ -1436,7 +1436,7 @@ class Image extends MediaObject {
 	 * returns true if there is any protection on the image
 	 */
 	function isProtected() {
-		return $this->checkforGuest() != 'zp_public_access';
+		return $this->checkforGuest() != 'public_access';
 	}
 
 	/**

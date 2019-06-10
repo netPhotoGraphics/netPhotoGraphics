@@ -149,7 +149,7 @@
 			jQuery(function () {
 				jQuery('ul.sf-menu').superfish();
 			});
-<?php if (getOption('zp_plugin_reCaptcha')) { ?>
+<?php if (extensionEnabled('reCaptcha')) { ?>
 				var RecaptchaOptions = {
 					theme: 'white'
 				};

@@ -188,7 +188,7 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 			if (is_null($mode)) {
 				$mode = getOption('bxslider_mode');
 			}
-			if (in_context(ZP_SEARCH_LINKED)) {
+			if (in_context(SEARCH_LINKED)) {
 				if ($_current_search->getNumImages() === 0) {
 					$searchimages = false;
 				} else {
@@ -197,7 +197,7 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 			} else {
 				$searchimages = false;
 			}
-			if (in_context(ZP_SEARCH_LINKED) && $searchimages) {
+			if (in_context(SEARCH_LINKED) && $searchimages) {
 				$bxslider_items = $_current_search->getImages();
 			} else {
 				$bxslider_items = $_current_album->getImages();

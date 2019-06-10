@@ -29,7 +29,7 @@ if (getOption('rating_image_individual_control')) {
 }
 
 // register the scripts needed
-if (in_context(ZP_INDEX)) {
+if (in_context(NPG_INDEX)) {
 	npgFilters::register('theme_body_close', 'jquery_rating::ratingJS');
 }
 

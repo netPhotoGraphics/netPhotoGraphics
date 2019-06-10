@@ -885,7 +885,7 @@ class AlbumBase extends MediaObject {
 	 * returns true if there is any protection on the album
 	 */
 	function isProtected() {
-		return $this->checkforGuest() != 'zp_public_access';
+		return $this->checkforGuest() != 'public_access';
 	}
 
 	/**
@@ -925,7 +925,7 @@ class AlbumBase extends MediaObject {
 	 */
 	function getAlbumTheme() {
 		global $_gallery;
-		if (in_context(ZP_SEARCH_LINKED)) {
+		if (in_context(SEARCH_LINKED)) {
 			return $_gallery->getCurrentTheme();
 		} else {
 			return $this->get('album_theme');

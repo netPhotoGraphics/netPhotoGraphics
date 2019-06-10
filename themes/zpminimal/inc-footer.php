@@ -7,7 +7,7 @@
 		<?php if (extensionEnabled('rss')) { ?>
 			<span>| <?php echo gettext('Subscribe: '); ?>
 				<?php
-				if (in_context(ZP_ALBUM)) {
+				if (in_context(NPG_ALBUM)) {
 					printRSSLink("Collection", "", gettext('This Album'), ", ", false, "rsslink");
 				}
 				printRSSLink("Gallery", "", (gettext('Gallery Images')), "", false, "rsslink");

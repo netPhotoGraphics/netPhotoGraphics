@@ -55,12 +55,12 @@ if (isset($_GET['action'])) {
 						break;
 					case 2:
 						//going from enabled to disabled
-						setOption('zp_plugin_' . $_plugin_extension, 0);
+						enableExtension($_plugin_extension, 0);
 						$cleanup[] = array('p' => $p, 'f' => $f);
 						break;
 					case 3:
 						//going from disabled to enabled
-						setOption('zp_plugin_' . $_plugin_extension, $data['is']);
+						enableExtension($_plugin_extension, $data['is']);
 						$option_interface = NULL;
 						require_once($p);
 
@@ -277,20 +277,20 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 
 				if ($plugin_is_filter & CLASS_PLUGIN) {
-					$iconA = '<img class="zp_logoicon" width="8px" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" /><a title="' . gettext('class plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" /></a><img class="zp_logoicon" width="8px" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
+					$iconA = '<img class="npg_logoicon" width="8px" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" /><a title="' . gettext('class plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" /></a><img class="npg_logoicon" width="8px" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
 					$iconT = '';
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
-						$iconA = '<a title="' . gettext('admin plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder.png" /></a>';
+						$iconA = '<a title="' . gettext('admin plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder.png" /></a>';
 					} else {
-						$iconA = '<img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
+						$iconA = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
-						$iconT = '<a title="' . gettext('feature plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" /></a>';
+						$iconT = '<a title="' . gettext('feature plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" /></a>';
 					} else if ($plugin_is_filter & THEME_PLUGIN) {
-						$iconT = '<a title="' . gettext('theme plugin') . '"><img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" /></a>';
+						$iconT = '<a title="' . gettext('theme plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" /></a>';
 					} else {
-						$iconT = '<img class="zp_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
+						$iconT = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
 					}
 				}
 
@@ -321,7 +321,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 									<?php
 								}
 								?>
-								<img class="zp_logoicon" src="<?php echo $ico; ?>" alt="<?php echo gettext('logo'); ?>" title="<?php echo $whose; ?>" />
+								<img class="npg_logoicon" src="<?php echo $ico; ?>" alt="<?php echo gettext('logo'); ?>" title="<?php echo $whose; ?>" />
 								<?php
 								echo $iconT;
 								echo $iconA;

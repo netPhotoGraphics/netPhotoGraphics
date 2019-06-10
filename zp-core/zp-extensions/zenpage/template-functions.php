@@ -40,7 +40,7 @@ function is_NewsPage() {
  * @return bool
  */
 function is_NewsArticle() {
-	return is_News() && in_context(ZP_ZENPAGE_SINGLE);
+	return is_News() && in_context(ZENPAGE_SINGLE);
 }
 
 /**
@@ -49,7 +49,7 @@ function is_NewsArticle() {
  * @return bool
  */
 function is_NewsCategory() {
-	return in_context(ZP_ZENPAGE_NEWS_CATEGORY);
+	return in_context(ZENPAGE_NEWS_CATEGORY);
 }
 
 /**
@@ -58,7 +58,7 @@ function is_NewsCategory() {
  * @return bool
  */
 function is_NewsArchive() {
-	return in_context(ZP_ZENPAGE_NEWS_DATE);
+	return in_context(ZENPAGE_NEWS_DATE);
 }
 
 /**
@@ -67,7 +67,7 @@ function is_NewsArchive() {
  * @return bool
  */
 function is_Pages() {
-	return in_context(ZP_ZENPAGE_PAGE);
+	return in_context(ZENPAGE_PAGE);
 }
 
 /**
@@ -159,7 +159,7 @@ function getLatestNews($number = 2, $category = '', $sticky = true, $sortdirecti
 function printLatestNews($number = 5, $category = '', $showdate = true, $showcontent = true, $contentlength = 70, $showcat = true, $readmore = NULL, $sticky = true) {
 	global $_gallery;
 	if (is_null($readmore)) {
-		$readmore = get_language_string(ZP_READ_MORE);
+		$readmore = get_language_string(READ_MORE);
 	}
 
 	$latest = getLatestNews($number, $category, $sticky);
@@ -193,7 +193,7 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
 			echo "<span class=\"latestnews-date\">" . $date . "</span>\n";
 		}
 		if ($showcontent) {
-			echo "<span class=\"latestnews-desc\">" . shortenContent($content, $contentlength, ZP_SHORTENINDICATOR) . "</span>\n";
+			echo "<span class=\"latestnews-desc\">" . shortenContent($content, $contentlength, SHORTENINDICATOR) . "</span>\n";
 		}
 		if ($showcat && !empty($categories)) {
 			echo "<span class=\"latestnews-cats\">(" . html_encode($categories) . ")</span>\n";
@@ -232,7 +232,7 @@ function getNumNews($total = false) {
 	if ($_CMS->news_enabled) {
 		if ($total) {
 			return count($_CMS->getArticles(0));
-		} else if (in_context(ZP_SEARCH)) {
+		} else if (in_context(NPG_SEARCH)) {
 			return count($_current_search->getArticles());
 		} else {
 			return count($_CMS->getArticles(0));
@@ -251,14 +251,14 @@ function getNumNews($total = false) {
 function next_news() {
 	global $_CMS, $_CMS_current_article, $_CMS_current_article_restore, $_CMS_articles, $_CMS_current_category, $_gallery, $_current_search;
 	if ($_CMS->news_enabled && is_null($_CMS_articles)) {
-		if (in_context(ZP_SEARCH)) {
+		if (in_context(NPG_SEARCH)) {
 			//note: we do not know how to paginate the search page, so for now we will return all news articles
-			$_CMS_articles = $_current_search->getArticles(ZP_ARTICLES_PER_PAGE, NULL, true, NULL, NULL);
+			$_CMS_articles = $_current_search->getArticles(ARTICLES_PER_PAGE, NULL, true, NULL, NULL);
 		} else {
-			if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
-				$_CMS_articles = $_CMS_current_category->getArticles(ZP_ARTICLES_PER_PAGE, NULL, false, NULL, NULL);
+			if (in_context(ZENPAGE_NEWS_CATEGORY)) {
+				$_CMS_articles = $_CMS_current_category->getArticles(ARTICLES_PER_PAGE, NULL, false, NULL, NULL);
 			} else {
-				$_CMS_articles = $_CMS->getArticles(ZP_ARTICLES_PER_PAGE, NULL, false, NULL, NULL);
+				$_CMS_articles = $_CMS->getArticles(ARTICLES_PER_PAGE, NULL, false, NULL, NULL);
 			}
 			if (empty($_CMS_articles)) {
 				return npgFilters::apply('next_object_loop', NULL, $_CMS_current_article);
@@ -269,7 +269,7 @@ function next_news() {
 	if (!empty($_CMS_articles)) {
 		$news = array_shift($_CMS_articles);
 		if (is_array($news)) {
-			add_context(ZP_ZENPAGE_NEWS_ARTICLE);
+			add_context(ZENPAGE_NEWS_ARTICLE);
 			$_CMS_current_article = newArticle($news['titlelink']);
 			return npgFilters::apply('next_object_loop', true, $_CMS_current_article);
 		}
@@ -277,7 +277,7 @@ function next_news() {
 
 	$_CMS_articles = NULL;
 	$_CMS_current_article = $_CMS_current_article_restore;
-	rem_context(ZP_ZENPAGE_NEWS_ARTICLE);
+	rem_context(ZENPAGE_NEWS_ARTICLE);
 	return npgFilters::apply('next_object_loop', false, $_CMS_current_article);
 }
 
@@ -386,13 +386,13 @@ function getNewsContent($shorten = false, $shortenindicator = NULL, $readmore = 
 	$articlecontent = $_CMS_current_article->getContent();
 	if ($shorten !== false || !is_NewsArticle()) { //then we shorten the content displayed
 		if (is_null($shortenindicator)) {
-			$shortenindicator = ZP_SHORTENINDICATOR;
+			$shortenindicator = SHORTENINDICATOR;
 		}
 		if (is_null($readmore)) {
-			$readmore = get_language_string(ZP_READ_MORE);
+			$readmore = get_language_string(READ_MORE);
 		}
 		if (!$shorten) {
-			$shorten = ZP_SHORTEN_LENGTH;
+			$shorten = SHORTEN_LENGTH;
 		}
 		$readmorelink = '<p class="readmorelink"><a href="' . html_encode($_CMS_current_article->getLink()) . '" title="' . html_encode($readmore) . '">' . html_encode($readmore) . '</a></p>';
 		$articlecontent = shortenContent($articlecontent, $shorten, $shortenindicator . $readmorelink);
@@ -446,7 +446,7 @@ function printNewsExtraContent() {
  * @return string
  */
 function getNewsReadMore() {
-	$readmore = get_language_string(ZP_READ_MORE);
+	$readmore = get_language_string(READ_MORE);
 	return $readmore;
 }
 
@@ -480,7 +480,7 @@ function printNewsAuthor($fullname = false) {
  */
 function printCurrentNewsCategory($before = '') {
 	global $_CMS_current_category;
-	if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 		if ($before) {
 			echo '<span class="beforetext">' . html_encode($before) . '</span>';
 		}
@@ -656,7 +656,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
  */
 function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
 	global $_post_date;
-	if (in_context(ZP_ZENPAGE_NEWS_DATE)) {
+	if (in_context(ZENPAGE_NEWS_DATE)) {
 		$archivedate = $_post_date;
 		if ($mode == "formatted") {
 			$archivedate = strtotime($archivedate);
@@ -753,7 +753,7 @@ function printNewsCategoryURL($before = '', $catlink = '') {
  */
 function printNewsIndexURL($name = NULL, $before = '', $archive = NULL) {
 	global $_post_date, $_gallery_page;
-	if (!in_context(ZP_SEARCH_LINKED)) {
+	if (!in_context(SEARCH_LINKED)) {
 		if (is_null($name)) {
 			$name = NEWS_LABEL;
 		}
@@ -790,10 +790,10 @@ function getNewsArchivePath($date, $page) {
 
 function getNewsPathNav($page) {
 	global $_CMS_current_category, $_post_date;
-	if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 		return $_CMS_current_category->getLink($page);
 	}
-	if (in_context(ZP_ZENPAGE_NEWS_DATE)) {
+	if (in_context(ZENPAGE_NEWS_DATE)) {
 		return getNewsArchivePath($_post_date, $page);
 	}
 	$rewrite = '/' . _NEWS_ . '/';
@@ -869,7 +869,7 @@ function getNextNewsPageURL() {
  */
 function hasNextNewsPage() {
 	global $_CMS, $_current_page;
-	$total = ceil($_CMS->getTotalArticles() / ZP_ARTICLES_PER_PAGE);
+	$total = ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
 	return $_current_page < $total;
 }
 
@@ -915,7 +915,7 @@ function printNewsPageList($class = 'pagelist') {
  */
 function printNewsPageListWithNav($next, $prev, $nextprev = true, $class = 'pagelist', $firstlast = true, $navlen = 9) {
 	global $_CMS, $_current_page;
-	$total = ceil($_CMS->getTotalArticles() / ZP_ARTICLES_PER_PAGE);
+	$total = ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
 	if ($total > 1) {
 		if ($navlen == 0)
 			$navlen = $total;
@@ -983,7 +983,7 @@ function printNewsPageListWithNav($next, $prev, $nextprev = true, $class = 'page
 
 function getTotalNewsPages() {
 	global $_CMS;
-	return ceil($_CMS->getTotalArticles() / ZP_ARTICLES_PER_PAGE);
+	return ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
 }
 
 /* * ********************************************************************* */
@@ -1379,8 +1379,8 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	}
 
 	// don't highlight current pages or foldout if in search mode as next_page() sets page context
-	if (in_context(ZP_SEARCH) && $mode == 'pages') { // categories are not searched
-		rem_context(ZP_ZENPAGE_PAGE);
+	if (in_context(NPG_SEARCH) && $mode == 'pages') { // categories are not searched
+		rem_context(ZENPAGE_PAGE);
 	}
 
 	if (0 == count($items) + (int) ($mode == 'allcategories'))
@@ -1411,11 +1411,11 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 					echo "<li><a href=\"" . html_encode(getNewsIndexURL()) . "\" title=\"" . html_encode($indexname) . "\">" . html_encode($display) . "</a>";
 				}
 				if ($counter) {
-					if (in_context(ZP_ZENPAGE_NEWS_CATEGORY) && $mode == 'categories') {
+					if (in_context(ZENPAGE_NEWS_CATEGORY) && $mode == 'categories') {
 						$totalcount = count($_CMS_current_category->getArticles(0));
 					} else {
 						save_context();
-						rem_context(ZP_ZENPAGE_NEWS_DATE);
+						rem_context(ZENPAGE_NEWS_DATE);
 						$totalcount = count($_CMS->getArticles(0));
 						restore_context();
 					}
@@ -1535,7 +1535,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 					$getname = '';
 				}
 				$current = "";
-				if ($itemtitlelink == $getname && !in_context(ZP_SEARCH)) {
+				if ($itemtitlelink == $getname && !in_context(NPG_SEARCH)) {
 					switch ($mode) {
 						case 'pages':
 							if ($_gallery_page == 'pages.php') {
@@ -1590,7 +1590,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
  */
 function printZenpageItemsBreadcrumb($before = NULL, $after = NULL) {
 	global $_CMS_current_page, $_CMS_current_category, $_current_search;
-	if (in_context(ZP_SEARCH_LINKED)) {
+	if (in_context(SEARCH_LINKED)) {
 		$page = $_current_search->page;
 		$searchwords = $_current_search->getSearchWords();
 		$searchdate = $_current_search->getSearchDate();
@@ -1673,10 +1673,10 @@ function getNumPages($total = false) {
 	if ($_CMS->pages_enabled) {
 		$addquery = '';
 		if (!$total) {
-			if (in_context(ZP_SEARCH)) {
+			if (in_context(NPG_SEARCH)) {
 				$_CMS_pagelist = $_current_search->getPages();
 				return count($_CMS_pagelist);
-			} else if (in_context(ZP_ZENPAGE_PAGE)) {
+			} else if (in_context(ZENPAGE_PAGE)) {
 				if (!npg_loggedin(ADMIN_RIGHTS | ZENPAGE_PAGES_RIGHTS)) {
 					$addquery = ' AND `show`=1';
 				}
@@ -1700,9 +1700,9 @@ function next_page() {
 	global $_CMS, $_next_pagelist, $_current_search, $_CMS_current_page, $_CMS_current_page_restore;
 
 	if ($_CMS->pages_enabled && is_null($_next_pagelist)) {
-		if (in_context(ZP_SEARCH)) {
+		if (in_context(NPG_SEARCH)) {
 			$_next_pagelist = $_current_search->getPages(NULL, false, NULL, NULL, NULL);
-		} else if (in_context(ZP_ZENPAGE_PAGE)) {
+		} else if (in_context(ZENPAGE_PAGE)) {
 			if (!is_null($_CMS_current_page)) {
 				$_next_pagelist = $_CMS_current_page->getPages(NULL, false, NULL, NULL, NULL);
 			}
@@ -1710,7 +1710,7 @@ function next_page() {
 			$_next_pagelist = $_CMS->getPages(NULL, true, NULL, NULL, NULL);
 		}
 		save_context();
-		add_context(ZP_ZENPAGE_PAGE);
+		add_context(ZENPAGE_PAGE);
 		$_CMS_current_page_restore = $_CMS_current_page;
 	}
 	while (!empty($_next_pagelist)) {
@@ -2037,18 +2037,18 @@ function printPageURL($linktext = NULL, $titlelink = NULL, $prev = '', $next = '
 function printSubPagesExcerpts($excerptlength = NULL, $readmore = NULL, $shortenindicator = NULL) {
 	global $_CMS_current_page;
 	if (is_null($readmore)) {
-		$readmore = get_language_string(ZP_READ_MORE);
+		$readmore = get_language_string(READ_MORE);
 	}
 	$pages = $_CMS_current_page->getPages();
 	$subcount = 0;
 	if (is_null($excerptlength)) {
-		$excerptlength = ZP_SHORTEN_LENGTH;
+		$excerptlength = SHORTEN_LENGTH;
 	}
 	if (is_null($readmore)) {
-		$readmore = get_language_string(ZP_READ_MORE);
+		$readmore = get_language_string(READ_MORE);
 	}
 	if (is_null($shortenindicator)) {
-		$shortenindicator = ZP_SHORTENINDICATOR;
+		$shortenindicator = SHORTENINDICATOR;
 	}
 
 	foreach ($pages as $page) {
@@ -2105,7 +2105,7 @@ function checkForPage($titlelink) {
 	global $_CMS;
 	if ($_CMS->pages_enabled && !empty($titlelink)) {
 		Controller::load_zenpage_pages($titlelink);
-		return in_context(ZP_ZENPAGE_PAGE);
+		return in_context(ZENPAGE_PAGE);
 	}
 	return false;
 }
@@ -2234,16 +2234,16 @@ function zenpageAlbumImage($albumname, $imagename = NULL, $size = NULL, $linkalb
 		if ($image && $image->loaded) {
 			makeImageCurrent($image);
 			if ($linkalbum) {
-				rem_context(ZP_IMAGE);
+				rem_context(NPG_IMAGE);
 				echo '<a href="' . html_encode($album->getLink()) . '"   title="' . sprintf(gettext('View the %s album'), $albumname) . '">';
-				add_context(ZP_IMAGE);
+				add_context(NPG_IMAGE);
 				printCustomSizedImage(sprintf(gettext('View the album %s'), $albumname), $size);
-				rem_context(ZP_IMAGE | ZP_ALBUM);
+				rem_context(NPG_IMAGE | NPG_ALBUM);
 				echo '</a>';
 			} else {
 				echo '<a href="' . html_encode(getImageURL()) . '" title="' . sprintf(gettext('View %s'), $imagename) . '">';
 				printCustomSizedImage(sprintf(gettext('View %s'), $imagename), $size);
-				rem_context(ZP_IMAGE | ZP_ALBUM);
+				rem_context(NPG_IMAGE | NPG_ALBUM);
 				echo '</a>';
 			}
 		} else {

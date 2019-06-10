@@ -7,7 +7,7 @@
 		} else {
 			$sscount = 5;
 		}
-		if ((in_context(ZP_ALBUM)) || (in_context(ZP_IMAGE))) {
+		if ((in_context(NPG_ALBUM)) || (in_context(NPG_IMAGE))) {
 			$sstype = 'album';
 			$ssalbum = $_current_album;
 			$sstitle = gettext('Random Album Image');

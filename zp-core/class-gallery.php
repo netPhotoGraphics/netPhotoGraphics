@@ -764,7 +764,7 @@ class Gallery {
 					} else {
 						$sql = 'DELETE FROM ' . prefix('images') . ' WHERE `id`="' . $image['id'] . '";';
 						$result = query($sql);
-						$sql = 'DELETE FROM ' . prefix('comments') . ' WHERE `type` IN (' . zp_image_types('"') . ') AND `ownerid` ="' . $image['id'] . '";';
+						$sql = 'DELETE FROM ' . prefix('comments') . ' WHERE `type` IN (' . npg_image_types('"') . ') AND `ownerid` ="' . $image['id'] . '";';
 						$result = query($sql);
 					}
 					if (++$c >= RECORD_LIMIT) {
@@ -1083,9 +1083,9 @@ class Gallery {
 		$hint = '';
 		$pwd = $this->getPassword();
 		if (!empty($pwd)) {
-			return 'zp_gallery_auth';
+			return 'gallery_auth';
 		}
-		return 'zp_public_access';
+		return 'public_access';
 	}
 
 	/**
@@ -1093,7 +1093,7 @@ class Gallery {
 	 * returns true if there is any protection on the gallery
 	 */
 	function isProtected() {
-		return $this->checkforGuest() != 'zp_public_access';
+		return $this->checkforGuest() != 'public_access';
 	}
 
 	function get($field) {

@@ -60,7 +60,7 @@ function fetchComments($number) {
 								prefix('images') . ".`id` as imageid" .
 								" FROM " . prefix('comments') . "," . prefix('images') . " WHERE ";
 
-				$sql .= "(`type` IN (" . zp_image_types("'") . ") AND (";
+				$sql .= "(`type` IN (" . npg_image_types("'") . ") AND (";
 				$i = 0;
 				foreach ($albumIDs as $ID) {
 					if ($i > 0) {
@@ -94,7 +94,7 @@ function comment_form_PaginationJS() {
 	scriptLoader(CORE_SERVERPATH . 'js/jquery.pagination.js');
 	?>
 	<script type="text/javascript">
-		var current_comment_N, addrBar_hash = window.location.hash, Comm_ID_found = !addrBar_hash.search(/#zp_comment_id_/);
+		var current_comment_N, addrBar_hash = window.location.hash, Comm_ID_found = !addrBar_hash.search(/#_comment_id_/);
 		function pageselectCallback(page_index, jq) {
 			var items_per_page = <?php echo max(1, COMMENTS_PER_PAGE); ?>;
 			var max_elem = Math.min((page_index + 1) * items_per_page, $('#comments div.comment').length);
@@ -506,7 +506,7 @@ function comment_form_addComment($name, $email, $website, $comment, $code, $code
 				}
 			}
 			$on = gettext('Comment posted');
-			$result = zp_mail("[" . $_gallery->getTitle() . "] $on", $message, $emails);
+			$result = npg_mail("[" . $_gallery->getTitle() . "] $on", $message, $emails);
 			if ($result) {
 				$commentobj->setInModeration(-12);
 				$commentobj->comment_error_text = $result;
@@ -538,10 +538,10 @@ function commentFormUseCaptcha() {
  */
 function comment_form_postcomment($error) {
 	global $_current_album, $_current_image, $_CMS_current_article, $_CMS_current_page;
-	if (( (commentsAllowed('comment_form_albums') && in_context(ZP_ALBUM) && !in_context(ZP_IMAGE) && $_current_album->getCommentsAllowed()) ||
-					(commentsAllowed('comment_form_images') && in_context(ZP_IMAGE) && $_current_image->getCommentsAllowed()) ||
-					(commentsAllowed('comment_form_articles') && in_context(ZP_ZENPAGE_NEWS_ARTICLE) && $_CMS_current_article->getCommentsAllowed()) ||
-					(commentsAllowed('comment_form_pages') && in_context(ZP_ZENPAGE_PAGE) && $_CMS_current_page->getCommentsAllowed()))
+	if (( (commentsAllowed('comment_form_albums') && in_context(NPG_ALBUM) && !in_context(NPG_IMAGE) && $_current_album->getCommentsAllowed()) ||
+					(commentsAllowed('comment_form_images') && in_context(NPG_IMAGE) && $_current_image->getCommentsAllowed()) ||
+					(commentsAllowed('comment_form_articles') && in_context(ZENPAGE_NEWS_ARTICLE) && $_CMS_current_article->getCommentsAllowed()) ||
+					(commentsAllowed('comment_form_pages') && in_context(ZENPAGE_PAGE) && $_CMS_current_page->getCommentsAllowed()))
 	) {
 		$error = comment_form_handle_comment();
 	}
@@ -564,16 +564,16 @@ function comment_form_handle_comment() {
 		 * But this has to wait until processing is finished to avoid race conditions.
 		 */
 		$_HTML_cache->disable();
-		if (in_context(ZP_IMAGE)) {
+		if (in_context(NPG_IMAGE)) {
 			$commentobject = $_current_image;
 			$redirectTo = $_current_image->getLink();
-		} else if (in_context(ZP_ALBUM)) {
+		} else if (in_context(NPG_ALBUM)) {
 			$commentobject = $_current_album;
 			$redirectTo = $_current_album->getLink();
-		} else if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+		} else if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 			$commentobject = $_CMS_current_article;
 			$redirectTo = FULLWEBPATH . '/index.php?p=news&title=' . $_CMS_current_article->getTitlelink();
-		} else if (in_context(ZP_ZENPAGE_PAGE)) {
+		} else if (in_context(ZENPAGE_PAGE)) {
 			$commentobject = $_CMS_current_page;
 			$redirectTo = FULLWEBPATH . '/index.php?p=pages&title=' . $_CMS_current_page->getTitlelink();
 		} else {
@@ -644,14 +644,14 @@ function comment_form_handle_comment() {
 				if (isset($_POST['remember'])) {
 					// Should always re-cookie to update info in case it's changed...
 					$_comment_stored['comment'] = ''; // clear the comment itself
-					zp_setCookie('comment_data', serialize($_comment_stored), false);
+					setNPGCookie('comment_data', serialize($_comment_stored), false);
 				} else {
 					clearNPGCookie('comment_data');
 				}
 				//use $redirectTo to send users back to where they came from instead of booting them back to the gallery index. (default behaviour)
 				if (!isset($_SERVER['SERVER_SOFTWARE']) || strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'microsoft-iis') === false) {
 					// but not for Microsoft IIS because that server fails if we redirect!
-					header('Location: ' . $redirectTo . '#zp_comment_id_' . $commentadded->getId());
+					header('Location: ' . $redirectTo . '#_comment_id_' . $commentadded->getId());
 					exit();
 				}
 			}
@@ -959,11 +959,11 @@ function printLatestComments($number, $shorten = '123', $type = "all", $item = N
  */
 function getCommentCount() {
 	global $_current_image, $_current_album, $_CMS_current_page, $_CMS_current_article;
-	if (in_context(ZP_IMAGE) && in_context(ZP_ALBUM)) {
+	if (in_context(NPG_IMAGE) && in_context(NPG_ALBUM)) {
 		if (is_null($_current_image))
 			return false;
 		return $_current_image->getCommentCount();
-	} else if (!in_context(ZP_IMAGE) && in_context(ZP_ALBUM)) {
+	} else if (!in_context(NPG_IMAGE) && in_context(NPG_ALBUM)) {
 		if (is_null($_current_album))
 			return false;
 		return $_current_album->getCommentCount();
@@ -979,7 +979,7 @@ function getCommentCount() {
 }
 
 /**
- * Iterate through comments; use the ZP_COMMENT context.
+ * Iterate through comments; use the NPG_COMMENT context.
  * Return true if there are more comments
  * @param  bool $desc set true for desecnding order
  *
@@ -989,11 +989,11 @@ function next_comment($desc = false) {
 	global $_current_image, $_current_album, $_current_comment, $_comments, $_CMS_current_page, $_CMS_current_article;
 	//ZENPAGE: comments support
 	if (is_null($_current_comment)) {
-		if (in_context(ZP_IMAGE) AND in_context(ZP_ALBUM)) {
+		if (in_context(NPG_IMAGE) AND in_context(NPG_ALBUM)) {
 			if (is_null($_current_image))
 				return false;
 			$_comments = $_current_image->getComments(false, false, $desc);
-		} else if (!in_context(ZP_IMAGE) AND in_context(ZP_ALBUM)) {
+		} else if (!in_context(NPG_IMAGE) AND in_context(NPG_ALBUM)) {
 			$_comments = $_current_album->getComments(false, false, $desc);
 		}
 		if (function_exists('is_NewsArticle')) {
@@ -1010,14 +1010,14 @@ function next_comment($desc = false) {
 	} else if (empty($_comments)) {
 		$_comments = NULL;
 		$_current_comment = NULL;
-		rem_context(ZP_COMMENT);
+		rem_context(NPG_COMMENT);
 		return false;
 	}
 	$_current_comment = array_shift($_comments);
 	if ($_current_comment['anon']) {
 		$_current_comment['email'] = $_current_comment['name'] = '<' . gettext("Anonymous") . '>';
 	}
-	add_context(ZP_COMMENT);
+	add_context(NPG_COMMENT);
 	return true;
 }
 

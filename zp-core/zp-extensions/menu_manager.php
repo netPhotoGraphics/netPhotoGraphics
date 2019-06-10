@@ -400,7 +400,7 @@ function inventMenuItem($menuset, $visibility) {
 	switch ($_gallery_page) {
 		case 'image.php':
 			$name = '';
-			if (in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) {
+			if (in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) {
 				$dynamic = $_current_search->getDynamicAlbum();
 				if (empty($dynamic)) { //	smple search
 					foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
@@ -438,7 +438,7 @@ function inventMenuItem($menuset, $visibility) {
 			}
 			break;
 		case 'news.php':
-			if (in_context(ZP_SEARCH_LINKED)) {
+			if (in_context(SEARCH_LINKED)) {
 				foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
 					if ($item['type'] == 'custompage' && $item['link'] == 'search') {
 						$insertpoint = $item['sort_order'];
@@ -474,7 +474,7 @@ function inventMenuItem($menuset, $visibility) {
 			}
 			break;
 		case 'pages.php':
-			if (in_context(ZP_SEARCH_LINKED)) {
+			if (in_context(SEARCH_LINKED)) {
 				foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
 					if ($item['type'] == 'custompage' && $item['link'] == 'search') {
 						$insertpoint = $item['sort_order'];

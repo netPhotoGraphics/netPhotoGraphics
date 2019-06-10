@@ -92,11 +92,11 @@ class static_html_cache {
 				$title = $_CMS_current_page->getTitlelink();
 				break;
 			case 'news.php':
-				if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
+				if (in_context(ZENPAGE_NEWS_ARTICLE)) {
 					$obj = $_CMS_current_article;
 					$title = $obj->getTitlelink();
 				} else {
-					if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+					if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 						$obj = $_CMS_current_category;
 						$title = $obj->getTitlelink();
 					} else {
@@ -121,7 +121,7 @@ class static_html_cache {
 		if ($accessType) {
 			if (is_numeric($accessType)) {
 				$accessType = 'user_auth';
-			} else if ($accessType == 'zp_public_access' && count($_authority->getAuthCookies()) > 0) {
+			} else if ($accessType == 'public_access' && count($_authority->getAuthCookies()) > 0) {
 				$accessType .= '1'; // logged in some sense
 			}
 		} else {
@@ -252,7 +252,7 @@ class static_html_cache {
 		global $_current_image, $_current_album, $_gallery_page, $_authority,
 		$_CMS_current_article, $_CMS_current_category, $_CMS_current_page, $_gallery, $_current_page, $_current_search;
 		// just make sure these are really empty
-		$cachefilepath = $_gallery->getCurrentTheme() . '_' . str_replace('zp_', '', $accessType) . '_';
+		$cachefilepath = $_gallery->getCurrentTheme() . '_' . $accessType . '_';
 		$album = "";
 		$image = "";
 		$searchfields = "";
@@ -279,7 +279,7 @@ class static_html_cache {
 					$image = "-" . $_current_image->filename;
 				}
 				$cachefilepath .= $album . $image;
-				if (in_context(ZP_SEARCH_LINKED)) {
+				if (in_context(SEARCH_LINKED)) {
 					$cachefilepath .= '_search_' . stripcslashes($_current_search->codifySearchString());
 				}
 				break;

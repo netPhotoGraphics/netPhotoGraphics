@@ -243,7 +243,7 @@ class security_logger {
 	 * @param string $pass
 	 * @return int
 	 */
-	static function adminLoginlogger($success, $user, $pass, $auth = 'zp_admin_auth') {
+	static function adminLoginlogger($success, $user, $pass, $auth = 'admin_auth') {
 		global $_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
@@ -378,7 +378,7 @@ class security_logger {
 	 */
 	static function userSave($discard, $userobj, $class) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger(1, $user, $name, 'user_' . $class, 'zp_admin_auth', $userobj->getUser());
+		security_logger::logger(1, $user, $name, 'user_' . $class, 'admin_auth', $userobj->getUser());
 		return $discard;
 	}
 
@@ -404,7 +404,7 @@ class security_logger {
 	 */
 	static function log_action($allow, $log, $action) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger((int) ($allow && true), $user, $name, $action, 'zp_admin_auth', basename($log));
+		security_logger::logger((int) ($allow && true), $user, $name, $action, 'admin_auth', basename($log));
 		return $allow;
 	}
 
@@ -416,7 +416,7 @@ class security_logger {
 	 */
 	static function log_setup($success, $action, $txt) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger((int) ($success && true), $user, $name, 'setup_' . $action, 'zp_admin_auth', $txt);
+		security_logger::logger((int) ($success && true), $user, $name, 'setup_' . $action, 'admin_auth', $txt);
 		return $success;
 	}
 

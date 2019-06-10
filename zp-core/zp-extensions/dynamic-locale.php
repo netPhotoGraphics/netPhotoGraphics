@@ -164,7 +164,7 @@ function printLanguageSelector($flags = NULL) {
 		</ul>
 		<?php
 	} else {
-		$save_zp_current_locale = $_current_locale;
+		$_save_current_locale = $_current_locale;
 		$_current_locale = NULL;
 		$languages = array_merge(array('' => ''), $languages);
 		?>
@@ -193,7 +193,7 @@ function printLanguageSelector($flags = NULL) {
 			</form>
 		</div>
 		<?php
-		$_current_locale = $save_zp_current_locale;
+		$_current_locale = $_save_current_locale;
 	}
 }
 
@@ -310,7 +310,7 @@ class seo_locale {
 		$locale = i18n::validateLocale($l, 'seo_locale');
 		if ($locale) {
 			// set the language cookie and redirect to the "base" url
-			zp_setCookie('dynamic_locale', $locale);
+			setNPGCookie('dynamic_locale', $locale);
 			$uri = pathurlencode(preg_replace('|/' . $l . '[/$]|', '/', $uri));
 			if (isset($parts[1])) {
 				$uri .= '?' . $parts[1];

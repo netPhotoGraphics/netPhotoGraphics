@@ -664,7 +664,7 @@ if (isset($_GET['download'])) {
 		//	credentials required to download
 		if (!npg_loggedin((getOption('downloadList_rights')) ? FILES_RIGHTS : ALL_RIGHTS)) {
 			$user = getOption('downloadList_user');
-			if (!zp_handle_password('download_auth', $hash, $user)) {
+			if (!handle_password('download_auth', $hash, $user)) {
 				$show = ($user) ? true : NULL;
 				$hint = get_language_string(getOption('downloadList_hint'));
 				$_gallery_page = 'password.php';
@@ -675,7 +675,7 @@ if (isset($_GET['download'])) {
 				header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 				header("HTTP/1.0 302 Found");
 				header("Status: 302 Found");
-				header('Last-Modified: ' . ZP_LAST_MODIFIED);
+				header('Last-Modified: ' . NPG_LAST_MODIFIED);
 				include(internalToFilesystem($_themeScript));
 				exit();
 			}

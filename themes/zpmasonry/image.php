@@ -1,7 +1,7 @@
 <?php include ("inc-header.php"); ?>
 
 <div id="breadcrumbs">
-	<?php if (($zpmas_infscroll) && (in_context(ZP_SEARCH_LINKED))) $_current_search->page = '1'; ?>
+	<?php if (($zpmas_infscroll) && (in_context(SEARCH_LINKED))) $_current_search->page = '1'; ?>
 	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo;
 	<?php printParentBreadcrumb('', ' » ', ' » '); ?>
 	<?php

@@ -19,7 +19,7 @@ $plugin_notice = sprintf(gettext('<strong>Note</strong>: Google does place limit
 $option_interface = 'GoogleMap';
 if (isset($_gallery_page) && $_gallery_page != 'index.php') {
 	if (getOption('gmap_sessions')) {
-		zp_session_start();
+		npg_session_start();
 	}
 }
 

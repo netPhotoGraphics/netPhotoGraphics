@@ -9,10 +9,10 @@
  * Some global variable setup
  *
  */
-define('ZP_SHORTENINDICATOR', $shortenindicator = getOption('zenpage_textshorten_indicator'));
-define('ZP_SHORTEN_LENGTH', getOption('zenpage_text_length'));
-define('ZP_READ_MORE', getOption("zenpage_read_more"));
-define('ZP_ARTICLES_PER_PAGE', getOption("zenpage_articles_per_page"));
+define('SHORTENINDICATOR', $shortenindicator = getOption('zenpage_textshorten_indicator'));
+define('SHORTEN_LENGTH', getOption('zenpage_text_length'));
+define('READ_MORE', getOption("zenpage_read_more"));
+define('ARTICLES_PER_PAGE', getOption("zenpage_articles_per_page"));
 
 class CMS {
 
@@ -325,7 +325,7 @@ class CMS {
 			}
 			$order = " ORDER BY $sticky";
 
-			if (in_context(ZP_ZENPAGE_NEWS_DATE)) {
+			if (in_context(ZENPAGE_NEWS_DATE)) {
 				switch ($published) {
 					case "published":
 					case "unpublished":
@@ -432,7 +432,7 @@ class CMS {
 	 */
 	function getArticle($index, $published = NULL, $sortorder = NULL, $sortdirection = NULL, $sticky = true) {
 		global $_CMS_current_category;
-		if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+		if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 			$category = $_CMS_current_category;
 		} else {
 			$category = NULL;

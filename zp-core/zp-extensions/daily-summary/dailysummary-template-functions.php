@@ -128,7 +128,7 @@ function next_DailySummaryItem($all = false) {
 		$_DailySummaryItems = $_current_DailySummary->getAlbums($all ? 0 : $_current_page);
 		$_current_DailySummaryItem_restore = $_current_DailySummaryItem;
 		save_context();
-		add_context(ZP_ALBUM);
+		add_context(NPG_ALBUM);
 	}
 	if (empty($_DailySummaryItems)) {
 		$_DailySummaryItems = NULL;

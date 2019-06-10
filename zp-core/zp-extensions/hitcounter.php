@@ -242,7 +242,7 @@ function getHitcounter($obj = NULL) {
 				$obj = $_CMS_current_page;
 				break;
 			case 'news.php':
-				if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) {
+				if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 					$obj = $_CMS_current_category;
 				} else {
 					$obj = $_CMS_current_article;

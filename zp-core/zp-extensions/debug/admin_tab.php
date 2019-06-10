@@ -289,7 +289,7 @@ echo "\n</head>";
 										<tr>
 											<td><input type="checkbox" name="delete_cookie[<?php echo html_encode(postIndexEncode($cookie)); ?>]" value="1"></td>
 											<td><?php echo html_encode($cookie); ?> </td>
-											<td><?php echo html_encode(zp_cookieEncode($cookiev)); ?></td>
+											<td><?php echo html_encode(encodeNPGCookie($cookiev)); ?></td>
 										</tr>
 										<?php
 									}
