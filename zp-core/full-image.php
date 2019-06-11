@@ -180,6 +180,7 @@ if ($watermark_use_image == NO_WATERMARK) {
 	$watermark_use_image = '';
 } else {
 	$process = 2;
+	$watermark_use_image = getWatermarkPath($watermark_use_image);
 }
 
 if (isset($_GET['q'])) {
@@ -243,35 +244,18 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 			$newim = gl_rotateImage($newim, $rotate);
 		}
 		if ($watermark_use_image) {
-			$watermark_image = getWatermarkPath($watermark_use_image);
-			if (!file_exists($watermark_image))
-				$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
-			$offset_h = getOption('watermark_h_offset') / 100;
-			$offset_w = getOption('watermark_w_offset') / 100;
-			$watermark = gl_imageGet($watermark_image);
-			$watermark_width = gl_imageWidth($watermark);
-			$watermark_height = gl_imageHeight($watermark);
-			$imw = gl_imageWidth($newim);
-			$imh = gl_imageHeight($newim);
-			$percent = getOption('watermark_scale') / 100;
-			$r = sqrt(($imw * $imh * $percent) / ($watermark_width * $watermark_height));
-			if (!getOption('watermark_allow_upscale')) {
-				$r = min(1, $r);
-			}
-			$nw = round($watermark_width * $r);
-			$nh = round($watermark_height * $r);
-			if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-				$watermark = gl_imageResizeAlpha($watermark, $nw, $nh);
-			}
-			// Position Overlay in Bottom Right
-			$dest_x = max(0, floor(($imw - $nw) * $offset_w));
-			$dest_y = max(0, floor(($imh - $nh) * $offset_h));
-			gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh);
-			gl_imageKill($watermark);
+			$newim = imageProcessing::watermarkImage($newim, $watermark_use_image, $image_path);
 		}
+
 		$iMutex->unlock();
 		if (!gl_imageOutputt($newim, $suffix, $cache_path, $quality) && DEBUG_IMAGE) {
 			debugLog('full-image failed to create:' . $image);
+		}
+		if (isset($_GET['returncheckmark'])) {
+			//	from the cachemanager cache image generator
+			require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
+			sendImage(0, 'i.php');
+			exit();
 		}
 	}
 }

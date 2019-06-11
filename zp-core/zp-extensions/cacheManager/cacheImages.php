@@ -19,7 +19,7 @@ if (isset($_REQUEST['album'])) {
 admin_securityChecks($localrights, $return = currentRelativeURL());
 
 function loadAlbum($album) {
-	global $_current_album, $_current_image, $_gallery, $custom, $enabled;
+	global $_current_album, $_current_image, $_gallery, $custom, $enabled, $fullImage;
 	@set_time_limit(200);
 	$subalbums = $album->getAlbums();
 	sort($subalbums);
@@ -46,7 +46,7 @@ function loadAlbum($album) {
 		while (next_image(true)) {
 			if (isImagePhoto($_current_image)) {
 				$countit = 0;
-				if (in_array('*', $enabled)) {
+				if ($fullImage) {
 					$uri = getFullImageURL(NULL, 'Protected view');
 					if (strpos($uri, 'full-image.php?') !== false) {
 						if (!($count + $countit)) {
@@ -58,13 +58,12 @@ function loadAlbum($album) {
 						?>
 						<a href="<?php echo html_encode($uri); ?>&amp;debug">
 							<?php
-							echo '<img src="' . html_encode($uri) . '" height="16" width="16" alt="X" />' . "\n";
+							echo '<img src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
 							?>
 						</a>
 						<?php
 					}
 				}
-
 				foreach ($custom as $key => $cacheimage) {
 					if (in_array($key, $enabled)) {
 						$size = isset($cacheimage['image_size']) ? $cacheimage['image_size'] : NULL;
@@ -83,13 +82,12 @@ function loadAlbum($album) {
 						$effects = isset($cacheimage['gray']) ? $cacheimage['gray'] : NULL;
 						if (isset($cacheimage['wmk'])) {
 							$passedWM = $cacheimage['wmk'];
+						} else if ($thumbstandin) {
+							$passedWM = getWatermarkParam($_current_image, WATERMARK_THUMB);
 						} else {
-							if ($thumbstandin) {
-								$passedWM = getWatermarkParam($_current_image, WATERMARK_THUMB);
-							} else {
-								$passedWM = getWatermarkParam($_current_image, WATERMARK_IMAGE);
-							}
+							$passedWM = getWatermarkParam($_current_image, WATERMARK_IMAGE);
 						}
+
 
 						if (isset($cacheimage['maxspace'])) {
 							getMaxSpaceContainer($width, $height, $_current_image, $thumbstandin);
@@ -212,6 +210,7 @@ if ($alb) {
 			<?php
 			if (getOption('cache_full_image') && (!is_array($enabled) || in_array('*', $enabled))) {
 				if (is_array($enabled)) {
+					$fullImage = true;
 					unset($enabled[array_search('*', $enabled)]);
 					$checked = ' checked="checked" disabled="disabled"';
 				} else {
@@ -230,7 +229,7 @@ if ($alb) {
 					}
 					?>
 					<label>
-						<input type="checkbox" name="enable[]" value="*" <?php echo $checked; ?> />
+						<input type="checkbox" name="enable[*]" value="*" <?php echo $checked; ?> />
 						<?php echo gettext('Apply'); ?> <code><?php echo gettext('Full Image'); ?></code>
 					</label>
 				</li>

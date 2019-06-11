@@ -86,7 +86,6 @@ $args = getImageParameters($args, filesystemToInternal($album));
 list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 if (DEBUG_IMAGE)
 	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$thumbstandin=$thumbstandin, \$passedWM=$passedWM, \$adminrequest=$adminrequest, \$effects=$effects");
-$allowWatermark = !$thumb && !$adminrequest;
 
 // Construct the filename to save the cached image.
 $newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args);
@@ -161,7 +160,7 @@ if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
 		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"));
 	}
-	$result = imageProcessing::cache($newfilename, $imgfile, $args, $allowWatermark, $theme, $album);
+	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
 		imageProcessing::error('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
 	}

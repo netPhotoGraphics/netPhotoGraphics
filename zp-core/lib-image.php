@@ -52,7 +52,7 @@ class imageProcessing {
 	 * @param string $imgfile the filename of the image
 	 */
 	static function debug($album, $image, $args, $imgfile) {
-		list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop) = $args;
+		list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbStandin, $passedWM, $adminrequest, $effects) = $args;
 		echo "Album: [ " . html_encode($album) . " ], Image: [ " . html_encode($image) . " ]<br /><br />";
 		if (file_exists($imgfile)) {
 			echo "Image filesize: " . filesize($imgfile);
@@ -73,6 +73,11 @@ class imageProcessing {
 			<li><?php echo gettext("quality =") ?> <strong> <?php echo $quality ?> </strong></li>
 			<li><?php echo gettext("thumb =") ?>   <strong> <?php echo $thumb ?> </strong></li>
 			<li><?php echo gettext("crop =") ?>    <strong> <?php echo $crop ?> </strong></li>
+			<li><?php echo gettext("thumbStandin =") ?>    <strong> <?php echo $thumbStandin ?> </strong></li>
+			<li><?php echo gettext("watermark =") ?>    <strong> <?php echo $passedWM ?> </strong></li>
+			<li><?php echo gettext("adminrequest =") ?>    <strong> <?php echo $adminrequest ?> </strong></li>
+			<li><?php echo gettext("effects =") ?>    <strong> <?php echo $effects ?> </strong></li>
+			<li><?php echo gettext("return_checkmark =") ?>    <strong> <?php echo isset($_GET['returncheckmark']) ?> </strong></li>
 		</ul>
 		<?php
 	}
@@ -159,9 +164,37 @@ class imageProcessing {
 			$sharpenthumbs = getOption('thumb_sharpen');
 			$sharpenimages = getOption('image_sharpen');
 			$id = $im = NULL;
-			$watermark_use_image = getAlbumInherited($album, 'watermark', $id);
-			if (empty($watermark_use_image)) {
-				$watermark_use_image = IMAGE_WATERMARK;
+
+			$watermark_image = false;
+			if ($passedWM) {
+				if ($passedWM != NO_WATERMARK) {
+					$watermark_image = getWatermarkPath($passedWM);
+					if (!file_exists($watermark_image)) {
+						$watermark_image = false;
+					}
+				}
+			} else {
+				if ($allow_watermark) {
+					if ($thumb || $thumbstandin) {
+						$watermark_image = getAlbumInherited($album, 'watermark_thumb', $id);
+						if (empty($watermark_image)) {
+							$watermark_image = THUMB_WATERMARK;
+						}
+					} else {
+						$watermark_image = getAlbumInherited($album, 'watermark', $id);
+						if (empty($watermark_image)) {
+							$watermark_image = IMAGE_WATERMARK;
+						}
+					}
+					if ($watermark_image) {
+						if ($watermark_image != NO_WATERMARK) {
+							$watermark_image = getWatermarkPath($watermark_image);
+							if (!file_exists($watermark_image)) {
+								$watermark_image = false;
+							}
+						}
+					}
+				}
 			}
 			if (!$effects) {
 				if ($thumb && getOption('thumb_gray')) {
@@ -280,29 +313,7 @@ class imageProcessing {
 					}
 				}
 				if (DEBUG_IMAGE)
-					debugLog("imageProcessing::cache:no upscale " . basename($imgfile) . ":  \$newh=$newh, \$neww=$neww, \$crop=$crop, \$thumb=$thumb, \$rotate=$rotate, watermark=" . $watermark_use_image);
-			}
-
-			$watermark_image = false;
-			if ($passedWM) {
-				if ($passedWM != NO_WATERMARK) {
-					$watermark_image = getWatermarkPath($passedWM);
-					if (!file_exists($watermark_image)) {
-						$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
-					}
-				}
-			} else {
-				if ($allow_watermark) {
-					$watermark_image = $watermark_use_image;
-					if ($watermark_image) {
-						if ($watermark_image != NO_WATERMARK) {
-							$watermark_image = getWatermarkPath($watermark_image);
-							if (!file_exists($watermark_image)) {
-								$watermark_image = CORE_SERVERPATH . 'images/imageDefault.png';
-							}
-						}
-					}
-				}
+					debugLog("imageProcessing::cache:no upscale " . basename($imgfile) . ":  \$newh=$newh, \$neww=$neww, \$crop=$crop, \$thumb=$thumb, \$rotate=$rotate, watermark=" . $watermark_image);
 			}
 
 			// Crop the image if requested.
@@ -431,44 +442,7 @@ class imageProcessing {
 			}
 
 			if ($watermark_image) {
-				$offset_h = getOption('watermark_h_offset') / 100;
-				$offset_w = getOption('watermark_w_offset') / 100;
-				$percent = getOption('watermark_scale') / 100;
-				$watermark = gl_imageGet($watermark_image);
-				if (!$watermark) {
-					self::error('404 Not Found', sprintf(gettext('Watermark %s not renderable.'), $watermark_image), 'err-failimage.png');
-				}
-				$watermark_width = gl_imageWidth($watermark);
-				$watermark_height = gl_imageHeight($watermark);
-				$imw = gl_imageWidth($newim);
-				$imh = gl_imageHeight($newim);
-				$nw = sqrt(($imw * $imh * $percent) * ($watermark_width / $watermark_height));
-				$nh = $nw * ($watermark_height / $watermark_width);
-				$r = sqrt(($imw * $imh * $percent) / ($watermark_width * $watermark_height));
-				if (!getOption('watermark_allow_upscale')) {
-					$r = min(1, $r);
-				}
-				$nw = round($watermark_width * $r);
-				$nh = round($watermark_height * $r);
-				$watermark_new = false;
-				if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-					$watermark_new = gl_imageResizeAlpha($watermark, $nw, $nh);
-					if (!gl_resampleImage($watermark_new, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
-						self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
-					}
-				}
-				// Position Overlay in Bottom Right
-				$dest_x = max(0, floor(($imw - $nw) * $offset_w));
-				$dest_y = max(0, floor(($imh - $nh) * $offset_h));
-				if (DEBUG_IMAGE)
-					debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
-				if (!gl_copyCanvas($newim, $watermark_new, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
-					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
-				}
-				gl_imageKill($watermark);
-				if ($watermark_new) {
-					gl_imageKill($watermark_new);
-				}
+				$newim = self::watermarkImage($newim, $watermark_image, $imgfile);
 			}
 
 			// Create the cached file (with lots of compatibility)...
@@ -537,6 +511,47 @@ class imageProcessing {
 		}
 		clearstatcache();
 		return true;
+	}
+
+	static function watermarkImage($newim, $watermark_image, $imgfile) {
+		$offset_h = getOption('watermark_h_offset') / 100;
+		$offset_w = getOption('watermark_w_offset') / 100;
+		$percent = getOption('watermark_scale') / 100;
+		$watermark = gl_imageGet($watermark_image);
+		if (!$watermark) {
+			self::error('404 Not Found', sprintf(gettext('Watermark %s not renderable.'), $watermark_image), 'err-failimage.png');
+		}
+		$watermark_width = gl_imageWidth($watermark);
+		$watermark_height = gl_imageHeight($watermark);
+		$imw = gl_imageWidth($newim);
+		$imh = gl_imageHeight($newim);
+		$r = sqrt(($imw * $imh * $percent) / ($watermark_width * $watermark_height));
+		if (!getOption('watermark_allow_upscale')) {
+			$r = min(1, $r);
+		}
+		$nw = round($watermark_width * $r);
+		$nh = round($watermark_height * $r);
+		$watermark_new = false;
+		if (($nw != $watermark_width) || ($nh != $watermark_height)) {
+			$watermark_new = gl_imageResizeAlpha($watermark, $nw, $nh);
+			if (!gl_resampleImage($watermark_new, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+				self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
+			}
+		}
+		// Position Overlay in Bottom Right
+		$dest_x = max(0, floor(($imw - $nw) * $offset_w));
+		$dest_y = max(0, floor(($imh - $nh) * $offset_h));
+		if (DEBUG_IMAGE)
+			debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
+		if (!gl_copyCanvas($newim, $watermark_new, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
+			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+		}
+
+		if ($watermark_new != $watermark) {
+			gl_imageKill($watermark_new);
+		}
+		gl_imageKill($watermark);
+		return $newim;
 	}
 
 	/* Determines the rotation of the image looking EXIF information.
