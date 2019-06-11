@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-09 10:59+0200\n"
-"PO-Revision-Date: 2019-06-09 13:31+0200\n"
+"POT-Creation-Date: 2019-06-11 15:10-0700\n"
+"PO-Revision-Date: 2019-06-11 15:10-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Samy Rabih (Fetard) & Michel Gagnon <michel@mgagnon.net>\n"
 "Language: fr_FR\n"
@@ -128,7 +128,7 @@ msgstr ""
 #: zp-core/lib-auth.php:722 zp-core/lib-auth.php:729 zp-core/lib-auth.php:731
 #: zp-core/setup/setup-option-defaults.php:665
 #: zp-core/setup/setup-option-defaults.php:666
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:152
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:144
 #: zp-core/zp-extensions/defaultCodeblocks.php:63
 #: zp-core/zp-extensions/externalFeed.php:73 zp-core/zp-extensions/rss.php:49
 msgid "Gallery"
@@ -634,7 +634,7 @@ msgstr "La migration des droits a échoué."
 msgid "Zenphoto compatibility."
 msgstr "Compatibilité Zenphoto."
 
-#: plugins/zenphotoCompatibilityPack.php:173 zp-core/admin-functions.php:5444
+#: plugins/zenphotoCompatibilityPack.php:188 zp-core/admin-functions.php:5444
 #: zp-core/zp-extensions/debug.php:208
 #: zp-core/zp-extensions/deprecated-functions.php:93
 #: zp-core/zp-extensions/macroList.php:86
@@ -643,7 +643,7 @@ msgstr "Compatibilité Zenphoto."
 msgid "development"
 msgstr "développement"
 
-#: plugins/zenphotoCompatibilityPack.php:177
+#: plugins/zenphotoCompatibilityPack.php:192
 #, fuzzy
 #| msgid "legacyConverter"
 msgid "legacy Converter"
@@ -710,8 +710,8 @@ msgstr "Extensions"
 #: zp-core/admin_options/security.php:66 zp-core/admin_options/security.php:253
 #: zp-core/admin_options/theme.php:237 zp-core/admin_options/theme.php:239
 #: zp-core/admin_options/theme.php:569 zp-core/admin_options/theme.php:571
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:340
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:233
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:333
 #: zp-core/zp-extensions/comment_form/admin-comments.php:137
 #: zp-core/zp-extensions/comment_form/admin-comments.php:341
 #: zp-core/zp-extensions/comment_form/admin-comments.php:512
@@ -2727,7 +2727,7 @@ msgstr "Fournissez votre <a href=\"http://www.sharethis.com\">ShareThis</a> ID"
 #: themes/paradigm/themeoptions.php:99
 #, fuzzy
 msgid "AddThis code"
-msgstr "Dans le code ZenPhoto20"
+msgstr "Dans le code netPhotoGraphics"
 
 #: themes/paradigm/themeoptions.php:99
 #, fuzzy
@@ -5744,7 +5744,7 @@ msgstr "Astuce pour le mot de passe : "
 #: zp-core/zp-extensions/cacheManager.php:235
 #: zp-core/zp-extensions/cacheManager.php:463
 #: zp-core/zp-extensions/cacheManager.php:468
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:309
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:302
 #: zp-core/zp-extensions/comment_form.php:99
 #: zp-core/zp-extensions/comment_form.php:103
 #: zp-core/zp-extensions/comment_form.php:107
@@ -8293,17 +8293,17 @@ msgstr "sans catégorie"
 #: zp-core/admin-tabs/users.php:986
 #, fuzzy, php-format
 #| msgid ""
-#| "The <em>Zenphoto_Authority</em> object supports a higher version of user "
-#| "rights than currently selected. You may wish to migrate the user rights "
-#| "to gain the new functionality this version provides."
+#| "The <em>_Authority</em> object supports a higher version of user rights "
+#| "than currently selected. You may wish to migrate the user rights to gain "
+#| "the new functionality this version provides."
 msgid ""
 "The <em>_Authority</em> object supports a higher version of user rights than "
 "currently selected. You may wish to migrate the user rights to gain the new "
 "functionality this version provides."
 msgstr ""
-"L’objet <em>Zenphoto_Authority</em> supporte une version plus élevée des "
-"droits d’utilisateurs que celle présentement sélectionnée. Envisagez de "
-"migrer ces droits pour bénéficier des nouvelles fonctionnalités."
+"L’objet <em>_Authority</em> supporte une version plus élevée des droits "
+"d’utilisateurs que celle présentement sélectionnée. Envisagez de migrer ces "
+"droits pour bénéficier des nouvelles fonctionnalités."
 
 #: zp-core/admin-tabs/users.php:989
 msgid "Migrate rights"
@@ -8312,15 +8312,14 @@ msgstr "Migrer les droits"
 #: zp-core/admin-tabs/users.php:999
 #, fuzzy, php-format
 #| msgid ""
-#| "You may wish to revert the <em>Zenphoto_Authority</em> user rights to "
-#| "version %s for backwards compatibility with prior releases."
+#| "You may wish to revert the <em>_Authority</em> user rights to version %s "
+#| "for backwards compatibility with prior releases."
 msgid ""
 "You may wish to revert the <em>_Authority</em> user rights to version %s for "
 "backwards compatibility with prior releases."
 msgstr ""
-"Vous pouvez choisir de ramener les droits d’utilisateurs "
-"<em>Zenphoto_Authority</em> à la version %s pour la compatibilité avec les "
-"versions antérieures."
+"Vous pouvez choisir de ramener les droits d’utilisateurs <em>_Authority</em> "
+"à la version %s pour la compatibilité avec les versions antérieures."
 
 #: zp-core/admin-tabs/users.php:1002
 msgid "Revert rights"
@@ -12517,7 +12516,7 @@ msgstr "Interdit"
 msgid "Too few arguments! Image not found."
 msgstr "Pas assez d’arguments ! Image non trouvée."
 
-#: zp-core/full-image.php:224 zp-core/i.php:162
+#: zp-core/full-image.php:225 zp-core/i.php:161
 msgid "Forbidden(2)"
 msgstr "Interdit (2)"
 
@@ -12579,13 +12578,6 @@ msgstr ""
 "Le fichier de journalisation %1$s a excédé sa taille maximale et a été "
 "renommé %2$s."
 
-#: zp-core/functions-config.php:27
-msgid ""
-"The configuration file is corrupt. You will need to restore it from a backup."
-msgstr ""
-"Le fichier de configuration est corrompu. Vous devriez le restaurer à partir "
-"d’une copie d’archives."
-
 #: zp-core/functions-db-MySQLi.php:42
 #, fuzzy
 #| msgid "php_ldap extension is not enabled"
@@ -12601,8 +12593,8 @@ msgid ""
 "MySQLi Error: netPhotoGraphics received the error %s when connecting to the "
 "database server."
 msgstr ""
-"Erreur MySQL : ZenPhoto20 a rencontré l’erreur <em>%s</em> en essayant de se "
-"connecter au serveur de la base de données."
+"Erreur MySQL : netPhotoGraphics a rencontré l’erreur <em>%s</em> en essayant "
+"de se connecter au serveur de la base de données."
 
 #: zp-core/functions-db-MySQLi.php:54
 #, fuzzy, php-format
@@ -12613,8 +12605,8 @@ msgid ""
 "MySQLi Error: MySQLi returned the error %1$s when netPhotoGraphics tried to "
 "select the database %2$s."
 msgstr ""
-"Erreur MySQLi : MySQLi a renvoyé l’erreur <em>%1$s</em> quand ZenPhoto20 a "
-"tenté de sélectionner la base de données %2$s."
+"Erreur MySQLi : MySQLi a renvoyé l’erreur <em>%1$s</em> quand "
+"netPhotoGraphics a tenté de sélectionner la base de données %2$s."
 
 #: zp-core/functions-db-MySQLi.php:209 zp-core/functions-db-PDO_MySQL.php:320
 #, php-format
@@ -12642,143 +12634,13 @@ msgid ""
 "PDO_MySql Error: netPhotoGraphics received the error %s when connecting to "
 "the database server."
 msgstr ""
-"Erreur MySQL : ZenPhoto20 a rencontré l’erreur <em>%s</em> en essayant de se "
-"connecter au serveur de la base de données."
+"Erreur MySQL : netPhotoGraphics a rencontré l’erreur <em>%s</em> en essayant "
+"de se connecter au serveur de la base de données."
 
 #: zp-core/functions-db-PDO_MySQL.php:54
 #, fuzzy
 msgid "PDO_MySQL extension not loaded."
 msgstr "L'extension PDO_MySQL n'est pas chargée."
-
-#: zp-core/functions-image.php:20
-#, php-format
-msgid "Image Processing Error: %s"
-msgstr "Erreur lors du traitement d’images : %s"
-
-#: zp-core/functions-image.php:25
-#, php-format
-msgid "Request URI: [%s]"
-msgstr "URI de la requête : [%s]"
-
-#: zp-core/functions-image.php:28
-#, php-format
-msgid "Cache: [%s]"
-msgstr "Cache : [%s]"
-
-#: zp-core/functions-image.php:31
-#, php-format
-msgid "Image: [%s]"
-msgstr "Image : [%s]"
-
-#: zp-core/functions-image.php:61 zp-core/lib-auth.php:707
-#: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
-msgid "Debug"
-msgstr "Débogage"
-
-#: zp-core/functions-image.php:61
-msgid "Arguments:"
-msgstr "Arguments : "
-
-#: zp-core/functions-image.php:64
-msgid "size ="
-msgstr "taille ="
-
-#: zp-core/functions-image.php:65
-msgid "width ="
-msgstr "largeur ="
-
-#: zp-core/functions-image.php:66
-msgid "height ="
-msgstr "hauteur = "
-
-#: zp-core/functions-image.php:67
-msgid "cw ="
-msgstr "cw (largeur de rognage) ="
-
-#: zp-core/functions-image.php:68
-msgid "ch ="
-msgstr "ch (hauteur de rognage) ="
-
-#: zp-core/functions-image.php:69
-msgid "cx ="
-msgstr "cx (position en largeur du rognage) ="
-
-#: zp-core/functions-image.php:70
-msgid "cy ="
-msgstr "cy (position en hauteur du rognage) ="
-
-#: zp-core/functions-image.php:71
-msgid "quality ="
-msgstr "qualité ="
-
-#: zp-core/functions-image.php:72
-msgid "thumb ="
-msgstr "vignette ="
-
-#: zp-core/functions-image.php:73
-msgid "crop ="
-msgstr "rognage ="
-
-#: zp-core/functions-image.php:177
-#, php-format
-msgid "Image %s not found or is unreadable."
-msgstr "L’image %s n’a pas été trouvée ou est illisible."
-
-#: zp-core/functions-image.php:195
-#, php-format
-msgid "Using %1$ux%2$u %3$s thumbnail image."
-msgstr "Utilisation de la vignette d’image %1$u x %2$u %3$s "
-
-#: zp-core/functions-image.php:207
-#, php-format
-msgid "Image %s not renderable (imageGet)."
-msgstr "Impossible de faire le rendu de l’image %s (imageGet)."
-
-#: zp-core/functions-image.php:214
-#, php-format
-msgid "Image %s not rotatable."
-msgstr "L’image %s ne peut être tournée."
-
-#: zp-core/functions-image.php:257
-#, php-format
-msgid "Unknown error processing %s! Please report to the <a href=\""
-msgstr ""
-"Erreur inconnue lors du traitement de %s ! Veuillez en informer <a href=\""
-
-#: zp-core/functions-image.php:382 zp-core/functions-image.php:417
-#, php-format
-msgid "Image %s not renderable (resample)."
-msgstr "Impossible de faire le rendu de l’image %s (rééchantillonnage)."
-
-#: zp-core/functions-image.php:421
-#, php-format
-msgid "Image %s not renderable (unsharp)."
-msgstr "Impossible de faire le rendu de l’image %s (floutage)"
-
-#: zp-core/functions-image.php:437
-#, php-format
-msgid "Watermark %s not renderable."
-msgstr "Impossible de faire le rendu du filigrane %s."
-
-#: zp-core/functions-image.php:455
-#, php-format
-msgid "Watermark %s not resizeable."
-msgstr "Impossible de redimensionner le filigrane %s."
-
-#: zp-core/functions-image.php:464
-#, php-format
-msgid "Image %s not renderable (copycanvas)."
-msgstr "Impossible de faire le rendu de l’image %s (copycanvas)."
-
-#: zp-core/functions-image.php:526
-#, php-format
-msgid "cacheImage: failed to create %s"
-msgstr "cacheImage : impossible de créer %s"
-
-#: zp-core/functions-image.php:533
-#, php-format
-msgid "cacheImage(%1$s) exception: %2$s"
-msgstr "erreur cacheImage(%1$s) : %2$s"
 
 #: zp-core/functions.php:407 zp-core/functions.php:507
 msgid "Mail send failed."
@@ -12903,7 +12765,7 @@ msgstr "Aucun gestionnaire de captcha n’est activé."
 msgid "Forbidden(1)"
 msgstr "Interdit (1)"
 
-#: zp-core/i.php:111
+#: zp-core/i.php:110
 msgid ""
 "The cache directory does not exist. Please create it and set the permissions "
 "to 0777."
@@ -12911,18 +12773,18 @@ msgstr ""
 "Le dossier de cache n’existe pas. Créez-le et définissez-en les droits à "
 "0777."
 
-#: zp-core/i.php:116
+#: zp-core/i.php:115
 msgid "The cache directory is not writable! Attempts to chmod did not work."
 msgstr ""
 "Le dossier du cache n’est pas accessible en écriture ! Les tentatives de "
 "chmod n’ont pas abouti."
 
-#: zp-core/i.php:129
+#: zp-core/i.php:128
 #, php-format
 msgid "Image not found; file %s does not exist."
 msgstr "L’image n’a pas été trouvée ; le fichier %s n’existe pas."
 
-#: zp-core/i.php:166
+#: zp-core/i.php:165
 #, php-format
 msgid "Image processing of %s resulted in a fatal error."
 msgstr "Le traitement d’image de %s s’est soldé par une erreur fatale."
@@ -13164,14 +13026,14 @@ msgstr "Il n’y a aucun support graphique PHP."
 #: zp-core/lib-auth.php:518
 #, fuzzy, php-format
 #| msgid ""
-#| "Cannot migrate rights to version %1$s (Zenphoto_Authority supports only "
-#| "%2$s and %3$s.)"
+#| "Cannot migrate rights to version %1$s (_Authority supports only %2$s and "
+#| "%3$s.)"
 msgid ""
 "Cannot migrate rights to version %1$s (_Authority supports only %2$s and "
 "%3$s.)"
 msgstr ""
-"Impossible de migrer les droits vers la version %1$s (Zenphoto_Authority ne "
-"gère que les versions %2$s et %3$s)."
+"Impossible de migrer les droits vers la version %1$s (_Authority ne gère que "
+"les versions %2$s et %3$s)."
 
 #: zp-core/lib-auth.php:645 zp-core/lib-auth.php:660 zp-core/lib-auth.php:679
 #: zp-core/lib-auth.php:704
@@ -13428,6 +13290,11 @@ msgstr ""
 "Ce niveau d’autorisation est nécessaire pour que les utilisateurs puissent "
 "modifier leurs permissions."
 
+#: zp-core/lib-auth.php:707 zp-core/lib-image.php:63
+#: zp-core/zp-extensions/debug.php:135 zp-core/zp-extensions/debug.php:143
+msgid "Debug"
+msgstr "Débogage"
+
 #: zp-core/lib-auth.php:707
 msgid "Allows viewing of the debug tab items."
 msgstr "Permet de voir les éléments de l’onglet de débogage."
@@ -13569,7 +13436,7 @@ msgstr ""
 #: zp-core/lib-auth.php:1140 zp-core/lib-auth.php:1142
 #: zp-core/setup/index.php:1588
 #: zp-core/zp-extensions/cacheManager/cacheDBImages.php:236
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:371
 msgid "Refresh"
 msgstr "Actualiser"
 
@@ -13633,6 +13500,169 @@ msgstr "Vos mots de passe ne correspondent pas"
 #: zp-core/lib-auth.php:1525
 msgid "Repeat password"
 msgstr "Inscrivez de nouveau le mot de passe"
+
+#: zp-core/lib-config.php:28
+msgid ""
+"The configuration file is corrupt. You will need to restore it from a backup."
+msgstr ""
+"Le fichier de configuration est corrompu. Vous devriez le restaurer à partir "
+"d’une copie d’archives."
+
+#: zp-core/lib-image.php:22
+#, php-format
+msgid "Image Processing Error: %s"
+msgstr "Erreur lors du traitement d’images : %s"
+
+#: zp-core/lib-image.php:27
+#, php-format
+msgid "Request URI: [%s]"
+msgstr "URI de la requête : [%s]"
+
+#: zp-core/lib-image.php:30
+#, php-format
+msgid "Cache: [%s]"
+msgstr "Cache : [%s]"
+
+#: zp-core/lib-image.php:33
+#, php-format
+msgid "Image: [%s]"
+msgstr "Image : [%s]"
+
+#: zp-core/lib-image.php:63
+msgid "Arguments:"
+msgstr "Arguments : "
+
+#: zp-core/lib-image.php:66
+msgid "size ="
+msgstr "taille ="
+
+#: zp-core/lib-image.php:67
+msgid "width ="
+msgstr "largeur ="
+
+#: zp-core/lib-image.php:68
+msgid "height ="
+msgstr "hauteur = "
+
+#: zp-core/lib-image.php:69
+msgid "cw ="
+msgstr "cw (largeur de rognage) ="
+
+#: zp-core/lib-image.php:70
+msgid "ch ="
+msgstr "ch (hauteur de rognage) ="
+
+#: zp-core/lib-image.php:71
+msgid "cx ="
+msgstr "cx (position en largeur du rognage) ="
+
+#: zp-core/lib-image.php:72
+msgid "cy ="
+msgstr "cy (position en hauteur du rognage) ="
+
+#: zp-core/lib-image.php:73
+msgid "quality ="
+msgstr "qualité ="
+
+#: zp-core/lib-image.php:74
+msgid "thumb ="
+msgstr "vignette ="
+
+#: zp-core/lib-image.php:75
+msgid "crop ="
+msgstr "rognage ="
+
+#: zp-core/lib-image.php:76
+#, fuzzy
+#| msgid "thumb ="
+msgid "thumbStandin ="
+msgstr "vignette ="
+
+#: zp-core/lib-image.php:77
+#, fuzzy
+#| msgid "Watermark"
+msgid "watermark ="
+msgstr "Filigrane"
+
+#: zp-core/lib-image.php:78
+#, fuzzy
+msgid "adminrequest ="
+msgstr ""
+"La réexécution de l'installation est ignorée à la demande de "
+"l'administrateur."
+
+#: zp-core/lib-image.php:79
+#, fuzzy
+#| msgid "No effects"
+msgid "effects ="
+msgstr "Aucun effet"
+
+#: zp-core/lib-image.php:80
+msgid "return_checkmark ="
+msgstr ""
+
+#: zp-core/lib-image.php:212
+#, php-format
+msgid "Image %s not found or is unreadable."
+msgstr "L’image %s n’a pas été trouvée ou est illisible."
+
+#: zp-core/lib-image.php:230
+#, php-format
+msgid "Using %1$ux%2$u %3$s thumbnail image."
+msgstr "Utilisation de la vignette d’image %1$u x %2$u %3$s "
+
+#: zp-core/lib-image.php:242
+#, php-format
+msgid "Image %s not renderable (imageGet)."
+msgstr "Impossible de faire le rendu de l’image %s (imageGet)."
+
+#: zp-core/lib-image.php:249
+#, php-format
+msgid "Image %s not rotatable."
+msgstr "L’image %s ne peut être tournée."
+
+#: zp-core/lib-image.php:292
+#, php-format
+msgid "Unknown error processing %s! Please report to the <a href=\""
+msgstr ""
+"Erreur inconnue lors du traitement de %s ! Veuillez en informer <a href=\""
+
+#: zp-core/lib-image.php:395 zp-core/lib-image.php:430
+#, php-format
+msgid "Image %s not renderable (resample)."
+msgstr "Impossible de faire le rendu de l’image %s (rééchantillonnage)."
+
+#: zp-core/lib-image.php:434
+#, php-format
+msgid "Image %s not renderable (unsharp)."
+msgstr "Impossible de faire le rendu de l’image %s (floutage)"
+
+#: zp-core/lib-image.php:502
+#, fuzzy, php-format
+#| msgid "cacheImage: failed to create %s"
+msgid "imageProcessing::cache: failed to create %s"
+msgstr "cacheImage : impossible de créer %s"
+
+#: zp-core/lib-image.php:509
+#, fuzzy, php-format
+#| msgid "cacheImage(%1$s) exception: %2$s"
+msgid "imageProcessing::cache(%1$s) exception: %2$s"
+msgstr "erreur cacheImage(%1$s) : %2$s"
+
+#: zp-core/lib-image.php:522
+#, php-format
+msgid "Watermark %s not renderable."
+msgstr "Impossible de faire le rendu du filigrane %s."
+
+#: zp-core/lib-image.php:538
+#, php-format
+msgid "Watermark %s not resizeable."
+msgstr "Impossible de redimensionner le filigrane %s."
+
+#: zp-core/lib-image.php:547
+#, php-format
+msgid "Image %s not renderable (copycanvas)."
+msgstr "Impossible de faire le rendu de l’image %s (copycanvas)."
 
 #: zp-core/lib-utf8.php:47 zp-core/localeList.php:13
 msgid "Arabic"
@@ -13866,7 +13896,7 @@ msgstr "Thaï (Windows)"
 #, fuzzy
 #| msgid "netPhotoGraphics License agreement"
 msgid "netPhotoGraphics License agreement"
-msgstr "L’accord de licence de ZenPhoto20"
+msgstr "L’accord de licence de netPhotoGraphics"
 
 #: zp-core/license.php:40
 #, php-format
@@ -13884,7 +13914,7 @@ msgstr ""
 #| msgid "You must accept this license to continue to use netPhotoGraphics."
 msgid "You must accept this license to continue to use netPhotoGraphics."
 msgstr ""
-"Vous devez accepter cette licence pour continuer d’utiliser ZenPhoto20."
+"Vous devez accepter cette licence pour continuer d’utiliser netPhotoGraphics."
 
 #: zp-core/license.php:47
 msgid "I agree to these terms and conditions"
@@ -18060,7 +18090,8 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics requires PHP version %s or greater"
 msgid "netPhotoGraphics requires PHP version %s or greater"
-msgstr "ZenPhoto20 requiert la version %s de PHP ou une version plus récente"
+msgstr ""
+"netPhotoGraphics requiert la version %s de PHP ou une version plus récente"
 
 #: zp-core/setup/index.php:177
 msgid "db POST handling"
@@ -18122,7 +18153,7 @@ msgstr "Démarré"
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics Setup v%1$s%2$s: %3$s"
 msgid "netPhotoGraphics Setup v%1$s%2$s: %3$s"
-msgstr "Script d’installation de ZenPhoto20 v%1$s%2$s: %3$s"
+msgstr "Script d’installation de netPhotoGraphics v%1$s%2$s: %3$s"
 
 #: zp-core/setup/index.php:465
 msgid "Full environment"
@@ -18160,7 +18191,7 @@ msgid ""
 "Welcome to netPhotoGraphics! This page will set up version %1$s on your web "
 "server."
 msgstr ""
-"Bienvenue sur ZenPhoto20 ! Cette page va vous permettre d’installer la "
+"Bienvenue sur netPhotoGraphics ! Cette page va vous permettre d’installer la "
 "version %1$s sur votre serveur."
 
 #: zp-core/setup/index.php:532
@@ -18179,7 +18210,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Installing netPhotoGraphics v%s"
 msgid "Installing netPhotoGraphics v%s"
-msgstr "Installation de ZenPhoto20 v%s"
+msgstr "Installation de netPhotoGraphics v%s"
 
 #: zp-core/setup/index.php:574
 #, php-format
@@ -18304,8 +18335,8 @@ msgid ""
 "netPhotoGraphics functionality is reduced when PHP <code>safe mode</code> "
 "restrictions are in effect."
 msgstr ""
-"Les fonctionnalités de ZenPhoto20 sont réduites quand <code>le mode sans "
-"échec</code> de PHP est activé."
+"Les fonctionnalités de netPhotoGraphics sont réduites quand <code>le mode "
+"sans échec</code> de PHP est activé."
 
 #: zp-core/setup/index.php:631
 msgid "<code>Suhosin</code> module [is enabled]"
@@ -18654,17 +18685,17 @@ msgstr "Le fichier <em>%1$s</em> n’existe pas"
 #, fuzzy, php-format
 #| msgid ""
 #| "Setup was not able to create this file. You will need to copy the <code>"
-#| "%1$s/zenphoto_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it "
-#| "as indicated in the file’s comments."
+#| "%1$s/netPhotoGraphics_cfg.txt</code> file to <code>%2$s/%3$s</code> then "
+#| "edit it as indicated in the file’s comments."
 msgid ""
 "Setup was not able to create this file. You will need to copy the <code>%1$s/"
 "netPhotoGraphics_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it "
 "as indicated in the file’s comments."
 msgstr ""
 "Le script d’installation n’a pu créer ce fichier. Vous devrez donc copier le "
-"fichier <code>%1$s/zenphoto_cfg.txt</code> dans <code>%2$s/%3$s</code>, puis "
-"l’éditer en suivant les instructions présentes dans les commentaires dudit "
-"fichier."
+"fichier <code>%1$s/netPhotoGraphics_cfg.txt</code> dans <code>%2$s/%3$s</"
+"code>, puis l’éditer en suivant les instructions présentes dans les "
+"commentaires dudit fichier."
 
 #: zp-core/setup/index.php:791
 msgid "File permissions"
@@ -18994,7 +19025,7 @@ msgstr "Fichiers d’installation"
 #, fuzzy
 #| msgid "netPhotoGraphics package [missing]"
 msgid "netPhotoGraphics package [missing]"
-msgstr "Fichiers de base de ZenPhoto20 [absents]"
+msgstr "Fichiers de base de netPhotoGraphics [absents]"
 
 #: zp-core/setup/index.php:1186
 #, fuzzy
@@ -19048,8 +19079,8 @@ msgstr ""
 #| "file.]"
 msgid "Core files [Could not update the root <em>index.php</em> file.]"
 msgstr ""
-"Fichiers du cœur de ZenPhoto20. [Impossible de mettre à jour le fichier "
-"<em>index.php</em> du dossier principal.]"
+"Fichiers du cœur de netPhotoGraphics. [Impossible de mettre à jour le "
+"fichier <em>index.php</em> du dossier principal.]"
 
 #: zp-core/setup/index.php:1316
 #, php-format
@@ -19233,9 +19264,9 @@ msgid ""
 "em> file to produce a new <em>.htaccess</em> file."
 msgstr ""
 "La version du fichier<em>.htaccess</em> du répertoire racine de votre "
-"galerie est différente de celle de cette version de ZenPhoto20. Si vous avez "
-"effectivement modifié votre fichier<em>.htaccess</em>, intégrez ces "
-"modifications au fichier <em>%s/htaccess</em> de cette version afin de "
+"galerie est différente de celle de cette version de netPhotoGraphics. Si "
+"vous avez effectivement modifié votre fichier<em>.htaccess</em>, intégrez "
+"ces modifications au fichier <em>%s/htaccess</em> de cette version afin de "
 "produire un nouveau fichier <em>.htaccess</em>."
 
 #: zp-core/setup/index.php:1459
@@ -19382,7 +19413,7 @@ msgid ""
 "have at least the <em>en_US</em> folder."
 msgstr ""
 "Vérifiez que vous avez bien transféré la totalité des fichiers de "
-"ZenPhoto20. Vous devez avoir au moins le dossier <em>en_US</em>."
+"netPhotoGraphics. Vous devez avoir au moins le dossier <em>en_US</em>."
 
 #: zp-core/setup/index.php:1567
 msgid "uploaded"
@@ -19408,13 +19439,13 @@ msgstr ""
 msgid "Setup failed."
 msgstr "L’installation a échoué."
 
-#: zp-core/setup/index.php:1599 zp-core/setup/index.php:1794
+#: zp-core/setup/index.php:1599 zp-core/setup/index.php:1790
 msgid "You need <em>USER ADMIN</em> rights to run setup."
 msgstr ""
 "Vous avez besoin de droits d’administration (<em>USER ADMIN</em>) pour "
 "réaliser l’installation."
 
-#: zp-core/setup/index.php:1601 zp-core/setup/index.php:1796
+#: zp-core/setup/index.php:1601 zp-core/setup/index.php:1792
 msgid "You must be logged in to run setup."
 msgstr "Vous devez être connecté pour lancer l’installation."
 
@@ -19477,7 +19508,7 @@ msgid_plural "%1$s database image references were updated."
 msgstr[0] "%u référence aux images en cache trouvée."
 msgstr[1] "%u références aux images en cache trouvées."
 
-#: zp-core/setup/index.php:1692
+#: zp-core/setup/index.php:1689
 #, fuzzy, php-format
 #| msgid ""
 #| "You may <a href=\"%1$s\">set your admin user and password</a> or <a href="
@@ -19489,7 +19520,7 @@ msgstr ""
 "Vous pouvez %1$sset votre utilisateur admin et mot de passe%3$s ou %2$srun "
 "backup-restore%3$s"
 
-#: zp-core/setup/index.php:1695
+#: zp-core/setup/index.php:1692
 #, fuzzy, php-format
 #| msgid "You need to <a href=\"%1$s\">set your admin user and password</a>"
 msgid "You need to %1$sset your admin user and password%2$s"
@@ -19497,36 +19528,36 @@ msgstr ""
 "Vous devez <a href=\"%1$s\">spécifier les identifiant et mot de passe de "
 "l’administrateur</a>"
 
-#: zp-core/setup/index.php:1711
+#: zp-core/setup/index.php:1707
 #, php-format
 msgid "Setup <a href=\"%1$s\" target=\"_blank\">%2$s</a>"
 msgstr "Installation de <a href=\"%1$s\" target=\"_blank\">%2$s</a>"
 
-#: zp-core/setup/index.php:1717
+#: zp-core/setup/index.php:1713
 #, fuzzy, php-format
 #| msgid "You can now %1$sadminister your gallery%2$s."
 msgid "You may now %1$sadminister your gallery%2$s."
 msgstr "Vous pouvez maintenant %1$sadminister votre Galerie%2$s."
 
-#: zp-core/setup/index.php:1818
+#: zp-core/setup/index.php:1814
 msgid "run setup"
 msgstr "lancer l’installation"
 
-#: zp-core/setup/index.php:1818
+#: zp-core/setup/index.php:1814
 msgid "Go"
 msgstr "C’est parti !"
 
-#: zp-core/setup/index.php:1835
+#: zp-core/setup/index.php:1831
 msgid "database did not connect"
 msgstr "Impossible de se connecter à la base de données"
 
-#: zp-core/setup/index.php:1837
+#: zp-core/setup/index.php:1833
 msgid "If you have not created the database yet, now would be a good time."
 msgstr ""
 "Si vous n’avez pas encore créé la base de données, il serait temps de le "
 "faire."
 
-#: zp-core/setup/index.php:1846
+#: zp-core/setup/index.php:1842
 #, php-format
 msgid "The %1$s file does not exist."
 msgstr "Le fichier %1$s n’existe pas"
@@ -19697,7 +19728,7 @@ msgstr ""
 "<strong>Attention :<strong> la table <code>%s</code> semble ne pas avoir une "
 "clé <em>UNIQUE</em> appropriée. Il y a probablement des entrées en double "
 "dans la table qui peuvent causer un comportement imprévisible. Ceci peut "
-"normalement être corrigé en créant une sauvegarde de ZenPhoto20, en "
+"normalement être corrigé en créant une sauvegarde de netPhotoGraphics, en "
 "supprimant la table, en exécutant de nouveau le script d’installation pour "
 "restaurer la table puis en effectuant une restauration depuis la sauvegarde. "
 "Notez cependant que les entrées en double seront perdues."
@@ -21045,7 +21076,7 @@ msgid ""
 "overlap to netPhotoGraphics <em>userids</em>."
 msgstr ""
 "Ce nombre est ajouté aux <em>identifiants</em> LDAP pour s’assurer qu’il n’y "
-"a pas de conflits entre ceux-ci et les identifiants ZenPhoto20."
+"a pas de conflits entre ceux-ci et les identifiants netPhotoGraphics."
 
 #: zp-core/zp-extensions/LDAP_auth.php:60
 msgid "LDAP reader user"
@@ -22003,63 +22034,63 @@ msgid ""
 msgstr ""
 "Actualise la mise en cache des images si le rendu n’était pas complété."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:127
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:119
 #, php-format
 msgid "[%u image]"
 msgid_plural "[%u images]"
 msgstr[0] "[%u image]"
 msgstr[1] "[%u images]"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:181
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:173
 #, fuzzy, php-format
 #| msgid "Refreshing cache for %s"
 msgid "Refresh cache for %s"
 msgstr "Cache : [%s]"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:240
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:233
 msgid "Full Image"
 msgstr "image pleine grandeur"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:288
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:281
 #, fuzzy
 #| msgid "invalid_MaxSpace"
 msgid "invalid MaxSpace"
 msgstr "MaxSpace_invalide"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:293
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:286
 #, fuzzy
 #| msgid "invalid_MaxSpace"
 msgid "invalid Cache Set"
 msgstr "MaxSpace_invalide"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:314
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:307
 #, fuzzy, php-format
 #| msgid "all sizes for <i>%1$s</i>"
 msgid "all sizes for <em>%1$s</em>"
 msgstr "toutes les tailles pour <i>%1$s</i>"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:360
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:353
 #, php-format
 msgid "%u cache size to apply."
 msgid_plural "%u cache sizes to apply."
 msgstr[0] "%u taille du cache à appliquer."
 msgstr[1] "%u tailles de cache à appliquer."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:375
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:368
 #, php-format
 msgid "%u cache size requested"
 msgid_plural "%u cache sizes requested"
 msgstr[0] "%u taille demandée du cache."
 msgstr[1] "%u tailles demandées du cache."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:376
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:369
 #, php-format
 msgid "Finished processing %1$u image (%2$s)."
 msgid_plural "Finished processing %1$u images (%2$s)."
 msgstr[0] "Traitement de %1$u image complété (%2$s)."
 msgstr[1] "Traitement de %1$u images complété (%2$s)."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:371
 msgid ""
 "Refresh the caching of the selected image sizes if some images did not "
 "render."
@@ -22067,15 +22098,15 @@ msgstr ""
 "Actualise la mise en cache des tailles sélectionnées des images si le rendu "
 "des images n’était pas complet."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:385
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:378
 msgid "No cache sizes enabled."
 msgstr "Aucune taille définie pour la mise en cache."
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:382
 msgid "Cache the images"
 msgstr "Mettre en cache les images"
 
-#: zp-core/zp-extensions/cacheManager/cacheImages.php:389
+#: zp-core/zp-extensions/cacheManager/cacheImages.php:382
 msgid "Executes the caching of the selected image sizes."
 msgstr "Effectue la mise en cache des tailles sélectionnées des images."
 
@@ -22084,17 +22115,17 @@ msgstr "Effectue la mise en cache des tailles sélectionnées des images."
 msgid "Use cacheManager::addCacheSize()"
 msgstr "Utilisez cacheManager::addCacheSize() à la place"
 
-#: zp-core/zp-extensions/cacheManager/deprecated-functions.php:19
+#: zp-core/zp-extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
 msgstr "Utilisez cacheManager::deleteCacheSizes() à la place"
 
-#: zp-core/zp-extensions/cacheManager/deprecated-functions.php:45
+#: zp-core/zp-extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
 msgstr "Utilisez cacheManager::addCacheSize() à la place"
 
-#: zp-core/zp-extensions/cacheManager/deprecated-functions.php:49
+#: zp-core/zp-extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
 msgid "Call to undefined method cachemanager::%1$s()"
 msgstr "Appel à un gestionnaire de cache non défini::%1$s()"
@@ -22564,30 +22595,30 @@ msgstr ""
 "ils le sont. La valeur par défaut est « index ». Vous devriez également "
 "utiliser un fichier « robots.txt »."
 
-#: zp-core/zp-extensions/clone/cloneTab.php:60
+#: zp-core/zp-extensions/clone/cloneTab.php:58
 #, fuzzy, php-format
 msgid "Last setup run version: %s"
 msgstr "Dernière version du setup : %s"
 
-#: zp-core/zp-extensions/clone/cloneTab.php:70
+#: zp-core/zp-extensions/clone/cloneTab.php:67
 #, fuzzy
 #| msgid "Clone the installation."
 msgid "No longer a clone of this installation."
 msgstr "Cloner l’installation"
 
-#: zp-core/zp-extensions/clone/cloneTab.php:84
+#: zp-core/zp-extensions/clone/cloneTab.php:81
 #, fuzzy
 msgid "Remove invalid clones."
 msgstr "Enlever"
 
-#: zp-core/zp-extensions/clone/cloneTab.php:92
+#: zp-core/zp-extensions/clone/cloneTab.php:89
 msgid ""
 "Create a new install with symbolic links to the current installation scripts."
 msgstr ""
 "Crée une nouvelle installation avec des liens symboliques qui pointent vers "
 "les scripts de l’installation existante."
 
-#: zp-core/zp-extensions/clone/cloneTab.php:115
+#: zp-core/zp-extensions/clone/cloneTab.php:112
 msgid ""
 "<strong>Note:</strong> Existing Site scripts will be removed from the target "
 "if they exist."
@@ -22595,19 +22626,19 @@ msgstr ""
 "<strong>Remarque.</strong> Les scripts existants seront effacés de la cible, "
 "le cas échéant."
 
-#: zp-core/zp-extensions/clone/cloneTab.php:195
+#: zp-core/zp-extensions/clone/cloneTab.php:192
 msgid "No subfolders in: "
 msgstr "Aucun sous-dossier dans :"
 
-#: zp-core/zp-extensions/clone/cloneTab.php:197
+#: zp-core/zp-extensions/clone/cloneTab.php:194
 msgid "Select the destination folder:"
 msgstr "Choisir le fichier de destination :"
 
-#: zp-core/zp-extensions/clone/cloneTab.php:230
+#: zp-core/zp-extensions/clone/cloneTab.php:227
 msgid "Verify WEB link to this install:"
 msgstr "Validez le lien web de cette installation :"
 
-#: zp-core/zp-extensions/clone/cloneTab.php:240
+#: zp-core/zp-extensions/clone/cloneTab.php:237
 msgid "Clone installation"
 msgstr "Cloner l’installation"
 
@@ -23271,7 +23302,7 @@ msgstr "Erreur de configuration, %1$s groupe de connexion %2$s n'existe pas."
 #, fuzzy
 #| msgid "netPhotoGraphics Gallery registration"
 msgid "netPhotoGraphics Gallery registration"
-msgstr "Inscription à la galerie ZenPhoto20"
+msgstr "Inscription à la galerie netPhotoGraphics"
 
 #: zp-core/zp-extensions/common/oAuth/oAuthLogin.php:140
 #: zp-core/zp-extensions/register_user.php:337
@@ -24363,7 +24394,7 @@ msgstr ""
 "caractères. Les fonctions signalées par « * » sont des méthodes de classe. "
 "Celles signalépes par « + » ont des paramètres obsolètes."
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:67
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:61
 msgid ""
 "This feature is handled in the \"theme_head\" filter. For parameters set the "
 "theme options."
@@ -24371,14 +24402,14 @@ msgstr ""
 "Cette fonctionnalité est désormais gérée par le filtre \"theme_head\". Pour "
 "régler les paramètres, veuillez consulter les options du thème."
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:75
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:69
 msgid "Use getAllTagsUnique()"
 msgstr "Utiliser getAllTagsUnique()"
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:85
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:94
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:104
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:113
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:78
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:86
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:95
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:103
 #: zp-core/zp-extensions/zenpage/deprecated-functions.php:39
 #: zp-core/zp-extensions/zenpage/deprecated-functions.php:50
 #: zp-core/zp-extensions/zenpage/deprecated-functions.php:60
@@ -24389,8 +24420,8 @@ msgstr "Utiliser getAllTagsUnique()"
 msgid "Use customFieldExtender to define unique fields"
 msgstr "Utilisez customFieldExtender pour définir des champs uniques"
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:125
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:135
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:114
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:123
 #, fuzzy
 msgid ""
 "Subtabs are no longer separate from tabs. If you need the current subtab use "
@@ -24399,61 +24430,61 @@ msgstr ""
 "Les sous-onglets ne sont plus séparés des onglets. Si vous avez besoin du "
 "sous-onglet courant, utilisez getCurrentTab() sinon supprimez l'appel."
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:145
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:132
 #, fuzzy
 msgid "Use array_shift(filterImageQueryList())"
 msgstr "Utiliser array_shift(filterImageQueryList())"
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:158
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:144
 #, fuzzy
 msgid "Use print_SW_Link()"
 msgstr "Utiliser print_SW_Link()"
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:166
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:152
 #, fuzzy
 #| msgid "Use text"
 msgid "Use exit()"
 msgstr "Utiliser des drapeaux"
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:174
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:160
 msgid "Use npgFilters::register()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:182
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:168
 msgid "Use npgFilters::apply()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:194
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:180
 msgid "Use npgFilters::remove()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:202
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:188
 msgid "Use npgFilters::has_filter()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:210
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:196
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
 msgstr "Accueil de la galerie"
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:215
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:204
 msgid "Use the GDPR_required plugin"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:223
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:212
 msgid "Use npg_loggedin()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:231
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:220
 msgid "Use setNPGCookie()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:239
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:228
 msgid "Use getNPGCookie()"
 msgstr ""
 
-#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:247
+#: zp-core/zp-extensions/deprecated-functions/deprecated-functions.php:236
 msgid "Use clearNPGCookie()"
 msgstr ""
 
@@ -27436,9 +27467,9 @@ msgstr ""
 "<strong>Important.</strong> L’ordre de ce menu est totalement indépendant de "
 "l’ordre des albums et et des pages défini sur les pages d’administration. "
 "Il est recommandé de l’utiliser uniquement avec des thèmes personnalisés qui "
-"ne font pas appel à la structure d’affichage standard Zenphoto20. "
-"Les fonctions standards de Zenphoto20 telles que « breadcrumb » (le fil "
-"d’Ariane) et la boucle « next_album() » ne tiennent pas compte de la "
+"ne font pas appel à la structure d’affichage standard netPhotoGraphics. "
+"Les fonctions standards de netPhotoGraphics telles que « breadcrumb » (le "
+"fil d’Ariane) et la boucle « next_album() » ne tiennent pas compte de la "
 "structure de ce menu."
 
 #: zp-core/zp-extensions/menu_manager/menu_tab.php:207
@@ -30211,14 +30242,14 @@ msgstr ""
 #: zp-core/zp-extensions/simple_sendmail.php:47
 #, fuzzy, php-format
 #| msgid ""
-#| "<code>zenphoto_sendmail</code> failed to send <em>%s</em> to one or more "
+#| "<code>simple_sendmail</code> failed to send <em>%s</em> to one or more "
 #| "recipients."
 msgid ""
 "<code>simple_sendmail</code> failed to send <em>%s</em> to one or more "
 "recipients."
 msgstr ""
-"L’extension <code>zenphoto_sendmail</code> n’a pas pu envoyer <em>%s</em> à "
-"un ou à plusieurs destinataires."
+"L’extension <code>simple_sendmail</code> n’a pas pu envoyer <em>%s</em> à un "
+"ou à plusieurs destinataires."
 
 #: zp-core/zp-extensions/site_upgrade.php:38
 msgid ""
@@ -31406,7 +31437,7 @@ msgstr "Cocher ce paramètre si la langue utilisée s’écrit de droite à gauc
 #, fuzzy
 #| msgid "netPhotoGraphics object insertion"
 msgid "netPhotoGraphics object insertion"
-msgstr "Insertion d’un objet ZenPhoto20"
+msgstr "Insertion d’un objet netPhotoGraphics"
 
 #: zp-core/zp-extensions/tinymce/pasteobj/pasteobj.php:47
 #, php-format
@@ -31529,7 +31560,7 @@ msgid ""
 "em> tabs or the <em>image order</em> album subtab.) A <em>pick</em> icon is "
 "provided for each item in the list."
 msgstr ""
-"Vous pouvez choisir un objet ZenPhoto20 à insérer en naviguant jusqu’à "
+"Vous pouvez choisir un objet netPhotoGraphics à insérer en naviguant jusqu’à "
 "l’objet puis en cliquant sur l’icône %s. Cette icône apparaîtra "
 "immédiatement sous le <em>titre</em> de l’objet. Vous pouvez choisir des "
 "objets parmi les pages d’administration qui en listent (comme les onglets "

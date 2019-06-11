@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 14:35-0700\n"
-"PO-Revision-Date: 2019-06-11 14:36-0700\n"
+"POT-Creation-Date: 2019-06-11 15:10-0700\n"
+"PO-Revision-Date: 2019-06-11 15:10-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Malte Müller (acrylian)\n"
 "Language: de_DE\n"
@@ -5798,8 +5798,8 @@ msgstr "Ein einfacheres Media Content Management System"
 #, fuzzy, php-format
 msgid "version %1$s"
 msgstr ""
-"Benutzerrechte können nicht auf Version %1$s übertragen werden "
-"(Zenphoto_Authority unterstützt nur %2$s und %3$s.)"
+"Benutzerrechte können nicht auf Version %1$s übertragen werden (_Authority "
+"unterstützt nur %2$s und %3$s.)"
 
 #: zp-core/admin-functions.php:47
 #, fuzzy
@@ -8619,15 +8619,15 @@ msgstr "*nicht kategorisiert*"
 #: zp-core/admin-tabs/users.php:986
 #, fuzzy, php-format
 #| msgid ""
-#| "The <em>Zenphoto_Authority</em> object supports a higher version of user "
-#| "rights than currently selected. You may wish to migrate the user rights "
-#| "to gain the new functionality this version provides."
+#| "The <em>_Authority</em> object supports a higher version of user rights "
+#| "than currently selected. You may wish to migrate the user rights to gain "
+#| "the new functionality this version provides."
 msgid ""
 "The <em>_Authority</em> object supports a higher version of user rights than "
 "currently selected. You may wish to migrate the user rights to gain the new "
 "functionality this version provides."
 msgstr ""
-"Das <em>Zenphoto_Authority</em>-Objekt unterstützt eine höhere Version der "
+"Das <em>_Authority</em>-Objekt unterstützt eine höhere Version der "
 "Benutzerrechte als die dezeit ausgewählten. Sie möchten vielleicht die "
 "Benutzerrechte übertragen, um die neue Funktionalität dieser Version zu "
 "nutzen."
@@ -8642,9 +8642,8 @@ msgid ""
 "You may wish to revert the <em>_Authority</em> user rights to version %s for "
 "backwards compatibility with prior releases."
 msgstr ""
-"Sie möchten vielleicht die <em>Zenphoto_Authority</em>-Benutzerrechte  auf "
-"Version %s für eine Rückwärtskompatibilät mit alten Zenphoto-Versionen "
-"zurücksetzen."
+"Sie möchten vielleicht die <em>_Authority</em>-Benutzerrechte  auf Version "
+"%s für eine Rückwärtskompatibilät mit alten Zenphoto-Versionen zurücksetzen."
 
 #: zp-core/admin-tabs/users.php:1002
 msgid "Revert rights"
@@ -9858,9 +9857,9 @@ msgid ""
 "com/php/php_sessions.asp\">PHP sessions</a> will be used instead of cookies "
 "to make visitor settings persistent."
 msgstr ""
-"Wenn die Einstellung ausgewählt ist, wird ZenPhoto20 <a href=\"http://www."
-"w3schools.com/php/php_sessions.asp\">PHP sessions</a> anstatt von Cookies "
-"verwenden, um Besuchereinstellungen dauerhaft zu speichern."
+"Wenn die Einstellung ausgewählt ist, wird netPhotoGraphics <a href=\"http://"
+"www.w3schools.com/php/php_sessions.asp\">PHP sessions</a> anstatt von "
+"Cookies verwenden, um Besuchereinstellungen dauerhaft zu speichern."
 
 #: zp-core/admin_options/general.php:624
 #, fuzzy
@@ -12913,8 +12912,8 @@ msgid ""
 "MySQLi Error: netPhotoGraphics received the error %s when connecting to the "
 "database server."
 msgstr ""
-"MySQL-Fehler: ZenPhoto20 erhielt den Fehler %s als es eine Verbindung zum "
-"Datenbank-Server herzustellen versuchte."
+"MySQL-Fehler: netPhotoGraphics erhielt den Fehler %s als es eine Verbindung "
+"zum Datenbank-Server herzustellen versuchte."
 
 #: zp-core/functions-db-MySQLi.php:54
 #, fuzzy, php-format
@@ -12925,7 +12924,7 @@ msgid ""
 "MySQLi Error: MySQLi returned the error %1$s when netPhotoGraphics tried to "
 "select the database %2$s."
 msgstr ""
-"MySQLi-Fehler: MySQLi gab den Fehler %1$s zurück als ZenPhoto20 eine "
+"MySQLi-Fehler: MySQLi gab den Fehler %1$s zurück als netPhotoGraphics eine "
 "Verbindung mit der Datenbank %2$s aufbauen wollte."
 
 #: zp-core/functions-db-MySQLi.php:209 zp-core/functions-db-PDO_MySQL.php:320
@@ -13351,14 +13350,14 @@ msgstr "Keine PHP-Bildbearbeitungunterstützung"
 #: zp-core/lib-auth.php:518
 #, fuzzy, php-format
 #| msgid ""
-#| "Cannot migrate rights to version %1$s (Zenphoto_Authority supports only "
-#| "%2$s and %3$s.)"
+#| "Cannot migrate rights to version %1$s (_Authority supports only %2$s and "
+#| "%3$s.)"
 msgid ""
 "Cannot migrate rights to version %1$s (_Authority supports only %2$s and "
 "%3$s.)"
 msgstr ""
-"Benutzerrechte können nicht auf Version %1$s übertragen werden "
-"(Zenphoto_Authority unterstützt nur %2$s und %3$s.)"
+"Benutzerrechte können nicht auf Version %1$s übertragen werden (_Authority "
+"unterstützt nur %2$s und %3$s.)"
 
 #: zp-core/lib-auth.php:645 zp-core/lib-auth.php:660 zp-core/lib-auth.php:679
 #: zp-core/lib-auth.php:704
@@ -14205,7 +14204,7 @@ msgstr "Thai (Windows)"
 #, fuzzy
 #| msgid "netPhotoGraphics License agreement"
 msgid "netPhotoGraphics License agreement"
-msgstr "ZenPhoto20-Lizenz-Zustimmung"
+msgstr "netPhotoGraphics-Lizenz-Zustimmung"
 
 #: zp-core/license.php:40
 #, php-format
@@ -18278,7 +18277,7 @@ msgstr "Datenbankverbindung"
 #, fuzzy
 #| msgid "netPhotoGraphics has detected a change in your installation."
 msgid "A change has been detected in your installation."
-msgstr "ZenPhoto20 hat eine Änderung Ihrer Installation festgestellt."
+msgstr "netPhotoGraphics hat eine Änderung Ihrer Installation festgestellt."
 
 #: zp-core/reconfigure.php:282
 #, fuzzy, php-format
@@ -18460,7 +18459,7 @@ msgstr "Gestartet"
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics Setup v%1$s%2$s: %3$s"
 msgid "netPhotoGraphics Setup v%1$s%2$s: %3$s"
-msgstr "ZenPhoto20 Setup v%1$s%2$s: %3$s"
+msgstr "netPhotoGraphics Setup v%1$s%2$s: %3$s"
 
 #: zp-core/setup/index.php:465
 msgid "Full environment"
@@ -18514,7 +18513,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Installing netPhotoGraphics v%s"
 msgid "Installing netPhotoGraphics v%s"
-msgstr "ZenPhoto20 v%s wird installiert"
+msgstr "netPhotoGraphics v%s wird installiert"
 
 #: zp-core/setup/index.php:574
 #, php-format
@@ -18538,7 +18537,7 @@ msgid ""
 "<em>owner</em> only (permissions = 0600). The file permissions for <em>%2$s</"
 "em> are %3$s which may allow unauthorized access."
 msgstr ""
-"ZenPhoto20 empfiehlt, die sensiblen Dateien im %1$s-Order nur für den "
+"netPhotoGraphics empfiehlt, die sensiblen Dateien im %1$s-Order nur für den "
 "<em>Owner</em> zugänglich zu machen (Zugrifssrechte = 0600).  Die "
 "Dateizugriffsrechte für <em>%2$s</em> sind %3$04o, was unerlaubten Zugriff "
 "erlauben kann."
@@ -18996,16 +18995,16 @@ msgstr "<em>%1$s</em>-Datei [existiert nicht]"
 #, fuzzy, php-format
 #| msgid ""
 #| "Setup was not able to create this file. You will need to copy the <code>"
-#| "%1$s/zenphoto_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it "
-#| "as indicated in the file’s comments."
+#| "%1$s/netPhotoGraphics_cfg.txt</code> file to <code>%2$s/%3$s</code> then "
+#| "edit it as indicated in the file’s comments."
 msgid ""
 "Setup was not able to create this file. You will need to copy the <code>%1$s/"
 "netPhotoGraphics_cfg.txt</code> file to <code>%2$s/%3$s</code> then edit it "
 "as indicated in the file’s comments."
 msgstr ""
 "Das Installationsprogramm konnte diese Datei nicht erstellen. Sie müssen "
-"daher die Datei <code>%1$s/zenphoto_cfg.txt</code> nach <code>%2$s/%3$s</"
-"code>kopieren und dann wie in den Dateikommentaren beschrieben ändern."
+"daher die Datei <code>%1$s/netPhotoGraphics_cfg.txt</code> nach <code>%2$s/"
+"%3$s</code>kopieren und dann wie in den Dateikommentaren beschrieben ändern."
 
 #: zp-core/setup/index.php:791
 msgid "File permissions"
@@ -19342,7 +19341,7 @@ msgstr "Installationsdateien"
 #, fuzzy
 #| msgid "netPhotoGraphics package [missing]"
 msgid "netPhotoGraphics package [missing]"
-msgstr "ZenPhoto20 package [fehlt]"
+msgstr "netPhotoGraphics package [fehlt]"
 
 #: zp-core/setup/index.php:1186
 #, fuzzy
@@ -19360,7 +19359,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Setting permissions (0%o) for netPhotoGraphics package."
 msgid "Setting permissions (0%o) for netPhotoGraphics package."
-msgstr "Dateizugriffsrechte (0%o) für das ZenPhoto20-Paket."
+msgstr "Dateizugriffsrechte (0%o) für das netPhotoGraphics-Paket."
 
 #: zp-core/setup/index.php:1306
 #, fuzzy
@@ -19394,7 +19393,7 @@ msgstr ""
 #| "netPhotoGraphics core files [Could not update the root <em>index.php</em> "
 #| "file.]"
 msgid "Core files [Could not update the root <em>index.php</em> file.]"
-msgstr "ZenPhoto20-Hauptdateien [Dies ist keine offizielle Version]"
+msgstr "netPhotoGraphics-Hauptdateien [Dies ist keine offizielle Version]"
 
 #: zp-core/setup/index.php:1316
 #, fuzzy, php-format
@@ -19711,8 +19710,8 @@ msgid ""
 "Be sure you have uploaded the complete netPhotoGraphics package. You must "
 "have at least the <em>en_US</em> folder."
 msgstr ""
-"Stellen Sie sicher, dass sie das komplette ZenPhoto20-Paket heruntergeladen "
-"haben. Sie müssen wenigstens den <em>en_US</em>-Ordner haben."
+"Stellen Sie sicher, dass sie das komplette netPhotoGraphics-Paket "
+"heruntergeladen haben. Sie müssen wenigstens den <em>en_US</em>-Ordner haben."
 
 #: zp-core/setup/index.php:1567
 msgid "uploaded"
@@ -20030,9 +20029,9 @@ msgstr ""
 "<em>UNIQUE</em>-Schlüssel definiert zu habeb. Es existieren daher "
 "wahrscheinlich duplizierte Einträge, die unerwünschtes Verhalten nach sich "
 "ziehen können.  Dies kann normalerweise korrigiert werden, indem Sie ein "
-"ZenPhoto20-Datenbank-Backup erstellen, die Tabelle löschen, Setup erneut "
-"ausführen und dann vom Backup wiederherstellen. In jedem Fall gehen die "
-"duplizierten Einträge verloren."
+"netPhotoGraphics-Datenbank-Backup erstellen, die Tabelle löschen, Setup "
+"erneut ausführen und dann vom Backup wiederherstellen. In jedem Fall gehen "
+"die duplizierten Einträge verloren."
 
 #: zp-core/setup/setup-functions.php:523
 #, fuzzy, php-format
@@ -20715,9 +20714,9 @@ msgstr ""
 "Eine Wiederherstellung sollte idealerweise mit der selben Version von "
 "zenphoto ausgeführt werden, mit der das Backup erstellt wurde. Wenn Sie "
 "vorhaben eine Aktualisierung von Zenphoto auszuführen, stellen Sie zunächst "
-"die ZenPhoto20-Version wieder her, die Sie derzeit haben, und installieren "
-"dann die neue Version. Wenn dies nicht möglich sein sollte, kann die "
-"Wiederherstellung dennoch ausgeführt werden, wenn sich jedoch "
+"die netPhotoGraphics-Version wieder her, die Sie derzeit haben, und "
+"installieren dann die neue Version. Wenn dies nicht möglich sein sollte, "
+"kann die Wiederherstellung dennoch ausgeführt werden, wenn sich jedoch "
 "Datenbankfelder zwischen den Versionen geändert haben sollten, wird der "
 "Inhalt der geänderten Felder nicht wiederhergestellt."
 
@@ -23642,7 +23641,7 @@ msgstr "Konfigurationsfehler, %1$s Login-Gruppe %2$s existiert nicht."
 #, fuzzy
 #| msgid "netPhotoGraphics Gallery registration"
 msgid "netPhotoGraphics Gallery registration"
-msgstr "ZenPhoto20-Galerie-Registrierung"
+msgstr "netPhotoGraphics-Galerie-Registrierung"
 
 #: zp-core/zp-extensions/common/oAuth/oAuthLogin.php:140
 #: zp-core/zp-extensions/register_user.php:337
@@ -26540,7 +26539,7 @@ msgid ""
 msgstr ""
 "Auf <em>vertrauenswürdig</em> einstellen, um anzunehmen, dass der HTTP "
 "Benutzer ist sicher authorisiert. (Diese Einstellung überprüft nicht die "
-"Gültigkeit des Passwords gegenüber dem ZenPhoto20-Benutzer.)"
+"Gültigkeit des Passwords gegenüber dem netPhotoGraphics-Benutzer.)"
 
 #: zp-core/zp-extensions/image_album_statistics.php:15
 msgid ""
@@ -26774,7 +26773,8 @@ msgid ""
 msgstr ""
 "Eine externe IP-Liste importieren. <p class=\"notebox\"><strong>HINWEIS:</"
 "strong> Wenn diese Liste sehr lang ist, überschreitet sie möglicherweise "
-"ZenPhoto20 Kapazität und %s, um auszuführen und die Ergebnisse zu speichern. "
+"netPhotoGraphics Kapazität und %s, um auszuführen und die Ergebnisse zu "
+"speichern. "
 
 #: zp-core/zp-extensions/ipBlocker.php:102
 msgid "How the plugin will interpret the IP list."
@@ -27993,8 +27993,8 @@ msgid ""
 "Creates a link outside the standard structure. Use of a full URL is "
 "recommended (e.g. http://www.domain.com)."
 msgstr ""
-"Erstellt einen Link zu einem Ziel außerhalb von Zenphoto20. Die Verwendung "
-"der vollen URL (z.B. http://www.domain.com) wird empfohlen."
+"Erstellt einen Link zu einem Ziel außerhalb von netPhotoGraphics. Die "
+"Verwendung der vollen URL (z.B. http://www.domain.com) wird empfohlen."
 
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:165
 #: zp-core/zp-extensions/menu_manager/menu_tab_edit.php:294
@@ -30578,14 +30578,14 @@ msgstr "E-Mail-Funktionalität basierend auf der  PHP <em>mail</em>-Funktion"
 #: zp-core/zp-extensions/simple_sendmail.php:47
 #, fuzzy, php-format
 #| msgid ""
-#| "<code>zenphoto_sendmail</code> failed to send <em>%s</em> to one or more "
+#| "<code>simple_sendmail</code> failed to send <em>%s</em> to one or more "
 #| "recipients."
 msgid ""
 "<code>simple_sendmail</code> failed to send <em>%s</em> to one or more "
 "recipients."
 msgstr ""
-"<code>zenphoto_sendmail</code> konnte <em>%s</em> nicht zu einem oder "
-"mehreren Empfängern senden."
+"<code>simple_sendmail</code> konnte <em>%s</em> nicht zu einem oder mehreren "
+"Empfängern senden."
 
 #: zp-core/zp-extensions/site_upgrade.php:38
 msgid ""
