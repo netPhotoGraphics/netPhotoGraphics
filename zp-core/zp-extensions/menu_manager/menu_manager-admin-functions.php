@@ -46,13 +46,13 @@ function printItemsListTable($item, $toodeep) {
 		case 0:
 			switch ($item['type']) {
 				case "album":
-					$link = '<a href="../../admin-tabs/edit.php?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					$link = '<a href="' . getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 					break;
 				case "page":
-					$link = '<a href="../zenpage/admin-tabs/edit.php?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					$link = '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 					break;
 				case "category":
-					$link = '<a href="../zenpage/admin-tabs/edit.php?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
+					$link = '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newscategory&amp;titlelink=' . html_encode($item['link']) . '">' . html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . '</a>';
 					break;
 				case 'dynamiclink':
 				case 'customlink':
