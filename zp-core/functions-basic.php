@@ -1370,7 +1370,7 @@ function ipProtectTag($album, $image, $args) {
  */
 function getImageProcessorURI($args, $album, $image) {
 	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
-	$args[8] = NULL; // not used by image processor
+
 	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . pathurlencode($album);
 	if (is_array($image)) {
 		$uri .= '&i=' . urlencode($image['name']) . '&z=' . ($z = $image['source']);
@@ -1418,7 +1418,7 @@ function getImageProcessorURI($args, $album, $image) {
 	} else {
 		$args[7] = NULL;
 	}
-	$args[8] = NULL;
+	$args[8] = NULL; // not used by image processor
 	if ($crop) {
 		$uri .= '&c=' . ($args[9] = 1);
 	} else {

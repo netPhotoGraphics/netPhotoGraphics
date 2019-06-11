@@ -13,7 +13,12 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 }
 if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matches)) {
 	unset($uri);
-	$base = '/' . strtr($matches[2] . $matches[3], array('CORE_PATH/PLUGIN_PATH' => 'CORE_FOLDER/PLUGIN_FOLDER', 'CORE_PATH' => 'CORE_FOLDER', 'USER_PLUGIN_PATH' => 'USER_PLUGIN_FOLDER')) . '.php';
+	$base = '/' . strtr($matches[2] . $matches[3], array('CORE_PATH/PLUGIN_PATH' => 'CORE_FOLDER/PLUGIN_FOLDER', 'CORE_PATH' => 'CORE_FOLDER', 'USER_PLUGIN_PATH' => 'USER_PLUGIN_FOLDER'));
+	if (preg_match('~\.php$~i', $base)) {
+		trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
+	} else {
+		$base .= '.php';
+	}
 	if (file_exists(dirname(__FILE__) . $base)) {
 		//	mock up things as if the the uri went directly to the script
 		$_SERVER['SCRIPT_NAME'] = $matches[1] . $base;

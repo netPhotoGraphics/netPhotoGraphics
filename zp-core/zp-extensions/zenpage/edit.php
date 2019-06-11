@@ -408,7 +408,7 @@ $tagsort = 'alpha';
 											$what = 'title=';
 										}
 										?>
-										<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
+										<a href="<?php echo WEBPATH; ?>/index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
 											<?php echo BULLSEYE_BLUE; ?>
 											<?php echo gettext("View"); ?>
 										</a>
@@ -542,9 +542,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -636,7 +636,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																								 togglePassword('');">
+																					 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -927,7 +927,7 @@ $tagsort = 'alpha';
 													$what = 'title = ';
 												}
 												?>
-												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
+												<a href="<?php echo WEBPATH; ?>/index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
 													<?php echo BULLSEYE_BLUE; ?>
 													<?php echo gettext("View"); ?>
 												</a>

@@ -349,7 +349,7 @@ printLogoAndLinks();
 								$arrow = NORTH_WEST_CORNER_ARROW;
 							}
 							?>
-							<a	href="admin-comments.php?fulltext=<?php
+							<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php
 							echo (int) ($fulltext + 1) & 1;
 							if ($viewall)
 								echo '&amp;viewall';

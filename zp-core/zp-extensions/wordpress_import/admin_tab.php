@@ -52,7 +52,7 @@ function wp_prefix($tablename, $wp_prefix) {
 }
 
 function wpimport_TryAgainError($message) {
-	return '<p class="import-error">' . $message . '<br /><a href="admin_tab.php">' . gettext('Please try again') . '</a>
+	return '<p class="import-error">' . $message . '<br /><a href="' . getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php') . '">' . gettext('Please try again') . '</a>
 		</p>';
 }
 
@@ -489,7 +489,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						</li>
 					</ul>
 					<?php if ($posttotalcount == $postcount) { ?>
-						<p class="buttons"><a href="admin_tab.php"><?php echo gettext('New import'); ?></a></p>
+						<p class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php'); ?>"><?php echo gettext('New import'); ?></a></p>
 						<br style="clear:both" />
 						<?php
 					}
