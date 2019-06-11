@@ -135,8 +135,6 @@ if (!file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
 @copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
 @chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
 
-
-
 if (isset($_GET['mod_rewrite'])) {
 	$mod = '&mod_rewrite=' . $_GET['mod_rewrite'];
 } else {
@@ -249,10 +247,7 @@ if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 if ($update_config) {
 	configFile::store($_config_contents);
 	//	reload the page so that the database config takes effect
-	$q = rtrim($debugq . $autorunq, '&');
-	if ($q) {
-		$q = '?' . $q;
-	}
+	$q = '?' . rtrim($debugq . $autorunq, '&') . '&db_config';
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 }
@@ -442,7 +437,9 @@ if ($setup_checked) {
 		}
 
 		$index = SERVERPATH . '/index.php';
-		unlink($index);
+		if (file_exists($index)) {
+			unlink($index);
+		}
 		$defines = array(
 				'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
 				'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
@@ -867,15 +864,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												}
 												break;
 										}
-										$msg2 = '<p>' . sprintf(gettext('If your server filesystem character set is different from <code>%s</code> and you create album or image filenames names containing characters with diacritical marks you may have problems with these objects.'), $charset_defined) . '</p>' .
+										$msg2 = '<p>' . sprintf(gettext('If your server filesystem character set is different from <code>%s</code> and you create album or image filenames names containing characters with diacritical marks you may have problems with these objects.'), $charset_defined) . '</p>' . "\n" .
 														'<form action="#">' .
-														'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
-														'<input type="hidden" name="charset_attempts" value="' . $tries . '" />' .
-														'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
-														'<input type="hidden" name="debug" value="' . $debug . '">' . ''
-														. '<p>' .
-														gettext('Change the filesystem character set define to %1$s') .
-														'</p><input type="hidden" name="autorun" value="' . ltrim($autorunq, '&') . '><input type="hidden" name="debug" value="' . ltrim($debugq, '&') . '></form><br class="clearall">';
+														'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' . "\n" .
+														'<input type="hidden" name="charset_attempts" value="' . $tries . '" />' . "\n" .
+														'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' . "\n" .
+														'<input type="hidden" name="debug" value="' . $debug . '">' . "\n" .
+														'<p>' . "\n" .
+														gettext('Change the filesystem character set define to %1$s') . "\n" .
+														'</p>' . "\n" .
+														'</form>' . "\n" .
+														'<br class="clearall">' . "\n";
 
 										if (isset($_conf_vars['FILESYSTEM_CHARSET'])) {
 											$selectedset = $_conf_vars['FILESYSTEM_CHARSET'];

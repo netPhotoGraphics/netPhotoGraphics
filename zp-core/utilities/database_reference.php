@@ -53,7 +53,6 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 			<div class="tabbox">
 				<p>
 					<?php echo gettext('Shows all database table and field info for quick reference.'); ?>
-					<?php echo gettext("The internal table relations can be viewed on the PDF database reference that is included in the release package within the /docs_files folder of your installation. For more detailed info about the database use tools like phpMyAdmin."); ?>
 				</p>
 				<?php
 				$database_name = db_name();
