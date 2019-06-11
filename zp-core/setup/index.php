@@ -1683,9 +1683,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 								}
 
-
-								$clones = array();
-
 								if ($_loggedin == ADMIN_RIGHTS) {
 									$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 									if (count($filelist) > 0) {
@@ -1698,13 +1695,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										}
 									}
 								} else {
-									if (extensionEnabled('clone')) {
-										require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
-										if (class_exists('clone'))
-											$clones = npgClone::clones();
-									}
 									$autorun = false;
-									foreach ($clones as $clone => $data) {
+								}
+
+								require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+								if (class_exists('npgClone')) {
+									foreach (npgClone::clones() as $clone => $data) {
 										$url = $data['url'];
 										?>
 										<p>
