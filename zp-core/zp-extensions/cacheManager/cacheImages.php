@@ -82,13 +82,13 @@ function loadAlbum($album) {
 						$effects = isset($cacheimage['gray']) ? $cacheimage['gray'] : NULL;
 						if (isset($cacheimage['wmk'])) {
 							$passedWM = $cacheimage['wmk'];
+						} else if ($cacheimage['thumb'] < 0) {
+							$passedWM = '!';
 						} else if ($thumbstandin) {
 							$passedWM = getWatermarkParam($_current_image, WATERMARK_THUMB);
 						} else {
 							$passedWM = getWatermarkParam($_current_image, WATERMARK_IMAGE);
 						}
-
-
 						if (isset($cacheimage['maxspace'])) {
 							getMaxSpaceContainer($width, $height, $_current_image, $thumbstandin);
 						}
