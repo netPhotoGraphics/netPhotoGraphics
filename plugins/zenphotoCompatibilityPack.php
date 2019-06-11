@@ -82,6 +82,7 @@ $legacyReplacements = array(
 		'save_admin_custom_data' => 'save_admin_data',
 		'save_album_utilities_data' => 'save_album_data',
 		'save_image_utilities_data' => 'save_image_data',
+		'ZENPHOTO_VERSION' => 'NETPHOTOGRAPHICS_VERSION',
 		'ZENFOLDER' => 'CORE_FOLDER',
 		'ZP_ALBUM' => 'NPG_ALBUM',
 		'ZP_IMAGE' => 'NPG_IMAGE',
