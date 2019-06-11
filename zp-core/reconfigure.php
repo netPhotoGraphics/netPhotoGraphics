@@ -85,7 +85,7 @@ function reconfigureAction($mandatory) {
 			<html xmlns="http://www.w3.org/1999/xhtml" />
 			<head>
 				<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-				<?php scriptLoader(CORE_SERVERPATH . 'admin.css'); ?>
+				<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
 				<?php reconfigureCS(); ?>
 			</head>
 			<body>
@@ -266,7 +266,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where .= '&amp;notoken';
 	}
-	$l1 = '<a href="' . getAdminLink('setup.php') . '?autorun=' . $where . '">';
+	$l1 = '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php' . '?autorun=' . $where . '">';
 	$l2 = '</a>';
 	?>
 	<div class="reconfigbox">
