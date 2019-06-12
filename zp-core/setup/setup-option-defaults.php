@@ -587,7 +587,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	foreach ($options as $option) {
 		setThemeOption($option['name'], $option['value'], NULL, 'effervescence+', true);
 	}
-	zpFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
+	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
 }
 ?>
 <p>

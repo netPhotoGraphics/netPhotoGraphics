@@ -97,7 +97,7 @@ function saveOptions() {
 	$dbChange = $enableSource = $disableSource = $disable = $display = array();
 
 	if (isset($_POST['restore_to_defaults'])) {
-		$exifvars = zpFunctions::exifvars(true);
+		$exifvars = npgFunctions::exifvars(true);
 
 		foreach ($exifvars as $key => $item) {
 			if ($exifvars[$key][EXIF_DISPLAY]) {
@@ -204,7 +204,7 @@ function getOptionContent() {
 		function setMetaDefaults() {
 			$('.showMeta').prop('checked', 'checked');
 	<?php
-	foreach (zpFunctions::exifvars(true) as $key => $data) {
+	foreach (npgFunctions::exifvars(true) as $key => $data) {
 		if (!$data[5]) {
 			?>
 					$('#<?php echo $key; ?>_disable').prop('checked', 'checked');

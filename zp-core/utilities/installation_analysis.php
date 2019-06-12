@@ -36,7 +36,7 @@ echo '</head>';
 							} else {
 								$official = gettext('Official build');
 							}
-							if (zpFunctions::hasPrimaryScripts()) {
+							if (npgFunctions::hasPrimaryScripts()) {
 								$source = '';
 							} else {
 								$clone = clonedFrom();

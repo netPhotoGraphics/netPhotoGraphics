@@ -506,7 +506,7 @@ class optionalObjectFields extends fieldExtender {
 
 	static function extracontent($obj, $instance, $field, $type) {
 		if ($type == 'save') {
-			$extracontent = zpFunctions::updateImageProcessorLink(process_language_string_save("extracontent", EDITOR_SANITIZE_LEVEL));
+			$extracontent = npgFunctions::updateImageProcessorLink(process_language_string_save("extracontent", EDITOR_SANITIZE_LEVEL));
 			$obj->setExtracontent($extracontent);
 			return NULL;
 		} else {

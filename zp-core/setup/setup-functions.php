@@ -655,7 +655,7 @@ function migrateDB() {
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$update = false;
-					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*/' . CACHEFOLDER . '/.*)\"|U', zpFunctions::unTagURLs($row[$field]), $matches);
+					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*/' . CACHEFOLDER . '/.*)\"|U', npgFunctions::unTagURLs($row[$field]), $matches);
 					$updated = false;
 					foreach ($matches[1] as $file) {
 						list($basename, $newname) = newCacheName(basename($file));

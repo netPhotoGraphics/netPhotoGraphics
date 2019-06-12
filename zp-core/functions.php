@@ -354,7 +354,7 @@ function lookupSortKey($sorttype, $default, $table) {
  * @param date $dt the date to be output
  * @return string
  */
-function zpFormattedDate($format, $dt) {
+function formattedDate($format, $dt) {
 	global $_UTF8;
 	$fdate = strftime($format, $dt);
 	$charset = 'ISO-8859-1';
@@ -2410,14 +2410,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/cron_runner.php'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/cron_runner.php'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -2730,7 +2730,7 @@ function getNestedAlbumList($subalbum, $levels, $level = array()) {
 	return $list;
 }
 
-class zpFunctions {
+class npgFunctions {
 
 	/**
 	 *
@@ -2888,7 +2888,7 @@ class zpFunctions {
 			while (($file = readdir($dir)) !== false) {
 				if ($file != '.' && $file != '..') {
 					if ((is_dir($path . '/' . $file))) {
-						if (!zpFunctions::removeDir($path . '/' . $file)) {
+						if (!npgFunctions::removeDir($path . '/' . $file)) {
 							return false;
 						}
 					} else {

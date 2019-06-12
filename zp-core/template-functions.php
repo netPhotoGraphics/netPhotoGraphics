@@ -1507,7 +1507,7 @@ function getAlbumDate($format = null) {
 	if (is_null($format)) {
 		return $d;
 	}
-	return zpFormattedDate($format, strtotime($d));
+	return formattedDate($format, strtotime($d));
 }
 
 /**
@@ -2212,7 +2212,7 @@ function getImageDate($format = null) {
 	if (is_null($format)) {
 		return $d;
 	}
-	return zpFormattedDate($format, strtotime($d));
+	return formattedDate($format, strtotime($d));
 }
 
 /**
@@ -2554,7 +2554,7 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 					echo "<tr><td class=\"label " . html_encode($field) . "\">$label:</td><td class=\"value\">";
 					switch ($_exifvars[$field][EXIF_FIELD_TYPE]) {
 						case 'time':
-							echo zpFormattedDate(DATE_FORMAT, strtotime($value));
+							echo formattedDate(DATE_FORMAT, strtotime($value));
 							break;
 						default:
 							echo html_encode($value);
@@ -4108,7 +4108,7 @@ function getSearchDate($format = '%B %Y') {
 			return gettext("no date");
 		};
 		$dt = strtotime($date . "-01");
-		return zpFormattedDate($format, $dt);
+		return formattedDate($format, $dt);
 	}
 	return false;
 }

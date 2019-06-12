@@ -1300,7 +1300,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						if ($report != $installed_files) {
 							$filelist .= '....<br />';
 						}
-						if (zpFunctions::hasPrimaryScripts() && count($installed_files) > 0) {
+						if (npgFunctions::hasPrimaryScripts() && count($installed_files) > 0) {
 							if ($testRelease) {
 								$msg1 = gettext("Core files [This is a <em>debug</em> build. Some files are missing or seem wrong]");
 							} else {
@@ -1314,7 +1314,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$msg1 = gettext("Core files [Could not update the root <em>index.php</em> file.]");
 								$msg2 = sprintf(gettext('Perhaps there is a permissions issue. You should manually copy the %s <em>root_index.php</em> file to the installation root and rename it <em>index.php</em>.'), CORE_FOLDER) . ' ' . gettext('Then manually edit the file to replace the defines with their definition values.');
 							} else {
-								if (zpFunctions::hasPrimaryScripts()) {
+								if (npgFunctions::hasPrimaryScripts()) {
 									if ($testRelease) {
 										$mark = -1;
 										$msg1 = gettext("Core files [This is a <em>debug</em> build]");
@@ -1330,7 +1330,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
-						if (setupUserAuthorized() && $connection && zpFunctions::hasPrimaryScripts()) {
+						if (setupUserAuthorized() && $connection && npgFunctions::hasPrimaryScripts()) {
 							primeMark(gettext('Installation files'));
 							$systemlist = $filelist = array();
 							$phi_ini_count = $svncount = 0;

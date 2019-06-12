@@ -386,11 +386,11 @@ class AlbumZip {
 
 		$_albums_visited_albumMenu = $_zip_list = array();
 		if ($fromcache) {
-			$opt = array('large_file_size' => 5 * 1024 * 1024, 'comment' => sprintf(gettext('Created from cached images of %1$s on %2$s.'), $album->name, zpFormattedDate(DATE_FORMAT, time())));
+			$opt = array('large_file_size' => 5 * 1024 * 1024, 'comment' => sprintf(gettext('Created from cached images of %1$s on %2$s.'), $album->name, formattedDate(DATE_FORMAT, time())));
 			$defaultSize = getThemeOption('image_size', NULL, $_gallery->getCurrentTheme());
 		} else {
 			$defaultSize = NULL;
-			$opt = array('large_file_size' => 5 * 1024 * 1024, 'comment' => sprintf(gettext('Created from images in %1$s on %2$s.'), $album->name, zpFormattedDate(DATE_FORMAT, time())));
+			$opt = array('large_file_size' => 5 * 1024 * 1024, 'comment' => sprintf(gettext('Created from images in %1$s on %2$s.'), $album->name, formattedDate(DATE_FORMAT, time())));
 		}
 		self::AddAlbum($album, $fromcache, $subalbums, 0);
 		if (class_exists('ZipArchive')) {

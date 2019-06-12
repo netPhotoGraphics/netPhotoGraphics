@@ -83,8 +83,8 @@ define('SELECT_ALBUMS', 2);
 define('SELECT_PAGES', 4);
 define('SELECT_ARTICLES', 8);
 
-$_exifvars = zpFunctions::exifvars();
-$_locale_Subdomains = zpFunctions::LanguageSubdomains();
+$_exifvars = npgFunctions::exifvars();
+$_locale_Subdomains = npgFunctions::LanguageSubdomains();
 
 //	use this for labeling "News" pages, etc.
 define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('zenpage_news_label'))));

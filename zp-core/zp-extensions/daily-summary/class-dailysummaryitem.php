@@ -49,7 +49,7 @@ class DailySummaryItem extends Album {
 				$folder = $album['folder'];
 				$text = $album['albumtitle'];
 				$text = get_language_string($text);
-				$text = zpFunctions::unTagURLs($text);
+				$text = npgFunctions::unTagURLs($text);
 				$imageAlbums[$folder] = $text;
 			}
 		}

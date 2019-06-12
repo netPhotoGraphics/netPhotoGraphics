@@ -362,7 +362,7 @@ function restoreSetupScrpts($reason) {
 			$addl = gettext('by cloning');
 			break;
 	}
-	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && zpFunctions::hasPrimaryScripts();
+	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();
 	security_logger::log_setup($allowed, 'restore', $addl);
 	if ($allowed) {
 		if (!defined('FILE_MOD')) {

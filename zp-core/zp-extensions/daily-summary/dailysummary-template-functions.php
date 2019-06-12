@@ -22,7 +22,7 @@ function getDailySummaryDate($format = null) {
 	if (is_null($format)) {
 		return $d;
 	}
-	return zpFormattedDate($format, strtotime($d));
+	return formattedDate($format, strtotime($d));
 }
 
 function getDailySummaryModifiedDate($format = null) {
@@ -34,7 +34,7 @@ function getDailySummaryModifiedDate($format = null) {
 	if (is_null($format)) {
 		return $d;
 	}
-	return zpFormattedDate($format, strtotime($d));
+	return formattedDate($format, strtotime($d));
 }
 
 function getDailySummaryUrl() {

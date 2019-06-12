@@ -236,3 +236,11 @@ function zp_clearCookie($name) {
 	deprecated_functions::notify(gettext('Use clearNPGCookie()'));
 	clearNPGCookie($name);
 }
+
+/**
+ * @deprecated since version 1.9.06
+ */
+function zpFormattedDate($format, $dt) {
+	deprecated_functions::notify(gettext('Use formattedDate()'));
+	formattedDate($format, $dt);
+}

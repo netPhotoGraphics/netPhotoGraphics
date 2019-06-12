@@ -254,7 +254,7 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 	if ($showdate) {
 		if ($option === "latestupdated") {
 			$filechangedate = strtotime($tempalbum->getUpdatedDate());
-			echo "<p>" . sprintf(gettext("Last update: %s"), zpFormattedDate(DATE_FORMAT, $filechangedate)) . "</p>";
+			echo "<p>" . sprintf(gettext("Last update: %s"), formattedDate(DATE_FORMAT, $filechangedate)) . "</p>";
 			$latestimage = query_single_row("SELECT mtime FROM " . prefix('images') . " WHERE albumid = " . $tempalbum->getID() . " AND `show`=1 ORDER BY id DESC");
 			if ($latestimage) {
 				$count = db_count('images', "WHERE albumid = " . $tempalbum->getID() . " AND mtime = " . $latestimage['mtime']);
@@ -266,7 +266,7 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 				echo "<span>" . sprintf(gettext('%1$u new %2$s'), $count, $image) . "</span>";
 			}
 		} else {
-			echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($tempalbum->getDateTime())) . "</p>";
+			echo "<p>" . formattedDate(DATE_FORMAT, strtotime($tempalbum->getDateTime())) . "</p>";
 		}
 	}
 	if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
@@ -586,7 +586,7 @@ function printImageStatistic($number, $option, $albumfolder = NULL, $showtitle =
 			echo $image->getTitle() . "</a></h3>\n";
 		}
 		if ($showdate) {
-			echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
+			echo "<p>" . formattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
 		}
 		if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
 			$votes = $image->get("total_votes");

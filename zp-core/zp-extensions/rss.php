@@ -177,7 +177,7 @@ class rss_options {
 function getRSSLink($option, $lang = NULL, $addl = NULL) {
 	global $_current_album, $_current_image, $_current_admin_obj, $_CMS_current_category;
 	if (empty($lang)) {
-		$lang = zpFunctions::getLanguageText(getOption('locale'));
+		$lang = npgFunctions::getLanguageText(getOption('locale'));
 	}
 	$link = NULL;
 	switch (strtolower($option)) {
@@ -574,14 +574,14 @@ class RSS extends feed {
 					$imagenumber = $title;
 				}
 				$feeditem['desc'] = '<a title="' . $title . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' .
-								'<p>' . html_encode($imagenumber) . '</p>' . $albumobj->getDesc($this->locale) . '<br />' . sprintf(gettext("Last update: %s"), zpFormattedDate(DATE_FORMAT, $filechangedate));
+								'<p>' . html_encode($imagenumber) . '</p>' . $albumobj->getDesc($this->locale) . '<br />' . sprintf(gettext("Last update: %s"), formattedDate(DATE_FORMAT, $filechangedate));
 			} else {
 				if ($totalimages != 0) {
 					$imagenumber = sprintf(ngettext('%s (%u image)', '%s (%u images)', $totalimages), $title, $totalimages);
 				} else {
 					$imagenumber = $title;
 				}
-				$feeditem['desc'] = '<a title="' . html_encode($title) . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . '<br />' . sprintf(gettext("Date: %s"), zpFormattedDate(DATE_FORMAT, $item->get('mtime')));
+				$feeditem['desc'] = '<a title="' . html_encode($title) . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . '<br />' . sprintf(gettext("Date: %s"), formattedDate(DATE_FORMAT, $item->get('mtime')));
 			}
 			$ext = getSuffix($thumb->localpath);
 		} else {
@@ -592,7 +592,7 @@ class RSS extends feed {
 			$thumburl = '<img border="0" src="' . PROTOCOL . '://' . $this->host . html_encode($item->getCustomImage($this->imagesize, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" alt="' . $item->getTitle($this->locale) . '" /><br />';
 			$title = $item->getTitle($this->locale);
 			$albumtitle = $albumobj->getTitle($this->locale);
-			$datecontent = '<br />Date: ' . zpFormattedDate(DATE_FORMAT, $item->get('mtime'));
+			$datecontent = '<br />Date: ' . formattedDate(DATE_FORMAT, $item->get('mtime'));
 			if ((($ext == "flv") || ($ext == "mp3") || ($ext == "mp4") || ($ext == "3gp") || ($ext == "mov")) AND $this->mode != "album") {
 				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . $datecontent;
 			} else {

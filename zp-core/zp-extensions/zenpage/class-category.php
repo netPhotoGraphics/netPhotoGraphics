@@ -42,9 +42,9 @@ class Category extends CMSRoot {
 	function getDesc($locale = NULL) {
 		$text = $this->get('desc');
 		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
+			return npgFunctions::unTagURLs($text);
 		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
 		}
 	}
 
@@ -54,7 +54,7 @@ class Category extends CMSRoot {
 	 * @param string $desc description text
 	 */
 	function setDesc($desc) {
-		$desc = zpFunctions::tagURLs($desc);
+		$desc = npgFunctions::tagURLs($desc);
 		$this->set('desc', $desc);
 	}
 

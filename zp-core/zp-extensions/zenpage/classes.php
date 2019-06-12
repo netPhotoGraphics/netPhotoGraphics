@@ -800,9 +800,9 @@ class CMSItems extends CMSRoot {
 	function getContent($locale = NULL) {
 		$text = $this->get("content");
 		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
+			return npgFunctions::unTagURLs($text);
 		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
 		}
 	}
 
@@ -812,7 +812,7 @@ class CMSItems extends CMSRoot {
 	 * @param $c full language string
 	 */
 	function setContent($c) {
-		$c = zpFunctions::tagURLs($c);
+		$c = npgFunctions::tagURLs($c);
 		$this->set("content", $c);
 	}
 
@@ -841,9 +841,9 @@ class CMSItems extends CMSRoot {
 	function getExtraContent($locale = NULL) {
 		$text = $this->get("extracontent");
 		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
+			return npgFunctions::unTagURLs($text);
 		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
 		}
 	}
 
@@ -852,7 +852,7 @@ class CMSItems extends CMSRoot {
 	 *
 	 */
 	function setExtraContent($ec) {
-		$this->set("extracontent", zpFunctions::tagURLs($ec));
+		$this->set("extracontent", npgFunctions::tagURLs($ec));
 	}
 
 }

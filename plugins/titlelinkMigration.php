@@ -20,7 +20,7 @@
 
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext("Migrate titlelinks to include the <em>mod_rewrite_suffix</em>.");
-$plugin_disable = zpFunctions::pluginDisable(array(array(!RW_SUFFIX, gettext('No <em>mod_rewrite_suffix</em> has been set.'))));
+$plugin_disable = npgFunctions::pluginDisable(array(array(!RW_SUFFIX, gettext('No <em>mod_rewrite_suffix</em> has been set.'))));
 
 npgFilters::register('admin_utilities_buttons', 'titlelinkMigration::buttons');
 

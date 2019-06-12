@@ -40,7 +40,7 @@ if (abs(OFFSET_PATH) != 2) {
 				$start = microtime();
 				require_once($plugin['path']);
 				if (DEBUG_PLUGINS) {
-					zpFunctions::pluginDebug($extension, $priority, $start);
+					npgFunctions::pluginDebug($extension, $priority, $start);
 				}
 				$_loaded_plugins[$extension] = $extension;
 			}

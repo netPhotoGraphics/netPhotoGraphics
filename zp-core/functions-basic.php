@@ -502,7 +502,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			}
 			$f = fopen($path, 'w');
 			if ($f) {
-				if (!class_exists('zpFunctions') || zpFunctions::hasPrimaryScripts()) {
+				if (!class_exists('npgFunctions') || npgFunctions::hasPrimaryScripts()) {
 					$clone = '';
 				} else {
 					$clone = ' ' . gettext('clone');

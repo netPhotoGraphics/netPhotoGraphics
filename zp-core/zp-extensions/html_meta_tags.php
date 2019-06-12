@@ -164,7 +164,7 @@ class htmlmetatags {
 
 		// Convert locale shorttag to allowed html meta format
 		$locale_ = i18n::getUserLocale();
-		$locale = zpFunctions::getLanguageText($locale_, '-');
+		$locale = npgFunctions::getLanguageText($locale_, '-');
 		$canonicalurl = '';
 		// generate page title, get date
 		$pagetitle = ""; // for gallery index setup below switch
@@ -367,7 +367,7 @@ class htmlmetatags {
 						$locallink = '';
 					}
 					foreach ($langs as $text => $lang) {
-						$langcheck = zpFunctions::getLanguageText($lang, '-'); //	for hreflang we need en-US
+						$langcheck = npgFunctions::getLanguageText($lang, '-'); //	for hreflang we need en-US
 						if ($langcheck != $locale) {
 							if (METATAG_LOCALE_TYPE == 1) {
 								$altlink = seo_locale::localePath(true, $lang);

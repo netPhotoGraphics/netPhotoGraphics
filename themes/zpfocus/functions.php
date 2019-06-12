@@ -195,7 +195,7 @@ function printLatestNewsCustom($number = 5, $category = '', $showdate = true, $s
 			$categories = $categories . $catobj->getTitle();
 		}
 		$content = strip_tags($obj->getContent());
-		$date = zpFormattedDate(getOption('date_format'), strtotime($item['date']));
+		$date = formattedDate(getOption('date_format'), strtotime($item['date']));
 		$type = 'news';
 		echo "<div>";
 		echo "<h3><a href=\"" . $link . "\" title=\"" . strip_tags(htmlspecialchars($title, ENT_QUOTES)) . "\">" . htmlspecialchars($title) . "</a></h3>\n";

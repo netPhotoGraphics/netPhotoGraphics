@@ -163,7 +163,7 @@ class feed {
 	 * @param string $cachefolder the sub-folder to clean
 	 */
 	function clearCache($cachefolder = NULL) {
-		zpFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . $cachefolder, true);
+		npgFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . $cachefolder, true);
 	}
 
 	function __construct($options) {

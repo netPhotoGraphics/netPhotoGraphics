@@ -520,7 +520,7 @@ class ThemeObject extends PersistentObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -530,7 +530,7 @@ class ThemeObject extends PersistentObject {
 	 * @param string $title the title
 	 */
 	function setTitle($title) {
-		$this->set('title', zpFunctions::tagURLs($title));
+		$this->set('title', npgFunctions::tagURLs($title));
 	}
 
 	/**
@@ -676,7 +676,7 @@ class ThemeObject extends PersistentObject {
 	 * @return array
 	 */
 	function getCodeblock() {
-		return zpFunctions::unTagURLs($this->get("codeblock"));
+		return npgFunctions::unTagURLs($this->get("codeblock"));
 	}
 
 	/**
@@ -684,7 +684,7 @@ class ThemeObject extends PersistentObject {
 	 *
 	 */
 	function setCodeblock($cb) {
-		$this->set('codeblock', zpFunctions::tagURLs($cb));
+		$this->set('codeblock', npgFunctions::tagURLs($cb));
 	}
 
 	/**
@@ -899,9 +899,9 @@ class MediaObject extends ThemeObject {
 	function getDesc($locale = NULL) {
 		$text = $this->get('desc');
 		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
+			return npgFunctions::unTagURLs($text);
 		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
 		}
 	}
 
@@ -911,7 +911,7 @@ class MediaObject extends ThemeObject {
 	 * @param string $desc description text
 	 */
 	function setDesc($desc) {
-		$desc = zpFunctions::tagURLs($desc);
+		$desc = npgFunctions::tagURLs($desc);
 		$this->set('desc', $desc);
 	}
 
@@ -983,7 +983,7 @@ class MediaObject extends ThemeObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -993,7 +993,7 @@ class MediaObject extends ThemeObject {
 	 * @param string $hint the hint text
 	 */
 	function setPasswordHint($hint) {
-		$this->set('password_hint', zpFunctions::tagURLs($hint));
+		$this->set('password_hint', npgFunctions::tagURLs($hint));
 	}
 
 	/**

@@ -130,7 +130,7 @@ class security_logger {
 				$success = 3;
 				$type = gettext('Install');
 				$addl = gettext('version') . ' ' . NETPHOTOGRAPHICS_VERSION;
-				if (!zpFunctions::hasPrimaryScripts()) {
+				if (!npgFunctions::hasPrimaryScripts()) {
 					$addl .= ' ' . gettext('clone');
 				}
 				break;

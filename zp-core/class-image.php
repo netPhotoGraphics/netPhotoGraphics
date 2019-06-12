@@ -782,7 +782,7 @@ class Image extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -805,7 +805,7 @@ class Image extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -815,7 +815,7 @@ class Image extends MediaObject {
 	 * @param string $city text for the city
 	 */
 	function setCity($city) {
-		$this->set('city', zpFunctions::tagURLs($city));
+		$this->set('city', npgFunctions::tagURLs($city));
 	}
 
 	/**
@@ -828,7 +828,7 @@ class Image extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -838,7 +838,7 @@ class Image extends MediaObject {
 	 * @param string $state text for the state
 	 */
 	function setState($state) {
-		$this->set('state', zpFunctions::tagURLs($state));
+		$this->set('state', npgFunctions::tagURLs($state));
 	}
 
 	/**
@@ -851,7 +851,7 @@ class Image extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -861,7 +861,7 @@ class Image extends MediaObject {
 	 * @param string $country text for the country filed
 	 */
 	function setCountry($country) {
-		$this->set('country', zpFunctions::tagURLs($country));
+		$this->set('country', npgFunctions::tagURLs($country));
 	}
 
 	/**
@@ -874,7 +874,7 @@ class Image extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -884,7 +884,7 @@ class Image extends MediaObject {
 	 * @param string $credit text for the credit field
 	 */
 	function setCredit($credit) {
-		$this->set('credit', zpFunctions::tagURLs($credit));
+		$this->set('credit', npgFunctions::tagURLs($credit));
 	}
 
 	/**
@@ -897,7 +897,7 @@ class Image extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -907,7 +907,7 @@ class Image extends MediaObject {
 	 * @param string $copyright text for the copyright field
 	 */
 	function setCopyright($copyright) {
-		$this->set('copyright', zpFunctions::tagURLs($copyright));
+		$this->set('copyright', npgFunctions::tagURLs($copyright));
 	}
 
 	/**

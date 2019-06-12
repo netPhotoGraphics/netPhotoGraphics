@@ -186,7 +186,7 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
 		}
 		$thumb = "";
 		$content = $obj->getContent();
-		$date = zpFormattedDate(DATE_FORMAT, strtotime($item['date']));
+		$date = formattedDate(DATE_FORMAT, strtotime($item['date']));
 		echo "<li>";
 		echo "<h3><a href=\"" . $link . "\" title=\"" . getBare(html_encode($title)) . "\">" . $title . "</a></h3>\n";
 		if ($showdate) {
@@ -562,7 +562,7 @@ function getNewsDate() {
 	global $_CMS_current_article;
 	if (!is_null($_CMS_current_article)) {
 		$d = $_CMS_current_article->getDateTime();
-		return zpFormattedDate(DATE_FORMAT, strtotime($d));
+		return formattedDate(DATE_FORMAT, strtotime($d));
 	}
 	return false;
 }
@@ -1230,7 +1230,7 @@ function printZenpageStatistic($number = 10, $option = "all", $mode = "popular",
 		echo '</small>';
 		echo '</h3></a>';
 		if ($showdate && $item['type'] != 'Category') {
-			echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($item['date'])) . "</p>";
+			echo "<p>" . formattedDate(DATE_FORMAT, strtotime($item['date'])) . "</p>";
 		}
 		if ($showcontent && $item['type'] != 'Category') {
 			echo '<p>' . truncate_string(getBare($item['content']), $contentlength) . '</p>';
@@ -1835,7 +1835,7 @@ function getPageDate() {
 	global $_CMS_current_page;
 	if (!is_null($_CMS_current_page)) {
 		$d = $_CMS_current_page->getDatetime();
-		return zpFormattedDate(DATE_FORMAT, strtotime($d));
+		return formattedDate(DATE_FORMAT, strtotime($d));
 	}
 	return false;
 }
@@ -1858,7 +1858,7 @@ function getPageLastChangeDate() {
 	global $_CMS_current_page;
 	if (!is_null($_CMS_current_page)) {
 		$d = $_CMS_current_page->getLastchange();
-		return zpFormattedDate(DATE_FORMAT, strtotime($d));
+		return formattedDate(DATE_FORMAT, strtotime($d));
 	}
 	return false;
 }

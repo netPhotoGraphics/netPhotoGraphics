@@ -81,7 +81,7 @@ function makeNewTitleLink($title, $table, &$reports) {
 function updatePage(&$reports) {
 	global $_current_admin_obj;
 	$title = process_language_string_save("title", 2);
-	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
+	$content = npgFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$date = sanitize($_POST['date']);
 	$pubdate = sanitize($_POST['pubdate']);
 	$expiredate = getExpiryDatePost();
@@ -388,7 +388,7 @@ function updateArticle(&$reports, $newarticle = false) {
 	global $_current_admin_obj;
 
 	$title = process_language_string_save("title", 2);
-	$content = zpFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
+	$content = npgFunctions::updateImageProcessorLink(process_language_string_save("content", EDITOR_SANITIZE_LEVEL));
 	$show = getcheckboxState('show');
 	$date = sanitize($_POST['date']);
 	$pubdate = sanitize($_POST['pubdate']);

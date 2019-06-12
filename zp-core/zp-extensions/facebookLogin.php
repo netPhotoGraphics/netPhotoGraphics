@@ -31,7 +31,7 @@
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_is_filter = 900 | CLASS_PLUGIN;
 	$plugin_description = gettext("Handles logon via the user's <em>Facebook</em> account.");
-	$plugin_disable = zpFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
+	$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
 }
 
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');

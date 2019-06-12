@@ -52,7 +52,7 @@
 						echo npgFilters::apply('custom_image_html', $html, false);
 						echo "</a>";
 						echo '<h3><a href="' . $randomImageURL . '" title="'.sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">'.html_encode($randomImage->getTitle()).'</a></h3>';
-						echo "<p>". zpFormattedDate(getOption('date_format'),strtotime($randomImage->getDateTime()))."</p>";
+						echo "<p>". formattedDate(getOption('date_format'),strtotime($randomImage->getDateTime()))."</p>";
 					} else { echo gettext('No Images Exist...'); }
 					} ?>
 					<div id="enter">

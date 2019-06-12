@@ -334,7 +334,7 @@ class seo_locale {
 			$loc = getNPGCookie('dynamic_locale');
 		}
 		if ($loc != $_current_locale) {
-			if ($locale = zpFunctions::getLanguageText($loc)) {
+			if ($locale = npgFunctions::getLanguageText($loc)) {
 				$path .= '/' . $locale;
 			}
 		}

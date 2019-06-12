@@ -40,7 +40,7 @@ use Milo\Github;
 if (npg_loggedin(ADMIN_RIGHTS)) {
 	checkInstall();
 
-	if (class_exists('Milo\Github\Api') && zpFunctions::hasPrimaryScripts()) {
+	if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 		/*
 		 * Update check Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
 		 */
@@ -473,7 +473,7 @@ $buttonlist = array();
 									'rights' => ADMIN_RIGHTS
 							);
 						}
-						if (zpFunctions::hasPrimaryScripts()) {
+						if (npgFunctions::hasPrimaryScripts()) {
 							$buttonlist[] = array(
 									'XSRFTag' => 'protect_setup',
 									'category' => gettext('Admin'),

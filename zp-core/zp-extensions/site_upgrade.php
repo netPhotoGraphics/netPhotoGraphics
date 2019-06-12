@@ -182,7 +182,7 @@ class site_upgrade {
 						'rights' => ADMIN_RIGHTS
 				);
 				list($diff, $needs) = checkSignature(0);
-				if (zpFunctions::hasPrimaryScripts() && empty($needs)) {
+				if (npgFunctions::hasPrimaryScripts() && empty($needs)) {
 					?>
 					<script type="text/javascript">
 						window.addEventListener('load', function () {

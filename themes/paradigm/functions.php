@@ -326,7 +326,7 @@ function printImageMetadata_zb() {
 			echo "<tr><th>$label:</th><td>";
 			switch ($_exifvars[$field][6]) {
 				case 'time':
-					echo zpFormattedDate(DATE_FORMAT, strtotime($value));
+					echo formattedDate(DATE_FORMAT, strtotime($value));
 					break;
 				default:
 					echo html_encode($value);
@@ -541,7 +541,7 @@ function printImageStatistic_zb($number, $option, $albumfolder = '', $showtitle 
 				echo '</div>';
 			}
 			if ($showdate) {
-				echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
+				echo "<p>" . formattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
 			}
 			if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
 				$votes = $image->get("total_votes");

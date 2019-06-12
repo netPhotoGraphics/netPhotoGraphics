@@ -55,7 +55,7 @@ if (empty($needs)) {
 					<div class="tabbox">
 						<p>
 							<?php
-							if (zpFunctions::hasPrimaryScripts()) {
+							if (npgFunctions::hasPrimaryScripts()) {
 								if ($found) {
 									echo '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php?xsrfToken=' . getXSRFToken('setup') . '">' . gettext('Click to restore the setup scripts and run setup.') . '</a>';
 								} else {

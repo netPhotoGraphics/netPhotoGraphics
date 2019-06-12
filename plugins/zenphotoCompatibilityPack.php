@@ -117,7 +117,9 @@ $legacyReplacements = array(
 		'\$_zp_loggedin' => '$_loggedin',
 		'zp_setCookie\(' => 'setNPGCookie(',
 		'zp_getCookie\(' => 'getNPGCookie(',
-		'zp_clearCookie\(' => 'clearNPGCookie('
+		'zp_clearCookie\(' => 'clearNPGCookie(',
+		'zpFunctions::' => 'npgFunctions::',
+		'zpFormattedDate\(' => 'formattedDate('
 );
 
 class zenPhotoCompatibilityPack {
@@ -228,6 +230,10 @@ switch (OFFSET_PATH) {
 			//define the useless legacy definitions
 			define('ZP_NEWS_ENABLED', $_CMS->news_enabled);
 			define('ZP_PAGES_ENABLED', $_CMS->pages_enabled);
+		}
+
+		class zpFunctions extends npgFunctions {
+
 		}
 
 		$_zp_captcha = clone $_captcha;

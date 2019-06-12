@@ -190,7 +190,7 @@ function zpArdoise_printImageStatistic($number, $option, $albumfolder = '', $sho
 				echo $image->getTitle() . "</a></h3>\n";
 			}
 			if ($showdate) {
-				echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
+				echo "<p>" . formattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
 			}
 			if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
 				$votes = $image->get("total_votes");

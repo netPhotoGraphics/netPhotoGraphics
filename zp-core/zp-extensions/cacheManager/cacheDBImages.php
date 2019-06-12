@@ -81,7 +81,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$update = false;
-					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', zpFunctions::unTagURLs($row[$field]), $matches);
+					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', npgFunctions::unTagURLs($row[$field]), $matches);
 					foreach ($matches[1] as $uri) {
 						$imageprocessor++;
 						$params = mb_parse_url(html_decode($uri));
@@ -93,7 +93,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 								$update = true;
 
 								if (strpos($uri, 'i.php') !== false) {
-									$url = '<span><img src="' . zpFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
+									$url = '<span><img src="' . npgFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
 									$title = getTitle($table, $row) . ' ' . gettext('image processor reference');
 									?>
 									<a href="<?php echo $uri; ?>&amp;debug" title="<?php echo $title; ?>">
@@ -105,7 +105,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 						}
 					}
 					if ($update) {
-						$text = zpFunctions::updateImageProcessorLink($row[$field], true);
+						$text = npgFunctions::updateImageProcessorLink($row[$field], true);
 						if ($text != $row[$field]) {
 							$sql = 'UPDATE ' . prefix($table) . ' SET `' . $field . '`=' . db_quote($text) . ' WHERE `id`=' . $row['id'];
 							query($sql);

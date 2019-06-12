@@ -326,7 +326,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 	function printSetupWarning() {
 		list($diff, $needs, $found, $present) = checkSignature(0);
-		if (npg_loggedin(ADMIN_RIGHTS) && $present && (zpFunctions::hasPrimaryScripts() || empty($needs))) {
+		if (npg_loggedin(ADMIN_RIGHTS) && $present && (npgFunctions::hasPrimaryScripts() || empty($needs))) {
 			//	button to restore setup files if needed
 			if (empty($needs)) {
 				?>
@@ -334,7 +334,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<h2><?php echo gettext('Your Setup scripts are not protected.'); ?></h2>
 					<?php
 					echo gettext('The Setup environment is not totally secure, you should protect the scripts to thwart hackers.') . ' ';
-					if (zpFunctions::hasPrimaryScripts()) {
+					if (npgFunctions::hasPrimaryScripts()) {
 						echo '<a href="' . getAdminLink('admin.php') . '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup') . '">' . gettext('Protect the scripts.') . '</a>';
 					}
 					?>
@@ -3240,7 +3240,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 			$rows = $xrows;
 		}
-		$dbstring = zpFunctions::unTagURLs($dbstring);
+		$dbstring = npgFunctions::unTagURLs($dbstring);
 		if (!empty($edit))
 			$edit = ' class="' . $edit . '"';
 		if (is_null($locale)) {

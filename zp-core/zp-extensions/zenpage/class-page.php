@@ -100,7 +100,7 @@ class Page extends CMSItems {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -110,7 +110,7 @@ class Page extends CMSItems {
 	 * @param string $hint the hint text
 	 */
 	function setPasswordHint($hint) {
-		$this->set('password_hint', zpFunctions::tagURLs($hint));
+		$this->set('password_hint', npgFunctions::tagURLs($hint));
 	}
 
 	/**

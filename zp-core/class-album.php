@@ -188,7 +188,7 @@ class AlbumBase extends MediaObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -198,7 +198,7 @@ class AlbumBase extends MediaObject {
 	 * @param string $place text for the place field
 	 */
 	function setLocation($place) {
-		$this->set('location', zpFunctions::tagURLs($place));
+		$this->set('location', npgFunctions::tagURLs($place));
 	}
 
 	/**

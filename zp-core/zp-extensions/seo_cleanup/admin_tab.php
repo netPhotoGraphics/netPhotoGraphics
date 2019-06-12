@@ -138,7 +138,7 @@ if (isset($_GET['todo'])) {
 					$count = $count + cleanAlbum($obj);
 				}
 				if ($albumcount || $count) {
-					zpFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER, true);
+					npgFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER, true);
 					?>
 					<div class="notebox">
 						<p>
