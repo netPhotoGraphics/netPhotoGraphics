@@ -132,8 +132,12 @@ class zenPhotoCompatibilityPack {
 
 		self::nextObjFilter(NULL, NULL);
 
-		$_zp_authority = clone $_authority;
-		$_zp_current_admin_obj = clone $_current_admin_obj;
+		if (is_object($_authority)) {
+			$_zp_authority = clone $_authority;
+		}
+		if (is_object($_current_admin_obj)) {
+			$_zp_current_admin_obj = clone $_current_admin_obj;
+		}
 		if (is_object($_current_search)) {
 			$_zp_current_search = clone $_current_search;
 		}
