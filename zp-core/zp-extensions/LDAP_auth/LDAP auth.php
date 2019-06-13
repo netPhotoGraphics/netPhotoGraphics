@@ -12,7 +12,7 @@
 
 define('LDAP_DOMAIN', getOption('ldap_domain'));
 define('LDAP_BASEDN', getOption('ldap_basedn'));
-define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any ZP admin ids
+define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any of our admin ids
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
 define('LDAP_REAER_PASS', getOption('ldap_reader_pass'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
@@ -134,7 +134,7 @@ class _Authority extends _Authority {
 		$user = $userData['uid'][0];
 		$id = $userData['uidnumber'][0] + LDAP_ID_OFFSET;
 		$name = $userData['cn'][0];
-		$groups = self::getZPGroups($ad, $user);
+		$groups = self::getNPGGroups($ad, $user);
 
 		$adminObj = npg_Authority::newAdministrator('');
 		$adminObj->setID($id);
@@ -193,7 +193,7 @@ class _Authority extends _Authority {
 	 * returns an array the user's of groups
 	 * @param type $ad
 	 */
-	static function getZPGroups($ad, $user) {
+	static function getNPGGroups($ad, $user) {
 		global $_LDAPGroupMap;
 		$groups = array();
 		foreach ($_LDAPGroupMap as $NPGgroup => $LDAPgroup) {

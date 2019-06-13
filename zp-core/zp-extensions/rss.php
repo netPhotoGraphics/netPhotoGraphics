@@ -309,7 +309,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
  * @param string $prev text to before before the link
  * @param string $linktext title of the link
  * @param string $next text to appear after the link
- * @param bool $printIcon print an RSS icon beside it? if true, the icon is zp-core/images/rss.png
+ * @param bool $printIcon print an RSS icon beside it? if true, the icon is the core rss.png image
  * @param string $class css class
  * @param string $lang optional to display a feed link for a specific language. Enter the locale like "de_DE" (the locale must be installed to work of course). If empty the locale set in the admin option or the language selector (getOption('locale') is used.
  * @param string $addl provided additional data for feeds (e.g. album object for album feeds, $categorylink for zenpage categories

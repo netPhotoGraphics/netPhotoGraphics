@@ -24,11 +24,11 @@
  *
  * The following tokens are available to represent paths:
  * 	<ul>
- * 		<li><var>%WEBPATH%</v> to represent the WEB path to the installation.</li>
- * 		<li><var>%SERVERPATH%</var> to represent the server path to the installation.</li>
- * 		<li><var>%PLUGIN_FOLDER%</var> to represent the "extensions" folder.</li>
- * 		<li><var>%USER_PLUGIN_FOLDER%</var> to represent the root "plugin" folder.</li>
- * 		<li><var>%CORE_FOLDER%</var> to represent the zp-core folder.</li>
+ * 		<li><var>&#37;WEBPATH&#37;</v> to represent the WEB path to the installation.</li>
+ * 		<li><var>&#37;SERVERPATH&#37;</var> to represent the server path to the installation.</li>
+ * 		<li><var>&#37;PLUGIN_FOLDER&#37;</var> to represent the "extensions" folder.</li>
+ * 		<li><var>&#37;USER_PLUGIN_FOLDER&#37;</var> to represent the root "plugin" folder.</li>
+ * 		<li><var>&#37;CORE_FOLDER&#37;</var> to represent the "core" folder.</li>
  * </ul>
  *
  * Pixastic effects:<br>

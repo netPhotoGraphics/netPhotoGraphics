@@ -249,7 +249,7 @@ class TextObject extends Image {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see zp-core/Image::getSizedImage()
+	 * @see Image::getSizedImage()
 	 */
 	function getSizedImage($size) {
 		switch (getOption('image_use_side')) {
@@ -270,7 +270,7 @@ class TextObject extends Image {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see zp-core/Image::updateDimensions()
+	 * @see Image::updateDimensions()
 	 */
 	function updateDimensions() {
 		$size = getOption('image_size');

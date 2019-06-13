@@ -13,19 +13,19 @@ $plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext("Simple SPAM filter.");
 $plugin_disable = (isset($_spamFilter) && !extensionEnabled('simpleSpam')) ? sprintf(gettext('Only one SPAM handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_spamFilter->name) : '';
 
-$option_interface = 'zpSimpleSpam';
+$option_interface = '_SimpleSpam';
 
 if ($plugin_disable) {
 	enableExtension('simpleSpam', 0);
 } else {
-	$_spamFilter = new zpSimpleSpam();
+	$_spamFilter = new _SimpleSpam();
 }
 
 /**
  * This implements the standard SpamFilter class for the Simple spam filter.
  *
  */
-class zpSimpleSpam {
+class _SimpleSpam {
 
 	var $name = 'simpleSpam';
 	var $wordsToDieOn = array('cialis', 'ebony', 'nude', 'porn', 'porno', 'pussy', 'upskirt', 'ringtones', 'phentermine', 'viagra', 'levitra'); /* the word black list */

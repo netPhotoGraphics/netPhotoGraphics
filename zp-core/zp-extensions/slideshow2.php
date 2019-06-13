@@ -697,7 +697,7 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 
 //getting the image to start with
 		if (!empty($_POST['imagenumber']) AND ! is_object($imageobj)) {
-			$imagenumber = sanitize_numeric($_POST['imagenumber']) - 1; // slideshows starts with 0, but zp with 1.
+			$imagenumber = sanitize_numeric($_POST['imagenumber']) - 1; // slideshows starts with 0, but $_POST['imagenumber'] with 1.
 		} elseif (is_object($imageobj)) {
 			$imagenumber = $imageobj->getIndex();
 		} else {

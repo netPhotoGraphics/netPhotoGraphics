@@ -253,7 +253,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 									break;
 								case 'post_tag':
 									//Get new id of tag
-									// only use "slug" for tags as ZP different to WP has no name (title) and slug (urlname) separately but just an urlname
+									// only use "slug" for tags as different to WP has no name (title) and slug (urlname) separately but just an urlname
 									$gettag = query_single_row("SELECT name,id from " . prefix('tags') . " WHERE name = " . db_quote($term['slug']));
 									//Prevent double assignments
 									if (query_single_row("SELECT id from " . prefix('obj_to_tag') . " WHERE objectid = " . $newarticleid . " AND tagid =" . $gettag['id'], false)) {
@@ -312,7 +312,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 						$comment['comment_content'] = nl2br($comment['comment_content']);
 					}
 					$comment_approved = sanitize_numeric($comment['comment_approved']);
-					if ($comment_approved == 1) { // in WP 1 means approved, with ZP the opposite!
+					if ($comment_approved == 1) { // in WP 1 means approved, with us the opposite!
 						$comment_approved = 0;
 					} else {
 						$comment_approved = 1;
@@ -403,7 +403,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						<?php echo gettext("<strong>Note:</strong> <em>Wordpress page and category nesting</em> is currently not preserved but can easily be recreated by drag and drop sorting."); ?>
 					</p>
 
-					<p><?php echo gettext("In case anything does not work as expected the query results from the Wordpress database are logged in <code>zp-data/debug.log</code>"); ?></p>
+					<p><?php echo gettext("In case anything does not work as expected the query results from the Wordpress database are logged in <em>debug log</em>"); ?></p>
 					<?php if (!extensionEnabled('zenpage')) { ?>
 						<p class="errorbox"><?php echo gettext('<strong>ERROR: </strong>The Zenpage CMS plugin is not enabled.'); ?></p>
 						<?php

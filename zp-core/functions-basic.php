@@ -820,7 +820,7 @@ class npgMutex {
 	private $mutex = NULL;
 	private $lock = NULL;
 
-	function __construct($lock = 'zP', $concurrent = NULL, $folder = NULL) {
+	function __construct($lock = 'npg', $concurrent = NULL, $folder = NULL) {
 		// if any of the construction fails, run in free mode (lock = NULL)
 		if (function_exists('flock') && defined('SERVERPATH')) {
 			if (is_null($folder)) {

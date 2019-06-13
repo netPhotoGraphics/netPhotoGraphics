@@ -497,7 +497,7 @@ class _Authority {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
-			if (($user['rights'] & $rights) && is_valid_email_zp($user['email'])) {
+			if (($user['rights'] & $rights) && npgFunctions::is_valid_email($user['email'])) {
 				$name = $user['name'];
 				if (empty($name)) {
 					$name = $user['user'];
@@ -969,7 +969,7 @@ class _Authority {
 	}
 
 	/**
-	 * Print the login form for ZP. This will take into account whether mod_rewrite is enabled or not.
+	 * Print the login form . This will take into account whether mod_rewrite is enabled or not.
 	 *
 	 * @param string $redirect URL to return to after login
 	 * @param bool $logo set to true to display the ADMIN logo.
@@ -1506,7 +1506,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

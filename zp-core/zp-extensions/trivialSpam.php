@@ -13,12 +13,12 @@ $plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext("Trivial SPAM filter.");
 $plugin_disable = (isset($_spamFilter) && !extensionEnabled('trivialSpam')) ? sprintf(gettext('Only one SPAM handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_spamFilter->name) : '';
 
-$option_interface = 'zpTrivialSpam';
+$option_interface = '_TrivialSpam';
 
 if ($plugin_disable) {
 	enableExtension('trivialSpam', 0);
 } else {
-	$_spamFilter = new zpTrivialSpam();
+	$_spamFilter = new _TrivialSpam();
 }
 
 /**
@@ -28,7 +28,7 @@ if ($plugin_disable) {
  * on the commented object.
  *
  */
-class zpTrivialSpam {
+class _TrivialSpam {
 
 	var $name = 'trivialSpam';
 

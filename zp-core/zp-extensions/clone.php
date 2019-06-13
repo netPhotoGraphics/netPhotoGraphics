@@ -1,8 +1,9 @@
 <?php
 
 /**
- * "Clones" the currrent installation to a new location using symlinks. The <i>zp-core</i>, <i>themes</i>, <i>user plugins</i>
- * folders and the root <i>index.php</i> file are symlinked. Setup will create the other needed folders.
+ * "Clones" the current installation to a new location using symlinks.
+ * The <i>%CORE_FOLDER%</i>, and <i>%USER_PLUGIN_FOLDER%</i>
+ * folders file are symlinked. Setup will create the other needed folders.
  *
  * The <i>Clone</i> tab will take you to the cloning page.
  *

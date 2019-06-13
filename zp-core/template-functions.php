@@ -4377,7 +4377,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4547,7 +4547,7 @@ function print404status() {
 			$list = explode('/', $album);
 			if (array_shift($list) != 'cache') {
 				$target = getRequestURI();
-				if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/zp-data/tést.jpg'))) {
+				if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/' . DATA_FOLDER . '/tést.jpg'))) {
 					$output = "404 error details\n\t\t\tSERVER:\n";
 					foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'HTTP_USER_AGENT', 'REDIRECT_STATUS') as $key) {
 						if (is_null(@$_SERVER[$key])) {

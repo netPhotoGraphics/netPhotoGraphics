@@ -367,23 +367,6 @@ function formattedDate($format, $dt) {
 }
 
 /**
- * Determines if the input is an e-mail address. Adapted from WordPress.
- * Name changed to avoid conflicts in WP integrations.
- *
- * @param string $input_email email address?
- * @return bool
- */
-function is_valid_email_zp($input_email) {
-	$chars = "/^([a-z0-9+_]|\\-|\\.)+@(([a-z0-9_]|\\-)+\\.)+[a-z]{2,6}\$/i";
-	if (strstr($input_email, '@') && strstr($input_email, '.')) {
-		if (preg_match($chars, $input_email)) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
  * Send an mail to the mailing list. We also attempt to intercept any form injection
  * attacks by slime ball spammers. Returns error message if send failure.
  *
@@ -409,7 +392,7 @@ function npg_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, 
 	$result = '';
 	if ($replyTo) {
 		$t = $replyTo;
-		if (!is_valid_email_zp($m = array_shift($t))) {
+		if (!npgFunctions::is_valid_email($m = array_shift($t))) {
 			if (empty($result)) {
 				$result = $failMessage;
 			}
@@ -424,7 +407,7 @@ function npg_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, 
 		}
 	} else {
 		foreach ($email_list as $key => $email) {
-			if (!is_valid_email_zp($email)) {
+			if (!npgFunctions::is_valid_email($email)) {
 				unset($email_list[$key]);
 				if (empty($result)) {
 					$result = $failMessage;
@@ -444,7 +427,7 @@ function npg_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, 
 			return $result;
 		}
 		foreach ($cc_addresses as $key => $email) {
-			if (!is_valid_email_zp($email)) {
+			if (!npgFunctions::is_valid_email($email)) {
 				unset($cc_addresses[$key]);
 				if (empty($result)) {
 					$result = $failMessage;
@@ -457,7 +440,7 @@ function npg_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, 
 		$bcc_addresses = array();
 	} else {
 		foreach ($bcc_addresses as $key => $email) {
-			if (!is_valid_email_zp($email)) {
+			if (!npgFunctions::is_valid_email($email)) {
 				unset($bcc_addresses[$key]);
 				if (empty($result)) {
 					$result = $failMessage;
@@ -3046,6 +3029,23 @@ class npgFunctions {
 		foreach ($criteria as $try) {
 			if ($try[0]) {
 				return $try[1];
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Determines if the input is an e-mail address. Adapted from WordPress.
+	 * Name changed to avoid conflicts in WP integrations.
+	 *
+	 * @param string $input_email email address?
+	 * @return bool
+	 */
+	static function is_valid_email($input_email) {
+		$chars = "/^([a-z0-9+_]|\\-|\\.)+@(([a-z0-9_]|\\-)+\\.)+[a-z]{2,6}\$/i";
+		if (strstr($input_email, '@') && strstr($input_email, '.')) {
+			if (preg_match($chars, $input_email)) {
+				return true;
 			}
 		}
 		return false;

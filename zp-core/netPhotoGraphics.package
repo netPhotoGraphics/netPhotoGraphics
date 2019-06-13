@@ -1194,7 +1194,7 @@ zp-core/admin-statistics.css
 zp-core/admin.css
 zp-core/admin.php
 zp-core/allTranslations.php
-zp-core/auth_zp.php
+zp-core/auth_processor.php
 zp-core/cacheprotect
 zp-core/class-album.php
 zp-core/class-auth.php

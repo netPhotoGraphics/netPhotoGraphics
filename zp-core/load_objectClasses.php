@@ -47,7 +47,7 @@ foreach ($enabled as $extension => $plugin) {
 }
 
 //	check for logged in users and set up the locale
-require_once(dirname(__FILE__) . '/auth_zp.php');
+require_once(dirname(__FILE__) . '/auth_processor.php');
 define('SITE_LOCALE_OPTION', i18n::setMainDomain());
 //	process any differred language strings
 $_active_languages = $_all_languages = NULL; //	clear out so that they will get translated properly

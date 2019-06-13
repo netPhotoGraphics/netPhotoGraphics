@@ -104,7 +104,7 @@ define('ER_SERVER_NO_RESPONSE', 2002);
 /**
  * OFFSET_PATH definitions:
  * 		0		root scripts (e.g. the root index.php)
- * 		1		zp-core scripts
+ * 		1		core scripts
  * 		2		setup scripts
  * 		3		plugin scripts
  * 		4		scripts in the theme folders

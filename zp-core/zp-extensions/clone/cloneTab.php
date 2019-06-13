@@ -229,7 +229,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							<?php XSRFToken('clone'); ?>
 							<br />
 							<br />
-							<div class="buttons pad_button" id="cloneZP">
+							<div class="buttons pad_button" id="cloneButton">
 								<button id="cloneButton" class="tooltip" type="submit" title=""<?php
 								if (empty($folderlist))
 									echo ' disabled="disabled"';

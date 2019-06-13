@@ -120,7 +120,7 @@ class Video extends Image {
 	 */
 	static function getMetadataFields() {
 		return array(
-				// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'ZP Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
+				// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'VideoFormat' => array('VIDEO', 'fileformat', gettext('Video File Format'), false, 32, true, 'string', false),
 				'VideoSize' => array('VIDEO', 'filesize', gettext('Video File Size'), false, 32, true, 'number', false),
 				'VideoArtist' => array('VIDEO', 'artist', gettext('Video Artist'), false, 256, true, 'string', false),
@@ -272,7 +272,7 @@ class Video extends Image {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see zp-core/Image::getSizedImage()
+	 * @see Image::getSizedImage()
 	 */
 	function getSizedImage($size) {
 		$width = $this->getWidth();
@@ -351,7 +351,7 @@ class Video extends Image {
 	/**
 	 * Processes multi-media file metadata
 	 * (non-PHPdoc)
-	 * @see zp-core/Image::updateMetaData()
+	 * @see Image::updateMetaData()
 	 */
 	function updateMetaData() {
 		global $_exifvars;

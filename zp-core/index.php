@@ -164,7 +164,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	include(internalToFilesystem($_themeScript));
 } else {
 	// If the requested object does not exist, issue a 404 and redirect to the 404.php
-	// in the zp-core folder. This script will load the theme 404 page if it exists.
+	// in the core folder. This script will load the theme 404 page if it exists.
 	$_HTML_cache->abortHTMLCache(false);
 	include(CORE_SERVERPATH . '404.php');
 }

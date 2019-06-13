@@ -11,7 +11,7 @@ Unless this fails you most likely have no need even to read this file.
 
 If for some reason setup.php is not able to edit the configuration file and you cannot
 fix the file/folder permissions so that it can then you may have copy the
-source file to the zp-data folder and make changes here manually.
+source file to the data folder and make changes here manually.
 
 Advanced installations may wish to modify the album folder definitions below.
 
