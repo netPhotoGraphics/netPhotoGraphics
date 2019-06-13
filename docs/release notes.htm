@@ -82,12 +82,11 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version ~36,.3.~-2build:~-2</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 1.09.05.00</h2>
 <h2>General</h2>
 <p>Bug fixes and security improvements.</p>
 <p>The scripts for the administrative tabs have been reorganized. They are now located in the <em>admin-tabs</em> folder. This is not a functional change, but any third party themes or plugins which directly link to these scripts will need updating.</p>
 <p><strong>netPhotoGraphics</strong> now supports the <em>webp</em> image format so long as your installation's graphics library also supports it. You can see what formats your graphics library supports on the admin <em>Overview/Installation Information</em> page. Note: some older browsers may not support this image format.</p>
-<p>Some renaming of plugins and global variables has been made to better distance <strong>netPhotoGraphics</strong> form the legacy Zenphoto gallery. In particular, the plugins <em>cloneZenphoto, zpCaptcha,</em> and <em>zenphoto_sendmail </em> have been renamed to <em>clone, captcha,</em> and <em>simple_sendmail. </em>If you are using third party plugins and themes, or if you have customized a distributed theme you should run the<em> DEVELOPMENT/LEGACY CONVERTER</em>  process on them.</p>
 <h2>Security</h2>
 <p><strong>netPhotoGraphics</strong> will now use the PHP functions for password hashing and checking if they are available. These are more robust and better performing that the legacy algorithms. New algorithm choices have been added to the <em>password hash algorithm</em> option reflecting the new capabilities provided by these functions. As part of this improvement there is now a <em>default</em> selection for the option. Setting <em>default</em> as the option will automatically migrate the strength of your hashing algorithms as PHP adds new algorithms and changes its default setting. This is the recommended setting for the option.</p>
 <p>The legacy password hashing algorithms are deprecated and will be removed in a future release. Any user with a password still hashed by these algorithms at that time will be forced to use the forgotten password paths to log into the site.</p>
@@ -113,7 +112,6 @@
 <p><em>rewriteRules</em></p>
 <p>This plugin has been enhanced to allow defining <strong>netPhotoGraphics</strong> rewrite rules through a text file in the plugins folder. The plugin info has been updated to describe the "rules.txt" file format and to give some insight on how <strong>netPhotoGraphics</strong> process rewrite rules. Because of this enhanced functionality the category for <em>rewriteRules</em> has moved from <em>Development</em> to <em>Admin</em>.</p>
 <p>The plugin has also assumed the handling and display of Rewrite Tokens. The <em>rewriteTokens</em> plugin has been consolidated with <em>rewriteRules</em> and removed from the distribution.</p>
-<p> </p>
 <hr />
 <h2 style="text-align: center;">Version 1.9</h2>
 <h2>General</h2>
