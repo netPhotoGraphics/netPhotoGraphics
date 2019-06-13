@@ -54,7 +54,7 @@ foreach ($toList as $name => $email) {
 		$waitTime = getOption('user_mailing_list_pace');
 	}
 
-	$err_msg = npg_mail($subject, $message, array($name => $email), array(), array());
+	$err_msg = npgFunctions::mail($subject, $message, array($name => $email), array(), array());
 	if ($err_msg) {
 		debugLogVar([gettext('user_mailing_list error') =>  $err_msg]);
 	}

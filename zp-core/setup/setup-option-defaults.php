@@ -83,10 +83,20 @@ foreach ($result as $row) {
 	}
 }
 
-//clean up plugin enable options
-$sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(CORE_FOLDER . '/setup/setup-option-defaults.php[' . __LINE__ . ']') . ' WHERE `name` LIKE "zp_plugin_%" AND `creator` IS NULL;';
+//migrate plugin enables removing "zp" from name
+$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
+$result = query($sql);
+while ($row = db_fetch_assoc($result)) {
+	$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
+	if (!query($sql, false)) {
+		// the plugin has executed defaultExtension() which has set the _plugin_ option already
+		$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `id`=' . $row['id'];
+		query($sql);
+	}
+}
+//clean up plugin creator field
+$sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(CORE_FOLDER . '/setup/setup-option-defaults.php[' . __LINE__ . ']') . ' WHERE `name` LIKE "\_plugin\_%" AND `creator` IS NULL;';
 query($sql);
-
 
 //clean up tag list quoted strings
 $sql = 'SELECT * FROM ' . prefix('tags') . ' WHERE `name` LIKE \'"%\' OR `name` LIKE "\'%"';

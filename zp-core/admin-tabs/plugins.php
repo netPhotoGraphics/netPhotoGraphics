@@ -25,11 +25,11 @@ if (isset($_GET['action'])) {
 			XSRFdefender('saveplugins');
 			$plugins = array();
 			foreach ($_POST as $plugin => $value) {
-				preg_match('/^present_zp_plugin_(.*)$/xis', $plugin, $matches);
+				preg_match('/^present__plugin_(.*)$/xis', $plugin, $matches);
 				if ($matches) {
-					$is = (int) isset($_POST['zp_plugin_' . $matches[1]]);
+					$is = (int) isset($_POST['_plugin_' . $matches[1]]);
 					if ($is) {
-						$nv = sanitize_numeric($_POST['zp_plugin_' . $matches[1]]);
+						$nv = sanitize_numeric($_POST['_plugin_' . $matches[1]]);
 						$is = (int) ($nv && true);
 					} else {
 						$nv = NULL;
@@ -188,7 +188,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 			</tr>
 			<?php
 			foreach ($filelist as $extension) {
-				$opt = 'zp_plugin_' . $extension;
+				$opt = '_plugin_' . $extension;
 				$details = $pluginDetails[$extension];
 				$parserr = 0;
 				$plugin_URL = getAdminLink('pluginDoc.php') . '?extension=' . $extension;

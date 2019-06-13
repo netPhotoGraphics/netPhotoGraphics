@@ -7763,7 +7763,7 @@ zp-core/zp-extensions/elFinder/js/proxy/elFinderSupportVer1.js
 zp-core/zp-extensions/elFinder/php
 zp-core/zp-extensions/elFinder/php/autoload.php
 zp-core/zp-extensions/elFinder/php/connector.minimal.php
-zp-core/zp-extensions/elFinder/php/connector_zp.php
+zp-core/zp-extensions/elFinder/php/connector_npg.php
 zp-core/zp-extensions/elFinder/php/elFinder.class.php
 zp-core/zp-extensions/elFinder/php/elFinderConnector.class.php
 zp-core/zp-extensions/elFinder/php/elFinderFlysystemGoogleDriveNetmount.php

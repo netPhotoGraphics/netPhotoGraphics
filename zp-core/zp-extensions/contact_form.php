@@ -367,7 +367,7 @@ function printContactForm($subject_override = '') {
 		if (getField('username')) {
 			$err_msg = false; // If honeypot was triggered, silently don't send the message
 		} else {
-			$err_msg = npg_mail($subject, $message, $mailinglist, $sendcopy, NULL, array($name => $mailaddress));
+			$err_msg = npgFunctions::mail($subject, $message, $mailinglist, $sendcopy, NULL, array($name => $mailaddress));
 		}
 
 		if ($err_msg) {

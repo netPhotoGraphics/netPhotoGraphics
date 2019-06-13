@@ -264,7 +264,7 @@ class register_user {
 						}
 						$_link = FULLHOSTPATH . register_user::getLink() . $verify . bin2hex(serialize(array('user' => $user, 'email' => $admin_e)));
 						$_message = sprintf(get_language_string(getOption('register_user_text')), $_link, $admin_n, $user, $pass);
-						$_notify = npg_mail(get_language_string(gettext('Registration confirmation')), $_message, array($user => $admin_e));
+						$_notify = npgFunctions::mail(get_language_string(gettext('Registration confirmation')), $_message, array($user => $admin_e));
 						if (empty($_notify)) {
 							$_notify = 'accepted';
 						}
@@ -334,7 +334,7 @@ function printRegistrationForm($thanks = NULL) {
 				$userobj->setGroup($group);
 				npgFilters::apply('register_user_verified', $userobj);
 				if (getOption('register_user_notify')) {
-					$_notify = npg_mail(gettext('netPhotoGraphics Gallery registration'), sprintf(gettext('%1$s (%2$s) has registered for the gallery providing an e-mail address of %3$s.'), $userobj->getName(), $userobj->getUser(), $userobj->getEmail()));
+					$_notify = npgFunctions::mail(gettext('netPhotoGraphics Gallery registration'), sprintf(gettext('%1$s (%2$s) has registered for the gallery providing an e-mail address of %3$s.'), $userobj->getName(), $userobj->getUser(), $userobj->getEmail()));
 				}
 				if (empty($_notify)) {
 					if (getOption('register_user_create_album')) {

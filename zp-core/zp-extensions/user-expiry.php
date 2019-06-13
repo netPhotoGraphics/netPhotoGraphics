@@ -156,7 +156,7 @@ class user_expiry {
 							$userobj->setCredentials($credentials);
 							$userobj->save();
 							$message = sprintf(gettext('Your user id for the site %s will expire on %s.'), $_gallery->getTitle(), date('Y-m-d', $expires));
-							$notify = npg_mail(get_language_string(gettext('User id expiration')), $message, array($userobj->getName() => $mail));
+							$notify = npgFunctions::mail(get_language_string(gettext('User id expiration')), $message, array($userobj->getName() => $mail));
 						}
 					}
 				}

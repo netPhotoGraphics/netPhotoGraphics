@@ -39,7 +39,7 @@ if (isset($_POST['purge'])) {
 					if (extensionEnabled($plugin)) {
 						$purgedActive[$plugin] = true;
 					}
-					purgeOption('zp_plugin_' . $plugin);
+					purgeOption('_plugin_' . $plugin);
 					//invoke the enable method if it exists
 					$f = str_replace('-', '_', $plugin) . '_enable';
 					if (function_exists($f)) {
@@ -95,7 +95,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 					$sql = 'SELECT `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
 					$result = query_full_array($sql);
 					foreach ($result as $row) {
-						$plugin = str_replace('zp_plugin_', '', $row['name']);
+						$plugin = str_replace('_plugin_', '', $row['name']);
 						$file = str_replace(SERVERPATH, '', $f = getPlugin($plugin . '.php', false));
 						if ($file) {
 							if (strpos($file, USER_PLUGIN_FOLDER) !== false) {
@@ -148,7 +148,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 					$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `creator` is NULL || `creator` LIKE "%purgeOptions%" ORDER BY `name`';
 					$result = query_full_array($sql);
 					foreach ($result as $opt) {
-						if (strpos($opt['name'], 'zp_plugin_') === false) {
+						if (strpos($opt['name'], '_plugin_') === false) {
 							if (empty($opt['value'])) {
 								$empty = true;
 								if (empty($opt['creator'])) {

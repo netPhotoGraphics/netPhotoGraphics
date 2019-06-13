@@ -886,7 +886,7 @@ class _Authority {
 							} else {
 								$msg .= "\n" . gettext('No matching user was found.');
 							}
-							$err_msg = npg_mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
+							$err_msg = npgFunctions::mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
 								$_login_error = 2;
 							} else {

@@ -506,7 +506,7 @@ function comment_form_addComment($name, $email, $website, $comment, $code, $code
 				}
 			}
 			$on = gettext('Comment posted');
-			$result = npg_mail("[" . $_gallery->getTitle() . "] $on", $message, $emails);
+			$result = npgFunctions::mail("[" . $_gallery->getTitle() . "] $on", $message, $emails);
 			if ($result) {
 				$commentobj->setInModeration(-12);
 				$commentobj->comment_error_text = $result;

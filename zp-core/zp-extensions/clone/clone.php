@@ -148,7 +148,7 @@ if (isset($_GET['purge'])) {
 					'strong_hash' => getOption('strong_hash'),
 					'deprecated_functions_signature' => getOption('deprecated_functions_signature'),
 					'zenphotoCompatibilityPack_signature' => getOption('zenphotoCompatibilityPack_signature'),
-					'plugins' => getOptionsLike('zp_plugin_')
+					'plugins' => getOptionsLike('_plugin_')
 			);
 
 			$adminTableDB = db_list_fields('administrators');

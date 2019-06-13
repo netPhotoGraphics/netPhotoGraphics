@@ -367,134 +367,6 @@ function formattedDate($format, $dt) {
 }
 
 /**
- * Send an mail to the mailing list. We also attempt to intercept any form injection
- * attacks by slime ball spammers. Returns error message if send failure.
- *
- * @param string $subject  The subject of the email.
- * @param string $message  The message contents of the email.
- * @param array $email_list a list of email addresses to send to
- * @param array $cc_addresses a list of addresses to send copies to.
- * @param array $bcc_addresses a list of addresses to send blind copies to.
- * @param string $replyTo reply-to address
- * @param string $failMessage will be displayed upon a failure to send
- * @param array $fromMail an array of name=>email arrress for the sender. Defaults to the site email name and address
- *
- * @return string
- *
- * @author Todd Papaioannou (lucky@luckyspin.org)
- * @since  1.0.0
- */
-function npg_mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $bcc_addresses = NULL, $replyTo = NULL, $failMessage = NULL, $fromMail = NULL) {
-	global $_authority, $_gallery, $_UTF8;
-	if (is_null($failMessage)) {
-		$failMessage = gettext('Mail send failed.') . ' ';
-	}
-	$result = '';
-	if ($replyTo) {
-		$t = $replyTo;
-		if (!npgFunctions::is_valid_email($m = array_shift($t))) {
-			if (empty($result)) {
-				$result = $failMessage;
-			}
-			$result .= sprintf(gettext('Invalid “reply-to” mail address %s.'), '"' . $m . '"');
-		}
-	}
-	if (is_null($email_list)) {
-		if ($_authority) {
-			$email_list = $_authority->getAdminEmail();
-		} else {
-			return $failMessage . gettext('There is no administrator with an e-mail address.');
-		}
-	} else {
-		foreach ($email_list as $key => $email) {
-			if (!npgFunctions::is_valid_email($email)) {
-				unset($email_list[$key]);
-				if (empty($result)) {
-					$result = $failMessage;
-				}
-				$result .= ' ' . sprintf(gettext('Invalid “to” mail address %s.'), '"' . $email . '"');
-			}
-		}
-	}
-	if (is_null($cc_addresses)) {
-		$cc_addresses = array();
-	} else {
-		if (empty($email_list) && !empty($cc_addresses)) {
-			if (empty($result)) {
-				$result = $failMessage;
-			}
-			$result .= ' ' . gettext('“cc” list provided without “to” address list.');
-			return $result;
-		}
-		foreach ($cc_addresses as $key => $email) {
-			if (!npgFunctions::is_valid_email($email)) {
-				unset($cc_addresses[$key]);
-				if (empty($result)) {
-					$result = $failMessage;
-				}
-				$result = ' ' . sprintf(gettext('Invalid “cc” mail address %s.'), '"' . $email . '"');
-			}
-		}
-	}
-	if (is_null($bcc_addresses)) {
-		$bcc_addresses = array();
-	} else {
-		foreach ($bcc_addresses as $key => $email) {
-			if (!npgFunctions::is_valid_email($email)) {
-				unset($bcc_addresses[$key]);
-				if (empty($result)) {
-					$result = $failMessage;
-				}
-				$result = ' ' . sprintf(gettext('Invalid “bcc” mail address %s.'), '"' . $email . '"');
-			}
-		}
-	}
-	if (count($email_list) + count($bcc_addresses) > 0) {
-
-		if (npgFilters::has_filter('sendmail')) {
-
-			if (is_array($fromMail)) {
-				$from_name = reset($fromMail);
-				$from_mail = array_shift($fromMail);
-			} else {
-				$from_mail = getOption('site_email');
-				$from_name = get_language_string(getOption('site_email_name'));
-			}
-
-			// Convert to UTF-8
-			if (LOCAL_CHARSET != 'UTF-8') {
-				$subject = $_UTF8->convert($subject, LOCAL_CHARSET);
-				$message = $_UTF8->convert($message, LOCAL_CHARSET);
-			}
-
-			//	we do not support rich text
-			$message = preg_replace('~<p[^>]*>~', "\n", $message); // Replace the start <p> or <p attr="">
-			$message = preg_replace('~</p>~', "\n", $message); // Replace the end
-			$message = preg_replace('~<br[^>]*>~', "\n", $message); // Replace <br> or <br ...>
-			$message = preg_replace('~<ol[^>]*>~', "", $message); // Replace the start <ol> or <ol attr="">
-			$message = preg_replace('~</ol>~', "", $message); // Replace the end
-			$message = preg_replace('~<ul[^>]*>~', "", $message); // Replace the start <ul> or <ul attr="">
-			$message = preg_replace('~</ul>~', "", $message); // Replace the end
-			$message = preg_replace('~<li[^>]*>~', ".\t", $message); // Replace the start <li> or <li attr="">
-			$message = preg_replace('~</li>~', "", $message); // Replace the end
-			$message = getBare($message);
-			$message = preg_replace('~\n\n\n+~', "\n\n", $message);
-
-			// Send the mail
-			$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
-		} else {
-			$result = gettext('Mail send failed. There is no mail handler configured.');
-		}
-	} else {
-		if (empty($result)) {
-			$result = gettext('Mail send failed.');
-		}
-		$result .= ' ' . gettext('No “to” address list provided.');
-	}
-	return $result;
-}
-
-/**
  * Sorts the results of a DB search by the current locale string for $field
  *
  * @param array $dbresult the result of the DB query
@@ -694,7 +566,7 @@ function getEnabledPlugins() {
 	foreach ($sortlist as $extension => $path) {
 		if (!isset($seenPlugins[strtolower($extension)])) { //	in case of filename case sensitivity
 			$seenPlugins[strtolower($extension)] = true;
-			$opt = 'zp_plugin_' . $extension;
+			$opt = '_plugin_' . $extension;
 			if ($option = getOption($opt)) {
 				$_EnabledPlugins[$extension] = array('priority' => $option, 'path' => $path);
 			}
@@ -710,7 +582,7 @@ function getEnabledPlugins() {
  * @return bool
  */
 function extensionEnabled($extension) {
-	return getOption('zp_plugin_' . $extension);
+	return getOption('_plugin_' . $extension);
 }
 
 /**
@@ -720,7 +592,7 @@ function extensionEnabled($extension) {
  * @param bool $persistent
  */
 function enableExtension($extension, $priority, $persistent = true) {
-	setOption('zp_plugin_' . $extension, $priority, $persistent);
+	setOption('_plugin_' . $extension, $priority, $persistent);
 }
 
 /**
@@ -730,7 +602,7 @@ function defaultExtension($priority) {
 	if (OFFSET_PATH == 2) {
 		$bt = debug_backtrace();
 		$b = array_shift($bt);
-		setOptionDefault('zp_plugin_' . stripSuffix(basename($b['file'])), $priority);
+		setOptionDefault('_plugin_' . stripSuffix(basename($b['file'])), $priority);
 	}
 	return $priority;
 }
@@ -2871,7 +2743,7 @@ class npgFunctions {
 			while (($file = readdir($dir)) !== false) {
 				if ($file != '.' && $file != '..') {
 					if ((is_dir($path . '/' . $file))) {
-						if (!npgFunctions::removeDir($path . '/' . $file)) {
+						if (!self::removeDir($path . '/' . $file)) {
 							return false;
 						}
 					} else {
@@ -3032,6 +2904,134 @@ class npgFunctions {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Send an mail to the mailing list. We also attempt to intercept any form injection
+	 * attacks by slime ball spammers. Returns error message if send failure.
+	 *
+	 * @param string $subject  The subject of the email.
+	 * @param string $message  The message contents of the email.
+	 * @param array $email_list a list of email addresses to send to
+	 * @param array $cc_addresses a list of addresses to send copies to.
+	 * @param array $bcc_addresses a list of addresses to send blind copies to.
+	 * @param string $replyTo reply-to address
+	 * @param string $failMessage will be displayed upon a failure to send
+	 * @param array $fromMail an array of name=>email arrress for the sender. Defaults to the site email name and address
+	 *
+	 * @return string
+	 *
+	 * @author Todd Papaioannou (lucky@luckyspin.org)
+	 * @since  1.0.0
+	 */
+	static function mail($subject, $message, $email_list = NULL, $cc_addresses = NULL, $bcc_addresses = NULL, $replyTo = NULL, $failMessage = NULL, $fromMail = NULL) {
+		global $_authority, $_gallery, $_UTF8;
+		if (is_null($failMessage)) {
+			$failMessage = gettext('Mail send failed.') . ' ';
+		}
+		$result = '';
+		if ($replyTo) {
+			$t = $replyTo;
+			if (!self::is_valid_email($m = array_shift($t))) {
+				if (empty($result)) {
+					$result = $failMessage;
+				}
+				$result .= sprintf(gettext('Invalid “reply-to” mail address %s.'), '"' . $m . '"');
+			}
+		}
+		if (is_null($email_list)) {
+			if ($_authority) {
+				$email_list = $_authority->getAdminEmail();
+			} else {
+				return $failMessage . gettext('There is no administrator with an e-mail address.');
+			}
+		} else {
+			foreach ($email_list as $key => $email) {
+				if (!self::is_valid_email($email)) {
+					unset($email_list[$key]);
+					if (empty($result)) {
+						$result = $failMessage;
+					}
+					$result .= ' ' . sprintf(gettext('Invalid “to” mail address %s.'), '"' . $email . '"');
+				}
+			}
+		}
+		if (is_null($cc_addresses)) {
+			$cc_addresses = array();
+		} else {
+			if (empty($email_list) && !empty($cc_addresses)) {
+				if (empty($result)) {
+					$result = $failMessage;
+				}
+				$result .= ' ' . gettext('“cc” list provided without “to” address list.');
+				return $result;
+			}
+			foreach ($cc_addresses as $key => $email) {
+				if (!self::is_valid_email($email)) {
+					unset($cc_addresses[$key]);
+					if (empty($result)) {
+						$result = $failMessage;
+					}
+					$result = ' ' . sprintf(gettext('Invalid “cc” mail address %s.'), '"' . $email . '"');
+				}
+			}
+		}
+		if (is_null($bcc_addresses)) {
+			$bcc_addresses = array();
+		} else {
+			foreach ($bcc_addresses as $key => $email) {
+				if (!self::is_valid_email($email)) {
+					unset($bcc_addresses[$key]);
+					if (empty($result)) {
+						$result = $failMessage;
+					}
+					$result = ' ' . sprintf(gettext('Invalid “bcc” mail address %s.'), '"' . $email . '"');
+				}
+			}
+		}
+		if (count($email_list) + count($bcc_addresses) > 0) {
+
+			if (npgFilters::has_filter('sendmail')) {
+
+				if (is_array($fromMail)) {
+					$from_name = reset($fromMail);
+					$from_mail = array_shift($fromMail);
+				} else {
+					$from_mail = getOption('site_email');
+					$from_name = get_language_string(getOption('site_email_name'));
+				}
+
+				// Convert to UTF-8
+				if (LOCAL_CHARSET != 'UTF-8') {
+					$subject = $_UTF8->convert($subject, LOCAL_CHARSET);
+					$message = $_UTF8->convert($message, LOCAL_CHARSET);
+				}
+
+				//	we do not support rich text
+				$message = preg_replace('~<p[^>]*>~', "\n", $message); // Replace the start <p> or <p attr="">
+				$message = preg_replace('~</p>~', "\n", $message); // Replace the end
+				$message = preg_replace('~<br[^>]*>~', "\n", $message); // Replace <br> or <br ...>
+				$message = preg_replace('~<ol[^>]*>~', "", $message); // Replace the start <ol> or <ol attr="">
+				$message = preg_replace('~</ol>~', "", $message); // Replace the end
+				$message = preg_replace('~<ul[^>]*>~', "", $message); // Replace the start <ul> or <ul attr="">
+				$message = preg_replace('~</ul>~', "", $message); // Replace the end
+				$message = preg_replace('~<li[^>]*>~', ".\t", $message); // Replace the start <li> or <li attr="">
+				$message = preg_replace('~</li>~', "", $message); // Replace the end
+				$message = getBare($message);
+				$message = preg_replace('~\n\n\n+~', "\n\n", $message);
+
+				// Send the mail
+				$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
+			} else {
+				$result = gettext('Mail send failed. There is no mail handler configured.');
+			}
+		} else {
+			if (empty($result)) {
+				$result = gettext('Mail send failed.');
+			}
+			$result .= ' ' . gettext('No “to” address list provided.');
+		}
+		return $result;
 	}
 
 	/**

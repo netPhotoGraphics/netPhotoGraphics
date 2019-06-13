@@ -40,7 +40,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 	if ($setting <= 3) {
 		foreach ($pluginlist as $extension) {
 			if ($extension != 'pluginEnabler') {
-				$opt = 'zp_plugin_' . $extension;
+				$opt = '_plugin_' . $extension;
 				$was = (int) (getOption($opt) && true);
 
 				switch ($setting) {
