@@ -166,7 +166,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
 	if ($singleimage)
 		$return .= '&singleimage=' . html_encode($singleimage);
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . $return);
+	header('Location: ' . $return);
 	exit();
 }
 printAdminHeader('edit', 'thumbcrop');
