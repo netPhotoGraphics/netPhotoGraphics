@@ -92,7 +92,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 				<div class="tabbox">
 					<?php
 					$owners = array(THEMEFOLDER => array(), CORE_FOLDER . '/' . PLUGIN_FOLDER => array(), USER_PLUGIN_FOLDER => array());
-					$sql = 'SELECT `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
+					$sql = 'SELECT `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "\_plugin\_%"';
 					$result = query_full_array($sql);
 					foreach ($result as $row) {
 						$plugin = str_replace('_plugin_', '', $row['name']);
