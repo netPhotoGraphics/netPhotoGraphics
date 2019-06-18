@@ -108,7 +108,7 @@ function formatCanonData($type, $tag, $intel, $data, $exif, &$result) {
 			switch ($result['SelfTimer']) {
 				case 0: $result['SelfTimer'] = '!off!';
 					break;
-				default: $result['SelfTimer'] .= "!10s!";
+				default: $result['SelfTimer'] .= "!\10s!";
 			}
 			$result['Quality'] = hexdec(intel2Moto(substr($data, $place, 4)));
 			$place += 4; //3

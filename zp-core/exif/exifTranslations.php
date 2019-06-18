@@ -21,7 +21,7 @@ function exifTranslate($source) {
 		default: return $source;
 		case '!1-area-focusing!' : return str_replace($sw, gettext("1-area-focusing"), $source);
 		case '!1-area-focusing (high speed)!' : return str_replace($sw, gettext("1-area-focusing (High speed)"), $source);
-		case '!10s!' : return str_replace($sw, gettext("10s"), $source);
+		case '!/10s!' : return str_replace($sw, gettext("/10s"), $source);
 		case '!1: normal (0 deg)!' : return str_replace($sw, gettext('Normal (0 deg)'), $source);
 		case '!1st curtain sync!' : return str_replace($sw, gettext('1st curtain sync'), $source);
 		case '!2: mirrored!' : return str_replace($sw, gettext('Mirrored'), $source);
