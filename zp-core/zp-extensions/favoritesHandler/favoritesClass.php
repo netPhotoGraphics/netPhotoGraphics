@@ -205,7 +205,7 @@ class favorites extends AlbumBase {
 					if (!is_null($sortdirection)) {
 						$order = $sortdirection && strtolower($sortdirection) == 'desc';
 					} else {
-						$order = $obj->getSortDirection('album');
+						$order = $this->getSortDirection('album');
 					}
 				}
 				$results = sortByKey($results, $sortkey, $order);
