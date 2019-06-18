@@ -97,7 +97,8 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
 	configMod();
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php');
-	header('Location: ' . getRequestURI());
+	$q = '?' . ltrim($debugq . $autorunq, '&') . '&db_config';
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 } else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php')) {
 	//migrate old root configuration file.
@@ -247,7 +248,7 @@ if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 if ($update_config) {
 	configFile::store($_config_contents);
 	//	reload the page so that the database config takes effect
-	$q = '?' . rtrim($debugq . $autorunq, '&') . '&db_config';
+	$q = '?' . ltrim($debugq . $autorunq, '&') . '&db_config';
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 }

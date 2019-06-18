@@ -90,7 +90,7 @@ class ThemeOptions {
 						'desc' =>
 						gettext('Select the Album to use for the homepage slider (Dynamic albums may used).') . '<br />' .
 						gettext('If Gallery is selected, the whole gallery will be used for the slider.')),
-				gettext('Random pictures for homepage slider', $me) => array(
+				gettext('Random pictures for homepage slider') => array(
 						'order' => 4,
 						'key' => 'zpB_homepage_random_pictures',
 						'type' => OPTION_TYPE_TEXTBOX,
