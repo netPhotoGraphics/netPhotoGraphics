@@ -78,7 +78,7 @@ if (isset($_GET['exportmenuset'])) {
 				$nest = explode('-', $value);
 				$value = count($nest) - 1;
 			}
-			$text .= $comma . "'" . $type . "' => " . "'" . html_encode($value) . "'";
+			$text .= $comma . "'" . $type . "' => " . "'" . html_encode(str_replace("'", "\\'", $value)) . "'";
 			$comma = ", ";
 		}
 		$text .= ')';
