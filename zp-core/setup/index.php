@@ -125,7 +125,7 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 
 if (file_exists(SERVERPATH . '/backup')) {
 	/* move the files */
-	@chmod(SERVERPATH . '/' . DATA_FOLDER . '/backup', 0777);
+	@chmod(SERVERPATH . '/' . BACKUPFOLDER, 0777);
 	@rename(SERVERPATH . '/backup', SERVERPATH . '/' . BACKUPFOLDER);
 	@chmod(SERVERPATH . '/' . BACKUPFOLDER, $chmod | 0311);
 }
