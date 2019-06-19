@@ -92,6 +92,7 @@ function saveOptions() {
 		$sql = 'UPDATE ' . prefix('administrators') . ' SET `policyACK`=0';
 		query($sql);
 		setOption('GDPR_cookie', microtime());
+		npgFilters::apply('policy_ack', true, 'clear policyACKs', NULL, NULL);
 	}
 
 	setOption('site_email_name', process_language_string_save('site_email_name', 3));

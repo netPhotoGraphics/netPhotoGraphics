@@ -4403,8 +4403,14 @@ function recordPolicyACK($user = NULL) {
 		if ($user) {
 			$user->setPolicyAck(1);
 			$user->save();
+			$what = $user->getUser();
 		} else {
 			setNPGCookie('policyACK', getOption('GDPR_cookie'));
+			$what = gettext('policyACK cookie');
+		}
+		if (extensionEnabled('security-logger')) {
+			require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/security-logger.php');
+			npgFilters::apply('policy_ack', true, 'PolicyAck', 1, $what);
 		}
 	}
 }

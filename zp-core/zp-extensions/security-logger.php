@@ -23,7 +23,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 }
 
 $option_interface = 'security_logger';
-
+global $_logCript, $_adminCript; //	incase we get demand loaded in a function
 if (getOption('security_log_encryption')) {
 	$_logCript = $_adminCript;
 }
@@ -42,6 +42,7 @@ npgFilters::register('admin_XSRF_access', 'security_logger::admin_XSRF_access');
 npgFilters::register('admin_log_actions', 'security_logger::log_action');
 npgFilters::register('log_setup', 'security_logger::log_setup');
 npgFilters::register('security_misc', 'security_logger::security_misc');
+npgFilters::register('policy_ack', 'security_logger::policy_ack');
 
 /**
  * Option handler class
@@ -430,6 +431,26 @@ class security_logger {
 	static function security_misc($success, $requestor, $auth, $txt) {
 		list($user, $name) = security_logger::populate_user();
 		security_logger::logger((int) $success, $name, NULL, $requestor, $auth, $txt);
+		return $success;
+	}
+
+	/**
+	 * Logs changes to usage policy acknowledgment
+	 * @param type $success
+	 * @param type $set
+	 * @param type $what
+	 * @return type
+	 */
+	static function policy_ack($success, $requestor, $set, $what) {
+		list($user, $name) = security_logger::populate_user();
+		if (!is_null($set)) {
+			if ($set) {
+				$what = sprintf(gettext('%1$s set to acknowledged'), $what);
+			} else {
+				$what = sprintf(gettext('%1$s acknowledgement cleared'), $what);
+			}
+		}
+		security_logger::logger((int) $success, $user, $name, $requestor, 'admin_auth', $what);
 		return $success;
 	}
 

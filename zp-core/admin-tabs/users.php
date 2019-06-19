@@ -133,7 +133,8 @@ if (isset($_GET['action'])) {
 								//possible states: not present--policy acknowledgement not adtive
 								//                 1--force acknowledgement
 								//                 2--clear acknowledgement
-								$userobj->setPolicyACK($userlist[$i]['policyAck'] & 1);
+								$userobj->setPolicyACK($v = $userlist[$i]['policyAck'] & 1);
+								npgFilters::apply('policy_ack', true, 'PolicyAck', $v, $userobj->getUser());
 							}
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
