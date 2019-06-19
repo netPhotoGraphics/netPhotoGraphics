@@ -129,6 +129,12 @@ if (isset($_GET['action'])) {
 								$what = 'update';
 								$userobj = npg_Authority::newAdministrator($user);
 							}
+							if (isset($userlist[$i]['policyAck'])) {
+								//possible states: not present--policy acknowledgement not adtive
+								//                 1--force acknowledgement
+								//                 2--clear acknowledgement
+								$userobj->setPolicyACK($userlist[$i]['policyAck'] & 1);
+							}
 							if (isset($userlist[$i]['admin_name'])) {
 								$admin_n = trim(sanitize($userlist[$i]['admin_name']));
 								$userobj->setName($admin_n);
@@ -654,8 +660,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -664,7 +670,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -686,7 +692,7 @@ echo $refresh;
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-															echo NO_RIGHTS;
+															echo NO_RIGHTS . '"';
 															echo $alterrights;
 															?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
@@ -751,6 +757,37 @@ echo $refresh;
 														<p class="notebox">
 															<?php echo gettext('<strong>Note:</strong> You must have ADMIN rights to alter anything but your personal information.'); ?>
 														</p>
+													</td>
+												</tr>
+												<?php
+											}
+											if (getOption('GDPR_acknowledge') || extensionEnabled('GDPR_required')) {
+												?>
+												<tr <?php if (!$current) echo 'style="display:none;"'; ?> class="userextrainfo">
+													<td <?php if (!empty($background)) echo " style=\"$background\""; ?> colspan="100%">
+														<div class="user_left">
+															<p>
+																<?php
+																if ($set = $userobj->getPolicyAck()) {
+																	echo gettext('Usage policy has been acknowledged.');
+																	?>
+																	<span style="float: right; padding-right: 15px;">
+																		<?php echo gettext('Clear'); ?>
+																		<input type="checkbox" name="user[<?php echo $id ?>][policyAck]" value="2">
+																	</span>
+																	<?php
+																} else {
+																	echo '<span style="color: red;">' . gettext('Usage policy has not been acknowledged.') . '</span>';
+																	?>
+																	<span style="float: right; padding-right: 15px;">
+																		<?php echo gettext('Set'); ?>
+																		<input type="checkbox" name="user[<?php echo $id ?>][policyAck]" value="1">
+																	</span>
+																	<?php
+																}
+																?>
+															</p>
+														</div>
 													</td>
 												</tr>
 												<?php
@@ -848,8 +885,7 @@ echo $refresh;
 															}
 															?>
 														</p>
-														<?php
-														?>
+														<?php ?>
 														<p>
 															<label for="admin_language_<?php echo $id ?>">
 																<?php echo gettext('Language:'); ?>
