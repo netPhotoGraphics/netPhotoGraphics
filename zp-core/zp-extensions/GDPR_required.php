@@ -109,8 +109,11 @@ class GDPR_required {
 	 * policy page.
 	 */
 
-	static function page() {
+	static function page($themeScript, $requested_object) {
 		global $_zp_current_admin_obj, $_GDPR_acknowledge_loaded;
+		if (!checkAccess($hint, $show)) { // password form will be shown!
+			return $themeScript;
+		}
 		if (!($_zp_current_admin_obj && $_zp_current_admin_obj->getPolicyAck()) && zp_getCookie('policyACK') != getOption('GDPR_cookie')) {
 			if ($link = getOption('GDPR_URL')) {
 				if (getRequestURI() == $link) {
@@ -135,6 +138,7 @@ class GDPR_required {
 				}
 			}
 		}
+		return $themeScript;
 	}
 
 	/**
@@ -163,7 +167,7 @@ class GDPR_required {
 			<?php
 		} else {
 			?>
-			<span style="display: none;"><?php echo gettext('Site usage policy has been acknowledged.'); ?></span>
+			<span style="color: green;"><?php echo gettext('Site usage policy has been acknowledged.'); ?></span>
 			<?php
 		}
 	}
