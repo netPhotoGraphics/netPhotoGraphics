@@ -17,6 +17,7 @@ if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
 
+clearstatcache();
 $chmod = fileperms(dirname(dirname(__FILE__))) & 0666;
 $_initial_session_path = session_save_path();
 
@@ -97,8 +98,8 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
 	configMod();
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php');
-	$q = '?' . ltrim($debugq . $autorunq, '&') . '&db_config';
-	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
+	setupLog(gettext('config file migrated'));
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php');
 	exit();
 } else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php')) {
 	//migrate old root configuration file.
@@ -249,6 +250,7 @@ if ($update_config) {
 	configFile::store($_config_contents);
 	//	reload the page so that the database config takes effect
 	$q = '?' . ltrim($debugq . $autorunq, '&') . '&db_config';
+	setuplog(gettext('Configuration file updated'));
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 }
@@ -321,6 +323,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 }
 
 if ($update_config) {
+	setuplog(sprintf(gettext('db_software set to %1$s.'), $preferred));
 	configFile::store($_config_contents);
 }
 $result = true;
@@ -388,7 +391,7 @@ if (defined('CHMOD_VALUE')) {
 	$chmod = CHMOD_VALUE & 0666;
 }
 
-enableExtension('security-logger', 9 | CLASS_PLUGIN);
+enableExtension('security-logger', 100 | CLASS_PLUGIN);
 
 $cloneid = bin2hex(FULLWEBPATH);
 $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION['clone'][$cloneid]['mod_rewrite'] && !file_exists(SERVERPATH . '/.htaccess');
