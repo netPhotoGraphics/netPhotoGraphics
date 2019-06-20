@@ -119,16 +119,17 @@ $legacyReplacements = array(
 		'zp_getCookie\(' => 'getNPGCookie(',
 		'zp_clearCookie\(' => 'clearNPGCookie(',
 		'zpFunctions::' => 'npgFunctions::',
-		'zpFormattedDate\(' => 'formattedDate('
+		'zpFormattedDate\(' => 'formattedDate(',
+		'\$_zp_current_DailySummary' => '$_current_DailySummary'
 );
 
 class zenPhotoCompatibilityPack {
 
 	static function scriptFilter($param = NULL) {
 		//zenphoto variables
-		global $_zp_authority, $_zp_loggedin, $_zp_current_admin_obj, $_zp_gallery_page, $_zp_page, $_zp_current_search, $_zp_themeroot;
+		global $_zp_authority, $_zp_loggedin, $_zp_current_admin_obj, $_zp_gallery_page, $_zp_page, $_zp_current_search, $_zp_themeroot, $_zp_current_DailySummary;
 		//netPhotoGraphic variables
-		global $_authority, $_loggedin, $_current_admin_obj, $_gallery_page, $_current_page, $_current_search, $_themeroot;
+		global $_authority, $_loggedin, $_current_admin_obj, $_gallery_page, $_current_page, $_current_search, $_themeroot, $_current_DailySummary;
 
 		self::nextObjFilter(NULL, NULL);
 
@@ -141,10 +142,14 @@ class zenPhotoCompatibilityPack {
 		if (is_object($_current_search)) {
 			$_zp_current_search = clone $_current_search;
 		}
+		if (is_object($_current_DailySummary)) {
+			$_zp_current_DailySummary = clone $_current_DailySummary;
+		}
 		$_zp_loggedin = $_loggedin;
 		$_zp_page = $_current_page;
 		$_zp_gallery_page = $_gallery_page;
 		$_zp_themeroot = $_themeroot;
+
 
 		return $param;
 	}
@@ -261,8 +266,8 @@ switch (OFFSET_PATH) {
 		define('ZP_ZENPAGE_PAGE', ZENPAGE_PAGE);
 		define('ZP_ZENPAGE_SINGLE', ZENPAGE_SINGLE);
 
-		npgFilters::register('load_theme_script', 'zenphotoCompatibilityPack::scriptFilter');
-		npgFilters::register('next_object_loop', 'zenphotoCompatibilityPack::nextObjFilter');
+		npgFilters::register('load_theme_script', 'zenphotoCompatibilityPack::scriptFilter', 99999);
+		npgFilters::register('next_object_loop', 'zenphotoCompatibilityPack::nextObjFilter', 99999);
 		npgFilters::register('admin_tabs', 'zenphotoCompatibilityPack::admin_tabs');
 }
 

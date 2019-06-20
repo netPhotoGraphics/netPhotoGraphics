@@ -14,7 +14,7 @@
  * 	<li>Use <var>printDailySummaryLink()</var> to put a link to the summary on theme pages.</li>
  * </ol>
  *
- * <sup>†</sup>You will probably want to edit your theme <var>daily-summary.php</var> script and/or your theme's <var>css</var> to
+ * <sup>†</sup>You will probably want to edit your theme <var>summary.php</var> script and/or your theme's <var>css</var> to
  * 		get the content, look, and feel you want for your theme. For distributed themes' summary scripts include the
  * 		<code>daily-summary_content.php</code> script.  You can customize them by placing your modified copy in the
  * 		<var>%USER_PLUGIN_FOLDER%/daily-cummary</var> folder.
