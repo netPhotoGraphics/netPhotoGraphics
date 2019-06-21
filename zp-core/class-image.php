@@ -1088,7 +1088,7 @@ class Image extends MediaObject {
 	 *
 	 * @return string
 	 */
-	protected function getFullImage($path = WEBPATH) {
+	function getImagePath($path = WEBPATH) {
 		if ($path == WEBPATH && getOption('album_folder_class') == 'external') {
 			return false;
 		}
@@ -1106,7 +1106,7 @@ class Image extends MediaObject {
 	 * returns URL to the original image
 	 */
 	function getFullImageURL($path = WEBPATH) {
-		return npgFilters::apply('getLink', pathurlencode($this->getFullImage($path)), 'full-image.php', NULL);
+		return npgFilters::apply('getLink', pathurlencode($this->getImagePath($path)), 'full-image.php', NULL);
 	}
 
 	/**
@@ -1446,7 +1446,7 @@ class Image extends MediaObject {
 	 */
 	function getFilesize() {
 		$album = $this->getAlbum();
-		$filesize = filesize($this->getFullImage(SERVERPATH));
+		$filesize = filesize($this->getImagePath(SERVERPATH));
 		return $filesize;
 	}
 

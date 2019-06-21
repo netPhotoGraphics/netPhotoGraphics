@@ -169,7 +169,7 @@ class VideoJS {
 			$h = $this->getHeight();
 		}
 
-		$moviepath = $movie->getFullImage(FULLWEBPATH);
+		$moviepath = $movie->getImagePath(FULLWEBPATH);
 
 		$ext = getSuffix($moviepath);
 		if (!in_array($ext, array('m4v', 'mp4', 'flv'))) {

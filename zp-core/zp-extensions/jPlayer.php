@@ -286,7 +286,7 @@ class jPlayer {
 			$h = $this->getHeight();
 		}
 
-		$moviepath = $movie->getFullImage(FULLWEBPATH);
+		$moviepath = $movie->getImagePath(FULLWEBPATH);
 		if (is_null($movietitle)) {
 			$movietitle = $movie->getTitle();
 		}

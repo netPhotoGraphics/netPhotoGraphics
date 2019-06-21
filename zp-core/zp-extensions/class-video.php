@@ -449,7 +449,7 @@ class pseudoPlayer {
 			$h = $this->getHeight();
 		}
 
-		$ext = getSuffix($link = $obj->getFullImage());
+		$ext = getSuffix($link = $obj->getImagePath());
 		switch ($ext) {
 			case 'mp3':
 			case 'm4a':
