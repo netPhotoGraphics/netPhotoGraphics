@@ -11,10 +11,10 @@ if (!defined('WEBPATH'))
 		<title>
 			<?php
 			echo getMainSiteName();
-			if (($_gallery_page == 'index.php') && ($isHomePage)) {
+			if (($_gallery_page == 'index.php') && isset($isHomePage)) {
 				echo ' | ' . gettext('Home');
 			}
-			if (($_gallery_page == 'index.php') && (!$isHomePage)) {
+			if (($_gallery_page == 'index.php') && !isset($isHomePage)) {
 				echo ' | ' . gettext('Gallery');
 			}
 			if ($_gallery_page == '404.php') {
@@ -324,7 +324,7 @@ if (!defined('WEBPATH'))
 
 			<div id="main-menu">
 				<?php
-				if ((($_gallery_page == 'index.php') && (!$isHomePage)) ||
+				if ((($_gallery_page == 'index.php') && !isset($isHomePage)) ||
 								(($_gallery_page == 'gallery.php') || ($_gallery_page == 'album.php') || ($_gallery_page == 'image.php'))) {
 					$galleryactive = true;
 				} else {

@@ -20,7 +20,7 @@ if (!defined('WEBPATH'))
 			echo getMainSiteName() . ' | ';
 			switch ($_gallery_page) {
 				case 'index.php':
-					if ($isHomePage) {
+					if (isset($isHomePage)) {
 						echo gettext('Home');
 					} else {
 						echo gettext('Gallery');
@@ -100,7 +100,7 @@ if (!defined('WEBPATH'))
 		<link rel="shortcut icon" href="<?php echo $_themeroot; ?>/images/favicon.ico" />
 		<?php
 		scriptLoader($_themeroot . '/css/bootstrap.min.css');
-		if (($_gallery_page == 'index.php') && ($isHomePage)) {
+		if (($_gallery_page == 'index.php') && (isset($isHomePage))) {
 			scriptLoader($_themeroot . '/css/flexslider.css');
 		}
 		if (($_gallery_page == 'album.php') || ($_gallery_page == 'favorites.php') || ($_gallery_page == 'news.php') || ($_gallery_page == 'pages.php') || ($_gallery_page == 'search.php')) {
@@ -269,7 +269,7 @@ if (!defined('WEBPATH'))
 						<?php } else { ?>
 
 							<?php if (getOption('zpB_homepage')) { ?>
-								<li<?php if ((isset($isHomePage)) && ($isHomePage)) { ?> class="active"<?php } ?>>
+								<li<?php if (isset($isHomePage))) { ?> class="active"<?php } ?>>
 									<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a>
 								</li>
 							<?php } ?>
