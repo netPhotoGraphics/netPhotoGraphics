@@ -54,6 +54,7 @@ function saveOptions() {
 		if (!updateRootIndexFile()) {
 			$notify = '?root_update_failed';
 			setOption('mod_rewrite_suffix', $oldsuffix);
+			$oldsuffix = NULL; //	prevent migrating the CMS links
 		}
 		if (!is_null($oldsuffix)) {
 			//the suffix was changed as opposed to set for the first time
