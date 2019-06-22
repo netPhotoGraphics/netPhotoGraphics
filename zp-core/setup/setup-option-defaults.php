@@ -10,6 +10,8 @@
  */
 setupLog(gettext('Set default options'), true);
 
+
+$deprecatedPlugins = array('filterDoc', 'zenphoto_package');
 $setOptions = getOptionList();
 
 if (isset($_GET['debug'])) {
@@ -28,6 +30,11 @@ require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést');
 if (!file_exists($testFile)) {
 	file_put_contents($testFile, '');
+}
+
+foreach ($deprecatedPlugins as $remove) {
+	npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove);
+	@unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove . '.php');
 }
 
 if (!isset($setOptions['extra_auth_hash_text'])) {
