@@ -104,10 +104,10 @@ function getAdminLink($script) {
 	if (MOD_REWRITE) {
 		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
 			$script = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, stripSuffix($script));
-			return(FULLWEBPATH . '/' . '/' . $script);
+			return(FULLWEBPATH . '/' . $script) . RW_SUFFIX;
 		}
 		$script = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $script);
-		return (FULLWEBPATH . '/' . CORE_PATH . '/' . stripSuffix($script));
+		return (FULLWEBPATH . '/' . CORE_PATH . '/' . stripSuffix($script)) . RW_SUFFIX;
 	} else {
 		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
 			return (FULLWEBPATH . '/' . $script);
@@ -2265,14 +2265,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/cron_runner.php'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/cron_runner.php'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

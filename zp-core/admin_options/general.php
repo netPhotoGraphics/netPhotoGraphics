@@ -49,10 +49,16 @@ function saveOptions() {
 	$oldsuffix = getOption('mod_rewrite_suffix');
 	$newsuffix = sanitize($_POST['mod_rewrite_suffix'], 3);
 	setOption('mod_rewrite_suffix', $newsuffix);
-
-	if (!is_null($oldsuffix) && $oldsuffix != $newsuffix) {
-//the suffix was changed as opposed to set for the first time
-		migrateTitleLinks($oldsuffix, $newsuffix);
+	if ($oldsuffix != $newsuffix) {
+		require_once(CORE_SERVERPATH . '/setup/setup-functions.php');
+		if (!updateRootIndexFile()) {
+			$notify = '?root_update_failed';
+			setOption('mod_rewrite_suffix', $oldsuffix);
+		}
+		if (!is_null($oldsuffix)) {
+			//the suffix was changed as opposed to set for the first time
+			migrateTitleLinks($oldsuffix, $newsuffix);
+		}
 	}
 	setOption('unique_image_prefix', (int) isset($_POST['unique_image_prefix']));
 	if (isset($_POST['time_zone'])) {
@@ -75,7 +81,7 @@ function saveOptions() {
 			if ($p == '//') {
 				$p = '/';
 			}
-//	save a cookie to see if change works
+			//	save a cookie to see if change works
 			$returntab .= '&cookiepath';
 			setNPGCookie('cookie_path', $p, 600);
 		}
@@ -155,6 +161,14 @@ function getOptionContent() {
 			' ' . sprintf(gettext("The locale %s is not supported on your server."), html_encode($locale)) .
 			"</h2>";
 			echo gettext('You can use the <em>debug</em> plugin to see which locales your server supports.');
+			echo '</div>';
+		}
+		if (isset($_GET['root_update_failed'])) {
+			echo '<div class="errorbox">';
+			echo "<h2>" .
+			gettext("Could not update the root index.php file") .
+			"</h2>";
+			echo gettext("Perhaps there is a permissions issue. Your <em>mod_rewrite suffix</em> was not changed.");
 			echo '</div>';
 		}
 		?>

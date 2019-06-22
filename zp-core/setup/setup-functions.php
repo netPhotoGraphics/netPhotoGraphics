@@ -708,3 +708,34 @@ function newCacheName($file) {
 	}
 	return array(FALSE, FALSE);
 }
+
+/**
+ * updates the root index.php file setting all the definitions to constant strings
+ */
+function updateRootIndexFile() {
+	$index = SERVERPATH . '/index.php';
+	if (file_exists($index)) {
+		@rename($index, $index . '.bak');
+	}
+	$defines = array(
+			'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
+			'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
+			'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
+			'DATA_FOLDER' => DATA_FOLDER,
+			'CONFIGFILE' => CONFIGFILE,
+			'RW_SUFFIX' => preg_quote(getOption('mod_rewrite_suffix'))
+	);
+	$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
+	$script = strtr($script, $defines);
+	$rootupdate = @file_put_contents($index, $script);
+	if (!$rootupdate) {
+		$f1 = @file_get_contents($index);
+		$rootupdate = $f1 == $script; // it is ok, the contents is correct
+	}
+	if ($rootupdate) {
+		@unlink($index . '.bak');
+	} else {
+		@rename($index . '.bak', $index);
+	}
+	return $rootupdate;
+}
