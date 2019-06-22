@@ -117,7 +117,8 @@ class GDPR_required {
 
 		if (!($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') != getOption('GDPR_cookie')) {
 			if ($link = getOption('GDPR_URL')) {
-				if (getRequestURI() == $link) {
+				$parts = explode('?', getRequestURI());
+				if ($link == $parts[0]) {
 					$_GDPR_acknowledge_loaded = true;
 				} else {
 					$goodBots = explode(',', strtolower(getOption('GDPR_Bots_Allowed')));
@@ -130,10 +131,11 @@ class GDPR_required {
 						}
 					}
 					if ($require) {
+						$from = '?from=' . str_replace('?', '&', getRequestURI());
 						//	redirect to the policy page
 						header("HTTP/1.0 307 Found");
 						header("Status: 307 Found");
-						header('Location: ' . $link);
+						header('Location: ' . $link . $from);
 						exit();
 					}
 				}
@@ -159,7 +161,12 @@ class GDPR_required {
 			setOption('GDPR_text', gettext('Check to acknowledge the site usage policy.'), false);
 			setOption('GDPR_acknowledge', 1, false);
 			if (is_null($target)) {
-				$target = getGalleryIndexURL();
+				if (isset($_GET['from'])) {
+					$target = sanitizeRedirect($_GET['from']);
+				}
+				if (is_null($target)) {
+					$target = getGalleryIndexURL();
+				}
 			}
 			?>
 			<form action="<?php echo $target; ?>" method = "post">
@@ -186,7 +193,8 @@ class GDPR_required {
 
 	static function isMe($allow, $page) {
 		if ($link = getOption('GDPR_URL')) {
-			if (getRequestURI() == $link) {
+			$parts = explode('?', getRequestURI());
+			if ($link == $parts[0]) {
 				return true;
 			}
 		}
