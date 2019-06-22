@@ -104,11 +104,13 @@ function reconfigureAction($mandatory) {
 			<?php
 			exit();
 		}
-	} else if (!empty($diff)) {
-		if (function_exists('npgFilters::register') && npg_loggedin(ADMIN_RIGHTS)) {
-			//	no point in telling someone who can't do anything about it
-			npgFilters::register('admin_note', 'signatureChange', 9999);
-			npgFilters::register('admin_head', 'reconfigureCS');
+	} else {
+		if (!empty($diff)) {
+			if (class_exists('npgFilters') && npg_loggedin(ADMIN_RIGHTS)) {
+				//	no point in telling someone who can't do anything about it
+				npgFilters::register('admin_note', 'signatureChange', 9999);
+				npgFilters::register('admin_head', 'reconfigureCS');
+			}
 		}
 	}
 }
@@ -163,7 +165,7 @@ function checkSignature($mandatory) {
 	foreach ($matches[1] as $need) {
 		$needs[] = rtrim(trim($need), ":*");
 	}
-// serialize the following
+	// serialize the following
 	$_configMutex->lock();
 	if (file_exists(dirname(__FILE__) . '/setup/')) {
 		chdir(dirname(__FILE__) . '/setup/');

@@ -115,7 +115,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_article_data</strong></span>(<em>string, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>save_article_data</strong></span>(<em>var</em>)</p>
 					<!-- description(Admin.CMS)-save_article_data --><p>Allows a plugin to manage custom data for news articles. This invocation is for when the article is saved.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -123,8 +123,16 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_page_data</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Admin.CMS)-save_page_data --><p>Allows a plugin to manage image data for Zenpage page. This invocation is for when the page is saved.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>save_category_data</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-save_category_data --><p>Applied just before the CMS Category save() method is called.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>plugin</em>/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>save_page_data</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-save_page_data --><p>Allows a plugin to manage image data for page. This invocation is for when the page is saved.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/admin-functions.php</li>
@@ -140,7 +148,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>update_category</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.CMS)-update_category --><p>Invoked when a Zenpage category is updated.</p><!--e-->
+					<!-- description(Admin.CMS)-update_category --><p>Invoked when a CMS category is updated.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/admin-functions.php</li>
@@ -148,7 +156,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>update_page</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.CMS)-update_page --><p>Invoked when a Zenpage page is updated.</p><!--e-->
+					<!-- description(Admin.CMS)-update_page --><p>Invoked when a CMS page is updated.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/admin-functions.php</li>
@@ -474,8 +482,8 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>general_zenpage_utilities</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-general_zenpage_utilities --><p>Allows plugins to add items to the <em>General</em> area of the Zenpage edit pages.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>general_utilities</strong></span>(<em>string, var</em>)</p>
+					<!-- description(CMS.Miscellaneous)-general_utilities --><p>Allows plugins to add items to the <em>General</em> area of the Zenpage edit pages.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/zenpage/edit.php</li>
@@ -554,7 +562,7 @@
 					<!-- description(Miscellaneous.Miscellaneous)-load_request --><p>Invoked by the front-end when a page is being loaded. The filter may cause the page load to be aborted.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">functions-controller.php</li>
+						<li class="call_list">lib-controller.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
@@ -618,6 +626,14 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>software_information</strong></span>(<em>var, var, var</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-software_information --><p>This filter is used to display the installation information HTML comment at the end of each page load</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">index.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>texteditor_config</strong></span>(<em>string</em>)</p>
 					<!-- description(Miscellaneous.Miscellaneous)-texteditor_config --><p>Provides configuration information to the Text Editor plugin (normally TinyMCE).</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -634,14 +650,6 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/tinymce/config/config.js.php</li>
-					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>zenphoto_information</strong></span>(<em>var, var, var</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-zenphoto_information --><p>This filter is used to display the installation information HTML comment at the end of each page load</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">index.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
@@ -748,6 +756,14 @@
 						<li class="call_list"><em>plugin</em>/favoriteshandler/favoritesclass.php (4)</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>isUnprotectedPage</strong></span>(<em>bool, var</em>)</p>
+					<!-- description(Object.Miscellaneous)-isUnprotectedPage --><p>Allows plugins to declare particular "pages" to be unprotected--that is they are publicly viewable.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">class-gallery.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
 			<h6 class="filter"><span id="Object_Root_class"></span>Root_class</h6>
 			<!-- subclasshead Object.Root_class --><p>These filters apply generally to netPhotoGraphics objects</p><!--e-->
@@ -849,7 +865,7 @@
 	<!-- classhead Template --><p>These filters modify behavior of the functions that support themes.</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_$gal</strong></span>(<em>var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_$gal</strong></span>(<em>var</em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_$gal --><p>This filter is applied for the catch-all page load. <code>$gal</code> is the running gallery page script.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -857,7 +873,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_album</strong></span>(<em>var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_album</strong></span>(<em>var</em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_album --><p>Allows plugins to insert links into the <em>album</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -865,7 +881,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_close</strong></span>(<em>var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_close</strong></span>(<em>var</em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_close --><p>This filter is applied just before the Admin Toolbox "logout" link is emitted.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -873,7 +889,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_gallery</strong></span>(<em>var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_gallery</strong></span>(<em></em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_gallery --><p>Allows plugins to insert links into the <em>gallery</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -881,7 +897,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_global</strong></span>(<em>var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_global</strong></span>(<em></em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_global --><p>Allows plugins to insert links into the <em>general</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -889,7 +905,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_image</strong></span>(<em>var, var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_image</strong></span>(<em>var, var</em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_image --><p>Allows plugins to insert links into the <em>image</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -897,7 +913,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_news</strong></span>(<em>var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_news</strong></span>(<em>var</em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_news --><p>Allows plugins to insert links into the <em>news</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -905,7 +921,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_pages</strong></span>(<em>var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_pages</strong></span>(<em>var</em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_pages --><p>Allows plugins to insert links into the <em>pages</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -913,7 +929,7 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_search</strong></span>(<em>var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_search</strong></span>(<em></em>)</p>
 					<!-- description(Template.Miscellaneous)-admin_toolbox_search --><p>Allows plugins to insert links into the <em>search</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -1180,7 +1196,7 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/upload.php</li>
-						<li class="call_list"><em>plugin</em>/elfinder/php/connector_zp.php</li>
+						<li class="call_list"><em>plugin</em>/elfinder/php/connector_npg.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
@@ -1189,7 +1205,7 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/upload.php</li>
-						<li class="call_list"><em>plugin</em>/elfinder/php/connector_zp.php</li>
+						<li class="call_list"><em>plugin</em>/elfinder/php/connector_npg.php</li>
 						<li class="call_list"><em>plugin</em>/uploader_jquery/server/php/index.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
@@ -1296,6 +1312,24 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>logout</strong></span>(<em>var, var</em>)</p>
+					<!-- description(User_management.Miscellaneous)-logout --><p>Provides a link to an external logout handler</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">lib-auth.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>bool, string, number, var</em>)</p>
+					<!-- description(User_management.Miscellaneous)-policy_ack --><p>Used for logging acknowledgment of the site usage policy.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-tabs/users.php</li>
+						<li class="call_list">admin_options/general.php</li>
+						<li class="call_list">template-functions.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>register_user_registered</strong></span>(<em>var</em>)</p>
 					<!-- description(User_management.Miscellaneous)-register_user_registered --><p>Invoked when a new user registers.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1313,7 +1347,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>remove_user</strong></span>(<em>var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-remove_user --><p>Called in Zenphoto_Administrator remove method to allow plugins to clean up anything associated with the user.</p><!--e-->
+					<!-- description(User_management.Miscellaneous)-remove_user --><p>Called in _Administrator remove method to allow plugins to clean up anything associated with the user.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">lib-auth.php</li>
@@ -1329,28 +1363,12 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_user</strong></span>(<em>var, var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-save_user --><p>Invoked when a user object is saved.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">admin-tabs/users.php</li>
-					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>save_user_complete</strong></span>(<em>string, var, string</em>)</p>
 					<!-- description(User_management.Miscellaneous)-save_user_complete --><p>Invoked after the userObj->save() method has been called. Used primarily for logging that a user has been updated.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/users.php (2)</li>
 						<li class="call_list"><em>plugin</em>/user_groups/user_groups-tab.php (3)</li>
-					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>zp_logout</strong></span>(<em>var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-zp_logout --><p>Provides a link to an external logout handler</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">lib-auth.php</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->

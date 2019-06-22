@@ -382,7 +382,7 @@ function getSetClause($new_unique_set) {
  * @param type $errorstop
  */
 function query($sql, $errorstop = true) {
-	$result = function_exists('npgFilters::apply') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
+	$result = class_exists('npgFilters') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
 	if (is_null($result)) {
 		return db_query($sql, $errorstop);
 	}
