@@ -318,7 +318,7 @@ function getOptionContent() {
 							$list[$file] = str_replace('.php', '', $file);
 						}
 						chdir($curdir);
-						$list = array_diff($list, standardScripts());
+						$list = array_diff($list, standardScripts(array()));
 						$list['index.php'] = 'index';
 						$current = array();
 						foreach ($list as $page) {

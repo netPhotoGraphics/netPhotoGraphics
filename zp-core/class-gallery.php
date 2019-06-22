@@ -1022,7 +1022,10 @@ class Gallery {
 	 * @param $page
 	 */
 	function isUnprotectedPage($page) {
-		return (in_array($page, $this->unprotected_pages));
+		if (in_array($page, $this->unprotected_pages)) {
+			return true;
+		}
+		return npgFilters::apply('isUnprotectedPage', false, $page);
 	}
 
 	function setUnprotectedPage($page, $on) {

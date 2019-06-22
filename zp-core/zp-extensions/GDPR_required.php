@@ -184,7 +184,17 @@ class GDPR_required {
 		return array_merge($macros, $my_macros);
 	}
 
+	static function isMe($allow, $page) {
+		if ($link = getOption('GDPR_URL')) {
+			if (getRequestURI() == $link) {
+				return true;
+			}
+		}
+		return $allow;
+	}
+
 }
 
 npgFilters::register('load_theme_script', 'GDPR_required::page');
 npgFilters::register('content_macro', 'GDPR_required::macro');
+npgFilters::register('isUnprotectedPage', 'GDPR_required::isMe');
