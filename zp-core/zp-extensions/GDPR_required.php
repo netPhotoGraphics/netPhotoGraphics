@@ -131,7 +131,7 @@ class GDPR_required {
 						}
 					}
 					if ($require) {
-						$from = '?from=' . str_replace('?', '&', getRequestURI());
+						$from = '?from=' . urlencode(getRequestURI());
 						//	redirect to the policy page
 						header("HTTP/1.0 307 Found");
 						header("Status: 307 Found");
@@ -162,9 +162,9 @@ class GDPR_required {
 			setOption('GDPR_acknowledge', 1, false);
 			if (is_null($target)) {
 				if (isset($_GET['from'])) {
-					$target = sanitizeRedirect($_GET['from']);
+					$target = sanitizeRedirect(urldecode($_GET['from']));
 				}
-				if (is_null($target)) {
+				if (empty($target)) {
 					$target = getGalleryIndexURL();
 				}
 			}
