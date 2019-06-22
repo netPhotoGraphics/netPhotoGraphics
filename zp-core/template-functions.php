@@ -4377,7 +4377,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4410,7 +4410,7 @@ function recordPolicyACK($user = NULL) {
 		}
 		if (extensionEnabled('security-logger')) {
 			require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/security-logger.php');
-			npgFilters::apply('policy_ack', true, 'PolicyAck', 1, $what);
+			npgFilters::apply('policy_ack', true, 'PolicyACK', 1, $what);
 		}
 	}
 }
