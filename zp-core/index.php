@@ -170,7 +170,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 }
 
 $_themeScript_timer['theme load'] = microtime();
-npgFilters::apply('zsoftware_information', $_themeScript, $_loaded_plugins, $_index_theme);
+npgFilters::apply('software_information', $_themeScript, $_loaded_plugins, $_index_theme);
 db_close(); // close the database as we are done
 if (TEST_RELEASE) {
 	echo "\n";

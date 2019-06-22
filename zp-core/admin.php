@@ -329,7 +329,7 @@ $buttonlist = array();
 				}
 				$buttonlist[] = array(
 						'category' => gettext('Updates'),
-						'enable' => 2,
+						'enable' => 4,
 						'button_text' => $buttonText = sprintf(gettext('Download version %1$s'), $newestVersion),
 						'formname' => 'getUpdates_button',
 						'action' => $newestVersionURI,
@@ -413,7 +413,7 @@ $buttonlist = array();
 					$buttonlist[] = array(
 							'XSRFTag' => 'install_update',
 							'category' => gettext('Updates'),
-							'enable' => 2,
+							'enable' => 4,
 							'button_text' => $buttonText,
 							'formname' => 'install_update',
 							'action' => getAdminLink('admin.php') . '?action=install_update',
@@ -428,7 +428,7 @@ $buttonlist = array();
 						$buttonlist[] = array(
 								'XSRFTag' => 'install_update',
 								'category' => gettext('Updates'),
-								'enable' => 2,
+								'enable' => 4,
 								'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
 								'formname' => 'download_update',
 								'action' => getAdminLink('admin.php') . '?action=download_update',
@@ -547,6 +547,9 @@ $buttonlist = array();
 											break;
 										case 3:
 											$color = ' style="color:red"';
+											break;
+										case 4:
+											$color = ' style="color:blue"';
 											break;
 									}
 									if ($category != $button_category) {
