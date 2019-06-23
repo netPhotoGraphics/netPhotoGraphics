@@ -17,7 +17,7 @@ if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matc
 	if (preg_match('~\.php$~i', $base)) {
 		trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
 	} else {
-		$base .= '.php';
+		$base = preg_replace('~RW_SUFFIX$~i', '', $base) . '.php';
 	}
 	if (file_exists(dirname(__FILE__) . $base)) {
 		//	mock up things as if the the uri went directly to the script
