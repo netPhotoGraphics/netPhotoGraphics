@@ -269,7 +269,7 @@ class PersistentObject {
 		} else if (array_key_exists($var, $this->tempdata)) {
 			return $this->tempdata[$var];
 		} else {
-			return null;
+			return NULL;
 		}
 	}
 
@@ -457,13 +457,23 @@ class PersistentObject {
 		$result = NULL;
 		switch ($how) {
 			case 'get':
-				return $this->get($what);
+				if (array_key_exists($what, $this->updates)) {
+					return $this->updates[$what];
+				} else if (array_key_exists($what, $this->data)) {
+					return $this->data[$what];
+				} else if (array_key_exists($what, $this->tempdata)) {
+					return $this->tempdata[$what];
+				} else {
+					$caller = debug_backtrace();
+					$caller = array_shift($caller);
+					throw new Exception(sprintf(gettext('The field "%1$s" is not defined for %2$s() in %3$s on line %4$s.'), $what, get_class($this) . '::' . $method, $caller['file'], $caller['line']));
+				}
 			case 'set':
 				return $this->set($what, $arg);
 		}
 		$caller = debug_backtrace();
 		$caller = array_shift($caller);
-		trigger_error(sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $caller['file'], $caller['line']), E_USER_WARNING);
+		throw new Exception(sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $caller['file'], $caller['line']));
 	}
 
 }
