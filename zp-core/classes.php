@@ -463,11 +463,8 @@ class PersistentObject {
 					return $this->data[$what];
 				} else if (array_key_exists($what, $this->tempdata)) {
 					return $this->tempdata[$what];
-				} else {
-					$caller = debug_backtrace();
-					$caller = array_shift($caller);
-					throw new Exception(sprintf(gettext('The field "%1$s" is not defined for %2$s() in %3$s on line %4$s.'), $what, get_class($this) . '::' . $method, $caller['file'], $caller['line']));
 				}
+				break;
 			case 'set':
 				return $this->set($what, $arg);
 		}
