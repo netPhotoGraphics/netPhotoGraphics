@@ -57,7 +57,6 @@ class quota_manager {
 	/**
 	 * class instantiation function
 	 *
-	 * @return filter_zenphoto_seo
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {

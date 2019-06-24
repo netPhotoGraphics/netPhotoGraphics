@@ -27,13 +27,13 @@
 <h4><a name="filters"></a>netPhotoGraphics filters</h4>
 
 <p>
-	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of filter use are found noted with each filter. Filters are applied to the output of other functions and may make modifications to that output. So, for instance, <span class="tt">filter_zenphoto_seo</span> has a filter for the <span class="tt">seoFriendlyURL</span> function that changes accented characters into non accented equivalents.
+	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of filter use are found noted with each filter. Filters are applied to the output of other functions and may make modifications to that output. So, for instance, <span class="tt">seoFriendly</span> has a filter for the <span class="tt">seoFriendly()</span> function that changes accented characters into non accented equivalents.
 </p>
 <p>
-	Filters are added to a function (which has filtering support) by using the function <span class="tt">zp_register_filter($hook, $function_name, $priority)</span>. <span class="tt">$hook</span> is the name of the filter item, <span class="tt">$function_name</span> is the function that will be invoked to filter the item, and <span class="tt">$priority</span> is the rank of this filter among the list of filters for this item (defaults to plugin's priority as set with <span class="tt">$plugin_is_filter</span>). Filters are applied in ascending <span class="tt">$priority</span> order.
+	Filters are added to a function (which has filtering support) by using the function <span class="tt">npgFilters::register($hook, $function_name, $priority)</span>. <span class="tt">$hook</span> is the name of the filter item, <span class="tt">$function_name</span> is the function that will be invoked to filter the item, and <span class="tt">$priority</span> is the rank of this filter among the list of filters for this item (defaults to plugin's priority as set with <span class="tt">$plugin_is_filter</span>). Filters are applied in ascending <span class="tt">$priority</span> order.
 </p>
 <p>
-	The registered function will be passed the parameters(with the exception of the filter name string) from the <span class="tt">zp_apply_filter()</span> call. The function must always return the initial parameter of the list (if it exists) as this is then passed on to subsequent filters in the chain. This provides a means of filters operating on the changes made by other filters.
+	The registered function will be passed the parameters(with the exception of the filter name string) from the <span class="tt">npgFilters::apply()</span> call. The function must always return the initial parameter of the list (if it exists) as this is then passed on to subsequent filters in the chain. This provides a means of filters operating on the changes made by other filters.
 </p>
 <p>
 	netPhotoGraphics currently provides filter invocation for the following. Function parameters are indicated within the parens:
@@ -45,6 +45,7 @@
 				<li><a title="Comment Admin filters" href="#Admin_Comment">Comment</a></li>
 				<li><a title="Media Admin filters" href="#Admin_Media">Media</a></li>
 				<li><a title="Miscellaneous Admin filters" href="#Admin_Miscellaneous">Miscellaneous</a></li>
+				<li><a title="Security Admin filters" href="#Admin_Security">Security</a></li>
 		</ul>
 		</li>
 		<li><a title="CMS filters" href="#CMS">CMS filters</a>
@@ -419,6 +420,101 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/menu_manager/menu_manager-admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+			</ul><!-- filterdetail -->
+			<h6 class="filter"><span id="Admin_Security"></span>Security</h6>
+			<!-- subclasshead Admin.Security --><p></p><!--e-->
+			<ul class="filterdetail">
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_XSRF_access</strong></span>(<em>bool, var</em>)</p>
+					<!-- description(Admin.Security)-admin_XSRF_access --><p>Invoked when an attempt at Cross Site Reference Forgery is detected.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_log_actions</strong></span>(<em>bool, var, var</em>)</p>
+					<!-- description(Admin.Security)-admin_log_actions --><p>Reports when a log has been deleted, cleared, or downloaded.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-tabs/logs.php (3)</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_login_attempt</strong></span>(<em>var, var, var, var</em>)</p>
+					<!-- description(Admin.Security)-admin_login_attempt --><p>Reports logon attempts.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">lib-auth.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_managed_albums_access</strong></span>(<em>bool, var</em>)</p>
+					<!-- description(Admin.Security)-admin_managed_albums_access --><p>This filter allows a plugin to intervene when a request to edit an album is being denied for insufficient permissions.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-tabs/albumsort.php</li>
+						<li class="call_list">admin-tabs/dynamic-album.php</li>
+						<li class="call_list">admin-tabs/edit.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>authorization_cookie</strong></span>(<em>var, var, var</em>)</p>
+					<!-- description(Admin.Security)-authorization_cookie --><p>Allows a plugin to override cookie based authorization credentials.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">lib-auth.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>guest_login_attempt</strong></span>(<em>var, var, var, var</em>)</p>
+					<!-- description(Admin.Security)-guest_login_attempt --><p>Invoked when a visitor logs on with a guest password.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">functions.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>log_setup</strong></span>(<em>bool, string, var</em>)</p>
+					<!-- description(Admin.Security)-log_setup --><p>Invoked when <span class="tt">setup</span> creates the setup log.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin.php (3)</li>
+						<li class="call_list">setup/index.php</li>
+						<li class="call_list">setup/setupcomplete.php</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>var, string, string, var</em>)</p>
+					<!-- description(Admin.Security)-policy_ack --><p>Used for logging acknowledgment of the site usage policy.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-tabs/users.php</li>
+						<li class="call_list">admin_options/general.php</li>
+						<li class="call_list">template-functions.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>save_user_complete</strong></span>(<em>string, var, string</em>)</p>
+					<!-- description(Admin.Security)-save_user_complete --><p>Invoked after the userObj->save() method has been called. Used primarily for logging that a user has been updated.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-tabs/users.php (2)</li>
+						<li class="call_list"><em>plugin</em>/user_groups/user_groups-tab.php (3)</li>
+					</ul><!-- calls -->
+					<br />				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>security_misc</strong></span>(<em>bool, string, string, string</em>)</p>
+					<!-- description(Admin.Security)-security_misc --><p>Allows plugins to supply miscellaneous information to the security logger</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">cron_runner.php</li>
+						<li class="call_list"><em>plugin</em>/ipblocker.php</li>
+						<li class="call_list"><em>plugin</em>/site_upgrade/site_upgrade.php (3)</li>
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
@@ -1320,15 +1416,16 @@
 					</ul><!-- calls -->
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>bool, string, number, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>var, string, string, var</em>)</p>
 					<!-- description(User_management.Miscellaneous)-policy_ack --><p>Used for logging acknowledgment of the site usage policy.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/users.php</li>
 						<li class="call_list">admin_options/general.php</li>
 						<li class="call_list">template-functions.php</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />				</li><!-- filterdetail -->
+				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>register_user_registered</strong></span>(<em>var</em>)</p>
 					<!-- description(User_management.Miscellaneous)-register_user_registered --><p>Invoked when a new user registers.</p><!--e-->
