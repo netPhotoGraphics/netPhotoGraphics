@@ -139,7 +139,7 @@ class cookieConsent {
 		}
 		$color_popup = getOption('zpcookieconsent_colorpopup');
 		$color_button = getOption('zpcookieconsent_colorbutton');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
 		?>
 		<script>
 			window.addEventListener("load", function () {
@@ -167,6 +167,12 @@ class cookieConsent {
 					},
 					onStatusChange: function (status) {
 						this.element.parentNode.removeChild(this.element);
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: 'ajaxRequest=cookieconsent&status=' + status,
+							url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/cookieconsent/ajaxHandler.php'); ?>'
+						});
 					}
 				})
 			});

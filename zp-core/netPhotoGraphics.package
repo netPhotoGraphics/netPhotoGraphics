@@ -7621,6 +7621,7 @@ zp-core/zp-extensions/common/oAuth/twitteroauth.php
 zp-core/zp-extensions/contact_form
 zp-core/zp-extensions/contact_form/form.php
 zp-core/zp-extensions/cookieconsent
+zp-core/zp-extensions/cookieconsent/ajaxHandler.php
 zp-core/zp-extensions/cookieconsent/cookieconsent.min.css
 zp-core/zp-extensions/cookieconsent/cookieconsent.min.js
 zp-core/zp-extensions/crop_image
@@ -8435,4 +8436,4 @@ zp-core/setup/setup_pluginOptions.php:*
 zp-core/setup/setup_set-mod_rewrite.php:*
 zp-core/setup/setup_themeOptions.php:*
 zp-core/setup/setupComplete.php:*
-8437
+8438
