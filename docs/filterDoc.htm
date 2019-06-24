@@ -27,7 +27,7 @@
 <h4><a name="filters"></a>netPhotoGraphics filters</h4>
 
 <p>
-	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of filter use are found noted with each filter. Filters are applied to the output of other functions and may make modifications to that output. So, for instance, <span class="tt">seoFriendly</span> has a filter for the <span class="tt">seoFriendly()</span> function that changes accented characters into non accented equivalents.
+	<em>Filters</em> modify the behavior of existing functions and can be used by any of the plugin types. Examples of where a filter is used are noted with each filter. Registered filters handlers are run in priority sequence and can modify the output of earlier handler functions. So, for instance, the <span class="tt">seoFriendly()</span> function "applies" the <span class="tt">seoFriendly</span> filter passing the text that is to be made "friendly". Each registered handler makes its own changes to the text and the result is the cumulative set of changes. Handlers may also be used to directly create output. The <span class="tt">theme_head</span> filter is '"applied" by theme scripts from within their <em>&lt;head&gt;.../&lt;head&gt;</em> tags so that plugins can put CSS or JavaScript content there.
 </p>
 <p>
 	Filters are added to a function (which has filtering support) by using the function <span class="tt">npgFilters::register($hook, $function_name, $priority)</span>. <span class="tt">$hook</span> is the name of the filter item, <span class="tt">$function_name</span> is the function that will be invoked to filter the item, and <span class="tt">$priority</span> is the rank of this filter among the list of filters for this item (defaults to plugin's priority as set with <span class="tt">$plugin_is_filter</span>). Filters are applied in ascending <span class="tt">$priority</span> order.
@@ -203,7 +203,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>bulk_album_actions</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Media)-bulk_album_actions --><p>Allows a filter to establish bulk album action items</p><!--e-->
+					<!-- description(Admin.Media)-bulk_album_actions --><p>Allows a filter to establish bulk album action items.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/edit.php</li>
@@ -211,7 +211,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>bulk_image_actions</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Media)-bulk_image_actions --><p>Allows a filter to establish bulk image action items</p><!--e-->
+					<!-- description(Admin.Media)-bulk_image_actions --><p>Allows a filter to establish bulk image action items.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/albumsort.php</li>
@@ -384,7 +384,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>plugin_tabs</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-plugin_tabs --><p>Use to add translatable tabs to the plugin main tab</p><!--e-->
+					<!-- description(Admin.Miscellaneous)-plugin_tabs --><p>Use to add translatable tabs to the plugin main tab.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-functions.php</li>
@@ -489,7 +489,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>var, string, string, var</em>)</p>
-					<!-- description(Admin.Security)-policy_ack --><p>Used for logging acknowledgment of the site usage policy.</p><!--e-->
+					<!-- description(Admin.Security)-policy_ack --><p>Used for logging acknowledgment of the site usage policy or user consent to cookie use.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/users.php</li>
@@ -509,7 +509,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>security_misc</strong></span>(<em>bool, string, string, string</em>)</p>
-					<!-- description(Admin.Security)-security_misc --><p>Allows plugins to supply miscellaneous information to the security logger</p><!--e-->
+					<!-- description(Admin.Security)-security_misc --><p>Allows plugins to send miscellaneous information to the security logger.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">cron_runner.php</li>
@@ -591,7 +591,7 @@
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>comment_form_data</strong></span>(<em>array</em>)</p>
-					<!-- description(Comment.Miscellaneous)-comment_form_data --><p>Allows plugins to modify the data shown on comment forms</p><!--e-->
+					<!-- description(Comment.Miscellaneous)-comment_form_data --><p>Allows plugins to modify the data shown on comment forms.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/comment_form.php</li>
@@ -673,7 +673,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>security_misc</strong></span>(<em>bool, string, string, string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-security_misc --><p>Allows plugins to supply miscellaneous information to the security logger</p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-security_misc --><p>Allows plugins to send miscellaneous information to the security logger.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">cron_runner.php</li>
@@ -715,7 +715,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>site_upgrade_xml</strong></span>(<em>var</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-site_upgrade_xml --><p>Allows plugins to add files to those processed by the site_upgrade plugin</p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-site_upgrade_xml --><p>Allows plugins to add files to those processed by the site_upgrade plugin.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/site_upgrade.php (2)</li>
@@ -723,7 +723,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>software_information</strong></span>(<em>var, var, var</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-software_information --><p>This filter is used to display the installation information HTML comment at the end of each page load</p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-software_information --><p>This filter is used to display the installation information HTML comment at the end of each page load.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">index.php</li>
@@ -752,7 +752,7 @@
 	<h5><span id="Object"></span>Object filters</h5>
 	<!-- classhead Object --><p>These filters provide modifications to the behavior of object methods.</p><!--e-->
 			<h6 class="filter"><span id="Object_Media"></span>Media</h6>
-			<!-- subclasshead Object.Media --><p>These filters apply to "media" objects</p><!--e-->
+			<!-- subclasshead Object.Media --><p>These filters apply to "media" objects.</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>album_filter</strong></span>(<em>var</em>)</p>
@@ -846,7 +846,7 @@
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>favoritesHandler_action</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Object.Miscellaneous)-favoritesHandler_action --><p>Called when an object is added or removed from a user's favorites list</p><!--e-->
+					<!-- description(Object.Miscellaneous)-favoritesHandler_action --><p>Called when an object is added or removed from a user's favorites list.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/favoriteshandler/favoritesclass.php (4)</li>
@@ -862,7 +862,7 @@
 					<br />				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
 			<h6 class="filter"><span id="Object_Root_class"></span>Root_class</h6>
-			<!-- subclasshead Object.Root_class --><p>These filters apply generally to netPhotoGraphics objects</p><!--e-->
+			<!-- subclasshead Object.Root_class --><p>These filters apply generally to netPhotoGraphics objects.</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>check_credentials</strong></span>(<em>bool, var, var</em>)</p>
@@ -1148,7 +1148,7 @@
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_theme_buttons</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Theme.Script)-admin_theme_buttons --><p>Allows a filter to insert buttons in the Theme tab actions column</p><!--e-->
+					<!-- description(Theme.Script)-admin_theme_buttons --><p>Allows a filter to insert buttons in the Theme tab actions column.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/themes.php</li>
@@ -1164,7 +1164,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>load_theme_script</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Theme.Script)-load_theme_script --><p>Allows for overriding the script loaded for a particular theme page</p><!--e-->
+					<!-- description(Theme.Script)-load_theme_script --><p>Allows for overriding the script loaded for a particular theme page.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">index.php</li>
@@ -1259,7 +1259,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>theme_headers</strong></span>(<em></em>)</p>
-					<!-- description(Theme.Script)-theme_headers --><p>Allows adding headers to the theme output. Called after the standard headers are sent</p><!--e-->
+					<!-- description(Theme.Script)-theme_headers --><p>Allows adding headers to the theme output. Called after the standard headers are sent.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">404.php</li>
@@ -1268,7 +1268,7 @@
 					<br />				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
 	<h5><span id="Upload"></span>Upload filters</h5>
-	<!-- classhead Upload --><p>These filters are used to implement upload handlers</p><!--e-->
+	<!-- classhead Upload --><p>These filters are used to implement upload handlers.</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>check_upload_quota</strong></span>(<em>string, var</em>)</p>
@@ -1288,7 +1288,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>get_upload_limit</strong></span>(<em>var</em>)</p>
-					<!-- description(Upload.Miscellaneous)-get_upload_limit --><p>Allows a plugin to override the size limits on image uplaods</p><!--e-->
+					<!-- description(Upload.Miscellaneous)-get_upload_limit --><p>Allows a plugin to override the size limits on image uplaods.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/upload.php</li>
@@ -1376,7 +1376,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>federated_login_attempt</strong></span>(<em>bool, var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-federated_login_attempt --><p>Invoked when a user logs on via a federated_Logon plugin. (As opposed to logging on through the normal authentication mechanism)</p><!--e-->
+					<!-- description(User_management.Miscellaneous)-federated_login_attempt --><p>Invoked when a user logs on via a federated_Logon plugin. (As opposed to logging on through the normal authentication mechanism.)</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list"><em>plugin</em>/common/oauth/oauthlogin.php</li>
@@ -1392,7 +1392,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>login_link</strong></span>(<em>var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-login_link --><p>Overrides the login link so that an external handler handles the login</p><!--e-->
+					<!-- description(User_management.Miscellaneous)-login_link --><p>Overrides the login link so that an external handler handles the login.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">template-functions.php</li>
@@ -1409,7 +1409,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>logout</strong></span>(<em>var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-logout --><p>Provides a link to an external logout handler</p><!--e-->
+					<!-- description(User_management.Miscellaneous)-logout --><p>Provides a link to an external logout handler.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">lib-auth.php</li>
@@ -1417,7 +1417,7 @@
 					<br />				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>var, string, string, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-policy_ack --><p>Used for logging acknowledgment of the site usage policy.</p><!--e-->
+					<!-- description(User_management.Miscellaneous)-policy_ack --><p>Used for logging acknowledgment of the site usage policy or user consent to cookie use.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">admin-tabs/users.php</li>
