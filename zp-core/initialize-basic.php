@@ -59,7 +59,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 	define('LOG_MOD', DATA_MOD);
 }
 define('DATABASE_PREFIX', $_conf_vars['mysql_prefix']);
-define('LOCAL_CHARSET', $_conf_vars['charset']);
+define('LOCAL_CHARSET', isset($_conf_vars['charset']) ? $_conf_vars['charset'] : 'UTF-8');
 if (!isset($_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
 	$stdConfig = getConfig(CORE_FOLDER . '/netPhotoGraphics_cfg.txt');

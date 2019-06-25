@@ -16,8 +16,8 @@
  * @pluginCategory development
  */
 
+$plugin_is_filter = 99 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 99 | CLASS_PLUGIN;
 	$plugin_description = gettext('Invalidates all cookies that were created earlier than the invalidate action.');
 }
 npgFilters::register('admin_utilities_buttons', 'cookieInvalidator::button');

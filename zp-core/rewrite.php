@@ -1,7 +1,7 @@
 <?php
 
 /**
- * "Rewrite" handling 
+ * "Rewrite" handling
  *
  * The basic rules are found in the rewrite.txt file. Additional rules can be provided by plugins. But
  * for the plugin to load in time for the rules to be seen it must be either a CLASS_PLUGIN or a FEATURE_PLUGIN.
@@ -36,9 +36,7 @@ $rules['gallery'] = array(
 		'default' => '_PAGE_/gallery', //	The default (initial value) of the link token
 		'rewrite' => getOption('galleryToken_link') //	this will be "evaled" to yield the current link token for "gallery"
 );
-if (OFFSET_PATH == 2) {
-	setOptionDefault('galleryToken_link', '_PAGE_/gallery');
-}
+
 //	add the rewrite definition of the rewrite target
 $rules[] = array(
 		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules
@@ -60,6 +58,7 @@ $rules[] = array(
 $rules[] = array('comment' => "\t#### Rules from \"plugins\"");
 $primary = array_slice($_conf_vars['special_pages'], 0, 4, true);
 $secondary = array_slice($_conf_vars['special_pages'], 4, NULL, true);
+
 $_conf_vars['special_pages'] = array_merge($primary, $rules, $secondary);
 unset($rules);
 unset($primary);
@@ -200,7 +199,11 @@ function getRules() {
 	$definitions = $specialPageRules = array();
 	foreach ($_conf_vars['special_pages'] as $key => $special) {
 		if (array_key_exists('definition', $special)) {
-			eval('$v = ' . $special['rewrite'] . ';');
+			try {
+				eval('$v = ' . $special['rewrite'] . ';');
+			} catch (Throwable $t) {
+				$v = '*undefined*';
+			}
 			$definitions[$special['definition']] = $v;
 		}
 		if (array_key_exists('rule', $special)) {

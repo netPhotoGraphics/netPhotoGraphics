@@ -24,8 +24,8 @@
  * @package plugins/static_html_cache
  * @pluginCategory admin
  */
+$plugin_is_filter = 400 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 400 | CLASS_PLUGIN;
 	$plugin_description = gettext("Adds static HTML cache functionality.");
 	$plugin_notice = TESTING_MODE ? gettext('Caching is disabled because <em>TESTING_MODE</em> is enabled.') : '';
 }

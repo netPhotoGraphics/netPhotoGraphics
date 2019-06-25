@@ -14,8 +14,8 @@
  * @package plugins/tinyURL
  * @pluginCategory admin
  */
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext('Provides short URLs to gallery objects.');
 }
 

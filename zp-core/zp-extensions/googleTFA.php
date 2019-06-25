@@ -28,8 +28,8 @@
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  */
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext('Two Factor Authentication.');
 }
 

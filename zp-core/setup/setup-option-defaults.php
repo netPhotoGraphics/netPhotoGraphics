@@ -37,11 +37,11 @@ foreach ($deprecatedPlugins as $remove) {
 	@unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove . '.php');
 }
 
+$salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
+$list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
 // setup a hash seed
 	$auth_extratext = "";
-	$salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
-	$list = range(0, strlen($salt) - 1);
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt{$list[$i]};
@@ -96,7 +96,7 @@ $result = query($sql);
 while ($row = db_fetch_assoc($result)) {
 	$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
 	if (!query($sql, false)) {
-		// the plugin has executed defaultExtension() which has set the _plugin_ option already
+// the plugin has executed defaultExtension() which has set the _plugin_ option already
 		$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `id`=' . $row['id'];
 		query($sql);
 	}
@@ -214,12 +214,14 @@ foreach ($list as $file) {
 	unlink($file);
 }
 
+setOptionDefault('galleryToken_link', '_PAGE_/gallery');
+setOptionDefault('gallery_data', NULL);
+setOptionDefault('strong_hash', 9);
+
 $old = @unserialize(getOption('netphotographics_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['NETPHOTOGRAPHICS']);
 purgeOption('netphotographics_install');
 setOption('netphotographics_install', serialize(installSignature()));
-$admins = $_authority->getAdministrators('all');
-setOptionDefault('gallery_data', NULL);
 
 $questions[] = getSerializedArray(getAllTranslations("What is your father’s middle name?"));
 $questions[] = getSerializedArray(getAllTranslations("What street did your Grandmother live on?"));
@@ -228,7 +230,8 @@ $questions[] = getSerializedArray(getAllTranslations("When did you first get a c
 $questions[] = getSerializedArray(getAllTranslations("How much wood could a woodchuck chuck if a woodchuck could chuck wood?"));
 $questions[] = getSerializedArray(getAllTranslations("What is the date of the Ides of March?"));
 setOptionDefault('challenge_foils', serialize($questions));
-setOptionDefault('strong_hash', 9);
+
+$admins = $_authority->getAdministrators('all');
 if (empty($admins)) { //	empty administrators table
 	$groupsdefined = NULL;
 	if (isset($_SESSION['clone'][$cloneid])) { //replicate the user who cloned the install
@@ -242,7 +245,7 @@ if (empty($admins)) { //	empty administrators table
 			$_GET['mod_rewrite'] = true;
 			setOption('mod_rewrite', 1);
 		}
-		//	replicate plugins state
+//	replicate plugins state
 		foreach ($clone['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
 		}
@@ -263,8 +266,8 @@ if (empty($admins)) { //	empty administrators table
 	} else {
 		if (npg_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
-				//	The password hash of these old versions did not have the extra text.
-				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
+//	The password hash of these old versions did not have the extra text.
+//	Note: if the administrators table is empty we will re-do this option with the good stuff.
 				purgeOption('extra_auth_hash_text');
 				setOptionDefault('extra_auth_hash_text', '');
 			} else {
@@ -314,16 +317,12 @@ foreach ($showDefaultThumbs as $key => $value) {
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
 setOptionDefault('time_zone', date('T'));
-setOptionDefault('mod_rewrite', 0);
+purgeOption('mod_rewrite');
 $sfx = getOption('mod_rewrite_image_suffix');
 if ($sfx) {
 	purgeOption('mod_rewrite_image_suffix');
 } else {
-	if (MOD_REWRITE) {
-		$sfx = '.htm';
-	} else {
-		$sfx = NULL;
-	}
+	$sfx = '.htm';
 }
 setOptionDefault('mod_rewrite_suffix', $sfx);
 setOptionDefault('dirtyform_enable', 2);
@@ -342,13 +341,18 @@ setOptionDefault('dirtyform_enable', 2);
 <?php
 purgeOption('mod_rewrite_detected');
 
+//	Update the root index.php file so admin mod_rewrite works
+//	Note: this must be done AFTER the mod_rewrite_suffix option is set and before we test if mod_rewrite works!
+$rootupdate = updateRootIndexFile();
+
+
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
 		<?php echo gettext('Mod_Rewrite check:'); ?>
 		<br />
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . $_conf_vars['special_pages']['page']['rewrite']; ?>/setup_set-mod_rewrite?z=setup" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_PATH ?>/setup/setup_set-mod_rewrite" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
 		</span>
 	</p>
 	<?php
@@ -843,7 +847,7 @@ $plugins = array_keys($plugins);
 ?>
 <p>
 	<?php
-	//clean up plugins needed for themes and other plugins
+//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {

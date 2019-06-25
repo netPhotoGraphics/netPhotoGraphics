@@ -32,8 +32,8 @@
  * @package plugins/xmpMetadata
  * @pluginCategory media
  */
+$plugin_is_filter = 9 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 9 | CLASS_PLUGIN;
 	$plugin_description = gettext('Extracts <em>XMP</em> metadata from images and <code>XMP</code> sidecar files.');
 }
 

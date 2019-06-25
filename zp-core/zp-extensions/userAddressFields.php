@@ -14,12 +14,12 @@
  * @pluginCategory users
  *
  */
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext('Adds user address fields');
 }
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
 
 class userAddressFields extends fieldExtender {
 

@@ -440,8 +440,6 @@ if ($setup_checked) {
 			$clone = ' ' . gettext('clone');
 		}
 
-		$rootupdate = updateRootIndexFile();
-
 		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s'), NETPHOTOGRAPHICS_VERSION, $clone, date('r')), true, true); // initialize the log file
 	}
 

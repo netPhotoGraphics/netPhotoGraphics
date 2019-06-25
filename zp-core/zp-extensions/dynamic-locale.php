@@ -50,8 +50,8 @@
  * @package plugins/dynamic-locale
  * @pluginCategory seo
  */
+$plugin_is_filter = 10 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 10 | CLASS_PLUGIN;
 	$plugin_description = gettext("Allows viewers of your site to select the language translation of their choice.");
 }
 

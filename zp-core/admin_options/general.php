@@ -250,6 +250,9 @@ function getOptionContent() {
 							<input type="checkbox" name="mod_rewrite" value="1"<?php echo $state; ?> />	<?php echo gettext('mod rewrite'); ?>
 						</label>
 						<br />
+
+						<?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" />
+						<br />
 						<?php
 						if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
 							?>
@@ -260,8 +263,6 @@ function getOptionContent() {
 							<?php
 						}
 						?>
-						<?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" />
-						<br />
 						<label>
 							<input type="checkbox" name="unique_image_prefix"<?php
 							if (UNIQUE_IMAGE)
@@ -281,29 +282,30 @@ function getOptionContent() {
 										echo '<p class="notebox">' . gettext('Setup did not detect a working <em>mod_rewrite</em> facility.'), '</p>';
 									?>
 								</p>
-								<?php
-								if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
-									echo '<p>' . gettext("If you are having problems with images whose names contain characters with diacritical marks try changing the <em>image URI</em> setting.");
-									switch (getOption('UTF8_image_URI_found')) {
-										case'unknown':
-											echo '<p class="notebox">' . gettext('Setup could not determine a setting that allowed images with diacritical marks in the name.'), '</p>';
-											break;
-										case 'internal':
-											if (!getOption('UTF8_image_URI')) {
-												echo '<p class="notebox">' . sprintf(gettext('Setup detected <em>%s</em> image URIs.'), LOCAL_CHARSET), '</p>';
-											}
-											break;
-										case 'filesystem':
-											if (getOption('UTF8_image_URI')) {
-												echo '<p class="notebox">' . gettext('Setup detected <em>file system</em> image URIs.'), '</p>';
-											}
-											break;
-									}
-									echo '</p>';
-								}
-								?>
 								<p><?php echo gettext("If <em>mod_rewrite</em> is checked above, the <em>mod_rewrite suffix</em> will be appended to the end of URLs. (This helps search engines.) Examples: <em>.html, .php</em>, etc."); ?></p>
 								<p>
+									<?php
+									if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
+										echo '<p>' . gettext("If you are having problems with images whose names contain characters with diacritical marks try changing the <em>image URI</em> setting.");
+										switch (getOption('UTF8_image_URI_found')) {
+											case'unknown':
+												echo '<p class="notebox">' . gettext('Setup could not determine a setting that allowed images with diacritical marks in the name.'), '</p>';
+												break;
+											case 'internal':
+												if (!getOption('UTF8_image_URI')) {
+													echo '<p class="notebox">' . sprintf(gettext('Setup detected <em>%s</em> image URIs.'), LOCAL_CHARSET), '</p>';
+												}
+												break;
+											case 'filesystem':
+												if (getOption('UTF8_image_URI')) {
+													echo '<p class="notebox">' . gettext('Setup detected <em>file system</em> image URIs.'), '</p>';
+												}
+												break;
+										}
+										echo '</p>';
+									}
+									?>
+
 									<?php
 									printf(gettext('If <em>Unique images</em> is checked, image links will omit the image suffix. E.g. a link to the image page for <code>myalbum/myphoto.jpg</code> will appear as <code>myalbum/myphoto%s</code>'), RW_SUFFIX);
 									echo '<p class="notebox">';

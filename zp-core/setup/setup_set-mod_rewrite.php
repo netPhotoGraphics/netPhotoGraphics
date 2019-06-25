@@ -37,6 +37,7 @@ if (is_null($mod_rewrite)) {
 	$msg = gettext('The option “mod_rewrite” is “disabled”.');
 }
 setOption('mod_rewrite_detected', 1);
+setOptionDefault('mod_rewrite', 1);
 setupLog(gettext('Notice: “Module mod_rewrite” is working.') . ' ' . $msg, $fullLog);
 
 sendImage(0, 'mod_rewrite');

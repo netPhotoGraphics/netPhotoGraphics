@@ -17,8 +17,8 @@
  * @package plugins/zenphotoCompatibilityPack
  * @pluginCategory development
  */
+$plugin_is_filter = defaultExtension(1 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(1 | CLASS_PLUGIN);
 	$plugin_description = gettext("Zenphoto compatibility.");
 }
 

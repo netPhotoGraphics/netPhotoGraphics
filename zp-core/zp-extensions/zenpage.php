@@ -24,8 +24,8 @@
  * @package plugins/zenpage
  * @pluginCategory theme
  */
+$plugin_is_filter = defaultExtension(99 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(99 | CLASS_PLUGIN);
 	$plugin_description = gettext("A CMS plugin that adds the capability to run an entire gallery focused website.");
 }
 $option_interface = 'cmsFilters';

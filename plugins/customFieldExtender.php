@@ -37,13 +37,13 @@
  * @pluginCategory example
  *
  */
+$plugin_is_filter = /* defaultExtension( */ 5 | CLASS_PLUGIN /* ) */; //	if you have such a plugin you probably want to use it
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = /* defaultExtension( */ 5 | CLASS_PLUGIN /* ) */; //	if you have such a plugin you probably want to use it
 	$plugin_description = gettext('Adds user defined fields to database tables');
 }
 
-if (file_exists(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php')) {
-	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/fieldExtender.php');
+if (file_exists(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php')) {
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
 } else {
 	require_once(stripSuffix(__FILE__) . '/fieldExtender.php');
 }

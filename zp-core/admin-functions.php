@@ -3513,7 +3513,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @return string
 	 */
 	function isolate($target, $str) {
-		if (preg_match('|' . preg_quote($target) . '\s*?=*(.+?);[ \f\v\t]*[\n\r]|s', $str, $matches)) {
+		if (preg_match('|' . preg_quote($target) . '\s*?=*(.+?);|s', $str, $matches)) {
 			return $matches[0];
 		}
 		return false;

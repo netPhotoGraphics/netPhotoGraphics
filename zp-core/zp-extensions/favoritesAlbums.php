@@ -28,12 +28,12 @@
  * @package plugins/favoritesAlbums
  * @pluginCategory media
  */
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext('Publish <em>favorites</em> into albums that others can view.');
 }
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
 define("FAVORITESALBUM_FOLDER", CORE_FOLDER . '/' . PLUGIN_FOLDER . '/favoritesAlbums/');
 
 class favoritesAlbum extends favorites {

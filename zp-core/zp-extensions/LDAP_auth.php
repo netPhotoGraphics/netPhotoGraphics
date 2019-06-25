@@ -11,8 +11,8 @@
  * @pluginCategory users
  */
 
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext('Enable LDAP user authentication.');
 	$plugin_disable = function_exists('ldap_connect') ? '' : gettext('php_ldap extension is not enabled');
 }
@@ -20,7 +20,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 $option_interface = 'LDAP_auth_options';
 
 if (!(function_exists('ldap_connect') || class_exists('_Authority'))) {
-	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
 }
 
 class LDAP_auth_options {

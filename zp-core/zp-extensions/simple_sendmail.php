@@ -8,8 +8,8 @@
  * @package plugins/simple_sendmail
  * @pluginCategory mail
  */
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext("Outgoing mail handler based on the PHP <em>mail</em> facility.");
 	$plugin_disable = (npgFilters::has_filter('sendmail') && !extensionEnabled('simple_sendmail')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(npgFilters::script('sendmail'))) : '';
 }

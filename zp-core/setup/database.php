@@ -114,6 +114,8 @@ foreach (getDBTables() as $table) {
 	}
 }
 
+$npgUpgrade = isset($database['administrators']) && $database['administrators']['fields']['valid']['Comment'] == 'zp20';
+
 //metadata display and disable options
 $validMetadataOptions = !is_null(getOption('metadata_displayed'));
 
@@ -400,7 +402,7 @@ foreach ($template as $tablename => $table) {
 						$_DB_Structure_change = TRUE;
 					}
 				} else {
-					$orpahns = sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename);
+					$orphans[] = sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename);
 				}
 			}
 		}
@@ -424,7 +426,11 @@ if ($utf8mb4 && !array_search(true, $tablePresent)) {
 setOptionDefault('metadata_disabled', serialize($disable));
 setOptionDefault('metadata_displayed', serialize($display));
 
-foreach ($orphans as $message) {
-	setupLog($message, true);
+//	Don't report these unless npg has previously been installed because the
+//	plugins which might "claim" them will not yet have run
+if ($npgUpgrade) {
+	foreach ($orphans as $message) {
+		setupLog($message, true);
+	}
 }
 ?>

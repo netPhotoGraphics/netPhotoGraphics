@@ -24,8 +24,8 @@
 
 global $_captcha;
 
+$plugin_is_filter = 500 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 500 | CLASS_PLUGIN;
 	$plugin_description = gettext("Google reCAPTCHA handler.");
 	$plugin_disable = !ini_get('allow_url_fopen') ? gettext('The <em>allow_url_fopen</em> PHP.ini setting is disabled. reCAPTCHA requires that <em>allow_url_fopen</em> PHP.ini setting to be enabled.') : (($_captcha->name && $_captcha->name != 'reCAPTCHA_v2') ? sprintf(gettext('Only one Captcha handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_captcha->name) : '');
 }

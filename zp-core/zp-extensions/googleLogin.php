@@ -29,8 +29,8 @@
  * @package plugins/googleLogin
  * @pluginCategory users
  */
+$plugin_is_filter = 900 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 900 | CLASS_PLUGIN;
 	$plugin_description = gettext("Handles logon via the user's <em>Google</em> account.");
 	$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
 }

@@ -11,8 +11,8 @@
 
 global $_captcha;
 
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext("netPhotoGraphics captcha handler.");
 	$plugin_disable = ($_captcha->name && $_captcha->name != 'captcha') ? sprintf(gettext('Only one Captcha handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_captcha->name) : '';
 }

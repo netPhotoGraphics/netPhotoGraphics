@@ -590,33 +590,25 @@ class Controller {
 		$searchalbums = handleSearchParms('page', $_current_album, $_current_image);
 		$album = NULL;
 		$page = str_replace(array('/', '\\', '.'), '·', sanitize($_GET['p']));
-		if (isset($_GET['z'])) { // system page
-			if ($subfolder = sanitize_path($_GET['z'])) {
-				$subfolder .= '/';
-			}
-			$_gallery_page = $page . '.php';
-			$_themeScript = CORE_FOLDER . '/' . $subfolder . $page . '.php';
-		} else {
-			$_gallery_page = $page . '.php';
-
-			switch ($_gallery_page) {
-				case 'search.php':
-					if (!empty($searchalbums)) { //	we are within a search of a specific album(s)
-						$albums = array();
-						foreach ($searchalbums as $analbum) {
-							$album = newAlbum($analbum, true, true);
-							if (is_object($album) && $album->exists) {
-								$parent = getUrAlbum($album);
-								$albums[$parent->getID()] = $parent;
-							}
-						}
-						if (count($albums) == 1) { // there is only one parent album for the search
-							$album = array_shift($albums);
+		$_gallery_page = $page . '.php';
+		switch ($_gallery_page) {
+			case 'search.php':
+				if (!empty($searchalbums)) { //	we are within a search of a specific album(s)
+					$albums = array();
+					foreach ($searchalbums as $analbum) {
+						$album = newAlbum($analbum, true, true);
+						if (is_object($album) && $album->exists) {
+							$parent = getUrAlbum($album);
+							$albums[$parent->getID()] = $parent;
 						}
 					}
-					break;
-			}
+					if (count($albums) == 1) { // there is only one parent album for the search
+						$album = array_shift($albums);
+					}
+				}
+				break;
 		}
+
 		$theme = setupTheme($album);
 		if (empty($_themeScript)) {
 			$_themeScript = THEMEFOLDER . "/$theme/$page.php";
