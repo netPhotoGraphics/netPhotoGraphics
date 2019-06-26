@@ -282,4 +282,12 @@ if (@$_loggedin) {
 	}
 	loadLocalOptions(0, $_gallery->getCurrentTheme());
 }
-?>
+
+if (MOD_REWRITE && OFFSET_PATH != 2) {
+	$uri = getRequestURI();
+	if (strpos($uri, 'zp-core') !== FALSE) {
+		//	deprecated use of zp-core in URL
+		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/deprecated-functions/class.php');
+		deprecated_functions::logZPCore($uri, '');
+	}
+}

@@ -100,19 +100,19 @@ function truncate_string($string, $length, $elipsis = '...') {
  * @param string $script the path to the script file
  * @return string
  */
-function getAdminLink($script) {
+function getAdminLink($script, $path = FULLWEBPATH) {
 	if (MOD_REWRITE) {
 		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
 			$script = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, stripSuffix($script));
-			return(FULLWEBPATH . '/' . $script) . RW_SUFFIX;
+			return($path . '/' . $script) . RW_SUFFIX;
 		}
 		$script = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $script);
-		return (FULLWEBPATH . '/' . CORE_PATH . '/' . stripSuffix($script)) . RW_SUFFIX;
+		return ($path . '/' . CORE_PATH . '/' . stripSuffix($script)) . RW_SUFFIX;
 	} else {
 		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
-			return (FULLWEBPATH . '/' . $script);
+			return ($path . '/' . $script);
 		}
-		return (FULLWEBPATH . '/' . CORE_FOLDER . '/' . $script);
+		return ($path . '/' . CORE_FOLDER . '/' . $script);
 	}
 }
 
