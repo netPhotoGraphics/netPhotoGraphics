@@ -67,9 +67,14 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							$title = gettext('No longer a clone of this installation.');
 							$invalid = true;
 						}
+						if (MOD_REWRITE) {
+							$admin = CORE_PATH . '/admin' . RW_SUFFIX;
+						} else {
+							$admin = CORE_FOLDER . '/admin.php';
+						}
 						?>
 						<p<?php echo $strike; ?>>
-							<a href="<?php echo $data['url'] . CORE_FOLDER . '/admin.php'; ?>" target="_blank" title="<?php echo $title; ?>"><?php echo $clone; ?></a><?php echo $version; ?>
+							<a href="<?php echo $data['url'] . $admin; ?>" target="_blank" title="<?php echo $title; ?>"><?php echo $clone; ?></a><?php echo $version; ?>
 						</p>
 						<?php
 					}
