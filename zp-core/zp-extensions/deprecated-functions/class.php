@@ -198,7 +198,7 @@ class deprecated_functions {
 	static function logZPCore($uri) {
 		$parts = parse_url($uri);
 		$use = ltrim(str_replace(WEBPATH, '', $parts['path']), '/');
-		$use = str_replace('zp-core/zp-extensions', 'zp-extensions', $use);
+		$use = strtr($use, array('zp-core/zp-extensions' => 'zp-extensions', 'zp-core/' => ''));
 		$use = getAdminLink($use, '');
 		if (isset($_SERVER['HTTP_REFERER'])) {
 			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> referred from <code>%2$s</code> is deprecated.'), $uri, $_SERVER['HTTP_REFERER']);
