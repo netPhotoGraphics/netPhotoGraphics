@@ -201,6 +201,11 @@ class deprecated_functions {
 		$use = strtr($use, array('zp-core/zp-extensions' => 'zp-extensions', 'zp-core/' => ''));
 		$use = getAdminLink($use, '');
 		if (isset($_SERVER['HTTP_REFERER'])) {
+			$refs = parse_url($_SERVER['HTTP_REFERER']);
+			if (basename(dirname($parts['path'])) == 'setup') {
+				//	don't log it if setup did it.
+				return;
+			}
 			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> referred from <code>%2$s</code> is deprecated.'), $uri, $_SERVER['HTTP_REFERER']);
 		} else {
 			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> is deprecated.'), $uri);
