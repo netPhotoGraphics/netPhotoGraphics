@@ -149,7 +149,7 @@ class deprecated_functions {
 		} else {
 			$script = $line = gettext('unknown');
 		}
-		$output = sprintf(gettext('%1$s (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n" . $message . "\n";
+		$output = sprintf(gettext('<code>%1$s</code> (called from %2$s line %3$s) is deprecated.'), $fcn, $script, $line) . "\n&nbsp;&nbsp;" . $message . "\n";
 
 		if (file_exists(DEPRECATED_LOG)) {
 			$content = file_get_contents(DEPRECATED_LOG);
@@ -164,7 +164,7 @@ class deprecated_functions {
 				$flag = '';
 			}
 
-			$prefix = '  ';
+			$prefix = "&nbsp;&nbsp;";
 			$line = '';
 			$caller = '';
 
@@ -172,10 +172,10 @@ class deprecated_functions {
 			foreach ($traces as $b) {
 				$caller = (isset($b['class']) ? $b['class'] : '') . (isset($b['type']) ? $b['type'] : '') . $b['function'];
 				if (!empty($line)) { // skip first output to match up functions with line where they are used.
-					$prefix .= '  ';
+					$prefix .= "&nbsp;&nbsp;";
 					$output .= 'from ' . $caller . ' (' . $line . ")\n" . $prefix;
 				} else {
-					$output .= '  ' . $caller . " called ";
+					$output .= '&nbsp;&nbsp;' . $caller . " called ";
 				}
 				$date = false;
 				if (isset($b['file']) && isset($b['line'])) {
@@ -201,10 +201,11 @@ class deprecated_functions {
 		$use = str_replace('zp-core/zp-extensions', 'zp-extensions', $use);
 		$use = getAdminLink($use, '');
 		if (isset($_SERVER['HTTP_REFERER'])) {
-			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> referred from <code>%2$s</code> is deprecated. Use <code>%3$s</code> instead.'), $uri, $_SERVER['HTTP_REFERER'], $use);
+			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> referred from <code>%2$s</code> is deprecated.'), $uri, $_SERVER['HTTP_REFERER']);
 		} else {
-			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> is deprecated. Use <code>%2$s</code> instead.'), $uri, $use);
+			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> is deprecated.'), $uri);
 		}
+		$output .= "\n&nbsp;&nbsp;" . sprintf(gettext('Use <code>%1$s</code> instead.'), $use);
 
 		if (file_exists(DEPRECATED_LOG)) {
 			$content = file_get_contents(DEPRECATED_LOG);
