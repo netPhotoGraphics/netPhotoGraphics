@@ -2270,7 +2270,7 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 							type: 'POST',
 							cache: false,
 							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/cron_runner.php'
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
 						});
 						// ]]> -->
 			</script>
