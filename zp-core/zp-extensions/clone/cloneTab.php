@@ -38,7 +38,8 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					$clones = npgClone::clones(false);
 					$invalid = false;
 					foreach ($clones as $clone => $data) {
-						$version = '';
+						$rwSuffix = $version = '';
+						$modRewrite = false;
 						$v = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 						$myVersion = $v[0];
 						if ($data['valid']) {
@@ -58,6 +59,20 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 											$version = ' (' . sprintf(gettext('Last setup run version: %s'), $signature['NETPHOTOGRAPHICS']) . ')';
 										}
 									}
+									$sql = 'SELECT * FROM `' . $config['mysql_prefix'] . 'options` WHERE `name` LIKE "mod\_rewrite%"';
+									if ($result = query_full_array($sql, FALSE)) {
+
+										foreach ($result as $option) {
+											switch ($option['name']) {
+												case 'mod_rewrite':
+													$modRewrite = $option['value'];
+													break;
+												case 'mod_rewrite_suffix':
+													$rwSuffix = $option['value'];
+													break;
+											}
+										}
+									}
 								}
 								db_close();
 								$_DB_connection = db_connect($saveDB);
@@ -67,8 +82,8 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							$title = gettext('No longer a clone of this installation.');
 							$invalid = true;
 						}
-						if (MOD_REWRITE) {
-							$admin = CORE_PATH . '/admin' . RW_SUFFIX;
+						if ($modRewrite) {
+							$admin = CORE_PATH . '/admin' . $rwSuffix;
 						} else {
 							$admin = CORE_FOLDER . '/admin.php';
 						}
