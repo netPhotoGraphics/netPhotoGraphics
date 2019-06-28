@@ -271,10 +271,6 @@ switch (OFFSET_PATH) {
 			} else {
 				$page = 'page';
 			}
-			if (!preg_match('~' . preg_quote($page) . '/setup_set-mod_rewrite\?z=setup$~', $_SERVER['REQUEST_URI'])) {
-				header('location: ' . WEBPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/closed.php');
-				exit();
-			}
 		} else if ($state == 'closed_for_test') {
 			npgFilters::register('theme_body_open', 'site_upgrade::notice');
 		}
