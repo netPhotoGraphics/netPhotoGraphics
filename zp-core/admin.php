@@ -176,12 +176,10 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					$msg = FALSE;
 					if ($action == 'download_update') {
 						if ($msg = getRemoteFile($newestVersionURI, SERVERPATH)) {
-							$found = safe_glob(SERVERPATH . '/setup-*.zip');
-							if (!empty($found)) {
-								$file = array_shift($found);
-								unlink(SERVERPATH . '/' . basename($file));
+							$found = file_exists($file = SERVERPATH . '/' . basename($newestVersionURI));
+							if ($found) {
+								unlink($file);
 							}
-
 							purgeOption('getUpdates_lastCheck'); //	incase we missed the update
 							$class = 'errorbox';
 							$msg .= '<br /><br />' . sprintf(gettext('Click on the <code>%1$s</code> button to download the release to your computer, FTP the zip file to your site, and revisit the overview page. Then there will be an <code>Install</code> button that will install the update.'), ARROW_DOWN_GREEN . 'netPhotoGraphics ' . $newestVersion);
