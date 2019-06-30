@@ -214,7 +214,7 @@ class deprecated_functions {
 
 		if (file_exists(DEPRECATED_LOG)) {
 			$content = file_get_contents(DEPRECATED_LOG);
-			$log = !preg_match('~' . preg_quote($output) . '~', $content);
+			$log = !preg_match('~' . preg_quote($parts['path']) . '~', $content);
 		} else {
 			$log = true;
 		}
