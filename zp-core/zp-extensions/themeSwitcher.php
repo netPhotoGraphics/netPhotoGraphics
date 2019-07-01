@@ -176,11 +176,11 @@ class themeSwitcher {
 			$theme = $_gallery->getCurrentTheme();
 			?>
 			<div class="themeSwitcherMenuMain themeSwitcherControl">
-				<a onclick="$('.themeSwitcherControl').toggle();" title="<?php echo gettext('Switch themes'); ?>" style="text-decoration: none;" />
-				<span class="themeSwitcherMenu">
-					<?php echo MENU_SYMBOL; ?>
-				</span>
-			</a>
+				<a onclick="$('.themeSwitcherControl').toggle();" title="<?php echo gettext('Switch themes'); ?>" style="text-decoration: none;" >
+					<span class="themeSwitcherMenu">
+						<?php echo MENU_SYMBOL; ?>
+					</span>
+				</a>
 			</div>
 			<div class="themeSwitcherControlLink themeSwitcherControl" style="display:none;">
 				<div>
