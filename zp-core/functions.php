@@ -1212,18 +1212,23 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  * Central place for meta header handling
  */
 function printStandardMeta() {
+	$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
+	$npg_version = array_shift($npg_version);
 	$lang = substr(i18n::getUserLocale(), 0, 2);
-	echo '<meta http-equiv="content-type" content="text/html; charset=' . LOCAL_CHARSET . '"';
-	if ($lang)
-		echo ' lang="' . $lang . '"';
-	echo " />\n";
+	if ($lang) {
+		$lang = ' lang="' . $lang . '"';
+	}
+	?>
+	<meta name="generator" content="netPhotoGraphics <?php echo $npg_version; ?>" />
+	<meta http-equiv="content-type" content="text/html; charset=<?php echo LOCAL_CHARSET; ?>"<?php echo $lang; ?> />
+	<?php
 }
 
 /**
  * prints the software logo
  */
 function swLogo() {
-	return '<span style=\'display: inline-block;font-family: Palitino, "Times New Roman", Times, serif;vertical-align: -6%;\'>
+	return '<span style = \'display: inline-block;font-family: Palitino, "Times New Roman", Times, serif;vertical-align: -6%;\'>
 		<span style="display: inline-block;vertical-align: 6%;font-size: 80%;">NET</span><span style="font-size: 150%;">P</span><span style="display: inline-block;vertical-align: 6%;font-size: 80%;">H</span><span style="display: inline-block;vertical-align: 0.8%;font-size: 110%;font-weight: bolder;">&#9678;</span><span style="display: inline-block;vertical-align: 6%;font-size: 80%;">TO</span><span style="font-size: 150%;">G</span><span style="display: inline-block;vertical-align: 6%;font-size: 80%;">RAPHICS</span>
 	</span>';
 }
@@ -2265,14 +2270,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
