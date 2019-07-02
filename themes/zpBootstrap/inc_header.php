@@ -117,7 +117,7 @@ if (!defined('WEBPATH'))
 		scriptLoader($_themeroot . '/js/bootstrap.min.js');
 		scriptLoader($_themeroot . '/js/zpBootstrap.js');
 
-		if (($_gallery_page == 'index.php') && ($isHomePage)) {
+		if (($_gallery_page == 'index.php') && isset($isHomePage)) {
 			scriptLoader($_themeroot . '/js/jquery.flexslider-min.js');
 			?>
 			<script type="text/javascript">
@@ -221,17 +221,17 @@ if (!defined('WEBPATH'))
 				case 63235: case 39:
 								if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-				break;
-				case 63234: case 37:
-								if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+		break;
+		case 63234: case 37:
+						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-				break;
-				}
-				return true;
-				}
+		break;
+		}
+		return true;
+		}
 
-				document.onkeydown = keyboardNavigation;
-				//]]>
+		document.onkeydown = keyboardNavigation;
+		//]]>
 			</script>
 		<?php } ?>
 
