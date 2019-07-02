@@ -50,7 +50,7 @@ function saveOptions() {
 	$newsuffix = sanitize($_POST['mod_rewrite_suffix'], 3);
 	setOption('mod_rewrite_suffix', $newsuffix);
 	if ($oldsuffix != $newsuffix) {
-		require_once(CORE_SERVERPATH . '/setup/setup-functions.php');
+		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 		if (!updateRootIndexFile()) {
 			$notify = '?root_update_failed';
 			setOption('mod_rewrite_suffix', $oldsuffix);
