@@ -79,8 +79,8 @@ function getLatestImagesAlbum($rootAlbum = '') {
 		$imageWhere = '';
 		$albumInWhere = '';
 	} else {
-		$imageWhere = " AND " . prefix('images') . ".show=1";
-		$albumInWhere = prefix('albums') . ".show=1";
+		$imageWhere = " AND i.show=1";
+		$albumInWhere = "a.show=1";
 	}
 	$query = "SELECT id FROM " . prefix('albums') . " WHERE ";
 	if ($albumInWhere)
@@ -88,18 +88,18 @@ function getLatestImagesAlbum($rootAlbum = '') {
 	$query .= "folder LIKE " . db_quote(db_LIKE_escape($albumfolder) . '%');
 	$result = query($query);
 	if ($result) {
-		$albumInWhere = prefix('albums') . ".id IN (";
+		$albumInWhere = "a.id IN (";
 		while ($row = db_fetch_assoc($result)) {
 			$albumInWhere = $albumInWhere . $row['id'] . ", ";
 		}
 		db_free_result($result);
 		$albumInWhere = ' AND ' . substr($albumInWhere, 0, -2) . ')';
-		$sql = 'SELECT `id`, `folder`, `filename` ' .
-						' FROM ' . prefix('images') . ', ' . prefix('albums') .
-						' WHERE ' . prefix('albums') . '.folder!="" AND ' . prefix('images') . '.albumid = ' .
-						prefix('albums') . '.id ' . $albumInWhere . $imageWhere . ' ORDER BY ' . prefix("images") . '.date DESC';
+		$sql = 'SELECT i.id, a.folder, i.filename ' .
+						' FROM ' . prefix('images') . ' AS i, ' . prefix('albums') .
+						' AS a WHERE a.folder!="" AND i.albumid = a.id ' . $albumInWhere . $imageWhere . ' ORDER BY i.date DESC';
 		$result = query($sql);
-		$image = array_shift(filterImageQueryList($result, $album->name));
+		$list = filterImageQueryList($result, $album->name);
+		$image = array_shift($list);
 	}
 	return $image;
 }
@@ -114,14 +114,13 @@ function getLatestImages() {
 	if (npg_loggedin()) {
 		$imageWhere = '';
 	} else {
-		$imageWhere = " AND " . prefix('images') . ".show=1";
+		$imageWhere = " AND i.show=1";
 	}
-	$result = query('SELECT `id`, `folder`, `filename` ' .
-					' FROM ' . prefix('images') . ', ' . prefix('albums') .
-					' WHERE ' . prefix('albums') . '.folder!="" AND ' . prefix('images') . '.albumid = ' .
-					prefix('albums') . '.id ' . $imageWhere . ' ORDER BY ' . prefix("images") . '.date DESC');
-
-	$image = array_shift(filterImageQueryList($result, NULL));
+	$result = query('SELECT i.id, a.folder, i.filename ' .
+					' FROM ' . prefix('images') . ' As i, ' . prefix('albums') .
+					' AS a WHERE a.folder!="" AND i.albumid = a.id ' . $imageWhere . ' ORDER BY i.date DESC');
+	$list = filterImageQueryList($result, NULL);
+	$image = array_shift($list);
 	if ($image) {
 		return $image;
 	}
@@ -337,7 +336,7 @@ function printZDToggleClass($option, $c, $number_to_show) {
 function printZDSearchToggleJS() {
 	?>
 	<script type="text/javascript">
-	// <!-- <![CDATA[
+		// <!-- <![CDATA[
 		/* Search results toggle */
 		function toggleExtraElements(category, show) {
 			if (show) {
@@ -350,7 +349,7 @@ function printZDSearchToggleJS() {
 				jQuery('.' + category + '_extrashow').hide();
 			}
 		}
-	// ]]> -->
+		// ]]> -->
 	</script>
 	<?php
 }
