@@ -3771,7 +3771,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $source the script file
 	 */
 	function currentRelativeURL() {
-		$source = str_replace(SERVERPATH, WEBPATH, str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME']));
+		$source = str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME']);
+		$source = str_replace(CORE_SERVERPATH, '', $source);
+		$source = getAdminLink($source);
 		if (empty($_GET)) {
 			$q = '';
 		} else {
