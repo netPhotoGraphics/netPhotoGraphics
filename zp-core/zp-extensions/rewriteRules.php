@@ -27,7 +27,7 @@
  *
  *
  * There are already definitions for many useful rewrite tokens. You can view these and see the standard rewrite rules
- * on the {@link %FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/rewriteRules/admin_tab.php DEVELOPMENT/REWRITE} admin page.
+ * on the {@link %FULLWEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/rewriteRules/admin_tab.php DEVELOPMENT/REWRITE} admin page.
  *
  * <em>pattern</em> is a perl compatible regular expression. The incoming path is matched against the <en>pattern</em> and if
  * there is a match, the
@@ -45,7 +45,7 @@
  * 	<br />
  * 	Define %REWRITE_RULES%						=>	"rules-list"
  * 	<br />
- * 	Define &percnt;PLUGIN_FOLDER&percnt;						=>	PLUGIN_FOLDER
+ * 	Define &percnt;PLUGIN_PATH&percnt;						=>	PLUGIN_PATH
  * 	<br />
  * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH.'/', '', <span class="nowrap">newCategory("Breaking-news")->getLink(1)</span>);
  *
@@ -53,8 +53,8 @@
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
  * The second associates <code>&percnt;PLUGIN_FOLDER&percnt;</code> with the <b>netPhotoGraphics</b>
  * define <code>PLUGIN_FOLDER</code>
- * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;ZENFOLDER&percnt;</code> used in the rules
- * has previously been defined in the standard rewrite rules as <code>%ZENFOLDER%</code>. The third Define is an example
+ * which is currently defined as <code>%PLUGIN_FOLDER%</code>. The token <code>&percnt;CORE_FOLDER&percnt;</code> used in the rules
+ * has previously been defined in the standard rewrite rules as <code>%CORE_FOLDER%</code>. The third Define is an example
  * of a complex expression. In this case computing the link to the theme category page with the titlelink "Breaking-news".
  * The code strips off the WEB path since the rewrite rule redirection prepends that to the
  * link before redirecting.
@@ -63,11 +63,11 @@
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
  * 	<br />
- * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;ZENFOLDER&percnt;/&percnt;PLUGIN_FOLDER&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
+ * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;CORE_PATH&percnt;/&percnt;PLUGIN_PATH&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
  *
  * 	### Rewite rule to cause "back-end" to redirect to the admin overview page
  * 	<br />
- * 	RewriteRule ^back-end/*$													&percnt;ZENFOLDER&percnt;/admin.php [NC,L,QSA]
+ * 	RewriteRule ^back-end/*$													&percnt;CORE_PATH&percnt;/admin.php [NC,L,QSA]
  * 	<br /><br />
  * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
  * 	<br />
@@ -118,43 +118,43 @@ if ($ruleFile) {
 	rewriteRules::processRules(file_get_contents($ruleFile));
 }
 
-zp_register_filter('admin_tabs', 'rewriteRules::tabs', 100);
+npgFilters::register('admin_tabs', 'rewriteRules::tabs', 100);
 
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/functions-config.php');
+require_once(CORE_SERVERPATH . 'lib-config.php');
 
 class rewriteRules {
 
-	private $zp_cfg_a;
-	private $zp_cfg_b;
+	private $_config_contents_a;
+	private $_config_contents_b;
 	private $conf_vars = array();
 	private $plugin_vars = array();
 
 	function __construct() {
-		global $_configMutex, $_zp_conf_vars;
+		global $_configMutex, $_conf_vars;
 
 		if (OFFSET_PATH == 2 && getPlugin('/rewriteRules/rules.txt')) {
 			enableExtension('rewriteRules', 1 | FEATURE_PLUGIN);
 		}
 
 		$_configMutex->lock();
-		$zp_cfg = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-		$i = strpos($zp_cfg, "\$conf['special_pages']");
-		$j = strpos($zp_cfg, '//', $i);
+		$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+		$i = strpos($_config_contents, "\$conf['special_pages']");
+		$j = strpos($_config_contents, '//', $i);
 		if ($i === false || $j === false) {
-			$this->conf_vars = $_zp_conf_vars['special_pages'];
-			$i = strpos($zp_cfg, '/** Do not edit below this line. **/');
+			$this->conf_vars = $_conf_vars['special_pages'];
+			$i = strpos($_config_contents, '/** Do not edit below this line. **/');
 			if ($i === false) {
 				trigger_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 			}
-			$this->zp_cfg_a = substr($zp_cfg, 0, $i);
-			$this->zp_cfg_b = "//\n" . substr($zp_cfg, $i);
+			$this->_cfg_a = substr($_config_contents, 0, $i);
+			$this->_cfg_b = "//\n" . substr($_config_contents, $i);
 		} else {
-			$this->zp_cfg_a = substr($zp_cfg, 0, $i);
-			$this->zp_cfg_b = substr($zp_cfg, $j);
-			eval(substr($zp_cfg, $i, $j - $i));
+			$this->_cfg_a = substr($_config_contents, 0, $i);
+			$this->_cfg_b = substr($_config_contents, $j);
+			eval(substr($_config_contents, $i, $j - $i));
 			$this->conf_vars = $conf['special_pages'];
-			foreach ($_zp_conf_vars['special_pages'] as $page => $element) {
+			foreach ($_conf_vars['special_pages'] as $page => $element) {
 				if (isset($element['option'])) {
 					$this->plugin_vars[$page] = $element;
 				}
@@ -163,10 +163,10 @@ class rewriteRules {
 
 		if (OFFSET_PATH == 2) {
 			$old = array_keys($conf['special_pages']);
-			$zp_cfg = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto_cfg.txt');
-			$i = strpos($zp_cfg, "\$conf['special_pages']");
-			$j = strpos($zp_cfg, '//', $i);
-			eval(substr($zp_cfg, $i, $j - $i));
+			$_config_contents = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
+			$i = strpos($_config_contents, "\$conf['special_pages']");
+			$j = strpos($_config_contents, '//', $i);
+			eval(substr($_config_contents, $i, $j - $i));
 			$new = array_keys($conf['special_pages']);
 			if ($old != $new) {
 				//Things have changed, need to reset to defaults;
@@ -244,7 +244,7 @@ class rewriteRules {
 		if (getOption('rewriteTokens_restore')) {
 			$updated = false;
 			purgeOption('rewriteTokens_restore');
-			$template = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto_cfg.txt');
+			$template = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
 			$i = strpos($template, "\$conf['special_pages']");
 			$j = strpos($template, '//', $i);
 			$newtext = substr($template, $i, $j - $i);
@@ -290,16 +290,16 @@ class rewriteRules {
 			$newtext .= $token = "\n														'$page'=>			array('define'=>$define,						'rewrite'=>'{$element['rewrite']}'$rule),";
 		}
 		$newtext = substr($newtext, 0, -1) . "\n												);\n";
-		$zp_cfg = $this->zp_cfg_a . $newtext . $this->zp_cfg_b;
-		storeConfig($zp_cfg);
+		$_config_contents = $this->_cfg_a . $newtext . $this->_cfg_b;
+		configFile::store($_config_contents);
 		return $notify;
 	}
 
 	static function tabs($tabs) {
-		if (zp_loggedin(ADMIN_RIGHTS)) {
+		if (npg_loggedin(ADMIN_RIGHTS)) {
 			if (!isset($tabs['development'])) {
 				$tabs['development'] = array('text' => gettext("development"),
-						'link' => WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/rewriteRules/rules_tab.php?page=development&tab=rewrite',
+						'link' => getAdminLink(PLUGIN_FOLDER . '/rewriteRules/rules_tab.php') . '?page=development&tab=rewrite',
 						'default' => "rewrite",
 						'subtabs' => NULL);
 			}
@@ -310,7 +310,7 @@ class rewriteRules {
 	}
 
 	static function processRules($ruleFile) {
-		global $_zp_conf_vars;
+		global $_conf_vars;
 		$customRules = explode("\n", $ruleFile);
 
 		$definitions = array();
@@ -327,7 +327,7 @@ class rewriteRules {
 				}
 			}
 		}
-		$_zp_conf_vars['special_pages'] = array_merge($_zp_conf_vars['special_pages'], $definitions, $rules);
+		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $definitions, $rules);
 	}
 
 }

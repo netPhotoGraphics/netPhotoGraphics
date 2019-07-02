@@ -9,7 +9,7 @@ if (class_exists('CMS')) {
 		<head>
 
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
 			scriptLoader($zenCSS);
 			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
@@ -20,7 +20,7 @@ if (class_exists('CMS')) {
 		</head>
 
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 
 			<div id="main">
 				<div id="header">
@@ -138,12 +138,12 @@ if (class_exists('CMS')) {
 				<?php @call_user_func('printUserLogin_out', " | "); ?>
 			</div>
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

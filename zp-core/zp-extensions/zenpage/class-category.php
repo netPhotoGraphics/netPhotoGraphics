@@ -42,9 +42,9 @@ class Category extends CMSRoot {
 	function getDesc($locale = NULL) {
 		$text = $this->get('desc');
 		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
+			return npgFunctions::unTagURLs($text);
 		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
 		}
 	}
 
@@ -54,7 +54,7 @@ class Category extends CMSRoot {
 	 * @param string $desc description text
 	 */
 	function setDesc($desc) {
-		$desc = zpFunctions::tagURLs($desc);
+		$desc = npgFunctions::tagURLs($desc);
 		$this->set('desc', $desc);
 	}
 
@@ -198,8 +198,8 @@ class Category extends CMSRoot {
 	 * @return array
 	 */
 	function getSubCategories($visible = true, $sorttype = NULL, $sortdirection = NULL) {
-		global $_zp_CMS;
-		$subcategories = self::subCategoryRecurse($this, $_zp_CMS->getAllCategories($visible, $sorttype, $sortdirection && strtolower($sortdirection) != 'asc'));
+		global $_CMS;
+		$subcategories = self::subCategoryRecurse($this, $_CMS->getAllCategories($visible, $sorttype, $sortdirection && strtolower($sortdirection) != 'asc'));
 		if (!empty($subcategories)) {
 			return $subcategories;
 		}
@@ -257,8 +257,8 @@ class Category extends CMSRoot {
 	 * @return array
 	 */
 	function getParents(&$parentid = '', $initparents = true) {
-		global $parentcats, $_zp_CMS;
-		$allitems = $_zp_CMS->getAllCategories(false);
+		global $parentcats, $_CMS;
+		$allitems = $_CMS->getAllCategories(false);
 		if ($initparents) {
 			$parentcats = array();
 		}
@@ -306,10 +306,10 @@ class Category extends CMSRoot {
 		}
 
 		if (empty($hash)) { // no password required
-			return 'zp_public_access';
+			return 'public_access';
 		} else {
-			$authType = "zp_category_auth_" . $id;
-			$saved_auth = zp_getCookie($authType);
+			$authType = "zenpage_category_auth_" . $id;
+			$saved_auth = getNPGCookie($authType);
 			if ($saved_auth == $hash) {
 				return $authType;
 			} else {
@@ -329,21 +329,21 @@ class Category extends CMSRoot {
 	 * @return bool
 	 */
 	function isProtected() {
-		return GALLERY_SECURITY != 'public' || $this->checkforGuest() != 'zp_public_access';
+		return GALLERY_SECURITY != 'public' || $this->checkforGuest() != 'public_access';
 	}
 
 	function subRights() {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if (!is_null($this->subrights)) {
 			return $this->subrights;
 		}
-		if (zp_loggedin()) {
-			if (zp_loggedin($this->manage_rights)) {
+		if (npg_loggedin()) {
+			if (npg_loggedin($this->manage_rights)) {
 				$this->subrights = MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW;
 				return $this->subrights;
 			}
 
-			$objects = $_zp_current_admin_obj->getObjects();
+			$objects = $_current_admin_obj->getObjects();
 			$me = $this->getTitlelink();
 			foreach ($objects as $object) {
 				if ($object['type'] == 'news_categories') {
@@ -359,11 +359,11 @@ class Category extends CMSRoot {
 	}
 
 	function isMyItem($action) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if (parent::isMyItem($action)) {
 			return true;
 		}
-		if (zp_loggedin($action)) {
+		if (npg_loggedin($action)) {
 			if ($this->getShow() && $action == LIST_RIGHTS) {
 				return true;
 			}
@@ -403,8 +403,8 @@ class Category extends CMSRoot {
 	 * @return array
 	 */
 	function getArticles($articles_per_page = 0, $published = NULL, $ignorepagination = false, $sortorder = NULL, $sortdirection = NULL, $sticky = NULL) {
-		global $_zp_CMS;
-		return $_zp_CMS->getArticles($articles_per_page, $published, $ignorepagination, $sortorder, $sortdirection, $sticky, $this);
+		global $_CMS;
+		return $_CMS->getArticles($articles_per_page, $published, $ignorepagination, $sortorder, $sortdirection, $sticky, $this);
 	}
 
 	/**
@@ -427,9 +427,9 @@ class Category extends CMSRoot {
 	 * @return int
 	 */
 	function getIndex($sortorder, $sortdirection, $sticky) {
-		global $_zp_CMS;
+		global $_CMS;
 		if ($this->index == NULL) {
-			$articles = $_zp_CMS->getArticles(0, NULL, true, $sortorder, $sortdirection, $sticky);
+			$articles = $_CMS->getArticles(0, NULL, true, $sortorder, $sortdirection, $sticky);
 			for ($i = 0; $i < count($articles); $i++) {
 				$article = $articles[$i];
 				if ($this->getTitlelink() == $article['titlelink']) {
@@ -471,14 +471,14 @@ class Category extends CMSRoot {
 	 * @return string
 	 */
 	function getLink($page = NULL) {
-		global $_zp_CMS;
+		global $_CMS;
 		if ($page > 1) {
 			$pager = $page;
 			$page = '&page=' . $page;
 		} else {
 			$pager = $page = '';
 		}
-		return zp_apply_filter('getLink', rewrite_path(_CATEGORY_ . '/' . $this->getTitlelink() . '/' . $pager, "/index.php?p=news&category=" . $this->getTitlelink() . $page), $this, NULL);
+		return npgFilters::apply('getLink', rewrite_path(_CATEGORY_ . '/' . $this->getTitlelink() . '/' . $pager, "/index.php?p=news&category=" . $this->getTitlelink() . $page), $this, NULL);
 	}
 
 }

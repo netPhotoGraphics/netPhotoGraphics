@@ -4,11 +4,11 @@
  */
 $optionRights = OPTIONS_RIGHTS;
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-Imagick.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-GD.php');
+require_once(CORE_SERVERPATH . 'lib-Imagick.php');
+require_once(CORE_SERVERPATH . 'lib-GD.php');
 
 function saveOptions() {
-	global $_zp_gallery, $_zp_images_classes, $_zp_exifvars;
+	global $_gallery, $_images_classes, $_exifvars;
 
 	$notify = $returntab = NULL;
 	$M = sanitize_numeric($_POST['image_max_size']);
@@ -47,7 +47,7 @@ function saveOptions() {
 	setOption('watermark_w_offset', sanitize($_POST['watermark_w_offset'], 3));
 	setOption('image_cache_suffix', sanitize($_POST['image_cache_suffix']));
 
-	$imageplugins = array_unique($_zp_images_classes);
+	$imageplugins = array_unique($_images_classes);
 	foreach ($imageplugins as $plugin) {
 		$opt = $plugin . '_watermark';
 		if (isset($_POST[$opt])) {
@@ -72,7 +72,7 @@ function saveOptions() {
 	setOption('secure_image_processor', (int) isset($_POST['secure_image_processor']));
 	if (isset($_POST['protected_image_cache'])) {
 		setOption('protected_image_cache', 1);
-		copy(SERVERPATH . '/' . ZENFOLDER . '/cacheprotect', SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
+		copy(CORE_SERVERPATH . 'cacheprotect', SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
 		@chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0444);
 	} else {
 		@chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0777);
@@ -85,8 +85,8 @@ function saveOptions() {
 	if ($st == 'custom') {
 		$st = unQuote(strtolower(sanitize($_POST['customimagesort'], 3)));
 	}
-	$_zp_gallery->setSortType($st, 'image');
-	$_zp_gallery->setSortDirection((int) isset($_POST['image_sortdirection']), 'image');
+	$_gallery->setSortType($st, 'image');
+	$_gallery->setSortDirection((int) isset($_POST['image_sortdirection']), 'image');
 	setOption('use_embedded_thumb', (int) isset($_POST['use_embedded_thumb']));
 	setOption('IPTC_encoding', sanitize($_POST['IPTC_encoding']));
 	setOption('transform_newlines', (int) isset($_POST['transform_newlines']));
@@ -97,7 +97,7 @@ function saveOptions() {
 	$dbChange = $enableSource = $disableSource = $disable = $display = array();
 
 	if (isset($_POST['restore_to_defaults'])) {
-		$exifvars = zpFunctions::exifvars(true);
+		$exifvars = npgFunctions::exifvars(true);
 
 		foreach ($exifvars as $key => $item) {
 			if ($exifvars[$key][EXIF_DISPLAY]) {
@@ -113,7 +113,7 @@ function saveOptions() {
 			}
 		}
 	} else {
-		foreach ($_zp_exifvars as $key => $item) {
+		foreach ($_exifvars as $key => $item) {
 			if (isset($_POST[$key])) {
 				$v = sanitize_numeric($_POST[$key]);
 			} else {
@@ -151,9 +151,9 @@ function saveOptions() {
 			}
 		}
 
-		foreach ($_zp_exifvars as $key => $item) {
+		foreach ($_exifvars as $key => $item) {
 			if ($item[EXIF_FIELD_LINKED]) {
-				$d = $_zp_exifvars[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED];
+				$d = $_exifvars[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED];
 				if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
 					if ($d == in_array($key, $oldDisabled)) {
 						$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
@@ -186,14 +186,14 @@ function saveOptions() {
 		requestSetup($requestor, $report);
 	}
 
-	$_zp_gallery->save();
+	$_gallery->save();
 	$returntab = "&tab=image";
 
 	return array($returntab, $notify, NULL, NULL, NULL);
 }
 
 function getOptionContent() {
-	global $_zp_gallery, $_zp_images_classes, $_zp_exifvars, $_zp_graphics_optionhandlers, $_zp_sortby, $_zp_cachefileSuffix, $_zp_UTF8;
+	global $_gallery, $_images_classes, $_exifvars, $_graphics_optionhandlers, $_sortby, $_cachefileSuffix, $_UTF8;
 	?>
 
 	<script type="text/javascript">
@@ -204,7 +204,7 @@ function getOptionContent() {
 		function setMetaDefaults() {
 			$('.showMeta').prop('checked', 'checked');
 	<?php
-	foreach (zpFunctions::exifvars(true) as $key => $data) {
+	foreach (npgFunctions::exifvars(true) as $key => $data) {
 		if (!$data[5]) {
 			?>
 					$('#<?php echo $key; ?>_disable').prop('checked', 'checked');
@@ -252,7 +252,7 @@ function getOptionContent() {
 					</td>
 				</tr>
 				<?php
-				foreach ($_zp_graphics_optionhandlers as $handler) {
+				foreach ($_graphics_optionhandlers as $handler) {
 					customOptions($handler, '');
 				}
 				?>
@@ -260,7 +260,7 @@ function getOptionContent() {
 					<td class="option_name"><?php echo gettext("Sort images by"); ?></td>
 					<td class="option_value">
 						<?php
-						$sort = $_zp_sortby;
+						$sort = $_sortby;
 						$cvt = $cv = IMAGE_SORT_TYPE;
 						$sort[gettext('Custom')] = 'custom';
 
@@ -289,7 +289,7 @@ function getOptionContent() {
 								?>
 							</select>
 							<label id="image_sortdirection" style="display:<?php echo $dspd; ?>white-space:nowrap;">
-								<input type="checkbox" name="image_sortdirection"	value="1" <?php checked('1', $_zp_gallery->getSortDirection('image')); ?> />
+								<input type="checkbox" name="image_sortdirection"	value="1" <?php checked('1', $_gallery->getSortDirection('image')); ?> />
 								<?php echo gettext("descending"); ?>
 							</label>
 						</span>
@@ -478,7 +478,7 @@ function getOptionContent() {
 								</td>
 							</tr>
 							<?php
-							$imageplugins = array_unique($_zp_images_classes);
+							$imageplugins = array_unique($_images_classes);
 							ksort($imageplugins, SORT_LOCALE_STRING);
 							foreach ($imageplugins as $plugin) {
 								$opt = $plugin . '_watermark';
@@ -561,7 +561,7 @@ function getOptionContent() {
 						<?php $type = IMAGE_CACHE_SUFFIX; ?>
 						<input type="radio" name="image_cache_suffix" value=""<?php if (empty($type)) echo ' checked="checked"'; ?> />&nbsp;<?php echo gettext("original"); ?>
 						<?php
-						$cachesuffix = array_unique($_zp_cachefileSuffix);
+						$cachesuffix = array_unique($_cachefileSuffix);
 						foreach ($cachesuffix as $suffix) {
 							if ($suffix) {
 								?>
@@ -769,7 +769,7 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php
 						echo gettext("Metadata");
-						$exifstuff = sortMultiArray($_zp_exifvars, array(EXIF_DISPLAY_TEXT, EXIF_SOURCE));
+						$exifstuff = sortMultiArray($_exifvars, array(EXIF_DISPLAY_TEXT, EXIF_SOURCE));
 						?></td>
 					<td class="option_value">
 						<div id="resizable">
@@ -901,7 +901,7 @@ function getOptionContent() {
 					</td>
 				</tr>
 				<?php
-				$sets = array_merge($_zp_UTF8->iconv_sets, $_zp_UTF8->mb_sets);
+				$sets = array_merge($_UTF8->iconv_sets, $_UTF8->mb_sets);
 				ksort($sets, SORT_LOCALE_STRING);
 				if (!empty($sets)) {
 					?>

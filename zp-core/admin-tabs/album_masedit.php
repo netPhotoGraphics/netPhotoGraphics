@@ -18,7 +18,7 @@ if (isset($_GET['album'])) {
 		$albums = array();
 	}
 } else {
-	$albumsprime = $_zp_gallery->getAlbums();
+	$albumsprime = $_gallery->getAlbums();
 	$albums = array();
 	foreach ($albumsprime as $folder) { // check for rights
 		$album = newAlbum($folder);
@@ -27,7 +27,7 @@ if (isset($_GET['album'])) {
 		}
 	}
 }
-zp_apply_filter('admin_note', 'albums', $subtab);
+npgFilters::apply('admin_note', 'albums', $subtab);
 ?>
 <h1>
 	<?php echo gettext("Edit All Albums in"); ?> <?php
@@ -44,7 +44,7 @@ zp_apply_filter('admin_note', 'albums', $subtab);
 		<?php XSRFToken('albumedit'); ?>
 		<input type="hidden" name="totalalbums" value="<?php echo sizeof($albums); ?>" />
 		<span class="buttons">
-			<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit">
+			<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit">
 				<?php echo BACK_ARROW_BLUE; ?>
 				<strong><?php echo gettext("Back"); ?></strong>
 			</a>
@@ -68,7 +68,7 @@ zp_apply_filter('admin_note', 'albums', $subtab);
 				?>
 				<div class="innerbox<?php if (!($currentalbum % 2)) echo '_dark'; ?>" style="padding-left: 15px;padding-right: 15px;">
 
-					<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo urlencode($album->name); ?>&tab=albuminfo">
+					<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&album=<?php echo urlencode($album->name); ?>&tab=albuminfo">
 						<em><strong><?php echo html_encode($album->name); ?></strong></em></a>
 					<br /><br />
 					<?php
@@ -82,7 +82,7 @@ zp_apply_filter('admin_note', 'albums', $subtab);
 		</div>
 		<br />
 		<span class="buttons">
-			<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit">
+			<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit">
 				<?php echo BACK_ARROW_BLUE; ?>
 				<strong><?php echo gettext("Back"); ?></strong>
 			</a>

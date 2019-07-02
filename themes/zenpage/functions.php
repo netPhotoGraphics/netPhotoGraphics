@@ -118,9 +118,9 @@ function newsOnIndex($link, $obj, $page) {
 if (!OFFSET_PATH) {
 	enableExtension('print_album_menu', 1 | THEME_PLUGIN, false);
 	setOption('user_logout_login_form', 2, false);
-	$_zp_page_check = 'my_checkPageValidity';
+	$_current_page_check = 'my_checkPageValidity';
 	if (extensionEnabled('zenpage') && getOption('zenpage_zp_index_news')) { // only one index page if zenpage plugin is enabled & displaying
-		zp_register_filter('getLink', 'newsOnIndex');
+		npgFilters::register('getLink', 'newsOnIndex');
 	}
 }
 ?>

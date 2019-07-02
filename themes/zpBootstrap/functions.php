@@ -1,17 +1,18 @@
 <?php
 
-// force UTF-8 ø
+// force UTF-8 Ø
 
 if (!OFFSET_PATH) {
 
 	// override some options to avoid conflits
-	setOption('comment_form_toggle', false, false);
-	setOption('comment_form_pagination', false, false);
-	setOption('tinymce_comments', null, false);
-	setOption('user_logout_login_form', 1, false);
+	setOption('comment_form_toggle', false, true);
+	setOption('comment_form_pagination', false, true);
+	setOption('tinymce_comments', null, true);
+	setOption('user_logout_login_form', 1, true);
+	setOption('gmap_display', 'show', true);
 
 	// Check for mobile and tablets, and set some options
-	require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
+	require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
 	$detect = new Mobile_Detect;
 
 	if ($detect->isTablet()) {
@@ -49,11 +50,14 @@ if (!OFFSET_PATH) {
 		$zpB_shorten_title_size = 50;
 	}
 
-	$_zp_page_check = 'my_checkPageValidity';
+	$_current_page_check = 'my_checkPageValidity';
 
 	$_zenpage_enabled = extensionEnabled('zenpage');
 	$_zenpage_news_enabled = extensionEnabled('zenpage') && hasNews();
 	$_zenpage_pages_enabled = extensionEnabled('zenpage') && hasPages();
+	/* if ($_zenpage_pages_enabled && is_Pages() && (getPageTitleLink() == 'guestbook')) {
+	  setOption('comment_form_addresses', 1, false);
+	  } */
 }
 
 function my_checkPageValidity($request, $gallery_page, $page) {
@@ -72,11 +76,11 @@ function my_checkPageValidity($request, $gallery_page, $page) {
  * @return an array of pictures, or false is there is no picture to return
  */
 function zpB_getRandomImages($number = 5, $option = 'all', $album_filename = '') {
-	global $_zp_gallery;
+	global $_gallery;
 
 	switch ($option) {
 		case "all" :
-			$number_max = $_zp_gallery->getNumImages(2);
+			$number_max = $_gallery->getNumImages(2);
 			break;
 		case "album" :
 			if (!empty($album_filename)) {
@@ -120,10 +124,10 @@ function zpB_getRandomImages($number = 5, $option = 'all', $album_filename = '')
  * @return bool
  */
 function zpB_hasNextNewsPage() {
-	global $_zp_CMS, $_zp_page;
+	global $_CMS, $_current_page;
 
 	$total_pages = getTotalNewsPages();
-	if ($_zp_page < $total_pages) {
+	if ($_current_page < $total_pages) {
 		return true;
 	} else {
 		return false;
@@ -137,13 +141,32 @@ function zpB_hasNextNewsPage() {
  * @param string $class Text for the HTML class
  */
 function zpB_printNextNewsPageURL($text, $class = NULL) {
-	global $_zp_CMS, $_zp_page;
+	global $_CMS, $_current_page;
 
 	if (zpB_hasNextNewsPage()) {
 		echo '<a href="' . getNextNewsPageURL() . '" class="' . $class . '" >' . html_encode($text) . '</a>';
 	} else {
 		echo '<span class="disabledlink">' . html_encode($text) . '</span>';
 	}
+}
+
+/**
+ * Returns the source link of the video in the txt/htm/html file
+ *
+ * @param string $content content of a text file supposed to describe a link to an online video
+ * @return string or false is there is no iframe with a link
+ */
+function zpB_getLink($content) {
+
+	$link = false;
+	$iframepattern = '/<iframe/';
+	$urlpattern = '/src="([^"]+)"/';
+	if (preg_match($iframepattern, $content)) {
+		if (preg_match($urlpattern, $content, $result)) {
+			$link = pathurlencode($result[1]);
+		}
+	}
+	return $link;
 }
 
 ?>

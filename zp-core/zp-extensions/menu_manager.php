@@ -22,9 +22,9 @@ $option_interface = 'menu_manager';
 
 if (OFFSET_PATH) {
 	require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
-	zp_register_filter('admin_tabs', 'menu_tabs');
+	npgFilters::register('admin_tabs', 'menu_tabs');
 } else {
-	zp_register_filter('admin_toolbox_global', 'menu_admin_toolbox_global');
+	npgFilters::register('admin_toolbox_global', 'menu_admin_toolbox_global');
 }
 
 /**
@@ -35,10 +35,26 @@ if (OFFSET_PATH) {
  */
 class menu_manager {
 
+	// these are the renamed types
+	static $deprecated = array(
+			'zenpagepage' => 'page',
+			'zenpagecategory' => 'category',
+			'zenpagenewsindex' => 'newsindex',
+			'all_zenpagecategorys' => 'all_categorys',
+			'all_zenpagepages' => 'all_pages',
+			'galleryindex' => 'albumindex',
+			'homepage' => 'siteindex'
+	);
+
 	function __construct() {
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('menu_truncate_string', 0);
 			setOptionDefault('menu_truncate_indicator', '');
+
+			foreach (self::$deprecated as $old => $new) {
+				$sql = 'UPDATE ' . prefix('menu') . ' SET `type`=' . db_quote($new) . ' WHERE `type`=' . db_quote($old);
+				query($sql);
+			}
 		}
 	}
 
@@ -71,10 +87,10 @@ class menu_manager {
  *
  * Add menu to the admin toolbox
  */
-function menu_admin_toolbox_global($zf) {
-	if (zp_loggedin(ADMIN_RIGHTS)) {
+function menu_admin_toolbox_global() {
+	if (npg_loggedin(ADMIN_RIGHTS)) {
 		echo "<li>";
-		printLinkHTML($zf . '/' . PLUGIN_FOLDER . '/menu_manager/menu_tab.php', gettext("Menu"), NULL, NULL, NULL);
+		printLinkHTML(getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'), gettext("Menu"), NULL, NULL, NULL);
 		echo "</li>\n";
 	}
 }
@@ -87,9 +103,9 @@ function menu_admin_toolbox_global($zf) {
  * @return unknown
  */
 function menu_tabs($tabs) {
-	if (zp_loggedin(ADMIN_RIGHTS)) {
+	if (npg_loggedin(ADMIN_RIGHTS)) {
 		$tabs['menu'] = array('text' => gettext("menu"),
-				'link' => WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/menu_manager/menu_tab.php?page=menu&amp;tab=menu',
+				'link' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php') . '?page=menu&amp;tab=menu',
 				'default' => 'menu',
 				'subtabs' => NULL
 		);
@@ -191,8 +207,8 @@ function checkChosenItemStatus() {
  * @return array
  */
 function getItemTitleAndURL($item) {
-	global $_zp_gallery;
-	$themename = $_zp_gallery->getCurrentTheme();
+	global $_gallery;
+	$themename = $_gallery->getCurrentTheme();
 	$array = array(
 			"title" => '',
 			"url" => '',
@@ -274,7 +290,7 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "category":
-			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink = '" . $item['link'] . "'";
+			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink='" . $item['link'] . "'";
 			$obj = query_single_row($sql, false);
 			if ($obj && extensionEnabled('zenpage')) {
 				$obj = newCategory($item['link']);
@@ -359,7 +375,7 @@ function getItemTitleAndURL($item) {
  * @return string
  */
 function getMenuVisibility() {
-	if (zp_loggedin(VIEW_ALL_RIGHTS)) {
+	if (npg_loggedin(VIEW_ALL_RIGHTS)) {
 		return "all";
 	} else {
 		return "visible";
@@ -377,15 +393,15 @@ function getMenuVisibility() {
  * return string
  */
 function inventMenuItem($menuset, $visibility) {
-	global $_zp_gallery_page, $_zp_current_album, $_zp_current_image, $_zp_current_search, $_menu_manager_items,
-	$_zp_current_article, $_zp_current_page;
+	global $_gallery_page, $_current_album, $_current_image, $_current_search, $_menu_manager_items,
+	$_CMS_current_article, $_CMS_current_page;
 	$currentkey = $insertpoint = NULL;
 	$newitems = array();
-	switch ($_zp_gallery_page) {
+	switch ($_gallery_page) {
 		case 'image.php':
 			$name = '';
-			if (in_context(ZP_SEARCH_LINKED) && !in_context(ZP_ALBUM_LINKED)) {
-				$dynamic = $_zp_current_search->getDynamicAlbum();
+			if (in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) {
+				$dynamic = $_current_search->getDynamicAlbum();
 				if (empty($dynamic)) { //	smple search
 					foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
 						if ($item['type'] == 'custompage' && $item['link'] == 'search') {
@@ -396,7 +412,7 @@ function inventMenuItem($menuset, $visibility) {
 					}
 				}
 			} else {
-				$name = $_zp_current_album->name;
+				$name = $_current_album->name;
 			}
 			if (!empty($name)) {
 				foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
@@ -414,7 +430,7 @@ function inventMenuItem($menuset, $visibility) {
 						'parentid' => $item['id'],
 						'type' => 'image',
 						'include_li' => true,
-						'title' => $_zp_current_image->getTitle(),
+						'title' => $_current_image->getTitle(),
 						'show' => 1,
 						'link' => '',
 						'menuset' => $menuset
@@ -422,7 +438,7 @@ function inventMenuItem($menuset, $visibility) {
 			}
 			break;
 		case 'news.php':
-			if (in_context(ZP_SEARCH_LINKED)) {
+			if (in_context(SEARCH_LINKED)) {
 				foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
 					if ($item['type'] == 'custompage' && $item['link'] == 'search') {
 						$insertpoint = $item['sort_order'];
@@ -447,7 +463,7 @@ function inventMenuItem($menuset, $visibility) {
 							'parentid' => $item['id'],
 							'type' => 'article',
 							'include_li' => true,
-							'title' => $_zp_current_article->getTitle(),
+							'title' => $_CMS_current_article->getTitle(),
 							'show' => 1,
 							'link' => '',
 							'menuset' => $menuset
@@ -458,7 +474,7 @@ function inventMenuItem($menuset, $visibility) {
 			}
 			break;
 		case 'pages.php':
-			if (in_context(ZP_SEARCH_LINKED)) {
+			if (in_context(SEARCH_LINKED)) {
 				foreach ($_menu_manager_items[$menuset][$visibility] as $key => $item) {
 					if ($item['type'] == 'custompage' && $item['link'] == 'search') {
 						$insertpoint = $item['sort_order'];
@@ -469,7 +485,7 @@ function inventMenuItem($menuset, $visibility) {
 								'parentid' => $item['id'],
 								'type' => 'page',
 								'include_li' => true,
-								'title' => $_zp_current_page->getTitle(),
+								'title' => $_CMS_current_page->getTitle(),
 								'show' => 1,
 								'link' => '',
 								'menuset' => $menuset
@@ -903,9 +919,11 @@ function createMenuIfNotExists($menuitems, $menuset = 'default') {
  */
 function createMenu($menuitems, $menuset = 'default') {
 	require_once(dirname(__FILE__) . '/menu_manager/menu_manager-admin-functions.php');
-	$success = 1;
+	$errors = false;
 	$orders = array();
 	foreach ($menuitems as $key => $result) {
+		$success = 1;
+
 		if (array_key_exists('nesting', $result)) {
 			$nesting = $result['nesting'];
 		} else {
@@ -942,11 +960,17 @@ function createMenu($menuitems, $menuset = 'default') {
 				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
 				$type = false;
 				break;
+			case 'all_zenpagepages':
+				$type = 'all_pages';
+				$success = -5;
 			case 'all_Pages':
 				$orders[$nesting] ++;
 				$orders[$nesting] = addPagesToDatabase($menuset, $orders);
 				$type = false;
 				break;
+			case 'all_zenpagecategorys':
+				$type = 'all_categorys';
+				$success = -5;
 			case 'all_categories':
 				$orders[$nesting] ++;
 				$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
@@ -958,7 +982,9 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) => $result]);
 				}
 				break;
-			case 'galleryindex':
+			case 'homepage':
+				$type = 'siteindex';
+				$success = -5;
 			case 'siteindex':
 				$result['link'] = NULL;
 				if (empty($result['title'])) {
@@ -966,19 +992,28 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) => $result]);
 				}
 				break;
+			case 'zenpagepage':
+				$type = 'page';
+				$success = -5;
 			case 'page':
 				if (empty($result['link'])) {
 					$success = -1;
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) => $result]);
 				}
 				break;
+			case 'zenpagenewsindex':
+				$type = 'newsindex';
+				$success = -5;
 			case 'newsindex':
 				$result['link'] = NULL;
 				if (empty($result['title'])) {
-					$success = -1;
+					$success = -2;
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) => $result]);
 				}
 				break;
+			case 'zenpagecategory':
+				$type = 'category';
+				$success = -5;
 			case 'category':
 				if (empty($result['link'])) {
 					$success = -1;
@@ -992,6 +1027,9 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title or link.'), $key) => $result]);
 				}
 				break;
+			case 'galleryindex':
+				$type = 'albumindex';
+				$success = -5;
 			case 'albumindex':
 				if (empty($result['title'])) {
 					$success = -1;
@@ -1027,6 +1065,11 @@ function createMenu($menuitems, $menuset = 'default') {
 				debugLogVar([sprintf(gettext('createMenu item %1$s has an invalid type (%2$s).'), $key, $type) => $result]);
 				break;
 		}
+		if ($success == -5) {
+			debugLog(sprintf(gettext('%1$s item %2$s menu type %3$s is deprecated, use %4$s.'), $menuset, $key, $result['type'], $type));
+			$success = 1;
+			$errors = true;
+		}
 		if ($success > 0 && $type) {
 			$orders[$nesting] ++;
 			$sort_order = '';
@@ -1044,10 +1087,11 @@ function createMenu($menuitems, $menuset = 'default') {
 				debugLog(sprintf(gettext('createMenu item %1$s query (%2$s) failed: %3$s.'), $key, $sql, db_error()));
 			}
 		}
+		$errors = $errors || $success < 0;
 	}
 
-	if ($success < 0) {
-		trigger_error(gettext('createMenu has posted processing errors to your debug log.'), E_USER_NOTICE);
+	if ($errors) {
+		trigger_error(sprintf(gettext('createMenu has posted errors to your debug log while processing the %1$s menu.'), $menuset), E_USER_NOTICE);
 	}
 	return $success;
 }
@@ -1204,8 +1248,9 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						$itemcounter .= ')</small></span>';
 
 						break;
+					case 'zenpagecategory':
 					case'category':
-						if ((zp_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS))) {
+						if ((npg_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS))) {
 							$published = "all";
 						} else {
 							$published = "published";
@@ -1270,7 +1315,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 			}
 		}
 	}
-	// cleanup any hanging list elements
+// cleanup any hanging list elements
 	while ($indent > 1) {
 		if ($open[$indent]) {
 			echo "</li>\n";

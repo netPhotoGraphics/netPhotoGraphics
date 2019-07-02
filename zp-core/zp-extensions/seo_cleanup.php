@@ -16,12 +16,12 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Provides a utility SEO file/folder name cleanser.");
 
-if (zp_loggedin(ADMIN_RIGHTS)) {
-	zp_register_filter('admin_tabs', 'seo_cleanup_admin_tabs', -1900);
+if (npg_loggedin(ADMIN_RIGHTS)) {
+	npgFilters::register('admin_tabs', 'seo_cleanup_admin_tabs', -1900);
 }
 
 function seo_cleanup_admin_tabs($tabs) {
-	$tabs['admin']['subtabs'][gettext('SEO cleaner')] = '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/seo_cleanup/admin_tab.php?tab=seocleaner&XSRFToken=' . getXSRFToken('seo_cleanup');
+	$tabs['admin']['subtabs'][gettext('SEO cleaner')] = PLUGIN_FOLDER . '/seo_cleanup/admin_tab.php?tab=seocleaner&XSRFToken=' . getXSRFToken('seo_cleanup');
 	return $tabs;
 }
 

@@ -7,13 +7,13 @@ if (!defined('WEBPATH'))
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
-		scriptLoader($_zp_themeroot . '/zen.css');
+		scriptLoader($_themeroot . '/zen.css');
 		?>
 	</head>
 	<body class="sidebars">
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="navigation"></div>
 		<div id="wrapper">
 			<div id="container">
@@ -52,7 +52,7 @@ if (!defined('WEBPATH'))
 							<div id="nextalbum" class="slides">
 								<a href="<?php echo html_encode(getNextImageURL()); ?>" title="<?php echo gettext('Next image'); ?>">
 									<h2><?php echo gettext('Next »'); ?></h2>
-									<img src="<?php echo pathurlencode(getNextImageThumb()); ?>" />
+									<img src="<?php echo html_encode(getNextImageThumb()); ?>" />
 								</a>
 							</div>
 							<?php
@@ -62,7 +62,7 @@ if (!defined('WEBPATH'))
 							<div id="prevalbum" class="slides">
 								<a href="<?php echo html_encode(getPrevImageURL()); ?>" title="<?php echo gettext('Previous image'); ?>">
 									<h2><?php echo gettext('« Previous'); ?></h2>
-									<img src="<?php echo pathurlencode(getPrevImageThumb()); ?>" />
+									<img src="<?php echo html_encode(getPrevImageThumb()); ?>" />
 								</a>
 							</div>
 							<?php
@@ -93,7 +93,7 @@ if (!defined('WEBPATH'))
 			<!-- /container -->
 		</div>
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

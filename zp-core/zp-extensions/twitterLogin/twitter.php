@@ -13,11 +13,11 @@ if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
 
-zp_session_start();
+npg_session_start();
 
 define('CONSUMER_KEY', getOption('tweet_news_consumer')); // YOUR CONSUMER KEY
 define('CONSUMER_SECRET', getOption('tweet_news_consumer_secret')); //YOUR CONSUMER SECRET KEY
-define('OAUTH_CALLBACK', FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/twitterLogin/twitter.php'); // Redirect URL
+define('OAUTH_CALLBACK', getAdminLink(PLUGIN_FOLDER . '/twitterLogin/twitter.php')); // Redirect URL
 
 
 if (isset($_REQUEST['redirect'])) {
@@ -30,7 +30,7 @@ if (isset($_REQUEST['redirect'])) {
 
 
 // Include twitter PHP Library
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 $error = '';
 
 if (isset($_GET['request'])) {
@@ -68,7 +68,7 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['token'] == $_REQUEST['oauth_to
 	}
 
 	session_unset();
-	header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/admin.php?_zp_login_error=' . html_encode($error));
+	header('Location: ' . getAdminLink('admin.php') . '?_login_error=' . html_encode($error));
 	exit();
 }
 ?>

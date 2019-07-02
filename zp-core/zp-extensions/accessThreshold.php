@@ -99,18 +99,12 @@ class accessThreshold {
 	}
 
 	static function admin_tabs($tabs) {
-		global $_zp_current_admin_obj;
-		if ((zp_loggedin(ADMIN_RIGHTS) && $_zp_current_admin_obj->getID())) {
-			if (isset($tabs['admin']['subtabs'])) {
-				$subtabs = $tabs['admin']['subtabs'];
-			} else {
-				$subtabs = array(
-						gettext('users') => 'admin-tabs/users.php?page=admin&tab=users'
-				);
-			}
+		global $_current_admin_obj;
+		if ((npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID())) {
+			$subtabs = $tabs['admin']['subtabs'];
 			$subtabs[gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/admin_tab.php?page=admin&tab=access';
 			$tabs['admin']['text'] = gettext("admin");
-			$tabs['admin']['link'] = WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users';
+			$tabs['admin']['link'] = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users';
 			$tabs['admin']['subtabs'] = $subtabs;
 		}
 		return $tabs;
@@ -133,10 +127,10 @@ class accessThreshold {
 }
 
 if (OFFSET_PATH) {
-	zp_register_filter('admin_tabs', 'accessThreshold::admin_tabs', -100);
+	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 } else {
 	if (getUserIP() != getOption('accessThreshold_Owner')) {
-		$mu = new zpMutex('aT');
+		$mu = new npgMutex('aT');
 		$mu->lock();
 		$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
 		if (array_key_exists('config', $recentIP)) {

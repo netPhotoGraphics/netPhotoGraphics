@@ -14,19 +14,19 @@
  * @package plugins/tinyURL
  * @pluginCategory admin
  */
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext('Provides short URLs to gallery objects.');
 }
 
 $option_interface = 'tinyURL';
 
 if (getOption('tinyURL_agressive'))
-	zp_register_filter('getLink', 'tinyURL::getTinyURL');
+	npgFilters::register('getLink', 'tinyURL::getTinyURL');
 
 switch (OFFSET_PATH) {
 	case 0:
-		zp_register_filter('load_request', 'tinyURL::parse');
+		npgFilters::register('load_request', 'tinyURL::parse');
 		break;
 	case 2:
 		setOptionDefault('tinyURL_agressive', 0);
@@ -34,12 +34,12 @@ switch (OFFSET_PATH) {
 	default:
 		break;
 }
-$_zp_conf_vars['special_pages']['tiny'] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
+$_conf_vars['special_pages']['tiny'] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
 		'option' => 'tinyURL_text', 'default' => 'tiny/');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=$1&t [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%TINY%', 'rewrite' => '_TINY_');
+$_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [NC,L,QSA]');
+$_conf_vars['special_pages'][] = array('definition' => '%TINY%', 'rewrite' => '_TINY_');
 
 class tinyURL {
 
@@ -174,9 +174,9 @@ class tinyURL {
 							$album = $_GET['album'] = $result['folder'];
 							unset($_GET['p']);
 							if (!empty($image)) {
-								$success = zp_load_image($album, $image);
+								$success = Controller::load_image($album, $image);
 							} else if (!empty($album)) {
-								$success = zp_load_album($album);
+								$success = Controller::load_album($album);
 							}
 							break;
 						case 'comments':
@@ -198,7 +198,7 @@ class tinyURL {
 									$redirect = 'index.php?p=pages&title=' . $result['titlelink'];
 									break;
 							}
-							$redirect .= '#zp_comment_id_' . $commentid;
+							$redirect .= '#_comment_id_' . $commentid;
 							header("HTTP/1.0 301 Moved Permanently");
 							header("Status: 301 Moved Permanently");
 							header('Location: ' . FULLWEBPATH . '/' . $redirect);

@@ -10,7 +10,7 @@ header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . '/functions.php');
 if (getOption('gmap_sessions')) {
-	zp_session_start();
+	npg_session_start();
 }
 require_once(dirname(dirname(__FILE__)) . '/googleMap.php');
 
@@ -115,7 +115,7 @@ GoogleMap::js();
 					<?php
 					if (!getOption('gmap_sessions')) {
 						?>
-						<li><?php printf(gettext('Enable the <a href="javascript:parent.window.location=%s;">GoogleMap option</a> <em>Map sessions</em>.'), "'" . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?tab=plugin&show-GoogleMap' . "'"); ?></li>
+						<li><?php printf(gettext('Enable the <a href="javascript:parent.window.location=%s;">GoogleMap option</a> <em>Map sessions</em>.'), "'" . getAdminLink('admin-tabs/options.php') . '?tab=plugin&show-GoogleMap' . "'"); ?></li>
 						<?php
 					}
 					?>

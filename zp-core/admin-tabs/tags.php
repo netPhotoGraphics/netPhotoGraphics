@@ -8,7 +8,7 @@
  */
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 admin_securityChecks(TAGS_RIGHTS, currentRelativeURL());
 
@@ -219,7 +219,7 @@ printAdminHeader('admin');
 				}
 			}
 
-			zp_apply_filter('admin_note', 'tags', '');
+			npgFilters::apply('admin_note', 'tags', '');
 
 			echo "<h1>" . gettext("Tag Management") . "</h1>";
 			?>
@@ -259,7 +259,7 @@ printAdminHeader('admin');
 						<div class="box-tags-unpadded">
 							<?php
 							tagSelector(NULL, 'tags_', true, $tagsort, false);
-							$list = $_zp_admin_ordered_taglist;
+							$list = $_admin_ordered_taglist;
 							?>
 						</div>
 
@@ -294,7 +294,7 @@ printAdminHeader('admin');
 									<select name="language" id="language" class="ignoredirty" >
 										<option value=""><?php echo gettext('Universal'); ?></option>
 										<?php
-										foreach ($_zp_active_languages as $text => $lang) {
+										foreach ($_active_languages as $text => $lang) {
 											?>
 											<option value="<?php echo $lang; ?>"><?php echo html_encode($text); ?></option>
 											<?php
@@ -353,7 +353,7 @@ printAdminHeader('admin');
 												$tag = $tagitem['tag'];
 												?>
 												<span class="nowrap">
-													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::SetLocale($locale)::getDisplayName($lang); ?>" />
+													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
 													<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
 												</span>
 												<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">
@@ -411,7 +411,7 @@ printAdminHeader('admin');
 									<select name="language" id="language" class="ignoredirty">
 										<option value="" selected="language"><?php echo gettext('Universal'); ?></option>
 										<?php
-										foreach ($_zp_active_languages as $text => $lang) {
+										foreach ($_active_languages as $text => $lang) {
 											?>
 											<option value="<?php echo $lang; ?>" ><?php echo html_encode($text); ?></option>
 											<?php

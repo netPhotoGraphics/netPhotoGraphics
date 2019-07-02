@@ -10,7 +10,7 @@
  *
  * IMPORTANT NOTE ON OGG AND WEBM COUNTERPART FORMATS:
  *
- * The counterpart formats are not valid formats for Zenphoto itself as that would confuse the management.
+ * The counterpart formats are not valid formats for saveLayoutSelection itself as that would confuse the management.
  * Therefore these formats can be uploaded via ftp only.
  * The files needed to have the same file name except extension (beware the character case!).
  *
@@ -32,11 +32,11 @@
  * @pluginCategory media
  * @package plugins/VideoJS
  */
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext("Enable <strong>VideoJS</strong> to handle multimedia files.");
 	$plugin_notice = gettext("<strong>IMPORTANT</strong>: Only one multimedia extension plugin can be enabled at the time and the class-video plugin must be enabled, too.") . '<br /><br />' . gettext("Please see <a href='http://videojs.com'>VideoJS.com</a> for more info about the player and its license.");
-	$plugin_disable = zpFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'VideoJS' && Video::multimediaExtension() != 'pseudoPlayer', sprintf(gettext('VideoJS not enabled, <a href="#%1$s"><code>%1$s</code></a> is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', gettext('This player does not support <em>External Albums</em>.'))));
+	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'VideoJS' && Video::multimediaExtension() != 'pseudoPlayer', sprintf(gettext('VideoJS not enabled, <a href="#%1$s"><code>%1$s</code></a> is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', gettext('This player does not support <em>External Albums</em>.'))));
 }
 
 $option_interface = 'VideoJS_options';
@@ -145,11 +145,11 @@ class VideoJS {
 	}
 
 	static function headJS() {
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/video.min.js');
-		scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/video.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.js');
 		echo '<style type="text/css"> .video-js {margin-left: auto; margin-right: auto} </style>';
 	}
 
@@ -161,7 +161,7 @@ class VideoJS {
 	 *
 	 */
 	function getPlayerConfig($movie, $movietitle = NULL, $count = NULL, $w = NULL, $h = NULL) {
-		global $_zp_current_album;
+		global $_current_album;
 		if (is_null($w)) {
 			$w = $this->getWidth();
 		}
@@ -169,7 +169,7 @@ class VideoJS {
 			$h = $this->getHeight();
 		}
 
-		$moviepath = $movie->getFullImageURL(FULLWEBPATH);
+		$moviepath = $movie->getImagePath(FULLWEBPATH);
 
 		$ext = getSuffix($moviepath);
 		if (!in_array($ext, array('m4v', 'mp4', 'flv'))) {
@@ -230,9 +230,9 @@ class VideoJS {
 	 * @param string $count unique text for when there are multiple player items on a page
 	 */
 	function printPlayerConfig($movie = NULL, $movietitle = NULL) {
-		global $_zp_current_image;
+		global $_current_image;
 		if (empty($movie)) {
-			$movie = $_zp_current_image;
+			$movie = $_current_image;
 		}
 		echo $this->getPlayerConfig($movie, $movietitle);
 	}
@@ -281,5 +281,5 @@ class VideoJS {
 
 }
 
-$_zp_multimedia_extension = new VideoJS(); // claim to be the flash player.
-zp_register_filter('theme_head', 'VideoJS::headJS');
+$_multimedia_extension = new VideoJS(); // claim to be the flash player.
+npgFilters::register('theme_head', 'VideoJS::headJS');

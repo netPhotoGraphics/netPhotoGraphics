@@ -28,21 +28,21 @@
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  */
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext('Two Factor Authentication.');
 }
 
 $option_interface = 'googleTFA';
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/fieldExtender.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/Secret.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/Secret.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
-zp_register_filter('admin_login_attempt', 'googleTFA::check');
-zp_register_filter('save_admin_data', 'googleTFA::save');
-zp_register_filter('edit_admin_custom', 'googleTFA::edit', 999);
-zp_register_filter('admin_head', 'googleTFA::head');
+npgFilters::register('admin_login_attempt', 'googleTFA::check');
+npgFilters::register('save_admin_data', 'googleTFA::save');
+npgFilters::register('edit_admin_custom', 'googleTFA::edit', 999);
+npgFilters::register('admin_head', 'googleTFA::head');
 
 class googleTFA extends fieldExtender {
 
@@ -70,9 +70,9 @@ class googleTFA extends fieldExtender {
 
 	static function check($loggedin, $post_user, $post_pass, $userobj) {
 		if ($loggedin && $userobj->getOTAsecret()) {
-			zp_session_start();
+			npg_session_start();
 			$_SESSION['OTA'] = array('user' => $post_user, 'redirect' => $_POST['redirect']);
-			header('Location: ' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleTFA/auth_code.php');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/googleTFA/auth_code.php'));
 			exit();
 		}
 		// redirect to form to have the user provide the googleAuth key
@@ -134,7 +134,7 @@ class googleTFA extends fieldExtender {
 							. '<fieldset id="googleTFA_' . $id . '">' . "\n"
 							. '<legend>' . gettext('Provide to GoogleAuthenticator') . "</legend>\n"
 							. '<div style="display: flex; justify-content: center;">' . "\n"
-							. '<img src="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/qrcode/image.php?content=' . html_encode($userobj->getQRuri())
+							. '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/qrcode/image.php?content=' . html_encode($userobj->getQRuri())
 							. '" title="' . gettext('Click to show secret') . '" onclick="googleTFA_exposeSecret(\'' . $id . '\')"'
 							. ' id="googleTFA_QR_' . $id . '"'
 							. '/>' . "\n"
@@ -150,7 +150,7 @@ class googleTFA extends fieldExtender {
 
 	static function checkCache($key) {
 		global $otpCache;
-		$temp = sys_get_temp_dir() . '/ZP_OTP_cache.txt';
+		$temp = sys_get_temp_dir() . '/_OTP_cache.txt';
 		$validTags = array();
 		if (file_exists($temp)) {
 			$data = explode("\n", file_get_contents($temp));

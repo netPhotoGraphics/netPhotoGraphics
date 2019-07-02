@@ -8,7 +8,7 @@
 define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 require_once("admin-functions.php");
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (is_AdminEditPage('page')) {
 	$rights = ZENPAGE_PAGES_RIGHTS;
@@ -36,7 +36,7 @@ if (is_AdminEditPage('page')) {
 	$returnpage = 'newscategory';
 } else {
 	//we should not be here!
-	header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+	header('Location: ' . getAdminLink('admin.php'));
 	exit();
 }
 
@@ -73,14 +73,14 @@ if (isset($_GET['titlelink'])) {
 	}
 	if (isset($_POST['subpage']) && $_POST['subpage'] == 'object' && count($reports) <= 1) {
 		if (isset($_POST['category'])) {
-			$_zp_current_category = newCategory(sanitize($_POST['category']), false);
-			$cat = $_zp_current_category->exists;
+			$_CMS_current_category = newCategory(sanitize($_POST['category']), false);
+			$cat = $_CMS_current_category->exists;
 		} else {
 			$cat = NULL;
 		}
 		header('Location: ' . $result->getLink($cat));
 	} else {
-		$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
+		$redirect = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
 	}
 } else {
 	$result = $new('');
@@ -88,7 +88,7 @@ if (isset($_GET['titlelink'])) {
 if (isset($_GET['save'])) {
 	XSRFdefender('save');
 	$result = $update($reports, true);
-	$redirect = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/edit.php?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
+	$redirect = getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $returnpage . '&titlelink=' . html_encode($result->getTitlelink());
 }
 if (isset($_GET['delete'])) {
 	XSRFdefender('delete');
@@ -111,10 +111,10 @@ if ($redirect) {
  * reporting code so is impractical. Instead we will presume that all that needs to be restarted
  * is the CMS object.
  */
-$_zp_CMS = new CMS();
+$_CMS = new CMS();
 
 printAdminHeader($page, $tab);
-zp_apply_filter('texteditor_config', 'zenpage');
+npgFilters::apply('texteditor_config', 'zenpage');
 zenpageJSCSS();
 datepickerJS();
 codeblocktabsJS();
@@ -166,7 +166,7 @@ $tagsort = 'alpha';
 	}, false);
 	// ]]> -->
 </script>
-<?php Zenphoto_Authority::printPasswordFormJS(); ?>
+<?php npg_Authority::printPasswordFormJS(); ?>
 </head>
 <body onresize="resizeTable()">
 	<?php
@@ -195,7 +195,7 @@ $tagsort = 'alpha';
 				$themepage = 'news';
 				$locked = !checkIfLocked($result);
 				$me = 'news';
-				$backurl = 'news.php?' . $page;
+				$backurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . '?' . $page;
 				if (isset($_GET['category']))
 					$backurl .= '&amp;category=' . html_encode(sanitize($_GET['category']));
 				if (isset($_GET['date']))
@@ -210,7 +210,7 @@ $tagsort = 'alpha';
 
 			if (is_AdminEditPage('newscategory')) {
 				$admintype = 'newscategory';
-				IF (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+				IF (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 					$additem = gettext('New Category');
 				} else {
 					$additem = '';
@@ -219,7 +219,7 @@ $tagsort = 'alpha';
 				$themepage = 'news';
 				$locked = false;
 				$me = 'news';
-				$backurl = 'categories.php?';
+				$backurl = $backurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php') . '?';
 			}
 
 			if (is_AdminEditPage('page')) {
@@ -229,7 +229,7 @@ $tagsort = 'alpha';
 				$themepage = 'pages';
 				$locked = !checkIfLocked($result);
 				$me = 'page';
-				$backurl = 'pages.php';
+				$backurl = getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php');
 			}
 			if (!is_numeric($pageno)) {
 				$backurl = $result->getLink();
@@ -238,7 +238,7 @@ $tagsort = 'alpha';
 			if (!$result->isMyItem($result->manage_some_rights)) {
 				$locked = true;
 			}
-			zp_apply_filter('admin_note', $me, 'edit');
+			npgFilters::apply('admin_note', $me, 'edit');
 
 			if (!$result->loaded && !$result->transient) {
 				$result->transient = true;
@@ -312,7 +312,7 @@ $tagsort = 'alpha';
 			if ($result->loaded || $result->transient) {
 				if ($result->transient) {
 					?>
-					<form class="dirtylistening" onReset="setClean('addnews_form');" id="addnews_form" method="post" name="addnews" action="edit.php?<?php echo $admintype; ?>&amp;save" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('addnews_form');" id="addnews_form" method="post" name="addnews" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;save" autocomplete="off">
 						<?php
 						XSRFToken('save');
 					} else {
@@ -331,7 +331,7 @@ $tagsort = 'alpha';
 
 						<div id="tab_articles" class="tabbox">
 
-							<form class="dirtylistening" onReset="setClean('form_cmsItemEdit');$('.resetHide').hide();" method="post" name="update" id="form_cmsItemEdit" action="edit.php?<?php echo $admintype; ?>&amp;update<?php echo $page; ?>" autocomplete="off">
+							<form class="dirtylistening" onReset="setClean('form_cmsItemEdit');$('.resetHide').hide();" method="post" name="update" id="form_cmsItemEdit" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;update<?php echo $page; ?>" autocomplete="off">
 								<?php
 								XSRFToken('update');
 							}
@@ -387,7 +387,7 @@ $tagsort = 'alpha';
 									<?php
 									if ($additem) {
 										?>
-										<a href="edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
 											<?php echo PLUS_ICON; ?>
 											<strong><?php echo $additem; ?></strong>
 										</a>
@@ -408,7 +408,7 @@ $tagsort = 'alpha';
 											$what = 'title=';
 										}
 										?>
-										<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
+										<a href="<?php echo WEBPATH; ?>/index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
 											<?php echo BULLSEYE_BLUE; ?>
 											<?php echo gettext("View"); ?>
 										</a>
@@ -511,13 +511,13 @@ $tagsort = 'alpha';
 											</tr>
 											<?php
 											if (is_AdminEditPage("newsarticle")) {
-												$custom = zp_apply_filter('edit_article_custom', '', $result);
+												$custom = npgFilters::apply('edit_article_custom', '', $result);
 											}
 											if (is_AdminEditPage("newscategory")) {
-												$custom = zp_apply_filter('edit_category_custom', '', $result);
+												$custom = npgFilters::apply('edit_category_custom', '', $result);
 											}
 											if (is_AdminEditPage("page")) {
-												$custom = zp_apply_filter('edit_page_custom', '', $result);
+												$custom = npgFilters::apply('edit_page_custom', '', $result);
 											}
 											echo $custom;
 											?>
@@ -542,9 +542,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -636,7 +636,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																								 togglePassword('');">
+																					 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -704,7 +704,7 @@ $tagsort = 'alpha';
 												?>
 											</div>
 											<?php
-											if ($utilities = zp_apply_filter('edit_cms_utilities', '', $result)) {
+											if ($utilities = npgFilters::apply('edit_cms_utilities', '', $result)) {
 												?>
 												<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
 												<div class="box-edit">
@@ -723,7 +723,7 @@ $tagsort = 'alpha';
 																$("#date").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -743,7 +743,7 @@ $tagsort = 'alpha';
 																$("#pubdate").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -761,7 +761,7 @@ $tagsort = 'alpha';
 																$("#expiredate").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -806,7 +806,7 @@ $tagsort = 'alpha';
 														?>
 														<p>
 															<?php
-															if (zp_loggedin($manager)) {
+															if (npg_loggedin($manager)) {
 																echo gettext("Author");
 																?>
 																<select size='1' name="author" id="author">
@@ -862,7 +862,7 @@ $tagsort = 'alpha';
 														</p>
 														<?php
 													}
-													echo zp_apply_filter('general_zenpage_utilities', '', $result);
+													echo npgFilters::apply('general_utilities', '', $result);
 													?>
 												</div>
 												<?php
@@ -915,19 +915,19 @@ $tagsort = 'alpha';
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>
 										<div class="floatright">
-											<a href="edit.php?<?php echo $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+											<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
 												<?php echo PLUS_ICON; ?>
 												<strong><?php echo $additem; ?></strong>
 											</a>
 											<?php
 											if (!$result->transient) {
 												if (is_AdminEditPage("newscategory")) {
-													$what = 'category=';
+													$what = 'category = ';
 												} else {
-													$what = 'title=';
+													$what = 'title = ';
 												}
 												?>
-												<a href="../../../index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
+												<a href="<?php echo WEBPATH; ?>/index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
 													<?php echo BULLSEYE_BLUE; ?>
 													<?php echo gettext("View"); ?>
 												</a>

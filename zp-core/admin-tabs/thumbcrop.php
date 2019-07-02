@@ -8,7 +8,7 @@
  */
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(dirname(dirname(__FILE__)) . '/functions-image.php');
+require_once(dirname(dirname(__FILE__)) . '/lib-image.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 
@@ -25,8 +25,8 @@ if (isset($_REQUEST['singleimage'])) {
 	$singleimage = '';
 }
 if (!$albumobj->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
-	if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-		header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?from=' . $return . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : '');
+	if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
+		header('Location: ' . getAdminLink('admin.php') . '?from=' . $return . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : '');
 		exit();
 	}
 }
@@ -48,9 +48,9 @@ if (isImagePhoto($imageobj)) {
 } else {
 	$imgpath = $imageobj->getThumbImageFile();
 	$imagepart = basename($imgpath);
-	$timg = zp_imageGet($imgpath);
-	$width = zp_imageWidth($timg);
-	$height = zp_imageHeight($timg);
+	$timg = gl_imageGet($imgpath);
+	$width = gl_imageWidth($timg);
+	$height = gl_imageHeight($timg);
 }
 if (getOption('thumb_crop')) {
 	$thumbcropwidth = $cropwidth;
@@ -62,8 +62,8 @@ if (getOption('thumb_crop')) {
 	} else {
 		$imgpath = $imageobj->getThumbImageFile();
 		$imagepart = basename($imgpath);
-		$thumbcropwidth = zp_imageWidth($timg);
-		$thumbcropheight = zp_imageHeight($timg);
+		$thumbcropwidth = gl_imageWidth($timg);
+		$thumbcropheight = gl_imageHeight($timg);
 	}
 	$tsize = getOption('thumb_size');
 	$max = max($thumbcropwidth, $thumbcropheight);
@@ -163,15 +163,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	$imageobj->set('thumbH', $ch);
 	$imageobj->save();
 
-	$return = FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
-	if ($singleimage)
+	$return = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&saved&subpage=' . html_encode(sanitize($_REQUEST['subpage'])) . '&tagsort=' . html_encode(sanitize($_REQUEST['tagsort'])) . '&tab=imageinfo';
+	if ($singleimage) {
 		$return .= '&singleimage=' . html_encode($singleimage);
+	}
 	header('Location: ' . $return);
 	exit();
 }
 printAdminHeader('edit', 'thumbcrop');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.css');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
+scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.css');
+scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 ?>
 <script type="text/javascript" >
 	//<!-- <![CDATA[
@@ -244,7 +245,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
 				<p><?php echo gettext("You can change the portion of your image which is shown in thumbnails by cropping it here."); ?></p>
 				<div style="display:block">
 					<div style="float: left; width:<?php echo $thumbcropwidth; ?>px; text-align: center;margin-right: 18px;  margin-bottom: 10px;">
-						<img src="<?php echo pathurlencode($currentthumbimage); ?>" style="width:<?php echo $thumbcropwidth; ?>px;height:<?php echo $thumbcropheight; ?>px; border: 4px solid gray; float: left"/>
+						<img src="<?php echo html_encode($currentthumbimage); ?>" style="width:<?php echo $thumbcropwidth; ?>px;height:<?php echo $thumbcropheight; ?>px; border: 4px solid gray; float: left"/>
 						<?php echo gettext("current thumbnail"); ?>
 					</div>
 
@@ -252,14 +253,14 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
 
 						<div style="width: <?php echo $sizedwidth; ?>px; height: <?php echo $sizedheight; ?>px; margin-bottom: 10px; border: 4px solid gray;">
 							<!-- This is the image we're attaching Jcrop to -->
-							<img src="<?php echo $imageurl; ?>" id="cropbox" />
+							<img src="<?php echo html_encode($imageurl); ?>" id="cropbox" />
 						</div>
 
 					</div>
 
 					<div style="float: left; width:<?php echo $cropwidth; ?>px; text-align: center; margin-left: 10px; margin-bottom: 10px;">
 						<div style="width:<?php echo $cropwidth; ?>px;height:<?php echo $cropheight; ?>px; overflow:hidden; border: 4px solid green; float: left">
-							<img src="<?php echo pathurlencode($imageurl); ?>" id="preview" />
+							<img src="<?php echo html_encode($imageurl); ?>" id="preview" />
 						</div>
 						<?php echo gettext("thumbnail preview"); ?>
 					</div>
@@ -301,7 +302,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/js/Jcrop/jquery.Jcrop.js');
 									<?php echo CROSS_MARK_RED; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
-								<button type="reset" value="<?php echo gettext('Back') ?>" onclick="window.location = '<?php echo FULLWEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo html_encode($subpage) ?><?php if ($singleimage) echo '&singleimage=' . html_encode($singleimage); ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
+								<button type="reset" value="<?php echo gettext('Back') ?>" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') ?>?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo html_encode($subpage) ?><?php if ($singleimage) echo '&singleimage=' . html_encode($singleimage); ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
 									<span style="color:blue;font-size:large;line-height: 60%;">&lArr;</span>
 									<strong><?php echo gettext("Back"); ?></strong>
 								</button>

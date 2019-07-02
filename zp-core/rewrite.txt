@@ -1,0 +1,30 @@
+	#### Definitions
+	Define %CORE%						=>	CORE_PATH
+	Define %RW_SUFFIX%			=>	RW_SUFFIX
+	Define %PAGE%						=>	_PAGE_
+	Define %SEARCH%					=>	_SEARCH_
+	Define %ARCHIVE%				=>	_ARCHIVE_
+	Define %TAGS%						=>	_TAGS_
+
+	#### Quick links
+	RewriteRule ^$                     										index.php [L,QSA]
+	RewriteRule ^index\.php$                     					index.php [L,QSA]
+	RewriteRule ^admin/*$																	%CORE%/admin%RW_SUFFIX% [NC,L,QSA]
+
+	#### Rewrite rules for search
+	RewriteRule ^%SEARCH%/*$															index.php?p=search [NC,L,QSA]
+	RewriteRule ^%ARCHIVE%/*$															index.php?p=archive [NC,L,QSA]
+	RewriteRule ^%ARCHIVE%/(.+?)/([0-9]+)/*$     					index.php?p=search&date=$1&page=$2 [NC,L,QSA]
+	RewriteRule ^%ARCHIVE%/(.+?)/*$     									index.php?p=search&date=$1 [NC,L,QSA]
+	RewriteRule ^%TAGS%/(.+?)/([0-9]+)/*$ 								index.php?p=search&searchfields=tags&words=$1&page=$2 [NC,L,QSA]
+	RewriteRule ^%TAGS%/(.+?)/*$ 													index.php?p=search&searchfields=tags&words=$1 [NC,L,QSA]
+	RewriteRule ^%SEARCH%/(.+?)/([0-9]+)/*$    						index.php?p=search&words=$1&page=$2 [NC,L,QSA]
+	RewriteRule ^%SEARCH%/(.+?)/*$     										index.php?p=search&words=$1 [NC,L,QSA]
+
+	_SPECIAL_
+
+	#### image, album, and custom page references
+	RewriteRule ^%PAGE%/([0-9]+)/*$               			index.php?page=$1 [NC,L,QSA]
+	RewriteRule ^%PAGE%/([A-Za-z0-9_\-]+)/*$      			index.php?p=$1 [NC,L,QSA]
+	RewriteRule ^%PAGE%/([A-Za-z0-9_\-]+)/([0-9]+)/*$   index.php?p=$1&page=$2 [NC,L,QSA]
+	RewriteRule ^(.*?)/%PAGE%/([0-9]+)/*$          			index.php?album=$1&page=$2 [L,QSA]

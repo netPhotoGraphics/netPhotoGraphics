@@ -22,17 +22,17 @@
  */
 // force UTF-8 Ø
 
-global $_zp_captcha;
+global $_captcha;
 
+$plugin_is_filter = 500 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 500 | CLASS_PLUGIN;
 	$plugin_description = gettext("Google reCAPTCHA handler.");
-	$plugin_disable = !ini_get('allow_url_fopen') ? gettext('The <em>allow_url_fopen</em> PHP.ini setting is disabled. reCAPTCHA requires that <em>allow_url_fopen</em> PHP.ini setting to be enabled.') : (($_zp_captcha->name && $_zp_captcha->name != 'reCAPTCHA_v2') ? sprintf(gettext('Only one Captcha handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_zp_captcha->name) : '');
+	$plugin_disable = !ini_get('allow_url_fopen') ? gettext('The <em>allow_url_fopen</em> PHP.ini setting is disabled. reCAPTCHA requires that <em>allow_url_fopen</em> PHP.ini setting to be enabled.') : (($_captcha->name && $_captcha->name != 'reCAPTCHA_v2') ? sprintf(gettext('Only one Captcha handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), $_captcha->name) : '');
 }
 
 $option_interface = 'reCAPTCHA_v2';
 
-class reCAPTCHA_v2 extends _zp_captcha {
+class reCAPTCHA_v2 {
 
 	var $name = 'reCAPTCHA_v2';
 
@@ -81,12 +81,12 @@ class reCAPTCHA_v2 extends _zp_captcha {
 	 * @param type $prompt not used
 	 */
 	function getCaptcha($prompt = NULL) {
-		global $_zp_current_locale;
+		global $_current_locale;
 		if (getOption('reCAPTCHAKey')) {
 			$hidden = ($theme = getOption('reCAPTCHATheme')) == 'hidden';
 			$captcha = array();
 			if ($hidden) {
-				$captcha['hidden'] = '<script src = "https://www.google.com/recaptcha/api.js?hl=' . trim(substr($_zp_current_locale, 0, 2)) . '" async defer></script>
+				$captcha['hidden'] = '<script src = "https://www.google.com/recaptcha/api.js?hl=' . trim(substr($_current_locale, 0, 2)) . '" async defer></script>
 <script>
 	function reCAPTCHAonSubmit(token) {
 		document.getElementById($(".g-recaptcha").closest("form").attr("id")).submit();
@@ -94,7 +94,7 @@ class reCAPTCHA_v2 extends _zp_captcha {
 </script>';
 				$captcha['submitButton'] = array('class' => 'g-recaptcha', 'extra' => 'data-sitekey="' . getOption('reCAPTCHAKey') . '" data-callback="reCAPTCHAonSubmit" data-type="' . getOption('reCAPTCHAType') . '"');
 			} else {
-				$captcha['hidden'] = '<script src="https://www.google.com/recaptcha/api.js?hl=' . trim(substr($_zp_current_locale, 0, 2)) . '"></script>';
+				$captcha['hidden'] = '<script src="https://www.google.com/recaptcha/api.js?hl=' . trim(substr($_current_locale, 0, 2)) . '"></script>';
 				$captcha['input'] = '<div class="g-recaptcha" data-sitekey="' . getOption('reCAPTCHAKey') . '" data-theme="' . $theme . '" data-type="' . getOption('reCAPTCHAType') . '" data-size="' . getOption('reCAPTCHASize') . '"></div>' . "\n" . '
 <noscript>
 	<div>
@@ -146,6 +146,6 @@ class reCAPTCHA_v2 extends _zp_captcha {
 
 }
 
-$_zp_captcha = new reCAPTCHA_v2();
+$_captcha = new reCAPTCHA_v2();
 
 

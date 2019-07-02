@@ -8,14 +8,14 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
-		scriptLoader($_zp_themeroot . '/style.css');
+		npgFilters::apply('theme_head');
+		scriptLoader($_themeroot . '/style.css');
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
 		<div id="main">
 
@@ -37,7 +37,7 @@ if (!defined('WEBPATH'))
 				</div>
 				<div id="content-left">
 					<?php
-					if (!extensionEnabled('zenpage') || ($_zp_gallery_page == 'gallery.php' || ($_zp_gallery_page == 'index.php' && !getOption("zenpage_zp_index_news")))) {
+					if (!extensionEnabled('zenpage') || ($_gallery_page == 'gallery.php' || ($_gallery_page == 'index.php' && !getOption("zenpage_zp_index_news")))) {
 						?>
 						<?php printGalleryDesc(); ?>
 						<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
@@ -106,7 +106,7 @@ if (!defined('WEBPATH'))
 
 		</div><!-- main -->
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

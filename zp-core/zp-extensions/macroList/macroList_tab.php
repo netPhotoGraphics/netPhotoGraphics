@@ -20,7 +20,7 @@ echo "\n</head>";
 		<div id="content">
 			<div id="container">
 				<?php
-				zp_apply_filter('admin_note', 'development', '');
+				npgFilters::apply('admin_note', 'development', '');
 				?>
 				<h1>
 					<?php

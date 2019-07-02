@@ -24,62 +24,62 @@
  * @package plugins/zenpage
  * @pluginCategory theme
  */
+$plugin_is_filter = defaultExtension(99 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(99 | CLASS_PLUGIN);
 	$plugin_description = gettext("A CMS plugin that adds the capability to run an entire gallery focused website.");
 }
 $option_interface = 'cmsFilters';
 
 //Zenpage rewrite definitions
-$_zp_conf_vars['special_pages']['news'] = array('define' => '_NEWS_', 'rewrite' => getOption('NewsLink'),
+$_conf_vars['special_pages']['news'] = array('define' => '_NEWS_', 'rewrite' => getOption('NewsLink'),
 		'option' => 'NewsLink', 'default' => 'news');
-$_zp_conf_vars['special_pages']['category'] = array('define' => '_CATEGORY_', 'rewrite' => getOption('categoryLink'),
+$_conf_vars['special_pages']['category'] = array('define' => '_CATEGORY_', 'rewrite' => getOption('categoryLink'),
 		'option' => 'categoryLink', 'default' => '_NEWS_/category');
-$_zp_conf_vars['special_pages']['news_archive'] = array('define' => '_NEWS_ARCHIVE_', 'rewrite' => getOption('NewsArchiveLink'),
+$_conf_vars['special_pages']['news_archive'] = array('define' => '_NEWS_ARCHIVE_', 'rewrite' => getOption('NewsArchiveLink'),
 		'option' => 'NewsArchiveLink', 'default' => '_NEWS_/archive');
-$_zp_conf_vars['special_pages']['pages'] = array('define' => '_PAGES_', 'rewrite' => getOption('PagesLink'),
+$_conf_vars['special_pages']['pages'] = array('define' => '_PAGES_', 'rewrite' => getOption('PagesLink'),
 		'option' => 'PagesLink', 'default' => 'pages');
 
-$_zp_conf_vars['special_pages'][] = array('definition' => '%NEWS%', 'rewrite' => '_NEWS_');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%CATEGORY%', 'rewrite' => '_CATEGORY_');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%NEWS_ARCHIVE%', 'rewrite' => '_NEWS_ARCHIVE_');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%PAGES%', 'rewrite' => '_PAGES_');
+$_conf_vars['special_pages'][] = array('definition' => '%NEWS%', 'rewrite' => '_NEWS_');
+$_conf_vars['special_pages'][] = array('definition' => '%CATEGORY%', 'rewrite' => '_CATEGORY_');
+$_conf_vars['special_pages'][] = array('definition' => '%NEWS_ARCHIVE%', 'rewrite' => '_NEWS_ARCHIVE_');
+$_conf_vars['special_pages'][] = array('definition' => '%PAGES%', 'rewrite' => '_PAGES_');
 
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/*$',
 		'rule' => '%REWRITE% index.php?p=pages [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/(.+?)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=pages&title=$1 [L, QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+)/([0-9]+)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&category=$1&page=$2 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+?)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&category=$1 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+)/([0-9]+)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&date=$1&page=$2 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+?)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&date=$1 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/([0-9]+)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&page=$1 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/(.+?)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&title=$1 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/*$',
 		'rule' => '%REWRITE% index.php?p=news [NC,L,QSA]');
 
 
-zp_register_filter('checkForGuest', 'cmsFilters::checkForGuest');
-zp_register_filter('isMyItemToView', 'cmsFilters::isMyItemToView');
-zp_register_filter('admin_toolbox_global', 'cmsFilters::admin_toolbox_global');
-zp_register_filter('admin_toolbox_news', 'cmsFilters::admin_toolbox_news');
-zp_register_filter('admin_toolbox_pages', 'cmsFilters::admin_toolbox_pages');
-zp_register_filter('themeSwitcher_head', 'cmsFilters::switcher_head');
-zp_register_filter('themeSwitcher_Controllink', 'cmsFilters::switcher_controllink', 0);
-zp_register_filter('load_theme_script', 'cmsFilters::switcher_setup', 99);
+npgFilters::register('checkForGuest', 'cmsFilters::checkForGuest');
+npgFilters::register('isMyItemToView', 'cmsFilters::isMyItemToView');
+npgFilters::register('admin_toolbox_global', 'cmsFilters::admin_toolbox_global');
+npgFilters::register('admin_toolbox_news', 'cmsFilters::admin_toolbox_news');
+npgFilters::register('admin_toolbox_pages', 'cmsFilters::admin_toolbox_pages');
+npgFilters::register('themeSwitcher_head', 'cmsFilters::switcher_head');
+npgFilters::register('themeSwitcher_Controllink', 'cmsFilters::switcher_controllink', 0);
+npgFilters::register('load_theme_script', 'cmsFilters::switcher_setup', 99);
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/classes.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/class-news.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/class-page.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/class-category.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/classes.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/class-news.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/class-page.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/class-category.php');
 
-$_zp_CMS = new CMS();
+$_CMS = new CMS();
 
 class cmsFilters {
 
@@ -161,8 +161,8 @@ class cmsFilters {
 	}
 
 	static function switcher_controllink($theme) {
-		global $_zp_gallery_page;
-		if ($_zp_gallery_page == 'pages.php' || $_zp_gallery_page == 'news.php') {
+		global $_gallery_page;
+		if ($_gallery_page == 'pages.php' || $_gallery_page == 'news.php') {
 			$disabled = ' disabled="disalbed"';
 		} else {
 			$disabled = '';
@@ -181,7 +181,7 @@ class cmsFilters {
 	}
 
 	static function switcher_setup($ignore) {
-		global $_zp_CMS;
+		global $_CMS;
 		if (class_exists('themeSwitcher') && themeSwitcher::active()) {
 			if (isset($_GET['cmsSwitch'])) {
 				setOption('themeSwitcher_zenpage_switch', $cmsSwitch = (int) ($_GET['cmsSwitch'] == 'true'));
@@ -191,9 +191,9 @@ class cmsFilters {
 			}
 		}
 		if (extensionEnabled('zenpage')) {
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 		} else {
-			unset($GLOBALS['_zp_CMS']);
+			unset($GLOBALS['_CMS']);
 		}
 		return $ignore;
 	}
@@ -205,12 +205,12 @@ class cmsFilters {
 	 * @param string $auth
 	 */
 	static function checkForGuest($auth) {
-		global $_zp_current_page, $_zp_current_category;
-		if (!is_null($_zp_current_page)) { // zenpage page
-			$authType = $_zp_current_page->checkforGuest();
+		global $_CMS_current_page, $_CMS_current_category;
+		if (!is_null($_CMS_current_page)) { // zenpage page
+			$authType = $_CMS_current_page->checkforGuest();
 			return $authType;
-		} else if (!is_null($_zp_current_category)) {
-			$authType = $_zp_current_category->checkforGuest();
+		} else if (!is_null($_CMS_current_category)) {
+			$authType = $_CMS_current_category->checkforGuest();
 			return $authType;
 		}
 		return $auth;
@@ -222,24 +222,24 @@ class cmsFilters {
 	 * @param bool $fail
 	 */
 	static function isMyItemToView($fail) {
-		global $_zp_gallery_page, $_zp_current_page, $_zp_current_article, $_zp_current_category;
-		switch ($_zp_gallery_page) {
+		global $_gallery_page, $_CMS_current_page, $_CMS_current_article, $_CMS_current_category;
+		switch ($_gallery_page) {
 			case 'pages.php':
-				if (is_object($_zp_current_page)) {
-					return $_zp_current_page->isMyItem(LIST_RIGHTS);
+				if (is_object($_CMS_current_page)) {
+					return $_CMS_current_page->isMyItem(LIST_RIGHTS);
 				}
 				return false;
 			case 'news.php':
-				if (in_context(ZP_ZENPAGE_NEWS_ARTICLE)) {
-					if ($_zp_current_article->isMyItem(LIST_RIGHTS)) {
+				if (in_context(ZENPAGE_NEWS_ARTICLE)) {
+					if ($_CMS_current_article->isMyItem(LIST_RIGHTS)) {
 						return true;
 					}
 				} else { //	must be category or main news page?
-					if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS) || !is_object($_zp_current_category) || !$_zp_current_category->isProtected()) {
+					if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS) || !is_object($_CMS_current_category) || !$_CMS_current_category->isProtected()) {
 						return true;
 					}
-					if (is_object($_zp_current_category)) {
-						if ($_zp_current_category->isMyItem(LIST_RIGHTS)) {
+					if (is_object($_CMS_current_category)) {
+						if ($_CMS_current_category->isMyItem(LIST_RIGHTS)) {
 							return true;
 						}
 					}
@@ -250,38 +250,38 @@ class cmsFilters {
 	}
 
 	static function admin_pages() {
-		global $_zp_CMS, $_zp_loggedin, $_zp_current_admin_obj;
+		global $_CMS, $_loggedin, $_current_admin_obj;
 		$articlestab = $categorystab = $pagestab = false;
-		if ($_zp_CMS) {
-			if ($_zp_loggedin & ADMIN_RIGHTS) {
-				$_zp_loggedin = ALL_RIGHTS;
+		if ($_CMS) {
+			if ($_loggedin & ADMIN_RIGHTS) {
+				$_loggedin = ALL_RIGHTS;
 			} else {
-				if ($_zp_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
+				if ($_loggedin & MANAGE_ALL_NEWS_RIGHTS) {
 					// these are lock-step linked!
-					$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS;
+					$_loggedin = $_loggedin | ZENPAGE_NEWS_RIGHTS;
 				}
-				if ($_zp_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
+				if ($_loggedin & MANAGE_ALL_PAGES_RIGHTS) {
 					// these are lock-step linked!
-					$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS;
+					$_loggedin = $_loggedin | ZENPAGE_PAGES_RIGHTS;
 				}
 			}
-			$admin = $_zp_current_admin_obj->getUser();
-			if ($_zp_CMS->news_enabled) {
-				$articlestab = $categorystab = $_zp_loggedin & (MANAGE_ALL_NEWS_RIGHTS | ZENPAGE_NEWS_RIGHTS);
+			$admin = $_current_admin_obj->getUser();
+			if ($_CMS->news_enabled) {
+				$articlestab = $categorystab = $_loggedin & (MANAGE_ALL_NEWS_RIGHTS | ZENPAGE_NEWS_RIGHTS);
 				if (!$articlestab) {
 					$articles = query('SELECT `titlelink` FROM ' . prefix('news') . ' WHERE `owner`=' . db_quote($admin));
 					if ($articles) {
-						$_zp_loggedin = $_zp_loggedin | ZENPAGE_NEWS_RIGHTS; //	Owners get rights to edit their articles
+						$_loggedin = $_loggedin | ZENPAGE_NEWS_RIGHTS; //	Owners get rights to edit their articles
 						$articlestab = true;
 					}
 				}
 
-				if ($_zp_CMS->pages_enabled) {
-					$pagestab = $_zp_loggedin & (MANAGE_ALL_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS);
+				if ($_CMS->pages_enabled) {
+					$pagestab = $_loggedin & (MANAGE_ALL_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS);
 					if (!$pagestab) {
 						$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `owner`=' . db_quote($admin));
 						if ($pagelist) {
-							$_zp_loggedin = $_zp_loggedin | ZENPAGE_PAGES_RIGHTS; //	Owners get rights to edit their pages
+							$_loggedin = $_loggedin | ZENPAGE_PAGES_RIGHTS; //	Owners get rights to edit their pages
 							$pagestab = true;
 						}
 					}
@@ -295,32 +295,31 @@ class cmsFilters {
 	 *
 	 * Zenpage admin toolbox links
 	 */
-	static function admin_toolbox_global($zf) {
+	static function admin_toolbox_global() {
 		list($articlestab, $categorystab, $pagestab) = self::admin_pages();
 		if ($articlestab || $categorystab) {
 			// admin has zenpage rights, provide link to the Zenpage admin tab
-			echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/news.php\">" . NEWS_LABEL . "</a></li>";
+			echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . '">' . NEWS_LABEL . '</a></li>';
 		}
 		if ($pagestab) {
-			echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/pages.php\">" . gettext("Pages") . "</a></li>";
+			echo "<li><a href=\"" . getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php') . '">' . gettext("Pages") . '</a></li>';
 		}
-		return $zf;
 	}
 
-	static function admin_toolbox_pages($redirect, $zf) {
-		global $_zp_CMS, $_zp_current_page;
+	static function admin_toolbox_pages($redirect) {
+		global $_CMS, $_CMS_current_page;
 
-		if (zp_loggedin(ZENPAGE_PAGES_RIGHTS) && $_zp_CMS && $_zp_CMS->pages_enabled && ($_zp_current_page->subrights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+		if (npg_loggedin(ZENPAGE_PAGES_RIGHTS) && $_CMS && $_CMS->pages_enabled && ($_CMS_current_page->subrights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 			// page is zenpage page--provide edit, delete, and add links
 			?>
 			<li>
-				<a href="<?php echo $zf . '/' . PLUGIN_FOLDER; ?>/zenpage/edit.php?page&amp;edit&amp;titlelink=<?php echo urlencode(getPageTitlelink()); ?>&amp;subpage=object"><?php echo gettext("Edit Page"); ?>
+				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?page&amp;edit&amp;titlelink=<?php echo urlencode(getPageTitlelink()); ?>&amp;subpage=object"><?php echo gettext("Edit Page"); ?>
 				</a>
 			</li>
 			<script type='text/javascript'>
 				function confirmPageDelete() {
 					if (confirm('<?php echo gettext("Are you sure you want to delete the page? THIS CANNOT BE UNDONE!"); ?>')) {
-						window.location = '<?php echo $zf . '/' . PLUGIN_FOLDER; ?>/zenpage/pages.php?delete=<?php echo $_zp_current_page->getTitlelink(); ?>&add&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+						window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?delete=<?php echo $_CMS_current_page->getTitlelink(); ?>&add&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 								}
 							}
 			</script>
@@ -329,28 +328,28 @@ class cmsFilters {
 				</a>
 			</li>
 			<?php
-			echo "<li><a href=\"" . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . "/zenpage/edit.php?page&amp;add\">" . gettext("Add Page") . "</a></li>";
+			echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;add">' . gettext("Add Page") . '</a></li>';
 		}
 		return $redirect . '&amp;title=' . urlencode(getPageTitlelink());
 	}
 
-	static function admin_toolbox_news($redirect, $zf) {
-		global $_zp_CMS, $_zp_current_category, $_zp_current_article;
-		if (!empty($_zp_current_category)) {
-			$cat = '&amp;category=' . $_zp_current_category->getTitlelink();
+	static function admin_toolbox_news($redirect) {
+		global $_CMS, $_CMS_current_category, $_CMS_current_article;
+		if (!empty($_CMS_current_category)) {
+			$cat = '&amp;category=' . $_CMS_current_category->getTitlelink();
 		} else {
 			$cat = '';
 		}
 
 		if (is_NewsArticle()) {
-			if (zp_loggedin(ZENPAGE_NEWS_RIGHTS) && $_zp_CMS && $_zp_CMS->news_enabled && ($_zp_current_article->subrights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+			if (npg_loggedin(ZENPAGE_NEWS_RIGHTS) && $_CMS && $_CMS->news_enabled && ($_CMS_current_article->subrights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
 				// page is a NewsArticle--provide zenpage edit, delete, and Add links
-				echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/edit.php?newsarticle&amp;edit&amp;titlelink=" . html_encode($_zp_current_article->getTitleLink()) . $cat . "&amp;subpage=object\">" . gettext("Edit Article") . "</a></li>";
+				echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;edit&amp;titlelink=' . html_encode($_CMS_current_article->getTitleLink()) . $cat . '&amp;subpage=object">' . gettext("Edit Article") . '</a></li>';
 				?>
 				<script type='text/javascript'>
 					function confirmArticleDelete() {
 						if (confirm('<?php echo gettext("Are you sure you want to delete the article? THIS CANNOT BE UNDONE!"); ?>')) {
-							window.location = '<?php echo $zf . '/' . PLUGIN_FOLDER; ?>/zenpage/news.php?delete=<?php echo $_zp_current_article->getTitlelink(); ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+							window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?delete=<?php echo $_CMS_current_article->getTitlelink(); ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 									}
 								}
 				</script>
@@ -358,9 +357,10 @@ class cmsFilters {
 					<a href="javascript:confirmArticleDelete();" title="<?php echo gettext("Delete article"); ?>"><?php echo gettext("Delete Article"); ?>	</a>
 				</li>
 				<?php
-				echo "<li><a href=\"" . $zf . '/' . PLUGIN_FOLDER . "/zenpage/edit.php?newsarticle&amp;add\">" . gettext("Add Article") . "</a></li>";
+				echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;
+add">' . gettext("Add Article") . '</a></li>';
 			}
-			$redirect .= '&amp;title=' . urlencode($_zp_current_article->getTitlelink());
+			$redirect .= '&amp;title=' . urlencode($_CMS_current_article->getTitlelink());
 		} else {
 			$redirect .= $cat;
 		}
@@ -375,17 +375,17 @@ class cmsFilters {
  * @return string
  */
 function getNewsIndexURL() {
-	global $_zp_current_article;
+	global $_CMS_current_article;
 	$p_rewrite = $p = '';
-	if (in_context(ZP_ZENPAGE_NEWS_ARTICLE) && in_context(ZP_ZENPAGE_SINGLE)) {
-		$pos = floor(($_zp_current_article->getIndex() / ZP_ARTICLES_PER_PAGE) + 1);
+	if (in_context(ZENPAGE_NEWS_ARTICLE) && in_context(ZENPAGE_SINGLE)) {
+		$pos = floor(($_CMS_current_article->getIndex() / ARTICLES_PER_PAGE) + 1);
 		if ($pos > 1) {
 			$p_rewrite = $pos;
 			$p = '&page=' . $pos;
 		}
 	}
 
-	return zp_apply_filter('getLink', rewrite_path(_NEWS_ . '/' . $p_rewrite, "/index.php?p=news" . $p), 'news.php', NULL);
+	return npgFilters::apply('getLink', rewrite_path(_NEWS_ . '/' . $p_rewrite, "/index.php?p=news" . $p), 'news.php', NULL);
 }
 
 /**
@@ -395,6 +395,6 @@ function getNewsIndexURL() {
  * @return string
  */
 function getNewsArchiveURL($date) {
-	return zp_apply_filter('getLink', rewrite_path(_NEWS_ARCHIVE_ . '/' . $date . '/', "/index.php?p=news&date=$date"), 'news.php', NULL);
+	return npgFilters::apply('getLink', rewrite_path(_NEWS_ARCHIVE_ . '/' . $date . '/', "/index.php?p=news&date=$date"), 'news.php', NULL);
 }
 ?>

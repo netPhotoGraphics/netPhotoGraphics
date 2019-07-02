@@ -7,11 +7,11 @@ if (!defined('WEBPATH'))
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
-		scriptLoader($_zp_themeroot . '/zen.css');
+		scriptLoader($_themeroot . '/zen.css');
 
-		if (zp_has_filter('theme_head', 'colorbox::css')) {
+		if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
@@ -44,7 +44,7 @@ if (!defined('WEBPATH'))
 		<?php if (class_exists('RSS')) printRSSHeaderLink('Album', gettext('Gallery')); ?>
 	</head>
 	<body class="sidebars">
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="navigation"></div>
 		<div id="wrapper">
 			<div id="container">
@@ -87,7 +87,7 @@ if (!defined('WEBPATH'))
 										}
 										if (!empty($fullimage)) {
 											?>
-											<a href="<?php echo pathurlencode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="thickbox">
+											<a href="<?php echo html_encode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="thickbox">
 												<?php
 											}
 											printCustomSizedImage(getImageTitle(), null, 520);
@@ -100,7 +100,7 @@ if (!defined('WEBPATH'))
 									</div>
 									<?php
 									If (function_exists('printAddToFavorites'))
-										printAddToFavorites($_zp_current_image);
+										printAddToFavorites($_current_image);
 									@call_user_func('printRating');
 									@call_user_func('printCommentForm');
 									printCodeblock(2);
@@ -121,7 +121,7 @@ if (!defined('WEBPATH'))
 							<div id="nextalbum" class="slides">
 								<a href="<?php echo html_encode(getNextImageURL()); ?>" title="<?php echo gettext('Next image'); ?>">
 									<h2><?php echo gettext('Next »'); ?></h2>
-									<img src="<?php echo pathurlencode(getNextImageThumb()); ?>" />
+									<img src="<?php echo html_encode(getNextImageThumb()); ?>" />
 								</a>
 							</div>
 							<?php
@@ -131,7 +131,7 @@ if (!defined('WEBPATH'))
 							<div id="prevalbum" class="slides">
 								<a href="<?php echo html_encode(getPrevImageURL()); ?>" title="<?php echo gettext('Previous image'); ?>">
 									<h2><?php echo gettext('« Previous'); ?></h2>
-									<img src="<?php echo pathurlencode(getPrevImageThumb()); ?>" />
+									<img src="<?php echo html_encode(getPrevImageThumb()); ?>" />
 								</a>
 							</div>
 							<?php
@@ -162,7 +162,7 @@ if (!defined('WEBPATH'))
 			<!-- /container -->
 		</div>
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

@@ -1,31 +1,29 @@
-<?php
-include ('inc_header.php');
-?>
+<?php include ('inc_header.php'); ?>
 
-<!-- .container main -->
-<!-- .page-header -->
-<!-- .header -->
-<h3><?php echo gettext('Password required'); ?></h3>
-</div><!-- .header -->
-</div><!-- /.page-header -->
+	<!-- .container main -->
+		<!-- .page-header -->
+			<!-- .header -->
+				<h3><?php echo gettext('Password required'); ?></h3>
+			</div><!-- .header -->
+		</div><!-- /.page-header -->
 
-<div id="password" class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-body">
-				<?php printPasswordForm('', true); ?>
-				<script type="text/javascript">
-					//<![CDATA[
-					$(document).ready(function ($) {
-						$('#password').modal('show');
-					});
-					//]]>
-				</script>
+		<div id="password" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<?php printPasswordForm('', true); ?>
+						<script type="text/javascript">
+						//<![CDATA[
+							$(document).ready( function($) {
+								$('#password').modal('show');
+							});
+						//]]>
+						</script>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
-</div><!-- /.container main -->
+	</div><!-- /.container main -->
 
 <?php include('inc_footer.php'); ?>

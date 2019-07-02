@@ -14,17 +14,17 @@
  * @pluginCategory users
  *
  */
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext('Adds user address fields');
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
 
 class userAddressFields extends fieldExtender {
 
 	function __construct() {
-		global $_zp_authority, $_userAddressFields;
+		global $_authority, $_userAddressFields;
 		$firstTime = false;
 		$tablecols = db_list_fields('administrators');
 		foreach ($tablecols as $key => $datum) {
@@ -115,6 +115,6 @@ function userAddressFields_enable($enabled) {
 if (OFFSET_PATH == 2) { // setup call: add the fields into the database
 	new userAddressFields;
 } else {
-	$_zp_plugin_differed_actions['userAddressField'] = 'userAddressFields::register';
+	$_plugin_differed_actions['userAddressField'] = 'userAddressFields::register';
 }
 ?>

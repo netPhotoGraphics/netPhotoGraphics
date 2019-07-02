@@ -32,7 +32,7 @@
  * **************************************************************************** */
 
 // The query cache
-$_zp_object_cache = array();
+$_object_cache = array();
 define('OBJECT_CACHE_DEPTH', 150); //	how many objects to hold for each object class
 // ABSTRACT
 
@@ -63,11 +63,11 @@ class PersistentObject {
 	 * @return bool will be true if the unique_set does not already exist
 	 */
 	function instantiate($tablename, $unique_set, $cache_by = NULL, $use_cache = true, $is_transient = false, $allowCreate = true) {
-		global $_zp_object_cache;
+		global $_object_cache;
 		//	insure a cache entry
 		$classname = get_class($this);
-		if (!isset($_zp_object_cache[$classname])) {
-			$_zp_object_cache[$classname] = array();
+		if (!isset($_object_cache[$classname])) {
+			$_object_cache[$classname] = array();
 		}
 		// Initialize the variables.
 		// Load the data into the data array using $this->load()
@@ -91,9 +91,9 @@ class PersistentObject {
 	 * @param $entry
 	 */
 	private function getFromCache() {
-		global $_zp_object_cache;
-		if (isset($_zp_object_cache[$c = get_class($this)]) && isset($_zp_object_cache[$c][$this->cache_by])) {
-			return $_zp_object_cache[$c][$this->cache_by];
+		global $_object_cache;
+		if (isset($_object_cache[$c = get_class($this)]) && isset($_object_cache[$c][$this->cache_by])) {
+			return $_object_cache[$c][$this->cache_by];
 		}
 		return NULL;
 	}
@@ -104,12 +104,12 @@ class PersistentObject {
 	 * @param $entry
 	 */
 	private function addToCache($entry) {
-		global $_zp_object_cache;
+		global $_object_cache;
 		if ($entry) {
-			if (count($_zp_object_cache[$classname = get_class($this)]) >= OBJECT_CACHE_DEPTH) {
-				array_shift($_zp_object_cache[$classname]); //	discard the oldest
+			if (count($_object_cache[$classname = get_class($this)]) >= OBJECT_CACHE_DEPTH) {
+				array_shift($_object_cache[$classname]); //	discard the oldest
 			}
-			$_zp_object_cache[$classname][$this->cache_by] = $entry;
+			$_object_cache[$classname][$this->cache_by] = $entry;
 		}
 	}
 
@@ -150,7 +150,7 @@ class PersistentObject {
 		$new_unique_set = array_change_key_case($new_unique_set, CASE_LOWER);
 		$result = query_single_row('SELECT * FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
 		if (!$result || $result['id'] == $this->id) { //	we should not find an entry for the new unique set!
-			if (!zp_apply_filter('move_object', true, $this, $new_unique_set)) {
+			if (!npgFilters::apply('move_object', true, $this, $new_unique_set)) {
 				return false;
 			}
 			$sql = 'UPDATE ' . prefix($this->table) . getSetClause($new_unique_set) . ' ' . getWhereClause($this->unique_set);
@@ -175,7 +175,7 @@ class PersistentObject {
 		$result = query('SELECT * FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
 
 		if ($result && db_num_rows($result) == 0) {
-			if (!zp_apply_filter('copy_object', true, $this, $new_unique_set)) {
+			if (!npgFilters::apply('copy_object', true, $this, $new_unique_set)) {
 				return false;
 			}
 			// Note: It's important for $new_unique_set to come last, as its values should override.
@@ -208,7 +208,7 @@ class PersistentObject {
 			$sql .= ');';
 			$success = query($sql);
 			if ($success && db_affected_rows() == 1) {
-				return zp_apply_filter('copy_object', db_insert_id(), $this);
+				return npgFilters::apply('copy_object', db_insert_id(), $this);
 			}
 		}
 		return false;
@@ -220,7 +220,7 @@ class PersistentObject {
 	 * @return bool
 	 */
 	function remove() {
-		if (!zp_apply_filter('remove_object', true, $this)) {
+		if (!npgFilters::apply('remove_object', true, $this)) {
 			return false;
 		}
 		$id = $this->id;
@@ -269,7 +269,7 @@ class PersistentObject {
 		} else if (array_key_exists($var, $this->tempdata)) {
 			return $this->tempdata[$var];
 		} else {
-			return null;
+			return NULL;
 		}
 	}
 
@@ -336,11 +336,11 @@ class PersistentObject {
 	 * true if successful, false if not.
 	 */
 	function save() {
-		global $_zp_current_admin_obj, $_zp_authority;
-		if ($_zp_current_admin_obj) {
-			$updateUser = $_zp_current_admin_obj;
+		global $_current_admin_obj, $_authority;
+		if ($_current_admin_obj) {
+			$updateUser = $_current_admin_obj;
 		} else {
-			$updateUser = $_zp_authority->getMasterUser();
+			$updateUser = $_authority->getMasterUser();
 		}
 		if ($this->transient)
 			return 0; // If this object isn't supposed to be persisted, don't save it.
@@ -348,7 +348,7 @@ class PersistentObject {
 			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
 			return 0;
 		}
-		if (!zp_apply_filter('save_object', TRUE, $this)) {
+		if (!npgFilters::apply('save_object', TRUE, $this)) {
 			// filter aborted the save
 			return 0;
 		}
@@ -457,13 +457,20 @@ class PersistentObject {
 		$result = NULL;
 		switch ($how) {
 			case 'get':
-				return $this->get($what);
+				if (array_key_exists($what, $this->updates)) {
+					return $this->updates[$what];
+				} else if (array_key_exists($what, $this->data)) {
+					return $this->data[$what];
+				} else if (array_key_exists($what, $this->tempdata)) {
+					return $this->tempdata[$what];
+				}
+				break;
 			case 'set':
 				return $this->set($what, $arg);
 		}
 		$caller = debug_backtrace();
 		$caller = array_shift($caller);
-		trigger_error(sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $caller['file'], $caller['line']), E_USER_WARNING);
+		throw new Exception(sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $caller['file'], $caller['line']));
 	}
 
 }
@@ -520,7 +527,7 @@ class ThemeObject extends PersistentObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -530,7 +537,7 @@ class ThemeObject extends PersistentObject {
 	 * @param string $title the title
 	 */
 	function setTitle($title) {
-		$this->set('title', zpFunctions::tagURLs($title));
+		$this->set('title', npgFunctions::tagURLs($title));
 	}
 
 	/**
@@ -587,7 +594,7 @@ class ThemeObject extends PersistentObject {
 		$this->set('show', $new_show);
 		if ($old_show !== $new_show) {
 			if ($this->get('id')) {
-				zp_apply_filter('show_change', $this);
+				npgFilters::apply('show_change', $this);
 			}
 			if ((int) ($this->get('show') && true) === $new_show) { //	filter did not reverse the change
 				$p = $this->get("publishdate");
@@ -676,7 +683,7 @@ class ThemeObject extends PersistentObject {
 	 * @return array
 	 */
 	function getCodeblock() {
-		return zpFunctions::unTagURLs($this->get("codeblock"));
+		return npgFunctions::unTagURLs($this->get("codeblock"));
 	}
 
 	/**
@@ -684,7 +691,7 @@ class ThemeObject extends PersistentObject {
 	 *
 	 */
 	function setCodeblock($cb) {
-		$this->set('codeblock', zpFunctions::tagURLs($cb));
+		$this->set('codeblock', npgFunctions::tagURLs($cb));
 	}
 
 	/**
@@ -750,7 +757,7 @@ class ThemeObject extends PersistentObject {
 	 * @return object
 	 */
 	function addComment($name, $email, $website, $comment, $code, $code_ok, $ip, $private, $anon, $customdata) {
-		$goodMessage = zp_apply_filter('object_addComment', $name, $email, $website, $comment, $code, $code_ok, $this, $ip, $private, $anon, $customdata);
+		$goodMessage = npgFilters::apply('object_addComment', $name, $email, $website, $comment, $code, $code_ok, $this, $ip, $private, $anon, $customdata);
 		return $goodMessage;
 	}
 
@@ -776,13 +783,13 @@ class ThemeObject extends PersistentObject {
 	 * @param bit $action what the caller wants to do
 	 */
 	function isMyItem($action) {
-		if (zp_loggedin($this->manage_rights)) {
+		if (npg_loggedin($this->manage_rights)) {
 			return true;
 		}
-		if ($action == LIST_RIGHTS && zp_loggedin($this->access_rights)) {
+		if ($action == LIST_RIGHTS && npg_loggedin($this->access_rights)) {
 			return true;
 		}
-		if (zp_apply_filter('check_credentials', false, $this, $action)) {
+		if (npgFilters::apply('check_credentials', false, $this, $action)) {
 			return true;
 		}
 		return NULL;
@@ -899,9 +906,9 @@ class MediaObject extends ThemeObject {
 	function getDesc($locale = NULL) {
 		$text = $this->get('desc');
 		if ($locale == 'all') {
-			return zpFunctions::unTagURLs($text);
+			return npgFunctions::unTagURLs($text);
 		} else {
-			return applyMacros(zpFunctions::unTagURLs(get_language_string($text, $locale)));
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
 		}
 	}
 
@@ -911,7 +918,7 @@ class MediaObject extends ThemeObject {
 	 * @param string $desc description text
 	 */
 	function setDesc($desc) {
-		$desc = zpFunctions::tagURLs($desc);
+		$desc = npgFunctions::tagURLs($desc);
 		$this->set('desc', $desc);
 	}
 
@@ -983,7 +990,7 @@ class MediaObject extends ThemeObject {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -993,7 +1000,7 @@ class MediaObject extends ThemeObject {
 	 * @param string $hint the hint text
 	 */
 	function setPasswordHint($hint) {
-		$this->set('password_hint', zpFunctions::tagURLs($hint));
+		$this->set('password_hint', npgFunctions::tagURLs($hint));
 	}
 
 	/**

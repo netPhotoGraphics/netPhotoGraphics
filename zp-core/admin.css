@@ -2729,7 +2729,7 @@ div.bordered .subhead  {
 	padding-right: 5px;
 }
 
-img.zp_logoicon {
+img.npg_logoicon {
 	position: relative;
 	top: 3px;
 }
@@ -2883,7 +2883,7 @@ form.tinyDirty input[type=submit]:active {
 	background: #eff6d5;
 }
 
-.zenlogo img {
+.npglogo img {
 	text-decoration: none !important;
 	vertical-align: sub;
 }

@@ -11,7 +11,7 @@
  * {@link https://apps.twitter.com/ Twitter Application Management}
  *
  * You will need to set a <i>Callback URL</i> that
- * points to <var>%FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/twitterLogin/twitter.php</var>
+ * points to <var>%FULLWEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/twitterLogin/twitter.php</var>
  *
  * For Twitter to return the user's e-mail address you will need to go to the permissions tab
  * for the app you defined above and check <i>Request email addresses from users</i> under
@@ -32,18 +32,18 @@
  * @package plugins/twitterLogin
  * @pluginCategory users
  */
+$plugin_is_filter = 900 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 900 | CLASS_PLUGIN;
 	$plugin_description = gettext("Handles logon via the user's <em>Twitter</em> account.");
-	$plugin_disable = zpFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
+	$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
 
 $option_interface = 'twitterLogin';
 
-zp_register_filter('alt_login_handler', 'twitterLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom', 'twitterLogin::edit_admin');
+npgFilters::register('alt_login_handler', 'twitterLogin::alt_login_handler');
+npgFilters::register('edit_admin_custom', 'twitterLogin::edit_admin');
 
 /**
  * Option class

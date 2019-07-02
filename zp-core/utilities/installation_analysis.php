@@ -20,12 +20,12 @@ echo '</head>';
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'albums', ''); ?>
+			<?php npgFilters::apply('admin_note', 'albums', ''); ?>
 			<h1><?php echo gettext("Installation information"); ?></h1>
 
 			<div class="overviewboxes">
 				<?php
-				if (zp_loggedin(ADMIN_RIGHTS)) {
+				if (npg_loggedin(ADMIN_RIGHTS)) {
 					?>
 					<div id="overview_left" class="box overview-section overview-install-info">
 
@@ -36,7 +36,7 @@ echo '</head>';
 							} else {
 								$official = gettext('Official build');
 							}
-							if (zpFunctions::hasPrimaryScripts()) {
+							if (npgFunctions::hasPrimaryScripts()) {
 								$source = '';
 							} else {
 								$clone = clonedFrom();
@@ -44,7 +44,7 @@ echo '</head>';
 								$base = substr(SERVERPATH, 0, -strlen(WEBPATH));
 								if (strpos($base, $clone) == 0) {
 									$base = substr($clone, strlen($base));
-									$link = $base . '/' . ZENFOLDER . '/admin.php';
+									$link = $base . '/' . CORE_FOLDER . '/admin.php';
 									$source = '<a href="' . $link . '">' . $clone . '</a>';
 								} else {
 									$source = $clone;
@@ -52,7 +52,7 @@ echo '</head>';
 								$source = '<br />&nbsp;&nbsp;&nbsp;' . sprintf(gettext('source: %s'), $source);
 							}
 
-							$graphics_lib = zp_graphicsLibInfo();
+							$graphics_lib = gl_graphicsLibInfo();
 							?>
 							<li>
 								<?php
@@ -74,14 +74,14 @@ echo '</head>';
 								} else {
 									$notes = '';
 								}
-								printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), ZENPHOTO_VERSION, $official);
+								printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), NETPHOTOGRAPHICS_VERSION, $official);
 								echo $notes . $source;
 								?>
 							</li>
 							<li>
 								<?php
-								if (ZENPHOTO_LOCALE) {
-									printf(gettext('Current locale setting: <strong>%1$s</strong>'), ZENPHOTO_LOCALE);
+								if (SITE_LOCALE_OPTION) {
+									printf(gettext('Current locale setting: <strong>%1$s</strong>'), SITE_LOCALE_OPTION);
 								} else {
 									echo gettext('<strong>Locale setting has failed</strong>');
 								}
@@ -120,8 +120,8 @@ echo '</head>';
 							?>
 							<li>
 								<?php
-								$themes = $_zp_gallery->getThemes();
-								$currenttheme = $_zp_gallery->getCurrentTheme();
+								$themes = $_gallery->getThemes();
+								$currenttheme = $_gallery->getCurrentTheme();
 								if (array_key_exists($currenttheme, $themes) && isset($themes[$currenttheme]['name'])) {
 									$currenttheme = $themes[$currenttheme]['name'];
 								}
@@ -229,10 +229,10 @@ echo '</head>';
 								if ($max['Value'] == 0) {
 									$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 								}
-								$used = query_single_row("SELECT " . db_quote($_zp_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
+								$used = query_single_row("SELECT " . db_quote($_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
 		(
-				SELECT user " . db_quote($_zp_conf_vars['mysql_user']) . "FROM information_schema.processlist
-		) A GROUP BY " . db_quote($_zp_conf_vars['mysql_user']) . " WITH ROLLUP;");
+				SELECT user " . db_quote($_conf_vars['mysql_user']) . "FROM information_schema.processlist
+		) A GROUP BY " . db_quote($_conf_vars['mysql_user']) . " WITH ROLLUP;");
 								printf(gettext('Database name: <strong>%1$s</strong>; '), db_name());
 								printf(ngettext('%d connection allowed; ', '%d connections allowed; ', $max['Value']), $max['Value']);
 								printf(ngettext('%d connection used', '%d connections used', $used['Connections']), $used['Connections']);
@@ -248,8 +248,8 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								if (isset($_zp_spamFilter)) {
-									$filter = $_zp_spamFilter->displayName();
+								if (isset($_spamFilter)) {
+									$filter = $_spamFilter->displayName();
 								} else {
 									$filter = gettext('No spam filter configured');
 								}
@@ -257,13 +257,13 @@ echo '</head>';
 								?>
 							</li>
 							<?php
-							if ($_zp_captcha) {
+							if ($_captcha) {
 								?>
-								<li><?php printf(gettext('CAPTCHA generator: <strong>%s</strong>'), ($_zp_captcha->name) ? $_zp_captcha->name : gettext('none')) ?></li>
+								<li><?php printf(gettext('CAPTCHA generator: <strong>%s</strong>'), ($_captcha->name) ? $_captcha->name : gettext('none')) ?></li>
 								<?php
 							}
-							zp_apply_filter('installation_information');
-							if (!zp_has_filter('sendmail')) {
+							npgFilters::apply('installation_information');
+							if (!npgFilters::has_filter('sendmail')) {
 								?>
 								<li style="color:RED"><?php echo gettext('There is no mail handler configured!'); ?></li>
 								<?php
@@ -272,9 +272,9 @@ echo '</head>';
 						</ul>
 
 						<?php
-						require_once(SERVERPATH . '/' . ZENFOLDER . '/template-filters.php');
+						require_once(CORE_SERVERPATH . 'template-filters.php');
 						$plugins = array_keys(getEnabledPlugins());
-						$filters = $_zp_filters;
+						$filters = $_filters;
 						$c = count($plugins);
 						?>
 					</div>
@@ -305,7 +305,7 @@ echo '</head>';
 											@eval($str);
 										}
 										echo "<li>" . $extension . $version . "</li>";
-										preg_match_all('|zp_register_filter\s*\((.+?)\)\s*?;|', $pluginStream, $matches);
+										preg_match_all('|npgFilters::register\s*\((.+?)\)\s*?;|', $pluginStream, $matches);
 										foreach ($matches[1] as $paramsstr) {
 											$params = explode(',', $paramsstr);
 											if (array_key_exists(2, $params)) {
@@ -379,8 +379,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php

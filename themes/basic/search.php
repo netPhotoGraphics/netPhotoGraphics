@@ -7,7 +7,7 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
 		scriptLoader($zenCSS);
 		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
@@ -18,7 +18,7 @@ if (!defined('WEBPATH'))
 	</head>
 	<body>
 		<?php
-		zp_apply_filter('theme_body_open');
+		npgFilters::apply('theme_body_open');
 		$zenpage = extensionEnabled('zenpage');
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
@@ -31,7 +31,7 @@ if (!defined('WEBPATH'))
 			$numpages = $numnews = 0;
 		}
 		if ($total == 0) {
-			$_zp_current_search->clearSearchWords();
+			$_current_search->clearSearchWords();
 		}
 		$searchwords = getSearchWords();
 		$searchdate = getSearchDate();
@@ -64,7 +64,7 @@ if (!defined('WEBPATH'))
 					echo "<p>" . gettext('Sorry, no matches for your search.') . "</p>";
 				}
 
-				if ($zenpage && $_zp_page == 1) { //test of zenpage searches
+				if ($zenpage && $_current_page == 1) { //test of zenpage searches
 					define('TRUNCATE_LENGTH', 80);
 					define('SHOW_ITEMS', 5);
 					?>
@@ -92,7 +92,7 @@ if (!defined('WEBPATH'))
 										?>
 										<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 											<?php printPageURL(); ?>
-											<p style="text-indent:1em;"><?php echo shortenContent($_zp_current_page->getContent(), TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator")); ?></p>
+											<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator")); ?></p>
 										</li>
 										<?php
 									}
@@ -125,7 +125,7 @@ if (!defined('WEBPATH'))
 										?>
 										<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 											<?php printNewsURL(); ?>
-											<p style="text-indent:1em;"><?php echo shortenContent($_zp_current_article->getContent(), TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator")); ?></p>
+											<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent(), TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator")); ?></p>
 										</li>
 										<?php
 									}
@@ -219,7 +219,7 @@ if (!defined('WEBPATH'))
 			<?php @call_user_func('printUserLogin_out', " | "); ?>
 		</div>
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

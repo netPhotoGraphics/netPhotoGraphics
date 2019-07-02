@@ -52,8 +52,8 @@
 				<td colspan="3" class="commform-code" style="padding-top:10px;">
 					<?php
 					$class = $buttonExtra = '';
-					if (getOption('Use_Captcha') && is_object($_zp_captcha)) {
-						$captcha = $_zp_captcha->getCaptcha();
+					if (getOption('Use_Captcha') && is_object($_captcha)) {
+						$captcha = $_captcha->getCaptcha();
 						if (isset($captcha['submitButton'])) {
 							$class = ' ' . $captcha['submitButton']['class'];
 							$buttonExtra = ' ' . $captcha['submitButton']['extra'];

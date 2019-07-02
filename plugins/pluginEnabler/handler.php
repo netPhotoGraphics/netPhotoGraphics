@@ -40,7 +40,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 	if ($setting <= 3) {
 		foreach ($pluginlist as $extension) {
 			if ($extension != 'pluginEnabler') {
-				$opt = 'zp_plugin_' . $extension;
+				$opt = '_plugin_' . $extension;
 				$was = (int) (getOption($opt) && true);
 
 				switch ($setting) {
@@ -48,7 +48,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 						$is = 0;
 						break;
 					case 1:
-						$is = (int) (strpos($paths[$extension], ZENFOLDER) !== false && $extension != 'show_not_logged-in');
+						$is = (int) (strpos($paths[$extension], CORE_FOLDER) !== false && $extension != 'show_not_logged-in');
 						break;
 					case 2:
 						$is = in_array($extension, $savedlist);
@@ -124,5 +124,5 @@ if (isset($_REQUEST['pluginsEnable'])) {
 		}
 	}
 }
-header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?report=' . $report);
+header('Location: ' . getAdminLink('admin.php').'?report=' . $report);
 ?>

@@ -49,10 +49,10 @@
 						$randomImageURL = html_encode($randomImage->getLink());
 						echo '<a href="' . $randomImageURL . '" title="'.sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
 						$html =  "<img src=\"".html_encode($randomImage->getCustomImage(535, NULL, NULL, NULL, NULL, NULL, NULL, TRUE))."\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
-						echo zp_apply_filter('custom_image_html', $html, false);
+						echo npgFilters::apply('custom_image_html', $html, false);
 						echo "</a>";
 						echo '<h3><a href="' . $randomImageURL . '" title="'.sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">'.html_encode($randomImage->getTitle()).'</a></h3>';
-						echo "<p>". zpFormattedDate(getOption('date_format'),strtotime($randomImage->getDateTime()))."</p>";
+						echo "<p>". formattedDate(getOption('date_format'),strtotime($randomImage->getDateTime()))."</p>";
 					} else { echo gettext('No Images Exist...'); }
 					} ?>
 					<div id="enter">

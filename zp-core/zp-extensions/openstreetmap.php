@@ -23,7 +23,7 @@ $plugin_description = gettext("A plugin for displaying OpenStreetMap based maps.
 
 $option_interface = 'openStreetMapOptions';
 
-zp_register_filter('theme_head', 'openStreetMap::scripts');
+npgFilters::register('theme_head', 'openStreetMap::scripts');
 
 class openStreetMapOptions {
 
@@ -486,12 +486,12 @@ class openStreetMap {
 	 * If you neither pass $geodata, an object or there is no current image/album you can still display a map.
 	 * But in this case you need to set the $center and $fitbounds properties manually before printing a map.
 	 *
-	 * @global string $_zp_gallery_page
+	 * @global string $_gallery_page
 	 * @param array $geodata Array as noted above if no current image or album should be used
 	 * @param obj Image or album object If set this object is used and $geodatat is ignored if set as well
 	 */
 	function __construct($geodata = NULL, $obj = NULL) {
-		global $_zp_gallery_page, $_zp_current_album, $_zp_current_image;
+		global $_gallery_page, $_current_album, $_current_image;
 
 		$this->showalbummarkers = getOption('osmap_showalbummarkers');
 		if (is_object($obj)) {
@@ -510,19 +510,19 @@ class openStreetMap {
 				}
 				$this->geodata = $geodata;
 			} else {
-				switch ($_zp_gallery_page) {
+				switch ($_gallery_page) {
 					case 'image.php':
 						if ($this->showalbummarkers) {
-							$this->obj = $_zp_current_album;
+							$this->obj = $_current_album;
 							$this->mode = 'single-cluster';
 						} else {
-							$this->obj = $_zp_current_image;
+							$this->obj = $_current_image;
 							$this->mode = 'single';
 						}
 						break;
 					case 'album.php':
 					case 'favorites.php':
-						$this->obj = $_zp_current_album;
+						$this->obj = $_current_album;
 					case 'search.php':
 						$this->mode = 'cluster';
 						break;
@@ -570,26 +570,26 @@ class openStreetMap {
 	 * Assigns the needed JS and CSS
 	 */
 	static function scripts() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.Default.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/openstreetmap.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/MarkerCluster.Default.css');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/openstreetmap.css');
 
 		if (getOption('osmap_showcursorpos')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.css');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.css');
 		}
 		if (getOption('osmap_showminimap')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.css');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.css');
 		}
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet.markercluster.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/leaflet-providers.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet.markercluster.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/leaflet-providers.js');
 
 		if (getOption('osmap_showcursorpos')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/L.Control.MousePosition.js');
 		}
 		if (getOption('osmap_showminimap')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/openstreetmap/Control.MiniMap.min.js');
 		}
 	}
 
@@ -639,10 +639,10 @@ class openStreetMap {
 	 * @param $image	image object
 	 */
 	function getImageGeodata($image) {
-		global $_zp_current_image;
+		global $_current_image;
 		$result = self::getGeoCoord($image);
 		if ($result) {
-			if ($this->mode == 'single-cluster' && isset($_zp_current_image) && ($image->filename == $_zp_current_image->filename && $image->getAlbumname() == $_zp_current_image->getAlbumname())) {
+			if ($this->mode == 'single-cluster' && isset($_current_image) && ($image->filename == $_current_image->filename && $image->getAlbumname() == $_current_image->getAlbumname())) {
 				$result['current'] = 1;
 			}
 		}
@@ -673,7 +673,7 @@ class openStreetMap {
 	 * @return array
 	 */
 	function getGeoData() {
-		global $_zp_current_image, $_zp_current_album;
+		global $_current_image, $_current_album;
 		$geodata = array();
 		if (!is_null($this->geodata)) {
 			return $this->geodata;
@@ -1049,9 +1049,9 @@ class openStreetMap {
  *
  * The map is not shown if there is no geodata available.
  *
- * @global obj $_zp_current_album
- * @global obj $_zp_current_image
- * @global string $_zp_gallery_page
+ * @global obj $_current_album
+ * @global obj $_current_image
+ * @global string $_gallery_page
  * @param array $geodata Array of the geodata to create and display markers. See the constructor of the openStreetMap Class for the require structure
  * @param string $width Width with unit, e.g. 100%, 100px, 100em
  * @param string $height Height with unit, e.g. 100px, 100em

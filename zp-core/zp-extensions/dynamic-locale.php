@@ -50,8 +50,8 @@
  * @package plugins/dynamic-locale
  * @pluginCategory seo
  */
+$plugin_is_filter = 10 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 10 | CLASS_PLUGIN;
 	$plugin_description = gettext("Allows viewers of your site to select the language translation of their choice.");
 }
 
@@ -61,9 +61,9 @@ define('LOCALE_TYPE', getOption('dynamic_locale_subdomain'));
 define('BASE_LOCALE', getOption('dynamic_locale_base'));
 
 if (OFFSET_PATH != 2) {
-	zp_register_filter('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
+	npgFilters::register('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
 	if (LOCALE_TYPE == 1) {
-		zp_register_filter('load_request', 'seo_locale::load_request');
+		npgFilters::register('load_request', 'seo_locale::load_request');
 		define('SEO_WEBPATH', seo_locale::localePath());
 		define('SEO_FULLWEBPATH', seo_locale::localePath(true));
 	}
@@ -75,9 +75,9 @@ if (OFFSET_PATH != 2) {
  *
  */
 function printLanguageSelector($flags = NULL) {
-	global $_locale_Subdomains, $_zp_current_locale;
+	global $_locale_Subdomains, $_current_locale;
 	$locale = $localeOption = getOption('locale');
-	$dynamic_locale = zp_getCookie('dynamic_locale');
+	$dynamic_locale = getNPGCookie('dynamic_locale');
 	if (empty($dynamic_locale)) {
 		$dynamic_locale = getOptionfromDB('locale');
 		if (empty($dynamic_locale)) {
@@ -144,20 +144,28 @@ function printLanguageSelector($flags = NULL) {
 				} else {
 					$path = dynamic_locale::localLink($uri, $separator, $lang);
 				}
-				?>
-				<li<?php if ($current) echo ' class="currentLanguage"'; ?>>
-					<a href="<?php echo html_encode($path); ?>" >
+				if ($current) {
+					?>
+					<li class="currentLanguage">
 						<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" title="<?php echo $text; ?>" />
-					</a>
-				</li>
-				<?php
+					</li>
+					<?php
+				} else {
+					?>
+					<li>
+						<a href="<?php echo html_encode($path); ?>" >
+							<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" title="<?php echo $text; ?>" />
+						</a>
+					</li>
+					<?php
+				}
 			}
 			?>
 		</ul>
 		<?php
 	} else {
-		$save_zp_current_locale = $_zp_current_locale;
-		$_zp_current_locale = NULL;
+		$_save_current_locale = $_current_locale;
+		$_current_locale = NULL;
 		$languages = array_merge(array('' => ''), $languages);
 		?>
 		<div class="languageSelect">
@@ -185,7 +193,7 @@ function printLanguageSelector($flags = NULL) {
 			</form>
 		</div>
 		<?php
-		$_zp_current_locale = $save_zp_current_locale;
+		$_current_locale = $_save_current_locale;
 	}
 }
 
@@ -239,7 +247,7 @@ class dynamic_locale {
 	}
 
 	static function dynamic_localeCSS() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/dynamic-locale/locale.css');
 	}
 
 	static function fullHostPath($lang) {
@@ -253,7 +261,7 @@ class dynamic_locale {
 		if (($lang != BASE_LOCALE) && $l = $_locale_Subdomains[$lang]) {
 			$host = $l . '.' . $host;
 		}
-		if (SERVER_PROTOCOL == 'https') {
+		if (secureServer()) {
 			$host = 'https://' . $host;
 		} else {
 			$host = 'http://' . $host;
@@ -302,7 +310,7 @@ class seo_locale {
 		$locale = i18n::validateLocale($l, 'seo_locale');
 		if ($locale) {
 			// set the language cookie and redirect to the "base" url
-			zp_setCookie('dynamic_locale', $locale);
+			setNPGCookie('dynamic_locale', $locale);
 			$uri = pathurlencode(preg_replace('|/' . $l . '[/$]|', '/', $uri));
 			if (isset($parts[1])) {
 				$uri .= '?' . $parts[1];
@@ -316,17 +324,17 @@ class seo_locale {
 	}
 
 	static function localePath($full = false, $loc = NULL) {
-		global $_zp_page, $_zp_gallery_page, $_zp_current_locale;
+		global $_current_page, $_gallery_page, $_current_locale;
 		if ($full) {
 			$path = FULLWEBPATH;
 		} else {
 			$path = WEBPATH;
 		}
 		if (is_null($loc)) {
-			$loc = zp_getCookie('dynamic_locale');
+			$loc = getNPGCookie('dynamic_locale');
 		}
-		if ($loc != $_zp_current_locale) {
-			if ($locale = zpFunctions::getLanguageText($loc)) {
+		if ($loc != $_current_locale) {
+			if ($locale = npgFunctions::getLanguageText($loc)) {
 				$path .= '/' . $locale;
 			}
 		}

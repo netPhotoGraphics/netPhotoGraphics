@@ -28,7 +28,7 @@ if (!defined('WEBPATH'))
 				<p><?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?></p>
 
 				<?php
-				if (!zp_loggedin() && function_exists('printRegisterURL') && $_zp_gallery->isUnprotectedPage('register')) {
+				if (!npg_loggedin() && function_exists('printRegisterURL') && $_gallery->isUnprotectedPage('register')) {
 					printRegisterURL(gettext('Register for this site'), '<br />');
 					echo '<br />';
 				}

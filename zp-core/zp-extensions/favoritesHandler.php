@@ -49,7 +49,7 @@ $plugin_description = gettext('Support for <em>favorites</em> handling.');
 
 $option_interface = 'favoritesHandler';
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
 
 class favoritesHandler {
 
@@ -72,8 +72,8 @@ class favoritesHandler {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
-		$themename = $_zp_gallery->getCurrentTheme();
+		global $_gallery;
+		$themename = $_gallery->getCurrentTheme();
 		$curdir = getcwd();
 		$root = SERVERPATH . '/' . THEMEFOLDER . '/' . $themename . '/';
 		chdir($root);
@@ -290,35 +290,34 @@ class favoritesHandler {
 		return $html;
 	}
 
-	static function toolbox($zf) {
+	static function toolbox() {
 		printFavoritesURL(gettext('Favorites'), '<li>', '</li><li>', '</li>');
-		return $zf;
 	}
 
 }
 
-$_zp_conf_vars['special_pages']['favorites'] = array('define' => '_FAVORITES_', 'rewrite' => getOption('favorites_link'),
+$_conf_vars['special_pages']['favorites'] = array('define' => '_FAVORITES_', 'rewrite' => getOption('favorites_link'),
 		'option' => 'favorites_link', 'default' => '_PAGE_/favorites');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/*$',
+$_conf_vars['special_pages'][] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
+$_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/([0-9]+)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=favorites&page=$1 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/*$',
 		'rule' => '%REWRITE% index.php?p=favorites&instance=$1 [NC,L,QSA]');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/*$',
+$_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/*$',
 		'rule' => '%REWRITE% index.php?p=favorites [NC,L,QSA]');
 
 if (OFFSET_PATH) {
-	zp_register_filter('edit_album_custom', 'favoritesHandler::showWatchers');
-	zp_register_filter('edit_image_custom', 'favoritesHandler::showWatchers');
+	npgFilters::register('edit_album_custom', 'favoritesHandler::showWatchers');
+	npgFilters::register('edit_image_custom', 'favoritesHandler::showWatchers');
 } else {
-	zp_register_filter('load_theme_script', 'favorites::loadScript');
-	zp_register_filter('checkPageValidity', 'favorites::pageCount');
-	zp_register_filter('admin_toolbox_global', 'favoritesHandler::toolbox', 21);
-	if (zp_loggedin()) {
+	npgFilters::register('load_theme_script', 'favorites::loadScript');
+	npgFilters::register('checkPageValidity', 'favorites::pageCount');
+	npgFilters::register('admin_toolbox_global', 'favoritesHandler::toolbox', 21);
+	if (npg_loggedin()) {
 		if (isset($_POST['addToFavorites'])) {
-			$___Favorites = new favorites($_zp_current_admin_obj->getUser());
+			$___Favorites = new favorites($_current_admin_obj->getUser());
 			if (isset($_POST['instance']) && $_POST['instance']) {
 				$___Favorites->instance = trim(sanitize($_POST['instance']));
 				unset($_POST['instance']);
@@ -351,11 +350,11 @@ if (OFFSET_PATH) {
 				unset($_instance);
 			}
 		}
-		$_myFavorites = new favorites($_zp_current_admin_obj->getUser());
+		$_myFavorites = new favorites($_current_admin_obj->getUser());
 
 		function printAddToFavorites($obj, $add = NULL, $remove = NULL) {
-			global $_myFavorites, $_zp_current_admin_obj, $_zp_gallery_page, $_myFavorites_button_count;
-			if (!zp_loggedin() || $_myFavorites->getOwner() != $_zp_current_admin_obj->getUser() || !is_object($obj) || !$obj->exists) {
+			global $_myFavorites, $_current_admin_obj, $_gallery_page, $_myFavorites_button_count;
+			if (!npg_loggedin() || $_myFavorites->getOwner() != $_current_admin_obj->getUser() || !is_object($obj) || !$obj->exists) {
 				return;
 			}
 
@@ -370,7 +369,7 @@ if (OFFSET_PATH) {
 			}
 			$table = $obj->table;
 			$target = array('type' => $table);
-			if ($_zp_gallery_page == 'favorites.php') {
+			if ($_gallery_page == 'favorites.php') {
 				//	 only need one remove button since we know the instance
 				$multi = false;
 				$list = array($_myFavorites->instance);
@@ -449,12 +448,12 @@ if (OFFSET_PATH) {
 		 * @param type $text
 		 */
 		function printFavoritesURL($text = NULL, $before = NULL, $between = NULL, $after = NULL) {
-			global $_myFavorites, $_zp_gallery_page;
-			if (zp_loggedin()) {
+			global $_myFavorites, $_gallery_page;
+			if (npg_loggedin()) {
 				if (is_null($text)) {
 					$text = get_language_string(getOption('favorites_linktext'));
 				}
-				if ($_zp_gallery_page == 'favorites.php') {
+				if ($_gallery_page == 'favorites.php') {
 					$current = $_myFavorites->instance;
 				} else {
 					$current = NULL;

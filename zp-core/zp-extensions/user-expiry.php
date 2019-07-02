@@ -28,22 +28,22 @@
  */
 // force UTF-8 Ø
 
+$plugin_is_filter = 8 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 8 | CLASS_PLUGIN;
 	$plugin_description = gettext("Provides management of users based on when they were created.");
 }
 
 $option_interface = 'user_expiry';
 
-zp_register_filter('admin_tabs', 'user_expiry::admin_tabs', -99999); //	we want to be last so we can hijack the tabs if needed
-zp_register_filter('authorization_cookie', 'user_expiry::checkcookie');
-zp_register_filter('admin_login_attempt', 'user_expiry::checklogon');
-zp_register_filter('federated_login_attempt', 'user_expiry::checklogon');
-zp_register_filter('edit_admin_custom', 'user_expiry::edit_admin', 999);
-zp_register_filter('load_theme_script', 'user_expiry::reverify', 999);
-zp_register_filter('admin_note', 'user_expiry::notify', 999);
-zp_register_filter('can_set_user_password', 'user_expiry::passwordAllowed');
-zp_register_filter('remove_user', 'user_expiry::cleanup');
+npgFilters::register('admin_tabs', 'user_expiry::admin_tabs', -99999); //	we want to be last so we can hijack the tabs if needed
+npgFilters::register('authorization_cookie', 'user_expiry::checkcookie');
+npgFilters::register('admin_login_attempt', 'user_expiry::checklogon');
+npgFilters::register('federated_login_attempt', 'user_expiry::checklogon');
+npgFilters::register('edit_admin_custom', 'user_expiry::edit_admin', 999);
+npgFilters::register('load_theme_script', 'user_expiry::reverify', 999);
+npgFilters::register('admin_note', 'user_expiry::notify', 999);
+npgFilters::register('can_set_user_password', 'user_expiry::passwordAllowed');
+npgFilters::register('remove_user', 'user_expiry::cleanup');
 
 /**
  * Option handler class
@@ -94,14 +94,14 @@ class user_expiry {
 	}
 
 	static function admin_tabs($tabs) {
-		global $_zp_current_admin_obj, $_zp_loggedin;
+		global $_current_admin_obj, $_loggedin;
 		if (user_expiry::checkPasswordRenew()) {
-			$_zp_current_admin_obj->setRights($_zp_loggedin = USER_RIGHTS | NO_RIGHTS);
+			$_current_admin_obj->setRights($_loggedin = USER_RIGHTS | NO_RIGHTS);
 			$tabs = array('admin' => array('text' => gettext("admin"),
-							'link' => WEBPATH . "/" . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users',
+							'link' => getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users',
 							'subtabs' => NULL));
 		} else {
-			if (zp_loggedin(ADMIN_RIGHTS) && $_zp_current_admin_obj->getID()) {
+			if (npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID()) {
 				$subtabs = $tabs['admin']['subtabs'];
 				$c = 0;
 				foreach ($subtabs as $key => $link) {
@@ -118,7 +118,7 @@ class user_expiry {
 	}
 
 	private static function checkexpires($loggedin, $userobj) {
-		global $_zp_gallery;
+		global $_gallery;
 
 		if ($userobj->logout_link !== true) {
 			return $loggedin;
@@ -155,8 +155,8 @@ class user_expiry {
 							$credentials[] = 'exiry_notice';
 							$userobj->setCredentials($credentials);
 							$userobj->save();
-							$message = sprintf(gettext('Your user id for the site %s will expire on %s.'), $_zp_gallery->getTitle(), date('Y-m-d', $expires));
-							$notify = zp_mail(get_language_string(gettext('User id expiration')), $message, array($userobj->getName() => $mail));
+							$message = sprintf(gettext('Your user id for the site %s will expire on %s.'), $_gallery->getTitle(), date('Y-m-d', $expires));
+							$notify = npgFunctions::mail(get_language_string(gettext('User id expiration')), $message, array($userobj->getName() => $mail));
 						}
 					}
 				}
@@ -174,10 +174,10 @@ class user_expiry {
 	}
 
 	static function checkPasswordRenew() {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		$threshold = getOption('user_expiry_password_cycle') * 86400;
-		if ($threshold && is_object($_zp_current_admin_obj) && !$_zp_current_admin_obj->transient && !($_zp_current_admin_obj->getRights() & ADMIN_RIGHTS)) {
-			if (strtotime($_zp_current_admin_obj->get('passupdate')) + $threshold < time()) {
+		if ($threshold && is_object($_current_admin_obj) && !$_current_admin_obj->transient && !($_current_admin_obj->getRights() & ADMIN_RIGHTS)) {
+			if (strtotime($_current_admin_obj->get('passupdate')) + $threshold < time()) {
 				return true;
 			}
 		}
@@ -194,7 +194,7 @@ class user_expiry {
 			if ($store) {
 				$used = getSerializedArray($store['data']);
 				if (in_array($pwd, $used)) {
-					if (zp_loggedin(ADMIN_RIGHTS)) { // persons with ADMIN_RIGHTS get to override this so they can reset a passwrod for a user
+					if (npg_loggedin(ADMIN_RIGHTS)) { // persons with ADMIN_RIGHTS get to override this so they can reset a passwrod for a user
 						unset($used[$pwd]);
 					} else {
 						return gettext('You have used that password recently. Please choose a different password.');
@@ -217,18 +217,18 @@ class user_expiry {
 	}
 
 	static function checkcookie($loggedin) {
-		global $_zp_current_admin_obj;
-		if (is_object($_zp_current_admin_obj) && !($_zp_current_admin_obj->getRights() & ADMIN_RIGHTS)) {
-			$loggedin = user_expiry::checkexpires($loggedin, $_zp_current_admin_obj);
+		global $_current_admin_obj;
+		if (is_object($_current_admin_obj) && !($_current_admin_obj->getRights() & ADMIN_RIGHTS)) {
+			$loggedin = user_expiry::checkexpires($loggedin, $_current_admin_obj);
 		}
 		return $loggedin;
 	}
 
 	static function checklogon($loggedin, $user) {
-		global $_zp_authority;
+		global $_authority;
 		if ($loggedin) {
 			if (!($loggedin & ADMIN_RIGHTS)) {
-				if ($userobj = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1))) {
+				if ($userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1))) {
 					$loggedin = user_expiry::checkexpires($loggedin, $userobj);
 				}
 			}
@@ -242,12 +242,12 @@ class user_expiry {
 	 * @return string
 	 */
 	static function reverify($path) {
-		global $_zp_authority;
+		global $_authority;
 		//process any verifications posted
 		if (isset($_GET['user_expiry_reverify'])) {
 			$params = unserialize(pack("H*", trim(sanitize($_GET['user_expiry_reverify']), '.')));
 			if ((time() - $params['date']) < 2592000) {
-				$userobj = $_zp_authority->getAnAdmin(array('`user`=' => $params['user'], '`email`=' => $params['email'], '`valid`>' => 0));
+				$userobj = $_authority->getAnAdmin(array('`user`=' => $params['user'], '`email`=' => $params['email'], '`valid`>' => 0));
 				if ($userobj) {
 					$credentials = $userobj->getCredentials();
 					$credentials[] = 'expiry';
@@ -259,24 +259,24 @@ class user_expiry {
 				$userobj->set('loggedin', date('Y-m-d H:i:s'));
 				$userobj->save();
 
-				Zenphoto_Authority::logUser($userobj);
-				header("Location: " . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+				npg_Authority::logUser($userobj);
+				header("Location: " . getAdminLink('admin.php'));
 				exit();
 			}
 		}
 		if (user_expiry::checkPasswordRenew()) {
-			header("Location: " . FULLWEBPATH . '/' . ZENFOLDER . '/admin-tabs/users.php?page=admin&tab=users');
+			header("Location: " . getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users');
 			exit();
 		}
 		return $path;
 	}
 
 	static function edit_admin($html, $userobj, $i, $background, $current, $local_alterrights) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if (!$userobj->getValid())
 			return $html;
 		$subscription = 86400 * getOption('user_expiry_interval');
-		if ($subscription && !zp_loggedin(ADMIN_RIGHTS) && $userobj->getID() == $_zp_current_admin_obj->getID()) {
+		if ($subscription && !npg_loggedin(ADMIN_RIGHTS) && $userobj->getID() == $_current_admin_obj->getID()) {
 			$now = time();
 			$warnInterval = $now + getOption('user_expiry_warn_interval') * 86400;
 			$expires = strtotime($userobj->getDateTime()) + $subscription;
@@ -295,14 +295,14 @@ class user_expiry {
 	}
 
 	static function notify($tab, $subtab) {
-		global $_zp_authority;
+		global $_authority;
 		if ($tab == 'admin' && $subtab = 'users') {
 			$msg = '';
 			if (user_expiry::checkPasswordRenew()) {
 				echo '<p class="errorbox">' . gettext('You must change your password.'), '</p>';
 			} else {
-				if (zp_loggedin(ADMIN_RIGHTS)) {
-					if ($_zp_authority->getAnAdmin(array('`valid`>' => 1))) {
+				if (npg_loggedin(ADMIN_RIGHTS)) {
+					if ($_authority->getAnAdmin(array('`valid`>' => 1))) {
 						$msg = gettext('You have users whose credentials are disabled.');
 					}
 					$subscription = time() - 86400 * getOption('user_expiry_interval');

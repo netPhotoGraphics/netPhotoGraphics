@@ -28,13 +28,13 @@
  * @package plugins/favoritesAlbums
  * @pluginCategory media
  */
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext('Publish <em>favorites</em> into albums that others can view.');
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
-define("FAVORITESALBUM_FOLDER", ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesAlbums/');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+define("FAVORITESALBUM_FOLDER", CORE_FOLDER . '/' . PLUGIN_FOLDER . '/favoritesAlbums/');
 
 class favoritesAlbum extends favorites {
 
@@ -83,9 +83,9 @@ class favoritesAlbum extends favorites {
 			$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
 			$this->setSortOrder(999);
 			$this->save();
-			zp_apply_filter('new_album', $this);
+			npgFilters::apply('new_album', $this);
 		}
-		zp_apply_filter('album_instantiate', $this);
+		npgFilters::apply('album_instantiate', $this);
 	}
 
 	/**
@@ -94,7 +94,7 @@ class favoritesAlbum extends favorites {
 	 * @return bool
 	 */
 	protected function setDefaults() {
-		global $_zp_gallery;
+		global $_gallery;
 		// Set default data for a new Album (title and parent_id)
 		parent::setDefaults();
 		$parentalbum = $this->getParent();
@@ -146,10 +146,10 @@ class favoritesAlbum extends favorites {
 		return NULL;
 	}
 
-	static function toolbox($zf) {
-		global $_zp_gallery_page;
-		if (zp_loggedin(ALBUM_RIGHTS)) {
-			if ($_zp_gallery_page == 'favorites.php') {
+	static function toolbox() {
+		global $_gallery_page;
+		if (npg_loggedin(ALBUM_RIGHTS)) {
+			if ($_gallery_page == 'favorites.php') {
 				?>
 				<li>
 					<a href="<?php echo WEBPATH . '/' . FAVORITESALBUM_FOLDER; ?>admin-album.php?title=<?php echo @$_GET['instance']; ?>" title="<?php echo gettext('Create an album from favorites'); ?>"><?php echo gettext('Create Album'); ?></a>
@@ -157,11 +157,10 @@ class favoritesAlbum extends favorites {
 				<?php
 			}
 		}
-		return $zf;
 	}
 
 }
 
 Gallery::addAlbumHandler('fav', 'favoritesAlbum');
-zp_register_filter('admin_toolbox_global', 'favoritesAlbum::toolbox', 20);
+npgFilters::register('admin_toolbox_global', 'favoritesAlbum::toolbox', 20);
 ?>

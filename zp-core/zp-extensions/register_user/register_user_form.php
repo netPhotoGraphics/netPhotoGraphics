@@ -4,8 +4,8 @@
  *
  * @package plugins/register_user
  */
-if (class_exists('Zenphoto_Authority')) {
-	Zenphoto_Authority::printPasswordFormJS(true);
+if (class_exists('_Authority')) {
+	npg_Authority::printPasswordFormJS(true);
 	$action = preg_replace('/\?verify=(.*)/', '', getRequestURI());
 	?>
 	<div id="registration_form">
@@ -27,7 +27,7 @@ if (class_exists('Zenphoto_Authority')) {
 				</label>
 				<input type="text" id="adminuser" name="user" value="<?php echo html_encode($user); ?>" size="<?php echo TEXT_INPUT_SIZE; ?>" class="inputbox"/>
 			</p>
-			<?php Zenphoto_Authority::printPasswordForm(NULL, false, NULL, false, $flag = '<strong>*</strong>'); ?>
+			<?php npg_Authority::printPasswordForm(NULL, false, NULL, false, $flag = '<strong>*</strong>'); ?>
 			<p>
 				<label for="admin_name"><?php echo gettext("Name"); ?><strong>*</strong></label>
 				<input type="text" id="admin_name" name="admin_name" value="<?php echo html_encode($admin_n); ?>" size="<?php echo TEXT_INPUT_SIZE; ?>" class="inputbox"/>
@@ -42,7 +42,7 @@ if (class_exists('Zenphoto_Authority')) {
 				<?php
 			}
 			if (extensionEnabled('userAddressFields')) {
-				$address = getSerializedArray(zp_getCookie('reister_user_form_addresses'));
+				$address = getSerializedArray(getNPGCookie('reister_user_form_addresses'));
 				if (empty($address)) {
 					$address = array('street' => '', 'city' => '', 'state' => '', 'country' => '', 'postal' => '', 'website' => '');
 				}
@@ -89,7 +89,7 @@ if (class_exists('Zenphoto_Authority')) {
 			}
 			$class = $buttonExtra = '';
 			if (getOption('register_user_captcha')) {
-				$captcha = $_zp_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>"));
+				$captcha = $_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>"));
 				if (isset($captcha['submitButton'])) {
 					$class = ' ' . $captcha['submitButton']['class'];
 					$buttonExtra = ' ' . $captcha['submitButton']['extra'];

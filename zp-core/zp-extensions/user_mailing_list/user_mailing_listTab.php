@@ -12,7 +12,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-$admins = $_zp_authority->getAdministrators();
+$admins = $_authority->getAdministrators();
 
 printAdminHeader('admin', 'Mailing');
 ?>
@@ -22,12 +22,12 @@ printAdminHeader('admin', 'Mailing');
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'user_mailing', ''); ?>
+			<?php npgFilters::apply('admin_note', 'user_mailing', ''); ?>
 			<h1><?php echo gettext('User mailing list'); ?></h1>
 			<div class="tabbox">
 				<p><?php echo gettext("A tool to send e-mails to all registered users who have provided an e-mail address. There is always a copy sent to the current admin and all e-mails are sent as <em>blind copies</em>."); ?></p>
 				<?php
-				if (!zp_has_filter('sendmail')) {
+				if (!npgFilters::has_filter('sendmail')) {
 					$disabled = ' disabled="disabled"';
 					?>
 					<p class="notebox">
@@ -45,7 +45,7 @@ printAdminHeader('admin', 'Mailing');
 				</p>
 
 				<h2><?php echo gettext('Please enter the message you want to send.'); ?></h2>
-				<form class="dirtylistening" onReset="setClean('massmail');" id="massmail" action="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER ?>/user_mailing_list/mail_handler.php?sendmail" method="post" accept-charset="UTF-8" autocomplete="off">
+				<form class="dirtylistening" onReset="setClean('massmail');" id="massmail" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/user_mailing_list/mail_handler.php'); ?>?sendmail" method="post" accept-charset="UTF-8" autocomplete="off">
 					<?php XSRFToken('mailing_list'); ?>
 
 
@@ -60,7 +60,7 @@ printAdminHeader('admin', 'Mailing');
 						<?php echo gettext('Select users:'); ?>
 						<ul class="unindentedchecklist" style="height: 205px; width: 30em;">
 							<?php
-							$currentadminuser = $_zp_current_admin_obj->getUser();
+							$currentadminuser = $_current_admin_obj->getUser();
 							foreach ($admins as $admin) {
 								if (!empty($admin['email']) && $currentadminuser != $admin['user']) {
 									?>
@@ -101,8 +101,6 @@ printAdminHeader('admin', 'Mailing');
 							<?php echo CHECKMARK_GREEN; ?>
 							<strong><?php echo gettext("Send mail"); ?></strong>
 						</button>
-					</p>
-					<p class="buttons">
 						<button class="submitbutton" type="reset" title="<?php echo gettext("Reset"); ?>">
 							<?php echo CROSS_MARK_RED; ?>
 							<strong><?php echo gettext("Reset"); ?></strong>

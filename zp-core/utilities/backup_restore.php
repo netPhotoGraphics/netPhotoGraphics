@@ -18,8 +18,8 @@ define('RESPOND_COUNTER', 1000);
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
-$signaure = getOption('zenphoto_install');
-if (!$_zp_current_admin_obj || $_zp_current_admin_obj->getID()) {
+$signaure = getOption('netphotographics_install');
+if (!$_current_admin_obj || $_current_admin_obj->getID()) {
 	$rights = NULL;
 } else {
 	$rights = USER_RIGHTS;
@@ -121,7 +121,7 @@ function writeHeader($type, $value) {
 	return fwrite($handle, HEADER . $type . '=' . $value . RECORD_SEPARATOR);
 }
 
-if ($_zp_current_admin_obj->reset) {
+if ($_current_admin_obj->reset) {
 	printAdminHeader('restore');
 } else {
 	printAdminHeader('admin', 'backup');
@@ -241,7 +241,7 @@ if ($action == 'backup') {
 	}
 } else if ($action == 'restore') {
 	XSRFdefender('restore');
-	$oldlibauth = Zenphoto_Authority::getVersion();
+	$oldlibauth = npg_Authority::getVersion();
 	$errors = array(gettext('No backup set found.'));
 
 	if (isset($_REQUEST['backupfile'])) {
@@ -345,7 +345,7 @@ if ($action == 'backup') {
 							}
 							if (!empty($row)) {
 								if ($table == 'options') {
-									if ($row['name'] == 'zenphoto_install') {
+									if ($row['name'] == 'netphotographics_install') {
 										break;
 									}
 									if ($row['theme'] == 'NULL') {
@@ -442,22 +442,22 @@ if ($action == 'backup') {
 		$messages = '
 			<script type="text/javascript">
 				window.addEventListener(\'load\',  function() {
-					window.location = "' . FULLWEBPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php?tab=backup&compression=' . $compression_handler . '";
+					window.location = "' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '?tab=backup&compression=' . $compression_handler . '";
 				}, false);
 			</script>
 		';
 	}
 	primeOptions(); //invalidate any options from before the restore
-	if (getOption('zenphoto_install') !== $signaure) {
-		$l1 = '<a href="' . WEBPATH . '/' . ZENFOLDER . '/setup.php">';
+	if (getOption('netphotographics_install') !== $signaure) {
+		$l1 = '<a href="' . getAdminLink('setup.php') . '">';
 		$messages .= '<div class="notebox">
 			<h2>' . sprintf(gettext('You have restored your database from a different instance of the software. You should run %1$ssetup%2$s to insure proper migration.'), $l1, '</a>') . '</h2>
 			</div>';
 	}
 
-	setOption('license_accepted', ZENPHOTO_VERSION);
-	if ($oldlibauth != Zenphoto_Authority::getVersion()) {
-		if (!$_zp_authority->migrateAuth($oldlibauth)) {
+	setOption('license_accepted', NETPHOTOGRAPHICS_VERSION);
+	if ($oldlibauth != npg_Authority::getVersion()) {
+		if (!$_authority->migrateAuth($oldlibauth)) {
 			$messages .= '
 			<div class="errorbox fade-message">
 			<h2>' . gettext('Rights migration failed!') . '</h2>
@@ -491,10 +491,10 @@ if (isset($_GET['compression'])) {
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'backkup', ''); ?>
+			<?php npgFilters::apply('admin_note', 'backkup', ''); ?>
 			<h1>
 				<?php
-				if ($_zp_current_admin_obj->reset) {
+				if ($_current_admin_obj->reset) {
 					echo (gettext('Restore your Database'));
 				} else {
 					echo (gettext('Backup and Restore your Database'));
@@ -514,7 +514,7 @@ if (isset($_GET['compression'])) {
 				<br />
 				<div>
 					<?php
-					if (!$_zp_current_admin_obj->reset) {
+					if (!$_current_admin_obj->reset) {
 						?>
 						<form name="backup_gallery" method="post" action="?tab=backup&action=backup">
 							<?php XSRFToken('backup'); ?>
@@ -598,7 +598,7 @@ if (isset($_GET['compression'])) {
 							<div style="max-width: 750px;">
 								<p>
 									<?php
-									foreach (unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate')) as $table => $row) {
+									foreach (unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
 										?>
 										<span class="nowrap">
 											<label>

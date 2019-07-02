@@ -87,9 +87,9 @@ class mobileTheme {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
+		global $_gallery;
 		$themes = array();
-		foreach ($_zp_gallery->getThemes() as $theme => $details) {
+		foreach ($_gallery->getThemes() as $theme => $details) {
 			$themes[$details['name']] = $theme;
 		}
 		$options = array(gettext('Phone theme') => array('key' => 'mobileTheme_phone', 'type' => OPTION_TYPE_SELECTOR,
@@ -118,7 +118,7 @@ class mobileTheme {
 	 * @param string $theme
 	 */
 	static function theme($theme) {
-		global $_zp_gallery;
+		global $_gallery;
 		$detect = new mobile();
 		if ($detect->isMobile()) {
 			if ($detect->isTablet()) {
@@ -130,7 +130,7 @@ class mobileTheme {
 			$new = false;
 		}
 		if ($new) {
-			if (array_key_exists($new, $_zp_gallery->getThemes())) {
+			if (array_key_exists($new, $_gallery->getThemes())) {
 				$theme = $new;
 			}
 		}
@@ -145,7 +145,7 @@ class mobileTheme {
 	static function controlLink($text = NULL, $before = NULL, $after = Null) {
 		$detect = new mobile();
 		if ($detect->isMobile()) {
-			if (zp_getCookie('mobileTheme_disable')) {
+			if (getNPGCookie('mobileTheme_disable')) {
 				if (is_null($text)) {
 					$text = gettext('View the mobile gallery');
 				}
@@ -162,8 +162,8 @@ class mobileTheme {
 			if (MOD_REWRITE) {
 				$link = '?mobileTheme=' . $enable;
 			} else {
-				global $_zp_gallery_page, $_zp_current_images, $_zp_current_album, $_zp_current_article, $_zp_current_category, $_zp_current_page;
-				switch ($_zp_gallery_page) {
+				global $_gallery_page, $_current_images, $_current_album, $_CMS_current_article, $_CMS_current_category, $_CMS_current_page;
+				switch ($_gallery_page) {
 					case 'index.php':
 						$link = 'index.php?mobileTheme=' . $enable;
 						break;
@@ -171,25 +171,25 @@ class mobileTheme {
 						$link = 'index.php?p=gallery&amp;mobileTheme=' . $enable;
 						break;
 					case 'album.php':
-						$link = $_zp_current_album->getLink(null) . '&amp;mobileTheme=' . $enable;
+						$link = $_current_album->getLink(null) . '&amp;mobileTheme=' . $enable;
 						break;
 					case 'image.php':
-						$link = $_zp_current_image->getLink(null) . '&amp;mobileTheme=' . $enable;
+						$link = $_current_image->getLink(null) . '&amp;mobileTheme=' . $enable;
 						break;
 					case 'news.php':
 						if (is_NewsArticle()) {
-							$link = html_encode($_zp_current_article->getLink(null)) . '&amp;mobileTheme=' . $enable;
+							$link = html_encode($_CMS_current_article->getLink(null)) . '&amp;mobileTheme=' . $enable;
 						} else if (is_NewsCategory()) {
-							$link = html_encode($_zp_current_category->getLink(null)) . '&amp;mobileTheme=' . $enable;
+							$link = html_encode($_CMS_current_category->getLink(null)) . '&amp;mobileTheme=' . $enable;
 						} else {
 							$link = html_encode(getNewsIndexURL()) . '&amp;mobileTheme=' . $enable;
 						}
 						break;
 					case 'pages.php':
-						$link = html_encode($_zp_current_page->getLink()) . '&amp;mobileTheme=' . $enable;
+						$link = html_encode($_CMS_current_page->getLink()) . '&amp;mobileTheme=' . $enable;
 						break;
 					default:
-						$link = html_encode($_zp_gallery_page) . '?mobileTheme=' . $enable;
+						$link = html_encode($_gallery_page) . '?mobileTheme=' . $enable;
 						break;
 				}
 			}
@@ -208,7 +208,7 @@ class mobileTheme {
 
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
 
 class mobile extends Mobile_Detect {
 
@@ -243,15 +243,15 @@ class mobile extends Mobile_Detect {
 if (isset($_GET['mobile'])) {
 	switch ($_GET['mobile']) {
 		default:
-			zp_setCookie('mobileTheme_disable', 0, false);
+			setNPGCookie('mobileTheme_disable', 0, false);
 			break;
 		case 'off':
-			zp_setCookie('mobileTheme_disable', 1, false);
+			setNPGCookie('mobileTheme_disable', 1, false);
 			break;
 	}
 }
 
-if (!zp_getCookie('mobileTheme_disable')) {
-	zp_register_filter('setupTheme', 'mobileTheme::theme');
+if (!getNPGCookie('mobileTheme_disable')) {
+	npgFilters::register('setupTheme', 'mobileTheme::theme');
 }
 ?>

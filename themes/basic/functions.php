@@ -1,7 +1,7 @@
 <?php
-zp_register_filter('themeSwitcher_head', 'switcher_head');
-zp_register_filter('themeSwitcher_Controllink', 'switcher_controllink');
-zp_register_filter('theme_head', 'css_head', 500);
+npgFilters::register('themeSwitcher_head', 'switcher_head');
+npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
+npgFilters::register('theme_head', 'css_head', 500);
 
 $curdir = getcwd();
 chdir(SERVERPATH . "/themes/" . basename(dirname(__FILE__)) . "/styles");
@@ -16,7 +16,7 @@ if (class_exists('themeSwitcher')) {
 }
 
 function css_head() {
-	global $themecolors, $zenCSS, $themeColor, $_zp_themeroot;
+	global $themecolors, $zenCSS, $themeColor, $_themeroot;
 	if (!$themeColor) {
 		$themeColor = getOption('Theme_colors');
 	}
@@ -28,10 +28,10 @@ function css_head() {
 		}
 	}
 
-	$zenCSS = $_zp_themeroot . '/styles/' . $themeColor . '.css';
+	$zenCSS = $_themeroot . '/styles/' . $themeColor . '.css';
 	$unzenCSS = str_replace(WEBPATH, '', $zenCSS);
 	if (!file_exists(SERVERPATH . internalToFilesystem($unzenCSS))) {
-		$zenCSS = $_zp_themeroot . "/styles/light.css";
+		$zenCSS = $_themeroot . "/styles/light.css";
 	}
 }
 
@@ -78,7 +78,7 @@ function switcher_head($ignore) {
 
 function switcher_controllink($ignore) {
 	global $themecolors;
-	$color = zp_getCookie('themeSwitcher_themeColor');
+	$color = getNPGCookie('themeSwitcher_themeColor');
 	if (!$color) {
 		$color = getOption('Theme_colors');
 	}
@@ -93,5 +93,5 @@ function switcher_controllink($ignore) {
 	return $ignore;
 }
 
-$_zp_page_check = 'checkPageValidity'; //	opt-in, standard behavior
+$_current_page_check = 'checkPageValidity'; //	opt-in, standard behavior
 ?>

@@ -16,7 +16,7 @@ admin_securityChecks(UPLOAD_RIGHTS | FILES_RIGHTS, $return = currentRelativeURL(
 if (isset($_GET['page'])) {
 	$page = sanitize($_GET['page']);
 } else {
-	$link = $zenphoto_tabs['upload']['link'];
+	$link = $_admin_menu['upload']['link'];
 	if (strpos($link, 'admin-tabs/upload.php') == false) {
 		header('location: ' . $link);
 		exit();
@@ -27,16 +27,16 @@ if (isset($_GET['page'])) {
 
 if (isset($_GET['tab'])) {
 	$uploadtype = sanitize($_GET['tab']);
-	zp_setCookie('uploadtype', $uploadtype);
+	setNPGCookie('uploadtype', $uploadtype);
 } else {
-	$uploadtype = zp_getcookie('uploadtype');
+	$uploadtype = getNPGCookie('uploadtype');
 	$_GET['tab'] = $uploadtype;
 }
-$handlers = array_keys($uploadHandlers = zp_apply_filter('upload_handlers', array()));
-if (!zp_loggedin(UPLOAD_RIGHTS) || empty($handlers)) {
+$handlers = array_keys($uploadHandlers = npgFilters::apply('upload_handlers', array()));
+if (!npg_loggedin(UPLOAD_RIGHTS) || empty($handlers)) {
 	//	redirect to the files page if present
-	if (isset($zenphoto_tabs['upload']['subtabs'])) {
-		header('location: ' . array_shift($zenphoto_tabs['upload']['subtabs']));
+	if (isset($_admin_menu['upload']['subtabs'])) {
+		header('location: ' . array_shift($_admin_menu['upload']['subtabs']));
 		exit();
 	}
 	$handlers = array();
@@ -49,7 +49,7 @@ if (count($handlers) > 0) {
 	require_once($uploadHandlers[$uploadtype] . '/upload_form.php');
 } else {
 
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/no_uploader.php');
+	require_once(CORE_SERVERPATH . 'no_uploader.php');
 	exit();
 }
 printAdminHeader('upload', 'albums');
@@ -89,16 +89,16 @@ foreach ($albumlist as $key => $value) {
 ?>);
 			// ]]> -->
 		</script>
-		<?php zp_apply_filter('admin_note', 'upload', 'images'); ?>
+		<?php npgFilters::apply('admin_note', 'upload', 'images'); ?>
 		<h1><?php echo gettext("Upload Images"); ?></h1>
 
 		<div class="tabbox">
 			<p>
 				<?php
-				natcasesort($_zp_supported_images);
-				$types = array_keys($_zp_images_classes);
+				natcasesort($_supported_images);
+				$types = array_keys($_images_classes);
 				$types[] = 'ZIP';
-				$types = zp_apply_filter('upload_filetypes', $types);
+				$types = npgFilters::apply('upload_filetypes', $types);
 				natcasesort($types);
 				$upload_extensions = $types;
 				$last = strtoupper(array_pop($types));
@@ -133,12 +133,12 @@ foreach ($albumlist as $key => $value) {
 				} else {
 					echo ' ' . sprintf(gettext("The maximum size for your total upload is <strong>%sB</strong> which is set by your PHP configuration <code>post_max_size</code>."), $maxpost);
 				}
-				$uploadlimit = zp_apply_filter('get_upload_limit', $maxuploadint);
+				$uploadlimit = npgFilters::apply('get_upload_limit', $maxuploadint);
 				$maxuploadint = min($maxuploadint, $uploadlimit);
 				?>
 				<br />
 				<?php
-				echo zp_apply_filter('get_upload_header_text', gettext('Don’t forget, you can also use <acronym title="File Transfer Protocol">FTP</acronym> to upload folders of images into the albums directory!'));
+				echo npgFilters::apply('get_upload_header_text', gettext('Don’t forget, you can also use <acronym title="File Transfer Protocol">FTP</acronym> to upload folders of images into the albums directory!'));
 				?>
 			</p>
 			<?php
@@ -167,7 +167,7 @@ foreach ($albumlist as $key => $value) {
 				</div>
 				<?php
 			}
-			$rootrights = zp_apply_filter('upload_root_ui', accessAllAlbums(UPLOAD_RIGHTS));
+			$rootrights = npgFilters::apply('upload_root_ui', accessAllAlbums(UPLOAD_RIGHTS));
 			if ($rootrights || !empty($albumlist)) {
 				echo gettext("Upload to:");
 				if (isset($_GET['new'])) {
@@ -246,7 +246,7 @@ foreach ($albumlist as $key => $value) {
 							if (isset($_GET['publishalbum'])) {
 								$publishchecked = ' checked="checked"';
 							} else {
-								if ($albpublish = $_zp_gallery->getAlbumPublish()) {
+								if ($albpublish = $_gallery->getAlbumPublish()) {
 									$publishchecked = ' checked="checked"';
 								} else {
 									$publishchecked = '';
@@ -255,9 +255,9 @@ foreach ($albumlist as $key => $value) {
 							?>
 						</select>
 						<?php
-						if (zp_loggedin(ALBUM_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
+						if (npg_loggedin(ALBUM_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
 							?>
-							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript(FULLWEBPATH.'/'.ZENFOLDER.'/admin-tabs/edit.php', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
+							<input type="button" id="go_to_album"<?php echo $gotobuttonState; ?> onclick="launchScript('<?php echo getAdminLink('admin-tabs/edit.php'); ?>', ['page=edit', 'tab=imageinfo', 'album=' + encodeURIComponent($('#albumselectmenu').val()), 'uploaded=1', 'albumimagesort=id_desc']);" value="<?php echo gettext('Go to album'); ?>"></button>
 							<?php
 						}
 						?>
@@ -322,7 +322,7 @@ foreach ($albumlist as $key => $value) {
 					<script type="text/javascript">
 						//<!-- <![CDATA[
 	<?php
-	echo zp_apply_filter('upload_helper_js', '') . "\n";
+	echo npgFilters::apply('upload_helper_js', '') . "\n";
 	if ($passedalbum) {
 		?>
 							buttonstate(true);

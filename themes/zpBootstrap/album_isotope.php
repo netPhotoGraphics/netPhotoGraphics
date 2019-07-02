@@ -1,6 +1,6 @@
 <?php
 include('inc_header.php');
-require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_extras.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_extras.php');
 ?>
 
 <!-- .container main -->
@@ -21,7 +21,7 @@ require_once (SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_extras.
 </div>
 
 <?php
-$name = $_zp_current_album->name;
+$name = $_current_album->name;
 $tags_album = getAllTagsFromAlbum($name, false, 'images');
 ?>
 <?php if (!empty($tags_album)) { ?>
@@ -59,7 +59,7 @@ $tags_album = getAllTagsFromAlbum($name, false, 'images');
 			?>
 
 			<div class="isotope-item image-item<?php echo $class; ?>">
-				<a class="thumb" href="<?php echo html_encode(pathurlencode($fullimage)); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
+				<a class="thumb" href="<?php echo html_encode(html_encode($fullimage)); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 					<?php
 					if (getFullWidth() > getFullHeight()) {
 						printCustomSizedImage(getBareImageTitle(), NULL, 235, 150, 235, 150, NULL, NULL, 'remove-attributes img-responsive', NULL, true);
@@ -75,12 +75,12 @@ $tags_album = getAllTagsFromAlbum($name, false, 'images');
 	<?php } ?>
 </div>
 <?php
-scriptLoader($_zp_themeroot . '/js/imagesloaded.pkgd.min.js');
-scriptLoader($_zp_themeroot . '/js/isotope.pkgd.min.js');
-scriptLoader($_zp_themeroot . '/js/packery-mode.pkgd.min.js');
+scriptLoader($_themeroot . '/js/imagesloaded.pkgd.min.js');
+scriptLoader($_themeroot . '/js/isotope.pkgd.min.js');
+scriptLoader($_themeroot . '/js/packery-mode.pkgd.min.js');
 ?>
 <script type="text/javascript">
-//<![CDATA[
+	//<![CDATA[
 	// init Isotope after all images have loaded
 	var $containter = $('#isotope-wrap').imagesLoaded(function () {
 		$containter.isotope({
@@ -107,18 +107,25 @@ scriptLoader($_zp_themeroot . '/js/packery-mode.pkgd.min.js');
 			$(this).addClass('active');
 		});
 	});
-//]]>
+	//]]>
 </script>
 
-<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
 	<div class="favorites panel-group" role="tablist">
-		<?php printAddToFavorites($_zp_current_album); ?>
+		<?php printAddToFavorites($_current_album); ?>
 	</div>
 <?php } ?>
 
-<?php if (simplemap::mapPlugin()) { ?>
-	<?php include('inc_print_googlemap.php'); ?>
-<?php } ?>
+<?php
+switch (simplemap::mapPlugin()) {
+	case 'googleMap':
+		include('inc_print_googlemap.php');
+		break;
+	case 'openStreetMap':
+		include('inc_print_osm.php');
+		break;
+}
+?>
 
 <?php if (extensionEnabled('comment_form')) { ?>
 	<?php include('inc_print_comment.php'); ?>

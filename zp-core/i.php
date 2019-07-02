@@ -34,17 +34,17 @@ if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
 require_once(dirname(__FILE__) . '/functions-basic.php');
 
-$iMutex = new zpMutex('i', @$_GET['limit']);
+$iMutex = new npgMutex('i', @$_GET['limit']);
 $iMutex->lock();
 
 require_once(dirname(__FILE__) . '/initialize-basic.php');
-require_once(dirname(__FILE__) . '/functions-image.php');
+require_once(dirname(__FILE__) . '/lib-image.php');
 
 $debug = isset($_GET['debug']);
 
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageError('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
 }
 
 // Fix special characters in the album and image names if mod_rewrite is on:
@@ -60,7 +60,7 @@ if (getOption('secure_image_processor')) {
 	require_once(dirname(__FILE__) . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
-		imageError('403 Forbidden', gettext("Forbidden(1)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)"));
 	}
 	unset($albumobj);
 }
@@ -70,8 +70,8 @@ $adminrequest = $args[12];
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
-	zp_session_start();
-	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['zp_user_auth'];
+	npg_session_start();
+	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
 }
 
 if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
@@ -86,7 +86,6 @@ $args = getImageParameters($args, filesystemToInternal($album));
 list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 if (DEBUG_IMAGE)
 	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$thumbstandin=$thumbstandin, \$passedWM=$passedWM, \$adminrequest=$adminrequest, \$effects=$effects");
-$allowWatermark = !$thumb && !$adminrequest;
 
 // Construct the filename to save the cached image.
 $newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args);
@@ -97,9 +96,9 @@ if (trim($album) == '') {
 	$imgfile = ALBUM_FOLDER_SERVERPATH . $album . '/' . $image;
 }
 
-if ($debug)
-	imageDebug($album, $image, $args, $imgfile);
-
+if ($debug) {
+	imageProcessing::debug($album, $image, $args, $imgfile);
+}
 
 /** Check for possible problems ***********
  * **************************************** */
@@ -108,23 +107,25 @@ if (!is_dir(SERVERCACHE)) {
 	@mkdir(SERVERCACHE, FOLDER_MOD);
 	@chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_dir(SERVERCACHE))
-		imageError('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-failimage.png');
+		imageProcessing::error('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-failimage.png');
 }
 if (!is_writable(SERVERCACHE)) {
 	@chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_writable(SERVERCACHE))
-		imageError('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-failimage.png');
+		imageProcessing::error('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-failimage.png');
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
-		if (DEBUG_IMAGE)
+		if (DEBUG_IMAGE) {
 			debugLog("Transient image:$rimage=>$newfile");
+		}
 		$imgfile = SERVERPATH . '/' . sanitize_path($_GET['z']);
 	}
 	if (!file_exists($imgfile)) {
-		if (DEBUG_IMAGE)
+		if (DEBUG_IMAGE) {
 			debugLogVar(['image not found' => $args]);
-		imageError('404 Not Found', sprintf(gettext("Image not found; file %s does not exist."), html_encode(filesystemToInternal($album . '/' . $image))), 'err-imagenotfound.png');
+		}
+		imageProcessing::error('404 Not Found', sprintf(gettext("Image not found; file %s does not exist."), html_encode(filesystemToInternal($album . '/' . $image))), 'err-imagenotfound.png');
 	}
 }
 
@@ -157,11 +158,11 @@ if (file_exists($newfile) & !$adminrequest) {
 
 if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
-		imageError('403 Forbidden', gettext("Forbidden(2)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"));
 	}
-	$result = cacheImage($newfilename, $imgfile, $args, $allowWatermark, $theme, $album);
+	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
-		imageError('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
+		imageProcessing::error('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
 	}
 	$fmt = filemtime($newfile);
 }
@@ -176,7 +177,7 @@ if ($debug) {
 } else {
 	if (isset($_GET['returncheckmark'])) {
 		//	from the cachemanager cache image generator
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
+		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 		sendImage((int) ($thumb && true), 'i.php');
 		exit();
 	}

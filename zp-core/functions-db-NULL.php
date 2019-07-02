@@ -20,9 +20,9 @@ Define('DATABASE_DESIRED_VERSION', '0.0.0');
  * @return true if successful connection
  */
 function db_connect($config, $errorstop = true) {
-	global $_zp_DB_connection, $_zp_DB_details;
-	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
-	$_zp_DB_connection = NULL;
+	global $_DB_connection, $_DB_details;
+	$_DB_details = unserialize(DB_NOT_CONNECTED);
+	$_DB_connection = NULL;
 	return false;
 }
 
@@ -131,7 +131,7 @@ function db_num_rows($result) {
  * Closes the database
  */
 function db_close() {
-	$_zp_DB_connection = NULL;
+	$_DB_connection = NULL;
 	return true;
 }
 
@@ -140,7 +140,7 @@ function db_close() {
  */
 
 function db_software() {
-	global $_zp_DB_connection;
+	global $_DB_connection;
 	return array('application' => DATABASE_SOFTWARE, 'required' => 'N/A', 'desired' => 'N/A', 'version' => '0.0.0');
 }
 

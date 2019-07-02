@@ -5,7 +5,7 @@
  * @package plugins/deprecated-functions
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 $subtab = getCurrentTab();
@@ -21,7 +21,7 @@ echo "\n</head>";
 		<?php printTabs(); ?>
 		<div id="content">
 			<div id="container">
-				<?php zp_apply_filter('admin_note', 'development', ''); ?>
+				<?php npgFilters::apply('admin_note', 'development', ''); ?>
 				<h1>
 					<?php
 					echo gettext('Deprecated Functions');
@@ -59,7 +59,8 @@ echo "\n</head>";
 										break;
 								}
 								$list[$details['since']][$details['plugin']][] = $details['function'] . $class;
-								krsort($list, SORT_NATURAL | SORT_FLAG_CASE);
+								uksort($list, 'version_compare');
+								$list = array_reverse($list);
 							}
 							?>
 						<ul style="list-style-type: none;">

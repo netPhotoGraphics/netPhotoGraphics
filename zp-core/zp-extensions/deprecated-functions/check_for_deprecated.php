@@ -14,20 +14,25 @@ $path = '';
 $selected = 0;
 if (isset($_GET['action'])) {
 	XSRFdefender('deprecated');
-	$zplist = array();
-	foreach ($_zp_gallery->getThemes() as $theme => $data) {
-		if (protectedTheme($theme)) {
-			$zplist[] = $theme;
-		}
-	}
 	$deprecated = new deprecated_functions();
 	$list = array();
 	foreach ($deprecated->listed_functions as $details) {
 		$func = preg_quote($details['function']);
 		$list[$func] = $func;
 	}
+	$pattern1 = '~(->\s*|::\s*|\b)(' . implode('|', $list) . ')\s*\(~i';
 
-	$pattern = '/(->\s*|::\s*|\b)(' . implode('|', $list) . ')\s*\(/i';
+	$vars = array();
+	if (class_exists('zenPhotoCompatibilityPack')) {
+		foreach ($legacyReplacements as $var => $substitution) {
+			if (strpos($var, '\$') === 0 || strtoupper($var) === $var) {
+				$vars[$var] = $var;
+			}
+		}
+	}
+	$pattern2 = '~(\s*|\b)(' . implode('|', $vars) . ')\s*[^=,;\[]~';
+	$pattern = array($pattern2, $pattern1);
+
 	$report = array();
 	$selected = sanitize_numeric($_POST['target']);
 }
@@ -41,7 +46,7 @@ echo '</head>' . "\n";
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'development', ''); ?>
+			<?php npgFilters::apply('admin_note', 'development', ''); ?>
 			<h1><?php echo gettext("Locate calls on deprecated functions."); ?></h1>
 			<div id="tab_deprecated" class="tabbox">
 				<form action="?action=search&tab=checkdeprecated" method="post">
@@ -68,7 +73,7 @@ echo '</head>' . "\n";
 					</select>
 					<br class="clearall"><br />
 					<span class="buttons">
-						<button type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" ><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext("Search"); ?></strong></button>
+						<button type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" ><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext("Search"); ?></strong></button>
 					</span>
 					<span id="progress"></span>
 				</form>
@@ -82,26 +87,35 @@ echo '</head>' . "\n";
 						<?php
 						switch ($selected) {
 							case '1':
+								// themes
+								$coreScripts = array();
+								foreach ($_gallery->getThemes() as $theme => $data) {
+									if (protectedTheme($theme)) {
+										$coreScripts[] = $theme;
+									}
+								}
 								$path = SERVERPATH . '/' . THEMEFOLDER;
-								listUses(getPHPFiles($path, $zplist), $path, $pattern);
+								listUses(getPHPFiles($path, $coreScripts), $path, $pattern);
 								break;
 							case '2':
-								$zplist = array();
+								// third party plugins
+								$coreScripts = array();
 								$paths = getPluginFiles('*.php');
 								foreach ($paths as $plugin => $path) {
 									if (strpos($path, USER_PLUGIN_FOLDER) !== false) {
 										if (distributedPlugin($plugin)) {
-											$zplist[] = stripSuffix(str_replace(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/', '', $path));
+											$coreScripts[] = stripSuffix(str_replace(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/', '', $path));
 										}
 									}
 								}
 								$path = SERVERPATH . '/' . USER_PLUGIN_FOLDER;
-								listUses(getPHPFiles($path, $zplist), $path, $pattern);
+								listUses(getPHPFiles($path, $coreScripts), $path, $pattern);
 								break;
 							case '3':
+								// netPhotoGraphics code
 								$paths = getPluginFiles('*.php');
 								foreach ($paths as $plugin => $path) {
-									if (strpos($path, USER_PLUGIN_FOLDER) == false) {
+									if (strpos($path, USER_PLUGIN_FOLDER) === false) {
 										unset($paths[$plugin]);
 									} else {
 										if (distributedPlugin($plugin)) {
@@ -114,8 +128,8 @@ echo '</head>' . "\n";
 									$userfiles[] = stripSuffix(basename($path));
 								}
 
-								$path = SERVERPATH . '/' . ZENFOLDER;
-								echo "<em><strong>" . ZENFOLDER . "</strong></em><br />\n";
+								$path = SERVERPATH . '/' . CORE_FOLDER;
+								echo "<em><strong>" . CORE_FOLDER . "</strong></em><br />\n";
 								if (listUses(getPHPFiles($path, array()), $path, $pattern)) {
 									echo '<br />';
 								}
@@ -125,13 +139,14 @@ echo '</head>' . "\n";
 									echo '<br />';
 								}
 								echo "<em><strong>" . THEMEFOLDER . "</strong></em><br /><br />\n";
-								foreach ($zplist as $theme) {
+								foreach ($coreScripts as $theme) {
 									$path = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme;
 									echo "<em>" . $theme . "</em><br />\n";
 									listUses(getPHPFiles($path, array()), $path, $pattern);
 								}
 								break;
 							case 4:
+								// codeblocks
 								listDBUses($pattern);
 								break;
 						}

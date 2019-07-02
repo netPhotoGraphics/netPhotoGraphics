@@ -58,8 +58,8 @@ class site_upgrade {
 	}
 
 	static function note($where) {
-		global $_zp_conf_vars;
-		switch (@$_zp_conf_vars['site_upgrade_state']) {
+		global $_conf_vars;
+		switch (@$_conf_vars['site_upgrade_state']) {
 			case 'closed':
 				if ($where == 'Overview') {
 					?>
@@ -90,8 +90,8 @@ class site_upgrade {
 	}
 
 	static function status() {
-		global $_zp_conf_vars;
-		switch (@$_zp_conf_vars['site_upgrade_state']) {
+		global $_conf_vars;
+		switch (@$_conf_vars['site_upgrade_state']) {
 			case 'closed':
 				?>
 				<li>
@@ -117,13 +117,13 @@ class site_upgrade {
 	}
 
 	static function button($buttons) {
-		global $_zp_conf_vars, $_site_filelist;
-		$state = @$_zp_conf_vars['site_upgrade_state'];
+		global $_conf_vars, $_site_filelist;
+		$state = @$_conf_vars['site_upgrade_state'];
 
 		$update = false;
 		$hash = getSerializedArray(getOption('site_upgrade_hash'));
 
-		foreach (zp_apply_filter('site_upgrade_xml', $_site_filelist) as $name => $source) {
+		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
 			if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name)) {
 				if (!isset($hash[$name]) || $hash[$name] != md5(file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name))) {
 					$update = true;
@@ -142,7 +142,7 @@ class site_upgrade {
 					'enable' => true,
 					'button_text' => gettext('Restore site_upgrade files'),
 					'formname' => 'refreshHTML',
-					'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php',
+					'action' => getAdminLink('admin.php'),
 					'icon' => CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN,
 					'title' => gettext('Restores the files in the "plugins/site_upgrade" folder to their default state. Note: this will overwrite any custom edits you may have made.'),
 					'alt' => '',
@@ -158,7 +158,7 @@ class site_upgrade {
 						'enable' => 3,
 						'button_text' => gettext('Site » test mode'),
 						'formname' => 'site_upgrade',
-						'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
+						'action' => getAdminLink(PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php'),
 						'icon' => LOCK_OPEN,
 						'title' => gettext('Make the site available for viewing administrators only.'),
 						'onclick' => "$('#site_upgrade_form').dirtyForms('setClean');this.form.submit();",
@@ -174,7 +174,7 @@ class site_upgrade {
 						'enable' => 2,
 						'button_text' => gettext('Site » open'),
 						'formname' => 'site_upgrade',
-						'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
+						'action' => getAdminLink(PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php'),
 						'icon' => LOCK_OPEN,
 						'title' => gettext('Make site available for viewing.'),
 						'alt' => '',
@@ -182,7 +182,7 @@ class site_upgrade {
 						'rights' => ADMIN_RIGHTS
 				);
 				list($diff, $needs) = checkSignature(0);
-				if (zpFunctions::hasPrimaryScripts() && empty($needs)) {
+				if (npgFunctions::hasPrimaryScripts() && empty($needs)) {
 					?>
 					<script type="text/javascript">
 						window.addEventListener('load', function () {
@@ -201,7 +201,7 @@ class site_upgrade {
 						'enable' => true,
 						'button_text' => gettext('Site » close'),
 						'formname' => 'site_upgrade.php',
-						'action' => FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php',
+						'action' => getAdminLink(PLUGIN_FOLDER . '/site_upgrade/site_upgrade.php'),
 						'icon' => LOCK,
 						'title' => gettext('Make site unavailable for viewing by redirecting to the "closed.html" page.'),
 						'alt' => '',
@@ -214,53 +214,48 @@ class site_upgrade {
 		return $buttons;
 	}
 
-	static function updateXML($force) {
-		global $_site_filelist, $_zp_gallery;
+	static function updateXML() {
+		global $_site_filelist, $_gallery;
 		mkdir_recursive(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/', FOLDER_MOD);
 		setOptionDefault('site_upgrade_hash', NULL);
-		if ($force) {
-			$hash = array();
-		} else {
-			$hash = getSerializedArray(getOption('site_upgrade_hash'));
-		}
-
-		foreach (zp_apply_filter('site_upgrade_xml', $_site_filelist) as $name => $source) {
-			if ($force || !file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name)) {
-				switch ($source) {
-					case '*':
-						$data = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/' . $name);
-						$data = str_replace('SITEINDEX', FULLWEBPATH . "/index.php", $data);
-						break;
-					case '+':
-						$data = file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/' . $name);
-						$data = sprintf($data, sprintf(gettext('%s upgrade'), $_zp_gallery->getTitle()), FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/closed.png', sprintf(gettext('<strong><em>%s</em></strong> is undergoing an upgrade'), $_zp_gallery->getTitle()), '<a href="' . FULLWEBPATH . '/index.php">' . gettext('Please return later') . '</a>', FULLWEBPATH . '/index.php');
-						break;
-					default:
-						// Feed plugin
-						$plugin = getPlugin(substr($name, 0, strpos($name, '-')) . '.php');
-						require_once( $plugin);
-						$items = array(
-								array(
-										'title' => sprintf(gettext('%s suspended'), $source),
-										'link' => '',
-										'enclosure' => '',
-										'category' => '',
-										'media_content' => '',
-										'media_thumbnail' => '',
-										'pubdate' => date("r", time()),
-										'desc' => sprintf(gettext('The %s feed is currently not available.'), $source)
-								)
-						);
-						$obj = new $source(array(strtolower($source) => 'null'));
-						ob_start();
-						$obj->printFeed($items);
-						$data = ob_get_contents();
-						ob_end_clean();
-						break;
-				}
-				file_put_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name, $data);
-				$hash[$name] = md5(file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name));
+		$hash = array();
+		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
+			switch ($source) {
+				case '*':
+					$data = file_get_contents(CORE_SERVERPATH . PLUGIN_FOLDER . '/site_upgrade/' . $name);
+					$data = str_replace('SITEINDEX', FULLWEBPATH . "/index.php", $data);
+					$data = str_replace('CORE_FOLDER', CORE_FOLDER, $data);
+					$data = str_replace('CONFIGFILE', CONFIGFILE, $data);
+					break;
+				case '+':
+					$data = file_get_contents(CORE_SERVERPATH . PLUGIN_FOLDER . '/site_upgrade/' . $name);
+					$data = sprintf($data, sprintf(gettext('%s upgrade'), $_gallery->getTitle()), FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/closed.png', sprintf(gettext('<strong><em>%s</em></strong> is undergoing an upgrade'), $_gallery->getTitle()), '<a href="' . FULLWEBPATH . '/index.php">' . gettext('Please return later') . '</a>', FULLWEBPATH . '/index.php');
+					break;
+				default:
+					// Feed plugin
+					$plugin = getPlugin(substr($name, 0, strpos($name, '-')) . '.php');
+					require_once( $plugin);
+					$items = array(
+							array(
+									'title' => sprintf(gettext('%s suspended'), $source),
+									'link' => '',
+									'enclosure' => '',
+									'category' => '',
+									'media_content' => '',
+									'media_thumbnail' => '',
+									'pubdate' => date("r", time()),
+									'desc' => sprintf(gettext('The %s feed is currently not available.'), $source)
+							)
+					);
+					$obj = new $source(array(strtolower($source) => 'null'));
+					ob_start();
+					$obj->printFeed($items);
+					$data = ob_get_contents();
+					ob_end_clean();
+					break;
 			}
+			file_put_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name, $data);
+			$hash[$name] = md5(file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/' . $name));
 		}
 		setOption('site_upgrade_hash', serialize($hash));
 	}
@@ -269,33 +264,32 @@ class site_upgrade {
 
 switch (OFFSET_PATH) {
 	case 0:
-		$state = @$_zp_conf_vars['site_upgrade::state'];
-		if ((!zp_loggedin(ADMIN_RIGHTS | DEBUG_RIGHTS) && $state == 'closed_for_test') || $state == 'closed') {
-			if (isset($_zp_conf_vars['special_pages']['page']['rewrite'])) {
-				$page = $_zp_conf_vars['special_pages']['page']['rewrite'];
+		$state = @$_conf_vars['site_upgrade::state'];
+		if ((!npg_loggedin(ADMIN_RIGHTS | DEBUG_RIGHTS) && $state == 'closed_for_test') || $state == 'closed') {
+			if (isset($_conf_vars['special_pages']['page']['rewrite'])) {
+				$page = $_conf_vars['special_pages']['page']['rewrite'];
 			} else {
 				$page = 'page';
 			}
-			if (!preg_match('~' . preg_quote($page) . '/setup_set-mod_rewrite\?z=setup$~', $_SERVER['REQUEST_URI'])) {
-				header('location: ' . WEBPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/closed.php');
-				exit();
-			}
 		} else if ($state == 'closed_for_test') {
-			zp_register_filter('theme_body_open', 'site_upgrade::notice');
+			npgFilters::register('theme_body_open', 'site_upgrade::notice');
 		}
 		break;
 	default:
-		zp_register_filter('admin_utilities_buttons', 'site_upgrade::button');
-		zp_register_filter('installation_information', 'site_upgrade::status');
-		zp_register_filter('admin_note', 'site_upgrade::note');
+		npgFilters::register('admin_utilities_buttons', 'site_upgrade::button');
+		npgFilters::register('installation_information', 'site_upgrade::status');
+		npgFilters::register('admin_note', 'site_upgrade::note');
 		if (isset($_REQUEST['refreshHTML'])) {
 			XSRFdefender('site_upgrade_refresh');
-			site_upgrade::updateXML(true);
+			site_upgrade::updateXML();
 			$_GET['report'] = gettext('site_upgrade files Restored to original.');
 		}
 		break;
 	case 2:
-		site_upgrade::updateXML(false);
+		$_site_filelist = array(
+				'closed.php' => '*' // copy and update just this file
+		);
+		site_upgrade::updateXML();
 		break;
 }
 ?>

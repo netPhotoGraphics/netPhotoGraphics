@@ -86,7 +86,7 @@ if (!empty($searchdate)) {
 
 </div>
 
-<?php if ($_zp_page == 1) { //test of zenpage searches
+<?php if ($_current_page == 1) { //test of zenpage searches
 	if ($numnews > 0) {
 		?>
 		<div>

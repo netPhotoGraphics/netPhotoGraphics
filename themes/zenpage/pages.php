@@ -8,9 +8,9 @@ if (class_exists('CMS')) {
 	<html>
 		<head>
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
-			scriptLoader($_zp_themeroot . '/style.css');
+			scriptLoader($_themeroot . '/style.css');
 
 			if (class_exists('RSS'))
 				printRSSHeaderLink("News", "Zenpage news", "");
@@ -18,7 +18,7 @@ if (class_exists('CMS')) {
 		</head>
 
 		<body>
-	<?php zp_apply_filter('theme_body_open'); ?>
+	<?php npgFilters::apply('theme_body_open'); ?>
 
 			<div id="main">
 
@@ -73,12 +73,12 @@ if (class_exists('CMS')) {
 
 			</div><!-- main -->
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

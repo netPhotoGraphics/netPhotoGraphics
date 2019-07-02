@@ -13,8 +13,8 @@ $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('SEO <em>Null</em> filter.');
 $plugin_notice = gettext('The only translation performed is one or more <em>white space</em> characters are converted to a <em>hyphen</em>.');
 
-zp_register_filter('seoFriendly', 'null_seo::filter');
-zp_register_filter('seoFriendly_js', 'null_seo::js');
+npgFilters::register('seoFriendly', 'null_seo::filter');
+npgFilters::register('seoFriendly_js', 'null_seo::js');
 
 /**
  * Option handler class

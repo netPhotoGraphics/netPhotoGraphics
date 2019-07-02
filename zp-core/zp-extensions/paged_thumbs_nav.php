@@ -105,7 +105,7 @@ class pagedThumbsNav {
 	 * @return pagedThumbsNav
 	 */
 	function __construct($imagesperpage = 0, $counter = false, $prev = '', $next = '', $width = NULL, $height = NULL, $crop = NULL, $placeholders = NULL, $showpagelist = false, $pagelistprevnext = false, $pagelistlength = 6) {
-		global $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery;
+		global $_current_album, $_current_image, $_current_search, $_gallery;
 		if (is_null($crop)) {
 			$this->crop = getOption("pagedthumbs_crop");
 		} else {
@@ -160,8 +160,8 @@ class pagedThumbsNav {
 			$this->pagelistprevnext = $pagelistprevnext;
 		}
 		// get the image of current album
-		if (in_context(ZP_SEARCH_LINKED)) {
-			if ($_zp_current_search->getNumImages() === 0) {
+		if (in_context(SEARCH_LINKED)) {
+			if ($_current_search->getNumImages() === 0) {
 				$this->searchimages = false;
 			} else {
 				$this->searchimages = true;
@@ -170,10 +170,10 @@ class pagedThumbsNav {
 			$this->searchimages = false;
 		}
 
-		if (in_context(ZP_SEARCH_LINKED) && $this->searchimages) {
-			$this->images = $_zp_current_search->getImages();
+		if (in_context(SEARCH_LINKED) && $this->searchimages) {
+			$this->images = $_current_search->getImages();
 		} else {
-			$this->images = $_zp_current_album->getImages();
+			$this->images = $_current_album->getImages();
 		}
 		$this->currentimgnr = imageNumber();
 		$this->totalimages = count($this->images);
@@ -190,12 +190,12 @@ class pagedThumbsNav {
 	 * @return string
 	 */
 	function getPrevThumbsLink() {
-		global $_zp_current_album;
+		global $_current_album;
 		$this->prevpageimage = ""; // define needed for page list
 		if ($this->totalpages > 1) {
 			$prevpageimagenr = ($this->currentpage * $this->imagesperpage) - ($this->imagesperpage + 1);
 			if ($this->currentpage > 1) {
-				$this->prevpageimage = newImage($_zp_current_album, $this->images[$prevpageimagenr]);
+				$this->prevpageimage = newImage($_current_album, $this->images[$prevpageimagenr]);
 				return $this->prevpageimage->getLink();
 			}
 		}
@@ -221,11 +221,11 @@ class pagedThumbsNav {
 	 * @return array with objects
 	 */
 	function getThumbs() {
-		global $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery;
+		global $_current_album, $_current_image, $_current_search, $_gallery;
 		$curimages = array_slice($this->images, $this->currentfloor, $this->imagesperpage);
 		$thumbs = array();
 		foreach ($curimages as $item) {
-			$thumbs[] = newImage($_zp_current_album, $item);
+			$thumbs[] = newImage($_current_album, $item);
 		}
 		return $thumbs;
 	}
@@ -235,13 +235,13 @@ class pagedThumbsNav {
 	 *
 	 */
 	function printThumbs() {
-		global $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery;
+		global $_current_album, $_current_image, $_current_search, $_gallery;
 		echo "<div id='pagedthumbsimages'>";
 		$thumbs = $this->getThumbs();
 		//$thcount = count($thumbs); echo "thcount:".$thcount;
 		$number = 0;
 		foreach ($thumbs as $image) {
-			if ($image->getID() == $_zp_current_image->getID()) {
+			if ($image->getID() == $_current_image->getID()) {
 				$css = " id='pagedthumbsnav-active' ";
 			} else {
 				$css = "";
@@ -249,14 +249,14 @@ class pagedThumbsNav {
 			echo "<a $css href=\"" . html_encode($image->getLink()) . "\" title=\"" . html_encode(getBare($image->getTitle())) . "\">";
 
 			if ($this->crop) {
-				$html = "<img src='" . pathurlencode($image->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true)) . "' alt=\"" . html_encode(getBare($image->getTitle())) . "\" width='" . $this->width . "' height='" . $this->height . "' />";
+				$html = "<img src='" . html_encode($image->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true)) . "' alt=\"" . html_encode(getBare($image->getTitle())) . "\" width='" . $this->width . "' height='" . $this->height . "' />";
 			} else {
 				$maxwidth = $this->width; // needed because otherwise getMaxSpaceContainer will use the values of the first image for all others, too
 				$maxheight = $this->height;
 				getMaxSpaceContainer($maxwidth, $maxheight, $image, true);
-				$html = "<img src=\"" . pathurlencode($image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, true)) . "\" alt=\"" . html_encode(getBare($image->getTitle())) . "\" />";
+				$html = "<img src=\"" . html_encode($image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, true)) . "\" alt=\"" . html_encode(getBare($image->getTitle())) . "\" />";
 			}
-			echo zp_apply_filter('custom_image_html', $html, true);
+			echo npgFilters::apply('custom_image_html', $html, true);
 			echo "</a>\n";
 			$number++;
 		}
@@ -276,11 +276,11 @@ class pagedThumbsNav {
 	 * @return string
 	 */
 	function getNextThumbsLink() {
-		global $_zp_current_album;
+		global $_current_album;
 		if ($this->totalpages > 1) {
 			if ($this->currentpage < $this->totalpages) {
 				$nextpageimagenr = $this->currentpage * $this->imagesperpage;
-				$this->nextpageimage = newImage($_zp_current_album, $this->images[$nextpageimagenr]);
+				$this->nextpageimage = newImage($_current_album, $this->images[$nextpageimagenr]);
 				return $this->nextpageimage->getLink();
 			}
 		}
@@ -386,11 +386,11 @@ class pagedThumbsNav {
 	 */
 
 	function printPagedThumbsNavPagelink($i, $linktext) {
-		global $_zp_gallery, $_zp_current_album;
+		global $_gallery, $_current_album;
 		$i = $i;
 		$linktex = $linktext;
 		$imagenr = ($i * $this->imagesperpage) - ($this->imagesperpage);
-		$pageimage = newImage($_zp_current_album, $this->images[$imagenr]);
+		$pageimage = newImage($_current_album, $this->images[$imagenr]);
 		if ($this->currentpage == $i) {
 			echo "<li class=\"pagedthumbsnav-pagelistactive\">" . html_encode($linktext) . "</a>\n";
 		} else {

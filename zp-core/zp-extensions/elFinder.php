@@ -7,7 +7,7 @@
  * This plugin supplies file handling using <i>elFinder</i> by {@link http://elfinder.org/ Studio-42 }.
  *
  * <hr>
- * <img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/elFInder/elfinder-logo.png" />
+ * <img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/elFInder/elfinder-logo.png" />
  * "<i>elFinder</i> is a file manager for web similar to that you use on your computer. Written in JavaScript
  * using jQuery UI, it just work's in any modern browser. Its creation is inspired by simplicity and
  * convenience of Finder.app program used in Mac OS X."
@@ -67,28 +67,28 @@ class elFinder_options {
 
 }
 
-if (getOption('elFinder_files') && zp_loggedin(FILES_RIGHTS | UPLOAD_RIGHTS)) {
-	zp_register_filter('admin_tabs', 'elFinder_admin_tabs');
+if (getOption('elFinder_files') && npg_loggedin(FILES_RIGHTS | UPLOAD_RIGHTS)) {
+	npgFilters::register('admin_tabs', 'elFinder_admin_tabs');
 	if (getOption('elFinder_themeeditor')) {
-		zp_register_filter('theme_editor', 'elFinderThemeEdit');
+		npgFilters::register('theme_editor', 'elFinderThemeEdit');
 	}
 }
 if (getOption('elFinder_tinymce')) {
-	zp_register_filter('tinymce_config', 'elFinder_tinymce');
+	npgFilters::register('tinymce_config', 'elFinder_tinymce');
 }
 
 function elFinder_admin_tabs($tabs) {
-	if (zp_loggedin(UPLOAD_RIGHTS)) {
+	if (npg_loggedin(UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('files (%s)'), 'elFinder');
-		$mylink = PLUGIN_FOLDER . '/' . 'elFinder/filemanager.php?page=upload&tab=elFinder&type=' . gettext('files');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),
-					'link' => WEBPATH . "/" . ZENFOLDER . '/' . $mylink,
+					'link' => getAdminLink(PLUGIN_FOLDER . '/' . 'elFinder/filemanager.php') . '?page=upload&tab=elFinder&type=' . gettext('files'),
 					'subtabs' => NULL,
 					'default' => 'elFinder'
 			);
 		}
-		$tabs['upload']['subtabs'][$me] = $mylink;
+		$tabs['upload']['subtabs'][$me] = PLUGIN_FOLDER . '/' . 'elFinder/filemanager.php?page=upload&tab=elFinder&type=' . gettext('files');
+		;
 	}
 	return $tabs;
 }
@@ -96,7 +96,7 @@ function elFinder_admin_tabs($tabs) {
 function elFinder_tinymce($discard) {
 	global $MCEspecial;
 
-	$file = FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/connector.mce.php?XSRFToken=' . getXSRFToken('elFinder');
+	$file = FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/elFinder/connector.mce.php?XSRFToken=' . getXSRFToken('elFinder');
 	$MCEspecial ['file_picker_callback'] = 'elFinderBrowser';
 	?>
 	<script type="text/javascript">

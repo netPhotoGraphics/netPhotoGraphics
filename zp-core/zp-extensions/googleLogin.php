@@ -12,7 +12,7 @@
  * {@link https://console.developers.google.com/apis/dashboard Google Developers Console}
  *
  * Your <i>OAuth2 client ID</i> will need an <i>Authorized redirect URI</i> that
- * points to <var>%FULLWEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/googleLogin/google.php</var>
+ * points to <var>%FULLWEBPATH%/%CORE_PATHR%/%PLUGIN_PATH%/googleLogin/google.php</var>
  *
  * The gmail address supplied by Google OAuth2 will become the user's <i>user ID</i>
  * if present. If no e-mail address is supplied with the login, a user ID will be created
@@ -29,18 +29,18 @@
  * @package plugins/googleLogin
  * @pluginCategory users
  */
+$plugin_is_filter = 900 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 900 | CLASS_PLUGIN;
 	$plugin_description = gettext("Handles logon via the user's <em>Google</em> account.");
-	$plugin_disable = zpFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
+	$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
 }
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/oAuth/oAuthLogin.php');
 
 $option_interface = 'googleLogin';
 
-zp_register_filter('alt_login_handler', 'googleLogin::alt_login_handler');
-zp_register_filter('edit_admin_custom', 'googleLogin::edit_admin');
+npgFilters::register('alt_login_handler', 'googleLogin::alt_login_handler');
+npgFilters::register('edit_admin_custom', 'googleLogin::edit_admin');
 
 /**
  * Option class

@@ -50,7 +50,7 @@ $plugin_description = gettext('Provides scriptless and privacy friendly sharing 
 $option_interface = 'scriptlessSocialsharing';
 
 if (getOption('scriptless_socialsharing_iconfont')) {
-	zp_register_filter('theme_body_close', 'scriptlessSocialsharing::CSS');
+	npgFilters::register('theme_body_close', 'scriptlessSocialsharing::CSS');
 }
 
 class scriptlessSocialsharing {
@@ -119,35 +119,35 @@ class scriptlessSocialsharing {
 	 * @return array
 	 */
 	static function getButtons($beforetext = '', $customtext = null) {
-		global $_zp_gallery_page, $_zp_current_album, $_zp_current_image, $_zp_current_article, $_zp_current_page, $_zp_current_category;
+		global $_gallery_page, $_current_album, $_current_image, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category;
 		$title = '';
 		$desc = '';
 		$url = '';
 		$buttons = array();
 		$gallerytitle = html_encode(getBareGallerytitle());
 		$imgsource = '';
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case 'index.php':
 			case 'gallery.php':
 				$url = getGalleryIndexURL();
 				$title = (empty($customtext)) ? getBareGalleryTitle() : $customtext;
 				break;
 			case 'album.php':
-				$url = $_zp_current_album->getLink();
-				$title = (empty($customtext)) ? $_zp_current_album->getTitle() : $customtext;
+				$url = $_current_album->getLink();
+				$title = (empty($customtext)) ? $_current_album->getTitle() : $customtext;
 				break;
 			case 'image.php':
-				$url = $_zp_current_image->getLink();
-				$title = (empty($customtext)) ? $_zp_current_image->getTitle() : $customtext;
+				$url = $_current_image->getLink();
+				$title = (empty($customtext)) ? $_current_image->getTitle() : $customtext;
 				break;
 			case 'news.php':
 				if (function_exists("is_NewsArticle")) {
 					if (is_NewsArticle()) {
-						$url = $_zp_current_article->getLink();
-						$title = (empty($customtext)) ? $_zp_current_article->getTitle() : $customtext;
+						$url = $_CMS_current_article->getLink();
+						$title = (empty($customtext)) ? $_CMS_current_article->getTitle() : $customtext;
 					} else if (is_NewsCategory()) {
-						$url = $_zp_current_category->getLink();
-						$title = (empty($customtext)) ? $_zp_current_category->getTitle() : $customtext;
+						$url = $_CMS_current_category->getLink();
+						$title = (empty($customtext)) ? $_CMS_current_category->getTitle() : $customtext;
 					} else {
 						$url = getNewsIndexURL();
 						$title = (empty($customtext)) ? getBareGalleryTitle() . ' - ' . NEWS_LABEL : $customtext;
@@ -156,15 +156,15 @@ class scriptlessSocialsharing {
 				break;
 			case 'pages.php':
 				if (function_exists("is_Pages")) {
-					$url = $_zp_current_page->getLink();
-					$title = (empty($customtext)) ? $_zp_current_page->getTitle() : $customtext;
+					$url = $_CMS_current_page->getLink();
+					$title = (empty($customtext)) ? $_CMS_current_page->getTitle() : $customtext;
 				}
 				break;
 			default: //static custom pages
-				$url = getCustomPageURL(stripSuffix($_zp_gallery_page));
+				$url = getCustomPageURL(stripSuffix($_gallery_page));
 				if (empty($customtext)) {
 					// Handle some static custom pages we often have
-					switch ($_zp_gallery_page) {
+					switch ($_gallery_page) {
 						case 'contact.php':
 							$title = gettext('Contact');
 							break;
@@ -178,7 +178,7 @@ class scriptlessSocialsharing {
 							$title = gettext('Search');
 							break;
 						default:
-							$title = strtoupper(stripSuffix($_zp_gallery_page));
+							$title = strtoupper(stripSuffix($_gallery_page));
 							break;
 					}
 				} else {
@@ -190,7 +190,6 @@ class scriptlessSocialsharing {
 		if (empty($customtext)) {
 			$title .= ' - ' . getBareGalleryTitle();
 		}
-		//$text = getContentShorten($title, 100, ' (…)', false);
 		$title = urlencode($title);
 		$url = urlencode(FULLWEBPATH . html_encode($url));
 		if ($beforetext) {

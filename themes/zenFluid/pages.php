@@ -1,7 +1,7 @@
 <?php
 // force UTF-8 Ø
 if (!defined('WEBPATH') || !class_exists("CMS")) die();
-zp_apply_filter('theme_file_top')
+npgFilters::apply('theme_file_top')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -34,7 +34,7 @@ zp_apply_filter('theme_file_top')
 					</div>
 					<?php 
 				}
-				if (function_exists('printCommentForm') && ($_zp_current_page->getCommentsAllowed() || $commentCount)) { 
+				if (function_exists('printCommentForm') && ($_CMS_current_page->getCommentsAllowed() || $commentCount)) { 
 					if ($commentCount == 0) {
 						$comments = gettext('No Comments');
 					} else {
@@ -60,7 +60,7 @@ zp_apply_filter('theme_file_top')
 			</div>
 			<div class="clearing" ></div>
 			<?php 
-			if (function_exists('printCommentForm') && ($_zp_current_page->getCommentsAllowed() || $commentCount)) { 
+			if (function_exists('printCommentForm') && ($_CMS_current_page->getCommentsAllowed() || $commentCount)) { 
 				?>
 				<a id="readComment"></a>
 				<div class="content border colour">
@@ -86,5 +86,5 @@ zp_apply_filter('theme_file_top')
 	</body>
 </html>
 <?php
-zp_apply_filter('theme_file_end')
+npgFilters::apply('theme_file_end')
 ?>

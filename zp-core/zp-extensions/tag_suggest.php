@@ -20,8 +20,8 @@ $plugin_description = gettext("Enables jQuery tag suggestions on the search fiel
 
 $option_interface = 'tag_suggest';
 
-zp_register_filter('theme_body_close', 'tag_suggest::JS');
-zp_register_filter('admin_head', 'tag_suggest::JS');
+npgFilters::register('theme_body_close', 'tag_suggest::JS');
+npgFilters::register('admin_head', 'tag_suggest::JS');
 
 class tag_suggest {
 
@@ -42,8 +42,8 @@ class tag_suggest {
 
 	static function JS() {
 		// the scripts needed
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/encoder.min.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tag_suggest/tag.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest/encoder.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest/tag.min.js');
 		scriptLoader(getPlugin('tag_suggest/tag.css', true));
 		$taglist = getAllTagsUnique(OFFSET_PATH ? false : NULL, OFFSET_PATH ? 0 : getOption('tag_suggest_threshold'));
 		$tags = array();

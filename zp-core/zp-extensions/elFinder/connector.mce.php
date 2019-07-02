@@ -5,7 +5,7 @@
  * @package plugins/elFinder
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
-zp_session_start();
+npg_session_start();
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS, currentRelativeURL());
 XSRFdefender('elFinder');
 $locale = substr(getOption('locale'), 0, 2);
@@ -22,14 +22,14 @@ if (empty($locale))
 		<?php
 		load_jQuery_CSS();
 		load_jQuery_scripts('admin');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/css/theme.css');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/css/theme.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js');
 		if ($locale != 'en') {
 			?>
 			<!-- elFinder translation (OPTIONAL) -->
 			<?php
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
+			scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
 		}
 		?>
 
@@ -63,7 +63,7 @@ if (empty($locale))
 			commands : [
 							'open', 'reload', 'home', 'up', 'back', 'forward', 'getfile', 'quicklook',
 <?php
-if (zp_loggedin(FILES_RIGHTS)) {
+if (npg_loggedin(FILES_RIGHTS)) {
 	?>
 				'download', 'rm', 'duplicate', 'rename', 'mkdir', 'mkfile', 'upload', 'copy',
 								'cut', 'paste', 'edit', 'extract', 'archive', 'search',
@@ -77,11 +77,11 @@ if (zp_loggedin(FILES_RIGHTS)) {
 							lang: '<?php echo $locale; ?>', // language (OPTIONAL)
 							customData: {
 							'XSRFToken':'<?php echo getXSRFToken('elFinder'); ?>',
-											'zp_user_auth':'<?php echo zp_getCookie('zp_user_auth'); ?>',
+											'user_auth':'<?php echo getNPGCookie('user_auth'); ?>',
 											'origin':'tinyMCE',
 											'type':'<?php echo sanitize(@$_GET['type']); ?>'
 							},
-							url : '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/elFinder/php/connector_zp.php', // connector URL (REQUIRED)
+							url : '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/elFinder/php/connector_npg.php', // connector URL (REQUIRED)
 							getFileCallback: function(file, fm) { // editor callback
 							FileBrowserDialogue.mySubmit(file, fm); // pass selected file path to TinyMCE
 							}

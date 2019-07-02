@@ -21,8 +21,8 @@ $plugin_description = gettext("A plugin to print the most common HTML meta tags 
 
 $option_interface = 'htmlmetatags';
 
-if (in_context(ZP_INDEX)) {
-	zp_register_filter('theme_head', 'htmlmetatags::getHTMLMetaData'); // insert the meta tags into the <head></head> if on a theme page.
+if (in_context(NPG_INDEX)) {
+	npgFilters::register('theme_head', 'htmlmetatags::getHTMLMetaData'); // insert the meta tags into the <head></head> if on a theme page.
 	if (defined('LOCALE_TYPE')) {
 		define('METATAG_LOCALE_TYPE', LOCALE_TYPE);
 	} else {
@@ -155,8 +155,8 @@ class htmlmetatags {
 	 * Prints html meta data to be used in the <head> section of a page
 	 */
 	static function getHTMLMetaData() {
-		global $_zp_gallery, $_zp_page, $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_current_article,
-		$_zp_current_page, $_zp_gallery_page, $_zp_current_category, $_zp_authority, $_zp_conf_vars, $_myFavorites;
+		global $_gallery, $_current_page, $_current_album, $_current_image, $_current_search, $_CMS_current_article,
+		$_CMS_current_page, $_gallery_page, $_CMS_current_category, $_authority, $_conf_vars, $_myFavorites;
 
 		$labels = array('albums' => gettext('Album page'), 'news' => NEWS_LABEL);
 
@@ -164,7 +164,7 @@ class htmlmetatags {
 
 		// Convert locale shorttag to allowed html meta format
 		$locale_ = i18n::getUserLocale();
-		$locale = zpFunctions::getLanguageText($locale_, '-');
+		$locale = npgFunctions::getLanguageText($locale_, '-');
 		$canonicalurl = '';
 		// generate page title, get date
 		$pagetitle = ""; // for gallery index setup below switch
@@ -186,15 +186,15 @@ class htmlmetatags {
 			$twittercard_type = 'summary';
 		}
 		$type = 'article';
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case'gallery.php':
 				$desc = $labels['albums'];
-				$canonicalurl = FULLHOSTPATH . getCustomPageURL('gallery', '', $_zp_page);
+				$canonicalurl = FULLHOSTPATH . getCustomPageURL('gallery', '', $_current_page);
 				$type = 'website';
 				break;
 			case 'index.php':
 				$desc = getBareGalleryDesc();
-				$canonicalurl = FULLHOSTPATH . $_zp_gallery->getLink($_zp_page);
+				$canonicalurl = FULLHOSTPATH . $_gallery->getLink($_current_page);
 				$type = 'website';
 				break;
 			case 'album.php':
@@ -202,11 +202,11 @@ class htmlmetatags {
 				$pagetitle = getBareAlbumTitle() . " - ";
 				$date = getAlbumDate();
 				$desc = getBareAlbumDesc();
-				$canonicalurl = FULLHOSTPATH . $_zp_current_album->getLink($_zp_page);
+				$canonicalurl = FULLHOSTPATH . $_current_album->getLink($_current_page);
 				if (getOption('htmlmeta_opengraph') || getOption('htmlmeta_twittercard')) {
-					$thumbimg = $_zp_current_album->getAlbumThumbImage();
+					$thumbimg = $_current_album->getAlbumThumbImage();
 					getMaxSpaceContainer($ogimage_width, $ogimage_height, $thumbimg, false);
-					$thumb = FULLHOSTPATH . pathurlencode($thumbimg->getCustomImage(NULL, $ogimage_width, $ogimage_height, NULL, NULL, NULL, NULL, false, NULL));
+					$thumb = FULLHOSTPATH . html_encode($thumbimg->getCustomImage(NULL, $ogimage_width, $ogimage_height, NULL, NULL, NULL, NULL, false, NULL));
 					$twittercard_type = 'summary_large_image';
 				}
 				break;
@@ -214,9 +214,9 @@ class htmlmetatags {
 				$pagetitle = getBareImageTitle() . " (" . getBareAlbumTitle() . ") - ";
 				$date = getImageDate();
 				$desc = getBareImageDesc();
-				$canonicalurl = FULLHOSTPATH . $_zp_current_image->getLink();
+				$canonicalurl = FULLHOSTPATH . $_current_image->getLink();
 				if (getOption('htmlmeta_opengraph') || getOption('htmlmeta_twittercard')) {
-					$thumb = FULLHOSTPATH . pathurlencode(getCustomSizedImageMaxSpace($ogimage_width, $ogimage_height));
+					$thumb = FULLHOSTPATH . html_encode(getCustomSizedImageMaxSpace($ogimage_width, $ogimage_height));
 					$twittercard_type = 'summary_large_image';
 				}
 				break;
@@ -226,17 +226,17 @@ class htmlmetatags {
 						$pagetitle = getBareNewsTitle() . " - ";
 						$date = getNewsDate();
 						$desc = trim(getBare(getNewsContent()));
-						$canonicalurl = FULLHOSTPATH . $_zp_current_article->getLink();
+						$canonicalurl = FULLHOSTPATH . $_CMS_current_article->getLink();
 					} else if (is_NewsCategory()) {
-						$pagetitle = $_zp_current_category->getTitlelink() . " - ";
+						$pagetitle = $_CMS_current_category->getTitlelink() . " - ";
 						$date = strftime(DATE_FORMAT);
-						$desc = trim(getBare($_zp_current_category->getDesc()));
-						$canonicalurl = FULLHOSTPATH . $_zp_current_category->getLink($_zp_page);
+						$desc = trim(getBare($_CMS_current_category->getDesc()));
+						$canonicalurl = FULLHOSTPATH . $_CMS_current_category->getLink($_current_page);
 						$type = 'category';
 					} else {
 						$pagetitle = $labels['news'] . " - ";
 						$desc = '';
-						$canonicalurl = FULLHOSTPATH . getNewsPathNav($_zp_page);
+						$canonicalurl = FULLHOSTPATH . getNewsPathNav($_current_page);
 						$type = 'website';
 					}
 				}
@@ -245,10 +245,10 @@ class htmlmetatags {
 				$pagetitle = getBarePageTitle() . " - ";
 				$date = getPageDate();
 				$desc = trim(getBare(getPageContent()));
-				$canonicalurl = FULLHOSTPATH . $_zp_current_page->getLink();
+				$canonicalurl = FULLHOSTPATH . $_CMS_current_page->getLink();
 				break;
 			default: // for all other possible static custom pages
-				$custompage = stripSuffix($_zp_gallery_page);
+				$custompage = stripSuffix($_gallery_page);
 				$standard = array('contact' => gettext('Contact'), 'register' => gettext('Register'), 'search' => gettext('Search'), 'archive' => gettext('Archive view'), 'password' => gettext('Password required'));
 				if (is_object($_myFavorites)) {
 					$standard['favorites'] = gettext('My favorites');
@@ -266,7 +266,7 @@ class htmlmetatags {
 		$desc = html_encode(trim(substr(getBare($desc), 0, 160)));
 		$pagetitle = $pagetitle . getBareGalleryTitle();
 		// get master admin
-		$admin = $_zp_authority->getMasterUser();
+		$admin = $_authority->getMasterUser();
 		$author = $admin->getName();
 		$meta = '';
 		if (getOption('htmlmeta_http-equiv-cache-control')) {
@@ -303,7 +303,7 @@ class htmlmetatags {
 			$meta .= '<meta name="rights" content="' . $author . '">' . "\n";
 		}
 		if (getOption('htmlmeta_name-generator')) {
-			$meta .= '<meta name="generator" content="netPhotoGraphics ' . ZENPHOTO_VERSION . '">' . "\n";
+			$meta .= '<meta name="generator" content="netPhotoGraphics ' . NETPHOTOGRAPHICS_VERSION . '">' . "\n";
 		}
 		if (getOption('htmlmeta_name-revisit-after')) {
 			$meta .= '<meta name="revisit-after" content="' . getOption("htmlmeta_revisit_after") . ' days">' . "\n";
@@ -367,49 +367,49 @@ class htmlmetatags {
 						$locallink = '';
 					}
 					foreach ($langs as $text => $lang) {
-						$langcheck = zpFunctions::getLanguageText($lang, '-'); //	for hreflang we need en-US
+						$langcheck = npgFunctions::getLanguageText($lang, '-'); //	for hreflang we need en-US
 						if ($langcheck != $locale) {
 							if (METATAG_LOCALE_TYPE == 1) {
 								$altlink = seo_locale::localePath(true, $lang);
 							} else {
 								$altlink = dynamic_locale::fullHostPath($lang);
 							}
-							switch ($_zp_gallery_page) {
+							switch ($_gallery_page) {
 								case 'gallery.php':
-									$altlink .= str_replace($locallink, '', getCustomPageURL('gallery', '', $_zp_page));
+									$altlink .= str_replace($locallink, '', getCustomPageURL('gallery', '', $_current_page));
 									break;
 								case 'index.php':
-									$altlink .= str_replace($locallink, '', $_zp_gallery->getLink($_zp_page));
+									$altlink .= str_replace($locallink, '', $_gallery->getLink($_current_page));
 									break;
 								case 'album.php':
 								case 'favorites.php';
-									$altlink .= str_replace($locallink, '', $_zp_current_album->getLink($_zp_page));
+									$altlink .= str_replace($locallink, '', $_current_album->getLink($_current_page));
 									break;
 								case 'image.php':
-									$altlink .= str_replace($locallink, '', $_zp_current_image->getLink());
+									$altlink .= str_replace($locallink, '', $_current_image->getLink());
 									break;
 								case 'news.php':
 									if (function_exists("is_NewsArticle")) {
 										if (is_NewsArticle()) {
-											$altlink .= str_replace($locallink, '', $_zp_current_article->getLink());
+											$altlink .= str_replace($locallink, '', $_CMS_current_article->getLink());
 										} else if (is_NewsCategory()) {
-											$altlink .= str_replace($locallink, '', $_zp_current_category->getLink($_zp_page));
+											$altlink .= str_replace($locallink, '', $_CMS_current_category->getLink($_current_page));
 										} else {
-											$altlink .= getNewsPathNav($_zp_page);
+											$altlink .= getNewsPathNav($_current_page);
 										}
 									}
 									break;
 								case 'pages.php':
-									$altlink .= str_replace($locallink, '', $_zp_current_page->getLink());
+									$altlink .= str_replace($locallink, '', $_CMS_current_page->getLink());
 									break;
 								case 'archive.php':
 									$altlink .= getCustomPageURL('archive');
 									break;
 								case 'search.php':
-									$searchwords = $_zp_current_search->codifySearchString();
-									$searchdate = $_zp_current_search->getSearchDate();
-									$searchfields = $_zp_current_search->getSearchFields(true);
-									$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $_zp_page, array('albums' => $_zp_current_search->getAlbumList()));
+									$searchwords = $_current_search->codifySearchString();
+									$searchdate = $_current_search->getSearchDate();
+									$searchfields = $_current_search->getSearchFields(true);
+									$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $_current_page, array('albums' => $_current_search->getAlbumList()));
 									$altlink .= $searchpagepath;
 									break;
 								case 'contact.php':
@@ -435,12 +435,12 @@ class htmlmetatags {
 	 * @param array $array the array of the tags or categories to list
 	 */
 	private static function getMetaKeywords() {
-		global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_current_article, $_zp_current_page, $_zp_current_category, $_zp_gallery_page, $_zp_CMS;
+		global $_gallery, $_current_album, $_current_image, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category, $_gallery_page, $_CMS;
 		$words = '';
-		if (is_object($_zp_current_album) OR is_object($_zp_current_image)) {
+		if (is_object($_current_album) OR is_object($_current_image)) {
 			$tags = getTags();
 			$words .= htmlmetatags::getMetaAlbumAndImageTags($tags, "gallery");
-		} else if ($_zp_gallery_page === "index.php") {
+		} else if ($_gallery_page === "index.php") {
 			$tags = array_keys(getAllTagsUnique(NULL, 1)); // get all if no specific item is set
 			$words .= htmlmetatags::getMetaAlbumAndImageTags($tags, "gallery");
 		}
@@ -454,10 +454,10 @@ class htmlmetatags {
 				$tags = getTags();
 				$words = htmlmetatags::getMetaAlbumAndImageTags($tags, "gallery");
 			} else if (is_News()) {
-				$tags = $_zp_CMS->getAllCategories();
+				$tags = $_CMS->getAllCategories();
 				$words .= htmlmetatags::getMetaAlbumAndImageTags($tags, "zenpage");
 			} else if (is_NewsCategory()) {
-				$words .= $_zp_current_category->getTitle();
+				$words .= $_CMS_current_category->getTitle();
 			}
 		}
 		return $words;

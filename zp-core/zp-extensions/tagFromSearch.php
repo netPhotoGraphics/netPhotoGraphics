@@ -30,20 +30,19 @@ class tagFromSearch {
 		return $options;
 	}
 
-	static function toolbox($zf) {
-		global $_zp_current_search;
-		if (zp_loggedin(TAGS_RIGHTS)) {
+	static function toolbox() {
+		global $_current_search;
+		if (npg_loggedin(TAGS_RIGHTS)) {
 			?>
 			<li>
-				<a href="<?php echo $zf . '/' . PLUGIN_FOLDER . '/tagFromSearch/tag.php?' . substr($_zp_current_search->getSearchParams(), 1); ?>" title="<?php echo gettext('Tag items found by the search'); ?>" ><?php echo gettext('Tag items'); ?></a>
+				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/tagFromSearch/tag.php') . '?' . substr($_current_search->getSearchParams(), 1); ?>" title="<?php echo gettext('Tag items found by the search'); ?>" ><?php echo gettext('Tag items'); ?></a>
 			</li>
 			<?php
 		}
-		return $zf;
 	}
 
 	static function head() {
-		if (!zp_loggedin(TAGS_RIGHTS)) {
+		if (!npg_loggedin(TAGS_RIGHTS)) {
 			if (getOption('tagFromSearch_tagOnly'))
 				setOption('search_fields', 'tags', false);
 		}
@@ -51,6 +50,6 @@ class tagFromSearch {
 
 }
 
-zp_register_filter('feature_plugin_load', 'tagFromSearch::head');
-zp_register_filter('admin_toolbox_search', 'tagFromSearch::toolbox');
+npgFilters::register('feature_plugin_load', 'tagFromSearch::head');
+npgFilters::register('admin_toolbox_search', 'tagFromSearch::toolbox');
 ?>

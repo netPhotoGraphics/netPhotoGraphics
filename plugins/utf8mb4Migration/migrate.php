@@ -20,7 +20,7 @@ admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
 XSRFdefender('utf8mb4Migration');
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/setup/setup-functions.php');
+require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 
 $prefix = strlen(trim(prefix(), '`'));
 $resource = db_show('tables');
@@ -70,11 +70,11 @@ foreach ($tables as $table) {
 	}
 }
 $_configMutex->lock();
-$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-$zp_cfg = updateConfigItem('UTF-8', 'utf8mb4', $zp_cfg);
-storeConfig($zp_cfg);
+$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
+configFile::store($_config_contents);
 $_configMutex->unlock();
 
 
-header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=external&msg=' . gettext('utf8mb4 migration completed.'));
+header('Location: ' . getAdminLink('admin.php').'?action=external&msg=' . gettext('utf8mb4 migration completed.'));
 exit();

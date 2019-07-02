@@ -13,70 +13,13 @@ define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . "/zp-core/admin-globals.php");
 admin_securityChecks(THEMES_RIGHTS, currentRelativeURL());
 
-$legacyReplacements = array(
-		'SERVER_HTTP_HOST' => 'FULLHOSTPATH',
-		'new ZenpagePage' => 'newPage',
-		'new ZenpageNews' => 'newArticle',
-		'new ZenpageCategory' => 'newCategory',
-		'\$_zp_zenpage' => '$_zp_CMS',
-		'ZP_NEWS_ENABLED' => 'extensionEnabled(\'zenpage\') && hasNews()/* TODO:replaced ZP_NEWS_ENABLED */',
-		'ZP_PAGES_ENABLED' => 'extensionEnabled(\'zenpage\') && hasPages()/* TODO:replaced ZP_PAGES_ENABLED */',
-		'getAllTagsCount\(.*?\)' => 'getAllTagsUnique(NULL, 1, true)',
-		'printHeadTitle\(.*?\);?' => '/* TODO:replaced printHeadTitle() */',
-		'getSiteHomeURL\(.*?\)' => 'getGalleryIndexURL() /* TODO:replaced getSiteHomeURL() */',
-		'printSiteHomeURL\(.*?\);?' => '/* TODO:replaced printSiteHomeURL() */',
-		'getNextPrevNews\([\'"](.*)[\'"]\)' => 'get$1News() /* TODO:replaced getNextPrevNews(\'$1\') */',
-		'zenpagePublish\((.*)\,(.*)\)' => '$1->setShow($2) /* TODO:replaced zenpagePublish() */',
-		'getImageCustomData\(\)' => '($_zp_current_image)?$_zp_current_image->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'printImageCategoryCustomData\(\)' => 'echo ($_zp_current_image)?$_zp_current_image->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'getAlbumCustomData\(\)' => '($_zp_current_album)?$_zp_current_album->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'printAlbumCategoryCustomData\(\)' => 'echo ($_zp_current_album)?$_zp_current_album->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'getPageCustomData\(\)' => '($_zp_current_page)?$_zp_current_page->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'printPageCategoryCustomData\(\)' => 'echo ($_zp_current_page)?$_zp_current_page->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'getNewsCustomData\(\)' => '($_zp_current_article)?$_zp_current_article->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'printNewsCustomData\(\)' => 'echo ($_zp_current_article)?$_zp_current_article->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'getNewsCategoryCustomData\(\)' => '($_zp_current_category)?$_zp_current_category->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'printNewsCategoryCustomData\(\)' => 'echo ($_zp_current_category)?$_zp_current_category->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
-		'class_exists\([\'"]Zenpage[\'"]\)' => 'class_exists("CMS")',
-		'\$_zp_current_zenpage_news' => '$_zp_current_article',
-		'\$_zp_current_zenpage_page' => '$_zp_current_page',
-		'->getFullImage\(' => '->getFullImageURL(',
-		'tinymce4_' => 'tinymce_',
-		'getSubtabs' => 'getCurrentTab	/* TODO:replaced printSubtabs. Remove this if you do not use the return value */',
-		'printSubtabs' => 'getCurrentTab	/* TODO:replaced printSubtabs. Remove this if you do not use the return value */',
-		'gettext\(\'news\'\)' => 'NEWS_LABEL', 'gettext("news")' => 'NEWS_LABEL',
-		'addThemeCacheSize' => 'addCacheSize',
-		'deleteThemeCacheSizes' => 'deleteCacheSizes',
-		'addDefaultThumbSize\(.*?\)' => '/*addDefaultThumbSize removed*/',
-		'addThemeDefaultThumbSize\(.*?\)' => '/*addThemeDefaultThumbSize removed*/',
-		'addDefaultSizedImageSize\(.*?\)' => '/*addDefaultSizedImageSize removed*/',
-		'addThemeDefaultSizedImageSize\(.*?\)' => 'addThemeDefaultSizedImageSize/*addThemeDefaultSizedImageSize removed*/',
-		'exitZP\(\)' => 'exit()',
-		'printZenphotoLink\(.*\)' => 'print_SW_Link()',
-		'scriptEnabled\(.*?\)' => '/*scriptEnabled removed*/',
-		'registerScripts\(.*?\)' => '/*registerScripts removed*/',
-		'->getAuthor\(' => '->getOwner(',
-		'->setAuthor\(' => '->setOwner(',
-		'getGeoCoord\(' => 'simpleMap::getGeoCoord(',
-		'addGeoCoord\(' => 'simpleMap::addGeoCoord(',
-		'edit_admin_custom_data' => 'edit_admin_custom',
-		'edit_album_custom_data' => 'edit_album_custom',
-		'edit_image_custom_data' => 'edit_image_custom',
-		'edit_article_custom_data' => 'edit_article_custom',
-		'edit_category_custom_data' => 'edit_category_custom',
-		'edit_page_custom_data' => 'edit_page_custom',
-		'save_admin_custom_data' => 'save_admin_data',
-		'save_album_utilities_data' => 'save_album_data',
-		'save_image_utilities_data' => 'save_image_data'
-);
-
 /**
  *
  * enumerates the files in folder(s)
  * @param $folder
  */
 function getResidentFiles($folder) {
-	global $_zp_resident_files;
+	global $_resident_files;
 	$localfiles = array();
 	$localfolders = array();
 	if (file_exists($folder)) {
@@ -142,7 +85,7 @@ if (isset($_GET['action'])) {
 		foreach ($legacyReplacements as $match => $replace) {
 			$body = preg_replace('~' . $match . '~im', $replace, $body);
 		}
-		$body = preg_replace('~/\* TODO:replaced .*/\* TODO:replaced(.*)\*/ \*/~', '/* TODO:replaced$1*/', $body); //in case we came here twice
+		$body = preg_replace('~/\* TODO:replaced.*/\*(.*?)\*/.*\*/~', '/*$1*/', $body); //in case we came here twice
 
 		if ($source != $body) {
 			file_put_contents($file, $body);
@@ -158,7 +101,7 @@ printLogoAndLinks();
 echo "\n" . '<div id="main">';
 printTabs();
 echo "\n" . '<div id="content">';
-zp_apply_filter('admin_note', 'development', '');
+npgFilters::apply('admin_note', 'development', '');
 echo "\n" . '<div id="container">';
 ?>
 <h1><?php echo gettext('Convert legacy Zenphoto themes and plugins'); ?></h1>
@@ -172,8 +115,13 @@ echo "\n" . '<div id="container">';
 		</div>
 		<?php
 	}
+	?>
+	<div>
+		<?php echo gettext('Note: you should review any the results of this conversion. Lood for the <code>/* TODO:.... */</code> in the scripts as these contain suggestions on further improvements.'); ?>
+	</div>
+	<?php
 	$themesP = $themes = $plugins = $pluginsP = array();
-	foreach ($_zp_gallery->getThemes() as $theme => $data) {
+	foreach ($_gallery->getThemes() as $theme => $data) {
 		if (!protectedTheme($theme)) {
 			$themes[] = $theme;
 			if (checkIfProcessed('theme', $theme)) {
@@ -184,8 +132,8 @@ echo "\n" . '<div id="container">';
 	$paths = getPluginFiles('*.php');
 	foreach ($paths as $plugin => $path) {
 		if (strpos($path, USER_PLUGIN_FOLDER) !== false) {
-			if (!distributedPlugin($plugin)) {
-				$name = stripSuffix(basename($path));
+			$name = stripSuffix(basename($path));
+			if (!distributedPlugin($name)) {
 				$plugins[] = $name;
 				if (checkIfProcessed('plugin', $name)) {
 					$pluginsP[] = $name;

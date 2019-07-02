@@ -15,7 +15,7 @@ if (isset($_POST['dbname']) || isset($_POST['dbuser']) || isset($_POST['dbpass']
 }
 
 printAdminHeader('overview', 'Database');
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
+scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 ?>
 <style>
 
@@ -48,12 +48,11 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/admin-statistics.css');
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'database', ''); ?>
+			<?php npgFilters::apply('admin_note', 'database', ''); ?>
 			<h1><span id="top"><?php echo gettext('Database quick reference'); ?></span></h1>
 			<div class="tabbox">
 				<p>
 					<?php echo gettext('Shows all database table and field info for quick reference.'); ?>
-					<?php echo gettext("The internal table relations can be viewed on the PDF database reference that is included in the release package within the /docs_files folder of your installation. For more detailed info about the database use tools like phpMyAdmin."); ?>
 				</p>
 				<?php
 				$database_name = db_name();

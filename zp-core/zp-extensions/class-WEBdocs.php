@@ -13,8 +13,8 @@
  * @pluginCategory media
  *
  */
+$plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 990 | CLASS_PLUGIN;
 	$plugin_description = gettext('Provides a means for showing documents using <em>WEBdocs</em> for the document rendering.');
 }
 
@@ -115,7 +115,7 @@ class WEBdocs extends TextObject {
 	 * @return s
 	 */
 	function getThumbImageFile($path = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($path)) {
 			$path = SERVERPATH;
 		}
@@ -133,9 +133,9 @@ class WEBdocs extends TextObject {
 					$img = '/tifDefault.png';
 					break;
 			}
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/' . $img;
+			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/' . $img;
+				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/' . $img;
 			}
 		} else {
 			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
@@ -156,7 +156,7 @@ class WEBdocs extends TextObject {
 			$w = $this->getWidth();
 		if (is_null($h))
 			$h = $this->getHeight();
-		$providers = array('' => '<img src="' . pathurlencode($this->getThumb()) . '">',
+		$providers = array('' => '<img src="' . html_encode($this->getThumb()) . '">',
 				'google' => '<iframe src="http://docs.google.com/viewer?url=%s&amp;embedded=true" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto"></iframe>',
 				'zoho' => '<iframe src="http://viewer.zoho.com/api/urlview.do?url=%s&amp;embed=true" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto"></iframe>',
 				'local' => '<iframe src="%s" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto"></iframe>'
@@ -172,7 +172,7 @@ class WEBdocs extends TextObject {
 				$provider = 'WEBdocs_' . $suffix . '_provider';
 				return sprintf($providers[getOption($provider)], html_encode($this->getFullImageURL(FULLWEBPATH)));
 			default: // just in case we extend and are lazy...
-				return '<img src="' . pathurlencode($this->getThumb()) . '">';
+				return '<img src="' . html_encode($this->getThumb()) . '">';
 		}
 	}
 

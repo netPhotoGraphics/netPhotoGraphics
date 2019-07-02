@@ -9,14 +9,14 @@ if (!defined('WEBPATH'))
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
 		scriptLoader($zenCSS);
 		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="main">
 
 			<div id="gallerytitle">
@@ -38,7 +38,7 @@ if (!defined('WEBPATH'))
 		</div>
 		<div id="credit">
 			<?php
-			if (!zp_loggedin() && function_exists('printRegisterURL') && $_zp_gallery->isUnprotectedPage('register')) {
+			if (!npg_loggedin() && function_exists('printRegisterURL') && $_gallery->isUnprotectedPage('register')) {
 				echo '<p>';
 				printRegisterURL(gettext('Register for this site'), '<br />');
 				echo '</p>';
@@ -46,6 +46,6 @@ if (!defined('WEBPATH'))
 			?>
 			<?php printSoftwareLink(); ?>
 		</div>
-		<?php zp_apply_filter('theme_body_close'); ?>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</body>
 </html>

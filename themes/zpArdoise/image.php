@@ -34,7 +34,7 @@
 	<div id="image">
 		<?php $fullimage = getFullImageURL(); ?>
 		<?php if ((getOption('use_colorbox_image')) && (!empty($fullimage))) { ?>
-			<a class="colorbox" href="<?php echo pathurlencode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printDefaultSizedImage(getImageTitle()); ?></a>
+			<a class="colorbox" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printDefaultSizedImage(getImageTitle()); ?></a>
 		<?php } else { ?>
 			<?php printDefaultSizedImage(getImageTitle()); ?>
 		<?php } ?>
@@ -53,8 +53,8 @@
 		<div class="headline-tags"><?php printTags('links', '', 'hor-list'); ?></div>
 	<?php } ?>
 
-	<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
-		<div class="favorites"><?php printAddToFavorites($_zp_current_image); ?></div>
+	<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+		<div class="favorites"><?php printAddToFavorites($_current_image); ?></div>
 	<?php } ?>
 
 	<?php if (extensionEnabled('rating')) { ?>

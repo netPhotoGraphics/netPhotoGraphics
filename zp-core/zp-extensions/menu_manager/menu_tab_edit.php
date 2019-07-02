@@ -32,7 +32,7 @@ if (isset($_GET['del'])) {
 }
 
 printAdminHeader('menu', (is_array($result) && $result['id']) ? gettext('edit') : gettext('add'));
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/zenpage.css');
+scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/zenpage.css');
 $menuset = checkChosenMenuset();
 ?>
 </head>
@@ -215,7 +215,7 @@ if (is_array($result)) {
 				//]]> -->
 			</script>
 			<?php
-			zp_apply_filter('admin_note', 'menu', 'edit');
+			npgFilters::apply('admin_note', 'menu', 'edit');
 			?>
 			<h1>
 				<?php
@@ -242,12 +242,12 @@ if (is_array($result)) {
 				}
 				?>
 				<p class="buttons">
-					<a href="menu_tab.php?menuset=<?php echo $menuset; ?>">
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>">
 						<?php echo BACK_ARROW_BLUE; ?>
 						<strong><?php echo gettext("Back"); ?></strong>
 					</a>
 					<span class="floatright">
-						<a href="menu_tab_edit.php?add&amp;menuset=<?php echo urlencode($menuset); ?>">
+						<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?add&amp;menuset=<?php echo urlencode($menuset); ?>">
 							<?php echo PLUS_ICON; ?>
 							<strong>
 								<?php echo gettext("Add Menu Items"); ?>
@@ -300,7 +300,7 @@ if (is_array($result)) {
 						$add = '&amp;update';
 					}
 					?>
-					<form class="dirtylistening" onReset="setClean('add');" autocomplete="off"  method="post" id="add" name="add" action="menu_tab_edit.php?save<?php
+					<form class="dirtylistening" onReset="setClean('add');" autocomplete="off"  method="post" id="add" name="add" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?save<?php
 					echo $add;
 					if ($menuset)
 						echo '&amp;menuset=' . $menuset;

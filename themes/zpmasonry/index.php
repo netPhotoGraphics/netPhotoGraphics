@@ -16,7 +16,7 @@
 						<?php printAlbumMenuJump('count', gettext('Gallery Index')); ?>
 					</div>
 				<?php } ?>
-				<?php if (getOption('zp_plugin-zenpage') && getOption('zpmas_usenews')) { ?>
+				<?php if (extensionEnabled('zenpage') && getOption('zpmas_usenews')) { ?>
 					<div class="latest sidebar-divide">
 						<?php printLatestNews(1); ?>
 					</div>
@@ -26,15 +26,15 @@
 		</div>
 	</div>
 	<div id="mason">
-		<?php if (($zpmas_ss) && ($_zp_page == 1)) { ?>
+		<?php if (($zpmas_ss) && ($_current_page == 1)) { ?>
 			<div id="cycle" class="box <?php echo $zpmas_col_ss; ?> album">
-				<?php if ($zpmas_sscount > $_zp_gallery->getNumImages(2)) $zpmas_sscount = $_zp_gallery->getNumImages(2); ?>
+				<?php if ($zpmas_sscount > $_gallery->getNumImages(2)) $zpmas_sscount = $_gallery->getNumImages(2); ?>
 				<?php
 				if ($zpmas_albumorimage == 'image') {
 					printImageStatistic($zpmas_sscount, $zpmas_functionoption, '', true, false, false, 40, '', $zpmas_ss_size_w, $zpmas_ss_size_h, true);
 				} else if ($zpmas_albumorimage == 'album') {
-					if ($zpmas_sscount > $_zp_gallery->getNumAlbums(false, true))
-						$zpmas_sscount = $_zp_gallery->getNumAlbums(false, true);
+					if ($zpmas_sscount > $_gallery->getNumAlbums(false, true))
+						$zpmas_sscount = $_gallery->getNumAlbums(false, true);
 					printAlbumStatistic($zpmas_sscount, $zpmas_functionoption, true, false, false, 40, '', $zpmas_ss_size_w, $zpmas_ss_size_h, true);
 				} else {
 					?>
@@ -52,7 +52,7 @@
 									$randomImageURL = html_encode($randomImage->getLink());
 									echo '<li><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
 									$html = "<img src=\"" . html_encode($randomImage->getCustomImage(null, $zpmas_ss_size_w, $zpmas_ss_size_h, $zpmas_ss_size_w, $zpmas_ss_size_h, null, null, true)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
-									echo zp_apply_filter('custom_image_html', $html, false);
+									echo npgFilters::apply('custom_image_html', $html, false);
 									echo "</a>";
 									echo '<h3><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">' . html_encodeTagged($randomImage->getTitle()) . '</a></h3>';
 									echo "</li>";

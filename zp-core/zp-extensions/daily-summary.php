@@ -14,7 +14,7 @@
  * 	<li>Use <var>printDailySummaryLink()</var> to put a link to the summary on theme pages.</li>
  * </ol>
  *
- * <sup>†</sup>You will probably want to edit your theme <var>daily-summary.php</var> script and/or your theme's <var>css</var> to
+ * <sup>†</sup>You will probably want to edit your theme <var>summary.php</var> script and/or your theme's <var>css</var> to
  * 		get the content, look, and feel you want for your theme. For distributed themes' summary scripts include the
  * 		<code>daily-summary_content.php</code> script.  You can customize them by placing your modified copy in the
  * 		<var>%USER_PLUGIN_FOLDER%/daily-cummary</var> folder.
@@ -33,12 +33,12 @@ $plugin_author = "Marcus Wong (wongm) and Stephen Billard";
 
 $option_interface = 'DailySummaryOptions';
 
-if (isset($_zp_gallery_page) && $_zp_gallery_page == getOption('DailySummaryScript')) {
+if (isset($_gallery_page) && $_gallery_page == getOption('DailySummaryScript')) {
 	require_once(dirname(__FILE__) . '/daily-summary/class-dailysummary.php');
 	require_once(dirname(__FILE__) . '/daily-summary/class-dailysummaryitem.php');
 	require_once(dirname(__FILE__) . '/daily-summary/dailysummary-template-functions.php');
-	$_zp_current_DailySummary = new DailySummary();
-	zp_register_filter('checkPageValidity', 'DailySummary::pageCount');
+	$_current_DailySummary = new DailySummary();
+	npgFilters::register('checkPageValidity', 'DailySummary::pageCount');
 }
 
 class DailySummaryOptions {
@@ -50,9 +50,9 @@ class DailySummaryOptions {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
+		global $_gallery;
 		$curdir = getcwd();
-		$root = SERVERPATH . '/' . THEMEFOLDER . '/' . $_zp_gallery->getCurrentTheme() . '/';
+		$root = SERVERPATH . '/' . THEMEFOLDER . '/' . $_gallery->getCurrentTheme() . '/';
 		chdir($root);
 		$filelist = safe_glob('*.php');
 		$list = array();

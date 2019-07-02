@@ -51,11 +51,11 @@ class GDPR_required {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_CMS;
+		global $_CMS;
 
 		$possibilities = array('*' . gettext('Custom url') . '*' => '');
-		if ($_zp_CMS) {
-			foreach ($_zp_CMS->getPages(false) as $page) {
+		if ($_CMS) {
+			foreach ($_CMS->getPages(false) as $page) {
 				$possibilities[get_language_string($page['title'])] = $page['titlelink'];
 			}
 		}
@@ -110,13 +110,15 @@ class GDPR_required {
 	 */
 
 	static function page($themeScript, $requested_object) {
-		global $_zp_current_admin_obj, $_GDPR_acknowledge_loaded;
+		global $_current_admin_obj, $_GDPR_acknowledge_loaded;
 		if (!checkAccess($hint, $show)) { // password form will be shown!
 			return $themeScript;
 		}
-		if (!($_zp_current_admin_obj && $_zp_current_admin_obj->getPolicyAck()) && zp_getCookie('policyACK') != getOption('GDPR_cookie')) {
+
+		if (!($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') != getOption('GDPR_cookie')) {
 			if ($link = getOption('GDPR_URL')) {
-				if (getRequestURI() == $link) {
+				$parts = explode('?', getRequestURI());
+				if ($link == $parts[0]) {
 					$_GDPR_acknowledge_loaded = true;
 				} else {
 					$goodBots = explode(',', strtolower(getOption('GDPR_Bots_Allowed')));
@@ -129,10 +131,11 @@ class GDPR_required {
 						}
 					}
 					if ($require) {
+						$from = '?from=' . urlencode(getRequestURI());
 						//	redirect to the policy page
 						header("HTTP/1.0 307 Found");
 						header("Status: 307 Found");
-						header('Location: ' . $link);
+						header('Location: ' . $link . $from);
 						exit();
 					}
 				}
@@ -158,7 +161,12 @@ class GDPR_required {
 			setOption('GDPR_text', gettext('Check to acknowledge the site usage policy.'), false);
 			setOption('GDPR_acknowledge', 1, false);
 			if (is_null($target)) {
-				$target = getGalleryIndexURL();
+				if (isset($_GET['from'])) {
+					$target = sanitizeRedirect(urldecode($_GET['from']));
+				}
+				if (empty($target)) {
+					$target = getGalleryIndexURL();
+				}
 			}
 			?>
 			<form action="<?php echo $target; ?>" method = "post">
@@ -183,7 +191,18 @@ class GDPR_required {
 		return array_merge($macros, $my_macros);
 	}
 
+	static function isMe($allow, $page) {
+		if ($link = getOption('GDPR_URL')) {
+			$parts = explode('?', getRequestURI());
+			if ($link == $parts[0]) {
+				return true;
+			}
+		}
+		return $allow;
+	}
+
 }
 
-zp_register_filter('load_theme_script', 'GDPR_required::page');
-zp_register_filter('content_macro', 'GDPR_required::macro');
+npgFilters::register('load_theme_script', 'GDPR_required::page');
+npgFilters::register('content_macro', 'GDPR_required::macro');
+npgFilters::register('isUnprotectedPage', 'GDPR_required::isMe');

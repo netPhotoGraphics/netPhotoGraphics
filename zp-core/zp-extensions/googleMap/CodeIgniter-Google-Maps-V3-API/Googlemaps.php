@@ -1837,7 +1837,7 @@ class Googlemaps {
 			// zenphoto hack
 			// Google abandoned their CDN
 			$this->output_js_contents .= ',
-				imagePath: "' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/images/m"';
+				imagePath: "' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/images/m"';
 			// end zenphotohack
 			$this->output_js_contents .= ',
 				minimumClusterSize: ' . $this->clusterMinimumClusterSize . '

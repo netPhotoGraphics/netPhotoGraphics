@@ -12,7 +12,7 @@
 $plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext('Forces a defined album as the index page.');
 
-zp_register_filter('load_request', 'forceAlbum');
+npgFilters::register('load_request', 'forceAlbum');
 
 function forceAlbum($success) {
 	// we presume that the site only serves the one album.

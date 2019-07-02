@@ -11,7 +11,7 @@ function getPHPFiles($folder, $exclude, &$files = array()) {
 			if (is_dir($folder . '/' . $file) && !in_array($file, $exclude)) {
 				getPHPFiles($folder . '/' . $file, $exclude, $files);
 			} else {
-				if (getSuffix($file) == 'php') {
+				if (getSuffix($file) == 'php' && !in_array(stripSuffix($file), $exclude)) {
 					$entry = $folder . '/' . $file;
 					$files[] = $entry;
 				}
@@ -22,54 +22,60 @@ function getPHPFiles($folder, $exclude, &$files = array()) {
 	return $files;
 }
 
-function formatList($title, $subject, $pattern, $started = FALSE) {
+function formatList($title, $subject, $patterns, $started = FALSE) {
 	global $deprecated;
 	$emitted = false;
-	preg_match_all($pattern, $subject, $matches);
-	if ($matches && !empty($matches[0])) {
-		foreach (array_unique($matches[2]) as $key => $match) {
-			$details = $deprecated->unique_functions[strtolower($match)];
-			$found = $matches[1][$key];
-			switch ($details['class']) {
-				case 'static':
-					if ($found == '->' || $found == '::') {
-						$class = '*';
-						break;
-					} else {
-						continue 2;
-					}
-				case 'final static':
-					if ($found == '->' || $found == '::') {
-						$class = '*+';
-						break;
-					} else {
-						continue 2;
-					}
-				case 'public static':
-					if ($found == '->' || $found == '::') {
-						continue 2;
-					} else {
-						$class = '+';
-						break;
-					}
-				default:
-					if ($found == '->' || $found == '::') {
-						continue 2;
-					} else {
-						$class = '';
-						break;
-					}
-			}
-			if (!$emitted) {
-				if ($started) {
-					echo "</ul>\n";
+	foreach ($patterns as $pattern) {
+		preg_match_all($pattern, $subject, $matches);
+		if ($matches && !empty($matches[0])) {
+			foreach (array_unique($matches[2]) as $key => $match) {
+				if (isset($deprecated->unique_functions[strtolower($match)])) {
+					$details = $deprecated->unique_functions[strtolower($match)];
 				} else {
-					echo '<ul class="ulclean">' . "\n";
+					$details = array('class' => 'var');
 				}
-				echo "<li>\n<h3>$title</h3>\n<ul class=\"ulclean\">\n";
-				$started = $emitted = true;
+				$found = $matches[1][$key];
+				switch ($details['class']) {
+					case 'static':
+						if ($found == '->' || $found == '::') {
+							$class = '*';
+							break;
+						} else {
+							continue 2;
+						}
+					case 'final static':
+						if ($found == '->' || $found == '::') {
+							$class = '*+';
+							break;
+						} else {
+							continue 2;
+						}
+					case 'public static':
+						if ($found == '->' || $found == '::') {
+							continue 2;
+						} else {
+							$class = '+';
+							break;
+						}
+					default:
+						if ($found == '->' || $found == '::') {
+							continue 2;
+						} else {
+							$class = '';
+							break;
+						}
+				}
+				if (!$emitted) {
+					if ($started) {
+						echo "</ul>\n";
+					} else {
+						echo '<ul class="ulclean">' . "\n";
+					}
+					echo "<li>\n<h3>$title</h3>\n<ul class=\"ulclean\">\n";
+					$started = $emitted = true;
+				}
+				echo '<li>' . $match . $class . "</li>\n";
 			}
-			echo '<li>' . $match . $class . "</li>\n";
 		}
 	}
 	if ($emitted) {
@@ -78,7 +84,7 @@ function formatList($title, $subject, $pattern, $started = FALSE) {
 	return $started;
 }
 
-function listUses($files, $base, $pattern) {
+function listUses($files, $base, $patterns) {
 	$open = $output = false;
 	$oldLocation = '';
 	foreach ($files as $file) {
@@ -93,7 +99,7 @@ function listUses($files, $base, $pattern) {
 			$script_location = trim($base . '/' . $location, '/') . '/';
 			$script = str_replace($script_location, '', $file);
 			$where = ltrim(str_replace(SERVERPATH, '', $script_location), '/');
-			$open = formatList($where . $script, $subject, $pattern, $open);
+			$open = formatList($where . $script, $subject, $patterns, $open);
 			if ($open) {
 				$output = true;
 			}

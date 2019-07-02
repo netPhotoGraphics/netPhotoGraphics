@@ -48,18 +48,18 @@ class external_auth {
 	 * @param BIT $authorized
 	 */
 	function check($authorized) {
-		global $_zp_authority, $_zp_current_admin_obj;
+		global $_authority, $_current_admin_obj;
 		if (!$authorized) { // not logged in via normal handling
 			if ($result = $this->user()) {
 				$user = $result['user'];
 				$searchfor = array('`user`=' => $user, '`valid`=' => 1);
-				$userobj = $_zp_authority->getAnAdmin($searchfor);
+				$userobj = $_authority->getAnAdmin($searchfor);
 				if (!$userobj) {
 					unset($result['id']);
 					unset($result['user']);
 					$authority = '';
 					//	create a transient user
-					$userobj = new Zenphoto_Administrator('', 1);
+					$userobj = new npg_Administrator('', 1);
 					$userobj->setUser($user);
 					$userobj->setRights(NO_RIGHTS); //	just incase none get set
 					//	Flag as external credentials for completeness
@@ -80,7 +80,7 @@ class external_auth {
 								$objects = array();
 								$groups = $value;
 								foreach ($groups as $key => $group) {
-									$groupobj = $_zp_authority->getAnAdmin(array('`user`=' => $group, '`valid`=' => 0));
+									$groupobj = $_authority->getAnAdmin(array('`user`=' => $group, '`valid`=' => 0));
 									if ($groupobj) {
 										$member = true;
 										$rights = $groupobj->getRights() | $rights;
@@ -102,7 +102,7 @@ class external_auth {
 								if (!$member && isset($result['defaultgroup'])) {
 									//	No netPhotoGraphics group, use the default group
 									$group = $result['defaultgroup'];
-									$groupobj = $_zp_authority->getAnAdmin(array('`user`=' => $group, '`valid`=' => 0));
+									$groupobj = $_authority->getAnAdmin(array('`user`=' => $group, '`valid`=' => 0));
 									if ($groupobj) {
 										$rights = $groupobj->getRights();
 										$objects = $groupobj->getObjects();
@@ -133,8 +133,8 @@ class external_auth {
 				if (isset($result['logout_link'])) {
 					$userobj->logout_link = $result['logout_link'];
 				}
-				$_zp_current_admin_obj = $userobj;
-				$authorized = $_zp_current_admin_obj->getRights();
+				$_current_admin_obj = $userobj;
+				$authorized = $_current_admin_obj->getRights();
 			}
 		}
 		return $authorized;

@@ -53,7 +53,7 @@ printCurrentNewsArchive("  »  "); ?>
 			<?php } else { ?>
 		<div id="page">
 			<div id="post">
-				<?php if ($_zp_current_category) { ?>
+				<?php if ($_CMS_current_category) { ?>
 					<h1><?php printCurrentNewsCategory(''); ?></h1>
 				<?php } ?>
 				<?php if (getCurrentNewsArchive()) { ?>

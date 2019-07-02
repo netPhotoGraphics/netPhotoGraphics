@@ -63,7 +63,7 @@ if (empty($reports)) {
 	}
 } else {
 	$_SESSION['reports'] = $reports;
-	$uri = WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/news.php' . getNewsAdminOptionPath(getNewsAdminOption(NULL));
+	$uri = getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(getNewsAdminOption(NULL));
 	header('Location: ' . $uri);
 	exit();
 }
@@ -104,7 +104,7 @@ updatePublished('news');
 		printTabs();
 		?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'news', $subtab); ?>
+			<?php npgFilters::apply('admin_note', 'news', $subtab); ?>
 			<h1>
 				<?php echo gettext('Articles'); ?>
 			</h1>
@@ -135,10 +135,10 @@ updatePublished('news');
 						echo "<em><small>" . html_encode($category) . '</small></em>';
 					}
 					if (isset($_GET['date'])) {
-						$_zp_post_date = sanitize($_GET['date']);
-						echo '<em><small> (' . html_encode($_zp_post_date) . ')</small></em>';
+						$_post_date = sanitize($_GET['date']);
+						echo '<em><small> (' . html_encode($_post_date) . ')</small></em>';
 						// require so the date dropdown is working
-						set_context(ZP_ZENPAGE_NEWS_DATE);
+						set_context(ZENPAGE_NEWS_DATE);
 					}
 					if (isset($_GET['published'])) {
 						switch ($_GET['published']) {
@@ -160,9 +160,9 @@ updatePublished('news');
 						list($sortorder, $sortdirection) = explode('-', $_GET['sortorder']);
 						$direction = $sortdirection && $sortdirection == 'desc';
 					}
-					$admin = $_zp_current_admin_obj->getUser();
-					$resultU = $_zp_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
-					$result = $_zp_CMS->getArticles(0, $published, false, $sortorder, $direction, false, $catobj);
+					$admin = $_current_admin_obj->getUser();
+					$resultU = $_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
+					$result = $_CMS->getArticles(0, $published, false, $sortorder, $direction, false, $catobj);
 					foreach (array('result' => $result, 'resultU' => $resultU) as $which => $list) {
 						foreach ($list as $key => $article) {
 							$article = newArticle($article['titlelink']);
@@ -176,7 +176,7 @@ updatePublished('news');
 						}
 					}
 
-					$categories = $_zp_CMS->getAllCategories();
+					$categories = $_CMS->getAllCategories();
 					foreach ($categories as $key => $cat) {
 						$catobj = newCategory($cat['titlelink']);
 						if (!($catobj->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
@@ -186,7 +186,7 @@ updatePublished('news');
 
 					$total = 1;
 					$articles = count($result);
-					if ($articles || !empty($categories) || zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+					if ($articles || !empty($categories) || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 						$articles_page = max(1, getOption('articles_per_page'));
 						if (isset($_GET['articles_page'])) {
 							if ($_GET['articles_page'] == 'all') {
@@ -251,7 +251,7 @@ updatePublished('news');
 								</button>
 							</div>
 							<span class="buttons floatright">
-								<a href="edit.php?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
+								<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
 									<?php echo PLUS_ICON; ?>
 									<strong><?php echo gettext("New Article"); ?></strong>
 								</a>
@@ -277,13 +277,13 @@ updatePublished('news');
 											gettext('Add categories') => array('name' => 'addcats', 'action' => 'mass_cats_data'),
 											gettext('Clear categories') => 'clearcats'
 									);
-									if (zp_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+									if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 										$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
 									}
 									if (extensionEnabled('hitcounter')) {
 										$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
 									}
-									$checkarray = zp_apply_filter('bulk_article_actions', $checkarray);
+									$checkarray = npgFilters::apply('bulk_article_actions', $checkarray);
 									printBulkActions($checkarray);
 									?>
 								</span>
@@ -330,7 +330,7 @@ updatePublished('news');
 											}
 
 
-											echo '<a href="edit.php' . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
+											echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
 											checkForEmptyTitle($article->getTitle(), "news");
 											echo '</a>' . checkHitcounterDisplay($article->getHitcounter()) . $sticky;
 											?>
@@ -439,7 +439,7 @@ updatePublished('news');
 												}
 												?>
 												<div class="page-list_icon">
-													<a href="javascript:confirmDelete('news.php<?php echo $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
+													<a href="javascript:confirmDelete('<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . $option . $divider; ?>delete=<?php echo $article->getTitlelink(); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>','<?php echo js_encode(gettext('Are you sure you want to delete this article? THIS CANNOT BE UNDONE!')); ?>')" title="<?php echo gettext('Delete article'); ?>">
 														<?php echo WASTEBASKET; ?>
 													</a>
 												</div>

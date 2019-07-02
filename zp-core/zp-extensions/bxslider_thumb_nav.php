@@ -56,7 +56,7 @@ class bxslider {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
+		global $_gallery;
 		$options = array(
 				gettext('Minimum items') => array('key' => 'bxslider_minitems', 'type' => OPTION_TYPE_NUMBER,
 						'desc' => gettext("The minimum number of slides to be shown. Slides will be sized down if carousel becomes smaller than the original size."),
@@ -114,7 +114,7 @@ class bxslider {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -122,7 +122,7 @@ class bxslider {
 		global $_bxslider_scripts;
 		$theme = getCurrentTheme();
 		$_bxslider_scripts = getPlugin('bxslider_thumb_nav/jquery.bxslider.min.css', getCurrentTheme());
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '//bxslider_thumb_nav/jquery.bxslider.min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '//bxslider_thumb_nav/jquery.bxslider.min.js');
 		scriptLoader($_bxslider_scripts);
 	}
 
@@ -143,13 +143,13 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 	 * @param string $mode 'horizontal','vertical', 'fade'
 	 */
 	function printThumbNav($minitems = NULL, $maxitems = NULL, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $fullimagelink = NULL, $mode = NULL) {
-		global $_zp_gallery, $_zp_current_album, $_zp_current_image, $_zp_current_search, $_zp_gallery_page, $_bxslider_scripts;
+		global $_gallery, $_current_album, $_current_image, $_current_search, $_gallery_page, $_bxslider_scripts;
 		//	Just incase the theme has not set the option, at least second try will work!
 		if (is_null($_bxslider_scripts)) {
 			bxslider::js();
 		}
 		$items = array();
-		if (is_object($_zp_current_album) && $_zp_current_album->getNumImages() >= 2) {
+		if (is_object($_current_album) && $_current_album->getNumImages() >= 2) {
 			if (is_null($minitems)) {
 				$minitems = getOption('bxslider_minitems');
 			} else {
@@ -188,8 +188,8 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 			if (is_null($mode)) {
 				$mode = getOption('bxslider_mode');
 			}
-			if (in_context(ZP_SEARCH_LINKED)) {
-				if ($_zp_current_search->getNumImages() === 0) {
+			if (in_context(SEARCH_LINKED)) {
+				if ($_current_search->getNumImages() === 0) {
 					$searchimages = false;
 				} else {
 					$searchimages = true;
@@ -197,28 +197,28 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 			} else {
 				$searchimages = false;
 			}
-			if (in_context(ZP_SEARCH_LINKED) && $searchimages) {
-				$bxslider_items = $_zp_current_search->getImages();
+			if (in_context(SEARCH_LINKED) && $searchimages) {
+				$bxslider_items = $_current_search->getImages();
 			} else {
-				$bxslider_items = $_zp_current_album->getImages();
+				$bxslider_items = $_current_album->getImages();
 			}
 			if (count($bxslider_items) >= 2) {
 				foreach ($bxslider_items as $item) {
-					$imgobj = newImage($_zp_current_album, $item);
+					$imgobj = newImage($_current_album, $item);
 					if ($fullimagelink) {
 						$link = $imgobj->getFullImageURL();
 					} else {
 						$link = $imgobj->getLink();
 					}
-					if (!is_null($_zp_current_image)) {
-						if ($_zp_current_album->isDynamic()) {
-							if ($_zp_current_image->filename == $imgobj->filename && $_zp_current_image->getAlbum()->name == $imgobj->getAlbum()->name) {
+					if (!is_null($_current_image)) {
+						if ($_current_album->isDynamic()) {
+							if ($_current_image->filename == $imgobj->filename && $_current_image->getAlbum()->name == $imgobj->getAlbum()->name) {
 								$active = ' class="activeimg" ';
 							} else {
 								$active = '';
 							}
 						} else {
-							if ($_zp_current_image->filename == $imgobj->filename) {
+							if ($_current_image->filename == $imgobj->filename) {
 								$active = ' class="activeimg" ';
 							} else {
 								$active = '';
@@ -231,9 +231,9 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 					$items[] = '<li' . $active . '><a href="' . $link . '"><img src="' . html_encode($imageurl) . '" alt="' . html_encode($imgobj->getTitle()) . '"></a></li>';
 				}
 			}
-			$albumid = $_zp_current_album->get('id');
+			$albumid = $_current_album->get('id');
 			$numimages = getNumImages();
-			if (!is_null($_zp_current_image)) {
+			if (!is_null($_current_image)) {
 				$imgnumber = (imageNumber() - 1);
 			} else {
 				$imgnumber = 0;

@@ -8,9 +8,9 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
-		scriptLoader($_zp_themeroot . '/style.css');
+		scriptLoader($_themeroot . '/style.css');
 
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
@@ -18,7 +18,7 @@ if (!defined('WEBPATH'))
 	</head>
 
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
 		<div id="main">
 
@@ -33,7 +33,7 @@ if (!defined('WEBPATH'))
 
 
 			<div id="breadcrumb">
-				<h2><a href="<?php echo getGalleryIndexURL(); ?>" title="<?php gettext('Index'); ?>"><?php echo gettext("Index"); ?></a> » <strong><?php echo gettext("Archive View"); ?></strong>
+				<h2><a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a> » <strong><?php echo gettext("Archive View"); ?></strong>
 				</h2>
 			</div>
 
@@ -57,7 +57,7 @@ if (!defined('WEBPATH'))
 
 		</div><!-- main -->
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

@@ -6,7 +6,7 @@
  */
 // force UTF-8 Ø
 
-$_zp_graphics_optionhandlers[] = new lib_GD_Options(); // register option handler
+$_graphics_optionhandlers[] = new lib_GD_Options(); // register option handler
 /**
  * Option class for lib-GD
  *
@@ -42,7 +42,7 @@ class lib_GD_Options {
 
 }
 
-if (!function_exists('zp_graphicsLibInfo')) {
+if (!function_exists('gl_graphicsLibInfo')) {
 
 	/**
 	 * Image manipulation functions using the PHP GD library
@@ -81,7 +81,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @return image the loaded GD image object.
 		 *
 		 */
-		function zp_imageGet($imgfile) {
+		function gl_imageGet($imgfile) {
 			$ext = getSuffix($imgfile);
 			switch ($ext) {
 				case 'png':
@@ -108,7 +108,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param string $filename
 		 * @param int $qual
 		 */
-		function zp_imageOutput($im, $type, $filename = NULL, $qual = 75) {
+		function gl_imageOutputt($im, $type, $filename = NULL, $qual = 75) {
 			$qual = max(min($qual, 100), 0);
 			if (getOption('image_interlace')) {
 				imageinterlace($im, true);
@@ -139,7 +139,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param bool $truecolor True to create a true color image, false for usage with palette images like gifs
 		 * @return image
 		 */
-		function zp_createImage($w, $h, $truecolor = true) {
+		function gl_createImage($w, $h, $truecolor = true) {
 			if ($truecolor) {
 				return imagecreatetruecolor($w, $h);
 			} else {
@@ -156,7 +156,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param color $color
 		 * @return bool
 		 */
-		function zp_imageFill($image, $x, $y, $color) {
+		function gl_imageFill($image, $x, $y, $color) {
 			return imagefill($image, $x, $y, $color);
 		}
 
@@ -167,7 +167,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param color $color
 		 * @return bool
 		 */
-		function zp_imageColorTransparent($image, $color) {
+		function gl_imageColorTransparent($image, $color) {
 			return imagecolortransparent($image, $color);
 		}
 
@@ -176,7 +176,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * But since GD drops these anyway, it does nothing.
 		 * @param object $img
 		 */
-		function zp_stripMetadata($img) {
+		function gl_stripMetadata($img) {
 			return $img;
 		}
 
@@ -192,7 +192,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $w width
 		 * @param int $h height
 		 */
-		function zp_copyCanvas($imgCanvas, $img, $dest_x, $dest_y, $src_x, $src_y, $w, $h) {
+		function gl_copyCanvas($imgCanvas, $img, $dest_x, $dest_y, $src_x, $src_y, $w, $h) {
 			return imageCopy($imgCanvas, $img, $dest_x, $dest_y, $src_x, $src_y, $w, $h);
 		}
 
@@ -211,7 +211,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $src_h
 		 * @return bool
 		 */
-		function zp_resampleImage($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h) {
+		function gl_resampleImage($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h) {
 			return imagecopyresampled($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
 		}
 
@@ -254,7 +254,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 *   sharpens all edges including faint ones, while a higher threshold only sharpens more distinct edges.
 		 * @return image the input image with the specified sharpening applied.
 		 */
-		function zp_imageUnsharpMask($img, $amount, $radius, $threshold) {
+		function gl_imageUnsharpMask($img, $amount, $radius, $threshold) {
 			/*
 			  Unsharp Mask for PHP - version 2.0
 			  Unsharp mask algorithm by Torstein Hønsi 2003-06.
@@ -319,14 +319,14 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * Resize a PNG file with transparency to given dimensions
 		 * and still retain the alpha channel information
 		 *
-		 * Note: You have to apply zp_resampleImage() afterwards as the function does not handle this internally
+		 * Note: You have to apply gl_resampleImage() afterwards as the function does not handle this internally
 		 *
 		 * @param image $src
 		 * @param int $w
 		 * @param int $h
 		 * @return image
 		 */
-		function zp_imageResizeAlpha($src, $w, $h) {
+		function gl_imageResizeAlpha($src, $w, $h) {
 			if ($src) {
 				imagealphablending($src, false);
 				imagesavealpha($src, true);
@@ -340,19 +340,17 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * Resize a GIF file with transparency to given dimensions
 		 * and still retain the transparency information
 		 *
-		 * Note: You have to apply zp_resampleImage() afterwards as the function does not handle this internally
-		 *
-		 * @since ZenphotoCMS 1.5.2
+		 * Note: You have to apply gl_resampleImage() afterwards as the function does not handle this internally
 		 *
 		 * @param image $src
 		 * @param int $w
 		 * @param int $h
 		 * @return image
 		 */
-		function zp_imageResizeTransparent($src, $w, $h) {
+		function Gl_imageResizeTransparent($src, $w, $h) {
 			if ($src) {
-				$transparent = zp_colorAllocate($src, 255, 255, 255);
-				zp_imageColorTransparent($src, $transparent);
+				$transparent = gl_colorAllocate($src, 255, 255, 255);
+				gl_imageColorTransparent($src, $transparent);
 			}
 			return $src;
 		}
@@ -362,7 +360,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 *
 		 * @return bool
 		 */
-		function zp_imageCanRotate() {
+		function gl_imageCanRotate() {
 			return function_exists('imagerotate');
 		}
 
@@ -374,7 +372,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $rotate
 		 * @return resource
 		 */
-		function zp_rotateImage($im, $rotate) {
+		function gl_rotateImage($im, $rotate) {
 			//GD rotates anti-clockwise
 			$newim_rot = imagerotate($im, 360 - $rotate, 0);
 			imagedestroy($im);
@@ -387,7 +385,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param string $filename
 		 * @return array
 		 */
-		function zp_imageDims($filename) {
+		function gl_imageDims($filename) {
 			$imageinfo = NULL;
 			$rslt = getimagesize($filename, $imageinfo);
 			if (is_array($rslt)) {
@@ -403,7 +401,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param string $filename
 		 * @return string
 		 */
-		function zp_imageIPTC($filename) {
+		function gl_imageIPTC($filename) {
 			$imageinfo = NULL;
 			$rslt = getimagesize($filename, $imageinfo);
 			if (is_array($rslt) && isset($imageinfo['APP13'])) {
@@ -419,7 +417,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param resource $im
 		 * @return int
 		 */
-		function zp_imageWidth($im) {
+		function gl_imageWidth($im) {
 			return imagesx($im);
 		}
 
@@ -429,7 +427,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param resource $im
 		 * @return int
 		 */
-		function zp_imageHeight($im) {
+		function gl_imageHeight($im) {
 			return imagesy($im);
 		}
 
@@ -447,7 +445,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $pct
 		 * @return bool
 		 */
-		function zp_imageMerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
+		function gl_imageMerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
 			return imagecopymerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct);
 		}
 
@@ -457,7 +455,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param resource $image
 		 * @return resource
 		 */
-		function zp_imageGray($image) {
+		function gl_imageGray($image) {
 			$img_height = imagesy($image);
 			$img_width = imagesx($image);
 			for ($y = 0; $y < $img_height; $y++) {
@@ -474,7 +472,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param resource $im
 		 * @return bool
 		 */
-		function zp_imageKill($im) {
+		function gl_imageKill($im) {
 			return imagedestroy($im);
 		}
 
@@ -487,7 +485,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $blue
 		 * @return int
 		 */
-		function zp_colorAllocate($image, $red, $green, $blue) {
+		function gl_colorAllocate($image, $red, $green, $blue) {
 			return imagecolorallocate($image, $red, $green, $blue);
 		}
 
@@ -502,7 +500,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $color
 		 * @return bool
 		 */
-		function zp_writeString($image, $font, $x, $y, $string, $color, $angle = 0) {
+		function gl_writeString($image, $font, $x, $y, $string, $color, $angle = 0) {
 			global $_gd_freetype_fonts;
 			if ($font > 0) {
 				return imagestring($image, $font, $x, $y, $string, $color);
@@ -529,7 +527,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $color
 		 * @return bool
 		 */
-		function zp_drawRectangle($image, $x1, $y1, $x2, $y2, $color) {
+		function gl_drawRectangle($image, $x1, $y1, $x2, $y2, $color) {
 			return imagerectangle($image, $x1, $y1, $x2, $y2, $color);
 		}
 
@@ -538,7 +536,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 *
 		 * @return array
 		 */
-		function zp_graphicsLibInfo() {
+		function gl_graphicsLibInfo() {
 			global $_lib_GD_info;
 			return $_lib_GD_info;
 		}
@@ -548,14 +546,14 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 *
 		 * @return array
 		 */
-		function zp_getFonts() {
+		function gl_getFonts() {
 			global $_gd_fontlist;
 			if (!is_array($_gd_fontlist)) {
 				$_gd_fontlist = array('system' => '');
 				$curdir = getcwd();
-				$paths = array(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/gd_fonts/', SERVERPATH . '/' . ZENFOLDER . '/gd_fonts');
+				$paths = array(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/gd_fonts/', CORE_SERVERPATH . 'gd_fonts');
 				if (GD_FREETYPE) {
-					array_push($paths, SERVERPATH . '/' . ZENFOLDER . '/FreeSerif');
+					array_push($paths, CORE_SERVERPATH . 'FreeSerif');
 					if (($basefile = getOption('GD_FreeType_Path')) != SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/gd_fonts') {
 						array_push($paths, $basefile);
 					}
@@ -589,7 +587,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param string $font
 		 * @return int
 		 */
-		function zp_imageLoadFont($font = NULL, $size = 18) {
+		function gl_imageLoadFont($font = NULL, $size = 18) {
 			global $_gd_freetype_fonts;
 			if (!empty($font)) {
 				if (file_exists($font)) {
@@ -612,7 +610,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $font
 		 * @return int
 		 */
-		function zp_imageFontWidth($font) {
+		function gl_imageFontWidth($font) {
 			global $_gd_freetype_fonts;
 			if ($font > 0) {
 				return imagefontwidth($font);
@@ -630,7 +628,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * @param int $font
 		 * @return int
 		 */
-		function zp_imageFontHeight($font) {
+		function gl_imageFontHeight($font) {
 			global $_gd_freetype_fonts;
 			if ($font > 0) {
 				return imagefontheight($font);
@@ -643,7 +641,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		}
 
 		/**
-		 * provides image blur support for lib-GD:zp_imageUnsharpMask
+		 * provides image blur support for lib-GD:gl_imageUnsharpMask
 		 *
 		 * @param image $imgCanvas
 		 * @param int $radius
@@ -673,7 +671,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		 * creates an image from an image stream
 		 * @param $string
 		 */
-		function zp_imageFromString($string) {
+		function gl_imageFromString($string) {
 			return imagecreatefromstring($string);
 		}
 

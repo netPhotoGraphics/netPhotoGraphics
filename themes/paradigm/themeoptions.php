@@ -45,7 +45,7 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 
-		global $_zp_gallery;
+		global $_gallery;
 		$albumlist = array();
 		$albumlist['Entire Gallery'] = '';
 		$albums = getNestedAlbumList(null, 9999999);
@@ -110,7 +110,7 @@ class ThemeOptions {
 	}
 
 	function getOptionsDisabled() {
-		return array('paradigm_zp_index_news', 'paradigm_homepage');
+		return array('paradigm_index_news', 'paradigm_homepage');
 	}
 
 	function handleOption($option, $currentValue) {

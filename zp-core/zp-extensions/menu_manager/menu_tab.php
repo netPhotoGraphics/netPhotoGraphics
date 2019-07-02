@@ -47,6 +47,7 @@ if (isset($_GET['delete'])) {
 	}
 	unset($reports['updated']);
 }
+
 if (isset($_GET['deletemenuset'])) {
 	XSRFdefender('delete_menu');
 	$sql = 'DELETE FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote(sanitize($_GET['deletemenuset']));
@@ -55,6 +56,7 @@ if (isset($_GET['deletemenuset'])) {
 	$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” deleted"), html_encode(sanitize($_GET['deletemenuset']))) . "</p>";
 	unset($reports['updated']);
 }
+
 if (isset($_GET['exportmenuset'])) {
 	XSRFdefender('dup_menu');
 	$menuEpxorted = sanitize($_GET['exportmenuset']);
@@ -76,7 +78,7 @@ if (isset($_GET['exportmenuset'])) {
 				$nest = explode('-', $value);
 				$value = count($nest) - 1;
 			}
-			$text .= $comma . "'" . $type . "' => " . "'" . html_encode($value) . "'";
+			$text .= $comma . "'" . $type . "' => " . "'" . html_encode(str_replace("'", "\\'", $value)) . "'";
 			$comma = ", ";
 		}
 		$text .= ')';
@@ -89,11 +91,14 @@ if (isset($_GET['exportmenuset'])) {
 					'</div>';
 	unset($reports['updated']);
 }
+
 if (isset($_GET['dupmenuset'])) {
-	if (!menuExists($menuset)) {
+	$menuset = sanitize($_GET['targetname']);
+	if (menuExists($menuset)) {
+		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” already exists"), html_encode($menuset)) . "</p>";
+	} else {
 		XSRFdefender('dup_menu');
 		$oldmenuset = sanitize($_GET['dupmenuset']);
-		$menuset = sanitize($_GET['targetname']);
 		$menuitems = query_full_array('SELECT * FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote($oldmenuset) . ' ORDER BY `sort_order`');
 		foreach ($menuitems as $key => $item) {
 			$order = count(explode('-', $item['sort_order'])) - 1;
@@ -101,8 +106,6 @@ if (isset($_GET['dupmenuset'])) {
 		}
 		createMenu($menuitems, $menuset);
 		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” duplicated"), html_encode($oldmenuset)) . "</p>";
-	} else {
-		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” already exists"), html_encode($menuset)) . "</p>";
 	}
 	unset($reports['updated']);
 }
@@ -172,7 +175,7 @@ printSortableHead();
 				// ]]> -->
 			</script>
 			<?php
-			zp_apply_filter('admin_note', 'menu', '');
+			npgFilters::apply('admin_note', 'menu', '');
 			?>
 
 			<h1><?php
@@ -181,7 +184,7 @@ printSortableHead();
 				echo "</small>";
 				?></h1>
 			<div class="tabbox">
-				<form class="dirtylistening" onReset="setClean('update_form');" id="update_form" action="menu_tab.php?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
+				<form class="dirtylistening" onReset="setClean('update_form');" id="update_form" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
 					<?php XSRFToken('update_menu'); ?>
 					<p>
 						<?php echo gettext("Drag the items into the order and nesting you wish displayed. Place the menu on your theme pages by calling printCustomMenu()."); ?>
@@ -203,7 +206,7 @@ printSortableHead();
 								<?php echo PLUS_ICON; ?>
 								<strong><?php echo gettext("New Menu"); ?></strong>
 							</a>
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?'page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
+							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
 								<?php echo OPTIONS_ICON; ?>
 								<strong><?php echo gettext('Options') ?></strong>
 							</a>
@@ -240,7 +243,7 @@ printSortableHead();
 									if ($count > 0) {
 										?>
 										<span class="buttons">
-											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>"><img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/page_white_copy.png" alt="" /><strong><?php echo gettext("Duplicate menu"); ?></strong></a>
+											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/page_white_copy.png" alt="" /><strong><?php echo gettext("Duplicate menu"); ?></strong></a>
 										</span>
 										<span class="buttons">
 											<a href="javascript:deleteMenuSet();" title="<?php printf(gettext('Delete %s menu'), $menuset); ?>">
@@ -250,7 +253,7 @@ printSortableHead();
 										</span>
 										<span class="buttons">
 											<a href="?exportmenuset=<?php echo html_encode($menuset); ?>&amp;XSRFToken=<?php echo getXSRFToken('dup_menu') ?>" title="<?php printf(gettext('Export %s menu'), $menuset); ?>">
-												<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/stock_copy.png" alt="" />
+												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/stock_copy.png" alt="" />
 												<strong><?php echo gettext("Export menu"); ?></strong>
 											</a>
 										</span>
@@ -258,7 +261,7 @@ printSortableHead();
 									}
 									?>
 									<span class="buttons">
-										<a href="menu_tab_edit.php?add&amp;menuset=<?php echo urlencode($menuset); ?>">
+										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?add&amp;menuset=<?php echo urlencode($menuset); ?>">
 											<?php echo PLUS_ICON; ?>
 											<strong><?php echo gettext("Add Menu Items"); ?></strong>
 										</a>

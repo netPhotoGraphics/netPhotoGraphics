@@ -3,9 +3,9 @@
 if (function_exists('printLanguageSelector')) {
 	printLanguageSelector();
 }
-scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min.js');
+scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.min.js');
 ?>
-<?php if ($zpmas_infscroll) { ?><script src="<?php echo $_zp_themeroot; ?>/js/jquery.infinitescroll.min.js"></script><?php } ?>
+<?php if ($zpmas_infscroll) { ?><script src="<?php echo $_themeroot; ?>/js/jquery.infinitescroll.min.js"></script><?php } ?>
 <script>
 	$(function () {
 		var $wall = $('#mason');
@@ -19,7 +19,7 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/mason
 				nextSelector: '#page_nav a', // selector for the NEXT link (to page 2)
 				itemSelector: '.box', // selector for all items you'll retrieve
 				loadingText: '<?php echo gettext('Loading additional pages...'); ?>',
-				loadingImg: '<?php echo $_zp_themeroot; ?>/images/arrow-alt-down<?php if ($zpmas_css == 'dark') echo "-inv"; ?>.png',
+				loadingImg: '<?php echo $_themeroot; ?>/images/arrow-alt-down<?php if ($zpmas_css == 'dark') echo "-inv"; ?>.png',
 				donetext: '<?php echo gettext('No more pages to load...'); ?>',
 				debug: false,
 				errorCallback: function () {
@@ -53,6 +53,6 @@ scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/mason
 		return false;
 	});
 </script>
-<?php zp_apply_filter('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

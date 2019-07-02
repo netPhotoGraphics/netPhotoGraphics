@@ -17,31 +17,39 @@
  * @package plugins/security-logger
  * @pluginCategory admin
  */
+$plugin_is_filter = defaultExtension(100 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(100 | CLASS_PLUGIN);
 	$plugin_description = gettext('Logs selected security events.');
 }
 
 $option_interface = 'security_logger';
-
+global $_logCript, $_adminCript; //	incase we get demand loaded in a function
 if (getOption('security_log_encryption')) {
 	$_logCript = $_adminCript;
 }
-if (getOption('logger_log_admin')) {
-	zp_register_filter('admin_login_attempt', 'security_logger::adminLoginlogger');
-	zp_register_filter('federated_login_attempt', 'security_logger::federatedLoginlogger');
-}
-if (getOption('logger_log_guests')) {
-	zp_register_filter('guest_login_attempt', 'security_logger::guestLoginlogger');
-}
-zp_register_filter('admin_allow_access', 'security_logger::adminGate');
-zp_register_filter('authorization_cookie', 'security_logger::adminCookie', 0);
-zp_register_filter('admin_managed_albums_access', 'security_logger::adminAlbumGate');
-zp_register_filter('save_user_complete', 'security_logger::userSave');
-zp_register_filter('admin_XSRF_access', 'security_logger::admin_XSRF_access');
-zp_register_filter('admin_log_actions', 'security_logger::log_action');
-zp_register_filter('log_setup', 'security_logger::log_setup');
-zp_register_filter('security_misc', 'security_logger::security_misc');
+npgFilters::register('admin_allow_access', 'security_logger::adminGate'); //
+npgFilters::register('federated_login_attempt', 'security_logger::federatedLoginlogger'); //	this is a surgote to "admin_login_attemt'
+
+if (security_logger::register('admin_login_attempt', 'security_logger::adminLoginlogger'))
+	npgFilters::register('admin_login_attempt', 'security_logger::adminLoginlogger');
+if (security_logger::register('guest_login_attempt', 'security_logger::guestLoginlogger'))
+	npgFilters::register('guest_login_attempt', 'security_logger::guestLoginlogger');
+if (security_logger::register('authorization_cookie', 'security_logger::adminCookie', 0))
+	npgFilters:: register('authorization_cookie', 'security_logger::adminCookie', 0);
+if (security_logger::register('admin_managed_albums_access', 'security_logger::adminAlbumGate'))
+	npgFilters:: register('admin_managed_albums_access', 'security_logger::adminAlbumGate');
+if (security_logger::register('save_user_complete', 'security_logger::userSave'))
+	npgFilters:: register('save_user_complete', 'security_logger::userSave');
+if (security_logger::register('admin_XSRF_access', 'security_logger::admin_XSRF_access'))
+	npgFilters:: register('admin_XSRF_access', 'security_logger::admin_XSRF_access');
+if (security_logger::register('admin_log_actions', 'security_logger::log_action'))
+	npgFilters:: register('admin_log_actions', 'security_logger::log_action');
+if (security_logger::register('log_setup', 'security_logger::log_setup'))
+	npgFilters:: register('log_setup', 'security_logger::log_setup');
+if (security_logger::register('security_misc', 'security_logger::security_misc'))
+	npgFilters:: register('security_misc', 'security_logger::security_misc');
+if (security_logger::register('policy_ack', 'security_logger::policy_ack'))
+	npgFilters:: register('policy_ack', 'security_logger::policy_ack');
 
 /**
  * Option handler class
@@ -55,14 +63,21 @@ class security_logger {
 	 * @return security_logger
 	 */
 	function __construct() {
-		global $plugin_is_filter;
+		global $plugin_is_filter, $_securityLoggerList, $_securityLoggerLogging;
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('logger_log_guests', 1);
-			setOptionDefault('logger_log_admin', 1);
+			foreach ($_securityLoggerList as $what => $where) {
+				if (!is_null($_securityLoggerLogging[$where])) {
+					setOptionDefault($where, $_securityLoggerLogging[$where]);
+				}
+			}
 			setOptionDefault('logger_log_type', 'all');
 			setOptionDefault('logger_access_log_type', 'all_user');
 			setOptionDefault('security_log_size', 5000000);
 			setOptionDefault('security_log_encryption', 0);
+			setOptionDefault('admin_login_attempt', getOption('logger_log_admin'));
+			purgeOption('logger_log_admin');
+			setOptionDefault('guest_login_attempt', getOption('logger_log_guests'));
+			purgeOption('logger_log_guests');
 		}
 	}
 
@@ -72,10 +87,14 @@ class security_logger {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		return array(gettext('Record logon attempts of') => array('key' => 'logger_log_allowed', 'type' => OPTION_TYPE_CHECKBOX_ARRAY,
-						'checkboxes' => array(gettext('Administrators') => 'logger_log_admin', gettext('Guests') => 'logger_log_guests'),
-						'desc' => gettext('If checked login attempts will be logged.')),
-				gettext('Record failed admin access') => array('key' => 'logge_access_log_type', 'type' => OPTION_TYPE_RADIO,
+		global $_securityLoggerList, $_securityLoggerLogging;
+
+		return array(
+				gettext('Logging filters') => array('key' => '', 'type' => OPTION_TYPE_CHECKBOX_UL,
+						'checkboxes' => $_securityLoggerList,
+						'desc' => sprintf(gettext('The logging actions for the selected filters will be processed. Further details on these filters can be found in the <a href="%1$s">filter documentation</a>.'), getAdminLink(PLUGIN_FOLDER . '/debug/admin_tab.php') . '?page=development&tab=filters#Admin_Security')
+				),
+				gettext('Record failed admin access') => array('key' => 'logger_access_log_type', 'type' => OPTION_TYPE_RADIO,
 						'buttons' => array(gettext('All attempts') => 'all', gettext('Only user attempts') => 'all_user'),
 						'desc' => gettext('Record admin page access failures.')),
 				gettext('Record logon') => array('key' => 'logger_log_type', 'type' => OPTION_TYPE_RADIO,
@@ -86,6 +105,12 @@ class security_logger {
 
 	function handleOption($option, $currentValue) {
 
+	}
+
+	static function register($what, $where) {
+		global $_securityLoggerLogging, $_securityLoggerList;
+		$_securityLoggerList[$what] = $where;
+		return $_securityLoggerLogging[$where] = getOption($where) || is_null(getOption($where));
 	}
 
 	/**
@@ -99,7 +124,7 @@ class security_logger {
 	 * @param string $addl more info
 	 */
 	private static function logger($success, $user, $name, $action, $authority, $addl = NULL) {
-		global $_zp_authority, $_zp_mutex, $_logCript;
+		global $_authority, $_mutex, $_logCript;
 		$ip = sanitize($_SERVER['REMOTE_ADDR']);
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$proxy_list = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
@@ -108,7 +133,7 @@ class security_logger {
 				$ip .= ' {' . $forwardedIP . '}';
 			}
 		}
-		$admin = $_zp_authority->getMasterUser();
+		$admin = $_authority->getMasterUser();
 		$locale = $admin->getLanguage();
 		if (empty($locale)) {
 			$locale = 'en_US';
@@ -129,8 +154,8 @@ class security_logger {
 				$aux1 = $addl;
 				$success = 3;
 				$type = gettext('Install');
-				$addl = gettext('version') . ' ' . ZENPHOTO_VERSION;
-				if (!zpFunctions::hasPrimaryScripts()) {
+				$addl = gettext('version') . ' ' . NETPHOTOGRAPHICS_VERSION;
+				if (!npgFunctions::hasPrimaryScripts()) {
 					$addl .= ' ' . gettext('clone');
 				}
 				break;
@@ -174,7 +199,7 @@ class security_logger {
 
 		$file = SERVERPATH . '/' . DATA_FOLDER . '/security.log';
 		$max = getOption('security_log_size');
-		$_zp_mutex->lock();
+		$_mutex->lock();
 		if ($max && @filesize($file) > $max) {
 			switchLog('security');
 		}
@@ -216,7 +241,7 @@ class security_logger {
 			fclose($f);
 			clearstatcache();
 		}
-		$_zp_mutex->unlock();
+		$_mutex->unlock();
 		i18n::setupCurrentLocale($cur_locale); //	restore to whatever was in effect.
 	}
 
@@ -224,10 +249,10 @@ class security_logger {
 	 * returns the user id and name of the logged in user
 	 */
 	private static function populate_user() {
-		global $_zp_current_admin_obj;
-		if (is_object($_zp_current_admin_obj)) {
-			$user = $_zp_current_admin_obj->getUser();
-			$name = $_zp_current_admin_obj->getName();
+		global $_current_admin_obj;
+		if (is_object($_current_admin_obj)) {
+			$user = $_current_admin_obj->getUser();
+			$name = $_current_admin_obj->getName();
 		} else {
 			$user = $name = NULL;
 		}
@@ -243,8 +268,8 @@ class security_logger {
 	 * @param string $pass
 	 * @return int
 	 */
-	static function adminLoginlogger($success, $user, $pass, $auth = 'zp_admin_auth') {
-		global $_zp_authority;
+	static function adminLoginlogger($success, $user, $pass, $auth = 'admin_auth') {
+		global $_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
 				break;
@@ -259,7 +284,7 @@ class security_logger {
 		}
 		$name = '';
 		if ($success) {
-			$admin = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+			$admin = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 			$pass = ''; // mask it from display
 			if (is_object($admin)) {
 				$name = $admin->getName();
@@ -293,7 +318,7 @@ class security_logger {
 	 * @return bool
 	 */
 	static function guestLoginlogger($success, $user, $pass, $athority) {
-		global $_zp_authority;
+		global $_authority;
 		switch (getOption('logger_log_type')) {
 			case 'all':
 				break;
@@ -308,7 +333,7 @@ class security_logger {
 		}
 		$name = '';
 		if ($success) {
-			$admin = $_zp_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
+			$admin = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 			$pass = ''; // mask it from display
 			if (is_object($admin)) {
 				$name = $admin->getName();
@@ -326,7 +351,7 @@ class security_logger {
 	static function adminGate($allow, $page) {
 		list($user, $name) = security_logger::populate_user();
 		if (!$allow) {
-			switch (getOption('logge_access_log_type')) {
+			switch (getOption('logger_access_log_type')) {
 				case 'all':
 					break;
 				case 'all_user':
@@ -378,7 +403,7 @@ class security_logger {
 	 */
 	static function userSave($discard, $userobj, $class) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger(1, $user, $name, 'user_' . $class, 'zp_admin_auth', $userobj->getUser());
+		security_logger::logger(1, $user, $name, 'user_' . $class, 'admin_auth', $userobj->getUser());
 		return $discard;
 	}
 
@@ -404,7 +429,7 @@ class security_logger {
 	 */
 	static function log_action($allow, $log, $action) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger((int) ($allow && true), $user, $name, $action, 'zp_admin_auth', basename($log));
+		security_logger::logger((int) ($allow && true), $user, $name, $action, 'admin_auth', basename($log));
 		return $allow;
 	}
 
@@ -416,7 +441,7 @@ class security_logger {
 	 */
 	static function log_setup($success, $action, $txt) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger((int) ($success && true), $user, $name, 'setup_' . $action, 'zp_admin_auth', $txt);
+		security_logger::logger((int) ($success && true), $user, $name, 'setup_' . $action, 'admin_auth', $txt);
 		return $success;
 	}
 
@@ -430,6 +455,26 @@ class security_logger {
 	static function security_misc($success, $requestor, $auth, $txt) {
 		list($user, $name) = security_logger::populate_user();
 		security_logger::logger((int) $success, $name, NULL, $requestor, $auth, $txt);
+		return $success;
+	}
+
+	/**
+	 * Logs changes to usage policy acknowledgment
+	 * @param type $success
+	 * @param type $set
+	 * @param type $what
+	 * @return type
+	 */
+	static function policy_ack($success, $requestor, $set, $what) {
+		list($user, $name) = security_logger::populate_user();
+		if (!is_null($set)) {
+			if ($set) {
+				$what = sprintf(gettext('%1$s set to acknowledged'), $what);
+			} else {
+				$what = sprintf(gettext('%1$s acknowledgement cleared'), $what);
+			}
+		}
+		security_logger::logger((int) $success, $user, $name, $requestor, 'admin_auth', $what);
 		return $success;
 	}
 

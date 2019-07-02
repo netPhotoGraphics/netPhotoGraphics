@@ -33,16 +33,16 @@
  * @package plugins/ipBlocker
  * @pluginCategory admin
  */
+$plugin_is_filter = 10 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 10 | CLASS_PLUGIN;
 	$plugin_description = gettext("Tools to block hacker access to your site.");
 }
 
 $option_interface = 'ipBlocker';
 
-zp_register_filter('admin_login_attempt', 'ipBlocker::login', 9999);
-zp_register_filter('federated_login_attempt', 'ipBlocker::login', 9999);
-zp_register_filter('guest_login_attempt', 'ipBlocker::login', 9999);
+npgFilters::register('admin_login_attempt', 'ipBlocker::login', 9999);
+npgFilters::register('federated_login_attempt', 'ipBlocker::login', 9999);
+npgFilters::register('guest_login_attempt', 'ipBlocker::login', 9999);
 
 /**
  * Option handler class
@@ -324,7 +324,7 @@ class ipBlocker {
 		$count = db_count('plugin_storage', 'WHERE `type`="ipBlocker" AND `subtype`=' . db_quote($type) . ' AND `data`="' . getUserIP() . '"');
 		if ($count >= ($threshold = getOption('ipBlocker_threshold'))) {
 			$ip = getUserIP();
-			zp_apply_filter('security_misc', 2, $type, 'ipBlocker', gettext('Suspended'));
+			npgFilters::apply('security_misc', 2, $type, 'ipBlocker', gettext('Suspended'));
 
 			$block = getOption('ipBlocker_forbidden');
 			if ($block) {

@@ -126,7 +126,7 @@ if (!empty($searchdate)) {
 							} else {
 								echo htmlspecialchars(getUnprotectedImageURL());
 							}
-							?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/full-screen<?php if ($zpmas_css == 'dark') echo "-inv"; ?>.png" alt="<?php echo gettext('Preview'); ?>" /></a>
+							?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/full-screen<?php if ($zpmas_css == 'dark') echo "-inv"; ?>.png" alt="<?php echo gettext('Preview'); ?>" /></a>
 						</div>
 					<?php } ?>
 				</div>
@@ -134,7 +134,7 @@ if (!empty($searchdate)) {
 		<?php endwhile; ?>
 
 		<?php
-		if ($_zp_page == 1) { //test of zenpage searches
+		if ($_current_page == 1) { //test of zenpage searches
 			if ($numpages > 0) {
 				$zpc = 0;
 				while (($zpc < $zpmas_zpsearchcount) && (next_page())) {

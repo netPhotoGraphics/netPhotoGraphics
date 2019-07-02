@@ -13,7 +13,7 @@ $indexComments = version_compare($dbSoftware['version'], '5.5.0') >= 0;
 $utf8mb4 = version_compare($dbSoftware['version'], '5.5.3', '>=');
 
 $database = $orphans = $datefields = array();
-$template = unserialize(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/databaseTemplate'));
+$template = unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate'));
 
 if (isset($_SESSION['admin']['db_admin_fields'])) { //	we are in a clone install, be srue admin fields match
 	$adminTable = $template['administrators']['fields'];
@@ -113,6 +113,8 @@ foreach (getDBTables() as $table) {
 		$database[$table]['keys'][$keyname] = $index;
 	}
 }
+
+$npgUpgrade = isset($database['administrators']) && $database['administrators']['fields']['valid']['Comment'] == 'zp20';
 
 //metadata display and disable options
 $validMetadataOptions = !is_null(getOption('metadata_displayed'));
@@ -400,7 +402,7 @@ foreach ($template as $tablename => $table) {
 						$_DB_Structure_change = TRUE;
 					}
 				} else {
-					$orpahns = sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename);
+					$orphans[] = sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename);
 				}
 			}
 		}
@@ -416,15 +418,19 @@ foreach ($uniquekeys as $table => $keys) {
 }
 //if this is a new database, update the config file for the utf8 encoding
 if ($utf8mb4 && !array_search(true, $tablePresent)) {
-	$zp_cfg = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	$zp_cfg = updateConfigItem('UTF-8', 'utf8mb4', $zp_cfg);
-	storeConfig($zp_cfg);
+	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
+	configFile::store($_config_contents);
 }
 // now the database is setup we can store the options
 setOptionDefault('metadata_disabled', serialize($disable));
 setOptionDefault('metadata_displayed', serialize($display));
 
-foreach ($orphans as $message) {
-	setupLog($message, true);
+//	Don't report these unless npg has previously been installed because the
+//	plugins which might "claim" them will not yet have run
+if ($npgUpgrade) {
+	foreach ($orphans as $message) {
+		setupLog($message, true);
+	}
 }
 ?>

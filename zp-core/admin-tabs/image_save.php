@@ -66,7 +66,7 @@ if (isset($_POST['checkForPostTruncation'])) {
 					}
 					$image->set('filesize', filesize($image->localpath));
 					$image->setShow(isset($_POST["$i-Visible"]));
-					zp_apply_filter('save_image_data', $image, $i);
+					npgFilters::apply('save_image_data', $image, $i);
 					if ($image->save() == 1) {
 						$changed = true;
 					}

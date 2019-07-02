@@ -12,17 +12,17 @@
 
 define('LDAP_DOMAIN', getOption('ldap_domain'));
 define('LDAP_BASEDN', getOption('ldap_basedn'));
-define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any ZP admin ids
+define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any of our admin ids
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
 define('LDAP_REAER_PASS', getOption('ldap_reader_pass'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-auth.php');
+require_once(CORE_SERVERPATH . 'lib-auth.php');
 if (extensionEnabled('user_groups')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_groups.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/user_groups.php');
 }
 
-class Zenphoto_Authority extends _Authority {
+class _Authority extends _Authority {
 
 	function getOptionsSupported() {
 		setOptionDefault('ldap_id_offset', 100000);
@@ -42,7 +42,7 @@ class Zenphoto_Authority extends _Authority {
 	}
 
 	function handleLogon() {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		$user = sanitize(@$_POST['user'], 0);
 		$password = sanitize(@$_POST['pass'], 0);
 		$loggedin = false;
@@ -58,9 +58,9 @@ class Zenphoto_Authority extends _Authority {
 				$userData = array_change_key_case(self::ldapUser($ad, "(uid={$user})"), CASE_LOWER);
 				$userobj = self::setupUser($ad, $userData);
 				if ($userobj) {
-					$_zp_current_admin_obj = $userobj;
-					$loggedin = $_zp_current_admin_obj->getRights();
-					self::logUser($_zp_current_admin_obj);
+					$_current_admin_obj = $userobj;
+					$loggedin = $_current_admin_obj->getRights();
+					self::logUser($_current_admin_obj);
 					if (DEBUG_LOGIN) {
 						debugLog(sprintf('LDAPhandleLogon: authorized as %1$s->%2$X', $userdn, $loggedin));
 					}
@@ -85,7 +85,7 @@ class Zenphoto_Authority extends _Authority {
 	}
 
 	function checkAuthorization($authCode, $id) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if (LDAP_ID_OFFSET && $id > LDAP_ID_OFFSET) { //	LDAP ID
 			$ldid = $id - LDAP_ID_OFFSET;
 			$ad = self::ldapInit(LDAP_DOMAIN);
@@ -97,12 +97,12 @@ class Zenphoto_Authority extends _Authority {
 					if (DEBUG_LOGIN) {
 						debugLogBacktrace("LDAPcheckAuthorization($authCode, $ldid)");
 					}
-					$goodAuth = Zenphoto_Authority::passwordHash($userData['uid'][0], serialize($userData));
+					$goodAuth = npg_Authority::passwordHash($userData['uid'][0], serialize($userData));
 					if ($authCode == $goodAuth) {
 						$userobj = self::setupUser($ad, $userData);
 						if ($userobj) {
-							$_zp_current_admin_obj = $userobj;
-							$rights = $_zp_current_admin_obj->getRights();
+							$_current_admin_obj = $userobj;
+							$rights = $_current_admin_obj->getRights();
 						} else {
 							$rights = 0;
 						}
@@ -118,8 +118,8 @@ class Zenphoto_Authority extends _Authority {
 				@ldap_unbind($ad);
 			}
 		}
-		if ($_zp_current_admin_obj) {
-			return $_zp_current_admin_obj->getRights();
+		if ($_current_admin_obj) {
+			return $_current_admin_obj->getRights();
 		} else {
 			return parent::checkAuthorization($authCode, $id);
 		}
@@ -130,13 +130,13 @@ class Zenphoto_Authority extends _Authority {
 	}
 
 	static function setupUser($ad, $userData) {
-		global $_zp_authority;
+		global $_authority;
 		$user = $userData['uid'][0];
 		$id = $userData['uidnumber'][0] + LDAP_ID_OFFSET;
 		$name = $userData['cn'][0];
-		$groups = self::getZPGroups($ad, $user);
+		$groups = self::getNPGGroups($ad, $user);
 
-		$adminObj = Zenphoto_Authority::newAdministrator('');
+		$adminObj = npg_Authority::newAdministrator('');
 		$adminObj->setID($id);
 		$adminObj->transient = true;
 
@@ -149,7 +149,7 @@ class Zenphoto_Authority extends _Authority {
 		if (class_exists('user_groups')) {
 			user_groups::merge_rights($adminObj, $groups, array());
 			if (DEBUG_LOGIN) {
-				debugLogVar(["LDAsetupUser: groups:" =>  $adminObj->getGroup()]);
+				debugLogVar(["LDAsetupUser: groups:" => $adminObj->getGroup()]);
 			}
 			$rights = $adminObj->getRights() & ~ USER_RIGHTS;
 			$adminObj->setRights($rights);
@@ -159,7 +159,7 @@ class Zenphoto_Authority extends _Authority {
 		}
 
 		if ($rights) {
-			$_zp_authority->addOtherUser($adminObj);
+			$_authority->addOtherUser($adminObj);
 			return $adminObj;
 		}
 		return NULL;
@@ -193,10 +193,10 @@ class Zenphoto_Authority extends _Authority {
 	 * returns an array the user's of groups
 	 * @param type $ad
 	 */
-	static function getZPGroups($ad, $user) {
+	static function getNPGGroups($ad, $user) {
 		global $_LDAPGroupMap;
 		$groups = array();
-		foreach ($_LDAPGroupMap as $ZPgroup => $LDAPgroup) {
+		foreach ($_LDAPGroupMap as $NPGgroup => $LDAPgroup) {
 			if (!empty($LDAPgroup)) {
 				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Groups,' . LDAP_BASEDN, array('memberUid'));
 				if ($group) {
@@ -205,7 +205,7 @@ class Zenphoto_Authority extends _Authority {
 					unset($members['count']);
 					$isMember = in_array($user, $members, true);
 					if ($isMember) {
-						$groups[] = $ZPgroup;
+						$groups[] = $NPGgroup;
 					}
 				}
 			}
@@ -240,7 +240,7 @@ class Zenphoto_Authority extends _Authority {
 
 }
 
-class Zenphoto_Administrator extends _Administrator {
+class _Administrator extends _Administrator {
 
 	function setID($id) {
 		$this->set('id', $id);

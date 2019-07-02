@@ -67,11 +67,11 @@
  * @package plugins/jPlayer
  * @pluginCategory media
  */
+$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 	$plugin_description = gettext("This plugin handles <code>flv</code>, <code>fla</code>, <code>mp3</code>, <code>mp4</code>, <code>m4v</code>, and <code>m4a</code> multi-media files.");
 	gettext("Please see <a href='http://jplayer.org'>jplayer.org</a> for more info about the player and its license.");
-	$plugin_disable = zpFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'jPlayer' && Video::multimediaExtension() != 'pseudoPlayer', sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', (gettext('This player does not support <em>External Albums</em>.')))));
+	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'jPlayer' && Video::multimediaExtension() != 'pseudoPlayer', sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', (gettext('This player does not support <em>External Albums</em>.')))));
 }
 
 $option_interface = 'jplayer_options';
@@ -83,17 +83,17 @@ Gallery::addImageHandler('mp4', 'Video');
 Gallery::addImageHandler('m4v', 'Video');
 Gallery::addImageHandler('m4a', 'Video');
 
-$_zp_multimedia_extension = new jPlayer(); // claim to be the flash player.
-zp_register_filter('content_macro', 'jPlayer::macro');
-zp_register_filter('theme_body_close', 'jplayer::headJS');
+$_multimedia_extension = new jPlayer(); // claim to be the flash player.
+npgFilters::register('content_macro', 'jPlayer::macro');
+npgFilters::register('theme_body_close', 'jplayer::headJS');
 if (getOption('jplayer_playlist')) {
-	zp_register_filter('theme_body_close', 'jplayer::playlistJS');
+	npgFilters::register('theme_body_close', 'jplayer::playlistJS');
 }
 
 // theme function wrapper for user convenience
 function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
-	global $_zp_multimedia_extension;
-	$_zp_multimedia_extension->printjPlayerPlaylist($option, $albumfolder);
+	global $_multimedia_extension;
+	$_multimedia_extension->printjPlayerPlaylist($option, $albumfolder);
 }
 
 class jplayer_options {
@@ -166,7 +166,7 @@ class jplayer_options {
 	 *
 	 */
 	static function getSkin() {
-		$default_skins_dir = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/';
+		$default_skins_dir = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/';
 		$user_skins_dir = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/jPlayer/skin/';
 		$filestoignore = array('.', '..', '.DS_Store', 'Thumbs.db', '.htaccess', '.svn');
 		$skins = array_diff(scandir($default_skins_dir), array_merge($filestoignore));
@@ -234,10 +234,10 @@ class jPlayer {
 	}
 
 	static function getMacrojplayer($albumname, $imagename, $count = 1) {
-		global $_zp_multimedia_extension;
+		global $_multimedia_extension;
 		$movie = newImage(array('folder' => $albumname, 'filename' => $imagename), true);
 		if ($movie->exists) {
-			return $_zp_multimedia_extension->getPlayerConfig($movie, NULL, (int) $count);
+			return $_multimedia_extension->getPlayerConfig($movie, NULL, (int) $count);
 		} else {
 			return '<span class = "error">' . sprintf(gettext('%1$s::%2$s not found.'), $albumname, $imagename) . '</span>';
 		}
@@ -258,14 +258,14 @@ class jPlayer {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
-			$skin = SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
 		}
 		scriptLoader($skin);
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**
@@ -286,7 +286,7 @@ class jPlayer {
 			$h = $this->getHeight();
 		}
 
-		$moviepath = $movie->getFullImageURL(FULLWEBPATH);
+		$moviepath = $movie->getImagePath(FULLWEBPATH);
 		if (is_null($movietitle)) {
 			$movietitle = $movie->getTitle();
 		}
@@ -325,7 +325,7 @@ class jPlayer {
 						' . $videoThumb . '
 					})' . $autoplay . ';
 				},
-				swfPath: "' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js",
+				swfPath: "' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/jPlayer/js",
 				supplied: "' . $this->supplied . $this->supplied_counterparts . '",
 				cssSelectorAncestor: "#jp_container_' . $count . '"';
 
@@ -453,9 +453,9 @@ class jPlayer {
 	 * @param string $count unique text for when there are multiple player items on a page
 	 */
 	function printPlayerConfig($movie = NULL, $movietitle = NULL, $count = NULL) {
-		global $_zp_current_image;
+		global $_current_image;
 		if (empty($movie)) {
-			$movie = $_zp_current_image;
+			$movie = $_current_image;
 		}
 		echo $this->getPlayerConfig($movie, $movietitle, $count, NULL, NULL);
 	}
@@ -604,12 +604,12 @@ class jPlayer {
 	 * @param string $albumfolder album name to get a playlist from directly
 	 */
 	function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
-		global $_zp_current_album, $_zp_current_search;
+		global $_current_album, $_current_search;
 		if (empty($albumfolder)) {
-			if (in_context(ZP_SEARCH)) {
-				$albumobj = $_zp_current_search;
+			if (in_context(NPG_SEARCH)) {
+				$albumobj = $_current_search;
 			} else {
-				$albumobj = $_zp_current_album;
+				$albumobj = $_current_album;
 			}
 		} else {
 			$albumobj = newAlbum($albumfolder);
@@ -669,7 +669,7 @@ class jPlayer {
 					<?php if (getOption('jplayer_download')) { ?>
 							free:true,
 					<?php } ?>
-					<?php echo $this->supplied; ?>:"<?php echo pathurlencode($url = $video->getFullImageURL(FULLWEBPATH)); ?>"
+					<?php echo $this->supplied; ?>:"<?php echo $url = $video->getFullImageURL(FULLWEBPATH); ?>"
 					<?php echo $this->getCounterpartFiles($url, $ext); ?>
 					<?php echo $videoThumb; ?>
 						}
@@ -683,7 +683,7 @@ class jPlayer {
 // Seems the flash fallback fails here
 			?>
 				], {
-				swfPath: "<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js",
+				swfPath: "<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/jPlayer/js",
 								solution: "flash,html",
 			<?php if ($option == 'playlist') { ?>
 					supplied: "m4v, mp4, m4a, mp3, fla, flv<?php echo $this->supplied_counterparts; ?>"

@@ -81,7 +81,7 @@
 	}
 	$class = $buttonExtra = '';
 	if (getOption('Use_Captcha')) {
-		$captcha = $_zp_captcha->getCaptcha(gettext("Enter CAPTCHA:"));
+		$captcha = $_captcha->getCaptcha(gettext("Enter CAPTCHA:"));
 		if (isset($captcha['submitButton'])) {
 			$class = ' ' . $captcha['submitButton']['class'];
 			$buttonExtra = ' ' . $captcha['submitButton']['extra'];

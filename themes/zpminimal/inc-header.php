@@ -11,9 +11,9 @@ if (function_exists('printAddThis')) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
-		scriptLoader($_zp_themeroot . '/css/main.css');
+		scriptLoader($_themeroot . '/css/main.css');
 		if (function_exists('printGslideshow'))
 			setOption('gslideshow_style', 'light', false);
 
@@ -26,9 +26,9 @@ if (function_exists('printAddThis')) {
 		?>
 		<?php
 		$zpmin_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
-		switch ($_zp_gallery_page) {
+		switch ($_gallery_page) {
 			case 'index.php':
-				require_once (SERVERPATH . '/' . ZENFOLDER . "/zp-extensions/image_album_statistics.php");
+				require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 				$showsearch = false;
 				$zpmin_social = false;
 				break;
@@ -65,8 +65,8 @@ if (function_exists('printAddThis')) {
 				if (is_NewsArticle()) {
 					$zpmin_metatitle = NEWS_LABEL . ' | ' . getBareNewsTitle() . ' | ';
 					$zpmin_metadesc = truncate_string(getBare(getNewsContent()), 150, '...');
-				} else if ($_zp_current_category) {
-					$zpmin_metatitle = NEWS_LABEL . ' | ' . $_zp_current_category->getTitle() . ' | ';
+				} else if ($_CMS_current_category) {
+					$zpmin_metatitle = NEWS_LABEL . ' | ' . $_CMS_current_category->getTitle() . ' | ';
 					$zpmin_metadesc = truncate_string(getBare(getNewsCategoryDesc()), 150, '...');
 				} else if (getCurrentNewsArchive()) {
 					$zpmin_metatitle = NEWS_LABEL . ' | ' . getCurrentNewsArchive() . ' | ';
@@ -78,7 +78,7 @@ if (function_exists('printAddThis')) {
 			case 'slideshow.php':
 				$zpmin_metatitle = getBareAlbumTitle() . ' | ' . gettext('Slideshow') . ' | ';
 				if (!function_exists('printGslideshow')) {
-					scriptLoader($_zp_themeroot . '/css/slideshow.css');
+					scriptLoader($_themeroot . '/css/slideshow.css');
 				}
 				$showsearch = false;
 				$zpmin_social = false;
@@ -126,8 +126,8 @@ if (function_exists('printAddThis')) {
 		?>
 
 		<?php
-		$zenpage = getOption('zp_plugin_zenpage');
-		//$cb = getOption('zp_plugin_colorbox');
+		$zenpage = extensionEnabled('zenpage');
+		//$cb = extensionEnabled('colorbox');
 		if (!is_null(getOption('zpmin_finallink'))) {
 			$zpmin_finallink = getOption('zpmin_finallink');
 		} else {
@@ -192,7 +192,7 @@ if (function_exists('printAddThis')) {
 			}
 			.cblinks{top:<?php echo $cblinks_top; ?>px;}
 		</style>
-		<?php if (getOption('zp_plugin_reCaptcha')) { ?>
+		<?php if (extensionEnabled('reCaptcha')) { ?>
 			<script type="text/javascript" charset="utf-8">
 				var RecaptchaOptions = {
 					theme: 'clean'
@@ -201,8 +201,8 @@ if (function_exists('printAddThis')) {
 		<?php } ?>
 		<?php if ((($zpmin_colorbox) || (($zpmin_finallink) == 'colorbox')) && ($cbscript)) { ?>
 			<?php
-			scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-			scriptLoader($_zp_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css');
+			scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+			scriptLoader($_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css');
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
@@ -215,7 +215,7 @@ if (function_exists('printAddThis')) {
 		<?php } ?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="wrapper">
 			<div id="header"<?php
 			if (!$showsearch) {
@@ -223,7 +223,7 @@ if (function_exists('printAddThis')) {
 			}
 			?>>
 						 <?php if ($zpmin_logo) { ?>
-					<div id="image-logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/<?php echo $zpmin_logo; ?>" /></a></div>
+					<div id="image-logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><img src="<?php echo $_themeroot; ?>/images/<?php echo $zpmin_logo; ?>" /></a></div>
 				<?php } else { ?>
 					<h1 id="logo"><a href="<?php echo htmlspecialchars(getGalleryIndexURL()); ?>"><?php echo getGalleryTitle(); ?></a></h1>
 				<?php } ?>
@@ -234,6 +234,6 @@ if (function_exists('printAddThis')) {
 				<?php } ?>
 				<?php
 				if ($showsearch) {
-					printSearchForm('', 'searchform', '', gettext('Search'), "$_zp_themeroot/images/drop.gif", null, null, "$_zp_themeroot/images/reset.gif");
+					printSearchForm('', 'searchform', '', gettext('Search'), "$_themeroot/images/drop.gif", null, null, "$_themeroot/images/reset.gif");
 				}
 				?>

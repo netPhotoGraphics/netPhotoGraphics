@@ -7,11 +7,11 @@
 define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/admin-globals.php' );
 
-$_zp_loggedin = NULL;
+$_loggedin = NULL;
 if (isset($_POST['auth'])) {
 	$hash = sanitize($_POST['auth']);
 	$id = sanitize($_POST['id']);
-	$_zp_loggedin = $_zp_authority->checkAuthorization($hash, $id);
+	$_loggedin = $_authority->checkAuthorization($hash, $id);
 	admin_securityChecks(UPLOAD_RIGHTS, $return = currentRelativeURL());
 } else {
 	if (isset($_POST['id'])) {
@@ -25,9 +25,9 @@ if (isset($_POST['auth'])) {
 	exit();
 }
 
-$folder = zp_apply_filter('admin_upload_process', sanitize_path($_POST['folder']));
-$types = array_keys($_zp_images_classes);
-$types = zp_apply_filter('upload_filetypes', $types);
+$folder = npgFilters::apply('admin_upload_process', sanitize_path($_POST['folder']));
+$types = array_keys($_images_classes);
+$types = npgFilters::apply('upload_filetypes', $types);
 
 $options = array(
 		'upload_dir' => $targetPath = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($folder) . '/',
@@ -45,15 +45,15 @@ if (!empty($folder)) {
 	}
 	if ($rightsalbum->exists) {
 		if (!$rightsalbum->isMyItem(UPLOAD_RIGHTS)) {
-			if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+			if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
+				header('Location: ' . getAdminLink('admin.php'));
 				exit();
 			}
 		}
 	} else {
 		// upload to the root
-		if (!zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+		if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+			header('Location: ' . getAdminLink('admin.php'));
 			exit();
 		}
 	}
@@ -61,7 +61,7 @@ if (!empty($folder)) {
 		mkdir_recursive($targetPath, FOLDER_MOD);
 		$album = newAlbum($folder);
 		$album->setTitle(sanitize($_POST['albumtitle']));
-		$album->setOwner($_zp_current_admin_obj->getUser());
+		$album->setOwner($_current_admin_obj->getUser());
 		$album->setShow((int) ($_POST['publishalbum'] == 'true'));
 		$album->save();
 	}

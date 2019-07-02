@@ -9,8 +9,8 @@
  * @package plugins/filter-fileSearches
  * @pluginCategory example
  */
+$plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 5 | CLASS_PLUGIN;
 	$plugin_description = gettext("Filter out files from albums and image searches that we do not want shown.");
 }
 
@@ -33,10 +33,10 @@ foreach ($alloptionlist as $key => $option) {
 	}
 }
 if ($enablealbum)
-	zp_register_filter('album_filter', 'filterAlbums');
+	npgFilters::register('album_filter', 'filterAlbums');
 if ($enableimage) {
-	zp_register_filter('image_filter', 'filterImages');
-	zp_register_filter('upload_filetypes', 'filterImageUploads');
+	npgFilters::register('image_filter', 'filterImages');
+	npgFilters::register('upload_filetypes', 'filterImageUploads');
 }
 
 /**
@@ -50,9 +50,9 @@ class filter_file_searches_options {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery, $_zp_images_classes, $mysetoptions;
+		global $_gallery, $_images_classes, $mysetoptions;
 
-		$dir = opendir($albumdir = $_zp_gallery->getAlbumDir());
+		$dir = opendir($albumdir = $_gallery->getAlbumDir());
 		$albums = array();
 
 		while ($dirname = readdir($dir)) {
@@ -69,7 +69,7 @@ class filter_file_searches_options {
 		foreach ($albums as $album) {
 			$lista[$album] = 'filter_file_searches_albums_' . $album;
 		}
-		$list = array_keys($_zp_images_classes);
+		$list = array_keys($_images_classes);
 		natcasesort($list);
 		$listi = array();
 		foreach ($list as $suffix) {

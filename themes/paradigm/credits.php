@@ -24,7 +24,7 @@ if (!defined('WEBPATH'))
 				<h2>Copyright</h2>
 				Copyright
 				<?php
-				$admin = $_zp_authority->getMasterUser();
+				$admin = $_authority->getMasterUser();
 				$author = $admin->getName();
 				echo $author . ' ';
 				?>

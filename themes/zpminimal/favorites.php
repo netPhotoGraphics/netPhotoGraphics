@@ -23,7 +23,7 @@ if (class_exists('favorites')) {
 							<span class="album-title"><?php echo html_encodeTagged(shortenContent(getAlbumTitle(), 25, '...')); ?></span>
 						</a>
 					</div>
-					<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
+					<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 				<?php endwhile; ?>
 			</div>
 			<div id="thumbs-wrap">
@@ -32,10 +32,10 @@ if (class_exists('favorites')) {
 						<a class="thumb-link" href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getAnnotatedImageTitle()); ?></a>
 						<?php if (($zpmin_colorbox) && (!isImageVideo())) { ?>
 							<div class="cblinks">
-								<a class="thickbox" href="<?php echo html_encode(getUnprotectedImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/zoom.png" /></a>
-								<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/details.png" /></a>
+								<a class="thickbox" href="<?php echo html_encode(getUnprotectedImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/zoom.png" /></a>
+								<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/details.png" /></a>
 							</div>
-							<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
+							<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 						<?php } ?>
 					</div>
 				<?php endwhile; ?>
@@ -55,8 +55,8 @@ if (class_exists('favorites')) {
 			<div class="sidebar-divide">
 				<h3><?php printAlbumTitle(true); ?></h3>
 				<div class="sidebar-section"><?php printAlbumDate('', '', null, true); ?></div>
-				<?php if ((getAlbumDesc()) || (zp_loggedin())) { ?><div class="sidebar-section"><?php printAlbumDesc(true); ?></div><?php } ?>
-				<?php if ((getTags()) || (zp_loggedin())) { ?><div class="sidebar-section"><?php printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ''); ?></div><?php } ?>
+				<?php if ((getAlbumDesc()) || (npg_loggedin())) { ?><div class="sidebar-section"><?php printAlbumDesc(true); ?></div><?php } ?>
+				<?php if ((getTags()) || (npg_loggedin())) { ?><div class="sidebar-section"><?php printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ''); ?></div><?php } ?>
 				<?php if (function_exists('printSlideShowLink')) { ?><div class="sidebar-section"><div class="slideshow-link"><?php printSlideShowLink(gettext('View Slideshow')); ?></div></div><?php } ?>
 			</div>
 			<div class="sidebar-section"><?php include ("inc-sidemenu.php"); ?></div>
@@ -66,6 +66,6 @@ if (class_exists('favorites')) {
 	<?php include ("inc-footer.php"); ?>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

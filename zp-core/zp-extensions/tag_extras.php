@@ -22,9 +22,9 @@ $plugin_description = gettext("Provides functions to print a tag cloud of all ta
  * @return array
  */
 function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
-	global $_zp_gallery;
+	global $_gallery;
 	$imageWhere = $tagWhere = $tags = FALSE;
-	if (zp_loggedin(TAGS_RIGHTS)) {
+	if (npg_loggedin(TAGS_RIGHTS)) {
 		$private = '';
 	} else {
 		$private = ' AND (t.private=0)';
@@ -37,7 +37,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 	if (!$albumobj->exists) {
 		return FALSE;
 	}
-	if (zp_loggedin()) {
+	if (npg_loggedin()) {
 		$albumWhere = "WHERE `dynamic`=0";
 	} else {
 		$albumscheck = query_full_array("SELECT * FROM " . prefix('albums') . " ORDER BY title");
@@ -118,7 +118,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
  *
  */
 function getAllTagsFromZenpage($mode = 'news') {
-	global $_zp_gallery, $_zp_CMS;
+	global $_gallery, $_CMS;
 	if (!extensionEnabled('zenpage')) {
 		return FALSE;
 	}
@@ -128,13 +128,13 @@ function getAllTagsFromZenpage($mode = 'news') {
 	$tagWhere = "";
 	switch ($mode) {
 		case 'news':
-			if (zp_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS)) {
+			if (npg_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS)) {
 				$published = 'all';
 			} else {
 				$published = 'published';
 			}
 			$type = 'news';
-			$items = $_zp_CMS->getArticles(false, $published);
+			$items = $_CMS->getArticles(false, $published);
 			foreach ($items as $item) {
 				$obj = newArticle($item['titlelink']);
 				if ($obj->checkAccess()) {
@@ -143,9 +143,9 @@ function getAllTagsFromZenpage($mode = 'news') {
 			}
 			break;
 		case 'pages':
-			$published = !zp_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS);
+			$published = !npg_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS);
 			$type = 'pages';
-			$items = $_zp_CMS->getPages($published);
+			$items = $_CMS->getPages($published);
 			foreach ($items as $item) {
 				$obj = newPage($item['titlelink']);
 				if ($obj->checkAccess()) {

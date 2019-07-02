@@ -12,14 +12,14 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Disable setting watermarks if user does not have ADMIN_RIGHTS.");
 
-zp_register_filter('admin_note', 'disableWatermark::customData');
-zp_register_filter('plugin_tabs', 'disableWatermark::tab');
+npgFilters::register('admin_note', 'disableWatermark::customData');
+npgFilters::register('plugin_tabs', 'disableWatermark::tab');
 
 class disableWatermark {
 
 	static function customData($tab, $subtab) {
-		global $_zp_admin_tab;
-		if (!zp_loggedin(ADMIN_RIGHTS) && $_zp_admin_tab == 'edit') {
+		global $_admin_tab;
+		if (!npg_loggedin(ADMIN_RIGHTS) && $_admin_tab == 'edit') {
 			?>
 			<?php
 

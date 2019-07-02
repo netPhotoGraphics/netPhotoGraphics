@@ -7,7 +7,7 @@
 		<?php if (extensionEnabled('rss')) { ?>
 			<span>| <?php echo gettext('Subscribe: '); ?>
 				<?php
-				if (in_context(ZP_ALBUM)) {
+				if (in_context(NPG_ALBUM)) {
 					printRSSLink("Collection", "", gettext('This Album'), ", ", false, "rsslink");
 				}
 				printRSSLink("Gallery", "", (gettext('Gallery Images')), "", false, "rsslink");
@@ -18,9 +18,9 @@
 			</span>
 		<?php } ?>
 		<span id="zpcredit">| <?php print_SW_Link(); ?></span>
-		<?php if ($_zp_gallery_page == 'album.php') { ?>
+		<?php if ($_gallery_page == 'album.php') { ?>
 			<?php
-			if ($_zp_current_album->getParent()) {
+			if ($_current_album->getParent()) {
 				$linklabel = gettext('Subalbum');
 			} else {
 				$linklabel = gettext('Album');
@@ -46,7 +46,7 @@
 	</div>
 </div>
 <?php
-if (($_zp_gallery_page == 'image.php') && (function_exists('printPagedThumbsNav')) && (!function_exists('printThumbNav'))) {
+if (($_gallery_page == 'image.php') && (function_exists('printPagedThumbsNav')) && (!function_exists('printThumbNav'))) {
 	printPagedThumbsNav('8', true, '', '', 50, 50, true);
 }
 ?>
@@ -55,6 +55,6 @@ if (function_exists('printLanguageSelector')) {
 	printLanguageSelector(true);
 }
 ?>
-<?php zp_apply_filter('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </body>
 </html>

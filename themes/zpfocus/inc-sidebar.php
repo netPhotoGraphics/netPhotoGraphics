@@ -7,9 +7,9 @@
 		} else {
 			$sscount = 5;
 		}
-		if ((in_context(ZP_ALBUM)) || (in_context(ZP_IMAGE))) {
+		if ((in_context(NPG_ALBUM)) || (in_context(NPG_IMAGE))) {
 			$sstype = 'album';
-			$ssalbum = $_zp_current_album;
+			$ssalbum = $_current_album;
 			$sstitle = gettext('Random Album Image');
 		} else {
 			$sstype = 'all';
@@ -45,8 +45,8 @@
 
 	<!-- PRINTS ZENPAGE LATEST NEWS, IF APPLICABLE -->
 	<?php
-	if (($zenpage) && (getLatestNews()) && ($_zp_gallery_page != 'news.php') && ($zpfocus_news)) {
-		if ((($zpfocus_spotlight) == 'latest') && ($_zp_gallery_page == 'index.php')) {
+	if (($zenpage) && (getLatestNews()) && ($_gallery_page != 'news.php') && ($zpfocus_news)) {
+		if ((($zpfocus_spotlight) == 'latest') && ($_gallery_page == 'index.php')) {
 			?>
 			<div id="spotlight2">
 				<h4 class="blockhead"><span><?php echo gettext('More'); ?></span></h4>
@@ -70,7 +70,7 @@
 			?>
 
 			<!-- IF NO DISQUS, PRINTS LATEST GALLERY COMMENTS OR NEWS COMMENTS -->
-			<?php if ($_zp_gallery_page != 'news.php') { ?>
+			<?php if ($_gallery_page != 'news.php') { ?>
 				<?php if ((function_exists('printCommentForm')) && (getLatestComments(1, 'all'))) { ?>
 					<h4 class="blockhead"><span><?php echo gettext('Latest Gallery Comments'); ?></span></h4>
 					<?php printLatestComments(3, '100'); ?>
@@ -86,7 +86,7 @@
 		?>
 
 		<!-- PRINTS NEWS CATEGORIES IF IN NEWS CONTEXT -->
-		<?php if ($_zp_gallery_page == 'news.php') { ?>
+		<?php if ($_gallery_page == 'news.php') { ?>
 			<div id="newscats">
 				<h4 class="blockhead"><span><?php echo gettext('Categories'); ?></span></h4>
 						<?php printAllNewsCategories(''); ?>

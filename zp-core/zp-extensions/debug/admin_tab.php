@@ -13,7 +13,7 @@ admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 
 if (isset($_POST['delete_cookie'])) {
 	foreach ($_POST['delete_cookie']as $cookie => $v) {
-		zp_clearCookie(postIndexDecode($cookie));
+		clearNPGCookie(postIndexDecode($cookie));
 	}
 	header('location: ?page=develpment&tab=cookie');
 	exit();
@@ -33,7 +33,7 @@ echo "\n</head>";
 		<div id="content">
 			<div id="container">
 				<?php
-				zp_apply_filter('admin_note', 'development', $subtab);
+				npgFilters::apply('admin_note', 'development', $subtab);
 
 				switch ($subtab) {
 					case 'phpinfo':
@@ -259,7 +259,7 @@ echo "\n</head>";
 											$support[$parts[0]]['text'] = $language;
 										}
 									}
-									if (is_dir(SERVERPATH . '/' . ZENFOLDER . '/locale/' . $locale)) {
+									if (is_dir(CORE_SERVERPATH . 'locale/' . $locale)) {
 										$support[$parts[0]]['npgsupport'] = true;
 									}
 								}
@@ -289,7 +289,7 @@ echo "\n</head>";
 										<tr>
 											<td><input type="checkbox" name="delete_cookie[<?php echo html_encode(postIndexEncode($cookie)); ?>]" value="1"></td>
 											<td><?php echo html_encode($cookie); ?> </td>
-											<td><?php echo html_encode(zp_cookieEncode($cookiev)); ?></td>
+											<td><?php echo html_encode(encodeNPGCookie($cookiev)); ?></td>
 										</tr>
 										<?php
 									}

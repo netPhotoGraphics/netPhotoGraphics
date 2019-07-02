@@ -13,7 +13,7 @@ define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 
 if (extensionEnabled('zenpage')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
@@ -52,7 +52,7 @@ function wp_prefix($tablename, $wp_prefix) {
 }
 
 function wpimport_TryAgainError($message) {
-	return '<p class="import-error">' . $message . '<br /><a href="admin_tab.php">' . gettext('Please try again') . '</a>
+	return '<p class="import-error">' . $message . '<br /><a href="' . getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php') . '">' . gettext('Please try again') . '</a>
 		</p>';
 }
 
@@ -91,7 +91,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 	if (empty($wp_dbname) || empty($wp_dbbuser) || empty($wp_dbpassword) || empty($wp_dbhost)) {
 		$dbinfo_incomplete = wpimport_TryAgainError($message);
 	}
-	$wpdbconnection = @mysqli_connect($wp_dbhost, $wp_dbbuser, $wp_dbpassword, $wp_dbname); // open 2nd connection to Wordpress additionally to the existing Zenphoto connection
+	$wpdbconnection = @mysqli_connect($wp_dbhost, $wp_dbbuser, $wp_dbpassword, $wp_dbname); // open 2nd connection to Wordpress additionally to the existing connection
 
 	if ($wpdbconnection) {
 		mysqli_query($wpdbconnection, "SET NAMES 'utf8'");
@@ -114,14 +114,14 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 	if (!isset($_GET['refresh'])) {
 		$cats = wp_query_full_array("SELECT * FROM " . wp_prefix('terms', $wp_prefix) . " as terms, " . wp_prefix('term_taxonomy', $wp_prefix) . " as tax WHERE tax.taxonomy = 'category' AND terms.term_id = tax.term_id");
 		//echo "<li><strong>Categories</strong>: <pre>"; print_r($cats); echo "</pre></li>"; // for debugging
-		debugLogVar(['Wordpress import - All Categories' =>  $cats]);
+		debugLogVar(['Wordpress import - All Categories' => $cats]);
 
 		//Add categories to zenphoto database
 		if ($cats) {
 			foreach ($cats as $cat) {
 				$cattitlelink = $cat['slug'];
-				$cattitle = $_zp_UTF8->convert($cat['name']);
-				//$catdesc = $_zp_UTF8->convert($cat['description']);
+				$cattitle = $_UTF8->convert($cat['name']);
+				//$catdesc = $_UTF8->convert($cat['description']);
 				$catdesc = $cat['description'];
 				if (getcheckboxState('convertlinefeeds')) {
 					$catdesc = nl2br($catdesc);
@@ -142,7 +142,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 		$taginfo = '';
 		$tags = wp_query_full_array("SELECT * FROM " . wp_prefix('terms', $wp_prefix) . " as terms, " . wp_prefix('term_taxonomy', $wp_prefix) . " as tax WHERE tax.taxonomy = 'post_tag' AND terms.term_id = tax.term_id");
 		//echo "<li><strong>Tags</strong>: <pre>"; print_r($tags); echo "</pre></li>"; // for debugging
-		debugLogVar(['Wordpress import - Tags import' =>  $tags]);
+		debugLogVar(['Wordpress import - Tags import' => $tags]);
 
 		//Add tags to zenphoto database
 		if ($tags) {
@@ -194,15 +194,15 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 		//echo "Posts<br /><pre>"; print_r($posts); echo "</pre>"; // for debugging
 		foreach ($posts as $post) {
 			//echo "<li><strong>".$post['title']."</strong> (id: ".$post['id']." / type: ".$post['type']." / date: ".$post['date'].")<br />";
-			debugLogVar(['Wordpress import - Import post: "' . $post['title'] . '" (' . $post['type'] . ')' =>  $posts]);
+			debugLogVar(['Wordpress import - Import post: "' . $post['title'] . '" (' . $post['type'] . ')' => $posts]);
 			if ($post['show'] == "publish") {
 				$show = 1;
 			} else {
 				$show = 0;
 			}
-			$post['title'] = $_zp_UTF8->convert($post['title']);
+			$post['title'] = $_UTF8->convert($post['title']);
 			$titlelink = $post['titlelink'];
-			$post['content'] = $_zp_UTF8->convert($post['content']);
+			$post['content'] = $_UTF8->convert($post['content']);
 			if (getcheckboxState('convertlinefeeds')) {
 				$post['content'] = nl2br($post['content']);
 			}
@@ -233,13 +233,13 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 					$postinfo .= "<ul>";
 					if ($termrelations) {
 						foreach ($termrelations as $term) {
-							$term['name'] = $_zp_UTF8->convert($term['name']);
+							$term['name'] = $_UTF8->convert($term['name']);
 							$term['slug'] = $term['slug'];
 							$term['taxonomy'] = $term['taxonomy'];
 							switch ($term['taxonomy']) {
 								case 'category':
 									//Get new id of category
-									$getcat = query_single_row("SELECT titlelink, title,id from " . prefix('news_categories') . " WHERE titlelink = " . db_quote($term['slug']) . " AND title = " . db_quote($term['name']));
+									$getcat = query_single_row("SELECT titlelink, title,id from " . prefix('news_categories') . " WHERE titlelink=" . db_quote($term['slug']) . " AND title = " . db_quote($term['name']));
 									//Prevent double assignments
 									if (query_single_row("SELECT id from " . prefix('news2cat') . " WHERE news_id = " . $newarticleid . " AND cat_id=" . $getcat['id'], false)) {
 										$postinfo .= '<li class="import-exists">' . sprintf(gettext('%1$s <em>%2$s</em> already assigned'), $term['taxonomy'], $term['name']);
@@ -253,7 +253,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 									break;
 								case 'post_tag':
 									//Get new id of tag
-									// only use "slug" for tags as ZP different to WP has no name (title) and slug (urlname) separately but just an urlname
+									// only use "slug" for tags as different to WP has no name (title) and slug (urlname) separately but just an urlname
 									$gettag = query_single_row("SELECT name,id from " . prefix('tags') . " WHERE name = " . db_quote($term['slug']));
 									//Prevent double assignments
 									if (query_single_row("SELECT id from " . prefix('obj_to_tag') . " WHERE objectid = " . $newarticleid . " AND tagid =" . $gettag['id'], false)) {
@@ -270,7 +270,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 							//echo "<li>".sprintf(gettext('%1$s <em>%2$s</em>'),$term['taxonomy'],$term['slug'])."</li>";
 						}
 						$postinfo .= "</ul>";
-						debugLogVar(['Wordpress import - Term relations for "' . $post['title'] . '" (' . $post['type'] . ')' =>  $termrelations]);
+						debugLogVar(['Wordpress import - Term relations for "' . $post['title'] . '" (' . $post['type'] . ')' => $termrelations]);
 					}
 					break;
 				case 'page':
@@ -303,16 +303,16 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 			if ($comments) {
 				$postinfo .= '<ul>';
 				foreach ($comments as $comment) {
-					$comment['comment_author'] = $_zp_UTF8->convert($comment['comment_author']);
+					$comment['comment_author'] = $_UTF8->convert($comment['comment_author']);
 					$comment['comment_author_email'] = $comment['comment_author_email'];
 					$comment['comment_author_url'] = $comment['comment_author_url'];
 					$comment['comment_date'] = $comment['comment_date'];
-					$comment['comment_content'] = nl2br($_zp_UTF8->convert($comment['comment_content']));
+					$comment['comment_content'] = nl2br($_UTF8->convert($comment['comment_content']));
 					if (getcheckboxState('convertlinefeeds')) {
 						$comment['comment_content'] = nl2br($comment['comment_content']);
 					}
 					$comment_approved = sanitize_numeric($comment['comment_approved']);
-					if ($comment_approved == 1) { // in WP 1 means approved, with ZP the opposite!
+					if ($comment_approved == 1) { // in WP 1 means approved, with us the opposite!
 						$comment_approved = 0;
 					} else {
 						$comment_approved = 1;
@@ -337,7 +337,7 @@ if (isset($_REQUEST['dbname']) || isset($_REQUEST['dbuser']) || isset($_REQUEST[
 			} else {
 				$postinfo .= '<ul><li class="import-nothing">' . gettext('No comments to import') . '</li>';
 			}
-			debugLogVar(['Wordpress import - Comments for "' . $post['title'] . '" (' . $post['type'] . ')' =>  $comments]);
+			debugLogVar(['Wordpress import - Comments for "' . $post['title'] . '" (' . $post['type'] . ')' => $comments]);
 			$postinfo .= '</ul></li>';
 			$postcount++;
 		} // posts foreach
@@ -375,7 +375,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'wordpress', ''); ?>
+			<?php npgFilters::apply('admin_note', 'wordpress', ''); ?>
 			<h1><?php echo (gettext('Wordpress Importer')); ?></h1>
 			<div class="tabbox">
 				<?php if (!isset($_REQUEST['dbname']) && !isset($_REQUEST['dbuser']) && !isset($_REQUEST['dbpass']) && !isset($_REQUEST['dbhost']) && !isset($_GET['refresh'])) { ?>
@@ -403,7 +403,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						<?php echo gettext("<strong>Note:</strong> <em>Wordpress page and category nesting</em> is currently not preserved but can easily be recreated by drag and drop sorting."); ?>
 					</p>
 
-					<p><?php echo gettext("In case anything does not work as expected the query results from the Wordpress database are logged in <code>zp-data/debug.log</code>"); ?></p>
+					<p><?php echo gettext("In case anything does not work as expected the query results from the Wordpress database are logged in <em>debug log</em>"); ?></p>
 					<?php if (!extensionEnabled('zenpage')) { ?>
 						<p class="errorbox"><?php echo gettext('<strong>ERROR: </strong>The Zenpage CMS plugin is not enabled.'); ?></p>
 						<?php
@@ -489,7 +489,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						</li>
 					</ul>
 					<?php if ($posttotalcount == $postcount) { ?>
-						<p class="buttons"><a href="admin_tab.php"><?php echo gettext('New import'); ?></a></p>
+						<p class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php'); ?>"><?php echo gettext('New import'); ?></a></p>
 						<br style="clear:both" />
 						<?php
 					}

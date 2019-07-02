@@ -8,16 +8,16 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 
-		scriptLoader($_zp_themeroot . '/style.css');
+		scriptLoader($_themeroot . '/style.css');
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		printZDSearchToggleJS();
 		?>
 	</head>
 	<body>
-<?php zp_apply_filter('theme_body_open'); ?>
+<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="main">
 			<div id="header">
 				<h1><?php printGalleryTitle(); ?></h1>
@@ -34,15 +34,15 @@ if (!defined('WEBPATH'))
 					$numpages = $numnews = 0;
 				}
 				if ($total == 0) {
-					$_zp_current_search->clearSearchWords();
+					$_current_search->clearSearchWords();
 				}
 				if (getOption('Allow_search')) {
-					$categorylist = $_zp_current_search->getCategoryList();
+					$categorylist = $_current_search->getCategoryList();
 					if (is_array($categorylist)) {
 						$catlist = array('news' => $categorylist, 'albums' => '0', 'images' => '0', 'pages' => '0');
 						printSearchForm(NULL, 'search', NULL, gettext('Search category'), NULL, NULL, $catlist);
 					} else {
-						$albumlist = $_zp_current_search->getAlbumList();
+						$albumlist = $_current_search->getAlbumList();
 						if (is_array($albumlist)) {
 							$album_list = array('albums' => $albumlist, 'pages' => '0', 'news' => '0');
 							printSearchForm(NULL, 'search', NULL, gettext('Search album'), NULL, NULL, $album_list);
@@ -79,7 +79,7 @@ if (!defined('WEBPATH'))
 						</h3>
 						<?php
 					}
-					if ($_zp_page == 1) { //test of zenpage searches
+					if ($_current_page == 1) { //test of zenpage searches
 						if ($numpages > 0) {
 							$number_to_show = 5;
 							$c = 0;
@@ -192,7 +192,7 @@ if (!defined('WEBPATH'))
 
 		</div><!-- main -->
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

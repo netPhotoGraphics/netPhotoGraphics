@@ -15,7 +15,7 @@ require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
-zp_session_start();
+npg_session_start();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
 @ini_set('display_errors', 1);
@@ -37,6 +37,7 @@ if (is_null($mod_rewrite)) {
 	$msg = gettext('The option “mod_rewrite” is “disabled”.');
 }
 setOption('mod_rewrite_detected', 1);
+setOptionDefault('mod_rewrite', 1);
 setupLog(gettext('Notice: “Module mod_rewrite” is working.') . ' ' . $msg, $fullLog);
 
 sendImage(0, 'mod_rewrite');

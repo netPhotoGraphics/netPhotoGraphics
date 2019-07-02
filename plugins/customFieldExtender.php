@@ -37,13 +37,13 @@
  * @pluginCategory example
  *
  */
+$plugin_is_filter = /* defaultExtension( */ 5 | CLASS_PLUGIN /* ) */; //	if you have such a plugin you probably want to use it
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = /* defaultExtension( */ 5 | CLASS_PLUGIN /* ) */; //	if you have such a plugin you probably want to use it
 	$plugin_description = gettext('Adds user defined fields to database tables');
 }
 
-if (file_exists(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/fieldExtender.php')) {
-	require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/common/fieldExtender.php');
+if (file_exists(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php')) {
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
 } else {
 	require_once(stripSuffix(__FILE__) . '/fieldExtender.php');
 }
@@ -196,7 +196,7 @@ class customFieldExtender extends fieldExtender {
 			return sanitize($_POST[$instance . '-' . $field['name']]);
 		} else {
 			$item = $obj->get($field['name']);
-			if (zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				ob_start();
 				?>
 				<select name="<?php echo $instance . '-' . $field['name']; ?>" size='1'>
@@ -240,6 +240,6 @@ function printCustomField($field, $label = NULL, $object = NULL) {
 if (OFFSET_PATH == 2) { // setup call: add the fields into the database
 	new customFieldExtender;
 } else {
-	$_zp_plugin_differed_actions['customFieldExtender'] = 'customFieldExtender::register';
+	$_plugin_differed_actions['customFieldExtender'] = 'customFieldExtender::register';
 }
 ?>

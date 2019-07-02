@@ -13,7 +13,7 @@ $subscription = 86400 * getOption('user_expiry_interval');
 $now = time();
 $warnInterval = $now + getOption('user_expiry_warn_interval') * 86400;
 
-$admins = $_zp_authority->getAdministrators('all');
+$admins = $_authority->getAdministrators('all');
 foreach ($admins as $key => $user) {
 	if ($user['valid'] && !($user['rights'] & ADMIN_RIGHTS)) {
 		if ($subscription) {
@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
 	if ($action == 'expiry') {
 		foreach ($_POST as $key => $action) {
 			if (strpos($key, 'r_') === 0) {
-				$userobj = $_zp_authority->getAnAdmin(array('`id`=' => sanitize(postIndexDecode(str_replace('r_', '', $key)))));
+				$userobj = $_authority->getAnAdmin(array('`id`=' => sanitize(postIndexDecode(str_replace('r_', '', $key)))));
 				if ($userobj) {
 					switch ($action) {
 						case 'delete':
@@ -72,19 +72,19 @@ if (isset($_GET['action'])) {
 							$userobj->save();
 							break;
 						case 'revalidate':
-							$site = $_zp_gallery->getTitle();
+							$site = $_gallery->getTitle();
 							$user_e = $userobj->getEmail();
 							$user = $userobj->getUser();
 							$key = bin2hex(serialize(array('user' => $user, 'email' => $user_e, 'date' => time())));
 							$link = FULLWEBPATH . '/index.php?user_expiry_reverify=' . $key;
 							$message = sprintf(gettext('Your %1$s credentials need to be renewed. Visit %2$s to renew your logon credentials.'), $site, $link);
-							$msg = zp_mail(sprintf(gettext('%s renewal required'), $site), $message, array($user => $user_e));
+							$msg = npgFunctions::mail(sprintf(gettext('%s renewal required'), $site), $message, array($user => $user_e));
 							break;
 					}
 				}
 			}
 		}
-		header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user-expiry/user-expiry-tab.php?page=admin&tab=expiry&applied=' . $msg);
+		header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user-expiry/user-expiry-tab.php') . '?page=admin&tab=expiry&applied=' . $msg);
 		exit();
 	}
 }
@@ -112,7 +112,7 @@ echo '</head>' . "\n";
 				}
 			}
 			$subtab = getCurrentTab();
-			zp_apply_filter('admin_note', 'admin', $subtab);
+			npgFilters::apply('admin_note', 'admin', $subtab);
 			echo '<h1>' . gettext('User expiry') . '</h1>';
 			?>
 			<div id="tab_users" class="tabbox">
@@ -134,7 +134,7 @@ echo '</head>' . "\n";
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>
 						<div class="floatright">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/admin-tabs/options.php?'page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
+							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
 								<?php echo OPTIONS_ICON; ?>
 								<strong><?php echo gettext('Options') ?></strong>
 							</a>

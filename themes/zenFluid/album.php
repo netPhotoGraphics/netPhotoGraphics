@@ -2,7 +2,7 @@
 // force UTF-8 Ø
 if (!defined('WEBPATH'))
 	die();
-zp_apply_filter('theme_file_top');
+npgFilters::apply('theme_file_top');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -75,7 +75,7 @@ zp_apply_filter('theme_file_top');
 								printImageThumb(getBareImageTitle(), "border");
 								if (isImageVideo()) {
 									?>
-								<img class="videoplay" src="<?php echo $_zp_themeroot; ?>/images/videoplay.png">
+								<img class="videoplay" src="<?php echo $_themeroot; ?>/images/videoplay.png">
 										<?php
 									}
 									if (getOption('zenfluid_thumbdesc')) {
@@ -143,10 +143,10 @@ include("inc-footer.php");
 	</body>
 </html>
 <?php
-zp_apply_filter('theme_file_end');
+npgFilters::apply('theme_file_end');
 
 function printButtons() {
-	global $_zp_current_album, $buttonStyle, $doSlideShowLink;
+	global $_current_album, $buttonStyle, $doSlideShowLink;
 	if (hasPrevPage() || hasNextPage() || (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink'))) {
 		?>
 		<div class="albumbuttons" <?php echo $buttonStyle; ?>>

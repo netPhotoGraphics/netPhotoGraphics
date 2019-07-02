@@ -23,28 +23,28 @@ Define('DATABASE_DESIRED_VERSION', '5.6.0');
  * @return true if successful connection
  */
 function db_connect($config, $errorstop = E_USER_ERROR) {
-	global $_zp_DB_connection, $_zp_DB_details, $_zp_DB_last_result;
-	$_zp_DB_details = unserialize(DB_NOT_CONNECTED);
-	$_zp_DB_last_result = NULL;
+	global $_DB_connection, $_DB_details, $_DB_last_result;
+	$_DB_details = unserialize(DB_NOT_CONNECTED);
+	$_DB_last_result = NULL;
 	if (class_exists('PDO')) {
 		$db = $config['mysql_database'];
 		$hostname = $config['mysql_host'];
 		$username = $config['mysql_user'];
 		$password = $config['mysql_pass'];
-		if (is_object($_zp_DB_connection)) {
-			$_zp_DB_connection = NULL; //	don't want to leave connections open
+		if (is_object($_DB_connection)) {
+			$_DB_connection = NULL; //	don't want to leave connections open
 		}
 		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
 			try {
-				$_zp_DB_connection = new PDO("mysql:host=$hostname;dbname=$db", $username, $password);
+				$_DB_connection = new PDO("mysql:host=$hostname;dbname=$db", $username, $password);
 				break;
 			} catch (PDOException $e) {
-				$_zp_DB_last_result = $e;
+				$_DB_last_result = $e;
 				if ($i >= MYSQL_CONNECTION_RETRIES || !(in_array($er = $e->getCode(), array(ER_TOO_MANY_USER_CONNECTIONS, ER_CON_COUNT_ERROR, ER_SERVER_GONE)))) {
 					if ($errorstop) {
 						trigger_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ': ' . $e->getMessage()), $errorstop);
 					}
-					$_zp_DB_connection = NULL;
+					$_DB_connection = NULL;
 					return false;
 				}
 				sleep($i);
@@ -54,15 +54,15 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		trigger_error(gettext('PDO_MySQL extension not loaded.'), $errorstop);
 	}
 
-	$_zp_DB_details = $config;
+	$_DB_details = $config;
 	//set character set protocol
 	$software = db_software();
 	$version = $software['version'];
 	try {
 		if (version_compare($version, '5.5.3', '>=')) {
-			$_zp_DB_connection->query("SET NAMES 'utf8mb4'");
+			$_DB_connection->query("SET NAMES 'utf8mb4'");
 		} else {
-			$_zp_DB_connection->query("SET NAMES 'utf8'");
+			$_DB_connection->query("SET NAMES 'utf8'");
 		}
 	} catch (PDOException $e) {
 		//	:(
@@ -70,11 +70,11 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 
 	// set the sql_mode to relaxed (if possible)
 	try {
-		$_zp_DB_connection->query('SET SESSION sql_mode="";');
+		$_DB_connection->query('SET SESSION sql_mode="";');
 	} catch (PDOException $e) {
 		//	What can we do :(
 	}
-	return $_zp_DB_connection;
+	return $_DB_connection;
 }
 
 /*
@@ -82,9 +82,9 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
  */
 
 function db_software() {
-	global $_zp_DB_connection;
-	if (is_object($_zp_DB_connection)) {
-		$dbversion = trim($_zp_DB_connection->getAttribute(PDO::ATTR_SERVER_VERSION));
+	global $_DB_connection;
+	if (is_object($_DB_connection)) {
+		$dbversion = trim($_DB_connection->getAttribute(PDO::ATTR_SERVER_VERSION));
 		preg_match('/[0-9,\.]*/', $dbversion, $matches);
 	} else {
 		$matches[0] = '?.?.?';
@@ -96,8 +96,8 @@ function db_software() {
  * create the database
  */
 function db_create() {
-	global $_zp_DB_details;
-	$sql = 'CREATE DATABASE IF NOT EXISTS ' . '`' . $_zp_DB_details['mysql_database'] . '` CHARACTER SET utf8 COLLATE utf8_unicode_ci';
+	global $_DB_details;
+	$sql = 'CREATE DATABASE IF NOT EXISTS ' . '`' . $_DB_details['mysql_database'] . '` CHARACTER SET utf8 COLLATE utf8_unicode_ci';
 	return query($sql, false);
 }
 
@@ -105,8 +105,8 @@ function db_create() {
  * Returns user's permissions on the database
  */
 function db_permissions() {
-	global $_zp_DB_details;
-	$sql = "SHOW GRANTS FOR " . $_zp_DB_details['mysql_user'] . ";";
+	global $_DB_details;
+	$sql = "SHOW GRANTS FOR " . $_DB_details['mysql_user'] . ";";
 	$result = query($sql, false);
 	if (!$result) {
 		$result = query("SHOW GRANTS;", false);
@@ -150,19 +150,19 @@ function db_table_update(&$sql) {
 }
 
 function db_show($what, $aux = '') {
-	global $_zp_DB_details;
+	global $_DB_details;
 	switch ($what) {
 		case 'tables':
-			$sql = "SHOW TABLES FROM `" . $_zp_DB_details['mysql_database'] . "` LIKE '" . db_LIKE_escape($_zp_DB_details['mysql_prefix']) . "%'";
+			$sql = "SHOW TABLES FROM `" . $_DB_details['mysql_database'] . "` LIKE '" . db_LIKE_escape($_DB_details['mysql_prefix']) . "%'";
 			return query($sql, false);
 		case 'columns':
-			$sql = 'SHOW FULL COLUMNS FROM `' . $_zp_DB_details['mysql_prefix'] . $aux . '`';
+			$sql = 'SHOW FULL COLUMNS FROM `' . $_DB_details['mysql_prefix'] . $aux . '`';
 			return query($sql, false);
 		case 'variables':
 			$sql = "SHOW VARIABLES LIKE '$aux'";
 			return query_full_array($sql);
 		case 'index':
-			$sql = "SHOW INDEX FROM `" . $_zp_DB_details['mysql_database'] . '`.' . $aux;
+			$sql = "SHOW INDEX FROM `" . $_DB_details['mysql_database'] . '`.' . $aux;
 			return query_full_array($sql, false);
 	}
 }
@@ -182,8 +182,8 @@ function db_list_fields($table) {
 }
 
 function db_truncate_table($table) {
-	global $_zp_DB_details;
-	$sql = 'TRUNCATE ' . $_zp_DB_details['mysql_prefix'] . $table;
+	global $_DB_details;
+	$sql = 'TRUNCATE ' . $_DB_details['mysql_prefix'] . $table;
 	return query($sql, false);
 }
 
@@ -199,19 +199,19 @@ function db_LIKE_escape($str) {
  * @since 0.6
  */
 function db_query($sql, $errorstop = true) {
-	global $_zp_DB_connection, $_zp_DB_last_result, $_zp_DB_details;
-	$_zp_DB_last_result = false;
-	if ($_zp_DB_connection) {
+	global $_DB_connection, $_DB_last_result, $_DB_details;
+	$_DB_last_result = false;
+	if ($_DB_connection) {
 		try {
-			$_zp_DB_last_result = $_zp_DB_connection->query($sql);
+			$_DB_last_result = $_DB_connection->query($sql);
 		} catch (PDOException $e) {
-			$_zp_DB_last_result = false;
+			$_DB_last_result = false;
 		}
 	}
-	if (!$_zp_DB_last_result && $errorstop) {
+	if (!$_DB_last_result && $errorstop) {
 		dbErrorReport($sql);
 	}
-	return $_zp_DB_last_result;
+	return $_DB_last_result;
 }
 
 /**
@@ -268,9 +268,9 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
  * @return string
  */
 function db_escape($string) {
-	global $_zp_DB_connection;
-	if ($_zp_DB_connection) {
-		return trim($_zp_DB_connection->quote($string), "'" . '"');
+	global $_DB_connection;
+	if ($_DB_connection) {
+		return trim($_DB_connection->quote($string), "'" . '"');
 	} else {
 		return addslashes($string);
 	}
@@ -281,8 +281,8 @@ function db_escape($string) {
  */
 
 function db_insert_id() {
-	global $_zp_DB_connection;
-	return $_zp_DB_connection->lastInsertId();
+	global $_DB_connection;
+	return $_DB_connection->lastInsertId();
 }
 
 /*
@@ -301,9 +301,9 @@ function db_fetch_assoc($resource) {
  */
 
 function db_errorno() {
-	global $_zp_DB_connection;
-	if (is_object($_zp_DB_connection)) {
-		return $_zp_DB_last_result->getCode();
+	global $_DB_connection;
+	if (is_object($_DB_connection)) {
+		return $_DB_last_result->getCode();
 	}
 	return '---';
 }
@@ -313,9 +313,9 @@ function db_errorno() {
  */
 
 function db_error() {
-	global $_zp_DB_last_result;
-	if (is_object($_zp_DB_last_result)) {
-		return $_zp_DB_last_result->getMessage();
+	global $_DB_last_result;
+	if (is_object($_DB_last_result)) {
+		return $_DB_last_result->getMessage();
 	} else {
 		return sprintf(gettext('%s not connected'), DATABASE_SOFTWARE);
 	}
@@ -326,9 +326,9 @@ function db_error() {
  */
 
 function db_affected_rows() {
-	global $_zp_DB_last_result;
-	if (is_object($_zp_DB_last_result)) {
-		return $_zp_DB_last_result->rowCount();
+	global $_DB_last_result;
+	if (is_object($_DB_last_result)) {
+		return $_DB_last_result->rowCount();
 	} else {
 		return 0;
 	}
@@ -361,8 +361,8 @@ function db_num_rows($result) {
  * Closes the database
  */
 function db_close() {
-	global $_zp_DB_connection;
-	$_zp_DB_connection = NULL;
+	global $_DB_connection;
+	$_DB_connection = NULL;
 	return true;
 }
 

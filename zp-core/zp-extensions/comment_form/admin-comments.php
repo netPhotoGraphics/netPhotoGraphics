@@ -33,27 +33,27 @@ if (isset($_GET['action'])) {
 			XSRFdefender('comment_update');
 			$comment = new Comment(sanitize_numeric($_GET['id']));
 			$comment->setInModeration(1);
-			zp_apply_filter('comment_disapprove', $comment);
+			npgFilters::apply('comment_disapprove', $comment);
 			$comment->save();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'));
 			exit();
 
 		case "notspam":
 			XSRFdefender('comment_update');
 			$comment = new Comment(sanitize_numeric($_GET['id']));
 			$comment->setInModeration(0);
-			zp_apply_filter('comment_approve', $comment);
+			npgFilters::apply('comment_approve', $comment);
 			$comment->save();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'));
 			exit();
 
 		case 'applycomments':
 			XSRFdefender('applycomments');
 			if (isset($_POST['ids'])) {
 				$action = processCommentBulkActions();
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?bulk=' . $action);
+				header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?bulk=' . $action);
 			} else {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?saved');
+				header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?saved');
 			}
 			exit();
 		case 'deletecomment':
@@ -61,12 +61,12 @@ if (isset($_GET['action'])) {
 			$id = sanitize_numeric($_GET['id']);
 			$comment = new Comment($id);
 			$comment->remove();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?ndeleted=1');
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?ndeleted=1');
 			exit();
 
 		case 'savecomment':
 			if (!isset($_POST['id'])) {
-				header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php');
+				header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'));
 				exit();
 			}
 			XSRFdefender('savecomment');
@@ -82,14 +82,14 @@ if (isset($_GET['action'])) {
 			$comment->setComment(sanitize($_POST['comment'], 1));
 			$comment->setAddressData($_comment_form_save_post = serialize(getCommentAddress(0)));
 			$comment->save();
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/comment_form/admin-comments.php?saved&page=editcomment&id=' . $comment->getID());
+			header('Location: ' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?saved&page=editcomment&id=' . $comment->getID());
 			exit();
 	}
 }
 
 
 printAdminHeader('comments');
-zp_apply_filter('texteditor_config', 'admin_comments');
+npgFilters::apply('texteditor_config', 'admin_comments');
 ?>
 <script type="text/javascript">
 	//<!-- <![CDATA[
@@ -113,7 +113,7 @@ printLogoAndLinks();
 		<?php
 		if ($page == "editcomment" && isset($_GET['id'])) {
 
-			zp_apply_filter('admin_note', 'comments', 'edit');
+			npgFilters::apply('admin_note', 'comments', 'edit');
 			?>
 			<h1><?php echo gettext("edit comment"); ?></h1>
 
@@ -263,7 +263,7 @@ printLogoAndLinks();
 				$allcommentscount = count($allcomments);
 				$totalpages = ceil(($allcommentscount / COMMENTS_PER_PAGE));
 				unset($allcomments);
-				zp_apply_filter('admin_note', '  comments', '  list');
+				npgFilters::apply('admin_note', 'comments', 'list');
 				?>
 				<h1><?php echo gettext("Comments"); ?></h1>
 				<div class="tabbox">
@@ -349,7 +349,7 @@ printLogoAndLinks();
 								$arrow = NORTH_WEST_CORNER_ARROW;
 							}
 							?>
-							<a	href="admin-comments.php?fulltext=<?php
+							<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php
 							echo (int) ($fulltext + 1) & 1;
 							if ($viewall)
 								echo '&amp;viewall';
@@ -371,7 +371,7 @@ printLogoAndLinks();
 											gettext('Mark as spam') => 'spam',
 											gettext('Approve') => 'approve',
 									);
-									$checkarray = zp_apply_filter('bulk_comment_actions', $checkarray);
+									$checkarray = npgFilters::apply('bulk_comment_actions', $checkarray);
 									printBulkActions($checkarray);
 									?>
 								</th>
@@ -399,14 +399,14 @@ printLogoAndLinks();
 									case "albums":
 										$obj = getItemByID('albums', $comment['ownerid']);
 										if ($obj) {
-											$link = '<a href = "' . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext('album') . '] ' . $obj->getTitle() . '</a>';
+											$link = '<a href = "' . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext('album') . '] ' . $obj->getTitle() . '</a>';
 										}
 										break;
 									case "news": // ZENPAGE: if plugin is installed
 										if (extensionEnabled('zenpage')) {
 											$obj = getItemByID('news', $comment['ownerid']);
 											if ($obj) {
-												$link = '<a href = "' . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext("article") . '] ' . $obj->getTitle() . "</a> ";
+												$link = '<a href = "' . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext("article") . '] ' . $obj->getTitle() . "</a> ";
 											}
 										}
 										break;
@@ -414,14 +414,14 @@ printLogoAndLinks();
 										if (extensionEnabled('zenpage')) {
 											$obj = getItemByID('pages', $comment['ownerid']);
 											if ($obj) {
-												$link = "<a href=\"" . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext("page") . '] ' . $obj->getTitle() . "</a>";
+												$link = "<a href=\"" . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext("page") . '] ' . $obj->getTitle() . "</a>";
 											}
 										}
 										break;
 									default : // all the image types
 										$obj = getItemByID('images', $comment['ownerid']);
 										if ($obj) {
-											$link = "<a href=\"" . $obj->getLink() . '#zp_comment_id_' . $id . '">[' . gettext('image') . '] ' . $obj->getTitle() . "</a>";
+											$link = "<a href=\"" . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext('image') . '] ' . $obj->getTitle() . "</a>";
 										}
 										break;
 								}
@@ -471,7 +471,7 @@ printLogoAndLinks();
 													?>
 													<a href="?action=spam&amp;id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('comment_update') ?>" title="<?php echo gettext('Mark this message as SPAM'); ?>">
 														<?php echo CHECKMARK_GREEN; ?> </a>
-														<?php
+													<?php
 												}
 												?>
 											</div>

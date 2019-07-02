@@ -100,7 +100,7 @@ class Page extends CMSItems {
 		if ($locale !== 'all') {
 			$text = get_language_string($text, $locale);
 		}
-		$text = zpFunctions::unTagURLs($text);
+		$text = npgFunctions::unTagURLs($text);
 		return $text;
 	}
 
@@ -110,7 +110,7 @@ class Page extends CMSItems {
 	 * @param string $hint the hint text
 	 */
 	function setPasswordHint($hint) {
-		$this->set('password_hint', zpFunctions::tagURLs($hint));
+		$this->set('password_hint', npgFunctions::tagURLs($hint));
 	}
 
 	/**
@@ -171,8 +171,8 @@ class Page extends CMSItems {
 	 * @return array
 	 */
 	function getParents(&$parentid = '', $initparents = true) {
-		global $parentpages, $_zp_CMS;
-		$allitems = $_zp_CMS->getPages();
+		global $parentpages, $_CMS;
+		$allitems = $_CMS->getPages();
 		if ($initparents) {
 			$parentpages = array();
 		}
@@ -204,10 +204,10 @@ class Page extends CMSItems {
 	 * @return array
 	 */
 	function getPages($published = NULL, $toplevel = false, $number = NULL, $sorttype = NULL, $sortdirection = NULL) {
-		global $_zp_CMS;
+		global $_CMS;
 		$subpages = array();
 		$sortorder = $this->getSortOrder();
-		$pages = $_zp_CMS->getPages($published, false, $number, $sorttype, $sortdirection, $this);
+		$pages = $_CMS->getPages($published, false, $number, $sorttype, $sortdirection, $this);
 		foreach ($pages as $page) {
 			if ($page['parentid'] == $this->getID() && $page['sort_order'] != $sortorder) { // exclude the page itself!
 				array_push($subpages, $page);
@@ -239,10 +239,10 @@ class Page extends CMSItems {
 			}
 		}
 		if (empty($hash)) { // no password required
-			return 'zp_public_access';
+			return 'public_access';
 		} else {
-			$authType = "zp_page_auth_" . $pageobj->getID();
-			$saved_auth = zp_getCookie($authType);
+			$authType = "zenpage_page_auth_" . $pageobj->getID();
+			$saved_auth = getNPGCookie($authType);
 			if ($saved_auth == $hash) {
 				return $authType;
 			} else {
@@ -261,21 +261,21 @@ class Page extends CMSItems {
 	 * @return bool
 	 */
 	function isProtected() {
-		return $this->checkforGuest() != 'zp_public_access';
+		return $this->checkforGuest() != 'public_access';
 	}
 
 	function subRights() {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if (!is_null($this->subrights)) {
 			return $this->subrights;
 		}
 		$this->subrights = 0;
-		if (zp_loggedin()) {
-			if (zp_loggedin($this->manage_rights)) {
+		if (npg_loggedin()) {
+			if (npg_loggedin($this->manage_rights)) {
 				$this->subrights = MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW;
 				return $this->subrights;
 			}
-			$objects = $_zp_current_admin_obj->getObjects();
+			$objects = $_current_admin_obj->getObjects();
 			$me = $this->getTitlelink();
 			foreach ($objects as $object) {
 				if ($object['type'] == $this->table) {
@@ -296,15 +296,15 @@ class Page extends CMSItems {
 	 * returns true of access is allowed
 	 */
 	function isMyItem($action) {
-		global $_zp_current_admin_obj;
+		global $_current_admin_obj;
 		if (parent::isMyItem($action)) {
 			return true;
 		}
-		if ($_zp_current_admin_obj && $_zp_current_admin_obj->getUser() == $this->getOwner()) {
+		if ($_current_admin_obj && $_current_admin_obj->getUser() == $this->getOwner()) {
 			return true;
 		}
 
-		if (zp_loggedin($action)) {
+		if (npg_loggedin($action)) {
 			if ($this->getShow() && $action == LIST_RIGHTS) {
 				return LIST_RIGHTS;
 			}
@@ -328,7 +328,7 @@ class Page extends CMSItems {
 	 * @return string
 	 */
 	function getLink() {
-		return zp_apply_filter('getLink', rewrite_path(_PAGES_ . '/' . $this->getTitlelink(), '/index.php?p=pages&title=' . $this->getTitlelink()), $this, NULL);
+		return npgFilters::apply('getLink', rewrite_path(_PAGES_ . '/' . $this->getTitlelink(), '/index.php?p=pages&title=' . $this->getTitlelink()), $this, NULL);
 	}
 
 }

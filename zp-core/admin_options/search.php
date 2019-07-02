@@ -5,7 +5,7 @@
 $optionRights = OPTIONS_RIGHTS;
 
 function saveOptions() {
-	global $_zp_gallery;
+	global $_gallery;
 	$notify = $returntab = NULL;
 	$search = new SearchEngine();
 	if (isset($_POST['SEARCH_list'])) {
@@ -87,7 +87,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_zp_gallery, $_zp_sortby, $_zp_CMS;
+	global $_gallery, $_sortby, $_CMS;
 	?>
 	<div id="tab_search" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
@@ -384,7 +384,7 @@ function getOptionContent() {
 					</td>
 				</tr>
 				<?php
-				$sort = $_zp_sortby;
+				$sort = $_sortby;
 				$sort[gettext('Custom')] = 'custom';
 				$sort[gettext('Album order')] = 'sort_order';
 				?>
@@ -503,7 +503,7 @@ function getOptionContent() {
 				if (extensionEnabled('zenpage')) {
 					unset($sort[gettext('Filemtime')]);
 					unset($sort[gettext('Filename')]);
-					if ($_zp_CMS->news_enabled) {
+					if ($_CMS->news_enabled) {
 						?>
 						<tr>
 							<td class="option_name"><?php echo gettext("Sort articles by"); ?> </td>
@@ -557,7 +557,7 @@ function getOptionContent() {
 						</tr>
 						<?php
 					}
-					if ($_zp_CMS->pages_enabled) {
+					if ($_CMS->pages_enabled) {
 						$sort[gettext('Page order')] = 'sort_order';
 						?>
 						<tr>

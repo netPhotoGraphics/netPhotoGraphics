@@ -76,28 +76,28 @@ foreach ($engines as $engine) {
 				<tr id="user" >
 					<td><?php echo gettext("Database user") ?></td>
 					<td><input type="text" size="40" name="db_user"
-										 value="<?php echo $_zp_conf_vars['mysql_user']; ?>" />&nbsp;</td>
+										 value="<?php echo $_conf_vars['mysql_user']; ?>" />&nbsp;</td>
 				</tr>
 				<tr id="pass" >
 					<td><?php echo gettext("Database password") ?></td>
-					<td><input type="password" size="40" name="db_pass" value="<?php echo $_zp_conf_vars['mysql_pass']; ?>" />&nbsp;</td>
+					<td><input type="password" size="40" name="db_pass" value="<?php echo $_conf_vars['mysql_pass']; ?>" />&nbsp;</td>
 				</tr>
 				<tr id="host" >
 					<td><?php echo gettext("Database host"); ?>
 					</td>
-					<td><input type="text" size="40" name="db_host" value="<?php echo $_zp_conf_vars['mysql_host']; ?>" /></td>
+					<td><input type="text" size="40" name="db_host" value="<?php echo $_conf_vars['mysql_host']; ?>" /></td>
 				</tr>
 				<tr id="database" >
 					<td><?php echo gettext("Database name"); ?></td>
-					<td><input type="text" size="40" name="db_database" value="<?php echo $_zp_conf_vars['mysql_database'] ?>" />&nbsp;</td>
+					<td><input type="text" size="40" name="db_database" value="<?php echo $_conf_vars['mysql_database'] ?>" />&nbsp;</td>
 				</tr>
 				<tr id="prefix" >
 					<td><?php echo gettext("Database table prefix"); ?></td>
 					<?php
-					if ($_zp_conf_vars['mysql_prefix'] == '.') {
+					if ($_conf_vars['mysql_prefix'] == '.') {
 						$path = str_replace(array(' ', '/'), '_', trim(WEBPATH, '/')) . '_';
 					} else {
-						$path = $_zp_conf_vars['mysql_prefix'];
+						$path = $_conf_vars['mysql_prefix'];
 					}
 					?>
 					<td><input type="text" size="40" name="db_prefix" value="<?php

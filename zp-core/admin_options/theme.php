@@ -5,14 +5,14 @@
 $optionRights = THEMES_RIGHTS;
 
 $themelist = array();
-if (zp_loggedin(ADMIN_RIGHTS)) {
-	$gallery_title = $_zp_gallery->getTitle();
+if (npg_loggedin(ADMIN_RIGHTS)) {
+	$gallery_title = $_gallery->getTitle();
 	if ($gallery_title != gettext("Gallery")) {
 		$gallery_title .= ' (' . gettext("Gallery") . ')';
 	}
 	$themelist[$gallery_title] = '';
 }
-$albums = $_zp_gallery->getAlbums(0);
+$albums = $_gallery->getAlbums(0);
 foreach ($albums as $alb) {
 	$_set_theme_album = newAlbum($alb);
 	if ($_set_theme_album->isMyItem(THEMES_RIGHTS)) {
@@ -27,7 +27,7 @@ foreach ($albums as $alb) {
 	}
 }
 $alb = $_set_theme_album = NULL;
-$themename = $_zp_gallery->getCurrentTheme();
+$themename = $_gallery->getCurrentTheme();
 if (!empty($_REQUEST['themealbum'])) {
 	$alb = urldecode(sanitize_path($_REQUEST['themealbum']));
 	$_set_theme_album = newAlbum($alb);
@@ -49,14 +49,14 @@ if (empty($alb)) {
 }
 if (!(false === ($requirePath = getPlugin('themeoptions.php', $themename)))) {
 	require_once($requirePath);
-	$_zp_gallery->setCurrentTheme($themename);
+	$_gallery->setCurrentTheme($themename);
 	$optionHandler = new ThemeOptions(!getThemeOption('constructed', $_set_theme_album, $themename));
 } else {
 	$optionHandler = NULL;
 }
 
 function saveOptions() {
-	global $_zp_gallery;
+	global $_gallery;
 	$themeswitch = $_set_theme_album = $notify = $table = NULL;
 	$themename = urldecode(sanitize($_POST['optiontheme'], 3));
 	$returntab = "&tab=theme";
@@ -162,7 +162,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_zp_gallery, $_set_theme_album, $optionHandler, $themelist, $themename, $_set_theme_album, $alb, $album, $albumtitle;
+	global $_gallery, $_set_theme_album, $optionHandler, $themelist, $themename, $_set_theme_album, $alb, $album, $albumtitle;
 	?>
 	<div id="tab_theme" class="tabbox">
 		<?php
@@ -201,7 +201,7 @@ function getOptionContent() {
 					<?php
 				} else {
 					/* handle theme options */
-					$themes = $_zp_gallery->getThemes();
+					$themes = $_gallery->getThemes();
 					$theme = $themes[$themename];
 					?>
 					<tr>

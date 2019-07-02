@@ -8,11 +8,11 @@ if (function_exists('printSlideShow')) {
 	<html>
 		<head>
 
-			<?php zp_apply_filter('theme_head'); ?>
+			<?php npgFilters::apply('theme_head'); ?>
 
 		</head>
 		<body>
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<!-- Wrap Everything -->
 			<div id="main4">
 				<div id="main2">
@@ -41,9 +41,9 @@ if (function_exists('printSlideShow')) {
 									}
 									?></a> |
 									<?php
-									if (is_null($_zp_current_album)) {
+									if (is_null($_current_album)) {
 										$search = new SearchEngine();
-										$params = trim(zp_getCookie('zenphoto_search_params'));
+										$params = trim(getNPGCookie('search_params'));
 										$search->setSearchParams($params);
 										$images = $search->getImages(0);
 										$searchwords = $search->getSearchWords();
@@ -74,12 +74,12 @@ if (function_exists('printSlideShow')) {
 			<!-- Footer -->
 			<?php
 			printFooter();
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

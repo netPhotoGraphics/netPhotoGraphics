@@ -22,7 +22,7 @@ $plugin_description = gettext('Create default codeblocks.');
 
 $option_interface = 'defaultCodeblocks';
 
-zp_register_filter('codeblock', 'defaultCodeblocks::codeblock');
+npgFilters::register('codeblock', 'defaultCodeblocks::codeblock');
 
 class defaultCodeblocks {
 
@@ -79,7 +79,7 @@ class defaultCodeblocks {
 	}
 
 	function handleOptionSave($themename, $themealbum) {
-		if (zp_loggedin(CODEBLOCK_RIGHTS)) {
+		if (npg_loggedin(CODEBLOCK_RIGHTS)) {
 			foreach ($this->blocks as $object => $block) {
 				$this->currentObject = $object;
 				processCodeblockSave($object, $this);
@@ -94,7 +94,7 @@ class defaultCodeblocks {
 	 * @return array
 	 */
 	function getCodeblock() {
-		return zpFunctions::unTagURLs($this->blocks[$this->currentObject]);
+		return npgFunctions::unTagURLs($this->blocks[$this->currentObject]);
 	}
 
 	/**
@@ -102,7 +102,7 @@ class defaultCodeblocks {
 	 *
 	 */
 	function setCodeblock($cb) {
-		$this->blocks[$this->currentObject] = zpFunctions::tagURLs($cb);
+		$this->blocks[$this->currentObject] = npgFunctions::tagURLs($cb);
 		$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `data`=' . db_quote($this->blocks[$this->currentObject]) . ' WHERE `type`="defaultCodeblocks" AND `subtype`=' . db_quote($this->currentObject);
 		query($sql);
 	}

@@ -398,7 +398,7 @@ function launchScript(script, params) {
  * General function for form select menus to jump to the url stored in their <option> elements' value attributes
  * @param string form ID of the form 
  */
-function zp_gotoLink(form) {
+function npg_gotoLink(form) {
 	var OptionIndex = form.ListBoxURL.selectedIndex;
 	parent.location = form.ListBoxURL.options[OptionIndex].value;
 }

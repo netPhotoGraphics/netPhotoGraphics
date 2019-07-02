@@ -33,19 +33,26 @@ if ((getNumAlbums() > 0) && (getNumImages() > 0)) {
 	include('inc_print_infinitescroll.php');
 	?>
 
-	<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+	<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
 		<div class="favorites panel-group" role="tablist">
-			<?php printAddToFavorites($_zp_current_album); ?>
+			<?php printAddToFavorites($_current_album); ?>
 		</div>
 	<?php } ?>
 
-	<?php if (simplemap::mapPlugin()) { ?>
-		<?php include('inc_print_googlemap.php'); ?>
-	<?php } ?>
+	<?php
+	switch (simplemap::mapPlugin()) {
+		case 'googleMap':
+			include('inc_print_googlemap.php');
+			break;
+		case 'openStreetMap':
+			include('inc_print_osm.php');
+			break;
+	}
 
-	<?php if (extensionEnabled('comment_form')) { ?>
-		<?php include('inc_print_comment.php'); ?>
-	<?php } ?>
+	if (extensionEnabled('comment_form')) {
+		include('inc_print_comment.php');
+	}
+	?>
 
 	</div><!-- /.container main -->
 

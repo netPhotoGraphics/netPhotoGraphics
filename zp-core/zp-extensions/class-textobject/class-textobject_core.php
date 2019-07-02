@@ -96,7 +96,7 @@ class TextObject extends Image {
 	 * @param $filename
 	 */
 	function common_instantiate($album, $filename, $quiet = false) {
-		global $_zp_supported_images;
+		global $_supported_images;
 		$msg = $this->invalid($album, $filename);
 		if ($msg) {
 			$this->exists = false;
@@ -105,7 +105,7 @@ class TextObject extends Image {
 			}
 			return;
 		}
-		$this->sidecars = $_zp_supported_images;
+		$this->sidecars = $_supported_images;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 		$this->updateDimensions();
 		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()), 'filename');
@@ -117,7 +117,7 @@ class TextObject extends Image {
 			$this->set('mtime', $this->filemtime);
 			$this->save();
 			if ($new)
-				zp_apply_filter('new_image', $this);
+				npgFilters::apply('new_image', $this);
 		}
 	}
 
@@ -129,7 +129,7 @@ class TextObject extends Image {
 	 * @return s
 	 */
 	function getThumbImageFile($path = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($path)) {
 			$path = SERVERPATH;
 		}
@@ -139,9 +139,9 @@ class TextObject extends Image {
 					$img = '/textDefault.png';
 					break;
 			}
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/' . $img;
+			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
+				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
 			}
 		} else {
 			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
@@ -199,7 +199,7 @@ class TextObject extends Image {
 			case 'html':
 				return '<span style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</span>';
 			default: // just in case we extend and are lazy...
-				return '<img src="' . pathurlencode($this->getThumb()) . '">';
+				return '<img src="' . html_encode($this->getThumb()) . '">';
 		}
 	}
 
@@ -249,7 +249,7 @@ class TextObject extends Image {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see zp-core/Image::getSizedImage()
+	 * @see Image::getSizedImage()
 	 */
 	function getSizedImage($size) {
 		switch (getOption('image_use_side')) {
@@ -270,7 +270,7 @@ class TextObject extends Image {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see zp-core/Image::updateDimensions()
+	 * @see Image::updateDimensions()
 	 */
 	function updateDimensions() {
 		$size = getOption('image_size');

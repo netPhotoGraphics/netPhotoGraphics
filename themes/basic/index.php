@@ -7,7 +7,7 @@ if (!defined('WEBPATH'))
 <html>
 	<head>
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 		scriptLoader($zenCSS);
 		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 
@@ -17,7 +17,7 @@ if (!defined('WEBPATH'))
 		?>
 	</head>
 	<body>
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="main">
 			<div id="gallerytitle">
 				<?php
@@ -74,7 +74,7 @@ if (!defined('WEBPATH'))
 						<?php
 					}
 					if ($pages) {
-						$pages = $_zp_CMS->getPages(NULL, true); // top level only
+						$pages = $_CMS->getPages(NULL, true); // top level only
 						foreach ($pages as $item) {
 							$pageobj = newPage($item['titlelink']);
 							?>
@@ -104,7 +104,7 @@ if (!defined('WEBPATH'))
 			if (extensionEnabled('contact_form')) {
 				printCustomPageURL(gettext('Contact us'), 'contact', '', '', ' | ');
 			}
-			if (!zp_loggedin() && function_exists('printRegisterURL')) {
+			if (!npg_loggedin() && function_exists('printRegisterURL')) {
 				printRegisterURL(gettext('Register for this site'), '', ' | ');
 			}
 			?>
@@ -113,7 +113,7 @@ if (!defined('WEBPATH'))
 		<?php @call_user_func('mobileTheme::controlLink'); ?>
 		<?php @call_user_func('printLanguageSelector'); ?>
 		<?php
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 	</body>
 </html>

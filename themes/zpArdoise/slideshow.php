@@ -9,7 +9,7 @@
 
 	<div class="slideshow-container">
 
-		<?php printSlideShow(true, false, $albumobj = $_zp_current_album, NULL, NULL, NULL, false, false, false, true); ?>
+		<?php printSlideShow(true, false, $albumobj = $_current_album, NULL, NULL, NULL, false, false, false, true); ?>
 
 
 	</div>

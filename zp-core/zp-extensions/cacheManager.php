@@ -86,14 +86,14 @@ $plugin_description = gettext("Provides cache management utilities for Image, HT
 
 $option_interface = 'cacheManager';
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/class-feed.php');
+require_once(CORE_SERVERPATH . 'class-feed.php');
 
-zp_register_filter('admin_utilities_buttons', 'cacheManager::buttons');
-zp_register_filter('admin_tabs', 'cacheManager::admin_tabs', -300);
-zp_register_filter('edit_album_utilities', 'cacheManager::albumbutton', -9999);
-zp_register_filter('show_change', 'cacheManager::published');
+npgFilters::register('admin_utilities_buttons', 'cacheManager::buttons');
+npgFilters::register('admin_tabs', 'cacheManager::admin_tabs', -300);
+npgFilters::register('edit_album_utilities', 'cacheManager::albumbutton', -9999);
+npgFilters::register('show_change', 'cacheManager::published');
 
-$_zp_cached_feeds = array('RSS'); //	Add to this array any feed classes that need cache clearing
+$_cached_feeds = array('RSS'); //	Add to this array any feed classes that need cache clearing
 
 class cacheManagerFeed extends feed {
 
@@ -174,8 +174,8 @@ class cacheManager {
 	 * @param mixed $currentValue
 	 */
 	function handleOption($option, $currentValue) {
-		global $_zp_gallery;
-		$currenttheme = $_zp_gallery->getCurrentTheme();
+		global $_gallery;
+		$currenttheme = $_gallery->getCurrentTheme();
 		$custom = array();
 		$result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" ORDER BY `aux`');
 		$key = 0;
@@ -349,7 +349,7 @@ class cacheManager {
 	/**
 	 *
 	 * @global type $_set_theme_album
-	 * @global type $_zp_gallery
+	 * @global type $_gallery
 	 * @param string $owner
 	 * @param int $size	standard image parameters
 	 * @param int $width
@@ -364,14 +364,14 @@ class cacheManager {
 	 * @param int $maxspace
 	 */
 	static function addCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
-		global $_set_theme_album, $_zp_gallery;
+		global $_set_theme_album, $_gallery;
 
 
 		$albumName = '';
 		if (getPlugin($owner . '.php')) {
 			$class = 'plugin';
 		} else {
-			$ownerList = array_map('strtolower', array_keys($_zp_gallery->getThemes()));
+			$ownerList = array_map('strtolower', array_keys($_gallery->getThemes()));
 			if (in_array(strtolower($owner), $ownerList)) {
 				$class = 'theme';
 				//from a theme, so there are standard options
@@ -481,11 +481,11 @@ class cacheManager {
 	 * @param object $obj
 	 */
 	static function published($obj) {
-		global $_zp_HTML_cache, $_zp_cached_feeds;
+		global $_HTML_cache, $_cached_feeds;
 
 		if (getOption('cacheManager_' . $obj->table)) {
-			$_zp_HTML_cache->clearHTMLCache();
-			foreach ($_zp_cached_feeds as $feed) {
+			$_HTML_cache->clearHTMLCache();
+			foreach ($_cached_feeds as $feed) {
 				$feeder = new cacheManagerFeed($feed);
 				$feeder->clearCache();
 			}
@@ -494,7 +494,7 @@ class cacheManager {
 	}
 
 	static function admin_tabs($tabs) {
-		if (zp_loggedin(ADMIN_RIGHTS)) {
+		if (npg_loggedin(ADMIN_RIGHTS)) {
 			$tabs['admin']['subtabs'][gettext('Cache images')] = PLUGIN_FOLDER . '/cacheManager/cacheImages.php?tab=images';
 			$tabs['admin']['subtabs'][gettext('Cache stored images')] = PLUGIN_FOLDER . '/cacheManager/cacheDBImages.php?tab=DB&XSRFToken=' . getXSRFToken('cacheDBImages');
 		}
@@ -517,7 +517,7 @@ class cacheManager {
 					'enable' => true,
 					'button_text' => gettext('Purge RSS cache'),
 					'formname' => 'purge_rss_cache.php',
-					'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=clear_rss_cache',
+					'action' => getAdminLink('admin.php') . '?action=clear_rss_cache',
 					'icon' => WASTEBASKET,
 					'alt' => '',
 					'title' => gettext('Delete all files from the RSS cache'),
@@ -531,7 +531,7 @@ class cacheManager {
 				'enable' => true,
 				'button_text' => gettext('Purge Image cache'),
 				'formname' => 'purge_image_cache.php',
-				'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=action=clear_cache',
+				'action' => getAdminLink('admin.php') . '?action=action=clear_cache',
 				'icon' => WASTEBASKET,
 				'alt' => '',
 				'title' => gettext('Delete all files from the Image cache'),
@@ -543,7 +543,7 @@ class cacheManager {
 				'enable' => true,
 				'button_text' => gettext('Purge HTML cache'),
 				'formname' => 'clearcache_button',
-				'action' => FULLWEBPATH . '/' . ZENFOLDER . '/admin.php?action=clear_html_cache',
+				'action' => getAdminLink('admin.php') . '?action=clear_html_cache',
 				'icon' => WASTEBASKET,
 				'title' => gettext('Clear the static HTML cache. HTML pages will be re-cached as they are viewed.'),
 				'alt' => '',
@@ -557,7 +557,7 @@ class cacheManager {
 				'enable' => true,
 				'button_text' => gettext('Purge search cache'),
 				'formname' => 'clearcache_button',
-				'action' => WEBPATH . '/' . ZENFOLDER . '/admin.php?action=clear_search_cache',
+				'action' => getAdminLink('admin.php') . '?action=clear_search_cache',
 				'icon' => WASTEBASKET,
 				'title' => gettext('Clear the static search cache.'),
 				'alt' => '',
@@ -577,7 +577,7 @@ class cacheManager {
 			$disable = ' disabled="disabled"';
 			$title = gettext("You must first set the plugin options for cached image parameters.");
 		}
-		$html .= '<div class="button buttons tooltip" title="' . $title . '"><a href="' . WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager/cacheImages.php?album=' . html_encode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages') . '"' . $disable . '>' . CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images') . '</a><br class="clearall"></div>';
+		$html .= '<div class="button buttons tooltip" title="' . $title . '"><a href="' . getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . html_encode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages') . '"' . $disable . '>' . CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images') . '</a><br class="clearall"></div>';
 		return $html;
 	}
 

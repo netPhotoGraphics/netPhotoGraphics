@@ -37,7 +37,7 @@ if (!defined('WEBPATH'))
 				}
 				?>
 
-				<?php if (function_exists('printAddToFavorites')) printAddToFavorites($_zp_current_album); ?>
+				<?php if (function_exists('printAddToFavorites')) printAddToFavorites($_current_album); ?>
 
 				<!-- Rating -->
 				<?php
@@ -51,10 +51,10 @@ if (!defined('WEBPATH'))
 
 				<!-- Codeblock 1 -->
 				<?php
-				printcodeblock(1, $_zp_current_album);
+				printcodeblock(1, $_current_album);
 				?>
 				<?php
-				printcodeblock(2, $_zp_current_album);
+				printcodeblock(2, $_current_album);
 				?>
 
 				<?php

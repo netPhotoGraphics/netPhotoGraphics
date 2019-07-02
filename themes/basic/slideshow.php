@@ -9,7 +9,7 @@ if (function_exists('printSlideShow')) {
 		<head>
 
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
 			scriptLoader($zenCSS);
 			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
@@ -18,7 +18,7 @@ if (function_exists('printSlideShow')) {
 
 		<body>
 			<?php
-			zp_apply_filter('theme_body_open');
+			npgFilters::apply('theme_body_open');
 			switch (getOption('Theme_colors')) {
 				case 'light':
 				case 'sterile-light':
@@ -36,11 +36,11 @@ if (function_exists('printSlideShow')) {
 				printSlideShow(true, true);
 				?>
 			</div>
-	<?php zp_apply_filter('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 		</body>
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

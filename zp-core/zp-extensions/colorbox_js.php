@@ -8,11 +8,11 @@
  *
  * The plugin has built in support for 5 example Colorbox themes shown below:
  *
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example1.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example2.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example3.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example4.jpg" />
- * 		<img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example5.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example1.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example2.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example3.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example4.jpg" />
+ * 		<img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/colorbox_js/themes/example5.jpg" />
  *
  * If you select <i>custom (within theme)</i> on the plugin option for Colorbox you need to place a folder
  * <i>colorbox_js</i> containing a <i>colorbox.css</i> file and a folder <i>images</i> within the current theme
@@ -29,11 +29,11 @@ $plugin_notice = gettext('Note that this plugin does not attach Colorbox to any 
 $option_interface = 'colorbox';
 
 if (OFFSET_PATH) {
-	zp_register_filter('admin_head', 'colorbox::js');
-	zp_register_filter('admin_head', 'colorbox::css');
+	npgFilters::register('admin_head', 'colorbox::js');
+	npgFilters::register('admin_head', 'colorbox::css');
 } else {
-	zp_register_filter('theme_body_close', 'colorbox::js');
-	zp_register_filter('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
+	npgFilters::register('theme_body_close', 'colorbox::js');
+	npgFilters::register('theme_head', 'colorbox::css'); //	things don't work right if this is in the body close
 }
 
 class colorbox {
@@ -50,7 +50,7 @@ class colorbox {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_gallery;
+		global $_gallery;
 		$themes = getPluginFiles('colorbox_js/themes/*.*');
 		$list = array('Custom (theme based)' => 'custom');
 		foreach ($themes as $theme) {
@@ -77,7 +77,7 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -85,21 +85,21 @@ class colorbox {
 	 * Checks if the theme script is registered for colorbox. If not it will register the script
 	 * so next time things will workl
 	 *
-	 * @global type $_zp_gallery
-	 * @global type $_zp_gallery_page
+	 * @global type $_gallery
+	 * @global type $_gallery_page
 	 * @param string $theme
 	 * @param string $script
 	 * @return boolean true registered
 	 * @deprecated since version 1.9
 	 */
 	static function scriptEnabled($theme, $script) {
-		require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('scriptEnabled() is no longer used. You may delete the calls.');
 		return true;
 	}
 
 	static function css() {
-		global $_zp_gallery;
+		global $_gallery;
 		$inTheme = false;
 		if (OFFSET_PATH) {
 			$themepath = 'colorbox_js/themes/example4/colorbox.css';
@@ -109,19 +109,19 @@ class colorbox {
 				$themepath = 'colorbox_js/themes/example4/colorbox.css';
 			} else {
 				if ($theme == 'custom') {
-					$themepath = zp_apply_filter('colorbox_themepath', 'colorbox_js/colorbox.css');
+					$themepath = npgFilters::apply('colorbox_themepath', 'colorbox_js/colorbox.css');
 				} else {
 					$themepath = 'colorbox_js/themes/' . $theme . '/colorbox.css';
 				}
-				$inTheme = $_zp_gallery->getCurrentTheme();
+				$inTheme = $_gallery->getCurrentTheme();
 			}
 		}
 		scriptLoader(getPlugin($themepath, $inTheme));
 	}
 
 	static function js() {
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-		scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/colorbox_js/functions.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/functions.js');
 	}
 
 }

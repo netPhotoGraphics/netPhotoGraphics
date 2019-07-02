@@ -13,7 +13,7 @@ require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
 
-zp_session_start();
+npg_session_start();
 
 require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
 
@@ -22,8 +22,10 @@ $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 @ini_set('display_errors', 1);
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager.php');
+
+define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
+
 $fullLog = isset($_GET['fullLog']);
 
 $extension = sanitize($_REQUEST['plugin']);
@@ -57,11 +59,11 @@ if (extensionEnabled($extension)) {
 	enableExtension($extension, $plugin_is_filter);
 }
 
-$_zp_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
+$_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
 require_once($path); //	If it faults the shutdown functioin will disable it
-foreach ($_zp_conf_vars['special_pages'] as $definition) {
+foreach ($_conf_vars['special_pages'] as $definition) {
 	if (isset($definition['option'])) {
-		setOptionDefault($definition['option'], $definition['default'], '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
 	}
 }
 if ($str = isolate('$option_interface', $p)) {
@@ -73,9 +75,10 @@ if ($str = isolate('$option_interface', $p)) {
 		ob_start(); //	some plugins emit output from the getOptionsSupported() method
 		$options = $option_interface->getOptionsSupported();
 		ob_end_clean();
+		$owner = replaceScriptPath($path);
 		foreach ($options as $option) {
 			if (isset($option['key'])) {
-				setOptionDefault($option['key'], NULL, '', ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+				setOptionDefault($option['key'], NULL, '', $owner);
 			}
 		}
 	}

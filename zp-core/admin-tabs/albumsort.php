@@ -20,8 +20,8 @@ if (isset($_GET['album'])) {
 	$folder = sanitize($_GET['album']);
 	$album = newAlbum($folder);
 	if (!$album->isMyItem(ALBUM_RIGHTS)) {
-		if (!zp_apply_filter('admin_managed_albums_access', false, $return)) {
-			header('Location: ' . FULLWEBPATH . '/' . ZENFOLDER . '/admin.php');
+		if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
+			header('Location: ' . getAdminLink('admin.php'));
 			exit();
 		}
 	}
@@ -48,7 +48,7 @@ if (isset($_GET['album'])) {
 		}
 	}
 } else {
-	$album = $_zp_missing_album;
+	$album = $_missing_album;
 }
 
 // Print the admin header
@@ -92,7 +92,7 @@ echo "\n</head>";
 	if (extensionEnabled('hitcounter')) {
 		$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
 	}
-	$checkarray_images = zp_apply_filter('bulk_image_actions', $checkarray_images);
+	$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
 
 	// Layout the page
 	printLogoAndLinks();
@@ -109,7 +109,7 @@ echo "\n</head>";
 			}
 			$alb = removeParentAlbumNames($album);
 
-			zp_apply_filter('admin_note', 'albums', 'sort');
+			npgFilters::apply('admin_note', 'albums', 'sort');
 			?>
 			<h1><?php printf(gettext('Edit Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
 			<?php
@@ -189,7 +189,7 @@ echo "\n</head>";
 								<?php printBulkActions($checkarray_images, true); ?>
 
 						<p class="buttons">
-							<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>">
+							<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>">
 								<?php echo BACK_ARROW_BLUE; ?>
 								<strong><?php echo gettext("Back"); ?></strong>
 							</a>
@@ -222,7 +222,7 @@ echo "\n</head>";
 												$publishstatus_text = gettext('Unpublished');
 												$publishstatus_icon = '/images/action.png';
 												?>
-												<img src="<?php echo WEBPATH . '/' . ZENFOLDER . $publishstatus_icon; ?>" alt="<?php echo $publishstatus_text; ?>" title="<?php echo $publishstatus_text; ?>">
+												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER . $publishstatus_icon; ?>" alt="<?php echo $publishstatus_text; ?>" title="<?php echo $publishstatus_text; ?>">
 												<?php
 											}
 											?>
@@ -236,14 +236,14 @@ echo "\n</head>";
 												 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
 										<p>
 											<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
-											<a href="<?php echo WEBPATH . "/" . ZENFOLDER; ?>/admin-tabs/edit.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
+											<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
 												<?php echo PENCIL_ICON; ?>
 											</a>
 											<?php
 											if (isImagePhoto($image)) {
 												?>
-												<a href="<?php echo pathurlencode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
-													<img src="<?php echo WEBPATH . '/' . ZENFOLDER; ?>/images/magnify.png" alt="">
+												<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
+													<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="">
 												</a>
 												<?php
 											}
@@ -262,7 +262,7 @@ echo "\n</head>";
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<p class="buttons">
-								<a href="<?php echo WEBPATH . '/' . ZENFOLDER . '/admin-tabs/edit.php?page=edit' . $parent; ?>">
+								<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>">
 									<?php echo BACK_ARROW_BLUE; ?>
 									<strong><?php echo gettext("Back"); ?></strong>
 								</a>

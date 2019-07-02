@@ -28,9 +28,9 @@ if (OFFSET_PATH == 2) {
 } else {
 	if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) { // register if it is time for a backup
 		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
-		zp_register_filter('admin_head', 'auto_backup::timer_handler');
-		zp_register_filter('theme_head', 'auto_backup::timer_handler');
-		$_backupMutex = new zpMutex('bK');
+		npgFilters::register('admin_head', 'auto_backup::timer_handler');
+		npgFilters::register('theme_head', 'auto_backup::timer_handler');
+		$_backupMutex = new npgMutex('bK');
 	}
 }
 
@@ -106,7 +106,7 @@ class auto_backup {
 				@chmod(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file, 0777);
 				unlink(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file);
 			}
-			cron_starter(SERVERPATH . '/' . ZENFOLDER . '/' . UTILITIES_FOLDER . '/backup_restore.php', array('action' => 'backup', 'autobackup' => 1, 'compress' => sprintf('%u', getOption('backup_compression')), 'XSRFTag' => 'backup'), 3);
+			cron_starter(CORE_SERVERPATH .  UTILITIES_FOLDER . '/backup_restore.php', array('action' => 'backup', 'autobackup' => 1, 'compress' => sprintf('%u', getOption('backup_compression')), 'XSRFTag' => 'backup'), 3);
 			setOption('last_backup_run', time());
 		}
 		$_backupMutex->unlock();

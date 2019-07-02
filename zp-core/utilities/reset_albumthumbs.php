@@ -28,14 +28,14 @@ echo '</head>';
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php zp_apply_filter('admin_note', 'reste_thumbs', ''); ?>
+			<?php npgFilters::apply('admin_note', 'reste_thumbs', ''); ?>
 			<h1><?php echo (gettext('Reset your album thumbnails')); ?></h1>
 			<div class="tabbox">
 				<?php
 				if (isset($_REQUEST['thumbtype'])) {
 					$key = sanitize_numeric($_REQUEST['thumbtype'], 3);
 					$sql = 'UPDATE ' . prefix('albums') . ' SET `thumb`=' . $key;
-					$text = $_zp_albumthumb_selector[$key]['desc'];
+					$text = $_albumthumb_selector[$key]['desc'];
 					if (query($sql)) {
 						?>
 						<div class="messagebox fade-message">
@@ -55,7 +55,7 @@ echo '</head>';
 				$current = getOption('AlbumThumbSelect');
 
 				$selections = array();
-				foreach ($_zp_albumthumb_selector as $key => $selection) {
+				foreach ($_albumthumb_selector as $key => $selection) {
 					$selections[$selection['desc']] = $key;
 				}
 				?>

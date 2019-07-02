@@ -7,11 +7,11 @@
  *
  * Thumbnails may be flagged with the following icons:
  * <ul>
- * 		<li><img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/new.png" />: <i>New</i>—images whose <var>date</var> (or <var>mtime</var>) are within the selected "range" of the current day.</li>
- * 		<li><img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/lock.png" />: <i>Protected</i>—images which are in a password protected album or because
+ * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/new.png" />: <i>New</i>—images whose <var>date</var> (or <var>mtime</var>) are within the selected "range" of the current day.</li>
+ * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/lock.png" />: <i>Protected</i>—images which are in a password protected album or because
  * 							 a parent album is password protected.</li>
- * 		<li><img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/action.png" />: <i>Un-published</i>—images that are marked as not visible.</li>
- * 		<li><img src="%WEBPATH%/%ZENFOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/GPS.png" />: <i>Geotagged</i>—images which have latitude/longitude information in their metadata.</li>
+ * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/action.png" />: <i>Un-published</i>—images that are marked as not visible.</li>
+ * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/GPS.png" />: <i>Geotagged</i>—images which have latitude/longitude information in their metadata.</li>
  * </ul>
  *
  * The icon with which the thumbnail is flagged is selectable by option. The above standard icons are provided as defaults.
@@ -26,10 +26,10 @@ $plugin_description = gettext('Overlay icons over thumbnails to indicate image s
 
 $option_interface = 'flag_thumbnail';
 
-zp_register_filter('standard_image_thumb_html', 'flag_thumbnail::std_image_thumbs');
-zp_register_filter('standard_album_thumb_html', 'flag_thumbnail::std_album_thumbs', 99);
-zp_register_filter('custom_album_thumb_html', 'flag_thumbnail::custom_album_thumbs', 99);
-zp_register_filter('custom_image_html', 'flag_thumbnail::custom_images', 99);
+npgFilters::register('standard_image_thumb_html', 'flag_thumbnail::std_image_thumbs');
+npgFilters::register('standard_album_thumb_html', 'flag_thumbnail::std_album_thumbs', 99);
+npgFilters::register('custom_album_thumb_html', 'flag_thumbnail::custom_album_thumbs', 99);
+npgFilters::register('custom_image_html', 'flag_thumbnail::custom_images', 99);
 
 /**
  * Plugin option handling class
@@ -131,7 +131,7 @@ class flag_thumbnail {
 
 	protected static function image($html, $which, $where) {
 		$img = getPlugin($which);
-		$size = zp_imageDims($img);
+		$size = gl_imageDims($img);
 		$wide = $size['width'];
 		$high = $size['height'];
 		$img = str_replace(SERVERPATH, WEBPATH, $img);
@@ -140,14 +140,14 @@ class flag_thumbnail {
 	}
 
 	protected static function insert_class($html_original) {
-		global $_zp_current_album, $_zp_current_image;
+		global $_current_album, $_current_image;
 
 		$html = $html_original;
 		if (getOption('flag_thumbnail_flag_new')) {
-			if (isset($_zp_current_image)) {
-				$obj = $_zp_current_image;
+			if (isset($_current_image)) {
+				$obj = $_current_image;
 			} else {
-				$obj = $_zp_current_album;
+				$obj = $_current_album;
 			}
 			switch (getOption('flag_thumbnail_date')) {
 				case "date":

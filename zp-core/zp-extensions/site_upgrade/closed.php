@@ -5,12 +5,13 @@
  * If you wish to change the appearance or behavior of
  * the site when closed you may edit the .htm and .xmp files
  */
-$_contents = @file_get_contents(dirname(dirname(dirname(__FILE__))) . '/zp-data/zenphoto.cfg.php');
+$_contents = @file_get_contents(dirname(dirname(dirname(__FILE__))) . '/CORE_FOLDER/CONFIGFILE');
 if ($_contents) {
 	if (strpos($_contents, '<?php') !== false)
 		$_contents = '?>' . $_contents;
 	@eval($_contents);
-	if (@$_zp_conf_vars['site_upgrade_state'] == 'open') {
+	$_conf_vars = $_zp_conf_vars;
+	if (@$_conf_vars['site_upgrade_state'] == 'open') {
 		// site is now open, redirect to index
 		header("HTTP/1.0 307 Found");
 		header("Status: 307 Found");

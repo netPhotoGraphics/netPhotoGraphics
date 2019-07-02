@@ -7,7 +7,7 @@
  * Support is included for <i>CAPTCHA</i> and for confirmation before the message is sent. No other spam filter support is provided.
  * Your mail client will provide filtering on receipt of the message.
  *
- * The contact form itself is a separate file and located within <var>%ZENFOLDER%/%PLUGIN_FOLDER%/contact_form/form.php</var>. Place a customized
+ * The contact form itself is a separate file and located within <var>%CORE_FOLDER%/%PLUGIN_FOLDER%/contact_form/form.php</var>. Place a customized
  * version of the form in a similar folder in your theme if you wish something different from the standard form.
  *
  * @author Malte Müller (acrylian), Stephen Billard (sbillard)
@@ -20,11 +20,11 @@ $plugin_description = gettext("Prints an e-mail contact so that visitors may e-m
 
 $option_interface = 'contactformOptions';
 
-$_zp_conf_vars['special_pages']['contact'] = array('define' => '_CONTACT_', 'rewrite' => getOption('contactform_rewrite'), 'option' => 'contactform_rewrite', 'default' => '_PAGE_/contact');
-$_zp_conf_vars['special_pages'][] = array('definition' => '%CONTACT%', 'rewrite' => '_CONTACT_');
-$_zp_conf_vars['special_pages'][] = array('rewrite' => '%CONTACT%', 'rule' => '^%REWRITE%/*$		index.php?p=contact [NC,L,QSA]');
+$_conf_vars['special_pages']['contact'] = array('define' => '_CONTACT_', 'rewrite' => getOption('contactform_rewrite'), 'option' => 'contactform_rewrite', 'default' => '_PAGE_/contact');
+$_conf_vars['special_pages'][] = array('definition' => '%CONTACT%', 'rewrite' => '_CONTACT_');
+$_conf_vars['special_pages'][] = array('rewrite' => '%CONTACT%', 'rule' => '^%REWRITE%/*$		index.php?p=contact [NC,L,QSA]');
 
-zp_register_filter('content_macro', 'getContactFormMacros');
+npgFilters::register('content_macro', 'getContactFormMacros');
 
 /**
  * Plugin option handling class
@@ -33,7 +33,7 @@ zp_register_filter('content_macro', 'getContactFormMacros');
 class contactformOptions {
 
 	function __construct() {
-		global $_zp_authority;
+		global $_authority;
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('contactform_introtext', getAllTranslations('<p>Fields with <strong>*</strong> are required. HTML or any other code is not allowed.</p>'));
 			setOptionDefault('contactform_confirmtext', getAllTranslations('<p>Please confirm that you really want to send this email. Thanks.</p>'));
@@ -55,7 +55,7 @@ class contactformOptions {
 			setOptionDefault('contactform_sendcopy', 0);
 			setOptionDefault('contactform_sendcopy_text', getAllTranslations('<p>A copy of your e-mail will automatically be sent to the address you provided for your own records.</p>'));
 		}
-		$mailings = $_zp_authority->getAdminEmail();
+		$mailings = $_authority->getAdminEmail();
 		$email_list = '';
 		foreach ($mailings as $email) {
 			$email_list .= ';' . $email;
@@ -66,7 +66,7 @@ class contactformOptions {
 	}
 
 	function getOptionsSupported() {
-		global $_zp_captcha;
+		global $_captcha;
 		$mailinglist = explode(';', getOption("contactform_mailaddress"));
 		array_walk($mailinglist, 'contactformOptions::trim_value');
 		setOption('contactform_mailaddress', implode(';', $mailinglist));
@@ -129,7 +129,7 @@ class contactformOptions {
 						'desc' => sprintf($mailfieldinstruction, gettext("Website"))),
 				gettext('CAPTCHA') => array('key' => 'contactform_captcha', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 10,
-						'desc' => ($_zp_captcha->name) ? gettext('If checked, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
+						'desc' => ($_captcha->name) ? gettext('If checked, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
 				gettext('Phone') => array('key' => 'contactform_phone', 'type' => OPTION_TYPE_RADIO, 'buttons' => $list,
 						'order' => 9,
 						'desc' => sprintf($mailfieldinstruction, gettext("Phone number")))
@@ -170,7 +170,7 @@ function getField($field, $level = 3) {
  * @param string $subject_override set to override the subject.
  */
 function printContactForm($subject_override = '') {
-	global $_zp_captcha, $_processing_post, $_zp_current_admin_obj;
+	global $_captcha, $_processing_post, $_current_admin_obj;
 	$error = array();
 	if (isset($_POST['sendmail'])) {
 		$mailcontent = array();
@@ -214,7 +214,7 @@ function printContactForm($subject_override = '') {
 		if (getOption('contactform_country') == "required" && empty($mailcontent['country'])) {
 			$error[6] = gettext("a country");
 		}
-		if (getOption('contactform_email') == "required" && (empty($mailcontent['email']) || !is_valid_email_zp($mailcontent['email']))) {
+		if (getOption('contactform_email') == "required" && (empty($mailcontent['email']) || !npgFunctions::is_valid_email($mailcontent['email']))) {
 			$error[7] = gettext("a valid email address");
 		}
 		if (getOption('contactform_website') == "required" && empty($mailcontent['website'])) {
@@ -240,7 +240,7 @@ function printContactForm($subject_override = '') {
 		if (getOption("contactform_captcha")) {
 			$code_ok = trim(isset($_POST['code_h']) ? sanitize($_POST['code_h']) : NULL);
 			$code = trim(isset($_POST['code']) ? sanitize($_POST['code']) : NULL);
-			if (!$_zp_captcha->checkCaptcha($code, $code_ok)) {
+			if (!$_captcha->checkCaptcha($code, $code_ok)) {
 				$error[5] = gettext("CAPTCHA verification.");
 			} // no ticket
 		}
@@ -367,7 +367,7 @@ function printContactForm($subject_override = '') {
 		if (getField('username')) {
 			$err_msg = false; // If honeypot was triggered, silently don't send the message
 		} else {
-			$err_msg = zp_mail($subject, $message, $mailinglist, $sendcopy, NULL, array($name => $mailaddress));
+			$err_msg = npgFunctions::mail($subject, $message, $mailinglist, $sendcopy, NULL, array($name => $mailaddress));
 		}
 
 		if ($err_msg) {
@@ -392,12 +392,12 @@ function printContactForm($subject_override = '') {
 		echo '<p><a  href="?again">' . get_language_string(getOption('contactform_newmessagelink')) . '</a></p>';
 	} else {
 		if (count($error) <= 0) {
-			if (zp_loggedin()) {
-				$mailcontent = array('title' => '', 'name' => $_zp_current_admin_obj->getName(), 'company' => '', 'street' => '', 'city' => '', 'state' => '',
-						'country' => '', 'postal' => '', 'email' => $_zp_current_admin_obj->getEmail(), 'website' => '', 'phone' => '',
+			if (npg_loggedin()) {
+				$mailcontent = array('title' => '', 'name' => $_current_admin_obj->getName(), 'company' => '', 'street' => '', 'city' => '', 'state' => '',
+						'country' => '', 'postal' => '', 'email' => $_current_admin_obj->getEmail(), 'website' => '', 'phone' => '',
 						'subject' => $subject_override, 'message' => '', 'honeypot' => '');
 				if (class_exists('userAddressFields')) {
-					$address = userAddressFields::getCustomDataset($_zp_current_admin_obj);
+					$address = userAddressFields::getCustomDataset($_current_admin_obj);
 					foreach ($address as $key => $field) {
 						$mailcontent[$key] = $field;
 					}

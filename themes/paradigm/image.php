@@ -121,7 +121,7 @@ if (!defined('WEBPATH'))
 							?>
 							<?php
 							if (function_exists('printAddToFavorites')) {
-								printAddToFavorites($_zp_current_image);
+								printAddToFavorites($_current_image);
 							}
 							if (extensionEnabled('rating')) {
 								echo '<div id="rating">';

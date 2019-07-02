@@ -21,14 +21,14 @@
 						<?php if (strlen($tagstring) > 0) { ?><li class="meta-tags"><?php printTags('links', '', 'taglist', ', '); ?></li><?php } ?>
 					</ul>
 				</div>
-			<?php } else if (in_context(ZP_ZENPAGE_NEWS_CATEGORY)) { ?>
+			<?php } else if (in_context(ZENPAGE_NEWS_CATEGORY)) { ?>
 				<h5><?php
 					printNewsIndexURL(NEWS_LABEL);
 					echo ' » ';
 					?></h5>
 				<h1><?php printCurrentNewsCategory(); ?></h1>
 				<p><?php printNewsCategoryDesc(); ?></p>
-			<?php } else if (in_context(ZP_ZENPAGE_NEWS_DATE)) { ?>
+			<?php } else if (in_context(ZENPAGE_NEWS_DATE)) { ?>
 				<h5><?php
 					printNewsIndexURL(NEWS_LABEL);
 					echo ' » ';

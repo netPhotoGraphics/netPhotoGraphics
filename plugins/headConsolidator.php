@@ -27,8 +27,8 @@ $plugin_description = gettext('A plugin to collect and consolidate theme_head sc
 
 // Note: these are not exact. If some other plugin decides to insert before or after, it's output
 // will not get processed.
-zp_register_filter('theme_head', 'headConolidator_start', 99999);
-zp_register_filter('theme_head', 'headConolidator_end', -99999);
+npgFilters::register('theme_head', 'headConolidator_start', 99999);
+npgFilters::register('theme_head', 'headConolidator_end', -99999);
 
 function headConolidator_start() {
 	ob_start();

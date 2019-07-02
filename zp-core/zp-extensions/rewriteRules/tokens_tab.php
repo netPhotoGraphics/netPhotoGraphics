@@ -5,7 +5,6 @@
  * @package plugins/rewriteTokens
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/deprecated-functions.php');
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 printAdminHeader('development', gettext('rewriteTokens'));
 
@@ -22,7 +21,7 @@ $_definitions = array();
 		<div id="content">
 			<div id="container">
 				<?php
-				zp_apply_filter('admin_note', 'development', '');
+				npgFilters::apply('admin_note', 'development', '');
 				?>
 				<h1>
 					<?php
@@ -31,7 +30,7 @@ $_definitions = array();
 				</h1>				<div class="tabbox">
 					<dl class="code">
 						<?php
-						foreach ($_zp_conf_vars['special_pages'] as $page => $element) {
+						foreach ($_conf_vars['special_pages'] as $page => $element) {
 							if (array_key_exists('define', $element) && $element['define']) {
 								$_definitions[$element['define']] = strtr($element['rewrite'], $_definitions);
 								?>

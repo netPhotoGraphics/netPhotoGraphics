@@ -4,7 +4,7 @@
 <div class="right">
 	<h1 id="tagline"><?php echo gettext('Search'); ?></h1>
 	<?php if ($zpfocus_logotype) { ?>
-		<a style="display:block;" href="<?php echo getGalleryIndexURL(); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/<?php echo $zpfocus_logofile; ?>" alt="<?php echo html_encode(getBareGalleryTitle()); ?>" /></a>
+		<a style="display:block;" href="<?php echo getGalleryIndexURL(); ?>"><img src="<?php echo $_themeroot; ?>/images/<?php echo $zpfocus_logofile; ?>" alt="<?php echo html_encode(getBareGalleryTitle()); ?>" /></a>
 	<?php } else { ?>
 		<h2 id="logo"><a href="<?php echo html_encode(getGalleryIndexURL()); ?>"><?php echo html_encode(getBareGalleryTitle()); ?></a></h2>
 	<?php } ?>
@@ -17,7 +17,7 @@
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
-		$zenpage = getOption('zp_plugin_zenpage');
+		$zenpage = extensionEnabled('zenpage');
 		if ($zenpage && !isArchive()) {
 			$numpages = getNumPages();
 			if ($zpfocus_news) {
@@ -44,7 +44,7 @@
 	</p>
 
 	<?php
-	if ($_zp_page == 1) { //test of zenpage searches
+	if ($_current_page == 1) { //test of zenpage searches
 		if ($numpages > 0) {
 			$number_to_show = 2;
 			$c = 0;
@@ -167,9 +167,9 @@
 									} else {
 										echo htmlspecialchars(getUnprotectedImageURL());
 									}
-									?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/search.png" alt="Zoom Image" /></a><?php } ?>
+									?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/search.png" alt="Zoom Image" /></a><?php } ?>
 									 <?php if (function_exists('getCommentCount') && (getCommentCount()) > 0) { ?>
-									<a class="album-tool" href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo getCommentCount(); ?> Comments"><img src="<?php echo $_zp_themeroot; ?>/images/shout.png" alt="Comments" /></a>
+									<a class="album-tool" href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo getCommentCount(); ?> Comments"><img src="<?php echo $_themeroot; ?>/images/shout.png" alt="Comments" /></a>
 								<?php } ?>
 							</div>
 							<a class="thumb" href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
@@ -184,9 +184,9 @@
 									} else {
 										echo htmlspecialchars(getUnprotectedImageURL());
 									}
-									?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_zp_themeroot; ?>/images/search.png" alt="Zoom Image" /></a><?php } ?>
+									?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><img src="<?php echo $_themeroot; ?>/images/search.png" alt="Zoom Image" /></a><?php } ?>
 									 <?php if (function_exists('getCommentCount') && (getCommentCount()) > 0) { ?>
-									<a class="album-tool" href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo getCommentCount(); ?> Comments"><img src="<?php echo $_zp_themeroot; ?>/images/shout.png" alt="Comments" /></a>
+									<a class="album-tool" href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo getCommentCount(); ?> Comments"><img src="<?php echo $_themeroot; ?>/images/shout.png" alt="Comments" /></a>
 								<?php } ?>
 							</div>
 							<a class="thumb" href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">

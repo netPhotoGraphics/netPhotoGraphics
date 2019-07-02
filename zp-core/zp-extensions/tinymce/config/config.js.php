@@ -33,16 +33,16 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-zp_apply_filter('tinymce_config', NULL);
+npgFilters::apply('tinymce_config', NULL);
 
 if ($MCEcss) {
 	$MCEcss = getPlugin('tinymce/config/' . $MCEcss, true, true);
 } else {
 	$MCEcss = getPlugin('tinymce/config/content.css', true, true);
 }
-global $_zp_RTL_css;
+global $_RTL_css;
 if ($MCEdirection == NULL) {
-	if ($_zp_RTL_css) {
+	if ($_RTL_css) {
 		$MCEdirection = 'rtl';
 	} else {
 		if (getOption('tiny_mce_rtl_override')) {
@@ -54,7 +54,7 @@ if ($MCEdirection == NULL) {
 scriptLoader(TINYMCE . '/tinymce.5.0.4.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
-	scriptLoader(SERVERPATH . "/" . ZENFOLDER . '/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
+	scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
 }
 
 if ($MCEplugins && !is_array($MCEplugins)) {
@@ -71,7 +71,7 @@ if ($pasteObjEnabled) {
 	?>
 		var pasteObjConfig = {	//	pasteObject window
 		title: 'netPhotoGraphics:obj',
-						url: '<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'; ?>',
+						url: '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'; ?>',
 						height: 600,
 						width: 800
 		};

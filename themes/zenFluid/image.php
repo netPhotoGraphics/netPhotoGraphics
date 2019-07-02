@@ -2,7 +2,7 @@
 // force UTF-8 Ø
 if (!defined('WEBPATH'))
 	die();
-zp_apply_filter('theme_file_top')
+npgFilters::apply('theme_file_top')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -32,10 +32,10 @@ zp_apply_filter('theme_file_top')
 		}
 		if (isImagePhoto()) {
 			$doSlideShowLink = true;
-			$imgWidth = $_zp_current_image->getWidth();
-			$imgHeight = $_zp_current_image->getHeight();
+			$imgWidth = $_current_image->getWidth();
+			$imgHeight = $_current_image->getHeight();
 			echo ImageJS($titleMargin, $stageWidth, getOption('zenfluid_stageimage'));
-			if (zp_has_filter('theme_head', 'colorbox::css')) {
+			if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 				echo colorBoxJS();
 			}
 			?>
@@ -48,7 +48,7 @@ zp_apply_filter('theme_file_top')
 				}
 				$tburl = getFullImageURL();
 				if (!empty($tburl)) {
-					echo '<a href="' . pathurlencode($tburl) . '" ' . $boxclass . ' title="' . getBareImageTitle() . '">' . "\n";
+					echo '<a href="' . html_encode($tburl) . '" ' . $boxclass . ' title="' . getBareImageTitle() . '">' . "\n";
 				}
 				printCustomSizedImageMaxSpace(getBareImageTitle(), null, null, "imgheight border");
 				if (!empty($tburl)) {
@@ -65,7 +65,7 @@ zp_apply_filter('theme_file_top')
 			?>
 			<div class="videocontainer">
 				<div class="video" <?php echo $stageStyle; ?>>
-	<?php printCustomSizedImageMaxSpace(getBareImageTitle(), $vidWidth, $vidHeight); ?>
+					<?php printCustomSizedImageMaxSpace(getBareImageTitle(), $vidWidth, $vidHeight); ?>
 				</div>
 			</div>
 			<?php
@@ -93,7 +93,7 @@ zp_apply_filter('theme_file_top')
 				<div class="content border colour">
 					<div class="imagedesc" <?php echo $descriptionStyle; ?>>
 						<div class="description" <?php echo $justifyStyle; ?>>
-	<?php printImageDesc(); ?>
+							<?php printImageDesc(); ?>
 						</div>
 					</div>
 				</div>
@@ -102,12 +102,12 @@ zp_apply_filter('theme_file_top')
 			simpleMap::printMap();
 			if (!getOption('zenfluid_buttontitle'))
 				printButtons();
-			if (function_exists('printCommentForm') && ($_zp_current_image->getCommentsAllowed() || $commentCount)) {
+			if (function_exists('printCommentForm') && ($_current_image->getCommentsAllowed() || $commentCount)) {
 				?>
 				<a id="readComment"></a>
 				<div class="content border colour">
 					<div class="commentbox" <?php echo $commentStyle; ?>>
-	<?php printCommentForm(true, '<a id="addComment"></a>', false); ?>
+						<?php printCommentForm(true, '<a id="addComment"></a>', false); ?>
 					</div>
 				</div>
 				<?php
@@ -116,7 +116,7 @@ zp_apply_filter('theme_file_top')
 				?>
 				<div class="albumbuttons" <?php echo $buttonStyle; ?>>
 					<div class="button border colour">
-	<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
+						<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
 					</div>
 				</div>
 				<div class="clearing" ></div>
@@ -124,17 +124,17 @@ zp_apply_filter('theme_file_top')
 			}
 			?>
 		</div>
-<?php include("inc-footer.php"); ?>
+		<?php include("inc-footer.php"); ?>
 	</body>
 </html>
 <?php
-zp_apply_filter('theme_file_end')
+npgFilters::apply('theme_file_end')
 ?>
 
 <?php
 
 function printButtons() {
-	global $_zp_current_image, $buttonStyle, $commentCount, $doSlideShowLink;
+	global $_current_image, $buttonStyle, $commentCount, $doSlideShowLink;
 	?>
 	<div class="imagebuttons" <?php echo $buttonStyle; ?>>
 		<?php
@@ -147,7 +147,7 @@ function printButtons() {
 		}
 		?>
 		<div class ="button border colour">
-		<?php echo imageNumber() . "/" . getNumImages(); ?>
+			<?php echo imageNumber() . "/" . getNumImages(); ?>
 		</div>
 		<?php
 		if (hasNextImage()) {
@@ -160,25 +160,25 @@ function printButtons() {
 		if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
 			?>
 			<div class="button border colour">
-			<?php printSlideShowLink(); ?>
+				<?php printSlideShowLink(); ?>
 			</div>
 			<?php
 		}
 		if (getImageMetaData()) {
 			?>
 			<div class="button border colour">
-			<?php printImageMetadata(NULL, 'colorbox'); ?>
+				<?php printImageMetadata(NULL, 'colorbox'); ?>
 			</div>
 			<?php
 		}
 		if (function_exists('getHitcounter')) {
 			?>
 			<div class="button border colour">
-			<?php echo gettext("Views: ") . getHitcounter() . "\n"; ?>
+				<?php echo gettext("Views: ") . getHitcounter() . "\n"; ?>
 			</div>
 			<?php
 		}
-		if (function_exists('printCommentForm') && ($_zp_current_image->getCommentsAllowed() || $commentCount)) {
+		if (function_exists('printCommentForm') && ($_current_image->getCommentsAllowed() || $commentCount)) {
 			if ($commentCount == 0) {
 				$comments = gettext('No Comments');
 			} else {
@@ -196,7 +196,7 @@ function printButtons() {
 		if (function_exists('printLikeButton')) {
 			?>
 			<div class="button fb-button border colour">
-			<?php printLikeButton(); ?>
+				<?php printLikeButton(); ?>
 			</div>
 			<?php
 		}

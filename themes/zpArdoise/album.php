@@ -39,13 +39,13 @@
 					<?php while (next_image(true)) { ?>
 						<li>
 							<?php if (isImageVideo()) { ?>
-								<a class="thumb" href="<?php echo $_zp_themeroot; ?>/images/video-placeholder.jpg" title="<?php echo html_encode(getBareImageTitle()); ?>">
+								<a class="thumb" href="<?php echo $_themeroot; ?>/images/video-placeholder.jpg" title="<?php echo html_encode(getBareImageTitle()); ?>">
 								<?php } else { ?>
 									<a class="thumb" href="<?php echo html_encode(getDefaultSizedImage()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
 									<?php } ?>
 									<?php printImageThumb(getAnnotatedImageTitle()); ?></a>
 								<?php $fullimage = getFullImageURL(); ?>
-								<a <?php if ((getOption('use_colorbox_album')) && (!empty($fullimage))) { ?>class="colorbox"<?php } ?> href="<?php echo pathurlencode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"></a>
+								<a <?php if ((getOption('use_colorbox_album')) && (!empty($fullimage))) { ?>class="colorbox"<?php } ?> href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"></a>
 								<div class="caption">
 									<?php if (getOption('show_exif')) { ?>
 										<div class="exif-infos-gal">
@@ -81,8 +81,8 @@
 	<div class="headline-tags"><?php printTags('links', '', 'hor-list'); ?></div>
 <?php } ?>
 
-<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
-	<div class="favorites"><?php printAddToFavorites($_zp_current_album); ?></div>
+<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+	<div class="favorites"><?php printAddToFavorites($_current_album); ?></div>
 <?php } ?>
 
 <?php if (simplemap::mapPlugin()) { ?>
@@ -91,10 +91,10 @@
 		//<![CDATA[
 	<?php if (simpleMap::mapDisplay() == 'colorbox') { ?>
 			$('.google_map').addClass('fadetoggler');
-			$('.google_map').prepend('<img id="icon-map" alt="icon-map" src="<?php echo $_zp_themeroot; ?>/images/map.png" />');
+			$('.google_map').prepend('<img id="icon-map" alt="icon-map" src="<?php echo $_themeroot; ?>/images/map.png" />');
 	<?php } else { ?>
 			$('#googlemap_toggle').addClass('fadetoggler');
-			$('#googlemap_toggle').prepend('<img id="icon-map" alt="icon-map" src="<?php echo $_zp_themeroot; ?>/images/map.png" />');
+			$('#googlemap_toggle').prepend('<img id="icon-map" alt="icon-map" src="<?php echo $_themeroot; ?>/images/map.png" />');
 	<?php } ?>
 		//]]>
 	</script>

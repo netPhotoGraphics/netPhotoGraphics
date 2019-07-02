@@ -20,25 +20,20 @@
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext('Provides a means to purge options for Themes and Plugins.');
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
-if (strpos(__FILE__, ZENFOLDER) === false) {
-	define("PURGEOPTIONS_FOLDER", USER_PLUGIN_FOLDER . '/purgeOptions/');
-} else {
-	define("PURGEOPTIONS_FOLDER", ZENFOLDER . '/' . PLUGIN_FOLDER . '/purgeOptions/');
-}
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
 
-zp_register_filter('admin_tabs', 'purgeOptions_admin_tabs');
+npgFilters::register('admin_tabs', 'purgeOptions_admin_tabs');
 
 function purgeOptions_admin_tabs($tabs) {
-	if (zp_loggedin(ADMIN_RIGHTS))
-		$tabs['options']['subtabs'][gettext("purge")] = "/" . PURGEOPTIONS_FOLDER . 'purgeOptions_tab.php?page=options&tab=purge';
+	if (npg_loggedin(ADMIN_RIGHTS))
+		$tabs['options']['subtabs'][gettext("purge")] = PLUGIN_FOLDER . '/purgeOptions/purgeOptions_tab.php?page=options&tab=purge';
 	return $tabs;
 }
 
 function listOwners($owners, $nest = '') {
-	global $xlate, $highlighted, $_zp_gallery;
+	global $xlate, $highlighted, $_gallery;
 
-	$currentTheme = $_zp_gallery->getCurrentTheme();
+	$currentTheme = $_gallery->getCurrentTheme();
 
 	foreach ($owners as $owner => $detail) {
 		if (is_array($detail)) {

@@ -2,14 +2,14 @@
 	<div class="container">
 		<?php
 		// redundancy to only show on mobile if on index.php
-		if ($_zp_gallery_page != "index.php") {
+		if ($_gallery_page != "index.php") {
 			$classfull = ' class="noshow-mobile"';
 			$class = ' noshow-mobile';
 		} else {
 			$classfull = '';
 			$class = '';
 		}
-		if ((!$zpskel_ismobile) || (($zpskel_ismobile) && ($_zp_gallery_page == "index.php"))) {
+		if ((!$zpskel_ismobile) || (($zpskel_ismobile) && ($_gallery_page == "index.php"))) {
 			?>
 			<div class="sixteen columns<?php echo $class; ?>">
 				<?php if (function_exists('printAlbumMenu')) { ?><div class="jump-menu"><?php printAlbumMenu('jump'); ?></div><?php } ?>

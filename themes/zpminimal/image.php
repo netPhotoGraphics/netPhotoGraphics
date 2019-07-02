@@ -26,7 +26,7 @@
 		<?php
 		if (function_exists('printAddToFavorites')) {
 			echo '<div class="section">';
-			printAddToFavorites($_zp_current_album);
+			printAddToFavorites($_current_album);
 			echo '</div>';
 		}
 		?>
@@ -47,10 +47,10 @@
 			<div id="full-image-details">
 				<h2><?php printImageTitle(true); ?></h2>
 				<div class="sidebar-section"><?php printImageDate('', '', null, true); ?></div>
-				<?php if ((getImageDesc()) || (zp_loggedin())) { ?><div class="sidebar-section"><?php printImageDesc(true); ?></div><?php } ?>
-				<?php if ((getTags()) || (zp_loggedin())) { ?><div class="sidebar-section"><?php printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ''); ?></div><?php } ?>
+				<?php if ((getImageDesc()) || (npg_loggedin())) { ?><div class="sidebar-section"><?php printImageDesc(true); ?></div><?php } ?>
+				<?php if ((getTags()) || (npg_loggedin())) { ?><div class="sidebar-section"><?php printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ''); ?></div><?php } ?>
 				<?php if (!$zpmin_disablemeta) { ?>
-					<?php if ((getImageMetaData()) || (zp_loggedin())) { ?><div class="sidebar-section"><?php printImageMetadata('', false, null, 'full-image-meta', true); ?></div><?php } ?>
+					<?php if ((getImageMetaData()) || (npg_loggedin())) { ?><div class="sidebar-section"><?php printImageMetadata('', false, null, 'full-image-meta', true); ?></div><?php } ?>
 				<?php } ?>
 				<?php if (function_exists('printSlideShowLink' && isImagePhoto())) { ?><div class="sidebar-section"><div class="slideshow-link"><?php printSlideShowLink(gettext('View Slideshow')); ?></div></div><?php } ?>
 			</div>

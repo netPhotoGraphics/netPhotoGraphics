@@ -8,8 +8,8 @@
 // force UTF-8 Ø
 define('OFFSET_PATH', 3);
 require_once("../../admin-globals.php");
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/cacheManager/functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager/functions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
@@ -25,7 +25,7 @@ echo "\n" . '<div id="main">';
 printTabs();
 echo "\n" . '<div id="content">';
 
-zp_apply_filter('admin_note', 'cache', '');
+npgFilters::apply('admin_note', 'cache', '');
 echo '<h1>' . gettext('Cache images stored in the database') . '</h1>';
 
 $tables = array(
@@ -81,20 +81,19 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$update = false;
-					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', zpFunctions::unTagURLs($row[$field]), $matches);
+					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*i\.php\?.*)\"|U', npgFunctions::unTagURLs($row[$field]), $matches);
 					foreach ($matches[1] as $uri) {
 						$imageprocessor++;
 						$params = mb_parse_url(html_decode($uri));
 						if (array_key_exists('query', $params)) {
 							parse_str($params['query'], $query);
-
 							if (!file_exists(getAlbumFolder() . $query['a'] . '/' . $query['i'])) {
 								recordMissing($table, $row, $query['a'] . '/' . $query['i']);
 							} else {
 								$update = true;
 
 								if (strpos($uri, 'i.php') !== false) {
-									$url = '<span><img src="' . zpFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
+									$url = '<span><img src="' . npgFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
 									$title = getTitle($table, $row) . ' ' . gettext('image processor reference');
 									?>
 									<a href="<?php echo $uri; ?>&amp;debug" title="<?php echo $title; ?>">
@@ -106,7 +105,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 						}
 					}
 					if ($update) {
-						$text = zpFunctions::updateImageProcessorLink($row[$field], true);
+						$text = npgFunctions::updateImageProcessorLink($row[$field], true);
 						if ($text != $row[$field]) {
 							$sql = 'UPDATE ' . prefix($table) . ' SET `' . $field . '`=' . db_quote($text) . ' WHERE `id`=' . $row['id'];
 							query($sql);
@@ -128,7 +127,23 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 							$match = urldecode($match);
 							$found++;
 							list($image_uri, $args) = getImageProcessorURIFromCacheName($match, $watermarks);
-							$try = $_zp_supported_images;
+							if (preg_match('~(.*)/' . CORE_FOLDER . '_images_(.*)\.(.*)$~i', $image_uri, $matches)) {
+								$cachefile = SERVERPATH . '/' . CACHEFOLDER . getImageCacheFilename($matches[1], CORE_FOLDER . '_images_' . $matches[2] . '.' . $matches[3], $args);
+								if (!file_exists($cachefile)) {
+									$uri = getImageProcessorURI($args, $matches[1], CORE_FOLDER . '_images_' . $matches[2] . '.' . $matches[3]) . '&z=' . CORE_FOLDER . '/images/' . $matches[2] . '.png';
+									$fixed++;
+									$title = getTitle($table, $row);
+									?>
+									<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
+										<?php
+										echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+										?>
+									</a>
+									<?php
+								}
+								continue;
+							}
+							$try = $_supported_images;
 							$base = stripSuffix($image = $image_uri);
 							$prime = getSuffix($image);
 							array_unshift($try, $prime);
@@ -147,11 +162,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										?>
 										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
 											<?php
-											if (isset($args[10])) {
-												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
-											} else {
-												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
-											}
+											echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 											?>
 										</a>
 										<?php

@@ -10,14 +10,14 @@
 
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(SERVERPATH.'/'.ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 
 $imagelist = array();
 
 function getSubalbumImages($folder) {
-	global $imagelist, $_zp_gallery;
+	global $imagelist, $_gallery;
 	$album = newAlbum($folder);
 	if ($album->isDynamic())
 		return;
@@ -42,9 +42,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 			$albumobj = newAlbum($album);
 			$allow = $albumobj->isMyItem(ALBUM_RIGHTS);
 		} else {
-			$allow = zp_loggedin(MANAGE_ALL_ALBUM_RIGHTS);
+			$allow = npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS);
 		}
-		$allow = zp_apply_filter('admin_managed_albums_access', $allow, $return);
+		$allow = npgFilters::apply('admin_managed_albums_access', $allow, $return);
 
 		if ($allow) {
 			if ($_POST['create_tagged'] == 'static') {
@@ -110,7 +110,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 					fclose($f);
 					clearstatcache();
 					// redirct to edit of this album
-					header("Location: " . FULLWEBPATH . "/" . ZENFOLDER . "/admin-tabs/edit.php?page=edit&album=" . pathurlencode($redirect));
+					header("Location: " . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($redirect));
 					exit();
 				}
 			}
@@ -130,7 +130,7 @@ printLogoAndLinks();
 echo "\n" . '<div id="main">';
 printTabs();
 echo "\n" . '<div id="content">';
-zp_apply_filter('admin_note', 'albums', 'dynamic');
+npgFilters::apply('admin_note', 'albums', 'dynamic');
 echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 ?>
 <div class="tabbox">
@@ -223,11 +223,11 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 					<select id="thumb" name="thumb">
 						<?php
 						$selections = array();
-						foreach ($_zp_albumthumb_selector as $key => $selection) {
+						foreach ($_albumthumb_selector as $key => $selection) {
 							$selections[$selection['desc']] = $key;
 						}
 						generateListFromArray(array(getOption('AlbumThumbSelect')), $selections, false, true);
-						$showThumb = $_zp_gallery->getThumbSelectImages();
+						$showThumb = $_gallery->getThumbSelectImages();
 						foreach ($imagelist as $imagepath) {
 							$pieces = explode('/', $imagepath);
 							$filename = array_pop($pieces);

@@ -2,10 +2,10 @@
 // force UTF-8 Ø
 
 if (getOption('Allow_search')) {
-	switch ($_zp_gallery_page) {
+	switch ($_gallery_page) {
 		case 'album.php':
 		case 'image.php':
-			$list = array('albums' => array($_zp_current_album->name), 'pages' => '0', 'news' => '0');
+			$list = array('albums' => array($_current_album->name), 'pages' => '0', 'news' => '0');
 			$text = gettext('Search within album');
 			break;
 		case 'gallery.php':
@@ -18,7 +18,7 @@ if (getOption('Allow_search')) {
 			break;
 		case 'news.php':
 			if (is_NewsCategory()) {
-				$list = array('news' => array($_zp_current_category->getTitlelink()), 'albums' => '0', 'images' => '0', 'pages' => '0');
+				$list = array('news' => array($_CMS_current_category->getTitlelink()), 'albums' => '0', 'images' => '0', 'pages' => '0');
 				$text = gettext('Search category');
 			} else {
 				$list = array('news' => '1', 'albums' => '0', 'images' => '0', 'pages' => '0');
@@ -26,12 +26,12 @@ if (getOption('Allow_search')) {
 			}
 			break;
 		case 'search.php':
-			$categorylist = $_zp_current_search->getCategoryList();
+			$categorylist = $_current_search->getCategoryList();
 			if (is_array($categorylist)) {
 				$list = array('news' => $categorylist, 'albums' => '0', 'images' => '0', 'pages' => '0');
 				$text = gettext('Search within category');
 			} else {
-				$albumlist = $_zp_current_search->getAlbumList();
+				$albumlist = $_current_search->getAlbumList();
 				if (is_array($albumlist)) {
 					$list = array('albums' => $albumlist, 'pages' => '0', 'news' => '0');
 					$text = gettext('Search within album');
@@ -46,7 +46,7 @@ if (getOption('Allow_search')) {
 			$text = gettext('Search gallery');
 			break;
 	}
-	printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', $text, NULL, NULL, $list);
+	printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', $text, NULL, NULL, $list);
 	?>
 	<br class="clearall">
 	<?php
@@ -83,7 +83,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 		?>
 		<div class="menu">
 			<?php
-			if (extensionEnabled('zenpage') && $_zp_gallery_page != 'gallery.php') {
+			if (extensionEnabled('zenpage') && $_gallery_page != 'gallery.php') {
 				?>
 				<h3>
 					<a href="<?php echo html_encode(getCustomPageURL('gallery')); ?>" title="<?php echo gettext('Album index'); ?>"><?php echo gettext("Gallery"); ?></a>

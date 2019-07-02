@@ -60,7 +60,7 @@
  *
  * @package classes
  */
-require_once(SERVERPATH . '/' . ZENFOLDER . '/template-functions.php');
+require_once(CORE_SERVERPATH . 'template-functions.php');
 
 class feed {
 
@@ -118,7 +118,7 @@ class feed {
 	 *
 	 */
 	protected function startCache() {
-		$caching = getOption($this->feed . "_cache") && !zp_loggedin();
+		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . internalToFilesystem($this->getCacheFilename());
 			if (file_exists($cachefilepath) AND time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
@@ -139,7 +139,7 @@ class feed {
 	 *
 	 */
 	protected function endCache() {
-		$caching = getOption($this->feed . "_cache") && !zp_loggedin();
+		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = internalToFilesystem($this->getCacheFilename());
 			if (!empty($cachefilepath)) {
@@ -163,7 +163,7 @@ class feed {
 	 * @param string $cachefolder the sub-folder to clean
 	 */
 	function clearCache($cachefolder = NULL) {
-		zpFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . $cachefolder, true);
+		npgFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . $cachefolder, true);
 	}
 
 	function __construct($options) {
@@ -235,7 +235,7 @@ class feed {
 	/**
 	 * Validates and gets the "lang" parameter option value
 	 *
-	 * @global array $_zp_active_languages
+	 * @global array $_active_languages
 	 * @return string
 	 */
 	protected function getLang() {
@@ -341,8 +341,8 @@ class feed {
 	 * @return int
 	 */
 	protected function getCategory() {
-		if (isset($this->options['category']) && class_exists('ZenpageCategory')) {
-			$catobj = new ZenpageCategory($this->options['category']);
+		if (isset($this->options['category']) && class_exists('Category')) {
+			$catobj = newCategory($this->options['category']);
 			if ($catobj->exists) {
 				return $this->options['category'];
 			}
@@ -433,7 +433,7 @@ class feed {
 	 * @return array
 	 */
 	public function getitems() {
-		global $_zp_CMS;
+		global $_CMS;
 		switch ($this->feedtype) {
 			case 'gallery':
 				if ($this->mode == "albums") {
@@ -466,7 +466,7 @@ class feed {
 				if ($this->sortorder) {
 					$items = getZenpageStatistic($this->itemnumber, 'pages', $this->sortorder, $this->sortdirection);
 				} else {
-					$items = $_zp_CMS->getPages(NULL, false, $this->itemnumber);
+					$items = $_CMS->getPages(NULL, false, $this->itemnumber);
 				}
 				break;
 			case 'comments':
@@ -591,7 +591,7 @@ class feed {
 	}
 
 	static protected function feed404() {
-		include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+		include(CORE_SERVERPATH . '404.php');
 		exit();
 	}
 

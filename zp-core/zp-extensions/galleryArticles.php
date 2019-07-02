@@ -14,12 +14,12 @@ $plugin_disable = extensionEnabled('zenpage') ? '' : gettext('Gallery Articles r
 
 $option_interface = 'galleryArticles';
 
-zp_register_filter('show_change', 'galleryArticles::published');
+npgFilters::register('show_change', 'galleryArticles::published');
 if (getOption('galleryArticles_albums'))
-	zp_register_filter('new_album', 'galleryArticles::published');
+	npgFilters::register('new_album', 'galleryArticles::published');
 if (getOption('galleryArticles_images'))
-	zp_register_filter('new_image', 'galleryArticles::published');
-zp_register_filter('content_macro', 'galleryArticles::macro');
+	npgFilters::register('new_image', 'galleryArticles::published');
+npgFilters::register('content_macro', 'galleryArticles::macro');
 
 class galleryArticles {
 
@@ -53,10 +53,10 @@ class galleryArticles {
 	 * supported options
 	 */
 	function getOptionsSupported() {
-		global $_zp_CMS;
-		if ($_zp_CMS) {
+		global $_CMS;
+		if ($_CMS) {
 			$categories = array();
-			$list = $_zp_CMS->getAllCategories();
+			$list = $_CMS->getAllCategories();
 			foreach ($list as $cat) {
 				$categories[get_language_string($cat['title'])] = $cat['titlelink'];
 			}
@@ -116,7 +116,7 @@ class galleryArticles {
 
 	function handleOptionSave($themename, $themealbum) {
 		if (getOption('galleryArticles_import')) {
-			require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/galleryArticles/combiNews.php');
+			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/galleryArticles/combiNews.php');
 			purgeOption('galleryArticles_import');
 		}
 		return false;
@@ -158,7 +158,7 @@ class galleryArticles {
 	 * @param object $obj
 	 */
 	protected static function publishArticle($obj, $override = NULL) {
-		global $_zp_CMS;
+		global $_CMS;
 		$galleryitem_text = array();
 		$locale = getOption('locale');
 
@@ -220,7 +220,7 @@ class galleryArticles {
 		} else {
 			$cat = getOption('galleryArticles_category');
 			if (getOption('galleryArticles_albumCategory')) {
-				$catlist = $_zp_CMS->getAllCategories();
+				$catlist = $_CMS->getAllCategories();
 				foreach ($catlist as $category) {
 					if ($category['titlelink'] == $folder) {
 						$cat = $category['titlelink'];

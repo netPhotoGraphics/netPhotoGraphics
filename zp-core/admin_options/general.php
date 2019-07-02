@@ -5,7 +5,7 @@
 $optionRights = ADMIN_RIGHTS;
 
 function saveOptions() {
-	global $_zp_gallery;
+	global $_gallery;
 
 	$notify = $returntab = NULL;
 	$returntab = "&tab=general";
@@ -34,7 +34,7 @@ function saveOptions() {
 		if (!empty($newloc) && isset($oldDisallow[$newloc])) {
 			$notify = '?local_failed=' . $newloc;
 		} else {
-			zp_clearCookie('dynamic_locale'); // clear the language cookie
+			clearNPGCookie('dynamic_locale'); // clear the language cookie
 			$result = i18n::setLocale($newloc);
 			if (!empty($newloc) && ($result === false)) {
 				$notify = '?local_failed=' . $newloc;
@@ -49,10 +49,17 @@ function saveOptions() {
 	$oldsuffix = getOption('mod_rewrite_suffix');
 	$newsuffix = sanitize($_POST['mod_rewrite_suffix'], 3);
 	setOption('mod_rewrite_suffix', $newsuffix);
-
-	if (!is_null($oldsuffix) && $oldsuffix != $newsuffix) {
-//the suffix was changed as opposed to set for the first time
-		migrateTitleLinks($oldsuffix, $newsuffix);
+	if ($oldsuffix != $newsuffix) {
+		require_once(CORE_SERVERPATH . '/setup/setup-functions.php');
+		if (!updateRootIndexFile()) {
+			$notify = '?root_update_failed';
+			setOption('mod_rewrite_suffix', $oldsuffix);
+			$oldsuffix = NULL; //	prevent migrating the CMS links
+		}
+		if (!is_null($oldsuffix)) {
+			//the suffix was changed as opposed to set for the first time
+			migrateTitleLinks($oldsuffix, $newsuffix);
+		}
 	}
 	setOption('unique_image_prefix', (int) isset($_POST['unique_image_prefix']));
 	if (isset($_POST['time_zone'])) {
@@ -64,22 +71,22 @@ function saveOptions() {
 	setOption('time_offset', $offset);
 	setOption('FILESYSTEM_CHARSET', sanitize($_POST['filesystem_charset']));
 	setOption('site_email', sanitize($_POST['site_email']), 3);
-	$_zp_gallery->setGallerySession((int) isset($_POST['album_session']));
-	$_zp_gallery->save();
-	if (isset($_POST['zenphoto_cookie_path'])) {
-		$p = sanitize($_POST['zenphoto_cookie_path']);
+	$_gallery->setGallerySession((int) isset($_POST['album_session']));
+	$_gallery->save();
+	if (isset($_POST['cookie_path'])) {
+		$p = sanitize($_POST['cookie_path']);
 		if (empty($p)) {
-			zp_clearCookie('zenphoto_cookie_path');
+			clearNPGCookie('cookie_path');
 		} else {
 			$p = '/' . trim($p, '/') . '/';
 			if ($p == '//') {
 				$p = '/';
 			}
-//	save a cookie to see if change works
+			//	save a cookie to see if change works
 			$returntab .= '&cookiepath';
-			zp_setCookie('zenphoto_cookie_path', $p, 600);
+			setNPGCookie('cookie_path', $p, 600);
 		}
-		setOption('zenphoto_cookie_path', $p);
+		setOption('cookie_path', $p);
 		if (isset($_POST['cookie_persistence'])) {
 			setOption('cookie_persistence', sanitize_numeric($_POST['cookie_persistence']));
 		}
@@ -92,6 +99,7 @@ function saveOptions() {
 		$sql = 'UPDATE ' . prefix('administrators') . ' SET `policyACK`=0';
 		query($sql);
 		setOption('GDPR_cookie', microtime());
+		npgFilters::apply('policy_ack', true, 'policyACK', NULL, gettext('All acknowledgements cleared'));
 	}
 
 	setOption('site_email_name', process_language_string_save('site_email_name', 3));
@@ -121,7 +129,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_zp_gallery, $_zp_server_timezone, $_zp_UTF8, $_zp_authority;
+	global $_gallery, $_server_timezone, $_UTF8, $_authority;
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
@@ -156,6 +164,14 @@ function getOptionContent() {
 			echo gettext('You can use the <em>debug</em> plugin to see which locales your server supports.');
 			echo '</div>';
 		}
+		if (isset($_GET['root_update_failed'])) {
+			echo '<div class="errorbox">';
+			echo "<h2>" .
+			gettext("Could not update the root index.php file") .
+			"</h2>";
+			echo gettext("Perhaps there is a permissions issue. Your <em>mod_rewrite suffix</em> was not changed.");
+			echo '</div>';
+		}
 		?>
 		<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 			<?php XSRFToken('saveoptions'); ?>
@@ -178,7 +194,7 @@ function getOptionContent() {
 				<tr>
 					<?php
 					if (function_exists('date_default_timezone_get')) {
-						$offset = timezoneDiff($_zp_server_timezone, $tz = getOption('time_zone'));
+						$offset = timezoneDiff($_server_timezone, $tz = getOption('time_zone'));
 						setOption('time_offset', $offset);
 						?>
 						<td class="option_name"><?php echo gettext("Time zone"); ?></td>
@@ -195,7 +211,7 @@ function getOptionContent() {
 							<span class="option_info">
 								<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
-									<p><?php printf(gettext('Your server reports its time zone as: <code>%s</code>.'), $_zp_server_timezone); ?></p>
+									<p><?php printf(gettext('Your server reports its time zone as: <code>%s</code>.'), $_server_timezone); ?></p>
 									<p><?php printf(ngettext('Your time zone offset is %d hour. If your time zone is different from the servers, select the correct time zone here.', 'Your time zone offset is: %d hours. If your time zone is different from the servers, select the correct time zone here.', $offset), $offset); ?></p>
 								</div>
 							</span>
@@ -234,6 +250,9 @@ function getOptionContent() {
 							<input type="checkbox" name="mod_rewrite" value="1"<?php echo $state; ?> />	<?php echo gettext('mod rewrite'); ?>
 						</label>
 						<br />
+
+						<?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" />
+						<br />
 						<?php
 						if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
 							?>
@@ -244,8 +263,6 @@ function getOptionContent() {
 							<?php
 						}
 						?>
-						<?php echo gettext("mod_rewrite suffix"); ?> <input type="text" size="10" name="mod_rewrite_suffix" value="<?php echo html_encode(getOption('mod_rewrite_suffix')); ?>" />
-						<br />
 						<label>
 							<input type="checkbox" name="unique_image_prefix"<?php
 							if (UNIQUE_IMAGE)
@@ -260,34 +277,35 @@ function getOptionContent() {
 								<p>
 									<?php
 									echo gettext("If you have Apache <em>mod rewrite</em> (or equivalent), put a checkmark on the <em>mod rewrite</em> option and you will get nice cruft-free URLs.");
-									echo sprintf(gettext('The <em>tokens</em> used in rewritten URIs may be altered to your taste. See the <a href="%s">plugin options</a> for <code>rewriteTokens</code>.'), WEBPATH . '/' . ZENFOLDER . '/admin-tabs/options.php?page=options&tab=plugin&single=rewriteTokens');
+									echo sprintf(gettext('The <em>tokens</em> used in rewritten URIs may be altered to your taste. See the <a href="%s">plugin options</a> for <code>rewriteTokens</code>.'), getAdminLink('admin-tabs/options.php') . '?page=options&tab=plugin&single=rewriteTokens');
 									if (!getOption('mod_rewrite_detected'))
 										echo '<p class="notebox">' . gettext('Setup did not detect a working <em>mod_rewrite</em> facility.'), '</p>';
 									?>
 								</p>
-								<?php
-								if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
-									echo '<p>' . gettext("If you are having problems with images whose names contain characters with diacritical marks try changing the <em>image URI</em> setting.");
-									switch (getOption('UTF8_image_URI_found')) {
-										case'unknown':
-											echo '<p class="notebox">' . gettext('Setup could not determine a setting that allowed images with diacritical marks in the name.'), '</p>';
-											break;
-										case 'internal':
-											if (!getOption('UTF8_image_URI')) {
-												echo '<p class="notebox">' . sprintf(gettext('Setup detected <em>%s</em> image URIs.'), LOCAL_CHARSET), '</p>';
-											}
-											break;
-										case 'filesystem':
-											if (getOption('UTF8_image_URI')) {
-												echo '<p class="notebox">' . gettext('Setup detected <em>file system</em> image URIs.'), '</p>';
-											}
-											break;
-									}
-									echo '</p>';
-								}
-								?>
 								<p><?php echo gettext("If <em>mod_rewrite</em> is checked above, the <em>mod_rewrite suffix</em> will be appended to the end of URLs. (This helps search engines.) Examples: <em>.html, .php</em>, etc."); ?></p>
 								<p>
+									<?php
+									if (FILESYSTEM_CHARSET != LOCAL_CHARSET) {
+										echo '<p>' . gettext("If you are having problems with images whose names contain characters with diacritical marks try changing the <em>image URI</em> setting.");
+										switch (getOption('UTF8_image_URI_found')) {
+											case'unknown':
+												echo '<p class="notebox">' . gettext('Setup could not determine a setting that allowed images with diacritical marks in the name.'), '</p>';
+												break;
+											case 'internal':
+												if (!getOption('UTF8_image_URI')) {
+													echo '<p class="notebox">' . sprintf(gettext('Setup detected <em>%s</em> image URIs.'), LOCAL_CHARSET), '</p>';
+												}
+												break;
+											case 'filesystem':
+												if (getOption('UTF8_image_URI')) {
+													echo '<p class="notebox">' . gettext('Setup detected <em>file system</em> image URIs.'), '</p>';
+												}
+												break;
+										}
+										echo '</p>';
+									}
+									?>
+
 									<?php
 									printf(gettext('If <em>Unique images</em> is checked, image links will omit the image suffix. E.g. a link to the image page for <code>myalbum/myphoto.jpg</code> will appear as <code>myalbum/myphoto%s</code>'), RW_SUFFIX);
 									echo '<p class="notebox">';
@@ -310,20 +328,20 @@ function getOptionContent() {
 								$locales = i18n::generateLanguageList('all');
 								$locales[gettext("HTTP_Accept_Language")] = '';
 								ksort($locales, SORT_LOCALE_STRING);
-								$vers = explode('-', ZENPHOTO_VERSION);
+								$vers = explode('-', NETPHOTOGRAPHICS_VERSION);
 								$vers = explode('.', $vers[0]);
 								while (count($vers) < 3) {
 									$vers[] = 0;
 								}
-								$zpversion = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
+								$npg_version = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
 								$c = 0;
 								foreach ($locales as $language => $dirname) {
 									$languageAlt = $language;
 									$languageP = '';
 									if (!empty($dirname)) {
 										$flag = getLanguageFlag($dirname);
-										if (file_exists(SERVERPATH . "/" . ZENFOLDER . "/locale/" . $dirname . '/LC_MESSAGES')) {
-											$po = file_get_contents(SERVERPATH . "/" . ZENFOLDER . "/locale/" . $dirname . '/LC_MESSAGES/zenphoto.po');
+										if (file_exists(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES')) {
+											$po = file_get_contents(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/zenphoto.po');
 											preg_match_all('~^#,\sfuzzy\s+~ims', $po, $fuzzy);
 											if (count($fuzzy[0])) {
 												preg_match_all('~^#:.*?msgid~ims', $po, $msgid);
@@ -332,7 +350,7 @@ function getOptionContent() {
 											}
 										}
 									} else {
-										$flag = WEBPATH . '/' . ZENFOLDER . '/locale/auto.png';
+										$flag = WEBPATH . '/' . CORE_FOLDER . '/locale/auto.png';
 									}
 									if (isset($unsupported[$dirname])) {
 										$c_attrs = $r_attrs = ' disabled="disabled"';
@@ -476,7 +494,7 @@ function getOptionContent() {
 					<td class="option_value">
 						<select id="filesystem_charset" name="filesystem_charset">
 							<?php
-							foreach ($_zp_UTF8->charsets as $key => $char) {
+							foreach ($_UTF8->charsets as $key => $char) {
 								if ($key == FILESYSTEM_CHARSET) {
 									$selected = ' selected="selected"';
 								} else {
@@ -591,7 +609,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						if (!GALLERY_SESSION) {
 							echo gettext('path');
 							?>
-							<input type="text" class="fullwidth" id="zenphoto_cookie_path" name="zenphoto_cookie_path"  value="<?php echo getOption('zenphoto_cookie_path'); ?>" />
+							<input type="text" class="fullwidth" id="cookie_path" name="cookie_path"  value="<?php echo getOption('cookie_path'); ?>" />
 							<p>
 								<?php
 								echo gettext('duration');
@@ -651,7 +669,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 					</td>
 					<td class="option_value">
 						<?php
-						$mailinglist = $_zp_authority->getAdminEmail(ADMIN_RIGHTS);
+						$mailinglist = $_authority->getAdminEmail(ADMIN_RIGHTS);
 						?>
 						<label><input type="checkbox" id="site_email" name="register_user_notify"  value="1" <?php checked('1', getOption('register_user_notify') && $mailinglist); ?> <?php if (!$mailinglist) echo ' disabled="disabled"'; ?> /> <?php echo gettext('notify'); ?></label>
 					</td>
@@ -801,7 +819,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						</span>
 					</td>
 				</tr>
-				<?php zp_apply_filter('admin_general_data'); ?>
+				<?php npgFilters::apply('admin_general_data'); ?>
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">

@@ -8,7 +8,7 @@
  */
 // force UTF-8 Ø
 require_once(dirname(dirname(__FILE__)) . '/global-definitions.php');
-require_once(dirname(dirname(__FILE__)) . '/functions-config.php');
+require_once(dirname(dirname(__FILE__)) . '/lib-config.php');
 
 define('SETUPLOG', SERVERPATH . '/' . DATA_FOLDER . '/setup.log');
 
@@ -33,25 +33,25 @@ function isMac() {
  * enumerates the files in folder(s)
  * @param $folder
  */
-function getResidentZPFiles($folder, $exclude) {
-	global $_zp_resident_files;
+function getResidentFiles($folder, $exclude) {
+	global $_resident_files;
 	$dir = opendir($folder);
 	while (($file = readdir($dir)) !== false) {
 		$file = str_replace('\\', '/', $file);
 		if ($file != '.' && $file != '..' && !in_array($file, $exclude)) {
 			if (is_dir($folder . '/' . $file)) {
 				if ($file != 'session') {
-					getResidentZPFiles($folder . '/' . $file, $exclude);
+					getResidentFiles($folder . '/' . $file, $exclude);
 					$entry = $folder . '/' . $file;
 					if (CASE_INSENSITIVE)
 						$entry = strtolower($entry);
-					$_zp_resident_files[] = $entry;
+					$_resident_files[] = $entry;
 				}
 			} else {
 				$entry = $folder . '/' . $file;
 				if (CASE_INSENSITIVE)
 					$entry = strtolower($entry);
-				$_zp_resident_files[] = $entry;
+				$_resident_files[] = $entry;
 			}
 		}
 	}
@@ -277,7 +277,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 							$.ajax({
 								type: 'POST',
 								cache: false,
-								url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/setup/setup_permissions_changer.php',
+								url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setup_permissions_changer.php',
 								data: 'folder=<?php echo $path; ?>&key=<?php echo sha1(filemtime(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)); ?>'
 							});
 							// ]]> -->
@@ -292,7 +292,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 			if (empty($webpath)) {
 				$serverroot = SERVERPATH;
 			} else {
-				$i = strpos($webpath, '/' . ZENFOLDER);
+				$i = strpos($webpath, '/' . CORE_FOLDER);
 				$webpath = substr($webpath, 0, $i);
 				$serverroot = substr(SERVERPATH, 0, strpos(SERVERPATH, $webpath));
 			}
@@ -342,10 +342,10 @@ function versionCheck($required, $desired, $found) {
  * @param $select
  */
 function charsetSelector($select) {
-	global $_zp_UTF8;
+	global $_UTF8;
 	$selector = '<select id="FILESYSTEM_CHARSET" name="FILESYSTEM_CHARSET" >';
 	$selector .= '<option value ="unknown">' . gettext('Unknown') . '</option>';
-	$totalsets = $_zp_UTF8->charsets;
+	$totalsets = $_UTF8->charsets;
 	ksort($totalsets);
 	foreach ($totalsets as $key => $char) {
 		$selector .= '	<option value="' . $key . '"';
@@ -361,7 +361,7 @@ function charsetSelector($select) {
 
 function permissionsSelector($permission_names, $select) {
 	$select = $select | 4;
-	global $_zp_UTF8;
+	global $_UTF8;
 	$selector = '<select id="chmod_permissions" name="chmod_permissions" >';
 	$c = 0;
 	foreach ($permission_names as $key => $permission) {
@@ -374,15 +374,15 @@ function permissionsSelector($permission_names, $select) {
 }
 
 function setupLog($message, $anyway = false, $reset = false) {
-	global $debug, $_zp_mutex, $chmod, $_adminCript;
+	global $debug, $_mutex, $chmod, $_adminCript;
 	if (getOption('setup_log_encryption')) {
 		$_logCript = $_adminCript;
 	} else {
 		$_logCript = NULL;
 	}
 	if ($debug || $anyway) {
-		if (is_object($_zp_mutex))
-			$_zp_mutex->lock();
+		if (is_object($_mutex))
+			$_mutex->lock();
 		if (!file_exists(dirname(SETUPLOG))) {
 			mkdir_recursive(dirname(SETUPLOG), $chmod | 0311);
 		}
@@ -401,8 +401,8 @@ function setupLog($message, $anyway = false, $reset = false) {
 			chmod(SETUPLOG, LOG_MOD);
 			clearstatcache();
 		}
-		if (is_object($_zp_mutex))
-			$_zp_mutex->unlock();
+		if (is_object($_mutex))
+			$_mutex->unlock();
 	}
 }
 
@@ -420,8 +420,8 @@ function setupXSRFDefender($where) {
 
 function setupXSRFToken() {
 	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-		$zp_cfg = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-		return sha1(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE . $zp_cfg . session_id());
+		$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+		return sha1(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE . $_config_contents . session_id());
 	} else {
 		return false;
 	}
@@ -436,8 +436,8 @@ function checkPermissions($actual, $expected) {
 }
 
 function acknowledge($value) {
-	global $_zp_conf_vars;
-	$link = WEBPATH . '/' . ZENFOLDER . '/setup/index.php?security_ack=' . ((isset($_zp_conf_vars['security_ack']) ? $_zp_conf_vars['security_ack'] : NULL) | $value) . '&amp;xsrfToken=' . setupXSRFToken();
+	global $_conf_vars;
+	$link = WEBPATH . '/' . CORE_FOLDER . '/setup/index.php?security_ack=' . ((isset($_conf_vars['security_ack']) ? $_conf_vars['security_ack'] : NULL) | $value) . '&amp;xsrfToken=' . setupXSRFToken();
 	return sprintf(gettext('Click <a href="%s">here</a> to acknowledge that you wish to ignore this issue. It will then become a warning.'), $link);
 }
 
@@ -467,7 +467,7 @@ function printSetupFooter($checked) {
 		}
 		?>
 		<span id="footer_right">
-			<?php echo '<span class="zenlogo"><a href="https://netPhotoGraphics.org" title="' . gettext('A simpler media content management system') . '">' . swLogo() . '</a></span> ' . sprintf(gettext('version %1$s'), ZENPHOTO_VERSION); ?>
+			<?php echo '<span class="npglogo"><a href="https://netPhotoGraphics.org" title="' . gettext('A simpler media content management system') . '">' . swLogo() . '</a></span> ' . sprintf(gettext('version %1$s'), NETPHOTOGRAPHICS_VERSION); ?>
 			| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
 		</span>
 	</div>
@@ -475,9 +475,9 @@ function printSetupFooter($checked) {
 }
 
 function setupUserAuthorized() {
-	global $_zp_authority, $_zp_loggedin;
-	if ($_zp_authority && $_zp_authority->getAdministrators()) {
-		return $_zp_loggedin & ADMIN_RIGHTS;
+	global $_authority, $_loggedin;
+	if ($_authority && $_authority->getAdministrators()) {
+		return $_loggedin & ADMIN_RIGHTS;
 	} else {
 		return true; //	in a primitive environment
 	}
@@ -588,14 +588,14 @@ function shutDownFunction() {
 /**
  * Renames old style cache images to new style name
  *
- * @global array $_zp_images_classes
+ * @global array $_images_classes
  * @param string $folder
  * @return string
  *
  * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function migrate_folder($folder) {
-	global $_zp_images_classes;
+	global $_images_classes;
 	$conversions = 0;
 	$album = str_replace(SERVERPATH . '/' . CACHEFOLDER . '/', '', $folder);
 	$files = safe_glob($folder . '*');
@@ -605,7 +605,7 @@ function migrate_folder($folder) {
 			$conversions = $conversions + migrate_folder($file . '/');
 		} else {
 			$suffix = strtolower(getSuffix($file));
-			if (isset($_zp_images_classes[$suffix]) && $_zp_images_classes[$suffix] == 'Image') {
+			if (isset($_images_classes[$suffix]) && $_images_classes[$suffix] == 'Image') {
 				list($basename, $newname) = newCacheName(basename($file));
 				if ($newname) {
 					$image = safe_glob(SERVERPATH . '/' . ALBUMFOLDER . '/' . $album . $basename . '.*');
@@ -655,7 +655,7 @@ function migrateDB() {
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$update = false;
-					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*/' . CACHEFOLDER . '/.*)\"|U', zpFunctions::unTagURLs($row[$field]), $matches);
+					preg_match_all('|\<\s*img.*\ssrc\s*=\s*"(.*/' . CACHEFOLDER . '/.*)\"|U', npgFunctions::unTagURLs($row[$field]), $matches);
 					$updated = false;
 					foreach ($matches[1] as $file) {
 						list($basename, $newname) = newCacheName(basename($file));
@@ -707,4 +707,35 @@ function newCacheName($file) {
 		return array($basename, $newname);
 	}
 	return array(FALSE, FALSE);
+}
+
+/**
+ * updates the root index.php file setting all the definitions to constant strings
+ */
+function updateRootIndexFile() {
+	$index = SERVERPATH . '/index.php';
+	if (file_exists($index)) {
+		@rename($index, $index . '.bak');
+	}
+	$defines = array(
+			'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
+			'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
+			'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
+			'DATA_FOLDER' => DATA_FOLDER,
+			'CONFIGFILE' => CONFIGFILE,
+			'RW_SUFFIX' => preg_quote(getOption('mod_rewrite_suffix'))
+	);
+	$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
+	$script = strtr($script, $defines);
+	$rootupdate = @file_put_contents($index, $script);
+	if (!$rootupdate) {
+		$f1 = @file_get_contents($index);
+		$rootupdate = $f1 == $script; // it is ok, the contents is correct
+	}
+	if ($rootupdate) {
+		@unlink($index . '.bak');
+	} else {
+		@rename($index . '.bak', $index);
+	}
+	return $rootupdate;
 }

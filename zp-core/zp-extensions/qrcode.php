@@ -22,6 +22,6 @@ $plugin_description = gettext('Provides a function to emit a QR code image.');
  */
 function printQRImage($content) {
 	?>
-	<img src="<?php echo WEBPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/qrcode/image.php?content=<?php echo html_encode($content); ?>" />
+	<img src="<?php echo getAdminLink(PLUGIN_FOLDER . '/qrcode/image.php'); ?>?content=<?php echo html_encode($content); ?>" />
 	<?php
 }

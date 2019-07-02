@@ -49,10 +49,10 @@ $plugin_description = gettext('The <em>externalFeed</em> handler.');
 
 $option_interface = 'externalFeed_options';
 
-zp_register_filter('site_upgrade_xml', 'externalFeed_options::xmlfile');
+npgFilters::register('site_upgrade_xml', 'externalFeed_options::xmlfile');
 
-require_once(SERVERPATH . '/' . ZENFOLDER . '/class-feed.php');
-require_once(SERVERPATH . '/' . ZENFOLDER . '/lib-MimeTypes.php');
+require_once(CORE_SERVERPATH . 'class-feed.php');
+require_once(CORE_SERVERPATH . 'lib-MimeTypes.php');
 
 class externalFeed_options {
 
@@ -171,8 +171,8 @@ class ExternalFeed extends feed {
 	 *
 	 */
 	function __construct($options = NULL) {
-		global $_zp_gallery, $_zp_current_admin_obj, $_zp_loggedin, $_zp_gallery_page;
-		$_zp_gallery_page = 'externalFeed.php';
+		global $_gallery, $_current_admin_obj, $_loggedin, $_gallery_page;
+		$_gallery_page = 'externalFeed.php';
 		if (empty($options))
 			self::feed404();
 		$this->feedtype = $options['externalfeed'];
@@ -195,14 +195,14 @@ class ExternalFeed extends feed {
 		//channeltitle general
 		switch ($channeltitlemode) {
 			case 'gallery':
-				$this->channel_title = $_zp_gallery->getBareTitle($this->locale);
+				$this->channel_title = $_gallery->getBareTitle($this->locale);
 				break;
 			case 'website':
-				$this->channel_title = getBare($_zp_gallery->getWebsiteTitle($this->locale));
+				$this->channel_title = getBare($_gallery->getWebsiteTitle($this->locale));
 				break;
 			case 'both':
-				$website_title = $_zp_gallery->getWebsiteTitle($this->locale);
-				$this->channel_title = $_zp_gallery->getBareTitle($this->locale);
+				$website_title = $_gallery->getWebsiteTitle($this->locale);
+				$this->channel_title = $_gallery->getBareTitle($this->locale);
 				if (!empty($website_title)) {
 					$this->channel_title = $website_title . ' - ' . $this->channel_title;
 				}
@@ -235,7 +235,7 @@ class ExternalFeed extends feed {
 
 				$this->channel_title = html_encode($this->channel_title . ' ' . getBare($albumname));
 				$this->imagesize = $this->getImageSize();
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
 				break;
 
 			case 'news': //Zenpage News
@@ -261,8 +261,8 @@ class ExternalFeed extends feed {
 				$this->channel_title = html_encode($this->channel_title . $this->cattitle . $titleappendix);
 				$this->imagesize = $this->getImageSize();
 				$this->itemnumber = getOption("externalFeed_zenpage_items"); // # of Items displayed on the feed
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 
 				break;
 
@@ -288,7 +288,7 @@ class ExternalFeed extends feed {
 						break;
 				}
 				$this->channel_title = html_encode($this->channel_title . $titleappendix);
-				require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				break;
 
 			case 'comments': //Comments
@@ -325,7 +325,7 @@ class ExternalFeed extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
 				if (extensionEnabled('zenpage')) {
-					require_once(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+					require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				}
 				break;
 
@@ -494,7 +494,7 @@ class ExternalFeed extends feed {
 	 *
 	 */
 	public function printFeed($feeditems = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($feeditems)) {
 			$feeditems = $this->getitems();
 		}
@@ -581,7 +581,7 @@ if (!OFFSET_PATH) {
 		if (!$_GET['externalfeed']) {
 			$_GET['externalfeed'] = 'gallery';
 		}
-		$_zp_gallery_page = 'rss.php';
+		$_gallery_page = 'rss.php';
 		$e = new ExternalFeed(sanitize($_GET));
 		$e->printFeed();
 		exit();

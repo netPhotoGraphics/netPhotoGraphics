@@ -22,23 +22,23 @@
  *
  * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
+$plugin_is_filter = 9 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 9 | CLASS_PLUGIN;
 	$plugin_description = gettext('Extracts <em>XMP</em> metadata from images and <code>XMP</code> sidecar files.');
 }
 
 $option_interface = 'tagsFromMetadata';
 
-zp_register_filter('image_metadata', 'tagsFromMetadata::new_image', -99999);
-require_once(SERVERPATH . '/' . ZENFOLDER . '/exif/exifTranslations.php');
+npgFilters::register('image_metadata', 'tagsFromMetadata::new_image', -99999);
+require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 class tagsFromMetadata {
 
 	function getOptionsSupported() {
-		global $_zp_exifvars;
+		global $_exifvars;
 		$allowed = array();
 
-		foreach ($_zp_exifvars as $key => $meta) {
+		foreach ($_exifvars as $key => $meta) {
 			if ($meta[EXIF_FIELD_ENABLED] && $key != 'IPTCKeywords') {
 				$allowed[$key] = 'tagsFromMetadata_tag_' . $key;
 			}
@@ -51,9 +51,9 @@ class tagsFromMetadata {
 	}
 
 	static function getTaggingItems() {
-		global $_zp_exifvars;
+		global $_exifvars;
 		$result = array();
-		foreach ($_zp_exifvars as $key => $meta) {
+		foreach ($_exifvars as $key => $meta) {
 			if ($meta[5] && $key != 'IPTCKeywords') {
 				if (getOption('tagsFromMetadata_tag_' . $key)) {
 					$result[] = $key;

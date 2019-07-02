@@ -13,8 +13,8 @@ $plugin_description = gettext("Provides a utility function to send e-mails to al
 
 $option_interface = 'user_mailing_list';
 
-if (zp_loggedin(ADMIN_RIGHTS)) {
-	zp_register_filter('admin_tabs', 'user_mailing_list::admin_tabs', -1300);
+if (npg_loggedin(ADMIN_RIGHTS)) {
+	npgFilters::register('admin_tabs', 'user_mailing_list::admin_tabs', -1300);
 }
 
 class user_mailing_list {
@@ -37,7 +37,7 @@ class user_mailing_list {
 	}
 
 	static function admin_tabs($tabs) {
-		$tabs['admin']['subtabs'][gettext('Mailing list')] = '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/user_mailing_list/user_mailing_listTab.php?tab=mailinglist';
+		$tabs['admin']['subtabs'][gettext('Mailing list')] = PLUGIN_FOLDER . '/user_mailing_list/user_mailing_listTab.php?tab=mailinglist';
 		return $tabs;
 	}
 

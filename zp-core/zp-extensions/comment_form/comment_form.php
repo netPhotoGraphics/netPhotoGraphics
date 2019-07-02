@@ -82,7 +82,7 @@ if (function_exists('printCommentErrors')) {
 		}
 		$class = $buttonExtra = '';
 		if (commentFormUseCaptcha()) {
-			$captcha = $_zp_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>"));
+			$captcha = $_captcha->getCaptcha(gettext("Enter CAPTCHA<strong>*</strong>"));
 			$required = true;
 			if (isset($captcha['submitButton'])) {
 				$class = ' ' . $captcha['submitButton']['class'];

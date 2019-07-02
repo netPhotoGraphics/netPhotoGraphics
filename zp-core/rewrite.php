@@ -1,15 +1,15 @@
 <?php
 
 /**
- * "Rewrite" handling for zenphoto
+ * "Rewrite" handling
  *
- * The basic rules are found in the zenphoto-rewrite.txt file. Additional rules can be provided by plugins. But
+ * The basic rules are found in the rewrite.txt file. Additional rules can be provided by plugins. But
  * for the plugin to load in time for the rules to be seen it must be either a CLASS_PLUGIN or a FEATURE_PLUGIN.
- * Plugins add rules by inserting them into the $_zp_conf_vars['special_pages'] array. Each "rule" is an array
+ * Plugins add rules by inserting them into the $_conf_vars['special_pages'] array. Each "rule" is an array
  * of three elements: <var>define</var>, <var>rewrite</var>, and (optionally) <var>rule</rule>.
  *
  * Elemments which have a <var>define</var> and no <var>rule</rule> are processed by rewrite rules in the
- * zenphoto-rewrite.txt file and the <var>define</var> is used internally to netPhotoGraphics to reference
+ * rewrite.txt file and the <var>define</var> is used internally to netPhotoGraphics to reference
  * the rewrite text when building links.
  *
  * Elements with a <var>rule</rule> defined are processed after Search, Pages, and News rewrite rules and before
@@ -36,9 +36,7 @@ $rules['gallery'] = array(
 		'default' => '_PAGE_/gallery', //	The default (initial value) of the link token
 		'rewrite' => getOption('galleryToken_link') //	this will be "evaled" to yield the current link token for "gallery"
 );
-if (OFFSET_PATH == 2) {
-	setOptionDefault('galleryToken_link', '_PAGE_/gallery');
-}
+
 //	add the rewrite definition of the rewrite target
 $rules[] = array(
 		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules
@@ -58,21 +56,22 @@ $rules[] = array(
 		'rule' => '^%REWRITE%/*$		index.php?p=gallery [NC,L,QSA]'
 );
 $rules[] = array('comment' => "\t#### Rules from \"plugins\"");
-$primary = array_slice($_zp_conf_vars['special_pages'], 0, 4, true);
-$secondary = array_slice($_zp_conf_vars['special_pages'], 4, NULL, true);
-$_zp_conf_vars['special_pages'] = array_merge($primary, $rules, $secondary);
+$primary = array_slice($_conf_vars['special_pages'], 0, 4, true);
+$secondary = array_slice($_conf_vars['special_pages'], 4, NULL, true);
+
+$_conf_vars['special_pages'] = array_merge($primary, $rules, $secondary);
 unset($rules);
 unset($primary);
 unset($secondary);
 
 /**
  * applies the rewrite rules
- * @global type $_zp_conf_vars
- * @global type $_zp_rewritten
+ * @global type $_conf_vars
+ * @global type $_rewritten
  */
 function rewriteHandler() {
-	global $_zp_conf_vars, $_zp_rewritten;
-	$_zp_rewritten = false;
+	global $_conf_vars, $_rewritten;
+	$_rewritten = false;
 	$definitions = array();
 	//	query parameters should already be loaded into the $_GET and $_REQUEST arrays, so we discard them here
 	$request = explode('?', getRequestURI());
@@ -166,7 +165,7 @@ function rewriteHandler() {
 										exit();
 									}
 								}
-								$_zp_rewritten = true;
+								$_rewritten = true;
 								//	fall through to index.php
 								break;
 							}
@@ -190,17 +189,21 @@ function rewriteHandler() {
 
 /**
  * loads the rewrite rules
- * @global type $_zp_conf_vars
+ * @global type $_conf_vars
  * @return type
  */
 function getRules() {
-	global $_zp_conf_vars;
+	global $_conf_vars;
 	//	load rewrite rules
-	$rules = trim(file_get_contents(SERVERPATH . '/' . ZENFOLDER . '/zenphoto-rewrite.txt'));
+	$rules = trim(file_get_contents(CORE_SERVERPATH . 'rewrite.txt'));
 	$definitions = $specialPageRules = array();
-	foreach ($_zp_conf_vars['special_pages'] as $key => $special) {
+	foreach ($_conf_vars['special_pages'] as $key => $special) {
 		if (array_key_exists('definition', $special)) {
-			eval('$v = ' . $special['rewrite'] . ';');
+			try {
+				eval('$v = ' . $special['rewrite'] . ';');
+			} catch (Throwable $t) {
+				$v = '*undefined*';
+			}
 			$definitions[$special['definition']] = $v;
 		}
 		if (array_key_exists('rule', $special)) {
@@ -216,8 +219,8 @@ function getRules() {
 }
 
 $_definitions = array();
-if (isset($_zp_conf_vars['special_pages'])) {
-	foreach ($_zp_conf_vars['special_pages'] as $definition) {
+if (isset($_conf_vars['special_pages'])) {
+	foreach ($_conf_vars['special_pages'] as $definition) {
 		if (isset($definition['define']) && $definition['define']) {
 			define($definition['define'], strtr($definition['rewrite'], $_definitions));
 			eval('$_definitions[$definition[\'define\']]=' . $definition['define'] . ';');

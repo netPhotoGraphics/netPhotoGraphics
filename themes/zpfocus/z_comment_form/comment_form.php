@@ -93,7 +93,7 @@
 
 
 	if (getOption('Use_Captcha')) {
-		$captcha = $_zp_captcha->getCaptcha();
+		$captcha = $_captcha->getCaptcha();
 		if (isset($captcha['submitButton'])) {
 			$class = ' ' . $captcha['submitButton']['class'];
 			$buttonExtra = ' ' . $captcha['submitButton']['extra'];

@@ -17,11 +17,11 @@ $plugin_description = gettext('A plugin to turn <em>img src</em> links into lazy
 
 $option_interface = 'lazyImage';
 
-zp_register_filter('theme_body_close', 'lazyImage::head');
+npgFilters::register('theme_body_close', 'lazyImage::head');
 // Note: these are not exact. If some other plugin decides to insert before or after, it's output
 // will not get processed.
-zp_register_filter('theme_body_open', 'lazyImage::start', 99999);
-zp_register_filter('theme_body_close', 'lazyImage::end', -99999);
+npgFilters::register('theme_body_open', 'lazyImage::start', 99999);
+npgFilters::register('theme_body_close', 'lazyImage::end', -99999);
 
 class lazyImage {
 
@@ -60,9 +60,9 @@ class lazyImage {
 	static function head() {
 
 		if (class_exists('Video')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.extra.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.extra.min.js');
 		} else {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.min.js');
 		}
 		?>
 		<style>
@@ -73,10 +73,10 @@ class lazyImage {
 		<?php
 
 		if (getOption('lazyImage_jqBootstrap')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
 		}
 		if (getOption('lazyImage_jqMobile')) {
-			scriptLoader(SERVERPATH . '/' . ZENFOLDER . '/' . PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
+			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
 		}
 	}
 

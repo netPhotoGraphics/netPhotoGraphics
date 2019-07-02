@@ -12,7 +12,7 @@ define('OFFSET_PATH', 3);
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin-globals.php");
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS, NULL);
 
-header('Last-Modified: ' . ZP_LAST_MODIFIED);
+header('Last-Modified: ' . NPG_LAST_MODIFIED);
 header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
 function getIPSizedImage($size, $image) {
@@ -101,9 +101,9 @@ function getIPSizedImage($size, $image) {
 				var alt1 = '<?php echo addslashes($alt1); ?>'.replace(/"/g, '\\"');
 				var title1 = '<?php echo addslashes($title1); ?>'.replace(/"/g, '\\"');
 				var title = '<?php echo sprintf($title, addslashes($title1)); ?>'.replace(/"/g, '\\"');
-				var image = '<img src="<?php echo pathurlencode($image); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
-				var imagec = '<img src="<?php echo pathurlencode($imageb); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
-				var imagef = '<?php echo pathurlencode($imagef); ?>';
+				var image = '<img src="<?php echo html_encode($image); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
+				var imagec = '<img src="<?php echo html_encode($imageb); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
+				var imagef = '<?php echo html_encode($imagef); ?>';
 				var picture = <?php echo (int) $picture; ?>;
 				function sizechange() {
 					var selectedlink = $('input:radio[name=link]:checked').val();
@@ -207,7 +207,7 @@ function getIPSizedImage($size, $image) {
 							type: 'POST',
 							cache: false,
 							data: 'pasteImageSize=' + $('#imagesize').val(),
-							url: '<?php echo WEBPATH . '/' . ZENFOLDER; ?>/pickSource.php'
+							url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/pickSource.php'
 						});
 					}
 					pasteObjPopup.execCommand('mceInsertContent', false, $('#content').html());
@@ -350,8 +350,8 @@ function getIPSizedImage($size, $image) {
 			<?php
 			if ($image && !$picture && isImagePhoto($obj)) {
 				?>
-				<a href="javascript:launchScript('<?php echo WEBPATH . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER; ?>/crop_image.php',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>">
-					<img src="<?php echo WEBPATH . "/" . ZENFOLDER . '/'; ?>images/shape_handles.png" alt="" /><?php echo gettext("Custom crop"); ?></a>
+				<a href="javascript:launchScript('<?php echo WEBPATH . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/crop_image.php',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>">
+					<img src="<?php echo WEBPATH . "/" . CORE_FOLDER . '/'; ?>images/shape_handles.png" alt="" /><?php echo gettext("Custom crop"); ?></a>
 				<?php
 			}
 		} else {

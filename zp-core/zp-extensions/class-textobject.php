@@ -47,8 +47,8 @@
  * @pluginCategory media
  *
  */
+$plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 990 | CLASS_PLUGIN;
 	$plugin_description = gettext('Provides a means for showing text type documents (.txt, .html, .htm).');
 }
 

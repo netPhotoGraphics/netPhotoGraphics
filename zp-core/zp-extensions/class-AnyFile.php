@@ -14,8 +14,8 @@
  * @pluginCategory media
  *
  */
+$plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_is_filter = 990 | CLASS_PLUGIN;
 	$plugin_description = gettext('Provides a means for handling arbitrary file types. (No rendering provided!)');
 }
 
@@ -103,17 +103,17 @@ class AnyFile extends TextObject {
 	 * @return s
 	 */
 	function getThumbImageFile($path = NULL) {
-		global $_zp_gallery;
+		global $_gallery;
 		if (is_null($path)) {
 			$path = SERVERPATH;
 		}
 		if (is_null($this->objectsThumb)) {
 			$img = '/' . getSuffix($this->filename) . 'Default.png';
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_zp_gallery->getCurrentTheme()) . '/images/' . $img;
+			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
 				$imgfile = $path . "/" . USER_PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . $img;
 				if (!file_exists($imgfile)) {
-					$imgfile = $path . "/" . ZENFOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/anyFileDefault.png';
+					$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/anyFileDefault.png';
 				}
 			}
 		} else {
@@ -139,7 +139,7 @@ class AnyFile extends TextObject {
 		 * just return the thumbnail as we do not know how to
 		 * render the file.
 		 */
-		return '<img src="' . pathurlencode($this->getThumb()) . '">';
+		return '<img src="' . html_encode($this->getThumb()) . '">';
 	}
 
 }

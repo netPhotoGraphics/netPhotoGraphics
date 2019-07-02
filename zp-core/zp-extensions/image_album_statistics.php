@@ -37,7 +37,7 @@ require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
  * @return array
  */
 function getAlbumStatistic($number = 5, $option, $albumfolder = '', $threshold = 0, $sortdirection = 'desc', $collection = false) {
-	global $_zp_gallery;
+	global $_gallery;
 	$where = '';
 	if ($albumfolder) {
 		$obj = newAlbum($albumfolder);
@@ -53,7 +53,7 @@ function getAlbumStatistic($number = 5, $option, $albumfolder = '', $threshold =
 			}
 		}
 	} else {
-		$obj = $_zp_gallery;
+		$obj = $_gallery;
 	}
 	switch (strtolower($sortdirection)) {
 		case false:
@@ -179,7 +179,7 @@ function printAlbumStatistic($number, $option, $showtitle = false, $showdate = f
  * A helper function that only prints a item of the loop within printAlbumStatistic()
  * Not for standalone use.
  *
- * @param array $tempalbum object
+ * @param array $album object
  * @param string $option
  * 		"popular" for the most popular albums,
  * 		"latest" for the latest uploaded by id (Discovery)
@@ -205,7 +205,7 @@ function printAlbumStatistic($number, $option, $showtitle = false, $showdate = f
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics to include all subalbum levels
  */
 function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $firstimglink = false) {
-	global $_zp_gallery;
+	global $_gallery;
 	$twidth = $width;
 	$theight = $height;
 	if (is_null($crop) && is_null($width) && is_null($height)) {
@@ -222,17 +222,17 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 		}
 	}
 
-	if ($firstimglink && $tempimage = $tempalbum->getImage(0)) {
+	if ($firstimglink && $tempimage = $album->getImage(0)) {
 		$albumpath = $tempimage->getLink();
 	} else {
-		$albumpath = $tempalbum->getLink();
+		$albumpath = $album->getLink();
 	}
-	echo "<li><a href=\"" . $albumpath . "\" title=\"" . html_encode($tempalbum->getTitle()) . "\">\n";
-	$albumthumb = $tempalbum->getAlbumThumbImage();
+	echo "<li><a href=\"" . $albumpath . "\" title=\"" . html_encode($album->getTitle()) . "\">\n";
+	$albumthumb = $album->getAlbumThumbImage();
 	switch ($crop) {
 		case 0:
 			$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $albumthumb);
-			echo '<img src="' . pathurlencode($albumthumb->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
+			echo '<img src="' . html_encode($albumthumb->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
 			break;
 		case 1;
 			if (isImagePhoto($albumthumb)) {
@@ -240,24 +240,24 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 			} else {
 				$sizes = array($width, $height);
 			}
-			echo '<img src="' . pathurlencode($albumthumb->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
+			echo '<img src="' . html_encode($albumthumb->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
 			break;
 		case 2:
 			$sizes = getSizeDefaultThumb($albumthumb);
-			echo '<img src="' . pathurlencode($albumthumb->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
+			echo '<img src="' . html_encode($albumthumb->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n";
 			break;
 	}
 	if ($showtitle) {
-		echo "<h3><a href=\"" . $albumpath . "\" title=\"" . html_encode($tempalbum->getTitle()) . "\">\n";
-		echo $tempalbum->getTitle() . "</a></h3>\n";
+		echo "<h3><a href=\"" . $albumpath . "\" title=\"" . html_encode($album->getTitle()) . "\">\n";
+		echo $album->getTitle() . "</a></h3>\n";
 	}
 	if ($showdate) {
 		if ($option === "latestupdated") {
-			$filechangedate = strtotime($tempalbum->getUpdatedDate());
-			echo "<p>" . sprintf(gettext("Last update: %s"), zpFormattedDate(DATE_FORMAT, $filechangedate)) . "</p>";
-			$latestimage = query_single_row("SELECT mtime FROM " . prefix('images') . " WHERE albumid = " . $tempalbum->getID() . " AND `show`=1 ORDER BY id DESC");
+			$filechangedate = strtotime($album->getUpdatedDate());
+			echo "<p>" . sprintf(gettext("Last update: %s"), formattedDate(DATE_FORMAT, $filechangedate)) . "</p>";
+			$latestimage = query_single_row("SELECT mtime FROM " . prefix('images') . " WHERE albumid = " . $album->getID() . " AND `show`=1 ORDER BY id DESC");
 			if ($latestimage) {
-				$count = db_count('images', "WHERE albumid = " . $tempalbum->getID() . " AND mtime = " . $latestimage['mtime']);
+				$count = db_count('images', "WHERE albumid = " . $album->getID() . " AND mtime = " . $latestimage['mtime']);
 				if ($count <= 1) {
 					$image = gettext("image");
 				} else {
@@ -266,26 +266,26 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 				echo "<span>" . sprintf(gettext('%1$u new %2$s'), $count, $image) . "</span>";
 			}
 		} else {
-			echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($tempalbum->getDateTime())) . "</p>";
+			echo "<p>" . formattedDate(DATE_FORMAT, strtotime($album->getDateTime())) . "</p>";
 		}
 	}
 	if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
-		$votes = $tempalbum->get("total_votes");
-		$value = $tempalbum->get("total_value");
+		$votes = $album->get("total_votes");
+		$value = $album->get("total_value");
 		if ($votes != 0) {
 			$rating = round($value / $votes, 1);
 		}
-		echo "<p>" . sprintf(gettext('Rating: %1$u (Votes: %2$u)'), $rating, $tempalbum->get("total_votes")) . "</p>";
+		echo "<p>" . sprintf(gettext('Rating: %1$u (Votes: %2$u)'), $rating, $album->get("total_votes")) . "</p>";
 	}
 	if ($showstatistic === "hitcounter" OR $showstatistic === "rating+hitcounter") {
-		$hitcounter = $tempalbum->getHitcounter();
+		$hitcounter = $album->getHitcounter();
 		if (empty($hitcounter)) {
 			$hitcounter = "0";
 		}
 		echo "<p>" . sprintf(gettext("Views: %u"), $hitcounter) . "</p>";
 	}
 	if ($showdesc) {
-		echo html_encodeTagged(shortenContent($tempalbum->getDesc(), $desclength, ' (...)'));
+		echo html_encodeTagged(shortenContent($album->getDesc(), $desclength, ' (...)'));
 	}
 	echo "</li>";
 }
@@ -426,7 +426,7 @@ function printLatestUpdatedAlbums($number = 5, $showtitle = false, $showdate = f
  * @return array
  */
 function getImageStatistic($number, $option, $albumfolder = NULL, $collection = false, $threshold = 0, $sortdirection = 'desc') {
-	global $_zp_gallery;
+	global $_gallery;
 	$where = '';
 	$obj = NULL;
 	if ($albumfolder) {
@@ -570,15 +570,15 @@ function printImageStatistic($number, $option, $albumfolder = NULL, $showtitle =
 		switch ($crop) {
 			case 0:
 				$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $image);
-				echo '<img src="' . pathurlencode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n";
+				echo '<img src="' . html_encode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n";
 				break;
 			case 1:
 				$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $image);
-				echo '<img src="' . pathurlencode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n";
+				echo '<img src="' . html_encode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n";
 				break;
 			case 2:
 				$sizes = getSizeDefaultThumb($image);
-				echo '<img src="' . pathurlencode($image->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n<br />";
+				echo '<img src="' . html_encode($image->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n<br />";
 				break;
 		}
 		if ($showtitle) {
@@ -586,7 +586,7 @@ function printImageStatistic($number, $option, $albumfolder = NULL, $showtitle =
 			echo $image->getTitle() . "</a></h3>\n";
 		}
 		if ($showdate) {
-			echo "<p>" . zpFormattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
+			echo "<p>" . formattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
 		}
 		if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
 			$votes = $image->get("total_votes");
@@ -786,12 +786,12 @@ function checkIfNew($mode = "image", $timerange = 604800) {
  * @return bool
  */
 function getNumAllSubalbums($albumobj, $pre = '') {
-	global $_zp_gallery, $_zp_current_album;
+	global $_gallery, $_current_album;
 	if (is_null($albumobj)) {
-		$albumobj = $_zp_current_album;
+		$albumobj = $_current_album;
 	}
 	$count = '';
-	$albums = getAllAlbums($_zp_current_album);
+	$albums = getAllAlbums($_current_album);
 	if (count($albums) != 0) {
 		$count = '';
 		foreach ($albums as $album) {

@@ -8,7 +8,7 @@ if (!defined('WEBPATH'))
 	<head>
 
 		<?php
-		zp_apply_filter('theme_head');
+		npgFilters::apply('theme_head');
 		if (getOption('effervescence_daily_album_image_effect') && getOption('gallery_index')) {
 			setOption('image_custom_images', getOption('effervescence_daily_album_image_effect'), false);
 		}
@@ -18,7 +18,7 @@ if (!defined('WEBPATH'))
 	</head>
 
 	<body onload="blurAnchors()">
-		<?php zp_apply_filter('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
 		<!-- Wrap Header -->
 		<div id="header">
@@ -29,7 +29,7 @@ if (!defined('WEBPATH'))
 					<?php
 					if (getOption('Allow_search')) {
 						$album_list = array('albums' => '1', 'pages' => '0', 'news' => '0');
-						printSearchForm(NULL, 'search', $_zp_themeroot . '/images/search.png', gettext('Search albums'), NULL, NULL, $album_list);
+						printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search albums'), NULL, NULL, $album_list);
 					}
 					printLogo();
 					?>
@@ -99,7 +99,7 @@ if (!defined('WEBPATH'))
 
 		<?php
 		printFooter();
-		zp_apply_filter('theme_body_close');
+		npgFilters::apply('theme_body_close');
 		?>
 
 	</body>

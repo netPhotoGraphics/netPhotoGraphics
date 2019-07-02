@@ -8,13 +8,13 @@ if (function_exists('printContactForm')) {
 		<head>
 
 			<?php
-			zp_apply_filter('theme_head');
+			npgFilters::apply('theme_head');
 
-			scriptLoader($_zp_themeroot . '/zen.css');
+			scriptLoader($_themeroot . '/zen.css');
 			?>
 		</head>
 		<body class="sidebars">
-			<?php zp_apply_filter('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 			<div id="navigation"></div>
 			<div id="wrapper">
 				<div id="container">
@@ -56,12 +56,12 @@ if (function_exists('printContactForm')) {
 				</div><!-- /container -->
 			</div>
 			<?php
-			zp_apply_filter('theme_body_close');
+			npgFilters::apply('theme_body_close');
 			?>
 		</body>
 	</html>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

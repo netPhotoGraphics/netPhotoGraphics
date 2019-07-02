@@ -67,7 +67,7 @@ if (class_exists('favorites')) {
 					</div>
 					<p class="albumdesc"><?php echo shortenContent(getAlbumDesc(), 80, '...'); ?></p>
 					<hr />
-					<?php printAddToFavorites($_zp_current_album, '', gettext('Remove')); ?>
+					<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 				</div>
 				<?php
 				$c++;
@@ -101,7 +101,7 @@ if (class_exists('favorites')) {
 						}
 						?>
 					</a>
-					<?php printAddToFavorites($_zp_current_image, '', gettext('Remove')); ?>
+					<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 				</div>
 				<?php
 				$c++;
@@ -159,6 +159,6 @@ if (class_exists('favorites')) {
 	<?php include ("inc-footer.php"); ?>
 	<?php
 } else {
-	include(SERVERPATH . '/' . ZENFOLDER . '/404.php');
+	include(CORE_SERVERPATH . '404.php');
 }
 ?>

@@ -1,6 +1,4 @@
-<?php
-include('inc_header.php');
-?>
+<?php include('inc_header.php'); ?>
 
 <!-- .container main -->
 <!-- .page-header -->
@@ -32,15 +30,22 @@ if (isImagePage()) {
 printPageListWithNav('«', '»', false, true, 'pagination pagination-sm', NULL, true, 7);
 ?>
 
-<?php if ((zp_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
+<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
 	<div class="favorites panel-group" role="tablist">
-		<?php printAddToFavorites($_zp_current_album); ?>
+		<?php printAddToFavorites($_current_album); ?>
 	</div>
 <?php } ?>
 
-<?php if (simplemap::mapPlugin()) { ?>
-	<?php include('inc_print_googlemap.php'); ?>
-<?php } ?>
+<?php
+switch (simplemap::mapPlugin()) {
+	case 'googleMap':
+		include('inc_print_googlemap.php');
+		break;
+	case 'openStreetMap':
+		include('inc_print_osm.php');
+		break;
+}
+?>
 
 <?php if (extensionEnabled('comment_form')) { ?>
 	<?php include('inc_print_comment.php'); ?>
