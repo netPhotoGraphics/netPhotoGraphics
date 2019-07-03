@@ -4409,7 +4409,7 @@ function recordPolicyACK($user = NULL) {
 			$what = gettext('policyACK cookie');
 		}
 		if (extensionEnabled('security-logger')) {
-			require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/security-logger.php');
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
 			npgFilters::apply('policy_ack', true, 'PolicyACK', 1, $what);
 		}
 	}
@@ -4570,6 +4570,11 @@ function print404status() {
 						$request['image'] = $image;
 					}
 					foreach ($request as $key => $value) {
+						if (is_array($value)) {
+							$value = '*ARRAY*';
+						} else {
+							$value = truncate_string($value, 50);
+						}
 						$output .= "\t\t\t\t\t$key\t=>\t'$value'\n";
 					}
 					debugLog($output);

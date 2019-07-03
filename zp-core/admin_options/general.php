@@ -50,7 +50,7 @@ function saveOptions() {
 	$newsuffix = sanitize($_POST['mod_rewrite_suffix'], 3);
 	setOption('mod_rewrite_suffix', $newsuffix);
 	if ($oldsuffix != $newsuffix) {
-		require_once(CORE_SERVERPATH . '/setup/setup-functions.php');
+		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 		if (!updateRootIndexFile()) {
 			$notify = '?root_update_failed';
 			setOption('mod_rewrite_suffix', $oldsuffix);
@@ -173,7 +173,7 @@ function getOptionContent() {
 			echo '</div>';
 		}
 		?>
-		<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+		<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="<?php echo getAdminLink('admin-tabs/options.php'); ?>?action=saveoptions" method="post" autocomplete="off" >
 			<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="general" />
 			<table>

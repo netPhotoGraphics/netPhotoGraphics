@@ -128,7 +128,7 @@
 		<meta name="description" content="<?php echo html_encode($zpfocus_metadesc); ?>" />
 
 		<?php
-		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/print_album_menu.php');
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/print_album_menu.php');
 		scriptLoader($_themeroot . '/css/main.css');
 		if (getOption('zpfocus_center_site')) {
 			scriptLoader($_themeroot . '/css/center.css');
