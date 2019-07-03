@@ -173,7 +173,7 @@ function getOptionContent() {
 			echo '</div>';
 		}
 		?>
-		<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+		<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="<?php echo getAdminLink('admin-tabs/options.php'); ?>?action=saveoptions" method="post" autocomplete="off" >
 			<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="general" />
 			<table>
