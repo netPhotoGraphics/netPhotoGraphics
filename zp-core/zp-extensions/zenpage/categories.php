@@ -139,7 +139,7 @@ zenpageJSCSS();
 				if (!empty($categories) || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printCategoriesStatistic(); ?></span>
-					<form class="dirtylistening" onReset="setClean('checkeditems');" action="categories.php?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
+					<form class="dirtylistening" onReset="setClean('checkeditems');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php'); ?>?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('checkeditems'); ?>
 						<input	type="hidden" name="action" id="action" value="update" />
 						<p class="buttons">

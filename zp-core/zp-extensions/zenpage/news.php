@@ -244,7 +244,7 @@ updatePublished('news');
 						<?php
 						$option = getNewsAdminOptionPath(getNewsAdminOption(NULL));
 						?>
-						<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="news.php<?php echo $option; ?>" method="post" name="checkeditems" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
+						<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . $option; ?>" method="post" name="checkeditems" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
 							<?php XSRFToken('checkeditems'); ?>
 							<div class="buttons">
 								<button type="submit" title="<?php echo gettext('Apply'); ?>"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
