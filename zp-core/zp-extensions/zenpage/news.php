@@ -417,10 +417,8 @@ updatePublished('news');
 											<?php } ?>
 
 											<div class="page-list_icon">
-												<a target="_blank" href="../../../index.php?p=news&amp;title=<?php
-												echo $article->getTitlelink();
-												?>" title="<?php echo gettext('View article'); ?>">
-														 <?php echo BULLSEYE_BLUE; ?>
+												<a target="_blank" href="<?php echo $article->getlink(); ?>" title="<?php echo gettext('View article'); ?>">
+													<?php echo BULLSEYE_BLUE; ?>
 												</a>
 											</div>
 

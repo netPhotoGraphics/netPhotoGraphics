@@ -131,7 +131,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 						<?php echo CROSS_MARK_RED; ?>
 						<strong><?php echo gettext("Reset"); ?></strong>
 					</button>
-					<a href="<?php echo WEBPATH . "/index.php?album=" . pathurlencode($album->getFileName()); ?>" >
+					<a href="<?php echo $album->getLink(); ?>" >
 						<?php echo BULLSEYE_BLUE; ?>
 						<strong><?php echo gettext('View Album'); ?></strong>
 					</a>
@@ -333,9 +333,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-																		 $('.expire-<?php echo $currentimage; ?>').html('');"
+															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+															 $('.expire-<?php echo $currentimage; ?>').html('');"
 													 />
 													 <?php echo gettext("Published"); ?>
 									</label>
@@ -473,7 +473,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall">
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">

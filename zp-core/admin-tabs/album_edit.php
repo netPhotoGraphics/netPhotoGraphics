@@ -101,7 +101,7 @@ if (count($subalbums) > 0) {
 							<?php
 						}
 						?>
-						<a href="<?php echo WEBPATH . "/index.php?album=" . pathurlencode($album->getFileName()); ?>">
+						<a href="<?php echo $album->getLink(); ?>">
 							<?php echo BULLSEYE_BLUE; ?>
 							<strong><?php echo gettext('View Album'); ?></strong>
 						</a>

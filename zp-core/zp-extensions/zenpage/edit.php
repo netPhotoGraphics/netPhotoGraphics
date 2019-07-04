@@ -402,13 +402,8 @@ $tagsort = 'alpha';
 									</span>
 									<?php
 									if (!$result->transient) {
-										if (is_AdminEditPage("newscategory")) {
-											$what = 'category=';
-										} else {
-											$what = 'title=';
-										}
 										?>
-										<a href="<?php echo WEBPATH; ?>/index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
+										<a href="<?php echo $result->getlink(); ?>" title="<?php echo gettext("View"); ?>">
 											<?php echo BULLSEYE_BLUE; ?>
 											<?php echo gettext("View"); ?>
 										</a>
@@ -921,13 +916,8 @@ $tagsort = 'alpha';
 											</a>
 											<?php
 											if (!$result->transient) {
-												if (is_AdminEditPage("newscategory")) {
-													$what = 'category = ';
-												} else {
-													$what = 'title = ';
-												}
 												?>
-												<a href="<?php echo WEBPATH; ?>/index.php?p=<?php echo $themepage; ?>&amp;<?php echo $what . $result->getTitlelink(); ?>" title="<?php echo gettext("View"); ?>">
+												<a href="<?php echo $result->getlink(); ?>" title="<?php echo gettext("View"); ?>">
 													<?php echo BULLSEYE_BLUE; ?>
 													<?php echo gettext("View"); ?>
 												</a>
