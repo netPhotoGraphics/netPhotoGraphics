@@ -152,7 +152,7 @@ class favoritesAlbum extends favorites {
 			if ($_gallery_page == 'favorites.php') {
 				?>
 				<li>
-					<a href="<?php echo WEBPATH . '/' . FAVORITESALBUM_FOLDER; ?>admin-album.php?title=<?php echo @$_GET['instance']; ?>" title="<?php echo gettext('Create an album from favorites'); ?>"><?php echo gettext('Create Album'); ?></a>
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/favoritesAlbums/admin-album.php') ?>?title=<?php echo @$_GET['instance']; ?>" title="<?php echo gettext('Create an album from favorites'); ?>"><?php echo gettext('Create Album'); ?></a>
 				</li>
 				<?php
 			}

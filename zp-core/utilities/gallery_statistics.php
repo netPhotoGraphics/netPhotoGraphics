@@ -267,7 +267,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 
 	if (!isset($_GET['stats'])) {
 		if (count($itemssorted) > 10) {
-			echo "<a href='gallery_statistics.php?stats=" . $sortorder . "&amp;type=" . $type . "'> | " . gettext("View more") . "</a>";
+			echo '<a href="' . getAdminLink('utilities/gallery_statistics.php') . '?stats=' . $sortorder . '&amp;type=' . $type . '"> | ' . gettext("View more") . '</a>';
 		}
 	}
 	echo "</th></tr>";
