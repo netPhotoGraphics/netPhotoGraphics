@@ -563,7 +563,7 @@ function comment_form_handle_comment() {
 		 * Also the cache should be cleared so that a new page is saved at the first non-comment posting viewing.
 		 * But this has to wait until processing is finished to avoid race conditions.
 		 */
-		$_HTML_cache->disable();
+		$_HTML_cache->abortHTMLCache(true);
 		if (in_context(NPG_IMAGE)) {
 			$commentobject = $_current_image;
 			$redirectTo = $_current_image->getLink();

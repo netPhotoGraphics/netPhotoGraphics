@@ -372,7 +372,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 					foreach ($data as $check) {
 						foreach ($check as $v) {
 							if ($v) {
-								$_HTML_cache->disable(); //	shouldn't cache partially filled in pages
+								$_HTML_cache->abortHTMLCache(true); //	shouldn't cache partially filled in pages
 								break 2;
 							}
 						}

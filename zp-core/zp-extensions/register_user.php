@@ -287,7 +287,8 @@ class register_user {
  * @param string $thanks the message shown on successful registration
  */
 function printRegistrationForm($thanks = NULL) {
-	global $admin_e, $admin_n, $user, $_authority, $_captcha, $_gallery, $_notify, $_link, $_message;
+	global $admin_e, $admin_n, $user, $_authority, $_captcha, $_gallery, $_HTML_cache, $_notify, $_link, $_message;
+	$_HTML_cache->abortHTMLCache(true); //	never cache pages with a registration form on them
 	require_once(CORE_SERVERPATH . 'admin-functions.php');
 	$userobj = NULL;
 	// handle any postings
@@ -388,7 +389,7 @@ function printRegistrationForm($thanks = NULL) {
 				} else {
 					$_SERVER['REQUEST_URI'] = $_link . '&login=true';
 				}
-				require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/user_login-out.php');
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/user_login-out.php');
 				printPasswordForm(NULL, true, false, FULLWEBPATH);
 				$_notify = 'success';
 				break;

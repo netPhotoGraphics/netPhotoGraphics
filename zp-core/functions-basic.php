@@ -1176,10 +1176,9 @@ function getImageCacheFilename($album8, $image8, $args) {
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
-		$image = internalToFilesystem($image8);
-	} else {
-		$image = stripSuffix(internalToFilesystem($image8));
 	}
+	$image = stripSuffix(internalToFilesystem($image8));
+
 	if (IMAGE_CACHE_SUFFIX) {
 		$suffix = IMAGE_CACHE_SUFFIX;
 	} else {

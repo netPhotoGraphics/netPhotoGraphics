@@ -170,7 +170,8 @@ function getField($field, $level = 3) {
  * @param string $subject_override set to override the subject.
  */
 function printContactForm($subject_override = '') {
-	global $_captcha, $_processing_post, $_current_admin_obj;
+	global $_captcha, $_processing_post, $_current_admin_obj, $_HTML_cache;
+	$_HTML_cache->abortHTMLCache(true); //	never cache pages with a contact form on them
 	$error = array();
 	if (isset($_POST['sendmail'])) {
 		$mailcontent = array();

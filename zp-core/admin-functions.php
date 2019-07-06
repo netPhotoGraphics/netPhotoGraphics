@@ -743,7 +743,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 *    OPTION_TYPE_CUSTOM:								Handled by $optionHandler->handleOption()
 	 *    OPTION_TYPE_TEXTAREA:							A textarea
 	 *    OPTION_TYPE_RICHTEXT:							A textarea with WYSIWYG editor attached
-	 *    OPTION_TYPE_RADIO:								Radio buttons (button names are in the 'buttons' index of the supported options array)
+	 * 		OPTION_TYPE_CLEATTEXTAREA:				A "cleartext" textarea
+	 * 		OPTION_TYPE_RADIO:								Radio buttons (button names are in the 'buttons' index of the supported options array)
 	 *    OPTION_TYPE_SELECTOR:							Selector (selection list is in the 'selections' index of the supported options array
 	 * 																				null_selection contains the text for the empty selection. If not present there
 	 * 																				will be no empty selection)
@@ -754,7 +755,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 *    OPTION_TYPE_COLOR_PICKER:					Color picker
 	 *    OPTION_TYPE_NOTE:									Places a note in the options area. The note will span all three columns
 	 *
-	 *    Types 0 and 5 support multi-lingual strings.
 	 */
 	define('OPTION_TYPE_TEXTBOX', 0);
 	define('OPTION_TYPE_CHECKBOX', 1);
@@ -775,6 +775,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	define('OPTION_TYPE_CHECKBOX_ARRAYLIST', 16);
 	define('OPTION_TYPE_CHECKBOX_ULLIST', 17);
 	define('OPTION_TYPE_HIDDEN', 18);
+	define('OPTION_TYPE_CLEARTEXTAREA', 19);
 
 	function customOptions($optionHandler, $indent = "", $album = NULL, $showhide = false, $supportedOptions = NULL, $theme = false, $initial = 'none', $plugin = NULL) {
 		if (is_null($supportedOptions)) {
@@ -876,6 +877,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							break;
 						case OPTION_TYPE_NUMBER:
 						case OPTION_TYPE_CLEARTEXT:
+						case OPTION_TYPE_CLEARTEXTAREA:
 						case OPTION_TYPE_PASSWORD:
 						case OPTION_TYPE_TEXTBOX:
 						case OPTION_TYPE_TEXTAREA:
@@ -884,6 +886,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							$wide = 'width: 100%';
 							switch ($type) {
 								case OPTION_TYPE_CLEARTEXT:
+								case OPTION_TYPE_CLEARTEXTAREA:
 									$clear = 'clear';
 									$multilingual = false;
 								default:
@@ -922,7 +925,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								if ($multilingual) {
 									print_language_string_list($v, $postkey, $type, NULL, $editor, '100%');
 								} else {
-									if ($type == OPTION_TYPE_TEXTAREA || $type == OPTION_TYPE_RICHTEXT) {
+									if ($type == OPTION_TYPE_TEXTAREA || $type == OPTION_TYPE_RICHTEXT || $type == OPTION_TYPE_CLEARTEXTAREA) {
 										$v = get_language_string($v); // just in case....
 										?>
 										<textarea id="__<?php echo $key; ?>"<?php if ($type == OPTION_TYPE_RICHTEXT) echo ' class="texteditor"'; ?> name="<?php echo $postkey; ?>" cols="<?php echo TEXTAREA_COLUMNS; ?>"	 rows="6"<?php echo $disabled; ?>><?php echo html_encode($v); ?></textarea>
