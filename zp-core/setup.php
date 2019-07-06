@@ -57,6 +57,7 @@ if (empty($needs)) {
 							<?php
 							if (npgFunctions::hasPrimaryScripts()) {
 								if ($found) {
+									//	leave as direct link incase the admin mod_rewrite mechanism is not yet setup
 									echo '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php?xsrfToken=' . getXSRFToken('setup') . '">' . gettext('Click to restore the setup scripts and run setup.') . '</a>';
 								} else {
 									printf(gettext('You must restore the setup files from the %1$s release.'), NETPHOTOGRAPHICS_VERSION);
