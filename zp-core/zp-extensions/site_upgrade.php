@@ -264,13 +264,10 @@ class site_upgrade {
 
 switch (OFFSET_PATH) {
 	case 0:
-		$state = @$_conf_vars['site_upgrade::state'];
+		$state = @$_conf_vars['site_upgrade_state'];
 		if ((!npg_loggedin(ADMIN_RIGHTS | DEBUG_RIGHTS) && $state == 'closed_for_test') || $state == 'closed') {
-			if (isset($_conf_vars['special_pages']['page']['rewrite'])) {
-				$page = $_conf_vars['special_pages']['page']['rewrite'];
-			} else {
-				$page = 'page';
-			}
+			header('location: ' . getAdminLink(USER_PLUGIN_FOLDER . '/site_upgrade/closed.php'));
+			exit();
 		} else if ($state == 'closed_for_test') {
 			npgFilters::register('theme_body_open', 'site_upgrade::notice');
 		}

@@ -47,22 +47,15 @@ if ($_contents) {
 		$_conf_vars = $_zp_conf_vars;
 	}
 	if (@$_conf_vars['site_upgrade_state'] == 'closed') {
-		if (isset($_conf_vars['special_pages']['page']['rewrite'])) {
-			$page = $_conf_vars['special_pages']['page']['rewrite'];
-		} else {
-			$page = 'page';
-		}
-		if (!preg_match('~' . preg_quote($page) . '/setup_set-mod_rewrite\?z=setup$~', $_SERVER['REQUEST_URI'])) {
-			if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
-				if (isset($_SERVER['HTTPS'])) {
-					$protocol = 'https';
-				} else {
-					$protocol = 'http';
-				}
-				header('location: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) . 'plugins/site_upgrade/closed.php');
+		if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
+			if (isset($_SERVER['HTTPS'])) {
+				$protocol = 'https';
+			} else {
+				$protocol = 'http';
 			}
-			exit();
+			header('location: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) . 'plugins/site_upgrade/closed.php');
 		}
+		exit();
 	}
 }
 unset($_contents);
