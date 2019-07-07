@@ -285,7 +285,8 @@ if (@$_loggedin) {
 
 if (MOD_REWRITE && OFFSET_PATH != 2) {
 	$uri = getRequestURI();
-	if (strpos($uri, 'zp-core') !== FALSE) {
+	$parts = mb_parse_url($uri);
+	if (strpos($parts['path'], 'zp-core') !== FALSE) {
 		//	deprecated use of zp-core in URL
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions/class.php');
 		deprecated_functions::logZPCore($uri, '');

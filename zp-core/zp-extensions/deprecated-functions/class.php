@@ -196,12 +196,12 @@ class deprecated_functions {
 	}
 
 	static function logZPCore($uri) {
-		$parts = parse_url($uri);
+		$parts = mb_parse_url($uri);
 		$use = ltrim(str_replace(WEBPATH, '', $parts['path']), '/');
 		$use = strtr($use, array('zp-core/zp-extensions' => 'zp-extensions', 'zp-core/' => ''));
 		$use = getAdminLink($use, '');
 		if (isset($_SERVER['HTTP_REFERER'])) {
-			$refs = parse_url($_SERVER['HTTP_REFERER']);
+			$refs = mb_parse_url($_SERVER['HTTP_REFERER']);
 			if (basename(dirname($parts['path'])) == 'setup') {
 				//	don't log it if setup did it.
 				return;
