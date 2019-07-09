@@ -1162,6 +1162,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$package = strtolower($package);
 						}
 						if (!empty($package)) {
+							$package = strtr($package, array('%extensions%' => CORE_FOLDER . '/' . PLUGIN_FOLDER, '%core%' => CORE_FOLDER));
+
 							$installed_files = explode("\n", trim($package));
 							$count = array_pop($installed_files);
 							$package_file_count = is_numeric($count) && ($count > 0) && ($count == count($installed_files));

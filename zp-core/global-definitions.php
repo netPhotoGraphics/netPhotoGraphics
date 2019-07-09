@@ -29,8 +29,12 @@ define('CORE_PATH', 'npg');
 define('PLUGIN_PATH', 'extensions');
 define('USER_PLUGIN_PATH', 'extensions');
 
-define('CORE_FOLDER', 'zp-core');
-define('PLUGIN_FOLDER', 'zp-extensions');
+define('CORE_FOLDER', basename(dirname(__FILE__)));
+if (strpos(CORE_FOLDER, 'zp-') === false) {
+	define('PLUGIN_FOLDER', PLUGIN_PATH);
+} else {
+	define('PLUGIN_FOLDER', 'zp-extensions');
+}
 define('COMMON_FOLDER', PLUGIN_FOLDER . '/common');
 define('USER_PLUGIN_FOLDER', 'plugins');
 define('ALBUMFOLDER', 'albums');

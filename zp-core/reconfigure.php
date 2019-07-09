@@ -159,7 +159,7 @@ function checkSignature($mandatory) {
 	}
 
 	$package = file_get_contents(dirname(__FILE__) . '/netPhotoGraphics.package');
-	preg_match_all('|' . CORE_FOLDER . '/setup/(.*)|', $package, $matches);
+	preg_match_all('|%core%/setup/(.*)|', $package, $matches);
 	$needs = array();
 	$restore = $found = false;
 	foreach ($matches[1] as $need) {
