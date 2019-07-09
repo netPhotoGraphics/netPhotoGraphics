@@ -9,6 +9,7 @@
  *
  */
 $dbSoftware = db_software();
+define('FIELD_COMMENT', 'npg');
 $indexComments = version_compare($dbSoftware['version'], '5.5.0') >= 0;
 $utf8mb4 = version_compare($dbSoftware['version'], '5.5.3', '>=');
 
@@ -94,19 +95,19 @@ foreach (getDBTables() as $table) {
 				$keys = explode(',', $index['Column_name']);
 				sort($keys);
 				if ($table == 'administrators' && implode(',', $keys) === '`user`,`valid`') {
-					$index['Index_comment'] = 'zp20';
+					$index['Index_comment'] = FIELD_COMMENT;
 				}
 				break;
 			case 'filename':
 				$keys = explode(',', $index['Column_name']);
 				sort($keys);
 				if ($table == 'images' && implode(',', $keys) === '`albumid`,`filename`') {
-					$index['Index_comment'] = 'zp20';
+					$index['Index_comment'] = FIELD_COMMENT;
 				}
 				break;
 			case 'folder':
 				if ($table == 'albums' && $index['Column_name'] === '`folder`') {
-					$index['Index_comment'] = 'zp20';
+					$index['Index_comment'] = FIELD_COMMENT;
 				}
 				break;
 		}
@@ -114,7 +115,7 @@ foreach (getDBTables() as $table) {
 	}
 }
 
-$npgUpgrade = isset($database['administrators']) && $database['administrators']['fields']['valid']['Comment'] == 'zp20';
+$npgUpgrade = isset($database['administrators']) && $database['administrators']['fields']['valid']['Comment'] == FIELD_COMMENT;
 
 //metadata display and disable options
 $validMetadataOptions = !is_null(getOption('metadata_displayed'));
@@ -323,7 +324,7 @@ foreach ($template as $tablename => $table) {
 		//handle surplus fields
 		foreach ($database[$tablename]['fields'] as $key => $field) {
 			// drop fields no longer used
-			if ($field['Comment'] === 'zp20' || $field['Comment'] === 'optional_metadata') {
+			if ($field['Comment'] === FIELD_COMMENT || $field['Comment'] === 'optional_metadata') {
 				$dropString = "ALTER TABLE " . prefix($tablename) . " DROP `" . $field['Field'] . "`;";
 				if (setupQuery($dropString)) {
 					$_DB_Structure_change = TRUE;
@@ -354,7 +355,7 @@ foreach ($template as $tablename => $table) {
 
 			$alterString = "$string`$key` ($k)";
 			if ($indexComments) {
-				$alterString .= " COMMENT 'zp20';";
+				$alterString .= " COMMENT '" . FIELD_COMMENT . "';";
 			} else {
 				unset($index['Index_comment']);
 			}
@@ -377,7 +378,7 @@ foreach ($template as $tablename => $table) {
 			} else {
 				$tableString = "  $u ($k)";
 				if ($indexComments) {
-					$tableString .= "  COMMENT 'zp20'";
+					$tableString .= "  COMMENT '" . FIELD_COMMENT . "'";
 				}
 				$create[] = $tableString . ',';
 			}
@@ -396,7 +397,7 @@ foreach ($template as $tablename => $table) {
 		if (array_key_exists('keys', $database[$tablename]) && !empty($database[$tablename]['keys'])) {
 			foreach ($database[$tablename]['keys'] as $index) {
 				$key = $index['Key_name'];
-				if (isset($index['Index_comment']) && $index['Index_comment'] === 'zp20') {
+				if (isset($index['Index_comment']) && $index['Index_comment'] === FIELD_COMMENT) {
 					$dropString = "ALTER TABLE " . prefix($tablename) . " DROP INDEX `" . $key . "`;";
 					if (setupQuery($dropString)) {
 						$_DB_Structure_change = TRUE;
