@@ -37,15 +37,17 @@ if (isset($_GET['purge'])) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
 		}
 
-		foreach (array(internalToFilesystem('charset_tést'), internalToFilesystem('charset.tést')) as $charset) {
-			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset)) {
-				$targets[DATA_FOLDER . '/' . $charset] = 'file';
-			}
-		}
-
 		if (!is_dir($folder . DATA_FOLDER)) {
 			@mkdir($folder . DATA_FOLDER);
 		}
+		foreach (array(internalToFilesystem('charset_tést'), internalToFilesystem('charset.tést')) as $charset) {
+			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset)) {
+				@chmod($folder . DATA_FOLDER . '/' . $charset, 0777);
+				@unlink($folder . DATA_FOLDER . '/' . $charset);
+				copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset, $folder . DATA_FOLDER . '/' . $charset);
+			}
+		}
+
 		if (!is_dir($folder . THEMEFOLDER)) {
 			@mkdir($folder . THEMEFOLDER);
 		}
