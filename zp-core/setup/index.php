@@ -78,6 +78,15 @@ if (!file_exists($en_US)) {
 	@mkdir($en_US, $chmod | 0311);
 }
 
+if (DATA_FOLDER != 'zp-data' && file_exists(SERVERPATH . '/zp-data')) {
+	chmod(SERVERPATH . '/zp-data', 0777);
+	rename(SERVERPATH . '/zp-data', SERVERPATH . '/' . DATA_FOLDER);
+	chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
+	//	reload the page so that the database config takes effect
+	$q = '?' . ltrim($debugq . $autorunq, '&');
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
+	exit();
+}
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 	@mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
 }
