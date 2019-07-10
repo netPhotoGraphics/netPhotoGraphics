@@ -4,7 +4,7 @@
  * @package plugins/text_watermark
  */
 define('OFFSET_PATH', 3);
-require('../../zp-core/admin-functions.php');
+require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "admin-functions.php");
 $string = sanitize(@$_GET['text_watermark_text'], 3);
 
 if (!empty($string)) {
@@ -13,7 +13,7 @@ if (!empty($string)) {
 		header("Content-type: image/png");
 		$filename = NULL;
 	} else {
-		$filename = dirname(dirname(__FILE__)) . '/watermarks/' . seoFriendly($string) . '.png';
+		$filename = dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/watermarks/' . seoFriendly($string) . '.png';
 	}
 	$len = strlen($string);
 	$font = gl_imageLoadFont(sanitize(@$_GET['text_watermark_font'], 3));
