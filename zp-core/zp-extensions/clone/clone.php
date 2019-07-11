@@ -124,6 +124,33 @@ if (isset($_GET['purge'])) {
 			} else {
 				if (SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
+					switch ($target) {
+						case 'zp-core':
+							$core = 'core';
+							break;
+						case 'core':
+							$core = 'zp-core';
+							break;
+						default:
+							$core = '';
+							break;
+					}
+					if ($core && file_exists($folder . $core)) {
+						$link = str_replace('\\', '/', @readlink($folder . $core));
+						if (empty($link) || $link == $folder . $core) {
+							$success = npgFunctions::removeDir($folder . $core);
+						} else {
+							$success = @rmdir($folder . $core);
+							if (!$success) { // some systems treat it as a dir, others as a file!
+								$success = @unlink($folder . $core);
+							}
+						}
+						if ($success) {
+							$msg[] = sprintf(gettext('The existing folder <code>%s</code> was removed.'), $folder . filesystemToInternal($core)) . "<br />\n";
+						} else {
+							$msg[] = sprintf(gettext('The existing folder <code>%s</code> could not be removed.'), $folder . filesystemToInternal($core)) . "<br />\n";
+						}
+					}
 				} else {
 					$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target) . "<br />\n";
 					$success = false;
