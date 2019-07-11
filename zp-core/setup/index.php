@@ -33,7 +33,6 @@ if ($debug = isset($_REQUEST['debug'])) {
 	if (!$debug = $_REQUEST['debug']) {
 		$debug = 'debug';
 	}
-
 	$debugq = '&' . $debug;
 } else {
 	$debugq = '';
@@ -181,7 +180,7 @@ if ($i !== false) {
 	$_config_contents = substr($_config_contents, 0, $i) . substr($_config_contents, $j); // remove this so it won't be defined twice
 }
 
-if (isset($_POST['db'])) { //try to update the zp-config file
+if (isset($_POST['db'])) { //try to update the config file
 	setupXSRFDefender('db');
 	setupLog(gettext("db POST handling"));
 	$update_config = true;
@@ -1326,8 +1325,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
+						primeMark(gettext('Installation files'));
 						if (setupUserAuthorized() && $connection && npgFunctions::hasPrimaryScripts()) {
-							primeMark(gettext('Installation files'));
 							$systemlist = $filelist = array();
 							$phi_ini_count = $svncount = 0;
 							foreach ($_resident_files as $extra) {
@@ -1396,6 +1395,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								checkMark($permissions, gettext("Core file permissions"), gettext("Core file permissions [not correct]"), gettext('Setup could not set the one or more components to the selected permissions level. You will have to set the permissions manually.'));
 							}
 						}
+
+						//	remove the "other" core folder so there is only one
+						switch (CORE_FOLDER) {
+							case 'zp-core';
+								npgFunctions::removeDir(SERVERPATH . '/core');
+								break;
+							case 'core':
+								npgFunctions::removeDir(SERVERPATH . '/zp-core');
+								break;
+						}
+
 						$msg = gettext("<em>.htaccess</em> file");
 						$Apache = stristr($_SERVER['SERVER_SOFTWARE'], "apache");
 						$Nginx = stristr($_SERVER['SERVER_SOFTWARE'], "nginx");
