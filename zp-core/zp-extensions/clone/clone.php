@@ -38,7 +38,7 @@ if (isset($_GET['purge'])) {
 		}
 
 		if (!is_dir($folder . DATA_FOLDER)) {
-			if (file_exists($folder . ($old = '/zp-data')) || file_exists($folder . $old = '/data')) {
+			if (file_exists($folder . ($old = '/zp-data'))) {
 				chmod($folder . $old, 0777);
 				rename($folder . $old, $folder . '/' . DATA_FOLDER);
 			} else {
