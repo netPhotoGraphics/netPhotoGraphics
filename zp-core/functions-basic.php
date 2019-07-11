@@ -655,8 +655,8 @@ function npg_session_start() {
 		$_session_path = session_save_path();
 
 		if (ini_get('session.save_handler') == 'files' && !file_exists($_session_path) || !is_writable($_session_path)) {
-			mkdir_recursive(SERVERPATH . '/' . DATA_FOLDER . '/PHP_sessions', (fileperms(dirname(__FILE__)) & 0666) | 0311);
-			session_save_path(SERVERPATH . '/' . DATA_FOLDER . '/PHP_sessions');
+			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(dirname(__FILE__)) & 0666) | 0311);
+			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
 		$sessionCookie = session_get_cookie_params();
 		session_set_cookie_params($sessionCookie['lifetime'], WEBPATH . '/', $_SERVER['HTTP_HOST'], secureServer(), true);
