@@ -38,7 +38,13 @@ if (isset($_GET['purge'])) {
 		}
 
 		if (!is_dir($folder . DATA_FOLDER)) {
-			@mkdir($folder . DATA_FOLDER);
+			if (file_exists($folder . ($old = '/zp-data')) || file_exists($folder . $old = '/data')) {
+				chmod($folder . $old, 0777);
+				rename($folder . $old, $folder . '/' . DATA_FOLDER);
+			} else {
+				@mkdir($folder . DATA_FOLDER);
+			}
+			chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
 		}
 		foreach (array(internalToFilesystem('charset_tést'), internalToFilesystem('charset.tést')) as $charset) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset)) {

@@ -39,7 +39,7 @@ define('COMMON_FOLDER', PLUGIN_FOLDER . '/common');
 define('USER_PLUGIN_FOLDER', 'plugins');
 define('ALBUMFOLDER', 'albums');
 define('THEMEFOLDER', 'themes');
-define('DATA_FOLDER', 'data');
+define('DATA_FOLDER', 'npg_data');
 define('BACKUPFOLDER', DATA_FOLDER . '/backup');
 define('CACHEFOLDER', 'cache');
 define('UPLOAD_FOLDER', 'uploaded');
