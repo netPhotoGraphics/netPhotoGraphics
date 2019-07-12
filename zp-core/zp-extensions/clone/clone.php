@@ -132,9 +132,9 @@ if (isset($_GET['purge'])) {
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
 						case 'zp-core':
-							$core = 'core';
+							$core = 'npgCore';
 							break;
-						case 'core':
+						case 'npgCore':
 							$core = 'zp-core';
 							break;
 						default:

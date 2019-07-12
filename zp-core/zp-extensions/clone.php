@@ -91,8 +91,8 @@ if ($plugin_disable) {
 								if (!$success) { // some systems treat it as a dir, others as a file!
 									$success = @unlink($path);
 								}
-								if ($success && SYMLINK) {
-									$valid = symlink(SERVERPATH . '/' . CORE_FOLDER, $row['aux'] . '/' . CORE_FOLDER);
+								if ($success) {
+									$valid = @symlink(SERVERPATH . '/' . CORE_FOLDER, $row['aux'] . '/' . CORE_FOLDER);
 								}
 							}
 						} else {

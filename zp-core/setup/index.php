@@ -1167,12 +1167,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 						$package_file_count = false;
 						$package = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics.package');
-						if (CASE_INSENSITIVE) { // case insensitive file systems
-							$package = strtolower($package);
-						}
 						if (!empty($package)) {
 							$package = strtr($package, array('%extensions%' => CORE_FOLDER . '/' . PLUGIN_FOLDER, '%core%' => CORE_FOLDER));
-
+							if (CASE_INSENSITIVE) { // case insensitive file systems
+								$package = strtolower($package);
+							}
 							$installed_files = explode("\n", trim($package));
 							$count = array_pop($installed_files);
 							$package_file_count = is_numeric($count) && ($count > 0) && ($count == count($installed_files));
@@ -1271,7 +1270,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								case UPLOAD_FOLDER:
 									unset($installed_files[$key]);
 									break;
-								case 'plugins':
+								case USER_PLUGIN_FOLDER:
 									if ($folder{strlen($folder) - 1} == '/') {
 										$plugin_subfolders[] = implode('/', rtrim($folders, '/'));
 									}
@@ -1400,9 +1399,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						//	remove the "other" core folder so there is only one
 						switch (CORE_FOLDER) {
 							case 'zp-core';
-								npgFunctions::removeDir(SERVERPATH . '/core');
+								npgFunctions::removeDir(SERVERPATH . '/npgCore');
 								break;
-							case 'core':
+							case 'npgCore':
 								npgFunctions::removeDir(SERVERPATH . '/zp-core');
 								break;
 						}
