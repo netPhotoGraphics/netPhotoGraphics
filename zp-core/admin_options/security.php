@@ -36,9 +36,6 @@ function saveOptions() {
 	}
 
 	$_gallery->setUserLogonField(isset($_POST['login_user_field']));
-	if ($protocol == 'http') {
-		clearNPGCookie("ssl_state");
-	}
 	setOption('IP_tied_cookies', (int) isset($_POST['IP_tied_cookies']));
 	setOption('obfuscate_cache', (int) isset($_POST['obfuscate_cache']));
 	setOption('image_processor_flooding_protection', (int) isset($_POST['image_processor_flooding_protection']));
