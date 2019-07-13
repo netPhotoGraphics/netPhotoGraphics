@@ -22,7 +22,7 @@ This makes netPhotoGraphics the ideal CMS for personal websites of illustrators,
 
 netPhotoGraphics was created with a fork of the Zenphoto repository at the time of the Zenphoto 1.4.6 release. It spent the first four years of its life as ZenPhoto20. In 2018 the name was changed to netPhotoGraphics.
 The intent of the branching was to clean up the years of detritus that the original code accumulated. At the same time
-the we modernized the software, the support process, and the integration of third party contributor.
+the we modernized the software, the support process, and the integration of third party contributions.
 
 # Support
 
