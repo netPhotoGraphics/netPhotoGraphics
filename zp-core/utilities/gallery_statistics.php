@@ -267,7 +267,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 
 	if (!isset($_GET['stats'])) {
 		if (count($itemssorted) > 10) {
-			echo "<a href='gallery_statistics.php?stats=" . $sortorder . "&amp;type=" . $type . "'> | " . gettext("View more") . "</a>";
+			echo '<a href="' . getAdminLink('utilities/gallery_statistics.php') . '?stats=' . $sortorder . '&amp;type=' . $type . '"> | ' . gettext("View more") . '</a>';
 		}
 	}
 	echo "</th></tr>";
@@ -751,7 +751,7 @@ echo '</head>';
 						}
 					}
 					?>
-					<form name="limit" id="limit" action="gallery_statistics.php">
+					<form name="limit" id="limit" action="<?php echo getAdminLink('utilities/gallery_statistics.php'); ?>">
 						<label for="from_number"><?php echo gettext("From "); ?></label>
 						<input type ="text" size="10" id="from_number" name="from_number" value="<?php echo ($from_number + 1); ?>" />
 						<label for="to_number"><?php echo gettext("to "); ?></label>

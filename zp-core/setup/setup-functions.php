@@ -717,6 +717,7 @@ function updateRootIndexFile() {
 	if (file_exists($index)) {
 		@rename($index, $index . '.bak');
 	}
+
 	$defines = array(
 			'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
 			'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
@@ -725,7 +726,7 @@ function updateRootIndexFile() {
 			'CONFIGFILE' => CONFIGFILE,
 			'RW_SUFFIX' => preg_quote(getOption('mod_rewrite_suffix'))
 	);
-	$script = file_get_contents(dirname(dirname(__FILE__)) . '/root_index.php');
+	$script = file_get_contents(SERVERPATH . '/' . CORE_FOLDER . '/root_index.php');
 	$script = strtr($script, $defines);
 	$rootupdate = @file_put_contents($index, $script);
 	if (!$rootupdate) {
@@ -734,6 +735,8 @@ function updateRootIndexFile() {
 	}
 	if ($rootupdate) {
 		@unlink($index . '.bak');
+		file_put_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg', CORE_SERVERPATH);
+		chmod(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg', FILE_MOD);
 	} else {
 		@rename($index . '.bak', $index);
 	}

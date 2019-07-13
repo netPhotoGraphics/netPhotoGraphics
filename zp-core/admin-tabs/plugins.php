@@ -20,74 +20,81 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 /* handle posts */
 if (isset($_GET['action'])) {
-	if ($_GET['action'] == 'saveplugins') {
-		if (isset($_POST['checkForPostTruncation'])) {
-			XSRFdefender('saveplugins');
-			$plugins = array();
-			foreach ($_POST as $plugin => $value) {
-				preg_match('/^present__plugin_(.*)$/xis', $plugin, $matches);
-				if ($matches) {
-					$is = (int) isset($_POST['_plugin_' . $matches[1]]);
-					if ($is) {
-						$nv = sanitize_numeric($_POST['_plugin_' . $matches[1]]);
-						$is = (int) ($nv && true);
-					} else {
-						$nv = NULL;
-					}
-					$was = (int) ($value && true);
-					if ($was == $is) {
-						$action = 1;
-					} else if ($was) {
-						$action = 2;
-					} else {
-						$action = 3;
-					}
-					$plugins[$matches[1]] = array('action' => $action, 'is' => $nv);
-				}
-			}
-			$cleanup = array();
-			foreach ($plugins as $_plugin_extension => $data) {
-				$f = str_replace('-', '_', $_plugin_extension) . '_enable';
-				$p = getPlugin($_plugin_extension . '.php');
-				switch ($data['action']) {
-					case 1:
-						//no change
-						break;
-					case 2:
-						//going from enabled to disabled
-						enableExtension($_plugin_extension, 0);
-						$cleanup[] = array('p' => $p, 'f' => $f);
-						break;
-					case 3:
-						//going from disabled to enabled
-						enableExtension($_plugin_extension, $data['is']);
-						$option_interface = NULL;
-						require_once($p);
-
-						if ($option_interface && is_string($option_interface)) {
-							$if = new $option_interface; //	prime the default options
+	$notify = '&post_error';
+	switch ($_GET['action']) {
+		case 'saveplugins':
+			if (isset($_POST['checkForPostTruncation'])) {
+				XSRFdefender('saveplugins');
+				$plugins = array();
+				foreach ($_POST as $plugin => $value) {
+					preg_match('/^present__plugin_(.*)$/xis', $plugin, $matches);
+					if ($matches) {
+						$is = (int) isset($_POST['_plugin_' . $matches[1]]);
+						if ($is) {
+							$nv = sanitize_numeric($_POST['_plugin_' . $matches[1]]);
+							$is = (int) ($nv && true);
+						} else {
+							$nv = NULL;
 						}
-
-						if (function_exists($f)) {
-							$f(true);
+						$was = (int) ($value && true);
+						if ($was == $is) {
+							$action = 1;
+						} else if ($was) {
+							$action = 2;
+						} else {
+							$action = 3;
 						}
-						break;
+						$plugins[$matches[1]] = array('action' => $action, 'is' => $nv);
+					}
 				}
-			}
-			foreach ($cleanup as $clean) {
-				require_once($clean['p']);
-				if (function_exists($f = $clean['f'])) {
-					$f(false);
-				}
-			}
-			$notify = '&saved';
-		} else {
-			$notify = '&post_error';
-		}
+				$cleanup = array();
+				foreach ($plugins as $_plugin_extension => $data) {
+					$f = str_replace('-', '_', $_plugin_extension) . '_enable';
+					$p = getPlugin($_plugin_extension . '.php');
+					switch ($data['action']) {
+						case 1:
+							//no change
+							break;
+						case 2:
+							//going from enabled to disabled
+							enableExtension($_plugin_extension, 0);
+							$cleanup[] = array('p' => $p, 'f' => $f);
+							break;
+						case 3:
+							//going from disabled to enabled
+							enableExtension($_plugin_extension, $data['is']);
+							$option_interface = NULL;
+							require_once($p);
 
-		header('Location: ' . getAdminLink('admin-tabs/plugins.php') . '?page=plugins&tab=' . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
-		exit();
+							if ($option_interface && is_string($option_interface)) {
+								$if = new $option_interface; //	prime the default options
+							}
+
+							if (function_exists($f)) {
+								$f(true);
+							}
+							break;
+					}
+				}
+				foreach ($cleanup as $clean) {
+					require_once($clean['p']);
+					if (function_exists($f = $clean['f'])) {
+						$f(false);
+					}
+				}
+				$notify = '&saved';
+			}
+			break;
+		case 'delete':
+			XSRFdefender('deleteplugin');
+			$plugin = $_GET['plugin'];
+			npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $plugin);
+			unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $plugin . '.php');
+			$notify = '&deleted&plugin=' . $_GET['plugin'];
+			break;
 	}
+	header('Location: ' . getAdminLink('admin-tabs/plugins.php') . '?page=plugins&tab=' . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
+	exit();
 }
 
 $_GET['page'] = 'plugins';
@@ -136,6 +143,12 @@ if ($saved) {
 	echo "<h2>" . gettext("Applied") . "</h2>";
 	echo '</div>';
 }
+if (isset($_GET['deleted']) && isset($_GET['plugin'])) {
+	echo '<div class="messagebox fade-message">';
+	echo "<h2>" . sprintf(gettext('%1$s was deleted.'), $_GET['plugin']) . "</h2>";
+	echo '</div>';
+}
+
 npgFilters::apply('admin_note', 'plugins', '');
 ?>
 <h1>
@@ -267,7 +280,6 @@ npgFilters::apply('admin_note', 'plugins', '');
 						}
 					}
 				}
-
 				$selected_style = '';
 				if ($currentsetting > THEME_PLUGIN) {
 					$selected_style = ' class="currentselection"';
@@ -388,7 +400,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 							$tab = $plugin_member[$extension];
 							?>
 							<span class="displayrightsmall">
-								<a href="<?php echo html_encode($plugin_subtabs[$tab]); ?>" title="<?php printf(gettext('Go to &quot;%s&quot; plugin page.'), $tab); ?>">
+								<a href="<?php echo FULLWEBPATH . html_encode($plugin_subtabs[$tab]); ?>" title="<?php printf(gettext('Go to &quot;%s&quot; plugin page.'), $tab); ?>">
 									<em><?php echo $tab; ?></em>
 								</a>
 							</span>
@@ -404,6 +416,15 @@ npgFilters::apply('admin_note', 'plugins', '');
 								</a>
 							</span>
 							<?php
+							if ($plugin_default == 'thirdparty') {
+								?>
+								<span class="icons">
+									<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
+										<?php echo CROSS_MARK_RED; ?>
+									</a>
+								</span>
+								<?php
+							}
 							if ($optionlink) {
 								?>
 								<span class="icons">

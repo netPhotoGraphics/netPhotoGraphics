@@ -37,15 +37,23 @@ if (isset($_GET['purge'])) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
 		}
 
+		if (!is_dir($folder . DATA_FOLDER)) {
+			if (file_exists($folder . ($old = '/zp-data'))) {
+				chmod($folder . $old, 0777);
+				rename($folder . $old, $folder . '/' . DATA_FOLDER);
+			} else {
+				@mkdir($folder . DATA_FOLDER);
+			}
+			chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
+		}
 		foreach (array(internalToFilesystem('charset_tést'), internalToFilesystem('charset.tést')) as $charset) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset)) {
-				$targets[DATA_FOLDER . '/' . $charset] = 'file';
+				@chmod($folder . DATA_FOLDER . '/' . $charset, 0777);
+				@unlink($folder . DATA_FOLDER . '/' . $charset);
+				copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset, $folder . DATA_FOLDER . '/' . $charset);
 			}
 		}
 
-		if (!is_dir($folder . DATA_FOLDER)) {
-			@mkdir($folder . DATA_FOLDER);
-		}
 		if (!is_dir($folder . THEMEFOLDER)) {
 			@mkdir($folder . THEMEFOLDER);
 		}
@@ -122,6 +130,33 @@ if (isset($_GET['purge'])) {
 			} else {
 				if (SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
+					switch ($target) {
+						case 'zp-core':
+							$core = 'npgCore';
+							break;
+						case 'npgCore':
+							$core = 'zp-core';
+							break;
+						default:
+							$core = '';
+							break;
+					}
+					if ($core && file_exists($folder . $core)) {
+						$link = str_replace('\\', '/', @readlink($folder . $core));
+						if (empty($link) || $link == $folder . $core) {
+							$success = npgFunctions::removeDir($folder . $core);
+						} else {
+							$success = @rmdir($folder . $core);
+							if (!$success) { // some systems treat it as a dir, others as a file!
+								$success = @unlink($folder . $core);
+							}
+						}
+						if ($success) {
+							$msg[] = sprintf(gettext('The existing folder <code>%s</code> was removed.'), $folder . filesystemToInternal($core)) . "<br />\n";
+						} else {
+							$msg[] = sprintf(gettext('The existing folder <code>%s</code> could not be removed.'), $folder . filesystemToInternal($core)) . "<br />\n";
+						}
+					}
 				} else {
 					$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target) . "<br />\n";
 					$success = false;
@@ -162,6 +197,7 @@ if (isset($_GET['purge'])) {
 			}
 			$_SESSION['admin']['db_admin_fields'] = $adminTable;
 			$_SESSION['admin'][$cloneid] = serialize($_current_admin_obj);
+			//	leave as direct link incase the admin mod_rewrite mechanism is not yet setup
 			$msg[] = '<p><span class="buttons"><a href="' . $newinstall . CORE_FOLDER . '/setup/index.php?autorun" target=_newtab" onclick="reloadCloneTab();">' . gettext('setup the new install') . '</a></span><br class="clearall"></p>' . "\n";
 		} else {
 			$reinstall = '<p>' . sprintf(gettext('Before running setup for <code>%1$s</code> please reinstall the following setup files from the %2$s to this installation:'), $newinstall, NETPHOTOGRAPHICS_VERSION) .

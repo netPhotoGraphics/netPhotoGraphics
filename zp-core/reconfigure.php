@@ -29,7 +29,8 @@ function reconfigureAction($mandatory) {
 		}
 		switch ($mandatory) {
 			case 11:
-				$reason = gettext('no configuration file');
+				// no configuration file
+				$reason = FALSE; // can't log if we don't know where to put the log
 				break;
 			case 12:
 				$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
@@ -159,7 +160,7 @@ function checkSignature($mandatory) {
 	}
 
 	$package = file_get_contents(dirname(__FILE__) . '/netPhotoGraphics.package');
-	preg_match_all('|' . CORE_FOLDER . '/setup/(.*)|', $package, $matches);
+	preg_match_all('|%core%/setup/(.*)|', $package, $matches);
 	$needs = array();
 	$restore = $found = false;
 	foreach ($matches[1] as $need) {
@@ -268,6 +269,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where .= '&amp;notoken';
 	}
+	//	leave this as a direct link incase the admin mod_rewrite mechanism has not yet been established
 	$l1 = '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php' . '?autorun=' . $where . '">';
 	$l2 = '</a>';
 	?>

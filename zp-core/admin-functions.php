@@ -743,7 +743,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 *    OPTION_TYPE_CUSTOM:								Handled by $optionHandler->handleOption()
 	 *    OPTION_TYPE_TEXTAREA:							A textarea
 	 *    OPTION_TYPE_RICHTEXT:							A textarea with WYSIWYG editor attached
-	 *    OPTION_TYPE_RADIO:								Radio buttons (button names are in the 'buttons' index of the supported options array)
+	 * 		OPTION_TYPE_CLEATTEXTAREA:				A "cleartext" textarea
+	 * 		OPTION_TYPE_RADIO:								Radio buttons (button names are in the 'buttons' index of the supported options array)
 	 *    OPTION_TYPE_SELECTOR:							Selector (selection list is in the 'selections' index of the supported options array
 	 * 																				null_selection contains the text for the empty selection. If not present there
 	 * 																				will be no empty selection)
@@ -754,7 +755,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 *    OPTION_TYPE_COLOR_PICKER:					Color picker
 	 *    OPTION_TYPE_NOTE:									Places a note in the options area. The note will span all three columns
 	 *
-	 *    Types 0 and 5 support multi-lingual strings.
 	 */
 	define('OPTION_TYPE_TEXTBOX', 0);
 	define('OPTION_TYPE_CHECKBOX', 1);
@@ -775,6 +775,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	define('OPTION_TYPE_CHECKBOX_ARRAYLIST', 16);
 	define('OPTION_TYPE_CHECKBOX_ULLIST', 17);
 	define('OPTION_TYPE_HIDDEN', 18);
+	define('OPTION_TYPE_CLEARTEXTAREA', 19);
 
 	function customOptions($optionHandler, $indent = "", $album = NULL, $showhide = false, $supportedOptions = NULL, $theme = false, $initial = 'none', $plugin = NULL) {
 		if (is_null($supportedOptions)) {
@@ -876,6 +877,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							break;
 						case OPTION_TYPE_NUMBER:
 						case OPTION_TYPE_CLEARTEXT:
+						case OPTION_TYPE_CLEARTEXTAREA:
 						case OPTION_TYPE_PASSWORD:
 						case OPTION_TYPE_TEXTBOX:
 						case OPTION_TYPE_TEXTAREA:
@@ -884,6 +886,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							$wide = 'width: 100%';
 							switch ($type) {
 								case OPTION_TYPE_CLEARTEXT:
+								case OPTION_TYPE_CLEARTEXTAREA:
 									$clear = 'clear';
 									$multilingual = false;
 								default:
@@ -922,7 +925,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								if ($multilingual) {
 									print_language_string_list($v, $postkey, $type, NULL, $editor, '100%');
 								} else {
-									if ($type == OPTION_TYPE_TEXTAREA || $type == OPTION_TYPE_RICHTEXT) {
+									if ($type == OPTION_TYPE_TEXTAREA || $type == OPTION_TYPE_RICHTEXT || $type == OPTION_TYPE_CLEARTEXTAREA) {
 										$v = get_language_string($v); // just in case....
 										?>
 										<textarea id="__<?php echo $key; ?>"<?php if ($type == OPTION_TYPE_RICHTEXT) echo ' class="texteditor"'; ?> name="<?php echo $postkey; ?>" cols="<?php echo TEXTAREA_COLUMNS; ?>"	 rows="6"<?php echo $disabled; ?>><?php echo html_encode($v); ?></textarea>
@@ -1809,7 +1812,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 					}
 					?>
-					<a href="<?php echo WEBPATH . "/index.php?album=" . pathurlencode($album->getFileName()); ?>">
+					<a href="<?php echo $album->getLink(); ?>">
 						<?php echo BULLSEYE_BLUE; ?>
 						<strong><?php echo gettext('View Album'); ?></strong>
 					</a>
@@ -1949,7 +1952,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2278,9 +2281,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2438,7 +2441,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2550,7 +2553,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 					}
 					?>
-					<a href="<?php echo WEBPATH . "/index.php?album=" . pathurlencode($album->getFileName()); ?>">
+					<a href="<?php echo $album->getLink(); ?>">
 						<?php echo BULLSEYE_BLUE; ?>
 						<strong><?php echo gettext('View Album'); ?></strong>
 					</a>
@@ -2854,7 +2857,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					?>
 				</div>
 				<div class="page-list_icon">
-					<a href="<?php echo WEBPATH; ?>/index.php?album=<?php echo pathurlencode($album->name); ?>" title="<?php echo gettext("View album"); ?>">
+					<a href="<?php echo $album->getLink(); ?>" title="<?php echo gettext("View album"); ?>">
 						<?php echo BULLSEYE_BLUE; ?>
 					</a>
 				</div>
@@ -2866,7 +2869,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 					} else {
 						?>
-						<a class="warn" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/utilities/refresh-metadata.php?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh') ?>" title="<?php echo sprintf(gettext('Refresh metadata for the album %s'), $album->name); ?>">
+						<a class="warn" href="<?php echo getAdminLink('utilities/refresh-metadata.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh') ?>" title="<?php echo sprintf(gettext('Refresh metadata for the album %s'), $album->name); ?>">
 							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 						</a>
 						<?php
@@ -4557,30 +4560,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -4964,27 +4967,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5468,15 +5471,16 @@ function getPluginTabs() {
 			'theme_plugin' => gettext('<em>Theme</em>')
 	);
 
+	$adminPlugin = getAdminLink('admin-tabs/plugins', '');
 	$classLinks = array(
-			'enabled' => 'admin-tabs/plugins.php?page=plugins&tab=enabled',
-			'disabled' => 'admin-tabs/plugins.php?page=plugins&tab=disabled',
-			'deprecated' => 'admin-tabs/plugins.php?page=plugins&tab=deprecated',
-			'thirdparty' => 'admin-tabs/plugins.php?page=plugins&tab=thirdparty',
-			'class_plugin' => 'admin-tabs/plugins.php?page=plugins&tab=class_plugin',
-			'feature_plugin' => 'admin-tabs/plugins.php?page=plugins&tab=feature_plugin',
-			'admin_plugin' => 'admin-tabs/plugins.php?page=plugins&tab=admin_plugin',
-			'theme_plugin' => 'admin-tabs/plugins.php?page=plugins&tab=theme_plugin'
+			'enabled' => $adminPlugin . '?page=plugins&tab=enabled',
+			'disabled' => $adminPlugin . '?page=plugins&tab=disabled',
+			'deprecated' => $adminPlugin . '?page=plugins&tab=deprecated',
+			'thirdparty' => $adminPlugin . '?page=plugins&tab=thirdparty',
+			'class_plugin' => $adminPlugin . '?page=plugins&tab=class_plugin',
+			'feature_plugin' => $adminPlugin . '?page=plugins&tab=feature_plugin',
+			'admin_plugin' => $adminPlugin . '?page=plugins&tab=admin_plugin',
+			'theme_plugin' => $adminPlugin . '?page=plugins&tab=theme_plugin'
 	);
 
 	$Xlate = array_merge($classXlate, $pluginCategoryNames);
@@ -5583,7 +5587,7 @@ function getPluginTabs() {
 	foreach ($classLinks as $class => $list) {
 		if (!empty($$class)) {
 			$hr = true;
-			$tabs[$Xlate[$class]] = 'admin-tabs/plugins.php?page=plugins&tab=' . $class;
+			$tabs[$Xlate[$class]] = $adminPlugin . '?page=plugins&tab=' . $class;
 			if ($class == $default) {
 				$currentlist = array_keys($$class);
 			}
@@ -5596,7 +5600,7 @@ function getPluginTabs() {
 
 	$categorys = array();
 	foreach ($classes as $class => $list) {
-		$categorys[$Xlate[$class]] = 'admin-tabs/plugins.php?page=plugins&tab=' . $class;
+		$categorys[$Xlate[$class]] = $adminPlugin . '?page=plugins&tab=' . $class;
 		if ($class == $default) {
 			$currentlist = $list;
 		}
@@ -5921,7 +5925,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php

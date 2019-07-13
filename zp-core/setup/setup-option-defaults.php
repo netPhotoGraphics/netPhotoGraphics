@@ -29,6 +29,7 @@ require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést');
 if (!file_exists($testFile)) {
+	@unlink($testFile); //	if it were a symbolic link....
 	file_put_contents($testFile, '');
 }
 

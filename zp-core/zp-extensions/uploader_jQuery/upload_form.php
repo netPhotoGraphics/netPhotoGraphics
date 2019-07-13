@@ -11,7 +11,7 @@ function upload_head() {
 	<![endif]-->
 
 	<script type="text/javascript">
-		var extension_link = '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/uploader_jQuery/server/php/index.php'; ?>';
+		var extension_link = '<?php echo getAdminLink(PLUGIN_FOLDER . '/uploader_jQuery/server/php/index.php'); ?>';
 	</script>
 
 	<?php
@@ -29,7 +29,7 @@ function upload_extra($uploadlimit, $passedalbum) {
 
 	<div>
 		<!-- The file upload form used as target for the file upload widget -->
-		<form id="fileupload" action="<?php echo FULLWEBPATH . '/' . PLUGIN_FOLDER . '/uploader_jQuery/server/php/index.php'; ?>" method="POST" enctype="multipart/form-data">
+		<form id="fileupload" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/uploader_jQuery/server/php/index.php'); ?>" method="POST" enctype="multipart/form-data">
 
 			<noscript><?php echo gettext('This uploader requires browser javaScript support.'); ?></noscript>
 

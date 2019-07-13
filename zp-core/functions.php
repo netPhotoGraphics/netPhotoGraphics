@@ -1434,9 +1434,17 @@ function safe_fnmatch($pattern, $string) {
 function makeSpecialImageName($image) {
 	$filename = basename($image);
 	$base = explode('/', replaceScriptPath(dirname($image)));
-	$sourceFolder = array_shift($base);
+	$nameBase = $sourceFolder = array_shift($base);
 	$sourceSubfolder = implode('/', $base);
-	return array('source' => $sourceFolder . '/' . $sourceSubfolder . '/' . $filename, 'name' => $sourceFolder . '_' . basename($sourceSubfolder) . '_' . $filename);
+
+	if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $nameBase)) {
+		$nameBase = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, $nameBase);
+	} else {
+		$nameBase = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $nameBase);
+		$nameBase = preg_replace('~^' . CORE_FOLDER . '~i', CORE_PATH, $nameBase);
+	}
+
+	return array('source' => $sourceFolder . '/' . $sourceSubfolder . '/' . $filename, 'name' => $nameBase . '_' . basename($sourceSubfolder) . '_' . $filename);
 }
 
 /**

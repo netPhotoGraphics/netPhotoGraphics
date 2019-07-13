@@ -324,7 +324,7 @@ function printPagesListTable($page, $toodeep) {
 			?>
 
 			<div class="page-list_icon">
-				<a href="<?php echo WEBPATH; ?>/index.php?p=pages&amp;title=<?php echo js_encode($page->getTitlelink()); ?>" title="<?php echo gettext("View page"); ?>">
+				<a href="<?php echo $page->getlink(); ?>" title="<?php echo gettext("View page"); ?>">
 					<?php echo BULLSEYE_BLUE; ?>
 				</a>
 			</div>
@@ -1029,7 +1029,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 					<?php
 				} else {
 					?>
-					<a href="<?php echo WEBPATH; ?>/index.php?p=news&amp;category=<?php echo js_encode($cat->getTitlelink()); ?>" title="<?php echo gettext("view category"); ?>">
+					<a href="<?php echo $cat->getlink(); ?>" title="<?php echo gettext("view category"); ?>">
 						<?php echo BULLSEYE_BLUE; ?>
 					</a>
 				<?php } ?>

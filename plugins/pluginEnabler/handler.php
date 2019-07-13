@@ -7,7 +7,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 3);
-require('../../zp-core/admin-globals.php');
+require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "admin-globals.php");
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 XSRFdefender('pluginEnabler');
@@ -124,5 +124,5 @@ if (isset($_REQUEST['pluginsEnable'])) {
 		}
 	}
 }
-header('Location: ' . getAdminLink('admin.php').'?report=' . $report);
+header('Location: ' . getAdminLink('admin.php') . '?report=' . $report);
 ?>

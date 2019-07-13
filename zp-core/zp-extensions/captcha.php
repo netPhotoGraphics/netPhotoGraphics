@@ -182,7 +182,7 @@ class captcha {
 	 */
 	function getCaptcha($prompt = NULL) {
 		global $_HTML_cache;
-		$_HTML_cache->disable();
+		$_HTML_cache->abortHTMLCache(true);
 		$captcha_len = getOption('npg_captcha_length');
 		$key = $this->getCaptchaKey();
 		$lettre = getOption('npg_captcha_string');

@@ -454,7 +454,7 @@ class security_logger {
 	 */
 	static function security_misc($success, $requestor, $auth, $txt) {
 		list($user, $name) = security_logger::populate_user();
-		security_logger::logger((int) $success, $name, NULL, $requestor, $auth, $txt);
+		security_logger::logger((int) $success, $user, $name, $requestor, $auth, $txt);
 		return $success;
 	}
 

@@ -10,7 +10,8 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname(__FILE__))) . "/zp-core/admin-globals.php");
+
+require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "admin-globals.php");
 admin_securityChecks(THEMES_RIGHTS, currentRelativeURL());
 
 /**

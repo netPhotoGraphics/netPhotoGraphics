@@ -74,7 +74,30 @@ if ($plugin_disable) {
 				while ($row = db_fetch_assoc($result)) {
 					if (SYMLINK) {
 						$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . CORE_FOLDER));
-						$valid = !(empty($path) || $path != SERVERPATH . '/' . CORE_FOLDER);
+						if (empty($path)) {
+							//	look for the other guy
+							$valid = false;
+							switch (CORE_FOLDER) {
+								case 'zp-core':
+									$path = $row['aux'] . '/npgCore';
+									break;
+								case 'npgCore':
+									$path = $row['aux'] . '/zp-core';
+									break;
+							}
+							if ($path) {
+								@chmod($path, 0777);
+								$success = @rmdir($path);
+								if (!$success) { // some systems treat it as a dir, others as a file!
+									$success = @unlink($path);
+								}
+								if ($success) {
+									$valid = @symlink(SERVERPATH . '/' . CORE_FOLDER, $row['aux'] . '/' . CORE_FOLDER);
+								}
+							}
+						} else {
+							$valid = $path == SERVERPATH . '/' . CORE_FOLDER;
+						}
 					} else { //	best guess if the clone has been changed
 						$clonesig = @file_get_contents($row['aux'] . '/' . CORE_FOLDER . '/version.php');
 						$valid = $sig == $clonesig;

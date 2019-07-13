@@ -14,7 +14,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname($_SERVER['SCRIPT_FILENAME']))) . "/zp-core/admin-globals.php");
+require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "admin-globals.php");
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
@@ -76,5 +76,5 @@ configFile::store($_config_contents);
 $_configMutex->unlock();
 
 
-header('Location: ' . getAdminLink('admin.php').'?action=external&msg=' . gettext('utf8mb4 migration completed.'));
+header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('utf8mb4 migration completed.'));
 exit();

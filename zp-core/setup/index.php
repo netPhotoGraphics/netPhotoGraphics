@@ -33,7 +33,6 @@ if ($debug = isset($_REQUEST['debug'])) {
 	if (!$debug = $_REQUEST['debug']) {
 		$debug = 'debug';
 	}
-
 	$debugq = '&' . $debug;
 } else {
 	$debugq = '';
@@ -53,6 +52,16 @@ if (isset($_REQUEST['autorun'])) {
 	$autorunq = '&autorun=' . $autorun;
 } else {
 	$displayLimited = $autorun = $autorunq = false;
+}
+
+if (file_exists(SERVERPATH . ($old = '/zp-data')) || file_exists(SERVERPATH . ($old = '/npg_data'))) {
+	chmod(SERVERPATH . $old, 0777);
+	rename(SERVERPATH . $old, SERVERPATH . '/' . DATA_FOLDER);
+	chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
+	//	reload the page so that the database config takes effect
+	$q = '?' . ltrim($debugq . $autorunq, '&');
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
+	exit();
 }
 
 session_cache_limiter('nocache');
@@ -172,7 +181,7 @@ if ($i !== false) {
 	$_config_contents = substr($_config_contents, 0, $i) . substr($_config_contents, $j); // remove this so it won't be defined twice
 }
 
-if (isset($_POST['db'])) { //try to update the zp-config file
+if (isset($_POST['db'])) { //try to update the config file
 	setupXSRFDefender('db');
 	setupLog(gettext("db POST handling"));
 	$update_config = true;
@@ -1158,10 +1167,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 						$package_file_count = false;
 						$package = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics.package');
-						if (CASE_INSENSITIVE) { // case insensitive file systems
-							$package = strtolower($package);
-						}
 						if (!empty($package)) {
+							$package = strtr($package, array('%extensions%' => CORE_FOLDER . '/' . PLUGIN_FOLDER, '%core%' => CORE_FOLDER));
+							if (CASE_INSENSITIVE) { // case insensitive file systems
+								$package = strtolower($package);
+							}
 							$installed_files = explode("\n", trim($package));
 							$count = array_pop($installed_files);
 							$package_file_count = is_numeric($count) && ($count > 0) && ($count == count($installed_files));
@@ -1260,7 +1270,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								case UPLOAD_FOLDER:
 									unset($installed_files[$key]);
 									break;
-								case 'plugins':
+								case USER_PLUGIN_FOLDER:
 									if ($folder{strlen($folder) - 1} == '/') {
 										$plugin_subfolders[] = implode('/', rtrim($folders, '/'));
 									}
@@ -1315,8 +1325,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 						}
 						checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
+						primeMark(gettext('Installation files'));
 						if (setupUserAuthorized() && $connection && npgFunctions::hasPrimaryScripts()) {
-							primeMark(gettext('Installation files'));
 							$systemlist = $filelist = array();
 							$phi_ini_count = $svncount = 0;
 							foreach ($_resident_files as $extra) {
@@ -1385,6 +1395,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								checkMark($permissions, gettext("Core file permissions"), gettext("Core file permissions [not correct]"), gettext('Setup could not set the one or more components to the selected permissions level. You will have to set the permissions manually.'));
 							}
 						}
+
+						//	remove the "other" core folder so there is only one
+						switch (CORE_FOLDER) {
+							case 'zp-core';
+								npgFunctions::removeDir(SERVERPATH . '/npgCore');
+								break;
+							case 'npgCore':
+								npgFunctions::removeDir(SERVERPATH . '/zp-core');
+								break;
+						}
+
 						$msg = gettext("<em>.htaccess</em> file");
 						$Apache = stristr($_SERVER['SERVER_SOFTWARE'], "apache");
 						$Nginx = stristr($_SERVER['SERVER_SOFTWARE'], "nginx");

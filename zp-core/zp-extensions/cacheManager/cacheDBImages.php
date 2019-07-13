@@ -127,10 +127,12 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 							$match = urldecode($match);
 							$found++;
 							list($image_uri, $args) = getImageProcessorURIFromCacheName($match, $watermarks);
-							if (preg_match('~(.*)/' . CORE_FOLDER . '_images_(.*)\.(.*)$~i', $image_uri, $matches)) {
-								$cachefile = SERVERPATH . '/' . CACHEFOLDER . getImageCacheFilename($matches[1], CORE_FOLDER . '_images_' . $matches[2] . '.' . $matches[3], $args);
+							if (preg_match('~(.*)/(' . CORE_FOLDER . '|' . CORE_PATH . ')_images_(.*)\.(.*)$~i', $image_uri, $matches)) {
+								$specialName = makeSpecialImageName(CORE_FOLDER . '/images/' . $matches[3] . '.png');
+								$new_link = '/' . CACHEFOLDER . getImageCacheFilename($matches[1], $specialName['name'], $args);
+								$cachefile = SERVERPATH . $new_link;
 								if (!file_exists($cachefile)) {
-									$uri = getImageProcessorURI($args, $matches[1], CORE_FOLDER . '_images_' . $matches[2] . '.' . $matches[3]) . '&z=' . CORE_FOLDER . '/images/' . $matches[2] . '.png';
+									$uri = getImageProcessorURI($args, $matches[1], $specialName);
 									$fixed++;
 									$title = getTitle($table, $row);
 									?>
@@ -140,6 +142,11 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										?>
 									</a>
 									<?php
+								}
+								if ($matches[2] == CORE_FOLDER || getSuffix($image_uri) != getSuffix($specialName['name'])) {
+									//	need to update the db entry as well
+									$updated = true;
+									$row[$field] = updateCacheName($row[$field], $match, '{*WEBPATH*}' . $new_link);
 								}
 								continue;
 							}

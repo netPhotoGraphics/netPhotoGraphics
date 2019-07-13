@@ -202,16 +202,17 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 						if (isset($file)) {
 							unlink($file);
 						}
-						if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
-							header('Location: ' . FULLWEBPATH . '/extract.php');
-							exit();
-						} else {
+						if (!rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
 							$class = 'errorbox';
 							$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
 						}
+					}
+					if (file_exists(SERVERPATH . '/extract.php')) {
+						header('Location: ' . FULLWEBPATH . '/extract.php');
+						exit();
 					} else {
 						$class = 'errorbox';
-						$msg = gettext('Did not find the <code>extract.php.bin</code> file.');
+						$msg = gettext('Did not find the <code>extract</code> file.');
 					}
 					break;
 
@@ -356,9 +357,13 @@ $buttonlist = array();
 			$setupUnprotected = printSetupWarning();
 
 			$found = safe_glob(SERVERPATH . '/setup-*.zip');
-			if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists(SERVERPATH . '/extract.php.bin')) || !empty($found))) {
+			if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
 				if ($extract) {
-					$buttonText = gettext('Install update');
+					$f = fopen($file, 'r');
+					$buffer = fread($f, 1024);
+					fclose($f);
+					preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
+					$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
 					$buttonTitle = gettext('Install the netPhotoGraphics update.');
 				} else {
 					$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($found[0]))));
