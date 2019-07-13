@@ -29,7 +29,8 @@ function reconfigureAction($mandatory) {
 		}
 		switch ($mandatory) {
 			case 11:
-				$reason = gettext('no configuration file');
+				// no configuration file
+				$reason = FALSE; // can't log if we don't know where to put the log
 				break;
 			case 12:
 				$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);

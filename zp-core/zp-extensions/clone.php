@@ -79,9 +79,9 @@ if ($plugin_disable) {
 							$valid = false;
 							switch (CORE_FOLDER) {
 								case 'zp-core':
-									$path = $row['aux'] . '/core';
+									$path = $row['aux'] . '/npgCore';
 									break;
-								case 'core':
+								case 'npgCore':
 									$path = $row['aux'] . '/zp-core';
 									break;
 							}
