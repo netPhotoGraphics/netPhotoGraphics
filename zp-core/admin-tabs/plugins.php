@@ -416,7 +416,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								</a>
 							</span>
 							<?php
-							if ($plugin_default == 'thirdparty') {
+							if ($plugin_default == 'thirdparty' && npgFunctions::hasPrimaryScripts()) {
 								?>
 								<span class="icons">
 									<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
