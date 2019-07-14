@@ -144,23 +144,14 @@ function getOptionContent() {
 									<span id="<?php echo $extension; ?>">
 										<?php
 										if ($showExtension) {
-											?>
-
-											<?php echo $extension; ?>
-
-											<?php
+											echo $extension;
 											if (!$enabled) {
 												?>
-
 												<a title="<?php echo gettext('The plugin is not enabled'); ?>">
 													<?php echo WARNING_SIGN_ORANGE; ?>
 												</a>
-
 												<?php
 											}
-											?>
-
-											<?php
 										} else {
 											$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=' . html_encode($extension);
 											?>
@@ -175,9 +166,7 @@ function getOptionContent() {
 											<?php
 										}
 										if ($warn) {
-											?>
-											<?php echo EXCLAMATION_RED; ?>
-											<?php
+											echo EXCLAMATION_RED;
 										}
 										?>
 									</span>
