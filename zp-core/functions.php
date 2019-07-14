@@ -2111,13 +2111,15 @@ function scriptLoader($script, $inline = 1) {
 				}
 			}
 			if (!$found) { //	no unresolved self relative links
+				$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
+				$content = preg_replace('~[^\S\r\n]+~', ' ', $content) . "\n";
+				$content = preg_replace('~[\r\n]+~', "\n", $content);
 				if (getSuffix($scriptFS) == 'css') {
 					?>
 					<style type="text/css">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
 					<?php
-					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
 					$content = str_replace(': ', ':', $content);
-					echo preg_replace('/\s+/', ' ', $content) . "\n";
+					echo $content;
 					?>
 					</style>
 					<?php
@@ -2125,9 +2127,7 @@ function scriptLoader($script, $inline = 1) {
 					?>
 					<script type="text/javascript">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
 					<?php
-					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
-					$content = preg_replace('~//.*~', '', $content);
-					echo preg_replace('/\s+/', ' ', $content) . "\n";
+					echo $content;
 					?>
 					</script>
 					<?php
