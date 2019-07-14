@@ -21,6 +21,7 @@ if (isset($_POST['update'])) {
 	XSRFdefender('update_menu');
 	if ($report = updateItemsSortorder()) {
 		$reports[] = $report;
+		unset($reports['updated']);
 	}
 	if ($_POST['checkallaction'] != 'noaction') {
 		$report = processMenuBulkActions();
