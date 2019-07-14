@@ -54,7 +54,7 @@ if (isset($_REQUEST['autorun'])) {
 	$displayLimited = $autorun = $autorunq = false;
 }
 
-if (file_exists(SERVERPATH . ($old = '/zp-data')) || file_exists(SERVERPATH . ($old = '/npg_data'))) {
+if (file_exists(SERVERPATH . ($old = '/zp-data'))) {
 	chmod(SERVERPATH . $old, 0777);
 	rename(SERVERPATH . $old, SERVERPATH . '/' . DATA_FOLDER);
 	chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
