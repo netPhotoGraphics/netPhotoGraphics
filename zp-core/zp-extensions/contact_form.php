@@ -329,7 +329,7 @@ function printContactForm($subject_override = '') {
 						<input type="hidden" id="confirm" name="confirm" value="confirm" />
 						<input type="hidden" id="name" name="name"	value="<?php echo html_encode($name); ?>" />
 						<input type="hidden" id="subject" name="subject"	value="<?php echo html_encode($subject); ?>" />
-						<input type="hidden" id="message"	name="message" value="<?php echo html_encodeTaggged($message); ?>" />
+						<input type="hidden" id="message"	name="message" value="<?php echo html_encodeTagged($message); ?>" />
 						<input type="hidden" id="mailaddress" name="mailaddress" value="<?php echo html_encode($mailaddress); ?>" />
 						<input type="hidden" id="username"	name="username" value="<?php echo html_encode($mailcontent['honeypot']); ?>" />
 						<input type="submit" value="<?php echo gettext("Confirm"); ?>" />
