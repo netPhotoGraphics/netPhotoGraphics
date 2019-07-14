@@ -133,8 +133,6 @@ function printLanguageSelector($flags = NULL) {
 
 	if ($flags) {
 		ksort($languages, SORT_LOCALE_STRING);
-
-		var_dump($languages);
 		?>
 		<ul class="flags">
 			<?php
