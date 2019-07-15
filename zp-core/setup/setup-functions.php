@@ -346,7 +346,7 @@ function charsetSelector($select) {
 	$selector = '<select id="FILESYSTEM_CHARSET" name="FILESYSTEM_CHARSET" >';
 	$selector .= '<option value ="unknown">' . gettext('Unknown') . '</option>';
 	$totalsets = $_UTF8->charsets;
-	ksort($totalsets);
+	ksort($totalsets, SORT_NATURAL);
 	foreach ($totalsets as $key => $char) {
 		$selector .= '	<option value="' . $key . '"';
 		if ($key == $select) {

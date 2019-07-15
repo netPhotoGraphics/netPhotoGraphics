@@ -288,7 +288,7 @@ while (($engineMC = readdir($dir)) !== false) {
 		}
 	}
 }
-ksort($engines);
+ksort($engines, SORT_NATURAL);
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
@@ -1104,7 +1104,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$rightsfound = 'unknown';
 								$rightsneeded = array(gettext('Select') => 'SELECT', gettext('Create') => 'CREATE', gettext('Drop') => 'DROP', gettext('Insert') => 'INSERT',
 										gettext('Update') => 'UPDATE', gettext('Alter') => 'ALTER', gettext('Delete') => 'DELETE', gettext('Index') => 'INDEX');
-								ksort($rightsneeded);
+								ksort($rightsneeded, SORT_LOCALE_STRING);
 								$neededlist = '';
 								foreach ($rightsneeded as $right => $value) {
 									$neededlist .= '<code>' . $right . '</code>, ';

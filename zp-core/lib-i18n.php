@@ -78,8 +78,8 @@ class i18n {
 				}
 				closedir($dir);
 			}
-			ksort($_all_languages);
-			ksort($_active_languages);
+			ksort($_all_languages, SORT_LOCALE_STRING);
+			ksort($_active_languages, SORT_LOCALE_STRING);
 		}
 		if ($all) {
 			return $_all_languages;

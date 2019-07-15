@@ -167,7 +167,7 @@ class image_effects {
 						'desc' => '<em>' . gettext('Acknowledgments') . '</em>')
 		);
 
-		ksort($docs);
+		ksort($docs, SORT_NATURAL);
 		return array_merge($std, $docs);
 	}
 

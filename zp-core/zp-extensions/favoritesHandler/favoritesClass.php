@@ -267,7 +267,7 @@ class favorites extends AlbumBase {
 					$this->images[] = array('folder' => $data['folder'], 'filename' => $data['filename']);
 					$this->imageNames[$data['folder'] . '/' . $data['filename']] = $data['filename'];
 				}
-				ksort($this->imageNames);
+				ksort($this->imageNames, SORT_LOCALE_STRING);
 				$this->lastimagesort = $sorttype . $sortdirection;
 			}
 		}

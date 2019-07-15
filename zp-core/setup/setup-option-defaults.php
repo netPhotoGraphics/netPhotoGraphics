@@ -97,7 +97,7 @@ $result = query($sql);
 while ($row = db_fetch_assoc($result)) {
 	$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
 	if (!query($sql, false)) {
-// the plugin has executed defaultExtension() which has set the _plugin_ option already
+		// the plugin has executed defaultExtension() which has set the _plugin_ option already
 		$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `id`=' . $row['id'];
 		query($sql);
 	}

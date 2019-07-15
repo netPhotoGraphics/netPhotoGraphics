@@ -60,7 +60,12 @@ if (extensionEnabled($extension)) {
 }
 
 $_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
+unset($plugin_disable);
 require_once($path); //	If it faults the shutdown functioin will disable it
+if (isset($plugin_disable) && $plugin_disable) {
+	enableExtension($extension, 0);
+	setupLog(sprintf(gettext('Plugin:%s disabled by <code>$plugin_disable</code>'), $extension), $fullLog);
+}
 foreach ($_conf_vars['special_pages'] as $definition) {
 	if (isset($definition['option'])) {
 		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');

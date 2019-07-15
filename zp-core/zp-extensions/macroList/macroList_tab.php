@@ -29,10 +29,10 @@ echo "\n</head>";
 				</h1>			<div class="tabbox">
 					<?php
 					$macros = getMacros();
-					ksort($macros);
 					if (empty($macros)) {
 						echo gettext('No macros have been defined.');
 					} else {
+						ksort($macros, SORT_LOCALE_STRING);
 						?>
 						<div>
 							<p><?php echo gettext('These Content macros can be used to insert items as described into <em>descriptions</em>, <em>zenpage content</em>, and <em>zenpage extra content</em>.</p> <p>Replace any parameters (<em>%d</em>) with the appropriate value.'); ?></p>
