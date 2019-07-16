@@ -983,6 +983,7 @@ class _Authority {
 		if (is_null($redirect)) {
 			$redirect = getRequestURI();
 		}
+
 		if (is_null($showUserField)) {
 			$showUserField = $_gallery->getUserLogonField();
 		}
@@ -999,7 +1000,7 @@ class _Authority {
 			}
 		}
 		$alt_handlers = npgFilters::apply('alt_login_handler', array());
-		ksort($alt_handlers);
+		ksort($alt_handlers, SORT_LOCALE_STRING);
 
 		$star = false;
 		$mails = array();

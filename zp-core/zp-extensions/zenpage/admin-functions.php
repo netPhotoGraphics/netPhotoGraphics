@@ -563,14 +563,14 @@ function printAuthorDropdown() {
 		<form name="AutoListBox0" id="articleauthordropdown" style="float:left; margin:5px;" action="#" >
 			<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 				<?php
-				echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All authors") . "</option>";
+				echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . '">' . gettext("All authors") . "</option>";
 				foreach ($authors as $author) {
 					if ($cur_author == $author) {
 						$selected = 'selected="selected"';
 					} else {
 						$selected = '';
 					}
-					echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . "'>$author</option>\n";
+					echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . '">$author</option>\n';
 				}
 				?>
 			</select>
@@ -602,7 +602,7 @@ function printNewsDatesDropdown() {
 	<form name="AutoListBox1" id="articledatesdropdown" style="float:left; margin:5px;" action="#" >
 		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 			<?php
-			echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("View all months") . "</option>\n";
+			echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . '">' . gettext("View all months") . "</option>\n";
 			foreach ($datecount as $key => $val) {
 				$nr++;
 				if ($key == '0000-00-01') {
@@ -624,7 +624,7 @@ function printNewsDatesDropdown() {
 				} else {
 					$selected = "";
 				}
-				echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . "'>$month $year ($val)</option>\n";
+				echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . '">$month $year ($val)</option>\n';
 			}
 			?>
 		</select>
@@ -707,10 +707,10 @@ function printUnpublishedDropdown() {
 				$all = "selected='selected'";
 			}
 			$option = getNewsAdminOption('published');
-			echo "<option $all value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All articles") . "</option>\n";
-			echo "<option $published value='news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'yes'), $option)) . "'>" . gettext("Published") . "</option>\n";
-			echo "<option $unpublished value='news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'no'), $option)) . "'>" . gettext("Un-published") . "</option>\n";
-			echo "<option $sticky value='news.php" . getNewsAdminOptionPath(array_merge(array('published' => 'sticky'), $option)) . "'>" . gettext("Sticky") . "</option>\n";
+			echo "<option $all value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . "'>" . gettext("All articles") . "</option>\n";
+			echo "<option $published value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('published' => 'yes'), $option)) . "'>" . gettext("Published") . "</option>\n";
+			echo "<option $unpublished value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('published' => 'no'), $option)) . "'>" . gettext("Un-published") . "</option>\n";
+			echo "<option $sticky value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('published' => 'sticky'), $option)) . "'>" . gettext("Sticky") . "</option>\n";
 			?>
 		</select>
 
@@ -750,7 +750,7 @@ function printSortOrderDropdown() {
 			);
 			foreach ($selections as $sortorder => $text) {
 				?>
-				<option<?php if ($sortorder == $selected) echo ' selected="selected"'; ?> value="news.php<?php echo getNewsAdminOptionPath(array_merge(array('sortorder' => $sortorder), $option)); ?>"><?php echo $text; ?></option>
+				<option<?php if ($sortorder == $selected) echo ' selected="selected"'; ?> value="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('sortorder' => $sortorder), $option)); ?>"><?php echo $text; ?></option>
 				<?php
 			}
 			?>
@@ -787,13 +787,13 @@ function printCategoryDropdown() {
 		<form name ="AutoListBox2" id="categorydropdown" style="float:left; margin:5px;" action="#" >
 			<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 				<?php
-				echo "<option $selected value='news.php" . getNewsAdminOptionPath($option) . "'>" . gettext("All categories") . "</option>\n";
+				echo "<option $selected value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . "'>" . gettext("All categories") . "</option>\n";
 				if ($category == '`') {
 					$selected = "selected='selected'";
 				} else {
 					$selected = "";
 				}
-				echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array(
+				echo "<option $selected value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array(
 						'category' => '`'), $option)) . "'>" . gettext("Un-categorized") . "</option>\n";
 
 				foreach ($result as $cat) {
@@ -816,7 +816,7 @@ function printCategoryDropdown() {
 						$title = '*' . $catobj->getTitlelink() . '*';
 					}
 					if ($selected || $count != " (0)") { //	don't list empty categories
-						echo "<option $selected value='news.php" . getNewsAdminOptionPath(array_merge(array(
+						echo "<option $selected value='" . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array(
 								'category' => $catobj->getTitlelink()), $option)) . "'>" . $levelmark . $title . $count . "</option>\n";
 					}
 				}
@@ -842,11 +842,11 @@ function printArticlesPerPageDropdown($subpage) {
 			sort($list);
 			foreach ($list as $count) {
 				?>
-				<option <?php if ($articles_page == $count) echo 'selected="selected"'; ?> value="news.php<?php echo getNewsAdminOptionPath(array_merge(array('articles_page' => $count, 'subpage' => (int) ($subpage * $articles_page / $count)), $option)); ?>"><?php printf(gettext('%u per page'), $count); ?></option>
+				<option <?php if ($articles_page == $count) echo 'selected="selected"'; ?> value="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('articles_page' => $count, 'subpage' => (int) ($subpage * $articles_page / $count)), $option)); ?>"><?php printf(gettext('%u per page'), $count); ?></option>
 				<?php
 			}
 			?>
-			<option <?php if ($articles_page == 0) echo 'selected="selected"'; ?> value="news.php<?php echo getNewsAdminOptionPath(array_merge(array('articles_page' => 'all'), $option)); ?>"><?php echo gettext("All"); ?></option>
+			<option <?php if ($articles_page == 0) echo 'selected="selected"'; ?> value="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('articles_page' => 'all'), $option)); ?>"><?php echo gettext("All"); ?></option>
 		</select>
 
 	</form>

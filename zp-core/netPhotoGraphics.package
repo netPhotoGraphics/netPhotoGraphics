@@ -850,7 +850,6 @@ themes/zpmobile/images/rss.png
 themes/zpmobile/jquerymobile
 themes/zpmobile/jquerymobile/jquery.mobile-1.4.5.min.css
 themes/zpmobile/jquerymobile/jquery.mobile-1.4.5.min.js
-themes/zpmobile/jquerymobile/jquery.mobile-1.4.5.min.map
 themes/zpmobile/jquerymobile/images
 themes/zpmobile/jquerymobile/images/ajax-loader.gif
 themes/zpmobile/jquerymobile/images/icons-png
@@ -8436,4 +8435,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8438
+8437

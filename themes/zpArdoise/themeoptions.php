@@ -11,6 +11,12 @@ require_once(CORE_SERVERPATH . 'admin-functions.php');
 class ThemeOptions {
 
 	function __construct() {
+		if (OFFSET_PATH == 2) {
+			//	fixup the license.htm references to the gitHub repository
+			$license = file_get_contents(SERVERPATH . '/' . THEMEFOLDER . '/zpArdoise/license.htm');
+			$license = preg_replace('~github.com/(.*)/netPhotoGraphics~', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics', $license);
+			file_put_contents(SERVERPATH . '/' . THEMEFOLDER . '/zpArdoise/license.htm', $license);
+		}
 		setThemeOptionDefault('albums_per_row', 3);
 		setThemeOptionDefault('albums_per_page', 9);
 		setThemeOptionDefault('images_per_row', 5);

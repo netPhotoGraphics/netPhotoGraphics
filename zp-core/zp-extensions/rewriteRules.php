@@ -219,7 +219,7 @@ class rewriteRules {
 		foreach ($this->plugin_vars as $page => $element) {
 			$options[$page] = self::anOption($page, $element, $_definitions);
 		}
-		ksort($options);
+		ksort($options, SORT_NATURAL);
 		$order = 0;
 		foreach ($options as $key => $option) {
 			$options[$key]['order'] = $order++;

@@ -341,7 +341,7 @@ function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false)
 		$file = filesystemToInternal($file);
 		$list[stripSuffix($file)] = $file;
 	}
-	ksort($list);
+	ksort($list, SORT_LOCALE_STRING);
 
 	$html = $text;
 	if (count($files) != 0) {

@@ -140,9 +140,9 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 							$owners[USER_PLUGIN_FOLDER][strtolower($creator)] = $creator;
 						}
 					}
-					ksort($owners[CORE_FOLDER . '/' . PLUGIN_FOLDER]);
-					ksort($owners[USER_PLUGIN_FOLDER]);
-					ksort($owners[THEMEFOLDER]);
+					ksort($owners[CORE_FOLDER . '/' . PLUGIN_FOLDER], SORT_NATURAL);
+					ksort($owners[USER_PLUGIN_FOLDER], SORT_NATURAL);
+					ksort($owners[THEMEFOLDER], SORT_NATURAL);
 
 					$empty = $hiddenOptions = false;
 					$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `creator` is NULL || `creator` LIKE "%purgeOptions%" ORDER BY `name`';
