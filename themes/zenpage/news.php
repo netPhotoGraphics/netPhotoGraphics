@@ -11,7 +11,7 @@ if (class_exists('CMS')) {
 			npgFilters::apply('theme_head');
 			scriptLoader($_themeroot . '/style.css');
 			if (class_exists('RSS'))
-				printRSSHeaderLink("News", "Zenpage news", "");
+				printRSSHeaderLink("News", NEWS_LABEL, "");
 			?>
 		</head>
 

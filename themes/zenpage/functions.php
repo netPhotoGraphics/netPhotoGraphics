@@ -2,7 +2,7 @@
 // force UTF-8 Ø
 
 /**
- * Prints jQuery JS to enable the toggling of search results of Zenpage  items
+ * Prints jQuery JS to enable the toggling of search results of CMS items
  *
  */
 function printZDSearchToggleJS() {

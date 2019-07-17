@@ -126,7 +126,7 @@ class multipleLayoutOptions {
  *
  * @param object $obj the object being selected
  * @param string $type For Gallery items "albums", "images"
- * 										 For zenpage items "pages", , "news" , "news_categories"
+ * 										 For CMS items "pages", "news", "news_categories"
  * @return result
  */
 function getSelectedLayout($obj, $type) {
@@ -145,7 +145,7 @@ function getSelectedLayout($obj, $type) {
  *
  * @param object $obj the object being selected
  * @param string $type For gallery items "albums"
- * 										 For zenpage items , "pages", , "news" , "news_categories"
+ * 										 For CMS items, "pages", "news", "news_categories"
  * @return result
  */
 function checkParentLayouts($obj, $type) {

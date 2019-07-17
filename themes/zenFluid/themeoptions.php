@@ -52,9 +52,9 @@ class ThemeOptions {
 		setThemeOptionDefault('albums_per_row', 2);
 		setThemeOptionDefault('images_per_page', 20);
 		setThemeOptionDefault('images_per_row', 2);
-		setThemeOptionDefault('image_size', 1920, NULL, 'zenpage');
-		setThemeOptionDefault('image_use_side', 'width', NULL, 'zenpage');
-		setThemeOptionDefault('thumb_size', 100, NULL, 'zenpage');
+		setThemeOptionDefault('image_size', 1920);
+		setThemeOptionDefault('image_use_side', 'width');
+		setThemeOptionDefault('thumb_size', 100, NULL);
 		setThemeOptionDefault('thumb_crop_width', 100);
 		setThemeOptionDefault('thumb_crop_height', 100);
 		setThemeOptionDefault('thumb_crop', 1);

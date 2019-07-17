@@ -237,7 +237,7 @@ function printItemsList($items) {
 }
 
 /**
- * Prints the link to the edit page of a menu item. For gallery and Zenpage items it links to their normal edit pages, for custom pages and custom links to menu specific edit page.
+ * Prints the link to the edit page of a menu item. For gallery and CMS items it links to their normal edit pages, for custom pages and custom links to menu specific edit page.
  *
  * @param array $item Array of the menu item
  */

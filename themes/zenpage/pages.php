@@ -13,12 +13,12 @@ if (class_exists('CMS')) {
 			scriptLoader($_themeroot . '/style.css');
 
 			if (class_exists('RSS'))
-				printRSSHeaderLink("News", "Zenpage news", "");
+				printRSSHeaderLink("News", NEWS_LABEL, "");
 			?>
 		</head>
 
 		<body>
-	<?php npgFilters::apply('theme_body_open'); ?>
+			<?php npgFilters::apply('theme_body_open'); ?>
 
 			<div id="main">
 
@@ -61,12 +61,12 @@ if (class_exists('CMS')) {
 
 
 					<div id="sidebar">
-	<?php include("sidebar.php"); ?>
+						<?php include("sidebar.php"); ?>
 					</div><!-- sidebar -->
 
 
 					<div id="footer">
-	<?php include("footer.php"); ?>
+						<?php include("footer.php"); ?>
 					</div>
 
 				</div><!-- content -->

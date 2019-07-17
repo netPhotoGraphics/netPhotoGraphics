@@ -120,7 +120,7 @@ function getTitleBreadcrumb($before = ' ( ', $between = ' | ', $after = ' ) ') {
 	return $titlebreadcrumb;
 }
 
-/* Prints jQuery JS to enable the toggling of search results of Zenpage  items */
+/* Prints jQuery JS to enable the toggling of search results of CMS items */
 
 function printZDSearchToggleJS() {
 	?>
@@ -140,7 +140,7 @@ function printZDSearchToggleJS() {
 	<?php
 }
 
-/* Prints the "Show more results link" for search results for Zenpage items */
+/* Prints the "Show more results link" for search results for CMS items */
 
 function printZDSearchShowMoreLink($option, $number_to_show) {
 	$option = strtolower($option);
@@ -161,7 +161,7 @@ function printZDSearchShowMoreLink($option, $number_to_show) {
 	}
 }
 
-/* Adds the css class necessary for toggling of Zenpage items search results */
+/* Adds the css class necessary for toggling of CMS items search results */
 
 function printZDToggleClass($option, $c, $number_to_show) {
 	$option = strtolower($option);

@@ -64,7 +64,7 @@ if (!defined('WEBPATH'))
 					echo "<p>" . gettext('Sorry, no matches for your search.') . "</p>";
 				}
 
-				if ($zenpage && $_current_page == 1) { //test of zenpage searches
+				if ($zenpage && $_current_page == 1) { //test of CMS searches
 					define('TRUNCATE_LENGTH', 80);
 					define('SHOW_ITEMS', 5);
 					?>

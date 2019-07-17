@@ -215,7 +215,7 @@ function printZDSearchToggleJS() {
 }
 
 /**
- * Prints the "Show more results link" for search results for Zenpage items
+ * Prints the "Show more results link" for search results for CMS items
  *
  * @param string $option "news" or "pages"
  * @param int $number_to_show how many search results should be shown initially
@@ -240,7 +240,7 @@ function printZDSearchShowMoreLink($option, $number_to_show) {
 }
 
 /**
- * Adds the css class necessary for toggling of Zenpage items search results
+ * Adds the css class necessary for toggling of CMS items search results
  *
  * @param string $option "news" or "pages"
  * @param string $c After which result item the toggling should begin. Here to be passed from the results loop.
