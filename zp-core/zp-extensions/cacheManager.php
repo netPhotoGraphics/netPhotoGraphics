@@ -434,6 +434,7 @@ class cacheManager {
 	 * @since 1.8.0.11
 	 */
 	static function addThemeCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
+		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/cacheManager/deprecated-functions.php');
 		cachemanager_internal_deprecations::addThemeCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark, $effects, $maxspace);
 	}
 
@@ -442,6 +443,7 @@ class cacheManager {
 	 * @since 1.8.0.11
 	 */
 	static function deleteThemeCacheSizes($owner) {
+		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/cacheManager/deprecated-functions.php');
 		cachemanager_internal_deprecations::deleteThemeCacheSizes($owner);
 	}
 
@@ -588,6 +590,7 @@ class cacheManager {
 	 * @param misc $args
 	 */
 	public static function __callStatic($method, $args) {
+		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/cacheManager/deprecated-functions.php');
 		cachemanager_internal_deprecations::generalDeprecation($method, $args);
 	}
 
