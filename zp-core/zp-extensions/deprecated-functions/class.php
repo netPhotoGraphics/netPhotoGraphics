@@ -103,7 +103,7 @@ class deprecated_functions {
 	static function notify($message, $fcn = NULL) {
 		$traces = debug_backtrace();
 		foreach ($traces as $key => $trace) {
-			if (!array_key_exists('file', $trace) || basename($trace['file']) != 'deprecated-functions.php') {
+			if (!array_key_exists('file', $trace) || strpos($trace['file'], 'deprecated-functions') === FALSE) {
 				break;
 			}
 			unset($traces[$key]);
