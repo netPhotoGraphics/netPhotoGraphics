@@ -25,7 +25,7 @@ $option_interface = 'tinymce';
 if (!defined('EDITOR_SANITIZE_LEVEL'))
 	define('EDITOR_SANITIZE_LEVEL', 4);
 if (!defined('TINYMCE')) {
-	define('TINYMCE', CORE_SERVERPATH .  PLUGIN_FOLDER . '/tinymce');
+	define('TINYMCE', CORE_SERVERPATH . PLUGIN_FOLDER . '/tinymce');
 }
 npgFilters::register('texteditor_config', 'tinymce::configJS');
 
@@ -37,8 +37,18 @@ class tinymce {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('tinymce_zenphoto', 'zenphoto-ribbon.php');
-			setOptionDefault('tinymce_zenpage', 'zenpage-ribbon.php');
+			$option = getOption('tinymce_zenphoto');
+			if (!is_null($option)) {
+				setOption('tinymce_photo', str_replace('zenphoto', 'photo', $option));
+			}
+			purgeOption('tinymce_zenphoto');
+			$option = getOption('tinymce_zenpage');
+			if (!is_null($option)) {
+				setOption('tinymce_CMS', str_replace('zenpage', 'CMS', $option));
+			}
+			purgeOption('tinymce_zenpage');
+			setOptionDefault('tinymce_photo', 'photo-ribbon.php');
+			setOptionDefault('tinymce_CMS', 'CMS-ribbon.php');
 			setOptionDefault('tiny_mce_entity_encoding', 'raw');
 		}
 	}
@@ -48,15 +58,15 @@ class tinymce {
 		if ($_RTL_css) {
 			setOption('tiny_mce_rtl_override', 1, false);
 		}
-		$configs_zenpage = self::getConfigFiles('zenpage');
-		$configs_zenphoto = self::getConfigFiles('zenphoto');
+		$configs_zenpage = self::getConfigFiles('CMS');
+		$configs_zenphoto = self::getConfigFiles('photo');
 		$options = array(
-				gettext('Text editor configuration - gallery') => array('key' => 'tinymce_zenphoto', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Text editor configuration - gallery') => array('key' => 'tinymce_photo', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 0,
 						'selections' => $configs_zenphoto,
 						'null_selection' => gettext('Disabled'),
 						'desc' => gettext('Applies to <em>admin</em> editable text other than for Zenpage pages and news articles.')),
-				gettext('Text editor configuration - zenpage') => array('key' => 'tinymce_zenpage', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Text editor configuration - zenpage') => array('key' => 'tinymce_CMS', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 1,
 						'selections' => $configs_zenpage,
 						'null_selection' => gettext('Disabled'),
@@ -65,7 +75,7 @@ class tinymce {
 						'order' => 2,
 						'selections' => array(gettext('named') => 'named', gettext('numeric') => 'numeric', gettext('raw') => 'raw'),
 						'desc' => gettext('Select the TinyMCE <em>entity_encoding</em> strategy.')),
-				gettext('Text editor text direction') => array('key' => 'tiny_mce_rtl_override', 'type' => OPTION_TYPE_CHECKBOX,
+				gettext('RTL text direction') => array('key' => 'tiny_mce_rtl_override', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 3,
 						'desc' => gettext('This option should be checked if your language writing direction is right-to-left')));
 		return $options;

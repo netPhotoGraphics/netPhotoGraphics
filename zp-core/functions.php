@@ -168,9 +168,12 @@ function html_encodeTagged($original, $allowScript = true) {
  *
  * Algorithm copyright by Stephen Billard for use in netPhotoGraphics and derivitive implementations
  */
-function shortenContent($articlecontent, $shorten, $shortenindicator = '...') {
+function shortenContent($articlecontent, $shorten, $shortenindicator = NULL) {
 	//conservatve check if the string is too long.
 	if ($shorten && (mb_strlen(strip_tags($articlecontent)) > (int) $shorten)) {
+		if (is_null($shortenindicator)) {
+			$shortenindicator = getOption("CMS_textshorten_indicator");
+		}
 		//remove HTML comments (except for page break indicators)
 		$content = preg_replace('~<!-- pagebreak -->~isU', '</PageBreak>', $articlecontent, -1, $breaks);
 		$content = preg_replace('~<!--.*-->~isU', '', $content);

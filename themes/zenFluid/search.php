@@ -65,7 +65,7 @@ npgFilters::apply('theme_file_top')
 								<li<?php printZDToggleClass('pages', $c, $number_to_show); ?>>
 									<?php 
 									printPageURL();
-									echo "<p>" . shortenContent(strip_tags(getPageContent()), 150, getOption("zenpage_textshorten_indicator")) . "</p>"; 
+									echo "<p>" . shortenContent(strip_tags(getPageContent()), 150) . "</p>"; 
 									?>
 								</li>
 								<?php 
@@ -90,7 +90,7 @@ npgFilters::apply('theme_file_top')
 								<li<?php printZDToggleClass('news', $c, $number_to_show); ?>>
 									<?php 
 									printNewsURL();
-									echo "<p>" . shortenContent(strip_tags(getNewsContent()), 150, getOption("zenpage_textshorten_indicator")) . "</p>"; 
+									echo "<p>" . shortenContent(strip_tags(getNewsContent()), 150) . "</p>"; 
 									?>
 								</li>
 								<?php 
@@ -118,7 +118,7 @@ npgFilters::apply('theme_file_top')
 										<?php 
 										$numItems = getNumImages() + getNumAlbums();
 										printAlbumTitle(); echo ' (' . $numItems . ')';
-										echo "<p>" . shortenContent(strip_tags(getAlbumDesc()), 150, getOption("zenpage_textshorten_indicator")) . "</p>"; 
+										echo "<p>" . shortenContent(strip_tags(getAlbumDesc()), 150) . "</p>"; 
 										?>
 									</div>
 								</div>
@@ -156,7 +156,7 @@ npgFilters::apply('theme_file_top')
 									<div class="thumbtitle">
 										<?php 
 										printImageTitle();
-										echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150, getOption("zenpage_textshorten_indicator")) . "</p>"; 
+										echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150) . "</p>"; 
 										?>
 									</div>
 								</div>

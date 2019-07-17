@@ -84,12 +84,18 @@ $_CMS = new CMS();
 class cmsFilters {
 
 	function __construct() {
+
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('zenpage_articles_per_page', '10');
-			setOptionDefault('zenpage_text_length', '500');
-			setOptionDefault('zenpage_textshorten_indicator', ' (...)');
-			setOptionDefault('zenpage_read_more', getAllTranslations('Read more'));
-			setOptionDefault('zenpage_enabled_items', 3);
+			$options = getOptionsLike('zenpage');
+			foreach ($options as $key => $value) {
+				setOption(str_replace('zenpage', 'CMS', $key), $value);
+				purgeOption($key);
+			}
+			setOptionDefault('CMS_articles_per_page', '10');
+			setOptionDefault('CMS_text_length', '500');
+			setOptionDefault('CMS_textshorten_indicator', ' (...)');
+			setOptionDefault('CMS_read_more', getAllTranslations('Read more'));
+			setOptionDefault('CMS_enabled_items', 3);
 		}
 	}
 
@@ -102,7 +108,7 @@ class cmsFilters {
 						'desc' => gettext('Change this option if you want the news items named something else. This option also changes the rewrite token for <em>news</em>. For multilingual sites, the token will use the site language (if set) defaulting to the string for the current locale, the en_US string, or the first string which ever is present. Note: Themes should be using the define <var>NEWS_LABEL:</var> instead of <var>gettext("News")</var>. The change applies to the front-end only, admin pages still refer to <em>news</em> as news.')),
 				'hidden' => array('key' => 'zenpage_news_label_prior', 'type' => OPTION_TYPE_HIDDEN, 'value' => getOption('zenpage_news_label')),
 				gettext('Enabled CMS items') => array(
-						'key' => 'zenpage_enabled_items',
+						'key' => 'CMS_enabled_items',
 						'type' => OPTION_TYPE_RADIO,
 						'order' => 7,
 						'buttons' => array(
@@ -112,16 +118,16 @@ class cmsFilters {
 						),
 						'desc' => gettext('Select the CMS features you wish to use on your site.')
 				),
-				gettext('Articles per page (theme)') => array('key' => 'zenpage_articles_per_page', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Articles per page (theme)') => array('key' => 'CMS_articles_per_page', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 0.5,
 						'desc' => gettext("How many news articles you want to show per page on the news or news category pages.")),
-				gettext('News article text length') => array('key' => 'zenpage_text_length', 'type' => OPTION_TYPE_NUMBER,
+				gettext('News article text length') => array('key' => 'CMS_text_length', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => gettext("The length of news article excerpts in news or news category pages. Leave empty for full text.")),
-				gettext('News article text shorten indicator') => array('key' => 'zenpage_textshorten_indicator', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('News article text shorten indicator') => array('key' => 'CMS_textshorten_indicator', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 2,
 						'desc' => gettext("Something that indicates that the article text is shortened, “ (...)” by default.")),
-				gettext('Read more') => array('key' => 'zenpage_read_more', 'type' => OPTION_TYPE_TEXTBOX, 'multilingual' => 1,
+				gettext('Read more') => array('key' => 'CMS_read_more', 'type' => OPTION_TYPE_TEXTBOX, 'multilingual' => 1,
 						'order' => 3,
 						'desc' => gettext("The text for the link to the full article.")),
 				gettext('Truncate titles*') => array('key' => 'menu_truncate_string', 'type' => OPTION_TYPE_NUMBER,

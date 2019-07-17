@@ -129,7 +129,7 @@ if (!defined('WEBPATH'))
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 			<?php printPageURL(); ?>
-																<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_page->getContent()); ?></p>
+																<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent()); ?></p>
 															</li>
 															<?php
 														}
@@ -162,7 +162,7 @@ if (!defined('WEBPATH'))
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 			<?php printNewsURL(); ?>
-																<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_article->getContent()); ?></p>
+																<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent()); ?></p>
 															</li>
 															<?php
 														}

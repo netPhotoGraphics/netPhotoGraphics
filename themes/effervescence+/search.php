@@ -164,7 +164,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 												<?php print printPageURL(); ?>
-												<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
 											</li>
 											<?php
 										}
@@ -197,7 +197,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 												<?php printNewsURL(); ?>
-												<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
 											</li>
 											<?php
 										}

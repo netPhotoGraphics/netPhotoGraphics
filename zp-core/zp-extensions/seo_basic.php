@@ -5,22 +5,22 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @package plugins/seo_zenphoto
+ * @package plugins/seo_basic
  * @pluginCategory seo
  */
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext("SEO filter to translate extended characters into their basic alpha-numeric equivalents.");
 
-$option_interface = 'zenphoto_seo';
+$option_interface = 'seo_basic';
 
-npgFilters::register('seoFriendly', 'zenphoto_seo::filter');
-npgFilters::register('seoFriendly_js', 'zenphoto_seo::js');
+npgFilters::register('seoFriendly', 'seo_basic::filter');
+npgFilters::register('seoFriendly_js', 'seo_basic::js');
 
 /**
  * Option handler class
  *
  */
-class zenphoto_seo {
+class seo_basic {
 
 	/**
 	 * class instantiation function
@@ -29,7 +29,13 @@ class zenphoto_seo {
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('zenphoto_seo_lowercase', 1);
+			$priority = extensionEnabled('seo_zenphoto');
+			if (!is_null($priority)) {
+				enableExtension('seo_basic', $priority);
+			}
+			purgeOption('_plugin_seo_zenphoto');
+			setOptionDefault('seo_basic_lowercase', getOption('zenphoto_seo_lowercase'));
+			purgeOption('zenphoto_seo_lowercase');
 		}
 	}
 
@@ -39,8 +45,9 @@ class zenphoto_seo {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		return array(gettext('Lowercase only') => array('key' => 'zenphoto_seo_lowercase', 'type' => OPTION_TYPE_CHECKBOX,
-						'desc' => gettext('When set, all characters are converted to lower case.')));
+		return array(gettext('Lowercase only') => array('key' => 'seo_basic_lowercase', 'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext(
+										'When set, all characters are converted to lower case.')));
 	}
 
 	function handleOption($option, $currentValue) {
@@ -1041,32 +1048,33 @@ class zenphoto_seo {
 	 * @return string
 	 */
 	static function filter($string) {
-		$string = str_replace(array_keys(self::$specialchars), self::$specialchars, $string);
+		$string = str_replace(array_keys(self ::$specialchars), self::$specialchars, $string);
 		if (getOption('zenphoto_seo_lowercase')) {
 			$string = strtolower($string);
 		}
 		$string = preg_replace("/\s+/", "-", $string);
 		$string = preg_replace("/[^a-zA-Z0-9_.-]/", "-", $string);
+
+
 		return $string;
 	}
 
 	static function js($js) {
 		$xlate = array();
-		foreach (zenphoto_seo::$specialchars as $from => $to) {
+		foreach (self::$specialchars as $from => $to) {
 			if (array_key_exists($to, $xlate)) {
 				$xlate[$to] .= $from;
 			} else {
 				$xlate[$to] = $from;
 			}
-		}
-
-		foreach ($xlate as $to => $from) {
+		} foreach ($xlate as $to => $from) {
 			$js .= "fname = fname.replace(/[" . $from . "]/g, '" . $to . "');\n";
 		}
 
-		if (getOption('zenphoto_seo_lowercase')) {
+		if (getOption('seo_basaic_lowercase')) {
 			$js .= "fname = fname.toLowerCase();\n";
 		}
+
 		return $js;
 	}
 

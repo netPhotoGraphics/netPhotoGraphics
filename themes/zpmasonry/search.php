@@ -143,7 +143,7 @@ if (!empty($searchdate)) {
 					?>
 					<div class="news-truncate <?php echo $zpmas_col_album; ?> box">
 						<h2><?php printPageTitlelink(); ?></h2>
-						<p><?php echo html_encodeTagged(shortenContent(getPageContent(), 200, getOption("zenpage_textshorten_indicator"))); ?></p>
+						<p><?php echo html_encodeTagged(shortenContent(getPageContent(), 200)); ?></p>
 					</div>
 					<?php
 				}
@@ -159,7 +159,7 @@ if (!empty($searchdate)) {
 						<div class="newsarticlecredit">
 							<span><?php printNewsDate(); ?></span><span><?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?></span><?php if (function_exists('printCommentForm')) { ?><span><?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?></span><?php } ?>
 						</div>
-						<p><?php echo html_encodeTagged(shortenContent(getNewsContent(), 200, getOption("zenpage_textshorten_indicator"))); ?></p>
+						<p><?php echo html_encodeTagged(shortenContent(getNewsContent(), 200)); ?></p>
 					</div>
 					<?php
 				}

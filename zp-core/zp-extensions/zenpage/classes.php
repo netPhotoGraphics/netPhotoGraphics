@@ -9,10 +9,10 @@
  * Some global variable setup
  *
  */
-define('SHORTENINDICATOR', $shortenindicator = getOption('zenpage_textshorten_indicator'));
-define('SHORTEN_LENGTH', getOption('zenpage_text_length'));
-define('READ_MORE', getOption("zenpage_read_more"));
-define('ARTICLES_PER_PAGE', getOption("zenpage_articles_per_page"));
+define('SHORTENINDICATOR', $shortenindicator = getOption('CMS_textshorten_indicator'));
+define('SHORTEN_LENGTH', getOption('CMS_text_length'));
+define('READ_MORE', getOption("CMS_read_more"));
+define('ARTICLES_PER_PAGE', getOption("CMS_articles_per_page"));
 
 class CMS {
 
@@ -40,8 +40,8 @@ class CMS {
 		foreach ($allcategories as $cat) {
 			$this->categoryStructure[$cat['id']] = $cat;
 		}
-		$this->news_enabled = getOption('zenpage_enabled_items') & 1;
-		$this->pages_enabled = getOption('zenpage_enabled_items') & 2;
+		$this->news_enabled = getOption('CMS_enabled_items') & 1;
+		$this->pages_enabled = getOption('CMS_enabled_items') & 2;
 	}
 
 	/**

@@ -489,10 +489,6 @@ function commonNewsLoop($paged) {
 	}
 }
 
-function exerpt($content, $length) {
-	return shortenContent($content, $length, getOption("zenpage_textshorten_indicator"));
-}
-
 function commonComment() {
 	if (function_exists('printCommentForm')) {
 		?>
