@@ -570,7 +570,7 @@ function printAuthorDropdown() {
 					} else {
 						$selected = '';
 					}
-					echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . '">$author</option>\n';
+					echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . '">' . $author . '</option>\n';
 				}
 				?>
 			</select>
@@ -624,7 +624,7 @@ function printNewsDatesDropdown() {
 				} else {
 					$selected = "";
 				}
-				echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . '">$month $year ($val)</option>\n';
+				echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . '">' . $month . ' ' . $year . ' (' . $val . ')</option>\n';
 			}
 			?>
 		</select>
