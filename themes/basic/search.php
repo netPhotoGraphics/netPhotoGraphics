@@ -19,7 +19,7 @@ if (!defined('WEBPATH'))
 	<body>
 		<?php
 		npgFilters::apply('theme_body_open');
-		$zenpage = extensionEnabled('zenpage');
+		$zenpage = class_exists('CMS');
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;

@@ -10,7 +10,7 @@ if (function_exists("printAllNewsCategories")) {
 <?php if (function_exists("printAlbumMenu")) { ?>
 	<div class="menu">
 		<?php
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			if ($_gallery_page == 'index.php' || $_gallery_page != 'gallery.php') {
 				?>
 				<h3>
@@ -41,7 +41,7 @@ if (function_exists("printAllNewsCategories")) {
 }
 ?>
 
-<?php if (extensionEnabled('zenpage')) { ?>
+<?php if (class_exists('CMS')) { ?>
 	<div class="menu">
 		<h3><?php echo gettext("Latest notes"); ?></h3>
 		<ul>

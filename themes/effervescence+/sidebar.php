@@ -3,7 +3,7 @@
 
 rem_context(NPG_ALBUM | NPG_IMAGE);
 $archivlinktext = gettext('Gallery');
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	if ($news = hasNews()) {
 		$archivlinktext = gettext('Both');
 	}
@@ -20,7 +20,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 		?>
 	</div>
 	<?php
-} else { //	"standard zenpage sidebar menus
+} else { //	"standard sidebar menus
 	if ($news) {
 		?>
 		<div class="menu">
@@ -36,7 +36,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 		?>
 		<div class="menu">
 			<?php
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				if ($_gallery_page == 'index.php' || $_gallery_page != 'gallery.php') {
 					?>
 					<h3>
@@ -54,7 +54,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('effervescence_menu
 		</div>
 		<?php
 	} else {
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			?>
 			<div class="menu">
 				<h3><?php echo gettext("Albums"); ?></h3>

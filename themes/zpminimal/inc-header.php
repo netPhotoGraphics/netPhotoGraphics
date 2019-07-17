@@ -126,7 +126,7 @@ if (function_exists('printAddThis')) {
 		?>
 
 		<?php
-		$zenpage = extensionEnabled('zenpage');
+		$zenpage = class_exists('CMS');
 		//$cb = extensionEnabled('colorbox');
 		if (!is_null(getOption('zpmin_finallink'))) {
 			$zpmin_finallink = getOption('zpmin_finallink');

@@ -22,7 +22,7 @@ if (!defined('WEBPATH'))
 			<div id="header">
 				<h1><?php printGalleryTitle(); ?></h1>
 				<?php
-				$zenpage = extensionEnabled('zenpage');
+				$zenpage = class_exists('CMS');
 				$numimages = getNumImages();
 				$numalbums = getNumAlbums();
 				$total = $numimages + $numalbums;

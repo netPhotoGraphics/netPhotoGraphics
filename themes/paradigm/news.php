@@ -8,7 +8,7 @@ if (class_exists("CMS")) {
 	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
 	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
 
-	<?php if (class_exists('RSS')) printRSSHeaderLink("News", "Zenpage news", ""); ?>
+	<?php if (class_exists('RSS')) printRSSHeaderLink("News", NEWS_LABEL, ""); ?>
 
 
 	<div id="background-main" class="background">

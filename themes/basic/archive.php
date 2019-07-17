@@ -40,7 +40,7 @@ if (!defined('WEBPATH'))
 				</div>
 				<div id="archive"><?php printAllDates(); ?></div>
 				<?php
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					if (hasNews()) {
 						?>
 						<div class="news_header">

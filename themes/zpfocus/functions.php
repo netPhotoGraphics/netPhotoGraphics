@@ -2,7 +2,7 @@
 $_current_page_check = 'my_checkPageValidity';
 
 enableExtension('colorbox', false, false);
-$zenpage = extensionEnabled('zenpage');
+$zenpage = class_exists('CMS');
 if ((function_exists('printGslideshow')) && (function_exists('printSlideShow'))) {
 	$useGslideshow = true;
 } else {
@@ -219,7 +219,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				if (checkForPage(getOption("zpfocus_homepage"))) {
 					return $page == 1; // only one page if enabled.
 				}

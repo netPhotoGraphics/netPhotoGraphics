@@ -73,8 +73,8 @@ class GDPR_required {
 						'desc' => gettext('Provide a comma separated list of user agents (web crawlers) that may bypass the acknowledgement. This is useful to allow indexing robots to browse your site.'))
 		);
 		$notice = array();
-		if (!extensionEnabled('zenpage')) {
-			$notice [] = gettext('The zenpage plugin is not enabled.');
+		if (!class_exists('CMS')) {
+			$notice [] = gettext('The CMS plugin is not enabled.');
 			if (!file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem(getCurrentTheme()) . '/pages.php')) {
 				$notice[] = gettext('The active theme has no <em>pages.php</em> script.');
 			}

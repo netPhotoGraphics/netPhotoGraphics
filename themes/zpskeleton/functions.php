@@ -1,7 +1,7 @@
 <?php
 // Check some settings
 
-$zenpage = extensionEnabled('zenpage');
+$zenpage = class_exists('CMS');
 $thumbcrop = getOption('thumb_crop');
 $zpskel_disablewarning = getOption('zpskel_disablewarning'); // test is disable warning is checked
 if (is_null(getOption('zpskel_thumbsize'))) {
@@ -193,7 +193,7 @@ function printPPSlideShowLink($linktext = '', $linkstyle = '') {
 	}
 }
 
-// Prints jQuery JS to enable the toggling of search results of Zenpage plugin items
+// Prints jQuery JS to enable the toggling of search results of CMS plugin items
 function printZDSearchToggleJS() {
 	?>
 	<script type="text/javascript">

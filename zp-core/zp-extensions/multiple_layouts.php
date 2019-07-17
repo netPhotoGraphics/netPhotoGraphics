@@ -56,7 +56,7 @@ if (getOption('multiple_layouts_images')) {
 	npgFilters::register('edit_image_utilities', 'layoutSelector');
 	npgFilters::register('save_image_data', 'saveLayoutSelectionFilter');
 }
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	if (getOption('multiple_layouts_pages')) {
 		npgFilters::register('publish_page_utilities', 'layoutSelector');
 		npgFilters::register('new_page', 'saveLayoutSelection');
@@ -105,7 +105,7 @@ class multipleLayoutOptions {
 
 	function getOptionsSupported() {
 		$checkboxes = array(gettext('Albums') => 'multiple_layouts_albums', gettext('Images') => 'multiple_layouts_images');
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$checkboxes = array_merge($checkboxes, array(gettext('Pages') => 'multiple_layouts_pages', gettext('News') => 'multiple_layouts_news', gettext('News categories') => 'multiple_layouts_news_categories'));
 		}
 		$options = array(gettext('Enable multiple layouts for') => array('key' => 'multiple_layouts_allowed', 'type' => OPTION_TYPE_CHECKBOX_ARRAY,

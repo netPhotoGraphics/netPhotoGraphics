@@ -85,7 +85,7 @@ function printItemsListTable($item, $toodeep) {
 			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('Target does not exist') . '</span>';
 			break;
 		case 3:
-			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('Zenpage plugin not enabled') . '</span>';
+			$link = html_encodeTagged(shortenContent($item['link'], MENU_ITEM_TRUNCATION, '...')) . ' <span class="notebox">' . gettext('CMS plugin not enabled') . '</span>';
 			break;
 	}
 	?>
@@ -495,7 +495,7 @@ function addItem(&$reports) {
 			query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
 							"VALUES ('" . gettext('Home') . "', '','siteindex','1'," . db_quote($menuset) . ",'000')", true);
 			addAlbumsToDatabase($menuset);
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
 								"VALUES ('" . gettext('News index') . "', '" . getNewsIndexURL() . "', 'newsindex', '1', " . db_quote($menuset) . ", '001')", true);
 				addPagesToDatabase($menuset);

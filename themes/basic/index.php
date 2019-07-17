@@ -56,7 +56,7 @@ if (!defined('WEBPATH'))
 				printCodeblock(2);
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 				$pages = $news = NULL;
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					$news = hasNews();
 					$pages = hasPages();
 				}

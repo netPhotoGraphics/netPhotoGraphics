@@ -180,7 +180,7 @@ function comment_form_print10Most() {
 							}
 							break;
 						case "news": // ZENPAGE: if plugin is installed
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								$news = getCommentOwner('news', $comment['ownerid']);
 								if ($news) {
 									$link = "<a href=\"" . $news->getLink() . "\">" . $news->getTitle() . "</a> " . gettext("[news]");
@@ -188,7 +188,7 @@ function comment_form_print10Most() {
 							}
 							break;
 						case "pages": // ZENPAGE: if plugin is installed
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								$page = getCommentOwner('pages', $comment['ownerid']);
 								if ($page) {
 									$link = "<a href=\"" . $page->getlink() . "\">" . $page->getTitle() . "</a> " . gettext("[page]");

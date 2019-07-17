@@ -12,7 +12,7 @@ define('OFFSET_PATH', 3);
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
 
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 
@@ -404,7 +404,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 					</p>
 
 					<p><?php echo gettext("In case anything does not work as expected the query results from the Wordpress database are logged in <em>debug log</em>"); ?></p>
-					<?php if (!extensionEnabled('zenpage')) { ?>
+					<?php if (!class_exists('CMS')) { ?>
 						<p class="errorbox"><?php echo gettext('<strong>ERROR: </strong>The Zenpage CMS plugin is not enabled.'); ?></p>
 						<?php
 						die();

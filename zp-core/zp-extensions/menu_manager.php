@@ -257,13 +257,13 @@ function getItemTitleAndURL($item) {
 		case "page":
 			$sql = 'SELECT * FROM ' . prefix('pages') . ' WHERE `titlelink`="' . $item['link'] . '"';
 			$result = query_single_row($sql);
-			if (is_array($result) && extensionEnabled('zenpage')) {
+			if (is_array($result) && class_exists('CMS')) {
 				$obj = newPage($item['link']);
 				$url = $obj->getLink(0);
 				$protected = $obj->isProtected();
 				$title = $obj->getTitle();
 			} else {
-				$error = 3 - extensionEnabled('zenpage');
+				$error = 3 - class_exists('CMS');
 				$url = '';
 				$protected = 0;
 			}
@@ -276,7 +276,7 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "newsindex":
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				$url = getNewsIndexURL();
 			} else {
 				$error = 3;
@@ -292,13 +292,13 @@ function getItemTitleAndURL($item) {
 		case "category":
 			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink='" . $item['link'] . "'";
 			$obj = query_single_row($sql, false);
-			if ($obj && extensionEnabled('zenpage')) {
+			if ($obj && class_exists('CMS')) {
 				$obj = newCategory($item['link']);
 				$title = $obj->getTitle();
 				$protected = $obj->isProtected();
 				$url = $obj->getLink(0);
 			} else {
-				$error = 3 - (int) extensionEnabled('zenpage');
+				$error = 3 - (int) class_exists('CMS');
 				$url = '';
 				$protected = 0;
 			}
@@ -946,7 +946,7 @@ function createMenu($menuitems, $menuset = 'default') {
 				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
 								"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','siteindex','1'," . db_quote($menuset) . ',' . db_quote($orders), true);
 				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					$orders[$nesting] ++;
 					query("INSERT INTO " . prefix('menu') . " (title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
 									"VALUES ('" . gettext('News index') . "', '" . getNewsIndexURL() . "','newsindex','1'," . db_quote($menuset) . ',' . db_quote(sprintf('%03u', $base + 1)), true);

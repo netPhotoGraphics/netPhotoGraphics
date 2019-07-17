@@ -105,7 +105,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				if (getOption('zenpage_zp_index_news')) {
 					$gallery_page = 'news.php'; //	really a news page
 					break;
@@ -164,7 +164,7 @@ if (!OFFSET_PATH) {
 	enableExtension('print_album_menu', 1 | THEME_PLUGIN, false);
 	setOption('user_logout_login_form', 2, false);
 	$_current_page_check = 'my_checkPageValidity';
-	if (extensionEnabled('zenpage') && getOption('zenpage_zp_index_news')) { // only one index page if zenpage plugin is enabled & displaying
+	if (class_exists('CMS') && getOption('zenpage_zp_index_news')) { // only one index page if CMS plugin is enabled & displaying
 		npgFilters::register('getLink', 'newsOnIndex');
 	}
 }

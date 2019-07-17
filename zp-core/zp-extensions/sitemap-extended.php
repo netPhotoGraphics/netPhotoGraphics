@@ -329,7 +329,7 @@ class sitemap {
 			if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/gallery.php')) {
 				$_sitemapGalleryIndex = getThemeOption('gallery_index', NULL, $theme);
 				if (is_null($_sitemapGalleryIndex)) {
-					$_sitemapGalleryIndex = extensionEnabled('zenpage');
+					$_sitemapGalleryIndex = class_exists('CMS');
 				}
 			}
 		}

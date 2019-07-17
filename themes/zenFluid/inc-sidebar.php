@@ -43,7 +43,7 @@
 			?>
 		</div>
 		<?php
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			if (hasPages()) {
 				?>
 				<div class="menu border colour">
@@ -79,7 +79,7 @@
 		} else {
 			?>
 			<div class="menu border colour">
-				<?php echo gettext("The ZenFluid theme requires that the zenpage plugin be enabled."); ?>
+				<?php echo gettext("The ZenFluid theme requires that the CMS plugin be enabled."); ?>
 			</div>
 			<?php
 		}

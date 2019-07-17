@@ -77,7 +77,7 @@ class ThemeOptions {
 				gettext('Allow cloud') => array('key' => 'Allow_cloud', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Set to enable tag cloud for album page.')),
 				gettext('Custom menu') => array('key' => 'garland_menu', 'type' => OPTION_TYPE_CUSTOM, 'desc' => gettext('Set this to the <em>menu_manager</em> menu you wish to use.') . $note)
 		);
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			global $_CMS;
 			$pages = $_CMS->getPages(false);
 
@@ -111,7 +111,7 @@ class ThemeOptions {
 			case 'garland_menu':
 				$menusets = array($currentValue => $currentValue);
 				echo '<select id="garland_menuset" name="garland_menu"';
-				if (function_exists('printCustomMenu') && extensionEnabled('zenpage')) {
+				if (function_exists('printCustomMenu') && class_exists('CMS')) {
 					$result = query_full_array("SELECT DISTINCT menuset FROM " . prefix('menu') . " ORDER BY menuset");
 					foreach ($result as $set) {
 						$menusets[$set['menuset']] = $set['menuset'];

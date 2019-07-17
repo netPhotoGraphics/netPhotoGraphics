@@ -86,7 +86,7 @@ class comment_form {
 	function getOptionsSupported() {
 		global $_captcha;
 		$checkboxes = array(gettext('Albums') => 'comment_form_albums', gettext('Images') => 'comment_form_images');
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$checkboxes = array_merge($checkboxes, array(gettext('Pages') => 'comment_form_pages', gettext('News') => 'comment_form_articles'));
 		}
 

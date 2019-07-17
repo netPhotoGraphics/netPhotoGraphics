@@ -176,7 +176,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (!extensionEnabled('zenpage')) { // only one index page if zenpage plugin is enabled or there is a custom index page
+			if (!class_exists('CMS')) { // only one index page if CMS plugin is enabled or there is a custom index page
 				break;
 			}
 		default:

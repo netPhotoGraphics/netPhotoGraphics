@@ -64,7 +64,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 } else { //	"standard zenpage sidebar menus
 	?>
 	<!-- standard menu -->	<?php
-	if (extensionEnabled('zenpage')) {
+	if (class_exists('CMS')) {
 		if (hasNews()) {
 			?>
 			<div class="menu">
@@ -83,7 +83,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 		?>
 		<div class="menu">
 			<?php
-			if (extensionEnabled('zenpage') && $_gallery_page != 'gallery.php') {
+			if (class_exists('CMS') && $_gallery_page != 'gallery.php') {
 				?>
 				<h3>
 					<a href="<?php echo html_encode(getCustomPageURL('gallery')); ?>" title="<?php echo gettext('Album index'); ?>"><?php echo gettext("Gallery"); ?></a>
@@ -99,7 +99,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 		</div>
 		<?php
 	} else {
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			?>
 			<div class="menu">
 				<h3><?php echo gettext("Albums"); ?></h3>
@@ -115,7 +115,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 	?>
 
 	<?php
-	if (extensionEnabled('zenpage')) {
+	if (class_exists('CMS')) {
 		if (hasPages()) {
 			?>
 			<div class="menu">

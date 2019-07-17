@@ -24,7 +24,7 @@ if (!defined('WEBPATH'))
 
 			<div id="breadcrumb">
 				<h2>
-					<?php if (extensionEnabled('zenpage')) { ?>
+					<?php if (class_exists('CMS')) { ?>
 						<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
 					<?php } ?>
 					<strong><?php echo gettext("Gallery"); ?></strong></a>

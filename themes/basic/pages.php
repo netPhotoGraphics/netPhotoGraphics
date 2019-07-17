@@ -15,7 +15,7 @@ if (class_exists('CMS')) {
 			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
 
 			if (class_exists('RSS'))
-				printRSSHeaderLink("Pages", "Zenpage pages", "");
+				printRSSHeaderLink("Pages", "CMS pages", "");
 			?>
 		</head>
 

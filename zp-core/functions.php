@@ -975,7 +975,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 														KEY (objectid)
 														) CHARACTER SET utf8 COLLATE utf8_unicode_ci');
 			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
 			}
 			foreach ($tables as $table => $rights) {

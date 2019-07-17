@@ -133,7 +133,7 @@ class Controller {
 				if (isset($_GET['p'])) {
 					switch ($_GET['p']) {
 						case 'news':
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								if (isset($_GET['title'])) {
 									//article URLs should not end in slash
 									if (substr($parts['path'], -1, 1) == '/') {
@@ -504,12 +504,12 @@ class Controller {
 					case 'search':
 						return self::load_search();
 					case 'pages':
-						if (extensionEnabled('zenpage') && $_CMS->pages_enabled) {
+						if (class_exists('CMS') && $_CMS->pages_enabled) {
 							return self::load_zenpage_pages(sanitize(trim(@$_GET['title'], '/')));
 						}
 						return false;
 					case 'news':
-						if (extensionEnabled('zenpage') && $_CMS->news_enabled) {
+						if (class_exists('CMS') && $_CMS->news_enabled) {
 							return self::load_zenpage_news(sanitize($_GET));
 						}
 						return false;

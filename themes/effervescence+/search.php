@@ -44,7 +44,7 @@ $backgroundImagePath = "";
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
-		$zenpage = extensionEnabled('zenpage');
+		$zenpage = class_exists('CMS');
 		if ($zenpage && !isArchive()) {
 			$numpages = getNumPages();
 			$numnews = getNumNews();
@@ -136,7 +136,7 @@ $backgroundImagePath = "";
 					if ($total > 0) {
 						printf(ngettext('%1$u Hit for <em>%2$s</em>', '%1$u Hits for <em>%2$s</em>', $total), $total, html_encode($searchwords));
 					}
-					if ($zenpage && $_current_page == 1) { //test of zenpage searches
+					if ($zenpage && $_current_page == 1) { //test of page searches
 						define('TRUNCATE_LENGTH', 80);
 						define('SHOW_ITEMS', 5);
 						?>

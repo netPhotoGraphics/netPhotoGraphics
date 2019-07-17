@@ -3,7 +3,7 @@
 /**
  * The configuration functions for TinyMCE
  *
- * Zenpage plugin full-light configuration
+ * CMS plugin full-light configuration
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.content,textarea.desc,textarea.extracontent";

@@ -35,7 +35,7 @@ class titlelinkMigration {
 				'formname' => 'titlelink',
 				'action' => getAdminLink(USER_PLUGIN_FOLDER . '/titlelinkMigration/migrate.php'),
 				'icon' => BADGE_BLUE,
-				'title' => gettext('A utility to append the mod_rewrite_suffix to zenpage titlelinks.'),
+				'title' => gettext('A utility to append the mod_rewrite_suffix to CMS titlelinks.'),
 				'alt' => '',
 				'hidden' => '',
 				'rights' => ADMIN_RIGHTS,

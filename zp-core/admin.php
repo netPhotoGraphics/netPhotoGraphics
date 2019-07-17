@@ -78,7 +78,7 @@ if (isset($_GET['report'])) {
 } else {
 	$msg = '';
 }
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 
@@ -640,7 +640,7 @@ $buttonlist = array();
 									?>
 								</li>
 								<?php
-								if (extensionEnabled('zenpage')) {
+								if (class_exists('CMS')) {
 									?>
 									<li>
 										<?php printPagesStatistic(); ?>

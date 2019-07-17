@@ -29,7 +29,7 @@ if (!defined('WEBPATH'))
 
 					<h2><?php printSearchBreadcrumb(); ?></h2>
 					<?php
-					$zenpage = extensionEnabled('zenpage');
+					$zenpage = class_exists('CMS');
 					$numimages = getNumImages();
 					$numalbums = getNumAlbums();
 					$total = $numimages + $numalbums;

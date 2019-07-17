@@ -178,7 +178,7 @@ class cmsFilters {
 			<span id="themeSwitcher_zenpage" title="<?php echo gettext("Enable Zenpage CMS plugin"); ?>">
 				<label>
 					Zenpage
-					<input type="checkbox" name="cmsSwitch" id="cmsSwitch" value="1"<?php if (extensionEnabled('zenpage')) echo $disabled . ' checked="checked"'; ?> onclick="switchCMS(this.checked);" />
+					<input type="checkbox" name="cmsSwitch" id="cmsSwitch" value="1"<?php if (class_exists('CMS')) echo $disabled . ' checked="checked"'; ?> onclick="switchCMS(this.checked);" />
 				</label>
 			</span>
 			<?php
@@ -196,7 +196,7 @@ class cmsFilters {
 				}
 			}
 		}
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 		} else {
 			unset($GLOBALS['_CMS']);

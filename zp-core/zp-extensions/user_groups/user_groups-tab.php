@@ -400,7 +400,7 @@ echo '</head>' . "\n";
 
 												<?php
 												printManagedObjects('albums', $albumlist, NULL, $groupobj, $id, $kind, array());
-												if (extensionEnabled('zenpage')) {
+												if (class_exists('CMS')) {
 													$newslist = array();
 													$categories = $_CMS->getAllCategories(false);
 													foreach ($categories as $category) {

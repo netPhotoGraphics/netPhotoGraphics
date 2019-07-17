@@ -13,7 +13,7 @@ class ThemeOptions {
 
 	function __construct() {
 
-		if (!extensionEnabled('zenpage'))
+		if (!class_exists('CMS'))
 			enableExtension('zenpage', 8291, true);
 		if (!extensionEnabled('print_album_menu'))
 			enableExtension('print_album_menu', 1025, true);

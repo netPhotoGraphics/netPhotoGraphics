@@ -119,7 +119,7 @@
 			if (getOption('RSS_album_image')) {
 				printRSSHeaderLink('AlbumsRSS', gettext('Latest Albums')) . "\n";
 			}
-			if (extensionEnabled('zenpage') && getOption('zpmas_usenews')) {
+			if (class_exists('CMS') && getOption('zpmas_usenews')) {
 				if (getOption('RSS_articles')) {
 					printRSSHeaderLink('News', '', NEWS_LABEL) . "\n";
 				}

@@ -3847,7 +3847,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 			foreach ($rightslist as $rightselement => $right) {
 				if (!empty($right['set'])) {
-					if ($right['display'] && (($right['set'] != gettext('Pages') && $right['set'] != gettext('News')) || extensionEnabled('zenpage'))) {
+					if ($right['display'] && (($right['set'] != gettext('Pages') && $right['set'] != gettext('News')) || class_exists('CMS'))) {
 						if ($activeset != $right['set']) {
 							if ($activeset) {
 								?>
@@ -4213,7 +4213,7 @@ function getCheckboxState($id) {
  */
 function standardScripts($optional = array('register', 'contact')) {
 	$standardlist = array_merge($optional, array('themeoptions', 'theme_description', '404', 'slideshow', 'search', 'image', 'index', 'album', 'functions', 'password', 'archive', 'gallery', 'favorites'));
-	if (extensionEnabled('zenpage'))
+	if (class_exists('CMS'))
 		$standardlist = array_merge($standardlist, array('news', 'pages'));
 	return $standardlist;
 }
