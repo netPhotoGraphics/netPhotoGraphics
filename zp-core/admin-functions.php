@@ -5095,13 +5095,8 @@ function admin_securityChecks($rights, $return) {
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
 		// prevent nefarious access to this page.
-		$uri = explode('?', $returnurl);
-		if ($uri[0] == WEBPATH . '/' . CORE_FOLDER . '/admin.php') {
-			$redirect = FULLWEBPATH;
-		} else {
-			$redirect = getAdminLink('admin.php') . '?from = ' . $uri[0];
-		}
-
+		$uri = mb_parse_url($returnurl);
+		$redirect = getAdminLink('admin.php') . '?from=' . $uri['path'];
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Location: ' . $redirect);
