@@ -235,9 +235,7 @@ if (!defined('OFFSET_PATH')) {
 	}
 
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/macroList.php');
-
 	list($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink) = $macro_params;
-
 	$content_macros = getMacros();
 	krsort($content_macros);
 	foreach ($content_macros as $macro => $detail) {
@@ -473,6 +471,13 @@ if (!defined('OFFSET_PATH')) {
 								} else {
 									unset($options[$key]);
 								}
+							}
+							if ($doclink) {
+								?>
+								<p>
+									<?php echo $doclink; ?>
+								</p>
+								<?php
 							}
 							if (!empty($options)) {
 								?>

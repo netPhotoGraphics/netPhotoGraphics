@@ -8,7 +8,7 @@
  * @pluginCategory example
  */
 $plugin_description = gettext("Creates text based watermarks.");
-$plugin_URL = FULLWEBPATH . '//plugins/text_watermark/text_watermark.htm';
+$plugin_URL = FULLWEBPATH . '/plugins/text_watermark/text_watermark.htm';
 $option_interface = 'text_watermark';
 
 /**
