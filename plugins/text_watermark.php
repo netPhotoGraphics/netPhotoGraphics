@@ -8,7 +8,7 @@
  * @pluginCategory example
  */
 $plugin_description = gettext("Creates text based watermarks.");
-$plugin_URL = FULLWEBPATH . '//plugins/text_watermark/text_watermark.htm';
+$plugin_URL = FULLWEBPATH . '/plugins/text_watermark/text_watermark.htm';
 $option_interface = 'text_watermark';
 
 /**
@@ -47,7 +47,7 @@ class text_watermark {
 	function handleOption($key, $cv) {
 		$imageurl = getOption('text_watermark_text');
 		if (!empty($imageurl)) {
-			$imageurl = '<img src="' . FULLWEBPATH . '//plugins/text_watermark/createwatermark.php' .
+			$imageurl = '<img src="' . getAdminLink(USER_PLUGIN_FOLDER . '/text_watermark/createwatermark.php') .
 							'?text_watermark_text=' . $imageurl .
 							'&amp;text_watermark_font=' . rawurlencode(getOption('text_watermark_font')) .
 							'&amp;text_watermark_color=' . rawurlencode(getOption('text_watermark_color')) .

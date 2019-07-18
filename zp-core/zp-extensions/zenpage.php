@@ -276,7 +276,7 @@ class cmsFilters {
 				$articlestab = $categorystab = $_loggedin & (MANAGE_ALL_NEWS_RIGHTS | ZENPAGE_NEWS_RIGHTS);
 				if (!$articlestab) {
 					$articles = query('SELECT `titlelink` FROM ' . prefix('news') . ' WHERE `owner`=' . db_quote($admin));
-					if ($articles) {
+					if ($articles->num_rows) {
 						$_loggedin = $_loggedin | ZENPAGE_NEWS_RIGHTS; //	Owners get rights to edit their articles
 						$articlestab = true;
 					}
@@ -286,7 +286,7 @@ class cmsFilters {
 					$pagestab = $_loggedin & (MANAGE_ALL_PAGES_RIGHTS | ZENPAGE_PAGES_RIGHTS);
 					if (!$pagestab) {
 						$pagelist = query('SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `owner`=' . db_quote($admin));
-						if ($pagelist) {
+						if ($pagelist->num_rows) {
 							$_loggedin = $_loggedin | ZENPAGE_PAGES_RIGHTS; //	Owners get rights to edit their pages
 							$pagestab = true;
 						}

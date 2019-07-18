@@ -67,7 +67,7 @@ if ($theme) {
 ?>
 									'origin': 'upload'
 								},
-								url: '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/elFinder/php/connector_npg.php'  		// connector URL (REQUIRED)
+								url: '<?php echo getAdminLink(PLUGIN_PATH . '/elFinder/php/connector_npg.php'); ?>'  		// connector URL (REQUIRED)
 							}).elfinder('instance');
 						});
 					</script>

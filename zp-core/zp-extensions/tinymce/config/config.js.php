@@ -71,7 +71,7 @@ if ($pasteObjEnabled) {
 	?>
 		var pasteObjConfig = {	//	pasteObject window
 		title: 'netPhotoGraphics:obj',
-						url: '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'; ?>',
+						url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'); ?>',
 						height: 600,
 						width: 800
 		};
