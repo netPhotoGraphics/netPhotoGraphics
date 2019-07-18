@@ -47,7 +47,7 @@ class text_watermark {
 	function handleOption($key, $cv) {
 		$imageurl = getOption('text_watermark_text');
 		if (!empty($imageurl)) {
-			$imageurl = '<img src="' . FULLWEBPATH . '//plugins/text_watermark/createwatermark.php' .
+			$imageurl = '<img src="' . FULLWEBPATH . '/plugins/text_watermark/createwatermark.php' .
 							'?text_watermark_text=' . $imageurl .
 							'&amp;text_watermark_font=' . rawurlencode(getOption('text_watermark_font')) .
 							'&amp;text_watermark_color=' . rawurlencode(getOption('text_watermark_color')) .
