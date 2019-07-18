@@ -81,7 +81,7 @@ if (npg_loggedin(FILES_RIGHTS)) {
 											'origin':'tinyMCE',
 											'type':'<?php echo sanitize(@$_GET['type']); ?>'
 							},
-							url : '<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/elFinder/php/connector_npg.php', // connector URL (REQUIRED)
+							url : '<?php echo getAdminLink(PLUGIN_PATH . '/elFinder/php/connector_npg.php'); ?>', // connector URL (REQUIRED)
 							getFileCallback: function(file, fm) { // editor callback
 							FileBrowserDialogue.mySubmit(file, fm); // pass selected file path to TinyMCE
 							}

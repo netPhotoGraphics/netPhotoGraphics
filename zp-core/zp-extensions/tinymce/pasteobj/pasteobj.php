@@ -30,7 +30,7 @@ function getIPSizedImage($size, $image) {
 		load_jQuery_scripts('admin');
 		scriptLoader(CORE_SERVERPATH . 'js/admin.js');
 		?>
-		<script type="text/javascript" src="pasteobj_popup.js"></script>
+		<script type="text/javascript" src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/tinymce/pasteobj/pasteobj_popup.js"></script>
 
 	</head>
 

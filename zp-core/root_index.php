@@ -13,7 +13,13 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 }
 if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matches)) {
 	unset($uri);
-	$base = '/' . strtr($matches[2] . $matches[3], array('CORE_PATH/PLUGIN_PATH' => 'CORE_FOLDER/PLUGIN_FOLDER', 'CORE_PATH' => 'CORE_FOLDER', 'USER_PLUGIN_PATH' => 'USER_PLUGIN_FOLDER'));
+	$base = '/' . $matches[2] . $matches[3];
+	foreach (array('CORE_PATH/PLUGIN_PATH' => 'CORE_FOLDER/PLUGIN_FOLDER', 'CORE_PATH' => 'CORE_FOLDER', 'USER_PLUGIN_PATH' => 'USER_PLUGIN_FOLDER') as $from => $to) {
+		$base = preg_replace('~' . $from . '~', $to, $base, 1, $count);
+		if ($count) {
+			break;
+		}
+	}
 	if (preg_match('~\.php$~i', $base)) {
 		trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
 	} else {
