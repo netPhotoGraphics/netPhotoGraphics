@@ -5,7 +5,7 @@
  * @package plugins/macroList
  */
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
+admin_securityChecks(ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS | ALBUM_RIGHTS, $return = currentRelativeURL());
 
 printAdminHeader('development', gettext('macros'));
 
