@@ -615,7 +615,7 @@ if ($subtab == 'imageinfo') {
 </script>
 
 <?php
-npgFilters::apply('texteditor_config', 'zenphoto');
+npgFilters::apply('texteditor_config', 'photo');
 npg_Authority::printPasswordFormJS();
 
 echo "\n</head>";
