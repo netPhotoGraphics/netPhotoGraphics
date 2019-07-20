@@ -3224,6 +3224,7 @@ function filterImageQueryList($result, $source, $limit = 1, $photo = true) {
 	$list = array();
 	if ($result) {
 		while ($limit && $row = db_fetch_assoc($result)) {
+			@set_time_limit(120);
 			$image = getItemByID('images', $row['id']);
 			if ($image && $image->exists) {
 				$album = $image->album;
@@ -4377,7 +4378,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

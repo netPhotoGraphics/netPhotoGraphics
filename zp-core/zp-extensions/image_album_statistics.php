@@ -493,7 +493,7 @@ function getImageStatistic($number, $option, $albumfolder = NULL, $collection = 
 	}
 
 	$imageArray = array();
-	if (!empty($albumfolder) && $obj->isDynamic()) {
+	if ($obj && $obj->isDynamic()) {
 		$sorttype = str_replace('images.', '', $sortorder);
 		$images = $obj->getImages(0, 0, $sorttype, $sortdir);
 		foreach ($images as $image) {
