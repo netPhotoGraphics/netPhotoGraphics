@@ -2097,7 +2097,7 @@ function scriptLoader($script, $inline = 1) {
 	}
 
 	$scriptFS = internalToFilesystem($script);
-	if ($inline) {
+	if ($inline && file_exists($scriptFS)) {
 		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD || is_bool($inline)) {
 			$content = file_get_contents($scriptFS);
 			$found = preg_match_all('~url\s*\((.+)\)~i', $content, $matches);
@@ -2281,14 +2281,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
