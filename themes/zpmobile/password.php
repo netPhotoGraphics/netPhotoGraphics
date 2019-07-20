@@ -14,7 +14,61 @@ if (!defined('WEBPATH'))
 
 		<?php
 		scriptLoader($_themeroot . '/style.css');
-		jqm_loadScripts();
+
+		scriptLoader($_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.css');
+		?>
+		<style>
+			#loginform {
+				text-align:left;
+				padding:10px;
+				width:365px;
+				margin:25px auto;
+				margin-top:15%;
+				font-size:medium;
+			}
+			#loginform fieldset {
+				padding:10px;
+				text-align:left;
+			}
+			#loginform .show_checkbox {
+				float:right;
+				position:relative;
+				top:0.2em;
+				left:-55px;
+			}
+			#loginform input.textfield {
+				margin:0px;
+				width:270px;
+				font-size:medium;
+				padding:4px;
+			}
+			#loginform .logon_form_text {
+				padding:4px;
+				text-align:left;
+				margin-left:10px;
+				margin-left:5px;
+			}
+			#loginform .logon_link {
+				text-align:center;
+			}
+			#loginform .button {
+				padding:5px 10px;
+				font-size:medium;
+			}
+			#loginform button[type] {
+				text-decoration:none;
+				padding:5px 10px 5px 7px;
+				line-height:20px;
+			}
+		</style>
+		<script>
+			$(document).bind('mobileinit', function () {
+				$.mobile.keepNative = "legend,fieldset,button,input";
+				//$.mobile.page.prototype.options.keepNative = "select,input";
+			});
+		</script>
+		<?php
+		scriptLoader($_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.js');
 		?>
 	</head>
 
