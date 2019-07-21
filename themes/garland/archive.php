@@ -49,7 +49,7 @@ if (!defined('WEBPATH'))
 										<p><?php echo gettext('Images By Date'); ?></p>
 										<?php printAllDates(); ?>
 										<?php
-										if (extensionEnabled('zenpage') && hasNews()) {
+										if (class_exists('CMS') && hasNews()) {
 											?>
 											<p><?php echo(NEWS_LABEL); ?></p><?php printNewsArchive("archive"); ?>
 											<?php

@@ -8,7 +8,7 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 	</div>
 	<?php
 } else {
-	if (extensionEnabled('zenpage') && ($news = hasNews())) {
+	if (class_exists('CMS') && ($news = hasNews())) {
 		?>
 		<div class="menu">
 			<h3><?php echo NEWS_LABEL; ?></h3>
@@ -21,7 +21,7 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 	<?php if (function_exists("printAlbumMenu")) { ?>
 		<div class="menu">
 			<?php
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				if ($_gallery_page == 'index.php' || $_gallery_page != 'gallery.php') {
 					?>
 					<h3>
@@ -43,7 +43,7 @@ if (function_exists('printCustomMenu') && getOption('zenpage_custommenu')) {
 		</div>
 	<?php } ?>
 
-	<?php if (extensionEnabled('zenpage') && (hasPages())) { ?>
+	<?php if (class_exists('CMS') && (hasPages())) { ?>
 		<div class="menu">
 			<h3><?php echo gettext("Pages"); ?></h3>
 			<?php printPageMenu("list", "", "menu-active", "submenu", "menu-active"); ?>

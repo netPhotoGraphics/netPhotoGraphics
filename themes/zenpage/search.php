@@ -17,12 +17,12 @@ if (!defined('WEBPATH'))
 		?>
 	</head>
 	<body>
-<?php npgFilters::apply('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="main">
 			<div id="header">
 				<h1><?php printGalleryTitle(); ?></h1>
 				<?php
-				$zenpage = extensionEnabled('zenpage');
+				$zenpage = class_exists('CMS');
 				$numimages = getNumImages();
 				$numalbums = getNumAlbums();
 				$total = $numimages + $numalbums;
@@ -79,7 +79,7 @@ if (!defined('WEBPATH'))
 						</h3>
 						<?php
 					}
-					if ($_current_page == 1) { //test of zenpage searches
+					if ($_current_page == 1) { //test of CMS searches
 						if ($numpages > 0) {
 							$number_to_show = 5;
 							$c = 0;
@@ -93,7 +93,7 @@ if (!defined('WEBPATH'))
 									?>
 									<li<?php printZDToggleClass('pages', $c, $number_to_show); ?>>
 										<h4><?php printPageURL(); ?></h4>
-										<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getPageContent(), 80, getOption("zenpage_textshorten_indicator"))); ?></p>
+										<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getPageContent(), 80)); ?></p>
 									</li>
 									<?php
 								}
@@ -113,7 +113,7 @@ if (!defined('WEBPATH'))
 									?>
 									<li<?php printZDToggleClass('news', $c, $number_to_show); ?>>
 										<h4><?php printNewsURL(); ?></h4>
-										<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getNewsContent(), 80, getOption("zenpage_textshorten_indicator"))); ?></p>
+										<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getNewsContent(), 80)); ?></p>
 									</li>
 									<?php
 								}
@@ -140,29 +140,29 @@ if (!defined('WEBPATH'))
 						}
 						?>
 					</h3>
-						<?php if (getNumAlbums() != 0) { ?>
+					<?php if (getNumAlbums() != 0) { ?>
 						<div id="albums">
-	<?php while (next_album()): ?>
+							<?php while (next_album()): ?>
 								<div class="album">
 									<div class="thumb">
 										<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), NULL, 95, 95, 95, 95); ?></a>
 									</div>
 									<div class="albumdesc">
 										<h3><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printAlbumTitle(); ?></a></h3>
-		<?php printAlbumDate(""); ?>
-										<p><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45, getOption("zenpage_textshorten_indicator"))); ?></p>
+										<?php printAlbumDate(""); ?>
+										<p><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45)); ?></p>
 									</div>
 								</div>
-						<?php endwhile; ?>
+							<?php endwhile; ?>
 						</div>
-						<?php } ?>
-						<?php if (getNumImages() > 0) { ?>
+					<?php } ?>
+					<?php if (getNumImages() > 0) { ?>
 						<div id="images">
-	<?php while (next_image()) { ?>
+							<?php while (next_image()) { ?>
 								<div class="image">
 									<div class="imagethumb"><a href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>"><?php printImageThumb(getBareImageTitle()); ?></a></div>
 								</div>
-						<?php } ?>
+							<?php } ?>
 						</div>
 						<br class="clearall">
 					<?php } ?>
@@ -180,13 +180,13 @@ if (!defined('WEBPATH'))
 
 
 				<div id="sidebar">
-<?php include("sidebar.php"); ?>
+					<?php include("sidebar.php"); ?>
 				</div><!-- sidebar -->
 
 
 
 				<div id="footer">
-<?php include("footer.php"); ?>
+					<?php include("footer.php"); ?>
 				</div>
 			</div><!-- content -->
 

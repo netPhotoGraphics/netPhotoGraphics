@@ -323,7 +323,7 @@ function getOptionContent() {
 						</label>
 					</p>
 					<?php
-					if (extensionEnabled('zenpage')) {
+					if (class_exists('CMS')) {
 						?>
 						<p>
 							<label>
@@ -500,7 +500,7 @@ function getOptionContent() {
 				</tr>
 
 				<?php
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					unset($sort[gettext('Filemtime')]);
 					unset($sort[gettext('Filename')]);
 					if ($_CMS->news_enabled) {

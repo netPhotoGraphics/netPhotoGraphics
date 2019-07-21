@@ -566,7 +566,7 @@ class feed {
 				break;
 			case 'news':
 			case 'pages':
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					$feeditem['pubdate'] = date("r", strtotime($item['date']));
 					$category = '';
 					$title = get_language_string($item['title']);

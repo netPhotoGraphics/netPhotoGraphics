@@ -44,7 +44,7 @@ function switcher_controllink($ignore) {
 
 // set some variables for zpMasonry...
 
-$zenpage = extensionEnabled('zenpage');
+$zenpage = class_exists('CMS');
 enableExtension('colorbox', false, false);
 if (function_exists('printAddThis')) {
 	$zpmas_social = true;

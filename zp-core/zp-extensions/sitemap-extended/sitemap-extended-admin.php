@@ -35,7 +35,7 @@ if (isset($_GET['generatesitemaps'])) {
 	$sitemap_index = sitemap::getIndexLinks();
 	$sitemap_albums = sitemap::getAlbums();
 	$sitemap_images = sitemap::getImages();
-	if (extensionEnabled('zenpage')) {
+	if (class_exists('CMS')) {
 		$sitemap_newsindex = sitemap::getNewsIndex();
 		$sitemap_articles = sitemap::getNewsArticles();
 		$sitemap_categories = sitemap::getNewsCategories();
@@ -141,7 +141,7 @@ echo '</head>';
 					sitemap::generateCacheFile('sitemap-zenphoto-index', $sitemap_index);
 					sitemap::generateCacheFile('sitemap-zenphoto-albums' . $numberAppend, $sitemap_albums);
 					sitemap::generateCacheFile('sitemap-zenphoto-images' . $numberAppend, $sitemap_images);
-					if (extensionEnabled('zenpage')) {
+					if (class_exists('CMS')) {
 						sitemap::generateCacheFile('sitemap-zenpage-newsindex', $sitemap_newsindex);
 						sitemap::generateCacheFile('sitemap-zenpage-news', $sitemap_articles);
 						sitemap::generateCacheFile('sitemap-zenpage-categories', $sitemap_categories);

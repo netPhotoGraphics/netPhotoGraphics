@@ -39,7 +39,7 @@ if ($albumchecked) {
 	$count = $count + count($albums);
 }
 
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	$articles = $search->getArticles();
 	$pages = $search->getPages();
 

@@ -141,7 +141,7 @@ class ThemeOptions {
 						'desc' => gettext('Choose the delay of each rotation for slideshow in milliseconds.')),
 				gettext('Use News Feature') => array('key' => 'zpmas_usenews', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 21,
-						'desc' => gettext("IF you have the Zenpage plugin enabled, you can uncheck this to NOT use the news feature of the Zenpage plugin (use only pages)")),
+						'desc' => gettext("IF you have the CMS plugin enabled, you can uncheck this to NOT use the news feature of the CMS plugin (use only pages)")),
 				gettext('Custom CSS') => array('order' => 9, 'key' => 'zpmas_customcss', 'type' => OPTION_TYPE_TEXTAREA,
 						'order' => 22,
 						'multilingual' => false,

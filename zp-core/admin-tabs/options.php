@@ -11,7 +11,7 @@
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'lib-config.php');
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
 if (isset($_GET['tab'])) {
 	$_admin_subtab = sanitize($_GET['tab'], 3);
@@ -85,7 +85,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 		</script>
 		<?php
 	}
-	npgFilters::apply('texteditor_config', 'zenphoto');
+	npgFilters::apply('texteditor_config', 'photo');
 	npg_Authority::printPasswordFormJS();
 	?>
 	</head>

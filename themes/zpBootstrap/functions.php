@@ -52,9 +52,9 @@ if (!OFFSET_PATH) {
 
 	$_current_page_check = 'my_checkPageValidity';
 
-	$_zenpage_enabled = extensionEnabled('zenpage');
-	$_zenpage_news_enabled = extensionEnabled('zenpage') && hasNews();
-	$_zenpage_pages_enabled = extensionEnabled('zenpage') && hasPages();
+	$_zenpage_enabled = class_exists('CMS');
+	$_zenpage_news_enabled = class_exists('CMS') && hasNews();
+	$_zenpage_pages_enabled = class_exists('CMS') && hasPages();
 	/* if ($_zenpage_pages_enabled && is_Pages() && (getPageTitleLink() == 'guestbook')) {
 	  setOption('comment_form_addresses', 1, false);
 	  } */

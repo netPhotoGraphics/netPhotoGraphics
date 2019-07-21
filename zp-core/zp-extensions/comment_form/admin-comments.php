@@ -403,7 +403,7 @@ printLogoAndLinks();
 										}
 										break;
 									case "news": // ZENPAGE: if plugin is installed
-										if (extensionEnabled('zenpage')) {
+										if (class_exists('CMS')) {
 											$obj = getItemByID('news', $comment['ownerid']);
 											if ($obj) {
 												$link = '<a href = "' . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext("article") . '] ' . $obj->getTitle() . "</a> ";
@@ -411,7 +411,7 @@ printLogoAndLinks();
 										}
 										break;
 									case "pages": // ZENPAGE: if plugin is installed
-										if (extensionEnabled('zenpage')) {
+										if (class_exists('CMS')) {
 											$obj = getItemByID('pages', $comment['ownerid']);
 											if ($obj) {
 												$link = "<a href=\"" . $obj->getLink() . '#_comment_id_' . $id . '">[' . gettext("page") . '] ' . $obj->getTitle() . "</a>";

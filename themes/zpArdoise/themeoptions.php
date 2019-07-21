@@ -117,7 +117,7 @@ class ThemeOptions {
 
 		if ($option == 'zenpage_homepage') {
 			$unpublishedpages = query_full_array("SELECT titlelink, title FROM " . prefix('pages') . " WHERE `show` != 1 ORDER by `sort_order`");
-			if ((!extensionEnabled('zenpage')) || (empty($unpublishedpages))) {
+			if ((!class_exists('CMS')) || (empty($unpublishedpages))) {
 				echo gettext("No unpublished pages available");
 				// clear option if no unpublished pages are available or have been published meanwhile
 				// so that the normal gallery index appears and no page is accidentally set if set to unpublished again.

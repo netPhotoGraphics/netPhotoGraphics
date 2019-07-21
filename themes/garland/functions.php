@@ -1,6 +1,6 @@
 <?php
 // force UTF-8 Ø
-require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/image_album_statistics.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 npgFilters::register('themeSwitcher_head', 'switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 
@@ -170,17 +170,13 @@ function commonNewsLoop($paged) {
 	}
 }
 
-function exerpt($content) {
-	return shortenContent($content, TRUNCATE_LENGTH, getOption("zenpage_textshorten_indicator"));
-}
-
 function my_checkPageValidity($request, $gallery_page, $page) {
 	switch ($gallery_page) {
 		case 'gallery.php':
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (!extensionEnabled('zenpage')) { // only one index page if zenpage plugin is enabled or there is a custom index page
+			if (!class_exists('CMS')) { // only one index page if CMS plugin is enabled or there is a custom index page
 				break;
 			}
 		default:

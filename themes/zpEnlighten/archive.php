@@ -23,7 +23,7 @@ if (!defined('WEBPATH'))
 
 		<div id="breadcrumb">
 			<h2>
-				<?php if (extensionEnabled('zenpage')) { ?>
+				<?php if (class_exists('CMS')) { ?>
 					<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
 				<?php } ?>
 				<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
@@ -37,7 +37,7 @@ if (!defined('WEBPATH'))
 					<h3><?php echo gettext('Gallery'); ?></h3>
 					<?php printAllDates(); ?>
 					<br />
-					<?php if (extensionEnabled('zenpage') && hasNews()) { ?>
+					<?php if (class_exists('CMS') && hasNews()) { ?>
 						<h3><?php echo NEWS_LABEL; ?></h3>
 						<?php printNewsArchive("archive"); ?>
 						<br />

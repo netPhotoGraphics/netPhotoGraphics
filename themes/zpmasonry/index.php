@@ -16,7 +16,7 @@
 						<?php printAlbumMenuJump('count', gettext('Gallery Index')); ?>
 					</div>
 				<?php } ?>
-				<?php if (extensionEnabled('zenpage') && getOption('zpmas_usenews')) { ?>
+				<?php if (class_exists('CMS') && getOption('zpmas_usenews')) { ?>
 					<div class="latest sidebar-divide">
 						<?php printLatestNews(1); ?>
 					</div>

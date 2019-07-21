@@ -10,13 +10,15 @@ if (!defined('WEBPATH'))
 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
 
 <div id="background-main" class="background">
-	<div class="container<?php if (getOption('full_width')) {echo '-fluid';}?>">
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+	<div class="container<?php if (getOption('full_width')) {
+	echo '-fluid';
+} ?>">
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 			<div class="col-sm-9" id="main" itemprop="mainContentOfPage">
 
 				<?php
-				$zenpage = extensionEnabled('zenpage');
+				$zenpage = class_exists('CMS');
 				$numimages = getNumImages();
 				$numalbums = getNumAlbums();
 				$total = $numimages + $numalbums;
@@ -44,13 +46,15 @@ if (!defined('WEBPATH'))
 				if ($total > 0) {
 					?>
 					<h1>
-					<?php printf(gettext('Results for'));
-					echo ':&nbsp;';
-					echo html_encode($searchwords); ?>
+						<?php
+						printf(gettext('Results for'));
+						echo ':&nbsp;';
+						echo html_encode($searchwords);
+						?>
 					</h1>
 					<?php
 				}
-				if ($_current_page == 1) { //test of zenpage searches
+				if ($_current_page == 1) { //test of CMS searches
 					if ($numpages > 0) {
 						$number_to_show = 5;
 						$c = 0;
@@ -64,7 +68,7 @@ if (!defined('WEBPATH'))
 			?>
 								<li<?php printZDToggleClass('pages', $c, $number_to_show); ?>>
 									<h4><?php printPageURL(); ?></h4>
-									<p class="zenpageexcerpt"><?php echo shortenContent(getPageContent(), 80, getOption("zenpage_textshorten_indicator")); ?></p>
+									<p class="zenpageexcerpt"><?php echo shortenContent(getPageContent(), 80); ?></p>
 								</li>
 							<?php
 						}
@@ -84,7 +88,7 @@ if (!defined('WEBPATH'))
 			?>
 								<li<?php printZDToggleClass('news', $c, $number_to_show); ?>>
 									<h4><?php printNewsURL(); ?></h4>
-									<p class="zenpageexcerpt"><?php echo shortenContent(getNewsContent(), 80, getOption("zenpage_textshorten_indicator")); ?></p>
+									<p class="zenpageexcerpt"><?php echo shortenContent(getNewsContent(), 80); ?></p>
 								</li>
 							<?php
 						}
@@ -117,22 +121,22 @@ if (!defined('WEBPATH'))
 <?php if (getNumImages() > 0) { ?>
 					<div id="images" class="row">
 	<?php while (next_image()): ?>
-									<div class="col-lg-3 col-md-4 col-sm-6" style="height:<?php echo html_encode(getOption('thumb_size')+55); ?>px">
-										<div class="thumbnail" itemtype="http://schema.org/image"><a href="<?php echo html_encode(getFullImageURL()); ?>" title="<?php printBareImageTitle(); ?>" rel="lightbox-search"><?php printImageThumb(getBareImageTitle()); ?></a>
-											<div class="caption">
-												<p><a href="<?php echo html_encode(getImageURL()); ?>"><?php printBareImageTitle(); ?></a></p>
-											</div>	
-										</div>
+							<div class="col-lg-3 col-md-4 col-sm-6" style="height:<?php echo html_encode(getOption('thumb_size') + 55); ?>px">
+								<div class="thumbnail" itemtype="http://schema.org/image"><a href="<?php echo html_encode(getFullImageURL()); ?>" title="<?php printBareImageTitle(); ?>" rel="lightbox-search"><?php printImageThumb(getBareImageTitle()); ?></a>
+									<div class="caption">
+										<p><a href="<?php echo html_encode(getImageURL()); ?>"><?php printBareImageTitle(); ?></a></p>
 									</div>
-								<?php endwhile; ?>
+								</div>
 							</div>
-				
-								<br class="clearall">
-							<?php } ?>
-							<?php
-							if ($total == 0) {
-								echo "<p>" . gettext("Sorry, no matches found. Try refining your search.") . "</p>";
-							}
+					<?php endwhile; ?>
+					</div>
+
+					<br class="clearall">
+				<?php } ?>
+				<?php
+				if ($total == 0) {
+					echo "<p>" . gettext("Sorry, no matches found. Try refining your search.") . "</p>";
+				}
 
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 				?>

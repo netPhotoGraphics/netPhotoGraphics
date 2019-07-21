@@ -43,7 +43,7 @@ if (!defined('WEBPATH'))
 						<h3><?php echo gettext('Gallery'); ?></h3>
 						<?php printAllDates(); ?>
 						<hr />
-						<?php if (extensionEnabled('zenpage') && hasNews()) { ?>
+						<?php if (class_exists('CMS') && hasNews()) { ?>
 							<h3><?php echo NEWS_LABEL; ?></h3>
 							<?php printNewsArchive("archive"); ?>
 							<hr />

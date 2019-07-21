@@ -50,7 +50,7 @@ if (!defined('WEBPATH'))
 			<small>&nbsp;</small>
 			<div id="main2">
 				<?php
-				if ($zenpage = extensionEnabled('zenpage')) {
+				if ($zenpage = class_exists('CMS')) {
 					?>
 					<div id="content-left">
 						<?php

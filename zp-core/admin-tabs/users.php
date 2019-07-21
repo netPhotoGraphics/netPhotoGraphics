@@ -934,7 +934,7 @@ echo $refresh;
 																$flag = array();
 															}
 															printManagedObjects('albums', $albumlist, $alter_rights, $userobj, $id, gettext('user'), $flag);
-															if (extensionEnabled('zenpage')) {
+															if (class_exists('CMS')) {
 																$pagelist = array();
 																if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 																	$alter_rights = $local_alterrights;

@@ -44,7 +44,7 @@ $backgroundImagePath = "";
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
-		$zenpage = extensionEnabled('zenpage');
+		$zenpage = class_exists('CMS');
 		if ($zenpage && !isArchive()) {
 			$numpages = getNumPages();
 			$numnews = getNumNews();
@@ -136,7 +136,7 @@ $backgroundImagePath = "";
 					if ($total > 0) {
 						printf(ngettext('%1$u Hit for <em>%2$s</em>', '%1$u Hits for <em>%2$s</em>', $total), $total, html_encode($searchwords));
 					}
-					if ($zenpage && $_current_page == 1) { //test of zenpage searches
+					if ($zenpage && $_current_page == 1) { //test of page searches
 						define('TRUNCATE_LENGTH', 80);
 						define('SHOW_ITEMS', 5);
 						?>
@@ -164,7 +164,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 												<?php print printPageURL(); ?>
-												<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
 											</li>
 											<?php
 										}
@@ -197,7 +197,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 												<?php printNewsURL(); ?>
-												<p style="text-indent:1em;"><?php echo exerpt($_CMS_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
 											</li>
 											<?php
 										}

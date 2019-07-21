@@ -12,7 +12,7 @@ require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
 require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
 
 $tables = array('albums', 'images');
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 	$tables = array_merge($tables, array('news', 'pages'));
 }
@@ -526,7 +526,7 @@ echo '</head>';
 						}
 						?>
 					</li>
-					<?php if (extensionEnabled('zenpage')) { ?>
+					<?php if (class_exists('CMS')) { ?>
 						<li>
 							<?php
 							list($total, $type, $unpub) = getNewsPagesStatistic("pages");
@@ -593,7 +593,7 @@ echo '</head>';
 								<li><a href="#tags-mostused"><?php echo gettext("most used"); ?></a></li>
 							</ul>
 						</li>
-						<?php if (extensionEnabled('zenpage')) { ?>
+						<?php if (class_exists('CMS')) { ?>
 							<li><strong><?php echo gettext("Pages"); ?></strong>
 								<ul>
 									<li><a href="#pages-popular"><?php echo gettext("most viewed"); ?></a> | </li>
@@ -673,7 +673,7 @@ echo '</head>';
 					<span id="tags-mostused"></span>
 					<?php printBarGraph("mostused", "tags"); ?>
 
-					<?php if (extensionEnabled('zenpage')) { ?>
+					<?php if (class_exists('CMS')) { ?>
 						<hr />
 						<!-- Zenpage pages -->
 						<span id="pages-popular"></span>
@@ -817,7 +817,7 @@ echo '</head>';
 							printBarGraph("popular", "rss", $from_number, $to_number);
 							break;
 						case "pages":
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								switch ($_GET['stats']) {
 									case "popular":
 										printBarGraph("popular", "pages", $from_number, $to_number);
@@ -835,7 +835,7 @@ echo '</head>';
 							}
 							break;
 						case "news":
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								switch ($_GET['stats']) {
 									case "popular":
 										printBarGraph("popular", "news", $from_number, $to_number);
@@ -853,7 +853,7 @@ echo '</head>';
 							}
 							break;
 						case "newscategories":
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								switch ($_GET['stats']) {
 									case "popular":
 										printBarGraph("popular", "newscategories", $from_number, $to_number);

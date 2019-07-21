@@ -66,7 +66,7 @@ if (empty($reports)) {
 $_CMS = new CMS();
 
 printAdminHeader('news', 'categories');
-npgFilters::apply('texteditor_config', 'zenpage');
+npgFilters::apply('texteditor_config', 'CMS');
 printSortableHead();
 zenpageJSCSS();
 ?>

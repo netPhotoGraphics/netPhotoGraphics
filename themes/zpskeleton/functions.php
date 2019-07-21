@@ -1,7 +1,7 @@
 <?php
 // Check some settings
 
-$zenpage = extensionEnabled('zenpage');
+$zenpage = class_exists('CMS');
 $thumbcrop = getOption('thumb_crop');
 $zpskel_disablewarning = getOption('zpskel_disablewarning'); // test is disable warning is checked
 if (is_null(getOption('zpskel_thumbsize'))) {
@@ -193,7 +193,7 @@ function printPPSlideShowLink($linktext = '', $linkstyle = '') {
 	}
 }
 
-// Prints jQuery JS to enable the toggling of search results of Zenpage plugin items
+// Prints jQuery JS to enable the toggling of search results of CMS plugin items
 function printZDSearchToggleJS() {
 	?>
 	<script type="text/javascript">
@@ -215,7 +215,7 @@ function printZDSearchToggleJS() {
 }
 
 /**
- * Prints the "Show more results link" for search results for Zenpage items
+ * Prints the "Show more results link" for search results for CMS items
  *
  * @param string $option "news" or "pages"
  * @param int $number_to_show how many search results should be shown initially
@@ -240,7 +240,7 @@ function printZDSearchShowMoreLink($option, $number_to_show) {
 }
 
 /**
- * Adds the css class necessary for toggling of Zenpage items search results
+ * Adds the css class necessary for toggling of CMS items search results
  *
  * @param string $option "news" or "pages"
  * @param string $c After which result item the toggling should begin. Here to be passed from the results loop.

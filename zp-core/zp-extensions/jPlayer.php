@@ -102,6 +102,10 @@ class jplayer_options {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			$option = getOption('jplayer_skin');
+			if (!is_null($option)) {
+				setOption('jplayer_skin', str_replace('zenphoto', '', $option));
+			}
 			setOptionDefault('jplayer_autoplay', '');
 			setOptionDefault('jplayer_poster', 1);
 			setOptionDefault('jplayer_postercrop', 1);
@@ -111,7 +115,7 @@ class jplayer_options {
 			setOptionDefault('jplayer_playlist_playtime', 0);
 			setOptionDefault('jplayer_download', '');
 			setOptionDefault('jplayer_size', 'jp-video-270p');
-			setOptionDefault('jplayer_skin', 'zenphotolight');
+			setOptionDefault('jplayer_skin', 'light');
 			setOptionDefault('jplayer_counterparts', 0);
 			/* TODO: what are these sizes?
 			  $player = new jPlayer();

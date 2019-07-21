@@ -114,7 +114,7 @@ class SearchEngine {
 		$this->search_structure['desc'] = gettext('Description');
 		$this->search_structure['filename'] = gettext('File/Folder name');
 		$this->search_structure['date'] = gettext('Date');
-		if (extensionEnabled('zenpage') && !$dynamic_album) {
+		if (class_exists('CMS') && !$dynamic_album) {
 			//zenpage fields
 			$this->search_structure['content'] = gettext('Content');
 			$this->search_structure['owner'] = gettext('Author');
@@ -1884,7 +1884,7 @@ class SearchEngine {
 	 * @return array
 	 */
 	private function getSearchPages($sorttype, $direction) {
-		if (!extensionEnabled('zenpage') || getOption('search_no_pages') || $this->search_no_pages) {
+		if (!class_exists('CMS') || getOption('search_no_pages') || $this->search_no_pages) {
 			return array();
 		}
 		list($sortkey, $sortdirection) = $this->sortKey($sorttype, $direction, 'title', 'pages');
@@ -1969,7 +1969,7 @@ class SearchEngine {
 	 * @return array
 	 */
 	private function getSearchArticles($sorttype, $direction) {
-		if (!extensionEnabled('zenpage') || getOption('search_no_news') || $this->search_no_news) {
+		if (!class_exists('CMS') || getOption('search_no_news') || $this->search_no_news) {
 			return array();
 		}
 		list($sortkey, $sortdirection) = $this->sortKey($sorttype, $direction, 'title', 'news');

@@ -168,9 +168,12 @@ function html_encodeTagged($original, $allowScript = true) {
  *
  * Algorithm copyright by Stephen Billard for use in netPhotoGraphics and derivitive implementations
  */
-function shortenContent($articlecontent, $shorten, $shortenindicator = '...') {
+function shortenContent($articlecontent, $shorten, $shortenindicator = NULL) {
 	//conservatve check if the string is too long.
 	if ($shorten && (mb_strlen(strip_tags($articlecontent)) > (int) $shorten)) {
+		if (is_null($shortenindicator)) {
+			$shortenindicator = getOption("CMS_textshorten_indicator");
+		}
 		//remove HTML comments (except for page break indicators)
 		$content = preg_replace('~<!-- pagebreak -->~isU', '</PageBreak>', $articlecontent, -1, $breaks);
 		$content = preg_replace('~<!--.*-->~isU', '', $content);
@@ -972,7 +975,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 														KEY (objectid)
 														) CHARACTER SET utf8 COLLATE utf8_unicode_ci');
 			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
 			}
 			foreach ($tables as $table => $rights) {
@@ -2094,7 +2097,7 @@ function scriptLoader($script, $inline = 1) {
 	}
 
 	$scriptFS = internalToFilesystem($script);
-	if ($inline) {
+	if ($inline && file_exists($scriptFS)) {
 		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD || is_bool($inline)) {
 			$content = file_get_contents($scriptFS);
 			$found = preg_match_all('~url\s*\((.+)\)~i', $content, $matches);
@@ -2278,14 +2281,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

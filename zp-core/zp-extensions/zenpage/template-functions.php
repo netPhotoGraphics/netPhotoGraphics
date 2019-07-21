@@ -1162,7 +1162,7 @@ function getZenpageStatistic($number = 10, $option = "all", $mode = "popular", $
 }
 
 /**
- * Prints the statistics Zenpage items as an unordered list
+ * Prints the statistics CMS items as an unordered list
  *
  * @param int $number The number of news items to get
  * @param string $option "all" pages and articles

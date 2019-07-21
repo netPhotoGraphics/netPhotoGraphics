@@ -46,7 +46,7 @@ npgFilters::apply('theme_file_top');
 									$numItems = getNumImages() + getNumAlbums();
 									printAlbumTitle();
 									echo ' (' . $numItems . ')';
-									echo "<p>" . shortenContent(strip_tags(getAlbumDesc()), 150, getOption("zenpage_textshorten_indicator")) . "</p>";
+									echo "<p>" . shortenContent(strip_tags(getAlbumDesc()), 150) . "</p>";
 									?>
 								</div>
 		<?php
@@ -83,7 +83,7 @@ npgFilters::apply('theme_file_top');
 									<div class="thumbtitle">
 									<?php
 									printImageTitle();
-									echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150, getOption("zenpage_textshorten_indicator")) . "</p>";
+									echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150) . "</p>";
 									?>
 									</div>
 		<?php

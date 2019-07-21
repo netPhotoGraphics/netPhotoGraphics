@@ -107,7 +107,7 @@ class externalFeed_options {
 						'order' => 9,
 						'desc' => gettext("Check the box to remove a site."))
 		);
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$options[gettext('Feed text length')] = array('key' => 'externalFeed_truncate_length', 'type' => OPTION_TYPE_NUMBER,
 					'order' => 6,
 					'desc' => gettext("The text length of the Zenpage feed items. No value for full length."));
@@ -324,7 +324,7 @@ class ExternalFeed extends feed {
 					$title = NULL;
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				}
 				break;

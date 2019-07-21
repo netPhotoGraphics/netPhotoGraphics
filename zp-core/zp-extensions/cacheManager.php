@@ -151,7 +151,7 @@ class cacheManager {
 				)
 		);
 		$list = array('<em>' . gettext('Albums') . '</em>' => 'cacheManager_albums', '<em>' . gettext('Images') . '</em>' => 'cacheManager_images');
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$list['<em>' . gettext('News') . '</em>'] = 'cacheManager_news';
 			$list['<em>' . gettext('Pages') . '</em>'] = 'cacheManager_pages';
 		} else {

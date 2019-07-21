@@ -118,7 +118,7 @@ if ($report) {
 	}
 }
 $tables = array('albums', 'images');
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	$tables = array_merge($tables, array('news', 'pages'));
 }
 foreach ($tables as $table) {

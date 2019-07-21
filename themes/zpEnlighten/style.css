@@ -503,7 +503,7 @@ ul.pagelist li.next {
 
 .taglist li {
 	display: inline;
-	background: url(../images/tag.png) no-repeat left center !important;
+	background: url(images/tag.png) no-repeat left center !important;
 	list-style-type: none;
 	padding-left: 0px;
 	float: left;

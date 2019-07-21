@@ -93,7 +93,7 @@ class tweet {
 						'desc' => gettext('If checked, protected items will be tweeted. <strong>Note:</strong> followers will need the password to visit the tweeted link.'))
 		);
 		$list = array('<em>' . gettext('Albums') . '</em>' => 'tweet_news_albums', '<em>' . gettext('Images') . '</em>' => 'tweet_news_images');
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$list['<em>' . gettext('News') . '</em>'] = 'tweet_news_news';
 			$list['<em>' . gettext('Pages') . '</em>'] = 'tweet_news_pages';
 		} else {

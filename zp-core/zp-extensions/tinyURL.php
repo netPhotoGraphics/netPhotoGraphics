@@ -79,7 +79,7 @@ class tinyURL {
 			<?php echo gettext('images'); ?>
 		</label>
 		<?php
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			?>
 			<label class="nowrap">
 				<input type="checkbox" name="tinyURL_news" value="<?php echo self::news; ?>" <?php if ($currentValue & self::news) echo 'checked="checked" '; ?>/>

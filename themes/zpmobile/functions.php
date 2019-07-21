@@ -32,7 +32,7 @@ function jqm_printRSSlinks() {
 		<ul>
 			<?php
 			// these links must change to ones with rel="external" so they are actually loaded via jquerymobile!
-			if (extensionEnabled('zenpage') && hasNews()) {
+			if (class_exists('CMS') && hasNews()) {
 				?>
 				<li class="rsslink"><a href="<?php echo html_encode(getRSSLink('News')); ?>" rel="external" data-ajax="false"><?php echo NEWS_LABEL; ?></a></li>
 				<?php
@@ -71,12 +71,12 @@ function jqm_printMainHeaderNav() {
 			<ul>
 				<li><a href="<?php echo getCustomPageURL('gallery'); ?>"><?php echo gettext('Gallery'); ?></a></li>
 				<?php
-				if (extensionEnabled('zenpage') && hasNews()) {
+				if (class_exists('CMS') && hasNews()) {
 					?>
 					<li><a href="<?php echo getNewsIndexURL(); ?>"><?php echo NEWS_LABEL; ?></a></li>
 					<?php
 				}
-				if (extensionEnabled('zenpage') && hasPages()) {
+				if (class_exists('CMS') && hasPages()) {
 					?>
 					<li><a href="<?php echo getCustomPageURL('pagelist'); ?>"><?php echo gettext('Pages'); ?></a></li>
 					<?php
@@ -179,7 +179,7 @@ function jqm_printMenusLinks() {
 	?>
 	<div id="collapsible-lists" data-collapsed="false">
 		<?php
-		if (extensionEnabled('zenpage') && hasNews()) {
+		if (class_exists('CMS') && hasNews()) {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_gallery_page == 'news.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo NEWS_LABEL; ?></h3>
@@ -195,7 +195,7 @@ function jqm_printMenusLinks() {
 			</div>
 			<?php
 		}
-		if (extensionEnabled('zenpage') && hasPages()) {
+		if (class_exists('CMS') && hasPages()) {
 			?>
 			<div data-role="collapsible" data-content-theme="c" data-theme="b"<?php if ($_gallery_page == 'pages.php') echo ' data-collapsed="false"'; ?>>
 				<h3><?php echo gettext('Pages'); ?></h3>
@@ -243,7 +243,7 @@ function jqm_printImageAlbumCount() {
 }
 
 /**
- * Prints jQuery JS to enable the toggling of search results of Zenpage  items
+ * Prints jQuery JS to enable the toggling of search results of CMS items
  *
  */
 function printZDSearchToggleJS() {
@@ -267,7 +267,7 @@ function printZDSearchToggleJS() {
 }
 
 /**
- * Prints the "Show more results link" for search results for Zenpage items
+ * Prints the "Show more results link" for search results for CMS items
  *
  * @param string $option "news" or "pages"
  * @param int $number_to_show how many search results should be shown initially
@@ -291,7 +291,7 @@ function printZDSearchShowMoreLink($option, $number_to_show) {
 }
 
 /**
- * Adds the css class necessary for toggling of Zenpage items search results
+ * Adds the css class necessary for toggling of CMS items search results
  *
  * @param string $option "news" or "pages"
  * @param string $c After which result item the toggling should begin. Here to be passed from the results loop.

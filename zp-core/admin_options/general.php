@@ -719,7 +719,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									</td>
 									<?php
 								}
-								if (extensionEnabled('zenpage')) {
+								if (class_exists('CMS')) {
 									if (!$row) {
 										$row = true;
 										?>

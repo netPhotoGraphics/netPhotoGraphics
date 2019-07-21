@@ -28,7 +28,7 @@ if (extensionEnabled('class-video')) {
 $option_interface = 'VideoObject_Options';
 
 define('GETID3_INCLUDEPATH', CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video/getid3/');
-require_once(dirname(__FILE__) . '/class-video/getid3/getid3.php');
+require_once(GETID3_INCLUDEPATH . 'getid3.php');
 
 /**
  * Option class for video objects

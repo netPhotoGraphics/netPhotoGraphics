@@ -7,7 +7,7 @@ npgFilters::register('theme_head', 'EF_head', 0);
 
 define('ALBUM_THMB_WIDTH', 170);
 define('ALBUM_THUMB_HEIGHT', 80);
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	setOption('gallery_index', 1, false);
 }
 
@@ -489,10 +489,6 @@ function commonNewsLoop($paged) {
 	}
 }
 
-function exerpt($content, $length) {
-	return shortenContent($content, $length, getOption("zenpage_textshorten_indicator"));
-}
-
 function commonComment() {
 	if (function_exists('printCommentForm')) {
 		?>
@@ -518,7 +514,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (!getOption('gallery_index')) { // only one index page if zenpage plugin is enabled or gallery index page is set
+			if (!getOption('gallery_index')) { // only one index page if CMS plugin is enabled or gallery index page is set
 				break;
 			}
 		default:

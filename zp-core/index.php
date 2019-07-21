@@ -146,7 +146,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	$lastupdate = (int) @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck');
 	if (time() - $lastupdate > getOption('static_cache_expire')) {
 		$tables = array('albums', 'images');
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$tables = array_merge($tables, array('news', 'pages'));
 		}
 		foreach ($tables as $table) {

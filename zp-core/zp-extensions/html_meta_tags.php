@@ -444,7 +444,7 @@ class htmlmetatags {
 			$tags = array_keys(getAllTagsUnique(NULL, 1)); // get all if no specific item is set
 			$words .= htmlmetatags::getMetaAlbumAndImageTags($tags, "gallery");
 		}
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			if (is_NewsArticle()) {
 				$tags = getNewsCategories(getNewsID());
 				$words .= htmlmetatags::getMetaAlbumAndImageTags($tags, "zenpage");

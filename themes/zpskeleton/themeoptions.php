@@ -48,7 +48,7 @@ class ThemeOptions {
 		return array(
 				gettext('Use News Feature') => array('key' => 'zpskel_usenews', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 5,
-						'desc' => gettext("IF you have the Zenpage plugin enabled, you can uncheck this to NOT use the news feature of the Zenpage plugin (use only pages)")),
+						'desc' => gettext("IF you have the CMS plugin enabled, you can uncheck this to NOT use the news feature of the CMS plugin (use only pages)")),
 				gettext('Thumb Size') => array('key' => 'zpskel_thumbsize', 'type' => OPTION_TYPE_RADIO,
 						'order' => 4,
 						'buttons' => array(gettext('Large') => 'large', gettext('Small') => 'small'),

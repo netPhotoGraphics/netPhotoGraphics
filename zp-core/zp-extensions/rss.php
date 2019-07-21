@@ -105,7 +105,7 @@ class rss_options {
 						'order' => 14,
 						'desc' => gettext('If checked links generated for logged‑in users will include a token identifying the user. Use of that link when not logged‑in will give the same feed as if the user were logged‑in.'))
 		);
-		if (extensionEnabled('zenpage')) {
+		if (class_exists('CMS')) {
 			$options[gettext('Feed text length')] = array('key' => 'RSS_truncate_length', 'type' => OPTION_TYPE_NUMBER,
 					'order' => 5.5,
 					'desc' => gettext("The text length of the Zenpage RSS feed items. No value for full length."));
@@ -515,7 +515,7 @@ class RSS extends feed {
 					$title = NULL;
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
-				if (extensionEnabled('zenpage')) {
+				if (class_exists('CMS')) {
 					require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
 				}
 				break;

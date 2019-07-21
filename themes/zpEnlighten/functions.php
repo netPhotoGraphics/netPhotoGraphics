@@ -21,7 +21,7 @@ class Utils {
 }
 
 /**
- * Prints jQuery JS to enable the toggling of search results of Zenpage  items
+ * Prints jQuery JS to enable the toggling of search results of CMS items
  *
  */
 function printZDSearchToggleJS() {
@@ -45,7 +45,7 @@ function printZDSearchToggleJS() {
 }
 
 /**
- * Prints the "Show more results link" for search results for Zenpage items
+ * Prints the "Show more results link" for search results for CMS items
  *
  * @param string $option "news" or "pages"
  * @param int $number_to_show how many search results should be shown initially
@@ -70,7 +70,7 @@ function printZDSearchShowMoreLink($option, $number_to_show) {
 }
 
 /**
- * Adds the css class necessary for toggling of Zenpage items search results
+ * Adds the css class necessary for toggling of CMS items search results
  *
  * @param string $option "news" or "pages"
  * @param string $c After which result item the toggling should begin. Here to be passed from the results loop.
@@ -105,7 +105,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 			$gallery_page = 'index.php'; //	same as an album gallery index
 			break;
 		case 'index.php':
-			if (extensionEnabled('zenpage')) {
+			if (class_exists('CMS')) {
 				if (getOption('zenpage_zp_index_news')) {
 					$gallery_page = 'news.php'; //	really a news page
 					break;
@@ -164,7 +164,7 @@ if (!OFFSET_PATH) {
 	enableExtension('print_album_menu', 1 | THEME_PLUGIN, false);
 	setOption('user_logout_login_form', 2, false);
 	$_current_page_check = 'my_checkPageValidity';
-	if (extensionEnabled('zenpage') && getOption('zenpage_zp_index_news')) { // only one index page if zenpage plugin is enabled & displaying
+	if (class_exists('CMS') && getOption('zenpage_zp_index_news')) { // only one index page if CMS plugin is enabled & displaying
 		npgFilters::register('getLink', 'newsOnIndex');
 	}
 }

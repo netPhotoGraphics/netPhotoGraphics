@@ -25,7 +25,7 @@ if (!defined('WEBPATH'))
 
 				<hr />
 
-				<?php if (extensionEnabled('zenpage') && hasNews()) { ?>
+				<?php if (class_exists('CMS') && hasNews()) { ?>
 					<h2><?php echo NEWS_LABEL; ?></h2>
 					<div class="columns">
 						<?php printNewsArchive("archive"); ?>

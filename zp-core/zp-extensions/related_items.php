@@ -146,7 +146,7 @@ function createRelatedItemsResultArray($result, $type) {
  * @param int $number Number of items to get
  * @param string $type 'albums', 'images','news','pages', "all" for all combined.
  * @param string $specific If $type = 'albums' or 'images' name of album
- * @param bool $excerpt If a text excerpt (gallery items: description; Zenpage items: content) should be shown. NULL for none or number of length
+ * @param bool $excerpt If a text excerpt (gallery items: description; CMS items: content) should be shown. NULL for none or number of length
  * @param bool $thumb For $type = 'albums' or 'images' if a thumb should be shown (default size as set on the options)
  */
 function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excerpt = NULL, $thumb = false, $date = false) {

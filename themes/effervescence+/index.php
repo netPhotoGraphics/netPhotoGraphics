@@ -2,7 +2,7 @@
 
 // force UTF-8 Ø
 if (getOption('gallery_index')) {
-	if ($zenpage = extensionEnabled('zenpage')) {
+	if ($zenpage = class_exists('CMS')) {
 		$imagereduction = 1 / 2;
 	} else {
 		$imagereduction = 1;

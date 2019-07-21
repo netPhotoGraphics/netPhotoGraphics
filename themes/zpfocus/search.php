@@ -17,7 +17,7 @@
 		$numimages = getNumImages();
 		$numalbums = getNumAlbums();
 		$total = $numimages + $numalbums;
-		$zenpage = extensionEnabled('zenpage');
+		$zenpage = class_exists('CMS');
 		if ($zenpage && !isArchive()) {
 			$numpages = getNumPages();
 			if ($zpfocus_news) {
@@ -57,7 +57,7 @@
 					?>
 					<li<?php printZDToggleClass('pages', $c, $number_to_show); ?>>
 						<h4><?php printPageTitlelink(); ?></h4>
-						<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getPageContent(), 250, getOption("zenpage_textshorten_indicator"))); ?></p>
+						<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getPageContent(), 250)); ?></p>
 					</li>
 					<?php
 				}
@@ -77,7 +77,7 @@
 					?>
 					<li<?php printZDToggleClass('news', $c, $number_to_show); ?>>
 						<h4><?php printNewsURL(); ?></h4>
-						<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getNewsContent(), 250, getOption("zenpage_textshorten_indicator"))); ?></p>
+						<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getNewsContent(), 250)); ?></p>
 					</li>
 					<?php
 				}

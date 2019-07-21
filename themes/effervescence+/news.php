@@ -10,7 +10,7 @@ if (class_exists('CMS')) {
 
 			<?php npgFilters::apply('theme_head'); ?>
 
-			<?php if (class_exists('RSS')) printRSSHeaderLink("News", "Zenpage news", ""); ?>
+			<?php if (class_exists('RSS')) printRSSHeaderLink("News", NEWS_LABEL, ""); ?>
 		</head>
 
 		<body onload="blurAnchors()">

@@ -4,7 +4,7 @@
  */
 define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	require_once(dirname(dirname(dirname(__FILE__))) . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 }
 require_once(dirname(__FILE__) . '/menu_manager-admin-functions.php');
@@ -83,7 +83,7 @@ $menuset = checkChosenMenuset();
 							});
 							break;
 <?php
-if (extensionEnabled('zenpage')) {
+if (class_exists('CMS')) {
 	?>
 							case 'all_pages':
 								$('#albumselector,#pageselector,#categoryselector,#custompageselector,#titleinput,#titlelabel,#link_row,#visible_row,#span_row').hide();
@@ -278,7 +278,7 @@ if (is_array($result)) {
 							<option value="all_albums"><?php echo gettext("All Albums"); ?></option>
 							<option value="album"><?php echo gettext("Album"); ?></option>
 							<?php
-							if (extensionEnabled('zenpage')) {
+							if (class_exists('CMS')) {
 								?>
 								<option value="all_pages"><?php echo gettext("All pages"); ?></option>
 								<option value="page"><?php echo gettext("Page"); ?></option>
@@ -408,7 +408,7 @@ if (is_array($result)) {
 														echo gettext('Target does not exist');
 														break;
 													case 3:
-														echo gettext('Zenpage plugin not enabled');
+														echo gettext('CMS plugin not enabled');
 														break;
 												}
 												if (array_key_exists('theme', $array)) {

@@ -24,7 +24,7 @@ if (!defined('WEBPATH'))
 			$numimages = getNumImages();
 			$numalbums = getNumAlbums();
 			$total = $numimages + $numalbums;
-			$zenpage = extensionEnabled('zenpage');
+			$zenpage = class_exists('CMS');
 			if ($zenpage && !isArchive()) {
 				$numpages = getNumPages();
 				$numnews = getNumNews();
@@ -34,7 +34,7 @@ if (!defined('WEBPATH'))
 			}
 			?>
 			<h2>
-				<?php if (extensionEnabled('zenpage')) { ?>
+				<?php if (class_exists('CMS')) { ?>
 					<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index") . " » "; ?></a>
 				<?php } else { ?>
 					<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
@@ -73,7 +73,7 @@ if (!defined('WEBPATH'))
 								?>
 								<li<?php printZDToggleClass('pages', $c, $number_to_show); ?>>
 									<h4><?php printPageTitlelink(); ?></h4>
-									<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getPageContent(), 80, getOption("zenpage_textshorten_indicator"))); ?></p>
+									<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getPageContent(), 80)); ?></p>
 								</li>
 								<?php
 							}
@@ -98,7 +98,7 @@ if (!defined('WEBPATH'))
 								?>
 								<li<?php printZDToggleClass('news', $c, $number_to_show); ?>>
 									<h4><?php printNewsURL(); ?></h4>
-									<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getNewsContent(), 80, getOption("zenpage_textshorten_indicator"))); ?></p>
+									<p class="zenpageexcerpt"><?php echo html_encodeTagged(shortenContent(getNewsContent(), 80)); ?></p>
 								</li>
 								<?php
 							}
