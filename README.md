@@ -2,7 +2,7 @@
 
 # Releases
 
-The current "official" release (and all previous ones) may be found at [Releases](https://github.com/ZenPhoto20/netPhotoGraphics/releases)
+The current "official" release (and all previous ones) may be found at [Releases](https://github.com/ZnetPhotoGraphics/netPhotoGraphics/releases)
 
 Tagged releases include one or more single file install packages for ease of installation. Instructions for its use are included in the download. (Interim install packages are created to incorporate minor updates to the software.)
 
@@ -26,7 +26,7 @@ the we modernized the software, the support process, and the integration of thir
 
 # Support
 
-Problems may be reported and features requested via repository [__issues__](https://github.com/ZenPhoto20/netPhotoGraphics/issues)
+Problems may be reported and features requested via repository [__issues__](https://github.com/netPhotoGraphics/netPhotoGraphics/issues)
 
 Discussions are hosted on the [netPhotoGraphics Forum](https://netphotographics.org/forum/)
 
