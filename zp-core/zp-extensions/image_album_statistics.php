@@ -431,17 +431,24 @@ function getImageStatistic($number, $option, $albumfolder = NULL, $collection = 
 	$obj = NULL;
 	if ($albumfolder) {
 		$obj = newAlbum($albumfolder);
-		$where = 'albumid = ' . $obj->getID();
+
 		if ($collection) {
 			$ids = getAllSubAlbumIDs($albumfolder);
-			if (!empty($ids)) {
-				foreach ($ids as $id) {
-					$getids[] = $id['id'];
-				}
-				$getids = implode(', ', $getids);
-				$where = 'albumid IN (' . $getids . ')';
-			}
+			$ids[] = array('id' => $obj->getID());
+		} else {
+			$where = 'albumid = ' . $obj->getID();
 		}
+	} else if (!npg_loggedin()) {
+		//	limit search to published albums
+		$sql = 'SELECT `id` FROM ' . prefix('albums') . ' WHERE `show`=1';
+		$ids = query_full_array($sql);
+	}
+	if (isset($ids) && !empty($ids)) {
+		foreach ($ids as $id) {
+			$getids[] = $id['id'];
+		}
+		$getids = implode(', ', $getids);
+		$where = 'albumid IN (' . $getids . ')';
 	}
 
 	switch (strtolower($sortdirection)) {
