@@ -128,7 +128,11 @@ class jplayer_options {
 	}
 
 	function getOptionsSupported() {
-		$skins = self::getSkin();
+		$skins = getPluginFiles('*', 'jPlayer/skin/', FALSE, GLOB_ONLYDIR);
+		foreach ($skins as $skin => $path) {
+			$skins[$skin] = $skin;
+		}
+
 		/*
 		  The player size is entirely styled via the CSS skin so there is no free size option. For audio (without thumb/poster) that is always 480px width.
 		  The original jPlayer skin comes with 270p (480x270px) and 360p (640x360px) sizes for videos but the zenphoto custom skin comes with some more like 480p and 1080p.
@@ -163,41 +167,6 @@ class jplayer_options {
 						'selections' => $skins,
 						'desc' => gettext("Select the skin (theme) to use. <br />NOTE: Since the skin is pure HTML/CSS only there may be display issues with certain themes that require manual adjustments. The two custom skins are responsive regarding the player width. Place custom skin within the root plugins folder. See plugin documentation for more info."))
 		);
-	}
-
-	/**
-	 * Gets the skin names and css files
-	 *
-	 */
-	static function getSkin() {
-		$default_skins_dir = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/';
-		$user_skins_dir = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/jPlayer/skin/';
-		$filestoignore = array('.', '..', '.DS_Store', 'Thumbs.db', '.htaccess', '.svn');
-		$skins = array_diff(scandir($default_skins_dir), array_merge($filestoignore));
-		$default_skins = self::getSkinCSS($skins, $default_skins_dir);
-//echo "<pre>";print_r($default_skins);echo "</pre>";
-		$skins2 = @array_diff(scandir($user_skins_dir), array_merge($filestoignore));
-		if (is_array($skins2)) {
-			$user_skins = selfgetSkinCSS($skins2, $user_skins_dir);
-//echo "<pre>";print_r($user_skins);echo "</pre>";
-			$default_skins = array_merge($default_skins, $user_skins);
-		}
-		return $default_skins;
-	}
-
-	/**
-	 * Gets the css files for a skin. Helper function for getSkin().
-	 *
-	 */
-	static function getSkinCSS($skins, $dir) {
-		$skin_css = array();
-		foreach ($skins as $skin) {
-			$css = safe_glob($dir . $skin . '/*.css');
-			if ($css) {
-				$skin_css = array_merge($skin_css, array($skin => $skin)); // a skin should only have one css file so we just use the first found
-			}
-		}
-		return $skin_css;
 	}
 
 }
@@ -262,7 +231,7 @@ class jPlayer {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/zenphotolight/jplayer.zenphotolight.css';
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
 		}
 		scriptLoader($skin);
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
@@ -732,7 +701,7 @@ class jPlayer {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 								<div class="jp-controls-holder">
-									<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
 									<div class="jp-volume-controls">
 										<button class="jp-mute" role="button" tabindex="0"><?php echo gettext('mute'); ?></button>
 										<button class="jp-volume-max" role="button" tabindex="0"><?php echo gettext('max volume'); ?></button>
@@ -740,7 +709,7 @@ class jPlayer {
 											<div class="jp-volume-bar-value"></div>
 										</div>
 									</div>
-									<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
 								</div>
 								<div class="jp-details">
 									<div class="jp-title" aria-label="title">&nbsp;</div>
@@ -753,7 +722,7 @@ class jPlayer {
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-						<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
+				<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
 					</div>
 				</div>
 				<?php
@@ -763,7 +732,7 @@ class jPlayer {
 				<div id="jp_container_<?php echo $id; ?>" class="jp-audio" role="application" aria-label="media player">
 					<div class="jp-type-playlist">
 						<div class="jp-gui jp-interface">
-							<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
 							<div class="jp-progress">
 								<div class="jp-seek-bar">
 									<div class="jp-play-bar"></div>
@@ -780,14 +749,14 @@ class jPlayer {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 							</div>
-							<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
 						</div>
 						<div class="jp-playlist">
 							<ul>
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-						<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
+				<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
 					</div>
 				</div>
 
