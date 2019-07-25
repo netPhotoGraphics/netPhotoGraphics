@@ -482,7 +482,7 @@ function checkAlbumPassword($album, &$hint = NULL) {
  * @param bool $stripsuffix set to true to remove the suffix from the key name in the array
  * @return array
  */
-function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
+function getPluginFiles($pattern, $folder = '', $stripsuffix = true, $flags = 0) {
 	if (!empty($folder) && substr($folder, -1) != '/')
 		$folder .= '/';
 	$list = array();
@@ -492,7 +492,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true) {
 	foreach ($sources as $basepath) {
 		if (is_dir($basepath)) {
 			chdir($basepath);
-			$filelist = safe_glob($pattern);
+			$filelist = safe_glob($pattern, $flags);
 			foreach ($filelist as $file) {
 				$key = filesystemToInternal($file);
 				if ($stripsuffix) {
@@ -2281,14 +2281,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
