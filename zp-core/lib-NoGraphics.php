@@ -74,14 +74,6 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		return false;
 	}
 
-	function gl_imageResizeAlpha($src, $w, $h) {
-		return false;
-	}
-	
-	function Gl_imageResizeTransparent($src, $w, $h) {
-		return false;
-	}
-
 	function gl_imageCanRotate() {
 		return false;
 	}
