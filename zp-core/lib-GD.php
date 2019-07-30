@@ -316,46 +316,6 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		}
 
 		/**
-		 * Resize a PNG file with transparency to given dimensions
-		 * and still retain the alpha channel information
-		 *
-		 * Note: You have to apply gl_resampleImage() afterwards as the function does not handle this internally
-		 *
-		 * @param image $src
-		 * @param int $w
-		 * @param int $h
-		 * @return image
-		 */
-		function gl_imageResizeAlpha($src, $w, $h) {
-			if ($src) {
-				imagealphablending($src, false);
-				imagesavealpha($src, true);
-				$transparentindex = imagecolorallocatealpha($src, 255, 255, 255, 127);
-				imagefill($src, 0, 0, $transparentindex);
-			}
-			return $src;
-		}
-
-		/**
-		 * Resize a GIF file with transparency to given dimensions
-		 * and still retain the transparency information
-		 *
-		 * Note: You have to apply gl_resampleImage() afterwards as the function does not handle this internally
-		 *
-		 * @param image $src
-		 * @param int $w
-		 * @param int $h
-		 * @return image
-		 */
-		function Gl_imageResizeTransparent($src, $w, $h) {
-			if ($src) {
-				$transparent = gl_colorAllocate($src, 255, 255, 255);
-				gl_imageColorTransparent($src, $transparent);
-			}
-			return $src;
-		}
-
-		/**
 		 * Returns true if GD library is configued with image rotation suppord
 		 *
 		 * @return bool

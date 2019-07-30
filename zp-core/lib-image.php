@@ -381,16 +381,7 @@ class imageProcessing {
 				if (DEBUG_IMAGE) {
 					debugLog("imageProcessing::cache:crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate");
 				}
-				$newim = gl_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
-				switch ($suffix) {
-					case 'gif':
-						$newim = Gl_imageResizeTransparent($newim, $neww, $newh);
-						break;
-					case 'png':
-					case 'webp':
-						$newim = gl_imageResizeAlpha($newim, $neww, $newh);
-						break;
-				}
+				$newim = gl_createImage($neww, $newh);
 				if (!gl_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 				}
@@ -416,16 +407,7 @@ class imageProcessing {
 				if (DEBUG_IMAGE) {
 					debugLog("self::cache:no crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 				}
-				$newim = gl_createImage($neww, $newh, ($suffix = getSuffix($newfilename)) != 'gif');
-				switch ($suffix) {
-					case 'gif':
-						$newim = Gl_imageResizeTransparent($newim, $neww, $newh);
-						break;
-					case 'png':
-					case 'webp':
-						$newim = gl_imageResizeAlpha($newim, $neww, $newh);
-						break;
-				}
+				$newim = gl_createImage($neww, $newh);
 				if (!gl_resampleImage($newim, $im, 0, 0, 0, 0, $neww, $newh, $w, $h)) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 				}
@@ -531,10 +513,8 @@ class imageProcessing {
 		}
 		$nw = round($watermark_width * $r);
 		$nh = round($watermark_height * $r);
-		$watermark_new = false;
 		if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-			$watermark_new = gl_imageResizeAlpha($watermark, $nw, $nh);
-			if (!gl_resampleImage($watermark_new, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+			if (!gl_resampleImage($watermark, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
 				self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
 			}
 		}
@@ -543,12 +523,8 @@ class imageProcessing {
 		$dest_y = max(0, floor(($imh - $nh) * $offset_h));
 		if (DEBUG_IMAGE)
 			debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
-		if (!gl_copyCanvas($newim, $watermark_new, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
-			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
-		}
-
-		if ($watermark_new != $watermark) {
-			gl_imageKill($watermark_new);
+		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
+			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $imgfile);
 		}
 		gl_imageKill($watermark);
 		return $newim;

@@ -410,31 +410,6 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	}
 
 	/**
-	 * Resize a file with transparency to given dimensions and still retain the alpha channel information
-	 *
-	 * @param Imagick $src
-	 * @param int $w
-	 * @param int $h
-	 * @return Imagick
-	 */
-	function gl_imageResizeAlpha($src, $w, $h) {
-		$src->scaleImage($w, $h);
-		return $src;
-	}
-
-	/**
-	 * Uses gl_imageResizeAlpha() internally as Imagick does not make a difference
-	 *
-	 * @param type $src
-	 * @param type $w
-	 * @param type $h
-	 * @return type
-	 */
-	function Gl_imageResizeTransparent($src, $w, $h) {
-		return gl_imageResizeAlpha($src, $w, $h);
-	}
-
-	/**
 	 * Returns true if Imagick library is configured with image rotation support
 	 *
 	 * @return bool
