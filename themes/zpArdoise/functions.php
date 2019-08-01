@@ -201,7 +201,7 @@ function zpArdoise_printImageStatistic($number, $option, $albumfolder = '', $sho
 				echo "<p>" . sprintf(gettext('Rating: %1$u (Votes: %2$u)'), $rating, $votes) . "</p>";
 			}
 			if ($showstatistic === "hitcounter" OR $showstatistic === "rating+hitcounter") {
-				$hitcounter = $image->get("hitcounter");
+				$hitcounter = $image->getHitcounter();
 				if (empty($hitcounter)) {
 					$hitcounter = "0";
 				}
