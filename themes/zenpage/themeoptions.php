@@ -39,7 +39,7 @@ class ThemeOptions {
 		}
 		if (function_exists('menuExists') && !menuExists('zenpage')) {
 			$menuitems = array(
-					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
+					array('type' => 'menulabel', 'title' => NEWS_LABEL, 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
 							'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,"inner_ul",false,"list",false,getOption("menu_manager_truncate_string"));',
 							'show' => 1, 'include_li' => 0, 'nesting' => 1),

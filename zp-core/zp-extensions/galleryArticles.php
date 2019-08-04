@@ -10,7 +10,7 @@
  */
 $plugin_is_filter = 600 | THEME_PLUGIN | ADMIN_PLUGIN;
 $plugin_description = gettext('Create news articles when a gallery item is published.');
-$plugin_disable = class_exists('CMS') ? '' : gettext('Gallery Articles requires Zenpage to be enabled.');
+$plugin_disable = extensionEnabled('zenpage') ? '' : gettext('Gallery Articles requires Zenpage to be enabled.');
 
 $option_interface = 'galleryArticles';
 
@@ -116,7 +116,7 @@ class galleryArticles {
 
 	function handleOptionSave($themename, $themealbum) {
 		if (getOption('galleryArticles_import')) {
-			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/galleryArticles/combiNews.php');
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/galleryArticles/combiNews.php');
 			purgeOption('galleryArticles_import');
 		}
 		return false;
