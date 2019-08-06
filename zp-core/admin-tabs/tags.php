@@ -102,7 +102,8 @@ if (isset($_GET['action'])) {
 					if (count($tags) > 0) {
 						$sql = "UPDATE " . prefix('tags') . " SET `private`=$private WHERE ";
 						foreach ($tags as $key => $tag) {
-							$sql .= "(`name`=" . (db_quote($tag)) . ' AND `language`=' . db_quote($langs[$key]) . ") OR ";
+							$lang = @$langs[$key];
+							$sql .= "(`name`=" . (db_quote($tag)) . ' AND `language`=' . db_quote($lang) . ") OR ";
 						}
 						$sql = substr($sql, 0, strlen($sql) - 4);
 						query($sql);
