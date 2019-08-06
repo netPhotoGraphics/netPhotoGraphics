@@ -6,7 +6,7 @@
  *
  */
 
-require_once( dirname(__FILE__) . '/' . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
+require_once(dirname(__FILE__) . '/' . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 
