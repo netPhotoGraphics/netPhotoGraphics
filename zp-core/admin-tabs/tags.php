@@ -253,7 +253,7 @@ printAdminHeader('admin');
 							<span id="autotext"><?php echo gettext('all'); ?></span>
 						</label>
 					</h2>
-					<form class="dirtylistening" onReset="setClean('tag_action_form');" name="tag_action_form" id="tag_action_form" action="?action=tag_action&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
+					<form onReset="setClean('tag_action_form');" name="tag_action_form" id="tag_action_form" action="?action=tag_action&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
 						<?php XSRFToken('tag_action'); ?>
 						<input type="hidden" name="tag_action" id="tag_action" value="delete" />
 						<div class="box-tags-unpadded">
@@ -264,19 +264,19 @@ printAdminHeader('admin');
 						</div>
 
 						<p class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 27px;"'; ?>>
-							<button type="submit" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
+							<button type="button" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
 								<?php echo WASTEBASKET; ?>
 								<?php echo gettext("Delete checked tags"); ?>
 							</button>
 						</p>
 						<p class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 27px;"'; ?>>
-							<button type="submit" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
+							<button type="button" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
 								<?php echo LOCK; ?>
 								<?php echo gettext("Mark checked tags private"); ?>
 							</button>
 						</p>
 						<p class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 27px;"'; ?>>
-							<button type="submit" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
+							<button type="button" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
 								<?php echo LOCK_OPEN; ?>
 								<?php echo gettext("Mark checked tags public"); ?>
 							</button>
@@ -286,7 +286,7 @@ printAdminHeader('admin');
 						if (getOption('multi_lingual')) {
 							?>
 							<span class="buttons">
-								<button type="submit" id="assign_tags" onclick="$('#tag_action').val('assign');	this.form.submit();" title="<?php echo gettext('Assign tags to selected language'); ?>">
+								<button type="button" id="assign_tags" onclick="$('#tag_action').val('assign');	this.form.submit();" title="<?php echo gettext('Assign tags to selected language'); ?>">
 									<?php echo ARROW_RIGHT_BLUE; ?>
 									<?php echo gettext('Assign to'); ?>
 								</button>
