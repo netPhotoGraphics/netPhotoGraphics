@@ -86,8 +86,11 @@ class cmsFilters {
 	function __construct() {
 
 		if (OFFSET_PATH == 2) {
-			$options = getOptionsLike('zenpage');
-			foreach ($options as $key => $value) {
+			$sql = 'SELECT `name`,`value` FROM ' . prefix('options') . ' WHERE `name` LIKE "zenpage%" AND `theme` =""';
+			$options = query_full_array($sql);
+			foreach ($options as $opt) {
+				$key = $opt['name'];
+				$value = $opt['value'];
 				setOption(str_replace('zenpage', 'CMS', $key), $value);
 				purgeOption($key);
 			}
@@ -102,11 +105,11 @@ class cmsFilters {
 	function getOptionsSupported() {
 
 		$options = array(
-				gettext('News label') => array('key' => 'zenpage_news_label', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('News label') => array('key' => 'CMS_news_label', 'type' => OPTION_TYPE_TEXTBOX,
 						'multilingual' => true,
 						'order' => 0,
 						'desc' => gettext('Change this option if you want the news items named something else. This option also changes the rewrite token for <em>news</em>. For multilingual sites, the token will use the site language (if set) defaulting to the string for the current locale, the en_US string, or the first string which ever is present. Note: Themes should be using the define <var>NEWS_LABEL:</var> instead of <var>gettext("News")</var>. The change applies to the front-end only, admin pages still refer to <em>news</em> as news.')),
-				'hidden' => array('key' => 'zenpage_news_label_prior', 'type' => OPTION_TYPE_HIDDEN, 'value' => getOption('zenpage_news_label')),
+				'hidden' => array('key' => 'CMS_news_label_prior', 'type' => OPTION_TYPE_HIDDEN, 'value' => getOption('zCMS_news_label')),
 				gettext('Enabled CMS items') => array(
 						'key' => 'CMS_enabled_items',
 						'type' => OPTION_TYPE_RADIO,
@@ -146,8 +149,8 @@ class cmsFilters {
 	}
 
 	function handleOptionSave($option, $currentValue) {
-		$newslabel = getOption('zenpage_news_label');
-		if (!empty($newslabel) && $newslabel != getOptionPost('zenpage_news_label_prior')) {
+		$newslabel = getOption('CMS_news_label');
+		if (!empty($newslabel) && $newslabel != getOptionPost('CMS_news_label_prior')) {
 			$newslink = get_language_string(getSerializedArray($newslabel), getOption('locale'));
 			setOption('NewsLink', strtolower($newslink));
 		}

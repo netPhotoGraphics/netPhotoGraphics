@@ -48,7 +48,7 @@ class ThemeOptions {
 		}
 		if (function_exists('menuExists') && !menuExists('effervescence')) {
 			$menuitems = array(
-					array('type' => 'menulabel', 'title' => getOption('zenpage_news_label'), 'link' => '', 'show' => 1, 'nesting' => 0),
+					array('type' => 'menulabel', 'title' => NEWS_LABEL, 'link' => '', 'show' => 1, 'nesting' => 0),
 					array('type' => 'menufunction', 'title' => getAllTranslations('All'),
 							'link' => 'printAllNewsCategories("All",TRUE,"","menu-active",false,false,false,"list",false,getOption("menu_manager_truncate_string"));',
 							'show' => 1, 'include_li' => 0, 'nesting' => 1),
@@ -68,7 +68,7 @@ class ThemeOptions {
 				$rssItems = array(
 						array('type' => 'menulabel', 'title' => getAllTranslations('RSS'), 'link' => '', 'show' => 1, 'nesting' => 0),
 						array('type' => 'dynamiclink', 'title' => getAllTranslations('Gallery'), 'link' => "html_encode(getRSSLink(''))", 'show' => 1, 'nesting' => 1),
-						array('type' => 'dynamiclink', 'title' => getOption('zenpage_news_label'), 'link' => "html_encode(getRSSLink('news'))", 'show' => 1, 'nesting' => 1),
+						array('type' => 'dynamiclink', 'title' => NEWS_LABEL, 'link' => "html_encode(getRSSLink('news'))", 'show' => 1, 'nesting' => 1),
 						array('type' => 'dynamiclink', 'title' => getAllTranslations('Both'), 'link' => "html_encode(getRSSLink('news')).'&amp;withimages'", 'show' => 1, 'nesting' => 1),
 				);
 				$menuitems = array_merge($menuitems, $rssItems);

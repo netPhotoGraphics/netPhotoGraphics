@@ -567,7 +567,7 @@ setOptionDefault('site_email', "netPhotoGraphics" . $_SERVER['SERVER_NAME']);
 setOptionDefault('site_email_name', 'netPhotoGraphics');
 
 setOptionDefault('register_user_notify', 1);
-setOptionDefault('zenpage_news_label', getAllTranslations('News'));
+setOptionDefault('CMS_news_label', getAllTranslations('News'));
 
 setOptionDefault('obfuscate_cache', 0);
 
