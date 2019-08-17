@@ -757,8 +757,8 @@ class ThemeObject extends PersistentObject {
 	 * @return object
 	 */
 	function addComment($name, $email, $website, $comment, $code, $code_ok, $ip, $private, $anon, $customdata) {
-		$goodMessage = npgFilters::apply('object_addComment', $name, $email, $website, $comment, $code, $code_ok, $this, $ip, $private, $anon, $customdata);
-		return $goodMessage;
+		$commentobj = npgFilters::apply('object_addComment', NULL, $name, $email, $website, $comment, $code, $code_ok, $this, $ip, $private, $anon, $customdata);
+		return $commentobj;
 	}
 
 	/**
