@@ -2608,8 +2608,10 @@ ul.page-list {
 
 .page-list_row .page-list_albumtitle {
 	float: left;
-	height: 30px;
-	padding: 20px 10px 0px 10px;
+	height: 40px;
+	padding: 5px 0px 0px 10px;
+	width: 40%;
+	overflow: hidden;
 }
 
 .page-list_row .page-list_extra {

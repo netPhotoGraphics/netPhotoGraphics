@@ -293,6 +293,7 @@ define('COMMENT_SEND_EMAIL', 32);
  *
  * Returns a comment object
  *
+ * @param $commentobj comment object (for filter use)
  * @param string $name Comment author name
  * @param string $email Comment author email
  * @param string $website Comment author website
@@ -308,7 +309,7 @@ define('COMMENT_SEND_EMAIL', 32);
  * @param bit $check bitmask of which fields must be checked. If set overrides the options
  * @return object
  */
-function comment_form_addComment($name, $email, $website, $comment, $code, $code_ok, $receiver, $id, $private, $anon, $customdata, $check = false) {
+function comment_form_addComment($commentobj, $name, $email, $website, $comment, $code, $code_ok, $receiver, $id, $private, $anon, $customdata, $check = false) {
 	global $_captcha, $_gallery, $_authority, $_comment_on_hold, $_spamFilter;
 	if ($check === false) {
 		$whattocheck = 0;

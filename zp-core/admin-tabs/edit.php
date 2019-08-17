@@ -268,9 +268,6 @@ if (isset($_GET['action'])) {
 			$newsort = sanitize($_POST['albumimagesort'], 3);
 			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_sortby)) {
 				if (strpos($newsort, '_DESC')) {
-
-					echo "<br/>descending";
-
 					$_gallery->setSortType(substr($newsort, 0, -5), 'image');
 					$_gallery->setSortDirection('1', 'image');
 				} else {
