@@ -1892,13 +1892,14 @@ function getRequestURI($decode = true) {
  */
 function safe_glob($pattern, $flags = 0) {
 	$split = explode('/', $pattern);
-	$match = '/^' . strtr(addcslashes(array_pop($split), '\\.+^$(){}=!<>|'), array('*' => '.*', '?' => '.?')) . '$/i';
+	$match = '/^' . strtr(addcslashes(array_pop($split), '\\.+^$(){}=!<>|[]'), array('*' => '.*', '?' => '.?')) . '$/i';
 	$path_return = $path = implode('/', $split);
 	if (empty($path)) {
 		$path = '.';
 	} else {
 		$path_return = $path_return . '/';
 	}
+
 	if (!is_dir($path))
 		return array();
 	if (($dir = opendir($path)) !== false) {
