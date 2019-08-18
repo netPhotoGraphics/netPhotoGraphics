@@ -122,6 +122,7 @@ class Image extends MediaObject {
 		}
 
 		// This is where the magic happens...
+		$this->album = $album;
 		$album_name = $album->name;
 		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()), 'filename', false, empty($album_name));
 		$this->checkForPublish();
@@ -149,6 +150,17 @@ class Image extends MediaObject {
 	 */
 	public function __toString() {
 		return $this->imagefolder . '/' . $this->filename;
+	}
+
+	/**
+	 * propagate last change to parent
+	 */
+	function save() {
+		$success = parent::save();
+		if ($success == 1) {
+			$this->album->set('lastchange', date('Y-m-d H:i:s'));
+			$this->album->save();
+		}
 	}
 
 	/**
