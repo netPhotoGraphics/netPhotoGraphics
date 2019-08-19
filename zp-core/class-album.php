@@ -76,6 +76,17 @@ class AlbumBase extends MediaObject {
 	}
 
 	/**
+	 * propagate last change to parent
+	 */
+	function save() {
+		$success = parent::save();
+		if ($success == 1 && $album = $this->getParent()) {
+			$album->set('lastchange', date('Y-m-d H:i:s'));
+			$album->save();
+		}
+	}
+
+	/**
 	 * Sets default values for a new album
 	 *
 	 * @return bool
@@ -165,6 +176,7 @@ class AlbumBase extends MediaObject {
 				$parent = substr($this->name, 0, $slashpos);
 				$parentalbum = newAlbum($parent, true, true);
 				if ($parentalbum->exists) {
+					$this->parentalbum = $parentalbum;
 					return $parentalbum;
 				}
 			}
