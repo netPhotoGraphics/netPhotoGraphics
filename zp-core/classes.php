@@ -348,7 +348,7 @@ class PersistentObject {
 			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
 			return 0;
 		}
-		if (!npgFilters::apply('save_object', TRUE, $this)) {
+		if (!npgFilters::apply('save_object', TRUE, $this, $this->updates)) {
 			// filter aborted the save
 			return 0;
 		}
