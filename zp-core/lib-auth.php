@@ -178,7 +178,17 @@ class _Authority {
 				<script type="text/javascript">
 					// <!-- <![CDATA[
 					function sliderColor(strength) {
-						var url = 'url(<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/strengths/strength' + strength + '.png)';
+
+						if (strength < 15) {
+							r1 = r2 = 255;
+							g2 = strength * 17;
+							g1 = g2 - 17;
+						} else {
+							g1 = g2 = 255;
+							r2 = 510 - strength * 17;
+							r1 = r2 - 17;
+						}
+						url = 'linear-gradient(rgb(' + r1 + ',' + g1 + ',0), rgb(' + r2 + ',' + g2 + ',0))';
 						$('#slider-password_strength').css('background-image', url);
 					}
 					$(function () {
