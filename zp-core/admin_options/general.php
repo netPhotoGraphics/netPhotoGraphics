@@ -328,10 +328,7 @@ function getOptionContent() {
 								$locales = i18n::generateLanguageList('all');
 								$locales[gettext("HTTP_Accept_Language")] = '';
 								ksort($locales, SORT_LOCALE_STRING);
-								$vers = explode('.', NETPHOTOGRAPHICS_VERSION_CONCISE);
-								while (count($vers) < 3) {
-									$vers[] = 0;
-								}
+								$vers = explode('.', NETPHOTOGRAPHICS_VERSION_CONCISE . '.0.0.0');
 								$npg_version = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
 								$c = 0;
 								foreach ($locales as $language => $dirname) {
