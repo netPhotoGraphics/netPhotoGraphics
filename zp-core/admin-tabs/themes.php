@@ -199,8 +199,6 @@ if (count($themelist) == 0) {
 			<th class="centered"><b><?php echo gettext('Action'); ?></b></th>
 		</tr>
 		<?php
-		$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
-		$npg_version = array_shift($npg_version);
 		$software_date = date('Y-m-d', filemtime(CORE_SERVERPATH . 'version.php'));
 		$current_theme_style = 'class="currentselection"';
 		foreach ($themes as $theme => $themeinfo) {
@@ -247,7 +245,7 @@ if (count($themelist) == 0) {
 					<br />
 					<?php
 					if (strpos($ico, 'images/np_gold.png') !== false || $themeinfo['version'] === true) {
-						$version = $npg_version;
+						$version = NETPHOTOGRAPHICS_VERSION_CONCISE;
 						$date = $software_date;
 					} else {
 						$version = $themeinfo['version'];

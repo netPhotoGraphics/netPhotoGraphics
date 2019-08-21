@@ -811,11 +811,7 @@ setOptionDefault('theme_head_separator', ' | ');
 setOptionDefault('tagsort', 'alpha');
 setOptionDefault('languageTagSearch', 1);
 
-$vers = explode('-', NETPHOTOGRAPHICS_VERSION);
-$vers = explode('.', $vers[0]);
-while (count($vers) < 3) {
-	$vers[] = 0;
-}
+$vers = explode('.', NETPHOTOGRAPHICS_VERSION_CONCISE . '.0.0.0');
 $npg_version = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
 $_languages = i18n::generateLanguageList('all');
 

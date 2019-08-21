@@ -40,8 +40,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					foreach ($clones as $clone => $data) {
 						$rwSuffix = $version = '';
 						$modRewrite = false;
-						$v = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
-						$myVersion = $v[0];
+						$myVersion = NETPHOTOGRAPHICS_VERSION_CONCISE;
 						if ($data['valid']) {
 							$title = gettext('Visit the site.');
 							$strike = '';

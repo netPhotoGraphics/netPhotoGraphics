@@ -318,9 +318,7 @@ $buttonlist = array();
 	if (npg_loggedin(ADMIN_RIGHTS)) {
 
 		if ($newVersionAvailable = isset($newestVersion)) {
-			$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
-			$npg_version = preg_replace('~[^0-9,.]~', '', array_shift($npg_version));
-			if ($newVersionAvailable = version_compare($newestVersion, $npg_version, '>')) {
+			if ($newVersionAvailable = version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION_CONCISE, '>')) {
 				if (!isset($_SESSION['new_version_available'])) {
 					$_SESSION['new_version_available'] = $newestVersion;
 					?>
@@ -521,7 +519,7 @@ $buttonlist = array();
 					if (!empty($debug)) {
 						$debug = array_map('strtolower', $debug);
 						$debug = array_map('ucfirst', $debug);
-						$official .= ': ' . implode(', ', $debug);
+						$official .= ':</strong> ' . implode(', ', $debug) . '<strong>';
 					}
 				} else {
 					$official = gettext('Official build');

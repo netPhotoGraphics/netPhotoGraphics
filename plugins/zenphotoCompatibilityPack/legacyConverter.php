@@ -76,8 +76,6 @@ if (isset($_GET['action'])) {
 		}
 	}
 	$counter = 0;
-	$npgVersion = explode('-', NETPHOTOGRAPHICS_VERSION);
-	$npgVersion = preg_replace('~[^0-9,.]~', '', array_shift($npgVersion));
 
 	foreach ($files as $file) {
 		$source = $body = file_get_contents($file);
@@ -87,7 +85,7 @@ if (isset($_GET['action'])) {
 		}
 		preg_match('~\<\?php(.*)$~ixUs', $body, $matches);
 		if (isset($matches[0])) {
-			$body = str_replace($matches[0], "<?php\n/* LegacyConverter v$npgVersion was here */\n" . trim($matches[1], "\n") . "\n?>", $body);
+			$body = str_replace($matches[0], "<?php\n/* LegacyConverter v" . NETPHOTOGRAPHICS_VERSION_CONCISE . " was here */\n" . trim($matches[1], "\n") . "\n?>", $body);
 		}
 		foreach ($legacyReplacements as $match => $replace) {
 			$body = preg_replace('~' . $match . '~im', $replace, $body);

@@ -1215,14 +1215,12 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  * Central place for meta header handling
  */
 function printStandardMeta() {
-	$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
-	$npg_version = array_shift($npg_version);
 	$lang = substr(i18n::getUserLocale(), 0, 2);
 	if ($lang) {
 		$lang = ' lang="' . $lang . '"';
 	}
 	?>
-	<meta name="generator" content="netPhotoGraphics <?php echo $npg_version; ?>" />
+	<meta name="generator" content="netPhotoGraphics <?php echo NETPHOTOGRAPHICS_VERSION_CONCISE; ?>" />
 	<meta http-equiv="content-type" content="text/html; charset=<?php echo LOCAL_CHARSET; ?>"<?php echo $lang; ?> />
 	<?php
 }
@@ -2140,8 +2138,7 @@ function scriptLoader($script, $inline = 1) {
 		}
 	}
 	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
-	$version = explode('-', NETPHOTOGRAPHICS_VERSION);
-	$version = array_shift($version);
+	$version = NETPHOTOGRAPHICS_VERSION_CONCISE;
 	if (TESTING_MODE) {
 		$version .= '.' . time();
 	}

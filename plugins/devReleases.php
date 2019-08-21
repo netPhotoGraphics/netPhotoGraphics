@@ -45,8 +45,6 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 	}
 	$devVersionURI = getOption('getDEVUpdates_latest');
 	$devVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($devVersionURI))));
-	$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
-	$npg_version = preg_replace('~[^0-9,.]~', '', array_shift($npg_version));
 
 	npgFilters::register('admin_utilities_buttons', 'devRelease::buttons');
 	if (isset($_GET['update_check'])) {
@@ -108,9 +106,9 @@ if (isset($_GET['action'])) {
 class devRelease {
 
 	static function buttons($buttons) {
-		global $devVersion, $npg_version, $newestVersion;
+		global $devVersion, $newestVersion;
 
-		if (version_compare($devVersion, $npg_version, '>')) {
+		if (version_compare($devVersion, NETPHOTOGRAPHICS_VERSION_CONCISE, '>')) {
 			$buttons[] = array(
 					'XSRFTag' => 'install_update',
 					'category' => gettext('Updates'),
@@ -143,8 +141,8 @@ class devRelease {
 	}
 
 	static function notice() {
-		global $devVersion, $npg_version;
-		if (isset($newestVersion) || version_compare($devVersion, $npg_version, '>')) {
+		global $devVersion;
+		if (isset($newestVersion) || version_compare($devVersion, NETPHOTOGRAPHICS_VERSION_CONCISE, '>')) {
 			$msg = gettext('There is an update available.');
 		} else {
 			$msg = gettext('You are running the latest netPhotoGraphics version.');

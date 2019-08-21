@@ -38,7 +38,7 @@ function printAdminFooter($addl = '') {
 		</span>
 		<span id="footer_right">
 			<?php
-			echo '<span class="npglogo"><a href="https://netPhotoGraphics.org" title="' . gettext('A simpler media content management system') . '">' . swLogo() . '</a></span> ' . sprintf(gettext('version %1$s'), NETPHOTOGRAPHICS_VERSION);
+			echo '<span class="npglogo"><a href="https://netPhotoGraphics.org" title="' . gettext('A simpler media content management system') . '">' . swLogo() . '</a></span> ' . sprintf(gettext('version %1$s'), NETPHOTOGRAPHICS_VERSION_CONCISE);
 
 			if (!empty($addl)) {
 				echo ' | ' . $addl;

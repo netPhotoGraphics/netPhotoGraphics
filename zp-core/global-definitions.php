@@ -10,6 +10,9 @@ if (!function_exists("gettext")) {
 	require_once(dirname(__FILE__) . '/php-gettext/gettext.inc');
 }
 require_once(dirname(__FILE__) . '/version.php'); // Include the version info.
+$v = explode('-', NETPHOTOGRAPHICS_VERSION);
+define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
+unset($v);
 
 define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s') . ' GMT');
 
