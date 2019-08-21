@@ -178,17 +178,9 @@ class _Authority {
 				<script type="text/javascript">
 					// <!-- <![CDATA[
 					function sliderColor(strength) {
-
-						if (strength < 15) {
-							r1 = r2 = 255;
-							g2 = strength * 17;
-							g1 = g2 - 17;
-						} else {
-							g1 = g2 = 255;
-							r2 = 510 - strength * 17;
-							r1 = r2 - 17;
-						}
-						url = 'linear-gradient(rgb(' + r1 + ',' + g1 + ',0), rgb(' + r2 + ',' + g2 + ',0))';
+						r = (30 - strength) * 17;
+						g = strength * 17;
+						url = 'linear-gradient(rgb(' + Math.min(r - 17, 255) + ',' + Math.min(g - 17, 255) + ',0), rgb(' + Math.min(r, 255) + ',' + Math.min(g, 255) + ',0))';
 						$('#slider-password_strength').css('background-image', url);
 					}
 					$(function () {
