@@ -1416,7 +1416,9 @@ class _Authority {
 							$(inputb).prop('disabled', false);
 							passwordMatch(id);
 						}
-						var url = 'url(<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/strengths/strength' + strength + '.png)';
+						r = (30 - strength) * 17;
+						g = strength * 17;
+						url = 'linear-gradient(rgb(' + Math.min(r - 17, 255) + ',' + Math.min(g - 17, 255) + ',0), rgb(' + Math.min(r, 255) + ',' + Math.min(g, 255) + ',0))';
 						$(inputa).css('background-image', url);
 						$(inputa).css('background-size', '100%');
 					}
