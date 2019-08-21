@@ -178,9 +178,10 @@ class _Authority {
 				<script type="text/javascript">
 					// <!-- <![CDATA[
 					function sliderColor(strength) {
-						r = (30 - strength) * 17;
-						g = strength * 17;
-						url = 'linear-gradient(rgb(' + Math.min(r - 17, 255) + ',' + Math.min(g - 17, 255) + ',0), rgb(' + Math.min(r, 255) + ',' + Math.min(g, 255) + ',0))';
+						d = 512 / 30;	//	color gradient steps
+						r = (30 - strength) * d;
+						g = strength * d;
+						url = 'linear-gradient(rgb(' + Math.round(Math.min(r - d, 255)) + ',' + Math.round(Math.min(g - d, 255)) + ',0), rgb(' + Math.round(Math.min(r, 255)) + ',' + Math.round(Math.min(g, 255)) + ',0))';
 						$('#slider-password_strength').css('background-image', url);
 					}
 					$(function () {
@@ -1416,9 +1417,10 @@ class _Authority {
 							$(inputb).prop('disabled', false);
 							passwordMatch(id);
 						}
-						r = (30 - strength) * 17;
-						g = strength * 17;
-						url = 'linear-gradient(rgb(' + Math.min(r - 17, 255) + ',' + Math.min(g - 17, 255) + ',0), rgb(' + Math.min(r, 255) + ',' + Math.min(g, 255) + ',0))';
+						d = 512 / 30;	//	color gradient steps
+						r = (30 - strength) * d;
+						g = strength * d;
+						url = 'linear-gradient(rgb(' + Math.round(Math.min(r - d, 255)) + ',' + Math.round(Math.min(g - d, 255)) + ',0), rgb(' + Math.round(Math.min(r, 255)) + ',' + Math.round(Math.min(g, 255)) + ',0))';
 						$(inputa).css('background-image', url);
 						$(inputa).css('background-size', '100%');
 					}
@@ -1511,7 +1513,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
