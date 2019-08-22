@@ -56,6 +56,7 @@
  *
  * @package plugins/image_effects
  * @pluginCategory media
+ * @deprecated since since 2.00.01 use CSS instead
  */
 $plugin_description = gettext('Attaches “Image effects” to images and thumbnails.');
 

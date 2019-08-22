@@ -5520,18 +5520,20 @@ function getPluginTabs() {
 			$details[$plugin]['option_interface'] = isolate('$option_interface', $p);
 
 			$key = 'misc';
-			if ($str = isolate('@pluginCategory', $p)) {
-				preg_match('|@pluginCategory\s+(.*)\s|', $str, $matches);
-				if (isset($matches[1])) {
-					$key = strtolower(trim($matches[1]));
-				}
+			preg_match('|@pluginCategory\s+(.*)\s|', $d, $matches);
+			if (isset($matches[1])) {
+				$key = strtolower(trim($matches[1]));
 			}
 			$details[$plugin]['category'] = $key;
 
-			if (preg_match('~@deprecated~', $d)) {
+			if (preg_match('~@deprecated(.*)[^\*]~', $d, $matches)) {
 				$details[$plugin]['deprecated'] = 'deprecated';
+				if (isset($matches[1])) {
+					$details[$plugin]['deprecated'] = trim($matches[1]);
+				}
 				$deprecated[$plugin] = $path;
 			}
+
 			$plugin_is_filter = 1 | THEME_PLUGIN;
 			if ($str = isolate('$plugin_is_filter', $p)) {
 				eval($str);

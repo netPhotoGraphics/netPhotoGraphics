@@ -9,6 +9,7 @@
  * @author Malte Müller (acrylian) made plugin compliant by Stephen Billard
  * @package plugins/wordpress_import
  * @pluginCategory development
+ * @deprecated since 2.00.01
  */
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Import Wordpress pages, posts, categories, and comments to Zenpage.");

@@ -12,6 +12,7 @@
  *
  * @package plugins/tweet_news
  * @pluginCategory admin
+ * @deprecated since 2.00.01
  */
 $plugin_is_filter = 9 | FEATURE_PLUGIN;
 $plugin_description = gettext('Tweet news articles when published.');
@@ -42,7 +43,7 @@ if ($plugin_disable) {
 	npgFilters::register('save_article_data', 'tweet::tweeterZenpageExecute');
 	npgFilters::register('save_page_data', 'tweet::tweeterZenpageExecute');
 
-	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 }
 
 /**
