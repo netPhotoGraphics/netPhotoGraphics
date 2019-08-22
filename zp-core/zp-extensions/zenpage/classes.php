@@ -155,7 +155,7 @@ class CMS {
 						}
 					}
 				}
-				if ($number && count($result) >= $number) {
+				if ($number && count($all_pages) >= $number) {
 					break;
 				}
 			}
