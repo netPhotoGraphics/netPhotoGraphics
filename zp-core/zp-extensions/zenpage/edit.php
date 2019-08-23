@@ -362,11 +362,11 @@ $tagsort = 'alpha';
 							}
 							?>
 							<span class="buttons">
-								<a href="<?php echo $backurl; ?>">
+								<button type="button" onclick="window.location = '<?php echo $backurl ?>'">
 									<?php echo BACK_ARROW_BLUE; ?>
 									<strong>
 										<?php echo gettext("Back"); ?></strong>
-								</a>
+								</button>
 								<button type="submit" title="<?php echo $updateitem; ?>">
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong>
@@ -892,12 +892,12 @@ $tagsort = 'alpha';
 									<br class="clearall">
 
 									<span class="buttons">
-										<a href="<?php echo $backurl; ?>">
+										<button type="button" onclick="window.location = '<?php echo $backurl ?>'">
 											<?php echo BACK_ARROW_BLUE; ?>
 											<strong>
 												<?php echo gettext("Back"); ?>
 											</strong>
-										</a>
+										</button>
 										<button type="submit" title="<?php echo $updateitem; ?>"><?php echo CHECKMARK_GREEN; ?> <?php
 											if ($result->transient) {
 												echo $saveitem;

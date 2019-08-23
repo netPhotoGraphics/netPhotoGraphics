@@ -58,18 +58,18 @@ printAdminHeader('edit', 'sort');
 <script type="text/javascript">
 	//<!-- <![CDATA[
 	$(function () {
-		$('#images').sortable({
-			change: function (event, ui) {
-				$('#sortableListForm').addClass('dirty');
-			}
-		});
+	$('#images').sortable({
+	change: function (event, ui) {
+	$('#sortableListForm').addClass('dirty');
+	}
+	});
 	});
 	function postSort(form) {
-		$('#sortableList').val($('#images').sortable('serialize'));
-		form.submit();
+	$('#sortableList').val($('#images').sortable('serialize'));
+	form.submit();
 	}
 	function cancelSort() {
-		$('#images').sortable('cancel');
+	$('#images').sortable('cancel');
 	}
 	// ]]> -->
 </script>
@@ -184,15 +184,15 @@ echo "\n</head>";
 					}
 					?>
 					<form class="dirtylistening" onReset="setClean('sortableListForm');
-							cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
+						cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
 								<?php XSRFToken('save_sort'); ?>
 								<?php printBulkActions($checkarray_images, true); ?>
 
 						<p class="buttons">
-							<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>">
+							<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
 								<?php echo BACK_ARROW_BLUE; ?>
 								<strong><?php echo gettext("Back"); ?></strong>
-							</a>
+							</button>
 							<button type="submit" onclick="postSort(this.form);" >
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
@@ -201,10 +201,10 @@ echo "\n</head>";
 								<?php echo CROSS_MARK_RED; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
-							<a href="<?php echo $album->getLink(); ?>">
+							<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
 								<?php echo BULLSEYE_BLUE; ?>
 								<strong><?php echo gettext('View Album'); ?></strong>
-							</a>
+							</button>
 						</p>
 						<br class="clearall">
 						<p><?php echo gettext("Set the image order by dragging them to the positions you desire."); ?></p>
@@ -262,10 +262,10 @@ echo "\n</head>";
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<p class="buttons">
-								<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>">
+								<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
 									<?php echo BACK_ARROW_BLUE; ?>
 									<strong><?php echo gettext("Back"); ?></strong>
-								</a>
+								</button>
 								<button type="submit" onclick="postSort(this.form);" >
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong><?php echo gettext("Apply"); ?></strong>
@@ -274,10 +274,10 @@ echo "\n</head>";
 									<?php echo CROSS_MARK_RED; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
-								<a href="<?php echo $album->getLink(); ?>">
+								<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
 									<?php echo BULLSEYE_BLUE; ?>
 									<strong><?php echo gettext('View Album'); ?></strong>
-								</a>
+								</button>
 							</p>
 						</div>
 					</form>
