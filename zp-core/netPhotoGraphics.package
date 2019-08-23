@@ -23,7 +23,6 @@ themes/basic/theme.png
 themes/basic/theme_description.php
 themes/basic/themeoptions.php
 themes/basic/images
-themes/basic/images/img-bg.gif
 themes/basic/images/tag.png
 themes/basic/styles
 themes/basic/styles/dark.css
@@ -288,7 +287,6 @@ themes/zenpage/images/arrow_right.gif
 themes/zenpage/images/body.jpg
 themes/zenpage/images/footer.jpg
 themes/zenpage/images/header.jpg
-themes/zenpage/images/img-bg.gif
 themes/zenpage/images/tag.png
 themes/zenpage/jCarousel_thumb_nav
 themes/zenpage/jCarousel_thumb_nav/jcarousel.css
@@ -534,7 +532,6 @@ themes/zpEnlighten/images/footer.png
 themes/zpEnlighten/images/header.jpg
 themes/zpEnlighten/images/header.png
 themes/zpEnlighten/images/hr.png
-themes/zpEnlighten/images/img-bg.gif
 themes/zpEnlighten/images/search.gif
 themes/zpEnlighten/images/search.png
 themes/zpEnlighten/images/sidebar_bottom.png
@@ -8385,4 +8382,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8387
+8384
