@@ -23,7 +23,6 @@ themes/basic/theme.png
 themes/basic/theme_description.php
 themes/basic/themeoptions.php
 themes/basic/images
-themes/basic/images/50percent.png
 themes/basic/images/img-bg.gif
 themes/basic/images/tag.png
 themes/basic/styles
@@ -64,8 +63,6 @@ themes/effervescence+/image_gallery/functions.php
 themes/effervescence+/image_page
 themes/effervescence+/image_page/functions.php
 themes/effervescence+/images
-themes/effervescence+/images/25percent.png
-themes/effervescence+/images/50percent.png
 themes/effervescence+/images/arrow_right.png
 themes/effervescence+/images/dark-bullet.png
 themes/effervescence+/images/dark_arrow_right.png
@@ -287,7 +284,6 @@ themes/zenpage/theme.png
 themes/zenpage/theme_description.php
 themes/zenpage/themeoptions.php
 themes/zenpage/images
-themes/zenpage/images/50percent.png
 themes/zenpage/images/arrow_right.gif
 themes/zenpage/images/body.jpg
 themes/zenpage/images/footer.jpg
@@ -527,13 +523,9 @@ themes/zpEnlighten/theme.png
 themes/zpEnlighten/theme_description.php
 themes/zpEnlighten/themeoptions.php
 themes/zpEnlighten/images
-themes/zpEnlighten/images/50percent.png
 themes/zpEnlighten/images/arrow_right.gif
 themes/zpEnlighten/images/arrow_right.png
-themes/zpEnlighten/images/back.jpg
-themes/zpEnlighten/images/back.png
 themes/zpEnlighten/images/banner.png
-themes/zpEnlighten/images/body.jpg
 themes/zpEnlighten/images/body.png
 themes/zpEnlighten/images/corner-right.png
 themes/zpEnlighten/images/filter.png
@@ -8393,4 +8385,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8395
+8387

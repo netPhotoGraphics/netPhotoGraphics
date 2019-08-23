@@ -341,7 +341,7 @@ input#code {
 
 #admin_tb_data{
 	padding-top: 20px;
-	background-image:url(images/25percent.png);
+	background-color: rgba(0, 0, 0, 0.25);
 	border: 1px solid gray;
 }
 

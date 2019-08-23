@@ -37,8 +37,7 @@ h1, h2, h3, h4 {
 body {
 	background-color: white; /* #DBDBDB;*/
 	font-size: 62.5%;
-	background-image: url(images/back.png);
-	background-repeat: repeat-x;
+	background-image: linear-gradient(rgba(186,208,255,1),rgba(201,224,255,0));
 }
 
 #main {
