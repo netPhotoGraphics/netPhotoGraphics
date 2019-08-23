@@ -10,6 +10,7 @@
  *
  * @package plugins/disableAction
  * @pluginCategory example
+ * @deprecated since 2.00.02 will be moved to DevTools repository
  */
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext("Disable publish/unpublish if user does not have <em>ADMIN_RIGHTS</em>.");

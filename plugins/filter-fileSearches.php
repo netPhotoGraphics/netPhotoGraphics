@@ -8,6 +8,7 @@
  *
  * @package plugins/filter-fileSearches
  * @pluginCategory example
+ * @deprecated since 2.00.01 will be moved to DevTools repository
  */
 $plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid

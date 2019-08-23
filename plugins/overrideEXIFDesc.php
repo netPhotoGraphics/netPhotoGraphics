@@ -19,6 +19,7 @@
  *
  * @package plugins/overrideEXIFDesc
  * @pluginCategory media
+ * @deprecated since 2.00.01 use metadata editing software to set the fields correctly
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */

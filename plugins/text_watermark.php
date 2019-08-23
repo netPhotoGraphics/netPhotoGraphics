@@ -6,6 +6,7 @@
  *
  * @package plugins/text_watermark
  * @pluginCategory example
+ * @deprecated since 2.00.01 will be moved to DevTools repository
  */
 $plugin_description = gettext("Creates text based watermarks.");
 $plugin_URL = FULLWEBPATH . '/plugins/text_watermark/text_watermark.htm';

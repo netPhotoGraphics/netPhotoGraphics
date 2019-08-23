@@ -6,6 +6,7 @@
  *
  * @package plugins/no_show
  * @pluginCategory example
+ * @deprecated since 2.00.01
  */
 $plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext('Prevents guest viewers from viewing unpublished images albums.');
