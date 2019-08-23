@@ -24,7 +24,6 @@ themes/basic/theme_description.php
 themes/basic/themeoptions.php
 themes/basic/images
 themes/basic/images/50percent.png
-themes/basic/images/admin-buttonback.jpg
 themes/basic/images/img-bg.gif
 themes/basic/images/tag.png
 themes/basic/styles
@@ -67,7 +66,6 @@ themes/effervescence+/image_page/functions.php
 themes/effervescence+/images
 themes/effervescence+/images/25percent.png
 themes/effervescence+/images/50percent.png
-themes/effervescence+/images/admin-buttonback.jpg
 themes/effervescence+/images/arrow_right.png
 themes/effervescence+/images/dark-bullet.png
 themes/effervescence+/images/dark_arrow_right.png
@@ -117,7 +115,6 @@ themes/garland/image_gallery/functions.php
 themes/garland/image_page
 themes/garland/image_page/functions.php
 themes/garland/images
-themes/garland/images/admin-buttonback.jpg
 themes/garland/images/bg-content-left.png
 themes/garland/images/bg-content-right.png
 themes/garland/images/bg-content.png
@@ -291,10 +288,8 @@ themes/zenpage/theme_description.php
 themes/zenpage/themeoptions.php
 themes/zenpage/images
 themes/zenpage/images/50percent.png
-themes/zenpage/images/admin-buttonback.jpg
 themes/zenpage/images/arrow_right.gif
 themes/zenpage/images/body.jpg
-themes/zenpage/images/breadcrumb-back.jpg
 themes/zenpage/images/footer.jpg
 themes/zenpage/images/header.jpg
 themes/zenpage/images/img-bg.gif
@@ -540,8 +535,6 @@ themes/zpEnlighten/images/back.png
 themes/zpEnlighten/images/banner.png
 themes/zpEnlighten/images/body.jpg
 themes/zpEnlighten/images/body.png
-themes/zpEnlighten/images/breadcrumb-back.jpg
-themes/zpEnlighten/images/breadcrumb-back.png
 themes/zpEnlighten/images/corner-right.png
 themes/zpEnlighten/images/filter.png
 themes/zpEnlighten/images/footer.jpg
@@ -845,7 +838,6 @@ themes/zpmobile/theme.png
 themes/zpmobile/theme_description.php
 themes/zpmobile/themeoptions.php
 themes/zpmobile/images
-themes/zpmobile/images/admin-buttonback.jpg
 themes/zpmobile/images/rss.png
 themes/zpmobile/jquerymobile
 themes/zpmobile/jquerymobile/jquery.mobile-1.4.5.min.css
@@ -8401,4 +8393,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8403
+8395
