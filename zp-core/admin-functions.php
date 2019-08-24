@@ -1792,7 +1792,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
 				<button type="reset" onclick="$('.deletemsg').hide();" >
-					<?php echo CROSS_MARK_RED; ?>
+					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
 
@@ -2453,7 +2453,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 							<p class="buttons">
 								<a	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo addslashes(gettext("Cancel")); ?></a>
 							</p>
 						</div>
@@ -2492,7 +2492,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 							<p class="buttons">
 								<a onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo addslashes(gettext("Cancel")); ?></a>
 							</p>
 						</div>
@@ -2502,7 +2502,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 							<p class="buttons">
 								<a onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo addslashes(gettext("Cancel")); ?></a>
 							</p>
 						</div>
@@ -2532,7 +2532,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
 				<button type="reset" onclick="$('.deletemsg').hide();">
-					<?php echo CROSS_MARK_RED; ?>
+					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
 				<div class="floatright">

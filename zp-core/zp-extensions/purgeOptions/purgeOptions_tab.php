@@ -181,7 +181,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button >
 								<button type="reset" value="<?php echo gettext('reset') ?>">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>
@@ -315,7 +315,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
 								<button type="reset" value="<?php echo gettext('reset') ?>" >
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>

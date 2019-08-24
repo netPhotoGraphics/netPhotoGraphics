@@ -534,7 +534,7 @@ class Gallery {
 				if (DEBUG_OBJECTS) {
 					debugLogVar(['Garbage Collect `obj_to_tag`' => $dead]);
 				}
-				query('DELETE FROM ' . prefix('obj_to_tag') . ' WHERE `id`=' . implode(' OR `id`=', array_keys($dead)));
+				query('DELETE FROM ' . prefix('obj_to_tag') . ' WHERE `id` IN(' . implode(',', array_keys($dead)) . ')');
 			}
 			// clean up admin_to_object
 			$dead = array();
@@ -556,7 +556,7 @@ class Gallery {
 				if (DEBUG_OBJECTS) {
 					debugLogVar(['Garbage Collect `admin_to_object`' => $dead]);
 				}
-				query('DELETE FROM ' . prefix('admin_to_object') . ' WHERE `id`=' . implode(' OR `id`=', array_keys($dead)));
+				query('DELETE FROM ' . prefix('admin_to_object') . ' WHERE `id` IN(' . implode(',', array_keys($dead)) . ')');
 			}
 			// clean up news2cat
 			$dead = array();
@@ -578,7 +578,7 @@ class Gallery {
 				if (DEBUG_OBJECTS) {
 					debugLogVar(['Garbage Collect `news2cat`' => $dead]);
 				}
-				query('DELETE FROM ' . prefix('news2cat') . ' WHERE `id`=' . implode(' OR `id`=', array_keys($dead)));
+				query('DELETE FROM ' . prefix('news2cat') . ' WHERE `id` IN(' . implode(',', array_keys($dead)) . ')');
 			}
 
 			// Check for the existence albums

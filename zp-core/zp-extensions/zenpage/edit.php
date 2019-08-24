@@ -380,7 +380,7 @@ $tagsort = 'alpha';
 									</strong>
 								</button>
 								<button type="reset" onclick="$('.copydelete').hide();" >
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 								<div class="floatright">
@@ -679,7 +679,7 @@ $tagsort = 'alpha';
 														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
 														<p class="buttons">
 															<a	onclick="$('#copy_object').prop('checked', false);$('#copyfield').hide();">
-																<?php echo CROSS_MARK_RED; ?>
+																<?php echo CROSS_MARK_RED_LARGE; ?>
 																<?php echo gettext("Cancel"); ?>
 															</a>
 														</p>
@@ -689,7 +689,7 @@ $tagsort = 'alpha';
 														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem); ?>
 														<p class="buttons">
 															<a	onclick="$('#delete_object').prop('checked', false);$('#deletemsg').hide();">
-																<?php echo CROSS_MARK_RED; ?>
+																<?php echo CROSS_MARK_RED_LARGE; ?>
 																<?php echo gettext("Cancel"); ?>
 															</a>
 														</p>
@@ -906,7 +906,7 @@ $tagsort = 'alpha';
 											}
 											?></strong></button>
 										<button type="reset" onclick="$('.copydelete').hide();">
-											<?php echo CROSS_MARK_RED; ?>
+											<?php echo CROSS_MARK_RED_LARGE; ?>
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>
 										<div class="floatright">

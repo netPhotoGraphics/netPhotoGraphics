@@ -1232,7 +1232,7 @@ class _Authority {
 									<?php echo gettext("Log in"); ?>
 								</button>
 								<button type="reset" value="<?php echo gettext("Reset"); ?>" >
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Reset"); ?>
 								</button>
 							</div>

@@ -425,7 +425,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 							</button>
 						</p>
 						<p class="buttons"><button class="submitbutton" type="reset">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
 						</p>

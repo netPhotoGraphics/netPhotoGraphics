@@ -183,7 +183,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 		<p class="buttons">
 			<button type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
 			<button type="reset" value="<?php echo gettext('Reset') ?>">
-				<?php echo CROSS_MARK_RED; ?>
+				<?php echo CROSS_MARK_RED_LARGE; ?>
 				<strong><?php echo gettext("Reset"); ?></strong></button>
 		</p><br class="clearall"><br /><br />
 		<table>
@@ -507,7 +507,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 		<p class="buttons">
 			<button type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
 			<button type="reset" value="<?php echo gettext('Reset') ?>">
-				<?php echo CROSS_MARK_RED; ?>
+				<?php echo CROSS_MARK_RED_LARGE; ?>
 				<strong><?php echo gettext("Reset"); ?></strong></button>
 		</p><br /><br />
 		<input type="hidden" name="checkForPostTruncation" value="1" />

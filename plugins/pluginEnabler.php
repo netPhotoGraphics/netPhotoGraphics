@@ -83,7 +83,7 @@ class pluginEnabler {
 				'button_text' => gettext('Plugins × all'),
 				'formname' => 'disablebutton',
 				'action' => getAdminLink(USER_PLUGIN_FOLDER . '/pluginEnabler/handler.php'),
-				'icon' => CROSS_MARK_RED,
+				'icon' => CROSS_MARK_RED_LARGE,
 				'title' => gettext('Disables all plugins except pluginEnabler.'),
 				'alt' => '',
 				'hidden' => '<input type="hidden" name="pluginsEnable" value="0" />',

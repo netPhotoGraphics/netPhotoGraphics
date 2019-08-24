@@ -161,7 +161,7 @@ if (count($themelist) == 0) {
 		?>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="reset" onclick="launchScript('', ['action=settheme', 'themealbum=<?php echo pathurlencode($album->name); ?>', 'theme=', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes'); ?>']);" title="<?php printf(gettext('Clear theme assignment for %s'), html_encode($album->name)); ?>">
-			<?php echo CROSS_MARK_RED; ?>
+			<?php echo CROSS_MARK_RED_LARGE; ?>
 		</a>
 		<?php
 	}

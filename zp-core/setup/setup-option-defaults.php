@@ -333,7 +333,7 @@ setOptionDefault('dirtyform_enable', 2);
 		$('img').on("error", function () {
 			var link = $(this).attr('src');
 			var title = $(this).attr('title');
-			$(this).parent().html('<a href="' + link + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED_SMALL; ?></a>');
+			$(this).parent().html('<a href="' + link + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
 			imageErr = true;
 			$('#setupErrors').val(1);
 		});

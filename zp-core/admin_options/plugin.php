@@ -90,7 +90,7 @@ function getOptionContent() {
 										<strong><?php echo gettext("Apply"); ?></strong>
 									</button>
 									<button type="reset" value="<?php echo gettext('reset') ?>">
-										<?php echo CROSS_MARK_RED; ?>
+										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<strong><?php echo gettext("Reset"); ?>
 										</strong></button>
 								</p>
@@ -225,7 +225,7 @@ function getOptionContent() {
 											<strong><?php echo gettext("Apply"); ?></strong>
 										</button>
 										<button type="reset" value="<?php echo gettext('reset') ?>">
-											<?php echo CROSS_MARK_RED; ?>
+											<?php echo CROSS_MARK_RED_LARGE; ?>
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>
 									</p>

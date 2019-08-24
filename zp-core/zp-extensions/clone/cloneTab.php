@@ -96,7 +96,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 						?>
 						<p>
 							<span class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/clone.php'); ?>?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('clone'); ?>">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Remove invalid clones."); ?>
 								</a>
 						</p>
