@@ -9,9 +9,9 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
+require_once(CORE_SERVERPATH . 'admin-functions.php');
 
-
-$deprecatedPlugins = array('filterDoc', 'zenphoto_package');
+list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 $setOptions = getOptionList();
 
 if (isset($_GET['debug'])) {
@@ -33,7 +33,7 @@ if (!file_exists($testFile)) {
 	file_put_contents($testFile, '');
 }
 
-foreach ($deprecatedPlugins as $remove) {
+foreach (array('filterDoc', 'zenphoto_package') as $remove) {
 	npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove);
 	@unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove . '.php');
 }
@@ -267,8 +267,8 @@ if (empty($admins)) { //	empty administrators table
 	} else {
 		if (npg_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
-//	The password hash of these old versions did not have the extra text.
-//	Note: if the administrators table is empty we will re-do this option with the good stuff.
+				//	The password hash of these old versions did not have the extra text.
+				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
 				purgeOption('extra_auth_hash_text');
 				setOptionDefault('extra_auth_hash_text', '');
 			} else {
@@ -333,7 +333,7 @@ setOptionDefault('dirtyform_enable', 2);
 		$('img').on("error", function () {
 			var link = $(this).attr('src');
 			var title = $(this).attr('title');
-			$(this).parent().html('<a href="' + link + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+			$(this).parent().html('<a href="' + link + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED_SMALL; ?></a>');
 			imageErr = true;
 			$('#setupErrors').val(1);
 		});
@@ -896,9 +896,15 @@ $plugins = array_keys($plugins);
 		} else {
 			unset($plugins[$key]);
 		}
+		if (isset($pluginDetails[$extension]['deprecated'])) {
+			$class = 2;
+			$addl = ' (' . gettext('deprecated') . ')';
+		} else {
+			$addl = '';
+		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $extension; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
