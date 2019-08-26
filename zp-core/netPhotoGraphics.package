@@ -1176,6 +1176,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/admin.php
 %core%/allTranslations.php
 %core%/auth_processor.php
+%core%/button.css
 %core%/cacheprotect
 %core%/class-album.php
 %core%/class-auth.php
@@ -8382,4 +8383,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8384
+8385

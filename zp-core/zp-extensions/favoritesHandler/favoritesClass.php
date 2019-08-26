@@ -352,22 +352,22 @@ class favorites extends AlbumBase {
 			<input type = "hidden" name = "addToFavorites" value = "<?php echo $v; ?>" />
 			<input type = "hidden" name = "type" value = "<?php echo html_encode($table); ?>" />
 			<input type = "hidden" name = "id" value = "<?php echo html_encode($id); ?>" />
-			<input type = "submit" class = "button buttons" value = "<?php echo $add; ?>" title = "<?php echo $add; ?>"/>
-			<?php
-			if ($v) {
-				if ($multi) {
-					?>
-					<span class="tagSuggestContainer">
-						<input type="text" name="instance" class="favorite_instance" value="" />
-					</span>
-					<?php
-				}
-			} else {
+			<button type = "submit" class = "button buttons" title = "<?php echo $add; ?>"/><?php echo $add; ?></button>
+		<?php
+		if ($v) {
+			if ($multi) {
 				?>
-				<input type="hidden" name="instance" value="<?php echo $_myFavorites->instance; ?>" />
+				<span class="tagSuggestContainer">
+					<input type="text" name="instance" class="favorite_instance" value="" />
+				</span>
 				<?php
 			}
+		} else {
 			?>
+			<input type="hidden" name="instance" value="<?php echo $_myFavorites->instance; ?>" />
+			<?php
+		}
+		?>
 		</form>
 		<?php
 	}
