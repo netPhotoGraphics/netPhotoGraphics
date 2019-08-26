@@ -10,7 +10,10 @@ div.star-rating-readonly a{cursor:default !important}
 /* Partial Star CSS */
 div.star-rating{background:transparent!important;overflow:hidden!important}
 /* END jQuery.Rating Plugin CSS */
-.rating_button {
-	font-size: 12px !important;
+.rating_button, .rating_button:hover {
+	font-size: 10px !important;
 	cursor: pointer;
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+
 }
