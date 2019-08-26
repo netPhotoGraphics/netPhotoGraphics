@@ -122,11 +122,6 @@ class GoogleMap {
 		// do nothing
 	}
 
-	static function get_instance() {
-		// standin for CI library
-		return new codeIgniter_kludge();
-	}
-
 	static function omsAdditions() {
 		// maybe we can move some of the zenphoto hacks here.
 		return '';
@@ -150,9 +145,9 @@ class GoogleMap {
 		?>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
 		<?php
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleMap/googleMap.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markerclusterer.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/googleMap/overlappingMarkerSpiderfier/oms.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/googleMap/googleMap.css');
 	}
 
 	/**
@@ -265,7 +260,7 @@ class GoogleMap {
 }
 
 // codeIgniter stuff
-require_once(CORE_SERVERPATH .  COMMON_FOLDER . '/jsMin/JSMin.php');
+require_once(CORE_SERVERPATH . COMMON_FOLDER . '/jsMin/JSMin.php');
 
 class CI_load {
 
@@ -294,6 +289,11 @@ class codeIgniter_kludge { //	dummy for all the CI stuff in the CodeIngnter-Goog
 		$this->jsmin = new CI_jsmin();
 	}
 
+}
+
+function get_instance() {
+	// standin for CI library
+	return new codeIgniter_kludge();
 }
 
 /**
