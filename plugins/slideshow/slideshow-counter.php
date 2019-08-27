@@ -1,21 +1,21 @@
 <?php
+
 /**
  * Hitcounter handler for slidshow
  *
  * @package plugins/slideshow
  */
-
-require_once("../../functions.php");
+require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "functions.php");
 
 $album_name = sanitize($_GET["album"]);
 $img_name = sanitize($_GET["img"]);
 
-if ($album_name && $img_name ) {
+if ($album_name && $img_name) {
 	$album = newAlbum($album_name);
 	$image = newImage($album, $img_name);
 	//update hit counter
 	if (!$album->isMyItem(LIST_RIGHTS)) {
-		$hc = $image->getHitcounter()+1;
+		$hc = $image->getHitcounter() + 1;
 		$image->set('hitcounter', $hc);
 		$image->save();
 	}

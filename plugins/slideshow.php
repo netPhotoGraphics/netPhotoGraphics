@@ -303,7 +303,7 @@ class slideshow {
 			$slideshow .= '
 					//Only register at hit count the first time the image is viewed.
 					if ($(next).attr("viewed") != 1) {
-					$.get("' . getAdminLink(PLUGIN_FOLDER . '/slideshow/slideshow-counter.php') . '?album=' . pathurlencode($albumobj->name) . '&img="+ImageNameList[opts.currSlide]);
+					$.get("' . getAdminLink(USER_PLUGIN_FOLDER . '/slideshow/slideshow-counter.php') . '?album=' . pathurlencode($albumobj->name) . '&img="+ImageNameList[opts.currSlide]);
 					$(next).attr("viewed", 1 );
 				}
 				';
@@ -467,7 +467,7 @@ class slideshow {
 	static function js() {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
-		scriptLoader(USER_PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		scriptLoader(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		scriptLoader(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
 	}
 

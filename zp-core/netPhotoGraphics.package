@@ -614,6 +614,7 @@ themes/zpfocus/jCarousel_thumb_nav/jcarousel_next.png
 themes/zpfocus/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpfocus/js
 themes/zpfocus/js/index.html
+themes/zpfocus/js/jquery.cycle.all.js
 themes/zpfocus/js/superfish.js
 themes/zpfocus/z_comment_form
 themes/zpfocus/z_comment_form/comment_form.php
@@ -704,6 +705,7 @@ themes/zpmasonry/jCarousel_thumb_nav/jcarousel_loading.gif
 themes/zpmasonry/jCarousel_thumb_nav/jcarousel_next.png
 themes/zpmasonry/jCarousel_thumb_nav/jcarousel_prev.png
 themes/zpmasonry/js
+themes/zpmasonry/js/jquery.cycle.all.js
 themes/zpmasonry/js/jquery.infinitescroll.min.js
 themes/zpminimal
 themes/zpminimal/404.php
@@ -8398,4 +8400,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8400
+8402

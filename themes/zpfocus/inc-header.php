@@ -157,7 +157,7 @@
 		</script>
 		<?php
 		if (($zpfocus_showrandom) == 'rotator') {
-			scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+			scriptLoader(dirname(__FILE__) . '/js/jquery.cycle.all.js');
 		}
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
 		scriptloader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/themes/' . $zpfocus_cbstyle . '/colorbox.css');
