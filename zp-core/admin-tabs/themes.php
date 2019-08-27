@@ -319,10 +319,10 @@ if (count($themelist) == 0) {
 								?>
 								<li>
 									<p class="buttons">
-										<button onclick="javascript:confirmDelete('<?php echo $delete_url; ?>', '<?php echo $delete_msg; ?>');">
+										<a onclick="javascript:confirmDelete('<?php echo $delete_url; ?>', '<?php echo $delete_msg; ?>');">
 											<?php echo WASTEBASKET; ?>
 											<?php echo gettext("Delete"); ?>
-										</button>
+											</button>
 									</p>
 								</li>
 								<?php
