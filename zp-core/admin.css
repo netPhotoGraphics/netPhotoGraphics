@@ -55,6 +55,10 @@ em {
 	font-family: Geneva, Courier, monospace;
 }
 
+.truncate {
+	max-width: 100%;
+	overflow: hidden;
+}
 /* Main Layout
 ------------------------------ */
 

@@ -169,7 +169,7 @@ if (count($themelist) == 0) {
 	if (count($themelist) > 1) {
 		echo '<form action="#" method="post">';
 		echo gettext("Show theme for: ");
-		echo '<select id="themealbum" class="ignoredirty" name="themealbum" onchange="this.form.submit()">';
+		echo '<select id="themealbum" class="ignoredirty truncate" name="themealbum" onchange="this.form.submit()">';
 		generateListFromArray(array(pathurlencode($alb)), $themelist, false, true);
 		echo '</select>';
 		echo '</form>';
