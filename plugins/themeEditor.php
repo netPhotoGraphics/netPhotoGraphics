@@ -20,6 +20,6 @@ $plugin_description = gettext('PHP based theme editor.');
 npgFilters::register('theme_editor', 'PHPThemeEdit');
 
 function phpThemeEdit($html, $theme) {
-	$html = "launchScript('" . PLUGIN_FOLDER . "/themeEditor/themes-editor.php', ['theme=" . urlencode($theme) . "'])";
+	$html = "launchScript('" . WEBPATH . '/' . USER_PLUGIN_FOLDER . "/themeEditor/themes-editor.php', ['theme=" . urlencode($theme) . "'])";
 	return $html;
 }
