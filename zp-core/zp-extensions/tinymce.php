@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Back-end <i>WYSIWYG</i> editor TinyMCE 4.x.
+ * Back-end <i>WYSIWYG</i> editor TinyMCE.
  *
  * You can place your own additional custom configuration files within
  * <var>%USER_PLUGIN_FOLDER%/tinymce/config</var> or <var>%THEMEFOLDER%/theme_name/tinymce/config</var> folder.
  * The naming convention for these files is use prefix the file name with the intended
  * use, e.g.
  * <ol>
- * 	<li>zenphoto-&lt;name&gt;.php</li>
- * 	<li>zenpage-&lt;name&gt;.php</li>
+ * 	<li>photo-&lt;name&gt;.php</li>
+ * 	<li>CMS-&lt;name&gt;.php</li>
  * 	<li>comment-&lt;name&gt;.php</li>
  * </ol>
  *
@@ -87,6 +87,7 @@ class tinymce {
 
 	static function configJS($mode) {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
+
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 		$MCEspecial['browser_spellcheck'] = "true";
 		if (npg_loggedin(UPLOAD_RIGHTS)) {
@@ -105,6 +106,7 @@ class tinymce {
 					}
 				}
 			}
+
 			$_editorconfig = getOption('tinymce_' . $mode);
 			if (!empty($_editorconfig)) {
 				$_editorconfig = getPlugin(stripSuffix(basename(__FILE__)) . '/config/' . $_editorconfig, true);

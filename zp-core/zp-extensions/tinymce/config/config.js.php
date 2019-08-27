@@ -1,6 +1,6 @@
 <?php
 /**
- * The configuration parameters for TinyMCE 4.x.
+ * The configuration parameters for TinyMCE.
  *
  * base configuration file, included by all TinyMCE configuration files
  *
@@ -51,7 +51,7 @@ if ($MCEdirection == NULL) {
 	}
 }
 
-scriptLoader(TINYMCE . '/tinymce.5.0.4.min.js');
+scriptLoader(TINYMCE . '/tinymce.5.0.14.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 	scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');

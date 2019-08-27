@@ -8084,7 +8084,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/jquery.tinymce.min.js
 %extensions%/tinymce/license.txt
 %extensions%/tinymce/postAcceptor.php
-%extensions%/tinymce/tinymce.5.0.4.min.js
+%extensions%/tinymce/tinymce.5.0.14.min.js
 %extensions%/tinymce/config
 %extensions%/tinymce/config/CMS-basic.php
 %extensions%/tinymce/config/CMS-full.php
@@ -8237,7 +8237,11 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/skins/ui/oxide-dark
 %extensions%/tinymce/skins/ui/oxide-dark/content.inline.min.css
 %extensions%/tinymce/skins/ui/oxide-dark/content.min.css
+%extensions%/tinymce/skins/ui/oxide-dark/content.mobile.min.css
 %extensions%/tinymce/skins/ui/oxide-dark/skin.min.css
+%extensions%/tinymce/skins/ui/oxide-dark/skin.mobile.min.css
+%extensions%/tinymce/skins/ui/oxide-dark/fonts
+%extensions%/tinymce/skins/ui/oxide-dark/fonts/tinymce-mobile.woff
 %extensions%/tinymce/themes
 %extensions%/tinymce/themes/mobile
 %extensions%/tinymce/themes/mobile/theme.min.js
@@ -8383,4 +8387,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8385
+8389
