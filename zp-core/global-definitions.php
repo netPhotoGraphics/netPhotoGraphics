@@ -10,6 +10,9 @@ if (!function_exists("gettext")) {
 	require_once(dirname(__FILE__) . '/php-gettext/gettext.inc');
 }
 require_once(dirname(__FILE__) . '/version.php'); // Include the version info.
+$v = explode('-', NETPHOTOGRAPHICS_VERSION);
+define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
+unset($v);
 
 define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s') . ' GMT');
 
@@ -200,7 +203,8 @@ define('CLIPBOARD', '<span class="font_icon" style="font-family: Sego UI Emoji; 
 define('CLOCKFACE', '<span class="font_icon" style="letter-spacing: -4px;">&#128343;</span>');
 define('CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN', '<span class="font_icon" style="font-size:large;color:green;">&#8635;</span>');
 define('CLOCKWISE_OPEN_CIRCLE_ARROW_RED', '<span class="font_icon" style="font-size:large;color:red;">&#8635;</span>');
-define('CROSS_MARK_RED', '<span class="font_icon" style="color: red;">&#10060;</span>');
+define('CROSS_MARK_RED', '<span class="font_icon" style="color: red;vertical-align: top;">&#10060;</span>');
+define('CROSS_MARK_RED_LARGE', '<span class="font_icon" style="color: red;font-size: large;">&#10060;</span>');
 define('CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE', '<span class="font_icon" style="color:blue;font-size:large;">&#10150;</span>');
 define('DRAG_HANDLE', '<span class="font_icon" style="color:lightsteelblue;font-size: x-large;">&#10021;</span>');
 define('DRAG_HANDLE_ALERT', '<span class="font_icon" style="color:red;font-size: x-large;">&#10021;</span>');

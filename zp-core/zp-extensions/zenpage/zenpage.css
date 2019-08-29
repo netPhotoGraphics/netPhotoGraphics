@@ -285,19 +285,6 @@ ul.language_string_list {
 	width: 205px !important;
 }
 
-
-/* save, reset, delete buttons
-----------------------------------*/
-.buttons button.submitbutton {
-	width: 200px;
-	text-align: left;
-}
-
-.buttons a.submitbutton {
-	width: 181px;
-	text-align: left;
-}
-
 .h2_bordered_edit-zenpage {
 	width: 16em;
 	font-weight: bold;

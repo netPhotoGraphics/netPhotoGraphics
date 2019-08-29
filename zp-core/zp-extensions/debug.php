@@ -164,15 +164,14 @@ class debug {
 	}
 
 	static function version($released) {
-		$o = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 		if ($released) {
-			return $o[0];
+			return NETPHOTOGRAPHICS_VERSION_CONCISE;
 		} else {
 			$options = '';
 			$list = getSerializedArray(getOption('debug_marks'));
 			sort($list);
 			$options = rtrim('-DEBUG_' . implode('_', $list), '_');
-			return $o[0] . $options;
+			return NETPHOTOGRAPHICS_VERSION_CONCISE . $options;
 		}
 	}
 

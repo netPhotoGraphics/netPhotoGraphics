@@ -178,7 +178,10 @@ class _Authority {
 				<script type="text/javascript">
 					// <!-- <![CDATA[
 					function sliderColor(strength) {
-						var url = 'url(<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/strengths/strength' + strength + '.png)';
+						d = 512 / 30;	//	color gradient steps
+						r = (30 - strength) * d;
+						g = strength * d;
+						url = 'linear-gradient(rgb(' + Math.round(Math.min(r - d, 255)) + ',' + Math.round(Math.min(g - d, 255)) + ',0), rgb(' + Math.round(Math.min(r, 255)) + ',' + Math.round(Math.min(g, 255)) + ',0))';
 						$('#slider-password_strength').css('background-image', url);
 					}
 					$(function () {
@@ -1229,7 +1232,7 @@ class _Authority {
 									<?php echo gettext("Log in"); ?>
 								</button>
 								<button type="reset" value="<?php echo gettext("Reset"); ?>" >
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Reset"); ?>
 								</button>
 							</div>
@@ -1414,7 +1417,10 @@ class _Authority {
 							$(inputb).prop('disabled', false);
 							passwordMatch(id);
 						}
-						var url = 'url(<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/strengths/strength' + strength + '.png)';
+						d = 512 / 30;	//	color gradient steps
+						r = (30 - strength) * d;
+						g = strength * d;
+						url = 'linear-gradient(rgb(' + Math.round(Math.min(r - d, 255)) + ',' + Math.round(Math.min(g - d, 255)) + ',0), rgb(' + Math.round(Math.min(r, 255)) + ',' + Math.round(Math.min(g, 255)) + ',0))';
 						$(inputa).css('background-image', url);
 						$(inputa).css('background-size', '100%');
 					}
@@ -1507,7 +1513,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

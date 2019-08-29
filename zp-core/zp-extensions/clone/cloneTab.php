@@ -40,8 +40,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					foreach ($clones as $clone => $data) {
 						$rwSuffix = $version = '';
 						$modRewrite = false;
-						$v = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
-						$myVersion = $v[0];
+						$myVersion = NETPHOTOGRAPHICS_VERSION_CONCISE;
 						if ($data['valid']) {
 							$title = gettext('Visit the site.');
 							$strike = '';
@@ -97,7 +96,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 						?>
 						<p>
 							<span class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/clone.php'); ?>?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('clone'); ?>">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Remove invalid clones."); ?>
 								</a>
 						</p>

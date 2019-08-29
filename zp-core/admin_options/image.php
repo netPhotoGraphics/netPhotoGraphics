@@ -246,7 +246,7 @@ function getOptionContent() {
 								<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 							</button>
 							<button type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong></button>
 						</p>
 					</td>
@@ -697,7 +697,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																		 togglePassword('');" />
+																 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 
@@ -884,7 +884,7 @@ function getOptionContent() {
 										<?php echo gettext('Hide the field'); ?>
 									</li>
 									<li>
-										<?php echo CROSS_MARK_RED; ?>
+										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<?php echo gettext('Do not process the field'); ?>
 									</li>
 								</ul>
@@ -962,7 +962,7 @@ function getOptionContent() {
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
 							<button type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?>
 								</strong>
 							</button>

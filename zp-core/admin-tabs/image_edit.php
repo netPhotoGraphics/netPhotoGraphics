@@ -119,22 +119,22 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 						$backbutton = $image->getLink();
 					}
 					?>
-					<a href="<?php echo $backbutton; ?>">
+					<button type="button" onclick="window.location = '<?php echo $backbutton; ?>'">
 						<?php echo BACK_ARROW_BLUE; ?>
 						<strong><?php echo gettext("Back"); ?></strong>
-					</a>
+					</button>
 					<button type="submit">
 						<?php echo CHECKMARK_GREEN; ?>
 						<strong><?php echo gettext("Apply"); ?></strong>
 					</button>
 					<button type="reset">
-						<?php echo CROSS_MARK_RED; ?>
+						<?php echo CROSS_MARK_RED_LARGE; ?>
 						<strong><?php echo gettext("Reset"); ?></strong>
 					</button>
-					<a href="<?php echo $album->getLink(); ?>" >
+					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
 						<?php echo BULLSEYE_BLUE; ?>
 						<strong><?php echo gettext('View Album'); ?></strong>
-					</a>
+					</button>
 				</p>
 				<?php if (!$singleimage) printBulkActions($checkarray_images, true); ?>
 
@@ -503,7 +503,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</span>
 										<p class="buttons">
 											<a onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');">
-												<?php echo CROSS_MARK_RED; ?>
+												<?php echo CROSS_MARK_RED_LARGE; ?>
 												<?php echo gettext("Cancel"); ?>
 											</a>
 										</p>
@@ -515,7 +515,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</span>
 										<p class="buttons">
 											<a	onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');">
-												<?php echo CROSS_MARK_RED; ?>
+												<?php echo CROSS_MARK_RED_LARGE; ?>
 												<?php echo gettext("Cancel"); ?>
 											</a>
 										</p>
@@ -527,7 +527,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</span>
 										<p class="buttons">
 											<a	onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');">
-												<?php echo CROSS_MARK_RED; ?>
+												<?php echo CROSS_MARK_RED_LARGE; ?>
 												<?php echo gettext("Cancel"); ?>
 											</a>
 										</p>
@@ -609,16 +609,16 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				}
 				?>
 				<p class="buttons">
-					<a href="<?php $backbutton; ?>">
+					<button type="button" onclick="window.location = '<?php echo $backbutton; ?>'">
 						<?php echo BACK_ARROW_BLUE; ?>
 						<strong><?php echo gettext("Back"); ?></strong>
-					</a>
+					</button>
 					<button type="submit">
 						<?php echo CHECKMARK_GREEN; ?>
 						<strong><?php echo gettext("Apply"); ?></strong>
 					</button>
 					<button type="reset">
-						<?php echo CROSS_MARK_RED; ?>
+						<?php echo CROSS_MARK_RED_LARGE; ?>
 						<strong><?php echo gettext("Reset"); ?></strong>
 					</button>
 				</p>

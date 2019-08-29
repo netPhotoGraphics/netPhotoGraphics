@@ -242,10 +242,10 @@ if (is_array($result)) {
 				}
 				?>
 				<p class="buttons">
-					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>">
+					<button type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>'">
 						<?php echo BACK_ARROW_BLUE; ?>
 						<strong><?php echo gettext("Back"); ?></strong>
-					</a>
+					</button>
 					<span class="floatright">
 						<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?add&amp;menuset=<?php echo urlencode($menuset); ?>">
 							<?php echo PLUS_ICON; ?>
@@ -427,7 +427,7 @@ if (is_array($result)) {
 						<p class="buttons">
 							<button type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
 							<button type="reset">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
 						</p>

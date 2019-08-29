@@ -644,9 +644,8 @@ function npg_session_start() {
 	if ($result) {
 		return $result;
 	} else {
-		$v = explode('-', NETPHOTOGRAPHICS_VERSION);
 		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
-		session_name('Session_' . str_replace('.', '_', $p . '_' . $v[0]));
+		session_name('Session_' . str_replace('.', '_', $p . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
 		@ini_set('session.use_strict_mode', 1);
 		//	insure that the session data has a place to be saved
 		if (getOption('session_save_path')) {

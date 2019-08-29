@@ -220,7 +220,7 @@ function getOptionContent() {
 							<?php
 							if (count($themelist) > 1) {
 								echo gettext("Show theme for");
-								echo '<select id="themealbum" class="ignoredirty" name="themealbum" onchange="this.form.submit()">';
+								echo '<select id="themealbum" class="ignoredirty truncate" name="themealbum" onchange="this.form.submit()">';
 								generateListFromArray(array(pathurlencode($alb)), $themelist, false, true);
 								echo '</select>';
 							} else {
@@ -244,7 +244,7 @@ function getOptionContent() {
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
 								<button type="reset" value="<?php echo gettext('reset') ?>">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>
@@ -576,7 +576,7 @@ function getOptionContent() {
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
 								<button type="reset" value="<?php echo gettext('reset') ?>">
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>

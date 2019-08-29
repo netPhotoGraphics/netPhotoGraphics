@@ -1491,8 +1491,8 @@ class Album extends AlbumBase {
 		db_free_result($result);
 
 		if (count($dead) > 0) {
-			$sql = "DELETE FROM " . prefix('images') . " WHERE `id` = '" . array_pop($dead) . "'";
-			$sql2 = "DELETE FROM " . prefix('comments') . " WHERE `type`='albums' AND `ownerid` = '" . array_pop($dead) . "'";
+			$sql = "DELETE FROM " . prefix('images') . " WHERE `id` IN(" . implode(',', $dead) . ")";
+			$sql2 = "DELETE FROM " . prefix('comments') . " WHERE `type`='albums' AND `ownerid` IN(" . implode(',', $dead) . ")";
 			foreach ($dead as $id) {
 				$sql .= " OR `id` = '$id'";
 				$sql2 .= " OR `ownerid` = '$id'";

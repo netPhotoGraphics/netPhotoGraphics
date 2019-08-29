@@ -485,7 +485,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								}
 								?>
 								<button type="reset" onclick="resetButton();" >
-									<?php echo CROSS_MARK_RED; ?>
+									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>

@@ -36,6 +36,7 @@ function printThemeHeadItems() {
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
+	scriptLoader(CORE_SERVERPATH . 'button.css');
 	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 	load_jQuery_scripts('theme');
 }

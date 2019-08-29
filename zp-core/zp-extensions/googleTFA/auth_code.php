@@ -61,7 +61,7 @@ if (isset($_SESSION['OTA'])) {
 								<?php echo gettext("Submit"); ?>
 							</button>
 							<button type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo FULLWEBPATH; ?>';">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<?php echo gettext("Cancel"); ?>
 							</button>
 

@@ -185,7 +185,7 @@ function getOptionContent() {
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
 							<button type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
 						</p>
@@ -328,11 +328,7 @@ function getOptionContent() {
 								$locales = i18n::generateLanguageList('all');
 								$locales[gettext("HTTP_Accept_Language")] = '';
 								ksort($locales, SORT_LOCALE_STRING);
-								$vers = explode('-', NETPHOTOGRAPHICS_VERSION);
-								$vers = explode('.', $vers[0]);
-								while (count($vers) < 3) {
-									$vers[] = 0;
-								}
+								$vers = explode('.', NETPHOTOGRAPHICS_VERSION_CONCISE . '.0.0.0');
 								$npg_version = $vers[0] . '.' . $vers[1] . '.' . $vers[2];
 								$c = 0;
 								foreach ($locales as $language => $dirname) {
@@ -827,7 +823,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
 							<button type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED; ?>
+								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
 						</p>

@@ -151,8 +151,8 @@ class jquery_rating {
 
 	static function ratingJS() {
 		$ME = substr(basename(__FILE__), 0, -4);
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
 
 		$size = getOption('rating_star_size');
 		if (getOption('rating_like-dislike')) {
@@ -379,9 +379,9 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 					 if (!$disable) {
 						 ?>
 			<span id="submit_button<?php echo $unique; ?>">
-				<input type="button" class="rating_button" value="<?php echo gettext('Submit »'); ?>" onclick="cast<?php echo $unique; ?>();" />
-				<br class="clearall">
+				<button type="button" class="rating_button buttons" onclick="cast<?php echo $unique; ?>();" /><?php echo gettext('Submit »'); ?></button>
 			</span>
+			<br class="clearall">
 			<?php
 		}
 		?>

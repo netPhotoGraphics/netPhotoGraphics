@@ -429,10 +429,7 @@ textarea {
 .checkbox {
 	cursor: pointer;
 }
-.button {
-	cursor: pointer;
-	padding: 5px 10px;
-}
+
 label {
 	cursor: pointer;
 }
@@ -619,11 +616,6 @@ ul.archive .month {
 	margin-bottom: 1em;
 }
 
-.button {
-	cursor: pointer;
-	padding: 5px 10px;
-}
-
 label {
 	cursor: pointer;
 }
@@ -659,11 +651,6 @@ label:hover {
 #commentform input[type="text"] {
 	width: 250px;
 
-}
-
-input.button {
-	padding: 5px 8px 5px 8px!important;
-	margin: 5px 0 0 0;
 }
 
 #mailform textarea,

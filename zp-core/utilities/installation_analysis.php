@@ -33,6 +33,15 @@ echo '</head>';
 							<?php
 							if (TEST_RELEASE) {
 								$official = gettext('<em>Debug build</em>');
+								$debug = explode('-', NETPHOTOGRAPHICS_VERSION);
+								$v = $debug[0];
+								$debug = explode('_', $debug[1]);
+								array_shift($debug);
+								if (!empty($debug)) {
+									$debug = array_map('strtolower', $debug);
+									$debug = array_map('ucfirst', $debug);
+									$official .= ':</strong> ' . implode(', ', $debug) . '<strong>';
+								}
 							} else {
 								$official = gettext('Official build');
 							}
@@ -70,11 +79,11 @@ echo '</head>';
 										//-->
 									</script>
 									<?php
-									$notes = ' <a href="' . WEBPATH . '/docs/release%20notes.htm" class="doc" title="' . gettext('release notes') . '">' . gettext('notes') . '</a>';
+									$notes = '<br /><a href="' . WEBPATH . '/docs/release%20notes.htm" class="doc" title="' . gettext('release notes') . '">' . gettext('notes') . '</a>';
 								} else {
 									$notes = '';
 								}
-								printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), NETPHOTOGRAPHICS_VERSION, $official);
+								printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), NETPHOTOGRAPHICS_VERSION_CONCISE, $official);
 								echo $notes . $source;
 								?>
 							</li>
@@ -379,8 +388,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php

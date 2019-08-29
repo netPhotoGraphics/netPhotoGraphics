@@ -26,12 +26,19 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
-$fullLog = isset($_GET['fullLog']);
+$icon = $_GET['class'];
+$fullLog = isset($_GET['fullLog']) || $icon == 2;
+;
 
 $extension = sanitize($_REQUEST['plugin']);
 $__script = 'Plugin:' . $extension;
 
-setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
+if ($icon == 2) {
+	$name = '<span style="text-decoration: line-through;">' . $extension . '</span>';
+} else {
+	$name = $extension;
+}
+setupLog(sprintf(gettext('Plugin:%s setup started'), $name), $fullLog);
 
 $path = getPlugin($extension . '.php');
 $p = file_get_contents($path);
@@ -55,7 +62,8 @@ if (extensionEnabled($extension)) {
 	if ($plugin_is_filter & THEME_PLUGIN) {
 		$priority .= ' | THEME_PLUGIN';
 	}
-	setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $extension, $priority), $fullLog);
+
+	setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $name, $priority), $fullLog);
 	enableExtension($extension, $plugin_is_filter);
 }
 
@@ -64,7 +72,7 @@ unset($plugin_disable);
 require_once($path); //	If it faults the shutdown functioin will disable it
 if (isset($plugin_disable) && $plugin_disable) {
 	enableExtension($extension, 0);
-	setupLog(sprintf(gettext('Plugin:%s disabled by <code>$plugin_disable</code>'), $extension), $fullLog);
+	setupLog(sprintf(gettext('Plugin:%s disabled by <code>$plugin_disable</code>'), $name), $fullLog);
 }
 foreach ($_conf_vars['special_pages'] as $definition) {
 	if (isset($definition['option'])) {
@@ -74,7 +82,7 @@ foreach ($_conf_vars['special_pages'] as $definition) {
 if ($str = isolate('$option_interface', $p)) {
 	//	prime the default options
 	eval($str);
-	setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $extension, $option_interface), $fullLog);
+	setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $name, $option_interface), $fullLog);
 	$option_interface = new $option_interface;
 	if (method_exists($option_interface, 'getOptionsSupported')) {
 		ob_start(); //	some plugins emit output from the getOptionsSupported() method
@@ -89,12 +97,12 @@ if ($str = isolate('$option_interface', $p)) {
 	}
 }
 
-sendImage($_GET['class'], 'plugin_' . $extension);
+sendImage($icon, 'plugin_' . $extension);
 
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
-setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $startPO), $fullLog);
+setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $name, $last - $startPO), $fullLog);
 
 exit();
 ?>

@@ -161,7 +161,7 @@ if (count($themelist) == 0) {
 		?>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a class="reset" onclick="launchScript('', ['action=settheme', 'themealbum=<?php echo pathurlencode($album->name); ?>', 'theme=', 'XSRFToken=<?php echo getXSRFToken('admin-tabs/themes'); ?>']);" title="<?php printf(gettext('Clear theme assignment for %s'), html_encode($album->name)); ?>">
-			<?php echo CROSS_MARK_RED; ?>
+			<?php echo CROSS_MARK_RED_LARGE; ?>
 		</a>
 		<?php
 	}
@@ -169,7 +169,7 @@ if (count($themelist) == 0) {
 	if (count($themelist) > 1) {
 		echo '<form action="#" method="post">';
 		echo gettext("Show theme for: ");
-		echo '<select id="themealbum" class="ignoredirty" name="themealbum" onchange="this.form.submit()">';
+		echo '<select id="themealbum" class="ignoredirty truncate" name="themealbum" onchange="this.form.submit()">';
 		generateListFromArray(array(pathurlencode($alb)), $themelist, false, true);
 		echo '</select>';
 		echo '</form>';
@@ -199,8 +199,6 @@ if (count($themelist) == 0) {
 			<th class="centered"><b><?php echo gettext('Action'); ?></b></th>
 		</tr>
 		<?php
-		$npg_version = explode('-', NETPHOTOGRAPHICS_VERSION);
-		$npg_version = array_shift($npg_version);
 		$software_date = date('Y-m-d', filemtime(CORE_SERVERPATH . 'version.php'));
 		$current_theme_style = 'class="currentselection"';
 		foreach ($themes as $theme => $themeinfo) {
@@ -247,7 +245,7 @@ if (count($themelist) == 0) {
 					<br />
 					<?php
 					if (strpos($ico, 'images/np_gold.png') !== false || $themeinfo['version'] === true) {
-						$version = $npg_version;
+						$version = NETPHOTOGRAPHICS_VERSION_CONCISE;
 						$date = $software_date;
 					} else {
 						$version = $themeinfo['version'];
@@ -321,10 +319,10 @@ if (count($themelist) == 0) {
 								?>
 								<li>
 									<p class="buttons">
-										<button onclick="javascript:confirmDelete('<?php echo $delete_url; ?>', '<?php echo $delete_msg; ?>');">
+										<a onclick="javascript:confirmDelete('<?php echo $delete_url; ?>', '<?php echo $delete_msg; ?>');">
 											<?php echo WASTEBASKET; ?>
 											<?php echo gettext("Delete"); ?>
-										</button>
+											</button>
 									</p>
 								</li>
 								<?php

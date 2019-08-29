@@ -183,7 +183,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 		<p class="buttons">
 			<button type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
 			<button type="reset" value="<?php echo gettext('Reset') ?>">
-				<?php echo CROSS_MARK_RED; ?>
+				<?php echo CROSS_MARK_RED_LARGE; ?>
 				<strong><?php echo gettext("Reset"); ?></strong></button>
 		</p><br class="clearall"><br /><br />
 		<table>
@@ -228,7 +228,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 
 				$plugin_is_filter = $details['plugin_is_filter'];
-				$plugin_deprecated = isset($pluginDetails[$extension]['deprecated']);
+				$plugin_deprecated = isset($pluginDetails[$extension]['deprecated']) ? $pluginDetails[$extension]['deprecated'] : '';
 				if (isset($details['plugin_description'])) {
 					if (false === eval($details['plugin_description'])) {
 						$parserr = $parserr | 1;
@@ -360,10 +360,9 @@ npgFilters::apply('admin_note', 'plugins', '');
 								}
 								if ($plugin_deprecated) {
 									if ($plugin_notice) {
-										$plugin_notice = '<strong>' . gettext('Plugin is deprecated!') . '</strong><br />' . $plugin_notice;
-									} else {
-										$plugin_notice = '<strong>' . gettext('Plugin is deprecated!') . '</strong>';
+										$plugin_notice .= '<br />';
 									}
+									$plugin_notice .= '<strong>' . gettext('Plugin is deprecated') . '</strong> ' . trim(str_replace('deprecated', '', $plugin_deprecated));
 									?>
 									<span class="deprecated">
 										<?php
@@ -508,7 +507,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 		<p class="buttons">
 			<button type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
 			<button type="reset" value="<?php echo gettext('Reset') ?>">
-				<?php echo CROSS_MARK_RED; ?>
+				<?php echo CROSS_MARK_RED_LARGE; ?>
 				<strong><?php echo gettext("Reset"); ?></strong></button>
 		</p><br /><br />
 		<input type="hidden" name="checkForPostTruncation" value="1" />
