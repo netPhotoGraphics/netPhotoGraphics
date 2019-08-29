@@ -37,7 +37,7 @@
  *
  * @package plugins/slideshow
  * @pluginCategory media
- * @deprecated since 2.00.01 use slideshow2
+ * @deprecated since 2.00.02 use slideshow2
  */
 $plugin_is_filter = 9 | THEME_PLUGIN | ADMIN_PLUGIN;
 $plugin_description = gettext("Adds a theme function to call a slideshow either based on jQuery (default) or Colorbox.");

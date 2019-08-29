@@ -12,7 +12,7 @@
  *
  * @package plugins/themeEditor
  * @pluginCategory admin
- * @deprecated since 2.00.01 set the elFinder <code>Edit themes</code> option
+ * @deprecated since 2.00.02 set the elFinder <code>Edit themes</code> option
  */
 $plugin_is_filter = defaultExtension(900 | ADMIN_PLUGIN); // lowest priotiry so other instances will override
 $plugin_description = gettext('PHP based theme editor.');

@@ -12,7 +12,7 @@
  *
  * @package plugins/tweet_news
  * @pluginCategory admin
- * @deprecated since 2.00.01
+ * @deprecated since 2.00.02 and will be moved to DevTools repository
  */
 $plugin_is_filter = 9 | FEATURE_PLUGIN;
 $plugin_description = gettext('Tweet news articles when published.');

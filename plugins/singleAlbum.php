@@ -8,7 +8,7 @@
  *
  * @package plugins/singleAlbum
  * @pluginCategory example
- * @deprecated since 2.00.01 customize the theme index.php script instead
+ * @deprecated since 2.00.02 customize the theme index.php script instead
  */
 $plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext('Forces a defined album as the index page.');
