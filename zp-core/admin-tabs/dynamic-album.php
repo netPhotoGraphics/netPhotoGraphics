@@ -280,11 +280,11 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 				// <!-- <![CDATA[
 				function setTagged(state) {
 					if (state) {
-						$('#album_tag').prop('disabled', false);
-						$('.searchchecklist').prop('disabled', true);
+						$('#album_tag').show();
+						$('.searchcheck').prop('disabled', true);
 					} else {
-						$('.searchchecklist').prop('disabled', false);
-						$('#album_tag').prop('disabled', true);
+						$('.searchcheck').prop('disabled', false);
+						$('#album_tag').hide();
 					}
 				}
 				// ]]> -->
@@ -302,13 +302,20 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 					</label>
 				</td>
 				<td>
+					<br />
+					<?php echo gettext('Select <em>tagged</em> statically define the search results as the album contents.'); ?>
 				</td>
 			</tr>
-			<tr>
+			<tr id="album_tag" style="display: none">
 				<td><?php echo gettext('Album <em>Tag</em>'); ?></td>
 				<td>
-					<input type="text" size="40" name="album_tag" id="album_tag" value="<?php echo html_encode($albumname) . '.' . time(); ?>" disabled="disabled" />
-					<?php echo gettext('Select <em>tagged</em> to tag the search results with this <em>tag</em> and use as the album criteria.'); ?>
+					<input type="text" size="40" name="album_tag" id="album_tag" value="<?php echo html_encode($albumname) . '.' . time(); ?>" />
+					<span class="info_info">
+						<?php echo INFORMATION_BLUE; ?>
+						<div class="info_desc_hidden">
+							<?php echo gettext('This tag will be assigned to each item found by the search. The search criteria for the album will be exclusively the tag. Thus the contents of this dynamic album are defined statically at the time of creation.'); ?>
+						</div>
+					</span>
 				</td>
 			</tr>
 			<tr>
@@ -328,7 +335,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 							}
 						}
 					}
-					generateUnorderedListFromArray($selected_fields, $available_fields, 'SEARCH_', false, true, true, true);
+					generateUnorderedListFromArray($selected_fields, $available_fields, 'SEARCH_', false, true, true, 'searchcheck');
 					echo '</ul>';
 					?>
 				</td>
