@@ -276,21 +276,22 @@ function rewrite_path($rewrite, $plain, $webpath = NULL) {
 }
 
 /**
- * Returns the oldest ancestor of an alubm;
+ * Returns the oldest ancestor of an album (or an image's album);
  *
  * @param string $album an album object
  * @return object
  */
 function getUrAlbum($album) {
-	if (!is_object($album))
-		return NULL;
-	while (true) {
-		$parent = $album->getParent();
-		if (is_null($parent)) {
-			return $album;
+	if (is_object($album)) {
+		while ($album) {
+			$parent = $album->getParent();
+			if (is_null($parent)) {
+				return $album;
+			}
+			$album = $parent;
 		}
-		$album = $parent;
 	}
+	return NULL;
 }
 
 /**
@@ -2278,14 +2279,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
