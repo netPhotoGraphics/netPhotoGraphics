@@ -7959,6 +7959,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/linkedinLogin/login_button.png
 %extensions%/macroList
 %extensions%/macroList/macroList_tab.php
+%extensions%/mailForm
+%extensions%/mailForm/mailForm.htm
 %extensions%/matomo
 %extensions%/matomo/matomo_tab.php
 %extensions%/menu_manager
@@ -8400,4 +8402,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8402
+8404
