@@ -48,7 +48,7 @@ class register_user {
 			setOptionDefault('register_user_captcha', 0);
 			setOptionDefault('register_user_email_is_id', 1);
 			setOptionDefault('register_user_create_album', 0);
-			setOptionDefault('register_user_text', getAllTranslations('You have received this email because you registered with the user id %3$s on this site.' . "\n" . 'To complete your registration visit %1$s.'));
+			setOptionDefault('register_user_text', getAllTranslations('You have received this email because you registered with the user id %3$s on this site.' . "<br />" . 'To complete your registration visit %1$s.'));
 			setOptionDefault('register_user_accepted', getAllTranslations('Your registration information has been accepted. An email has been sent to you to verify your email address.'));
 		}
 	}

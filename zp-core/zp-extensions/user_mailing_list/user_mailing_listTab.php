@@ -15,6 +15,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 $admins = $_authority->getAdministrators();
 
 printAdminHeader('admin', 'Mailing');
+npgFilters::apply('texteditor_config', 'photo');
 ?>
 </head>
 <body>
@@ -53,7 +54,7 @@ printAdminHeader('admin', 'Mailing');
 						<labelfor="subject"><?php echo gettext('Subject:'); ?></label><br />
 							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disabled; ?> /><br /><br />
 							<label for="message"><?php echo gettext('Message:'); ?></label><br />
-							<textarea id="message" name="message" value="" cols="68" rows="10"<?php echo $disabled; ?> ></textarea>
+							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="10"<?php echo $disabled; ?> ></textarea>
 					</div>
 
 					<div class="floatleft">

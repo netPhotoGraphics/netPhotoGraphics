@@ -23,7 +23,7 @@ if (OFFSET_PATH == 2) {
 
 npgFilters::register('sendmail', 'simple_sendmail');
 
-function simple_sendmail($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo, $html = false) {
+function simple_sendmail($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
 	$headers = sprintf('From: %1$s <%2$s>', $from_name, $from_mail) . "\n";
 	if (count($cc_addresses) > 0) {
 		$cclist = '';
@@ -39,7 +39,7 @@ function simple_sendmail($msg, $email_list, $subject, $message, $from_mail, $fro
 
 	$result = true;
 	foreach ($sendList as $to_mail) {
-		$result = $result && utf8::send_mail($to_mail, $subject, $message, $headers, '', $html);
+		$result = $result && utf8::send_mail($to_mail, $subject, $message, $headers, '', true);
 	}
 	if (!$result) {
 		if (!empty($msg))

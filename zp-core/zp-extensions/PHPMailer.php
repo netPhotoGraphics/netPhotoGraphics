@@ -129,7 +129,7 @@ function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_nam
 	$mail->Subject = $subject;
 	$mail->Body = $message;
 	$mail->AltBody = '';
-	$mail->IsHTML($html);
+	$mail->IsHTML(true);
 
 	foreach ($email_list as $to_name => $to_mail) {
 		if (is_numeric($to_name)) {

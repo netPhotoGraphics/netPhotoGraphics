@@ -882,10 +882,10 @@ class _Authority {
 							$_login_error = gettext('There was no one to which to send the reset request.');
 						} else {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
-							$msg = "\n" . $requestor;
+							$msg = "<p>" . $requestor . '</p>';
 							if ($found) {
-								$msg .= "\n" . sprintf(gettext("To reset your Admin passwords visit: %s"), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=' . $user['user']) .
-												"\n" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.");
+								$msg .= "<p>" . sprintf(gettext("To reset your Admin passwords visit: %s"), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=' . $user['user']) .
+												"</p><p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . '</p>';
 							} else {
 								$msg .= "\n" . gettext('No matching user was found.');
 							}
@@ -1513,7 +1513,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

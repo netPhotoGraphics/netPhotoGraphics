@@ -474,10 +474,24 @@ function comment_form_addComment($commentobj, $name, $email, $website, $comment,
 				break;
 		}
 		if (($whattocheck & COMMENT_SEND_EMAIL)) {
-			$message = $action . "\n\n" .
-							sprintf(gettext('Author: %1$s' . "\n" . 'Email: %2$s' . "\n" . 'Website: %3$s' . "\n" . 'Comment:' . "\n\n" . '%4$s'), $commentobj->getname(), $commentobj->getEmail(), $commentobj->getWebsite(), $commentobj->getComment()) . "\n\n" .
-							sprintf(gettext('You can view all comments about this item here:' . "\n" . '%1$s'), 'http://' . $_SERVER['SERVER_NAME'] . WEBPATH . '/index.php?' . $url) . "\n\n" .
-							sprintf(gettext('You can edit the comment here:' . "\n" . '%1$s'), 'http://' . $_SERVER['SERVER_NAME'] . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?page=editcomment&id=' . $commentobj->getID());
+			$message = $action . "<p>" .
+							sprintf(gettext('Author: %1$s'), $commentobj->getname()) . '<br />' .
+							sprintf(gettext('Email: %1$s'), $commentobj->getEmail()) . '<br />';
+			if ($site = $commentobj->getWebsite()) {
+				$message .= sprintf(gettext('Website: %1$s'), $site) .
+								'</p>' . "\n";
+			}
+
+			$message .= '<fieldset>' .
+							'<legend>' . gettext('Comment') . '</legend>' .
+							$commentobj->getComment() .
+							'</fieldset>';
+
+			$message .= '<p><a href="' . FULLWEBPATH . '/index.php?' . $url . '">' .
+							gettext('View all comments about this item') . '</a></p>' . "\n" .
+							'<p><a href="' . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?page=editcomment&id=' . $commentobj->getID() . '">' .
+							gettext('Edit the comment') .
+							'</a></p>' . "\n";
 			$emails = array();
 			$admin_users = $_authority->getAdministrators();
 			foreach ($admin_users as $admin) {
