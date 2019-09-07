@@ -42,8 +42,9 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 				$returntab = processCustomOptionSave($returntab, $themename, $themealbum);
 			}
 
-			if (empty($notify))
+			if (empty($notify)) {
 				$notify = '?saved';
+			}
 			header("Location: " . $notify . $returntab);
 			exit();
 		}

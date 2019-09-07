@@ -1317,7 +1317,9 @@ plugins/zenphotoCompatibilityPack.php
 %core%/admin-tabs/thumbcrop.php
 %core%/admin-tabs/upload.php
 %core%/admin-tabs/users.php
+%core%/admin-tabs/mailForm.htm
 %core%/admin_options
+%core%/admin_options/forms.php
 %core%/admin_options/gallery.php
 %core%/admin_options/general.php
 %core%/admin_options/image.php
@@ -7862,6 +7864,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/flag_thumbnail/GPS.png
 %extensions%/flag_thumbnail/lock.png
 %extensions%/flag_thumbnail/new.png
+%extensions%/forms
+%extensions%/forms/mailForm.htm
 %extensions%/galleryArticles
 %extensions%/galleryArticles/combiNews.php
 %extensions%/googleLogin
@@ -7959,8 +7963,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/linkedinLogin/login_button.png
 %extensions%/macroList
 %extensions%/macroList/macroList_tab.php
-%extensions%/mailForm
-%extensions%/mailForm/mailForm.htm
 %extensions%/matomo
 %extensions%/matomo/matomo_tab.php
 %extensions%/menu_manager
@@ -8402,4 +8404,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8404
+8406

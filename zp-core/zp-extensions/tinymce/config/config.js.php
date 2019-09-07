@@ -84,6 +84,7 @@ if ($pasteObjEnabled) {
 					language: "<?php echo $MCElocale; ?>",
 					relative_urls: false,
 					flash_video_player_url: false,
+					inline_styles : true,
 <?php
 if ($MCEimage_advtab == NULL || $MCEimage_advtab) {
 	?>
