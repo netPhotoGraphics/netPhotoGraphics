@@ -58,7 +58,14 @@ npgFilters::apply('texteditor_config', 'photo');
 					</div>
 
 					<div class="floatleft">
-						<?php echo gettext('Select users:'); ?>
+
+						<div>
+							<?php echo gettext('Select users:'); ?>
+
+							<span class="floatright">
+								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all'); ?>
+							</span>
+						</div>
 						<ul class="unindentedchecklist" style="height: 205px; width: 30em;">
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
@@ -67,7 +74,7 @@ npgFilters::apply('texteditor_config', 'photo');
 									?>
 									<li>
 										<label for="admin_<?php echo $admin['id']; ?>">
-											<input name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked"  <?php echo $disabled; ?>/>
+											<input class="anuser ignoredirty" name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked"  <?php echo $disabled; ?>/>
 											<?php
 											echo $admin['user'] . " (";
 											if (!empty($admin['name'])) {
