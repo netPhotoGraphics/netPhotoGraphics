@@ -416,12 +416,11 @@ class tweet {
 	/**
 	 *
 	 * filter to process zenpage tweet requests
-	 * @param unknown_type $custom
 	 * @param unknown_type $object
 	 */
 	static function tweeterZenpageExecute($object) {
 		self::tweeterExecute($object, '');
-		return $custom;
+		return $object;
 	}
 
 }
