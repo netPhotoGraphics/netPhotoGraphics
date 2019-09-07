@@ -93,7 +93,7 @@ use PHPMailer\PHPMailer\POP3;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo) {
+function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
 	require_once(dirname(__FILE__) . '/PHPMailer/PHPMailer.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/POP3.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/SMTP.php');
