@@ -1317,7 +1317,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/admin-tabs/thumbcrop.php
 %core%/admin-tabs/upload.php
 %core%/admin-tabs/users.php
-%core%/admin-tabs/mailForm.htm
 %core%/admin_options
 %core%/admin_options/forms.php
 %core%/admin_options/gallery.php
@@ -8404,4 +8403,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8406
+8405

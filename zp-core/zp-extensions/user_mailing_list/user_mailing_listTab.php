@@ -78,9 +78,11 @@ npgFilters::apply('texteditor_config', 'photo');
 											<?php
 											echo $admin['user'] . " (";
 											if (!empty($admin['name'])) {
-												echo $admin['name'] . " - ";
+												echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
+											} else {
+												echo $admin['email'];
 											}
-											echo $admin['email'] . ")";
+											echo ")";
 											?>
 										</label>
 									</li>
