@@ -85,6 +85,7 @@ if ($pasteObjEnabled) {
 					relative_urls: false,
 					flash_video_player_url: false,
 					inline_styles : true,
+					remove_script_host : false,
 <?php
 if ($MCEimage_advtab == NULL || $MCEimage_advtab) {
 	?>
