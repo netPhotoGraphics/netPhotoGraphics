@@ -66,7 +66,7 @@ npgFilters::apply('texteditor_config', 'photo');
 								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all'); ?>
 							</span>
 						</div>
-						<ul class="unindentedchecklist" style="height: 205px; width: 30em;">
+						<ul class="unindentedchecklist" style="height: 205px; width: 30em; padding:5px;">
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
 							foreach ($admins as $admin) {
