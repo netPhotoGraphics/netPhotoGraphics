@@ -7995,6 +7995,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/openstreetmap/images/toggle.svg
 %extensions%/PHPMailer
 %extensions%/PHPMailer/Exception.php
+%extensions%/PHPMailer/OAuth.php
 %extensions%/PHPMailer/PHPMailer.php
 %extensions%/PHPMailer/POP3.php
 %extensions%/PHPMailer/SMTP.php
@@ -8403,4 +8404,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8405
+8406

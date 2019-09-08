@@ -25,15 +25,15 @@ if (isset($_POST['message'])) {
 	$message = sanitize($_POST['message'], 0);
 }
 
-$toList = array();
+$toList = $bccList = array();
 $admins = $_authority->getAdministrators();
 $admincount = count($admins);
 foreach ($admins as $admin) {
 	if (isset($_POST["admin_" . $admin['id']])) {
 		if ($admin['name']) {
-			$toList[$admin['name']] = $admin['email'];
+			$bccList[$admin['name']] = $admin['email'];
 		} else {
-			$toList[] = $admin['email'];
+			$bccList[] = $admin['email'];
 		}
 	}
 }
@@ -47,7 +47,7 @@ if (!empty($currentadminmail)) {
 	}
 }
 
-$err_msg = npgFunctions::mail($subject, $message, NULL, NULL, $toList);
+$err_msg = npgFunctions::mail($subject, $message, $toList, NULL, $bccList);
 if ($err_msg) {
 	debugLogVar([gettext('user_mailing_list error') => $err_msg]);
 }
