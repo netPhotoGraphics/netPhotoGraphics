@@ -22,7 +22,7 @@ if (isset($_POST['subject'])) {
 	$subject = sanitize($_POST['subject']);
 }
 if (isset($_POST['message'])) {
-	$message = sanitize($_POST['message']);
+	$message = sanitize($_POST['message'], 0);
 }
 $toList = array();
 $admins = $_authority->getAdministrators();
@@ -56,7 +56,7 @@ foreach ($toList as $name => $email) {
 
 	$err_msg = npgFunctions::mail($subject, $message, array($name => $email), array(), array());
 	if ($err_msg) {
-		debugLogVar([gettext('user_mailing_list error') =>  $err_msg]);
+		debugLogVar([gettext('user_mailing_list error') => $err_msg]);
 	}
 }
 ?>
