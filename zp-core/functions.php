@@ -3030,9 +3030,8 @@ class npgFunctions {
 						$message = str_replace($matches[1], $message, $form);
 					}
 				}
-
 				// Send the mail
-				$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo, true); // will be true if all mailers succeeded
+				$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
 			} else {
 				$result = gettext('Mail send failed. There is no mail handler configured.');
 			}

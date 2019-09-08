@@ -11,13 +11,8 @@ function saveOptions() {
 		unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms/mailForm.htm');
 	} else {
 		$form = $_POST['email_form'];
-
-		//NOTE: tinyMCE seems to remove the FULLHOSTPATH so just to be save we handle both with and without
 		$form = str_replace('href="' . FULLWEBPATH, 'href="%WEBPATH%', $form);
-		$form = str_replace('href="' . WEBPATH, 'href="%WEBPATH%', $form);
-
 		$form = str_replace('src="' . $_gallery->getSiteLogo(FULLWEBPATH) . '"', 'src="%LOGO%"', $form);
-		$form = str_replace('src="' . $_gallery->getSiteLogo() . '"', 'src="%LOGO%"', $form);
 
 		$formFile = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms/mailForm.htm';
 		if (!is_dir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms')) {

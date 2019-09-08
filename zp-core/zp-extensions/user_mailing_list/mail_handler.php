@@ -24,6 +24,7 @@ if (isset($_POST['subject'])) {
 if (isset($_POST['message'])) {
 	$message = sanitize($_POST['message'], 0);
 }
+
 $toList = array();
 $admins = $_authority->getAdministrators();
 $admincount = count($admins);
@@ -46,17 +47,8 @@ if (!empty($currentadminmail)) {
 	}
 }
 
-$waittime = false;
-foreach ($toList as $name => $email) {
-	if ($waittime) {
-		sleep($waittime); //	pace the mail send
-	} else {
-		$waitTime = getOption('user_mailing_list_pace');
-	}
-
-	$err_msg = npgFunctions::mail($subject, $message, array($name => $email), array(), array());
-	if ($err_msg) {
-		debugLogVar([gettext('user_mailing_list error') => $err_msg]);
-	}
+$err_msg = npgFunctions::mail($subject, $message, NULL, NULL, $toList);
+if ($err_msg) {
+	debugLogVar([gettext('user_mailing_list error') => $err_msg]);
 }
 ?>

@@ -93,7 +93,7 @@ use PHPMailer\PHPMailer\POP3;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
+function _PHPMailer($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
 	require_once(dirname(__FILE__) . '/PHPMailer/PHPMailer.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/POP3.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/SMTP.php');
@@ -162,10 +162,10 @@ function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_nam
 		$mail->addReplyTo(array_shift($replyTo), array_shift($names));
 	}
 	if (!$mail->Send()) {
-		if (!empty($msg))
-			$msg .= '<br />';
-		$msg .= sprintf(gettext('<code>PHPMailer</code> failed to send <em>%1$s</em>. ErrorInfo:%2$s'), $subject, $mail->ErrorInfo);
+		if (!empty($result))
+			$result .= '<br />';
+		$result .= sprintf(gettext('<code>PHPMailer</code> failed to send <em>%1$s</em>. ErrorInfo:%2$s'), $subject, $mail->ErrorInfo);
 	}
-	return $msg;
+	return $result;
 }
 ?>
