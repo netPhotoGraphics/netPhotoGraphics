@@ -415,12 +415,22 @@ npgFilters::apply('admin_note', 'plugins', '');
 								</a>
 							</span>
 							<?php
-							if ($plugin_default == 'thirdparty' && npgFunctions::hasPrimaryScripts()) {
+							if (npgFunctions::hasPrimaryScripts() && ($plugin_default == 'thirdparty' || $plugin_default == 'deprecated')) {
 								?>
 								<span class="icons">
-									<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
-										<?php echo CROSS_MARK_RED; ?>
-									</a>
+									<?php
+									if (extensionEnabled($extension)) {
+										?>
+										<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+										<?php
+									} else {
+										?>
+										<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
+											<?php echo CROSS_MARK_RED; ?>
+										</a>
+										<?php
+									}
+									?>
 								</span>
 								<?php
 							}
