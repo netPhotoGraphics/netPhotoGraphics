@@ -58,17 +58,18 @@ function getOptionContent() {
 			}
 			echo gettext('E-mail form');
 			?>
-
-			<textarea name="email_form" class="texteditor" cols="<?php echo TEXTAREA_COLUMNS; ?>"	style="width: 800px" rows="30">
-				<?php echo $form; ?>
-			</textarea>
-			<?php
-			if (basename(dirname(dirname($formFile))) == USER_PLUGIN_FOLDER) {
-				?>
-				<input type="checkbox" name="revert"><?php echo gettext('Restore default form'); ?>
+			<div style="width:800px;">
+				<textarea name="email_form" class="texteditor" cols="<?php echo TEXTAREA_COLUMNS; ?>"	style="width: 800px" rows="30">
+					<?php echo $form; ?>
+				</textarea>
 				<?php
-			}
-			?>
+				if (basename(dirname(dirname($formFile))) == USER_PLUGIN_FOLDER) {
+					?>
+					<input type="checkbox" name="revert"><?php echo gettext('Restore default form'); ?>
+					<?php
+				}
+				?>
+			</div>
 			<br clear="all">
 			<br />
 			<p class="buttons">

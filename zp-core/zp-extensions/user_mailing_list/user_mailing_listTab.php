@@ -3,7 +3,7 @@
  *
  * Admin tab for user mailing list
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  * @package plugins/user_mailing_list
  */
 if (!defined('OFFSET_PATH'))
@@ -96,8 +96,17 @@ npgFilters::apply('texteditor_config', 'photo');
 					<br class="clearall">
 					<script type="text/javascript">
 						$('form#massmail').submit(function () {
+<?php
+if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {
+	//	force update of textarea
+	?>
+								message = tinymce.activeEditor.getContent();
+								$('#message').html(message);
+	<?php
+}
+?>
 							$.post($(this).attr('action'), $(this).serialize(), function (res) {
-								// Do something with the response `res`
+// Do something with the response `res`
 								console.log(res);
 							});
 							$('form#massmail').trigger('reset');
