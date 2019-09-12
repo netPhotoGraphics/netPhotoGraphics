@@ -6,6 +6,8 @@
  *
  * @author Stephen Billard (sbillard)
  *
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ *
  * @package plugins/PHPMailer
  * @pluginCategory mail
  */
@@ -93,79 +95,89 @@ use PHPMailer\PHPMailer\POP3;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function _PHPMailer($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo) {
+function _PHPMailer($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
 	require_once(dirname(__FILE__) . '/PHPMailer/PHPMailer.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/POP3.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/SMTP.php');
 	require_once(dirname(__FILE__) . '/PHPMailer/Exception.php');
 
-	switch (getOption('PHPMailer_mail_protocol')) {
-		case 'pop3':
-			$pop = new POP3();
-			$authorized = $pop->authorise(getOption('PHPMailer_server'), getOption('PHPMailer_pop_port'), 30, getOption('PHPMailer_user'), getOption('PHPMailer_password'), 0);
-			$mail = new PHPMailer();
-			$mail->isSMTP();
-			$mail->Port = getOption('PHPMailer_smtp_port');
-			$mail->Host = getOption('PHPMailer_server');
-			break;
-		case 'smtp':
-			$mail = new PHPMailer();
-			$mail->SMTPAuth = true; // enable SMTP authentication
-			$mail->isSMTP();
-			$mail->Username = getOption('PHPMailer_user');
-			$mail->Password = getOption('PHPMailer_password');
-			$mail->Host = getOption('PHPMailer_server');
-			$mail->Port = getOption('PHPMailer_smtp_port');
-			break;
-		case 'sendmail':
-			$mail = new PHPMailer();
-			$mail->isSendmail();
-			break;
-	}
-	$mail->SMTPSecure = getOption('PHPMailer_secure');
-	$mail->CharSet = 'UTF-8';
-	$mail->From = $from_mail;
-	$mail->FromName = $from_name;
-	$mail->Subject = $subject;
-	$mail->Body = $message;
-	$mail->AltBody = '';
-	$mail->IsHTML($html);
-
-	foreach ($email_list as $to_name => $to_mail) {
-		if (is_numeric($to_name)) {
-			$mail->addAddress($to_mail);
-		} else {
-			$mail->addAddress($to_mail, $to_name);
+	$result = _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo);
+	//	send to the BCC list
+	foreach ($bcc_addresses as $name => $email) {
+		sleep(10); //	pase the sends
+		$to = array($name => $email);
+		$r = _PHPMailerSend($to, $subject, $message, $from_mail, $from_name, array(), $replyTo);
+		if ($r) {
+			if ($result) {
+				$result .= '<br />';
+			}
+			$result .= $r;
 		}
 	}
-	if (count($cc_addresses) > 0) {
-		foreach ($cc_addresses as $cc_name => $cc_mail) {
-			if (is_numeric($cc_name)) {
-				$mail->addCC($cc_mail);
+	return $result;
+}
+
+function _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo) {
+	$result = '';
+	try {
+		switch (getOption('PHPMailer_mail_protocol')) {
+			case 'pop3':
+				$pop = new POP3();
+				$authorized = $pop->authorise(getOption('PHPMailer_server'), getOption('PHPMailer_pop_port'), 30, getOption('PHPMailer_user'), getOption('PHPMailer_password'), 0);
+				$mail = new PHPMailer();
+				$mail->isSMTP();
+				$mail->Port = getOption('PHPMailer_smtp_port');
+				$mail->Host = getOption('PHPMailer_server');
+				break;
+			case 'smtp':
+				$mail = new PHPMailer();
+				$mail->SMTPAuth = true; // enable SMTP authentication
+				$mail->isSMTP();
+				$mail->Username = getOption('PHPMailer_user');
+				$mail->Password = getOption('PHPMailer_password');
+				$mail->Host = getOption('PHPMailer_server');
+				$mail->Port = getOption('PHPMailer_smtp_port');
+				break;
+			case 'sendmail':
+				$mail = new PHPMailer();
+				$mail->isSendmail();
+				break;
+		}
+		$mail->SMTPSecure = getOption('PHPMailer_secure');
+		$mail->CharSet = 'UTF-8';
+		$mail->From = $from_mail;
+		$mail->FromName = $from_name;
+		$mail->Subject = $subject;
+		$mail->Body = $message;
+		$mail->AltBody = '';
+		$mail->IsHTML(true);
+
+		foreach ($email_list as $to_name => $to_mail) {
+			if (is_numeric($to_name)) {
+				$mail->addAddress($to_mail);
 			} else {
-				$mail->addCC($cc_mail, $cc_name);
+				$mail->addAddress($to_mail, $to_name);
 			}
 		}
-	}
-	if (count($bcc_addresses) > 0) {
-		foreach ($bcc_addresses as $bcc_name => $bcc_mail) {
-			if (is_numeric($bcc_name)) {
-				$mail->addBCC($bcc_mail);
-			} else {
-				$mail->addBCC($bcc_mail, $bcc_name);
+		if (count($cc_addresses) > 0) {
+			foreach ($cc_addresses as $cc_name => $cc_mail) {
+				if (is_numeric($cc_name)) {
+					$mail->addCC($cc_mail);
+				} else {
+					$mail->addCC($cc_mail, $cc_name);
+				}
 			}
 		}
+
+		if ($replyTo) {
+			$names = array_keys($replyTo);
+			$mail->addReplyTo(array_shift($replyTo), array_shift($names));
+		}
+		$mail->Send();
+	} catch (excepton $e) {
+		$result = sprintf(gettext('<code>PHPMailer</code> failed to send <em>%1$s</em>. ErrorInfo:%2$s'), $subject, $mail->ErrorInfo);
 	}
 
-	if ($replyTo) {
-		$names = array_keys($replyTo);
-		$mail->addReplyTo(array_shift($replyTo), array_shift($names));
-	}
-	if (!$mail->Send()) {
-		if (!empty($msg))
-			$msg .= '<br />';
-		$msg .= sprintf(gettext('<code>PHPMailer</code> failed to send <em>%1$s</em>. ErrorInfo:%2$s'), $subject, $mail->ErrorInfo);
-	}
-	return $msg;
+	return $result;
 }
 ?>

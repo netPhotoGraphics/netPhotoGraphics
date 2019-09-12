@@ -1318,6 +1318,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/admin-tabs/upload.php
 %core%/admin-tabs/users.php
 %core%/admin_options
+%core%/admin_options/forms.php
 %core%/admin_options/gallery.php
 %core%/admin_options/general.php
 %core%/admin_options/image.php
@@ -7862,6 +7863,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/flag_thumbnail/GPS.png
 %extensions%/flag_thumbnail/lock.png
 %extensions%/flag_thumbnail/new.png
+%extensions%/forms
+%extensions%/forms/mailForm.htm
 %extensions%/galleryArticles
 %extensions%/galleryArticles/combiNews.php
 %extensions%/googleLogin
@@ -7992,6 +7995,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/openstreetmap/images/toggle.svg
 %extensions%/PHPMailer
 %extensions%/PHPMailer/Exception.php
+%extensions%/PHPMailer/OAuth.php
 %extensions%/PHPMailer/PHPMailer.php
 %extensions%/PHPMailer/POP3.php
 %extensions%/PHPMailer/SMTP.php
@@ -8118,6 +8122,11 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/config/config.js.php
 %extensions%/tinymce/config/content.css
 %extensions%/tinymce/config/dark_content.css
+%extensions%/tinymce/config/forms-basic.php
+%extensions%/tinymce/config/forms-full.php
+%extensions%/tinymce/config/forms-light.php
+%extensions%/tinymce/config/forms-ribbon.php
+%extensions%/tinymce/config/forms-slim.php
 %extensions%/tinymce/config/photo-basic.php
 %extensions%/tinymce/config/photo-full.php
 %extensions%/tinymce/config/photo-light.php
@@ -8400,4 +8409,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8402
+8411

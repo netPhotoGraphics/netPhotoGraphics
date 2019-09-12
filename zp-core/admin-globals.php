@@ -213,6 +213,7 @@ if (@$_loggedin) {
 			}
 			$subtabs[gettext("image")] = 'admin-tabs/options.php?page=options&tab=image';
 			$subtabs[gettext("search")] = 'admin-tabs/options.php?page=options&tab=search';
+			$subtabs[gettext("forms")] = 'admin-tabs/options.php?page=options&tab=forms';
 			if ($_loggedin & ADMIN_RIGHTS) {
 				$subtabs[gettext("plugin")] = 'admin-tabs/options.php?page=options&tab=plugin';
 			}

@@ -735,6 +735,32 @@ table.options tr td {
 	min-height: 40px;
 }
 
+.info_desc {
+	vertical-align: top;
+	text-align:left;
+	padding: 5px;
+}
+
+.info_desc_hidden {
+	position: absolute;
+	z-index: 1000;
+	margin-top: 5px;
+	width: 400px;
+	visibility: hidden;
+	background: white !important;
+	padding: 5px;
+	border: 1px solid #dedede;
+	height: 25px;
+}
+
+.info_info:hover > div {
+	visibility: visible;
+	height: auto;
+	overflow-x: visible;
+	overflow-y: visible;
+	min-height: 40px;
+}
+
 .plugin_warning_hidden {
 	position: absolute;
 	z-index: 1000;

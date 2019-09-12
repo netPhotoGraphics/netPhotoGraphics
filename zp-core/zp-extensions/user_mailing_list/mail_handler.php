@@ -3,7 +3,7 @@
 /**
  * Handles sending the mailing list e-mails
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  * @package plugins/user_mailing_list
  */
 // UTF-8 Ø
@@ -22,17 +22,18 @@ if (isset($_POST['subject'])) {
 	$subject = sanitize($_POST['subject']);
 }
 if (isset($_POST['message'])) {
-	$message = sanitize($_POST['message']);
+	$message = sanitize($_POST['message'], 0);
 }
-$toList = array();
+
+$toList = $bccList = array();
 $admins = $_authority->getAdministrators();
 $admincount = count($admins);
 foreach ($admins as $admin) {
 	if (isset($_POST["admin_" . $admin['id']])) {
 		if ($admin['name']) {
-			$toList[$admin['name']] = $admin['email'];
+			$bccList[$admin['name']] = $admin['email'];
 		} else {
-			$toList[] = $admin['email'];
+			$bccList[] = $admin['email'];
 		}
 	}
 }
@@ -46,17 +47,8 @@ if (!empty($currentadminmail)) {
 	}
 }
 
-$waittime = false;
-foreach ($toList as $name => $email) {
-	if ($waittime) {
-		sleep($waittime); //	pace the mail send
-	} else {
-		$waitTime = getOption('user_mailing_list_pace');
-	}
-
-	$err_msg = npgFunctions::mail($subject, $message, array($name => $email), array(), array());
-	if ($err_msg) {
-		debugLogVar([gettext('user_mailing_list error') =>  $err_msg]);
-	}
+$err_msg = npgFunctions::mail($subject, $message, $toList, NULL, $bccList);
+if ($err_msg) {
+	debugLogVar([gettext('user_mailing_list error') => $err_msg]);
 }
 ?>

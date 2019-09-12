@@ -776,6 +776,14 @@ class Image extends MediaObject {
 	}
 
 	/**
+	 * synonym for getAlbum so in can be used when we don't know if object is album or image
+	 * @return OBJECT
+	 */
+	function getParent() {
+		return $this->album;
+	}
+
+	/**
 	 * Retuns the folder name of the album that holds this image
 	 *
 	 * @return string

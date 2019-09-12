@@ -70,7 +70,7 @@ function saveOptions() {
 	}
 	setOption('time_offset', $offset);
 	setOption('FILESYSTEM_CHARSET', sanitize($_POST['filesystem_charset']));
-	setOption('site_email', sanitize($_POST['site_email']), 3);
+
 	$_gallery->setGallerySession((int) isset($_POST['album_session']));
 	$_gallery->save();
 	if (isset($_POST['cookie_path'])) {
@@ -102,6 +102,7 @@ function saveOptions() {
 		npgFilters::apply('policy_ack', true, 'policyACK', NULL, gettext('All acknowledgements cleared'));
 	}
 
+	setOption('site_email', sanitize($_POST['site_email']), 3);
 	setOption('site_email_name', process_language_string_save('site_email_name', 3));
 	setOption('users_per_page', sanitize_numeric($_POST['users_per_page']));
 	if (isset($_POST['groups_per_page'])) {

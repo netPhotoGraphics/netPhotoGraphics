@@ -276,21 +276,22 @@ function rewrite_path($rewrite, $plain, $webpath = NULL) {
 }
 
 /**
- * Returns the oldest ancestor of an alubm;
+ * Returns the oldest ancestor of an album (or an image's album);
  *
  * @param string $album an album object
  * @return object
  */
 function getUrAlbum($album) {
-	if (!is_object($album))
-		return NULL;
-	while (true) {
-		$parent = $album->getParent();
-		if (is_null($parent)) {
-			return $album;
+	if (is_object($album)) {
+		while ($album) {
+			$parent = $album->getParent();
+			if (is_null($parent)) {
+				return $album;
+			}
+			$album = $parent;
 		}
-		$album = $parent;
 	}
+	return NULL;
 }
 
 /**
@@ -2278,14 +2279,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
@@ -3020,19 +3021,15 @@ class npgFunctions {
 					$message = $_UTF8->convert($message, LOCAL_CHARSET);
 				}
 
-				//	we do not support rich text
-				$message = preg_replace('~<p[^>]*>~', "\n", $message); // Replace the start <p> or <p attr="">
-				$message = preg_replace('~</p>~', "\n", $message); // Replace the end
-				$message = preg_replace('~<br[^>]*>~', "\n", $message); // Replace <br> or <br ...>
-				$message = preg_replace('~<ol[^>]*>~', "", $message); // Replace the start <ol> or <ol attr="">
-				$message = preg_replace('~</ol>~', "", $message); // Replace the end
-				$message = preg_replace('~<ul[^>]*>~', "", $message); // Replace the start <ul> or <ul attr="">
-				$message = preg_replace('~</ul>~', "", $message); // Replace the end
-				$message = preg_replace('~<li[^>]*>~', ".\t", $message); // Replace the start <li> or <li attr="">
-				$message = preg_replace('~</li>~', "", $message); // Replace the end
-				$message = getBare($message);
-				$message = preg_replace('~\n\n\n+~', "\n\n", $message);
-
+				$formFile = getPlugin('forms/mailForm.htm');
+				if ($formFile) {
+					$form = file_get_contents($formFile);
+					$form = preg_replace('~\<\!--.*--\>~mUs', '', $form);
+					if (preg_match('~\<div id\=\"emailbody\".*\>(.*)\</div\>~mUs', $form, $matches)) {
+						$form = strtr($form, array('%WEBPATH%' => FULLWEBPATH, '%LOGO%' => $_gallery->getSiteLogo(FULLWEBPATH)));
+						$message = str_replace($matches[1], $message, $form);
+					}
+				}
 				// Send the mail
 				$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
 			} else {

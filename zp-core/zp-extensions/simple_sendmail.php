@@ -5,6 +5,8 @@
  *
  * @author Stephen Billard (sbillard)
  *
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ *
  * @package plugins/simple_sendmail
  * @pluginCategory mail
  */
@@ -23,30 +25,45 @@ if (OFFSET_PATH == 2) {
 
 npgFilters::register('sendmail', 'simple_sendmail');
 
-function simple_sendmail($msg, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo, $html = false) {
-	$headers = sprintf('From: %1$s <%2$s>', $from_name, $from_mail) . "\n";
+function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
+	$headers['from'] = sprintf('From: %1$s <%2$s>', $from_name, $from_mail);
 	if (count($cc_addresses) > 0) {
-		$cclist = '';
-		foreach ($cc_addresses as $cc_name => $cc_mail) {
-			$cclist .= ',' . $cc_mail;
+		$list = '';
+		foreach ($cc_addresses as $name => $mail) {
+			if (is_numeric($name)) {
+				$list .= ',' . $mail;
+			} else {
+				$list .= ',' . $name . ' <' . $mail . '>';
+			}
 		}
-		$headers .= 'Cc: ' . substr($cclist, 1) . "\n";
+		$headers['cc'] = 'Cc: ' . substr($list, 1);
 	}
 	if ($replyTo) {
-		$headers .= 'Reply-To: ' . array_shift($replyTo) . "\n";
+		$headers ['reply'] = 'Reply-To: ' . array_shift($replyTo);
 	}
+	$headers ['mime'] = "Mime-Version: 1.0";
+	$headers['content'] = "Content-Transfer-Encoding: quoted-printable";
+	$headers ['type'] = "Content-Type: text/html; charset=" . LOCAL_CHARSET;
+
 	$sendList = array_merge($email_list, $bcc_addresses);
 
-	$result = true;
-	foreach ($sendList as $to_mail) {
-		$result = $result && utf8::send_mail($to_mail, $subject, $message, $headers, '', $html);
+	$success = true;
+	foreach ($sendList as $name => $mail) {
+		sleep(10);
+		if (is_numeric($name)) {
+			$to_mail = $mail;
+		} else {
+			$to_mail = $name . ' <' . $mail . '>';
+		}
+		$success = $success && mail($to_mail, $subject, $message, implode("\n", $headers));
+		unset($headers['cc']); //	only  cc on one of the mails
 	}
-	if (!$result) {
-		if (!empty($msg))
-			$msg .= '<br />';
-		$msg .= sprintf(gettext('<code>simple_sendmail</code> failed to send <em>%s</em> to one or more recipients.'), $subject);
+	if (!$success) {
+		if (!empty($result))
+			$result .= '<br />';
+		$result .= sprintf(gettext('<code>simple_sendmail</code> failed to send <em>%s</em> to one or more recipients.'), $subject);
 	}
-	return $msg;
+	return $result;
 }
 
 ?>

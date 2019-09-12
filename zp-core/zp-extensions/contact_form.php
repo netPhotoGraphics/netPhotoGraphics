@@ -357,7 +357,6 @@ function printContactForm($subject_override = '') {
 		$message = getField('message', 1);
 		$mailaddress = getField('mailaddress');
 		$name = getField('name');
-		$message = str_replace('<br>', "\n", sanitize($_POST['message'], 1));
 		$mailinglist = explode(';', getOption("contactform_mailaddress"));
 		if (getOption('contactform_sendcopy')) {
 			$sendcopy = array($name => $mailaddress);

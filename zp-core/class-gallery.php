@@ -116,12 +116,12 @@ class Gallery {
 	 *
 	 * @return string title
 	 */
-	function getSiteLogo() {
+	function getSiteLogo($path = WEBPATH) {
 		$image = $this->get('sitelogoimage');
 		if (empty($image) || !file_exists(SERVERPATH . '/' . $image)) {
-			return WEBPATH . '/' . CORE_FOLDER . '/images/admin-logo.png';
+			return $path . '/' . CORE_FOLDER . '/images/admin-logo.png';
 		} else {
-			return WEBPATH . '/' . $image;
+			return $path . '/' . $image;
 		}
 	}
 

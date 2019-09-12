@@ -3,7 +3,7 @@
  *
  * Admin tab for user mailing list
  *
- * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @Copyright 2019 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  * @package plugins/user_mailing_list
  */
 if (!defined('OFFSET_PATH'))
@@ -15,6 +15,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 $admins = $_authority->getAdministrators();
 
 printAdminHeader('admin', 'Mailing');
+npgFilters::apply('texteditor_config', 'photo');
 ?>
 </head>
 <body>
@@ -53,12 +54,19 @@ printAdminHeader('admin', 'Mailing');
 						<labelfor="subject"><?php echo gettext('Subject:'); ?></label><br />
 							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disabled; ?> /><br /><br />
 							<label for="message"><?php echo gettext('Message:'); ?></label><br />
-							<textarea id="message" name="message" value="" cols="68" rows="10"<?php echo $disabled; ?> ></textarea>
+							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="10"<?php echo $disabled; ?> ></textarea>
 					</div>
 
 					<div class="floatleft">
-						<?php echo gettext('Select users:'); ?>
-						<ul class="unindentedchecklist" style="height: 205px; width: 30em;">
+
+						<div>
+							<?php echo gettext('Select users:'); ?>
+
+							<span class="floatright">
+								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all'); ?>
+							</span>
+						</div>
+						<ul class="unindentedchecklist" style="height: 205px; width: 30em; padding:5px;">
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
 							foreach ($admins as $admin) {
@@ -66,13 +74,15 @@ printAdminHeader('admin', 'Mailing');
 									?>
 									<li>
 										<label for="admin_<?php echo $admin['id']; ?>">
-											<input name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked"  <?php echo $disabled; ?>/>
+											<input class="anuser ignoredirty" name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked"  <?php echo $disabled; ?>/>
 											<?php
 											echo $admin['user'] . " (";
 											if (!empty($admin['name'])) {
-												echo $admin['name'] . " - ";
+												echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
+											} else {
+												echo $admin['email'];
 											}
-											echo $admin['email'] . ")";
+											echo ")";
 											?>
 										</label>
 									</li>
@@ -86,8 +96,17 @@ printAdminHeader('admin', 'Mailing');
 					<br class="clearall">
 					<script type="text/javascript">
 						$('form#massmail').submit(function () {
+<?php
+if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {
+	//	force update of textarea
+	?>
+								message = tinymce.activeEditor.getContent();
+								$('#message').html(message);
+	<?php
+}
+?>
 							$.post($(this).attr('action'), $(this).serialize(), function (res) {
-								// Do something with the response `res`
+// Do something with the response `res`
 								console.log(res);
 							});
 							$('form#massmail').trigger('reset');

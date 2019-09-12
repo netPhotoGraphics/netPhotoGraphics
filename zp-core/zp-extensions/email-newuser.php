@@ -22,9 +22,9 @@ class email_new_user {
 		global $_gallery;
 		if ($what == 'new' && ($mail = $userobj->getEmail())) {
 			$ref = npg_Authority::getResetTicket($adm = $userobj->getUser(), $userobj->getPass());
-			$msg = "\n" . sprintf(gettext('You are receiving this e-mail because a user code (%1$s) has been created for you on the %2$s gallery.'), $adm, $_gallery->getTitle()) .
-							"\n" . sprintf(gettext('To set your User password visit: %s'), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=$adm') .
-							"\n" . gettext("This ticket will automatically expire in 3 days.");
+			$msg = "<p>" . sprintf(gettext('You are receiving this e-mail because a user code (%1$s) has been created for you on the %2$s gallery.'), $adm, $_gallery->getTitle()) .
+							"</p><p>" . sprintf(gettext('To set your User password visit: %s'), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=$adm') .
+							"</p><p>" . gettext("This ticket will automatically expire in 3 days.") . '</p>';
 			$err_msg = npgFunctions::mail(gettext("User created"), $msg, array($mail));
 			if (!empty($err_msg)) {
 				$savemsg .= $err_msg;
