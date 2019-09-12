@@ -103,7 +103,7 @@ form td {text-align:right !important;}
 }
 
 /* css for the log viewer */
-.log_buttons a, .buttons button {
+.buttons button {
 	float: right;
 }
 
