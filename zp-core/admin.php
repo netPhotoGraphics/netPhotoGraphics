@@ -550,13 +550,13 @@ $buttonlist = array();
 											$disable = ' disabled="disabled"';
 											break;
 										case 2:
-											$color = ' style="color:orange"';
+											$color = 'overview_orange';
 											break;
 										case 3:
-											$color = ' style="color:red"';
+											$color = 'overview_red';
 											break;
 										case 4:
-											$color = ' style="color:blue"';
+											$color = 'overview_blue"';
 											break;
 									}
 									if ($category != $button_category) {
@@ -595,8 +595,7 @@ $buttonlist = array();
 															echo $button_icon . ' ';
 														}
 													}
-													echo '<span' . $color . '>' . html_encode($button['button_text']) . '</span>';
-													?>
+													?><span class="overview_buttontext <?php echo $color; ?>"><?php echo html_encode($button['button_text']); ?></span>
 												</button>
 											</div><!--buttons -->
 										</form>
