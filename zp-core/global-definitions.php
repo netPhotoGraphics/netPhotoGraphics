@@ -214,7 +214,7 @@ define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/hide.png" /></span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
 define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install.png" /></span>');
-define('SETUP', '<span class="font_icon" style="font-size: large;">&#x1F6E0;&#xFE0F;</span>');
+define('SETUP', '<span class="font_icon" style="color: black;font-size: large;">&#x1F6E0;&#xFE0F;</span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
 define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock.png" /></span>');
 define('LOCK_OPEN', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_open.png" /></span>');
