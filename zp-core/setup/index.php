@@ -84,6 +84,8 @@ if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && 
 				$core = $rename['npgCore'] = 'zp-core';
 				break;
 		}
+
+		npgFunctions::removeDir(SERVERPATH . '/' . $core);
 		foreach ($rename as $oldname => $newname) {
 			chmod(SERVERPATH . '/' . $oldname, 0777);
 			rename(SERVERPATH . '/' . $oldname, SERVERPATH . '/' . $newname);

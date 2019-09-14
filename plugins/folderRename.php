@@ -80,7 +80,6 @@ if (isset($_GET['renameFolders'])) {
 				break;
 		}
 
-
 		foreach ($rename as $oldname => $newname) {
 			chmod(SERVERPATH . '/' . $oldname, 0777);
 			rename(SERVERPATH . '/' . $oldname, SERVERPATH . '/' . $newname);
