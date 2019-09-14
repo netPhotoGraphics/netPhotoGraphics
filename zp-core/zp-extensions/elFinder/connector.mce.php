@@ -75,6 +75,7 @@ if (npg_loggedin(FILES_RIGHTS)) {
 							'sort'
 			],
 							lang: '<?php echo $locale; ?>', // language (OPTIONAL)
+							cssAutoLoad: false,
 							customData: {
 							'XSRFToken':'<?php echo getXSRFToken('elFinder'); ?>',
 											'user_auth':'<?php echo getNPGCookie('user_auth'); ?>',

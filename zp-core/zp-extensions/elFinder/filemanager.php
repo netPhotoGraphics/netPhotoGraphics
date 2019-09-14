@@ -51,6 +51,7 @@ echo "\n</head>";
 						$().ready(function () {
 							var elf = $('#elfinder').elfinder({
 								lang: '<?php echo $locale; ?>', // language (OPTIONAL)
+								cssAutoLoad: false,
 								customData: {
 									'XSRFToken': '<?php echo getXSRFToken('elFinder'); ?>',
 									'user_auth': '<?php echo getNPGCookie('user_auth'); ?>',
