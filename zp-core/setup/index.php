@@ -68,6 +68,35 @@ session_cache_limiter('nocache');
 $session = npg_session_start();
 $setup_checked = false;
 
+
+if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/folderRename.php')) {
+	$corelocator = file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg');
+	if (basename(dirname(dirname(__FILE__))) != basename($corelocator)) {
+		require_once(CORE_SERVERPATH . 'reconfigure.php');
+
+		switch (CORE_FOLDER) {
+			case 'zp-core':
+				$extensions = basename($rename['zp-core/zp-extensions'] = 'zp-core/' . PLUGIN_PATH);
+				$core = $rename['zp-core'] = 'npgCore';
+				break;
+			default:
+				$extensions = $rename['npgCore/' . PLUGIN_PATH] = 'npgCore/zp-extensions';
+				$core = $rename['npgCore'] = 'zp-core';
+				break;
+		}
+		foreach ($rename as $oldname => $newname) {
+			chmod(SERVERPATH . '/' . $oldname, 0777);
+			rename(SERVERPATH . '/' . $oldname, SERVERPATH . '/' . $newname);
+			chmod(SERVERPATH . '/' . $newname, FOLDER_MOD);
+			npgFilters::apply('security_misc', true, 'folder_rename', 'admin_auth', $oldname . ' => ' . $newname);
+		}
+
+		header('Location:' . WEBPATH . '/' . $core . '/setup/index.php?autorun=admin');
+		exit();
+	}
+}
+
+
 if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUEST['checked'])) {
 	if (isset($_SESSION['save_session_path'])) {
 		$setup_checked = isset($_GET['checked']);

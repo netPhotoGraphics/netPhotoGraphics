@@ -1147,6 +1147,7 @@ plugins/devReleases.php
 plugins/disableAction.php
 plugins/disableWatermark.php
 plugins/filter-fileSearches.php
+plugins/folderRename.php
 plugins/headConsolidator.php
 plugins/image_effects/
 plugins/image_effects/bevel.js
@@ -8409,4 +8410,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8411
+8412
