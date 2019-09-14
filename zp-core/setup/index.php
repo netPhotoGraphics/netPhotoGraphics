@@ -91,6 +91,7 @@ if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && 
 			npgFilters::apply('security_misc', true, 'folder_rename', 'admin_auth', $oldname . ' => ' . $newname);
 		}
 
+		unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg'); //	so setup won't undo the request
 		header('Location:' . WEBPATH . '/' . $core . '/setup/index.php?autorun=admin');
 		exit();
 	}
