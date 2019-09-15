@@ -42,6 +42,8 @@ $option_interface = 'cycle';
 
 global $_gallery, $_gallery_page;
 
+npgFilters::register('theme_head', 'cycle::JS');
+
 if ($plugin_disable) {
 	enableExtension('slideshow2', 0);
 }
@@ -95,24 +97,37 @@ class cycle {
 		 * 	slideshow options
 		 * ********************* */
 		$options = array(
-				gettext('Slideshow: Mode') => array('key' => 'cycle-slideshow_mode', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Slideshow: Mode') => array(
+						'key' => 'cycle-slideshow_mode',
+						'type' => OPTION_TYPE_SELECTOR,
 						'order' => 0,
-						'selections' => array(gettext("jQuery Cycle") => "cycle", gettext("jQuery Colorbox") => "colorbox"),
+						'selections' => array(
+								gettext("jQuery Cycle") => "cycle",
+								gettext("jQuery Colorbox") => "colorbox"),
 						'desc' => gettext('<em>jQuery Cycle</em> for slideshow using the jQuery Cycle2 plugin<br /><em>jQuery Colorbox</em> for slideshow using Colorbox (Colorbox plugin required).<br />NOTE: The jQuery Colorbox mode is attached to the link the printSlideShowLink() function prints and can neither be called directly nor used on the slideshow.php theme page.')),
-				gettext('Slideshow: Speed') => array('key' => 'cycle-slideshow_speed', 'type' => OPTION_TYPE_NUMBER,
+				gettext('Slideshow: Speed') => array(
+						'key' => 'cycle-slideshow_speed',
+						'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => gettext("Speed of the transition in milliseconds."))
 		);
 
 		switch (getOption('cycle-slideshow_mode')) {
 			case 'cycle':
-				$options = array_merge($options, array(gettext('Slideshow: Slide width') => array('key' => 'cycle-slideshow_width', 'type' => OPTION_TYPE_NUMBER,
+				$options = array_merge($options, array(
+						gettext('Slideshow: Slide width') => array(
+								'key' => 'cycle-slideshow_width',
+								'type' => OPTION_TYPE_NUMBER,
 								'order' => 5,
 								'desc' => gettext("Width of the images in the slideshow.")),
-						gettext('Slideshow: Slide height') => array('key' => 'cycle-slideshow_height', 'type' => OPTION_TYPE_NUMBER,
+						gettext('Slideshow: Slide height') => array(
+								'key' => 'cycle-slideshow_height',
+								'type' => OPTION_TYPE_NUMBER,
 								'order' => 6,
 								'desc' => gettext("Height of the images in the slideshow.")),
-						gettext('Slideshow: Effect') => array('key' => 'cycle-slideshow_effect', 'type' => OPTION_TYPE_SELECTOR,
+						gettext('Slideshow: Effect') => array(
+								'key' => 'cycle-slideshow_effect',
+								'type' => OPTION_TYPE_SELECTOR,
 								'order' => 2,
 								'selections' => array(
 										gettext('none') => "none",
@@ -126,45 +141,66 @@ class cycle {
 										gettext('Tile slide') => "tileSlide",
 										gettext('Tile blind') => "tileBlind"),
 								'desc' => gettext("The cycle slide effect to be used. Flip transitions are only supported on browsers that support CSS3 3D transforms. (IE10+, current Chrome, Firefox, Opera and Safari.)")),
-						gettext('Slideshow: Tile Effect - Extra') => array('key' => 'cycle-slideshow_tileeffect', 'type' => OPTION_TYPE_SELECTOR,
+						gettext('Slideshow: Tile Effect - Extra') => array(
+								'key' => 'cycle-slideshow_tileeffect',
+								'type' => OPTION_TYPE_SELECTOR,
 								'order' => 3,
 								'selections' => array(
 										gettext('Horizontal') => "tileVert",
 										gettext('Vertical') => "tileHorz"),
 								'desc' => gettext("If one of the tile effects is selected, this is its orientation.")),
-						gettext('Slideshow: Timeout') => array('key' => 'cycle-slideshow_timeout', 'type' => OPTION_TYPE_NUMBER,
+						gettext('Slideshow: Timeout') => array(
+								'key' => 'cycle-slideshow_timeout',
+								'type' => OPTION_TYPE_NUMBER,
 								'order' => 4,
 								'desc' => gettext("Milliseconds between slide transitions (0 to disable auto advance.)")),
-						gettext('Slideshow: Description') => array('key' => 'cycle-slideshow_showdesc', 'type' => OPTION_TYPE_CHECKBOX,
+						gettext('Slideshow: Description') => array(
+								'key' => 'cycle-slideshow_showdesc',
+								'type' => OPTION_TYPE_CHECKBOX,
 								'order' => 7,
 								'desc' => gettext("Check if you want to show the image’s description below the slideshow.")),
-						gettext('Slideshow: Swipe gestures') => array('key' => 'cycle-slideshow_swipe', 'type' => OPTION_TYPE_CHECKBOX,
+						gettext('Slideshow: Swipe gestures') => array(
+								'key' => 'cycle-slideshow_swipe',
+								'type' => OPTION_TYPE_CHECKBOX,
 								'order' => 8,
 								'desc' => gettext("Check if you want to enable touch screen swipe gestures.")),
-						gettext('Slideshow: Pause on hover') => array('key' => 'cycle-slideshow_pausehover', 'type' => OPTION_TYPE_CHECKBOX,
+						gettext('Slideshow: Pause on hover') => array(
+								'key' => 'cycle-slideshow_pausehover',
+								'type' => OPTION_TYPE_CHECKBOX,
 								'order' => 9,
 								'desc' => gettext("Check if you want the slideshow to pause on hover."))
 				));
 				break;
 
 			case 'colorbox':
-				$options = array_merge($options, array(gettext('Colorbox: Transition') => array('key' => 'cycle-slideshow_colorbox_transition', 'type' => OPTION_TYPE_SELECTOR,
+				$options = array_merge($options, array(gettext('Colorbox: Transition') => array(
+								'key' => 'cycle-slideshow_colorbox_transition',
+								'type' => OPTION_TYPE_SELECTOR,
 								'order' => 2,
 								'selections' => array(
 										gettext('elastic') => "elastic",
 										gettext('fade') => "fade",
 										gettext('none') => "none"),
 								'desc' => gettext("The Colorbox transition slide effect to be used.")),
-						gettext('Colorbox: Image type') => array('key' => 'cycle-slideshow_colorbox_imagetype', 'type' => OPTION_TYPE_SELECTOR,
+						gettext('Colorbox: Image type') => array(
+								'key' => 'cycle-slideshow_colorbox_imagetype',
+								'type' => OPTION_TYPE_SELECTOR,
 								'order' => 3,
-								'selections' => array(gettext('full image') => "fullimage", gettext("sized image") => "sizedimage"),
+								'selections' => array(
+										gettext('full image') => "fullimage",
+										gettext("sized image") => "sizedimage"),
 								'desc' => gettext("The image type you wish to use for the Colorbox. If you choose “sized image” the slideshow width value will be used for the longest side of the image.")),
-						gettext('Colorbox: Image title') => array('key' => 'cycle-slideshow_colorbox_imagetitle', 'type' => OPTION_TYPE_CHECKBOX,
+						gettext('Colorbox: Image title') => array(
+								'key' => 'cycle-slideshow_colorbox_imagetitle',
+								'type' => OPTION_TYPE_CHECKBOX,
 								'order' => 4,
 								'desc' => gettext("If the image title should be shown at the bottom of the Colorbox."))
 				));
 				if (getOption('cycle-slideshow_colorbox_imagetype') == 'sizedimage') {
-					$options = array_merge($options, array(gettext('Colorbox: Slide width') => array('key' => 'cycle-slideshow_width', 'type' => OPTION_TYPE_NUMBER,
+					$options = array_merge($options, array(
+							gettext('Colorbox: Slide width') => array(
+									'key' => 'cycle-slideshow_width',
+									'type' => OPTION_TYPE_NUMBER,
 									'order' => 3.5,
 									'desc' => gettext("Width of the images in the slideshow."))
 					));
@@ -695,7 +731,7 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 			cycle::js();
 		}
 
-//getting the image to start with
+		//getting the image to start with
 		if (!empty($_POST['imagenumber']) AND ! is_object($imageobj)) {
 			$imagenumber = sanitize_numeric($_POST['imagenumber']) - 1; // slideshows starts with 0, but $_POST['imagenumber'] with 1.
 		} elseif (is_object($imageobj)) {
@@ -703,13 +739,13 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 		} else {
 			$imagenumber = 0;
 		}
-// set pagenumber to 0 if not called via POST link
+		// set pagenumber to 0 if not called via POST link
 		if (isset($_POST['pagenr'])) {
 			$pagenumber = sanitize_numeric($_POST['pagenr']);
 		} else {
 			$pagenumber = 1;
 		}
-// getting the number of images
+		// getting the number of images
 		if (!empty($_POST['numberofimages'])) {
 			$numberofimages = sanitize_numeric($_POST['numberofimages']);
 		} elseif (is_object($albumobj)) {
@@ -721,7 +757,7 @@ if (extensionEnabled('slideshow2') && !OFFSET_PATH) {
 			$imagenumber = 0;
 		}
 
-//getting the album to show
+		//getting the album to show
 		if (!empty($_POST['albumid']) && !is_object($albumobj)) {
 			$albumid = sanitize_numeric($_POST['albumid']);
 		} elseif (is_object($albumobj)) {

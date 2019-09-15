@@ -420,9 +420,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								<span class="icons">
 									<?php
 									if (extensionEnabled($extension)) {
-										?>
-										<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
-										<?php
+										echo PLACHHOLDER_ICON;
 									} else {
 										?>
 										<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
@@ -443,9 +441,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								</span>
 								<?php
 							} else {
-								?>
-								<span class="icons"><img class="icon-position-top3" src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png" alt="" /></span>
-								<?php
+								echo PLACHHOLDER_ICON;
 							}
 							if ($plugin_notice) {
 								?>

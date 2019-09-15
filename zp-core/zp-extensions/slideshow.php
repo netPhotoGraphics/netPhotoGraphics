@@ -37,7 +37,6 @@
  *
  * @package plugins/slideshow
  * @pluginCategory media
- * @deprecated since 2.00.02 use slideshow2
  */
 $plugin_is_filter = 9 | THEME_PLUGIN | ADMIN_PLUGIN;
 $plugin_description = gettext("Adds a theme function to call a slideshow either based on jQuery (default) or Colorbox.");
@@ -59,6 +58,11 @@ class slideshow {
 	function __construct() {
 		global $_gallery;
 		if (OFFSET_PATH == 2) {
+			if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow.php')) {
+				// un-deprecate slideshow!
+				npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow/');
+				unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow.php');
+			}
 			$found = array();
 			$result = getOptionsLike('slideshow_');
 			foreach ($result as $option => $value) {
@@ -467,7 +471,7 @@ class slideshow {
 	static function js() {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
-		scriptLoader(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		scriptLoader(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		scriptLoader(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
 	}
 
