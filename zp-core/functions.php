@@ -2087,6 +2087,7 @@ function seoFriendlyJS() {
  *
  */
 function scriptLoader($script, $inline = 1) {
+	$script = str_replace('\\', '/', $script); //	in case strip_suffix(__FILE__) is passed
 	if (strpos($script, SERVERPATH) === false) {
 		if (strpos($script, FULLWEBPATH) === 0) {
 			$script = SERVERPATH . substr($script, strlen(FULLWEBPATH));
@@ -2145,7 +2146,7 @@ function scriptLoader($script, $inline = 1) {
 	}
 	if (getSuffix($script) == 'css') {
 		?>
-		<link rel="stylesheet" href = "<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
 		<?php
 	} else {
 		?>
