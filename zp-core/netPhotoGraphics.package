@@ -1371,7 +1371,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/images/page_white_copy.png
 %core%/images/pictures.png
 %core%/images/pictures_dn.png
-%core%/images/placeholder.png
 %core%/images/rss.png
 %core%/images/searchfields_icon.png
 %core%/images/shape_handles.png
@@ -8410,4 +8409,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8412
+8411

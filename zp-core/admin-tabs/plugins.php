@@ -208,19 +208,19 @@ npgFilters::apply('admin_note', 'plugins', '');
 				switch ($details['thridparty']) {
 					case 0:
 						$whose = gettext('Official plugin');
-						$ico = WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png';
+						$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="logo" title="<?php echo $whose; ?>" /></span>';
 						break;
 					case 1:
-						$ico = WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png';
+						$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" alt="logo" title="<?php echo $whose; ?>" /></span>';
 						$whose = gettext('Supplemental plugin');
 						$plugin_URL .= '&type=supplemental';
 						break;
 					case 2:
 						$path = stripSuffix($plugin_paths[$extension]) . '/logo.png';
 						if (file_exists($path)) {
-							$ico = str_replace(SERVERPATH, WEBPATH, $path);
+							$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . str_replace(SERVERPATH, WEBPATH, $path) . '" alt="logo" title="<?php echo $whose; ?>" /></span>';
 						} else {
-							$ico = WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png';
+							$ico = PLACHHOLDER_ICON;
 						}
 						$whose = gettext('Third party plugin');
 						$plugin_URL .= '&type=thirdparty';
@@ -289,20 +289,20 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 
 				if ($plugin_is_filter & CLASS_PLUGIN) {
-					$iconA = '<img class="npg_logoicon" width="8px" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" /><a title="' . gettext('class plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" /></a><img class="npg_logoicon" width="8px" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
+					$iconA = PLACHHOLDER_ICON . '<a title="' . gettext('class plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" /></span></a>';
 					$iconT = '';
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
-						$iconA = '<a title="' . gettext('admin plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder.png" /></a>';
+						$iconA = '<a title="' . gettext('admin plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder.png" /></span></a>';
 					} else {
-						$iconA = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
+						$iconA = PLACHHOLDER_ICON;
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
-						$iconT = '<a title="' . gettext('feature plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" /></a>';
+						$iconT = '<a title="' . gettext('feature plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" /></span></a>';
 					} else if ($plugin_is_filter & THEME_PLUGIN) {
-						$iconT = '<a title="' . gettext('theme plugin') . '"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" /></a>';
+						$iconT = '<a title="' . gettext('theme plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" /></span></a>';
 					} else {
-						$iconT = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png" />';
+						$iconT = PLACHHOLDER_ICON;
 					}
 				}
 
@@ -332,9 +332,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								<span class="text_pointer">
 									<?php
 								}
-								?>
-								<img class="npg_logoicon" src="<?php echo $ico; ?>" alt="<?php echo gettext('logo'); ?>" title="<?php echo $whose; ?>" />
-								<?php
+								echo $ico;
 								echo $iconT;
 								echo $iconA;
 								?>

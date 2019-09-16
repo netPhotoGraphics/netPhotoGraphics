@@ -946,7 +946,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 									// UTF-8 URI
 									if ($notice != -1) {
-										$test = copy(CORE_SERVERPATH . 'images/placeholder.png', $testjpg = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('tést.jpg'));
+										$test = copy(CORE_SERVERPATH . 'images/np_gold.png', $testjpg = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('tést.jpg'));
 										if (file_exists($testjpg)) {
 											?>
 											<li id="internal" class="pass limited">
