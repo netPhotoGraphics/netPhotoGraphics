@@ -68,6 +68,38 @@ session_cache_limiter('nocache');
 $session = npg_session_start();
 $setup_checked = false;
 
+
+if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/folderRename.php')) {
+	$corelocator = file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg');
+	if (basename(dirname(dirname(__FILE__))) != basename($corelocator)) {
+		require_once(CORE_SERVERPATH . 'reconfigure.php');
+
+		switch (CORE_FOLDER) {
+			case 'zp-core':
+				$extensions = basename($rename['zp-core/zp-extensions'] = 'zp-core/' . PLUGIN_PATH);
+				$core = $rename['zp-core'] = 'npgCore';
+				break;
+			default:
+				$extensions = $rename['npgCore/' . PLUGIN_PATH] = 'npgCore/zp-extensions';
+				$core = $rename['npgCore'] = 'zp-core';
+				break;
+		}
+
+		npgFunctions::removeDir(SERVERPATH . '/' . $core);
+		foreach ($rename as $oldname => $newname) {
+			chmod(SERVERPATH . '/' . $oldname, 0777);
+			rename(SERVERPATH . '/' . $oldname, SERVERPATH . '/' . $newname);
+			chmod(SERVERPATH . '/' . $newname, FOLDER_MOD);
+			npgFilters::apply('security_misc', true, 'folder_rename', 'admin_auth', $oldname . ' => ' . $newname);
+		}
+
+		unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg'); //	so setup won't undo the request
+		header('Location:' . WEBPATH . '/' . $core . '/setup/index.php?autorun=admin');
+		exit();
+	}
+}
+
+
 if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUEST['checked'])) {
 	if (isset($_SESSION['save_session_path'])) {
 		$setup_checked = isset($_GET['checked']);
@@ -914,7 +946,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 									// UTF-8 URI
 									if ($notice != -1) {
-										$test = copy(CORE_SERVERPATH . 'images/placeholder.png', $testjpg = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('tést.jpg'));
+										$test = copy(CORE_SERVERPATH . 'images/np_gold.png', $testjpg = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('tést.jpg'));
 										if (file_exists($testjpg)) {
 											?>
 											<li id="internal" class="pass limited">

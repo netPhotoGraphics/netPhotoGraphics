@@ -115,9 +115,7 @@ function printItemsListTable($item, $toodeep) {
 					<?php echo LOCK; ?>
 					<?php
 				} else {
-					?>
-					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
-					<?php
+					echo PLACHHOLDER_ICON;
 				}
 				?>
 			</div>
@@ -158,9 +156,7 @@ function printItemsListTable($item, $toodeep) {
 					case 'menulabel':
 					case 'menufunction':
 					case 'html':
-						?>
-						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png" />
-						<?php
+						echo PLACHHOLDER_ICON;
 						break;
 				}
 				?>

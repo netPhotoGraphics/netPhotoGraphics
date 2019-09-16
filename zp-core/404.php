@@ -2,28 +2,52 @@
 // force UTF-8  Ø
 clearNPGCookie('index_page_paged');
 list($album, $image) = rewrite_get_album_image('album', 'image');
-$folders = explode('/', $album);
-if (array_key_exists(0, $folders) && $folders[0] == CACHEFOLDER) {
-	// a failed reference to a cached image?
-	require_once(CORE_SERVERPATH . 'admin-functions.php');
-	require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/cacheManager/functions.php');
-	unset($folders[0]);
-	if ($image) {
-		$folders[] = $image;
-	}
-	list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders) . '/', getWatermarks());
-	if (file_exists(getAlbumFolder() . $i)) {
-		/* Prevent hotlinking to cache from other domains. */
-		if (isset($_SERVER['HTTP_REFERER'])) {
-			preg_match('|(.*)//([^/]*)|', $_SERVER['HTTP_REFERER'], $matches);
-			if (preg_replace('/^www\./', '', strtolower($_SERVER['SERVER_NAME'])) == preg_replace('/^www\./', '', strtolower($matches[2]))) {
-				//internal request
-				$uri = getImageURI($args, dirname($i), basename($i), NULL);
-				header("HTTP/1.0 302 Found");
-				header("Status: 302 Found");
-				header('Location: ' . $uri);
-				exit();
-			}
+
+if ($image) { //	maybe we can find it
+	$folders = explode('/', $album);
+	if (!empty($folders)) {
+		switch ($folders[0]) {
+			case CACHEFOLDER:
+				// a failed reference to a cached image?
+				require_once(CORE_SERVERPATH . 'admin-functions.php');
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager/functions.php');
+				unset($folders[0]);
+				if ($image) {
+					$folders[] = $image;
+				}
+				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders) . '/', getWatermarks());
+				if (file_exists(getAlbumFolder() . $i)) {
+					/* Prevent hotlinking to cache from other domains. */
+					if (isset($_SERVER['HTTP_REFERER'])) {
+						preg_match('|(.*)//([^/]*)|', $_SERVER['HTTP_REFERER'], $matches);
+						if (preg_replace('/^www\./', '', strtolower($_SERVER['SERVER_NAME'])) == preg_replace('/^www\./', '', strtolower($matches[2]))) {
+							//internal request
+							$uri = getImageURI($args, dirname($i), basename($i), NULL);
+							header("HTTP/1.0 302 Found");
+							header("Status: 302 Found");
+							header('Location: ' . $uri);
+							exit();
+						}
+					}
+				}
+			case 'npgCore':
+			case 'zp-core':
+				//	Maybe reference to "other" core folder image
+				$folders[0] = CORE_FOLDER;
+				if (isset($folders[1])) {
+					switch ($folders[1]) {
+						case 'zp-extensions':
+						case 'extensions':
+							$folders[1] = PLUGIN_FOLDER;
+					}
+				}
+				$imager = implode('/', $folders) . '/' . $image;
+				if (file_exists(SERVERPATH . '/' . $imager)) {
+					header("HTTP/1.0 301 Moved Permanently");
+					header("Status: 301 Moved Permanently");
+					header('Location: ' . WEBPATH . '/' . $imager);
+					exit();
+				}
 		}
 	}
 }

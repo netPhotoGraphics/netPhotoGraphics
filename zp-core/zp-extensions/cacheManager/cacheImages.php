@@ -223,7 +223,7 @@ if ($alb) {
 					if (!is_array($enabled)) {
 						?>
 						<span class="icons" id="<?php echo $theme; ?>_arrow">
-							<img class="icon-position-top4" src="<?php echo WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png'; ?>" alt="" />
+							<?php echo PLACHHOLDER_ICON; ?>
 						</span>
 						<?php
 					}

@@ -726,9 +726,7 @@ echo $refresh;
 																	</a>
 																	<?php
 																} else {
-																	?>
-																	<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
-																	<?php
+																	echo PLACHHOLDER_ICON;
 																}
 																?>
 																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"

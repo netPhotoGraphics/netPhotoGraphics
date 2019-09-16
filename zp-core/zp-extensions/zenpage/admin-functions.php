@@ -314,10 +314,10 @@ function printPagesListTable($page, $toodeep) {
 			} else {
 				?>
 				<div class="page-list_icon">
-					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+					<?php echo PLACHHOLDER_ICON; ?>
 				</div>
 				<div class="page-list_icon">
-					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
+					<?php echo PLACHHOLDER_ICON; ?>
 				</div>
 				<?php
 			}
@@ -1024,22 +1024,22 @@ function printCategoryListSortableTable($cat, $toodeep) {
 				?>
 			</div>
 			<div class="page-list_icon">
-				<?php if ($count == 0) { ?>
-					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/placeholder.png"  style="border: 0px;" />
-					<?php
+				<?php
+				if ($count == 0) {
+					echo PLACHHOLDER_ICON;
 				} else {
 					?>
 					<a href="<?php echo $cat->getlink(); ?>" title="<?php echo gettext("view category"); ?>">
-						<?php echo BULLSEYE_BLUE; ?>
+					<?php echo BULLSEYE_BLUE; ?>
 					</a>
-				<?php } ?>
+			<?php } ?>
 			</div>
 			<?php
 			if (extensionEnabled('hitcounter')) {
 				?>
 				<div class="page-list_icon"><a
 						href="?hitcounter=1&amp;id=<?php echo $cat->getID(); ?>&amp;tab=categories&amp;XSRFToken=<?php echo getXSRFToken('hitcounter') ?>" title="<?php echo gettext("Reset hitcounter"); ?>">
-							<?php echo RECYCLE_ICON; ?>
+		<?php echo RECYCLE_ICON; ?>
 					</a>
 				</div>
 				<?php
@@ -1048,7 +1048,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			<div class="page-list_icon">
 				<a href="javascript:confirmDelete('<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php'); ?>?delete=<?php echo js_encode($cat->getTitlelink()); ?>&amp;tab=categories&amp;XSRFToken=<?php echo getXSRFToken('delete_category') ?>',deleteCategory)"
 					 title="<?php echo gettext("Delete Category"); ?>">
-						 <?php echo WASTEBASKET; ?>
+	<?php echo WASTEBASKET; ?>
 				</a>
 			</div>
 			<div class="page-list_icon">
@@ -1395,29 +1395,29 @@ function printZenpageIconLegend() {
 			<?php echo CHECKMARK_GREEN; ?>
 			<?php echo EXCLAMATION_RED; ?>
 			<?php echo CLOCKFACE . '&nbsp;'; ?>
-			<?php echo gettext("published/not published/scheduled for publishing"); ?>
+	<?php echo gettext("published/not published/scheduled for publishing"); ?>
 		</li>
 		<li>
 			<?php echo BULLSEYE_GREEN; ?>
 			<?php echo BULLSEYE_RED; ?>
-			<?php echo gettext("comments on/off"); ?>
+	<?php echo gettext("comments on/off"); ?>
 		</li>
 		<li><?php echo BULLSEYE_BLUE; ?>
-			<?php echo gettext("view"); ?>
+		<?php echo gettext("view"); ?>
 		</li>
 		<?php
 		if (extensionEnabled('hitcounter')) {
 			?>
 			<li>
 				<?php echo RECYCLE_ICON; ?>
-				<?php echo gettext("reset hitcounter"); ?>
+			<?php echo gettext("reset hitcounter"); ?>
 			</li>
 			<?php
 		}
 		?>
 		<li>
 			<?php echo WASTEBASKET; ?>
-			<?php echo gettext("delete"); ?>
+	<?php echo gettext("delete"); ?>
 		</li>
 	</ul>
 	<br class="clearall">
@@ -1483,7 +1483,7 @@ function printPublishIconLink($object, $urladd) {
 	}
 	?>
 	<a href="?publish=<?php echo $publish; ?>&amp;titlelink=<?php echo html_encode($object->getTitlelink()) . $urladd; ?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo $title; ?>">
-		<?php echo $icon; ?>
+	<?php echo $icon; ?>
 	</a>
 	<?php
 }

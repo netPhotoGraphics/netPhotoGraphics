@@ -257,9 +257,9 @@ if (!defined('OFFSET_PATH')) {
 				$whose = 'Third party plugin';
 				$path = stripSuffix($pluginToBeDocPath) . '/logo.png';
 				if (file_exists($path)) {
-					$ico = str_replace(SERVERPATH, WEBPATH, $path);
+					$ico = '<img class="npg_logoicon" src="' . str_replace(SERVERPATH, WEBPATH, $path) . '" alt="logo" title="<?php echo $whose; ?>" /> ';
 				} else {
-					$ico = WEBPATH . '/' . CORE_FOLDER . '/images/placeholder.png';
+					$ico = '';
 				}
 				break;
 			case 'supplemental':
@@ -267,14 +267,14 @@ if (!defined('OFFSET_PATH')) {
 					$sublink = $subpackage . '/';
 				}
 				$whose = 'Supplemental plugin';
-				$ico = WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png';
+				$ico = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" alt="logo" title="<?php echo $whose; ?>" /> ';
 				break;
 			default:
 				if ($subpackage) {
 					$sublink = $subpackage . '/';
 				}
 				$whose = 'Official plugin';
-				$ico = WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png';
+				$ico = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="logo" title="<?php echo $whose; ?>" /> ';
 				break;
 		}
 
@@ -396,7 +396,7 @@ if (!defined('OFFSET_PATH')) {
 				<br class="clearall" />
 
 				<div id="plugin-content">
-					<h1><img class="npg_logoicon" src="<?php echo $ico; ?>" alt="logo" title="<?php echo $whose; ?>" /><?php echo html_encode($extension); ?></h1>
+					<h1><?php echo $ico; ?><?php echo html_encode($extension); ?></h1>
 					<div class="border">
 						<?php echo $plugin_description; ?>
 					</div>
