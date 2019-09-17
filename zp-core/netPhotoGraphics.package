@@ -1249,7 +1249,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/functions-db-NULL.php
 %core%/functions-db-PDO_MySQL.php
 %core%/functions.php
-%core%/github_locator.php
 %core%/global-definitions.php
 %core%/gpl-2.0-standalone.htm
 %core%/htaccess
@@ -8384,4 +8383,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8386
+8385
