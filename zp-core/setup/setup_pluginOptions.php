@@ -28,7 +28,6 @@ define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will no
 
 $icon = $_GET['class'];
 $fullLog = isset($_GET['fullLog']) || $icon == 2;
-;
 
 $extension = sanitize($_REQUEST['plugin']);
 $__script = 'Plugin:' . $extension;
