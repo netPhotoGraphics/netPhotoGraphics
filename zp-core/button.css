@@ -18,7 +18,7 @@
 	display: block;
 	float: left;
 	margin: 0 7px 0 0;
-	background-image: linear-gradient(rgb(244,244,244), rgb(237,237,237));
+	background-image: linear-gradient(rgb(254,254,254), rgb(224,224,224));
 	border: 1px solid #dedede !important;
 	border-top: 1px solid #eee;
 	border-left: 1px solid #eee;
@@ -58,21 +58,19 @@
 
 /* standard buttons */
 button:hover, .button a:hover, .buttons a:hover {
+	background-image: linear-gradient(rgb(244,244,244), rgb(214,214,214));
 	text-decoration: none;
-	background-color: #dff4ff;
 	border: 1px solid #CBCBCB;
 	border-width: 2px;
-	color: #FF8A00 !important;
 	font-size: 100%;
 }
 
 button:hover .overview_buttontext, .button a:hover .overview_buttontext, .buttons a:hover .overview_buttontext {
-	color: #FF8A00 !important;
+
 }
 
 .buttons a:active {
 	text-decoration: none;
-	background-color: #6299c5;
 	border: 1px solid #dedede;
 	color: #fff;
 }
@@ -85,14 +83,12 @@ button.positive, .buttons a.positive {
 
 .buttons a.positive:hover, button.positive:hover {
 	text-decoration: none;
-	background-color: #E6EFC2;
 	border: 1px solid #f5f5f4;
 	color: #529214;
 }
 
 .buttons a.positive:active {
 	text-decoration: none;
-	background-color: #529214;
 	border: 1px solid #529214;
 	color: #fff;
 }
@@ -105,13 +101,15 @@ button.positive, .buttons a.positive {
 
 .buttons a.negative:hover, button.negative:hover {
 	text-decoration: none;
-	background: #fbe3e4;
+	background-image: none !important;
+	background-image: #fbe3e4;
 	border: 1px solid #fbc2c4;
 	color: #d12f19;
 }
 
 .buttons a.negative:active {
 	text-decoration: none;
+	background-image: none !important;
 	background-color: #d12f19;
 	border: 1px solid #d12f19;
 	color: #fff;
@@ -125,6 +123,7 @@ button.positive, .buttons a.positive {
 /* disabled buttons */
 button:hover:disabled,.buttons a:hover:disabled {
 	text-decoration: none;
+	background-image: none !important;
 	background-color: #f5f5f5;
 	border: 1px solid #dedede;
 	border-top: 1px solid #eee;
@@ -135,7 +134,6 @@ button:hover:disabled,.buttons a:hover:disabled {
 }
 
 /*sidebar vertical buttons */
-.box-edit .buttons a,
-.theme_links .buttons a{
+.box-edit .buttons a, .theme_links .buttons a{
 	width: 90% !important;
 }
