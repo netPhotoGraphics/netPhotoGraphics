@@ -58,11 +58,6 @@ class slideshow {
 	function __construct() {
 		global $_gallery;
 		if (OFFSET_PATH == 2) {
-			if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow.php')) {
-				// un-deprecate slideshow!
-				npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow/');
-				unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/slideshow.php');
-			}
 			$found = array();
 			$result = getOptionsLike('slideshow_');
 			foreach ($result as $option => $value) {

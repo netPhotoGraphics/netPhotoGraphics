@@ -33,10 +33,12 @@ if (!file_exists($testFile)) {
 	file_put_contents($testFile, '');
 }
 
-foreach (array('filterDoc', 'zenphoto_package') as $remove) {
+foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
 	npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove);
 	@unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $remove . '.php');
 }
+enableExtension('slideshow2', 0);
+
 
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
@@ -246,7 +248,7 @@ if (empty($admins)) { //	empty administrators table
 			$_GET['mod_rewrite'] = true;
 			setOption('mod_rewrite', 1);
 		}
-//	replicate plugins state
+		//	replicate plugins state
 		foreach ($clone['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
 		}
