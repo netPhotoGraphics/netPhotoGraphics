@@ -7,7 +7,7 @@
  * be translated into the current active language when displayed.
  *
  * @Copyright 2015, 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
- * for use with ZenPhotoGrapphics CMS software.
+ * for use with netPhotoGrapphics CMS software.
  */
 
 function exifTranslate($source) {

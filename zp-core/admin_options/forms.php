@@ -70,8 +70,7 @@ function getOptionContent() {
 				}
 				?>
 			</div>
-			<br clear="all">
-			<br />
+
 			<p class="buttons">
 				<button type="submit" value="<?php echo gettext('Apply') ?>">
 					<?php echo CHECKMARK_GREEN; ?>
