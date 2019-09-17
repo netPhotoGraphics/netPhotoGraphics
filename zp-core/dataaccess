@@ -1,4 +1,4 @@
-# block WEB access to Zenphoto data files
+# block WEB access to data files
 <IfModule mod_autoindex.c>
 	IndexIgnore *
 </IfModule>

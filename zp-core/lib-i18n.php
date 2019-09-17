@@ -139,15 +139,12 @@ class i18n {
 				$domainpath = SERVERPATH . "/" . THEMEFOLDER . "/" . $domain . "/locale/";
 				break;
 			default:
-				$domain = 'zenphoto';
+				$domain = 'npg';
 				$domainpath = CORE_SERVERPATH . 'locale/';
 				break;
 		}
 		bindtextdomain($domain, $domainpath);
-		// function only since php 4.2.0
-		if (function_exists('bind_textdomain_codeset')) {
-			bind_textdomain_codeset($domain, 'UTF-8');
-		}
+		bind_textdomain_codeset($domain, 'UTF-8');
 		textdomain($domain);
 		//invalidate because the locale was not setup until now
 		$_active_languages = $_all_languages = NULL;

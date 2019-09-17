@@ -14,7 +14,7 @@ class imageProcessing {
 	 * to the given error message image and exits; designed for a production gallery.
 	 * @param $errormessage string the error message to print if $_GET['debug'] is set.
 	 * @param $errorimg string the filename of the error image to display for production. Defaults
-	 *   to 'err-imagegeneral.png'. Images should be located in /zen/images .
+	 *   to 'err-imagegeneral.png'.
 	 */
 	static function error($status_text, $errormessage, $errorimg = 'err-imagegeneral.png') {
 		global $newfilename, $album, $image;

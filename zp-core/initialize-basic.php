@@ -246,7 +246,7 @@ if (getOption('GitHubOwner') == 'netPhotoGraphics') {
 		require_once(dirname(__FILE__) . '/github_locator.php');
 	}
 	if (!defined('GITHUB_ORG')) {
-		define('GITHUB_ORG', 'ZenPhoto20');
+		define('GITHUB_ORG', 'netPhotoGraphics');
 	}
 }
 define('GITHUB', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics');
