@@ -81,6 +81,7 @@ class slideshow {
 			setOptionDefault('slideshow_speed', '1000');
 			setOptionDefault('slideshow_timeout', '3000');
 			setOptionDefault('slideshow_showdesc', '');
+			setOptionDefault('slideshow_controls', '');
 			setOptionDefault('slideshow_colorbox_transition', 'fade');
 			// incase the flowplayer has not been enabled!!!
 			setOptionDefault('slideshow_colorbox_imagetype', 'sizedimage');
@@ -117,6 +118,10 @@ class slideshow {
 						gettext('Timeout') => array('key' => 'slideshow_timeout', 'type' => OPTION_TYPE_NUMBER,
 								'order' => 3,
 								'desc' => gettext("Milliseconds between slide transitions (0 to disable auto advance.)")),
+						gettext('Controls') => array('key' => 'slideshow_controls', 'type' => OPTION_TYPE_SELECTOR,
+								'order' => 3.5,
+								'selections' => array(gettext('dark') => '', 'light' => '-lite'),
+								'desc' => gettext("Slideshow control button color.")),
 						gettext('Description') => array('key' => 'slideshow_showdesc', 'type' => OPTION_TYPE_CHECKBOX,
 								'order' => 4,
 								'desc' => gettext("Check if you want to show the image’s description below the slideshow."))
@@ -467,7 +472,7 @@ class slideshow {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
 		scriptLoader(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
-		scriptLoader(getPlugin('slideshow/slideshow.css', getCurrentTheme()));
+		scriptLoader(getPlugin('slideshow/slideshow' . getOption('slideshow_controls') . '.css', getCurrentTheme()));
 	}
 
 	/**

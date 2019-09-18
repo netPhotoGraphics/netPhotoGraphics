@@ -1,5 +1,5 @@
 /*
-	Zen Photo Admin
+	netPhotoGraphics Admin
 */
 
 /* fonts for icons */
@@ -1095,7 +1095,7 @@ input.tags {
 	padding-bottom: 5px;
 	margin: 10px;
 	border: 1px solid #cccccc;
-	width: 525px;
+	width: 530px;
 }
 
 .overview_utility_buttons {
@@ -1106,7 +1106,7 @@ input.tags {
 }
 
 .overview_utility_buttons button {
-	width: 253px !important;
+	width: 100% !important;
 	white-space: nowrap;
 }
 

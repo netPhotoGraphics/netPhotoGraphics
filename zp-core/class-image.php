@@ -553,7 +553,7 @@ class Image extends MediaObject {
 				$this->setDesc($desc);
 			}
 
-			//	ZenPhoyo20 GPS data
+			//	GPS data
 			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
 				$data = self::fetchMetadata($source);
 				if (!empty($data)) {

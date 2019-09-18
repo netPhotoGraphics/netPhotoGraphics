@@ -1,6 +1,6 @@
 # htaccess file version 1.8.2;
 #	Rewrite rules are now handled by PHP code
-# See the file "zenphoto-rewrite.txt" for the actual rules
+# See the file "rewrite.txt" for the actual rules
 #
 # These rules redirect everything not directly accessing a file to the index.php script
 #

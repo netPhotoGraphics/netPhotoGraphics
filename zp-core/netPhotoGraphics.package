@@ -1249,7 +1249,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/functions-db-NULL.php
 %core%/functions-db-PDO_MySQL.php
 %core%/functions.php
-%core%/github_locator.php
 %core%/global-definitions.php
 %core%/gpl-2.0-standalone.htm
 %core%/htaccess
@@ -8066,8 +8065,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/slideshow
 %extensions%/slideshow/controls.png
 %extensions%/slideshow/jquery.cycle.all.js
+%extensions%/slideshow/slideshow-controls-lite.png
 %extensions%/slideshow/slideshow-controls.png
 %extensions%/slideshow/slideshow-counter.php
+%extensions%/slideshow/slideshow-lite.css
 %extensions%/slideshow/slideshow.css
 %extensions%/tag_suggest
 %extensions%/tag_suggest/encoder.min.js
@@ -8384,4 +8385,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8386
+8387

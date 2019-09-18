@@ -1,10 +1,12 @@
 /* Pretty Buttons
 ------------------------------------- */
-.buttons, .button, .button button, .buttons button {
+.button, .buttons, .button button, .buttons button {
 	cursor: pointer;
 	font-size: 100%;
 	line-height: 130%;
-	padding: 5px 10px !important;
+	padding-top: 5px !important;
+	padding-right: 5px !important;
+
 }
 
 .buttons button {
@@ -14,11 +16,10 @@
 	overflow: visible;
 }
 
-.button a, .button button .buttons a, .buttons button {
+.button a, .buttons a, .button button .buttons button {
 	display: block;
 	float: left;
-	margin: 0 7px 0 0;
-	background-image: linear-gradient(rgb(244,244,244), rgb(237,237,237));
+	background-image: linear-gradient(rgb(254,254,254), rgb(224,224,224));
 	border: 1px solid #dedede !important;
 	border-top: 1px solid #eee;
 	border-left: 1px solid #eee;
@@ -33,7 +34,7 @@
 	padding: 5px 10px 6px 7px; /* Links */
 }
 
-.buttons button {
+.button buttons, .buttons buttons  {
 	text-decoration: none;
 	width: auto;
 	overflow: visible;
@@ -41,13 +42,13 @@
 	height: 34px;
 }
 
-.buttons button[type] {
+.button button[type], .buttons button[type] {
 	text-decoration: none;
 	padding: 5px 10px 5px 7px; /* Firefox */
 	line-height: 17px; /* Safari */
 }
 
-.buttons button img,.buttons a img {
+.button a img, .buttons a img, .button button img, .buttons button img {
 	text-decoration: none;
 	margin: 0 3px -3px 0 !important;
 	padding: 0;
@@ -57,85 +58,80 @@
 }
 
 /* standard buttons */
-button:hover, .button a:hover, .buttons a:hover {
+button:hover, buttons:hover, .button a:hover, .buttons a:hover {
+	background-image: linear-gradient(rgb(244,244,244), rgb(214,214,214));
 	text-decoration: none;
-	background-color: #dff4ff;
 	border: 1px solid #CBCBCB;
 	border-width: 2px;
-	color: #FF8A00 !important;
 	font-size: 100%;
 }
 
-button:hover .overview_buttontext, .button a:hover .overview_buttontext, .buttons a:hover .overview_buttontext {
-	color: #FF8A00 !important;
-}
-
-.buttons a:active {
+.button a:active, .buttons a:active {
 	text-decoration: none;
-	background-color: #6299c5;
 	border: 1px solid #dedede;
 	color: #fff;
 }
 
 /* positive buttons */
-button.positive, .buttons a.positive {
+button.positive, buttons.positive, .button a.positive, .buttons a.positive {
 	text-decoration: none;
 	color: #529214;
 }
 
-.buttons a.positive:hover, button.positive:hover {
+button.positive:hover, buttons.positive:hover, .button a.positive:hover, .buttons a.positive:hover {
 	text-decoration: none;
-	background-color: #E6EFC2;
 	border: 1px solid #f5f5f4;
 	color: #529214;
 }
 
-.buttons a.positive:active {
+.button a.positive:active, .buttons a.positive:active {
 	text-decoration: none;
-	background-color: #529214;
 	border: 1px solid #529214;
 	color: #fff;
 }
 
 /* negative buttons */
-.buttons a.negative, button.negative {
+button.negative, buttons.negative, .button a.negative, .buttons a.negative{
 	text-decoration: none;
 	color: #d12f19;
 }
 
-.buttons a.negative:hover, button.negative:hover {
+.button a.negative:hover, .buttons a.negative:hover, button.negative:hover, buttons.negative:hover {
 	text-decoration: none;
-	background: #fbe3e4;
+	background-image: none !important;
+	background-color: #fbe3e4;
 	border: 1px solid #fbc2c4;
 	color: #d12f19;
 }
 
-.buttons a.negative:active {
+.button a.negative:active, .buttons a.negative:active {
 	text-decoration: none;
+	background-image: none !important;
 	background-color: #d12f19;
 	border: 1px solid #d12f19;
 	color: #fff;
 }
 
-.buttons .fixedwidth {
+.button .fixedwidth, .buttons .fixedwidth {
 	text-align: left;
-	width: 17em;
+	width: 220px;
 }
 
 /* disabled buttons */
-button:hover:disabled,.buttons a:hover:disabled {
+button:hover:disabled, buttons:hover:disabled, .button a:hover:disabled, .buttons a:hover:disabled {
 	text-decoration: none;
+	background-image: none !important;
 	background-color: #f5f5f5;
 	border: 1px solid #dedede;
 	border-top: 1px solid #eee;
 	border-left: 1px solid #eee;
 }
-.buttons .disabled_button {
+
+.button .disabled_button .buttons .disabled_button {
 	color: #c2c2c2;
 }
 
 /*sidebar vertical buttons */
-.box-edit .buttons a,
-.theme_links .buttons a{
+.box-edit .buttons a, .theme_links .buttons a{
 	width: 90% !important;
 }
