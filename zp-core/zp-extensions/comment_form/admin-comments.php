@@ -137,14 +137,14 @@ printLogoAndLinks();
 										<strong><?php echo gettext("Apply"); ?></strong>
 									</button>
 
-									<button type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = 'admin-comments.php';">
+									<button type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>'">
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<strong><?php echo gettext("Cancel"); ?></strong>
 									</button>
 
 									<button type="button" title="<?php echo gettext("Delete"); ?>" onclick="if (confirm('<?php echo gettext('Are you sure you want to delete this comment?'); ?>')) {
-												window.location = '?action=deletecomment&id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('deletecomment') ?>';
-											}">
+												window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?action=deletecomment&id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('deletecomment') ?>';
+														}">
 										<span style="vertical-align:1px;"><?php echo WASTEBASKET; ?></span>
 										<strong><?php echo gettext("Delete"); ?></strong>
 									</button>
@@ -332,32 +332,42 @@ printLogoAndLinks();
 						</div>
 						<?php
 					}
-					?>
 
+					if ($fulltext) {
+						$msg = gettext("View truncated");
+						$arrow = SOUTH_EAST_CORNER_ARROW;
+						$ft = 0;
+					} else {
+						$msg = gettext("View full text");
+						$arrow = NORTH_WEST_CORNER_ARROW;
+						$ft = 1;
+					}
+					if ($viewall) {
+						$v = '&amp;viewall';
+					} else {
+						$v = '';
+					}
+					if ($pagenum > 1) {
+						$p = "&amp;subpage=$pagenum";
+					} else {
+						$p = '';
+					}
+					?>
 					<form class="dirtylistening" onReset="setClean('form_commentlist');"  name="comments" id="form_commentlist" action="?action=applycomments" method="post" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('applycomments'); ?>
 						<input type="hidden" name="subpage" value="<?php echo html_encode($pagenum) ?>" />
-						<p class="buttons"><button type="submit"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button></p>
 						<p class="buttons">
-							<?php
-							if ($fulltext) {
-								$msg = gettext("View truncated");
-								$arrow = SOUTH_EAST_CORNER_ARROW;
-							} else {
-								$msg = gettext("View full text");
-								$arrow = NORTH_WEST_CORNER_ARROW;
-							}
-							?>
-							<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php
-							echo (int) ($fulltext + 1) & 1;
-							if ($viewall)
-								echo '&amp;viewall';
-							if ($pagenum > 1)
-								echo "&amp;subpage=$pagenum";
-							?>">
-									 <?php echo $arrow; ?>
-									 <?php echo $msg; ?>
-							</a>
+							<button type="submit">
+								<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
+							</button>
+							<button type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php echo $ft . $v . $p; ?>'">
+								<?php
+								echo $arrow;
+								echo $msg;
+								?>
+							</button>
+
+
 						</p>
 						<br class="clearall"><br />
 						<table class="bordered">

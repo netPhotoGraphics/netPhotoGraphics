@@ -242,7 +242,6 @@ echo "</head>\n";
 									<?php echo gettext("Publish images by default"); ?>
 								</label>
 								<br class="clearall">
-								<br class="clearall">
 								<div class="buttons pad_button" id="setdefaults">
 									<button class="tooltip" type="submit" title="<?php echo gettext("Set defaults for album publishing and image visibility."); ?>">
 										<?php echo CHECKMARK_GREEN; ?>
@@ -250,7 +249,6 @@ echo "</head>\n";
 									</button>
 								</div>
 							</form>
-							<br class="clearall">
 						</div>
 					</fieldset>
 					<br class="clearall">
