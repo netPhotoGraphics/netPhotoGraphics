@@ -220,13 +220,13 @@ define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDE
 define('LOCK_OPEN', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_open.png" /></span>');
 define('MENU_SYMBOL', '&#9776;');
 define('NO_ENTRY', '<span class="font_icon" style="color: red;">&#9940;</span>');
-define('NORTH_WEST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-weight: bold;">&#8689;</span>');
+define('NORTH_WEST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-size: large;">&#8689;</span>');
 define('OPTIONS_ICON', '<span class="font_icon" style="font-size: large;">' . GEAR_SYMBOL . '</span>');
 define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font-size: large;">&#x270E;</span>');
 define('PLACHHOLDER_ICON', '<span class="font_icon">&nbsp;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green;font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red;font-size: large;font-weight: bold;">&#x2672;</span>');
-define('SOUTH_EAST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-weight: bold;">&#8690;</span>');
+define('SOUTH_EAST_CORNER_ARROW', '<span class="font_icon" style="color: green;font-size: large;">&#8690;</span>');
 define('SWAP_ICON', '<span class="font_icon" style="font-size: x-large;">&#x21C4;</span>');
 define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange;font-size: large;">&#9888;</span>');
 define('WASTEBASKET', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/trashcan.png" /></span>');

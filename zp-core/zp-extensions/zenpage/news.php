@@ -246,15 +246,16 @@ updatePublished('news');
 						?>
 						<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . $option; ?>" method="post" name="checkeditems" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
 							<?php XSRFToken('checkeditems'); ?>
-							<div class="buttons">
+							<span class="buttons">
 								<button type="submit" title="<?php echo gettext('Apply'); ?>"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
 								</button>
-							</div>
-							<span class="buttons floatright">
-								<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
-									<?php echo PLUS_ICON; ?>
-									<strong><?php echo gettext("New Article"); ?></strong>
-								</a>
+
+								<span class="floatright">
+									<button type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>'">
+										<?php echo PLUS_ICON; ?>
+										<strong><?php echo gettext("New Article"); ?></strong>
+									</button>
+								</span>
 							</span>
 							<br class="clearall">
 

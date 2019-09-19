@@ -210,14 +210,15 @@ echo '</head>' . "\n";
 						<form class="dirtylistening" onReset="setClean('savegroups_form');" id="savegroups_form" action="?action=savegroups&amp;tab=groups" method="post" autocomplete="off" onsubmit="return checkSubmit()" >
 							<?php XSRFToken('savegroups'); ?>
 							<p class="buttons">
-								<button type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
+								<button type="submit">
+									<?php echo CHECKMARK_GREEN; ?>
+									<strong><?php echo gettext("Apply"); ?></strong>
+								</button>
 								<button type="reset">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>
-							<br class="clearall">
-							<br />
 							<input type="hidden" name="savegroups" value="yes" />
 							<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
 
@@ -294,11 +295,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />
@@ -526,8 +527,6 @@ echo '</head>' . "\n";
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
 							</p>
-							<br class="clearall">
-							<br />
 							<div class="notebox">
 								<?php echo gettext('<strong>Note:</strong> When a group is assigned <em>rights</em> and <em>managed objects</em> are determined by the group!'); ?>
 							</div>
