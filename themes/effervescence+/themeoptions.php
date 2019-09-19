@@ -79,7 +79,6 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 		global $personalities;
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_effects.php');
 
 		$note = '<p class="notebox">' . gettext('<strong>Note:</strong> This option is valid only if the CMS plugin is enabled or the Separate gallery index option is checked. Of course the <em>menu_manager</em> plugin must also be enabled.') . '</p>';
 
@@ -114,20 +113,18 @@ class ThemeOptions {
 					'desc' => gettext('Location for Image gallery picture caption'));
 		}
 
-		$effects = new image_effects();
-		$effectOptions = $effects->getOptionsSupported();
-		$effect = array_shift($effectOptions);
-		while ($effect && !array_key_exists('selections', $effect)) {
+		if (class_exists('image_effects')) {
+			$effects = new image_effects();
+			$effectOptions = $effects->getOptionsSupported();
 			$effect = array_shift($effectOptions);
-		}
-		if ($effect && array_key_exists('selections', $effect)) {
-			$options[gettext('Index Image')] = array('key' => 'effervescence_daily_album_image_effect', 'type' => OPTION_TYPE_SELECTOR,
-					'selections' => $effect['selections'], 'null_selection' => gettext('none'),
-					'order' => 5,
-					'desc' => gettext('Apply this effect to the index page image.'));
-			if (!extensionEnabled('image_effects')) {
-				$options[gettext('Index Image')]['disabled'] = true;
-				$options[gettext('Index Image')]['desc'] .= '<p class="notebox">' . gettext('This option requires the <em>image_effects</em> plugin to be enabled.') . '</p>';
+			while ($effect && !array_key_exists('selections', $effect)) {
+				$effect = array_shift($effectOptions);
+			}
+			if ($effect && array_key_exists('selections', $effect)) {
+				$options[gettext('Index Image')] = array('key' => 'effervescence_daily_album_image_effect', 'type' => OPTION_TYPE_SELECTOR,
+						'selections' => $effect['selections'], 'null_selection' => gettext('none'),
+						'order' => 5,
+						'desc' => gettext('Apply this effect to the index page image.'));
 			}
 		}
 		return $options;

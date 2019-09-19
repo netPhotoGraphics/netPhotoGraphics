@@ -264,19 +264,19 @@ printAdminHeader('admin');
 							?>
 						</div>
 
-						<p class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 27px;"'; ?>>
+						<p class="buttons">
 							<button type="button" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
 								<?php echo WASTEBASKET; ?>
 								<?php echo gettext("Delete checked tags"); ?>
 							</button>
 						</p>
-						<p class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 27px;"'; ?>>
+						<p class="buttons">
 							<button type="button" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
 								<?php echo LOCK; ?>
 								<?php echo gettext("Mark checked tags private"); ?>
 							</button>
 						</p>
-						<p class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 27px;"'; ?>>
+						<p class="buttons">
 							<button type="button" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
 								<?php echo LOCK_OPEN; ?>
 								<?php echo gettext("Mark checked tags public"); ?>
@@ -314,7 +314,7 @@ printAdminHeader('admin');
 						<div class="clearall"></div>
 					</form>
 
-					<div class="tagtext">
+					<div class="tagtext"<?php if (getOption('multi_lingual')) echo ' style="margin-top: 5px;"'; ?>>
 						<p><?php
 							echo gettext('Place a checkmark in the box for each tag you wish to act upon then press the appropriate button. The brackets contain the number of times the tag appears.');
 							echo gettext('Tags that are <span class="privatetag">highlighted</span> are private.');
@@ -369,14 +369,14 @@ printAdminHeader('admin');
 								?>
 							</ul>
 						</div>
-						<p class="buttons" style="padding-bottom: 1px;">
+						<p class="buttons" >
 							<button type="submit" id='rename_tags' value="<?php echo gettext("Rename tags"); ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<?php echo gettext("Rename tags"); ?>
 							</button>
 						</p>
 					</form>
-					<br clear="all" />
+
 					<div class="tagtext">
 						<p><?php echo gettext('To change the value of a tag enter a new value in the text box below the tag. Then press the <em>Rename tags</em> button'); ?></p>
 					</div>
@@ -431,7 +431,7 @@ printAdminHeader('admin');
 						<div class="clearall"></div>
 					</form>
 
-					<div class="tagtext">
+					<div class="tagtext" style="padding-top: 7px;">
 						<p><?php
 							echo gettext("Add tags to the list by entering their names in the input fields of the <em>New tags</em> list. Then press the <em>Add tags</em> button.");
 							if (getOption('multi_lingual')) {
