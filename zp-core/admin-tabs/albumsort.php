@@ -202,7 +202,7 @@ echo "\n</head>";
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
 							<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-								<?php echo BULLSEYE_BLUE; ?>
+								<span style="vertical-align:-1;"><?php echo BULLSEYE_BLUE; ?></span>
 								<strong><?php echo gettext('View Album'); ?></strong>
 							</button>
 						</p>

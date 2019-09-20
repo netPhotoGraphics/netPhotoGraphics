@@ -161,11 +161,9 @@ zenpageJSCSS();
 							}
 							?>
 						</p>
-						<br class="clearall">
-						<br />
+
 						<div class="headline">
 							<?php
-							echo gettext('Edit this Category');
 							$checkarray = array(
 									gettext('Set to published') => 'showall',
 									gettext('Set to unpublished') => 'hideall',
@@ -179,10 +177,11 @@ zenpageJSCSS();
 							printBulkActions($checkarray);
 							?>
 						</div>
+						<br clear="all">
 						<div class="bordered">
 
 							<div class="subhead">
-								<label style="float: right;"><?php echo gettext("Check All"); ?>
+								<label style="float: right; padding-top:5px;padding-right:5px;"><?php echo gettext("Check All"); ?>
 									<input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
 							</div>

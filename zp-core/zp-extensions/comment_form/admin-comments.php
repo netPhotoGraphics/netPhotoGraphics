@@ -143,8 +143,8 @@ printLogoAndLinks();
 									</button>
 
 									<button type="button" title="<?php echo gettext("Delete"); ?>" onclick="if (confirm('<?php echo gettext('Are you sure you want to delete this comment?'); ?>')) {
-												window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?action=deletecomment&id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('deletecomment') ?>';
-														}">
+														window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?action=deletecomment&id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('deletecomment') ?>';
+																}">
 										<span style="vertical-align:1px;"><?php echo WASTEBASKET; ?></span>
 										<strong><?php echo gettext("Delete"); ?></strong>
 									</button>
@@ -325,14 +325,6 @@ printLogoAndLinks();
 					<p><?php echo gettext("You can edit or delete comments."); ?></p>
 
 					<?php
-					if ($totalpages > 1) {
-						?>
-						<div align="center">
-							<?php adminPageNav($pagenum, $totalpages, '  admin-comments.php ', $fulltexturl); ?>
-						</div>
-						<?php
-					}
-
 					if ($fulltext) {
 						$msg = gettext("View truncated");
 						$arrow = SOUTH_EAST_CORNER_ARROW;
@@ -356,7 +348,16 @@ printLogoAndLinks();
 					<form class="dirtylistening" onReset="setClean('form_commentlist');"  name="comments" id="form_commentlist" action="?action=applycomments" method="post" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('applycomments'); ?>
 						<input type="hidden" name="subpage" value="<?php echo html_encode($pagenum) ?>" />
-						<p class="buttons">
+						<?php
+						if ($totalpages > 1) {
+							?>
+							<span align="center">
+								<?php adminPageNav($pagenum, $totalpages, '  admin-comments.php ', $fulltexturl); ?>
+							</span>
+							<?php
+						}
+						?>
+						<span class="buttons">
 							<button type="submit">
 								<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 							</button>
@@ -366,13 +367,11 @@ printLogoAndLinks();
 								echo $msg;
 								?>
 							</button>
-
-
-						</p>
-						<br class="clearall"><br />
+						</span>
+						<br class="clearall"><br>
 						<table class="bordered">
 							<tr>
-								<th colspan="100%"><?php echo gettext("Edit this comment"); ?>
+								<th colspan="100%">
 									<?php
 									$checkarray = array(
 											gettext('*Bulk actions*') => 'noaction',

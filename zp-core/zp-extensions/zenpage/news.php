@@ -258,14 +258,7 @@ updatePublished('news');
 								</span>
 							</span>
 							<br class="clearall">
-
-							<div class="centered">
-								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
-							</div>
-
 							<div class="headline">
-								<?php echo gettext('Edit this article'); ?>
-
 								<span class="floatright padded">
 									<?php
 									$checkarray = array(
@@ -288,9 +281,12 @@ updatePublished('news');
 									printBulkActions($checkarray);
 									?>
 								</span>
+								<span class="floatright" style="padding-right:30%;">
+									<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
+								</span>
+
 							</div>
 							<table class="bordered">
-
 								<tr>
 									<td><!--title--></td>
 									<td><?php echo gettext('Categories'); ?></td>

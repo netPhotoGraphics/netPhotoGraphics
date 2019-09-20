@@ -910,17 +910,17 @@ echo "\n</head>";
 							<br class="clearall">
 							<br />
 
-							<div class="headline"><?php echo gettext("Edit this album"); ?>
+							<div class="headline">&nbsp;
 								<?php printBulkActions($checkarray_albums); ?>
 							</div>
 							<div class="subhead">
-								<label class="buttons" style="float: left;padding-top:3px;">
+								<label class="buttons" style="float: left;padding-top:3px;padding-left:5px;padding-bottom:2px;">
 									<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=admin&tab=edit
 										 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
 											 <?php echo $thumbmsg; ?>
 									</a>
 								</label>
-								<label style="float: right;padding-right:20px;">
+								<label style="float: right;padding-top:5px;padding-right:25px;">
 									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
 							</div>

@@ -102,8 +102,8 @@ if (count($subalbums) > 0) {
 						}
 						?>
 						<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-							<?php echo BULLSEYE_BLUE; ?>
-							<strong><?php echo gettext('View Album'); ?></strong>
+							<span style="vertical-align:-2px;"><?php echo BULLSEYE_BLUE; ?></span>
+							<strong><?php echo gettext('View'); ?></strong>
 						</button>
 					</div>
 					<?php
@@ -112,7 +112,7 @@ if (count($subalbums) > 0) {
 			</span>
 			<br class="clearall"><br />
 
-			<div class="headline" style="text-align: left;"><?php echo gettext("Edit this album"); ?>
+			<div class="headline" style="text-align: left;">&nbsp;
 				<?php
 				if ($enableEdit) {
 					printBulkActions($checkarray_albums);
@@ -128,7 +128,7 @@ if (count($subalbums) > 0) {
 				<?php
 				if ($enableEdit) {
 					?>
-					<label style="float: right; padding-right:20px;">
+					<label style="float: right; padding-top:5px;padding-right:25px;">
 						<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 					</label>
 					<?php
