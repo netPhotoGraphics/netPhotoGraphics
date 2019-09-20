@@ -101,7 +101,7 @@ if (count($subalbums) > 0) {
 							<?php
 						}
 						?>
-						<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
+						<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 							<?php echo BULLSEYE_BLUE; ?>
 							<strong><?php echo gettext('View Album'); ?></strong>
 						</button>

@@ -91,6 +91,11 @@ if (isset($_GET['action'])) {
 			npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $plugin);
 			unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $plugin . '.php');
 			$notify = '&deleted&plugin=' . $_GET['plugin'];
+			if (isset($pluginDetails[$plugin]['deprecated'])) {
+				$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
+				$deprecatedDeleted[] = $plugin;
+				setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
+			}
 			break;
 	}
 	header('Location: ' . getAdminLink('admin-tabs/plugins.php') . '?page=plugins&tab=' . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);

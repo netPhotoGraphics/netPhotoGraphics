@@ -12,6 +12,7 @@ setupLog(gettext('Set default options'), true);
 require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
+
 $setOptions = getOptionList();
 
 if (isset($_GET['debug'])) {
@@ -883,6 +884,7 @@ $plugins = array_keys($plugins);
 		}
 	}
 
+	$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 	natcasesort($plugins);
 	echo gettext('Plugin setup:') . '<br />';
 	foreach ($plugins as $key => $extension) {
@@ -898,7 +900,18 @@ $plugins = array_keys($plugins);
 		} else {
 			unset($plugins[$key]);
 		}
+
 		if (isset($pluginDetails[$extension]['deprecated'])) {
+			$key = array_search($extension, $deprecatedDeleted);
+			if (is_numeric($key)) {
+				if (extensionEnabled($extension)) {
+					unset($deprecatedDeleted[$key]);
+				} else {
+					npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $extension);
+					unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $extension . '.php');
+					continue;
+				}
+			}
 			$class = 2;
 			$addl = ' (' . gettext('deprecated') . ')';
 		} else {
@@ -910,6 +923,7 @@ $plugins = array_keys($plugins);
 		</span>
 		<?php
 	}
+	setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 	?>
 </p>
 
