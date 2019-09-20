@@ -41,7 +41,7 @@ if (!defined('WEBPATH'))
 				</div>
 
 				<?php
-				if (!npg_loggedin() && function_exists('printRegistrationForm') && isUnprotectedPage('register')) {
+				if (!npg_loggedin() && function_exists('printRegistrationForm') && $_gallery->isUnprotectedPage('register')) {
 					printCustomPageURL(gettext('Register for this site'), 'register', '', '<br />');
 					echo '<br />';
 				}
