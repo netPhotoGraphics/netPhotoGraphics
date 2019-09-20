@@ -58,18 +58,18 @@ printAdminHeader('edit', 'sort');
 <script type="text/javascript">
 	//<!-- <![CDATA[
 	$(function () {
-	$('#images').sortable({
-	change: function (event, ui) {
-	$('#sortableListForm').addClass('dirty');
-	}
-	});
+		$('#images').sortable({
+			change: function (event, ui) {
+				$('#sortableListForm').addClass('dirty');
+			}
+		});
 	});
 	function postSort(form) {
-	$('#sortableList').val($('#images').sortable('serialize'));
-	form.submit();
+		$('#sortableList').val($('#images').sortable('serialize'));
+		form.submit();
 	}
 	function cancelSort() {
-	$('#images').sortable('cancel');
+		$('#images').sortable('cancel');
 	}
 	// ]]> -->
 </script>
@@ -184,7 +184,7 @@ echo "\n</head>";
 					}
 					?>
 					<form class="dirtylistening" onReset="setClean('sortableListForm');
-						cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
+							cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
 								<?php XSRFToken('save_sort'); ?>
 								<?php printBulkActions($checkarray_images, true); ?>
 
@@ -201,7 +201,7 @@ echo "\n</head>";
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
-							<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
+							<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 								<?php echo BULLSEYE_BLUE; ?>
 								<strong><?php echo gettext('View Album'); ?></strong>
 							</button>
@@ -274,7 +274,7 @@ echo "\n</head>";
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
-								<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
+								<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 									<?php echo BULLSEYE_BLUE; ?>
 									<strong><?php echo gettext('View Album'); ?></strong>
 								</button>

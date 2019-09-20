@@ -55,23 +55,23 @@ function printAdminFooter($addl = '') {
 		startingPosition = $('.navigation').position().top + 10;
 		// ===== Scroll to Top ====
 		$(window).scroll(function () {
-		var scroll = $(this).scrollTop()
-						if (scroll > startingPosition) {
-		$('.navigation').offset({top: scroll});
-		} else {
-		$('.navigation').offset({top: startingPosition});
-		}
+			var scroll = $(this).scrollTop()
+			if (scroll > startingPosition) {
+				$('.navigation').offset({top: scroll});
+			} else {
+				$('.navigation').offset({top: startingPosition});
+			}
 
-		if (scroll >= 50) {        // If page is scrolled more than 50px
-		$('#return-to-top').fadeIn(200); // Fade in the arrow
-		} else {
-		$('#return-to-top').fadeOut(200); // Else fade out the arrow
-		}
+			if (scroll >= 50) {        // If page is scrolled more than 50px
+				$('#return-to-top').fadeIn(200); // Fade in the arrow
+			} else {
+				$('#return-to-top').fadeOut(200); // Else fade out the arrow
+			}
 		});
 		$('#return-to-top').click(function () {      // When arrow is clicked
-		$('body,html').animate({
-		scrollTop: 0                       // Scroll to top of body
-		}, 400);
+			$('body,html').animate({
+				scrollTop: 0                       // Scroll to top of body
+			}, 400);
 		});
 	</script>
 	<?php
@@ -179,50 +179,50 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<script type="text/javascript">
 				// <!-- <![CDATA[
 				function setClean(id) {
-				$('form#' + id).removeClass('tinyDirty');
+					$('form#' + id).removeClass('tinyDirty');
 				}
 	<?php
 	if ($multi) {
 		?>
 					function lsclick(key, id) {
-					$('.lbx-' + id).hide();
-					$('#lb' + key + '-' + id).show();
-					$('.lbt-' + id).removeClass('selected');
-					$('#lbt-' + key + '-' + id).addClass('selected');
+						$('.lbx-' + id).hide();
+						$('#lb' + key + '-' + id).show();
+						$('.lbt-' + id).removeClass('selected');
+						$('#lbt-' + key + '-' + id).addClass('selected');
 					}
 		<?php
 	}
 	?>
 				jQuery(function ($) {
-				$(".fade-message").fadeTo(5000, 1).fadeOut(1000);
+					$(".fade-message").fadeTo(5000, 1).fadeOut(1000);
 				});
 				window.addEventListener('load', function () {
-				var high = $('.navigation').height() - 65;
-				$('#container').css('min-height', high);
-				$('.tabbox').css('min-height', high);
+					var high = $('.navigation').height() - 65;
+					$('#container').css('min-height', high);
+					$('.tabbox').css('min-height', high);
 	<?php
 	if (npgFilters::has_filter('admin_head', 'colorbox::css')) {
 		?>
-					$("a.colorbox").colorbox({
-					maxWidth: "98%",
-									maxHeight: "98%",
-									close: '<?php echo addslashes(gettext("close")); ?>'
-					});
+						$("a.colorbox").colorbox({
+							maxWidth: "98%",
+							maxHeight: "98%",
+							close: '<?php echo addslashes(gettext("close")); ?>'
+						});
 		<?php
 	}
 	if ($multi) {
 		?>
-					try {
-					$('.languageSelector').msDropDown();
-					} catch (e) {
-					alert(e.message);
-					}
+						try {
+							$('.languageSelector').msDropDown();
+						} catch (e) {
+							alert(e.message);
+						}
 		<?php
 	}
 	if (getOption('dirtyform_enable')) {
 		?>
-					$.DirtyForms.ignoreClass = 'ignoredirty';
-					$('form.dirtylistening').dirtyForms({debug: true});
+						$.DirtyForms.ignoreClass = 'ignoredirty';
+						$('form.dirtylistening').dirtyForms({debug: true});
 		<?php
 	}
 	?>
@@ -242,28 +242,28 @@ function printAdminHeader($tab, $subtab = NULL) {
 				//<!-- <![CDATA[
 				window.addEventListener('load', function () {
 
-				$('ul.page-list').nestedSortable({
-				disableNesting: 'no-nest',
-								forcePlaceholderSize: true,
-								handle: 'div',
-								items: 'li',
-								opacity: .6,
-								placeholder: 'placeholder',
-								tabSize: 25,
-								tolerance: 'intersect',
-								toleranceElement: '> div',
-								listType: 'ul',
-								change: function (event, ui) {
-								$('#sortableListForm').addClass('dirty');
-								}
-				});
-				$('.serialize').click(function () {
-				serialized = $('ul.page-list').nestedSortable('serialize');
-				if (serialized != original_order) {
-				$('#serializeOutput').html('<input type="hidden" name="order" size="30" maxlength="1000" value="' + serialized + '" />');
-				}
-				})
-								var original_order = $('ul.page-list').nestedSortable('serialize');
+					$('ul.page-list').nestedSortable({
+						disableNesting: 'no-nest',
+						forcePlaceholderSize: true,
+						handle: 'div',
+						items: 'li',
+						opacity: .6,
+						placeholder: 'placeholder',
+						tabSize: 25,
+						tolerance: 'intersect',
+						toleranceElement: '> div',
+						listType: 'ul',
+						change: function (event, ui) {
+							$('#sortableListForm').addClass('dirty');
+						}
+					});
+					$('.serialize').click(function () {
+						serialized = $('ul.page-list').nestedSortable('serialize');
+						if (serialized != original_order) {
+							$('#serializeOutput').html('<input type="hidden" name="order" size="30" maxlength="1000" value="' + serialized + '" />');
+						}
+					})
+					var original_order = $('ul.page-list').nestedSortable('serialize');
 				}, false);
 				// ]]> -->
 			</script>
@@ -692,21 +692,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<script type="text/javascript">
 			// <!-- <![CDATA[
 			$(function () {
-			var handle = $("#<?php echo $postkey; ?>-handle");
-			$("#slider-<?php echo $postkey; ?>").slider({
-			startValue: <?php echo (int) $v; ?>,
-							value: <?php echo (int) $v; ?>,
-							min: <?php echo (int) $min; ?>,
-							max: <?php echo (int) $max; ?>,
-							create: function () {
-							handle.text($(this).slider("value"));
-							},
-							slide: function (event, ui) {
-							handle.text(ui.value);
-							$("#<?php echo $postkey; ?>").val(ui.value);
-							}
-			});
-			$("#<?php echo $postkey; ?>").val($("#slider-<?php echo $postkey; ?>").slider("value"));
+				var handle = $("#<?php echo $postkey; ?>-handle");
+				$("#slider-<?php echo $postkey; ?>").slider({
+					startValue: <?php echo (int) $v; ?>,
+					value: <?php echo (int) $v; ?>,
+					min: <?php echo (int) $min; ?>,
+					max: <?php echo (int) $max; ?>,
+					create: function () {
+						handle.text($(this).slider("value"));
+					},
+					slide: function (event, ui) {
+						handle.text(ui.value);
+						$("#<?php echo $postkey; ?>").val(ui.value);
+					}
+				});
+				$("#<?php echo $postkey; ?>").val($("#slider-<?php echo $postkey; ?>").slider("value"));
 			});
 			// ]]> -->
 		</script>
@@ -1099,8 +1099,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<script type="text/javascript">
 									// <!-- <![CDATA[
 									function <?php echo $key; ?>_all() {
-									var check = $('#all_<?php echo $key; ?>').prop('checked');
-									$('.all_<?php echo $key; ?>').prop('checked', check);
+										var check = $('#all_<?php echo $key; ?>').prop('checked');
+										$('.all_<?php echo $key; ?>').prop('checked', check);
 									}
 									// ]]> -->
 								</script>
@@ -1141,8 +1141,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<script type="text/javascript">
 									// <!-- <![CDATA[
 									function <?php echo $key; ?>_all() {
-									var check = $('#all_<?php echo $key; ?>').prop('checked');
-									$('.all_<?php echo $key; ?>').prop('checked', check);
+										var check = $('#all_<?php echo $key; ?>').prop('checked');
+										$('.all_<?php echo $key; ?>').prop('checked', check);
 									}
 									// ]]> -->
 								</script>
@@ -1162,10 +1162,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 								<script type="text/javascript">
 									// <!-- <![CDATA[
 									window.addEventListener('load', function () {
-									$('#__<?php echo $key; ?>').spectrum({
-									preferredFormat: "hex",
-													color: $('#__<?php echo $key; ?>').val()
-									});
+										$('#__<?php echo $key; ?>').spectrum({
+											preferredFormat: "hex",
+											color: $('#__<?php echo $key; ?>').val()
+										});
 									}, false);
 									// ]]> -->
 								</script>
@@ -1662,14 +1662,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 			?>
 			<script>
 				$(function () {
-				$("#resizable_<?php echo $postit; ?>").resizable({
-				minHeight: 120,
-								resize: function (event, ui) {
-								$(this).css("width", '');
-								$('#list_<?php echo $postit;
+					$("#resizable_<?php echo $postit; ?>").resizable({
+						minHeight: 120,
+						resize: function (event, ui) {
+							$(this).css("width", '');
+							$('#list_<?php echo $postit;
 		?>').height($('#resizable_<?php echo $postit; ?>').height());
-								}
-				})
+						}
+					})
 				});</script>
 			<?php
 		} else {
@@ -1812,7 +1812,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 					}
 					?>
-					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
+					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
 						<strong><?php echo gettext('View'); ?></strong>
 					</button>
@@ -1952,7 +1952,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																	 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2281,9 +2281,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2339,33 +2339,33 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<script type="text/javascript">
 							// <!-- <![CDATA[
 							$(function () {
-							$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
-							dateFormat: 'yy-mm-dd',
-											showOn: 'button',
-											buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
-											buttonText: '<?php echo addslashes(gettext("calendar")); ?>',
-											buttonImageOnly: true
-							});
-							$('#<?php echo $prefix; ?>publishdate').change(function () {
-							var today = new Date();
-							var pub = $('#<?php echo $prefix; ?>publishdate').datepicker('getDate');
-							if (pub.getTime() > today.getTime()) {
-							$("<?php echo $prefix; ?>Published").prop('checked', false);
-							$('#<?php echo $prefix; ?>publishdate').css('color', 'blue');
-							} else {
-							$("<?php echo $prefix; ?>Published").prop('checked', true);
-							$('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-							}
-							});
-							$('#<?php echo $prefix; ?>expirationdate').change(function () {
-							var today = new Date();
-							var expiry = $('#<?php echo $prefix; ?>expirationdate').datepicker('getDate');
-							if (expiry.getTime() > today.getTime()) {
-							$(".<?php echo $prefix; ?>expire").html('');
-							} else {
-							$(".<?php echo $prefix; ?>expire").html('<br /><?php echo addslashes(gettext('Expired!')); ?>');
-							}
-							});
+								$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
+									dateFormat: 'yy-mm-dd',
+									showOn: 'button',
+									buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+									buttonText: '<?php echo addslashes(gettext("calendar")); ?>',
+									buttonImageOnly: true
+								});
+								$('#<?php echo $prefix; ?>publishdate').change(function () {
+									var today = new Date();
+									var pub = $('#<?php echo $prefix; ?>publishdate').datepicker('getDate');
+									if (pub.getTime() > today.getTime()) {
+										$("<?php echo $prefix; ?>Published").prop('checked', false);
+										$('#<?php echo $prefix; ?>publishdate').css('color', 'blue');
+									} else {
+										$("<?php echo $prefix; ?>Published").prop('checked', true);
+										$('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+									}
+								});
+								$('#<?php echo $prefix; ?>expirationdate').change(function () {
+									var today = new Date();
+									var expiry = $('#<?php echo $prefix; ?>expirationdate').datepicker('getDate');
+									if (expiry.getTime() > today.getTime()) {
+										$(".<?php echo $prefix; ?>expire").html('');
+									} else {
+										$(".<?php echo $prefix; ?>expire").html('<br /><?php echo addslashes(gettext('Expired!')); ?>');
+									}
+								});
 							});
 							// ]]> -->
 						</script>
@@ -2441,7 +2441,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-														 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2553,7 +2553,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 					}
 					?>
-					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>">
+					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
 						<strong><?php echo gettext('View'); ?></strong>
 					</button>
@@ -4555,30 +4555,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-			var mark;
-			switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-				break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-			break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -4964,25 +4964,25 @@ function codeblocktabsJS() {
 	<script type="text/javascript" charset="utf-8">
 		// <!-- <![CDATA[
 		$(function () {
-		var tabContainers = $('div.tabs > div');
-		$('.first').addClass('selected');
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
 		});
 		function cbclick(num, id) {
-		$('.cbx-' + id).hide();
-		$('#cb' + num + '-' + id).show();
-		$('.cbt-' + id).removeClass('selected');
-		$('#cbt' + num + '-' + id).addClass('selected');
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
 		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-		$('li:last', $('#cbu-' + id)).remove();
-		$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-		$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-		$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-		cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5917,7 +5917,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-			$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
