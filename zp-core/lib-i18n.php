@@ -139,7 +139,7 @@ class i18n {
 				$domainpath = SERVERPATH . "/" . THEMEFOLDER . "/" . $domain . "/locale/";
 				break;
 			default:
-				$domain = 'zenphoto';
+				$domain = 'core';
 				$domainpath = CORE_SERVERPATH . 'locale/';
 				break;
 		}
@@ -552,4 +552,18 @@ if (function_exists('date_default_timezone_set')) { // insure a correct time zon
 	}
 	unset($tz);
 }
+
+/*
+  $dir = @opendir(CORE_SERVERPATH . 'locale/');
+  $from = 'npg';
+  $to = 'core';
+  while ($dirname = readdir($dir)) {
+  if (is_dir(CORE_SERVERPATH . 'locale/' . $dirname) && (substr($dirname, 0, 1) != '.')) {
+  $language = i18n::getDisplayName($dirname);
+  @rename(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/' . $from . '.po', CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/' . $to . '.po');
+  @rename(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/' . $from . '.mo', CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/' . $to . '.mo');
+  }
+  }
+ *
+ */
 ?>
