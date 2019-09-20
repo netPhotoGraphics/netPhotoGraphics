@@ -167,8 +167,8 @@ updatePublished('pages');
 							?>
 						</p>
 
-						<br class="clearall">
-						<div class="headline"><?php echo gettext('Edit this page'); ?>
+						<div class="headline">
+
 							<?php
 							$checkarray = array(
 									gettext('*Bulk actions*') => 'noaction',
@@ -189,10 +189,11 @@ updatePublished('pages');
 							printBulkActions($checkarray);
 							?>
 						</div>
+						<br clear="all">
 						<div class="bordered">
 
 							<div class="subhead">
-								<label style="float: right"><?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
+								<label style="float: right;padding-top:5px;padding-right:5px;"><?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
 							</div>
 							<ul class="page-list">
