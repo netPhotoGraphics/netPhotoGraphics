@@ -42,7 +42,7 @@ body {
 }
 
 .centered {
-	text-align: center;
+	text-align: center !important;
 }
 
 em {
@@ -1111,6 +1111,9 @@ input.tags {
 }
 
 /* overview button text colors*/
+.overview_buttontext {
+	font-weight: bold !important;
+}
 .overview_red {
 	color: red;
 }
