@@ -139,7 +139,7 @@ class i18n {
 				$domainpath = SERVERPATH . "/" . THEMEFOLDER . "/" . $domain . "/locale/";
 				break;
 			default:
-				$domain = 'npg';
+				$domain = 'zenphoto';
 				$domainpath = CORE_SERVERPATH . 'locale/';
 				break;
 		}
