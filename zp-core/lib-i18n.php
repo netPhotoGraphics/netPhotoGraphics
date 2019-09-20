@@ -554,8 +554,9 @@ if (function_exists('date_default_timezone_set')) { // insure a correct time zon
 }
 
 /*
+ * TODO: remove when this change is stable
   $dir = @opendir(CORE_SERVERPATH . 'locale/');
-  $from = 'npg';
+  $from = 'zenphoto';
   $to = 'core';
   while ($dirname = readdir($dir)) {
   if (is_dir(CORE_SERVERPATH . 'locale/' . $dirname) && (substr($dirname, 0, 1) != '.')) {
