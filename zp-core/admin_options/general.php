@@ -338,7 +338,7 @@ function getOptionContent() {
 									if (!empty($dirname)) {
 										$flag = getLanguageFlag($dirname);
 										if (file_exists(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES')) {
-											$po = file_get_contents(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/zenphoto.po');
+											$po = file_get_contents(CORE_SERVERPATH . 'locale/' . $dirname . '/LC_MESSAGES/core.po');
 											preg_match_all('~^#,\sfuzzy\s+~ims', $po, $fuzzy);
 											if (count($fuzzy[0])) {
 												preg_match_all('~^#:.*?msgid~ims', $po, $msgid);
