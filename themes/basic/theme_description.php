@@ -1,7 +1,7 @@
 <?php
 
 // Theme definition file
-$theme_description['name'] = ucfirst(basename(dirname(__FILE__)));
+$theme_description['name'] = ucfirst(basename(__DIR__));
 $theme_description['author'] = gettext('<a href="http://www.noscope.com" target="_blank">Joen Asmussen</a> and <a href="http://www.levibuzolic.com" target="_blank">Levi Buzolic</a>');
 $theme_description['version'] = true;
 $theme_description['date'] = true;

@@ -11,7 +11,7 @@
 /* Don't put anything before this line! */
 define('OFFSET_PATH', 1);
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());

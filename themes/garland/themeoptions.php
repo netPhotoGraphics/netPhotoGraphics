@@ -1,12 +1,12 @@
 <?php
 
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 class ThemeOptions {
 
 	function __construct($setDefaultOptions) {
 
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Allow_cloud', true);
 		setThemeOptionDefault('albums_per_page', 6);
@@ -26,7 +26,7 @@ class ThemeOptions {
 		setThemeOptionDefault('garland_caption_location', 'image');
 		setThemeOptionDefault('garland_menu', '');
 		if (class_exists('cacheManager')) {
-			$me = basename(dirname(__FILE__));
+			$me = basename(__DIR__);
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, 520, NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
 			cacheManager::addCacheSize($me, 85, NULL, NULL, getThemeOption('thumb_crop_width'), getThemeOption('thumb_crop_height'), NULL, NULL, true, NULL, NULL, NULL);

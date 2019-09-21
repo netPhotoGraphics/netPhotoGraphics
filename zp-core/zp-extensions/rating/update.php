@@ -6,7 +6,7 @@
  * @package plugins/rating
  */
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(dirname(__FILE__))) . '/functions.php');
+require_once(dirname(dirname(__DIR__)) . '/functions.php');
 
 if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 	if (!npg_loggedin(ADMIN_RIGHTS)) {

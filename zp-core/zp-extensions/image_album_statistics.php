@@ -14,7 +14,7 @@
  */
 $plugin_description = gettext("Functions that provide various statistics about images and albums in the gallery.");
 
-require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
+require_once(dirname(__DIR__) . '/template-functions.php');
 
 /**
  * Returns an array of album objects accordingly to $option

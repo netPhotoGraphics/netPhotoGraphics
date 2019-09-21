@@ -13,7 +13,7 @@ class ThemeOptions {
 
 	function __construct($setDefaultOptions) {
 
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('zenpage_zp_index_news', false);
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Use_thickbox', true);

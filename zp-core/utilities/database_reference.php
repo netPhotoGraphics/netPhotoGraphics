@@ -6,7 +6,7 @@
  */
 define('OFFSET_PATH', 3);
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 

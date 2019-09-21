@@ -21,7 +21,7 @@ $plugin_description = gettext("A menu creation facility. The <em>Menu</em> tab a
 $option_interface = 'menu_manager';
 
 if (OFFSET_PATH) {
-	require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
+	require_once(dirname(__DIR__) . '/template-functions.php');
 	npgFilters::register('admin_tabs', 'menu_tabs');
 } else {
 	npgFilters::register('admin_toolbox_global', 'menu_admin_toolbox_global');
@@ -918,7 +918,7 @@ function createMenuIfNotExists($menuitems, $menuset = 'default') {
  * @param string $menuset current menuset
  */
 function createMenu($menuitems, $menuset = 'default') {
-	require_once(dirname(__FILE__) . '/menu_manager/menu_manager-admin-functions.php');
+	require_once(__DIR__ . '/menu_manager/menu_manager-admin-functions.php');
 	$errors = false;
 	$orders = array();
 	foreach ($menuitems as $key => $result) {

@@ -3,9 +3,9 @@
 /*
  * one time initialization code for basic execution
  */
-require_once(dirname(__FILE__) . '/global-definitions.php');
-require_once(dirname(__FILE__) . '/lib-encryption.php');
-require_once(dirname(__FILE__) . '/lib-utf8.php');
+require_once(__DIR__ . '/global-definitions.php');
+require_once(__DIR__ . '/lib-encryption.php');
+require_once(__DIR__ . '/lib-utf8.php');
 $_UTF8 = new utf8();
 
 switch (PHP_MAJOR_VERSION) {
@@ -67,7 +67,7 @@ if (!isset($_conf_vars['special_pages'])) {
 }
 
 if (!defined('CHMOD_VALUE')) {
-	define('CHMOD_VALUE', fileperms(dirname(__FILE__)) & 0666);
+	define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
 }
 define('FOLDER_MOD', CHMOD_VALUE | 0311);
 define('FILE_MOD', CHMOD_VALUE & 0666);
@@ -75,7 +75,7 @@ define('FILE_MOD', CHMOD_VALUE & 0666);
 if (OFFSET_PATH != 2) {
 	if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		_setup(11);
-	} else if (!file_exists(dirname(__FILE__) . '/functions-db-' . $_conf_vars['db_software'] . '.php')) {
+	} else if (!file_exists(__DIR__ . '/functions-db-' . $_conf_vars['db_software'] . '.php')) {
 		_setup(12);
 	}
 }
@@ -103,13 +103,13 @@ foreach ($_conf_vars as $name => $value) {
 }
 
 if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db_software']))) {
-	require_once(dirname(__FILE__) . '/functions-db-' . $_conf_vars['db_software'] . '.php');
+	require_once(__DIR__ . '/functions-db-' . $_conf_vars['db_software'] . '.php');
 	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array('db_software' => '', 'mysql_user' => '', 'mysql_pass' => '', 'mysql_host' => '', 'mysql_database' => '', 'mysql_prefix' => '', 'UTF-8' => '')), (defined('OFFSET_PATH') && OFFSET_PATH == 2) ? FALSE : E_USER_WARNING);
 } else {
 	$__initialDBConnection = false;
 }
 if (!function_exists('db_query')) {
-	require_once(dirname(__FILE__) . '/functions-db-NULL.php');
+	require_once(__DIR__ . '/functions-db-NULL.php');
 }
 $software = db_software();
 define('MySQL_VERSION', $software['version']);
@@ -158,7 +158,7 @@ if (getOption('use_imagick')) {
 	array_unshift($try, 'lib-Imagick.php');
 }
 while (!function_exists('gl_graphicsLibInfo')) {
-	require_once(dirname(__FILE__) . '/' . array_shift($try));
+	require_once(__DIR__ . '/' . array_shift($try));
 }
 unset($try);
 $_cachefileSuffix = gl_graphicsLibInfo();

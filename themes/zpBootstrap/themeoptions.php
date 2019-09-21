@@ -12,7 +12,7 @@ class ThemeOptions {
 
 	function __construct() {
 
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('albums_per_row', 3);
 		setThemeOptionDefault('albums_per_page', 12);
 		setThemeOptionDefault('images_per_row', 4);
@@ -62,7 +62,7 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		$albums = $album_list = array();
 		genAlbumList($album_list, NULL, ALL_ALBUMS_RIGHTS);
 		foreach ($album_list as $fullfolder => $albumtitle) {

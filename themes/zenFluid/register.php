@@ -27,6 +27,6 @@ if (function_exists('printRegistrationForm')) {
 	<?php
 	npgFilters::apply('theme_file_end');
 } else {
-	include(dirname(__FILE__) . '/404.php');
+	include(__DIR__ . '/404.php');
 }
 ?>

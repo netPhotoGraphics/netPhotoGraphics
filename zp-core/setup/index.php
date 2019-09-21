@@ -8,9 +8,9 @@
  */
 // force UTF-8 Ø
 
-Define('PHP_MIN_VERSION', '5.2');
+Define('PHP_MIN_VERSION', '5.3');
 Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
-Define('PHP_DESIRED_VERSION', '7.1');
+Define('PHP_DESIRED_VERSION', '7.2');
 define('OFFSET_PATH', 2);
 
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
@@ -18,12 +18,12 @@ if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 }
 
 clearstatcache();
-$chmod = fileperms(dirname(dirname(__FILE__))) & 0666;
+$chmod = fileperms(dirname(__DIR__)) & 0666;
 $_initial_session_path = session_save_path();
 
-require_once(dirname(dirname(__FILE__)) . '/global-definitions.php');
-require_once(dirname(dirname(__FILE__)) . '/functions.php');
-require_once(dirname(__FILE__) . '/setup-functions.php');
+require_once(dirname(__DIR__) . '/global-definitions.php');
+require_once(dirname(__DIR__) . '/functions.php');
+require_once(__DIR__ . '/setup-functions.php');
 
 //allow only one setup to run
 $setupMutex = new npgMutex('sP');
@@ -40,7 +40,7 @@ if ($debug = isset($_REQUEST['debug'])) {
 
 $upgrade = false;
 
-require_once(dirname(dirname(__FILE__)) . '/lib-utf8.php');
+require_once(dirname(__DIR__) . '/lib-utf8.php');
 
 if (isset($_REQUEST['autorun'])) {
 	$displayLimited = true;
@@ -71,7 +71,7 @@ $setup_checked = false;
 
 if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/folderRename.php')) {
 	$corelocator = file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg');
-	if (basename(dirname(dirname(__FILE__))) != basename($corelocator)) {
+	if (basename(dirname(__DIR__)) != basename($corelocator)) {
 		require_once(CORE_SERVERPATH . 'reconfigure.php');
 
 		switch (CORE_FOLDER) {
@@ -113,9 +113,9 @@ if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUE
 $_SESSION['save_session_path'] = session_save_path();
 
 
-$en_US = dirname(dirname(__FILE__)) . '/locale/en_US/';
+$en_US = dirname(__DIR__) . '/locale/en_US/';
 if (!file_exists($en_US)) {
-	@mkdir(dirname(dirname(__FILE__)) . '/locale/', $chmod | 0311);
+	@mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
 	@mkdir($en_US, $chmod | 0311);
 }
 
@@ -142,13 +142,13 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	setupLog(gettext('config file migrated'));
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php');
 	exit();
-} else if (file_exists($oldconfig = dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php')) {
+} else if (file_exists($oldconfig = dirname(dirname(__DIR__)) . '/' . CORE_FOLDER . '/zp-config.php')) {
 	//migrate old root configuration file.
 	$config_contents = file_get_contents($oldconfig);
 	$i = strpos($config_contents, '/** Do not edit above this line. **/');
 	$config_contents = "<?php\nglobal \$_conf_vars;\n\$conf = array()\n" . substr($config_contents, $i);
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
-	$result = @unlink(dirname(dirname(dirname(__FILE__))) . '/' . CORE_FOLDER . '/zp-config.php');
+	$result = @unlink(dirname(dirname(__DIR__)) . '/' . CORE_FOLDER . '/zp-config.php');
 	configMod();
 } else if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg')) {
 	$config_contents = "<?php\n" . file_get_contents($oldconfig) . "\n?>";
@@ -157,12 +157,12 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	configMod();
 } else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$newconfig = true;
-	@copy(dirname(dirname(__FILE__)) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	@copy(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
 
 @chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0777);
-@copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
+@copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
 @chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
 
 if (file_exists(SERVERPATH . '/backup')) {
@@ -175,7 +175,7 @@ if (!file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
 	@mkdir(SERVERPATH . '/' . BACKUPFOLDER, $chmod | 0311);
 }
 @chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
-@copy(dirname(dirname(__FILE__)) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
+@copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
 @chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
 
 if (isset($_GET['mod_rewrite'])) {
@@ -194,7 +194,7 @@ if (strpos($_config_contents, "\$conf['charset']") === false) {
 }
 
 if (strpos($_config_contents, "\$conf['special_pages']") === false) {
-	$template = file_get_contents(dirname(dirname(__FILE__)) . '/netPhotoGraphics_cfg.txt');
+	$template = file_get_contents(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt');
 	$i = strpos($template, "\$conf['special_pages']");
 	$j = strpos($template, '//', $i);
 	$k = strpos($_config_contents, '/** Do not edit below this line. **/');
@@ -304,7 +304,7 @@ $preferences = array('MySQLi' => 1, 'PDO_MySQL' => 2);
 $cur = 999999;
 $preferred = NULL;
 
-$dir = opendir(dirname(dirname(__FILE__)));
+$dir = opendir(dirname(__DIR__));
 while (($engineMC = readdir($dir)) !== false) {
 	if (preg_match('/^functions-db-(.+)\.php/', $engineMC)) {
 		$engineMC = substr($engineMC, 13, -4);
@@ -330,7 +330,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {
 			$confDB = $_conf_vars['db_software'];
-			if (extension_loaded(strtolower($confDB)) && file_exists(dirname(dirname(__FILE__)) . '/functions-db-' . $confDB . '.php')) {
+			if (extension_loaded(strtolower($confDB)) && file_exists(dirname(__DIR__) . '/functions-db-' . $confDB . '.php')) {
 				$selected_database = $confDB;
 			} else {
 				$selected_database = $preferred;
@@ -348,7 +348,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		}
 
 		if (!$selected_database) {
-			require_once(dirname(dirname(__FILE__)) . '/functions-db-NULL.php');
+			require_once(dirname(__DIR__) . '/functions-db-NULL.php');
 		}
 	} else {
 		// There is a problem with the configuration file
@@ -417,8 +417,8 @@ if ($selected_database) {
 	}
 }
 
-require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
-require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/security-logger.php');
+require_once(dirname(__DIR__) . '/admin-functions.php');
+require_once(dirname(__DIR__) . '/' . PLUGIN_FOLDER . '/security-logger.php');
 
 header('Content-Type: text/html; charset=UTF-8');
 header("HTTP/1.0 200 OK");
@@ -1072,7 +1072,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$good = false;
 									checkMark(false, '', gettext("Database credentials in configuration file"), sprintf(gettext('<em>%1$s</em> reported: %2$s'), DATABASE_SOFTWARE, $connectDBErr));
 									// input form for the information
-									include(dirname(__FILE__) . '/setup-sqlform.php');
+									include(__DIR__ . '/setup-sqlform.php');
 								} else {
 									if ($connectDBErr) {
 										$msg = $connectDBErr;
@@ -1557,7 +1557,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 															"<br />" . sprintf(gettext("Either make the file writeable or set <code>RewriteBase</code> in your <code>.htaccess</code> file to <code>%s</code>."), $d)) && $good;
 						}
 						//robots.txt file
-						$robots = file_get_contents(dirname(dirname(__FILE__)) . '/robots.txt');
+						$robots = file_get_contents(dirname(__DIR__) . '/robots.txt');
 						if ($robots === false) {
 							checkmark(-1, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup could not find the  <em>example_robots.txt</em> file.'));
 						} else {
@@ -1714,7 +1714,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								</script>
 								<?php
 								// set defaults on any options that need it
-								require(dirname(__FILE__) . '/setup-option-defaults.php');
+								require(__DIR__ . '/setup-option-defaults.php');
 
 								if ($debug == 'albumids') {
 									// fixes 1.2 move/copy albums with wrong ids

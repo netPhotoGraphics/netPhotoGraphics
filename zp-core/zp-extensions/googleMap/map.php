@@ -8,11 +8,11 @@
 // force UTF-8 Ø
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname(__FILE__))) . '/functions.php');
+require_once(dirname(dirname(__DIR__)) . '/functions.php');
 if (getOption('gmap_sessions')) {
 	npg_session_start();
 }
-require_once(dirname(dirname(__FILE__)) . '/googleMap.php');
+require_once(dirname(__DIR__) . '/googleMap.php');
 
 GoogleMap::js();
 ?>

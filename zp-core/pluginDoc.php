@@ -187,7 +187,7 @@ function processCommentBlock($commentBlock) {
 
 if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 2);
-	require_once(dirname(__FILE__) . '/admin-globals.php');
+	require_once(__DIR__ . '/admin-globals.php');
 	require_once(CORE_SERVERPATH . 'template-functions.php');
 
 	$extension = sanitize($_GET['extension']);

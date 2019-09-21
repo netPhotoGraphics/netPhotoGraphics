@@ -12,7 +12,7 @@
 class ThemeOptions {
 
 	function __construct() {
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 
 		setThemeOption('gallery_index', TRUE);
 		setThemeOptionDefault('albums_per_row', 4);
@@ -36,7 +36,7 @@ class ThemeOptions {
 		setThemeOptionDefault('display_archive', false);
 
 		if (class_exists('cacheManager')) {
-			$me = basename(dirname(__FILE__));
+			$me = basename(__DIR__);
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, getThemeOption('image_size'), NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
 			cacheManager::addCacheSize($me, getThemeOption('thumb_size'), NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);

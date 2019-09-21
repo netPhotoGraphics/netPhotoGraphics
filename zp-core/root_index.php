@@ -25,7 +25,7 @@ if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matc
 	} else {
 		$base = preg_replace('~RW_SUFFIX$~i', '', $base) . '.php';
 	}
-	if (file_exists(dirname(__FILE__) . $base)) {
+	if (file_exists(__DIR__ . $base)) {
 		//	mock up things as if the the uri went directly to the script
 		$_SERVER['SCRIPT_NAME'] = $matches[1] . $base;
 		$_SERVER['SCRIPT_FILENAME'] = dirname($_SERVER['SCRIPT_FILENAME']) . $base;
@@ -65,4 +65,4 @@ if ($_contents) {
 	}
 }
 unset($_contents);
-include (dirname(__FILE__) . '/CORE_FOLDER/index.php');
+include (__DIR__ . '/CORE_FOLDER/index.php');

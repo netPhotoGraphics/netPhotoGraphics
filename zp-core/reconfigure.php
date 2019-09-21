@@ -69,9 +69,9 @@ function reconfigureAction($mandatory) {
 			// because we are loading the script from within a function!
 			global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
 			$_invisible_execute = 1;
-			require_once(dirname(__FILE__) . '/functions-basic.php');
+			require_once(__DIR__ . '/functions-basic.php');
 			require_once(CORE_SERVERPATH . 'initialize-basic.php');
-			require_once(dirname(__FILE__) . '/lib-filter.php');
+			require_once(__DIR__ . '/lib-filter.php');
 
 			if (!defined('FULLWEBPATH')) {
 				$protocol = (@$_SERVER['https']) ? 'HTTPS' : 'HTTP';
@@ -159,7 +159,7 @@ function checkSignature($mandatory) {
 		}
 	}
 
-	$package = file_get_contents(dirname(__FILE__) . '/netPhotoGraphics.package');
+	$package = file_get_contents(__DIR__ . '/netPhotoGraphics.package');
 	preg_match_all('|%core%/setup/(.*)|', $package, $matches);
 	$needs = array();
 	$restore = $found = false;
@@ -168,8 +168,8 @@ function checkSignature($mandatory) {
 	}
 	// serialize the following
 	$_configMutex->lock();
-	if (file_exists(dirname(__FILE__) . '/setup/')) {
-		chdir(dirname(__FILE__) . '/setup/');
+	if (file_exists(__DIR__ . '/setup/')) {
+		chdir(__DIR__ . '/setup/');
 		//just in case files were uploaded over a protected setup folder
 		$have = safe_glob('*.php');
 		foreach ($have as $key => $f) {
@@ -372,7 +372,7 @@ function restoreSetupScrpts($reason) {
 		if (!defined('FILE_MOD')) {
 			define('FILE_MOD', 0666);
 		}
-		chdir(dirname(__FILE__) . '/setup/');
+		chdir(__DIR__ . '/setup/');
 		$found = safe_glob('*.xxx');
 		foreach ($found as $script) {
 			chmod($script, 0777);

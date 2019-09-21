@@ -7,7 +7,7 @@
  * @package admin
  */
 // force UTF-8 Ø
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 define('TEXTAREA_COLUMNS', 50);
 define('TEXT_INPUT_SIZE', 48);
@@ -3485,7 +3485,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				return $result;
 			}
 		} else {
-			require_once(dirname(__FILE__) . '/lib-pclzip.php');
+			require_once(__DIR__ . '/lib-pclzip.php');
 			$zip = new PclZip($file);
 			$result = $zip->extract(PCLZIP_OPT_PATH, $dir, PCLZIP_OPT_REMOVE_ALL_PATH) == 0;
 		}

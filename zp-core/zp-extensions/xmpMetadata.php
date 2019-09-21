@@ -52,7 +52,7 @@ npgFilters::register('edit_image_utilities', 'xmpMetadata::create');
 npgFilters::register('bulk_image_actions', 'xmpMetadata::bulkActions');
 npgFilters::register('bulk_album_actions', 'xmpMetadata::bulkActions');
 
-require_once(dirname(dirname(__FILE__)) . '/exif/exif.php');
+require_once(dirname(__DIR__) . '/exif/exif.php');
 
 define('XMP_EXTENSION', strtolower(getOption('xmpMetadata_suffix')));
 

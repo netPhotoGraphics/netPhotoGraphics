@@ -40,7 +40,7 @@
  *
  * @package admin
  */
-require_once(dirname(__FILE__) . '/lib-auth.php');
+require_once(__DIR__ . '/lib-auth.php');
 
 class npg_Authority extends _Authority {
 

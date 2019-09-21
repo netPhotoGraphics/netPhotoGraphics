@@ -12,7 +12,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'template-functions.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());

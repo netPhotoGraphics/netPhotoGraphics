@@ -8,12 +8,12 @@
  */
 define('OFFSET_PATH', 3);
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/' . PLUGIN_FOLDER . '/image_album_statistics.php');
 
 $tables = array('albums', 'images');
 if (class_exists('CMS')) {
-	require_once(dirname(dirname(__FILE__)) . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
+	require_once(dirname(__DIR__) . '/' . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
 	$tables = array_merge($tables, array('news', 'pages'));
 }
 // Include the appropriate page for the requested object, and a 200 OK header.

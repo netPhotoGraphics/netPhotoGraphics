@@ -8,7 +8,7 @@
  */
 // UTF-8 Ø
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
 require_once(CORE_SERVERPATH . 'lib-config.php');
 

@@ -4,7 +4,7 @@ npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 npgFilters::register('theme_head', 'css_head', 500);
 
 $curdir = getcwd();
-chdir(SERVERPATH . "/themes/" . basename(dirname(__FILE__)) . "/styles");
+chdir(SERVERPATH . "/themes/" . basename(__DIR__) . "/styles");
 $filelist = safe_glob('*.css');
 $themecolors = array();
 foreach ($filelist as $file) {

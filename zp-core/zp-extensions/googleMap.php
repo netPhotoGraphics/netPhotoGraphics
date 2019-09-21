@@ -133,7 +133,7 @@ class GoogleMap {
 	static function js() {
 		if (!defined('BASEPATH'))
 			define('BASEPATH', true); //	for no access test in googleMap.php
-		require_once(dirname(__FILE__) . '/googleMap/CodeIgniter-Google-Maps-V3-API/Googlemaps.php');
+		require_once(__DIR__ . '/googleMap/CodeIgniter-Google-Maps-V3-API/Googlemaps.php');
 		$key = getOption('gmap_map_api_key');
 		if (!empty($key)) {
 			$key = '&amp;key=' . $key;

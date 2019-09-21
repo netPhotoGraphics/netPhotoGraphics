@@ -612,7 +612,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 					}
 				}
 			}
-			chdir(dirname(__FILE__));
+			chdir(__DIR__);
 		}
 
 		return $_imagick_fontlist;

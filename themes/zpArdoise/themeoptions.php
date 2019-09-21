@@ -45,7 +45,7 @@ class ThemeOptions {
 		setThemeOptionDefault('show_exif', true);
 
 		if (class_exists('cacheManager')) {
-			$me = basename(dirname(__FILE__));
+			$me = basename(__DIR__);
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, getThemeOption('thumb_size'), NULL, NULL, NULL, NULL, NULL, NULL, true);
 			if (getOption('use_galleriffic')) {

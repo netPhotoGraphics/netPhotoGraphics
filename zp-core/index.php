@@ -10,7 +10,7 @@ if (!defined('OFFSET_PATH'))
 	die(); //	no direct linking
 
 $_themeScript_timer['start'] = microtime();
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 if (GALLERY_SESSION || npg_loggedin(UPLOAD_RIGHTS | ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) {
 	npg_session_start();

@@ -12,7 +12,7 @@
 class ThemeOptions {
 
 	function __construct() {
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('thumb_transition', 1);
 		setThemeOption('thumb_size', 79, NULL);

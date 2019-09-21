@@ -11,16 +11,16 @@
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
-require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
+require_once(dirname(__DIR__) . '/functions-basic.php');
 
 npg_session_start();
 
-require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
+require_once(dirname(__DIR__) . '/initialize-basic.php');
 
 list($usec, $sec) = explode(" ", microtime());
 $startTO = (float) $usec + (float) $sec;
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 

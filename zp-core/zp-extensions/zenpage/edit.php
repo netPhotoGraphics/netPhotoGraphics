@@ -6,7 +6,7 @@
  * @package plugins/zenpage
  */
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once("admin-functions.php");
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 

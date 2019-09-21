@@ -76,7 +76,7 @@ function get_AnyFile_suffixes() {
 	return getSerializedArray(getOption('AnyFileSuffixList'));
 }
 
-require_once(dirname(__FILE__) . '/class-textobject/class-textobject_core.php');
+require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
 class AnyFile extends TextObject {
 

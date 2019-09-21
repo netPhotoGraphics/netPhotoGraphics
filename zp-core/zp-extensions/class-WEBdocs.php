@@ -88,7 +88,7 @@ class WEBdocs_Options {
 
 }
 
-require_once(dirname(__FILE__) . '/class-textobject/class-textobject_core.php');
+require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
 class WEBdocs extends TextObject {
 

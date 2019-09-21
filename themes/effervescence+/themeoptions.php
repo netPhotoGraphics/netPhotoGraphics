@@ -8,13 +8,13 @@
  *
  */
 
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 class ThemeOptions {
 
 	function __construct($setDefaultOptions) {
 
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('Theme_logo', '');
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Slideshow', true);

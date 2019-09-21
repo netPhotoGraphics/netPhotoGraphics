@@ -5,7 +5,7 @@ npgFilters::register('themeSwitcher_head', 'switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 
 $cwd = getcwd();
-chdir(dirname(__FILE__));
+chdir(__DIR__);
 $persona = safe_glob('*', GLOB_ONLYDIR);
 chdir($cwd);
 $personalities = array();

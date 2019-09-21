@@ -7,7 +7,7 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
 
 if (isset($_REQUEST['album'])) {
 	$localrights = ALBUM_RIGHTS;

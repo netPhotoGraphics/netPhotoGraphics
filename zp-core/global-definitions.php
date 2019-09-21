@@ -7,9 +7,9 @@ if (!isset($_SERVER['HTTP_HOST']))
 	die();
 
 if (!function_exists("gettext")) {
-	require_once(dirname(__FILE__) . '/php-gettext/gettext.inc');
+	require_once(__DIR__ . '/php-gettext/gettext.inc');
 }
-require_once(dirname(__FILE__) . '/version.php'); // Include the version info.
+require_once(__DIR__ . '/version.php'); // Include the version info.
 $v = explode('-', NETPHOTOGRAPHICS_VERSION);
 define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
 unset($v);
@@ -25,14 +25,14 @@ if (!defined('SORT_LOCALE_STRING'))
 
 define('NEWLINE', "\n");
 
-define('SCRIPTPATH', str_replace('\\', '/', dirname(dirname(__FILE__))));
+define('SCRIPTPATH', str_replace('\\', '/', dirname(__DIR__)));
 
 //Note: these defines are for web path use only, they are rewritten to CORE_FOLDER and PLUGIN_FOLDER
 define('CORE_PATH', 'npg');
 define('PLUGIN_PATH', 'extensions');
 define('USER_PLUGIN_PATH', 'extensions');
 
-define('CORE_FOLDER', basename(dirname(__FILE__)));
+define('CORE_FOLDER', basename(__DIR__));
 if (strpos(CORE_FOLDER, 'zp-') === false) {
 	define('PLUGIN_FOLDER', PLUGIN_PATH);
 } else {

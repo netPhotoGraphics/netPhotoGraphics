@@ -8,7 +8,7 @@
  */
 define('OFFSET_PATH', 3);
 
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'template-functions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());

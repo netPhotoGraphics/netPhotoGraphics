@@ -5,7 +5,7 @@
  * @package classes
  */
 // force UTF-8 Ø
-require_once(dirname(__FILE__) . '/classes.php');
+require_once(__DIR__ . '/classes.php');
 
 class _Authority {
 
@@ -835,7 +835,7 @@ class _Authority {
 					break;
 				case 'captcha':
 					if ($_captcha->checkCaptcha(trim(@$_POST['code']), sanitize(@$_POST['code_h'], 3))) {
-						require_once(dirname(__FILE__) . '/load_objectClasses.php'); // be sure that the plugins are loaded for the mail handler
+						require_once(__DIR__ . '/load_objectClasses.php'); // be sure that the plugins are loaded for the mail handler
 						if (empty($post_user)) {
 							$requestor = gettext('You are receiving this e-mail because of a password reset request on your gallery.');
 						} else {

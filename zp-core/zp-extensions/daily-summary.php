@@ -34,9 +34,9 @@ $plugin_author = "Marcus Wong (wongm) and Stephen Billard";
 $option_interface = 'DailySummaryOptions';
 
 if (isset($_gallery_page) && $_gallery_page == getOption('DailySummaryScript')) {
-	require_once(dirname(__FILE__) . '/daily-summary/class-dailysummary.php');
-	require_once(dirname(__FILE__) . '/daily-summary/class-dailysummaryitem.php');
-	require_once(dirname(__FILE__) . '/daily-summary/dailysummary-template-functions.php');
+	require_once(__DIR__ . '/daily-summary/class-dailysummary.php');
+	require_once(__DIR__ . '/daily-summary/class-dailysummaryitem.php');
+	require_once(__DIR__ . '/daily-summary/dailysummary-template-functions.php');
 	$_current_DailySummary = new DailySummary();
 	npgFilters::register('checkPageValidity', 'DailySummary::pageCount');
 }

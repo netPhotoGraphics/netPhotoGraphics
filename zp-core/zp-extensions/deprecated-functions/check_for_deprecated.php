@@ -5,8 +5,8 @@
  * @package plugins/deprecated-functions
  */
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
+require_once(__DIR__ . '/functions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 

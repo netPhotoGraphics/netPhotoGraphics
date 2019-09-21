@@ -11,11 +11,11 @@
  */
 $_plugin_differed_actions = array(); //	final initialization for class plugins (mostly for language translation issues)
 
-require_once(dirname(__FILE__) . '/classes.php');
-require_once(dirname(__FILE__) . '/class-gallery.php');
-require_once(dirname(__FILE__) . '/class-album.php');
-require_once(dirname(__FILE__) . '/class-image.php');
-require_once(dirname(__FILE__) . '/class-search.php');
+require_once(__DIR__ . '/classes.php');
+require_once(__DIR__ . '/class-gallery.php');
+require_once(__DIR__ . '/class-album.php');
+require_once(__DIR__ . '/class-image.php');
+require_once(__DIR__ . '/class-search.php');
 
 $_loaded_plugins = array();
 // load the class & filter plugins
@@ -26,10 +26,10 @@ if (abs(OFFSET_PATH) == 2) {
 	// setup does not need (and might have problems with) plugins so just load some specific ones
 	//	NOTE: these should be ordered by priority, descending
 	$enabled = array(
-			'dynamic-locale' => array('priority' => 10 | CLASS_PLUGIN, 'path' => dirname(__FILE__) . '/' . PLUGIN_FOLDER . '/dynamic-locale.php')
+			'dynamic-locale' => array('priority' => 10 | CLASS_PLUGIN, 'path' => __DIR__ . '/' . PLUGIN_FOLDER . '/dynamic-locale.php')
 	);
 	if (extensionEnabled('googleTFA')) {
-		$enabled['googleTFA'] = array('priority' => 5 | CLASS_PLUGIN, 'path' => dirname(__FILE__) . '/' . PLUGIN_FOLDER . '/googleTFA.php');
+		$enabled['googleTFA'] = array('priority' => 5 | CLASS_PLUGIN, 'path' => __DIR__ . '/' . PLUGIN_FOLDER . '/googleTFA.php');
 	}
 } else {
 	$enabled = getEnabledPlugins();
@@ -47,7 +47,7 @@ foreach ($enabled as $extension => $plugin) {
 }
 
 //	check for logged in users and set up the locale
-require_once(dirname(__FILE__) . '/auth_processor.php');
+require_once(__DIR__ . '/auth_processor.php');
 define('SITE_LOCALE_OPTION', i18n::setMainDomain());
 //	process any differred language strings
 $_active_languages = $_all_languages = NULL; //	clear out so that they will get translated properly

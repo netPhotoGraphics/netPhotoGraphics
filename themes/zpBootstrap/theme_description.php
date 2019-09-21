@@ -1,6 +1,6 @@
 <?php
 
-$me = basename(dirname(__FILE__));
+$me = basename(__DIR__);
 
 // saveLayoutSelection theme definition file
 $theme_description['name'] = 'zpBootstrap';

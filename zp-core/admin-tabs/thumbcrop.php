@@ -7,8 +7,8 @@
  * @package admin
  */
 define('OFFSET_PATH', 1);
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(dirname(dirname(__FILE__)) . '/lib-image.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/lib-image.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 

@@ -12,11 +12,11 @@
 $__script = 'Mod_rewrite';
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
-require_once(dirname(dirname(__FILE__)) . '/functions-basic.php');
+require_once(dirname(__DIR__) . '/functions-basic.php');
 
 npg_session_start();
 
-require_once(dirname(dirname(__FILE__)) . '/initialize-basic.php');
+require_once(dirname(__DIR__) . '/initialize-basic.php');
 @ini_set('display_errors', 1);
 
 list($usec, $sec) = explode(" ", microtime());
