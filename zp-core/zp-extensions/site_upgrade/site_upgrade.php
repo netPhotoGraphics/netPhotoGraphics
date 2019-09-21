@@ -4,14 +4,14 @@
  * @package plugins/site_upgrade
  */
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'lib-config.php');
 
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
 
+$report = '';
 switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 	case 'closed':
-		$report = '';
 		setSiteState('closed');
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed');
 
@@ -26,7 +26,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		}
 		break;
 	case 'open':
-		$report = gettext('Site is viewable.');
+		$report = '?report=' . gettext('Site is viewable.');
 		setSiteState('open');
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'open');
 
@@ -41,7 +41,6 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		}
 		break;
 	case 'closed_for_test':
-		$report = '';
 		setSiteState('closed_for_test');
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed_for_test');
 
@@ -57,7 +56,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		break;
 }
 
-header('Location: ' . getAdminLink('admin.php') . '?report=' . $report);
+header('Location: ' . getAdminLink('admin.php') . $report);
 exit();
 
 /**

@@ -11,7 +11,7 @@
 /* Don't put anything before this line! */
 define('OFFSET_PATH', 1);
 
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(__DIR__ . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
 
 $came_from = NULL;
@@ -382,7 +382,7 @@ $buttonlist = array();
 			if (!empty($msg)) {
 				?>
 				<div class="<?php echo html_encode($class); ?>">
-					<h2><?php echo html_encodeTagged($msg); ?></h2>
+					<strong><?php echo html_encodeTagged($msg); ?></strong>
 				</div>
 				<?php
 			}
