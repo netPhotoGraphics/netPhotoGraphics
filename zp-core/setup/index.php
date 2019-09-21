@@ -1380,16 +1380,17 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							if ($package_file_count) { //	no point in this if the package list was damaged!
 								if (!empty($systemlist)) {
-									if (isset($_GET['delete_extra'])) {
+									if (!TEST_RELEASE) { //	we don't want to accidentally delete a new script during debug
 										foreach ($systemlist as $key => $file_s) {
 											$file8 = $_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
 											$file = $base . $file_s;
 											if (!is_dir($file)) {
 												@chmod($file, 0777);
-												if (@unlink($file) || !file_exists($file)) {
-													unset($systemlist[$key]);
-												} else {
+												if (!@unlink($file) || file_exists($file)) {
 													$filelist[] = $file8;
+												} else {
+													unset($systemlist[$key]);
+													setuplog(sprintf(gettext('Deleted %1$s'), $file8), true);
 												}
 											}
 										}
@@ -1407,12 +1408,15 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												}
 												if (!@rmdir($file) || is_dir($file)) {
 													$filelist[] = $file8;
+												} else {
+													setuplog(sprintf(gettext('Deleted %1$s'), $file8), true);
 												}
 											} else {
-												if (@unlink($file) || !file_exists($file)) {
-													unset($systemlist[$key]);
-												} else {
+												if (!@unlink($file) || file_exists($file)) {
 													$filelist[] = $file8;
+												} else {
+													unset($systemlist[$key]);
+													setuplog(sprintf(gettext('Deleted %1$s'), $file8), true);
 												}
 											}
 										}
@@ -1421,7 +1425,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										}
 									} else {
 										checkMark(-1, '', gettext('Core folders [Some unknown files were found]'), gettext('You should remove the following files: ') . '<br /><code>' . $_UTF8->convert(implode('<br />', $systemlist), FILESYSTEM_CHARSET, 'UTF-8') .
-														'</code><p class="buttons"><a href="?delete_extra' . html_encode($autorunq . $debugq) . '">' . gettext("Delete extra files") . '</a></p><br class="clearall"><br />');
+														'</code>');
 									}
 								}
 								checkMark($permissions, gettext("Core file permissions"), gettext("Core file permissions [not correct]"), gettext('Setup could not set the one or more components to the selected permissions level. You will have to set the permissions manually.'));
