@@ -29,7 +29,7 @@ function printVersion() {
 }
 
 /**
- * Print any Javascript required by zenphoto.
+ * Print any Javascript required
  */
 function printThemeHeadItems() {
 	printStandardMeta();

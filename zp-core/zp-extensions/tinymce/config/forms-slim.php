@@ -3,7 +3,7 @@
 /**
  * The configuration parameters for TinyMCE 4.x.
  *
- * zenphoto slim-light configuration
+ * slim-light configuration
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.texteditor";

@@ -138,9 +138,9 @@ echo '</head>';
 						sitemap::clearCache();
 					}
 					echo '<ul>';
-					sitemap::generateCacheFile('sitemap-zenphoto-index', $sitemap_index);
-					sitemap::generateCacheFile('sitemap-zenphoto-albums' . $numberAppend, $sitemap_albums);
-					sitemap::generateCacheFile('sitemap-zenphoto-images' . $numberAppend, $sitemap_images);
+					sitemap::generateCacheFile('sitemap-photo-index', $sitemap_index);
+					sitemap::generateCacheFile('sitemap-photo-albums' . $numberAppend, $sitemap_albums);
+					sitemap::generateCacheFile('sitemap-photo-images' . $numberAppend, $sitemap_images);
 					if (class_exists('CMS')) {
 						sitemap::generateCacheFile('sitemap-zenpage-newsindex', $sitemap_newsindex);
 						sitemap::generateCacheFile('sitemap-zenpage-news', $sitemap_articles);

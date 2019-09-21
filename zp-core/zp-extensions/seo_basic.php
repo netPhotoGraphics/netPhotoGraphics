@@ -1049,7 +1049,7 @@ class seo_basic {
 	 */
 	static function filter($string) {
 		$string = str_replace(array_keys(self ::$specialchars), self::$specialchars, $string);
-		if (getOption('zenphoto_seo_lowercase')) {
+		if (getOption('seo_basic_lowercase')) {
 			$string = strtolower($string);
 		}
 		$string = preg_replace("/\s+/", "-", $string);

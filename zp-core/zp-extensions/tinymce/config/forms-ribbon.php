@@ -3,7 +3,7 @@
 /**
  * The configuration functions for TinyMCE
  *
- * zenphoto ribbon-light configuration
+ * ribbon-light configuration
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.texteditor";
