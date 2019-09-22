@@ -30,16 +30,56 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 		return array(
-				gettext('Home Page Image Option') => array('key' => 'zpmin_homeoption', 'type' => OPTION_TYPE_CUSTOM, 'desc' => gettext('Choose the option for the single image on the homepage.  See Image-Album-Statistics plugin or Random Image functions for more information.')),
-				gettext('Final Image Link Option') => array('key' => 'zpmin_finallink', 'type' => OPTION_TYPE_CUSTOM, 'desc' => gettext('Choose the option for the final image link on image.php.  Can either link to full image using standard process (with core options), colorbox, or no link (default).')),
-				gettext('Sidebar Position on the Right?') => array('key' => 'zpmin_switch', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Check to reverse the sidebar and content area positions.  Default (unchecked) is the sidebar on the left.')),
-				gettext('Use colorbox on Album and Search Pages?') => array('key' => 'zpmin_colorbox', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('If checked, 2 links appear when hovering images in album and search pages, one to popup the image in colorbox, and the other to go to the details page.')),
-				gettext('Colorbox Style') => array('key' => 'zpmin_cbstyle', 'type' => OPTION_TYPE_CUSTOM, 'desc' => gettext('Select the Colorbox style you wish to use (examples on the colorbox site).')),
-				gettext('Disable MetaData Display?') => array('key' => 'zpmin_disablemeta', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Check to disable the metadata (EXIF,IPTC) display on the image page.')),
-				gettext('Album Thumb Size') => array('key' => 'zpmin_album_thumb_size', 'type' => OPTION_TYPE_NUMBER, 'desc' => gettext('Select the size of album thumbs. The thumb size above is for image thumbs. Album thumbs will also take on your selection of cropping or not.  A good size for albums is 158 (3 per row), and a good size above for image thumbs is 113 (4 per row). Make sure you also set the number of thumbs per row for images and albums above! ')),
-				gettext('Menu Name of Menu Manager') => array('key' => 'zpmin_menu', 'type' => OPTION_TYPE_TEXTBOX, 'multilingual' => false, 'desc' => gettext('If you use the menu manager plugin, enter the name of the menu you would like to use.  Make sure you create the menu in the menu manager backend! Or leave blank to use the theme menu.')),
-				gettext('ZenPage Search Results') => array('key' => 'zpmin_zpsearchcount', 'type' => OPTION_TYPE_NUMBER, 'desc' => gettext('If using Zenpage, enter the number of search results to display for each news and pages.  Default is 2 (4 total possible).')),
-				gettext('Logo Image') => array('key' => 'zpmin_logo', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Enter an image file located in the themes image directory, including extension, to use as an image logo. Or leave blank to use a text representation of your Gallery name.  As an example there is a logo.gif image in the images directory.'))
+				gettext('Home Page Image Option') => array(
+						'key' => 'zpmin_homeoption',
+						'type' => OPTION_TYPE_CUSTOM,
+						'desc' => gettext('Choose the option for the single image on the homepage.  See Image-Album-Statistics plugin or Random Image functions for more information.')
+				),
+				gettext('Final Image Link Option') => array(
+						'key' => 'zpmin_finallink',
+						'type' => OPTION_TYPE_CUSTOM,
+						'desc' => gettext('Choose the option for the final image link on image.php.  Can either link to full image using standard process (with core options), colorbox, or no link (default).')
+				),
+				gettext('Sidebar Position on the Right?') => array(
+						'key' => 'zpmin_switch',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Check to reverse the sidebar and content area positions.  Default (unchecked) is the sidebar on the left.')
+				),
+				gettext('Use colorbox on Album and Search Pages?') => array(
+						'key' => 'zpmin_colorbox',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('If checked, 2 links appear when hovering images in album and search pages, one to popup the image in colorbox, and the other to go to the details page.')
+				),
+				gettext('Colorbox Style') => array(
+						'key' => 'zpmin_cbstyle',
+						'type' => OPTION_TYPE_CUSTOM,
+						'desc' => gettext('Select the Colorbox style you wish to use (examples on the colorbox site).')
+				),
+				gettext('Disable MetaData Display?') => array(
+						'key' => 'zpmin_disablemeta',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Check to disable the metadata (EXIF,IPTC) display on the image page.')),
+				gettext('Album Thumb Size') => array(
+						'key' => 'zpmin_album_thumb_size',
+						'type' => OPTION_TYPE_NUMBER,
+						'desc' => gettext('Select the size of album thumbs. The thumb size above is for image thumbs. Album thumbs will also take on your selection of cropping or not.  A good size for albums is 158 (3 per row), and a good size above for image thumbs is 113 (4 per row). Make sure you also set the number of thumbs per row for images and albums above! ')
+				),
+				gettext('Menu Name of Menu Manager') => array(
+						'key' => 'zpmin_menu',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'multilingual' => false,
+						'desc' => gettext('If you use the menu manager plugin, enter the name of the menu you would like to use.  Make sure you create the menu in the menu manager backend! Or leave blank to use the theme menu.')
+				),
+				gettext('ZenPage Search Results') => array(
+						'key' => 'zpmin_zpsearchcount',
+						'type' => OPTION_TYPE_NUMBER,
+						'desc' => gettext('If using Zenpage, enter the number of search results to display for each news and pages.  Default is 2 (4 total possible).')
+				),
+				gettext('Logo Image') => array(
+						'key' => 'zpmin_logo',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Enter an image file located in the themes image directory, including extension, to use as an image logo. Or leave blank to use a text representation of your Gallery name.  As an example there is a logo.gif image in the images directory.')
+				)
 		);
 	}
 

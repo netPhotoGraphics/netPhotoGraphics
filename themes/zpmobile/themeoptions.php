@@ -32,8 +32,16 @@ class ThemeOptions {
 
 	function getOptionsSupported() {
 		return array(
-				gettext('Allow search') => array('key' => 'Allow_search', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Check to enable search form.')),
-				gettext('Allow direct link from multimedia') => array('key' => 'zpmobile_mediadirectlink', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Check to enable a direct link to multimedia items on the single image page in case the player is not supported by the device but the actual format is.'))
+				gettext('Allow search') => array(
+						'key' => 'Allow_search',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Check to enable search form.')
+				),
+				gettext('Allow direct link from multimedia') => array(
+						'key' => 'zpmobile_mediadirectlink',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Check to enable a direct link to multimedia items on the single image page in case the player is not supported by the device but the actual format is.')
+				)
 		);
 	}
 

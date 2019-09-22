@@ -55,9 +55,21 @@ class ThemeOptions {
 		}
 
 		return array(
-				gettext('Fluid') => array('key' => 'full_width', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 0, 'desc' => gettext('Check to enable fluid full width layout.')),
-				gettext('Homepage slideshow') => array('key' => 'homepage_slideshow', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 1, 'desc' => gettext('Check to include a slideshow on the homepage.')),
-				gettext('Slideshow Type') => array('key' => 'carousel_type', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Fluid') => array(
+						'key' => 'full_width',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 0,
+						'desc' => gettext('Check to enable fluid full width layout.')
+				),
+				gettext('Homepage slideshow') => array(
+						'key' => 'homepage_slideshow',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 1,
+						'desc' => gettext('Check to include a slideshow on the homepage.')
+				),
+				gettext('Slideshow Type') => array(
+						'key' => 'carousel_type',
+						'type' => OPTION_TYPE_SELECTOR,
 						'order' => 2,
 						'selections' => array(
 								gettext('Random') => 'random',
@@ -68,12 +80,18 @@ class ThemeOptions {
 								gettext('Latest by Publish Date') => 'latestbypdate',
 								gettext('Most Rated') => 'mostrated',
 								gettext('Top Rated') => 'toprated'),
-						'desc' => gettext('Select how the images will be chosen for the homepage slideshow.')),
-				gettext('Album to choose from') => array('key' => 'carousel_album', 'type' => OPTION_TYPE_SELECTOR,
+						'desc' => gettext('Select how the images will be chosen for the homepage slideshow.')
+				),
+				gettext('Album to choose from') => array(
+						'key' => 'carousel_album',
+						'type' => OPTION_TYPE_SELECTOR,
 						'order' => 3,
 						'selections' => $albumlist,
-						'desc' => gettext('Choose a specific album to display its images. Album needs to be published. Images are preferably in panoramic format: 1920px wide')),
-				gettext('Number of slides') => array('key' => 'carousel_number', 'type' => OPTION_TYPE_SELECTOR,
+						'desc' => gettext('Choose a specific album to display its images. Album needs to be published. Images are preferably in panoramic format: 1920px wide')
+				),
+				gettext('Number of slides') => array(
+						'key' => 'carousel_number',
+						'type' => OPTION_TYPE_SELECTOR,
 						'order' => 4,
 						'selections' => array(
 								gettext('3') => '3',
@@ -84,28 +102,99 @@ class ThemeOptions {
 								gettext('8') => '8',
 								gettext('9') => '9',
 								gettext('10') => '10'),
-						'desc' => gettext('Select how the images will be chosen for the homepage slideshow. Default is 5')),
-				gettext('Homepage blog') => array('key' => 'homepage_blog', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 5, 'desc' => gettext('Check to enable blog posts as main content of the homepage.')),
-				gettext('Homepage content') => array('key' => 'homepage_content', 'type' => OPTION_TYPE_RADIO, 'order' => 6,
+						'desc' => gettext('Select how the images will be chosen for the homepage slideshow. Default is 5')
+				),
+				gettext('Homepage blog') => array(
+						'key' => 'homepage_blog',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 5,
+						'desc' => gettext('Check to enable blog posts as main content of the homepage.')
+				),
+				gettext('Homepage content') => array(
+						'key' => 'homepage_content',
+						'type' => OPTION_TYPE_RADIO,
+						'order' => 6,
 						'buttons' => array(
 								gettext('Albums') => 'albums',
 								gettext('Latest pictures') => 'latest',
 								gettext('Random pictures') => 'random'),
-						'desc' => gettext('Chose what to display on the homepage.')),
-				gettext('Allow search') => array('key' => 'Allow_search', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 7, 'desc' => gettext('Check to enable search form.')),
-				gettext('Archive') => array('key' => 'display_archive', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 8, 'desc' => gettext('Display archive link in footer.')),
-				gettext('Google Analytics id') => array('key' => 'analytics_code', 'type' => OPTION_TYPE_CLEARTEXT, 'order' => 9, 'desc' => gettext('If you use <a href="http://www.google.com/analytics">Google Analytics</a>, paste your ID here')),
-				gettext('ShareThis id') => array('key' => 'sharethis_id', 'type' => OPTION_TYPE_TEXTBOX, 'order' => 10, 'desc' => gettext('Provide your <a href="http://www.sharethis.com">ShareThis</a> ID')),
-				gettext('AddThis code') => array('key' => 'addthis_code', 'type' => OPTION_TYPE_TEXTAREA, 'order' => 11, 'desc' => gettext('Write your <a href="http://www.addthis.com">Addthis</a> Code (the one under "Go to www.addthis.com/dashboard to customize your tools"). Use small buttons for AddThis. Do not add both Addthis and Sharethis!')),
-				gettext('URL to Facebook') => array('key' => 'facebook_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://www.facebook.com">Facebook</a> page or profile URL')),
-				gettext('Twitter profile name') => array('key' => 'twitter_profile', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://www.twitter.com">Twitter</a> profile name (without the @)')),
-				gettext('URL to Google Plus Page') => array('key' => 'googleplus_page_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://plus.google.com">Google Plus</a> <em>page</em> URL')),
-				gettext('URL to FlickR') => array('key' => 'flickr_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://www.flickr.com">FlickR</a> gallery URL')),
-				gettext('URL to 500px') => array('key' => '500px_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://500px.com">500px</a> gallery URL')),
-				gettext('URL to Instagram') => array('key' => 'instagram_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://instagram.com/">Instagram</a>')),
-				gettext('URL to Pinterest') => array('key' => 'pinterest_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://pinterest.com/">Pinterest</a> board or page')),
-				gettext('URL to Deviantart') => array('key' => 'deviantart_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://deviantart.com/">Deviantart</a> page')),
-				gettext('URL to Tumblr') => array('key' => 'tumblr_url', 'type' => OPTION_TYPE_TEXTBOX, 'desc' => gettext('Provide your <a href="http://tumblr.com/">Tumblr</a> page URL'))
+						'desc' => gettext('Chose what to display on the homepage.')
+				),
+				gettext('Allow search') => array(
+						'key' => 'Allow_search',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 7,
+						'desc' => gettext('Check to enable search form.')
+				),
+				gettext('Archive') => array(
+						'key' => 'display_archive',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 8,
+						'desc' => gettext('Display archive link in footer.')
+				),
+				gettext('Google Analytics id') => array(
+						'key' => 'analytics_code',
+						'type' => OPTION_TYPE_CLEARTEXT,
+						'order' => 9,
+						'desc' => gettext('If you use <a href="http://www.google.com/analytics">Google Analytics</a>, paste your ID here')
+				),
+				gettext('ShareThis id') => array(
+						'key' => 'sharethis_id',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'order' => 10,
+						'desc' => gettext('Provide your <a href="http://www.sharethis.com">ShareThis</a> ID')
+				),
+				gettext('AddThis code') => array(
+						'key' => 'addthis_code',
+						'type' => OPTION_TYPE_TEXTAREA,
+						'order' => 11,
+						'desc' => gettext('Write your <a href="http://www.addthis.com">Addthis</a> Code (the one under "Go to www.addthis.com/dashboard to customize your tools"). Use small buttons for AddThis. Do not add both Addthis and Sharethis!')
+				),
+				gettext('URL to Facebook') => array(
+						'key' => 'facebook_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://www.facebook.com">Facebook</a> page or profile URL')
+				),
+				gettext('Twitter profile name') => array(
+						'key' => 'twitter_profile',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://www.twitter.com">Twitter</a> profile name (without the @)')
+				),
+				gettext('URL to Google Plus Page') => array(
+						'key' => 'googleplus_page_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://plus.google.com">Google Plus</a> <em>page</em> URL')
+				),
+				gettext('URL to FlickR') => array(
+						'key' => 'flickr_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://www.flickr.com">FlickR</a> gallery URL')
+				),
+				gettext('URL to 500px') => array(
+						'key' => '500px_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://500px.com">500px</a> gallery URL')
+				),
+				gettext('URL to Instagram') => array(
+						'key' => 'instagram_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://instagram.com/">Instagram</a>')
+				),
+				gettext('URL to Pinterest') => array(
+						'key' => 'pinterest_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://pinterest.com/">Pinterest</a> board or page')
+				),
+				gettext('URL to Deviantart') => array(
+						'key' => 'deviantart_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://deviantart.com/">Deviantart</a> page')
+				),
+				gettext('URL to Tumblr') => array(
+						'key' => 'tumblr_url',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Provide your <a href="http://tumblr.com/">Tumblr</a> page URL')
+				)
 		);
 	}
 

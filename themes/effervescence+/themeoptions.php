@@ -86,28 +86,75 @@ class ThemeOptions {
 			$note .= '<p class="notebox">' . sprintf(gettext('<strong>Note:</strong> The <em>%s</em> custom menu makes use of the <em>print_album_menu</em> plugin.'), $m) . '</p>';
 		}
 		$options = array(
-				gettext('Separate gallery index') => array('key' => 'gallery_index', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 1, 'desc' => gettext('Check to move the gallery index from the home page to gallery.php.') . '<p class="notebox">' . gettext('<strong>Note:</strong> this is assumed the CMS plugin is enabled.') . '</p>'),
-				gettext('Theme logo') => array('key' => 'Theme_logo', 'type' => OPTION_TYPE_TEXTBOX, 'multilingual' => 1, 'order' => 8, 'desc' => gettext('The text for the theme logo')),
-				gettext('Watermark head image') => array('key' => 'Watermark_head_image', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 11, 'desc' => gettext('Check to place a watermark on the heading image. (Image watermarking must be set.)')),
-				gettext('Daily image') => array('key' => 'effervescence_daily_album_image', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 3, 'desc' => gettext('If checked the heading image will change daily rather than on each page load.')),
-				gettext('Allow search') => array('key' => 'Allow_search', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 3.5, 'desc' => gettext('Check to enable search form.')),
-				gettext('Slideshow') => array('key' => 'Slideshow', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 6, 'desc' => gettext('Check to enable slideshow for the <em>Smoothgallery</em> personality.')),
-				gettext('Graphic logo') => array('key' => 'Graphic_logo', 'type' => OPTION_TYPE_CUSTOM, 'order' => 4, 'desc' => sprintf(gettext('Select a logo (PNG files in the <em>%s/images</em> folder) or leave empty for text logo.'), UPLOAD_FOLDER)),
-				gettext('Display theme info') => array('key' => 'display_theme_info', 'type' => OPTION_TYPE_CHECKBOX, 'order' => 10.9, 'desc' => gettext('If checked the theme settings summary will be displayed in the footer.')),
-				gettext('Theme personality') => array('key' => 'effervescence_personality', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Separate gallery index') => array(
+						'key' => 'gallery_index',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 1,
+						'desc' => gettext('Check to move the gallery index from the home page to gallery.php.') . '<p class="notebox">' . gettext('<strong>Note:</strong> this is assumed the CMS plugin is enabled.') . '</p>'),
+				gettext('Theme logo') => array(
+						'key' => 'Theme_logo',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'multilingual' => 1,
+						'order' => 8,
+						'desc' => gettext('The text for the theme logo')),
+				gettext('Watermark head image') => array(
+						'key' => 'Watermark_head_image',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 11,
+						'desc' => gettext('Check to place a watermark on the heading image. (Image watermarking must be set.)')),
+				gettext('Daily image') => array(
+						'key' => 'effervescence_daily_album_image',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 3,
+						'desc' => gettext('If checked the heading image will change daily rather than on each page load.')),
+				gettext('Allow search') => array(
+						'key' => 'Allow_search',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 3.5,
+						'desc' => gettext('Check to enable search form.')),
+				gettext('Slideshow') => array(
+						'key' => 'Slideshow',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 6,
+						'desc' => gettext('Check to enable slideshow for the <em>Smoothgallery</em> personality.')),
+				gettext('Graphic logo') => array(
+						'key' => 'Graphic_logo',
+						'type' => OPTION_TYPE_CUSTOM,
+						'order' => 4,
+						'desc' => sprintf(gettext('Select a logo (PNG files in the <em>%s/images</em> folder) or leave empty for text logo.'), UPLOAD_FOLDER)),
+				gettext('Display theme info') => array(
+						'key' => 'display_theme_info',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 10.9,
+						'desc' => gettext('If checked the theme settings summary will be displayed in the footer.')),
+				gettext('Theme personality') => array(
+						'key' => 'effervescence_personality',
+						'type' => OPTION_TYPE_SELECTOR,
 						'selections' => $personalities,
 						'order' => 9,
 						'desc' => gettext('Select the theme personality')),
-				gettext('Theme colors') => array('key' => 'Theme_colors', 'type' => OPTION_TYPE_CUSTOM, 'order' => 7, 'desc' => gettext('Select the colors of the theme')),
-				gettext('Custom menu') => array('key' => 'effervescence_menu', 'type' => OPTION_TYPE_CUSTOM, 'order' => 2, 'desc' => gettext('Set this to the <em>menu_manager</em> menu you wish to use.') . $note)
+				gettext('Theme colors') => array(
+						'key' => 'Theme_colors',
+						'type' => OPTION_TYPE_CUSTOM,
+						'order' => 7,
+						'desc' => gettext('Select the colors of the theme')),
+				gettext('Custom menu') => array(
+						'key' => 'effervescence_menu',
+						'type' => OPTION_TYPE_CUSTOM,
+						'order' => 2,
+						'desc' => gettext('Set this to the <em>menu_manager</em> menu you wish to use.') . $note)
 		);
 
 		if (getOption('effervescence_personality') == 'Image_gallery') {
-			$options[gettext('Image gallery transition')] = array('key' => 'effervescence_transition', 'type' => OPTION_TYPE_SELECTOR,
+			$options[gettext('Image gallery transition')] = array(
+					'key' => 'effervescence_transition',
+					'type' => OPTION_TYPE_SELECTOR,
 					'selections' => array(gettext('None') => '', gettext('Fade') => 'fade', gettext('Shrink/grow') => 'resize', gettext('Horizontal') => 'slide-hori', gettext('Vertical') => 'slide-vert'),
 					'order' => 10,
 					'desc' => gettext('Transition effect for Image gallery'));
-			$options[gettext('Image gallery caption')] = array('key' => 'effervescence_caption_location', 'type' => OPTION_TYPE_RADIO,
+			$options[gettext('Image gallery caption')] = array(
+					'key' => 'effervescence_caption_location',
+					'type' => OPTION_TYPE_RADIO,
 					'buttons' => array(gettext('On image') => 'image', gettext('Separate') => 'separate', gettext('Omit') => 'none'),
 					'order' => 10.5,
 					'desc' => gettext('Location for Image gallery picture caption'));
@@ -121,8 +168,11 @@ class ThemeOptions {
 				$effect = array_shift($effectOptions);
 			}
 			if ($effect && array_key_exists('selections', $effect)) {
-				$options[gettext('Index Image')] = array('key' => 'effervescence_daily_album_image_effect', 'type' => OPTION_TYPE_SELECTOR,
-						'selections' => $effect['selections'], 'null_selection' => gettext('none'),
+				$options[gettext('Index Image')] = array(
+						'key' => 'effervescence_daily_album_image_effect',
+						'type' => OPTION_TYPE_SELECTOR,
+						'selections' => $effect['selections'],
+						'null_selection' => gettext('none'),
 						'order' => 5,
 						'desc' => gettext('Apply this effect to the index page image.'));
 			}
