@@ -385,7 +385,7 @@ code {
 }
 
 .navigation.align-right > ul > li > a {
-  border-left: 0.3em solid lightgrayx;
+  border-left: 0.3em solid lightgray;
   border-right: none;
 }
 
@@ -541,7 +541,7 @@ code {
 	width: 100%;
 	font-weight: normal;
 }
-border-color: #FFDEB5;
+
 /* Miscellaneous
 ------------------------------ */
 a,a em {
@@ -2236,7 +2236,7 @@ div.tabs>div h2 {
 	white-space:nowrap;
 	font-size:85%;
 	padding-left: 5px;
-	paddint-right: 5px;
+	padding-right: 5px;
 }
 .displayleft {
 	float:left;
@@ -2396,7 +2396,7 @@ ul.page-list {
 
 .page-list_row .page-list_extra a img {
 	border: 0;
-	vertical-align: center;
+	vertical-align: central;
 }
 
 .page-list_row .page-list_extra > span,
