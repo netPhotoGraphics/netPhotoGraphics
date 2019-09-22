@@ -10,8 +10,8 @@ if (!defined('WEBPATH'))
 		<?php
 		npgFilters::apply('theme_head');
 
-		scriptLoader($zenCSS);
-		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
+		scriptLoader($basic_CSS);
+		scriptLoader(dirname(dirname($basic_CSS)) . '/common.css');
 		?>
 	</head>
 	<body>

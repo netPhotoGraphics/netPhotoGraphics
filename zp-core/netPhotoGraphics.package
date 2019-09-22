@@ -87,6 +87,7 @@ themes/garland/contact.php
 themes/garland/favorites.php
 themes/garland/functions.php
 themes/garland/gallery.php
+themes/garland/garland.css
 themes/garland/image.php
 themes/garland/index.php
 themes/garland/main.php
@@ -103,7 +104,6 @@ themes/garland/summary.php
 themes/garland/theme.png
 themes/garland/theme_description.php
 themes/garland/themeoptions.php
-themes/garland/zen.css
 themes/garland/colorbox
 themes/garland/colorbox/functions.php
 themes/garland/image_gallery

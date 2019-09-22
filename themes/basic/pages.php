@@ -11,8 +11,8 @@ if (class_exists('CMS')) {
 			<?php
 			npgFilters::apply('theme_head');
 
-			scriptLoader($zenCSS);
-			scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
+			scriptLoader($basic_CSS);
+			scriptLoader(dirname(dirname($basic_CSS)) . '/common.css');
 
 			if (class_exists('RSS'))
 				printRSSHeaderLink("Pages", "CMS pages", "");
@@ -58,7 +58,7 @@ if (class_exists('CMS')) {
 					foreach ($pages as $item) {
 						$pageobj = newPage($item['titlelink']);
 						?>
-						<span class="zp_link">
+						<span class="npg_link">
 							<a href="<?php echo $pageobj->getLink(); ?>"><?php echo html_encode($pageobj->getTitle()); ?></a>
 						</span>
 						<?php

@@ -10,7 +10,7 @@ if (!defined('WEBPATH'))
 		npgFilters::apply('theme_head');
 		$handler->theme_head($_themeroot);
 
-		scriptLoader($_themeroot . '/zen.css');
+		scriptLoader($_themeroot . '/garland.css');
 
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));

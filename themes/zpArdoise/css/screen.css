@@ -1113,19 +1113,7 @@ div#jump-search select option {
 #foot-left {
 	text-align: left;
 }
-#zen-part {
-	font-family: "Century Gothic", Arial, sans-serif;
-	font-size: 1.2em;
-	font-weight: 100;
-	letter-spacing: -1px;
-	text-transform: lowercase;
-}
-#photo-part {
-	font-family: "Century Gothic", Arial, sans-serif;
-	font-size: 0.7em;
-	font-weight: 900;
-	text-transform: uppercase;
-}
+
 #icon-help {
 	position: relative;
 	top: 4px;

@@ -706,10 +706,6 @@ form input[type="button"] {
 	clear: right !important;
 }
 
-.zen-logo img {
-	vertical-align: sub;
-}
-
-.zp_link a {
+.npg_link a {
 	background-color: #EEF5F9 !important;
 }

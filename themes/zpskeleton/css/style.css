@@ -829,12 +829,8 @@ or wrap each row of columns in a <div class="row"> */
 	height: 0;
 }
 
-.zen-logo, .zen-logo a {
+.npg-logo, .npg-logo a {
 	text-decoration: none;
-}
-
-.zen-logo img {
-	vertical-align: sub;
 }
 
 .themeSwitcherControlLink {

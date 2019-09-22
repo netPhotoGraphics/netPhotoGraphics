@@ -9,7 +9,7 @@ if (!defined('WEBPATH'))
 		<?php
 		npgFilters::apply('theme_head');
 
-		scriptLoader($_themeroot . '/zen.css');
+		scriptLoader($_themeroot . '/garland.css');
 
 		if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 			?>

@@ -16,7 +16,7 @@ if (class_exists('themeSwitcher')) {
 }
 
 function css_head() {
-	global $themecolors, $zenCSS, $themeColor, $_themeroot;
+	global $themecolors, $basic_CSS, $themeColor, $_themeroot;
 	if (!$themeColor) {
 		$themeColor = getOption('Theme_colors');
 	}
@@ -28,10 +28,9 @@ function css_head() {
 		}
 	}
 
-	$zenCSS = $_themeroot . '/styles/' . $themeColor . '.css';
-	$unzenCSS = str_replace(WEBPATH, '', $zenCSS);
-	if (!file_exists(SERVERPATH . internalToFilesystem($unzenCSS))) {
-		$zenCSS = $_themeroot . "/styles/light.css";
+	$basic_CSS = $_themeroot . '/styles/' . $themeColor . '.css';
+	if (!file_exists(SERVERPATH . internalToFilesystem(str_replace(WEBPATH, '', $basic_CSS)))) {
+		$basic_CSS = $_themeroot . "/styles/light.css";
 	}
 }
 

@@ -1173,18 +1173,6 @@ hr {
 #dynamic-locale {
 	width: 195px;
 }
-/* logo link
----------------------------*/
-#zen-part {
-	font-size: 1.7em;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-#photo-part {
-	font-size: 0.9em;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-}
 
 #IE-clear-part {
 	font-size: 12px;
@@ -1297,11 +1285,8 @@ h2.contact {
 	border-bottom: 1px #aaa dotted;
 }
 
-.zen-logo, .zen-logo a {
+.npg-logo, .npg-logo a {
 	text-decoration: none;
-}
-.zen-logo img {
-	vertical-align: sub;
 }
 
 .disclose_password_show {

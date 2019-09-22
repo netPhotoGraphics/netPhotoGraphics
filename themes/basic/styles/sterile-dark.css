@@ -690,8 +690,3 @@ form input[type="button"] {
 .clearright {
 	clear: right !important;
 }
-
-.zen-logo img {
-	vertical-align: sub;
-}
-
