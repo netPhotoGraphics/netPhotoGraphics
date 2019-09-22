@@ -517,13 +517,14 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Allowed tags"); ?></td>
 					<td class="option_value">
-						<p><textarea name="allowed_tags" id="allowed_tags" class="fullwidth" rows="4" cols="35"><?php echo html_encode(getOption('allowed_tags')); ?></textarea>
-							<span class="buttons">
-								<a onclick="resetallowedtags()" >
-									<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
-									<?php echo gettext('Reset to default'); ?>
-								</a>
-							</span>
+						<textarea name="allowed_tags" id="allowed_tags" class="fullwidth" rows="4" cols="35">
+							<?php echo html_encode(getOption('allowed_tags')); ?>
+						</textarea>
+						<p class="buttons">
+							<button type="button" onclick="resetallowedtags()" >
+								<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
+								<?php echo gettext('Revert to default'); ?>
+							</button>
 						</p>
 					</td>
 					<td class="option_desc">
@@ -531,16 +532,16 @@ function getOptionContent() {
 							// <!-- <![CDATA[
 							function resetallowedtags() {
 								$('#allowed_tags').val(<?php
-								$t = getOption('allowed_tags_default');
-								$tags = explode("\n", $t);
-								$c = 0;
-								foreach ($tags as $t) {
-									$t = trim($t);
-									if (!empty($t)) {
-										if ($c > 0) {
-											echo '+';
-											echo "\n";
-											?>
+							$t = getOption('allowed_tags_default');
+							$tags = explode("\n", $t);
+							$c = 0;
+							foreach ($tags as $t) {
+								$t = trim($t);
+								if (!empty($t)) {
+									if ($c > 0) {
+										echo '+';
+										echo "\n";
+										?>
 				<?php
 			}
 			$c++;

@@ -238,9 +238,8 @@ function getOptionContent() {
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
-								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');
-										$('#themeoptionsform').submit();">
-													<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
+								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');$('#themeoptionsform').submit();">
+									<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
 								<button type="reset" value="<?php echo gettext('reset') ?>">
@@ -570,9 +569,8 @@ function getOptionContent() {
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
-								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');
-										$('#themeoptionsform').submit();">
-													<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
+								<button type="button" value="<?php echo gettext('Revert to default') ?>" onclick="$('#savethemeoptions').val('reset');$('#themeoptionsform').submit();">
+									<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 									<strong><?php echo gettext("Revert to default"); ?></strong>
 								</button>
 								<button type="reset" value="<?php echo gettext('reset') ?>">
