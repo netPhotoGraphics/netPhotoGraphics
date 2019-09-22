@@ -1049,6 +1049,26 @@ class _Authority {
 			}
 		}
 		$whichForm = sanitize(@$_REQUEST['logon_step']);
+		if ($logo) {
+			$logo = $_gallery->getSiteLogo(SERVERPATH);
+			if ($logo != SERVERPATH . CORE_FOLDER . '/images/admin-logo.png') {
+				$im = gl_imageGet($logo);
+				$scale = 78 / gl_imageHeight($im);
+				$w = gl_imageWidth($im) * $scale;
+				if ($w > 355) {
+					?>
+					<style type="text/css">
+						#loginform {
+							width: <?php echo $w + 10; ?>px !important;
+						}
+						#loginform-content {
+							padding-left: <?php echo ($w + 10 - 357) / 2; ?>px;
+						}
+					</style>
+					<?php
+				}
+			}
+		}
 		?>
 
 		<div id="loginform">
@@ -1060,122 +1080,125 @@ class _Authority {
 				</p>
 				<?php
 			}
-			if ($welcome = $_gallery->getLogonWelcome()) {
-				?>
-				<p class="logon_welcome">
-					<?php echo html_encodeTagged($welcome); ?>
-				</p>
+			?>
+			<div id="loginform-content">
 				<?php
-			}
+				if ($welcome = $_gallery->getLogonWelcome()) {
+					?>
+					<p class="logon_welcome">
+						<?php echo html_encodeTagged($welcome); ?>
+					</p>
+					<?php
+				}
 
-			switch ($_login_error) {
-				case 1:
-					?>
-					<div class="errorbox" id="message"><h2><?php echo gettext("There was an error logging in."); ?></h2>
-						<?php
-						if ($showUserField) {
-							echo gettext("Check your username and password and try again.");
-						} else {
-							echo gettext("Check password and try again.");
-						}
+				switch ($_login_error) {
+					case 1:
 						?>
-					</div>
-					<?php
-					break;
-				case 2:
-					?>
-					<div class="messagebox fade-message">
-						<h2><?php echo gettext("A reset request has been sent."); ?></h2>
-					</div>
-					<?php
-					break;
-				default:
-					if (!empty($_login_error)) {
-						?>
-						<div class="errorbox fade-message">
-							<h2><?php echo $_login_error; ?></h2>
+						<div class="errorbox" id="message"><h2><?php echo gettext("There was an error logging in."); ?></h2>
+							<?php
+							if ($showUserField) {
+								echo gettext("Check your username and password and try again.");
+							} else {
+								echo gettext("Check password and try again.");
+							}
+							?>
 						</div>
 						<?php
-					}
-					break;
-			}
-
-			switch ($whichForm) {
-				case 'challenge':
-					?>
-					<form name="login" id="login" action="<?php echo getAdminLink('admin.php') ?>" method="post">
-						<fieldset id="logon_box">
-							<input type="hidden" name="login" value="1" />
-							<input type="hidden" name="password" value="challenge" />
-							<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
-							<fieldset>
-								<legend><?php echo gettext('User') ?></legend>
-								<input class="textfield" name="user" id="user" type="text" size="35" value="<?php echo html_encode($requestor); ?>" />
-							</fieldset>
+						break;
+					case 2:
+						?>
+						<div class="messagebox fade-message">
+							<h2><?php echo gettext("A reset request has been sent."); ?></h2>
+						</div>
+						<?php
+						break;
+					default:
+						if (!empty($_login_error)) {
+							?>
+							<div class="errorbox fade-message">
+								<h2><?php echo $_login_error; ?></h2>
+							</div>
 							<?php
-							if ($requestor) {
-								?>
-								<p class="logon_form_text"><?php echo gettext('Supply the correct response to the question below and you will be directed to a page where you can change your password.'); ?></p>
-								<fieldset><legend><?php echo gettext('Challenge question:') ?></legend>
-									<?php
-									echo html_encode($info['challenge']);
-									?>
+						}
+						break;
+				}
+
+				switch ($whichForm) {
+					case 'challenge':
+						?>
+						<form name="login" id="login" action="<?php echo getAdminLink('admin.php') ?>" method="post">
+							<fieldset id="logon_box">
+								<input type="hidden" name="login" value="1" />
+								<input type="hidden" name="password" value="challenge" />
+								<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
+								<fieldset>
+									<legend><?php echo gettext('User') ?></legend>
+									<input class="textfield" name="user" id="user" type="text" size="35" value="<?php echo html_encode($requestor); ?>" />
 								</fieldset>
-								<fieldset><legend><?php echo gettext('Your response') ?></legend>
-									<input class="textfield" name="pass" id="pass" type="text" size="35" />
-								</fieldset>
-								<br />
 								<?php
-							} else {
-								?>
-								<p class="logon_form_text">
-									<?php
-									echo gettext('Enter your User ID and press <code>Refresh</code> to get your challenge question.');
+								if ($requestor) {
 									?>
+									<p class="logon_form_text"><?php echo gettext('Supply the correct response to the question below and you will be directed to a page where you can change your password.'); ?></p>
+									<fieldset><legend><?php echo gettext('Challenge question:') ?></legend>
+										<?php
+										echo html_encode($info['challenge']);
+										?>
+									</fieldset>
+									<fieldset><legend><?php echo gettext('Your response') ?></legend>
+										<input class="textfield" name="pass" id="pass" type="text" size="35" />
+									</fieldset>
+									<br />
+									<?php
+								} else {
+									?>
+									<p class="logon_form_text">
+										<?php
+										echo gettext('Enter your User ID and press <code>Refresh</code> to get your challenge question.');
+										?>
+									</p>
+									<?php
+								}
+								?>
+								<div class="buttons">
+									<button type="submit" value="<?php echo gettext("Submit"); ?>"<?php if (!$info['challenge']) echo ' disabled="disabled"'; ?> >
+										<?php echo CHECKMARK_GREEN; ?>
+										<?php echo gettext("Submit"); ?>
+									</button>
+									<button type="button" value="<?php echo gettext("Refresh"); ?>" id="challenge_refresh" onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
+										<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
+										<?php echo gettext("Refresh"); ?>
+									</button>
+									<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
+										<?php echo BACK_ARROW_BLUE; ?>
+										<?php echo gettext("Return"); ?>
+									</button>
+								</div>
+								<br class="clearall">
+							</fieldset>
+							<br />
+							<?php
+							if ($star) {
+								?>
+								<p class="logon_link">
+									<a onclick="window.location = '?logon_step=captcha&amp;ref=' + $('#user').val();" >
+										<?php echo gettext('Request reset by e-mail'); ?>
+									</a>
 								</p>
 								<?php
 							}
 							?>
-							<div class="buttons">
-								<button type="submit" value="<?php echo gettext("Submit"); ?>"<?php if (!$info['challenge']) echo ' disabled="disabled"'; ?> >
-									<?php echo CHECKMARK_GREEN; ?>
-									<?php echo gettext("Submit"); ?>
-								</button>
-								<button type="button" value="<?php echo gettext("Refresh"); ?>" id="challenge_refresh" onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
-									<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
-									<?php echo gettext("Refresh"); ?>
-								</button>
-								<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
-									<?php echo BACK_ARROW_BLUE; ?>
-									<?php echo gettext("Return"); ?>
-								</button>
-							</div>
-							<br class="clearall">
-						</fieldset>
-						<br />
+						</form>
 						<?php
-						if ($star) {
+						break;
+					default:
+						npg_Authority::printPasswordFormJS();
+						if (empty($alt_handlers)) {
+							$legend = gettext('Login');
+						} else {
 							?>
-							<p class="logon_link">
-								<a onclick="window.location = '?logon_step=captcha&amp;ref=' + $('#user').val();" >
-									<?php echo gettext('Request reset by e-mail'); ?>
-								</a>
-							</p>
-							<?php
-						}
-						?>
-					</form>
-					<?php
-					break;
-				default:
-					npg_Authority::printPasswordFormJS();
-					if (empty($alt_handlers)) {
-						$legend = gettext('Login');
-					} else {
-						?>
-						<script type="text/javascript">
-							// <!-- <![CDATA[
-							var handlers = [];
+							<script type="text/javascript">
+								// <!-- <![CDATA[
+								var handlers = [];
 					<?php
 					$list = '<select id="logon_choices" onchange="changeHandler(handlers[$(this).val()]);">' .
 									'<option value="0">' . html_encode(get_language_string($_gallery->getTitle())) . "</option>\n";
@@ -1193,142 +1216,143 @@ class _Authority {
 					$list .= '</select>';
 					$legend = sprintf(gettext('Logon using:%s'), $list);
 					?>
-							function changeHandler(handler) {
-								handler.push('user=' + $('#user').val());
-								var script = handler.shift();
-								window.location = script + '?' + handler.join('&');
-							}
-							// ]]> -->
-						</script>
-						<?php
-					}
-					$redirect = npgFilters::apply('login_redirect_link', $redirect);
-					?>
-					<form name="login" id="login" action="<?php echo pathurlencode($redirect); ?>" method="post">
-						<input type="hidden" name="login" value="1" />
-						<input type="hidden" name="password" value="1" />
-						<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
-						<fieldset id="logon_box"><legend><?php echo $legend; ?></legend>
+								function changeHandler(handler) {
+									handler.push('user=' + $('#user').val());
+									var script = handler.shift();
+									window.location = script + '?' + handler.join('&');
+								}
+								// ]]> -->
+							</script>
 							<?php
-							if ($showUserField) { //	requires a "user" field
-								?>
-								<fieldset class="login_input"><legend><?php echo gettext("User"); ?></legend>
-									<input class="textfield" name="user" id="user" type="text"  value="<?php echo html_encode($requestor); ?>" />
-								</fieldset>
+						}
+						$redirect = npgFilters::apply('login_redirect_link', $redirect);
+						?>
+						<form name="login" id="login" action="<?php echo pathurlencode($redirect); ?>" method="post">
+							<input type="hidden" name="login" value="1" />
+							<input type="hidden" name="password" value="1" />
+							<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
+							<fieldset id="logon_box"><legend><?php echo $legend; ?></legend>
 								<?php
-							}
-							?>
-							<label class="show_checkbox">
-								<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
-								<?php echo gettext('Show') ?>
-							</label>
-							<fieldset class="login_input"><legend><?php echo gettext("Password"); ?></legend>
-								<input class="textfield" name="pass" id="pass" type="password"  />
+								if ($showUserField) { //	requires a "user" field
+									?>
+									<fieldset class="login_input"><legend><?php echo gettext("User"); ?></legend>
+										<input class="textfield" name="user" id="user" type="text"  value="<?php echo html_encode($requestor); ?>" />
+									</fieldset>
+									<?php
+								}
+								?>
+								<label class="show_checkbox">
+									<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
+									<?php echo gettext('Show') ?>
+								</label>
+								<fieldset class="login_input"><legend><?php echo gettext("Password"); ?></legend>
+									<input class="textfield" name="pass" id="pass" type="password"  />
+								</fieldset>
+								<br />
+								<div class="buttons">
+									<button type="submit" value="<?php echo gettext("Log in"); ?>" >
+										<?php echo CHECKMARK_GREEN; ?>
+										<?php echo gettext("Log in"); ?>
+									</button>
+									<button type="reset" value="<?php echo gettext("Reset"); ?>" >
+										<?php echo CROSS_MARK_RED_LARGE; ?>
+										<?php echo gettext("Reset"); ?>
+									</button>
+								</div>
+								<br class="clearall">
 							</fieldset>
-							<br />
-							<div class="buttons">
-								<button type="submit" value="<?php echo gettext("Log in"); ?>" >
-									<?php echo CHECKMARK_GREEN; ?>
-									<?php echo gettext("Log in"); ?>
-								</button>
-								<button type="reset" value="<?php echo gettext("Reset"); ?>" >
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Reset"); ?>
-								</button>
-							</div>
-							<br class="clearall">
-						</fieldset>
-					</form>
+						</form>
 
-					<?php
-					if ($hint) {
-						echo '<p>' . $hint . '</p>';
-					}
-					if ($showUserField && OFFSET_PATH != 2) {
-						if (getOption('challenge_foil_enabled')) {
-							?>
-							<p class="logon_link">
-								<a onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
-									<?php echo gettext('I forgot my <strong>User ID</strong>/<strong>Password</strong>'); ?>
-								</a>
-							</p>
-							<?php
-						} else {
-							if ($star) {
+						<?php
+						if ($hint) {
+							echo '<p>' . $hint . '</p>';
+						}
+						if ($showUserField && OFFSET_PATH != 2) {
+							if (getOption('challenge_foil_enabled')) {
 								?>
 								<p class="logon_link">
-									<a onclick="window.location = '?logon_step=captcha&amp;ref=' + $('#user').val();" >
+									<a onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
 										<?php echo gettext('I forgot my <strong>User ID</strong>/<strong>Password</strong>'); ?>
 									</a>
 								</p>
 								<?php
-							}
-						}
-					}
-					break;
-				case 'captcha':
-					$extra = $class = $buttonExtra = '';
-					$captcha = $_captcha->getCaptcha(NULL);
-					if (isset($captcha['submitButton'])) {
-						$extra = ' class="' . $captcha['submitButton']['class'] . '" ' . $captcha['submitButton']['extra'];
-					}
-					?>
-					<script type="text/javascript">
-						function toggleSubmit() {
-							if ($('#user').val()) {
-								$('#submitButton').prop('disabled', false);
 							} else {
-								$('#submitButton').prop('disabled', 'disabled');
+								if ($star) {
+									?>
+									<p class="logon_link">
+										<a onclick="window.location = '?logon_step=captcha&amp;ref=' + $('#user').val();" >
+											<?php echo gettext('I forgot my <strong>User ID</strong>/<strong>Password</strong>'); ?>
+										</a>
+									</p>
+									<?php
+								}
 							}
 						}
-					</script>
-					<form name="login" id="login" action="<?php echo getAdminLink('admin.php'); ?>" method="post">
-						<?php
-						if (isset($captcha['hidden']))
-							echo $captcha['hidden'];
+						break;
+					case 'captcha':
+						$extra = $class = $buttonExtra = '';
+						$captcha = $_captcha->getCaptcha(NULL);
+						if (isset($captcha['submitButton'])) {
+							$extra = ' class="' . $captcha['submitButton']['class'] . '" ' . $captcha['submitButton']['extra'];
+						}
 						?>
-						<input type="hidden" name="login" value="1" />
-						<input type="hidden" name="password" value="captcha" />
-						<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
-						<fieldset id="logon_box">
-							<fieldset><legend><?php echo gettext('User name or e-mail address'); ?></legend>
-								<input class="textfield" name="user" id="user" type="text" value="<?php echo html_encode($requestor); ?>" onkeyup="toggleSubmit();"/>
-							</fieldset>
+						<script type="text/javascript">
+							function toggleSubmit() {
+								if ($('#user').val()) {
+									$('#submitButton').prop('disabled', false);
+								} else {
+									$('#submitButton').prop('disabled', 'disabled');
+								}
+							}
+						</script>
+						<form name="login" id="login" action="<?php echo getAdminLink('admin.php'); ?>" method="post">
 							<?php
-							if (isset($captcha['html']))
-								echo $captcha['html'];
+							if (isset($captcha['hidden']))
+								echo $captcha['hidden'];
 							?>
-							<?php
-							if (isset($captcha['input'])) {
-								?>
-								<fieldset><legend><?php echo gettext("Enter CAPTCHA"); ?></legend>
-									<?php echo $captcha['input']; ?>
+							<input type="hidden" name="login" value="1" />
+							<input type="hidden" name="password" value="captcha" />
+							<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
+							<fieldset id="logon_box">
+								<fieldset><legend><?php echo gettext('User name or e-mail address'); ?></legend>
+									<input class="textfield" name="user" id="user" type="text" value="<?php echo html_encode($requestor); ?>" onkeyup="toggleSubmit();"/>
 								</fieldset>
 								<?php
-							}
-							?>
-							<br />
-							<div class="buttons">
-								<button type="submit"  id="submitButton"<?php
-								echo $extra;
-								if (empty($requestor))
-									echo ' disabled="disabled"';
-								?>>
-													<?php echo CHECKMARK_GREEN; ?>
-													<?php echo gettext("Request password reset"); ?>
-								</button>
-								<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
-									<?php echo BACK_ARROW_BLUE; ?>
-									<?php echo gettext("Return"); ?>
-								</button>
-							</div>
-							<br class="clearall">
-						</fieldset>
-					</form>
-					<?php
-					break;
-			}
-			?>
+								if (isset($captcha['html']))
+									echo $captcha['html'];
+								?>
+								<?php
+								if (isset($captcha['input'])) {
+									?>
+									<fieldset><legend><?php echo gettext("Enter CAPTCHA"); ?></legend>
+										<?php echo $captcha['input']; ?>
+									</fieldset>
+									<?php
+								}
+								?>
+								<br />
+								<div class="buttons">
+									<button type="submit"  id="submitButton"<?php
+									echo $extra;
+									if (empty($requestor))
+										echo ' disabled="disabled"';
+									?>>
+														<?php echo CHECKMARK_GREEN; ?>
+														<?php echo gettext("Request password reset"); ?>
+									</button>
+									<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
+										<?php echo BACK_ARROW_BLUE; ?>
+										<?php echo gettext("Return"); ?>
+									</button>
+								</div>
+								<br class="clearall">
+							</fieldset>
+						</form>
+						<?php
+						break;
+				}
+				?>
+			</div>
 		</div>
 		<?php
 	}
