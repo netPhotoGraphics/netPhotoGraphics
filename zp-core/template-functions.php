@@ -4278,7 +4278,7 @@ function checkAccess(&$hint = NULL, &$show = NULL) {
  *
  * @since 1.1.3
  */
-function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $_password_redirect = NULL) {
+function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $_password_redirect = NULL, $showLogo = NULL) {
 	global $_login_error, $_password_form_printed, $_current_search, $_gallery, $_gallery_page,
 	$_current_album, $_current_image, $theme, $_CMS_current_page, $_authority;
 	if ($_password_form_printed)
@@ -4317,7 +4317,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 			<a href="<?php echo $loginlink; ?>" title="<?php echo $logintext; ?>"><?php echo $logintext; ?></a>
 			<?php
 		} else {
-			$_authority->printLoginForm($_password_redirect, false, $_password_showuser, NULL, $_password_hint);
+			$_authority->printLoginForm($_password_redirect, $showLogo, $_password_showuser, NULL, $_password_hint);
 		}
 		?>
 	</div>
@@ -4379,7 +4379,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

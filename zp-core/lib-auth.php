@@ -983,6 +983,11 @@ class _Authority {
 	 */
 	function printLoginForm($redirect = null, $logo = true, $showUserField = true, $deprecated = NULL, $hint = '') {
 		global $_login_error, $_captcha, $_gallery;
+
+		if (is_null($logo)) {
+			$logo = $_gallery->branded;
+		}
+
 		if (is_null($redirect)) {
 			$redirect = getRequestURI();
 		}
@@ -1049,24 +1054,22 @@ class _Authority {
 			}
 		}
 		$whichForm = sanitize(@$_REQUEST['logon_step']);
-		if ($logo) {
+		if ($logo && $_gallery->branded) {
 			$logo = $_gallery->getSiteLogo(SERVERPATH);
-			if ($logo != SERVERPATH . CORE_FOLDER . '/images/admin-logo.png') {
-				$im = gl_imageGet($logo);
-				$scale = 78 / gl_imageHeight($im);
-				$w = gl_imageWidth($im) * $scale;
-				if ($w > 355) {
-					?>
-					<style type="text/css">
-						#loginform {
-							width: <?php echo $w + 10; ?>px !important;
-						}
-						#loginform-content {
-							padding-left: <?php echo ($w + 10 - 357) / 2; ?>px;
-						}
-					</style>
-					<?php
-				}
+			$im = gl_imageGet($logo);
+			$scale = 78 / gl_imageHeight($im);
+			$w = gl_imageWidth($im) * $scale;
+			if ($w > 355) {
+				?>
+				<style type="text/css">
+					#loginform {
+						width: <?php echo $w + 10; ?>px !important;
+					}
+					#loginform-content {
+						padding-left: <?php echo ($w - 347) / 2; ?>px;
+					}
+				</style>
+				<?php
 			}
 		}
 		?>
@@ -1537,7 +1540,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
