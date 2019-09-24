@@ -58,17 +58,17 @@ if (getOption('multiple_layouts_images')) {
 }
 if (class_exists('CMS')) {
 	if (getOption('multiple_layouts_pages')) {
-		npgFilters::register('publish_page_utilities', 'layoutSelector');
+		npgFilters::register('edit_cms_utilities', 'layoutSelector');
 		npgFilters::register('new_page', 'saveLayoutSelection');
 		npgFilters::register('update_page', 'saveLayoutSelection');
 	}
 	if (getOption('multiple_layouts_news')) {
-		npgFilters::register('publish_article_utilities', 'layoutSelector');
+		npgFilters::register('edit_cms_utilities', 'layoutSelector');
 		npgFilters::register('new_article', 'saveLayoutSelection');
 		npgFilters::register('update_article', 'saveLayoutSelection');
 	}
 	if (getOption('multiple_layouts_news_categories')) {
-		npgFilters::register('publish_category_utilities', 'layoutSelector');
+		npgFilters::register('edit_cms_utilities', 'layoutSelector');
 		npgFilters::register('new_category', 'saveLayoutSelection');
 		npgFilters::register('update_category', 'saveLayoutSelection');
 	}
@@ -229,7 +229,10 @@ function checkLayoutUseForImages($obj) {
 function layoutSelector($html, $obj, $prefix = '') {
 	$type = $obj->table;
 	if (getOption('multiple_layouts_' . $type)) {
-		$html .= getLayoutSelector($obj, $type, '<hr /><p>' . gettext('Select layout:') . '</p>', $prefix);
+		if (!empty($html)) {
+			$html .= '<hr />';
+		}
+		$html .= getLayoutSelector($obj, $type, '<p>' . gettext('Select layout:') . '</p>', $prefix);
 	}
 	return $html;
 }
