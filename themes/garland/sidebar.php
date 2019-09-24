@@ -61,7 +61,7 @@ if (function_exists('printCustomMenu') && ($menu = getOption('garland_menu'))) {
 		?>
 	</div>
 	<?php
-} else { //	"standard zenpage sidebar menus
+} else { //	"standard sidebar menus
 	?>
 	<!-- standard menu -->	<?php
 	if (class_exists('CMS')) {

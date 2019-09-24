@@ -7,7 +7,7 @@
 if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 	$handler = new ga_colorbox();
 } else {
-	require_once(SERVERPATH . '/' . THEMEFOLDER . '/garland/image_page/functions.php');
+	require_once(__DIR__ . '/image_page/functions.php');
 }
 
 class ga_colorbox {
