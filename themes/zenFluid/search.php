@@ -2,7 +2,6 @@
 // force UTF-8 Ø
 if (!defined('WEBPATH'))
 	die();
-npgFilters::apply('theme_file_top')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -46,7 +45,7 @@ npgFilters::apply('theme_file_top')
 			if ($total > 0) {
 				?>
 				<div class="title border colour">
-				<?php printf(ngettext('%1$u Hit for <em>%2$s</em>', '%1$u Hits for <em>%2$s</em>', $total), $total, html_encode($searchwords)); ?>
+					<?php printf(ngettext('%1$u Hit for <em>%2$s</em>', '%1$u Hits for <em>%2$s</em>', $total), $total, html_encode($searchwords)); ?>
 				</div>
 				<?php
 			}
@@ -56,7 +55,7 @@ npgFilters::apply('theme_file_top')
 					$c = 0;
 					?>
 					<div class="title border colour">
-		<?php printf(gettext('Pages (%s)'), $numpages); ?>
+						<?php printf(gettext('Pages (%s)'), $numpages); ?>
 						<span id="searchshowmore"><?php printZDSearchShowMoreLink("pages", $number_to_show); ?></span>
 						<ul class="searchresults">
 							<?php
@@ -81,7 +80,7 @@ npgFilters::apply('theme_file_top')
 					$c = 0;
 					?>
 					<div class="title border colour" style="font-size: 18px;">
-		<?php printf(gettext('Articles (%s)'), $numnews); ?>
+						<?php printf(gettext('Articles (%s)'), $numnews); ?>
 						<span id="searchshowmore"><?php printZDSearchShowMoreLink("news", $number_to_show); ?></span>
 						<ul class="searchresults">
 							<?php
@@ -105,15 +104,17 @@ npgFilters::apply('theme_file_top')
 			if ($numalbums > 0) {
 				?>
 				<div class="title border colour">
-	<?php printf(gettext('Albums (%s)'), $numalbums); ?>
+					<?php printf(gettext('Albums (%s)'), $numalbums); ?>
 				</div>
 				<div class="thumbstage" <?php echo $thumbstageStyle; ?>>
 					<?php
 					while (next_album()) {
 						?>
 						<div class="thumbs border colour">
-							<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View: ');
-						printBareAlbumTitle(); ?>">
+							<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php
+							echo gettext('View: ');
+							printBareAlbumTitle();
+							?>">
 								<div class="thumbimage">
 										<?php printAlbumThumbImage(getBareAlbumTitle(), "border"); ?>
 									<div class="thumbtitle">
@@ -127,77 +128,76 @@ npgFilters::apply('theme_file_top')
 								</div>
 							</a>
 						</div>
-					<?php
-				}
-				?>
+						<?php
+					}
+					?>
 				</div>
 				<?php
 			}
 			?>
 			<div class="clearing"></div>
-				<?php
-				if ($numimages > 0) {
-					?>
+			<?php
+			if ($numimages > 0) {
+				?>
 				<div class="title border colour">
-					<?php printf(gettext('Images and Videos (%s)'), $numimages); ?>
+	<?php printf(gettext('Images and Videos (%s)'), $numimages); ?>
 				</div>
 				<div class="thumbstage" <?php echo $thumbstageStyle; ?>>
-	<?php
-	while (next_image()) {
-		?>
+					<?php
+					while (next_image()) {
+						?>
 						<div class="thumbs border">
-							<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo gettext('View: ');
-							printBareImageTitle(); ?>">
+							<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php
+								 echo gettext('View: ');
+								 printBareImageTitle();
+								 ?>">
 								<div class="thumbimage">
-										<?php
-										printImageThumb(getBareImageTitle(), "border");
-										if (isImageVideo()) {
-											?>
+									<?php
+									printImageThumb(getBareImageTitle(), "border");
+									if (isImageVideo()) {
+										?>
 										<img class="videoplay" src="<?php echo $_themeroot; ?>/images/videoplay.png">
-												<?php
-											}
-											?>
+											<?php
+										}
+										?>
 										<div class="thumbtitle">
-		<?php
-		printImageTitle();
-		echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150) . "</p>";
-		?>
+											<?php
+											printImageTitle();
+											echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150) . "</p>";
+											?>
 										</div>
 								</div>
 							</a>
 						</div>
-					<?php
-				}
-				?>
+						<?php
+					}
+					?>
 				</div>
-					<?php
-				}
-				?>
-			<div class="clearing"></div>
-			<div class="albumbuttons">
-					<?php
-					if (hasPrevPage() || hasNextPage()) {
-						?>
-					<div class="button border colour">
-					<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
-					</div>
 				<?php
 			}
 			?>
-			</div>
+			<div class="clearing"></div>
+			<div class="albumbuttons">
 				<?php
-				if ($total == 0) {
+				if (hasPrevPage() || hasNextPage()) {
 					?>
+					<div class="button border colour">
+					<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
+					</div>
+					<?php
+				}
+				?>
+			</div>
+			<?php
+			if ($total == 0) {
+				?>
 				<div class="title border colour">
 				<?php echo gettext("Sorry, no matches found. Try refining your search."); ?>
 				</div>
-			<?php
-		}
-		?>
+				<?php
+			}
+			?>
 		</div>
 <?php include("inc-footer.php"); ?>
 	</body>
 </html>
-<?php
-npgFilters::apply('theme_file_end')
-?>
