@@ -161,6 +161,7 @@ class Image extends MediaObject {
 			$this->album->set('lastchange', date('Y-m-d H:i:s'));
 			$this->album->save();
 		}
+		return $success;
 	}
 
 	/**
