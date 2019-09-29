@@ -432,7 +432,7 @@ class imageProcessing {
 			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
 				if (getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
 					global $_images_classes; //	because we are doing the require in a function!
-					require_once(dirname(__FILE__) . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
+					require_once(__DIR__ . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
 					$iptc = array(
 							'1#090' => chr(0x1b) . chr(0x25) . chr(0x47), //	character set is UTF-8
 							'2#115' => $_gallery->getTitle() //	source

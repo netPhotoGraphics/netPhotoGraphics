@@ -27,7 +27,7 @@ if (OFFSET_PATH == 2) {
 	purgeOption('last_backup_run'); // for sure things have changed
 } else {
 	if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) { // register if it is time for a backup
-		require_once(dirname(dirname(__FILE__)) . '/admin-functions.php');
+		require_once(dirname(__DIR__) . '/admin-functions.php');
 		npgFilters::register('admin_head', 'auto_backup::timer_handler');
 		npgFilters::register('theme_head', 'auto_backup::timer_handler');
 		$_backupMutex = new npgMutex('bK');

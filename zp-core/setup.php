@@ -7,8 +7,8 @@
  * @package admin
  */
 define('OFFSET_PATH', 2);
-require_once(dirname(__FILE__) . '/admin-globals.php');
-require_once(dirname(__FILE__) . '/reconfigure.php');
+require_once(__DIR__ . '/admin-globals.php');
+require_once(__DIR__ . '/reconfigure.php');
 
 if (isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == getXSRFToken('setup')) {
 	$must = 5;

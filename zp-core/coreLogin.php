@@ -11,7 +11,7 @@
 
 define('OFFSET_PATH', 1);
 
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(__DIR__ . '/admin-globals.php');
 npgFilters::register('alt_login_handler', 'removeAltHandlers', 0);
 
 printAdminHeader('login');

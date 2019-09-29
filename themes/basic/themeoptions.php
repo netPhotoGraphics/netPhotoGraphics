@@ -9,12 +9,12 @@
  *
  */
 
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 class ThemeOptions {
 
 	function __construct() {
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Theme_colors', 'light');
 		setThemeOptionDefault('albums_per_page', 6);
@@ -30,7 +30,7 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_transition', 1);
 
 		if (class_exists('cacheManager')) {
-			$me = basename(dirname(__FILE__));
+			$me = basename(__DIR__);
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, getThemeOption('image_size'), NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
 			cacheManager::addCacheSize($me, getThemeOption('thumb_size'), NULL, NULL, NULL, NULL, NULL, NULL, true, NULL, NULL, NULL);
@@ -38,8 +38,17 @@ class ThemeOptions {
 	}
 
 	function getOptionsSupported() {
-		return array(gettext('Allow search') => array('key' => 'Allow_search', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Check to enable search form.')),
-				gettext('Theme colors') => array('key' => 'Theme_colors', 'type' => OPTION_TYPE_CUSTOM, 'desc' => gettext('Select the colors of the theme'))
+		return array(
+				gettext('Allow search') => array(
+						'key' => 'Allow_search',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Check to enable search form.')
+				),
+				gettext('Theme colors') => array(
+						'key' => 'Theme_colors',
+						'type' => OPTION_TYPE_CUSTOM,
+						'desc' => gettext('Select the colors of the theme')
+				)
 		);
 	}
 

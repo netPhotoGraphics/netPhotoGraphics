@@ -1,12 +1,12 @@
 <?php
 
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 class ThemeOptions {
 
 	function __construct($setDefaultOptions) {
 
-		$me = basename(dirname(__FILE__));
+		$me = basename(__DIR__);
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Allow_cloud', true);
 		setThemeOptionDefault('albums_per_page', 6);
@@ -26,7 +26,7 @@ class ThemeOptions {
 		setThemeOptionDefault('garland_caption_location', 'image');
 		setThemeOptionDefault('garland_menu', '');
 		if (class_exists('cacheManager')) {
-			$me = basename(dirname(__FILE__));
+			$me = basename(__DIR__);
 			cacheManager::deleteCacheSizes($me);
 			cacheManager::addCacheSize($me, 520, NULL, NULL, NULL, NULL, NULL, NULL, false, NULL, NULL, NULL);
 			cacheManager::addCacheSize($me, 85, NULL, NULL, getThemeOption('thumb_crop_width'), getThemeOption('thumb_crop_height'), NULL, NULL, true, NULL, NULL, NULL);
@@ -70,12 +70,27 @@ class ThemeOptions {
 			$note = '';
 		}
 		$options = array(
-				gettext('Theme personality') => array('key' => 'garland_personality', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Theme personality') => array(
+						'key' => 'garland_personality',
+						'type' => OPTION_TYPE_SELECTOR,
 						'selections' => $personalities,
-						'desc' => gettext('Select the theme personality')),
-				gettext('Allow search') => array('key' => 'Allow_search', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Set to enable search form.')),
-				gettext('Allow cloud') => array('key' => 'Allow_cloud', 'type' => OPTION_TYPE_CHECKBOX, 'desc' => gettext('Set to enable tag cloud for album page.')),
-				gettext('Custom menu') => array('key' => 'garland_menu', 'type' => OPTION_TYPE_CUSTOM, 'desc' => gettext('Set this to the <em>menu_manager</em> menu you wish to use.') . $note)
+						'desc' => gettext('Select the theme personality')
+				),
+				gettext('Allow search') => array(
+						'key' => 'Allow_search',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Set to enable search form.')
+				),
+				gettext('Allow cloud') => array(
+						'key' => 'Allow_cloud',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Set to enable tag cloud for album page.')
+				),
+				gettext('Custom menu') => array(
+						'key' => 'garland_menu',
+						'type' => OPTION_TYPE_CUSTOM,
+						'desc' => gettext('Set this to the <em>menu_manager</em> menu you wish to use.') . $note
+				)
 		);
 		if (class_exists('CMS')) {
 			global $_CMS;
@@ -88,20 +103,29 @@ class ThemeOptions {
 					$list[getBare(get_language_string($page['title']))] = $page['titlelink'];
 				}
 			}
-			$options[gettext('Custom Homepage')] = array('key' => 'garland_customHome', 'type' => OPTION_TYPE_SELECTOR,
+			$options[gettext('Custom Homepage')] = array(
+					'key' => 'garland_customHome',
+					'type' => OPTION_TYPE_SELECTOR,
 					'selections' => $list,
 					'null_selection' => gettext('none'),
-					'desc' => gettext('Select the <em>pages</em> titlelink for the home page. Only unpublished pages are offered for selection.'));
+					'desc' => gettext('Select the <em>pages</em> titlelink for the home page. Only unpublished pages are offered for selection.')
+			);
 		}
 		if (getOption('garland_personality') == 'image_gallery') {
-			$options[gettext('Image gallery transition')] = array('key' => 'garland_transition', 'type' => OPTION_TYPE_SELECTOR,
+			$options[gettext('Image gallery transition')] = array(
+					'key' => 'garland_transition',
+					'type' => OPTION_TYPE_SELECTOR,
 					'selections' => array(gettext('None') => '', gettext('Fade') => 'fade', gettext('Shrink/grow') => 'resize', gettext('Horizontal') => 'slide-hori', gettext('Vertical') => 'slide-vert'),
 					'order' => 10,
-					'desc' => gettext('Transition effect for Image gallery'));
-			$options[gettext('Image gallery caption')] = array('key' => 'garland_caption_location', 'type' => OPTION_TYPE_RADIO,
+					'desc' => gettext('Transition effect for Image gallery')
+			);
+			$options[gettext('Image gallery caption')] = array(
+					'key' => 'garland_caption_location',
+					'type' => OPTION_TYPE_RADIO,
 					'buttons' => array(gettext('On image') => 'image', gettext('Separate') => 'separate', gettext('Omit') => 'none'),
 					'order' => 10.5,
-					'desc' => gettext('Location for Image gallery picture caption'));
+					'desc' => gettext('Location for Image gallery picture caption')
+			);
 		}
 		return $options;
 	}

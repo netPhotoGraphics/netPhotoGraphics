@@ -2,7 +2,7 @@
 /**
  * This is plugin for display pictures on a Google Map
  * Uses :
- * 		CodeIgniter Google Maps API V3 Class (hacked for zenphoto needs) (https://github.com/BIOSTALL/CodeIgniter-Google-Maps-V3-API-Library)
+ * 		CodeIgniter Google Maps API V3 Class (hacked for our needs) (https://github.com/BIOSTALL/CodeIgniter-Google-Maps-V3-API-Library)
  * 		markerClustererPlus library 2.0.15
  * 		overlappingMarkerSpiderfier library 0.3 (https://github.com/jawj/OverlappingMarkerSpiderfier)
  *
@@ -123,7 +123,7 @@ class GoogleMap {
 	}
 
 	static function omsAdditions() {
-		// maybe we can move some of the zenphoto hacks here.
+		// maybe we can move some of the hacks here.
 		return '';
 	}
 
@@ -133,7 +133,7 @@ class GoogleMap {
 	static function js() {
 		if (!defined('BASEPATH'))
 			define('BASEPATH', true); //	for no access test in googleMap.php
-		require_once(dirname(__FILE__) . '/googleMap/CodeIgniter-Google-Maps-V3-API/Googlemaps.php');
+		require_once(__DIR__ . '/googleMap/CodeIgniter-Google-Maps-V3-API/Googlemaps.php');
 		$key = getOption('gmap_map_api_key');
 		if (!empty($key)) {
 			$key = '&amp;key=' . $key;

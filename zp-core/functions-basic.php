@@ -654,7 +654,7 @@ function npg_session_start() {
 		$_session_path = session_save_path();
 
 		if (ini_get('session.save_handler') == 'files' && !file_exists($_session_path) || !is_writable($_session_path)) {
-			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(dirname(__FILE__)) & 0666) | 0311);
+			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
 		$sessionCookie = session_get_cookie_params();
@@ -1963,7 +1963,7 @@ function requestSetup($whom, $addl = NULL) {
  * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function _setup($action) {
-	require_once(dirname(__FILE__) . '/reconfigure.php');
+	require_once(__DIR__ . '/reconfigure.php');
 	reconfigureAction($action);
 }
 
@@ -1973,7 +1973,7 @@ function _setup($action) {
  * @return string
  */
 function installSignature() {
-	$folder = dirname(__FILE__);
+	$folder = __DIR__;
 	$testFiles = array(
 			'template-functions.php' => filesize($folder . '/template-functions.php'),
 			'lib-filter.php' => filesize($folder . '/lib-filter.php'),
@@ -1993,7 +1993,7 @@ function installSignature() {
 	}
 	return array_merge($testFiles, array(
 			'NETPHOTOGRAPHICS' => $version,
-			'FOLDER' => dirname(dirname(__FILE__)),
+			'FOLDER' => dirname(__DIR__),
 					)
 	);
 }

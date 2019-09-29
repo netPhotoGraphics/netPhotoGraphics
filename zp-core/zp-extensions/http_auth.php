@@ -25,17 +25,17 @@
  *
  * <li>Create a file named "groups" in your apache folder</li>
  * <li>Edit the "groups" file with a line similar to:
- * 		<var>zenphoto: stephen george frank</var>.
- * This creates a group named zenphoto with the list of users as members</li>
+ * 		<var>http: stephen george frank</var>.
+ * This creates a group named http with the list of users as members</li>
  *
  * <li>Add the following lines to your root .htaccess file after the initial comments and
  * before the rewrite rules:
  * 	<ul>
  * 		<li>AuthType Basic</li>
- * 		<li>AuthName "zenphoto realm"</li>
+ * 		<li>AuthName "http realm"</li>
  * 		<li>AuthUserFile c:/wamp/bin/apache/passwords</li>
  * 		<li>AuthGroupFile c:/wamp/bin/apache/groups</li>
- * 		<li>Require group zenphoto</li>
+ * 		<li>Require group http</li>
  * 	</ul>
  * 	</li>
  * 	</ul>

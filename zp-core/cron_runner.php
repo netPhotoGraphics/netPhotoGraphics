@@ -16,7 +16,7 @@ if (isset($_POST['link'])) {
 		define('OFFSET_PATH', 1);
 	}
 	$_invisible_execute = 1;
-	require_once(dirname(__FILE__) . '/functions.php');
+	require_once(__DIR__ . '/functions.php');
 	$link = sanitize($_POST['link']);
 	if (isset($_POST['auth'])) {
 		$auth = sanitize($_POST['auth'], 0);

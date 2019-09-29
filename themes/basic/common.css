@@ -27,12 +27,12 @@ shared css so we need make them only once.
 .singlenews_next {
 	float: right;
 }
-.zp_link {
+.npg_link {
 	padding-right: 10px;
 	white-space: nowrap;
 	font-size: 14px;
 }
-.zp_link a {
+.npg_link a {
 	text-decoration: none;
 }
 

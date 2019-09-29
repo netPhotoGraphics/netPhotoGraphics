@@ -5,7 +5,7 @@
 
 
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/admin-globals.php' );
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/admin-globals.php' );
 
 $_loggedin = NULL;
 if (isset($_POST['auth'])) {

@@ -9,8 +9,8 @@
  */
 // force UTF-8 Ø
 
-require_once(dirname(__FILE__) . '/functions-basic.php');
-require_once(dirname(__FILE__) . '/initialize-basic.php');
+require_once(__DIR__ . '/functions-basic.php');
+require_once(__DIR__ . '/initialize-basic.php');
 
 npg_session_start();
 require_once(CORE_SERVERPATH . 'admin-functions.php');
@@ -63,7 +63,7 @@ $_SESSION['adminRequest'] = @$_COOKIE['user_auth']; //	Allow "unprotected" i.php
 
 require_once(CORE_SERVERPATH . 'rewrite.php');
 if (OFFSET_PATH != 2 && !getOption('license_accepted') && !isset($_invisible_execute)) {
-	require_once(dirname(__FILE__) . '/license.php');
+	require_once(__DIR__ . '/license.php');
 }
 
 $_sortby = array(

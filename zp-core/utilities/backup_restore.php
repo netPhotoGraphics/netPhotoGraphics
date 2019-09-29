@@ -16,8 +16,8 @@ define('RECORD_SEPARATOR', ':****:');
 define('TABLE_SEPARATOR', '::');
 define('RESPOND_COUNTER', 1000);
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/template-functions.php');
 $signaure = getOption('netphotographics_install');
 if (!$_current_admin_obj || $_current_admin_obj->getID()) {
 	$rights = NULL;

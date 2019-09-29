@@ -16,8 +16,8 @@
 if (isset($_REQUEST['performcrop'])) {
 	if (!defined('OFFSET_PATH'))
 		define('OFFSET_PATH', 3);
-	require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-	require_once(dirname(dirname(__FILE__)) . '/lib-image.php');
+	require_once(dirname(__DIR__) . '/admin-globals.php');
+	require_once(dirname(__DIR__) . '/lib-image.php');
 	admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 } else {
 	npgFilters::register('admin_toolbox_image', 'crop_image::toolbox');

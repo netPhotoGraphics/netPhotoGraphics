@@ -8,8 +8,8 @@
  */
 define('OFFSET_PATH', 3);
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
-require_once(dirname(dirname(__FILE__)) . '/template-functions.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/template-functions.php');
 
 admin_securityChecks(MANAGE_ALL_ALBUM_RIGHTS, $return = currentRelativeURL());
 

@@ -12,7 +12,7 @@
 global $_current_admin_obj, $_loggedin, $_authority;
 $_current_admin_obj = null;
 if (!class_exists('npg_Authority')) {
-	require_once(dirname(__FILE__) . '/class-auth.php');
+	require_once(__DIR__ . '/class-auth.php');
 }
 $_authority = new npg_Authority();
 

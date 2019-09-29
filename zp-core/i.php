@@ -32,13 +32,13 @@
 
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
-require_once(dirname(__FILE__) . '/functions-basic.php');
+require_once(__DIR__ . '/functions-basic.php');
 
 $iMutex = new npgMutex('i', @$_GET['limit']);
 $iMutex->lock();
 
-require_once(dirname(__FILE__) . '/initialize-basic.php');
-require_once(dirname(__FILE__) . '/lib-image.php');
+require_once(__DIR__ . '/initialize-basic.php');
+require_once(__DIR__ . '/lib-image.php');
 
 $debug = isset($_GET['debug']);
 
@@ -57,7 +57,7 @@ $album = sanitize_path($ralbum);
 $image = sanitize($rimage);
 $theme = imageThemeSetup(filesystemToInternal($album)); // loads the theme based image options.
 if (getOption('secure_image_processor')) {
-	require_once(dirname(__FILE__) . '/functions.php');
+	require_once(__DIR__ . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
 		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)"));

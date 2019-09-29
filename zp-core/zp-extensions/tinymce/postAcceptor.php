@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 XSRFdefender('postAcceptor');
 /* * *******************************************
  * Change this line to set the upload folder *

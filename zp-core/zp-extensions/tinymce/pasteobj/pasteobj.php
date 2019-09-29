@@ -9,7 +9,7 @@
  */
 // force UTF-8 Ø
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin-globals.php");
+require_once(dirname(dirname(dirname(__DIR__))) . "/admin-globals.php");
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS, NULL);
 
 header('Last-Modified: ' . NPG_LAST_MODIFIED);

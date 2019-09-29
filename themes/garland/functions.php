@@ -5,12 +5,12 @@ npgFilters::register('themeSwitcher_head', 'switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 
 $cwd = getcwd();
-chdir(dirname(__FILE__));
+chdir(__DIR__);
 $persona = safe_glob('*', GLOB_ONLYDIR);
 chdir($cwd);
 $personalities = array();
 foreach ($persona as $personality) {
-	if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/garland/' . $personality . '/functions.php'))
+	if (file_exists(__DIR__ . '/' . $personality . '/functions.php'))
 		$personalities[ucfirst(str_replace('_', ' ', $personality))] = $personality;
 }
 
@@ -29,8 +29,7 @@ if (!OFFSET_PATH) {
 		$persona = $personalities;
 		$personality = array_shift($persona);
 	}
-
-	require_once(SERVERPATH . '/' . THEMEFOLDER . '/garland/' . $personality . '/functions.php');
+	require_once(__DIR__ . '/' . $personality . '/functions.php');
 	$_oneImagePage = $handler->onePage();
 	$_current_page_check = 'my_checkPageValidity';
 }

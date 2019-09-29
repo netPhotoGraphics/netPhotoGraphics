@@ -25,7 +25,6 @@ class null_seo {
 	/**
 	 * class instantiation function
 	 *
-	 * @return zenphoto_seo
 	 */
 	function __construct() {
 

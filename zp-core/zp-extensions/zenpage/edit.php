@@ -6,7 +6,7 @@
  * @package plugins/zenpage
  */
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once("admin-functions.php");
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
 
@@ -41,6 +41,7 @@ if (is_AdminEditPage('page')) {
 }
 
 admin_securityChecks($rights, currentRelativeURL());
+
 updatePublished('news');
 updatePublished('pages');
 
@@ -71,6 +72,7 @@ if (isset($_GET['titlelink'])) {
 				break;
 		}
 	}
+
 	if (isset($_POST['subpage']) && $_POST['subpage'] == 'object' && count($reports) <= 1) {
 		if (isset($_POST['category'])) {
 			$_CMS_current_category = newCategory(sanitize($_POST['category']), false);
@@ -85,6 +87,7 @@ if (isset($_GET['titlelink'])) {
 } else {
 	$result = $new('');
 }
+
 if (isset($_GET['save'])) {
 	XSRFdefender('save');
 	$result = $update($reports, true);
@@ -537,9 +540,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -590,11 +593,12 @@ $tagsort = 'alpha';
 												}
 												if (is_AdminEditPage('page') || is_AdminEditPage('newscategory')) {
 													?>
-													<p class="passwordextrashow" <?php if (GALLERY_SECURITY != 'public') echo 'style="display:none"'; ?>>
-														<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
-														<?php
-														if (GALLERY_SECURITY == 'public') {
-															?>
+													<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
+
+													<?php
+													if (GALLERY_SECURITY == 'public') {
+														?>
+														<p class="passwordextrashow">
 															<?php
 															if (empty($x)) {
 																?>
@@ -631,7 +635,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																								 togglePassword('');">
+																					 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -678,20 +682,20 @@ $tagsort = 'alpha';
 													<div class="copydelete resetHide" id="copyfield" style="display:none" >
 														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
 														<p class="buttons">
-															<a	onclick="$('#copy_object').prop('checked', false);$('#copyfield').hide();">
+															<button type="button"onclick="$('#copy_object').prop('checked', false);$('#copyfield').hide();">
 																<?php echo CROSS_MARK_RED_LARGE; ?>
 																<?php echo gettext("Cancel"); ?>
-															</a>
+															</button>
 														</p>
 
 													</div>
 													<div class="copydelete resetHide" id="deletemsg"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
 														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem); ?>
+
 														<p class="buttons">
-															<a	onclick="$('#delete_object').prop('checked', false);$('#deletemsg').hide();">
+															<button type="button" onclick="$('#delete_object').prop('checked', false);$('#deletemsg').hide();">
 																<?php echo CROSS_MARK_RED_LARGE; ?>
 																<?php echo gettext("Cancel"); ?>
-															</a>
 														</p>
 													</div>
 													<?php

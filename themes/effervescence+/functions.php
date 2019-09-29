@@ -12,7 +12,7 @@ if (class_exists('CMS')) {
 }
 
 $cwd = getcwd();
-chdir(dirname(__FILE__));
+chdir(__DIR__);
 $persona = safe_glob('*', GLOB_ONLYDIR);
 chdir($cwd);
 $personalities = array();
@@ -23,10 +23,10 @@ foreach ($persona as $personality) {
 
 
 
-chdir(SERVERPATH . "/themes/" . basename(dirname(__FILE__)) . "/styles");
+chdir(SERVERPATH . "/themes/" . basename(__DIR__) . "/styles");
 $filelist = safe_glob('*.txt');
-if (file_exists(SERVERPATH . "/themes/" . basename(dirname(__FILE__)) . "/data")) {
-	chdir(SERVERPATH . "/themes/" . basename(dirname(__FILE__)) . "/data");
+if (file_exists(SERVERPATH . "/themes/" . basename(__DIR__) . "/data")) {
+	chdir(SERVERPATH . "/themes/" . basename(__DIR__) . "/data");
 	$userlist = safe_glob('*.txt');
 	$filelist = array_merge($filelist, $userlist);
 }

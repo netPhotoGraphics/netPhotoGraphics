@@ -12,7 +12,7 @@ $map = simpleMap::mapPlugin();
 
 		$handler->theme_head($_themeroot);
 
-		scriptLoader($_themeroot . '/zen.css');
+		scriptLoader($_themeroot . '/garland.css');
 
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Album', getAlbumTitle());

@@ -30,9 +30,6 @@
  *
  * So, briefly, the first four lines of code below are the standard plugin interface to Admin. There is one small
  * wrinkle you might notice--the code for 'plugin_description' includes a test which sets the variable $disable.
- * $disable is set to true if the revision of zenphoto that is attempting to load this plugin is lower than the one where the
- * implementation first appeared. The interface variable 'plugin_disable' is set to this value telling Admin not to
- * allow enabling of the plugin if the release level is too low.
  *
  * The line that follows insures that the plugin will not load when it should be disabled--just in case.
  *

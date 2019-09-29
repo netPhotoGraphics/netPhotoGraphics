@@ -8,8 +8,8 @@ if (!defined('WEBPATH'))
 	<head>
 		<?php
 		npgFilters::apply('theme_head');
-		scriptLoader($zenCSS);
-		scriptLoader(dirname(dirname($zenCSS)) . '/common.css');
+		scriptLoader($basic_CSS);
+		scriptLoader(dirname(dirname($basic_CSS)) . '/common.css');
 
 		if (class_exists('RSS')) {
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
@@ -66,7 +66,7 @@ if (!defined('WEBPATH'))
 					<?php
 					if ($news) {
 						?>
-						<span class="zp_link">
+						<span class="npg_link">
 							<?php
 							printCustomPageURL(NEWS_LABEL, 'news');
 							?>
@@ -78,7 +78,7 @@ if (!defined('WEBPATH'))
 						foreach ($pages as $item) {
 							$pageobj = newPage($item['titlelink']);
 							?>
-							<span class="zp_link">
+							<span class="npg_link">
 								<a href="<?php echo $pageobj->getLink(); ?>"><?php echo html_encode($pageobj->getTitle()); ?></a>
 							</span>
 							<?php

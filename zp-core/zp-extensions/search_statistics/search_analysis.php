@@ -7,7 +7,7 @@
  * @package plugins/search_statistics
  */
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(OVERVIEW_RIGHTS, currentRelativeURL());
 
 if (isset($_GET['reset'])) {

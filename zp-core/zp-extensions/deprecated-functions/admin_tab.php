@@ -4,7 +4,7 @@
  *
  * @package plugins/deprecated-functions
  */
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());

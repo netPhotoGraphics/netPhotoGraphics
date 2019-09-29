@@ -967,12 +967,10 @@ input#code {
 	clear: right !important;
 }
 
-.zen-logo, .zen-logo a {
+.npg-logo, .npg-logo a {
 	text-decoration: none;
 }
-.zen-logo img {
-	vertical-align: sub;
-}
+
 .themeSwitcherControlLink {
 	top: 17px;
 }

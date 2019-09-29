@@ -10,8 +10,8 @@
 // force UTF-8 Ø
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . "/functions.php");
-require_once(dirname(__FILE__) . "/lib-image.php");
+require_once(__DIR__ . "/functions.php");
+require_once(__DIR__ . "/lib-image.php");
 
 $disposal = getOption('protect_full_image');
 if ($disposal == 'No access') { // illegal use of the script!
@@ -98,7 +98,7 @@ if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)
 
 	if (empty($hash) || (!empty($hash) && getNPGCookie($authType) != $hash)) {
 		require_once(CORE_SERVERPATH . 'rewrite.php');
-		require_once(dirname(__FILE__) . "/template-functions.php");
+		require_once(__DIR__ . "/template-functions.php");
 		require_once(CORE_SERVERPATH . 'lib-controller.php');
 		Controller::load_gallery();
 
@@ -145,7 +145,7 @@ switch ($suffix) {
 		break;
 	default:
 		if ($disposal == 'Download') {
-			require_once(dirname(__FILE__) . '/lib-MimeTypes.php');
+			require_once(__DIR__ . '/lib-MimeTypes.php');
 			$mimetype = getMimeString($suffix);
 			header('Content-Disposition: attachment; filename="' . $image . '"'); // enable this to make the image a download
 			$fp = fopen($image_path, 'rb');
@@ -262,7 +262,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 
 if (!is_null($cache_path)) {
 	if ($disposal == 'Download' || !OPEN_IMAGE_CACHE) {
-		require_once(dirname(__FILE__) . '/lib-MimeTypes.php');
+		require_once(__DIR__ . '/lib-MimeTypes.php');
 		$mimetype = getMimeString($suffix);
 		$fp = fopen($cache_path, 'rb');
 		// send the right headers

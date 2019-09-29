@@ -8,7 +8,7 @@
  *
  * IMPORTANT NOTE ON OGG AND WEBM COUNTERPART FORMATS:
  *
- * The counterpart formats are not valid formats for zenphoto itself as that would confuse the management.
+ * The counterpart formats are not valid formats for netPhotoGraphics itself as that would confuse the management.
  * Therefore these formats can be uploaded via ftp only.
  * The files needed to have the same file name (beware the character case!). In single player usage the player
  * will check via file system if a counterpart file exists.
@@ -29,7 +29,7 @@
  *
  * NOTE ON PLAYER SKINS:<br>
  * The look of the player is determined by a pure HTML/CSS based skin (theme). There may occur display issues with themes.
- * Only the default skins <var>zenphotolight</var> and <var>zenphotodark</var>
+ * Only the default skins <var>light</var> and <var>dark</var>
  * have been tested with the standard themes (and it does not work perfectly for all)). Those two themes are also have a responsive width.
  * So you might need to adjust the skin yourself to work with your theme. It is recommended that
  * you place your custom skins within the root /plugins folder like:
@@ -135,7 +135,7 @@ class jplayer_options {
 
 		/*
 		  The player size is entirely styled via the CSS skin so there is no free size option. For audio (without thumb/poster) that is always 480px width.
-		  The original jPlayer skin comes with 270p (480x270px) and 360p (640x360px) sizes for videos but the zenphoto custom skin comes with some more like 480p and 1080p.
+		  The original jPlayer skin comes with 270p (480x270px) and 360p (640x360px) sizes for videos but the custom skin comes with some more like 480p and 1080p.
 		  If you need different sizes than you need to make your own skin (see the skin option for info about that)
 		 */
 
@@ -527,7 +527,7 @@ class jPlayer {
 
 	/** TODO: Could not get this to work with Firefox. Low priority so postponed for sometime later...
 	 * Gets the mp3, m4v,m4a,mp4 counterpart formats (webm,ogg) for html5 browser compatibilty
-	 * NOTE: These formats need to be uploaded via FTP as they are not valid file types for zenphoto to avoid confusion
+	 * NOTE: These formats need to be uploaded via FTP as they are not valid file types for netPhotoGraphics to avoid confusion
 	 *
 	 * @param string $moviepath full link to the multimedia file to get counterpart formats to.
 	 * @param string $ext the file format extention to search the counterpart for (as we already have fetched that)
@@ -701,7 +701,7 @@ class jPlayer {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 								<div class="jp-controls-holder">
-				<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
+									<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
 									<div class="jp-volume-controls">
 										<button class="jp-mute" role="button" tabindex="0"><?php echo gettext('mute'); ?></button>
 										<button class="jp-volume-max" role="button" tabindex="0"><?php echo gettext('max volume'); ?></button>
@@ -709,7 +709,7 @@ class jPlayer {
 											<div class="jp-volume-bar-value"></div>
 										</div>
 									</div>
-				<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
+									<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
 								</div>
 								<div class="jp-details">
 									<div class="jp-title" aria-label="title">&nbsp;</div>
@@ -722,7 +722,7 @@ class jPlayer {
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-				<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
+						<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
 					</div>
 				</div>
 				<?php
@@ -732,7 +732,7 @@ class jPlayer {
 				<div id="jp_container_<?php echo $id; ?>" class="jp-audio" role="application" aria-label="media player">
 					<div class="jp-type-playlist">
 						<div class="jp-gui jp-interface">
-				<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
+							<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
 							<div class="jp-progress">
 								<div class="jp-seek-bar">
 									<div class="jp-play-bar"></div>
@@ -749,14 +749,14 @@ class jPlayer {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 							</div>
-				<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
+							<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
 						</div>
 						<div class="jp-playlist">
 							<ul>
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-				<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
+						<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
 					</div>
 				</div>
 

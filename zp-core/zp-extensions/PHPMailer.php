@@ -96,10 +96,10 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function _PHPMailer($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
-	require_once(dirname(__FILE__) . '/PHPMailer/PHPMailer.php');
-	require_once(dirname(__FILE__) . '/PHPMailer/POP3.php');
-	require_once(dirname(__FILE__) . '/PHPMailer/SMTP.php');
-	require_once(dirname(__FILE__) . '/PHPMailer/Exception.php');
+	require_once(__DIR__ . '/PHPMailer/PHPMailer.php');
+	require_once(__DIR__ . '/PHPMailer/POP3.php');
+	require_once(__DIR__ . '/PHPMailer/SMTP.php');
+	require_once(__DIR__ . '/PHPMailer/Exception.php');
 
 	$result = _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo);
 	//	send to the BCC list

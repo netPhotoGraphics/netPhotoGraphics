@@ -8,11 +8,11 @@ global $_current_context_stack, $_HTML_cache;
 
 if (!function_exists("json_encode")) {
 // load the drop-in replacement library
-	require_once(dirname(__FILE__) . '/lib-json.php');
+	require_once(__DIR__ . '/lib-json.php');
 }
 
-require_once(dirname(__FILE__) . '/lib-filter.php');
-require_once(dirname(__FILE__) . '/lib-kses.php');
+require_once(__DIR__ . '/lib-filter.php');
+require_once(__DIR__ . '/lib-kses.php');
 
 if (class_exists('tidy')) {
 
@@ -47,7 +47,7 @@ if (!function_exists('hex2bin')) {
 
 $_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
 $_HTML_cache = new _npg_HTML_cache(); // this will be overridden by the plugin if enabled.
-require_once(dirname(__FILE__) . '/lib-i18n.php');
+require_once(__DIR__ . '/lib-i18n.php');
 
 //encrypt/decrypt constants
 define('SECRET_KEY', getOption('secret_key_text'));
@@ -55,7 +55,7 @@ define('SECRET_IV', getOption('secret_init_vector'));
 define('INCRIPTION_METHOD', 'AES-256-CBC');
 
 if (function_exists('openssl_encrypt')) {
-	require_once(dirname(__FILE__) . '/class.ncrypt.php');
+	require_once(__DIR__ . '/class.ncrypt.php');
 	$_adminCript = new mukto90\Ncrypt;
 	$_adminCript->set_secret_key(SECRET_KEY);
 	$_adminCript->set_secret_iv(SECRET_IV);
@@ -64,7 +64,7 @@ if (function_exists('openssl_encrypt')) {
 	$_adminCript = NULL;
 }
 
-require_once(dirname(__FILE__) . '/load_objectClasses.php');
+require_once(__DIR__ . '/load_objectClasses.php');
 
 $_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => gettext('random')),
 		array('field' => 'id', 'direction' => 'DESC', 'desc' => gettext('most recent')),

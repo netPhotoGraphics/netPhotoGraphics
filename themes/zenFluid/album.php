@@ -2,12 +2,11 @@
 // force UTF-8 Ø
 if (!defined('WEBPATH'))
 	die();
-npgFilters::apply('theme_file_top');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-<?php include("inc-head.php"); ?>
+		<?php include("inc-head.php"); ?>
 	</head>
 	<body>
 		<?php
@@ -34,8 +33,10 @@ npgFilters::apply('theme_file_top');
 			while (next_album()) {
 				?>
 				<div class="thumbs border colour">
-					<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View: ');
-				printBareAlbumTitle(); ?>">
+					<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php
+					echo gettext('View: ');
+					printBareAlbumTitle();
+					?>">
 						<div class="thumbimage">
 							<?php
 							printAlbumThumbImage(getBareAlbumTitle(), "border");
@@ -49,9 +50,9 @@ npgFilters::apply('theme_file_top');
 									echo "<p>" . shortenContent(strip_tags(getAlbumDesc()), 150) . "</p>";
 									?>
 								</div>
-		<?php
-	}
-	?>
+								<?php
+							}
+							?>
 						</div>
 					</a>
 				</div>
@@ -68,41 +69,43 @@ npgFilters::apply('theme_file_top');
 				}
 				?>
 				<div class="thumbs border">
-					<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo gettext('View: ');
-						printBareImageTitle(); ?>">
+					<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php
+						 echo gettext('View: ');
+						 printBareImageTitle();
+						 ?>">
 						<div class="thumbimage">
-								<?php
-								printImageThumb(getBareImageTitle(), "border");
-								if (isImageVideo()) {
-									?>
+							<?php
+							printImageThumb(getBareImageTitle(), "border");
+							if (isImageVideo()) {
+								?>
 								<img class="videoplay" src="<?php echo $_themeroot; ?>/images/videoplay.png">
-										<?php
-									}
-									if (getOption('zenfluid_thumbdesc')) {
-										?>
-									<div class="thumbtitle">
 									<?php
-									printImageTitle();
-									echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150) . "</p>";
+								}
+								if (getOption('zenfluid_thumbdesc')) {
 									?>
+									<div class="thumbtitle">
+										<?php
+										printImageTitle();
+										echo "<p>" . shortenContent(strip_tags(getImageDesc()), 150) . "</p>";
+										?>
 									</div>
-		<?php
-	}
-	?>
+									<?php
+								}
+								?>
 						</div>
 					</a>
 				</div>
-	<?php
-}
-?>
+				<?php
+			}
+			?>
 		</div>
 		<div class="clearing"></div>
 		<div class="stage" <?php echo $stageStyle; ?>>
-				<?php
-				if (getOption('zenfluid_buttontitle'))
-					printButtons();
-				if (!getOption('zenfluid_titletop')) {
-					?>
+			<?php
+			if (getOption('zenfluid_buttontitle'))
+				printButtons();
+			if (!getOption('zenfluid_titletop')) {
+				?>
 				<div class="title border colour" <?php echo $titleStyle; ?>>
 					<?php
 					if (getOption('zenfluid_titlebreadcrumb')) {
@@ -111,39 +114,38 @@ npgFilters::apply('theme_file_top');
 					printAlbumTitle();
 					?>
 				</div>
-	<?php
-}
-if (getAlbumDesc()) {
-	?>
+				<?php
+			}
+			if (getAlbumDesc()) {
+				?>
 				<div class="content border colour">
 					<div class="imagedesc" <?php echo $descriptionStyle; ?>>
 						<div class="description" <?php echo $justifyStyle; ?>>
-				<?php printAlbumDesc(); ?>
+	<?php printAlbumDesc(); ?>
 						</div>
 					</div>
 				</div>
-	<?php
-}
-if (!getOption('zenfluid_buttontitle'))
-	printButtons();
-if (getTags()) {
-	?>
+				<?php
+			}
+			if (!getOption('zenfluid_buttontitle'))
+				printButtons();
+			if (getTags()) {
+				?>
 				<div class="albumbuttons" <?php echo $buttonStyle; ?>>
 					<div class="button border colour">
-			<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
+				<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
 					</div>
 				</div>
-			<?php
-		}
-		?>
+				<?php
+			}
+			?>
 		</div>
-<?php
-include("inc-footer.php");
-?>
+		<?php
+		include("inc-footer.php");
+		?>
 	</body>
 </html>
 <?php
-npgFilters::apply('theme_file_end');
 
 function printButtons() {
 	global $_current_album, $buttonStyle, $doSlideShowLink;
@@ -156,19 +158,19 @@ function printButtons() {
 				<div class="button border colour">
 				<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
 				</div>
-						<?php
-					}
-					simpleMap::printMap();
-					if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
-						?>
+				<?php
+			}
+			simpleMap::printMap();
+			if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
+				?>
 				<div class="button border colour">
 					<div class="slideshowlink">
-			<?php printSlideShowLink(); ?>
+				<?php printSlideShowLink(); ?>
 					</div>
 				</div>
-			<?php
-		}
-		?>
+				<?php
+			}
+			?>
 		</div>
 		<div class="clearing"></div>
 		<?php

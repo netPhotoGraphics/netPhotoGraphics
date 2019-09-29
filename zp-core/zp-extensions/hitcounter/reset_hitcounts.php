@@ -5,7 +5,7 @@
  */
 
 define('OFFSET_PATH', 3);
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-functions.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-functions.php');
 if (isset($_GET['action'])) {
 	if (sanitize($_GET['action']) == 'reset_all_hitcounters') {
 		if (!npg_loggedin(ADMIN_RIGHTS)) {

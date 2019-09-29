@@ -212,11 +212,8 @@ ul.flags{z-index:99;background:#fff;text-align:center;position:absolute;top:25px
 #pagedthumbsnav img {display:block;margin:5px auto;border:1px solid #transparent;}
 #pagedthumbsnav-active img{-moz-box-shadow:0 0 12px #000;-webkit-box-shadow:0 0 12px #000;box-shadow:0 0 12px #000;border:1px solid #000;}
 
-.zen-logo, .zen-logo a {
+.npg-logo, .npg-logo a {
 	text-decoration: none;
-}
-.zen-logo img {
-	vertical-align: sub;
 }
 
 #loginform .show_checkbox {

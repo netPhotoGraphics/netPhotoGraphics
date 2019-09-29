@@ -10,7 +10,7 @@
  * @package admin
  */
 define('OFFSET_PATH', 1);
-require_once(dirname(__FILE__) . "/admin-globals.php");
+require_once(__DIR__ . "/admin-globals.php");
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS, NULL);
 
 

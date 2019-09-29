@@ -4,7 +4,7 @@
  *
  * @package plugins/rewriteTokens
  */
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 printAdminHeader('development', gettext('rewriteTokens'));
 

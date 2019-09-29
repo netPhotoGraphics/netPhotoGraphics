@@ -11,6 +11,7 @@ class Gallery {
 
 	var $albumdir = NULL;
 	var $table = 'gallery';
+	var $branded = false;
 	protected $albums = NULL;
 	protected $theme;
 	protected $themes;
@@ -35,6 +36,7 @@ class Gallery {
 			if (is_array($pages))
 				$this->unprotected_pages = $pages; //	protect against a failure
 		}
+		$this->branded = !empty($this->get('sitelogoimage'));
 	}
 
 	/**
@@ -133,6 +135,7 @@ class Gallery {
 	function setSiteLogoTitle($logo) {
 		$msg = npgFunctions::tagURLs($logo);
 		$this->set('sitelogotitle', $msg);
+		$this->branded = !empty($logo);
 	}
 
 	/**

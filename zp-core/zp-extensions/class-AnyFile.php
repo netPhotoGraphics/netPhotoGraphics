@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Use this plugin to handle filetypes as "images" that are not otherwise provided for by zenphoto.
+ * Use this plugin to handle filetypes as "images" that are not otherwise provided for by other plugins.
  *
  * Default thumbnail images may be created in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. The naming convention is
  * <i>suffix</i><var>Default.png</var>. If no such file is found, the class object default thumbnail will be used.
@@ -76,7 +76,7 @@ function get_AnyFile_suffixes() {
 	return getSerializedArray(getOption('AnyFileSuffixList'));
 }
 
-require_once(dirname(__FILE__) . '/class-textobject/class-textobject_core.php');
+require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
 class AnyFile extends TextObject {
 

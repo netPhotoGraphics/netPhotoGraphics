@@ -7,7 +7,7 @@
 if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 1);
 }
-require_once(dirname(__FILE__) . '/admin-globals.php');
+require_once(__DIR__ . '/admin-globals.php');
 
 checkInstall(); /* incase someone has dropped tables and not run setup */
 

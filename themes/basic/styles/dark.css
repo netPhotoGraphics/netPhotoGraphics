@@ -1,6 +1,6 @@
 /*
 
-	Zen Photo Default (Dark) 1.0
+	Default (Dark) 1.0
 
 */
 
@@ -102,7 +102,7 @@ h3 a:link, h3 a:visited { text-decoration: none; }
 h3 a:hover { text-decoration: underline; }
 
 
-.zp_link a {
+.npg_link a {
 	background-color: #333;
 	color: #86a1b6;
 }
@@ -677,8 +677,4 @@ form input[type="button"] {
 }
 .clearright {
 	clear: right !important;
-}
-
-.zen-logo img {
-	vertical-align: sub;
 }

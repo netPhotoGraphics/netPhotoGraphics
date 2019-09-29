@@ -5,7 +5,7 @@
  */
 // force UTF-8 Ø
 
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 //******************************************************************************
 //*** Template Functions *******************************************************
@@ -29,7 +29,7 @@ function printVersion() {
 }
 
 /**
- * Print any Javascript required by zenphoto.
+ * Print any Javascript required
  */
 function printThemeHeadItems() {
 	printStandardMeta();
@@ -4278,7 +4278,7 @@ function checkAccess(&$hint = NULL, &$show = NULL) {
  *
  * @since 1.1.3
  */
-function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $_password_redirect = NULL) {
+function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $_password_redirect = NULL, $showLogo = NULL) {
 	global $_login_error, $_password_form_printed, $_current_search, $_gallery, $_gallery_page,
 	$_current_album, $_current_image, $theme, $_CMS_current_page, $_authority;
 	if ($_password_form_printed)
@@ -4317,7 +4317,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 			<a href="<?php echo $loginlink; ?>" title="<?php echo $logintext; ?>"><?php echo $logintext; ?></a>
 			<?php
 		} else {
-			$_authority->printLoginForm($_password_redirect, false, $_password_showuser, NULL, $_password_hint);
+			$_authority->printLoginForm($_password_redirect, $showLogo, $_password_showuser, NULL, $_password_hint);
 		}
 		?>
 	</div>
@@ -4330,7 +4330,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
  */
 function print_SW_Link() {
 	?>
-	<span class="zen-logo">
+	<span class="npg-logo" style="text-decoration: none;">
 		<a href="https://netPhotoGraphics.org" title="<?php echo gettext('A media oriented content management system'); ?>">
 			<?php printf(gettext('Powered by %s'), swLogo()); ?>
 		</a>

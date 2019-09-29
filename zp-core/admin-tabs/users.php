@@ -10,7 +10,7 @@
 
 define('OFFSET_PATH', 1);
 
-require_once(dirname(dirname(__FILE__)) . '/admin-globals.php');
+require_once(dirname(__DIR__) . '/admin-globals.php');
 define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
 
 if (isset($_GET['ticket'])) {

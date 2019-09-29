@@ -4,7 +4,7 @@
  *
  * @package plugins/elFinder
  */
-require_once(dirname(dirname(dirname(__FILE__))) . '/admin-globals.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(FILES_RIGHTS | UPLOAD_RIGHTS, currentRelativeURL());
 setNPGCookie('uploadtype', 'elFinder');
 $locale = substr(getOption('locale'), 0, 2);

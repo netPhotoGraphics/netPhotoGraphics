@@ -1,6 +1,6 @@
 <?php
 // force UTF-8  Ø
-require_once(dirname(__FILE__) . '/functions.php');
+require_once(__DIR__ . '/functions.php');
 
 function http_response_text($code) {
 	switch ($code) {

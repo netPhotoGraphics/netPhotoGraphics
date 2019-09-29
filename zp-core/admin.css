@@ -385,7 +385,7 @@ code {
 }
 
 .navigation.align-right > ul > li > a {
-  border-left: 0.3em solid lightgrayx;
+  border-left: 0.3em solid lightgray;
   border-right: none;
 }
 
@@ -449,13 +449,32 @@ code {
 	font-size: 100%;
 	background-color: #FAFAFA !important;
 }
-.messagebox {
-	background-color: #C0FFA8;
+
+
+.messagebox, .errorbox, .warningbox, .notebox {
+	width: 94%;
 	padding: 10px 15px 10px 15px;
 	border-width: 1px 1px 2px 1px;
-	border-color: #8BD37C;
 	border-style: solid;
 	margin-bottom: 10px;
+	font-size: 100%;
+	font-weight: normal;
+	list-style-type: none;
+}
+
+.messagebox li, .errorbox li .warningbox li, .notebox li {
+	list-style-type: none;
+}
+
+.messagebox h2, .errorbox h2 .warningbox h2, .notebox h2 {
+	font-size: 100%;
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+.messagebox {
+	background-color: #C0FFA8;
+	border-color: #8BD37C;
 }
 
 .messagebox h2 {
@@ -476,24 +495,12 @@ code {
 }
 
 .errorbox {
-	padding: 10px 15px 10px 15px;
 	background-color: #FDD;
-	border-width: 1px 1px 2px 1px;
-	border-style: solid;
 	border-color: #FAA;
-	margin-bottom: 10px;
-	font-size: 100%;
-}
-
-.errorbox li {
-	list-style-type: none;
 }
 
 .errorbox h2 {
 	color: #DD6666;
-	font-size: 100%;
-	font-weight: bold;
-	margin-bottom: 1em;
 }
 
 /* Warning Messages
@@ -502,29 +509,26 @@ code {
 	background-color: #fcf676;
 }
 .warningbox {
-	padding: 5px 10px 5px 10px;
 	background-color: #fcf676;
-	border-width: 1px 1px 2px 1px;
-	border-style: solid;
 	border-color: #FFDEB5;
-	margin-bottom: 10px;
-	font-size: 100%;
-	list-style-type: none;
-}
-
-.warningbox li {
-	list-style-type: none;
 }
 
 .warningbox h2 {
 	color: #663300;
-	font-size: 100%;
-	font-weight: bold;
-	margin-bottom: 1em;
 }
 
 /* box for important notes
 ------------------------------ */
+
+.notebox {
+	background-color: #FFEFB7;
+	border-color: #FFDEB5;
+}
+
+.notebox h2, .notebox strong {
+	color: #663300;
+}
+
 .lognotice {
 	background-color: #FFEFB7;
 }
@@ -536,28 +540,6 @@ code {
 	font-size: 100%;
 	width: 100%;
 	font-weight: normal;
-}
-
-.notebox {
-	padding: 5px 10px 5px 10px;
-	background-color: #FFEFB7;
-	border-width: 1px 1px 2px 1px;
-	border-color: #FFDEB5;
-	border-style: solid;
-	margin-bottom: 10px;
-	font-size: 100%;
-	width: 94%;
-	font-weight: normal;
-}
-
-.notebox li {
-	list-style-type: none;
-}
-
-.notebox h2,.notebox strong {
-	color: #663300;
-	font-size: 100%;
-	font-weight: bold;
 }
 
 /* Miscellaneous
@@ -2254,7 +2236,7 @@ div.tabs>div h2 {
 	white-space:nowrap;
 	font-size:85%;
 	padding-left: 5px;
-	paddint-right: 5px;
+	padding-right: 5px;
 }
 .displayleft {
 	float:left;
@@ -2414,7 +2396,7 @@ ul.page-list {
 
 .page-list_row .page-list_extra a img {
 	border: 0;
-	vertical-align: center;
+	vertical-align: central;
 }
 
 .page-list_row .page-list_extra > span,
@@ -2656,8 +2638,7 @@ form.dirty button[type=submit],
 form.dirty input[type=submit],
 form.tinyDirty button[type=submit],
 form.tinyDirty input[type=submit] {
-	border: 1px solid #74b341 !important;
-	background: #d7e5a6;
+	background-image: linear-gradient(rgb(239,246,213), rgb(209,216,183));
 }
 
 form.dirty button[type=submit]:hover,
@@ -2668,8 +2649,7 @@ form.tinyDirty button[type=submit]:hover,
 form.tinyDirty button[type=submit]:active,
 form.tinyDirty input[type=submit]:hover,
 form.tinyDirty input[type=submit]:active {
-	border: 1px solid green !important;
-	background: #eff6d5;
+	background-image: linear-gradient( rgb(229,238,196),rgb(202,221,136));
 }
 
 .npglogo img {
