@@ -84,6 +84,7 @@ class AlbumBase extends MediaObject {
 			$album->set('lastchange', date('Y-m-d H:i:s'));
 			$album->save();
 		}
+		return $success;
 	}
 
 	/**

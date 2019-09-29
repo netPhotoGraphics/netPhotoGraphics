@@ -633,7 +633,14 @@ class ThemeObject extends PersistentObject {
 		if (!$this->getID()) { //	requires a valid id to link tags to the object
 			$this->save();
 		}
+		$oldtags = $this->getTags();
+		sort($oldtags);
 		storeTags(array_unique($tags), $this->getID(), $this->table);
+		$newtags = $this->getTags();
+		sort($newtags);
+		if ($oldtags != $newtags) {
+			$this->set('lastchange', date('Y-m-d H:i:s'));
+		}
 	}
 
 	/**
