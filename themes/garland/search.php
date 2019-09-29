@@ -129,7 +129,7 @@ if (!defined('WEBPATH'))
 															?>
 															<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 																<?php printPageURL(); ?>
-																<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent()); ?></p>
+																<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
 															</li>
 															<?php
 														}
