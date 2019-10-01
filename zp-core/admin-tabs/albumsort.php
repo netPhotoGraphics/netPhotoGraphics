@@ -243,7 +243,7 @@ echo "\n</head>";
 											if (isImagePhoto($image)) {
 												?>
 												<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
-													<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="">
+													<?php echo MAGNIFY; ?>
 												</a>
 												<?php
 											}

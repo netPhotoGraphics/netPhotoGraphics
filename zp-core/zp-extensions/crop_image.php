@@ -57,8 +57,9 @@ class crop_image {
 				$singleimage = '&amp;singleimage=' . $singleimage;
 			$output .= '<div class="button buttons tooltip" title="' . gettext('Permanently crop the actual image.') . '">' . "\n" .
 							'<a href="' . getAdminLink(PLUGIN_FOLDER . '/crop_image.php') . '?a=' . pathurlencode($albumname) . "\n" .
-							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n" .
-							'<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/shape_handles.png" alt="" />' . gettext("Crop image") . '</a>' . "\n" .
+							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n"
+							. SHAPE_HANDLES . ' '
+							. gettext("Crop image") . '</a>' . "\n" .
 							'<br class="clearall">' .
 							'</div>' . "\n";
 		}

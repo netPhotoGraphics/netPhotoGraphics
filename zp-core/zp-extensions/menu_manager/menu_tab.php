@@ -244,7 +244,10 @@ printSortableHead();
 									if ($count > 0) {
 										?>
 										<span class="buttons">
-											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/page_white_copy.png" alt="" /><strong><?php echo gettext("Duplicate menu"); ?></strong></a>
+											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>">
+												<?php echo DUPLICATE_ICON; ?>
+												<strong><?php echo gettext("Duplicate menu"); ?></strong>
+											</a>
 										</span>
 										<span class="buttons">
 											<a href="javascript:deleteMenuSet();" title="<?php printf(gettext('Delete %s menu'), $menuset); ?>">
@@ -254,7 +257,7 @@ printSortableHead();
 										</span>
 										<span class="buttons">
 											<a href="?exportmenuset=<?php echo html_encode($menuset); ?>&amp;XSRFToken=<?php echo getXSRFToken('dup_menu') ?>" title="<?php printf(gettext('Export %s menu'), $menuset); ?>">
-												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/stock_copy.png" alt="" />
+												<?php echo EXPORT_ICON; ?>
 												<strong><?php echo gettext("Export menu"); ?></strong>
 											</a>
 										</span>

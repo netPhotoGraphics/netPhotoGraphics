@@ -294,18 +294,26 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 
 				if ($plugin_is_filter & CLASS_PLUGIN) {
-					$iconA = PLACHHOLDER_ICON . '<a title="' . gettext('class plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" /></span></a>';
+					$iconA = PLACHHOLDER_ICON . '<a title="' . gettext('class plugin') . '">' .
+									PLUGIN_CLASS .
+									'</a>';
 					$iconT = '';
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
-						$iconA = '<a title="' . gettext('admin plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder.png" /></span></a>';
+						$iconA = '<a title="' . gettext('admin plugin') . '"><span class="font_icon">' .
+										PLUGIN_ADMIN .
+										'</span></a>';
 					} else {
 						$iconA = PLACHHOLDER_ICON;
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
-						$iconT = '<a title="' . gettext('feature plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" /></span></a>';
+						$iconT = '<a title="' . gettext('feature plugin') . '"><span class="font_icon">'
+										. PLUGIN_FEATURE .
+										'</span></a>';
 					} else if ($plugin_is_filter & THEME_PLUGIN) {
-						$iconT = '<a title="' . gettext('theme plugin') . '"><span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" /></span></a>';
+						$iconT = '<a title="' . gettext('theme plugin') . '"><span class="font_icon">' .
+										PLUGIN_THEME .
+										'</span></a>';
 					} else {
 						$iconT = PLACHHOLDER_ICON;
 					}
@@ -485,19 +493,19 @@ npgFilters::apply('admin_note', 'plugins', '');
 				<?php echo gettext('Supplemental plugin'); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture.png" alt="">
+				<?php echo PLUGIN_CLASS; ?>
 				<?php echo gettext('Class plugin'); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="">
+				<?php echo PLUGIN_ADMIN; ?>
 				<?php echo gettext('Admin plugin'); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures.png" alt="">
+				<?php echo PLUGIN_FEATURE; ?>
 				<?php echo gettext('Feature plugin'); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures_dn.png" alt="">
+				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
 				<?php echo gettext('Theme plugin'); ?>
 			</li>
 			<li>

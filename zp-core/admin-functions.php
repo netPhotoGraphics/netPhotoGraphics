@@ -1802,11 +1802,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 					if (!$album->isDynamic()) {
 						?>
 						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>
 						<?php
@@ -2342,7 +2342,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
 									dateFormat: 'yy-mm-dd',
 									showOn: 'button',
-									buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+									buttonImage: '<?php echo CALENDAR; ?>',
 									buttonText: '<?php echo addslashes(gettext("calendar")); ?>',
 									buttonImageOnly: true
 								});
@@ -2543,12 +2543,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 					if (!$album->isDynamic()) {
 						?>
 						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php if (!$album->isDynamic()) { ?>
 							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+								<?php echo FOLDER_ICON; ?>
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
 							<?php
@@ -2611,19 +2611,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 		?>
 		<ul class="iconlegend-l">
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture.png" alt="" />
+				<?php echo PICTURE_FOLDER; ?>
 				<?php echo gettext("Albums"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures.png" alt="" />
+				<?php echo PICTURE_FOLDER; ?>
 				<?php echo gettext("Images"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture_dn.png" alt="" />
+				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
 				<?php echo gettext("Albums (dynamic)"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures_dn.png" alt="I" />
+				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
 				<?php echo gettext("Images (dynamic)"); ?>
 			</li>
 		</ul>
@@ -2743,11 +2743,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</div>
 			<?php
 			if ($album->isDynamic()) {
-				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
-				$imga = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture_dn.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
+				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER_DYNAMIC . '</span>';
+				$imga = '<span title="' . gettext('albums') . '">' . PICTURE_FOLDER_DYNAMIC . '</span>';
 			} else {
-				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
-				$imga = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
+				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER . '</span>';
+				$imga = '<span title="' . gettext('albums') . '">' . PICTURE_FOLDER . '</span>';
 			}
 			$ci = count($album->getImages());
 			$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
@@ -2957,7 +2957,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				} else {
 					$thumb = WEBPATH . '/' . CORE_FOLDER . '/images/thumb_standin.png';
 				}
-				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER . '</span>';
 				$ci = $count;
 				$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
 				if ($ci) {

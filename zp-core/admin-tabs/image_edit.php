@@ -188,7 +188,12 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								<?php
 								if (isImagePhoto($image)) {
 									?>
-									<p class="buttons"><a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext('Zoom'); ?></strong></a></p><br style="clear: both" />
+									<p class="buttons"><a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox">
+											<?php echo MAGNIFY; ?>
+											<strong><?php echo gettext('Zoom'); ?></strong>
+										</a>
+									</p>
+									<br style="clear: both" />
 									<?php
 								}
 								?>
@@ -394,7 +399,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											$("#publishdate-<?php echo $currentimage; ?>,#expirationdate-<?php echo $currentimage; ?>").datepicker({
 												dateFormat: 'yy-mm-dd',
 												showOn: 'button',
-												buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+												buttonImage: '<?php echo CALENDAR; ?>',
 												buttonText: '<?php echo gettext("calendar"); ?>',
 												buttonImageOnly: true
 											});
@@ -590,7 +595,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										?>
 										<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
 											<a href="<?php echo getAdminLink('admin-tabs/thumbcrop.php') ?>?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
-												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/shape_handles.png" alt="" /><?php echo gettext("Crop thumbnail"); ?>
+												<?php echo SHAPE_HANDLES; ?>
+												<?php echo gettext("Crop thumbnail"); ?>
 											</a>
 											<br class="clearall">
 										</div>

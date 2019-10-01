@@ -73,7 +73,10 @@ echo '</head>' . "\n";
 					</select>
 					<br class="clearall"><br />
 					<span class="buttons">
-						<button type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" ><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="" /><strong><?php echo gettext("Search"); ?></strong></button>
+						<button type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" >
+							<?php echo MAGNIFY; ?>
+							<strong><?php echo gettext("Search"); ?></strong>
+						</button>
 					</span>
 					<span id="progress"></span>
 				</form>

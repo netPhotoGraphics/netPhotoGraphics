@@ -88,14 +88,14 @@ if (count($subalbums) > 0) {
 
 					<div class="floatright" style="padding-right: 5px">
 						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php
 						if (!$album->isDynamic()) {
 							?>
 							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+								<?php echo FOLDER_ICON; ?>
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
 							<?php
@@ -162,12 +162,12 @@ if (count($subalbums) > 0) {
 				</button>
 				<div class="floatright">
 					<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+						<?php echo FOLDER_ICON; ?>
 						<strong><?php echo gettext('New subalbum'); ?></strong>
 					</button>
 					<?php if (!$album->isDynamic()) { ?>
 						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>
 					<?php } ?>

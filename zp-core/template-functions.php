@@ -3943,9 +3943,13 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 			$button = 'value="' . $buttontext . '" title="' . sprintf($hint, $buttontext) . '"';
 		}
 	}
+
 	if (empty($iconsource)) {
-		$iconsource = WEBPATH . '/' . CORE_FOLDER . '/images/searchfields_icon.png';
+		$iconsource = SEARCHFIELDS_ICON;
+	} else {
+		$iconsource = '<img src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
+
 	if (is_null($within)) {
 		$within = getOption('search_within');
 	}
@@ -4005,7 +4009,9 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 					<input type="text" name="words" value="" id="search_input" size="10" />
 				</span>
 				<?php if (count($fields) > 1 || $searchwords) { ?>
-					<a onclick="$('#searchextrashow').toggle();" ><img src="<?php echo $iconsource; ?>" title="<?php echo gettext('search options'); ?>" alt="<?php echo gettext('fields'); ?>" id="searchfields_icon" /></a>
+					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
+						<?php echo $iconsource; ?>
+					</a>
 				<?php } ?>
 				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="button buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
 				<?php
@@ -4379,7 +4385,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

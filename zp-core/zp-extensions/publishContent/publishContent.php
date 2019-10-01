@@ -356,7 +356,7 @@ echo "</head>\n";
 						$("#publish_date").datepicker({
 							dateFormat: 'yy-mm-dd',
 							showOn: 'button',
-							buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+							buttonImage: '<?php echo CALENDAR; ?>',
 							buttonText: '<?php echo gettext('calendar'); ?>',
 							buttonImageOnly: true
 						});

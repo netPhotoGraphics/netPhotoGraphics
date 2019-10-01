@@ -900,8 +900,14 @@ echo "\n</head>";
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright" style="padding-right: 3px;">
-										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
-										<button type="button" onclick="newAlbumJS('', true);"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', false);">
+											<?php echo FOLDER_ICON; ?>
+											<strong><?php echo gettext('New album'); ?></strong>
+										</button>
+										<button type="button" onclick="newAlbumJS('', true);">
+											<?php echo FOLDER_ICON; ?>
+											<strong><?php echo gettext('New dynamic album'); ?></strong>
+										</button>
 									</span>
 									<?php
 								}
@@ -954,8 +960,14 @@ echo "\n</head>";
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright">
-										<button type="button" onclick="newAlbumJS('', false);"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong></button>
-										<button type="button" onclick="newAlbumJS('', true);"><img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong></button>
+										<button type="button" onclick="newAlbumJS('', false);">
+											<?php echo FOLDER_ICON; ?>
+											<strong><?php echo gettext('New album'); ?></strong>
+										</button>
+										<button type="button" onclick="newAlbumJS('', true);">
+											<?php echo FOLDER_ICON; ?>
+											<strong><?php echo gettext('New dynamic album'); ?></strong>
+										</button>
 									</span>
 									<?php
 								}
@@ -974,10 +986,12 @@ echo "\n</head>";
 						<span class="floatright">
 							<p class="buttons">
 								<button type="button" onclick="newAlbumJS('', false);">
-									<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New album'); ?></strong>
+									<?php echo FOLDER_ICON; ?>
+									<strong><?php echo gettext('New album'); ?></strong>
 								</button>
 								<button type="button" onclick="newAlbumJS('', true);">
-									<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" /><strong><?php echo gettext('New dynamic album'); ?></strong>
+									<?php echo FOLDER_ICON; ?>
+									<strong><?php echo gettext('New dynamic album'); ?></strong>
 								</button>
 							</p>
 						</span>
