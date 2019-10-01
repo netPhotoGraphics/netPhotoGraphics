@@ -505,7 +505,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 				<?php echo gettext('Feature plugin'); ?>
 			</li>
 			<li>
-				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
+				<?php echo PLUGIN_THEME; ?>
 				<?php echo gettext('Theme plugin'); ?>
 			</li>
 			<li>
