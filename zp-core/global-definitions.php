@@ -217,12 +217,12 @@ define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-famil
 define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5CE;</span>');
 define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
-define('HIDE_ICON', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/hide.png" /></span>');
+define('HIDE_ICON', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/hide_icon.png" /></span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
-define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install.png" /></span>');
+define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install_icon.png" /></span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
-define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock.png" /></span>');
-define('LOCK_OPEN', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_open.png" /></span>');
+define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_icon.png" /></span>');
+define('LOCK_OPEN', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_open_icon.png" /></span>');
 define('MAGNIFY', '<span class="font_icon; font-size: large;">&#x1F50D;</span>');
 define('MENU_SYMBOL', '&#9776;');
 define('NO_ENTRY', '<span class="font_icon" style="color: red;">&#9940;</span>');

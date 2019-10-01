@@ -1317,16 +1317,15 @@ plugins/zenphotoCompatibilityPack.php
 %core%/images/err-imagenotfound.png
 %core%/images/err-passwordprotected.png
 %core%/images/favicon.ico
-%core%/images/hide.png
+%core%/images/hide_icon.png
 %core%/images/imageDefault.png
-%core%/images/install.png
-%core%/images/lock.png
-%core%/images/lock_open.png
+%core%/images/install_icon.png
+%core%/images/lock_icon.png
+%core%/images/lock_open_icon.png
 %core%/images/login_button.png
 %core%/images/np_blue.png
 %core%/images/np_gold.png
 %core%/images/rss.png
-%core%/images/show.png
 %core%/images/thumb_standin.png
 %core%/images/msdropdown
 %core%/images/msdropdown/skin1
@@ -8336,4 +8335,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8338
+8337
