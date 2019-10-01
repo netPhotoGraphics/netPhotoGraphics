@@ -232,10 +232,10 @@ define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font
 define('PICTURE_FOLDER', '<span class="font_icon" style="color: #1E90FF; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: #AFEEEE; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PLACHHOLDER_ICON', '<span class="font_icon">&nbsp;</span>');
-define('PLUGIN_ADMIN', '<span class="font_icon font-size: large;">&#x1F3D7;</span>');
-define('PLUGIN_CLASS', '<span class="font_icon font-size: large;">&#x1F3DF;</span>');
-define('PLUGIN_FEATURE', '<span class="font_icon font-size: large;">&#x1F3D9;</span>');
-define('PLUGIN_THEME', '<span class="font_icon font-size: large;">&#x1F3D8;</span>');
+define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold;">&#x2B58;</span>');
+define('PLUGIN_CLASS', '<span class="font_icon;" style="font-size: large;">&#x229B;</span>');
+define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large;">&#x29c7;</span>');
+define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large;">&#x25FB;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
 define('SEARCHFIELDS_ICON', '<span class="font_icon; font-size: large; font-weight: bold; color: blue;">&#x1D11A;</span>');
