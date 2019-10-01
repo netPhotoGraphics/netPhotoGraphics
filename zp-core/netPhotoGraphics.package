@@ -1317,7 +1317,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/images/err-imagenotfound.png
 %core%/images/err-passwordprotected.png
 %core%/images/favicon.ico
-%core%/images/hide_icon.png
 %core%/images/imageDefault.png
 %core%/images/install_icon.png
 %core%/images/lock_icon.png
@@ -8335,4 +8334,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8337
+8336

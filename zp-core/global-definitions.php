@@ -199,7 +199,7 @@ define('BULLSEYE_GREEN', '<span class="font_icon" style="color: green; font-size
 define('BULLSEYE_LIGHTGRAY', '<span class="font_icon" style="color: lightgray; font-size: large;">&#9678;</span>');
 define('BULLSEYE_RED', '<span class="font_icon" style="color: red; font-size: large;">&#9678;</span>');
 define('BURST_BLUE', '<span class="font_icon" style="color: blue; font-size: large;">&#10040;</span>');
-define('CALENDAR', WEBPATH . '/' . CORE_FOLDER . '/images/calendar.png');
+define('CALENDAR', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/calendar.png" /></span>');
 define('CHECKMARK_GREEN', '<span class="font_icon" style="color: green; font-size: large;">&#10003;</span>');
 define('CIRCLED_BLUE_STAR', '<span class="font_icon" style="color: blue; font-size: large;">&#10026;</span>');
 define('CLIPBOARD', '<span class="font_icon" style="font-family: Sego UI Emoji; color: goldenrod;">&#128203;</span>');
@@ -217,7 +217,7 @@ define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-famil
 define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5CE;</span>');
 define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
-define('HIDE_ICON', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/hide_icon.png" /></span>');
+define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
 define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install_icon.png" /></span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
@@ -229,8 +229,8 @@ define('NO_ENTRY', '<span class="font_icon" style="color: red;">&#9940;</span>')
 define('NORTH_WEST_CORNER_ARROW', '<span class="font_icon" style="color: green; font-size: large;">&#8689;</span>');
 define('OPTIONS_ICON', '<span class="font_icon" style="font-size: large;">' . GEAR_SYMBOL . '</span>');
 define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font-size: large;">&#x270E;</span>');
-define('PICTURE_FOLDER', '<span class="font_icon" style="color: #1E90FF; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
-define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: #AFEEEE; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
+define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BF;&#xFE0F;</span>');
+define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PLACHHOLDER_ICON', '<span class="font_icon">&nbsp;</span>');
 define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold;">&#x2B58;</span>');
 define('PLUGIN_CLASS', '<span class="font_icon;" style="font-size: large;">&#x229B;</span>');

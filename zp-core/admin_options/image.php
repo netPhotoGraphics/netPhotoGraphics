@@ -884,7 +884,7 @@ function getOptionContent() {
 										<?php echo gettext('Hide the field'); ?>
 									</li>
 									<li>
-										<?php echo CROSS_MARK_RED_LARGE; ?>
+										<?php echo CROSS_MARK_RED; ?>
 										<?php echo gettext('Do not process the field'); ?>
 									</li>
 								</ul>
