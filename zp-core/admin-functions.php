@@ -4114,8 +4114,8 @@ function processManagedObjects($i, &$rights) {
 		$managedlist = $_POST['user'][$i]['managed'];
 
 		foreach (array('albums', 'pages', 'news_categories') as $class) {
+			$container = array();
 			if (isset($managedlist[$class])) {
-				$container = array();
 				foreach ($managedlist[$class] as $postkey => $managed) {
 					if (isset($managed['checked'])) {
 						$key = postIndexDecode($postkey);
