@@ -4,14 +4,12 @@
  * requirement for Google Ads and more. See
  * {@link https://www.cookiechoices.org Helping publishers and advertisers with consent }
  *
- * Adapted of
- * {@link https://cookieconsent.insites.com COOKIE CONSENT by Insites }
+ * Adapted from {@link https://cookieconsent.insites.com COOKIE CONSENT by Insites }
  *
  * @author Malte Müller (acrylian), Fred Sondaar (fretzl), Vincent Bourganel (vincent3569)
  * @license GPL v3 or later
  *
  * @author Malte Müller (acrylian), Fred Sondaar (fretzl), Vincent Bourganel (vincent3569), Stephen Billard (netPhotoGraphics migration)
-
  * @package plugin/cookieconsent
  * @pluginCategory theme
  */

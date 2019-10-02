@@ -470,7 +470,9 @@ npgFilters::apply('admin_note', 'plugins', '');
 						</span>
 					</td>
 					<td colspan="100%">
-						<?php echo $plugin_description; ?>
+						<div style="max-width:60em;">
+							<?php echo $plugin_description; ?>
+						</div>
 					</td>
 				</tr>
 				<?php
