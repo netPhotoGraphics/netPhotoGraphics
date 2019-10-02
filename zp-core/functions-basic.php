@@ -999,7 +999,10 @@ function getOptionOwner() {
 	//$b now has the calling file/line# of the setOption... function
 	$creator = replaceScriptPath($b['file']);
 	$matches = explode('/', $creator);
-	if ($matches[0] == THEMEFOLDER) {
+	if (array_pop($matches) == 'themeoptions.php') {
+		$theme = array_pop($matches);
+		$creator = THEMEFOLDER . '/' . $theme . '/themeoptions.php';
+	} else if ($matches[0] == THEMEFOLDER) {
 		$theme = $matches[1];
 	} else {
 		$theme = '';
