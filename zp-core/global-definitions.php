@@ -185,6 +185,8 @@ define('ZENPAGE_NEWS_DATE', 2048);
 define('ZENPAGE_PAGE', 4096);
 define('ZENPAGE_SINGLE', 8192);
 
+define('CALENDAR', WEBPATH . '/' . CORE_FOLDER . '/images/calendar.png');
+
 //icons
 define('ARROW_DOWN_GREEN', '<span class="font_icon" style="color: green; font-size: large;">&dArr;</span>');
 define('ARROW_RIGHT_BLUE', '<span class="font_icon" style="color: blue; font-size:large;">&rArr;</span>');
@@ -199,7 +201,6 @@ define('BULLSEYE_GREEN', '<span class="font_icon" style="color: green; font-size
 define('BULLSEYE_LIGHTGRAY', '<span class="font_icon" style="color: lightgray; font-size: large;">&#9678;</span>');
 define('BULLSEYE_RED', '<span class="font_icon" style="color: red; font-size: large;">&#9678;</span>');
 define('BURST_BLUE', '<span class="font_icon" style="color: blue; font-size: large;">&#10040;</span>');
-define('CALENDAR', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/calendar.png" /></span>');
 define('CHECKMARK_GREEN', '<span class="font_icon" style="color: green; font-size: large;">&#10003;</span>');
 define('CIRCLED_BLUE_STAR', '<span class="font_icon" style="color: blue; font-size: large;">&#10026;</span>');
 define('CLIPBOARD', '<span class="font_icon" style="font-family: Sego UI Emoji; color: goldenrod;">&#128203;</span>');
