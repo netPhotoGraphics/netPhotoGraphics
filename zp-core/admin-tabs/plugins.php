@@ -213,21 +213,21 @@ npgFilters::apply('admin_note', 'plugins', '');
 				switch ($details['thridparty']) {
 					case 0:
 						$whose = gettext('Official plugin');
-						$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="logo" title="<?php echo $whose; ?>" /></span>';
+						$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="logo" title="' . $whose . '" /></span>';
 						break;
 					case 1:
-						$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" alt="logo" title="<?php echo $whose; ?>" /></span>';
 						$whose = gettext('Supplemental plugin');
+						$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" alt="logo" title="' . $whose . '" /></span>';
 						$plugin_URL .= '&type=supplemental';
 						break;
 					case 2:
+						$whose = gettext('Third party plugin');
 						$path = stripSuffix($plugin_paths[$extension]) . '/logo.png';
 						if (file_exists($path)) {
-							$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . str_replace(SERVERPATH, WEBPATH, $path) . '" alt="logo" title="<?php echo $whose; ?>" /></span>';
+							$ico = '<span class="font_icon"><img class="npg_logoicon" src="' . str_replace(SERVERPATH, WEBPATH, $path) . '" alt="logo" title="' . $whose . '" /></span>';
 						} else {
-							$ico = PLACHHOLDER_ICON;
+							$ico = '<span class="font_icon" title="' . $whose . '">' . PLACHHOLDER_ICON . '</span>';
 						}
-						$whose = gettext('Third party plugin');
 						$plugin_URL .= '&type=thirdparty';
 						break;
 				}
