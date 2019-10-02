@@ -253,7 +253,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								if (empty($folderlist))
 									echo ' disabled="disabled"';
 								?> >
-													<?php echo FOLDER_ICON; ?>
+													<?php echo DUPLICATE_ICON; ?>
 													<?php echo gettext("Clone installation"); ?>
 								</button>
 							</div>
