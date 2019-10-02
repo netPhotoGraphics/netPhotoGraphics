@@ -136,30 +136,34 @@ class _Authority {
 		$encodings = self::getHashAlgorithms();
 
 		$options = array(
-				gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
+				gettext('Secure logout') => array('key' => 'SecureLogout', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
+						'desc' => gettext('Check if you need the browser to clear site data ("cache", "cookies", "storage", "executionContexts") on logout for security reasons. <strong>Note:</strong> This may degrade logout response time.'
+						)),
+				gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 1,
 						'desc' => gettext('Check if you want <em>edit rights</em> automatically assigned when a user <em>primary album</em> is created.'
 						)),
 				gettext('Minimum password strength') => array('key' => 'password_strength', 'type' => OPTION_TYPE_CUSTOM,
-						'order' => 1,
+						'order' => 2,
 						'desc' => sprintf(gettext('Users must provide passwords a strength of at least %s. The repeat password field will be disabled until this floor is met.'), '<span id="password_strength_display">' . getOption('password_strength') . '</span>')),
 				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
-						'order' => 2,
+						'order' => 3,
 						'selections' => $encodings,
 						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($encodings)) . '</code>') . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 4,
+						'order' => 5,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
 		);
 		if (getOption('challenge_foil_enabled')) {
 			$options[gettext('Challenge phrase foils')] = array('key' => 'challenge_foil', 'type' => OPTION_TYPE_CUSTOM,
-					'order' => 5,
+					'order' => 6,
 					'desc' => gettext('These <em>foil</em> challenge phrases will be presented randomly. This list should not be empty, otherwise hackers can discover valid user IDs and know that there is an answer to any presented challenge phrase.'));
 		}
 		if (getOption('strong_hash') < (3 + (int) function_exists('password_hash'))) {
 
 			$options[NULL] = array('key' => 'lib_auth_note', 'type' => OPTION_TYPE_NOTE,
-					'order' => 2,
+					'order' => 4,
 					'desc' => '<span class="warningbox">' . gettext('You should use a more robust hashing algorithm.') . '</span>'
 			);
 		}
@@ -946,8 +950,11 @@ class _Authority {
 		$_loggedin = false;
 		$_pre_authorization = array();
 		npg_session_destroy();
-		header('Clear-Site-Data: "cache", "cookies", "storage"');
-		return $location;
+		if (getOption('SecureLogout')) {
+			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
+		}
+		header("Location: " . $location);
+		exit();
 	}
 
 	/**
@@ -1541,7 +1548,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

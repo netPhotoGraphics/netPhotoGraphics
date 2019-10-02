@@ -106,9 +106,7 @@ if (in_context(NPG_INDEX)) {
 					$params .= '&' . $param . '=' . $value;
 				}
 			}
-			$location = npg_Authority::handleLogout(FULLWEBPATH . '/index.php?fromlogout' . $params);
-			header("Location: " . $location);
-			exit();
+			npg_Authority::handleLogout(FULLWEBPATH . '/index.php?fromlogout' . $params);
 		}
 	}
 }

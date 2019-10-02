@@ -229,7 +229,12 @@ function getOptionContent() {
 				if ($file != 'class-auth.php') {
 					?>
 					<tr>
-						<td colspan="100%"><?php printf(gettext('Authentication authority: <strong>%s</strong>'), stripSuffix($file)); ?></td>
+						<td class="option_name">
+							<?php echo gettext('Authentication authority'); ?>
+						</td>
+						<td class="option_value" colspan="100%">
+							<?php echo stripSuffix($file); ?>
+						</td>
 					</tr>
 					<?php
 				}
