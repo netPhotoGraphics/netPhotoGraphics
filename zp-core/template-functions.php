@@ -4061,7 +4061,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 						if (count($fields) > 1) {
 							?>
 							<ul>
-								<li style="border-bottom: 1px solid black;">
+								<li style="border-bottom: 1px solid;">
 									<label><input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong></label>
 								</li>
 								<?php
