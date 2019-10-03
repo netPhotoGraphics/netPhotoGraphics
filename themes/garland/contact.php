@@ -6,7 +6,6 @@ if (function_exists('printContactForm')) {
 	<!DOCTYPE html>
 	<html>
 		<head>
-
 			<?php
 			npgFilters::apply('theme_head');
 

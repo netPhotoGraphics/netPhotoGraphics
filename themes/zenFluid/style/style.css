@@ -162,7 +162,14 @@ body {
 	margin: 0px 0px 5px 4px;
 }
 
-.button.fb-button {
+.fl_button {
+	margin: 0px 0px 0px 0px;
+	text-align: center;
+	font-size: 13px;
+	padding: 5px 5px 5px 5px;
+	display: inline-block;
+}
+.fl_button.fb-button {
 	padding: 3px 4px 3px 4px;
 	position: relative;
 	top: 5px;
