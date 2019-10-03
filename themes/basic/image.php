@@ -98,7 +98,7 @@ if (!defined('WEBPATH'))
 								printUserSizeImage(getImageTitle());
 							} else {
 								$w = getDefaultWidth();
-								if ($w > 685) {
+								if ($w > 585) {
 									?>
 									<style>
 										#main {
