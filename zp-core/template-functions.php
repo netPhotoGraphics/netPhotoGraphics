@@ -4061,9 +4061,8 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 						if (count($fields) > 1) {
 							?>
 							<ul>
-								<li>
+								<li style="border-bottom: 1px solid black;">
 									<label><input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong></label>
-									<hr style="line-height: 2px;">
 								</li>
 								<?php
 								foreach ($fields as $display => $key) {
@@ -4388,7 +4387,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
