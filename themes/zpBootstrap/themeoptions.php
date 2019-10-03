@@ -64,6 +64,7 @@ class ThemeOptions {
 
 		$me = basename(__DIR__);
 		$albums = $album_list = array();
+		$albums['* ' . gettext('none') . ' *'] = '* none *';
 		genAlbumList($album_list, NULL, ALL_ALBUMS_RIGHTS);
 		foreach ($album_list as $fullfolder => $albumtitle) {
 			$albums[$fullfolder] = $fullfolder;
@@ -91,7 +92,8 @@ class ThemeOptions {
 						'multilingual' => 0,
 						'desc' =>
 						gettext('Select the Album to use for the homepage slider (Dynamic albums may used).') . '<br />' .
-						gettext('If Gallery is selected, the whole gallery will be used for the slider.')
+						gettext('If Gallery is selected, the whole gallery will be used for the slider.') . '<br />' .
+						gettext('Select * none * if you do not want any slider.')
 				),
 				gettext('Random pictures for homepage slider') => array(
 						'order' => 4,
