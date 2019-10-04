@@ -39,6 +39,7 @@ if (isset($_GET['action'])) {
 		case 'savegroups':
 			XSRFdefender('savegroups');
 			if (isset($_POST['checkForPostTruncation'])) {
+				$saved = false;
 				$newgroupid = @$_POST['newgroup'];
 				$grouplist = $_POST['user'];
 				foreach ($grouplist as $i => $groupelement) {
@@ -62,7 +63,9 @@ if (isset($_GET['action'])) {
 						$group->setValid(0);
 						$group->setDesc(trim(sanitize($groupelement['desc'], 3)));
 						npgFilters::apply('save_admin_data', $group, $i, true);
-						$group->save();
+						if ($group->save() == 1) {
+							$saved = true;
+						}
 
 						if ($group->getName() == 'group') {
 							//have to update any users who have this group designate.
@@ -74,7 +77,7 @@ if (isset($_GET['action'])) {
 										$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
 										user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
 										$success = $userobj->save();
-										if ($success === TRUE) {
+										if ($success == 1) {
 											npgFilters::apply('save_user_complete', '', $userobj, 'update');
 										}
 									}
@@ -87,9 +90,15 @@ if (isset($_GET['action'])) {
 								foreach ($groupelement['userlist'] as $list) {
 									$username = $list['checked'];
 									$userobj = $_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
+									$hisgroups = explode(',', $userobj->getGroup());
+									if (!in_array($groupname, $hisgroups)) {
+										$hisgroups[] = $groupname;
+										$userobj->setGroup(implode(',', $hisgroups));
+									}
 									user_groups::merge_rights($userobj, array(1 => $groupname), user_groups::getPrimeObjects($userobj));
 									$success = $userobj->save();
-									if ($success === TRUE) {
+									if ($success == 1) {
+										$saved = true;
 										npgFilters::apply('save_user_complete', '', $userobj, 'update');
 									}
 								}
@@ -97,7 +106,11 @@ if (isset($_GET['action'])) {
 						}
 					}
 				}
-				$notify = '&saved';
+				if ($saved) {
+					$notify = '&saved';
+				} else {
+					$notify = '&nochange';
+				}
 			} else {
 				$notify = '&post_error';
 			}
@@ -155,6 +168,10 @@ echo '</head>' . "\n";
 			if (isset($_GET['saved'])) {
 				echo '<div class="messagebox fade-message">';
 				echo "<h2>" . gettext('Saved') . "</h2>";
+				echo '</div>';
+			} else if (isset($_GET['nochange'])) {
+				echo '<div class="messagebox fade-message">';
+				echo "<h2>" . gettext('Nothing changed') . "</h2>";
 				echo '</div>';
 			}
 			$subtab = getCurrentTab();
@@ -295,11 +312,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />
