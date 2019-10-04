@@ -59,7 +59,7 @@
 }
 
 /* standard buttons */
-button:hover, buttons:hover, .button a:hover, .buttons a:hover {
+.button:hover, .buttons:hover, .button a:hover, .buttons a:hover {
 	background-image: linear-gradient(rgb(244,244,244), rgb(214,214,214));
 	text-decoration: none;
 	border: 1px solid #CBCBCB;
