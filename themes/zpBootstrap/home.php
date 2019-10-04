@@ -9,7 +9,6 @@
 <?php
 if ('* none *' != $album_filename = getOption('zpB_homepage_album_filename')) {
 	?>
-	}
 	<div class="slider">
 		<?php
 		;
