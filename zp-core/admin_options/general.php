@@ -181,11 +181,11 @@ function getOptionContent() {
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('Apply') ?>">
+							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
@@ -521,7 +521,7 @@ function getOptionContent() {
 							<?php echo html_encode(getOption('allowed_tags')); ?>
 						</textarea>
 						<p class="buttons">
-							<button type="button" onclick="resetallowedtags()" >
+							<button class="buttons" type="button" onclick="resetallowedtags()" >
 								<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 								<?php echo gettext('Revert to default'); ?>
 							</button>
@@ -821,10 +821,10 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('save') ?>"><?php echo CHECKMARK_GREEN; ?>
+							<button class="buttons" type="submit" value="<?php echo gettext('save') ?>"><?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>

@@ -387,7 +387,7 @@ if ($alb) {
 		if ($button) {
 			?>
 			<p class="buttons">
-				<button class="tooltip" type="submit" title="<?php echo $button['title']; ?>" >
+				<button class="buttons tooltip" type="submit" title="<?php echo $button['title']; ?>" >
 					<?php echo CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE; ?>
 					<?php echo $button['text']; ?>
 				</button>

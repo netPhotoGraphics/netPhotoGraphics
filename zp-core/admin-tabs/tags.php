@@ -234,7 +234,7 @@ printAdminHeader('admin');
 				<option value="private" <?php if ($tagsort == 'private') echo ' selected="selected"'; ?>><?php echo gettext('Private first'); ?></option>
 			</select>
 			<div class="buttons floatright">
-				<button type="reset" onclick="$('#tag_action_form').trigger('reset');
+				<button class="buttons" type="reset" onclick="$('#tag_action_form').trigger('reset');
 						$('#form_tagrename').trigger('reset');
 						$('#form_newtags').trigger('reset');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
@@ -265,19 +265,19 @@ printAdminHeader('admin');
 						</div>
 
 						<p class="buttons">
-							<button type="button" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
+							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
 								<?php echo WASTEBASKET; ?>
 								<?php echo gettext("Delete checked tags"); ?>
 							</button>
 						</p>
 						<p class="buttons">
-							<button type="button" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
+							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
 								<?php echo LOCK; ?>
 								<?php echo gettext("Mark checked tags private"); ?>
 							</button>
 						</p>
 						<p class="buttons">
-							<button type="button" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
+							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
 								<?php echo LOCK_OPEN; ?>
 								<?php echo gettext("Mark checked tags public"); ?>
 							</button>
@@ -287,7 +287,7 @@ printAdminHeader('admin');
 						if (getOption('multi_lingual')) {
 							?>
 							<span class="buttons">
-								<button type="button" id="assign_tags" onclick="$('#tag_action').val('assign');	this.form.submit();" title="<?php echo gettext('Assign tags to selected language'); ?>">
+								<button class="buttons" type="button" id="assign_tags" onclick="$('#tag_action').val('assign');	this.form.submit();" title="<?php echo gettext('Assign tags to selected language'); ?>">
 									<?php echo ARROW_RIGHT_BLUE; ?>
 									<?php echo gettext('Assign to'); ?>
 								</button>
@@ -370,7 +370,7 @@ printAdminHeader('admin');
 							</ul>
 						</div>
 						<p class="buttons" >
-							<button type="submit" id='rename_tags' value="<?php echo gettext("Rename tags"); ?>">
+							<button class="buttons" type="submit" id='rename_tags' value="<?php echo gettext("Rename tags"); ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<?php echo gettext("Rename tags"); ?>
 							</button>
@@ -400,7 +400,7 @@ printAdminHeader('admin');
 							</ul>
 						</div>
 						<span class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 25px;"'; ?>>
-							<button type="submit" id='save_tags' value="<?php echo gettext("Add tags"); ?>">
+							<button class="buttons" type="submit" id='save_tags' value="<?php echo gettext("Add tags"); ?>">
 								<?php echo PLUS_ICON; ?>
 								<?php echo gettext("Add tags"); ?>
 							</button>

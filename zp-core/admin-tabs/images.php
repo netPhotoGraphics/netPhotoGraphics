@@ -257,15 +257,15 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo')) {
 		//<!-- <![CDATA[
 		var albumdbfields = [<?php echo $albumdbfields; ?>];
 		$(function () {
-			$('.customalbumsort').tagSuggest({
-				tags: albumdbfields
-			});
+		$('.customalbumsort').tagSuggest({
+		tags: albumdbfields
+		});
 		});
 		var imagedbfields = [<?php echo $imagedbfields; ?>];
 		$(function () {
-			$('.customimagesort').tagSuggest({
-				tags: imagedbfields
-			});
+		$('.customimagesort').tagSuggest({
+		tags: imagedbfields
+		});
 		});
 		// ]]> -->
 	</script>
@@ -277,46 +277,46 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo')) {
 	var deleteAlbum1 = "<?php echo gettext("Are you sure you want to delete this entire album?"); ?>";
 	var deleteAlbum2 = "<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>";
 	function newAlbumJS(folder, dynamic) {
-		var album = prompt('<?php echo addslashes(gettext('New album name?')); ?>', '<?php echo gettext('album'); ?>.' + $.now());
-		if (album) {
-			if (dynamic) {
-				launchScript('<?php echo getAdminLink('admin-tabs/dynamic-album.php') ?>', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
-			} else {
-				launchScript('', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album), 'XSRFToken=<?php echo getXSRFToken('newalbum'); ?>']);
-			}
-		}
+	var album = prompt('<?php echo addslashes(gettext('New album name?')); ?>', '<?php echo gettext('album'); ?>.' + $.now());
+	if (album) {
+	if (dynamic) {
+	launchScript('<?php echo getAdminLink('admin-tabs/dynamic-album.php') ?>', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
+	} else {
+	launchScript('', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album), 'XSRFToken=<?php echo getXSRFToken('newalbum'); ?>']);
+	}
+	}
 	}
 
 	function confirmAction() {
-		if ($('#checkallaction').val() == 'deleteall') {
-			return confirm('<?php echo js_encode(gettext("Are you sure you want to delete the checked items?")); ?>');
-		} else if ($('#checkallaction').val() == 'deleteallalbum') {
-			if (confirm(deleteAlbum1)) {
-				return confirm(deleteAlbum2);
-			} else {
-				return false;
-			}
-		} else {
-			return true;
-		}
+	if ($('#checkallaction').val() == 'deleteall') {
+	return confirm('<?php echo js_encode(gettext("Are you sure you want to delete the checked items?")); ?>');
+	} else if ($('#checkallaction').val() == 'deleteallalbum') {
+	if (confirm(deleteAlbum1)) {
+	return confirm(deleteAlbum2);
+	} else {
+	return false;
+	}
+	} else {
+	return true;
+	}
 
 	}
 
 	var extraWidth;
 	function resizeTable() {
-		$('.width100percent').width($('.formlayout').width() - extraWidth);
+	$('.width100percent').width($('.formlayout').width() - extraWidth);
 	}
 
 	window.addEventListener('load', function () {
-		extraWidth = $('.rightcolumn').width() + 40;
+	extraWidth = $('.rightcolumn').width() + 40;
 <?php
 if ($subtab == 'imageinfo') {
 	?>
-			extraWidth = extraWidth + $('.bulk_checkbox').width() + $('.leftdeatil').width() + 10;
+		extraWidth = extraWidth + $('.bulk_checkbox').width() + $('.leftdeatil').width() + 10;
 	<?php
 }
 ?>
-		resizeTable();
+	resizeTable();
 	}, false);
 	// ]]> -->
 </script>
@@ -534,6 +534,10 @@ echo "\n</head>";
 						</div>
 						<div class="subhead">
 							<label class="buttons" style="float: left;padding-top:3px;">
+								<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/images.php') ?>?page=admin&tab=images
+															& showthumbs =<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">'">
+													<?php echo $thumbmsg; ?>
+								</button>
 								<a href="<?php echo getAdminLink('admin-tabs/images.php') ?>?page=admin&tab=images
 									 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
 										 <?php echo $thumbmsg; ?>

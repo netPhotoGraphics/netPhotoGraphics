@@ -387,6 +387,15 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_close</strong></span>(<em></em>)</p>
+					<!-- description(Admin.Miscellaneous)-admin_close --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_general_data</strong></span>(<em></em>)</p>
 					<!-- description(Admin.Miscellaneous)-admin_general_data --><p>Allows plugins to insert items onto the &lt;general%gt; tab.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -631,10 +640,10 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">cron_runner.php</li>
+						<li class="call_list">setup/index.php</li>
 						<li class="call_list"><em>plugin</em>/ipblocker.php</li>
-						<li class="call_list"><em>plugin</em>/site_upgrade/site_upgrade.php (3)</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />
 				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
 	<h5><span id="Comment"></span>Comment filters</h5>
@@ -719,10 +728,10 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">cron_runner.php</li>
+						<li class="call_list">setup/index.php</li>
 						<li class="call_list"><em>plugin</em>/ipblocker.php</li>
-						<li class="call_list"><em>plugin</em>/site_upgrade/site_upgrade.php (3)</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>sendmail</strong></span>(<em>var, var, var, var, var, var, var, var, var</em>)</p>
@@ -967,7 +976,7 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>object_addComment</strong></span>(<em>var, var, var, var, var, var, var, var, var, var, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>object_addComment</strong></span>(<em>string, var, var, var, var, var, var, var, var, var, var, var</em>)</p>
 					<!-- description(Object.Root_class)-object_addComment --><p>Comment handlers attach to this filter to handle adding a comment to an object.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -985,7 +994,7 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_object</strong></span>(<em>string, var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>save_object</strong></span>(<em>string, var, var</em>)</p>
 					<!-- description(Object.Root_class)-save_object --><p>Invoked when an object's <span class="tt">save</span> method is invoked.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -1357,28 +1366,6 @@
 						<li class="call_list">404.php</li>
 						<li class="call_list"><em>theme</em>/basic/404.php</li>
 						<li class="call_list"><em>theme</em>/basic/album.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>theme_file_end</strong></span>(<em></em>)</p>
-					<!-- description(Theme.Script)-theme_file_end --><p>Invoked at the very end of standard theme page scripts.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/zenfluid/404.php</li>
-						<li class="call_list"><em>theme</em>/zenfluid/album.php</li>
-						<li class="call_list"><em>theme</em>/zenfluid/contact.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>theme_file_top</strong></span>(<em></em>)</p>
-					<!-- description(Theme.Script)-theme_file_top --><p>Invoked at the very beginning of standard theme page scripts.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/zenfluid/404.php</li>
-						<li class="call_list"><em>theme</em>/zenfluid/album.php</li>
-						<li class="call_list"><em>theme</em>/zenfluid/contact.php</li>
 						<li>...</li>
 					</ul><!-- calls -->
 				</li><!-- filterdetail -->

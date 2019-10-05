@@ -1171,15 +1171,15 @@ class _Authority {
 								}
 								?>
 								<div class="buttons">
-									<button type="submit" value="<?php echo gettext("Submit"); ?>"<?php if (!$info['challenge']) echo ' disabled="disabled"'; ?> >
+									<button class="buttons" type="submit" value="<?php echo gettext("Submit"); ?>"<?php if (!$info['challenge']) echo ' disabled="disabled"'; ?> >
 										<?php echo CHECKMARK_GREEN; ?>
 										<?php echo gettext("Submit"); ?>
 									</button>
-									<button type="button" value="<?php echo gettext("Refresh"); ?>" id="challenge_refresh" onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
+									<button class="buttons" type="button" value="<?php echo gettext("Refresh"); ?>" id="challenge_refresh" onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
 										<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 										<?php echo gettext("Refresh"); ?>
 									</button>
-									<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
+									<button class="buttons" type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
 										<?php echo BACK_ARROW_BLUE; ?>
 										<?php echo gettext("Return"); ?>
 									</button>
@@ -1261,11 +1261,11 @@ class _Authority {
 								</fieldset>
 								<br />
 								<div class="buttons">
-									<button type="submit" value="<?php echo gettext("Log in"); ?>" >
+									<button class="buttons" type="submit" value="<?php echo gettext("Log in"); ?>" >
 										<?php echo CHECKMARK_GREEN; ?>
 										<?php echo gettext("Log in"); ?>
 									</button>
-									<button type="reset" value="<?php echo gettext("Reset"); ?>" >
+									<button class="buttons" type="reset" value="<?php echo gettext("Reset"); ?>" >
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<?php echo gettext("Reset"); ?>
 									</button>
@@ -1343,7 +1343,7 @@ class _Authority {
 								?>
 								<br />
 								<div class="buttons">
-									<button type="submit"  id="submitButton"<?php
+									<button class="buttons" type="submit"  id="submitButton"<?php
 									echo $extra;
 									if (empty($requestor))
 										echo ' disabled="disabled"';
@@ -1351,7 +1351,7 @@ class _Authority {
 														<?php echo CHECKMARK_GREEN; ?>
 														<?php echo gettext("Request password reset"); ?>
 									</button>
-									<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
+									<button class="buttons" type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
 										<?php echo BACK_ARROW_BLUE; ?>
 										<?php echo gettext("Return"); ?>
 									</button>
@@ -1548,7 +1548,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

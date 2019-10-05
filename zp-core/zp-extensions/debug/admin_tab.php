@@ -296,11 +296,11 @@ echo "\n</head>";
 									?>
 								</table>
 								<p class="buttons">
-									<button type="submit">
+									<button class="buttons" type="submit">
 										<?php echo WASTEBASKET; ?>
 										<strong><?php echo gettext("Delete"); ?></strong>
 									</button>
-									<button type="reset">
+									<button class="buttons" type="reset">
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<strong><?php echo gettext("Reset"); ?></strong>
 									</button>

@@ -456,21 +456,21 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								<?php
 								if ($_REQUEST['performcrop'] == 'backend') {
 									?>
-									<button type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo $subpage . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : ''; ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
+									<button class="buttons" type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&album=<?php echo pathurlencode($albumname); ?>&subpage=<?php echo $subpage . ($singleimage) ? '&singleimage=' . html_encode($singleimage) : ''; ?>&tagsort=<?php echo html_encode($tagsort); ?>&tab=imageinfo'">
 										<?php echo BACK_ARROW_BLUE; ?>
 										<strong><?php echo gettext("Back"); ?></strong>
 									</button>
 									<?php
 								} else if ($pasteobj) {
 									?>
-									<button type="button" value="<?php echo gettext('Back') ?>" onclick="<?php echo linkPickerPick($imageobj, 'imageURI', "+'&pick[picture]=' + $('#imageURI').val().replaceAll('&', ':')"); ?> setClean('crop');	window.history.back();">
+									<button class="buttons" type="button" value="<?php echo gettext('Back') ?>" onclick="<?php echo linkPickerPick($imageobj, 'imageURI', "+'&pick[picture]=' + $('#imageURI').val().replaceAll('&', ':')"); ?> setClean('crop');	window.history.back();">
 										<?php echo BACK_ARROW_BLUE; ?>
 										<strong><?php echo gettext("Done"); ?></strong>
 									</button>
 									<?php
 								} else {
 									?>
-									<button type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '../../index.php?album=<?php echo pathurlencode($albumname); ?>&image=<?php echo urlencode($imagename); ?>'">
+									<button class="buttons" type="button" value="<?php echo gettext('Back') ?>" onclick="window.location = '../../index.php?album=<?php echo pathurlencode($albumname); ?>&image=<?php echo urlencode($imagename); ?>'">
 										<?php echo BACK_ARROW_BLUE; ?>
 										<strong><?php echo gettext("Back"); ?></strong>
 									</button>
@@ -478,14 +478,14 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								}
 								if (!$pasteobj) {
 									?>
-									<button type="submit" id="submit" name="submit" value="<?php echo gettext('Apply the cropping') ?>">
+									<button class="buttons" type="submit" id="submit" name="submit" value="<?php echo gettext('Apply the cropping') ?>">
 										<?php echo CHECKMARK_GREEN; ?>
 										<strong><?php echo gettext("Apply"); ?></strong>
 									</button>
 									<?php
 								}
 								?>
-								<button type="reset" onclick="resetButton();" >
+								<button class="buttons" type="reset" onclick="resetButton();" >
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>

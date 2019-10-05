@@ -199,7 +199,7 @@ printSortableHead();
 					}
 					?>
 					<span class="buttons">
-						<button class="serialize" type="submit">
+						<button class="buttons serialize" type="submit">
 							<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 						</button>
 						<div class="floatright">
@@ -301,7 +301,7 @@ printSortableHead();
 					<span id="serializeOutput"></span>
 					<input name="update" type="hidden" value="Save Order" />
 					<p class="buttons">
-						<button class="serialize" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
+						<button class="buttons serialize" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
 					</p>
 				</form>
 				<ul class="iconlegend">

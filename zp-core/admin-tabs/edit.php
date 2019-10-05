@@ -887,11 +887,11 @@ echo "\n</head>";
 								<?php
 								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
-									<button class="serialize buttons" type="submit" >
+									<button class="buttons serialize" type="submit" >
 										<?php echo CHECKMARK_GREEN; ?>
 										<strong><?php echo gettext("Apply"); ?></strong>
 									</button>
-									<button type="reset" value="<?php echo gettext('Reset') ?>">
+									<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<strong><?php echo gettext("Reset"); ?></strong>
 									</button>
@@ -900,11 +900,11 @@ echo "\n</head>";
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright" style="padding-right: 3px;">
-										<button type="button" onclick="newAlbumJS('', false);">
+										<button class="buttons" type="button" onclick="newAlbumJS('', false);">
 											<?php echo FOLDER_ICON; ?>
 											<strong><?php echo gettext('New album'); ?></strong>
 										</button>
-										<button type="button" onclick="newAlbumJS('', true);">
+										<button class="buttons" type="button" onclick="newAlbumJS('', true);">
 											<?php echo FOLDER_ICON; ?>
 											<strong><?php echo gettext('New dynamic album'); ?></strong>
 										</button>
@@ -948,10 +948,10 @@ echo "\n</head>";
 								<?php
 								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
-									<button class="serialize buttons" type="submit" >
+									<button class="buttons serialize" type="submit" >
 										<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 									</button>
-									<button type="reset" value="<?php echo gettext('Reset') ?>">
+									<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<strong><?php echo gettext("Reset"); ?></strong>
 									</button>
@@ -960,11 +960,11 @@ echo "\n</head>";
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright">
-										<button type="button" onclick="newAlbumJS('', false);">
+										<button class="buttons" type="button" onclick="newAlbumJS('', false);">
 											<?php echo FOLDER_ICON; ?>
 											<strong><?php echo gettext('New album'); ?></strong>
 										</button>
-										<button type="button" onclick="newAlbumJS('', true);">
+										<button class="buttons" type="button" onclick="newAlbumJS('', true);">
 											<?php echo FOLDER_ICON; ?>
 											<strong><?php echo gettext('New dynamic album'); ?></strong>
 										</button>
@@ -985,11 +985,11 @@ echo "\n</head>";
 						?>
 						<span class="floatright">
 							<p class="buttons">
-								<button type="button" onclick="newAlbumJS('', false);">
+								<button class="buttons" type="button" onclick="newAlbumJS('', false);">
 									<?php echo FOLDER_ICON; ?>
 									<strong><?php echo gettext('New album'); ?></strong>
 								</button>
-								<button type="button" onclick="newAlbumJS('', true);">
+								<button class="buttons" type="button" onclick="newAlbumJS('', true);">
 									<?php echo FOLDER_ICON; ?>
 									<strong><?php echo gettext('New dynamic album'); ?></strong>
 								</button>

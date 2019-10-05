@@ -70,38 +70,38 @@ if (count($subalbums) > 0) {
 			}
 			?>
 			<span class="buttons">
-				<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
+				<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</button>
 				<?php
 				if ($enableEdit) {
 					?>
-					<button class="serialize buttons" type="submit">
+					<button class="buttons serialize" type="submit">
 						<?php echo CHECKMARK_GREEN; ?>
 						<strong><?php echo gettext("Apply"); ?></strong>
 					</button>
-					<button type="reset" value="<?php echo gettext('Reset') ?>">
+					<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
 						<?php echo CROSS_MARK_RED_LARGE; ?>
 						<strong><?php echo gettext("Reset"); ?></strong>
 					</button>
 
 					<div class="floatright" style="padding-right: 5px">
-						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
 							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php
 						if (!$album->isDynamic()) {
 							?>
-							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
+							<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
 								<?php echo FOLDER_ICON; ?>
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
 							<?php
 						}
 						?>
-						<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+						<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 							<span style="vertical-align:-2px;"><?php echo BULLSEYE_BLUE; ?></span>
 							<strong><?php echo gettext('View'); ?></strong>
 						</button>
@@ -147,26 +147,26 @@ if (count($subalbums) > 0) {
 			<span id="serializeOutput"></span>
 			<input name="update" type="hidden" value="Save Order" />
 			<br />
-			<span class="buttons">
-				<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
+			<span>
+				<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</button>
-				<button class="serialize buttons" type="submit">
+				<button class="buttons serialize" type="submit">
 					<?php echo CHECKMARK_GREEN; ?>
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
-				<button type="reset" value="<?php echo gettext('Reset') ?>">
+				<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
 					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
 				<div class="floatright">
-					<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+					<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
 						<?php echo FOLDER_ICON; ?>
 						<strong><?php echo gettext('New subalbum'); ?></strong>
 					</button>
 					<?php if (!$album->isDynamic()) { ?>
-						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
 							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>

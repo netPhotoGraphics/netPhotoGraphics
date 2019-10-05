@@ -1767,7 +1767,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 		if ($buttons) {
 			?>
-			<span class="buttons">
+			<span>
 				<?php
 				$parent = dirname($album->name);
 				if ($parent == '/' || $parent == '.' || empty($parent)) {
@@ -1786,15 +1786,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
 				}
 				?>
-				<button type="button" onclick="window.location = '<?php echo $backbutton ?>'">
+				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</button>
-				<button type="submit">
+				<button class="buttons" type="submit">
 					<?php echo CHECKMARK_GREEN; ?>
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
-				<button type="reset" onclick="$('.deletemsg').hide();" >
+				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();" >
 					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
@@ -1803,18 +1803,18 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php
 					if (!$album->isDynamic()) {
 						?>
-						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
 							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
-						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
 							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>
 						<?php
 					}
 					?>
-					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
 						<strong><?php echo gettext('View'); ?></strong>
 					</button>
@@ -2455,7 +2455,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
 							<p class="buttons">
-								<button type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
+								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Cancel"); ?>
 								</button>
@@ -2495,7 +2495,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</select>
 
 							<p class="buttons">
-								<button type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
+								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Cancel"); ?>
 								</button>
@@ -2505,7 +2505,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php echo gettext("to:"); ?>
 							<input name="a-<?php echo $prefix; ?>renameto" type="text" value="<?php echo basename($album->name); ?>"/>
 							<p class="buttons">
-								<button type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
+								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Cancel"); ?>
 								</button>
@@ -2528,15 +2528,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($buttons) {
 			?>
 			<span class="buttons">
-				<button type="button" onclick="window.location = '<?php echo $backbutton ?>'">
+				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</button>
-				<button type="submit">
+				<button class="buttons" type="submit">
 					<?php echo CHECKMARK_GREEN; ?>
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
-				<button type="reset" onclick="$('.deletemsg').hide();">
+				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();">
 					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
@@ -2544,12 +2544,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php
 					if (!$album->isDynamic()) {
 						?>
-						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
 							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php if (!$album->isDynamic()) { ?>
-							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
+							<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
 								<?php echo FOLDER_ICON; ?>
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
@@ -2557,7 +2557,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 					}
 					?>
-					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
 						<strong><?php echo gettext('View'); ?></strong>
 					</button>

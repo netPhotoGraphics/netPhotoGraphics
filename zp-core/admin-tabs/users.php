@@ -509,11 +509,11 @@ echo $refresh;
 						}
 						?>
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('Apply') ?>">
+							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
@@ -1000,10 +1000,10 @@ echo $refresh;
 						if (!$_current_admin_obj->transient) {
 							?>
 							<p class="buttons">
-								<button type="submit"><?php echo CHECKMARK_GREEN; ?>
+								<button class="buttons" type="submit"><?php echo CHECKMARK_GREEN; ?>
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
-								<button type="reset">
+								<button class="buttons" type="reset">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>

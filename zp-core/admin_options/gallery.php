@@ -65,8 +65,8 @@ function getOptionContent() {
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
@@ -522,8 +522,8 @@ function getOptionContent() {
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>

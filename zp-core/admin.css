@@ -1940,6 +1940,11 @@ span.tagMatches span {
 	width: 18.4em;
 }
 
+/*sidebar vertical buttons */
+.box-edit .buttons a, .theme_links .buttons a{
+	width: 90% !important;
+}
+
 .checkboxlabel {
 	padding-right: .5em;
 	float: left;

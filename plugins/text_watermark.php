@@ -99,8 +99,8 @@ class text_watermark {
 			// ]]> -->
 		</script>
 
-		<p class="buttons">
-			<button type="button" title="<?php echo gettext('Create'); ?>" onclick="createwm();">
+		<p>
+			<button class="buttons" type="button" title="<?php echo gettext('Create'); ?>" onclick="createwm();">
 				<strong>
 					<?php echo gettext('Create'); ?>
 				</strong>
