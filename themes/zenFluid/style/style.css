@@ -347,12 +347,19 @@ a:hover {
 #admin_tb, #admin_tb_data {
 	font-size: 13px;
 }
-#admin_tb, .themeSwitcherMenuMain, .themeSwitcherControlLink {
+#admin_tb {
 	margin-right: 0px;
 	padding-bottom: 10px;
 	padding-right: 5px;
+	float: right;
 }
 #admin_tb_data {
 	padding-left: 15px;
 	line-height: 16px;
+}
+.themeSwitcherMenuMain, .themeSwitcherControlLink {
+	margin-right: 10px;
+	padding-bottom: 10px;
+	padding-right: 5px;
+
 }
