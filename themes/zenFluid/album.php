@@ -163,8 +163,8 @@ function printButtons() {
 			simpleMap::printMap();
 			if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
 				?>
-				<div class="button border colour">
-					<div class="slideshowlink"> 
+				<div class="fl_button border colour">
+					<div class="slideshowlink">
 						<?php printSlideShowLink(); ?>
 					</div>
 				</div>

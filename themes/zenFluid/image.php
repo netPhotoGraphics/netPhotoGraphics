@@ -142,7 +142,7 @@ function printButtons() {
 			<?php
 		}
 		?>
-		<div class ="button border colour">
+		<div class="fl_button border colour">
 			<?php echo imageNumber() . "/" . getNumImages(); ?>
 		</div>
 		<?php
