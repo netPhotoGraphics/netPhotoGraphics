@@ -370,8 +370,11 @@ if (!defined('WEBPATH'))
 
 		<div id="main" class="container">
 			<div class="page-header row">
-				<?php if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) { ?>
-					<div class="col-sm-push-9 col-sm-3">
+				<div class="col-sm-push-9 col-sm-3">
+					<?php
+					if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
+						?>
+
 						<?php
 						if (extensionEnabled('rss')) {
 							$rss = false;
@@ -407,16 +410,9 @@ if (!defined('WEBPATH'))
 								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 								<!-- AddThis Button END -->
 							</div>
-						<?php } ?>
-					</div>
-				<?php } ?>
-
-				<?php
-				if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
-					$col_header = ' col-sm-pull-3 col-sm-9';
-				} else {
-					$col_header = '';
-				}
-				?>
-
-				<div class="header<?php echo $col_header; ?>">
+							<?php
+						}
+					}
+					?>
+				</div>
+				<div class="header col-sm-pull-3 col-sm-9">
