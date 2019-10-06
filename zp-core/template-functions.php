@@ -4006,7 +4006,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 			<?php echo $prevtext; ?>
 			<div>
 				<span class="tagSuggestContainer">
-					<input type="text" name="words" value="" id="search_input" size="10" />
+					<input type="text" name="words" value="" id="search_input" class="tagsuggest" size="10" />
 				</span>
 				<?php if (count($fields) > 1 || $searchwords) { ?>
 					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">

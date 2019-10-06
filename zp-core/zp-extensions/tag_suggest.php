@@ -61,9 +61,6 @@ class tag_suggest {
 			// <!-- <![CDATA[
 			npgTags = ["<?php echo implode($tags, '","'); ?>"];
 			options = {tags: npgTags, separator: '<?php echo $tagseparator; ?>', quoteSpecial: <?php echo OFFSET_PATH ? 'false' : 'true'; ?>};
-			$(function () {
-				$('#search_input, #edit-editable_4').tagSuggest(options);
-			});
 			$('.tagsuggest').click(function (e) {
 				$('#' + e.target.id).tagSuggest(options);
 			});
