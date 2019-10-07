@@ -219,7 +219,7 @@ define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5C
 define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
-define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
+define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large; vertical-align: 2px;">&#8505;</span>');
 define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install_icon.png" /></span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
 define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_icon.png" /></span>');
@@ -234,7 +234,7 @@ define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1
 define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PLACHHOLDER_ICON', '<span class="font_icon">&nbsp;</span>');
 define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold; vertical-align: 1px;">&#x2B58;</span>');
-define('PLUGIN_CLASS', '<span class="font_icon;" style="font-size: 17px; vertical-align: 2px;">&#x229B;</span>');
+define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: x-large;">&#x229B;</span>');
 define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; vertical-align: -2px;">&#x29c7;</span>');
 define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large;">&#x25FB;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
