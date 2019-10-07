@@ -3943,9 +3943,13 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 			$button = 'value="' . $buttontext . '" title="' . sprintf($hint, $buttontext) . '"';
 		}
 	}
+
 	if (empty($iconsource)) {
-		$iconsource = WEBPATH . '/' . CORE_FOLDER . '/images/searchfields_icon.png';
+		$iconsource = SEARCHFIELDS_ICON;
+	} else {
+		$iconsource = '<img src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
+
 	if (is_null($within)) {
 		$within = getOption('search_within');
 	}
@@ -4002,10 +4006,12 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 			<?php echo $prevtext; ?>
 			<div>
 				<span class="tagSuggestContainer">
-					<input type="text" name="words" value="" id="search_input" size="10" />
+					<input type="text" name="words" value="" id="search_input" class="tagsuggest" size="10" />
 				</span>
 				<?php if (count($fields) > 1 || $searchwords) { ?>
-					<a onclick="$('#searchextrashow').toggle();" ><img src="<?php echo $iconsource; ?>" title="<?php echo gettext('search options'); ?>" alt="<?php echo gettext('fields'); ?>" id="searchfields_icon" /></a>
+					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
+						<?php echo $iconsource; ?>
+					</a>
 				<?php } ?>
 				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="button buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
 				<?php
@@ -4055,7 +4061,9 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 						if (count($fields) > 1) {
 							?>
 							<ul>
-								<?php echo gettext('All'); ?> <input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" />
+								<li style="border-bottom: 1px solid;">
+									<label><input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong></label>
+								</li>
 								<?php
 								foreach ($fields as $display => $key) {
 									echo '<li><label><input class="SEARCH_checkall" id="SEARCH_' . $key . '" name="SEARCH_' . $key . '" type="checkbox"';

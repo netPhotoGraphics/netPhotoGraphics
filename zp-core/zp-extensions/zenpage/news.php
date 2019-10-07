@@ -247,11 +247,11 @@ updatePublished('news');
 						<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . $option; ?>" method="post" name="checkeditems" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
 							<?php XSRFToken('checkeditems'); ?>
 							<span class="buttons">
-								<button type="submit" title="<?php echo gettext('Apply'); ?>"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
+								<button class="buttons" type="submit" title="<?php echo gettext('Apply'); ?>"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
 								</button>
 
 								<span class="floatright">
-									<button type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>'">
+									<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newsarticle&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>'">
 										<?php echo PLUS_ICON; ?>
 										<strong><?php echo gettext("New Article"); ?></strong>
 									</button>
@@ -468,7 +468,7 @@ updatePublished('news');
 								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
 							</p>
 							<p class="buttons">
-								<button type="submit" title="<?php echo gettext('Apply'); ?>">
+								<button class="buttons" type="submit" title="<?php echo gettext('Apply'); ?>">
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong><?php echo gettext('Apply'); ?></strong>
 								</button>

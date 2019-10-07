@@ -238,7 +238,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 
 
 	<p class="buttons">
-		<button class="tooltip" type="button" title="<?php echo gettext('Refresh the caching of the images stored in the database if some images did not render.'); ?>" onclick="location.reload();" >
+		<button class="buttons tooltip" type="button" title="<?php echo gettext('Refresh the caching of the images stored in the database if some images did not render.'); ?>" onclick="location.reload();" >
 			<?php echo CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE; ?>
 			<?php echo gettext("Refresh"); ?>
 		</button>

@@ -97,6 +97,16 @@ if (!defined('WEBPATH'))
 							if (function_exists('printUserSizeImage') && isImagePhoto()) {
 								printUserSizeImage(getImageTitle());
 							} else {
+								$w = getDefaultWidth();
+								if ($w > 585) {
+									?>
+									<style>
+										#main {
+											width: <?php echo $w + 100; ?>px;
+										}
+									</style>
+									<?php
+								}
 								printDefaultSizedImage(getImageTitle());
 							}
 							if (!empty($fullimage)) {

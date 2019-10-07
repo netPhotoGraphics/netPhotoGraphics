@@ -82,7 +82,7 @@ function getLatestImagesAlbum($rootAlbum = '') {
 		$imageWhere = " AND i.show=1";
 		$albumInWhere = "a.show=1";
 	}
-	$query = "SELECT id FROM " . prefix('albums') . " WHERE ";
+	$query = "SELECT id FROM " . prefix('albums') . " AS a WHERE ";
 	if ($albumInWhere)
 		$query .= $albumInWhere . ' AND ';
 	$query .= "folder LIKE " . db_quote(db_LIKE_escape($albumfolder) . '%');

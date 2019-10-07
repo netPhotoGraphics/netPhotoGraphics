@@ -112,7 +112,7 @@ if (isset($_GET['action'])) {
 			exit();
 			break;
 
-//** DELETEIMAGE **************************************************************/
+		//** DELETEIMAGE **************************************************************/
 		/*		 * *************************************************************************** */
 		case 'deleteimage':
 			XSRFdefender('delete');
@@ -172,7 +172,7 @@ if (isset($_GET['action'])) {
 				} else {
 					$qs_albumsuffix = '';
 				}
-// Redirect to the same album we saved.
+				// Redirect to the same album we saved.
 				if (isset($folder) && !empty($folder)) {
 					$qs_albumsuffix .= '&album=' . pathurlencode($folder);
 				}
@@ -232,98 +232,28 @@ if (empty($subtab)) {
 printAdminHeader('images', $subtab);
 datepickerJS();
 codeblocktabsJS();
+?>
 
-if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo')) {
-	$result = db_list_fields('albums');
-	$dbfields = array();
-	if ($result) {
-		foreach ($result as $row) {
-			$dbfields[] = "'" . $row['Field'] . "'";
-		}
-	}
-	sort($dbfields);
-	$albumdbfields = implode(', ', $dbfields);
-	$result = db_list_fields('images');
-	$dbfields = array();
-	if ($result) {
-		foreach ($result as $row) {
-			$dbfields[] = "'" . $row['Field'] . "'";
-		}
-	}
-	sort($dbfields);
-	$imagedbfields = implode(', ', $dbfields);
-	?>
-	<script type="text/javascript">
-		//<!-- <![CDATA[
-		var albumdbfields = [<?php echo $albumdbfields; ?>];
-		$(function () {
-			$('.customalbumsort').tagSuggest({
-				tags: albumdbfields
-			});
-		});
-		var imagedbfields = [<?php echo $imagedbfields; ?>];
-		$(function () {
-			$('.customimagesort').tagSuggest({
-				tags: imagedbfields
-			});
-		});
-		// ]]> -->
-	</script>
-	<?php
-}
+
+<?php
+npgFilters::apply('texteditor_config', 'photo');
+npg_Authority::printPasswordFormJS();
 ?>
 <script type="text/javascript">
 	//<!-- <![CDATA[
-	var deleteAlbum1 = "<?php echo gettext("Are you sure you want to delete this entire album?"); ?>";
-	var deleteAlbum2 = "<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>";
-	function newAlbumJS(folder, dynamic) {
-		var album = prompt('<?php echo addslashes(gettext('New album name?')); ?>', '<?php echo gettext('album'); ?>.' + $.now());
-		if (album) {
-			if (dynamic) {
-				launchScript('<?php echo getAdminLink('admin-tabs/dynamic-album.php') ?>', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album)]);
-			} else {
-				launchScript('', ['action=newalbum', 'folder=' + folder, 'name=' + encodeURIComponent(album), 'XSRFToken=<?php echo getXSRFToken('newalbum'); ?>']);
-			}
-		}
-	}
-
-	function confirmAction() {
-		if ($('#checkallaction').val() == 'deleteall') {
-			return confirm('<?php echo js_encode(gettext("Are you sure you want to delete the checked items?")); ?>');
-		} else if ($('#checkallaction').val() == 'deleteallalbum') {
-			if (confirm(deleteAlbum1)) {
-				return confirm(deleteAlbum2);
-			} else {
-				return false;
-			}
-		} else {
-			return true;
-		}
-
-	}
-
 	var extraWidth;
 	function resizeTable() {
 		$('.width100percent').width($('.formlayout').width() - extraWidth);
 	}
 
 	window.addEventListener('load', function () {
-		extraWidth = $('.rightcolumn').width() + 40;
-<?php
-if ($subtab == 'imageinfo') {
-	?>
-			extraWidth = extraWidth + $('.bulk_checkbox').width() + $('.leftdeatil').width() + 10;
-	<?php
-}
-?>
+		extraWidth = $('.rightcolumn').width() + $('.bulk_checkbox').width() + $('.leftdeatil').width() + 50;
 		resizeTable();
 	}, false);
 	// ]]> -->
 </script>
-
 <?php
 npgFilters::apply('texteditor_config', 'photo');
-npg_Authority::printPasswordFormJS();
 
 echo "\n</head>";
 ?>
@@ -534,6 +464,7 @@ echo "\n</head>";
 						</div>
 						<div class="subhead">
 							<label class="buttons" style="float: left;padding-top:3px;">
+
 								<a href="<?php echo getAdminLink('admin-tabs/images.php') ?>?page=admin&tab=images
 									 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
 										 <?php echo $thumbmsg; ?>

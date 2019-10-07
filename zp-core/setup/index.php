@@ -1852,7 +1852,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											<?php
 										}
 										?>
-										<p class="buttons"><button class="submitbutton" id="submitbutton" type="submit"	title="<?php echo gettext('run setup'); ?>" ><?php echo $icon; ?> <?php echo gettext("Go"); ?></button></p>
+										<p class="buttons"><button class="buttons submitbutton" id="submitbutton" type="submit"	title="<?php echo gettext('run setup'); ?>" ><?php echo $icon; ?> <?php echo gettext("Go"); ?></button></p>
 										<br class="clearall">
 											<br />
 									</form>

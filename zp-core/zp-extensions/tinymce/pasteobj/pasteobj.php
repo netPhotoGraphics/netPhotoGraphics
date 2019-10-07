@@ -223,7 +223,7 @@ function getIPSizedImage($size, $image) {
 			</script>
 			<h3>
 				<span class="buttons">
-					<button type="button" title="<?php echo gettext('paste'); ?>" onclick="paste();">
+					<button class="buttons" type="button" title="<?php echo gettext('paste'); ?>" onclick="paste();">
 						<?php echo CHECKMARK_GREEN; ?>
 						<?php echo gettext('paste'); ?>
 					</button>
@@ -353,8 +353,10 @@ function getIPSizedImage($size, $image) {
 			<?php
 			if ($image && !$picture && isImagePhoto($obj)) {
 				?>
-				<a href="javascript:launchScript('<?php echo getAdminLink(PLUGIN_FOLDER . '/crop_image.php'); ?>',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>">
-					<img src="<?php echo WEBPATH . "/" . CORE_FOLDER . '/'; ?>images/shape_handles.png" alt="" /><?php echo gettext("Custom crop"); ?></a>
+				<a href="javascript:launchScript('<?php echo getAdminLink(PLUGIN_FOLDER . '/crop_image.php'); ?>',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>" style="text-decoration: none;">
+					<?php echo SHAPE_HANDLES; ?>
+					<?php echo gettext("Crop image"); ?>
+				</a>
 				<?php
 			}
 		} else {

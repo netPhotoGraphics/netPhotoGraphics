@@ -58,11 +58,11 @@ function getOptionContent() {
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('save') ?>">
+							<button class="buttons" type="submit" value="<?php echo gettext('save') ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
@@ -229,7 +229,12 @@ function getOptionContent() {
 				if ($file != 'class-auth.php') {
 					?>
 					<tr>
-						<td colspan="100%"><?php printf(gettext('Authentication authority: <strong>%s</strong>'), stripSuffix($file)); ?></td>
+						<td class="option_name">
+							<?php echo gettext('Authentication authority'); ?>
+						</td>
+						<td class="option_value" colspan="100%">
+							<?php echo stripSuffix($file); ?>
+						</td>
 					</tr>
 					<?php
 				}
@@ -245,11 +250,11 @@ function getOptionContent() {
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button type="submit" value="<?php echo gettext('save') ?>">
+							<button class="buttons" type="submit" value="<?php echo gettext('save') ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="reset" value="<?php echo gettext('reset') ?>">
+							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>

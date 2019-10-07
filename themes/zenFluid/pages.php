@@ -29,7 +29,7 @@ if (!defined('WEBPATH') || !class_exists("CMS"))
 				<?php
 				if (function_exists('getHitcounter')) {
 					?>
-					<div class="button border colour">
+					<div class="fl_button border colour">
 						<?php echo gettext("Views: ") . getHitcounter(); ?>
 					</div>
 					<?php
@@ -41,17 +41,17 @@ if (!defined('WEBPATH') || !class_exists("CMS"))
 						$comments = sprintf(ngettext('%u Comment', '%u Comments', $commentCount), $commentCount);
 					}
 					?>
-					<div class="button border colour">
+					<div class="fl_button border colour">
 						<a href="#readComment"><?php echo $comments; ?></a>
 					</div>
-					<div class="button border colour">
+					<div class="fl_button border colour">
 						<a href="#addComment">Add Comment</a>
 					</div>
 					<?php
 				}
 				if (function_exists('printLikeButton')) {
 					?>
-					<div class="button fb-button border colour">
+					<div class="fl_button fb-button border colour">
 						<?php printLikeButton(); ?>
 					</div>
 					<?php
@@ -73,7 +73,7 @@ if (!defined('WEBPATH') || !class_exists("CMS"))
 			if (getTags()) {
 				?>
 				<div class="albumbuttons" <?php echo $buttonStyle; ?>>
-					<div class="button border colour">
+					<div class="fl_button border colour">
 						<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
 					</div>
 				</div>

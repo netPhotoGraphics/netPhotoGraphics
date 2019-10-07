@@ -60,12 +60,18 @@
 
 }
 
+
 .navbar li {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight:600;
+	position: relative;
 }
 
+.navbar li ul {
+	position: absolute;
+	z-index: 1000;
+}
 .navbar li li {
   text-transform: none;
   letter-spacing: 0;

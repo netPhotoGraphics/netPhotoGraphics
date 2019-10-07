@@ -3,8 +3,8 @@
  * presents a form to get the user's googleAuthenticator authorization code.
  */
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
-require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/Secret.php');
-require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/Secret.php');
+require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 
 if (isset($_SESSION['OTA'])) {
 	$user = $_SESSION['OTA']['user'];
@@ -13,8 +13,8 @@ if (isset($_SESSION['OTA'])) {
 	if ($userobj && $userobj->getOTAsecret()) {
 
 		if (isset($_POST['authenticate'])) {
-			require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/Base32.php');
-			require_once (CORE_SERVERPATH .  PLUGIN_FOLDER . '/googleTFA/GoogleAuthenticator.php');
+			require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/common/Base32.php');
+			require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/GoogleAuthenticator.php');
 			$link = $_SESSION['OTA']['redirect'];
 			unset($_SESSION['OTA']); // kill the possibility of a replay
 			$secret = $userobj->getOTAsecret();
@@ -56,11 +56,11 @@ if (isset($_SESSION['OTA'])) {
 						<br />
 						<br />
 						<div class="buttons">
-							<button type="submit" value="<?php echo gettext("Token"); ?>" >
+							<button class="buttons" type="submit" value="<?php echo gettext("Token"); ?>" >
 								<?php echo CHECKMARK_GREEN; ?>
 								<?php echo gettext("Submit"); ?>
 							</button>
-							<button type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo FULLWEBPATH; ?>';">
+							<button class="buttons" type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo FULLWEBPATH; ?>';">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<?php echo gettext("Cancel"); ?>
 							</button>

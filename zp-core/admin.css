@@ -990,7 +990,6 @@ td.albumicons {
 	display: inline-block;
 	width: 18px !important;
 	height: 18px !important;
-	text-align: center;
 }
 
 /* Forms
@@ -1939,6 +1938,11 @@ span.tagMatches span {
 	background-color: white;
 	border: 1px solid #cccccc;
 	width: 18.4em;
+}
+
+/*sidebar vertical buttons */
+.box-edit .buttons a, .theme_links .buttons a{
+	width: 90% !important;
 }
 
 .checkboxlabel {

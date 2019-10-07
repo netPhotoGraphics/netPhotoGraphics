@@ -65,6 +65,7 @@ class matomoStats {
 			setOptionDefault('matomo_disablecookies', 0);
 		}
 		setOptionDefault('matomo_requireconsent', 'no-consent');
+		setOptionDefault('matomo_contenttracking', 'disabled');
 	}
 
 	function getOptionsSupported() {
@@ -87,8 +88,18 @@ class matomoStats {
 				gettext('Admin tracking') => array(
 						'key' => 'matomo_admintracking',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 3,
+						'order' => 2,
 						'desc' => gettext('Check if you want Matomo to track users with <code>Admin</code> rights.')),
+				gettext('Content tracking') => array(
+						'key' => 'matomo_contenttracking',
+						'type' => OPTION_TYPE_RADIO,
+						'buttons' => array(
+								gettext('Track all content') => 'all-content',
+								gettext('Track visible content only') => 'visible-content',
+								gettext('Disable content tracking') => 'disabled'
+						),
+						'order' => 3,
+						'desc' => gettext('Controls if you want Matomo to track content interaction (e.g. link clicks). Your theme/plugins/site will require specific HTML markup for this to work. Read more about it on <a href="https://developer.matomo.org/guides/content-tracking">Content tracking</a>.')),
 				gettext('Site domain') => array(
 						'key' => 'matomo_sitedomain',
 						'type' => OPTION_TYPE_TEXTBOX,
@@ -167,6 +178,20 @@ class matomoStats {
 			?>
 				_paq.push(['trackPageView']);
 				_paq.push(['enableLinkTracking']);
+				<?php 
+				switch(getOption('matomo_contenttracking')) {
+					case 'all-content':
+						?>
+						_paq.push(['trackAllContentImpressions']);
+						<?php
+						break;
+					case 'visible-content':
+						?>
+						_paq.push(['trackVisibleContentImpressions']);
+						<?php
+						break;
+				}
+				?>
 				(function () {
 					var u = "//<?php echo str_replace(array('http://', 'https://'), '', $url); ?>/";
 					_paq.push(['setTrackerUrl', u + 'piwik.php']);

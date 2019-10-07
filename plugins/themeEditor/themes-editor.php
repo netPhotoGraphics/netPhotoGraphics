@@ -153,12 +153,12 @@ if (!empty($messages)) {
 					<?php XSRFToken('edit_theme'); ?>
 					<p><textarea cols="70" rows="35" name="newcontent" id="newcontent"><?php echo $file_content ?></textarea></p>
 					<input type="hidden" name="action" value="edit_file"/>
-					<p class="buttons">
-						<button type="submit" value="<?php echo gettext('Update File') ?>" title="<?php echo gettext("Update File"); ?>">
+					<p>
+						<button class="buttons" type="submit" value="<?php echo gettext('Update File') ?>" title="<?php echo gettext("Update File"); ?>">
 							<?php echo CHECKMARK_GREEN; ?>
 							<strong><?php echo gettext("Update File"); ?></strong>
 						</button>
-						<button type="reset" value="<?php echo gettext('Reset') ?>">
+						<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
 							<?php echo CROSS_MARK_RED_LARGE; ?>
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>

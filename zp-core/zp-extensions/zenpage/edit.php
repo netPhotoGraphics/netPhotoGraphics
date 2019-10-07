@@ -365,12 +365,12 @@ $tagsort = 'alpha';
 							}
 							?>
 							<span class="buttons">
-								<button type="button" onclick="window.location = '<?php echo $backurl ?>'">
+								<button class="buttons" type="button" onclick="window.location = '<?php echo $backurl ?>'">
 									<?php echo BACK_ARROW_BLUE; ?>
 									<strong>
 										<?php echo gettext("Back"); ?></strong>
 								</button>
-								<button type="submit" title="<?php echo $updateitem; ?>">
+								<button class="buttons" type="submit" title="<?php echo $updateitem; ?>">
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong>
 										<?php
@@ -382,7 +382,7 @@ $tagsort = 'alpha';
 										?>
 									</strong>
 								</button>
-								<button type="reset" onclick="$('.copydelete').hide();" >
+								<button class="buttons" type="reset" onclick="$('.copydelete').hide();" >
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
@@ -540,9 +540,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																		 $('#expiredate').val('');
-																		 $('#pubdate').css('color', 'black');
-																		 $('.expire').html('');"
+																			 $('#expiredate').val('');
+																			 $('#pubdate').css('color', 'black');
+																			 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -635,7 +635,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																					 togglePassword('');">
+																								 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
@@ -682,7 +682,7 @@ $tagsort = 'alpha';
 													<div class="copydelete resetHide" id="copyfield" style="display:none" >
 														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
 														<p class="buttons">
-															<button type="button"onclick="$('#copy_object').prop('checked', false);$('#copyfield').hide();">
+															<button class="buttons" type="button"onclick="$('#copy_object').prop('checked', false);$('#copyfield').hide();">
 																<?php echo CROSS_MARK_RED_LARGE; ?>
 																<?php echo gettext("Cancel"); ?>
 															</button>
@@ -693,7 +693,7 @@ $tagsort = 'alpha';
 														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem); ?>
 
 														<p class="buttons">
-															<button type="button" onclick="$('#delete_object').prop('checked', false);$('#deletemsg').hide();">
+															<button class="buttons" type="button" onclick="$('#delete_object').prop('checked', false);$('#deletemsg').hide();">
 																<?php echo CROSS_MARK_RED_LARGE; ?>
 																<?php echo gettext("Cancel"); ?>
 														</p>
@@ -722,7 +722,7 @@ $tagsort = 'alpha';
 																$("#date").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo CALENDAR; ?>',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -742,7 +742,7 @@ $tagsort = 'alpha';
 																$("#pubdate").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo CALENDAR; ?>',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -760,7 +760,7 @@ $tagsort = 'alpha';
 																$("#expiredate").datepicker({
 																	dateFormat: 'yy-mm-dd',
 																	showOn: 'button',
-																	buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+																	buttonImage: '<?php echo CALENDAR; ?>',
 																	buttonText: '<?php echo gettext('calendar'); ?>',
 																	buttonImageOnly: true
 																});
@@ -896,20 +896,20 @@ $tagsort = 'alpha';
 									<br class="clearall">
 
 									<span class="buttons">
-										<button type="button" onclick="window.location = '<?php echo $backurl ?>'">
+										<button class="buttons" type="button" onclick="window.location = '<?php echo $backurl ?>'">
 											<?php echo BACK_ARROW_BLUE; ?>
 											<strong>
 												<?php echo gettext("Back"); ?>
 											</strong>
 										</button>
-										<button type="submit" title="<?php echo $updateitem; ?>"><?php echo CHECKMARK_GREEN; ?> <?php
+										<button class="buttons" type="submit" title="<?php echo $updateitem; ?>"><?php echo CHECKMARK_GREEN; ?> <?php
 											if ($result->transient) {
 												echo $saveitem;
 											} else {
 												echo $updateitem;
 											}
 											?></strong></button>
-										<button type="reset" onclick="$('.copydelete').hide();">
+										<button class="buttons" type="reset" onclick="$('.copydelete').hide();">
 											<?php echo CROSS_MARK_RED_LARGE; ?>
 											<strong><?php echo gettext("Reset"); ?></strong>
 										</button>

@@ -583,7 +583,7 @@ $buttonlist = array();
 											}
 											?>
 											<div class="buttons tooltip" title="<?php echo html_encode($button['title']); ?>">
-												<button class="fixedwidth<?php if ($disable) echo ' disabled_button'; ?>" <?php echo $type . $disable; ?>>
+												<button class="buttons fixedwidth<?php if ($disable) echo ' disabled_button'; ?>" <?php echo $type . $disable; ?>>
 													<?php
 													if (!empty($button_icon)) {
 														if (strpos($button_icon, 'images/') === 0) {

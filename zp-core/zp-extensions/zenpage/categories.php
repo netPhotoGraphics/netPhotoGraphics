@@ -143,7 +143,7 @@ zenpageJSCSS();
 						<?php XSRFToken('checkeditems'); ?>
 						<input	type="hidden" name="action" id="action" value="update" />
 						<p class="buttons">
-							<button class="serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
+							<button class="buttons serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
 								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
 							</button>
 							<?php
@@ -200,7 +200,7 @@ zenpageJSCSS();
 						<span id="serializeOutput"></span>
 						<input name="update" type="hidden" value="Save Order" />
 						<p class="buttons">
-							<button class="serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
+							<button class="buttons serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
 								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
 							</button>
 						</p>

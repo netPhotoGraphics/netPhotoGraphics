@@ -52,16 +52,16 @@ function upload_extra($uploadlimit, $passedalbum) {
 							<input type="file" name="files[]" multiple>
 						</span>
 
-						<button type="submit" class="btn btn-primary start">
+						<button class="buttons" type="submit" class="btn btn-primary start">
 							<i class="glyphicon glyphicon-upload"></i>
 							<span><?php echo gettext('Start upload'); ?></span>
 						</button>
-						<button type="reset" class="btn btn-warning cancel">
+						<button class="buttons" type="reset" class="btn btn-warning cancel">
 							<i class="glyphicon glyphicon-ban-circle"></i>
 							<span><?php echo gettext('Cancel upload'); ?></span>
 						</button>
 						<!--
-						<button type="button" class="btn btn-danger delete">
+						<button class="buttons" type="button" class="btn btn-danger delete">
 							<i class="glyphicon glyphicon-trash"></i>
 							<span><?php echo gettext('Delete'); ?></span>
 						</button>

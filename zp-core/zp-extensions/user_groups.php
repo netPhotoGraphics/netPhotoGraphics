@@ -99,8 +99,10 @@ class user_groups {
 		if ($alter && $userobj->getValid()) {
 			if (isset($_POST['user'][$i]['group'])) {
 				$newgroups = sanitize($_POST['user'][$i]['group']);
-				self::merge_rights($userobj, $newgroups, self::getPrimeObjects($userobj));
+			} else {
+				$newgroups = array(''); //	no group assigned!
 			}
+			self::merge_rights($userobj, $newgroups, self::getPrimeObjects($userobj));
 		}
 		return $userobj;
 	}

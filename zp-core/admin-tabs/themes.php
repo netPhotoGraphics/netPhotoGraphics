@@ -332,7 +332,8 @@ if (count($themelist) == 0) {
 							<li class="copy_theme">
 								<p class="buttons">
 									<a onclick="copyClick('<?php echo $theme; ?>');">
-										<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/page_white_copy.png" alt="" /><?php echo gettext("Duplicate"); ?>
+										<?php echo DUPLICATE_ICON; ?>
+										<?php echo gettext("Duplicate"); ?>
 									</a>
 								</p>
 							</li>

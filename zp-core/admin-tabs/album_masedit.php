@@ -44,15 +44,15 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 		<?php XSRFToken('albumedit'); ?>
 		<input type="hidden" name="totalalbums" value="<?php echo sizeof($albums); ?>" />
 		<span class="buttons">
-			<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit'">
+			<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit'">
 				<?php echo BACK_ARROW_BLUE; ?>
 				<strong><?php echo gettext("Back"); ?></strong>
 			</button>
-			<button type="submit">
+			<button class="buttons" type="submit">
 				<?php echo CHECKMARK_GREEN; ?>
 				<strong><?php echo gettext("Apply"); ?></strong>
 			</button>
-			<button type="reset" onclick="$('.deletemsg').hide();" >
+			<button class="buttons" type="reset" onclick="$('.deletemsg').hide();" >
 				<?php echo WASTEBASKET; ?>
 				<?php echo gettext('Delete'); ?>
 			</button>
@@ -82,14 +82,14 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 		</div>
 		<br />
 		<span class="buttons">
-			<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit'">
+			<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit'">
 				<?php echo BACK_ARROW_BLUE; ?>
 				<strong><?php echo gettext("Back"); ?></strong>
 			</button>
-			<button type="submit">
+			<button class="buttons" type="submit">
 				<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 			</button>
-			<button type="reset" onclick="$('.deletemsg').hide();" >
+			<button class="buttons" type="reset" onclick="$('.deletemsg').hide();" >
 				<?php echo WASTEBASKET; ?>
 				<?php echo gettext('Delete'); ?>
 			</button>

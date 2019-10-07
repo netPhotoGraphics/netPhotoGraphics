@@ -125,11 +125,11 @@ echo '</head>' . "\n";
 				<form action="?action=expiry&tab=expiry" class="dirtylistening" onReset="setClean('userExpiry_form');" id="userExpiry_form" method="post" autocomplete="off" >
 					<?php XSRFToken('expiry'); ?>
 					<span class="buttons">
-						<button type="submit">
+						<button class="buttons" type="submit">
 							<?php echo CHECKMARK_GREEN; ?>
 							<strong><?php echo gettext("Apply"); ?></strong>
 						</button>
-						<button type="reset">
+						<button class="buttons" type="reset">
 							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>
@@ -256,11 +256,11 @@ echo '</head>' . "\n";
 					}
 					?>
 					<p class="buttons">
-						<button type="submit">
+						<button class="buttons" type="submit">
 							<?php echo CHECKMARK_GREEN; ?>
 							<strong><?php echo gettext("Apply"); ?></strong>
 						</button>
-						<button type="reset">
+						<button class="buttons" type="reset">
 							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>

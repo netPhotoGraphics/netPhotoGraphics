@@ -114,7 +114,7 @@ if (!defined('WEBPATH'))
 			if (getTags()) {
 				?>
 				<div class="albumbuttons" <?php echo $buttonStyle; ?>>
-					<div class="button border colour">
+					<div class="fl_button border colour">
 						<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
 					</div>
 				</div>
@@ -136,67 +136,68 @@ function printButtons() {
 		<?php
 		if (hasPrevImage()) {
 			?>
-			<div class="button border colour">
+			<div class="fl_button border colour">
 				<a href="<?php echo html_encode(getPrevImageURL()) ?>" title="<?php echo gettext('Previous Image') ?>"><?php echo gettext('« Prev') ?></a>
 			</div>
 			<?php
 		}
 		?>
-		<div class ="button border colour">
+		<div class="fl_button border colour">
 			<?php echo imageNumber() . "/" . getNumImages(); ?>
 		</div>
 		<?php
 		if (hasNextImage()) {
 			?>
-			<div class="button border colour">
+			<div class="fl_button border colour">
 				<a href="<?php echo html_encode(getNextImageURL()) ?>" title="<?php echo gettext('Next Image') ?>"><?php echo gettext('Next »') ?></a>
 			</div>
-			<?php
-		}
-		if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
-			?>
-			<div class="button border colour">
-				<?php printSlideShowLink(); ?>
-			</div>
-			<?php
-		}
-		if (getImageMetaData()) {
-			?>
-			<div class="button border colour">
-				<?php printImageMetadata(NULL, 'colorbox'); ?>
-			</div>
-			<?php
-		}
-		if (function_exists('getHitcounter')) {
-			?>
-			<div class="button border colour">
-				<?php echo gettext("Views: ") . getHitcounter() . "\n"; ?>
-			</div>
-			<?php
-		}
-		if (function_exists('printCommentForm') && ($_current_image->getCommentsAllowed() || $commentCount)) {
-			if ($commentCount == 0) {
-				$comments = gettext('No Comments');
-			} else {
-				$comments = sprintf(ngettext('%u Comment', '%u Comments', $commentCount), $commentCount);
+			<br clear="all">
+				<?php
+			}
+			if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
+				?>
+				<div class="fl_button border colour">
+					<?php printSlideShowLink(); ?>
+				</div>
+				<?php
+			}
+			if (getImageMetaData()) {
+				?>
+				<div class="fl_button border colour">
+					<?php printImageMetadata(NULL, 'colorbox'); ?>
+				</div>
+				<?php
+			}
+			if (function_exists('getHitcounter')) {
+				?>
+				<div class="fl_button border colour">
+					<?php echo gettext("Views: ") . getHitcounter() . "\n"; ?>
+				</div>
+				<?php
+			}
+			if (function_exists('printCommentForm') && ($_current_image->getCommentsAllowed() || $commentCount)) {
+				if ($commentCount == 0) {
+					$comments = gettext('No Comments');
+				} else {
+					$comments = sprintf(ngettext('%u Comment', '%u Comments', $commentCount), $commentCount);
+				}
+				?>
+				<div class="fl_button border colour">
+					<a href="#readComment"><?php echo $comments; ?></a>
+				</div>
+				<div class="fl_button border colour">
+					<a href="#addComment">Add Comment</a>
+				</div>
+				<?php
+			}
+			if (function_exists('printLikeButton')) {
+				?>
+				<div class="fl_button fb-button border colour">
+					<?php printLikeButton(); ?>
+				</div>
+				<?php
 			}
 			?>
-			<div class="button border colour">
-				<a href="#readComment"><?php echo $comments; ?></a>
-			</div>
-			<div class="button border colour">
-				<a href="#addComment">Add Comment</a>
-			</div>
-			<?php
-		}
-		if (function_exists('printLikeButton')) {
-			?>
-			<div class="button fb-button border colour">
-				<?php printLikeButton(); ?>
-			</div>
-			<?php
-		}
-		?>
 	</div>
 	<div class="clearing" ></div>
 	<?php

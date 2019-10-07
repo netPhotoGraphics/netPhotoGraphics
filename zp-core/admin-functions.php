@@ -75,6 +75,7 @@ function printAdminFooter($addl = '') {
 		});
 	</script>
 	<?php
+	npgFilters::apply('admin_close');
 	db_close(); //	close the database as we are done
 }
 
@@ -1670,7 +1671,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 		?>').height($('#resizable_<?php echo $postit; ?>').height());
 						}
 					})
-				});</script>
+				});
+			</script>
 			<?php
 		} else {
 			$tagclass = 'tagchecklist';
@@ -1765,7 +1767,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 		if ($buttons) {
 			?>
-			<span class="buttons">
+			<span>
 				<?php
 				$parent = dirname($album->name);
 				if ($parent == '/' || $parent == '.' || empty($parent)) {
@@ -1784,15 +1786,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
 				}
 				?>
-				<button type="button" onclick="window.location = '<?php echo $backbutton ?>'">
+				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</button>
-				<button type="submit">
+				<button class="buttons" type="submit">
 					<?php echo CHECKMARK_GREEN; ?>
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
-				<button type="reset" onclick="$('.deletemsg').hide();" >
+				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();" >
 					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
@@ -1801,18 +1803,18 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php
 					if (!$album->isDynamic()) {
 						?>
-						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
-						<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 						</button>
 						<?php
 					}
 					?>
-					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
 						<strong><?php echo gettext('View'); ?></strong>
 					</button>
@@ -1952,7 +1954,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2281,9 +2283,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2342,7 +2344,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
 									dateFormat: 'yy-mm-dd',
 									showOn: 'button',
-									buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+									buttonImage: '<?php echo CALENDAR; ?>',
 									buttonText: '<?php echo addslashes(gettext("calendar")); ?>',
 									buttonImageOnly: true
 								});
@@ -2441,7 +2443,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2453,7 +2455,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
 							<p class="buttons">
-								<button type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
+								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Cancel"); ?>
 								</button>
@@ -2493,7 +2495,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</select>
 
 							<p class="buttons">
-								<button type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
+								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Cancel"); ?>
 								</button>
@@ -2503,7 +2505,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php echo gettext("to:"); ?>
 							<input name="a-<?php echo $prefix; ?>renameto" type="text" value="<?php echo basename($album->name); ?>"/>
 							<p class="buttons">
-								<button type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
+								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<?php echo gettext("Cancel"); ?>
 								</button>
@@ -2526,15 +2528,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($buttons) {
 			?>
 			<span class="buttons">
-				<button type="button" onclick="window.location = '<?php echo $backbutton ?>'">
+				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
 					<?php echo BACK_ARROW_BLUE; ?>
 					<strong><?php echo gettext("Back"); ?></strong>
 				</button>
-				<button type="submit">
+				<button class="buttons" type="submit">
 					<?php echo CHECKMARK_GREEN; ?>
 					<strong><?php echo gettext("Apply"); ?></strong>
 				</button>
-				<button type="reset" onclick="$('.deletemsg').hide();">
+				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();">
 					<?php echo CROSS_MARK_RED_LARGE; ?>
 					<strong><?php echo gettext("Reset"); ?></strong>
 				</button>
@@ -2542,20 +2544,20 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php
 					if (!$album->isDynamic()) {
 						?>
-						<button type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
+							<?php echo FOLDER_ICON; ?>
 							<strong><?php echo gettext('New subalbum'); ?></strong>
 						</button>
 						<?php if (!$album->isDynamic()) { ?>
-							<button type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder.png" alt="" />
+							<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
+								<?php echo FOLDER_ICON; ?>
 								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
 							</button>
 							<?php
 						}
 					}
 					?>
-					<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
 						<strong><?php echo gettext('View'); ?></strong>
 					</button>
@@ -2611,19 +2613,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 		?>
 		<ul class="iconlegend-l">
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture.png" alt="" />
+				<?php echo PICTURE_FOLDER; ?>
 				<?php echo gettext("Albums"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures.png" alt="" />
+				<?php echo PICTURE_FOLDER; ?>
 				<?php echo gettext("Images"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/folder_picture_dn.png" alt="" />
+				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
 				<?php echo gettext("Albums (dynamic)"); ?>
 			</li>
 			<li>
-				<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/pictures_dn.png" alt="I" />
+				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
 				<?php echo gettext("Images (dynamic)"); ?>
 			</li>
 		</ul>
@@ -2743,11 +2745,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</div>
 			<?php
 			if ($album->isDynamic()) {
-				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures_dn.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
-				$imga = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture_dn.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
+				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER_DYNAMIC . '</span>';
+				$imga = '<span title="' . gettext('albums') . '">' . PICTURE_FOLDER_DYNAMIC . '</span>';
 			} else {
-				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
-				$imga = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/folder_picture.png" alt="' . gettext('albums') . '" title="' . gettext('albums') . '" />';
+				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER . '</span>';
+				$imga = '<span title="' . gettext('albums') . '">' . PICTURE_FOLDER . '</span>';
 			}
 			$ci = count($album->getImages());
 			$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
@@ -2957,7 +2959,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				} else {
 					$thumb = WEBPATH . '/' . CORE_FOLDER . '/images/thumb_standin.png';
 				}
-				$imgi = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/pictures.png" alt="' . gettext('images') . '" title="' . gettext('images') . '" />';
+				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER . '</span>';
 				$ci = $count;
 				$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
 				if ($ci) {
@@ -4114,8 +4116,8 @@ function processManagedObjects($i, &$rights) {
 		$managedlist = $_POST['user'][$i]['managed'];
 
 		foreach (array('albums', 'pages', 'news_categories') as $class) {
+			$container = array();
 			if (isset($managedlist[$class])) {
-				$container = array();
 				foreach ($managedlist[$class] as $postkey => $managed) {
 					if (isset($managed['checked'])) {
 						$key = postIndexDecode($postkey);
@@ -4557,30 +4559,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -4964,27 +4966,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5919,7 +5921,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php

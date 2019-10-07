@@ -243,7 +243,7 @@ echo "</head>\n";
 								</label>
 								<br class="clearall">
 								<div class="buttons pad_button" id="setdefaults">
-									<button class="tooltip" type="submit" title="<?php echo gettext("Set defaults for album publishing and image visibility."); ?>">
+									<button class="buttons tooltip" type="submit" title="<?php echo gettext("Set defaults for album publishing and image visibility."); ?>">
 										<?php echo CHECKMARK_GREEN; ?>
 										<?php echo gettext("Apply"); ?>
 									</button>
@@ -324,7 +324,7 @@ echo "</head>\n";
 								<br class="clearall">
 
 								<div class="buttons pad_button" id="publishalbums">
-									<button class="tooltip" type="submit" title="<?php echo gettext("Publish waiting albums."); ?>">
+									<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting albums."); ?>">
 										<?php echo CIRCLED_BLUE_STAR; ?>
 										<?php echo gettext("Publish albums"); ?>
 									</button>
@@ -356,7 +356,7 @@ echo "</head>\n";
 						$("#publish_date").datepicker({
 							dateFormat: 'yy-mm-dd',
 							showOn: 'button',
-							buttonImage: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/calendar.png',
+							buttonImage: '<?php echo CALENDAR; ?>',
 							buttonText: '<?php echo gettext('calendar'); ?>',
 							buttonImageOnly: true
 						});
@@ -381,7 +381,7 @@ echo "</head>\n";
 							<br class="clearall">
 							<input type="hidden" name="review" value="true" />
 							<div class="buttons pad_button" id="reviewobjects">
-								<button class="tooltip" type="submit" title="<?php echo gettext("Review un-published images."); ?>">
+								<button class="buttons tooltip" type="submit" title="<?php echo gettext("Review un-published images."); ?>">
 									<?php echo WARNING_SIGN_ORANGE; ?>
 									<?php echo gettext("Review images"); ?>
 								</button>
@@ -501,7 +501,7 @@ echo "</head>\n";
 								</div>
 
 								<p class="buttons pad_button" id="process">
-									<button class="tooltip" type="submit" title="<?php echo gettext("Process the above changes."); ?>">
+									<button class="buttons tooltip" type="submit" title="<?php echo gettext("Process the above changes."); ?>">
 										<?php echo CIRCLED_BLUE_STAR; ?>
 										<?php echo gettext("Process changes"); ?>
 									</button>
@@ -571,7 +571,7 @@ echo "</head>\n";
 									</ul>
 									<br class="clearall">
 									<div class="buttons pad_button">
-										<button class="tooltip" type="submit" title="<?php echo gettext("Publish waiting categories."); ?>">
+										<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting categories."); ?>">
 											<?php echo CIRCLED_BLUE_STAR; ?>
 											<?php echo gettext("Publish categories"); ?>
 										</button>
@@ -635,7 +635,7 @@ echo "</head>\n";
 									</ul>
 									<br class="clearall">
 									<div class="buttons pad_button">
-										<button class="tooltip" type="submit" title="<?php echo gettext("Publish waiting articles."); ?>">
+										<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting articles."); ?>">
 											<?php echo CIRCLED_BLUE_STAR; ?>
 											<?php echo gettext("Publish articles"); ?>
 										</button>
@@ -697,7 +697,7 @@ echo "</head>\n";
 									</ul>
 									<br class="clearall">
 									<div class="buttons pad_button">
-										<button class="tooltip" type="submit" title="<?php echo gettext("Publish waiting pages."); ?>">
+										<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting pages."); ?>">
 											<?php echo CIRCLED_BLUE_STAR; ?>
 											<?php echo gettext("Publish pages"); ?>
 										</button>

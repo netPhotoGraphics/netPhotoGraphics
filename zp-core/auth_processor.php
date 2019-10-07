@@ -120,8 +120,6 @@ if (isset($_REQUEST['logout'])) {
 		$redirect = '?' . substr($redirect, 1);
 	}
 	$location = FULLWEBPATH . '/index.php' . $redirect;
-	$location = npg_Authority::handleLogout($location);
-	header("Location: " . $location);
-	exit();
+	npg_Authority::handleLogout($location);
 }
 ?>

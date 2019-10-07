@@ -70,9 +70,9 @@ if (!defined('WEBPATH'))
 				?>
 				<div class="thumbs border">
 					<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php
-						 echo gettext('View: ');
-						 printBareImageTitle();
-						 ?>">
+					echo gettext('View: ');
+					printBareImageTitle();
+					?>">
 						<div class="thumbimage">
 							<?php
 							printImageThumb(getBareImageTitle(), "border");
@@ -121,7 +121,7 @@ if (!defined('WEBPATH'))
 				<div class="content border colour">
 					<div class="imagedesc" <?php echo $descriptionStyle; ?>>
 						<div class="description" <?php echo $justifyStyle; ?>>
-	<?php printAlbumDesc(); ?>
+							<?php printAlbumDesc(); ?>
 						</div>
 					</div>
 				</div>
@@ -132,8 +132,8 @@ if (!defined('WEBPATH'))
 			if (getTags()) {
 				?>
 				<div class="albumbuttons" <?php echo $buttonStyle; ?>>
-					<div class="button border colour">
-				<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
+					<div class="fl_button border colour">
+						<?php printTags('links', gettext('Tags: '), 'taglist', ', '); ?>
 					</div>
 				</div>
 				<?php
@@ -155,17 +155,17 @@ function printButtons() {
 			<?php
 			if (hasPrevPage() || hasNextPage()) {
 				?>
-				<div class="button border colour">
-				<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
+				<div class="fl_button border colour">
+					<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
 				</div>
 				<?php
 			}
 			simpleMap::printMap();
 			if (getNumImages() > 1 && $doSlideShowLink && function_exists('printSlideShowLink')) {
 				?>
-				<div class="button border colour">
+				<div class="fl_button border colour">
 					<div class="slideshowlink">
-				<?php printSlideShowLink(); ?>
+						<?php printSlideShowLink(); ?>
 					</div>
 				</div>
 				<?php

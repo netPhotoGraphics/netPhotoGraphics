@@ -132,17 +132,17 @@ printLogoAndLinks();
 							<input	type="hidden" name="id" value="<?php echo $id; ?>" />
 							<span class="buttons">
 								<p class="buttons" style="margin-top: 10px">
-									<button type="submit">
+									<button class="buttons" type="submit">
 										<?php echo CHECKMARK_GREEN; ?>
 										<strong><?php echo gettext("Apply"); ?></strong>
 									</button>
 
-									<button type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>'">
+									<button class="buttons" type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>'">
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<strong><?php echo gettext("Cancel"); ?></strong>
 									</button>
 
-									<button type="button" title="<?php echo gettext("Delete"); ?>" onclick="if (confirm('<?php echo gettext('Are you sure you want to delete this comment?'); ?>')) {
+									<button class="buttons" type="button" title="<?php echo gettext("Delete"); ?>" onclick="if (confirm('<?php echo gettext('Are you sure you want to delete this comment?'); ?>')) {
 														window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?action=deletecomment&id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('deletecomment') ?>';
 																}">
 										<span style="vertical-align:1px;"><?php echo WASTEBASKET; ?></span>
@@ -358,10 +358,10 @@ printLogoAndLinks();
 						}
 						?>
 						<span class="buttons">
-							<button type="submit">
+							<button class="buttons" type="submit">
 								<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php echo $ft . $v . $p; ?>'">
+							<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php echo $ft . $v . $p; ?>'">
 								<?php
 								echo $arrow;
 								echo $msg;
@@ -517,7 +517,11 @@ printLogoAndLinks();
 
 
 						</table>
-						<p class="buttons"><button type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button></p>
+						<p class="buttons">
+							<button class="buttons" type="submit">
+								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?>
+							</button>
+						</p>
 						<ul class="iconlegend">
 							<li>
 								<?php echo NO_ENTRY; ?>

@@ -134,8 +134,8 @@ echo "\n</head>";
 						<?php
 					}
 					?>
-					<p class = "buttons">
-						<button type="submit" title="<?php echo gettext("Return to search"); ?>" >
+					<p class="buttons">
+						<button class="buttons" type="submit" title="<?php echo gettext("Return to search"); ?>" >
 							<?php echo BACK_ARROW_BLUE; ?>
 							<?php echo gettext("Back");
 							?>
@@ -221,13 +221,13 @@ echo "\n</head>";
 					</div>
 					<br clear="all">
 					<p class="buttons">
-						<button type="submit"  title="<?php echo gettext("Tag the items"); ?>">
+						<button class="buttons" type="submit"  title="<?php echo gettext("Tag the items"); ?>">
 							<?php echo CHECKMARK_GREEN; ?>
 							<?php echo gettext("Tag the items"); ?>
 						</button>
 					</p>
 					<p class="buttons">
-						<button type="reset">
+						<button class="buttons" type="reset">
 							<?php echo CROSS_MARK_RED_LARGE; ?>
 							<strong><?php echo gettext("Reset"); ?></strong>
 						</button>

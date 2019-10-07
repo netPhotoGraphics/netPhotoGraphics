@@ -189,19 +189,19 @@ echo "\n</head>";
 								<?php printBulkActions($checkarray_images, true); ?>
 
 						<p class="buttons">
-							<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
+							<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
 								<?php echo BACK_ARROW_BLUE; ?>
 								<strong><?php echo gettext("Back"); ?></strong>
 							</button>
-							<button type="submit" onclick="postSort(this.form);" >
+							<button class="buttons" type="submit" onclick="postSort(this.form);" >
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
-							<button type="reset">
+							<button class="buttons" type="reset">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
-							<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+							<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 								<span style="vertical-align:-1;"><?php echo BULLSEYE_BLUE; ?></span>
 								<strong><?php echo gettext('View Album'); ?></strong>
 							</button>
@@ -243,7 +243,7 @@ echo "\n</head>";
 											if (isImagePhoto($image)) {
 												?>
 												<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
-													<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/magnify.png" alt="">
+													<?php echo MAGNIFY; ?>
 												</a>
 												<?php
 											}
@@ -262,19 +262,19 @@ echo "\n</head>";
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<p class="buttons">
-								<button type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
+								<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
 									<?php echo BACK_ARROW_BLUE; ?>
 									<strong><?php echo gettext("Back"); ?></strong>
 								</button>
-								<button type="submit" onclick="postSort(this.form);" >
+								<button class="buttons" type="submit" onclick="postSort(this.form);" >
 									<?php echo CHECKMARK_GREEN; ?>
 									<strong><?php echo gettext("Apply"); ?></strong>
 								</button>
-								<button type="reset">
+								<button class="buttons" type="reset">
 									<?php echo CROSS_MARK_RED_LARGE; ?>
 									<strong><?php echo gettext("Reset"); ?></strong>
 								</button>
-								<button type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
+								<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
 									<?php echo BULLSEYE_BLUE; ?>
 									<strong><?php echo gettext('View Album'); ?></strong>
 								</button>

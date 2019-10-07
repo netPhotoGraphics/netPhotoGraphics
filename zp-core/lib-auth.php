@@ -136,30 +136,34 @@ class _Authority {
 		$encodings = self::getHashAlgorithms();
 
 		$options = array(
-				gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
+				gettext('Secure logout') => array('key' => 'SecureLogout', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
+						'desc' => gettext('Check if you need the browser to clear site data ("cache", "cookies", "storage", "executionContexts") on logout for security reasons. <strong>Note:</strong> This may degrade logout response time.'
+						)),
+				gettext('Primary album edit') => array('key' => 'user_album_edit_default', 'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 1,
 						'desc' => gettext('Check if you want <em>edit rights</em> automatically assigned when a user <em>primary album</em> is created.'
 						)),
 				gettext('Minimum password strength') => array('key' => 'password_strength', 'type' => OPTION_TYPE_CUSTOM,
-						'order' => 1,
+						'order' => 2,
 						'desc' => sprintf(gettext('Users must provide passwords a strength of at least %s. The repeat password field will be disabled until this floor is met.'), '<span id="password_strength_display">' . getOption('password_strength') . '</span>')),
 				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
-						'order' => 2,
+						'order' => 3,
 						'selections' => $encodings,
 						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($encodings)) . '</code>') . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 4,
+						'order' => 5,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
 		);
 		if (getOption('challenge_foil_enabled')) {
 			$options[gettext('Challenge phrase foils')] = array('key' => 'challenge_foil', 'type' => OPTION_TYPE_CUSTOM,
-					'order' => 5,
+					'order' => 6,
 					'desc' => gettext('These <em>foil</em> challenge phrases will be presented randomly. This list should not be empty, otherwise hackers can discover valid user IDs and know that there is an answer to any presented challenge phrase.'));
 		}
 		if (getOption('strong_hash') < (3 + (int) function_exists('password_hash'))) {
 
 			$options[NULL] = array('key' => 'lib_auth_note', 'type' => OPTION_TYPE_NOTE,
-					'order' => 2,
+					'order' => 4,
 					'desc' => '<span class="warningbox">' . gettext('You should use a more robust hashing algorithm.') . '</span>'
 			);
 		}
@@ -946,7 +950,11 @@ class _Authority {
 		$_loggedin = false;
 		$_pre_authorization = array();
 		npg_session_destroy();
-		return $location;
+		if (getOption('SecureLogout')) {
+			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
+		}
+		header("Location: " . $location);
+		exit();
 	}
 
 	/**
@@ -1163,15 +1171,15 @@ class _Authority {
 								}
 								?>
 								<div class="buttons">
-									<button type="submit" value="<?php echo gettext("Submit"); ?>"<?php if (!$info['challenge']) echo ' disabled="disabled"'; ?> >
+									<button class="buttons" type="submit" value="<?php echo gettext("Submit"); ?>"<?php if (!$info['challenge']) echo ' disabled="disabled"'; ?> >
 										<?php echo CHECKMARK_GREEN; ?>
 										<?php echo gettext("Submit"); ?>
 									</button>
-									<button type="button" value="<?php echo gettext("Refresh"); ?>" id="challenge_refresh" onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
+									<button class="buttons" type="button" value="<?php echo gettext("Refresh"); ?>" id="challenge_refresh" onclick="window.location = '?logon_step=challenge&amp;ref=' + $('#user').val();" >
 										<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
 										<?php echo gettext("Refresh"); ?>
 									</button>
-									<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
+									<button class="buttons" type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
 										<?php echo BACK_ARROW_BLUE; ?>
 										<?php echo gettext("Return"); ?>
 									</button>
@@ -1253,11 +1261,11 @@ class _Authority {
 								</fieldset>
 								<br />
 								<div class="buttons">
-									<button type="submit" value="<?php echo gettext("Log in"); ?>" >
+									<button class="buttons" type="submit" value="<?php echo gettext("Log in"); ?>" >
 										<?php echo CHECKMARK_GREEN; ?>
 										<?php echo gettext("Log in"); ?>
 									</button>
-									<button type="reset" value="<?php echo gettext("Reset"); ?>" >
+									<button class="buttons" type="reset" value="<?php echo gettext("Reset"); ?>" >
 										<?php echo CROSS_MARK_RED_LARGE; ?>
 										<?php echo gettext("Reset"); ?>
 									</button>
@@ -1335,7 +1343,7 @@ class _Authority {
 								?>
 								<br />
 								<div class="buttons">
-									<button type="submit"  id="submitButton"<?php
+									<button class="buttons" type="submit"  id="submitButton"<?php
 									echo $extra;
 									if (empty($requestor))
 										echo ' disabled="disabled"';
@@ -1343,7 +1351,7 @@ class _Authority {
 														<?php echo CHECKMARK_GREEN; ?>
 														<?php echo gettext("Request password reset"); ?>
 									</button>
-									<button type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
+									<button class="buttons" type="button" value="<?php echo gettext("Return"); ?>" onclick="window.location = '?logon_step=&amp;ref=' + $('#user').val();" >
 										<?php echo BACK_ARROW_BLUE; ?>
 										<?php echo gettext("Return"); ?>
 									</button>

@@ -181,7 +181,7 @@ if (!defined('WEBPATH'))
 				<?php
 				if (hasPrevPage() || hasNextPage()) {
 					?>
-					<div class="button border colour">
+					<div class="fl_button border colour">
 					<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
 					</div>
 					<?php

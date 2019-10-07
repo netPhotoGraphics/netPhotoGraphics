@@ -537,7 +537,7 @@ if (isset($_GET['compression'])) {
 							<br class="clearall">
 							<br />
 							<div class="buttons pad_button" id="dbbackup">
-								<button class="fixedwidth tooltip" type="submit" title="<?php echo gettext("Backup the tables in your database."); ?>">
+								<button class="buttons fixedwidth tooltip" type="submit" title="<?php echo gettext("Backup the tables in your database."); ?>">
 									<?php echo BURST_BLUE; ?>
 									<?php echo gettext("Backup the Database"); ?>
 								</button>

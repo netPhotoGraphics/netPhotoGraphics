@@ -21,7 +21,7 @@ $plugin_description = gettext("Enables jQuery tag suggestions on the search fiel
 $option_interface = 'tag_suggest';
 
 npgFilters::register('theme_body_close', 'tag_suggest::JS');
-npgFilters::register('admin_head', 'tag_suggest::JS');
+npgFilters::register('admin_close', 'tag_suggest::JS');
 
 class tag_suggest {
 
@@ -42,8 +42,8 @@ class tag_suggest {
 
 	static function JS() {
 		// the scripts needed
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest/encoder.min.js');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/tag_suggest/tag.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest/encoder.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest/tag.min.js');
 		scriptLoader(getPlugin('tag_suggest/tag.css', true));
 		$taglist = getAllTagsUnique(OFFSET_PATH ? false : NULL, OFFSET_PATH ? 0 : getOption('tag_suggest_threshold'));
 		$tags = array();
@@ -59,9 +59,10 @@ class tag_suggest {
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
-			var _tagList = ["<?php echo implode($tags, '","'); ?>"];
-			$(function () {
-				$('#search_input, #edit-editable_4, .tagsuggest').tagSuggest({separator: '<?php echo $tagseparator; ?>', tags: _tagList, quoteSpecial: <?php echo OFFSET_PATH ? 'false' : 'true'; ?>})
+			npgTags = ["<?php echo implode($tags, '","'); ?>"];
+			options = {tags: npgTags, separator: '<?php echo $tagseparator; ?>', quoteSpecial: <?php echo OFFSET_PATH ? 'false' : 'true'; ?>};
+			$('.tagsuggest').click(function (e) {
+				$('#' + e.target.id).tagSuggest(options);
 			});
 			// ]]> -->
 		</script>

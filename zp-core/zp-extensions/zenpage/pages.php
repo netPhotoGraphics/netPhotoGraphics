@@ -147,7 +147,7 @@ updatePublished('pages');
 						}
 						?>
 						<p class="buttons">
-							<button class="serialize" type="submit">
+							<button class="buttons serialize" type="submit">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Apply"); ?></strong>
 							</button>
@@ -212,7 +212,7 @@ updatePublished('pages');
 						<span id="serializeOutput"></span>
 						<input name="update" type="hidden" value="Save Order" />
 						<p class="buttons">
-							<button class="serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
+							<button class="buttons serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext('Apply'); ?></strong>
 							</button>

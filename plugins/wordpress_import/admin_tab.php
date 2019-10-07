@@ -419,12 +419,12 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						<input type="text" value="localhost" id="dbhost" name="dbhost" /> <label for="dbhost"><?php echo gettext("Database host"); ?></label><br />
 						<input type="text" value="wp_" name="tableprefix" id="tableprefix" /> <label for="tableprefix"><?php echo gettext("Database table prefix"); ?></label><br />
 						<input type="checkbox" value="0" name="convertlinefeeds" id="convertlinefeeds" /> <label for="convertlinefeeds"><?php echo gettext('Convert linefeeds to new lines (br)'); ?></label><br />
-						<p class="buttons"><button class="submitbutton" type="submit" title="<?php echo gettext("Import"); ?>">
+						<p><button class="buttons submitbutton" type="submit" title="<?php echo gettext("Import"); ?>">
 								<?php echo CHECKMARK_GREEN; ?>
 								<strong><?php echo gettext("Import"); ?></strong>
 							</button>
 						</p>
-						<p class="buttons"><button class="submitbutton" type="reset">
+						<p><button class="buttons submitbutton" type="reset">
 								<?php echo CROSS_MARK_RED_LARGE; ?>
 								<strong><?php echo gettext("Reset"); ?></strong>
 							</button>
