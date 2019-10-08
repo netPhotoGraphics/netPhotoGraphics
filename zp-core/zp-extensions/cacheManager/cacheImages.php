@@ -387,7 +387,7 @@ if ($alb) {
 		if ($button) {
 			?>
 			<p class="buttons">
-				<?php applyButton(CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . '' . $button['text'], array('buttonCass' => 'tooltip')); ?>
+				<?php applyButton(array('buttonText' => CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . '' . $button['text'], 'buttonCass' => 'tooltip')); ?>
 			</p>
 			<?php
 		}

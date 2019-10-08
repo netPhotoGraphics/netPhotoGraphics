@@ -7802,7 +7802,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/flag_thumbnail
 %extensions%/flag_thumbnail/action.png
 %extensions%/flag_thumbnail/GPS.png
-%extensions%/flag_thumbnail/lock_icon.png
+%extensions%/flag_thumbnail/lock.png
 %extensions%/flag_thumbnail/new.png
 %extensions%/forms
 %extensions%/forms/mailForm.htm

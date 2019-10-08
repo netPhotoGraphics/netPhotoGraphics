@@ -73,7 +73,7 @@ echo '</head>' . "\n";
 					</select>
 					<br class="clearall"><br />
 					<span class="buttons">
-						<?php applyButton(MAGNIFY . '	<strong>' . gettext("Search") . '</strong>', array('buttonClick' => "$('#outerbox').html('');")); ?>
+						<?php applyButton(array('buttonText' => MAGNIFY . '	<strong>' . gettext("Search") . '</strong>', 'buttonClick' => "$('#outerbox').html('');")); ?>
 					</span>
 					<span id="progress"></span>
 				</form>
