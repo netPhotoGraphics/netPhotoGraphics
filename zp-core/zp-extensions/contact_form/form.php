@@ -138,10 +138,10 @@ if (function_exists('showOrNotShowField')) {
 		if (!$_processing_post) {
 			?>
 			<p>
-				<?php policySubmitButton(gettext('Send e-mail'), $class, $buttonExtra); ?>
-				<button class="buttons" type="reset" class="button buttons">
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+				<?php
+				policySubmitButton(gettext('Send e-mail'), $class, $buttonExtra);
+				resetButton();
+				?>
 			</p>
 		<?php } ?>
 	</form>

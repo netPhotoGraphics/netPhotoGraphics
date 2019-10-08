@@ -1082,7 +1082,7 @@ function printCategoryCheckboxListEntry($cat, $articleid, $option, $class = '') 
 	$catname = $cat->getTitle();
 	$catlink = $cat->getTitlelink();
 	if ($cat->getPassword()) {
-		$protected = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock.png" />';
+		$protected = '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_icon.png" />';
 	} else {
 		$protected = '';
 	}
@@ -1367,17 +1367,6 @@ function printCategoriesStatistic() {
  */
 function zenpageJSCSS() {
 	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/zenpage.css');
-	?>
-	<script type="text/javascript">
-		// <!-- <![CDATA[
-		window.addEventListener('load', function () {
-			$("#tip a").click(function () {
-				$("#tips").toggle("slow");
-			});
-		}, false);
-		// ]]> -->
-	</script>
-	<?php
 }
 
 function printZenpageIconLegend() {

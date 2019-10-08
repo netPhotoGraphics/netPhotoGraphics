@@ -125,19 +125,12 @@ echo '</head>' . "\n";
 				<form action="?action=expiry&tab=expiry" class="dirtylistening" onReset="setClean('userExpiry_form');" id="userExpiry_form" method="post" autocomplete="off" >
 					<?php XSRFToken('expiry'); ?>
 					<span class="buttons">
-						<button class="buttons" type="submit">
-							<?php echo CHECKMARK_GREEN; ?>
-							<strong><?php echo gettext("Apply"); ?></strong>
-						</button>
-						<button class="buttons" type="reset">
-							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
+						<?php
+						applyButton();
+						resetButton();
+						?>
 						<div class="floatright">
-							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
-								<?php echo OPTIONS_ICON; ?>
-								<strong><?php echo gettext('Options') ?></strong>
-							</a>
+							<?php npgButton('button', OPTIONS_ICON . ' <strong>' . gettext('Options') . '</strong>', array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry')); ?>
 						</div>
 					</span>
 					<br class="clearall">
@@ -256,14 +249,10 @@ echo '</head>' . "\n";
 					}
 					?>
 					<p class="buttons">
-						<button class="buttons" type="submit">
-							<?php echo CHECKMARK_GREEN; ?>
-							<strong><?php echo gettext("Apply"); ?></strong>
-						</button>
-						<button class="buttons" type="reset">
-							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
+						<?php
+						applyButton();
+						resetButton();
+						?>
 					</p>
 					<br class="clearall">
 				</form>

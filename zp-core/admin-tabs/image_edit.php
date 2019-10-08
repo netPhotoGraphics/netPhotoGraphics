@@ -118,23 +118,11 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 						$image = newImage($album, $singleimage);
 						$backbutton = $image->getLink();
 					}
+					backButton(array('buttonLink' => $backbutton));
+					applyButton();
+					resetButton();
+					viewButton(array('buttonLink' => $album->getLink()));
 					?>
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton; ?>'">
-						<?php echo BACK_ARROW_BLUE; ?>
-						<strong><?php echo gettext("Back"); ?></strong>
-					</button>
-					<button class="buttons" type="submit">
-						<?php echo CHECKMARK_GREEN; ?>
-						<strong><?php echo gettext("Apply"); ?></strong>
-					</button>
-					<button class="buttons" type="reset">
-						<?php echo CROSS_MARK_RED_LARGE; ?>
-						<strong><?php echo gettext("Reset"); ?></strong>
-					</button>
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-						<?php echo BULLSEYE_BLUE; ?>
-						<strong><?php echo gettext('View Album'); ?></strong>
-					</button>
 				</p>
 				<?php if (!$singleimage) printBulkActions($checkarray_images, true); ?>
 
@@ -188,7 +176,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								<?php
 								if (isImagePhoto($image)) {
 									?>
-									<p class="buttons"><a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox">
+									<p class="buttons">
+										<!-- NOTE: colorbox does not work with buttons, so this must be an href button -->
+										<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox ">
 											<?php echo MAGNIFY; ?>
 											<strong><?php echo gettext('Zoom'); ?></strong>
 										</a>
@@ -198,10 +188,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								}
 								?>
 								<p class="buttons">
-									<a href="<?php echo $image->getLink(); ?>">
-										<?php echo BULLSEYE_BLUE; ?>
-										<strong><?php echo gettext('View'); ?></strong>
-									</a>
+									<?php viewButton(array('buttonLink' => $image->getLink())); ?>
 								</p><br style="clear: both" />
 								<p>
 									<?php echo gettext('<strong>Filename:</strong>'); ?>
@@ -507,10 +494,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											</select>
 										</span>
 										<p class="buttons">
-											<button class="buttons" type="button" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');">
-												<?php echo CROSS_MARK_RED_LARGE; ?>
-												<?php echo gettext("Cancel"); ?>
-											</button>
+											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 									<div id="renamediv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -519,10 +503,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<input name="<?php echo $currentimage; ?>-renameto" type="text" value="<?php echo $image->filename; ?>" />
 										</span>
 										<p class="buttons">
-											<button class="buttons" type="button"onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');">
-												<?php echo CROSS_MARK_RED_LARGE; ?>
-												<?php echo gettext("Cancel"); ?>
-											</button>
+											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 
@@ -531,10 +512,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<?php echo gettext('Image will be deleted when changes are applied.'); ?>
 										</span>
 										<p class="buttons">
-											<button class="buttons" type="button"onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');">
-												<?php echo CROSS_MARK_RED_LARGE; ?>
-												<?php echo gettext("Cancel"); ?>
-											</button>
+											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 									<div class="clearall" ></div>
@@ -615,18 +593,12 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				}
 				?>
 				<p class="buttons">
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton; ?>'">
-						<?php echo BACK_ARROW_BLUE; ?>
-						<strong><?php echo gettext("Back"); ?></strong>
-					</button>
-					<button class="buttons" type="submit">
-						<?php echo CHECKMARK_GREEN; ?>
-						<strong><?php echo gettext("Apply"); ?></strong>
-					</button>
-					<button class="buttons" type="reset">
-						<?php echo CROSS_MARK_RED_LARGE; ?>
-						<strong><?php echo gettext("Reset"); ?></strong>
-					</button>
+					<?php
+					backButton(array('buttonLink' => $backbutton));
+					applyButton();
+					resetButton();
+					viewButton(array('buttonLink' => $album->getLink()));
+					?>
 				</p>
 				<?php
 				printImagePagination($album, $image, $singleimage, $allimagecount, $totalimages, $pagenum, $totalpages, $filter);

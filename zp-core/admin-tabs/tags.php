@@ -233,13 +233,10 @@ printAdminHeader('admin');
 				<option value="recent" <?php if ($tagsort == 'recent') echo ' selected="selected"'; ?>><?php echo gettext('Most recent'); ?></option>
 				<option value="private" <?php if ($tagsort == 'private') echo ' selected="selected"'; ?>><?php echo gettext('Private first'); ?></option>
 			</select>
-			<div class="buttons floatright">
-				<button class="buttons" type="reset" onclick="$('#tag_action_form').trigger('reset');
+			<div class="buttons floatright" style="padding-bottom: 5px;">
+				<?php resetButton(array('buttonText' => CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset") . '</strong>', 'buttonClick' => "$('#tag_action_form').trigger('reset');
 						$('#form_tagrename').trigger('reset');
-						$('#form_newtags').trigger('reset');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+						$('#form_newtags').trigger('reset');")); ?>
 			</div>
 
 			<br class="clearall">
@@ -265,32 +262,20 @@ printAdminHeader('admin');
 						</div>
 
 						<p class="buttons">
-							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
-								<?php echo WASTEBASKET; ?>
-								<?php echo gettext("Delete checked tags"); ?>
-							</button>
+							<?php npgButton('button', WASTEBASKET . ' <strong>' . gettext("Delete checked tags") . '</strong>', array('buttonClick' => "$('#tag_action').val('delete');	this.form.submit();")); ?>
 						</p>
 						<p class="buttons">
-							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
-								<?php echo LOCK; ?>
-								<?php echo gettext("Mark checked tags private"); ?>
-							</button>
+							<?php npgButton('button', LOCK . ' <strong>' . gettext("Mark checked tags private") . '</strong>', array('buttonClick' => "$('#tag_action').val('private');	this.form.submit();")); ?>
 						</p>
 						<p class="buttons">
-							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
-								<?php echo LOCK_OPEN; ?>
-								<?php echo gettext("Mark checked tags public"); ?>
-							</button>
+							<?php npgButton('button', LOCK_OPEN . ' <strong>' . gettext("Mark checked tags public") . '</strong>', array('buttonClick' => "$('#tag_action').val('notprivate');	this.form.submit();")); ?>
 						</p>
 
 						<?php
 						if (getOption('multi_lingual')) {
 							?>
 							<span class="buttons">
-								<button class="buttons" type="button" id="assign_tags" onclick="$('#tag_action').val('assign');	this.form.submit();" title="<?php echo gettext('Assign tags to selected language'); ?>">
-									<?php echo ARROW_RIGHT_BLUE; ?>
-									<?php echo gettext('Assign to'); ?>
-								</button>
+								<?php npgButton('button', ARROW_RIGHT_BLUE . ' <strong>' . gettext("Assign to") . '</strong>', array('buttonTitle' => gettext('Assign tags to selected language'), 'buttonLink' => "$('#tag_action').val('assign');	this.form.submit();")) ?>
 								<span style="line-height: 35px;">
 									<select name="language" id="language" class="ignoredirty" >
 										<option value=""><?php echo gettext('Universal'); ?></option>
@@ -370,10 +355,7 @@ printAdminHeader('admin');
 							</ul>
 						</div>
 						<p class="buttons" >
-							<button class="buttons" type="submit" id='rename_tags' value="<?php echo gettext("Rename tags"); ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<?php echo gettext("Rename tags"); ?>
-							</button>
+							<?php applyButton(array('buttonText' => CHECKMARK_GREEN . ' <strong>' . gettext("Rename tags") . '</strong>')); ?>
 						</p>
 					</form>
 
@@ -399,13 +381,9 @@ printAdminHeader('admin');
 								?>
 							</ul>
 						</div>
-						<span class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 25px;"'; ?>>
-							<button class="buttons" type="submit" id='save_tags' value="<?php echo gettext("Add tags"); ?>">
-								<?php echo PLUS_ICON; ?>
-								<?php echo gettext("Add tags"); ?>
-							</button>
-
+						<span class="buttons"<?php if (getOption('multi_lingual')) echo ' style = "padding-bottom: 25px;"'; ?>>
 							<?php
+							applyButton(array('buttonText' => PLUS_ICON . ' <strong>' . gettext("Add tags") . '</strong>'));
 							if (getOption('multi_lingual')) {
 								?>
 								<span style="line-height: 35px;">

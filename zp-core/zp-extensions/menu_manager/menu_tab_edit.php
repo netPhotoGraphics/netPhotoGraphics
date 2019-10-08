@@ -242,17 +242,9 @@ if (is_array($result)) {
 				}
 				?>
 				<p class="buttons">
-					<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>'">
-						<?php echo BACK_ARROW_BLUE; ?>
-						<strong><?php echo gettext("Back"); ?></strong>
-					</button>
+					<?php backButton(array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php') . '?menuset=' . $menuset)); ?>
 					<span class="floatright">
-						<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?add&amp;menuset=<?php echo urlencode($menuset); ?>">
-							<?php echo PLUS_ICON; ?>
-							<strong>
-								<?php echo gettext("Add Menu Items"); ?>
-							</strong>
-						</a>
+						<?php npgButton('button', PLUS_ICON . ' <strong>' . gettext("Add Menu Items") . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset))); ?>
 					</span>
 				</p>
 				<br class="clearall"><br />
@@ -425,11 +417,10 @@ if (is_array($result)) {
 							?>
 						</table>
 						<p class="buttons">
-							<button class="buttons" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
-							<button class="buttons" type="reset">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+							<?php
+							applyButton();
+							resetButton();
+							?>
 						</p>
 						<br class="clearall"><br />
 					</form>

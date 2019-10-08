@@ -136,7 +136,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	if (!npg_loggedin()) {
-		//	try to prevent browser, etc. from caching login form
+//	try to prevent browser, etc. from caching login form
 		header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		header("Pragma: no-cache"); // HTTP 1.0.
 		header("Expires: 0"); // Proxies.
@@ -270,6 +270,42 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</script>
 			<!--Nested Sortables End-->
 			<?php
+		}
+
+		function applyButton($options = array()) {
+			if (isset($options['buttonClass'])) {
+				$options['buttonClass'] .= ' submitbutton';
+			} else {
+				$options['buttonClass'] = 'submitbutton';
+			}
+			npgButton('submit', CHECKMARK_GREEN . ' <strong>' . gettext("Apply") . '</strong>', $options);
+		}
+
+		function resetButton($options = array()) {
+			if (isset($options['buttonClass'])) {
+				$options['buttonClass'] .= ' resetbutton';
+			} else {
+				$options['buttonClass'] = 'resetbutton';
+			}
+			npgButton('reset', CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset") . '</strong>', $options);
+		}
+
+		function backButton($options = array()) {
+			if (isset($options['buttonClass'])) {
+				$options['buttonClass'] .= ' backbutton';
+			} else {
+				$options['buttonClass'] = 'backbutton';
+			}
+			npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Back") . '</strong>', $options);
+		}
+
+		function viewButton($options = array()) {
+			if (isset($options['buttonClass'])) {
+				$options['buttonClass'] .= ' viewbutton';
+			} else {
+				$options['buttonClass'] = 'viewbutton';
+			}
+			npgButton('button', BULLSEYE_BLUE . ' <strong>' . gettext('View') . '</strong>', $options);
 		}
 
 		/**
@@ -1767,7 +1803,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 		if ($buttons) {
 			?>
-			<span>
+			<span class="buttons">
 				<?php
 				$parent = dirname($album->name);
 				if ($parent == '/' || $parent == '.' || empty($parent)) {
@@ -1785,39 +1821,20 @@ function printAdminHeader($tab, $subtab = NULL) {
 				} else {
 					$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
 				}
+				viewButton(array('buttonLink' => $album->getLink()));
+				applyButton(array('buttonClass' => 'serialize'));
+				resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
 				?>
-				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
-					<?php echo BACK_ARROW_BLUE; ?>
-					<strong><?php echo gettext("Back"); ?></strong>
-				</button>
-				<button class="buttons" type="submit">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();" >
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
-
 				<div class="floatright">
 					<?php
 					if (!$album->isDynamic()) {
-						?>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New subalbum'); ?></strong>
-						</button>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
-						</button>
-						<?php
+						npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+						if (!$album->isDynamic()) {
+							npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
+						}
 					}
+					viewButton(array('buttonLink' => $album->getLink()));
 					?>
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
-						<strong><?php echo gettext('View'); ?></strong>
-					</button>
 				</div>
 
 			</span>
@@ -2455,10 +2472,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
 							<p class="buttons">
-								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Cancel"); ?>
-								</button>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>movecopydiv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -2495,20 +2509,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</select>
 
 							<p class="buttons">
-								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Cancel"); ?>
-								</button>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>renamediv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
 							<?php echo gettext("to:"); ?>
 							<input name="a-<?php echo $prefix; ?>renameto" type="text" value="<?php echo basename($album->name); ?>"/>
 							<p class="buttons">
-								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Cancel"); ?>
-								</button>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div class="clearall" ></div>
@@ -2528,39 +2536,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($buttons) {
 			?>
 			<span class="buttons">
-				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
-					<?php echo BACK_ARROW_BLUE; ?>
-					<strong><?php echo gettext("Back"); ?></strong>
-				</button>
-				<button class="buttons" type="submit">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();">
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+				<?php
+				viewButton(array('buttonLink' => $album->getLink()));
+				applyButton();
+				resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
+				?>
 				<div class="floatright">
 					<?php
 					if (!$album->isDynamic()) {
-						?>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New subalbum'); ?></strong>
-						</button>
-						<?php if (!$album->isDynamic()) { ?>
-							<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<?php echo FOLDER_ICON; ?>
-								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
-							</button>
-							<?php
+						npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+						if (!$album->isDynamic()) {
+							npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
 						}
 					}
+					viewButton(array('buttonLink' => $album->getLink()));
 					?>
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
-						<strong><?php echo gettext('View'); ?></strong>
-					</button>
 				</div>
 			</span>
 			<br class="clearall">

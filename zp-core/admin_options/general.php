@@ -181,14 +181,10 @@ function getOptionContent() {
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+							<?php
+							applyButton();
+							resetButton();
+							?>
 						</p>
 					</td>
 				</tr>
@@ -521,10 +517,7 @@ function getOptionContent() {
 							<?php echo html_encode(getOption('allowed_tags')); ?>
 						</textarea>
 						<p class="buttons">
-							<button class="buttons" type="button" onclick="resetallowedtags()" >
-								<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
-								<?php echo gettext('Revert to default'); ?>
-							</button>
+							<?php npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . '<strong>' . gettext('Revert to default') . '</strong>', array('buttonClick' => "resetallowedtags()")); ?>
 						</p>
 					</td>
 					<td class="option_desc">
@@ -532,16 +525,16 @@ function getOptionContent() {
 							// <!-- <![CDATA[
 							function resetallowedtags() {
 								$('#allowed_tags').val(<?php
-							$t = getOption('allowed_tags_default');
-							$tags = explode("\n", $t);
-							$c = 0;
-							foreach ($tags as $t) {
-								$t = trim($t);
-								if (!empty($t)) {
-									if ($c > 0) {
-										echo '+';
-										echo "\n";
-										?>
+						$t = getOption('allowed_tags_default');
+						$tags = explode("\n", $t);
+						$c = 0;
+						foreach ($tags as $t) {
+							$t = trim($t);
+							if (!empty($t)) {
+								if ($c > 0) {
+									echo '+';
+									echo "\n";
+									?>
 				<?php
 			}
 			$c++;
@@ -821,13 +814,10 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 				<tr>
 					<td colspan="100%">
 						<p class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext('save') ?>"><?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+							<?php
+							applyButton();
+							resetButton();
+							?>
 						</p>
 					</td>
 				</tr>

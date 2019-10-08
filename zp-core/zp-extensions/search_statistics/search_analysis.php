@@ -298,11 +298,10 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 					if (npg_loggedin(ADMIN_RIGHTS)) {
 						?>
 						<p class="buttons">
-							<a href="?reset&amp;XSRFToken=<?php echo getXSRFToken('search_statistics'); ?>"><?php echo gettext('reset'); ?></a>
-						</p>
-						<br class="clearall">
-						<p>
-							<a href="<?php echo getAdminLink('admin-tabs/options.php') ?>?tab=plugin&amp;single=search_statistics#search_statistics" ><?php echo gettext('Change <em>Threshold</em> values') ?></a>
+							<?php npgButton('button', gettext('reset'), array('buttonLink' => "?reset&amp;XSRFToken=" . getXSRFToken('search_statistics'))); ?>
+							<br class="clearall">
+							<br />
+							<?php npgButton('button', gettext('Change <em>Threshold</em> values'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?tab=plugin&amp;single=search_statistics#search_statistics')); ?>
 						</p>
 						<?php
 					} else {

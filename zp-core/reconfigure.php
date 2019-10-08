@@ -328,7 +328,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 				$query['xsrfToken'] = $token;
 				?>
 				<p class="buttons">
-					<a href="?<?php echo html_encode(http_build_query($query)); ?>" title="<?php echo gettext('Ignore this configuration change.'); ?>"><?php echo gettext('dismiss'); ?></a>
+					<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
 				</p>
 				<br class="clearall">
 					<?php

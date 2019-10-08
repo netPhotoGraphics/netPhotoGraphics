@@ -186,11 +186,12 @@ npgFilters::apply('admin_note', 'plugins', '');
 		<input type="hidden" name="saveplugins" value="yes" />
 		<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
 		<p class="buttons">
-			<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
-			<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-				<?php echo CROSS_MARK_RED_LARGE; ?>
-				<strong><?php echo gettext("Reset"); ?></strong></button>
-		</p><br class="clearall"><br /><br />
+			<?php
+			applyButton();
+			resetButton();
+			?>
+		</p>
+		<br class="clearall"><br /><br />
 		<table>
 			<tr>
 				<th class="centered" colspan="100%">
@@ -524,10 +525,10 @@ npgFilters::apply('admin_note', 'plugins', '');
 			</li>
 		</ul>
 		<p class="buttons">
-			<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>"><?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong></button>
-			<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-				<?php echo CROSS_MARK_RED_LARGE; ?>
-				<strong><?php echo gettext("Reset"); ?></strong></button>
+			<?php
+			applyButton();
+			resetButton();
+			?>
 		</p><br /><br />
 		<input type="hidden" name="checkForPostTruncation" value="1" />
 	</form>

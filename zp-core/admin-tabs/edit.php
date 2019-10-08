@@ -62,7 +62,7 @@ $mcr_errors = array();
 
 if (isset($_GET['showthumbs'])) { // switch the display selector
 	$how = sanitize($_GET['showthumbs']);
-	$key = is_object($showDefaultThumbs) ? $album->name : '*';
+	$key = is_object($album) ? $album->name : '*';
 	if ($how == 'no') {
 		$showDefaultThumbs[$key] = $key;
 	} else {
@@ -881,33 +881,24 @@ echo "\n</head>";
 							?>
 						</p>
 
-						<form class="dirtylistening" onReset="setClean('sortableListForm');$('#albumsort').sortable('cancel');" action="?page=edit&amp;action=savealbumorder" method="post" name="sortableListForm" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off" >
+						<form class="dirtylistening" onReset="setClean('sortableListForm'); $('#albumsort').sortable('cancel');" action="?page=edit&amp;action=savealbumorder" method="post" name="sortableListForm" name="sortableListForm" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off" >
 							<?php XSRFToken('savealbumorder'); ?>
 							<span class="buttons">
 								<?php
 								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-									?>
-									<button class="buttons serialize" type="submit" >
-										<?php echo CHECKMARK_GREEN; ?>
-										<strong><?php echo gettext("Apply"); ?></strong>
-									</button>
-									<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-										<?php echo CROSS_MARK_RED_LARGE; ?>
-										<strong><?php echo gettext("Reset"); ?></strong>
-									</button>
-									<?php
+									applyButton(array('buttonClass' => 'serialize'));
+									resetButton();
 								}
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
-									<span class="floatright" style="padding-right: 3px;">
-										<button class="buttons" type="button" onclick="newAlbumJS('', false);">
-											<?php echo FOLDER_ICON; ?>
-											<strong><?php echo gettext('New album'); ?></strong>
-										</button>
-										<button class="buttons" type="button" onclick="newAlbumJS('', true);">
-											<?php echo FOLDER_ICON; ?>
-											<strong><?php echo gettext('New dynamic album'); ?></strong>
-										</button>
+									<span class="floatright" style="padding-right: 3px;
+												">
+													<?php
+													npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New album') . '</strong>', array('buttonClick' => "newAlbumJS('', false);
+									"));
+													npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic album') . '</strong>', array('buttonClick' => "newAlbumJS('', true);
+									"));
+													?>
 									</span>
 									<?php
 								}
@@ -920,14 +911,25 @@ echo "\n</head>";
 								<?php printBulkActions($checkarray_albums); ?>
 							</div>
 							<div class="subhead">
-								<label class="buttons" style="float: left;padding-top:3px;padding-left:5px;padding-bottom:2px;">
-									<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=admin&tab=edit
-										 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
-											 <?php echo $thumbmsg; ?>
-									</a>
+								<label class="buttons" style="float: left;
+											 padding-top:3px;
+											 padding-left:5px;
+											 padding-bottom:2px;
+											 ">
+												 <?php
+												 npgButton('button', $thumbmsg, array(
+														 'buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;showthumbs=' . $thumbshow,
+														 'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
+																 )
+												 );
+												 ?>
 								</label>
-								<label style="float: right;padding-top:5px;padding-right:25px;">
-									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
+								<label style="float: right;
+											 padding-top:5px;
+											 padding-right:25px;
+											 ">
+									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);
+												 " />
 								</label>
 							</div>
 							<div class="bordered">
@@ -947,27 +949,16 @@ echo "\n</head>";
 							<div class="buttons">
 								<?php
 								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-									?>
-									<button class="buttons serialize" type="submit" >
-										<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
-									</button>
-									<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-										<?php echo CROSS_MARK_RED_LARGE; ?>
-										<strong><?php echo gettext("Reset"); ?></strong>
-									</button>
-									<?php
+									applyButton(array('buttonClass' => 'serialize'));
+									resetButton();
 								}
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<span class="floatright">
-										<button class="buttons" type="button" onclick="newAlbumJS('', false);">
-											<?php echo FOLDER_ICON; ?>
-											<strong><?php echo gettext('New album'); ?></strong>
-										</button>
-										<button class="buttons" type="button" onclick="newAlbumJS('', true);">
-											<?php echo FOLDER_ICON; ?>
-											<strong><?php echo gettext('New dynamic album'); ?></strong>
-										</button>
+										<?php
+										npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New album') . '</strong>', array('buttonClick' => "newAlbumJS('', false);"));
+										npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic album') . '</strong>', array('buttonClick' => "newAlbumJS('', true);"));
+										?>
 									</span>
 									<?php
 								}
@@ -985,14 +976,10 @@ echo "\n</head>";
 						?>
 						<span class="floatright">
 							<p class="buttons">
-								<button class="buttons" type="button" onclick="newAlbumJS('', false);">
-									<?php echo FOLDER_ICON; ?>
-									<strong><?php echo gettext('New album'); ?></strong>
-								</button>
-								<button class="buttons" type="button" onclick="newAlbumJS('', true);">
-									<?php echo FOLDER_ICON; ?>
-									<strong><?php echo gettext('New dynamic album'); ?></strong>
-								</button>
+								<?php
+								npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New album') . '</strong>', array('buttonClick' => "newAlbumJS('', false);"));
+								npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic album') . '</strong>', array('buttonClick' => "newAlbumJS('', true);"));
+								?>
 							</p>
 						</span>
 						<?php

@@ -1256,6 +1256,70 @@ function printSiteLogoImage($title = NULL) {
 }
 
 /**
+ * Creates a standard button
+ *
+ * @param string $buttonType button, submit, etc.
+ * @param type $buttonText what shows on the button
+ * @param array $options array(	//	pass any of this list that is needed
+ * 															'buttonClass' any added classes needed
+ * 															'buttonLink' URL if the button loads a script
+ * 															'buttonTitle' title
+ * 															'buttonClick' javaScript for the button "onclick"
+ * 															'disabled' true if the button is disabled
+ * 															'id' CSS ID
+ * 															'buttonExtra' any other "stuff" that needs to be part of the button
+ * 														)
+ */
+function npgButton($buttonType, $buttonText, $options = array()) {
+
+	//TODO: remove debug code
+	if (!is_array($options)) {
+		var_dump($options);
+		trigger_error('bad npgButton options parameter', E_USER_ERROR);
+	}
+
+	$options = array_merge(array(
+			'buttonClass' => NULL,
+			'buttonLink' => NULL,
+			'buttonTitle' => NULL,
+			'buttonClick' => NULL,
+			'disabled' => NULL,
+			'id' => NULL,
+			'buttonExtra' => NULL
+					), $options
+	);
+	extract($options);
+
+	if ($disabled) {
+		$buttonClass .= ' disabled';
+		$disabled = ' disabled="disabled"';
+	}
+	$buttonClass = trim('buttons ' . $buttonClass);
+	if ($buttonLink) {
+		$buttonLink = ' onclick="window.location=\'' . $buttonLink . '\'"';
+	} else {
+		if ($buttonClick) {
+			$buttonLink = ' onclick="' . $buttonClick . '"';
+		}
+	}
+	if ($buttonType == 'button' && empty($buttonLink)) {
+		trigger_error(gettext('buttonType "button" buttons must have a buttonLink;'), E_USER_NOTICE);
+	}
+	if ($buttonTitle) {
+		$buttonTitle = ' Title="' . $buttonTitle . '"';
+	}
+	if ($id) {
+		$id = ' id="' . $id . '"';
+	}
+	?>
+	<button class="<?php echo $buttonClass;
+	?>" type="<?php echo $buttonType; ?>"<?php echo $buttonTitle . $buttonLink . $disabled . $id . $buttonExtra; ?>>
+						<?php echo $buttonText; ?>
+	</button>
+	<?php
+}
+
+/**
  * shuffles an array maintaining the keys
  *
  * @param array $array
@@ -2280,14 +2344,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

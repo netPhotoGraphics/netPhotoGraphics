@@ -243,10 +243,9 @@ echo "</head>\n";
 								</label>
 								<br class="clearall">
 								<div class="buttons pad_button" id="setdefaults">
-									<button class="buttons tooltip" type="submit" title="<?php echo gettext("Set defaults for album publishing and image visibility."); ?>">
-										<?php echo CHECKMARK_GREEN; ?>
-										<?php echo gettext("Apply"); ?>
-									</button>
+									<?php
+									applyButton();
+									?>
 								</div>
 							</form>
 						</div>
@@ -324,18 +323,12 @@ echo "</head>\n";
 								<br class="clearall">
 
 								<div class="buttons pad_button" id="publishalbums">
-									<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting albums."); ?>">
-										<?php echo CIRCLED_BLUE_STAR; ?>
-										<?php echo gettext("Publish albums"); ?>
-									</button>
+									<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish albums"), 'buttonClass' => 'tooltip', 'buttonLink' => gettext("Publish waiting albums."))); ?>
 								</div>
 								<br class="clearall">
 							</form>
 							<p class="buttons tooltip">
-								<a href="?propagate_unpublished" title="<?php echo gettext('Set all subalbums of an un-published album to un-published.'); ?>">
-									<?php echo CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE; ?>
-									<?php echo gettext('Propagate un-published state'); ?>
-								</a>
+								<?php npgButton('button', CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . ' ' . gettext('Propagate un-published state'), array('buttonLink' => "?propagate_unpublished", 'buttonTitle' => gettext('Set all subalbums of an un-published album to un-published.'))); ?>
 							</p>
 							<br class="clearall">
 							<?php
@@ -381,10 +374,7 @@ echo "</head>\n";
 							<br class="clearall">
 							<input type="hidden" name="review" value="true" />
 							<div class="buttons pad_button" id="reviewobjects">
-								<button class="buttons tooltip" type="submit" title="<?php echo gettext("Review un-published images."); ?>">
-									<?php echo WARNING_SIGN_ORANGE; ?>
-									<?php echo gettext("Review images"); ?>
-								</button>
+								<?php applyButton(array('buttonText' => WARNING_SIGN_ORANGE . ' ' . gettext("Review images"), 'buttonClass' => 'tooltip', 'buttonTitle' => gettext("Review un-published images."))); ?>
 							</div>
 						</form>
 						<br class="clearall">
@@ -501,10 +491,7 @@ echo "</head>\n";
 								</div>
 
 								<p class="buttons pad_button" id="process">
-									<button class="buttons tooltip" type="submit" title="<?php echo gettext("Process the above changes."); ?>">
-										<?php echo CIRCLED_BLUE_STAR; ?>
-										<?php echo gettext("Process changes"); ?>
-									</button>
+									<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Process changes"), 'buttonCass' => 'tooltip', 'buttonTitle' => gettext("Process the above changes."))); ?>
 								</p>
 								<br class="clearall">
 							</form>
@@ -571,10 +558,7 @@ echo "</head>\n";
 									</ul>
 									<br class="clearall">
 									<div class="buttons pad_button">
-										<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting categories."); ?>">
-											<?php echo CIRCLED_BLUE_STAR; ?>
-											<?php echo gettext("Publish categories"); ?>
-										</button>
+										<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish categories"), 'buttonClass' => 'tooltip', 'buttonTitle' => gettext("Publish waiting categories."))); ?>
 									</div>
 									<br class="clearall">
 								</form>
@@ -635,10 +619,7 @@ echo "</head>\n";
 									</ul>
 									<br class="clearall">
 									<div class="buttons pad_button">
-										<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting articles."); ?>">
-											<?php echo CIRCLED_BLUE_STAR; ?>
-											<?php echo gettext("Publish articles"); ?>
-										</button>
+										<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish articles"), 'buttonCass' => 'tooltip', 'buttonTitle' => gettext("Publish waiting articles."))); ?>
 									</div>
 									<br class="clearall">
 								</form>
@@ -697,10 +678,7 @@ echo "</head>\n";
 									</ul>
 									<br class="clearall">
 									<div class="buttons pad_button">
-										<button class="buttons tooltip" type="submit" title="<?php echo gettext("Publish waiting pages."); ?>">
-											<?php echo CIRCLED_BLUE_STAR; ?>
-											<?php echo gettext("Publish pages"); ?>
-										</button>
+										<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish pages"), 'buttonCass' => 'tooltip', 'buttonTitle' => gettext("Publish waiting pages."))); ?>
 									</div>
 								</form>
 							</div>

@@ -116,14 +116,10 @@ if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {
 						});
 					</script>
 					<p class="buttons">
-						<button class="buttons submitbutton" type="submit" title="<?php echo gettext("Send mail"); ?>"<?php echo $disabled; ?> >
-							<?php echo CHECKMARK_GREEN; ?>
-							<strong><?php echo gettext("Send mail"); ?></strong>
-						</button>
-						<button class="buttons submitbutton" type="reset" title="<?php echo gettext("Reset"); ?>">
-							<?php echo CROSS_MARK_RED_LARGE; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
+						<?php
+						applyButton(array('buttonText' => CHECKMARK_GREEN . '	<strong>' . gettext("Send mail") . '</strong>'));
+						resetButton();
+						?>
 					</p>
 					<br style="clear: both" />
 				</form>

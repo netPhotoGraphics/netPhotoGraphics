@@ -419,15 +419,11 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						<input type="text" value="localhost" id="dbhost" name="dbhost" /> <label for="dbhost"><?php echo gettext("Database host"); ?></label><br />
 						<input type="text" value="wp_" name="tableprefix" id="tableprefix" /> <label for="tableprefix"><?php echo gettext("Database table prefix"); ?></label><br />
 						<input type="checkbox" value="0" name="convertlinefeeds" id="convertlinefeeds" /> <label for="convertlinefeeds"><?php echo gettext('Convert linefeeds to new lines (br)'); ?></label><br />
-						<p><button class="buttons submitbutton" type="submit" title="<?php echo gettext("Import"); ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Import"); ?></strong>
-							</button>
-						</p>
-						<p><button class="buttons submitbutton" type="reset">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+						<p >
+							<?php
+							applyButton(array('buttonText' => CHECKMARK_GREEN . '	<strong>' . gettext("Import") . '</strong>', 'buttonTitle' => gettext("Import")));
+							resetButton();
+							?>
 						</p>
 						<br style="clear:both" />
 					</form>
@@ -453,14 +449,14 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 					<?php } else {
 						?>
 						<p><?php echo gettext('Importing...patience please.'); ?></p>
-					<?php } ?>
+						<?php } ?>
 					<ul>
 						<?php
 						if (!isset($_GET['refresh'])) {
 							?>
 							<li><strong><?php echo gettext('Categories'); ?></strong>
 								<ol>
-									<?php echo $catinfo; ?>
+		<?php echo $catinfo; ?>
 								</ol>
 							</li>
 							<?php
@@ -469,7 +465,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 							?>
 							<li><strong><?php echo gettext('Tags'); ?></strong>
 								<ol>
-									<?php echo $taginfo; ?>
+		<?php echo $taginfo; ?>
 								</ol>
 							</li>
 							<?php
@@ -484,12 +480,14 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 							}
 							?>
 							<ol<?php echo $startlist; ?>>
-								<?php echo $postinfo; ?>
+	<?php echo $postinfo; ?>
 							</ol>
 						</li>
 					</ul>
-					<?php if ($posttotalcount == $postcount) { ?>
-						<p class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php'); ?>"><?php echo gettext('New import'); ?></a></p>
+	<?php if ($posttotalcount == $postcount) { ?>
+						<p class="buttons">
+							#1						<?php npgButton('button', gettext('New import'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php'))); ?>
+						</p>
 						<br style="clear:both" />
 						<?php
 					}
@@ -497,7 +495,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 				?>
 			</div>
 		</div><!-- content -->
-		<?php printAdminFooter(); ?>
+<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 </html>

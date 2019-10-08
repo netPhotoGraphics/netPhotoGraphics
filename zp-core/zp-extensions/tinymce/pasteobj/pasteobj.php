@@ -223,10 +223,7 @@ function getIPSizedImage($size, $image) {
 			</script>
 			<h3>
 				<span class="buttons">
-					<button class="buttons" type="button" title="<?php echo gettext('paste'); ?>" onclick="paste();">
-						<?php echo CHECKMARK_GREEN; ?>
-						<?php echo gettext('paste'); ?>
-					</button>
+					<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext('paste'), array('buttonClick' => "paste();")); ?>
 				</span>
 				<?php printf($title, html_encodeTagged($obj->getTitle())); ?>
 

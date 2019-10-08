@@ -135,11 +135,7 @@ echo "\n</head>";
 					}
 					?>
 					<p class="buttons">
-						<button class="buttons" type="submit" title="<?php echo gettext("Return to search"); ?>" >
-							<?php echo BACK_ARROW_BLUE; ?>
-							<?php echo gettext("Back");
-							?>
-						</button>
+						<?php applyButton(array('buttonText' => BACK_ARROW_BLUE . ' ' . gettext("Back"), 'buttonTitle' => gettext("Return to search"))); ?>
 					</p>
 				</form>
 				<br clear="all" />
@@ -221,16 +217,10 @@ echo "\n</head>";
 					</div>
 					<br clear="all">
 					<p class="buttons">
-						<button class="buttons" type="submit"  title="<?php echo gettext("Tag the items"); ?>">
-							<?php echo CHECKMARK_GREEN; ?>
-							<?php echo gettext("Tag the items"); ?>
-						</button>
+						<?php applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext("Tag the items"), 'buttonTitle' => gettext("Tag the items"))); ?>
 					</p>
 					<p class="buttons">
-						<button class="buttons" type="reset">
-							<?php echo CROSS_MARK_RED_LARGE; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
+						<?php resetButton(); ?>
 					</p>
 					<br class="clearall">
 					</table>

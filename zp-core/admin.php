@@ -544,7 +544,8 @@ $buttonlist = array();
 									$button_category = $button['category'];
 									$button_icon = $button['icon'];
 
-									$color = $disable = '';
+									$color = '';
+									$disable = false;
 									switch ((int) $button['enable']) {
 										case 0:
 											$disable = ' disabled="disabled"';
@@ -577,26 +578,28 @@ $buttonlist = array();
 												XSRFToken($button['XSRFTag']);
 											echo $button['hidden'];
 											if (isset($button['onclick'])) {
-												$type = 'type="button" onclick="' . $button['onclick'] . '"';
+												$buttonType = 'button';
+												$buttonClick = $button['onclick'];
 											} else {
-												$type = 'type="submit"';
+												$buttonType = 'submit';
+												$buttonClick = NULL;
+											}
+											if (!empty($button_icon)) {
+												if (strpos($button_icon, 'images/') === 0) {
+													// old style icon image
+													$icon = '<img src="' . $button_icon . '" alt="' . html_encode($button['alt']) . '" />';
+												} else {
+													$icon = $button_icon . ' ';
+												}
+											}
+											if ($disable) {
+												$class = 'fixedwidth disabled_button';
+											} else {
+												$class = 'fixedwidth';
 											}
 											?>
 											<div class="buttons tooltip" title="<?php echo html_encode($button['title']); ?>">
-												<button class="buttons fixedwidth<?php if ($disable) echo ' disabled_button'; ?>" <?php echo $type . $disable; ?>>
-													<?php
-													if (!empty($button_icon)) {
-														if (strpos($button_icon, 'images/') === 0) {
-															// old style icon image
-															?>
-															<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
-															<?php
-														} else {
-															echo $button_icon . ' ';
-														}
-													}
-													?><span class="overview_buttontext <?php echo $color; ?>"><?php echo html_encode($button['button_text']); ?></span>
-												</button>
+			<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable)); ?>
 											</div><!--buttons -->
 										</form>
 										<?php
@@ -640,13 +643,13 @@ $buttonlist = array();
 								if (class_exists('CMS')) {
 									?>
 									<li>
-										<?php printPagesStatistic(); ?>
+		<?php printPagesStatistic(); ?>
 									</li>
 									<li>
-										<?php printCategoriesStatistic(); ?>
+		<?php printCategoriesStatistic(); ?>
 									</li>
 									<li>
-										<?php printNewsStatistic(); ?>
+									<?php printNewsStatistic(); ?>
 									</li>
 									<?php
 								}
@@ -692,14 +695,14 @@ $buttonlist = array();
 								if ($g) {
 									?>
 									<li>
-										<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
+									<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
 									</li>
 									<?php
 								}
 								if ($t) {
 									?>
 									<li>
-										<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
+									<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
 									</li>
 									<?php
 								}
@@ -716,14 +719,14 @@ $buttonlist = array();
 			} else {
 				?>
 				<div class="errorbox">
-					<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
+				<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
 				</div>
 				<?php
 			}
 			?>
 		</div>
 		<br clear="all">
-		<?php printAdminFooter(); ?>
+<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 <?php

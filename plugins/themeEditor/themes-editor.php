@@ -44,7 +44,7 @@ if (themeIsEditable($theme)) {
 	}
 	if (isset($_GET['file'])) {
 		if (!in_array($themedir . '/' . $_GET['file'], $themefiles)) {
-			$messages['errorbox'][] = gettext('Cannot edit this file!');
+			$messages['errorbox'] = gettext('Cannot edit this file!');
 		}
 		$file_to_edit = str_replace('\\', '/', SERVERPATH . '/themes/' . internalToFilesystem($theme) . '/' . sanitize($_GET['file']));
 	}
@@ -60,13 +60,12 @@ if (themeIsEditable($theme)) {
 				@fwrite($f, $file_content);
 				fclose($f);
 				clearstatcache();
-				$messages['messagebox fade-message'][] = array(gettext('File updated successfully'), 'notebox');
-				;
+				$messages['messagebox fade-message'] = array(gettext('File updated successfully'), 'notebox');
 			} else {
-				$messages['messagebox fade-message'][] = array(gettext('Could not write file. Please check its write permissions'), 'notebox');
+				$messages['messagebox fade-message'] = array(gettext('Could not write file. Please check its write permissions'), 'notebox');
 			}
 		} else {
-			$messages['errorbox'][] = gettext('Could not write file. Please check its write permissions');
+			$messages['errorbox'] = gettext('Could not write file. Please check its write permissions');
 		}
 	}
 
@@ -77,7 +76,7 @@ if (themeIsEditable($theme)) {
 		$what = 'edit»' . basename($file_to_edit);
 	}
 } else {
-	$messages['errorbox'][] = gettext('Cannot edit this theme!');
+	$messages['errorbox'] = gettext('Cannot edit this theme!');
 }
 printAdminHeader('themes', $what);
 echo "\n</head>";
@@ -104,10 +103,7 @@ if (!empty($messages)) {
 ?>
 
 <p class="buttons">
-	<a title="<?php echo gettext('Back to the theme list'); ?>" href="<?php echo getAdminLink('admin-tabs/themes.php'); ?>">
-		<?php echo BACK_ARROW_BLUE; ?>
-		<strong><?php echo gettext("Back"); ?></strong>
-	</a>
+	<?php backButton(array('buttonTitle' => gettext('Back to the theme list'), 'buttonLink' => getAdminLink('admin-tabs/themes.php'))); ?>
 </p>
 <br class="clearall">
 <div id="theme-editor">
@@ -154,14 +150,10 @@ if (!empty($messages)) {
 					<p><textarea cols="70" rows="35" name="newcontent" id="newcontent"><?php echo $file_content ?></textarea></p>
 					<input type="hidden" name="action" value="edit_file"/>
 					<p>
-						<button class="buttons" type="submit" value="<?php echo gettext('Update File') ?>" title="<?php echo gettext("Update File"); ?>">
-							<?php echo CHECKMARK_GREEN; ?>
-							<strong><?php echo gettext("Update File"); ?></strong>
-						</button>
-						<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-							<?php echo CROSS_MARK_RED_LARGE; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
+						<?php
+						applyButton();
+						resetButton();
+						?>
 					</p>
 					<br class="clearall">
 				</form>

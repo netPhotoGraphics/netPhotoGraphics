@@ -56,15 +56,10 @@ if (isset($_SESSION['OTA'])) {
 						<br />
 						<br />
 						<div class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext("Token"); ?>" >
-								<?php echo CHECKMARK_GREEN; ?>
-								<?php echo gettext("Submit"); ?>
-							</button>
-							<button class="buttons" type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo FULLWEBPATH; ?>';">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<?php echo gettext("Cancel"); ?>
-							</button>
-
+							<?php
+							applyButton(CHECKMARK_GREEN . ' ' . gettext("Submit"), array('buttonClass' => 'submitbutton'));
+							cancelButton(CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonLink' => FULLWEBPATH));
+							?>
 						</div>
 						<br class="clearall">
 					</fieldset>
