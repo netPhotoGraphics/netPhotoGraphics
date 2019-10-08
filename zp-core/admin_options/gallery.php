@@ -57,7 +57,7 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="gallery" />
 			<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
@@ -247,7 +247,7 @@ function getOptionContent() {
 											 name="disclose_password"
 											 id="disclose_password"
 											 onclick="passwordClear('');
-													 togglePassword('');" /><?php echo gettext('Show'); ?>
+															 togglePassword('');" /><?php echo gettext('Show'); ?>
 							</label>
 
 							<br />
@@ -318,6 +318,9 @@ function getOptionContent() {
 						}
 						chdir($curdir);
 						$list = array_diff($list, standardScripts(array()));
+						if (class_exists('CMS')) {
+							$list = array_merge($list, array('news.php' => 'news'));
+						}
 						$list['index.php'] = 'index';
 						$current = array();
 						foreach ($list as $page) {
