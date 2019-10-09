@@ -136,10 +136,9 @@ updatePublished('pages');
 					?>
 					<span class="zenpagestats"><?php printPagesStatistic(); ?></span>
 					<form class="dirtylistening" onReset="setClean('sortableListForm');$('#pagesort').sortable('cancel');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php'); ?>" method="post" name="update" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off">
-						<?php XSRFToken('update'); ?>
-
-						<p><?php echo gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."); ?></p>
 						<?php
+						XSRFToken('update');
+						printSortableDirections(gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."));
 						if (GALLERY_SECURITY == 'public') {
 							?>
 							<p class="notebox"><?php echo gettext("<strong>Note:</strong> Subpages of password protected pages inherit the protection."); ?></p>

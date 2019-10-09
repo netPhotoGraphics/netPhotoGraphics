@@ -272,51 +272,63 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 		}
 
-		function applyButton($options = array()) {
-			if (isset($options['buttonClass'])) {
-				$options['buttonClass'] .= ' submitbutton';
-			} else {
-				$options['buttonClass'] = 'submitbutton';
-			}
-			npgButton('submit', CHECKMARK_GREEN . ' <strong>' . gettext("Apply") . '</strong>', $options);
-		}
-
-		function resetButton($options = array()) {
-			if (isset($options['buttonClass'])) {
-				$options['buttonClass'] .= ' resetbutton';
-			} else {
-				$options['buttonClass'] = 'resetbutton';
-			}
-			npgButton('reset', CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset") . '</strong>', $options);
-		}
-
-		function backButton($options = array()) {
-			if (isset($options['buttonClass'])) {
-				$options['buttonClass'] .= ' backbutton';
-			} else {
-				$options['buttonClass'] = 'backbutton';
-			}
-			npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Back") . '</strong>', $options);
-		}
-
-		function viewButton($options = array()) {
-			if (isset($options['buttonClass'])) {
-				$options['buttonClass'] .= ' viewbutton';
-			} else {
-				$options['buttonClass'] = 'viewbutton';
-			}
-			npgButton('button', BULLSEYE_BLUE . ' <strong>' . gettext('View') . '</strong>', $options);
-		}
-
-		/**
-		 * Print the html required to display the logo and links in the top section of the admin page.
-		 *
-		 * @author Todd Papaioannou (lucky@luckyspin.org)
-		 * @since  1.0.0
-		 */
-		function printLogoAndLinks() {
-			global $_current_admin_obj, $_admin_tab, $_admin_subtab, $_gallery, $tabtext, $subtabtext;
+		function printSortableDirections($lead) {
 			?>
+		<p>
+			<?php echo $lead; ?>
+			<span onclick="$('#dragInstructions').toggle();" style="cursor: pointer;"><?php echo INFORMATION_BLUE; ?></span>
+		</p>
+		<p id="dragInstructions" style="display: none;">
+			<?php echo gettext('To move a sub-item out from its list you must drag it out via the bottom of the list. That is drag it to past the last item in the sub-list then drag it left and drop it. Then you can move it into to another sub-list. If you are moving out multiple levels you must repeat the move process for each level.'); ?>
+		</p>
+		<?php
+	}
+
+	function applyButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' submitbutton';
+		} else {
+			$options['buttonClass'] = 'submitbutton';
+		}
+		npgButton('submit', CHECKMARK_GREEN . ' <strong>' . gettext("Apply") . '</strong>', $options);
+	}
+
+	function resetButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' resetbutton';
+		} else {
+			$options['buttonClass'] = 'resetbutton';
+		}
+		npgButton('reset', CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset") . '</strong>', $options);
+	}
+
+	function backButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' backbutton';
+		} else {
+			$options['buttonClass'] = 'backbutton';
+		}
+		npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Back") . '</strong>', $options);
+	}
+
+	function viewButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' viewbutton';
+		} else {
+			$options['buttonClass'] = 'viewbutton';
+		}
+		npgButton('button', BULLSEYE_BLUE . ' <strong>' . gettext('View') . '</strong>', $options);
+	}
+
+	/**
+	 * Print the html required to display the logo and links in the top section of the admin page.
+	 *
+	 * @author Todd Papaioannou (lucky@luckyspin.org)
+	 * @since  1.0.0
+	 */
+	function printLogoAndLinks() {
+		global $_current_admin_obj, $_admin_tab, $_admin_subtab, $_gallery, $tabtext, $subtabtext;
+		?>
 		<div id="admin_head">
 			<span id="administration">
 				<?php printSiteLogoImage(sprintf(gettext('%1$s Administration'), html_encode($_gallery->getTitle())), sprintf(gettext('%1$s administration:%2$s%3$s'), html_encode($_gallery->getTitle()), html_encode($tabtext), html_encode($subtabtext))); ?>
@@ -1971,7 +1983,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																		 togglePassword('<?php echo $suffix; ?>');" />
+																 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2300,9 +2312,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2460,7 +2472,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -4202,8 +4214,9 @@ function getCheckboxState($id) {
  */
 function standardScripts($optional = array('register', 'contact')) {
 	$standardlist = array_merge($optional, array('themeoptions', 'theme_description', '404', 'slideshow', 'search', 'image', 'index', 'album', 'functions', 'password', 'archive', 'gallery', 'favorites'));
-	if (class_exists('CMS'))
+	if (class_exists('CMS')) {
 		$standardlist = array_merge($standardlist, array('news', 'pages'));
+	}
 	return $standardlist;
 }
 
@@ -4549,30 +4562,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-				var sel = obj.options[obj.selectedIndex].value;
-				var mark;
-				switch (sel) {
+			var sel = obj.options[obj.selectedIndex].value;
+							var mark;
+							switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-					case '<?php echo $key; ?>':
-					mark = '<?php echo $mark; ?>';
-									break;
+				case '<?php echo $key; ?>':
+								mark = '<?php echo $mark; ?>';
+								break;
 			<?php
 		}
 		?>
-				default:
-				mark = false;
-								break;
+			default:
+							mark = false;
+							break;
 			}
 			if (mark) {
-				$.colorbox({
-					href: '#' + mark,
-					inline: true,
-					open: true,
-					close: '<?php echo gettext("ok"); ?>'
-				});
-				}
+			$.colorbox({
+			href: '#' + mark,
+							inline: true,
+							open: true,
+							close: '<?php echo gettext("ok"); ?>'
+			});
+			}
 			}
 			// ]]> -->
 		</script>
@@ -4956,27 +4969,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-		// <!-- <![CDATA[
-		$(function () {
-			var tabContainers = $('div.tabs > div');
-			$('.first').addClass('selected');
-		});
-		function cbclick(num, id) {
-			$('.cbx-' + id).hide();
-			$('#cb' + num + '-' + id).show();
-			$('.cbt-' + id).removeClass('selected');
-			$('#cbt' + num + '-' + id).addClass('selected');
-		}
+						// <!-- <![CDATA[
+						$(function () {
+						var tabContainers = $('div.tabs > div');
+										$('.first').addClass('selected');
+						});
+						function cbclick(num, id) {
+						$('.cbx-' + id).hide();
+										$('#cb' + num + '-' + id).show();
+										$('.cbt-' + id).removeClass('selected');
+										$('#cbt' + num + '-' + id).addClass('selected');
+						}
 
 		function cbadd(id, offset) {
-			var num = $('#cbu-' + id + ' li').length - offset;
-			$('li:last', $('#cbu-' + id)).remove();
-			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-							'</div>');
-			cbclick(num, id);
+		var num = $('#cbu-' + id + ' li').length - offset;
+						$('li:last', $('#cbu-' + id)).remove();
+						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+						'</div>');
+						cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5911,8 +5924,8 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-			 <?php echo CLIPBOARD; ?>
+										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+		 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }

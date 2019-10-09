@@ -857,7 +857,7 @@ echo "\n</head>";
 							} else {
 								$dsp = 'inline';
 							}
-							echo gettext('Drag the albums into the order you wish them displayed.');
+							printSortableDirections(gettext("Drag the albums into the order you wish them displayed."));
 							?>
 							<form name="gallery_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=gallery_sortorder" >
 								<?php XSRFToken('gallery_sortorder'); ?>

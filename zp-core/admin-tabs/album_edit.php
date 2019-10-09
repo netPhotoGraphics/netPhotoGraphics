@@ -11,16 +11,14 @@ if (count($subalbums) > 0) {
 	<div id="tab_subalbuminfo" class="tabbox">
 		<?php
 		consolidatedEditMessages('subalbuminfo');
-		echo gettext('Drag the albums into the order you wish them displayed.');
+		printSortableDirections(gettext('Drag the albums into the order you wish them displayed.'));
 
 		printEditDropdown('subalbuminfo', array('1', '2', '3', '4', '5'), $subalbum_nesting);
 		$sort = $_sortby;
 		foreach ($sort as $name => $action) {
 			$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
 		}
-		?>
-		<br clear="all"><br />
-		<?php
+
 		if (is_null($album->getParent())) {
 			$globalsort = gettext("*gallery album sort order");
 		} else {
