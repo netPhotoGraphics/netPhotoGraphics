@@ -110,18 +110,9 @@ $_gallery->garbageCollect();
 
 printAdminHeader('admin', 'SEO cleaner');
 
-if (isset($_GET['todo'])) {
-	$count = sanitize_numeric($_GET['imagecount']);
-	$albumcount = sanitize_numeric($_GET['albumcount']);
-	$albums = array();
-	foreach (explode(',', sanitize($_GET['todo'])) as $album) {
-		$albums[] = sanitize($album);
-	}
-} else {
-	$count = 0;
-	$albumcount = 0;
-	$albums = $_gallery->getAlbums();
-}
+$count = 0;
+$albumcount = 0;
+$albums = $_gallery->getAlbums();
 ?>
 <?php echo '</head>'; ?>
 <body>
