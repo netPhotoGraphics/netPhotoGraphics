@@ -141,7 +141,7 @@ class SearchEngine {
 		} else {
 			$this->words = NULL;
 			if (isset($_REQUEST['date'])) { // words & dates are mutually exclusive
-				$this->dates = rtrim(sanitize($_REQUEST['date'], 3), '/');
+				$this->dates = sanitizeDate($_REQUEST['date']);
 				if (isset($_REQUEST['whichdate'])) {
 					$this->whichdates = sanitize($_REQUEST['whichdate']);
 				}
@@ -460,7 +460,7 @@ class SearchEngine {
 					$this->words = urldecode($v);
 					break;
 				case 'date':
-					$this->dates = $v;
+					$this->dates = sanitizeDate($v);
 					break;
 				case 'whichdates':
 					$this->whichdates = $v;
@@ -538,7 +538,7 @@ class SearchEngine {
 			}
 		}
 		if (!empty($this->words)) {
-			$this->dates = ''; // words and dates are mutually exclusive
+			$this->dates = FALSE; // words and dates are mutually exclusive
 		}
 	}
 

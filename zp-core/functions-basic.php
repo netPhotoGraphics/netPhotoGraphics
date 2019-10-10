@@ -237,6 +237,26 @@ function sanitize_numeric($num) {
 }
 
 /**
+ * sanitize a date input
+ *
+ * @param type $date
+ * @return mixed a canonical date string or FALSE if the date is invalid
+ */
+function sanitizeDate($date) {
+	$timestamp = strtotime($date);
+	if ($timestamp) {
+		$format = array('Y-', 'm-', 'd ', 'H:', 'i:', 's');
+		$d = strtr(rtrim($date, '/'), array('/' => '-', ' ' => '-', ':' => '-'));
+		$count = count(explode('-', $d));
+		while ($count < count($format)) {
+			array_pop($format);
+		}
+		return date(trim(implode('', $format), '-:'), $timestamp);
+	}
+	return FALSE;
+}
+
+/**
  * removes script tags
  *
  * @param string $text
