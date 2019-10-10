@@ -1271,13 +1271,6 @@ function printSiteLogoImage($title = NULL) {
  * 														)
  */
 function npgButton($buttonType, $buttonText, $options = array()) {
-
-	//TODO: remove debug code
-	if (!is_array($options)) {
-		var_dump($options);
-		trigger_error('bad npgButton options parameter', E_USER_ERROR);
-	}
-
 	$options = array_merge(array(
 			'buttonClass' => NULL,
 			'buttonLink' => NULL,
@@ -2344,14 +2337,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
