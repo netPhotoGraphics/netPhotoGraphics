@@ -189,7 +189,7 @@ echo "\n</head>";
 
 						<p class="buttons">
 							<?php
-							backButton(array('backButton' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();
 							viewButton(array('buttonLink' => $album->getLink()));
@@ -251,7 +251,7 @@ echo "\n</head>";
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<?php
-							backButton(array('backButton' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();
 							viewButton(array('buttonLink' => $album->getLink()));
