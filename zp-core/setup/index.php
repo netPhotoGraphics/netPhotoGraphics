@@ -953,7 +953,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												<span>
 													<?php echo CHECKMARK_GREEN; ?>
 													<?php echo gettext('Image URIs appear to require the <em>UTF-8</em> character set.') ?>
-													<img src="<?php echo WEBPATH . '/' . DATA_FOLDER . '/' . urlencode('tést.jpg'); ?>" class="test_image"  onerror="imgError('internal');" />
+													<img src="<?php echo WEBPATH . '/' . DATA_FOLDER . '/' . urlencode('tést.jpg'); ?>" class="test_image"  onerror="imgError('internal');" width="1" height="1" />
 												</span>
 											</li>
 											<li id="filesystem" class="fail limited" style="display: none;">
