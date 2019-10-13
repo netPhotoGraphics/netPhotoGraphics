@@ -297,7 +297,7 @@ echo "\n</head>";
 								</table>
 								<p class="buttons">
 									<?php
-									applyButton(array('buttonText' => WASTEBASKET . '	<strong>' . gettext("Delete") . '</strong>', array('buttonClass' => $buttonClass)));
+									applyButton(array('buttonText' => WASTEBASKET . '	<strong>' . gettext("Delete") . '</strong>'));
 									resetButton();
 									?>
 								</p>
@@ -313,8 +313,6 @@ echo "\n</head>";
 							break;
 					}
 					?>
-
-
 				</div>
 			</div>
 		</div>

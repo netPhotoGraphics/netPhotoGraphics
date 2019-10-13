@@ -54,7 +54,7 @@ function upload_extra($uploadlimit, $passedalbum) {
 
 						<?php
 						applyButton(array('buttonText' => '<i class="glyphicon glyphicon-upload"></i> <span>' . gettext('Start upload') . '</span>', 'buttonClass' => "btn btn-primary start"));
-						resetButton(array('buttonText' => '<i class="glyphicon glyphicon-ban-circle"></i> <span>' . gettext('Cancel upload'), 'buttonCass' => "btn btn-warning cancel"));
+						resetButton(array('buttonText' => '<i class="glyphicon glyphicon-ban-circle"></i> <span>' . gettext('Cancel upload'), 'buttonClass' => "btn btn-warning cancel"));
 						?>
 					</span>
 					<!-- The global file processing state -->
