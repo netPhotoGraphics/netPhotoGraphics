@@ -186,9 +186,12 @@ printSortableHead();
 				?></h1>
 			<div class="tabbox">
 				<form class="dirtylistening" onReset="setClean('update_form');$('#menusort').sortable('cancel');" id="update_form" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
-					<?php XSRFToken('update_menu'); ?>
+					<?php
+					XSRFToken('update_menu');
+					printSortableDirections(gettext("Drag the items into the order and nesting you wish displayed."));
+					?>
 					<p>
-						<?php echo gettext("Drag the items into the order and nesting you wish displayed. Place the menu on your theme pages by calling printCustomMenu()."); ?>
+						<?php echo gettext("Place the menu on your theme pages by calling printCustomMenu()."); ?>
 					</p>
 					<p class="notebox">
 						<?php echo gettext("<strong>IMPORTANT:</strong> This menu’s order is completely independent from any order of albums or pages set on the other admin pages. Use with customized themes that do not wish the standard display structure. Functions such as the breadcrumb functions and the next_album() loop will NOT reflect of this menu’s structure!"); ?>
