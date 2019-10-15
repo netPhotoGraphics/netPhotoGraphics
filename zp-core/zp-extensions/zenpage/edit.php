@@ -425,7 +425,7 @@ $tagsort = 'alpha';
 											<tr>
 												<td class="leftcolumn"><?php echo gettext("Title"); ?></td>
 												<td class="middlecolumn">
-													<?php print_language_string_list($result->getTitle('all'), 'title', false, NULL, 'title', '100%', 10); ?>
+													<?php print_language_string_list($result->getTitle('all'), 'title', false, NULL, 'title', '95%', 10); ?>
 												</td>
 											</tr>
 
@@ -454,7 +454,7 @@ $tagsort = 'alpha';
 														echo gettext("A search engine friendly <em>titlelink</em> (aka slug) without special characters to be used in URLs is generated from the title of the currently chosen language automatically. You can edit it manually later after saving if necessary.");
 													} else {
 														?>
-														<input name="titlelink" type="text" id="titlelink" value="<?php echo $result->getTitlelink(); ?>" disabled="disabled" />
+														<input name="titlelink" type="text" id="titlelink" value="<?php echo $result->getTitlelink(); ?>" disabled="disabled" style="width: 95%;" />
 														<?php
 													}
 													?>
@@ -512,9 +512,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -607,7 +607,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																								 togglePassword('');">
+																					 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />
