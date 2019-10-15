@@ -35,11 +35,13 @@ class titlelinkMigration {
 						'desc' => sprintf(gettext('Enter the old <code><em>mod_rewrite_suffix</em></code> you wish to migrate to "%1$s"'), RW_SUFFIX))
 		);
 		if ($old) {
+			$count = getOption('titlelinkMigrate_count');
+			purgeOption('titlelinkMigrate_count');
 			$options['note'] = array(
 					'key' => 'titlelinkMigratae_note',
 					'type' => OPTION_TYPE_NOTE,
 					'order' => 0,
-					'desc' => '<div class="messagebox fade-message">' . sprintf(gettext('Titlelink rewrite suffix "%1$s" migrated to "%2$s".'), $old, RW_SUFFIX) . '</div>'
+					'desc' => '<div class="messagebox fade-message">' . ngettext(sprintf(gettext('Migrated %1$s titlelink suffix from "%2$s" to "%3$s".'), $count, $old, RW_SUFFIX), sprintf(gettext('Migrated %1$s titlelink suffixes from "%2$s" to "%3$s".'), $count, $old, RW_SUFFIX), $count) . '</div>'
 			);
 		}
 
@@ -48,7 +50,8 @@ class titlelinkMigration {
 
 	function handleOptionSave($themename, $themealbum) {
 		if (!empty($old = getOption('titlelinkMigrate_old'))) {
-			migrateTitleLinks($old, RW_SUFFIX);
+			$count = migrateTitleLinks($old, RW_SUFFIX);
+			setOption('titlelinkMigrate_count', $count);
 		}
 	}
 
