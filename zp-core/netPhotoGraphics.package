@@ -168,7 +168,6 @@ themes/paradigm/img/background-pattern.png
 themes/paradigm/img/background-pattern2.png
 themes/paradigm/img/favicon.ico
 themes/paradigm/img/li-default.png
-themes/paradigm/img/list_12x11.png
 themes/paradigm/img/loadingAnimation.gif
 themes/paradigm/img/logo.png
 themes/paradigm/img/magnifying_glass_16x16.png
@@ -8334,4 +8333,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8336
+8335

@@ -328,7 +328,7 @@ if (!defined('OFFSET_PATH')) {
 					cursor: pointer;
 					padding: 5px 10px 6px 7px; /* Links */
 				}
-				.buttons .tip {
+				.tip {
 					text-align: left;
 				}
 				dl {

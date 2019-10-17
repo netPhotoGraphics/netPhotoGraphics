@@ -17,13 +17,6 @@
 /* Basics
 ------------------------------ */
 
-
-* {
-	margin: 0;
-  padding: 0;
-	line-height: 19px;
-}
-
 html { /* Force vertical scrollbar to prevent page shift "jog" */
 	/* IE */
 	overflow-y: scroll;
@@ -1168,10 +1161,6 @@ input.tags {
 	list-style: none;
 }
 
-.theme_links li {
-	padding-bottom: 10px;
-}
-
 #theme-editor #files {
 	min-height: 500px;
 	float: right;
@@ -1941,7 +1930,7 @@ span.tagMatches span {
 }
 
 /*sidebar vertical buttons */
-.box-edit .buttons a, .theme_links .buttons a{
+.box-edit.npgButton a{
 	width: 90% !important;
 }
 
@@ -2129,11 +2118,6 @@ fieldset,
 
 .nowrap {
 	white-space: nowrap;
-}
-
-.pluginextrashow p.buttons,
-.pluginextrahide p.buttons {
-	display: inline;
 }
 
 .metadata_table {

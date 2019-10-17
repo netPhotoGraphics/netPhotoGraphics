@@ -42,15 +42,15 @@
 							</li>
 
 							<!-- news -->
-								<?php if (function_exists("printAllNewsCategories") && hasNews()) { ?>
+							<?php if (function_exists("printAllNewsCategories") && hasNews()) { ?>
 								<li class="level1 dropdown<?php if ($_gallery_page == 'news.php') { ?> active<?php } ?>"><a href="<?php echo getNewsIndexURL(); ?>"><?php echo gettext('Blog') ?></a>
-								<?php printAllNewsCategories("", false, "", "open", true, "submenu", "open", "list-top"); ?>
+									<?php printAllNewsCategories("", false, "", "open", true, "submenu", "open", "list-top"); ?>
 								</li>
 							<?php } ?>
 
 							<!-- pages-->
 							<?php if (function_exists("printPageMenu") && hasPages()) { ?>
-	<?php printPageMenu("list", "", "active", "submenu", "active", "", "2", false); ?>
+								<?php printPageMenu("list", "", "active", "submenu", "active", "", "2", false); ?>
 							<?php } ?>
 
 							<!-- archive-->
@@ -59,11 +59,11 @@
 							<?php } ?>
 
 							<!-- contact page -->
-								<?php if (extensionEnabled('contact_form')) { ?>
+							<?php if (extensionEnabled('contact_form')) { ?>
 								<li class="level1<?php if ($_gallery_page == 'contact.php') { ?> active<?php } ?>"><?php printCustomPageURL(gettext('Contact'), 'contact'); ?></li>
-						<?php } ?>
+								<?php } ?>
 						</ul>
-<?php printSearchForm('', 'navbar_search', $_themeroot . '/img/magnifying_glass_16x16.png', gettext('Search'), $_themeroot . '/img/list_12x11.png'); ?>
+						<?php printSearchForm('', 'navbar_search', $_themeroot . '/img/magnifying_glass_16x16.png'); ?>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container-fluid -->
 			</nav>

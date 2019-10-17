@@ -185,7 +185,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 		<?php XSRFToken('saveplugins'); ?>
 		<input type="hidden" name="saveplugins" value="yes" />
 		<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
-		<p class="buttons">
+		<p>
 			<?php
 			applyButton();
 			resetButton();
@@ -524,7 +524,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 				<?php echo gettext('Warning note'); ?>
 			</li>
 		</ul>
-		<p class="buttons">
+		<p>
 			<?php
 			applyButton();
 			resetButton();

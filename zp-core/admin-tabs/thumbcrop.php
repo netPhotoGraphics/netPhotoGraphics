@@ -293,10 +293,10 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 							?>
 							<input name="clear_crop" id="clear_crop" type="checkbox" value="1"  onclick="resetCheck();" /> <?php echo gettext("Reset to the default cropping"); ?><br />
 							<br />
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
-								npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Reset") . '</strong>', array('buttonClick' => "resetBoundingBox();"));
+								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Reset"), array('buttonClick' => "resetBoundingBox();"));
 								$backLink = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&subpage=' . html_encode($subpage) . '&tagsort=' . html_encode($tagsort) . '&tab=imageinfo';
 								if ($singleimage) {
 									$backLink .= '&singleimage=' . html_encode($singleimage);

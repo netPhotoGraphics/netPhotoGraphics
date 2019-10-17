@@ -180,7 +180,7 @@ function getOptionContent() {
 			<table>
 				<tr>
 					<td colspan="100%">
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton();
 							resetButton();
@@ -516,8 +516,8 @@ function getOptionContent() {
 						<textarea name="allowed_tags" id="allowed_tags" class="fullwidth" rows="4" cols="35">
 							<?php echo html_encode(getOption('allowed_tags')); ?>
 						</textarea>
-						<p class="buttons">
-							<?php npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . '<strong>' . gettext('Revert to default') . '</strong>', array('buttonClick' => "resetallowedtags()")); ?>
+						<p>
+							<?php npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext('Revert to default'), array('buttonClick' => "resetallowedtags()")); ?>
 						</p>
 					</td>
 					<td class="option_desc">
@@ -813,7 +813,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 				<?php npgFilters::apply('admin_general_data'); ?>
 				<tr>
 					<td colspan="100%">
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton();
 							resetButton();

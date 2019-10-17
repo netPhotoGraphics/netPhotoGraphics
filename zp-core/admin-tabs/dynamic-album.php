@@ -354,11 +354,10 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 			</p>
 			<?php
 		} else {
-			?>
-			<input type="submit" value="<?php echo gettext('Create the album'); ?>" class="button" />
-			<?php
+			applyButton(array('buttonText' => gettext('Create the album')));
 		}
 		?></form>
+	<br clear="all">
 </div>
 <?php
 echo "\n" . '</div>';

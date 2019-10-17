@@ -55,13 +55,8 @@ class crop_image {
 			}
 			if ($singleimage)
 				$singleimage = '&amp;singleimage=' . $singleimage;
-			$output .= '<div class="button buttons tooltip" title="' . gettext('Permanently crop the actual image.') . '">' . "\n" .
-							'<a href="' . getAdminLink(PLUGIN_FOLDER . '/crop_image.php') . '?a=' . pathurlencode($albumname) . "\n" .
-							'&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort) . '">' . "\n"
-							. SHAPE_HANDLES . ' '
-							. gettext("Crop image") . '</a>' . "\n" .
-							'<br class="clearall">' .
-							'</div>' . "\n";
+
+			$output .= get_npgButton('button', SHAPE_HANDLES . ' ' . gettext("Crop image"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/crop_image.php') . '?a=' . pathurlencode($albumname) . '&amp;i=' . urlencode($imagename) . '&amp;performcrop=backend&amp;subpage=' . $subpage . $singleimage . '&amp;tagsort=' . html_encode($tagsort), 'buttonTitle' => gettext('Permanently crop the actual image.'), 'buttonClass' => 'fixedwidth')) . '<br clear="all">';
 		}
 		return $output;
 	}
@@ -452,7 +447,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								echo linkPickerItem($imageobj, 'imageURI');
 								?>
 							</p>
-							<p class="buttons">
+							<p>
 								<?php
 								if ($_REQUEST['performcrop'] == 'backend') {
 									$backlink = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&subpage=' . $subpage . '&tagsort=' . html_encode($tagsort) . '&tab=imageinfo';
@@ -465,7 +460,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 									linkPickerPick($imageobj, 'imageURI', "+'&pick[picture]=' + $('#imageURI').val().replaceAll('&', ':')");
 									$click = ob_get_contents() . "\n\tsetClean('crop');\n\twindow.history.back();";
 									ob_end_clean();
-									npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Done") . '</strong>', array('buttonClick' => $click));
+									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Done"), array('buttonClick' => $click));
 								} else {
 									backButton(array('buttonLink' => '../../index.php?album=' . pathurlencode($albumname) . '&image=' . urlencode($imagename)));
 								}

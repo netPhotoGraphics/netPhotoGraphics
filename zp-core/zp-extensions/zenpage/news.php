@@ -245,12 +245,12 @@ updatePublished('news');
 						$option = getNewsAdminOptionPath(getNewsAdminOption(NULL));
 						?>
 						<form class="dirtylistening" onReset="setClean('sortableListForm');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . $option; ?>" method="post" name="checkeditems" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off">
-							<?php XSRFToken('checkeditems'); ?>
-							<span class="buttons">
-								<?php applyButton(); ?>
-								<span class="floatright">
-									<?php npgButton('button', PLUS_ICON . '	<strong>' . gettext("New Article") . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
-								</span>
+							<?php
+							XSRFToken('checkeditems');
+							applyButton();
+							?>
+							<span class="floatright">
+								<?php npgButton('button', PLUS_ICON . '	' . gettext("New Article"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 							</span>
 							<br class="clearall">
 							<div class="headline">
@@ -462,7 +462,7 @@ updatePublished('news');
 							<p class="centered">
 								<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
 							</p>
-							<p class="buttons">
+							<p>
 								<?php applyButton(); ?>
 							</p>
 						</form>

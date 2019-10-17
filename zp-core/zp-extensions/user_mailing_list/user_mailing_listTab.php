@@ -115,9 +115,9 @@ if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {
 							return false; // prevent default action
 						});
 					</script>
-					<p class="buttons">
+					<p>
 						<?php
-						applyButton(array('buttonText' => CHECKMARK_GREEN . '	<strong>' . gettext("Send mail") . '</strong>'));
+						applyButton(array('buttonText' => CHECKMARK_GREEN . '	' . gettext("Send mail")));
 						resetButton();
 						?>
 					</p>

@@ -8,7 +8,7 @@
 				printAlbumMenu('jump', NULL, '', '', '', '', gettext('Gallery Index'));
 			}
 			if (getOption('allow_search')) {
-				printSearchForm('', 'search', '', gettext('Search'), "$_themeroot/images/search-drop.png", NULL, NULL, "$_themeroot/images/reset.gif");
+				printSearchForm('', 'search', '', gettext('Search'), "$_themeroot/images/search-drop.png");
 			}
 			?>
 		</div>

@@ -32,11 +32,11 @@ function getOptionContent() {
 	?>
 	<div id="tab_forms" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="forms" />
 
-			<p class="buttons">
+			<p>
 				<?php
 				applyButton();
 				resetButton();
@@ -67,7 +67,7 @@ function getOptionContent() {
 				?>
 			</div>
 
-			<p class="buttons">
+			<p>
 				<?php
 				applyButton();
 				resetButton();
@@ -75,6 +75,7 @@ function getOptionContent() {
 			</p>
 
 		</form>
+		<br clear="all">
 	</div>
 	<!-- end of tab-search div -->
 	<?php

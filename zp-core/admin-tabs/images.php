@@ -463,7 +463,7 @@ echo "\n</head>";
 						<div class="headline">
 						</div>
 						<div class="subhead">
-							<label class="buttons" style="float: left;padding-top:3px;">
+							<label style="float: left;padding-top:3px;">
 								<?php
 								npgButton('button', $thumbmsg, array(
 										'buttonLink' => getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images&amp;showthumbs=' . $thumbshow,

@@ -297,7 +297,7 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 					<?php
 					if (npg_loggedin(ADMIN_RIGHTS)) {
 						?>
-						<p class="buttons">
+						<p>
 							<?php npgButton('button', gettext('reset'), array('buttonLink' => "?reset&amp;XSRFToken=" . getXSRFToken('search_statistics'))); ?>
 							<br class="clearall">
 							<br />

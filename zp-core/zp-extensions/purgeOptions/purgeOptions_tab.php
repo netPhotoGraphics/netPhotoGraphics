@@ -305,7 +305,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 							}
 							?>
 							<br class="clearall">
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
 								resetButton();

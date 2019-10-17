@@ -114,10 +114,10 @@ echo '</head>';
 					</ul>
 					<p><?php echo sprintf(gettext('Additionally a sitemapindex file is created that points to the separate ones above. You can reference this sitemapindex file in your robots.txt file or submit its url to services like Google via <code>%1$s/index.php?sitemap</code>'), FULLWEBPATH); ?></p>
 					<p><?php printf(gettext('The sitemap cache is cleared if you create new ones. All files are stored in the <code>/%s/sitemap/</code> folder.'), STATIC_CACHE_FOLDER); ?></p>
-					<p class="buttons">
+					<p>
 						<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext("Generate sitemaps"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php') . '?generatesitemaps&amp;number=1', 'buttonClass' => 'fixedwidth')); ?>
 					</p>
-					<p class="buttons">
+					<p>
 						<?php npgButton('button', RECYCLE_ICON . ' ' . gettext("Clear sitemap cache"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php') . '?clearsitemapcache', 'buttonClass' => 'fixedwidth')); ?>
 					</p>
 					<br style="clear: both" />

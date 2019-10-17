@@ -3912,6 +3912,19 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @since 1.1.3
  */
 function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL) {
+
+	/* debug aid
+	  varDebug(['$prevtext' => $prevtext,
+	  '$id' => $id,
+	  '$buttonSource' => $buttonSource,
+	  '$buttontext' => $buttontext,
+	  '$iconsource' => $iconsource,
+	  '$query_fields' => $query_fields,
+	  '$object_list' => $object_list,
+	  '$within' => $within]);
+	 *
+	 */
+
 	global $_current_search, $_current_album;
 	$engine = new SearchEngine();
 	if (!is_null($_current_search) && !$_current_search->getSearchWords()) {
@@ -3947,8 +3960,10 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	if (empty($iconsource)) {
 		$iconsource = SEARCHFIELDS_ICON;
 	} else {
-		$iconsource = '<img src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
+		$iconsource = '<image src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
+
+	$iconsource = SEARCHFIELDS_ICON;
 
 	if (is_null($within)) {
 		$within = getOption('search_within');
@@ -4008,12 +4023,16 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				<span class="tagSuggestContainer">
 					<input type="text" name="words" value="" id="search_input" class="tagsuggest" size="10" />
 				</span>
-				<?php if (count($fields) > 1 || $searchwords) { ?>
-					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
+				<?php
+				if (count($fields) > 1 || $searchwords) {
+					?>
+					<span onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
 						<?php echo $iconsource; ?>
-					</a>
-				<?php } ?>
-				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="button buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
+					</span>
+					<?php
+				}
+				?>
+				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
 				<?php
 				if (is_array($object_list)) {
 					foreach ($object_list as $key => $list) {
@@ -4397,11 +4416,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 	} else {
 		$display = '';
 	}
-	?>
-	<button id="submitbutton" class="button buttons policyButton <?php echo $buttonClass; ?>" <?php echo $display . $buttonExtra; ?>>
-		<?php echo $buttonText; ?>
-	</button>
-	<?php
+	npgButton('submit', $buttonText, array('buttonClass' => 'policyButton ' . $buttonClass, 'buttonExtra' => $display . $buttonExtra, 'id' => 'submitbutton'));
 }
 
 function recordPolicyACK($user = NULL) {

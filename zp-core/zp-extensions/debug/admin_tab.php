@@ -295,9 +295,9 @@ echo "\n</head>";
 									}
 									?>
 								</table>
-								<p class="buttons">
+								<p>
 									<?php
-									applyButton(array('buttonText' => WASTEBASKET . '	<strong>' . gettext("Delete") . '</strong>'));
+									applyButton(array('buttonText' => WASTEBASKET . '	' . gettext("Delete")));
 									resetButton();
 									?>
 								</p>

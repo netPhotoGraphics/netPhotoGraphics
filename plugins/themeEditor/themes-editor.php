@@ -102,7 +102,7 @@ if (!empty($messages)) {
 }
 ?>
 
-<p class="buttons">
+<p>
 	<?php backButton(array('buttonTitle' => gettext('Back to the theme list'), 'buttonLink' => getAdminLink('admin-tabs/themes.php'))); ?>
 </p>
 <br class="clearall">

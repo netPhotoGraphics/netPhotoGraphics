@@ -327,7 +327,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 				$query['dismiss'] = 'config_warning';
 				$query['xsrfToken'] = $token;
 				?>
-				<p class="buttons">
+				<p>
 					<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
 				</p>
 				<br class="clearall">

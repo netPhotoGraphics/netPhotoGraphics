@@ -233,10 +233,10 @@ function getOptionContent() {
 							?>
 					<tr>
 						<td colspan="100%">
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
-								npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' <strong>' . gettext("Revert to default") . '</strong>', array('buttonClick' => "$('#savethemeoptions').val('reset');$('#themeoptionsform').submit();"));
+								npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext("Revert to default"), array('buttonClick' => "$('#savethemeoptions').val('reset');$('#themeoptionsform').submit();"));
 								resetButton();
 								?>
 							</p>
@@ -557,10 +557,10 @@ function getOptionContent() {
 					?>
 					<tr>
 						<td colspan="100%">
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
-								npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' <strong>' . gettext("Revert to default") . '</strong>', array('buttonClick' => "$('#savethemeoptions').val('reset');$('#themeoptionsform').submit();"));
+								npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext("Revert to default"), array('buttonClick' => "$('#savethemeoptions').val('reset');$('#themeoptionsform').submit();"));
 								resetButton();
 								?>
 							</p>

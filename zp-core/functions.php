@@ -1287,7 +1287,7 @@ function npgButton($buttonType, $buttonText, $options = array()) {
 		$buttonClass .= ' disabled';
 		$disabled = ' disabled="disabled"';
 	}
-	$buttonClass = trim('buttons ' . $buttonClass);
+	$buttonClass = trim('npgButton ' . $buttonClass);
 	if ($buttonLink) {
 		$buttonLink = ' onclick="window.location=\'' . $buttonLink . '\'"';
 	} else {
@@ -1307,7 +1307,7 @@ function npgButton($buttonType, $buttonText, $options = array()) {
 	?>
 	<button class="<?php echo $buttonClass;
 	?>" type="<?php echo $buttonType; ?>"<?php echo $buttonTitle . $buttonLink . $disabled . $id . $buttonExtra; ?>>
-						<?php echo $buttonText; ?>
+		<span class="buttonText"><?php echo $buttonText; ?></span>
 	</button>
 	<?php
 }
@@ -2337,14 +2337,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

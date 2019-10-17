@@ -92,7 +92,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	<?php
 	if ($allimagecount) {
 		?>
-		<form class="dirtylistening" onReset="setClean('form_imageedit');$('.resetHide').hide();" name="albumedit2"	id="form_imageedit" action="?page=edit&amp;action=save<?php echo "&amp;album=" . pathurlencode($album->name); ?>"	method="post" autocomplete="off" >
+		<form class="dirtylistening" onReset="setClean('form_imageedit'); $('.resetHide').hide();" name="albumedit2"	id="form_imageedit" action="?page=edit&amp;action=save<?php echo "&amp;album=" . pathurlencode($album->name); ?>"	method="post" autocomplete="off" >
 			<?php XSRFToken('albumedit'); ?>
 			<input type="hidden" name="album"	value="<?php echo $album->name; ?>" />
 			<input type="hidden" name="totalimages" value="<?php echo $totalimages; ?>" />
@@ -110,7 +110,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 			<?php $totalpages = ceil(($allimagecount / $imagesTab_imageCount)); ?>
 
 			<div style="padding: 10px;">
-				<p class="buttons">
+				<p>
 					<?php
 					if (is_numeric($pagenum)) {
 						$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent . '&filter=' . $filter;
@@ -175,21 +175,16 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								</div>
 								<?php
 								if (isImagePhoto($image)) {
+									$h = $image->getHeight();
+									$w = $image->getWidth();
+									npgButton('button', MAGNIFY . ' ' . gettext('Zoom'), array('buttonClick' => "$.colorbox({iframe: true, href: '" . $image->getFullImageURL() . "', maxWidth: '" . ($w + 100) . "px', innerWidth: '" . $w . "px', maxHeight: '" . ($h + 100) . "px', innerHeight: '" . $h . "px', scalePhotos: true, close: '" . gettext("close") . "'});", 'buttonClass' => 'fillwidth'));
 									?>
-									<p class="buttons">
-										<!-- NOTE: colorbox does not work with buttons, so this must be an href button -->
-										<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox ">
-											<?php echo MAGNIFY; ?>
-											<strong><?php echo gettext('Zoom'); ?></strong>
-										</a>
-									</p>
 									<br style="clear: both" />
 									<?php
 								}
+								viewButton(array('buttonLink' => $image->getLink(), 'buttonClass' => 'fillwidth'));
 								?>
-								<p class="buttons">
-									<?php viewButton(array('buttonLink' => $image->getLink())); ?>
-								</p><br style="clear: both" />
+								<br style="clear: both" />
 								<p>
 									<?php echo gettext('<strong>Filename:</strong>'); ?>
 									<br />
@@ -493,8 +488,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												?>
 											</select>
 										</span>
-										<p class="buttons">
-											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
+										<p>
+											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 									<div id="renamediv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -502,8 +497,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<?php echo gettext("to"); ?>:
 											<input name="<?php echo $currentimage; ?>-renameto" type="text" value="<?php echo $image->filename; ?>" />
 										</span>
-										<p class="buttons">
-											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
+										<p>
+											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 
@@ -511,8 +506,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<span class="nowrap">
 											<?php echo gettext('Image will be deleted when changes are applied.'); ?>
 										</span>
-										<p class="buttons">
-											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
+										<p>
+											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 									<div class="clearall" ></div>
@@ -561,24 +556,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									?>
 									<br class="clearall">
 									<hr />
-									<div class="button buttons tooltip" title="<?php printf(gettext('Refresh %s metadata'), $image->filename); ?>">
-										<a href="<?php echo getAdminLink('admin-tabs/edit.php') ?>?action=refresh&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>&amp;XSRFToken=<?php echo getXSRFToken('imagemetadata'); ?>" >
-											<?php echo CIRCLED_BLUE_STAR; ?>
-											<?php echo gettext("Refresh Metadata"); ?>
-										</a>
-										<br class="clearall">
-									</div>
 									<?php
+									npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext("Refresh Metadata"), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=refresh&amp;album=' . pathurlencode($album->name) . '&amp;image=' . urlencode($image->filename) . '&amp;subpage=' . $pagenum . $singleimagelink . '&amp;tagsort=' . html_encode($tagsort), 'buttonClass' => 'fixedwidth'));
 									if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
-										?>
-										<div class="button buttons tooltip" title="<?php printf(gettext('crop %s'), $image->filename); ?>">
-											<a href="<?php echo getAdminLink('admin-tabs/thumbcrop.php') ?>?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum . $singleimagelink; ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" >
-												<?php echo SHAPE_HANDLES; ?>
-												<?php echo gettext("Crop thumbnail"); ?>
-											</a>
-											<br class="clearall">
-										</div>
-										<?php
+										npgButton('button', SHAPE_HANDLES . ' ' . gettext("Crop thumbnail"), array('buttonLink' => getAdminLink('admin-tabs/thumbcrop.php') . '?a=' . pathurlencode($album->name) . '&amp;i=' . urlencode($image->filename) . '&amp;subpage=' . $pagenum . $singleimagelink . '&amp;tagsort=' . html_encode($tagsort), 'buttonClass' => 'fixedwidth'));
 									}
 									echo npgFilters::apply('edit_image_utilities', '<!--image-->', $image, $currentimage, $pagenum, $tagsort, $singleimage); //pass space as HTML because there is already a button shown for cropimage
 									?>
@@ -592,7 +573,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 					}
 				}
 				?>
-				<p class="buttons">
+				<p>
 					<?php
 					backButton(array('buttonLink' => $backbutton));
 					applyButton();

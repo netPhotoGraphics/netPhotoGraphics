@@ -43,7 +43,7 @@ echo "\n</head>";
 				if (!getOption('license_accepted')) {
 					$_SESSION['license_return'] = getRequestURI();
 					?>
-					<p class="buttons">
+					<p>
 						<?php npgButton('button', gettext('I agree to these terms and conditions'), array('buttonLink' => getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('acceptLicense'))); ?>
 					</p>
 					<br class="clearall">

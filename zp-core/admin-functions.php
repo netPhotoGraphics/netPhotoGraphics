@@ -290,7 +290,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$options['buttonClass'] = 'submitbutton';
 		}
-		npgButton('submit', CHECKMARK_GREEN . ' <strong>' . gettext("Apply") . '</strong>', $options);
+		npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Apply"), $options);
 	}
 
 	function resetButton($options = array()) {
@@ -299,7 +299,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$options['buttonClass'] = 'resetbutton';
 		}
-		npgButton('reset', CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset") . '</strong>', $options);
+		npgButton('reset', CROSS_MARK_RED_LARGE . '	' . gettext("Reset"), $options);
 	}
 
 	function backButton($options = array()) {
@@ -308,7 +308,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$options['buttonClass'] = 'backbutton';
 		}
-		npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Back") . '</strong>', $options);
+		npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), $options);
 	}
 
 	function viewButton($options = array()) {
@@ -317,7 +317,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$options['buttonClass'] = 'viewbutton';
 		}
-		npgButton('button', BULLSEYE_BLUE . ' <strong>' . gettext('View') . '</strong>', $options);
+		npgButton('button', BULLSEYE_BLUE . ' ' . gettext('View'), $options);
+	}
+
+	function get_npgButton($buttonType, $buttonText, $options = array()) {
+		ob_start();
+		npgButton($buttonType, $buttonText, $options);
+		$button = ob_get_contents();
+		ob_end_clean();
+		return $button;
 	}
 
 	/**
@@ -1814,42 +1822,36 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<input type="hidden" name="password_enabled<?php echo $suffix; ?>" id="password_enabled<?php echo $suffix; ?>" value="0" />
 		<?php
 		if ($buttons) {
-			?>
-			<span class="buttons">
-				<?php
-				$parent = dirname($album->name);
-				if ($parent == '/' || $parent == '.' || empty($parent)) {
-					$parent = '';
+			$parent = dirname($album->name);
+			if ($parent == '/' || $parent == '.' || empty($parent)) {
+				$parent = '';
+			} else {
+				$parent = '&amp;album=' . $parent . '&tab=subalbuminfo';
+			}
+			if (isset($_GET['subpage']) && !is_numeric($_GET['subpage'])) {
+				if (isset($_GET['i'])) {
+					$image = newImage($album, sanitize($_GET['i']));
+					$backbutton = $image->getLink();
 				} else {
-					$parent = '&amp;album=' . $parent . '&tab=subalbuminfo';
+					$backbutton = $album->getLink();
 				}
-				if (isset($_GET['subpage']) && !is_numeric($_GET['subpage'])) {
-					if (isset($_GET['i'])) {
-						$image = newImage($album, sanitize($_GET['i']));
-						$backbutton = $image->getLink();
-					} else {
-						$backbutton = $album->getLink();
+			} else {
+				$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
+			}
+			applyButton(array('buttonClass' => 'serialize'));
+			resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
+			?>
+			<div class="floatright">
+				<?php
+				if (!$album->isDynamic()) {
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+					if (!$album->isDynamic()) {
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
 					}
-				} else {
-					$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
 				}
 				viewButton(array('buttonLink' => $album->getLink()));
-				applyButton(array('buttonClass' => 'serialize'));
-				resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
 				?>
-				<div class="floatright">
-					<?php
-					if (!$album->isDynamic()) {
-						npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
-						if (!$album->isDynamic()) {
-							npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
-						}
-					}
-					viewButton(array('buttonLink' => $album->getLink()));
-					?>
-				</div>
-
-			</span>
+			</div>
 			<br class="clearall">
 			<br />
 			<?php
@@ -2483,8 +2485,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<div class="deletemsg" id="deletemsg<?php echo $prefix; ?>" class="resetHide"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
-							<p class="buttons">
-								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
+							<p>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>movecopydiv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -2520,23 +2522,25 @@ function printAdminHeader($tab, $subtab = NULL) {
 								?>
 							</select>
 
-							<p class="buttons">
-								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
+							<p>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>renamediv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
 							<?php echo gettext("to:"); ?>
 							<input name="a-<?php echo $prefix; ?>renameto" type="text" value="<?php echo basename($album->name); ?>"/>
-							<p class="buttons">
-								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
+							<p>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
-						<div class="clearall" ></div>
+						<br clear="all">
 						<?php
-						echo npgFilters::apply('edit_album_utilities', ' ', $album, $prefix);
+						if ($pluginoutput = npgFilters::apply('edit_album_utilities', '', $album, $prefix)) {
+							echo $pluginoutput;
+						}
 						printAlbumButtons($album);
 						?>
-						<span class="clearall" ></span>
+						<br clear="all">
 					</div>
 				</div>
 			</div>
@@ -2546,25 +2550,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<br />
 		<?php
 		if ($buttons) {
+
+			applyButton();
+			resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
 			?>
-			<span class="buttons">
+			<div class="floatright">
 				<?php
-				viewButton(array('buttonLink' => $album->getLink()));
-				applyButton();
-				resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
-				?>
-				<div class="floatright">
-					<?php
+				if (!$album->isDynamic()) {
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
 					if (!$album->isDynamic()) {
-						npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
-						if (!$album->isDynamic()) {
-							npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
-						}
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
 					}
-					viewButton(array('buttonLink' => $album->getLink()));
-					?>
-				</div>
-			</span>
+				}
+				viewButton(array('buttonLink' => $album->getLink()));
+				?>
+			</div>
 			<br class="clearall">
 			<?php
 		}
@@ -2579,35 +2579,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function printAlbumButtons($album) {
 		if ($imagcount = $album->getNumImages() > 0) {
+			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitloe' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
 			?>
-			<div class="button buttons tooltip" title="<?php echo addslashes(gettext("Clears the album’s cached images.")); ?>">
-				<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_cache'); ?>">
-					<?php echo WASTEBASKET; ?>
-					<?php echo gettext('Clear album image cache'); ?></a>
-				<br class="clearall">
-			</div>
+			<br /><br />
 			<?php
 			if (extensionEnabled('hitcounter')) {
+				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
 				?>
-				<div class="button buttons tooltip" title="<?php echo gettext("Resets album’s hit counters."); ?>">
-					<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID(); ?>&amp;XSRFToken=<?php echo getXSRFToken('hitcounter'); ?>">
-						<?php echo RECYCLE_ICON; ?>
-						<?php echo gettext('Reset album hit counters'); ?></a>
-					<br class="clearall">
-				</div>
+				<br /><br />
 				<?php
 			}
 		}
 		if ($imagcount || (!$album->isDynamic() && $album->getNumAlbums())) {
-			?>
-			<div class="button buttons tooltip" title="<?php echo gettext("Refreshes the metadata for the album."); ?>">
-				<a href="<?php echo getAdminLink('utilities/refresh-metadata.php'); ?>?album=<?php echo html_encode($album->name); ?>&amp;return=<?php echo html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh'); ?>">
-					<?php echo CIRCLED_BLUE_STAR; ?>
-					<?php echo gettext('Refresh album metadata'); ?>
-				</a>
-				<br class="clearall">
-			</div>
-			<?php
+			npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Refresh album metadata'), array('buttonLink' => getAdminLink('utilities/refresh-metadata.php') . '?album=' . html_encode($album->name) . '&amp;return=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('refresh'), 'buttonTitle' => gettext("Refreshes the metadata for the album."), 'buttonClass' => 'fixedwidth'));
 		}
 	}
 

@@ -66,25 +66,21 @@ if (count($subalbums) > 0) {
 				</p>
 				<?php
 			}
-			?>
-			<span class="buttons">
-				<?php
-				backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
-				if ($enableEdit) {
-					applyButton(array('buttonClass' => 'serialize'));
-					resetButton();
-					?>
-					<div class="floatright" style="padding-right: 5px">
-						<?php
-						npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
-						if (!$album->isDynamic()) {
-							npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic subalbum') . '</strong>', array('buttonTitle' => addslashes(gettext('New dynamic subalbum')), 'buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', true);"));
-						}
-						viewButton(array('buttonLink' => $album->getLink()));
+			backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+			if ($enableEdit) {
+				applyButton(array('buttonClass' => 'serialize'));
+				resetButton();
+				?>
+				<div class="floatright" style="padding-right: 5px">
+					<?php
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+					if (!$album->isDynamic()) {
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonTitle' => addslashes(gettext('New dynamic subalbum')), 'buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', true);"));
 					}
-					?>
-				</div>
-			</span>
+					viewButton(array('buttonLink' => $album->getLink()));
+				}
+				?>
+			</div>
 			<br class="clearall"><br />
 
 			<div class="headline" style="text-align: left;">&nbsp;
@@ -95,7 +91,7 @@ if (count($subalbums) > 0) {
 				?>
 			</div>
 			<div class="subhead">
-				<label class="buttons" style="float: left;padding-top:3px;">
+				<label style="float: left;padding-top:3px;">
 					<?php
 					npgButton('button', $thumbmsg, array(
 							'buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . pathurlencode($album->name) . '&amp;tab=subalbuminfo&amp;showthumbs=' . $thumbshow,
@@ -134,9 +130,9 @@ if (count($subalbums) > 0) {
 				?>
 				<div class="floatright">
 					<?php
-					npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
 					if (!$album->isDynamic()) {
-						npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic subalbum') . '</strong>', array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", 'buttonTitle' => addslashes(gettext('New dynamic subalbum'))));
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", 'buttonTitle' => addslashes(gettext('New dynamic subalbum'))));
 					}
 					?>
 				</div>

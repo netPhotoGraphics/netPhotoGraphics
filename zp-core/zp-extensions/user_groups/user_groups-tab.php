@@ -226,7 +226,7 @@ echo '</head>' . "\n";
 						</p>
 						<form class="dirtylistening" onReset="setClean('savegroups_form');" id="savegroups_form" action="?action=savegroups&amp;tab=groups" method="post" autocomplete="off" onsubmit="return checkSubmit()" >
 							<?php XSRFToken('savegroups'); ?>
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
 								resetButton();
@@ -468,7 +468,7 @@ echo '</head>' . "\n";
 									</th>
 								</tr>
 							</table>
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
 								resetButton();
@@ -532,7 +532,7 @@ echo '</head>' . "\n";
 						</p>
 						<form class="dirtylistening" onReset="setClean('saveAssignments_form');" id="saveAssignments_form" action="?tab=assignments&amp;action=saveauserassignments" method="post" autocomplete="off" >
 							<?php XSRFToken('saveauserassignments'); ?>
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
 								resetButton();
@@ -566,7 +566,7 @@ echo '</head>' . "\n";
 								?>
 							</table>
 							<br />
-							<p class="buttons">
+							<p>
 								<?php
 								applyButton();
 								resetButton();

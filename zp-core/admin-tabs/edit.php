@@ -882,28 +882,26 @@ echo "\n</head>";
 						</p>
 
 						<form class="dirtylistening" onReset="setClean('sortableListForm'); $('#albumsort').sortable('cancel');" action="?page=edit&amp;action=savealbumorder" method="post" name="sortableListForm" name="sortableListForm" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off" >
-							<?php XSRFToken('savealbumorder'); ?>
-							<span class="buttons">
-								<?php
-								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-									applyButton(array('buttonClass' => 'serialize'));
-									resetButton();
-								}
-								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-									?>
-									<span class="floatright" style="padding-right: 3px;
-												">
-													<?php
-													npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New album') . '</strong>', array('buttonClick' => "newAlbumJS('', false);
-									"));
-													npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic album') . '</strong>', array('buttonClick' => "newAlbumJS('', true);
-									"));
-													?>
-									</span>
-									<?php
-								}
+							<?php
+							XSRFToken('savealbumorder');
+							if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								applyButton(array('buttonClass' => 'serialize'));
+								resetButton();
+							}
+							if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 								?>
-							</span>
+								<span class="floatright" style="padding-right: 3px;
+											">
+												<?php
+												npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);
+									"));
+												npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);
+									"));
+												?>
+								</span>
+								<?php
+							}
+							?>
 							<br class="clearall">
 							<br />
 
@@ -911,7 +909,7 @@ echo "\n</head>";
 								<?php printBulkActions($checkarray_albums); ?>
 							</div>
 							<div class="subhead">
-								<label class="buttons" style="float: left;
+								<label style="float: left;
 											 padding-top:3px;
 											 padding-left:5px;
 											 padding-bottom:2px;
@@ -946,7 +944,7 @@ echo "\n</head>";
 							<span id="serializeOutput"></span>
 							<input name="update" type="hidden" value="Save Order" />
 
-							<div class="buttons">
+							<div>
 								<?php
 								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									applyButton(array('buttonClass' => 'serialize'));
@@ -956,8 +954,8 @@ echo "\n</head>";
 									?>
 									<span class="floatright">
 										<?php
-										npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New album') . '</strong>', array('buttonClick' => "newAlbumJS('', false);"));
-										npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic album') . '</strong>', array('buttonClick' => "newAlbumJS('', true);"));
+										npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);"));
+										npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);"));
 										?>
 									</span>
 									<?php
@@ -975,10 +973,10 @@ echo "\n</head>";
 					if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 						?>
 						<span class="floatright">
-							<p class="buttons">
+							<p>
 								<?php
-								npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New album') . '</strong>', array('buttonClick' => "newAlbumJS('', false);"));
-								npgButton('button', FOLDER_ICON . ' <strong>' . gettext('New dynamic album') . '</strong>', array('buttonClick' => "newAlbumJS('', true);"));
+								npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);"));
+								npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);"));
 								?>
 							</p>
 						</span>

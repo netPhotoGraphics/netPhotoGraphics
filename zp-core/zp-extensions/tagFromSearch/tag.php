@@ -134,7 +134,7 @@ echo "\n</head>";
 						<?php
 					}
 					?>
-					<p class="buttons">
+					<p>
 						<?php applyButton(array('buttonText' => BACK_ARROW_BLUE . ' ' . gettext("Back"), 'buttonTitle' => gettext("Return to search"))); ?>
 					</p>
 				</form>
@@ -216,10 +216,10 @@ echo "\n</head>";
 						<?php tagSelector(NULL, 'tags_'); ?>
 					</div>
 					<br clear="all">
-					<p class="buttons">
+					<p>
 						<?php applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext("Tag the items"), 'buttonTitle' => gettext("Tag the items"))); ?>
 					</p>
-					<p class="buttons">
+					<p>
 						<?php resetButton(); ?>
 					</p>
 					<br class="clearall">

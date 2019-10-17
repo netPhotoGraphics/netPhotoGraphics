@@ -145,7 +145,7 @@ updatePublished('pages');
 							<?php
 						}
 						?>
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();
@@ -154,7 +154,7 @@ updatePublished('pages');
 							if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<?php npgButton('button', PLUS_ICON . ' <strong>' . gettext('New Page') . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
+									<?php npgButton('button', PLUS_ICON . ' ' . gettext('New Page'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 								</span>
 								<?php
 							}
@@ -205,7 +205,7 @@ updatePublished('pages');
 						?>
 						<span id="serializeOutput"></span>
 						<input name="update" type="hidden" value="Save Order" />
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();

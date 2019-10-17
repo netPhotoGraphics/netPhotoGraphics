@@ -103,7 +103,7 @@ form td {text-align:right !important;}
 }
 
 /* css for the log viewer */
-.buttons button {
+button {
 	float: right;
 }
 
@@ -125,19 +125,19 @@ form td {text-align:right !important;}
 /* Pretty Buttons
 ------------------------------------- */
 
-.buttons button[type] {
+button.npgButton[type] {
 	padding: 5px 7px 5px 10px; /* Firefox */
 }
-.buttons button img,.buttons a img {
+button.npgButton img,.npgButton a img {
 	margin: 0 0 -3px 3px !important;
 }
-.buttons a,.buttons button {
+.npgButton a, button.npgButton {
 	float: right;
 	margin: 0 0 0 7px;
 	padding: 5px 7px 6px 10px; /* Links */
 }
 
-.buttons .tooltip {
+.npgButton.tooltip {
 	text-align: right;
 }
 
@@ -159,7 +159,7 @@ input{direction:rtl;}
 
 h1 {text-align:right;}
 
-.buttons button.submitbutton {text-align:right;}
+button.submitbutton {text-align:right;}
 
 
 

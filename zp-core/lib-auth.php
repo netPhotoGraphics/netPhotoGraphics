@@ -1170,11 +1170,11 @@ class _Authority {
 									<?php
 								}
 								?>
-								<div class="buttons">
+								<div>
 									<?php
 									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Log in"), array('buttonClass' => 'submitbutton', 'disabloe' => !$info['challenge']));
 									npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext("Refresh"), array('buttonClick' => "window.location='?logon_step=challenge&amp;ref=' + $('#user').val();"));
-									npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Back") . '</strong>', array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
+									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
 									?>
 								</div>
 								<br class="clearall">
@@ -1253,10 +1253,10 @@ class _Authority {
 									<input class="textfield" name="pass" id="pass" type="password"  />
 								</fieldset>
 								<br />
-								<div class="buttons">
+								<div>
 									<?php
 									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Log in"), array('buttonClass' => 'submitbutton'));
-									npgButton('reset', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Reset") . '</strong>', array('buttonClass' => 'resetbutton'));
+									npgButton('reset', CROSS_MARK_RED_LARGE . ' ' . gettext("Reset"), array('buttonClass' => 'resetbutton'));
 									?>
 								</div>
 								<br class="clearall">
@@ -1333,10 +1333,10 @@ class _Authority {
 								}
 								?>
 								<br />
-								<div class="buttons">
+								<div>
 									<?php
 									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Request password reset"), array('buttonClass' => $buttonClass, 'disabled' => empty($requestor), 'id' => 'submitButton', 'buttonExtra' => $buttonExtra));
-									npgButton('button', BACK_ARROW_BLUE . ' <strong>' . gettext("Back") . '</strong>', array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
+									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
 									?>
 								</div>
 								<br class="clearall">
@@ -1353,13 +1353,7 @@ class _Authority {
 
 	static function loginButton() {
 		if (!npg_loggedin()) {
-			?>
-			<span class="button">
-				<a href="<?php echo getAdminLink('coreLogin.php') ?>?request=core&amp;redirect=/dev/index.php?userlog=1">
-					<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/login_button.png" alt="login">
-				</a>
-			</span>
-			<?php
+			npgButton('button', '<img src="' . FULLWEBPATH . '/' . CORE_FOLDER . '/images/login_button.png" alt="login">', array('buttonLink' => getAdminLink('coreLogin.php') . '?request=core&amp;redirect=/dev/index.php?userlog=1'));
 		}
 	}
 

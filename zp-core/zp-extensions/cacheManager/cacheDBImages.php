@@ -237,7 +237,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 	</p>
 
 
-	<p class="buttons">
+	<p>
 		<?php npgButton('button', CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . ' ' . gettext("Refresh"), array('buttonClass' => 'tooltip', 'buttonTitle' => gettext('Refresh the caching of the images stored in the database if some images did not render.'), 'buttonClick' => "location.reload();")); ?>
 	</p>
 

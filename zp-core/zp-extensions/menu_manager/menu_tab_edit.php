@@ -241,10 +241,10 @@ if (is_array($result)) {
 					<?php
 				}
 				?>
-				<p class="buttons">
+				<p>
 					<?php backButton(array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php') . '?menuset=' . $menuset)); ?>
 					<span class="floatright">
-						<?php npgButton('button', PLUS_ICON . ' <strong>' . gettext("Add Menu Items") . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset))); ?>
+						<?php npgButton('button', PLUS_ICON . ' ' . gettext("Add Menu Items"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset))); ?>
 					</span>
 				</p>
 				<br class="clearall"><br />
@@ -416,7 +416,7 @@ if (is_array($result)) {
 							}
 							?>
 						</table>
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton();
 							resetButton();

@@ -421,7 +421,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 						<input type="checkbox" value="0" name="convertlinefeeds" id="convertlinefeeds" /> <label for="convertlinefeeds"><?php echo gettext('Convert linefeeds to new lines (br)'); ?></label><br />
 						<p >
 							<?php
-							applyButton(array('buttonText' => CHECKMARK_GREEN . '	<strong>' . gettext("Import") . '</strong>', 'buttonTitle' => gettext("Import")));
+							applyButton(array('buttonText' => CHECKMARK_GREEN . '	' . gettext("Import"), 'buttonTitle' => gettext("Import")));
 							resetButton();
 							?>
 						</p>
@@ -449,14 +449,14 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 					<?php } else {
 						?>
 						<p><?php echo gettext('Importing...patience please.'); ?></p>
-						<?php } ?>
+					<?php } ?>
 					<ul>
 						<?php
 						if (!isset($_GET['refresh'])) {
 							?>
 							<li><strong><?php echo gettext('Categories'); ?></strong>
 								<ol>
-		<?php echo $catinfo; ?>
+									<?php echo $catinfo; ?>
 								</ol>
 							</li>
 							<?php
@@ -465,7 +465,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 							?>
 							<li><strong><?php echo gettext('Tags'); ?></strong>
 								<ol>
-		<?php echo $taginfo; ?>
+									<?php echo $taginfo; ?>
 								</ol>
 							</li>
 							<?php
@@ -480,13 +480,13 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 							}
 							?>
 							<ol<?php echo $startlist; ?>>
-	<?php echo $postinfo; ?>
+								<?php echo $postinfo; ?>
 							</ol>
 						</li>
 					</ul>
-	<?php if ($posttotalcount == $postcount) { ?>
-						<p class="buttons">
-							#1						<?php npgButton('button', gettext('New import'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php'))); ?>
+					<?php if ($posttotalcount == $postcount) { ?>
+						<p>
+							<?php npgButton('button', gettext('New import'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/wordpress_import/admin-tab.php'))); ?>
 						</p>
 						<br style="clear:both" />
 						<?php
@@ -495,7 +495,7 @@ if (!empty($metaURL) && $postcount < $posttotalcount) {
 				?>
 			</div>
 		</div><!-- content -->
-<?php printAdminFooter(); ?>
+		<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 </html>

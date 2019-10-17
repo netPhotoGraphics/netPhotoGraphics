@@ -131,11 +131,11 @@ printLogoAndLinks();
 							<?php XSRFToken('savecomment'); ?>
 							<input	type="hidden" name="id" value="<?php echo $id; ?>" />
 
-							<p class="buttons" style="margin-top: 10px">
+							<p>" style="margin-top: 10px">
 								<?php
 								applyButton();
-								npgButton('button', CROSS_MARK_RED_LARGE . ' <strong>' . gettext("Cancel") . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'), 'buttonTitle' => gettext("Cancel")));
-								npgButton('button', WASTEBASKET . ' <strong>' . gettext("Delete") . '</strong>', array('buttonTitle' => gettext("Delete"), 'buttonClick' => "if (confirm('" . gettext('Are you sure you want to delete this comment?') . "')) {
+								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'), 'buttonTitle' => gettext("Cancel")));
+								npgButton('button', WASTEBASKET . ' ' . gettext("Delete"), array('buttonTitle' => gettext("Delete"), 'buttonClick' => "if (confirm('" . gettext('Are you sure you want to delete this comment?') . "')) {
 												window.location = '" . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . "?action=deletecomment&id=" . $id . "&amp;XSRFToken=" . getXSRFToken('deletecomment') . "';
 														}"));
 								?>
@@ -220,10 +220,10 @@ printLogoAndLinks();
 									}
 									?>
 									<p>
-										<?php echo $status_moderation; ?>
-									<div class="buttons">
-										<?php npgButton('button', $linkimage . ' ' . $link_moderation, array('buttonLink' => $url_moderation . "&amp;XSRFToken=" . getXSRFToken('comment_update'), 'buttonTitle' => $title_moderation, 'buttonClass' => 'fixedwidth')); ?>
-									</div>
+										<?php
+										echo $status_moderation;
+										npgButton('button', $linkimage . ' ' . $link_moderation, array('buttonLink' => $url_moderation . "&amp;XSRFToken=" . getXSRFToken('comment_update'), 'buttonTitle' => $title_moderation, 'buttonClass' => 'fixedwidth'));
+										?>
 									</p>
 									<br class="clearall">
 									<hr />
@@ -352,13 +352,9 @@ printLogoAndLinks();
 							</span>
 							<?php
 						}
+						applyButton();
+						npgButton('button', $arrow . ' ' . $msg, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?fulltext=' . $ft . $v . $p));
 						?>
-						<span class="buttons">
-							<?php
-							applyButton();
-							npgButton('button', $arrow . ' ' . $msg, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?fulltext=' . $ft . $v . $p));
-							?>
-						</span>
 						<br class="clearall"><br>
 						<table class="bordered">
 							<tr>
@@ -508,7 +504,7 @@ printLogoAndLinks();
 
 
 						</table>
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton();
 							?>

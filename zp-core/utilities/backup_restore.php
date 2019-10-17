@@ -536,7 +536,7 @@ if (isset($_GET['compression'])) {
 							</select>
 							<br class="clearall">
 							<br />
-							<div class="buttons pad_button" id="dbbackup">
+							<div id="dbbackup">
 								<?php applyButton(array('buttonText' => BURST_BLUE . ' ' . gettext("Backup the Database"), array('buttonClass' => 'fixedwidth tooltip'))); ?>
 							</div>
 							<br class="clearall">
@@ -608,7 +608,7 @@ if (isset($_GET['compression'])) {
 								</p>
 							</div>
 
-							<div class="buttons pad_button" id="dbrestore">
+							<div id="dbrestore">
 								<?php applyButton(array('buttonText' => CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . ' ' . gettext("Restore the Database"), 'buttonClass' => 'fixedwidth tooltip', 'buttonTitle' => gettext("Restore the tables in your database from a previous backup."), 'disabled' => true, 'id' => 'restore_button')); ?>
 							</div>
 							<br class="clearall">

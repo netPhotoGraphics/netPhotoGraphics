@@ -84,7 +84,7 @@ function getOptionContent() {
 						?>
 						<tr>
 							<td colspan="100%">
-								<p class="buttons">
+								<p>
 									<?php
 									applyButton();
 									resetButton();
@@ -215,7 +215,7 @@ function getOptionContent() {
 							?>
 							<tr>
 								<td colspan="100%">
-									<p class="buttons">
+									<p>
 										<?php
 										applyButton();
 										resetButton();

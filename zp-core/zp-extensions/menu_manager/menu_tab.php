@@ -200,19 +200,15 @@ printSortableHead();
 					foreach ($reports as $report) {
 						echo $report;
 					}
+					applyButton(array('buttonClass' => 'serialize'));
+					resetButton();
 					?>
-					<span class="buttons">
+					<div class="floatright">
 						<?php
-						applyButton(array('buttonClass' => 'serialize'));
-						resetButton();
+						npgButton('button', PLUS_ICON . ' ' . gettext("New Menu"), array('buttonClick' => "newMenuSet();"));
+						npgButton('button', OPTIONS_ICON . ' ' . gettext('Options'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager'));
 						?>
-						<div class="floatright">
-							<?php
-							npgButton('button', PLUS_ICON . ' <strong>' . gettext("New Menu") . '</strong>', array('buttonClick' => "newMenuSet();"));
-							npgButton('button', OPTIONS_ICON . ' <strong>' . gettext('Options') . '</strong>', array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager'));
-							?>
-						</div>
-					</span>
+					</div>
 					<br class="clearall">
 					<br />
 
@@ -242,11 +238,11 @@ printSortableHead();
 								<span style="float:right">
 									<?php
 									if ($count > 0) {
-										npgButton('button', DUPLICATE_ICON . ' <strong>' . gettext("Duplicate menu") . '</strong>', array('buttonClick' => 'dupMenuSet();'));
-										npgButton('button', WASTEBASKET . '	<strong>' . gettext("Delete menu") . '</strong>', array('buttonClick' => 'deleteMenuSet();'));
-										npgButton('button', EXPORT_ICON . ' <strong>' . gettext("Export menu") . '</strong>', array('buttonLink' => '?exportmenuset=' . html_encode($menuset) . '&amp;XSRFToken=' . getXSRFToken('dup_menu')));
+										npgButton('button', DUPLICATE_ICON . ' ' . gettext("Duplicate menu"), array('buttonClick' => 'dupMenuSet();'));
+										npgButton('button', WASTEBASKET . '	' . gettext("Delete menu"), array('buttonClick' => 'deleteMenuSet();'));
+										npgButton('button', EXPORT_ICON . ' ' . gettext("Export menu"), array('buttonLink' => '?exportmenuset=' . html_encode($menuset) . '&amp;XSRFToken=' . getXSRFToken('dup_menu')));
 									}
-									npgButton('button', PLUS_ICON . ' <strong>' . gettext("Add Menu Items") . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset)));
+									npgButton('button', PLUS_ICON . ' ' . gettext("Add Menu Items"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset)));
 									?>
 									<select name="checkallaction" id="checkallaction" size="1">
 										<?php generateListFromArray(array('noaction'), $checkarray, false, true); ?>
@@ -278,7 +274,7 @@ printSortableHead();
 					<br />
 					<span id="serializeOutput"></span>
 					<input name="update" type="hidden" value="Save Order" />
-					<p class="buttons">
+					<p>
 						<?php
 						applyButton(array('buttonClass' => 'serialize'));
 						resetButton();

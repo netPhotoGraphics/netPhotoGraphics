@@ -277,9 +277,9 @@ if (count($themelist) == 0) {
 						if ($theme != $current_theme) {
 							?>
 							<li>
-								<span class="buttons">
-									<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext("Activate"), array('buttonClick' => "launchScript('', ['action=settheme', 'themealbum=" . pathurlencode($alb) . "', 'theme=" . urlencode($theme) . "', 'XSRFToken=" . getXSRFToken('admin-tabs/themes') . "']);", 'buttonClass' => 'fixedwidth')); ?>
-								</span>
+
+								<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext("Activate"), array('buttonClick' => "launchScript('', ['action=settheme', 'themealbum=" . pathurlencode($alb) . "', 'theme=" . urlencode($theme) . "', 'XSRFToken=" . getXSRFToken('admin-tabs/themes') . "']);", 'buttonClass' => 'fixedwidth')); ?>
+
 
 							</li>
 							<?php
@@ -287,9 +287,9 @@ if (count($themelist) == 0) {
 							if ($gallerydefault) {
 								?>
 								<li>
-									<span class="buttons">
-										<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext("Assign"), array('buttonClick' => "launchScript('', ['action=settheme', 'themealbum=" . pathurlencode($alb) . "', 'theme=" . urlencode($theme) . "', 'XSRFToken=" . getXSRFToken('admin-tabs/themes') . "']);", 'buttonClass' => 'fixedwidth')); ?>
-									</span>
+
+									<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext("Assign"), array('buttonClick' => "launchScript('', ['action=settheme', 'themealbum=" . pathurlencode($alb) . "', 'theme=" . urlencode($theme) . "', 'XSRFToken=" . getXSRFToken('admin-tabs/themes') . "']);", 'buttonClass' => 'fixedwidth')); ?>
+
 								</li>
 								<?php
 							} else {
@@ -301,9 +301,9 @@ if (count($themelist) == 0) {
 						if ($editable && themeIsEditable($theme)) {
 							?>
 							<li>
-								<span class="buttons">
-									<?php npgButton('button', PENCIL_ICON . ' ' . gettext("Edit"), array('buttonClick' => $editable, 'buttonClass' => 'fixedwidth')); ?>
-								</span>
+
+								<?php npgButton('button', PENCIL_ICON . ' ' . gettext("Edit"), array('buttonClick' => $editable, 'buttonClass' => 'fixedwidth')); ?>
+
 							</li>
 							<?php
 							if ($theme != $current_theme) {
@@ -311,18 +311,16 @@ if (count($themelist) == 0) {
 								$delete_msg = gettext('Do you really want to delete this theme?');
 								?>
 								<li>
-									<p class="buttons">
-										<?php npgButton('button', WASTEBASKET . ' ' . gettext("Delete"), array('buttonClick' => "confirmDelete('" . $delete_url . "', '" . $delete_msg . "');", 'buttonClass' => 'fixedwidth')); ?>
-									</p>
+
+									<?php npgButton('button', WASTEBASKET . ' ' . gettext("Delete"), array('buttonClick' => "confirmDelete('" . $delete_url . "', '" . $delete_msg . "');", 'buttonClass' => 'fixedwidth')); ?>
+
 								</li>
 								<?php
 							}
 						} else {
 							?>
 							<li class="copy_theme">
-								<p class="buttons">
-									<?php npgButton('button', DUPLICATE_ICON . ' ' . gettext("Duplicate"), array('buttonClick' => "copyClick('" . $theme . "');", 'buttonClass' => 'fixedwidth')); ?>
-								</p>
+								<?php npgButton('button', DUPLICATE_ICON . ' ' . gettext("Duplicate"), array('buttonClick' => "copyClick('" . $theme . "');", 'buttonClass' => 'fixedwidth')); ?>
 							</li>
 							<?php
 						}

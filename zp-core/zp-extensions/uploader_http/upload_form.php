@@ -65,13 +65,13 @@ function upload_form($uploadlimit, $passedalbum) {
 	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',5)" title="<?php echo gettext("Does not reload!"); ?>">+ <?php echo gettext("Add more upload boxes"); ?></a> <small>
 			<?php echo gettext("(will not reload the page, but remember your upload limits!)"); ?></small></p>
 
-	<p class="fileUploadActions" class="buttons" style="display: none;">
+	<p class="fileUploadActions" style="display: none;">
 		<?php
 		applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext('Upload'), 'buttonClick' => "$('#folderslot').val($('#folderdisplay').val());"));
 		npgButton("button", CROSS_MARK_RED_LARGE . ' ' . gettext('Cancel'), array('buttonClick' => "resetBoxes();"));
 		?>
 	</p>
-
+	<br clear="all">
 
 	<?php
 }

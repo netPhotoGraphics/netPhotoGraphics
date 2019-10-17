@@ -593,13 +593,13 @@ $buttonlist = array();
 												}
 											}
 											if ($disable) {
-												$class = 'fixedwidth disabled_button';
+												$class = 'fixedwidth tooltip disabled_button';
 											} else {
-												$class = 'fixedwidth';
+												$class = 'fixedwidth tooltip';
 											}
 											?>
-											<div class="buttons tooltip" title="<?php echo html_encode($button['title']); ?>">
-			<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable)); ?>
+											<div>
+												<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable, 'buttonTitle' => html_encode($button['title']))); ?>
 											</div><!--buttons -->
 										</form>
 										<?php
@@ -643,13 +643,13 @@ $buttonlist = array();
 								if (class_exists('CMS')) {
 									?>
 									<li>
-		<?php printPagesStatistic(); ?>
+										<?php printPagesStatistic(); ?>
 									</li>
 									<li>
-		<?php printCategoriesStatistic(); ?>
+										<?php printCategoriesStatistic(); ?>
 									</li>
 									<li>
-									<?php printNewsStatistic(); ?>
+										<?php printNewsStatistic(); ?>
 									</li>
 									<?php
 								}
@@ -695,14 +695,14 @@ $buttonlist = array();
 								if ($g) {
 									?>
 									<li>
-									<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
+										<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
 									</li>
 									<?php
 								}
 								if ($t) {
 									?>
 									<li>
-									<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
+										<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
 									</li>
 									<?php
 								}
@@ -719,14 +719,14 @@ $buttonlist = array();
 			} else {
 				?>
 				<div class="errorbox">
-				<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
+					<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
 				</div>
 				<?php
 			}
 			?>
 		</div>
 		<br clear="all">
-<?php printAdminFooter(); ?>
+		<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 <?php

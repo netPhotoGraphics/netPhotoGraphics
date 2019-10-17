@@ -187,7 +187,7 @@ echo "\n</head>";
 						<?php XSRFToken('save_sort'); ?>
 						<?php printBulkActions($checkarray_images, true); ?>
 
-						<p class="buttons">
+						<p>
 							<?php
 							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
 							applyButton(array('buttonClass' => 'serialize'));

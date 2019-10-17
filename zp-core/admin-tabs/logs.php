@@ -145,28 +145,10 @@ echo "\n</head>";
 						}
 						?>
 						<form method="post" action="<?php echo getAdminLink('admin-tabs/logs.php'); ?>?action=change_size&amp;page=logs&amp;tab=<?php echo html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>" >
-							<span class="button buttons">
-								<a href="<?php echo getAdminLink('admin-tabs/logs.php') . '?action=delete_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete_log', $subtab); ?>">
-									<?php echo WASTEBASKET; ?>
-									<?php echo gettext('Delete'); ?></a>
-							</span>
 							<?php
-							if (!empty($logtext)) {
-								?>
-								<span class="button buttons">
-									<a href="<?php echo getAdminLink('admin-tabs/logs.php') . '?action=clear_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_log', $subtab); ?>">
-										<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN; ?>
-										<?php echo gettext('Reset'); ?>
-									</a>
-								</span>
-								<span class="button buttons">
-									<a href="<?php echo getAdminLink('admin-tabs/logs.php') . '?action=download_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab); ?>&amp;XSRFToken=<?php echo getXSRFToken('download_log', $subtab); ?>">
-										<?php echo ARROW_DOWN_GREEN; ?>
-										<?php echo gettext('Download'); ?>
-									</a>
-								</span>
-								<?php
-							}
+							npgButton('button', WASTEBASKET . ' ' . gettext('Delete'), array('buttonLink' => getAdminLink('admin-tabs/logs.php') . '?action=delete_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab) . "&amp;XSRFToken=" . getXSRFToken('delete_log', $subtab)));
+							npgButton('button', ARROW_DOWN_GREEN . ' ' . gettext('Download'), array('buttonLink' => getAdminLink('admin-tabs/logs.php') . '?action=download_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab) . '&amp;XSRFToken=' . getXSRFToken('download_log', $subtab)));
+							npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext('Reset'), array('buttonLink' => getAdminLink('admin-tabs/logs.php') . '?action=clear_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab) . "&amp;XSRFToken=" . getXSRFToken('clear_log', $subtab)));
 							?>
 						</form>
 						<br class="clearall">

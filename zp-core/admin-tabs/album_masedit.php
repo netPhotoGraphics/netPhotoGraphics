@@ -43,13 +43,11 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 	<form class="dirtylistening" onReset="setClean('form_albumedit-multi');" ame="albumedit" id="form_albumedit-multi" autocomplete="off"	action="?page=edit&amp;action=save<?php echo $albumdir ?>" method="POST" >
 		<?php XSRFToken('albumedit'); ?>
 		<input type="hidden" name="totalalbums" value="<?php echo sizeof($albums); ?>" />
-		<span class="buttons">
-			<?php
-			backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit'));
-			applyButton();
-			resetButton();
-			?>
-		</span>
+		<?php
+		backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit'));
+		applyButton();
+		resetButton();
+		?>
 		<br class = "clearall">
 		<br />
 		<div class = "outerbox">
@@ -74,15 +72,12 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 			?>
 		</div>
 		<br />
-		<span class="buttons">
-			<?php
-			backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit'));
-			applyButton();
-			resetButton();
-			?>
-		</span>
+		<?php
+		backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit'));
+		applyButton();
+		resetButton();
+		?>
 		<br class="clearall">
-
 	</form>
 </div>
 				<?php

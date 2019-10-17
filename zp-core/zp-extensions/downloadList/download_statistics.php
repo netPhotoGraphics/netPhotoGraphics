@@ -126,13 +126,13 @@ echo '</head>';
 					echo '<strong>' . gettext('The downloadList plugin is not active') . '</strong>';
 				} else {
 					?>
-					<p class="buttons">
+					<p>
 						<a href="?removeoutdateddownloads&amp;XSRFToken=<?php echo getXSRFToken('removeoutdateddownloads') ?>">
 							<?php echo WASTEBASKET; ?>
 							<?php echo gettext('Clear outdated downloads from database'); ?>
 						</a>
 					</p>
-					<p class="buttons">
+					<p>
 						<a href="?removealldownloads&amp;XSRFToken=<?php echo getXSRFToken('removealldownloads') ?>">
 							<?php echo WASTEBASKET; ?>
 							<?php echo gettext('Clear all downloads from database'); ?>

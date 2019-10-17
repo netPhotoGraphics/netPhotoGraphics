@@ -143,14 +143,14 @@ zenpageJSCSS();
 					<form class="dirtylistening" onReset="setClean('checkeditems');$('#catsort').sortable('cancel');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php'); ?>?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('checkeditems'); ?>
 						<input	type="hidden" name="action" id="action" value="update" />
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();
 							if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<?php npgButton('button', PLUS_ICON . ' <strong>' . gettext('New category') . '</strong>', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newscategory&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
+									<?php npgButton('button', PLUS_ICON . ' ' . gettext('New category'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newscategory&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 								</span>
 								<?php
 							}
@@ -194,7 +194,7 @@ zenpageJSCSS();
 						?>
 						<span id="serializeOutput"></span>
 						<input name="update" type="hidden" value="Save Order" />
-						<p class="buttons">
+						<p>
 							<?php
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();

@@ -222,11 +222,10 @@ function getIPSizedImage($size, $image) {
 				// ]]> -->
 			</script>
 			<h3>
-				<span class="buttons">
-					<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext('paste'), array('buttonClick' => "paste();")); ?>
-				</span>
-				<?php printf($title, html_encodeTagged($obj->getTitle())); ?>
-
+				<?php
+				npgButton('button', CHECKMARK_GREEN . ' ' . gettext('paste'), array('buttonClick' => "paste();"));
+				printf($title, html_encodeTagged($obj->getTitle()));
+				?>
 			</h3>
 			<p>
 				<?php

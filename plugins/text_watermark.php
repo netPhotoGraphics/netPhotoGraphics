@@ -101,7 +101,7 @@ class text_watermark {
 
 		<p>
 			<?php
-			npgButton('button', '<strong>' . gettext('Create') . '</strong>', array('buttonClick' => 'createwm();'));
+			npgButton('button', gettext('Create'), array('buttonClick' => 'createwm();'));
 			?>
 			<span id="text_watermark_image_loc"><?php echo $imageurl ?></span>
 		</p>

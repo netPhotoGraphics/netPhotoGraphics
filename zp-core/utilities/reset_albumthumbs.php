@@ -62,7 +62,7 @@ echo '</head>';
 				<form name="set_random" action="">
 					<input type="hidden" name="tab" value="resetthumbs">
 					<?php XSRFToken('reset_thumbs') ?>
-					<div class="buttons pad_button" id="set_all">
+					<div id="set_all">
 						<?php applyButton(array('buttonText' => BURST_BLUE . ' ' . gettext("Set all albums to"), array('buttonClass' => 'fixedwidth'))); ?>
 						<select id="thumbtype" name="thumbtype">
 							<?php
