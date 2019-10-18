@@ -219,7 +219,7 @@ define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5C
 define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
-define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large; vertical-align: 2px;">&#8505;</span>');
+define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
 define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install_icon.png" /></span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
 define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_icon.png" /></span>');

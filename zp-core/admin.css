@@ -2342,7 +2342,7 @@ ul.page-list {
 
 .page-list_row .page-list_handle {
 	float: left;
-	padding: 18px 10px 0px 5px;
+	padding: 9px 10px 0px 5px;
 }
 
 .page-list_row .page-list_title {
@@ -2399,18 +2399,17 @@ ul.page-list {
 	padding-top: 18px;
 	margin-right: 10px;
 	overflow: auto;
+	height: 45px;
 }
 
 .page-list_icon {
 	display: inline;
 	margin-right: 20px;
-	vertical-align: top;
 }
 
 .page-list_icon .checkbox {
 	display: inline;
 	position: relative;
-	top: -4px;
 	float: right;
 	margin-right: 0px;
 	width: 40px;
