@@ -1616,6 +1616,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/paged_thumbs_nav.php
 %extensions%/PHPMailer.php
 %extensions%/print_album_menu.php
+%extensions%/publicCMS.php
 %extensions%/publishContent.php
 %extensions%/purgeOptions.php
 %extensions%/qrcode.php
@@ -8333,4 +8334,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8335
+8336

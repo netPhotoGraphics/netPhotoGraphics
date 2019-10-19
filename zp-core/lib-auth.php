@@ -2083,5 +2083,17 @@ class _Administrator extends PersistentObject {
 		$this->set('policyAck', (int) $v);
 	}
 
+	function debugRights() {
+		global $_authority;
+		$rights = $this->getRights();
+		echo '<br/>Rights: ';
+		foreach ($_authority->getRights()as $right => $detail) {
+			if ($rights & $detail['value']) {
+				echo $right . ' ';
+			}
+		}
+		echo '<br />';
+	}
+
 }
 ?>

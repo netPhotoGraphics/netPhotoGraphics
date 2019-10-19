@@ -833,6 +833,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	define('OPTION_TYPE_CHECKBOX_ULLIST', 17);
 	define('OPTION_TYPE_HIDDEN', 18);
 	define('OPTION_TYPE_CLEARTEXTAREA', 19);
+	define('OPTION_TYPE_CHECKBOX_ARRAY_UL', 20);
 
 	function customOptions($optionHandler, $indent = "", $album = NULL, $showhide = false, $supportedOptions = NULL, $theme = false, $initial = 'none', $plugin = NULL) {
 		if (is_null($supportedOptions)) {
@@ -858,7 +859,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 
 			foreach ($options as $option) {
-				$descending = NULL;
+				$descending = $ul = NULL;
 				$row = $supportedOptions[$option];
 				if (false !== $i = stripos($option, chr(0))) {
 					$option = substr($option, 0, $i);
@@ -1088,25 +1089,73 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</td>
 							<?php
 							break;
+						case OPTION_TYPE_CHECKBOX_ARRAY_UL:
+							$ul = true;
 						case OPTION_TYPE_CHECKBOX_ARRAYLIST:
 							$behind = (isset($row['behind']) && $row['behind']);
+							if ($ul) {
+								$labelClass = 'displayinline';
+							} else {
+								$labelClass = 'checkboxlabel';
+							}
 							?>
 							<td class="option_value">
 								<div class="checkbox_array">
 									<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value="1" />
 									<?php
 									$setOptions = getSerializedArray($v);
-									foreach ($row['checkboxes'] as $display => $checkbox) {
-										$checked = in_array($checkbox, $setOptions);
-										if (is_numeric($display)) {
-											$display = $checkbox;
+									if ($ul) {
+										$first = array();
+										foreach ($row['checkboxes'] as $display => $checkbox) {
+											if (in_array($checkbox, $setOptions)) {
+												$first[$display] = $checkbox;
+												unset($row['checkboxes'][$display]);
+											}
 										}
-										$display = str_replace(' ', '&nbsp;', $display);
+										$row['checkboxes'] = $first + $row['checkboxes'];
 										?>
-										<label class="checkboxlabel">
-											<?php if ($behind) echo($display); ?>
-											<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"' . $disabled; ?> />
-											<?php if (!$behind) echo($display); ?>
+										<ul class="customchecklist">
+											<?php
+										}
+
+										foreach ($row['checkboxes'] as $display => $checkbox) {
+											$checked = in_array($checkbox, $setOptions);
+											if (is_numeric($display)) {
+												$display = $checkbox;
+											}
+											$display = str_replace(' ', '&nbsp;', $display);
+											if ($ul) {
+												?>
+												<li>
+													<?php
+												}
+												?>
+												<label class="<?php echo $labelClass; ?>">
+													<?php if ($behind) echo($display); ?>
+													<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"' . $disabled; ?> class="all_<?php echo $key; ?>"/>
+													<?php if (!$behind) echo($display); ?>
+												</label>
+												<?php
+												if ($ul) {
+													?>
+												</li>
+												<?php
+											}
+										}
+										if ($ul) {
+											?>
+										</ul>
+										<script type="text/javascript">
+											// <!-- <![CDATA[
+											function <?php echo $key; ?>_all() {
+												var check = $('#all_<?php echo $key; ?>').prop('checked');
+												$('.all_<?php echo $key; ?>').prop('checked', check);
+											}
+											// ]]> -->
+										</script>
+										<label class="floatright">
+											<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" />
+											<?php echo gettext('all'); ?>
 										</label>
 										<?php
 									}
@@ -1126,7 +1175,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										$display = $checkbox;
 									}
 									?>
-									<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'chkbox-' . postIndexEncode($checkbox); ?>" value="1" />
+									<input type = "hidden" name = "<?php echo CUSTOM_OPTION_PREFIX . 'chkbox-' . postIndexEncode($checkbox); ?>" value = "1" / >
 									<?php
 									if ($theme) {
 										$v = getThemeOption($checkbox, $album, $theme);
@@ -1147,11 +1196,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 								}
 								?>
-								<ul class="customchecklist">
-									<?php
-									generateUnorderedListFromArray($cvarray, $cvarray, '', '', true, true, 'all_' . $key);
-									generateUnorderedListFromArray(array(), $rest, '', '', true, true, 'all_' . $key);
-									?>
+											 <ul class="customchecklist" >
+												 <?php
+												 generateUnorderedListFromArray($cvarray, $cvarray, '', '', true, true, 'all_' . $key);
+												 generateUnorderedListFromArray(array(), $rest, '', '', true, true, 'all_' . $key);
+												 ?>
 								</ul>
 								<script type="text/javascript">
 									// <!-- <![CDATA[
@@ -1161,7 +1210,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 									// ]]> -->
 								</script>
-								<label>
+								<label class="floatright">
 									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
 									<?php echo gettext('all'); ?>
 								</label>
@@ -1170,13 +1219,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 							break;
 						case OPTION_TYPE_CHECKBOX_ULLIST:
 							?>
-							<td class="option_value">
+							<td class="option_v								a						 lue">
 								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value="1" />
 								<?php
 								$setOptions = getSerializedArray($v);
 								$all = empty($setOptions);
 								?>
-								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value="1" />
+								< input type = "hidden" name = "<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value = "1" / >
 								<ul class="customchecklist">
 									<?php
 									foreach ($row['checkboxes'] as $display => $checkbox) {
@@ -1189,24 +1238,24 @@ function printAdminHeader($tab, $subtab = NULL) {
 											<label class="displayinline">
 												<input type="checkbox" id="__<?php echo $checkbox; ?>" class="all_<?php echo $key; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if (in_array($checkbox, $setOptions)) echo ' checked="checked"'; ?><?php echo $disabled; ?> />
 												<?php echo($display); ?>
-											</label>
+											</label				>
 										</li>
 										<?php
 									}
 									?>
-								</ul>
-								<script type="text/javascript">
-									// <!-- <![CDATA[
-									function <?php echo $key; ?>_all() {
-										var check = $('#all_<?php echo $key; ?>').prop('checked');
-										$('.all_<?php echo $key; ?>').prop('checked', check);
-									}
-									// ]]> -->
-								</script>
-								<label>
-									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
-									<?php echo gettext('all'); ?>
-								</label>
+									<					 /ul>
+									<script type="text/javascript">
+										// <!-- <![CDATA[
+										function <?php echo $key; ?>_all() {
+											var check = $('#all_<?php echo $key; ?>').prop('checked');
+											$('.all_<?php echo $key; ?>').prop('checked', check);
+										}
+										// ]]> -->
+									</script>
+									<label class="floatright">
+										<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
+										<?php echo gettext('all'); ?>
+									</label>
 							</td>
 							<?php
 							break;
@@ -2217,9 +2266,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 									<?php
 									if ($showThumb) {
 										?>
-										<script type="text/javascript">
-											// <!-- <![CDATA[
-											updateThumbPreview(document.getElementById('thumbselect'));
+										<script type="text																	/javascript">
+											// <																	!-- <![CDATA[
+											updateThumbPreview(document.getElementById('th																umbselect'));
 											// ]]> -->
 										</script>
 										<?php
@@ -2402,7 +2451,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							});
 							// ]]> -->
 						</script>
-						<br class="clearall">
+						<br class=																"clearall">
 
 						<hr>
 
