@@ -1910,7 +1910,6 @@ span.tagMatches span {
 /* box for edit pages
 ----------------------------------*/
 .h2_bordered_edit {
-	width: 18.4em;
 	font-weight: bold;
 	padding: 5px 8px 5px 8px;
 	border-bottom: 2px solid #cccccc;
@@ -1959,7 +1958,6 @@ span.tagMatches span {
 }
 
 .box-tags-unpadded {
-	width: 19.65em;
 	margin: 0 0 10px 0;
 	padding: 0px 0px 0px 0px;
 	background-color: white;
@@ -2046,9 +2044,9 @@ fieldset,
 	border: 1px solid #ccc;
 	list-style: none;
 	height: 10em;
-	width: 19.5em;
 	overflow: auto;
 	background-color: white;
+	width: 100%;
 }
 
 .shortchecklist,.shortchecklist li {
@@ -2059,8 +2057,7 @@ fieldset,
 
 .shortchecklist label {
 	display: block;
-	padding: 0 0.2em 0 25px;
-	text-indent: -25px;
+
 }
 
 .shortchecklist label:hover,.shortchecklist label.hover {
