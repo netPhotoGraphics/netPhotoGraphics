@@ -751,22 +751,17 @@ function printNewsCategoryURL($before = '', $catlink = '') {
  * @param string $name The linktext
  * @param string $before The text to appear before the link text
  */
-function printNewsIndexURL($name = NULL, $before = '', $archive = NULL) {
-	global $_post_date, $_gallery_page;
-	if (!in_context(SEARCH_LINKED)) {
-		if (is_null($name)) {
-			$name = NEWS_LABEL;
-		}
-		$link = getNewsIndexURL();
-		if ($before) {
-			echo '<span class="beforetext">' . html_encode($before) . '</span>';
-		}
-		if ($_gallery_page !== 'news.php' || is_NewsArticle() || is_NewsCategory()) {
-			echo "<a href=\"" . html_encode($link) . "\" title=\"" . html_encode(getBare($name)) . "\">" . html_encode(getbare($name)) . "</a>";
-		} else {
-			echo html_encode(getbare($name));
-		}
+function printNewsIndexURL($name = NULL, $before = '') {
+	global $_gallery_page;
+
+	if (is_null($name)) {
+		$name = NEWS_LABEL;
 	}
+	$link = getNewsIndexURL();
+	if ($before) {
+		echo '<span class="beforetext">' . html_encode($before) . '</span>';
+	}
+	echo "<a href=\"" . html_encode($link) . "\" title=\"" . html_encode(getBare($name)) . "\">" . html_encode(getbare($name)) . "</a>";
 }
 
 /**
@@ -1654,7 +1649,7 @@ $_CMS_pagelist = NULL;
  * @return bool
  */
 function hasPages() {
-	return getNumPages();
+	return getNumPages(true);
 }
 
 /**

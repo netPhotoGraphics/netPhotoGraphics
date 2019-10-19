@@ -1,8 +1,9 @@
 <?php include ("inc-header.php"); ?>
 
 <div id="breadcrumbs">
-	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo; <?php printNewsIndexURL("News", ""); ?><?php printCurrentNewsCategory(" » Category - "); ?><?php printNewsTitle("  »  ");
-printCurrentNewsArchive("  »  "); ?>
+	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo; <?php printNewsIndexURL(); ?><?php printCurrentNewsCategory(" » Category - "); ?><?php printNewsTitle("  »  ");
+printCurrentNewsArchive("  »  ");
+?>
 </div>
 <div id="wrapper">
 	<div id="sidebar">
@@ -29,8 +30,8 @@ printCurrentNewsArchive("  »  "); ?>
 						}
 						?>
 					</div>
-<?php } ?>
-	<?php include ("inc-copy.php"); ?>
+				<?php } ?>
+<?php include ("inc-copy.php"); ?>
 			</div>
 		</div>
 	</div>
@@ -42,13 +43,14 @@ printCurrentNewsArchive("  »  "); ?>
 					<span><?php printNewsDate(); ?></span><span><?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?></span><?php if (function_exists('printCommentForm')) { ?><span><?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?></span><?php } ?>
 				</div>
 				<?php printNewsContent();
-				printCodeblock(); ?>
+				printCodeblock();
+				?>
 			</div>
 			<div id="pagination">
-		<?php if (getPrevNewsURL()) { ?><div class="prev"><?php printPrevNewsLink('«'); ?></div><?php } ?>
-		<?php if (getNextNewsURL()) { ?><div class="next"><?php printNextNewsLink('»'); ?></div><?php } ?>
+			<?php if (getPrevNewsURL()) { ?><div class="prev"><?php printPrevNewsLink('«'); ?></div><?php } ?>
+			<?php if (getNextNewsURL()) { ?><div class="next"><?php printNextNewsLink('»'); ?></div><?php } ?>
 			</div>
-				<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>
+		<?php if (function_exists('printCommentForm')) { ?><div class="post"><?php printCommentForm(); ?></div><?php } ?>
 		</div>
 			<?php } else { ?>
 		<div id="page">
@@ -58,10 +60,10 @@ printCurrentNewsArchive("  »  "); ?>
 				<?php } ?>
 				<?php if (getCurrentNewsArchive()) { ?>
 					<h1><?php printCurrentNewsArchive(); ?></h1>
-	<?php } ?>
-					<?php if (strlen(getNewsCategoryDesc()) > 0) { ?>
+				<?php } ?>
+				<?php if (strlen(getNewsCategoryDesc()) > 0) { ?>
 					<div><?php echo getNewsCategoryDesc(); ?></div><br />
-	<?php } ?>
+					<?php } ?>
 
 				<div id="mason">
 	<?php while (next_news()):; ?>
@@ -70,24 +72,26 @@ printCurrentNewsArchive("  »  "); ?>
 							<div class="newsarticlecredit">
 								<span><?php printNewsDate(); ?></span><span><?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?></span><?php if (function_exists('printCommentForm')) { ?><span><?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?></span><?php } ?>
 							</div>
-		<?php echo preg_replace("/<img[^>]+\>/i", " [image removed] ", getNewsContent());
-		printCodeblock(); ?>
+						<?php echo preg_replace("/<img[^>]+\>/i", " [image removed] ", getNewsContent());
+						printCodeblock();
+						?>
 						</div>
-				<?php endwhile; ?>
+			<?php endwhile; ?>
 				</div>
 			</div>
 
 			<?php if ($zpmas_infscroll) { ?>
 				<div id="page_nav">
-					<?php if (getNextNewsPageURL()) { ?><a href="<?php echo getNextNewsPageURL(); ?>">Next Page</a> <?php } ?>
+				<?php if (getNextNewsPageURL()) { ?><a href="<?php echo getNextNewsPageURL(); ?>">Next Page</a> <?php } ?>
 				</div>
-			<?php } else {
-				if ((getNextNewsPageURL()) || (getPrevNewsPageURL())) {
-					?>
+				<?php
+				} else {
+					if ((getNextNewsPageURL()) || (getPrevNewsPageURL())) {
+						?>
 					<div id="pagination">
-				<?php printNewsPageListWithNav(gettext('Next »'), gettext('« Prev'), true, ''); ?>
+			<?php printNewsPageListWithNav(gettext('Next »'), gettext('« Prev'), true, ''); ?>
 					</div>
-		<?php } ?>
+			<?php } ?>
 	<?php } ?>
 
 		</div>

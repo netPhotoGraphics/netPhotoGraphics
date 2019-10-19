@@ -3,7 +3,7 @@
 
 <div class="right">
 	<?php if (($zpfocus_social) && (is_NewsArticle())) include ("inc-social.php"); ?>
-	<h1 id="tagline"><?php printNewsIndexURL("News"); ?><?php printCurrentNewsCategory(" / Category - "); ?><?php
+	<h1 id="tagline"><?php printNewsIndexURL(); ?><?php printCurrentNewsCategory(" / Category - "); ?><?php
 		printNewsTitle(" / ");
 		printCurrentNewsArchive(" / ");
 		?></h1>

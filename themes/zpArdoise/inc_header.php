@@ -263,17 +263,17 @@ if (!defined('WEBPATH'))
 					case 63235: case 39:
 									if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-		break;
-		case 63234: case 37:
-						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+					break;
+					case 63234: case 37:
+									if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-		break;
-		}
-		return true;
-		}
+					break;
+					}
+					return true;
+					}
 
-		document.onkeydown = keyboardNavigation;
-		//]]>
+					document.onkeydown = keyboardNavigation;
+					//]]>
 			</script>
 		<?php } ?>
 
@@ -339,7 +339,7 @@ if (!defined('WEBPATH'))
 					<?php } ?>
 					<li <?php if ($galleryactive) { ?>class="active"<?php } ?>><?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?></li>
 					<?php if (($_zenpage_enabled) && hasNews()) { ?>
-						<li <?php if ($_gallery_page == 'news.php') { ?>class="active"<?php } ?>><?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?></li>
+						<li <?php if ($_gallery_page == 'news.php') { ?>class="active"<?php } ?>><?php printNewsIndexURL(); ?></li>
 					<?php } ?>
 					<?php
 					if ($_zenpage_enabled) {

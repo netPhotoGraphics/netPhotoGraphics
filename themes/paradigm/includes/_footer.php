@@ -27,7 +27,7 @@
 
 					if (function_exists("printAllNewsCategories") && ((hasNews()) > 0)) {
 						?>
-						<li><?php printNewsIndexURL(NEWS_LABEL, '', NEWS_LABEL); ?></li>
+						<li><?php printNewsIndexURL(); ?></li>
 						<?php
 					}
 
