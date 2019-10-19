@@ -90,8 +90,8 @@ class publicCMS {
 		return $allow;
 	}
 
-	static function allowCategory($catlist) {
-		global $_publicCategories, $_CMS_current_article;
+	static function allowCategory($allow, $catlist) {
+		global $_publicCategories;
 		if (empty($catlist)) {
 			return true;
 		}

@@ -301,7 +301,7 @@ class Article extends CMSItems {
 			return true;
 		}
 		$categories = $this->getCategories();
-		if (empty($categories) || npgFilters::apply('isPublicCategory', $categories)) { //	no protection on un-categorized news articles
+		if (empty($categories) || npgFilters::apply('isPublicCategory', false, $categories)) { //	no protection on un-categorized news articles
 			return true;
 		}
 		foreach ($categories as $category) {
