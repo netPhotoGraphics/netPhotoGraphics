@@ -472,7 +472,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									$position = 0; //	align to self
 								}
 								?>
-								<ul<?php if ($position) echo ' style="margin-top: -' . ($position * 32) . 'px;"' ?>>
+								<ul<?php if ($position) echo ' style = "margin-top: -' . ($position * 28) . 'px;"' ?>>
 									<?php
 									if ($activeTab) {
 										if (isset($_GET['tab'])) {
@@ -489,7 +489,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									foreach ($subtabs as $subkey => $link) {
 										$subclass = '';
 										if ($activeTab) {
-											preg_match('~tab=(.*?)(&|$)~', $link, $matches);
+											preg_match('~tab =(.*?)(&|$)~  ', $link, $matches);
 											if (isset($matches[1])) {
 												if ($matches[1] == $subtab) {
 													$subclass = 'active ';
@@ -503,11 +503,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 													if (isset($request['query'])) {
 														$link .= '&' . $request['query'];
 													}
-													$link = ' href="' . getAdminLink($request['path']) . html_encode($link) . '"';
+													$link = ' href = "' . getAdminLink($request['path']) . html_encode($link) . '"';
 													break;
 												case'/':
 													if (strpos($link, CORE_FOLDER) == 1) {
-														//	shouldn't have been coded that way, but oh, well!
+														//	shouldn' t have been coded that way, but oh, well!
 														$link = str_replace('/' . CORE_FOLDER . '/', '', $link);
 													} else {
 														$link = ' href="' . FULLWEBPATH . html_encode($link) . '"';
@@ -3120,7 +3120,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$notify = '&noaction';
 		}
 
-		// Move/Copy/Rename the album after saving.
+// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
 		if (isset($_POST['a-' . $prefix . 'MoveCopyRename'])) {
 			$movecopyrename_action = sanitize($_POST['a-' . $prefix . 'MoveCopyRename'], 3);
@@ -3138,7 +3138,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		if ($movecopyrename_action == 'move') {
 			$dest = sanitize_path($_POST['a' . $prefix . '-albumselect']);
-			// Append the album name.
+// Append the album name.
 			$dest = ($dest ? $dest . '/' : '') . (strpos($album->name, '/') === FALSE ? $album->name : basename($album->name));
 			if ($dest && $dest != $album->name) {
 				if ($suffix = $album->isDynamic()) { // be sure there is a .alb suffix
@@ -3152,7 +3152,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$redirectto = $dest;
 				}
 			} else {
-				// Cannot move album to same album.
+// Cannot move album to same album.
 				$notify = "&mcrerr=3";
 			}
 		} else if ($movecopyrename_action == 'copy') {
@@ -3162,8 +3162,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$notify = "&mcrerr=" . $e;
 				}
 			} else {
-				// Cannot copy album to existing album.
-				// Or, copy with rename?
+// Cannot copy album to existing album.
+// Or, copy with rename?
 				$notify = '&mcrerr=3';
 			}
 		} else if ($movecopyrename_action == 'rename') {
@@ -3321,7 +3321,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 
 		if ($multi && !empty($activelang)) {
-			// put the language list in perferred order
+// put the language list in perferred order
 			$preferred = array();
 			if ($_current_locale) {
 				$preferred[] = $_current_locale;
@@ -3477,7 +3477,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $file the file to zip
 	 */
 	function putZip($zipname, $file) {
-		//we are dealing with file system items, convert the names
+//we are dealing with file system items, convert the names
 		$fileFS = internalToFilesystem($file);
 		if (class_exists('ZipArchive')) {
 			$zipfileFS = tempnam('', 'zip');
@@ -3495,7 +3495,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			header("Content-Transfer-Encoding: binary");
 			header("Content-Length: " . filesize($zipfileFS));
 			readfile($zipfileFS);
-			// remove zip file from temp path
+// remove zip file from temp path
 			unlink($zipfileFS);
 		} else {
 			include_once(CORE_SERVERPATH . 'lib-zipStream.php');
@@ -3658,30 +3658,30 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$source = SERVERPATH . '/themes/' . internalToFilesystem($source);
 		$target = SERVERPATH . '/themes/' . internalToFilesystem($target);
 
-		// If the target theme already exists, nothing to do.
+// If the target theme already exists, nothing to do.
 		if (is_dir($target)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Directory “%s” already exists!'), basename($target));
 		}
 
-		// If source dir is missing, exit too
+// If source dir is missing, exit too
 		if (!is_dir($source)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Cannot find theme directory “%s” to copy!'), basename($source));
 		}
 
-		// We must be able to write to the themes dir.
+// We must be able to write to the themes dir.
 		if (!is_writable(dirname($target))) {
 			return gettext('Cannot create new theme.') . ' ' . gettext('The <tt>/themes</tt> directory is not writable!');
 		}
 
-		// We must be able to create the directory
+// We must be able to create the directory
 		if (!mkdir($target, FOLDER_MOD)) {
 			return gettext('Cannot create new theme.') . ' ' . gettext('Could not create directory for the new theme');
 		}
 		@chmod($target, FOLDER_MOD);
 		$source_files = listDirectoryFiles($source);
 
-		// Determine nested (sub)directories structure to create: go through each file, explode path on "/"
-		// and collect every unique directory
+// Determine nested (sub)directories structure to create: go through each file, explode path on "/"
+// and collect every unique directory
 		$dirs_to_create = array();
 		foreach ($source_files as $path) {
 			$path = explode('/', dirname(str_replace($source . '/', '', $path)));
@@ -3695,13 +3695,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 		}
 
-		// Create new directory structure
+// Create new directory structure
 		foreach ($dirs_to_create as $dir) {
 			mkdir("$target/$dir", FOLDER_MOD);
 			@chmod("$target/$dir", FOLDER_MOD);
 		}
 
-		// Now copy every file
+// Now copy every file
 		foreach ($source_files as $file) {
 			$newfile = str_replace($source, $target, $file);
 			if (!copy("$file", "$newfile"))
@@ -3709,7 +3709,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			@chmod("$newfile", FOLDER_MOD);
 		}
 
-		// Rewrite the theme header.
+// Rewrite the theme header.
 		if (file_exists($target . '/theme_description.php')) {
 			$theme_description = array();
 			require($target . '/theme_description.php');
@@ -3740,7 +3740,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$message = gettext('New custom theme created, but its description could not be updated');
 		}
 
-		// Make a slightly custom theme image
+// Make a slightly custom theme image
 		if (file_exists("$target/theme.png"))
 			$themeimage = "$target/theme.png";
 		else if (file_exists("$target/theme.gif"))
@@ -3756,17 +3756,17 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$text = "CUSTOM COPY";
 				$font = gl_imageLoadFont();
 				$ink = gl_colorAllocate($im, 0x0ff, 0x0ff, 0x0ff);
-				// create a blueish overlay
+// create a blueish overlay
 				$overlay = gl_createImage(gl_imageWidth($im), gl_imageHeight($im));
 				$back = gl_colorAllocate($overlay, 0x060, 0x060, 0x090);
 				gl_imageFill($overlay, 0, 0, $back);
-				// Merge theme image and overlay
+// Merge theme image and overlay
 				gl_imageMerge($im, $overlay, 0, 0, 0, 0, gl_imageWidth($im), gl_imageHeight($im), 45);
-				// Add text
+// Add text
 				gl_writeString($im, $font, $x - 1, $y - 1, $text, $ink);
 				gl_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
 				gl_writeString($im, $font, $x, $y, $text, $ink);
-				// Save new theme image
+// Save new theme image
 				gl_imageOutputt($im, 'png', $themeimage);
 			}
 		}
@@ -5129,7 +5129,7 @@ function admin_securityChecks($rights, $return) {
 	$returnurl = urldecode($return);
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
-		// prevent nefarious access to this page.
+// prevent nefarious access to this page.
 		$uri = mb_parse_url($returnurl);
 		$redirect = getAdminLink('admin.php') . '?from=' . $uri['path'];
 		header("HTTP/1.0 302 Found");
@@ -6058,7 +6058,7 @@ function curlDL($fileUrl, $saveTo) {
 		throw new Exception(sprintf(gettext('Could not create: %1$s') . $saveTo . '/' . basename($fileUrl)));
 	}
 
-	//Create a cURL handle.
+//Create a cURL handle.
 	$ch = curl_init($fileUrl);
 	curl_setopt_array($ch, array(
 			CURLOPT_FILE => $fp, //Pass file handle to cURL.
@@ -6066,21 +6066,21 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-	//Execute the request.
+//Execute the request.
 	curl_exec($ch);
 
-	//If there was an error, throw an Exception
+//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-	//Get the HTTP status code.
+//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	//Close the cURL handler.
+//Close the cURL handler.
 	curl_close($ch);
 
-	//Close the file handle.
+//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {

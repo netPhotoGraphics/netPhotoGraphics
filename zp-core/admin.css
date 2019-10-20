@@ -234,8 +234,7 @@ code {
 
 .navigation ul li {
   float: left;
-  min-height: 0.05em;
-  line-height: 1em;
+	height: 28px;
   vertical-align: middle;
   position: relative;
 }
