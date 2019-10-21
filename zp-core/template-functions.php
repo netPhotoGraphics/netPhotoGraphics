@@ -3979,7 +3979,6 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 
 	$fields = $engine->allowedSearchFields();
 	?>
-
 	<div id="<?php echo $id; ?>"><!-- start of search form -->
 		<!-- search form -->
 		<script type="text/javascript">
@@ -4026,9 +4025,9 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				<?php
 				if (count($fields) > 1 || $searchwords) {
 					?>
-					<span onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
+					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
 						<?php echo $iconsource; ?>
-					</span>
+					</a>
 					<?php
 				}
 				?>
@@ -4065,21 +4064,25 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 					?>
 					<div style="display:none;" id="searchextrashow">
 						<?php
-						if ($searchwords) {
-							?>
-							<label>
-								<input type="radio" name="search_within" id="search_within-1" value="1"<?php if ($within) echo ' checked="checked"'; ?> onclick="search_(1);" />
-								<?php echo gettext('Within'); ?>
-							</label>
-							<label>
-								<input type="radio" name="search_within" id="search_within-0" value="1"<?php if (!$within) echo ' checked="checked"'; ?> onclick="search_(0);" />
-								<?php echo gettext('New'); ?>
-							</label>
-							<?php
-						}
 						if (count($fields) > 1) {
 							?>
 							<ul>
+								<?php
+								if ($searchwords) {
+									?>
+									<li style="border-bottom: 1px dotted;">
+										<label>
+											<input type="radio" name="search_within" id="search_within-1" value="1"<?php if ($within) echo ' checked="checked"'; ?> onclick="search_(1);" />
+											<?php echo gettext('Within'); ?>
+										</label>
+										<label>
+											<input type="radio" name="search_within" id="search_within-0" value="1"<?php if (!$within) echo ' checked="checked"'; ?> onclick="search_(0);" />
+											<?php echo gettext('New'); ?>
+										</label>
+									</li>
+									<?php
+								}
+								?>
 								<li style="border-bottom: 1px solid;">
 									<label><input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong></label>
 								</li>
@@ -4406,7 +4409,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
