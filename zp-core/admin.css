@@ -210,11 +210,10 @@ code {
   padding: 0;
   margin: 0;
   border: 0;
-  line-height: 1em;
 	margin-top: 10px;
 	position: absolute;
 	overflow: visible;
-	z-index: 50000;
+	z-index: 1300;
   width: 13em;
   background: #fafafa;
 	zoom: 1;
@@ -250,7 +249,7 @@ code {
   position: absolute;
   top: 100%;
   left: 0px;
-  z-index: 520;
+  z-index: auto;
   width: 100%;
 }
 
@@ -406,7 +405,7 @@ code {
   position: absolute;
   top: 0;
   left: -100%;
-  z-index: 598;
+  z-index: auto;
   width: 100%;
 }
 
