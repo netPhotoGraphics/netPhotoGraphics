@@ -479,6 +479,7 @@ function addItem(&$reports) {
 	$result['show'] = getCheckboxState('show');
 	$result['include_li'] = getCheckboxState('include_li');
 	$result['id'] = 0;
+	$result['menu_aux'] = sanitize($_POST['menu_aux']);
 	if (getCheckboxState('span')) {
 		$result['span_id'] = sanitize($_POST['span_id']);
 		$result['span_class'] = sanitize($_POST['span_class']);
@@ -645,12 +646,13 @@ function addItem(&$reports) {
 
 	$count = db_count('menu', 'WHERE menuset=' . db_quote($menuset));
 	$order = sprintf('%03u', $count);
-	$sql = "INSERT INTO " . prefix('menu') . " ( `title`, `link`, `type`, `show`, `menuset`, `sort_order`, `include_li`, `span_id`, `span_class`) " .
+	$sql = "INSERT INTO " . prefix('menu') . " ( `title`, `link`, `type`, `show`, `menuset`, `sort_order`, `include_li`, `span_id`, `span_class`, `menu_aux`) " .
 					"VALUES (" . db_quote($result['title']) .
 					", " . db_quote($result['link']) .
 					", " . db_quote($result['type']) . ", " . $result['show'] .
 					", " . db_quote($menuset) . ", " . db_quote($order) . ", " . $result['include_li'] .
 					", " . db_quote($result['span_id']) . ", " . db_quote($result['span_class']) .
+					", " . db_quote($result['menu_aux']) .
 					")";
 	if (query($sql, true)) {
 		$reports[] = "<p class = 'messagebox fade-message'>" . $successmsg . "</p>";
@@ -679,6 +681,7 @@ function updateMenuItem(&$reports) {
 	$result['type'] = sanitize($_POST['type']);
 	$result['title'] = process_language_string_save("title", 2);
 	$result['include_li'] = getCheckboxState('include_li');
+	$result['menu_aux'] = sanitize($_POST['menu_aux']);
 	if (getCheckboxState('span')) {
 		$result['span_id'] = sanitize($_POST['span_id']);
 		$result['span_class'] = sanitize($_POST['span_class']);
@@ -808,6 +811,7 @@ function updateMenuItem(&$reports) {
 					", type = " . db_quote($result['type']) . ", `show` = " . db_quote($result['show']) .
 					", menuset = " . db_quote($menuset) . ", include_li = " . $result['include_li'] .
 					", span_id = " . db_quote($result['span_id']) . ", span_class = " . db_quote($result['span_class']) .
+					", menu_aux = " . db_quote($result['menu_aux']) .
 					" WHERE `id` = " . $result['id'];
 	if (query($sql)) {
 		if (isset($_POST['title']) && empty($result['title'])) {

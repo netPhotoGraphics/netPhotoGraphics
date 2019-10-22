@@ -47,7 +47,7 @@ $menuset = checkChosenMenuset();
 				// <!-- <![CDATA[
 				function handleSelectorChange(type) {
 					$('#add,#titlelabel,#link_row,#link,#link_label,#visible_row,#show_visible,#span_row').show();
-					$('#include_li_label').hide();
+					$('#include_li_label, #menu_aux_row').hide();
 					$('#type').val(type);
 					$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
 					$('#titlelabel').html('<?php echo js_encode(gettext('Title')); ?>');
@@ -150,6 +150,8 @@ if (class_exists('CMS')) {
 							$('#description').html('<?php echo js_encode(gettext("Creates a dynamic link. The string will be evaluated by PHP to create the link.")); ?>');
 							$('#link').prop('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
+							$('#menu_aux_label').html('<?php echo js_encode(gettext('Link Attributes')); ?>');
+							$('#menu_aux_row').show();
 							$('#titleinput').show();
 							break;
 						case "customlink":
@@ -158,6 +160,8 @@ if (class_exists('CMS')) {
 							$('#description').html('<?php echo js_encode(gettext("Creates a link outside the standard structure. Use of a full URL is recommended (e.g. http://www.domain.com).")); ?>');
 							$('#link').prop('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
+							$('#menu_aux_label').html('<?php echo js_encode(gettext('Link Attributes')); ?>');
+							$('#menu_aux_row').show();
 							$('#titleinput').show();
 							break;
 						case 'menulabel':
@@ -209,6 +213,7 @@ if (is_array($result)) {
 					$('#typeselector').change(function () {
 						$('input').val(''); // reset all input values so we do not carry them over from one type to another
 						$('#link').val('');
+						$('#menu_aux').val('');
 						handleSelectorChange($(this).val());
 					});
 				}, false);
@@ -250,7 +255,7 @@ if (is_array($result)) {
 				<br class="clearall"><br />
 				<div style="padding:15px; margin-top: 10px">
 					<?php
-					$action = $type = $id = $link = '';
+					$action = $type = $id = $link = $aux = '';
 					if (is_array($result)) {
 						$type = $result['type'];
 						$id = $result['id'];
@@ -307,7 +312,7 @@ if (is_array($result)) {
 							if (is_array($result)) {
 								$selector = html_encode($menuset);
 							} else {
-								$result = array('id' => NULL, 'title' => '', 'link' => '', 'show' => 1, 'type' => NULL, 'include_li' => 1, 'span_id' => '', 'span_class' => '');
+								$result = array('id' => NULL, 'title' => '', 'link' => '', 'show' => 1, 'type' => NULL, 'include_li' => 1, 'span_id' => '', 'span_class' => '', 'menu_aux' => '');
 								$selector = getMenuSetSelector(false);
 							}
 							?>
@@ -340,6 +345,12 @@ if (is_array($result)) {
 								<td>
 									<?php printCustomPageSelector($result['link']); ?>
 									<input name="link" type="text" size="100" id="link" value="<?php echo html_encode($result['link']); ?>" />
+								</td>
+							</tr>
+							<tr id='menu_aux_row'>
+								<td><span id="menu_aux_label"></span></td>
+								<td>
+									<input name="menu_aux" type="text" size="100" id="menu_aux" value="<?php echo html_encode($result['menu_aux']); ?>" />
 								</td>
 							</tr>
 							<tr id="visible_row">

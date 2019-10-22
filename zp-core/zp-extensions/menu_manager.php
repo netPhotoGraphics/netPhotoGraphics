@@ -1306,7 +1306,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						if (empty($itemURL)) {
 							$itemURL = FULLWEBPATH;
 						}
-						echo '<a href="' . $itemURL . '" title="' . html_encode(getBare($itemtitle)) . '">' . $itemtitle . '</a>' . $itemcounter;
+						echo '<a href="' . $itemURL . '" title="' . html_encode(getBare($itemtitle)) . '" ' . $item['menu_aux'] . '>' . $itemtitle . '</a>' . $itemcounter;
 						break;
 				}
 				if ($item['span_id'] || $item['span_class']) {
