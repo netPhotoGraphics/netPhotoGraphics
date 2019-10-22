@@ -3912,7 +3912,6 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @since 1.1.3
  */
 function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL) {
-
 	global $_current_search, $_current_album;
 	$engine = new SearchEngine();
 	if (!is_null($_current_search) && !$_current_search->getSearchWords()) {
@@ -3927,15 +3926,17 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	}
 	if (empty($searchwords)) {
 		$within = false;
+	} else if (is_null($within)) {
+		$within = getOption('search_within');
 	}
 
 	$hint_new = $buttontext;
 	$hint_in = sprintf(gettext('%s within previous results'), $buttontext);
 	if ($within) {
-		$buttontext = $hint_in;
+		$button = ' title="' . $hint_in . '"';
+	} else {
+		$button = ' title="' . $buttontext . '"';
 	}
-	$button = ' title="' . $buttontext . '"';
-
 	if (preg_match('!\/(.*)[\.png|\.jpg|\.jpeg|\.gif]$!', $buttonSource)) {
 		$buttonSource = 'src="' . $buttonSource . '" alt="' . $buttontext . '"';
 		$type = 'image';
@@ -4050,7 +4051,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 									}
 									?>
 									<label title="<?php echo gettext('Select/deselect all fields'); ?>">
-										<input type="checkbox" class="SEARCH_new" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong>
+										<input type="checkbox" class="SEARCH_new" id="SEARCH_checkall" checked="checked" onclick="search_all();" <?php if ($within) echo ' disabled="disabled"'; ?> /> <strong><em><?php echo gettext('All'); ?></em></strong>
 									</label>
 								</li>
 								<?php
