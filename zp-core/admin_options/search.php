@@ -301,8 +301,6 @@ function getOptionContent() {
 					<p>
 						<?php
 						echo gettext('default search');
-
-
 						generateRadiobuttonsFromArray(getOption('search_within'), array(gettext('<em>New</em>') => '0', gettext('<em>Within</em>') => '1'), 'search_within', 'search_within', false, false);
 						?>
 					</p>

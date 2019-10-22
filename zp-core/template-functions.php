@@ -3913,18 +3913,6 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  */
 function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL) {
 
-	/* debug aid
-	  varDebug(['$prevtext' => $prevtext,
-	  '$id' => $id,
-	  '$buttonSource' => $buttonSource,
-	  '$buttontext' => $buttontext,
-	  '$iconsource' => $iconsource,
-	  '$query_fields' => $query_fields,
-	  '$object_list' => $object_list,
-	  '$within' => $within]);
-	 *
-	 */
-
 	global $_current_search, $_current_album;
 	$engine = new SearchEngine();
 	if (!is_null($_current_search) && !$_current_search->getSearchWords()) {
@@ -3939,22 +3927,22 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	}
 	if (empty($searchwords)) {
 		$within = false;
-		$hint = '%s';
-	} else {
-		$hint = gettext('%s within previous results');
 	}
+
+	$buttontext = $hint_new = $buttontext;
+	$hint_in = sprintf(gettext('%s within previous results'), $buttontext);
+	if ($within) {
+		$buttontext = $hint_in;
+	}
+	$button = ' title="' . $buttontext . '"';
+
 	if (preg_match('!\/(.*)[\.png|\.jpg|\.jpeg|\.gif]$!', $buttonSource)) {
 		$buttonSource = 'src="' . $buttonSource . '" alt="' . $buttontext . '"';
-		$button = 'title="' . sprintf($hint, $buttontext) . '"';
 		$type = 'image';
 	} else {
+		$button = 'value="' . $buttontext . '" ' . $button;
 		$type = 'submit';
-		if ($buttonSource) {
-			$button = 'value="' . $buttontext . '" title="' . sprintf($hint, $buttonSource) . '"';
-			$buttonSource = '';
-		} else {
-			$button = 'value="' . $buttontext . '" title="' . sprintf($hint, $buttontext) . '"';
-		}
+		$buttonSource = '';
 	}
 
 	if (empty($iconsource)) {
@@ -3981,41 +3969,6 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	?>
 	<div id="<?php echo $id; ?>"><!-- start of search form -->
 		<!-- search form -->
-		<script type="text/javascript">
-			// <!-- <![CDATA[
-			var within = <?php echo (int) $within; ?>;
-			function search_(way) {
-				within = way;
-				if (way) {
-					$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
-				} else {
-					lastsearch = '';
-					$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
-				}
-				$('#search_input').val('');
-			}
-			$('#search_form').submit(function () {
-				if (within) {
-					var newsearch = $.trim($('#search_input').val());
-					if (newsearch.substring(newsearch.length - 1) == ',') {
-						newsearch = newsearch.substr(0, newsearch.length - 1);
-					}
-					if (newsearch.length > 0) {
-						$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
-					} else {
-						$('#search_input').val('<?php echo $searchwords; ?>');
-					}
-				}
-				return true;
-			});
-			function search_all() {
-				//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives. All rights reserved
-				var check = $('#SEARCH_checkall').prop('checked');
-				$('.SEARCH_checkall').prop('checked', check);
-			}
-
-			// ]]> -->
-		</script>
 		<form method="post" action="<?php echo $searchurl; ?>" id="search_form">
 			<?php echo $prevtext; ?>
 			<div>
@@ -4072,19 +4025,20 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 									?>
 									<li style="border-bottom: 1px dotted;">
 										<label>
-											<input type="radio" name="search_within" id="search_within-1" value="1"<?php if ($within) echo ' checked="checked"'; ?> onclick="search_(1);" />
+											<input type="radio" name="search_within" value="1"<?php if ($within) echo ' checked="checked"'; ?>  />
 											<?php echo gettext('Within'); ?>
 										</label>
 										<label>
-											<input type="radio" name="search_within" id="search_within-0" value="1"<?php if (!$within) echo ' checked="checked"'; ?> onclick="search_(0);" />
+											<input type="radio" name="search_within" value="0"<?php if (!$within) echo ' checked="checked"'; ?> />
 											<?php echo gettext('New'); ?>
 										</label>
-									</li>
-									<?php
-								}
-								?>
-								<li style="border-bottom: 1px solid;">
-									<label><input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong></label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<?php
+									}
+									?>
+									<label title="<?php echo gettext('Select/deselect all fields'); ?>">
+										<input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong>
+									</label>
 								</li>
 								<?php
 								foreach ($fields as $display => $key) {
@@ -4104,6 +4058,43 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				}
 				?>
 			</div>
+			<script type="text/javascript">
+	// <!-- <![CDATA[
+				var within = <?php echo (int) $within; ?>;
+				$("input[name='search_within']").change(function () {
+					within = (within + 1) & 1;
+					if (within) {
+						$('#search_submit').prop('title', '<?php echo $hint_in; ?>');
+					} else {
+						lastsearch = '';
+						$('#search_submit').prop('title', '<?php echo $hint_new; ?>');
+					}
+					$('#search_input').val('');
+					// Do something interesting here
+				});
+
+				$('#search_form').submit(function () {
+					if (within) {
+						var newsearch = $.trim($('#search_input').val());
+						if (newsearch.substring(newsearch.length - 1) == ',') {
+							newsearch = newsearch.substr(0, newsearch.length - 1);
+						}
+						if (newsearch.length > 0) {
+							$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
+						} else {
+							$('#search_input').val('<?php echo $searchwords; ?>');
+						}
+					}
+					return true;
+				});
+				function search_all() {
+					//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives. All rights reserved
+					var check = $('#SEARCH_checkall').prop('checked');
+					$('.SEARCH_checkall').prop('checked', check);
+				}
+
+	// ]]> -->
+			</script>
 		</form>
 	</div><!-- end of search form -->
 	<?php

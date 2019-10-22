@@ -738,6 +738,7 @@ function getAllSubAlbumIDs($albumfolder = '') {
 function handleSearchParms($what, $album = NULL, $image = NULL) {
 	global $_current_search, $_requested_object, $_last_album, $_current_album,
 	$_CMS_current_article, $_CMS_current_page, $_gallery, $_loggedin, $_HTML_cache;
+
 	$_last_album = getNPGCookie('last_album');
 	if (is_object($_requested_object) && get_class($_requested_object) == 'SearchEngine') { //	we are are on a search
 		if (is_null($album)) {
@@ -2337,14 +2338,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
