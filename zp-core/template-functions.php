@@ -4020,10 +4020,10 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 						if (count($fields) > 1) {
 							?>
 							<ul>
-								<?php
-								if ($searchwords) {
-									?>
-									<li style="border-bottom: 1px dotted;">
+								<li style="border-bottom: 1px dotted;">
+									<?php
+									if ($searchwords) {
+										?>
 										<label>
 											<input type="radio" name="search_within" value="1"<?php if ($within) echo ' checked="checked"'; ?>  />
 											<?php echo gettext('Within'); ?>
@@ -4059,7 +4059,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				?>
 			</div>
 			<script type="text/javascript">
-	// <!-- <![CDATA[
+				// <!-- <![CDATA[
 				var within = <?php echo (int) $within; ?>;
 				$("input[name='search_within']").change(function () {
 					within = (within + 1) & 1;
@@ -4093,7 +4093,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 					$('.SEARCH_checkall').prop('checked', check);
 				}
 
-	// ]]> -->
+				// ]]> -->
 			</script>
 		</form>
 	</div><!-- end of search form -->
@@ -4400,7 +4400,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
