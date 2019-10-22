@@ -589,12 +589,12 @@ function addItem(&$reports) {
 
 		case 'dynamiclink':
 		case 'customlink':
+			$result['link'] = sanitize($_POST['link']);
 			$result['title'] = process_language_string_save("title", 2);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
 			}
-			$result['link'] = sanitize($_POST['link']);
 			if (empty($result['link'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to provide a <strong>function</strong>!") . " </p>";
 				return $result;
@@ -614,11 +614,12 @@ function addItem(&$reports) {
 
 		case 'menufunction':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['link'] = sanitize($_POST['link'], 4);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
 			}
-			$result['link'] = sanitize($_POST['link'], 4);
+
 			if (empty($result['link'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to provide a <strong>function</strong>!") . " </p>";
 				return $result;
@@ -628,11 +629,12 @@ function addItem(&$reports) {
 
 		case 'html':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['link'] = sanitize($_POST['link'], 4);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
 			}
-			$result['link'] = sanitize($_POST['link'], 4);
+
 			if (empty($result['link'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to provide a <strong>function</strong>!") . " </p>";
 				return $result;
