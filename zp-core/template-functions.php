@@ -3929,7 +3929,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 		$within = false;
 	}
 
-	$buttontext = $hint_new = $buttontext;
+	$hint_new = $buttontext;
 	$hint_in = sprintf(gettext('%s within previous results'), $buttontext);
 	if ($within) {
 		$buttontext = $hint_in;
@@ -3961,6 +3961,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	} else {
 		$searchurl = WEBPATH . "/index.php?p=search";
 	}
+
 	if (!$within) {
 		$engine->clearSearchWords();
 	}
@@ -4016,43 +4017,72 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 					}
 					?>
 					<div style="display:none;" id="searchextrashow">
-						<?php
-						if (count($fields) > 1) {
-							?>
-							<ul>
-								<li style="border-bottom: 1px dotted;">
-									<?php
-									if ($searchwords) {
+						<ul>
+							<?php
+							if ($searchwords) {
+								if (count($fields) > 1 && !$within) {
+									?>
+									<li style="border-bottom: 1px dotted;">
+										<?php
+									} else {
 										?>
-										<label>
-											<input type="radio" name="search_within" value="1"<?php if ($within) echo ' checked="checked"'; ?>  />
-											<?php echo gettext('Within'); ?>
-										</label>
-										<label>
-											<input type="radio" name="search_within" value="0"<?php if (!$within) echo ' checked="checked"'; ?> />
-											<?php echo gettext('New'); ?>
-										</label>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<li>
+										<?php
+									}
+									?>
+									<label title="<?php echo $hint_in; ?>">
+										<input type="radio" name="search_within" value="1"<?php if ($within) echo ' checked="checked"'; ?>  />
+										<?php echo gettext('Within'); ?>
+									</label>
+									<label title="<?php echo $hint_new; ?>">
+										<input type="radio" name="search_within" value="0"<?php if (!$within) echo ' checked="checked"'; ?> />
+										<?php echo gettext('New'); ?>
+									</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<?php
+								}
+
+								if (count($fields) > 1) {
+									if (!$searchwords) {
+										?>
+									<li  style="border-bottom: 1px dotted;">
 										<?php
 									}
 									?>
 									<label title="<?php echo gettext('Select/deselect all fields'); ?>">
-										<input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong>
+										<input type="checkbox" class="SEARCH_new" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong>
 									</label>
 								</li>
 								<?php
 								foreach ($fields as $display => $key) {
-									echo '<li><label><input class="SEARCH_checkall" id="SEARCH_' . $key . '" name="SEARCH_' . $key . '" type="checkbox"';
-									if (in_array($key, $query_fields)) {
-										echo ' checked="checked" ';
-									}
-									echo ' value="' . html_encode($key) . '"  /> ' . html_encode(trim($display, ':')) . "</label></li>" . "\n";
+									?>
+									<li>
+										<?php
+										if (in_array($key, $query_fields)) {
+											$checked = ' checked="checked"';
+											?>
+											<input type="hidden" class="SEARCH_within" name="SEARCH_<?php echo $key; ?>" value="<?php echo html_encode($key); ?>"<?php if (!$within) echo ' disabled="disabled"'; ?> />
+											<?php
+										} else {
+											$checked = '';
+										}
+										?>
+										<label>
+											<input class="SEARCH_checkall SEARCH_new" id="SEARCH_<?php echo $key; ?>" name="SEARCH_<?php echo $key; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo html_encode($key); ?>"<?php if ($within) echo ' disabled="disabled"'; ?> />
+											<?php echo html_encode(trim($display, ':')); ?>
+										</label>
+
+									</li>
+									<?php
 								}
+							} else {
 								?>
-							</ul>
-							<?php
-						}
-						?>
+								<input type="hidden" name="SEARCH_<?php echo array_pop($fields); ?>" value="<?php echo html_encode($key); ?>" />
+								</li>
+								<?php
+							}
+							?>
+						</ul>
 					</div>
 					<?php
 				}
@@ -4065,12 +4095,20 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 					within = (within + 1) & 1;
 					if (within) {
 						$('#search_submit').prop('title', '<?php echo $hint_in; ?>');
+						$('.SEARCH_new').prop('checked', false);
+						$('.SEARCH_within').each(function () {
+							id = $(this).attr('name');
+							$('#' + id).prop('checked', 'checked');
+						});
+						$('.SEARCH_new').prop('disabled', 'disabled');
+						$('.SEARCH_within').removeAttr('disabled');
 					} else {
 						lastsearch = '';
 						$('#search_submit').prop('title', '<?php echo $hint_new; ?>');
+						$('.SEARCH_new').removeAttr('disabled');
+						$('.SEARCH_within').prop('disabled', 'disabled');
 					}
 					$('#search_input').val('');
-					// Do something interesting here
 				});
 
 				$('#search_form').submit(function () {
