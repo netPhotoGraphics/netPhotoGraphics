@@ -508,15 +508,11 @@ echo $refresh;
 							<?php
 						}
 						?>
-						<p class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+						<p>
+							<?php
+							applyButton();
+							resetButton();
+							?>
 						</p>
 						<table class="unbordered"> <!-- main table -->
 							<tr>
@@ -999,14 +995,11 @@ echo $refresh;
 						<?php
 						if (!$_current_admin_obj->transient) {
 							?>
-							<p class="buttons">
-								<button class="buttons" type="submit"><?php echo CHECKMARK_GREEN; ?>
-									<strong><?php echo gettext("Apply"); ?></strong>
-								</button>
-								<button class="buttons" type="reset">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
+							<p>
+								<?php
+								applyButton();
+								resetButton();
+								?>
 							</p>
 							<?php
 						}
@@ -1020,9 +1013,7 @@ echo $refresh;
 							<p class="notebox">
 								<?php printf(gettext('The <em>_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), npg_Authority::getVersion(), npg_Authority::$supports_version); ?>
 								<br class="clearall">
-								<span class="buttons">
-									<a onclick="launchScript('', ['action = migrate_rights', 'XSRFToken = <?php echo getXSRFToken('migrate_rights') ?>']);"> <?php echo gettext('Migrate rights'); ?></a>
-								</span>
+								<?php npgButton('button', gettext('Migrate rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
 								<br class="clearall">
 							</p>
 							<br class="clearall">
@@ -1033,9 +1024,7 @@ echo $refresh;
 							<p class="notebox">
 								<?php printf(gettext('You may wish to revert the <em>_Authority</em> user rights to version %s for backwards compatibility with prior releases.'), npg_Authority::getVersion() - 1); ?>
 								<br class="clearall">
-								<span class="buttons">
-									<a onclick="launchScript('', ['action=migrate_rights', 'revert=true', 'XSRFToken=<?php echo getXSRFToken('migrate_rights') ?>']);"><?php echo gettext('Revert rights'); ?></a>
-								</span>
+								<?php npgButton('button', gettext('Revert rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'revert=true', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
 								<br class="clearall">
 							</p>
 							<br class="clearall">

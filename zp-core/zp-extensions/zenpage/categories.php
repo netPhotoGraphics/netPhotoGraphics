@@ -139,23 +139,18 @@ zenpageJSCSS();
 				if (!empty($categories) || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printCategoriesStatistic(); ?></span>
-					<form class="dirtylistening" onReset="setClean('checkeditems');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php'); ?>?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
+					<?php printSortableDirections(gettext("Drag the items into the order and nesting you wish.")); ?>
+					<form class="dirtylistening" onReset="setClean('checkeditems');$('#catsort').sortable('cancel');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php'); ?>?page=news&amp;tab=categories" method="post" id="checkeditems" name="checkeditems" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('checkeditems'); ?>
 						<input	type="hidden" name="action" id="action" value="update" />
-						<p class="buttons">
-							<button class="buttons serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
-								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
-							</button>
+						<p>
 							<?php
+							applyButton(array('buttonClass' => 'serialize'));
+							resetButton();
 							if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?newscategory&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo gettext('New category'); ?>">
-										<?php echo PLUS_ICON; ?>
-										<strong>
-											<?php echo gettext('New category'); ?>
-										</strong>
-									</a>
+									<?php npgButton('button', PLUS_ICON . ' ' . gettext('New category'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newscategory&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 								</span>
 								<?php
 							}
@@ -186,7 +181,7 @@ zenpageJSCSS();
 								</label>
 							</div>
 
-							<ul class="page-list">
+							<ul class="page-list" id="catsort">
 								<?php $toodeep = printNestedItemsList('cats-sortablelist', '', ''); ?>
 							</ul>
 						</div>
@@ -199,10 +194,11 @@ zenpageJSCSS();
 						?>
 						<span id="serializeOutput"></span>
 						<input name="update" type="hidden" value="Save Order" />
-						<p class="buttons">
-							<button class="buttons serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
-								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext('Apply'); ?></strong>
-							</button>
+						<p>
+							<?php
+							applyButton(array('buttonClass' => 'serialize'));
+							resetButton();
+							?>
 						</p>
 						<ul class="iconlegend">
 							<?php

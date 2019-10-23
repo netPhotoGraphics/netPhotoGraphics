@@ -30,7 +30,7 @@
 			<?php } ?>
 			<?php if ($_gallery_page == 'news.php') { ?>
 				<li><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Index'); ?>" itemprop="url"><i class="glyphicon glyphicon-home">&nbsp;</i></a></li>
-				<li><?php printNewsIndexURL('Blog', ' '); ?></li>
+				<li><?php printNewsIndexURL(); ?></li>
 				<?php
 				printZenpageItemsBreadcrumb_zb();
 				printCurrentNewsCategory_zb();

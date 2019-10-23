@@ -136,7 +136,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	if (!npg_loggedin()) {
-		//	try to prevent browser, etc. from caching login form
+//	try to prevent browser, etc. from caching login form
 		header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		header("Pragma: no-cache"); // HTTP 1.0.
 		header("Expires: 0"); // Proxies.
@@ -272,15 +272,71 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 		}
 
-		/**
-		 * Print the html required to display the logo and links in the top section of the admin page.
-		 *
-		 * @author Todd Papaioannou (lucky@luckyspin.org)
-		 * @since  1.0.0
-		 */
-		function printLogoAndLinks() {
-			global $_current_admin_obj, $_admin_tab, $_admin_subtab, $_gallery, $tabtext, $subtabtext;
+		function printSortableDirections($lead) {
 			?>
+		<p>
+			<?php echo $lead; ?>
+			<span onclick="$('#dragInstructions').toggle();" style="cursor: pointer;"><?php echo INFORMATION_BLUE; ?></span>
+		</p>
+		<p id="dragInstructions" style="display: none;">
+			<?php echo gettext('To move a sub-item out from its list you must drag it out via the bottom of the list. That is drag it to past the last item in the sub-list then drag it left and drop it. Then you can move it into to another sub-list. If you are moving out multiple levels you must repeat the move process for each level.'); ?>
+		</p>
+		<?php
+	}
+
+	function applyButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' submitbutton';
+		} else {
+			$options['buttonClass'] = 'submitbutton';
+		}
+		npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Apply"), $options);
+	}
+
+	function resetButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' resetbutton';
+		} else {
+			$options['buttonClass'] = 'resetbutton';
+		}
+		npgButton('reset', CROSS_MARK_RED_LARGE . '	' . gettext("Reset"), $options);
+	}
+
+	function backButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' backbutton';
+		} else {
+			$options['buttonClass'] = 'backbutton';
+		}
+		npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), $options);
+	}
+
+	function viewButton($options = array()) {
+		if (isset($options['buttonClass'])) {
+			$options['buttonClass'] .= ' viewbutton';
+		} else {
+			$options['buttonClass'] = 'viewbutton';
+		}
+		npgButton('button', BULLSEYE_BLUE . ' ' . gettext('View'), $options);
+	}
+
+	function get_npgButton($buttonType, $buttonText, $options = array()) {
+		ob_start();
+		npgButton($buttonType, $buttonText, $options);
+		$button = ob_get_contents();
+		ob_end_clean();
+		return $button;
+	}
+
+	/**
+	 * Print the html required to display the logo and links in the top section of the admin page.
+	 *
+	 * @author Todd Papaioannou (lucky@luckyspin.org)
+	 * @since  1.0.0
+	 */
+	function printLogoAndLinks() {
+		global $_current_admin_obj, $_admin_tab, $_admin_subtab, $_gallery, $tabtext, $subtabtext;
+		?>
 		<div id="admin_head">
 			<span id="administration">
 				<?php printSiteLogoImage(sprintf(gettext('%1$s Administration'), html_encode($_gallery->getTitle())), sprintf(gettext('%1$s administration:%2$s%3$s'), html_encode($_gallery->getTitle()), html_encode($tabtext), html_encode($subtabtext))); ?>
@@ -416,7 +472,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									$position = 0; //	align to self
 								}
 								?>
-								<ul<?php if ($position) echo ' style="margin-top: -' . ($position * 32) . 'px;"' ?>>
+								<ul<?php if ($position) echo ' style = "margin-top: -' . ($position * 28) . 'px;"' ?>>
 									<?php
 									if ($activeTab) {
 										if (isset($_GET['tab'])) {
@@ -433,7 +489,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									foreach ($subtabs as $subkey => $link) {
 										$subclass = '';
 										if ($activeTab) {
-											preg_match('~tab=(.*?)(&|$)~', $link, $matches);
+											preg_match('~tab =(.*?)(&|$)~  ', $link, $matches);
 											if (isset($matches[1])) {
 												if ($matches[1] == $subtab) {
 													$subclass = 'active ';
@@ -447,11 +503,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 													if (isset($request['query'])) {
 														$link .= '&' . $request['query'];
 													}
-													$link = ' href="' . getAdminLink($request['path']) . html_encode($link) . '"';
+													$link = ' href = "' . getAdminLink($request['path']) . html_encode($link) . '"';
 													break;
 												case'/':
 													if (strpos($link, CORE_FOLDER) == 1) {
-														//	shouldn't have been coded that way, but oh, well!
+														//	shouldn' t have been coded that way, but oh, well!
 														$link = str_replace('/' . CORE_FOLDER . '/', '', $link);
 													} else {
 														$link = ' href="' . FULLWEBPATH . html_encode($link) . '"';
@@ -777,6 +833,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	define('OPTION_TYPE_CHECKBOX_ULLIST', 17);
 	define('OPTION_TYPE_HIDDEN', 18);
 	define('OPTION_TYPE_CLEARTEXTAREA', 19);
+	define('OPTION_TYPE_CHECKBOX_ARRAY_UL', 20);
 
 	function customOptions($optionHandler, $indent = "", $album = NULL, $showhide = false, $supportedOptions = NULL, $theme = false, $initial = 'none', $plugin = NULL) {
 		if (is_null($supportedOptions)) {
@@ -802,7 +859,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 
 			foreach ($options as $option) {
-				$descending = NULL;
+				$descending = $ul = NULL;
 				$row = $supportedOptions[$option];
 				if (false !== $i = stripos($option, chr(0))) {
 					$option = substr($option, 0, $i);
@@ -1032,25 +1089,73 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</td>
 							<?php
 							break;
+						case OPTION_TYPE_CHECKBOX_ARRAY_UL:
+							$ul = true;
 						case OPTION_TYPE_CHECKBOX_ARRAYLIST:
 							$behind = (isset($row['behind']) && $row['behind']);
+							if ($ul) {
+								$labelClass = 'displayinline';
+							} else {
+								$labelClass = 'checkboxlabel';
+							}
 							?>
 							<td class="option_value">
 								<div class="checkbox_array">
 									<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value="1" />
 									<?php
 									$setOptions = getSerializedArray($v);
-									foreach ($row['checkboxes'] as $display => $checkbox) {
-										$checked = in_array($checkbox, $setOptions);
-										if (is_numeric($display)) {
-											$display = $checkbox;
+									if ($ul) {
+										$first = array();
+										foreach ($row['checkboxes'] as $display => $checkbox) {
+											if (in_array($checkbox, $setOptions)) {
+												$first[$display] = $checkbox;
+												unset($row['checkboxes'][$display]);
+											}
 										}
-										$display = str_replace(' ', '&nbsp;', $display);
+										$row['checkboxes'] = $first + $row['checkboxes'];
 										?>
-										<label class="checkboxlabel">
-											<?php if ($behind) echo($display); ?>
-											<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"' . $disabled; ?> />
-											<?php if (!$behind) echo($display); ?>
+										<ul class="customchecklist">
+											<?php
+										}
+
+										foreach ($row['checkboxes'] as $display => $checkbox) {
+											$checked = in_array($checkbox, $setOptions);
+											if (is_numeric($display)) {
+												$display = $checkbox;
+											}
+											$display = str_replace(' ', '&nbsp;', $display);
+											if ($ul) {
+												?>
+												<li>
+													<?php
+												}
+												?>
+												<label class="<?php echo $labelClass; ?>">
+													<?php if ($behind) echo($display); ?>
+													<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"' . $disabled; ?> class="all_<?php echo $key; ?>"/>
+													<?php if (!$behind) echo($display); ?>
+												</label>
+												<?php
+												if ($ul) {
+													?>
+												</li>
+												<?php
+											}
+										}
+										if ($ul) {
+											?>
+										</ul>
+										<script type="text/javascript">
+											// <!-- <![CDATA[
+											function <?php echo $key; ?>_all() {
+												var check = $('#all_<?php echo $key; ?>').prop('checked');
+												$('.all_<?php echo $key; ?>').prop('checked', check);
+											}
+											// ]]> -->
+										</script>
+										<label class="floatright">
+											<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" />
+											<?php echo gettext('all'); ?>
 										</label>
 										<?php
 									}
@@ -1070,7 +1175,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										$display = $checkbox;
 									}
 									?>
-									<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'chkbox-' . postIndexEncode($checkbox); ?>" value="1" />
+									<input type = "hidden" name = "<?php echo CUSTOM_OPTION_PREFIX . 'chkbox-' . postIndexEncode($checkbox); ?>" value = "1" / >
 									<?php
 									if ($theme) {
 										$v = getThemeOption($checkbox, $album, $theme);
@@ -1091,11 +1196,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 								}
 								?>
-								<ul class="customchecklist">
-									<?php
-									generateUnorderedListFromArray($cvarray, $cvarray, '', '', true, true, 'all_' . $key);
-									generateUnorderedListFromArray(array(), $rest, '', '', true, true, 'all_' . $key);
-									?>
+											 <ul class="customchecklist" >
+												 <?php
+												 generateUnorderedListFromArray($cvarray, $cvarray, '', '', true, true, 'all_' . $key);
+												 generateUnorderedListFromArray(array(), $rest, '', '', true, true, 'all_' . $key);
+												 ?>
 								</ul>
 								<script type="text/javascript">
 									// <!-- <![CDATA[
@@ -1105,7 +1210,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 									// ]]> -->
 								</script>
-								<label>
+								<label class="floatright">
 									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
 									<?php echo gettext('all'); ?>
 								</label>
@@ -1114,13 +1219,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 							break;
 						case OPTION_TYPE_CHECKBOX_ULLIST:
 							?>
-							<td class="option_value">
+							<td class="option_v								a						 lue">
 								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value="1" />
 								<?php
 								$setOptions = getSerializedArray($v);
 								$all = empty($setOptions);
 								?>
-								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value="1" />
+								< input type = "hidden" name = "<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value = "1" / >
 								<ul class="customchecklist">
 									<?php
 									foreach ($row['checkboxes'] as $display => $checkbox) {
@@ -1133,24 +1238,24 @@ function printAdminHeader($tab, $subtab = NULL) {
 											<label class="displayinline">
 												<input type="checkbox" id="__<?php echo $checkbox; ?>" class="all_<?php echo $key; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if (in_array($checkbox, $setOptions)) echo ' checked="checked"'; ?><?php echo $disabled; ?> />
 												<?php echo($display); ?>
-											</label>
+											</label				>
 										</li>
 										<?php
 									}
 									?>
-								</ul>
-								<script type="text/javascript">
-									// <!-- <![CDATA[
-									function <?php echo $key; ?>_all() {
-										var check = $('#all_<?php echo $key; ?>').prop('checked');
-										$('.all_<?php echo $key; ?>').prop('checked', check);
-									}
-									// ]]> -->
-								</script>
-								<label>
-									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
-									<?php echo gettext('all'); ?>
-								</label>
+									<					 /ul>
+									<script type="text/javascript">
+										// <!-- <![CDATA[
+										function <?php echo $key; ?>_all() {
+											var check = $('#all_<?php echo $key; ?>').prop('checked');
+											$('.all_<?php echo $key; ?>').prop('checked', check);
+										}
+										// ]]> -->
+									</script>
+									<label class="floatright">
+										<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
+										<?php echo gettext('all'); ?>
+									</label>
 							</td>
 							<?php
 							break;
@@ -1766,61 +1871,36 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<input type="hidden" name="password_enabled<?php echo $suffix; ?>" id="password_enabled<?php echo $suffix; ?>" value="0" />
 		<?php
 		if ($buttons) {
+			$parent = dirname($album->name);
+			if ($parent == '/' || $parent == '.' || empty($parent)) {
+				$parent = '';
+			} else {
+				$parent = '&amp;album=' . $parent . '&tab=subalbuminfo';
+			}
+			if (isset($_GET['subpage']) && !is_numeric($_GET['subpage'])) {
+				if (isset($_GET['i'])) {
+					$image = newImage($album, sanitize($_GET['i']));
+					$backbutton = $image->getLink();
+				} else {
+					$backbutton = $album->getLink();
+				}
+			} else {
+				$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
+			}
+			applyButton(array('buttonClass' => 'serialize'));
+			resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
 			?>
-			<span>
+			<div class="floatright">
 				<?php
-				$parent = dirname($album->name);
-				if ($parent == '/' || $parent == '.' || empty($parent)) {
-					$parent = '';
-				} else {
-					$parent = '&amp;album=' . $parent . '&tab=subalbuminfo';
-				}
-				if (isset($_GET['subpage']) && !is_numeric($_GET['subpage'])) {
-					if (isset($_GET['i'])) {
-						$image = newImage($album, sanitize($_GET['i']));
-						$backbutton = $image->getLink();
-					} else {
-						$backbutton = $album->getLink();
-					}
-				} else {
-					$backbutton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
-				}
-				?>
-				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
-					<?php echo BACK_ARROW_BLUE; ?>
-					<strong><?php echo gettext("Back"); ?></strong>
-				</button>
-				<button class="buttons" type="submit">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();" >
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
-
-				<div class="floatright">
-					<?php
+				if (!$album->isDynamic()) {
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
 					if (!$album->isDynamic()) {
-						?>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New subalbum'); ?></strong>
-						</button>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
-						</button>
-						<?php
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
 					}
-					?>
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
-						<strong><?php echo gettext('View'); ?></strong>
-					</button>
-				</div>
-
-			</span>
+				}
+				viewButton(array('buttonLink' => $album->getLink()));
+				?>
+			</div>
 			<br class="clearall">
 			<br />
 			<?php
@@ -2186,9 +2266,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 									<?php
 									if ($showThumb) {
 										?>
-										<script type="text/javascript">
-											// <!-- <![CDATA[
-											updateThumbPreview(document.getElementById('thumbselect'));
+										<script type="text																	/javascript">
+											// <																	!-- <![CDATA[
+											updateThumbPreview(document.getElementById('th																umbselect'));
 											// ]]> -->
 										</script>
 										<?php
@@ -2371,7 +2451,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							});
 							// ]]> -->
 						</script>
-						<br class="clearall">
+						<br class=																"clearall">
 
 						<hr>
 
@@ -2454,11 +2534,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<div class="deletemsg" id="deletemsg<?php echo $prefix; ?>" class="resetHide"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
-							<p class="buttons">
-								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Cancel"); ?>
-								</button>
+							<p>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>movecopydiv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -2494,29 +2571,25 @@ function printAdminHeader($tab, $subtab = NULL) {
 								?>
 							</select>
 
-							<p class="buttons">
-								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Cancel"); ?>
-								</button>
+							<p>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>renamediv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
 							<?php echo gettext("to:"); ?>
 							<input name="a-<?php echo $prefix; ?>renameto" type="text" value="<?php echo basename($album->name); ?>"/>
-							<p class="buttons">
-								<button class="buttons" type="button"	onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Cancel"); ?>
-								</button>
+							<p>
+								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
-						<div class="clearall" ></div>
+						<br clear="all">
 						<?php
-						echo npgFilters::apply('edit_album_utilities', ' ', $album, $prefix);
+						if ($pluginoutput = npgFilters::apply('edit_album_utilities', '', $album, $prefix)) {
+							echo $pluginoutput;
+						}
 						printAlbumButtons($album);
 						?>
-						<span class="clearall" ></span>
+						<br clear="all">
 					</div>
 				</div>
 			</div>
@@ -2526,43 +2599,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<br />
 		<?php
 		if ($buttons) {
+
+			applyButton();
+			resetButton(array('buttonClick' => "$('.deletemsg').hide();"));
 			?>
-			<span class="buttons">
-				<button class="buttons" type="button" onclick="window.location = '<?php echo $backbutton ?>'">
-					<?php echo BACK_ARROW_BLUE; ?>
-					<strong><?php echo gettext("Back"); ?></strong>
-				</button>
-				<button class="buttons" type="submit">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" onclick="$('.deletemsg').hide();">
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
-				<div class="floatright">
-					<?php
+			<div class="floatright">
+				<?php
+				if (!$album->isDynamic()) {
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
 					if (!$album->isDynamic()) {
-						?>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New subalbum'); ?></strong>
-						</button>
-						<?php if (!$album->isDynamic()) { ?>
-							<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<?php echo FOLDER_ICON; ?>
-								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
-							</button>
-							<?php
-						}
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", addslashes(gettext('New dynamic subalbum'))));
 					}
-					?>
-					<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-						<span style="vertical-align: -2px"><?php echo BULLSEYE_BLUE; ?></span>
-						<strong><?php echo gettext('View'); ?></strong>
-					</button>
-				</div>
-			</span>
+				}
+				viewButton(array('buttonLink' => $album->getLink()));
+				?>
+			</div>
 			<br class="clearall">
 			<?php
 		}
@@ -2577,35 +2628,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function printAlbumButtons($album) {
 		if ($imagcount = $album->getNumImages() > 0) {
+			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitloe' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
 			?>
-			<div class="button buttons tooltip" title="<?php echo addslashes(gettext("Clears the album’s cached images.")); ?>">
-				<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('clear_cache'); ?>">
-					<?php echo WASTEBASKET; ?>
-					<?php echo gettext('Clear album image cache'); ?></a>
-				<br class="clearall">
-			</div>
+			<br /><br />
 			<?php
 			if (extensionEnabled('hitcounter')) {
+				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
 				?>
-				<div class="button buttons tooltip" title="<?php echo gettext("Resets album’s hit counters."); ?>">
-					<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID(); ?>&amp;XSRFToken=<?php echo getXSRFToken('hitcounter'); ?>">
-						<?php echo RECYCLE_ICON; ?>
-						<?php echo gettext('Reset album hit counters'); ?></a>
-					<br class="clearall">
-				</div>
+				<br /><br />
 				<?php
 			}
 		}
 		if ($imagcount || (!$album->isDynamic() && $album->getNumAlbums())) {
-			?>
-			<div class="button buttons tooltip" title="<?php echo gettext("Refreshes the metadata for the album."); ?>">
-				<a href="<?php echo getAdminLink('utilities/refresh-metadata.php'); ?>?album=<?php echo html_encode($album->name); ?>&amp;return=<?php echo html_encode($album->name); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh'); ?>">
-					<?php echo CIRCLED_BLUE_STAR; ?>
-					<?php echo gettext('Refresh album metadata'); ?>
-				</a>
-				<br class="clearall">
-			</div>
-			<?php
+			npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Refresh album metadata'), array('buttonLink' => getAdminLink('utilities/refresh-metadata.php') . '?album=' . html_encode($album->name) . '&amp;return=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('refresh'), 'buttonTitle' => gettext("Refreshes the metadata for the album."), 'buttonClass' => 'fixedwidth'));
 		}
 	}
 
@@ -3085,7 +3120,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$notify = '&noaction';
 		}
 
-		// Move/Copy/Rename the album after saving.
+// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
 		if (isset($_POST['a-' . $prefix . 'MoveCopyRename'])) {
 			$movecopyrename_action = sanitize($_POST['a-' . $prefix . 'MoveCopyRename'], 3);
@@ -3103,7 +3138,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		if ($movecopyrename_action == 'move') {
 			$dest = sanitize_path($_POST['a' . $prefix . '-albumselect']);
-			// Append the album name.
+// Append the album name.
 			$dest = ($dest ? $dest . '/' : '') . (strpos($album->name, '/') === FALSE ? $album->name : basename($album->name));
 			if ($dest && $dest != $album->name) {
 				if ($suffix = $album->isDynamic()) { // be sure there is a .alb suffix
@@ -3117,7 +3152,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$redirectto = $dest;
 				}
 			} else {
-				// Cannot move album to same album.
+// Cannot move album to same album.
 				$notify = "&mcrerr=3";
 			}
 		} else if ($movecopyrename_action == 'copy') {
@@ -3127,8 +3162,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$notify = "&mcrerr=" . $e;
 				}
 			} else {
-				// Cannot copy album to existing album.
-				// Or, copy with rename?
+// Cannot copy album to existing album.
+// Or, copy with rename?
 				$notify = '&mcrerr=3';
 			}
 		} else if ($movecopyrename_action == 'rename') {
@@ -3286,7 +3321,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 
 		if ($multi && !empty($activelang)) {
-			// put the language list in perferred order
+// put the language list in perferred order
 			$preferred = array();
 			if ($_current_locale) {
 				$preferred[] = $_current_locale;
@@ -3442,7 +3477,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $file the file to zip
 	 */
 	function putZip($zipname, $file) {
-		//we are dealing with file system items, convert the names
+//we are dealing with file system items, convert the names
 		$fileFS = internalToFilesystem($file);
 		if (class_exists('ZipArchive')) {
 			$zipfileFS = tempnam('', 'zip');
@@ -3460,7 +3495,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			header("Content-Transfer-Encoding: binary");
 			header("Content-Length: " . filesize($zipfileFS));
 			readfile($zipfileFS);
-			// remove zip file from temp path
+// remove zip file from temp path
 			unlink($zipfileFS);
 		} else {
 			include_once(CORE_SERVERPATH . 'lib-zipStream.php');
@@ -3623,30 +3658,30 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$source = SERVERPATH . '/themes/' . internalToFilesystem($source);
 		$target = SERVERPATH . '/themes/' . internalToFilesystem($target);
 
-		// If the target theme already exists, nothing to do.
+// If the target theme already exists, nothing to do.
 		if (is_dir($target)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Directory “%s” already exists!'), basename($target));
 		}
 
-		// If source dir is missing, exit too
+// If source dir is missing, exit too
 		if (!is_dir($source)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Cannot find theme directory “%s” to copy!'), basename($source));
 		}
 
-		// We must be able to write to the themes dir.
+// We must be able to write to the themes dir.
 		if (!is_writable(dirname($target))) {
 			return gettext('Cannot create new theme.') . ' ' . gettext('The <tt>/themes</tt> directory is not writable!');
 		}
 
-		// We must be able to create the directory
+// We must be able to create the directory
 		if (!mkdir($target, FOLDER_MOD)) {
 			return gettext('Cannot create new theme.') . ' ' . gettext('Could not create directory for the new theme');
 		}
 		@chmod($target, FOLDER_MOD);
 		$source_files = listDirectoryFiles($source);
 
-		// Determine nested (sub)directories structure to create: go through each file, explode path on "/"
-		// and collect every unique directory
+// Determine nested (sub)directories structure to create: go through each file, explode path on "/"
+// and collect every unique directory
 		$dirs_to_create = array();
 		foreach ($source_files as $path) {
 			$path = explode('/', dirname(str_replace($source . '/', '', $path)));
@@ -3660,13 +3695,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 		}
 
-		// Create new directory structure
+// Create new directory structure
 		foreach ($dirs_to_create as $dir) {
 			mkdir("$target/$dir", FOLDER_MOD);
 			@chmod("$target/$dir", FOLDER_MOD);
 		}
 
-		// Now copy every file
+// Now copy every file
 		foreach ($source_files as $file) {
 			$newfile = str_replace($source, $target, $file);
 			if (!copy("$file", "$newfile"))
@@ -3674,7 +3709,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			@chmod("$newfile", FOLDER_MOD);
 		}
 
-		// Rewrite the theme header.
+// Rewrite the theme header.
 		if (file_exists($target . '/theme_description.php')) {
 			$theme_description = array();
 			require($target . '/theme_description.php');
@@ -3705,7 +3740,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$message = gettext('New custom theme created, but its description could not be updated');
 		}
 
-		// Make a slightly custom theme image
+// Make a slightly custom theme image
 		if (file_exists("$target/theme.png"))
 			$themeimage = "$target/theme.png";
 		else if (file_exists("$target/theme.gif"))
@@ -3721,17 +3756,17 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$text = "CUSTOM COPY";
 				$font = gl_imageLoadFont();
 				$ink = gl_colorAllocate($im, 0x0ff, 0x0ff, 0x0ff);
-				// create a blueish overlay
+// create a blueish overlay
 				$overlay = gl_createImage(gl_imageWidth($im), gl_imageHeight($im));
 				$back = gl_colorAllocate($overlay, 0x060, 0x060, 0x090);
 				gl_imageFill($overlay, 0, 0, $back);
-				// Merge theme image and overlay
+// Merge theme image and overlay
 				gl_imageMerge($im, $overlay, 0, 0, 0, 0, gl_imageWidth($im), gl_imageHeight($im), 45);
-				// Add text
+// Add text
 				gl_writeString($im, $font, $x - 1, $y - 1, $text, $ink);
 				gl_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
 				gl_writeString($im, $font, $x, $y, $text, $ink);
-				// Save new theme image
+// Save new theme image
 				gl_imageOutputt($im, 'png', $themeimage);
 			}
 		}
@@ -4212,8 +4247,9 @@ function getCheckboxState($id) {
  */
 function standardScripts($optional = array('register', 'contact')) {
 	$standardlist = array_merge($optional, array('themeoptions', 'theme_description', '404', 'slideshow', 'search', 'image', 'index', 'album', 'functions', 'password', 'archive', 'gallery', 'favorites'));
-	if (class_exists('CMS'))
+	if (class_exists('CMS')) {
 		$standardlist = array_merge($standardlist, array('news', 'pages'));
+	}
 	return $standardlist;
 }
 
@@ -5093,7 +5129,7 @@ function admin_securityChecks($rights, $return) {
 	$returnurl = urldecode($return);
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
-		// prevent nefarious access to this page.
+// prevent nefarious access to this page.
 		$uri = mb_parse_url($returnurl);
 		$redirect = getAdminLink('admin.php') . '?from=' . $uri['path'];
 		header("HTTP/1.0 302 Found");
@@ -5232,7 +5268,7 @@ function parseDMS($geoString) {
 }
 
 /**
- * changes zenpage titlelink suffixes from $old to $new
+ * changes CMS titlelink suffixes from $old to $new
  *
  * @param type $old
  * @param type $new
@@ -5243,6 +5279,7 @@ function migrateTitleLinks($old, $new) {
 	} else {
 		$sql2 = ' WHERE `titlelink` NOT LIKE ' . db_quote('%' . db_LIKE_escape($new));
 	}
+	$count = 0;
 	foreach (array('pages', 'news') as $table) {
 		$sql = 'SELECT `id`,`titlelink` FROM ' . prefix($table) . $sql2;
 		$result = query($sql);
@@ -5251,13 +5288,16 @@ function migrateTitleLinks($old, $new) {
 				$oldlink = $titlelink = $row['titlelink'];
 				$titlelink = substr($titlelink, 0, strlen($titlelink) - strlen($old)) . $new;
 				$sql = 'UPDATE ' . prefix($table) . ' SET `titlelink`=' . db_quote($titlelink) . ' WHERE `id`=' . $row['id'];
-				if (!query($sql, false)) {
+				if (query($sql, false)) {
+					$count++;
+				} else {
 					//there may be duplicated titlelinks, if so no change
 					debugLog(sprintf(gettext('%1$s:%2$s not changed to %3$s (duplicate titlelink.)'), $table, $oldlink, $titlelink));
 				}
 			}
 		}
 	}
+	return $count;
 }
 
 /**
@@ -5899,7 +5939,7 @@ function pickSource($obj) {
 
 function linkPickerItem($obj, $id) {
 	?>
-	<input type="text" name="<?php echo $id; ?>" id="<?php echo $id; ?>" value="<?php echo FULLHOSTPATH . $obj->getLink(); ?>" READONLY title="<?php echo gettext('You can also copy the link to your clipboard to paste elsewhere'); ?>" style="width:90%;" />
+	<input type="text" name="<?php echo $id; ?>" id="<?php echo $id; ?>" value="<?php echo FULLHOSTPATH . $obj->getLink(); ?>" READONLY title="<?php echo gettext('You can also copy the link to your clipboard to paste elsewhere'); ?>" style="width:95%;" />
 	<?php
 }
 
@@ -6018,7 +6058,7 @@ function curlDL($fileUrl, $saveTo) {
 		throw new Exception(sprintf(gettext('Could not create: %1$s') . $saveTo . '/' . basename($fileUrl)));
 	}
 
-	//Create a cURL handle.
+//Create a cURL handle.
 	$ch = curl_init($fileUrl);
 	curl_setopt_array($ch, array(
 			CURLOPT_FILE => $fp, //Pass file handle to cURL.
@@ -6026,21 +6066,21 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-	//Execute the request.
+//Execute the request.
 	curl_exec($ch);
 
-	//If there was an error, throw an Exception
+//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-	//Get the HTTP status code.
+//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	//Close the cURL handler.
+//Close the cURL handler.
 	curl_close($ch);
 
-	//Close the file handle.
+//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {

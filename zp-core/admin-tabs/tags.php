@@ -233,76 +233,168 @@ printAdminHeader('admin');
 				<option value="recent" <?php if ($tagsort == 'recent') echo ' selected="selected"'; ?>><?php echo gettext('Most recent'); ?></option>
 				<option value="private" <?php if ($tagsort == 'private') echo ' selected="selected"'; ?>><?php echo gettext('Private first'); ?></option>
 			</select>
-			<div class="buttons floatright">
-				<button class="buttons" type="reset" onclick="$('#tag_action_form').trigger('reset');
+			<div floatright" style="padding-bottom: 5px;">
+			<?php resetButton(array('buttonText' => CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset"), 'buttonClick' => "$('#tag_action_form').trigger('reset');
 						$('#form_tagrename').trigger('reset');
-						$('#form_newtags').trigger('reset');">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+						$('#form_newtags').trigger('reset');")); ?>
+		</div>
+
+		<br class="clearall">
+		<p class="notebox">
+			<?php echo gettext('Indented tags are language translations of the superior (master) tag. If you delete a master tag, the language translations will also be deleted.'); ?>
+		</p>
+		<div class="tabbox">
+			<div class="floatleft">
+				<h2 class="h2_bordered_edit"><?php echo gettext("Tags"); ?>
+					<label id="autocheck" style="float:right">
+						<input type="checkbox" name="checkAllAuto" id="checkAllAuto" onclick="$('.checkTagsAuto').prop('checked', $('#checkAllAuto').prop('checked'));"/>
+						<span id="autotext"><?php echo gettext('all'); ?></span>
+					</label>
+				</h2>
+				<form onReset="setClean('tag_action_form');" name="tag_action_form" id="tag_action_form" action="?action=tag_action&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
+					<?php XSRFToken('tag_action'); ?>
+					<input type="hidden" name="tag_action" id="tag_action" value="delete" />
+					<div class="box-tags-unpadded">
+						<?php
+						tagSelector(NULL, 'tags_', true, $tagsort, false);
+						$list = $_admin_ordered_taglist;
+						?>
+					</div>
+
+					<p>
+						<?php npgButton('button', WASTEBASKET . ' ' . gettext("Delete checked tags"), array('buttonClick' => "$('#tag_action').val('delete');	this.form.submit();")); ?>
+					</p>
+					<p>
+						<?php npgButton('button', LOCK . ' ' . gettext("Mark checked tags private"), array('buttonClick' => "$('#tag_action').val('private');	this.form.submit();")); ?>
+					</p>
+					<p>
+						<?php npgButton('button', LOCK_OPEN . ' ' . gettext("Mark checked tags public"), array('buttonClick' => "$('#tag_action').val('notprivate');	this.form.submit();")); ?>
+					</p>
+
+					<?php
+					if (getOption('multi_lingual')) {
+						npgButton('button', ARROW_RIGHT_BLUE . ' ' . gettext("Assign to"), array('buttonTitle' => gettext('Assign tags to selected language'), 'buttonLink' => "$('#tag_action').val('assign');	this.form.submit();"))
+						?>
+						<span style="line-height: 35px;">
+							<select name="language" id="language" class="ignoredirty" >
+								<option value=""><?php echo gettext('Universal'); ?></option>
+								<?php
+								foreach ($_active_languages as $text => $lang) {
+									?>
+									<option value="<?php echo $lang; ?>"><?php echo html_encode($text); ?></option>
+									<?php
+								}
+								?>
+							</select>
+						</span>
+						<?php
+					} else {
+						?>
+						<input type="hidden" name="language" value="" />
+						<?php
+					}
+					?>
+					<div class="clearall"></div>
+				</form>
+
+				<div class="tagtext"<?php if (getOption('multi_lingual')) echo ' style="margin-top: 5px;"'; ?>>
+					<p><?php
+						echo gettext('Place a checkmark in the box for each tag you wish to act upon then press the appropriate button. The brackets contain the number of times the tag appears.');
+						echo gettext('Tags that are <span class="privatetag">highlighted</span> are private.');
+						?></p>
+				</div>
 			</div>
 
-			<br class="clearall">
-			<p class="notebox">
-				<?php echo gettext('Indented tags are language translations of the superior (master) tag. If you delete a master tag, the language translations will also be deleted.'); ?>
-			</p>
-			<div class="tabbox">
-				<div class="floatleft">
-					<h2 class="h2_bordered_edit"><?php echo gettext("Tags"); ?>
-						<label id="autocheck" style="float:right">
-							<input type="checkbox" name="checkAllAuto" id="checkAllAuto" onclick="$('.checkTagsAuto').prop('checked', $('#checkAllAuto').prop('checked'));"/>
-							<span id="autotext"><?php echo gettext('all'); ?></span>
-						</label>
-					</h2>
-					<form onReset="setClean('tag_action_form');" name="tag_action_form" id="tag_action_form" action="?action=tag_action&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
-						<?php XSRFToken('tag_action'); ?>
-						<input type="hidden" name="tag_action" id="tag_action" value="delete" />
-						<div class="box-tags-unpadded">
+			<div class="floatleft">
+				<h2 class="h2_bordered_edit"><?php echo gettext("Rename tags"); ?></h2>
+				<form class="dirtylistening" onReset="setClean('form_tagrename');" name="tag_rename" id="form_tagrename" action="?action=rename&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
+					<?php XSRFToken('tag_rename'); ?>
+					<div class="box-tags-unpadded">
+						<ul class="tagrenamelist">
 							<?php
-							tagSelector(NULL, 'tags_', true, $tagsort, false);
-							$list = $_admin_ordered_taglist;
-							?>
-						</div>
-
-						<p class="buttons">
-							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('delete');	this.form.submit();">
-								<?php echo WASTEBASKET; ?>
-								<?php echo gettext("Delete checked tags"); ?>
-							</button>
-						</p>
-						<p class="buttons">
-							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('private');	this.form.submit();">
-								<?php echo LOCK; ?>
-								<?php echo gettext("Mark checked tags private"); ?>
-							</button>
-						</p>
-						<p class="buttons">
-							<button class="buttons" type="button" id="delete_tags" onclick="$('#tag_action').val('notprivate');	this.form.submit();">
-								<?php echo LOCK_OPEN; ?>
-								<?php echo gettext("Mark checked tags public"); ?>
-							</button>
-						</p>
-
-						<?php
-						if (getOption('multi_lingual')) {
-							?>
-							<span class="buttons">
-								<button class="buttons" type="button" id="assign_tags" onclick="$('#tag_action').val('assign');	this.form.submit();" title="<?php echo gettext('Assign tags to selected language'); ?>">
-									<?php echo ARROW_RIGHT_BLUE; ?>
-									<?php echo gettext('Assign to'); ?>
-								</button>
-								<span style="line-height: 35px;">
-									<select name="language" id="language" class="ignoredirty" >
-										<option value=""><?php echo gettext('Universal'); ?></option>
+							foreach ($list as $tagitem) {
+								$item = $tagitem['tag'];
+								?>
+								<li>
+									<span class="nowrap">
 										<?php
-										foreach ($_active_languages as $text => $lang) {
+										if ($lang = $tagitem['lang']) {
 											?>
-											<option value="<?php echo $lang; ?>"><?php echo html_encode($text); ?></option>
+											<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
 											<?php
 										}
 										?>
-									</select>
-								</span>
+										<input name="newname[]" type="text" size='33' value="<?php echo $item; ?>" />
+									</span>
+									<input type="hidden" name="oldname[]" value="<?php echo $item; ?>">
+									<input type="hidden" name="language[]" value="<?php echo html_encode($lang); ?>" />
+
+									<?php
+									if (is_array($tagitem['subtags'])) {
+										$itemarray = $tagitem['subtags'];
+										ksort($itemarray);
+										foreach ($itemarray as $lang => $tagitem) {
+											$tag = $tagitem['tag'];
+											?>
+											<span class="nowrap">
+												&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
+												<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
+											</span>
+											<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">
+											<input type="hidden" name="language[]" value="<?php echo html_encode($lang); ?>" />
+											<?php
+										}
+									}
+									?>
+								</li>
+								<?php
+							}
+							?>
+						</ul>
+					</div>
+					<p>" >
+						<?php applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext("Rename tags"))); ?>
+					</p>
+				</form>
+
+				<div class="tagtext">
+					<p><?php echo gettext('To change the value of a tag enter a new value in the text box below the tag. Then press the <em>Rename tags</em> button'); ?></p>
+				</div>
+			</div>
+
+			<div class="floatleft">
+				<h2 class="h2_bordered_edit"><?php echo gettext("New tags"); ?></h2>
+				<form class="dirtylistening" onReset="setClean('form_newtags');"  name="new_tags" id="form_newtags" action="?action=newtags&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
+					<?php XSRFToken('new_tags'); ?>
+					<div class="box-tags-unpadded">
+						<ul class="tagnewlist">
+							<?php
+							for ($i = 0; $i < 40; $i++) {
+								?>
+								<li>
+									<input name="new_tag[]" type="text" size='33'/>
+								</li>
+								<?php
+							}
+							?>
+						</ul>
+					</div>
+					<span <?php if (getOption('multi_lingual')) echo ' style = "padding-bottom: 25px;"'; ?>>
+						<?php
+						applyButton(array('buttonText' => PLUS_ICON . ' ' . gettext("Add tags")));
+						if (getOption('multi_lingual')) {
+							?>
+							<span style="line-height: 35px;">
+								<select name="language" id="language" class="ignoredirty">
+									<option value="" selected="language"><?php echo gettext('Universal'); ?></option>
+									<?php
+									foreach ($_active_languages as $text => $lang) {
+										?>
+										<option value="<?php echo $lang; ?>" ><?php echo html_encode($text); ?></option>
+										<?php
+									}
+									?>
+								</select>
 							</span>
 							<?php
 						} else {
@@ -311,143 +403,27 @@ printAdminHeader('admin');
 							<?php
 						}
 						?>
-						<div class="clearall"></div>
-					</form>
+					</span>
+					<div class="clearall"></div>
+				</form>
 
-					<div class="tagtext"<?php if (getOption('multi_lingual')) echo ' style="margin-top: 5px;"'; ?>>
-						<p><?php
-							echo gettext('Place a checkmark in the box for each tag you wish to act upon then press the appropriate button. The brackets contain the number of times the tag appears.');
-							echo gettext('Tags that are <span class="privatetag">highlighted</span> are private.');
-							?></p>
-					</div>
+				<div class="tagtext" style="padding-top: 7px;">
+					<p><?php
+						echo gettext("Add tags to the list by entering their names in the input fields of the <em>New tags</em> list. Then press the <em>Add tags</em> button.");
+						if (getOption('multi_lingual')) {
+							echo ' ' . gettext('You can assign a language to the tags with the language selector.');
+						}
+						?></p>
 				</div>
-
-				<div class="floatleft">
-					<h2 class="h2_bordered_edit"><?php echo gettext("Rename tags"); ?></h2>
-					<form class="dirtylistening" onReset="setClean('form_tagrename');" name="tag_rename" id="form_tagrename" action="?action=rename&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
-						<?php XSRFToken('tag_rename'); ?>
-						<div class="box-tags-unpadded">
-							<ul class="tagrenamelist">
-								<?php
-								foreach ($list as $tagitem) {
-									$item = $tagitem['tag'];
-									?>
-									<li>
-										<span class="nowrap">
-											<?php
-											if ($lang = $tagitem['lang']) {
-												?>
-												<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
-												<?php
-											}
-											?>
-											<input name="newname[]" type="text" size='33' value="<?php echo $item; ?>" />
-										</span>
-										<input type="hidden" name="oldname[]" value="<?php echo $item; ?>">
-										<input type="hidden" name="language[]" value="<?php echo html_encode($lang); ?>" />
-
-										<?php
-										if (is_array($tagitem['subtags'])) {
-											$itemarray = $tagitem['subtags'];
-											ksort($itemarray);
-											foreach ($itemarray as $lang => $tagitem) {
-												$tag = $tagitem['tag'];
-												?>
-												<span class="nowrap">
-													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
-													<input name="newname[]" type="text" size='33' value="<?php echo $tag; ?>"/>
-												</span>
-												<input type="hidden" name="oldname[]" value="<?php echo $tag; ?>">
-												<input type="hidden" name="language[]" value="<?php echo html_encode($lang); ?>" />
-												<?php
-											}
-										}
-										?>
-									</li>
-									<?php
-								}
-								?>
-							</ul>
-						</div>
-						<p class="buttons" >
-							<button class="buttons" type="submit" id='rename_tags' value="<?php echo gettext("Rename tags"); ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<?php echo gettext("Rename tags"); ?>
-							</button>
-						</p>
-					</form>
-
-					<div class="tagtext">
-						<p><?php echo gettext('To change the value of a tag enter a new value in the text box below the tag. Then press the <em>Rename tags</em> button'); ?></p>
-					</div>
-				</div>
-
-				<div class="floatleft">
-					<h2 class="h2_bordered_edit"><?php echo gettext("New tags"); ?></h2>
-					<form class="dirtylistening" onReset="setClean('form_newtags');"  name="new_tags" id="form_newtags" action="?action=newtags&amp;tagsort=<?php echo html_encode($tagsort); ?>" method="post" autocomplete="off" >
-						<?php XSRFToken('new_tags'); ?>
-						<div class="box-tags-unpadded">
-							<ul class="tagnewlist">
-								<?php
-								for ($i = 0; $i < 40; $i++) {
-									?>
-									<li>
-										<input name="new_tag[]" type="text" size='33'/>
-									</li>
-									<?php
-								}
-								?>
-							</ul>
-						</div>
-						<span class="buttons"<?php if (getOption('multi_lingual')) echo ' style="padding-bottom: 25px;"'; ?>>
-							<button class="buttons" type="submit" id='save_tags' value="<?php echo gettext("Add tags"); ?>">
-								<?php echo PLUS_ICON; ?>
-								<?php echo gettext("Add tags"); ?>
-							</button>
-
-							<?php
-							if (getOption('multi_lingual')) {
-								?>
-								<span style="line-height: 35px;">
-									<select name="language" id="language" class="ignoredirty">
-										<option value="" selected="language"><?php echo gettext('Universal'); ?></option>
-										<?php
-										foreach ($_active_languages as $text => $lang) {
-											?>
-											<option value="<?php echo $lang; ?>" ><?php echo html_encode($text); ?></option>
-											<?php
-										}
-										?>
-									</select>
-								</span>
-								<?php
-							} else {
-								?>
-								<input type="hidden" name="language" value="" />
-								<?php
-							}
-							?>
-						</span>
-						<div class="clearall"></div>
-					</form>
-
-					<div class="tagtext" style="padding-top: 7px;">
-						<p><?php
-							echo gettext("Add tags to the list by entering their names in the input fields of the <em>New tags</em> list. Then press the <em>Add tags</em> button.");
-							if (getOption('multi_lingual')) {
-								echo ' ' . gettext('You can assign a language to the tags with the language selector.');
-							}
-							?></p>
-					</div>
-				</div>
-				<br class="clearall">
 			</div>
-
+			<br class="clearall">
 		</div>
-		<?php
-		printAdminFooter();
-		?>
+
 	</div>
+	<?php
+	printAdminFooter();
+	?>
+</div>
 </body>
 </html>
 

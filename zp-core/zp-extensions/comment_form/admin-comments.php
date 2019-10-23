@@ -130,26 +130,17 @@ printLogoAndLinks();
 						<form class="dirtylistening" onReset="setClean('form_editcomment');" id="form_editcomment" action="?action=savecomment" method="post" autocomplete="off">
 							<?php XSRFToken('savecomment'); ?>
 							<input	type="hidden" name="id" value="<?php echo $id; ?>" />
-							<span class="buttons">
-								<p class="buttons" style="margin-top: 10px">
-									<button class="buttons" type="submit">
-										<?php echo CHECKMARK_GREEN; ?>
-										<strong><?php echo gettext("Apply"); ?></strong>
-									</button>
 
-									<button class="buttons" type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>'">
-										<?php echo CROSS_MARK_RED_LARGE; ?>
-										<strong><?php echo gettext("Cancel"); ?></strong>
-									</button>
+							<p>" style="margin-top: 10px">
+								<?php
+								applyButton();
+								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'), 'buttonTitle' => gettext("Cancel")));
+								npgButton('button', WASTEBASKET . ' ' . gettext("Delete"), array('buttonTitle' => gettext("Delete"), 'buttonClick' => "if (confirm('" . gettext('Are you sure you want to delete this comment?') . "')) {
+												window.location = '" . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . "?action=deletecomment&id=" . $id . "&amp;XSRFToken=" . getXSRFToken('deletecomment') . "';
+														}"));
+								?>
+							</p>
 
-									<button class="buttons" type="button" title="<?php echo gettext("Delete"); ?>" onclick="if (confirm('<?php echo gettext('Are you sure you want to delete this comment?'); ?>')) {
-														window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?action=deletecomment&id=<?php echo $id; ?>&amp;XSRFToken=<?php echo getXSRFToken('deletecomment') ?>';
-																}">
-										<span style="vertical-align:1px;"><?php echo WASTEBASKET; ?></span>
-										<strong><?php echo gettext("Delete"); ?></strong>
-									</button>
-								</p>
-							</span>
 							<br style="clear:both" /><br />
 							<div class="commentformedit_fields">
 								<?php
@@ -228,7 +219,12 @@ printLogoAndLinks();
 										$status_anon = gettext('Comment is not anonymous');
 									}
 									?>
-									<p><?php echo $status_moderation; ?>. <div class="buttons"><a href="<?php echo $url_moderation; ?>&amp;XSRFToken=<?php echo getXSRFToken('comment_update') ?>" title="<?php echo $title_moderation; ?>" ><?php echo $linkimage; ?> <?php echo $link_moderation; ?></a></div></p>
+									<p>
+										<?php
+										echo $status_moderation;
+										npgButton('button', $linkimage . ' ' . $link_moderation, array('buttonLink' => $url_moderation . "&amp;XSRFToken=" . getXSRFToken('comment_update'), 'buttonTitle' => $title_moderation, 'buttonClass' => 'fixedwidth'));
+										?>
+									</p>
 									<br class="clearall">
 									<hr />
 									<p><?php echo $status_private; ?></p>
@@ -356,18 +352,9 @@ printLogoAndLinks();
 							</span>
 							<?php
 						}
+						applyButton();
+						npgButton('button', $arrow . ' ' . $msg, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?fulltext=' . $ft . $v . $p));
 						?>
-						<span class="buttons">
-							<button class="buttons" type="submit">
-								<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'); ?>?fulltext=<?php echo $ft . $v . $p; ?>'">
-								<?php
-								echo $arrow;
-								echo $msg;
-								?>
-							</button>
-						</span>
 						<br class="clearall"><br>
 						<table class="bordered">
 							<tr>
@@ -517,10 +504,10 @@ printLogoAndLinks();
 
 
 						</table>
-						<p class="buttons">
-							<button class="buttons" type="submit">
-								<?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?>
-							</button>
+						<p>
+							<?php
+							applyButton();
+							?>
 						</p>
 						<ul class="iconlegend">
 							<li>

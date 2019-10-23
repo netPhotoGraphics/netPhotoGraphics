@@ -43,8 +43,8 @@ echo "\n</head>";
 				if (!getOption('license_accepted')) {
 					$_SESSION['license_return'] = getRequestURI();
 					?>
-					<p class="buttons">
-						<a href="<?php echo getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('acceptLicense'); ?>" alt="<?php echo gettext('You must accept this license to continue to use netPhotoGraphics.'); ?>"><?php echo gettext('I agree to these terms and conditions'); ?></a>
+					<p>
+						<?php npgButton('button', gettext('I agree to these terms and conditions'), array('buttonLink' => getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('acceptLicense'))); ?>
 					</p>
 					<br class="clearall">
 					<?php

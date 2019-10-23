@@ -124,22 +124,13 @@ echo '</head>' . "\n";
 				</p>
 				<form action="?action=expiry&tab=expiry" class="dirtylistening" onReset="setClean('userExpiry_form');" id="userExpiry_form" method="post" autocomplete="off" >
 					<?php XSRFToken('expiry'); ?>
-					<span class="buttons">
-						<button class="buttons" type="submit">
-							<?php echo CHECKMARK_GREEN; ?>
-							<strong><?php echo gettext("Apply"); ?></strong>
-						</button>
-						<button class="buttons" type="reset">
-							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
-						<div class="floatright">
-							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry">
-								<?php echo OPTIONS_ICON; ?>
-								<strong><?php echo gettext('Options') ?></strong>
-							</a>
-						</div>
-					</span>
+					<?php
+					applyButton();
+					resetButton();
+					?>
+					<div class="floatright">
+						<?php npgButton('button', OPTIONS_ICON . ' ' . gettext('Options'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry')); ?>
+					</div>
 					<br class="clearall">
 					<br />
 					<ul class="fullchecklist">
@@ -255,15 +246,11 @@ echo '</head>' . "\n";
 						echo ENVELOPE . ' ' . gettext('Email renewal link');
 					}
 					?>
-					<p class="buttons">
-						<button class="buttons" type="submit">
-							<?php echo CHECKMARK_GREEN; ?>
-							<strong><?php echo gettext("Apply"); ?></strong>
-						</button>
-						<button class="buttons" type="reset">
-							<?php echo CLOCKWISE_OPEN_CIRCLE_ARROW_RED; ?>
-							<strong><?php echo gettext("Reset"); ?></strong>
-						</button>
+					<p>
+						<?php
+						applyButton();
+						resetButton();
+						?>
 					</p>
 					<br class="clearall">
 				</form>

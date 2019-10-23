@@ -404,6 +404,8 @@ textarea {
 	cursor: pointer;
 }
 .button {
+	cursor: pointer;
+	padding: 5px 10px;
 	color: #888;
 	background: #EEE;
 	border: 1px solid #DDD;
@@ -613,6 +615,11 @@ ul.archive .month {
 	margin-bottom: 1em;
 }
 
+.button {
+	cursor: pointer;
+	padding: 5px 10px;
+}
+
 label {
 	cursor: pointer;
 }
@@ -664,6 +671,11 @@ label:hover {
 #mailform input[type="text"],
 #commentform input[type="text"] {
 	width: 250px;
+}
+
+input.button {
+	padding: 5px 8px 5px 8px!important;
+	margin: 5px 0 0 0;
 }
 
 #mailform textarea,

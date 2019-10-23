@@ -1,55 +1,40 @@
 /* Pretty Buttons
 ------------------------------------- */
-.button, .buttons, .button button, .buttons button {
+
+.npgButton a, button.npgButton, input[type=submit].npgButton {
 	cursor: pointer;
-	font-size: 100%;
 	line-height: 130%;
 	padding-top: 5px !important;
 	padding-right: 5px !important;
-
-}
-
-.buttons button {
+	padding-bottom: 6px;
+	padding-Left: 7px;
+	border: 1px solid #dedede !important;
+	border-top: 1px solid #eee;
+	border-left: 1px solid #eee;
 	height: 35px;
 	text-decoration: none;
 	width: auto;
 	overflow: visible;
-}
-
-.button a, .buttons a, .button button .buttons button {
 	display: block;
 	float: left;
 	background-image: linear-gradient(rgb(254,254,254), rgb(224,224,224));
-	border: 1px solid #dedede !important;
-	border-top: 1px solid #eee;
-	border-left: 1px solid #eee;
-	font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size: 100%;
-	line-height: 130%;
-	height: 21px;
-	text-decoration: none;
-	font-weight: bold;
+	font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	color: #565656;
-	cursor: pointer;
-	padding: 5px 10px 6px 7px;
 	margin-right: 3px;
 }
 
-.button buttons, .buttons buttons  {
-	text-decoration: none;
-	width: auto;
-	overflow: visible;
-	padding: 4px 10px 3px 7px;
-	height: 34px;
+.npgButton a {
+	height: 22px !important;
 }
 
-.button button[type], .buttons button[type] {
-	text-decoration: none;
-	padding: 5px 10px 5px 7px;
-	line-height: 17px;
+.buttonText {
+	font-weight: bold;
+	padding-left: 5px !important;
+	padding-right: 5px !important;
 }
 
-.button a img, .buttons a img, .button button img, .buttons button img {
+.npgButton a img, button.npgButton img {
 	text-decoration: none;
 	margin: 0 3px -3px 0 !important;
 	padding: 0;
@@ -58,8 +43,8 @@
 	height: 16px;
 }
 
-/* standard buttons */
-button.buttons:hover, buttons:hover, .button a:hover, .buttons a:hover {
+/* standard npgButton */
+button.npgButton:hover, .npgButton:hover, .npgButton a:hover {
 	background-image: linear-gradient(rgb(244,244,244), rgb(214,214,214));
 	text-decoration: none;
 	border: 1px solid #CBCBCB;
@@ -67,37 +52,37 @@ button.buttons:hover, buttons:hover, .button a:hover, .buttons a:hover {
 	font-size: 100%;
 }
 
-.button a:active, .buttons a:active {
+.npgButton a:active {
 	text-decoration: none;
 	border: 1px solid #dedede;
 	color: #fff;
 }
 
-/* positive buttons */
-button.buttons.positive, buttons.positive, .button a.positive, .buttons a.positive {
+/* positive npgButton */
+button.npgButton.positive, .npgButton.positive, .npgButton a.positive {
 	text-decoration: none;
 	color: #529214;
 }
 
-button.buttons.positive:hover, buttons.positive:hover, .button a.positive:hover, .buttons a.positive:hover {
+button.npgButton.positive:hover, .npgButton.positive:hover, .npgButton a.positive:hover {
 	text-decoration: none;
 	border: 1px solid #f5f5f4;
 	color: #529214;
 }
 
-.button a.positive:active, .buttons a.positive:active {
+.npgButton a.positive:active {
 	text-decoration: none;
 	border: 1px solid #529214;
 	color: #fff;
 }
 
-/* negative buttons */
-button.buttons.negative, buttons.negative, .button a.negative, .buttons a.negative{
+/* negative npgButton */
+button.npgButton.negative, .npgButton.negative, .npgButton a.negative{
 	text-decoration: none;
 	color: #d12f19;
 }
 
-.button a.negative:hover, .buttons a.negative:hover, button.negative:hover, buttons.negative:hover {
+.npgButton a.negative:hover, button.negative:hover, .npgButton.negative:hover {
 	text-decoration: none;
 	background-image: none !important;
 	background-color: #fbe3e4;
@@ -105,7 +90,7 @@ button.buttons.negative, buttons.negative, .button a.negative, .buttons a.negati
 	color: #d12f19;
 }
 
-.button a.negative:active, .buttons a.negative:active {
+.npgButton a.negative:active {
 	text-decoration: none;
 	background-image: none !important;
 	background-color: #d12f19;
@@ -113,13 +98,19 @@ button.buttons.negative, buttons.negative, .button a.negative, .buttons a.negati
 	color: #fff;
 }
 
-.button .fixedwidth, .buttons .fixedwidth {
+.fixedwidth {
 	text-align: left;
-	width: 220px;
+	width: 220px !important;
+	margin-bottom: 5px;
+}
+.fillwidth {
+	text-align: left;
+	width: 90% !important;
+	margin-bottom: 5px;
 }
 
-/* disabled buttons */
-button.buttons:hover:disabled, .buttons:hover:disabled, .button a:hover:disabled, .buttons a:hover:disabled {
+/* disabled npgButton */
+button.npgButton:hover:disabled, .npgButton:hover:disabled, .npgButton a:hover:disabled {
 	text-decoration: none;
 	background-image: none !important;
 	background-color: #f5f5f5;
@@ -128,6 +119,6 @@ button.buttons:hover:disabled, .buttons:hover:disabled, .button a:hover:disabled
 	border-left: 1px solid #eee;
 }
 
-.button .disabled_button .buttons .disabled_button {
+.npgButton.disabled_button {
 	color: #c2c2c2;
 }

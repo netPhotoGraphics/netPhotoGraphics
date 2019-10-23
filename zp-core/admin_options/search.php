@@ -91,22 +91,18 @@ function getOptionContent() {
 	?>
 	<div id="tab_search" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="search" />
 			<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
 			<table>
 				<tr>
 					<td colspan="100%">
-						<p class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+						<p>
+							<?php
+							applyButton();
+							resetButton();
+							?>
 						</p>
 					</td>
 				</tr>
@@ -194,7 +190,7 @@ function getOptionContent() {
 											 name="disclose_password"
 											 id="disclose_password"
 											 onclick="passwordClear('');
-															 togglePassword('');" /><?php echo gettext('Show'); ?>
+													 togglePassword('');" /><?php echo gettext('Show'); ?>
 							</label>
 							<br />
 							<span class="password_field_">
@@ -305,8 +301,6 @@ function getOptionContent() {
 					<p>
 						<?php
 						echo gettext('default search');
-
-
 						generateRadiobuttonsFromArray(getOption('search_within'), array(gettext('<em>New</em>') => '0', gettext('<em>Within</em>') => '1'), 'search_within', 'search_within', false, false);
 						?>
 					</p>
@@ -616,15 +610,11 @@ function getOptionContent() {
 				?>
 				<tr>
 					<td colspan="100%">
-						<p class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
+						<p>
+							<?php
+							applyButton();
+							resetButton();
+							?>
 						</p>
 					</td>
 				</tr>

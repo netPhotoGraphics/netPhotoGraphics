@@ -364,57 +364,27 @@ $tagsort = 'alpha';
 								}
 							}
 							?>
-							<span class="buttons">
-								<button class="buttons" type="button" onclick="window.location = '<?php echo $backurl ?>'">
-									<?php echo BACK_ARROW_BLUE; ?>
-									<strong>
-										<?php echo gettext("Back"); ?></strong>
-								</button>
-								<button class="buttons" type="submit" title="<?php echo $updateitem; ?>">
-									<?php echo CHECKMARK_GREEN; ?>
-									<strong>
-										<?php
-										if ($result->transient) {
-											echo $saveitem;
-										} else {
-											echo $updateitem;
-										}
-										?>
-									</strong>
-								</button>
-								<button class="buttons" type="reset" onclick="$('.copydelete').hide();" >
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
-								<div class="floatright">
-									<?php
-									if ($additem) {
-										?>
-										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
-											<?php echo PLUS_ICON; ?>
-											<strong><?php echo $additem; ?></strong>
-										</a>
-										<?php
-									}
-									?>
-									<span id="tip">
-										<a href="#">
-											<?php echo INFORMATION_BLUE; ?>
-											<?php echo gettext("Usage tips"); ?>
-										</a>
-									</span>
-									<?php
-									if (!$result->transient) {
-										?>
-										<a href="<?php echo $result->getlink(); ?>" title="<?php echo gettext("View"); ?>">
-											<?php echo BULLSEYE_BLUE; ?>
-											<?php echo gettext("View"); ?>
-										</a>
-										<?php
-									}
-									?>
-								</div>
-							</span>
+							<?php
+							backButton(array('buttonLink' => $backurl));
+							if ($result->transient) {
+								$buttonText = $saveitem;
+							} else {
+								$buttonText = $updateitem;
+							}
+							applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . $buttonText));
+							resetButton(array('buttonClick' => "$('.copydelete').hide();"));
+							?>
+							<div class="floatright">
+								<?php
+								if ($additem) {
+									npgButton('button', PLUS_ICON . ' ' . $additem, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype . '&amp;add&amp;XSRFToken=' . getXSRFToken('add')));
+								}
+								npgButton('button', INFORMATION_BLUE . ' ' . gettext("Usage tips"), array('buttonClick' => "$('#tips').toggle('slow');"));
+								if (!$result->transient) {
+									viewButton(array('buttonLink' => $result->getlink()));
+								}
+								?>
+							</div>
 							<br style="clear: both" /><br style="clear: both" />
 
 							<div id="tips" style="display:none">
@@ -453,7 +423,7 @@ $tagsort = 'alpha';
 											<tr>
 												<td class="leftcolumn"><?php echo gettext("Title"); ?></td>
 												<td class="middlecolumn">
-													<?php print_language_string_list($result->getTitle('all'), 'title', false, NULL, 'title', '100%', 10); ?>
+													<?php print_language_string_list($result->getTitle('all'), 'title', false, NULL, 'title', '95%', 10); ?>
 												</td>
 											</tr>
 
@@ -482,7 +452,7 @@ $tagsort = 'alpha';
 														echo gettext("A search engine friendly <em>titlelink</em> (aka slug) without special characters to be used in URLs is generated from the title of the currently chosen language automatically. You can edit it manually later after saving if necessary.");
 													} else {
 														?>
-														<input name="titlelink" type="text" id="titlelink" value="<?php echo $result->getTitlelink(); ?>" disabled="disabled" />
+														<input name="titlelink" type="text" id="titlelink" value="<?php echo $result->getTitlelink(); ?>" disabled="disabled" style="width: 95%;" />
 														<?php
 													}
 													?>
@@ -681,21 +651,16 @@ $tagsort = 'alpha';
 													<br class="clearall">
 													<div class="copydelete resetHide" id="copyfield" style="display:none" >
 														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
-														<p class="buttons">
-															<button class="buttons" type="button"onclick="$('#copy_object').prop('checked', false);$('#copyfield').hide();">
-																<?php echo CROSS_MARK_RED_LARGE; ?>
-																<?php echo gettext("Cancel"); ?>
-															</button>
+														<p>
+															<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "$('#copy_object').prop('checked', false);$('#copyfield').hide();")); ?>
 														</p>
 
 													</div>
 													<div class="copydelete resetHide" id="deletemsg"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
-														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem); ?>
-
-														<p class="buttons">
-															<button class="buttons" type="button" onclick="$('#delete_object').prop('checked', false);$('#deletemsg').hide();">
-																<?php echo CROSS_MARK_RED_LARGE; ?>
-																<?php echo gettext("Cancel"); ?>
+														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem);
+														?>
+														<p>
+															<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "$('#delete_object').prop('checked', false);$('#deletemsg').hide();")); ?>
 														</p>
 													</div>
 													<?php
@@ -894,42 +859,22 @@ $tagsort = 'alpha';
 									</div>
 
 									<br class="clearall">
-
-									<span class="buttons">
-										<button class="buttons" type="button" onclick="window.location = '<?php echo $backurl ?>'">
-											<?php echo BACK_ARROW_BLUE; ?>
-											<strong>
-												<?php echo gettext("Back"); ?>
-											</strong>
-										</button>
-										<button class="buttons" type="submit" title="<?php echo $updateitem; ?>"><?php echo CHECKMARK_GREEN; ?> <?php
-											if ($result->transient) {
-												echo $saveitem;
-											} else {
-												echo $updateitem;
-											}
-											?></strong></button>
-										<button class="buttons" type="reset" onclick="$('.copydelete').hide();">
-											<?php echo CROSS_MARK_RED_LARGE; ?>
-											<strong><?php echo gettext("Reset"); ?></strong>
-										</button>
-										<div class="floatright">
-											<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
-												<?php echo PLUS_ICON; ?>
-												<strong><?php echo $additem; ?></strong>
-											</a>
-											<?php
-											if (!$result->transient) {
-												?>
-												<a href="<?php echo $result->getlink(); ?>" title="<?php echo gettext("View"); ?>">
-													<?php echo BULLSEYE_BLUE; ?>
-													<?php echo gettext("View"); ?>
-												</a>
-												<?php
-											}
-											?>
-										</div>
-									</span>
+									<?php
+									backButton(array('buttonLink' => $backurl));
+									applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . $buttonText));
+									resetButton(array('buttonClick' => "$('.copydelete').hide();"));
+									?>
+									<div class="floatright">
+										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
+											<?php echo PLUS_ICON; ?>
+											<strong><?php echo $additem; ?></strong>
+										</a>
+										<?php
+										if (!$result->transient) {
+											viewButton(array('buttonLink' => $result->getlink()));
+										}
+										?>
+									</div>
 									<br class="clearall">
 								</div>
 						</form>

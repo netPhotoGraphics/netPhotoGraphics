@@ -1,6 +1,6 @@
 <?php
 /**
- * editing of albums and images.
+ * non-administrator user editing of images
  *
  * @author Stephen Billard (sbillard)
  *
@@ -43,7 +43,7 @@ $mcr_errors = array();
 
 if (isset($_GET['showthumbs'])) { // switch the display selector
 	$how = sanitize($_GET['showthumbs']);
-	$key = is_object($showDefaultThumbs) ? $album->name : '*';
+	$key = is_object($album) ? $album->name : '*';
 	if ($how == 'no') {
 		$showDefaultThumbs[$key] = $key;
 	} else {
@@ -463,12 +463,14 @@ echo "\n</head>";
 						<div class="headline">
 						</div>
 						<div class="subhead">
-							<label class="buttons" style="float: left;padding-top:3px;">
-
-								<a href="<?php echo getAdminLink('admin-tabs/images.php') ?>?page=admin&tab=images
-									 &showthumbs=<?php echo $thumbshow ?>" title="<?php echo gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'); ?>">
-										 <?php echo $thumbmsg; ?>
-								</a>
+							<label style="float: left;padding-top:3px;">
+								<?php
+								npgButton('button', $thumbmsg, array(
+										'buttonLink' => getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images&amp;showthumbs=' . $thumbshow,
+										'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
+												)
+								);
+								?>
 							</label>
 
 						</div>

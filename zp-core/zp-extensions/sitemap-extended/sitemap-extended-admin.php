@@ -44,7 +44,7 @@ if (isset($_GET['generatesitemaps'])) {
 	$numberAppend = '';
 	if (isset($_GET['generatesitemaps']) && (!empty($sitemap_index) || !empty($sitemap_albums) || !empty($sitemap_images) || !empty($sitemap_newsindex) || !empty($sitemap_articles) || !empty($sitemap_categories) || !empty($sitemap_pages))) {
 		$numberAppend = '-' . floor(($_sitemap_number / SITEMAP_CHUNK) + 1);
-		$metaURL = 'sitemap-extended-admin.php?generatesitemaps&amp;number=' . ($_sitemap_number + SITEMAP_CHUNK);
+		$metaURL = getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php') . '?generatesitemaps&amp;number=' . ($_sitemap_number + SITEMAP_CHUNK);
 	} else {
 		$metaURL = '';
 	}
@@ -114,17 +114,11 @@ echo '</head>';
 					</ul>
 					<p><?php echo sprintf(gettext('Additionally a sitemapindex file is created that points to the separate ones above. You can reference this sitemapindex file in your robots.txt file or submit its url to services like Google via <code>%1$s/index.php?sitemap</code>'), FULLWEBPATH); ?></p>
 					<p><?php printf(gettext('The sitemap cache is cleared if you create new ones. All files are stored in the <code>/%s/sitemap/</code> folder.'), STATIC_CACHE_FOLDER); ?></p>
-					<p class="buttons">
-						<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'); ?>?generatesitemaps&amp;number=1">
-							<?php echo CHECKMARK_GREEN; ?>
-							<?php echo gettext("Generate sitemaps"); ?>
-						</a>
+					<p>
+						<?php npgButton('button', CHECKMARK_GREEN . ' ' . gettext("Generate sitemaps"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php') . '?generatesitemaps&amp;number=1', 'buttonClass' => 'fixedwidth')); ?>
 					</p>
-					<p class="buttons">
-						<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'); ?>?clearsitemapcache">
-							<?php echo RECYCLE_ICON; ?>
-							<?php echo gettext("Clear sitemap cache"); ?>
-						</a>
+					<p>
+						<?php npgButton('button', RECYCLE_ICON . ' ' . gettext("Clear sitemap cache"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php') . '?clearsitemapcache', 'buttonClass' => 'fixedwidth')); ?>
 					</p>
 					<br style="clear: both" />
 					<br />

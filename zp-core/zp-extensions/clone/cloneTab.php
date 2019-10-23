@@ -95,10 +95,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					if ($invalid) {
 						?>
 						<p>
-							<span class="buttons"><a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/clone.php'); ?>?tab=clone&purge&XSRFToken=<?php echo getXSRFToken('clone'); ?>">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<?php echo gettext("Remove invalid clones."); ?>
-								</a>
+							<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Remove invalid clones."), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/clone/clone.php') . "?tab=clone&purge&XSRFToken=" . getXSRFToken('clone'))); ?>
 						</p>
 						<br class="clearall">
 						<?php
@@ -248,14 +245,8 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							<?php XSRFToken('clone'); ?>
 							<br />
 							<br />
-							<div class="buttons pad_button" id="cloneButton">
-								<button id="cloneButton" class="tooltip" type="submit" title=""<?php
-								if (empty($folderlist))
-									echo ' disabled="disabled"';
-								?> >
-													<?php echo DUPLICATE_ICON; ?>
-													<?php echo gettext("Clone installation"); ?>
-								</button>
+							<div id="cloneButton">
+								<?php applyButton(array('buttonText' => DUPLICATE_ICON . ' ' . gettext("Clone installation"), 'id' => "cloneButton", 'buttonClass' => "tooltip", 'disabled' => empty($folderlist))); ?>
 							</div>
 							<br class="clearall">
 						</form>

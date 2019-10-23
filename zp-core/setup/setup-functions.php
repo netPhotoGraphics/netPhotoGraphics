@@ -193,7 +193,7 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 		$stopped = '';
 	}
 	$msg = preg_replace('~<form.*\/form>~iU', '', $msg);
-	$msg = preg_replace('~<p class="buttons".*<\/p>~iU', '', $msg);
+	$msg = preg_replace('~<p>".*<\/p>~iU', '', $msg);
 	$head = $classes[$cls] . $stopped . $dsp;
 
 	switch ($cls) {
@@ -355,7 +355,7 @@ function charsetSelector($select) {
 		$selector .= '>' . $char . '</option>';
 	}
 	$selector .= '</select>';
-	$selector .= '<span class="buttons" style="float: right"><button class="buttons" type="submit" alt="' . gettext('change the definition') . '"><strong>' . gettext('apply') . '</strong></button></span>';
+	$selector .= get_npgButton("submit", gettext('apply'), array('buttonClass' => 'floatright', 'buttonTitle' => gettext('change the definition')));
 	return $selector;
 }
 
@@ -369,7 +369,7 @@ function permissionsSelector($permission_names, $select) {
 		$c++;
 	}
 	$selector .= '</select>';
-	$selector .= '<span class="buttons" style="float: right;"><button class="buttons" type="submit" alt="' . gettext('change the definition') . '"><strong>' . gettext('apply') . '</strong></button></span><br class="clearall">';
+	$selector .= get_npgButton("submit", gettext('apply'), array('buttonClass' => 'floatright', 'buttonTitle' => gettext('change the definition'))) . '<br clear="all">';
 	return $selector;
 }
 

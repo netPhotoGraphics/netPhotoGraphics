@@ -20,7 +20,8 @@ admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
 XSRFdefender('titlelinkMigration');
 
-migrateTitleLinks('', RW_SUFFIX);
+$count = migrateTitleLinks('', RW_SUFFIX);
+$msg = ngettext(sprintf(gettext('%1$s titlelink suffix migrated to "%2$s".'), $count, RW_SUFFIX), sprintf(gettext('%1$s titlelink suffixes migrated to "%2$s".'), $count, RW_SUFFIX), $count);
 
-header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('titlelink migration completed.'));
+header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . $msg);
 exit();

@@ -27,7 +27,7 @@ if (!defined('WEBPATH'))
 			<div id="breadcrumb">
 				<h2>
 					<?php if (is_NewsArticle()) { ?>
-						<a href="<?php echo getGalleryIndexURL(); ?>"><?php echo gettext("Index"); ?></a> <?php printNewsIndexURL("News", " » "); ?><strong><?php printCurrentNewsCategory(" » Category - "); ?><?php
+						<a href="<?php echo getGalleryIndexURL(); ?>"><?php echo gettext("Index"); ?></a> <?php printNewsIndexURL(NULL, " » "); ?><strong><?php printCurrentNewsCategory(" » Category - "); ?><?php
 							printNewsTitle(" » ");
 							printCurrentNewsArchive(" » ");
 							?></strong>

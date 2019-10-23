@@ -295,15 +295,11 @@ echo "\n</head>";
 									}
 									?>
 								</table>
-								<p class="buttons">
-									<button class="buttons" type="submit">
-										<?php echo WASTEBASKET; ?>
-										<strong><?php echo gettext("Delete"); ?></strong>
-									</button>
-									<button class="buttons" type="reset">
-										<?php echo CROSS_MARK_RED_LARGE; ?>
-										<strong><?php echo gettext("Reset"); ?></strong>
-									</button>
+								<p>
+									<?php
+									applyButton(array('buttonText' => WASTEBASKET . '	' . gettext("Delete")));
+									resetButton();
+									?>
 								</p>
 							</form>
 							<?php
@@ -317,8 +313,6 @@ echo "\n</head>";
 							break;
 					}
 					?>
-
-
 				</div>
 			</div>
 		</div>

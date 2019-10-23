@@ -207,7 +207,7 @@ define('CLIPBOARD', '<span class="font_icon" style="font-family: Sego UI Emoji; 
 define('CLOCKFACE', '<span class="font_icon" style="letter-spacing: -4px;">&#128343;</span>');
 define('CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN', '<span class="font_icon" style="font-size:large;color:green;">&#8635;</span>');
 define('CLOCKWISE_OPEN_CIRCLE_ARROW_RED', '<span class="font_icon" style="font-size:large;color:red;">&#8635;</span>');
-define('CROSS_MARK_RED', '<span class="font_icon" style="color: red;vertical-align: top;">&#10060;</span>');
+define('CROSS_MARK_RED', '<span class="font_icon" style="color: red;">&#10060;</span>');
 define('CROSS_MARK_RED_LARGE', '<span class="font_icon" style="color: red; font-size: large;">&#10060;</span>');
 define('CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE', '<span class="font_icon" style="color:blue; font-size:large;">&#10150;</span>');
 define('DRAG_HANDLE', '<span class="font_icon" style="color:lightsteelblue; font-size: x-large;">&#10021;</span>');
@@ -219,7 +219,7 @@ define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5C
 define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
-define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large; vertical-align: 2px;">&#8505;</span>');
+define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
 define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install_icon.png" /></span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
 define('LOCK', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/lock_icon.png" /></span>');

@@ -36,15 +36,11 @@ function getOptionContent() {
 					<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="forms" />
 
-			<p class="buttons">
-				<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+			<p>
+				<?php
+				applyButton();
+				resetButton();
+				?>
 			</p>
 
 			<?php
@@ -71,18 +67,15 @@ function getOptionContent() {
 				?>
 			</div>
 
-			<p class="buttons">
-				<button class="buttons" type="submit" value="<?php echo gettext('Apply') ?>">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" value="<?php echo gettext('reset') ?>">
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+			<p>
+				<?php
+				applyButton();
+				resetButton();
+				?>
 			</p>
 
 		</form>
+		<br clear="all">
 	</div>
 	<!-- end of tab-search div -->
 	<?php

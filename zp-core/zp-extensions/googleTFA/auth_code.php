@@ -55,17 +55,12 @@ if (isset($_SESSION['OTA'])) {
 						<input class="textfield" name="authenticate" id="authcode" type="text" />
 						<br />
 						<br />
-						<div class="buttons">
-							<button class="buttons" type="submit" value="<?php echo gettext("Token"); ?>" >
-								<?php echo CHECKMARK_GREEN; ?>
-								<?php echo gettext("Submit"); ?>
-							</button>
-							<button class="buttons" type="button" title="<?php echo gettext("Cancel"); ?>" onclick="window.location = '<?php echo FULLWEBPATH; ?>';">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<?php echo gettext("Cancel"); ?>
-							</button>
 
-						</div>
+						<?php
+						applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext("Submit"), 'buttonClass' => 'submitbutton'));
+						backButton(array('buttonText' => CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), 'buttonLink' => FULLWEBPATH));
+						?>
+
 						<br class="clearall">
 					</fieldset>
 				</form>

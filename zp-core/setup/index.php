@@ -953,7 +953,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												<span>
 													<?php echo CHECKMARK_GREEN; ?>
 													<?php echo gettext('Image URIs appear to require the <em>UTF-8</em> character set.') ?>
-													<img src="<?php echo WEBPATH . '/' . DATA_FOLDER . '/' . urlencode('tést.jpg'); ?>" class="test_image"  onerror="imgError('internal');" />
+													<img src="<?php echo WEBPATH . '/' . DATA_FOLDER . '/' . urlencode('tést.jpg'); ?>" class="test_image"  onerror="imgError('internal');" width="1" height="1" />
 												</span>
 											</li>
 											<li id="filesystem" class="fail limited" style="display: none;">
@@ -1465,7 +1465,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$desc = gettext('If you have the mod_rewrite module enabled an <em>.htaccess</em> file is required the root folder to create cruft-free URLs.') .
 												'<br /><br />' . gettext('You can ignore this warning if you do not intend to set the <code>mod_rewrite</code> option.');
 								if (setupUserAuthorized()) {
-									$desc .= ' ' . gettext('<p class="buttons"><a href="?copyhtaccess" >Make setup create the file</a></p><br style="clear:both" /><br />');
+									$desc .= ' ' . get_npgButton('button', gettext('Make setup create the file'), array('buttonLink' => "?copyhtaccess")) . '<br clear="all"><br />';
 								}
 							} else if ($Nginx) {
 								$err = gettext("Server seems to be <em>nginx</em>");
@@ -1497,7 +1497,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								} else {
 									$desc = sprintf(gettext("The <em>.htaccess</em> file in your root folder is not the same version as the one distributed with this version of netPhotoGraphics. If you have made changes to <em>.htaccess</em>, merge those changes with the <em>%s/htaccess</em> file to produce a new <em>.htaccess</em> file."), CORE_FOLDER);
 									if (setupUserAuthorized()) {
-										$desc .= ' ' . gettext('<p class="buttons"><a href="?copyhtaccess" >Replace the existing <em>.htaccess</em> file with the current version</a></p><br style="clear:both" /><br />');
+										$desc .= ' ' . get_npgButton('button', gettext('Replace the existing <em>.htaccess</em> file with the current version'), array('buttonLink' => "?copyhtaccess")) . '<br clear="all"><br />';
 									}
 								}
 								$err = gettext("<em>.htaccess</em> file [wrong version]");
@@ -1852,7 +1852,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											<?php
 										}
 										?>
-										<p class="buttons"><button class="buttons submitbutton" id="submitbutton" type="submit"	title="<?php echo gettext('run setup'); ?>" ><?php echo $icon; ?> <?php echo gettext("Go"); ?></button></p>
+										<p>
+											<?php applyButton(array('buttonText' => $icon . ' ' . gettext("Go"))); ?>
+										</p>
 										<br class="clearall">
 											<br />
 									</form>

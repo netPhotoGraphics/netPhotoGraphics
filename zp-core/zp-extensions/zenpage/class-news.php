@@ -297,10 +297,11 @@ class Article extends CMSItems {
 	 * @param string $show
 	 */
 	function checkAccess(&$hint = NULL, &$show = NULL) {
-		if (npg_loggedin(ALL_NEWS_RIGHTS))
+		if (npg_loggedin(ALL_NEWS_RIGHTS)) {
 			return true;
+		}
 		$categories = $this->getCategories();
-		if (empty($categories)) { //	no protection on un-categorized news articles
+		if (empty($categories) || npgFilters::apply('isPublicCategory', false, $categories)) { //	no protection on un-categorized news articles
 			return true;
 		}
 		foreach ($categories as $category) {

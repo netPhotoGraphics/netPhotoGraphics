@@ -3926,29 +3926,33 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	}
 	if (empty($searchwords)) {
 		$within = false;
-		$hint = '%s';
+	} else if (is_null($within)) {
+		$within = getOption('search_within');
+	}
+
+	$hint_new = $buttontext;
+	$hint_in = sprintf(gettext('%s within previous results'), $buttontext);
+	if ($within) {
+		$button = ' title="' . $hint_in . '"';
 	} else {
-		$hint = gettext('%s within previous results');
+		$button = ' title="' . $buttontext . '"';
 	}
 	if (preg_match('!\/(.*)[\.png|\.jpg|\.jpeg|\.gif]$!', $buttonSource)) {
 		$buttonSource = 'src="' . $buttonSource . '" alt="' . $buttontext . '"';
-		$button = 'title="' . sprintf($hint, $buttontext) . '"';
 		$type = 'image';
 	} else {
+		$button = 'value="' . $buttontext . '" ' . $button;
 		$type = 'submit';
-		if ($buttonSource) {
-			$button = 'value="' . $buttontext . '" title="' . sprintf($hint, $buttonSource) . '"';
-			$buttonSource = '';
-		} else {
-			$button = 'value="' . $buttontext . '" title="' . sprintf($hint, $buttontext) . '"';
-		}
+		$buttonSource = '';
 	}
 
 	if (empty($iconsource)) {
 		$iconsource = SEARCHFIELDS_ICON;
 	} else {
-		$iconsource = '<img src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
+		$iconsource = '<image src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
+
+	$iconsource = SEARCHFIELDS_ICON;
 
 	if (is_null($within)) {
 		$within = getOption('search_within');
@@ -3958,62 +3962,31 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 	} else {
 		$searchurl = WEBPATH . "/index.php?p=search";
 	}
+
 	if (!$within) {
 		$engine->clearSearchWords();
 	}
 
 	$fields = $engine->allowedSearchFields();
 	?>
-
 	<div id="<?php echo $id; ?>"><!-- start of search form -->
 		<!-- search form -->
-		<script type="text/javascript">
-			// <!-- <![CDATA[
-			var within = <?php echo (int) $within; ?>;
-			function search_(way) {
-				within = way;
-				if (way) {
-					$('#search_submit').attr('title', '<?php echo sprintf($hint, $buttontext); ?>');
-				} else {
-					lastsearch = '';
-					$('#search_submit').attr('title', '<?php echo $buttontext; ?>');
-				}
-				$('#search_input').val('');
-			}
-			$('#search_form').submit(function () {
-				if (within) {
-					var newsearch = $.trim($('#search_input').val());
-					if (newsearch.substring(newsearch.length - 1) == ',') {
-						newsearch = newsearch.substr(0, newsearch.length - 1);
-					}
-					if (newsearch.length > 0) {
-						$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
-					} else {
-						$('#search_input').val('<?php echo $searchwords; ?>');
-					}
-				}
-				return true;
-			});
-			function search_all() {
-				//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives. All rights reserved
-				var check = $('#SEARCH_checkall').prop('checked');
-				$('.SEARCH_checkall').prop('checked', check);
-			}
-
-			// ]]> -->
-		</script>
 		<form method="post" action="<?php echo $searchurl; ?>" id="search_form">
 			<?php echo $prevtext; ?>
 			<div>
 				<span class="tagSuggestContainer">
 					<input type="text" name="words" value="" id="search_input" class="tagsuggest" size="10" />
 				</span>
-				<?php if (count($fields) > 1 || $searchwords) { ?>
+				<?php
+				if (count($fields) > 1 || $searchwords) {
+					?>
 					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
 						<?php echo $iconsource; ?>
 					</a>
-				<?php } ?>
-				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="button buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
+					<?php
+				}
+				?>
+				<input type="<?php echo $type; ?>" <?php echo $button; ?> class="buttons" id="search_submit" <?php echo $buttonSource; ?> data-role="none" />
 				<?php
 				if (is_array($object_list)) {
 					foreach ($object_list as $key => $list) {
@@ -4045,43 +4018,122 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 					}
 					?>
 					<div style="display:none;" id="searchextrashow">
-						<?php
-						if ($searchwords) {
-							?>
-							<label>
-								<input type="radio" name="search_within" id="search_within-1" value="1"<?php if ($within) echo ' checked="checked"'; ?> onclick="search_(1);" />
-								<?php echo gettext('Within'); ?>
-							</label>
-							<label>
-								<input type="radio" name="search_within" id="search_within-0" value="1"<?php if (!$within) echo ' checked="checked"'; ?> onclick="search_(0);" />
-								<?php echo gettext('New'); ?>
-							</label>
+						<ul>
 							<?php
-						}
-						if (count($fields) > 1) {
-							?>
-							<ul>
-								<li style="border-bottom: 1px solid;">
-									<label><input type="checkbox" id="SEARCH_checkall" checked="checked" onclick="search_all();" /> <strong><em><?php echo gettext('All'); ?></em></strong></label>
+							if ($searchwords) {
+								if (count($fields) > 1 && !$within) {
+									?>
+									<li style="border-bottom: 1px dotted;">
+										<?php
+									} else {
+										?>
+									<li>
+										<?php
+									}
+									?>
+									<label title="<?php echo $hint_in; ?>">
+										<input type="radio" name="search_within" value="1"<?php if ($within) echo ' checked="checked"'; ?>  />
+										<?php echo gettext('Within'); ?>
+									</label>
+									<label title="<?php echo $hint_new; ?>">
+										<input type="radio" name="search_within" value="0"<?php if (!$within) echo ' checked="checked"'; ?> />
+										<?php echo gettext('New'); ?>
+									</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<?php
+								}
+
+								if (count($fields) > 1) {
+									if (!$searchwords) {
+										?>
+									<li  style="border-bottom: 1px dotted;">
+										<?php
+									}
+									?>
+									<label title="<?php echo gettext('Select/deselect all fields'); ?>">
+										<input type="checkbox" class="SEARCH_new" id="SEARCH_checkall" checked="checked" onclick="search_all();" <?php if ($within) echo ' disabled="disabled"'; ?> /> <strong><em><?php echo gettext('All'); ?></em></strong>
+									</label>
 								</li>
 								<?php
 								foreach ($fields as $display => $key) {
-									echo '<li><label><input class="SEARCH_checkall" id="SEARCH_' . $key . '" name="SEARCH_' . $key . '" type="checkbox"';
-									if (in_array($key, $query_fields)) {
-										echo ' checked="checked" ';
-									}
-									echo ' value="' . html_encode($key) . '"  /> ' . html_encode(trim($display, ':')) . "</label></li>" . "\n";
+									?>
+									<li>
+										<?php
+										if (in_array($key, $query_fields)) {
+											$checked = ' checked="checked"';
+											?>
+											<input type="hidden" class="SEARCH_within" name="SEARCH_<?php echo $key; ?>" value="<?php echo html_encode($key); ?>"<?php if (!$within) echo ' disabled="disabled"'; ?> />
+											<?php
+										} else {
+											$checked = '';
+										}
+										?>
+										<label>
+											<input class="SEARCH_checkall SEARCH_new" id="SEARCH_<?php echo $key; ?>" name="SEARCH_<?php echo $key; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo html_encode($key); ?>"<?php if ($within) echo ' disabled="disabled"'; ?> />
+											<?php echo html_encode(trim($display, ':')); ?>
+										</label>
+
+									</li>
+									<?php
 								}
+							} else {
 								?>
-							</ul>
-							<?php
-						}
-						?>
+								<input type="hidden" name="SEARCH_<?php echo array_pop($fields); ?>" value="<?php echo html_encode($key); ?>" />
+								</li>
+								<?php
+							}
+							?>
+						</ul>
 					</div>
 					<?php
 				}
 				?>
 			</div>
+			<script type="text/javascript">
+				// <!-- <![CDATA[
+				var within = <?php echo (int) $within; ?>;
+				$("input[name='search_within']").change(function () {
+					within = (within + 1) & 1;
+					if (within) {
+						$('#search_submit').prop('title', '<?php echo $hint_in; ?>');
+						$('.SEARCH_new').prop('checked', false);
+						$('.SEARCH_within').each(function () {
+							id = $(this).attr('name');
+							$('#' + id).prop('checked', 'checked');
+						});
+						$('.SEARCH_new').prop('disabled', 'disabled');
+						$('.SEARCH_within').removeAttr('disabled');
+					} else {
+						lastsearch = '';
+						$('#search_submit').prop('title', '<?php echo $hint_new; ?>');
+						$('.SEARCH_new').removeAttr('disabled');
+						$('.SEARCH_within').prop('disabled', 'disabled');
+					}
+					$('#search_input').val('');
+				});
+
+				$('#search_form').submit(function () {
+					if (within) {
+						var newsearch = $.trim($('#search_input').val());
+						if (newsearch.substring(newsearch.length - 1) == ',') {
+							newsearch = newsearch.substr(0, newsearch.length - 1);
+						}
+						if (newsearch.length > 0) {
+							$('#search_input').val('(<?php echo $searchwords; ?>) AND (' + newsearch + ')');
+						} else {
+							$('#search_input').val('<?php echo $searchwords; ?>');
+						}
+					}
+					return true;
+				});
+				function search_all() {
+					//search all is Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives. All rights reserved
+					var check = $('#SEARCH_checkall').prop('checked');
+					$('.SEARCH_checkall').prop('checked', check);
+				}
+
+				// ]]> -->
+			</script>
 		</form>
 	</div><!-- end of search form -->
 	<?php
@@ -4397,11 +4449,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 	} else {
 		$display = '';
 	}
-	?>
-	<button id="submitbutton" class="button buttons policyButton <?php echo $buttonClass; ?>" <?php echo $display . $buttonExtra; ?>>
-		<?php echo $buttonText; ?>
-	</button>
-	<?php
+	npgButton('submit', $buttonText, array('buttonClass' => 'policyButton ' . $buttonClass, 'buttonExtra' => $display . $buttonExtra, 'id' => 'submitbutton'));
 }
 
 function recordPolicyACK($user = NULL) {

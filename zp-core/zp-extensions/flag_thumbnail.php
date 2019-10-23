@@ -8,7 +8,7 @@
  * Thumbnails may be flagged with the following icons:
  * <ul>
  * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/new.png" />: <i>New</i>—images whose <var>date</var> (or <var>mtime</var>) are within the selected "range" of the current day.</li>
- * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/lock.png" />: <i>Protected</i>—images which are in a password protected album or because
+ * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/lock_icon.png" />: <i>Protected</i>—images which are in a password protected album or because
  * 							 a parent album is password protected.</li>
  * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/action.png" />: <i>Un-published</i>—images that are marked as not visible.</li>
  * 		<li><img src="%WEBPATH%/%CORE_FOLDER%/%PLUGIN_FOLDER%/flag_thumbnail/GPS.png" />: <i>Geotagged</i>—images which have latitude/longitude information in their metadata.</li>
@@ -52,7 +52,7 @@ class flag_thumbnail {
 			setOptionDefault('flag_thumbnail_flag_geodata', 1);
 			setOptionDefault('flag_thumbnail_new_icon', 'new.png');
 			setOptionDefault('flag_thumbnail_unpublished_icon', 'action.png');
-			setOptionDefault('flag_thumbnail_locked_icon', 'lock.png');
+			setOptionDefault('flag_thumbnail_locked_icon', 'lock_icon.png');
 			setOptionDefault('flag_thumbnail_geodata_icon', 'GPS.png');
 		}
 	}

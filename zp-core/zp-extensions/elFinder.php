@@ -118,7 +118,7 @@ function elFinder_tinymce($discard) {
 					type: 'panel',
 					items: [{
 							type: 'htmlpanel',
-							html: windowManagerCSS + '<iframe src="' + windowManagerURL + '"  frameborder="0" style="width:100%; height:100%"></iframe>'
+							html: windowManagerCSS + '<iframe src="' + windowManagerURL + '"  frameborder="0" style="width:100%; height:500px"></iframe>'
 						}]
 				},
 				buttons: [],

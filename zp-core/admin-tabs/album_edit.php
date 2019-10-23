@@ -11,16 +11,14 @@ if (count($subalbums) > 0) {
 	<div id="tab_subalbuminfo" class="tabbox">
 		<?php
 		consolidatedEditMessages('subalbuminfo');
-		echo gettext('Drag the albums into the order you wish them displayed.');
+		printSortableDirections(gettext('Drag the albums into the order you wish them displayed.'));
 
 		printEditDropdown('subalbuminfo', array('1', '2', '3', '4', '5'), $subalbum_nesting);
 		$sort = $_sortby;
 		foreach ($sort as $name => $action) {
 			$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
 		}
-		?>
-		<br clear="all"><br />
-		<?php
+
 		if (is_null($album->getParent())) {
 			$globalsort = gettext("*gallery album sort order");
 		} else {
@@ -68,48 +66,21 @@ if (count($subalbums) > 0) {
 				</p>
 				<?php
 			}
-			?>
-			<span class="buttons">
-				<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
-					<?php echo BACK_ARROW_BLUE; ?>
-					<strong><?php echo gettext("Back"); ?></strong>
-				</button>
-				<?php
-				if ($enableEdit) {
-					?>
-					<button class="buttons serialize" type="submit">
-						<?php echo CHECKMARK_GREEN; ?>
-						<strong><?php echo gettext("Apply"); ?></strong>
-					</button>
-					<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-						<?php echo CROSS_MARK_RED_LARGE; ?>
-						<strong><?php echo gettext("Reset"); ?></strong>
-					</button>
-
-					<div class="floatright" style="padding-right: 5px">
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New subalbum'); ?></strong>
-						</button>
-						<?php
-						if (!$album->isDynamic()) {
-							?>
-							<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', true);">
-								<?php echo FOLDER_ICON; ?>
-								<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
-							</button>
-							<?php
-						}
-						?>
-						<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-							<span style="vertical-align:-2px;"><?php echo BULLSEYE_BLUE; ?></span>
-							<strong><?php echo gettext('View'); ?></strong>
-						</button>
-					</div>
+			backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+			if ($enableEdit) {
+				applyButton(array('buttonClass' => 'serialize'));
+				resetButton();
+				?>
+				<div class="floatright" style="padding-right: 5px">
 					<?php
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+					if (!$album->isDynamic()) {
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonTitle' => addslashes(gettext('New dynamic subalbum')), 'buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', true);"));
+					}
+					viewButton(array('buttonLink' => $album->getLink()));
 				}
 				?>
-			</span>
+			</div>
 			<br class="clearall"><br />
 
 			<div class="headline" style="text-align: left;">&nbsp;
@@ -120,10 +91,14 @@ if (count($subalbums) > 0) {
 				?>
 			</div>
 			<div class="subhead">
-				<label class="buttons" style="float: left;padding-top:3px;">
-					<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;tab=subalbuminfo&amp;showthumbs=<?php echo $thumbshow ?>" title="<?php echo addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.')); ?>">
-						<?php echo $thumbmsg; ?>
-					</a>
+				<label style="float: left;padding-top:3px;">
+					<?php
+					npgButton('button', $thumbmsg, array(
+							'buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . pathurlencode($album->name) . '&amp;tab=subalbuminfo&amp;showthumbs=' . $thumbshow,
+							'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
+									)
+					);
+					?>
 				</label>
 				<?php
 				if ($enableEdit) {
@@ -148,29 +123,18 @@ if (count($subalbums) > 0) {
 			<input name="update" type="hidden" value="Save Order" />
 			<br />
 			<span>
-				<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
-					<?php echo BACK_ARROW_BLUE; ?>
-					<strong><?php echo gettext("Back"); ?></strong>
-				</button>
-				<button class="buttons serialize" type="submit">
-					<?php echo CHECKMARK_GREEN; ?>
-					<strong><?php echo gettext("Apply"); ?></strong>
-				</button>
-				<button class="buttons" type="reset" value="<?php echo gettext('Reset') ?>">
-					<?php echo CROSS_MARK_RED_LARGE; ?>
-					<strong><?php echo gettext("Reset"); ?></strong>
-				</button>
+				<?php
+				backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+				applyButton(array('buttonClass' => 'serialize'));
+				resetButton();
+				?>
 				<div class="floatright">
-					<button class="buttons" type="button" title="<?php echo addslashes(gettext('New subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-						<?php echo FOLDER_ICON; ?>
-						<strong><?php echo gettext('New subalbum'); ?></strong>
-					</button>
-					<?php if (!$album->isDynamic()) { ?>
-						<button class="buttons" type="button" title="<?php echo addslashes(gettext('New dynamic subalbum')); ?>" onclick="newAlbumJS('<?php echo pathurlencode($album->name); ?>', false);">
-							<?php echo FOLDER_ICON; ?>
-							<strong><?php echo gettext('New dynamic subalbum'); ?></strong>
-						</button>
-					<?php } ?>
+					<?php
+					npgButton('button', FOLDER_ICON . ' ' . gettext('New subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);"));
+					if (!$album->isDynamic()) {
+						npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic subalbum'), array('buttonClick' => "newAlbumJS('" . pathurlencode($album->name) . "', false);", 'buttonTitle' => addslashes(gettext('New dynamic subalbum'))));
+					}
+					?>
 				</div>
 			</span>
 		</form>

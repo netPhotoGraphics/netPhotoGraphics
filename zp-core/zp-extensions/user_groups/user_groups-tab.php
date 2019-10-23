@@ -226,15 +226,11 @@ echo '</head>' . "\n";
 						</p>
 						<form class="dirtylistening" onReset="setClean('savegroups_form');" id="savegroups_form" action="?action=savegroups&amp;tab=groups" method="post" autocomplete="off" onsubmit="return checkSubmit()" >
 							<?php XSRFToken('savegroups'); ?>
-							<p class="buttons">
-								<button class="buttons" type="submit">
-									<?php echo CHECKMARK_GREEN; ?>
-									<strong><?php echo gettext("Apply"); ?></strong>
-								</button>
-								<button class="buttons" type="reset">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
+							<p>
+								<?php
+								applyButton();
+								resetButton();
+								?>
 							</p>
 							<input type="hidden" name="savegroups" value="yes" />
 							<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
@@ -312,11 +308,11 @@ echo '</head>' . "\n";
 													<em>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
 														</label>
 														<label>
 															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																					toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
+																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
 														</label>
 													</em>
 													<br />
@@ -472,12 +468,11 @@ echo '</head>' . "\n";
 									</th>
 								</tr>
 							</table>
-							<p class="buttons">
-								<button class="buttons" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
-								<button class="buttons" type="reset">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
+							<p>
+								<?php
+								applyButton();
+								resetButton();
+								?>
 							</p>
 							<input type="hidden" name="totalgroups" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />
@@ -537,12 +532,11 @@ echo '</head>' . "\n";
 						</p>
 						<form class="dirtylistening" onReset="setClean('saveAssignments_form');" id="saveAssignments_form" action="?tab=assignments&amp;action=saveauserassignments" method="post" autocomplete="off" >
 							<?php XSRFToken('saveauserassignments'); ?>
-							<p class="buttons">
-								<button class="buttons" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
-								<button class="buttons" type="reset">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
+							<p>
+								<?php
+								applyButton();
+								resetButton();
+								?>
 							</p>
 							<div class="notebox">
 								<?php echo gettext('<strong>Note:</strong> When a group is assigned <em>rights</em> and <em>managed objects</em> are determined by the group!'); ?>
@@ -572,12 +566,11 @@ echo '</head>' . "\n";
 								?>
 							</table>
 							<br />
-							<p class="buttons">
-								<button class="buttons" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
-								<button class="buttons" type="reset">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
+							<p>
+								<?php
+								applyButton();
+								resetButton();
+								?>
 							</p>
 							<input type="hidden" name="totalusers" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />

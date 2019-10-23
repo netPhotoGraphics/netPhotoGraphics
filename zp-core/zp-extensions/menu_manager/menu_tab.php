@@ -185,10 +185,13 @@ printSortableHead();
 				echo "</small>";
 				?></h1>
 			<div class="tabbox">
-				<form class="dirtylistening" onReset="setClean('update_form');" id="update_form" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
-					<?php XSRFToken('update_menu'); ?>
+				<form class="dirtylistening" onReset="setClean('update_form');$('#menusort').sortable('cancel');" id="update_form" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php'); ?>?menuset=<?php echo $menuset; ?>" method="post" name="update" onsubmit="return confirmAction();" autocomplete="off">
+					<?php
+					XSRFToken('update_menu');
+					printSortableDirections(gettext("Drag the items into the order and nesting you wish displayed."));
+					?>
 					<p>
-						<?php echo gettext("Drag the items into the order and nesting you wish displayed. Place the menu on your theme pages by calling printCustomMenu()."); ?>
+						<?php echo gettext("Place the menu on your theme pages by calling printCustomMenu()."); ?>
 					</p>
 					<p class="notebox">
 						<?php echo gettext("<strong>IMPORTANT:</strong> This menu’s order is completely independent from any order of albums or pages set on the other admin pages. Use with customized themes that do not wish the standard display structure. Functions such as the breadcrumb functions and the next_album() loop will NOT reflect of this menu’s structure!"); ?>
@@ -197,22 +200,15 @@ printSortableHead();
 					foreach ($reports as $report) {
 						echo $report;
 					}
+					applyButton(array('buttonClass' => 'serialize'));
+					resetButton();
 					?>
-					<span class="buttons">
-						<button class="buttons serialize" type="submit">
-							<?php echo CHECKMARK_GREEN; ?> <strong><?php echo gettext("Apply"); ?></strong>
-						</button>
-						<div class="floatright">
-							<a href="javascript:newMenuSet();">
-								<?php echo PLUS_ICON; ?>
-								<strong><?php echo gettext("New Menu"); ?></strong>
-							</a>
-							<a href="<?php echo getAdminLink('admin-tabs/options.php'); ?>?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager">
-								<?php echo OPTIONS_ICON; ?>
-								<strong><?php echo gettext('Options') ?></strong>
-							</a>
-						</div>
-					</span>
+					<div class="floatright">
+						<?php
+						npgButton('button', PLUS_ICON . ' ' . gettext("New Menu"), array('buttonClick' => "newMenuSet();"));
+						npgButton('button', OPTIONS_ICON . ' ' . gettext('Options'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager'));
+						?>
+					</div>
 					<br class="clearall">
 					<br />
 
@@ -242,34 +238,12 @@ printSortableHead();
 								<span style="float:right">
 									<?php
 									if ($count > 0) {
-										?>
-										<span class="buttons">
-											<a href="javascript:dupMenuSet();" title="<?php printf(gettext('Duplicate %s menu'), $menuset); ?>">
-												<?php echo DUPLICATE_ICON; ?>
-												<strong><?php echo gettext("Duplicate menu"); ?></strong>
-											</a>
-										</span>
-										<span class="buttons">
-											<a href="javascript:deleteMenuSet();" title="<?php printf(gettext('Delete %s menu'), $menuset); ?>">
-												<?php echo WASTEBASKET; ?>
-												<strong><?php echo gettext("Delete menu"); ?></strong>
-											</a>
-										</span>
-										<span class="buttons">
-											<a href="?exportmenuset=<?php echo html_encode($menuset); ?>&amp;XSRFToken=<?php echo getXSRFToken('dup_menu') ?>" title="<?php printf(gettext('Export %s menu'), $menuset); ?>">
-												<?php echo EXPORT_ICON; ?>
-												<strong><?php echo gettext("Export menu"); ?></strong>
-											</a>
-										</span>
-										<?php
+										npgButton('button', DUPLICATE_ICON . ' ' . gettext("Duplicate menu"), array('buttonClick' => 'dupMenuSet();'));
+										npgButton('button', WASTEBASKET . '	' . gettext("Delete menu"), array('buttonClick' => 'deleteMenuSet();'));
+										npgButton('button', EXPORT_ICON . ' ' . gettext("Export menu"), array('buttonLink' => '?exportmenuset=' . html_encode($menuset) . '&amp;XSRFToken=' . getXSRFToken('dup_menu')));
 									}
+									npgButton('button', PLUS_ICON . ' ' . gettext("Add Menu Items"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset)));
 									?>
-									<span class="buttons">
-										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php'); ?>?add&amp;menuset=<?php echo urlencode($menuset); ?>">
-											<?php echo PLUS_ICON; ?>
-											<strong><?php echo gettext("Add Menu Items"); ?></strong>
-										</a>
-									</span>
 									<select name="checkallaction" id="checkallaction" size="1">
 										<?php generateListFromArray(array('noaction'), $checkarray, false, true); ?>
 									</select>
@@ -278,10 +252,10 @@ printSortableHead();
 							<br class="clearall">
 							<div class="subhead">
 								<label style="float: right">
-									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
+									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[   ]', this.checked);" />
 								</label>
 							</div>
-							<ul class="page-list">
+							<ul class="page-list" id="menusort">
 								<?php
 								printItemsList($items);
 								?>
@@ -300,8 +274,11 @@ printSortableHead();
 					<br />
 					<span id="serializeOutput"></span>
 					<input name="update" type="hidden" value="Save Order" />
-					<p class="buttons">
-						<button class="buttons serialize" type="submit"><?php echo CHECKMARK_GREEN; ?> <?php echo gettext("Apply"); ?></strong></button>
+					<p>
+						<?php
+						applyButton(array('buttonClass' => 'serialize'));
+						resetButton();
+						?>
 					</p>
 				</form>
 				<ul class="iconlegend">

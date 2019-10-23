@@ -738,6 +738,7 @@ function getAllSubAlbumIDs($albumfolder = '') {
 function handleSearchParms($what, $album = NULL, $image = NULL) {
 	global $_current_search, $_requested_object, $_last_album, $_current_album,
 	$_CMS_current_article, $_CMS_current_page, $_gallery, $_loggedin, $_HTML_cache;
+
 	$_last_album = getNPGCookie('last_album');
 	if (is_object($_requested_object) && get_class($_requested_object) == 'SearchEngine') { //	we are are on a search
 		if (is_null($album)) {
@@ -1252,6 +1253,63 @@ function printSiteLogoImage($title = NULL) {
 	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so the 78px is hard coded
 	?>
 	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="<?php echo $title; ?>" style="height:78px; width:auto;" />
+	<?php
+}
+
+/**
+ * Creates a standard button
+ *
+ * @param string $buttonType button, submit, etc.
+ * @param type $buttonText what shows on the button
+ * @param array $options array(	//	pass any of this list that is needed
+ * 															'buttonClass' any added classes needed
+ * 															'buttonLink' URL if the button loads a script
+ * 															'buttonTitle' title
+ * 															'buttonClick' javaScript for the button "onclick"
+ * 															'disabled' true if the button is disabled
+ * 															'id' CSS ID
+ * 															'buttonExtra' any other "stuff" that needs to be part of the button
+ * 														)
+ */
+function npgButton($buttonType, $buttonText, $options = array()) {
+	$options = array_merge(array(
+			'buttonClass' => NULL,
+			'buttonLink' => NULL,
+			'buttonTitle' => NULL,
+			'buttonClick' => NULL,
+			'disabled' => NULL,
+			'id' => NULL,
+			'buttonExtra' => NULL
+					), $options
+	);
+	extract($options);
+
+	if ($disabled) {
+		$buttonClass .= ' disabled';
+		$disabled = ' disabled="disabled"';
+	}
+	$buttonClass = trim('npgButton ' . $buttonClass);
+	if ($buttonLink) {
+		$buttonLink = ' onclick="window.location=\'' . $buttonLink . '\'"';
+	} else {
+		if ($buttonClick) {
+			$buttonLink = ' onclick="' . $buttonClick . '"';
+		}
+	}
+	if ($buttonType == 'button' && empty($buttonLink)) {
+		trigger_error(gettext('buttonType "button" buttons must have a buttonLink;'), E_USER_NOTICE);
+	}
+	if ($buttonTitle) {
+		$buttonTitle = ' Title="' . $buttonTitle . '"';
+	}
+	if ($id) {
+		$id = ' id="' . $id . '"';
+	}
+	?>
+	<button class="<?php echo $buttonClass;
+	?>" type="<?php echo $buttonType; ?>"<?php echo $buttonTitle . $buttonLink . $disabled . $id . $buttonExtra; ?>>
+		<span class="buttonText"><?php echo $buttonText; ?></span>
+	</button>
 	<?php
 }
 

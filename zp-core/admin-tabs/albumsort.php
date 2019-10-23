@@ -183,28 +183,17 @@ echo "\n</head>";
 						}
 					}
 					?>
-					<form class="dirtylistening" onReset="setClean('sortableListForm');
-							cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
-								<?php XSRFToken('save_sort'); ?>
-								<?php printBulkActions($checkarray_images, true); ?>
+					<form class="dirtylistening" onReset="setClean('sortableListForm'); cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
+						<?php XSRFToken('save_sort'); ?>
+						<?php printBulkActions($checkarray_images, true); ?>
 
-						<p class="buttons">
-							<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
-								<?php echo BACK_ARROW_BLUE; ?>
-								<strong><?php echo gettext("Back"); ?></strong>
-							</button>
-							<button class="buttons" type="submit" onclick="postSort(this.form);" >
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
-							<button class="buttons" type="reset">
-								<?php echo CROSS_MARK_RED_LARGE; ?>
-								<strong><?php echo gettext("Reset"); ?></strong>
-							</button>
-							<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-								<span style="vertical-align:-1;"><?php echo BULLSEYE_BLUE; ?></span>
-								<strong><?php echo gettext('View Album'); ?></strong>
-							</button>
+						<p>
+							<?php
+							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+							applyButton(array('buttonClass' => 'serialize'));
+							resetButton();
+							viewButton(array('buttonLink' => $album->getLink()));
+							?>
 						</p>
 						<br class="clearall">
 						<p><?php echo gettext("Set the image order by dragging them to the positions you desire."); ?></p>
@@ -261,23 +250,12 @@ echo "\n</head>";
 
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
-							<p class="buttons">
-								<button class="buttons" type="button" onclick="window.location = '<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent; ?>'">
-									<?php echo BACK_ARROW_BLUE; ?>
-									<strong><?php echo gettext("Back"); ?></strong>
-								</button>
-								<button class="buttons" type="submit" onclick="postSort(this.form);" >
-									<?php echo CHECKMARK_GREEN; ?>
-									<strong><?php echo gettext("Apply"); ?></strong>
-								</button>
-								<button class="buttons" type="reset">
-									<?php echo CROSS_MARK_RED_LARGE; ?>
-									<strong><?php echo gettext("Reset"); ?></strong>
-								</button>
-								<button class="buttons" type="button" onclick="window.location = '<?php echo $album->getLink(); ?>'">
-									<?php echo BULLSEYE_BLUE; ?>
-									<strong><?php echo gettext('View Album'); ?></strong>
-								</button>
+							<?php
+							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
+							applyButton(array('buttonClass' => 'serialize'));
+							resetButton();
+							viewButton(array('buttonLink' => $album->getLink()));
+							?>
 							</p>
 						</div>
 					</form>

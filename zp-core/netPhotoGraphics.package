@@ -168,7 +168,6 @@ themes/paradigm/img/background-pattern.png
 themes/paradigm/img/background-pattern2.png
 themes/paradigm/img/favicon.ico
 themes/paradigm/img/li-default.png
-themes/paradigm/img/list_12x11.png
 themes/paradigm/img/loadingAnimation.gif
 themes/paradigm/img/logo.png
 themes/paradigm/img/magnifying_glass_16x16.png
@@ -1617,6 +1616,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/paged_thumbs_nav.php
 %extensions%/PHPMailer.php
 %extensions%/print_album_menu.php
+%extensions%/publicCMS.php
 %extensions%/publishContent.php
 %extensions%/purgeOptions.php
 %extensions%/qrcode.php

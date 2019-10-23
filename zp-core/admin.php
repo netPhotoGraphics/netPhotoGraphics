@@ -544,7 +544,8 @@ $buttonlist = array();
 									$button_category = $button['category'];
 									$button_icon = $button['icon'];
 
-									$color = $disable = '';
+									$color = '';
+									$disable = false;
 									switch ((int) $button['enable']) {
 										case 0:
 											$disable = ' disabled="disabled"';
@@ -577,26 +578,28 @@ $buttonlist = array();
 												XSRFToken($button['XSRFTag']);
 											echo $button['hidden'];
 											if (isset($button['onclick'])) {
-												$type = 'type="button" onclick="' . $button['onclick'] . '"';
+												$buttonType = 'button';
+												$buttonClick = $button['onclick'];
 											} else {
-												$type = 'type="submit"';
+												$buttonType = 'submit';
+												$buttonClick = NULL;
+											}
+											if (!empty($button_icon)) {
+												if (strpos($button_icon, 'images/') === 0) {
+													// old style icon image
+													$icon = '<img src="' . $button_icon . '" alt="' . html_encode($button['alt']) . '" />';
+												} else {
+													$icon = $button_icon . ' ';
+												}
+											}
+											if ($disable) {
+												$class = 'fixedwidth tooltip disabled_button';
+											} else {
+												$class = 'fixedwidth tooltip';
 											}
 											?>
-											<div class="buttons tooltip" title="<?php echo html_encode($button['title']); ?>">
-												<button class="buttons fixedwidth<?php if ($disable) echo ' disabled_button'; ?>" <?php echo $type . $disable; ?>>
-													<?php
-													if (!empty($button_icon)) {
-														if (strpos($button_icon, 'images/') === 0) {
-															// old style icon image
-															?>
-															<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
-															<?php
-														} else {
-															echo $button_icon . ' ';
-														}
-													}
-													?><span class="overview_buttontext <?php echo $color; ?>"><?php echo html_encode($button['button_text']); ?></span>
-												</button>
+											<div>
+												<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable, 'buttonTitle' => html_encode($button['title']))); ?>
 											</div><!--buttons -->
 										</form>
 										<?php

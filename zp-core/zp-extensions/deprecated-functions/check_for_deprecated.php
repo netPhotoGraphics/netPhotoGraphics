@@ -72,12 +72,8 @@ echo '</head>' . "\n";
 						</option>
 					</select>
 					<br class="clearall"><br />
-					<span class="buttons">
-						<button class="buttons" type="submit" title="<?php echo gettext("Search"); ?>" onclick="$('#outerbox').html('');" >
-							<?php echo MAGNIFY; ?>
-							<strong><?php echo gettext("Search"); ?></strong>
-						</button>
-					</span>
+					<?php applyButton(array('buttonText' => MAGNIFY . '	' . gettext("Search"), 'buttonClick' => "$('#outerbox').html('');")); ?>
+					<br />
 					<span id="progress"></span>
 				</form>
 

@@ -135,32 +135,26 @@ updatePublished('pages');
 				if (!empty($pagelist) || npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 					?>
 					<span class="zenpagestats"><?php printPagesStatistic(); ?></span>
-					<form class="dirtylistening" onReset="setClean('form_zenpageitemlist');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php'); ?>" method="post" name="update" id="form_zenpageitemlist" onsubmit="return confirmAction();" autocomplete="off">
-						<?php XSRFToken('update'); ?>
-
-						<p><?php echo gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."); ?></p>
+					<form class="dirtylistening" onReset="setClean('sortableListForm');$('#pagesort').sortable('cancel');" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php'); ?>" method="post" name="update" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off">
 						<?php
+						XSRFToken('update');
+						printSortableDirections(gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."));
 						if (GALLERY_SECURITY == 'public') {
 							?>
 							<p class="notebox"><?php echo gettext("<strong>Note:</strong> Subpages of password protected pages inherit the protection."); ?></p>
 							<?php
 						}
 						?>
-						<p class="buttons">
-							<button class="buttons serialize" type="submit">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext("Apply"); ?></strong>
-							</button>
+						<p>
+							<?php
+							applyButton(array('buttonClass' => 'serialize'));
+							resetButton();
+							?>
 							<?php
 							if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								?>
 								<span class="floatright">
-									<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?page&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>">
-										<?php echo PLUS_ICON; ?>
-										<strong>
-											<?php echo gettext('New Page'); ?>
-										</strong>
-									</a>
+									<?php npgButton('button', PLUS_ICON . ' ' . gettext('New Page'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 								</span>
 								<?php
 							}
@@ -196,7 +190,7 @@ updatePublished('pages');
 								<label style="float: right;padding-top:5px;padding-right:5px;"><?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
 							</div>
-							<ul class="page-list">
+							<ul class="page-list" id="pagesort">
 								<?php $toodeep = printNestedItemsList('pages-sortablelist'); ?>
 							</ul>
 
@@ -211,11 +205,11 @@ updatePublished('pages');
 						?>
 						<span id="serializeOutput"></span>
 						<input name="update" type="hidden" value="Save Order" />
-						<p class="buttons">
-							<button class="buttons serialize" type="submit" title="<?php echo gettext('Apply'); ?>">
-								<?php echo CHECKMARK_GREEN; ?>
-								<strong><?php echo gettext('Apply'); ?></strong>
-							</button>
+						<p>
+							<?php
+							applyButton(array('buttonClass' => 'serialize'));
+							resetButton();
+							?>
 						</p>
 					</form>
 					<?php

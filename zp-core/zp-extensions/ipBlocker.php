@@ -166,8 +166,8 @@ class ipBlocker {
 					}
 					//-->
 				</script>
-				<p class="buttons">
-					<a onclick="clearips();"><?php echo gettext('clear list'); ?></a>
+				<p>
+					<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
 				</p>
 				<?php
 				break;

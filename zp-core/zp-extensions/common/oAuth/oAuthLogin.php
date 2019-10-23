@@ -191,13 +191,7 @@ class oAuthLogin {
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
 
 		if (!npg_loggedin()) {
-			?>
-			<span class="button">
-				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php'); ?>?request=<?php echo $class; ?>&amp;redirect=/dev/index.php?userlog=1" title="<?php echo $oAuthAuthority; ?> login">
-					<img src="<?php echo WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $class; ?>/login_button.png" alt="<?php echo $oAuthAuthority; ?> login">
-				</a>
-			</span>
-			<?php
+			npgButton('button', '<img src="' . WEBPATH . ' / ' . CORE_FOLDER . ' / ' . PLUGIN_FOLDER . ' / ' . $class . '/login_button.png" alt="' . $oAuthAuthority . ' login">', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php') . '?request=' . $class . '&amp;redirect=/dev/index.php?userlog=1', 'buttonTitle' => $oAuthAuthority . ' login'));
 		}
 	}
 
