@@ -103,11 +103,11 @@ echo '</head>' . "\n";
 								foreach ($paths as $plugin => $path) {
 									if (strpos($path, USER_PLUGIN_FOLDER) !== false) {
 										if (distributedPlugin($plugin)) {
-											$coreScripts[] = stripSuffix(str_replace(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/', '', $path));
+											$coreScripts[] = stripSuffix(str_replace(USER_PLUGIN_SERVERPATH . '/', '', $path));
 										}
 									}
 								}
-								$path = SERVERPATH . '/' . USER_PLUGIN_FOLDER;
+								$path = USER_PLUGIN_SERVERPATH;
 								listUses(getPHPFiles($path, $coreScripts), $path, $pattern);
 								break;
 							case '3':
@@ -132,7 +132,7 @@ echo '</head>' . "\n";
 								if (listUses(getPHPFiles($path, array()), $path, $pattern)) {
 									echo '<br />';
 								}
-								$path = SERVERPATH . '/' . USER_PLUGIN_FOLDER;
+								$path = USER_PLUGIN_SERVERPATH;
 								echo "<em><strong>" . USER_PLUGIN_FOLDER . "</strong></em><br />\n";
 								if (listUses(getPHPFiles($path, $userfiles), $path, $pattern)) {
 									echo '<br />';

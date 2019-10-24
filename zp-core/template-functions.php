@@ -3730,7 +3730,7 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
  */
 function getCustomPageRewrite($page) {
 	global $_conf_vars;
-	if (array_key_exists($page, $_conf_vars['special_pages'])) {
+	if (isset($_conf_vars['special_pages'][$page]['rewrite'])) {
 		return preg_replace('~^_PAGE_/~', _PAGE_ . '/', $_conf_vars['special_pages'][$page]['rewrite']);
 	} else {
 		return '/' . _PAGE_ . '/' . $page;
@@ -4439,7 +4439,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

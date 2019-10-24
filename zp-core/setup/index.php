@@ -69,8 +69,8 @@ $session = npg_session_start();
 $setup_checked = false;
 
 
-if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/folderRename.php')) {
-	$corelocator = file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg');
+if (file_exists(USER_PLUGIN_SERVERPATH . '/core-locator.npg') && file_exists(USER_PLUGIN_SERVERPATH . '/folderRename.php')) {
+	$corelocator = file_get_contents(USER_PLUGIN_SERVERPATH . '/core-locator.npg');
 	if (basename(dirname(__DIR__)) != basename($corelocator)) {
 		require_once(CORE_SERVERPATH . 'reconfigure.php');
 
@@ -93,7 +93,7 @@ if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg') && 
 			npgFilters::apply('security_misc', true, 'folder_rename', 'admin_auth', $oldname . ' => ' . $newname);
 		}
 
-		unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg'); //	so setup won't undo the request
+		unlink(USER_PLUGIN_SERVERPATH . '/core-locator.npg'); //	so setup won't undo the request
 		header('Location:' . WEBPATH . '/' . $core . '/setup/index.php?autorun=admin');
 		exit();
 	}
@@ -1611,7 +1611,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						@mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
 
 						$good = folderCheck(gettext('HTML cache'), SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/', 'std', $Cache_html_subfolders, true, $chmod | 0311, $updatechmod) && $good;
-						$good = folderCheck(gettext('Third party plugins'), SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/', 'std', $plugin_subfolders, true, $chmod | 0311, $updatechmod) && $good;
+						$good = folderCheck(gettext('Third party plugins'), USER_PLUGIN_SERVERPATH . '/', 'std', $plugin_subfolders, true, $chmod | 0311, $updatechmod) && $good;
 						?>
 					</ul>
 					<?php

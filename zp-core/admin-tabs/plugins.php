@@ -88,8 +88,8 @@ if (isset($_GET['action'])) {
 		case 'delete':
 			XSRFdefender('deleteplugin');
 			$plugin = $_GET['plugin'];
-			npgFunctions::removeDir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $plugin);
-			unlink(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . $plugin . '.php');
+			npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . '/' . $plugin);
+			unlink(USER_PLUGIN_SERVERPATH . '/' . $plugin . '.php');
 			$notify = '&deleted&plugin=' . $_GET['plugin'];
 			if (isset($pluginDetails[$plugin]['deprecated'])) {
 				$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
