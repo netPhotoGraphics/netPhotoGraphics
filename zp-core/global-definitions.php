@@ -159,6 +159,7 @@ if (!defined('SERVERPATH')) {
 	define('SERVERPATH', $const_serverpath);
 }
 define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
+define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER);
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }

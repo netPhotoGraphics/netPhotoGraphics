@@ -739,8 +739,8 @@ function updateRootIndexFile() {
 	}
 	if ($rootupdate) {
 		@unlink($index . '.bak');
-		file_put_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg', CORE_SERVERPATH);
-		chmod(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/core-locator.npg', FILE_MOD);
+		file_put_contents(USER_PLUGIN_SERVERPATH . '/core-locator.npg', CORE_SERVERPATH);
+		chmod(USER_PLUGIN_SERVERPATH . '/core-locator.npg', FILE_MOD);
 	} else {
 		@rename($index . '.bak', $index);
 	}

@@ -1873,7 +1873,7 @@ function imageThemeSetup($album) {
 function getWatermarkPath($wm) {
 	$path = CORE_SERVERPATH . 'watermarks/' . internalToFilesystem($wm) . '.png';
 	if (!file_exists($path)) {
-		$path = SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/watermarks/' . internalToFilesystem($wm) . '.png';
+		$path = USER_PLUGIN_SERVERPATH . '/watermarks/' . internalToFilesystem($wm) . '.png';
 	}
 	return $path;
 }

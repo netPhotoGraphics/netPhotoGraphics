@@ -4266,7 +4266,7 @@ function getWatermarks() {
 	foreach ($filelist as $file) {
 		$list[filesystemToInternal(substr(basename($file), 0, -4))] = $basepath . $file;
 	}
-	$basepath = SERVERPATH . "/" . USER_PLUGIN_FOLDER . '/watermarks/';
+	$basepath = USER_PLUGIN_SERVERPATH . '/watermarks/';
 	if (is_dir($basepath)) {
 		chdir($basepath);
 		$filelist = safe_glob('*.png');
@@ -5599,7 +5599,7 @@ function getPluginTabs() {
 				$disabled[$plugin] = $path;
 			}
 			$tpp = 0;
-			if (strpos($path, SERVERPATH . '/' . USER_PLUGIN_FOLDER) === 0) {
+			if (strpos($path, USER_PLUGIN_SERVERPATH) === 0) {
 				$tpp = 2;
 				$thirdparty[$plugin] = $path;
 				if (distributedPlugin($plugin)) {
