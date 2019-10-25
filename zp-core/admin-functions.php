@@ -1062,10 +1062,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 												if ($db) {
 													$v = (int) $db['value'];
 												} else {
-													$v = 0;
+													$v = (int) 0;
 												}
 											}
-											if ($v === $checked) {
+											if ($v == $checked) {
 												if (is_numeric($display)) {
 													$display = $checkbox;
 												}

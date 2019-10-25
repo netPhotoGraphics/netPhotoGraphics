@@ -109,7 +109,8 @@ class ThemeOptions {
 						'checkboxes' => array(
 								gettext('Gallery') => 'zpB_use_infinitescroll_gallery',
 								gettext('Albums') => 'zpB_use_infinitescroll_albums',
-								NEWS_LABEL => 'zpB_use_infinitescroll_news'),
+								NEWS_LABEL => 'zpB_use_infinitescroll_news'
+						),
 						'desc' =>
 						gettext('Check pages which use <a href="https://infinite-scroll.com/" target="_blank">infinite-scroll jQuery plugin</a>. This layout will automatically load items of next page (albums, images or news) without pagination.') . '<br />' .
 						gettext('The behavior is "manual first": it requires visitor to click a button the first time to load new items and then, it automatically load after.') . '<br />' .

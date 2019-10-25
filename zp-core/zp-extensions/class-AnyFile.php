@@ -98,9 +98,7 @@ class AnyFile extends TextObject {
 	/**
 	 * Returns the image file name for the thumbnail image.
 	 *
-	 * @param string $path override path
-	 *
-	 * @return s
+	 * @return string
 	 */
 	function getThumbImageFile($path = NULL) {
 		global $_gallery;
