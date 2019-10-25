@@ -1018,7 +1018,7 @@ input.tags {
 }
 
 .overview-section {
-	width: 550px;
+	width: 547px;
 	margin: 0 0 15px 0px;
 	padding: 0px;
 	float: left;
@@ -1065,15 +1065,18 @@ input.tags {
 	padding-right: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	margin: 10px;
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 7px;
 	border: 1px solid #cccccc;
-	width: 530px;
+	width: 520px;
 }
 
 .overview_utility_buttons {
 	white-space: nowrap;
 	padding-bottom: 5px;
-	width: 253px;
+	width: 250px;
 	overflow: hidden;
 }
 
