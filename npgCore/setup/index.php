@@ -68,12 +68,10 @@ session_cache_limiter('nocache');
 $session = npg_session_start();
 $setup_checked = false;
 
-
-if (file_exists(USER_PLUGIN_SERVERPATH . '/core-locator.npg') && file_exists(USER_PLUGIN_SERVERPATH . '/folderRename.php')) {
+if (file_exists(USER_PLUGIN_SERVERPATH . '/core-locator.npg') && extensionEnabled('folderName')) {
 	$corelocator = file_get_contents(USER_PLUGIN_SERVERPATH . '/core-locator.npg');
 	if (basename(dirname(__DIR__)) != basename($corelocator)) {
 		require_once(CORE_SERVERPATH . 'reconfigure.php');
-
 		switch (CORE_FOLDER) {
 			case 'zp-core':
 				$extensions = basename($rename['zp-core/zp-extensions'] = 'zp-core/' . PLUGIN_PATH);
@@ -84,7 +82,6 @@ if (file_exists(USER_PLUGIN_SERVERPATH . '/core-locator.npg') && file_exists(USE
 				$core = $rename['npgCore'] = 'zp-core';
 				break;
 		}
-
 		npgFunctions::removeDir(SERVERPATH . '/' . $core);
 		foreach ($rename as $oldname => $newname) {
 			chmod(SERVERPATH . '/' . $oldname, 0777);
@@ -98,7 +95,6 @@ if (file_exists(USER_PLUGIN_SERVERPATH . '/core-locator.npg') && file_exists(USE
 		exit();
 	}
 }
-
 
 if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUEST['checked'])) {
 	if (isset($_SESSION['save_session_path'])) {

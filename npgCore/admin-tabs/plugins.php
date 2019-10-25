@@ -90,6 +90,7 @@ if (isset($_GET['action'])) {
 			$plugin = $_GET['plugin'];
 			npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . '/' . $plugin);
 			unlink(USER_PLUGIN_SERVERPATH . '/' . $plugin . '.php');
+			purgeOption('_PLUGIN_' . $plugin);
 			$notify = '&deleted&plugin=' . $_GET['plugin'];
 			if (isset($pluginDetails[$plugin]['deprecated'])) {
 				$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
