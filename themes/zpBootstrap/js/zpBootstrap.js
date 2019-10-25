@@ -19,9 +19,6 @@ $(document).ready(function () {
 			$(this).append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
 		}
 	});
-	$('footer a[href="http://www.zenphoto.org"]')
-					.attr('target', '_blank')
-					.append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
 
 	/* buttons */
 	$('button, input[type="button"], input[type="submit"], input[type="reset"]').addClass('btn btn-default');
