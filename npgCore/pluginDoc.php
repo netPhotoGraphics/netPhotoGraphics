@@ -36,7 +36,7 @@
 global $_CMS;
 
 function processCommentBlock($commentBlock) {
-	global $plugin_author, $plugin_copyright, $subpackage;
+	global $plugin_author, $plugin_copyright, $subpackage, $plugin_deprecated;
 	$markup = array(
 			'&amp;gt;' => '>',
 			'&amp;lt;' => '<',
@@ -141,6 +141,10 @@ function processCommentBlock($commentBlock) {
 							}
 							$links[] = array('text' => $text, 'link' => $line);
 							break;
+						case 'deprecated':
+							preg_match('~.*(deprecated\s+[since\s+[\d.]*]*)\s+(.*)~i', $line, $matches);
+							$plugin_deprecated = ucfirst($matches[1]) . '<br />' . ucfirst($matches[2]);
+							break;
 					}
 				}
 			} else {
@@ -216,6 +220,7 @@ if (!defined('OFFSET_PATH')) {
 	$plugin_URL = '';
 	$option_interface = '';
 	$doclink = '';
+	$plugin_deprecataed = '';
 
 	require_once($pluginToBeDocPath);
 
@@ -397,6 +402,13 @@ if (!defined('OFFSET_PATH')) {
 
 				<div id="plugin-content">
 					<h1><?php echo $ico; ?><?php echo html_encode($extension); ?></h1>
+					<?php
+					if ($plugin_deprecated) {
+						?>
+						<h3 class="warningbox"><?php echo $plugin_deprecated; ?></h3>
+						<?php
+					}
+					?>
 					<div class="border">
 						<?php echo $plugin_description; ?>
 					</div>

@@ -23,6 +23,8 @@
  * @package plugins/folderRename
  * @pluginCategory tools
  *
+ * @deprecated since 2.00.03 You should remove this plugin. Folder renaming is no longer supported.
+ *
  * @Copyright Stephen L Billard permission granted for use in conjunction with netPhotoGraphics. All other rights reserved
  */
 // force UTF-8 Ø
@@ -32,6 +34,10 @@ $plugin_description = gettext('Renames the core and extension folders.');
 $plugin_disable = npgFunctions::hasPrimaryScripts() ? '' : gettext('Disabled for clone sites.');
 
 npgFilters::register('admin_utilities_buttons', 'folderRename_button');
+
+if (OFFSET_PATH == 2 && CORE_FOLDER != 'npgCore') {
+	setupLog('<span class="logwarning">' . gettext('You should remove this plugin. Folder renaming is no longer supported.') . '</span>', true);
+}
 
 function folderRename_button($buttons) {
 	switch (CORE_FOLDER) {
