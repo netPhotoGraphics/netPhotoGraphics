@@ -121,15 +121,12 @@ class TextObject extends Image {
 	/**
 	 * Returns the image file name for the thumbnail image.
 	 *
-	 * @param string $path override path
-	 *
-	 * @return s
+	 * @return string
 	 */
-	function getThumbImageFile($path = NULL) {
+	function getThumbImageFile() {
 		global $_gallery;
-		if (is_null($path)) {
-			$path = SERVERPATH;
-		}
+
+		$path = SERVERPATH;
 		if (is_null($this->objectsThumb)) {
 			switch (getSuffix($this->filename)) {
 				default: // just in case we extend and are lazy...

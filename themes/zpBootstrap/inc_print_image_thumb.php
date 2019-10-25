@@ -29,10 +29,10 @@
 				if ($isImagePhoto) {
 					?>
 					<a class="thumb" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
-			<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
+						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 						<div class="hide caption">
 							<h4><?php printBareImageTitle(); ?></h4>
-			<?php echo printImageDesc(); ?>
+							<?php echo printImageDesc(); ?>
 						</div>
 					</a>
 					<?php
@@ -40,10 +40,10 @@
 				} else if ($isImageVideo && $isAudio) {
 					?>
 					<a class="thumb" href="javascript:;" data-type="iframe" data-src="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
-							<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
+						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 						<div class="hide caption">
 							<h4><?php printBareImageTitle(); ?></h4>
-					<?php echo printImageDesc(); ?>
+							<?php echo printImageDesc(); ?>
 						</div>
 					</a>
 					<?php
@@ -55,50 +55,51 @@
 					</a>
 					<div class="hide caption">
 						<h4><?php printBareImageTitle(); ?></h4>
-					<?php echo printImageDesc(); ?>
+						<?php echo printImageDesc(); ?>
 					</div>
-						<?php
-						// embed online video (hack of textobject)
-					} else if ($isTextObject && $isEmbedVideo) {
-						?>
+					<?php
+					// embed online video (hack of textobject)
+				} else if ($isTextObject && $isEmbedVideo) {
+					?>
 					<a class="thumb" href="<?php echo html_encode($link); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
-			<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
+						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 						<div class="hide caption">
 							<h4><?php printBareImageTitle(); ?></h4>
-					<?php echo printImageDesc(); ?>
+							<?php echo printImageDesc(); ?>
 						</div>
 					</a>
-						<?php
-						// txt, htm or html content
-					} else if ($isTextObject && !$isEmbedVideo) {
-						?>
+					<?php
+					// txt, htm or html content
+				} else if ($isTextObject && !$isEmbedVideo) {
+					?>
 					<a class="thumb" href="javascript:;" data-src="#item<?php echo $_current_image->getIndex(); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
-			<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
+						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 						<div class="hide caption">
 							<h4><?php printBareImageTitle(); ?></h4>
-			<?php echo printImageDesc(); ?>
+							<?php echo printImageDesc(); ?>
 						</div>
 					</a>
 					<div style="display: none;" id="item<?php echo $_current_image->getIndex(); ?>">
-					<?php echo $_current_image->getContent(); ?>
+						<?php echo $_current_image->getContent(); ?>
 					</div>
 
-						<?php
-						// other media object not displayed in fancybox
-					} else {
-						?>
+					<?php
+					// other media object not displayed in fancybox
+				} else {
+					?>
 					<a class="thumb" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
-			<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
-						<h4><?php printBareImageTitle(); ?></h4>
-			<?php echo printImageDesc(); ?>
-				</div>
-			</a>
-		<?php } ?>
+						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
+						<div class="hide caption">
+							<h4><?php printBareImageTitle(); ?></h4>
+							<?php echo printImageDesc(); ?>
+						</div>
+					</a>
+				<?php } ?>
 
-		<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
-			<h5><?php printBareImageTitle(); ?></h5>
-		</a>
-		</div>
+				<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
+					<h5><?php printBareImageTitle(); ?></h5>
+				</a>
+			</div>
+		<?php } ?>
 	<?php } ?>
-<?php } ?>
 </div>
