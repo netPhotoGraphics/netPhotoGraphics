@@ -62,7 +62,7 @@ class publicCMS {
 						'order' => 3,
 						'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
 						'checkboxes' => $categoryList,
-						'desc' => gettext('Check the categories you want to be public. Note: uncataegorized articles are by definition public.')
+						'desc' => gettext('Check the categories you want to be public. Note: uncategorized articles are by definition public.')
 				)
 		);
 		if (GALLERY_SECURITY == 'public') {

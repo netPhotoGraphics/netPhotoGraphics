@@ -25,7 +25,6 @@ class seo_basic {
 	/**
 	 * class instantiation function
 	 *
-	 * @return zenphoto_seo
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {

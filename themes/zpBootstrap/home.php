@@ -11,7 +11,6 @@ if ('* none *' != $album_filename = getOption('zpB_homepage_album_filename')) {
 	?>
 	<div class="slider">
 		<?php
-		;
 		if (empty($album_filename)) {
 			$option = 'all';
 		} else {
