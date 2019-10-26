@@ -137,6 +137,7 @@ class Image extends MediaObject {
 			$this->updateMetaData(); // extract info from image
 			$this->updateDimensions(); // deal with rotation issues
 			$this->set('mtime', $this->filemtime);
+			$this->set('filesize', filesize($this->localpath));
 			$this->save();
 			if ($new)
 				npgFilters::apply('new_image', $this);
@@ -247,7 +248,7 @@ class Image extends MediaObject {
 				'EXIFGPSLongitudeRef' => array('GPS', 'Longitude Reference', gettext('Longitude Reference'), false, 52, false, 'string', 'EXIFGPSLongitude'),
 				'EXIFGPSAltitude' => array('GPS', 'Altitude', gettext('Altitude'), false, 52, true, 'number', false),
 				'EXIFGPSAltitudeRef' => array('GPS', 'Altitude Reference', gettext('Altitude Reference'), false, 52, false, 'string', 'EXIFGPSAltitude'),
-				'IPTCOriginatingProgram' => array('IPTC', 'OriginatingProgram', gettext('Originating Program '), false, 32, true, 'string', false),
+				'IPTCOriginatingProgram' => array('IPTC', 'OriginatingProgram', gettext('Originating Program'), false, 32, true, 'string', false),
 				'IPTCProgramVersion' => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string', false)
 		);
 	}
@@ -306,8 +307,9 @@ class Image extends MediaObject {
 		$this->imagefolder = $this->albumlink = $this->albumname = $album->name;
 		$this->filename = $filename;
 		$this->displayname = substr($this->filename, 0, strrpos($this->filename, '.'));
-		if (empty($this->displayname))
+		if (empty($this->displayname)) {
 			$this->displayname = $this->filename;
+		}
 		$this->comments = null;
 		$this->filemtime = @filemtime($this->localpath);
 		$this->imagetype = strtolower(get_class($this)) . 's';
@@ -1368,15 +1370,6 @@ class Image extends MediaObject {
 	}
 
 	/**
-	 * Returns the disk size of the image
-	 *
-	 * @return string
-	 */
-	function getImageFootprint() {
-		return filesize($this->localpath);
-	}
-
-	/**
 	 * Returns the custom watermark name
 	 *
 	 * @return string
@@ -1466,9 +1459,7 @@ class Image extends MediaObject {
 	 * @return int|false
 	 */
 	function getFilesize() {
-		$album = $this->getAlbum();
-		$filesize = filesize($this->getImagePath(SERVERPATH));
-		return $filesize;
+		return filesize($this->localpath);
 	}
 
 }

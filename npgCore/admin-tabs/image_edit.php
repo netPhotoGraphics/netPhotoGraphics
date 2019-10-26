@@ -194,7 +194,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								</p>
 								<p><?php echo gettext('<strong>Image id:</strong>'); ?> <?php echo $image->getID(); ?></p>
 								<p><?php echo gettext("<strong>Dimensions:</strong>"); ?><br /><?php echo $image->getWidth(); ?> x  <?php echo $image->getHeight() . ' ' . gettext('px'); ?></p>
-								<p><?php echo gettext("<strong>Size:</strong>"); ?><br /><?php echo byteConvert($image->getImageFootprint()); ?></p>
+								<p><?php echo gettext("<strong>Size:</strong>"); ?><br /><?php echo byteConvert($image->getFilesize()); ?></p>
 							</div>
 
 							<div class="floatright top bulk_checkbox">

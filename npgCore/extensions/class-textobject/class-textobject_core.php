@@ -112,6 +112,7 @@ class TextObject extends Image {
 			$title = $this->displayname;
 			$this->updateMetaData();
 			$this->set('mtime', $this->filemtime);
+			$this->set('filesize', filesize($this->localpath));
 			$this->save();
 			if ($new)
 				npgFilters::apply('new_image', $this);

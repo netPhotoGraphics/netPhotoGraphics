@@ -34,6 +34,8 @@ $plugin_disable = (npgFilters::has_filter('get_upload_header_text') && !extensio
 
 $option_interface = 'quota_manager';
 
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
+
 if ($plugin_disable) {
 	enableExtension('quota_manager', 0);
 } else {
@@ -52,7 +54,7 @@ if ($plugin_disable) {
  * Option handler class
  *
  */
-class quota_manager {
+class quota_manager extends fieldExtender {
 
 	/**
 	 * class instantiation function
@@ -62,7 +64,24 @@ class quota_manager {
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('quota_default', 250000);
 			setOptionDefault('quota_allowZIP', 1);
+			parent::constructor('quota_manager', self::fields());
+			if (extensionEnabled('quota_manager')) {
+				//	populate the `filesize` field
+				$sql = 'SELECT a.folder, i.filename, i.id FROM ' . prefix('albums') . ' AS a, ' . prefix('images') . ' AS i WHERE i.filesize IS NULL AND a.id = i.albumid;';
+				$result = query($sql);
+				while ($row = db_fetch_assoc($result)) {
+					$size = filesize(SERVERPATH . '/' . ALBUMFOLDER . '/' . $row['folder'] . '/' . $row['filename']);
+					query('UPDATE ' . prefix('images') . ' SET `filesize`=' . $size . ' WHERE `id`=' . $row['id']);
+				}
+				db_free_result($result);
+			}
 		}
+	}
+
+	static function fields() {
+		return array(
+				array('table' => 'images', 'name' => 'filesize', 'desc' => gettext('Stores image disk footprint'), 'type' => 'int', 'size' => 11)
+		);
 	}
 
 	/**
@@ -157,7 +176,6 @@ class quota_manager {
 		if (is_object($_current_admin_obj)) {
 			$image->set('owner', $_current_admin_obj->getUser());
 		}
-		$image->set('filesize', filesize($image->localpath));
 		$image->save();
 		return $image;
 	}
@@ -168,7 +186,6 @@ class quota_manager {
 	 * @return object
 	 */
 	static function image_refresh($image) {
-		$image->set('filesize', filesize($image->localpath));
 		$image->save();
 		return $image;
 	}
@@ -283,6 +300,15 @@ class quota_manager {
 		return $types;
 	}
 
+}
+
+function quota_manager_enable($enabled) {
+	if ($enabled) {
+		$report = gettext('<em>filesize</em> field will be added to the images database.');
+	} else {
+		$report = gettext('<em>filesize</em> field will be <span style = "color:red;font-weight:bold;">dropped</span> from the images database.');
+	}
+	requestSetup('quota_manager', $report);
 }
 
 ?>

@@ -105,6 +105,7 @@ class Video extends Image {
 				$this->setTitle($this->displayname);
 			$this->updateMetaData();
 			$this->set('mtime', $this->filemtime);
+			$this->set('filesize', filesize($this->localpath));
 			$this->save();
 			if ($new)
 				npgFilters::apply('new_image', $this);
