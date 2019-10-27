@@ -295,13 +295,13 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 							<br />
 							<p>
 								<?php
-								applyButton();
-								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Reset"), array('buttonClick' => "resetBoundingBox();"));
 								$backLink = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($albumname) . '&subpage=' . html_encode($subpage) . '&tagsort=' . html_encode($tagsort) . '&tab=imageinfo';
 								if ($singleimage) {
 									$backLink .= '&singleimage=' . html_encode($singleimage);
 								}
 								backButton(array('buttonLink' => $backLink));
+								applyButton();
+								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Reset"), array('buttonClick' => "resetBoundingBox();"));
 								?>
 							</p><br />
 							<?php
