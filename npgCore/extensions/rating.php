@@ -428,8 +428,8 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 				$.ajax({
 					type: 'POST',
 					cache: false,
-					url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/update.php'); ?>,
-									data: dataString + '&id=<?php echo $id; ?>&table=<?php echo $table; ?>'
+					url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/update.php'); ?>',
+					data: dataString + '&id=<?php echo $id; ?>&table=<?php echo $table; ?>'
 				});
 				recast<?php echo $unique; ?> = <?php printf('%u', $recast); ?>;
 				$('#vote<?php echo $unique; ?>').html('<?php echo gettext('Vote Submitted'); ?>');
