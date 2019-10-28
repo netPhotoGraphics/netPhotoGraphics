@@ -283,7 +283,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 						$option_interface = NULL;
 						eval($str);
 						if ($option_interface) {
-							$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=' . $extension;
+							$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;from=' . $plugin_default . '&amp;subpage=' . $subpage . '&amp;single=' . $extension;
 						}
 					}
 				}

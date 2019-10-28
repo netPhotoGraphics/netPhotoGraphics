@@ -57,16 +57,24 @@ function getOptionContent() {
 				$plugins[] = $extension;
 			}
 		}
+		$rangeset = getPageSelector($plugins, PLUGINS_PER_PAGE);
 
 		if (isset($_GET['single'])) {
 			$single = sanitize($_GET['single']);
 			$list = $plugins;
 			$plugins = array($showExtension);
+			if (isset($_GET['from'])) {
+				$backlink = getAdminLink('admin-tabs/plugins.php') . '?page=plugins&tab=' . $_GET['from'];
+			} else {
+				$backlink = getAdminLink('admin-tabs/options.php') . '?page=options&tab=plugin';
+			}
+			if (isset($_GET['subpage']) && $_GET['subpage']) {
+				$backlink .= '&subpage=' . $_GET['subpage'];
+			}
 		} else {
 			$single = false;
+			$plugins = array_slice($plugins, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PAGE);
 		}
-		$rangeset = getPageSelector($plugins, PLUGINS_PER_PAGE);
-		$plugins = array_slice($plugins, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PAGE);
 		?>
 		<div id="tab_plugin" class="tabbox">
 			<script type="text/javascript">
@@ -86,6 +94,7 @@ function getOptionContent() {
 							<td colspan="100%">
 								<p>
 									<?php
+									backButton(array('buttonLink' => $backlink));
 									applyButton();
 									resetButton();
 									?>
@@ -149,7 +158,7 @@ function getOptionContent() {
 												<?php
 											}
 										} else {
-											$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=' . html_encode($extension);
+											$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;subpage=' . $subpage . '&amp;single=' . html_encode($extension);
 											?>
 											<span class="icons">
 												<a href="<?php echo $optionlink; ?>" title="<?php printf(gettext("Change %s options"), html_encode($extension)); ?>">
@@ -217,6 +226,7 @@ function getOptionContent() {
 								<td colspan="100%">
 									<p>
 										<?php
+										backButton(array('buttonLink' => $backlink));
 										applyButton();
 										resetButton();
 										?>
