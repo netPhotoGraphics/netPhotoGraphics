@@ -145,7 +145,7 @@ class VideoJS {
 	}
 
 	static function headJS() {
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/video-js.min.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/video-js.css');
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/video.min.js');
