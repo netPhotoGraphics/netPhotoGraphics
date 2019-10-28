@@ -381,7 +381,6 @@ class openStreetMap {
 	 */
 	static $tileProviders = array(
 			'OpenStreetMap.Mapnik' => 'osmap_openstreetmap_mapnik',
-			'OpenStreetMap.BlackAndWhite' => 'osmap_openstreetmap_blackandwhite',
 			'OpenStreetMap.DE' => 'osmap_openstreetmap_de',
 			'OpenStreetMap.France' => 'osmap_openstreetmap_france',
 			'OpenStreetMap.HOT' => 'osmap_openstreetmap_hot',
