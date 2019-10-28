@@ -806,7 +806,7 @@ echo "\n</head>";
 				} else if ($subtab == 'subalbuminfo' && !$album->isDynamic()) {
 					require_once(CORE_SERVERPATH . 'admin-tabs/album_edit.php');
 				} else if ($subtab == 'imageinfo') {
-					$backButton = getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent;
+					$parent = "&amp;album=" . pathurlencode($album->name);
 					require_once(CORE_SERVERPATH . 'admin-tabs/image_edit.php');
 				}
 
