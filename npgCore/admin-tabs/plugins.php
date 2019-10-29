@@ -339,6 +339,29 @@ npgFilters::apply('admin_note', 'plugins', '');
 				?>
 				<tr<?php echo $selected_style; ?>>
 					<td min-width="30%"  class="nowrap">
+						<?php
+						if (in_array($plugin_default, array(
+												'all',
+												'thirdparty',
+												'enabled',
+												'disabled',
+												'deprecated',
+												'class_plugin',
+												'feature_plugin',
+												'admin_plugin',
+												'theme_plugin')
+										)
+						) {
+							$tab = $plugin_member[$extension];
+							?>
+							<span class="displayrightsmall">
+								<a href="<?php echo FULLWEBPATH . html_encode($plugin_subtabs[$tab]); ?>" title="<?php printf(gettext('Go to &quot;%s&quot; plugin page.'), $tab); ?>">
+									<em><?php echo $tab; ?></em>
+								</a>
+							</span>
+							<?php
+						}
+						?>
 						<input type="hidden" name="present_<?php echo $opt; ?>" id="present_<?php echo $opt; ?>" value="<?php echo $currentsetting; ?>" />
 						<label id="<?php echo strtolower($extension); ?>" class="floatleft">
 							<?php
@@ -359,7 +382,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 									<div class="plugin_disable_hidden">
 										<?php echo $plugin_disable; ?>
 									</div>
-									<span class="icons">
+									<span class="icons" style="padding-left: 4px;padding-right: 3px;">
 										<?php echo CROSS_MARK_RED; ?>
 									</span>
 									<input type="hidden" name="<?php echo $opt; ?>" id="<?php echo $opt; ?>" value="0" />
@@ -396,29 +419,6 @@ npgFilters::apply('admin_note', 'plugins', '');
 							}
 							?>
 						</label>
-						<?php
-						if (in_array($plugin_default, array(
-												'all',
-												'thirdparty',
-												'enabled',
-												'disabled',
-												'deprecated',
-												'class_plugin',
-												'feature_plugin',
-												'admin_plugin',
-												'theme_plugin')
-										)
-						) {
-							$tab = $plugin_member[$extension];
-							?>
-							<span class="displayrightsmall">
-								<a href="<?php echo FULLWEBPATH . html_encode($plugin_subtabs[$tab]); ?>" title="<?php printf(gettext('Go to &quot;%s&quot; plugin page.'), $tab); ?>">
-									<em><?php echo $tab; ?></em>
-								</a>
-							</span>
-							<?php
-						}
-						?>
 					</td>
 					<td>
 						<span class="nowrap">
