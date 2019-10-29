@@ -296,26 +296,26 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 
 				if ($plugin_is_filter & CLASS_PLUGIN) {
-					$iconA = PLACHHOLDER_ICON . '<a title="' . gettext('class plugin') . '">' .
+					$iconA = '<span span class="font_icon" title="' . gettext('class plugin') . '">' .
 									PLUGIN_CLASS .
-									'</a>';
-					$iconT = '';
+									'</span>';
+					$iconT = PLACHHOLDER_ICON;
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
-						$iconA = '<a title="' . gettext('admin plugin') . '"><span class="font_icon">' .
+						$iconA = '<span class="font_icon" title="' . gettext('admin plugin') . '">' .
 										PLUGIN_ADMIN .
-										'</span></a>';
+										'</span>';
 					} else {
 						$iconA = PLACHHOLDER_ICON;
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
-						$iconT = '<a title="' . gettext('feature plugin') . '"><span class="font_icon">'
+						$iconT = '<span class="font_icon" title="' . gettext('feature plugin') . '">'
 										. PLUGIN_FEATURE .
-										'</span></a>';
+										'</span>';
 					} else if ($plugin_is_filter & THEME_PLUGIN) {
-						$iconT = '<a title="' . gettext('theme plugin') . '"><span class="font_icon">' .
+						$iconT = '<span class="font_icon" title="' . gettext('theme plugin') . '">' .
 										PLUGIN_THEME .
-										'</span></a>';
+										'</span>';
 					} else {
 						$iconT = PLACHHOLDER_ICON;
 					}
@@ -362,8 +362,9 @@ npgFilters::apply('admin_note', 'plugins', '');
 							<?php
 						}
 						?>
+
 						<input type="hidden" name="present_<?php echo $opt; ?>" id="present_<?php echo $opt; ?>" value="<?php echo $currentsetting; ?>" />
-						<label id="<?php echo strtolower($extension); ?>" class="floatleft">
+						<span id="<?php echo strtolower($extension); ?>" class="floatleft">
 							<?php
 							if ($plugin_disable) {
 								?>
@@ -373,8 +374,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								echo $ico;
 								echo $iconT;
 								echo $iconA;
-								?>
-								<?php
+
 								if ($plugin_disable) {
 									?>
 								</span>
@@ -389,36 +389,42 @@ npgFilters::apply('admin_note', 'plugins', '');
 									<?php
 								} else {
 									?>
-									<span style="padding-left: 3px;padding-right: 2px;">
-										<input type="checkbox" name="<?php echo $opt; ?>" id="<?php echo $opt; ?>" value="<?php echo $plugin_is_filter; ?>"<?php echo $attributes; ?> />
-									</span>
-									<?php
-								}
-								if ($plugin_deprecated) {
-									if ($plugin_notice) {
-										$plugin_notice .= '<br />';
-									}
-									$plugin_notice .= '<strong>' . gettext('Plugin is deprecated') . '</strong> ' . trim(str_replace('deprecated', '', $plugin_deprecated));
-									?>
-									<span class="deprecated">
+									<label>
+										<span style="padding-left: 3px;padding-right: 2px;">
+											<input type="checkbox" name="<?php echo $opt; ?>" id="<?php echo $opt; ?>" value="<?php echo $plugin_is_filter; ?>"<?php echo $attributes; ?> />
+										</span>
 										<?php
 									}
-									echo $extension;
-									if (!empty($plugin_version)) {
-										echo ' v' . $plugin_version;
-									}
 									if ($plugin_deprecated) {
+										if ($plugin_notice) {
+											$plugin_notice .= '<br />';
+										}
+										$plugin_notice .= '<strong>' . gettext('Plugin is deprecated') . '</strong> ' . trim(str_replace('deprecated', '', $plugin_deprecated));
 										?>
+										<span class="deprecated">
+											<?php
+										}
+										echo $extension;
+										if (!empty($plugin_version)) {
+											echo ' v' . $plugin_version;
+										}
+										if ($plugin_deprecated) {
+											?>
+										</span>
+										<?php
+										if ($plugin_disable) {
+											?>
 									</span>
 									<?php
-									if ($plugin_disable) {
-										?>
-									</span>
+								} else {
+									?>
+									</label>
 									<?php
 								}
 							}
 							?>
-						</label>
+
+						</span>
 					</td>
 					<td>
 						<span class="nowrap">
