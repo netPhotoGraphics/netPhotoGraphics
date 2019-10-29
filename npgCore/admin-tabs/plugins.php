@@ -228,7 +228,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 						if (file_exists($path)) {
 							$ico = '<span class="font_icon"><img src="' . str_replace(SERVERPATH, WEBPATH, $path) . '" alt="logo" title="' . $whose . '" /></span>';
 						} else {
-							$ico = '<span class="font_icon" title="' . $whose . '">' . PLACHHOLDER_ICON . '</span>';
+							$ico = '<span class="plugin_icon" title="' . $whose . '">' . PLACHHOLDER_ICON . '</span>';
 						}
 						$plugin_URL .= '&type=thirdparty';
 						break;
@@ -296,24 +296,24 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 
 				if ($plugin_is_filter & CLASS_PLUGIN) {
-					$iconA = '<span span class="font_icon" title="' . gettext('class plugin') . '">' .
+					$iconA = '<span span class="plugin_icon" title="' . gettext('class plugin') . '">' .
 									PLUGIN_CLASS .
 									'</span>';
 					$iconT = PLACHHOLDER_ICON;
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
-						$iconA = '<span class="font_icon" title="' . gettext('admin plugin') . '">' .
+						$iconA = '<span class="plugin_icon" title="' . gettext('admin plugin') . '">' .
 										PLUGIN_ADMIN .
 										'</span>';
 					} else {
 						$iconA = PLACHHOLDER_ICON;
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
-						$iconT = '<span class="font_icon" title="' . gettext('feature plugin') . '">'
+						$iconT = '<span class="plugin_icon" title="' . gettext('feature plugin') . '">'
 										. PLUGIN_FEATURE .
 										'</span>';
 					} else if ($plugin_is_filter & THEME_PLUGIN) {
-						$iconT = '<span class="font_icon" title="' . gettext('theme plugin') . '">' .
+						$iconT = '<span class="plugin_icon" title="' . gettext('theme plugin') . '">' .
 										PLUGIN_THEME .
 										'</span>';
 					} else {
