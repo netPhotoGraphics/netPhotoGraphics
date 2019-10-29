@@ -981,6 +981,7 @@ td.albumicons {
 	display: inline-block;
 	width: 18px !important;
 	height: 18px !important;
+	line-height: 28px !important;
 }
 
 /* Forms
