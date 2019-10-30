@@ -7654,6 +7654,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/openstreetmap/leaflet.css
 %extensions%/openstreetmap/leaflet.js
 %extensions%/openstreetmap/leaflet.markercluster.js
+%extensions%/openstreetmap/leaflet.markercluster.js.map
 %extensions%/openstreetmap/MarkerCluster.css
 %extensions%/openstreetmap/MarkerCluster.Default.css
 %extensions%/openstreetmap/openstreetmap.css
@@ -8334,4 +8335,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8336
+8337

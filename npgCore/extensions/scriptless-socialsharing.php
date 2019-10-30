@@ -191,7 +191,7 @@ class scriptlessSocialsharing {
 			$title .= ' - ' . getBareGalleryTitle();
 		}
 		$title = urlencode($title);
-		$url = urlencode(FULLWEBPATH . html_encode($url));
+		$url = urlencode(FULLHOSTPATH . html_encode($url));
 		if ($beforetext) {
 			echo $beforetext;
 		}
