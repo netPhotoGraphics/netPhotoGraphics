@@ -323,7 +323,7 @@ function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $fi
 	if ($showsubs && !is_numeric($showsubs)) {
 		$showsubs = 9999999999;
 	}
-	$albums = getNestedAlbumList(null, $showsubs);
+	$albums = getNestedAlbumList($_gallery, $showsubs);
 
 	if (!$skipform) {
 		?>

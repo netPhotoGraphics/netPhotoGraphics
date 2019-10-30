@@ -2338,14 +2338,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
@@ -2628,21 +2628,14 @@ function getMacros() {
  * 								'name' which is the folder name
  * 								'sort_order' which is an array of the sort order set
  *
- * @param $subalbum root level album (NULL is the gallery)
- * @param $levels how far to nest
+ * @param $subalbum root level album or Gallery object
+ * @param $maxlevel how far to nest
  * @param $level internal for keeping the sort order elements
  * @return array
  */
-function getNestedAlbumList($subalbum, $levels, $level = array()) {
-	global $_gallery;
-
+function getNestedAlbumList($subalbum, $maxlevel, $level = array()) {
 	$cur = count($level);
-	$levels--; // make it 0 relative to sync with $cur
-	if (is_null($subalbum)) {
-		$albums = $_gallery->getAlbums();
-	} else {
-		$albums = $subalbum->getAlbums();
-	}
+	$albums = $subalbum->getAlbums();
 
 	$list = array();
 	foreach ($albums as $analbum) {
@@ -2650,8 +2643,8 @@ function getNestedAlbumList($subalbum, $levels, $level = array()) {
 		if (!OFFSET_PATH || (!is_null($subalbum) || $albumobj->isMyItem(ALBUM_RIGHTS))) {
 			$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
 			$list[] = array('name' => $analbum, 'sort_order' => $level);
-			if ($cur < $levels && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
-				$list = array_merge($list, getNestedAlbumList($albumobj, $levels + 1, $level));
+			if ($cur + 1 < $maxlevel && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
+				$list = array_merge($list, getNestedAlbumList($albumobj, $maxlevel, $level));
 			}
 		}
 	}

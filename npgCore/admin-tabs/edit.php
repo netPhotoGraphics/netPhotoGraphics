@@ -827,7 +827,7 @@ echo "\n</head>";
 				<div class="tabbox">
 					<?php
 					consolidatedEditMessages('');
-					$albums = getNestedAlbumList(NULL, $album_nesting);
+					$albums = getNestedAlbumList($_gallery, $album_nesting);
 					if (count($albums) > 0) {
 						if (npg_loggedin(ADMIN_RIGHTS) && (count($albums)) > 1) {
 

@@ -11,6 +11,7 @@ class Gallery {
 
 	var $albumdir = NULL;
 	var $table = 'gallery';
+	var $name = '..gallery..';
 	var $branded = false;
 	protected $albums = NULL;
 	protected $theme;
