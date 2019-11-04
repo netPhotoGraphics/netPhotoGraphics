@@ -3952,8 +3952,6 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 		$iconsource = '<image src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
 
-	$iconsource = SEARCHFIELDS_ICON;
-
 	if (is_null($within)) {
 		$within = getOption('search_within');
 	}
@@ -3980,9 +3978,11 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 				<?php
 				if (count($fields) > 1 || $searchwords) {
 					?>
-					<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
-						<?php echo $iconsource; ?>
-					</a>
+					<span class="searchextra">
+						<a onclick="$('#searchextrashow').toggle();" style="cursor: pointer;" title="<?php echo gettext('search options'); ?>">
+							<?php echo $iconsource; ?>
+						</a>
+					</span>
 					<?php
 				}
 				?>
