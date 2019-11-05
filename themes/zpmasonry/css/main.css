@@ -122,7 +122,6 @@ input[type="checkbox"]{border:0;}
 	background:#111;
 	opacity:0.5;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	filter:alpha(opacity=50);
 }
 .image-block:hover > .overlay{display:block;}
 .jcarousel-list li,.image-block,.jcarousel-item-placeholder,#cycle{background-repeat:no-repeat;background-position:center center;}

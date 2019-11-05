@@ -15,8 +15,8 @@ Update By: Jack Book dot Com
   padding: 0;
 }
 
-#navbar, #navbar-iframe {opacity:0.0;filter:alpha(Opacity=0)}
-#navbar:hover, #navbar-iframe :hover{opacity:1.0;filter:alpha(Opacity=100, FinishedOpacity=100)}
+#navbar, #navbar-iframe {opacity:0.0;}
+#navbar:hover, #navbar-iframe :hover{opacity:1.0;}
 
 body {
 	background: #edf5fa;

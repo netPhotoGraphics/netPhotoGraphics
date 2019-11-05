@@ -694,7 +694,7 @@ p.readmorelink a:hover{border-color:#aaa;}
 		border-left:4px solid transparent;
 		border-right:4px solid transparent;
 		border-top:4px solid #fff;
-		filter:alpha(opacity=50);-khtml-opacity:0.5;-moz-opacity:0.5;opacity:0.5;}
+		opacity:0.5;}
 	.topbar ul li.menu.open a.menu,.topbar ul li.menu.open a:hover{background-color:#444;color:#fff;}
 	.topbar ul li.menu.open ul{display:block;}
 	.topbar ul li.menu.open ul li a{background-color:transparent;font-weight:normal;}
