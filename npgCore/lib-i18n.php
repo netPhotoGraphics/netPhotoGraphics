@@ -302,21 +302,22 @@ class i18n {
 
 		//	check for a language cookie
 		if (!$_current_locale) {
-			$_current_locale = getNPGCookie('dynamic_locale');
+			$_current_locale = self::validateLocale(getNPGCookie('dynamic_locale'), 'dynamic_locale cookie');
 			if (DEBUG_LOCALE)
 				debugLog("locale from cookie: " . $_current_locale . ';');
 		}
 
 		//	check if the user has a language selected
 		if (!$_current_locale && is_object($_current_admin_obj)) {
-			$_current_locale = $_current_admin_obj->getLanguage();
+			$_current_locale = self::validateLocale($_current_admin_obj->getLanguage(), 'user language');
+			;
 			if (DEBUG_LOCALE)
 				debugLog("locale from user: " . $_current_locale);
 		}
 
 		//	check the language option
 		if (!$_current_locale) {
-			$_current_locale = getOption('locale');
+			$_current_locale = self::validateLocale(getOption('locale'), 'locale option');
 			if (DEBUG_LOCALE)
 				debugLog("locale from option: " . $_current_locale);
 		}
