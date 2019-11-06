@@ -218,6 +218,44 @@ foreach ($list as $file) {
 	unlink($file);
 }
 
+//	migrate theme name changes
+$migrate = array('zpArdoise', 'zpBootstrap', 'zpEnlighten', 'zpMasonry', 'zpMinimal', 'zpMobile');
+foreach ($migrate as $theme) {
+	@unlink(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme); //	remove old version
+	$newtheme = lcfirst(substr($theme, 2));
+	$result = query('SELECT * FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
+	while ($row = db_fetch_assoc($result)) {
+		$newcreator = str_replace($theme, $newtheme, $row['creator']);
+		query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id']);
+	}
+}
+if (in_array($_gallery->getCurrentTheme(), $migrate)) {
+	$_gallery->setCurrentTheme(substr($current_theme, 2));
+	$_gallery->save();
+}
+
+if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
+	$themes = array();
+	if ($dp = @opendir(SERVERPATH . '/' . THEMEFOLDER)) {
+		while (false !== ($theme = readdir($dp))) {
+			$p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme;
+			if (is_link($p)) {
+				if (!is_dir($p)) {
+					rmdir($p); //	theme removed from master install
+				}
+			}
+		}
+	}
+	//	update symlinks
+	$master = clonedFrom();
+	foreach ($migrate as $theme) {
+		$theme = lcfirst(substr($theme, 2));
+		if (!is_link($p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
+			symlink($master . '/' . THEMEFOLDER . '/' . $theme, $p);
+		}
+	}
+}
+
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);
 setOptionDefault('strong_hash', 9);

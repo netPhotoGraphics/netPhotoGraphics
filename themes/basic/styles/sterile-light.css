@@ -452,7 +452,7 @@ textarea {
 .checkbox {
 	cursor: pointer;
 }
-.button {
+.buttons {
 	cursor: pointer;
 	padding: 5px 10px;
 	color: #888;
@@ -490,12 +490,8 @@ label {
 	text-align: left;
 	margin:0;
 	padding:0;
-	width: 175px;
 }
-#search_form, #search_form * {
-	padding:0px;
-	margin:0px;
-}
+
 #search input.button {
 	padding: 1px;
 	font-size: 80%;

@@ -622,9 +622,9 @@ class AlbumBase extends MediaObject {
 	function remove() {
 		$rslt = false;
 		if (parent::remove()) {
-			query("DELETE FROM " . prefix('options') . "WHERE `ownerid`=" . $this->id);
-			query("DELETE FROM " . prefix('comments') . "WHERE `type`='albums' AND `ownerid`=" . $this->id);
-			query("DELETE FROM " . prefix('obj_to_tag') . "WHERE `type`='albums' AND `objectid`=" . $this->id);
+			query("DELETE FROM " . prefix('options') . " WHERE `ownerid`=" . $this->id);
+			query("DELETE FROM " . prefix('comments') . " WHERE `type`='albums' AND `ownerid`=" . $this->id);
+			query("DELETE FROM " . prefix('obj_to_tag') . " WHERE `type`='albums' AND `objectid`=" . $this->id);
 			$rslt = true;
 			$filestoremove = safe_glob(substr($this->localpath, 0, -1) . '.*');
 			foreach ($filestoremove as $file) {
@@ -1374,9 +1374,9 @@ class Album extends AlbumBase {
 			}
 			chdir($curdir);
 			clearstatcache();
-			query("DELETE FROM " . prefix('options') . "WHERE `ownerid`=" . $this->id);
-			query("DELETE FROM " . prefix('comments') . "WHERE `type`='albums' AND `ownerid`=" . $this->id);
-			query("DELETE FROM " . prefix('obj_to_tag') . "WHERE `type`='albums' AND `objectid`=" . $this->id);
+			query("DELETE FROM " . prefix('options') . " WHERE `ownerid`=" . $this->id);
+			query("DELETE FROM " . prefix('comments') . " WHERE `type`='albums' AND `ownerid`=" . $this->id);
+			query("DELETE FROM " . prefix('obj_to_tag') . " WHERE `type`='albums' AND `objectid`=" . $this->id);
 			$success = true;
 			$filestoremove = safe_glob(stripSuffix($this->localpath) . '.*');
 			foreach ($filestoremove as $file) {

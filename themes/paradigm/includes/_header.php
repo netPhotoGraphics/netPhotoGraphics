@@ -2,7 +2,7 @@
 
 	<?php
 	if (getOption('addthis_code') != '') {
-		getOption('addthis_code');
+		echo getOption('addthis_code');
 	}
 	?>
 

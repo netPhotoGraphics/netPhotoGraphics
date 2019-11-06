@@ -4,7 +4,6 @@
 .npgButton a, button.npgButton, input[type=submit].npgButton {
 	cursor: pointer;
 	line-height: 130%;
-	padding-top: 5px !important;
 	padding-right: 5px !important;
 	padding-bottom: 6px;
 	padding-Left: 7px;
