@@ -221,12 +221,14 @@ foreach ($list as $file) {
 //	migrate theme name changes
 $migrate = array('zpArdoise', 'zpBootstrap', 'zpEnlighten', 'zpMasonry', 'zpMinimal', 'zpMobile');
 foreach ($migrate as $theme) {
-	@unlink(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme); //	remove old version
+	if (is_dir($p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
+		deleteThemeDirectory($p); //	remove old version
+	}
 	$newtheme = lcfirst(substr($theme, 2));
 	$result = query('SELECT * FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
 	while ($row = db_fetch_assoc($result)) {
 		$newcreator = str_replace($theme, $newtheme, $row['creator']);
-		query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id']);
+		query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id'], FALSE);
 	}
 }
 if (in_array($_gallery->getCurrentTheme(), $migrate)) {
