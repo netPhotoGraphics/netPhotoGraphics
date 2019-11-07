@@ -219,11 +219,9 @@ foreach ($list as $file) {
 }
 
 //	migrate theme name changes
-$migrate = array('zpArdoise', 'zpBootstrap', 'zpEnlighten', 'zpMasonry', 'zpMinimal', 'zpMobile');
-foreach ($migrate as $theme) {
-	if (is_dir($p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
-		deleteThemeDirectory($p); //	remove old version
-	}
+$migrate = array('zpArdoise' => 'zpArdoise', 'zpBootstrap' => 'zpBootstrap', 'zpEnlighten' => 'zpEnlighten', 'zpmasonry' => 'zpMasonry', 'zpminimal' => 'zpMinimal', 'zpmobile' => 'zpMobile');
+foreach ($migrate as $file => $theme) {
+	deleteThemeDirectory(SERVERPATH . '/' . THEMEFOLDER . '/' . $file); //	remove old version
 	$newtheme = lcfirst(substr($theme, 2));
 	$result = query('SELECT * FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
 	while ($row = db_fetch_assoc($result)) {
@@ -242,8 +240,10 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 		while (false !== ($theme = readdir($dp))) {
 			$p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme;
 			if (is_link($p)) {
-				if (!is_dir($p)) {
-					rmdir($p); //	theme removed from master install
+				if (!is_dir($p)) { //	theme removed from master install
+					if (!@unlink($p)) {
+						@rmdir($p);
+					}
 				}
 			}
 		}
