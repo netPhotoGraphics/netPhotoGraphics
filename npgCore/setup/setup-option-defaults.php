@@ -221,7 +221,7 @@ foreach ($list as $file) {
 //	migrate theme name changes
 $migrate = array('zpArdoise' => 'zpArdoise', 'zpBootstrap' => 'zpBootstrap', 'zpEnlighten' => 'zpEnlighten', 'zpmasonry' => 'zpMasonry', 'zpminimal' => 'zpMinimal', 'zpmobile' => 'zpMobile');
 foreach ($migrate as $file => $theme) {
-	deleteThemeDirectory(SERVERPATH . '/' . THEMEFOLDER . '/' . $file); //	remove old version
+	deleteDirectory(SERVERPATH . '/' . THEMEFOLDER . '/' . $file); //	remove old version
 	$newtheme = lcfirst(substr($theme, 2));
 	$result = query('SELECT * FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
 	while ($row = db_fetch_assoc($result)) {

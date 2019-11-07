@@ -2034,7 +2034,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																		 togglePassword('<?php echo $suffix; ?>');" />
+																 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2363,9 +2363,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2523,7 +2523,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -3658,71 +3658,26 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$source = SERVERPATH . '/themes/' . internalToFilesystem($source);
 		$target = SERVERPATH . '/themes/' . internalToFilesystem($target);
 
-// If the target theme already exists, nothing to do.
+		// If the target theme already exists, nothing to do.
 		if (is_dir($target)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Directory “%s” already exists!'), basename($target));
 		}
 
-// If source dir is missing, exit too
-		if (!is_dir($source)) {
-			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Cannot find theme directory “%s” to copy!'), basename($source));
-		}
-
-// We must be able to write to the themes dir.
-		if (!is_writable(dirname($target))) {
-			return gettext('Cannot create new theme.') . ' ' . gettext('The <tt>/themes</tt> directory is not writable!');
-		}
-
-// We must be able to create the directory
-		if (!mkdir($target, FOLDER_MOD)) {
-			return gettext('Cannot create new theme.') . ' ' . gettext('Could not create directory for the new theme');
-		}
-		@chmod($target, FOLDER_MOD);
-		$source_files = listDirectoryFiles($source);
-
-// Determine nested (sub)directories structure to create: go through each file, explode path on "/"
-// and collect every unique directory
-		$dirs_to_create = array();
-		foreach ($source_files as $path) {
-			$path = explode('/', dirname(str_replace($source . '/', '', $path)));
-			$dirs = '';
-			foreach ($path as $subdir) {
-				if ($subdir == '.svn' or $subdir == '.') {
-					continue 2;
-				}
-				$dirs = "$dirs/$subdir";
-				$dirs_to_create[$dirs] = $dirs;
+		if (copyDirectory($source, $target)) {
+			// Rewrite the theme header.
+			if (file_exists($target . '/theme_description.php')) {
+				$theme_description = array();
+				require($target . '/theme_description.php');
+				$theme_description['desc'] = sprintf(gettext('Your theme, based on theme %s'), $theme_description['name']);
+			} else {
+				$theme_description['desc'] = gettext('Your theme');
 			}
-		}
+			$theme_description['name'] = $newname;
+			$theme_description['author'] = $_current_admin_obj->getUser();
+			$theme_description['version'] = '1.0';
+			$theme_description['date'] = date('Y-m-d H:m:s', time());
 
-// Create new directory structure
-		foreach ($dirs_to_create as $dir) {
-			mkdir("$target/$dir", FOLDER_MOD);
-			@chmod("$target/$dir", FOLDER_MOD);
-		}
-
-// Now copy every file
-		foreach ($source_files as $file) {
-			$newfile = str_replace($source, $target, $file);
-			if (!copy("$file", "$newfile"))
-				return sprintf(gettext("An error occurred while copying files. Please delete manually the new theme directory “%s” and retry or copy files manually."), basename($target));
-			@chmod("$newfile", FOLDER_MOD);
-		}
-
-// Rewrite the theme header.
-		if (file_exists($target . '/theme_description.php')) {
-			$theme_description = array();
-			require($target . '/theme_description.php');
-			$theme_description['desc'] = sprintf(gettext('Your theme, based on theme %s'), $theme_description['name']);
-		} else {
-			$theme_description['desc'] = gettext('Your theme');
-		}
-		$theme_description['name'] = $newname;
-		$theme_description['author'] = $_current_admin_obj->getUser();
-		$theme_description['version'] = '1.0';
-		$theme_description['date'] = date('Y-m-d H:m:s', time());
-
-		$description = sprintf('<' . '?php
+			$description = sprintf('<' . '?php
 				// Theme definition file
 				$theme_description["name"] = "%s";
 				$theme_description["author"] = "%s";
@@ -3731,50 +3686,79 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$theme_description["desc"] = "%s";
 				?' . '>', html_encode($theme_description['name']), html_encode($theme_description['author']), html_encode($theme_description['version']), html_encode($theme_description['date']), html_encode($theme_description['desc']));
 
-		$f = fopen($target . '/theme_description.php', 'w');
-		if ($f !== FALSE) {
-			@fwrite($f, $description);
-			fclose($f);
-			$message = gettext('New custom theme created successfully!');
-		} else {
-			$message = gettext('New custom theme created, but its description could not be updated');
-		}
-
-// Make a slightly custom theme image
-		if (file_exists("$target/theme.png"))
-			$themeimage = "$target/theme.png";
-		else if (file_exists("$target/theme.gif"))
-			$themeimage = "$target/theme.gif";
-		else if (file_exists("$target/theme.jpg"))
-			$themeimage = "$target/theme.jpg";
-		else
-			$themeimage = false;
-		if ($themeimage) {
-			if ($im = gl_imageGet($themeimage)) {
-				$x = gl_imageWidth($im) / 2 - 45;
-				$y = gl_imageHeight($im) / 2 - 10;
-				$text = "CUSTOM COPY";
-				$font = gl_imageLoadFont();
-				$ink = gl_colorAllocate($im, 0x0ff, 0x0ff, 0x0ff);
-// create a blueish overlay
-				$overlay = gl_createImage(gl_imageWidth($im), gl_imageHeight($im));
-				$back = gl_colorAllocate($overlay, 0x060, 0x060, 0x090);
-				gl_imageFill($overlay, 0, 0, $back);
-// Merge theme image and overlay
-				gl_imageMerge($im, $overlay, 0, 0, 0, 0, gl_imageWidth($im), gl_imageHeight($im), 45);
-// Add text
-				gl_writeString($im, $font, $x - 1, $y - 1, $text, $ink);
-				gl_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
-				gl_writeString($im, $font, $x, $y, $text, $ink);
-// Save new theme image
-				gl_imageOutputt($im, 'png', $themeimage);
+			$f = fopen($target . '/theme_description.php', 'w');
+			if ($f !== FALSE) {
+				@fwrite($f, $description);
+				fclose($f);
+				$message = gettext('New custom theme created successfully!');
+			} else {
+				$message = gettext('New custom theme created, but its description could not be updated');
 			}
-		}
 
+			// Make a slightly custom theme image
+			if (file_exists("$target/theme.png"))
+				$themeimage = "$target/theme.png";
+			else if (file_exists("$target/theme.gif"))
+				$themeimage = "$target/theme.gif";
+			else if (file_exists("$target/theme.jpg"))
+				$themeimage = "$target/theme.jpg";
+			else
+				$themeimage = false;
+			if ($themeimage) {
+				if ($im = gl_imageGet($themeimage)) {
+					$x = gl_imageWidth($im) / 2 - 45;
+					$y = gl_imageHeight($im) / 2 - 10;
+					$text = "CUSTOM COPY";
+					$font = gl_imageLoadFont();
+					$ink = gl_colorAllocate($im, 0x0ff, 0x0ff, 0x0ff);
+					// create a blueish overlay
+					$overlay = gl_createImage(gl_imageWidth($im), gl_imageHeight($im));
+					$back = gl_colorAllocate($overlay, 0x060, 0x060, 0x090);
+					gl_imageFill($overlay, 0, 0, $back);
+					// Merge theme image and overlay
+					gl_imageMerge($im, $overlay, 0, 0, 0, 0, gl_imageWidth($im), gl_imageHeight($im), 45);
+					// Add text
+					gl_writeString($im, $font, $x - 1, $y - 1, $text, $ink);
+					gl_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
+					gl_writeString($im, $font, $x, $y, $text, $ink);
+					// Save new theme image
+					gl_imageOutputt($im, 'png', $themeimage);
+				}
+			}
+		} else {
+			$message = sprintf(gettext("An error occurred while copying files. Please delete manually the new theme directory “%s” and retry or copy files manually."), basename($target));
+		}
 		return $message;
 	}
 
-	function deleteThemeDirectory($source) {
+	function copyDirectory($source, $destination) {
+		if (is_dir($source)) {
+			$result = true;
+			$handle = opendir($source);
+			if (mkdir($destination)) {
+				@chmod($destination, FOLDER_MOD);
+				while (false !== ($filename = readdir($handle))) {
+					$fullname = $source . '/' . $filename;
+					$fullDest = $destination . '/' . $filename;
+					if (is_dir($fullname)) {
+						if (($filename != '.') && ($filename != '..')) {
+							$result = $result && copyDirectory($fullname, $fullDest);
+						}
+					} else {
+						if (file_exists($fullname)) {
+							$result = $result && @copy($fullname, $fullDest);
+							@chmod($fullDest, DATA_MOD);
+						}
+					}
+				}
+				closedir($handle);
+				return $result;
+			}
+		}
+		return false;
+	}
+
+	function deleteDirectory($source) {
 		if (is_dir($source)) {
 			$result = true;
 			$handle = opendir($source);
@@ -3782,7 +3766,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$fullname = $source . '/' . $filename;
 				if (is_dir($fullname)) {
 					if (($filename != '.') && ($filename != '..')) {
-						$result = $result && deleteThemeDirectory($fullname);
+						$result = $result && deleteDirectory($fullname);
 					}
 				} else {
 					if (file_exists($fullname)) {
@@ -3792,6 +3776,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 			}
 			closedir($handle);
+			clearstatcache();
 			$result = $result && rmdir($source);
 			return $result;
 		}
@@ -4595,30 +4580,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-				var sel = obj.options[obj.selectedIndex].value;
-				var mark;
-				switch (sel) {
+			var sel = obj.options[obj.selectedIndex].value;
+							var mark;
+							switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-					case '<?php echo $key; ?>':
-					mark = '<?php echo $mark; ?>';
-									break;
+				case '<?php echo $key; ?>':
+								mark = '<?php echo $mark; ?>';
+								break;
 			<?php
 		}
 		?>
-				default:
-				mark = false;
-								break;
+			default:
+							mark = false;
+							break;
 			}
 			if (mark) {
-				$.colorbox({
-					href: '#' + mark,
-					inline: true,
-					open: true,
-					close: '<?php echo gettext("ok"); ?>'
-				});
-				}
+			$.colorbox({
+			href: '#' + mark,
+							inline: true,
+							open: true,
+							close: '<?php echo gettext("ok"); ?>'
+			});
+			}
 			}
 			// ]]> -->
 		</script>
@@ -5002,27 +4987,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-		// <!-- <![CDATA[
-		$(function () {
-			var tabContainers = $('div.tabs > div');
-			$('.first').addClass('selected');
-		});
-		function cbclick(num, id) {
-			$('.cbx-' + id).hide();
-			$('#cb' + num + '-' + id).show();
-			$('.cbt-' + id).removeClass('selected');
-			$('#cbt' + num + '-' + id).addClass('selected');
-		}
+						// <!-- <![CDATA[
+						$(function () {
+						var tabContainers = $('div.tabs > div');
+										$('.first').addClass('selected');
+						});
+						function cbclick(num, id) {
+						$('.cbx-' + id).hide();
+										$('#cb' + num + '-' + id).show();
+										$('.cbt-' + id).removeClass('selected');
+										$('#cbt' + num + '-' + id).addClass('selected');
+						}
 
 		function cbadd(id, offset) {
-			var num = $('#cbu-' + id + ' li').length - offset;
-			$('li:last', $('#cbu-' + id)).remove();
-			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-							'</div>');
-			cbclick(num, id);
+		var num = $('#cbu-' + id + ' li').length - offset;
+						$('li:last', $('#cbu-' + id)).remove();
+						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+						'</div>');
+						cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5961,7 +5946,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
