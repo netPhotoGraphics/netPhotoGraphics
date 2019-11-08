@@ -85,7 +85,7 @@ if (isset($_GET['action'])) {
 					unlink($file);
 				}
 				if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
-					header('Location: ' . FULLWEBPATH . '/extract.php');
+					header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
 					exit();
 				} else {
 					$class = 'errorbox';
