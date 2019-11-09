@@ -4,6 +4,8 @@
 
 	<head>
 
+		<?php npgFilters::apply('theme_head'); ?>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,300,600' rel='stylesheet' type='text/css'>
@@ -342,7 +344,7 @@
 
 		<!-- css -->
 		<?php
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
 		scriptLoader($_themeroot . '/css/site.css');
 		scriptLoader($_themeroot . '/css/icons.css');
 		scriptLoader($_themeroot . '/css/slimbox2.css');
@@ -355,15 +357,13 @@
 
 		<!-- js -->
 		<?php
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
 		scriptLoader($_themeroot . '/js/slimbox2-ar.js');
 		?>
 
 		<!-- rss -->
 
 		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>
-
-		<?php npgFilters::apply('theme_head'); ?>
 
 
 		<!-- Analytics -->

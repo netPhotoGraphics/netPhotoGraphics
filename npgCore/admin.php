@@ -208,7 +208,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 						}
 					}
 					if (file_exists(SERVERPATH . '/extract.php')) {
-						header('Location: ' . FULLWEBPATH . '/extract.php');
+						header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
 						exit();
 					} else {
 						$class = 'errorbox';

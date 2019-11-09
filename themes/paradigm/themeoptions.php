@@ -48,7 +48,7 @@ class ThemeOptions {
 		global $_gallery;
 		$albumlist = array();
 		$albumlist['Entire Gallery'] = '';
-		$albums = getNestedAlbumList(null, 9999999);
+		$albums = getNestedAlbumList($_gallery, 9999999);
 		foreach ($albums as $album) {
 			$albumobj = newAlbum($album['name'], true);
 			$albumlist[$album['name']] = $album['name'];

@@ -371,7 +371,7 @@ class Gallery {
 	 */
 	function getThemes() {
 		if (empty($this->themes)) {
-			$themedir = SERVERPATH . "/themes";
+			$themedir = SERVERPATH . "/" . THEMEFOLDER;
 			if ($dp = @opendir($themedir)) {
 				while (false !== ($dir = readdir($dp))) {
 					if (substr($dir, 0, 1) != "." && is_dir("$themedir/$dir")) {

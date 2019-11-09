@@ -56,7 +56,7 @@ if (isset($_GET['action'])) {
 			break;
 		case 'deletetheme':
 			if (isset($_GET['theme'])) {
-				if (deleteThemeDirectory(SERVERPATH . '/themes/' . internalToFilesystem($theme = sanitize($_GET['theme'], 3)))) {
+				if (deleteDirectory(SERVERPATH . '/themes/' . internalToFilesystem($theme = sanitize($_GET['theme'], 3)))) {
 					$message = sprintf(gettext("Theme <em>%s</em> removed."), html_encode($theme));
 				} else {
 					$message = sprintf(gettext('Error removing theme <em>%s</em>'), html_encode($theme));
