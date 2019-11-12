@@ -250,9 +250,12 @@ echo '</head>';
 							<li>
 								<?php
 								$prefix = trim(prefix(), '`');
-								if (!empty($prefix)) {
-									echo sprintf(gettext('Table prefix: <strong>%1$s</strong>'), $prefix);
+								if (empty($prefix)) {
+									$prefix = '<em>' . gettext('none') . '</em>';
+								} else {
+									$prefix = '<strong>' . $prefix . '</strong>';
 								}
+								echo sprintf(gettext('Table prefix: %1$s'), $prefix);
 								?>
 							</li>
 							<li>
@@ -262,7 +265,7 @@ echo '</head>';
 								} else {
 									$filter = gettext('No spam filter configured');
 								}
-								printf(gettext('Spam filter: <strong>%s</strong>'), $filter)
+								printf(gettext('Spam filter: %s'), $filter)
 								?>
 							</li>
 							<?php
@@ -388,8 +391,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php
