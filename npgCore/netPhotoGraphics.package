@@ -8057,6 +8057,11 @@ plugins/zenphotoCompatibilityPack.php
 %core%/locale/de_DE/LC_MESSAGES
 %core%/locale/de_DE/LC_MESSAGES/core.mo
 %core%/locale/de_DE/LC_MESSAGES/core.po
+%core%/locale/en_CA
+%core%/locale/en_CA/flag.png
+%core%/locale/en_CA/LC_MESSAGES
+%core%/locale/en_CA/LC_MESSAGES/core.mo
+%core%/locale/en_CA/LC_MESSAGES/core.po
 %core%/locale/en_US
 %core%/locale/en_US/flag.png
 %core%/locale/es_ES
@@ -8163,4 +8168,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8165
+8170
