@@ -29,7 +29,7 @@ function printVersion() {
 }
 
 /**
- * Print any Javascript required
+ * Stuff that belongs in the theme <head> area
  */
 function printThemeHeadItems() {
 	printStandardMeta();
@@ -42,7 +42,7 @@ function printThemeHeadItems() {
 }
 
 /**
- * stuff that belongs at then end of the theme html
+ * Stuff that belongs at then end of the theme html
  */
 function printThemeCloseItems() {
 	load_jQuery_CSS();

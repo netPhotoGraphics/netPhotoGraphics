@@ -119,92 +119,94 @@ function getOptionContent() {
 						$option_interface = NULL;
 						$enabled = extensionEnabled($extension);
 						$path = getPlugin($extension . '.php');
-						$pluginStream = file_get_contents($path);
-						if ($str = isolate('$plugin_description', $pluginStream)) {
-							if (false === eval($str)) {
+						if (!empty($path)) {
+							$pluginStream = file_get_contents($path);
+							if ($str = isolate('$plugin_description', $pluginStream)) {
+								if (false === eval($str)) {
+									$plugin_description = '';
+								}
+							} else {
 								$plugin_description = '';
 							}
-						} else {
-							$plugin_description = '';
-						}
 
-						$str = isolate('$option_interface', $pluginStream);
-						if (false !== $str) {
-							require_once($path);
-							if (preg_match('/\s*=\s*new\s(.*)\(/i', $str)) {
-								eval($str);
-								$warn = gettext('<strong>Note:</strong> Instantiating the option interface within the plugin may cause performance issues. You should instead set <code>$option_interface</code> to the name of the class as a string.');
-							} else {
-								eval($str);
-								$option_interface = new $option_interface;
-								$warn = '';
+							$str = isolate('$option_interface', $pluginStream);
+							if (false !== $str) {
+								require_once($path);
+								if (preg_match('/\s*=\s*new\s(.*)\(/i', $str)) {
+									eval($str);
+									$warn = gettext('<strong>Note:</strong> Instantiating the option interface within the plugin may cause performance issues. You should instead set <code>$option_interface</code> to the name of the class as a string.');
+								} else {
+									eval($str);
+									$option_interface = new $option_interface;
+									$warn = '';
+								}
 							}
-						}
-						if (!empty($option_interface)) {
-							$_plugin_count++;
-							?>
-							<!-- <?php echo $extension; ?> -->
-							<tr>
-								<td class="option_name<?php if ($showExtension) echo ' option_shaded'; ?>">
-									<span id="<?php echo $extension; ?>">
-										<?php
-										if ($showExtension) {
-											echo $extension;
-											if (!$enabled) {
+							if (!empty($option_interface)) {
+								$_plugin_count++;
+								?>
+								<!-- <?php echo $extension; ?> -->
+								<tr>
+									<td class="option_name<?php if ($showExtension) echo ' option_shaded'; ?>">
+										<span id="<?php echo $extension; ?>">
+											<?php
+											if ($showExtension) {
+												echo $extension;
+												if (!$enabled) {
+													?>
+													<a title="<?php echo gettext('The plugin is not enabled'); ?>">
+														<?php echo WARNING_SIGN_ORANGE; ?>
+													</a>
+													<?php
+												}
+											} else {
+												$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;subpage=' . $subpage . '&amp;single=' . html_encode($extension);
 												?>
-												<a title="<?php echo gettext('The plugin is not enabled'); ?>">
-													<?php echo WARNING_SIGN_ORANGE; ?>
-												</a>
+												<span class="icons">
+													<a href="<?php echo $optionlink; ?>" title="<?php printf(gettext("Change %s options"), html_encode($extension)); ?>">
+														<span<?php if (!$enabled) echo ' style="color: orange"'; ?>>
+															<?php echo OPTIONS_ICON; ?>
+														</span>
+														<?php echo $extension; ?>
+													</a>
+												</span>
 												<?php
 											}
-										} else {
-											$optionlink = getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;subpage=' . $subpage . '&amp;single=' . html_encode($extension);
+											if ($warn) {
+												echo EXCLAMATION_RED;
+											}
 											?>
-											<span class="icons">
-												<a href="<?php echo $optionlink; ?>" title="<?php printf(gettext("Change %s options"), html_encode($extension)); ?>">
-													<span<?php if (!$enabled) echo ' style="color: orange"'; ?>>
-														<?php echo OPTIONS_ICON; ?>
-													</span>
-													<?php echo $extension; ?>
-												</a>
-											</span>
-											<?php
-										}
-										if ($warn) {
-											echo EXCLAMATION_RED;
-										}
-										?>
-									</span>
-								</td>
-								<td class="option_value<?php if ($showExtension) echo ' option_shaded'; ?>" colspan="100%">
-									<?php echo $plugin_description; ?>
-								</td>
-							</tr>
-							<?php
-							if ($warn) {
-								?>
-								<tr style="display:none" class="pluginextrahide">
-									<td colspan="100%">
-										<p class="notebox" ><?php echo $warn; ?></p>
+										</span>
+									</td>
+									<td class="option_value<?php if ($showExtension) echo ' option_shaded'; ?>" colspan="100%">
+										<?php echo $plugin_description; ?>
 									</td>
 								</tr>
 								<?php
-							}
-							if ($showExtension) {
-								$supportedOptions = $option_interface->getOptionsSupported();
-								if (count($supportedOptions) > 0) {
-									customOptions($option_interface, '', NULL, false, $supportedOptions, NULL, NULL, $extension);
+								if ($warn) {
+									?>
+									<tr style="display:none" class="pluginextrahide">
+										<td colspan="100%">
+											<p class="notebox" ><?php echo $warn; ?></p>
+										</td>
+									</tr>
+									<?php
 								}
-								$key = array_search($extension, $list);
-								if ($key > 0) {
-									$prev = $list[$key - 1];
-								} else {
-									$prev = NULL;
-								}
-								if ($key + 1 >= count($list)) {
-									$next = NULL;
-								} else {
-									$next = $list[$key + 1];
+								if ($showExtension) {
+									$supportedOptions = $option_interface->getOptionsSupported();
+									if (count($supportedOptions) > 0) {
+										customOptions($option_interface, '', NULL, false, $supportedOptions, NULL, NULL, $extension);
+									}
+									$key = array_search($extension, $list);
+									if ($key > 0) {
+										$prev = $list[$key - 1];
+									} else {
+										$prev = NULL;
+									}
+									if ($key + 1 >= count($list)) {
+										$next = NULL;
+									} else {
+										$next = $list[$key + 1];
+									}
 								}
 							}
 						}
