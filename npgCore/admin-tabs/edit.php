@@ -293,7 +293,7 @@ if (isset($_GET['action'])) {
 		case "gallery_sortorder":
 			XSRFdefender('gallery_sortorder');
 			$oldsort = strtolower($_gallery->getSortType('album'));
-			if ($_gallery->getSortDirection('albums')) {
+			if ($_gallery->getSortDirection('album')) {
 				$oldsort = $oldsort . '_DESC';
 			}
 			$newsort = sanitize($_POST['gallery_sortby'], 3);
@@ -314,16 +314,16 @@ if (isset($_GET['action'])) {
 		case "subalbum_sortorder":
 			XSRFdefender('subalbum_sortorder');
 			$oldsort = strtolower($album->getSortType('album'));
-			if ($album->getSortDirection('albums'))
+			if ($album->getSortDirection('album'))
 				$oldsort = $oldsort . '_DESC';
 			$newsort = sanitize($_POST['subalbum_sortby'], 3);
 			if ($newsort != $oldsort && in_array(str_replace('_DESC', '', $newsort), $_sortby)) {
 				if (strpos($newsort, '_DESC')) {
-					$album->setSortType(substr($newsort, 0, -5), 'albums');
-					$album->setSortDirection('1', 'albums');
+					$album->setSortType(substr($newsort, 0, -5), 'album');
+					$album->setSortDirection('1', 'album');
 				} else {
-					$album->setSortType($newsort, 'albums');
-					$album->setSortDirection('0', 'albums');
+					$album->setSortType($newsort, 'album');
+					$album->setSortDirection('0', 'album');
 				}
 				$album->save();
 			}

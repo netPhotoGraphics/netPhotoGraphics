@@ -3070,7 +3070,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if ($sorttype == 'custom') {
 			$sorttype = unquote(strtolower(sanitize($_POST[$prefix . 'customimagesort'], 3)));
 		}
-		$album->setSortType($sorttype);
+		$album->setSortType($sorttype, 'image');
 		if (($sorttype == 'manual') || ($sorttype == 'random')) {
 			$album->setSortDirection(false, 'image');
 		} else {

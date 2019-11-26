@@ -287,7 +287,7 @@ function getOptionContent() {
 								?>
 							</select>
 							<label id="image_sortdirection" style="display:<?php echo $dspd; ?>white-space:nowrap;">
-								<input type="checkbox" name="image_sortdirection"	value="1" <?php checked('1', $_gallery->getSortDirection('image')); ?> />
+								<input type="checkbox" name="image_sortdirection"	value="1" <?php checked('1', $_gallery->getSortDirection('images')); ?> />
 								<?php echo gettext("descending"); ?>
 							</label>
 						</span>
