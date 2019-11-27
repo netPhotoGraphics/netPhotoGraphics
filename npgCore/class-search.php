@@ -405,7 +405,7 @@ class SearchEngine {
 	 * @param string $what 'images' if you want the image direction,
 	 *        'albums' if you want it for the album
 	 */
-	function setSortDirection($val, $what = 'images') {
+	function setSortDirection($val, $what = 'image') {
 		if ($val) {
 			$this->extraparams[$what . 'sortdirection'] = 'DESC';
 		} else {
@@ -419,7 +419,7 @@ class SearchEngine {
 	 * @param string $sorttype the sort type
 	 * @param string $what 'images' or 'albums'
 	 */
-	function setSortType($sorttype, $what = 'images') {
+	function setSortType($sorttype, $what = 'image') {
 		$this->extraparams[$what . 'sorttype'] = $sorttype;
 	}
 
@@ -487,10 +487,10 @@ class SearchEngine {
 						$this->album = $alb;
 						$this->dynalbumname = $v;
 						$this->searchprivatetags = true;
-						$this->setSortType($this->album->getSortType('album'), 'albums');
-						$this->setSortDirection($this->album->getSortDirection('album'), 'albums');
-						$this->setSortType($this->album->getSortType(), 'images');
-						$this->setSortDirection($this->album->getSortDirection('image'), 'images');
+						$this->setSortType($this->album->getSortType('album'), 'album');
+						$this->setSortDirection($this->album->getSortDirection('album'), 'album');
+						$this->setSortType($this->album->getSortType(), 'image');
+						$this->setSortDirection($this->album->getSortDirection('image'), 'image');
 					}
 					break;
 				case 'inimages':
@@ -550,10 +550,10 @@ class SearchEngine {
 		$this->album = $alb;
 		$this->dynalbumname = $alb->name;
 		$this->searchprivatetags = true;
-		$this->setSortType($this->album->getSortType('album'), 'albums');
-		$this->setSortDirection($this->album->getSortDirection('album'), 'albums');
-		$this->setSortType($this->album->getSortType(), 'images');
-		$this->setSortDirection($this->album->getSortDirection('image'), 'images');
+		$this->setSortType($this->album->getSortType('album'), 'album');
+		$this->setSortDirection($this->album->getSortDirection('album'), 'album');
+		$this->setSortType($this->album->getSortType(), 'image');
+		$this->setSortDirection($this->album->getSortDirection('image'), 'image');
 	}
 
 	// call to always return unpublished items
@@ -1138,7 +1138,7 @@ class SearchEngine {
 	}
 
 	/**
-	 * Since we often search multiple tables and the "tag" sql part will diffeer only by the table
+	 * Since we often search multiple tables and the "tag" sql part will differ only by the table
 	 * we can cache this sql and reuse it.
 	 *
 	 * @param string $searchstring the string we are searching on

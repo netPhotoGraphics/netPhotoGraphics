@@ -202,35 +202,40 @@ function getOptionContent() {
 				} else {
 					/* handle theme options */
 					$themes = $_gallery->getThemes();
-					$theme = $themes[$themename];
-					?>
-					<tr>
-						<th colspan='2'>
-							<h2 style='float: left'>
+					if (array_key_exists($themename, $themes)) {
+						$theme = $themes[$themename];
+						?>
+						<tr>
+							<th colspan='2'>
+								<h2 style='float: left'>
+									<?php
+									if ($albumtitle) {
+										printf(gettext('Options for <code><strong>%1$s</strong></code>: <em>%2$s</em>'), $albumtitle, $theme['name']);
+									} else {
+										printf(gettext('Options for <em>%s</em>'), $theme['name']);
+									}
+									?>
+								</h2>
+							</th>
+							<th style='text-align: right'>
 								<?php
-								if ($albumtitle) {
-									printf(gettext('Options for <code><strong>%1$s</strong></code>: <em>%2$s</em>'), $albumtitle, $theme['name']);
+								if (count($themelist) > 1) {
+									echo gettext("Show theme for");
+									echo '<select id="themealbum" class="ignoredirty truncate" name="themealbum" onchange="this.form.submit()">';
+									generateListFromArray(array(pathurlencode($alb)), $themelist, false, true);
+									echo '</select>';
 								} else {
-									printf(gettext('Options for <em>%s</em>'), $theme['name']);
+									?>
+									<input type="hidden" name="themealbum" value="<?php echo pathurlencode($alb); ?>" />
+									<?php
+									echo '&nbsp;';
 								}
 								?>
-							</h2>
-						</th>
-						<th style='text-align: right'>
-							<?php
-							if (count($themelist) > 1) {
-								echo gettext("Show theme for");
-								echo '<select id="themealbum" class="ignoredirty truncate" name="themealbum" onchange="this.form.submit()">';
-								generateListFromArray(array(pathurlencode($alb)), $themelist, false, true);
-								echo '</select>';
-							} else {
-								?>
-								<input type="hidden" name="themealbum" value="<?php echo pathurlencode($alb); ?>" />
-								<?php
-								echo '&nbsp;';
-							}
-							echo "</th></tr>\n";
-							?>
+							</th>
+						</tr>
+						<?php
+					}
+					?>
 					<tr>
 						<td colspan="100%">
 							<p>

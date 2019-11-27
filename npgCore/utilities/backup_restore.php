@@ -206,7 +206,7 @@ if ($action == 'backup') {
 					break;
 			}
 			fclose($handle);
-			@chmod($filename, 0660 & CHMOD_VALUE);
+			@chmod($filename, LOG_MOD);
 		}
 	} else {
 		$msg = gettext('SHOW TABLES failed!');

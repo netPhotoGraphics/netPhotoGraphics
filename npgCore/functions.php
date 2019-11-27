@@ -168,7 +168,7 @@ function html_encodeTagged($original, $allowScript = true) {
  *
  * Algorithm copyright by Stephen Billard for use in netPhotoGraphics and derivitive implementations
  */
-function shortenContent($articlecontent, $shorten, $shortenindicator = NULL) {
+function shortenContent($articlecontent, $shorten = TRUNCATE_LENGTH, $shortenindicator = NULL) {
 	//conservatve check if the string is too long.
 	if ($shorten && (mb_strlen(strip_tags($articlecontent)) > (int) $shorten)) {
 		if (is_null($shortenindicator)) {
@@ -2338,14 +2338,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

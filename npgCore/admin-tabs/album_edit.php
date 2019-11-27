@@ -32,7 +32,7 @@ if (count($subalbums) > 0) {
 				$sort[gettext('Custom')] = $type = 'custom';
 			}
 		}
-		if ($album->getSortDirection('albums')) {
+		if ($album->getSortDirection('album')) {
 			$type .= '_DESC';
 		}
 		$cv = array($type);
