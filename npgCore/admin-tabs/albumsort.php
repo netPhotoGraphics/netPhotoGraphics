@@ -65,6 +65,7 @@ printAdminHeader('edit', 'sort');
 		});
 	});
 	function postSort(form) {
+		$('#sortableListForm').removeClass('dirty');
 		$('#sortableList').val($('#images').sortable('serialize'));
 		form.submit();
 	}
@@ -190,7 +191,7 @@ echo "\n</head>";
 						<p>
 							<?php
 							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
-							applyButton(array('buttonClass' => 'serialize'));
+							applyButton(array('buttonClick' => 'postSort(this.form)'));
 							resetButton();
 							viewButton(array('buttonLink' => $album->getLink()));
 							?>
@@ -252,7 +253,7 @@ echo "\n</head>";
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<?php
 							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
-							applyButton(array('buttonClass' => 'serialize'));
+							applyButton(array('buttonClick' => 'postSort(this.form)'));
 							resetButton();
 							viewButton(array('buttonLink' => $album->getLink()));
 							?>
