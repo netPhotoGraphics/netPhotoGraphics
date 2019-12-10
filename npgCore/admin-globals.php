@@ -69,6 +69,7 @@ if (OFFSET_PATH != 2 && !getOption('license_accepted') && !isset($_invisible_exe
 $_sortby = array(
 		gettext('Filename') => 'filename',
 		gettext('Date') => 'date',
+		gettext('Publish date') => 'publishdate',
 		gettext('Title') => 'title',
 		gettext('ID') => 'id',
 		gettext('Filemtime') => 'mtime',
