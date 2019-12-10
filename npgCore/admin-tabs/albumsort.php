@@ -46,6 +46,9 @@ if (isset($_GET['album'])) {
 				$_GET['saved'] = 1;
 			}
 		}
+		if (!isset($_POST['checkForPostTruncation'])) {
+			$_GET['post_error'] = 1;
+		}
 	}
 } else {
 	$album = $_missing_album;
@@ -65,6 +68,7 @@ printAdminHeader('edit', 'sort');
 		});
 	});
 	function postSort(form) {
+		$('#sortableListForm').removeClass('dirty');
 		$('#sortableList').val($('#images').sortable('serialize'));
 		form.submit();
 	}
@@ -129,49 +133,10 @@ echo "\n</head>";
 					<?php
 					if (isset($_GET['saved'])) {
 						if (sanitize_numeric($_GET['saved'])) {
-							?>
-							<div class="messagebox fade-message">
-								<h2><?php echo gettext("Image order saved"); ?></h2>
-							</div>
-							<?php
+							consolidatedEditMessages($subtab);
 						} else {
 							if (isset($_GET['bulkmessage'])) {
-								$action = sanitize($_GET['bulkmessage']);
-								switch ($action) {
-									case 'deleteall':
-										$messagebox = gettext('Selected items deleted');
-										break;
-									case 'showall':
-										$messagebox = gettext('Selected items published');
-										break;
-									case 'hideall':
-										$messagebox = gettext('Selected items unpublished');
-										break;
-									case 'commentson':
-										$messagebox = gettext('Comments enabled for selected items');
-										break;
-									case 'commentsoff':
-										$messagebox = gettext('Comments disabled for selected items');
-										break;
-									case 'resethitcounter':
-										$messagebox = gettext('Hitcounter for selected items');
-										break;
-									case 'addtags':
-										$messagebox = gettext('Tags added for selected items');
-										break;
-									case 'cleartags':
-										$messagebox = gettext('Tags cleared for selected items');
-										break;
-									case 'alltags':
-										$messagebox = gettext('Tags added for images of selected items');
-										break;
-									case 'clearalltags':
-										$messagebox = gettext('Tags cleared for images of selected items');
-										break;
-									default:
-										$messagebox = $action;
-										break;
-								}
+								consolidatedEditMessages($subtab);
 							} else {
 								$messagebox = gettext("Nothing changed");
 							}
@@ -190,7 +155,7 @@ echo "\n</head>";
 						<p>
 							<?php
 							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
-							applyButton(array('buttonClass' => 'serialize'));
+							applyButton(array('buttonClick' => 'postSort(this.form)'));
 							resetButton();
 							viewButton(array('buttonLink' => $album->getLink()));
 							?>
@@ -220,8 +185,8 @@ echo "\n</head>";
 												 src="<?php echo getAdminThumb($image, 'large'); ?>"
 												 alt="<?php echo html_encode($image->getTitle()); ?>"
 												 title="<?php
-												 echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
-												 ?>"
+									echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
+											?>"
 												 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
 										<p>
 											<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
@@ -252,12 +217,13 @@ echo "\n</head>";
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
 							<?php
 							backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit' . $parent));
-							applyButton(array('buttonClass' => 'serialize'));
+							applyButton(array('buttonClick' => 'postSort(this.form)'));
 							resetButton();
 							viewButton(array('buttonLink' => $album->getLink()));
 							?>
 							</p>
 						</div>
+						<input type="hidden" name="checkForPostTruncation" value="1" />
 					</form>
 					<br class="clearall">
 				</div>
