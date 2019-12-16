@@ -3,134 +3,135 @@ if (!defined('WEBPATH'))
 	die();
 ?>
 <!DOCTYPE html>
-<head>
-	<?php
-	printZDRoundedCornerJS();
+<html<?php i18n::htmlLanguageCode(); ?>>
+	<head>
+		<?php
+		printZDRoundedCornerJS();
 
 
-	npgFilters::apply('theme_head');
+		npgFilters::apply('theme_head');
 
-	scriptLoader($_themeroot . '/style.css');
+		scriptLoader($_themeroot . '/style.css');
 
-	if (extensionEnabled('rss'))
-		printRSSHeaderLink('Album', getAlbumTitle());
-	?>
-</head>
-<body>
-	<?php npgFilters::apply('theme_body_open'); ?>
+		if (extensionEnabled('rss'))
+			printRSSHeaderLink('Album', getAlbumTitle());
+		?>
+	</head>
+	<body>
+		<?php npgFilters::apply('theme_body_open'); ?>
 
-	<div id="main">
+		<div id="main">
 
-		<?php include("header.php"); ?>
-		<div id="content">
+			<?php include("header.php"); ?>
+			<div id="content">
 
-			<div id="breadcrumb">
-				<h2>
-					<?php if (class_exists('CMS')) { ?>
-						<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
-					<?php } ?>
-					<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
-					<?php printParentBreadcrumb(" » ", " » ", " » "); ?><strong><?php printAlbumTitle(true); ?></strong></h2>
-			</div>
-
-			<div id="content-left">
-				<?php
-				$gd = getAlbumDesc();
-				if (!empty($gd)) {
-					?><div class="gallerydesc"><?php printAlbumDesc(true); ?></div><?php } ?>
-				<div id="albums">
-					<?php $u = 0; ?>
-					<?php while (next_album()): $u++ ?>
-						<div class="album" <?php
-						if ($u % 2 == 0) {
-							echo 'style="margin-left: 8px;"';
-						}
-						?> >
-							<div class="thumb">
-								<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), NULL, 255, 75, 255, 75); ?></a>
-							</div>
-							<div class="albumdesc">
-								<h3><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printAlbumTitle(); ?></a></h3>
-								<h3 class="date"><?php printAlbumDate(""); ?></h3>
-							<!-- p><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45)); ?></p --></h3>
-							</div>
-							<p style="clear: both; "></p>
-						</div>
-					<?php endwhile; ?>
-					<?php while ($u % 2 != 0) : $u++; ?>
-						<div class="album" style="margin-left: 8px;">
-							<div class="thumb"><a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a></div>
-							<div class="albumdesc">
-								<h3 style="color: transparent;">No album</h3>
-								<h3 class="date" style="color: transparent;">No Date</h3>
-							</div>
-						</div>
-					<?php endwhile ?>
+				<div id="breadcrumb">
+					<h2>
+						<?php if (class_exists('CMS')) { ?>
+							<a href="<?php echo getGalleryIndexURL(); ?>" title="<?php echo gettext('Index'); ?>"><?php echo gettext("Index"); ?></a>»
+						<?php } ?>
+						<a href="<?php echo htmlspecialchars(getCustomPageURl('gallery')); ?>" title="<?php echo gettext('Gallery'); ?>"><?php echo gettext("Gallery") . " » "; ?></a>
+						<?php printParentBreadcrumb(" » ", " » ", " » "); ?><strong><?php printAlbumTitle(true); ?></strong></h2>
 				</div>
 
-				<div id="images">
-					<?php $u = 0; ?>
-					<?php while (next_image()): $u++; ?>
-						<div class="image">
-							<div class="imagethumb"><a href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getBareImageTitle()); ?></a></div>
-						</div>
-					<?php endwhile; ?>
-					<?php while ($u % 5 != 0) : $u++; ?>
-						<div class="image">
-							<div class="imagethumb"><a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a></div>
-						</div>
-					<?php endwhile ?>
-				</div>
-				<p style="clear: both; "></p>
-				<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
-				<?php printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ', '); ?>
-				<br style="clear:both;" /><br />
-				<?php
-				if (function_exists('printAddToFavorites')) {
-					printAddToFavorites($_current_album);
-					echo '<br/>';
-				}
-				?>
-				<?php
-				if (function_exists('printSlideShowLink')) {
-					echo '<span id="slideshowlink">';
-					printSlideShowLink(gettext('View Slideshow'));
-					echo '</span>';
-				}
-				?>
-				<br style="clear:both;" />
-				<?php
-				if (function_exists('printRating')) {
-					printRating();
-				}
-				simpleMap::printMap();
-
-				if (function_exists('printCommentForm')) {
-					?>
-					<div id="comments">
-						<?php printCommentForm(); ?>
-					</div>
+				<div id="content-left">
 					<?php
-				}
-				?>
+					$gd = getAlbumDesc();
+					if (!empty($gd)) {
+						?><div class="gallerydesc"><?php printAlbumDesc(true); ?></div><?php } ?>
+					<div id="albums">
+						<?php $u = 0; ?>
+						<?php while (next_album()): $u++ ?>
+							<div class="album" <?php
+							if ($u % 2 == 0) {
+								echo 'style="margin-left: 8px;"';
+							}
+							?> >
+								<div class="thumb">
+									<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), NULL, 255, 75, 255, 75); ?></a>
+								</div>
+								<div class="albumdesc">
+									<h3><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printAlbumTitle(); ?></a></h3>
+									<h3 class="date"><?php printAlbumDate(""); ?></h3>
+								<!-- p><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45)); ?></p --></h3>
+								</div>
+								<p style="clear: both; "></p>
+							</div>
+						<?php endwhile; ?>
+						<?php while ($u % 2 != 0) : $u++; ?>
+							<div class="album" style="margin-left: 8px;">
+								<div class="thumb"><a><img style="width: 255px; height: 75px;  border: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a></div>
+								<div class="albumdesc">
+									<h3 style="color: transparent;">No album</h3>
+									<h3 class="date" style="color: transparent;">No Date</h3>
+								</div>
+							</div>
+						<?php endwhile ?>
+					</div>
+
+					<div id="images">
+						<?php $u = 0; ?>
+						<?php while (next_image()): $u++; ?>
+							<div class="image">
+								<div class="imagethumb"><a href="<?php echo htmlspecialchars(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printImageThumb(getBareImageTitle()); ?></a></div>
+							</div>
+						<?php endwhile; ?>
+						<?php while ($u % 5 != 0) : $u++; ?>
+							<div class="image">
+								<div class="imagethumb"><a><img style="width:<?php echo getOption('thumb_size'); ?>px; height:<?php echo getOption('thumb_size'); ?>px;  outline: 1px #efefef solid;" src="<?= $_themeroot ?>/images/trans.png" /></a></div>
+							</div>
+						<?php endwhile ?>
+					</div>
+					<p style="clear: both; "></p>
+					<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
+					<?php printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ', '); ?>
+					<br style="clear:both;" /><br />
+					<?php
+					if (function_exists('printAddToFavorites')) {
+						printAddToFavorites($_current_album);
+						echo '<br/>';
+					}
+					?>
+					<?php
+					if (function_exists('printSlideShowLink')) {
+						echo '<span id="slideshowlink">';
+						printSlideShowLink(gettext('View Slideshow'));
+						echo '</span>';
+					}
+					?>
+					<br style="clear:both;" />
+					<?php
+					if (function_exists('printRating')) {
+						printRating();
+					}
+					simpleMap::printMap();
+
+					if (function_exists('printCommentForm')) {
+						?>
+						<div id="comments">
+							<?php printCommentForm(); ?>
+						</div>
+						<?php
+					}
+					?>
 
 
-			</div><!-- content left-->
+				</div><!-- content left-->
 
 
 
-			<div id="sidebar">
-				<?php include("sidebar.php"); ?>
-			</div><!-- sidebar -->
+				<div id="sidebar">
+					<?php include("sidebar.php"); ?>
+				</div><!-- sidebar -->
 
 
-			<div id="footer">
-				<?php include("footer.php"); ?>
-			</div>
+				<div id="footer">
+					<?php include("footer.php"); ?>
+				</div>
 
-		</div><!-- content -->
+			</div><!-- content -->
 
-	</div><!-- main -->
-	<?php npgFilters::apply('theme_body_close'); ?>
-</body>
+		</div><!-- main -->
+		<?php npgFilters::apply('theme_body_close'); ?>
+	</body>
 </html>

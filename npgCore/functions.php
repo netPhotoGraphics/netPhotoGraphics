@@ -903,12 +903,12 @@ function setupTheme($album = NULL) {
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		?>
 		<!DOCTYPE html>
-		<html xmlns="http://www.w3.org/1999/xhtml" />
-		<head>
-		</head>
-		<body>
-			<strong><?php printf(gettext('No theme scripts found. Please check the <em>%s</em> folder of your installation.'), THEMEFOLDER); ?></strong>
-		</body>
+		<html xmlns="http://www.w3.org/1999/xhtml"<?php i18n::htmlLanguageCode(); ?>>
+			<head>
+			</head>
+			<body>
+				<strong><?php printf(gettext('No theme scripts found. Please check the <em>%s</em> folder of your installation.'), THEMEFOLDER); ?></strong>
+			</body>
 		</html>
 		<?php
 		exit();
@@ -1217,13 +1217,9 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  * Central place for meta header handling
  */
 function printStandardMeta() {
-	$lang = substr(i18n::getUserLocale(), 0, 2);
-	if ($lang) {
-		$lang = ' lang="' . $lang . '"';
-	}
 	?>
 	<meta name="generator" content="netPhotoGraphics <?php echo NETPHOTOGRAPHICS_VERSION_CONCISE; ?>" />
-	<meta http-equiv="content-type" content="text/html; charset=<?php echo LOCAL_CHARSET; ?>"<?php echo $lang; ?> />
+	<meta charset=<?php echo LOCAL_CHARSET; ?>" />
 	<?php
 }
 
@@ -1252,62 +1248,62 @@ function printSiteLogoImage($title = NULL) {
 	$logo = $_gallery->getSiteLogo();
 	//NOTE: we "know" that the netPhotoGraphics logo is 78 pixels high and 282 pixels wide so the 78px is hard coded
 	?>
-	<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="<?php echo $title; ?>" style="height:78px; width:auto;" />
-	<?php
-}
+				<img src="<?php echo $logo; ?>" id="site logo" alt="site_logo" title="<?php echo $title; ?>" style="height:78px; width:auto;" />
+				<?php
+			}
 
-/**
- * Creates a standard button
- *
- * @param string $buttonType button, submit, etc.
- * @param type $buttonText what shows on the button
- * @param array $options array(	//	pass any of this list that is needed
- * 															'buttonClass' any added classes needed
- * 															'buttonLink' URL if the button loads a script
- * 															'buttonTitle' title
- * 															'buttonClick' javaScript for the button "onclick"
- * 															'disabled' true if the button is disabled
- * 															'id' CSS ID
- * 															'buttonExtra' any other "stuff" that needs to be part of the button
- * 														)
- */
-function npgButton($buttonType, $buttonText, $options = array()) {
-	$options = array_merge(array(
-			'buttonClass' => NULL,
-			'buttonLink' => NULL,
-			'buttonTitle' => NULL,
-			'buttonClick' => NULL,
-			'disabled' => NULL,
-			'id' => NULL,
-			'buttonExtra' => NULL
-					), $options
-	);
-	extract($options);
+			/**
+			 * Creates a standard button
+			 *
+			 * @param string $buttonType button, submit, etc.
+			 * @param type $buttonText what shows on the button
+			 * @param array $options array(	//	pass any of this list that is needed
+			 * 															'buttonClass' any added classes needed
+			 * 															'buttonLink' URL if the button loads a script
+			 * 															'buttonTitle' title
+			 * 															'buttonClick' javaScript for the button "onclick"
+			 * 															'disabled' true if the button is disabled
+			 * 															'id' CSS ID
+			 * 															'buttonExtra' any other "stuff" that needs to be part of the button
+			 * 														)
+			 */
+			function npgButton($buttonType, $buttonText, $options = array()) {
+				$options = array_merge(array(
+						'buttonClass' => NULL,
+						'buttonLink' => NULL,
+						'buttonTitle' => NULL,
+						'buttonClick' => NULL,
+						'disabled' => NULL,
+						'id' => NULL,
+						'buttonExtra' => NULL
+								), $options
+				);
+				extract($options);
 
-	if ($disabled) {
-		$buttonClass .= ' disabled';
-		$disabled = ' disabled="disabled"';
-	}
-	$buttonClass = trim('npgButton ' . $buttonClass);
-	if ($buttonLink) {
-		$buttonLink = ' onclick="window.location=\'' . $buttonLink . '\'"';
-	} else {
-		if ($buttonClick) {
-			$buttonLink = ' onclick="' . $buttonClick . '"';
-		}
-	}
-	if ($buttonType == 'button' && empty($buttonLink)) {
-		trigger_error(gettext('buttonType "button" buttons must have a buttonLink;'), E_USER_NOTICE);
-	}
-	if ($buttonTitle) {
-		$buttonTitle = ' Title="' . $buttonTitle . '"';
-	}
-	if ($id) {
-		$id = ' id="' . $id . '"';
-	}
-	?>
+				if ($disabled) {
+					$buttonClass .= ' disabled';
+					$disabled = ' disabled="disabled"';
+				}
+				$buttonClass = trim('npgButton ' . $buttonClass);
+				if ($buttonLink) {
+					$buttonLink = ' onclick="window.location=\'' . $buttonLink . '\'"';
+				} else {
+					if ($buttonClick) {
+						$buttonLink = ' onclick="' . $buttonClick . '"';
+					}
+				}
+				if ($buttonType == 'button' && empty($buttonLink)) {
+					trigger_error(gettext('buttonType "button" buttons must have a buttonLink;'), E_USER_NOTICE);
+				}
+				if ($buttonTitle) {
+					$buttonTitle = ' Title="' . $buttonTitle . '"';
+				}
+				if ($id) {
+					$id = ' id="' . $id . '"';
+				}
+				?>
 	<button class="<?php echo $buttonClass;
-	?>" type="<?php echo $buttonType; ?>"<?php echo $buttonTitle . $buttonLink . $disabled . $id . $buttonExtra; ?>>
+				?>" type="<?php echo $buttonType; ?>"<?php echo $buttonTitle . $buttonLink . $disabled . $id . $buttonExtra; ?>>
 		<span class="buttonText"><?php echo $buttonText; ?></span>
 	</button>
 	<?php

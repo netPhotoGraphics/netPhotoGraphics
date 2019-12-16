@@ -291,321 +291,321 @@ if (!defined('OFFSET_PATH')) {
 		i18n::setupCurrentLocale('en_US');
 		?>
 		<!DOCTYPE html>
-		<html xmlns="http://www.w3.org/1999/xhtml" />
-		<head>
-			<?php printStandardMeta(); ?>
-			<title><?php echo $pagetitle; ?></title>
-			<?php scriptLoader(CORE_SERVERPATH . 'admin.css'); ?>
-			<style>
-				#heading {
-					height: 15px;
-				}
-				#plugin-content {
-					background-color: #f1f1f1;
-					border: 1px solid #CBCBCB;
-					padding: 5px;
-				}
-				.doc_box_field {
-					padding-left: 0px;
-					padding-right: 5px;
-					padding-top: 5px;
-					padding-bottom: 5px;
-					margin: 15px;
-					border: 1px solid #cccccc;
-					width: 460px;
-				}
-				.moc_button {
-					display: block;
-					float: left;
-					width: 200px;
-					margin: 0 7px 0 0;
-					background-color: #f5f5f5;
-					background-image:  linear-gradient(rgb(244,244,244), rgba(237,237,237));
-					border: 1px solid #dedede;
-					border-top: 1px solid #eee;
-					border-left: 1px solid #eee;
-					font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
-					font-size: 100%;
-					line-height: 130%;
-					text-decoration: none;
-					font-weight: bold;
-					color: #565656;
-					cursor: pointer;
-					padding: 5px 10px 6px 7px; /* Links */
-				}
-				.tip {
-					text-align: left;
-				}
-				dl {
-					display: block;
-					clear: both;
-					width: 100%;
-				}
-				dt,dd {
-					vertical-align: top;
-					display: inline-block;
-					width: 90%;
-					margin: 0;
-				}
-				dt {
-					font-weight: bold;
-				}
-				dd {
-					width: 90%;
-					margin-left: 3em;
-				}
-				ul {
-					list-style: bullet;
-					padding: 0;
-				}
-				ol {
-					list-style: none;
-					padding: 0;
-				}
-				li {
-					margin-left: 1.5em;
-					padding-bottom: 0.5em;
-				}
-				ul.options  {
-					list-style: none;
-					margin-left: 0;
-					padding: 0;
-				}
-				ul.options li {
-					list-style: none;
-					margin-left: 1.5em;
-					padding-bottom: 0.5em;
-				}
-				.superscript {
-					vertical-align: super;
-				}
-				.nowrap {
-					white-space: nowrap;
-				}
-			</style>
-		</head>
-		<body>
-			<div id="main">
-				<div id="heading">
-					<?php
-					echo $pluginusage;
-					?>
-					<div id="google_translate_element" class="floatright"></div>
-					<script type="text/javascript">
-						function googleTranslateElementInit() {
-							new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-						}
-					</script>
-					<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-				</div>
-				<br class="clearall" />
-
-				<div id="plugin-content">
-					<h1><?php echo $ico; ?><?php echo html_encode($extension); ?></h1>
-					<?php
-					if ($plugin_deprecated) {
-						?>
-						<h3 class="warningbox"><?php echo $plugin_deprecated; ?></h3>
-						<?php
+		<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+			<head>
+				<?php printStandardMeta(); ?>
+				<title><?php echo $pagetitle; ?></title>
+				<?php scriptLoader(CORE_SERVERPATH . 'admin.css'); ?>
+				<style>
+					#heading {
+						height: 15px;
 					}
-					?>
-					<div class="border">
-						<?php echo $plugin_description; ?>
+					#plugin-content {
+						background-color: #f1f1f1;
+						border: 1px solid #CBCBCB;
+						padding: 5px;
+					}
+					.doc_box_field {
+						padding-left: 0px;
+						padding-right: 5px;
+						padding-top: 5px;
+						padding-bottom: 5px;
+						margin: 15px;
+						border: 1px solid #cccccc;
+						width: 460px;
+					}
+					.moc_button {
+						display: block;
+						float: left;
+						width: 200px;
+						margin: 0 7px 0 0;
+						background-color: #f5f5f5;
+						background-image:  linear-gradient(rgb(244,244,244), rgba(237,237,237));
+						border: 1px solid #dedede;
+						border-top: 1px solid #eee;
+						border-left: 1px solid #eee;
+						font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+						font-size: 100%;
+						line-height: 130%;
+						text-decoration: none;
+						font-weight: bold;
+						color: #565656;
+						cursor: pointer;
+						padding: 5px 10px 6px 7px; /* Links */
+					}
+					.tip {
+						text-align: left;
+					}
+					dl {
+						display: block;
+						clear: both;
+						width: 100%;
+					}
+					dt,dd {
+						vertical-align: top;
+						display: inline-block;
+						width: 90%;
+						margin: 0;
+					}
+					dt {
+						font-weight: bold;
+					}
+					dd {
+						width: 90%;
+						margin-left: 3em;
+					}
+					ul {
+						list-style: bullet;
+						padding: 0;
+					}
+					ol {
+						list-style: none;
+						padding: 0;
+					}
+					li {
+						margin-left: 1.5em;
+						padding-bottom: 0.5em;
+					}
+					ul.options  {
+						list-style: none;
+						margin-left: 0;
+						padding: 0;
+					}
+					ul.options li {
+						list-style: none;
+						margin-left: 1.5em;
+						padding-bottom: 0.5em;
+					}
+					.superscript {
+						vertical-align: super;
+					}
+					.nowrap {
+						white-space: nowrap;
+					}
+				</style>
+			</head>
+			<body>
+				<div id="main">
+					<div id="heading">
+						<?php
+						echo $pluginusage;
+						?>
+						<div id="google_translate_element" class="floatright"></div>
+						<script type="text/javascript">
+							function googleTranslateElementInit() {
+								new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+							}
+						</script>
+						<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 					</div>
-					<?php
-					if ($pluginType == 'thirdparty' && $plugin_version) {
-						?>
-						<h3><?php printf('Version: %s', $plugin_version); ?></h3>
+					<br class="clearall" />
+
+					<div id="plugin-content">
+						<h1><?php echo $ico; ?><?php echo html_encode($extension); ?></h1>
 						<?php
-					}
-					if ($plugin_author) {
-						?>
-						<h3><?php printf('Author: %s', html_encode($plugin_author)); ?></h3>
-						<?php
-					}
-					if ($plugin_copyright) {
-						?>
-						<h3><?php echo '© ' . html_encodeTagged($plugin_copyright); ?></h3>
-						<?php
-					}
-					?>
-					<div>
-						<?php
-						if ($plugin_disable) {
+						if ($plugin_deprecated) {
 							?>
-							<div class="warningbox">
-								<?php echo $plugin_disable; ?>
-							</div>
+							<h3 class="warningbox"><?php echo $plugin_deprecated; ?></h3>
 							<?php
 						}
-						if ($plugin_notice) {
+						?>
+						<div class="border">
+							<?php echo $plugin_description; ?>
+						</div>
+						<?php
+						if ($pluginType == 'thirdparty' && $plugin_version) {
 							?>
-							<div class="notebox">
-								<?php echo $plugin_notice; ?>
-							</div>
+							<h3><?php printf('Version: %s', $plugin_version); ?></h3>
 							<?php
 						}
-
-						echo $body;
-
-						if ($option_interface) {
-							if (is_string($option_interface)) {
-								$option_interface = new $option_interface;
-							}
-							$options = $supportedOptions = $option_interface->getOptionsSupported();
-							$option = array_shift($options);
-							if (array_key_exists('order', $option)) {
-								$options = sortMultiArray($supportedOptions, 'order');
-								$options = array_keys($options);
-							} else {
-								$options = array_keys($supportedOptions);
-								sort($options, SORT_NATURAL | SORT_FLAG_CASE);
-							}
-
-							foreach ($options as $key => $option) {
-								if (array_key_exists($option, $supportedOptions)) {
-									$row = $supportedOptions[$option];
-									if ($row['type'] == OPTION_TYPE_NOTE) {
-										$n = getBare($row['desc']);
-										if (!empty($n)) {
-											$options[$key] = $n;
-										}
-									} else {
-										if (false !== $i = stripos($option, chr(0))) {
-											$option = substr($option, 0, $i);
-										}
-										if (!$option) {
-											unset($options[$key]);
-										}
-										$options[$key] = '<code>' . $option . '</code>';
-									}
-								} else {
-									unset($options[$key]);
-								}
-							}
-							if ($doclink) {
+						if ($plugin_author) {
+							?>
+							<h3><?php printf('Author: %s', html_encode($plugin_author)); ?></h3>
+							<?php
+						}
+						if ($plugin_copyright) {
+							?>
+							<h3><?php echo '© ' . html_encodeTagged($plugin_copyright); ?></h3>
+							<?php
+						}
+						?>
+						<div>
+							<?php
+							if ($plugin_disable) {
 								?>
-								<p>
-									<?php echo $doclink; ?>
-								</p>
+								<div class="warningbox">
+									<?php echo $plugin_disable; ?>
+								</div>
 								<?php
 							}
-							if (!empty($options)) {
+							if ($plugin_notice) {
 								?>
-								<hr />
-								<p>
-									<?php echo ngettext('Option:', 'Options:', count($options)); ?>
-									<ol class="options">
-										<?php
-										foreach ($options as $option) {
+								<div class="notebox">
+									<?php echo $plugin_notice; ?>
+								</div>
+								<?php
+							}
+
+							echo $body;
+
+							if ($option_interface) {
+								if (is_string($option_interface)) {
+									$option_interface = new $option_interface;
+								}
+								$options = $supportedOptions = $option_interface->getOptionsSupported();
+								$option = array_shift($options);
+								if (array_key_exists('order', $option)) {
+									$options = sortMultiArray($supportedOptions, 'order');
+									$options = array_keys($options);
+								} else {
+									$options = array_keys($supportedOptions);
+									sort($options, SORT_NATURAL | SORT_FLAG_CASE);
+								}
+
+								foreach ($options as $key => $option) {
+									if (array_key_exists($option, $supportedOptions)) {
+										$row = $supportedOptions[$option];
+										if ($row['type'] == OPTION_TYPE_NOTE) {
+											$n = getBare($row['desc']);
+											if (!empty($n)) {
+												$options[$key] = $n;
+											}
+										} else {
 											if (false !== $i = stripos($option, chr(0))) {
 												$option = substr($option, 0, $i);
 											}
-											if ($option) {
-												?>
-												<li><?php echo $option; ?></li>
-												<?php
+											if (!$option) {
+												unset($options[$key]);
 											}
+											$options[$key] = '<code>' . $option . '</code>';
 										}
-										?>
-									</ol>
-								</p>
-								<?php
-							}
-						}
-						if (!empty($buttonlist) || !empty($albumbuttons) || !empty($imagebuttons)) {
-							?>
-							<hr />
-							<?php
-						}
-						if (!empty($buttonlist)) {
-							$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false);
-							?>
-							<div class="box" id="overview-section">
-								<h2 class="h2_bordered">Utility functions</h2>
-								<?php
-								$category = '';
-								foreach ($buttonlist as $button) {
-									$button_category = @$button['category'];
-									$button_icon = @$button['icon'];
-									if ($category != $button_category) {
-										if ($category) {
-											?>
-											</fieldset>
-											<?php
-										}
-										$category = $button_category;
-										?>
-										<fieldset class="doc_box_field"><legend><?php echo $category; ?></legend>
-											<?php
-										}
-										?>
-										<form class="overview_utility_buttons">
-											<div class="moc_button tip" title="<?php echo @$button['title']; ?>" >
-												<?php
-												if (!empty($button_icon)) {
-													if (strpos($button_icon, 'images/') === 0) {
-														// old style icon image
-														?>
-														<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
-														<?php
-													} else {
-														echo $button_icon . ' ';
-													}
-												}
-												echo html_encode(@$button['button_text']);
-												?>
-											</div>
-										</form>
-										<?php
+									} else {
+										unset($options[$key]);
 									}
-									if ($category) {
-										?>
-									</fieldset>
+								}
+								if ($doclink) {
+									?>
+									<p>
+										<?php echo $doclink; ?>
+									</p>
 									<?php
 								}
+								if (!empty($options)) {
+									?>
+									<hr />
+									<p>
+										<?php echo ngettext('Option:', 'Options:', count($options)); ?>
+										<ol class="options">
+											<?php
+											foreach ($options as $option) {
+												if (false !== $i = stripos($option, chr(0))) {
+													$option = substr($option, 0, $i);
+												}
+												if ($option) {
+													?>
+													<li><?php echo $option; ?></li>
+													<?php
+												}
+											}
+											?>
+										</ol>
+									</p>
+									<?php
+								}
+							}
+							if (!empty($buttonlist) || !empty($albumbuttons) || !empty($imagebuttons)) {
 								?>
-							</div>
-							<br class="clearall" />
-							<?php
-						}
-						if ($albumbuttons) {
-							$albumbuttons = preg_replace('|<hr(\s*)(/)>|', '', $albumbuttons);
-							?>
-							<h2 class="h2_bordered_edit">Album Utilities</h2>
-							<div class="box-edit">
-								<?php echo $albumbuttons; ?>
-							</div>
-							<br class="clearall" />
-							<?php
-						}
-						if ($imagebuttons) {
-							$imagebuttons = preg_replace('|<hr(\s*)(/)>|', '', $imagebuttons);
-							?>
-							<h2 class="h2_bordered_edit">Image Utilities</h2>
-							<div class="box-edit">
-								<?php echo $imagebuttons; ?>
-							</div>
-							<br class="clearall" />
-							<?php
-						}
-						if (!empty($content_macros)) {
-							echo ngettext('Macro defined:', 'Macros defined:', count($content_macros));
-							foreach ($content_macros as $macro => $detail) {
-								unset($detail['owner']);
-								macroList_show($macro, $detail);
+								<hr />
+								<?php
+							}
+							if (!empty($buttonlist)) {
+								$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false);
+								?>
+								<div class="box" id="overview-section">
+									<h2 class="h2_bordered">Utility functions</h2>
+									<?php
+									$category = '';
+									foreach ($buttonlist as $button) {
+										$button_category = @$button['category'];
+										$button_icon = @$button['icon'];
+										if ($category != $button_category) {
+											if ($category) {
+												?>
+												</fieldset>
+												<?php
+											}
+											$category = $button_category;
+											?>
+											<fieldset class="doc_box_field"><legend><?php echo $category; ?></legend>
+												<?php
+											}
+											?>
+											<form class="overview_utility_buttons">
+												<div class="moc_button tip" title="<?php echo @$button['title']; ?>" >
+													<?php
+													if (!empty($button_icon)) {
+														if (strpos($button_icon, 'images/') === 0) {
+															// old style icon image
+															?>
+															<img src="<?php echo $button_icon; ?>" alt="<?php echo html_encode($button['alt']); ?>" />
+															<?php
+														} else {
+															echo $button_icon . ' ';
+														}
+													}
+													echo html_encode(@$button['button_text']);
+													?>
+												</div>
+											</form>
+											<?php
+										}
+										if ($category) {
+											?>
+										</fieldset>
+										<?php
+									}
+									?>
+								</div>
+								<br class="clearall" />
+								<?php
+							}
+							if ($albumbuttons) {
+								$albumbuttons = preg_replace('|<hr(\s*)(/)>|', '', $albumbuttons);
+								?>
+								<h2 class="h2_bordered_edit">Album Utilities</h2>
+								<div class="box-edit">
+									<?php echo $albumbuttons; ?>
+								</div>
+								<br class="clearall" />
+								<?php
+							}
+							if ($imagebuttons) {
+								$imagebuttons = preg_replace('|<hr(\s*)(/)>|', '', $imagebuttons);
+								?>
+								<h2 class="h2_bordered_edit">Image Utilities</h2>
+								<div class="box-edit">
+									<?php echo $imagebuttons; ?>
+								</div>
+								<br class="clearall" />
+								<?php
+							}
+							if (!empty($content_macros)) {
+								echo ngettext('Macro defined:', 'Macros defined:', count($content_macros));
+								foreach ($content_macros as $macro => $detail) {
+									unset($detail['owner']);
+									macroList_show($macro, $detail);
+								}
+								?>
+								<br class="clearall" />
+								<?php
 							}
 							?>
-							<br class="clearall" />
-							<?php
-						}
-						?>
+						</div>
 					</div>
 				</div>
-			</div>
-			<br class="clearall" />
-		</body>
-		<?php
+				<br class="clearall" />
+			</body>
+			<?php
+		}
 	}
-}
 

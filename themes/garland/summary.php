@@ -3,7 +3,7 @@ if (!defined('WEBPATH'))
 	die();
 ?>
 <!DOCTYPE html>
-<html>
+<html<?php i18n::htmlLanguageCode(); ?>>
 	<head>
 
 		<?php

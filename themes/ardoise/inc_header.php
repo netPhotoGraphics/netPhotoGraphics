@@ -4,7 +4,7 @@ if (!defined('WEBPATH'))
 	die();
 ?>
 <!DOCTYPE html>
-<html>
+<html<?php i18n::htmlLanguageCode(); ?>>
 	<head>
 		<meta charset="<?php echo getOption('charset'); ?>">
 		<?php npgFilters::apply('theme_head'); ?>

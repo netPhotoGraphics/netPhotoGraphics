@@ -6,7 +6,7 @@ if (!defined('WEBPATH'))
 if (function_exists('printContactForm')) {
 	?>
 	<!DOCTYPE html>
-	<html>
+	<html<?php i18n::htmlLanguageCode(); ?>>
 		<head>
 
 			<?php

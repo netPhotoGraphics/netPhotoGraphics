@@ -5,7 +5,7 @@ if (!isset($zenpage)) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html<?php i18n::htmlLanguageCode(); ?>>
 	<head>
 
 		<?php

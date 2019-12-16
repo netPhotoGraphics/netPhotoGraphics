@@ -180,9 +180,10 @@ class TextObject extends Image {
 	 *
 	 * @param int $w optional width
 	 * @param int $h optional height
+	 * @param string $container override "div" if you want a different container,
 	 * @return string
 	 */
-	function getContent($w = NULL, $h = NULL) {
+	function getContent($w = NULL, $h = NULL, $container = 'div') {
 		$this->updateDimensions();
 		if (is_null($w))
 			$w = $this->getWidth();
@@ -192,7 +193,7 @@ class TextObject extends Image {
 			case 'txt':
 			case 'htm':
 			case 'html':
-				return '<span style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</span>';
+				return '<' . $container . ' style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</' . $container . '>';
 			default: // just in case we extend and are lazy...
 				return '<img src="' . html_encode($this->getThumb()) . '">';
 		}

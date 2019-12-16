@@ -4,7 +4,7 @@ if (!defined('WEBPATH'))
 	die();
 ?>
 <!DOCTYPE html>
-<html>
+<html<?php i18n::htmlLanguageCode(); ?>>
 	<head>
 		<meta charset="<?php echo getOption('charset'); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">

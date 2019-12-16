@@ -125,9 +125,10 @@ class AnyFile extends TextObject {
 	 *
 	 * @param int $w optional width
 	 * @param int $h optional height
+	 * @param dummy $container not used
 	 * @return string
 	 */
-	function getContent($w = NULL, $h = NULL) {
+	function getContent($w = NULL, $h = NULL, $container = NULL) {
 		$this->updateDimensions();
 		if (is_null($w))
 			$w = $this->getWidth();
