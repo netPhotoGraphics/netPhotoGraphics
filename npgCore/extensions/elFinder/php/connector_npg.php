@@ -171,6 +171,8 @@ if ($_REQUEST['origin'] == 'upload') {
 		if ($rights & ADMIN_RIGHTS) {
 			$opts['roots'][2]['accessControl'] = 'access';
 		} else {
+			$opts['roots'][0]['uploadDeny'] = array('text/x-php', 'application');
+			$opts['roots'][2]['uploadDeny'] = array('text/x-php', 'application');
 			if ($rights & FILES_RIGHTS) {
 				$opts['roots'][2]['accessControl'] = 'accessAlbums';
 			} else {
@@ -349,7 +351,8 @@ if ($_REQUEST['origin'] == 'upload') {
 				'tmbBgColor' => 'transparent',
 				'uploadAllow' => array('image'),
 				'accessControl' => 'accessImage',
-				'acceptedName' => '/^[^\.].*$/'
+				'acceptedName' => '/^[^\.].*$/',
+				'uploadDeny' => array('text/x-php', 'text/html', 'application')
 		);
 		switch (@$_GET['type']) {
 			case 'media':
