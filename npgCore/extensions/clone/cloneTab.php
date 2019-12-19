@@ -161,7 +161,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 
 						if (($dir = opendir($path)) !== false) {
 							while (($file = readdir($dir)) !== false) {
-								if ($file{0} != '.' && $file{0} != '$') {
+								if ($file[0] != '.' && $file[0] != '$') {
 									if ((is_dir($path . $file))) {
 										if (!in_array($file, $npg_folders)) { // no clones "here" or in "hidden" files
 											$folderlist[$file] = $path . $file . '/';

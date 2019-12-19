@@ -208,8 +208,8 @@ class UploadHandler {
 						($https ? 'https://' : 'http://') .
 						(!empty($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] . '@' : '') .
 						(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ($_SERVER['SERVER_NAME'] .
-										($https && $_SERVER['SERVER_PORT'] === 443 ||
-										$_SERVER['SERVER_PORT'] === 80 ? '' : ':' . $_SERVER['SERVER_PORT']))) .
+						($https && $_SERVER['SERVER_PORT'] === 443 ||
+						$_SERVER['SERVER_PORT'] === 80 ? '' : ':' . $_SERVER['SERVER_PORT']))) .
 						substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/'));
 	}
 
@@ -1006,7 +1006,7 @@ class UploadHandler {
 		}
 		if (count($failed_versions)) {
 			$file->error = $this->get_error_message('image_resize')
-							. ' (' . implode($failed_versions, ', ') . ')';
+							. ' (' . implode(', ', $failed_versions) . ')';
 		}
 // Free memory:
 		$this->destroy_image_object($file_path);
@@ -1289,9 +1289,9 @@ class UploadHandler {
 // $upload is a one-dimensional array:
 				$files[] = $this->handle_file_upload(
 								isset($upload['tmp_name']) ? $upload['tmp_name'] : null, $file_name ? $file_name : (isset($upload['name']) ?
-																$upload['name'] : null), $size ? $size : (isset($upload['size']) ?
-																$upload['size'] : $this->get_server_var('CONTENT_LENGTH')), isset($upload['type']) ?
-												$upload['type'] : $this->get_server_var('CONTENT_TYPE'), isset($upload['error']) ? $upload['error'] : null, null, $content_range
+								$upload['name'] : null), $size ? $size : (isset($upload['size']) ?
+								$upload['size'] : $this->get_server_var('CONTENT_LENGTH')), isset($upload['type']) ?
+								$upload['type'] : $this->get_server_var('CONTENT_TYPE'), isset($upload['error']) ? $upload['error'] : null, null, $content_range
 				);
 			}
 		}

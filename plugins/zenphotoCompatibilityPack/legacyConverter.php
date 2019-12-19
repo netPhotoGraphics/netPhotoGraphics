@@ -26,7 +26,7 @@ function getResidentFiles($folder) {
 	if (file_exists($folder)) {
 		$dirs = scandir($folder);
 		foreach ($dirs as $file) {
-			if ($file{0} != '.') {
+			if ($file[0] != '.') {
 				$file = str_replace('\\', '/', $file);
 				$key = $folder . '/' . $file;
 				if (is_dir($folder . '/' . $file)) {

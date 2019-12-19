@@ -1072,8 +1072,8 @@ function printCategoryListSortableTable($cat, $toodeep) {
 function printCategoryCheckboxListEntry($cat, $articleid, $option, $class = '') {
 	$selected = '';
 	if (($option != "all") && !$cat->transient && !empty($articleid)) {
-		$cat2news = query_single_row("SELECT cat_id FROM " . prefix('news2cat') . " WHERE news_id = " . $articleid . " AND cat_id = " . $cat->getID());
-		if ($cat2news['cat_id'] != "") {
+		$cat2news = query_single_row($sql = "SELECT cat_id FROM " . prefix('news2cat') . " WHERE news_id = " . $articleid . " AND cat_id = " . $cat->getID());
+		if ($cat2news && $cat2news['cat_id'] != "") {
 			$selected = "checked ='checked'";
 		} else {
 			$selected = "";
@@ -1131,6 +1131,7 @@ function printNestedItemsList($listtype = 'cats-sortablelist', $articleid = '', 
 			$ulclass = "";
 			break;
 	}
+
 	$indent = 1;
 	$open = array(1 => 0);
 	$rslt = false;

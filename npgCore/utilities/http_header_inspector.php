@@ -59,6 +59,3 @@ printAdminHeader('overview', 'http_header_inspector');
 	<?php printAdminFooter(); ?>
 </body>
 </html>
-?>
-
-

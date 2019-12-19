@@ -20,12 +20,12 @@ require_once(__DIR__ . '/initialize-general.php');
  * */
 function parseAllowedTags(&$source) {
 	$source = trim($source);
-	if (@$source{0} != "(") {
+	if (@$source[0] != "(") {
 		return false;
 	}
 	$source = substr($source, 1); //strip off the open paren
 	$a = array();
-	while (strlen($source) > 1 && $source{0} != ")") {
+	while (strlen($source) > 1 && $source[0] != ")") {
 		$i = strpos($source, '=>');
 		if ($i === false) {
 			return false;
@@ -36,7 +36,7 @@ function parseAllowedTags(&$source) {
 			return 0;
 		}
 		$source = trim(substr($source, $i + 2));
-		if (@$source{0} != "(") {
+		if (@$source[0] != "(") {
 			return false;
 		}
 		$x = parseAllowedTags($source);
@@ -45,7 +45,7 @@ function parseAllowedTags(&$source) {
 		}
 		$a[$tag] = $x;
 	}
-	if (@$source{0} != ')') {
+	if (@$source[0] != ')') {
 		return false;
 	}
 	$source = trim(substr($source, 1)); //strip the close paren
@@ -269,7 +269,7 @@ function rewrite_path($rewrite, $plain, $webpath = NULL) {
 	} else {
 		$path = $plain;
 	}
-	if ($path && $path{0} == "/") {
+	if ($path && $path[0] == "/") {
 		$path = substr($path, 1);
 	}
 	return $webpath . "/" . $path;
@@ -2334,14 +2334,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

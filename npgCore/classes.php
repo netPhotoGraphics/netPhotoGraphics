@@ -454,7 +454,6 @@ class PersistentObject {
 		$how = strtolower(substr($method, 0, 3));
 		$what = strtolower(substr($method, 3));
 		$arg = array_shift($args);
-		$result = NULL;
 		switch ($how) {
 			case 'get':
 				if (array_key_exists($what, $this->updates)) {
@@ -468,9 +467,14 @@ class PersistentObject {
 			case 'set':
 				return $this->set($what, $arg);
 		}
+
 		$caller = debug_backtrace();
-		$caller = array_shift($caller);
-		throw new Exception(sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $caller['file'], $caller['line']));
+		$call = array_shift($caller);
+		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
+			$call = array_shift($caller);
+		}
+		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
+		trigger_error($msg);
 	}
 
 }
@@ -488,11 +492,51 @@ class ThemeObject extends PersistentObject {
 	var $manage_some_rights = ADMIN_RIGHTS;
 	var $access_rights = VIEW_ALL_RIGHTS;
 
+	function __call($method, $args) {
+		return parent::__call($method, $args);
+	}
+
 	/**
 	 * Class instantiator
 	 */
 	function __construct() {
 		// no action required
+	}
+
+	/**
+	 * returns the owner of the object
+	 *
+	 * @return string
+	 */
+	function getOwner() {
+		return $this->get('owner');
+	}
+
+	/**
+	 * sets the owner of an the object
+	 *
+	 * @param string $user
+	 */
+	function setOwner($user) {
+		$this->set('owner', $user);
+	}
+
+	/**
+	 * Returns the last change date
+	 *
+	 * @return string
+	 */
+	function getLastchange() {
+		return $this->get("lastchange");
+	}
+
+	/**
+	 * Returns the last change user
+	 *
+	 * @return string
+	 */
+	function getlastchangeuser() {
+		return $this->get("lastchangeuser");
 	}
 
 	/**
@@ -1010,42 +1054,4 @@ class MediaObject extends ThemeObject {
 		$this->set('password_hint', npgFunctions::tagURLs($hint));
 	}
 
-	/**
-	 * returns the owner of the object
-	 *
-	 * @return string
-	 */
-	function getOwner() {
-		return $this->get('owner');
-	}
-
-	/**
-	 * sets the owner of an the object
-	 *
-	 * @param string $user
-	 */
-	function setOwner($user) {
-		$this->set('owner', $user);
-	}
-
-	/**
-	 * Returns the last change date
-	 *
-	 * @return string
-	 */
-	function getLastchange() {
-		return $this->get("lastchange");
-	}
-
-	/**
-	 * Returns the last change user
-	 *
-	 * @return string
-	 */
-	function getlastchangeuser() {
-		return $this->get("lastchangeuser");
-	}
-
 }
-
-?>

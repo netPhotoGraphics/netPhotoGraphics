@@ -1299,7 +1299,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										unset($installed_files[$key]);
 										break;
 									case USER_PLUGIN_FOLDER:
-										if ($folder{strlen($folder) - 1} == '/') {
+										if ($folder[strlen($folder) - 1] == '/') {
 											$plugin_subfolders[] = implode('/', rtrim($folders, '/'));
 										}
 										unset($installed_files[$key]); // not required

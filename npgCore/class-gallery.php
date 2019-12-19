@@ -319,7 +319,7 @@ class Gallery {
 		$albums = array();
 
 		while ($dirname = readdir($dir)) {
-			if ($dirname{0} != '.' && (is_dir($albumdir . $dirname) || hasDynamicAlbumSuffix($dirname))) {
+			if ($dirname[0] != '.' && (is_dir($albumdir . $dirname) || hasDynamicAlbumSuffix($dirname))) {
 				$albums[] = filesystemToInternal($dirname);
 			}
 		}

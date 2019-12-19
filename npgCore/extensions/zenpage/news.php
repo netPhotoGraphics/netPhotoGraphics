@@ -276,10 +276,10 @@ updatePublished('news');
 									printBulkActions($checkarray);
 									?>
 								</span>
+
 								<span class="floatright" style="padding-right:30%;">
 									<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/zenpage/news.php', $options); ?>
 								</span>
-
 							</div>
 							<table class="bordered">
 								<tr>
@@ -320,8 +320,6 @@ updatePublished('news');
 													$sticky = '';
 													break;
 											}
-
-
 											echo '<a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . getNewsAdminOptionPath(array_merge(array('newsarticle' => NULL, 'titlelink' => urlencode($article->getTitlelink())), getNewsAdminOption(NULL))) . '">';
 											checkForEmptyTitle($article->getTitle(), "news");
 											echo '</a>' . checkHitcounterDisplay($article->getHitcounter()) . $sticky;
@@ -336,11 +334,7 @@ updatePublished('news');
 										</td>
 										<td>
 											<?php
-											if ($sortorder == 'date') {
-												echo $article->getDateTime();
-											} else {
-												echo $article->getLastchange();
-											}
+											echo $article->getLastchange();
 											?>
 										</td>
 										<td>
@@ -351,7 +345,6 @@ updatePublished('news');
 										</td>
 
 										<td>
-
 											<div class="page-list_icon">
 												<?php
 												if ($article->inProtectedCategory()) {
@@ -406,14 +399,15 @@ updatePublished('news');
 												<div class="page-list_icon">
 													<?php echo BULLSEYE_LIGHTGRAY; ?>
 												</div>
-											<?php } ?>
+												<?php
+											}
+											?>
 
 											<div class="page-list_icon">
 												<a target="_blank" href="<?php echo $article->getlink(); ?>" title="<?php echo gettext('View article'); ?>">
 													<?php echo BULLSEYE_BLUE; ?>
 												</a>
 											</div>
-
 											<?php
 											if ($unlocked = checkIfLocked($article)) {
 												if (extensionEnabled('hitcounter')) {
@@ -446,7 +440,6 @@ updatePublished('news');
 												<?php
 											}
 											?>
-
 										</td>
 										<td>
 											<div class="floatright">

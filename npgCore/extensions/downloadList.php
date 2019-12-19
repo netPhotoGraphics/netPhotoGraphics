@@ -144,7 +144,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-									 togglePassword('_downloadList');">
+											 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -490,7 +490,7 @@ function getdownloadList($dir8, $filters8, $excludesuffixes, $sort) {
 		natsort($dirs);
 	}
 	foreach ($dirs as $file) {
-		if (@$file{0} != '.') { //	exclude "hidden" files
+		if (@$file[0] != '.') { //	exclude "hidden" files
 			if (is_dir(internalToFilesystem($dir) . '/' . $file)) {
 				$dirN = filesystemToInternal($dir) . "/" . filesystemToInternal($file);
 				$dir_array[$file] = getdownloadList($dirN, $filters8, $excludesuffixes, $sort);

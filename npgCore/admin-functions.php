@@ -497,7 +497,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 											}
 										}
 										if ($link) {
-											switch ($link{0}) {
+											switch ($link[0]) {
 												case '?':
 													$request = mb_parse_url(getRequestURI());
 													if (isset($request['query'])) {
@@ -4575,6 +4575,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 			$colorboxBookmark[$value['name']] = $action;
 		}
 	}
+
 	if (!empty($colorboxBookmark)) {
 		?>
 		<script type="text/javascript">
@@ -4685,28 +4686,29 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<?php
 	}
 	if ($whom = array_search('mass_owner_data', $colorboxBookmark)) {
+		$what = array_search($whom, $checkarray);
+		if ($what == gettext('Change author')) {
+			$what = gettext('New author:');
+			$rights = ZENPAGE_NEWS_RIGHTS | ZENPAGE_PAGES_RIGHTS;
+		} else {
+			$what = gettext('New owner:');
+			$rights = UPLOAD_RIGHTS | ALBUM_RIGHTS;
+		}
 		?>
 		<div id="mass_owner" style="display:none;">
 			<div id="mass_owner_data">
-				<?php
-				$what = array_search($whom, $checkarray);
-				if ($what == gettext('Change author')) {
-					echo gettext('New author:');
-				} else {
-					echo gettext('New owner:');
-				}
-				?>
-				<ul>
-					<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="" size='1'>
-						<?php
-						echo admin_owner_list(NULL, UPLOAD_RIGHTS | ALBUM_RIGHTS);
-						?>
-					</select>
-				</ul>
+				<?php echo $what; ?>
+				<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="" size='1'>
+					<?php
+					echo admin_owner_list(NULL, $rights);
+					?>
+				</select>
+
 			</div>
 		</div>
 		<?php
 	}
+
 	if (in_array('mass_movecopy_data', $colorboxBookmark)) {
 		global $mcr_albumlist, $album, $bglevels;
 		?>
@@ -4732,7 +4734,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 							$saprefix = "&nbsp; &nbsp;&nbsp;" . $saprefix;
 							$salevel++;
 						}
-						echo '<option value="' . $fullfolder . '"' . ($salevel > 0 ? ' style="background-color: ' . $bglevels[$salevel] . ';"' : '')
+						echo '<option value="' . $fullfolder . '"' . ($bglevels && $salevel > 0 ? ' style="background-color: ' . $bglevels[$salevel] . ';"' : '')
 						. "$selected>" . $saprefix . $singlefolder . "</option>\n";
 					}
 					?>
@@ -5193,9 +5195,10 @@ function fullText($string1, $string2) {
  * returns the shortest "date" difference
  * @param string $date1
  * @param string $date2
+ * @param int $page the page of $date1
  * @return string
  */
-function dateDiff($date1, $date2) {
+function dateDiff($date1, $date2, $page) {
 	$separators = array('', '-', '-', ' ', ':', ':');
 	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', $date1, $matches1);
 	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', $date2, $matches2);
@@ -5224,7 +5227,7 @@ function dateDiff($date1, $date2) {
 	}
 
 	if ($date == '0-0-0 0:0:0') {
-		return '&bull; &bull; &bull; ';
+		return '&mdash;' . ($page + 1) . '&mdash;';
 	}
 
 	return rtrim($date, ':-');
@@ -5315,7 +5318,7 @@ function getPageSelector($list, $itmes_per_page, $diff = 'fullText') {
 		$last = '';
 		foreach ($ranges as $page => $range) {
 			$next = @$ranges[$page + 1]['start'];
-			$rangeset[$page] = $diff($last, $range['start']) . ' » ' . $diff($next, $range['end']);
+			$rangeset[$page] = $diff($last, $range['start'], $page) . ' » ' . $diff($next, $range['end'], $page + 1);
 			$last = $range['end'];
 		}
 	}
@@ -5372,7 +5375,7 @@ function printPageSelector($subpage, $rangeset, $script, $queryParams) {
  */
 function unQuote($string) {
 	$string = trim($string);
-	$q = $string{0};
+	$q = $string[0];
 	if ($q == '"' || $q == "'") {
 		$string = trim($string, $q);
 	}

@@ -99,7 +99,7 @@ class filter_file_searches_options {
 
 		while ($dirname = readdir($dir)) {
 			$dirname = filesystemToInternal($dirname);
-			if ((is_dir($albumdir . $dirname) && $dirname{0 } != '.')) {
+			if ((is_dir($albumdir . $dirname) && $dirname[0] != '.')) {
 				$albums = array_merge(array($dirname), $this->loadAlbumNames($albumdir . $dirname . '/'));
 			}
 		}

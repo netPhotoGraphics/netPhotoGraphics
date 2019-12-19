@@ -75,7 +75,7 @@ gl_copyCanvas($image, $background, 0, 0, rand(0, 9), rand(0, 9), $w, $h);
 $l = $kern[0] - $kernOffset;
 for ($i = 0; $i < $len; $i++) {
 	$ink = gl_colorAllocate($image, $p[$i]['R'], $p[$i]['G'], $p[$i]['B']);
-	gl_writeString($image, $font, $l, $lead[$i] + $leadOffset, $string{$i}, $ink, rand(-10, 10));
+	gl_writeString($image, $font, $l, $lead[$i] + $leadOffset, $string[$i], $ink, rand(-10, 10));
 	$l = $l + $fw + $kern[$i];
 }
 
