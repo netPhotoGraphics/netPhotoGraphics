@@ -143,6 +143,9 @@ class i18n {
 				$domainpath = CORE_SERVERPATH . 'locale/';
 				break;
 		}
+		if (!$domainpath) { // incase there is a mis-configured theme or plugin
+			$domainpath = CORE_SERVERPATH . 'locale/';
+		}
 		bindtextdomain($domain, $domainpath);
 		bind_textdomain_codeset($domain, 'UTF-8');
 		textdomain($domain);
