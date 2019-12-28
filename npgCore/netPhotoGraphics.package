@@ -7594,7 +7594,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/jquery.tinymce.min.js
 %extensions%/tinymce/license.txt
 %extensions%/tinymce/postAcceptor.php
-%extensions%/tinymce/tinymce.5.0.14.min.js
+%extensions%/tinymce/tinymce.5.1.4.min.js
 %extensions%/tinymce/config
 %extensions%/tinymce/config/CMS-basic.php
 %extensions%/tinymce/config/CMS-full.php
@@ -7734,6 +7734,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/plugins/wordcount/plugin.min.js
 %extensions%/tinymce/skins
 %extensions%/tinymce/skins/content
+%extensions%/tinymce/skins/content/dark
+%extensions%/tinymce/skins/content/dark/content.min.css
 %extensions%/tinymce/skins/content/default
 %extensions%/tinymce/skins/content/default/content.min.css
 %extensions%/tinymce/skins/content/document
@@ -8147,6 +8149,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/utilities/backup_restore.php
 %core%/utilities/database_reference.php
 %core%/utilities/gallery_statistics.php
+%core%/utilities/http_header_inspector.php
 %core%/utilities/installation_analysis.php
 %core%/utilities/refresh-metadata.php
 %core%/utilities/reset_albumthumbs.php
@@ -8168,4 +8171,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8170
+8173

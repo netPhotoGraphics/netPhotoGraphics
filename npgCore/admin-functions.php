@@ -144,7 +144,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	npgFilters::apply('admin_headers');
 	?>
 	<!DOCTYPE html>
-	<html>
+	<html<?php i18n::htmlLanguageCode(); ?>>
 		<head>
 			<?php
 			printStandardMeta();
@@ -497,7 +497,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 											}
 										}
 										if ($link) {
-											switch ($link{0}) {
+											switch ($link[0]) {
 												case '?':
 													$request = mb_parse_url(getRequestURI());
 													if (isset($request['query'])) {
@@ -2034,7 +2034,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																		 togglePassword('<?php echo $suffix; ?>');" />
+																 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2363,9 +2363,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2523,7 +2523,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -4575,35 +4575,36 @@ function printBulkActions($checkarray, $checkAll = false) {
 			$colorboxBookmark[$value['name']] = $action;
 		}
 	}
+
 	if (!empty($colorboxBookmark)) {
 		?>
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-				var sel = obj.options[obj.selectedIndex].value;
-				var mark;
-				switch (sel) {
+			var sel = obj.options[obj.selectedIndex].value;
+							var mark;
+							switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-					case '<?php echo $key; ?>':
-					mark = '<?php echo $mark; ?>';
-									break;
+				case '<?php echo $key; ?>':
+								mark = '<?php echo $mark; ?>';
+								break;
 			<?php
 		}
 		?>
-				default:
-				mark = false;
-								break;
+			default:
+							mark = false;
+							break;
 			}
 			if (mark) {
-				$.colorbox({
-					href: '#' + mark,
-					inline: true,
-					open: true,
-					close: '<?php echo gettext("ok"); ?>'
-				});
-				}
+			$.colorbox({
+			href: '#' + mark,
+							inline: true,
+							open: true,
+							close: '<?php echo gettext("ok"); ?>'
+			});
+			}
 			}
 			// ]]> -->
 		</script>
@@ -4685,28 +4686,29 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<?php
 	}
 	if ($whom = array_search('mass_owner_data', $colorboxBookmark)) {
+		$what = array_search($whom, $checkarray);
+		if ($what == gettext('Change author')) {
+			$what = gettext('New author:');
+			$rights = ZENPAGE_NEWS_RIGHTS | ZENPAGE_PAGES_RIGHTS;
+		} else {
+			$what = gettext('New owner:');
+			$rights = UPLOAD_RIGHTS | ALBUM_RIGHTS;
+		}
 		?>
 		<div id="mass_owner" style="display:none;">
 			<div id="mass_owner_data">
-				<?php
-				$what = array_search($whom, $checkarray);
-				if ($what == gettext('Change author')) {
-					echo gettext('New author:');
-				} else {
-					echo gettext('New owner:');
-				}
-				?>
-				<ul>
-					<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="" size='1'>
-						<?php
-						echo admin_owner_list(NULL, UPLOAD_RIGHTS | ALBUM_RIGHTS);
-						?>
-					</select>
-				</ul>
+				<?php echo $what; ?>
+				<select class="ignoredirty" id="massownermenu" name="massownerselect" onchange="" size='1'>
+					<?php
+					echo admin_owner_list(NULL, $rights);
+					?>
+				</select>
+
 			</div>
 		</div>
 		<?php
 	}
+
 	if (in_array('mass_movecopy_data', $colorboxBookmark)) {
 		global $mcr_albumlist, $album, $bglevels;
 		?>
@@ -4732,7 +4734,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 							$saprefix = "&nbsp; &nbsp;&nbsp;" . $saprefix;
 							$salevel++;
 						}
-						echo '<option value="' . $fullfolder . '"' . ($salevel > 0 ? ' style="background-color: ' . $bglevels[$salevel] . ';"' : '')
+						echo '<option value="' . $fullfolder . '"' . ($bglevels && $salevel > 0 ? ' style="background-color: ' . $bglevels[$salevel] . ';"' : '')
 						. "$selected>" . $saprefix . $singlefolder . "</option>\n";
 					}
 					?>
@@ -4987,27 +4989,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-		// <!-- <![CDATA[
-		$(function () {
-			var tabContainers = $('div.tabs > div');
-			$('.first').addClass('selected');
-		});
-		function cbclick(num, id) {
-			$('.cbx-' + id).hide();
-			$('#cb' + num + '-' + id).show();
-			$('.cbt-' + id).removeClass('selected');
-			$('#cbt' + num + '-' + id).addClass('selected');
-		}
+						// <!-- <![CDATA[
+						$(function () {
+						var tabContainers = $('div.tabs > div');
+										$('.first').addClass('selected');
+						});
+						function cbclick(num, id) {
+						$('.cbx-' + id).hide();
+										$('#cb' + num + '-' + id).show();
+										$('.cbt-' + id).removeClass('selected');
+										$('#cbt' + num + '-' + id).addClass('selected');
+						}
 
 		function cbadd(id, offset) {
-			var num = $('#cbu-' + id + ' li').length - offset;
-			$('li:last', $('#cbu-' + id)).remove();
-			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-							'</div>');
-			cbclick(num, id);
+		var num = $('#cbu-' + id + ' li').length - offset;
+						$('li:last', $('#cbu-' + id)).remove();
+						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+						'</div>');
+						cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5193,9 +5195,10 @@ function fullText($string1, $string2) {
  * returns the shortest "date" difference
  * @param string $date1
  * @param string $date2
+ * @param int $page the page of $date1
  * @return string
  */
-function dateDiff($date1, $date2) {
+function dateDiff($date1, $date2, $page) {
 	$separators = array('', '-', '-', ' ', ':', ':');
 	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', $date1, $matches1);
 	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', $date2, $matches2);
@@ -5224,7 +5227,7 @@ function dateDiff($date1, $date2) {
 	}
 
 	if ($date == '0-0-0 0:0:0') {
-		return '&bull; &bull; &bull; ';
+		return '&mdash;' . ($page + 1) . '&mdash;';
 	}
 
 	return rtrim($date, ':-');
@@ -5315,7 +5318,7 @@ function getPageSelector($list, $itmes_per_page, $diff = 'fullText') {
 		$last = '';
 		foreach ($ranges as $page => $range) {
 			$next = @$ranges[$page + 1]['start'];
-			$rangeset[$page] = $diff($last, $range['start']) . ' » ' . $diff($next, $range['end']);
+			$rangeset[$page] = $diff($last, $range['start'], $page) . ' » ' . $diff($next, $range['end'], $page + 1);
 			$last = $range['end'];
 		}
 	}
@@ -5372,7 +5375,7 @@ function printPageSelector($subpage, $rangeset, $script, $queryParams) {
  */
 function unQuote($string) {
 	$string = trim($string);
-	$q = $string{0};
+	$q = $string[0];
 	if ($q == '"' || $q == "'") {
 		$string = trim($string, $q);
 	}
@@ -5946,7 +5949,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php

@@ -48,7 +48,7 @@ if (!isset($setOptions['extra_auth_hash_text'])) {
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
-		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
 	setOptionDefault('extra_auth_hash_text', $auth_extratext);
 }
@@ -56,7 +56,7 @@ if (!isset($setOptions['secret_key_text'])) {
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
-		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
 	setOptionDefault('secret_key_text', $auth_extratext);
 }
@@ -64,7 +64,7 @@ if (!isset($setOptions['secret_init_vector'])) {
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
-		$auth_extratext = $auth_extratext . $salt{$list[$i]};
+		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
 	setOptionDefault('secret_init_vector', $auth_extratext);
 }
@@ -747,12 +747,7 @@ if (!isset($data['hitcounter'])) {
 	$data['hitcounter'] = $result = getOption('Page-Hitcounter-index');
 	purgeOption('Page-Hitcounter-index');
 }
-if (!isset($data['current_theme'])) {
-	$data['current_theme'] = getOption('current_theme');
-	if (is_null($data['current_theme'])) {
-		$data['current_theme'] = 'default';
-	}
-}
+
 if (!isset($data['website_title']))
 	$data['website_title'] = getOption('website_title');
 if (!isset($data['website_url']))

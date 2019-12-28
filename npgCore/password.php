@@ -1,6 +1,6 @@
 <?php if (!defined('WEBPATH')) die(); ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"<?php i18n::htmlLanguageCode(); ?>>
 	<head>
 		<?php npgFilters::apply('theme_head'); ?>
 		<title><?php echo gettext("Password required"); ?></title>

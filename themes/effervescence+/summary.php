@@ -4,7 +4,7 @@ if (!defined('WEBPATH'))
 // force UTF-8 Ø
 ?>
 <!DOCTYPE html>
-<html>
+<html<?php i18n::htmlLanguageCode(); ?>>
 	<head>
 
 		<?php npgFilters::apply('theme_head'); ?>

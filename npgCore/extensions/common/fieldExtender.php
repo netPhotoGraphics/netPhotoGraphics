@@ -330,12 +330,12 @@ class fieldExtender {
 
 
 			$html .= '<div class="user_left">' .
-							implode($output[0], "\n") .
+							implode("\n", $output[0]) .
 							'</div>';
 
 			if (!empty($output[1])) {
 				$html .= '<div class="user_right">' .
-								implode($output[1], "\n") .
+								implode("\n", $output[1]) .
 								'</div>';
 			}
 			$html .= '<br class="clearall">';

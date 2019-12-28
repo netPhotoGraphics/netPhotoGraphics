@@ -6,7 +6,7 @@ if (!defined('WEBPATH'))
 if (class_exists('favorites')) {
 	?>
 	<!DOCTYPE html>
-	<html>
+	<html<?php i18n::htmlLanguageCode(); ?>>
 		<head>
 			<?php
 			npgFilters::apply('theme_head');

@@ -36,7 +36,6 @@ class htmlmetatags {
 		if (OFFSET_PATH == 2) {
 			replaceOption('google-site-verification', 'htmlmeta_google-site-verification', '');
 			setOptionDefault('htmlmeta_cache_control', 'no-cache');
-			setOptionDefault('htmlmeta_pragma', 'no-cache');
 			setOptionDefault('htmlmeta_robots', 'index');
 			setOptionDefault('htmlmeta_revisit_after', '10');
 			setOptionDefault('htmlmeta_expires', '43200');
@@ -87,12 +86,6 @@ class htmlmetatags {
 								'no-store' => "no-store"
 						),
 						'desc' => gettext("If the browser cache should be used.")),
-				gettext('Pragma') => array('key' => 'htmlmeta_pragma', 'type' => OPTION_TYPE_SELECTOR,
-						'selections' => array(
-								'no-cache' => "no-cache",
-								'cache' => "cache"
-						),
-						'desc' => gettext("If the pages should be allowed to be cached on proxy servers.")),
 				gettext('Robots') => array('key' => 'htmlmeta_robots', 'type' => OPTION_TYPE_SELECTOR,
 						'selections' => array(
 								'noindex' => "noindex",

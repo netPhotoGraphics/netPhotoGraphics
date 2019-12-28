@@ -5,7 +5,7 @@ if (!defined('WEBPATH'))
 if (function_exists('printSlideShow')) {
 	?>
 	<!DOCTYPE html>
-	<html>
+	<html<?php i18n::htmlLanguageCode(); ?>>
 		<head>
 			<?php
 			npgFilters::apply('theme_head');

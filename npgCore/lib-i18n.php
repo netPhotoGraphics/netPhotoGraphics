@@ -143,6 +143,9 @@ class i18n {
 				$domainpath = CORE_SERVERPATH . 'locale/';
 				break;
 		}
+		if (!$domainpath) { // incase there is a mis-configured theme or plugin
+			$domainpath = CORE_SERVERPATH . 'locale/';
+		}
 		bindtextdomain($domain, $domainpath);
 		bind_textdomain_codeset($domain, 'UTF-8');
 		textdomain($domain);
@@ -360,11 +363,24 @@ class i18n {
 	/**
 	 * Returns a saved (or posted) locale. Posted locales are stored as a cookie.
 	 *
+	 * @param string $separator the character used to separate sub language
 	 * Sets the 'locale' option to the result (non-persistent)
 	 */
-	static function getUserLocale() {
+	static function getUserLocale($separator = '_') {
 		global $_current_locale;
-		return $_current_locale;
+		return str_replace('_', $separator, $_current_locale);
+	}
+
+	/**
+	 * Returns the SO 639-1 Language Code
+	 * @global string $_current_locale
+	 * @return string
+	 */
+	static function htmlLanguageCode() {
+		global $_current_locale;
+		if ($_current_locale) {
+			echo ' lang="' . self::getUserLocale('-');
+		}
 	}
 
 }

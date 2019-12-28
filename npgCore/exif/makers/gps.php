@@ -112,7 +112,7 @@ function lookup_GPS_tag($tag) {
 function formatGPSData($type, $tag, $intel, $data) {
 	if ($type == "ASCII") {
 		if ($tag == "0001" || $tag == "0003") { // Latitude Reference, Longitude Reference
-			$data = ($data{1} == @$data{2} && @$data{1} == @$data{3}) ? $data{0} : $data;
+			$data = ($data[1] == @$data[2] && @$data[1] == @$data[3]) ? $data[0] : $data;
 		}
 	} else if ($type == "URATIONAL" || $type == "SRATIONAL") {
 		if ($tag == "0002" || $tag == "0004" || $tag == '0007') { //Latitude, Longitude, Time
@@ -209,28 +209,28 @@ function parseGPS($block, &$result, $offset, $seek, $globalOffset) {
 	for ($i = 0; $i < $num; $i++) {
 		//2 byte tag
 		$tag = bin2hex(substr($block, $place, 2));
-		$place+=2;
+		$place += 2;
 		if ($intel == 1)
 			$tag = intel2Moto($tag);
 		$tag_name = lookup_GPS_tag($tag);
 
 		//2 byte datatype
 		$type = bin2hex(substr($block, $place, 2));
-		$place+=2;
+		$place += 2;
 		if ($intel == 1)
 			$type = intel2Moto($type);
 		lookup_type($type, $size);
 
 		//4 byte number of elements
 		$count = bin2hex(substr($block, $place, 4));
-		$place+=4;
+		$place += 4;
 		if ($intel == 1)
 			$count = intel2Moto($count);
 		$bytesofdata = validSize($size * hexdec($count));
 
 		//4 byte value or pointer to value if larger than 4 bytes
 		$value = substr($block, $place, 4);
-		$place+=4;
+		$place += 4;
 		if ($bytesofdata <= 4) {
 			$data = substr($value, 0, $bytesofdata);
 		} else {

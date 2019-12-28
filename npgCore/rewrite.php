@@ -82,7 +82,7 @@ function rewriteHandler() {
 	//process the rules
 	foreach ($rules as $rule) {
 		$rule = trim($rule);
-		if (!empty($rule) && $rule{0} != '#') {
+		if (!empty($rule) && $rule[0] != '#') {
 			if (preg_match('~^rewriterule~i', $rule)) {
 				if (array_key_exists(1, $matches)) {
 					// it is a rewrite rule, see if it is applicable

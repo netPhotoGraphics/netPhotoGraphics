@@ -192,6 +192,7 @@ class CMS {
 	 */
 	function getArticles($articles_per_page = 0, $published = NULL, $ignorepagination = false, $sortorder = NULL, $sortdirection = NULL, $sticky = NULL, $category = NULL, $author = null, $limit = NULL) {
 		global $_CMS_current_category, $_post_date, $_newsCache;
+
 		if (empty($published)) {
 			if (npg_loggedin(ZENPAGE_NEWS_RIGHTS | VIEW_UNPUBLISHED_NEWS_RIGHTS)) {
 				$published = "all";
@@ -223,6 +224,7 @@ class CMS {
 				$sortorder = 'date';
 			}
 		}
+
 		$newsCacheIndex = "$sortorder-$sortdirection-$published-$cat-$author-" . (int) $sticky;
 		if ($limit) {
 			$newsCacheIndex .= '_' . $limit;
@@ -856,5 +858,3 @@ class CMSItems extends CMSRoot {
 	}
 
 }
-
-?>

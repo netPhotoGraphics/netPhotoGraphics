@@ -435,4 +435,3 @@ class Article extends CMSItems {
 }
 
 // zenpage news class end
-?>

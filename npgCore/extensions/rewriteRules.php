@@ -317,7 +317,7 @@ class rewriteRules {
 		$rules[] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
 		foreach ($customRules as $rule) {
 			$rule = trim($rule);
-			if (strlen($rule) > 0 && $rule{0} != '#') {
+			if (strlen($rule) > 0 && $rule[0] != '#') {
 				if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
 					$definitions[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
 				} else {

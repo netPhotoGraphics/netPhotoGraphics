@@ -24,7 +24,7 @@ if (empty($needs)) {
 	header('Content-Type: text/html; charset=utf-8');
 	?>
 	<!DOCTYPE html>
-	<html xmlns="http://www.w3.org/1999/xhtml">
+	<html xmlns="http://www.w3.org/1999/xhtml"<?php i18n::htmlLanguageCode(); ?>>
 		<head>
 			<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 			<?php
