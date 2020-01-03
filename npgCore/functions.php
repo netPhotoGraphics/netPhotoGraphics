@@ -1219,7 +1219,7 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
 function printStandardMeta() {
 	?>
 	<meta name="generator" content="netPhotoGraphics <?php echo NETPHOTOGRAPHICS_VERSION_CONCISE; ?>" />
-	<meta charset=<?php echo LOCAL_CHARSET; ?>" />
+	<meta charset="<?php echo LOCAL_CHARSET; ?>" />
 	<?php
 }
 
