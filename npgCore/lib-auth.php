@@ -891,7 +891,7 @@ class _Authority {
 								$msg .= "<p>" . sprintf(gettext('To reset your Admin passwords visit <a href="%1$s">%2$s/reset</a>'), getAdminLink('admin-tabs/users.php') . '?user=' . $user['user'] . '&ticket=' . $ref, WEBPATH) .
 												"</p><p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . '</p>';
 							} else {
-								$msg .= "\n" . gettext('No matching user was found.');
+								$msg .= "<p>" . gettext('No matching user was found.' . '</p>');
 							}
 							$err_msg = npgFunctions::mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
