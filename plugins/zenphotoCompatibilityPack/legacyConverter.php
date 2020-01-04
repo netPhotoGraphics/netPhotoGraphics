@@ -92,7 +92,7 @@ if (isset($_GET['action'])) {
 		}
 		$body = preg_replace('~/\* TODO:replaced.*/\*(.*?)\*/.*\*/~', '/*$1*/', $body); //in case we came here twice
 
-		do {
+		do { //	remove trailing php close tokens
 			$again = false;
 			$body = trim($body);
 			$close = strrpos($body, '?>');
