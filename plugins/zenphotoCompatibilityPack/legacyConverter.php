@@ -95,16 +95,16 @@ if (isset($_GET['action'])) {
 		do { //	remove trailing php close tokens
 			$again = false;
 			$body = trim($body);
-			$close = strrpos($body, '?>');
-			$len = strlen($body);
-			if ($close == $len - 2) {
+			$close = substr($body, -2);
+			if ($close == '?>') {
 				$body = substr($body, 0, -2);
 				$again = true;
 			}
 		} while ($again);
+		$body = $body . "\n";
 
 		if ($source != $body) {
-			file_put_contents($file, $body . "\n");
+			file_put_contents($file, $body);
 			$counter++;
 		}
 	}
