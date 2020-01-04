@@ -92,8 +92,19 @@ if (isset($_GET['action'])) {
 		}
 		$body = preg_replace('~/\* TODO:replaced.*/\*(.*?)\*/.*\*/~', '/*$1*/', $body); //in case we came here twice
 
+		do {
+			$again = false;
+			$body = trim($body);
+			$close = strrpos($body, '?>');
+			$len = strlen($body);
+			if ($close == $len - 2) {
+				$body = substr($body, 0, -2);
+				$again = true;
+			}
+		} while ($again);
+
 		if ($source != $body) {
-			file_put_contents($file, $body);
+			file_put_contents($file, $body . "\n");
 			$counter++;
 		}
 	}
@@ -236,4 +247,3 @@ echo "\n" . '</div>'; //main
 printAdminFooter();
 echo "\n</body>";
 echo "\n</html>";
-?>
