@@ -92,6 +92,14 @@ if (isset($_GET['action'])) {
 		}
 		$body = preg_replace('~/\* TODO:replaced.*/\*(.*?)\*/.*\*/~', '/*$1*/', $body); //in case we came here twice
 
+        //	remove trailing php close token
+		$body = trim($body);
+		$close = strrpos($body, '?>');
+		$len = strlen($body);
+		if ($close == $len - 2) {
+			$body = substr($body, 0, -2);
+		}
+        
 		if ($source != $body) {
 			file_put_contents($file, $body);
 			$counter++;
