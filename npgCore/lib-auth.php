@@ -801,7 +801,7 @@ class _Authority {
 	 * User authentication support
 	 */
 	function handleLogon() {
-		global $_current_admin_obj, $_login_error, $_captcha, $_loggedin;
+		global $_current_admin_obj, $_login_error, $_captcha, $_loggedin, $_gallery;
 		if (isset($_POST['login'])) {
 			$post_user = sanitize(@$_POST['user'], 0);
 			$post_pass = sanitize(@$_POST['pass'], 0);
@@ -888,7 +888,7 @@ class _Authority {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
 							$msg = "<p>" . $requestor . '</p>';
 							if ($found) {
-								$msg .= "<p>" . sprintf(gettext("To reset your Admin passwords visit: %s"), getAdminLink('admin-tabs/users.php') . '?ticket=' . $ref . '&user=' . $user['user']) .
+								$msg .= "<p>" . sprintf(gettext('To reset your Admin passwords visit <a href="%1$s">%2$s/reset</a>'), getAdminLink('admin-tabs/users.php') . '?user=' . $user['user'] . '&ticket=' . $ref, WEBPATH) .
 												"</p><p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . '</p>';
 							} else {
 								$msg .= "\n" . gettext('No matching user was found.');
@@ -1525,7 +1525,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
