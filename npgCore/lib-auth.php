@@ -886,12 +886,12 @@ class _Authority {
 							$_login_error = gettext('There was no one to which to send the reset request.');
 						} else {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
-							$msg = "<p>" . $requestor . '</p>';
+							$msg = "<p>" . $requestor . "</p>\n";
 							if ($found) {
 								$msg .= "<p>" . sprintf(gettext('To reset your Admin passwords visit <a href="%1$s">%2$s/reset</a>'), getAdminLink('admin-tabs/users.php') . '?user=' . $user['user'] . '&ticket=' . $ref, WEBPATH) .
-												"</p><p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . '</p>';
+												"</p>\n<p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . "</p>\n";
 							} else {
-								$msg .= "<p>" . gettext('No matching user was found.' . '</p>');
+								$msg .= "<p>" . gettext('No matching user was found.' . "</p>\n");
 							}
 							$err_msg = npgFunctions::mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
