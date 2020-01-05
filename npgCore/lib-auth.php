@@ -801,7 +801,7 @@ class _Authority {
 	 * User authentication support
 	 */
 	function handleLogon() {
-		global $_current_admin_obj, $_login_error, $_captcha, $_loggedin;
+		global $_current_admin_obj, $_login_error, $_captcha, $_loggedin, $_gallery;
 		if (isset($_POST['login'])) {
 			$post_user = sanitize(@$_POST['user'], 0);
 			$post_pass = sanitize(@$_POST['pass'], 0);
@@ -886,12 +886,12 @@ class _Authority {
 							$_login_error = gettext('There was no one to which to send the reset request.');
 						} else {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
-							$msg = "<p>" . $requestor . '</p>';
+							$msg = "<p>" . $requestor . "</p>\n";
 							if ($found) {
-								$msg .= "<p>" . sprintf(gettext("To reset your Admin passwords visit: %s"), getAdminLink('admin-tabs/users.php') . '?ticket=$ref&user=' . $user['user']) .
-												"</p><p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . '</p>';
+								$msg .= "<p>" . sprintf(gettext('To reset your Admin passwords visit <a href="%1$s">%2$s/reset</a>'), getAdminLink('admin-tabs/users.php') . '?user=' . $user['user'] . '&ticket=' . $ref, WEBPATH) .
+												"</p>\n<p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . "</p>\n";
 							} else {
-								$msg .= "\n" . gettext('No matching user was found.');
+								$msg .= "<p>" . gettext('No matching user was found.' . "</p>\n");
 							}
 							$err_msg = npgFunctions::mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
