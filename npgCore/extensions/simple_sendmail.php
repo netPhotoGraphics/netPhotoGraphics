@@ -42,8 +42,9 @@ function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $
 		$headers ['reply'] = 'Reply-To: ' . array_shift($replyTo);
 	}
 	$headers ['mime'] = "Mime-Version: 1.0";
-	$headers['content'] = "Content-Transfer-Encoding: quoted-printable";
 	$headers ['type'] = "Content-Type: text/html; charset=" . LOCAL_CHARSET;
+	$headers['content'] = "Content-Transfer-Encoding: quoted-printable";
+	$message = quoted_printable_encode($message);
 
 	$sendList = array_merge($email_list, $bcc_addresses);
 
