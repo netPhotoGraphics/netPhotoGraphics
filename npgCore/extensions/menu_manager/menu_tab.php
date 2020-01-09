@@ -252,7 +252,7 @@ printSortableHead();
 							<br class="clearall">
 							<div class="subhead">
 								<label style="float: right">
-									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[   ]', this.checked);" />
+									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
 								</label>
 							</div>
 							<ul class="page-list" id="menusort">

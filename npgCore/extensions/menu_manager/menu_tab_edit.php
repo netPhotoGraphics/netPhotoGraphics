@@ -118,7 +118,7 @@ if (class_exists('CMS')) {
 								$('#albumselector,#pageselector,#custompageselector,#custompageselector,#titleinput,#link_row').hide();
 								$('#selector').html('<?php echo js_encode(gettext("Zenpage news category")); ?>');
 								$('#description').html('<?php echo js_encode(gettext("Creates a link to a Zenpage News article category.")); ?>');
-								$("#link").attr('disabled', true);
+								$('#link').attr('disabled', true);
 								$('#categoryselector').show();
 								$('#titlelabel').html('<?php echo js_encode(gettext('Category')); ?>');
 								$('#categoryselector').change(function () {
@@ -141,6 +141,7 @@ if (class_exists('CMS')) {
 							$('#custompageselector').show();
 							$('#selector').html('<?php echo js_encode(gettext("Custom page")); ?>');
 							$('#description').html('<?php echo js_encode(gettext('Creates a link to a custom theme script page.')); ?>');
+							$('#link').attr('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('Script page')); ?>');
 							$('#titleinput').show();
 							break;
@@ -148,7 +149,7 @@ if (class_exists('CMS')) {
 							$('#albumselector,#pageselector,#categoryselector,#custompageselector').hide();
 							$('#selector').html('<?php echo js_encode(gettext("Dynamic link")); ?>');
 							$('#description').html('<?php echo js_encode(gettext("Creates a dynamic link. The string will be evaluated by PHP to create the link.")); ?>');
-							$('#link').prop('disabled', false);
+							$('#link').attr('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
 							$('#menu_aux_label').html('<?php echo js_encode(gettext('Link Attributes')); ?>');
 							$('#menu_aux_row').show();
@@ -158,7 +159,7 @@ if (class_exists('CMS')) {
 							$('#albumselector,#pageselector,#categoryselector,#custompageselector').hide();
 							$('#selector').html('<?php echo js_encode(gettext("Custom link")); ?>');
 							$('#description').html('<?php echo js_encode(gettext("Creates a link outside the standard structure. Use of a full URL is recommended (e.g. http://www.domain.com).")); ?>');
-							$('#link').prop('disabled', false);
+							$('#link').attr('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
 							$('#menu_aux_label').html('<?php echo js_encode(gettext('Link Attributes')); ?>');
 							$('#menu_aux_row').show();
@@ -175,7 +176,7 @@ if (class_exists('CMS')) {
 							$('#selector').html('<?php echo js_encode(gettext("Function")); ?>');
 							$('#description').html('<?php echo js_encode(gettext('Executes the PHP function provided.')); ?>');
 							$('#link_label').html('<?php echo js_encode(gettext('Function')); ?>');
-							$('#link').prop('disabled', false);
+							$('#link').attr('disabled', false);
 							$('#titleinput').show();
 							$('#include_li_label').show();
 							break;
@@ -184,7 +185,7 @@ if (class_exists('CMS')) {
 							$('#selector').html('<?php echo js_encode(gettext("HTML")); ?>');
 							$('#description').html('<?php echo js_encode(gettext('Inserts custom HTML.')); ?>');
 							$('#link_label').html('<?php echo js_encode(gettext('HTML')); ?>');
-							$('#link').prop('disabled', false);
+							$('#link').attr('disabled', false);
 							$('#titleinput').show();
 							$('#include_li_label').show();
 							break;

@@ -538,6 +538,8 @@ function getCurrentMenuItem($menuset) {
 	$visibility = 'all';
 	$items = getMenuItems($menuset, $visibility);
 	$currentkey = NULL;
+
+
 	foreach ($items as $key => $item) {
 		switch ($item['type']) {
 			case 'menulabel':
@@ -553,9 +555,13 @@ function getCurrentMenuItem($menuset) {
 				break;
 		}
 	}
+
+
 	if (is_null($currentkey)) {
 		$currentkey = inventMenuItem($menuset, $visibility);
 	}
+
+
 	return $currentkey;
 }
 
@@ -1163,14 +1169,19 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 
 	$sortorder = getCurrentMenuItem($menuset);
 	$items = getMenuItems($menuset, getMenuVisibility());
-
 	if (count($items) == 0)
 		return; // nothing to do
 	$currentitem_parentid = @$items[$sortorder]['parentid'];
 	if ($startlist = !($option == 'omit-top' || $option == 'list-sub')) {
 		echo "<ul$css_id>";
 	}
-	$pageid = @$items[$sortorder]['id'];
+
+	if ($sortorder === false) {
+		$pageid = '';
+	} else {
+		$pageid = $items[$sortorder]['id'];
+	}
+
 	$baseindent = max(1, count(explode("-", $sortorder)));
 	$indent = 1;
 	$open = array($indent => 0);
@@ -1196,6 +1207,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						) || ($option == 'list-sub' && ($item['parentid'] == $pageid) // offspring of the current page
 						)
 						);
+
 		if ($process && !$itemarray['invalid']) {
 			if ($level > $indent) {
 				echo "\n" . str_pad("\t", $indent, "\t") . "<ul class=\"$css_class menu_{$item['type']}\">\n";
@@ -1261,6 +1273,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						break;
 				}
 			}
+
 			if ($item['id'] == $pageid && !is_null($pageid)) {
 				if ($level == 1) { // top level
 					$class = $css_class_topactive;
