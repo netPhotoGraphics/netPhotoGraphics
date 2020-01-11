@@ -1179,7 +1179,11 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	if ($sortorder === false) {
 		$pageid = '';
 	} else {
-		$pageid = $items[$sortorder]['id'];
+		if (is_null($sortorder)) {
+			$pageid = NULL;
+		} else {
+			$pageid = $items[$sortorder]['id'];
+		}
 	}
 
 	$baseindent = max(1, count(explode("-", $sortorder)));
