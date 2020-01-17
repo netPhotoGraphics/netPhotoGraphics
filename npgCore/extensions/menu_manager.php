@@ -947,7 +947,7 @@ function createMenu($menuitems, $menuset = 'default') {
 		}
 		$type = $result['type'];
 		if (array_key_exists($type, menu_manager::$deprecated)) {
-			$type = strtr($type, menu_manager::$deprecated);
+			$type = menu_manager::$deprecated[$type];
 			debugLog(sprintf(gettext('%1$s item %2$s menu type %3$s is deprecated, use %4$s.'), $menuset, $key, '<code>' . $result['type'] . '</code>', '<code>' . $type . '</code>'));
 			$errors = true;
 		}
