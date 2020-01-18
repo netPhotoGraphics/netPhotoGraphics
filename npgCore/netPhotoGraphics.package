@@ -974,7 +974,6 @@ plugins/devReleases.php
 plugins/disableAction.php
 plugins/disableWatermark.php
 plugins/filter-fileSearches.php
-plugins/folderRename.php
 plugins/headConsolidator.php
 plugins/image_effects.php
 plugins/no_show.php
@@ -8236,4 +8235,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8238
+8237
