@@ -68,7 +68,7 @@ if (!isset($setOptions['secret_init_vector'])) {
 	}
 	setOptionDefault('secret_init_vector', $auth_extratext);
 }
-purgeOption('adminTagsTab', 0);
+purgeOption('adminTagsTab');
 
 //	if your are installing, you must be OK
 if ($_current_admin_obj) {
