@@ -2,8 +2,6 @@
 #	Rewrite rules are now handled by PHP code
 # See the file "rewrite.txt" for the actual rules
 #
-# These rules redirect everything not directly accessing a file to the index.php script
-#
 <IfModule mod_expires.c>
 	ExpiresActive On
 	ExpiresByType image/jpg "access 1 month"
@@ -48,6 +46,9 @@
 <IfModule mod_autoindex.c>
 	IndexIgnore *
 </IfModule>
+#
+# These rules redirect everything not directly accessing an existing file or directory to the index.php script
+#
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
