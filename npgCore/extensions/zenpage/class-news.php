@@ -168,6 +168,26 @@ class Article extends CMSItems {
 	}
 
 	/**
+	 * checks if this article is published and in a published category or uncategorized
+	 */
+	function isPublished() {
+		if ($this->getShow()) {
+			$categories = $this->getCategories();
+			if (empty($categories)) {
+				return TRUE;
+			} else {
+				foreach ($categories as $cat) {
+					$catobj = newCategory($cat['titlelink']);
+					if ($catobj->getShow()) {
+						return TRUE;
+					}
+				}
+			}
+		}
+		return FALSE;
+	}
+
+	/**
 	 *
 	 * returns true if the article exists in any published category (or in no categories)
 	 */

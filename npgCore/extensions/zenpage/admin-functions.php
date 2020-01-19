@@ -534,16 +534,19 @@ function updateArticle(&$reports, $newarticle = false) {
  *
  * @param obj $obj object of the news article
  */
-function printNewsCategories($obj) {
-	$cat = $obj->getCategories();
-	$number = 0;
-	foreach ($cat as $cats) {
-		$number++;
-		if ($number != 1) {
-			echo ", ";
+function printCategoriesList($obj) {
+	$cats = $obj->getCategories();
+	$catlist = '';
+	foreach ($cats as $cat) {
+		$catobj = newCategory($cat['titlelink']);
+		$title = $catobj->getTitle();
+		if ($catobj->getShow()) {
+			$catlist .= $title . ', ';
+		} else {
+			$catlist .= '<span style="color:darkred;" title="' . gettext('Unpublished') . '">' . $title . '</span>, ';
 		}
-		echo get_language_string($cats['title']);
 	}
+	echo trim($catlist, ', ');
 }
 
 function printAuthorDropdown() {

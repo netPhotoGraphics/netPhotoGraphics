@@ -226,7 +226,7 @@ class Page extends CMSItems {
 			return false;
 		}
 		$pageobj = $this;
-		$hash = $pageobj->getPassword();
+		$hash = $this->getPassword();
 		while (empty($hash) && !is_null($pageobj)) {
 			$parentID = $pageobj->getParentID();
 			if (empty($parentID)) {
@@ -262,6 +262,24 @@ class Page extends CMSItems {
 	 */
 	function isProtected() {
 		return $this->checkforGuest() != 'public_access';
+	}
+
+	/**
+	 * checks if the page and its parents are published
+	 * @return boolean
+	 */
+	function isPublished() {
+		if ($this->getShow()) {
+			$parentID = $this->getParentID();
+			if (!empty($parentID)) {
+				$sql = 'SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `id`=' . $parentID;
+				$result = query_single_row($sql);
+				$parent = newPage($result['titlelink']);
+				return $parent->isPublished();
+			}
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 	function subRights() {

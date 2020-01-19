@@ -1427,7 +1427,7 @@ class SearchEngine {
 
 			switch ($tbl) {
 				case 'news':
-					if ($this->search_unpublished || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+					if ($this->search_unpublished || npg_loggedin()) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1450,7 +1450,7 @@ class SearchEngine {
 					}
 					break;
 				case 'pages':
-					if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+					if (npg_loggedin()) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1466,7 +1466,7 @@ class SearchEngine {
 					}
 					break;
 				case 'albums':
-					if ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
+					if ($this->search_unpublished || npg_loggedin(S)) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1492,7 +1492,7 @@ class SearchEngine {
 					}
 					break;
 				default: // images
-					if ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS)) {
+					if ($this->search_unpublished || npg_loggedin()) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1568,7 +1568,7 @@ class SearchEngine {
 								$album = newAlbum($albumname);
 								$uralbum = getUrAlbum($album);
 								$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
-								if ($mine || (is_null($mine) && $album->isMyItem(LIST_RIGHTS)) || (checkAlbumPassword($albumname) && ($row['show'] || $viewUnpublished))) {
+								if ($mine || (is_null($mine) && $album->isMyItem(LIST_RIGHTS)) || checkAlbumPassword($albumname) && ($viewUnpublished || $album->isPublished())) {
 									if (empty($this->album_list) || in_array($albumname, $this->album_list)) {
 										$result[] = array_merge($row, array('name' => $albumname, 'weight' => $weights[$row['id']]));
 									}
@@ -1730,8 +1730,7 @@ class SearchEngine {
 							$album = newAlbum($albumname);
 							$uralbum = getUrAlbum($album);
 							$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
-
-							if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($albumname) && ($album->getShow() || $viewUnpublished))) {
+							if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($albumname) && ($viewUnpublished || $row['show'] && $album->isPublished()))) {
 								$allow = empty($this->album_list) || in_array($albumname, $this->album_list);
 							}
 							$albums_seen[$albumid] = $albumrow = array('allow' => $allow, 'viewUnpublished' => $viewUnpublished, 'folder' => $albumname, 'localpath' => ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumname) . '/');
@@ -1891,8 +1890,8 @@ class SearchEngine {
 		$searchstring = $this->getSearchString();
 		$searchdate = $this->dates;
 		if (empty($searchstring) && empty($searchdate)) {
-			return array();
-		} // nothing to find
+			return array(); // nothing to find
+		}
 		$criteria = $this->getCacheTag('pages', serialize($searchstring), $sortkey . '_' . $sortdirection);
 		if ($criteria && $this->pages && $criteria == $this->searches['pages']) {
 			return $this->pages;
@@ -1916,10 +1915,14 @@ class SearchEngine {
 
 			if ($search_result) {
 				while ($row = db_fetch_assoc($search_result)) {
-					if (isset($weights)) {
-						$row['weight'] = $weights[$row['id']];
+					$page = newPage($row['titlelink']);
+					$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_PAGES_RIGHTS | VIEW_UNPUBLISHED_PAGE_RIGHTS) && $page->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+					if ($page->isMyItem(LIST_RIGHTS) || $page->checkforGuest() == 'public_access' && ($viewUnpublished || $page->isPublished())) {
+						if (isset($weights)) {
+							$row['weight'] = $weights[$row['id']];
+						}
+						$result[] = $row;
 					}
-					$result[] = $row;
 				}
 				db_free_result($search_result);
 				$result = self::sortResults($sortkey, $sortdirection, $result, isset($weights));
@@ -1999,10 +2002,14 @@ class SearchEngine {
 			}
 			if ($search_result) {
 				while ($row = db_fetch_assoc($search_result)) {
-					if (isset($weights)) {
-						$row['weight'] = $weights[$row['id']];
+					$article = newArticle($row['titlelink']);
+					$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS | VIEW_UNPUBLISHED_NEWS_RIGHTS) && $article->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+					if ($article->isMyItem(LIST_RIGHTS) || $article->checkforGuest() == 'public_access' && ($viewUnpublished || $article->isPublished())) {
+						if (isset($weights)) {
+							$row['weight'] = $weights[$row['id']];
+						}
+						$articles[] = $row;
 					}
-					$articles[] = $row;
 				}
 				db_free_result($search_result);
 				$articles = self::sortResults($sortkey, $sortdirection, $articles, isset($weights));
