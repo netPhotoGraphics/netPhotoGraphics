@@ -178,7 +178,7 @@ class Article extends CMSItems {
 			} else {
 				foreach ($categories as $cat) {
 					$catobj = newCategory($cat['titlelink']);
-					if ($catobj->getShow()) {
+					if ($catobj->isPublished()) {
 						return TRUE;
 					}
 				}
@@ -279,7 +279,7 @@ class Article extends CMSItems {
 			return true; //	he is the author
 		}
 		if (npg_loggedin($action)) {
-			if ($this->getShow() && $action == LIST_RIGHTS) {
+			if ($action == LIST_RIGHTS && $this->isPublished()) {
 				return LIST_RIGHTS;
 			}
 			$myObjects = $_current_admin_obj->getObjects('news_categories', true);

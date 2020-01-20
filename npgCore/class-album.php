@@ -862,6 +862,9 @@ class AlbumBase extends MediaObject {
 			return true;
 		}
 		if (npg_loggedin($action)) {
+			if ($action == LIST_RIGHTS && $this->isPublished()) {
+				return true;
+			}
 			$subRights = $this->subRights();
 			if ($subRights) {
 				$rights = LIST_RIGHTS;

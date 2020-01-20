@@ -271,13 +271,14 @@ class Page extends CMSItems {
 	function isPublished() {
 		if ($this->getShow()) {
 			$parentID = $this->getParentID();
-			if (!empty($parentID)) {
+			if (empty($parentID)) {
+				return TRUE;
+			} else {
 				$sql = 'SELECT `titlelink` FROM ' . prefix('pages') . ' WHERE `id`=' . $parentID;
 				$result = query_single_row($sql);
 				$parent = newPage($result['titlelink']);
 				return $parent->isPublished();
 			}
-			return TRUE;
 		}
 		return FALSE;
 	}
@@ -323,7 +324,7 @@ class Page extends CMSItems {
 		}
 
 		if (npg_loggedin($action)) {
-			if ($this->getShow() && $action == LIST_RIGHTS) {
+			if ($action == LIST_RIGHTS && $this->isPublished()) {
 				return LIST_RIGHTS;
 			}
 			$subRights = $this->subRights();

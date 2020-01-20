@@ -976,13 +976,17 @@ td.albumicons {
 	border: 0px;
 }
 
-.font_icon {
+.font_icon .font_icon_basic {
 	font-family: Free Serif, Segoe UI Symbol, Segoe UI Emoji;
-	display: inline-block;
 	width: 18px !important;
 	height: 18px !important;
 	line-height: 28px !important;
 }
+
+.font_icon {
+	display: inline-block;
+}
+
 
 /* Forms
 ------------------------------ */

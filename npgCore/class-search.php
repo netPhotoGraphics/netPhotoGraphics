@@ -1419,6 +1419,7 @@ class SearchEngine {
 				}
 			}
 		}
+
 		// we now have an id list of the items that were found and will create the SQL Search to retrieve their records
 		if (count($idlist) > 0) {
 			$weights = array_count_values($idlist);
@@ -1450,7 +1451,7 @@ class SearchEngine {
 					}
 					break;
 				case 'pages':
-					if (npg_loggedin()) {
+					if ($this->search_unpublished || npg_loggedin()) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1466,7 +1467,7 @@ class SearchEngine {
 					}
 					break;
 				case 'albums':
-					if ($this->search_unpublished || npg_loggedin(S)) {
+					if ($this->search_unpublished || npg_loggedin()) {
 						$show = '';
 					} else {
 						$show = "`show`=1 AND ";
@@ -1567,7 +1568,7 @@ class SearchEngine {
 							if (file_exists(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumname))) {
 								$album = newAlbum($albumname);
 								$uralbum = getUrAlbum($album);
-								$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+								$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) || $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 								if ($mine || (is_null($mine) && $album->isMyItem(LIST_RIGHTS)) || checkAlbumPassword($albumname) && ($viewUnpublished || $album->isPublished())) {
 									if (empty($this->album_list) || in_array($albumname, $this->album_list)) {
 										$result[] = array_merge($row, array('name' => $albumname, 'weight' => $weights[$row['id']]));
@@ -1715,33 +1716,15 @@ class SearchEngine {
 			} else {
 				$search_result = query($search_query);
 			}
-			$albums_seen = $images = $result = array();
+			$images = $result = array();
 			if ($search_result) {
 				while ($row = db_fetch_assoc($search_result)) {
-					$albumid = (int) $row['albumid'];
-					if (array_key_exists($albumid, $albums_seen)) {
-						$albumrow = $albums_seen[$albumid];
-					} else {
-						$query = "SELECT folder, `show` FROM " . prefix('albums') . " WHERE id=$albumid";
-						$row2 = query_single_row($query); // id is unique
-						if ($row2) {
-							$albumname = $row2['folder'];
-							$allow = false;
-							$album = newAlbum($albumname);
-							$uralbum = getUrAlbum($album);
-							$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) && $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
-							if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($albumname) && ($viewUnpublished || $row['show'] && $album->isPublished()))) {
-								$allow = empty($this->album_list) || in_array($albumname, $this->album_list);
-							}
-							$albums_seen[$albumid] = $albumrow = array('allow' => $allow, 'viewUnpublished' => $viewUnpublished, 'folder' => $albumname, 'localpath' => ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumname) . '/');
-						} else {
-							$albums_seen[$albumid] = $albumrow = array('allow' => false, 'viewUnpublished' => false, 'folder' => '', 'localpath' => '');
-						}
-					}
-					if ($albumrow['allow'] && ($row['show'] || $albumrow['viewUnpublished'])) {
-						if (file_exists($albumrow['localpath'] . internalToFilesystem($row['filename']))) {
-							//	still exists
-							$row['folder'] = $albumrow['folder'];
+					if ($image = getItemByID('images', $row['id'])) {
+						$album = $image->album;
+						$uralbum = getUrAlbum($album);
+						$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) || $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+						if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($image->albumname) && ($viewUnpublished || $image->isPublished()))) {
+							$row['folder'] = $album->name;
 							if (isset($weights)) {
 								$row['weight'] = $weights[$row['id']];
 							}
@@ -1916,7 +1899,8 @@ class SearchEngine {
 			if ($search_result) {
 				while ($row = db_fetch_assoc($search_result)) {
 					$page = newPage($row['titlelink']);
-					$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_PAGES_RIGHTS | VIEW_UNPUBLISHED_PAGE_RIGHTS) && $page->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+					$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_PAGES_RIGHTS | VIEW_UNPUBLISHED_PAGE_RIGHTS) || $page->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+
 					if ($page->isMyItem(LIST_RIGHTS) || $page->checkforGuest() == 'public_access' && ($viewUnpublished || $page->isPublished())) {
 						if (isset($weights)) {
 							$row['weight'] = $weights[$row['id']];
@@ -2003,7 +1987,7 @@ class SearchEngine {
 			if ($search_result) {
 				while ($row = db_fetch_assoc($search_result)) {
 					$article = newArticle($row['titlelink']);
-					$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS | VIEW_UNPUBLISHED_NEWS_RIGHTS) && $article->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+					$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS | VIEW_UNPUBLISHED_NEWS_RIGHTS) || $article->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 					if ($article->isMyItem(LIST_RIGHTS) || $article->checkforGuest() == 'public_access' && ($viewUnpublished || $article->isPublished())) {
 						if (isset($weights)) {
 							$row['weight'] = $weights[$row['id']];
