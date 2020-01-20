@@ -442,7 +442,7 @@ class sitemap {
 		$locallist = $obj->getAlbums();
 		foreach ($locallist as $folder) {
 			$album = newAlbum($folder);
-			if ($album->getShow() && self::$gateway($album)) {
+			if ($album->isPublished() && self::$gateway($album)) {
 				$albumlist[] = array('folder' => $album->name, 'date' => $album->getDateTime(), 'title' => $album->getTitle());
 				if (!$album->isDynamic()) {
 					self::getAlbumList($album, $albumlist, $gateway);

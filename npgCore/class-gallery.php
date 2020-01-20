@@ -826,7 +826,7 @@ class Gallery {
 	}
 
 	/**
-	 * Sort the album array based on either according to the sort key.
+	 * Sort the album array based according to the sort key.
 	 * Default is to sort on the `sort_order` field.
 	 *
 	 * Returns an array with the albums in the desired sort order

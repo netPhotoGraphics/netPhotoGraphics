@@ -4065,7 +4065,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				}
 				?>
 			</ul>
-			<span class="floatright"><?php echo str_replace('class="font_icon"', 'lass="font_icon_basic"', $legend); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span class="floatright"><?php echo str_replace('font_icon', 'font_icon_basic', $legend); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 			<br class="clearall">
 		</div>
 	</div>
