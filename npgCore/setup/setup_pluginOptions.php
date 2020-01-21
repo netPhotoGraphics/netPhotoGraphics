@@ -86,6 +86,7 @@ if ($str = isolate('$option_interface', $p)) {
 	if (method_exists($option_interface, 'getOptionsSupported')) {
 		if (!$_current_admin_obj) {
 			$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
+			$_loggedin = $_current_admin_obj->getRights();
 		}
 		ob_start(); //	some plugins emit output from the getOptionsSupported() method
 		$options = $option_interface->getOptionsSupported();
