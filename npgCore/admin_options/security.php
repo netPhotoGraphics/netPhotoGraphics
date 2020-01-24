@@ -234,13 +234,15 @@ function getOptionContent() {
 					</tr>
 					<?php
 				}
-				$supportedOptions = $_authority->getOptionsSupported();
-				if (count($supportedOptions) > 0) {
-					?>
-					<tr>
-						<?php customOptions($_authority, ''); ?>
-					</tr>
-					<?php
+				if (method_exists($_authority, 'getOptionsSupported')) {
+					$supportedOptions = $_authority->getOptionsSupported();
+					if (count($supportedOptions) > 0) {
+						?>
+						<tr>
+							<?php customOptions($_authority, ''); ?>
+						</tr>
+						<?php
+					}
 				}
 				?>
 				<tr>

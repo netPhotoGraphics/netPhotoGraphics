@@ -22,34 +22,18 @@ if (extensionEnabled('user_groups')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/user_groups.php');
 }
 
-class _Authority extends _Authority {
-
-	function getOptionsSupported() {
-		setOptionDefault('ldap_id_offset', 100000);
-		$options = parent::getOptionsSupported();
-		$ldapOptions = LDAP_auth_options::getOptionsSupported();
-		return array_merge($ldapOptions, $options);
-	}
-
-	function handleOption($option, $currentValue) {
-		LDAP_auth_options::handleOption($option, $currentValue);
-		parent::handleOption($option, $currentValue);
-	}
-
-	function handleOptionSave($themename, $themealbum) {
-		LDAP_auth_options::handleOptionSave($themename, $themealbum);
-		parent::handleOptionSave($themename, $themealbum);
-	}
+class npg_Authority extends _Authority {
 
 	function handleLogon() {
 		global $_current_admin_obj;
 		$user = sanitize(@$_POST['user'], 0);
 		$password = sanitize(@$_POST['pass'], 0);
+		$ldap_ou = getOption('ldap_ou');
 		$loggedin = false;
 
 		$ad = self::ldapInit(LDAP_DOMAIN);
 		if ($ad) {
-			$userdn = "uid={$user},ou=Users," . LDAP_BASEDN;
+			$userdn = "uid={$user},ou={$ldap_ou}," . LDAP_BASEDN;
 
 			// We suppress errors in the binding process, to prevent a warning
 			// in the case of authorisation failure.
@@ -146,6 +130,7 @@ class _Authority extends _Authority {
 		$adminObj->setUser($user);
 		$adminObj->setName($name);
 		$adminObj->setPass(serialize($userData));
+
 		if (class_exists('user_groups')) {
 			user_groups::merge_rights($adminObj, $groups, array());
 			if (DEBUG_LOGIN) {
@@ -216,7 +201,6 @@ class _Authority extends _Authority {
 	static function ldapInit($domain) {
 		if ($domain) {
 			if ($ad = ldap_connect("ldap://{$domain}")) {
-
 				ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3);
 				ldap_set_option($ad, LDAP_OPT_REFERRALS, 0);
 				return $ad;
@@ -240,7 +224,7 @@ class _Authority extends _Authority {
 
 }
 
-class _Administrator extends _Administrator {
+class npg_Administrator extends _Administrator {
 
 	function setID($id) {
 		$this->set('id', $id);

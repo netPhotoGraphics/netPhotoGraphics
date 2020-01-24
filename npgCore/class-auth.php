@@ -8,12 +8,12 @@
  *
  *
  * Replacement libraries must implement two classes:
- * 		"_Authority" class: Provides the methods used for user authorization and management
+ * 		"npg_Authority" class: Provides the methods used for user authorization and management
  * 			store an instantiation of this class in $_authority.
  *
- * 		"_Administrator" class: supports the basic needs for object manipulation of administrators.
+ * 		"npg_Administrator" class: supports the basic needs for object manipulation of administrators.
  *
- * (You can include the <code>lib-auth.php</code> script and extend/overwrite class methods if that suits your needs.)
+ * (You can include the <code>lib-auth.php</code> script and extend/overwrite _Authority and _Administrator class methods if that suits your needs.)
  *
  * The global $_current_admin_obj represents the current admin.
  *

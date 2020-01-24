@@ -19,7 +19,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'LDAP_auth_options';
 
-if (!(function_exists('ldap_connect') || class_exists('_Authority'))) {
+if (function_exists('ldap_connect') && !class_exists('_Authority')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
 }
 
@@ -27,6 +27,7 @@ class LDAP_auth_options {
 
 	function __construct() {
 		global $_authority;
+		setOptionDefault('ldap_ou', 'Users');
 		if (extensionEnabled('user_groups')) {
 			$ldap = getOption('ldap_group_map');
 			if (is_null($ldap)) {
@@ -51,9 +52,12 @@ class LDAP_auth_options {
 				gettext('LDAP domain') => array('key' => 'ldap_domain', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 1,
 						'desc' => gettext('Domain name of the LDAP server')),
+				gettext('LDAP ou') => array('key' => 'ldap_ou', 'type' => OPTION_TYPE_TEXTBOX,
+						'order' => 1,
+						'desc' => gettext('Organizational Unit where user credentials are stored')),
 				gettext('LDAP base dn') => array('key' => 'ldap_basedn', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 1.1,
-						'desc' => gettext('Base DN strings for the LDAP searches.')),
+						'desc' => gettext('Base distinguished name strings for the LDAP searches.')),
 				gettext('ID offset for LDAP usersids') => array('key' => 'ldap_id_offset', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1.4,
 						'desc' => gettext('This number is added to the LDAP <em>userid</em> to insure that there is no overlap to netPhotoGraphics <em>userids</em>.')),
@@ -75,6 +79,7 @@ class LDAP_auth_options {
 						'desc' => '<p class="notebox">' . gettext('The LDAP Group map cannot be managed with the plugin disabled') . '</p>');
 			}
 		}
+
 		return $ldapOptions;
 	}
 
