@@ -14,7 +14,8 @@ define('LDAP_DOMAIN', getOption('ldap_domain'));
 define('LDAP_BASEDN', getOption('ldap_basedn'));
 define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any of our admin ids
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
-define('LDAP_REAER_PASS', getOption('ldap_reader_pass'));
+define('LDAP_READER_PASS', getOption('ldap_reader_pass'));
+define('LDAP_MEMBERSHIP_ATTRIBUTE', getOption('ldap_membership_attribute'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
 
 require_once(CORE_SERVERPATH . 'lib-auth.php');
@@ -178,17 +179,18 @@ class npg_Authority extends _Authority {
 	 * returns an array the user's of groups
 	 * @param type $ad
 	 */
-	static function getNPGGroups($ad, $user) {
+	static function getNPGGroups($ad, $user, $usercn) {
+		$realdn = "cn=" . $usercn . ",ou=addressbook," . LDAP_BASEDN;
 		global $_LDAPGroupMap;
 		$groups = array();
 		foreach ($_LDAPGroupMap as $NPGgroup => $LDAPgroup) {
 			if (!empty($LDAPgroup)) {
-				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Groups,' . LDAP_BASEDN, array('memberUid'));
+				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Roles,ou=Groups,' . LDAP_BASEDN, array('LDAP_MEMBERSHIP_ATTRIBUTE'));
 				if ($group) {
 					$group = array_change_key_case($group, CASE_LOWER);
-					$members = $group['memberuid'];
+					$members = $group[LDAP_MEMBERSHIP_ATTRIBUTE];
 					unset($members['count']);
-					$isMember = in_array($user, $members, true);
+					$isMember = in_array($realdn, $members, true);
 					if ($isMember) {
 						$groups[] = $NPGgroup;
 					}
@@ -216,7 +218,7 @@ class npg_Authority extends _Authority {
 	 */
 	static function ldapReader($ad) {
 		if (LDAP_READER_USER) {
-			if (!@ldap_bind($ad, "uid=" . LDAP_READER_USER . ",ou=Users," . LDAP_BASEDN, LDAP_REAER_PASS)) {
+			if (!@ldap_bind($ad, LDAP_READER_USER, LDAP_READER_PASS)) {
 				debugLog('LDAP reader authorization failed.');
 			}
 		}
