@@ -12,7 +12,9 @@
 
 define('LDAP_DOMAIN', getOption('ldap_domain'));
 define('LDAP_BASEDN', getOption('ldap_basedn'));
+define('LDAP_OU', getOption('ldap_ou'));
 define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any of our admin ids
+define('LDAP_READER_OU', getOption('ldap_reader_ou'));
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
 define('LDAP_READER_PASS', getOption('ldap_reader_pass'));
 define('LDAP_MEMBERSHIP_ATTRIBUTE', getOption('ldap_membership_attribute'));
@@ -29,13 +31,11 @@ class npg_Authority extends _Authority {
 		global $_current_admin_obj;
 		$user = sanitize(@$_POST['user'], 0);
 		$password = sanitize(@$_POST['pass'], 0);
-		$ldap_ou = getOption('ldap_ou');
 		$loggedin = false;
 
 		$ad = self::ldapInit(LDAP_DOMAIN);
 		if ($ad) {
-			$userdn = "uid={$user},ou={$ldap_ou}," . LDAP_BASEDN;
-
+			$userdn = 'uid=' . $user . ',ou=' . LDAP_OU . ',' . LDAP_BASEDN;
 			// We suppress errors in the binding process, to prevent a warning
 			// in the case of authorisation failure.
 			if (@ldap_bind($ad, $userdn, $password)) { //	valid LDAP user
@@ -65,6 +65,10 @@ class npg_Authority extends _Authority {
 			return $loggedin;
 		} else {
 			// If the LDAP authorisation failed we try the standard logon, e.g. for a master administrator.
+
+			echo 'Failed logon<br/>';
+			exit();
+
 			return parent::handleLogon();
 		}
 	}
@@ -119,7 +123,17 @@ class npg_Authority extends _Authority {
 		$user = $userData['uid'][0];
 		$id = $userData['uidnumber'][0] + LDAP_ID_OFFSET;
 		$name = $userData['cn'][0];
-		$groups = self::getNPGGroups($ad, $user);
+		switch (LDAP_MEMBERSHIP_ATTRIBUTE) {
+			case 'member':
+				$target = $name;
+				break;
+			default:
+			case 'memberuid':
+				$target = $user;
+				break;
+		}
+
+		$groups = self::getNPGGroups($ad, $target);
 
 		$adminObj = npg_Authority::newAdministrator('');
 		$adminObj->setID($id);
@@ -179,19 +193,15 @@ class npg_Authority extends _Authority {
 	 * returns an array the user's of groups
 	 * @param type $ad
 	 */
-	static function getNPGGroups($ad, $user, $usercn) {
-		$realdn = "cn=" . $usercn . ",ou=addressbook," . LDAP_BASEDN;
+	static function getNPGGroups($ad, $target) {
 		global $_LDAPGroupMap;
 		$groups = array();
 		foreach ($_LDAPGroupMap as $NPGgroup => $LDAPgroup) {
 			if (!empty($LDAPgroup)) {
-				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Roles,ou=Groups,' . LDAP_BASEDN, array('LDAP_MEMBERSHIP_ATTRIBUTE'));
+				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Roles,ou=Groups, ' . LDAP_BASEDN, array(LDAP_MEMBERSHIP_ATTRIBUTE));
 				if ($group) {
 					$group = array_change_key_case($group, CASE_LOWER);
-					$members = $group[LDAP_MEMBERSHIP_ATTRIBUTE];
-					unset($members['count']);
-					$isMember = in_array($realdn, $members, true);
-					if ($isMember) {
+					if (in_array($target, $group[LDAP_MEMBERSHIP_ATTRIBUTE])) {
 						$groups[] = $NPGgroup;
 					}
 				}
@@ -218,7 +228,8 @@ class npg_Authority extends _Authority {
 	 */
 	static function ldapReader($ad) {
 		if (LDAP_READER_USER) {
-			if (!@ldap_bind($ad, LDAP_READER_USER, LDAP_READER_PASS)) {
+			$userdn = 'uid=' . LDAP_READER_USER . ',ou=' . LDAP_READER_OU . ',' . LDAP_BASEDN;
+			if (!@ldap_bind($ad, $userdn, LDAP_READER_PASS)) {
 				debugLog('LDAP reader authorization failed.');
 			}
 		}
