@@ -978,13 +978,14 @@ td.albumicons {
 
 .font_icon .font_icon_basic {
 	font-family: Free Serif, Segoe UI Symbol, Segoe UI Emoji;
-	width: 18px !important;
-	height: 18px !important;
 	line-height: 28px !important;
 }
 
 .font_icon {
 	display: inline-block;
+	width: 18px !important;
+	height: 18px !important;
+
 }
 
 
