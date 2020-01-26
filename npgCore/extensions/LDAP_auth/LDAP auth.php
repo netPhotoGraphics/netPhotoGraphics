@@ -17,6 +17,7 @@ define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP I
 define('LDAP_READER_OU', getOption('ldap_reader_ou'));
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
 define('LDAP_READER_PASS', getOption('ldap_reader_pass'));
+define('LDAP_GROUP_OU', 'ou=' . implode(',ou=', getSerializedArray(getOption('ldap_group_ou'))));
 define('LDAP_MEMBERSHIP_ATTRIBUTE', getOption('ldap_membership_attribute'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
 
@@ -65,10 +66,6 @@ class npg_Authority extends _Authority {
 			return $loggedin;
 		} else {
 			// If the LDAP authorisation failed we try the standard logon, e.g. for a master administrator.
-
-			echo 'Failed logon<br/>';
-			exit();
-
 			return parent::handleLogon();
 		}
 	}
@@ -198,7 +195,7 @@ class npg_Authority extends _Authority {
 		$groups = array();
 		foreach ($_LDAPGroupMap as $NPGgroup => $LDAPgroup) {
 			if (!empty($LDAPgroup)) {
-				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Roles,ou=Groups, ' . LDAP_BASEDN, array(LDAP_MEMBERSHIP_ATTRIBUTE));
+				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', LDAP_GROUP_OU . ', ' . LDAP_BASEDN, array(LDAP_MEMBERSHIP_ATTRIBUTE));
 				if ($group) {
 					$group = array_change_key_case($group, CASE_LOWER);
 					if (in_array($target, $group[LDAP_MEMBERSHIP_ATTRIBUTE])) {
