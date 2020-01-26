@@ -28,6 +28,7 @@ class LDAP_auth_options {
 	function __construct() {
 		global $_authority;
 		setOptionDefault('ldap_ou', 'Users');
+		setOptionDefault('ldap_group_ou', 'Users,Roles');
 		setOptionDefault('ldap_reader_ou', 'Users');
 		setOptionDefault('ldap_id_offset', 100000);
 		setOptionDefault('ldap_membership_attribute', 'memberuid');
@@ -56,7 +57,7 @@ class LDAP_auth_options {
 						'order' => 1,
 						'desc' => gettext('Domain name of the LDAP server')),
 				gettext('LDAP ou') => array('key' => 'ldap_ou', 'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 2,
+						'order' => 3,
 						'desc' => gettext('Organizational Unit where user credentials are stored')),
 				gettext('LDAP base dn') => array('key' => 'ldap_basedn', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 2,
@@ -76,12 +77,15 @@ class LDAP_auth_options {
 		);
 		if (extensionEnabled('user_groups')) {
 			$ldapOptions[gettext('LDAP Group map')] = array('key' => 'ldap_group_map_custom', 'type' => OPTION_TYPE_CUSTOM,
-					'order' => 1.5,
+					'order' => 7,
 					'desc' => gettext('Mapping of LDAP groups to netPhotoGraphics groups') . '<p class="notebox">' . gettext('<strong>Note:</strong> if the LDAP group is empty no mapping will take place.') . '</p>');
 			$ldapOptions[gettext('LDAP membership attribute')] = array('key' => 'ldap_membership_attribute', 'type' => OPTION_TYPE_SELECTOR,
 					'selections' => array(gettext('Member') => 'member', gettext('Member Uid') => 'memberuid'),
-					'order' => 1.6,
+					'order' => 8,
 					'desc' => gettext('How users are mapped to LDAP groups.'));
+			$ldapOptions[gettext('LDAP Group ou')] = array('key' => 'ldap_group_ou', 'type' => OPTION_TYPE_CLEARTEXT,
+					'order' => 9,
+					'desc' => gettext('Comma separated list of Organizational Units where Group Membership is stored.'));
 			if (!extensionEnabled('LDAP_auth')) {
 				$ldapOptions['note'] = array(
 						'key' => 'LDAP_auth_note', 'type' => OPTION_TYPE_NOTE,
