@@ -28,7 +28,7 @@ class LDAP_auth_options {
 	function __construct() {
 		global $_authority;
 		setOptionDefault('ldap_ou', 'Users');
-		setOptionDefault('ldap_group_ou', 'Users,Roles');
+		setOptionDefault('ldap_group_ou', 'Groups, Roles');
 		setOptionDefault('ldap_reader_ou', 'Users');
 		setOptionDefault('ldap_id_offset', 100000);
 		setOptionDefault('ldap_membership_attribute', 'memberuid');
@@ -58,7 +58,7 @@ class LDAP_auth_options {
 						'desc' => gettext('Domain name of the LDAP server')),
 				gettext('LDAP ou') => array('key' => 'ldap_ou', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 3,
-						'desc' => gettext('Organizational Unit where user credentials are stored')),
+						'desc' => gettext('Comma separated list of Organizational Units where user credentials are stored')),
 				gettext('LDAP base dn') => array('key' => 'ldap_basedn', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 2,
 						'desc' => gettext('Base distinguished name strings for the LDAP searches.')),

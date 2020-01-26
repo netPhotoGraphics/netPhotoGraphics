@@ -12,14 +12,18 @@
 
 define('LDAP_DOMAIN', getOption('ldap_domain'));
 define('LDAP_BASEDN', getOption('ldap_basedn'));
-define('LDAP_OU', getOption('ldap_ou'));
+$_ous = array_map('trim', explode(',', getOption('ldap_ou')));
+define('LDAP_OU', 'ou=' . implode(',ou=', $_ous));
 define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any of our admin ids
 define('LDAP_READER_OU', getOption('ldap_reader_ou'));
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
 define('LDAP_READER_PASS', getOption('ldap_reader_pass'));
-define('LDAP_GROUP_OU', 'ou=' . implode(',ou=', getSerializedArray(getOption('ldap_group_ou'))));
+$_ous = array_map('trim', explode(',', getOption('ldap_group_ou')));
+define('LDAP_GROUP_OU', 'ou=' . implode(',ou=', $_ous));
 define('LDAP_MEMBERSHIP_ATTRIBUTE', getOption('ldap_membership_attribute'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
+
+unset($_ous);
 
 require_once(CORE_SERVERPATH . 'lib-auth.php');
 if (extensionEnabled('user_groups')) {
