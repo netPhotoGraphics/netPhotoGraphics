@@ -241,11 +241,11 @@ define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; ver
 define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; vertical-align: -1px;">&#x25FB;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
-define('SEARCHFIELDS_ICON', '<span class="font_icon; font-size: large; font-weight: bold; color: blue;">&#x1D11A;</span>');
-define('SETUP', '<span class="font_icon" style="color: black; font-size: large;">&#x1F6E0;&#xFE0F;</span>');
+define('SEARCHFIELDS_ICON', '<span class="font_icon; font-size: large; color: blue;">&#x1D11A;</span>');
+define('SETUP', '<span class="font_icon" style="color: black; ">&#x1F6E0;&#xFE0F;</span>');
 define('SHAPE_HANDLES', '<span class="font_icon" style="color: blue; font-size: x-large; font-weight: bold; vertical-align: -4px;">&#x2BCF;</span>');
 define('SOUTH_EAST_CORNER_ARROW', '<span class="font_icon" style="color: green; font-size: large;">&#8690;</span>');
 define('SWAP_ICON', '<span class="font_icon" style="font-size: x-large;">&#x21C4;</span>');
 define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange; font-size: large;">&#9888;</span>');
-define('WASTEBASKET', '<span class="font_icon" style="font-size: large; font-weight: bold; color: red;">&#x1F5D1;</span>');
+define('WASTEBASKET', '<span class="font_icon" style="color: red;">&#x1F5D1;</span>');
 //end icons
