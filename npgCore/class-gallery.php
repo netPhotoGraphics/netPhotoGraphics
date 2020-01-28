@@ -826,7 +826,7 @@ class Gallery {
 	}
 
 	/**
-	 * Sort the album array based on either according to the sort key.
+	 * Sort the album array based according to the sort key.
 	 * Default is to sort on the `sort_order` field.
 	 *
 	 * Returns an array with the albums in the desired sort order
@@ -854,7 +854,7 @@ class Gallery {
 		} else {
 			$albumid = '=' . $parentalbum->getID();
 			$obj = $parentalbum;
-			$viewUnpublished = (npg_loggedin() && $obj->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
+			$viewUnpublished = (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) || $obj->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 		}
 
 		if ((trim($sortkey . '`') == 'sort_order') || ($sortkey == 'RAND()')) { // manual sort is always ascending

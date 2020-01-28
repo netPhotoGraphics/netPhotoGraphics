@@ -53,10 +53,15 @@ if (isset($_GET['action'])) {
 			$action = $_POST['tag_action'];
 			if (isset($_POST['tag_list_tags_'])) {
 				$tags = sanitize($_POST['tag_list_tags_']);
+			} else {
+				$tags = array();
+			}
+			if (isset($_POST['lang_list_tags_'])) {
 				$langs = sanitize($_POST['lang_list_tags_']);
 			} else {
-				$langs = $tags = array();
+				$langs = array();
 			}
+
 			switch ($action) {
 				case'delete':
 					if (count($tags) > 0) {
@@ -273,7 +278,7 @@ printAdminHeader('admin');
 
 					<?php
 					if (getOption('multi_lingual')) {
-						npgButton('button', ARROW_RIGHT_BLUE . ' ' . gettext("Assign to"), array('buttonTitle' => gettext('Assign tags to selected language'), 'buttonLink' => "$('#tag_action').val('assign');	this.form.submit();"))
+						npgButton('button', ARROW_RIGHT_BLUE . ' ' . gettext("Assign to"), array('buttonTitle' => gettext('Assign tags to selected language'), 'buttonClick' => "$('#tag_action').val('assign'); this.form.submit();"))
 						?>
 						<span style="line-height: 35px;">
 							<select name="language" id="language" class="ignoredirty" >
@@ -297,11 +302,11 @@ printAdminHeader('admin');
 					<div class="clearall"></div>
 				</form>
 
-				<div class="tagtext"<?php if (getOption('multi_lingual')) echo ' style="margin-top: 5px;"'; ?>>
+				<div class="tagtext" style="padding-top: 7px;">
 					<p><?php
-						echo gettext('Place a checkmark in the box for each tag you wish to act upon then press the appropriate button. The brackets contain the number of times the tag appears.');
-						echo gettext('Tags that are <span class="privatetag">highlighted</span> are private.');
-						?></p>
+					echo gettext('Place a checkmark in the box for each tag you wish to act upon then press the appropriate button. The brackets contain the number of times the tag appears.');
+					echo gettext('Tags that are <span class="privatetag">highlighted</span> are private.');
+					?></p>
 				</div>
 			</div>
 
@@ -352,12 +357,13 @@ printAdminHeader('admin');
 							?>
 						</ul>
 					</div>
-					<p>" >
+					<p>
 						<?php applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext("Rename tags"))); ?>
 					</p>
+					<div class="clearall"></div>
 				</form>
 
-				<div class="tagtext">
+				<div class="tagtext" style="padding-top: 7px;">
 					<p><?php echo gettext('To change the value of a tag enter a new value in the text box below the tag. Then press the <em>Rename tags</em> button'); ?></p>
 				</div>
 			</div>

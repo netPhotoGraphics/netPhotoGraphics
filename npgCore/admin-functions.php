@@ -3922,10 +3922,6 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 	$full = $userobj->getObjects();
 
 	$legend = '';
-	$icon_edit = PENCIL_ICON;
-	$icon_view = EXCLAMATION_RED;
-	$icon_upload = ARROW_UP_GREEN;
-	$icon_upload_disabled = ARROW_UP_GRAY;
 
 	switch ($type) {
 		case 'albums':
@@ -3937,11 +3933,11 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				if (!empty($flag)) {
 					$legend .= '* ' . gettext('Primary album') . ' ';
 				}
-				$legend .= $icon_edit . ' ' . gettext('edit') . ' ';
+				$legend .= PENCIL_ICON . ' ' . gettext('edit') . ' ';
 				if ($rights & UPLOAD_RIGHTS)
-					$legend .= $icon_upload . ' ' . gettext('upload') . ' ';
+					$legend .= ARROW_UP_GREEN . ' ' . gettext('upload') . ' ';
 				if (!($rights & VIEW_UNPUBLISHED_RIGHTS))
-					$legend .= $icon_view . ' ' . gettext('view unpublished');
+					$legend .= EXCLAMATION_RED . ' ' . gettext('view unpublished');
 				foreach ($full as $item) {
 					if ($item['type'] == 'albums') {
 						if (in_array($item['data'], $flag)) {
@@ -3951,32 +3947,32 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 						}
 						$cv[$item['name'] . $note] = $item['data'];
 						$extra[$item['data']][] = array('name' => 'name', 'value' => $item['name'], 'display' => '', 'checked' => 0);
-						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => $icon_edit, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
+						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
 						if (($rights & UPLOAD_RIGHTS)) {
 							if (hasDynamicAlbumSuffix($item['data']) && !is_dir(ALBUM_FOLDER_SERVERPATH . $item['data'])) {
-								$extra[$item['data']][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => $icon_upload_disabled, 'checked' => 0, 'disable' => true);
+								$extra[$item['data']][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => ARROW_UP_GRAY, 'checked' => 0, 'disable' => true);
 							} else {
-								$extra[$item['data']][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => $icon_upload, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_UPLOAD);
+								$extra[$item['data']][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => ARROW_UP_GREEN, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_UPLOAD);
 							}
 						}
 						if (!($rights & VIEW_UNPUBLISHED_RIGHTS)) {
-							$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => $icon_view, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
+							$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
 						}
 					}
 				}
 				$rest = array_diff($objlist, $cv);
 				foreach ($rest as $unmanaged) {
 					$extra2[$unmanaged][] = array('name' => 'name', 'value' => $unmanaged, 'display' => '', 'checked' => 0);
-					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => $icon_edit, 'checked' => 1);
+					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => 1);
 					if (($rights & UPLOAD_RIGHTS)) {
 						if (hasDynamicAlbumSuffix($unmanaged) && !is_dir(ALBUM_FOLDER_SERVERPATH . $unmanaged)) {
-							$extra2[$unmanaged][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => $icon_upload_disabled, 'checked' => 0, 'disable' => true);
+							$extra2[$unmanaged][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => ARROW_UP_GRAY, 'checked' => 0, 'disable' => true);
 						} else {
-							$extra2[$unmanaged][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => $icon_upload, 'checked' => 1);
+							$extra2[$unmanaged][] = array('name' => 'upload', 'value' => MANAGED_OBJECT_RIGHTS_UPLOAD, 'display' => ARROW_UP_GREEN, 'checked' => 1);
 						}
 					}
 					if (!($rights & VIEW_UNPUBLISHED_RIGHTS)) {
-						$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => $icon_view, 'checked' => 1);
+						$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => 1);
 					}
 				}
 			}
@@ -3991,21 +3987,21 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 			} else {
 				$cv = $extra = $extra2 = array();
 				$rest = array_diff($objlist, $cv);
-				$legend = $icon_edit . ' ' . gettext('edit') . ' ' . $icon_view . ' ' . gettext('view unpublished');
+				$legend = PENCIL_ICON . ' ' . gettext('edit') . ' ' . EXCLAMATION_RED . ' ' . gettext('view unpublished');
 
 				foreach ($full as $item) {
 					if ($item['type'] == 'news_categories') {
 						$cv[$item['name']] = $item['data'];
 						$extra[$item['data']][] = array('name' => 'name', 'value' => $item['name'], 'display' => '', 'checked' => 0);
-						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => $icon_edit, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
-						$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => $icon_view, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
+						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
+						$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
 					}
 				}
 				$rest = array_diff($objlist, $cv);
 				foreach ($rest as $unmanaged) {
 					$extra2[$unmanaged][] = array('name' => 'name', 'value' => $unmanaged, 'display' => '', 'checked' => 0);
-					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => $icon_edit, 'checked' => 1);
-					$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => $icon_view, 'checked' => 1);
+					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => 1);
+					$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => 1);
 				}
 			}
 			$text = gettext("Managed news categories:");
@@ -4020,20 +4016,20 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 			} else {
 				$cv = $extra = $extra2 = array();
 				$rest = array_diff($objlist, $cv);
-				$legend = $icon_edit . ' ' . gettext('edit') . ' ' . $icon_view . ' ' . gettext('view unpublished');
+				$legend = PENCIL_ICON . ' ' . gettext('edit') . ' ' . EXCLAMATION_RED . ' ' . gettext('view unpublished');
 				foreach ($full as $item) {
 					if ($item['type'] == 'pages') {
 						$cv[$item['name']] = $item['data'];
 						$extra[$item['data']][] = array('name' => 'name', 'value' => $item['name'], 'display' => '', 'checked' => 0);
-						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => $icon_edit, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
-						$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => $icon_view, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
+						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
+						$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
 					}
 				}
 				$rest = array_diff($objlist, $cv);
 				foreach ($rest as $unmanaged) {
 					$extra2[$unmanaged][] = array('name' => 'name', 'value' => $unmanaged, 'display' => '', 'checked' => 0);
-					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => $icon_edit, 'checked' => 1);
-					$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => $icon_view, 'checked' => 1);
+					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => 1);
+					$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => 1);
 				}
 			}
 			$text = gettext("Managed pages:");
@@ -4069,7 +4065,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				}
 				?>
 			</ul>
-			<span class="floatright"><?php echo $legend; ?>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span class="floatright"><?php echo str_replace('font_icon', 'font_icon_basic', $legend); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 			<br class="clearall">
 		</div>
 	</div>

@@ -1530,7 +1530,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$save = false;
 								if (!$base) {
 									if ($base === 0) {
-										$ht = preg_replace('~RewriteEngine\s+(.*)\s~i', "RewriteBase $d\n", $ht);
+										$ht = preg_replace('~RewriteEngine\s+(.*)\s~i', "RewriteEngine $1\n\nRewriteBase $d\n", $ht);
 									} else {
 										$ht = preg_replace('~RewriteBase\s+(.*)\s~i', "RewriteBase $d\n", $ht);
 									}

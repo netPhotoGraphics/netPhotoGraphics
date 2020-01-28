@@ -19,7 +19,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'LDAP_auth_options';
 
-if (!(function_exists('ldap_connect') || class_exists('_Authority'))) {
+if (function_exists('ldap_connect') && !class_exists('_Authority')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/LDAP_auth/LDAP auth.php');
 }
 
@@ -27,6 +27,11 @@ class LDAP_auth_options {
 
 	function __construct() {
 		global $_authority;
+		setOptionDefault('ldap_ou', 'Users');
+		setOptionDefault('ldap_group_ou', 'Groups, Roles');
+		setOptionDefault('ldap_reader_ou', 'Users');
+		setOptionDefault('ldap_id_offset', 100000);
+		setOptionDefault('ldap_membership_attribute', 'memberuid');
 		if (extensionEnabled('user_groups')) {
 			$ldap = getOption('ldap_group_map');
 			if (is_null($ldap)) {
@@ -46,28 +51,41 @@ class LDAP_auth_options {
 	}
 
 	static function getOptionsSupported() {
-		setOptionDefault('ldap_id_offset', 100000);
+
 		$ldapOptions = array(
 				gettext('LDAP domain') => array('key' => 'ldap_domain', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 1,
 						'desc' => gettext('Domain name of the LDAP server')),
+				gettext('LDAP ou') => array('key' => 'ldap_ou', 'type' => OPTION_TYPE_TEXTBOX,
+						'order' => 3,
+						'desc' => gettext('Comma separated list of Organizational Units where user credentials are stored')),
 				gettext('LDAP base dn') => array('key' => 'ldap_basedn', 'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 1.1,
-						'desc' => gettext('Base DN strings for the LDAP searches.')),
+						'order' => 2,
+						'desc' => gettext('Base distinguished name strings for the LDAP searches.')),
 				gettext('ID offset for LDAP usersids') => array('key' => 'ldap_id_offset', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 1.4,
+						'order' => 4,
 						'desc' => gettext('This number is added to the LDAP <em>userid</em> to insure that there is no overlap to netPhotoGraphics <em>userids</em>.')),
-				gettext('LDAP reader user') => array('key' => 'ldap_reader_user', 'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 1.2,
-						'desc' => gettext('User name for LDAP searches. If empty the searches will be anonymous.')),
+				gettext('LDAP reader ou') => array('key' => 'ldap_reader_ou', 'type' => OPTION_TYPE_TEXTBOX,
+						'order' => 7,
+						'desc' => gettext('Organizational Unit where the LDAP reader user credentials are stored')),
+				gettext('LDAP reader userid') => array('key' => 'ldap_reader_user', 'type' => OPTION_TYPE_TEXTBOX,
+						'order' => 5,
+						'desc' => gettext('User ID used for LDAP searches.')),
 				gettext('LDAP reader password') => array('key' => 'ldap_reader_pass', 'type' => OPTION_TYPE_PASSWORD,
-						'order' => 1.3,
+						'order' => 6,
 						'desc' => gettext('User password for LDAP searches.'))
 		);
 		if (extensionEnabled('user_groups')) {
 			$ldapOptions[gettext('LDAP Group map')] = array('key' => 'ldap_group_map_custom', 'type' => OPTION_TYPE_CUSTOM,
-					'order' => 1.5,
+					'order' => 7,
 					'desc' => gettext('Mapping of LDAP groups to netPhotoGraphics groups') . '<p class="notebox">' . gettext('<strong>Note:</strong> if the LDAP group is empty no mapping will take place.') . '</p>');
+			$ldapOptions[gettext('LDAP membership attribute')] = array('key' => 'ldap_membership_attribute', 'type' => OPTION_TYPE_SELECTOR,
+					'selections' => array(gettext('Member') => 'member', gettext('Member Uid') => 'memberuid'),
+					'order' => 8,
+					'desc' => gettext('How users are mapped to LDAP groups.'));
+			$ldapOptions[gettext('LDAP Group ou')] = array('key' => 'ldap_group_ou', 'type' => OPTION_TYPE_CLEARTEXT,
+					'order' => 9,
+					'desc' => gettext('Comma separated list of Organizational Units where Group Membership is stored.'));
 			if (!extensionEnabled('LDAP_auth')) {
 				$ldapOptions['note'] = array(
 						'key' => 'LDAP_auth_note', 'type' => OPTION_TYPE_NOTE,
@@ -75,6 +93,7 @@ class LDAP_auth_options {
 						'desc' => '<p class="notebox">' . gettext('The LDAP Group map cannot be managed with the plugin disabled') . '</p>');
 			}
 		}
+
 		return $ldapOptions;
 	}
 

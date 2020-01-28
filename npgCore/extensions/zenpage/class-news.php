@@ -168,6 +168,26 @@ class Article extends CMSItems {
 	}
 
 	/**
+	 * checks if this article is published and in a published category or uncategorized
+	 */
+	function isPublished() {
+		if ($this->getShow()) {
+			$categories = $this->getCategories();
+			if (empty($categories)) {
+				return TRUE;
+			} else {
+				foreach ($categories as $cat) {
+					$catobj = newCategory($cat['titlelink']);
+					if ($catobj->isPublished()) {
+						return TRUE;
+					}
+				}
+			}
+		}
+		return FALSE;
+	}
+
+	/**
 	 *
 	 * returns true if the article exists in any published category (or in no categories)
 	 */
@@ -259,7 +279,7 @@ class Article extends CMSItems {
 			return true; //	he is the author
 		}
 		if (npg_loggedin($action)) {
-			if ($this->getShow() && $action == LIST_RIGHTS) {
+			if ($action == LIST_RIGHTS && $this->isPublished()) {
 				return LIST_RIGHTS;
 			}
 			$myObjects = $_current_admin_obj->getObjects('news_categories', true);

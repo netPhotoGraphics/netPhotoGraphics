@@ -98,7 +98,7 @@ function saveOptions() {
 	if (isset($_POST['GDPR_re-acknowledge']) && $_POST['GDPR_re-acknowledge']) {
 		$sql = 'UPDATE ' . prefix('administrators') . ' SET `policyACK`=0';
 		query($sql);
-		setOption('GDPR_cookie', microtime());
+		setOption('GDPR_cookie', md5(microtime()));
 		npgFilters::apply('policy_ack', true, 'policyACK', NULL, gettext('All acknowledgements cleared'));
 	}
 

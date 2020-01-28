@@ -1417,6 +1417,11 @@ class Image extends MediaObject {
 	}
 
 	function isMyItem($action) {
+		if (npg_loggedin($action)) {
+			if ($action == LIST_RIGHTS && $this->isPublished()) {
+				return true;
+			}
+		}
 		$album = $this->album;
 		return $album->isMyItem($action);
 	}
@@ -1427,9 +1432,9 @@ class Image extends MediaObject {
 	function checkAccess(&$hint = NULL, &$show = NULL) {
 		$album = $this->getAlbum();
 		if ($album->isMyItem(LIST_RIGHTS)) {
-			return $this->getShow() || $album->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW);
+			return $this->isPublished() || $album->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW);
 		}
-		return $album->checkforGuest($hint, $show) && $this->getShow() && $album->getShow();
+		return $album->checkforGuest($hint, $show) && $this->isPublished();
 	}
 
 	/**
@@ -1451,6 +1456,20 @@ class Image extends MediaObject {
 	 */
 	function isProtected() {
 		return $this->checkforGuest() != 'public_access';
+	}
+
+	/**
+	 * checks if the album and its parents are published
+	 * @return boolean
+	 */
+	function isPublished() {
+		if ($this->getShow()) {
+			if ($parent = $this->getAlbum()) {
+				return $parent->isPublished();
+			}
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 	/**

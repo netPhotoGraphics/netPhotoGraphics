@@ -327,7 +327,7 @@ updatePublished('news');
 
 										</td>
 										<td>
-											<?php printNewsCategories($article) ?><br />
+											<?php printCategoriesList($article) ?><br />
 										</td>
 										<td>
 											<?php echo html_encode($article->getOwner()); ?>

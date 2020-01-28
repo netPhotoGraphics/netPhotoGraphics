@@ -68,7 +68,7 @@ if (!isset($setOptions['secret_init_vector'])) {
 	}
 	setOptionDefault('secret_init_vector', $auth_extratext);
 }
-purgeOption('adminTagsTab', 0);
+purgeOption('adminTagsTab');
 
 //	if your are installing, you must be OK
 if ($_current_admin_obj) {
@@ -519,7 +519,10 @@ setOptionDefault('allowed_tags', $style_tags . $general_tags);
 setOptionDefault('style_tags', $style_tags);
 
 setOptionDefault('GDPR_text', getAllTranslations('Check to acknowledge the site <a href="%s">usage policy</a>.'));
-setOptionDefault('GDPR_cookie', microtime());
+$GDPR_cookie = getOption('GDPR_cookie');
+if (!$GDPR_cookie || strpos(' ', $GDPR_cookie) !== FALSE) {
+	setOption('GDPR_cookie', md5(microtime()));
+}
 
 setOptionDefault('full_image_quality', 75);
 setOptionDefault('protect_full_image', 'Protected view');

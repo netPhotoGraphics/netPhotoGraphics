@@ -332,6 +332,25 @@ class Category extends CMSRoot {
 		return GALLERY_SECURITY != 'public' || $this->checkforGuest() != 'public_access';
 	}
 
+	/**
+	 * checks if the page and its parents are published
+	 * @return boolean
+	 */
+	function isPublished() {
+		if ($this->getShow()) {
+			$parentID = $this->getParentID();
+			if (empty($parentID)) {
+				return TRUE;
+			} else {
+				$sql = 'SELECT `titlelink` FROM ' . prefix('news_categories') . ' WHERE `id`=' . $parentID;
+				$result = query_single_row($sql);
+				$parent = newPage($result['titlelink']);
+				return $parent->isPublished();
+			}
+		}
+		return FALSE;
+	}
+
 	function subRights() {
 		global $_current_admin_obj;
 		if (!is_null($this->subrights)) {
@@ -364,7 +383,7 @@ class Category extends CMSRoot {
 			return true;
 		}
 		if (npg_loggedin($action)) {
-			if ($this->getShow() && $action == LIST_RIGHTS) {
+			if ($action == LIST_RIGHTS && $this->isPublished()) {
 				return true;
 			}
 

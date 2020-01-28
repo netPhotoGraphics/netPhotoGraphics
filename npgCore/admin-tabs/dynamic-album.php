@@ -52,31 +52,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 				$words = sanitize($_POST['album_tag']);
 				$success = query('INSERT INTO ' . prefix('tags') . ' (`name`,`private`) VALUES (' . db_quote($words) . ', "1")', false);
 
-				$unpublished = isset($_POST['return_unpublished']);
+				if (isset($_POST['return_unpublished'])) {
+					$search->setSearchUnpublished();
+				}
 				$_POST['return_unpublished'] = true; //	state is frozen at this point, so unpublishing should not impact
 
 				$searchfields[] = 'tags_exact';
 				// now tag each element
 				if (isset($_POST['return_albums'])) {
-					$subalbums = $search->getAlbums(0);
+					$subalbums = $search->getAlbums();
 					foreach ($subalbums as $analbum) {
 						$albumobj = newAlbum($analbum);
-						if ($unpublished || $albumobj->getShow()) {
-							$tags = array_unique(array_merge($albumobj->getTags(false), array($words)));
-							$albumobj->setTags($tags);
-							$albumobj->save();
-						}
+						$tags = array_unique(array_merge($albumobj->getTags(false), array($words)));
+						$albumobj->setTags($tags);
+						$albumobj->save();
 					}
 				}
 				if (isset($_POST['return_images'])) {
 					$images = $search->getImages();
 					foreach ($images as $animage) {
 						$image = newImage(newAlbum($animage['folder']), $animage['filename']);
-						if ($unpublished || $image->getShow()) {
-							$tags = array_unique(array_merge($image->getTags(false), array($words)));
-							$image->setTags($tags);
-							$image->save();
-						}
+						$tags = array_unique(array_merge($image->getTags(false), array($words)));
+						$image->setTags($tags);
+						$image->save();
 					}
 				}
 			} else {
@@ -251,7 +249,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo gettext("Search criteria:"); ?></td>
+				<td class="nowrap"><?php echo gettext("Search criteria:"); ?></td>
 				<td>
 					<input type="text" size="60" name="words" value="<?php echo html_encode($words); ?>" />
 					<label>
@@ -292,11 +290,11 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 
 			<tr>
 				<td>
-					<label>
+					<label class="nowrap">
 						<input type="radio" name="create_tagged" value="dynamic" onchange="setTagged(false)" checked="checked" />
 						<?php echo gettext('dynamic'); ?>
 					</label>
-					<label>
+					<label class="nowrap">
 						<input type="radio" name="create_tagged" value="static" onchange="setTagged(true)"/>
 						<?php echo gettext('tagged'); ?>
 					</label>
@@ -319,7 +317,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 				</td>
 			</tr>
 			<tr>
-				<td><?php echo gettext("Search fields:"); ?></td>
+				<td class="nowrap"><?php echo gettext("Search fields:"); ?></td>
 				<td>
 					<?php
 					echo '<ul class="searchchecklist">' . "\n";

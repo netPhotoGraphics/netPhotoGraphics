@@ -40,7 +40,7 @@ class menu_manager {
 			'zenpagepage' => 'page',
 			'zenpagecategory' => 'category',
 			'zenpagenewsindex' => 'newsindex',
-			'all_zenpagecategorys' => 'all_categorys',
+			'all_zenpagecategorys' => 'all_categories',
 			'all_zenpagepages' => 'all_pages',
 			'galleryindex' => 'albumindex',
 			'homepage' => 'siteindex'
@@ -946,6 +946,11 @@ function createMenu($menuitems, $menuset = 'default') {
 			$includeli = 1;
 		}
 		$type = $result['type'];
+		if (array_key_exists($type, menu_manager::$deprecated)) {
+			$type = menu_manager::$deprecated[$type];
+			debugLog(sprintf(gettext('%1$s item %2$s menu type %3$s is deprecated, use %4$s.'), $menuset, $key, '<code>' . $result['type'] . '</code>', '<code>' . $type . '</code>'));
+			$errors = true;
+		}
 		switch ($type) {
 			case 'all_items':
 				$orders[$nesting] ++;
@@ -966,17 +971,11 @@ function createMenu($menuitems, $menuset = 'default') {
 				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
 				$type = false;
 				break;
-			case 'all_zenpagepages':
-				$type = 'all_pages';
-				$success = -5;
-			case 'all_Pages':
+			case 'all_pages':
 				$orders[$nesting] ++;
 				$orders[$nesting] = addPagesToDatabase($menuset, $orders);
 				$type = false;
 				break;
-			case 'all_zenpagecategorys':
-				$type = 'all_categorys';
-				$success = -5;
 			case 'all_categories':
 				$orders[$nesting] ++;
 				$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
@@ -988,9 +987,6 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) => $result]);
 				}
 				break;
-			case 'homepage':
-				$type = 'siteindex';
-				$success = -5;
 			case 'siteindex':
 				$result['link'] = NULL;
 				if (empty($result['title'])) {
@@ -998,18 +994,12 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) => $result]);
 				}
 				break;
-			case 'zenpagepage':
-				$type = 'page';
-				$success = -5;
 			case 'page':
 				if (empty($result['link'])) {
 					$success = -1;
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty link.'), $key) => $result]);
 				}
 				break;
-			case 'zenpagenewsindex':
-				$type = 'newsindex';
-				$success = -5;
 			case 'newsindex':
 				$result['link'] = NULL;
 				if (empty($result['title'])) {
@@ -1017,9 +1007,6 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title.'), $key) => $result]);
 				}
 				break;
-			case 'zenpagecategory':
-				$type = 'category';
-				$success = -5;
 			case 'category':
 				if (empty($result['link'])) {
 					$success = -1;
@@ -1033,9 +1020,6 @@ function createMenu($menuitems, $menuset = 'default') {
 					debugLogVar([sprintf(gettext('createMenu item %s has an empty title or link.'), $key) => $result]);
 				}
 				break;
-			case 'galleryindex':
-				$type = 'albumindex';
-				$success = -5;
 			case 'albumindex':
 				if (empty($result['title'])) {
 					$success = -1;
@@ -1070,11 +1054,6 @@ function createMenu($menuitems, $menuset = 'default') {
 				$success = -1;
 				debugLogVar([sprintf(gettext('createMenu item %1$s has an invalid type (%2$s).'), $key, $type) => $result]);
 				break;
-		}
-		if ($success == -5) {
-			debugLog(sprintf(gettext('%1$s item %2$s menu type %3$s is deprecated, use %4$s.'), $menuset, $key, $result['type'], $type));
-			$success = 1;
-			$errors = true;
 		}
 		if ($success > 0 && $type) {
 			$orders[$nesting] ++;
@@ -1160,7 +1139,6 @@ function getMenuItemChildren($menuset = 'default', $all = false) {
  * @return string
  */
 function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $css_class_topactive = '', $css_class = '', $css_class_active = '', $showsubs = 0, $counter = false) {
-	$itemcounter = '';
 	if ($css_id != "") {
 		$css_id = " id='" . $css_id . "'";
 	}
@@ -1245,8 +1223,11 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 			echo str_pad("\t", $indent - 1, "\t");
 			$open[$indent] += $item['include_li'];
 			$parents[$indent] = $item['id'];
+			$itemcounter = '';
+
 			if ($counter) {
-				switch ($item['type']) {
+				$type = strtr($item['type'], menu_manager::$deprecated);
+				switch ($type) {
 					case'album':
 						$albumobj = newAlbum($item['link']);
 						$numimages = $albumobj->getNumImages();
@@ -1264,7 +1245,6 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						$itemcounter .= ')</small></span>';
 
 						break;
-					case 'zenpagecategory':
 					case'category':
 						if ((npg_loggedin(ZENPAGE_NEWS_RIGHTS | ALL_NEWS_RIGHTS))) {
 							$published = "all";

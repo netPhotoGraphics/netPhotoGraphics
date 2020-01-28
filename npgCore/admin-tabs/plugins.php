@@ -228,7 +228,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 						if (file_exists($path)) {
 							$ico = '<span class="font_icon"><img src="' . str_replace(SERVERPATH, WEBPATH, $path) . '" alt="logo" title="' . $whose . '" /></span>';
 						} else {
-							$ico = '<span class="plugin_icon" title="' . $whose . '">' . PLACHHOLDER_ICON . '</span>';
+							$ico = '<span class="plugin_icon" title="' . $whose . '">' . PLUGIN_PLACHHOLDER . '</span>';
 						}
 						$plugin_URL .= '&type=thirdparty';
 						break;
@@ -299,14 +299,14 @@ npgFilters::apply('admin_note', 'plugins', '');
 					$iconA = '<span span class="plugin_icon" title="' . gettext('class plugin') . '">' .
 									PLUGIN_CLASS .
 									'</span>';
-					$iconT = PLACHHOLDER_ICON;
+					$iconT = PLUGIN_PLACHHOLDER;
 				} else {
 					if ($plugin_is_filter & ADMIN_PLUGIN) {
 						$iconA = '<span class="plugin_icon" title="' . gettext('admin plugin') . '">' .
 										PLUGIN_ADMIN .
 										'</span>';
 					} else {
-						$iconA = PLACHHOLDER_ICON;
+						$iconA = PLUGIN_PLACHHOLDER;
 					}
 					if ($plugin_is_filter & FEATURE_PLUGIN) {
 						$iconT = '<span class="plugin_icon" title="' . gettext('feature plugin') . '">'
@@ -317,7 +317,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 										PLUGIN_THEME .
 										'</span>';
 					} else {
-						$iconT = PLACHHOLDER_ICON;
+						$iconT = PLUGIN_PLACHHOLDER;
 					}
 				}
 
@@ -439,7 +439,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								<span class="icons">
 									<?php
 									if (extensionEnabled($extension)) {
-										echo PLACHHOLDER_ICON;
+										echo PLUGIN_PLACHHOLDER;
 									} else {
 										?>
 										<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
@@ -460,7 +460,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 								</span>
 								<?php
 							} else {
-								echo PLACHHOLDER_ICON;
+								echo PLUGIN_PLACHHOLDER;
 							}
 							if ($plugin_notice) {
 								?>

@@ -142,8 +142,9 @@ function processCommentBlock($commentBlock) {
 							$links[] = array('text' => $text, 'link' => $line);
 							break;
 						case 'deprecated':
-							preg_match('~.*(deprecated\s+[since\s+[\d.]*]*)\s+(.*)~i', $line, $matches);
-							$plugin_deprecated = ucfirst($matches[1]) . '<br />' . ucfirst($matches[2]);
+							preg_match('~.*(deprecated\s+[since\s+[\d.]*]*)\s+[and]*(.*)~i', $line, $matches);
+
+							$plugin_deprecated = ucfirst(trim($matches[1])) . '<br />' . ucfirst(trim($matches[2]));
 							break;
 					}
 				}
@@ -191,6 +192,7 @@ function processCommentBlock($commentBlock) {
 
 if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 2);
+	define('SETUP_PLUGIN', TRUE); //	so the descriptions of class plugins are active
 	require_once(__DIR__ . '/admin-globals.php');
 	require_once(CORE_SERVERPATH . 'template-functions.php');
 

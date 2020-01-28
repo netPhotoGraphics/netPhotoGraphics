@@ -43,6 +43,10 @@ if (!empty($requirePath)) {
 
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/themeoptions.php');
 	/* prime the default theme options */
+	if (!$_current_admin_obj) {
+		$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
+		$_loggedin = $_current_admin_obj->getRights();
+	}
 	$optionHandler = new ThemeOptions(true);
 	setThemeOption('constructed', 1, NULL, $theme); //	mark the theme "constructed"
 

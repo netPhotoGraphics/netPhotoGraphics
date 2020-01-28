@@ -1,11 +1,11 @@
 <?php
 /**
- * With Zenpage you can extend the easy to use interface to manage an entire site with a news section (blog) for
+ * With <code>zenpage</code> you can extend the easy to use interface to manage an entire site with a news section (blog) for
  * announcements. Considering netPhotoGraphic's image, video and audio management capabilites this is the ideal solution for
  * personal portfolio sites of artists, graphic/web designers, illustrators, musicians, multimedia/video artists,
  * photographers and many more.
  *
- * You could even run an audio or podcast blog with netPhotoGraphic and zenpage.
+ * You could even run an audio or podcast blog with netPhotoGraphic and <code>zenpage</code>.
  *
  * <b>Features</b>
  * <ol>

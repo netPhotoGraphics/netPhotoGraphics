@@ -26,7 +26,7 @@
  */
 $plugin_is_filter = 0 | ADMIN_PLUGIN | THEME_PLUGIN;
 $plugin_description = gettext('Generates sitemap.org compatible XML files for use with Google and other search engines.');
-$plugin_notice = gettext('<strong>Note:</strong> The index links may not match if using the Zenpage option "news on index" that some themes provide! Also it does not "know" about "custom pages" outside Zenpage or any special custom theme setup!!');
+$plugin_notice = gettext('<strong>Note:</strong> The index links may not match if using the option "news on index" that some themes provide! Also it does not "know" about "custom pages" or any special custom theme setup!!');
 
 $option_interface = 'sitemap';
 
@@ -442,7 +442,7 @@ class sitemap {
 		$locallist = $obj->getAlbums();
 		foreach ($locallist as $folder) {
 			$album = newAlbum($folder);
-			if ($album->getShow() && self::$gateway($album)) {
+			if ($album->isPublished() && self::$gateway($album)) {
 				$albumlist[] = array('folder' => $album->name, 'date' => $album->getDateTime(), 'title' => $album->getTitle());
 				if (!$album->isDynamic()) {
 					self::getAlbumList($album, $albumlist, $gateway);

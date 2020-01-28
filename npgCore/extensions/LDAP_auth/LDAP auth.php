@@ -12,34 +12,25 @@
 
 define('LDAP_DOMAIN', getOption('ldap_domain'));
 define('LDAP_BASEDN', getOption('ldap_basedn'));
+$_ous = array_map('trim', explode(',', getOption('ldap_ou')));
+define('LDAP_OU', 'ou=' . implode(',ou=', $_ous));
 define('LDAP_ID_OFFSET', getOption('ldap_id_offset')); //	number added to LDAP ID to insure it does not overlap any of our admin ids
+define('LDAP_READER_OU', getOption('ldap_reader_ou'));
 define('LDAP_READER_USER', getOption('ldap_reader_user'));
-define('LDAP_REAER_PASS', getOption('ldap_reader_pass'));
+define('LDAP_READER_PASS', getOption('ldap_reader_pass'));
+$_ous = array_map('trim', explode(',', getOption('ldap_group_ou')));
+define('LDAP_GROUP_OU', 'ou=' . implode(',ou=', $_ous));
+define('LDAP_MEMBERSHIP_ATTRIBUTE', getOption('ldap_membership_attribute'));
 $_LDAPGroupMap = getSerializedArray(getOption('ldap_group_map'));
+
+unset($_ous);
 
 require_once(CORE_SERVERPATH . 'lib-auth.php');
 if (extensionEnabled('user_groups')) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/user_groups.php');
 }
 
-class _Authority extends _Authority {
-
-	function getOptionsSupported() {
-		setOptionDefault('ldap_id_offset', 100000);
-		$options = parent::getOptionsSupported();
-		$ldapOptions = LDAP_auth_options::getOptionsSupported();
-		return array_merge($ldapOptions, $options);
-	}
-
-	function handleOption($option, $currentValue) {
-		LDAP_auth_options::handleOption($option, $currentValue);
-		parent::handleOption($option, $currentValue);
-	}
-
-	function handleOptionSave($themename, $themealbum) {
-		LDAP_auth_options::handleOptionSave($themename, $themealbum);
-		parent::handleOptionSave($themename, $themealbum);
-	}
+class npg_Authority extends _Authority {
 
 	function handleLogon() {
 		global $_current_admin_obj;
@@ -49,8 +40,7 @@ class _Authority extends _Authority {
 
 		$ad = self::ldapInit(LDAP_DOMAIN);
 		if ($ad) {
-			$userdn = "uid={$user},ou=Users," . LDAP_BASEDN;
-
+			$userdn = 'uid=' . $user . ',ou=' . LDAP_OU . ',' . LDAP_BASEDN;
 			// We suppress errors in the binding process, to prevent a warning
 			// in the case of authorisation failure.
 			if (@ldap_bind($ad, $userdn, $password)) { //	valid LDAP user
@@ -134,7 +124,17 @@ class _Authority extends _Authority {
 		$user = $userData['uid'][0];
 		$id = $userData['uidnumber'][0] + LDAP_ID_OFFSET;
 		$name = $userData['cn'][0];
-		$groups = self::getNPGGroups($ad, $user);
+		switch (LDAP_MEMBERSHIP_ATTRIBUTE) {
+			case 'member':
+				$target = $name;
+				break;
+			default:
+			case 'memberuid':
+				$target = $user;
+				break;
+		}
+
+		$groups = self::getNPGGroups($ad, $target);
 
 		$adminObj = npg_Authority::newAdministrator('');
 		$adminObj->setID($id);
@@ -146,6 +146,7 @@ class _Authority extends _Authority {
 		$adminObj->setUser($user);
 		$adminObj->setName($name);
 		$adminObj->setPass(serialize($userData));
+
 		if (class_exists('user_groups')) {
 			user_groups::merge_rights($adminObj, $groups, array());
 			if (DEBUG_LOGIN) {
@@ -193,18 +194,15 @@ class _Authority extends _Authority {
 	 * returns an array the user's of groups
 	 * @param type $ad
 	 */
-	static function getNPGGroups($ad, $user) {
+	static function getNPGGroups($ad, $target) {
 		global $_LDAPGroupMap;
 		$groups = array();
 		foreach ($_LDAPGroupMap as $NPGgroup => $LDAPgroup) {
 			if (!empty($LDAPgroup)) {
-				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', 'ou=Groups,' . LDAP_BASEDN, array('memberUid'));
+				$group = self::ldapSingle($ad, '(cn=' . $LDAPgroup . ')', LDAP_GROUP_OU . ', ' . LDAP_BASEDN, array(LDAP_MEMBERSHIP_ATTRIBUTE));
 				if ($group) {
 					$group = array_change_key_case($group, CASE_LOWER);
-					$members = $group['memberuid'];
-					unset($members['count']);
-					$isMember = in_array($user, $members, true);
-					if ($isMember) {
+					if (in_array($target, $group[LDAP_MEMBERSHIP_ATTRIBUTE])) {
 						$groups[] = $NPGgroup;
 					}
 				}
@@ -216,7 +214,6 @@ class _Authority extends _Authority {
 	static function ldapInit($domain) {
 		if ($domain) {
 			if ($ad = ldap_connect("ldap://{$domain}")) {
-
 				ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3);
 				ldap_set_option($ad, LDAP_OPT_REFERRALS, 0);
 				return $ad;
@@ -232,7 +229,8 @@ class _Authority extends _Authority {
 	 */
 	static function ldapReader($ad) {
 		if (LDAP_READER_USER) {
-			if (!@ldap_bind($ad, "uid=" . LDAP_READER_USER . ",ou=Users," . LDAP_BASEDN, LDAP_REAER_PASS)) {
+			$userdn = 'uid=' . LDAP_READER_USER . ',ou=' . LDAP_READER_OU . ',' . LDAP_BASEDN;
+			if (!@ldap_bind($ad, $userdn, LDAP_READER_PASS)) {
 				debugLog('LDAP reader authorization failed.');
 			}
 		}
@@ -240,7 +238,7 @@ class _Authority extends _Authority {
 
 }
 
-class _Administrator extends _Administrator {
+class npg_Administrator extends _Administrator {
 
 	function setID($id) {
 		$this->set('id', $id);
