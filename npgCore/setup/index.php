@@ -466,7 +466,7 @@ if ($setup_checked) {
 
 		$me = realpath(dirname(dirname(dirname(str_replace('\\', '/', __FILE__)))));
 		$mine = realpath(SERVERPATH);
-		if (isWin() || isMac()) { // case insensitive file systems
+		if (caseInsensitiveOS()) {
 			$me = strtolower($me);
 			$mine = strtolower($mine);
 		}
@@ -839,7 +839,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$notice = 0;
 								if (setupUserAuthorized()) {
 									if ($environ) {
-										if (isMac()) {
+										if (strtoupper(PHP_OS) == 'DARWIN') {
 											checkMark(-1, '', gettext('Your filesystem is Macintosh'), gettext('Macintosh file names containing diacritical marks are beyond the scope of this software. You should avoid these.'), false);
 											?>
 											<input type="hidden" name="FILESYSTEM_CHARSET" value="UTF-8" />

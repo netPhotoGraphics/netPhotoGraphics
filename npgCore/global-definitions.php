@@ -242,7 +242,7 @@ define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; verti
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
 define('SEARCHFIELDS_ICON', '<span class="font_icon; font-size: large; font-weight: bold; color: blue;">&#x1D11A;</span>');
-define('SETUP', '<span class="font_icon" style="color: black; font-size: large;">&#x1F6E0;&#xFE0F;</span>');
+define('SETUP', '<span class="font_icon" style="color: black;">&#x1F6E0;&#xFE0F;</span>');
 define('SHAPE_HANDLES', '<span class="font_icon" style="color: blue; font-size: x-large; font-weight: bold; vertical-align: -4px;">&#x2BCF;</span>');
 define('SOUTH_EAST_CORNER_ARROW', '<span class="font_icon" style="color: green; font-size: large;">&#8690;</span>');
 define('SWAP_ICON', '<span class="font_icon" style="font-size: x-large;">&#x21C4;</span>');

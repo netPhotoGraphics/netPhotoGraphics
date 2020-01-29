@@ -1019,6 +1019,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/cacheprotect
 %core%/class-album.php
 %core%/class-auth.php
+%core%/class-browser.php
 %core%/class-feed.php
 %core%/class-gallery.php
 %core%/class-image.php
@@ -8235,4 +8236,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8237
+8238
