@@ -17,15 +17,14 @@ define('SETUPLOG', SERVERPATH . '/' . DATA_FOLDER . '/setup.log');
  *
  * @return bool
  */
-function isWin() {
-	return (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN');
-}
-
-/**
- * Returns true if we are running on a Macintosh
- */
-function isMac() {
-	return strtoupper(PHP_OS) == 'DARWIN';
+function caseInsensitiveOS() {
+	switch (TRUE) {
+		case stristr(PHP_OS, 'DAR'):
+		case stristr(PHP_OS, 'WIN'):
+			return TRUE;
+		default:
+			return FALSE;
+	}
 }
 
 /**
@@ -246,7 +245,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 				}
 			}
 
-			if (isWin()) {
+			if (stristr(PHP_OS, 'WIN')) {
 				$perms = fileperms($path) & 0700;
 				$check = $chmod & 0700;
 			} else {
@@ -428,7 +427,7 @@ function setupXSRFToken() {
 }
 
 function checkPermissions($actual, $expected) {
-	if (isWin()) {
+	if (stristr(PHP_OS, 'WIN')) {
 		return ($actual & 0700) == ($expected & 0700); //	with windows owner==group==public
 	} else {
 		return ($actual & 0770) == ($expected & 0770); //	We do not care about the execute permissions
