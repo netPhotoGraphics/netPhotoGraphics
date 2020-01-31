@@ -61,7 +61,7 @@ class _PHPMailer {
 						'desc' => gettext('Outgoing mail server.')),
 				gettext('Secure mail') => array('key' => 'PHPMailer_secure', 'type' => OPTION_TYPE_RADIO,
 						'buttons' => array(gettext('no') => 0, gettext('SSL') => 'ssl', gettext('TLS') => 'tls'),
-						'desc' => gettext('Set to use a secure protocol.')),
+						'desc' => gettext('Encryption to use on the SMTP connection.')),
 				gettext('Mail user') => array('key' => 'PHPMailer_user', 'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext('<em>User ID</em> for mail server.')),
 				gettext('Mail password') => array('key' => 'PHPMailer_password', 'type' => OPTION_TYPE_CUSTOM,
@@ -144,6 +144,7 @@ function _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name,
 				break;
 		}
 		$mail->SMTPSecure = getOption('PHPMailer_secure');
+		$mail->SMTPAutoTLS = bool($mail->SMTPSecure);
 		$mail->CharSet = 'UTF-8';
 		$mail->From = $from_mail;
 		$mail->FromName = $from_name;
