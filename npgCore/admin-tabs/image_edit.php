@@ -4,9 +4,9 @@
  */
 
 require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
+
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
-
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
 	if ($totalimages == 1) {
@@ -489,7 +489,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											</select>
 										</span>
 										<p>
-											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
+											<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 									<div id="renamediv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -498,7 +498,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<input name="<?php echo $currentimage; ?>-renameto" type="text" value="<?php echo $image->filename; ?>" />
 										</span>
 										<p>
-											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
+											<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 
@@ -507,7 +507,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<?php echo gettext('Image will be deleted when changes are applied.'); ?>
 										</span>
 										<p>
-											<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
+											<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "toggleMoveCopyRename('" . $currentimage . "', '');")); ?>
 										</p>
 									</div>
 									<div class="clearall" ></div>

@@ -95,7 +95,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 					if ($invalid) {
 						?>
 						<p>
-							<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Remove invalid clones."), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/clone/clone.php') . "?tab=clone&purge&XSRFToken=" . getXSRFToken('clone'))); ?>
+							<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Remove invalid clones."), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/clone/clone.php') . "?tab=clone&purge&XSRFToken=" . getXSRFToken('clone'))); ?>
 						</p>
 						<br class="clearall">
 						<?php

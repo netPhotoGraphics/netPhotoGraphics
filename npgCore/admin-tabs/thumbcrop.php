@@ -301,7 +301,7 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 								}
 								backButton(array('buttonLink' => $backLink));
 								applyButton();
-								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Reset"), array('buttonClick' => "resetBoundingBox();"));
+								npgButton('button', CROSS_MARK_RED . ' ' . gettext("Reset"), array('buttonClick' => "resetBoundingBox();"));
 								?>
 							</p><br />
 							<?php

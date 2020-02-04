@@ -299,7 +299,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$options['buttonClass'] = 'resetbutton';
 		}
-		npgButton('reset', CROSS_MARK_RED_LARGE . '	' . gettext("Reset"), $options);
+		npgButton('reset', CROSS_MARK_RED . '	' . gettext("Reset"), $options);
 	}
 
 	function backButton($options = array()) {
@@ -2535,7 +2535,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
 							<p>
-								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
+								<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>movecopydiv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
@@ -2572,14 +2572,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</select>
 
 							<p>
-								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
+								<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<div id="a-<?php echo $prefix; ?>renamediv" class="resetHide" style="padding-top: .5em; padding-left: .5em; display: none;">
 							<?php echo gettext("to:"); ?>
 							<input name="a-<?php echo $prefix; ?>renameto" type="text" value="<?php echo basename($album->name); ?>"/>
 							<p>
-								<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
+								<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "toggleAlbumMCR('" . $prefix . "', '');")); ?>
 							</p>
 						</div>
 						<br clear="all">
