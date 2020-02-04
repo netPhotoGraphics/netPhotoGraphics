@@ -562,9 +562,13 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 					if ($connection && $_loggedin != ADMIN_RIGHTS) {
 						if ($testRelease) {
 							?>
-							<div class="notebox">
-								<?php echo '<p>' . gettext('<strong>Note:</strong> The release you are installing has debugging settings enabled!') . '</p>'; ?>
-							</div>
+							<ul>
+								<li class="note">
+									<div class="notebox">
+										<?php echo '<p>' . gettext('<strong>Note:</strong> The release you are installing has debugging settings enabled!') . '</p>'; ?>
+									</div>
+								</li>
+							</ul>
 							<?php
 						}
 						?>
@@ -1849,7 +1853,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										<li class="pass"><?php applyButton(array('buttonText' => $icon . ' ' . gettext("Go"))); ?></li>
 									</ul>
 									<br class="clearall" />
-										<br />
+									<br />
 								</form>
 								<?php
 							}
@@ -1885,14 +1889,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 					}
 					?>
 					<br class="clearall" />
-						</div><!-- content -->
-						<?php
-						printSetupFooter($setup_checked);
-						?>
-						</div><!-- main -->
-						</body>
-						</html>
-						<?php
-						$setupMutex->unlock();
-						exit();
-						?>
+			</div><!-- content -->
+			<?php
+			printSetupFooter($setup_checked);
+			?>
+		</div><!-- main -->
+	</body>
+</html>
+<?php
+$setupMutex->unlock();
+exit();
+?>

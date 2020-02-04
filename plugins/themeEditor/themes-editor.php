@@ -105,7 +105,7 @@ if (!empty($messages)) {
 <p>
 	<?php backButton(array('buttonTitle' => gettext('Back to the theme list'), 'buttonLink' => getAdminLink('admin-tabs/themes.php'))); ?>
 </p>
-<br class="clearall">
+<br class="clearall" />
 <div id="theme-editor">
 
 	<div id="files">
@@ -155,7 +155,7 @@ if (!empty($messages)) {
 						resetButton();
 						?>
 					</p>
-					<br class="clearall">
+					<br class="clearall" />
 				</form>
 				<?php
 			}
