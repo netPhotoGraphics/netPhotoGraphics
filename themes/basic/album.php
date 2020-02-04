@@ -56,7 +56,7 @@ if (!defined('WEBPATH'))
 						</div>
 					<?php endwhile; ?>
 				</div>
-				<br class="clearall">
+				<br class="clearall" />
 				<div id="images">
 					<?php while (next_image()): ?>
 						<div class="image">
@@ -68,7 +68,7 @@ if (!defined('WEBPATH'))
 						</div>
 					<?php endwhile; ?>
 				</div>
-				<br class="clearall">
+				<br class="clearall" />
 				<?php
 				printCodeblock(2);
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");

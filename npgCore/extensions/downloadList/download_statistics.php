@@ -138,8 +138,8 @@ echo '</head>';
 							<?php echo gettext('Clear all downloads from database'); ?>
 						</a>
 					</p>
-					<br class="clearall">
-					<br class="clearall">
+					<br class="clearall" />
+					<br class="clearall" />
 					<br />
 					<?php
 					printBarGraph();

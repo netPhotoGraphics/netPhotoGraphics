@@ -299,7 +299,7 @@ $results_f = array_slice($results_f, 0, $limit_f, true);
 						?>
 						<p>
 							<?php npgButton('button', gettext('reset'), array('buttonLink' => "?reset&amp;XSRFToken=" . getXSRFToken('search_statistics'))); ?>
-							<br class="clearall">
+							<br class="clearall" />
 							<br />
 							<?php npgButton('button', gettext('Change <em>Threshold</em> values'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?tab=plugin&amp;single=search_statistics#search_statistics')); ?>
 						</p>

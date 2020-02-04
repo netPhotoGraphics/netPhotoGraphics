@@ -146,7 +146,7 @@ class quota_manager extends fieldExtender {
 						sprintf(gettext('Allowed: %s kb'), '<input type="text" size="10" name="user[' . $i . '][quota]" value="' . $quota . '" ' . $local_alterrights . ' />') . ' ' .
 						$used . "\n"
 						. '</div>' . "\n"
-						. '<br class="clearall">' . "\n";
+						. '<br class="clearall" />' . "\n";
 
 		return $html . $result;
 	}

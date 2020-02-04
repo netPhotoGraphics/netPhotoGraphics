@@ -322,7 +322,7 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 						});
 						// ]]> -->
 					</script>
-					<br class="clearall">
+					<br class="clearall" />
 				</div><!-- block -->
 			</div>
 		</div><!-- content -->

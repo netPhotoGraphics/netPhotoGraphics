@@ -131,7 +131,7 @@ echo '</head>' . "\n";
 					<div class="floatright">
 						<?php npgButton('button', OPTIONS_ICON . ' ' . gettext('Options'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=user-expiry#user-expiry')); ?>
 					</div>
-					<br class="clearall">
+					<br class="clearall" />
 					<br />
 					<ul class="fullchecklist">
 						<?php
@@ -252,7 +252,7 @@ echo '</head>' . "\n";
 						resetButton();
 						?>
 					</p>
-					<br class="clearall">
+					<br class="clearall" />
 				</form>
 			</div>
 		</div>

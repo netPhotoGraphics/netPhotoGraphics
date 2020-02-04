@@ -381,7 +381,7 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 			<span id="submit_button<?php echo $unique; ?>">
 				<button type="button" class="rating_button buttons" onclick="cast<?php echo $unique; ?>();" /><?php echo gettext('Submit »'); ?></button>
 			</span>
-			<br class="clearall">
+			<br class="clearall" />
 			<?php
 		}
 		?>

@@ -66,7 +66,7 @@ ob_start();
 		</div>
 	</div>
 </div>
-<br class="clearall">
+<br class="clearall" />
 <?php
 $_create_album_html = ob_get_contents();
 ob_end_clean();

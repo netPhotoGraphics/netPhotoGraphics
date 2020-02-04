@@ -225,14 +225,14 @@ printLogoAndLinks();
 										npgButton('button', $linkimage . ' ' . $link_moderation, array('buttonLink' => $url_moderation . "&amp;XSRFToken=" . getXSRFToken('comment_update'), 'buttonTitle' => $title_moderation, 'buttonClass' => 'fixedwidth'));
 										?>
 									</p>
-									<br class="clearall">
+									<br class="clearall" />
 									<hr />
 									<p><?php echo $status_private; ?></p>
 									<p><?php echo $status_anon; ?></p>
 								</div><!-- div box-edit-unpadded end -->
 							</div>
 						</form>
-						<br class="clearall">
+						<br class="clearall" />
 					</div> <!-- div box end -->
 					<?php
 					// end of $page == "editcomment"
@@ -355,7 +355,7 @@ printLogoAndLinks();
 						applyButton();
 						npgButton('button', $arrow . ' ' . $msg, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?fulltext=' . $ft . $v . $p));
 						?>
-						<br class="clearall"><br>
+						<br class="clearall" /><br>
 						<table class="bordered">
 							<tr>
 								<th colspan="100%">

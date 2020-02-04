@@ -241,7 +241,7 @@ echo "</head>\n";
 									<input type="checkbox" name="image_default"	value="1"<?php if ($imgpublish) echo ' checked="checked"'; ?> />
 									<?php echo gettext("Publish images by default"); ?>
 								</label>
-								<br class="clearall">
+								<br class="clearall" />
 								<div id="setdefaults">
 									<?php
 									applyButton();
@@ -250,8 +250,8 @@ echo "</head>\n";
 							</form>
 						</div>
 					</fieldset>
-					<br class="clearall">
-					<br class="clearall">
+					<br class="clearall" />
+					<br class="clearall" />
 					<?php
 				}
 				?>
@@ -319,17 +319,17 @@ echo "</head>\n";
 									}
 									?>
 								</ul>
-								<br class="clearall">
+								<br class="clearall" />
 								<p>
 									<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish albums"), 'buttonClass' => 'tooltip', 'buttonLink' => gettext("Publish waiting albums."))); ?>
 								</p>
-								<br class="clearall">
+								<br class="clearall" />
 								<br />
 							</form>
 							<p>
 								<?php npgButton('button', CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . ' ' . gettext('Propagate un-published state'), array('buttonLink' => "?propagate_unpublished", 'buttonTitle' => gettext('Set all subalbums of an un-published album to un-published.'), 'buttonClass' => 'tooltip')); ?>
 							</p>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						}
 						?>
@@ -340,7 +340,7 @@ echo "</head>\n";
 					}
 					?>
 				</fieldset>
-				<br class="clearall">
+				<br class="clearall" />
 
 				<script type="text/javascript">
 					//<!-- <![CDATA[
@@ -369,15 +369,15 @@ echo "</head>\n";
 						<form name="review" action="?tab=content" method="post">
 							<?php XSRFToken('publishContent'); ?>
 							<?php printf(gettext('Review images older than: %s'), '<input type="text" size="20" id="publish_date" name="publish_date" value="' . $requestdate . '" />'); ?>
-							<br class="clearall">
-							<br class="clearall">
+							<br class="clearall" />
+							<br class="clearall" />
 							<input type="hidden" name="review" value="true" />
 							<div id="reviewobjects">
 								<?php applyButton(array('buttonText' => WARNING_SIGN_ORANGE . ' ' . gettext("Review images"), 'buttonClass' => 'tooltip', 'buttonTitle' => gettext("Review un-published images."))); ?>
 							</div>
 						</form>
-						<br class="clearall">
-						<br class="clearall">
+						<br class="clearall" />
+						<br class="clearall" />
 						<?php
 						if ($report == 'images') {
 							?>
@@ -492,7 +492,7 @@ echo "</head>\n";
 								<p>
 									<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Process changes"), 'buttonCass' => 'tooltip', 'buttonTitle' => gettext("Process the above changes."))); ?>
 								</p>
-								<br class="clearall">
+								<br class="clearall" />
 							</form>
 							<?php
 						}
@@ -524,7 +524,7 @@ echo "</head>\n";
 						}
 					}
 					?>
-					<br class="clearall">
+					<br class="clearall" />
 					<fieldset class="smallbox">
 						<legend><?php
 							if ($c > 0)
@@ -555,11 +555,11 @@ echo "</head>\n";
 									<ul class="schedulealbumchecklist">
 										<?php echo $output; ?>
 									</ul>
-									<br class="clearall">
+									<br class="clearall" />
 									<div>
 										<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish categories"), 'buttonClass' => 'tooltip', 'buttonTitle' => gettext("Publish waiting categories."))); ?>
 									</div>
-									<br class="clearall">
+									<br class="clearall" />
 								</form>
 							</div>
 							<?php
@@ -568,7 +568,7 @@ echo "</head>\n";
 						}
 						?>
 					</fieldset>
-					<br class="clearall">
+					<br class="clearall" />
 					<?php
 					$visible = $report == 'news';
 					$items = $_CMS->getArticles(0, false);
@@ -616,11 +616,11 @@ echo "</head>\n";
 									<ul class="schedulealbumchecklist">
 										<?php echo $output; ?>
 									</ul>
-									<br class="clearall">
+									<br class="clearall" />
 									<div>
 										<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish articles"), 'buttonCass' => 'tooltip', 'buttonTitle' => gettext("Publish waiting articles."))); ?>
 									</div>
-									<br class="clearall">
+									<br class="clearall" />
 								</form>
 							</div>
 							<?php
@@ -646,7 +646,7 @@ echo "</head>\n";
 						}
 					}
 					?>
-					<br class="clearall">
+					<br class="clearall" />
 					<fieldset class="smallbox">
 						<legend><?php
 							if ($c > 0)
@@ -675,7 +675,7 @@ echo "</head>\n";
 									<ul class="schedulealbumchecklist">
 										<?php echo $output; ?>
 									</ul>
-									<br class="clearall">
+									<br class="clearall" />
 									<div>
 										<?php applyButton(array('buttonText' => CIRCLED_BLUE_STAR . ' ' . gettext("Publish pages"), 'buttonCass' => 'tooltip', 'buttonTitle' => gettext("Publish waiting pages."))); ?>
 									</div>
@@ -686,7 +686,7 @@ echo "</head>\n";
 							echo gettext('No unpublished pages');
 						}
 						?>
-						<br class="clearall">
+						<br class="clearall" />
 					</fieldset>
 					<?php
 				}

@@ -164,7 +164,7 @@ if (!defined('WEBPATH'))
 								</div>
 							<?php } ?>
 						</div>
-						<br class="clearall">
+						<br class="clearall" />
 					<?php } ?>
 					<?php
 					@call_user_func('printSlideShowLink');

@@ -380,7 +380,7 @@ echo '</head>';
 						</div><!-- filters -->
 
 					</div><!-- overview-info -->
-					<br class="clearall">
+					<br class="clearall" />
 					<?php
 				}
 				?>

@@ -209,7 +209,7 @@ printSortableHead();
 						npgButton('button', OPTIONS_ICON . ' ' . gettext('Options'), array('buttonLink' => getAdminLink('admin-tabs/options.php') . '?page=options&amp;tab=plugin&amp;single=menu_manager#menu_manager'));
 						?>
 					</div>
-					<br class="clearall">
+					<br class="clearall" />
 					<br />
 
 					<div class="bordered">
@@ -249,7 +249,7 @@ printSortableHead();
 									</select>
 								</span>
 							</div>
-							<br class="clearall">
+							<br class="clearall" />
 							<div class="subhead">
 								<label style="float: right">
 									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);" />
@@ -266,7 +266,7 @@ printSortableHead();
 							<div class="headline-plain">
 								<strong><?php echo gettext("No menus exist"); ?></strong>
 							</div>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						}
 						?>

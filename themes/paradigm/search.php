@@ -131,7 +131,7 @@ if (!defined('WEBPATH'))
 					<?php endwhile; ?>
 					</div>
 
-					<br class="clearall">
+					<br class="clearall" />
 				<?php } ?>
 				<?php
 				if ($total == 0) {

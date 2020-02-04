@@ -77,7 +77,7 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 		applyButton();
 		resetButton();
 		?>
-		<br class="clearall">
+		<br class="clearall" />
 	</form>
 </div>
 				<?php

@@ -534,12 +534,12 @@ if (isset($_GET['compression'])) {
 								}
 								?>
 							</select>
-							<br class="clearall">
+							<br class="clearall" />
 							<br />
 							<div id="dbbackup">
 								<?php applyButton(array('buttonText' => BURST_BLUE . ' ' . gettext("Backup the Database"), array('buttonClass' => 'fixedwidth tooltip'))); ?>
 							</div>
-							<br class="clearall">
+							<br class="clearall" />
 							<br />
 							<p>
 								<?php
@@ -548,7 +548,7 @@ if (isset($_GET['compression'])) {
 								?>
 							</p>
 						</form>
-						<br class="clearall">
+						<br class="clearall" />
 						<br />
 					</div>
 					<div>
@@ -611,7 +611,7 @@ if (isset($_GET['compression'])) {
 							<div id="dbrestore">
 								<?php applyButton(array('buttonText' => CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . ' ' . gettext("Restore the Database"), 'buttonClass' => 'fixedwidth tooltip', 'buttonTitle' => gettext("Restore the tables in your database from a previous backup."), 'disabled' => true, 'id' => 'restore_button')); ?>
 							</div>
-							<br class="clearall">
+							<br class="clearall" />
 							<br />
 							<p class="notebox">
 								<?php
@@ -623,7 +623,7 @@ if (isset($_GET['compression'])) {
 								echo gettext('Ideally a restore should be done only on the same version on which the backup was created. If you are intending to upgrade, first do the restore on the version you were running, then install the new version. If this is not possible the restore can still be done, but if the database fields have changed between versions, data from changed fields will not be restored.');
 								?>
 							</p>
-							<br class="clearall">
+							<br class="clearall" />
 						</form>
 						<?php
 					}

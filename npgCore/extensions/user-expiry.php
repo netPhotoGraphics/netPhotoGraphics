@@ -288,7 +288,7 @@ class user_expiry {
 			$myhtml = '<div class="user_left">' . "\n"
 							. '<p class="notebox">' . $msg . '</p>' . "\n"
 							. '</div>' . "\n"
-							. '<br class="clearall">' . "\n";
+							. '<br class="clearall" />' . "\n";
 			$html = $myhtml . $html;
 		}
 		return $html;

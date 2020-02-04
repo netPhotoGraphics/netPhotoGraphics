@@ -51,7 +51,7 @@ if (!defined('WEBPATH'))
 					<?php } ?>
 
 				</div>
-				<br class="clearall">
+				<br class="clearall" />
 				<?php
 				printCodeblock(2);
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");

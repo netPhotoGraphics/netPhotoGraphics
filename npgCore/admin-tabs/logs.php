@@ -151,7 +151,7 @@ echo "\n</head>";
 							npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext('Reset'), array('buttonLink' => getAdminLink('admin-tabs/logs.php') . '?action=clear_log&amp;page=logs&amp;tab=' . html_encode($subtab) . '&amp;filename=' . html_encode($subtab) . "&amp;XSRFToken=" . getXSRFToken('clear_log', $subtab)));
 							?>
 						</form>
-						<br class="clearall">
+						<br class="clearall" />
 						<br />
 						<blockquote class="logtext">
 							<?php

@@ -596,7 +596,7 @@ function getOptionContent() {
 					<a href="?page=options&tab=theme&optiontheme=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
 				</span>
 			</p>
-			<br class="clearall">
+			<br class="clearall" />
 		</form>
 	</div>
 	<!-- end of tab_theme div -->

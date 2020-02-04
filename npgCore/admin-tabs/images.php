@@ -481,7 +481,7 @@ echo "\n</head>";
 
 						</div>
 
-						<br class="clearall">
+						<br class="clearall" />
 					</div>
 
 					<?php

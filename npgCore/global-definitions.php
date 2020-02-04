@@ -209,7 +209,6 @@ define('CLOCKFACE', '<span class="font_icon" style="letter-spacing: -4px;">&#128
 define('CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN', '<span class="font_icon" style="font-size:large;color:green;">&#8635;</span>');
 define('CLOCKWISE_OPEN_CIRCLE_ARROW_RED', '<span class="font_icon" style="font-size:large;color:red;">&#8635;</span>');
 define('CROSS_MARK_RED', '<span class="font_icon" style="color: red;">&#10060;</span>');
-define('CROSS_MARK_RED_LARGE', '<span class="font_icon" style="color: red; font-size: large;">&#10060;</span>');
 define('CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE', '<span class="font_icon" style="color:blue; font-size:large;">&#10150;</span>');
 define('DRAG_HANDLE', '<span class="font_icon" style="color:lightsteelblue; font-size: x-large;">&#10021;</span>');
 define('DRAG_HANDLE_ALERT', '<span class="font_icon" style="color:red; font-size: x-large;">&#10021;</span>');

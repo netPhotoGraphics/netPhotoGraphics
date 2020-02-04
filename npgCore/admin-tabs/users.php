@@ -906,7 +906,7 @@ echo $refresh;
 																<?php
 																$c++;
 																if (($c % 7) == 0)
-																	echo '<br class="clearall">';
+																	echo '<br class="clearall" />';
 															}
 															?>
 														</ul>
@@ -958,7 +958,7 @@ echo $refresh;
 														}
 														?>
 													</div>
-													<br class="clearall">
+													<br class="clearall" />
 													<div class="userextrainfo">
 														<?php
 														if ($custom_row) {
@@ -966,7 +966,7 @@ echo $refresh;
 														}
 														?>
 													</div>
-													<br class="clearall">
+													<br class="clearall" />
 												</td>
 											</tr>
 
@@ -1009,25 +1009,25 @@ echo $refresh;
 					if (npg_loggedin(ADMIN_RIGHTS)) {
 						if (npg_Authority::getVersion() < npg_Authority::$supports_version) {
 							?>
-							<br class="clearall">
+							<br class="clearall" />
 							<p class="notebox">
 								<?php printf(gettext('The <em>_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), npg_Authority::getVersion(), npg_Authority::$supports_version); ?>
-								<br class="clearall">
+								<br class="clearall" />
 								<?php npgButton('button', gettext('Migrate rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
-								<br class="clearall">
+								<br class="clearall" />
 							</p>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						} else if (npg_Authority::getVersion() > npg_Authority::$preferred_version) {
 							?>
-							<br class="clearall">
+							<br class="clearall" />
 							<p class="notebox">
 								<?php printf(gettext('You may wish to revert the <em>_Authority</em> user rights to version %s for backwards compatibility with prior releases.'), npg_Authority::getVersion() - 1); ?>
-								<br class="clearall">
+								<br class="clearall" />
 								<?php npgButton('button', gettext('Revert rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'revert=true', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
-								<br class="clearall">
+								<br class="clearall" />
 							</p>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						}
 					}
@@ -1055,7 +1055,7 @@ echo $refresh;
 						// ]]> -->
 					</script>
 
-					<br class="clearall">
+					<br class="clearall" />
 
 				</div><!-- end of tab_admin div -->
 

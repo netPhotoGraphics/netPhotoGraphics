@@ -229,7 +229,7 @@ updatePublished('news');
 						}
 						?>
 						<span class="zenpagestats"><?php printNewsStatistic($articles, count($resultU)); ?></span>
-						<br class="clearall">
+						<br class="clearall" />
 						<div class="floatright">
 							<?php
 							printAuthorDropdown();
@@ -240,7 +240,7 @@ updatePublished('news');
 							printArticlesPerPageDropdown($subpage);
 							?>
 						</div>
-						<br class="clearall">
+						<br class="clearall" />
 						<?php
 						$option = getNewsAdminOptionPath(getNewsAdminOption(NULL));
 						?>
@@ -252,7 +252,7 @@ updatePublished('news');
 							<span class="floatright">
 								<?php npgButton('button', PLUS_ICON . '	' . gettext("New Article"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 							</span>
-							<br class="clearall">
+							<br class="clearall" />
 							<div class="headline">
 								<span class="floatright padded">
 									<?php

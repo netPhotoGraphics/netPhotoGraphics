@@ -799,7 +799,7 @@ echo "\n</head>";
 							<input type="hidden"	name="savealbuminfo" value="1" />
 							<?php printAlbumEditForm(0, $album); ?>
 						</form>
-						<br class="clearall">
+						<br class="clearall" />
 
 					</div>
 					<?php
@@ -902,7 +902,7 @@ echo "\n</head>";
 								<?php
 							}
 							?>
-							<br class="clearall">
+							<br class="clearall" />
 							<br />
 
 							<div class="headline">&nbsp;
@@ -940,7 +940,7 @@ echo "\n</head>";
 								<?php printAlbumLegend(); ?>
 							</div>
 
-							<br class="clearall">
+							<br class="clearall" />
 							<span id="serializeOutput"></span>
 							<input name="update" type="hidden" value="Save Order" />
 
@@ -964,7 +964,7 @@ echo "\n</head>";
 							</div>
 
 						</form>
-						<br class="clearall">
+						<br class="clearall" />
 					</div>
 
 					<?php

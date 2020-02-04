@@ -71,13 +71,13 @@ echo '</head>' . "\n";
 							<?php echo gettext('In Codeblocks'); ?>
 						</option>
 					</select>
-					<br class="clearall"><br />
+					<br class="clearall" /><br />
 					<?php applyButton(array('buttonText' => MAGNIFY . '	' . gettext("Search"), 'buttonClick' => "$('#outerbox').html('');")); ?>
 					<br />
 					<span id="progress"></span>
 				</form>
 
-				<br class="clearall">
+				<br class="clearall" />
 				<p class="notebox"><?php echo gettext('<strong>NOTE:</strong> This search will have false positives for instance when the function name appears in a comment or quoted string. Functions flagged with an "*" are class methods. Ones flagged "+" have deprecated parameters.'); ?></p>
 				<?php
 				if (isset($_GET['action'])) {

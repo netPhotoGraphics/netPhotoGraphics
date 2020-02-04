@@ -46,11 +46,11 @@ echo "\n</head>";
 					<p>
 						<?php npgButton('button', gettext('I agree to these terms and conditions'), array('buttonLink' => getAdminLink('license.php') . '?licenseAccept&amp;XSRFToken=' . getXSRFToken('acceptLicense'))); ?>
 					</p>
-					<br class="clearall">
+					<br class="clearall" />
 					<?php
 				}
 				?>
-				<br class="clearall">
+				<br class="clearall" />
 				<div class="tabbox">
 					<iframe src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/gpl-2.0-standalone.htm" width="100%" height="480" style="border: 0">
 					</iframe>

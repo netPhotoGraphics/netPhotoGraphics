@@ -473,7 +473,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 						</form>
 					</div>
 
-					<br class="clearall">
+					<br class="clearall" />
 				</div><!-- block -->
 			</div><!-- content -->
 			<?php

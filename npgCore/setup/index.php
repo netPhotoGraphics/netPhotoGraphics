@@ -896,7 +896,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 															gettext('Change the filesystem character set define to %1$s') . "\n" .
 															'</p>' . "\n" .
 															'</form>' . "\n" .
-															'<br class="clearall">' . "\n";
+															'<br class="clearall" />' . "\n";
 
 											if (isset($_conf_vars['FILESYSTEM_CHARSET'])) {
 												$selectedset = $_conf_vars['FILESYSTEM_CHARSET'];
@@ -1616,285 +1616,283 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						} else {
 							if (setupUserAuthorized()) {
 								?>
+								<ul>
+									<li class="fail"><?php npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_RED . ' ' . gettext("Refresh"), array('buttonLink' => "?refresh", 'buttonTitle' => gettext("Setup failed."), 'buttonClass' => 'submitbutton')); ?></li>
+								</ul>
 								<div class="error">
 									<?php echo gettext("You need to address the problems indicated above then run <code>setup</code> again."); ?>
 								</div>
-								<p class='buttons'>
-									<a href="?refresh" title="<?php echo gettext("Setup failed."); ?>" style="font-size: 15pt; font-weight: bold;">
-										<?php echo '&#10060; ' . gettext("Refresh"); ?>
-									</a>
-								</p>
-								<br class="clearall">
-									<br />
-									<?php
-								} else {
-									?>
-									<div class="error">
-										<?php
-										if (npg_loggedin()) {
-											echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
-										} else {
-											echo gettext('You must be logged in to run setup.');
-										}
-										?>
-									</div>
-									<?php
-									$_authority->printLoginForm('', false);
-								}
+								<br class="clearall" />
+								<br />
+								<?php
+							} else {
 								?>
-								<br class="clearall">
+								<div class="error">
 									<?php
-									echo "\n</div><!-- content -->";
-									printSetupFooter($setup_checked);
-									echo "\n</div><!-- main -->";
-									echo "</body>";
-									echo "</html>";
-									exit();
+									if (npg_loggedin()) {
+										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
+									} else {
+										echo gettext('You must be logged in to run setup.');
+									}
+									?>
+								</div>
+								<?php
+								$_authority->printLoginForm('', false);
+							}
+							?>
+							<br class="clearall" />
+							<?php
+							echo "\n</div><!-- content -->";
+							printSetupFooter($setup_checked);
+							echo "\n</div><!-- main -->";
+							echo "</body>";
+							echo "</html>";
+							exit();
+						}
+					} else {
+						$dbmsg = gettext("database connected");
+					} // system check
+					if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+						require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+
+						$task = '';
+						if (isset($_GET['create'])) {
+							$task = 'create';
+							$create = array_flip(explode(',', sanitize($_REQUEST['create'])));
+						}
+						if (isset($_REQUEST['update'])) {
+							$task = 'update';
+						}
+						$updateErrors = false;
+						if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
+
+							primeMark(gettext('Database update'));
+							require_once(CORE_SERVERPATH . 'setup/database.php');
+							unset($_tableFields);
+							if ($updateErrors) {
+								$autorun = false;
+								$msg = gettext('Database structure update completed with errors. See the <code>setup</code> log for details.');
+							} else if ($_DB_Structure_change) {
+								$msg = gettext('Database structure updated.');
+							} else {
+								$msg = gettext('Database update is not required.');
+							}
+							setupLog($msg, true);
+							?>
+							<h3><?php echo $msg; ?></h3>
+							<?php
+							// convert old style cache file names
+							primeMark(gettext('Cachefile renaming'));
+							$conversions = migrate_folder(SERVERPATH . '/' . CACHEFOLDER . '/');
+							if ($conversions) {
+								$msg = sprintf(ngettext('%1$s cached image was renamed.', '%1$s cached images were renamed.', $conversions), $conversions);
+								setupLog($msg, true);
+								?>
+								<h3><?php echo $msg; ?></h3>
+								<?php
+							}
+
+							primeMark(gettext('DB Cache reference renaming'));
+							$conversions = migrateDB();
+							if ($conversions) {
+								$msg = sprintf(ngettext('%1$s database image reference was updated.', '%1$s database image references were updated.', $conversions), $conversions);
+								setupLog($msg, true);
+								?>
+								<h3><?php echo $msg; ?></h3>
+								<?php
+							}
+							?>
+							<script type = "text/javascript">
+								$("#prime<?php echo $primeid; ?>").remove();
+							</script>
+							<?php
+							// set defaults on any options that need it
+							require(__DIR__ . '/setup-option-defaults.php');
+
+							if ($debug == 'albumids') {
+								// fixes 1.2 move/copy albums with wrong ids
+								$albums = $_gallery->getAlbums();
+								foreach ($albums as $album) {
+									checkAlbumParentid($album, NULL, 'setuplog');
+								}
+							}
+
+							if ($_loggedin == ADMIN_RIGHTS) {
+								$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
+								if (count($filelist) > 0) {
+									$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '<a href="' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '">', '</a>');
+									$autorun = false;
+								} else {
+									$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '</a>');
+									if ($autorun == 'admin' || $autorun == 'gallery') {
+										$autorun = getAdminLink('admin-tabs/users.php') . '?page=admin';
+									}
 								}
 							} else {
-								$dbmsg = gettext("database connected");
-							} // system check
-							if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-								require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+								$autorun = false;
+							}
 
-								$task = '';
-								if (isset($_GET['create'])) {
-									$task = 'create';
-									$create = array_flip(explode(',', sanitize($_REQUEST['create'])));
-								}
-								if (isset($_REQUEST['update'])) {
-									$task = 'update';
-								}
-								$updateErrors = false;
-								if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
-
-									primeMark(gettext('Database update'));
-									require_once(CORE_SERVERPATH . 'setup/database.php');
-									unset($_tableFields);
-									if ($updateErrors) {
-										$autorun = false;
-										$msg = gettext('Database structure update completed with errors. See the <code>setup</code> log for details.');
-									} else if ($_DB_Structure_change) {
-										$msg = gettext('Database structure updated.');
-									} else {
-										$msg = gettext('Database update is not required.');
-									}
-									setupLog($msg, true);
+							require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+							if (class_exists('npgClone')) {
+								foreach (npgClone::clones() as $clone => $data) {
+									$url = $data['url'];
 									?>
-									<h3><?php echo $msg; ?></h3>
-									<?php
-									// convert old style cache file names
-									primeMark(gettext('Cachefile renaming'));
-									$conversions = migrate_folder(SERVERPATH . '/' . CACHEFOLDER . '/');
-									if ($conversions) {
-										$msg = sprintf(ngettext('%1$s cached image was renamed.', '%1$s cached images were renamed.', $conversions), $conversions);
-										setupLog($msg, true);
+									<p>
+										<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . CORE_FOLDER . '/setup/index.php?autorun', $clone);
 										?>
-										<h3><?php echo $msg; ?></h3>
-										<?php
-									}
-
-									primeMark(gettext('DB Cache reference renaming'));
-									$conversions = migrateDB();
-									if ($conversions) {
-										$msg = sprintf(ngettext('%1$s database image reference was updated.', '%1$s database image references were updated.', $conversions), $conversions);
-										setupLog($msg, true);
-										?>
-										<h3><?php echo $msg; ?></h3>
-										<?php
-									}
-									?>
-									<script type = "text/javascript">
-										$("#prime<?php echo $primeid; ?>").remove();
-									</script>
+									</p>
 									<?php
-									// set defaults on any options that need it
-									require(__DIR__ . '/setup-option-defaults.php');
+								}
+							}
+							$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . getAdminLink('admin.php') . '">', '</a>');
+							?>
+							<p id="golink" class="delayshow" style="display:none;"><?php echo $link; ?></p>
+							<?php
+							switch ($autorun) {
+								case false:
+									break;
+								case 'gallery':
+								case 'admin':
+									$autorun = getAdminLink('admin.php');
+									break;
+								default:
+									break;
+							}
+							?>
+							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
+							<script type="text/javascript">
+								function launchAdmin() {
+									window.location = '<?php echo getAdminLink('admin.php'); ?>';
+								}
+								window.onload = function () {
+									var errors = $('#setupErrors').val();
 
-									if ($debug == 'albumids') {
-										// fixes 1.2 move/copy albums with wrong ids
-										$albums = $_gallery->getAlbums();
-										foreach ($albums as $album) {
-											checkAlbumParentid($album, NULL, 'setuplog');
-										}
-									}
-
-									if ($_loggedin == ADMIN_RIGHTS) {
-										$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
-										if (count($filelist) > 0) {
-											$link = sprintf(gettext('You may %1$sset your admin user and password%3$s or %2$srun backup-restore%3$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '<a href="' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '">', '</a>');
-											$autorun = false;
-										} else {
-											$link = sprintf(gettext('You need to %1$sset your admin user and password%2$s'), '<a href="' . getAdminLink('admin-tabs/users.php') . '?page=admin">', '</a>');
-											if ($autorun == 'admin' || $autorun == 'gallery') {
-												$autorun = getAdminLink('admin-tabs/users.php') . '?page=admin';
-											}
-										}
-									} else {
-										$autorun = false;
-									}
-
-									require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
-									if (class_exists('npgClone')) {
-										foreach (npgClone::clones() as $clone => $data) {
-											$url = $data['url'];
-											?>
-											<p>
-												<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . CORE_FOLDER . '/setup/index.php?autorun', $clone);
-												?>
-											</p>
-											<?php
-										}
-									}
-									$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . getAdminLink('admin.php') . '">', '</a>');
-									?>
-									<p id="golink" class="delayshow" style="display:none;"><?php echo $link; ?></p>
-									<?php
-									switch ($autorun) {
-										case false:
-											break;
-										case 'gallery':
-										case 'admin':
-											$autorun = getAdminLink('admin.php');
-											break;
-										default:
-											break;
-									}
-									?>
-									<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
-									<script type="text/javascript">
-										function launchAdmin() {
-											window.location = '<?php echo getAdminLink('admin.php'); ?>';
-										}
-										window.onload = function () {
-											var errors = $('#setupErrors').val();
-
-											$.ajax({
-												type: 'POST',
-												cache: false,
-												data: 'errors=' + errors,
-												url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setupComplete.php'
-											});
-											$('.delayshow').show();
+									$.ajax({
+										type: 'POST',
+										cache: false,
+										data: 'errors=' + errors,
+										url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setupComplete.php'
+									});
+									$('.delayshow').show();
 		<?php
 		if ($autorun) {
 			?>
-												if (!imageErr) {
-													$('#golink').hide();
-													launchAdmin();
-												}
+										if (!imageErr) {
+											$('#golink').hide();
+											launchAdmin();
+										}
 			<?php
 		}
 		?>
-										}
-									</script>
-									<?php
-								} else if (db_connect($_conf_vars, false)) {
-									$task = '';
-									if (setupUserAuthorized() || $blindInstall) {
-										if (!empty($dbmsg)) {
-											?>
-											<h2><?php echo $dbmsg; ?></h2>
-											<?php
-										}
-										$task = "update" . $debugq . $autorunq;
-										if ($copyaccess) {
-											$task .= '&copyhtaccess';
-										}
-									}
-									$hideGoButton = '';
-
-									if ($warn) {
-										$icon = WARNING_SIGN_ORANGE;
-									} else {
-										$icon = CHECKMARK_GREEN;
-									}
-
-									$task .= $autorunq;
-									if ($blindInstall) {
-										ob_end_clean();
-										$blindInstall = false;
-										$stop = !$autorun;
-									} else {
-										$stop = !setupUserAuthorized();
-									}
-									if ($stop) {
-										?>
-										<div class="error">
-											<?php
-											if (npg_loggedin()) {
-												echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
-											} else {
-												echo gettext('You must be logged in to run setup.');
-											}
-											?>
-										</div>
-										<?php
-										$_authority->printLoginForm('', false);
-									} else {
-										if (!empty($task) && substr($task, 0, 1) != '&') {
-											$task = '&' . $task;
-										}
-										$task = html_encode($task);
-										?>
-										<form id="setup" action="<?php echo WEBPATH . '/' . CORE_FOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
-											<input type="hidden" name="setUTF8URI" id="setUTF8URI" value="internal" />
-											<input type="hidden" name="xsrfToken" value="<?php echo setupXSRFToken(); ?>" />
-											<?php
-											if ($autorun) {
-												?>
-												<input type="hidden" id="autorun" name="autorun" value="<?php echo html_encode($autorun); ?>" />
-												<?php
-											}
-											?>
-											<p>
-												<?php applyButton(array('buttonText' => $icon . ' ' . gettext("Go"))); ?>
-											</p>
-											<br class="clearall">
-												<br />
-										</form>
-										<?php
-									}
-									if ($autorun) {
-										?>
-										<script type="text/javascript">
-											$('#submitbutton').hide();
-											$('#setup').submit();
-										</script>
-										<?php
-									}
-								} else {
+								}
+							</script>
+							<?php
+						} else if (db_connect($_conf_vars, false)) {
+							$task = '';
+							if (setupUserAuthorized() || $blindInstall) {
+								if (!empty($dbmsg)) {
 									?>
-									<div class="error">
-										<h3><?php echo gettext("database did not connect"); ?></h3>
-										<p>
-											<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
-										</p>
-									</div>
+									<h2><?php echo $dbmsg; ?></h2>
 									<?php
 								}
+								$task = "update" . $debugq . $autorunq;
+								if ($copyaccess) {
+									$task .= '&copyhtaccess';
+								}
+							}
+							$hideGoButton = '';
+
+							if ($warn) {
+								$icon = WARNING_SIGN_ORANGE;
 							} else {
-								// The config file hasn't been created yet. Show the steps.
-								?>
-								<div class="error">
-									<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
-								</div>
-								<?php
+								$icon = CHECKMARK_GREEN;
 							}
 
+							$task .= $autorunq;
 							if ($blindInstall) {
 								ob_end_clean();
+								$blindInstall = false;
+								$stop = !$autorun;
+							} else {
+								$stop = !setupUserAuthorized();
 							}
+							if ($stop) {
+								?>
+								<div class="error">
+									<?php
+									if (npg_loggedin()) {
+										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
+									} else {
+										echo gettext('You must be logged in to run setup.');
+									}
+									?>
+								</div>
+								<?php
+								$_authority->printLoginForm('', false);
+							} else {
+								if (!empty($task) && substr($task, 0, 1) != '&') {
+									$task = '&' . $task;
+								}
+								$task = html_encode($task);
+								?>
+								<form id="setup" action="<?php echo WEBPATH . '/' . CORE_FOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
+									<input type="hidden" name="setUTF8URI" id="setUTF8URI" value="internal" />
+									<input type="hidden" name="xsrfToken" value="<?php echo setupXSRFToken(); ?>" />
+									<?php
+									if ($autorun) {
+										?>
+										<input type="hidden" id="autorun" name="autorun" value="<?php echo html_encode($autorun); ?>" />
+										<?php
+									}
+									?>
+									<ul>
+										<li class="pass"><?php applyButton(array('buttonText' => $icon . ' ' . gettext("Go"))); ?></li>
+									</ul>
+									<br class="clearall" />
+										<br />
+								</form>
+								<?php
+							}
+							if ($autorun) {
+								?>
+								<script type="text/javascript">
+									$('#submitbutton').hide();
+									$('#setup').submit();
+								</script>
+								<?php
+							}
+						} else {
 							?>
-							<br class="clearall">
-								</div><!-- content -->
-								<?php
-								printSetupFooter($setup_checked);
-								?>
-								</div><!-- main -->
-								</body>
-								</html>
-								<?php
-								$setupMutex->unlock();
-								exit();
-								?>
+							<div class="error">
+								<h3><?php echo gettext("database did not connect"); ?></h3>
+								<p>
+									<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
+								</p>
+							</div>
+							<?php
+						}
+					} else {
+						// The config file hasn't been created yet. Show the steps.
+						?>
+						<div class="error">
+							<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
+						</div>
+						<?php
+					}
+
+					if ($blindInstall) {
+						ob_end_clean();
+					}
+					?>
+					<br class="clearall" />
+						</div><!-- content -->
+						<?php
+						printSetupFooter($setup_checked);
+						?>
+						</div><!-- main -->
+						</body>
+						</html>
+						<?php
+						$setupMutex->unlock();
+						exit();
+						?>

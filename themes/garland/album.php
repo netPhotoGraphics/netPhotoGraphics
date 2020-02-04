@@ -129,7 +129,7 @@ $map = simpleMap::mapPlugin();
 								simpleMap::printMap($points, array('obj' => 'album_page'));
 								?>
 							</div>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						}
 						?>

@@ -180,7 +180,7 @@ if (!defined('WEBPATH'))
 								</a>
 	<?php } ?>
 						</div>
-						<br class="clearall">
+						<br class="clearall" />
 					<?php } ?>
 					<?php
 					if (function_exists('printSlideShowLink'))
