@@ -1621,8 +1621,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								</div>
 								<p class='buttons'>
 									<a href="?refresh" title="<?php echo gettext("Setup failed."); ?>" style="font-size: 15pt; font-weight: bold;">
-										<?php echo CROSS_MARK_RED_LARGE; ?>
-										<?php echo gettext("Refresh"); ?>
+										<?php echo '&#10060; ' . gettext("Refresh"); ?>
 									</a>
 								</p>
 								<br class="clearall">

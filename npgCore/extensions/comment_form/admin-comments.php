@@ -134,7 +134,7 @@ printLogoAndLinks();
 							<p>" style="margin-top: 10px">
 								<?php
 								applyButton();
-								npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'), 'buttonTitle' => gettext("Cancel")));
+								npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'), 'buttonTitle' => gettext("Cancel")));
 								npgButton('button', WASTEBASKET . ' ' . gettext("Delete"), array('buttonTitle' => gettext("Delete"), 'buttonClick' => "if (confirm('" . gettext('Are you sure you want to delete this comment?') . "')) {
 												window.location = '" . getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . "?action=deletecomment&id=" . $id . "&amp;XSRFToken=" . getXSRFToken('deletecomment') . "';
 														}"));

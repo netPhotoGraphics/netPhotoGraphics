@@ -68,7 +68,7 @@ function upload_form($uploadlimit, $passedalbum) {
 	<p class="fileUploadActions" style="display: none;">
 		<?php
 		applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext('Upload'), 'buttonClick' => "$('#folderslot').val($('#folderdisplay').val());"));
-		npgButton("button", CROSS_MARK_RED_LARGE . ' ' . gettext('Cancel'), array('buttonClick' => "resetBoxes();"));
+		npgButton("button", CROSS_MARK_RED . ' ' . gettext('Cancel'), array('buttonClick' => "resetBoxes();"));
 		?>
 	</p>
 	<br clear="all">

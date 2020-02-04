@@ -652,7 +652,7 @@ $tagsort = 'alpha';
 													<div class="copydelete resetHide" id="copyfield" style="display:none" >
 														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
 														<p>
-															<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "$('#copy_object').prop('checked', false);$('#copyfield').hide();")); ?>
+															<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "$('#copy_object').prop('checked', false);$('#copyfield').hide();")); ?>
 														</p>
 
 													</div>
@@ -660,7 +660,7 @@ $tagsort = 'alpha';
 														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem);
 														?>
 														<p>
-															<?php npgButton('button', CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), array('buttonClick' => "$('#delete_object').prop('checked', false);$('#deletemsg').hide();")); ?>
+															<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "$('#delete_object').prop('checked', false);$('#deletemsg').hide();")); ?>
 														</p>
 													</div>
 													<?php

@@ -58,7 +58,7 @@ if (isset($_SESSION['OTA'])) {
 
 						<?php
 						applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . gettext("Submit"), 'buttonClass' => 'submitbutton'));
-						backButton(array('buttonText' => CROSS_MARK_RED_LARGE . ' ' . gettext("Cancel"), 'buttonLink' => FULLWEBPATH));
+						backButton(array('buttonText' => CROSS_MARK_RED . ' ' . gettext("Cancel"), 'buttonLink' => FULLWEBPATH));
 						?>
 
 						<br class="clearall">

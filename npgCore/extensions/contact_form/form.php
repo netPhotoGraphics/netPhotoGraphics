@@ -140,7 +140,7 @@ if (function_exists('showOrNotShowField')) {
 			<p>
 				<?php
 				policySubmitButton(gettext('Send e-mail'), $class, $buttonExtra);
-				npgButton('reset', CROSS_MARK_RED_LARGE . '	' . gettext("Reset"));
+				npgButton('reset', CROSS_MARK_RED . '	' . gettext("Reset"));
 				?>
 			</p>
 		<?php } ?>

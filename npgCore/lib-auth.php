@@ -1256,7 +1256,7 @@ class _Authority {
 								<div>
 									<?php
 									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Log in"), array('buttonClass' => 'submitbutton'));
-									npgButton('reset', CROSS_MARK_RED_LARGE . ' ' . gettext("Reset"), array('buttonClass' => 'resetbutton'));
+									npgButton('reset', CROSS_MARK_RED . ' ' . gettext("Reset"), array('buttonClass' => 'resetbutton'));
 									?>
 								</div>
 								<br class="clearall">
@@ -1525,7 +1525,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

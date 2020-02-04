@@ -239,7 +239,7 @@ printAdminHeader('admin');
 				<option value="private" <?php if ($tagsort == 'private') echo ' selected="selected"'; ?>><?php echo gettext('Private first'); ?></option>
 			</select>
 			<div floatright" style="padding-bottom: 5px;">
-			<?php resetButton(array('buttonText' => CROSS_MARK_RED_LARGE . '	<strong>' . gettext("Reset"), 'buttonClick' => "$('#tag_action_form').trigger('reset');
+			<?php resetButton(array('buttonText' => CROSS_MARK_RED . '	<strong>' . gettext("Reset"), 'buttonClick' => "$('#tag_action_form').trigger('reset');
 						$('#form_tagrename').trigger('reset');
 						$('#form_newtags').trigger('reset');")); ?>
 		</div>
