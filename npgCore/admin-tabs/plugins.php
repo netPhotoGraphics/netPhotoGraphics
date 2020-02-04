@@ -192,7 +192,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 			resetButton();
 			?>
 		</p>
-		<br class="clearall"><br /><br />
+		<br class="clearall" /><br /><br />
 		<table>
 			<tr>
 				<th class="centered" colspan="100%">

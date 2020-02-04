@@ -81,7 +81,7 @@ if (count($subalbums) > 0) {
 				}
 				?>
 			</div>
-			<br class="clearall"><br />
+			<br class="clearall" /><br />
 
 			<div class="headline" style="text-align: left;">&nbsp;
 				<?php
@@ -138,7 +138,7 @@ if (count($subalbums) > 0) {
 				</div>
 			</span>
 		</form>
-		<br class="clearall">
+		<br class="clearall" />
 	</div><!-- subalbum -->
 	<?php
 }

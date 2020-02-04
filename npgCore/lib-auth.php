@@ -1177,7 +1177,7 @@ class _Authority {
 									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
 									?>
 								</div>
-								<br class="clearall">
+								<br class="clearall" />
 							</fieldset>
 							<br />
 							<?php
@@ -1259,7 +1259,7 @@ class _Authority {
 									npgButton('reset', CROSS_MARK_RED . ' ' . gettext("Reset"), array('buttonClass' => 'resetbutton'));
 									?>
 								</div>
-								<br class="clearall">
+								<br class="clearall" />
 							</fieldset>
 						</form>
 
@@ -1339,7 +1339,7 @@ class _Authority {
 									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
 									?>
 								</div>
-								<br class="clearall">
+								<br class="clearall" />
 							</fieldset>
 						</form>
 						<?php

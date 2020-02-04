@@ -143,7 +143,7 @@ if (!defined('WEBPATH'))
 						if (getImageMetaData()) {
 							printImageMetadata(NULL, 'colorbox');
 							?>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						}
 						if (simplemap::mapPlugin()) {
@@ -152,7 +152,7 @@ if (!defined('WEBPATH'))
 							<span id="map_link">
 								<?php simplemap::printMap(); ?>
 							</span>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 						}
 						?>

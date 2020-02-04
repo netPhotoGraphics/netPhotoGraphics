@@ -557,7 +557,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				?>
 			</ul>
 		</div>
-		<br class="clearall"><!-- needed so the nav sits correctly -->
+		<br class="clearall" /><!-- needed so the nav sits correctly -->
 		<?php
 	}
 
@@ -1901,7 +1901,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				viewButton(array('buttonLink' => $album->getLink()));
 				?>
 			</div>
-			<br class="clearall">
+			<br class="clearall" />
 			<br />
 			<?php
 		}
@@ -2530,7 +2530,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 <?php echo gettext("Delete album"); ?>
 						</label>
 
-						<br class="clearall">
+						<br class="clearall" />
 						<div class="deletemsg" id="deletemsg<?php echo $prefix; ?>" class="resetHide"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
 							<?php echo gettext('Album will be deleted when changes are applied.'); ?>
 
@@ -2595,7 +2595,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</div>
 		</div>
 
-		<br class="clearall">
+		<br class="clearall" />
 		<br />
 		<?php
 		if ($buttons) {
@@ -2614,7 +2614,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				viewButton(array('buttonLink' => $album->getLink()));
 				?>
 			</div>
-			<br class="clearall">
+			<br class="clearall" />
 			<?php
 		}
 		?>
@@ -4066,7 +4066,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				?>
 			</ul>
 			<span class="floatright"><?php echo str_replace('font_icon', 'font_icon_basic', $legend); ?>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-			<br class="clearall">
+			<br class="clearall" />
 		</div>
 	</div>
 	<?php
@@ -4974,7 +4974,7 @@ function stripTableRows($custom) {
 	$custom = preg_replace('~<tr[^>]*>~i', '', $custom);
 	$custom = preg_replace('~<td[^>]*>~i', 'div class="user_right">', $custom);
 	$custom = preg_replace('~</td[^>]*>~i', '</div>', $custom);
-	$custom = preg_replace('~</tr[^>]*>~i', '<br class="clearall">', $custom);
+	$custom = preg_replace('~</tr[^>]*>~i', '<br class="clearall" />', $custom);
 	return $custom;
 }
 

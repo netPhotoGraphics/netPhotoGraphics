@@ -253,7 +253,7 @@ if (is_array($result)) {
 						<?php npgButton('button', PLUS_ICON . ' ' . gettext("Add Menu Items"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab_edit.php') . '?add&amp;menuset=' . urlencode($menuset))); ?>
 					</span>
 				</p>
-				<br class="clearall"><br />
+				<br class="clearall" /><br />
 				<div style="padding:15px; margin-top: 10px">
 					<?php
 					$action = $type = $id = $link = $aux = '';
@@ -434,7 +434,7 @@ if (is_array($result)) {
 							resetButton();
 							?>
 						</p>
-						<br class="clearall"><br />
+						<br class="clearall" /><br />
 					</form>
 				</div>
 			</div>

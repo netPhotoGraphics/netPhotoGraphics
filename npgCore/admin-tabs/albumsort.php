@@ -25,6 +25,7 @@ if (isset($_GET['album'])) {
 			exit();
 		}
 	}
+
 	if (isset($_GET['saved'])) {
 		XSRFdefender('save_sort');
 		if (isset($_POST['ids'])) { //	process bulk actions, not individual image actions.
@@ -119,7 +120,6 @@ echo "\n</head>";
 			<?php
 			$images = $album->getImages();
 			$subtab = getCurrentTab();
-
 			$parent = dirname($album->name);
 			if ($parent == '/' || $parent == '.' || empty($parent)) {
 				$parent = '';
@@ -160,7 +160,7 @@ echo "\n</head>";
 							viewButton(array('buttonLink' => $album->getLink()));
 							?>
 						</p>
-						<br class="clearall">
+						<br class="clearall" />
 						<p><?php echo gettext("Set the image order by dragging them to the positions you desire."); ?></p>
 						<ul id="images">
 							<?php
@@ -185,8 +185,8 @@ echo "\n</head>";
 												 src="<?php echo getAdminThumb($image, 'large'); ?>"
 												 alt="<?php echo html_encode($image->getTitle()); ?>"
 												 title="<?php
-									echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
-											?>"
+												 echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
+												 ?>"
 												 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
 										<p>
 											<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
@@ -211,7 +211,7 @@ echo "\n</head>";
 							}
 							?>
 						</ul>
-						<br class="clearall">
+						<br class="clearall" />
 
 						<div>
 							<input type="hidden" id="sortableList" name="sortableList" value="" />
@@ -225,7 +225,7 @@ echo "\n</head>";
 						</div>
 						<input type="hidden" name="checkForPostTruncation" value="1" />
 					</form>
-					<br class="clearall">
+					<br class="clearall" />
 				</div>
 			</div>
 		</div>

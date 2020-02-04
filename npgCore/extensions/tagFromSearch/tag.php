@@ -222,7 +222,7 @@ echo "\n</head>";
 					<p>
 						<?php resetButton(); ?>
 					</p>
-					<br class="clearall">
+					<br class="clearall" />
 					</table>
 
 

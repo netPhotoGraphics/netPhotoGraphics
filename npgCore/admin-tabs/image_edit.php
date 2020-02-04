@@ -147,7 +147,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 						<br />
 						<input type="hidden" name="<?php echo $currentimage; ?>-filename"	value="<?php echo $image->filename; ?>" />
 						<div  class="formlayout">
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 							if ($currentimage > 0) {
 								echo '<hr><br />';
@@ -408,7 +408,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										});
 										// ]]> -->
 									</script>
-									<br class="clearall">
+									<br class="clearall" />
 									<hr />
 									<p>
 										<label for="publishdate-<?php echo $currentimage; ?>"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
@@ -462,7 +462,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
 															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
-									<br class="clearall">
+									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">
 										<span class="nowrap">
 											<?php echo gettext("to"); ?>:
@@ -554,7 +554,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php
 									}
 									?>
-									<br class="clearall">
+									<br class="clearall" />
 									<hr />
 									<?php
 									npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext("Refresh Metadata"), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=refresh&amp;album=' . pathurlencode($album->name) . '&amp;image=' . urlencode($image->filename) . '&amp;subpage=' . $pagenum . $singleimagelink . '&amp;tagsort=' . html_encode($tagsort), 'buttonClass' => 'fixedwidth'));
@@ -567,7 +567,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								</div>
 							</div>
 						</div>
-						<br class="clearall">
+						<br class="clearall" />
 						<?php
 						$currentimage++;
 					}
@@ -584,7 +584,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<?php
 				printImagePagination($album, $image, $singleimage, $allimagecount, $totalimages, $pagenum, $totalpages, $filter);
 				?>
-				<br class="clearall">
+				<br class="clearall" />
 			</div>
 			<input type="hidden" name="checkForPostTruncation" value="1" />
 		</form>

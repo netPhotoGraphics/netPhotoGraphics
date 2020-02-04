@@ -93,7 +93,7 @@ npgFilters::apply('texteditor_config', 'photo');
 						</ul>
 
 					</div>
-					<br class="clearall">
+					<br class="clearall" />
 					<script type="text/javascript">
 						$('form#massmail').submit(function () {
 <?php

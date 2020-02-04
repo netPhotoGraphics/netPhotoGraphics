@@ -232,7 +232,7 @@ class user_groups {
 						. '<br />'
 						. $notice
 						. '</div>' . "\n"
-						. '<br class="clearall">' . "\n";
+						. '<br class="clearall" />' . "\n";
 		return $html . $result;
 	}
 

@@ -244,7 +244,7 @@ printAdminHeader('admin');
 						$('#form_newtags').trigger('reset');")); ?>
 		</div>
 
-		<br class="clearall">
+		<br class="clearall" />
 		<p class="notebox">
 			<?php echo gettext('Indented tags are language translations of the superior (master) tag. If you delete a master tag, the language translations will also be deleted.'); ?>
 		</p>
@@ -422,7 +422,7 @@ printAdminHeader('admin');
 						?></p>
 				</div>
 			</div>
-			<br class="clearall">
+			<br class="clearall" />
 		</div>
 
 	</div>

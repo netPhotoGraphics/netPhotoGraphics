@@ -61,7 +61,7 @@ if (isset($_SESSION['OTA'])) {
 						backButton(array('buttonText' => CROSS_MARK_RED . ' ' . gettext("Cancel"), 'buttonLink' => FULLWEBPATH));
 						?>
 
-						<br class="clearall">
+						<br class="clearall" />
 					</fieldset>
 				</form>
 			</div>

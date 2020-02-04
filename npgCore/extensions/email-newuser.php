@@ -42,7 +42,7 @@ class email_new_user {
 								. gettext('New users will be mailed a password set link')
 								. '</p>' . "\n"
 								. '</div>' . "\n"
-								. '<br class="clearall">' . "\n";
+								. '<br class="clearall" />' . "\n";
 				$html = $result . $html;
 			}
 		}

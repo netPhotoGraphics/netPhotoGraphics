@@ -338,7 +338,7 @@ class fieldExtender {
 								implode("\n", $output[1]) .
 								'</div>';
 			}
-			$html .= '<br class="clearall">';
+			$html .= '<br class="clearall" />';
 		}
 		return $html;
 	}

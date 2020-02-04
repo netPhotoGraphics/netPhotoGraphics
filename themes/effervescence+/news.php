@@ -76,7 +76,7 @@ if (class_exists('CMS')) {
 							?>
 							<?php if ($prev = getPrevNewsURL()) { ?><div class="singlenews_prev"><?php printPrevNewsLink(); ?></div><?php } ?>
 							<?php if ($next = getNextNewsURL()) { ?><div class="singlenews_next"><?php printNextNewsLink(); ?></div><?php } ?>
-							<?php if ($prev || $next) { ?><br class="clearall"><?php } ?>
+							<?php if ($prev || $next) { ?><br class="clearall" /><?php } ?>
 							<h3><?php printNewsTitle(); ?></h3>
 
 							<div class="newsarticlecredit">

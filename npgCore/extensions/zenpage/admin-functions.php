@@ -1417,7 +1417,7 @@ function printZenpageIconLegend() {
 			<?php echo gettext("delete"); ?>
 		</li>
 	</ul>
-	<br class="clearall">
+	<br class="clearall" />
 	<?php
 }
 

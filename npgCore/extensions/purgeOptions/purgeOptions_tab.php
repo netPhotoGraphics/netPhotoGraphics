@@ -181,7 +181,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 								resetButton();
 								?>
 							</p>
-							<br class="clearall">
+							<br class="clearall" />
 
 							<p>
 								<?php
@@ -198,7 +198,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 								</span>
 
 							</div>
-							<br class="clearall">
+							<br class="clearall" />
 							<?php
 							if (!empty($owners)) {
 								listOwners($owners);
@@ -206,7 +206,7 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 							if (!empty($orpahaned) || !empty($orpahanedb)) {
 								$size = ceil(count($orpahaned) / 25);
 								?>
-								<br class="clearall">
+								<br class="clearall" />
 								<div class="purgeOptions_list">
 									<span class="purgeOptionsClass"><?php echo gettext('Orphaned options'); ?></span>
 									<label title="<?php echo gettext('all: no action'); ?>">
@@ -304,14 +304,14 @@ scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css')
 								<?php
 							}
 							?>
-							<br class="clearall">
+							<br class="clearall" />
 							<p>
 								<?php
 								applyButton();
 								resetButton();
 								?>
 							</p>
-							<br class="clearall">
+							<br class="clearall" />
 						</form>
 						<?php
 					}

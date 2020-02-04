@@ -415,7 +415,7 @@ $tagsort = 'alpha';
 								<p><?php echo gettext("Hint: If you need more space for your text use TinyMCE’s full screen mode. (Click the fullscreen icon of editor's control bar or use CTRL+SHIFT+F.)"); ?></p>
 							</div>
 
-							<br class="clearall">
+							<br class="clearall" />
 							<div>
 								<div class="formlayout">
 									<div class="floatleft">
@@ -648,7 +648,7 @@ $tagsort = 'alpha';
 														<input type="radio" id="delete_object" name="copy_delete_object" value="delete" onclick="deleteConfirm('delete_object', '', '<?php addslashes(printf(gettext('Are you sure you want to delete this %s?'), $deleteitem)); ?>'); $('#copyfield').hide();" />
 														<?php echo gettext('delete'); ?>
 													</label>
-													<br class="clearall">
+													<br class="clearall" />
 													<div class="copydelete resetHide" id="copyfield" style="display:none" >
 														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
 														<p>
@@ -858,7 +858,7 @@ $tagsort = 'alpha';
 										</div>
 									</div>
 
-									<br class="clearall">
+									<br class="clearall" />
 									<?php
 									backButton(array('buttonLink' => $backurl));
 									applyButton(array('buttonText' => CHECKMARK_GREEN . ' ' . $buttonText));
@@ -875,7 +875,7 @@ $tagsort = 'alpha';
 										}
 										?>
 									</div>
-									<br class="clearall">
+									<br class="clearall" />
 								</div>
 						</form>
 						<?php

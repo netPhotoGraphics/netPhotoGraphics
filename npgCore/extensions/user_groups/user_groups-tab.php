@@ -353,7 +353,7 @@ echo '</head>' . "\n";
 												}
 												?>
 											</div>
-											<br class="clearall">
+											<br class="clearall" />
 											<div class="user_left userextrainfo"<?php echo $display; ?>>
 												<?php
 												printAdminRightsTable($id, '  ', ' ', $rights);
@@ -433,7 +433,7 @@ echo '</head>' . "\n";
 												?>
 
 											</div>
-											<br class="clearall">
+											<br class="clearall" />
 											<div class="userextrainfo" <?php echo $display; ?>>
 												<?php
 												$custom = npgFilters::apply('edit_admin_custom', '', $groupobj, $id, $background, true, '');
@@ -514,7 +514,7 @@ echo '</head>' . "\n";
 							}
 							// ]]> -->
 						</script>
-						<br class="clearall">
+						<br class="clearall" />
 						<?php
 						break;
 					case 'assignments':
@@ -575,7 +575,7 @@ echo '</head>' . "\n";
 							<input type="hidden" name="totalusers" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />
 						</form>
-						<br class="clearall">
+						<br class="clearall" />
 						<?php
 						break;
 				}
