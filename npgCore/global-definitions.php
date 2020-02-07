@@ -236,7 +236,7 @@ define('PLACHHOLDER_ICON', '<span class="font_icon" style="font-size: large; ver
 define('PLUGIN_PLACHHOLDER', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
 define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold; vertical-align: 1px;">&#x2B58;</span>');
 define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: large;">&#x229B;</span>');
-define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; vertical-align: 0px;">&#x29c7;</span>');
+define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; padding-left: 1px;">&#x29c7;</span>');
 define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; vertical-align: -1px;">&#x25FB;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
