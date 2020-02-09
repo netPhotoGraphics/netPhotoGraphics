@@ -393,8 +393,7 @@ $rootupdate = updateRootIndexFile();
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
-		<?php echo gettext('Mod_Rewrite check:'); ?>
-		<br />
+		<?php echo gettext('Mod_Rewrite check '); ?>
 		<span>
 			<img src="<?php echo FULLWEBPATH . '/' . CORE_PATH ?>/setup/setup_set-mod_rewrite" title="<?php echo gettext('Mod_rewrite'); ?>" alt="<?php echo gettext('Mod_rewrite'); ?>" height="16px" width="16px" />
 		</span>
