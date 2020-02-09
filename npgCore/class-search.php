@@ -878,7 +878,7 @@ class SearchEngine {
 		} else {
 			foreach ($_REQUEST as $key => $value) {
 				if (strpos($key, 'SEARCH_') !== false) {
-					$fields[substr($key, 7)] = $value;
+					$fields[substr($key, 7)] = sanitize($value);
 				}
 			}
 		}

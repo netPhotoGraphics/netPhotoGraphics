@@ -333,7 +333,7 @@ function adminToolbox() {
 							}
 							npgFilters::apply('admin_toolbox_search');
 						}
-						$redirect = "&amp;p=search" . $_current_search->getSearchParams() . "&amp;page=$page";
+						$redirect = "&amp;p=search&amp;page=$page" . html_encode($_current_search->getSearchParams());
 						break;
 					case 'pages.php':
 						$redirect = "&amp;p=pages";
@@ -983,12 +983,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-					if ($current == 1)
-						echo 'current';
-					else
-						echo 'first';
+			if ($current == 1)
+				echo 'current';
+			else
+				echo 'first';
 					?>">
-								<?php
+							<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
@@ -4439,7 +4439,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

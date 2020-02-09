@@ -169,7 +169,7 @@ class GDPR_required {
 				}
 			}
 			?>
-			<form action="<?php echo $target; ?>" method = "post">
+			<form action="<?php echo html_encode($target); ?>" method = "post">
 				<?php policySubmitButton(gettext('Continue to site')); ?>
 			</form>
 			<?php
