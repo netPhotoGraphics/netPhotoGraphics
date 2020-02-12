@@ -11,8 +11,10 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 } else {
 	$uri = str_replace('\\', '/', @$_SERVER['SCRIPT_NAME']);
 }
+$parts = explode('?', $uri);
+$uri = $parts[0];
+unset($parts);
 if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matches)) {
-	unset($uri);
 	$base = '/' . $matches[2] . $matches[3];
 	foreach (array('/CORE_PATH/PLUGIN_PATH/' => '/CORE_FOLDER/PLUGIN_FOLDER/', '/USER_PLUGIN_PATH/' => '/USER_PLUGIN_FOLDER/', '/CORE_PATH/' => '/CORE_FOLDER/') as $from => $to) {
 		$base = preg_replace('~' . $from . '~', $to, $base, 1, $count);
@@ -29,6 +31,7 @@ if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matc
 		//	mock up things as if the the uri went directly to the script
 		$_SERVER['SCRIPT_NAME'] = $matches[1] . $base;
 		$_SERVER['SCRIPT_FILENAME'] = dirname($_SERVER['SCRIPT_FILENAME']) . $base;
+		unset($uri);
 		unset($matches);
 		chdir(dirname($_SERVER['SCRIPT_FILENAME']));
 		include($_SERVER['SCRIPT_FILENAME']);
@@ -36,6 +39,7 @@ if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matc
 	}
 	unset($matches);
 }
+unset($uri);
 
 define('OFFSET_PATH', 0);
 if (!$_themeScript = @$_SERVER['SCRIPT_FILENAME']) {
