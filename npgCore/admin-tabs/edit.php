@@ -88,7 +88,6 @@ if (isset($_GET['action'])) {
 		/*		 * *************************************************************************** */
 		case 'savealbumorder':
 			XSRFdefender('savealbumorder');
-			$notify = '';
 			$sort_notify = postAlbumSort(NULL);
 			if ($sort_notify) {
 				if ($notify === true) {
@@ -99,6 +98,8 @@ if (isset($_GET['action'])) {
 				$_gallery->setSortDirection(0);
 				$_gallery->setSortType('manual');
 				$_gallery->save();
+			} else {
+				$notify = '';
 			}
 
 			$bulk_notify = processAlbumBulkActions();
@@ -114,7 +115,6 @@ if (isset($_GET['action'])) {
 			break;
 		case 'savesubalbumorder':
 			XSRFdefender('savealbumorder');
-			$notify = '';
 			$sort_notify = postAlbumSort($album->getID());
 			if ($sort_notify) {
 				if ($notify === true) {
@@ -126,6 +126,8 @@ if (isset($_GET['action'])) {
 				$album->setSortType('manual', 'album');
 				$album->setSortDirection(false, 'album');
 				$album->save();
+			} else {
+				$notify = '';
 			}
 			if ($_POST['checkallaction'] == 'noaction') {
 				$bulk_notify = processAlbumBulkActions();
