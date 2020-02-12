@@ -4302,17 +4302,17 @@ function postAlbumSort($parentid) {
 		$order = processOrder(sanitize($_POST['order']));
 		$sortToID = array();
 		foreach ($order as $id => $orderlist) {
-			$id = str_replace('id_', '', $id);
+			$id = (int) str_replace('id_', '', $id);
 			$sortToID[implode('-', $orderlist)] = $id;
 		}
 		foreach ($order as $item => $orderlist) {
-			$item = str_replace('id_', '', $item);
+			$item = (int) str_replace('id_', '', $item);
 			$currentalbum = query_single_row('SELECT * FROM ' . prefix('albums') . ' WHERE `id`=' . $item);
 			$sortorder = array_pop($orderlist);
 			if (count($orderlist) > 0) {
 				$newparent = $sortToID[implode('-', $orderlist)];
 			} else {
-				$newparent = $parentid;
+				$newparent = (int) $parentid;
 			}
 			if ($newparent == $currentalbum['parentid']) {
 				$sql = 'UPDATE ' . prefix('albums') . ' SET `sort_order`=' . db_quote(sprintf('%03u', $sortorder)) . ' WHERE `id`=' . $item;

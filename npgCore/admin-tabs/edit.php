@@ -88,8 +88,9 @@ if (isset($_GET['action'])) {
 		/*		 * *************************************************************************** */
 		case 'savealbumorder':
 			XSRFdefender('savealbumorder');
-			$notify = postAlbumSort(NULL);
-			if ($notify) {
+			$notify = '';
+			$sort_notify = postAlbumSort(NULL);
+			if ($sort_notify) {
 				if ($notify === true) {
 					$notify = '&saved';
 				} else {
@@ -98,15 +99,14 @@ if (isset($_GET['action'])) {
 				$_gallery->setSortDirection(0);
 				$_gallery->setSortType('manual');
 				$_gallery->save();
-			} else {
-				$notify = '&noaction';
 			}
 
-			$notify = processAlbumBulkActions();
+			$bulk_notify = processAlbumBulkActions();
+			if (!empty($bulk_notify)) {
+				$notify .= '&bulkmessage=' . $notify;
+			}
 			if (empty($notify)) {
 				$notify = '&noaction';
-			} else {
-				$notify = '&bulkmessage=' . $notify;
 			}
 
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit' . $notify);
@@ -114,8 +114,9 @@ if (isset($_GET['action'])) {
 			break;
 		case 'savesubalbumorder':
 			XSRFdefender('savealbumorder');
-			$notify = postAlbumSort($album->getID());
-			if ($notify) {
+			$notify = '';
+			$sort_notify = postAlbumSort($album->getID());
+			if ($sort_notify) {
 				if ($notify === true) {
 					$notify = '&saved';
 				} else {
@@ -125,16 +126,15 @@ if (isset($_GET['action'])) {
 				$album->setSortType('manual', 'album');
 				$album->setSortDirection(false, 'album');
 				$album->save();
-			} else {
-				$notify = '&noaction';
 			}
 			if ($_POST['checkallaction'] == 'noaction') {
-				$notify = processAlbumBulkActions();
-				if (empty($notify)) {
-					$notify = '&noaction';
-				} else {
-					$notify = '&bulkmessage=' . $notify;
+				$bulk_notify = processAlbumBulkActions();
+				if (!empty($bulk_notify)) {
+					$notify .= '&bulkmessage=' . $notify;
 				}
+			}
+			if (empty($notify)) {
+				$notify = '&noaction';
 			}
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . $folder . '&tab=subalbuminfo' . $notify);
 			exit();
