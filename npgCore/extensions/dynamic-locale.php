@@ -63,9 +63,9 @@ define('BASE_LOCALE', getOption('dynamic_locale_base'));
 if (OFFSET_PATH != 2) {
 	npgFilters::register('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
 	if (LOCALE_TYPE == 1) {
-		npgFilters::register('load_request', 'seo_locale::load_request');
 		define('SEO_WEBPATH', seo_locale::localePath());
 		define('SEO_FULLWEBPATH', seo_locale::localePath(true));
+		seo_locale::url_redirect();
 	}
 }
 
@@ -288,25 +288,29 @@ class dynamic_locale {
 
 class seo_locale {
 
-	static function load_request($allow) {
-		$uri = getRequestURI();
-		$parts = explode('?', $uri);
+	static function url_redirect() {
+		$parts = explode('?', getRequestURI());
 		$uri = $parts[0];
-		$path = ltrim(substr($uri, strlen(WEBPATH) + 1), '/');
-		if (empty($path)) {
-			return $allow;
+		if (OFFSET_PATH > 0) {
+			$path = explode('/', WEBPATH);
+			$l = array_pop($path);
 		} else {
-			$rest = strpos($path, '/');
-			if ($rest === false) {
-				if (strpos($path, '?') === 0) {
-					// only a parameter string
-					return $allow;
-				}
-				$l = $path;
+			$path = ltrim(substr($uri, strlen(WEBPATH) + 1), '/');
+			if (empty($path)) {
+				return;
 			} else {
-				$l = substr($path, 0, $rest);
+				$rest = strpos($path, '/');
+				if ($rest === false) {
+					if (strpos($path, '?') === 0) { // only a parameter string
+						return;
+					}
+					$l = $path;
+				} else {
+					$l = substr($path, 0, $rest);
+				}
 			}
 		}
+
 		$locale = i18n::validateLocale($l, 'seo_locale');
 		if ($locale) {
 			// set the language cookie and redirect to the "base" url
@@ -319,8 +323,13 @@ class seo_locale {
 			header("Status: 302 Found");
 			header('Location: ' . $uri);
 			exit();
+		} else {
+			if (OFFSET_PATH > 0 && WEBPATH !== '/' . $l) {
+				$uri = str_replace('/' . $l, '', FULLWEBPATH) . '/?p=pages&title=' . pathurlencode(preg_replace('|' . WEBPATH . '[/$]|', $l . '/', $uri));
+				header('Location: ' . $uri);
+				exit();
+			}
 		}
-		return $allow;
 	}
 
 	static function localePath($full = false, $loc = NULL) {

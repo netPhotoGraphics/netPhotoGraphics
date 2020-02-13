@@ -283,22 +283,16 @@ class sitemap {
 				$date = $obj->getDatetime();
 				break;
 			case 'mtime':
-				$timestamp = $obj->get('mtime');
-				if ($timestamp == 0) {
+				$date = $obj->get('mtime');
+				if ($date == 0) {
 					$date = $obj->getDatetime();
-				} else {
-					return gmstrftime('%Y-%m-%dT%H:%M:%SZ', $timestamp);
-					// For more streamlined but PHP5-only equivalent, remove the above line and uncomment the following:
-					// return gmstrftime(DATE_ISO8601, $timestamp);
 				}
 				break;
 			case 'lastchange':
-				$date = sitemap::getLastChangeDate($obj, true);
+				$date = $obj->getLastChangeDate();
 				break;
 		}
 		return date(DATE_ISO8601, $date);
-		// For more streamlined but PHP5-only equivalent, remove the above line and uncomment the following:
-		// return gmstrftime(DATE_ISO8601, strtotime($date));
 	}
 
 	/**
