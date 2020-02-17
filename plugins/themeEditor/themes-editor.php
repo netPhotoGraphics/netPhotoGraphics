@@ -29,11 +29,11 @@ $messages = $file_to_edit = $file_content = null;
 $what = 'edit';
 $themes = $_gallery->getThemes();
 $theme = basename(sanitize($_GET['theme']));
-$themedir = SERVERPATH . '/themes/' . internalToFilesystem($theme);
-$themefiles = listDirectoryFiles($themedir);
-$themefiles_to_ext = array();
 
 if (themeIsEditable($theme)) {
+	$themedir = SERVERPATH . '/themes/' . internalToFilesystem($theme);
+	$themefiles = listDirectoryFiles($themedir);
+	$themefiles_to_ext = array();
 
 	foreach ($themefiles as $file) {
 		if (isTextFile($file)) {
@@ -44,7 +44,7 @@ if (themeIsEditable($theme)) {
 	}
 	if (isset($_GET['file'])) {
 		if (!in_array($themedir . '/' . $_GET['file'], $themefiles)) {
-			$messages['errorbox'] = gettext('Cannot edit this file!');
+			$messages['errorbox'][] = gettext('Cannot edit this file!');
 		}
 		$file_to_edit = str_replace('\\', '/', SERVERPATH . '/themes/' . internalToFilesystem($theme) . '/' . sanitize($_GET['file']));
 	}
@@ -60,12 +60,12 @@ if (themeIsEditable($theme)) {
 				@fwrite($f, $file_content);
 				fclose($f);
 				clearstatcache();
-				$messages['messagebox fade-message'] = array(gettext('File updated successfully'), 'notebox');
+				$messages['messagebox fade-message'][] = gettext('File updated successfully');
 			} else {
-				$messages['messagebox fade-message'] = array(gettext('Could not write file. Please check its write permissions'), 'notebox');
+				$messages['messagebox fade-message'][] = gettext('Could not write file. Please check its write permissions');
 			}
 		} else {
-			$messages['errorbox'] = gettext('Could not write file. Please check its write permissions');
+			$messages['errorbox'][] = gettext('Could not write file. Please check its write permissions');
 		}
 	}
 
@@ -76,7 +76,8 @@ if (themeIsEditable($theme)) {
 		$what = 'edit»' . basename($file_to_edit);
 	}
 } else {
-	$messages['errorbox'] = gettext('Cannot edit this theme!');
+	$messages['errorbox'][] = gettext('Cannot edit this theme!');
+	$themefiles_to_ext = array();
 }
 printAdminHeader('themes', $what);
 echo "\n</head>";
@@ -107,34 +108,38 @@ if (!empty($messages)) {
 </p>
 <br class="clearall" />
 <div id="theme-editor">
-
-	<div id="files">
-		<?php
-		foreach ($themefiles_to_ext as $ext => $files) {
-			echo '<h2 class="h2_bordered">';
-			switch ($ext) {
-				case 'php':
-					echo gettext('Theme template files (.php)');
-					break;
-				case 'js':
-					echo gettext('JavaScript files (.js)');
-					break;
-				case 'css':
-					echo gettext('Style sheets (.css)');
-					break;
-				default:
-					echo gettext('Other text files');
-			}
-			echo '</h2><ul>';
-			foreach ($files as $file) {
-				$file = str_replace($themedir . '/', '', $file);
-				echo "<li><a title='" . gettext('Edit this file') . "' href='?theme=$theme&file=$file'>$file</a></li>";
-			}
-			echo '</ul>';
-		}
+	<?php
+	if (!empty($themefiles_to_ext)) {
 		?>
-	</div>
-
+		<div id="files">
+			<?php
+			foreach ($themefiles_to_ext as $ext => $files) {
+				echo '<h2 class="h2_bordered">';
+				switch ($ext) {
+					case 'php':
+						echo gettext('Theme template files (.php)');
+						break;
+					case 'js':
+						echo gettext('JavaScript files (.js)');
+						break;
+					case 'css':
+						echo gettext('Style sheets (.css)');
+						break;
+					default:
+						echo gettext('Other text files');
+				}
+				echo '</h2><ul>';
+				foreach ($files as $file) {
+					$file = str_replace($themedir . '/', '', $file);
+					echo "<li><a title='" . gettext('Edit this file') . "' href='?theme=$theme&file=$file'>$file</a></li>";
+				}
+				echo '</ul>';
+			}
+			?>
+		</div>
+		<?php
+	}
+	?>
 
 	<?php
 	if ($file_to_edit) {
@@ -144,7 +149,6 @@ if (!empty($messages)) {
 			<?php
 			if (!isset($messages['errorbox'])) {
 				?>
-
 				<form class="dirtylistening" onReset="setClean('themeedit_form');" id="themeedit_form" method="post" action="">
 					<?php XSRFToken('edit_theme'); ?>
 					<p><textarea cols="70" rows="35" name="newcontent" id="newcontent"><?php echo $file_content ?></textarea></p>
@@ -163,7 +167,7 @@ if (!empty($messages)) {
 		</div>
 
 		<?php
-	} else {
+	} else if (!empty($themefiles_to_ext)) {
 		?>
 		<div id="editor">
 			<p><?php echo gettext('Select a file to edit from the list on your right hand. Keep in mind that you can <strong>break everything</strong> if you are not careful when updating files.'); ?></p>
