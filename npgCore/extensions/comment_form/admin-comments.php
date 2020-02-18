@@ -131,7 +131,7 @@ printLogoAndLinks();
 							<?php XSRFToken('savecomment'); ?>
 							<input	type="hidden" name="id" value="<?php echo $id; ?>" />
 
-							<p>" style="margin-top: 10px">
+							<p>
 								<?php
 								applyButton();
 								npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php'), 'buttonTitle' => gettext("Cancel")));
