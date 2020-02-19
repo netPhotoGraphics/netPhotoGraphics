@@ -582,7 +582,7 @@ echo $refresh;
 							}
 							if (function_exists('password_hash')) {
 								if (9 == $strongHash = getOption('strong_hash')) {
-									$strongHash = 3 + PASSWORD_DEFAULT;
+									$strongHash = 3 + PASSWORD_FUNCTION_DEFAULT;
 								}
 							} else {
 								$strongHash = 4;

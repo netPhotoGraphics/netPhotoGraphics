@@ -26,6 +26,16 @@ class _Authority {
 	 * @return lib_auth_options
 	 */
 	function __construct() {
+
+		if (function_exists('password_hash')) {
+			if (is_int(PASSWORD_DEFAULT)) {
+				define('PASSWORD_FUNCTION_DEFAULT', PASSWORD_DEFAULT);
+			} else { //	convert back to pre PHP 7.4 integers
+				$conversions = array('2y' => 1, 'argon2i' => 2, 'argon2id' => 3);
+				define('PASSWORD_FUNCTION_DEFAULT', $conversions[PASSWORD_DEFAULT]);
+				unset($conversions);
+			}
+		}
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('password_strength ', 10);
 			setOptionDefault('min_password_lenght ', 6);
@@ -89,7 +99,7 @@ class _Authority {
 			unset($encodings['pbkdf2*']); // don't use this one any more
 		}
 		if (function_exists('password_hash')) {
-			$default = 3 + PASSWORD_DEFAULT;
+			$default = 3 + PASSWORD_FUNCTION_DEFAULT;
 		} else {
 			$default = 3;
 		}
@@ -265,7 +275,7 @@ class _Authority {
 		}
 		if ($hash_type == 9) { //	default
 			if (function_exists('password_hash')) {
-				$hash_type = 3 + PASSWORD_DEFAULT;
+				$hash_type = 3 + PASSWORD_FUNCTION_DEFAULT;
 			} else {
 				$hash_type = 3;
 			}
@@ -430,7 +440,7 @@ class _Authority {
 				if (($strong_hash = getOption('strong_hash')) == 9) { //	default
 					$strong_hash = 3;
 					if (function_exists('password_hash')) {
-						$strong_hash = $strong_hash + PASSWORD_DEFAULT;
+						$strong_hash = $strong_hash + PASSWORD_FUNCTION_DEFAULT;
 					}
 				}
 				if ($userdata['passhash'] >= $strong_hash) {
@@ -1525,7 +1535,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
