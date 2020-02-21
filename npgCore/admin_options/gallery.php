@@ -178,9 +178,12 @@ function getOptionContent() {
 						<td class="option_value">
 							<?php
 							$x = $_gallery->getPassword();
+							$info = password_get_info($x);
 							if (empty($x)) {
 								?>
-								<?php echo LOCK_OPEN; ?>
+								<a onclick="toggle_passwords('', true);" >
+									<?php echo LOCK_OPEN; ?>
+								</a>
 								<?php
 							} else {
 								$x = '          ';
@@ -189,6 +192,11 @@ function getOptionContent() {
 									<?php echo LOCK; ?>
 								</a>
 								<?php
+								if (!$info['algo']) {
+									?>
+									<a title="<?php echo gettext('Password is encrypted with a deprecated password hashing algorithm.'); ?>"><?php echo WARNING_SIGN_ORANGE; ?>											</a>
+									<?php
+								}
 							}
 							?>
 						</td>

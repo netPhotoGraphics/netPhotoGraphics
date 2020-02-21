@@ -260,7 +260,6 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);
-setOptionDefault('strong_hash', 9);
 
 $old = @unserialize(getOption('netphotographics_install'));
 $from = preg_replace('/\[.*\]/', '', @$old['NETPHOTOGRAPHICS']);
@@ -838,8 +837,6 @@ setOptionDefault('search_article_sort_direction', '');
 setOptionDefault('search_page_sort_type', 'title');
 setOptionDefault('search_page_sort_direction', '');
 
-
-query('UPDATE ' . prefix('administrators') . ' SET `passhash`=' . ((int) getOption('strong_hash')) . ' WHERE `valid`>=1 AND `passhash` IS NULL');
 query('UPDATE ' . prefix('administrators') . ' SET `passupdate`=' . db_quote(date('Y-m-d H:i:s')) . ' WHERE `valid`>=1 AND `passupdate` IS NULL');
 setOptionDefault('image_processor_flooding_protection', 1);
 setOptionDefault('codeblock_first_tab', 1);

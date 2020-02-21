@@ -278,8 +278,6 @@ if (!$_current_admin_obj && $_current_admin_obj->getID()) {
 	exit();
 }
 
-$hashes = array_flip(npg_Authority::getHashAlgorithms(TRUE));
-
 printAdminHeader($_current_tab);
 echo $refresh;
 ?>
@@ -580,22 +578,15 @@ echo $refresh;
 							if (!empty($newuser)) {
 								$userlist[-1] = $newuser;
 							}
-							if (function_exists('password_hash')) {
-								if (9 == $strongHash = getOption('strong_hash')) {
-									$strongHash = 3 + PASSWORD_FUNCTION_DEFAULT;
-								}
-							} else {
-								$strongHash = 4;
-							}
-							$defaultHash = array_search($strongHash, npg_Authority::$hashList);
+
+							$defaultHash = array_search(STRONG_PASSWORD_HASH, npg_Authority::$hashList);
 
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
 								$local_alterrights = $alterrights;
 								$userid = $user['user'];
-								if (!isset($user['passhash']) || ($oldHash = $user['passhash']) >= $strongHash) {
-									$oldHash = false;
-								}
+
+
 								$current = in_array($userid, $showset);
 								if ($userid == $_current_admin_obj->getuser()) {
 									$userobj = $_current_admin_obj;
@@ -605,6 +596,9 @@ echo $refresh;
 										continue;
 									}
 								}
+
+								list($oldHashWeight, $oldHashName) = npg_Authority::getHashAlgorithm($user);
+
 								if (empty($userid)) {
 									$userobj->setGroup($user['group']);
 									$userobj->setRights($user['rights']);
@@ -646,8 +640,7 @@ echo $refresh;
 									<td colspan="100%" style="margin: 0pt; padding: 0pt;<?php echo $background; ?>">
 										<table class="unbordered" id='user-<?php echo $id; ?>'>
 											<tr>
-
-												<td style="margin-top: 0px; width: 48en;<?php echo $background; ?>" valign="top">
+												<td style="margin-top: 0px; width: 48en;line-height: 2em;<?php echo $background; ?>" valign="top">
 													<?php
 													if (empty($userid)) {
 														$displaytitle = gettext("Show details");
@@ -700,8 +693,13 @@ echo $refresh;
 															<input type = "hidden" name="user[<?php echo $id ?>][confirmed]"	value="<?php echo NO_RIGHTS; ?>" />
 															<?php
 														}
-														if ($oldHash !== false) {
-															echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), array_search($oldHash, npg_Authority::$hashList), $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
+														if ($oldHashWeight < STRONG_PASSWORD_HASH) {
+															if ($oldHashName !== $hashName = strip_tags($oldHashName)) {
+
+																echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the deprecated %1$s password hashing algorithm.'), $hashName) . '">' . WARNING_SIGN_ORANGE . '</span>';
+															} else {
+																echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the %1$s password hashing algorithm which is less secure than %2$s.'), $oldHashName, $defaultHash) . '">' . WARNING_SIGN_ORANGE . '</span>';
+															}
 														}
 														?>
 													</td>
@@ -806,12 +804,14 @@ echo $refresh;
 															} else {
 																$password_disable = '';
 															}
-															if (!is_null($hash = $userobj->get('passhash'))) {
-																$hash = '<small> (' . $hashes[$hash] . ')</small>';
-															} else {
-																$hash = '';
+
+
+
+															if ($oldHashName) {
+																$oldHashName = '<small> (' . $oldHashName . ')</small>';
 															}
-															npg_Authority::printPasswordForm($id, $pad, $password_disable, $clearPass, $hash);
+
+															npg_Authority::printPasswordForm($id, $pad, $password_disable, $clearPass, $oldHashName);
 															?>
 														</p>
 														<?php

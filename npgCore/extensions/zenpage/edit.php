@@ -578,6 +578,7 @@ $tagsort = 'alpha';
 																</a>
 																<?php
 															} else {
+																$info = password_get_info($x);
 																$x = '          ';
 																?>
 																<a onclick="resetPass('');" title="<?php echo gettext('clear password'); ?>">
@@ -585,6 +586,11 @@ $tagsort = 'alpha';
 																	<?php echo LOCK; ?>
 																</a>
 																<?php
+																if (!$info['algo']) {
+																	?>
+																	<a title="<?php echo gettext('Password is encrypted with a deprecated password hashing algorithm.'); ?>"><?php echo WARNING_SIGN_ORANGE; ?>											</a>
+																	<?php
+																}
 															}
 															?>
 														</p>
