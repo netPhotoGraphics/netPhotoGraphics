@@ -1840,7 +1840,8 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 	} else {
 		$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 	}
-// Handle the login form.
+
+	// Handle the login form.
 	if (DEBUG_LOGIN) {
 		debugLogVar(["handle_password:" => $auth]);
 	}
@@ -1853,25 +1854,33 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 		}
 		$post_pass = sanitize($_POST['pass'], 0);
 		if (!empty($auth) && !empty($post_pass)) {
-			$alternates = array();
-			foreach (npg_Authority::$hashList as $hash => $hi) {
-				if ($h = npg_Authority::passwordHash($post_user, $post_pass, $hi, false)) {
-					array_push($alternates, $h);
-				}
-			}
+
 			foreach ($auth as $try) {
 				$authType = $try['authType'];
 				$check_auth = $try['check_auth'];
 				$check_user = $try['check_user'];
-				foreach ($alternates as $auth) {
-					if ($post_user == $check_user) {
-						if (strpos($auth, '$') === 0) {
-							$success = password_verify($post_pass, $auth);
-						} else {
-							$success = ($auth == $check_auth);
+				$info = password_get_info($check_auth);
+				if ($info['algo']) {
+					$success = password_verify($post_pass, $check_auth);
+					$authCookie = $check_auth;
+					if (DEBUG_LOGIN)
+						debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+					break;
+				}
+
+				if (!isset($alternates)) {
+					$alternates = array();
+					for ($hi = 0; $hi <= 3; $hi++) {
+						if ($h = npg_Authority::passwordHash($post_user, $post_pass, $hi, false)) {
+							array_push($alternates, $h);
 						}
+					}
+				}
+				foreach ($alternates as $authCookie) {
+					if ($post_user == $check_user) {
+						$success = ($authCookie == $check_auth);
 						if (DEBUG_LOGIN)
-							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$auth; \$hash=$hash;");
+							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
 						if ($success) {
 							break 2;
 						}
@@ -1885,7 +1894,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 				// Correct auth info. Set the cookie.
 				if (DEBUG_LOGIN)
 					debugLog("handle_password: valid credentials");
-				setNPGCookie($authType, $auth);
+				setNPGCookie($authType, $authCookie);
 				if (isset($_POST['redirect'])) {
 					$redirect_to = sanitizeRedirect($_POST['redirect']);
 					if (!empty($redirect_to)) {
@@ -1906,15 +1915,17 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 	if (empty($check_auth)) { //no password on record or admin logged in
 		return true;
 	}
+
 	foreach ($auth as $try) {
 		$authType = $try['authType'];
-		if (($saved_auth = getNPGCookie($authType)) != '') {
+		$saved_auth = getNPGCookie($authType);
+		if ($saved_auth != '') {
 			if ($saved_auth == $check_auth) {
 				if (DEBUG_LOGIN)
 					debugLog("handle_password: valid cookie");
 				return true;
 			} else {
-// Clear the cookie
+				// Clear the cookie
 				if (DEBUG_LOGIN)
 					debugLog("handle_password: invalid cookie");
 				clearNPGCookie($authType);

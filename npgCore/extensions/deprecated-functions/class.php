@@ -93,6 +93,23 @@ class deprecated_functions {
 			$_mutex->unlock();
 	}
 
+	/**
+	 * log a message to the deprecated log
+	 *
+	 * @param string $output
+	 */
+	static function deprecationMessage($output) {
+		if (file_exists(DEPRECATED_LOG)) {
+			$content = file_get_contents(DEPRECATED_LOG);
+			$log = !preg_match('~' . preg_quote($output) . '~', $content);
+		} else {
+			$log = true;
+		}
+		if ($log) {
+			self::log($output);
+		}
+	}
+
 	/*
 	 * used to provided deprecated function notification.
 	 *

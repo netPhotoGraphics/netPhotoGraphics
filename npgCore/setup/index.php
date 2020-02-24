@@ -8,9 +8,9 @@
  */
 // force UTF-8 Ø
 
-Define('PHP_MIN_VERSION', '5.3');
+Define('PHP_MIN_VERSION', '5.5');
 Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
-Define('PHP_DESIRED_VERSION', '7.2');
+Define('PHP_DESIRED_VERSION', '7.3');
 define('OFFSET_PATH', 2);
 
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {

@@ -18,7 +18,8 @@ class _Authority {
 	protected $master_userObj = NULL;
 	static $preferred_version = 4;
 	static $supports_version = 4;
-	static $hashList = array('md5' => 0, 'sha1' => 1, 'pbkdf2*' => 2, 'pbkdf2' => 3, 'Bcrypt' => 4, 'Argon2i' => 5, 'Argon2id' => 6 /* default => 9 */);
+	//NOTE: if you add to $hashList you must add the alfrithm handling to the passwordHash() function
+	static $hashList = array('md5' => 0, 'sha1' => 1, 'pbkdf2*' => 2, 'pbkdf2' => 3, 'Bcrypt' => 4, 'Argon2i' => 5, 'Argon2id' => 6);
 
 	/**
 	 * class instantiation function
@@ -28,21 +29,42 @@ class _Authority {
 	function __construct() {
 
 		if (function_exists('password_hash')) {
-			if (is_int(PASSWORD_DEFAULT)) {
-				define('PASSWORD_FUNCTION_DEFAULT', PASSWORD_DEFAULT);
-			} else { //	convert back to pre PHP 7.4 integers
-				$conversions = array('2y' => 1, 'argon2i' => 2, 'argon2id' => 3);
-				define('PASSWORD_FUNCTION_DEFAULT', $conversions[PASSWORD_DEFAULT]);
-				unset($conversions);
+			if (OFFSET_PATH == 2) {
+				if (!in_array((int) getOption('strong_hash'), self::$hashList)) {
+					purgeOption('strong_hash');
+				}
+				setOptionDefault('strong_hash', 1000);
+				setOptionDefault('password_strength ', 10);
+				setOptionDefault('min_password_lenght ', 6);
+				setOptionDefault('user_album_edit_default ', 1);
+				setOptionDefault('challenge_foil_enabled ', 1);
+				setOptionDefault('libauth_version ', self::$preferred_version);
 			}
+
+			if (is_int(PASSWORD_DEFAULT)) {
+				define('PASSWORD_FUNCTION_DEFAULT', PASSWORD_DEFAULT + 3);
+			} else {
+				if (PASSWORD_DEFAULT == '2y') {
+					define('PASSWORD_FUNCTION_DEFAULT', self::$hashList['Bcrypt']);
+				} else {
+					if (isset(self::$hashList[ucfirst(PASSWORD_DEFAULT)])) {
+						define('PASSWORD_FUNCTION_DEFAULT', self::$hashList[ucfirst(PASSWORD_DEFAULT)]);
+					} else {
+						//	we need to add a new hash algorithm to the list!
+						define('PASSWORD_FUNCTION_DEFAULT', end(self::$hashList));
+					}
+				}
+			}
+		} else {
+			define('PASSWORD_FUNCTION_DEFAULT', 3);
 		}
-		if (OFFSET_PATH == 2) {
-			setOptionDefault('password_strength ', 10);
-			setOptionDefault('min_password_lenght ', 6);
-			setOptionDefault('user_album_edit_default ', 1);
-			setOptionDefault('challenge_foil_enabled ', 1);
-			setOptionDefault('libauth_version ', self::$preferred_version);
+
+		$strongHash = getOption('strong_hash');
+		if (!in_array($strongHash, self::$hashList)) {
+			$strongHash = PASSWORD_FUNCTION_DEFAULT;
 		}
+		Define('STRONG_PASSWORD_HASH', $strongHash);
+
 		$this->admin_all = $this->admin_groups = $this->admin_users = $this->admin_other = array();
 
 		$sql = 'SELECT * FROM ' . prefix('administrators') . ' ORDER BY `rights` DESC, `id`';
@@ -93,46 +115,34 @@ class _Authority {
 	 * @param bool $full_list set to true to include all algorithms
 	 * @return array
 	 */
-	static function getHashAlgorithms($fullList = false) {
-		$encodings = self::$hashList;
-		if (!$fullList) {
-			unset($encodings['pbkdf2*']); // don't use this one any more
+	protected static function getHashList($fullList = false) {
+		$full = $encodings = array_reverse(self::$hashList);
+
+		//	deprecate encodings
+		unset($encodings['pbkdf2*']);
+		if (!defined('PASSWORD_ARGON2ID')) {
+			unset($encodings['Argon2id']);
 		}
-		if (function_exists('password_hash')) {
-			$default = 3 + PASSWORD_FUNCTION_DEFAULT;
-		} else {
-			$default = 3;
+		if (!defined('PASSWORD_ARGON2I')) {
+			unset($encodings['Argon2i']);
 		}
-		$encodings = array_reverse(array_merge(array_slice($encodings, 0, $default, true), array(gettext('default') . ' (' . array_search($default, $encodings) . ')' => 9), array_slice($encodings, $default, NULL, true)));
-
-		$full = $encodings;
-
-		if (function_exists('password_hash')) {
-			$exists = $encodings['Argon2id'];
-			//	deprecate these encodings
-			if (!defined('PASSWORD_ARGON2ID')) {
-				unset($encodings['Argon2id']);
-				$exists--;
-			}
-			if (!defined('PASSWORD_ARGON2I')) {
-				unset($encodings['Argon2i']);
-				$exists--;
-			}
-
+		if (defined('PASSWORD_BCRYPT')) {
 			unset($encodings['pbkdf2']);
 			unset($encodings['sha1']);
 			unset($encodings['md5']);
+		} else {
+			unset($encodings['Bcrypt']);
 		}
 		if ($fullList) {
 			$full = array_flip($full);
-			$full[2] = '<del>' . $full[2] . '</del>';
 			foreach ($full as $key => $name) {
-				if ($key > $exists && $key != 9) {
+				if (!isset($encodings[$name])) {
 					$full[$key] = '<del>' . $full[$key] . '</del>';
 				}
 			}
 			return array_flip($full);
 		} else {
+
 			return $encodings;
 		}
 	}
@@ -143,8 +153,11 @@ class _Authority {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		$encodings = self::getHashAlgorithms();
-
+		$display = $encodings = self::getHashList();
+		$encodings = array_merge(array(gettext('Default') => 1000), $encodings);
+		$display = array_flip($display);
+		$display[PASSWORD_FUNCTION_DEFAULT] .= '&dagger;';
+		$display = array_flip($display);
 		$options = array(
 				gettext('Secure logout') => array('key' => 'SecureLogout', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
@@ -160,7 +173,7 @@ class _Authority {
 				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
 						'order' => 3,
 						'selections' => $encodings,
-						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($encodings)) . '</code>') . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
+						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($display)) . '</code>') . '<br />&dagger; The current default algorithm.' . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 5,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
@@ -170,14 +183,22 @@ class _Authority {
 					'order' => 6,
 					'desc' => gettext('These <em>foil</em> challenge phrases will be presented randomly. This list should not be empty, otherwise hackers can discover valid user IDs and know that there is an answer to any presented challenge phrase.'));
 		}
-		if (getOption('strong_hash') < (3 + (int) function_exists('password_hash'))) {
 
+		if (!in_array($hash = getOption('strong_hash'), $encodings)) {
 			$options[NULL] = array('key' => 'lib_auth_note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 4,
 					'desc' => '<span class="warningbox">' . gettext('You should use a more robust hashing algorithm.') . '</span>'
 			);
+			$list = array_flip(self::getHashList(true));
+			$options[gettext('Password hash algorithm')]['selections'][$list[$hash]] = $hash;
 		}
 		return $options;
+	}
+
+	static function flagOptionTab() {
+		$encodings = self::getHashList();
+		$encodings = array_merge(array(gettext('Default') => 1000), $encodings);
+		return !in_array($hash = getOption('strong_hash'), $encodings);
 	}
 
 	/**
@@ -271,15 +292,11 @@ class _Authority {
 	 */
 	static function passwordHash($user, $pass, $hash_type = NULL, $debug = true) {
 		if (is_null($hash_type)) {
-			$hash_type = getOption('strong_hash');
+			$hash_type = STRONG_PASSWORD_HASH;
 		}
-		if ($hash_type == 9) { //	default
-			if (function_exists('password_hash')) {
-				$hash_type = 3 + PASSWORD_FUNCTION_DEFAULT;
-			} else {
-				$hash_type = 3;
-			}
-		};
+		if (!array_search($hash_type, self::$hashList)) { //	default
+			$hash_type = PASSWORD_FUNCTION_DEFAULT;
+		}
 		$hash = NULL;
 		switch ($hash_type) {
 			case 0:
@@ -394,6 +411,34 @@ class _Authority {
 	}
 
 	/**
+	 * Returns the index of the hash algorithm used.
+	 *
+	 * @param array $userdata
+	 * @return list ($index,name)
+	 */
+	static function getHashAlgorithm($userdata) {
+		$info = password_get_info($userdata['pass']);
+		if ($info['algo']) {
+			$name = ucfirst($info['algoName']);
+			$index = self::$hashList[$name];
+		} else {
+			if (isset($userdata['passhash'])) {
+				$index = $userdata['passhash'];
+				if (!array_search($index, self::$hashList)) { //	default
+					$index = PASSWORD_FUNCTION_DEFAULT;
+				}
+				$name = array_search($index, self::$hashList);
+				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+				deprecated_functions::deprecationMessage(sprintf(gettext('The password for user %1$s is using the deprecated %2$s hashing method.'), $userdata['user'], $name));
+			} else {
+				$index = false;
+				$name = '';
+			}
+		}
+		return array($index, $name);
+	}
+
+	/**
 	 * Retuns the administration rights of a saved authorization code
 	 * Will promote an admin to ADMIN_RIGHTS if he is the most privileged admin
 	 *
@@ -435,22 +480,14 @@ class _Authority {
 		$user = $this->getAnAdmin($criteria);
 		if (is_object($user)) {
 			//	force new logon to update password hash if his algorithm is deprecated
-			$userdata = $user->getData();
-			if (isset($userdata['passhash'])) {
-				if (($strong_hash = getOption('strong_hash')) == 9) { //	default
-					$strong_hash = 3;
-					if (function_exists('password_hash')) {
-						$strong_hash = $strong_hash + PASSWORD_FUNCTION_DEFAULT;
-					}
+			list($strength, $name) = self::getHashAlgorithm($user->getData());
+			if ($strength >= STRONG_PASSWORD_HASH) {
+				$_current_admin_obj = $user;
+				$rights = $user->getRights();
+				if (DEBUG_LOGIN) {
+					debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
 				}
-				if ($userdata['passhash'] >= $strong_hash) {
-					$_current_admin_obj = $user;
-					$rights = $user->getRights();
-					if (DEBUG_LOGIN) {
-						debugLog(sprintf('checkAuthorization: from %1$s->%2$X', $authCode, $rights));
-					}
-					return $rights;
-				}
+				return $rights;
 			}
 		}
 		$_current_admin_obj = NULL;
@@ -472,15 +509,25 @@ class _Authority {
 	function checkLogon($user, $pass) {
 		$userobj = $this->getAnAdmin(array('`user`=' => $user, '`valid`=' => 1));
 		if ($userobj) {
-			$hash = $userobj->getPass();
-			$type = $userobj->get('passhash');
-			if (!(function_exists('password_verify') && password_verify($pass, $hash))) {
-				$hash = self::passwordHash($user, $pass, $type);
-				if ($hash != $userobj->getPass()) {
-					$userobj = NULL;
-				}
+			list($type, $algo) = self::getHashAlgorithm($userobj->getData());
+			switch ($type) {
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+					$hash = self::passwordHash($user, $pass, $type);
+					if ($hash != $userobj->getPass()) {
+						$userobj = NULL;
+					}
+					break;
+				default:
+					$hash = $userobj->getPass();
+					if (!password_verify($pass, $hash)) {
+						$userobj = NULL;
+					}
+					break;
 			}
-			if ($userobj && $type < getOption('strong_hash')) {
+			if ($userobj && $type < STRONG_PASSWORD_HASH) {
 				//	update his password hash to more modern one
 				$userobj->setPass($pass);
 				$userobj->save();
@@ -816,7 +863,6 @@ class _Authority {
 			$post_user = sanitize(@$_POST['user'], 0);
 			$post_pass = sanitize(@$_POST['pass'], 0);
 			$_loggedin = false;
-
 			switch (@$_POST['password']) {
 				default:
 					if (isset($_POST['user'])) { //	otherwise must be a guest logon, don't even try admin path
@@ -1361,12 +1407,6 @@ class _Authority {
 		<?php
 	}
 
-	static function loginButton() {
-		if (!npg_loggedin()) {
-			npgButton('button', '<img src="' . FULLWEBPATH . '/' . CORE_FOLDER . '/images/login_button.png" alt="login">', array('buttonLink' => getAdminLink('coreLogin.php') . '?request=core&amp;redirect=/dev/index.php?userlog=1'));
-		}
-	}
-
 	/**
 	 *
 	 * Javascript for password change input handling
@@ -1535,7 +1575,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1608,7 +1648,6 @@ class _Administrator extends PersistentObject {
 	var $msg = NULL; //	a means of storing error messages from filter processing
 	var $logout_link = true; // for a logout
 	var $reset = false; // if true the user was setup by a "reset password" event
-	var $passhash; // the hash algorithm used in creating the password
 
 	/**
 	 * Constructor for an Administrator
@@ -1620,7 +1659,6 @@ class _Administrator extends PersistentObject {
 
 	function __construct($user, $valid, $create = true) {
 		global $_authority;
-		$this->passhash = (int) getOption('strong_hash');
 		$this->instantiate('administrators', array('user' => $user, 'valid' => $valid), NULL, false, empty($user), $create);
 		if (empty($user)) {
 			$this->set('id', -1);
@@ -1700,11 +1738,9 @@ class _Administrator extends PersistentObject {
 	 * @param $pwd
 	 */
 	function setPass($pwd) {
-		$hash_type = getOption('strong_hash');
-		$pwd = npg_Authority::passwordHash($this->getUser(), $pwd, $hash_type);
+		$pwd = npg_Authority::passwordHash($this->getUser(), $pwd, STRONG_PASSWORD_HASH);
 		$this->set('pass', $pwd);
 		$this->set('passupdate', date('Y-m-d H:i:s'));
-		$this->set('passhash', $hash_type);
 		return $pwd;
 	}
 

@@ -56,8 +56,6 @@ if (empty($reports)) {
 	}
 } else {
 	$_SESSION['reports'] = $reports;
-
-	var_dump($reports);
 	$uri = getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php');
 	header('Location: ' . $uri);
 	exit();
