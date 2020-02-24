@@ -211,6 +211,11 @@ if (@$_loggedin) {
 			$subtabs[gettext("gallery")] = 'admin-tabs/options.php?page=options&tab=gallery';
 			if ($_loggedin & ADMIN_RIGHTS) {
 				$subtabs[gettext("security")] = 'admin-tabs/options.php?page=options&tab=security';
+				if (npg_Authority::flagOptionTab()) {
+					$new = array(gettext("security"));
+				} else {
+					$new = array();
+				}
 			}
 			$subtabs[gettext("image")] = 'admin-tabs/options.php?page=options&tab=image';
 			$subtabs[gettext("search")] = 'admin-tabs/options.php?page=options&tab=search';
@@ -227,6 +232,7 @@ if (@$_loggedin) {
 			$_admin_menu['options'] = array('text' => gettext("options"),
 					'link' => getAdminLink('admin-tabs/options.php') . '?page=options' . $optiondefault,
 					'subtabs' => $subtabs,
+					'alert' => $new,
 					'ordered' => true,
 					'default' => 'gallery');
 		}

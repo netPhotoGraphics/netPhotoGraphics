@@ -195,6 +195,12 @@ class _Authority {
 		return $options;
 	}
 
+	static function flagOptionTab() {
+		$encodings = self::getHashList();
+		$encodings = array_merge(array(gettext('Default') => 1000), $encodings);
+		return !in_array($hash = getOption('strong_hash'), $encodings);
+	}
+
 	/**
 	 * Dummy for object inheritance purposes
 	 */
@@ -857,7 +863,6 @@ class _Authority {
 			$post_user = sanitize(@$_POST['user'], 0);
 			$post_pass = sanitize(@$_POST['pass'], 0);
 			$_loggedin = false;
-
 			switch (@$_POST['password']) {
 				default:
 					if (isset($_POST['user'])) { //	otherwise must be a guest logon, don't even try admin path
@@ -1570,7 +1575,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
