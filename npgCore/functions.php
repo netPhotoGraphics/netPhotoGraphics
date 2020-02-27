@@ -2307,8 +2307,9 @@ function XSRFToken($action, $modifier = NULL) {
  * Checks if protocol not https and redirects if https required
  */
 function httpsRedirect() {
-	if (getNPGCookie('ssl_state')) {
-		// force https login
+	global $_conf_vars;
+	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
+		// force https 
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
