@@ -1,5 +1,7 @@
 <?php
 
+//	based on elFinder connector.minimal.php-dist
+
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/admin-globals.php');
 XSRFdefender('elFinder');
 

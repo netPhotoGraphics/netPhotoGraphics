@@ -7294,6 +7294,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/js/i18n/elfinder.fallback.js
 %extensions%/elFinder/js/i18n/elfinder.fo.js
 %extensions%/elFinder/js/i18n/elfinder.fr.js
+%extensions%/elFinder/js/i18n/elfinder.fr_CA.js
 %extensions%/elFinder/js/i18n/elfinder.he.js
 %extensions%/elFinder/js/i18n/elfinder.hr.js
 %extensions%/elFinder/js/i18n/elfinder.hu.js
@@ -7321,6 +7322,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/js/i18n/elfinder.zh_TW.js
 %extensions%/elFinder/js/i18n/help
 %extensions%/elFinder/js/i18n/help/cs.html.js
+%extensions%/elFinder/js/i18n/help/de.html.js
 %extensions%/elFinder/js/i18n/help/en.html.js
 %extensions%/elFinder/js/i18n/help/es.html.js
 %extensions%/elFinder/js/i18n/help/ja.html.js
@@ -7332,7 +7334,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/js/proxy/elFinderSupportVer1.js
 %extensions%/elFinder/php
 %extensions%/elFinder/php/autoload.php
-%extensions%/elFinder/php/connector.minimal.php
 %extensions%/elFinder/php/connector_npg.php
 %extensions%/elFinder/php/elFinder.class.php
 %extensions%/elFinder/php/elFinderConnector.class.php
@@ -8236,4 +8237,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8238
+8239
