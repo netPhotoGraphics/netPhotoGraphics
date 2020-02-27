@@ -814,7 +814,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 		} else { // not an object in the current search path
 			$_current_search = null;
 			rem_context(NPG_SEARCH);
-			if (!isset($_REQUEST['preserve_serch_params'])) {
+			if (!isset($_REQUEST['preserve_search_params'])) {
 				clearNPGCookie("search_params");
 			}
 		}
@@ -2309,7 +2309,7 @@ function XSRFToken($action, $modifier = NULL) {
 function httpsRedirect() {
 	global $_conf_vars;
 	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
-		// force https 
+		// force https
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
