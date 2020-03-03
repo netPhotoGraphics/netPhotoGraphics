@@ -54,10 +54,10 @@ function getTitle($table, $row) {
 	switch ($table) {
 		case 'images':
 			$album = query_single_row('SELECT `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $row[albumid]);
-			$title = sprintf(gettext('%1$s: image %2$s'), $album['folder'], $row[$filename]);
+			$title = sprintf(gettext('%1$s: image %2$s'), $album['folder'], $row['filename']);
 			break;
 		case 'albums':
-			$title = sprintf(gettext('album %s'), $row[$folder]);
+			$title = sprintf(gettext('album %s'), $row['folder']);
 			break;
 		case 'news':
 		case 'pages':
@@ -65,6 +65,43 @@ function getTitle($table, $row) {
 			break;
 	}
 	return $title;
+}
+
+function getSpecialImageImageProcessorURI($i, $uri) {
+	global $_gallery;
+	$folders = explode('/', $i);
+	$folders = explode('_', end($folders));
+	$base = array_shift($folders);
+	switch ($base) {
+		case USER_PLUGIN_PATH:
+			$uri .= '&z=' . USER_PLUGIN_FOLDER . '/' . implode('/', $folders);
+			break;
+		case THEMEFOLDER:
+			$theme = array_shift($folders);
+			if (!is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
+				array_unshift($folders, $theme);
+				$theme = $_gallery->getCurrentTheme();
+			}
+			$uri .= '&z=' . THEMEFOLDER . '/' . $theme . '/' . implode('/', $folders);
+			break;
+		case CORE_PATH:
+			switch ($folders[0]) {
+				case PLUGIN_PATH;
+					$folders[0] = PLUGIN_FOLDER;
+					break;
+				case 'images':
+					break;
+				default:
+					array_unshift($folders, PLUGIN_FOLDER);
+					break;
+			}
+			$uri .= '&z=' . CORE_FOLDER . '/' . implode('/', $folders);
+			break;
+		default:
+			$uri = NULL;
+			break;
+	}
+	return $uri;
 }
 
 function recordMissing($table, $row, $image) {

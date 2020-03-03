@@ -748,7 +748,7 @@ function encodeNPGCookie($value) {
  * 									set to FALSE to expire at end of session
  * @param bool $security set to false to make the cookie send for any kind of connection
  */
-function setNPGCookie($name, $value, $time = NULL, $security = true) {
+function setNPGCookie($name, $value, $time = NULL, $security = TRUE) {
 	$secure = $security && secureServer();
 	if (empty($value)) {
 		$cookiev = '';
@@ -1194,7 +1194,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  */
 function getImageCacheFilename($album8, $image8, $args) {
 	global $_supported_images, $_cachefileSuffix;
-// this function works in FILESYSTEM_CHARSET, so convert the file names
+	// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1209,9 +1209,9 @@ function getImageCacheFilename($album8, $image8, $args) {
 			$suffix = 'jpg';
 		}
 	}
-
 	// Set default variable values.
 	$postfix = getImageCachePostfix($args);
+
 	if (empty($album)) {
 		$albumsep = '';
 	} else {
