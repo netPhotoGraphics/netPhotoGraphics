@@ -283,16 +283,16 @@ class sitemap {
 				$date = $obj->getDatetime();
 				break;
 			case 'mtime':
-				$date = $obj->get('mtime');
+				$date = date(DATE_ISO8601, $obj->get('mtime'));
 				if ($date == 0) {
 					$date = $obj->getDatetime();
 				}
 				break;
 			case 'lastchange':
-				$date = $obj->getLastChangeDate();
+				$date = $obj->getLastChange();
 				break;
 		}
-		return date(DATE_ISO8601, $date);
+		return $date;
 	}
 
 	/**

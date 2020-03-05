@@ -147,3 +147,5 @@ if (function_exists('showOrNotShowField')) {
 	</form>
 	<?php
 }
+?>
+<br clear="all">

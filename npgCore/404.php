@@ -2,7 +2,6 @@
 // force UTF-8  Ø
 clearNPGCookie('index_page_paged');
 list($album, $image) = rewrite_get_album_image('album', 'image');
-
 if ($image) { //	maybe we can find it
 	$folders = explode('/', $album);
 	if (!empty($folders)) {
@@ -15,21 +14,23 @@ if ($image) { //	maybe we can find it
 				if ($image) {
 					$folders[] = $image;
 				}
-				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders) . '/', getWatermarks());
-				if (file_exists(getAlbumFolder() . $i)) {
-					/* Prevent hotlinking to cache from other domains. */
-					if (isset($_SERVER['HTTP_REFERER'])) {
-						preg_match('|(.*)//([^/]*)|', $_SERVER['HTTP_REFERER'], $matches);
-						if (preg_replace('/^www\./', '', strtolower($_SERVER['SERVER_NAME'])) == preg_replace('/^www\./', '', strtolower($matches[2]))) {
-							//internal request
-							$uri = getImageURI($args, dirname($i), basename($i), NULL);
-							header("HTTP/1.0 302 Found");
-							header("Status: 302 Found");
-							header('Location: ' . $uri);
-							exit();
-						}
-					}
+
+				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders), getWatermarks());
+				$split = explode('?', $i);
+				$i = array_shift($split);
+
+				$uri = getImageURI($args, dirname($i), basename($i), NULL);
+				if (!file_exists(getAlbumFolder() . $i)) {
+					//	Might be a special image
+					$uri = getSpecialImageImageProcessorURI($i, $uri);
 				}
+				if ($uri) {
+					header("HTTP/1.0 302 Found");
+					header("Status: 302 Found");
+					header('Location: ' . $uri);
+					exit();
+				}
+
 			case 'npgCore':
 			case 'zp-core':
 				//	Maybe reference to "other" core folder image

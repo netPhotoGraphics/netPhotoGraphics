@@ -6,6 +6,10 @@
 
 global $_current_context_stack, $_HTML_cache;
 
+//	insure the site is secure if that is the site's intent
+httpsRedirect();
+
+
 if (!function_exists("json_encode")) {
 // load the drop-in replacement library
 	require_once(__DIR__ . '/lib-json.php');
@@ -84,7 +88,7 @@ define('SELECT_PAGES', 4);
 define('SELECT_ARTICLES', 8);
 
 $_exifvars = npgFunctions::exifvars();
-$_locale_Subdomains = npgFunctions::LanguageSubdomains();
+$_locale_Subdomains = npgFunctions::languageSubdomains();
 
 //	use this for labeling "News" pages, etc.
 define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('CMS_news_label'))));

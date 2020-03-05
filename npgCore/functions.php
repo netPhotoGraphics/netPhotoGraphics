@@ -814,7 +814,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
 		} else { // not an object in the current search path
 			$_current_search = null;
 			rem_context(NPG_SEARCH);
-			if (!isset($_REQUEST['preserve_serch_params'])) {
+			if (!isset($_REQUEST['preserve_search_params'])) {
 				clearNPGCookie("search_params");
 			}
 		}
@@ -1495,13 +1495,22 @@ function makeSpecialImageName($image) {
 	$base = explode('/', replaceScriptPath(dirname($image)));
 	$nameBase = $sourceFolder = array_shift($base);
 	$sourceSubfolder = implode('/', $base);
+	$subFolder = array_shift($base);
 
-	if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $nameBase)) {
-		$nameBase = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, $nameBase);
-	} else {
-		$nameBase = preg_replace('~^' . PLUGIN_FOLDER . '~i', PLUGIN_PATH, $nameBase);
-		$nameBase = preg_replace('~^' . CORE_FOLDER . '~i', CORE_PATH, $nameBase);
+	switch ($nameBase) {
+		case USER_PLUGIN_FOLDER:
+			$nameBase = USER_PLUGIN_PATH;
+			break;
+		case THEMEFOLDER:
+			break;
+		case CORE_FOLDER:
+			$nameBase = CORE_PATH;
+			if ($subFolder == PLUGIN_FOLDER) {
+				$subFolder = PLUGIN_PATH;
+			}
+			break;
 	}
+	$nameBase .= '_' . $subFolder;
 
 	return array('source' => $sourceFolder . '/' . $sourceSubfolder . '/' . $filename, 'name' => $nameBase . '_' . basename($sourceSubfolder) . '_' . $filename);
 }
@@ -2307,8 +2316,9 @@ function XSRFToken($action, $modifier = NULL) {
  * Checks if protocol not https and redirects if https required
  */
 function httpsRedirect() {
-	if (getNPGCookie('ssl_state')) {
-		// force https login
+	global $_conf_vars;
+	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
+		// force https
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
@@ -2348,14 +2358,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -2859,7 +2869,7 @@ class npgFunctions {
 				$text = serialize($text);
 			}
 		} else {
-			$text = str_replace($_tagURLs_tags, $_tagURLs_values, $text);
+			$text = str_replace($_tagURLs_values, $_tagURLs_tags, $text);
 		}
 		return $text;
 	}
