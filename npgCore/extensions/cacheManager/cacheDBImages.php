@@ -49,9 +49,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 <script type="text/javascript">
 	$(function () {
 		$('img').on("error", function () {
-			var link = $(this).attr('src');
-			var title = $(this).attr('title');
-			$(this).parent().html('<a href="' + link + '&debug" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+			$(this).parent().html('<?php echo CROSS_MARK_RED; ?>');
 		});
 	});
 </script>
