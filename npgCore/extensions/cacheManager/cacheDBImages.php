@@ -125,31 +125,44 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 					foreach ($matches[1] as $key => $match) {
 						if (preg_match('~/' . CACHEFOLDER . '/~', $match)) {
 							$match = urldecode($match);
+							$split = explode('?', $match);
+							$match = array_shift($split);
 							$found++;
 							list($image_uri, $args) = getImageProcessorURIFromCacheName($match, $watermarks);
-							if (preg_match('~(.*)/(' . CORE_FOLDER . '|' . CORE_PATH . ')_images_(.*)\.(.*)$~i', $image_uri, $matches)) {
-								$specialName = makeSpecialImageName(CORE_FOLDER . '/images/' . $matches[3] . '.png');
-								$new_link = '/' . CACHEFOLDER . getImageCacheFilename($matches[1], $specialName['name'], $args);
-								$cachefile = SERVERPATH . $new_link;
-								if (!file_exists($cachefile)) {
-									$uri = getImageProcessorURI($args, $matches[1], $specialName);
-									$fixed++;
-									$title = getTitle($table, $row);
-									?>
-									<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
-										<?php
-										echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
-										?>
-									</a>
-									<?php
-								}
-								if ($matches[2] == CORE_FOLDER || getSuffix($image_uri) != getSuffix($specialName['name'])) {
+							if (!file_exists(getAlbumFolder() . $image_uri)) {
+								//	Might be a special image
+								$uriin = getImageURI($args, dirname($image_uri), basename($image_uri), NULL);
+								$uri = getSpecialImageImageProcessorURI($image_uri, $uriin);
+								$parts = mb_parse_url($uri);
+								$query = parse_query($parts['query']);
+								if (isset($query['i']) && strpos($match, $query['i']) === FALSE) {
 									//	need to update the db entry as well
+									$from = stripSuffix(basename($image_uri));
+									$to = stripSuffix($query['i']);
 									$updated = true;
-									$row[$field] = updateCacheName($row[$field], $match, '{*WEBPATH*}' . $new_link);
+									$new_link = npgFunctions::tagURLs(str_replace($from, $to, $match));
+									$row[$field] = updateCacheName($row[$field], $match, $new_link);
+								}
+
+
+								if (strpos($uri, 'i.php?') !== false) {
+									$newlink = str_replace(WEBPATH, '', $match);
+									$cachefile = SERVERPATH . $newlink;
+									if (!file_exists($cachefile)) {
+										$fixed++;
+										$title = getTitle($table, $row);
+										?>
+										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
+											<?php
+											echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+											?>
+										</a>
+										<?php
+									}
 								}
 								continue;
 							}
+
 							$try = $_supported_images;
 							$base = stripSuffix($image = $image_uri);
 							$prime = getSuffix($image);
@@ -226,7 +239,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 		?>
 		<br />
 		<?php
-		printf(ngettext('%s reference re-cached.', '%s references re-cached.', $fixed), $fixed);
+		printf(ngettext('%s reference re-cache attempted.', '%s references re-cache attempted.', $fixed), $fixed);
 		?>
 		<br />
 		<?php

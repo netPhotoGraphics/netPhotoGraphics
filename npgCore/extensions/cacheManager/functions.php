@@ -73,6 +73,8 @@ function getSpecialImageImageProcessorURI($i, $uri) {
 	$folders = explode('_', end($folders));
 	$base = array_shift($folders);
 	switch ($base) {
+		case USER_PLUGIN_FOLDER:
+			$uri = str_replace(USER_PLUGIN_FOLDER, USER_PLUGIN_PATH, $uri);
 		case USER_PLUGIN_PATH:
 			$uri .= '&z=' . USER_PLUGIN_FOLDER . '/' . implode('/', $folders);
 			break;
@@ -81,12 +83,16 @@ function getSpecialImageImageProcessorURI($i, $uri) {
 			if (!is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
 				array_unshift($folders, $theme);
 				$theme = $_gallery->getCurrentTheme();
+				$uri = str_replace(THEMEFOLDER, THEMEFOLDER . '_' . $theme, $uri);
 			}
 			$uri .= '&z=' . THEMEFOLDER . '/' . $theme . '/' . implode('/', $folders);
 			break;
+		case CORE_FOLDER:
+			$uri = str_replace(CORE_FOLDER, CORE_PATH, $uri);
 		case CORE_PATH:
 			switch ($folders[0]) {
 				case PLUGIN_PATH;
+					$uri = str_replace(PLUGIN_FOLDER, PLUGIN_PATH, $uri);
 					$folders[0] = PLUGIN_FOLDER;
 					break;
 				case 'images':

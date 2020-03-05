@@ -16,6 +16,9 @@ if ($image) { //	maybe we can find it
 				}
 
 				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders), getWatermarks());
+				$split = explode('?', $i);
+				$i = array_shift($split);
+
 				$uri = getImageURI($args, dirname($i), basename($i), NULL);
 				if (!file_exists(getAlbumFolder() . $i)) {
 					//	Might be a special image
