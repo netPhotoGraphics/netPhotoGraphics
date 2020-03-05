@@ -2869,7 +2869,7 @@ class npgFunctions {
 				$text = serialize($text);
 			}
 		} else {
-			$text = str_replace($_tagURLs_tags, $_tagURLs_values, $text);
+			$text = str_replace($_tagURLs_values, $_tagURLs_tags, $text);
 		}
 		return $text;
 	}
