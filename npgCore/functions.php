@@ -2437,7 +2437,7 @@ function getLanguageFlag($lang) {
  * @return mixed
  */
 function getItemByID($table, $id, $quiet = true) {
-	if ($result = query_single_row('SELECT * FROM ' . prefix($table) . ' WHERE id =' . (int) $id)) {
+	if ($result = query_single_row('SELECT * FROM ' . prefix($table) . ' WHERE id=' . (int) $id)) {
 		switch ($table) {
 			case 'images':
 				if ($alb = getItemByID('albums', $result['albumid'], false, $quiet)) {
