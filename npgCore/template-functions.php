@@ -983,12 +983,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-			if ($current == 1)
-				echo 'current';
-			else
-				echo 'first';
+					if ($current == 1)
+						echo 'current';
+					else
+						echo 'first';
 					?>">
-							<?php
+								<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
@@ -4439,7 +4439,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4466,7 +4466,7 @@ function recordPolicyACK($user = NULL) {
 			setNPGCookie('policyACK', getOption('GDPR_cookie'), FALSE);
 			require_once (CORE_SERVERPATH . 'class-browser.php');
 			$browser = new Browser();
-			$what = sprintf(gettext('$1$s policyACK cookie'), $browser->getBrowser());
+			$what = sprintf(gettext('%1$s policyACK cookie'), $browser->getBrowser());
 		}
 		if (extensionEnabled('security-logger')) {
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
