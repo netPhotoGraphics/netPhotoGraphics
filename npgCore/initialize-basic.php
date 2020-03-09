@@ -4,6 +4,7 @@
  * one time initialization code for basic execution
  */
 require_once(__DIR__ . '/global-definitions.php');
+
 require_once(__DIR__ . '/lib-encryption.php');
 require_once(__DIR__ . '/lib-utf8.php');
 $_UTF8 = new utf8();
@@ -108,6 +109,7 @@ if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db
 } else {
 	$__initialDBConnection = false;
 }
+
 if (!function_exists('db_query')) {
 	require_once(__DIR__ . '/functions-db-NULL.php');
 }
@@ -197,8 +199,6 @@ if ($c = getOption('cookie_path')) {
 }
 unset($c);
 
-define('SAFE_MODE', preg_match('#(1|ON)#i', ini_get('safe_mode')));
-define('SAFE_MODE_ALBUM_SEP', '__');
 define('SERVERCACHE', SERVERPATH . '/' . CACHEFOLDER);
 define('MOD_REWRITE', getOption('mod_rewrite'));
 

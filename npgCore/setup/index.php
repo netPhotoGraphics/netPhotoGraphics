@@ -614,27 +614,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							$good = checkMark($strictSession, gettext('PHP <code>session.use_strict_mode</code>'), gettext('PHP <code>session.use_strict_mode</code> [is not set]'), gettext('Enabling <code>session.use_strict_mode</code> is mandatory for general session security. Change your PHP.ini settings to <code>session.use_strict_mode = on</code>.')) && $good;
 
-							if (preg_match('#(1|ON)#i', @ini_get('register_globals'))) {
-								if ((isset($_conf_vars['security_ack']) ? $_conf_vars['security_ack'] : NULL) & ACK_REGISTER_GLOBALS) {
-									$register_globals = -1;
-									$aux = '';
-								} else {
-									$register_globals = false;
-									$aux = ' ' . acknowledge(ACK_REGISTER_GLOBALS);
-								}
-							} else {
-								$register_globals = true;
-								$aux = '';
-							}
-							$good = checkMark($register_globals, gettext('PHP <code>Register Globals</code>'), gettext('PHP <code>Register Globals</code> [is set]'), gettext('PHP Register globals presents a security risk to any PHP application. See <a href="http://php.net/manual/en/security.globals.php"><em>Using Register Globals</em></a>. Change your PHP.ini settings to <code>register_globals = off</code>.') . $aux) && $good;
-
-							if (preg_match('#(1|ON)#i', ini_get('safe_mode'))) {
-								$safe = -1;
-							} else {
-								$safe = true;
-							}
-							checkMark($safe, gettext("PHP <code>Safe Mode</code>"), gettext("PHP <code>Safe Mode</code> [is set]"), gettext("netPhotoGraphics functionality is reduced when PHP <code>safe mode</code> restrictions are in effect."));
-
 							if (!extension_loaded('suhosin')) {
 								$blacklist = @ini_get("suhosin.executor.func.blacklist");
 								if ($blacklist) {
@@ -708,8 +687,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							checkMark($check, gettext('PHP extensions'), gettext('PHP extensions [missing]'), sprintf(gettext('To improve netPhotoGraphics performance and functionality you should enable the following PHP extensions: %s'), rtrim($missing, ', ')), false);
 
-							checkmark(function_exists('flock') ? 1 : -1, gettext('PHP <code>flock</code> support'), gettext('PHP <code>flock</code> support [is not present]'), gettext('<code>flock</code> is used for serializing critical regions of code. Without <code>flock</code> active sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
-							if (function_exists('flock') && !$setupMutex) {
+							if (!$setupMutex) {
 								checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
 							}
 							if ($_setupCurrentLocale_result === false) {

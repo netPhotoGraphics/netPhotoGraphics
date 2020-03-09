@@ -662,6 +662,7 @@ function secureServer() {
 function npg_session_start() {
 	$result = session_id();
 	if ($result) {
+
 		return $result;
 	} else {
 		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
@@ -695,6 +696,7 @@ function npg_session_destroy() {
 		} else {
 			setcookie($name, 'null', 1);
 		}
+		session_destroy();
 	}
 }
 
@@ -841,7 +843,7 @@ class npgMutex {
 
 	function __construct($lock = 'npg', $concurrent = NULL, $folder = NULL) {
 		// if any of the construction fails, run in free mode (lock = NULL)
-		if (function_exists('flock') && defined('SERVERPATH')) {
+		if (defined('SERVERPATH')) {
 			if (is_null($folder)) {
 				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
 			}
@@ -890,11 +892,16 @@ class npgMutex {
 		//Only lock an unlocked mutex, we don't support recursive mutex'es
 		if (!$this->locked && $this->lock) {
 			if ($this->mutex = @fopen($this->lock, 'wb')) {
-				if (flock($this->mutex, LOCK_EX)) {
-					$this->locked = true;
-					//We are entering a critical section so we need to change the ignore_user_abort setting so that the
-					//script doesn't stop in the critical section.
-					$this->ignoreUserAbort = ignore_user_abort(true);
+				try {
+					if (flock($this->mutex, LOCK_EX)) {
+						$this->locked = true;
+						//We are entering a critical section so we need to change the ignore_user_abort setting so that the
+						//script doesn't stop in the critical section.
+						$this->ignoreUserAbort = ignore_user_abort(true);
+					}
+				} catch (Exception $e) {
+					// what can you do, we will just have to run in free mode
+					$this->locked = NULL;
 				}
 			}
 		}
@@ -1212,20 +1219,10 @@ function getImageCacheFilename($album8, $image8, $args) {
 	// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 
-	if (empty($album)) {
-		$albumsep = '';
-	} else {
-		if (SAFE_MODE) {
-			$albumsep = SAFE_MODE_ALBUM_SEP;
-			$album = str_replace(array('/', "\\"), $albumsep, $album);
-		} else {
-			$albumsep = '/';
-		}
-	}
 	if (getOption('obfuscate_cache')) {
-		$result = '/' . $album . $albumsep . sha1($image . HASH_SEED . $postfix) . '.' . $image . $postfix . '.' . $suffix;
+		$result = '/' . $album . '/' . sha1($image . HASH_SEED . $postfix) . '.' . $image . $postfix . '.' . $suffix;
 	} else {
-		$result = '/' . $album . $albumsep . $image . $postfix . '.' . $suffix;
+		$result = '/' . $album . '/' . $image . $postfix . '.' . $suffix;
 	}
 	return $result;
 }

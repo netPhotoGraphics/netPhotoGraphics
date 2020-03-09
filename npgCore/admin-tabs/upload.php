@@ -159,14 +159,6 @@ foreach ($albumlist as $key => $value) {
 				</div>
 				<?php
 			}
-			if (SAFE_MODE) {
-				?>
-				<div class="warningbox fade-message">
-					<h2><?php echo gettext("PHP Safe Mode Restrictions in effect!"); ?></h2>
-					<p><?php echo gettext("These restrictions may prevent PHP scripts from uploading files."); ?></p>
-				</div>
-				<?php
-			}
 			$rootrights = npgFilters::apply('upload_root_ui', accessAllAlbums(UPLOAD_RIGHTS));
 			if ($rootrights || !empty($albumlist)) {
 				echo gettext("Upload to:");

@@ -477,8 +477,7 @@ class utf8 {
 		$additional_headers = trim($additional_headers);
 		if ($additional_headers != '')
 			$additional_headers .= "\n";
-		$additional_headers .=
-						"Mime-Version: 1.0\n" .
+		$additional_headers .= "Mime-Version: 1.0\n" .
 						"Content-Transfer-Encoding: base64\n";
 		if ($html) {
 			$additional_headers .= "Content-Type: text/html; charset=" . LOCAL_CHARSET;
@@ -486,11 +485,7 @@ class utf8 {
 			$additional_headers .= "Content-Type: text/plain; charset=" . LOCAL_CHARSET;
 		}
 
-		if (SAFE_MODE) {
-			return @mail($to, $subject, $message, $additional_headers);
-		} else {
-			return @mail($to, $subject, $message, $additional_headers, $additional_parameter);
-		}
+		return @mail($to, $subject, $message, $additional_headers, $additional_parameter);
 	}
 
 	/**
