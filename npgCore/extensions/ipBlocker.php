@@ -301,14 +301,6 @@ class ipBlocker {
 	}
 
 	/**
-	 * monitors 404 results and suspends if past threshold
-	 * @return type
-	 */
-	static function notFound() {
-		self::ipGate('404');
-	}
-
-	/**
 	 * Checks if ip should be suspended
 	 * @param bool $allow ignored
 	 * @param string $page ignored
