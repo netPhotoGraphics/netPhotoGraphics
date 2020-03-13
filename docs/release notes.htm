@@ -82,7 +82,7 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.04.09</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.04.10</h2>
 <h2>General</h2>
 <p><strong>netPhotoGraphics</strong> is now compatible with PHP version 7.4.</p>
 <p>E-Mails sent by <strong>netPhotoGraphics</strong> are now HTML encoded. In addition, there is now a customizable e-mail "form" that will be used when sending the mails. The standard template is a simple form with the sites branding logo (or the <strong>netPhotoGraphic</strong> logo if none is defined), the body of the e-mail, and "--The Administrator" as a signature. You can view and edit this template on the new "forms" option tab. If you update the form it will be stored in the <em>plugins/forms</em> folder and not overridden on subsequent updates. </p>
@@ -96,6 +96,8 @@
 <p>They have been moved to the <em>plugins</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the plugins will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these plugins you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
 <h2>slideshow2</h2>
 <p><em>slideshow2</em> has been removed from the distribution and placed in the DevTools repository. The jquery.cycle2 scripts that this plugin use have not been updated in five years and are incompatible with jQuery version 3. </p>
+<h2><strong>tagURLs</strong></h2>
+<p>Normally URLs stored in object fields such as the description or a zenpage object's content fields are transformed into site independent urls when stored in the database and restored to site links when the field is fetched from the object. This allows you to more easily move your site to a new domain. Unfortunately at some point a bug was introduced which prevented the conversion to the portable URL so your database may contain some  site explicit URLs. If you re-save objects with these URLs the conversion will take place properly with the current version of <strong>netPhotoGraphics</strong>. The <em>tagURLs</em> plugin has been added to the GitHub <a href="https://github.com/netPhotoGraphics/DevTools">DevTools</a> repository to automate this process. The utility will scan your <em>images</em>, <em>albums</em>, <em>news articles</em>, and <em>pages</em> and update any explicit URLs found. This may be a processor intensive action depending on the number of these objects on your site. The object's <em>last change date</em> and <em>last change user</em> will also be updated if a URL is changed.</p>
 <hr />
 <h2 style="text-align: center;">Version 2.0</h2>
 <h2>General</h2>
