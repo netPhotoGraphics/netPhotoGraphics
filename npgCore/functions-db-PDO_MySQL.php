@@ -31,12 +31,23 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		$hostname = $config['mysql_host'];
 		$username = $config['mysql_user'];
 		$password = $config['mysql_pass'];
+		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
+			$port = @ini_get('mysqli.default_port');
+		} else {
+			$port = $config['mysql_port'];
+		}
+		if (!isset($config['mysql_socket']) || $config['mysql_socket']) {
+			$socket = @ini_get('mysqli.default_socket');
+		} else {
+			$socket = $config['mysql_socket'];
+		}
+
 		if (is_object($_DB_connection)) {
 			$_DB_connection = NULL; //	don't want to leave connections open
 		}
 		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
 			try {
-				$_DB_connection = new PDO("mysql:host=$hostname;dbname=$db", $username, $password);
+				$_DB_connection = new PDO("mysql:host=$hostname;port=$port;socket=$socket;dbname=$db", $username, $password);
 				break;
 			} catch (PDOException $e) {
 				$_DB_last_result = $e;

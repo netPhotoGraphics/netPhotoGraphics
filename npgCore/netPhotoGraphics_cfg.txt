@@ -28,6 +28,8 @@ $conf['db_software'] = 'MySQLi';		// preferred database
 $conf['mysql_user'] = '';           // Supply your Database user id.
 $conf['mysql_pass'] = '';           // Supply your Database password.
 $conf['mysql_host'] = 'localhost';  // Supply the name of your Database server.
+$conf['mysql_port'] = NULL;					// Optional port for the database connection.
+$conf['mysql_socket'] = NULL;				// Optional socket for the database connection.
 $conf['mysql_database'] = '';       // Supply the name the database
 // If you're sharing the database with other tables, use a prefix to be safe.
 $conf['mysql_prefix'] = ".";
