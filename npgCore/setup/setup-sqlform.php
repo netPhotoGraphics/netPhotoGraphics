@@ -40,7 +40,7 @@ foreach ($engines as $engine) {
 ?>
 					}
 				}
-				$(document).ready(function() {
+				$(document).ready(function () {
 					showFields();
 				});
 			</script>
@@ -85,7 +85,16 @@ foreach ($engines as $engine) {
 				<tr id="host" >
 					<td><?php echo gettext("Database host"); ?>
 					</td>
-					<td><input type="text" size="40" name="db_host" value="<?php echo $_conf_vars['mysql_host']; ?>" /></td>
+					<td>
+						<input type="text" size="40" name="db_host" value="<?php echo $_conf_vars['mysql_host']; ?>" />
+						<?php echo gettext("port"); ?>
+						<input type="text" size="5" name="db_port" value="<?php echo $_conf_vars['mysql_port']; ?>" />
+					</td>
+				</tr>
+				<tr id="socket" >
+					<td><?php echo gettext("Database socket"); ?>
+					</td>
+					<td><input type="text" size="40" name="db_socket" value="<?php echo $_conf_vars['mysql_socket']; ?>" /></td>
 				</tr>
 				<tr id="database" >
 					<td><?php echo gettext("Database name"); ?></td>
@@ -101,9 +110,9 @@ foreach ($engines as $engine) {
 					}
 					?>
 					<td><input type="text" size="40" name="db_prefix" value="<?php
-										 echo $path;
-										 ;
-										 ?>" /></td>
+						echo $path;
+						;
+						?>" /></td>
 				</tr>
 				<tr>
 					<td></td>
