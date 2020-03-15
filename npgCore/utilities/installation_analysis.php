@@ -233,11 +233,14 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								$host = '<em>' . $_conf_vars['mysql_host'] . '</em>:' . $_conf_vars['mysql_port'];
-								if ($_conf_vars['mysql_socket']) {
-									$host .= '[<em>' . $_conf_vars['mysql_socket'] . '</em>]';
+								$host = '<em>' . $_conf_vars['mysql_host'];
+								if (isset($_conf_vars['mysql_port']) && $_conf_vars['mysql_port']) {
+									$host .= ':' . $_conf_vars['mysql_port'];
 								}
-								printf(gettext('Database host %1$s'), $host);
+								if (isset($_conf_vars['mysql_socket']) && $_conf_vars['mysql_socket']) {
+									$host .= '[' . $_conf_vars['mysql_socket'] . ']';
+								}
+								printf(gettext('Database host <strong>%1$s</strong>'), $host);
 								?>
 							</li>
 							<li>
