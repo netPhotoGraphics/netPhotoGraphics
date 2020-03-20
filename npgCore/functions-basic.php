@@ -688,14 +688,15 @@ function npg_session_start() {
 }
 
 function npg_session_destroy() {
-	if (session_id() && $name = session_name()) {
-		$_SESSION = array();
-		if (ini_get("session.use_cookies")) {
-			$params = session_get_cookie_params();
-			setcookie($name, 'null', 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
-		} else {
-			setcookie($name, 'null', 1);
-		}
+	$name = session_name();
+	$_SESSION = array();
+	if (ini_get("session.use_cookies")) {
+		$params = session_get_cookie_params();
+		setcookie($name, 'null', 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+	} else {
+		setcookie($name, 'null', 1);
+	}
+	if (session_status() == PHP_SESSION_ACTIVE) {
 		session_destroy();
 	}
 }
