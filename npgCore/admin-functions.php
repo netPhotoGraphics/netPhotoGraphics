@@ -1225,7 +1225,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								$setOptions = getSerializedArray($v);
 								$all = empty($setOptions);
 								?>
-								< input type = "hidden" name = "<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value = "1" / >
+								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'array-' . $postkey; ?>" value = "1" />
 								<ul class="customchecklist">
 									<?php
 									foreach ($row['checkboxes'] as $display => $checkbox) {
@@ -1243,19 +1243,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 										<?php
 									}
 									?>
-									<					 /ul>
-									<script type="text/javascript">
-										// <!-- <![CDATA[
-										function <?php echo $key; ?>_all() {
-											var check = $('#all_<?php echo $key; ?>').prop('checked');
-											$('.all_<?php echo $key; ?>').prop('checked', check);
-										}
-										// ]]> -->
-									</script>
-									<label class="floatright">
-										<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
-										<?php echo gettext('all'); ?>
-									</label>
+								</ul>
+								<script type="text/javascript">
+									// <!-- <![CDATA[
+									function <?php echo $key; ?>_all() {
+										var check = $('#all_<?php echo $key; ?>').prop('checked');
+										$('.all_<?php echo $key; ?>').prop('checked', check);
+									}
+									// ]]> -->
+								</script>
+								<label class="floatright">
+									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
+									<?php echo gettext('all'); ?>
+								</label>
 							</td>
 							<?php
 							break;
@@ -3888,10 +3888,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 						<label style="padding-right: 15px;" title="<?php echo html_encode(get_language_string($right['hint'])); ?>">
 							<input type="checkbox" name="<?php printf($format, $rightselement, $id); ?>" id="<?php echo $rightselement . '-' . $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $right['value']; ?>"<?php
-				if ($rights & $right['value'])
-					echo ' checked="checked"';
-				echo $alterrights;
-						?> />
+							if ($rights & $right['value'])
+								echo ' checked="checked"';
+							echo $alterrights;
+							?> />
 										 <?php echo $right['name']; ?>
 						</label>
 
@@ -5118,7 +5118,7 @@ function admin_securityChecks($rights, $return) {
 	$returnurl = urldecode($return);
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
-// prevent nefarious access to this page.
+		// prevent nefarious access to this page.
 		$uri = mb_parse_url($returnurl);
 		$redirect = getAdminLink('admin.php') . '?from=' . $uri['path'];
 		header("HTTP/1.0 302 Found");
@@ -5562,7 +5562,6 @@ function getPluginTabs() {
 				}
 				$deprecated[$plugin] = $path;
 			}
-
 			$plugin_is_filter = 1 | THEME_PLUGIN;
 			if ($str = isolate('$plugin_is_filter', $p)) {
 				eval($str);
@@ -5611,7 +5610,11 @@ function getPluginTabs() {
 	$currentlist = array_keys($paths);
 	$hr = false;
 	foreach ($classLinks as $class => $list) {
-		if (!empty($$class)) {
+		if (empty($$class)) {
+			if ($class == $default) {
+				$currentlist = array();
+			}
+		} else {
 			$hr = true;
 			$tabs[$Xlate[$class]] = $adminPlugin . '?page=plugins&tab=' . $class;
 			if ($class == $default) {
@@ -5952,7 +5955,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-		 <?php echo CLIPBOARD; ?>
+			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }

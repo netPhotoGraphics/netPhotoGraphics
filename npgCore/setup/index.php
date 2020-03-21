@@ -225,6 +225,12 @@ if (isset($_POST['db'])) { //try to update the config file
 	if (isset($_POST['db_host'])) {
 		$_config_contents = configFile::update('mysql_host', trim(sanitize($_POST['db_host'], 0)), $_config_contents);
 	}
+	if (isset($_POST['db_port'])) {
+		$_config_contents = configFile::update('mysql_port', trim(sanitize($_POST['db_port'], 0)), $_config_contents);
+	}
+	if (isset($_POST['db_socket'])) {
+		$_config_contents = configFile::update('mysql_socket', trim(sanitize($_POST['db_socket'], 0)), $_config_contents);
+	}
 	if (isset($_POST['db_database'])) {
 		$_config_contents = configFile::update('mysql_database', trim(sanitize($_POST['db_database'], 0)), $_config_contents);
 	}
@@ -1050,6 +1056,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										$good = false;
 										checkMark(false, '', gettext("Database credentials in configuration file"), sprintf(gettext('<em>%1$s</em> reported: %2$s'), DATABASE_SOFTWARE, $connectDBErr));
 										// input form for the information
+										if (!isset($_conf_vars['mysql_port']) || empty($_conf_vars['mysql_port'])) {
+											$_conf_vars['mysql_port'] = @ini_get('mysqli.default_port');
+										}
+										if (!isset($_conf_vars['mysql_socket']) || empty($_conf_vars['mysql_socket'])) {
+											$_conf_vars['mysql_socket'] = @ini_get('mysqli.default_socket');
+										}
 										include(__DIR__ . '/setup-sqlform.php');
 									} else {
 										if ($connectDBErr) {

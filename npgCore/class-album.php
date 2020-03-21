@@ -501,17 +501,17 @@ class AlbumBase extends MediaObject {
 			$mine = $this->isMyItem(LIST_RIGHTS);
 			$other = NULL;
 			while (count($thumbs) > 0) {
-// first check for images
+				// first check for images
 				$thumb = array_shift($thumbs);
 				$thumb = newImage($this, $thumb);
 				if ($mine || $thumb->getShow()) {
 					if (isImagePhoto($thumb)) {
-// legitimate image
+						// legitimate image
 						$this->albumthumbnail = $thumb;
 						return $this->albumthumbnail;
 					} else {
 						if (!is_null($thumb->objectsThumb)) {
-//	"other" image with a thumb sidecar
+							//	"other" image with a thumb sidecar
 							$this->albumthumbnail = $thumb;
 							return $this->albumthumbnail;
 						} else {
@@ -523,13 +523,13 @@ class AlbumBase extends MediaObject {
 				}
 			}
 			if (!is_null($other)) {
-//	"other" image, default thumb
+				//	"other" image, default thumb
 				$this->albumthumbnail = $other;
 				return $this->albumthumbnail;
 			}
 		}
 
-// Otherwise, look in sub-albums.
+		// Otherwise, look in sub-albums.
 		$subalbums = $this->getAlbums();
 		if (!is_null($subalbums)) {
 			if ($shuffle) {
@@ -554,7 +554,7 @@ class AlbumBase extends MediaObject {
 		}
 
 		$nullimage = CORE_SERVERPATH . 'images/imageDefault.png';
-// check for theme imageDefault.png
+		// check for theme imageDefault.png
 		$theme = '';
 		$uralbum = getUralbum($this);
 		$albumtheme = $uralbum->getAlbumTheme();

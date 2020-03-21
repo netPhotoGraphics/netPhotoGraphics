@@ -331,9 +331,9 @@ function reconfigurePage($diff, $needs, $mandatory) {
 					<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
 				</p>
 				<br class="clearall" />
-					<?php
-				}
-				?>
+				<?php
+			}
+			?>
 		</p>
 	</div>
 	<?php

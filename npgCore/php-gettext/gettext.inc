@@ -523,8 +523,7 @@ if (!function_exists('gettext')) {
 		if (TEST_RELEASE && is_null($default_domain)) { //	called before locale is set
 			$bt = debug_backtrace();
 			if (!in_array($bt[1]['function'], array('getRights', 'getLanguageArray', 'debugLogBacktrace', 'zpErrorHandler'))) {
-				echo '<br /><br /><br />';
-				var_dump($bt);
+				debugLogBacktrace('gettext called before locale was set!');
 			}
 		}
 		return _gettext($msgid);

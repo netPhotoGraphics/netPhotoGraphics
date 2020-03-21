@@ -230,7 +230,18 @@ echo '</head>';
 								$dbsoftware = db_software();
 								printf(gettext('%1$s version: <strong>%2$s</strong>'), $dbsoftware['application'], $dbsoftware['version']);
 								?>
-
+							</li>
+							<li>
+								<?php
+								$host = '<em>' . $_conf_vars['mysql_host'];
+								if (isset($_conf_vars['mysql_port']) && $_conf_vars['mysql_port']) {
+									$host .= ':' . $_conf_vars['mysql_port'];
+								}
+								if (isset($_conf_vars['mysql_socket']) && $_conf_vars['mysql_socket']) {
+									$host .= '[' . $_conf_vars['mysql_socket'] . ']';
+								}
+								printf(gettext('Database host <strong>%1$s</strong>'), $host);
+								?>
 							</li>
 							<li>
 								<?php
