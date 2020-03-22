@@ -393,9 +393,8 @@ if ($action == 'backup') {
 
 	foreach ($_REQUEST as $key => $v) {
 		if (strpos($key, 'restore_') === 0) {
-			$table = substr($key, 7);
-			$unprefixed_table = substr($table, $prefixLen);
-			if ($v && !in_array($unprefixed_table, $table_restored)) {
+			$table = substr($key, 8);
+			if ($v && !in_array($table, $table_restored)) {
 				$not_present[] = $table;
 			}
 		}
@@ -421,7 +420,7 @@ if ($action == 'backup') {
 		}
 		if (!empty($not_present)) {
 			$messages .= '
-				<p>' . gettext('The following tables were not restored because the table was not in the backup:') . '
+				<p>' . gettext('The following tables were not restored because the table was not present in the backup:') . '
 					<ul>
 					';
 			foreach (array_unique($not_present) as $item) {
