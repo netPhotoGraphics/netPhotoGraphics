@@ -225,7 +225,7 @@ if ($action == 'backup') {
 		if ($compression_level > 0) {
 			$messages .= sprintf(ngettext('%3$s table backed up using <em>%1$s(%2$s)</em> compression', '%3$s tables backed up using <em>%1$s(%2$s)</em> compression', $tableCount), $compression_handler, $compression_level, $tableCount);
 		} else {
-			$messages .= sprintf(ngettext('%3$s table backed up', '%3$s tables backed up', $tableCount), $tableCount);
+			$messages .= sprintf(ngettext('%1$s table backed up', '%1$s tables backed up', $tableCount), $tableCount);
 		}
 		$messages .= '
 		</h2>
