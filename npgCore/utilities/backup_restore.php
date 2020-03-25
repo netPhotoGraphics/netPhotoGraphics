@@ -178,7 +178,7 @@ if ($action == 'backup') {
 
 			$tableCount = $counter = 0;
 			$writeresult = true;
-			$autobackup = isset($_REQUEST[autobackup]);
+			$autobackup = isset($_REQUEST['autobackup']);
 			foreach ($tables as $row) {
 				$table = array_shift($row);
 				$unprefixed_table = substr($table, $prefixLen);
