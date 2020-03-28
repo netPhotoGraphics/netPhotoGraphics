@@ -30,9 +30,6 @@ class _Authority {
 
 		if (function_exists('password_hash')) {
 			if (OFFSET_PATH == 2) {
-				if (!in_array((int) getOption('strong_hash'), self::$hashList)) {
-					purgeOption('strong_hash');
-				}
 				setOptionDefault('strong_hash', 1000);
 				setOptionDefault('password_strength ', 10);
 				setOptionDefault('min_password_lenght ', 6);
@@ -59,14 +56,7 @@ class _Authority {
 			define('PASSWORD_FUNCTION_DEFAULT', 3);
 		}
 
-		$strongHash = getOption('strong_hash');
-		if (!in_array($strongHash, self::$hashList)) {
-			$strongHash = PASSWORD_FUNCTION_DEFAULT;
-		}
-		Define('STRONG_PASSWORD_HASH', $strongHash);
-
 		$this->admin_all = $this->admin_groups = $this->admin_users = $this->admin_other = array();
-
 		$sql = 'SELECT * FROM ' . prefix('administrators') . ' ORDER BY `rights` DESC, `id`';
 		$admins = query($sql, false);
 		if ($admins) {
@@ -88,6 +78,15 @@ class _Authority {
 			}
 			db_free_result($admins);
 		}
+
+		$strongHash = (int) getOption('strong_hash');
+		$list = self::getHashList();
+		$list['default'] = 1000;
+		if (empty($this->admin_users) || !in_array($strongHash, $list)) {
+			$strongHash = 1000;
+			setOption('strong_hash', 1000);
+		}
+		Define('STRONG_PASSWORD_HASH', $strongHash);
 	}
 
 	function addOtherUser($adminObj) {
@@ -481,7 +480,7 @@ class _Authority {
 		if (is_object($user)) {
 			//	force new logon to update password hash if his algorithm is deprecated
 			list($strength, $name) = self::getHashAlgorithm($user->getData());
-			if ($strength >= STRONG_PASSWORD_HASH) {
+			if ($strength >= PASSWORD_FUNCTION_DEFAULT) {
 				$_current_admin_obj = $user;
 				$rights = $user->getRights();
 				if (DEBUG_LOGIN) {
@@ -527,7 +526,8 @@ class _Authority {
 					}
 					break;
 			}
-			if ($userobj && $type < STRONG_PASSWORD_HASH) {
+
+			if ($userobj && $type < PASSWORD_FUNCTION_DEFAULT) {
 				//	update his password hash to more modern one
 				$userobj->setPass($pass);
 				$userobj->save();
