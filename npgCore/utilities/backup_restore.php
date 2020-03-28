@@ -164,7 +164,8 @@ if ($action == 'backup') {
 			mkdir($folder, FOLDER_MOD);
 		}
 		@chmod($folder, FOLDER_MOD);
-		$writeresult = $handle = @fopen($filename, 'w');
+		$writeresult = $handle = fopen($filename, 'w');
+
 		if ($handle === false) {
 			$msg = sprintf(gettext('Failed to open %s for writing.'), $filename);
 			echo $msg;
@@ -175,35 +176,39 @@ if ($action == 'backup') {
 				$msg = gettext('failed writing to backup!');
 			}
 
-			$counter = 0;
+			$tableCount = $counter = 0;
 			$writeresult = true;
+			$autobackup = isset($_REQUEST['autobackup']);
 			foreach ($tables as $row) {
 				$table = array_shift($row);
-				$unprefixed_table = substr($table, strlen($prefix));
-				$sql = 'SELECT * from `' . $table . '`';
-				$result = query($sql);
-				if ($result) {
-					while ($tablerow = db_fetch_assoc($result)) {
-						extendExecution();
-						$storestring = serialize($tablerow);
-						$storestring = compressRow($storestring, $compression_level);
-						$storestring = $unprefixed_table . TABLE_SEPARATOR . $storestring;
-						$storestring = strlen($storestring) . ':' . $storestring;
-						$writeresult = fwrite($handle, $storestring);
-						if ($writeresult === false) {
-							$msg = gettext('failed writing to backup!');
-							break;
+				$unprefixed_table = substr($table, $prefixLen);
+				if ($autobackup || isset($_REQUEST['backup_' . $unprefixed_table])) {
+					$tableCount++;
+					$sql = 'SELECT * from `' . $table . '`';
+					$result = query($sql);
+					if ($result) {
+						while ($tablerow = db_fetch_assoc($result)) {
+							extendExecution();
+							$storestring = serialize($tablerow);
+							$storestring = compressRow($storestring, $compression_level);
+							$storestring = $unprefixed_table . TABLE_SEPARATOR . $storestring;
+							$storestring = strlen($storestring) . ':' . $storestring;
+							$writeresult = fwrite($handle, $storestring);
+							if ($writeresult === false) {
+								$msg = gettext('failed writing to backup!');
+								break;
+							}
+							$counter++;
+							if ($counter >= RESPOND_COUNTER) {
+								echo ' ';
+								$counter = 0;
+							}
 						}
-						$counter++;
-						if ($counter >= RESPOND_COUNTER) {
-							echo ' ';
-							$counter = 0;
-						}
+						db_free_result($result);
 					}
-					db_free_result($result);
+					if ($writeresult === false)
+						break;
 				}
-				if ($writeresult === false)
-					break;
 			}
 			fclose($handle);
 			@chmod($filename, LOG_MOD);
@@ -219,9 +224,9 @@ if ($action == 'backup') {
 		<h2>
 		';
 		if ($compression_level > 0) {
-			$messages .= sprintf(gettext('backup completed using <em>%1$s(%2$s)</em> compression'), $compression_handler, $compression_level);
+			$messages .= sprintf(ngettext('%3$s table backed up using <em>%1$s(%2$s)</em> compression', '%3$s tables backed up using <em>%1$s(%2$s)</em> compression', $tableCount), $compression_handler, $compression_level, $tableCount);
 		} else {
-			$messages .= gettext('backup completed');
+			$messages .= sprintf(ngettext('%1$s table backed up', '%1$s tables backed up', $tableCount), $tableCount);
 		}
 		$messages .= '
 		</h2>
@@ -307,7 +312,7 @@ if ($action == 'backup') {
 					$string = getrow($handle);
 				}
 				$counter = 0;
-				$missing_table = array();
+				$table_restored = $missing_table = array();
 				$missing_element = array();
 				while (!empty($string) && count($errors) < 100) {
 					extendExecution();
@@ -315,6 +320,7 @@ if ($action == 'backup') {
 					$table = substr($string, 0, $sep);
 					if (isset($_REQUEST['restore_' . $table])) {
 						if (array_key_exists($prefix . $table, $tables)) {
+							$table_restored[$table] = $table;
 							if (!$table_cleared[$prefix . $table]) {
 								if (!db_truncate_table($table)) {
 									$errors[] = gettext('Truncate table<br />') . db_error();
@@ -386,7 +392,16 @@ if ($action == 'backup') {
 		}
 	}
 
-	if (!empty($missing_table) || !empty($missing_element)) {
+	foreach ($_REQUEST as $key => $v) {
+		if (strpos($key, 'restore_') === 0) {
+			$table = substr($key, 8);
+			if ($v && !in_array($table, $table_restored)) {
+				$not_present[] = $table;
+			}
+		}
+	}
+
+	if (!empty($missing_table) || !empty($missing_element) || !empty($not_present)) {
 		$messages = '
 		<div class="warningbox">
 			<h2>' . gettext("Restore encountered exceptions") . '</h2>';
@@ -398,6 +413,21 @@ if ($action == 'backup') {
 			foreach (array_unique($missing_table) as $item) {
 				$messages .= '<li><em>' . $item . '</em></li>';
 			}
+
+			$messages .= '
+					</ul>
+				</p>
+				';
+		}
+		if (!empty($not_present)) {
+			$messages .= '
+				<p>' . gettext('The following tables were not restored because the table was not present in the backup:') . '
+					<ul>
+					';
+			foreach (array_unique($not_present) as $item) {
+				$messages .= '<li><em>' . $item . '</em></li>';
+			}
+
 			$messages .= '
 					</ul>
 				</p>
@@ -491,7 +521,7 @@ if (isset($_GET['compression'])) {
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-			<?php npgFilters::apply('admin_note', 'backkup', ''); ?>
+			<?php npgFilters::apply('admin_note', 'backup', ''); ?>
 			<h1>
 				<?php
 				if ($_current_admin_obj->reset) {
@@ -535,6 +565,32 @@ if (isset($_GET['compression'])) {
 								?>
 							</select>
 							<br class="clearall" />
+							<br />
+							<span class="nowrap">
+								<?php
+								echo gettext('Select the tables to backup.');
+								?>
+								<label>
+									<input type="checkbox" name="all" id="backupCheckAllAuto" value="1" checked="checked" onclick="$('.backupCheckAuto').prop('checked', $('#backupCheckAllAuto').prop('checked'));" /><?php echo gettext('all'); ?>
+								</label>
+							</span>
+							<br />
+							<div style="max-width: 750px;">
+								<p>
+									<?php
+									foreach (unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
+										?>
+										<span class="nowrap">
+											<label>
+												<input type="checkbox" class="backupCheckAuto" name="backup_<?php echo $table; ?>" value="1" checked="checked" /><?php echo $table; ?>
+											</label>
+										</span>
+										<?php
+									}
+									?>
+								</p>
+							</div>
+
 							<br />
 							<div id="dbbackup">
 								<?php applyButton(array('buttonText' => BURST_BLUE . ' ' . gettext("Backup the Database"), array('buttonClass' => 'fixedwidth tooltip'))); ?>

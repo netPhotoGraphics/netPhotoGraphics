@@ -321,17 +321,10 @@ if (empty($admins)) { //	empty administrators table
 				echo $msg;
 				setupLog($msg, true);
 			}
-		} if (function_exists('hash')) {
-			setOption('strong_hash', 3);
-		} else {
-			setOption('strong_hash', 1);
 		}
 		purgeOption('extra_auth_hash_text');
 	}
 } else {
-	if (function_exists('hash') && getOption('strong_hash') == 2) {
-		setOption('strong_hash', 3);
-	}
 	$groupsdefined = @unserialize(getOption('defined_groups'));
 }
 purgeOption('defined_groups');
