@@ -579,8 +579,6 @@ echo $refresh;
 								$userlist[-1] = $newuser;
 							}
 
-							$defaultHash = array_search(STRONG_PASSWORD_HASH, npg_Authority::$hashList);
-
 							foreach ($userlist as $key => $user) {
 								$ismaster = false;
 								$local_alterrights = $alterrights;
@@ -651,8 +649,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -661,7 +659,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -693,7 +691,8 @@ echo $refresh;
 															<input type = "hidden" name="user[<?php echo $id ?>][confirmed]"	value="<?php echo NO_RIGHTS; ?>" />
 															<?php
 														}
-														if ($oldHashWeight < STRONG_PASSWORD_HASH) {
+														if ($oldHashWeight < PASSWORD_FUNCTION_DEFAULT) {
+															$defaultHash = array_search(PASSWORD_FUNCTION_DEFAULT, npg_Authority::$hashList);
 															if ($oldHashName !== $hashName = strip_tags($oldHashName)) {
 
 																echo '<span title="' . sprintf(gettext('User\'s password is encrypted with the deprecated %1$s password hashing algorithm.'), $hashName) . '">' . WARNING_SIGN_ORANGE . '</span>';
