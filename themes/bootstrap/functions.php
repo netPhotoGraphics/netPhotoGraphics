@@ -169,4 +169,3 @@ function zpB_getLink($content) {
 	return $link;
 }
 
-?>

@@ -30,7 +30,7 @@
 					?>
 					<a class="thumb" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
-						<div class="hide caption">
+						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>
 							<?php echo printImageDesc(); ?>
 						</div>
@@ -41,7 +41,7 @@
 					?>
 					<a class="thumb" href="javascript:;" data-type="iframe" data-src="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
-						<div class="hide caption">
+						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>
 							<?php echo printImageDesc(); ?>
 						</div>
@@ -53,7 +53,7 @@
 					<a class="thumb" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 					</a>
-					<div class="hide caption">
+					<div class="hidden caption">
 						<h4><?php printBareImageTitle(); ?></h4>
 						<?php echo printImageDesc(); ?>
 					</div>
@@ -63,7 +63,7 @@
 					?>
 					<a class="thumb" href="<?php echo html_encode($link); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
-						<div class="hide caption">
+						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>
 							<?php echo printImageDesc(); ?>
 						</div>
@@ -74,7 +74,7 @@
 					?>
 					<a class="thumb" href="javascript:;" data-src="#item<?php echo $_current_image->getIndex(); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
-						<div class="hide caption">
+						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>
 							<?php echo printImageDesc(); ?>
 						</div>
@@ -89,7 +89,7 @@
 					?>
 					<a class="thumb" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
-						<div class="hide caption">
+						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>
 							<?php echo printImageDesc(); ?>
 						</div>

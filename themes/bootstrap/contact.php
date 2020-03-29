@@ -25,4 +25,3 @@ if (extensionEnabled('contact_form')) {
 } else {
 	include(CORE_SERVERPATH . '404.php');
 }
-?>

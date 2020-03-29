@@ -449,6 +449,12 @@ div.buttons button {
 #zp__admin_module {
 	z-index: 50000;
 }
+/*------------------------------------
+	flexslider overwriting
+-------------------------------------- */
+.flexslider {
+	border: 0;
+}
 
 /*------------------------------------
 	Fancybox overwriting
