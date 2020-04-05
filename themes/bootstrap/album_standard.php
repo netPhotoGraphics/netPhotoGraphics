@@ -53,4 +53,4 @@ switch (simplemap::mapPlugin()) {
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php'); ?>
+<?php include('inc_footer.php');

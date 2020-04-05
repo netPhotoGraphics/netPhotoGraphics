@@ -20,7 +20,7 @@ if (!defined('WEBPATH'))
 			echo getMainSiteName() . ' | ';
 			switch ($_gallery_page) {
 				case 'index.php':
-					if (isset($isHomePage)) {
+					if (isset($isHomePage) && $isHomePage) {
 						echo gettext('Home');
 					} else {
 						echo gettext('Gallery');
@@ -100,7 +100,7 @@ if (!defined('WEBPATH'))
 		<link rel="shortcut icon" href="<?php echo $_themeroot; ?>/images/favicon.ico" />
 		<?php
 		scriptLoader($_themeroot . '/css/bootstrap.min.css');
-		if (($_gallery_page == 'index.php') && (isset($isHomePage))) {
+		if (($_gallery_page == 'index.php') && (isset($isHomePage) && $isHomePage)) {
 			scriptLoader($_themeroot . '/css/flexslider.css');
 		}
 		if (($_gallery_page == 'album.php') || ($_gallery_page == 'favorites.php') || ($_gallery_page == 'news.php') || ($_gallery_page == 'pages.php') || ($_gallery_page == 'search.php')) {
@@ -117,7 +117,7 @@ if (!defined('WEBPATH'))
 		scriptLoader($_themeroot . '/js/bootstrap.min.js');
 		scriptLoader($_themeroot . '/js/zpBootstrap.js');
 
-		if (($_gallery_page == 'index.php') && isset($isHomePage)) {
+		if (($_gallery_page == 'index.php') && isset($isHomePage) && $isHomePage) {
 			scriptLoader($_themeroot . '/js/jquery.flexslider-min.js');
 			?>
 			<script type="text/javascript">
@@ -133,9 +133,10 @@ if (!defined('WEBPATH'))
 				});
 				//]]>
 			</script>
-		<?php } ?>
+			<?php
+		}
 
-		<?php
+
 		if (($_gallery_page == 'album.php') || ($_gallery_page == 'favorites.php') || ($_gallery_page == 'news.php') || ($_gallery_page == 'pages.php') || ($_gallery_page == 'search.php')) {
 			scriptLoader($_themeroot . '/js/jquery.fancybox.min.js');
 			scriptLoader($_themeroot . '/js/zpB_fancybox_config.js');
@@ -166,9 +167,10 @@ if (!defined('WEBPATH'))
 				});
 				//]]>
 			</script>
-		<?php } ?>
-
-		<?php if (($_gallery_page == 'image.php') || ($_zenpage_news_enabled && is_NewsArticle())) { ?>
+			<?php
+		}
+		if (($_gallery_page == 'image.php') || ($_zenpage_news_enabled && is_NewsArticle())) {
+			?>
 			<script type="text/javascript">
 				//<![CDATA[
 	<?php
@@ -221,19 +223,21 @@ if (!defined('WEBPATH'))
 				case 63235: case 39:
 								if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-				break;
-				case 63234: case 37:
-								if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+		break;
+		case 63234: case 37:
+						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-				break;
-				}
-				return true;
-				}
+		break;
+		}
+		return true;
+		}
 
-				document.onkeydown = keyboardNavigation;
-				//]]>
+		document.onkeydown = keyboardNavigation;
+		//]]>
 			</script>
-		<?php } ?>
+			<?php
+		}
+		?>
 
 	</head>
 
@@ -269,7 +273,7 @@ if (!defined('WEBPATH'))
 						<?php } else { ?>
 
 							<?php if (getOption('zpB_homepage')) { ?>
-								<li<?php if (isset($isHomePage)) { ?> class="active"<?php } ?>>
+								<li<?php if (isset($isHomePage) && $isHomePage) { ?> class="active"<?php } ?>>
 									<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a>
 								</li>
 							<?php } ?>
@@ -369,11 +373,10 @@ if (!defined('WEBPATH'))
 
 		<div id="main" class="container">
 			<div class="page-header row">
-				<div class="col-sm-push-9 col-sm-3">
-					<?php
-					if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
-						?>
-
+				<?php
+				if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
+					?>
+					<div class="col-sm-push-9 col-sm-3">
 						<?php
 						if (extensionEnabled('rss')) {
 							$rss = false;
@@ -394,10 +397,11 @@ if (!defined('WEBPATH'))
 									$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_themeroot; ?>/images/feed_icon.png">');
 									//]]>
 								</script>
-							<?php } ?>
-						<?php } ?>
-
-						<?php if (getOption('zpB_social_links')) { ?>
+								<?php
+							}
+						}
+						if (getOption('zpB_social_links')) {
+							?>
 							<div class="addthis pull-right">
 								<!-- AddThis Button BEGIN -->
 								<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -411,7 +415,15 @@ if (!defined('WEBPATH'))
 							</div>
 							<?php
 						}
-					}
-					?>
-				</div>
-				<div class="header col-sm-pull-3 col-sm-9">
+						?>
+					</div>
+					<?php
+				}
+				if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
+					$col_header = ' col-sm-pull-3 col-sm-9';
+				} else {
+					$col_header = '';
+				}
+				?>
+
+				<div class="header<?php echo $col_header; ?>">

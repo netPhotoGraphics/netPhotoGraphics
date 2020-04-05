@@ -70,4 +70,4 @@ if ('* none *' != $album_filename = getOption('zpB_homepage_album_filename')) {
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php'); ?>
+<?php include('inc_footer.php');

@@ -19,6 +19,10 @@ $(document).ready(function () {
 			$(this).append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
 		}
 	});
+	$('footer a[href="https://netPhotoGraphics.org"]')
+		.attr('target', '_blank')
+		.append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
+	$('#photo-part').addClass('text-lowercase');
 
 	/* buttons */
 	$('button, input[type="button"], input[type="submit"], input[type="reset"]').addClass('btn btn-default');

@@ -41,4 +41,3 @@ if (extensionEnabled('favoritesHandler')) {
 } else {
 	include(CORE_SERVERPATH . '404.php');
 }
-?>
