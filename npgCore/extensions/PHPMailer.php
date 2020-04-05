@@ -144,7 +144,7 @@ function _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name,
 				break;
 		}
 		$mail->SMTPSecure = getOption('PHPMailer_secure');
-		$mail->SMTPAutoTLS = bool($mail->SMTPSecure);
+		$mail->SMTPAutoTLS = (bool) $mail->SMTPSecure;
 		$mail->CharSet = 'UTF-8';
 		$mail->From = $from_mail;
 		$mail->FromName = $from_name;
