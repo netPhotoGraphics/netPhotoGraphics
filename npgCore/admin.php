@@ -325,7 +325,7 @@ $buttonlist = array();
 					<div class="newVersion" style="height:78px;">
 						<h2><?php echo gettext('There is a new version available.'); ?></h2>
 						<?php
-						printf(gettext('Version %s can be downloaded by the utility button.'), $newestVersion);
+						printf(gettext('Version %s can be installed or downloaded from the utility buttons.'), $newestVersion);
 						?>
 					</div>
 					<?php
