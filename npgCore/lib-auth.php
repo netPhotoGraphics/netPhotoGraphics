@@ -428,7 +428,9 @@ class _Authority {
 				}
 				$name = array_search($index, self::$hashList);
 				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
-				deprecated_functions::deprecationMessage(sprintf(gettext('The password for user %1$s is using the deprecated %2$s hashing method.'), $userdata['user'], $name));
+				if (!empty($userdata['pass'])) {
+					deprecated_functions::deprecationMessage(sprintf(gettext('The password for user %1$s is using the deprecated %2$s hashing method.'), $userdata['user'], $name));
+				}
 			} else {
 				$index = false;
 				$name = '';
@@ -1575,7 +1577,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
