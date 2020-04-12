@@ -8,8 +8,8 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/print_album_menu.php');
  */
 function jqm_loadScripts() {
 	global $_themeroot;
-	scriptLoader($_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.css');
-	scriptLoader($_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.js');
+	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER .  '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
+	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER .  '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
 	?>
 
 	<script type="text/javascript">
