@@ -4656,6 +4656,11 @@ function print404status() {
 	}
 }
 
+function loadJqueryMobile() {
+	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
+	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
+}
+
 /**
  * A class to allow simple geo map printing independent of which plugin is enabled.
  *

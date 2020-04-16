@@ -14,8 +14,6 @@ if (!defined('WEBPATH'))
 
 		<?php
 		scriptLoader($_themeroot . '/style.css');
-
-		scriptLoader($_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.css');
 		?>
 		<style>
 			#loginform {
@@ -68,7 +66,7 @@ if (!defined('WEBPATH'))
 			});
 		</script>
 		<?php
-		scriptLoader($_themeroot . '/jquerymobile/jquery.mobile-1.4.5.min.js');
+		loadJqueryMobile();
 		?>
 	</head>
 
