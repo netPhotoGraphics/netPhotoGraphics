@@ -529,4 +529,3 @@ function my_checkPageValidity($request, $gallery_page, $page) {
 	}
 	return checkPageValidity($request, $gallery_page, $page);
 }
-?>
