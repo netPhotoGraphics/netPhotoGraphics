@@ -1289,7 +1289,9 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 					case 'menufunction':
 						$i = strpos($itemURL, '(');
 						if ($i) {
-							if (function_exists(trim(substr($itemURL, 0, $i)))) {
+							$f = substr($itemURL, 0, $i);
+							$class = explode('::', $f);
+							if (count($class) == 2 && method_exists($class[0], $class[1]) || function_exists($f)) {
 								eval($itemURL);
 							}
 						}

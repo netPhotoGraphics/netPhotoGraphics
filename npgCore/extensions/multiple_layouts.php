@@ -323,8 +323,9 @@ function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false)
 	chdir($curdir);
 
 	if ($child) {
-		$defaultlayout = checkParentLayouts($obj, $type);
-		$defaultlayout = $defaultlayout['data'];
+		if ($defaultlayout = checkParentLayouts($obj, $type)) {
+			$defaultlayout = $defaultlayout['data'];
+		}
 	}
 	if ($defaultlayout) {
 		$defaultlayout = stripSuffix($defaultlayout);
