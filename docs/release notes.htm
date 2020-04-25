@@ -272,7 +272,7 @@
 <p>The <code>shortenContent()</code> function has been rewritten. It will now count only text characters in shortening the string. Before HTML tags were counted as part of the allowed total. Page break handling is now incorporated in the function. Truncation will prefer to happen at a page break indication (<code>&lt;-- pagebreak --&gt;.</code>) This allows for simplification of <code>getContentShorten()</code> which had been including HTML tags in its character count when deciding what page break to select. The <code>$forceindicator</code> parameter has been removed. It really made no sense and was used only by <code>getContentShorten()</code> when it rolled back to a page break. It was also not applied if no shortening was done even though that was the promise in the comment block.</p>
 <p>Warnings about configuration changes will no longer be displayed on theme pages. In addition, when the warning is displayed on an admin page a button will be included to dismiss the warning. If you are comfortable that the change does not impact your site you may dismiss it and it will no longer be shown.</p>
 <h2>Trans-BMP character</h2>
-<p>The MySQL<em> utf8</em> encoding supports only <em>Basic Multilingual Plane</em> (BMP) characters. Many recently defined Emoji characters are coded in with <em>trans-BMP</em> codes. E.g. ?, ?️, ?. etc. For MySql to handle these the data field character set must be set to <em>utf8mb4</em>. Existing ZenPhoto20 installations encode all text fields as <em>utf8</em> so trying to store a <em>trans-BMP</em> character will result in data truncation at that character as it is not valid in <em>utf8</em>.</p>
+<p>The MySQL<em> utf8</em> encoding supports only <em>Basic Multilingual Plane</em> (BMP) characters. Many recently defined Emoji characters are coded in with <em>trans-BMP</em> codes. E.g. 🎃, 🎭, 💰. etc. For MySql to handle these the data field character set must be set to <em>utf8mb4</em>. Existing ZenPhoto20 installations encode all text fields as <em>utf8</em> so trying to store a <em>trans-BMP</em> character will result in data truncation at that character as it is not valid in <em>utf8</em>.</p>
 <p>New ZenPhoto20 installations will use <em>utf8mb4 encoding</em> on text fields so long as the MySql version of the site supports that encoding. For existing installation that wish to be able to use these Emoji it will be necessary to migrate the database. See the <em>utf8mb4Migration</em> plugin below.</p>
 <p>MySQL software version MUST be 5.5.3 or greater is required for support of utf8mb4 encoding.</p>
 <h2>Social Media Login</h2>
@@ -536,6 +536,6 @@
 <li><em>themeEditor</em>: This is the legacy theme editor which may be used instead of elFinder.</li>
 <li><em>zenphotoCompatibilityPack</em>: A plugin that provides a bridge to Zenphoto.org's 1.4.6 release compatible plugins and themes.</li>
 </ul>
-<p>";}</p>
+<p> </p>
 	</body>
 </html>
