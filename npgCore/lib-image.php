@@ -495,6 +495,33 @@ class imageProcessing {
 		return true;
 	}
 
+	static function cacheFromImageProcessorURI($img_link) {
+		global $_gallery;
+		$params = mb_parse_url(html_decode($img_link));
+		parse_str($params['query'], $query);
+		$args = array(
+				@$query['s'],
+				@$query['w'],
+				@$query['h'],
+				@$query['cw'],
+				@$query['ch'],
+				@$query['cx'],
+				@$query['cy'],
+				@$query['q'],
+				NULL,
+				@$query['c'],
+				@$query['t'],
+				@$query['wmk'],
+				@$query['admin'],
+				@$query['effects'],
+		);
+		$album = $query['a'];
+		$image = $query['i'];
+
+		$newfilename = getImageCacheFilename($album, $image, $args);
+		imageProcessing::cache($newfilename, ALBUM_FOLDER_SERVERPATH . internalToFilesystem($album) . '/' . internalToFilesystem($image), $args, FALSE, $_gallery->getCurrentTheme(), $album);
+	}
+
 	static function watermarkImage($newim, $watermark_image, $imgfile) {
 		$offset_h = getOption('watermark_h_offset') / 100;
 		$offset_w = getOption('watermark_w_offset') / 100;

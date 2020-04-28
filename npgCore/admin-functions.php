@@ -729,7 +729,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param int $max
 	 * @param int $v current value
 	 */
-	function putSlider($text, $postkey, $min, $max, $v) {
+	function putSlider($text, $postkey, $min, $max, $v, $showValue = true) {
 		?>
 		<style>
 			#<?php echo $postkey; ?>-handle {
@@ -756,10 +756,22 @@ function printAdminHeader($tab, $subtab = NULL) {
 					min: <?php echo (int) $min; ?>,
 					max: <?php echo (int) $max; ?>,
 					create: function () {
-						handle.text($(this).slider("value"));
+	<?php
+	if ($showValue) {
+		?>
+							handle.text($(this).slider("value"));
+		<?php
+	}
+	?>
 					},
 					slide: function (event, ui) {
-						handle.text(ui.value);
+	<?php
+	if ($showValue) {
+		?>
+							handle.text(ui.value);
+		<?php
+	}
+	?>
 						$("#<?php echo $postkey; ?>").val(ui.value);
 					}
 				});

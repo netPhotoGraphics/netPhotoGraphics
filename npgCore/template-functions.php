@@ -2776,34 +2776,7 @@ function getDefaultSizedImage($image = NULL) {
  */
 function printDefaultSizedImage($alt, $class = NULL, $id = NULL, $title = NULL) {
 	global $_current_image;
-	if (is_null($_current_image))
-		return;
-	if (!$_current_image->getShow()) {
-		$class .= " not_visible";
-	}
-	$album = $_current_image->getAlbum();
-	$pwd = $album->getPassword();
-	if (!empty($pwd)) {
-		$class .= " password_protected";
-	}
-	if ($id) {
-		$id = ' id="' . $id . '"';
-	}
-	if ($class) {
-		$class = ' class="' . $class . '"';
-	}
-	if ($title) {
-		$title = ' title="' . html_encode($title) . '"';
-	}
-
-	if (isImagePhoto()) { //Print images
-		$html = '<img src="' . html_encode(getDefaultSizedImage()) . '" alt="' . html_encode($alt) . '"' .
-						' width="' . getDefaultWidth() . '" height="' . getDefaultHeight() . '"' . $class . $id . $title . " />";
-		$html = npgFilters::apply('standard_image_html', $html);
-		echo $html;
-	} else { // better be a plugin class then
-		echo $_current_image->getContent();
-	}
+	echo $_current_image->getContent();
 }
 
 /**
@@ -4439,7 +4412,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span id="GDPR_acknowledge">
 			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-							$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

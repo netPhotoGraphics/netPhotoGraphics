@@ -949,6 +949,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/openstreetmap.php
 %extensions%/optionalObjectFields.php
 %extensions%/paged_thumbs_nav.php
+%extensions%/panorama.php
 %extensions%/PHPMailer.php
 %extensions%/print_album_menu.php
 %extensions%/publicCMS.php
@@ -7544,6 +7545,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/openstreetmap/images/marker-shadow.png
 %extensions%/openstreetmap/images/toggle.png
 %extensions%/openstreetmap/images/toggle.svg
+%extensions%/panorama
+%extensions%/panorama/jquery.ba-throttle-debounce.min.js
+%extensions%/panorama/jquery.paver.min.js
+%extensions%/panorama/paver.css
 %extensions%/PHPMailer
 %extensions%/PHPMailer/Exception.php
 %extensions%/PHPMailer/OAuth.php
@@ -8252,4 +8257,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8254
+8259
