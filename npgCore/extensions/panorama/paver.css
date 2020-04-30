@@ -1,6 +1,11 @@
 /* Variables */
 /* Panoview */
 
+/* nPG removed
+* {
+  box-sizing: border-box;
+}
+*/
 
 /* Success initialization of Paver */
 .paver--initialized {
@@ -59,6 +64,8 @@
 }
 
 .paver--ready div.paver__pano {
+	margin-left: auto;	/* nPG-for images which aren't panoramic */
+	margin-right: auto;	/* nPG-for images which aren't panoramic */
   background-size: cover;
   position: relative;
   z-index: 1;
