@@ -2,7 +2,7 @@
 /*
  * This plugin is based on {@link https://github.com/terrymun/paver <b>Paver</b>} by terrymun
  *
- * The plugin will display exceptionally wide images as a scrolable panorama. Images which
+ * The plugin will display exceptionally wide images as a scrollable panorama. Images which
  * fit into the image container will not be forced into panorama mode, so the function
  * can replace <code>printDefaultSizedImage()</code> in your <i>image.php</i> script.
  *
