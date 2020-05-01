@@ -94,19 +94,12 @@ if (!defined('WEBPATH'))
 							<a href="<?php echo html_encode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="fullimage">
 								<?php
 							}
+							if (class_exists('panorama')) {
+								panorama::image();
+							} else
 							if (function_exists('printUserSizeImage') && isImagePhoto()) {
 								printUserSizeImage(getImageTitle());
 							} else {
-								$w = getDefaultWidth();
-								if ($w > 585) {
-									?>
-									<style>
-										#main {
-											width: <?php echo $w + 100; ?>px;
-										}
-									</style>
-									<?php
-								}
 								printDefaultSizedImage(getImageTitle());
 							}
 							if (!empty($fullimage)) {

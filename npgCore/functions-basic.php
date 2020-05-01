@@ -652,7 +652,18 @@ function debugLogVar($var) {
  */
 function secureServer() {
 	global $_conf_vars;
-	return isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https' || isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false;
+	if (isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
+		return true;
+	} else if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false) {
+		return true;
+	} else if (isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] )) {
+		return true;
+	} else if (isset($_SERVER['HTTP_FORWARDED']) && preg_match("/^(.+[,;])?\s*proto=https\s*([,;].*)$/", strtolower($_SERVER['HTTP_FORWARDED']))) {
+		return true;
+	} else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ('https' == strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']))) {
+		return true;
+	}
+	return false;
 }
 
 /**
