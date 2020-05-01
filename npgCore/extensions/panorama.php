@@ -20,6 +20,14 @@
  * current image object will be used. If <i><code>alt&nbsp;text</code></i> is not supplied the image
  * title will be used.
  *
+ * <b>Note</b>: The <i>paver</i> scripts do not recognize nPG image processor URIs (e.g. i.php links.) This script will
+ * attempt to in-line cache the panorama to avoide this deficiency but that may
+ * not be possible if server memory is limited as the full compliment of theme scripts is loaded
+ * before the caching can be requested. If the in-line caching fails, the first load of a
+ * page with a particular panorama will not show the image. Typically refreshing the
+ * browser will reload the page and fetch the cached image which will work properly.
+ * If your images are large it would be a good idea to visit the image page to force caching.
+ *
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/panorama
@@ -74,50 +82,50 @@ class panorama {
 				overflow-x: hidden;
 				overflow-y: hidden;
 			}
-			</style>
-			<script type="text/javascript">
-				$(document).ready(function () {
-					$(function () {
-						// Paver
-						$('div.panorama').paver({
-							failureMessage: '<?php echo gettext('Scroll left/right to pan through panorama.'); ?>',
-							minimumOverflow: <?php echo getOption('panorama_overflow');
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$(function () {
+					// Paver
+					$('div.panorama').paver({
+						failureMessage: '<?php echo gettext('Scroll left/right to pan through panorama.'); ?>',
+						minimumOverflow: <?php echo getOption('panorama_overflow');
 		?>,
-							startPosition: <?php echo getOption('panorama_start') / 100; ?>
-						}
-						);
-					});
+						startPosition: <?php echo getOption('panorama_start') / 100; ?>
+					}
+					);
 				});
-			</script>
-			<?php
+			});
+		</script>
+		<?php
+	}
+
+	static function image($title = NULL, $image = NULL) {
+		global $_current_image, $_gallery;
+		if (is_null($image)) {
+			$image = $_current_image;
+		}
+		if (is_null($image)) {
+			return false;
+		}
+		if (empty($title)) {
+			$title = $image->getTitle();
 		}
 
-		static function image($title = NULL, $image = NULL) {
-			global $_current_image, $_gallery;
-			if (is_null($image)) {
-				$image = $_current_image;
-			}
-			if (is_null($image)) {
-				return false;
-			}
-			if (empty($title)) {
-				$title = $image->getTitle();
-			}
+		$h = $image->getHeight();
+		$w = $image->getWidth();
+		$height = getOption('panorama_height');
+		$width = (int) ($height / $h * $w);
 
-			$h = $image->getHeight();
-			$w = $image->getWidth();
-			$height = getOption('panorama_height');
-			$width = (int) ($height / $h * $w);
-
-			$height = getOption('panorama_height');
+		$height = getOption('panorama_height');
+		$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
+		if (strpos($img_link, 'i.php') !== FALSE) { //	image processor link, cache the image
+			require_once(dirname(__DIR__) . '/lib-image.php');
+			imageProcessing::cacheFromImageProcessorURI($img_link);
 			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-			if (strpos($img_link, 'i.php') !== FALSE) { //	image processor link, cache the image
-				require_once(dirname(__DIR__) . '/lib-image.php');
-				imageProcessing::cacheFromImageProcessorURI($img_link);
-				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-			}
-			?>
-			<div class="panorama" data-paver>
+		}
+		?>
+		<div class="panorama" data-paver>
 			<img src="<?php echo $img_link ?>" alt="<?php echo $title ?>" />
 		</div>
 

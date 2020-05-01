@@ -519,7 +519,7 @@ class imageProcessing {
 		$image = $query['i'];
 
 		$newfilename = getImageCacheFilename($album, $image, $args);
-		imageProcessing::cache($newfilename, ALBUM_FOLDER_SERVERPATH . internalToFilesystem($album) . '/' . internalToFilesystem($image), $args, FALSE, $_gallery->getCurrentTheme(), $album);
+		return imageProcessing::cache($newfilename, ALBUM_FOLDER_SERVERPATH . internalToFilesystem($album) . '/' . internalToFilesystem($image), $args, FALSE, $_gallery->getCurrentTheme(), $album);
 	}
 
 	static function watermarkImage($newim, $watermark_image, $imgfile) {
