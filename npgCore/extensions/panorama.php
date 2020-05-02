@@ -38,6 +38,7 @@
 
 $plugin_is_filter = 9 | THEME_PLUGIN;
 $plugin_description = gettext('A plugin to display photo images as a panorama.');
+$plugin_notice = gettext('Panoramic images can be quite large which may cause issues. Please review the note in the plugin usage information.');
 
 $option_interface = 'panorama';
 

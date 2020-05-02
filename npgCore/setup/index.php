@@ -587,6 +587,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$prevRel = false;
 								checkmark(1, sprintf(gettext('Installing netPhotoGraphics v%s'), NETPHOTOGRAPHICS_VERSION), '', '');
 							}
+
+							if (preg_match('~/npg/~', SERVERPATH . '/')) {
+								checkmark(0, gettext('Installation folder'), '', gettext('There may not be any folders named <em>npg</em> in the installation path.<br />Rename the <em>npg</em> folder and re-run setup.'));
+								$good = false;
+							}
+
 							chdir(dirname(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
 							$test = safe_glob('*.log');
 							array_push($test, basename(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
