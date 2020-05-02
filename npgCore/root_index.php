@@ -14,8 +14,8 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 $parts = explode('?', $uri);
 $uri = $parts[0];
 unset($parts);
-if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)(.*?)\?~i', $uri . '?', $matches)) {
-	$base = '/' . $matches[2] . $matches[3];
+if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)/(.*?)\?~i', $uri . '?', $matches)) {
+	$base = '/' . $matches[2] . '/' . $matches[3];
 	foreach (array('/CORE_PATH/PLUGIN_PATH/' => '/CORE_FOLDER/PLUGIN_FOLDER/', '/USER_PLUGIN_PATH/' => '/USER_PLUGIN_FOLDER/', '/CORE_PATH/' => '/CORE_FOLDER/') as $from => $to) {
 		$base = preg_replace('~' . $from . '~', $to, $base, 1, $count);
 		if ($count) {
