@@ -49,9 +49,12 @@ class captcha {
 				purgeOption('zenphoto_captcha_string');
 			}
 
+			if (getopt('npg_captcha_font_size') < 20) {
+				purgeOption('npg_captcha_font_size');
+			}
 			setOptionDefault('npg_captcha_font', '');
 			setOptionDefault('npg_captcha_length', 5);
-			setOptionDefault('npg_captcha_font_size', 18);
+			setOptionDefault('npg_captcha_font_size', 30);
 			setOptionDefault('npg_captcha_key', sha1($_SERVER['HTTP_HOST'] . 'a9606420399a77387af2a4b541414ee5' . getUserIP()));
 			setOptionDefault('npg_captcha_string', 'abcdefghijkmnpqrstuvwxyz23456789ABCDEFGHJKLMNPQRSTUVWXYZ');
 		}
@@ -80,9 +83,10 @@ class captcha {
 						'selections' => array_merge(array('*' . gettext('random') . '*' => '*'), $fontlist),
 						'desc' => gettext('The font to use for CAPTCHA characters.')),
 				gettext('CAPTCHA font size') => array('key' => 'npg_captcha_font_size', 'type' => OPTION_TYPE_NUMBER,
+						'limits' => array('min' => 20),
 						'order' => 3.5,
 						'disabled' => getSuffix(getOption('npg_captcha_font')) != 'ttf',
-						'desc' => gettext('The size to use if the font is scalable (<em>TTF</em> and <em>Imagick</em> fonts.)')),
+						'desc' => gettext('The size to use if the font is scalable (<em>TTF</em> fonts.)')),
 				'' => array('key' => 'npg_captcha_image', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 4,
 						'desc' => gettext('Sample CAPTCHA image'))
