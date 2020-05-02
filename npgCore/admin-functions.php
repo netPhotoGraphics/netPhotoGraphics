@@ -161,7 +161,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 			?>
 
-			<title><?php echo sprintf(gettext('%1$s %2$s: %3$s%4$s'), html_encode($_gallery->getTitle()), gettext('Admin'), html_encode($tabtext), html_encode($subtabtext)); ?></title>
+			<title><?php echo sprintf(gettext('%1$s %2$s: %3$s%4$s'), html_encode($_gallery->getTitle()), gettext('Admin'), html_encode(strip_tags($tabtext)), html_encode(strip_tags($subtabtext))); ?></title>
 			<?php
 			load_jQuery_scripts('admin');
 			scriptLoader(CORE_SERVERPATH . 'js/admin.js');
