@@ -27,17 +27,16 @@ class accessThreshold {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
 			setOptionDefault('accessThreshold_SENSITIVITY', '255.255.255.0');
 			setOptionDefault('accessThreshold_LocaleCount', 5);
 			setOptionDefault('accessThreshold_LIMIT', 100);
-			setOptionDefault('accessThreshold_Owner', getUserIP());
-			if (!isset($_GET['from']) || version_compare($_GET['from'], '1.3.0.3', '<')) {
-				//clear out the recentIP array
-				setOption('accessThreshold_CLEAR', 1);
-			}
+			setOptionDefault('accessThreshold_Monitor', TRUE);
+			//clear out the recentIP array
+			setOption('accessThreshold_CLEAR', 1);
 			self::handleOptionSave(NULL, NULL);
 		}
 	}
@@ -64,7 +63,10 @@ class accessThreshold {
 						'desc' => sprintf(gettext('The top %d accesses will be displayed.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Owner') => array('key' => 'accessThreshold_Owner', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 7,
-						'desc' => sprintf(gettext('Requests from this IP will be ignored.'), getOption('accessThreshold_LIMIT'))),
+						'desc' => sprintf(gettext('Requests from this IP will be ignored.') . ' <span class="logwarning">' . gettext('If your IP address is dynamically assigned you may need to update this on a regular basis.') . '</span>', getOption('accessThreshold_LIMIT'))),
+				gettext('Mointor only') => array('key' => 'accessThreshold_Monitor', 'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 7,
+						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Clear list') => array('key' => 'accessThreshold_CLEAR', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 99,
 						'desc' => gettext('Clear the access list.'))
@@ -84,6 +86,7 @@ class accessThreshold {
 		}
 		if (getOption('accessThreshold_CLEAR')) {
 			$recentIP = array();
+			setOption('accessThreshold_Owner', getUserIP());
 		} else {
 			$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
 		}
@@ -130,6 +133,7 @@ if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
 $me = getOption('accessThreshold_Owner');
+$monitor = getOption('accessThreshold_Monitor');
 if ($me && getUserIP() != $me) {
 	$mu = new npgMutex('aT');
 	$mu->lock();
@@ -161,7 +165,7 @@ if ($me && getUserIP() != $me) {
 			);
 		}
 		$recentIP[$ip]['lastAccessed'] = $__time;
-		if (@$recentIP[$ip]['blocked']) {
+		if (!$monitor && @$recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', serialize($recentIP));
 			$mu->unlock();
 			exit();
