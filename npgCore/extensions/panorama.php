@@ -109,28 +109,30 @@ class panorama {
 		if (is_null($image)) {
 			return false;
 		}
-		if (empty($title)) {
-			$title = $image->getTitle();
-		}
+		if (isImagePhoto($image)) {
+			if (empty($title)) {
+				$title = $image->getTitle();
+			}
 
-		$h = $image->getHeight();
-		$w = $image->getWidth();
-		$height = getOption('panorama_height');
-		$width = (int) ($height / $h * $w);
-
-		$height = getOption('panorama_height');
-		$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-		if (strpos($img_link, 'i.php') !== FALSE) { //	image processor link, cache the image
-			require_once(dirname(__DIR__) . '/lib-image.php');
-			imageProcessing::cacheFromImageProcessorURI($img_link);
+			$h = $image->getHeight();
+			$w = $image->getWidth();
+			$height = getOption('panorama_height');
+			$width = (int) ($height / $h * $w);
 			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-		}
-		?>
-		<div class="panorama" data-paver>
-			<img src="<?php echo $img_link ?>" alt="<?php echo $title ?>" />
-		</div>
+			if (strpos($img_link, 'i.php') !== FALSE) { //	image processor link, cache the image
+				require_once(dirname(__DIR__) . '/lib-image.php');
+				imageProcessing::cacheFromImageProcessorURI($img_link);
+				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
+			}
+			?>
+			<div class="panorama" data-paver>
+				<img src="<?php echo $img_link ?>" alt="<?php echo $title ?>" />
+			</div>
 
-		<?php
+			<?php
+		} else {
+			echo $image->getContent();
+		}
 	}
 
 }
