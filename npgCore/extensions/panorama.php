@@ -93,8 +93,12 @@ class panorama {
 						minimumOverflow: <?php echo getOption('panorama_overflow');
 		?>,
 						startPosition: <?php echo getOption('panorama_start') / 100; ?>
-					}
-					);
+					});
+					$('div.panorama').on('ready.paver', function () {
+						// Paver is initialized
+						$('div.panorama').css('visibility', 'visible');
+					});
+
 				});
 			});
 		</script>
@@ -125,7 +129,7 @@ class panorama {
 				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
 			}
 			?>
-			<div class="panorama" data-paver>
+			<div class="panorama" data-paver style="visibility: hidden;">
 				<img src="<?php echo $img_link ?>" alt="<?php echo $title ?>" />
 			</div>
 
