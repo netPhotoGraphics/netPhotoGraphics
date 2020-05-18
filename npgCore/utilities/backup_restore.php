@@ -179,16 +179,19 @@ if ($action == 'backup') {
 			$tableCount = $counter = 0;
 			$writeresult = true;
 			$autobackup = isset($_REQUEST['autobackup']);
+			$requestedTables = $_REQUEST['backup'];
+			$tablesSeen = array();
 			foreach ($tables as $row) {
 				$table = array_shift($row);
 				$unprefixed_table = substr($table, $prefixLen);
-				if ($autobackup || isset($_REQUEST['backup_' . $unprefixed_table])) {
+				if ($autobackup || array_search($unprefixed_table, $requestedTables)) {
 					$tableCount++;
 					$sql = 'SELECT * from `' . $table . '`';
 					$result = query($sql);
 					if ($result) {
 						while ($tablerow = db_fetch_assoc($result)) {
 							extendExecution();
+							$tablesSeen[$unprefixed_table] = $unprefixed_table;
 							$storestring = serialize($tablerow);
 							$storestring = compressRow($storestring, $compression_level);
 							$storestring = $unprefixed_table . TABLE_SEPARATOR . $storestring;
@@ -217,22 +220,44 @@ if ($action == 'backup') {
 		$msg = gettext('SHOW TABLES failed!');
 		$writeresult = false;
 	}
+
+	$emptyTables = array_diff($requestedTables, $tablesSeen);
 	if ($writeresult) {
 		setOption('last_backup_run', time());
 		$messages = '
 		<div class="messagebox fade-message">
-		<h2>
+			<h2>
 		';
 		if ($compression_level > 0) {
-			$messages .= sprintf(ngettext('%3$s table backed up using <em>%1$s(%2$s)</em> compression', '%3$s tables backed up using <em>%1$s(%2$s)</em> compression', $tableCount), $compression_handler, $compression_level, $tableCount);
+			$messages .= sprintf(ngettext('%3$s table backed up using <em>%1$s(%2$s)</em> compression', '%3$s tables backed up using <em>%1$s(%2$s)</em> compression.', $tableCount), $compression_handler, $compression_level, $tableCount);
 		} else {
-			$messages .= sprintf(ngettext('%1$s table backed up', '%1$s tables backed up', $tableCount), $tableCount);
+			$messages .= sprintf(ngettext('%1$s table backed up', '%1$s tables backed up.', $tableCount), $tableCount);
 		}
 		$messages .= '
-		</h2>
+			</h2>
 		</div>
-		<?php
 		';
+		if (!empty($emptyTables)) {
+			$messages .= '
+				<div class="warningbox">
+					<h2>
+					';
+			$messages .= '
+				<p>' . gettext('The following tables were empty:') . '
+					<ul>
+					';
+			foreach ($emptyTables as $item) {
+				$messages .= '<li><em>' . $item . '</em></li>';
+			}
+			$messages .= '
+					</ul>
+				</p>
+				';
+			$messages .= '
+					</h2>
+				</div>
+				';
+		}
 	} else {
 		if (isset($_REQUEST['autobackup'])) {
 			debugLog(sprintf('Autobackup failed: %s', $msg));
@@ -312,13 +337,14 @@ if ($action == 'backup') {
 					$string = getrow($handle);
 				}
 				$counter = 0;
-				$table_restored = $missing_table = array();
+				$table_ignored = $table_restored = $missing_table = $missing_element = array();
+				$requestedTables = $_REQUEST['restore'];
 				$missing_element = array();
 				while (!empty($string) && count($errors) < 100) {
 					extendExecution();
 					$sep = strpos($string, TABLE_SEPARATOR);
 					$table = substr($string, 0, $sep);
-					if (isset($_REQUEST['restore_' . $table])) {
+					if (array_search($table, $requestedTables)) {
 						if (array_key_exists($prefix . $table, $tables)) {
 							$table_restored[$table] = $table;
 							if (!$table_cleared[$prefix . $table]) {
@@ -338,7 +364,7 @@ if ($action == 'backup') {
 									}
 								}
 								if (array_search($key, $tables[$prefix . $table]) === false) {
-//	Flag it if data will be lost
+									//	Flag it if data will be lost
 									$missing_element[] = $table . '->' . $key;
 									unset($row[$key]);
 								} else {
@@ -378,6 +404,8 @@ if ($action == 'backup') {
 						} else {
 							$missing_table[] = $table;
 						}
+					} else {
+						$table_ignored[] = $tble;
 					}
 
 					$counter++;
@@ -392,15 +420,7 @@ if ($action == 'backup') {
 		}
 	}
 
-	foreach ($_REQUEST as $key => $v) {
-		if (strpos($key, 'restore_') === 0) {
-			$table = substr($key, 8);
-			if ($v && !in_array($table, $table_restored)) {
-				$not_present[] = $table;
-			}
-		}
-	}
-
+	$not_present = array_diff($requestedTables, $table_restored);
 	if (!empty($missing_table) || !empty($missing_element) || !empty($not_present)) {
 		$messages = '
 		<div class="warningbox">
@@ -582,7 +602,7 @@ if (isset($_GET['compression'])) {
 										?>
 										<span class="nowrap">
 											<label>
-												<input type="checkbox" class="backupCheckAuto" name="backup_<?php echo $table; ?>" value="1" checked="checked" /><?php echo $table; ?>
+												<input type="checkbox" class="backupCheckAuto" name="backup[]" value="<?php echo $table; ?>" checked="checked" /><?php echo $table; ?>
 											</label>
 										</span>
 										<?php
@@ -655,7 +675,7 @@ if (isset($_GET['compression'])) {
 										?>
 										<span class="nowrap">
 											<label>
-												<input type="checkbox" class="checkAuto" name="restore_<?php echo $table; ?>" value="1" checked="checked" /><?php echo $table; ?>
+												<input type="checkbox" class="checkAuto" name="restore[]" value="<?php echo $table; ?>" checked="checked" /><?php echo $table; ?>
 											</label>
 										</span>
 										<?php
