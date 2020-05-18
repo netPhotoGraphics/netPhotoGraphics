@@ -1305,9 +1305,10 @@ function npgButton($buttonType, $buttonText, $options = array()) {
 		$id = ' id="' . $id . '"';
 	}
 	?>
-	<button class="<?php echo $buttonClass;
-	?>" type="<?php echo $buttonType; ?>"<?php echo $buttonTitle . $buttonLink . $disabled . $id . $buttonExtra; ?>>
-		<span class="buttonText"><?php echo $buttonText; ?></span>
+	<button type="<?php echo $buttonType; ?>" class="<?php echo $buttonClass; ?>"<?php echo $id . $buttonTitle . $buttonLink . $disabled . $buttonExtra; ?>>
+		<span class="buttonText">
+			<?php echo $buttonText; ?>
+		</span>
 	</button>
 	<?php
 }
