@@ -9,8 +9,9 @@
  *
  * @package admin
  */
-if (!defined('OFFSET_PATH'))
+if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 3);
+}
 define('HEADER', '__HEADER__');
 define('RECORD_SEPARATOR', ':****:');
 define('TABLE_SEPARATOR', '::');
@@ -184,11 +185,18 @@ if ($action == 'backup') {
 			foreach ($tables as $row) {
 				$table = array_shift($row);
 				$unprefixed_table = substr($table, $prefixLen);
-				if ($autobackup || array_search($unprefixed_table, $requestedTables)) {
+				if ($autobackup || array_search($unprefixed_table, $requestedTables) !== FALSE) {
 					$tableCount++;
 					$sql = 'SELECT * from `' . $table . '`';
 					$result = query($sql);
 					if ($result) {
+						$storestring = $unprefixed_table . TABLE_SEPARATOR;
+						$storestring = strlen($storestring) . ':' . $storestring;
+						$writeresult = fwrite($handle, $storestring);
+						if ($writeresult === false) {
+							$msg = gettext('failed writing to backup!');
+							break;
+						}
 						while ($tablerow = db_fetch_assoc($result)) {
 							extendExecution();
 							$tablesSeen[$unprefixed_table] = $unprefixed_table;
@@ -344,7 +352,7 @@ if ($action == 'backup') {
 					extendExecution();
 					$sep = strpos($string, TABLE_SEPARATOR);
 					$table = substr($string, 0, $sep);
-					if (array_search($table, $requestedTables)) {
+					if (array_search($table, $requestedTables) !== FALSE) {
 						if (array_key_exists($prefix . $table, $tables)) {
 							$table_restored[$table] = $table;
 							if (!$table_cleared[$prefix . $table]) {
@@ -354,28 +362,28 @@ if ($action == 'backup') {
 								$table_cleared[$prefix . $table] = true;
 							}
 							$row = substr($string, $sep + strlen(TABLE_SEPARATOR));
-							$row = decompressRow($row);
-							$row = unserialize($row);
-
-							foreach ($row as $key => $element) {
-								if ($compression_handler == 'bzip2' || $compression_handler == 'gzip') {
-									if (!empty($element)) {
-										$element = decompressField($element);
-									}
-								}
-								if (array_search($key, $tables[$prefix . $table]) === false) {
-									//	Flag it if data will be lost
-									$missing_element[] = $table . '->' . $key;
-									unset($row[$key]);
-								} else {
-									if (is_null($element)) {
-										$row[$key] = 'NULL';
-									} else {
-										$row[$key] = db_quote($element);
-									}
-								}
-							}
 							if (!empty($row)) {
+								$row = decompressRow($row);
+								$row = unserialize($row);
+								foreach ($row as $key => $element) {
+									if ($compression_handler == 'bzip2' || $compression_handler == 'gzip') {
+										if (!empty($element)) {
+											$element = decompressField($element);
+										}
+									}
+									if (array_search($key, $tables[$prefix . $table]) === false) {
+										//	Flag it if data will be lost
+										$missing_element[] = $table . '->' . $key;
+										unset($row[$key]);
+									} else {
+										if (is_null($element)) {
+											$row[$key] = 'NULL';
+										} else {
+											$row[$key] = db_quote($element);
+										}
+									}
+								}
+
 								if ($table == 'options') {
 									if ($row['name'] == 'netphotographics_install') {
 										break;
