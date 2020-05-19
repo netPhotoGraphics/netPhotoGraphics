@@ -146,6 +146,12 @@ if ($result) {
 
 if ($action == 'backup') {
 	XSRFdefender('backup');
+	if (isset($_REQUEST['autobackup'])) {
+		$requestedTables = $tables;
+	} else {
+		$requestedTables = $_REQUEST['backup'];
+	}
+
 	$compression_level = sanitize($_REQUEST['compress'], 3);
 	setOption('backup_compression', $compression_level);
 	if ($compression_level > 0) {
@@ -179,13 +185,11 @@ if ($action == 'backup') {
 
 			$tableCount = $counter = 0;
 			$writeresult = true;
-			$autobackup = isset($_REQUEST['autobackup']);
-			$requestedTables = $_REQUEST['backup'];
 			$tablesSeen = array();
 			foreach ($tables as $row) {
 				$table = array_shift($row);
 				$unprefixed_table = substr($table, $prefixLen);
-				if ($autobackup || array_search($unprefixed_table, $requestedTables) !== FALSE) {
+				if (array_search($unprefixed_table, $requestedTables) !== FALSE) {
 					$tableCount++;
 					$sql = 'SELECT * from `' . $table . '`';
 					$result = query($sql);
