@@ -930,13 +930,14 @@ $plugins = array_keys($plugins);
 		}
 
 		if (isset($pluginDetails[$extension]['deprecated'])) {
-			$key = array_search($extension, $deprecatedDeleted);
-			if (is_numeric($key)) {
+			$k = array_search($extension, $deprecatedDeleted);
+			if (is_numeric($k)) {
 				if (extensionEnabled($extension)) {
-					unset($deprecatedDeleted[$key]);
+					unset($deprecatedDeleted[$k]);
 				} else {
 					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . '/' . $extension);
 					unlink(USER_PLUGIN_SERVERPATH . '/' . $extension . '.php');
+					unset($plugins[$key]);
 					continue;
 				}
 			}
