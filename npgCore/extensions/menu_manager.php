@@ -433,7 +433,9 @@ function inventMenuItem($menuset, $visibility) {
 						'title' => $_current_image->getTitle(),
 						'show' => 1,
 						'link' => '',
-						'menuset' => $menuset
+						'menuset' => $menuset,
+						'span_class' => false,
+						'span_id' => false
 				);
 			}
 			break;
@@ -466,7 +468,9 @@ function inventMenuItem($menuset, $visibility) {
 							'title' => $_CMS_current_article->getTitle(),
 							'show' => 1,
 							'link' => '',
-							'menuset' => $menuset
+							'menuset' => $menuset,
+							'span_class' => false,
+							'span_id' => false
 					);
 				} else {
 					$currentkey = false; // not a news page, must be the index?
@@ -488,7 +492,9 @@ function inventMenuItem($menuset, $visibility) {
 								'title' => $_CMS_current_page->getTitle(),
 								'show' => 1,
 								'link' => '',
-								'menuset' => $menuset
+								'menuset' => $menuset,
+								'span_class' => false,
+								'span_id' => false
 						);
 						break;
 					}
