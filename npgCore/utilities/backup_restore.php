@@ -147,7 +147,12 @@ if ($result) {
 if ($action == 'backup') {
 	XSRFdefender('backup');
 	if (isset($_REQUEST['autobackup'])) {
-		$requestedTables = $tables;
+		$requestedTables = array();
+		foreach ($tables as $row) {
+			$table = array_shift($row);
+			$unprefixed_table = substr($table, $prefixLen);
+			$requestedTables[] = $unprefixed_table;
+		}
 	} else {
 		$requestedTables = $_REQUEST['backup'];
 	}
