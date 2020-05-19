@@ -194,7 +194,7 @@ if ($action == 'backup') {
 			foreach ($tables as $row) {
 				$table = array_shift($row);
 				$unprefixed_table = substr($table, $prefixLen);
-				if (array_search($unprefixed_table, $requestedTables) !== FALSE) {
+				if (in_array($unprefixed_table, $requestedTables)) {
 					$tableCount++;
 					$sql = 'SELECT * from `' . $table . '`';
 					$result = query($sql);
@@ -361,7 +361,7 @@ if ($action == 'backup') {
 					extendExecution();
 					$sep = strpos($string, TABLE_SEPARATOR);
 					$table = substr($string, 0, $sep);
-					if (array_search($table, $requestedTables) !== FALSE) {
+					if (in_array($table, $requestedTables)) {
 						if (array_key_exists($prefix . $table, $tables)) {
 							$table_restored[$table] = $table;
 							if (!$table_cleared[$prefix . $table]) {
@@ -380,7 +380,7 @@ if ($action == 'backup') {
 											$element = decompressField($element);
 										}
 									}
-									if (array_search($key, $tables[$prefix . $table]) === false) {
+									if (!in_array($key, $tables[$prefix . $table])) {
 										//	Flag it if data will be lost
 										$missing_element[] = $table . '->' . $key;
 										unset($row[$key]);
