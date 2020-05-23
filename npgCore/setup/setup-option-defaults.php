@@ -930,13 +930,14 @@ $plugins = array_keys($plugins);
 		}
 
 		if (isset($pluginDetails[$extension]['deprecated'])) {
-			$key = array_search($extension, $deprecatedDeleted);
-			if (is_numeric($key)) {
+			$k = array_search($extension, $deprecatedDeleted);
+			if (is_numeric($k)) {
 				if (extensionEnabled($extension)) {
-					unset($deprecatedDeleted[$key]);
+					unset($deprecatedDeleted[$k]);
 				} else {
 					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . '/' . $extension);
 					unlink(USER_PLUGIN_SERVERPATH . '/' . $extension . '.php');
+					unset($plugins[$key]);
 					continue;
 				}
 			}
@@ -970,9 +971,18 @@ if ($deprecate) {
 	}
 	$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
 	if ($compatibilityIs != $compatibilityWas) {
-		setOption('zenphotoCompatibilityPack_signature', serialize($compatibilityIs));
-		enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
-		setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
+		$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
+		$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
+		if (!empty($themeChange) || !empty($pluginChange)) {
+			enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
+			setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
+			if (!empty($themeChange)) {
+				setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', $fullLog);
+			}
+			if (!empty($pluginChange)) {
+				setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', $fullLog);
+			}
+		}
 	}
 }
 

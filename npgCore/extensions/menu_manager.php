@@ -433,7 +433,9 @@ function inventMenuItem($menuset, $visibility) {
 						'title' => $_current_image->getTitle(),
 						'show' => 1,
 						'link' => '',
-						'menuset' => $menuset
+						'menuset' => $menuset,
+						'span_class' => false,
+						'span_id' => false
 				);
 			}
 			break;
@@ -466,7 +468,9 @@ function inventMenuItem($menuset, $visibility) {
 							'title' => $_CMS_current_article->getTitle(),
 							'show' => 1,
 							'link' => '',
-							'menuset' => $menuset
+							'menuset' => $menuset,
+							'span_class' => false,
+							'span_id' => false
 					);
 				} else {
 					$currentkey = false; // not a news page, must be the index?
@@ -488,7 +492,9 @@ function inventMenuItem($menuset, $visibility) {
 								'title' => $_CMS_current_page->getTitle(),
 								'show' => 1,
 								'link' => '',
-								'menuset' => $menuset
+								'menuset' => $menuset,
+								'span_class' => false,
+								'span_id' => false
 						);
 						break;
 					}
@@ -509,7 +515,7 @@ function inventMenuItem($menuset, $visibility) {
 }
 
 /**
- * Returns the sort_order of the current menu item
+ * Returns the index (sort_order) of the current menu item
  * @param string $menuset current menu set
  * @return int
  */
@@ -556,11 +562,9 @@ function getCurrentMenuItem($menuset) {
 		}
 	}
 
-
 	if (is_null($currentkey)) {
-		$currentkey = inventMenuItem($menuset, $visibility);
+		return inventMenuItem($menuset, $visibility);
 	}
-
 
 	return $currentkey;
 }
@@ -1142,13 +1146,14 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	if ($css_id != "") {
 		$css_id = " id='" . $css_id . "'";
 	}
-	if ($showsubs === true)
+	if ($showsubs === true) {
 		$showsubs = 9999999999;
-
+	}
 	$sortorder = getCurrentMenuItem($menuset);
 	$items = getMenuItems($menuset, getMenuVisibility());
-	if (count($items) == 0)
+	if (count($items) == 0) {
 		return; // nothing to do
+	}
 	$currentitem_parentid = @$items[$sortorder]['parentid'];
 	if ($startlist = !($option == 'omit-top' || $option == 'list-sub')) {
 		echo "<ul$css_id>";
@@ -1260,14 +1265,18 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 
 			if ($item['id'] == $pageid && !is_null($pageid)) {
 				if ($level == 1) { // top level
-					$class = $css_class_topactive;
+					$class = ' ' . $css_class_topactive;
 				} else {
-					$class = $css_class_active;
+					$class = ' ' . $css_class_active;
 				}
 				echo '<li class="menu_' . trim($item['type'] . ' ' . $class) . '">' . $itemtitle . $itemcounter;
 			} else {
 				if (strpos($sortorder, $item['sort_order']) === 0) { // we are in the heritage chain
-					$class = ' ' . $css_class_active . '-' . ($mylevel - $level);
+					if ($level == 1) {
+						$class = ' ' . $css_class_topactive;
+					} else {
+						$class = ' ' . $css_class_active . '-' . ($mylevel - $level);
+					}
 				} else {
 					$class = '';
 				}

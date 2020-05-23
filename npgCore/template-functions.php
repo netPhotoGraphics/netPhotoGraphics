@@ -4410,19 +4410,22 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 	global $_current_admin_obj;
 	if (getOption('GDPR_acknowledge') && !($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') != getOption('GDPR_cookie')) {
 		?>
-		<span id="GDPR_acknowledge">
-			<input type="checkbox" name="policy_acknowledge" onclick="$('#submitbutton').show();
-					$('#GDPR_acknowledge').hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+		<span class="policy_acknowledge_check_box">
+			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
 		</span>
 		<?php
-		$display = ' style="display:none;"';
+		$display = ' style="display:none;" ';
 	} else {
 		$display = '';
 	}
-	npgButton('submit', $buttonText, array('buttonClass' => 'policyButton ' . $buttonClass, 'buttonExtra' => $display . $buttonExtra, 'id' => 'submitbutton'));
+	npgButton('submit', $buttonText, array('buttonClass' => 'policyButton ' . $buttonClass, 'id' => 'submitbutton', 'buttonExtra' => $display . $buttonExtra));
+	?>
+	<br clear="all">
+	<?php
 }
 
 function recordPolicyACK($user = NULL) {
