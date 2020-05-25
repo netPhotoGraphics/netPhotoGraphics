@@ -15,8 +15,6 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 $admins = $_authority->getAdministrators();
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 
-var_dump($unsubscribe_list);
-
 printAdminHeader('admin', 'Mailing');
 npgFilters::apply('texteditor_config', 'forms');
 ?>
