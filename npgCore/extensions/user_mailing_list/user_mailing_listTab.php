@@ -15,7 +15,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 $admins = $_authority->getAdministrators();
 
 printAdminHeader('admin', 'Mailing');
-npgFilters::apply('texteditor_config', 'photo');
+npgFilters::apply('texteditor_config', 'forms');
 ?>
 </head>
 <body>

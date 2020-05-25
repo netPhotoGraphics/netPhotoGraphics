@@ -78,7 +78,7 @@ if ($pasteObjEnabled) {
 	<?php
 }
 ?>
-	tinymce.init({
+	tinymce.init({	<?php echo '/* ' . stripSuffix(basename($_editorconfig)) . " */\n"; ?>
 	entity_encoding : "<?php echo getOption('tiny_mce_entity_encoding'); ?>",
 					selector: "<?php echo $MCEselector; ?>",
 					language: "<?php echo $MCElocale; ?>",
