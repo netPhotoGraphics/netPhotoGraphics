@@ -127,7 +127,7 @@ $filelist = array_slice($pluginlist, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PA
 			close: '<?php echo gettext("close"); ?>',
 			maxHeight: '90%',
 			maxWidth: '80%',
-			innerWidth: '560px',
+			innerWidth: '800px',
 			href: plugin
 		});
 	}
