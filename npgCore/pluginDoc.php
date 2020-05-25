@@ -176,7 +176,6 @@ function processCommentBlock($commentBlock) {
 					}
 				}
 				$doc .= strtr(html_encodeTagged($line), array_merge($tags, $markup)) . ' ';
-
 				$empty = false;
 			}
 		}
@@ -314,7 +313,7 @@ if (!defined('OFFSET_PATH')) {
 						padding-bottom: 5px;
 						margin: 15px;
 						border: 1px solid #cccccc;
-						width: 460px;
+						width: 700px;
 					}
 					.moc_button {
 						display: block;

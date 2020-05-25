@@ -13,6 +13,9 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 $admins = $_authority->getAdministrators();
+$unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
+
+var_dump($unsubscribe_list);
 
 printAdminHeader('admin', 'Mailing');
 npgFilters::apply('texteditor_config', 'forms');
@@ -29,7 +32,7 @@ npgFilters::apply('texteditor_config', 'forms');
 				<p><?php echo gettext("A tool to send e-mails to all registered users who have provided an e-mail address. There is always a copy sent to the current admin and all e-mails are sent as <em>blind copies</em>."); ?></p>
 				<?php
 				if (!npgFilters::has_filter('sendmail')) {
-					$disabled = ' disabled="disabled"';
+					$disableForm = ' disabled="disabled"';
 					?>
 					<p class="notebox">
 						<?php
@@ -38,7 +41,7 @@ npgFilters::apply('texteditor_config', 'forms');
 					</p>
 					<?php
 				} else {
-					$disabled = '';
+					$disableForm = '';
 				}
 				?>
 				<p id="sent" class="messagebox" style="display:none;">
@@ -52,9 +55,9 @@ npgFilters::apply('texteditor_config', 'forms');
 
 					<div class="floatleft">
 						<labelfor="subject"><?php echo gettext('Subject:'); ?></label><br />
-							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disabled; ?> /><br /><br />
+							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disableForm; ?> /><br /><br />
 							<label for="message"><?php echo gettext('Message:'); ?></label><br />
-							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="10"<?php echo $disabled; ?> ></textarea>
+							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="10"<?php echo $disableForm; ?> ></textarea>
 					</div>
 
 					<div class="floatleft">
@@ -70,13 +73,14 @@ npgFilters::apply('texteditor_config', 'forms');
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
 							foreach ($admins as $admin) {
-								if (!empty($admin['email']) && $currentadminuser != $admin['user']) {
+								if (!empty($admin['email']) && $currentadminuser != $admin['user'] && !in_array($admin['user'], $unsubscribe_list)) {
 									?>
 									<li>
 										<label for="admin_<?php echo $admin['id']; ?>">
-											<input class="anuser ignoredirty" name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked"  <?php echo $disabled; ?>/>
+											<input class="anuser ignoredirty" name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked" />
 											<?php
-											echo $admin['user'] . " (";
+											echo $admin['user'];
+											echo " (";
 											if (!empty($admin['name'])) {
 												echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
 											} else {
@@ -117,8 +121,8 @@ if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {
 					</script>
 					<p>
 						<?php
-						applyButton(array('buttonText' => CHECKMARK_GREEN . '	' . gettext("Send mail")));
-						resetButton();
+						applyButton(array('buttonText' => CHECKMARK_GREEN . '	' . gettext("Send mail"), 'disabled' => $disableForm));
+						resetButton(array('disabled' => $disableForm));
 						?>
 					</p>
 					<br style="clear: both" />
