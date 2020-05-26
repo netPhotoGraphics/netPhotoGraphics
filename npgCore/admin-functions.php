@@ -1372,7 +1372,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						if (isset($_POST[$postkey])) {
 							$value = serialize($_POST[$postkey]);
 						} else {
-							$value = NULL;
+							$value = serialize(array());
 						}
 						break;
 					case 'save':
