@@ -88,7 +88,8 @@ if (isset($_GET['action'])) {
 			XSRFdefender('saveadmin');
 
 			$notify = $returntab = $msg = '';
-			$newuserid = (int) @$_POST['newuser'];
+			$newuserid = @$_POST['newuser'];
+
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -96,7 +97,12 @@ if (isset($_GET['action'])) {
 									trim($userlist[0]['adminuser']) != $_current_admin_obj->getUser() ||
 									$newuserid === 0) {
 						if (!$_current_admin_obj->reset) {
-							admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
+							if (isset($_POST['alter_enabled'])) {
+								$rights = ADMIN_RIGHTS;
+							} else {
+								$rights = USER_RIGHTS;
+							}
+							admin_securityChecks($rights, currentRelativeURL());
 						}
 					}
 
@@ -648,8 +654,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -658,7 +664,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {

@@ -12,7 +12,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-$admins = $_authority->getAdministrators();
+$admins = $_authority->getAdministrators('all');
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 
 printAdminHeader('admin', 'Mailing');
@@ -71,24 +71,49 @@ npgFilters::apply('texteditor_config', 'forms');
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
 							foreach ($admins as $admin) {
-								if (!empty($admin['email']) && $currentadminuser != $admin['user'] && !in_array($admin['user'], $unsubscribe_list)) {
-									?>
-									<li>
-										<label for="admin_<?php echo $admin['id']; ?>">
-											<input class="anuser ignoredirty" name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked" />
-											<?php
-											echo $admin['user'];
-											echo " (";
-											if (!empty($admin['name'])) {
-												echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
-											} else {
-												echo $admin['email'];
-											}
-											echo ")";
-											?>
-										</label>
-									</li>
-									<?php
+								if ($admin['valid']) {
+									if (!empty($admin['email']) && $currentadminuser != $admin['user']) {
+										$subscribed = !in_array($admin['user'], $unsubscribe_list);
+										?>
+										<li>
+											<label for="admin_<?php echo $admin['id']; ?>">
+												<?php
+												if ($subscribed) {
+													?>
+													<input class="anuser ignoredirty" name="mailto[]" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo $admin['id']; ?>" checked="checked" />
+													<?php
+												} else {
+													?>
+													<span class="icons" style="padding-left: 2px;padding-right: 1px;">
+														<?php
+														echo CROSS_MARK_RED;
+														?>
+													</span>
+													<?php
+												}
+												echo $admin['user'] . " (";
+												if (!empty($admin['name'])) {
+													echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
+												} else {
+													echo $admin['email'];
+												}
+												echo ")";
+												?>
+											</label>
+										</li>
+										<?php
+									}
+								} else {
+									if ($admin['name'] == 'group') {
+										?>
+										<li>
+											<label for="admin_<?php echo $admin['id']; ?>">
+												<input class= ignoredirty" name="mailto[]" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo $admin['id']; ?>" />
+												<?php echo $admin['user'] . " {<em>" . gettext('group') . '</em>}'; ?>
+											</label>
+										</li>
+										<?php
+									}
 								}
 							}
 							?>

@@ -125,8 +125,10 @@ class googleTFA extends fieldExtender {
 			$checked = '';
 		}
 		$result = '<div class="user_left">' . "\n"
+						. "<label>\n"
 						. '<input type="checkbox" name="user[' . $id . '][otp]" value="1" ' . $checked . ' />&nbsp;'
-						. gettext("Two Factor Authentication") . "\n";
+						. gettext("Two Factor Authentication") . "\n"
+						. "</label>\n";
 
 		if ($checked) {
 			$secret = html_encode($userobj->getOTAsecret());

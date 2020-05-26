@@ -13,10 +13,11 @@
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
-admin_securityChecks(USER_RIGHTS, $return = currentRelativeURL());
+admin_securityChecks(NO_RIGHTS, $return = currentRelativeURL());
 
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 $whom = $_current_admin_obj->getUser();
+$subscribed = !isset($_GET['subscribe']);
 
 printAdminHeader('admin', 'Mailing');
 ?>
@@ -28,12 +29,12 @@ printAdminHeader('admin', 'Mailing');
 		<div id="content">
 			<div id="container">
 				<?php
-				if (isset($_GET['unsubscribe'])) {
+				if ($subscribed) {
 					$unsubscribe_list[] = $whom;
 					?>
 					<div style="line-height: 20em; text-align: center;">
 						<p>
-							<?php printf(gettext('You are no longer subscribed to the <em>%1$s</em> mailing list'), $_gallery->getTitle()); ?>
+							<?php echo gettext('You are no longer subscribed to the site mailing list'); ?>
 						</p>
 					</div>
 					<p style="text-align: center;">
@@ -42,14 +43,15 @@ printAdminHeader('admin', 'Mailing');
 						</a>
 					</p>
 					<?php
-				} else if (isset($_GET['subscribe'])) {
-					if ($key = array_search($whom, $unsubscribe_list)) {
+				} else {
+					$key = array_search($whom, $unsubscribe_list);
+					if ($key !== FALSE) {
 						unset($unsubscribe_list[$key]);
 					}
 					?>
 					<div style="line-height: 20em; text-align: center;">
 						<p>
-							<?php printf(gettext('You are now subscribed to the <em>%1$s</em> mailing list'), $_gallery->getTitle()); ?>
+							<?php echo gettext('You are now subscribed to the site mailing list'); ?>
 						</p>
 					</div>
 					<p style="text-align: center;">

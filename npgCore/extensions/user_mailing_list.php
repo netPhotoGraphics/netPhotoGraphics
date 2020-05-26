@@ -22,8 +22,10 @@ $plugin_description = gettext("Provides a utility function to send e-mails to al
 
 $option_interface = 'user_mailing_list';
 
-if (npg_loggedin(ADMIN_RIGHTS)) {
+if (npg_loggedin(USER_RIGHTS)) {
 	npgFilters::register('admin_tabs', 'user_mailing_list::admin_tabs', -1300);
+	npgFilters::register('save_admin_data', 'user_mailing_list::save');
+	npgFilters::register('edit_admin_custom', 'user_mailing_list::edit', 999);
 }
 
 class user_mailing_list {
@@ -50,6 +52,46 @@ class user_mailing_list {
 		);
 
 		return $options;
+	}
+
+	static function edit($html, $userobj, $id, $background, $current) {
+		global $_current_admin_obj;
+		if ($userobj == $_current_admin_obj) {
+			$unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
+			$whom = $userobj->getUser();
+			if (in_array($whom, $unsubscribe_list)) {
+				$checked = ' checked="checked"';
+			} else {
+				$checked = '';
+			}
+
+			$result = '<div class="user_left">' . "\n"
+							. "<label>\n"
+							. '<input type="checkbox" name="user[' . $id . '][mailinglist]" value="1" ' . $checked . ' />&nbsp;'
+							. gettext("Opt-out of the mailing list") . "\n"
+							. "</label>\n"
+							. "</div>\n"
+							. '<br clear="all">' . "\n";
+			$html .= $result;
+		}
+		return $html;
+	}
+
+	static function save($userobj, $i, $alter) {
+		global $_current_admin_obj;
+		if ($userobj->getID() == $_current_admin_obj->getID()) {
+			$whom = $userobj->getUser();
+			if (isset($_POST['user'][$i]['mailinglist'])) {
+				$unsubscribe_list[] = $whom;
+			} else {
+				$unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
+				$key = array_search($whom, $unsubscribe_list);
+				if ($key !== FALSE) {
+					unset($unsubscribe_list[$key]);
+				}
+			}
+			setOption('user_mailing_list_unsubscribed', serialize(array_unique($unsubscribe_list)));
+		}
 	}
 
 }
