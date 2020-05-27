@@ -38,6 +38,7 @@ class user_mailing_list {
 	function getOptionsSupported() {
 		global $_authority;
 		$admins = $_authority->getAdministrators();
+		$admins = sortMultiArray($admins, array('user'), false, TRUE, TRUE, TRUE);
 		$list = array();
 		foreach ($admins as $key => $admin) {
 			if (!empty($admin['email'])) {

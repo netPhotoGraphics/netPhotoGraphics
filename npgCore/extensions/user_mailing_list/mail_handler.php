@@ -28,6 +28,7 @@ if (isset($_POST['message'])) {
 $toList = $bccList = array();
 $admins = $_POST['mailto'];
 $adminlist = $_authority->getAdministrators('all');
+$unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 
 foreach ($admins as $adminid) {
 	$admin = $adminlist[$adminid];
@@ -42,10 +43,13 @@ foreach ($admins as $adminid) {
 			$group = $admin['user'];
 			foreach ($adminlist as $member) {
 				if ($member['group'] == $group && $member['email']) {
-					if ($member['name']) {
-						$bccList[$member['name']] = $member['email'];
-					} else {
-						$bccList[] = $member['email'];
+					$subscribed = !in_array($member['user'], $unsubscribe_list);
+					if ($subscribed) {
+						if ($member['name']) {
+							$bccList[$member['name']] = $member['email'];
+						} else {
+							$bccList[] = $member['email'];
+						}
 					}
 				}
 			}

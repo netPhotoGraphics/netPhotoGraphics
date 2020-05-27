@@ -13,6 +13,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 $admins = $_authority->getAdministrators('all');
+$admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 
 printAdminHeader('admin', 'Mailing');
@@ -64,7 +65,7 @@ npgFilters::apply('texteditor_config', 'forms');
 							<?php echo gettext('Select users:'); ?>
 
 							<span class="floatright">
-								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all'); ?>
+								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all users'); ?>
 							</span>
 						</div>
 						<ul class="unindentedchecklist" style="height: 205px; width: 30em; padding:5px;">
