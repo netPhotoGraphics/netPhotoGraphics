@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:14-0700\n"
-"PO-Revision-Date: 2020-05-27 15:14-0700\n"
+"POT-Creation-Date: 2020-05-29 12:56-0700\n"
+"PO-Revision-Date: 2020-05-29 12:56-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -481,7 +481,7 @@ msgstr "*ברירת מחדל"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "תמונות מוקטנות (סטנדרטי)"
+msgstr "תמונות מוקטנות לשורה"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -546,7 +546,7 @@ msgstr ""
 #: npgCore/admin-tabs/image_edit.php:414 npgCore/extensions/zenpage/edit.php:723
 #, fuzzy
 msgid "Publish date"
-msgstr "תאריך:"
+msgstr "תאריך"
 
 #: npgCore/admin-functions.php:2484 npgCore/admin-tabs/image_edit.php:416
 #: npgCore/extensions/zenpage/edit.php:742
@@ -575,7 +575,7 @@ msgstr "בעלים"
 #: npgCore/admin-functions.php:2511 npgCore/admin-tabs/image_edit.php:443
 #, fuzzy, php-format
 msgid "Owner: %1$s"
-msgstr "%1$u הקלקה על %2$s"
+msgstr "%1$u חדש %2$s"
 
 #: npgCore/admin-functions.php:2517 npgCore/admin-tabs/image_edit.php:449
 #: npgCore/extensions/zenpage/edit.php:679
@@ -1055,7 +1055,7 @@ msgstr "מחבר:"
 #: npgCore/admin-functions.php:4712
 #, fuzzy
 msgid "New owner:"
-msgstr "ייבוא חדש"
+msgstr "תת-אלבום חדש"
 
 #: npgCore/admin-functions.php:4738
 #, fuzzy
@@ -1065,12 +1065,12 @@ msgstr "יעד"
 #: npgCore/admin-functions.php:5026 npgCore/admin-functions.php:5061
 #, fuzzy, php-format
 msgid "codeblock %u"
-msgstr "אלבום %u"
+msgstr "דף %u"
 
 #: npgCore/admin-functions.php:5027 npgCore/admin-functions.php:5067
 #, fuzzy
 msgid "add codeblock"
-msgstr "הוסף תגובה"
+msgstr "הוסף תגיות"
 
 #: npgCore/admin-functions.php:5082
 #, fuzzy
@@ -1232,7 +1232,7 @@ msgstr ""
 #: npgCore/admin-functions.php:5495
 #, fuzzy
 msgid "mail"
-msgstr "שליחת מייל נכשלה. אין שירות מייל פעיל."
+msgstr "המייל נשלח."
 
 #: npgCore/admin-functions.php:5496
 #, fuzzy
@@ -1266,7 +1266,7 @@ msgstr "משתמשים"
 #: npgCore/admin-functions.php:5505
 #, fuzzy
 msgid "<em>3rd party</em>"
-msgstr "<em>ללא שם</em>"
+msgstr "צפו ב-<em>%s</em>"
 
 #: npgCore/admin-functions.php:5506
 #, fuzzy
@@ -1283,7 +1283,7 @@ msgstr "<em>או</em>"
 #: npgCore/admin-functions.php:5508
 #, fuzzy
 msgid "<em>Deprecated</em>"
-msgstr "<em>ללא שם</em>"
+msgstr "צפו ב-<em>%s</em>"
 
 #: npgCore/admin-functions.php:5509
 #, fuzzy
@@ -1577,7 +1577,7 @@ msgstr "Filemtime"
 #: npgCore/admin-globals.php:76
 #, fuzzy
 msgid "Last change date"
-msgstr "תאריך:"
+msgstr "תאריך"
 
 #: npgCore/admin-globals.php:86 npgCore/admin-globals.php:174
 #: npgCore/extensions/accessThreshold.php:109
@@ -1879,7 +1879,7 @@ msgstr "ארגנו סדר התמונות  על ידי גרירתם למיקום 
 #, fuzzy
 #| msgid "Un-published"
 msgid "Unpublished"
-msgstr "אין דפים שלא פורסמו"
+msgstr "פריטים שסומנו לא יופרסמו"
 
 #: npgCore/admin-tabs/dynamic-album.php:37
 #: npgCore/extensions/favoritesAlbums/admin-album.php:86
@@ -1905,7 +1905,7 @@ msgstr "דינמי"
 #: npgCore/admin-tabs/dynamic-album.php:132
 #, fuzzy
 msgid "Create Dynamic Album"
-msgstr "צרי אלבום מהחיפוש"
+msgstr "צרי את האלבום"
 
 #: npgCore/admin-tabs/dynamic-album.php:181
 #: npgCore/extensions/favoritesAlbums/admin-album.php:126
@@ -1934,7 +1934,7 @@ msgstr "אלבומים"
 #: npgCore/admin-tabs/dynamic-album.php:261
 #, fuzzy
 msgid "Return images found"
-msgstr "אובייקט לא נמצא"
+msgstr "האלבום לא נמצא"
 
 #: npgCore/admin-tabs/dynamic-album.php:265
 #, fuzzy
@@ -2059,7 +2059,7 @@ msgstr "הציגי"
 #: npgCore/admin-tabs/edit.php:637 npgCore/admin-tabs/images.php:275
 #, fuzzy
 msgid "Show album thumb"
-msgstr "תמונת אצבע ="
+msgstr "תמונות מוקטנות"
 
 #: npgCore/admin-tabs/edit.php:648
 #, fuzzy
@@ -2106,7 +2106,7 @@ msgstr "פילטר"
 #: npgCore/admin-tabs/image_edit.php:64
 #, fuzzy
 msgid "unpublished"
-msgstr "אין דפים שלא פורסמו"
+msgstr "פריטים שסומנו לא יופרסמו"
 
 #: npgCore/admin-tabs/image_edit.php:65
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:365
@@ -2272,7 +2272,7 @@ msgstr "צור אלבום מהמועדפים"
 #: npgCore/admin-tabs/images.php:489
 #, fuzzy
 msgid "You have no images assigned to you."
-msgstr "אין לך הרשאות עריכה לאלבום זה."
+msgstr "לא הזנתם את כל השדות."
 
 #: npgCore/admin-tabs/logs.php:41
 #, fuzzy, php-format
@@ -2370,7 +2370,7 @@ msgstr "%s יימחק כשאר השינויים ישמרו."
 #: npgCore/admin-tabs/plugins.php:162
 #, fuzzy, php-format
 msgid "%1$s plugins"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s גירסא  %2$s"
 
 #: npgCore/admin-tabs/plugins.php:177
 #, fuzzy
@@ -2419,7 +2419,7 @@ msgstr "תוספים זמינים"
 #: npgCore/admin-tabs/plugins.php:217 npgCore/admin-tabs/plugins.php:499
 #, fuzzy
 msgid "Official plugin"
-msgstr "אין אפשרויות תוסף לניהול"
+msgstr "תוסף"
 
 #: npgCore/admin-tabs/plugins.php:221 npgCore/admin-tabs/plugins.php:503
 #, fuzzy
@@ -2474,7 +2474,7 @@ msgstr "תוסף"
 #: npgCore/admin-tabs/plugins.php:312
 #, fuzzy
 msgid "feature plugin"
-msgstr "אין אפשרויות תוסף לניהול"
+msgstr "תוסף"
 
 #: npgCore/admin-tabs/plugins.php:316
 #, fuzzy
@@ -2527,7 +2527,7 @@ msgstr "תוסף"
 #: npgCore/admin-tabs/plugins.php:515
 #, fuzzy
 msgid "Feature plugin"
-msgstr "אין אפשרויות תוסף לניהול"
+msgstr "תוסף"
 
 #: npgCore/admin-tabs/plugins.php:519
 #, fuzzy
@@ -2595,7 +2595,7 @@ msgstr "%1$s:%2$s לא השתנה, תווית כפולה."
 #: npgCore/admin-tabs/tags.php:182
 #, fuzzy
 msgid "Tags renamed"
-msgstr "אין תגיות לייבוא."
+msgstr "שינוי שם תגית"
 
 #: npgCore/admin-tabs/tags.php:230
 msgid "Tag Management"
@@ -2629,7 +2629,7 @@ msgstr "חדשים ביותר"
 #: npgCore/admin-tabs/tags.php:239
 #, fuzzy
 msgid "Private first"
-msgstr "לפי הא\"ב"
+msgstr "private"
 
 #: npgCore/admin-tabs/tags.php:249
 #, fuzzy
@@ -3057,8 +3057,9 @@ msgstr "לפריט %s של createMenuIfNotExists יש קישור ריק."
 msgid "Password reset request."
 msgstr "בקשת איתחול נשלחה לתיבת המייל שלך"
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 #, fuzzy
 msgid "Users"
 msgstr "משתמשים"
@@ -3214,7 +3215,7 @@ msgstr "מדיניות השימוש באתר הוכרה."
 #, fuzzy
 #| msgid "Pet"
 msgid "Set"
-msgstr "לא נמצאה הגדרה לגיבוי."
+msgstr "קבעו הכל לפרסום"
 
 #: npgCore/admin-tabs/users.php:831
 #, fuzzy
@@ -3239,7 +3240,7 @@ msgstr "אימייל"
 #: npgCore/admin-tabs/users.php:859
 #, fuzzy
 msgid "create primary album"
-msgstr "צרי אלבום מהחיפוש"
+msgstr "צרי את האלבום"
 
 #: npgCore/admin-tabs/users.php:869
 #, fuzzy, php-format
@@ -3267,7 +3268,7 @@ msgstr "לחשבון <em>הראשי</em> יש זכויות מלאות לכל ה�
 #: npgCore/admin-tabs/users.php:949 npgCore/functions.php:706
 #, fuzzy
 msgid "un-categorized"
-msgstr "מפורסם/לא מפורסם"
+msgstr "פרסום אלבום: %s"
 
 #: npgCore/admin-tabs/users.php:1018
 #, fuzzy, php-format
@@ -3493,7 +3494,7 @@ msgstr "אתם חייבים להיות מחוברים למערכת בכדי לה
 #: npgCore/admin.php:488
 #, fuzzy
 msgid "Setup » protect scripts"
-msgstr "בדיקת עוגיות (Cookie) הסתיימה בהצלחה"
+msgstr "הפעל את ההתקנה"
 
 #: npgCore/admin.php:493
 #, fuzzy
@@ -3612,7 +3613,7 @@ msgstr "זכויות המשתמש שלך אינן מאפשרות גישה לפו
 #: npgCore/admin_options/forms.php:55
 #, fuzzy
 msgid "E-mail form"
-msgstr "שילחו הודעת מייל"
+msgstr "כתובת המייל של מחבר התגובה"
 
 #: npgCore/admin_options/forms.php:64
 #, fuzzy
@@ -3838,7 +3839,7 @@ msgstr "גודל תמונת אצבע:"
 #: npgCore/admin_options/gallery.php:495
 #, fuzzy
 msgid "show subalbum thumbs"
-msgstr "תת-אלבום %u"
+msgstr "תת-אלבום חדש"
 
 #: npgCore/admin_options/gallery.php:503
 #, fuzzy
@@ -4027,7 +4028,7 @@ msgstr "URIs תמונת <em>מערכת הקבצים</em>"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "תמונות (סטנדרטי)"
+msgstr "תמונות (דינמי)"
 
 #: npgCore/admin_options/general.php:283
 #, fuzzy
@@ -4538,7 +4539,7 @@ msgstr "ניהול מאובטח"
 #: npgCore/admin_options/general.php:695
 #, fuzzy
 msgid "users per page"
-msgstr "%u תמונה לכל דף"
+msgstr "תמונות מוקטנות לדף"
 
 #: npgCore/admin_options/general.php:700
 #, fuzzy
@@ -4600,7 +4601,7 @@ msgstr "<p style=\";text-align:right;direction:rtl\"> מגבלת יומן %s </p
 #: npgCore/admin_options/general.php:803
 #, fuzzy
 msgid "e-mail when exceeded"
-msgstr "שילחו הודעת מייל"
+msgstr "כתובת המייל של מחבר התגובה"
 
 #: npgCore/admin_options/general.php:815
 #, fuzzy
@@ -4764,7 +4765,7 @@ msgstr "חדות:"
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "תמונות מוקטנות (סטנדרטי)"
+msgstr "תמונות מוקטנות לשורה"
 
 #: npgCore/admin_options/image.php:423
 #, fuzzy
@@ -5239,7 +5240,7 @@ msgstr ""
 #: npgCore/admin_options/image.php:928
 #, fuzzy
 msgid "replicate IPTC metadata"
-msgstr "מטא-דטא:"
+msgstr "קידוד IPTC:"
 
 #: npgCore/admin_options/image.php:929
 #, fuzzy
@@ -5327,12 +5328,12 @@ msgstr "התאמת מחרוזת"
 #: npgCore/admin_options/search.php:274
 #, fuzzy
 msgid "<em>pattern</em>"
-msgstr "<em>או</em>"
+msgstr "קו מתאר"
 
 #: npgCore/admin_options/search.php:274
 #, fuzzy
 msgid "<em>partial word</em>"
-msgstr "<em>ללא שם</em>"
+msgstr "צפו ב-<em>%s</em>"
 
 #: npgCore/admin_options/search.php:274 npgCore/admin_options/search.php:280
 #, fuzzy
@@ -5397,7 +5398,7 @@ msgstr "<em>וגם</em>"
 #: npgCore/admin_options/search.php:303
 #, fuzzy
 msgid "default search"
-msgstr "חפש"
+msgstr "חיפוש"
 
 #: npgCore/admin_options/search.php:304
 #, fuzzy
@@ -5409,7 +5410,7 @@ msgstr ""
 #: npgCore/admin_options/search.php:304
 #, fuzzy
 msgid "<em>Within</em>"
-msgstr "<em>ללא שם</em>"
+msgstr "צפו ב-<em>%s</em>"
 
 #: npgCore/admin_options/search.php:310
 #, fuzzy
@@ -5638,7 +5639,7 @@ msgstr ""
 #: npgCore/admin_options/security.php:112
 #, fuzzy
 msgid "Image Processor security"
-msgstr "תמונה בגודל מלא"
+msgstr "סדר תמונות"
 
 #: npgCore/admin_options/security.php:122
 #, fuzzy
@@ -5658,7 +5659,7 @@ msgstr "יומן שינויים"
 #: npgCore/admin_options/security.php:142
 #, fuzzy
 msgid "Security log"
-msgstr "יומן שינויים"
+msgstr "התחבר"
 
 #: npgCore/admin_options/security.php:149
 #, fuzzy
@@ -6097,7 +6098,7 @@ msgstr "אלצו רענון של מטא מידע של תמונות ואלבומ�
 #: npgCore/allTranslations.php:71
 #, fuzzy
 msgid "Add favorite"
-msgstr "הוסף תגובה"
+msgstr "הוסף תגיות"
 
 #: npgCore/allTranslations.php:72
 #, fuzzy
@@ -6205,7 +6206,7 @@ msgstr "אלבומים אחרונים"
 #: themes/paradigm/includes/_homepage.php:92
 #, fuzzy
 msgid "Latest images"
-msgstr "אלבומים אחרונים"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/class-feed.php:368
 #, fuzzy
@@ -6326,7 +6327,7 @@ msgstr "אובייקט לא נמצא"
 #: npgCore/class-image.php:199 npgCore/extensions/xmpMetadata.php:648
 #, fuzzy
 msgid "Image Headline"
-msgstr "תמונה בגודל מלא"
+msgstr "% של תמונה"
 
 #: npgCore/class-image.php:200 npgCore/extensions/xmpMetadata.php:646
 #, fuzzy
@@ -6336,7 +6337,7 @@ msgstr "% של תמונה"
 #: npgCore/class-image.php:201
 #, fuzzy
 msgid "Image Caption Writer"
-msgstr "תמונה בגודל מלא"
+msgstr "סדר תמונות"
 
 #: npgCore/class-image.php:202
 msgid "Time Taken"
@@ -6353,12 +6354,12 @@ msgstr "שעת דיגיטציית התמונה"
 #: npgCore/class-image.php:205
 #, fuzzy
 msgid "Date Created"
-msgstr "תאריך:"
+msgstr "תאריך"
 
 #: npgCore/class-image.php:206
 #, fuzzy
 msgid "Time Created"
-msgstr "השעה המקורית של צילום התמונה"
+msgstr "שעת דיגיטציית התמונה"
 
 #: npgCore/class-image.php:207
 msgid "Digital Creation Date"
@@ -6384,7 +6385,7 @@ msgstr "Byline"
 #: npgCore/class-image.php:212
 #, fuzzy
 msgid "Byline Title"
-msgstr "כותרת אלבום"
+msgstr "כותרת"
 
 #: npgCore/class-image.php:213 npgCore/extensions/xmpMetadata.php:653
 #, fuzzy
@@ -6617,7 +6618,7 @@ msgstr "חפש שדות:"
 #: npgCore/classes.php:441
 #, fuzzy
 msgid "Object"
-msgstr "netPhotoGraphics Error:</strong> the requested object was not found."
+msgstr "נעשה ניסיון לקצץ אובייקט שאינו תמונה."
 
 #: npgCore/classes.php:476
 #, fuzzy, php-format
@@ -7569,7 +7570,7 @@ msgstr "מותאם אישית"
 #: npgCore/extensions/GDPR_required.php:63
 #, fuzzy
 msgid "Policy page"
-msgstr "הדף הבא"
+msgstr "דף %u"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -7717,7 +7718,7 @@ msgstr "סיסמת משתמש לחיפושים של LDAP."
 #: npgCore/extensions/LDAP_auth.php:74
 #, fuzzy
 msgid "LDAP reader password"
-msgstr "סיסמת מסד הנתונים"
+msgstr "נקה סיסמא"
 
 #: npgCore/extensions/LDAP_auth.php:76
 #, fuzzy
@@ -7952,7 +7953,7 @@ msgstr "מושבת באופן אוטומטי אם מספר שחקנים בדף �
 #: npgCore/extensions/VideoJS.php:74
 #, fuzzy
 msgid "Default Resolution"
-msgstr "הרשאות ברירת מחדל"
+msgstr "ברירת מחדל של אלבום"
 
 #: npgCore/extensions/VideoJS.php:78
 #, fuzzy
@@ -8022,7 +8023,7 @@ msgstr ""
 #: npgCore/extensions/VideoJS.php:95
 #, fuzzy
 msgid "Custom Aspect Ratio"
-msgstr "תמונות (מותאם אישית)"
+msgstr "דף מותאם אישית"
 
 #: npgCore/extensions/VideoJS.php:99
 #, fuzzy
@@ -8124,7 +8125,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
 msgid "Mointor only"
-msgstr "רק חברים יכולים להגיב"
+msgstr "חברים בלבד"
 
 #: npgCore/extensions/accessThreshold.php:69
 #, php-format
@@ -8540,7 +8541,7 @@ msgstr "גלישה על ציר ה-X"
 #: npgCore/extensions/cacheManager.php:294
 #, fuzzy
 msgid "Crop Y axis"
-msgstr "קיצוץ ="
+msgstr "קצוץ"
 
 #: npgCore/extensions/cacheManager.php:310
 msgid "Watermark"
@@ -8565,12 +8566,12 @@ msgstr "הסתר"
 #: npgCore/extensions/cacheManager.php:500
 #, fuzzy
 msgid "Cache images"
-msgstr "HTML cache"
+msgstr "מנהל מטמון"
 
 #: npgCore/extensions/cacheManager.php:501
 #, fuzzy
 msgid "Cache stored images"
-msgstr "HTML cache"
+msgstr "מנהל מטמון"
 
 #: npgCore/extensions/cacheManager.php:509 npgCore/extensions/cacheManager.php:577
 #, fuzzy
@@ -8631,7 +8632,7 @@ msgstr "מטמון של HTML סטטי פג תוקף"
 #: npgCore/extensions/cacheManager.php:582
 #, fuzzy
 msgid "Cache album images"
-msgstr "HTML cache"
+msgstr "מנהל מטמון"
 
 #: npgCore/extensions/cacheManager/cacheDBImages.php:29
 #, fuzzy
@@ -8762,7 +8763,7 @@ msgstr "קישור אימות לא חוקי."
 #: npgCore/extensions/cacheManager/cacheImages.php:307
 #, fuzzy, php-format
 msgid "all sizes for <em>%1$s</em>"
-msgstr "%1$s <em>%2$s</em> נוסף"
+msgstr "<em>%1$s</em> הגיב על %2$s:"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:353
 #, fuzzy, php-format
@@ -8799,7 +8800,7 @@ msgstr "תמונות בגודל מסוים מותרות"
 #: npgCore/extensions/cacheManager/cacheImages.php:382
 #, fuzzy
 msgid "Cache the images"
-msgstr "HTML cache"
+msgstr "מנהל מטמון"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:382
 #, fuzzy
@@ -8809,17 +8810,17 @@ msgstr "מבצעת את המטמון של גדלי התמונות שנבחרו."
 #: npgCore/extensions/cacheManager/deprecated-functions.php:10
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
@@ -8953,7 +8954,7 @@ msgstr "קבצי התקנה"
 #: npgCore/extensions/class-AnyFile.php:42
 #, fuzzy
 msgid "File suffixes to be handled."
-msgstr "לא ניתן לערוך את הקובץ הזה!"
+msgstr "שמירת קובץ האלבום נכשלה"
 
 #: npgCore/extensions/class-AnyFile.php:43
 #, fuzzy
@@ -9100,7 +9101,7 @@ msgstr "אמן"
 #: npgCore/extensions/class-video.php:128
 #, fuzzy
 msgid "Video Title"
-msgstr "כותרת"
+msgstr "וידיאו"
 
 #: npgCore/extensions/class-video.php:129
 #, fuzzy
@@ -9448,7 +9449,7 @@ msgstr "אם שדה <em>השם</em> נדרש, על הפוסטר לספק שם."
 #: npgCore/extensions/comment_form.php:101
 #, fuzzy
 msgid "Email field"
-msgstr "אי-מייל:"
+msgstr "אימייל"
 
 #: npgCore/extensions/comment_form.php:104
 #, fuzzy
@@ -9785,7 +9786,7 @@ msgstr "תגובה לא אנונימית"
 #: npgCore/extensions/comment_form/admin-comments.php:241
 #, fuzzy
 msgid "Comment does not exist"
-msgstr "תגובה"
+msgstr "תגובה:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:275
 msgid "Selected items marked as spam"
@@ -10116,7 +10117,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Email:"
 msgid "Email: %1$s"
-msgstr "אי-מייל:"
+msgstr "אימייל"
 
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
@@ -10185,7 +10186,7 @@ msgstr "לא מוגדר"
 #: npgCore/extensions/common/oAuth/oAuthLogin.php:43
 #, fuzzy
 msgid "Assign user to"
-msgstr "מיפוי משתמשים"
+msgstr "הקצו"
 
 #: npgCore/extensions/common/oAuth/oAuthLogin.php:46
 #, fuzzy
@@ -10201,7 +10202,7 @@ msgstr "שגיאת תצורה, קבוצת ההתחברות%1$s %2$s אינה ק�
 #: npgCore/extensions/register_user.php:338
 #, fuzzy
 msgid "netPhotoGraphics Gallery registration"
-msgstr "הרשמת משתמשת"
+msgstr "אישור הרשמה"
 
 #: npgCore/extensions/common/oAuth/oAuthLogin.php:140
 #: npgCore/extensions/register_user.php:338
@@ -10318,7 +10319,7 @@ msgstr "הטקסט עבור ההערה בנוגע לשליחת עותק לכתו
 #: npgCore/extensions/contact_form.php:97
 #, fuzzy
 msgid "Contact recipients"
-msgstr "צור קשר."
+msgstr "צור קשר"
 
 #: npgCore/extensions/contact_form.php:99
 #, fuzzy
@@ -10537,7 +10538,7 @@ msgstr "טקסט המשמש ללחצן ביטול. השאר ריק כדי להש
 #: npgCore/extensions/cookieconsent.php:50
 #, fuzzy
 msgid "Button: Learn more"
-msgstr "הצג עוד תוצאות"
+msgstr "הוסף עוד תיבות העלת תמונות"
 
 #: npgCore/extensions/cookieconsent.php:55
 #, fuzzy
@@ -10806,7 +10807,7 @@ msgstr "כמה ימים לחזור להראות."
 #: npgCore/extensions/daily-summary.php:76
 #, fuzzy
 msgid "Items per page"
-msgstr "%u תמונה לכל דף"
+msgstr "תמונות מוקטנות לדף"
 
 #: npgCore/extensions/daily-summary.php:80
 #, fuzzy
@@ -10827,7 +10828,7 @@ msgstr "התסריט נושא להצגת סיכום."
 #, fuzzy
 #| msgid "Daily image"
 msgid "Daily Summary"
-msgstr "תמונה יומית"
+msgstr "יומי"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:18
 #: plugins/daily-summary/daily-summary_content.php:19
@@ -10876,7 +10877,7 @@ msgstr "הועלה"
 #, fuzzy, php-format
 #| msgid "Image: %s"
 msgid "Image count: %s"
-msgstr "צפי בתמונה %s"
+msgstr "צפו בתמונה: %s"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:36
 #: plugins/daily-summary/daily-summary_content.php:37
@@ -11344,7 +11345,7 @@ msgstr "ערכות עיצוב"
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:59
 #, fuzzy
 msgid "In User plugins"
-msgstr "תוספים זמינים"
+msgstr "תוספים"
 
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:65
 #, fuzzy
@@ -11403,7 +11404,7 @@ msgstr "פונקציה"
 #: npgCore/extensions/deprecated-functions/class.php:149
 #, fuzzy, php-format
 msgid "theme %1$s:%2$s"
-msgstr "%1$s גירסא  %2$s"
+msgstr "%1$s מנהלים:%2$s%3$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:152
 #, fuzzy, php-format
@@ -11413,12 +11414,12 @@ msgstr "%1$s מנהלים:%2$s%3$s"
 #: npgCore/extensions/deprecated-functions/class.php:155
 #, fuzzy, php-format
 msgid "standard plugin %1$s:%2$s"
-msgstr "%1$s מנהלים:%2$s%3$s"
+msgstr "Effervescence %1$s %2$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:158
 #, fuzzy, php-format
 msgid "core:%s"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: npgCore/extensions/deprecated-functions/class.php:167
 #: npgCore/extensions/purgeOptions.php:88 npgCore/setup/setup-functions.php:263
@@ -11463,7 +11464,7 @@ msgstr ""
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:69
 #, fuzzy
 msgid "Use getAllTagsUnique()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:78
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:86
@@ -11503,7 +11504,7 @@ msgstr "השתמש ב- print_SW_Link ()"
 #, fuzzy
 #| msgid "Use text"
 msgid "Use exit()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בדגלים"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:160
 #, fuzzy
@@ -11518,7 +11519,7 @@ msgstr "החלו את הקיצוץ"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:180
 #, fuzzy
 msgid "Use npgFilters::remove()"
-msgstr "Use Colorbox"
+msgstr "השתמשו בדגלים"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:188
 #, fuzzy
@@ -11529,7 +11530,7 @@ msgstr "השתמש ב- npgFilters :: has_filter ()"
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:204
 #, fuzzy
@@ -11539,27 +11540,27 @@ msgstr "השתמש בתוסף GDPR_requirated"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:212
 #, fuzzy
 msgid "Use npg_loggedin()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:220
 #, fuzzy
 msgid "Use setNPGCookie()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:228
 #, fuzzy
 msgid "Use getNPGCookie()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:236
 #, fuzzy
 msgid "Use clearNPGCookie()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:244
 #, fuzzy
 msgid "Use formattedDate()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/deprecated-functions/functions.php:113
 #: npgCore/extensions/deprecated-functions/functions.php:151
@@ -11630,7 +11631,7 @@ msgstr "מ-"
 #: npgCore/extensions/downloadList.php:83
 #, fuzzy
 msgid "From Cache"
-msgstr "HTML cache"
+msgstr "מנהל מטמון"
 
 #: npgCore/extensions/downloadList.php:84
 #, fuzzy
@@ -11885,7 +11886,7 @@ msgstr ""
 #: npgCore/extensions/elFinder.php:54
 #, fuzzy
 msgid "Files tab"
-msgstr "קבצי התקנה"
+msgstr "קבצים"
 
 #: npgCore/extensions/elFinder.php:55
 #, fuzzy
@@ -11906,7 +11907,7 @@ msgstr "הפעל elFinder לעריכת נושאים."
 #: npgCore/extensions/elFinder.php:58
 #, fuzzy
 msgid "TinyMCE plugin"
-msgstr "אין אפשרויות תוסף לניהול"
+msgstr "תוסף"
 
 #: npgCore/extensions/elFinder.php:59
 #, fuzzy
@@ -11945,7 +11946,7 @@ msgstr ""
 #: npgCore/extensions/elFinder/php/connector_npg.php:83
 #, fuzzy, php-format
 msgid "Themes (%s)"
-msgstr "ערכות עיצוב מותקנות"
+msgstr "ערכות עיצוב"
 
 #: npgCore/extensions/elFinder/php/connector_npg.php:89
 #, php-format
@@ -12005,7 +12006,7 @@ msgstr ""
 #: npgCore/extensions/email-newuser.php:28
 #, fuzzy
 msgid "User created"
-msgstr "משתמש מסד הנתונים"
+msgstr "אמתי משתמשת"
 
 #: npgCore/extensions/email-newuser.php:42
 #, fuzzy
@@ -12069,7 +12070,7 @@ msgstr "המאקרו PARAM_DUMP עבר את הפעולות הבאות:"
 #: npgCore/extensions/externalFeed.php:48
 #, fuzzy
 msgid "The <em>externalFeed</em> handler."
-msgstr "<em>ללא שם</em>"
+msgstr "צפו ב-<em>%s</em>"
 
 #: npgCore/extensions/externalFeed.php:71
 #, fuzzy
@@ -12110,7 +12111,7 @@ msgstr "גודל ברירת המחדל של הצגת התמונה."
 #: npgCore/extensions/externalFeed.php:86 npgCore/extensions/rss.php:68
 #, fuzzy
 msgid "Image feed sort order:"
-msgstr "*סדר מיון תמונות של אלבום-אב"
+msgstr "סדר מיון תמונות גלרייה*"
 
 #: npgCore/extensions/externalFeed.php:88 npgCore/extensions/externalFeed.php:95
 #: npgCore/extensions/rss.php:70 npgCore/extensions/rss.php:77
@@ -12131,7 +12132,7 @@ msgstr "latest by mtime"
 #: npgCore/extensions/rss.php:73 npgCore/extensions/rss.php:80
 #, fuzzy
 msgid "latest by publishdate"
-msgstr "אלבומים אחרונים"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/extensions/externalFeed.php:93
 #, fuzzy
@@ -12147,7 +12148,7 @@ msgstr ""
 #: npgCore/extensions/externalFeed.php:94 npgCore/extensions/rss.php:76
 #, fuzzy
 msgid "Album feed sort order:"
-msgstr "*סדר מיון של תתי-אלבומים של אלבום-אב"
+msgstr "סדר מיון אלבומי גלרייה*"
 
 #: npgCore/extensions/externalFeed.php:99 npgCore/extensions/rss.php:81
 #: npgCore/utilities/gallery_statistics.php:246
@@ -12163,7 +12164,7 @@ msgstr "בנוסף לאמור לעיל אתה יכול לבחור האחרונה
 #: npgCore/extensions/externalFeed.php:103
 #, fuzzy
 msgid "New requestor:"
-msgstr "ייבוא חדש"
+msgstr "תת-אלבום חדש"
 
 #: npgCore/extensions/externalFeed.php:105
 #, fuzzy
@@ -12263,7 +12264,7 @@ msgstr "דפים"
 #: npgCore/extensions/externalFeed.php:326 npgCore/extensions/rss.php:517
 #, fuzzy
 msgid " (latest comments)"
-msgstr "תגובות:"
+msgstr "תגובות"
 
 #: npgCore/extensions/externalFeed.php:364 npgCore/extensions/rss.php:572
 #: npgCore/extensions/rss.php:580
@@ -12295,7 +12296,7 @@ msgstr "סיסמא הכרחית"
 #: npgCore/extensions/facebookLogin.php:64 npgCore/extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "מזהה משתמש:"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/extensions/facebookLogin.php:66
 #, fuzzy
@@ -12408,7 +12409,7 @@ msgstr ""
 #: npgCore/extensions/favoritesHandler.php:263
 #, fuzzy
 msgid "Users watching:"
-msgstr "משתמשים מנודים"
+msgstr "מיפוי משתמשים"
 
 #: npgCore/extensions/favoritesHandler.php:271 npgCore/lib-auth.php:772
 #: npgCore/lib-auth.php:1204 npgCore/lib-auth.php:1300
@@ -12664,7 +12665,7 @@ msgstr "בחר קטגוריה עבור המאמרים שנוצרו"
 #: npgCore/extensions/galleryArticles.php:91
 #, fuzzy
 msgid "Use album folder"
-msgstr "עם שם התיקייה:"
+msgstr "שינוי שם תיקייה"
 
 #: npgCore/extensions/galleryArticles.php:93
 #, fuzzy
@@ -12720,7 +12721,7 @@ msgstr "מטפל בכניסה באמצעות חשבון <em>Google</em> של ה�
 #: npgCore/extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "מזהה משתמש:"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/extensions/googleLogin.php:68
 #, fuzzy
@@ -12806,7 +12807,7 @@ msgstr "בחר את סוג המפה הראשוני להצגה."
 #: npgCore/extensions/googleMap.php:84 npgCore/extensions/openstreetmap.php:94
 #, fuzzy
 msgid "Map display"
-msgstr "מפות גוגל"
+msgstr "כפתורי הפעלה של המפה"
 
 #: npgCore/extensions/googleMap.php:88 npgCore/extensions/openstreetmap.php:98
 #, fuzzy
@@ -12909,12 +12910,12 @@ msgstr "מפות גוגל"
 #: npgCore/extensions/googleMap/deprecated-functions.php:13
 #, fuzzy
 msgid "Use GoogleMap::getGeoCoord."
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/googleMap/deprecated-functions.php:21
 #, fuzzy
 msgid "Use GoogleMap::addGeoCoord."
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/googleMap/map.php:104
 #, fuzzy
@@ -12985,7 +12986,7 @@ msgstr "Two Chip Color Area Sensor"
 #: npgCore/extensions/googleTFA.php:59
 #, fuzzy
 msgid "Issuer name"
-msgstr "עם שם התיקייה:"
+msgstr "שם"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13082,7 +13083,7 @@ msgstr "תיאור:"
 #: npgCore/extensions/googleTranslate.php:139
 #, fuzzy
 msgid "Translate Content"
-msgstr "פרסום תוכן"
+msgstr "תוכן:"
 
 #: npgCore/extensions/googleTranslate.php:144
 #, fuzzy
@@ -13269,7 +13270,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:111
 #, fuzzy
 msgid "Twitter name"
-msgstr "עם שם התיקייה:"
+msgstr "שם אלבום:"
 
 #: npgCore/extensions/html_meta_tags.php:112
 #, fuzzy
@@ -13309,7 +13310,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:117
 #, fuzzy
 msgid "Facebook app id"
-msgstr "מזהה משתמש:"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/extensions/html_meta_tags.php:118
 #, fuzzy
@@ -13360,7 +13361,7 @@ msgstr "בודק אימות Apache HTTP של משתמשים מורשים."
 #: npgCore/extensions/http_auth.php:77
 #, fuzzy
 msgid "User validation"
-msgstr "משתמש מסד הנתונים"
+msgstr "אמתי משתמשת"
 
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
@@ -13422,7 +13423,7 @@ msgstr "מטפל בכניסה באמצעות חשבון <em>Instagram</em> של 
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "מזהה משתמש:"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -13758,7 +13759,7 @@ msgstr ""
 #: npgCore/extensions/jPlayer.php:215 plugins/mediaelementjs_player.php:500
 #, fuzzy, php-format
 msgid "%1$s::%2$s not found."
-msgstr "%1$s מנהלים:%2$s%3$s"
+msgstr "%1$s גירסא  %2$s"
 
 #: npgCore/extensions/jPlayer.php:225
 #, fuzzy
@@ -14002,7 +14003,7 @@ msgstr "הזן את כתובת ההתקנה של Matomo, כולל פרוטוקו
 #, fuzzy
 #| msgid "Website field"
 msgid "Site id"
-msgstr "מזהה משתמש:"
+msgstr "אחרון ע\"פ id"
 
 #: npgCore/extensions/matomo.php:87
 #, fuzzy
@@ -14024,7 +14025,7 @@ msgstr "בדוק אם אתה רוצה Matomo לעקוב אחר משתמשים ע
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Content tracking"
-msgstr "תוכן:"
+msgstr "תוכן"
 
 #: npgCore/extensions/matomo.php:97
 #, fuzzy
@@ -14117,7 +14118,7 @@ msgstr ""
 #: npgCore/extensions/matomo.php:127
 #, fuzzy
 msgid "User consent"
-msgstr "משתמש מסד הנתונים"
+msgstr "אמתי משתמשת"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -14600,12 +14601,12 @@ msgstr "שכפל"
 #: npgCore/extensions/menu_manager/menu_tab.php:242
 #, fuzzy
 msgid "Delete menu"
-msgstr "מחיקה"
+msgstr "מחקו"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:243
 #, fuzzy
 msgid "Export menu"
-msgstr "תפריט מתואם אישית"
+msgstr "מנהל תפריט"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:245
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:253
@@ -14644,7 +14645,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Website field"
 msgid "Site index"
-msgstr "אינדקס גלרייה"
+msgstr "אינדקס חדשות"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:64
 #, fuzzy
@@ -14659,7 +14660,7 @@ msgstr "כל האלבומים"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:72
 #, fuzzy
 msgid "This adds menu items for all albums."
-msgstr "זה מוסיף פריטי תפריט לכל קטגוריות זןדף"
+msgstr "פריטי תפריט לכל האלבומים נוספו"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:77
 #, fuzzy
@@ -14717,7 +14718,7 @@ msgstr "יוצר קישור לאלבום לקטגורית מאמר חדשות ש
 #: themes/spellflight/sidebar.php:108 themes/zenpage/sidebar.php:28
 #, fuzzy
 msgid "Album index"
-msgstr "אינדקס גלרייה"
+msgstr "אינדקס חדשות"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:134
 #, fuzzy
@@ -14875,7 +14876,7 @@ msgstr "PHP Imagick library <em>%s</em>"
 #: npgCore/extensions/mergedRSS.php:64
 #, fuzzy
 msgid "RSS feeds to merge"
-msgstr "סטטיסטיקות של פידי RSS"
+msgstr "פיד RSS מאופשר עבור:"
 
 #: npgCore/extensions/mergedRSS.php:67
 #, fuzzy
@@ -14919,7 +14920,7 @@ msgstr "בחר את ערכת הנושא שבה יש להשתמש בהתקן הט
 #: npgCore/extensions/mobileTheme.php:99
 #, fuzzy
 msgid "Tablet theme"
-msgstr "צבעי ערכת עיצוב"
+msgstr "*ערכת עיצוב לגלרייה"
 
 #: npgCore/extensions/mobileTheme.php:102
 #, fuzzy
@@ -14968,7 +14969,7 @@ msgstr "ארעה שגיאת בעת הסרת העיצוב <em>%s</em>"
 #: npgCore/extensions/multiple_layouts.php:111
 #, fuzzy
 msgid "Enable multiple layouts for"
-msgstr "סמנו להפעלת טופס החיפוש"
+msgstr "אפשרי sessions של הגלרייה"
 
 #: npgCore/extensions/multiple_layouts.php:235
 msgid "Select layout:"
@@ -15240,7 +15241,7 @@ msgstr ""
 #: npgCore/extensions/openstreetmap.php:176
 #, fuzzy
 msgid "Mini map"
-msgstr "מפות גוגל"
+msgstr "כפתורי הפעלה של המפה"
 
 #: npgCore/extensions/openstreetmap.php:180
 #, fuzzy
@@ -15311,7 +15312,7 @@ msgstr "-"
 #: npgCore/extensions/openstreetmap.php:847
 #, fuzzy
 msgid "OpenStreetMap Map"
-msgstr "מפות גוגל"
+msgstr "כפתורי הפעלה של המפה"
 
 #: npgCore/extensions/optionalObjectFields.php:50
 #, fuzzy
@@ -15357,7 +15358,7 @@ msgstr "נקה סיסמא"
 #: npgCore/extensions/optionalObjectFields.php:103
 #, fuzzy
 msgid "Set as thumbnail for"
-msgstr "קצוץ תמונה מוקטנת"
+msgstr "תמונה מוקטנת:"
 
 #: npgCore/extensions/optionalObjectFields.php:110
 #, fuzzy
@@ -15561,7 +15562,7 @@ msgstr ""
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
 msgid "Panorama height"
-msgstr "גובה"
+msgstr "גובה ="
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -15597,13 +15598,13 @@ msgstr ""
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr "רק חברים יכולים להגיב"
+msgstr "גלגלי שמאלה"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "מזגו הרשאות"
+msgstr "גלגלי ימינה"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -15990,7 +15991,7 @@ msgstr "%u תוסף פעיל:"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "User plugins"
-msgstr "תוספים "
+msgstr "תוספים"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
@@ -16052,13 +16053,13 @@ msgstr "פעולה"
 #, fuzzy
 #| msgid "delete"
 msgid "all: delete"
-msgstr "מחיקה"
+msgstr "מחקו"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:220
 #, fuzzy
 #| msgid "hide"
 msgid "all: hide"
-msgstr "הסתירי פרטים"
+msgstr "הסתר"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:227
 #, fuzzy
@@ -16083,7 +16084,7 @@ msgstr "פריטים מוסתרים וגלויים"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "קובץ <em>.htaccess</em> [ריק או לא קיים]"
+msgstr "הסיסמאות שלכם היו ריקות או לא נכונות"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
@@ -16397,7 +16398,7 @@ msgstr "אוהבים"
 #, fuzzy, php-format
 msgid "%u star"
 msgid_plural "%u stars"
-msgstr[0] "אלבום %u"
+msgstr[0] "דף %u"
 msgstr[1] "1 כוכב"
 
 #: npgCore/extensions/rating.php:382
@@ -16561,7 +16562,7 @@ msgstr "טקסט פתיחה"
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Registration accepted text."
-msgstr "הרשמת משתמשת"
+msgstr "אישור הרשמה"
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 #, fuzzy
@@ -16761,7 +16762,7 @@ msgstr "קובץ התצורה פגום. יהיה עליך לשחזר אותו מ
 #: npgCore/extensions/rewriteRules.php:175
 #, fuzzy
 msgid "rewriteTokens restored to default"
-msgstr "הרשאות ברירת מחדל"
+msgstr "ברירת מחדל של אלבום"
 
 #: npgCore/extensions/rewriteRules.php:194
 #, fuzzy, php-format
@@ -16795,7 +16796,7 @@ msgstr "קודי שכתוב אינם יכולים להיות ריקים."
 #: npgCore/extensions/rewriteRules.php:280
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> rule."
-msgstr "הקטגוריה <em>%s</em> נוספה"
+msgstr "<em>%s</em> כבר קיים."
 
 #: npgCore/extensions/rewriteRules.php:306
 #: npgCore/extensions/rewriteRules/rules_tab.php:11
@@ -16816,7 +16817,7 @@ msgstr "שגיאה בעיבוד של כלל כתיבה מחדש:"
 #: npgCore/extensions/rewriteRules/rules_tab.php:26
 #, fuzzy
 msgid "Rewrite Rules"
-msgstr "mod_rewrite suffix:"
+msgstr "mod rewrite"
 
 #: npgCore/extensions/rewriteRules/tokens_tab.php:9
 #, fuzzy
@@ -16831,7 +16832,7 @@ msgstr "mod_rewrite suffix:"
 #: npgCore/extensions/rss.php:12
 #, fuzzy
 msgid "The <em>RSS</em> handler."
-msgstr "<em>ללא שם</em>"
+msgstr "צפו ב-<em>%s</em>"
 
 #: npgCore/extensions/rss.php:13
 #, fuzzy
@@ -17136,7 +17137,7 @@ msgstr "לא נאסף קריטריון חיפוש"
 #, fuzzy
 #| msgid "Search criteria:"
 msgid "Search criteria reset."
-msgstr "הזיני קריטריון חיפוש"
+msgstr "אוסף ומציג את קריטריון החיפוש."
 
 #: npgCore/extensions/search_statistics/search_analysis.php:154
 #, php-format
@@ -17173,13 +17174,13 @@ msgstr "הקלקות"
 #: npgCore/extensions/search_statistics/search_analysis.php:269
 #, fuzzy, php-format
 msgid "Top %u Search IDs"
-msgstr "%u תנאי החיפוש השכיחים ביותר שלא הניבו תוצאות"
+msgstr "%u תנאי החיפוש השכיחים ביותר שהניבו תוצאות"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:271
 #, fuzzy
 #| msgid "Search IPs"
 msgid "Search IDs"
-msgstr "חפש אלבומים"
+msgstr "חיפוש"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:301
 msgid "reset"
@@ -17270,7 +17271,7 @@ msgstr "שחזור מסד הנתונים"
 #: npgCore/extensions/security-logger.php:166
 #, fuzzy
 msgid "Protect setup scripts"
-msgstr "בדיקת עוגיות (Cookie) הסתיימה בהצלחה"
+msgstr "הפעל את ההתקנה"
 
 #: npgCore/extensions/security-logger.php:169
 msgid "Request add user"
@@ -17342,7 +17343,7 @@ msgstr "הגדירו אפשרויות ערכת עיצוב <em>%s</em> "
 #: npgCore/extensions/security-logger.php:474
 #, fuzzy, php-format
 msgid "%1$s acknowledgement cleared"
-msgstr "%1$u הקלקה על %2$s"
+msgstr "%1$u חדש %2$s"
 
 #: npgCore/extensions/seo_basic.php:12
 #, fuzzy
@@ -17385,7 +17386,7 @@ msgstr ""
 #: npgCore/extensions/seo_cleanup/admin_tab.php:100
 #, fuzzy, php-format
 msgid "<em>%1$s</em> renamed to <em>%2$s</em>"
-msgstr "%1$s <em>%2$s</em> שויך"
+msgstr "<em>%1$s</em> הגיב על %2$s:"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:124
 #, fuzzy
@@ -17402,7 +17403,7 @@ msgstr[1] "הצגת %u רמות אלבומים"
 #: npgCore/extensions/seo_cleanup/admin_tab.php:140
 #, fuzzy
 msgid "No albums cleaned."
-msgstr "חפש אלבומים"
+msgstr "אלבומים (דינמי)"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:147
 #, fuzzy, php-format
@@ -17414,7 +17415,7 @@ msgstr[1] "מטמון התמונות נוקה."
 #: npgCore/extensions/seo_cleanup/admin_tab.php:149
 #, fuzzy
 msgid "No images cleaned."
-msgstr "תמונות (סטנדרטי)"
+msgstr "תמונות (דינמי)"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:157
 #, fuzzy
@@ -17617,7 +17618,7 @@ msgstr "הפוך את האתר לזמין לצפייה על ידי הפניה מ
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy, php-format
 msgid "%s upgrade"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy, php-format
@@ -17627,12 +17628,12 @@ msgstr "<strong><em> %s</em></strong> עובר שדרוג"
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy
 msgid "Please return later"
-msgstr "את אמורה לחזור אוטומטית. אם לא, לחצי:"
+msgstr "עצרי וחזרי לדף האלבום או התמונה"
 
 #: npgCore/extensions/site_upgrade.php:240
 #, fuzzy, php-format
 msgid "%s suspended"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: npgCore/extensions/site_upgrade.php:247
 #, fuzzy, php-format
@@ -17647,7 +17648,7 @@ msgstr "קובצי site_upgrade שוחזרו למקור."
 #: npgCore/extensions/site_upgrade/site_upgrade.php:29
 #, fuzzy
 msgid "Site is viewable."
-msgstr "הרשמי לאתר זה"
+msgstr "אתר אינטרנט:"
 
 #: npgCore/extensions/sitemap-extended.php:28
 #, fuzzy
@@ -17680,15 +17681,13 @@ msgstr ""
 #: npgCore/extensions/sitemap-extended.php:86
 #, fuzzy
 msgid "Album date"
-msgstr ""
-"בכדי לעדכן את תאריך האלבום לתאריך העלאת התמונה החדשה ביותר של האלבום בחרו "
-"אופצייה זו. אחרת, תאריך האלבום יקבע לפי תאריך יצירת האלבום."
+msgstr "השתמשי בתאריך התמונה האחרונה כתאריך של האלבום"
 
 #: npgCore/extensions/sitemap-extended.php:91
 #: npgCore/extensions/sitemap-extended.php:98
 #, fuzzy
 msgid "last change date"
-msgstr "תאריך:"
+msgstr "תאריך"
 
 #: npgCore/extensions/sitemap-extended.php:92
 #, fuzzy
@@ -18334,7 +18333,7 @@ msgstr "תג פריטים שנמצאו על ידי החיפוש"
 #: npgCore/extensions/tagFromSearch.php:38
 #, fuzzy
 msgid "Tag items"
-msgstr "פריטים גלויים"
+msgstr "ניהול תגיות"
 
 #: npgCore/extensions/tagFromSearch/tag.php:75
 #, fuzzy, php-format
@@ -18580,7 +18579,7 @@ msgstr "יש לבדוק אפשרות זו אם כיוון הכתיבה בשפה 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:38
 #, fuzzy
 msgid "netPhotoGraphics object insertion"
-msgstr "netPhotoGraphics Error:</strong> the requested object was not found."
+msgstr "נעשה ניסיון לקצץ אובייקט שאינו תמונה."
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:50
 #, fuzzy, php-format
@@ -18600,7 +18599,7 @@ msgstr "צפו ב-<em>%s</em>"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:62
 #, fuzzy, php-format
 msgid "%s with link to album"
-msgstr "צפי באלבום %s"
+msgstr "עריכת אלבום: %s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:77
 #, fuzzy, php-format
@@ -18685,7 +18684,7 @@ msgstr "כלול קישור RSS"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:337
 #, fuzzy
 msgid "title only"
-msgstr "חברים בלבד"
+msgstr "כותרת"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:352
 #, fuzzy
@@ -18790,7 +18789,7 @@ msgstr "שגיאה התחברות לצפצף! נסה שוב מאוחר יותר!
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Twitter authorization failed."
-msgstr "השאילתא נכשלה:"
+msgstr "ההרשמה נכשלה"
 
 #: npgCore/extensions/uploader_http.php:14
 #, fuzzy
@@ -18988,7 +18987,7 @@ msgstr "העלאה"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 msgid "Failed to resize image"
-msgstr "השאילתא נכשלה:"
+msgstr "ההרשמה נכשלה"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -19109,7 +19108,7 @@ msgstr "ערכת העיצוב שלך, מבוססת על ערכת העיצוב %s
 #: npgCore/extensions/user-expiry.php:302
 #, fuzzy
 msgid "You must change your password."
-msgstr "צריך לספק סיסמא עבור הקטגוריה המוגנת"
+msgstr "צריך לספק סיסמא עבור הדף המוגן"
 
 #: npgCore/extensions/user-expiry.php:306
 #, fuzzy
@@ -19141,17 +19140,17 @@ msgstr "מעובד"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:116
 #, fuzzy
 msgid "User expiry"
-msgstr "משתמש מסד הנתונים"
+msgstr "אמתי משתמשת"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:123
 #, fuzzy
 msgid "Manage user expiry."
-msgstr "ניהול כל האלבומים"
+msgstr "ניהול פרסום תוכן"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:153
 #, fuzzy, php-format
 msgid "Expired:%s; "
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:156
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:158
@@ -19167,7 +19166,7 @@ msgstr "קוד זיהוי המשתמש הוקצה מראש"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:188
 #, fuzzy
 msgid "Enable"
-msgstr "סמנו להפעלת טופס החיפוש"
+msgstr "אפשרי sessions של הגלרייה"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:194
 #, fuzzy
@@ -19227,7 +19226,7 @@ msgstr "מאופשר"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:242
 #, fuzzy
 msgid "Force password renewal"
-msgstr "סיסמת מסד הנתונים"
+msgstr "נקה סיסמא"
 
 #: npgCore/extensions/userAddressFields.php:19
 #, fuzzy
@@ -19314,6 +19313,7 @@ msgid "Deleted"
 msgstr "הצלחתי במחיקת %s."
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
@@ -19338,7 +19338,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "קבוצה"
 
@@ -19447,18 +19446,28 @@ msgstr ""
 msgid "Mailing list"
 msgstr "רשימת התפוצה של משתמש"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "הרשם לקבל תגובות"
+msgstr "נדחתה "
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to re-"
 "subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "דפים מודרים"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -19477,7 +19486,7 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
 msgid "Click to resubscribe"
-msgstr "הסתירי פרטים"
+msgstr "לחצו כאן להרשמה לאתר."
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -19486,13 +19495,13 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
 msgid "Click to un-subscribe"
-msgstr "לחצו כאן להרשמה לאתר."
+msgstr "הרשם לקבל תגובות"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "רשימת התפוצה של משתמש"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails are "
@@ -19501,7 +19510,7 @@ msgstr ""
 "כלי לשליחת הודעות אי-מייל לכל המשתמשים שהזינו כתובת מייל.העתק של המייל נשלח "
 "תמיד למנהל הנוכחי וכל ההודעות נשלחות <em>ללא אזכור חברי רשימת התפוצה</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19509,35 +19518,42 @@ msgstr ""
 "<strong>חשוב: </strong> הפילטר <em>sendmail</em> לא רשום. צריך להפעיל ולהגדיר "
 "את התוסף mailer."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "המייל נשלח."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "בבקשה כתבו את ההודעת המייל."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "נושא:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "הודעה:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "בחרו משתמשים: "
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+msgid "Select recipients :"
+msgstr "בחרו תבנית:"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "שם משתמש"
+msgstr ""
+"כלי לשליחת הודעות אי-מייל לכל המשתמשים שהזינו כתובת מייל.העתק של המייל נשלח "
+"תמיד למנהל הנוכחי וכל ההודעות נשלחות <em>ללא אזכור חברי רשימת התפוצה</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "שלח הודעת מייל"
 
@@ -19622,7 +19638,7 @@ msgstr "יש שגיאת תבנית בפרמטר  $default "
 #: npgCore/extensions/xmpMetadata.php:592
 #, fuzzy
 msgid "Sidecar file extension"
-msgstr "עריכת קובץ"
+msgstr "שינוי שם קובץ"
 
 #: npgCore/extensions/xmpMetadata.php:593
 #, fuzzy
@@ -19636,7 +19652,7 @@ msgstr ""
 #: npgCore/extensions/xmpMetadata.php:594
 #, fuzzy
 msgid "Process extensions"
-msgstr "בצע את השינויים לעיל"
+msgstr "בצע שינויים"
 
 #: npgCore/extensions/xmpMetadata.php:596
 #, fuzzy
@@ -19669,7 +19685,7 @@ msgstr "הצג דירוג"
 #: npgCore/extensions/xmpMetadata.php:1151
 #, fuzzy
 msgid "Metadata exported"
-msgstr "רענון מטא-דטא"
+msgstr "מטא-דטא:"
 
 #: npgCore/extensions/xmpMetadata.php:1158
 #, fuzzy
@@ -20021,7 +20037,7 @@ msgstr "כל הקטגוריות"
 #: npgCore/extensions/zenpage/news.php:131
 #, fuzzy
 msgid "Un-categorized"
-msgstr "מפורסם/לא מפורסם"
+msgstr "פרסום אלבום: %s"
 
 #: npgCore/extensions/zenpage/admin-functions.php:852
 #, fuzzy, php-format
@@ -20236,7 +20252,7 @@ msgstr "השתמש בשיטת setShow ישירות."
 #: npgCore/extensions/zenpage/deprecated-functions.php:101
 #, fuzzy
 msgid "Use shortenContent()"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "השתמשו בתמונה נעולה"
 
 #: npgCore/extensions/zenpage/edit.php:62
 #, php-format
@@ -20582,7 +20598,7 @@ msgstr[1] "מאמר"
 #: npgCore/template-functions.php:1373
 #, fuzzy
 msgid "Return to archive"
-msgstr "תצוגת ארכיון"
+msgstr "כללי ארכיון"
 
 #: npgCore/extensions/zenpage/template-functions.php:2059
 msgid "This page is password protected"
@@ -20699,7 +20715,7 @@ msgstr "שגיאה!"
 #: npgCore/functions-basic.php:93
 #, fuzzy
 msgid "WARNING"
-msgstr "אין אזהרה"
+msgstr "אזהרה"
 
 #: npgCore/functions-basic.php:94
 #, fuzzy
@@ -20850,7 +20866,7 @@ msgstr "<em>[%1$s]</em> מאקרו אינו לוקח פרמטרים"
 #: npgCore/functions.php:2596 npgCore/functions.php:2623
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> retuned no data"
-msgstr "%1$s <em>%2$s</em> נוסף"
+msgstr "%1$u הקלקה על %2$s"
 
 #: npgCore/functions.php:2601
 #, fuzzy, php-format
@@ -21120,7 +21136,7 @@ msgstr ""
 #: npgCore/lib-auth.php:169
 #, fuzzy
 msgid "Minimum password strength"
-msgstr "סיסמת מסד הנתונים"
+msgstr "נקה סיסמא"
 
 #: npgCore/lib-auth.php:171
 #, fuzzy, php-format
@@ -21154,7 +21170,7 @@ msgstr ""
 #: npgCore/lib-auth.php:176
 #, fuzzy
 msgid "Enable Challenge phrase"
-msgstr "סמנו להפעלת טופס החיפוש"
+msgstr "אפשרי sessions של הגלרייה"
 
 #: npgCore/lib-auth.php:178
 #, fuzzy
@@ -21537,7 +21553,7 @@ msgstr "שאלה מאתגרת:"
 #: npgCore/lib-auth.php:1216
 #, fuzzy
 msgid "Your response"
-msgstr "הזיני קריטריון חיפוש"
+msgstr "הסיסמאות לא זהות"
 
 #: npgCore/lib-auth.php:1225
 #, fuzzy
@@ -21555,7 +21571,7 @@ msgstr "התחבר"
 #: npgCore/lib-auth.php:1246
 #, fuzzy
 msgid "Request reset by e-mail"
-msgstr "שילחו הודעת מייל"
+msgstr "כתובת המייל של מחבר התגובה"
 
 #: npgCore/lib-auth.php:1279
 #, fuzzy, php-format
@@ -21590,7 +21606,7 @@ msgstr "בקשת איתחול נשלחה לתיבת המייל שלך"
 #: npgCore/lib-auth.php:1467
 #, fuzzy
 msgid "password strength weak"
-msgstr "סיסמת מסד הנתונים"
+msgstr "נקה סיסמא"
 
 #: npgCore/lib-auth.php:1470
 #, fuzzy
@@ -21636,7 +21652,7 @@ msgstr "שגיאת דף:  %2$s (%1$s)"
 #: npgCore/lib-image.php:27
 #, fuzzy, php-format
 msgid "Request URI: [%s]"
-msgstr "לא נמצא מישהו שניתן לשלוח אליו את בקשת האיפוס."
+msgstr "בקשת ההרשמה לא הושלמה."
 
 #: npgCore/lib-image.php:30
 #, fuzzy, php-format
@@ -21735,12 +21751,12 @@ msgstr "משתמש בתמונה ממוזערת של% 1 $ ux% 2 $ u%3$s."
 #: npgCore/lib-image.php:242
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
-msgstr "צפי בתמונה %s"
+msgstr "צפו בתמונה: %s"
 
 #: npgCore/lib-image.php:249
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
-msgstr "צפי בתמונה %s"
+msgstr "צפו בתמונה: %s"
 
 #: npgCore/lib-image.php:292
 #, fuzzy, php-format
@@ -21750,12 +21766,12 @@ msgstr "<html> שגיאה לא ידועה בעיבוד %s! אנא דווח ל"
 #: npgCore/lib-image.php:386 npgCore/lib-image.php:412
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
-msgstr "צפי בתמונה %s"
+msgstr "צפו בתמונה: %s"
 
 #: npgCore/lib-image.php:416
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
-msgstr "צפי בתמונה %s"
+msgstr "צפו בתמונה: %s"
 
 #: npgCore/lib-image.php:484
 #, fuzzy, php-format
@@ -21780,7 +21796,7 @@ msgstr "*אין סימן מים"
 #: npgCore/lib-image.php:554
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
-msgstr "צפי בתמונה %s"
+msgstr "צפו בתמונה: %s"
 
 #: npgCore/lib-utf8.php:47 npgCore/localeList.php:13
 #, fuzzy
@@ -24763,7 +24779,7 @@ msgstr "גרמנית (גרמניה)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "נמוך"
+msgstr "הולנדית (הולנד)"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -25852,7 +25868,7 @@ msgstr "קנטונזית (מסורתית, הונג קונג)"
 #, fuzzy
 #| msgid "Standard Light A"
 msgid "Standard Moroccan Tamazight"
-msgstr "תמונות (סטנדרטי)"
+msgstr "Standard Light A"
 
 #: npgCore/localeList.php:723
 #, fuzzy
@@ -25878,7 +25894,7 @@ msgstr "סינית (טיוואן)"
 #: npgCore/localeList.php:727
 #, fuzzy
 msgid "Chinese (Simplified)"
-msgstr "סינית (הונג-קונג)"
+msgstr "סינית (טיוואן)"
 
 #: npgCore/localeList.php:728
 #, fuzzy
@@ -25955,7 +25971,7 @@ msgstr "סיסמא הכרחית"
 #: npgCore/page_error.php:21
 #, fuzzy
 msgid "Not Found"
-msgstr "לא נמצאו אפקטים לתמונות."
+msgstr "הקובץ לא נמצא."
 
 #: npgCore/page_error.php:24
 #, fuzzy
@@ -25971,7 +25987,7 @@ msgstr "לא מתקבל"
 #, fuzzy
 #| msgid "Authenticate user"
 msgid "Proxy Authentication Required"
-msgstr "סיסמא הכרחית"
+msgstr "הכרחי"
 
 #: npgCore/page_error.php:33
 #, fuzzy
@@ -25999,7 +26015,7 @@ msgstr "אורך מוקד/עומק שדה"
 #: npgCore/page_error.php:45
 #, fuzzy
 msgid "Precondition Failed"
-msgstr "השאילתא נכשלה:"
+msgstr "ההרשמה נכשלה"
 
 #: npgCore/page_error.php:48
 #, fuzzy
@@ -26024,12 +26040,12 @@ msgstr "משהו השתבש"
 #: npgCore/page_error.php:94
 #, fuzzy, php-format
 msgid "URL: %1$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s גירסא  %2$s"
 
 #: npgCore/page_error.php:97
 #, fuzzy, php-format
 msgid "HTTP status: %1$s"
-msgstr "%1$u הקלקה על %2$s"
+msgstr "%1$s גירסא  %2$s"
 
 #: npgCore/pluginDoc.php:290
 #, fuzzy
@@ -26070,7 +26086,7 @@ msgstr "חיבור מסד נתונים"
 #: npgCore/reconfigure.php:46
 #, fuzzy, php-format
 msgid "Setup required: %1$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s גירסא  %2$s"
 
 #: npgCore/reconfigure.php:97 npgCore/setup.php:54
 #, fuzzy
@@ -26212,7 +26228,7 @@ msgstr "netPhotoGraphics דורש גרסת PHP %s ומעלה"
 #: npgCore/setup/index.php:138
 #, fuzzy
 msgid "config file migrated"
-msgstr "לא ניתן לערוך את הקובץ הזה!"
+msgstr "שמירת קובץ האלבום נכשלה"
 
 #: npgCore/setup/index.php:214
 msgid "db POST handling"
@@ -26359,7 +26375,7 @@ msgstr "<em>%s</em> לא נמצא"
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security [is compromised]"
-msgstr "אפשרויות עבור <em>%s</em>"
+msgstr "<em>%s</em> כבר קיים."
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
@@ -26499,7 +26515,7 @@ msgstr "לא נבחר דבר להצגה"
 #: npgCore/setup/index.php:687
 #, fuzzy
 msgid "PHP <code>display_errors</code>"
-msgstr "PHP <code>Safe Mode</code>"
+msgstr "PHP <code>setlocale()</code>"
 
 #: npgCore/setup/index.php:687
 #, fuzzy, php-format
@@ -26620,7 +26636,7 @@ msgstr "החבילה PHP <code>mbstring</code> [לא קיימת]"
 #: npgCore/setup/index.php:739
 #, fuzzy
 msgid "PHP <code>default_charset</code>"
-msgstr "PHP <code>Safe Mode</code>"
+msgstr "PHP <code>setlocale()</code> נכשל"
 
 #: npgCore/setup/index.php:739
 #, fuzzy, php-format
@@ -26718,7 +26734,7 @@ msgstr "לא נטענה ספריית טיפול בתמונות. ודא כי PHP 
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
 msgid "<em>%1$s</em> file"
-msgstr "%1$s <em>%2$s</em> נוסף"
+msgstr "<em>%1$s</em> תיקייה%2$s"
 
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
@@ -26913,7 +26929,7 @@ msgstr "Post of Database credentials"
 #: npgCore/setup/index.php:1063
 #, fuzzy, php-format
 msgid "<em>%1$s</em> reported: %2$s"
-msgstr "%1$s <em>%2$s</em> נוסף"
+msgstr "<em>%1$s</em> תיקייה%2$s"
 
 #: npgCore/setup/index.php:1076
 #, fuzzy
@@ -27132,14 +27148,14 @@ msgstr "קבצי התקנה"
 #, fuzzy, php-format
 msgid ".svn [%s instance]"
 msgid_plural ".svn [%s instances]"
-msgstr[0] "דפים (%s)"
+msgstr[0] "חזרי אל %s"
 msgstr[1] ".svn [%s instances]"
 
 #: npgCore/setup/index.php:1375
 #, fuzzy, php-format
 msgid "php.ini [%s instance]"
 msgid_plural "php.ini [%s instances]"
-msgstr[0] "דפים (%s)"
+msgstr[0] "חזרי אל %s"
 msgstr[1] ".svn [%s instances]"
 
 #: npgCore/setup/index.php:1389 npgCore/setup/index.php:1408
@@ -27164,7 +27180,7 @@ msgstr "כדאי למחוק את הקבצים הבאים:"
 #: npgCore/setup/index.php:1427
 #, fuzzy
 msgid "Core file permissions"
-msgstr "עריכת קובץ"
+msgstr "שינוי שם קובץ"
 
 #: npgCore/setup/index.php:1427
 #, fuzzy
@@ -27666,7 +27682,7 @@ msgstr ""
 #: npgCore/setup/setup-functions.php:522
 #, fuzzy, php-format
 msgid "Query Success: %s"
-msgstr "שגיאה בשאילתא: %s"
+msgstr "השאילתא נכשלה: %s"
 
 #: npgCore/setup/setup-functions.php:527
 #, fuzzy, php-format
@@ -27811,13 +27827,13 @@ msgstr "היה שינוי של נושאים או תוספים. התוסף zenpho
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "צפו ב-<em>%s</em>"
+msgstr "<em>%1$s</em> תיקייה%2$s"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "ערכי אלבום: <em>%1$s%2$s</em>"
+msgstr "%1$u הקלקה על %2$s"
 
 #: npgCore/setup/setup-sqlform.php:3
 #, fuzzy
@@ -27852,13 +27868,13 @@ msgstr "שרת מסד הנתונים"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "ספורט"
+msgstr "POP port number."
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "משתמש מסד הנתונים"
+msgstr "חיבור מסד נתונים"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -27876,7 +27892,7 @@ msgstr "שמרי"
 #, fuzzy
 #| msgid "Completed system check"
 msgid "Completed with errors"
-msgstr "סיום בדיקת מערכת"
+msgstr "השחזור הסתיים"
 
 #: npgCore/setup/setupComplete.php:18
 #, fuzzy
@@ -28084,7 +28100,7 @@ msgstr "שדות"
 #: npgCore/template-functions.php:3955
 #, fuzzy
 msgid "search options"
-msgstr "חפש"
+msgstr "חיפוש"
 
 #: npgCore/template-functions.php:4009
 #, fuzzy
@@ -28123,7 +28139,7 @@ msgstr "<a href=\"https://xlioness.com/\">.</a> דפים (%s)"
 #: npgCore/template-functions.php:4445
 #, fuzzy, php-format
 msgid "%1$s policyACK cookie"
-msgstr "%1$u הקלקה על %2$s"
+msgstr "%1$u חדש %2$s"
 
 #: npgCore/template-functions.php:4621
 msgid "Error:</strong> the requested object was not found."
@@ -28172,14 +28188,14 @@ msgstr[1] "הגיבוי הסתיים בעזרת דחיסה מסוג <em>%1$s(%2$
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] "גבו את מסד הנתונים"
+msgstr[0] "תחילת לטבלאות מסד הנתונים: <strong>%1$s</strong>"
 msgstr[1] "גבו את מסד הנתונים"
 
 #: npgCore/utilities/backup_restore.php:263
 #, fuzzy
 #| msgid "The locale %s is not supported on your server."
 msgid "The following tables were empty:"
-msgstr "הגדרת הלוקאל %s אינה נתמכת על ידי השרת."
+msgstr "הסיסמאות שלכם היו ריקות או לא נכונות"
 
 #: npgCore/utilities/backup_restore.php:284
 msgid "backup failed"
@@ -28291,7 +28307,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "בחרו את קובץ השחזור."
+msgstr "גבו את הטבלאות של מסד הנתונים"
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -28321,7 +28337,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database connection"
 msgid "Database restoration"
-msgstr "שם מסד הנתונים"
+msgstr "חיבור מסד נתונים"
 
 #: npgCore/utilities/backup_restore.php:655
 msgid "You have not yet created a backup set."
@@ -28639,7 +28655,7 @@ msgstr "הדפדפן שלך אינו תומך בתג האודיו"
 #: npgCore/utilities/installation_analysis.php:61
 #, fuzzy, php-format
 msgid "source: %s"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: npgCore/utilities/installation_analysis.php:82
 #, fuzzy
@@ -28668,7 +28684,7 @@ msgstr "אתר אינטרנט:"
 #: npgCore/utilities/installation_analysis.php:106
 #, fuzzy
 msgid "PHP Session path:"
-msgstr "קבצי תבנית של ערכת עיצוב (.php)"
+msgstr "גירסת PHP %s"
 
 #: npgCore/utilities/installation_analysis.php:124
 #, fuzzy, php-format
@@ -28701,7 +28717,7 @@ msgstr ""
 #: npgCore/utilities/installation_analysis.php:199
 #, fuzzy
 msgid "<em>display_errors</em> is <strong>On</strong>"
-msgstr "ההרחבה של <strong><em>Imagick</em></strong> אינה זמינה."
+msgstr "ההרחבה של <strong><em>GD</em></strong> לא זמינה."
 
 #: npgCore/utilities/installation_analysis.php:203
 #, fuzzy
@@ -28716,7 +28732,7 @@ msgstr "Graphics support: <strong>%s</strong>"
 #: npgCore/utilities/installation_analysis.php:219
 #, fuzzy, php-format
 msgid "supporting: %s"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: npgCore/utilities/installation_analysis.php:225
 #, fuzzy, php-format
@@ -28906,12 +28922,12 @@ msgstr ""
 #, fuzzy
 #| msgid "Title"
 msgid "MyBB Title"
-msgstr "כותרת:"
+msgstr "כותרת"
 
 #: plugins/MyBB_auth.php:108
 #, fuzzy
 msgid "The name of the MyBB site."
-msgstr "הרשמי לאתר זה"
+msgstr "אתר אינטרנט:"
 
 #: plugins/MyBB_auth.php:109
 #, fuzzy
@@ -28927,7 +28943,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database"
 msgid "MyBB database"
-msgstr "שם מסד הנתונים"
+msgstr "מסד נתונים"
 
 #: plugins/MyBB_auth.php:114
 #, fuzzy
@@ -28984,7 +29000,7 @@ msgstr "אפשרויות ברירת המחדל עבור ערכת נושא זו �
 #, fuzzy, php-format
 #| msgid "Graphics support: <code>%s</code>"
 msgid "Example: <code>%s</code>"
-msgstr "תמיכה גראפית: <code>%s</code>"
+msgstr "PHP <code>%s</code> support"
 
 #: plugins/MyBB_auth.php:136
 #, php-format
@@ -29174,7 +29190,7 @@ msgstr "<em>%s</em> כבר קיים."
 #, fuzzy, php-format
 #| msgid "Database tables to create: %s"
 msgid "Unable to create %s."
-msgstr "Create"
+msgstr "נוצר ב:"
 
 #: plugins/customFieldExtender.php:42
 #, fuzzy
@@ -29384,7 +29400,7 @@ msgstr "שינוי שם הקובץ <code>extract.php.bin</code> נכשל."
 #: plugins/devReleases.php:116
 #, fuzzy, php-format
 msgid "Install DEV %1$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s גירסא  %2$s"
 
 #: plugins/devReleases.php:121
 #, fuzzy, php-format
@@ -29591,13 +29607,13 @@ msgstr "סוף פריטים"
 #: plugins/icons.php:13
 #, fuzzy
 msgid "Show the icon set."
-msgstr "הציגי"
+msgstr "אייקון"
 
 #: plugins/keywordRedirector.php:28
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "חפש אלבומים"
+msgstr "קריטריון חיפוש:"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -29608,7 +29624,7 @@ msgstr "יש צורך בהרחבת PHP EXIF ​​עבור אפשרות זו."
 #, fuzzy
 #| msgid "Search category"
 msgid "Search redirect keywords"
-msgstr "חפש אלבומים"
+msgstr "קריטריון חיפוש:"
 
 #: plugins/keywordRedirector.php:49
 msgid ""
@@ -29963,7 +29979,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Plugins"
 msgid "Plugins » all"
-msgstr "תוספים "
+msgstr "תוספים"
 
 #: plugins/pluginEnabler.php:48
 #, fuzzy
@@ -29994,7 +30010,7 @@ msgstr "זוכר את מצבי התוסף הנוכחיים."
 #, fuzzy
 #| msgid "Plugins"
 msgid "Plugins × all"
-msgstr "תוספים "
+msgstr "תוספים"
 
 #: plugins/pluginEnabler.php:87
 #, fuzzy
@@ -30005,7 +30021,7 @@ msgstr "משבית את כל התוספים מלבד pluginEnabler."
 #, fuzzy
 #| msgid "TinyMCE disabled"
 msgid "Plugins disabled"
-msgstr "תוספים "
+msgstr "תוספים"
 
 #: plugins/pluginEnabler/handler.php:25
 #, fuzzy
@@ -30045,12 +30061,12 @@ msgstr "%1$s מנהלים:%2$s%3$s"
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
 msgid "Cc: %s"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: plugins/pseudomail.php:74
 #, fuzzy, php-format
 msgid "Bcc: %s"
-msgstr "דפים (%s)"
+msgstr "חזרי אל %s"
 
 #: plugins/pseudomail.php:76
 #, fuzzy, php-format
@@ -30226,8 +30242,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "ניהול תגיות"
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -30331,7 +30348,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Rights migration failed."
 msgid "utf8mb4 migration completed."
-msgstr "הגיבוי הסתיים"
+msgstr "השחזור הסתיים"
 
 #: plugins/zenphotoCompatibilityPack.php:22
 #, fuzzy
@@ -30509,7 +30526,7 @@ msgstr "אינדקס גלרייה"
 #, fuzzy
 #| msgid "Daily image"
 msgid "Daily summary"
-msgstr "תמונה יומית"
+msgstr "יומי"
 
 #: themes/ardoise/inc_footer.php:68
 #, fuzzy
@@ -30723,7 +30740,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:80
 #, fuzzy
 msgid "Show Archive link"
-msgstr "תצוגת ארכיון"
+msgstr "כללי ארכיון"
 
 #: themes/ardoise/themeoptions.php:82
 #, fuzzy
@@ -30778,7 +30795,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:95
 #, fuzzy
 msgid "Use Galleriffic script"
-msgstr "Use Colorbox"
+msgstr "השתמשו בדגלים"
 
 #: themes/ardoise/themeoptions.php:97
 #, fuzzy
@@ -31087,7 +31104,7 @@ msgstr "צפו בעוד"
 #: themes/bootstrap/inc_print_infinitescroll_news.php:17
 #, fuzzy
 msgid "No more news to display"
-msgstr "הצגת תמונות לפי:"
+msgstr "קראו עוד"
 
 #: themes/bootstrap/theme_description.php:10
 #, fuzzy
@@ -31218,7 +31235,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Use text"
 msgid "Use isotope"
-msgstr "השתמשי בדף יצירת קשר רגיל"
+msgstr "Use Colorbox"
 
 #: themes/bootstrap/themeoptions.php:125
 #, fuzzy
@@ -31345,7 +31362,7 @@ msgstr "אינדקס ראשי"
 #: themes/spellflight/404.php:45 themes/spellflight/404.php:47
 #, fuzzy
 msgid "Page not found"
-msgstr "עמוד"
+msgstr "האלבום לא נמצא"
 
 #: themes/effervescence+/album.php:157 themes/effervescence+/favorites.php:195
 #: themes/netphotographics/album.php:157 themes/netphotographics/favorites.php:195
@@ -31658,7 +31675,7 @@ msgstr ""
 #: themes/netphotographics/themeoptions.php:146
 #, fuzzy
 msgid "Display theme info"
-msgstr "מידע התמונה"
+msgstr "מידע על העדשות"
 
 #: themes/effervescence+/themeoptions.php:129
 #: themes/netphotographics/themeoptions.php:150
@@ -31791,17 +31808,17 @@ msgstr "רמז: %s"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%1$s מנהלים:%2$s%3$s"
+msgstr "%s"
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "%1$s <em>%2$s</em> נוסף"
+msgstr "%1$s מנהלים:%2$s%3$s"
 
 #: themes/enlighten/sidebar.php:46
 #, fuzzy
 msgid "Latest notes"
-msgstr "אלבומים אחרונים"
+msgstr "האחרונות"
 
 #: themes/enlighten/sidebar.php:61
 #, fuzzy
@@ -31877,13 +31894,13 @@ msgstr "צפה באלבום"
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
 #, fuzzy
 msgid "Next album"
-msgstr "תמונה קודמת"
+msgstr "הדף הבא"
 
 #: themes/garland/album.php:108 themes/garland/favorites.php:120
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
 #, fuzzy
 msgid "Next album »"
-msgstr "תמונה קודמת"
+msgstr "הדף הבא"
 
 #: themes/garland/album.php:116 themes/garland/favorites.php:128
 #: themes/spellflight/album.php:116 themes/spellflight/favorites.php:128
@@ -31912,7 +31929,7 @@ msgstr "תגיות"
 #: themes/garland/album.php:139 themes/spellflight/album.php:139
 #, fuzzy, php-format
 msgid "Latest Images for %s"
-msgstr "תמונות (%s)"
+msgstr "%s תמונות"
 
 #: themes/garland/functions.php:58
 #, fuzzy
@@ -31926,7 +31943,7 @@ msgstr "גודל ברירת המחדל של הצגת התמונה."
 #: themes/spellflight/main.php:58
 #, fuzzy
 msgid "Latest Images"
-msgstr "אלבומים אחרונים"
+msgstr "אחרון ע\"פ id"
 
 #: themes/garland/image.php:122 themes/garland/summary.php:53
 #: themes/spellflight/image.php:122 themes/spellflight/summary.php:53
@@ -32098,7 +32115,7 @@ msgstr "תמונות אקראיות"
 #: themes/masonry/functions.php:282
 #, fuzzy
 msgid "Search Result"
-msgstr "חפש אלבומים"
+msgstr "קריטריון חיפוש:"
 
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
@@ -32113,7 +32130,7 @@ msgstr "מצגת"
 #: themes/masonry/inc-footer.php:21
 #, fuzzy
 msgid "Loading additional pages..."
-msgstr "דפים ומאמרים"
+msgstr "דפים מנוהלים: "
 
 #: themes/masonry/inc-footer.php:23
 #, fuzzy
@@ -32131,7 +32148,7 @@ msgstr "דף %1$u (דף נוכחי)"
 #: themes/masonry/news.php:23
 #, fuzzy
 msgid "Latest Comments"
-msgstr "תגובות:"
+msgstr "תגובות"
 
 #: themes/masonry/inc-header.php:102 themes/minimal/inc-header.php:103
 #, fuzzy
@@ -32154,12 +32171,12 @@ msgstr ""
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "אין תגובות לייבוא"
+msgstr "לאפשר תגובות"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "אין תגובות לייבוא"
+msgstr "לאפשר תגובות"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -32169,7 +32186,7 @@ msgstr "ברוכים הבאים"
 #: themes/masonry/index.php:61 themes/minimal/index.php:56
 #, fuzzy
 msgid "No Images Exist..."
-msgstr "תמונות (סטנדרטי)"
+msgstr "תמונות (דינמי)"
 
 #: themes/masonry/news.php:92 themes/zenFluid/image.php:140
 #, fuzzy
@@ -32205,7 +32222,7 @@ msgstr "בחר סגנון צבע כהה או בהיר הכולל."
 #: themes/masonry/themeoptions.php:79
 #, fuzzy
 msgid "General Thumb Sizes"
-msgstr "תמונת אצבע ="
+msgstr "תמונות מוקטנות"
 
 #: themes/masonry/themeoptions.php:83
 #, fuzzy
@@ -32497,7 +32514,7 @@ msgstr "תת-אלבום %u"
 #: themes/minimal/index.php:59
 #, fuzzy
 msgid "Enter Gallery &rarr;"
-msgstr "הזינו תמונת זיהוי (CAPTCHA("
+msgstr "הזינו תמונת זיהוי (CAPTCHA)"
 
 #: themes/minimal/news.php:48
 #, fuzzy
@@ -32623,7 +32640,7 @@ msgstr ""
 #: themes/mobile/functions.php:113
 #, fuzzy
 msgid "zpMobile theme by"
-msgstr "צבעי ערכת עיצוב"
+msgstr "*ערכת עיצוב לגלרייה"
 
 #: themes/mobile/functions.php:215 themes/npgmobile/functions.php:169
 msgid "Back to top"
@@ -32751,7 +32768,7 @@ msgstr "זכויות יוצרים:"
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "לא נמצאו אפקטים לתמונות."
+msgstr "הקובץ לא נמצא."
 
 #: themes/paradigm/includes/_gallery.php:12
 #, fuzzy
@@ -32791,7 +32808,7 @@ msgstr "סמן כדי לאפשר פריסת רוחב מלא של נוזל."
 #: themes/paradigm/themeoptions.php:64
 #, fuzzy
 msgid "Homepage slideshow"
-msgstr "מצגת"
+msgstr "דף הבית"
 
 #: themes/paradigm/themeoptions.php:68
 #, fuzzy
@@ -32872,7 +32889,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:92
 #, fuzzy
 msgid "Number of slides"
-msgstr "POP port number."
+msgstr "מספר טלפון"
 
 #: themes/paradigm/themeoptions.php:101
 #, fuzzy
@@ -32925,7 +32942,7 @@ msgstr "תוכן"
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
 msgid "Latest pictures"
-msgstr "אלבומים אחרונים"
+msgstr "אחרון ע\"פ id"
 
 #: themes/paradigm/themeoptions.php:120
 #, fuzzy
@@ -32960,7 +32977,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:141
 #, fuzzy
 msgid "ShareThis id"
-msgstr "מזהה משתמש:"
+msgstr "אחרון ע\"פ id"
 
 #: themes/paradigm/themeoptions.php:145
 #, fuzzy
@@ -33000,7 +33017,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:158
 #, fuzzy
 msgid "Twitter profile name"
-msgstr "עם שם התיקייה:"
+msgstr "שם אלבום:"
 
 #: themes/paradigm/themeoptions.php:161
 #, fuzzy
@@ -33088,7 +33105,7 @@ msgstr "ספק את כתובת האתר של דף ה- <a href=\"http://tumblr.co
 #: themes/spellflight/functions.php:58
 #, fuzzy
 msgid "spellflight image display handling."
-msgstr "סמנו על מנת להציג את התמונה המקורית עם Colorbox."
+msgstr "גודל ברירת המחדל של הצגת התמונה."
 
 #: themes/spellflight/pages_Custom1.php:105
 #, fuzzy
@@ -33122,7 +33139,7 @@ msgstr "צפיות: %u"
 #: themes/zenFluid/inc-footer.php:6 themes/zenFluid/inc-sidebar.php:132
 #, fuzzy
 msgid "zenFluid theme designed by "
-msgstr "צבעי ערכת עיצוב"
+msgstr "*ערכת עיצוב לגלרייה"
 
 #: themes/zenFluid/inc-sidebar.php:41
 #, fuzzy
@@ -33314,7 +33331,7 @@ msgstr "הפעל זאת אם ברצונך לכלול את כותרת האלבו�
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "כותרת אלבום"
+msgstr "כותרת"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -33423,7 +33440,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:205
 #, fuzzy
 msgid "Description justification"
-msgstr "תיאור גלרייה:"
+msgstr "תיאור:"
 
 #: themes/zenFluid/themeoptions.php:210
 #, fuzzy
@@ -33455,7 +33472,7 @@ msgstr "מיקום:"
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the position of the title"
-msgstr "כותרת"
+msgstr "מיקום:"
 
 #: themes/zenFluid/themeoptions.php:227
 #, fuzzy
@@ -33496,7 +33513,7 @@ msgstr "בחר את המיקום של קטע ההערות כאשר הרוחב ש
 #, fuzzy
 #| msgid "pending verification"
 msgid "Menu justification"
-msgstr "תפריט מתואם אישית"
+msgstr "מנהל תפריט"
 
 #: themes/zenFluid/themeoptions.php:253
 #, fuzzy
@@ -33543,7 +33560,7 @@ msgstr "הפעל אם ברצונך שכפתורי התמונה יופיעו לפ
 #: themes/zenFluid/themeoptions.php:273
 #, fuzzy
 msgid "Menu section titles"
-msgstr "תפריט מתואם אישית"
+msgstr "מנהל תפריט"
 
 #: themes/zenFluid/themeoptions.php:277
 #, fuzzy
@@ -33598,6 +33615,9 @@ msgid ""
 msgstr ""
 "סמנו זאת להפעלת התוסף <em>menu_manager</em> על מנת לבנות תפריט מתואם אישית. "
 "כתפריט סטנדרטי ששמו \"zenpage\" נוצר ובשימוש אוטומטי."
+
+#~ msgid "Select users:"
+#~ msgstr "בחרו משתמשים: "
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "ישנן הגבלות של  PHP Safe Mode."

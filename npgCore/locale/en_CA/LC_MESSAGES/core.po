@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:16-0700\n"
-"PO-Revision-Date: 2020-05-27 15:16-0700\n"
+"POT-Creation-Date: 2020-05-29 12:44-0700\n"
+"PO-Revision-Date: 2020-05-29 12:44-0700\n"
 "Last-Translator: \n"
 "Language-Team: Kit (nerdykit)\n"
 "Language: en_CA\n"
@@ -3384,8 +3384,9 @@ msgstr "%s password may not be empty!"
 msgid "Password reset request."
 msgstr "Reset hit counter"
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 #, fuzzy
 msgid "Users"
 msgstr "Checks for Apache HTTP authentication of authorised users."
@@ -20986,6 +20987,7 @@ msgid "Deleted"
 msgstr "%u Comment deleted successfully."
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 msgid "Groups"
 msgstr "Groups"
@@ -21008,7 +21010,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 #, fuzzy
 msgid "group"
 msgstr "group"
@@ -21128,19 +21129,28 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Mailing list"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 #| msgid "Subscribe: "
 msgid "Un-subscribed users"
 msgstr "Subscribe: "
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+msgid "Excluded groups"
+msgstr "Pages"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 msgid "Opt-out of the mailing list"
 msgstr "User mailing list"
@@ -21168,12 +21178,12 @@ msgstr ""
 msgid "Click to un-subscribe"
 msgstr "Show theme for: "
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 #, fuzzy
 msgid "User mailing list"
 msgstr "User mailing list"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 #, fuzzy
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
@@ -21184,7 +21194,7 @@ msgstr ""
 "address. There is always a copy sent to the current admin and all e-mails "
 "are sent as <em>blind copies</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 #, fuzzy
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
@@ -21193,36 +21203,40 @@ msgstr ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 msgid "Mail sent"
 msgstr "Error sending mail:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 #, fuzzy
 msgid "Please enter the message you want to send."
 msgstr "Please enter the message you want to send."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 #, fuzzy
 msgid "Subject:"
 msgstr "Subject:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Message:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
 #, fuzzy
-msgid "Select users:"
-msgstr "Select"
+msgid "Select recipients :"
+msgstr "Contact recipients"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 msgid "all users"
 msgstr "Error sending mail:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 #, fuzzy
 msgid "Send mail"
 msgstr "Error sending mail:"
@@ -35725,6 +35739,10 @@ msgstr ""
 "Check this if you want to use the <em>menu_manager</em> plugin if enabled to "
 "build a custom menu instead of the separate standard ones. A standard menu "
 "named \"zenpage\" is created and used automatically."
+
+#, fuzzy
+#~ msgid "Select users:"
+#~ msgstr "Select"
 
 #, fuzzy
 #~ msgid "PHP Safe Mode Restrictions in effect!"

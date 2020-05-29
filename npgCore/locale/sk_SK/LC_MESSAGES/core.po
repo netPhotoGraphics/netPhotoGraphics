@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:12-0700\n"
-"PO-Revision-Date: 2020-05-27 15:12-0700\n"
+"POT-Creation-Date: 2020-05-29 12:59-0700\n"
+"PO-Revision-Date: 2020-05-29 13:00-0700\n"
 "Last-Translator: Jakub Meisner <tangornsvk@gmail.com>\n"
 "Language-Team: Jakub Meisner <jakub@jlfoto.sk>\n"
 "Language: sk_SK\n"
@@ -800,7 +800,7 @@ msgstr "Vymazať album %s"
 #| msgid "Edit image"
 msgid "Edit %1$s image"
 msgid_plural "Edit %1$s images"
-msgstr[0] "obrázok %1$s z %2$s"
+msgstr[0] "%1$s: obrázok %2$s"
 msgstr[1] "Upraviť obrázok"
 msgstr[2] "Upraviť obrázok"
 
@@ -1240,7 +1240,7 @@ msgstr "3rd party"
 #, fuzzy
 #| msgid "<em>none</em>"
 msgid "<em>Enabled</em>"
-msgstr "<em>povolené</em>"
+msgstr "<em>ALEBO</em>"
 
 #: npgCore/admin-functions.php:5507
 #, fuzzy
@@ -2531,7 +2531,7 @@ msgstr "%1$s: Jazyk%2$s sa nezmenil, duplicitná značka."
 #, fuzzy
 #| msgid "Checked tags deleted"
 msgid "Checked tags language assigned"
-msgstr "Priradiť tagy k vybraným jazykom"
+msgstr "tagy konkrétneho jazyku"
 
 #: npgCore/admin-tabs/tags.php:176
 #, fuzzy, php-format
@@ -3001,8 +3001,9 @@ msgstr "%s heslo nesmie byť prázdne!"
 msgid "Password reset request."
 msgstr "Žiadosť o resetovanie hesla."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "Používatelia"
 
@@ -3150,7 +3151,7 @@ msgstr "Pravidlá používania stránok boli potvrdené."
 #, fuzzy
 #| msgid "Clear list"
 msgid "Clear"
-msgstr "Vymazať kešku obrázkov albumu"
+msgstr "Vymazať zoznam prístupov."
 
 #: npgCore/admin-tabs/users.php:778
 #, fuzzy
@@ -3161,8 +3162,7 @@ msgstr "Pravidlá používania stránok boli potvrdené."
 #, fuzzy
 #| msgid "Pet"
 msgid "Set"
-msgstr ""
-"V súčasnosti nie je nastavené žiadne heslo pre album. Kliknite na nastavenie."
+msgstr "Použiť ako miniatúru pre"
 
 #: npgCore/admin-tabs/users.php:831
 msgid "Challenge phrase"
@@ -3516,7 +3516,7 @@ msgstr[2] "<strong>%u</strong> Komentárov"
 #| msgid_plural "<strong>%1$u</strong> pages (%2$u un-published)"
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
-msgstr[0] "<strong>%1$u</strong> Album (%2$u nezverejnených)"
+msgstr[0] "<strong>%1$u</strong> Komentár (%2$u v schvalovaní)"
 msgstr[1] "<strong>%1$u</strong> stránky (%2$u nezverejnené)"
 msgstr[2] "<strong>%1$u</strong> stránok (%2$u nezverejnených)"
 
@@ -3536,7 +3536,7 @@ msgstr[2] "<strong>%u</strong> Obrázkov"
 #| msgid_plural "<strong>%u</strong> Albums"
 msgid "<strong>%u</strong> Group"
 msgid_plural "<strong>%u</strong> Groups"
-msgstr[0] "<strong>%u</strong> Obrázok"
+msgstr[0] "<strong>%u</strong> Album"
 msgstr[1] "<strong>%u</strong> Albumy"
 msgstr[2] "<strong>%u</strong> Albumov"
 
@@ -3546,7 +3546,7 @@ msgstr[2] "<strong>%u</strong> Albumov"
 #| msgid_plural "<strong>%u</strong> Images"
 msgid "<strong>%u</strong> Template"
 msgid_plural "<strong>%u</strong> Templates"
-msgstr[0] "<strong>%u</strong> komentárov"
+msgstr[0] "<strong>%u</strong> Obrázok"
 msgstr[1] "<strong>%u</strong> Obrázky"
 msgstr[2] "<strong>%u</strong> Obrázkov"
 
@@ -3559,7 +3559,7 @@ msgstr ""
 #, fuzzy
 #| msgid "E-mail"
 msgid "E-mail form"
-msgstr "Email%s"
+msgstr "pri prekročení limitu poslať mail"
 
 #: npgCore/admin_options/forms.php:64
 #, fuzzy
@@ -3587,13 +3587,13 @@ msgstr "Krátky popis vašej galérie. Niektoré šablóny tento text zobrazujú
 #, fuzzy
 #| msgid "Graphic logo"
 msgid "Branding logo"
-msgstr "Logo šablóny"
+msgstr "Logo stránky"
 
 #: npgCore/admin_options/gallery.php:120
 #, fuzzy
 #| msgid "The file could not be found."
 msgid "The image cannot be found."
-msgstr "Nenájdený žiaden obrázkový efekt."
+msgstr "Obrázok %s nebol nájdený alebo sa nedá prečítať."
 
 #: npgCore/admin_options/gallery.php:129
 #, fuzzy, php-format
@@ -3611,7 +3611,7 @@ msgstr ""
 #: npgCore/admin_options/gallery.php:135
 #, fuzzy
 msgid "Branding logo title"
-msgstr "Logo šablóny"
+msgstr "Logo stránky"
 
 #: npgCore/admin_options/gallery.php:143
 #, fuzzy
@@ -4291,7 +4291,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Usage info"
 msgid "Usage policy"
-msgstr "Informácie o použití"
+msgstr "Typy k používaniu"
 
 #: npgCore/admin_options/general.php:572
 #, fuzzy
@@ -4308,7 +4308,7 @@ msgstr "Zapamätané aktivované zásuvné moduly"
 #: npgCore/admin_options/general.php:582
 #, fuzzy
 msgid "policy URL"
-msgstr "URL na Facebook"
+msgstr "Adresa webstránky"
 
 #: npgCore/admin_options/general.php:586
 #, fuzzy
@@ -5395,7 +5395,7 @@ msgstr "Vyhľadávanie vráti položky vo zvolenom poradí."
 #, fuzzy
 #| msgid "Sort images by"
 msgid "Sort articles by"
-msgstr "články"
+msgstr "Články"
 
 #: npgCore/admin_options/search.php:555
 #, fuzzy
@@ -5430,7 +5430,7 @@ msgid ""
 msgstr ""
 "<strong>Poznámka</strong>: Ak váš prehliadač neposkytuje riadnu IP adresu "
 "nemusí sa vám, po aktivovaní tejto možnosti, podariť prihlásiť sa na vašu "
-"stránku. "
+"stránku."
 
 #: npgCore/admin_options/security.php:85
 msgid " You <strong>WILL</strong> have to login after changing this option."
@@ -5821,7 +5821,7 @@ msgstr "Oboje"
 #, fuzzy
 #| msgid "Album Title"
 msgid "Album list"
-msgstr "Zoznam podalbumov"
+msgstr "zoznam polí"
 
 #: npgCore/allTranslations.php:46
 msgid "What is your father’s middle name?"
@@ -7340,7 +7340,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Publish pages"
 msgid "Policy page"
-msgstr "Stránka nenájdená"
+msgstr "[strana]"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -7561,7 +7561,7 @@ msgstr "Žiadne skupiny ani predlohy nie sú definované"
 #, fuzzy
 #| msgid "netPhotoGraphics group"
 msgid "netPhotoGraphics group"
-msgstr "LDAP skupina"
+msgstr "bez skupiny"
 
 #: npgCore/extensions/LDAP_auth.php:111
 msgid "LDAP group"
@@ -8569,17 +8569,17 @@ msgstr "Spustí kešovanie veľkostí označených obrázkov."
 #: npgCore/extensions/cacheManager/deprecated-functions.php:10
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()"
-msgstr "Použiť štandardnú kontaktnú stránku"
+msgstr "Použiť getAllTagsUnique()"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
-msgstr "Použiť štandardnú kontaktnú stránku"
+msgstr "Použiť getAllTagsUnique()"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
-msgstr "Použiť štandardnú kontaktnú stránku"
+msgstr "Použiť getAllTagsUnique()"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
@@ -8605,7 +8605,7 @@ msgstr "%1$s: %2$s"
 #, fuzzy
 #| msgid "netPhotoGraphics captcha handler."
 msgid "netPhotoGraphics captcha handler."
-msgstr "Nie je nastavený správca captcha."
+msgstr "ZenPhoto20 captcha správca."
 
 #: npgCore/extensions/captcha.php:17 npgCore/extensions/reCAPTCHA_v2.php:30
 #, php-format
@@ -8945,7 +8945,7 @@ msgstr "Váš prehliadač nepodporuje značku videa"
 #, fuzzy
 #| msgid "No multimeida extension installed."
 msgid "No multimedia extension installed for this format."
-msgstr "Nie je nainštalovaný žiaden multimediálny doplnok."
+msgstr "Tento multimediálny formát nie je podporovaný jPlayerom"
 
 #: npgCore/extensions/clone.php:31
 msgid "Allows multiple installations to share a single set of script files."
@@ -9863,7 +9863,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Email:"
 msgid "Email: %1$s"
-msgstr "E-Mail:"
+msgstr "Email"
 
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
@@ -10280,7 +10280,7 @@ msgstr "Doplnok na pridanie dialógového okna s upozornením na súbory cookie"
 #: npgCore/extensions/cookieconsent.php:44
 #, fuzzy
 msgid "Button: Agree"
-msgstr "Tlačidlo sťahovania"
+msgstr "Pridať tlačidlo"
 
 #: npgCore/extensions/cookieconsent.php:49
 #, fuzzy
@@ -10355,7 +10355,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Expires"
 msgid "Expire"
-msgstr "Štatická HTML vyrovnávacia pamäť vyprší"
+msgstr "Táto požiadavka má platnosť 3 dni."
 
 #: npgCore/extensions/cookieconsent.php:76
 #, fuzzy
@@ -10422,7 +10422,7 @@ msgstr "Vpravo"
 #, fuzzy
 #| msgid "Vote Status:"
 msgid "Bottom"
-msgstr "Ak má byť názov obrázku viditeľný na spodku Colorboxu."
+msgstr "Aktivovaním sa na spodok sekcie komentárov pridá odkaz na RSS."
 
 #: npgCore/extensions/cookieconsent.php:97
 #: npgCore/extensions/openstreetmap.php:115
@@ -10466,7 +10466,7 @@ msgstr ""
 #: npgCore/extensions/cookieconsent.php:106
 #, fuzzy
 msgid "Color - Popup"
-msgstr "Farba"
+msgstr "Popup (PrettyPhoto) cieľ"
 
 #: npgCore/extensions/cookieconsent.php:110
 #, fuzzy
@@ -10477,7 +10477,7 @@ msgstr "Zvoliť tmavý alebo svetlý štýl tejto stránky."
 #, fuzzy
 #| msgid "Download Button"
 msgid "Color - Button"
-msgstr "Tlačidlo sťahovania"
+msgstr "Farba"
 
 #: npgCore/extensions/cookieconsent.php:115
 #, fuzzy
@@ -10653,7 +10653,7 @@ msgstr "Dátum: %s"
 #, fuzzy, php-format
 #| msgid "Image: %s"
 msgid "Image count: %s"
-msgstr "Počet prezentácií na titulnej stránke"
+msgstr "Nadmerný počet URL"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:36
 #: plugins/daily-summary/daily-summary_content.php:37
@@ -10717,7 +10717,7 @@ msgstr[2] ""
 #, fuzzy, php-format
 msgid "%1$s - 1 new photo"
 msgid_plural "%1$s - %2$s new photos"
-msgstr[0] "Obrázok %1$u z %2$u"
+msgstr[0] "Nový album: %1$s"
 msgstr[1] ""
 msgstr[2] ""
 
@@ -10897,7 +10897,7 @@ msgstr ""
 #: npgCore/extensions/debug.php:131
 #, fuzzy
 msgid "jQuery migration (admin)"
-msgstr "utf8mb4 migrácia dokončená."
+msgstr "Presun práv zlyhal."
 
 #: npgCore/extensions/debug.php:134 npgCore/extensions/debug.php:142
 #, fuzzy
@@ -10923,7 +10923,7 @@ msgstr ""
 #: npgCore/extensions/debug.php:139
 #, fuzzy
 msgid "jQuery migration (theme)"
-msgstr "utf8mb4 migrácia dokončená."
+msgstr "Presun práv zlyhal."
 
 #: npgCore/extensions/debug.php:144
 #, fuzzy
@@ -12569,12 +12569,12 @@ msgstr "Zobraziť alebo skryť Google Map."
 #: npgCore/extensions/googleMap/deprecated-functions.php:13
 #, fuzzy
 msgid "Use GoogleMap::getGeoCoord."
-msgstr "Použiť Colorbox"
+msgstr "Použiť getAllTagsUnique()"
 
 #: npgCore/extensions/googleMap/deprecated-functions.php:21
 #, fuzzy
 msgid "Use GoogleMap::addGeoCoord."
-msgstr "Použiť Colorbox"
+msgstr "Použiť getAllTagsUnique()"
 
 #: npgCore/extensions/googleMap/map.php:104
 msgid "Map display error"
@@ -12655,7 +12655,7 @@ msgstr ""
 #: npgCore/extensions/googleTFA.php:66
 #, fuzzy
 msgid "secret for googleAuthenticator"
-msgstr "Zákaznícké tajomstvo"
+msgstr "App Secret"
 
 #: npgCore/extensions/googleTFA.php:67
 #, fuzzy
@@ -12672,7 +12672,7 @@ msgstr "Kliknutím skyjete obsah"
 #, fuzzy
 #| msgid "Click to show content"
 msgid "Click to show secret"
-msgstr "Utajené"
+msgstr "Kliknutím zobrazíte obsah"
 
 #: npgCore/extensions/googleTFA.php:130
 #, fuzzy
@@ -13469,7 +13469,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Playlist support"
 msgid "Bootstrap support"
-msgstr "Podpora zoznamu skladieb"
+msgstr "Podpora"
 
 #: npgCore/extensions/lazyImage.php:31
 #, fuzzy
@@ -13605,7 +13605,7 @@ msgstr "Možnosti služby Piwik boli migrované do doplnku Matomo"
 #: npgCore/extensions/matomo.php:78
 #, fuzzy
 msgid "Matomo url"
-msgstr "URL na Facebook"
+msgstr "Adresa webstránky"
 
 #: npgCore/extensions/matomo.php:82
 #, fuzzy, php-format
@@ -13630,7 +13630,7 @@ msgstr "Zadajte identifikátor priradený vašim stránkam spoločnosťou Matomo
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Admin tracking"
-msgstr "zásuvný modul admina"
+msgstr "Admin prístup"
 
 #: npgCore/extensions/matomo.php:92
 #, fuzzy
@@ -13643,7 +13643,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Content tracking"
-msgstr "Obsah:"
+msgstr "Obsah"
 
 #: npgCore/extensions/matomo.php:97
 #, fuzzy
@@ -13688,7 +13688,7 @@ msgstr ""
 #: npgCore/extensions/matomo.php:109
 #, fuzzy
 msgid "Widgets: Embed code"
-msgstr "AddThis kód"
+msgstr "%sPSČ:"
 
 #: npgCore/extensions/matomo.php:114
 #, fuzzy
@@ -13743,7 +13743,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User name"
 msgid "User consent"
-msgstr "Používateľský album"
+msgstr "Pridať nového používateľa"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -14028,7 +14028,7 @@ msgstr "Položka menu albumu <em>%s</em> pridaná"
 #, fuzzy, php-format
 #| msgid "Custom page menu item <em>%s</em> added"
 msgid "Home page menu item <em>%s</em> added"
-msgstr "Položka menu používateľských stránok <em>%s</em> pridaná"
+msgstr "Položka menu Zenpage stránky <em>%s</em> pridaná"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:524
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:554
@@ -14674,7 +14674,7 @@ msgstr ""
 #, fuzzy
 #| msgid "zoom"
 msgid "Map zoom"
-msgstr "Priblížiť"
+msgstr "priblížiť"
 
 #: npgCore/extensions/openstreetmap.php:83
 #, fuzzy
@@ -14686,7 +14686,7 @@ msgstr "Maximálny krok zoomu"
 #, fuzzy
 #| msgid "Minimum items"
 msgid "Map minimum zoom"
-msgstr "Priblížiť"
+msgstr "priblížiť"
 
 #: npgCore/extensions/openstreetmap.php:88
 #, fuzzy
@@ -14697,7 +14697,7 @@ msgstr "Predvolená minimálna úroveň zväčšenia je možná."
 #, fuzzy
 #| msgid "Maximum items"
 msgid "Map maximum zoom"
-msgstr "Priblížiť"
+msgstr "priblížiť"
 
 #: npgCore/extensions/openstreetmap.php:93
 #, fuzzy
@@ -14849,7 +14849,7 @@ msgstr "Ovládanie mapy"
 #, fuzzy
 #| msgid "Show title"
 msgid "Show scale"
-msgstr "Zobraziť"
+msgstr "zobraziť"
 
 #: npgCore/extensions/openstreetmap.php:165
 #, fuzzy
@@ -14889,7 +14889,7 @@ msgstr ""
 #: npgCore/extensions/openstreetmap.php:176
 #, fuzzy
 msgid "Mini map"
-msgstr "Google Map"
+msgstr "Mapa"
 
 #: npgCore/extensions/openstreetmap.php:180
 #, fuzzy
@@ -14966,7 +14966,7 @@ msgstr "GeoportailFrance - ApiKey"
 #: npgCore/extensions/openstreetmap.php:847
 #, fuzzy
 msgid "OpenStreetMap Map"
-msgstr "Google Map"
+msgstr "Zobrazenie mapy"
 
 #: npgCore/extensions/optionalObjectFields.php:50
 msgid "Handles the \"optional\" object fields"
@@ -15199,7 +15199,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Max height"
 msgid "Panorama height"
-msgstr "Rozmer mapy - výška"
+msgstr "výška ="
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -15222,7 +15222,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Minimum items"
 msgid "Minimum overflow"
-msgstr "Priblížiť"
+msgstr "Minimum položiek"
 
 #: npgCore/extensions/panorama.php:68
 #, php-format
@@ -15238,13 +15238,13 @@ msgstr ""
 #, fuzzy
 #| msgid "image only"
 msgid "image left"
-msgstr "len obrázok"
+msgstr "Vľavo"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "Presunúť práva"
+msgstr "Vpravo"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -15663,7 +15663,7 @@ msgstr "Osirelé možnosti"
 #, fuzzy
 #| msgid "all: no acation"
 msgid "all: no action"
-msgstr "Akcia"
+msgstr "bez akcie"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:216
 msgid "all: delete"
@@ -18049,7 +18049,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Text editor configuration - zenpage"
 msgid "Text editor configuration - forms"
-msgstr "Nastavenia editoru komentárov - zenpage"
+msgstr "Textový editor konfigurácie - zenphoto"
 
 #: npgCore/extensions/tinymce.php:82
 #, fuzzy
@@ -18482,7 +18482,7 @@ msgstr "Automatické spustenie prerušené"
 #, fuzzy
 #| msgid "Failed to write file to disk"
 msgid "Failed to resize image"
-msgstr "Dopyt zlyhal: "
+msgstr "Registrácia sa nepodarila."
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -18594,7 +18594,7 @@ msgstr "Musíte zmeniť svoje heslo."
 #, fuzzy
 #| msgid "You have users whose credentials are disbled."
 msgid "You have users whose credentials are disabled."
-msgstr "Niektorým používateľom vypršala platnosť údajov"
+msgstr "Máte používateľov, ktorých prihlasovacie údaje sú vypnuté."
 
 #: npgCore/extensions/user-expiry.php:316
 msgid "You have users whose credentials have expired."
@@ -18782,6 +18782,7 @@ msgid "Deleted"
 msgstr "Vymazané"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 msgid "Groups"
 msgstr "Skupiny"
 
@@ -18802,7 +18803,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "skupina"
 
@@ -18873,7 +18873,7 @@ msgstr "colorbox"
 #, fuzzy
 #| msgid "Colorbox Style"
 msgid "Colorbox inline"
-msgstr "colorbox"
+msgstr "Colorbox"
 
 #: npgCore/extensions/user_login-out.php:55
 msgid ""
@@ -18907,23 +18907,33 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Zoznam mailov"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 #| msgid "Subscribe: "
 msgid "Un-subscribed users"
-msgstr "Odoberať: "
+msgstr "bez kategórie"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "Okrem stránok"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
-msgstr "Zoznam mailov používateľov"
+msgstr "chyba user_mailing_list"
 
 #: npgCore/extensions/user_mailing_list/mail_handler.php:73
 msgid "user_mailing_list error"
@@ -18937,7 +18947,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to hide content"
 msgid "Click to resubscribe"
-msgstr "Kliknutím skyjete obsah"
+msgstr "Kliknutím zobrazíte obsah"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -18947,13 +18957,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to show content"
 msgid "Click to un-subscribe"
-msgstr "Utajené"
+msgstr "Odoberať: "
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "Zoznam mailov používateľov"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails "
@@ -18963,7 +18973,7 @@ msgstr ""
 "poskytli mailovú adresu. Kópia sa vždy pošle aktuálnemu administrátorovi a "
 "všetky maily sa posielajú ako neviditeľné kópie (Bc)."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -18971,33 +18981,41 @@ msgstr ""
 "<strong>Poznámka:</strong> Nie je k dispozícii filter <em>sendmail</em>. "
 "Musíte aktivovať a nastaviť zásuvný modul mailu."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 msgid "Mail sent"
 msgstr "Mail odoslaný"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Vložte správu, ktorú chcete poslať."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Predmet:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Správa:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Vybrať používateľov:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "Kontaktovať účastníkov"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "Používateľ mailu"
+msgstr ""
+"Nástroj na posielanie mailov všetkým zaregistrovaným používateľom, ktorý "
+"poskytli mailovú adresu."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Odoslať mail"
 
@@ -19558,7 +19576,7 @@ msgstr "zásahov"
 #| msgid "<strong>%1$u</strong> Pages"
 msgid "<strong>%1$u</strong> Page"
 msgid_plural "<strong>%1$u</strong> Pages"
-msgstr[0] "<strong>%1$u</strong> strán"
+msgstr[0] "<strong>%1$u</strong> kategórií"
 msgstr[1] "<strong>%1$u</strong> strán"
 msgstr[2] "<strong>%1$u</strong> strán"
 
@@ -19587,7 +19605,7 @@ msgstr[2] "<strong>%1$u</strong> článkov"
 #| msgid_plural "<strong>%1$u</strong> articles (%2$u un-published)"
 msgid "<strong>%1$u</strong> Article (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Articles (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> strán (%2$u nezverejnené)"
+msgstr[0] "<strong>%1$u</strong> obrázkov (%2$u nezverejnené)"
 msgstr[1] "<strong>%1$u</strong> články (%2$u nezverejnené)"
 msgstr[2] "<strong>%1$u</strong> článkov (%2$u nezverejnených)"
 
@@ -19607,7 +19625,7 @@ msgstr[2] "<strong>%1$u</strong> kategórií"
 #| msgid_plural "<strong>%1$u</strong> categories (%2$u un-published)"
 msgid "<strong>%1$u</strong> Category (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Categories (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> obrázkov (%2$u nezverejnené)"
+msgstr[0] "<strong>%1$u</strong> Album (%2$u nezverejnených)"
 msgstr[1] "<strong>%1$u</strong> kategórie (%2$u nezverejnené)"
 msgstr[2] "<strong>%1$u</strong> kategórií (%2$u nezverejnených)"
 
@@ -19682,7 +19700,7 @@ msgstr ""
 #, fuzzy
 #| msgid "There are no albums for you to edit."
 msgid "There are no categories for you to edit."
-msgstr "Môžete upravovať a mazať komentáre."
+msgstr "Nie je tu žiadny album, ktorý môžete upravovať."
 
 #: npgCore/extensions/zenpage/deprecated-functions.php:18
 msgid "Use the individual getPrevNewsURL() and getNextNewsURL() functions."
@@ -20107,7 +20125,7 @@ msgstr "Uchmatnúť"
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Click"
-msgstr "Kliknite na obrázok pre zmenu výrezu miniatúry."
+msgstr "<strong>Varovanie!</strong> kliknite pre detaily"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
@@ -20262,7 +20280,7 @@ msgid ""
 "PDO_MySql Error: netPhotoGraphics received the error %s when connecting to "
 "the database server."
 msgstr ""
-"MySQL chyba: ZenPhoto20 zaznamenalo chybu %s pri prijovaní sa k databázovému "
+"MySql chyba: ZenPhoto20 zaznamenalo chybu %s pri prijovaní sa k databázovému "
 "serveru."
 
 #: npgCore/functions-db-PDO_MySQL.php:65
@@ -21166,7 +21184,7 @@ msgstr "Bez efektov"
 #: npgCore/lib-image.php:80
 #, fuzzy
 msgid "return_checkmark ="
-msgstr "Späť na %s"
+msgstr "Vrátiť sa k vyhľadávaniu"
 
 #: npgCore/lib-image.php:212
 #, php-format
@@ -21569,7 +21587,7 @@ msgstr "Arabština (DOS)"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Arabic (Israel)"
-msgstr "Arabština (DOS)"
+msgstr "Arabština"
 
 #: npgCore/localeList.php:23
 msgid "Arabic (Iraq)"
@@ -22241,7 +22259,7 @@ msgstr "Angličtina (Zimbabwe)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Christmas Island)"
-msgstr "Angličtina (Veľká Británia)"
+msgstr "Angličtina (Filipíny)"
 
 #: npgCore/localeList.php:153
 #, fuzzy
@@ -22295,7 +22313,7 @@ msgstr "Angličtina (India)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Falkland Islands)"
-msgstr "Angličtina (Veľká Británia)"
+msgstr "Angličtina (Filipíny)"
 
 #: npgCore/localeList.php:162
 #, fuzzy
@@ -22445,7 +22463,7 @@ msgstr "Angličtina (Filipíny)"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "English (Marshall Islands)"
-msgstr "Angličtina (Veľká Británia)"
+msgstr "Angličtina (Filipíny)"
 
 #: npgCore/localeList.php:188
 #, fuzzy
@@ -22549,7 +22567,7 @@ msgstr "Urdu (Pakistán)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Pitcairn Islands)"
-msgstr "Angličtina (Veľká Británia)"
+msgstr "Angličtina (Filipíny)"
 
 #: npgCore/localeList.php:206
 #, fuzzy
@@ -22917,7 +22935,7 @@ msgstr "Perzština"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Persian (Iran)"
-msgstr "Arabština (Irán)"
+msgstr "Perzština"
 
 #: npgCore/localeList.php:277
 #, fuzzy
@@ -24169,7 +24187,7 @@ msgstr "Nemčina (Nemecko)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "Nízke"
+msgstr "Holandština (Holandsko)"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -25269,7 +25287,7 @@ msgstr "Kantonský (tradičný, Hong Kong SAR Čína)"
 #, fuzzy
 #| msgid "Standard Light A"
 msgid "Standard Moroccan Tamazight"
-msgstr "Obrázky (štandard)"
+msgstr "Štandardné svetlo A"
 
 #: npgCore/localeList.php:723
 #, fuzzy
@@ -25404,13 +25422,13 @@ msgstr "Neakceptovateľné"
 #, fuzzy
 #| msgid "Authenticate user"
 msgid "Proxy Authentication Required"
-msgstr "Verisign overenie"
+msgstr "povinné"
 
 #: npgCore/page_error.php:33
 #, fuzzy
 #| msgid "Timeout"
 msgid "Request Time-out"
-msgstr "Odhlásiť"
+msgstr "Neostré"
 
 #: npgCore/page_error.php:36
 #, fuzzy
@@ -25433,7 +25451,7 @@ msgstr "Ohnisková vzdialenosť"
 #, fuzzy
 #| msgid "The database connection failed."
 msgid "Precondition Failed"
-msgstr "Dopyt zlyhal: "
+msgstr "Registrácia sa nepodarila."
 
 #: npgCore/page_error.php:48
 #, fuzzy
@@ -25781,7 +25799,7 @@ msgstr "Inštaluje sa ZenPhoto20 v%s"
 #, fuzzy
 #| msgid "Installation files"
 msgid "Installation folder"
-msgstr "Inštalačné súbory"
+msgstr "Klonovať inštaláciu"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -26498,7 +26516,7 @@ msgstr "Používateľ databázy musí mať %s práva."
 #, fuzzy
 #| msgid "netPhotoGraphics files"
 msgid "netPhotoGraphics files"
-msgstr "Inštalačné súbory"
+msgstr "Spravované súbory"
 
 #: npgCore/setup/index.php:1208
 #, fuzzy
@@ -26939,7 +26957,7 @@ msgstr "podľa poslednej úpravy"
 #, fuzzy
 #| msgid "Database password"
 msgid "Database update is not required."
-msgstr "Spustiť vytváranie a aktualizáciu databázy"
+msgstr "Požadovaná aktualizácia"
 
 #: npgCore/setup/index.php:1685
 #, fuzzy
@@ -26952,7 +26970,7 @@ msgstr "Premenovanie na vyrovnávaciu pamäť"
 #| msgid_plural "%u cached image references found."
 msgid "%1$s cached image was renamed."
 msgid_plural "%1$s cached images were renamed."
-msgstr[0] "obrázok %1$s z %2$s"
+msgstr[0] "%1$s: obrázok %2$s"
 msgstr[1] "%u nájdené uložené odkazy na obrázok."
 msgstr[2] "%u nájdených uložených odkazov na obrázok."
 
@@ -27324,13 +27342,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "Zobraziť <em>%s</em>"
+msgstr "<em>%1$s</em> komentoval(a) %2$s:"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "Upraviť album <em>%1$s%2$s</em>"
+msgstr "<em>%1$s</em> komentoval(a) %2$s:"
 
 #: npgCore/setup/setup-sqlform.php:3
 msgid ""
@@ -27365,13 +27383,13 @@ msgstr "Adresa serveru databázy"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Šport"
+msgstr "Číslo POP portu."
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "Používateľ databázy"
+msgstr "Databáza"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -27674,10 +27692,7 @@ msgstr[2] "záloha ukončená s použitím kompresie <em>%1$s(%2$s)</em>"
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] ""
-"<strong>Pozor!</strong> Táto aktualizácia urobí vážne štruktúrové zmeny vo "
-"vašej databáze, ktoré sa ťažko vracajú. Urobte zálohu databázy než budete "
-"pokračovať."
+msgstr[0] "Predpona tabuliek: <strong>%1$s</strong>"
 msgstr[1] ""
 "<strong>Pozor!</strong> Táto aktualizácia urobí vážne štruktúrové zmeny vo "
 "vašej databáze, ktoré sa ťažko vracajú. Urobte zálohu databázy než budete "
@@ -27831,7 +27846,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database connection"
 msgid "Database restoration"
-msgstr "Meno databázy"
+msgstr "Nebola vybraná databáza"
 
 #: npgCore/utilities/backup_restore.php:655
 msgid "You have not yet created a backup set."
@@ -28496,7 +28511,7 @@ msgstr "Nie sú nastavené predvolené možnosti pre túto šablónu."
 #, fuzzy, php-format
 #| msgid "Graphics support: <code>%s</code>"
 msgid "Example: <code>%s</code>"
-msgstr "Vyrovnávacia pamäť: [<code>%s</code>]"
+msgstr "Obrázok: [<code>%s</code>]"
 
 #: plugins/MyBB_auth.php:136
 #, php-format
@@ -28718,7 +28733,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database <code>%s</code> created"
 msgid "Database template created"
-msgstr "Databáza <code>%s</code> vytvorená"
+msgstr "(Šablóna)"
 
 #: plugins/debugSearch.php:15
 #, fuzzy
@@ -29109,7 +29124,7 @@ msgstr "Ikona"
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "Prehľadať albumy"
+msgstr "Nastavenia vyhľadávania:"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -29164,7 +29179,7 @@ msgstr "Vytvorí odkaz na stránku skriptu používateľskej šablóny."
 #, fuzzy
 #| msgid "Purge cache files"
 msgid "Propegate language files."
-msgstr "Jazyk Tweetu"
+msgstr "Odkazy jazyku"
 
 #: plugins/logQueries.php:17
 #, fuzzy
@@ -29236,13 +29251,13 @@ msgstr "Program"
 #, fuzzy
 #| msgid "Current Theme"
 msgid "Current"
-msgstr "Zapamätať si aktualny stav zásuvných modulov."
+msgstr "Zobrazí číslo aktuálnej strany."
 
 #: plugins/mediaelementjs_player.php:115
 #, fuzzy
 #| msgid "duration"
 msgid "Duration"
-msgstr "trvanie"
+msgstr "Trvanie"
 
 #: plugins/mediaelementjs_player.php:116
 #, fuzzy
@@ -29738,8 +29753,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Poskytuje krátke URL pre zenphoto objekty."
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -32536,7 +32552,7 @@ msgstr "Správca zobrazovania obrázku Effervescence."
 #, fuzzy
 #| msgid "Contact"
 msgid "Contact me"
-msgstr "Kontakt"
+msgstr "Tweetni ma"
 
 #: themes/zenFluid/404.php:16
 #, fuzzy
@@ -32555,7 +32571,7 @@ msgstr "Stránka šablóny"
 #, fuzzy
 #| msgid "Views:"
 msgid "View: "
-msgstr "Zobraziť"
+msgstr "zobraziť"
 
 #: themes/zenFluid/image.php:174 themes/zenFluid/pages.php:33
 #, fuzzy
@@ -32616,7 +32632,7 @@ msgstr "Štandardné svetlo B"
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "Dark gray"
-msgstr "Prevod na stupne šedi"
+msgstr "Prevod na ČB:"
 
 #: themes/zenFluid/themeoptions.php:74
 #, fuzzy
@@ -32651,7 +32667,7 @@ msgstr "Com4T"
 #: themes/zenFluid/themeoptions.php:87
 #, fuzzy
 msgid "ZenFluid color"
-msgstr "Farba textu."
+msgstr "Farba"
 
 #: themes/zenFluid/themeoptions.php:92
 #, fuzzy
@@ -32669,7 +32685,7 @@ msgstr "Typ"
 #, fuzzy
 #| msgid "Select the tables to restore."
 msgid "Select the font style."
-msgstr "Štýl"
+msgstr "Font"
 
 #: themes/zenFluid/themeoptions.php:101
 #, fuzzy
@@ -32761,7 +32777,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:151
 #, fuzzy
 msgid "Print title breadcrumb"
-msgstr "Titul%s"
+msgstr "Názov:"
 
 #: themes/zenFluid/themeoptions.php:155
 #, fuzzy
@@ -32789,7 +32805,7 @@ msgstr ""
 #, fuzzy
 #| msgid "title only"
 msgid "Title on top"
-msgstr "Titul"
+msgstr "titul"
 
 #: themes/zenFluid/themeoptions.php:167
 #, fuzzy
@@ -32875,7 +32891,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:199
 #, fuzzy
 msgid "Description maximum width"
-msgstr "Popis"
+msgstr "popis:"
 
 #: themes/zenFluid/themeoptions.php:203
 #, fuzzy
@@ -32890,7 +32906,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Verisign Authentication"
 msgid "Description justification"
-msgstr "Bez popisu"
+msgstr "popis:"
 
 #: themes/zenFluid/themeoptions.php:210
 #, fuzzy
@@ -32930,7 +32946,7 @@ msgstr "Pozícia:"
 #, fuzzy
 #| msgid "Description"
 msgid "Description position"
-msgstr "Popis"
+msgstr "popis:"
 
 #: themes/zenFluid/themeoptions.php:232
 #, fuzzy
@@ -33068,6 +33084,9 @@ msgstr ""
 "Zapnite ak chcete použiť zásuvný modul <em>menu_manager</em> na vytvorenie "
 "upravenej ponuky menu namiesto štandardnej. Štandardné menu \"zenpage\" je "
 "tvorené a používané automaticky."
+
+#~ msgid "Select users:"
+#~ msgstr "Vybrať používateľov:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "Sú aktívne PHP Safe Mode obmedzenia!"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:16-0700\n"
-"PO-Revision-Date: 2020-05-27 15:16-0700\n"
+"POT-Creation-Date: 2020-05-29 12:28-0700\n"
+"PO-Revision-Date: 2020-05-29 12:28-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Jes Drost Nissen <jesdnissen@gmail.com>\n"
 "Language: da_DK\n"
@@ -93,7 +93,7 @@ msgstr "Forum"
 #: npgCore/admin-functions.php:49 npgCore/setup/setup-functions.php:470
 #, fuzzy
 msgid "Support"
-msgstr "Der er ingen PHP grafisk support."
+msgstr "Afspilningsliste support"
 
 #: npgCore/admin-functions.php:50
 msgid "View Change log"
@@ -491,7 +491,7 @@ msgstr "*standard"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "Billedminiature (standard)"
+msgstr "%s miniaturer"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -562,7 +562,7 @@ msgstr "Udløber dato"
 #, fuzzy, php-format
 #| msgid "Last change:<br />%1$s<br />by %2$s"
 msgid "Last changed %1$s by %2$s"
-msgstr "Sidste ændring:<br />%1$s<br />by %2$s"
+msgstr "Logget ind som %1$s (sidste login %2$s)"
 
 #: npgCore/admin-functions.php:2504 npgCore/admin-globals.php:77
 #: npgCore/admin-tabs/image_edit.php:69 npgCore/admin-tabs/image_edit.php:436
@@ -575,7 +575,7 @@ msgstr "Ejer"
 #, fuzzy, php-format
 #| msgid "Owner"
 msgid "Owner: %1$s"
-msgstr "Ejer:"
+msgstr "Ejer"
 
 #: npgCore/admin-functions.php:2517 npgCore/admin-tabs/image_edit.php:449
 #: npgCore/extensions/zenpage/edit.php:679
@@ -834,7 +834,7 @@ msgstr[1] "Rediger billede"
 #: npgCore/admin-functions.php:3225
 #, fuzzy
 msgid "prev image"
-msgstr "« forrige"
+msgstr "forrige"
 
 #: npgCore/admin-functions.php:3232
 #, fuzzy
@@ -1045,13 +1045,13 @@ msgstr "sidste ændrings forfatter"
 #, fuzzy
 #| msgid "New requestor:"
 msgid "New author:"
-msgstr "Forfatter:"
+msgstr "Forfatter"
 
 #: npgCore/admin-functions.php:4712
 #, fuzzy
 #| msgid "New User"
 msgid "New owner:"
-msgstr "Ejer:"
+msgstr "Ejer"
 
 #: npgCore/admin-functions.php:4738
 msgid "Destination"
@@ -1202,7 +1202,7 @@ msgstr "forældet"
 #, fuzzy
 #| msgid "Theme list"
 msgid "admin support"
-msgstr "sikker admin"
+msgstr "admin"
 
 #: npgCore/admin-functions.php:5493 npgCore/extensions/debug.php:207
 #: npgCore/extensions/deprecated-functions/class.php:67
@@ -1215,7 +1215,7 @@ msgstr "udvikling"
 #, fuzzy
 #| msgid "Simple"
 msgid "example"
-msgstr "Setup kunne ikke finde <em>example_robots.txt</em>filen."
+msgstr "Tilføjer eksempel-makroer."
 
 #: npgCore/admin-functions.php:5495
 msgid "mail"
@@ -1295,9 +1295,8 @@ msgstr "<em>OR</em>"
 #| msgid "<em>Within</em>"
 msgid "<em>Admin</em>"
 msgstr ""
-"Da setup-miljøet er ikke helt sikkert, bør du beskytte scripts for at forpurre "
-"hackere. Brug <strong>Setup » beskyt scripts</strong> knappen i <em>Admin</em> "
-"i <em>hjælpefunktioner</em>."
+"Gælder for anden <em>admin</em> redigerbar tekst end Zenpage sider og "
+"nyhedsartikler. "
 
 #: npgCore/admin-functions.php:5512
 #, fuzzy
@@ -1617,7 +1616,7 @@ msgstr "Mine favoritter"
 #, fuzzy
 #| msgid "most images"
 msgid "my images"
-msgstr "Indsæt min IP"
+msgstr "Mine favoritter"
 
 #: npgCore/admin-globals.php:207
 msgid "general"
@@ -1644,9 +1643,7 @@ msgstr "søg"
 #: npgCore/admin-globals.php:222
 #, fuzzy
 msgid "forms"
-msgstr ""
-"Hvis aktiveret vil gæste-login formularen indeholde feltet <em>Bruger navn</"
-"em>. Dette tillader <em>Zenphoto</em> brugere at logge ind fra formularen."
+msgstr "Kommentarformular vil blive vist på de markerede sider."
 
 #: npgCore/admin-globals.php:224
 msgid "plugin"
@@ -2423,7 +2420,7 @@ msgstr "Officielle plugin"
 #: npgCore/admin-tabs/plugins.php:221 npgCore/admin-tabs/plugins.php:503
 #, fuzzy
 msgid "Supplemental plugin"
-msgstr "temaplugin"
+msgstr "plugin"
 
 #: npgCore/admin-tabs/plugins.php:226
 #, fuzzy
@@ -2603,7 +2600,7 @@ msgstr "Tag håndtering"
 #: npgCore/admin-tabs/tags.php:232
 #, fuzzy
 msgid "Order by"
-msgstr "Billedorden gemt"
+msgstr "Billed-orden"
 
 #: npgCore/admin-tabs/tags.php:235
 #, fuzzy
@@ -3048,7 +3045,7 @@ msgstr "%s email er allerede brugt af en anden bruger!"
 #, fuzzy, php-format
 #| msgid "Enter a valid email address."
 msgid "%s is not a valid e-mail address."
-msgstr "Du skal angive en mailadresse."
+msgstr "E-Mail%s:"
 
 #: npgCore/admin-tabs/users.php:171
 #, php-format
@@ -3062,8 +3059,9 @@ msgid "Password reset request."
 msgstr ""
 "Mailer en anmodning om nulstilling af adgangskode til en nyoprettet bruger."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "Brugere"
 
@@ -3213,7 +3211,7 @@ msgstr "Politikken til brug af websteder er blevet anerkendt."
 #, fuzzy
 #| msgid "clear list"
 msgid "Clear"
-msgstr "Fjern tags fra billederne"
+msgstr "Nulstil tags"
 
 #: npgCore/admin-tabs/users.php:778
 #, fuzzy
@@ -3522,7 +3520,7 @@ msgstr "Forhåndsvisning af udgivelsesnoter for Zenphoto %s"
 #: npgCore/admin.php:533 npgCore/utilities/installation_analysis.php:86
 #, fuzzy, php-format
 msgid "netPhotoGraphics version <strong>%1$s (%2$s)</strong>"
-msgstr "Zenphoto version <strong>%1$s (%2$s)</strong>"
+msgstr "%1$s version: <strong>%2$s</strong>"
 
 #: npgCore/admin.php:540
 msgid "Utility functions"
@@ -3580,7 +3578,7 @@ msgstr[1] "<strong>%u</strong> Kommentarer"
 #| msgid_plural "<strong>%1$u</strong> Pages (%2$u un-published)"
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
-msgstr[0] "<strong>%1$u</strong> Album (%2$u upubliceret)"
+msgstr[0] "<strong>%1$u</strong> Billede (%2$u upubliseret)"
 msgstr[1] "<strong>%1$u</strong> Billede (%2$u upubliseret)"
 
 #: npgCore/admin.php:681
@@ -3618,7 +3616,7 @@ msgstr "Dine brugerrettigheder giver ikke adgang til administrative funktioner."
 #, fuzzy
 #| msgid "E-mail"
 msgid "E-mail form"
-msgstr "mail når grænsen overskrides"
+msgstr "E-mail:"
 
 #: npgCore/admin_options/forms.php:64
 #, fuzzy
@@ -3649,7 +3647,7 @@ msgstr "En kort beskrivelse af dit galleri. Nogle temaer kan vise denne tekst."
 #, fuzzy
 #| msgid "Graphic logo"
 msgid "Branding logo"
-msgstr "Site logo"
+msgstr "logo"
 
 #: npgCore/admin_options/gallery.php:120
 #, fuzzy
@@ -3673,7 +3671,7 @@ msgstr ""
 #: npgCore/admin_options/gallery.php:135
 #, fuzzy
 msgid "Branding logo title"
-msgstr "Site logo"
+msgstr "logo"
 
 #: npgCore/admin_options/gallery.php:143
 #, fuzzy
@@ -3806,7 +3804,7 @@ msgstr "Standard miniaturevalg for albums."
 #, fuzzy
 #| msgid "Sort gallery by:"
 msgid "Sort gallery by"
-msgstr "Sorter galleri efter:"
+msgstr "Sorter Galleri"
 
 #: npgCore/admin_options/gallery.php:461
 msgid ""
@@ -4050,7 +4048,7 @@ msgstr "<em>filsystem</em> billede URI&#39;er"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "Billeder (standard)"
+msgstr "Billeder efter dato"
 
 #: npgCore/admin_options/general.php:283
 #, fuzzy
@@ -4432,7 +4430,7 @@ msgstr "Politisk webadresse"
 #, fuzzy
 #| msgid "Notice!"
 msgid "notice text"
-msgstr "Bemærk!"
+msgstr "NOTICE"
 
 #: npgCore/admin_options/general.php:595
 #, fuzzy
@@ -4549,7 +4547,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration"
-msgstr "Zenphoto Galleri registration"
+msgstr "Bruger registrering"
 
 #: npgCore/admin_options/general.php:672
 #, fuzzy
@@ -4604,7 +4602,7 @@ msgstr "Brugere pr side:"
 #, fuzzy
 #| msgid "Articles per page:"
 msgid "articles per page"
-msgstr "Artikler pr side:"
+msgstr "Artikler pr side (tema)"
 
 #: npgCore/admin_options/general.php:748
 msgid ""
@@ -4622,9 +4620,7 @@ msgstr "Afkryds for at aktivere søgefeltet."
 #: npgCore/admin_options/general.php:760
 #, fuzzy
 msgid "ignore"
-msgstr ""
-"Hvis du ikke ønsker at nulstille din adgangskode kan du blot ignorere denne "
-"meddelelse. Dette link vil automatisk udløbe om 3 dage."
+msgstr "Komma-separeret liste af IP adresser der skal ignoreres."
 
 #: npgCore/admin_options/general.php:764
 #, fuzzy
@@ -4810,7 +4806,7 @@ msgstr "Gør skarpere:"
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "Billedminiature (standard)"
+msgstr "%s miniaturer"
 
 #: npgCore/admin_options/image.php:423
 #, fuzzy
@@ -5406,7 +5402,7 @@ msgstr "<em>præcis</em>"
 #: npgCore/admin_options/search.php:284
 #, fuzzy
 msgid "language specific tags"
-msgstr "Tags: "
+msgstr "Sprog:"
 
 #: npgCore/admin_options/search.php:286
 #, fuzzy
@@ -5696,7 +5692,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Description"
 msgid "Log encryption"
-msgstr "Ændringslog"
+msgstr "Log på"
 
 #: npgCore/admin_options/security.php:142
 #, fuzzy
@@ -5714,12 +5710,12 @@ msgstr "Log på"
 #, fuzzy
 #| msgid "Debug"
 msgid "Debug log"
-msgstr "Zenphoto behandlede en 404 fejl på %s. Se fejlfindingslog for detaljer."
+msgstr "createMenuIfNotExists har sendt funktionsfejlrapport til din debuglog."
 
 #: npgCore/admin_options/security.php:164
 #, fuzzy
 msgid "Add encrypts the logs."
-msgstr "Se logfiler"
+msgstr "logfiler"
 
 #: npgCore/admin_options/security.php:164
 #, fuzzy
@@ -6640,7 +6636,7 @@ msgstr "Søgefelter:"
 #, fuzzy
 #| msgid "Objects"
 msgid "Object"
-msgstr "<strong>Manglende Objekt</strong>"
+msgstr "Objekt ikke fundet"
 
 #: npgCore/classes.php:476
 #, fuzzy, php-format
@@ -7815,7 +7811,7 @@ msgstr "Ikke defineret"
 #: npgCore/extensions/LDAP_auth.php:110
 #, fuzzy
 msgid "netPhotoGraphics group"
-msgstr "*ingen gruppetilknytning"
+msgstr "ingen gruppe"
 
 #: npgCore/extensions/LDAP_auth.php:111
 #, fuzzy
@@ -7996,7 +7992,7 @@ msgstr "X Resolution"
 #, fuzzy
 #| msgid "High"
 msgid "High (HD)"
-msgstr "Meget høj"
+msgstr "Høj"
 
 #: npgCore/extensions/VideoJS.php:79
 #, fuzzy
@@ -8095,8 +8091,9 @@ msgstr "Værktøjer til blokering af tjenestenes angreb."
 #, fuzzy
 msgid "Memory"
 msgstr ""
-"Større grænse vil gøre arbejdet hurtigere, så længe serveren ikke overbelastes "
-"eller løber tør for hukommelse."
+"<strong>ADVARSEL\t:</strong> Denne indstilling medfører et hukommelsesoverhead "
+"til billedcaching! Du kan muligvis ikke cache visse billeder, afhængigt af din "
+"servers tilgængelige hukommelse."
 
 #: npgCore/extensions/accessThreshold.php:48
 #, fuzzy
@@ -8131,9 +8128,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:55
 #, fuzzy
 msgid "Mask"
-msgstr ""
-"<em>Radius</em>: Radius, i pixel, af skarphedsmasken. En mindre radius skærper "
-"mindre detaljer og en større radius skærper større detaljer."
+msgstr "Tilføj en uskarphedsmaske til billeder og / eller miniaturer."
 
 #: npgCore/extensions/accessThreshold.php:57
 #, fuzzy
@@ -8178,7 +8173,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
 msgid "Mointor only"
-msgstr "Kun ikoner"
+msgstr "Kun medlemmer"
 
 #: npgCore/extensions/accessThreshold.php:69
 #, php-format
@@ -8250,13 +8245,13 @@ msgstr "Ingen indgange overstiger støjniveauet"
 #, fuzzy
 #| msgid "Attempt threshold"
 msgid "Access threshold"
-msgstr "Ingen adgang"
+msgstr "Tærskel"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:146
 #, fuzzy
 #| msgid "Sort gallery by:"
 msgid "Sort by:"
-msgstr "Sorter billeder"
+msgstr "Sorter underalbums efter:"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:148
 #, fuzzy
@@ -8862,17 +8857,17 @@ msgstr "Udfør caching af de valgte billedstørrelser."
 #: npgCore/extensions/cacheManager/deprecated-functions.php:10
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()"
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
@@ -9370,7 +9365,7 @@ msgstr "Klon-installation"
 #: npgCore/extensions/clone/cloneTab.php:98
 #, fuzzy
 msgid "Remove invalid clones."
-msgstr "Fjern favorit"
+msgstr "Fjern"
 
 #: npgCore/extensions/clone/cloneTab.php:105
 #, fuzzy
@@ -10016,7 +10011,7 @@ msgstr "Tilføj kommentar"
 #| msgid "10 Most Recent Comments"
 msgid "Most Recent Comment"
 msgid_plural "%d Most Recent Comments"
-msgstr[0] "10 seneste kommentarer"
+msgstr[0] "seneste"
 msgstr[1] "10 seneste kommentarer"
 
 #: npgCore/extensions/comment_form/functions.php:174
@@ -10144,7 +10139,7 @@ msgstr "Email:"
 #, fuzzy, php-format
 #| msgid "Website%s"
 msgid "Website: %1$s"
-msgstr "Hjemmeside<strong>%s</strong>:"
+msgstr "Hjemmeside%s"
 
 #: npgCore/extensions/comment_form/functions.php:486
 #: npgCore/utilities/database_reference.php:195
@@ -10166,7 +10161,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Edit this comment"
 msgid "Edit the comment"
-msgstr "Ret denne kommentar"
+msgstr "Ret denne kommentar."
 
 #: npgCore/extensions/comment_form/functions.php:523 plugins/commentNotice.php:91
 msgid "Comment posted"
@@ -10469,7 +10464,7 @@ msgstr "en meddelelse"
 #, fuzzy
 #| msgid "CAPTCHA verification failed."
 msgid "CAPTCHA verification."
-msgstr "Hvis afkrydset, vil formularen indeholde en captcha verification."
+msgstr "CAPTCHA mislykkedes."
 
 #: npgCore/extensions/contact_form.php:258
 #, php-format
@@ -10809,7 +10804,7 @@ msgstr "Billed vandmærke:"
 #: npgCore/extensions/crop_image.php:463
 #, fuzzy
 msgid "Done"
-msgstr "Tabelopdatering afsluttet"
+msgstr "Database oprettler og opdatering afsluttet."
 
 #: npgCore/extensions/daily-summary.php:31
 #, fuzzy
@@ -10968,7 +10963,7 @@ msgstr[1] "Der har ikke været nogen aktivitet inden for de sidste% d dage."
 #, fuzzy, php-format
 msgid "%1$s - 1 new photo"
 msgid_plural "%1$s - %2$s new photos"
-msgstr[0] "Nyt album: %1$s"
+msgstr[0] "Foto %1$u af %2$u"
 msgstr[1] "Nyt billede: [%2$s]%1$s "
 
 #: npgCore/extensions/daily-summary/dailysummary-template-functions.php:60
@@ -11212,12 +11207,12 @@ msgstr "locales"
 #: npgCore/extensions/debug.php:215
 #, fuzzy
 msgid "Session"
-msgstr "<code>SQL mode</code> [SET SESSION fejlede]"
+msgstr "PHP Sessionssti:"
 
 #: npgCore/extensions/debug.php:216
 #, fuzzy
 msgid "SERVER"
-msgstr "Server dato: %s"
+msgstr "Server sti:"
 
 #: npgCore/extensions/debug.php:217
 #, fuzzy
@@ -11258,7 +11253,7 @@ msgstr ""
 #: npgCore/extensions/debug/admin_tab.php:67
 #, fuzzy
 msgid "SERVER array"
-msgstr "Server protokol:"
+msgstr "Centrum af pixelarray"
 
 #: npgCore/extensions/debug/admin_tab.php:76
 #, fuzzy
@@ -11349,7 +11344,7 @@ msgstr "Forældede Funktioner"
 #: npgCore/extensions/deprecated-functions/admin_tab.php:38
 #, fuzzy
 msgid "There are no deprecated functions at this time."
-msgstr "Stiller forældede Zenphoto funktioner til rådighed."
+msgstr "Forældede Funktioner"
 
 #: npgCore/extensions/deprecated-functions/admin_tab.php:45
 msgid ""
@@ -11374,7 +11369,7 @@ msgstr "I brugerplugins"
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:65
 #, fuzzy
 msgid "In netPhotoGraphics code"
-msgstr "Cache: [<code>%s</code>]"
+msgstr "Postnummer"
 
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:71
 msgid "In Codeblocks"
@@ -11490,7 +11485,7 @@ msgstr ""
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:69
 #, fuzzy
 msgid "Use getAllTagsUnique()"
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:78
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:86
@@ -11530,22 +11525,22 @@ msgstr "Brug print_SW_Link ()"
 #, fuzzy
 #| msgid "Use text"
 msgid "Use exit()"
-msgstr "Brug flag"
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:160
 #, fuzzy
 msgid "Use npgFilters::register()"
-msgstr "Register for denne side"
+msgstr "Register"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:168
 #, fuzzy
 msgid "Use npgFilters::apply()"
-msgstr "Anvend beskæringen"
+msgstr "Anvend"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:180
 #, fuzzy
 msgid "Use npgFilters::remove()"
-msgstr "Fjern favorit"
+msgstr "Fjern"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:188
 #, fuzzy
@@ -11556,7 +11551,7 @@ msgstr "Brug npgFilters :: has_filter ()"
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:204
 #, fuzzy
@@ -11581,12 +11576,12 @@ msgstr "Brug i temaer for"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:236
 #, fuzzy
 msgid "Use clearNPGCookie()"
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:244
 #, fuzzy
 msgid "Use formattedDate()"
-msgstr "Brug i temaer for"
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/deprecated-functions/functions.php:113
 #: npgCore/extensions/deprecated-functions/functions.php:151
@@ -12305,7 +12300,7 @@ msgstr "Favoritter"
 #: npgCore/extensions/favoritesAlbums/admin-album.php:94
 #, fuzzy
 msgid "favorite"
-msgstr "Hvem var din favoritsanger?"
+msgstr "Tilføj favorit"
 
 #: npgCore/extensions/favoritesHandler.php:48
 msgid "Support for <em>favorites</em> handling."
@@ -12661,7 +12656,7 @@ msgstr "Håndterer logon via brugerens <em>Google-</em> konto."
 #: npgCore/extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "Site id"
+msgstr "ID"
 
 #: npgCore/extensions/googleLogin.php:68
 #, fuzzy
@@ -12910,7 +12905,7 @@ msgstr "Verisign Godkendelse"
 #, fuzzy
 #| msgid "User name"
 msgid "Issuer name"
-msgstr "et navn"
+msgstr "Navn"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13348,7 +13343,7 @@ msgstr "Håndterer logon via brugerens <em>Instagram-</em> konto."
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "Site id"
+msgstr "ID"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -13928,7 +13923,7 @@ msgstr "Videoartist"
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Disable content tracking"
-msgstr "Aktivér Admin tracking"
+msgstr "deaktiver"
 
 #: npgCore/extensions/matomo.php:102
 msgid ""
@@ -14030,7 +14025,7 @@ msgstr "krævet"
 #: npgCore/extensions/matomo.php:133
 #, fuzzy
 msgid "Required and remembered"
-msgstr "Adgangskode krævet."
+msgstr "krævet"
 
 #: npgCore/extensions/matomo.php:136
 #, fuzzy
@@ -14292,7 +14287,7 @@ msgstr "Album menupunkt <em>%s</em> tilføjet"
 #, fuzzy, php-format
 #| msgid "Custom page menu item <em>%s</em> added"
 msgid "Home page menu item <em>%s</em> added"
-msgstr "Brugerdefineret side menupunkt <em>%s</em> tilføjet"
+msgstr "Zenpage side menupunkt <em>%s</em> tilføjet"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:524
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:554
@@ -14505,7 +14500,7 @@ msgstr "Slet menu"
 #: npgCore/extensions/menu_manager/menu_tab.php:243
 #, fuzzy
 msgid "Export menu"
-msgstr "Export som HTML"
+msgstr "Eksport Metadata"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:245
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:253
@@ -14543,7 +14538,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Website field"
 msgid "Site index"
-msgstr "Galleri Index"
+msgstr "Index"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:64
 #, fuzzy
@@ -15221,7 +15216,7 @@ msgstr "GeoportailFrance - ApiKey"
 #: npgCore/extensions/openstreetmap.php:847
 #, fuzzy
 msgid "OpenStreetMap Map"
-msgstr "Kortvisning"
+msgstr "Kort"
 
 #: npgCore/extensions/optionalObjectFields.php:50
 #, fuzzy
@@ -15292,9 +15287,8 @@ msgstr "Fjern tags fra artikler"
 #, fuzzy
 msgid "Extra Content"
 msgstr ""
-"Disse indhold-makroer kan bruges til at indsætte Zenphoto emner som beskrevet i "
-"<em>beskrivelser</em>, <em>zenpage indhold</em>, og <em>zenpage ekstra indhold</"
-"em>. Erstat eventuelle parametre (<em>%d</em>) med en relevant værdi."
+"<em>EkstraIndhold:</em> Her kan du skrive ekstra indhold, der for eksempel kan "
+"udskrives i sidebjælken"
 
 #: npgCore/extensions/optionalObjectFields.php:421
 msgid "thumb"
@@ -15468,7 +15462,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Max height"
 msgid "Panorama height"
-msgstr "Minikort: højde"
+msgstr "højde"
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -15481,7 +15475,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Image Caption"
 msgid "Start position"
-msgstr "Position:"
+msgstr "Start"
 
 #: npgCore/extensions/panorama.php:65
 msgid "Indicate the start position of the panorama by positioning the slider."
@@ -15491,7 +15485,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Minimum items"
 msgid "Minimum overflow"
-msgstr "Kort minimum zoom"
+msgstr "Minimale antal elementer"
 
 #: npgCore/extensions/panorama.php:68
 #, php-format
@@ -15506,16 +15500,13 @@ msgstr ""
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr ""
-"Hvis du oveni tjecker <em>Vis titel</em> eller <em>Vis beskrivelse</em> vil "
-"titel/beskrivelse af billede eller album (hvis du tjeckede <em>link til album</"
-"em>) blive printet under billedt. Kun hvis <em>billede</em> er valgt som type."
+msgstr "Venstre"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "Migrationsrettigheder."
+msgstr "Højre"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -15588,7 +15579,7 @@ msgstr "Marker om du ønsker at gemme hittal fra RSS feeds."
 #, fuzzy
 #| msgid "Publish categories"
 msgid "Public categories"
-msgstr "Kommentar er offentlig"
+msgstr "offentligt"
 
 #: npgCore/extensions/publicCMS.php:65
 msgid ""
@@ -15872,7 +15863,7 @@ msgstr "Giver mulighed for at rense muligheder for temaer og plugins."
 #: npgCore/extensions/purgeOptions.php:29
 #, fuzzy
 msgid "purge"
-msgstr "Tøm RSS cache"
+msgstr "Dan eller tøm sitemap cachefiler."
 
 #: npgCore/extensions/purgeOptions.php:72
 #, fuzzy
@@ -15905,7 +15896,7 @@ msgstr "Aktive plugins er blevet deaktiveret."
 #, fuzzy
 #| msgid "options"
 msgid "purge options"
-msgstr "Tøm billed cache"
+msgstr "indstilling"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:172
 #, fuzzy
@@ -15935,13 +15926,13 @@ msgstr "Skabeloner er fremhævet."
 #, fuzzy
 #| msgid "Change %s options"
 msgid "Orphaned options"
-msgstr "ULR indstillinger:"
+msgstr "indstilling"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:212
 #, fuzzy
 #| msgid "function"
 msgid "all: no action"
-msgstr "Handling"
+msgstr "Denne handling vil anvendes på alle meddelelser."
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:216
 #, fuzzy
@@ -15974,12 +15965,12 @@ msgstr "<span class=\"emptyOption\">tom</span>"
 #, fuzzy
 #| msgid "hidden items"
 msgid "hidden"
-msgstr "Skjulte og synlige elementer"
+msgstr "skjulte elementer"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "%s adgangskode må ikke være tomt!"
+msgstr "Albummet er tomt"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
@@ -16232,7 +16223,7 @@ msgstr "Brug som / ikke lide snarere end stjerner."
 #, fuzzy
 #| msgid "Allow search"
 msgid "Allow zero"
-msgstr "Nulstil alle besøgstællere"
+msgstr "Tillad"
 
 #: npgCore/extensions/rating.php:96
 #, fuzzy
@@ -16315,7 +16306,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Private key"
 msgid "Site key"
-msgstr "API nøgle"
+msgstr "Key"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:53
 #, fuzzy
@@ -16346,7 +16337,7 @@ msgstr "Mørkt"
 #, fuzzy
 #| msgid "hidden items"
 msgid "Hidden"
-msgstr "Skjulte og synlige elementer"
+msgstr "skjulte elementer"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:60
 #, fuzzy
@@ -16435,7 +16426,7 @@ msgstr "Registreringsbekræftigelse"
 #: npgCore/extensions/register_user.php:68
 #, fuzzy
 msgid "Accepted text"
-msgstr "Introduktionstekst"
+msgstr "Tekst"
 
 #: npgCore/extensions/register_user.php:70
 #, fuzzy
@@ -16976,7 +16967,7 @@ msgstr "Vis top <em>Tærskeltermer</em> der er brugt i søgninger."
 #, fuzzy
 #| msgid "Threshold (IP)"
 msgid "Threshold (ID)"
-msgstr "ID"
+msgstr "Tærskel"
 
 #: npgCore/extensions/search_statistics.php:74
 #, fuzzy
@@ -16997,7 +16988,7 @@ msgstr "Ingen søgekriterier samlet."
 #, fuzzy
 #| msgid "Search criteria:"
 msgid "Search criteria reset."
-msgstr "Indsamler og viser søgekriterier."
+msgstr "Søgekriterier:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:154
 #, php-format
@@ -17060,7 +17051,7 @@ msgstr "Fører log over udvalgte sikkerhedshændelser."
 #, fuzzy
 #| msgid "Content Macros"
 msgid "Logging filters"
-msgstr "%u aktive filtre:"
+msgstr "Der opstod en fejl under indlogning."
 
 #: npgCore/extensions/security-logger.php:95
 #, fuzzy, php-format
@@ -17759,7 +17750,7 @@ msgstr ""
 #: npgCore/extensions/sitemap-extended/sitemap-extended-admin.php:99
 #, fuzzy
 msgid "netPhotoGraphics items"
-msgstr "Zenphoto elementer"
+msgstr "Valgte emner slettet"
 
 #: npgCore/extensions/sitemap-extended/sitemap-extended-admin.php:101
 msgid "Index pages"
@@ -17937,7 +17928,7 @@ msgstr "Millisekunder mellem dias overgang (0 for at deaktivere auto-frem .)"
 #, fuzzy
 #| msgid "Contrast+"
 msgid "Controls"
-msgstr "Zoom kontrollerer position"
+msgstr "Kort controllere"
 
 #: npgCore/extensions/slideshow.php:123
 #, fuzzy
@@ -18186,15 +18177,15 @@ msgstr "Tilbage til søgningen"
 #, fuzzy, php-format
 msgid "Tag %d image"
 msgid_plural "Tag %d images"
-msgstr[0] "%u billednavn renset"
-msgstr[1] "%u billednavne renset"
+msgstr[0] "%d billede"
+msgstr[1] "%d billeder"
 
 #: npgCore/extensions/tagFromSearch/tag.php:194
 #, fuzzy, php-format
 msgid "Tag %d album"
 msgid_plural "Tag %d albums"
-msgstr[0] "Album <em>tag</em>"
-msgstr[1] "%u albummappenavne renset."
+msgstr[0] "%d album"
+msgstr[1] "%d albums"
 
 #: npgCore/extensions/tagFromSearch/tag.php:201
 #, fuzzy, php-format
@@ -18208,7 +18199,7 @@ msgstr[1] "Tilføj tag"
 msgid "Tag %d page"
 msgid_plural "Tag %d pages"
 msgstr[0] "Tilføj tag"
-msgstr[1] "Kommentarer: %d"
+msgstr[1] "Sider"
 
 #: npgCore/extensions/tagFromSearch/tag.php:220
 #, fuzzy
@@ -18246,7 +18237,7 @@ msgstr ""
 #: npgCore/extensions/tagsFromMetadata.php:46
 #, fuzzy
 msgid "Metadata to tag"
-msgstr "Tilføj tag"
+msgstr "Metadata"
 
 #: npgCore/extensions/tagsFromMetadata.php:48
 #, fuzzy
@@ -18284,7 +18275,7 @@ msgstr "Disse temaer er aktiveret, men har ikke fået deres standardindstillinge
 #, fuzzy
 #| msgid "themes"
 msgid "Switch themes"
-msgstr "I Temaer"
+msgstr "temaer"
 
 #: npgCore/extensions/themeSwitcher.php:187 themes/zenFluid/functions.php:271
 #, fuzzy
@@ -18330,7 +18321,7 @@ msgstr "Teksteditor TinyMCE 4.x"
 #: npgCore/extensions/tinymce.php:68
 #, fuzzy
 msgid "Text editor configuration - gallery"
-msgstr "Teksteditor konfiguration - Zenpage"
+msgstr "Teksteditor konfiguration - Zenphoto"
 
 #: npgCore/extensions/tinymce.php:72
 msgid ""
@@ -18433,7 +18424,7 @@ msgstr "Opretter et link til et Zenphoto album."
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:77
 #, fuzzy, php-format
 msgid "<em>news article</em>: %s"
-msgstr "Artikel <em>%s</em> tilføjet"
+msgstr "artikel <em>%s</em> ikke fundet"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:78
 #, fuzzy
@@ -18443,7 +18434,7 @@ msgstr "Opretter et link til en Zenpage Nyhedsartikel kategori."
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:82
 #, fuzzy, php-format
 msgid "<em>page</em>: %s"
-msgstr "Link for <em>%s</em> script side."
+msgstr "Side <em>%s</em> ikke fundet"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:83
 #, fuzzy
@@ -18453,7 +18444,7 @@ msgstr "Galleri indeksside link:"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:87
 #, fuzzy, php-format
 msgid "<em>category</em>: %s"
-msgstr "Kategori <em>%s</em> tilføjet"
+msgstr "Kategori <em>%s</em> ikke fundet"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:88
 #, fuzzy
@@ -18468,12 +18459,12 @@ msgstr "sæt ind"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:237
 #, fuzzy
 msgid "thumb only"
-msgstr "miniature:"
+msgstr "miniature"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:247
 #, fuzzy
 msgid "thumb with link to full-sized image"
-msgstr "Google billede og video udvidelse: Link til fuldt billede"
+msgstr "link til fuldt billede"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:256
 #, fuzzy
@@ -18491,7 +18482,7 @@ msgstr ""
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:279
 #, fuzzy
 msgid "image with link to full-sized image"
-msgstr "Google billede og video udvidelse: Link til fuldt billede"
+msgstr "link til fuldt billede"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:289
 #, fuzzy
@@ -18508,7 +18499,7 @@ msgstr "Makro"
 #, fuzzy
 #| msgid "Slideshow"
 msgid "Slideshow macro"
-msgstr "Diasshow"
+msgstr "Makro"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:330
 #, fuzzy
@@ -19124,6 +19115,7 @@ msgid "Deleted"
 msgstr "Slettet"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
@@ -19148,7 +19140,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "gruppe"
 
@@ -19253,18 +19244,28 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Bruger mailliste"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "Abbonner på kommentarer"
+msgstr "Ikke godkendt"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to re-"
 "subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "grupper"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -19284,7 +19285,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to hide content"
 msgid "Click to resubscribe"
-msgstr "Klik for at skjule indhold."
+msgstr "Klik for at vise indhold"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -19294,13 +19295,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to show content"
 msgid "Click to un-subscribe"
-msgstr "Hemmelighed"
+msgstr "Abbonner på kommentarer"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "Bruger mailliste"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails are "
@@ -19310,7 +19311,7 @@ msgstr ""
 "mailadresse. Der sendes altid en kopi til fungerende administrator og alle "
 "mails sendes som <em>blinde kopier</em>"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19318,35 +19319,43 @@ msgstr ""
 "<strong>Bemærk:</strong> Ingen <em>sendmail</em> filter registreret. Du skal "
 "aktivere og konfigurere en mail-plugin."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "Mail sendt."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Indtast venligst den meddelelse du ønskerat sende."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Emne:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Meddelelse:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Vælg brugere:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "Kontaktmodtagere"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "Mail bruger"
+msgstr ""
+"Stiller en fuktion til rådighed, der kan sende emails til alle brugere der har "
+"angivet en mailadresse."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Send mail"
 
@@ -19463,13 +19472,13 @@ msgstr "Blændeåbning"
 #: npgCore/extensions/xmpMetadata.php:625
 #, fuzzy
 msgid "Exposure program"
-msgstr "Manuel optagelse"
+msgstr "Program"
 
 #: npgCore/extensions/xmpMetadata.php:656 themes/paradigm/album.php:46
 #: themes/paradigm/image.php:128
 #, fuzzy
 msgid "Rating"
-msgstr "nulstil vurdering (%u stjerne)"
+msgstr "Vis rating"
 
 #: npgCore/extensions/xmpMetadata.php:1151
 msgid "Metadata exported"
@@ -19693,7 +19702,7 @@ msgstr "Side <em>%s</em> opdateret"
 #, fuzzy, php-format
 #| msgid "Nothing changed."
 msgid "Nothing was changed."
-msgstr "Intet ændret."
+msgstr "Intet ændret"
 
 #: npgCore/extensions/zenpage/admin-functions.php:220
 msgid "Page successfully deleted!"
@@ -19813,7 +19822,7 @@ msgstr "Orden efter titel, stigende"
 #: npgCore/extensions/zenpage/admin-functions.php:753
 #, fuzzy
 msgid "Order by last change descending"
-msgstr "sidste ændrings forfatter"
+msgstr "Orden efter titel, faldende"
 
 #: npgCore/extensions/zenpage/admin-functions.php:754
 #, fuzzy
@@ -19963,7 +19972,7 @@ msgstr[1] "<strong>%1$u</strong> Kategorier"
 msgid "<strong>%1$u</strong> Category (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Categories (%2$u un-published)"
 msgstr[0] "<strong>%1$u</strong> Billede (%2$u upubliseret)"
-msgstr[1] "<strong>%1$u</strong> Album (%2$u upubliceret)"
+msgstr[1] "<strong>%1$u</strong> Billede (%2$u upubliseret)"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1410
 #: npgCore/extensions/zenpage/categories.php:230
@@ -20052,7 +20061,7 @@ msgstr "Brug instantier-metoden i stedet"
 #: npgCore/extensions/zenpage/deprecated-functions.php:101
 #, fuzzy
 msgid "Use shortenContent()"
-msgstr "Fonten brugt til CAPTCHA tegn."
+msgstr "Benyt standard kontaktside"
 
 #: npgCore/extensions/zenpage/edit.php:62
 #, php-format
@@ -20331,7 +20340,7 @@ msgstr "Fjern kategorier"
 #: npgCore/extensions/zenpage/news.php:292
 #, fuzzy
 msgid "Created"
-msgstr "Zenphotobruger oprettet"
+msgstr "Oprettelsesdato"
 
 #: npgCore/extensions/zenpage/news.php:294
 #, fuzzy
@@ -20346,7 +20355,7 @@ msgstr "se artikel"
 #, fuzzy
 #| msgid "There are no albums for you to edit."
 msgid "There are no articles for you to edit."
-msgstr "Der er ingen albums at redigere."
+msgstr "Du kan rette eller slette kommentarer."
 
 #: npgCore/extensions/zenpage/pages.php:141
 msgid ""
@@ -20445,7 +20454,7 @@ msgstr "*standard"
 #, fuzzy
 #| msgid "cover"
 msgid "Hover"
-msgstr "Aktivér, hvis du vil til grænserne for en markørklynge der svæver."
+msgstr "Slideshow: Pause når musen flyttes over"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
@@ -20839,7 +20848,7 @@ msgstr ""
 #: npgCore/lib-Imagick.php:91
 #, fuzzy
 msgid "Chroma sampling"
-msgstr "farvemætning høj"
+msgstr "Farvemætning Normal (STD)"
 
 #: npgCore/lib-Imagick.php:96
 #, fuzzy
@@ -21525,7 +21534,7 @@ msgstr "Ingen effekter"
 #: npgCore/lib-image.php:80
 #, fuzzy
 msgid "return_checkmark ="
-msgstr "Returner til %s"
+msgstr "Tilbage"
 
 #: npgCore/lib-image.php:212
 #, php-format
@@ -21887,7 +21896,7 @@ msgstr "Amhariske (Etiopien)"
 #, fuzzy
 #| msgid "Arabic (Jordan)"
 msgid "Arabic (World)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:15
 msgid "Arabic (United Arab Emirates)"
@@ -21901,7 +21910,7 @@ msgstr "Arabisk (Bahrain)"
 #, fuzzy
 #| msgid "Arabic (Libya)"
 msgid "Arabic (Djibouti)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:18
 msgid "Arabic (Algeria)"
@@ -21921,13 +21930,13 @@ msgstr "Vesteuropæisk (DOS)"
 #, fuzzy
 #| msgid "Arabic (Syria)"
 msgid "Arabic (Eritrea)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:22
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Arabic (Israel)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:23
 msgid "Arabic (Iraq)"
@@ -21941,7 +21950,7 @@ msgstr "Arabisk (Jordan)"
 #, fuzzy
 #| msgid "Arabic (Morocco)"
 msgid "Arabic (Comoros)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:26
 msgid "Arabic (Kuwait)"
@@ -21963,7 +21972,7 @@ msgstr "Arabisk (Marokko)"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Arabic (Mauritania)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:31
 msgid "Arabic (Oman)"
@@ -21972,7 +21981,7 @@ msgstr "Arabisk (Oman)"
 #: npgCore/localeList.php:32
 #, fuzzy
 msgid "Arabic (Palestinian Territories)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:33
 msgid "Arabic (Qatar)"
@@ -21990,7 +21999,7 @@ msgstr "Arabisk (Sudan)"
 #, fuzzy
 #| msgid "Arabic (Syria)"
 msgid "Arabic (Somalia)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:37
 #, fuzzy
@@ -22006,7 +22015,7 @@ msgstr "Arabisk (Syrien"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Arabic (Chad)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:40
 msgid "Arabic (Tunisia)"
@@ -22060,7 +22069,7 @@ msgstr "Kyrillisk (Windows)"
 #: npgCore/localeList.php:50
 #, fuzzy
 msgid "Azerbaijani (Cyrillic, Azerbaijan)"
-msgstr "Kyrillisk (Windows)"
+msgstr "Kyrillisk (DOS)"
 
 #: npgCore/localeList.php:51
 #, fuzzy
@@ -22297,7 +22306,7 @@ msgstr "Centraleuropæisk (DOS)"
 #, fuzzy
 #| msgid "Central European (ISO)"
 msgid "Central Kurdish (Iraq)"
-msgstr "Centraleuropæisk (DOS)"
+msgstr "Arabisk (Irak)"
 
 #: npgCore/localeList.php:96
 #, fuzzy
@@ -22472,19 +22481,19 @@ msgstr "Græsk"
 #, fuzzy
 #| msgid "Greek (DOS)"
 msgid "Greek (Cyprus)"
-msgstr "Græsk (ISO)"
+msgstr "Græsk"
 
 #: npgCore/localeList.php:131
 #, fuzzy
 #| msgid "Greek (DOS)"
 msgid "Greek (Greece)"
-msgstr "Græsk (ISO)"
+msgstr "Græsk"
 
 #: npgCore/localeList.php:132
 #, fuzzy
 #| msgid "English (India)"
 msgid "English"
-msgstr "Engelsk (Indien)"
+msgstr "Engelsk (Australien)"
 
 #: npgCore/localeList.php:133
 #, fuzzy
@@ -22502,7 +22511,7 @@ msgstr "Engelsk (Canada)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Antigua & Barbuda)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:136
 #, fuzzy
@@ -22514,7 +22523,7 @@ msgstr "Engelsk (Zimbabwe)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (American Samoa)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:138
 #, fuzzy
@@ -22599,7 +22608,7 @@ msgstr "Engelsk (Zimbabwe)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Christmas Island)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:153
 #, fuzzy
@@ -22653,7 +22662,7 @@ msgstr "Engelsk (Indien)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Falkland Islands)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:162
 #, fuzzy
@@ -22773,7 +22782,7 @@ msgstr "Engelsk (USA)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Cayman Islands)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:183
 #, fuzzy
@@ -22803,7 +22812,7 @@ msgstr "Engelsk (Fillippinerne)"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "English (Marshall Islands)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:188
 #, fuzzy
@@ -22857,7 +22866,7 @@ msgstr "Engelsk (Zimbabwe)"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "English (Norfolk Island)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:197
 #, fuzzy
@@ -22907,7 +22916,7 @@ msgstr "Urdu (Pakistan)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Pitcairn Islands)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:206
 #, fuzzy
@@ -22931,7 +22940,7 @@ msgstr "Engelsk (Canada)"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "English (Solomon Islands)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:210
 #, fuzzy
@@ -23015,7 +23024,7 @@ msgstr "Engelsk (Indien)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Trinidad & Tobago)"
-msgstr "Engelsk (Fillippinerne)"
+msgstr "Engelsk (UK)"
 
 #: npgCore/localeList.php:224
 #, fuzzy
@@ -23275,7 +23284,7 @@ msgstr "Persisk"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Persian (Iran)"
-msgstr "Arabisk (Iran)"
+msgstr "Persisk"
 
 #: npgCore/localeList.php:277
 #, fuzzy
@@ -23320,7 +23329,7 @@ msgstr "Færøsk"
 #: npgCore/localeList.php:285
 #, fuzzy
 msgid "French"
-msgstr "Fransk (Canada)"
+msgstr "Fransk (Belgien)"
 
 #: npgCore/localeList.php:286
 msgid "French (Belgium)"
@@ -23413,7 +23422,7 @@ msgstr "Fransk (Canada)"
 #, fuzzy
 #| msgid "French (France)"
 msgid "French (French Guiana)"
-msgstr "Fransk (Schweiz)"
+msgstr "Fransk (Belgien)"
 
 #: npgCore/localeList.php:303
 #, fuzzy
@@ -23501,7 +23510,7 @@ msgstr "Fransk (Luxembourg)"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (New Caledonia)"
-msgstr "Fransk (Schweiz)"
+msgstr "Ny"
 
 #: npgCore/localeList.php:318
 #, fuzzy
@@ -23513,7 +23522,7 @@ msgstr "Fransk (Canada)"
 #, fuzzy
 #| msgid "French (France)"
 msgid "French (French Polynesia)"
-msgstr "Fransk (Schweiz)"
+msgstr "Fransk (Belgien)"
 
 #: npgCore/localeList.php:320
 #, fuzzy
@@ -23601,7 +23610,7 @@ msgstr "Italiensk (Italien)"
 #: npgCore/localeList.php:334
 #, fuzzy
 msgid "Western Frisian"
-msgstr "Vesteuropæisk (DOS)"
+msgstr "Vesteuropæisk (MAC)"
 
 #: npgCore/localeList.php:335
 #, fuzzy
@@ -23851,7 +23860,7 @@ msgstr "Islandsk"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian"
-msgstr "Italiensk (Italien)"
+msgstr "Italiensk (Schweiz)"
 
 #: npgCore/localeList.php:382
 msgid "Italian (Switzerland)"
@@ -23871,7 +23880,7 @@ msgstr "Italiensk (Schweiz)"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian (Vatican City)"
-msgstr "Italiensk (Schweiz)"
+msgstr "By:"
 
 #: npgCore/localeList.php:386
 msgid "Japanese"
@@ -24054,13 +24063,13 @@ msgstr "Engelsk (Indien)"
 #, fuzzy
 #| msgid "Korean (Johab)"
 msgid "Korean (North Korea)"
-msgstr "Koreansk (EUC)"
+msgstr "Koreansk"
 
 #: npgCore/localeList.php:422
 #, fuzzy
 #| msgid "Korean (Johab)"
 msgid "Korean (South Korea)"
-msgstr "Koreansk (EUC)"
+msgstr "Koreansk"
 
 #: npgCore/localeList.php:423
 #, fuzzy
@@ -24514,7 +24523,7 @@ msgstr "Engelsk (Zimbabwe)"
 #: npgCore/localeList.php:509
 #, fuzzy
 msgid "Low German"
-msgstr "Tysk (Østrig)"
+msgstr "Lav"
 
 #: npgCore/localeList.php:510
 #, fuzzy
@@ -24606,7 +24615,7 @@ msgstr "Norsk"
 #: npgCore/localeList.php:526
 #, fuzzy
 msgid "Norwegian Nynorsk (Norway)"
-msgstr "Norsk (Bokmål)"
+msgstr "Norsk"
 
 #: npgCore/localeList.php:527
 #, fuzzy
@@ -24688,12 +24697,12 @@ msgstr "Panjabi"
 #: npgCore/localeList.php:542
 #, fuzzy
 msgid "Punjabi (Arabic)"
-msgstr "Arabisk (Bahrain)"
+msgstr "Arabisk"
 
 #: npgCore/localeList.php:543
 #, fuzzy
 msgid "Punjabi (Arabic, Pakistan)"
-msgstr "Arabisk"
+msgstr "Urdu (Pakistan)"
 
 #: npgCore/localeList.php:544
 #, fuzzy
@@ -24757,7 +24766,7 @@ msgstr "Portugisisk (Portugal)"
 #, fuzzy
 #| msgid "Portuguese (Portugal)"
 msgid "Portuguese (Equatorial Guinea)"
-msgstr "Portugisisk (Portugal)"
+msgstr "Portugisisk (Brazilien)"
 
 #: npgCore/localeList.php:556
 #, fuzzy
@@ -25029,12 +25038,12 @@ msgstr "Cache hits"
 #: npgCore/localeList.php:606
 #, fuzzy
 msgid "Tachelhit (Latin)"
-msgstr "Latin 3 (ISO)"
+msgstr "Spansk (Latinamerika)"
 
 #: npgCore/localeList.php:607
 #, fuzzy
 msgid "Tachelhit (Latin, Morocco)"
-msgstr "Spansk (Latinamerika)"
+msgstr "Arabisk (Marokko)"
 
 #: npgCore/localeList.php:608
 #, fuzzy
@@ -25203,7 +25212,7 @@ msgstr "Serbisk"
 #, fuzzy
 #| msgid "Swedish (Sweden)"
 msgid "Swedish"
-msgstr "Svensk (Sverige)"
+msgstr "Svensk (Finland)"
 
 #: npgCore/localeList.php:641
 #, fuzzy
@@ -25314,7 +25323,7 @@ msgstr "Thai"
 #, fuzzy
 #| msgid "Thai (Windows)"
 msgid "Thai (Thailand)"
-msgstr "Thai (Windows)"
+msgstr "Thai"
 
 #: npgCore/localeList.php:663
 #, fuzzy
@@ -25457,7 +25466,7 @@ msgstr "Uzbekisk"
 #: npgCore/localeList.php:690
 #, fuzzy
 msgid "Uzbek (Cyrillic, Uzbekistan)"
-msgstr "Kyrillisk (ISO)"
+msgstr "Uzbekisk"
 
 #: npgCore/localeList.php:691
 #, fuzzy
@@ -25625,7 +25634,7 @@ msgstr "Kantonesisk (Traditionel, Hong Kong SAR Kina)"
 #, fuzzy
 #| msgid "Standard Light A"
 msgid "Standard Moroccan Tamazight"
-msgstr "Standard menu"
+msgstr "Standard"
 
 #: npgCore/localeList.php:723
 #, fuzzy
@@ -25636,7 +25645,7 @@ msgstr "Standard marokkanske Tamazight (Marokko)"
 #, fuzzy
 #| msgid "Chinese (Taiwan)"
 msgid "Chinese"
-msgstr "Kinesisk (Hongkong)"
+msgstr "Kinesisk (Taiwan)"
 
 #: npgCore/localeList.php:725
 #, fuzzy
@@ -25652,13 +25661,13 @@ msgstr "Kinesisk (Taiwan)"
 #, fuzzy
 #| msgid "Chinese Simplified (HZ)"
 msgid "Chinese (Simplified)"
-msgstr "Kinesisk, Forenklet (HZ)"
+msgstr "Kinesisk, Forenklet  (GB2312)"
 
 #: npgCore/localeList.php:728
 #, fuzzy
 #| msgid "Chinese Simplified (EUC)"
 msgid "Chinese (Simplified, China)"
-msgstr "Kinesisk, Forenklet (EUC)"
+msgstr "Kinesisk (Kinesiske Folkerepublik)"
 
 #: npgCore/localeList.php:729
 #, fuzzy
@@ -25700,7 +25709,7 @@ msgstr "Kinesisk Traditionelt"
 #, fuzzy
 #| msgid "Chinese Traditional"
 msgid "Chinese (Traditional, Taiwan)"
-msgstr "Kinesisk (Taiwan)"
+msgstr "Kinesisk Traditionelt"
 
 #: npgCore/localeList.php:736
 #, fuzzy
@@ -25736,12 +25745,12 @@ msgstr ""
 #, fuzzy
 #| msgid "Update Required"
 msgid "Payment Required"
-msgstr "Adgangskode krævet."
+msgstr "krævet"
 
 #: npgCore/page_error.php:21
 #, fuzzy
 msgid "Not Found"
-msgstr "Returner fundne albums"
+msgstr "Objekt ikke fundet"
 
 #: npgCore/page_error.php:24
 #, fuzzy
@@ -25787,7 +25796,7 @@ msgstr "Brændvidde"
 #, fuzzy
 #| msgid "database connected"
 msgid "Precondition Failed"
-msgstr "Installationen mislykkes."
+msgstr "Mislykket"
 
 #: npgCore/page_error.php:48
 #, fuzzy
@@ -25802,7 +25811,7 @@ msgstr "Forespurgt URI: [ <code>%s</code> ]"
 #: npgCore/page_error.php:54
 #, fuzzy
 msgid "Unsupported Media Type"
-msgstr "Type:"
+msgstr "media"
 
 #: npgCore/page_error.php:88
 #, fuzzy
@@ -25945,7 +25954,7 @@ msgstr "Grafiksupport [konfigurationsfejl]"
 #, fuzzy, php-format
 #| msgid "run setup"
 msgid "to run setup [%s]"
-msgstr "Kør setup scriptet."
+msgstr "kør installation"
 
 #: npgCore/reconfigure.php:363
 #, fuzzy
@@ -26073,7 +26082,7 @@ msgstr "Database brugerdata"
 #: npgCore/setup/index.php:470
 #, fuzzy
 msgid "Started"
-msgstr "Tema:%s setup startet."
+msgstr "Plugin:%s installation startet"
 
 #: npgCore/setup/index.php:486
 #, fuzzy, php-format
@@ -26104,7 +26113,7 @@ msgstr "opdater"
 #: npgCore/setup/index.php:539
 #, fuzzy
 msgid "netPhotoGraphics Setup"
-msgstr "kør installation"
+msgstr "installation"
 
 #: npgCore/setup/index.php:555
 #, fuzzy, php-format
@@ -26136,7 +26145,7 @@ msgstr "Installerer Zenphoto v%s"
 #, fuzzy
 #| msgid "Installation files"
 msgid "Installation folder"
-msgstr "Installationsfiler"
+msgstr "Installations information"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -26208,7 +26217,7 @@ msgstr ""
 #, fuzzy
 #| msgid "PHP <code>Sessions</code>."
 msgid "PHP <code>session.use_strict_mode</code>"
-msgstr "PHP <code>Safe Mode</code> [er sat]"
+msgstr "PHP <code>Safe Mode</code>"
 
 #: npgCore/setup/index.php:627
 #, fuzzy
@@ -26258,7 +26267,7 @@ msgstr "PHP <code>magic_quotes_gpc</code> [er aktiveret]"
 #, fuzzy
 #| msgid "You must disable <code>magic_quotes_sybase</code>."
 msgid "You must disable <code>magic_quotes_gpc</code>."
-msgstr "Du skal deaktivere <code>magic_quotes_sybase</code>."
+msgstr "Du skal deaktivere <code>magic_quotes_runtime</code>."
 
 #: npgCore/setup/index.php:662
 msgid "PHP <code>magic_quotes_runtime</code>"
@@ -26288,7 +26297,7 @@ msgstr "Du skal deaktivere <code>magic_quotes_sybase</code>."
 #, fuzzy
 #| msgid "Map display error"
 msgid "Display_errors"
-msgstr "<em>vis_fejl</em> er <strong>Til</strong>"
+msgstr "PHP <code>display_errors</code>"
 
 #: npgCore/setup/index.php:687
 msgid "PHP <code>display_errors</code>"
@@ -26869,7 +26878,7 @@ msgstr "Din databasebruger må have %s rettigheder."
 #: npgCore/setup/index.php:1178
 #, fuzzy
 msgid "netPhotoGraphics files"
-msgstr "Zenphoto filer"
+msgstr "Filer"
 
 #: npgCore/setup/index.php:1208
 #, fuzzy
@@ -27260,7 +27269,7 @@ msgstr "database forbundet"
 #, fuzzy
 #| msgid "Database user"
 msgid "Database update"
-msgstr "Databasetabeller der skal opdateres: %s"
+msgstr "Database oprettler og opdatering afsluttet."
 
 #: npgCore/setup/index.php:1674
 #, fuzzy
@@ -27281,7 +27290,7 @@ msgstr "Sidst opdateret"
 #, fuzzy
 #| msgid "Database password"
 msgid "Database update is not required."
-msgstr "Database oprettler og opdatering afsluttet."
+msgstr "Opdatering Krævet"
 
 #: npgCore/setup/index.php:1685
 #, fuzzy
@@ -27534,7 +27543,7 @@ msgstr "%1$s: %2$s i %3$s på linie %4$s"
 #, fuzzy, php-format
 #| msgid "disabled"
 msgid "%1$s disabled."
-msgstr "%1$s: %2$s"
+msgstr "deaktiveret"
 
 #: npgCore/setup/setup-functions.php:584
 #, fuzzy, php-format
@@ -27561,7 +27570,7 @@ msgstr "Mislykket"
 #, fuzzy
 #| msgid "Mod_rewrite"
 msgid "Mod_Rewrite "
-msgstr "Mod_rewrite"
+msgstr "mod rewrite"
 
 #: npgCore/setup/setup-option-defaults.php:400
 #, fuzzy
@@ -27664,13 +27673,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "Vis <em>%s</em>"
+msgstr "<em>%1$s</em> rapporterede: %2$s"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "Rediger Album: <em>%1$s%2$s</em>"
+msgstr "<em>%1$s</em> rapporterede: %2$s"
 
 #: npgCore/setup/setup-sqlform.php:3
 msgid ""
@@ -27705,13 +27714,13 @@ msgstr "Database server"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Sport"
+msgstr "POP port"
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "Database bruger"
+msgstr "Database"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -27729,12 +27738,12 @@ msgstr "gem"
 #, fuzzy
 #| msgid "Completed system check"
 msgid "Completed with errors"
-msgstr "Tabeloprettelse afsluttet med fejl!"
+msgstr "Afsluttet system check"
 
 #: npgCore/setup/setupComplete.php:18
 #, fuzzy
 msgid "Completed"
-msgstr "Afsluttet system check"
+msgstr "Gendan afsluttet"
 
 #: npgCore/setup/setup_permissions_changer.php:21
 #, php-format
@@ -27761,7 +27770,7 @@ msgstr "Du skal deaktivere <code>magic_quotes_sybase</code>."
 #, fuzzy, php-format
 #| msgid "Theme:%s setup started"
 msgid "Mod_rewrite setup started"
-msgstr "Plugin:%s installation startet"
+msgstr "mod rewrite"
 
 #: npgCore/setup/setup_set-mod_rewrite.php:31
 #, fuzzy
@@ -27823,7 +27832,7 @@ msgstr "Mine favoritter"
 #, fuzzy
 #| msgid "images"
 msgid "My images"
-msgstr "Indsæt min IP"
+msgstr "Mine favoritter"
 
 #: npgCore/template-functions.php:181
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:203
@@ -28023,10 +28032,7 @@ msgstr[1] ""
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] ""
-"<strong>Advarsel!</strong> Denne opdatering laver strukturelle forandringer i "
-"databasen, som ikke vil være nemme at rekonstruere. Sikker dig at du har en "
-"database sikkerhedskopi, før du fortsætter."
+msgstr[0] "Tabel præfix: <strong>%1$s</strong>"
 msgstr[1] ""
 "<strong>Advarsel!</strong> Denne opdatering laver strukturelle forandringer i "
 "databasen, som ikke vil være nemme at rekonstruere. Sikker dig at du har en "
@@ -28036,7 +28042,7 @@ msgstr[1] ""
 #, fuzzy
 #| msgid "The locale %s is not supported on your server."
 msgid "The following tables were empty:"
-msgstr "Landestandard %s er ikke understøttet på din server."
+msgstr "Dine adgangskoder var tomme eller matchede ikke"
 
 #: npgCore/utilities/backup_restore.php:284
 msgid "backup failed"
@@ -28144,7 +28150,7 @@ msgstr "Kompressionsgrad"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "Vælg database gendannelsesfil:"
+msgstr "Sikkedhedskopier tabellerne i din database."
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -28175,7 +28181,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database connection"
 msgid "Database restoration"
-msgstr "Opdater Database"
+msgstr "Database"
 
 #: npgCore/utilities/backup_restore.php:655
 msgid "You have not yet created a backup set."
@@ -28761,7 +28767,7 @@ msgstr "WEB sti:"
 #, fuzzy
 #| msgid "Title"
 msgid "MyBB Title"
-msgstr "en titel"
+msgstr "Titel"
 
 #: plugins/MyBB_auth.php:108
 #, fuzzy
@@ -28788,7 +28794,7 @@ msgstr "Database"
 #, fuzzy
 #| msgid "Database name"
 msgid "The MyBB database name."
-msgstr "Database navn <strong>%s</strong>"
+msgstr "Database navn"
 
 #: plugins/MyBB_auth.php:115
 #, fuzzy
@@ -28874,9 +28880,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Restore"
 msgid "Store"
-msgstr ""
-"Antal dage Cookie-samtykke skal gemme brugerens samtykkeoplysninger. Brug -1 "
-"til uden udløb."
+msgstr "Marker om du ønsker at gemme hittal fra RSS feeds."
 
 #: plugins/cacheHeader.php:42
 #, fuzzy
@@ -28985,7 +28989,7 @@ msgstr "Cookies:"
 #: plugins/cookieInvalidator.php:38
 #, fuzzy, php-format
 msgid "Cookies prior to %s are invalid"
-msgstr "Ugyldig \"til\" mail adresse %s"
+msgstr "Ugyldig \"svar-til\" mail adresse %s"
 
 #: plugins/create_album.php:17
 #, fuzzy
@@ -29091,7 +29095,7 @@ msgstr "Database <code>%s</code> oprettet"
 #: plugins/debugSearch.php:15
 #, fuzzy
 msgid "Search debug tool."
-msgstr "Et billedbeskæringsværktøj."
+msgstr "Fejlfinding"
 
 #: plugins/demoplugin/image_effects.php:61
 #, fuzzy
@@ -29268,7 +29272,7 @@ msgstr "Sætter rettigheder (0%o) for Zenphoto pakken."
 #: plugins/devReleases.php:146
 #, fuzzy
 msgid "There is an update available."
-msgstr "Opdater Fil"
+msgstr "opdater"
 
 #: plugins/devReleases.php:148
 #, fuzzy
@@ -29446,7 +29450,7 @@ msgstr "Vælger for CSS"
 #, fuzzy
 #| msgid "script"
 msgid "javaScript"
-msgstr "<a href=\"javascript:uri(true)\">Udfør venligst</a>"
+msgstr "JavaScriptfiler (.js)"
 
 #: plugins/headConsolidator.php:94
 #, fuzzy
@@ -29475,7 +29479,7 @@ msgstr "Ikon"
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "Søg galleri"
+msgstr "Tillad søgning"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -29527,13 +29531,13 @@ msgstr "Script side"
 #, fuzzy
 #| msgid "Purge cache files"
 msgid "Propegate language files."
-msgstr "Sprog at spore"
+msgstr "Sprog:"
 
 #: plugins/logQueries.php:17
 #, fuzzy
 #| msgid "Database user"
 msgid "Log database queries."
-msgstr "Ændringslog"
+msgstr "Log på"
 
 #: plugins/mediaelementjs_player.php:57
 #, fuzzy
@@ -29594,7 +29598,7 @@ msgstr "Program"
 #, fuzzy
 #| msgid "Current Theme"
 msgid "Current"
-msgstr "Geninstallation af aktuelle Zenphoto udgave"
+msgstr "Nuværende tema"
 
 #: plugins/mediaelementjs_player.php:115
 #, fuzzy
@@ -29605,7 +29609,7 @@ msgstr "Varighed"
 #: plugins/mediaelementjs_player.php:116
 #, fuzzy
 msgid "Tracks (Video only)"
-msgstr "Videoartist"
+msgstr "video"
 
 #: plugins/mediaelementjs_player.php:117
 #, fuzzy
@@ -29633,7 +29637,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Slide width"
 msgid "Video width"
-msgstr "3gp video bredde"
+msgstr "Quicktime video bredde"
 
 #: plugins/mediaelementjs_player.php:125 plugins/mediaelementjs_player.php:129
 msgid "Pixel value or percent for responsive layouts"
@@ -29643,13 +29647,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Slide height"
 msgid "Video height"
-msgstr "3gp video højde"
+msgstr "Quicktime video højde"
 
 #: plugins/mediaelementjs_player.php:130
 #, fuzzy
 #| msgid "Video Title"
 msgid "Video Poster"
-msgstr "Poster (Videominiature)"
+msgstr "video"
 
 #: plugins/mediaelementjs_player.php:133
 msgid ""
@@ -29870,12 +29874,12 @@ msgstr "plugins"
 #, fuzzy
 #| msgid "Enable Zenpage CMS plugin"
 msgid "Enables all plugins."
-msgstr "Tilgængelige Plugin"
+msgstr "plugins"
 
 #: plugins/pluginEnabler.php:57
 #, fuzzy
 msgid "Plugins » remembered"
-msgstr "Tilgængelige Plugin"
+msgstr "plugins"
 
 #: plugins/pluginEnabler.php:61
 #, fuzzy
@@ -29885,7 +29889,7 @@ msgstr "Genopretter plugintilstandene til det, der blev husket."
 #: plugins/pluginEnabler.php:70
 #, fuzzy
 msgid "Plugins ¤ current"
-msgstr "Tilgængelige Plugin"
+msgstr "plugins"
 
 #: plugins/pluginEnabler.php:74
 #, fuzzy
@@ -29918,13 +29922,13 @@ msgstr "Standard"
 #: plugins/pluginEnabler/handler.php:28
 #, fuzzy
 msgid "Remembered plugins enabled"
-msgstr "Aktiver"
+msgstr "plugins"
 
 #: plugins/pluginEnabler/handler.php:32
 #, fuzzy
 #| msgid "Plugin:%s enabled (%2$s)"
 msgid "All plugins enabled"
-msgstr "Aktiver"
+msgstr "plugins"
 
 #: plugins/pluginEnabler/handler.php:36
 #, fuzzy
@@ -29939,7 +29943,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Mail user"
 msgid "Mail header"
-msgstr "bruger mail"
+msgstr "email"
 
 #: plugins/pseudomail.php:50
 #, fuzzy, php-format
@@ -30108,8 +30112,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Stiller korte URLs til Zenphoto objekter til rådighed."
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -30244,7 +30249,7 @@ msgstr "Konverter arv Zenphoto temaer og plugins"
 #| msgid "latest updated"
 msgid "%s file updated"
 msgid_plural "%s files updated"
-msgstr[0] "Side <em>%s</em> opdateret"
+msgstr[0] "Filen er korrekt opdateret."
 msgstr[1] "Side <em>%s</em> opdateret"
 
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:136
@@ -30440,7 +30445,7 @@ msgstr "Mest populære billeder"
 #: themes/ardoise/inc_print_image_statistic.php:21
 #, fuzzy
 msgid "Most rated images"
-msgstr "(Højest vurderede nyheder)"
+msgstr "mest bedømt"
 
 #: themes/ardoise/news.php:14 themes/ardoise/news.php:16
 #, fuzzy
@@ -30452,9 +30457,7 @@ msgstr ""
 #: themes/ardoise/news.php:21 themes/ardoise/news.php:23
 #, fuzzy
 msgid "older"
-msgstr ""
-"Auto backup vil kun beholde dette antal sikkerhedskopier. Ældre kopier vil "
-"blive slettet."
+msgstr "Gennemse billeder ældre end: %s"
 
 #: themes/ardoise/register.php:9 themes/basic/register.php:29
 #: themes/bootstrap/register.php:9 themes/effervescence+/register.php:62
@@ -30540,7 +30543,7 @@ msgstr "Sider (%s)"
 #: themes/ardoise/themeoptions.php:59
 #, fuzzy
 msgid "Use this file as logo"
-msgstr "Site logo"
+msgstr "logo"
 
 #: themes/ardoise/themeoptions.php:62
 #, fuzzy
@@ -30564,7 +30567,7 @@ msgstr "Kontrollér for at vise logoet på billedsiden."
 #: themes/ardoise/themeoptions.php:68 themes/masonry/themeoptions.php:73
 #, fuzzy
 msgid "Style"
-msgstr "Ombryd til venstre: <em>style=\"float:right\"</em>"
+msgstr "Stilark (.css)"
 
 #: themes/ardoise/themeoptions.php:70
 #, fuzzy
@@ -30611,7 +30614,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:80
 #, fuzzy
 msgid "Show Archive link"
-msgstr "Arkiv visning"
+msgstr "Arkiv"
 
 #: themes/ardoise/themeoptions.php:82
 #, fuzzy
@@ -30682,7 +30685,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:99
 #, fuzzy
 msgid "Galleriffic slideshow delay"
-msgstr "Se Diasshow"
+msgstr "Diasshow"
 
 #: themes/ardoise/themeoptions.php:101
 #, fuzzy
@@ -30710,7 +30713,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:107
 #, fuzzy
 msgid "Use Colorbox in Image page"
-msgstr "Colorbox: Billedtype"
+msgstr "Brug Colorbox"
 
 #: themes/ardoise/themeoptions.php:109
 #, fuzzy
@@ -30951,7 +30954,7 @@ msgstr "Temaet understøtter ikke colorbox-option til googlemap-plugin."
 #, fuzzy
 #| msgid "View the album %s"
 msgid "View more albums"
-msgstr "Administratorer af et eller flere album"
+msgstr "Se mere"
 
 #: themes/bootstrap/inc_print_infinitescroll.php:6
 #, fuzzy
@@ -30978,7 +30981,7 @@ msgstr "Se mere"
 #: themes/bootstrap/inc_print_infinitescroll_news.php:17
 #, fuzzy
 msgid "No more news to display"
-msgstr "Vis billeder efter:"
+msgstr "Se mere"
 
 #: themes/bootstrap/theme_description.php:10
 #, fuzzy
@@ -31025,7 +31028,7 @@ msgstr ""
 #, fuzzy
 #| msgid " (Latest news and images)"
 msgid "Latest news on Homepage"
-msgstr "(Seneste nyt og albums)"
+msgstr "(Seneste nyt)"
 
 #: themes/bootstrap/themeoptions.php:84
 #, fuzzy
@@ -31493,7 +31496,7 @@ msgstr ""
 #, fuzzy
 #| msgid "View gallery index"
 msgid "Separate gallery index"
-msgstr "Vis galleri indeks"
+msgstr "Galleri Index"
 
 #: themes/effervescence+/themeoptions.php:93
 #: themes/netphotographics/themeoptions.php:108
@@ -31902,12 +31905,12 @@ msgstr "Zenphoto behandlede en 404 fejl på %s. Se fejlfindingslog for detaljer.
 #: themes/masonry/album.php:16 themes/masonry/favorites.php:18
 #, fuzzy
 msgid "subalbum"
-msgstr "%u Underalbum"
+msgstr "Nyt underalbum"
 
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 #, fuzzy
 msgid "number"
-msgstr "POP port nummer."
+msgstr "Miniature antal"
 
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 #, fuzzy
@@ -31927,19 +31930,19 @@ msgstr "Underalbums"
 #: themes/masonry/search.php:62
 #, fuzzy
 msgid "Play Slideshow"
-msgstr "Spilletid"
+msgstr "Afspil"
 
 #: themes/masonry/album.php:153 themes/masonry/favorites.php:157
 #: themes/masonry/search.php:129
 #, fuzzy
 msgid "Preview"
-msgstr "Forhåndsvisning af udgivelsesnoter for Zenphoto %s"
+msgstr "Miniature eksempel"
 
 #: themes/masonry/comment_form/comment_form.php:24
 #: themes/minimal/z_disable_comment_form/comment_form.php:24
 #, fuzzy
 msgid "E-Mail"
-msgstr "Email"
+msgstr "E-mail:"
 
 #: themes/masonry/comment_form/comment_form.php:47
 #: themes/minimal/z_disable_comment_form/comment_form.php:47
@@ -31959,7 +31962,7 @@ msgstr "Senest opdaterede albums"
 #: themes/masonry/functions.php:223
 #, fuzzy
 msgid "Most Rated Albums"
-msgstr "(Højest vurderede nyheder)"
+msgstr "mest bedømt"
 
 #: themes/masonry/functions.php:228
 #, fuzzy
@@ -31974,7 +31977,7 @@ msgstr "Mest populære billeder"
 #: themes/masonry/functions.php:253
 #, fuzzy
 msgid "Most Rated Images"
-msgstr "(Højest vurderede nyheder)"
+msgstr "mest bedømt"
 
 #: themes/masonry/functions.php:258
 #, fuzzy
@@ -31994,7 +31997,7 @@ msgstr "Søg"
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
 msgid "Image Number/Total images"
-msgstr "Billednummer / Samlede billeder"
+msgstr "Størrelsen af billedfeed billeder:"
 
 #: themes/masonry/image.php:41
 #, fuzzy
@@ -32047,12 +32050,12 @@ msgstr ""
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "Kommentarer til"
+msgstr "Kommentarer:"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "Kommentarer til"
+msgstr "Kommentarer:"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -32074,17 +32077,17 @@ msgstr "« forrige"
 #: themes/minimal/password.php:13
 #, fuzzy
 msgid "Please Login"
-msgstr "Gæstelogind"
+msgstr "Login"
 
 #: themes/masonry/password.php:21 themes/minimal/password.php:17
 #, fuzzy
 msgid "You are logged in..."
-msgstr "Du skal være logget ind for at køre setup."
+msgstr "Du er allerede logget på"
 
 #: themes/masonry/search.php:30 themes/minimal/search.php:29
 #, fuzzy
 msgid "items"
-msgstr "Feed emner"
+msgstr "Valgte emner slettet"
 
 #: themes/masonry/search.php:171 themes/minimal/search.php:108
 #, fuzzy
@@ -32099,7 +32102,7 @@ msgstr "Vælg en mørk eller lys samlet farve stil."
 #: themes/masonry/themeoptions.php:79
 #, fuzzy
 msgid "General Thumb Sizes"
-msgstr "miniature"
+msgstr "Alment"
 
 #: themes/masonry/themeoptions.php:83
 #, fuzzy
@@ -32190,7 +32193,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:119
 #, fuzzy
 msgid "Logo Height"
-msgstr "højde"
+msgstr "logo"
 
 #: themes/masonry/themeoptions.php:123
 #, fuzzy
@@ -32245,7 +32248,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:145 themes/minimal/themeoptions.php:53
 #, fuzzy
 msgid "Colorbox Style"
-msgstr "Stilark (.css)"
+msgstr "colorbox"
 
 #: themes/masonry/themeoptions.php:149 themes/minimal/themeoptions.php:56
 #, fuzzy
@@ -32255,7 +32258,7 @@ msgstr "Vælg den farveboksstil, du vil bruge (eksempler på farvebokswebstedet)
 #: themes/masonry/themeoptions.php:151
 #, fuzzy
 msgid "Colorbox Transition Type"
-msgstr "Colorbox: Overgang"
+msgstr "Colorbox overgang"
 
 #: themes/masonry/themeoptions.php:155
 #, fuzzy
@@ -32298,7 +32301,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:171
 #, fuzzy
 msgid "Frontpage Slideshow?"
-msgstr "Se Diasshow"
+msgstr "Diasshow"
 
 #: themes/masonry/themeoptions.php:175
 #, fuzzy
@@ -32334,7 +32337,7 @@ msgstr "Hvor mange billeder / album der skal vises i diasshowet."
 #: themes/masonry/themeoptions.php:188
 #, fuzzy
 msgid "Frontpage Slideshow Transition Effect?"
-msgstr "Overgangseffekt for billedgalleri"
+msgstr "Diasshow: Effekt"
 
 #: themes/masonry/themeoptions.php:192
 #, fuzzy
@@ -32383,7 +32386,7 @@ msgstr "Galleri index"
 #: themes/minimal/404.php:14
 #, fuzzy
 msgid "Back to Gallery Index →"
-msgstr "Vis galleri indeks"
+msgstr "Galleri Index"
 
 #: themes/minimal/inc-footer.php:8
 #, fuzzy
@@ -32393,7 +32396,7 @@ msgstr "Abbonner på kommentarer"
 #: themes/minimal/inc-footer.php:11
 #, fuzzy
 msgid "This Album"
-msgstr "Album:"
+msgstr "album"
 
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
@@ -32403,7 +32406,7 @@ msgstr "Vis statistiske grafer og info om dit galleris billeder og albums."
 #: themes/minimal/inc-footer.php:24
 #, fuzzy
 msgid "Subalbum"
-msgstr "%u Underalbum"
+msgstr "Nyt underalbum"
 
 #: themes/minimal/index.php:59
 #, fuzzy
@@ -32454,7 +32457,7 @@ msgstr ""
 #: themes/minimal/themeoptions.php:43
 #, fuzzy
 msgid "Sidebar Position on the Right?"
-msgstr "Højre"
+msgstr "Position:"
 
 #: themes/minimal/themeoptions.php:46
 #, fuzzy
@@ -32503,7 +32506,7 @@ msgstr ""
 #: themes/minimal/themeoptions.php:67
 #, fuzzy
 msgid "Menu Name of Menu Manager"
-msgstr "Menuhåndtering: Rediger menupunkt"
+msgstr "Menuhåndtering"
 
 #: themes/minimal/themeoptions.php:71
 #, fuzzy
@@ -32637,7 +32640,7 @@ msgstr "tema"
 #, fuzzy
 #| msgid "options"
 msgid "Caption"
-msgstr "Billedgalleri billedtekst"
+msgstr "Billede billedtekst"
 
 #: themes/paradigm/image.php:78
 msgid "Location:"
@@ -32662,12 +32665,12 @@ msgstr "Copyright:"
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "Returner fundne albums"
+msgstr "Objekt ikke fundet"
 
 #: themes/paradigm/includes/_gallery.php:12
 #, fuzzy
 msgid "About"
-msgstr "Vis statistiske grafer og info om dit galleris billeder og albums."
+msgstr "Igang med at opdatere tabeller"
 
 #: themes/paradigm/includes/_head.php:71 themes/paradigm/includes/_head.php:77
 #: themes/paradigm/includes/_head.php:158 themes/paradigm/includes/_head.php:164
@@ -32725,7 +32728,7 @@ msgstr "tilfældig"
 #, fuzzy
 #| msgid "Popular Tags"
 msgid "Popular"
-msgstr "Mest populære albums"
+msgstr "Populære Tags"
 
 #: themes/paradigm/themeoptions.php:77
 #, fuzzy
@@ -32788,8 +32791,8 @@ msgstr ""
 #| msgid "Number of RSS feed items:"
 msgid "Number of slides"
 msgstr ""
-"Det maksimale antal dias, der skal vises. Slides vil blive dimensioneret op, "
-"hvis karrusellen bliver større end den oprindelige størrelse"
+"Minimale antal dias der skal vises. Slides vil blive dimensioneret ned, hvis "
+"karrusellen bliver mindre end den oprindelige størrelse."
 
 #: themes/paradigm/themeoptions.php:101
 #, fuzzy
@@ -32833,18 +32836,18 @@ msgstr "Check for at aktivere blogindlæg som hovedindhold på hjemmesiden."
 #, fuzzy
 #| msgid "Homepage"
 msgid "Homepage content"
-msgstr "Indhold"
+msgstr "Hjemmeside"
 
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
 msgid "Latest pictures"
-msgstr "Seneste billeder"
+msgstr "seneste"
 
 #: themes/paradigm/themeoptions.php:120
 #, fuzzy
 #| msgid "Random picture..."
 msgid "Random pictures"
-msgstr "Tilfældige albums"
+msgstr "tilfældig"
 
 #: themes/paradigm/themeoptions.php:121
 #, fuzzy
@@ -32873,7 +32876,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:141
 #, fuzzy
 msgid "ShareThis id"
-msgstr "Site id"
+msgstr "ID"
 
 #: themes/paradigm/themeoptions.php:145
 #, fuzzy
@@ -32883,7 +32886,7 @@ msgstr "Giv dit <a href=\"http://www.sharethis.com\">ShareThis</a> ID"
 #: themes/paradigm/themeoptions.php:147
 #, fuzzy
 msgid "AddThis code"
-msgstr "<code>SQL mode</code>"
+msgstr "Postnummer"
 
 #: themes/paradigm/themeoptions.php:151
 #, fuzzy
@@ -32938,7 +32941,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:168
 #, fuzzy
 msgid "URL to FlickR"
-msgstr "ULR indstillinger:"
+msgstr "URL"
 
 #: themes/paradigm/themeoptions.php:171
 #, fuzzy
@@ -32948,7 +32951,7 @@ msgstr "Giv din <a href=\"http://www.flickr.com\">FlickR</a> galleri URL"
 #: themes/paradigm/themeoptions.php:173
 #, fuzzy
 msgid "URL to 500px"
-msgstr "ULR indstillinger:"
+msgstr "URL"
 
 #: themes/paradigm/themeoptions.php:176
 #, fuzzy
@@ -32958,7 +32961,7 @@ msgstr "Giv din <a href=\"http://500px.com\">500px</a> galleri URL"
 #: themes/paradigm/themeoptions.php:178
 #, fuzzy
 msgid "URL to Instagram"
-msgstr "ULR indstillinger:"
+msgstr "URL"
 
 #: themes/paradigm/themeoptions.php:181
 #, fuzzy
@@ -32968,7 +32971,7 @@ msgstr "Giv din <a href=\"http://instagram.com/\">Instagram</a>"
 #: themes/paradigm/themeoptions.php:183
 #, fuzzy
 msgid "URL to Pinterest"
-msgstr "ULR indstillinger:"
+msgstr "URL"
 
 #: themes/paradigm/themeoptions.php:186
 #, fuzzy
@@ -32978,7 +32981,7 @@ msgstr "Giv dit <a href=\"http://pinterest.com/\">Pinterest</a> bord eller side"
 #: themes/paradigm/themeoptions.php:188
 #, fuzzy
 msgid "URL to Deviantart"
-msgstr "ULR indstillinger:"
+msgstr "URL"
 
 #: themes/paradigm/themeoptions.php:191
 #, fuzzy
@@ -32988,7 +32991,7 @@ msgstr "Giv din <a href=\"http://deviantart.com/\">Deviantart-</a> side"
 #: themes/paradigm/themeoptions.php:193
 #, fuzzy
 msgid "URL to Tumblr"
-msgstr "ULR indstillinger:"
+msgstr "URL"
 
 #: themes/paradigm/themeoptions.php:196
 #, fuzzy
@@ -33005,7 +33008,7 @@ msgstr "Effervescence billedvisnings håndtering."
 #, fuzzy
 #| msgid "Contact"
 msgid "Contact me"
-msgstr "Kontakt"
+msgstr "Tweet mig"
 
 #: themes/zenFluid/404.php:16
 #, fuzzy
@@ -33116,13 +33119,13 @@ msgstr "Com4T"
 #: themes/zenFluid/themeoptions.php:87
 #, fuzzy
 msgid "ZenFluid color"
-msgstr "Tema farve"
+msgstr "Farve"
 
 #: themes/zenFluid/themeoptions.php:92
 #, fuzzy
 #| msgid "Default theme color scheme."
 msgid "Select the colorscheme."
-msgstr "Vælg layout:"
+msgstr "Vælg"
 
 #: themes/zenFluid/themeoptions.php:94
 #, fuzzy
@@ -33150,7 +33153,7 @@ msgstr "standard tema farveskema."
 #, fuzzy
 #| msgid "Set to enable search form."
 msgid "Enable search form."
-msgstr "Indstil for at aktivere søgeskemaet."
+msgstr "Afkryds for at aktivere søgefeltet."
 
 #: themes/zenFluid/themeoptions.php:118
 #, fuzzy
@@ -33224,7 +33227,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:151
 #, fuzzy
 msgid "Print title breadcrumb"
-msgstr "Album titel"
+msgstr "Titel"
 
 #: themes/zenFluid/themeoptions.php:155
 #, fuzzy
@@ -33238,7 +33241,7 @@ msgstr ""
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "en titel"
+msgstr "Titel"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -33281,7 +33284,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show header"
-msgstr "Vis adganskode"
+msgstr "vis"
 
 #: themes/zenFluid/themeoptions.php:179
 #, fuzzy
@@ -33296,7 +33299,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show title"
 msgid "Show footer"
-msgstr "Vis adganskode"
+msgstr "vis"
 
 #: themes/zenFluid/themeoptions.php:185
 #, fuzzy
@@ -33353,7 +33356,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Verisign Authentication"
 msgid "Description justification"
-msgstr "Ingen beskrivelse"
+msgstr "Beskrivelse"
 
 #: themes/zenFluid/themeoptions.php:210
 #, fuzzy
@@ -33392,7 +33395,7 @@ msgstr "Position:"
 #, fuzzy
 #| msgid "Description"
 msgid "Description position"
-msgstr "Beskrivelse:"
+msgstr "Position:"
 
 #: themes/zenFluid/themeoptions.php:232
 #, fuzzy
@@ -33427,7 +33430,7 @@ msgstr "Vælg placeringen af ​​kommentarafsnittet, hvis bredden er mindre en
 #, fuzzy
 #| msgid "pending verification"
 msgid "Menu justification"
-msgstr "Brugerdefineret menu"
+msgstr "Menu"
 
 #: themes/zenFluid/themeoptions.php:253
 #, fuzzy
@@ -33478,7 +33481,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:273
 #, fuzzy
 msgid "Menu section titles"
-msgstr "Beskær titler*"
+msgstr "Tilføj denne streng til beskårne titler."
 
 #: themes/zenFluid/themeoptions.php:277
 #, fuzzy
@@ -33534,6 +33537,9 @@ msgstr ""
 "aktiveret til at bygge en brugerdefineret menu i stedet for de separate "
 "standard menuer. En standard menu ved navn \"zenpage\" er oprettet og anvendes "
 "automatisk."
+
+#~ msgid "Select users:"
+#~ msgstr "Vælg brugere:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "PHP Safe Mode begrænsninger er aktiverede!"

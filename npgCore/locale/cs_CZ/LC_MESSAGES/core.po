@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics 1.9.3.03\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:16-0700\n"
-"PO-Revision-Date: 2020-05-27 15:16-0700\n"
+"POT-Creation-Date: 2020-05-29 12:27-0700\n"
+"PO-Revision-Date: 2020-05-29 12:28-0700\n"
 "Last-Translator: Martin Kroul <martin.kroul@skaut.cz>\n"
 "Language-Team: Martin Kroul <martin.kroul@skaut.cz>\n"
 "Language: cs_CZ\n"
@@ -147,12 +147,17 @@ msgid "close"
 msgstr "zavřít"
 
 #: npgCore/admin-functions.php:282
+#, fuzzy
 msgid ""
 "To move a sub-item out from its list you must drag it out via the bottom of "
 "the list. That is drag it to past the last item in the sub-list then drag it "
 "left and drop it. Then you can move it into to another sub-list. If you are "
 "moving out multiple levels you must repeat the move process for each level."
 msgstr ""
+"Chcete-li přesunout položku ze seznamu, musíte ji přetáhnout přes spodní část "
+"seznamu. To je přetažením za poslední položku v podadresáři, poté přetažením "
+"doleva a přetažení. Poté ji můžete přesunout do jiného podsestavy. Pokud se "
+"pohybujete z více úrovní, musíte opakovat proces přesunu pro každou úroveň."
 
 #: npgCore/admin-functions.php:293
 #: npgCore/extensions/cacheManager/cacheImages.php:233
@@ -1573,7 +1578,7 @@ msgstr "Vyhledávání"
 #: npgCore/admin-globals.php:222
 #, fuzzy
 msgid "forms"
-msgstr "Na zatržených stránkách bude zobrazen formulář pro komentáře."
+msgstr "formuláře"
 
 #: npgCore/admin-globals.php:224
 msgid "plugin"
@@ -1865,12 +1870,12 @@ msgstr "Vyhledávání vrátí položky ve vybraném pořadí."
 #: npgCore/admin-tabs/dynamic-album.php:272
 #, fuzzy
 msgid "within"
-msgstr "<em>uvnitř</em>"
+msgstr "do"
 
 #: npgCore/admin-tabs/dynamic-album.php:299
 #, fuzzy
 msgid "tagged"
-msgstr "Vyberte ikonu, která se bude zobrazovat pro obrázky s GPS."
+msgstr "označkováno"
 
 #: npgCore/admin-tabs/dynamic-album.php:304
 #, fuzzy
@@ -1887,11 +1892,15 @@ msgid "Album <em>Tag</em>"
 msgstr "Tag <em>%s</em> přidán"
 
 #: npgCore/admin-tabs/dynamic-album.php:314
+#, fuzzy
 msgid ""
 "This tag will be assigned to each item found by the search. The search "
 "criteria for the album will be exclusively the tag. Thus the contents of this "
 "dynamic album are defined statically at the time of creation."
 msgstr ""
+"Tato značka bude přiřazena ke každé položce nalezené vyhledáváním. Kritériem "
+"vyhledávání alba bude výhradně značka. Obsah tohoto dynamického alba je tedy "
+"definován staticky v době vytvoření."
 
 #: npgCore/admin-tabs/dynamic-album.php:320
 msgid "Search fields:"
@@ -2083,7 +2092,7 @@ msgstr "není nic vybráno k zobrazení"
 #, fuzzy
 #| msgid "Location"
 msgid "Geo location"
-msgstr "Umístění:"
+msgstr "Geografická poloha"
 
 #: npgCore/admin-tabs/image_edit.php:305
 msgid "Edit all image data"
@@ -2920,8 +2929,9 @@ msgstr "%s heslo nemůže být prázdné!"
 msgid "Password reset request."
 msgstr "Požadavek na reset hesla."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "Uživatelé"
 
@@ -3066,7 +3076,7 @@ msgstr "Zásady používání stránek byly potvrzeny."
 #, fuzzy
 #| msgid "Clear list"
 msgid "Clear"
-msgstr "Smazat mezipaměť alba"
+msgstr "Vymazat"
 
 #: npgCore/admin-tabs/users.php:778
 #, fuzzy
@@ -3077,7 +3087,7 @@ msgstr "Zásady používání stránek byly potvrzeny."
 #, fuzzy
 #| msgid "Pet"
 msgid "Set"
-msgstr "Nastavte Oprávnění souborů na %s."
+msgstr "Nastavit"
 
 #: npgCore/admin-tabs/users.php:831
 msgid "Challenge phrase"
@@ -4641,7 +4651,7 @@ msgstr "Souběh nahrávání do mezipaměti"
 #: npgCore/admin_options/image.php:543
 #, fuzzy
 msgid "limit"
-msgstr "Omezení"
+msgstr "limit"
 
 #: npgCore/admin_options/image.php:550
 msgid "Cache processing worker limit."
@@ -4842,7 +4852,7 @@ msgstr "skrýt"
 #: npgCore/admin_options/image.php:818 npgCore/admin_options/image.php:843
 #, fuzzy
 msgid "disable"
-msgstr "Zakázáno"
+msgstr "zakázat"
 
 #: npgCore/admin_options/image.php:831
 #, fuzzy
@@ -5784,7 +5794,7 @@ msgstr "Klikněte pro registraci na těchto stránkách"
 #: themes/zenFluid/inc-sidebar.php:104
 #, fuzzy
 msgid "Register"
-msgstr "Klikněte pro registraci na těchto stránkách"
+msgstr "Registrovat"
 
 #: npgCore/allTranslations.php:85
 #, php-format
@@ -5905,7 +5915,7 @@ msgstr "Chyba: Adresář \"albums\" (%s) nebyl nalezen."
 #: npgCore/setup/setup-functions.php:346
 #, fuzzy
 msgid "Unknown"
-msgstr "nezmámé"
+msgstr "Neznámý"
 
 #: npgCore/class-gallery.php:380
 msgid "<strong>Missing theme info file!</strong>"
@@ -5919,7 +5929,7 @@ msgstr "Invalid album instantiation: %1$s!=%2$s"
 #: npgCore/class-gallery.php:602
 #, fuzzy
 msgid "fixed"
-msgstr "<em>.htaccess</em> RewriteBase je <code>%s</code> (fixed)"
+msgstr "Sleva (pevná)"
 
 #: npgCore/class-gallery.php:602
 #, fuzzy
@@ -6247,7 +6257,7 @@ msgstr "Vyhledávat v polích:"
 #: npgCore/classes.php:441
 #, fuzzy
 msgid "Object"
-msgstr "<strong>Chybějící objekt</strong> "
+msgstr "Předmět"
 
 #: npgCore/classes.php:476
 #, php-format
@@ -6419,7 +6429,7 @@ msgstr "Black & White"
 #: npgCore/exif/exifTranslations.php:53
 #, fuzzy
 msgid "Black and White"
-msgstr "Black & White"
+msgstr "Čiernobiele"
 
 #: npgCore/exif/exifTranslations.php:54
 #, fuzzy
@@ -6438,7 +6448,7 @@ msgstr "Bulb"
 #: npgCore/exif/exifTranslations.php:57 themes/zenFluid/themeoptions.php:76
 #, fuzzy
 msgid "Center"
-msgstr "Měření se zvýhodněným středem"
+msgstr "Uprostřed"
 
 #: npgCore/exif/exifTranslations.php:58
 #, fuzzy
@@ -6595,7 +6605,7 @@ msgstr "Evaluace"
 #: npgCore/exif/exifTranslations.php:92
 #, fuzzy
 msgid "External"
-msgstr "Externí E-TTL"
+msgstr "Externí"
 
 #: npgCore/exif/exifTranslations.php:93
 msgid "External E-TTL"
@@ -6690,7 +6700,7 @@ msgstr "Těžké"
 #: npgCore/exif/exifTranslations.php:114
 #, fuzzy
 msgid "High"
-msgstr "1-area-focusing (High speed)"
+msgstr "Vysoká"
 
 #: npgCore/exif/exifTranslations.php:115
 msgid "High Sensitivity"
@@ -6743,7 +6753,7 @@ msgstr "Velké"
 #: npgCore/exif/exifTranslations.php:126 themes/zenFluid/themeoptions.php:76
 #, fuzzy
 msgid "Left"
-msgstr "%s%% zleva &amp; zprava"
+msgstr "Vlevo"
 
 #: npgCore/exif/exifTranslations.php:127
 #, fuzzy
@@ -6753,7 +6763,7 @@ msgstr "Zamknout pro změny"
 #: npgCore/exif/exifTranslations.php:128
 #, fuzzy
 msgid "Low"
-msgstr "Nízké (SD)"
+msgstr "Nízká"
 
 #: npgCore/exif/exifTranslations.php:129
 #, fuzzy
@@ -6859,7 +6869,7 @@ msgstr "Nedefinováno"
 #: npgCore/exif/exifTranslations.php:152
 #, fuzzy
 msgid "Off"
-msgstr "vypnuto"
+msgstr "Vypnuto"
 
 #: npgCore/exif/exifTranslations.php:153
 msgid "On"
@@ -6914,12 +6924,12 @@ msgstr "Částečné"
 #: npgCore/exif/exifTranslations.php:164
 #, fuzzy
 msgid "Party"
-msgstr "<em>Třetí strany</em>"
+msgstr "Společnost"
 
 #: npgCore/exif/exifTranslations.php:165
 #, fuzzy
 msgid "Pattern"
-msgstr "<em>předloze</em>"
+msgstr "Vzor"
 
 #: npgCore/exif/exifTranslations.php:166
 msgid "Pet"
@@ -7022,7 +7032,7 @@ msgstr "RGB"
 #: npgCore/exif/exifTranslations.php:189 themes/zenFluid/themeoptions.php:76
 #, fuzzy
 msgid "Right"
-msgstr "%s%% zleva &amp; zprava"
+msgstr "Vpravo"
 
 #: npgCore/exif/exifTranslations.php:190
 msgid "Rotate 270 CW"
@@ -7052,14 +7062,12 @@ msgstr "Priorita času"
 #: npgCore/exif/exifTranslations.php:196
 #, fuzzy
 msgid "Simple"
-msgstr "Jednoduchý Spam filter."
+msgstr "Jednoduchá"
 
 #: npgCore/exif/exifTranslations.php:197
 #, fuzzy
 msgid "Single"
-msgstr ""
-"Povoluje vícenásobné instalace za použití pouze jedné sady instalačních "
-"souborů."
+msgstr "Svobodný"
 
 #: npgCore/exif/exifTranslations.php:198
 #, fuzzy
@@ -7238,7 +7246,7 @@ msgstr "Zájem"
 #: npgCore/exif/exifTranslations.php:238
 #, fuzzy
 msgid "Warning"
-msgstr "UPOZORNĚNÍ"
+msgstr "Varování"
 
 #: npgCore/exif/exifTranslations.php:239
 #, fuzzy
@@ -7403,8 +7411,9 @@ msgid "LDAP reader ou"
 msgstr "Nepodařilo se připojit k LDAP serveru."
 
 #: npgCore/extensions/LDAP_auth.php:70
+#, fuzzy
 msgid "Organizational Unit where the LDAP reader user credentials are stored"
-msgstr ""
+msgstr "Organizační jednotka, kde jsou uložena pověření uživatele čtečky LDAP"
 
 #: npgCore/extensions/LDAP_auth.php:71
 #, fuzzy
@@ -7452,15 +7461,17 @@ msgstr "Členem ve skupinách: %s"
 #: npgCore/extensions/LDAP_auth.php:83
 #, fuzzy
 msgid "Member"
-msgstr "Číslo fotografie/Celkem fotografií"
+msgstr "Člen"
 
 #: npgCore/extensions/LDAP_auth.php:83
+#, fuzzy
 msgid "Member Uid"
-msgstr ""
+msgstr "Člen Uid"
 
 #: npgCore/extensions/LDAP_auth.php:85
+#, fuzzy
 msgid "How users are mapped to LDAP groups."
-msgstr ""
+msgstr "Jak jsou uživatelé mapováni do skupin LDAP."
 
 #: npgCore/extensions/LDAP_auth.php:86
 #, fuzzy
@@ -7468,9 +7479,12 @@ msgid "LDAP Group ou"
 msgstr "Nepodařilo se připojit k LDAP serveru."
 
 #: npgCore/extensions/LDAP_auth.php:88
+#, fuzzy
 msgid ""
 "Comma separated list of Organizational Units where Group Membership is stored."
 msgstr ""
+"Seznam organizačních jednotek oddělených čárkami, kde je uloženo členství ve "
+"skupině."
 
 #: npgCore/extensions/LDAP_auth.php:93
 #, fuzzy
@@ -7546,8 +7560,9 @@ msgid "TLS"
 msgstr "TLS"
 
 #: npgCore/extensions/PHPMailer.php:64
+#, fuzzy
 msgid "Encryption to use on the SMTP connection."
-msgstr ""
+msgstr "Šifrování pro připojení SMTP."
 
 #: npgCore/extensions/PHPMailer.php:65
 #, fuzzy
@@ -7741,7 +7756,7 @@ msgstr "Poměr stran"
 #, fuzzy
 #| msgid "fullscreen"
 msgid "Widescreen"
-msgstr "celá obrazovka "
+msgstr "Širokoúhlý"
 
 #: npgCore/extensions/VideoJS.php:101
 #, fuzzy
@@ -7819,11 +7834,13 @@ msgid "Requests from this IP will be ignored."
 msgstr "Požadavek z této IP adresy bude ignorován."
 
 #: npgCore/extensions/accessThreshold.php:66
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If your IP address is dynamically assigned you may need to update this on a "
 "regular basis."
 msgstr ""
+"Pokud je vaše adresa IP dynamicky přiřazena, bude pravděpodobně nutné ji "
+"pravidelně aktualizovat."
 
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
@@ -7831,11 +7848,13 @@ msgid "Mointor only"
 msgstr "pouze registrovaní"
 
 #: npgCore/extensions/accessThreshold.php:69
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "It this box is checked, data will be collected but visitors will not be "
 "blocked."
 msgstr ""
+"Je-li toto políčko zaškrtnuto, data budou shromažďována, ale návštěvníci "
+"nebudou blokováni."
 
 #: npgCore/extensions/accessThreshold.php:70
 msgid "Clear list"
@@ -7900,7 +7919,7 @@ msgstr "Žádný přístup"
 #: npgCore/extensions/accessThreshold/admin_tab.php:146
 #, fuzzy
 msgid "Sort by:"
-msgstr "Seřadit fotografie podle"
+msgstr "Seřadit podle:"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:148
 msgid "interval"
@@ -8528,7 +8547,7 @@ msgstr "Album: %s"
 #: npgCore/extensions/cacheManager/functions.php:64
 #, fuzzy, php-format
 msgid "%1$s: %2$s"
-msgstr "Invalid album instantiation: %1$s!=%2$s"
+msgstr "%1$s: %2$s"
 
 #: npgCore/extensions/captcha.php:16
 msgid "netPhotoGraphics captcha handler."
@@ -9370,7 +9389,7 @@ msgstr "Datum/čas:"
 #, fuzzy
 #| msgid "ID"
 msgid "ID:"
-msgstr "ID"
+msgstr "ID:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:174
 msgid "Street:"
@@ -9824,7 +9843,7 @@ msgstr "Článek"
 #: themes/minimal/z_disable_comment_form/comment_form.php:43
 #, fuzzy
 msgid "Anonymous"
-msgstr "Povolit anonymní komentáře"
+msgstr "Anonymní"
 
 #: npgCore/extensions/common/fieldExtender.php:546
 #, fuzzy
@@ -10058,12 +10077,12 @@ msgstr "Telefon"
 #: npgCore/extensions/contact_form.php:195
 #, fuzzy
 msgid "a title"
-msgstr "Název:"
+msgstr "nadpis"
 
 #: npgCore/extensions/contact_form.php:198
 #, fuzzy
 msgid "a name"
-msgstr "Jméno"
+msgstr "Jméno:"
 
 #: npgCore/extensions/contact_form.php:201
 msgid "a company"
@@ -10072,27 +10091,27 @@ msgstr "firmu"
 #: npgCore/extensions/contact_form.php:204
 #, fuzzy
 msgid "a street"
-msgstr "Ulice"
+msgstr "Ulice:"
 
 #: npgCore/extensions/contact_form.php:207
 #, fuzzy
 msgid "a city"
-msgstr "Město"
+msgstr "Město:"
 
 #: npgCore/extensions/contact_form.php:210
 #, fuzzy
 msgid "a state"
-msgstr "Stát"
+msgstr "Stát:"
 
 #: npgCore/extensions/contact_form.php:213
 #, fuzzy
 msgid "a postal code"
-msgstr "PSČ"
+msgstr "PSČ:"
 
 #: npgCore/extensions/contact_form.php:216
 #, fuzzy
 msgid "a country"
-msgstr "Země:"
+msgstr "Kraj:"
 
 #: npgCore/extensions/contact_form.php:219
 msgid "a valid email address"
@@ -10238,7 +10257,7 @@ msgstr ""
 #: npgCore/extensions/cookieconsent.php:61
 #, fuzzy
 msgid "Message"
-msgstr "Zpráva:"
+msgstr "Zpráva"
 
 #: npgCore/extensions/cookieconsent.php:66
 #, fuzzy
@@ -10272,7 +10291,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Expires"
 msgid "Expire"
-msgstr "Tento požadavek má automaticky platnost tři dny."
+msgstr "Vyprší"
 
 #: npgCore/extensions/cookieconsent.php:76
 #, fuzzy
@@ -10292,7 +10311,7 @@ msgstr "Vzhled"
 #, fuzzy
 #| msgid "Custom"
 msgid "custom"
-msgstr "Vlastní"
+msgstr "vlastní"
 
 #: npgCore/extensions/cookieconsent.php:87
 #, fuzzy
@@ -10309,48 +10328,46 @@ msgstr ""
 #, fuzzy
 #| msgid "Position:"
 msgid "Position"
-msgstr "Pozice:"
+msgstr "Pozice"
 
 #: npgCore/extensions/cookieconsent.php:93
 #, fuzzy
 #| msgid "top"
 msgid "Top"
-msgstr "Nahoru"
+msgstr "Nahoře"
 
 #: npgCore/extensions/cookieconsent.php:94
 #: npgCore/extensions/openstreetmap.php:113
 #: npgCore/extensions/openstreetmap.php:155
 #, fuzzy
 msgid "Top left"
-msgstr "Nahoru"
+msgstr "Vlevo nahoře"
 
 #: npgCore/extensions/cookieconsent.php:95
 #: npgCore/extensions/openstreetmap.php:114
 #: npgCore/extensions/openstreetmap.php:156
 #, fuzzy
 msgid "Top right"
-msgstr "přilepit na začátek"
+msgstr "Vpravo nahoře"
 
 #: npgCore/extensions/cookieconsent.php:96
 #, fuzzy
 msgid "Bottom"
-msgstr ""
-"Zatrhněte pro zobrazení zápatí v dolní části dolní části obrazovky namísto v "
-"dolní části postranního panelu."
+msgstr "Dole"
 
 #: npgCore/extensions/cookieconsent.php:97
 #: npgCore/extensions/openstreetmap.php:115
 #: npgCore/extensions/openstreetmap.php:157
 #, fuzzy
 msgid "Bottom left"
-msgstr "rolovat doleva"
+msgstr "Vlevo dole"
 
 #: npgCore/extensions/cookieconsent.php:98
 #: npgCore/extensions/openstreetmap.php:116
 #: npgCore/extensions/openstreetmap.php:158
 #, fuzzy
 msgid "Bottom right"
-msgstr "%s%% shora &amp; zdola"
+msgstr "Vpravo dole"
 
 #: npgCore/extensions/cookieconsent.php:100
 #, fuzzy
@@ -10417,7 +10434,7 @@ msgstr "pokus oříznout objekt, který není fotografií."
 #: npgCore/extensions/crop_image.php:215
 #, fuzzy
 msgid "crop image"
-msgstr "Oříznout fotografii"
+msgstr "oříznout obrázek"
 
 #: npgCore/extensions/crop_image.php:356
 msgid "Are you sure you want to permanently alter this image?"
@@ -10449,7 +10466,7 @@ msgstr ""
 #: npgCore/extensions/crop_image.php:402
 #, fuzzy
 msgid "size"
-msgstr "Velikost"
+msgstr "velikost"
 
 #: npgCore/extensions/crop_image.php:407
 #, fuzzy, php-format
@@ -10468,9 +10485,7 @@ msgstr "Vodoznak fotografie"
 #: npgCore/extensions/crop_image.php:463
 #, fuzzy
 msgid "Done"
-msgstr ""
-"Aktualizace tabulek dokončena, ale s chybami. Pro podrobnosti se podívejte do "
-"<code>instalace</code>."
+msgstr "Hotovo"
 
 #: npgCore/extensions/daily-summary.php:31
 #, fuzzy
@@ -10493,7 +10508,7 @@ msgstr "Kolik dní zpět do show."
 #, fuzzy
 #| msgid "Users per page"
 msgid "Items per page"
-msgstr "uživatelů na stránku"
+msgstr "Položek na stránku"
 
 #: npgCore/extensions/daily-summary.php:80
 #, fuzzy
@@ -10547,7 +10562,7 @@ msgstr "Titul<strong>%s</strong>:"
 #, fuzzy, php-format
 #| msgid "Description:"
 msgid "Description: %s"
-msgstr "Popis:"
+msgstr "Popis: %s"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:32
 #: plugins/daily-summary/daily-summary_content.php:33
@@ -11419,7 +11434,7 @@ msgstr "Album nenalezeno"
 #: npgCore/page_error.php:18
 #, fuzzy
 msgid "Forbidden"
-msgstr "Nepovolené(2)"
+msgstr "Zakázáno"
 
 #: npgCore/extensions/downloadList.php:395
 #, fuzzy, php-format
@@ -11453,7 +11468,7 @@ msgstr "Nejčastěji použité"
 #: npgCore/extensions/downloadList/download_statistics.php:98
 #, fuzzy
 msgid "Download Statistics"
-msgstr "Uložit"
+msgstr "Statistiky stahování"
 
 #: npgCore/extensions/downloadList/download_statistics.php:112
 msgid "Outdated file entries cleared from the database"
@@ -11599,7 +11614,7 @@ msgstr "Použít jako dílčí <em>soubory</em> nahrát."
 #, fuzzy
 #| msgid "Edit the menu"
 msgid "Edit themes"
-msgstr "Ve Vzhledech"
+msgstr "Upravit motivy"
 
 #: npgCore/extensions/elFinder.php:57
 #, fuzzy
@@ -11991,7 +12006,7 @@ msgstr "PHP Curl je vyžadován."
 #: npgCore/extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "nejnovější podle ID"
+msgstr "App ID"
 
 #: npgCore/extensions/facebookLogin.php:66
 #, fuzzy
@@ -12002,7 +12017,7 @@ msgstr "To je vaše Google <em>OAuth Client ID</em>."
 #: npgCore/extensions/linkedinLogin.php:67
 #, fuzzy
 msgid "App Secret"
-msgstr "Tajná otázka prístupovej značky"
+msgstr "Tajný klíč Aplikace (App Secret)"
 
 #: npgCore/extensions/facebookLogin.php:69
 #, fuzzy
@@ -12031,7 +12046,7 @@ msgstr "Oblíbené"
 #: npgCore/extensions/favoritesAlbums/admin-album.php:94
 #, fuzzy
 msgid "favorite"
-msgstr "Kdo je Váš oblíbený zpěvák?"
+msgstr "oblíbené"
 
 #: npgCore/extensions/favoritesHandler.php:48
 msgid "Support for <em>favorites</em> handling."
@@ -13020,7 +13035,7 @@ msgstr "Nový uživatel"
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
 msgid "verify"
-msgstr "Ověřit"
+msgstr "ověřit"
 
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
@@ -13075,7 +13090,7 @@ msgstr "Zpracovává přihlášení přes <em>Twitter</em> účet."
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "OAuth Client ID"
+msgstr "Klient ID"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -13085,7 +13100,7 @@ msgstr "To je vaše Google <em>OAuth Client ID</em>."
 #: npgCore/extensions/instagramLogin.php:67
 #, fuzzy
 msgid "Client Secret"
-msgstr "OAuth Client ID"
+msgstr "Klient secret"
 
 #: npgCore/extensions/instagramLogin.php:69
 #, fuzzy
@@ -13646,7 +13661,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Website field"
 msgid "Site id"
-msgstr "ID"
+msgstr "ID stránky"
 
 #: npgCore/extensions/matomo.php:87
 #, fuzzy
@@ -13690,12 +13705,17 @@ msgid "Disable content tracking"
 msgstr "Obsah"
 
 #: npgCore/extensions/matomo.php:102
+#, fuzzy
 msgid ""
 "Controls if you want Matomo to track content interaction (e.g. link clicks). "
 "Your theme/plugins/site will require specific HTML markup for this to work. "
 "Read more about it on <a href=\"https://developer.matomo.org/guides/content-"
 "tracking\">Content tracking</a>."
 msgstr ""
+"Určuje, zda má Matomo sledovat interakci s obsahem (např. Kliknutí na odkazy). "
+"Vaše téma / pluginy / web bude vyžadovat specifické značkování HTML, aby to "
+"fungovalo. Přečtěte si další informace o <a href=\"https://developer.matomo."
+"org/guides/content-tracking\">sledování obsahu</a> ."
 
 #: npgCore/extensions/matomo.php:103
 #, fuzzy
@@ -13780,7 +13800,7 @@ msgstr "požadováno"
 #: npgCore/extensions/matomo.php:132
 #, fuzzy
 msgid "Required"
-msgstr "požadováno"
+msgstr "Vyžadováno"
 
 #: npgCore/extensions/matomo.php:133
 #, fuzzy
@@ -14443,7 +14463,7 @@ msgstr "Text odkazu"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:290
 #, fuzzy
 msgid "Custom link"
-msgstr "Vlastní:"
+msgstr "Vlastní odkaz"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:161
 #, fuzzy
@@ -14515,9 +14535,7 @@ msgstr "Všechny kategorie"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:285
 #, fuzzy
 msgid "News category"
-msgstr ""
-"Kolik článků na stránku chcete zobrazit na stránkách Novinek a stránkách "
-"kategorií."
+msgstr "Kategorie novinek"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:289
 #, fuzzy
@@ -14532,7 +14550,7 @@ msgstr " Zobrazit <em>%s</em>"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:324
 #, fuzzy
 msgid "Type"
-msgstr "Typ:"
+msgstr "Typ"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:375
 #, fuzzy
@@ -14734,7 +14752,7 @@ msgstr ""
 #, fuzzy
 #| msgid "zoom"
 msgid "Map zoom"
-msgstr "Zvětšit"
+msgstr "Zoom mapy"
 
 #: npgCore/extensions/openstreetmap.php:83
 #, fuzzy
@@ -14847,7 +14865,7 @@ msgstr "Vyskakovací okna značky"
 #, fuzzy
 #| msgid "Thumbs"
 msgid "Thumb"
-msgstr "náhled"
+msgstr "Náhled"
 
 #: npgCore/extensions/openstreetmap.php:138
 #, fuzzy
@@ -15247,10 +15265,13 @@ msgid "A plugin to display photo images as a panorama."
 msgstr "Plugin pro zobrazení map založených na OpenStreetMap."
 
 #: npgCore/extensions/panorama.php:41
+#, fuzzy
 msgid ""
 "Panoramic images can be quite large which may cause issues. Please review the "
 "note in the plugin usage information."
 msgstr ""
+"Panoramatické snímky mohou být poměrně velké, což může způsobit problémy. "
+"Přečtěte si poznámku v informacích o použití pluginu."
 
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
@@ -15259,11 +15280,14 @@ msgid "Panorama height"
 msgstr "Velikost mapy - výška"
 
 #: npgCore/extensions/panorama.php:61
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "The image will be resized so that its <span style=\"color:blue\">%1$s</span> "
 "pixels high when displayed. The image width will be scaled proportionately."
 msgstr ""
+"Velikost obrázku bude změněna tak, aby při zobrazení byly jeho <span style="
+"\"color:blue\">%1$s</span> pixely vysoké. Šířka obrázku bude upravena "
+"proporcionálně."
 
 #: npgCore/extensions/panorama.php:62
 #, fuzzy
@@ -15272,8 +15296,9 @@ msgid "Start position"
 msgstr "Pozice scény"
 
 #: npgCore/extensions/panorama.php:65
+#, fuzzy
 msgid "Indicate the start position of the panorama by positioning the slider."
-msgstr ""
+msgstr "Určete počáteční polohu panoramatu umístěním posuvníku."
 
 #: npgCore/extensions/panorama.php:66
 #, fuzzy
@@ -15282,7 +15307,7 @@ msgid "Minimum overflow"
 msgstr "Zvětšit"
 
 #: npgCore/extensions/panorama.php:68
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "The excess width the panorama must have, in pixels, before the image is "
 "considered panoramic. In other words, this option allows the image's computed "
@@ -15290,6 +15315,11 @@ msgid ""
 "%1$s</span> pixels before the image is panned. Nobody wants a panorama that "
 "can barely be panned, right?"
 msgstr ""
+"Nadměrná šířka, kterou musí mít panoráma v pixelech, než bude snímek považován "
+"za panoramatický. Jinými slovy, tato možnost umožňuje, aby vypočtená šířka "
+"obrázku překročila šířku jeho nadřazeného kontejneru o <span style=\"color:blue"
+"\">%1$s</span> pixelů, než bude obraz posouván. Nikdo nechce panorama, které "
+"lze stěží posunout, že?"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
@@ -15303,8 +15333,9 @@ msgid "image right"
 msgstr "Přesun práv"
 
 #: npgCore/extensions/panorama.php:92
+#, fuzzy
 msgid "Scroll left/right to pan through panorama."
-msgstr ""
+msgstr "Posouváním doleva / doprava procházejte panorama."
 
 #: npgCore/extensions/print_album_menu.php:21
 #, fuzzy
@@ -15346,9 +15377,12 @@ msgstr ""
 "Témata mohou tuto možnost přepsat."
 
 #: npgCore/extensions/publicCMS.php:28
+#, fuzzy
 msgid ""
 "Provide public CMS <em>pages</em> and <em>categories</em> in a private gallery."
 msgstr ""
+"Poskytněte veřejné <em>stránky</em> a <em>kategorie</em> CMS v soukromé "
+"galerii."
 
 #: npgCore/extensions/publicCMS.php:29
 #, fuzzy
@@ -15376,14 +15410,18 @@ msgid "Public categories"
 msgstr "veřejná"
 
 #: npgCore/extensions/publicCMS.php:65
+#, fuzzy
 msgid ""
 "Check the categories you want to be public. Note: uncategorized articles are "
 "by definition public."
 msgstr ""
+"Zkontrolujte kategorie, které chcete zveřejnit. Poznámka: nezařazené články "
+"jsou podle definice veřejné."
 
 #: npgCore/extensions/publicCMS.php:73
+#, fuzzy
 msgid "Note: your site is public, so this plugin is of little use."
-msgstr ""
+msgstr "Poznámka: váš web je veřejný, takže tento plugin není k ničemu."
 
 #: npgCore/extensions/publishContent.php:30
 msgid "A single place to quickly review your unpublished content."
@@ -15661,7 +15699,7 @@ msgstr "Stránky:"
 #: npgCore/extensions/publishContent/publishContent.php:680
 #, fuzzy
 msgid "Publish pages"
-msgstr "Zveřejnit čekající stránky."
+msgstr "Publikovat stránky"
 
 #: npgCore/extensions/publishContent/publishContent.php:680
 msgid "Publish waiting pages."
@@ -15695,7 +15733,7 @@ msgstr "V Pluginech"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "Extensions"
-msgstr "PHP rozšíření"
+msgstr "Rozšíření"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #: npgCore/lib-auth.php:719 npgCore/lib-auth.php:739 npgCore/lib-auth.php:764
@@ -15782,7 +15820,7 @@ msgstr "skrytý"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "%s heslo nemůže být prázdné!"
+msgstr "prázdné"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
@@ -15842,8 +15880,9 @@ msgid "<a href=\"#%1$s\"><code>%1$s</code></a> is already enabled."
 msgstr "<a href=\"#%1$s\"><code>%1$s</code></a> je již povoleno."
 
 #: npgCore/extensions/quota_manager.php:83
+#, fuzzy
 msgid "Stores image disk footprint"
-msgstr ""
+msgstr "Uloží stopu obrazového disku"
 
 #: npgCore/extensions/quota_manager.php:93
 #, fuzzy
@@ -16124,7 +16163,7 @@ msgstr "Toto je Váš Google  <em>reCAPTCHA Site key</em>."
 #: npgCore/extensions/reCAPTCHA_v2.php:54 npgCore/extensions/twitterLogin.php:71
 #, fuzzy
 msgid "Secret"
-msgstr "Tot je Váš Google <em>reCAPTCHA Secret</em>."
+msgstr "Tajný klíč"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:56
 msgid "This is your Google <em>reCAPTCHA Secret</em>."
@@ -16396,7 +16435,7 @@ msgstr ""
 #: npgCore/extensions/related_items.php:161
 #, fuzzy, php-format
 msgid "Related %s"
-msgstr "%s"
+msgstr "Související %s"
 
 #: npgCore/extensions/rewriteRules.php:112
 #, fuzzy
@@ -16673,7 +16712,7 @@ msgstr "Poskytuje skripty bez omezení a soukromí."
 #, fuzzy
 #| msgid "Social Links"
 msgid "Social networks"
-msgstr "Odkazy na sociální sítě"
+msgstr "Sociální sítě"
 
 #: npgCore/extensions/scriptless-socialsharing.php:80
 #, fuzzy
@@ -16728,7 +16767,7 @@ msgstr ""
 #, fuzzy
 #| msgid "E-mail"
 msgid "e-mail"
-msgstr "E-mail"
+msgstr "email"
 
 #: npgCore/extensions/search_statistics.php:27
 msgid "Collects and displays search criteria."
@@ -16910,7 +16949,7 @@ msgstr "Přihlásit"
 #: npgCore/extensions/security-logger.php:156
 #, fuzzy
 msgid "Install"
-msgstr "instalace"
+msgstr "Instalovat"
 
 #: npgCore/extensions/security-logger.php:163
 msgid "Restore setup scripts"
@@ -16980,17 +17019,17 @@ msgstr ""
 #: npgCore/extensions/security-logger.php:221
 #, fuzzy
 msgid "Failed"
-msgstr "%s se nepodařilo odstranit."
+msgstr "Selhalo"
 
 #: npgCore/extensions/security-logger.php:224
 #, fuzzy
 msgid "Success"
-msgstr "Zobrazit maximálně (úspěšně vyhledáno):"
+msgstr "Úspěch"
 
 #: npgCore/extensions/security-logger.php:227
 #, fuzzy
 msgid "Blocked"
-msgstr "blokováni"
+msgstr "Zablokováno"
 
 #: npgCore/extensions/security-logger.php:472
 #, fuzzy, php-format
@@ -17536,7 +17575,7 @@ msgstr ""
 #: npgCore/extensions/sitemap-extended.php:194
 #, fuzzy
 msgid "Sitemap"
-msgstr "Dostupné soubory mapy stránky:"
+msgstr "Mapa stránek"
 
 #: npgCore/extensions/sitemap-extended.php:973
 msgid "Available sitemap files:"
@@ -17758,16 +17797,17 @@ msgstr "Milisekund mezi přechody snímků (0 zakázat automatické zálohy.)"
 #, fuzzy
 #| msgid "Contrast+"
 msgid "Controls"
-msgstr "Ovládání mapy"
+msgstr "Ovládání"
 
 #: npgCore/extensions/slideshow.php:123
 #, fuzzy
 msgid "dark"
-msgstr "Tmavý"
+msgstr "tmavá"
 
 #: npgCore/extensions/slideshow.php:124
+#, fuzzy
 msgid "Slideshow control button color."
-msgstr ""
+msgstr "Barva ovládacího tlačítka prezentace."
 
 #: npgCore/extensions/slideshow.php:127 plugins/slideshow2.php:161
 #, fuzzy
@@ -18122,7 +18162,7 @@ msgstr "Změnit vzhled"
 #: npgCore/extensions/themeSwitcher.php:187 themes/zenFluid/functions.php:271
 #, fuzzy
 msgid "Close"
-msgstr "zavřít"
+msgstr "Zavřít"
 
 #: npgCore/extensions/themeSwitcher.php:194
 msgid ""
@@ -18207,8 +18247,7 @@ msgstr "Chyba: album %s nenalezeno."
 #, fuzzy
 #| msgid "generic"
 msgid "numeric"
-msgstr ""
-"SEO filter překládá rozšířené znaky do jejich základní alfa-numerické hodnoty."
+msgstr "numeric"
 
 #: npgCore/extensions/tinymce.php:85
 #, fuzzy
@@ -18390,8 +18429,9 @@ msgstr ""
 "Android. To nefunguje pro operu na Android."
 
 #: npgCore/extensions/translateButton.php:12 plugins/downloadButtons.php:16
+#, fuzzy
 msgid "Provides a button to download the latest version of the software."
-msgstr ""
+msgstr "Poskytuje tlačítko pro stažení nejnovější verze softwaru."
 
 #: npgCore/extensions/translateButton.php:25
 #, fuzzy
@@ -18425,10 +18465,7 @@ msgstr "Zpracovává přihlášení přes <em>Twitter</em> účet."
 #: npgCore/extensions/twitterLogin.php:68
 #, fuzzy
 msgid "Consumer key"
-msgstr ""
-"Aplikácia <code>tweet_news</code> potrebuje pre túto stránku "
-"<em>Spotrebiteľský kľúč</em>, <em>tajnú otázku spotrebiteľského kľúča</em>, "
-"<em>Prístupovú značku</em> a <em>tajnú otázku prístupovej značky</em>."
+msgstr "Uživatelský klíč"
 
 #: npgCore/extensions/twitterLogin.php:70
 #, fuzzy
@@ -18568,23 +18605,25 @@ msgstr "Soubor přesáhl upload_max_filesize (nařízení php.ini)"
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
-msgstr "Soubor přesáhl MAX_FILE_SIZE (nažízení HTML formuláře)"
+msgstr ""
+"Nahraný soubor překračuje MAX_FILE_SIZE pravidlo, která byla určena v HTML "
+"formuláři"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:26
 #, fuzzy
 #| msgid "File was only partially uploaded"
 msgid "The uploaded file was only partially uploaded"
-msgstr "Soubor nahraný pouze částečně"
+msgstr "Odeslaný soubor byl nahrán pouze částečně"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:27
 #, fuzzy
 msgid "No file was uploaded"
-msgstr "Soubor nahraný pouze částečně"
+msgstr "Nebyly nahrány žádné soubory."
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:28
 #, fuzzy
 msgid "Missing a temporary folder"
-msgstr "ZenPhoto20 balíček [chybí]"
+msgstr "Chybí dočasná složka."
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:29
 #, fuzzy
@@ -18636,7 +18675,7 @@ msgstr "Je vyžadována minimální výška fotografie"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:40
 #, fuzzy
 msgid "File upload aborted"
-msgstr "Vymazat výsledky nahrávaných souborů"
+msgstr "Odeslání souboru bylo přerušeno"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 msgid "Failed to resize image"
@@ -18661,7 +18700,7 @@ msgstr "Zrušit nahrávání"
 #: npgCore/extensions/uploader_jQuery/upload_form.php:111
 #, fuzzy
 msgid "Processing..."
-msgstr "Zaznamenávat začátek/konec zpracování exif informací."
+msgstr "Pracuji..."
 
 #: npgCore/extensions/user-expiry.php:33
 msgid "Provides management of users based on when they were created."
@@ -18720,7 +18759,7 @@ msgstr ""
 #: npgCore/extensions/user-expiry.php:114
 #, fuzzy
 msgid "expiry"
-msgstr "Nastavit vypršení platnosti uživatele."
+msgstr "výlet začne"
 
 #: npgCore/extensions/user-expiry.php:158
 #, fuzzy, php-format
@@ -18822,7 +18861,7 @@ msgstr "Musíte změnit své heslo."
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:245
 #, fuzzy
 msgid "Renew"
-msgstr "Automatická obnova"
+msgstr "Obnovit"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:219
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:246
@@ -18943,9 +18982,10 @@ msgstr "Přiřazení skupin"
 #: npgCore/extensions/user_groups/user_groups-tab.php:165
 #, fuzzy
 msgid "Deleted"
-msgstr "Po uložení změn bude album smazáno."
+msgstr "Smazáno"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 msgid "Groups"
 msgstr "Skupiny"
 
@@ -18966,7 +19006,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "Skupina"
 
@@ -19068,18 +19107,33 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Seznam e-mailů"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
 msgstr "Odebírání komentářů"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
+#, fuzzy
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to re-"
 "subscribe the user."
 msgstr ""
+"Uživatelé, kteří se odhlásili z konference, jsou zaškrtnuti. Chcete-li "
+"uživatele znovu přihlásit, zrušte zaškrtnutí."
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "Vyloučené stránky"
+
+#: npgCore/extensions/user_mailing_list.php:62
+#, fuzzy
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+"Zkontrolujte skupiny, které si přejete vyloučit ze seznamu příjemců pošty."
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -19090,8 +19144,9 @@ msgid "user_mailing_list error"
 msgstr "user_mailing_list chyba"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:37
+#, fuzzy
 msgid "You are no longer subscribed to the site mailing list"
-msgstr ""
+msgstr "Již nejste přihlášeni k odběru konference"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
@@ -19100,8 +19155,9 @@ msgid "Click to resubscribe"
 msgstr "Klikněte pro skrytí obsahu"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
+#, fuzzy
 msgid "You are now subscribed to the site mailing list"
-msgstr ""
+msgstr "Nyní jste přihlášeni k odběru seznamu adres"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
@@ -19109,11 +19165,11 @@ msgstr ""
 msgid "Click to un-subscribe"
 msgstr "Klikněte pro zobrazení obsahu"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "Seznam e-mailů uživatelů"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails are "
@@ -19123,7 +19179,7 @@ msgstr ""
 "mailovou adresu. Každý e-mail je zaslán současnému administrátorovi a všechny "
 "e-maily jsou posílány jako <em>skryté kopie</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19131,32 +19187,39 @@ msgstr ""
 "<strong>Poznámka: </strong>Žádný <em>sendmail</em> není evidován. Musíte "
 "aktivovat a nakonfigurovat mailový plugin."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 msgid "Mail sent"
 msgstr "Mail sent"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Prosím napište zprávu, kterou chcete poslat."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Předmět:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Zpráva:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Vybrat uživatele:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "Odesílatel"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 msgid "all users"
-msgstr "E-mail"
+msgstr "všechny uživatele"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+#, fuzzy
+msgid "Selecting a group will send the message to all members of the group."
+msgstr "Výběrem skupiny odešlete zprávu všem členům skupiny."
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Poslat e-mail"
 
@@ -19442,7 +19505,7 @@ msgstr "Přidat článek"
 #, fuzzy
 #| msgid "titled:"
 msgid "untitled"
-msgstr "Nepojmenovaná stránka"
+msgstr "bez názvu"
 
 #: npgCore/extensions/zenpage/admin-functions.php:63
 #, fuzzy
@@ -20255,14 +20318,12 @@ msgstr "Urvat"
 #, fuzzy
 #| msgid "Click on"
 msgid "Click"
-msgstr "Pro změnu ořezu náhledu klikněte na fotografii."
+msgstr "Klikněte"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Toggle"
-msgstr ""
-" <code>%1$s</code> podpora (<a onclick=\"$('#%1$s').toggle('show')\" "
-">esperimentálna</a>)"
+msgstr "Přepnout"
 
 #: npgCore/extensions/zoomImage.php:64
 #, fuzzy
@@ -20414,8 +20475,9 @@ msgstr ""
 "Žádné téma skripty nalezeno. Zkontrolujte prosím složku <em>%s</em> instalace."
 
 #: npgCore/functions.php:1299
+#, fuzzy
 msgid "buttonType \"button\" buttons must have a buttonLink;"
-msgstr ""
+msgstr "buttonType \"button\" buttons musí mít buttonLink;"
 
 #: npgCore/functions.php:1656
 msgid "0 Bytes"
@@ -20585,7 +20647,7 @@ msgstr "nejvíce prohlížené"
 #: npgCore/initialize-general.php:82
 #, fuzzy
 msgid "missing"
-msgstr "<strong>Chybí info soubor vzhledu!</strong>"
+msgstr "chybí"
 
 #: npgCore/lib-GD.php:28
 msgid "GD TypeFace path"
@@ -20705,11 +20767,16 @@ msgid "Secure logout"
 msgstr "Odhlásit"
 
 #: npgCore/lib-auth.php:163
+#, fuzzy
 msgid ""
 "Check if you need the browser to clear site data (\"cache\", \"cookies\", "
 "\"storage\", \"executionContexts\") on logout for security reasons. "
 "<strong>Note:</strong> This may degrade logout response time."
 msgstr ""
+"Zkontrolujte, zda potřebujete, aby prohlížeč vymazal data stránek "
+"(„mezipaměť“, „soubory cookie“, „úložiště“, „prováděníContexts“) při odhlášení "
+"z bezpečnostních důvodů. <strong>Poznámka:</strong> To může snížit dobu "
+"odhlášení odhlášení."
 
 #: npgCore/lib-auth.php:165
 msgid "Primary album edit"
@@ -20789,9 +20856,9 @@ msgid "No PHP support"
 msgstr "Nebyla nalezena žádná PHP podpora grafiky."
 
 #: npgCore/lib-auth.php:432
-#, php-format
+#, fuzzy, php-format
 msgid "The password for user %1$s is using the deprecated %2$s hashing method."
-msgstr ""
+msgstr "Heslo pro uživatele%1$s používá metodu hašování%2$s."
 
 #: npgCore/lib-auth.php:584
 #, fuzzy, php-format
@@ -22045,7 +22112,7 @@ msgstr "Anglicky (Indie)"
 #: npgCore/localeList.php:88
 #, fuzzy
 msgid "Chechen"
-msgstr "Čečenský"
+msgstr "Čečenština"
 
 #: npgCore/localeList.php:89
 #, fuzzy
@@ -22118,7 +22185,7 @@ msgstr "Dánsky"
 #, fuzzy
 #| msgid "Spanish (Panama)"
 msgid "Danish (Denmark)"
-msgstr "Dánsky"
+msgstr "Dánský (Dánsko)"
 
 #: npgCore/localeList.php:103
 #, fuzzy
@@ -22139,7 +22206,7 @@ msgstr "Taita (Keňa)"
 #: npgCore/localeList.php:106
 #, fuzzy
 msgid "German"
-msgstr "Něměcky (Rakousko)"
+msgstr "Němčina"
 
 #: npgCore/localeList.php:107
 msgid "German (Austria)"
@@ -22238,7 +22305,7 @@ msgstr "Embu (Keňa)"
 #: npgCore/localeList.php:126
 #, fuzzy
 msgid "Ewe"
-msgstr "Ewe"
+msgstr "eveština"
 
 #: npgCore/localeList.php:127
 #, fuzzy
@@ -22270,7 +22337,7 @@ msgstr "Řecky"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English"
-msgstr "Anglicky (Spojené Království)"
+msgstr "Angličtina"
 
 #: npgCore/localeList.php:133
 #, fuzzy
@@ -22613,7 +22680,7 @@ msgstr "Anglicky (Filipíny)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Malta)"
-msgstr "Anglicky (Indie)"
+msgstr "Angličtina (Malta)"
 
 #: npgCore/localeList.php:192
 #, fuzzy
@@ -22887,7 +22954,7 @@ msgstr "Esperanto"
 #, fuzzy
 #| msgid "Danish"
 msgid "Spanish"
-msgstr "Španělsky (Chile)"
+msgstr "Španělština"
 
 #: npgCore/localeList.php:240
 msgid "Spanish (Latin America)"
@@ -23030,7 +23097,7 @@ msgstr "Estonsky"
 #: npgCore/localeList.php:270
 #, fuzzy
 msgid "Basque"
-msgstr "Baskitsky (baskičtina)"
+msgstr "Baskitština"
 
 #: npgCore/localeList.php:271
 #, fuzzy
@@ -23107,7 +23174,7 @@ msgstr "Faerské ostrovy (Faerské ostrovy)"
 #: npgCore/localeList.php:285
 #, fuzzy
 msgid "French"
-msgstr "Francouzsky (Kanada)"
+msgstr "Francouzština"
 
 #: npgCore/localeList.php:286
 msgid "French (Belgium)"
@@ -23388,7 +23455,7 @@ msgstr "Italsky (Itálie)"
 #: npgCore/localeList.php:334
 #, fuzzy
 msgid "Western Frisian"
-msgstr "Západní Evropa (DOS)"
+msgstr "Západní fríština"
 
 #: npgCore/localeList.php:335
 #, fuzzy
@@ -23544,7 +23611,7 @@ msgstr "Krétsky"
 #, fuzzy
 #| msgid "Croatian"
 msgid "Croatian (Croatia)"
-msgstr "Krétsky"
+msgstr "Chorvatský (Chorvatsko)"
 
 #: npgCore/localeList.php:365
 #, fuzzy
@@ -23566,13 +23633,13 @@ msgstr "Maďarsky"
 #, fuzzy
 #| msgid "Hungarian"
 msgid "Hungarian (Hungary)"
-msgstr "Maďarsky"
+msgstr "Maďarština (Maďarsko)"
 
 #: npgCore/localeList.php:369
 #, fuzzy
 #| msgid "Albanian"
 msgid "Armenian"
-msgstr "Arménská"
+msgstr "Arménština"
 
 #: npgCore/localeList.php:370
 #, fuzzy
@@ -23638,7 +23705,7 @@ msgstr "Islandsky"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian"
-msgstr "Italsky (Itálie)"
+msgstr "Italština"
 
 #: npgCore/localeList.php:382
 msgid "Italian (Switzerland)"
@@ -24274,7 +24341,7 @@ msgstr "Nama (Namibie)"
 #, fuzzy
 #| msgid "Norwegian (Bokmål)"
 msgid "Norwegian Bokmål"
-msgstr "Norsky (Bokmål)"
+msgstr "Norština (Bokmål)"
 
 #: npgCore/localeList.php:505
 #, fuzzy
@@ -24360,7 +24427,7 @@ msgstr "Holandština"
 #, fuzzy
 #| msgid "Dutch (The Netherlands)"
 msgid "Dutch (Netherlands)"
-msgstr "Holandsky (Nizozemsko)"
+msgstr "holandština (Nizozemí)"
 
 #: npgCore/localeList.php:521
 #, fuzzy
@@ -24387,7 +24454,7 @@ msgstr "Kwasio (Kamerun)"
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Norwegian Nynorsk"
-msgstr "Norsky"
+msgstr "Norský (Nynorsk)"
 
 #: npgCore/localeList.php:526
 #, fuzzy
@@ -24499,7 +24566,7 @@ msgstr "Polsky"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "Polish (Poland)"
-msgstr "Polsky"
+msgstr "Polsky (Poland)"
 
 #: npgCore/localeList.php:548
 #, fuzzy
@@ -24515,7 +24582,7 @@ msgstr "Pashto (Afghánistán)"
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese"
-msgstr "Portugalsky (Brazílie)"
+msgstr "Portugalština"
 
 #: npgCore/localeList.php:551
 #, fuzzy
@@ -24658,7 +24725,7 @@ msgstr "Rombo (Tanzanie)"
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Russian"
-msgstr "Rusky (Rusko)"
+msgstr "Ruština"
 
 #: npgCore/localeList.php:577
 #, fuzzy
@@ -24952,7 +25019,7 @@ msgstr "Srbsky"
 #: npgCore/localeList.php:633
 #, fuzzy
 msgid "Serbian (Cyrillic, Serbia)"
-msgstr "Srbsky"
+msgstr "srbština (cyrilice, Srbsko)"
 
 #: npgCore/localeList.php:634
 #, fuzzy
@@ -24979,7 +25046,7 @@ msgstr "Srbsky"
 #, fuzzy
 #| msgid "Spanish (Latin America)"
 msgid "Serbian (Latin, Serbia)"
-msgstr "Srbsky"
+msgstr "srbština (latinka, Srbsko)"
 
 #: npgCore/localeList.php:639
 #, fuzzy
@@ -24990,7 +25057,7 @@ msgstr "Srbsky"
 #, fuzzy
 #| msgid "Swedish (Sweden)"
 msgid "Swedish"
-msgstr "Švédsky (Švédsko)"
+msgstr "Švédština"
 
 #: npgCore/localeList.php:641
 #, fuzzy
@@ -25207,7 +25274,7 @@ msgstr "Ukrajinsky"
 #: npgCore/localeList.php:683
 #, fuzzy
 msgid "Urdu"
-msgstr "Urdsky (Pakistán)"
+msgstr "Urdština"
 
 #: npgCore/localeList.php:684
 #, fuzzy
@@ -25289,7 +25356,7 @@ msgstr "Vietnamsky"
 #, fuzzy
 #| msgid "Vietnamese (Windows)"
 msgid "Vietnamese (Vietnam)"
-msgstr "Vietnamsky"
+msgstr "Vietnamský (Vietnam)"
 
 #: npgCore/localeList.php:700
 #, fuzzy
@@ -25420,7 +25487,7 @@ msgstr "Standardní marocký tamazight (Maroko)"
 #: npgCore/localeList.php:724
 #, fuzzy
 msgid "Chinese"
-msgstr "Čínština zjednodušená (EUC)"
+msgstr "Čínština"
 
 #: npgCore/localeList.php:725
 #, fuzzy
@@ -25436,7 +25503,7 @@ msgstr "Čínsky (Taiwan)"
 #, fuzzy
 #| msgid "Chinese Simplified (HZ)"
 msgid "Chinese (Simplified)"
-msgstr "Čínština zjednodušená (HZ)"
+msgstr "Čínština (zjednodušená)"
 
 #: npgCore/localeList.php:728
 #, fuzzy
@@ -25466,7 +25533,7 @@ msgstr "Čínština zjednodušená (GB2312)"
 #, fuzzy
 #| msgid "Chinese Traditional"
 msgid "Chinese (Traditional)"
-msgstr "Tradiční čínština"
+msgstr "Čínština (tradiční)"
 
 #: npgCore/localeList.php:733
 #, fuzzy
@@ -25512,21 +25579,18 @@ msgstr "Žádost o instalaci"
 #, fuzzy
 #| msgid "Un-categorized"
 msgid "Unauthorized"
-msgstr ""
-"ZenPhoto20 navrhuje, aby byly citlivé soubory v adresáři %1$s přístupné "
-"pouze<em>vlastníkovi</em>(oprávnění = 0600). Současná oprávnění k souboru <em>"
-"%2$s</em> jsou %3$s, což může umožnit neoprávněný přístup."
+msgstr "Neoprávněný"
 
 #: npgCore/page_error.php:15
 #, fuzzy
 #| msgid "Update Required"
 msgid "Payment Required"
-msgstr "požadováno"
+msgstr "Platba vyžadována"
 
 #: npgCore/page_error.php:21
 #, fuzzy
 msgid "Not Found"
-msgstr "Soubor nenalezen."
+msgstr "Nenalezeno"
 
 #: npgCore/page_error.php:24
 #, fuzzy
@@ -25852,7 +25916,7 @@ msgstr "Přístup k databázi v konfiguračním souboru"
 #: npgCore/setup/index.php:470
 #, fuzzy
 msgid "Started"
-msgstr "Vzhled: %s instalace začala"
+msgstr "Zahájené"
 
 #: npgCore/setup/index.php:486
 #, fuzzy, php-format
@@ -25921,10 +25985,13 @@ msgid "Installation folder"
 msgstr "Instalační soubory"
 
 #: npgCore/setup/index.php:592
+#, fuzzy
 msgid ""
 "There may not be any folders named <em>npg</em> in the installation path.<br /"
 ">Rename the <em>npg</em> folder and re-run setup."
 msgstr ""
+"V instalační cestě nemusí být žádné složky s názvem <em>npg</em> . <br /> "
+"Přejmenujte složku <em>npg</em> a znovu spusťte instalaci."
 
 #: npgCore/setup/index.php:609
 #, php-format
@@ -26584,7 +26651,7 @@ msgstr "<code>SQL mode</code>[Nastavení relace se nezdařilo.]"
 #: npgCore/setup/index.php:1133
 #, fuzzy
 msgid "Select"
-msgstr "Vyberte cílovou složku:"
+msgstr "Vybrat"
 
 #: npgCore/setup/index.php:1133
 msgid "Create"
@@ -26593,12 +26660,12 @@ msgstr "Vytvořit"
 #: npgCore/setup/index.php:1133
 #, fuzzy
 msgid "Drop"
-msgstr "Rozbalovací menu"
+msgstr "Pád"
 
 #: npgCore/setup/index.php:1133
 #, fuzzy
 msgid "Insert"
-msgstr "Vložit moji IP adresu"
+msgstr "Vložit"
 
 #: npgCore/setup/index.php:1134
 msgid "Update"
@@ -27298,13 +27365,13 @@ msgstr "Přenášení lib-auth dat verze %1$s => verze %2$s"
 #: npgCore/setup/setup-option-defaults.php:319
 #, fuzzy
 msgid "failed"
-msgstr "%s se nepodařilo odstranit."
+msgstr "neprošel"
 
 #: npgCore/setup/setup-option-defaults.php:388
 #, fuzzy
 #| msgid "Mod_rewrite"
 msgid "Mod_Rewrite "
-msgstr "Mod_rewrite"
+msgstr "mod_rewrite"
 
 #: npgCore/setup/setup-option-defaults.php:400
 msgid ""
@@ -27440,7 +27507,7 @@ msgstr "Host databáze"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Sport"
+msgstr "Číslo portu pro POP."
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
@@ -27660,7 +27727,7 @@ msgstr "možnosti vyhledávání"
 #: npgCore/template-functions.php:4009
 #, fuzzy
 msgid "Within"
-msgstr "<em>uvnitř</em>"
+msgstr "Uvnitř"
 
 #: npgCore/template-functions.php:4026
 #, fuzzy
@@ -27680,7 +27747,7 @@ msgstr "Stránka, kterou zkoušíte prohlížet, je chráněna heslem."
 #: npgCore/template-functions.php:4348
 #, fuzzy
 msgid "login"
-msgstr "Přihlášení"
+msgstr "přihlásit"
 
 #: npgCore/template-functions.php:4367
 msgid "A media oriented content management system"
@@ -28466,8 +28533,9 @@ msgid "MyBB database host"
 msgstr "Host databáze"
 
 #: plugins/MyBB_auth.php:111
+#, fuzzy
 msgid "The host where the MyBB database server resides."
-msgstr ""
+msgstr "Hostitel, na kterém je umístěn databázový server MyBB."
 
 #: plugins/MyBB_auth.php:112
 #, fuzzy
@@ -28512,8 +28580,9 @@ msgid "MyBB database prefix"
 msgstr "Prefix tabulek v databázi"
 
 #: plugins/MyBB_auth.php:123
+#, fuzzy
 msgid "The prefix MyBB uses for its database tables."
-msgstr ""
+msgstr "Předpona MyBB používá pro své databázové tabulky."
 
 #: plugins/MyBB_auth.php:124
 #, fuzzy
@@ -28534,27 +28603,32 @@ msgid "Example: <code>%s</code>"
 msgstr "Podpora PHP <code>%s</code>"
 
 #: plugins/MyBB_auth.php:136
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If not empty, a user album will be created for each user. <code>%s</code> in "
 "the text will be replaced with the user’s name."
 msgstr ""
+"Pokud není prázdné, bude pro každého uživatele vytvořeno uživatelské album. "
+"<code>%s</code> v textu bude nahrazeno jménem uživatele."
 
 #: plugins/MyBB_auth.php:138
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "<p class=\"notebox\">Note:</strong> the <code>%s</code> placeholder "
 "<strong>MUST</strong> be present!</p>"
 msgstr ""
+"<p class=\"notebox\"> Poznámka: zástupný symbol <code>%s</code> <strong>MUSÍ</"
+"strong> být přítomen! </p>"
 
 #: plugins/MyBB_auth.php:234
-#, php-format
+#, fuzzy, php-format
 msgid "Failed to connect to the MyBB database \"%1$s:%2$s\""
-msgstr ""
+msgstr "Nepodařilo se připojit k databázi MyBB „%1$s:%2$s“"
 
 #: plugins/autoredirect.php:10
+#, fuzzy
 msgid "Redirects to netPhotoGraphics.org after 2 minutes."
-msgstr ""
+msgstr "Přesměrování na netPhotoGraphics.org po 2 minutách."
 
 #: plugins/cacheHeader.php:16
 msgid "Outputs a \"Cache-control\" header with selected caching options."
@@ -28744,8 +28818,9 @@ msgid "Creates the database structure template."
 msgstr "Struktura databáze aktualizována."
 
 #: plugins/database_template/database.php:126
+#, fuzzy
 msgid "Possible field name changes detected."
-msgstr ""
+msgstr "Byly zjištěny možné změny názvu pole."
 
 #: plugins/database_template/database.php:134
 #, fuzzy
@@ -28936,7 +29011,7 @@ msgstr "Stáhne a nainstalujte na svém webu netPhotoGraphics verzi%1$s."
 #, fuzzy
 #| msgid "Category updated!"
 msgid "Check for updates"
-msgstr "Aktualizace"
+msgstr "Zkontrolovat aktualizace"
 
 #: plugins/devReleases.php:135
 #, fuzzy
@@ -28966,10 +29041,13 @@ msgid "Places release notes on a page."
 msgstr "poznámky k vydání"
 
 #: plugins/downloadButtons.php:63
+#, fuzzy
 msgid ""
 "Yields a link to the netPhotoGraphics gitHub repository (to the sub-folder %2 "
 "if present) with the  %1 as the link text."
 msgstr ""
+"Poskytuje odkaz do úložiště gitHub netPhotoGraphics (do podadresáře% 2, pokud "
+"je přítomno) s textem% 1 jako textem odkazu."
 
 #: plugins/downloadButtons.php:116
 #, fuzzy
@@ -29006,8 +29084,9 @@ msgid "Overlay icons over thumbnails based on tags."
 msgstr "Překrývací ikony na náhledech fotografií zobrazující stav fotografie."
 
 #: plugins/flag_local.php:12
+#, fuzzy
 msgid "Flag the site as a local test version."
-msgstr ""
+msgstr "Označte web jako místní zkušební verzi."
 
 #: plugins/flag_local.php:23 plugins/flag_local.php:34
 #, fuzzy
@@ -29083,8 +29162,9 @@ msgid "This multimedia format is not supported by Flowplayer5"
 msgstr "Tento multimediálny formát nie je podporovaný jPlayerom"
 
 #: plugins/google_analytics.php:14
+#, fuzzy
 msgid "Support for providing Google Analytics tracking"
-msgstr ""
+msgstr "Podpora pro poskytování sledování Google Analytics"
 
 #: plugins/google_analytics.php:64
 #, fuzzy
@@ -29093,12 +29173,14 @@ msgid "Google Analytics Web Property ID"
 msgstr "Google Analytics ID"
 
 #: plugins/google_analytics.php:68
+#, fuzzy
 msgid "If you're going to be using Google Analytics,"
-msgstr ""
+msgstr "Pokud budete používat Google Analytics,"
 
 #: plugins/google_analytics.php:68
+#, fuzzy
 msgid "get a Web Property ID</a> and enter it here."
-msgstr ""
+msgstr "získejte ID webové služby a zadejte jej sem."
 
 #: plugins/google_analytics.php:70
 #, fuzzy
@@ -29107,10 +29189,13 @@ msgid "Enable Admin tracking"
 msgstr "Povoleno"
 
 #: plugins/google_analytics.php:74
+#, fuzzy
 msgid ""
 "Controls if you want Google Analytics tracking for users logged in as admin. "
 "Default is not selected."
 msgstr ""
+"Určuje, zda chcete sledovat Google Analytics pro uživatele přihlášené jako "
+"správce. Výchozí není vybrána."
 
 #: plugins/headConsolidator.php:26
 #, fuzzy
@@ -29172,10 +29257,13 @@ msgid "Search redirect keywords"
 msgstr "Klíčová slova"
 
 #: plugins/keywordRedirector.php:49
+#, fuzzy
 msgid ""
 "<code>keywordRedirector</code> will process <em>keywords</em> and redirect to "
 "the theme search script with the associated parameters."
 msgstr ""
+"<code>keywordRedirector</code> bude zpracovávat <em>klíčová slova</em> a "
+"přesměrovat do skriptu pro vyhledávání témat s přidruženými parametry."
 
 #: plugins/keywordRedirector.php:65 themes/effervescence+/gallery.php:32
 #: themes/garland/sidebar.php:13 themes/netphotographics/gallery.php:32
@@ -29273,13 +29361,13 @@ msgstr "Přehrát"
 #, fuzzy
 #| msgid "Program"
 msgid "Progress"
-msgstr "Program"
+msgstr "Postup"
 
 #: plugins/mediaelementjs_player.php:114
 #, fuzzy
 #| msgid "Current Theme"
 msgid "Current"
-msgstr "Současný vzhled"
+msgstr "Aktuální"
 
 #: plugins/mediaelementjs_player.php:115
 #, fuzzy
@@ -29296,16 +29384,13 @@ msgstr "Umělec videa"
 #, fuzzy
 #| msgid "Column"
 msgid "Volume"
-msgstr "Maximální hlasitost"
+msgstr "Objem"
 
 #: plugins/mediaelementjs_player.php:118
 #, fuzzy
 #| msgid "full screen"
 msgid "Fullscreen"
-msgstr ""
-"Nápověda: Pokud potřebujete více místa pro Váš text, přepněte TinyMCE do "
-"režimu celé obrazovky (v liště klikněte na ikonu režimu celé obrazovky nebo "
-"použijte CTRL+SHIFT+F)."
+msgstr "Celá obrazovka"
 
 #: plugins/mediaelementjs_player.php:119
 #, fuzzy
@@ -29313,8 +29398,9 @@ msgid "Always show controls"
 msgstr "Ovládání mapy"
 
 #: plugins/mediaelementjs_player.php:121
+#, fuzzy
 msgid "Enable what should be shown in the player control bar."
-msgstr ""
+msgstr "Povolte, co by se mělo zobrazovat na ovládacím panelu přehrávače."
 
 #: plugins/mediaelementjs_player.php:122
 #, fuzzy
@@ -29323,8 +29409,9 @@ msgid "Video width"
 msgstr "Šířka 3gp videa"
 
 #: plugins/mediaelementjs_player.php:125 plugins/mediaelementjs_player.php:129
+#, fuzzy
 msgid "Pixel value or percent for responsive layouts"
-msgstr ""
+msgstr "Hodnota pixelů nebo procenta pro responzivní rozložení"
 
 #: plugins/mediaelementjs_player.php:126
 #, fuzzy
@@ -29339,11 +29426,15 @@ msgid "Video Poster"
 msgstr "Poster (náhled videa)"
 
 #: plugins/mediaelementjs_player.php:133
+#, fuzzy
 msgid ""
 "If a poster of the videothumb should be shown. This is cropped to fit the "
 "player size as the player would distort image not fitting the player "
 "dimensions otherwise."
 msgstr ""
+"Pokud by měl být zobrazen plakát videokamery. Toto je oříznuto tak, aby "
+"odpovídalo velikosti hráče, protože hráč by zkreslil obraz, který by jinak "
+"nevyhovoval rozměrům hráče."
 
 #: plugins/mediaelementjs_player.php:134
 #, fuzzy
@@ -29352,10 +29443,14 @@ msgid "Video poster width"
 msgstr "Šířka Quicktime videa"
 
 #: plugins/mediaelementjs_player.php:137
+#, fuzzy
 msgid ""
 "Max width of the video poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Maximální šířka plakátu videa (px). Velikost obrázku bude automaticky upravena "
+"v responzivních rozloženích. Může vyžadovat, aby změny CSS motivu fungovaly "
+"správně."
 
 #: plugins/mediaelementjs_player.php:138
 #, fuzzy
@@ -29364,10 +29459,14 @@ msgid "Video poster height"
 msgstr "Výška Quicktime videa"
 
 #: plugins/mediaelementjs_player.php:141
+#, fuzzy
 msgid ""
 "Height of the video poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Výška plakátu videa (px). Velikost obrázku bude automaticky upravena v "
+"responzivních rozloženích. Může vyžadovat, aby změny CSS motivu fungovaly "
+"správně."
 
 #: plugins/mediaelementjs_player.php:142
 #, fuzzy
@@ -29376,9 +29475,9 @@ msgid "Audio width"
 msgstr "Zvuk"
 
 #: plugins/mediaelementjs_player.php:145
-#, php-format
+#, fuzzy, php-format
 msgid "Pixel value or set 100% for responsive layouts (default)."
-msgstr ""
+msgstr "Hodnota pixelu nebo 100% pro responzivní rozvržení (výchozí)."
 
 #: plugins/mediaelementjs_player.php:146
 #, fuzzy
@@ -29387,9 +29486,9 @@ msgid "Audio height"
 msgstr "Zvuk"
 
 #: plugins/mediaelementjs_player.php:149
-#, php-format
+#, fuzzy, php-format
 msgid "Pixel value or 100% for responsive layouts (default)."
-msgstr ""
+msgstr "Hodnota pixelu nebo 100% pro responzivní rozvržení (výchozí)."
 
 #: plugins/mediaelementjs_player.php:150
 #, fuzzy
@@ -29398,10 +29497,13 @@ msgid "Audio poster"
 msgstr "Audio poster (náhled)"
 
 #: plugins/mediaelementjs_player.php:153
+#, fuzzy
 msgid ""
 "If an image of the videothumb should be shown with audio files. You need to "
 "set the width/height. This is cropped to fit the size."
 msgstr ""
+"Pokud by měl být obraz videozáznamu zobrazen se zvukovými soubory. Musíte "
+"nastavit šířku / výšku. Toto je oříznuto, aby odpovídalo velikosti."
 
 #: plugins/mediaelementjs_player.php:154
 #, fuzzy
@@ -29410,10 +29512,14 @@ msgid "Audio poster width"
 msgstr "Audio poster (náhled)"
 
 #: plugins/mediaelementjs_player.php:157
+#, fuzzy
 msgid ""
 "Max width of the audio poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Maximální šířka zvukového plakátu (px). Velikost obrázku bude automaticky "
+"upravena v responzivních rozloženích. Může vyžadovat, aby změny CSS motivu "
+"fungovaly správně."
 
 #: plugins/mediaelementjs_player.php:158
 #, fuzzy
@@ -29422,28 +29528,38 @@ msgid "Audio poster height"
 msgstr "Audio poster (náhled)"
 
 #: plugins/mediaelementjs_player.php:161
+#, fuzzy
 msgid ""
 "Height of the audio poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Výška zvukového plakátu (px). Velikost obrázku bude automaticky upravena v "
+"responzivních rozloženích. Může vyžadovat, aby změny CSS motivu fungovaly "
+"správně."
 
 #: plugins/mediaelementjs_player.php:165
+#, fuzzy
 msgid ""
 "If enabled the script for playlist support is loaded. For playlists either use "
 "the macro or modify your theme."
 msgstr ""
+"Pokud je povoleno, načte se skript pro podporu seznamu skladeb. Pro seznamy "
+"skladeb použijte makro nebo upravte motiv."
 
 #: plugins/mediaelementjs_player.php:166
 #, fuzzy
 #| msgid "upload"
 msgid "Preload"
-msgstr "Nahrát fotografie"
+msgstr "Předběžné načtení"
 
 #: plugins/mediaelementjs_player.php:169
+#, fuzzy
 msgid ""
 "If the files should be preloaded (Note if this works is browser dependent and "
 "might not work in all!)."
 msgstr ""
+"Pokud by soubory měly být předem načteny (Poznámka: pokud to funguje, závisí "
+"na prohlížeči a nemusí fungovat vůbec!)."
 
 #: plugins/mediaelementjs_player.php:290
 #, fuzzy
@@ -29457,14 +29573,18 @@ msgid "Sorry, no playback capabilities."
 msgstr "Omlouvám se, ale toto není správná odpověď."
 
 #: plugins/mediaelementjs_player.php:510
+#, fuzzy
 msgid ""
 "Provide the album name (%1), media file name (%2), optional width (%3) and "
 "optional height (%4)"
 msgstr ""
+"Zadejte název alba (% 1), název mediálního souboru (% 2), volitelnou šířku (% "
+"3) a volitelnou výšku (% 4)"
 
 #: plugins/npgAnalytics.php:10
+#, fuzzy
 msgid "Outputs a script to invoke Google Analytics."
-msgstr ""
+msgstr "Vytvoří skript pro vyvolání Google Analytics."
 
 #: plugins/openAdmin.php:23
 #, fuzzy
@@ -29479,8 +29599,9 @@ msgid "Log access"
 msgstr "Žádný přístup"
 
 #: plugins/openAdmin.php:82
+#, fuzzy
 msgid "Log administrative pages visited."
-msgstr ""
+msgstr "Záznam navštívených stránek pro správu."
 
 #: plugins/openAdmin.php:202 plugins/openAdmin.php:219
 #, fuzzy
@@ -29488,19 +29609,26 @@ msgid "Show admin login form"
 msgstr "Přihlašovací formulář"
 
 #: plugins/openAdmin.php:203
+#, fuzzy
 msgid ""
 "Login with valid user credentials to bypass the <em>openAdmin</em> plugin."
 msgstr ""
+"Přihlaste se s platnými uživatelskými přihlašovacími údaji, abyste <em>obešli</"
+"em> plugin <em>openAdmin</em> ."
 
 #: plugins/openAdmin.php:247
+#, fuzzy
 msgid ""
 "The administrative pages are available for demonstration purposes only. "
 "Actions that would change the state of the installation will be suppressed."
 msgstr ""
+"Stránky pro správu jsou k dispozici pouze pro účely demonstrace. Akce, které "
+"by změnily stav instalace, budou potlačeny."
 
 #: plugins/openAdmin.php:279
+#, fuzzy
 msgid "date\trequestor’s IP\tlink\tpage\ttab\taction\n"
-msgstr ""
+msgstr "akce stránky stránky odkazu na adresu IP žadatele o datum"
 
 #: plugins/package.php:25
 #, fuzzy
@@ -29525,8 +29653,9 @@ msgid "Create package"
 msgstr "ZenPhoto20 balíček [chybí]"
 
 #: plugins/package.php:57
+#, fuzzy
 msgid "Download new package file"
-msgstr ""
+msgstr "Stáhněte nový soubor balíčku"
 
 #: plugins/pluginEnabler.php:20
 msgid "Mass enable/disable for plugins."
@@ -29623,7 +29752,7 @@ msgstr "Záhlaví"
 #: plugins/pseudomail.php:50
 #, fuzzy, php-format
 msgid "To: %s"
-msgstr "%1$s administrace: %2$s%3$s"
+msgstr "Komu: %s"
 
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
@@ -29644,8 +29773,9 @@ msgid "Subject: %s"
 msgstr "Předmět: %s"
 
 #: plugins/releaseNotes.php:12
+#, fuzzy
 msgid "Allows using netPhotoGraphics editing to create release notes."
-msgstr ""
+msgstr "Umožňuje pomocí editace netPhotoGraphics vytvářet poznámky k vydání."
 
 #: plugins/releaseNotes.php:30
 #, fuzzy
@@ -29800,24 +29930,29 @@ msgid "pause"
 msgstr "Pauza"
 
 #: plugins/tagURLs.php:23
+#, fuzzy
 msgid "Convert Explicit site URLs to portable URLs."
-msgstr ""
+msgstr "Převést explicitní adresy URL na přenosné adresy URL."
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Označte explicitní adresy URL"
 
 #: plugins/tagURLs.php:38
+#, fuzzy
 msgid ""
 "A utility to change explicit site urls in netPhotoGraphics objects to portable "
 "urls."
 msgstr ""
+"Nástroj pro změnu explicitních adres URL stránek v objektech netPhotoGraphics "
+"na přenosné adresy URL."
 
 #: plugins/tagURLs/migrateURLs.php:77
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s object with explicit URLs changed"
 msgid_plural "%1$s objects with explicit URLs changed"
-msgstr[0] ""
+msgstr[0] "Objekt%1$s s výslovnými adresami URL byl změněn"
 msgstr[1] ""
 msgstr[2] ""
 
@@ -29839,21 +29974,23 @@ msgid "Migrate old suffix"
 msgstr "Přenést na utf8mb4"
 
 #: plugins/titlelinkMigration.php:35
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Enter the old <code><em>mod_rewrite_suffix</em></code> you wish to migrate to "
 "\"%1$s\""
 msgstr ""
+"Zadejte starý <code><em>mod_rewrite_suffix</em></code> , do kterého chcete "
+"migrovat, do „%1$s“"
 
 #: plugins/titlelinkMigration.php:44
-#, php-format
+#, fuzzy, php-format
 msgid "Migrated %1$s titlelink suffix from \"%2$s\" to \"%3$s\"."
-msgstr ""
+msgstr "Přenesená přípona titulku%1$s z \"%2$s\" na \"%3$s\"."
 
 #: plugins/titlelinkMigration.php:44
-#, php-format
+#, fuzzy, php-format
 msgid "Migrated %1$s titlelink suffixes from \"%2$s\" to \"%3$s\"."
-msgstr ""
+msgstr "Přenesené přípony titulků%1$s z \"%2$s\" na \"%3$s\"."
 
 #: plugins/titlelinkMigration.php:63
 #, fuzzy
@@ -29867,14 +30004,14 @@ msgid "A utility to append the mod_rewrite_suffix to CMS titlelinks."
 msgstr "Nástroj pro připojení mod_rewrite_suffix k zenpage titlelinks."
 
 #: plugins/titlelinkMigration/migrate.php:24
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s titlelink suffix migrated to \"%2$s\"."
-msgstr ""
+msgstr "Přípona titulku%1$s byla přenesena na „%2$s“."
 
 #: plugins/titlelinkMigration/migrate.php:24
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s titlelink suffixes migrated to \"%2$s\"."
-msgstr ""
+msgstr "Přípony titulků%1$s byly přeneseny na „%2$s“."
 
 #: plugins/utf8mb4Migration.php:33
 msgid "Migrate database to utf8mb4 encodings."
@@ -30093,7 +30230,7 @@ msgstr "Galerii můžete procházet šipkami na klávesnici."
 #: themes/spellflight/image_gallery/functions.php:45
 #, fuzzy
 msgid "Stop"
-msgstr "Zastavit"
+msgstr "Stop"
 
 #: themes/ardoise/inc_print_album_thumb.php:5
 #: themes/ardoise/inc_print_album_thumb.php:6 themes/basic/album.php:48
@@ -30727,8 +30864,9 @@ msgstr ""
 "galerie."
 
 #: themes/bootstrap/themeoptions.php:96
+#, fuzzy
 msgid "Select * none * if you do not want any slider."
-msgstr ""
+msgstr "Pokud nechcete mít žádný posuvník, vyberte * žádné *."
 
 #: themes/bootstrap/themeoptions.php:98
 msgid "Random pictures for homepage slider"
@@ -30851,7 +30989,7 @@ msgstr "Zatrhněte pro zobrazení některých odkazů na sociální sítě"
 #, fuzzy
 #| msgid "Captcha length"
 msgid "Excerpt length"
-msgstr "Délka CAPTCHA:"
+msgstr "Délka výpisu"
 
 #: themes/bootstrap/themeoptions.php:148
 #, fuzzy
@@ -31093,7 +31231,7 @@ msgstr "Přidat komentář"
 #: themes/spellflight/image_gallery/functions.php:44
 #, fuzzy
 msgid "Start"
-msgstr "Proces začne automaticky. Pokud ne, stiskněte:"
+msgstr "Začátek"
 
 #: themes/effervescence+/indexpage.php:68
 #: themes/netphotographics/indexpage.php:68
@@ -31327,7 +31465,7 @@ msgstr "% fotografie"
 #: themes/spellflight/themeoptions.php:125
 #, fuzzy
 msgid "Separate"
-msgstr "odděleně"
+msgstr "Oddělte"
 
 #: themes/effervescence+/themeoptions.php:160 themes/garland/themeoptions.php:127
 #: themes/netphotographics/themeoptions.php:185
@@ -31388,12 +31526,12 @@ msgstr "Nápověda: %s"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%s"
+msgstr "%s "
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "<a href=\"#%1$s\"><code>%1$s</code></a> je již povoleno."
+msgstr "%1$s "
 
 #: themes/enlighten/sidebar.php:46
 msgid "Latest notes"
@@ -31605,7 +31743,7 @@ msgstr "Podalbum"
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 #, fuzzy
 msgid "number"
-msgstr "Číslo portu pro POP."
+msgstr "číslo"
 
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 msgid "total"
@@ -31700,7 +31838,7 @@ msgstr "Zaznamenávat sekvenci načítání pluginu."
 #: themes/masonry/inc-header.php:169
 #, fuzzy
 msgid "image {current} of {total}"
-msgstr "Číslo fotografie/Celkem fotografií"
+msgstr "obrázek {Current} z {celkem}"
 
 #: themes/masonry/inc-header.php:38 themes/masonry/inc-header.php:52
 #: themes/masonry/inc-header.php:127 themes/masonry/inc-header.php:131
@@ -31737,7 +31875,7 @@ msgstr "Nejnovější komentáře této fotografie"
 #: themes/masonry/index.php:11
 #, fuzzy
 msgid "Welcome"
-msgstr "Uvítání po přihlášování"
+msgstr "Vítejte"
 
 #: themes/masonry/index.php:61 themes/minimal/index.php:56
 #, fuzzy
@@ -31760,7 +31898,7 @@ msgstr "Jste přihlášeni..."
 #: themes/masonry/search.php:30 themes/minimal/search.php:29
 #, fuzzy
 msgid "items"
-msgstr "Vybrané položky smazány"
+msgstr "položky"
 
 #: themes/masonry/search.php:171 themes/minimal/search.php:108
 msgid "Sorry, no matches found."
@@ -32038,7 +32176,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:206
 #, fuzzy
 msgid "Custom CSS"
-msgstr "Vlastní"
+msgstr "Vlastní CSS"
 
 #: themes/masonry/themeoptions.php:210
 #, fuzzy
@@ -32066,7 +32204,7 @@ msgstr "Album"
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
 msgid "Gallery Images"
-msgstr "Zobrazí statistické grafy a informace o Vašich fotografiích a albech."
+msgstr "Galerie obrázků"
 
 #: themes/minimal/inc-footer.php:24
 msgid "Subalbum"
@@ -32221,7 +32359,7 @@ msgstr[2] "%u alb"
 #, fuzzy, php-format
 msgid "%d image"
 msgid_plural "%d images"
-msgstr[0] "AF non D"
+msgstr[0] "%d obrázek"
 msgstr[1] "%u fotografie"
 msgstr[2] "%u fotografií"
 
@@ -32303,7 +32441,7 @@ msgstr "Vzhled"
 #: themes/paradigm/image.php:67
 #, fuzzy
 msgid "Caption"
-msgstr "Autor titulku fotografie "
+msgstr "Rozšířený popis"
 
 #: themes/paradigm/image.php:78
 msgid "Location:"
@@ -32324,7 +32462,7 @@ msgstr "Copyright:"
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "Soubor nenalezen."
+msgstr "Nenalezeno"
 
 #: themes/paradigm/includes/_gallery.php:12
 msgid "About"
@@ -32361,9 +32499,7 @@ msgstr "Zaškrtněte pro povolení tekutin celou šířku rozložení."
 #: themes/paradigm/themeoptions.php:64
 #, fuzzy
 msgid "Homepage slideshow"
-msgstr ""
-"Vyberte, jakým způsobem mají být vybrány fotografie pro prezentaci na úvodní "
-"stránce."
+msgstr "Slideshow na úvodní stránce"
 
 #: themes/paradigm/themeoptions.php:68
 #, fuzzy
@@ -33139,6 +33275,9 @@ msgstr ""
 "Zapnite ak chcete použiť zásuvný modul <em>menu_manager</em> na vytvorenie "
 "upravenej ponuky menu namiesto štandardnej. Štandardné menu \"zenpage\" je "
 "tvorené a používané automaticky."
+
+#~ msgid "Select users:"
+#~ msgstr "Vybrat uživatele:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "PHP Safe Mode aktivní!"

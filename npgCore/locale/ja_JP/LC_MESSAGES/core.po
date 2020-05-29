@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: webmaster at momo-i.org\n"
-"POT-Creation-Date: 2020-05-27 15:14-0700\n"
-"PO-Revision-Date: 2020-05-27 15:14-0700\n"
+"POT-Creation-Date: 2020-05-29 12:57-0700\n"
+"PO-Revision-Date: 2020-05-29 12:58-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -233,7 +233,7 @@ msgstr "ギャラリーインデックスを表示"
 #, fuzzy
 #| msgid "Return to %s"
 msgid "return to top"
-msgstr "戻る"
+msgstr "トップ"
 
 #: npgCore/admin-functions.php:392
 msgid "Your Setup scripts are not protected."
@@ -1226,7 +1226,9 @@ msgstr "開発"
 #, fuzzy
 #| msgid "Simple"
 msgid "example"
-msgstr "サンプルマクロを追加します。"
+msgstr ""
+"セットアップは<em>example_robots.txt</em>ファイルを見つけることが出来ませんで"
+"した。"
 
 #: npgCore/admin-functions.php:5495
 msgid "mail"
@@ -1283,7 +1285,7 @@ msgstr "<em>OR</em>"
 #, fuzzy
 #| msgid "<em>pattern</em>"
 msgid "<em>Deprecated</em>"
-msgstr "<em>OR</em>"
+msgstr "非推奨"
 
 #: npgCore/admin-functions.php:5509
 #, fuzzy
@@ -3063,7 +3065,7 @@ msgstr "ユーザIDは既に使用されています。"
 #, fuzzy, php-format
 #| msgid "Enter a valid email address."
 msgid "%s is not a valid e-mail address."
-msgstr "メールアドレスを入力してください。"
+msgstr "メールアドレス%s"
 
 #: npgCore/admin-tabs/users.php:171
 #, php-format
@@ -3076,8 +3078,9 @@ msgstr "%sパスワードが空です！"
 msgid "Password reset request."
 msgstr "最近作成されたユーザへパスワードのリセットリクエストをメールします。"
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "ユーザ"
 
@@ -3531,7 +3534,7 @@ msgstr "公式ビルド"
 #: npgCore/admin.php:532 npgCore/utilities/installation_analysis.php:82
 #, fuzzy
 msgid "release notes"
-msgstr "リリースとしてマーク"
+msgstr "不明なリリース"
 
 #: npgCore/admin.php:533 npgCore/utilities/installation_analysis.php:86
 #, fuzzy, php-format
@@ -3588,7 +3591,7 @@ msgstr[0] "<strong>%u</strong>件のコメント"
 #| msgid_plural "<strong>%1$u</strong> Pages (%2$u un-published)"
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
-msgstr[0] "<strong>%1$u</strong>個のアルバム (内%2$u件は非公開)"
+msgstr[0] "<strong>%1$u</strong>個の画像 (内%2$u件は非表示)"
 
 #: npgCore/admin.php:681
 #, fuzzy, php-format
@@ -3803,7 +3806,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Album thumbnails:"
 msgid "Album thumbnails"
-msgstr "アルバムサムネイル"
+msgstr "アルバムサムネイル:"
 
 #: npgCore/admin_options/gallery.php:402
 msgid "Default thumbnail selection for albums."
@@ -4605,7 +4608,7 @@ msgstr "ページ毎のプラグイン:"
 #, fuzzy
 #| msgid "%u per page"
 msgid "groups per page"
-msgstr "ページ毎のユーザ:"
+msgstr "ページ毎のサムネイル"
 
 #: npgCore/admin_options/general.php:730
 #, fuzzy
@@ -7759,7 +7762,7 @@ msgstr "ユーザIDは既に使用されています。"
 #, fuzzy
 #| msgid "clear password"
 msgid "LDAP reader password"
-msgstr "アルバムパスワード:"
+msgstr "パスワード:"
 
 #: npgCore/extensions/LDAP_auth.php:76
 #, fuzzy
@@ -8261,7 +8264,7 @@ msgstr "アクセスなし"
 #, fuzzy
 #| msgid "Sort gallery by:"
 msgid "Sort by:"
-msgstr "ギャラリーのソート方法:"
+msgstr "画像のソート"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:148
 #, fuzzy
@@ -8354,8 +8357,8 @@ msgid ""
 "Only one Carousel plugin may be enabled. <a href=\"#%1$s\"><code>%1$s</"
 "code></a> is already enabled."
 msgstr ""
-"1つのSEOフィルタプラグインのみ有効にできるかもしれません。<a href=\"#%1$s"
-"\"><code>%1$s</code></a>はすでに有効化されています。"
+"メールを取り扱うプラグインは1つのみ有効にできます。<a href=\"#%1$s\"><code>"
+"%1$s</code></a>がすでに有効化されています。"
 
 #: npgCore/extensions/bxslider_thumb_nav.php:61
 msgid "Minimum items"
@@ -10220,7 +10223,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Edit this comment"
 msgid "Edit the comment"
-msgstr "このコメントを編集します。"
+msgstr "このコメントを編集"
 
 #: npgCore/extensions/comment_form/functions.php:523
 #: plugins/commentNotice.php:91
@@ -10911,7 +10914,7 @@ msgstr "何日目に戻るか。"
 #, fuzzy
 #| msgid "Users per page:"
 msgid "Items per page"
-msgstr "ページ毎のユーザ:"
+msgstr "ページ毎の%u"
 
 #: npgCore/extensions/daily-summary.php:80
 #, fuzzy
@@ -11044,7 +11047,7 @@ msgstr[0] "最終日には活動はありませんでした。"
 #, fuzzy, php-format
 msgid "%1$s - 1 new photo"
 msgid_plural "%1$s - %2$s new photos"
-msgstr[0] "新規アルバム: %1$s"
+msgstr[0] "写真 %2$uの%1$u"
 
 #: npgCore/extensions/daily-summary/dailysummary-template-functions.php:60
 #, fuzzy, php-format
@@ -11627,7 +11630,7 @@ msgstr "npgFilters :: has_filter（）を使用します"
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
-msgstr "国旗を使用する"
+msgstr "埋め込みサムネイルを使用"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:204
 #, fuzzy
@@ -11642,22 +11645,22 @@ msgstr "埋め込みサムネイルを使用"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:220
 #, fuzzy
 msgid "Use setNPGCookie()"
-msgstr "国旗を使用する"
+msgstr "埋め込みサムネイルを使用"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:228
 #, fuzzy
 msgid "Use getNPGCookie()"
-msgstr "国旗を使用する"
+msgstr "埋め込みサムネイルを使用"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:236
 #, fuzzy
 msgid "Use clearNPGCookie()"
-msgstr "国旗を使用する"
+msgstr "埋め込みサムネイルを使用"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:244
 #, fuzzy
 msgid "Use formattedDate()"
-msgstr "国旗を使用する"
+msgstr "埋め込みサムネイルを使用"
 
 #: npgCore/extensions/deprecated-functions/functions.php:113
 #: npgCore/extensions/deprecated-functions/functions.php:151
@@ -13021,7 +13024,7 @@ msgstr "ベリサイン認証"
 #, fuzzy
 #| msgid "User name"
 msgid "Issuer name"
-msgstr "アルバム名:"
+msgstr "名前:"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13305,7 +13308,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:111
 #, fuzzy
 msgid "Twitter name"
-msgstr "アルバム名:"
+msgstr "名前"
 
 #: npgCore/extensions/html_meta_tags.php:112
 #, fuzzy
@@ -14124,7 +14127,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User name"
 msgid "User consent"
-msgstr "ユーザ:"
+msgstr "新規ユーザ"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -14282,7 +14285,8 @@ msgstr "ニュースインデックス"
 #, fuzzy, php-format
 #| msgid "createMenuIfNotExists item %s has an empty link."
 msgid "createMenu item %s has an empty link."
-msgstr "createMenuIfNotExistsアイテム%sは空のリンクを持っています。"
+msgstr ""
+"createMenuIfNotExistsアイテム %sは空のタイトルまたはリンクを持っています。"
 
 #: npgCore/extensions/menu_manager.php:998
 #: npgCore/extensions/menu_manager.php:1011
@@ -14358,7 +14362,7 @@ msgstr "<em>%1$s</em>ファイル 【存在しません】"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:412
 #, fuzzy
 msgid "Target does not exist"
-msgstr "コメントは存在しません"
+msgstr "画像が%sは存在しません。"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:88
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:415
@@ -14874,7 +14878,7 @@ msgstr "Class"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:421
 #, fuzzy
 msgid "Target does not exist."
-msgstr "コメントは存在しません"
+msgstr "画像が%sは存在しません。"
 
 #: npgCore/extensions/mergedRSS.php:19
 msgid "Merges several RSS feeds into one."
@@ -15172,7 +15176,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show counts"
 msgid "Show layers controls"
-msgstr "表示"
+msgstr "ズームコントロール"
 
 #: npgCore/extensions/openstreetmap.php:143
 #, fuzzy
@@ -15584,7 +15588,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Max height"
 msgid "Panorama height"
-msgstr "地図の大きさ-高さ"
+msgstr "高さ ="
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -15597,7 +15601,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Image Caption"
 msgid "Start position"
-msgstr "位置:"
+msgstr "開始"
 
 #: npgCore/extensions/panorama.php:65
 msgid "Indicate the start position of the panorama by positioning the slider."
@@ -15607,7 +15611,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Minimum items"
 msgid "Minimum overflow"
-msgstr "ズーム"
+msgstr "最小アイテム数"
 
 #: npgCore/extensions/panorama.php:68
 #, php-format
@@ -15622,17 +15626,13 @@ msgstr ""
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr ""
-"<em>タイトルを表示</em>または<em>説明を表示</em>を追加でチェックした場合、画"
-"像またはアルバム(<em>アルバムへリンク</em>にチェックされてるなら)のタイトル/"
-"説明は画像の下に表示されます。<em>画像</em>がタイプとして選択された場合のみで"
-"す。"
+msgstr "左"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "権限を統合する"
+msgstr "右"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -16559,7 +16559,7 @@ msgstr "紹介文"
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Registration accepted text."
-msgstr "ユーザ登録"
+msgstr "登録確認"
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 msgid "User album"
@@ -17951,7 +17951,7 @@ msgid ""
 "Only one slideshow plugin may be enabled. <a href=\"#%1$s\"><code>%1$s</"
 "code></a> is already enabled."
 msgstr ""
-"Captchaを取り扱うプラグインは1つのみ有効にできます。<a href=\"#%1$s\"><code>"
+"SPAMを取り扱うプラグインは1つのみ有効にできます。<a href=\"#%1$s\"><code>"
 "%1$s</code></a>がすでに有効化されています。"
 
 #: npgCore/extensions/slideshow.php:99 plugins/slideshow2.php:105
@@ -18569,7 +18569,7 @@ msgstr "Zenpageニュース記事カテゴリへのリンクを作成します�
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:82
 #, fuzzy, php-format
 msgid "<em>page</em>: %s"
-msgstr "<em>%s</em>スクリプトページのリンクです。"
+msgstr "ページ<em>%s</em>は見つかりませんでした"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:83
 #, fuzzy
@@ -19253,6 +19253,7 @@ msgid "Deleted"
 msgstr "削除しました"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
@@ -19276,7 +19277,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "グループ"
 
@@ -19385,18 +19385,28 @@ msgstr ""
 msgid "Mailing list"
 msgstr "ユーザーメーリングリスト"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "コメントを購読"
+msgstr "未承認"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "除外するページ"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -19416,7 +19426,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to hide content"
 msgid "Click to resubscribe"
-msgstr "コンテンツを非表示にするにはクリック"
+msgstr "コンテンツを表示するにはクリック"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -19426,13 +19436,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to show content"
 msgid "Click to un-subscribe"
-msgstr "シークレット"
+msgstr "コメントを購読"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "ユーザーメーリングリスト"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails "
@@ -19441,7 +19451,7 @@ msgstr ""
 "メールアドレスを記入した全ての登録ユーザへメールを送信するツールです。常に現"
 "在の管理者へコピーが送信され、全ユーザへは<em>BCC</em>として送信されます。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19449,35 +19459,43 @@ msgstr ""
 "<strong>注: </strong><em>sendmail</em>フィルタが登録されています。メーラープ"
 "ラグインを有効にして設定する必要があります。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "メールを送信しました。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "送信したいメッセージを入力してください。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "件名:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "メッセージ:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "ユーザの選択:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "お問合せ窓口"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "メールユーザ"
+msgstr ""
+"メールアドレスを提供しているすべてのユーザーにメールを送信するユーティリティ"
+"機能が用意されています。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "メール送信"
 
@@ -20054,7 +20072,7 @@ msgstr "ヒット"
 #| msgid "<strong>%1$u</strong> Pages"
 msgid "<strong>%1$u</strong> Page"
 msgid_plural "<strong>%1$u</strong> Pages"
-msgstr[0] "<strong>%1$u</strong>件のページ"
+msgstr[0] "<strong>%1$u</strong>個のカテゴリ"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1342
 #, fuzzy, php-format
@@ -20068,14 +20086,14 @@ msgstr[0] "<strong>%1$u</strong>個のアルバム (内%2$u件は非公開)"
 #| msgid "<strong>%1$u</strong> News articles"
 msgid "<strong>%1$u</strong> Article"
 msgid_plural "<strong>%1$u</strong> Articles"
-msgstr[0] "<strong>%1$u</strong>個のカテゴリ"
+msgstr[0] "<strong>%1$u</strong>件のページ"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1353
 #, fuzzy, php-format
 #| msgid "<strong>%1$u</strong> News articles (%2$u un-published)"
 msgid "<strong>%1$u</strong> Article (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Articles (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong>個のアルバム (内%2$u件は非公開)"
+msgstr[0] "<strong>%1$u</strong>個の画像 (内%2$u件は非表示)"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1360
 #, fuzzy, php-format
@@ -20180,7 +20198,7 @@ msgstr "setShowメソッドを直接使用してください。"
 #: npgCore/extensions/zenpage/deprecated-functions.php:101
 #, fuzzy
 msgid "Use shortenContent()"
-msgstr "国旗を使用する"
+msgstr "埋め込みサムネイルを使用"
 
 #: npgCore/extensions/zenpage/edit.php:62
 #, php-format
@@ -20577,7 +20595,7 @@ msgstr "ビューアでズームできる画像を表示する機能を提供し
 #, fuzzy
 #| msgid "Default size"
 msgid "Default type"
-msgstr "*デフォルト"
+msgstr "タイプ:"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
@@ -22035,7 +22053,7 @@ msgstr "アムハラ語（エチオピア）"
 #, fuzzy
 #| msgid "Arabic (Jordan)"
 msgid "Arabic (World)"
-msgstr "アラビア語"
+msgstr "アラビア語(DOS)"
 
 #: npgCore/localeList.php:15
 msgid "Arabic (United Arab Emirates)"
@@ -24674,7 +24692,7 @@ msgstr "ドイツ語(ドイツ)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "Low"
+msgstr "オランダ語(オランダ)"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -26282,7 +26300,7 @@ msgstr "ZenPhoto20 v%s をインストールします"
 #, fuzzy
 #| msgid "Installation files"
 msgid "Installation folder"
-msgstr "インストールファイル"
+msgstr "インストールの複製"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -26568,7 +26586,7 @@ msgstr "PHP <code>mbstring</code>パッケージ 【未提供】"
 #, fuzzy
 #| msgid "PHP <code>setlocale()</code>"
 msgid "PHP <code>default_charset</code>"
-msgstr "PHP <code>Register Globals</code>"
+msgstr "PHP <code>display_errors</code>"
 
 #: npgCore/setup/index.php:739
 #, fuzzy, php-format
@@ -27815,13 +27833,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr " <em>%s</em>を表示"
+msgstr "<em>%1$s</em>は%2$sにコメントしました:"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "アルバムの編集: <em>%1$s%2$s</em>"
+msgstr "<em>%1$s</em>は%2$sにコメントしました:"
 
 #: npgCore/setup/setup-sqlform.php:3
 msgid ""
@@ -27855,13 +27873,13 @@ msgstr "データベースホスト"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "スポーツ"
+msgstr "POPのポート番号です。"
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "データベースユーザ"
+msgstr "データベース"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -27884,7 +27902,7 @@ msgstr "リストア完了"
 #: npgCore/setup/setupComplete.php:18
 #, fuzzy
 msgid "Completed"
-msgstr "システムチェック完了"
+msgstr "リストア完了"
 
 #: npgCore/setup/setup_permissions_changer.php:21
 #, php-format
@@ -27911,7 +27929,7 @@ msgstr "<code>magic_quotes_sybase</code>を無効にする必要があります�
 #, fuzzy, php-format
 #| msgid "Theme:%s setup started"
 msgid "Mod_rewrite setup started"
-msgstr "プラグイン: %sのセットアップを開始しました"
+msgstr "mod_rewrite"
 
 #: npgCore/setup/setup_set-mod_rewrite.php:31
 #, fuzzy
@@ -27926,7 +27944,7 @@ msgstr "mod_rewrite"
 #: npgCore/setup/setup_set-mod_rewrite.php:36
 #, fuzzy
 msgid "The option “mod_rewrite” is “disabled”."
-msgstr "mod_rewriteのチェック:"
+msgstr "mod_rewrite"
 
 #: npgCore/setup/setup_set-mod_rewrite.php:40
 #, fuzzy
@@ -28170,10 +28188,7 @@ msgstr[0] "<em>%1$s(%2$s)</em>圧縮を使用してバックアップが完了�
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] ""
-"<strong>警告！</strong> このアップグレードは簡単に逆転されていないデータベー"
-"スに構造的な変更を行ないます。先に進む前に、データベースのバックアップがある"
-"ことを確認してください。"
+msgstr[0] "テーブルのプレフィックス: <strong>%1$s</strong>"
 
 #: npgCore/utilities/backup_restore.php:263
 #, fuzzy
@@ -28288,7 +28303,7 @@ msgstr "圧縮レベル"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "データベースリストアファイルを選択:"
+msgstr "データベースにテーブルをバックアップします。"
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -28900,7 +28915,7 @@ msgstr "Webのパス:"
 #, fuzzy
 #| msgid "Title"
 msgid "MyBB Title"
-msgstr "タイトル:"
+msgstr "タイトル"
 
 #: plugins/MyBB_auth.php:108
 #, fuzzy
@@ -30202,7 +30217,7 @@ msgstr "タイムアウト"
 #: plugins/slideshow2.php:157
 #, fuzzy
 msgid "Slideshow: Description"
-msgstr "スライドショー"
+msgstr "説明:"
 
 #: plugins/slideshow2.php:162
 #, fuzzy
@@ -30249,8 +30264,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "アルバム<em>タグ</em>"
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -30356,7 +30372,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Rights migration failed."
 msgid "utf8mb4 migration completed."
-msgstr "権限の統合に失敗しました。"
+msgstr "リストア完了"
 
 #: plugins/zenphotoCompatibilityPack.php:22
 #, fuzzy
@@ -31137,7 +31153,7 @@ msgstr "続きを見る"
 #: themes/bootstrap/inc_print_infinitescroll_news.php:17
 #, fuzzy
 msgid "No more news to display"
-msgstr "次で画像を表示:"
+msgstr "続きを読む"
 
 #: themes/bootstrap/theme_description.php:10
 #, fuzzy
@@ -31183,7 +31199,7 @@ msgstr ""
 #, fuzzy
 #| msgid " (Latest news and images)"
 msgid "Latest news on Homepage"
-msgstr " (新着ニュース)"
+msgstr " (新着ニュースとアルバム)"
 
 #: themes/bootstrap/themeoptions.php:84
 #, fuzzy
@@ -32980,7 +32996,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:92
 #, fuzzy
 msgid "Number of slides"
-msgstr "サムネイル番号"
+msgstr "電話番号"
 
 #: themes/paradigm/themeoptions.php:101
 #, fuzzy
@@ -33208,7 +33224,7 @@ msgstr "発泡(Effervescence)画像の表示処理です。"
 #, fuzzy
 #| msgid "Contact"
 msgid "Contact me"
-msgstr "お問合せ"
+msgstr "ツイートミー"
 
 #: themes/zenFluid/404.php:16
 #, fuzzy
@@ -33326,7 +33342,7 @@ msgstr "テーマカラー"
 #, fuzzy
 #| msgid "Default theme color scheme."
 msgid "Select the colorscheme."
-msgstr "選択"
+msgstr "レイアウトの選択:"
 
 #: themes/zenFluid/themeoptions.php:94
 #, fuzzy
@@ -33442,7 +33458,7 @@ msgstr ""
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "タイトル:"
+msgstr "タイトル"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -33735,6 +33751,9 @@ msgstr ""
 "分割された標準のそれの代わりにカスタムメニューを構築することを可能にした場"
 "合、<em>menu_manager</em>プラグインを使用したいなら、これをチェックします。"
 "「zenpage」という名の標準メニューとともに自動生成されます。"
+
+#~ msgid "Select users:"
+#~ msgstr "ユーザの選択:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "PHPのセーフモード制限がかかってます！"

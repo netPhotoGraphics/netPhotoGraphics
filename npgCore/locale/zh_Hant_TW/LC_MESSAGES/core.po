@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:11-0700\n"
+"POT-Creation-Date: 2020-05-29 13:01-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: hit1205.org\n"
@@ -233,7 +233,7 @@ msgstr "檢視相館索引"
 #, fuzzy
 #| msgid "Return to %s"
 msgid "return to top"
-msgstr "最高評分"
+msgstr "回到頂端"
 
 #: npgCore/admin-functions.php:392
 #, fuzzy
@@ -489,7 +489,7 @@ msgstr "*使用預設值"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "相簿缩图:"
+msgstr "每列縮圖數量"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -555,7 +555,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/edit.php:723
 #, fuzzy
 msgid "Publish date"
-msgstr "日期："
+msgstr "日期"
 
 #: npgCore/admin-functions.php:2484 npgCore/admin-tabs/image_edit.php:416
 #: npgCore/extensions/zenpage/edit.php:742
@@ -643,7 +643,7 @@ msgstr "清除相冊的緩存圖像。"
 #: npgCore/admin-functions.php:2658
 #, fuzzy
 msgid "Reset album hit counters"
-msgstr "重设相簿缩图"
+msgstr "重設相本縮圖"
 
 #: npgCore/admin-functions.php:2658
 #, fuzzy
@@ -653,12 +653,12 @@ msgstr "重置專輯的點擊計數器。"
 #: npgCore/admin-functions.php:2665
 #, fuzzy
 msgid "Refresh album metadata"
-msgstr "重整相本 %s 裡的中繼資料（Metadata）"
+msgstr "更新相簿 %s 的诠释资料"
 
 #: npgCore/admin-functions.php:2665
 #, fuzzy
 msgid "Refreshes the metadata for the album."
-msgstr "更新相簿 %s 的诠释资料"
+msgstr "重整相本 %s 的中繼資料（Metadata）"
 
 #: npgCore/admin-functions.php:2674 npgCore/admin-functions.php:4002
 #: npgCore/admin-tabs/edit.php:828 npgCore/admin-tabs/images.php:421
@@ -855,7 +855,7 @@ msgstr "上一页"
 #: npgCore/admin-functions.php:3232
 #, fuzzy
 msgid "next image"
-msgstr "下一张"
+msgstr "下一張"
 
 #: npgCore/admin-functions.php:3254 npgCore/admin-functions.php:3262
 #: npgCore/admin-functions.php:3268 npgCore/admin-functions.php:3272
@@ -882,7 +882,7 @@ msgstr "無法建立新的佈景主題"
 #: npgCore/admin-functions.php:3685
 #, fuzzy, php-format
 msgid "Directory “%s” already exists!"
-msgstr "<em>%s</em> 已经存在."
+msgstr "<em>%s</em> 已經存在。"
 
 #: npgCore/admin-functions.php:3693
 #, php-format
@@ -1052,18 +1052,18 @@ msgstr "全選"
 #, fuzzy
 #| msgid "News categories"
 msgid "New categories:"
-msgstr "类别"
+msgstr "最近新增的項目"
 
 #: npgCore/admin-functions.php:4708 npgCore/extensions/zenpage/news.php:270
 #: npgCore/extensions/zenpage/pages.php:176
 #, fuzzy
 msgid "Change author"
-msgstr "作者:"
+msgstr "作者"
 
 #: npgCore/admin-functions.php:4709
 #, fuzzy
 msgid "New author:"
-msgstr "作者:"
+msgstr "作者"
 
 #: npgCore/admin-functions.php:4712
 #, fuzzy
@@ -1078,12 +1078,12 @@ msgstr "目的地"
 #: npgCore/admin-functions.php:5026 npgCore/admin-functions.php:5061
 #, fuzzy, php-format
 msgid "codeblock %u"
-msgstr "%u 個相本"
+msgstr "第 %u 頁"
 
 #: npgCore/admin-functions.php:5027 npgCore/admin-functions.php:5067
 #, fuzzy
 msgid "add codeblock"
-msgstr "新增留言"
+msgstr "新增標籤"
 
 #: npgCore/admin-functions.php:5082
 #, fuzzy
@@ -1204,7 +1204,7 @@ msgstr "下一頁"
 #: npgCore/admin-functions.php:5433
 #, fuzzy
 msgid "setup"
-msgstr "安装失败"
+msgstr "Cookie 設定測試成功"
 
 #: npgCore/admin-functions.php:5433 npgCore/admin-globals.php:213
 #: npgCore/admin-globals.php:215 npgCore/admin_options/general.php:781
@@ -1215,7 +1215,7 @@ msgstr "安全性"
 #: npgCore/extensions/debug.php:179
 #, fuzzy
 msgid "debug"
-msgstr "除错"
+msgstr "除錯模式"
 
 #: npgCore/admin-functions.php:5433
 #: npgCore/extensions/deprecated-functions/class.php:71
@@ -1227,7 +1227,7 @@ msgstr "相簿 [<code>$conf['external_album_folder']</code> 已不支援]"
 #: npgCore/admin-functions.php:5492
 #, fuzzy
 msgid "admin support"
-msgstr "管理員登入"
+msgstr "管理"
 
 #: npgCore/admin-functions.php:5493 npgCore/extensions/debug.php:207
 #: npgCore/extensions/deprecated-functions/class.php:67
@@ -1241,12 +1241,14 @@ msgstr "發展"
 #, fuzzy
 #| msgid "Simple"
 msgid "example"
-msgstr "安装程式  <em>example_robots.txt</em> 档案."
+msgstr ""
+"<em>額外內容：</em>可以在此輸入額外的內容， Here you can enter extra content "
+"for example to be printed on the sidebar"
 
 #: npgCore/admin-functions.php:5495
 #, fuzzy
 msgid "mail"
-msgstr "电邮协定"
+msgstr "郵件寄送失敗，沒有設定郵件處理程序。"
 
 #: npgCore/admin-functions.php:5496
 #, fuzzy
@@ -1281,7 +1283,7 @@ msgstr "使用者"
 #: npgCore/admin-functions.php:5505
 #, fuzzy
 msgid "<em>3rd party</em>"
-msgstr "<em>匿名</em>"
+msgstr "檢視 <em>%s</em>"
 
 #: npgCore/admin-functions.php:5506
 #, fuzzy
@@ -1298,7 +1300,7 @@ msgstr "<em>或</em>"
 #: npgCore/admin-functions.php:5508
 #, fuzzy
 msgid "<em>Deprecated</em>"
-msgstr "<em>及</em>"
+msgstr "檢視 <em>%s</em>"
 
 #: npgCore/admin-functions.php:5509
 #, fuzzy
@@ -1394,7 +1396,7 @@ msgstr "已套用變更"
 #: npgCore/extensions/user_groups/user_groups-tab.php:174
 #, fuzzy
 msgid "Nothing changed"
-msgstr "没有东西提交"
+msgstr "沒有送出資料"
 
 #: npgCore/admin-functions.php:5791
 #: npgCore/extensions/comment_form/admin-comments.php:272
@@ -1494,7 +1496,7 @@ msgstr "標籤"
 #: npgCore/admin-functions.php:5988
 #, fuzzy
 msgid "Backup"
-msgstr "备份完成"
+msgstr "备份失败"
 
 #: npgCore/admin-functions.php:5995
 #, fuzzy
@@ -1588,7 +1590,7 @@ msgstr "檔案上次修改時間"
 #: npgCore/admin-globals.php:76
 #, fuzzy
 msgid "Last change date"
-msgstr "日期："
+msgstr "日期"
 
 #: npgCore/admin-globals.php:86 npgCore/admin-globals.php:174
 #: npgCore/extensions/accessThreshold.php:109
@@ -1628,13 +1630,13 @@ msgstr "分頁"
 #, fuzzy
 #| msgid "files"
 msgid "my profile"
-msgstr "加入我的IP"
+msgstr "插入我的 IP"
 
 #: npgCore/admin-globals.php:194
 #, fuzzy
 #| msgid "most images"
 msgid "my images"
-msgstr "加入我的IP"
+msgstr "插入我的 IP"
 
 #: npgCore/admin-globals.php:207
 msgid "general"
@@ -1714,7 +1716,7 @@ msgstr "直接拖曳相本即可變更顯示時的排列順序。"
 #: npgCore/admin_options/search.php:525 npgCore/admin_options/search.php:580
 #, fuzzy
 msgid "descending"
-msgstr "递减"
+msgstr "反序排列"
 
 #: npgCore/admin-tabs/album_edit.php:48
 msgid "Sort subalbums by:"
@@ -1912,7 +1914,7 @@ msgstr "你沒有權限編輯這個相簿。"
 #: npgCore/admin-tabs/dynamic-album.php:119
 #, fuzzy
 msgid "Your search criteria is empty."
-msgstr "输入搜寻条件."
+msgstr "請輸入關鍵字。"
 
 #: npgCore/admin-tabs/dynamic-album.php:124
 #: npgCore/admin-tabs/dynamic-album.php:295
@@ -1952,12 +1954,12 @@ msgstr "相本"
 #: npgCore/admin-tabs/dynamic-album.php:261
 #, fuzzy
 msgid "Return images found"
-msgstr "物件不存在"
+msgstr "找不到相本"
 
 #: npgCore/admin-tabs/dynamic-album.php:265
 #, fuzzy
 msgid "Return unpublished items"
-msgstr "选取项目未发表"
+msgstr "所選的項目已經取消發佈"
 
 #: npgCore/admin-tabs/dynamic-album.php:272
 #, fuzzy
@@ -1980,7 +1982,7 @@ msgstr ""
 #: npgCore/admin-tabs/dynamic-album.php:308
 #, fuzzy
 msgid "Album <em>Tag</em>"
-msgstr "标签<em>%s</em> 已加入"
+msgstr "標籤 <em>%s</em> 已新增"
 
 #: npgCore/admin-tabs/dynamic-album.php:314
 #, fuzzy
@@ -2295,7 +2297,7 @@ msgstr "有欄位尚未填寫。"
 #: npgCore/admin-tabs/logs.php:41
 #, fuzzy, php-format
 msgid "%s log was emptied."
-msgstr "版本更新記錄"
+msgstr "登入"
 
 #: npgCore/admin-tabs/logs.php:44
 #, fuzzy, php-format
@@ -2445,7 +2447,7 @@ msgstr "外挂"
 #: npgCore/admin-tabs/plugins.php:226
 #, fuzzy
 msgid "Third party plugin"
-msgstr "第三方外挂"
+msgstr "第三方外掛"
 
 #: npgCore/admin-tabs/plugins.php:242
 msgid "<strong>Error parsing <em>plugin_description</em> string!</strong>."
@@ -2454,7 +2456,7 @@ msgstr "<strong>無法分析 <em>外掛描述</em> 字串！</strong>"
 #: npgCore/admin-tabs/plugins.php:250
 #, fuzzy
 msgid "<strong>Error parsing <em>plugin_notice</em> string!</strong>."
-msgstr "<strong>無法分析 <em>外掛描述</em> 字串！</strong>"
+msgstr "<strong>無法分析 <em>外掛作者</em> 字串！</strong>"
 
 #: npgCore/admin-tabs/plugins.php:258
 msgid "<strong>Error parsing <em>plugin_version</em> string!</strong>."
@@ -2478,7 +2480,7 @@ msgstr ""
 #: npgCore/admin-tabs/plugins.php:299
 #, fuzzy
 msgid "class plugin"
-msgstr "Class"
+msgstr "外掛"
 
 #: npgCore/admin-tabs/plugins.php:305
 #, fuzzy
@@ -2530,7 +2532,7 @@ msgstr "下列是由 %s 提供的設定。"
 #: npgCore/admin-tabs/plugins.php:507
 #, fuzzy
 msgid "Class plugin"
-msgstr "Class"
+msgstr "外掛"
 
 #: npgCore/admin-tabs/plugins.php:511
 #, fuzzy
@@ -2563,7 +2565,7 @@ msgstr "設定"
 #: npgCore/admin-tabs/plugins.php:531
 #, fuzzy
 msgid "Warning note"
-msgstr "没有警告"
+msgstr "警告"
 
 #: npgCore/admin-tabs/tags.php:43
 #, fuzzy, php-format
@@ -2573,7 +2575,7 @@ msgstr "%1$s：%2$s未存儲，重複標記。"
 #: npgCore/admin-tabs/tags.php:48
 #, fuzzy
 msgid "New tags added"
-msgstr "新标签"
+msgstr "所選項目的標籤已新增"
 
 #: npgCore/admin-tabs/tags.php:102
 #, fuzzy
@@ -2583,12 +2585,12 @@ msgstr "刪除所選的標籤"
 #: npgCore/admin-tabs/tags.php:117
 #, fuzzy
 msgid "Checked tags marked private"
-msgstr "删除已选标签"
+msgstr "刪除所選的標籤"
 
 #: npgCore/admin-tabs/tags.php:119
 #, fuzzy
 msgid "Checked tags marked public"
-msgstr "删除已选标签"
+msgstr "刪除所選的標籤"
 
 #: npgCore/admin-tabs/tags.php:147
 #, fuzzy, php-format
@@ -2779,7 +2781,7 @@ msgstr "%s 的副本"
 #: npgCore/admin-tabs/themes.php:80
 #, fuzzy
 msgid "Theme folder name?"
-msgstr "以资料夹名称:"
+msgstr "資料夾名稱："
 
 #: npgCore/admin-tabs/themes.php:144
 msgid "no theme assigned, defaulting to Gallery theme"
@@ -2852,7 +2854,7 @@ msgstr "布景主题标志"
 #: npgCore/admin-tabs/themes.php:213
 #, fuzzy
 msgid "Third party theme"
-msgstr "第三方外挂"
+msgstr "第三方外掛"
 
 #: npgCore/admin-tabs/themes.php:254
 #, fuzzy
@@ -3072,8 +3074,9 @@ msgstr ""
 "謹此通知：有人在你的 ZenPhoto20 相館中發出重設密碼的請求，試圖以帳號 %s 登"
 "入。"
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 #, fuzzy
 msgid "Users"
 msgstr "使用者"
@@ -3229,7 +3232,7 @@ msgstr "網站使用政策已得到承認。"
 #, fuzzy
 #| msgid "Pet"
 msgid "Set"
-msgstr "设定为发表"
+msgstr "全部設為已發佈"
 
 #: npgCore/admin-tabs/users.php:831
 #, fuzzy
@@ -3255,7 +3258,7 @@ msgstr "电邮"
 #: npgCore/admin-tabs/users.php:859
 #, fuzzy
 msgid "create primary album"
-msgstr "建立相簿"
+msgstr "建立相本"
 
 #: npgCore/admin-tabs/users.php:869
 #, fuzzy, php-format
@@ -3318,7 +3321,7 @@ msgstr "用戶名不能包含“？”，“＆”或引號。"
 #: npgCore/admin-tabs/users.php:1053
 #, fuzzy, php-format
 msgid "The user “%s” already exists."
-msgstr "<em>%s</em> 已经存在."
+msgstr "<em>%s</em> 已經存在。"
 
 #: npgCore/admin.php:59 plugins/devReleases.php:43
 #, fuzzy
@@ -3340,12 +3343,12 @@ msgstr "HTML 快取已清空。"
 #: npgCore/admin.php:127
 #, fuzzy
 msgid "Search cache cleared."
-msgstr "图片快取已清除."
+msgstr "相片快取已清空。"
 
 #: npgCore/admin.php:135
 #, fuzzy
 msgid "Setup files restored."
-msgstr "档案"
+msgstr "安裝失敗。"
 
 #: npgCore/admin.php:139
 #, fuzzy
@@ -3408,7 +3411,7 @@ msgstr "重設所有計數器"
 #: npgCore/admin.php:257
 #, fuzzy
 msgid "purge search cache"
-msgstr "清除图片快取"
+msgstr "清空相片快取"
 
 #: npgCore/admin.php:264
 #, php-format
@@ -3457,7 +3460,7 @@ msgstr "%1$s 版本 %2$s"
 #: npgCore/admin.php:365
 #, fuzzy
 msgid "Install the netPhotoGraphics update."
-msgstr "更新"
+msgstr "Update"
 
 #: npgCore/admin.php:369
 #, fuzzy
@@ -3601,7 +3604,7 @@ msgstr[1] "<strong>%1$u</strong> 張相片（%2$u 張未公開發佈）"
 #| msgid_plural "<strong>%u</strong> Images"
 msgid "<strong>%u</strong> User"
 msgid_plural "<strong>%u</strong> Users"
-msgstr[0] "<strong>%u</strong> 个相簿"
+msgstr[0] "<strong>%u</strong> 個相本"
 msgstr[1] "<strong>%u</strong> 張相片"
 
 #: npgCore/admin.php:698
@@ -3798,7 +3801,7 @@ msgstr "如果佈景主題支援，這個網址將會用來連回你的主要網
 #: npgCore/admin_options/gallery.php:384
 #, fuzzy
 msgid "Album thumbnails"
-msgstr "相簿缩图:"
+msgstr "相本縮圖"
 
 #: npgCore/admin_options/gallery.php:402
 #, fuzzy
@@ -3850,7 +3853,7 @@ msgstr "視覺化縮圖選擇工具"
 #: npgCore/admin_options/gallery.php:495
 #, fuzzy
 msgid "show subalbum thumbs"
-msgstr "%u 個子相本"
+msgstr "新增子相本"
 
 #: npgCore/admin_options/gallery.php:503
 #, fuzzy
@@ -4034,12 +4037,12 @@ msgstr "固定網址後綴："
 #: npgCore/admin_options/general.php:262
 #, fuzzy
 msgid "<em>filesystem</em> image URIs"
-msgstr "<em>全尺寸</em> 图片"
+msgstr "不顯示吻合的 <em>相片</em>"
 
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "图片"
+msgstr "相片（動態）"
 
 #: npgCore/admin_options/general.php:283
 #, fuzzy
@@ -4389,7 +4392,7 @@ msgstr ""
 #: npgCore/admin_options/general.php:568
 #, fuzzy
 msgid "Usage policy"
-msgstr "使用提示"
+msgstr "操作小提示"
 
 #: npgCore/admin_options/general.php:572
 #, fuzzy
@@ -4510,7 +4513,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration"
-msgstr "用户登记"
+msgstr "确认登记"
 
 #: npgCore/admin_options/general.php:672
 #, fuzzy
@@ -4536,12 +4539,12 @@ msgstr "當然，一定要有管理員在自己的帳號資料中輸入電子信
 #: npgCore/admin_options/general.php:689
 #, fuzzy
 msgid "Admin pagination"
-msgstr "管理員登入"
+msgstr "管理"
 
 #: npgCore/admin_options/general.php:695
 #, fuzzy
 msgid "users per page"
-msgstr "每页 %u 张图片"
+msgstr "每頁縮圖數量"
 
 #: npgCore/admin_options/general.php:700
 #, fuzzy
@@ -4601,7 +4604,7 @@ msgstr "<p> ％s日誌限制</p>"
 #: npgCore/admin_options/general.php:803
 #, fuzzy
 msgid "e-mail when exceeded"
-msgstr "电邮:"
+msgstr "寄信給留言者"
 
 #: npgCore/admin_options/general.php:815
 #, fuzzy
@@ -4662,7 +4665,7 @@ msgstr ""
 #: npgCore/admin_options/image.php:315
 #, fuzzy
 msgid "Maximum image size"
-msgstr "图片大小"
+msgstr "預設的相片顯示尺寸。"
 
 #: npgCore/admin_options/image.php:324
 #, fuzzy
@@ -4759,7 +4762,7 @@ msgstr "銳利化："
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "相簿缩图:"
+msgstr "每列縮圖數量"
 
 #: npgCore/admin_options/image.php:423
 #, fuzzy
@@ -4911,7 +4914,7 @@ msgstr "只要服務器沒有被淹沒或內存不足，更多的工作人員就
 #: npgCore/admin_options/image.php:557
 #, fuzzy
 msgid "Cache as"
-msgstr "快取控制"
+msgstr "快取已清空。"
 
 #: npgCore/admin_options/image.php:560
 #, fuzzy
@@ -5130,7 +5133,7 @@ msgstr "選擇圖像元數據字段的處理方式。"
 #: npgCore/admin_options/image.php:878
 #, fuzzy
 msgid "Show the field"
-msgstr "显示"
+msgstr "名稱欄位"
 
 #: npgCore/admin_options/image.php:882
 #, fuzzy
@@ -5304,7 +5307,7 @@ msgstr "模式"
 #: npgCore/admin_options/search.php:274
 #, fuzzy
 msgid "<em>partial word</em>"
-msgstr "<em>匿名</em>"
+msgstr "檢視 <em>%s</em>"
 
 #: npgCore/admin_options/search.php:274 npgCore/admin_options/search.php:280
 #, fuzzy
@@ -5314,7 +5317,7 @@ msgstr "<em>和</em>"
 #: npgCore/admin_options/search.php:279
 #, fuzzy
 msgid "tag matching"
-msgstr "标签管理"
+msgstr "標籤管理"
 
 #: npgCore/admin_options/search.php:280
 #, fuzzy
@@ -5324,7 +5327,7 @@ msgstr "局部"
 #: npgCore/admin_options/search.php:280
 #, fuzzy
 msgid "<em>exact</em>"
-msgstr "<em>及</em>"
+msgstr "<em>和</em>"
 
 #: npgCore/admin_options/search.php:284
 #, fuzzy
@@ -5334,7 +5337,7 @@ msgstr "语言:"
 #: npgCore/admin_options/search.php:286
 #, fuzzy
 msgid "off"
-msgstr "关闭"
+msgstr "關閉"
 
 #: npgCore/admin_options/search.php:289
 #, fuzzy
@@ -5379,7 +5382,7 @@ msgstr "<em>最近新增</em> 的相片上要顯示的文字。"
 #: npgCore/admin_options/search.php:304
 #, fuzzy
 msgid "<em>Within</em>"
-msgstr "<em>及</em>"
+msgstr "檢視 <em>%s</em>"
 
 #: npgCore/admin_options/search.php:310
 #, fuzzy
@@ -5541,7 +5544,7 @@ msgstr "搜索將返回所選訂單中的項目。"
 #: npgCore/admin_options/search.php:503
 #, fuzzy
 msgid "Sort articles by"
-msgstr "子相本排序方式："
+msgstr "文章"
 
 #: npgCore/admin_options/search.php:555
 #, fuzzy
@@ -5616,7 +5619,7 @@ msgstr "向圖像處理器URI添加安全參數，以防止請求任意大小的
 #, fuzzy
 #| msgid "Description"
 msgid "Log encryption"
-msgstr "版本更新記錄"
+msgstr "登入"
 
 #: npgCore/admin_options/security.php:142
 #, fuzzy
@@ -5800,7 +5803,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
-msgstr "缩图"
+msgstr "尺寸 size ="
 
 #: npgCore/admin_options/theme.php:406
 #, php-format
@@ -6068,7 +6071,7 @@ msgstr "所選相片的標籤已清空"
 #: npgCore/allTranslations.php:71
 #, fuzzy
 msgid "Add favorite"
-msgstr "新增留言"
+msgstr "新增標籤"
 
 #: npgCore/allTranslations.php:72
 #, fuzzy
@@ -6078,12 +6081,12 @@ msgstr "刪除"
 #: npgCore/allTranslations.php:75
 #, fuzzy, php-format
 msgid "New album: %1$s"
-msgstr "新增相本"
+msgstr "%1$u 新 %2$s"
 
 #: npgCore/allTranslations.php:76
 #, fuzzy, php-format
 msgid "New image: [%2$s]%1$s"
-msgstr "%1$u 新 %2$s"
+msgstr "%1$s 版本 %2$s"
 
 #: npgCore/allTranslations.php:79 themes/enlighten/image.php:82
 #: themes/zenpage/image.php:73
@@ -6145,7 +6148,7 @@ msgstr "新相本的標題："
 #: npgCore/class-album.php:143
 #, fuzzy, php-format
 msgid "Invalid album instantiation: %1$s!=%2$s"
-msgstr "编辑相簿: <em>%1$s%2$s</em>"
+msgstr "編輯相本：<em>%1$s%2$s</em>"
 
 #: npgCore/class-album.php:146
 #, fuzzy, php-format
@@ -6165,7 +6168,7 @@ msgstr "錯誤：相本 %s 不存在。"
 #: npgCore/class-feed.php:362
 #, fuzzy
 msgid "Latest albums"
-msgstr "最新相簿"
+msgstr "最新相本"
 
 #: npgCore/class-feed.php:364 themes/ardoise/inc_header.php:79
 #: themes/ardoise/inc_print_image_statistic.php:12
@@ -6179,12 +6182,12 @@ msgstr "最新相片"
 #: npgCore/class-feed.php:368
 #, fuzzy
 msgid "latest updated albums"
-msgstr "最新相本"
+msgstr "最近更新"
 
 #: npgCore/class-feed.php:372
 #, fuzzy
 msgid "Most popular albums"
-msgstr "常见标签"
+msgstr "最新相片"
 
 #: npgCore/class-feed.php:374
 #, fuzzy
@@ -6204,7 +6207,7 @@ msgstr "最高评级"
 #: npgCore/class-feed.php:386
 #, fuzzy
 msgid "Random albums"
-msgstr "隨機"
+msgstr "隨機相片"
 
 #: npgCore/class-feed.php:388 themes/ardoise/inc_print_image_statistic.php:6
 #: themes/paradigm/includes/_homepage.php:102
@@ -6244,7 +6247,7 @@ msgstr "<strong>遺失佈景主題資訊檔案！</strong>"
 #: npgCore/class-gallery.php:602
 #, fuzzy, php-format
 msgid "Invalid album folder: %1$s %2$s"
-msgstr "<em>%1$s</em> 资料夹 %2$s"
+msgstr "<em>%1$s</em> 資料夾 %2$s [存取權限設定失敗]"
 
 #: npgCore/class-gallery.php:602
 #, fuzzy
@@ -6296,17 +6299,17 @@ msgstr "物件不存在"
 #: npgCore/class-image.php:199 npgCore/extensions/xmpMetadata.php:648
 #, fuzzy
 msgid "Image Headline"
-msgstr "图片"
+msgstr "相片排序"
 
 #: npgCore/class-image.php:200 npgCore/extensions/xmpMetadata.php:646
 #, fuzzy
 msgid "Image Caption"
-msgstr "图片"
+msgstr " %"
 
 #: npgCore/class-image.php:201
 #, fuzzy
 msgid "Image Caption Writer"
-msgstr "原尺寸相片"
+msgstr "相片排序"
 
 #: npgCore/class-image.php:202
 msgid "Time Taken"
@@ -6323,12 +6326,12 @@ msgstr "數位化時間"
 #: npgCore/class-image.php:205
 #, fuzzy
 msgid "Date Created"
-msgstr "日期："
+msgstr "日期"
 
 #: npgCore/class-image.php:206
 #, fuzzy
 msgid "Time Created"
-msgstr "拍摄时间"
+msgstr "原始攝影時間"
 
 #: npgCore/class-image.php:207
 msgid "Digital Creation Date"
@@ -6587,7 +6590,7 @@ msgstr "搜寻栏位:"
 #: npgCore/classes.php:441
 #, fuzzy
 msgid "Object"
-msgstr "<strong>遺失物件</strong>"
+msgstr "物件不存在"
 
 #: npgCore/classes.php:476
 #, fuzzy, php-format
@@ -7292,7 +7295,7 @@ msgstr "原始 RAW"
 #: npgCore/exif/exifTranslations.php:175
 #, fuzzy
 msgid "Recommended Exposure Index"
-msgstr "曝光補償"
+msgstr "索引頁"
 
 #: npgCore/exif/exifTranslations.php:176
 #, fuzzy
@@ -7325,7 +7328,7 @@ msgstr "紅眼睛;自動模式;未檢測到返迴光"
 #: npgCore/exif/exifTranslations.php:182
 #, fuzzy
 msgid "Red Eye; Compulsory Flash"
-msgstr "强迫闪光"
+msgstr "防紅眼模式"
 
 #: npgCore/exif/exifTranslations.php:183
 #, fuzzy
@@ -7562,7 +7565,7 @@ msgstr "溫暖"
 #: npgCore/exif/exifTranslations.php:238
 #, fuzzy
 msgid "Warning"
-msgstr "没有警告"
+msgstr "警告"
 
 #: npgCore/exif/exifTranslations.php:239
 #, fuzzy
@@ -7591,7 +7594,7 @@ msgstr "URL"
 #: npgCore/extensions/GDPR_required.php:63
 #, fuzzy
 msgid "Policy page"
-msgstr "页"
+msgstr "第 %u 頁"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -7742,7 +7745,7 @@ msgstr "請造訪此頁重設你的 netPhotoGraphics 管理密碼：%s"
 #: npgCore/extensions/LDAP_auth.php:74
 #, fuzzy
 msgid "LDAP reader password"
-msgstr "密码"
+msgstr "清除密碼"
 
 #: npgCore/extensions/LDAP_auth.php:76
 #, fuzzy
@@ -7811,7 +7814,7 @@ msgstr "组别"
 #: npgCore/extensions/LDAP_auth.php:111
 #, fuzzy
 msgid "LDAP group"
-msgstr "组别"
+msgstr "沒有群組"
 
 #: npgCore/extensions/LDAP_auth/LDAP auth.php:221
 #, fuzzy
@@ -7983,7 +7986,7 @@ msgstr "*预设"
 #, fuzzy
 #| msgid "High"
 msgid "High (HD)"
-msgstr "高感光"
+msgstr "高"
 
 #: npgCore/extensions/VideoJS.php:79
 #, fuzzy
@@ -8035,7 +8038,7 @@ msgstr "预设大小"
 #: npgCore/extensions/VideoJS.php:91
 #, fuzzy
 msgid "Custom Player Size"
-msgstr "尺寸 size ="
+msgstr "自訂"
 
 #: npgCore/extensions/VideoJS.php:94
 #, fuzzy
@@ -8046,7 +8049,7 @@ msgstr "自定義播放器大小（寬度，以像素為單位設置為0以使�
 #: npgCore/extensions/VideoJS.php:95
 #, fuzzy
 msgid "Custom Aspect Ratio"
-msgstr "自定"
+msgstr "自訂頁面"
 
 #: npgCore/extensions/VideoJS.php:99
 #, fuzzy
@@ -8144,7 +8147,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
 msgid "Mointor only"
-msgstr "僅允許會員留言"
+msgstr "只有會員"
 
 #: npgCore/extensions/accessThreshold.php:69
 #, php-format
@@ -8161,7 +8164,7 @@ msgstr "清除標籤"
 #: npgCore/extensions/accessThreshold.php:72
 #, fuzzy
 msgid "Clear the access list."
-msgstr "不许观看"
+msgstr "清除密碼"
 
 #: npgCore/extensions/accessThreshold.php:108
 #, fuzzy
@@ -8329,7 +8332,7 @@ msgstr ""
 #: npgCore/extensions/cacheManager.php:292
 #, fuzzy
 msgid "Width"
-msgstr "宽"
+msgstr "寬度"
 
 #: npgCore/extensions/bxslider_thumb_nav.php:68
 #, fuzzy
@@ -8340,7 +8343,7 @@ msgstr "图片带的宽度.  注意 CSS 可能要修改. "
 #: npgCore/extensions/cacheManager.php:292
 #, fuzzy
 msgid "Height"
-msgstr "高"
+msgstr "高度"
 
 #: npgCore/extensions/bxslider_thumb_nav.php:71
 #, fuzzy
@@ -8547,7 +8550,7 @@ msgstr "size ="
 #: npgCore/extensions/cacheManager.php:293
 #, fuzzy
 msgid "Crop X axis"
-msgstr "crop ="
+msgstr "裁切"
 
 #: npgCore/extensions/cacheManager.php:294
 #, fuzzy
@@ -8583,7 +8586,7 @@ msgstr "HTML 快取"
 #: npgCore/extensions/cacheManager.php:501
 #, fuzzy
 msgid "Cache stored images"
-msgstr "相片"
+msgstr "HTML 快取"
 
 #: npgCore/extensions/cacheManager.php:509
 #: npgCore/extensions/cacheManager.php:577
@@ -8604,7 +8607,7 @@ msgstr "您必須首先為緩存的圖像參數設置插件選項。"
 #: plugins/cacheHeader.php:43 plugins/cacheHeader.php:49
 #, fuzzy
 msgid "Cache"
-msgstr "快取控制"
+msgstr "快取已清空。"
 
 #: npgCore/extensions/cacheManager.php:520
 msgid "Purge RSS cache"
@@ -8637,7 +8640,7 @@ msgstr "清除静态 HTML 快取.  当 HTML 被观看时会再放到快取. "
 #: npgCore/extensions/cacheManager.php:560
 #, fuzzy
 msgid "Purge search cache"
-msgstr "清除图片快取"
+msgstr "清空相片快取"
 
 #: npgCore/extensions/cacheManager.php:564
 #, fuzzy
@@ -8684,7 +8687,7 @@ msgstr "如果圖像的緩存文件不存在，則將為該圖像進行緩存圖
 #: npgCore/extensions/cacheManager/cacheDBImages.php:66
 #, fuzzy
 msgid "If these are enabled."
-msgstr "启动"
+msgstr "所選的項目已啟用留言"
 
 #: npgCore/extensions/cacheManager/cacheDBImages.php:95
 #, fuzzy
@@ -8756,27 +8759,27 @@ msgstr[1] "[%u 張相片]"
 #, fuzzy, php-format
 #| msgid "Refreshing cache for %s"
 msgid "Refresh cache for %s"
-msgstr "更新相簿 %s 的诠释资料"
+msgstr "重新執行"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:233
 #, fuzzy
 msgid "Full Image"
-msgstr "全尺寸图片"
+msgstr "原尺寸相片"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:281
 #, fuzzy
 msgid "invalid MaxSpace"
-msgstr "无效连结到幻灯片播放页."
+msgstr "不正确验证连结"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:286
 #, fuzzy
 msgid "invalid Cache Set"
-msgstr "无效连结到幻灯片播放页."
+msgstr "HTML 快取"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:307
 #, fuzzy, php-format
 msgid "all sizes for <em>%1$s</em>"
-msgstr "%1$s <em>%2$s</em> 已新增"
+msgstr "<em>%1$s</em> 留言於 %2$s："
 
 #: npgCore/extensions/cacheManager/cacheImages.php:353
 #, fuzzy, php-format
@@ -8809,7 +8812,7 @@ msgstr "如果某些圖像未渲染，請刷新所選圖像大小的緩存。"
 #: npgCore/extensions/cacheManager/cacheImages.php:378
 #, fuzzy
 msgid "No cache sizes enabled."
-msgstr "允許的相片尺寸"
+msgstr "HTML 快取"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:382
 #, fuzzy
@@ -8824,17 +8827,17 @@ msgstr "執行所選圖像大小的緩存。"
 #: npgCore/extensions/cacheManager/deprecated-functions.php:10
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
@@ -8844,17 +8847,17 @@ msgstr "調用未定義的方法cachemanager ::%1$s（）"
 #: npgCore/extensions/cacheManager/functions.php:57
 #, fuzzy, php-format
 msgid "%1$s: image %2$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s 版本 %2$s"
 
 #: npgCore/extensions/cacheManager/functions.php:60
 #, fuzzy, php-format
 msgid "album %s"
-msgstr "相簿: %s"
+msgstr "相本：%s"
 
 #: npgCore/extensions/cacheManager/functions.php:64
 #, fuzzy, php-format
 msgid "%1$s: %2$s"
-msgstr "%1$s %2$s：%3$s%4$s"
+msgstr "Effervescence %1$s %2$s"
 
 #: npgCore/extensions/captcha.php:16
 #, fuzzy
@@ -9120,7 +9123,7 @@ msgstr "測光模式"
 #: npgCore/extensions/class-video.php:131
 #, fuzzy
 msgid "Bits per sample"
-msgstr "验证码图片例子 "
+msgstr "驗證碼的範例圖像"
 
 #: npgCore/extensions/class-video.php:132
 #, fuzzy
@@ -9130,7 +9133,7 @@ msgstr "編碼器"
 #: npgCore/extensions/class-video.php:133
 #, fuzzy
 msgid "Compression Ratio"
-msgstr "未压缩"
+msgstr "不壓縮"
 
 #: npgCore/extensions/class-video.php:134
 #, fuzzy
@@ -9285,7 +9288,7 @@ msgstr "無法刪除現有文件<code>%s</code> 。"
 #: npgCore/extensions/clone/clone.php:132
 #, fuzzy, php-format
 msgid "<code>%s</code> Link created."
-msgstr "资料库 <code>%s</code> 建立"
+msgstr "資料庫 <code>%s</code> 已建立"
 
 #: npgCore/extensions/clone/clone.php:155
 #, fuzzy, php-format
@@ -9329,7 +9332,7 @@ msgstr "你的主要網站標題。"
 #, fuzzy
 #| msgid "Visible items"
 msgid "Visit the site."
-msgstr "在本站註冊帳號"
+msgstr "網站："
 
 #: npgCore/extensions/clone/cloneTab.php:58
 #, fuzzy, php-format
@@ -9591,7 +9594,7 @@ msgstr "管理選項卡上每頁應顯示的註釋以及使用jQuery分頁時的
 #: npgCore/extensions/comment_form.php:147
 #, fuzzy
 msgid "Comment editor configuration"
-msgstr "最后编辑者"
+msgstr "佈景主題檔案編輯器"
 
 #: npgCore/extensions/comment_form.php:151
 #, fuzzy
@@ -9810,7 +9813,7 @@ msgstr "所選的項目已被標記為通過審核"
 #, fuzzy, php-format
 msgid "%u Comment deleted successfully."
 msgid_plural "%u Comment deleted successfully."
-msgstr[0] "%s 删除成功."
+msgstr[0] "分類刪除成功！"
 msgstr[1] "留言刪除成功。"
 
 #: npgCore/extensions/comment_form/admin-comments.php:321
@@ -9905,7 +9908,7 @@ msgstr "寄信給留言者"
 #: themes/paradigm/contact_form/form.php:23
 #, fuzzy, php-format
 msgid "Name%s"
-msgstr "名称<strong>%s</strong>:"
+msgstr "資料庫名稱 <strong>%s</strong>"
 
 #: npgCore/extensions/comment_form/comment_form.php:31
 #: themes/paradigm/comment_form/comment_form.php:29
@@ -9961,7 +9964,7 @@ msgstr "省／州 <strong>%s</strong>："
 #: themes/paradigm/contact_form/form.php:81
 #, fuzzy, php-format
 msgid "Country%s"
-msgstr "国家:"
+msgstr "國家"
 
 #: npgCore/extensions/comment_form/comment_form.php:78
 #: npgCore/extensions/contact_form/form.php:78
@@ -9991,7 +9994,7 @@ msgstr "*必填欄位"
 #: themes/paradigm/comment_form/comment_form.php:127
 #, fuzzy
 msgid "Private comment (do not publish)"
-msgstr "私人留言 (不发表)"
+msgstr "私密留言（留言將不會公開顯示）"
 
 #: npgCore/extensions/comment_form/comment_form.php:127
 #: themes/masonry/comment_form/comment_form.php:84
@@ -10131,7 +10134,7 @@ msgstr "信箱："
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
 msgid "Website: %1$s"
-msgstr "网址<strong>%s</strong>:"
+msgstr "網站"
 
 #: npgCore/extensions/comment_form/functions.php:486
 #: npgCore/utilities/database_reference.php:195
@@ -10466,7 +10469,7 @@ msgstr "訊息內容"
 #, fuzzy
 #| msgid "CAPTCHA verification failed."
 msgid "CAPTCHA verification."
-msgstr "正確的防廣告驗證碼"
+msgstr "验证码查证失败."
 
 #: npgCore/extensions/contact_form.php:258
 #, php-format
@@ -10556,7 +10559,7 @@ msgstr "用於關閉按鈕的文本。保留為空以使用默認文本。"
 #: npgCore/extensions/cookieconsent.php:50
 #, fuzzy
 msgid "Button: Learn more"
-msgstr "顯示更多結果"
+msgstr "管理一個或多個相本"
 
 #: npgCore/extensions/cookieconsent.php:55
 #, fuzzy
@@ -10658,7 +10661,7 @@ msgstr "回到頂端"
 #, fuzzy
 #| msgid "scroll left"
 msgid "Top left"
-msgstr "左"
+msgstr "回到頂端"
 
 #: npgCore/extensions/cookieconsent.php:95
 #: npgCore/extensions/openstreetmap.php:114
@@ -10688,7 +10691,7 @@ msgstr "左"
 #, fuzzy
 #| msgid "Vote Status:"
 msgid "Bottom right"
-msgstr "右"
+msgstr "右下 %s %%"
 
 #: npgCore/extensions/cookieconsent.php:100
 #, fuzzy
@@ -10712,7 +10715,7 @@ msgstr "當用戶滾動頁面時，請檢查以解除[ <em>了解更多</em>頁�
 #: npgCore/extensions/cookieconsent.php:106
 #, fuzzy
 msgid "Color - Popup"
-msgstr "彩色"
+msgstr "色彩序列感測器"
 
 #: npgCore/extensions/cookieconsent.php:110
 #, fuzzy
@@ -10759,7 +10762,7 @@ msgstr "裁切图片"
 #: npgCore/extensions/crop_image.php:356
 #, fuzzy
 msgid "Are you sure you want to permanently alter this image?"
-msgstr "是否真的肯定要删除这些图片?"
+msgstr "確定選擇這張相片以備等會兒刪除嗎？"
 
 #: npgCore/extensions/crop_image.php:377
 #, fuzzy
@@ -10829,7 +10832,7 @@ msgstr "多少天回來展示。"
 #: npgCore/extensions/daily-summary.php:76
 #, fuzzy
 msgid "Items per page"
-msgstr "每页 %u 张图片"
+msgstr "每頁縮圖數量"
 
 #: npgCore/extensions/daily-summary.php:80
 #, fuzzy
@@ -10880,7 +10883,7 @@ msgstr "头衔<strong>%s</strong>:"
 #, fuzzy, php-format
 #| msgid "Description"
 msgid "Description: %s"
-msgstr "描述:"
+msgstr "描述："
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:32
 #: plugins/daily-summary/daily-summary_content.php:33
@@ -10907,7 +10910,7 @@ msgstr "網址數量上限"
 #, fuzzy
 #| msgid "Link text"
 msgid "Link: "
-msgstr "连结文字"
+msgstr "原尺寸相片連結"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:40
 #: plugins/daily-summary/daily-summary_content.php:41
@@ -10973,7 +10976,7 @@ msgstr[1] ""
 #| msgid "View the %s album"
 msgid "New photo in the %1$s albums."
 msgid_plural "New photos in the %1$s albums"
-msgstr[0] "%1$u 新 %2$s"
+msgstr[0] "相本（%1$s）與相片（%2$s）"
 msgstr[1] "檢視相本 %s"
 
 #: npgCore/extensions/daily-summary/dailysummary-template-functions.php:62
@@ -11050,13 +11053,13 @@ msgstr "調試輔助工具。"
 #: npgCore/extensions/debug.php:112
 #, fuzzy
 msgid "Display PHP errors"
-msgstr "Tweet News 出錯："
+msgstr "送出留言時發生錯誤："
 
 #: npgCore/extensions/debug.php:113
 #, fuzzy
 #| msgid "<em>none</em>"
 msgid "<em>testing mode</em>"
-msgstr "<em>匿名</em>"
+msgstr "檢視 <em>%s</em>"
 
 #: npgCore/extensions/debug.php:114
 #, fuzzy
@@ -11101,7 +11104,7 @@ msgstr "日誌插件加載順序"
 #: npgCore/extensions/debug.php:122
 #, fuzzy
 msgid "Log Feed issues"
-msgstr "版本更新記錄"
+msgstr "登入"
 
 #: npgCore/extensions/debug.php:123
 #, fuzzy
@@ -11370,7 +11373,7 @@ msgstr "外挂"
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:65
 #, fuzzy
 msgid "In netPhotoGraphics code"
-msgstr "%s郵遞區號："
+msgstr "郵遞區號："
 
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:71
 #, fuzzy
@@ -11482,7 +11485,7 @@ msgstr "此功能在“theme_head”過濾器中處理。對於參數設置主�
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:69
 #, fuzzy
 msgid "Use getAllTagsUnique()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:78
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:86
@@ -11522,7 +11525,7 @@ msgstr "使用print_SW_Link（）"
 #, fuzzy
 #| msgid "Use text"
 msgid "Use exit()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:160
 #, fuzzy
@@ -11548,7 +11551,7 @@ msgstr "使用npgFilters :: has_filter（）"
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:204
 #, fuzzy
@@ -11558,27 +11561,27 @@ msgstr "使用GDPR_required插件"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:212
 #, fuzzy
 msgid "Use npg_loggedin()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:220
 #, fuzzy
 msgid "Use setNPGCookie()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:228
 #, fuzzy
 msgid "Use getNPGCookie()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:236
 #, fuzzy
 msgid "Use clearNPGCookie()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:244
 #, fuzzy
 msgid "Use formattedDate()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/deprecated-functions/functions.php:113
 #: npgCore/extensions/deprecated-functions/functions.php:151
@@ -11711,7 +11714,7 @@ msgstr "密碼提示："
 #: npgCore/extensions/downloadList.php:178
 #, fuzzy
 msgid "You must supply a password for the DownloadList user"
-msgstr "保护页面用户必须提供密码"
+msgstr "請輸入受保護分頁帳號之密碼"
 
 #: npgCore/extensions/downloadList.php:180
 #, fuzzy
@@ -11725,7 +11728,7 @@ msgstr "下載紀錄統計"
 #: npgCore/extensions/downloadList.php:278
 #, fuzzy, php-format
 msgid "File “%s” was not found."
-msgstr "档案不存在."
+msgstr "檔案不存在。"
 
 #: npgCore/extensions/downloadList.php:371
 #, fuzzy, php-format
@@ -11753,7 +11756,7 @@ msgstr "從%2$s上的%1$s的緩存圖像創建。"
 #: npgCore/extensions/downloadList.php:399
 #, fuzzy, php-format
 msgid "Created from images in %1$s on %2$s."
-msgstr "相簿 (%1$s) &amp; 图片 (%2$s)"
+msgstr "相本（%1$s）與相片（%2$s）"
 
 #: npgCore/extensions/downloadList.php:557
 #: npgCore/extensions/downloadList.php:630
@@ -11845,7 +11848,7 @@ msgstr "網址"
 #: npgCore/extensions/rewriteRules.php:192
 #, fuzzy
 msgid "disabled"
-msgstr "关闭"
+msgstr "停用"
 
 #: npgCore/extensions/dynamic-locale.php:225
 #, fuzzy, php-format
@@ -11869,7 +11872,7 @@ msgstr ""
 #: npgCore/extensions/dynamic-locale.php:233
 #, fuzzy
 msgid "Use flags"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/dynamic-locale.php:235
 #, fuzzy
@@ -11913,7 +11916,7 @@ msgstr "用作上傳<em>文件</em>子選項卡。"
 #, fuzzy
 #| msgid "Edit the menu"
 msgid "Edit themes"
-msgstr "布景主题"
+msgstr "編輯"
 
 #: npgCore/extensions/elFinder.php:57
 #, fuzzy
@@ -12118,12 +12121,12 @@ msgstr "要在網站的Feed中顯示的新圖片和評論的數量"
 #: npgCore/extensions/externalFeed.php:85
 #, fuzzy
 msgid "Size of image feed images:"
-msgstr "图片大小"
+msgstr "預設的相片顯示尺寸。"
 
 #: npgCore/extensions/externalFeed.php:86 npgCore/extensions/rss.php:68
 #, fuzzy
 msgid "Image feed sort order:"
-msgstr "*相馆图片排序"
+msgstr "*使用父相本的的相片排序方式"
 
 #: npgCore/extensions/externalFeed.php:88
 #: npgCore/extensions/externalFeed.php:95 npgCore/extensions/rss.php:70
@@ -12148,7 +12151,7 @@ msgstr "最近的檔案修改"
 #: npgCore/extensions/rss.php:80
 #, fuzzy
 msgid "latest by publishdate"
-msgstr "最新相片"
+msgstr "最新"
 
 #: npgCore/extensions/externalFeed.php:93
 #, fuzzy
@@ -12163,7 +12166,7 @@ msgstr ""
 #: npgCore/extensions/externalFeed.php:94 npgCore/extensions/rss.php:76
 #, fuzzy
 msgid "Album feed sort order:"
-msgstr "* 相馆相簿排序"
+msgstr "*使用父相本的的子相本排序方式"
 
 #: npgCore/extensions/externalFeed.php:99 npgCore/extensions/rss.php:81
 #: npgCore/utilities/gallery_statistics.php:246
@@ -12179,7 +12182,7 @@ msgstr "除上述內容外，您還可以選擇最新更新。"
 #: npgCore/extensions/externalFeed.php:103
 #, fuzzy
 msgid "New requestor:"
-msgstr "返回匯入工具"
+msgstr "新增子相本"
 
 #: npgCore/extensions/externalFeed.php:105
 #, fuzzy
@@ -12230,12 +12233,12 @@ msgstr "最近注册及认证的用户"
 #: npgCore/extensions/externalFeed.php:245 npgCore/extensions/rss.php:438
 #, fuzzy
 msgid " (Latest news)"
-msgstr "新聞"
+msgstr "最新"
 
 #: npgCore/extensions/externalFeed.php:249 npgCore/extensions/rss.php:455
 #, fuzzy
 msgid " (Most popular news)"
-msgstr "常见标签"
+msgstr "新聞"
 
 #: npgCore/extensions/externalFeed.php:252 npgCore/extensions/rss.php:458
 #, fuzzy
@@ -12250,12 +12253,12 @@ msgstr "最高评级"
 #: npgCore/extensions/externalFeed.php:258 npgCore/extensions/rss.php:464
 #, fuzzy
 msgid " (Random news)"
-msgstr "隨機圖片..."
+msgstr "隨機相片"
 
 #: npgCore/extensions/externalFeed.php:275 npgCore/extensions/rss.php:482
 #, fuzzy
 msgid " (Most popular pages)"
-msgstr "常见标签"
+msgstr "分頁"
 
 #: npgCore/extensions/externalFeed.php:278 npgCore/extensions/rss.php:485
 #, fuzzy
@@ -12270,24 +12273,24 @@ msgstr "最高评级"
 #: npgCore/extensions/externalFeed.php:284 npgCore/extensions/rss.php:491
 #, fuzzy
 msgid " (Random pages)"
-msgstr "隨機圖片..."
+msgstr "隨機相片"
 
 #: npgCore/extensions/externalFeed.php:287 npgCore/extensions/rss.php:494
 #, fuzzy
 msgid " (Latest pages)"
-msgstr "分頁"
+msgstr "最新"
 
 #: npgCore/extensions/externalFeed.php:326 npgCore/extensions/rss.php:517
 #, fuzzy
 msgid " (latest comments)"
-msgstr "留言："
+msgstr "最新"
 
 #: npgCore/extensions/externalFeed.php:364 npgCore/extensions/rss.php:572
 #: npgCore/extensions/rss.php:580
 #, fuzzy, php-format
 msgid "%s (%u image)"
 msgid_plural "%s (%u images)"
-msgstr[0] "%u 张图片"
+msgstr[0] "每頁 %u 張相片"
 msgstr[1] "（%s：1 張相片）"
 
 #: npgCore/extensions/facebookLogin.php:33
@@ -12317,7 +12320,7 @@ msgstr "PHP Curl是必需的。"
 #: npgCore/extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "帳號："
+msgstr "ID"
 
 #: npgCore/extensions/facebookLogin.php:66
 #, fuzzy
@@ -12344,7 +12347,7 @@ msgstr "將<em>收藏夾</em>發佈到其他人可以查看的相冊中。"
 #: npgCore/extensions/favoritesAlbums.php:155
 #, fuzzy
 msgid "Create an album from favorites"
-msgstr "由搜寻建立新相簿"
+msgstr "由這次搜尋建立相本"
 
 #: npgCore/extensions/favoritesAlbums.php:155
 #: npgCore/template-functions.php:330
@@ -12354,7 +12357,7 @@ msgstr "建立相本"
 #: npgCore/extensions/favoritesAlbums/admin-album.php:82
 #, fuzzy
 msgid "Create Favorites Album"
-msgstr "建立相簿"
+msgstr "netPhotoGraphics 建立動態相本"
 
 #: npgCore/extensions/favoritesAlbums/admin-album.php:94
 #, fuzzy
@@ -12374,7 +12377,7 @@ msgstr "如果啟用，則用戶可能有多個（已命名）收藏夾。"
 #: npgCore/extensions/favoritesHandler.php:92
 #, fuzzy
 msgid "Named favorites are present."
-msgstr "图像程式库旋转支援 [不存在]"
+msgstr "圖像處理函式庫方向旋轉支援 [目前不支援]"
 
 #: npgCore/extensions/favoritesHandler.php:95
 #: npgCore/extensions/register_user.php:59
@@ -12384,7 +12387,7 @@ msgstr "連結文字"
 #: npgCore/extensions/favoritesHandler.php:98
 #, fuzzy
 msgid "The text for the link to the favorites page."
-msgstr "连结文字"
+msgstr "新訊息連結文字"
 
 #: npgCore/extensions/favoritesHandler.php:99
 #, fuzzy
@@ -12634,7 +12637,7 @@ msgstr "該文本將用作文章的<em>標題</em> 。專輯標題將替換<code
 #: npgCore/extensions/galleryArticles.php:80
 #, fuzzy
 msgid "Set the size the image will be displayed."
-msgstr "图片大小"
+msgstr "預設的相片顯示尺寸。"
 
 #: npgCore/extensions/galleryArticles.php:81
 #, fuzzy
@@ -12651,7 +12654,7 @@ msgstr "除非選中此選項，否則“受保護”的對象將不會生成新
 #: npgCore/extensions/galleryArticles.php:84
 #, fuzzy
 msgid "Publish article"
-msgstr "发表"
+msgstr "文章"
 
 #: npgCore/extensions/galleryArticles.php:86
 #, fuzzy
@@ -12674,7 +12677,7 @@ msgstr "為生成的文章選擇一個類別"
 #: npgCore/extensions/galleryArticles.php:91
 #, fuzzy
 msgid "Use album folder"
-msgstr "資料夾名稱："
+msgstr "重新命名資料夾"
 
 #: npgCore/extensions/galleryArticles.php:93
 #, fuzzy
@@ -12699,7 +12702,7 @@ msgstr "如果選中此選項，將根據您的舊<em>Combi-news</em>設置生�
 #, fuzzy, php-format
 #| msgid "View %s"
 msgid "View %1$s"
-msgstr "显示 %s"
+msgstr "檢視 <em>%s</em>"
 
 #: npgCore/extensions/galleryArticles.php:241
 #, fuzzy
@@ -12726,7 +12729,7 @@ msgstr "通過用戶的<em>Google</em>帳戶處理登錄。"
 #: npgCore/extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "帳號："
+msgstr "ID"
 
 #: npgCore/extensions/googleLogin.php:68
 #, fuzzy
@@ -12746,7 +12749,7 @@ msgstr "這是您的Google <em>OAuth客戶端密鑰</em> 。"
 #: npgCore/extensions/googleLogin.php:72 npgCore/extensions/googleMap.php:109
 #, fuzzy
 msgid "API key"
-msgstr "关联阵列索引值"
+msgstr "加密金鑰"
 
 #: npgCore/extensions/googleLogin.php:74
 #, fuzzy
@@ -12844,7 +12847,7 @@ msgstr "選擇地圖的顯示類型初始值。"
 #: npgCore/extensions/googleMap.php:97
 #, fuzzy
 msgid "Zoom controls"
-msgstr "地圖控制項"
+msgstr "放大"
 
 #: npgCore/extensions/googleMap.php:102
 #, fuzzy
@@ -12906,12 +12909,12 @@ msgstr "顯示或隱藏 Google 地圖"
 #: npgCore/extensions/googleMap/deprecated-functions.php:13
 #, fuzzy
 msgid "Use GoogleMap::getGeoCoord."
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/googleMap/deprecated-functions.php:21
 #, fuzzy
 msgid "Use GoogleMap::addGeoCoord."
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/googleMap/map.php:104
 #, fuzzy
@@ -13077,7 +13080,7 @@ msgstr "标题"
 #, fuzzy
 #| msgid "Gallery description:"
 msgid "Translate Description"
-msgstr "描述:"
+msgstr "描述"
 
 #: npgCore/extensions/googleTranslate.php:139
 #, fuzzy
@@ -13158,12 +13161,12 @@ msgstr "重設所有計數器"
 #: npgCore/extensions/hitcounter.php:213
 #, fuzzy
 msgid "Reset all hitcounters to zero"
-msgstr "重设所观看次数"
+msgstr "重设所用观看次数"
 
 #: npgCore/extensions/hitcounter/reset_hitcounts.php:27
 #, fuzzy
 msgid "All hitcounters have been set to zero."
-msgstr "所有评级设为 <em>未评级</em>."
+msgstr "所有評分已全部設為 <em>尚未評分</em>。"
 
 #: npgCore/extensions/html_meta_tags.php:20
 #, fuzzy
@@ -13309,7 +13312,7 @@ msgstr "如果啟用，則用於共享到社交網絡的打開圖形圖像的最
 #: npgCore/extensions/html_meta_tags.php:117
 #, fuzzy
 msgid "Facebook app id"
-msgstr "帳號："
+msgstr "ID"
 
 #: npgCore/extensions/html_meta_tags.php:118
 #, fuzzy
@@ -13358,7 +13361,7 @@ msgstr "檢查授權用戶的Apache HTTP身份驗證。"
 #: npgCore/extensions/http_auth.php:77
 #, fuzzy
 msgid "User validation"
-msgstr "使用者相本"
+msgstr "新增帳號"
 
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
@@ -13419,7 +13422,7 @@ msgstr "通過用戶的<em>Instagram</em>帳戶處理登錄。"
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "帳號："
+msgstr "ID"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -13450,7 +13453,7 @@ msgstr "阻止黑客訪問您網站的工具。"
 #: npgCore/extensions/ipBlocker.php:80
 #, fuzzy
 msgid "Allow"
-msgstr "容许搜寻"
+msgstr "容许留言"
 
 #: npgCore/extensions/ipBlocker.php:80
 #, fuzzy
@@ -13529,7 +13532,7 @@ msgstr "清除標籤"
 #: npgCore/extensions/ipBlocker.php:193
 #, fuzzy
 msgid "IP address format error"
-msgstr "IP地址列表"
+msgstr "$usersizes 字串格式錯誤。"
 
 #: npgCore/extensions/ipBlocker.php:319
 #, fuzzy
@@ -13789,7 +13792,7 @@ msgstr "最大音量"
 #: themes/masonry/inc-header.php:154 themes/masonry/inc-header.php:170
 #, fuzzy
 msgid "previous"
-msgstr "下一张"
+msgstr "上一張"
 
 #: npgCore/extensions/jPlayer.php:455 plugins/slideshow2.php:331
 #, fuzzy
@@ -13814,7 +13817,7 @@ msgstr "全螢幕"
 #: npgCore/extensions/jPlayer.php:473
 #, fuzzy
 msgid "Update Required"
-msgstr "更新"
+msgstr "必填"
 
 #: npgCore/extensions/jPlayer.php:474
 #, fuzzy
@@ -14007,7 +14010,7 @@ msgstr "輸入Matomo分配給您網站的ID。"
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Admin tracking"
-msgstr "管理員登入"
+msgstr "管理"
 
 #: npgCore/extensions/matomo.php:92
 #, fuzzy
@@ -14060,7 +14063,7 @@ msgstr "如果要跟踪所有子域，請輸入您的站點域名（例如<code>
 #: npgCore/extensions/matomo.php:109
 #, fuzzy
 msgid "Widgets: Embed code"
-msgstr "%s郵遞區號："
+msgstr "郵遞區號："
 
 #: npgCore/extensions/matomo.php:114
 #, fuzzy
@@ -14108,7 +14111,7 @@ msgstr "檢查這一點，以便Matomo不使用cookie來跟踪訪問者（跟踪
 #: npgCore/extensions/matomo.php:127
 #, fuzzy
 msgid "User consent"
-msgstr "使用者相本"
+msgstr "新增帳號"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -14378,7 +14381,7 @@ msgstr "相本 <em>%s</em> 的選單項目已新增"
 #, fuzzy, php-format
 #| msgid "Custom page menu item <em>%s</em> added"
 msgid "Home page menu item <em>%s</em> added"
-msgstr "Zenpage 页面选单项目<em>%s</em> 已加入"
+msgstr "自訂選單項目 <em>%s</em> 已新增"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:524
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:554
@@ -14469,7 +14472,7 @@ msgstr "管理选单项目 <em>%s</em> 已加入"
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:642
 #, fuzzy
 msgid "<em>HTML</em> added"
-msgstr "类别<em>%s</em> 已加入"
+msgstr "標籤 <em>%s</em> 已新增"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:666
 #, fuzzy, php-format
@@ -14507,7 +14510,7 @@ msgstr "選單項目已刪除"
 #: npgCore/extensions/menu_manager/menu_tab.php:99
 #, fuzzy, php-format
 msgid "Menu “%s” already exists"
-msgstr "<em>%s</em> 已经存在."
+msgstr "<em>%s</em> 已經存在。"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:109
 #, fuzzy, php-format
@@ -14518,7 +14521,7 @@ msgstr "選單"
 #: npgCore/extensions/menu_manager/menu_tab.php:154
 #, fuzzy
 msgid "Name for new menu:"
-msgstr "新相簿名称?"
+msgstr "新相本的標題："
 
 #: npgCore/extensions/menu_manager/menu_tab.php:154
 #, fuzzy, php-format
@@ -14874,7 +14877,7 @@ msgstr "需使用 <em>php_curl</em> 套件"
 #: npgCore/extensions/mergedRSS.php:64
 #, fuzzy
 msgid "RSS feeds to merge"
-msgstr "RSS 訂閱摘要的統計"
+msgstr "啟用 RSS 訂閱摘要："
 
 #: npgCore/extensions/mergedRSS.php:67
 #, fuzzy
@@ -14918,7 +14921,7 @@ msgstr "選擇手機設備連接時要使用的主題。"
 #: npgCore/extensions/mobileTheme.php:99
 #, fuzzy
 msgid "Tablet theme"
-msgstr "布景主题"
+msgstr "*使用相館的佈景主題"
 
 #: npgCore/extensions/mobileTheme.php:102
 #, fuzzy
@@ -14928,7 +14931,7 @@ msgstr "選擇平板電腦設備連接時要使用的主題。"
 #: npgCore/extensions/mobileTheme.php:103
 #, fuzzy
 msgid "Test mode"
-msgstr "Cookie 設定測試成功"
+msgstr "模式"
 
 #: npgCore/extensions/mobileTheme.php:104
 #, fuzzy
@@ -14998,7 +15001,7 @@ msgstr "相本預設值"
 #: npgCore/extensions/multiple_layouts.php:307
 #, fuzzy
 msgid "from category"
-msgstr "Categories"
+msgstr "從"
 
 #: npgCore/extensions/multiple_layouts.php:364
 #, php-format
@@ -15044,17 +15047,17 @@ msgstr ""
 #: npgCore/extensions/openstreetmap.php:79
 #, fuzzy
 msgid "Map zoom"
-msgstr "地圖"
+msgstr "放大"
 
 #: npgCore/extensions/openstreetmap.php:83
 #, fuzzy
 msgid "Default zoom level."
-msgstr "*使用預設值"
+msgstr "放大"
 
 #: npgCore/extensions/openstreetmap.php:84
 #, fuzzy
 msgid "Map minimum zoom"
-msgstr "地圖"
+msgstr "放大"
 
 #: npgCore/extensions/openstreetmap.php:88
 #, fuzzy
@@ -15064,7 +15067,7 @@ msgstr "可能的默認最小縮放級別。"
 #: npgCore/extensions/openstreetmap.php:89
 #, fuzzy
 msgid "Map maximum zoom"
-msgstr "地圖"
+msgstr "放大"
 
 #: npgCore/extensions/openstreetmap.php:93
 #, fuzzy
@@ -15145,7 +15148,7 @@ msgstr "標記彈出窗口"
 #, fuzzy
 #| msgid "thumb"
 msgid "Thumb"
-msgstr "thumb ="
+msgstr "縮圖"
 
 #: npgCore/extensions/openstreetmap.php:138
 #, fuzzy
@@ -15157,7 +15160,7 @@ msgstr "啟用要顯示的彈出窗口。彈出窗口僅出現在<em>專輯</em>
 #: npgCore/extensions/openstreetmap.php:139
 #, fuzzy
 msgid "Show layers controls"
-msgstr "地图控制器"
+msgstr "顯示"
 
 #: npgCore/extensions/openstreetmap.php:143
 #, fuzzy
@@ -15389,7 +15392,7 @@ msgstr "原尺寸相片"
 #: npgCore/extensions/optionalObjectFields.php:464
 #, fuzzy
 msgid "No tags assigned"
-msgstr "标签"
+msgstr "留言分配失敗！"
 
 #: npgCore/extensions/optionalObjectFields.php:476
 #, fuzzy
@@ -15552,7 +15555,7 @@ msgstr ""
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
 msgid "Panorama height"
-msgstr "高度"
+msgstr "高"
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -15588,13 +15591,13 @@ msgstr ""
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr "只有會員"
+msgstr "左"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "升級為新版權限"
+msgstr "右"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -15936,13 +15939,13 @@ msgstr "已套用變更"
 #, fuzzy, php-format
 msgid "%u unpublished page"
 msgid_plural "%u unpublished pages"
-msgstr[0] "页 %u"
+msgstr[0] "第 %1$u 頁（目前頁面）"
 msgstr[1] "檢視未發佈相片"
 
 #: npgCore/extensions/publishContent/publishContent.php:668
 #, fuzzy
 msgid "Pages:"
-msgstr "页"
+msgstr "分頁"
 
 #: npgCore/extensions/publishContent/publishContent.php:680
 #, fuzzy
@@ -15967,7 +15970,7 @@ msgstr "提供清除主題和插件選項的方法。"
 #: npgCore/extensions/purgeOptions.php:29
 #, fuzzy
 msgid "purge"
-msgstr "清除图片快取"
+msgstr "清除 RSS 快取"
 
 #: npgCore/extensions/purgeOptions.php:72
 #, fuzzy
@@ -16000,7 +16003,7 @@ msgstr "活動插件已被禁用。"
 #, fuzzy
 #| msgid "options"
 msgid "purge options"
-msgstr "选项"
+msgstr "清空相片快取"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:172
 #, fuzzy
@@ -16156,7 +16159,7 @@ msgstr "（已用 %s kb）"
 #: npgCore/extensions/quota_manager.php:145
 #, fuzzy
 msgid "Image storage quota:"
-msgstr "预设配额"
+msgstr "預設空間配額"
 
 #: npgCore/extensions/quota_manager.php:146
 #, php-format
@@ -16265,19 +16268,19 @@ msgstr "圖示"
 #, fuzzy
 #| msgid "Large"
 msgid "large"
-msgstr "大"
+msgstr "大型"
 
 #: npgCore/extensions/rating.php:82
 #, fuzzy
 #| msgid "Medium"
 msgid "medium"
-msgstr "中"
+msgstr "中等"
 
 #: npgCore/extensions/rating.php:82
 #, fuzzy
 #| msgid "Small"
 msgid "small"
-msgstr "小"
+msgstr "小型"
 
 #: npgCore/extensions/rating.php:83
 #, fuzzy
@@ -16372,7 +16375,7 @@ msgstr ""
 #, fuzzy, php-format
 msgid "%u star"
 msgid_plural "%u stars"
-msgstr[0] "%u 個相本"
+msgstr[0] "第 %u 頁"
 msgstr[1] "一顆星"
 
 #: npgCore/extensions/rating.php:382
@@ -16535,7 +16538,7 @@ msgstr "開頭導言"
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration accepted text."
-msgstr "使用者註冊"
+msgstr "註冊驗證信"
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 msgid "User album"
@@ -16705,7 +16708,7 @@ msgstr "提供基於標籤搜索將相關項目提供給項目的功能。"
 #: npgCore/extensions/related_items.php:161
 #, fuzzy, php-format
 msgid "Related %s"
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: npgCore/extensions/rewriteRules.php:112
 #, fuzzy
@@ -16729,7 +16732,7 @@ msgstr "配置文件已損壞。您需要從備份中恢復它。"
 #: npgCore/extensions/rewriteRules.php:175
 #, fuzzy
 msgid "rewriteTokens restored to default"
-msgstr "*预设"
+msgstr "瀏覽器預設值"
 
 #: npgCore/extensions/rewriteRules.php:194
 #, fuzzy, php-format
@@ -16765,7 +16768,7 @@ msgstr "重寫令牌可能不是空的。"
 #: npgCore/extensions/rewriteRules.php:280
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> rule."
-msgstr "分類 <em>%s</em> 已新增"
+msgstr "<em>%s</em> 已經存在。"
 
 #: npgCore/extensions/rewriteRules.php:306
 #: npgCore/extensions/rewriteRules/rules_tab.php:11
@@ -16786,7 +16789,7 @@ msgstr "netPhotoGraphics 圖像程序出錯：%s"
 #: npgCore/extensions/rewriteRules/rules_tab.php:26
 #, fuzzy
 msgid "Rewrite Rules"
-msgstr "mod rewrite"
+msgstr "固定網址後綴："
 
 #: npgCore/extensions/rewriteRules/tokens_tab.php:9
 #, fuzzy
@@ -16796,7 +16799,7 @@ msgstr "rewriteTokens"
 #: npgCore/extensions/rewriteRules/tokens_tab.php:28
 #, fuzzy
 msgid "Rewrite Tokens"
-msgstr "mod rewrite"
+msgstr "固定網址後綴："
 
 #: npgCore/extensions/rss.php:12
 #, fuzzy
@@ -16824,7 +16827,7 @@ msgstr "所有新聞"
 #: npgCore/extensions/rss.php:52
 #, fuzzy
 msgid "All Pages"
-msgstr "所有页面"
+msgstr "所有分頁"
 
 #: npgCore/extensions/rss.php:55
 msgid "Check each RSS feed you wish to activate."
@@ -16850,7 +16853,7 @@ msgstr "RSS圖像Feed圖像的大小："
 #: npgCore/extensions/rss.php:65
 #, fuzzy
 msgid "Album image size"
-msgstr "图片大小"
+msgstr "預設的相片顯示尺寸。"
 
 #: npgCore/extensions/rss.php:67
 #, fuzzy
@@ -16936,7 +16939,7 @@ msgstr ""
 #: npgCore/extensions/rss.php:104
 #, fuzzy
 msgid "Portable RSS link"
-msgstr "包括 RSS 连结"
+msgstr "RSS 訂閱連結"
 
 #: npgCore/extensions/rss.php:106
 #, fuzzy
@@ -16972,7 +16975,7 @@ msgstr "最新相簿"
 #: npgCore/extensions/rss.php:450
 #, fuzzy
 msgid " (Latest news and images)"
-msgstr "%s 的最新相片"
+msgstr "最新相片的 RSS"
 
 #: npgCore/extensions/rss.php:584
 #, php-format
@@ -17025,7 +17028,7 @@ msgstr "選中以隱藏服務名稱，僅顯示圖標按鈕。"
 #: npgCore/extensions/scriptless-socialsharing.php:101
 #, fuzzy
 msgid "Twitter user name"
-msgstr "没有用户名称"
+msgstr "請輸入使用者帳號"
 
 #: npgCore/extensions/scriptless-socialsharing.php:105
 #, fuzzy
@@ -17220,7 +17223,7 @@ msgstr "記錄檔已下載"
 #: npgCore/extensions/security-logger.php:156
 #, fuzzy
 msgid "Install"
-msgstr "要改正它须要在 PHP 安装 GD 相应图像支援"
+msgstr "請於 PHP 中安裝圖像處理支援函式庫，如 <em>GD 函式庫</em>"
 
 #: npgCore/extensions/security-logger.php:163
 #, fuzzy
@@ -17257,7 +17260,7 @@ msgstr "不许观看"
 #: npgCore/extensions/security-logger.php:184
 #, fuzzy
 msgid "Admin access"
-msgstr "不许观看"
+msgstr "管理"
 
 #: npgCore/extensions/security-logger.php:187
 msgid "Guest login"
@@ -17295,7 +17298,7 @@ msgstr "跨網站偽造請求攻擊已封鎖。"
 #: npgCore/extensions/security-logger.php:472
 #, fuzzy, php-format
 msgid "%1$s set to acknowledged"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s 版本 %2$s"
 
 #: npgCore/extensions/security-logger.php:474
 #, fuzzy, php-format
@@ -17352,7 +17355,7 @@ msgstr "相本及相片名稱的搜尋引擎優化（SEO）"
 #, fuzzy, php-format
 msgid "%d album cleaned."
 msgid_plural "%d albums cleaned"
-msgstr[0] "留言: %d"
+msgstr[0] "相本"
 msgstr[1] "%u 個相本資料夾名稱已優化。"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:140
@@ -17364,13 +17367,13 @@ msgstr "相簿"
 #, fuzzy, php-format
 msgid "%d image cleaned."
 msgid_plural "%d images cleaned"
-msgstr[0] "留言: %d"
+msgstr[0] "留言：%d"
 msgstr[1] "%u 張相片檔名已優化。"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:149
 #, fuzzy
 msgid "No images cleaned."
-msgstr "图片"
+msgstr "相片（動態）"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:157
 #, fuzzy
@@ -17397,7 +17400,7 @@ msgstr "將用戶視為未登錄圖庫頁面。"
 #: npgCore/extensions/show_not_logged-in.php:52
 #, fuzzy
 msgid "show_not_logged-in is active."
-msgstr "%u 個啟用中的外掛："
+msgstr "尚未啟用 downloadList 外掛"
 
 #: npgCore/extensions/show_not_logged-in.php:62
 #, fuzzy, php-format
@@ -17517,7 +17520,7 @@ msgstr "投票狀態"
 #: npgCore/extensions/site_upgrade.php:105
 #, fuzzy
 msgid "The site is in test mode!"
-msgstr "Cookie 設定測試成功"
+msgstr "測光模式"
 
 #: npgCore/extensions/site_upgrade.php:112
 #, fuzzy
@@ -17541,7 +17544,7 @@ msgstr ""
 #: npgCore/extensions/site_upgrade.php:159
 #, fuzzy
 msgid "Site » test mode"
-msgstr "Cookie 設定測試成功"
+msgstr "測光模式"
 
 #: npgCore/extensions/site_upgrade.php:163
 #, fuzzy
@@ -17587,17 +17590,17 @@ msgstr "<strong><em>％s</em></strong>正在升級"
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy
 msgid "Please return later"
-msgstr "本頁面將自動轉回管理首頁。如果沒有，請點選："
+msgstr "請輸入 %s，感謝您。"
 
 #: npgCore/extensions/site_upgrade.php:240
 #, fuzzy, php-format
 msgid "%s suspended"
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: npgCore/extensions/site_upgrade.php:247
 #, fuzzy, php-format
 msgid "The %s feed is currently not available."
-msgstr "<em>%s</em> 不能使用."
+msgstr "<em>%s</em> 無法使用。"
 
 #: npgCore/extensions/site_upgrade.php:282
 #, fuzzy
@@ -17607,7 +17610,7 @@ msgstr "site_upgrade文件恢復為原始文件。"
 #: npgCore/extensions/site_upgrade/site_upgrade.php:29
 #, fuzzy
 msgid "Site is viewable."
-msgstr "在本站註冊帳號"
+msgstr "網站："
 
 #: npgCore/extensions/sitemap-extended.php:28
 #, fuzzy
@@ -17643,7 +17646,7 @@ msgstr "用最新图片日期为相簿日期"
 #: npgCore/extensions/sitemap-extended.php:98
 #, fuzzy
 msgid "last change date"
-msgstr "日期："
+msgstr "日期"
 
 #: npgCore/extensions/sitemap-extended.php:92
 #, fuzzy
@@ -18111,7 +18114,7 @@ msgstr "如果圖像標題應顯示在Colorbox的底部。"
 #: npgCore/extensions/slideshow.php:179 plugins/slideshow2.php:239
 #, fuzzy
 msgid "Invalid slideshow album name!"
-msgstr "无效连结到幻灯片播放页."
+msgstr "相本名稱："
 
 #: npgCore/extensions/slideshow.php:186 plugins/slideshow2.php:246
 msgid "This album is password protected!"
@@ -18277,7 +18280,7 @@ msgstr "標記搜索找到的項目"
 #: npgCore/extensions/tagFromSearch.php:38
 #, fuzzy
 msgid "Tag items"
-msgstr "标签管理"
+msgstr "新增標籤"
 
 #: npgCore/extensions/tagFromSearch/tag.php:75
 #, fuzzy, php-format
@@ -18298,7 +18301,7 @@ msgstr[1] ""
 #: npgCore/template-functions.php:1366
 #, fuzzy
 msgid "Return to search"
-msgstr "回到 %s"
+msgstr "搜尋"
 
 #: npgCore/extensions/tagFromSearch/tag.php:187
 #, fuzzy, php-format
@@ -18346,7 +18349,7 @@ msgstr "在搜索字段上啟用jQuery標記建議。"
 #: npgCore/extensions/tag_suggest.php:35
 #, fuzzy
 msgid "threshold"
-msgstr "阈值"
+msgstr "高反差"
 
 #: npgCore/extensions/tag_suggest.php:38
 #, fuzzy
@@ -18411,7 +18414,7 @@ msgstr "布景主题"
 #: npgCore/extensions/themeSwitcher.php:187 themes/zenFluid/functions.php:271
 #, fuzzy
 msgid "Close"
-msgstr "关闭"
+msgstr "關閉"
 
 #: npgCore/extensions/themeSwitcher.php:194
 #, fuzzy
@@ -18444,12 +18447,12 @@ msgstr "如果選擇了一個選項，則普通主題URL將替換為該對象的
 #: npgCore/extensions/tinyURL.php:91
 #, fuzzy
 msgid "news categories"
-msgstr "新闻类别"
+msgstr "新聞分類"
 
 #: npgCore/extensions/tinymce.php:22
 #, fuzzy
 msgid "TinyMCE WYSIWYG editor"
-msgstr "最后编辑者"
+msgstr "佈景主題檔案編輯器"
 
 #: npgCore/extensions/tinymce.php:68
 #, fuzzy
@@ -18504,7 +18507,7 @@ msgstr "數字"
 #: npgCore/extensions/tinymce.php:85
 #, fuzzy
 msgid "raw"
-msgstr "RAW"
+msgstr "原始 RAW"
 
 #: npgCore/extensions/tinymce.php:86
 #, fuzzy
@@ -18537,7 +18540,7 @@ msgstr "檢視 <em>%s</em>"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:51
 #, fuzzy, php-format
 msgid "%s with link to image"
-msgstr "全尺寸图片连结"
+msgstr "相片：%s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:61
 #, fuzzy, php-format
@@ -18587,7 +18590,7 @@ msgstr "糊"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:237
 #, fuzzy
 msgid "thumb only"
-msgstr "thumb ="
+msgstr "缩图"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:247
 #, fuzzy
@@ -18622,7 +18625,7 @@ msgstr "微距"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:309
 #, fuzzy
 msgid "Slideshow macro"
-msgstr "幻燈片"
+msgstr "微距"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:330
 #, fuzzy
@@ -18632,7 +18635,7 @@ msgstr "RSS 訂閱連結"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:337
 #, fuzzy
 msgid "title only"
-msgstr "标题"
+msgstr "標題"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:352
 #, fuzzy
@@ -18738,7 +18741,7 @@ msgstr "錯誤連接到twitter！稍後再試！"
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Twitter authorization failed."
-msgstr "失败"
+msgstr "註冊失敗。"
 
 #: npgCore/extensions/uploader_http.php:14
 #, fuzzy
@@ -18749,7 +18752,7 @@ msgstr "<em>http</em>圖像上傳處理程序。"
 #: npgCore/extensions/uploader_jQuery.php:36
 #, fuzzy, php-format
 msgid "images (%s)"
-msgstr "图片 (%s)"
+msgstr "相片（%s）"
 
 #: npgCore/extensions/uploader_http/upload_form.php:65
 #, fuzzy
@@ -18940,7 +18943,7 @@ msgstr "上傳"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 msgid "Failed to resize image"
-msgstr "失败"
+msgstr "註冊失敗。"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -19048,7 +19051,7 @@ msgstr "你的會員資格將在 %s 過期"
 #: npgCore/extensions/user-expiry.php:302
 #, fuzzy
 msgid "You must change your password."
-msgstr "請輸入受保護分類帳號之密碼"
+msgstr "請輸入受保護分頁帳號之密碼"
 
 #: npgCore/extensions/user-expiry.php:306
 #, fuzzy
@@ -19089,7 +19092,7 @@ msgstr "管理過期帳號。"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:153
 #, fuzzy, php-format
 msgid "Expired:%s; "
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:156
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:158
@@ -19243,10 +19246,11 @@ msgid "Deleted"
 msgstr "已刪除"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
-msgstr "组别"
+msgstr "群組"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:185
 #, fuzzy
@@ -19265,7 +19269,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "群組"
 
@@ -19307,7 +19310,7 @@ msgstr "組名不能包含“？”，“＆”或引號。"
 #: npgCore/extensions/user_groups/user_groups-tab.php:509
 #, fuzzy, php-format
 msgid "The group “%s” already exists."
-msgstr "<em>%s</em> 已经存在."
+msgstr "<em>%s</em> 已經存在。"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:530
 msgid "Assign users to groups."
@@ -19326,7 +19329,7 @@ msgstr "用户名称"
 #: npgCore/extensions/user_login-out.php:54
 #, fuzzy
 msgid "Form"
-msgstr "剔选以使用搜寻."
+msgstr "連絡表單的開頭導言"
 
 #: npgCore/extensions/user_login-out.php:54
 #, fuzzy
@@ -19372,22 +19375,32 @@ msgstr "提供實用程序功能，以便向提供電子郵件地址的所有用
 msgid "Mailing list"
 msgstr "用户邮寄名单"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "订阅留言"
+msgstr "駁回"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "组别"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
-msgstr "使用者郵件傳送清單"
+msgstr "用户邮寄名单"
 
 #: npgCore/extensions/user_mailing_list/mail_handler.php:73
 #, fuzzy
@@ -19402,7 +19415,7 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
 msgid "Click to resubscribe"
-msgstr "隱藏"
+msgstr "点击登记为用户."
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -19411,13 +19424,13 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
 msgid "Click to un-subscribe"
-msgstr "Secret（私鑰）"
+msgstr "訂閱留言 RSS"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "使用者郵件傳送清單"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails "
@@ -19426,7 +19439,7 @@ msgstr ""
 "這個工具可以寄送電子郵件給所有已註冊且填寫郵件欄位的使用者，所有郵件送出時都"
 "會複製一份 <em>密件副本</em> 給目前的管理員。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19434,35 +19447,42 @@ msgstr ""
 "<strong>請注意：</strong>目前沒有已註冊的 <em>郵件寄送</em> 過濾器，請先啟用"
 "並設定寄件外掛。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "郵件已寄送。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "請輸入你要傳送的訊息。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "主旨："
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "訊息："
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "選擇使用者："
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+msgid "Select recipients :"
+msgstr "Select"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "寄件帳號"
+msgstr ""
+"這個工具可以寄送電子郵件給所有已註冊且填寫郵件欄位的使用者，所有郵件送出時都"
+"會複製一份 <em>密件副本</em> 給目前的管理員。"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "送出郵件"
 
@@ -19806,7 +19826,7 @@ msgstr "分頁 <em>%s</em> 已更新"
 #: npgCore/extensions/zenpage/admin-functions.php:958
 #, fuzzy, php-format
 msgid "Nothing was changed."
-msgstr "没有东西提交"
+msgstr "沒有送出資料"
 
 #: npgCore/extensions/zenpage/admin-functions.php:220
 msgid "Page successfully deleted!"
@@ -19874,7 +19894,7 @@ msgstr "文章 <em>%s</em> 已更新"
 #: npgCore/extensions/zenpage/admin-functions.php:573
 #, fuzzy
 msgid "All authors"
-msgstr "所有"
+msgstr "全選"
 
 #: npgCore/extensions/zenpage/admin-functions.php:612
 msgid "View all months"
@@ -20027,7 +20047,7 @@ msgstr "次點擊"
 #| msgid "<strong>%1$u</strong> Pages"
 msgid "<strong>%1$u</strong> Page"
 msgid_plural "<strong>%1$u</strong> Pages"
-msgstr[0] "<strong>%1$u</strong> 页面"
+msgstr[0] "<strong>%1$u</strong> 個分頁"
 msgstr[1] "<strong>%1$u</strong> 個分頁"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1342
@@ -20043,7 +20063,7 @@ msgstr[1] "<strong>%1$u</strong> 個分頁（%2$u 個未公開發佈）"
 #| msgid "<strong>%1$u</strong> News articles"
 msgid "<strong>%1$u</strong> Article"
 msgid_plural "<strong>%1$u</strong> Articles"
-msgstr[0] "<strong>%1$u</strong> 页面"
+msgstr[0] "<strong>%1$u</strong> 個分頁"
 msgstr[1] "<strong>%1$u</strong> 則新聞"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1353
@@ -20051,7 +20071,7 @@ msgstr[1] "<strong>%1$u</strong> 則新聞"
 #| msgid "<strong>%1$u</strong> News articles (%2$u un-published)"
 msgid "<strong>%1$u</strong> Article (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Articles (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> 页面(%2$u 未发表)"
+msgstr[0] "<strong>%1$u</strong> 個相本（%2$u 個未公開發佈）"
 msgstr[1] "<strong>%1$u</strong> 則新聞（%2$u 則未公開發佈）"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1360
@@ -20059,7 +20079,7 @@ msgstr[1] "<strong>%1$u</strong> 則新聞（%2$u 則未公開發佈）"
 #| msgid "<strong>%1$u</strong> Categories"
 msgid "<strong>%1$u</strong> Category"
 msgid_plural "<strong>%1$u</strong> Categories"
-msgstr[0] "<strong>%1$u</strong> 页面"
+msgstr[0] "<strong>%1$u</strong> 個分類"
 msgstr[1] "<strong>%1$u</strong> 個分類"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1362
@@ -20068,7 +20088,7 @@ msgstr[1] "<strong>%1$u</strong> 個分類"
 #| msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgid "<strong>%1$u</strong> Category (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Categories (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> 页面(%2$u 未发表)"
+msgstr[0] "<strong>%1$u</strong> 個相本（%2$u 個未公開發佈）"
 msgstr[1] "<strong>%1$u</strong> 張相片（%2$u 張未公開發佈）"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1410
@@ -20109,7 +20129,7 @@ msgstr "所選項目的標籤已清空"
 #: npgCore/extensions/zenpage/pages.php:66
 #, fuzzy
 msgid "Nothing changed."
-msgstr "没有东西提交"
+msgstr "沒有送出資料"
 
 #: npgCore/extensions/zenpage/categories.php:73
 #: npgCore/extensions/zenpage/edit.php:130
@@ -20125,7 +20145,7 @@ msgstr "確定刪除所有選取的項目嗎？此動作無法還原！"
 #, fuzzy
 #| msgid "Drag the albums into the order you wish them displayed."
 msgid "Drag the items into the order and nesting you wish."
-msgstr "拖动相簿到你想要显示的次序.  "
+msgstr "直接拖曳相本即可變更顯示時的排列順序。"
 
 #: npgCore/extensions/zenpage/categories.php:151
 msgid "New category"
@@ -20158,7 +20178,7 @@ msgstr "直接使用setShow方法。"
 #: npgCore/extensions/zenpage/deprecated-functions.php:101
 #, fuzzy
 msgid "Use shortenContent()"
-msgstr "使用標準的聯絡表單頁"
+msgstr "使用鎖頭圖片："
 
 #: npgCore/extensions/zenpage/edit.php:62
 #, php-format
@@ -20437,7 +20457,7 @@ msgstr "分類"
 #: npgCore/extensions/zenpage/news.php:267
 #, fuzzy
 msgid "Clear categories"
-msgstr "类别"
+msgstr "清除密碼"
 
 #: npgCore/extensions/zenpage/news.php:292
 #, fuzzy
@@ -20565,7 +20585,7 @@ msgstr "抓"
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Click"
-msgstr "点击登记为用户."
+msgstr "點擊相片以變更縮圖的裁切方式。"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
@@ -20628,7 +20648,7 @@ msgstr "错误!"
 #: npgCore/functions-basic.php:93
 #, fuzzy
 msgid "WARNING"
-msgstr "没有警告"
+msgstr "警告"
 
 #: npgCore/functions-basic.php:94
 #, fuzzy
@@ -20643,7 +20663,7 @@ msgstr "發生錯誤！"
 #: npgCore/functions-basic.php:96
 #, fuzzy
 msgid "USER WARNING"
-msgstr "没有警告"
+msgstr "警告"
 
 #: npgCore/functions-basic.php:97
 #, fuzzy
@@ -20711,7 +20731,7 @@ msgstr "資料庫"
 #: npgCore/functions-db-NULL.php:103
 #, fuzzy
 msgid "No databases are configured."
-msgstr "未有设定电邸处理器！"
+msgstr "尚未設定郵件處理程序！"
 
 #: npgCore/functions-db-PDO_MySQL.php:56
 #, fuzzy, php-format
@@ -20721,7 +20741,7 @@ msgstr "未有设定电邸处理器！"
 msgid ""
 "PDO_MySql Error: netPhotoGraphics received the error %s when connecting to "
 "the database server."
-msgstr "MySQL 出錯：ZenPhoto20 連線到資料庫伺服器時收到錯誤訊息：<em>%s</em>。"
+msgstr "MySQL 出錯：ZenPhoto20 連線到資料庫伺服器時收到錯誤訊息：<em>%s</em>"
 
 #: npgCore/functions-db-PDO_MySQL.php:65
 #, fuzzy
@@ -20778,7 +20798,7 @@ msgstr "<em>[%1$s]</em>宏不帶參數"
 #: npgCore/functions.php:2596 npgCore/functions.php:2623
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> retuned no data"
-msgstr "%1$s <em>%2$s</em> 已新增"
+msgstr "<em>%1$s</em> 留言於 %2$s："
 
 #: npgCore/functions.php:2601
 #, fuzzy, php-format
@@ -20901,7 +20921,7 @@ msgstr "最多點閱"
 #: npgCore/initialize-general.php:82
 #, fuzzy
 msgid "missing"
-msgstr "找不到"
+msgstr "遺失"
 
 #: npgCore/lib-GD.php:28
 #, fuzzy
@@ -20931,7 +20951,7 @@ msgstr "你的 PHP 支援 Imagick。欲使用 Imagick 圖像處理函式庫，�
 #: npgCore/lib-Imagick.php:79
 #, fuzzy
 msgid "Max height"
-msgstr "高"
+msgstr "高度 height ="
 
 #: npgCore/lib-Imagick.php:83
 #, fuzzy, php-format
@@ -20945,7 +20965,7 @@ msgstr ""
 #: npgCore/lib-Imagick.php:85
 #, fuzzy
 msgid "Max width"
-msgstr "宽"
+msgstr "寬度 width ="
 
 #: npgCore/lib-Imagick.php:89
 #, fuzzy, php-format
@@ -21035,7 +21055,7 @@ msgstr ""
 #: npgCore/lib-auth.php:165
 #, fuzzy
 msgid "Primary album edit"
-msgstr "编辑相簿"
+msgstr "編輯相本"
 
 #: npgCore/lib-auth.php:167
 #, fuzzy
@@ -21047,7 +21067,7 @@ msgstr "檢查是否要在創建用戶<em>主相冊</em>時自動分配<em>編�
 #: npgCore/lib-auth.php:169
 #, fuzzy
 msgid "Minimum password strength"
-msgstr "密码"
+msgstr "清除密碼"
 
 #: npgCore/lib-auth.php:171
 #, fuzzy, php-format
@@ -21306,7 +21326,7 @@ msgstr "擁有此權限的使用者可檢視所有的原尺寸（原始）相片
 #: npgCore/lib-auth.php:777 npgCore/lib-auth.php:778 npgCore/lib-auth.php:779
 #, fuzzy
 msgid "Access all"
-msgstr "不许观看"
+msgstr "禁止存取"
 
 #: npgCore/lib-auth.php:750 npgCore/lib-auth.php:777
 #, fuzzy
@@ -21463,7 +21483,7 @@ msgstr "挑戰問題："
 #: npgCore/lib-auth.php:1216
 #, fuzzy
 msgid "Your response"
-msgstr "抱歉，沒有吻合的搜尋結果。"
+msgstr "兩次密碼輸入不相符。"
 
 #: npgCore/lib-auth.php:1225
 #, fuzzy
@@ -21499,7 +21519,7 @@ msgstr "我忘記了<strong>用戶名</strong> / <strong>密碼</strong>"
 #: npgCore/lib-auth.php:1377
 #, fuzzy
 msgid "User name or e-mail address"
-msgstr "必须提供电邮地址."
+msgstr "請填寫信箱。"
 
 #: npgCore/lib-auth.php:1387 themes/masonry/comment_form/comment_form.php:66
 #: themes/minimal/z_disable_comment_form/comment_form.php:63
@@ -21514,7 +21534,7 @@ msgstr "密碼重設請求已發送。"
 #: npgCore/lib-auth.php:1467
 #, fuzzy
 msgid "password strength weak"
-msgstr "密码"
+msgstr "清除密碼"
 
 #: npgCore/lib-auth.php:1470
 #, fuzzy
@@ -21658,12 +21678,12 @@ msgstr "使用％1 $ ux％2 $ u%3$s縮略圖。"
 #: npgCore/lib-image.php:242
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
-msgstr "檢視相片：%s"
+msgstr "netPhotoGraphics 圖像程序出錯：%s"
 
 #: npgCore/lib-image.php:249
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
-msgstr "檢視相片：%s"
+msgstr "netPhotoGraphics 圖像程序出錯：%s"
 
 #: npgCore/lib-image.php:292
 #, fuzzy, php-format
@@ -21673,12 +21693,12 @@ msgstr "<html>處理％s的未知錯誤！請報告給"
 #: npgCore/lib-image.php:386 npgCore/lib-image.php:412
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
-msgstr "檢視相片：%s"
+msgstr "netPhotoGraphics 圖像程序出錯：%s"
 
 #: npgCore/lib-image.php:416
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
-msgstr "檢視相片：%s"
+msgstr "netPhotoGraphics 圖像程序出錯：%s"
 
 #: npgCore/lib-image.php:484
 #, fuzzy, php-format
@@ -21703,7 +21723,7 @@ msgstr "*没有水印"
 #: npgCore/lib-image.php:554
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
-msgstr "檢視相片：%s"
+msgstr "netPhotoGraphics 圖像程序出錯：%s"
 
 #: npgCore/lib-utf8.php:47 npgCore/localeList.php:13
 #, fuzzy
@@ -21713,7 +21733,7 @@ msgstr "阿拉伯文（伊拉克）"
 #: npgCore/lib-utf8.php:48
 #, fuzzy
 msgid "Chinese Traditional"
-msgstr "正体中文(台湾)"
+msgstr "中文（臺灣）"
 
 #: npgCore/lib-utf8.php:49
 #, fuzzy
@@ -21738,7 +21758,7 @@ msgstr "日語（JIS-Allow 1字節假名）"
 #: npgCore/lib-utf8.php:53
 #, fuzzy
 msgid "Arabic (DOS)"
-msgstr "阿拉伯文（巴林）"
+msgstr "阿拉伯文（伊拉克）"
 
 #: npgCore/lib-utf8.php:54
 #, fuzzy
@@ -21753,7 +21773,7 @@ msgstr "IBM EBCDIC（美國 - 加拿大）"
 #: npgCore/lib-utf8.php:56
 #, fuzzy
 msgid "Chinese Simplified (EUC)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/lib-utf8.php:57
 #, fuzzy
@@ -21768,12 +21788,12 @@ msgstr "韩国语"
 #: npgCore/lib-utf8.php:59
 #, fuzzy
 msgid "Chinese Simplified (GB2312)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/lib-utf8.php:60
 #, fuzzy
 msgid "Chinese Simplified (HZ)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/lib-utf8.php:61
 #, fuzzy
@@ -21833,7 +21853,7 @@ msgstr "韩国语"
 #: npgCore/lib-utf8.php:72
 #, fuzzy
 msgid "Western European (ISO)"
-msgstr "ISO感光度"
+msgstr "ISO 感光度"
 
 #: npgCore/lib-utf8.php:73
 #, fuzzy
@@ -21843,7 +21863,7 @@ msgstr "ISO 感光度"
 #: npgCore/lib-utf8.php:74
 #, fuzzy
 msgid "Central European (ISO)"
-msgstr "ISO感光度"
+msgstr "ISO 感光度"
 
 #: npgCore/lib-utf8.php:75
 #, fuzzy
@@ -21853,7 +21873,7 @@ msgstr "西班牙文（拉丁美洲）"
 #: npgCore/lib-utf8.php:76
 #, fuzzy
 msgid "Baltic (ISO)"
-msgstr "ISO感光度"
+msgstr "ISO 感光度"
 
 #: npgCore/lib-utf8.php:77
 #, fuzzy
@@ -21863,7 +21883,7 @@ msgstr "ISO 感光度"
 #: npgCore/lib-utf8.php:78
 #, fuzzy
 msgid "Arabic (ISO)"
-msgstr "ISO感光度"
+msgstr "阿拉伯文（巴林）"
 
 #: npgCore/lib-utf8.php:79
 #, fuzzy
@@ -21927,7 +21947,7 @@ msgstr "Unicode（Big-Endian）"
 #: npgCore/lib-utf8.php:91
 #, fuzzy
 msgid "US-ASCII"
-msgstr "联络我们"
+msgstr "聯絡我們"
 
 #: npgCore/lib-utf8.php:92
 #, fuzzy
@@ -22196,7 +22216,7 @@ msgstr "阿薩姆語"
 #: npgCore/localeList.php:43
 #, fuzzy
 msgid "Assamese (India)"
-msgstr "英语 (印度)"
+msgstr "英文（印度）"
 
 #: npgCore/localeList.php:44
 #, fuzzy
@@ -22217,7 +22237,7 @@ msgstr "阿斯圖里亞斯"
 #, fuzzy
 #| msgid "Spanish (Spain)"
 msgid "Asturian (Spain)"
-msgstr "西班牙语 (西班牙)"
+msgstr "西班牙文（西班牙）"
 
 #: npgCore/localeList.php:48
 #, fuzzy
@@ -22237,13 +22257,13 @@ msgstr "阿塞拜疆（西里爾文，阿塞拜疆）"
 #: npgCore/localeList.php:51
 #, fuzzy
 msgid "Azerbaijani (Latin)"
-msgstr "西班牙语 (拉丁美洲)"
+msgstr "西班牙文（拉丁美洲）"
 
 #: npgCore/localeList.php:52
 #, fuzzy
 #| msgid "Spanish (Latin America)"
 msgid "Azerbaijani (Latin, Azerbaijan)"
-msgstr "西班牙语 (拉丁美洲)"
+msgstr "西班牙文（拉丁美洲）"
 
 #: npgCore/localeList.php:53
 #, fuzzy
@@ -22319,7 +22339,7 @@ msgstr "孟加拉國（孟加拉國）"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Bangla (India)"
-msgstr "英语 (印度)"
+msgstr "英文（印度）"
 
 #: npgCore/localeList.php:68
 #, fuzzy
@@ -22426,7 +22446,7 @@ msgstr "Chakma（孟加拉國）"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Chakma (India)"
-msgstr "英语 (印度)"
+msgstr "英文（印度）"
 
 #: npgCore/localeList.php:88
 #, fuzzy
@@ -22458,7 +22478,7 @@ msgstr "切罗基语"
 #, fuzzy
 #| msgid "English (United States)"
 msgid "Cherokee (United States)"
-msgstr "英语 (美国)"
+msgstr "英文（美國）"
 
 #: npgCore/localeList.php:94
 #, fuzzy
@@ -22545,13 +22565,13 @@ msgstr "德文（德國）"
 #, fuzzy
 #| msgid "German (Austria)"
 msgid "German (Italy)"
-msgstr "义大利语 (义大利)"
+msgstr "義大利文（標準）"
 
 #: npgCore/localeList.php:112
 #, fuzzy
 #| msgid "German (Austria)"
 msgid "German (Liechtenstein)"
-msgstr "德语 (奥地利)"
+msgstr "德文（瑞士）"
 
 #: npgCore/localeList.php:113
 msgid "German (Luxembourg)"
@@ -22688,7 +22708,7 @@ msgstr "英文（英國）"
 #, fuzzy
 #| msgid "English (Australia)"
 msgid "English (Austria)"
-msgstr "德语 (奥地利)"
+msgstr "德文（奧地利）"
 
 #: npgCore/localeList.php:139
 msgid "English (Australia)"
@@ -22779,7 +22799,7 @@ msgstr "英文（加拿大）"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Germany)"
-msgstr "德语 (德国)"
+msgstr "德文（德國）"
 
 #: npgCore/localeList.php:155
 #, fuzzy
@@ -23059,7 +23079,7 @@ msgstr "英文（紐西蘭）"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "English (Papua New Guinea)"
-msgstr "英语 (新西兰)"
+msgstr "英文（紐西蘭）"
 
 #: npgCore/localeList.php:203
 msgid "English (Philippines)"
@@ -23069,7 +23089,7 @@ msgstr "英文（菲律賓）"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Pakistan)"
-msgstr "乌都语 (巴基斯坦)"
+msgstr "烏爾都文（巴基斯坦）"
 
 #: npgCore/localeList.php:205
 #, fuzzy
@@ -23081,7 +23101,7 @@ msgstr "英文（英國）"
 #, fuzzy
 #| msgid "Spanish (Puerto Rico)"
 msgid "English (Puerto Rico)"
-msgstr "西班牙语 (波多黎各)"
+msgstr "西班牙文（波多黎各）"
 
 #: npgCore/localeList.php:207
 #, fuzzy
@@ -23111,7 +23131,7 @@ msgstr "英文（菲律賓）"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Sudan)"
-msgstr "阿拉伯语 (苏丹)"
+msgstr "阿拉伯文（蘇丹）"
 
 #: npgCore/localeList.php:212
 #, fuzzy
@@ -23147,7 +23167,7 @@ msgstr "英文（菲律賓）"
 #, fuzzy
 #| msgid "English (South Africa)"
 msgid "English (South Sudan)"
-msgstr "英语 (南非)"
+msgstr "英文（南非）"
 
 #: npgCore/localeList.php:218
 #, fuzzy
@@ -23287,7 +23307,7 @@ msgstr "西班牙文（玻利維亞）"
 #, fuzzy
 #| msgid "Spanish (Chile)"
 msgid "Spanish (Brazil)"
-msgstr "葡萄牙语 (巴西)"
+msgstr "葡萄牙文（巴西）"
 
 #: npgCore/localeList.php:244
 #, fuzzy
@@ -23469,7 +23489,7 @@ msgstr "菲律賓文"
 #, fuzzy
 #| msgid "English (Philippines)"
 msgid "Filipino (Philippines)"
-msgstr "英语 (菲律宾)"
+msgstr "英文（菲律賓）"
 
 #: npgCore/localeList.php:282
 msgid "Faroese"
@@ -23526,7 +23546,7 @@ msgstr "法文（加拿大）"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Congo - Kinshasa)"
-msgstr "法语 (比利时)"
+msgstr "法文（瑞士）"
 
 #: npgCore/localeList.php:293
 #, fuzzy
@@ -23538,7 +23558,7 @@ msgstr "西班牙文（多明尼加）"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Congo - Brazzaville)"
-msgstr "法语 (比利时)"
+msgstr "法文（瑞士）"
 
 #: npgCore/localeList.php:295
 msgid "French (Switzerland)"
@@ -23599,7 +23619,7 @@ msgstr "法文（盧森堡）"
 #, fuzzy
 #| msgid "French (France)"
 msgid "French (Equatorial Guinea)"
-msgstr "法语 (比利时)"
+msgstr "法文（瑞士）"
 
 #: npgCore/localeList.php:306
 #, fuzzy
@@ -23645,7 +23665,7 @@ msgstr "法文（盧森堡）"
 #, fuzzy
 #| msgid "French (Belgium)"
 msgid "French (Mali)"
-msgstr "法语 (比利时)"
+msgstr "法文（加拿大）"
 
 #: npgCore/localeList.php:314
 #, fuzzy
@@ -23723,13 +23743,13 @@ msgstr "阿拉伯文（敘利亞）"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Chad)"
-msgstr "法语 (比利时)"
+msgstr "法文（加拿大）"
 
 #: npgCore/localeList.php:327
 #, fuzzy
 #| msgid "French (Belgium)"
 msgid "French (Togo)"
-msgstr "法语 (比利时)"
+msgstr "法文（加拿大）"
 
 #: npgCore/localeList.php:328
 #, fuzzy
@@ -23747,7 +23767,7 @@ msgstr "法文（比利時）"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Wallis & Futuna)"
-msgstr "法语 (比利时)"
+msgstr "法文（瑞士）"
 
 #: npgCore/localeList.php:331
 #, fuzzy
@@ -23764,7 +23784,7 @@ msgstr "弗留利"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Friulian (Italy)"
-msgstr "义大利语 (义大利)"
+msgstr "義大利文（標準）"
 
 #: npgCore/localeList.php:334
 #, fuzzy
@@ -23811,7 +23831,7 @@ msgstr "加利西亚语"
 #: npgCore/localeList.php:342
 #, fuzzy
 msgid "Swiss German"
-msgstr "德语 (奥地利)"
+msgstr "德文（奧地利）"
 
 #: npgCore/localeList.php:343
 #, fuzzy
@@ -23823,12 +23843,12 @@ msgstr "德语 (瑞士)"
 #, fuzzy
 #| msgid "German (Germany)"
 msgid "Swiss German (France)"
-msgstr "法语 (法国)"
+msgstr "法文（法國）"
 
 #: npgCore/localeList.php:345
 #, fuzzy
 msgid "Swiss German (Liechtenstein)"
-msgstr "德语 (奥地利)"
+msgstr "德文（瑞士）"
 
 #: npgCore/localeList.php:346
 msgid "Gujarati"
@@ -23889,7 +23909,7 @@ msgstr "夏威夷"
 #, fuzzy
 #| msgid "Spanish (United States)"
 msgid "Hawaiian (United States)"
-msgstr "英语 (美国)"
+msgstr "英文（美國）"
 
 #: npgCore/localeList.php:358
 msgid "Hebrew"
@@ -24036,7 +24056,7 @@ msgstr "義大利文（瑞士）"
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian (Vatican City)"
-msgstr "城市:"
+msgstr "義大利文（瑞士）"
 
 #: npgCore/localeList.php:386
 msgid "Japanese"
@@ -24243,7 +24263,7 @@ msgstr "喀什米爾語"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Kashmiri (India)"
-msgstr "英语 (印度)"
+msgstr "英文（印度）"
 
 #: npgCore/localeList.php:427
 #, fuzzy
@@ -24275,7 +24295,7 @@ msgstr "斯洛維尼亞文"
 #, fuzzy
 #| msgid "German (Germany)"
 msgid "Colognian (Germany)"
-msgstr "德语 (德国)"
+msgstr "德文（德國）"
 
 #: npgCore/localeList.php:433
 #, fuzzy
@@ -24297,7 +24317,7 @@ msgstr "康瓦爾語"
 #, fuzzy
 #| msgid "English (United Kingdom)"
 msgid "Cornish (United Kingdom)"
-msgstr "英语 (英国)"
+msgstr "英文（英國）"
 
 #: npgCore/localeList.php:437
 #, fuzzy
@@ -24351,7 +24371,7 @@ msgstr "拉科塔"
 #, fuzzy
 #| msgid "Spanish (United States)"
 msgid "Lakota (United States)"
-msgstr "英语 (美国)"
+msgstr "英文（美國）"
 
 #: npgCore/localeList.php:447
 #, fuzzy
@@ -24528,7 +24548,7 @@ msgstr "毛利語"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "Maori (New Zealand)"
-msgstr "英语 (新西兰)"
+msgstr "英文（紐西蘭）"
 
 #: npgCore/localeList.php:482
 msgid "Macedonian"
@@ -24549,7 +24569,7 @@ msgstr "馬拉雅拉姆語"
 #: npgCore/localeList.php:485
 #, fuzzy
 msgid "Malayalam (India)"
-msgstr "英语 (印度)"
+msgstr "英文（印度）"
 
 #: npgCore/localeList.php:486
 msgid "Mongolian"
@@ -24669,12 +24689,12 @@ msgstr "北恩德貝萊語"
 #: npgCore/localeList.php:508
 #, fuzzy
 msgid "North Ndebele (Zimbabwe)"
-msgstr "英语 (津巴布韦)"
+msgstr "英文（辛巴威）"
 
 #: npgCore/localeList.php:509
 #, fuzzy
 msgid "Low German"
-msgstr "德文（奧地利）"
+msgstr "低"
 
 #: npgCore/localeList.php:510
 #, fuzzy
@@ -24686,7 +24706,7 @@ msgstr "德语 (德国)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "低"
+msgstr "荷蘭文（荷蘭）"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -24697,7 +24717,7 @@ msgstr "尼泊爾語"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Nepali (India)"
-msgstr "英语 (印度)"
+msgstr "英文（印度）"
 
 #: npgCore/localeList.php:514
 #, fuzzy
@@ -24713,7 +24733,7 @@ msgstr "荷兰语 (比利时)"
 #, fuzzy
 #| msgid "Dutch (Belgium)"
 msgid "Dutch (Aruba)"
-msgstr "荷兰语 (比利时)"
+msgstr "荷蘭文（比利時）"
 
 #: npgCore/localeList.php:517
 msgid "Dutch (Belgium)"
@@ -24740,12 +24760,12 @@ msgstr "荷蘭文（荷蘭）"
 #, fuzzy
 #| msgid "Dutch (Belgium)"
 msgid "Dutch (Suriname)"
-msgstr "荷兰语 (比利时)"
+msgstr "荷蘭文（比利時）"
 
 #: npgCore/localeList.php:522
 #, fuzzy
 msgid "Dutch (Sint Maarten)"
-msgstr "荷兰语 (比利时)"
+msgstr "荷蘭文（荷蘭）"
 
 #: npgCore/localeList.php:523
 #, fuzzy
@@ -24786,7 +24806,7 @@ msgstr "努爾"
 #: npgCore/localeList.php:530
 #, fuzzy
 msgid "Nuer (South Sudan)"
-msgstr "阿拉伯语 (苏丹)"
+msgstr "英文（南非）"
 
 #: npgCore/localeList.php:531
 #, fuzzy
@@ -24917,19 +24937,19 @@ msgstr "葡萄牙文（葡萄牙）"
 #, fuzzy
 #| msgid "Portuguese (Portugal)"
 msgid "Portuguese (Equatorial Guinea)"
-msgstr "葡萄牙语 (巴西)"
+msgstr "葡萄牙文（葡萄牙）"
 
 #: npgCore/localeList.php:556
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese (Guinea-Bissau)"
-msgstr "葡萄牙语 (巴西)"
+msgstr "葡萄牙文（葡萄牙）"
 
 #: npgCore/localeList.php:557
 #, fuzzy
 #| msgid "Portuguese (Portugal)"
 msgid "Portuguese (Luxembourg)"
-msgstr "德语 (卢森堡)"
+msgstr "葡萄牙文（葡萄牙）"
 
 #: npgCore/localeList.php:558
 #, fuzzy
@@ -24941,7 +24961,7 @@ msgstr "葡萄牙文（巴西）"
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese (Mozambique)"
-msgstr "葡萄牙语 (巴西)"
+msgstr "葡萄牙文（葡萄牙）"
 
 #: npgCore/localeList.php:560
 msgid "Portuguese (Portugal)"
@@ -24956,7 +24976,7 @@ msgstr "葡萄牙語（聖多美和普林西比）"
 #, fuzzy
 #| msgid "Portuguese (Portugal)"
 msgid "Portuguese (Timor-Leste)"
-msgstr "葡萄牙语 (巴西)"
+msgstr "葡萄牙文（葡萄牙）"
 
 #: npgCore/localeList.php:563
 #, fuzzy
@@ -25044,13 +25064,13 @@ msgstr "俄文（烏克蘭）"
 #, fuzzy
 #| msgid "Russian (Ukraine)"
 msgid "Russian (Kyrgyzstan)"
-msgstr "俄语 (俄国)"
+msgstr "俄文（烏克蘭）"
 
 #: npgCore/localeList.php:579
 #, fuzzy
 #| msgid "Russian (Ukraine)"
 msgid "Russian (Kazakhstan)"
-msgstr "俄语 (俄国)"
+msgstr "俄文（烏克蘭）"
 
 #: npgCore/localeList.php:580
 #, fuzzy
@@ -25095,7 +25115,7 @@ msgstr "薩哈"
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Sakha (Russia)"
-msgstr "俄语 (俄国)"
+msgstr "俄文（俄國）"
 
 #: npgCore/localeList.php:589
 #, fuzzy
@@ -25126,7 +25146,7 @@ msgstr "Sindhi"
 #, fuzzy
 #| msgid "Urdu (Pakistan)"
 msgid "Sindhi (Pakistan)"
-msgstr "乌都语 (巴基斯坦)"
+msgstr "烏爾都文（巴基斯坦）"
 
 #: npgCore/localeList.php:595
 #, fuzzy
@@ -25137,7 +25157,7 @@ msgstr "北方薩米語"
 #, fuzzy
 #| msgid "Swedish (Finland)"
 msgid "Northern Sami (Finland)"
-msgstr "瑞典语 (芬兰)"
+msgstr "瑞典文（芬蘭）"
 
 #: npgCore/localeList.php:597
 #, fuzzy
@@ -25147,7 +25167,7 @@ msgstr "北薩米（挪威）"
 #: npgCore/localeList.php:598
 #, fuzzy
 msgid "Northern Sami (Sweden)"
-msgstr "瑞典语 (瑞典)"
+msgstr "瑞典文（瑞典）"
 
 #: npgCore/localeList.php:599
 #, fuzzy
@@ -25188,7 +25208,7 @@ msgstr "緩存命中"
 #: npgCore/localeList.php:606
 #, fuzzy
 msgid "Tachelhit (Latin)"
-msgstr "西班牙语 (拉丁美洲)"
+msgstr "西班牙文（拉丁美洲）"
 
 #: npgCore/localeList.php:607
 #, fuzzy
@@ -25242,7 +25262,7 @@ msgstr "伊納里薩米"
 #, fuzzy
 #| msgid "Swedish (Finland)"
 msgid "Inari Sami (Finland)"
-msgstr "瑞典语 (芬兰)"
+msgstr "瑞典文（芬蘭）"
 
 #: npgCore/localeList.php:618
 #, fuzzy
@@ -25253,7 +25273,7 @@ msgstr "修納語"
 #, fuzzy
 #| msgid "English (Zimbabwe)"
 msgid "Shona (Zimbabwe)"
-msgstr "英语 (津巴布韦)"
+msgstr "英文（辛巴威）"
 
 #: npgCore/localeList.php:620
 #, fuzzy
@@ -25368,7 +25388,7 @@ msgstr "瑞典语 (芬兰)"
 #, fuzzy
 #| msgid "Swedish (Finland)"
 msgid "Swedish (Åland Islands)"
-msgstr "瑞典语 (芬兰)"
+msgstr "瑞典文（芬蘭）"
 
 #: npgCore/localeList.php:642
 msgid "Swedish (Finland)"
@@ -25531,7 +25551,7 @@ msgstr "韃靼語"
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Tatar (Russia)"
-msgstr "俄语 (俄国)"
+msgstr "俄文（俄國）"
 
 #: npgCore/localeList.php:675
 #, fuzzy
@@ -25800,12 +25820,12 @@ msgstr "中文（臺灣）"
 #: npgCore/localeList.php:727
 #, fuzzy
 msgid "Chinese (Simplified)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/localeList.php:728
 #, fuzzy
 msgid "Chinese (Simplified, China)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/localeList.php:729
 #, fuzzy
@@ -25820,12 +25840,12 @@ msgstr "簡體中文（EUC）"
 #: npgCore/localeList.php:731
 #, fuzzy
 msgid "Chinese (Simplified, Singapore)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/localeList.php:732
 #, fuzzy
 msgid "Chinese (Traditional)"
-msgstr "正体中文(台湾)"
+msgstr "中文（香港）"
 
 #: npgCore/localeList.php:733
 #, fuzzy
@@ -25876,7 +25896,7 @@ msgstr "必须的"
 #: npgCore/page_error.php:21
 #, fuzzy
 msgid "Not Found"
-msgstr "找到的授权:"
+msgstr "檔案不存在。"
 
 #: npgCore/page_error.php:24
 #, fuzzy
@@ -25892,12 +25912,12 @@ msgstr "不能接受的"
 #, fuzzy
 #| msgid "Authenticate user"
 msgid "Proxy Authentication Required"
-msgstr "OpenID 驗證失敗：%s"
+msgstr "必填"
 
 #: npgCore/page_error.php:33
 #, fuzzy
 msgid "Request Time-out"
-msgstr "失焦"
+msgstr "攝影時間"
 
 #: npgCore/page_error.php:36
 #, fuzzy
@@ -25945,7 +25965,7 @@ msgstr "出了些問題"
 #, fuzzy, php-format
 #| msgid "Owner"
 msgid "URL: %1$s"
-msgstr "URL"
+msgstr "%1$s 版本 %2$s"
 
 #: npgCore/page_error.php:97
 #, fuzzy, php-format
@@ -25955,7 +25975,7 @@ msgstr "已登入為 %s"
 #: npgCore/pluginDoc.php:290
 #, fuzzy
 msgid "Plugin usage information"
-msgstr "使用提示"
+msgstr "安裝資訊"
 
 #: npgCore/pluginDoc.php:291
 #, fuzzy, php-format
@@ -25966,7 +25986,8 @@ msgstr "%1$s %2$s：%3$s%4$s"
 #, fuzzy
 msgid "Option:"
 msgid_plural "Options:"
-msgstr[0] "netPhotoGraphics 选项 \"mod_rewrite\"  会设为  \"启动\"."
+msgstr[0] ""
+"縮圖裁切功能已停用。如果你想裁切縮圖，請至佈景主題的設定中啟用這項功能。"
 msgstr[1] "設定"
 
 #: npgCore/pluginDoc.php:594
@@ -26075,7 +26096,7 @@ msgstr "netPhotoGraphics 设定"
 #: npgCore/reconfigure.php:363
 #, fuzzy
 msgid "by Admin request"
-msgstr "管理員登入"
+msgstr "管理"
 
 #: npgCore/reconfigure.php:366
 #, fuzzy
@@ -26126,12 +26147,12 @@ msgstr "netPhotoGraphics需要PHP版本％s或更高版本"
 #: npgCore/setup/index.php:138
 #, fuzzy
 msgid "config file migrated"
-msgstr "無法編輯這個檔案！"
+msgstr "相本檔案儲存失敗"
 
 #: npgCore/setup/index.php:214
 #, fuzzy
 msgid "db POST handling"
-msgstr "张贴留言"
+msgstr "發表留言"
 
 #: npgCore/setup/index.php:252
 #, fuzzy
@@ -26177,7 +26198,7 @@ msgstr ""
 #: npgCore/setup/index.php:395
 #, fuzzy
 msgid "install"
-msgstr "要改正它须要在 PHP 安装 GD 相应图像支援"
+msgstr "請於 PHP 中安裝圖像處理支援函式庫，如 <em>GD 函式庫</em>"
 
 #: npgCore/setup/index.php:451
 msgid "Completed system check"
@@ -26261,7 +26282,7 @@ msgstr "安裝netPhotoGraphics v％s"
 #: npgCore/setup/index.php:592
 #, fuzzy
 msgid "Installation folder"
-msgstr "檔案"
+msgstr "安裝資訊"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -26272,12 +26293,12 @@ msgstr ""
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security"
-msgstr "檢視 <em>%s</em>"
+msgstr "找不到 <em>%s</em>"
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security [is compromised]"
-msgstr "佈景主題 <em>%s</em> 已移除"
+msgstr "<em>%s</em> 已經存在。"
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
@@ -26309,7 +26330,7 @@ msgstr ""
 #: npgCore/setup/index.php:619
 #, fuzzy
 msgid "PHP <code>Sessions</code>."
-msgstr "PHP <code>setlocale()</code>"
+msgstr "PHP <code>setlocale()</code> 函式"
 
 #: npgCore/setup/index.php:619
 #, fuzzy
@@ -26350,7 +26371,7 @@ msgstr ""
 #: npgCore/setup/index.php:645
 #, fuzzy
 msgid "<code>Suhosin</code> module [is enabled]"
-msgstr "PHP <code>magic_quotes_gpc</code> [已启用]"
+msgstr "PHP <code>magic_quotes_gpc</code> [啟用中]"
 
 #: npgCore/setup/index.php:645
 #, fuzzy, php-format
@@ -26382,7 +26403,7 @@ msgstr "您必須禁用<code>magic_quotes_gpc</code> 。"
 #: npgCore/setup/index.php:662
 #, fuzzy
 msgid "PHP <code>magic_quotes_runtime</code>"
-msgstr "PHP <code>magic_quotes_gpc</code> [已启用]"
+msgstr "PHP <code>magic_quotes_gpc</code>"
 
 #: npgCore/setup/index.php:662
 #, fuzzy
@@ -26397,7 +26418,7 @@ msgstr "您必須禁用<code>magic_quotes_runtime</code> 。"
 #: npgCore/setup/index.php:663
 #, fuzzy
 msgid "PHP <code>magic_quotes_sybase</code>"
-msgstr "PHP <code>magic_quotes_gpc</code> [已启用]"
+msgstr "PHP <code>magic_quotes_gpc</code>"
 
 #: npgCore/setup/index.php:663
 #, fuzzy
@@ -26417,12 +26438,12 @@ msgstr "相片排序方式："
 #: npgCore/setup/index.php:687
 #, fuzzy
 msgid "PHP <code>display_errors</code>"
-msgstr "PHP <code>setlocale()</code>"
+msgstr "PHP <code>setlocale()</code> 函式執行失敗"
 
 #: npgCore/setup/index.php:687
 #, fuzzy, php-format
 msgid "PHP <code>display_errors</code> [is enabled]"
-msgstr "PHP <code>magic_quotes_gpc</code> [已启用]"
+msgstr "PHP <code>magic_quotes_gpc</code> [啟用中]"
 
 #: npgCore/setup/index.php:687
 #, fuzzy
@@ -26534,7 +26555,7 @@ msgstr "PHP <code>mbstring</code> 多位元組字串套件包 [目前不支援]"
 #: npgCore/setup/index.php:739
 #, fuzzy
 msgid "PHP <code>default_charset</code>"
-msgstr "PHP <code>setlocale()</code>"
+msgstr "PHP <code>setlocale()</code> 函式執行失敗"
 
 #: npgCore/setup/index.php:739
 #, fuzzy, php-format
@@ -26631,7 +26652,7 @@ msgstr "没有 netPhotoGraphics 图像处程式库载入.  请确定你的PHP有
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
 msgid "<em>%1$s</em> file"
-msgstr "%1$s <em>%2$s</em> 已新增"
+msgstr "<em>%1$s</em> 留言於 %2$s："
 
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
@@ -26656,7 +26677,7 @@ msgstr "netPhotoGraphics 核心档案权限"
 #: npgCore/setup/index.php:810
 #, fuzzy, php-format
 msgid "Set File permissions to %s."
-msgstr "netPhotoGraphics 核心档案权限"
+msgstr "ZenPhoto20 核心檔案存取權限"
 
 #: npgCore/setup/index.php:816
 #, php-format
@@ -26822,12 +26843,12 @@ msgstr "資料庫連線"
 #: npgCore/setup/index.php:1063
 #, fuzzy
 msgid "Database credentials in configuration file"
-msgstr "选择资料库回复档案:"
+msgstr "過時的檔案紀錄已由資料庫中清除"
 
 #: npgCore/setup/index.php:1063
 #, fuzzy, php-format
 msgid "<em>%1$s</em> reported: %2$s"
-msgstr "%1$s <em>%2$s</em> 分配成功"
+msgstr "<em>%1$s</em> 已重新命名為 <em>%2$s</em>"
 
 #: npgCore/setup/index.php:1076
 #, fuzzy
@@ -27055,14 +27076,14 @@ msgstr "檔案"
 #, fuzzy, php-format
 msgid ".svn [%s instance]"
 msgid_plural ".svn [%s instances]"
-msgstr[0] "%s"
+msgstr[0] "回到 %s"
 msgstr[1] ""
 
 #: npgCore/setup/index.php:1375
 #, fuzzy, php-format
 msgid "php.ini [%s instance]"
 msgid_plural "php.ini [%s instances]"
-msgstr[0] "%s"
+msgstr[0] "回到 %s"
 msgstr[1] ""
 
 #: npgCore/setup/index.php:1389 npgCore/setup/index.php:1408
@@ -27467,7 +27488,7 @@ msgstr "警告！"
 #: npgCore/setup/setup-functions.php:157
 #, fuzzy
 msgid "<strong>Warning!</strong> click for details"
-msgstr "<strong>注意!</strong> 详情请点击"
+msgstr "<strong>請注意！</strong> 點我取得詳細資料"
 
 #: npgCore/setup/setup-functions.php:165
 msgid "<strong>Notice!</strong> click for details"
@@ -27595,7 +27616,7 @@ msgstr ""
 #: npgCore/setup/setup-functions.php:522
 #, fuzzy, php-format
 msgid "Query Success: %s"
-msgstr "資料庫語法出錯：%s"
+msgstr "成功"
 
 #: npgCore/setup/setup-functions.php:527
 #, fuzzy, php-format
@@ -27688,7 +27709,7 @@ msgstr ""
 #: npgCore/setup/setup-option-defaults.php:693
 #, fuzzy, php-format
 msgid "Copyright %1$u  : %2$s "
-msgstr "在 %2$s 有 %1$u 观看次数"
+msgstr "%2$s 點閱：%1$u"
 
 #: npgCore/setup/setup-option-defaults.php:732
 msgid ""
@@ -27722,7 +27743,7 @@ msgstr "插件：%1$s設置在％2 $ .4f秒內完成"
 #: npgCore/setup/setup-option-defaults.php:917
 #, fuzzy
 msgid "Plugin setup:"
-msgstr "外挂"
+msgstr "安裝失敗。"
 
 #: npgCore/setup/setup-option-defaults.php:970
 #, fuzzy
@@ -27742,13 +27763,13 @@ msgstr "主題或插件發生了變化。 zenphotoCompatibilityPack插件已啟�
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "檢視 <em>%s</em>"
+msgstr "<em>%1$s</em> 留言於 %2$s："
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "编辑相簿: <em>%1$s%2$s</em>"
+msgstr "<em>%1$s</em> 留言於 %2$s："
 
 #: npgCore/setup/setup-sqlform.php:3
 #, fuzzy
@@ -27782,13 +27803,13 @@ msgstr "資料庫主機位址"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "運動"
+msgstr "POP 连接埠"
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "資料庫使用者名稱"
+msgstr "資料庫連線"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -27806,12 +27827,12 @@ msgstr "儲存"
 #, fuzzy
 #| msgid "Completed system check"
 msgid "Completed with errors"
-msgstr "备份完成"
+msgstr "系統檢查完成"
 
 #: npgCore/setup/setupComplete.php:18
 #, fuzzy
 msgid "Completed"
-msgstr "备份完成"
+msgstr "回复完成"
 
 #: npgCore/setup/setup_permissions_changer.php:21
 #, fuzzy, php-format
@@ -27886,19 +27907,19 @@ msgstr "新相本"
 #, fuzzy
 #| msgid "Logged in as %1$s"
 msgid "Logged in as"
-msgstr "已登入為 %s"
+msgstr "安裝前請先登入。"
 
 #: npgCore/template-functions.php:145
 #, fuzzy
 #| msgid "files"
 msgid "My profile"
-msgstr "加入我的IP"
+msgstr "插入我的 IP"
 
 #: npgCore/template-functions.php:158
 #, fuzzy
 #| msgid "images"
 msgid "My images"
-msgstr "加入我的IP"
+msgstr "插入我的 IP"
 
 #: npgCore/template-functions.php:181
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:203
@@ -27908,7 +27929,7 @@ msgstr "外掛"
 #: npgCore/template-functions.php:184
 #, fuzzy
 msgid "Logs"
-msgstr "日志"
+msgstr "紀錄檔"
 
 #: npgCore/template-functions.php:197
 msgid "Sort Gallery"
@@ -28016,7 +28037,7 @@ msgstr "欄位"
 #: npgCore/template-functions.php:3955
 #, fuzzy
 msgid "search options"
-msgstr "选项"
+msgstr "搜尋"
 
 #: npgCore/template-functions.php:4009
 #, fuzzy
@@ -28027,7 +28048,7 @@ msgstr "在相本中搜尋"
 #, fuzzy
 #| msgid "Selected items deleted"
 msgid "Select/deselect all fields"
-msgstr "你没有填入所有栏位."
+msgstr "有欄位尚未填寫。"
 
 #: npgCore/template-functions.php:4143
 msgid "no date"
@@ -28040,7 +28061,7 @@ msgstr "試圖檢視的頁面受密碼保護。"
 #: npgCore/template-functions.php:4348
 #, fuzzy
 msgid "login"
-msgstr "用户名称"
+msgstr "登入"
 
 #: npgCore/template-functions.php:4367
 #, fuzzy
@@ -28104,9 +28125,7 @@ msgstr[1] "使用 <em>%1$s(%2$s)</em> 壓縮備份完成"
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] ""
-"<strong>警告！</strong> 這次的升級會造成難以回復的資料庫結構變化，繼續前請先"
-"備份資料庫。"
+msgstr[0] "表格字首:<strong>%1$s</strong>"
 msgstr[1] ""
 "<strong>警告！</strong> 這次的升級會造成難以回復的資料庫結構變化，繼續前請先"
 "備份資料庫。"
@@ -28115,7 +28134,7 @@ msgstr[1] ""
 #, fuzzy
 #| msgid "The locale %s is not supported on your server."
 msgid "The following tables were empty:"
-msgstr "你的伺服器不支援 %s 本地化設定。"
+msgstr "密碼為空或兩次輸入不相符"
 
 #: npgCore/utilities/backup_restore.php:284
 msgid "backup failed"
@@ -28146,7 +28165,7 @@ msgstr "下列資料表已經不存在了，因此無法還原："
 msgid ""
 "The following tables were not restored because the table was not present in "
 "the backup:"
-msgstr "下列資料表已經不存在了，因此無法還原："
+msgstr "因为资料库表格不存在, 所以以下的表格不能回复:"
 
 #: npgCore/utilities/backup_restore.php:475
 msgid ""
@@ -28220,13 +28239,13 @@ msgstr ""
 #: npgCore/utilities/backup_restore.php:595
 #, fuzzy
 msgid "Compression level"
-msgstr "未压缩"
+msgstr "不壓縮"
 
 #: npgCore/utilities/backup_restore.php:608
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "选择资料库回复档案:"
+msgstr "备份资料库的表格."
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -28249,7 +28268,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database connection"
 msgid "Database restoration"
-msgstr "資料庫名稱"
+msgstr "資料庫連線"
 
 #: npgCore/utilities/backup_restore.php:655
 #, fuzzy
@@ -28264,7 +28283,7 @@ msgstr "請選擇資料庫還原檔："
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to restore."
-msgstr "选择资料库回复档案:"
+msgstr "請選擇資料庫還原檔："
 
 #: npgCore/utilities/backup_restore.php:705
 msgid "Restore the Database"
@@ -28340,7 +28359,7 @@ msgstr "列"
 #, fuzzy
 #| msgid "Script page"
 msgid "Script Pages"
-msgstr "程式檔"
+msgstr "分頁"
 
 #: npgCore/utilities/gallery_statistics.php:94
 msgid "rss"
@@ -28541,7 +28560,7 @@ msgstr "新聞分類的統計"
 #, fuzzy
 #| msgid "Statistics for RSS feeds"
 msgid "Statistics for Script pages"
-msgstr "相館統計"
+msgstr "程式檔"
 
 #: npgCore/utilities/gallery_statistics.php:724
 msgid "Statistics for RSS feeds"
@@ -28567,7 +28586,7 @@ msgstr "您的瀏覽器不支持音頻標籤"
 #: npgCore/utilities/installation_analysis.php:61
 #, fuzzy, php-format
 msgid "source: %s"
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: npgCore/utilities/installation_analysis.php:82
 #, fuzzy
@@ -28596,7 +28615,7 @@ msgstr "網站："
 #: npgCore/utilities/installation_analysis.php:106
 #, fuzzy
 msgid "PHP Session path:"
-msgstr "佈景模板檔案（.php）"
+msgstr "執行 PHP 函式。"
 
 #: npgCore/utilities/installation_analysis.php:124
 #, fuzzy, php-format
@@ -28643,7 +28662,7 @@ msgstr "圖像處理支援：<strong>%s</strong>"
 #: npgCore/utilities/installation_analysis.php:219
 #, fuzzy, php-format
 msgid "supporting: %s"
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: npgCore/utilities/installation_analysis.php:225
 #, fuzzy, php-format
@@ -28833,12 +28852,12 @@ msgstr "MyBB安裝的WEB路徑。"
 #, fuzzy
 #| msgid "Title"
 msgid "MyBB Title"
-msgstr "标题"
+msgstr "標題"
 
 #: plugins/MyBB_auth.php:108
 #, fuzzy
 msgid "The name of the MyBB site."
-msgstr "名称"
+msgstr "網站："
 
 #: plugins/MyBB_auth.php:109
 #, fuzzy
@@ -28855,7 +28874,7 @@ msgstr "MyBB數據庫服務器所在的主機。"
 #, fuzzy
 #| msgid "Database"
 msgid "MyBB database"
-msgstr "資料庫"
+msgstr "資料庫連線"
 
 #: plugins/MyBB_auth.php:114
 #, fuzzy
@@ -28879,7 +28898,7 @@ msgstr "资料库用户"
 #, fuzzy
 #| msgid "Database password"
 msgid "MyBB database password"
-msgstr "资料库密码"
+msgstr "資料庫密碼"
 
 #: plugins/MyBB_auth.php:120
 #, fuzzy
@@ -28891,7 +28910,7 @@ msgstr "资料库密码"
 #, fuzzy
 #| msgid "Database table prefix"
 msgid "MyBB database prefix"
-msgstr "资料库表格字首"
+msgstr "資料表前綴"
 
 #: plugins/MyBB_auth.php:123
 #, fuzzy
@@ -28913,7 +28932,7 @@ msgstr "尚未設置此主題的默認選項。"
 #, fuzzy, php-format
 #| msgid "Graphics support: <code>%s</code>"
 msgid "Example: <code>%s</code>"
-msgstr "图像支援: <code>%s</code>"
+msgstr "PHP <code>%s</code> 支援 [尚未安裝]"
 
 #: plugins/MyBB_auth.php:136
 #, fuzzy, php-format
@@ -29095,13 +29114,13 @@ msgstr "相本資料夾大小：<strong>%s</strong>"
 #, fuzzy, php-format
 #| msgid "Image already exists."
 msgid "Folder %s already exists."
-msgstr "<em>%s</em> 已经存在."
+msgstr "<em>%s</em> 已經存在。"
 
 #: plugins/create_album.php:266
 #, fuzzy, php-format
 #| msgid "Database tables to create: %s"
 msgid "Unable to create %s."
-msgstr "建立在:"
+msgstr "建立相本"
 
 #: plugins/customFieldExtender.php:42
 #, fuzzy
@@ -29149,7 +29168,7 @@ msgstr "檢測到可能的字段名稱更改"
 #, fuzzy
 #| msgid "Database <code>%s</code> created"
 msgid "Database template created"
-msgstr "布景主题"
+msgstr "資料庫 <code>%s</code> 已建立"
 
 #: plugins/debugSearch.php:15
 #, fuzzy
@@ -29311,12 +29330,12 @@ msgstr "提供開發版本中的安裝按鈕。"
 #: plugins/devReleases.php:96
 #, fuzzy
 msgid "Did not find the <code>extract.php.bin</code> file."
-msgstr "<code>zenpageAlbumImage()</code> 不能找到相簿 %1$s"
+msgstr "<code>zenpageAlbumImage()</code> 找不到相本 %1$s"
 
 #: plugins/devReleases.php:116
 #, fuzzy, php-format
 msgid "Install DEV %1$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s 版本 %2$s"
 
 #: plugins/devReleases.php:121
 #, fuzzy, php-format
@@ -29339,7 +29358,7 @@ msgstr "為netPhotoGraphics包設置權限（0％o）。"
 #: plugins/devReleases.php:146
 #, fuzzy
 msgid "There is an update available."
-msgstr "更新"
+msgstr "Update"
 
 #: plugins/devReleases.php:148
 #, fuzzy
@@ -29375,7 +29394,7 @@ msgstr "GitHub存儲庫不可訪問。"
 #, fuzzy, php-format
 #| msgid "Publish"
 msgid "Publish %1$s"
-msgstr "取消发表相簿 %s"
+msgstr "發佈"
 
 #: plugins/filterDocGen.php:11
 #, fuzzy
@@ -29506,7 +29525,7 @@ msgstr "theme_head項目的開頭"
 #: plugins/headConsolidator.php:88
 #, fuzzy
 msgid "CSS references"
-msgstr "样式 (.css)"
+msgstr "CSS 樣式檔（.css）"
 
 #: plugins/headConsolidator.php:91
 #, fuzzy
@@ -29517,7 +29536,7 @@ msgstr "Javascript 档案(.js)"
 #: plugins/headConsolidator.php:94
 #, fuzzy
 msgid "In-line javaScript"
-msgstr "Javascript 档案(.js)"
+msgstr "JavaScript 檔案（.js）"
 
 #: plugins/headConsolidator.php:107
 #, fuzzy
@@ -29539,7 +29558,7 @@ msgstr "圖示"
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "搜寻"
+msgstr "搜尋關鍵字："
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -29571,7 +29590,7 @@ msgstr "搜尋相本"
 #, fuzzy
 #| msgid "Search pages"
 msgid "Search images"
-msgstr "搜寻"
+msgstr "相片"
 
 #: plugins/keywordRedirector.php:65
 #, fuzzy
@@ -29598,7 +29617,7 @@ msgstr "语言:"
 #, fuzzy
 #| msgid "Database user"
 msgid "Log database queries."
-msgstr "版本更新記錄"
+msgstr "登入"
 
 #: plugins/mediaelementjs_player.php:57
 #, fuzzy
@@ -29633,7 +29652,7 @@ msgstr "VideoJS未啟用， <a href=\"#%1$s\"><code>%1$s</code></a>已經實例�
 #: plugins/mediaelementjs_player.php:107
 #, fuzzy
 msgid "Control bar"
-msgstr "單張相片控制項"
+msgstr "快取控制"
 
 #: plugins/mediaelementjs_player.php:112
 #, fuzzy
@@ -29910,7 +29929,7 @@ msgstr "mb_strings"
 #, fuzzy
 #| msgid "Delete page"
 msgid "Create package"
-msgstr "建立在:"
+msgstr "ZenPhoto20 安裝包 [檔案遺失]"
 
 #: plugins/package.php:57
 #, fuzzy
@@ -30021,12 +30040,12 @@ msgstr "%1$s 管理：%2$s%3$s"
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
 msgid "Cc: %s"
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: plugins/pseudomail.php:74
 #, fuzzy, php-format
 msgid "Bcc: %s"
-msgstr "分頁（%s）"
+msgstr "回到 %s"
 
 #: plugins/pseudomail.php:76
 #, fuzzy, php-format
@@ -30096,7 +30115,7 @@ msgstr "淡出"
 #: plugins/slideshow2.php:137
 #, fuzzy
 msgid "Scroll horizontal"
-msgstr "向上捲動"
+msgstr "水平(正常)"
 
 #: plugins/slideshow2.php:138
 #, fuzzy
@@ -30151,7 +30170,7 @@ msgstr "暂停"
 #: plugins/slideshow2.php:157
 #, fuzzy
 msgid "Slideshow: Description"
-msgstr "描述:"
+msgstr "幻燈片"
 
 #: plugins/slideshow2.php:162
 #, fuzzy
@@ -30203,8 +30222,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "標籤管理"
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -30287,7 +30307,7 @@ msgstr "需要MySQL 5.5.3或更高版本才能支持trans-BMP字符編碼。"
 #: plugins/utf8mb4Migration.php:34
 #, fuzzy
 msgid "<em>utf8mb4</em> migration is complete. "
-msgstr "<em>locale</em> 资料夹 [不完整]"
+msgstr "<em>本地化</em> 資料夾 [檔案不完整]"
 
 #: plugins/utf8mb4Migration.php:47
 #, fuzzy
@@ -30393,7 +30413,7 @@ msgstr "默認主題配色方案。"
 #: themes/netphotographics/functions.php:156
 #, fuzzy
 msgid "Theme Color"
-msgstr "彩色"
+msgstr "色彩序列感測器"
 
 #: themes/ardoise/image.php:10 themes/basic/image.php:49
 #: themes/bootstrap/image.php:19 themes/enlighten/image.php:49
@@ -30528,7 +30548,7 @@ msgstr "檢視相本："
 #: themes/ardoise/inc_print_image_statistic.php:9
 #, fuzzy
 msgid "Popular images"
-msgstr "常见标签"
+msgstr "熱門標籤"
 
 #: themes/ardoise/inc_print_image_statistic.php:21
 #, fuzzy
@@ -30758,7 +30778,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:95
 #, fuzzy
 msgid "Use Galleriffic script"
-msgstr "剧本页"
+msgstr "netPhotoGraphics 程式執行總時間：%.4f 秒"
 
 #: themes/ardoise/themeoptions.php:97
 #, fuzzy
@@ -31053,7 +31073,7 @@ msgstr "观看更多"
 #: themes/bootstrap/inc_print_infinitescroll.php:6
 #, fuzzy
 msgid "No more albums to display"
-msgstr "一个或多个相簿的管理员"
+msgstr "管理一個或多個相本"
 
 #: themes/bootstrap/inc_print_infinitescroll.php:10
 #, fuzzy
@@ -31090,7 +31110,7 @@ msgstr ""
 #: themes/bootstrap/theme_description.php:11
 #, fuzzy
 msgid "Please read"
-msgstr "观看更多 "
+msgstr "繼續閱讀"
 
 #: themes/bootstrap/theme_description.php:13
 #, fuzzy
@@ -31356,13 +31376,13 @@ msgstr "搜尋相館"
 #: themes/netphotographics/functions.php:155
 #, fuzzy
 msgid "Effervescence color scheme."
-msgstr "彩色"
+msgstr "Effervescence %s"
 
 #: themes/effervescence+/functions.php:166
 #: themes/netphotographics/functions.php:166
 #, fuzzy
 msgid "Effervescence image display handling."
-msgstr "预设图片显示大小."
+msgstr "勾選後會將原尺寸相片顯示於 Colorbox 效果中"
 
 #: themes/effervescence+/functions.php:167 themes/garland/functions.php:59
 #: themes/netphotographics/functions.php:167
@@ -31589,7 +31609,7 @@ msgstr "選中將圖庫索引從主頁移動到gallery.php。"
 #: themes/netphotographics/themeoptions.php:108
 #, fuzzy
 msgid "<strong>Note:</strong> this is assumed the CMS plugin is enabled."
-msgstr "<strong>错误: </strong>Zenpage 内容管理系统外挂未启动."
+msgstr "<strong>錯誤：</strong>Zenpage CMS 內容管理系統外掛尚未啟用。"
 
 #: themes/effervescence+/themeoptions.php:94
 #: themes/netphotographics/themeoptions.php:109
@@ -31649,7 +31669,7 @@ msgstr ""
 #: themes/netphotographics/themeoptions.php:146
 #, fuzzy
 msgid "Display theme info"
-msgstr "相片資訊"
+msgstr "鏡頭資訊"
 
 #: themes/effervescence+/themeoptions.php:129
 #: themes/netphotographics/themeoptions.php:150
@@ -31708,7 +31728,7 @@ msgstr "收縮/成長"
 #: themes/spellflight/themeoptions.php:120
 #, fuzzy
 msgid "Transition effect for Image gallery"
-msgstr "檢視整座相館"
+msgstr "*使用相館的相片排序方式"
 
 #: themes/effervescence+/themeoptions.php:155
 #: themes/garland/themeoptions.php:122
@@ -31724,7 +31744,7 @@ msgstr "檢視整座相館"
 #: themes/spellflight/themeoptions.php:125
 #, fuzzy
 msgid "On image"
-msgstr "图片"
+msgstr " %"
 
 #: themes/effervescence+/themeoptions.php:158
 #: themes/garland/themeoptions.php:125
@@ -31772,7 +31792,7 @@ msgstr "Effervescence 預設圖像"
 #: themes/enlighten/contact.php:35
 #, fuzzy
 msgid "Send me a message of Love"
-msgstr "寄出另一封电邮."
+msgstr "再寄一封訊息。"
 
 #: themes/enlighten/gallery.php:74 themes/enlighten/home.php:77
 #: themes/enlighten/news.php:54 themes/enlighten/news.php:80
@@ -31799,12 +31819,12 @@ msgstr "%1$s 管理：%2$s%3$s"
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$s 版本 %2$s"
 
 #: themes/enlighten/sidebar.php:46
 #, fuzzy
 msgid "Latest notes"
-msgstr "最新相片"
+msgstr "最新"
 
 #: themes/enlighten/sidebar.php:61
 #, fuzzy
@@ -31915,7 +31935,7 @@ msgstr "%s 的最新相片"
 #: themes/garland/functions.php:58
 #, fuzzy
 msgid "Garland image display handling."
-msgstr "预设图片显示大小."
+msgstr "預設的相片顯示尺寸。"
 
 #: themes/garland/gallery.php:82 themes/garland/main.php:58
 #: themes/masonry/functions.php:233 themes/masonry/functions.php:238
@@ -31999,7 +32019,7 @@ msgstr "错误!"
 #: themes/masonry/album.php:16 themes/masonry/favorites.php:18
 #, fuzzy
 msgid "subalbum"
-msgstr "%u 个子相簿"
+msgstr "新子相簿"
 
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 #, fuzzy
@@ -32018,13 +32038,13 @@ msgstr "所有吻合 <em>%1$s</em> 的結果：%2$u 個"
 #: themes/minimal/gallery.php:9
 #, fuzzy
 msgid "subalbums"
-msgstr "子相簿"
+msgstr "子相本"
 
 #: themes/masonry/album.php:89 themes/masonry/favorites.php:91
 #: themes/masonry/search.php:62
 #, fuzzy
 msgid "Play Slideshow"
-msgstr "幻燈片"
+msgstr "播放"
 
 #: themes/masonry/album.php:153 themes/masonry/favorites.php:157
 #: themes/masonry/search.php:129
@@ -32050,7 +32070,7 @@ msgstr "最新相本"
 #: themes/masonry/functions.php:218
 #, fuzzy
 msgid "Latest Updated Albums"
-msgstr "最新相本"
+msgstr "最近更新"
 
 #: themes/masonry/functions.php:223
 #, fuzzy
@@ -32065,7 +32085,7 @@ msgstr "最高评级"
 #: themes/masonry/functions.php:248
 #, fuzzy
 msgid "Popular Images"
-msgstr "常见标签"
+msgstr "熱門標籤"
 
 #: themes/masonry/functions.php:253
 #, fuzzy
@@ -32100,7 +32120,7 @@ msgstr "啟動幻燈片"
 #: themes/masonry/inc-footer.php:21
 #, fuzzy
 msgid "Loading additional pages..."
-msgstr "页"
+msgstr "可管理的分頁："
 
 #: themes/masonry/inc-footer.php:23
 #, fuzzy
@@ -32118,12 +32138,12 @@ msgstr "netPhotoGraphics 程式執行總時間：%.4f 秒"
 #: themes/masonry/news.php:23
 #, fuzzy
 msgid "Latest Comments"
-msgstr "留言："
+msgstr "最新"
 
 #: themes/masonry/inc-header.php:102 themes/minimal/inc-header.php:103
 #, fuzzy
 msgid "Password Required"
-msgstr "须要密码"
+msgstr "請輸入密碼"
 
 #: themes/masonry/inc-header.php:106 themes/minimal/inc-header.php:107
 #, fuzzy
@@ -32141,12 +32161,12 @@ msgstr ""
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "留言:"
+msgstr "留言"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "留言:"
+msgstr "留言"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -32177,7 +32197,7 @@ msgstr "你已经登入."
 #: themes/masonry/search.php:30 themes/minimal/search.php:29
 #, fuzzy
 msgid "items"
-msgstr "可见项目"
+msgstr "所選的項目已被刪除"
 
 #: themes/masonry/search.php:171 themes/minimal/search.php:108
 #, fuzzy
@@ -32192,7 +32212,7 @@ msgstr "選擇深色或淺色整體顏色樣式。"
 #: themes/masonry/themeoptions.php:79
 #, fuzzy
 msgid "General Thumb Sizes"
-msgstr "普通"
+msgstr "一般"
 
 #: themes/masonry/themeoptions.php:83
 #, fuzzy
@@ -32273,7 +32293,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:119
 #, fuzzy
 msgid "Logo Height"
-msgstr "高"
+msgstr "標題文字"
 
 #: themes/masonry/themeoptions.php:123
 #, fuzzy
@@ -32285,7 +32305,7 @@ msgstr "如果使用上面的徽標圖像，則必須在此處輸入圖像的高
 #: themes/masonry/themeoptions.php:125 themes/minimal/themeoptions.php:38
 #, fuzzy
 msgid "Final Image Link Option"
-msgstr "全尺寸图片连结"
+msgstr "原尺寸相片連結"
 
 #: themes/masonry/themeoptions.php:129
 #, fuzzy
@@ -32346,7 +32366,7 @@ msgstr "彩盒過渡類型。可以設置為彈性，淡入淡出或無。"
 #: themes/masonry/themeoptions.php:157
 #, fuzzy
 msgid "Colorbox Slideshow Speed"
-msgstr "速度"
+msgstr "使用 Colorbox"
 
 #: themes/masonry/themeoptions.php:161
 #, fuzzy
@@ -32400,7 +32420,7 @@ msgstr "如果在上面選擇，請選擇首頁幻燈片顯示的內容選項。
 #: themes/masonry/themeoptions.php:182
 #, fuzzy
 msgid "Frontpage Slideshow Count"
-msgstr "幻灯片播放"
+msgstr "網址數量上限"
 
 #: themes/masonry/themeoptions.php:186
 #, fuzzy
@@ -32420,7 +32440,7 @@ msgstr "如果上面選擇了幻燈片放映，請選擇過渡效果。"
 #: themes/masonry/themeoptions.php:194
 #, fuzzy
 msgid "Frontpage Slideshow Speed?"
-msgstr "速度"
+msgstr "幻燈片"
 
 #: themes/masonry/themeoptions.php:198
 #, fuzzy
@@ -32444,7 +32464,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:206
 #, fuzzy
 msgid "Custom CSS"
-msgstr "自定"
+msgstr "CSS 樣式檔（.css）"
 
 #: themes/masonry/themeoptions.php:210
 #, fuzzy
@@ -32478,12 +32498,12 @@ msgstr "相館"
 #: themes/minimal/inc-footer.php:24
 #, fuzzy
 msgid "Subalbum"
-msgstr "%u 个子相簿"
+msgstr "新子相簿"
 
 #: themes/minimal/index.php:59
 #, fuzzy
 msgid "Enter Gallery &rarr;"
-msgstr "請輸入驗證碼："
+msgstr "請輸入驗證碼"
 
 #: themes/minimal/news.php:48
 #, fuzzy
@@ -32606,7 +32626,7 @@ msgstr ""
 #: themes/mobile/functions.php:113
 #, fuzzy
 msgid "zpMobile theme by"
-msgstr "布景主题"
+msgstr "*使用相館的佈景主題"
 
 #: themes/mobile/functions.php:215 themes/npgmobile/functions.php:169
 msgid "Back to top"
@@ -32616,14 +32636,14 @@ msgstr "回到頂端"
 #, fuzzy, php-format
 msgid "%d album"
 msgid_plural "%d albums"
-msgstr[0] "留言: %d"
+msgstr[0] "留言：%d"
 msgstr[1] "%u 個相本"
 
 #: themes/mobile/functions.php:239 themes/npgmobile/functions.php:193
 #, fuzzy, php-format
 msgid "%d image"
 msgid_plural "%d images"
-msgstr[0] "留言: %d"
+msgstr[0] "留言：%d"
 msgstr[1] "%u 張相片"
 
 #: themes/mobile/image.php:54 themes/npgmobile/image.php:54
@@ -32736,7 +32756,7 @@ msgstr "授權方式："
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "找到的授权:"
+msgstr "檔案不存在。"
 
 #: themes/paradigm/includes/_gallery.php:12
 #, fuzzy
@@ -32906,13 +32926,13 @@ msgstr "主页"
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
 msgid "Latest pictures"
-msgstr "最新相片"
+msgstr "最新"
 
 #: themes/paradigm/themeoptions.php:120
 #, fuzzy
 #| msgid "Random picture..."
 msgid "Random pictures"
-msgstr "隨機圖片..."
+msgstr "隨機相片"
 
 #: themes/paradigm/themeoptions.php:121
 #, fuzzy
@@ -32941,7 +32961,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:141
 #, fuzzy
 msgid "ShareThis id"
-msgstr "帳號："
+msgstr "ID"
 
 #: themes/paradigm/themeoptions.php:145
 #, fuzzy
@@ -32951,7 +32971,7 @@ msgstr "提供您的<a href=\"http://www.sharethis.com\">ShareThis</a> ID"
 #: themes/paradigm/themeoptions.php:147
 #, fuzzy
 msgid "AddThis code"
-msgstr "%s郵遞區號："
+msgstr "郵遞區號："
 
 #: themes/paradigm/themeoptions.php:151
 #, fuzzy
@@ -32980,7 +33000,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:158
 #, fuzzy
 msgid "Twitter profile name"
-msgstr "名称"
+msgstr "相本名稱："
 
 #: themes/paradigm/themeoptions.php:161
 #, fuzzy
@@ -33067,13 +33087,13 @@ msgstr "提供您的<a href=\"http://tumblr.com/\">Tumblr</a>頁面URL"
 #: themes/spellflight/functions.php:58
 #, fuzzy
 msgid "spellflight image display handling."
-msgstr "预设图片显示大小."
+msgstr "勾選後會將原尺寸相片顯示於 Colorbox 效果中"
 
 #: themes/spellflight/pages_Custom1.php:105
 #, fuzzy
 #| msgid "Contact"
 msgid "Contact me"
-msgstr "聯絡"
+msgstr "推到 Twitter"
 
 #: themes/zenFluid/404.php:16
 #, fuzzy
@@ -33100,7 +33120,7 @@ msgstr "显示: %u"
 #: themes/zenFluid/inc-footer.php:6 themes/zenFluid/inc-sidebar.php:132
 #, fuzzy
 msgid "zenFluid theme designed by "
-msgstr "布景主题"
+msgstr "*使用相館的佈景主題"
 
 #: themes/zenFluid/inc-sidebar.php:41
 #, fuzzy
@@ -33135,18 +33155,18 @@ msgstr "上一页"
 #, fuzzy, php-format
 #| msgid "Images (%s)"
 msgid "Images and Videos (%s)"
-msgstr "图片 (%s)"
+msgstr "%s 的最新相片"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "White"
-msgstr "黑和白"
+msgstr "白平衡"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 #| msgid "Night"
 msgid "Light Green"
-msgstr "标准光源A"
+msgstr "標準燈光 B"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
@@ -33187,7 +33207,7 @@ msgstr "色彩序列感測器"
 #: themes/zenFluid/themeoptions.php:92
 #, fuzzy
 msgid "Select the colorscheme."
-msgstr "排版方式："
+msgstr "Select"
 
 #: themes/zenFluid/themeoptions.php:94
 #, fuzzy
@@ -33198,7 +33218,7 @@ msgstr "驗證碼字體"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the font style."
-msgstr "CSS 樣式檔（.css）"
+msgstr "驗證碼字元所用的字體"
 
 #: themes/zenFluid/themeoptions.php:101
 #, fuzzy
@@ -33225,7 +33245,7 @@ msgstr "剔选以使用 Colorbox 显示全尺寸图片."
 #: themes/zenFluid/themeoptions.php:120
 #, fuzzy
 msgid "Use UPPERCASE menu"
-msgstr "使用自定选单"
+msgstr "使用自訂選單"
 
 #: themes/zenFluid/themeoptions.php:124
 #, fuzzy
@@ -33236,7 +33256,7 @@ msgstr "如果希望所有菜單項都是大寫，則啟用"
 #, fuzzy
 #| msgid "Include RSS link"
 msgid "Include HOME link"
-msgstr "包括 RSS 连结"
+msgstr "RSS 訂閱連結"
 
 #: themes/zenFluid/themeoptions.php:130
 #, fuzzy
@@ -33282,7 +33302,7 @@ msgstr "可選：選擇將從中拍攝隨機或最新圖像的相冊文件夾的
 #: themes/zenFluid/themeoptions.php:151
 #, fuzzy
 msgid "Print title breadcrumb"
-msgstr "标题"
+msgstr "相本標題"
 
 #: themes/zenFluid/themeoptions.php:155
 #, fuzzy
@@ -33397,7 +33417,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Verisign Authentication"
 msgid "Description justification"
-msgstr "描述:"
+msgstr "描述"
 
 #: themes/zenFluid/themeoptions.php:210
 #, fuzzy
@@ -33502,7 +33522,7 @@ msgstr "啟用此選項可強制拇指列表的寬度與舞台寬度相匹配"
 #: themes/zenFluid/themeoptions.php:267
 #, fuzzy
 msgid "Buttons before Title"
-msgstr "單選圓鈕"
+msgstr "標題"
 
 #: themes/zenFluid/themeoptions.php:271
 #, fuzzy
@@ -33565,6 +33585,9 @@ msgid ""
 msgstr ""
 "如果要使用<em>menu_manager</em>插件（如果已啟用）來構建自定義菜單而不是單獨的"
 "標準菜單，請選中此選項。將創建一個名為“zenpage”的標準菜單並自動使用。"
+
+#~ msgid "Select users:"
+#~ msgstr "選擇使用者："
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "受到 PHP 安全模式限制！"

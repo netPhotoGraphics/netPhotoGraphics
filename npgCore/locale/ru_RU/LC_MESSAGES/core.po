@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:13-0700\n"
+"POT-Creation-Date: 2020-05-29 12:59-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: http://www.artpixel.ru/forum/viewtopic.php?t=146 <Doctor Kru>\n"
@@ -94,7 +94,7 @@ msgstr "Форум"
 #: npgCore/admin-functions.php:49 npgCore/setup/setup-functions.php:470
 #, fuzzy
 msgid "Support"
-msgstr "PHP поддержка <code>flock</code>  [отсутствует]"
+msgstr "PHP поддержка <code>%s</code> для сконфигурированной базы данных"
 
 #: npgCore/admin-functions.php:50
 msgid "View Change log"
@@ -356,7 +356,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/edit.php:584
 #, fuzzy
 msgid "clear password"
-msgstr "Пароль"
+msgstr "Пароль:"
 
 #: npgCore/admin-functions.php:2006
 #, fuzzy
@@ -500,7 +500,7 @@ msgstr "*по умолчанию"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "Миниатюры (%s)"
+msgstr "миниатюр в строке"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -1273,7 +1273,7 @@ msgstr "пользователи"
 #: npgCore/admin-functions.php:5505
 #, fuzzy
 msgid "<em>3rd party</em>"
-msgstr "<em>анонимно</em>"
+msgstr "Просмотр <em>%s</em>"
 
 #: npgCore/admin-functions.php:5506
 #, fuzzy
@@ -1594,7 +1594,7 @@ msgstr "Дата изменения (на сервере)"
 #: npgCore/admin-globals.php:76
 #, fuzzy
 msgid "Last change date"
-msgstr "Дата:"
+msgstr "Дата"
 
 #: npgCore/admin-globals.php:86 npgCore/admin-globals.php:174
 #: npgCore/extensions/accessThreshold.php:109
@@ -1960,7 +1960,7 @@ msgstr "Критерий поиска:"
 #: npgCore/admin-tabs/dynamic-album.php:257
 #, fuzzy
 msgid "Return albums found"
-msgstr "Вернуться в %s"
+msgstr "Альбомы"
 
 #: npgCore/admin-tabs/dynamic-album.php:261
 #, fuzzy
@@ -2484,7 +2484,7 @@ msgstr "<strong>Ошибка при обработке <em>plugin_description</e
 #: npgCore/admin-tabs/plugins.php:250
 #, fuzzy
 msgid "<strong>Error parsing <em>plugin_notice</em> string!</strong>."
-msgstr "<strong>Ошибка анализа строки <em>plugin_author</em>!</strong>."
+msgstr "<strong>Ошибка при обработке <em>plugin_description</em>!</strong>."
 
 #: npgCore/admin-tabs/plugins.php:258
 msgid "<strong>Error parsing <em>plugin_version</em> string!</strong>."
@@ -2508,7 +2508,7 @@ msgstr ""
 #: npgCore/admin-tabs/plugins.php:299
 #, fuzzy
 msgid "class plugin"
-msgstr "Класс"
+msgstr "плагины"
 
 #: npgCore/admin-tabs/plugins.php:305
 #, fuzzy
@@ -2562,7 +2562,7 @@ msgstr "Изменить настройки плагина %s"
 #: npgCore/admin-tabs/plugins.php:507
 #, fuzzy
 msgid "Class plugin"
-msgstr "Класс"
+msgstr "плагины"
 
 #: npgCore/admin-tabs/plugins.php:511
 #, fuzzy
@@ -2638,7 +2638,7 @@ msgstr "%1$s:%2$s не изменено, дублируется тег."
 #: npgCore/admin-tabs/tags.php:182
 #, fuzzy
 msgid "Tags renamed"
-msgstr "Нет тэгов для импорта."
+msgstr "Переименовать"
 
 #: npgCore/admin-tabs/tags.php:230
 msgid "Tag Management"
@@ -3103,8 +3103,9 @@ msgstr "Пароль %s может быть пустым!"
 msgid "Password reset request."
 msgstr "Получить новый пароль"
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "Пользователи"
 
@@ -3261,7 +3262,7 @@ msgstr "Политика использования сайта была подт
 #: npgCore/admin-tabs/users.php:781
 #, fuzzy
 msgid "Set"
-msgstr "Отметьте для включение формы поиска."
+msgstr "Назначить миниатюрой"
 
 #: npgCore/admin-tabs/users.php:831
 msgid "Challenge phrase"
@@ -3310,7 +3311,7 @@ msgstr "<em>Основная</em> учетная запись имеет пол�
 #: npgCore/admin-tabs/users.php:949 npgCore/functions.php:706
 #, fuzzy
 msgid "un-categorized"
-msgstr "Опубликован да/нет"
+msgstr "Нажмите, чтобы отменить публикацию альбома %s"
 
 #: npgCore/admin-tabs/users.php:1018
 #, php-format
@@ -3374,7 +3375,7 @@ msgstr "Кэш изображений удален."
 #: npgCore/admin.php:135
 #, fuzzy
 msgid "Setup files restored."
-msgstr "Файлы"
+msgstr "файлы"
 
 #: npgCore/admin.php:139
 #, fuzzy
@@ -3671,7 +3672,7 @@ msgstr ""
 #, fuzzy
 #| msgid "E-mail"
 msgid "E-mail form"
-msgstr "Отправить e-mail"
+msgstr "Ответить на e-mail"
 
 #: npgCore/admin_options/forms.php:64
 #, fuzzy
@@ -3900,7 +3901,7 @@ msgstr "визуальный выбор миниатюр"
 #: npgCore/admin_options/gallery.php:495
 #, fuzzy
 msgid "show subalbum thumbs"
-msgstr "%u Подальбом"
+msgstr "Новый подальбом"
 
 #: npgCore/admin_options/gallery.php:503
 #, fuzzy
@@ -3991,7 +3992,7 @@ msgstr "Вставка кода:"
 #: npgCore/admin_options/general.php:102
 #, fuzzy
 msgid "All acknowledgements cleared"
-msgstr "Все"
+msgstr "все"
 
 #: npgCore/admin_options/general.php:162
 #: npgCore/extensions/dynamic-locale.php:100
@@ -4109,7 +4110,7 @@ msgstr "Загрузчик изображений <em>http</em>"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "Изображения по дате"
+msgstr "Изображения (динамические)"
 
 #: npgCore/admin_options/general.php:283
 #, fuzzy
@@ -4250,7 +4251,7 @@ msgstr "Формат даты:"
 #: npgCore/admin_options/general.php:426
 #, fuzzy
 msgid "Preferred date representation"
-msgstr "Изображения по дате"
+msgstr "Опубликовано"
 
 #: npgCore/admin_options/general.php:427
 msgid "02/25/08 15:30"
@@ -4685,7 +4686,7 @@ msgstr "исключить tinyMCE"
 #, fuzzy
 #| msgid "Reset all ratings"
 msgid "detect all changes"
-msgstr "Все"
+msgstr "все"
 
 #: npgCore/admin_options/general.php:775
 #, fuzzy
@@ -4700,7 +4701,7 @@ msgstr "<p> Ограничение журнала %s </p>"
 #: npgCore/admin_options/general.php:803
 #, fuzzy
 msgid "e-mail when exceeded"
-msgstr "Отправить e-mail"
+msgstr "Ответить на e-mail"
 
 #: npgCore/admin_options/general.php:815
 #, fuzzy
@@ -4762,7 +4763,7 @@ msgstr ""
 #: npgCore/admin_options/image.php:315
 #, fuzzy
 msgid "Maximum image size"
-msgstr "Размер изображения по умолчанию."
+msgstr "Размер изображения"
 
 #: npgCore/admin_options/image.php:324
 #, fuzzy
@@ -4868,7 +4869,7 @@ msgstr "Увеличивать резкость:"
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "Миниатюры (%s)"
+msgstr "миниатюр в строке"
 
 #: npgCore/admin_options/image.php:423
 #, fuzzy
@@ -5454,7 +5455,7 @@ msgstr "Матричный"
 #: npgCore/admin_options/search.php:274
 #, fuzzy
 msgid "<em>partial word</em>"
-msgstr "<em>анонимно</em>"
+msgstr "Просмотр <em>%s</em>"
 
 #: npgCore/admin_options/search.php:274 npgCore/admin_options/search.php:280
 #, fuzzy
@@ -5469,7 +5470,7 @@ msgstr "Управление Метками (теги)"
 #: npgCore/admin_options/search.php:280
 #, fuzzy
 msgid "<em>partial</em>"
-msgstr "<em>анонимно</em>"
+msgstr "Просмотр <em>%s</em>"
 
 #: npgCore/admin_options/search.php:280
 #, fuzzy
@@ -5479,7 +5480,7 @@ msgstr " <em>И</em>"
 #: npgCore/admin_options/search.php:284
 #, fuzzy
 msgid "language specific tags"
-msgstr "Метки"
+msgstr "метки"
 
 #: npgCore/admin_options/search.php:286
 #, fuzzy
@@ -5719,7 +5720,7 @@ msgstr "Сортировать подальбомы:"
 #: npgCore/admin_options/security.php:69
 #, fuzzy
 msgid "Cookie security"
-msgstr "Сохранять куки"
+msgstr "безопасность"
 
 #: npgCore/admin_options/security.php:79
 #, fuzzy
@@ -6114,7 +6115,7 @@ msgstr "Статьи:"
 #: npgCore/allTranslations.php:12
 #, fuzzy
 msgid "Gallery Rule"
-msgstr "Галерея"
+msgstr "Галерея (RSS)"
 
 #: npgCore/allTranslations.php:15
 #, fuzzy
@@ -6287,7 +6288,7 @@ msgstr "Миниатюры"
 #: themes/zenpage/image.php:73
 #, fuzzy
 msgid "next thumbs »"
-msgstr "далее »"
+msgstr "Миниатюры"
 
 #: npgCore/allTranslations.php:83
 msgid "Click here to register for this site."
@@ -6493,7 +6494,7 @@ msgstr "Объект не найден"
 #: npgCore/class-image.php:199 npgCore/extensions/xmpMetadata.php:648
 #, fuzzy
 msgid "Image Headline"
-msgstr "% изображения"
+msgstr "Порядок изображений"
 
 #: npgCore/class-image.php:200 npgCore/extensions/xmpMetadata.php:646
 #, fuzzy
@@ -6503,7 +6504,7 @@ msgstr "% изображения"
 #: npgCore/class-image.php:201
 #, fuzzy
 msgid "Image Caption Writer"
-msgstr "Предыдущее изображение"
+msgstr "Порядок изображений"
 
 #: npgCore/class-image.php:202
 msgid "Time Taken"
@@ -6768,7 +6769,7 @@ msgstr "Автор"
 #: npgCore/class-search.php:121
 #, fuzzy
 msgid "Last Editor"
-msgstr "Текстовый редактор темы оформления"
+msgstr "Текстовый редактор"
 
 #: npgCore/class-search.php:122 npgCore/extensions/zenpage/edit.php:448
 msgid "TitleLink"
@@ -7561,7 +7562,7 @@ msgstr "RAW"
 #: npgCore/exif/exifTranslations.php:175
 #, fuzzy
 msgid "Recommended Exposure Index"
-msgstr "Поправка экспозиции"
+msgstr "Главная"
 
 #: npgCore/exif/exifTranslations.php:176
 #, fuzzy
@@ -7800,7 +7801,7 @@ msgstr "обычное"
 #: npgCore/exif/exifTranslations.php:223
 #, fuzzy
 msgid "The file could not be found."
-msgstr "Объект не найден"
+msgstr "Альбом не найден"
 
 #: npgCore/exif/exifTranslations.php:224
 #, fuzzy
@@ -7899,7 +7900,7 @@ msgstr "Пользовательский"
 #, fuzzy
 #| msgid "Publish pages"
 msgid "Policy page"
-msgstr "Страница не найдена"
+msgstr "страница %u"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -8119,7 +8120,7 @@ msgstr "Базовое разделение пользователей на гр
 #: npgCore/extensions/LDAP_auth.php:110
 #, fuzzy
 msgid "netPhotoGraphics group"
-msgstr "*группа не выбрана"
+msgstr "не состоит в группах"
 
 #: npgCore/extensions/LDAP_auth.php:111
 #, fuzzy
@@ -8354,7 +8355,7 @@ msgstr "Размер изображения по умолчанию."
 #: npgCore/extensions/VideoJS.php:91
 #, fuzzy
 msgid "Custom Player Size"
-msgstr "размер ="
+msgstr "Пользовательский"
 
 #: npgCore/extensions/VideoJS.php:94
 #, fuzzy
@@ -9203,17 +9204,17 @@ msgstr "Создать кэш изображений отмеченных раз
 #: npgCore/extensions/cacheManager/deprecated-functions.php:10
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
@@ -9718,7 +9719,7 @@ msgstr "Статус:"
 #, fuzzy
 #| msgid "Visible items"
 msgid "Visit the site."
-msgstr "Сайт доступен."
+msgstr "Название вашего сайта."
 
 #: npgCore/extensions/clone/cloneTab.php:58
 #, fuzzy, php-format
@@ -9811,7 +9812,7 @@ msgstr ""
 #: npgCore/extensions/comment_form.php:94
 #, fuzzy
 msgid "Enable comment notification"
-msgstr "Комментарий"
+msgstr "Комментарий:"
 
 #: npgCore/extensions/comment_form.php:96
 msgid "Email the Admin when new comments are posted"
@@ -10542,7 +10543,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Email:"
 msgid "Email: %1$s"
-msgstr "E-Mail:"
+msgstr "E-Mail"
 
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
@@ -10627,7 +10628,7 @@ msgstr "Ошибка конфигурации,%1$s регистрационна�
 #: npgCore/extensions/register_user.php:338
 #, fuzzy
 msgid "netPhotoGraphics Gallery registration"
-msgstr "Галерея"
+msgstr "галерея"
 
 #: npgCore/extensions/common/oAuth/oAuthLogin.php:140
 #: npgCore/extensions/register_user.php:338
@@ -10972,7 +10973,7 @@ msgstr ""
 #: npgCore/extensions/cookieconsent.php:50
 #, fuzzy
 msgid "Button: Learn more"
-msgstr "Управляющие одним или несколькими альбомами"
+msgstr "Добавить больше форм для загрузки"
 
 #: npgCore/extensions/cookieconsent.php:55
 #, fuzzy
@@ -11810,7 +11811,7 @@ msgstr "в пользовательских плагинах"
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:65
 #, fuzzy
 msgid "In netPhotoGraphics code"
-msgstr "%sИндекс:"
+msgstr "Индекс"
 
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:71
 #, fuzzy
@@ -11877,7 +11878,7 @@ msgstr "Панель управления %1$s: %2$s%3$s"
 #: npgCore/extensions/deprecated-functions/class.php:155
 #, fuzzy, php-format
 msgid "standard plugin %1$s:%2$s"
-msgstr "Панель управления %1$s: %2$s%3$s"
+msgstr "%1$s %2$s: %3$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:158
 #, fuzzy, php-format
@@ -11929,7 +11930,7 @@ msgstr ""
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:69
 #, fuzzy
 msgid "Use getAllTagsUnique()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:78
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:86
@@ -11969,7 +11970,7 @@ msgstr "Использовать функцию print_SW_Link()"
 #, fuzzy
 #| msgid "Use text"
 msgid "Use exit()"
-msgstr "Использовать флаги"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:160
 #, fuzzy
@@ -11995,7 +11996,7 @@ msgstr "Использовать npgFilters::has_filter()"
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:204
 #, fuzzy
@@ -12005,27 +12006,27 @@ msgstr "Использование модуля GDPR_required"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:212
 #, fuzzy
 msgid "Use npg_loggedin()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:220
 #, fuzzy
 msgid "Use setNPGCookie()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:228
 #, fuzzy
 msgid "Use getNPGCookie()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:236
 #, fuzzy
 msgid "Use clearNPGCookie()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:244
 #, fuzzy
 msgid "Use formattedDate()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/deprecated-functions/functions.php:113
 #: npgCore/extensions/deprecated-functions/functions.php:151
@@ -12180,7 +12181,7 @@ msgstr "Статья <em>%s</em> не найдена"
 #: npgCore/extensions/downloadList.php:371
 #, fuzzy, php-format
 msgid "Page error: %2$s (%1$s)"
-msgstr "изображение %1$s из %2$s"
+msgstr "Effervescence %1$s %2$s"
 
 #: npgCore/extensions/downloadList.php:387
 msgid "Album not found"
@@ -12361,7 +12362,7 @@ msgstr ""
 #: npgCore/extensions/elFinder.php:54
 #, fuzzy
 msgid "Files tab"
-msgstr "Файлы"
+msgstr "Поддерживаемые типы"
 
 #: npgCore/extensions/elFinder.php:55
 #, fuzzy
@@ -12393,7 +12394,7 @@ msgstr "Включить CMS плагин Zenpage "
 #: npgCore/extensions/elFinder.php:82
 #, fuzzy, php-format
 msgid "files (%s)"
-msgstr "файлы установки"
+msgstr "Поддерживаемые типы"
 
 #: npgCore/extensions/elFinder.php:85 npgCore/extensions/elFinder.php:90
 msgid "files"
@@ -12453,7 +12454,7 @@ msgstr "Метаданные"
 #: npgCore/extensions/elFinder/php/connector_npg.php:331
 #, fuzzy, php-format
 msgid "Backup files (%s)"
-msgstr "Файлы"
+msgstr "файлы"
 
 #: npgCore/extensions/email-newuser.php:13
 #, fuzzy
@@ -12560,7 +12561,7 @@ msgstr "RSS потоки:"
 #: npgCore/extensions/externalFeed.php:74 npgCore/extensions/rss.php:50
 #, fuzzy
 msgid "Gallery Comments"
-msgstr "Галерея"
+msgstr "галерея"
 
 #: npgCore/extensions/externalFeed.php:77 npgCore/extensions/rss.php:53
 #, fuzzy
@@ -12588,7 +12589,7 @@ msgstr ""
 #: npgCore/extensions/externalFeed.php:85
 #, fuzzy
 msgid "Size of image feed images:"
-msgstr "Размер изображения по умолчанию."
+msgstr "Размер изображения"
 
 #: npgCore/extensions/externalFeed.php:86 npgCore/extensions/rss.php:68
 #, fuzzy
@@ -12687,7 +12688,7 @@ msgstr ""
 #: npgCore/extensions/externalFeed.php:133
 #, fuzzy, php-format
 msgid "<em><strong>%1$s</strong></em> key=%2$s"
-msgstr "Параметры <code><strong>%1$s</strong></code>: <em>%2$s</em>"
+msgstr "отсоединить основной альбом <strong>%1$s</strong>(<em>%2$s</em>)"
 
 #: npgCore/extensions/externalFeed.php:139
 #, fuzzy
@@ -12735,7 +12736,7 @@ msgstr "топ-рейтинг"
 #: npgCore/extensions/externalFeed.php:284 npgCore/extensions/rss.php:491
 #, fuzzy
 msgid " (Random pages)"
-msgstr "Случайное изображение…"
+msgstr "Случайные альбомы"
 
 #: npgCore/extensions/externalFeed.php:287 npgCore/extensions/rss.php:494
 #, fuzzy
@@ -12896,7 +12897,7 @@ msgstr ""
 #: npgCore/extensions/favoritesHandler.php:263
 #, fuzzy
 msgid "Users watching:"
-msgstr "Забаненые пользователи"
+msgstr "Добавить пользователей"
 
 #: npgCore/extensions/favoritesHandler.php:271 npgCore/lib-auth.php:772
 #: npgCore/lib-auth.php:1204 npgCore/lib-auth.php:1300
@@ -13116,7 +13117,7 @@ msgstr ""
 #: npgCore/extensions/galleryArticles.php:80
 #, fuzzy
 msgid "Set the size the image will be displayed."
-msgstr "Размер изображения по умолчанию."
+msgstr "Размер изображения"
 
 #: npgCore/extensions/galleryArticles.php:81
 #, fuzzy
@@ -13159,7 +13160,7 @@ msgstr "Выберите категорию для созданных стате
 #: npgCore/extensions/galleryArticles.php:91
 #, fuzzy
 msgid "Use album folder"
-msgstr "Имя папки:"
+msgstr "Переименовать папку"
 
 #: npgCore/extensions/galleryArticles.php:93
 #, fuzzy
@@ -13173,7 +13174,7 @@ msgstr ""
 #: npgCore/extensions/galleryArticles.php:96
 #, fuzzy
 msgid "Import Combi-news"
-msgstr "Нет категорий для импорта."
+msgstr "Импортировать список"
 
 #: npgCore/extensions/galleryArticles.php:98
 #, fuzzy
@@ -13187,7 +13188,7 @@ msgstr ""
 #: npgCore/extensions/galleryArticles.php:207
 #, fuzzy, php-format
 msgid "View %1$s"
-msgstr "Посмотреть альбом: %s"
+msgstr "Просмотр <em>%s</em>"
 
 #: npgCore/extensions/galleryArticles.php:241
 #, fuzzy
@@ -13361,7 +13362,7 @@ msgstr "Параметры отображения для регулятора м
 #: npgCore/extensions/googleMap.php:103
 #, fuzzy
 msgid "Max zoom level"
-msgstr "Увеличить"
+msgstr "Уровень компрессии"
 
 #: npgCore/extensions/googleMap.php:105
 #, fuzzy
@@ -13417,12 +13418,12 @@ msgstr "Карта Google"
 #: npgCore/extensions/googleMap/deprecated-functions.php:13
 #, fuzzy
 msgid "Use GoogleMap::getGeoCoord."
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/googleMap/deprecated-functions.php:21
 #, fuzzy
 msgid "Use GoogleMap::addGeoCoord."
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/googleMap/map.php:104
 #, fuzzy
@@ -13499,7 +13500,7 @@ msgstr "Двухфакторная аутентификация."
 #, fuzzy
 #| msgid "User name"
 msgid "Issuer name"
-msgstr "имя"
+msgstr "Имя"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13607,7 +13608,7 @@ msgstr "Перевести эту страницу."
 #: npgCore/extensions/googleTranslate.php:144
 #, fuzzy
 msgid "Translate Extra Content"
-msgstr "Перевести эту страницу."
+msgstr "Содержимое"
 
 #: npgCore/extensions/hitcounter.php:13
 #, fuzzy
@@ -13797,7 +13798,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:111
 #, fuzzy
 msgid "Twitter name"
-msgstr "Имя папки:"
+msgstr "Имя"
 
 #: npgCore/extensions/html_meta_tags.php:112
 #, fuzzy
@@ -13893,7 +13894,7 @@ msgstr "Проверяет подлинность Apache HTTP авторизов
 #: npgCore/extensions/http_auth.php:77
 #, fuzzy
 msgid "User validation"
-msgstr "Пользователь"
+msgstr "Имя пользователя"
 
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
@@ -14239,7 +14240,7 @@ msgstr "Включает прямую загрузку файлов (тольк�
 #: npgCore/extensions/jPlayer.php:158
 #, fuzzy
 msgid "Player size"
-msgstr "размер ="
+msgstr "Размер изображения"
 
 #: npgCore/extensions/jPlayer.php:160
 #, fuzzy
@@ -14304,7 +14305,7 @@ msgstr ""
 #: npgCore/extensions/jPlayer.php:215 plugins/mediaelementjs_player.php:500
 #, fuzzy, php-format
 msgid "%1$s::%2$s not found."
-msgstr "изображение %1$s из %2$s"
+msgstr "%1$s %2$s: %3$s"
 
 #: npgCore/extensions/jPlayer.php:225
 #, fuzzy
@@ -14509,7 +14510,7 @@ msgstr ""
 #: npgCore/extensions/macroList/macroList_tab.php:42
 #, fuzzy
 msgid "<em><strong>int</strong></em> a number"
-msgstr "<strong><em>%s</em></strong> на реконструкции"
+msgstr "Расширение <strong><em>Imagick</em></strong> недоступно."
 
 #: npgCore/extensions/macroList/macroList_tab.php:43
 #, fuzzy
@@ -14629,7 +14630,7 @@ msgstr ""
 #: npgCore/extensions/matomo.php:109
 #, fuzzy
 msgid "Widgets: Embed code"
-msgstr "%sИндекс:"
+msgstr "Индекс"
 
 #: npgCore/extensions/matomo.php:114
 #, fuzzy
@@ -14669,7 +14670,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Disable comments"
 msgid "Disable cookies"
-msgstr "Неверный срок хранения изображения: %s"
+msgstr "Отключить"
 
 #: npgCore/extensions/matomo.php:126
 #, fuzzy
@@ -14684,7 +14685,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User name"
 msgid "User consent"
-msgstr "Пользователь"
+msgstr "Имя пользователя"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -15044,7 +15045,7 @@ msgstr "Вы забыли предоставить <strong>функцию</stron
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:612
 #, fuzzy
 msgid "Custom label added"
-msgstr "Пользовательское меню"
+msgstr "<em>HTML</em> добавлен"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:627
 #, fuzzy, php-format
@@ -15173,7 +15174,7 @@ msgstr "Удалить меню"
 #: npgCore/extensions/menu_manager/menu_tab.php:243
 #, fuzzy
 msgid "Export menu"
-msgstr "Пользовательское меню"
+msgstr "Менеджер Меню"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:245
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:253
@@ -15213,7 +15214,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Website field"
 msgid "Site index"
-msgstr "Главная"
+msgstr "Список альбомов"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:64
 #, fuzzy
@@ -15305,7 +15306,7 @@ msgstr ""
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:142
 #, fuzzy
 msgid "Custom page"
-msgstr "Пользовательские<br /> данные:"
+msgstr "страница"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:143
 #, fuzzy
@@ -15315,7 +15316,7 @@ msgstr "Создает ссылку на страницу сценария по�
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:145
 #, fuzzy
 msgid "Script page"
-msgstr "Страница не найдена"
+msgstr "страница %u"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:150
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:291
@@ -15335,7 +15336,7 @@ msgstr ""
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:164
 #, fuzzy
 msgid "Link Attributes"
-msgstr "Загрузить"
+msgstr "Текст ссылки"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:160
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:290
@@ -15454,7 +15455,7 @@ msgstr "Необходимо расширение PHP <em>SimpleXML</em>."
 #: npgCore/extensions/mergedRSS.php:64
 #, fuzzy
 msgid "RSS feeds to merge"
-msgstr "Статистика RSS потоков"
+msgstr "RSS потоки:"
 
 #: npgCore/extensions/mergedRSS.php:67
 #, fuzzy
@@ -15540,7 +15541,7 @@ msgstr "обычное"
 #: npgCore/extensions/multiple_layouts.php:44
 #, fuzzy
 msgid "Multiple <em>Theme</em> layouts"
-msgstr "Ошибка при удалении темы <em>%s</em>."
+msgstr "Перейти к настройкам темы <em>%s</em>"
 
 #: npgCore/extensions/multiple_layouts.php:111
 #, fuzzy
@@ -15947,7 +15948,7 @@ msgstr "Очистить метки к изображениям "
 #: npgCore/extensions/optionalObjectFields.php:103
 #, fuzzy
 msgid "Set as thumbnail for"
-msgstr "Миниатюра:"
+msgstr "Задать миниатюру"
 
 #: npgCore/extensions/optionalObjectFields.php:110
 #, fuzzy
@@ -15993,7 +15994,7 @@ msgstr "Кэшировать оригиналы"
 #: npgCore/extensions/optionalObjectFields.php:464
 #, fuzzy
 msgid "No tags assigned"
-msgstr "Нет тэгов для импорта."
+msgstr "Переименовать"
 
 #: npgCore/extensions/optionalObjectFields.php:476
 #, fuzzy
@@ -16059,7 +16060,7 @@ msgstr "Nexttext"
 #: npgCore/extensions/paged_thumbs_nav.php:48
 #, fuzzy
 msgid "The text for the next thumbs."
-msgstr "далее »"
+msgstr "Миниатюры"
 
 #: npgCore/extensions/paged_thumbs_nav.php:50
 #, fuzzy
@@ -16153,7 +16154,7 @@ msgstr "Миниатюры"
 #: npgCore/extensions/paged_thumbs_nav.php:372
 #, fuzzy
 msgid "next thumbs"
-msgstr "далее »"
+msgstr "Миниатюры"
 
 #: npgCore/extensions/paged_thumbs_nav.php:325
 #, php-format
@@ -16174,7 +16175,7 @@ msgstr ""
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
 msgid "Panorama height"
-msgstr "высота"
+msgstr "высота ="
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -16210,13 +16211,13 @@ msgstr ""
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr "только пользователи"
+msgstr "Слева"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "Расширить права"
+msgstr "Справа"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -16670,7 +16671,7 @@ msgstr "Удалить"
 #, fuzzy
 #| msgid "hide"
 msgid "all: hide"
-msgstr "скрыть"
+msgstr "Скрыть детали"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:227
 #, fuzzy
@@ -16696,7 +16697,7 @@ msgstr "Скрытые и видимые пункты"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "Альбом пустой"
+msgstr "файл <em>.htaccess</em> [пустой или не существует]"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
@@ -16921,7 +16922,7 @@ msgstr "Размер значка, используемого для голос�
 #: npgCore/extensions/rating.php:84
 #, fuzzy
 msgid "Individual image control"
-msgstr "Предыдущее изображение"
+msgstr "Порядок изображений"
 
 #: npgCore/extensions/rating.php:86
 #, fuzzy
@@ -17164,7 +17165,7 @@ msgstr "Текст"
 #: npgCore/extensions/register_user.php:67
 #, fuzzy
 msgid "Registration confirmation text."
-msgstr "Регистрация нового пользователя"
+msgstr "Регистрация отменена."
 
 #: npgCore/extensions/register_user.php:68
 #, fuzzy
@@ -17175,7 +17176,7 @@ msgstr "Предисловие"
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration accepted text."
-msgstr "Регистрация нового пользователя"
+msgstr "Регистрация отменена."
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 #, fuzzy
@@ -17252,7 +17253,7 @@ msgstr "Необходимо указать Индекс."
 #: npgCore/extensions/register_user.php:267
 #, fuzzy
 msgid "Registration confirmation"
-msgstr "Требовать подтверждение"
+msgstr "Регистрация отменена."
 
 #: npgCore/extensions/register_user.php:365
 msgid "you are already logged in."
@@ -17367,7 +17368,7 @@ msgstr "%s"
 #: npgCore/extensions/rewriteRules.php:112
 #, fuzzy
 msgid "Site rewrite rules."
-msgstr "Проверка Mod_Rewrite:"
+msgstr "Параметр netPhotoGraphics \"mod_rewrite\"  \"включен\"."
 
 #: npgCore/extensions/rewriteRules.php:113
 #: npgCore/extensions/rewriteRules.php:337
@@ -17427,13 +17428,13 @@ msgstr "Переписать жетоны не могут быть пустым�
 #: npgCore/extensions/rewriteRules.php:280
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> rule."
-msgstr "Раздел <em>%s</em> добавлен"
+msgstr "<em>%s</em> уже существует."
 
 #: npgCore/extensions/rewriteRules.php:306
 #: npgCore/extensions/rewriteRules/rules_tab.php:11
 #, fuzzy
 msgid "rewrite"
-msgstr "Проверка Mod_Rewrite:"
+msgstr "Параметр netPhotoGraphics \"mod_rewrite\"  \"включен\"."
 
 #: npgCore/extensions/rewriteRules.php:307
 #, fuzzy
@@ -17448,7 +17449,7 @@ msgstr "Критическая ошибка при обработке изобр
 #: npgCore/extensions/rewriteRules/rules_tab.php:26
 #, fuzzy
 msgid "Rewrite Rules"
-msgstr "mod rewrite"
+msgstr "Параметр netPhotoGraphics \"mod_rewrite\"  \"включен\"."
 
 #: npgCore/extensions/rewriteRules/tokens_tab.php:9
 #, fuzzy
@@ -17458,7 +17459,7 @@ msgstr "rewriteTokens"
 #: npgCore/extensions/rewriteRules/tokens_tab.php:28
 #, fuzzy
 msgid "Rewrite Tokens"
-msgstr "Проверка Mod_Rewrite:"
+msgstr "Параметр netPhotoGraphics \"mod_rewrite\"  \"включен\"."
 
 #: npgCore/extensions/rss.php:12
 #, fuzzy
@@ -17516,7 +17517,7 @@ msgstr "Размер изображений RSS-изображений:"
 #: npgCore/extensions/rss.php:65
 #, fuzzy
 msgid "Album image size"
-msgstr "Размер изображения по умолчанию."
+msgstr "Размер изображения"
 
 #: npgCore/extensions/rss.php:67
 #, fuzzy
@@ -17820,7 +17821,7 @@ msgstr "Популярные поисковые запросы% u"
 #: npgCore/extensions/search_statistics/search_analysis.php:218
 #, fuzzy
 msgid "Search terms used"
-msgstr "Поиск"
+msgstr "поиск"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:246
 #, fuzzy
@@ -17836,7 +17837,7 @@ msgstr "Топ% u Идентификаторы поиска"
 #: npgCore/extensions/search_statistics/search_analysis.php:271
 #, fuzzy
 msgid "Search IDs"
-msgstr "Поиск"
+msgstr "поиск"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:301
 #, fuzzy
@@ -18049,7 +18050,7 @@ msgstr "<code>PHPMailer</code> не смог послать <em>%1$s</em>. Ош�
 #: npgCore/extensions/seo_cleanup/admin_tab.php:100
 #, fuzzy, php-format
 msgid "<em>%1$s</em> renamed to <em>%2$s</em>"
-msgstr "Каталог <em>%1$s</em> %2$s"
+msgstr "%1$u посещение <em>%2$s</em>"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:124
 #, fuzzy
@@ -18067,7 +18068,7 @@ msgstr[2] "Кэш изображений удален."
 #: npgCore/extensions/seo_cleanup/admin_tab.php:140
 #, fuzzy
 msgid "No albums cleaned."
-msgstr "Список альбомов"
+msgstr "Альбомы (динамические)"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:147
 #, fuzzy, php-format
@@ -18080,7 +18081,7 @@ msgstr[2] "Кэш изображений удален."
 #: npgCore/extensions/seo_cleanup/admin_tab.php:149
 #, fuzzy
 msgid "No images cleaned."
-msgstr "Изображения по дате"
+msgstr "Изображения (динамические)"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:157
 #, fuzzy
@@ -18111,7 +18112,7 @@ msgstr ""
 #: npgCore/extensions/show_not_logged-in.php:52
 #, fuzzy
 msgid "show_not_logged-in is active."
-msgstr "%u плагин активен:"
+msgstr "вы уже вошли."
 
 #: npgCore/extensions/show_not_logged-in.php:62
 #, fuzzy, php-format
@@ -18296,7 +18297,7 @@ msgstr "Пожалуйста, зайдите позднее"
 #: npgCore/extensions/site_upgrade.php:240
 #, fuzzy, php-format
 msgid "%s suspended"
-msgstr "Страниц (%s)"
+msgstr "Вернуться в %s"
 
 #: npgCore/extensions/site_upgrade.php:247
 #, fuzzy, php-format
@@ -18351,7 +18352,7 @@ msgstr "датировать альбом новейшим изображени�
 #: npgCore/extensions/sitemap-extended.php:98
 #, fuzzy
 msgid "last change date"
-msgstr "Дата:"
+msgstr "Дата"
 
 #: npgCore/extensions/sitemap-extended.php:92
 #, fuzzy
@@ -18819,7 +18820,7 @@ msgstr "Проверьте, хотите ли вы показывать опис
 #: npgCore/extensions/slideshow.php:131
 #, fuzzy
 msgid "Colorbox transition"
-msgstr "jQuery Colorbox"
+msgstr "Colorbox"
 
 #: npgCore/extensions/slideshow.php:133 plugins/slideshow2.php:181
 #, fuzzy
@@ -18987,7 +18988,7 @@ msgstr ""
 #: npgCore/extensions/static_html_cache.php:359
 #, fuzzy
 msgid "Excluded pages"
-msgstr "Страниц (%s)"
+msgstr "Страницы под управлением:"
 
 #: npgCore/extensions/static_html_cache.php:360
 #, fuzzy
@@ -19020,7 +19021,7 @@ msgstr "Облегчает назначение уникальных тегов 
 #: npgCore/extensions/tagFromSearch.php:27
 #, fuzzy
 msgid "Tags only searches"
-msgstr "Метки"
+msgstr "метки"
 
 #: npgCore/extensions/tagFromSearch.php:28
 #, fuzzy
@@ -19062,7 +19063,7 @@ msgstr[2] ""
 #: npgCore/template-functions.php:1366
 #, fuzzy
 msgid "Return to search"
-msgstr "Вернуться в %s"
+msgstr "поиск"
 
 #: npgCore/extensions/tagFromSearch/tag.php:187
 #, fuzzy, php-format
@@ -19200,7 +19201,7 @@ msgstr "Предоставляет короткие URL-адреса объек�
 #: npgCore/extensions/tinyURL.php:61
 #, fuzzy
 msgid "Use in themes for"
-msgstr "Темы"
+msgstr "темы"
 
 #: npgCore/extensions/tinyURL.php:65
 #, fuzzy
@@ -19317,12 +19318,12 @@ msgstr "изображение %1$s из %2$s"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:61
 #, fuzzy, php-format
 msgid "<em>album</em>: %s"
-msgstr "Параметры <em>%s</em>"
+msgstr "Просмотр <em>%s</em>"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:62
 #, fuzzy, php-format
 msgid "%s with link to album"
-msgstr "Новый альбом: %s"
+msgstr "Редактировать альбом: %s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:77
 #, fuzzy, php-format
@@ -19337,7 +19338,7 @@ msgstr "Длина фрагмента новости"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:82
 #, fuzzy, php-format
 msgid "<em>page</em>: %s"
-msgstr "Страница <em>%s</em> не найдена"
+msgstr "Страница <em>%s</em> добавлена"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:83
 #, fuzzy
@@ -19347,7 +19348,7 @@ msgstr "Название"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:87
 #, fuzzy, php-format
 msgid "<em>category</em>: %s"
-msgstr "Раздел <em>%s</em> не найдена"
+msgstr "Раздел <em>%s</em> добавлен"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:88
 #, fuzzy
@@ -19496,7 +19497,7 @@ msgstr ""
 #: npgCore/extensions/twitterLogin.php:68
 #, fuzzy
 msgid "Consumer key"
-msgstr "Приватный ключ"
+msgstr "Публичный ключ"
 
 #: npgCore/extensions/twitterLogin.php:70
 #, fuzzy
@@ -19517,7 +19518,7 @@ msgstr "ошибка подключения к твиттеру! Попробу�
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Twitter authorization failed."
-msgstr "Установка не удалась."
+msgstr "Регистрация отменена."
 
 #: npgCore/extensions/uploader_http.php:14
 msgid "<em>http</em> image upload handler."
@@ -19719,7 +19720,7 @@ msgstr "загрузить"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 msgid "Failed to resize image"
-msgstr "Установка не удалась."
+msgstr "Регистрация отменена."
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -19889,7 +19890,7 @@ msgstr "Срок действия истёк!"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:158
 #, fuzzy, php-format
 msgid "Expires:%s; "
-msgstr "Страниц (%s)"
+msgstr "Вернуться в %s"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:175
 #, fuzzy
@@ -19907,7 +19908,7 @@ msgstr "Отключить пользователя"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:204
 #, fuzzy
 msgid "Force password change"
-msgstr "Пароль"
+msgstr "Пароль:"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:214
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:245
@@ -20046,6 +20047,7 @@ msgid "Deleted"
 msgstr "%s удален успешно."
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
@@ -20071,7 +20073,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "группа"
 
@@ -20189,18 +20190,27 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Список подальбомов"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "Подписка на комментарии"
+msgstr "Отменить"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to re-"
 "subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+msgid "Excluded groups"
+msgstr "группы"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 msgid "Opt-out of the mailing list"
 msgstr "пользователь"
@@ -20218,7 +20228,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to hide content"
 msgid "Click to resubscribe"
-msgstr "Скрыть содержимое"
+msgstr "Показать содержимое"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -20228,14 +20238,14 @@ msgstr ""
 #, fuzzy
 #| msgid "Click to show content"
 msgid "Click to un-subscribe"
-msgstr "Показать содержимое"
+msgstr "Подписка на комментарии"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 #, fuzzy
 msgid "User mailing list"
 msgstr "пользователь"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails are "
@@ -20245,7 +20255,7 @@ msgstr ""
 "сообщили свой  e-mail адрес. Копии писем в обязательном порядке отсылаются "
 "администратору и все письма посылаются как <em>blind copies</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 #, fuzzy
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
@@ -20254,35 +20264,44 @@ msgstr ""
 "<strong>Примечание.</strong> Фильтр <em>sendmail</em> не зарегистрирован. Вы "
 "должны активировать и настроить плагин для почтовой программы."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "Почта отправлена."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Пожалуйста, наберите сообщение, которые вы хотели бы отправить."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Тема:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Текст письма:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Выберите пользователей:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "Контактный e-mail"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "Имя пользователя"
+msgstr ""
+"Утилита для рассылки писем всем зарегистрированным пользователям, которые "
+"сообщили свой  e-mail адрес. Копии писем в обязательном порядке отсылаются "
+"администратору и все письма посылаются как <em>blind copies</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Отправить e-mail"
 
@@ -20783,7 +20802,7 @@ msgstr "Все разделы"
 #: npgCore/extensions/zenpage/news.php:131
 #, fuzzy
 msgid "Un-categorized"
-msgstr "Опубликован да/нет"
+msgstr "Нажмите, чтобы отменить публикацию альбома %s"
 
 #: npgCore/extensions/zenpage/admin-functions.php:852
 #, php-format
@@ -20876,7 +20895,7 @@ msgstr[2] "Страниц: <strong>%1$u</strong>"
 #| msgid "<strong>%1$u</strong> Pages (%2$u un-published)"
 msgid "<strong>%1$u</strong> Page (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Pages (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> Альбом (%2$u неопубликовано)"
+msgstr[0] "Изображений: <strong>%1$u</strong> (%2$u неопубликовано)"
 msgstr[1] "Страниц: <strong>%1$u</strong> (%2$u не опубликовано)"
 msgstr[2] "Страниц: <strong>%1$u</strong> (%2$u не опубликовано)"
 
@@ -20913,7 +20932,7 @@ msgstr[2] "Разделов: <strong>%1$u</strong>"
 #| msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgid "<strong>%1$u</strong> Category (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Categories (%2$u un-published)"
-msgstr[0] "Изображений: <strong>%1$u</strong> (%2$u неопубликовано)"
+msgstr[0] "<strong>%1$u</strong> Альбом (%2$u неопубликовано)"
 msgstr[1] "<strong>%1$u</strong> Изображения (%2$u неопубликовано)"
 msgstr[2] "<strong>%1$u</strong> Изображений (%2$u неопубликовано)"
 
@@ -21008,7 +21027,7 @@ msgstr "Используйте метод setShow напрямую."
 #: npgCore/extensions/zenpage/deprecated-functions.php:101
 #, fuzzy
 msgid "Use shortenContent()"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: npgCore/extensions/zenpage/edit.php:62
 #, fuzzy, php-format
@@ -21265,7 +21284,7 @@ msgstr "Прикреплена"
 #: npgCore/extensions/zenpage/edit.php:552
 #, fuzzy
 msgid "Stick to top"
-msgstr "топ-рейтинг"
+msgstr "Наверх"
 
 #: npgCore/extensions/zenpage/edit.php:654
 #, php-format
@@ -21301,7 +21320,7 @@ msgstr "Удалить разделы"
 #: npgCore/extensions/zenpage/news.php:292
 #, fuzzy
 msgid "Created"
-msgstr "Дата создания"
+msgstr "Новая пользовательская тема создана успешно!"
 
 #: npgCore/extensions/zenpage/news.php:294
 #, fuzzy
@@ -21392,7 +21411,7 @@ msgstr "Посмотреть альбом %s"
 #: npgCore/extensions/zenpage/template-functions.php:2240
 #, fuzzy, php-format
 msgid "View %s"
-msgstr "Посмотреть изображение: %s"
+msgstr "Посмотреть альбом %s"
 
 #: npgCore/extensions/zenpage/template-functions.php:2248
 #, fuzzy, php-format
@@ -23305,7 +23324,7 @@ msgstr "Центральноевропейская (DOS)"
 #, fuzzy
 #| msgid "Central European (ISO)"
 msgid "Central Kurdish (Iran)"
-msgstr "Arabic (Iran)"
+msgstr "Центральноевропейская (DOS)"
 
 #: npgCore/localeList.php:97
 msgid "Czech"
@@ -24277,7 +24296,7 @@ msgstr "Persian"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Persian (Iran)"
-msgstr "Arabic (Iran)"
+msgstr "Persian"
 
 #: npgCore/localeList.php:277
 #, fuzzy
@@ -24503,7 +24522,7 @@ msgstr "French (Luxembourg)"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (New Caledonia)"
-msgstr "новый"
+msgstr "French (Switzerland)"
 
 #: npgCore/localeList.php:318
 #, fuzzy
@@ -25581,7 +25600,7 @@ msgstr "Dutch (Belgium)"
 #: npgCore/localeList.php:522
 #, fuzzy
 msgid "Dutch (Sint Maarten)"
-msgstr "Dutch (The Netherlands)"
+msgstr "Dutch (Belgium)"
 
 #: npgCore/localeList.php:523
 #, fuzzy
@@ -25622,7 +25641,7 @@ msgstr "нуэр"
 #: npgCore/localeList.php:530
 #, fuzzy
 msgid "Nuer (South Sudan)"
-msgstr "English (South Africa)"
+msgstr "Arabic (Sudan)"
 
 #: npgCore/localeList.php:531
 #, fuzzy
@@ -26775,7 +26794,7 @@ msgstr "Фокусное расстояние"
 #: npgCore/page_error.php:45
 #, fuzzy
 msgid "Precondition Failed"
-msgstr "Установка не удалась."
+msgstr "Регистрация отменена."
 
 #: npgCore/page_error.php:48
 #, fuzzy
@@ -26923,7 +26942,7 @@ msgstr "пропустить"
 #: npgCore/reconfigure.php:331
 #, fuzzy
 msgid "Ignore this configuration change."
-msgstr "Параметры Базы Данных в файле конфигурации"
+msgstr "Текстовый редактор"
 
 #: npgCore/reconfigure.php:360
 #, fuzzy, php-format
@@ -26990,7 +27009,7 @@ msgstr "netPhotoGraphics требует версию PHP %s или больше"
 #: npgCore/setup/index.php:138
 #, fuzzy
 msgid "config file migrated"
-msgstr "Невозможно редактировать этот файл!"
+msgstr "Имя файла/папки"
 
 #: npgCore/setup/index.php:214
 #, fuzzy
@@ -27138,7 +27157,7 @@ msgstr "Устанавливаем ZenPhoto20 v%s"
 #, fuzzy
 #| msgid "Installation files"
 msgid "Installation folder"
-msgstr "файлы установки"
+msgstr "Техническая информация"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -27154,7 +27173,7 @@ msgstr "<em>%s</em> не найден"
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security [is compromised]"
-msgstr "Раздел <em>%s</em> добавлен"
+msgstr "Параметры <em>%s</em>"
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
@@ -27259,7 +27278,7 @@ msgstr "PHP <code>magic_quotes_gpc</code> [включены]"
 #, fuzzy
 #| msgid "You must disable <code>magic_quotes_sybase</code>."
 msgid "You must disable <code>magic_quotes_gpc</code>."
-msgstr "Необходимо отключить <code>magic_quotes_runtime</code>."
+msgstr "Необходимо отключить <code>magic_quotes_sybase</code>."
 
 #: npgCore/setup/index.php:662
 msgid "PHP <code>magic_quotes_runtime</code>"
@@ -27421,7 +27440,7 @@ msgstr "PHP модуль <code>mbstring</code>"
 #: npgCore/setup/index.php:739
 #, fuzzy
 msgid "PHP <code>default_charset</code>"
-msgstr "PHP <code>Register Globals</code>"
+msgstr "PHP <code>display_errors</code>"
 
 #: npgCore/setup/index.php:739
 #, fuzzy, php-format
@@ -27450,7 +27469,7 @@ msgstr "Графическая библиотека"
 #: npgCore/setup/index.php:751
 #, fuzzy, php-format
 msgid "Graphics support: <code>%s</code>"
-msgstr "PHP поддержка <code>%s</code> для сконфигурированной базы данных"
+msgstr "PHP поддержка <code>%s</code>  [не установлена]"
 
 #: npgCore/setup/index.php:751
 #, fuzzy
@@ -27502,7 +27521,7 @@ msgstr ""
 #: npgCore/setup/index.php:778
 #, fuzzy
 msgid "PHP graphics image support"
-msgstr "PHP поддержка <code>flock</code>"
+msgstr "PHP поддержка <code>%s</code>"
 
 #: npgCore/setup/index.php:779
 #, fuzzy
@@ -27539,7 +27558,7 @@ msgstr ""
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
 msgid "<em>%1$s</em> file"
-msgstr "<em>%1$s</em> сообщает: %2$s"
+msgstr "<em>%1$s</em> добавил(а) комментарий к %2$s:"
 
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
@@ -27560,7 +27579,7 @@ msgstr ""
 #: npgCore/setup/index.php:804
 #, fuzzy
 msgid "File permissions"
-msgstr "Невозможно редактировать этот файл!"
+msgstr "Имя файла/папки"
 
 #: npgCore/setup/index.php:810
 #, fuzzy, php-format
@@ -27580,7 +27599,7 @@ msgstr "<em>неизвестно</em> (<code>%o</code>)"
 #: npgCore/setup/index.php:829
 #, fuzzy, php-format
 msgid "File Permissions [are %s]"
-msgstr "Редактировать этот файл"
+msgstr "Переименовать файл"
 
 #: npgCore/setup/index.php:830
 #, fuzzy
@@ -27710,7 +27729,7 @@ msgstr "PHP поддержка <code>%s</code>  [не установлена]"
 #: npgCore/setup/index.php:1036
 #, fuzzy
 msgid "No database selected"
-msgstr "*логотип не выбран"
+msgstr "*группа не выбрана"
 
 #: npgCore/setup/index.php:1052 npgCore/setup/index.php:1054
 #, php-format
@@ -27735,7 +27754,7 @@ msgstr ""
 #: npgCore/setup/index.php:1057
 #, fuzzy
 msgid "Database connection"
-msgstr "Имя базы данных"
+msgstr "Связь с БД установлена"
 
 #: npgCore/setup/index.php:1063
 #, fuzzy
@@ -27839,7 +27858,7 @@ msgstr "<code>SQL mode</code> [запрос не выполнен]"
 #: npgCore/setup/index.php:1133
 #, fuzzy
 msgid "Select"
-msgstr "Выберите цветовую гамму темы оформления."
+msgstr "Выберите целевой каталог:"
 
 #: npgCore/setup/index.php:1133
 msgid "Create"
@@ -27894,7 +27913,7 @@ msgstr "Пользователь базы данных должен иметь �
 #: npgCore/setup/index.php:1178
 #, fuzzy
 msgid "netPhotoGraphics files"
-msgstr "файлы установки"
+msgstr "Поддерживаемые типы"
 
 #: npgCore/setup/index.php:1208
 #, fuzzy
@@ -27983,7 +28002,7 @@ msgstr "Файлы ядра ZenPhoto20 [Это неофициальный рел
 #, fuzzy
 #| msgid "files"
 msgid "Core files"
-msgstr "Файлы ядра ZenPhoto20 [некоторые файлы отсутствуют или повреждены]"
+msgstr "Файлы ядра ZenPhoto20 [Это неофициальный релиз]"
 
 #: npgCore/setup/index.php:1356
 msgid "Installation files"
@@ -27993,7 +28012,7 @@ msgstr "файлы установки"
 #, fuzzy, php-format
 msgid ".svn [%s instance]"
 msgid_plural ".svn [%s instances]"
-msgstr[0] "Страниц (%s)"
+msgstr[0] "Вернуться в %s"
 msgstr[1] ""
 msgstr[2] ""
 
@@ -28001,7 +28020,7 @@ msgstr[2] ""
 #, fuzzy, php-format
 msgid "php.ini [%s instance]"
 msgid_plural "php.ini [%s instances]"
-msgstr[0] "Страниц (%s)"
+msgstr[0] "Вернуться в %s"
 msgstr[1] ""
 msgstr[2] ""
 
@@ -28596,7 +28615,7 @@ msgstr "Неудача"
 #, fuzzy
 #| msgid "Mod_rewrite"
 msgid "Mod_Rewrite "
-msgstr "Mod_rewrite"
+msgstr "mod rewrite"
 
 #: npgCore/setup/setup-option-defaults.php:400
 #, fuzzy
@@ -28696,13 +28715,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "Просмотр <em>%s</em>"
+msgstr "%1$u посещение <em>%2$s</em>"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "Редактировать Альбом: <em>%1$s%2$s</em>. "
+msgstr "<em>%1$s</em> добавил(а) комментарий к %2$s:"
 
 #: npgCore/setup/setup-sqlform.php:3
 msgid ""
@@ -28737,13 +28756,13 @@ msgstr "Хост базы данных"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Спорт"
+msgstr "Номер порта входящей почты POP."
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "Пользователь"
+msgstr "Связь с БД установлена"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -28761,7 +28780,7 @@ msgstr "сохранить"
 #, fuzzy
 #| msgid "Completed system check"
 msgid "Completed with errors"
-msgstr "Восстановление базы данных завершено"
+msgstr "Проверка системы завершена"
 
 #: npgCore/setup/setupComplete.php:18
 #, fuzzy
@@ -28840,7 +28859,9 @@ msgstr "новый альбом"
 #: npgCore/template-functions.php:84
 #, fuzzy
 msgid "Logged in as"
-msgstr "вы уже вошли."
+msgstr ""
+"Отображать галерею пользователям, прошедшим аутентификацию, так, как будто они "
+"не вошли."
 
 #: npgCore/template-functions.php:145
 #, fuzzy
@@ -29059,9 +29080,7 @@ msgstr[2] "копирование с компрессией <em>%1$s(%2$s)</em> 
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] ""
-"<strong>Внимание!</strong> Это обновление вносит серьёзные структурные "
-"изменения в базу данных. Перед продолжением выполните резервное копирование БД."
+msgstr[0] "Префикс таблицы: <strong>%1$s</strong>"
 msgstr[1] ""
 "<strong>Внимание!</strong> Это обновление вносит серьёзные структурные "
 "изменения в базу данных. Перед продолжением выполните резервное копирование БД."
@@ -29193,7 +29212,7 @@ msgstr "Уровень компрессии"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "Выберите резервную копию:"
+msgstr "Начать резервное копирование таблиц вашей базы данных."
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -29223,7 +29242,7 @@ msgstr ""
 #: npgCore/utilities/backup_restore.php:649
 #, fuzzy
 msgid "Database restoration"
-msgstr "Имя базы данных"
+msgstr "Связь с БД установлена"
 
 #: npgCore/utilities/backup_restore.php:655
 msgid "You have not yet created a backup set."
@@ -29317,7 +29336,7 @@ msgstr "Колонка"
 #: npgCore/utilities/gallery_statistics.php:88
 #, fuzzy
 msgid "Script Pages"
-msgstr "Страниц (%s)"
+msgstr "Страницы под управлением:"
 
 #: npgCore/utilities/gallery_statistics.php:94
 msgid "rss"
@@ -29523,7 +29542,7 @@ msgstr "Статистика разделов новостей"
 #, fuzzy
 #| msgid "Statistics for RSS feeds"
 msgid "Statistics for Script pages"
-msgstr "Подробная статистика"
+msgstr "Статистика загрузок"
 
 #: npgCore/utilities/gallery_statistics.php:724
 msgid "Statistics for RSS feeds"
@@ -29550,7 +29569,7 @@ msgstr "Ваш браузер не поддерживает звуковой т�
 #: npgCore/utilities/installation_analysis.php:61
 #, fuzzy, php-format
 msgid "source: %s"
-msgstr "Страниц (%s)"
+msgstr "Вернуться в %s"
 
 #: npgCore/utilities/installation_analysis.php:82
 #, fuzzy
@@ -29826,7 +29845,7 @@ msgstr "название"
 #: plugins/MyBB_auth.php:108
 #, fuzzy
 msgid "The name of the MyBB site."
-msgstr "Регистрация"
+msgstr "Сайт:"
 
 #: plugins/MyBB_auth.php:109
 #, fuzzy
@@ -29842,7 +29861,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database"
 msgid "MyBB database"
-msgstr "База Данных"
+msgstr "Связь с БД установлена"
 
 #: plugins/MyBB_auth.php:114
 #, fuzzy
@@ -30092,7 +30111,7 @@ msgstr "<em>%s</em> уже существует."
 #, fuzzy, php-format
 #| msgid "failed to delete %s."
 msgid "Unable to create %s."
-msgstr "создать"
+msgstr "Создать в:"
 
 #: plugins/customFieldExtender.php:42
 #, fuzzy
@@ -30553,7 +30572,7 @@ msgstr "Значок"
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "Разрешить поиск"
+msgstr "Критерий поиска:"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -30598,12 +30617,12 @@ msgstr "Разрешает просмотр результатов поиска,
 #: plugins/keywordRedirector.php:128
 #, fuzzy
 msgid "Theme script"
-msgstr "Цветовая гамма"
+msgstr "*такая же, как у галереи"
 
 #: plugins/localePropagate.php:17
 #, fuzzy
 msgid "Propegate language files."
-msgstr "Файлы"
+msgstr "файлы"
 
 #: plugins/logQueries.php:17
 #, fuzzy
@@ -30924,7 +30943,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Plugins"
 msgid "Plugins » all"
-msgstr "Плагины"
+msgstr "плагины"
 
 #: plugins/pluginEnabler.php:48
 #, fuzzy
@@ -30956,7 +30975,7 @@ msgstr "Запоминает текущие состояния плагина."
 #, fuzzy
 #| msgid "Plugins"
 msgid "Plugins × all"
-msgstr "Плагины"
+msgstr "плагины"
 
 #: plugins/pluginEnabler.php:87
 #, fuzzy
@@ -30967,7 +30986,7 @@ msgstr "Отключает все плагины, кроме pluginEnabler."
 #, fuzzy
 #| msgid "TinyMCE disabled"
 msgid "Plugins disabled"
-msgstr "Плагины"
+msgstr "плагины"
 
 #: plugins/pluginEnabler/handler.php:25
 #, fuzzy
@@ -30997,7 +31016,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Mail user"
 msgid "Mail header"
-msgstr "%sE-Mail:"
+msgstr "Протокол"
 
 #: plugins/pseudomail.php:50
 #, fuzzy, php-format
@@ -31007,12 +31026,12 @@ msgstr "Панель управления %1$s: %2$s%3$s"
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
 msgid "Cc: %s"
-msgstr "Страниц (%s)"
+msgstr "Вернуться в %s"
 
 #: plugins/pseudomail.php:74
 #, fuzzy, php-format
 msgid "Bcc: %s"
-msgstr "Страниц (%s)"
+msgstr "Вернуться в %s"
 
 #: plugins/pseudomail.php:76
 #, fuzzy, php-format
@@ -31164,7 +31183,7 @@ msgstr "Проверьте, хотите ли вы показывать слай
 #: plugins/slideshow2.php:176
 #, fuzzy
 msgid "Colorbox: Transition"
-msgstr "jQuery Colorbox"
+msgstr "Colorbox"
 
 #: plugins/slideshow2.php:185
 #, fuzzy
@@ -31190,8 +31209,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Управление Метками (теги)"
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -31696,7 +31716,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:80
 #, fuzzy
 msgid "Show Archive link"
-msgstr "Архив новостей"
+msgstr "Архив"
 
 #: themes/ardoise/themeoptions.php:82
 #, fuzzy
@@ -31753,7 +31773,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:95
 #, fuzzy
 msgid "Use Galleriffic script"
-msgstr "Colorbox"
+msgstr "Использовать флаги"
 
 #: themes/ardoise/themeoptions.php:97
 #, fuzzy
@@ -32163,7 +32183,7 @@ msgstr "Количество случайных снимков для слайд
 #: themes/bootstrap/themeoptions.php:105
 #, fuzzy
 msgid "Use infinite scroll"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: themes/bootstrap/themeoptions.php:115
 #, fuzzy
@@ -32341,7 +32361,7 @@ msgstr ""
 #: themes/netphotographics/summary.php:34
 #, fuzzy
 msgid "Main Index"
-msgstr "Главная"
+msgstr "Список альбомов"
 
 #: themes/effervescence+/404.php:44 themes/garland/404.php:45
 #: themes/garland/404.php:47 themes/netphotographics/404.php:44
@@ -32764,7 +32784,7 @@ msgstr "Расположение картинной картинки"
 #: themes/netphotographics/themeoptions.php:197
 #, fuzzy
 msgid "Index Image"
-msgstr "Начало галереи"
+msgstr "Список альбомов"
 
 #: themes/effervescence+/themeoptions.php:177
 #: themes/netphotographics/themeoptions.php:203
@@ -32813,7 +32833,7 @@ msgstr "Подсказка: %s"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%s"
+msgstr "Панель управления %1$s: %2$s%3$s"
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
@@ -33111,7 +33131,7 @@ msgstr "Случайные изображения"
 #: themes/masonry/functions.php:282
 #, fuzzy
 msgid "Search Result"
-msgstr "Разрешить поиск"
+msgstr "Критерий поиска:"
 
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
@@ -33126,7 +33146,7 @@ msgstr "старт слайдшоу"
 #: themes/masonry/inc-footer.php:21
 #, fuzzy
 msgid "Loading additional pages..."
-msgstr "Страниц (%s)"
+msgstr "Страницы под управлением:"
 
 #: themes/masonry/inc-footer.php:23
 #, fuzzy
@@ -33137,7 +33157,7 @@ msgstr "Читать далее"
 #: themes/masonry/inc-header.php:169
 #, fuzzy
 msgid "image {current} of {total}"
-msgstr "Было"
+msgstr "Изображение"
 
 #: themes/masonry/inc-header.php:38 themes/masonry/inc-header.php:52
 #: themes/masonry/inc-header.php:127 themes/masonry/inc-header.php:131
@@ -33164,12 +33184,12 @@ msgstr "Кэшировать изображения"
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "Комментарии: %d"
+msgstr "Разрешить комментарии"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "Комментарии: %d"
+msgstr "Разрешить комментарии"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -33215,7 +33235,7 @@ msgstr "Выберите темный или светлый общий цвет.
 #: themes/masonry/themeoptions.php:79
 #, fuzzy
 msgid "General Thumb Sizes"
-msgstr "миниатюра ="
+msgstr "миниатюра"
 
 #: themes/masonry/themeoptions.php:83
 #, fuzzy
@@ -33255,7 +33275,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:98
 #, fuzzy
 msgid "Use Infinite Scroll?"
-msgstr "Стандартная контактная форма"
+msgstr "Встроенные миниатюры:"
 
 #: themes/masonry/themeoptions.php:102
 #, fuzzy
@@ -33475,7 +33495,7 @@ msgstr "Выберите задержку для каждого вращения
 #: themes/masonry/themeoptions.php:200
 #, fuzzy
 msgid "Use News Feature"
-msgstr "Colorbox"
+msgstr "Использовать флаги"
 
 #: themes/masonry/themeoptions.php:204
 #, fuzzy
@@ -33520,7 +33540,7 @@ msgstr "Альбом (RSS)"
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
 msgid "Gallery Images"
-msgstr "Галерея"
+msgstr "галерея"
 
 #: themes/minimal/inc-footer.php:24
 #, fuzzy
@@ -33530,7 +33550,7 @@ msgstr "Уровней подальбомов"
 #: themes/minimal/index.php:59
 #, fuzzy
 msgid "Enter Gallery &rarr;"
-msgstr "Введите защитный код:"
+msgstr "Защитный код"
 
 #: themes/minimal/news.php:48
 #, fuzzy
@@ -33735,7 +33755,7 @@ msgstr "Медиа-ориентированная система управле�
 #: themes/paradigm/comment_form/comment_form.php:55
 #, fuzzy, php-format
 msgid "Site%s"
-msgstr "Регистрация"
+msgstr "Сайт:"
 
 #: themes/paradigm/credits.php:23 themes/paradigm/includes/_breadcrumbs.php:52
 #: themes/paradigm/includes/_footer.php:46 themes/paradigm/includes/_head.php:94
@@ -33973,7 +33993,7 @@ msgstr "Новые изображения"
 #, fuzzy
 #| msgid "Random picture..."
 msgid "Random pictures"
-msgstr "Случайное изображение…"
+msgstr "Случайные альбомы"
 
 #: themes/paradigm/themeoptions.php:121
 #, fuzzy
@@ -34014,7 +34034,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:147
 #, fuzzy
 msgid "AddThis code"
-msgstr "%sИндекс:"
+msgstr "Индекс"
 
 #: themes/paradigm/themeoptions.php:151
 #, fuzzy
@@ -34045,7 +34065,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:158
 #, fuzzy
 msgid "Twitter profile name"
-msgstr "Имя папки:"
+msgstr "Имя"
 
 #: themes/paradigm/themeoptions.php:161
 #, fuzzy
@@ -34135,7 +34155,7 @@ msgstr "Укажите URL страницы <a href=\"http://tumblr.com/\">Tumbl
 #: themes/spellflight/functions.php:58
 #, fuzzy
 msgid "spellflight image display handling."
-msgstr "Размер изображения по умолчанию."
+msgstr "Использовать модуль Colorbox при показе оригиналов изображений."
 
 #: themes/spellflight/pages_Custom1.php:105
 #, fuzzy
@@ -34254,7 +34274,7 @@ msgstr "Цвет"
 #: themes/zenFluid/themeoptions.php:92
 #, fuzzy
 msgid "Select the colorscheme."
-msgstr "Выберите цветовую гамму темы оформления."
+msgstr "Выберите целевой каталог:"
 
 #: themes/zenFluid/themeoptions.php:94
 #, fuzzy
@@ -34265,17 +34285,17 @@ msgstr "CAPTCHA шрифт"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the font style."
-msgstr "Таблицы стилей (.css)"
+msgstr "Шрифт, который будет использован при генерации CAPTCHA"
 
 #: themes/zenFluid/themeoptions.php:101
 #, fuzzy
 msgid "Border type"
-msgstr "Тип:"
+msgstr "Тип галереи"
 
 #: themes/zenFluid/themeoptions.php:106
 #, fuzzy
 msgid "Select the border scheme."
-msgstr "Выберите цветовую гамму темы оформления."
+msgstr "Выберите целевой каталог:"
 
 #: themes/zenFluid/themeoptions.php:112
 #, fuzzy
@@ -34303,7 +34323,7 @@ msgstr "Включить, если вы хотите, чтобы все запи
 #, fuzzy
 #| msgid "Include RSS link"
 msgid "Include HOME link"
-msgstr "RSS лента"
+msgstr "Домой"
 
 #: themes/zenFluid/themeoptions.php:130
 #, fuzzy
@@ -34455,7 +34475,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:193
 #, fuzzy
 msgid "Comment maximum width"
-msgstr "Комментарий"
+msgstr "Комментарий:"
 
 #: themes/zenFluid/themeoptions.php:197
 #, fuzzy
@@ -34483,7 +34503,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:205
 #, fuzzy
 msgid "Description justification"
-msgstr "описание:"
+msgstr "Описание альбома:"
 
 #: themes/zenFluid/themeoptions.php:210
 #, fuzzy
@@ -34515,7 +34535,7 @@ msgstr "Расположение:"
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the position of the title"
-msgstr "Расположение:"
+msgstr "Название"
 
 #: themes/zenFluid/themeoptions.php:227
 #, fuzzy
@@ -34557,7 +34577,7 @@ msgstr ""
 #, fuzzy
 #| msgid "pending verification"
 msgid "Menu justification"
-msgstr "Пользовательское меню"
+msgstr "Менеджер Меню"
 
 #: themes/zenFluid/themeoptions.php:253
 #, fuzzy
@@ -34595,7 +34615,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:267
 #, fuzzy
 msgid "Buttons before Title"
-msgstr "Радиокнопки"
+msgstr "Название"
 
 #: themes/zenFluid/themeoptions.php:271
 #, fuzzy
@@ -34608,7 +34628,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:273
 #, fuzzy
 msgid "Menu section titles"
-msgstr "Пользовательское меню"
+msgstr "Менеджер Меню"
 
 #: themes/zenFluid/themeoptions.php:277
 #, fuzzy
@@ -34665,6 +34685,9 @@ msgstr ""
 "Проверьте это, если вы хотите использовать плагин <em>menu_manager,</em> если "
 "он включен для создания пользовательского меню вместо отдельных стандартных. "
 "Стандартное меню с именем «zenpage» создается и используется автоматически."
+
+#~ msgid "Select users:"
+#~ msgstr "Выберите пользователей:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "Ограничения PHP Safe Mode в действие!"

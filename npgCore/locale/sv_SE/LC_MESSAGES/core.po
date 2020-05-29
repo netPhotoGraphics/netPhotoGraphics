@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:12-0700\n"
-"PO-Revision-Date: 2020-05-27 15:12-0700\n"
+"POT-Creation-Date: 2020-05-29 13:00-0700\n"
+"PO-Revision-Date: 2020-05-29 13:00-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: pasi@pilm.se\n"
 "Language: sv_SE\n"
@@ -111,7 +111,7 @@ msgstr "Serverdatum: %s"
 #: npgCore/admin-functions.php:164
 #, fuzzy, php-format
 msgid "%1$s %2$s: %3$s%4$s"
-msgstr "Album (%1$s) &amp; Bilder (%2$s)"
+msgstr "<em>%1$s</em> kommenterade %2$s:"
 
 #: npgCore/admin-functions.php:164 npgCore/admin.php:456 npgCore/admin.php:486
 #: npgCore/extensions/site_upgrade.php:141
@@ -237,7 +237,7 @@ msgstr "Visa galleri-index"
 #, fuzzy
 #| msgid "Return to %s"
 msgid "return to top"
-msgstr "Tillbaka till toppen"
+msgstr "högst värderade"
 
 #: npgCore/admin-functions.php:392
 #, fuzzy
@@ -317,7 +317,7 @@ msgstr "alla"
 #: npgCore/admin-functions.php:1804
 #, fuzzy
 msgid "add tag"
-msgstr "Lägg till kommentar"
+msgstr "Lägg till taggar"
 
 #: npgCore/admin-functions.php:1912 npgCore/admin-functions.php:2631
 #: npgCore/admin-tabs/album_edit.php:76 npgCore/admin-tabs/album_edit.php:133
@@ -500,7 +500,7 @@ msgstr "*standard"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "Bildtumnaglar (standard)"
+msgstr "Återställ dina albumtumnaglar"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -569,7 +569,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/edit.php:723
 #, fuzzy
 msgid "Publish date"
-msgstr "Datum:"
+msgstr "Datum"
 
 #: npgCore/admin-functions.php:2484 npgCore/admin-tabs/image_edit.php:416
 #: npgCore/extensions/zenpage/edit.php:742
@@ -599,7 +599,7 @@ msgstr "Ägare"
 #: npgCore/admin-functions.php:2511 npgCore/admin-tabs/image_edit.php:443
 #, fuzzy, php-format
 msgid "Owner: %1$s"
-msgstr "%1$u träff på denna %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/admin-functions.php:2517 npgCore/admin-tabs/image_edit.php:449
 #: npgCore/extensions/zenpage/edit.php:679
@@ -717,7 +717,7 @@ msgstr "Album"
 #: npgCore/admin-functions.php:2686
 #, fuzzy
 msgid "Images (dynamic)"
-msgstr "Bilder (standard)"
+msgstr "Visa bilder efter: "
 
 #: npgCore/admin-functions.php:2696
 #: npgCore/extensions/zenpage/admin-functions.php:1385
@@ -829,7 +829,7 @@ msgstr "Pulicera albumet %s"
 #: npgCore/extensions/zenpage/pages.php:172
 #, fuzzy
 msgid "Disable comments"
-msgstr "Kommentarer:"
+msgstr "Förhindra direktlänkning"
 
 #: npgCore/admin-functions.php:2906 npgCore/admin-tabs/albumsort.php:95
 #: npgCore/admin-tabs/edit.php:645 npgCore/admin-tabs/images.php:283
@@ -839,7 +839,7 @@ msgstr "Kommentarer:"
 #: npgCore/extensions/zenpage/pages.php:173
 #, fuzzy
 msgid "Enable comments"
-msgstr "Aktivera Imagick"
+msgstr "Inga kommentarer"
 
 #: npgCore/admin-functions.php:2921
 #, fuzzy
@@ -1105,7 +1105,7 @@ msgstr "Destination"
 #: npgCore/admin-functions.php:5026 npgCore/admin-functions.php:5061
 #, fuzzy, php-format
 msgid "codeblock %u"
-msgstr "%u Album"
+msgstr "Sida %u"
 
 #: npgCore/admin-functions.php:5027 npgCore/admin-functions.php:5067
 #, fuzzy
@@ -1315,24 +1315,24 @@ msgstr "användare"
 #: npgCore/admin-functions.php:5505
 #, fuzzy
 msgid "<em>3rd party</em>"
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/admin-functions.php:5506
 #, fuzzy
 #| msgid "<em>none</em>"
 msgid "<em>Enabled</em>"
-msgstr "<em>ELLER</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/admin-functions.php:5507
 #, fuzzy
 #| msgid "<em>space</em>"
 msgid "<em>Disabled</em>"
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/admin-functions.php:5508
 #, fuzzy
 msgid "<em>Deprecated</em>"
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/admin-functions.php:5509
 #, fuzzy
@@ -1439,7 +1439,7 @@ msgstr "inget att skicka"
 #: npgCore/extensions/zenpage/admin-functions.php:1652
 #, fuzzy
 msgid "Selected items deleted"
-msgstr "%s raderades."
+msgstr "Autovald"
 
 #: npgCore/admin-functions.php:5794
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:1034
@@ -1453,7 +1453,7 @@ msgstr "Publicerat/Opublicerat"
 #: npgCore/extensions/zenpage/admin-functions.php:1658
 #, fuzzy
 msgid "Selected items unpublished"
-msgstr "*ingen logo vald"
+msgstr "Autovald"
 
 #: npgCore/admin-functions.php:5800
 #: npgCore/extensions/zenpage/admin-functions.php:1661
@@ -1471,12 +1471,12 @@ msgstr "Kommentarer inaktiverade för valda objekt"
 #: npgCore/extensions/zenpage/admin-functions.php:1667
 #, fuzzy
 msgid "Hitcounter for selected items"
-msgstr "*ingen logo vald"
+msgstr "Autovald"
 
 #: npgCore/admin-functions.php:5809
 #, fuzzy
 msgid "Tags added for selected items"
-msgstr "Menyposter för alla tillagda ZenPhoto20 objekt."
+msgstr "Menyposter för alla tillagda Zenpage sidor."
 
 #: npgCore/admin-functions.php:5812
 #, fuzzy
@@ -1641,7 +1641,7 @@ msgstr "Senast ändrad"
 #: npgCore/admin-globals.php:76
 #, fuzzy
 msgid "Last change date"
-msgstr "Datum:"
+msgstr "Datum"
 
 #: npgCore/admin-globals.php:86 npgCore/admin-globals.php:174
 #: npgCore/extensions/accessThreshold.php:109
@@ -1686,7 +1686,7 @@ msgstr "min profil"
 #, fuzzy
 #| msgid "most images"
 msgid "my images"
-msgstr "Bilder"
+msgstr "Visa bilder efter: "
 
 #: npgCore/admin-globals.php:207
 msgid "general"
@@ -1929,7 +1929,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/pages.php:171
 #, fuzzy
 msgid "Set to unpublished"
-msgstr "Inga opublicerade sidor tillgängliga"
+msgstr "Ingen säkerhetskopia hittades."
 
 #: npgCore/admin-tabs/albumsort.php:98 npgCore/admin-tabs/edit.php:651
 #: npgCore/admin-tabs/images.php:286
@@ -1985,7 +1985,7 @@ msgstr ""
 #: npgCore/admin-tabs/dynamic-album.php:132
 #, fuzzy
 msgid "Create Dynamic Album"
-msgstr "Skapa album"
+msgstr "Skapa album av sökningen"
 
 #: npgCore/admin-tabs/dynamic-album.php:181
 #: npgCore/extensions/favoritesAlbums/admin-album.php:126
@@ -2009,12 +2009,12 @@ msgstr "sökbegrepp:"
 #: npgCore/admin-tabs/dynamic-album.php:257
 #, fuzzy
 msgid "Return albums found"
-msgstr "Album"
+msgstr "Tillbaka till %s"
 
 #: npgCore/admin-tabs/dynamic-album.php:261
 #, fuzzy
 msgid "Return images found"
-msgstr "Objektet hittades inte"
+msgstr "Grants hittade:"
 
 #: npgCore/admin-tabs/dynamic-album.php:265
 #, fuzzy
@@ -2150,7 +2150,7 @@ msgstr "Visa"
 #: npgCore/admin-tabs/edit.php:637 npgCore/admin-tabs/images.php:275
 #, fuzzy
 msgid "Show album thumb"
-msgstr "Tumnagel ="
+msgstr "tumnagel "
 
 #: npgCore/admin-tabs/edit.php:648
 #, fuzzy
@@ -2368,7 +2368,7 @@ msgstr "Skapa ett album från favoriter"
 #: npgCore/admin-tabs/images.php:489
 #, fuzzy
 msgid "You have no images assigned to you."
-msgstr "Du har inte fyllt i alla fält."
+msgstr "Du har inte redigeringsrättigheter för detta album."
 
 #: npgCore/admin-tabs/logs.php:41
 #, fuzzy, php-format
@@ -2530,7 +2530,7 @@ msgstr "Tillgängliga Insticksmoduler"
 #: npgCore/admin-tabs/plugins.php:217 npgCore/admin-tabs/plugins.php:499
 #, fuzzy
 msgid "Official plugin"
-msgstr "Insticksmodul"
+msgstr "Det finns inga plugin-inställningar att administrera."
 
 #: npgCore/admin-tabs/plugins.php:221 npgCore/admin-tabs/plugins.php:503
 #, fuzzy
@@ -2589,7 +2589,7 @@ msgstr "Insticksmodul"
 #: npgCore/admin-tabs/plugins.php:312
 #, fuzzy
 msgid "feature plugin"
-msgstr "Insticksmodul"
+msgstr "Det finns inga plugin-inställningar att administrera."
 
 #: npgCore/admin-tabs/plugins.php:316
 #, fuzzy
@@ -2642,7 +2642,7 @@ msgstr "Insticksmodul"
 #: npgCore/admin-tabs/plugins.php:515
 #, fuzzy
 msgid "Feature plugin"
-msgstr "Insticksmodul"
+msgstr "Det finns inga plugin-inställningar att administrera."
 
 #: npgCore/admin-tabs/plugins.php:519
 #, fuzzy
@@ -2710,7 +2710,7 @@ msgstr "%1$s:%2$s ändrades inte, dubbla taggen."
 #: npgCore/admin-tabs/tags.php:182
 #, fuzzy
 msgid "Tags renamed"
-msgstr "Inga taggar att importera."
+msgstr "Byt namn på taggar"
 
 #: npgCore/admin-tabs/tags.php:230
 msgid "Tag Management"
@@ -3184,8 +3184,9 @@ msgstr "createMenuIfNotExists post %s har en tom länk."
 msgid "Password reset request."
 msgstr "Återställningsförfrågan har sänts."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 #, fuzzy
 msgid "Users"
 msgstr "användare"
@@ -3203,7 +3204,7 @@ msgstr "Sparat"
 #: npgCore/admin-tabs/users.php:450
 #, fuzzy
 msgid "Rights migration failed."
-msgstr "Alla rättigheter"
+msgstr "Standard rättigheter"
 
 #: npgCore/admin-tabs/users.php:455
 #, fuzzy
@@ -3372,7 +3373,7 @@ msgstr "E-Post"
 #: npgCore/admin-tabs/users.php:859
 #, fuzzy
 msgid "create primary album"
-msgstr "Skapa album"
+msgstr "Skapa album av sökningen"
 
 #: npgCore/admin-tabs/users.php:869
 #, fuzzy, php-format
@@ -3401,7 +3402,7 @@ msgstr "<em>Befälhavaren</em> kontot har fulla rättigheter till alla objekt."
 #: npgCore/admin-tabs/users.php:949 npgCore/functions.php:706
 #, fuzzy
 msgid "un-categorized"
-msgstr "Publicerat/Opublicerat"
+msgstr "Avpublicera albumet %s"
 
 #: npgCore/admin-tabs/users.php:1018
 #, fuzzy, php-format
@@ -3480,7 +3481,7 @@ msgstr "Installation misslyckades."
 #: npgCore/admin.php:163
 #, fuzzy
 msgid "protected"
-msgstr "Detta album är lösenordsskyddat!"
+msgstr "Menymål är lösenordsskyddad"
 
 #: npgCore/admin.php:165
 #, fuzzy
@@ -3577,7 +3578,7 @@ msgstr "Hämta%1$s version%2$s."
 #: npgCore/admin.php:364 npgCore/admin.php:368 npgCore/admin.php:439
 #, fuzzy, php-format
 msgid "Install version %1$s"
-msgstr "PHP version: <strong>%1$s</strong>"
+msgstr "PHP-Version %s"
 
 #: npgCore/admin.php:365
 #, fuzzy
@@ -3734,7 +3735,7 @@ msgstr[1] "<strong>%u</strong> Album"
 msgid "<strong>%u</strong> Group"
 msgid_plural "<strong>%u</strong> Groups"
 msgstr[0] "<strong>%u</strong> Album"
-msgstr[1] "<strong>%u</strong> Bilder"
+msgstr[1] "<strong>%u</strong> Album"
 
 #: npgCore/admin.php:705
 #, fuzzy, php-format
@@ -3990,7 +3991,7 @@ msgstr "visuellt tumnagel-urval"
 #: npgCore/admin_options/gallery.php:495
 #, fuzzy
 msgid "show subalbum thumbs"
-msgstr "%u Underalbum"
+msgstr "Nytt underalbum"
 
 #: npgCore/admin_options/gallery.php:503
 #, fuzzy
@@ -4193,7 +4194,7 @@ msgstr "Returnera ej <em>bild</em>-träffar"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "Bilder (standard)"
+msgstr "Visa bilder efter: "
 
 #: npgCore/admin_options/general.php:283
 #, fuzzy
@@ -4516,7 +4517,7 @@ msgstr "Tillåtna HTML-taggar:"
 #: npgCore/admin_options/theme.php:568
 #, fuzzy
 msgid "Revert to default"
-msgstr "Standard rättigheter"
+msgstr "Standard quota"
 
 #: npgCore/admin_options/general.php:558
 msgid ""
@@ -4944,7 +4945,7 @@ msgstr "Skärpning:"
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "Bildtumnaglar (standard)"
+msgstr "Återställ dina albumtumnaglar"
 
 #: npgCore/admin_options/image.php:423
 #, fuzzy
@@ -5204,7 +5205,7 @@ msgstr "Cacha originalbilden"
 #, fuzzy
 #| msgid "password:"
 msgid "password"
-msgstr "Lösenord:"
+msgstr "Lösenord"
 
 #: npgCore/admin_options/image.php:716
 #, fuzzy
@@ -5530,7 +5531,7 @@ msgstr "Mönster"
 #: npgCore/admin_options/search.php:274
 #, fuzzy
 msgid "<em>partial word</em>"
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/admin_options/search.php:274 npgCore/admin_options/search.php:280
 #, fuzzy
@@ -5609,7 +5610,7 @@ msgstr ""
 #: npgCore/admin_options/search.php:304
 #, fuzzy
 msgid "<em>Within</em>"
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/admin_options/search.php:310
 #, fuzzy
@@ -5843,7 +5844,7 @@ msgstr ""
 #: npgCore/admin_options/security.php:112
 #, fuzzy
 msgid "Image Processor security"
-msgstr "full bild"
+msgstr "Bildordning"
 
 #: npgCore/admin_options/security.php:122
 #, fuzzy
@@ -5863,7 +5864,7 @@ msgstr "Ändringslogg"
 #: npgCore/admin_options/security.php:142
 #, fuzzy
 msgid "Security log"
-msgstr "Logga in"
+msgstr "Ändringslogg"
 
 #: npgCore/admin_options/security.php:149
 #, fuzzy
@@ -6457,7 +6458,7 @@ msgstr "Senaste album"
 #: themes/paradigm/includes/_homepage.php:92
 #, fuzzy
 msgid "Latest images"
-msgstr "Senaste album"
+msgstr "senaste efter id"
 
 #: npgCore/class-feed.php:368
 #, fuzzy
@@ -6578,7 +6579,7 @@ msgstr "Objektet hittades inte"
 #: npgCore/class-image.php:199 npgCore/extensions/xmpMetadata.php:648
 #, fuzzy
 msgid "Image Headline"
-msgstr "full bild"
+msgstr "Bildordning"
 
 #: npgCore/class-image.php:200 npgCore/extensions/xmpMetadata.php:646
 #, fuzzy
@@ -6588,7 +6589,7 @@ msgstr "% av bilden"
 #: npgCore/class-image.php:201
 #, fuzzy
 msgid "Image Caption Writer"
-msgstr "full bild"
+msgstr "Bildordning"
 
 #: npgCore/class-image.php:202
 msgid "Time Taken"
@@ -6605,12 +6606,12 @@ msgstr "Digitaliserad"
 #: npgCore/class-image.php:205
 #, fuzzy
 msgid "Date Created"
-msgstr "Datum:"
+msgstr "Datum"
 
 #: npgCore/class-image.php:206
 #, fuzzy
 msgid "Time Created"
-msgstr "Digitaliserad"
+msgstr "Originaltid för skapande"
 
 #: npgCore/class-image.php:207
 msgid "Digital Creation Date"
@@ -7830,7 +7831,7 @@ msgstr "Anpassat"
 #: npgCore/extensions/GDPR_required.php:63
 #, fuzzy
 msgid "Policy page"
-msgstr "Nästa sida"
+msgstr "Sida %u"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -7856,7 +7857,7 @@ msgstr ""
 #: npgCore/extensions/GDPR_required.php:70
 #, fuzzy
 msgid "disable list"
-msgstr "Förhindra direktlänkning"
+msgstr "Subalbum-översikt"
 
 #: npgCore/extensions/GDPR_required.php:73
 #, fuzzy
@@ -7983,7 +7984,7 @@ msgstr "Användarnamn för LDAP-sökningar."
 #: npgCore/extensions/LDAP_auth.php:74
 #, fuzzy
 msgid "LDAP reader password"
-msgstr "Databaslösenord"
+msgstr "E-postlösenord"
 
 #: npgCore/extensions/LDAP_auth.php:76
 #, fuzzy
@@ -8054,7 +8055,7 @@ msgstr "*ingen grupp vald"
 #: npgCore/extensions/LDAP_auth.php:111
 #, fuzzy
 msgid "LDAP group"
-msgstr "grupp"
+msgstr "*ingen grupp vald"
 
 #: npgCore/extensions/LDAP_auth/LDAP auth.php:221
 #, fuzzy
@@ -8224,7 +8225,7 @@ msgstr "Inaktiverad automatiskt om flera spelare på en sida"
 #: npgCore/extensions/VideoJS.php:74
 #, fuzzy
 msgid "Default Resolution"
-msgstr "Standard rättigheter"
+msgstr "Standard quota"
 
 #: npgCore/extensions/VideoJS.php:78
 #, fuzzy
@@ -8282,7 +8283,7 @@ msgstr "Standard bildvisningsstorlek."
 #: npgCore/extensions/VideoJS.php:91
 #, fuzzy
 msgid "Custom Player Size"
-msgstr "Storlek ="
+msgstr "Anpassat"
 
 #: npgCore/extensions/VideoJS.php:94
 #, fuzzy
@@ -8295,7 +8296,7 @@ msgstr ""
 #: npgCore/extensions/VideoJS.php:95
 #, fuzzy
 msgid "Custom Aspect Ratio"
-msgstr "Bilder (anpassade)"
+msgstr "Anpassad sida"
 
 #: npgCore/extensions/VideoJS.php:99
 #, fuzzy
@@ -8401,7 +8402,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
 msgid "Mointor only"
-msgstr "Endast medlemmar kan kommentera"
+msgstr "endast medlemmar"
 
 #: npgCore/extensions/accessThreshold.php:69
 #, php-format
@@ -8841,7 +8842,7 @@ msgstr "slide X"
 #: npgCore/extensions/cacheManager.php:294
 #, fuzzy
 msgid "Crop Y axis"
-msgstr "Beskär = "
+msgstr "Beskär"
 
 #: npgCore/extensions/cacheManager.php:310
 msgid "Watermark"
@@ -8867,12 +8868,12 @@ msgstr "Göm detaljer för användare %s"
 #: npgCore/extensions/cacheManager.php:500
 #, fuzzy
 msgid "Cache images"
-msgstr "HTML cache"
+msgstr "Cachehantering"
 
 #: npgCore/extensions/cacheManager.php:501
 #, fuzzy
 msgid "Cache stored images"
-msgstr "HTML cache"
+msgstr "Cachehantering"
 
 #: npgCore/extensions/cacheManager.php:509
 #: npgCore/extensions/cacheManager.php:577
@@ -8936,7 +8937,7 @@ msgstr "Utgångsdatum för statisk HTML-cache"
 #: npgCore/extensions/cacheManager.php:582
 #, fuzzy
 msgid "Cache album images"
-msgstr "HTML cache"
+msgstr "Cachehantering"
 
 #: npgCore/extensions/cacheManager/cacheDBImages.php:29
 #, fuzzy
@@ -9071,12 +9072,12 @@ msgstr "Felaktig verifieringslänk."
 #: npgCore/extensions/cacheManager/cacheImages.php:286
 #, fuzzy
 msgid "invalid Cache Set"
-msgstr "Ogiltig länkning till bildspelssidan."
+msgstr "Felaktig verifieringslänk."
 
 #: npgCore/extensions/cacheManager/cacheImages.php:307
 #, fuzzy, php-format
 msgid "all sizes for <em>%1$s</em>"
-msgstr "%1$s <em>%2$s</em> tillagd"
+msgstr "<em>%1$s</em> kommenterade %2$s:"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:353
 #, fuzzy, php-format
@@ -9115,7 +9116,7 @@ msgstr "Tillåtna bildstorlekar"
 #: npgCore/extensions/cacheManager/cacheImages.php:382
 #, fuzzy
 msgid "Cache the images"
-msgstr "HTML cache"
+msgstr "Cachehantering"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:382
 #, fuzzy
@@ -9125,17 +9126,17 @@ msgstr "Utför cachning av de valda bildstorlekarna."
 #: npgCore/extensions/cacheManager/deprecated-functions.php:10
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:18
 #, fuzzy
 msgid "Use cacheManager::deleteCacheSizes()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:46
 #, fuzzy
 msgid "Use cacheManager::addCacheSize()."
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/cacheManager/deprecated-functions.php:50
 #, fuzzy, php-format
@@ -9160,7 +9161,7 @@ msgstr "Redigera album: <em>%1$s%2$s</em>"
 #: npgCore/extensions/captcha.php:16
 #, fuzzy
 msgid "netPhotoGraphics captcha handler."
-msgstr "Ingen mailhanterare är konfigurerad!"
+msgstr "Längd på CAPTCHA"
 
 #: npgCore/extensions/captcha.php:17 npgCore/extensions/reCAPTCHA_v2.php:30
 #, fuzzy, php-format
@@ -9268,12 +9269,12 @@ msgstr "Markera för att placera vattenstämpel på standard tumnagelbilder."
 #: npgCore/extensions/class-AnyFile.php:41
 #, fuzzy
 msgid "Handled files"
-msgstr "Filer"
+msgstr "Tillåt ZIP-filer"
 
 #: npgCore/extensions/class-AnyFile.php:42
 #, fuzzy
 msgid "File suffixes to be handled."
-msgstr "Kan inte redigera denna fil!"
+msgstr "Kunde inte spara albumfilen"
 
 #: npgCore/extensions/class-AnyFile.php:43
 #, fuzzy
@@ -9467,7 +9468,7 @@ msgstr "3gp videohöjd"
 #: npgCore/extensions/class-video.php:135
 #, fuzzy
 msgid "File Encoder"
-msgstr "Kan inte redigera denna fil!"
+msgstr "Kunde inte spara albumfilen"
 
 #: npgCore/extensions/class-video.php:136
 #, fuzzy
@@ -9517,7 +9518,7 @@ msgstr "Play"
 #: npgCore/extensions/class-video.php:383
 #, fuzzy, php-format
 msgid "getid3 exceptions for %1$s::%2$s"
-msgstr "%1$u träff på denna %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/extensions/class-video.php:455
 #, fuzzy
@@ -9706,7 +9707,7 @@ msgstr "Installationen kunde inte skapa följande undermappar:<br />%s"
 #: npgCore/extensions/clone/cloneTab.php:210
 #, fuzzy
 msgid "Select the destination folder:"
-msgstr "med mappnamnet:"
+msgstr "Byt namn på mapp"
 
 #: npgCore/extensions/clone/cloneTab.php:243
 #, fuzzy
@@ -10160,7 +10161,7 @@ msgstr "Kommentaren är inte anonym"
 #: npgCore/extensions/comment_form/admin-comments.php:241
 #, fuzzy
 msgid "Comment does not exist"
-msgstr "Kommentar"
+msgstr "Kommentar:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:275
 #, fuzzy
@@ -10357,7 +10358,7 @@ msgstr "Skriv CAPTCHA<strong>*</strong>:"
 #: themes/paradigm/comment_form/comment_form.php:121
 #, fuzzy
 msgid "<strong>*</strong>Required fields"
-msgstr "<strong>Taggar:</strong>"
+msgstr "Titel<strong>%s</strong>:"
 
 #: npgCore/extensions/comment_form/comment_form.php:113
 #: themes/paradigm/comment_form/comment_form.php:127
@@ -10506,7 +10507,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Email:"
 msgid "Email: %1$s"
-msgstr "E-Post:"
+msgstr "E-Post"
 
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
@@ -10578,7 +10579,7 @@ msgstr "Ej definierad"
 #: npgCore/extensions/common/oAuth/oAuthLogin.php:43
 #, fuzzy
 msgid "Assign user to"
-msgstr "Ange"
+msgstr "Tilldela användare"
 
 #: npgCore/extensions/common/oAuth/oAuthLogin.php:46
 #, fuzzy
@@ -10894,7 +10895,7 @@ msgstr "Ange%1$s och%2$s. Tack."
 #: npgCore/extensions/contact_form.php:269
 #, fuzzy, php-format
 msgid "Please enter: %sThanks."
-msgstr "Skriv CAPTCHA:"
+msgstr "Skriv CAPTCHA"
 
 #: npgCore/extensions/contact_form.php:335
 msgid "Confirm"
@@ -10972,7 +10973,7 @@ msgstr ""
 #: npgCore/extensions/cookieconsent.php:50
 #, fuzzy
 msgid "Button: Learn more"
-msgstr "Visa fler resultat"
+msgstr "Lägg till fler uppladdningsväljare"
 
 #: npgCore/extensions/cookieconsent.php:55
 #, fuzzy
@@ -11487,7 +11488,7 @@ msgstr "Visa bilder efter: "
 #, fuzzy
 #| msgid "<em>none</em>"
 msgid "<em>testing mode</em>"
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/extensions/debug.php:114
 #, fuzzy
@@ -11585,7 +11586,7 @@ msgstr ""
 #: npgCore/extensions/debug.php:139
 #, fuzzy
 msgid "jQuery migration (theme)"
-msgstr "Temafärger"
+msgstr "*galleritema"
 
 #: npgCore/extensions/debug.php:144
 #, fuzzy
@@ -11862,22 +11863,22 @@ msgstr "Funktion"
 #: npgCore/extensions/deprecated-functions/class.php:149
 #, fuzzy, php-format
 msgid "theme %1$s:%2$s"
-msgstr "%1$u träffar på denna %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:152
 #, fuzzy, php-format
 msgid "user plugin %1$s:%2$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:155
 #, fuzzy, php-format
 msgid "standard plugin %1$s:%2$s"
-msgstr "Effervescence %1$s %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:158
 #, fuzzy, php-format
 msgid "core:%s"
-msgstr "ZenPhoto20 kärnfilsrättigheter"
+msgstr "%s"
 
 #: npgCore/extensions/deprecated-functions/class.php:167
 #: npgCore/extensions/purgeOptions.php:88 npgCore/setup/setup-functions.php:263
@@ -11922,7 +11923,7 @@ msgstr ""
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:69
 #, fuzzy
 msgid "Use getAllTagsUnique()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:78
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:86
@@ -11961,7 +11962,7 @@ msgstr "Använd print_SW_Link ()"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:152
 #, fuzzy
 msgid "Use exit()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:160
 #, fuzzy
@@ -11971,12 +11972,12 @@ msgstr "Registrera för denna sida"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:168
 #, fuzzy
 msgid "Use npgFilters::apply()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:180
 #, fuzzy
 msgid "Use npgFilters::remove()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:188
 #, fuzzy
@@ -11987,7 +11988,7 @@ msgstr "Använd npgFilters :: has_filter ()"
 #, fuzzy
 #| msgid "Gallery Index"
 msgid "Use getGalleryIndexURL()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:204
 #, fuzzy
@@ -11997,27 +11998,27 @@ msgstr "Använd plugin GDPR_required"
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:212
 #, fuzzy
 msgid "Use npg_loggedin()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:220
 #, fuzzy
 msgid "Use setNPGCookie()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:228
 #, fuzzy
 msgid "Use getNPGCookie()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:236
 #, fuzzy
 msgid "Use clearNPGCookie()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/deprecated-functions.php:244
 #, fuzzy
 msgid "Use formattedDate()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/deprecated-functions/functions.php:113
 #: npgCore/extensions/deprecated-functions/functions.php:151
@@ -12182,7 +12183,7 @@ msgstr "Sidfel: %2$s (%1$s)"
 #: npgCore/extensions/downloadList.php:387
 #, fuzzy
 msgid "Album not found"
-msgstr "Objektet hittades inte"
+msgstr "Grants hittade:"
 
 #: npgCore/extensions/downloadList.php:390
 #: npgCore/extensions/downloadList.php:661
@@ -12209,7 +12210,7 @@ msgstr "Album (%1$s) &amp; Bilder (%2$s)"
 msgid "%u download"
 msgid_plural "%u downloads"
 msgstr[0] "Nedladdning"
-msgstr[1] "%u Album"
+msgstr[1] "Sida %u"
 
 #: npgCore/extensions/downloadList/download_statistics.php:37
 msgid "No statistic available"
@@ -12329,7 +12330,7 @@ msgstr ""
 #: npgCore/extensions/dynamic-locale.php:233
 #, fuzzy
 msgid "Use flags"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/dynamic-locale.php:235
 #, fuzzy
@@ -12425,7 +12426,7 @@ msgstr ""
 #: npgCore/extensions/elFinder/php/connector_npg.php:83
 #, fuzzy, php-format
 msgid "Themes (%s)"
-msgstr "Teman"
+msgstr "Installerade teman"
 
 #: npgCore/extensions/elFinder/php/connector_npg.php:89
 #, php-format
@@ -12556,7 +12557,7 @@ msgstr "PARAM_DUMP-makroet passerade följande:"
 #: npgCore/extensions/externalFeed.php:48
 #, fuzzy
 msgid "The <em>externalFeed</em> handler."
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/extensions/externalFeed.php:71
 #, fuzzy
@@ -12598,7 +12599,7 @@ msgstr "Standard bildvisningsstorlek."
 #: npgCore/extensions/externalFeed.php:86 npgCore/extensions/rss.php:68
 #, fuzzy
 msgid "Image feed sort order:"
-msgstr "*Sorteringsordning för galleribilder"
+msgstr "*Bildsortering av överordnade album"
 
 #: npgCore/extensions/externalFeed.php:88
 #: npgCore/extensions/externalFeed.php:95 npgCore/extensions/rss.php:70
@@ -12623,7 +12624,7 @@ msgstr "senast efter modifierad"
 #: npgCore/extensions/rss.php:80
 #, fuzzy
 msgid "latest by publishdate"
-msgstr "Senaste album"
+msgstr "senaste efter id"
 
 #: npgCore/extensions/externalFeed.php:93
 #, fuzzy
@@ -12639,7 +12640,7 @@ msgstr ""
 #: npgCore/extensions/externalFeed.php:94 npgCore/extensions/rss.php:76
 #, fuzzy
 msgid "Album feed sort order:"
-msgstr "*Sorteringsordning för album i galleriet"
+msgstr "*Överordnat album underalbum sorteringsordning"
 
 #: npgCore/extensions/externalFeed.php:99 npgCore/extensions/rss.php:81
 #: npgCore/utilities/gallery_statistics.php:246
@@ -12727,7 +12728,7 @@ msgstr "högst värderade"
 #: npgCore/extensions/externalFeed.php:258 npgCore/extensions/rss.php:464
 #, fuzzy
 msgid " (Random news)"
-msgstr "Nyheter"
+msgstr "Slumpmässiga bilder"
 
 #: npgCore/extensions/externalFeed.php:275 npgCore/extensions/rss.php:482
 #, fuzzy
@@ -12757,7 +12758,7 @@ msgstr "Sidor"
 #: npgCore/extensions/externalFeed.php:326 npgCore/extensions/rss.php:517
 #, fuzzy
 msgid " (latest comments)"
-msgstr "Kommentarer:"
+msgstr "Kommentarer"
 
 #: npgCore/extensions/externalFeed.php:364 npgCore/extensions/rss.php:572
 #: npgCore/extensions/rss.php:580
@@ -12794,7 +12795,7 @@ msgstr "Lösenord krävs"
 #: npgCore/extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "AnvändarID:"
+msgstr "senaste efter id"
 
 #: npgCore/extensions/facebookLogin.php:66
 #, fuzzy
@@ -12870,7 +12871,7 @@ msgstr "Sätter alla betyg till ej betygsatt."
 #: npgCore/extensions/favoritesHandler.php:103
 #, fuzzy
 msgid "Add button"
-msgstr "Lägg till kommentar"
+msgstr "Lägg till taggar"
 
 #: npgCore/extensions/favoritesHandler.php:106
 #, fuzzy
@@ -12909,7 +12910,7 @@ msgstr ""
 #: npgCore/extensions/favoritesHandler.php:263
 #, fuzzy
 msgid "Users watching:"
-msgstr "Bannlysta användare"
+msgstr "Tilldela användare"
 
 #: npgCore/extensions/favoritesHandler.php:271 npgCore/lib-auth.php:772
 #: npgCore/lib-auth.php:1204 npgCore/lib-auth.php:1300
@@ -12942,7 +12943,7 @@ msgstr "Överlay-ikoner över miniatyrbilder för att indikera bildstatus."
 #: npgCore/extensions/flag_thumbnail.php:67
 #, fuzzy
 msgid "Criteria"
-msgstr "Skriv sökord."
+msgstr "Inga bilder stämmer in på kriteriet."
 
 #: npgCore/extensions/flag_thumbnail.php:69
 #: npgCore/extensions/sitemap-extended.php:90
@@ -12996,7 +12997,7 @@ msgstr "Miniatyrbilder för bilder som inte <em>publiceras</em> markeras."
 #: npgCore/extensions/flag_thumbnail.php:90
 #, fuzzy
 msgid "Protected"
-msgstr "Detta album är lösenordsskyddat!"
+msgstr "Menymål är lösenordsskyddad"
 
 #: npgCore/extensions/flag_thumbnail.php:92
 #, fuzzy
@@ -13037,7 +13038,7 @@ msgstr "Miniatyrer för bilder som är taggade med geodata kommer att markeras."
 #: npgCore/extensions/flag_thumbnail.php:120 plugins/icons.php:30
 #, fuzzy
 msgid "Text"
-msgstr "Andra textfiler"
+msgstr "Visa all text"
 
 #: npgCore/extensions/flag_thumbnail.php:101
 #, fuzzy
@@ -13182,7 +13183,7 @@ msgstr "Välj en kategori för de genererade artiklarna"
 #: npgCore/extensions/galleryArticles.php:91
 #, fuzzy
 msgid "Use album folder"
-msgstr "med mappnamnet:"
+msgstr "Byt namn på mapp"
 
 #: npgCore/extensions/galleryArticles.php:93
 #, fuzzy
@@ -13240,7 +13241,7 @@ msgstr "Hanterar inloggning via användarens <em>Google-</em> konto."
 #: npgCore/extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "AnvändarID:"
+msgstr "senaste efter id"
 
 #: npgCore/extensions/googleLogin.php:68
 #, fuzzy
@@ -13431,12 +13432,12 @@ msgstr "Visa eller göm Google Maps."
 #: npgCore/extensions/googleMap/deprecated-functions.php:13
 #, fuzzy
 msgid "Use GoogleMap::getGeoCoord."
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/googleMap/deprecated-functions.php:21
 #, fuzzy
 msgid "Use GoogleMap::addGeoCoord."
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/googleMap/map.php:104
 #, fuzzy
@@ -13509,7 +13510,7 @@ msgstr "2-Chip färgområdessensor"
 #: npgCore/extensions/googleTFA.php:59
 #, fuzzy
 msgid "Issuer name"
-msgstr "med mappnamnet:"
+msgstr "Albumnamn:"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13608,7 +13609,7 @@ msgstr "Beskrivning:"
 #: npgCore/extensions/googleTranslate.php:139
 #, fuzzy
 msgid "Translate Content"
-msgstr "Innehåll:"
+msgstr "Publicera innehåll"
 
 #: npgCore/extensions/googleTranslate.php:144
 #, fuzzy
@@ -13646,7 +13647,7 @@ msgstr "Tillåt inga poster från dessa IP-adresser"
 #: npgCore/extensions/hitcounter.php:63
 #, fuzzy
 msgid "Search Crawlers"
-msgstr "Tillåt sök"
+msgstr "sökbegrepp:"
 
 #: npgCore/extensions/hitcounter.php:64
 #, fuzzy
@@ -13811,7 +13812,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:111
 #, fuzzy
 msgid "Twitter name"
-msgstr "med mappnamnet:"
+msgstr "Albumnamn:"
 
 #: npgCore/extensions/html_meta_tags.php:112
 #, fuzzy
@@ -13853,7 +13854,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:117
 #, fuzzy
 msgid "Facebook app id"
-msgstr "AnvändarID:"
+msgstr "senaste efter id"
 
 #: npgCore/extensions/html_meta_tags.php:118
 #, fuzzy
@@ -13904,7 +13905,7 @@ msgstr "Kontroller för Apache HTTP-autentisering av auktoriserade användare."
 #: npgCore/extensions/http_auth.php:77
 #, fuzzy
 msgid "User validation"
-msgstr "Databasanvändare"
+msgstr "Verifiera användare"
 
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
@@ -13969,7 +13970,7 @@ msgstr "Hanterar inloggning via användarens <em>Instagram-</em> konto."
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "AnvändarID:"
+msgstr "senaste efter id"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -14570,7 +14571,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Website field"
 msgid "Site id"
-msgstr "AnvändarID:"
+msgstr "senaste efter id"
 
 #: npgCore/extensions/matomo.php:87
 #, fuzzy
@@ -14690,7 +14691,7 @@ msgstr ""
 #: npgCore/extensions/matomo.php:127
 #, fuzzy
 msgid "User consent"
-msgstr "Databasanvändare"
+msgstr "Verifiera användare"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -14850,7 +14851,7 @@ msgstr "Nyhetsindex"
 #, fuzzy, php-format
 #| msgid "createMenuIfNotExists item %s has an empty link."
 msgid "createMenu item %s has an empty link."
-msgstr "createMenuIfNotExists post %s har en tom länk."
+msgstr "createMenuIfNotExists post %s har ingen titel eller länk."
 
 #: npgCore/extensions/menu_manager.php:998
 #: npgCore/extensions/menu_manager.php:1011
@@ -14973,7 +14974,7 @@ msgstr "Album-menypost <em>%s</em> tillagd"
 #, fuzzy, php-format
 #| msgid "Custom page menu item <em>%s</em> added"
 msgid "Home page menu item <em>%s</em> added"
-msgstr "Anpassad sida menypost <em>%s</em> tillagd"
+msgstr "Zenpage menypost <em>%s</em> tillagd"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:524
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:554
@@ -15180,7 +15181,7 @@ msgstr ""
 #: npgCore/extensions/menu_manager/menu_tab.php:208
 #, fuzzy
 msgid "New Menu"
-msgstr "Anpassad meny"
+msgstr "Menyhanterare"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:227
 msgid "Edit the menu"
@@ -15194,12 +15195,12 @@ msgstr "Kopiera"
 #: npgCore/extensions/menu_manager/menu_tab.php:242
 #, fuzzy
 msgid "Delete menu"
-msgstr "Radera"
+msgstr "meny"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:243
 #, fuzzy
 msgid "Export menu"
-msgstr "Anpassad meny"
+msgstr "Menyhanterare"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:245
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:253
@@ -15242,7 +15243,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Website field"
 msgid "Site index"
-msgstr "Galleri-Index"
+msgstr "Nyhetsindex"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:64
 #, fuzzy
@@ -15316,7 +15317,7 @@ msgstr "Skapar en länk till en Zenpage Nyhetskategori."
 #: themes/zenpage/sidebar.php:28
 #, fuzzy
 msgid "Album index"
-msgstr "Galleri-Index"
+msgstr "Nyhetsindex"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:134
 #, fuzzy
@@ -15344,7 +15345,7 @@ msgstr "Script sida"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:291
 #, fuzzy
 msgid "Dynamic link"
-msgstr "Anpassad länk"
+msgstr "Länktext"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:151
 #, fuzzy
@@ -15522,7 +15523,7 @@ msgstr "Välj det tema som ska användas när en telefonenhet ansluter."
 #: npgCore/extensions/mobileTheme.php:99
 #, fuzzy
 msgid "Tablet theme"
-msgstr "Temafärger"
+msgstr "*galleritema"
 
 #: npgCore/extensions/mobileTheme.php:102
 #, fuzzy
@@ -15571,7 +15572,7 @@ msgstr "Välj <em>%s</em> temaalternativ"
 #: npgCore/extensions/multiple_layouts.php:111
 #, fuzzy
 msgid "Enable multiple layouts for"
-msgstr "Markera för att aktivera sökformulär."
+msgstr "Aktivera galleri-sessioner"
 
 #: npgCore/extensions/multiple_layouts.php:235
 #, fuzzy
@@ -15854,7 +15855,7 @@ msgstr ""
 #: npgCore/extensions/openstreetmap.php:176
 #, fuzzy
 msgid "Mini map"
-msgstr "Google karta"
+msgstr "Kartkontroller"
 
 #: npgCore/extensions/openstreetmap.php:180
 #, fuzzy
@@ -15926,7 +15927,7 @@ msgstr "GeoportailFrance - ApiKey"
 #: npgCore/extensions/openstreetmap.php:847
 #, fuzzy
 msgid "OpenStreetMap Map"
-msgstr "Google karta"
+msgstr "Kartkontroller"
 
 #: npgCore/extensions/optionalObjectFields.php:50
 #, fuzzy
@@ -15973,7 +15974,7 @@ msgstr "Rensa inställt tema"
 #: npgCore/extensions/optionalObjectFields.php:103
 #, fuzzy
 msgid "Set as thumbnail for"
-msgstr "Tumnagel:"
+msgstr "Beskär tumnagel"
 
 #: npgCore/extensions/optionalObjectFields.php:110
 #, fuzzy
@@ -16180,7 +16181,7 @@ msgstr ""
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
 msgid "Panorama height"
-msgstr "Höjd"
+msgstr "Originalhöjd"
 
 #: npgCore/extensions/panorama.php:61
 #, php-format
@@ -16216,12 +16217,12 @@ msgstr ""
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr "endast medlemmar"
+msgstr "bläddra vänster"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image right"
-msgstr "Inga rättigheter"
+msgstr "bläddra höger"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -16290,7 +16291,7 @@ msgstr "Om du vill att listan över sidorna ska synas."
 #: npgCore/extensions/publicCMS.php:60
 #, fuzzy
 msgid "Public categories"
-msgstr "Kommentaren är publik"
+msgstr "Kategorier"
 
 #: npgCore/extensions/publicCMS.php:65
 msgid ""
@@ -16493,7 +16494,7 @@ msgstr "Publicerat"
 #, fuzzy, php-format
 msgid "%u unpublished category"
 msgid_plural "%u unpublished categories"
-msgstr[0] "Inga opublicerade sidor tillgängliga"
+msgstr[0] "Kategori uppdaterad!"
 msgstr[1] "<strong>%1$u</strong> Kategorier"
 
 #: npgCore/extensions/publishContent/publishContent.php:543
@@ -16556,7 +16557,7 @@ msgstr "Publicera väntande album."
 #: npgCore/extensions/publishContent/publishContent.php:628
 #, fuzzy
 msgid "No unpublished articles"
-msgstr "Sidor och Artiklar"
+msgstr "Nyhetsartiklar"
 
 #: npgCore/extensions/publishContent/publishContent.php:654
 #, fuzzy
@@ -16708,7 +16709,7 @@ msgstr "Dolda och synliga objekt"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "<em>.htaccess</em> filen [saknas eller är tom]"
+msgstr "Dina lösenord var tomma eller överensstämde inte"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
@@ -17016,7 +17017,7 @@ msgstr "gilla"
 #, fuzzy, php-format
 msgid "%u star"
 msgid_plural "%u stars"
-msgstr[0] "%u Album"
+msgstr[0] "Sida %u"
 msgstr[1] "Delade stjärnor"
 
 #: npgCore/extensions/rating.php:382
@@ -17185,7 +17186,7 @@ msgstr "Introduktionstext"
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration accepted text."
-msgstr "Användarregistrering"
+msgstr "Registreringsbekräftelse"
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 #, fuzzy
@@ -17357,7 +17358,7 @@ msgstr "AnvändarID:"
 #: npgCore/extensions/register_user/register_user_form.php:111
 #, fuzzy
 msgid "<strong>*</strong>Required"
-msgstr "<strong>Taggar:</strong>"
+msgstr "Titel<strong>%s</strong>:"
 
 #: npgCore/extensions/related_items.php:11
 #, fuzzy
@@ -17371,7 +17372,7 @@ msgstr ""
 #: npgCore/extensions/related_items.php:161
 #, fuzzy, php-format
 msgid "Related %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/extensions/rewriteRules.php:112
 #, fuzzy
@@ -17399,7 +17400,7 @@ msgstr ""
 #: npgCore/extensions/rewriteRules.php:175
 #, fuzzy
 msgid "rewriteTokens restored to default"
-msgstr "Standard rättigheter"
+msgstr "Standard quota"
 
 #: npgCore/extensions/rewriteRules.php:194
 #, fuzzy, php-format
@@ -17436,7 +17437,7 @@ msgstr "Omskrivningstoken kan inte vara tomt."
 #: npgCore/extensions/rewriteRules.php:280
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> rule."
-msgstr "Kategori <em>%s</em> tillagd"
+msgstr "<em>%s</em> finns redan."
 
 #: npgCore/extensions/rewriteRules.php:306
 #: npgCore/extensions/rewriteRules/rules_tab.php:11
@@ -17457,7 +17458,7 @@ msgstr "netPhotoGraphics Bildbearbetningsfel: %s"
 #: npgCore/extensions/rewriteRules/rules_tab.php:26
 #, fuzzy
 msgid "Rewrite Rules"
-msgstr "mod rewrite"
+msgstr "mod_rewrite ändelse:"
 
 #: npgCore/extensions/rewriteRules/tokens_tab.php:9
 #, fuzzy
@@ -17472,7 +17473,7 @@ msgstr "mod_rewrite ändelse:"
 #: npgCore/extensions/rss.php:12
 #, fuzzy
 msgid "The <em>RSS</em> handler."
-msgstr "<em>anonym</em>"
+msgstr "Visa <em>%s</em>"
 
 #: npgCore/extensions/rss.php:13
 #, fuzzy
@@ -17783,7 +17784,7 @@ msgstr "Visa de översta <em>tröskel-</em> ID-erna som har utfört sökningar."
 #: npgCore/extensions/search_statistics/search_analysis.php:140
 #, fuzzy
 msgid "Search analysis"
-msgstr "Tillåt sök"
+msgstr "sökbegrepp:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:25
 #, fuzzy
@@ -17839,7 +17840,7 @@ msgstr "Top% u sök ID"
 #: npgCore/extensions/search_statistics/search_analysis.php:271
 #, fuzzy
 msgid "Search IDs"
-msgstr "Sök"
+msgstr "sökbegrepp:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:301
 msgid "reset"
@@ -17943,7 +17944,7 @@ msgstr "Cookietest lyckades"
 #: npgCore/extensions/security-logger.php:169
 #, fuzzy
 msgid "Request add user"
-msgstr "Lägg till kommentar"
+msgstr "användare:"
 
 #: npgCore/extensions/security-logger.php:172
 #, fuzzy
@@ -18017,7 +18018,7 @@ msgstr "Välj <em>%s</em> temaalternativ"
 #: npgCore/extensions/security-logger.php:474
 #, fuzzy, php-format
 msgid "%1$s acknowledgement cleared"
-msgstr "%1$u träff på denna %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/extensions/seo_basic.php:12
 #, fuzzy
@@ -18078,7 +18079,7 @@ msgstr[1] "Album"
 #: npgCore/extensions/seo_cleanup/admin_tab.php:140
 #, fuzzy
 msgid "No albums cleaned."
-msgstr "Album-Index"
+msgstr "Hanterade album:"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:147
 #, fuzzy, php-format
@@ -18090,7 +18091,7 @@ msgstr[1] "AF non D"
 #: npgCore/extensions/seo_cleanup/admin_tab.php:149
 #, fuzzy
 msgid "No images cleaned."
-msgstr "Bilder (standard)"
+msgstr "Visa bilder efter: "
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:157
 #, fuzzy
@@ -18305,7 +18306,7 @@ msgstr ""
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy, php-format
 msgid "%s upgrade"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy, php-format
@@ -18315,12 +18316,12 @@ msgstr "<strong><em> %s</em></strong> genomgår en uppgradering"
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy
 msgid "Please return later"
-msgstr "du bör returneras automatiskt. Om inte, tryck:"
+msgstr "Var vänlig försök igen"
 
 #: npgCore/extensions/site_upgrade.php:240
 #, fuzzy, php-format
 msgid "%s suspended"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/extensions/site_upgrade.php:247
 #, fuzzy, php-format
@@ -18335,7 +18336,7 @@ msgstr "site_upgrade-filer Återställd till original."
 #: npgCore/extensions/site_upgrade/site_upgrade.php:29
 #, fuzzy
 msgid "Site is viewable."
-msgstr "Registrera för denna sida"
+msgstr "Webbsajt:"
 
 #: npgCore/extensions/sitemap-extended.php:28
 #, fuzzy
@@ -18374,13 +18375,15 @@ msgstr ""
 #: npgCore/extensions/sitemap-extended.php:86
 #, fuzzy
 msgid "Album date"
-msgstr "använd senaste bilddatumet som galleridatum"
+msgstr ""
+"Markera denna om du vill att datumet för albumet hämtas från senaste bildens "
+"datum. Annars används datumet då albumet skapades."
 
 #: npgCore/extensions/sitemap-extended.php:91
 #: npgCore/extensions/sitemap-extended.php:98
 #, fuzzy
 msgid "last change date"
-msgstr "Datum:"
+msgstr "Datum"
 
 #: npgCore/extensions/sitemap-extended.php:92
 #, fuzzy
@@ -19027,7 +19030,7 @@ msgstr "Underlättar att tilldela unika taggar till relaterade objekt."
 #: npgCore/extensions/tagFromSearch.php:27
 #, fuzzy
 msgid "Tags only searches"
-msgstr "Inga taggar att importera."
+msgstr "Byt namn på taggar"
 
 #: npgCore/extensions/tagFromSearch.php:28
 #, fuzzy
@@ -19046,7 +19049,7 @@ msgstr "Tag objekt som hittades av sökningen"
 #: npgCore/extensions/tagFromSearch.php:38
 #, fuzzy
 msgid "Tag items"
-msgstr "Hantera taggar"
+msgstr "Synliga objekt"
 
 #: npgCore/extensions/tagFromSearch/tag.php:75
 #, fuzzy, php-format
@@ -19067,7 +19070,7 @@ msgstr[1] "Sök"
 #: npgCore/template-functions.php:1366
 #, fuzzy
 msgid "Return to search"
-msgstr "Sök"
+msgstr "Tillbaka till %s"
 
 #: npgCore/extensions/tagFromSearch/tag.php:187
 #, fuzzy, php-format
@@ -19296,7 +19299,7 @@ msgstr "Välj strategi för TinyMCE <em>entity_encoding</em> ."
 #: npgCore/extensions/tinymce.php:87
 #, fuzzy
 msgid "RTL text direction"
-msgstr "Andra textfiler"
+msgstr "Visa all text"
 
 #: npgCore/extensions/tinymce.php:89
 #, fuzzy
@@ -19321,7 +19324,7 @@ msgstr "Visa <em>%s</em>"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:51
 #, fuzzy, php-format
 msgid "%s with link to image"
-msgstr "Originalbildlänk"
+msgstr "Bild: %s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:61
 #, fuzzy, php-format
@@ -19331,7 +19334,7 @@ msgstr "Visa <em>%s</em>"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:62
 #, fuzzy, php-format
 msgid "%s with link to album"
-msgstr "Visa album: %s"
+msgstr "Redigera detta album: %s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:77
 #, fuzzy, php-format
@@ -19741,7 +19744,7 @@ msgstr "Den här uppladdaren kräver webbläsarens javaScript-support."
 #: npgCore/extensions/uploader_jQuery/upload_form.php:51
 #, fuzzy
 msgid "Add files..."
-msgstr "Lägg till kommentar"
+msgstr "Lägg till taggar"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:57
 #, fuzzy
@@ -19889,17 +19892,17 @@ msgstr "Behandlad"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:116
 #, fuzzy
 msgid "User expiry"
-msgstr "Databasanvändare"
+msgstr "Verifiera användare"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:123
 #, fuzzy
 msgid "Manage user expiry."
-msgstr "användare:"
+msgstr "Hantera innehållspublicering"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:153
 #, fuzzy, php-format
 msgid "Expired:%s; "
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:156
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:158
@@ -19915,7 +19918,7 @@ msgstr "Användar-ID har föregåtts"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:188
 #, fuzzy
 msgid "Enable"
-msgstr "Markera för att aktivera sökformulär."
+msgstr "Aktivera galleri-sessioner"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:194
 #, fuzzy
@@ -19975,7 +19978,7 @@ msgstr "Aktiverad"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:242
 #, fuzzy
 msgid "Force password renewal"
-msgstr "Databaslösenord"
+msgstr "E-postlösenord"
 
 #: npgCore/extensions/userAddressFields.php:19
 #, fuzzy
@@ -20061,6 +20064,7 @@ msgid "Deleted"
 msgstr "Radering av anpassad menypost lyckades!"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
@@ -20085,7 +20089,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "grupp"
 
@@ -20196,18 +20199,28 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Maillista för användare"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "Prenumerera på kommentarer"
+msgstr "Ta bort godkännande"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "Exkludera sidor"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -20226,7 +20239,7 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
 msgid "Click to resubscribe"
-msgstr "Göm detaljer för användare %s"
+msgstr "Klicka här för att registrera dig."
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -20235,13 +20248,13 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
 msgid "Click to un-subscribe"
-msgstr "Klicka här för att registrera dig."
+msgstr "Prenumerera på kommentarer"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "Maillista för användare"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails "
@@ -20251,7 +20264,7 @@ msgstr ""
 "angett e-postadress. En kopia skickas alltid till admin-användare och alla "
 "mail skickas som <em>hemlig kopia</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -20259,35 +20272,43 @@ msgstr ""
 "<strong>Notera: </strong>Inget <em>sendmail</em>-filter är registrerat. Du "
 "måste aktivera och konfigurera en mail-modul."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "E-post skickad."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Skriv meddelandet du vill skicka."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Ämne:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Meddelande:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+msgid "Select recipients :"
 msgstr "Välj användare:"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "E-postanvändare"
+msgstr ""
+"Ett verktyg för att skicka e-post till alla registrerade användare som "
+"angett e-postadress. En kopia skickas alltid till admin-användare och alla "
+"mail skickas som <em>hemlig kopia</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Skicka e-post"
 
@@ -20422,7 +20443,7 @@ msgstr "Visa betyg"
 #: npgCore/extensions/xmpMetadata.php:1151
 #, fuzzy
 msgid "Metadata exported"
-msgstr "Metadata:"
+msgstr "Uppdatera Metadata"
 
 #: npgCore/extensions/xmpMetadata.php:1158
 #, fuzzy
@@ -20797,7 +20818,7 @@ msgstr "Alla kategorier"
 #: npgCore/extensions/zenpage/news.php:131
 #, fuzzy
 msgid "Un-categorized"
-msgstr "Publicerat/Opublicerat"
+msgstr "Avpublicera albumet %s"
 
 #: npgCore/extensions/zenpage/admin-functions.php:852
 #, fuzzy, php-format
@@ -20810,7 +20831,7 @@ msgid ""
 "Category <em>%s</em> added but you need to give it a <strong>title</strong> "
 "before publishing!"
 msgstr ""
-"Sidan <em>%s</em> tillagd men du måste ge den en <strong>titel</strong> "
+"Artikeln <em>%s</em> tillagd men du måste ge den en <strong>titel</strong> "
 "innan publicering!"
 
 #: npgCore/extensions/zenpage/admin-functions.php:933
@@ -20931,7 +20952,7 @@ msgstr "Återställ Träffräknare"
 #: npgCore/extensions/zenpage/admin-functions.php:1670
 #, fuzzy
 msgid "Tags added to selected items"
-msgstr "Menyposter för alla tillagda ZenPhoto20 objekt."
+msgstr "Menyposter för alla tillagda Zenpage sidor."
 
 #: npgCore/extensions/zenpage/admin-functions.php:1673
 #, fuzzy
@@ -21019,7 +21040,7 @@ msgstr "Använd setShow-metoden direkt."
 #: npgCore/extensions/zenpage/deprecated-functions.php:101
 #, fuzzy
 msgid "Use shortenContent()"
-msgstr "Använd standard kontakt-sida"
+msgstr "Använd låsningsbild"
 
 #: npgCore/extensions/zenpage/edit.php:62
 #, fuzzy, php-format
@@ -21049,7 +21070,7 @@ msgstr "Detta är inget framtida datum!"
 #: npgCore/extensions/zenpage/news.php:253
 #, fuzzy
 msgid "New Article"
-msgstr "Ny import"
+msgstr "Nytt underalbum"
 
 #: npgCore/extensions/zenpage/edit.php:217
 #: npgCore/extensions/zenpage/edit.php:278
@@ -21062,7 +21083,7 @@ msgstr "Kategorier"
 #: npgCore/extensions/zenpage/pages.php:157
 #, fuzzy
 msgid "New Page"
-msgstr "Ny import"
+msgstr "Nytt underalbum"
 
 #: npgCore/extensions/zenpage/edit.php:253
 #, fuzzy, php-format
@@ -21285,12 +21306,12 @@ msgstr "sticky"
 #: npgCore/extensions/zenpage/edit.php:552
 #, fuzzy
 msgid "Stick to top"
-msgstr "Tillbaka till toppen"
+msgstr "högst värderade"
 
 #: npgCore/extensions/zenpage/edit.php:654
 #, fuzzy, php-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Är det säkert att du vill radera denna kommentar?"
+msgstr "Är det säkert att du vill radera denna användare?"
 
 #: npgCore/extensions/zenpage/edit.php:659
 #, fuzzy, php-format
@@ -21392,7 +21413,7 @@ msgstr[1] "Artiklar"
 #: npgCore/template-functions.php:1373
 #, fuzzy
 msgid "Return to archive"
-msgstr "Arkiv-vy"
+msgstr "Arkivregel"
 
 #: npgCore/extensions/zenpage/template-functions.php:2059
 msgid "This page is password protected"
@@ -21589,7 +21610,7 @@ msgstr "databasen ansluten"
 #: npgCore/functions-db-NULL.php:95
 #, fuzzy
 msgid "No database"
-msgstr "Databasnamn"
+msgstr "Databasanvändare"
 
 #: npgCore/functions-db-NULL.php:103
 #, fuzzy
@@ -21668,7 +21689,7 @@ msgstr "<em>[%1$s]</em> makro tar inte parametrar"
 #: npgCore/functions.php:2596 npgCore/functions.php:2623
 #, fuzzy, php-format
 msgid "<em>[%1$s]</em> retuned no data"
-msgstr "%1$u Träff för <em>%2$s</em>"
+msgstr "<em>%1$s</em> kommenterade %2$s:"
 
 #: npgCore/functions.php:2601
 #, fuzzy, php-format
@@ -21725,7 +21746,7 @@ msgstr "E-post kunde inte skickas. Ingen e-posthanterare angiven."
 #: npgCore/functions.php:3123
 #, fuzzy
 msgid "No “to” address list provided."
-msgstr "Adressfält"
+msgstr "Användarnamn ej angivet"
 
 #: npgCore/i.php:63
 #, fuzzy
@@ -21938,7 +21959,7 @@ msgstr ""
 #: npgCore/lib-auth.php:169
 #, fuzzy
 msgid "Minimum password strength"
-msgstr "Databaslösenord"
+msgstr "E-postlösenord"
 
 #: npgCore/lib-auth.php:171
 #, fuzzy, php-format
@@ -21973,7 +21994,7 @@ msgstr ""
 #: npgCore/lib-auth.php:176
 #, fuzzy
 msgid "Enable Challenge phrase"
-msgstr "Markera för att aktivera sökformulär."
+msgstr "Aktivera galleri-sessioner"
 
 #: npgCore/lib-auth.php:178
 #, fuzzy
@@ -22226,7 +22247,7 @@ msgstr "Användare med denna rätt kan visa söksidor även om lösenordsskyddad
 #: npgCore/lib-auth.php:749 npgCore/lib-auth.php:776
 #, fuzzy
 msgid "View fullimage"
-msgstr "Visa Bildspel"
+msgstr "Det finns inga loggar att visa."
 
 #: npgCore/lib-auth.php:749 npgCore/lib-auth.php:776
 #, fuzzy
@@ -22392,7 +22413,7 @@ msgstr "Utmaningsfråga:"
 #: npgCore/lib-auth.php:1216
 #, fuzzy
 msgid "Your response"
-msgstr "Skriv sökord."
+msgstr "Dina lösenord överensstämde inte."
 
 #: npgCore/lib-auth.php:1225
 #, fuzzy
@@ -22446,7 +22467,7 @@ msgstr "Återställningsförfrågan har sänts."
 #: npgCore/lib-auth.php:1467
 #, fuzzy
 msgid "password strength weak"
-msgstr "Databaslösenord"
+msgstr "E-postlösenord"
 
 #: npgCore/lib-auth.php:1470
 #, fuzzy
@@ -22592,12 +22613,12 @@ msgstr "Användning av% 1 $ ux% 2 $ u%3$s miniatyrbild."
 #: npgCore/lib-image.php:242
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
-msgstr "Visa bilden: %s"
+msgstr "netPhotoGraphics Bildbearbetningsfel: %s"
 
 #: npgCore/lib-image.php:249
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
-msgstr "Visa bilden: %s"
+msgstr "netPhotoGraphics Bildbearbetningsfel: %s"
 
 #: npgCore/lib-image.php:292
 #, fuzzy, php-format
@@ -22607,12 +22628,12 @@ msgstr "<html> Okänd felbehandling %s! Vänligen anmäla till"
 #: npgCore/lib-image.php:386 npgCore/lib-image.php:412
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
-msgstr "Visa bilden: %s"
+msgstr "netPhotoGraphics Bildbearbetningsfel: %s"
 
 #: npgCore/lib-image.php:416
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
-msgstr "Visa bilden: %s"
+msgstr "netPhotoGraphics Bildbearbetningsfel: %s"
 
 #: npgCore/lib-image.php:484
 #, fuzzy, php-format
@@ -22637,7 +22658,7 @@ msgstr "*Ingen vattenstämpel"
 #: npgCore/lib-image.php:554
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
-msgstr "Visa bilden: %s"
+msgstr "netPhotoGraphics Bildbearbetningsfel: %s"
 
 #: npgCore/lib-utf8.php:47 npgCore/localeList.php:13
 #, fuzzy
@@ -24377,7 +24398,7 @@ msgstr "Persisk"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Persian (Iran)"
-msgstr "Arabiskt (Iran)"
+msgstr "Persisk"
 
 #: npgCore/localeList.php:277
 #, fuzzy
@@ -25620,7 +25641,7 @@ msgstr "Tyska (Tyskland)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "Låg"
+msgstr "Nederländska (Nederländerna)"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -26709,7 +26730,7 @@ msgstr "Kantonesiska (Traditionella, Hong Kong SAR Kina)"
 #, fuzzy
 #| msgid "Standard Light A"
 msgid "Standard Moroccan Tamazight"
-msgstr "Bilder (standard)"
+msgstr "Standard Ljus A"
 
 #: npgCore/localeList.php:723
 #, fuzzy
@@ -26735,7 +26756,7 @@ msgstr "Kineskiskt (Taiwan)"
 #: npgCore/localeList.php:727
 #, fuzzy
 msgid "Chinese (Simplified)"
-msgstr "Kineskiskt (Taiwan)"
+msgstr "Kineskiskt (Hong Kong)"
 
 #: npgCore/localeList.php:728
 #, fuzzy
@@ -26888,7 +26909,7 @@ msgstr "Effervescence %1$s %2$s"
 #: npgCore/page_error.php:97
 #, fuzzy, php-format
 msgid "HTTP status: %1$s"
-msgstr "%1$u träff på denna %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/pluginDoc.php:290
 #, fuzzy
@@ -26905,8 +26926,8 @@ msgstr "Ditt PHP-grafikbibliotek stödjer inte %1$s, %2$s, eller %3$s"
 msgid "Option:"
 msgid_plural "Options:"
 msgstr[0] ""
-"Din PHP har stöd för Imagick. Markera detta alternativ om du vill använda "
-"Imagick grafikbibliotek."
+"Om markerad visas bild och albumantalet på listan. Notera: Teman kan ändra "
+"denna inställning"
 msgstr[1] "Egenskaper"
 
 #: npgCore/pluginDoc.php:594
@@ -26924,7 +26945,7 @@ msgstr "PHP version: <strong>%1$s</strong>"
 #: npgCore/reconfigure.php:39
 #, fuzzy
 msgid "database connection failed"
-msgstr "Fråga misslyckades :"
+msgstr "Registrering misslyckades."
 
 #: npgCore/reconfigure.php:46
 #, fuzzy, php-format
@@ -26949,7 +26970,7 @@ msgstr "<code>db_software</code> specifikationen är inte giltig."
 #: npgCore/reconfigure.php:142
 #, fuzzy
 msgid "The database connection failed."
-msgstr "Fråga misslyckades :"
+msgstr "Registrering misslyckades."
 
 #: npgCore/reconfigure.php:278
 #, fuzzy
@@ -27079,7 +27100,7 @@ msgstr "netPhotoGraphics kräver PHP-version %s eller större"
 #: npgCore/setup/index.php:138
 #, fuzzy
 msgid "config file migrated"
-msgstr "Kan inte redigera denna fil!"
+msgstr "Kunde inte spara albumfilen"
 
 #: npgCore/setup/index.php:214
 #, fuzzy
@@ -27149,7 +27170,7 @@ msgstr "Cookietest misslyckades"
 #: npgCore/setup/index.php:465
 #, fuzzy
 msgid "Post of Database credentials"
-msgstr "Databasnamn"
+msgstr "databasen ansluten"
 
 #: npgCore/setup/index.php:470
 #, fuzzy
@@ -27218,7 +27239,7 @@ msgstr "Installerar netPhotoGraphics v %s"
 #: npgCore/setup/index.php:592
 #, fuzzy
 msgid "Installation folder"
-msgstr "Filer"
+msgstr "Installationsinformation"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -27234,7 +27255,7 @@ msgstr "<em>%s</em> inte funnen"
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security [is compromised]"
-msgstr "Kategori <em>%s</em> tillagd"
+msgstr "Sidan <em>%s</em> uppdaterad"
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
@@ -27380,7 +27401,7 @@ msgstr "Ingen vald för visning"
 #: npgCore/setup/index.php:687
 #, fuzzy
 msgid "PHP <code>display_errors</code>"
-msgstr "PHP <code>setlocale()</code>"
+msgstr "PHP <code>setlocale()</code> misslyckades"
 
 #: npgCore/setup/index.php:687
 #, fuzzy, php-format
@@ -27505,7 +27526,7 @@ msgstr "PHP <code>mbstring</code>-paket [saknas]"
 #: npgCore/setup/index.php:739
 #, fuzzy
 msgid "PHP <code>default_charset</code>"
-msgstr "PHP <code>Safe Mode</code>"
+msgstr "PHP <code>setlocale()</code> misslyckades"
 
 #: npgCore/setup/index.php:739
 #, fuzzy, php-format
@@ -27610,7 +27631,7 @@ msgstr ""
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
 msgid "<em>%1$s</em> file"
-msgstr "%1$s <em>%2$s</em> tillagd"
+msgstr "<em>%1$s</em> kommenterade %2$s:"
 
 #: npgCore/setup/index.php:802
 #, fuzzy, php-format
@@ -27635,7 +27656,7 @@ msgstr "netPhotoGraphics kärnfilsrättigheter"
 #: npgCore/setup/index.php:810
 #, fuzzy, php-format
 msgid "Set File permissions to %s."
-msgstr "ZenPhoto20 kärnfilsrättigheter [ej korrekt]"
+msgstr "ZenPhoto20 kärnfilsrättigheter"
 
 #: npgCore/setup/index.php:816
 #, php-format
@@ -27650,7 +27671,7 @@ msgstr "<em>okänt</em> (<code>%o</code>)"
 #: npgCore/setup/index.php:829
 #, fuzzy, php-format
 msgid "File Permissions [are %s]"
-msgstr "netPhotoGraphics kärnfilsrättigheter"
+msgstr "ZenPhoto20 kärnfilsrättigheter"
 
 #: npgCore/setup/index.php:830
 msgid ""
@@ -27668,7 +27689,7 @@ msgstr ""
 #: npgCore/setup/index.php:837
 #, fuzzy
 msgid "Your filesystem is Macintosh"
-msgstr "Skriv sökord."
+msgstr "Dina lösenord överensstämde inte."
 
 #: npgCore/setup/index.php:837
 #, fuzzy
@@ -27777,7 +27798,7 @@ msgstr "PHP <code>gettext()</code> stöd [saknas]"
 #: npgCore/setup/index.php:1036
 #, fuzzy
 msgid "No database selected"
-msgstr "*ingen logo vald"
+msgstr "Autovald"
 
 #: npgCore/setup/index.php:1052 npgCore/setup/index.php:1054
 #, fuzzy, php-format
@@ -27813,7 +27834,7 @@ msgstr "Välj återställningsfil:"
 #: npgCore/setup/index.php:1063
 #, fuzzy, php-format
 msgid "<em>%1$s</em> reported: %2$s"
-msgstr "%1$u Träff för <em>%2$s</em>"
+msgstr "%1$u Träffar för <em>%2$s</em>"
 
 #: npgCore/setup/index.php:1076
 #, fuzzy
@@ -27956,7 +27977,7 @@ msgstr "Din databasanvändare måste ha %s rättigheter."
 #: npgCore/setup/index.php:1178
 #, fuzzy
 msgid "netPhotoGraphics files"
-msgstr "Mallfiler för teman (.php)"
+msgstr "Tillåt ZIP-filer"
 
 #: npgCore/setup/index.php:1208
 #, fuzzy
@@ -28046,21 +28067,21 @@ msgstr "ZenPhoto20 kärnfiler [Vissa filer saknas eller stämmer inte]"
 #: npgCore/setup/index.php:1356
 #, fuzzy
 msgid "Installation files"
-msgstr "Filer"
+msgstr "Installationsinformation"
 
 #: npgCore/setup/index.php:1372
 #, fuzzy, php-format
 msgid ".svn [%s instance]"
 msgid_plural ".svn [%s instances]"
 msgstr[0] "%s"
-msgstr[1] "Sidor (%s)"
+msgstr[1] "Tillbaka till %s"
 
 #: npgCore/setup/index.php:1375
 #, fuzzy, php-format
 msgid "php.ini [%s instance]"
 msgid_plural "php.ini [%s instances]"
 msgstr[0] "%s"
-msgstr[1] "Sidor (%s)"
+msgstr[1] "Tillbaka till %s"
 
 #: npgCore/setup/index.php:1389 npgCore/setup/index.php:1408
 #: npgCore/setup/index.php:1415
@@ -28366,7 +28387,7 @@ msgstr ""
 #, fuzzy
 #| msgid "latest updated"
 msgid "Database structure updated."
-msgstr "Filuppdatering lyckades"
+msgstr "Menypost uppdaterad!"
 
 #: npgCore/setup/index.php:1678
 #, fuzzy
@@ -28443,7 +28464,7 @@ msgstr "<em>.htaccess</em> filen [saknas eller är tom]"
 #: npgCore/setup/setup-functions.php:66
 #, fuzzy, php-format
 msgid "Testing %s."
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/setup/setup-functions.php:74
 #, fuzzy
@@ -28704,7 +28725,7 @@ msgstr ""
 #: npgCore/setup/setup-option-defaults.php:693
 #, fuzzy, php-format
 msgid "Copyright %1$u  : %2$s "
-msgstr "%1$u träff på denna %2$s"
+msgstr "%1$u träffar på denna %2$s"
 
 #: npgCore/setup/setup-option-defaults.php:732
 #, fuzzy
@@ -28763,13 +28784,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "Visa <em>%s</em>"
+msgstr "%1$u Träff för <em>%2$s</em>"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "Redigera album: <em>%1$s%2$s</em>"
+msgstr "%1$u Träff för <em>%2$s</em>"
 
 #: npgCore/setup/setup-sqlform.php:3
 #, fuzzy
@@ -28783,12 +28804,12 @@ msgstr ""
 #: npgCore/setup/setup-sqlform.php:49
 #, fuzzy
 msgid "Database engine"
-msgstr "Databaslösenord"
+msgstr "Uppdatera databasen"
 
 #: npgCore/setup/setup-sqlform.php:66
 #, fuzzy, php-format
 msgid "%s (experimental)"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/setup/setup-sqlform.php:77
 msgid "Database user"
@@ -28806,13 +28827,13 @@ msgstr "Databasvärd"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Sport"
+msgstr "POP portsnummer."
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "Databasanvändare"
+msgstr "Uppdatera databasen"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -28922,7 +28943,7 @@ msgstr "Min profil"
 #, fuzzy
 #| msgid "images"
 msgid "My images"
-msgstr "Bilder"
+msgstr "Visa bilder efter: "
 
 #: npgCore/template-functions.php:181
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:203
@@ -29078,12 +29099,12 @@ msgstr "Ett mediaorienterat innehållshanteringssystem"
 #: npgCore/template-functions.php:4368
 #, fuzzy, php-format
 msgid "Powered by %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/template-functions.php:4445
 #, fuzzy, php-format
 msgid "%1$s policyACK cookie"
-msgstr "%1$u träff på denna %2$s"
+msgstr "%1$u nya %2$s"
 
 #: npgCore/template-functions.php:4621
 msgid "Error:</strong> the requested object was not found."
@@ -29133,14 +29154,14 @@ msgstr[1] "Säkerhetskopiering färdig med <em>%1$s(%2$s)</em> komprimering"
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] "Säkerhetskopiera databasen"
+msgstr[0] "Tabell-prefix: <strong>%1$s</strong>"
 msgstr[1] "Säkerhetskopiera databasen"
 
 #: npgCore/utilities/backup_restore.php:263
 #, fuzzy
 #| msgid "The locale %s is not supported on your server."
 msgid "The following tables were empty:"
-msgstr "Språket %s stöds inte av din server."
+msgstr "Dina lösenord var tomma eller överensstämde inte"
 
 #: npgCore/utilities/backup_restore.php:284
 msgid "backup failed"
@@ -29200,7 +29221,7 @@ msgstr ""
 #: npgCore/utilities/backup_restore.php:530
 #, fuzzy
 msgid "Rights migration failed!"
-msgstr "Alla rättigheter"
+msgstr "Standard rättigheter"
 
 #: npgCore/utilities/backup_restore.php:544
 msgid "Restore completed"
@@ -29255,7 +29276,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "Välj återställningsfil:"
+msgstr "Säkerhetskopiera tabellerna i din databas."
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -29381,7 +29402,7 @@ msgstr "Kolumn"
 #, fuzzy
 #| msgid "Script page"
 msgid "Script Pages"
-msgstr "Script sida"
+msgstr "Sidor"
 
 #: npgCore/utilities/gallery_statistics.php:94
 msgid "rss"
@@ -29588,7 +29609,7 @@ msgstr "Statistik för nyhetskategorier"
 #: npgCore/utilities/gallery_statistics.php:717
 #, fuzzy
 msgid "Statistics for Script pages"
-msgstr "Galleristatistik"
+msgstr "Script sida"
 
 #: npgCore/utilities/gallery_statistics.php:724
 #, fuzzy
@@ -29615,7 +29636,7 @@ msgstr "Din webbläsare stöder inte ljudetiketten"
 #: npgCore/utilities/installation_analysis.php:61
 #, fuzzy, php-format
 msgid "source: %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/utilities/installation_analysis.php:82
 #, fuzzy
@@ -29645,7 +29666,7 @@ msgstr "Webbsajt:"
 #: npgCore/utilities/installation_analysis.php:106
 #, fuzzy
 msgid "PHP Session path:"
-msgstr "PHP Safe Mode restriktioner är aktiva."
+msgstr "PHP <code>setlocale()</code> misslyckades"
 
 #: npgCore/utilities/installation_analysis.php:124
 #, fuzzy, php-format
@@ -29694,7 +29715,7 @@ msgstr "Grafikstöd: <strong>%s</strong>"
 #: npgCore/utilities/installation_analysis.php:219
 #, fuzzy, php-format
 msgid "supporting: %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: npgCore/utilities/installation_analysis.php:225
 #, fuzzy, php-format
@@ -29887,7 +29908,7 @@ msgstr "Titel:"
 #: plugins/MyBB_auth.php:108
 #, fuzzy
 msgid "The name of the MyBB site."
-msgstr "Registrera för denna sida"
+msgstr "Albumnamn:"
 
 #: plugins/MyBB_auth.php:109
 #, fuzzy
@@ -29902,7 +29923,7 @@ msgstr ""
 #: plugins/MyBB_auth.php:112
 #, fuzzy
 msgid "MyBB database"
-msgstr "Databasnamn"
+msgstr "Databasanvändare"
 
 #: plugins/MyBB_auth.php:114
 #, fuzzy
@@ -29959,7 +29980,7 @@ msgstr "Standardalternativen för detta tema har inte ställts in."
 #, fuzzy, php-format
 #| msgid "Graphics support: <code>%s</code>"
 msgid "Example: <code>%s</code>"
-msgstr "Grafikstöd: <code>%s</code>"
+msgstr "Databas <code>%s</code> skapad"
 
 #: plugins/MyBB_auth.php:136
 #, php-format
@@ -30158,7 +30179,7 @@ msgstr "<em>%s</em> finns redan."
 #, fuzzy, php-format
 #| msgid "Database tables to create: %s"
 msgid "Unable to create %s."
-msgstr "Skapa"
+msgstr "Skapa i:"
 
 #: plugins/customFieldExtender.php:42
 #, fuzzy
@@ -30210,7 +30231,7 @@ msgstr "Databas <code>%s</code> skapad"
 #: plugins/debugSearch.php:15
 #, fuzzy
 msgid "Search debug tool."
-msgstr "Felsökning"
+msgstr "Sök"
 
 #: plugins/demoplugin/image_effects.php:61
 #, fuzzy
@@ -30581,7 +30602,7 @@ msgstr "Visa tema för: "
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "Tillåt sök"
+msgstr "sökbegrepp:"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -30591,7 +30612,7 @@ msgstr "PHP EXIF-förlängningen krävs för detta alternativ."
 #: plugins/keywordRedirector.php:47
 #, fuzzy
 msgid "Search redirect keywords"
-msgstr "Tillåt sök"
+msgstr "sökbegrepp:"
 
 #: plugins/keywordRedirector.php:49
 msgid ""
@@ -30701,7 +30722,7 @@ msgstr "längd"
 #: plugins/mediaelementjs_player.php:116
 #, fuzzy
 msgid "Tracks (Video only)"
-msgstr "Quicktime videobredd"
+msgstr "endast medlemmar"
 
 #: plugins/mediaelementjs_player.php:117
 #, fuzzy
@@ -31025,17 +31046,17 @@ msgstr "Säker e-post"
 #: plugins/pseudomail.php:50
 #, fuzzy, php-format
 msgid "To: %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
 msgid "Cc: %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: plugins/pseudomail.php:74
 #, fuzzy, php-format
 msgid "Bcc: %s"
-msgstr "Sidor (%s)"
+msgstr "Tillbaka till %s"
 
 #: plugins/pseudomail.php:76
 #, fuzzy, php-format
@@ -31213,8 +31234,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Hantera taggar"
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -31718,7 +31740,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:80
 #, fuzzy
 msgid "Show Archive link"
-msgstr "Arkiv-vy"
+msgstr "Arkivregel"
 
 #: themes/ardoise/themeoptions.php:82
 #, fuzzy
@@ -32237,7 +32259,7 @@ msgstr ""
 #: themes/bootstrap/themeoptions.php:120
 #, fuzzy
 msgid "Use isotope"
-msgstr "Använd Colorbox"
+msgstr "Använd låsningsbild"
 
 #: themes/bootstrap/themeoptions.php:125
 #, fuzzy
@@ -32701,7 +32723,7 @@ msgstr ""
 #: themes/netphotographics/themeoptions.php:146
 #, fuzzy
 msgid "Display theme info"
-msgstr "Bildinfo"
+msgstr "Objektivinfo"
 
 #: themes/effervescence+/themeoptions.php:129
 #: themes/netphotographics/themeoptions.php:150
@@ -32800,7 +32822,7 @@ msgstr "Plats för bildgalleri bildtextning"
 #: themes/netphotographics/themeoptions.php:197
 #, fuzzy
 msgid "Index Image"
-msgstr "Galleri-Index"
+msgstr "Nyhetsindex"
 
 #: themes/effervescence+/themeoptions.php:177
 #: themes/netphotographics/themeoptions.php:203
@@ -32851,17 +32873,17 @@ msgstr "Vink: %s"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%s"
+msgstr "Tillbaka till %s"
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "%1$s <em>%2$s</em> tillagd"
+msgstr "<em>%1$s</em> kommenterade %2$s:"
 
 #: themes/enlighten/sidebar.php:46
 #, fuzzy
 msgid "Latest notes"
-msgstr "senaste"
+msgstr "senaste efter id"
 
 #: themes/enlighten/sidebar.php:61
 #, fuzzy
@@ -32933,7 +32955,7 @@ msgstr "Visa album: %s"
 #: themes/spellflight/album.php:103 themes/spellflight/favorites.php:115
 #, fuzzy
 msgid "Album Navigation"
-msgstr "Visa album:"
+msgstr "Albumtitel"
 
 #: themes/garland/album.php:108 themes/garland/favorites.php:120
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
@@ -32986,7 +33008,7 @@ msgstr "Taggar"
 #: themes/garland/album.php:139 themes/spellflight/album.php:139
 #, fuzzy, php-format
 msgid "Latest Images for %s"
-msgstr "Bilder (%s)"
+msgstr "%s Bilder"
 
 #: themes/garland/functions.php:58
 #, fuzzy
@@ -33000,7 +33022,7 @@ msgstr "Standard bildvisningsstorlek."
 #: themes/spellflight/main.php:58
 #, fuzzy
 msgid "Latest Images"
-msgstr "Senaste album"
+msgstr "senaste efter id"
 
 #: themes/garland/image.php:122 themes/garland/summary.php:53
 #: themes/spellflight/image.php:122 themes/spellflight/summary.php:53
@@ -33177,7 +33199,7 @@ msgstr "Slumpmässiga bilder"
 #: themes/masonry/functions.php:282
 #, fuzzy
 msgid "Search Result"
-msgstr "Tillåt sök"
+msgstr "sökbegrepp:"
 
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
@@ -33192,7 +33214,7 @@ msgstr "Bildspel"
 #: themes/masonry/inc-footer.php:21
 #, fuzzy
 msgid "Loading additional pages..."
-msgstr "Sidor och Artiklar"
+msgstr "Sidregel"
 
 #: themes/masonry/inc-footer.php:23
 #, fuzzy
@@ -33210,7 +33232,7 @@ msgstr "Sida %1$u (Aktuell Sida)"
 #: themes/masonry/news.php:23
 #, fuzzy
 msgid "Latest Comments"
-msgstr "Kommentarer:"
+msgstr "Kommentarer"
 
 #: themes/masonry/inc-header.php:102 themes/minimal/inc-header.php:103
 #, fuzzy
@@ -33235,12 +33257,12 @@ msgstr ""
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "Inga kommentarer att importera"
+msgstr "Tillåt kommentarer"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "Inga kommentarer att importera"
+msgstr "Tillåt kommentarer"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -33250,7 +33272,7 @@ msgstr "Välkommen"
 #: themes/masonry/index.php:61 themes/minimal/index.php:56
 #, fuzzy
 msgid "No Images Exist..."
-msgstr "Bilder (standard)"
+msgstr "Visa bilder efter: "
 
 #: themes/masonry/news.php:92 themes/zenFluid/image.php:140
 #, fuzzy
@@ -33286,7 +33308,7 @@ msgstr "Välj en mörk eller ljus övergripande färgstil."
 #: themes/masonry/themeoptions.php:79
 #, fuzzy
 msgid "General Thumb Sizes"
-msgstr "Tumnagel ="
+msgstr "tumnagel "
 
 #: themes/masonry/themeoptions.php:83
 #, fuzzy
@@ -33580,7 +33602,7 @@ msgstr "Prenumerera på kommentarer"
 #: themes/minimal/inc-footer.php:11
 #, fuzzy
 msgid "This Album"
-msgstr "Visa album:"
+msgstr "Albumtitel"
 
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
@@ -33595,7 +33617,7 @@ msgstr "\"List\" subalbum level"
 #: themes/minimal/index.php:59
 #, fuzzy
 msgid "Enter Gallery &rarr;"
-msgstr "Skriv CAPTCHA:"
+msgstr "Skriv CAPTCHA"
 
 #: themes/minimal/news.php:48
 #, fuzzy
@@ -33689,7 +33711,7 @@ msgstr ""
 #: themes/minimal/themeoptions.php:67
 #, fuzzy
 msgid "Menu Name of Menu Manager"
-msgstr "Menyhanterare: Lägg till Menypost"
+msgstr "Menyhanterare: Redigera Menypost"
 
 #: themes/minimal/themeoptions.php:71
 #, fuzzy
@@ -33727,7 +33749,7 @@ msgstr ""
 #: themes/mobile/functions.php:113
 #, fuzzy
 msgid "zpMobile theme by"
-msgstr "Temafärger"
+msgstr "*galleritema"
 
 #: themes/mobile/functions.php:215 themes/npgmobile/functions.php:169
 msgid "Back to top"
@@ -33760,7 +33782,7 @@ msgstr "Taggar"
 #: themes/mobile/image.php:72 themes/npgmobile/image.php:72
 #, fuzzy
 msgid "View meta data"
-msgstr "HTML metataggar"
+msgstr "Visa"
 
 #: themes/mobile/search.php:55 themes/npgmobile/search.php:55
 #: themes/zenpage/search.php:48
@@ -34040,7 +34062,7 @@ msgstr "Innehåll"
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
 msgid "Latest pictures"
-msgstr "Senaste album"
+msgstr "senaste efter id"
 
 #: themes/paradigm/themeoptions.php:120
 #, fuzzy
@@ -34075,7 +34097,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:141
 #, fuzzy
 msgid "ShareThis id"
-msgstr "AnvändarID:"
+msgstr "senaste efter id"
 
 #: themes/paradigm/themeoptions.php:145
 #, fuzzy
@@ -34117,7 +34139,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:158
 #, fuzzy
 msgid "Twitter profile name"
-msgstr "med mappnamnet:"
+msgstr "Albumnamn:"
 
 #: themes/paradigm/themeoptions.php:161
 #, fuzzy
@@ -34211,7 +34233,7 @@ msgstr ""
 #: themes/spellflight/functions.php:58
 #, fuzzy
 msgid "spellflight image display handling."
-msgstr "Standard bildvisningsstorlek."
+msgstr "Markera för att visa fullstorleksbild med Colorbox"
 
 #: themes/spellflight/pages_Custom1.php:105
 #, fuzzy
@@ -34245,7 +34267,7 @@ msgstr "Visningar: %u"
 #: themes/zenFluid/inc-footer.php:6 themes/zenFluid/inc-sidebar.php:132
 #, fuzzy
 msgid "zenFluid theme designed by "
-msgstr "Temafärger"
+msgstr "*galleritema"
 
 #: themes/zenFluid/inc-sidebar.php:41
 #, fuzzy
@@ -34340,7 +34362,7 @@ msgstr "CAPTCHA font"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the font style."
-msgstr "Formatmallar (.css)"
+msgstr "Teckensnitt för CAPTCHA-tecken."
 
 #: themes/zenFluid/themeoptions.php:101
 #, fuzzy
@@ -34377,7 +34399,7 @@ msgstr "Aktivera om du vill att alla menyuppgifter ska vara stora"
 #, fuzzy
 #| msgid "Include RSS link"
 msgid "Include HOME link"
-msgstr "Inkludera RSS-länk"
+msgstr "Hem"
 
 #: themes/zenFluid/themeoptions.php:130
 #, fuzzy
@@ -34466,7 +34488,7 @@ msgstr "Aktivera detta om du vill att bildtiteln ska visas ovanför bilden"
 #: themes/zenFluid/themeoptions.php:169
 #, fuzzy
 msgid "Transition on new row"
-msgstr "Ny import"
+msgstr "Nytt underalbum"
 
 #: themes/zenFluid/themeoptions.php:173
 #, fuzzy
@@ -34553,7 +34575,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:205
 #, fuzzy
 msgid "Description justification"
-msgstr "Beskrivning:"
+msgstr "Albumbeskrivning:"
 
 #: themes/zenFluid/themeoptions.php:210
 #, fuzzy
@@ -34613,7 +34635,7 @@ msgstr "Välj positionen för knapparna under bilden"
 #, fuzzy
 #| msgid "Comment posted"
 msgid "Comment position"
-msgstr "Kommentar postad"
+msgstr "Lägg till kommentar:"
 
 #: themes/zenFluid/themeoptions.php:246
 #, fuzzy
@@ -34626,7 +34648,7 @@ msgstr "Välj positionen i kommentarfältet när dess bredd är mindre än scene
 #, fuzzy
 #| msgid "pending verification"
 msgid "Menu justification"
-msgstr "Anpassad meny"
+msgstr "Menyhanterare"
 
 #: themes/zenFluid/themeoptions.php:253
 #, fuzzy
@@ -34677,7 +34699,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:273
 #, fuzzy
 msgid "Menu section titles"
-msgstr "Anpassad meny"
+msgstr "Menyhanterare"
 
 #: themes/zenFluid/themeoptions.php:277
 #, fuzzy
@@ -34735,6 +34757,9 @@ msgstr ""
 "Markera denna för att använda <em>menu_manager</em> modulen för att skapa en "
 "anpassad meny istället för fördefinierade. En fördefinierad meny kallad "
 "\"zenpage\" skapas och används automatiskt."
+
+#~ msgid "Select users:"
+#~ msgstr "Välj användare:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "PHP Safe Mode restriktioner är aktiva."

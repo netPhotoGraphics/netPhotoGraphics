@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:13-0700\n"
+"POT-Creation-Date: 2020-05-29 12:58-0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
@@ -94,7 +94,7 @@ msgstr "Forum"
 #: npgCore/admin-functions.php:49 npgCore/setup/setup-functions.php:470
 #, fuzzy
 msgid "Support"
-msgstr "Er is geen PHP Graphics ondersteuning."
+msgstr "Ondersteuning"
 
 #: npgCore/admin-functions.php:50
 msgid "View Change log"
@@ -154,12 +154,18 @@ msgid "close"
 msgstr "sluiten"
 
 #: npgCore/admin-functions.php:282
+#, fuzzy
 msgid ""
 "To move a sub-item out from its list you must drag it out via the bottom of "
 "the list. That is drag it to past the last item in the sub-list then drag it "
 "left and drop it. Then you can move it into to another sub-list. If you are "
 "moving out multiple levels you must repeat the move process for each level."
 msgstr ""
+"Om een subitem uit de lijst te verwijderen, moet u het via de onderkant van "
+"de lijst naar buiten slepen. Dat wil zeggen, sleep het naar het laatste item "
+"in de sublijst en sleep het vervolgens naar links en zet het neer. "
+"Vervolgens kunt u het naar een andere sublijst verplaatsen. Als u meerdere "
+"niveaus verlaat, moet u het verplaatsingsproces voor elk niveau herhalen."
 
 #: npgCore/admin-functions.php:293
 #: npgCore/extensions/cacheManager/cacheImages.php:233
@@ -235,7 +241,7 @@ msgstr "Bekijk galerij index"
 #, fuzzy
 #| msgid "Return to %s"
 msgid "return to top"
-msgstr "Keer terug "
+msgstr "terug naar boven"
 
 #: npgCore/admin-functions.php:392
 msgid "Your Setup scripts are not protected."
@@ -389,7 +395,7 @@ msgstr "Gastgebruiker album(s)"
 #, fuzzy
 #| msgid "repeat password:"
 msgid "repeat password"
-msgstr "Herhaal wachtwoord"
+msgstr "herhaal wachtwoord"
 
 #: npgCore/admin-functions.php:2043
 #, fuzzy
@@ -456,7 +462,7 @@ msgstr "Aflopend"
 #, fuzzy
 #| msgid "custom fields:"
 msgid "custom fields"
-msgstr "database veld(en)"
+msgstr "Aangepaste Velden"
 
 #: npgCore/admin-functions.php:2147 npgCore/admin_options/image.php:258
 #: npgCore/admin_options/search.php:446
@@ -502,7 +508,7 @@ msgstr "*standaard"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "%s thumbnails"
+msgstr "Miniaturen"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -1053,7 +1059,7 @@ msgstr "Selecteer alle"
 #, fuzzy
 #| msgid "News categories"
 msgid "New categories:"
-msgstr "Categorieën"
+msgstr "Nieuw"
 
 #: npgCore/admin-functions.php:4708 npgCore/extensions/zenpage/news.php:270
 #: npgCore/extensions/zenpage/pages.php:176
@@ -1238,7 +1244,7 @@ msgstr "ontwikkeling"
 #, fuzzy
 #| msgid "Simple"
 msgid "example"
-msgstr "Voegt voorbeelden voor macro’s toe."
+msgstr "voorbeeld"
 
 #: npgCore/admin-functions.php:5495
 msgid "mail"
@@ -1273,7 +1279,7 @@ msgstr ""
 #: npgCore/admin-functions.php:5500
 #, fuzzy
 msgid "tools"
-msgstr "Sitemap"
+msgstr "extra"
 
 #: npgCore/admin-functions.php:5501 npgCore/admin-globals.php:177
 msgid "users"
@@ -1335,12 +1341,12 @@ msgstr "Maakt het gebruik van meerdere layouts mogelijk."
 #: npgCore/admin-functions.php:5643
 #, fuzzy
 msgid "CATEGORY"
-msgstr "Categorie"
+msgstr "CATEGORIE"
 
 #: npgCore/admin-functions.php:5644
 #, fuzzy
 msgid "CLASS"
-msgstr "Class"
+msgstr "klasse"
 
 #: npgCore/admin-functions.php:5744 npgCore/extensions/reCAPTCHA_v2.php:63
 #: themes/ardoise/album.php:56 themes/enlighten/image.php:71
@@ -1600,7 +1606,7 @@ msgstr "laatste verandering"
 #: npgCore/admin-globals.php:76
 #, fuzzy
 msgid "Last change date"
-msgstr "laatste verandering(en)"
+msgstr "Datum laatste verandering"
 
 #: npgCore/admin-globals.php:86 npgCore/admin-globals.php:174
 #: npgCore/extensions/accessThreshold.php:109
@@ -1640,7 +1646,7 @@ msgstr "pagina’s"
 #, fuzzy
 #| msgid "files"
 msgid "my profile"
-msgstr "Mijn favorieten"
+msgstr "mijn profiel"
 
 #: npgCore/admin-globals.php:194
 #, fuzzy
@@ -1674,7 +1680,7 @@ msgstr "zoeken"
 #: npgCore/admin-globals.php:222
 #, fuzzy
 msgid "forms"
-msgstr "Reactieformulieren worden getoond op de aangevinkte pagina’s."
+msgstr "formulieren"
 
 #: npgCore/admin-globals.php:224
 msgid "plugin"
@@ -1729,7 +1735,7 @@ msgstr "Sleep de albums in de volgorde waarin je ze wilt tonen."
 #: npgCore/admin_options/search.php:525 npgCore/admin_options/search.php:580
 #, fuzzy
 msgid "descending"
-msgstr "Aflopend"
+msgstr "aflopend"
 
 #: npgCore/admin-tabs/album_edit.php:48
 msgid "Sort subalbums by:"
@@ -1978,7 +1984,7 @@ msgstr "Toon niet-gepubliceerde items."
 #, fuzzy
 #| msgid "Within"
 msgid "within"
-msgstr "binnen"
+msgstr "Op"
 
 #: npgCore/admin-tabs/dynamic-album.php:299
 msgid "tagged"
@@ -1998,11 +2004,16 @@ msgid "Album <em>Tag</em>"
 msgstr "Album <em>Tag</em>"
 
 #: npgCore/admin-tabs/dynamic-album.php:314
+#, fuzzy
 msgid ""
 "This tag will be assigned to each item found by the search. The search "
 "criteria for the album will be exclusively the tag. Thus the contents of "
 "this dynamic album are defined statically at the time of creation."
 msgstr ""
+"Deze tag wordt toegewezen aan elk item dat door de zoekopdracht wordt "
+"gevonden. De zoekcriteria voor het album zijn uitsluitend de tag. De inhoud "
+"van dit dynamische album is dus statisch gedefinieerd op het moment van "
+"creatie."
 
 #: npgCore/admin-tabs/dynamic-album.php:320
 msgid "Search fields:"
@@ -2528,9 +2539,7 @@ msgstr "Ga naar &quot;%s&quot; plugin pagina."
 #, fuzzy
 #| msgid "TinyMCE disabled"
 msgid "Plugin is deprecated"
-msgstr ""
-"<strong>Fout bij het verwerken van de <em>plugin_deprecated</em> string!</"
-"strong>."
+msgstr "Plugin is verouderd"
 
 #: npgCore/admin-tabs/plugins.php:432
 #, fuzzy
@@ -2645,7 +2654,7 @@ msgstr "Tag Beheer"
 #: npgCore/admin-tabs/tags.php:232
 #, fuzzy
 msgid "Order by"
-msgstr "Afbeeldingsvolgorde"
+msgstr "Sorteer op"
 
 #: npgCore/admin-tabs/tags.php:235
 #, fuzzy
@@ -2655,17 +2664,17 @@ msgstr "Alfabetisch"
 #: npgCore/admin-tabs/tags.php:236
 #, fuzzy
 msgid "Most used"
-msgstr "meest gebruikt"
+msgstr "Meest gebruikt"
 
 #: npgCore/admin-tabs/tags.php:237 npgCore/admin_options/general.php:325
 #, fuzzy
 msgid "Language"
-msgstr "Taal:"
+msgstr "Taal"
 
 #: npgCore/admin-tabs/tags.php:238
 #, fuzzy
 msgid "Most recent"
-msgstr "meest recente"
+msgstr "Meest recent"
 
 #: npgCore/admin-tabs/tags.php:239
 #, fuzzy
@@ -2718,7 +2727,7 @@ msgstr "Geselecteerde tags verwijderd"
 #, fuzzy
 #| msgid "Assign"
 msgid "Assign to"
-msgstr "Gebruik dit als je thema"
+msgstr "Toewijzen aan"
 
 #: npgCore/admin-tabs/tags.php:281
 #, fuzzy
@@ -3102,7 +3111,7 @@ msgstr "%s e-mail wordt al gebruikt door een andere gebruiker"
 #, fuzzy, php-format
 #| msgid "Enter a valid email address."
 msgid "%s is not a valid e-mail address."
-msgstr "Je moet een e-mailadres invoeren."
+msgstr "E-mail%s"
 
 #: npgCore/admin-tabs/users.php:171
 #, php-format
@@ -3116,8 +3125,9 @@ msgstr ""
 "Stuurt een e-mail naar een nieuwe gebruiker voor het instellen van een "
 "wachtwoord."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -3125,9 +3135,7 @@ msgstr "Gebruikers"
 #, fuzzy
 #| msgid "files"
 msgid "Profile"
-msgstr ""
-"<strong>Opmerking:</strong> Update je profiel met een geldig <em>e-mail</em> "
-"addres en je ontvangt een link om de toegang tot de site te controleren."
+msgstr "Profiel"
 
 #: npgCore/admin-tabs/users.php:335
 #: npgCore/extensions/user_groups/user_groups-tab.php:170
@@ -3266,7 +3274,7 @@ msgstr "Het beleid voor het gebruik van de site is erkend."
 #: npgCore/admin-tabs/users.php:773
 #, fuzzy
 msgid "Clear"
-msgstr "Leeg de album afbeeldingen-cache"
+msgstr "Wissen"
 
 #: npgCore/admin-tabs/users.php:778
 #, fuzzy
@@ -3277,7 +3285,7 @@ msgstr "Het beleid voor het gebruik van de site is erkend."
 #, fuzzy
 #| msgid "Pet"
 msgid "Set"
-msgstr "Stel de de grootte in van de afbeelding."
+msgstr "Instellen"
 
 #: npgCore/admin-tabs/users.php:831
 msgid "Challenge phrase"
@@ -3470,7 +3478,7 @@ msgstr "Je hebt niet de juiste rechten om toegang te krijgen tot %s."
 #, fuzzy
 #| msgid "Setting permissions (0%o) for netPhotoGraphics package."
 msgid "There is a new version available."
-msgstr "Een nieuwe versie van Zenphoto is beschikbaar."
+msgstr "Er is een nieuwe versie beschikbaar"
 
 #: npgCore/admin.php:328
 #, fuzzy, php-format
@@ -3483,7 +3491,7 @@ msgstr "Versie %s kan worden gedownload via de utility knop."
 #, fuzzy
 #| msgid "Update"
 msgid "Updates"
-msgstr "Beginnen met het updaten van tabellen"
+msgstr "Updates"
 
 #: npgCore/admin.php:336
 #, fuzzy, php-format
@@ -3633,8 +3641,8 @@ msgstr[1] "<strong>%u</strong> reacties"
 #| msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
-msgstr[0] "<strong>%1$u</strong>afbeelding (%2$u niet gepubliceerd)"
-msgstr[1] "<strong>%1$u</strong> albums (%2$u niet gepubliceerd)"
+msgstr[0] "<strong>%1$u</strong> Reacties (%2$u voor goedkeuring)"
+msgstr[1] "<strong>%1$u</strong> Reacties (%2$u voor goedkeuring)"
 
 #: npgCore/admin.php:681
 #, fuzzy, php-format
@@ -3643,7 +3651,7 @@ msgstr[1] "<strong>%1$u</strong> albums (%2$u niet gepubliceerd)"
 msgid "<strong>%u</strong> User"
 msgid_plural "<strong>%u</strong> Users"
 msgstr[0] "<strong>%u</strong> album"
-msgstr[1] "<strong>%u</strong> afbeeldingen"
+msgstr[1] "<strong>%u</strong> album"
 
 #: npgCore/admin.php:698
 #, fuzzy, php-format
@@ -3661,7 +3669,7 @@ msgstr[1] "<strong>%u</strong> albums"
 msgid "<strong>%u</strong> Template"
 msgid_plural "<strong>%u</strong> Templates"
 msgstr[0] "<strong>%u</strong> reacties"
-msgstr[1] "<strong>%u</strong> reacties"
+msgstr[1] "<strong>%u</strong> afbeeldingen"
 
 #: npgCore/admin.php:722
 msgid "Your user rights do not allow access to administrative functions."
@@ -3838,7 +3846,7 @@ msgstr "De titel van de website."
 #, fuzzy
 #| msgid "Website url:"
 msgid "Website url"
-msgstr "Website URL:"
+msgstr "Website URL"
 
 #: npgCore/admin_options/gallery.php:378
 msgid ""
@@ -3851,7 +3859,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Album thumbnails:"
 msgid "Album thumbnails"
-msgstr "Album thumbnails:"
+msgstr "Albumthumbnails"
 
 #: npgCore/admin_options/gallery.php:402
 msgid "Default thumbnail selection for albums."
@@ -4060,7 +4068,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Time zone:"
 msgid "Time zone"
-msgstr "Tijdzone:"
+msgstr "Tijdzone"
 
 #: npgCore/admin_options/general.php:203
 msgid "*not specified"
@@ -4129,7 +4137,7 @@ msgstr "<em> bestandssysteem</em> afbeelding URI's"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "Afbeeldingen:"
+msgstr "Sorteer afbeeldingen op"
 
 #: npgCore/admin_options/general.php:283
 msgid ""
@@ -4261,7 +4269,7 @@ msgstr "Zet op <em>Meertalig</em> aan om meerdere talen mogelijk te maken."
 #, fuzzy
 #| msgid "Date format:"
 msgid "Date format"
-msgstr "Datumweergave:"
+msgstr "Datumweergave"
 
 #: npgCore/admin_options/general.php:426
 msgid "Preferred date representation"
@@ -4447,7 +4455,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Allowed tags:"
 msgid "Allowed tags"
-msgstr "Toegestane HTML tags:"
+msgstr "Toegestane tags"
 
 #: npgCore/admin_options/general.php:527 npgCore/admin_options/theme.php:244
 #: npgCore/admin_options/theme.php:568
@@ -4540,19 +4548,19 @@ msgstr ""
 #: npgCore/admin_options/general.php:603 npgCore/extensions/debug.php:220
 #, fuzzy
 msgid "Cookies"
-msgstr "Cookies:"
+msgstr "Cookies"
 
 #: npgCore/admin_options/general.php:608
 #, fuzzy
 #| msgid "WEB path:"
 msgid "path"
-msgstr "Pad"
+msgstr "pad"
 
 #: npgCore/admin_options/general.php:613
 #, fuzzy
 #| msgid "Duration"
 msgid "duration"
-msgstr "Duration"
+msgstr "Duur"
 
 #: npgCore/admin_options/general.php:623
 msgid "enable gallery sessions"
@@ -4583,7 +4591,7 @@ msgid ""
 "com/php/php_sessions.asp\">PHP sessions</a> will be used instead of cookies "
 "to make visitor settings persistent."
 msgstr ""
-"Als deze optie is geactiveerd zal ZenPhoto20 <a href=\"http://www.w3schools."
+"Als deze optie is geactiveerd zal Zenphoto <a href=\"http://www.w3schools."
 "com/php/php_sessions.asp\">PHP sessies</a> gebruiken in plaats van cookies "
 "om gebruikers-instellingen te behouden."
 
@@ -4630,7 +4638,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration"
-msgstr "Gebruikers registratiepagina"
+msgstr "Registratie"
 
 #: npgCore/admin_options/general.php:672
 #, fuzzy
@@ -4685,7 +4693,7 @@ msgstr "Thumbnails per pagina"
 #, fuzzy
 #| msgid "Articles per page:"
 msgid "articles per page"
-msgstr "Artikelen per pagina"
+msgstr "Artikelen per pagina:"
 
 #: npgCore/admin_options/general.php:748
 msgid ""
@@ -4703,9 +4711,7 @@ msgstr "Vink aan om het zoekveld te tonen."
 #: npgCore/admin_options/general.php:760
 #, fuzzy
 msgid "ignore"
-msgstr ""
-"Als je het wachtwoord niet wilt resetten kunt je dit bericht negeren. Het "
-"ticket zal automatisch over 3 dagen verlopen."
+msgstr "negeren"
 
 #: npgCore/admin_options/general.php:764
 #, fuzzy
@@ -4805,7 +4811,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Image quality:"
 msgid "Image quality"
-msgstr "Afbeeldingskwaliteit:"
+msgstr "Foto kwaliteit"
 
 #: npgCore/admin_options/image.php:332
 #, fuzzy
@@ -4838,7 +4844,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Interlace:"
 msgid "Interlace"
-msgstr "Interlace:"
+msgstr "Interlace"
 
 #: npgCore/admin_options/image.php:358
 msgid ""
@@ -4872,7 +4878,7 @@ msgstr "De PHP EXIF extensie is vereist voor deze optie."
 #, fuzzy
 #| msgid "Allow upscale:"
 msgid "Allow upscale"
-msgstr "Vergroten toestaan:"
+msgstr "vergroten toestaan"
 
 #: npgCore/admin_options/image.php:404
 msgid ""
@@ -4886,19 +4892,19 @@ msgstr ""
 #, fuzzy
 #| msgid "Sharpen:"
 msgid "Sharpen"
-msgstr "Verscherp:"
+msgstr "Verscherpen"
 
 #: npgCore/admin_options/image.php:419 themes/bootstrap/inc_header.php:161
 #, fuzzy
 #| msgid "thumbnail"
 msgid "thumbnails"
-msgstr "%s thumbnails"
+msgstr "miniaturen"
 
 #: npgCore/admin_options/image.php:423
 #, fuzzy
 #| msgid "Amount"
 msgid "amount"
-msgstr "Hoeveelheid"
+msgstr "bedrag"
 
 #: npgCore/admin_options/image.php:427
 msgid "Radius"
@@ -4947,7 +4953,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Watermarks:"
 msgid "Watermarks"
-msgstr "Watermerken:"
+msgstr "Watermerk"
 
 #: npgCore/admin_options/image.php:466
 #, fuzzy
@@ -5040,7 +5046,7 @@ msgstr "Gelijktijdig cashen:"
 #: npgCore/admin_options/image.php:543
 #, fuzzy
 msgid "limit"
-msgstr "Standaard uploadlimiet in kilobytes."
+msgstr "limiet"
 
 #: npgCore/admin_options/image.php:550
 #, fuzzy
@@ -5065,7 +5071,7 @@ msgstr "Cache als:"
 #, fuzzy
 #| msgid "Original"
 msgid "original"
-msgstr "Origineel"
+msgstr "origineel"
 
 #: npgCore/admin_options/image.php:578
 msgid ""
@@ -5144,13 +5150,13 @@ msgstr "Cache de volledige afbeelding"
 #, fuzzy
 #| msgid "password:"
 msgid "password"
-msgstr "Wachtwoord"
+msgstr "wachtwoord"
 
 #: npgCore/admin_options/image.php:716
 #, fuzzy
 #| msgid "hint:"
 msgid "hint"
-msgstr "hint:"
+msgstr "hint"
 
 #: npgCore/admin_options/image.php:730
 msgid "Protected view"
@@ -5508,19 +5514,17 @@ msgstr "tags"
 #: npgCore/admin_options/search.php:286
 #, fuzzy
 msgid "off"
-msgstr "Uit"
+msgstr "uit"
 
 #: npgCore/admin_options/search.php:289
 #, fuzzy
 msgid "generic"
-msgstr "Gebruikers met deze rechten kunnen beschermde pagina’s bekijken."
+msgstr "generiek"
 
 #: npgCore/admin_options/search.php:292
 #, fuzzy
 msgid "specific"
-msgstr ""
-"Zie ook de <a href=\"?tab=theme\">thema opties</a> tab voor de thema-"
-"specifieke afbeeldings opties."
+msgstr "specifiek"
 
 #: npgCore/admin_options/search.php:297
 #, fuzzy
@@ -5721,7 +5725,7 @@ msgstr "Sorteer artikelen op"
 #, fuzzy
 #| msgid "Image order"
 msgid "Page order"
-msgstr "Afbeeldingsvolgorde"
+msgstr "Paginavolgorde"
 
 #: npgCore/admin_options/search.php:558
 #, fuzzy
@@ -5811,8 +5815,7 @@ msgstr "Log in."
 #, fuzzy
 #| msgid "Debug"
 msgid "Debug log"
-msgstr ""
-"Zenphoto heeft een 404 fout verwerkt in %s. Zie het debug log voor details."
+msgstr "Debug log"
 
 #: npgCore/admin_options/security.php:164
 #, fuzzy
@@ -5956,7 +5959,7 @@ msgstr "Op afbeeldingspagina’s komen er  %1$u rijen thumbnails."
 #, fuzzy
 #| msgid "Transition:"
 msgid "Transition"
-msgstr "Overgang:"
+msgstr "Overgang"
 
 #: npgCore/admin_options/theme.php:368
 msgid "separate"
@@ -5983,10 +5986,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
-msgstr ""
-"Aangespaste thumbnail: formaat langste zijde / (uitsnede breedte x uitsnede "
-"hoogte). Je kunt hiervoor standaard waarden instellen in de TinyMCE plugin "
-"opties."
+msgstr "Afmeting thumbnail"
 
 #: npgCore/admin_options/theme.php:406
 #, php-format
@@ -5997,7 +5997,7 @@ msgstr "De standaard thumbnail wordt geschaald naar %u pixels."
 #, fuzzy
 #| msgid "Crop thumbnails:"
 msgid "Crop thumbnails"
-msgstr "Crop thumbnails:"
+msgstr "Thumbnails bijsnijden"
 
 #: npgCore/admin_options/theme.php:425
 #, php-format
@@ -6085,7 +6085,7 @@ msgstr "geactiveerd"
 #, fuzzy
 #| msgid "separate"
 msgid "separator"
-msgstr "separator"
+msgstr "scheidingsteken, scheidingsbalk"
 
 #: npgCore/admin_options/theme.php:543
 #, fuzzy
@@ -6227,9 +6227,7 @@ msgstr "Akkoord"
 #, fuzzy
 #| msgid "Usage info"
 msgid "More info"
-msgstr ""
-"Zie <a href='http://jplayer.org'>jplayer.org</a> voor meer info over de "
-"player en de licentie. "
+msgstr "Meer info"
 
 #: npgCore/allTranslations.php:65
 #, fuzzy
@@ -6560,7 +6558,7 @@ msgstr "Trefwoorden"
 #: npgCore/class-image.php:218 npgCore/extensions/xmpMetadata.php:626
 #, fuzzy
 msgid "Exposure time"
-msgstr "Overbelicht"
+msgstr "Duur van de blootstelling"
 
 #: npgCore/class-image.php:219 npgCore/extensions/xmpMetadata.php:642
 msgid "Shutter Speed"
@@ -6751,7 +6749,7 @@ msgstr "Zoekvelden:"
 #, fuzzy
 #| msgid "Objects"
 msgid "Object"
-msgstr "<strong>Ontbrekend object</strong> "
+msgstr "Object"
 
 #: npgCore/classes.php:476
 #, fuzzy, php-format
@@ -6807,7 +6805,7 @@ msgstr "1st curtain sync"
 #: npgCore/exif/exifTranslations.php:27
 #, fuzzy
 msgid "Mirrored"
-msgstr "2: Gespiegeld"
+msgstr "Gespiegeld"
 
 #: npgCore/exif/exifTranslations.php:28
 msgid "2nd(rear)-curtain sync used"
@@ -6820,7 +6818,7 @@ msgstr "3-gebieds-focus (Hoge snelheid)"
 #: npgCore/exif/exifTranslations.php:30
 #, fuzzy
 msgid "Upside-down"
-msgstr "3: Ondersteboven"
+msgstr "Ondersteboven"
 
 #: npgCore/exif/exifTranslations.php:31
 #, fuzzy
@@ -7761,7 +7759,7 @@ msgstr "Controleer het gebruiksbeleid van de site."
 #, fuzzy
 #| msgid "Continuous"
 msgid "Continue to site"
-msgstr "ga door!"
+msgstr "Doorgaan naar site"
 
 #: npgCore/extensions/GDPR_required.php:178
 #, fuzzy
@@ -7840,8 +7838,11 @@ msgid "LDAP reader ou"
 msgstr "Album gebruiker"
 
 #: npgCore/extensions/LDAP_auth.php:70
+#, fuzzy
 msgid "Organizational Unit where the LDAP reader user credentials are stored"
 msgstr ""
+"Organisatie-eenheid waar de gebruikersreferenties van de LDAP-lezer worden "
+"opgeslagen"
 
 #: npgCore/extensions/LDAP_auth.php:71
 #, fuzzy
@@ -7856,7 +7857,7 @@ msgstr "Gebruikers ID is al in gebruik."
 #: npgCore/extensions/LDAP_auth.php:74
 #, fuzzy
 msgid "LDAP reader password"
-msgstr "Albumwachtwoord:"
+msgstr "Wachtwoord:"
 
 #: npgCore/extensions/LDAP_auth.php:76
 #, fuzzy
@@ -7889,15 +7890,17 @@ msgstr "Toegewezen groep: %s"
 #: npgCore/extensions/LDAP_auth.php:83
 #, fuzzy
 msgid "Member"
-msgstr "POP poortnummer."
+msgstr "Lid"
 
 #: npgCore/extensions/LDAP_auth.php:83
+#, fuzzy
 msgid "Member Uid"
-msgstr ""
+msgstr "Lid Uid"
 
 #: npgCore/extensions/LDAP_auth.php:85
+#, fuzzy
 msgid "How users are mapped to LDAP groups."
-msgstr ""
+msgstr "Hoe gebruikers worden toegewezen aan LDAP-groepen."
 
 #: npgCore/extensions/LDAP_auth.php:86
 #, fuzzy
@@ -7905,10 +7908,13 @@ msgid "LDAP Group ou"
 msgstr "geen groep"
 
 #: npgCore/extensions/LDAP_auth.php:88
+#, fuzzy
 msgid ""
 "Comma separated list of Organizational Units where Group Membership is "
 "stored."
 msgstr ""
+"Door komma's gescheiden lijst van organisatie-eenheden waar het "
+"groepslidmaatschap is opgeslagen."
 
 #: npgCore/extensions/LDAP_auth.php:93
 #, fuzzy
@@ -7934,7 +7940,7 @@ msgstr "geen groep"
 #: npgCore/extensions/LDAP_auth/LDAP auth.php:221
 #, fuzzy
 msgid "Could not connect to LDAP server."
-msgstr "Kon niet omleiden naar de server: %s"
+msgstr "Er kon geen verbinding gemaakt worden met de LDAP server."
 
 #: npgCore/extensions/PHPMailer.php:15
 #, fuzzy
@@ -7986,8 +7992,9 @@ msgid "TLS"
 msgstr "TLS"
 
 #: npgCore/extensions/PHPMailer.php:64
+#, fuzzy
 msgid "Encryption to use on the SMTP connection."
-msgstr ""
+msgstr "Versleuteling voor gebruik op de SMTP-verbinding."
 
 #: npgCore/extensions/PHPMailer.php:65
 msgid "Mail user"
@@ -8189,7 +8196,7 @@ msgstr "Verhouding lengte/breedte"
 #: npgCore/extensions/VideoJS.php:99
 #, fuzzy
 msgid "Widescreen"
-msgstr "Aflopend"
+msgstr "Breedbeeld"
 
 #: npgCore/extensions/VideoJS.php:101
 #, fuzzy
@@ -8210,9 +8217,7 @@ msgstr "Tools om denial of service aanvallen te blokkeren."
 #: npgCore/extensions/accessThreshold.php:46
 #, fuzzy
 msgid "Memory"
-msgstr ""
-"Meer processen maken dat het cashen sneller gaat zolang de server genoeg "
-"geheugen heeft."
+msgstr "Geheugen"
 
 #: npgCore/extensions/accessThreshold.php:48
 #, fuzzy
@@ -8231,9 +8236,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:52
 #, fuzzy
 msgid "Window"
-msgstr ""
-"Het venster sluit niet automatisch. Je kunt dus meerdere afbeeldingen achter "
-"elkaar invoegen."
+msgstr "Raam"
 
 #: npgCore/extensions/accessThreshold.php:54
 #, fuzzy
@@ -8247,7 +8250,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:55
 #, fuzzy
 msgid "Mask"
-msgstr "Voeg verscherping toe aan afbeeldingen en/of thumbnails."
+msgstr "Sjabloon"
 
 #: npgCore/extensions/accessThreshold.php:57
 #, fuzzy
@@ -8268,7 +8271,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:61
 #, fuzzy
 msgid "Limit"
-msgstr "Standaard uploadlimiet in kilobytes."
+msgstr "Limiet"
 
 #: npgCore/extensions/accessThreshold.php:63
 #, fuzzy, php-format
@@ -8281,11 +8284,13 @@ msgid "Requests from this IP will be ignored."
 msgstr "Blokkeer reacties van deze IP-adressen."
 
 #: npgCore/extensions/accessThreshold.php:66
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If your IP address is dynamically assigned you may need to update this on a "
 "regular basis."
 msgstr ""
+"Als uw IP-adres dynamisch wordt toegewezen, moet u dit mogelijk regelmatig "
+"bijwerken."
 
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
@@ -8293,16 +8298,18 @@ msgid "Mointor only"
 msgstr "Alleen ikonen"
 
 #: npgCore/extensions/accessThreshold.php:69
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "It this box is checked, data will be collected but visitors will not be "
 "blocked."
 msgstr ""
+"Als dit vakje is aangevinkt, worden er gegevens verzameld, maar worden "
+"bezoekers niet geblokkeerd."
 
 #: npgCore/extensions/accessThreshold.php:70
 #, fuzzy
 msgid "Clear list"
-msgstr "Maak leeg"
+msgstr "Lijst leegmaken"
 
 #: npgCore/extensions/accessThreshold.php:72
 #, fuzzy
@@ -8312,7 +8319,7 @@ msgstr "Maak leeg"
 #: npgCore/extensions/accessThreshold.php:108
 #, fuzzy
 msgid "access"
-msgstr "Geen toegang"
+msgstr "toegang"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:78
 #, fuzzy
@@ -8364,12 +8371,12 @@ msgstr "Geen toegang"
 #: npgCore/extensions/accessThreshold/admin_tab.php:146
 #, fuzzy
 msgid "Sort by:"
-msgstr "Sorteer afbeeldingen"
+msgstr "Sorteer op:"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:148
 #, fuzzy
 msgid "interval"
-msgstr "Interval"
+msgstr "interval"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:149
 #: npgCore/extensions/flag_thumbnail.php:69
@@ -8381,17 +8388,17 @@ msgstr "datum"
 #: npgCore/extensions/accessThreshold/admin_tab.php:150
 #, fuzzy
 msgid "ip"
-msgstr "IP:"
+msgstr "ip"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:150
 #, fuzzy
 msgid "IP"
-msgstr "IP:"
+msgstr "IP"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:151
 #, fuzzy
 msgid "blocked"
-msgstr "Geblokkeerd"
+msgstr "geblokkeerd"
 
 #: npgCore/extensions/admin-approval.php:14
 msgid ""
@@ -9344,7 +9351,7 @@ msgstr "Je browser ondersteund dit audioformat niet."
 #, fuzzy
 #| msgid "Your server does not support symbolic linking."
 msgid "Your browser does not support the video tag"
-msgstr "Je browser ondersteund dit videoformat niet."
+msgstr "Uw browser biedt geen video-ondersteuning"
 
 #: npgCore/extensions/class-video.php:464
 #, fuzzy
@@ -9877,7 +9884,7 @@ msgstr "Datum / Tijd:"
 #, fuzzy
 #| msgid "ID"
 msgid "ID:"
-msgstr "ID"
+msgstr "ID:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:174
 msgid "Street:"
@@ -9997,7 +10004,7 @@ msgstr "<strong>Ontbrekend object</strong> "
 #: npgCore/extensions/comment_form/admin-comments.php:404
 #, fuzzy
 msgid "article"
-msgstr "Artikel"
+msgstr "artikel"
 
 #: npgCore/extensions/comment_form/admin-comments.php:412
 #: themes/effervescence+/functions.php:379
@@ -10267,25 +10274,19 @@ msgstr "Er is een reactie op de afbeelding  “%1$s” in het album “%2$s”."
 #, fuzzy, php-format
 #| msgid "Author:"
 msgid "Author: %1$s"
-msgstr ""
-"Auteur: %1$s\n"
-"E-mail: %2$s\n"
-"Website: %3$s\n"
-"Reactie:\n"
-"\n"
-"%4$s"
+msgstr "Auteur: %1$s"
 
 #: npgCore/extensions/comment_form/functions.php:479
 #, fuzzy, php-format
 #| msgid "Email:"
 msgid "Email: %1$s"
-msgstr "E-mail"
+msgstr "E-mail: %1$s"
 
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
 #| msgid "Website%s"
 msgid "Website: %1$s"
-msgstr "Website<strong>%s</strong>:"
+msgstr "Website: %1$s"
 
 #: npgCore/extensions/comment_form/functions.php:486
 #: npgCore/utilities/database_reference.php:195
@@ -10308,7 +10309,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Edit this comment"
 msgid "Edit the comment"
-msgstr "Bewerk deze reactie."
+msgstr "Bewerk de reactie"
 
 #: npgCore/extensions/comment_form/functions.php:523
 #: plugins/commentNotice.php:91
@@ -10323,7 +10324,7 @@ msgstr "Reactie gepost op onbekende pagina!"
 #, fuzzy
 #| msgid "Anonymous"
 msgid "anonymous "
-msgstr "Anoniem"
+msgstr "anoniem"
 
 #: npgCore/extensions/comment_form/functions.php:954
 #: npgCore/extensions/comment_form/functions.php:961
@@ -10980,7 +10981,7 @@ msgstr "Watermerk:"
 #: npgCore/extensions/crop_image.php:463
 #, fuzzy
 msgid "Done"
-msgstr "Klaar met het aanmaken van de tabellen!"
+msgstr "Klaar"
 
 #: npgCore/extensions/daily-summary.php:31
 #, fuzzy
@@ -11004,7 +11005,7 @@ msgstr "Hoeveel dagen terug om te laten zien."
 #, fuzzy
 #| msgid "Users per page:"
 msgid "Items per page"
-msgstr "Thumbnails per pagina"
+msgstr "Items per pagina"
 
 #: npgCore/extensions/daily-summary.php:80
 #, fuzzy
@@ -11051,14 +11052,14 @@ msgstr[1] "Er is één afbeelding geüpload in de laatste %1$s dagen."
 #, fuzzy, php-format
 #| msgid "Title%s"
 msgid "Title: %s"
-msgstr "Titel%s"
+msgstr "Titel: %s"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:31
 #: plugins/daily-summary/daily-summary_content.php:32
 #, fuzzy, php-format
 #| msgid "Description"
 msgid "Description: %s"
-msgstr "Beschrijving"
+msgstr "Beschrijving: <ph id=\"mtc_1\" equiv-text=\"base64:JXM=\"/>"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:32
 #: plugins/daily-summary/daily-summary_content.php:33
@@ -11086,7 +11087,7 @@ msgstr "Te veel URL’s"
 #, fuzzy
 #| msgid "Link text"
 msgid "Link: "
-msgstr "Geen link"
+msgstr "Link:"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:40
 #: plugins/daily-summary/daily-summary_content.php:41
@@ -11142,7 +11143,7 @@ msgstr[1] "Er is geen activiteit geweest in de afgelopen dagen."
 #, fuzzy, php-format
 msgid "%1$s - 1 new photo"
 msgid_plural "%1$s - %2$s new photos"
-msgstr[0] "Nieuw album: %1$s"
+msgstr[0] "Foto %1$u van %2$u"
 msgstr[1] "Nieuwe afbeelding: [%2$s]%1$s"
 
 #: npgCore/extensions/daily-summary/dailysummary-template-functions.php:60
@@ -11389,17 +11390,17 @@ msgstr "Locale vertalingen"
 #: npgCore/extensions/debug.php:215
 #, fuzzy
 msgid "Session"
-msgstr "<code>SQL mode</code> [SET SESSION mislukt]"
+msgstr "Sessie"
 
 #: npgCore/extensions/debug.php:216
 #, fuzzy
 msgid "SERVER"
-msgstr "Server datum: %s"
+msgstr "SERVER"
 
 #: npgCore/extensions/debug.php:217
 #, fuzzy
 msgid "ENV"
-msgstr "ENV"
+msgstr "Milieu"
 
 #: npgCore/extensions/debug.php:219
 #, fuzzy
@@ -11410,7 +11411,7 @@ msgstr "HTTP Accept Language"
 #, fuzzy
 #| msgid "Filter"
 msgid "filters"
-msgstr "%u actieve filters:"
+msgstr "filters"
 
 #: npgCore/extensions/debug/admin_tab.php:43
 msgid "Your PHP configuration information."
@@ -11613,7 +11614,7 @@ msgstr "functie"
 #: npgCore/extensions/deprecated-functions/class.php:149
 #, fuzzy, php-format
 msgid "theme %1$s:%2$s"
-msgstr "%1$s::%2$s niet gevonden."
+msgstr "%1$s: afbeelding %2$s"
 
 #: npgCore/extensions/deprecated-functions/class.php:152
 #, fuzzy, php-format
@@ -12016,7 +12017,7 @@ msgstr ""
 #: npgCore/extensions/dynamic-locale.php:222
 #, fuzzy
 msgid "subdomain"
-msgstr "Hoofddomein voor het volgen van subdomeinen."
+msgstr "subdomein"
 
 #: npgCore/extensions/dynamic-locale.php:222
 #: npgCore/extensions/dynamic-locale.php:224
@@ -12123,7 +12124,7 @@ msgstr "bestanden"
 #: npgCore/extensions/elFinder/filemanager.php:18
 #, fuzzy
 msgid "Theme Manager"
-msgstr "Cache manager"
+msgstr "Themabeheerder"
 
 #: npgCore/extensions/elFinder/filemanager.php:21
 msgid "File Manager"
@@ -12203,7 +12204,7 @@ msgstr "De mogelijkheid om hiervan gebruik te maken verloopt na 3 dagen."
 #, fuzzy
 #| msgid "Date Created"
 msgid "User created"
-msgstr "Nieuwe Zenphoto gebruiker"
+msgstr "Gebruiker aangemaakt"
 
 #: npgCore/extensions/email-newuser.php:42
 msgid "New users will be mailed a password set link"
@@ -12481,7 +12482,7 @@ msgstr "PHP <code>cURL</code> ondersteuning"
 #: npgCore/extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "HERE - App id"
+msgstr "App ID"
 
 #: npgCore/extensions/facebookLogin.php:66
 #, fuzzy
@@ -12493,7 +12494,7 @@ msgstr "Dit is je Facebook <em>App ID</em>."
 #, fuzzy
 #| msgid "Secret"
 msgid "App Secret"
-msgstr "Secret"
+msgstr "App Secret"
 
 #: npgCore/extensions/facebookLogin.php:69
 #, fuzzy
@@ -12523,7 +12524,7 @@ msgstr "Favorieten"
 #: npgCore/extensions/favoritesAlbums/admin-album.php:94
 #, fuzzy
 msgid "favorite"
-msgstr "Wie is je favoriete zanger?"
+msgstr "favoriet"
 
 #: npgCore/extensions/favoritesHandler.php:48
 msgid "Support for <em>favorites</em> handling."
@@ -12601,7 +12602,7 @@ msgstr "Gebruiker"
 #: npgCore/extensions/favoritesHandler.php:272
 #, fuzzy
 msgid "instance"
-msgstr ".svn [%s instance]"
+msgstr "instantie"
 
 #: npgCore/extensions/favoritesHandler.php:294 themes/mobile/functions.php:127
 #: themes/npgmobile/functions.php:105
@@ -12851,7 +12852,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View %s"
 msgid "View %1$s"
-msgstr "Album %s bekijken"
+msgstr "Bekijk %1$s"
 
 #: npgCore/extensions/galleryArticles.php:241
 #, fuzzy
@@ -12879,7 +12880,7 @@ msgstr "Verwerkt het inloggen via de <em>Google</em> account van de gebruiker."
 #: npgCore/extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "laatste volgens ID"
+msgstr "OAuth-client-id"
 
 #: npgCore/extensions/googleLogin.php:68
 #, fuzzy
@@ -13129,7 +13130,7 @@ msgstr "Verisign verificatie"
 #, fuzzy
 #| msgid "User name"
 msgid "Issuer name"
-msgstr "een naam"
+msgstr "Naam van emittent"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13166,7 +13167,7 @@ msgstr "Secret"
 #, fuzzy
 #| msgid "OpenID Authentication"
 msgid "Two Factor Authentication"
-msgstr "Verisign verificatie"
+msgstr "Twee factor identificatie"
 
 #: npgCore/extensions/googleTFA.php:137
 #, fuzzy
@@ -13222,7 +13223,7 @@ msgstr "De PHP EXIF extensie is vereist voor deze optie."
 #, fuzzy
 #| msgid "Truncate titles*"
 msgid "Translate Title"
-msgstr "Vertaal deze pagina"
+msgstr "Vertalen van de titel"
 
 #: npgCore/extensions/googleTranslate.php:121
 #: npgCore/extensions/googleTranslate.php:135
@@ -13480,7 +13481,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Album date"
 msgid "Album page"
-msgstr "Vink aan om een “tag cloud” mogelijk te maken op de album pagina."
+msgstr "Fotoalbum pagina"
 
 #: npgCore/extensions/html_meta_tags.php:245 npgCore/template-functions.php:499
 #: themes/mobile/archive.php:29 themes/npgmobile/archive.php:33
@@ -13567,7 +13568,7 @@ msgstr ""
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "laatste volgens ID"
+msgstr "Client ID"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -13578,7 +13579,7 @@ msgstr "Dit is uw Instagram <em>Client ID</em>."
 #, fuzzy
 #| msgid "Secret"
 msgid "Client Secret"
-msgstr "Secret"
+msgstr "Client Secret"
 
 #: npgCore/extensions/instagramLogin.php:69
 #, fuzzy
@@ -13628,7 +13629,7 @@ msgid ""
 msgstr ""
 "Importeer een externe lijst met IP-adressen. <p class=\"notebox"
 "\"><strong>OPMERKING:</strong> Als deze lijst erg groot is kan het zijn dat "
-"ZenPhoto20 en %s niet genoeg capaciteit hebben om deze te verwerken."
+"Zenphoto en %s niet genoeg capaciteit hebben om deze te verwerken."
 
 #: npgCore/extensions/ipBlocker.php:102
 msgid "How the plugin will interpret the IP list."
@@ -13676,7 +13677,7 @@ msgstr "Fout in de syntax van het IP-adres."
 #: npgCore/extensions/ipBlocker.php:319
 #, fuzzy
 msgid "Suspended"
-msgstr "RSS gestopt"
+msgstr "Opgeschort"
 
 #: npgCore/extensions/jCarousel_thumb_nav.php:12
 msgid ""
@@ -14147,31 +14148,36 @@ msgstr ""
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Content tracking"
-msgstr "Inhoud"
+msgstr "Volg inhoud"
 
 #: npgCore/extensions/matomo.php:97
 #, fuzzy
 msgid "Track all content"
-msgstr "Taal om te volgen"
+msgstr "Volg alle inhoud"
 
 #: npgCore/extensions/matomo.php:98
 #, fuzzy
 msgid "Track visible content only"
-msgstr "Video artiest"
+msgstr "Volg alleen zichtbare inhoud"
 
 #: npgCore/extensions/matomo.php:99
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Disable content tracking"
-msgstr "Inhoud"
+msgstr "Volgen inhoud uitzetten"
 
 #: npgCore/extensions/matomo.php:102
+#, fuzzy
 msgid ""
 "Controls if you want Matomo to track content interaction (e.g. link clicks). "
 "Your theme/plugins/site will require specific HTML markup for this to work. "
 "Read more about it on <a href=\"https://developer.matomo.org/guides/content-"
 "tracking\">Content tracking</a>."
 msgstr ""
+"Bepaalt of en hoe je wilt dat Matomo interactie met inhoud volgt (b.v. het "
+"klikken van links). Je thema/plugins/website hebben hiervoor specifieke HTML "
+"opmaak nodig. Lees meer hierover op <a href=“https://developer.matomo.org/"
+"guides/content-tracking”>Content tracking</a>."
 
 #: npgCore/extensions/matomo.php:103
 #, fuzzy
@@ -14256,13 +14262,13 @@ msgstr ""
 #, fuzzy
 #| msgid "required"
 msgid "Not required"
-msgstr "verplicht"
+msgstr "Niet verplicht"
 
 #: npgCore/extensions/matomo.php:132
 #, fuzzy
 #| msgid "Require"
 msgid "Required"
-msgstr "verplicht"
+msgstr "Verplicht"
 
 #: npgCore/extensions/matomo.php:133
 #, fuzzy
@@ -14417,7 +14423,7 @@ msgstr "createMenuIfNotExists onderdeel %s heeft een lege link."
 #, fuzzy, php-format
 #| msgid "createMenuIfNotExists item %s has an empty title."
 msgid "createMenu item %s has an empty title."
-msgstr "createMenuIfNotExists onderdeel %s heeft een lege titel of link."
+msgstr "createMenuIfNotExists onderdeel %s heeft een lege titel."
 
 #: npgCore/extensions/menu_manager.php:1024
 #: npgCore/extensions/menu_manager.php:1054
@@ -14484,7 +14490,7 @@ msgstr "Doel bestaat niet in het <em>%1$s</em> thema."
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:412
 #, fuzzy
 msgid "Target does not exist"
-msgstr "Reactie bestaat niet."
+msgstr "Groep %s bestaat niet."
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:88
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:415
@@ -14535,7 +14541,7 @@ msgstr "Album menu-onderdeel <em>%s</em> toegevoegd"
 #, fuzzy, php-format
 #| msgid "Custom page menu item <em>%s</em> added"
 msgid "Home page menu item <em>%s</em> added"
-msgstr "Eigen pagina menu-onderdeel <em>%s</em> toegevoegd"
+msgstr "Homepage menu-onderdeel <em>%s</em> toegevoegd"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:524
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:554
@@ -14807,7 +14813,7 @@ msgstr "Index"
 #, fuzzy
 #| msgid "This is the normal zenphoto gallery Index page."
 msgid "This is the site Index page."
-msgstr "Nieuws op index  pagina"
+msgstr "Pas dit effect toe op de afbeelding van de index pagina."
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:71
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:276
@@ -14923,7 +14929,7 @@ msgstr ""
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:164
 #, fuzzy
 msgid "Link Attributes"
-msgstr "Geen link"
+msgstr "Link attributen"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:160
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:290
@@ -15009,7 +15015,7 @@ msgstr "Menu <em>%s</em>"
 #, fuzzy
 #| msgid "Type:"
 msgid "Type"
-msgstr "Type:"
+msgstr "Type"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:375
 msgid "Include <em>&lt;LI&gt;</em> element"
@@ -15026,7 +15032,7 @@ msgstr "Class"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:421
 #, fuzzy
 msgid "Target does not exist."
-msgstr "Reactie bestaat niet."
+msgstr "Groep %s bestaat niet."
 
 #: npgCore/extensions/mergedRSS.php:19
 msgid "Merges several RSS feeds into one."
@@ -15311,7 +15317,7 @@ msgstr "Marker popups"
 #, fuzzy
 #| msgid "thumb"
 msgid "Thumb"
-msgstr "thumbnail"
+msgstr "Thumbnail"
 
 #: npgCore/extensions/openstreetmap.php:138
 #, fuzzy
@@ -15535,7 +15541,7 @@ msgstr "Stel in als thumbnail voor:"
 #: npgCore/extensions/optionalObjectFields.php:110
 #, fuzzy
 msgid "Image watermark"
-msgstr "Watermerk:"
+msgstr "Afbeeldingswatermerk"
 
 #: npgCore/extensions/optionalObjectFields.php:162
 msgid "Credit"
@@ -15557,10 +15563,7 @@ msgstr "Verwijder tags van artikelen"
 #: npgCore/extensions/optionalObjectFields.php:244
 #, fuzzy
 msgid "Extra Content"
-msgstr ""
-"De Content macros gebruikt worden om netPhotoGraphics items in te voegen in "
-"<em>beschrijvingen</em>, <em>zenpage content</em>, en <em>zenpage extra "
-"content</em>. Vervang parameters (<em>%d</em>) door de gewenste waarden. "
+msgstr "Extra content"
 
 #: npgCore/extensions/optionalObjectFields.php:421
 msgid "thumb"
@@ -15579,7 +15582,7 @@ msgstr "Er zijn geen tags toegewezen."
 #: npgCore/extensions/optionalObjectFields.php:476
 #, fuzzy
 msgid "Add"
-msgstr "voeg toe"
+msgstr "Toevoegen"
 
 #: npgCore/extensions/optionalObjectFields.php:524
 #, fuzzy
@@ -15729,42 +15732,51 @@ msgstr ""
 "Leaflet JS) voor afbeeldingen met geodata."
 
 #: npgCore/extensions/panorama.php:41
+#, fuzzy
 msgid ""
 "Panoramic images can be quite large which may cause issues. Please review "
 "the note in the plugin usage information."
 msgstr ""
+"Panoramische afbeeldingen kunnen behoorlijk groot zijn, wat problemen kan "
+"veroorzaken. Lees de opmerking in de gebruiksinformatie van de plug-in."
 
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
 #| msgid "Max height"
 msgid "Panorama height"
-msgstr "Mini-map: hoogte"
+msgstr "hoogte ="
 
 #: npgCore/extensions/panorama.php:61
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "The image will be resized so that its <span style=\"color:blue\">%1$s</span> "
 "pixels high when displayed. The image width will be scaled proportionately."
 msgstr ""
+"De afbeelding wordt verkleind zodat de <span style=\"color:blue\">%1$s</"
+"span> pixels hoog zijn wanneer ze worden weergegeven. De afbeeldingsbreedte "
+"wordt proportioneel geschaald."
 
 #: npgCore/extensions/panorama.php:62
 #, fuzzy
 #| msgid "Image Caption"
 msgid "Start position"
-msgstr "Positie:"
+msgstr "Start positie"
 
 #: npgCore/extensions/panorama.php:65
+#, fuzzy
 msgid "Indicate the start position of the panorama by positioning the slider."
 msgstr ""
+"Geef de startpositie van het panorama aan door de schuifregelaar te "
+"positioneren."
 
 #: npgCore/extensions/panorama.php:66
 #, fuzzy
 #| msgid "Minimum items"
 msgid "Minimum overflow"
-msgstr "Minimale zoom"
+msgstr "Minimum aantal onderdelen"
 
 #: npgCore/extensions/panorama.php:68
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "The excess width the panorama must have, in pixels, before the image is "
 "considered panoramic. In other words, this option allows the image's "
@@ -15772,25 +15784,28 @@ msgid ""
 "blue\">%1$s</span> pixels before the image is panned. Nobody wants a "
 "panorama that can barely be panned, right?"
 msgstr ""
+"De overmaat die het panorama moet hebben, in pixels, voordat de afbeelding "
+"als panoramisch wordt beschouwd. Met andere woorden, met deze optie kan de "
+"berekende breedte van de afbeelding die van de bovenliggende container <span "
+"style=\"color:blue\">%1$s</span> pixels overschrijden voordat de afbeelding "
+"wordt gepand. Niemand wil een panorama dat nauwelijks kan worden gepand, "
+"toch?"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image left"
-msgstr ""
-"Als je <em>Toon titel</em> of <em>Toon beschrijving</em> hebt aangevinkt, "
-"wordt de titel/beschrijving van de afbeelding of album (indien <em>link naar "
-"album</em> is geselecteerd) onder de afbeelding geprint. Dit werk alleen als "
-"<em>Afbeelding</em> is gekozen als in te voegen onderdeel."
+msgstr "Links"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "Zet gebruikersrechten over."
+msgstr "Rechts"
 
 #: npgCore/extensions/panorama.php:92
+#, fuzzy
 msgid "Scroll left/right to pan through panorama."
-msgstr ""
+msgstr "Blader naar links / rechts om door het panorama te pannen."
 
 #: npgCore/extensions/print_album_menu.php:21
 msgid ""
@@ -15828,10 +15843,13 @@ msgstr ""
 "mogelijkheid weer ongedaan maken.</p>"
 
 #: npgCore/extensions/publicCMS.php:28
+#, fuzzy
 msgid ""
 "Provide public CMS <em>pages</em> and <em>categories</em> in a private "
 "gallery."
 msgstr ""
+"Zorg voor openbare CMS- <em>pagina's</em> en <em>categorieën</em> in een "
+"privégalerij."
 
 #: npgCore/extensions/publicCMS.php:29
 #, fuzzy
@@ -15862,14 +15880,18 @@ msgid "Public categories"
 msgstr "publiek"
 
 #: npgCore/extensions/publicCMS.php:65
+#, fuzzy
 msgid ""
 "Check the categories you want to be public. Note: uncategorized articles are "
 "by definition public."
 msgstr ""
+"Vink de categorieën aan die u openbaar wilt maken. Let op: "
+"ongecategoriseerde artikelen zijn per definitie openbaar."
 
 #: npgCore/extensions/publicCMS.php:73
+#, fuzzy
 msgid "Note: your site is public, so this plugin is of little use."
-msgstr ""
+msgstr "Opmerking: uw site is openbaar, dus deze plug-in heeft weinig zin."
 
 #: npgCore/extensions/publishContent.php:30
 msgid "A single place to quickly review your unpublished content."
@@ -16138,7 +16160,7 @@ msgstr "Biedt een middel om opties voor thema's en plug-ins te zuiveren."
 #: npgCore/extensions/purgeOptions.php:29
 #, fuzzy
 msgid "purge"
-msgstr "Maak zoek-cache leeg"
+msgstr "leegmaken"
 
 #: npgCore/extensions/purgeOptions.php:72
 #, fuzzy
@@ -16153,7 +16175,7 @@ msgstr "In plugins"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "Extensions"
-msgstr "Verwerk extensies"
+msgstr "Extensies"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #: npgCore/lib-auth.php:719 npgCore/lib-auth.php:739 npgCore/lib-auth.php:764
@@ -16195,7 +16217,7 @@ msgstr ""
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:196
 #, fuzzy
 msgid "highlighted"
-msgstr "Sjablonen zijn in rood aangegeven."
+msgstr "uitgelicht"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:211
 #, fuzzy
@@ -16240,18 +16262,18 @@ msgstr "<span class=\"emptyOption\">empty</span>"
 #, fuzzy
 #| msgid "hidden items"
 msgid "hidden"
-msgstr "Verborgen en zichtbare onderdelen"
+msgstr "verborgen"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "%s wachtwoord mag niet leeg zijn !"
+msgstr "leeg"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
 #| msgid "function"
 msgid "no action"
-msgstr "Actie"
+msgstr "seponering"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:291
 #, fuzzy
@@ -16302,8 +16324,9 @@ msgid "<a href=\"#%1$s\"><code>%1$s</code></a> is already enabled."
 msgstr "<a href=\"#%1$s\"><code>%1$s</code></a> is al geactiveerd."
 
 #: npgCore/extensions/quota_manager.php:83
+#, fuzzy
 msgid "Stores image disk footprint"
-msgstr ""
+msgstr "Slaat beeldvoetafdruk op"
 
 #: npgCore/extensions/quota_manager.php:93
 msgid "Default quota"
@@ -16435,13 +16458,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Imagick font size"
 msgid "Icon size"
-msgstr "Icoon"
+msgstr "Icoongrootte"
 
 #: npgCore/extensions/rating.php:82
 #, fuzzy
 #| msgid "Large"
 msgid "large"
-msgstr "Groot"
+msgstr "groot"
 
 #: npgCore/extensions/rating.php:82
 msgid "medium"
@@ -16451,7 +16474,7 @@ msgstr "middel"
 #, fuzzy
 #| msgid "Small"
 msgid "small"
-msgstr "Klein"
+msgstr "klein"
 
 #: npgCore/extensions/rating.php:83
 #, fuzzy
@@ -16507,7 +16530,7 @@ msgstr "Zet alle hit-tellers op nul."
 #: npgCore/extensions/rating.php:96
 #, fuzzy
 msgid "Allows rating to be zero."
-msgstr "XMP waardering"
+msgstr "Zet alle hit-tellers op nul."
 
 #: npgCore/extensions/rating.php:167
 msgid "retract"
@@ -16539,9 +16562,7 @@ msgstr "Nog geen beoordeling"
 #: npgCore/extensions/rating.php:372
 #, fuzzy
 msgid "like"
-msgstr ""
-"Het domein van je site, als je wilt dat Matomo ook alle subdomeinen volgt. "
-"(b.v. <code>domain.com</code>)."
+msgstr "like"
 
 #: npgCore/extensions/rating.php:374
 #, php-format
@@ -16586,7 +16607,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Private key"
 msgid "Site key"
-msgstr "Key"
+msgstr "Sitesleutel"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:53
 #, fuzzy
@@ -16618,7 +16639,7 @@ msgstr "Donker"
 #, fuzzy
 #| msgid "hidden items"
 msgid "Hidden"
-msgstr "Verborgen en zichtbare onderdelen"
+msgstr "Verborgen"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:60
 #, fuzzy
@@ -16634,7 +16655,7 @@ msgstr ""
 #: npgCore/extensions/reCAPTCHA_v2.php:61
 #, fuzzy
 msgid "Widget"
-msgstr "Kies het formaat van de reCaptcha widget."
+msgstr "Widget"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:63
 #, fuzzy
@@ -16695,7 +16716,7 @@ msgstr "Standaard hint tekst voor de registergebruikerslink."
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration text"
-msgstr "Tekst"
+msgstr "Account aanmaken"
 
 #: npgCore/extensions/register_user.php:67
 #, fuzzy
@@ -17810,7 +17831,7 @@ msgstr "Albumdatum"
 #: npgCore/extensions/sitemap-extended.php:98
 #, fuzzy
 msgid "last change date"
-msgstr "laatste verandering(en)"
+msgstr "Datum laatste verandering"
 
 #: npgCore/extensions/sitemap-extended.php:92
 msgid "Field to use for the last modification date of albums."
@@ -18208,12 +18229,12 @@ msgstr ""
 #, fuzzy
 #| msgid "Contrast+"
 msgid "Controls"
-msgstr "Positie zoom knoppen"
+msgstr "Bediening"
 
 #: npgCore/extensions/slideshow.php:123
 #, fuzzy
 msgid "dark"
-msgstr "Donker"
+msgstr "donker"
 
 #: npgCore/extensions/slideshow.php:124
 #, fuzzy
@@ -18480,7 +18501,7 @@ msgstr[1] "Tag toevoegen"
 msgid "Tag %d page"
 msgid_plural "Tag %d pages"
 msgstr[0] "Tag toevoegen"
-msgstr[1] "Reacties: %d"
+msgstr[1] "Tag toevoegen"
 
 #: npgCore/extensions/tagFromSearch/tag.php:220
 #, fuzzy
@@ -18504,7 +18525,7 @@ msgstr "Activeerd jQuert tag suggesties voor het zoekveld."
 #: npgCore/extensions/tag_suggest.php:35
 #, fuzzy
 msgid "threshold"
-msgstr "Drempel"
+msgstr "drempelwaarde, drempel"
 
 #: npgCore/extensions/tag_suggest.php:38
 #, fuzzy
@@ -18566,12 +18587,12 @@ msgstr ""
 #: npgCore/extensions/themeSwitcher.php:179
 #, fuzzy
 msgid "Switch themes"
-msgstr "In thema’s"
+msgstr "Thema wisselen"
 
 #: npgCore/extensions/themeSwitcher.php:187 themes/zenFluid/functions.php:271
 #, fuzzy
 msgid "Close"
-msgstr "sluiten"
+msgstr "Sluiten"
 
 #: npgCore/extensions/themeSwitcher.php:194
 #, fuzzy
@@ -18586,7 +18607,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Provides short URLs to zenphoto objects."
 msgid "Provides short URLs to gallery objects."
-msgstr "Maakt korte URL’s voor Zenphoto objecten."
+msgstr "Maakt korte URL’s voor ZenPhoto20 objecten."
 
 #: npgCore/extensions/tinyURL.php:61
 msgid "Use in themes for"
@@ -18656,17 +18677,17 @@ msgstr "Entiteiten codering"
 #, fuzzy
 #| msgid "a name"
 msgid "named"
-msgstr "Named"
+msgstr "genaamd"
 
 #: npgCore/extensions/tinymce.php:85
 #, fuzzy
 msgid "numeric"
-msgstr "Numeric"
+msgstr "numeriek"
 
 #: npgCore/extensions/tinymce.php:85
 #, fuzzy
 msgid "raw"
-msgstr "RAW"
+msgstr "rauw"
 
 #: npgCore/extensions/tinymce.php:86
 #, fuzzy
@@ -18677,7 +18698,7 @@ msgstr "Selecteer de TinyMCE <em>entity_encoding</em> strategie."
 #: npgCore/extensions/tinymce.php:87
 #, fuzzy
 msgid "RTL text direction"
-msgstr "Introductietekst"
+msgstr "Tekst directeur"
 
 #: npgCore/extensions/tinymce.php:89
 #, fuzzy
@@ -18737,7 +18758,7 @@ msgstr "De tekst voor de link naar de favorietenpagina."
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:87
 #, fuzzy, php-format
 msgid "<em>category</em>: %s"
-msgstr "Categorie <em>%s</em> niet gevonden"
+msgstr "Categorie <em>%s</em> toegevoegd"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:88
 #, fuzzy
@@ -18850,8 +18871,9 @@ msgstr ""
 "mogelijk op Chrome op Android. Het werkt niet voor Opera op Android."
 
 #: npgCore/extensions/translateButton.php:12 plugins/downloadButtons.php:16
+#, fuzzy
 msgid "Provides a button to download the latest version of the software."
-msgstr ""
+msgstr "Biedt een knop om de nieuwste versie van de software te downloaden."
 
 #: npgCore/extensions/translateButton.php:25
 #, fuzzy
@@ -19024,19 +19046,19 @@ msgstr "Bestand overschrijdt <em>upload_max_filesize</em> (php.ini instelling)"
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
-msgstr "Bestand overschrijdt <em>MAX_FILE_SIZE</em> (HTML formulier richtlijn)"
+msgstr "Het geüploade bestand overschrijdt de MAX_FILE_SIZE"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:26
 #, fuzzy
 #| msgid "File was only partially uploaded"
 msgid "The uploaded file was only partially uploaded"
-msgstr "Bestand is slechts gedeeltelijk ge-upload"
+msgstr "Het bestand is slechts gedeeltelijk geüpload"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:27
 #, fuzzy
 #| msgid "No File was uploaded"
 msgid "No file was uploaded"
-msgstr "Er is geen bestand ge-upload."
+msgstr "Er is niets geüpload"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:28
 msgid "Missing a temporary folder"
@@ -19049,7 +19071,7 @@ msgstr "Schrijven naar schijf mislukt."
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:30
 #, fuzzy
 msgid "A PHP extension stopped the file upload"
-msgstr "Upload gestopt door een verkeerde extensie"
+msgstr "Een PHP extensie heeft de upload afgebroken"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:31
 #, fuzzy
@@ -19073,39 +19095,39 @@ msgstr "Bestandstype niet toegestaan"
 #, fuzzy
 #| msgid "Max number of files exceeded"
 msgid "Maximum number of files exceeded"
-msgstr "Maximaal aantal bestanden overschreden"
+msgstr "Het maximum aantal bestanden is bereikt"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:36
 #, fuzzy
 msgid "Image exceeds maximum width"
-msgstr "Open graph afbeelding - breedte"
+msgstr "De afbeelding overschrijdt de maximale breedte"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:37
 #, fuzzy
 msgid "Image requires a minimum width"
-msgstr "Open graph afbeelding - breedte"
+msgstr "De afbeelding moet een minimale breedte hebben"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:38
 #, fuzzy
 msgid "Image exceeds maximum height"
-msgstr "Open graph afbeelding - hoogte"
+msgstr "De afbeelding overschrijdt de maximale hoogte"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:39
 #, fuzzy
 msgid "Image requires a minimum height"
-msgstr "Open graph afbeelding - hoogte"
+msgstr "De afbeelding moet een minimale hoogte hebben"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:40
 #, fuzzy
 #| msgid "No File was uploaded"
 msgid "File upload aborted"
-msgstr "Autorun afgebroken"
+msgstr "Upload afgebroken"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 #| msgid "Failed to write file to disk"
 msgid "Failed to resize image"
-msgstr "Afbeeldings cache-formaten niet gelukt."
+msgstr "Schalen van afbeelding mislukt"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -19128,7 +19150,7 @@ msgstr "Stop upload"
 #, fuzzy
 #| msgid "Process changes"
 msgid "Processing..."
-msgstr "Verwerkingstijd:"
+msgstr "Verwerken..."
 
 #: npgCore/extensions/user-expiry.php:33
 msgid "Provides management of users based on when they were created."
@@ -19295,7 +19317,7 @@ msgstr "E-mail link voor verlenging registratie"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:221
 #, fuzzy
 msgid "User has no email address"
-msgstr "E-mailadres gebruiker"
+msgstr "Gebruiker heeft geen e-mailadres"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:230
 #, fuzzy, php-format
@@ -19324,7 +19346,7 @@ msgstr "Verwijder"
 #, fuzzy
 #| msgid "Enable"
 msgid "Enabled"
-msgstr "geactiveerd"
+msgstr "Ingeschakeld"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:242
 msgid "Force password renewal"
@@ -19408,16 +19430,17 @@ msgid "Deleted"
 msgstr "Verwijderd"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
-msgstr "groepen"
+msgstr "Groepen"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:185
 #, fuzzy
 #| msgid "assignments"
 msgid "Assignments"
-msgstr "toewijzingen"
+msgstr "Opdrachten"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:224
 msgid ""
@@ -19432,7 +19455,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "groep"
 
@@ -19534,20 +19556,36 @@ msgstr ""
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Mailing list"
-msgstr "Mailinglist"
+msgstr "Mailinglijst"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "RSS reacties."
+msgstr "Maak goedkeuring ongedaan"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
+#, fuzzy
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
+"Gebruikers die zich hebben afgemeld voor de mailinglijst worden "
+"gecontroleerd. Schakel het selectievakje uit om de gebruiker opnieuw te "
+"abonneren."
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "Uitgesloten pagina’s"
+
+#: npgCore/extensions/user_mailing_list.php:62
+#, fuzzy
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+"Vink de groepen aan die u wilt uitsluiten van de mailingontvangerslijst."
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -19560,30 +19598,32 @@ msgid "user_mailing_list error"
 msgstr "Mailinglist"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:37
+#, fuzzy
 msgid "You are no longer subscribed to the site mailing list"
-msgstr ""
+msgstr "U bent niet langer geabonneerd op de mailinglijst van de site"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
 #| msgid "Click to hide content"
 msgid "Click to resubscribe"
-msgstr "Klik om inhoud te verbergen"
+msgstr "Klik om inhoud te tonen"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
+#, fuzzy
 msgid "You are now subscribed to the site mailing list"
-msgstr ""
+msgstr "U bent nu geabonneerd op de mailinglijst van de site"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
 #| msgid "Click to show content"
 msgid "Click to un-subscribe"
-msgstr "Secret"
+msgstr "RSS reacties."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "Mailinglist"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails "
@@ -19593,7 +19633,7 @@ msgstr ""
 "die een e-mailadres hebben opgegeven.<br /> Er wordt altijd een kopie naar "
 "de administrator gestuurd en alle e-mails worden als <em>BCC</em> verzonden."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19601,35 +19641,44 @@ msgstr ""
 "<strong>Opmerking:</strong> Er is geen <em>sendmail</em> filter gevonden. Je "
 "moet een mail plugin activeren en configureren."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
-msgstr "E-mail verzonden"
+msgstr "E-mail verstuurd"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Schrijf hier het bericht dat je wilt verzenden."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Onderwerp:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Bericht:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Selecteer gebruikers:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "Ontvanger(s) van het bericht"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "Gebruikersnaam"
+msgstr "alle gebruikers"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+#, fuzzy
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+"Als u een groep selecteert, wordt het bericht naar alle leden van de groep "
+"verzonden."
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Verzend"
 
@@ -19743,7 +19792,7 @@ msgstr ""
 #: npgCore/extensions/xmpMetadata.php:620
 #, fuzzy
 msgid "Aperture Value"
-msgstr "Diafragma"
+msgstr "Diafragma-waarde"
 
 #: npgCore/extensions/xmpMetadata.php:625
 #, fuzzy
@@ -19754,7 +19803,7 @@ msgstr "Programma"
 #: themes/paradigm/image.php:128
 #, fuzzy
 msgid "Rating"
-msgstr "Reset waardering (niet gewaardeerd)"
+msgstr "Beoordeling"
 
 #: npgCore/extensions/xmpMetadata.php:1151
 msgid "Metadata exported"
@@ -19926,7 +19975,7 @@ msgstr "Voeg artikel toe"
 #, fuzzy
 #| msgid "titled:"
 msgid "untitled"
-msgstr "Naamloze pagina"
+msgstr "zonder titel"
 
 #: npgCore/extensions/zenpage/admin-functions.php:63
 msgid "Duplicate page title"
@@ -20107,7 +20156,7 @@ msgstr "Sorteer op titel aflopend"
 #: npgCore/extensions/zenpage/admin-functions.php:754
 #, fuzzy
 msgid "Order by last change ascending"
-msgstr "Sorteer op oplopende datum"
+msgstr "Sorteer op titel oplopend"
 
 #: npgCore/extensions/zenpage/admin-functions.php:755
 msgid "Order by title descending"
@@ -20217,7 +20266,7 @@ msgstr[1] "<strong>%1$u</strong> Pagina’s"
 #| msgid "<strong>%1$u</strong> Pages (%2$u un-published)"
 msgid "<strong>%1$u</strong> Page (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Pages (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> albums (%2$u niet gepubliceerd)"
+msgstr[0] "<strong>%1$u</strong> album (%2$u niet gepubliceerd)"
 msgstr[1] "<strong>%1$u</strong> Pagina’s (%2$u niet gepubliceerd)"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1351
@@ -20233,7 +20282,7 @@ msgstr[1] "<strong>%1$u</strong> artikelen"
 #| msgid "<strong>%1$u</strong> News articles (%2$u un-published)"
 msgid "<strong>%1$u</strong> Article (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Articles (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> albums (%2$u niet gepubliceerd)"
+msgstr[0] "<strong>%1$u</strong> album (%2$u niet gepubliceerd)"
 msgstr[1] ""
 "<strong>%1$u</strong> Artikelen (<strong>%2$u</strong> niet gepubliceerd)"
 
@@ -20251,8 +20300,8 @@ msgstr[1] "<strong>%1$u</strong> Categorieën"
 #| msgid_plural "<strong>%1$u</strong> Images (%2$u un-published)"
 msgid "<strong>%1$u</strong> Category (%2$u un-published)"
 msgid_plural "<strong>%1$u</strong> Categories (%2$u un-published)"
-msgstr[0] "<strong>%1$u</strong> album (%2$u niet gepubliceerd)"
-msgstr[1] "<strong>%1$u</strong> albums (%2$u niet gepubliceerd)"
+msgstr[0] "<strong>%1$u</strong>afbeelding (%2$u niet gepubliceerd)"
+msgstr[1] "<strong>%1$u</strong> album (%2$u niet gepubliceerd)"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1410
 #: npgCore/extensions/zenpage/categories.php:230
@@ -20646,12 +20695,12 @@ msgstr "Verwijder categorieën"
 #: npgCore/extensions/zenpage/news.php:292
 #, fuzzy
 msgid "Created"
-msgstr "Nieuwe Zenphoto gebruiker"
+msgstr "Aangemaakt"
 
 #: npgCore/extensions/zenpage/news.php:294
 #, fuzzy
 msgid "Last changed"
-msgstr "Er is niets veranderd"
+msgstr "Laatst gewijzigd"
 
 #: npgCore/extensions/zenpage/news.php:407
 msgid "View article"
@@ -20763,24 +20812,22 @@ msgstr "Type:"
 #, fuzzy
 #| msgid "cover"
 msgid "Hover"
-msgstr "Vink aan als je het bereik van een cluster wilt tonen bij mouseover."
+msgstr "Hover"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Grab"
-msgstr "Grijpen"
+msgstr "Grab"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Click"
-msgstr "Klik op de afbeelding om de uitsnede van de thumbnail te wijzigen."
+msgstr "Klik"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Toggle"
-msgstr ""
-"<a href=\"javascript: toggle('albumdate');\" >Info</a> voor <em>Gebruik "
-"datum laatste afbeelding als datum voor album</em>"
+msgstr "Toggle"
 
 #: npgCore/extensions/zoomImage.php:64
 #, fuzzy
@@ -20888,7 +20935,7 @@ msgid ""
 "MySQLi Error: netPhotoGraphics received the error %s when connecting to the "
 "database server."
 msgstr ""
-"MySQL fout: ZenPhoto20 kreeg de foutmelding %s bij het verbinden met de "
+"MySQL fout: Zenphoto kreeg de foutmelding %s bij het verbinden met de "
 "database."
 
 #: npgCore/functions-db-MySQLi.php:61
@@ -20947,8 +20994,9 @@ msgstr ""
 "%s</em> map van de installatie."
 
 #: npgCore/functions.php:1299
+#, fuzzy
 msgid "buttonType \"button\" buttons must have a buttonLink;"
-msgstr ""
+msgstr "buttonType \"button\" knoppen moeten een buttonLink hebben;"
 
 #: npgCore/functions.php:1656
 msgid "0 Bytes"
@@ -21236,11 +21284,16 @@ msgid "Secure logout"
 msgstr "Log uit"
 
 #: npgCore/lib-auth.php:163
+#, fuzzy
 msgid ""
 "Check if you need the browser to clear site data (\"cache\", \"cookies\", "
 "\"storage\", \"executionContexts\") on logout for security reasons. "
 "<strong>Note:</strong> This may degrade logout response time."
 msgstr ""
+"Controleer om veiligheidsredenen of u de browser nodig heeft om sitegegevens "
+"(\"cache\", \"cookies\", \"storage\", \"executionContexts\") bij het "
+"uitloggen te wissen. <strong>Opmerking:</strong> dit kan de reactietijd voor "
+"uitloggen verminderen."
 
 #: npgCore/lib-auth.php:165
 msgid "Primary album edit"
@@ -21329,9 +21382,10 @@ msgid "No PHP support"
 msgstr "Er is geen PHP Graphics ondersteuning."
 
 #: npgCore/lib-auth.php:432
-#, php-format
+#, fuzzy, php-format
 msgid "The password for user %1$s is using the deprecated %2$s hashing method."
 msgstr ""
+"Het wachtwoord voor gebruiker%1$s gebruikt de verouderde hashing-methode%2$s."
 
 #: npgCore/lib-auth.php:584
 #, php-format
@@ -22178,13 +22232,13 @@ msgstr "Afrikaans (zuid Afrika)"
 #, fuzzy
 #| msgid "Afrikaans"
 msgid "Afrikaans (Namibia)"
-msgstr "Afrikaans (zuid Afrika)"
+msgstr "Afrikaans (Namibië)"
 
 #: npgCore/localeList.php:6
 #, fuzzy
 #| msgid "English (South Africa)"
 msgid "Afrikaans (South Africa)"
-msgstr "Engels (Zuid Afrika)"
+msgstr "Afrikaans (Zuid-Afrika)"
 
 #: npgCore/localeList.php:7
 #, fuzzy
@@ -22357,7 +22411,7 @@ msgstr "Assamees"
 #: npgCore/localeList.php:43
 #, fuzzy
 msgid "Assamese (India)"
-msgstr "Engels (India)"
+msgstr "Assamees (India)"
 
 #: npgCore/localeList.php:44
 #, fuzzy
@@ -22388,7 +22442,7 @@ msgstr "Azerbeidzjaans"
 #: npgCore/localeList.php:49
 #, fuzzy
 msgid "Azerbaijani (Cyrillic)"
-msgstr "Cyrillic (Windows)"
+msgstr "Azerbeidzjaans (Cyrillisch)"
 
 #: npgCore/localeList.php:50
 #, fuzzy
@@ -22424,7 +22478,7 @@ msgstr "Belarisch (Wit Rusland)"
 #, fuzzy
 #| msgid "Belarusian"
 msgid "Belarusian (Belarus)"
-msgstr "Belarisch (Wit Rusland)"
+msgstr "Wit-Russisch (Wit-Rusland)"
 
 #: npgCore/localeList.php:57
 #, fuzzy
@@ -22454,7 +22508,7 @@ msgstr "Bulgaars"
 #, fuzzy
 #| msgid "Bulgarian"
 msgid "Bulgarian (Bulgaria)"
-msgstr "Bulgaars"
+msgstr "Bulgaars (Bulgarije)"
 
 #: npgCore/localeList.php:63
 #, fuzzy
@@ -22480,7 +22534,7 @@ msgstr "Bangla (Bangladesh)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Bangla (India)"
-msgstr "Engels (India)"
+msgstr "Bengaals (India)"
 
 #: npgCore/localeList.php:68
 #, fuzzy
@@ -22507,7 +22561,7 @@ msgstr "Bretons"
 #, fuzzy
 #| msgid "French (France)"
 msgid "Breton (France)"
-msgstr "Frans (Frankrijk)"
+msgstr "Bretons (Frankrijk)"
 
 #: npgCore/localeList.php:73
 #, fuzzy
@@ -22539,7 +22593,7 @@ msgstr "Bosnisch (Cyrillisch, Bosnië & Herzegovina)"
 #, fuzzy
 #| msgid "Russian (Ukraine)"
 msgid "Bosnian (Latin)"
-msgstr "Latin 9 (ISO)"
+msgstr "Bosnisch (Latijn)"
 
 #: npgCore/localeList.php:79
 #, fuzzy
@@ -22553,19 +22607,19 @@ msgstr "Catalaans"
 #: npgCore/localeList.php:81
 #, fuzzy
 msgid "Catalan (Andorra)"
-msgstr "Catalaans"
+msgstr "Catalaans (Andorra)"
 
 #: npgCore/localeList.php:82
 #, fuzzy
 #| msgid "Spanish (Spain)"
 msgid "Catalan (Spain)"
-msgstr "Catalaans"
+msgstr "Catalaans (Spanje)"
 
 #: npgCore/localeList.php:83
 #, fuzzy
 #| msgid "French (France)"
 msgid "Catalan (France)"
-msgstr "Catalaans"
+msgstr "Catalaans (Frankrijk)"
 
 #: npgCore/localeList.php:84
 #, fuzzy
@@ -22655,7 +22709,7 @@ msgstr "Wales"
 #, fuzzy
 #| msgid "English (United Kingdom)"
 msgid "Welsh (United Kingdom)"
-msgstr "Engels (Engeland)"
+msgstr "Welsh (Verenigd Koninkrijk)"
 
 #: npgCore/localeList.php:101
 msgid "Danish"
@@ -22665,7 +22719,7 @@ msgstr "Deens"
 #, fuzzy
 #| msgid "Spanish (Panama)"
 msgid "Danish (Denmark)"
-msgstr "Deens"
+msgstr "Deens (Denemarken)"
 
 #: npgCore/localeList.php:103
 #, fuzzy
@@ -22686,7 +22740,7 @@ msgstr "Taita (Kenia)"
 #: npgCore/localeList.php:106
 #, fuzzy
 msgid "German"
-msgstr "Duits (Oostenrijk)"
+msgstr "Duits"
 
 #: npgCore/localeList.php:107
 msgid "German (Austria)"
@@ -22714,7 +22768,7 @@ msgstr "Italiaans (Italië)"
 #, fuzzy
 #| msgid "German (Austria)"
 msgid "German (Liechtenstein)"
-msgstr "Duits (Zwitzerland)"
+msgstr "Duits (Liechtenstein)"
 
 #: npgCore/localeList.php:113
 msgid "German (Luxembourg)"
@@ -22734,7 +22788,7 @@ msgstr "Djerma (Niger)"
 #, fuzzy
 #| msgid "PowerPoint"
 msgid "Lower Sorbian"
-msgstr "PowerPoint"
+msgstr "Laag-Sorbiaans"
 
 #: npgCore/localeList.php:117
 #, fuzzy
@@ -22811,13 +22865,13 @@ msgstr "Grieks"
 #, fuzzy
 #| msgid "Greek (DOS)"
 msgid "Greek (Greece)"
-msgstr "Grieks"
+msgstr "Grieks (Griekenland)"
 
 #: npgCore/localeList.php:132
 #, fuzzy
 #| msgid "English (India)"
 msgid "English"
-msgstr "Engels (Engeland)"
+msgstr "Engels"
 
 #: npgCore/localeList.php:133
 #, fuzzy
@@ -22829,7 +22883,7 @@ msgstr "Engels (India)"
 #, fuzzy
 #| msgid "English (Australia)"
 msgid "English (Europe)"
-msgstr "Engels (Canada)"
+msgstr "Engels (Europa)"
 
 #: npgCore/localeList.php:135
 #, fuzzy
@@ -22899,7 +22953,7 @@ msgstr "Engels (Zimbabwe)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Belize)"
-msgstr "Engels (Canada)"
+msgstr "Engels (Belize)"
 
 #: npgCore/localeList.php:147
 msgid "English (Canada)"
@@ -22926,7 +22980,7 @@ msgstr "Engels (Filipijnen)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Cameroon)"
-msgstr "Engels (Zimbabwe)"
+msgstr "Engels (Kameroen)"
 
 #: npgCore/localeList.php:152
 #, fuzzy
@@ -23014,7 +23068,7 @@ msgstr "Engels (Zimbabwe)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Ghana)"
-msgstr "Engels (India)"
+msgstr "Engels (Ghana)"
 
 #: npgCore/localeList.php:167
 #, fuzzy
@@ -23049,7 +23103,7 @@ msgstr "Engels (Hongkong SAR China)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Ireland)"
-msgstr "Engels (Zimbabwe)"
+msgstr "Engels (Ierland)"
 
 #: npgCore/localeList.php:173
 #, fuzzy
@@ -23082,7 +23136,7 @@ msgstr "Engels (Canada)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Jamaica)"
-msgstr "Engels (Zimbabwe)"
+msgstr "Engels (Jamaica)"
 
 #: npgCore/localeList.php:179
 #, fuzzy
@@ -23178,13 +23232,13 @@ msgstr "Engels (Canada)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Malaysia)"
-msgstr "Engels (Zimbabwe)"
+msgstr "Engels (Maleisië)"
 
 #: npgCore/localeList.php:195
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Namibia)"
-msgstr "Engels (Zimbabwe)"
+msgstr "Engels (Namibië)"
 
 #: npgCore/localeList.php:196
 #, fuzzy
@@ -23196,7 +23250,7 @@ msgstr "Engels (Filipijnen)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Nigeria)"
-msgstr "Engels (Zimbabwe)"
+msgstr "Engels (Nigeria)"
 
 #: npgCore/localeList.php:198
 #, fuzzy
@@ -23288,7 +23342,7 @@ msgstr "Zweeds (Zweden)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Singapore)"
-msgstr "Engels (Australië)"
+msgstr "Engels (Singapore)"
 
 #: npgCore/localeList.php:214
 #, fuzzy
@@ -23434,7 +23488,7 @@ msgstr "Esperanto"
 #, fuzzy
 #| msgid "Danish"
 msgid "Spanish"
-msgstr "Spaans (Chili)"
+msgstr "Spaans"
 
 #: npgCore/localeList.php:240
 msgid "Spanish (Latin America)"
@@ -23468,7 +23522,7 @@ msgstr "Spaans (Chili)"
 #, fuzzy
 #| msgid "Spanish (Columbia)"
 msgid "Spanish (Colombia)"
-msgstr "Spaans (Honduras)"
+msgstr "Spaans (Colombia)"
 
 #: npgCore/localeList.php:247
 msgid "Spanish (Costa Rica)"
@@ -23478,7 +23532,7 @@ msgstr "Spaans (Costa Rica)"
 #, fuzzy
 #| msgid "Spanish (Columbia)"
 msgid "Spanish (Cuba)"
-msgstr "Spaans (Chili)"
+msgstr "Spaans (Cuba)"
 
 #: npgCore/localeList.php:249
 msgid "Spanish (Dominican Republic)"
@@ -23572,12 +23626,12 @@ msgstr "Estlands"
 #, fuzzy
 #| msgid "Estonian"
 msgid "Estonian (Estonia)"
-msgstr "Estlands"
+msgstr "Ests (Estland)"
 
 #: npgCore/localeList.php:270
 #, fuzzy
 msgid "Basque"
-msgstr "Baskisch (Baskenland)"
+msgstr "Baskisch"
 
 #: npgCore/localeList.php:271
 #, fuzzy
@@ -23608,7 +23662,7 @@ msgstr "Perzisch"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Persian (Iran)"
-msgstr "Arabisch (Iran)"
+msgstr "Perzisch (Iran)"
 
 #: npgCore/localeList.php:277
 #, fuzzy
@@ -23623,12 +23677,12 @@ msgstr "Fins"
 #, fuzzy
 #| msgid "Swedish (Finland)"
 msgid "Finnish (Finland)"
-msgstr "Fins"
+msgstr "Fins (Finland)"
 
 #: npgCore/localeList.php:280
 #, fuzzy
 msgid "Filipino"
-msgstr "Filippijns"
+msgstr "Filipijns"
 
 #: npgCore/localeList.php:281
 #, fuzzy
@@ -23653,7 +23707,7 @@ msgstr "Faeröers"
 #: npgCore/localeList.php:285
 #, fuzzy
 msgid "French"
-msgstr "Frans (Canada)"
+msgstr "Frans"
 
 #: npgCore/localeList.php:286
 msgid "French (Belgium)"
@@ -23718,7 +23772,7 @@ msgstr "Frans (Ivoorkust)"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Cameroon)"
-msgstr "Frans (België)"
+msgstr "Frans (Kameroen)"
 
 #: npgCore/localeList.php:298
 #, fuzzy
@@ -23752,7 +23806,7 @@ msgstr "Frans (Zwitzerland)"
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Guinea)"
-msgstr "Frans (Canada)"
+msgstr "Frans (Guinee)"
 
 #: npgCore/localeList.php:304
 #, fuzzy
@@ -23786,13 +23840,13 @@ msgstr "Frans (Luxemburg)"
 #, fuzzy
 #| msgid "Arabic (Morocco)"
 msgid "French (Morocco)"
-msgstr "Arabisch (Marokko)"
+msgstr "Frans (Marokko)"
 
 #: npgCore/localeList.php:310
 #, fuzzy
 #| msgid "French (Canada)"
 msgid "French (Monaco)"
-msgstr "Frans (Canada)"
+msgstr "Frans (Monaco)"
 
 #: npgCore/localeList.php:311
 #, fuzzy
@@ -23934,7 +23988,7 @@ msgstr "Italiaans (Italië)"
 #: npgCore/localeList.php:334
 #, fuzzy
 msgid "Western Frisian"
-msgstr "Western European (DOS)"
+msgstr "West Fries"
 
 #: npgCore/localeList.php:335
 #, fuzzy
@@ -23951,7 +24005,7 @@ msgstr "Iers"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Irish (Ireland)"
-msgstr "Arabisch (Iran)"
+msgstr "Iers (Ierland)"
 
 #: npgCore/localeList.php:338
 #, fuzzy
@@ -23977,7 +24031,7 @@ msgstr "Galicisch"
 #: npgCore/localeList.php:342
 #, fuzzy
 msgid "Swiss German"
-msgstr "Duits (Oostenrijk)"
+msgstr "Zwitsers Duits"
 
 #: npgCore/localeList.php:343
 #, fuzzy
@@ -24004,7 +24058,7 @@ msgstr "Gujarati"
 #, fuzzy
 #| msgid "Gujarati"
 msgid "Gujarati (India)"
-msgstr "Gujarati"
+msgstr "Gujarati (India)"
 
 #: npgCore/localeList.php:348
 #, fuzzy
@@ -24065,7 +24119,7 @@ msgstr "Hebreeuws"
 #, fuzzy
 #| msgid "Hebrew (ISO-Visual)"
 msgid "Hebrew (Israel)"
-msgstr "Hebreeuws"
+msgstr "Hebreeuws (Israël)"
 
 #: npgCore/localeList.php:360
 msgid "Hindi"
@@ -24075,7 +24129,7 @@ msgstr "Hindi"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Hindi (India)"
-msgstr "Hindi"
+msgstr "Hindi (India)"
 
 #: npgCore/localeList.php:362
 msgid "Croatian"
@@ -24090,13 +24144,13 @@ msgstr "Kroatisch"
 #, fuzzy
 #| msgid "Croatian"
 msgid "Croatian (Croatia)"
-msgstr "Kroatisch"
+msgstr "Kroatisch (Kroatië)"
 
 #: npgCore/localeList.php:365
 #, fuzzy
 #| msgid "Serbian"
 msgid "Upper Sorbian"
-msgstr "Servisch"
+msgstr "Opper-Sorbiaans"
 
 #: npgCore/localeList.php:366
 #, fuzzy
@@ -24112,7 +24166,7 @@ msgstr "Hongaars"
 #, fuzzy
 #| msgid "Hungarian"
 msgid "Hungarian (Hungary)"
-msgstr "Hongaars"
+msgstr "Hongaars (Hongarije)"
 
 #: npgCore/localeList.php:369
 #, fuzzy
@@ -24124,13 +24178,13 @@ msgstr "Armeens"
 #, fuzzy
 #| msgid "German (Austria)"
 msgid "Armenian (Armenia)"
-msgstr "Duits (Oostenrijk)"
+msgstr "Armeens (Armenië)"
 
 #: npgCore/localeList.php:371
 #, fuzzy
 #| msgid "Interlace:"
 msgid "Interlingua"
-msgstr "Interlace:"
+msgstr "Interlingua"
 
 #: npgCore/localeList.php:372
 #, fuzzy
@@ -24156,7 +24210,7 @@ msgstr "Igbo"
 #, fuzzy
 #| msgid "Arabic (Algeria)"
 msgid "Igbo (Nigeria)"
-msgstr "Arabisch (Algerije)"
+msgstr "Igbo (Nigeria)"
 
 #: npgCore/localeList.php:377
 #, fuzzy
@@ -24178,13 +24232,13 @@ msgstr "IJslands"
 #, fuzzy
 #| msgid "Icelandic (DOS)"
 msgid "Icelandic (Iceland)"
-msgstr "IJslands"
+msgstr "Ijslands (IJsland)"
 
 #: npgCore/localeList.php:381
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian"
-msgstr "Italiaans (Italië)"
+msgstr "Italiaans"
 
 #: npgCore/localeList.php:382
 msgid "Italian (Switzerland)"
@@ -24214,7 +24268,7 @@ msgstr "Japans"
 #, fuzzy
 #| msgid "Japanese (JIS)"
 msgid "Japanese (Japan)"
-msgstr "Japans"
+msgstr "Japans (Japan)"
 
 #: npgCore/localeList.php:388
 #, fuzzy
@@ -24258,12 +24312,12 @@ msgstr "Georgisch"
 #, fuzzy
 #| msgid "German (Germany)"
 msgid "Georgian (Georgia)"
-msgstr "Duits (Duitsland)"
+msgstr "Georgisch (Georgië)"
 
 #: npgCore/localeList.php:396
 #, fuzzy
 msgid "Kabyle"
-msgstr "Kabyle"
+msgstr "Kabylisch"
 
 #: npgCore/localeList.php:397
 #, fuzzy
@@ -24284,7 +24338,7 @@ msgstr "Kamba (Kenia)"
 #: npgCore/localeList.php:400
 #, fuzzy
 msgid "Makonde"
-msgstr "Makonde"
+msgstr "Makondezimbabwe_districts.kgm"
 
 #: npgCore/localeList.php:401
 #, fuzzy
@@ -24294,7 +24348,7 @@ msgstr "Makonde (Tanzania)"
 #: npgCore/localeList.php:402
 #, fuzzy
 msgid "Kabuverdianu"
-msgstr "Kabuverdianu"
+msgstr "Kaapverdisch Creools"
 
 #: npgCore/localeList.php:403
 #, fuzzy
@@ -24370,7 +24424,7 @@ msgstr "Khmer"
 #, fuzzy
 #| msgid "Cambodian"
 msgid "Khmer (Cambodia)"
-msgstr "Cambodiaans"
+msgstr "Khmer (Cambodja)"
 
 #: npgCore/localeList.php:418
 #, fuzzy
@@ -24381,7 +24435,7 @@ msgstr "Canada"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Kannada (India)"
-msgstr "Engels (India)"
+msgstr "Kannada (India)"
 
 #: npgCore/localeList.php:421
 #, fuzzy
@@ -24393,7 +24447,7 @@ msgstr "Korean (EUC)"
 #, fuzzy
 #| msgid "Korean (Johab)"
 msgid "Korean (South Korea)"
-msgstr "Korean (EUC)"
+msgstr "Koreaans (Zuid-Korea)"
 
 #: npgCore/localeList.php:423
 #, fuzzy
@@ -24404,7 +24458,7 @@ msgstr "Konkani"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Konkani (India)"
-msgstr "Engels (India)"
+msgstr "Konkani (India)"
 
 #: npgCore/localeList.php:425
 #, fuzzy
@@ -24415,7 +24469,7 @@ msgstr "Kasjmirs"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Kashmiri (India)"
-msgstr "Engels (India)"
+msgstr "Kasjmir (India)"
 
 #: npgCore/localeList.php:427
 #, fuzzy
@@ -24430,7 +24484,7 @@ msgstr "Shambala (Tanzania)"
 #: npgCore/localeList.php:429
 #, fuzzy
 msgid "Bafia"
-msgstr "Bafia"
+msgstr "Bafiacameroon_departments.kgm"
 
 #: npgCore/localeList.php:430
 #, fuzzy
@@ -24457,7 +24511,7 @@ msgstr "Koerdisch"
 #: npgCore/localeList.php:434
 #, fuzzy
 msgid "Kurdish (Turkey)"
-msgstr "Koerdisch (Turkije)"
+msgstr "trouwen"
 
 #: npgCore/localeList.php:435
 #, fuzzy
@@ -24474,12 +24528,12 @@ msgstr "Engels (Engeland)"
 #: npgCore/localeList.php:437
 #, fuzzy
 msgid "Kyrgyz"
-msgstr "Kirgizië"
+msgstr "Kirgizisch"
 
 #: npgCore/localeList.php:438
 #, fuzzy
 msgid "Kyrgyz (Kyrgyzstan)"
-msgstr "Kirgizstan (Kirgizstan)"
+msgstr "Kirgizisch (Kirgizië)"
 
 #: npgCore/localeList.php:439
 #, fuzzy
@@ -24501,7 +24555,7 @@ msgstr "Luxemburgs"
 #, fuzzy
 #| msgid "French (Luxembourg)"
 msgid "Luxembourgish (Luxembourg)"
-msgstr "Duits (Luxemburg)"
+msgstr "Luxemburgs (Luxemburg)"
 
 #: npgCore/localeList.php:443
 #, fuzzy
@@ -24517,7 +24571,7 @@ msgstr "Ganda (Oeganda)"
 #: npgCore/localeList.php:445
 #, fuzzy
 msgid "Lakota"
-msgstr "Lakota"
+msgstr "LakotaCity in North Dakota USA"
 
 #: npgCore/localeList.php:446
 #, fuzzy
@@ -24584,7 +24638,7 @@ msgstr "Litouws"
 #, fuzzy
 #| msgid "Lithuanian"
 msgid "Lithuanian (Lithuania)"
-msgstr "Litouws"
+msgstr "Litouws (Litouwen)"
 
 #: npgCore/localeList.php:459
 #, fuzzy
@@ -24600,7 +24654,7 @@ msgstr "Luba-Katanga (Congo - Kinshasa)"
 #, fuzzy
 #| msgid "Low"
 msgid "Luo"
-msgstr "Laag"
+msgstr "Luo"
 
 #: npgCore/localeList.php:462
 #, fuzzy
@@ -24625,7 +24679,7 @@ msgstr "Lets"
 #, fuzzy
 #| msgid "Latvian"
 msgid "Latvian (Latvia)"
-msgstr "Lets"
+msgstr "Lets (Letland)"
 
 #: npgCore/localeList.php:467
 #, fuzzy
@@ -24700,7 +24754,7 @@ msgstr "Maori"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "Maori (New Zealand)"
-msgstr "Engels (Nieuw Zeeland)"
+msgstr "Maori (Nieuw-Zeeland)"
 
 #: npgCore/localeList.php:482
 msgid "Macedonian"
@@ -24710,7 +24764,7 @@ msgstr "Macedonisch"
 #, fuzzy
 #| msgid "Macedonian"
 msgid "Macedonian (Macedonia)"
-msgstr "Macedonisch"
+msgstr "Macedonisch (Macedonië)"
 
 #: npgCore/localeList.php:484
 #, fuzzy
@@ -24721,7 +24775,7 @@ msgstr "Malayalam"
 #: npgCore/localeList.php:485
 #, fuzzy
 msgid "Malayalam (India)"
-msgstr "Engels (India)"
+msgstr "Malayalam (India)"
 
 #: npgCore/localeList.php:486
 msgid "Mongolian"
@@ -24731,7 +24785,7 @@ msgstr "Mongools"
 #, fuzzy
 #| msgid "Mongolian"
 msgid "Mongolian (Mongolia)"
-msgstr "Mongools"
+msgstr "Mongools (Mongolië)"
 
 #: npgCore/localeList.php:488
 #, fuzzy
@@ -24743,7 +24797,7 @@ msgstr "Marathi"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Marathi (India)"
-msgstr "Engels (India)"
+msgstr "Marathi (India)"
 
 #: npgCore/localeList.php:490
 msgid "Malay"
@@ -24757,7 +24811,7 @@ msgstr "Maleis"
 #: npgCore/localeList.php:492
 #, fuzzy
 msgid "Malay (Malaysia)"
-msgstr "Maleis"
+msgstr "Maleis (Maleisië)"
 
 #: npgCore/localeList.php:493
 #, fuzzy
@@ -24773,7 +24827,7 @@ msgstr "Maltees"
 #, fuzzy
 #| msgid "Malte Müller (acrylian)"
 msgid "Maltese (Malta)"
-msgstr "Malte Müller (acrylian)"
+msgstr "Maltees (Malta)"
 
 #: npgCore/localeList.php:496
 #, fuzzy
@@ -24826,7 +24880,7 @@ msgstr "Noors (Bokmål)"
 #, fuzzy
 #| msgid "Norwegian (Bokmål)"
 msgid "Norwegian Bokmål (Norway)"
-msgstr "Noors (Bokmål)"
+msgstr "Noors Bokmål (Noorwegen)"
 
 #: npgCore/localeList.php:506
 #, fuzzy
@@ -24847,7 +24901,7 @@ msgstr "Engels (Zimbabwe)"
 #: npgCore/localeList.php:509
 #, fuzzy
 msgid "Low German"
-msgstr "Laag"
+msgstr "Nederduits"
 
 #: npgCore/localeList.php:510
 #, fuzzy
@@ -24859,7 +24913,7 @@ msgstr "Duits (Duitsland)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "Laag"
+msgstr "Nederlands"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -24870,7 +24924,7 @@ msgstr "Nepalees"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Nepali (India)"
-msgstr "Engels (India)"
+msgstr "Nepalees (India)"
 
 #: npgCore/localeList.php:514
 #, fuzzy
@@ -24880,7 +24934,7 @@ msgstr "Nepalees (Nepal)"
 #: npgCore/localeList.php:515
 #, fuzzy
 msgid "Dutch"
-msgstr "Nederlands (België)"
+msgstr "Nederlands"
 
 #: npgCore/localeList.php:516
 #, fuzzy
@@ -24907,7 +24961,7 @@ msgstr "Nederlands (België)"
 #, fuzzy
 #| msgid "Dutch (The Netherlands)"
 msgid "Dutch (Netherlands)"
-msgstr "Nederlands"
+msgstr "Nederlands (Nederland)"
 
 #: npgCore/localeList.php:521
 #, fuzzy
@@ -24934,12 +24988,12 @@ msgstr "Kwasio (Kameroen)"
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Norwegian Nynorsk"
-msgstr "Noors"
+msgstr "Noors (Nynorsk)"
 
 #: npgCore/localeList.php:526
 #, fuzzy
 msgid "Norwegian Nynorsk (Norway)"
-msgstr "Noors"
+msgstr "Noors Nynorsk (Noorwegen)"
 
 #: npgCore/localeList.php:527
 #, fuzzy
@@ -25046,7 +25100,7 @@ msgstr "Pools"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "Polish (Poland)"
-msgstr "Pools"
+msgstr "Pools (Polen)"
 
 #: npgCore/localeList.php:548
 #, fuzzy
@@ -25062,7 +25116,7 @@ msgstr "Pashto (Afghanistan)"
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese"
-msgstr "Portugees (Brazilië)"
+msgstr "Portugees"
 
 #: npgCore/localeList.php:551
 #, fuzzy
@@ -25140,30 +25194,30 @@ msgstr "Quechua"
 #, fuzzy
 #| msgid "Spanish (Bolivia)"
 msgid "Quechua (Bolivia)"
-msgstr "Spaans (Bolivië)"
+msgstr "Quechua (Bolivia)"
 
 #: npgCore/localeList.php:565
 #, fuzzy
 #| msgid "Spanish (Ecuador)"
 msgid "Quechua (Ecuador)"
-msgstr "Spaans (Equador)"
+msgstr "Quechua (Ecuador)"
 
 #: npgCore/localeList.php:566
 #, fuzzy
 msgid "Quechua (Peru)"
-msgstr "Spaans (Peru)"
+msgstr "Quechua (Peru)"
 
 #: npgCore/localeList.php:567
 #, fuzzy
 #| msgid "Romanian"
 msgid "Romansh"
-msgstr "Roemeens"
+msgstr "Reto-Romaans"
 
 #: npgCore/localeList.php:568
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Romansh (Switzerland)"
-msgstr "Italiaans (Zwitzerland)"
+msgstr "Romaans (Zwitserland)"
 
 #: npgCore/localeList.php:569
 #, fuzzy
@@ -25183,13 +25237,13 @@ msgstr "Roemeens"
 #, fuzzy
 #| msgid "Romanian"
 msgid "Romanian (Moldova)"
-msgstr "Roemeens"
+msgstr "Roemeens (Moldova)"
 
 #: npgCore/localeList.php:573
 #, fuzzy
 #| msgid "Romanian"
 msgid "Romanian (Romania)"
-msgstr "Roemeens"
+msgstr "Roemeens (Roemenië)"
 
 #: npgCore/localeList.php:574
 #, fuzzy
@@ -25205,7 +25259,7 @@ msgstr "Rombo (Tanzania)"
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Russian"
-msgstr "Russisch (Rusland)"
+msgstr "Russisch"
 
 #: npgCore/localeList.php:577
 #, fuzzy
@@ -25262,7 +25316,7 @@ msgstr "Rwa (Tanzania)"
 #: npgCore/localeList.php:587
 #, fuzzy
 msgid "Sakha"
-msgstr "Sakha"
+msgstr "Sakharussia_subjects.kgm"
 
 #: npgCore/localeList.php:588
 #, fuzzy
@@ -25386,7 +25440,7 @@ msgstr "Singalees"
 #: npgCore/localeList.php:611
 #, fuzzy
 msgid "Sinhala (Sri Lanka)"
-msgstr "Singalees"
+msgstr "Singalees (Sri Lanka)"
 
 #: npgCore/localeList.php:612
 msgid "Slovak"
@@ -25395,7 +25449,7 @@ msgstr "Slovaaks"
 #: npgCore/localeList.php:613
 #, fuzzy
 msgid "Slovak (Slovakia)"
-msgstr "Slovaaks"
+msgstr "Slowaaks (Slowakije)"
 
 #: npgCore/localeList.php:614
 msgid "Slovenian"
@@ -25405,7 +25459,7 @@ msgstr "Sloveens"
 #, fuzzy
 #| msgid "Slovenian"
 msgid "Slovenian (Slovenia)"
-msgstr "Sloveens"
+msgstr "Sloveens (Slovenië)"
 
 #: npgCore/localeList.php:616
 #, fuzzy
@@ -25462,7 +25516,7 @@ msgstr "Albanees"
 #, fuzzy
 #| msgid "Albanian"
 msgid "Albanian (Albania)"
-msgstr "Albanees"
+msgstr "Albanees (Albanië)"
 
 #: npgCore/localeList.php:627
 #, fuzzy
@@ -25483,7 +25537,7 @@ msgstr "Servisch"
 #: npgCore/localeList.php:630
 #, fuzzy
 msgid "Serbian (Cyrillic)"
-msgstr "Servisch"
+msgstr "Servisch (Cyrillisch)"
 
 #: npgCore/localeList.php:631
 #, fuzzy
@@ -25509,7 +25563,7 @@ msgstr "Servisch"
 #, fuzzy
 #| msgid "Serbian"
 msgid "Serbian (Latin)"
-msgstr "Servisch"
+msgstr "Servisch (Latijn)"
 
 #: npgCore/localeList.php:636
 #, fuzzy
@@ -25536,7 +25590,7 @@ msgstr "Servisch"
 #, fuzzy
 #| msgid "Swedish (Sweden)"
 msgid "Swedish"
-msgstr "Zweeds (Zweden)"
+msgstr "Zweeds"
 
 #: npgCore/localeList.php:641
 #, fuzzy
@@ -25585,7 +25639,7 @@ msgstr "Tamil"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Tamil (India)"
-msgstr "Tamil"
+msgstr "Tamil (India)"
 
 #: npgCore/localeList.php:651
 #, fuzzy
@@ -25610,7 +25664,7 @@ msgstr "Telugu"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Telugu (India)"
-msgstr "Telugu"
+msgstr "Telugu (India)"
 
 #: npgCore/localeList.php:656
 #, fuzzy
@@ -25647,7 +25701,7 @@ msgstr "Thais"
 #, fuzzy
 #| msgid "Thai (Windows)"
 msgid "Thai (Thailand)"
-msgstr "Thai (Windows)"
+msgstr "Thai (Thailand)"
 
 #: npgCore/localeList.php:663
 #, fuzzy
@@ -25672,7 +25726,7 @@ msgstr "Turkmeens"
 #: npgCore/localeList.php:667
 #, fuzzy
 msgid "Turkmen (Turkmenistan)"
-msgstr "Turkmenen (Turkmenistan)"
+msgstr "Turkmeens (Turkmenistan)"
 
 #: npgCore/localeList.php:668
 #, fuzzy
@@ -25698,7 +25752,7 @@ msgstr "Turks"
 #, fuzzy
 #| msgid "Turkish (DOS)"
 msgid "Turkish (Turkey)"
-msgstr "Turks"
+msgstr "Turks (Turkije)"
 
 #: npgCore/localeList.php:673
 #, fuzzy
@@ -25709,7 +25763,7 @@ msgstr "Tataars"
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Tatar (Russia)"
-msgstr "Russisch (Rusland)"
+msgstr "Tataars (Rusland)"
 
 #: npgCore/localeList.php:675
 #, fuzzy
@@ -25734,7 +25788,7 @@ msgstr "Centrale Atlas Tamazight (Marokko)"
 #: npgCore/localeList.php:679
 #, fuzzy
 msgid "Uyghur"
-msgstr "Oeigoer"
+msgstr "Oeigoers"
 
 #: npgCore/localeList.php:680
 #, fuzzy
@@ -25749,18 +25803,18 @@ msgstr "Oekraïens"
 #, fuzzy
 #| msgid "Russian (Ukraine)"
 msgid "Ukrainian (Ukraine)"
-msgstr "Oekraïens"
+msgstr "Oekraïens (Oekraïne)"
 
 #: npgCore/localeList.php:683
 #, fuzzy
 msgid "Urdu"
-msgstr "Urdu (Pakistan)"
+msgstr "Urdu"
 
 #: npgCore/localeList.php:684
 #, fuzzy
 #| msgid "Urdu (Pakistan)"
 msgid "Urdu (India)"
-msgstr "Engels (India)"
+msgstr "Urdu (India)"
 
 #: npgCore/localeList.php:685
 msgid "Urdu (Pakistan)"
@@ -25785,7 +25839,7 @@ msgstr "Uzbeeks"
 #, fuzzy
 #| msgid "Cyrillic (DOS)"
 msgid "Uzbek (Cyrillic)"
-msgstr "Uzbeeks"
+msgstr "Oezbeeks (Cyrillisch)"
 
 #: npgCore/localeList.php:690
 #, fuzzy
@@ -25795,7 +25849,7 @@ msgstr "Uzbeeks"
 #: npgCore/localeList.php:691
 #, fuzzy
 msgid "Uzbek (Latin)"
-msgstr "Uzbeeks"
+msgstr "Oezbeeks (Latijn)"
 
 #: npgCore/localeList.php:692
 #, fuzzy
@@ -25836,7 +25890,7 @@ msgstr "Vietnamees"
 #, fuzzy
 #| msgid "Vietnamese (Windows)"
 msgid "Vietnamese (Vietnam)"
-msgstr "Vietnamees"
+msgstr "Vietnamees (Vietnam)"
 
 #: npgCore/localeList.php:700
 #, fuzzy
@@ -25924,7 +25978,7 @@ msgstr "Yoruba (Benin)"
 #, fuzzy
 #| msgid "Arabic (Algeria)"
 msgid "Yoruba (Nigeria)"
-msgstr "Arabisch (Algerije)"
+msgstr "Yoruba (Nigeria)"
 
 #: npgCore/localeList.php:717
 #, fuzzy
@@ -25969,13 +26023,13 @@ msgstr "Standaard Marokkaans Tamazight (Marokko)"
 #, fuzzy
 #| msgid "Chinese (Taiwan)"
 msgid "Chinese"
-msgstr "Chinese Simplified (EUC)"
+msgstr "Chinees"
 
 #: npgCore/localeList.php:725
 #, fuzzy
 #| msgid "Chinese (Taiwan)"
 msgid "Chinese (China)"
-msgstr "Chinees (Taiwan)"
+msgstr "Chinees"
 
 #: npgCore/localeList.php:726
 msgid "Chinese (Taiwan)"
@@ -25985,13 +26039,13 @@ msgstr "Chinees (Taiwan)"
 #, fuzzy
 #| msgid "Chinese Simplified (HZ)"
 msgid "Chinese (Simplified)"
-msgstr "Chinese Simplified (HZ)"
+msgstr "Chinees (vereenvoudigd)"
 
 #: npgCore/localeList.php:728
 #, fuzzy
 #| msgid "Chinese Simplified (EUC)"
 msgid "Chinese (Simplified, China)"
-msgstr "Chinese Simplified (EUC)"
+msgstr "Chinees (Volksrepubliek China)"
 
 #: npgCore/localeList.php:729
 #, fuzzy
@@ -26015,7 +26069,7 @@ msgstr "Chinese Simplified (GB2312)"
 #, fuzzy
 #| msgid "Chinese Traditional"
 msgid "Chinese (Traditional)"
-msgstr "Chinese Traditional"
+msgstr "Chinees (Traditioneel)"
 
 #: npgCore/localeList.php:733
 #, fuzzy
@@ -26053,33 +26107,29 @@ msgstr "Er zijn geen uploaders geactiveerd om je verzoek uit te voeren."
 #: npgCore/page_error.php:9
 #, fuzzy
 msgid "Bad Request"
-msgstr "Slechte"
+msgstr "Ongeldig verzoek"
 
 #: npgCore/page_error.php:12
 #, fuzzy
 msgid "Unauthorized"
-msgstr ""
-"Zenphoto probeert gevoelige bestanden in de %1$s map uitsluitend "
-"toegankelijk te maken voor de <em>eigenaar</em> (permissions = 0600).<br /"
-">De rechten voor <em>%2$s</em> zijn %3$04o. Dit kan zorgen voor ongewenste "
-"toegang."
+msgstr "Niet-geautoriseerd"
 
 #: npgCore/page_error.php:15
 #, fuzzy
 #| msgid "Update Required"
 msgid "Payment Required"
-msgstr "verplicht"
+msgstr "Betaling vereist"
 
 #: npgCore/page_error.php:21
 #, fuzzy
 msgid "Not Found"
-msgstr "Toon gevonden albums"
+msgstr "Niet gevonden"
 
 #: npgCore/page_error.php:24
 #, fuzzy
 #| msgid "Filetype not allowed"
 msgid "Method Not Allowed"
-msgstr "Gebruik in plaats hiervan de methode om te instantiëren."
+msgstr "Niet-toegestane methode"
 
 #: npgCore/page_error.php:27
 #, fuzzy
@@ -26090,7 +26140,7 @@ msgstr "Niet aanvaardbaar"
 #, fuzzy
 #| msgid "Authenticate user"
 msgid "Proxy Authentication Required"
-msgstr "Verisign verificatie"
+msgstr "Proxy aamelding vereist"
 
 #: npgCore/page_error.php:33
 #, fuzzy
@@ -26102,28 +26152,28 @@ msgstr "Log uit"
 #, fuzzy
 #| msgid "Confirm"
 msgid "Conflict"
-msgstr "Bevestig"
+msgstr "Conflict"
 
 #: npgCore/page_error.php:39
 #, fuzzy
 msgid "Gone"
-msgstr "Weg"
+msgstr "Verstreken"
 
 #: npgCore/page_error.php:42
 #, fuzzy
 #| msgid "Require"
 msgid "Length Required"
-msgstr "Brandpuntsafstand"
+msgstr "Lengte vereist"
 
 #: npgCore/page_error.php:45
 #, fuzzy
 msgid "Precondition Failed"
-msgstr "Registratie mislukt."
+msgstr "Voorwaarde is mislukt"
 
 #: npgCore/page_error.php:48
 #, fuzzy
 msgid "Request Entity Too Large"
-msgstr "Aanvraag entiteit te groot"
+msgstr "Request Entity te groot"
 
 #: npgCore/page_error.php:51
 #, fuzzy
@@ -26133,7 +26183,7 @@ msgstr "Request URI: [ <code>%s</code> ]"
 #: npgCore/page_error.php:54
 #, fuzzy
 msgid "Unsupported Media Type"
-msgstr "Type:"
+msgstr "Niet ondersteund mediatype"
 
 #: npgCore/page_error.php:88
 #, fuzzy
@@ -26217,7 +26267,7 @@ msgstr "Zenphoto heeft een verandering in je installatie gedetecteerd."
 #, fuzzy, php-format
 #| msgid "netPhotoGraphics %1$s has been copied over %2$s."
 msgid "Version %1$s has been copied over %2$s."
-msgstr "ZenPhoto20 %1$s is gecopiëerd naar %2$s."
+msgstr "Zenphoto %1$s is gecopiëerd naar %2$s."
 
 #: npgCore/reconfigure.php:289
 #, php-format
@@ -26260,7 +26310,7 @@ msgstr ""
 #: npgCore/reconfigure.php:331
 #, fuzzy
 msgid "dismiss"
-msgstr "Afwijzen bij scrollen"
+msgstr "verbergen"
 
 #: npgCore/reconfigure.php:331
 #, fuzzy
@@ -26270,7 +26320,7 @@ msgstr "Reacties editor configuratie"
 #: npgCore/reconfigure.php:360
 #, fuzzy, php-format
 msgid "to run setup [%s]"
-msgstr "Voer setup uit."
+msgstr "Voer setup uit"
 
 #: npgCore/reconfigure.php:363
 #, fuzzy
@@ -26331,7 +26381,7 @@ msgstr "ZenPhoto20 heeft PHP versie %s of hoger nodig."
 #: npgCore/setup/index.php:138
 #, fuzzy
 msgid "config file migrated"
-msgstr "Update bestand"
+msgstr "Er is geen bestand ge-upload."
 
 #: npgCore/setup/index.php:214
 msgid "db POST handling"
@@ -26399,7 +26449,7 @@ msgstr "Weergave van database verificatiegegevens"
 #: npgCore/setup/index.php:470
 #, fuzzy
 msgid "Started"
-msgstr "Theme: %s setup gestart"
+msgstr "Gestart"
 
 #: npgCore/setup/index.php:486
 #, fuzzy, php-format
@@ -26465,13 +26515,17 @@ msgstr "ZenPhoto20 v%s installeren"
 #, fuzzy
 #| msgid "Installation files"
 msgid "Installation folder"
-msgstr "Installatie-bestanden"
+msgstr "Installatiemap"
 
 #: npgCore/setup/index.php:592
+#, fuzzy
 msgid ""
 "There may not be any folders named <em>npg</em> in the installation path."
 "<br />Rename the <em>npg</em> folder and re-run setup."
 msgstr ""
+"Mogelijk zijn er geen mappen met de naam <em>npg</em> in het installatiepad. "
+"<br /> Wijzig de naam van de <em>npg-</em> map en voer de installatie "
+"opnieuw uit."
 
 #: npgCore/setup/index.php:609
 #, php-format
@@ -26753,7 +26807,7 @@ msgstr "PHP <code>mbstring</code> pakket [is niet aanwezig]"
 #: npgCore/setup/index.php:739
 #, fuzzy
 msgid "PHP <code>default_charset</code>"
-msgstr "PHP <code>setlocale()</code>"
+msgstr "PHP <code>display_errors</code>"
 
 #: npgCore/setup/index.php:739
 #, fuzzy, php-format
@@ -27613,7 +27667,7 @@ msgstr "Verbonden met de database."
 #, fuzzy
 #| msgid "Database user"
 msgid "Database update"
-msgstr "Database tabellen die worden ge-update: %s"
+msgstr "Bijwerken van een database"
 
 #: npgCore/setup/index.php:1674
 #, fuzzy
@@ -27891,7 +27945,7 @@ msgstr "%1$s: %2$s in %3$s op regel %4$s"
 #, fuzzy, php-format
 #| msgid "disabled"
 msgid "%1$s disabled."
-msgstr "Uitgeschakeld"
+msgstr "%1$s: %2$s"
 
 #: npgCore/setup/setup-functions.php:584
 #, fuzzy, php-format
@@ -27916,7 +27970,7 @@ msgstr "Mislukt"
 #, fuzzy
 #| msgid "Mod_rewrite"
 msgid "Mod_Rewrite "
-msgstr "Mod_rewrite"
+msgstr "mod_rewrite"
 
 #: npgCore/setup/setup-option-defaults.php:400
 #, fuzzy
@@ -28017,13 +28071,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "Bekijk <em>%s</em>"
+msgstr "<em>%1$s</em> gaf reactie op %2$s:"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
 #| msgid "Edit Album: <em>%1$s%2$s</em>"
 msgid "New plugins: <em>%1$s</em>"
-msgstr "Bewerk album: <em>%1$s%2$s</em>"
+msgstr "<em>%1$s</em> gaf reactie op %2$s:"
 
 #: npgCore/setup/setup-sqlform.php:3
 msgid ""
@@ -28058,13 +28112,13 @@ msgstr "Database host"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Sport"
+msgstr "poort"
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "Database gebruiker"
+msgstr "Database"
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -28087,7 +28141,7 @@ msgstr "Herstel gereed"
 #: npgCore/setup/setupComplete.php:18
 #, fuzzy
 msgid "Completed"
-msgstr "Systeemcontrole voltooid"
+msgstr "Voltooid"
 
 #: npgCore/setup/setup_permissions_changer.php:21
 #, php-format
@@ -28114,7 +28168,7 @@ msgstr "Je moet<code>magic_quotes_sybase</code> uitzetten."
 #, fuzzy, php-format
 #| msgid "Theme:%s setup started"
 msgid "Mod_rewrite setup started"
-msgstr "Plugins: %s setup gestart"
+msgstr "mod_rewrite"
 
 #: npgCore/setup/setup_set-mod_rewrite.php:31
 msgid "The option “mod_rewrite” will be set to “enabled”."
@@ -28161,13 +28215,13 @@ msgstr "nieuw album"
 #, fuzzy
 #| msgid "Logged in as %1$s"
 msgid "Logged in as"
-msgstr "Toont de website alsof je niet bent ingelogd."
+msgstr "Ingelogd als"
 
 #: npgCore/template-functions.php:145
 #, fuzzy
 #| msgid "files"
 msgid "My profile"
-msgstr "Mijn favorieten"
+msgstr "Mijn profiel"
 
 #: npgCore/template-functions.php:158
 #, fuzzy
@@ -28374,10 +28428,7 @@ msgstr[1] "backup voltooid  met<em>%1$s(%2$s)</em> compressie"
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] ""
-"<strong>Waarschuwing !</strong> Deze upgrade maakt structurele veranderingen "
-"in de database. Dit kan niet eenvoudig ongedaan gemaakt worden.<br />Zorg "
-"ervoor dat je een backup van de database hebt voordat je verder gaat."
+msgstr[0] "Tabelnamen worden voorafgegaan door <strong>%s</strong>"
 msgstr[1] ""
 "<strong>Waarschuwing !</strong> Deze upgrade maakt structurele veranderingen "
 "in de database. Dit kan niet eenvoudig ongedaan gemaakt worden.<br />Zorg "
@@ -28501,7 +28552,7 @@ msgstr "Compressie"
 #, fuzzy
 #| msgid "Select the database restore file:"
 msgid "Select the tables to backup."
-msgstr "Selecteer het bestand om de database te herstellen:"
+msgstr "Backup de tabellen in de database"
 
 #: npgCore/utilities/backup_restore.php:633
 msgid "Backup the Database"
@@ -28868,7 +28919,7 @@ msgstr "bron: %s"
 #: npgCore/utilities/installation_analysis.php:82
 #, fuzzy
 msgid "notes"
-msgstr "Bekijk de release notes voor Zenphoto %s"
+msgstr "notities"
 
 #: npgCore/utilities/installation_analysis.php:93
 #, php-format
@@ -28961,7 +29012,7 @@ msgstr "Database naam <strong>%s</strong>"
 msgid "%d connection allowed; "
 msgid_plural "%d connections allowed; "
 msgstr[0] "Database verbinding"
-msgstr[1] "Reacties: %d"
+msgstr[1] "Toegestane karakters:"
 
 #: npgCore/utilities/installation_analysis.php:258
 #, fuzzy, php-format
@@ -29139,8 +29190,9 @@ msgid "MyBB database host"
 msgstr "Database host"
 
 #: plugins/MyBB_auth.php:111
+#, fuzzy
 msgid "The host where the MyBB database server resides."
-msgstr ""
+msgstr "De host waar de MyBB-databaseserver zich bevindt."
 
 #: plugins/MyBB_auth.php:112
 #, fuzzy
@@ -29185,8 +29237,9 @@ msgid "MyBB database prefix"
 msgstr "Database tabel voorvoegsel"
 
 #: plugins/MyBB_auth.php:123
+#, fuzzy
 msgid "The prefix MyBB uses for its database tables."
-msgstr ""
+msgstr "Het voorvoegsel dat MyBB gebruikt voor zijn databasetabellen."
 
 #: plugins/MyBB_auth.php:124
 #, fuzzy
@@ -29207,27 +29260,32 @@ msgid "Example: <code>%s</code>"
 msgstr "Cache: [<code>%s</code>]"
 
 #: plugins/MyBB_auth.php:136
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If not empty, a user album will be created for each user. <code>%s</code> in "
 "the text will be replaced with the user’s name."
 msgstr ""
+"Als deze niet leeg is, wordt voor elke gebruiker een gebruikersalbum "
+"gemaakt. <code>%s</code> in de tekst wordt vervangen door de gebruikersnaam."
 
 #: plugins/MyBB_auth.php:138
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "<p class=\"notebox\">Note:</strong> the <code>%s</code> placeholder "
 "<strong>MUST</strong> be present!</p>"
 msgstr ""
+"<p class=\"notebox\"> Let op: de <code>%s</code> placeholder <strong>MOET</"
+"strong> aanwezig zijn! </p>"
 
 #: plugins/MyBB_auth.php:234
-#, php-format
+#, fuzzy, php-format
 msgid "Failed to connect to the MyBB database \"%1$s:%2$s\""
-msgstr ""
+msgstr "Kan geen verbinding maken met de MyBB-database \"%1$s:%2$s\""
 
 #: plugins/autoredirect.php:10
+#, fuzzy
 msgid "Redirects to netPhotoGraphics.org after 2 minutes."
-msgstr ""
+msgstr "Wordt na 2 minuten omgeleid naar netPhotoGraphics.org."
 
 #: plugins/cacheHeader.php:16
 #, fuzzy
@@ -29238,9 +29296,7 @@ msgstr "Geeft een \"Cache-control\" koptekst met geselecteerde cache-opties."
 #, fuzzy
 #| msgid "Restore"
 msgid "Store"
-msgstr ""
-"Het aantal dagen dat de cookie-toestemming bewaard wordt. Gebruik -1 om de "
-"toestemmin voor altijd te bewaren."
+msgstr "Winkel"
 
 #: plugins/cacheHeader.php:42
 #, fuzzy
@@ -29276,9 +29332,7 @@ msgstr "Selecteer waar u deze koptekst wilt toepassen"
 #: plugins/cacheHeader.php:53
 #, fuzzy
 msgid "Header"
-msgstr ""
-"Plaatst een <em>Google Site Verification</em> metatag in de header van je "
-"pagina’s."
+msgstr "Header"
 
 #: plugins/cacheHeader.php:55
 #, fuzzy
@@ -29372,7 +29426,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Create the album"
 msgid "Create an album"
-msgstr "Maak het album aan"
+msgstr "Een album maken"
 
 #: plugins/create_album.php:135
 #, fuzzy
@@ -29452,8 +29506,9 @@ msgid "Creates the database structure template."
 msgstr "Database structuur bijgewerkt."
 
 #: plugins/database_template/database.php:126
+#, fuzzy
 msgid "Possible field name changes detected."
-msgstr ""
+msgstr "Mogelijke veldnaamwijzigingen gedetecteerd."
 
 #: plugins/database_template/database.php:134
 #, fuzzy
@@ -29639,7 +29694,7 @@ msgstr "Download %1$s versie %2$s."
 #, fuzzy
 #| msgid "Category updated!"
 msgid "Check for updates"
-msgstr "Beginnen met het updaten van tabellen"
+msgstr "Controleer op updates"
 
 #: plugins/devReleases.php:135
 #, fuzzy
@@ -29670,10 +29725,13 @@ msgid "Places release notes on a page."
 msgstr "Bekijk de release notes voor Zenphoto %s"
 
 #: plugins/downloadButtons.php:63
+#, fuzzy
 msgid ""
 "Yields a link to the netPhotoGraphics gitHub repository (to the sub-folder "
 "%2 if present) with the  %1 as the link text."
 msgstr ""
+"Geeft een link naar de netPhotoGraphics gitHub-repository (naar de submap% 2 "
+"indien aanwezig) met de% 1 als de linktekst."
 
 #: plugins/downloadButtons.php:116
 #, fuzzy
@@ -29711,8 +29769,9 @@ msgid "Overlay icons over thumbnails based on tags."
 msgstr "Overlay iconen voor thumbnails om hun status weer te geven."
 
 #: plugins/flag_local.php:12
+#, fuzzy
 msgid "Flag the site as a local test version."
-msgstr ""
+msgstr "Markeer de site als een lokale testversie."
 
 #: plugins/flag_local.php:23 plugins/flag_local.php:34
 #, fuzzy
@@ -29780,8 +29839,9 @@ msgid "This multimedia format is not supported by Flowplayer5"
 msgstr "Dit multimedia format wordt niet ondersteund door jPlayer."
 
 #: plugins/google_analytics.php:14
+#, fuzzy
 msgid "Support for providing Google Analytics tracking"
-msgstr ""
+msgstr "Ondersteuning voor het aanbieden van Google Analytics-tracking"
 
 #: plugins/google_analytics.php:64
 #, fuzzy
@@ -29789,12 +29849,14 @@ msgid "Google Analytics Web Property ID"
 msgstr "Google Analytics id"
 
 #: plugins/google_analytics.php:68
+#, fuzzy
 msgid "If you're going to be using Google Analytics,"
-msgstr ""
+msgstr "Als je Google Analytics gaat gebruiken,"
 
 #: plugins/google_analytics.php:68
+#, fuzzy
 msgid "get a Web Property ID</a> and enter it here."
-msgstr ""
+msgstr "verkrijg een webproperty-ID en voer deze hier in."
 
 #: plugins/google_analytics.php:70
 #, fuzzy
@@ -29803,10 +29865,13 @@ msgid "Enable Admin tracking"
 msgstr "Admin tracking"
 
 #: plugins/google_analytics.php:74
+#, fuzzy
 msgid ""
 "Controls if you want Google Analytics tracking for users logged in as admin. "
 "Default is not selected."
 msgstr ""
+"Bepaalt of u Google Analytics-tracking wilt voor gebruikers die als "
+"beheerder zijn ingelogd. Standaard is niet geselecteerd."
 
 #: plugins/headConsolidator.php:26
 #, fuzzy
@@ -29874,10 +29939,14 @@ msgid "Search redirect keywords"
 msgstr "Trefwoorden"
 
 #: plugins/keywordRedirector.php:49
+#, fuzzy
 msgid ""
 "<code>keywordRedirector</code> will process <em>keywords</em> and redirect "
 "to the theme search script with the associated parameters."
 msgstr ""
+"<code>keywordRedirector</code> <em>trefwoorden</em> en verwijst door naar "
+"het <code>keywordRedirector</code> voor het thema met de bijbehorende "
+"parameters."
 
 #: plugins/keywordRedirector.php:65 themes/effervescence+/gallery.php:32
 #: themes/garland/sidebar.php:13 themes/netphotographics/gallery.php:32
@@ -29889,7 +29958,7 @@ msgstr "Zoek in albums"
 #, fuzzy
 #| msgid "Search pages"
 msgid "Search images"
-msgstr "Afbeeldingen"
+msgstr "Zoek afbeeldingen"
 
 #: plugins/keywordRedirector.php:65
 #, fuzzy
@@ -29964,27 +30033,24 @@ msgstr ""
 #, fuzzy
 #| msgid "Contrast+"
 msgid "Control bar"
-msgstr ""
-"Tip: Als je meer ruimte voor de tekst nodig hebt, gebruik dan de "
-"mogelijkheid om TineMCE op volledige schermgrootte ze zetten. Klik op het "
-"icoontje met de vier pijlen."
+msgstr "Besturingsbalk"
 
 #: plugins/mediaelementjs_player.php:112
 #, fuzzy
 msgid "Play/Pause"
-msgstr "play"
+msgstr "Afspelen/Pauzeren"
 
 #: plugins/mediaelementjs_player.php:113
 #, fuzzy
 #| msgid "Program"
 msgid "Progress"
-msgstr "Bezig met het cachen van afbeeldingen."
+msgstr "Voortgang"
 
 #: plugins/mediaelementjs_player.php:114
 #, fuzzy
 #| msgid "Current Theme"
 msgid "Current"
-msgstr "Print het huidige paginanummer."
+msgstr "Huidig"
 
 #: plugins/mediaelementjs_player.php:115
 #, fuzzy
@@ -30001,52 +30067,57 @@ msgstr "Video artiest"
 #, fuzzy
 #| msgid "Column"
 msgid "Volume"
-msgstr "max volume"
+msgstr "Volume"
 
 #: plugins/mediaelementjs_player.php:118
 #, fuzzy
 #| msgid "full screen"
 msgid "Fullscreen"
-msgstr "volledig scherm"
+msgstr "Volledig scherm"
 
 #: plugins/mediaelementjs_player.php:119
 #, fuzzy
 #| msgid "Show counts"
 msgid "Always show controls"
-msgstr "Toon lagen-knop"
+msgstr "Toon controls altijd"
 
 #: plugins/mediaelementjs_player.php:121
+#, fuzzy
 msgid "Enable what should be shown in the player control bar."
-msgstr ""
+msgstr "Vink aan wat getoond moet worden in de playlist controls balk."
 
 #: plugins/mediaelementjs_player.php:122
 #, fuzzy
 #| msgid "Slide width"
 msgid "Video width"
-msgstr "3gp video breedte"
+msgstr "Breedte van video"
 
 #: plugins/mediaelementjs_player.php:125 plugins/mediaelementjs_player.php:129
+#, fuzzy
 msgid "Pixel value or percent for responsive layouts"
-msgstr ""
+msgstr "Pixelwaarde of percentage voor responsieve lay-outs"
 
 #: plugins/mediaelementjs_player.php:126
 #, fuzzy
 #| msgid "Slide height"
 msgid "Video height"
-msgstr "3gp video hoogte"
+msgstr "Hoogte van video"
 
 #: plugins/mediaelementjs_player.php:130
 #, fuzzy
 #| msgid "Video Title"
 msgid "Video Poster"
-msgstr "Poster (video-thumbnail)"
+msgstr "Video poster"
 
 #: plugins/mediaelementjs_player.php:133
+#, fuzzy
 msgid ""
 "If a poster of the videothumb should be shown. This is cropped to fit the "
 "player size as the player would distort image not fitting the player "
 "dimensions otherwise."
 msgstr ""
+"Als een poster van de video-thumbnail getoond moet worden. Dit is dan ge-"
+"cropped naar het formaat van de player."
 
 #: plugins/mediaelementjs_player.php:134
 #, fuzzy
@@ -30055,10 +30126,14 @@ msgid "Video poster width"
 msgstr "Quicktime video breedte"
 
 #: plugins/mediaelementjs_player.php:137
+#, fuzzy
 msgid ""
 "Max width of the video poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Max. Breedte van de videoposter (px). De afbeelding wordt automatisch "
+"aangepast in responsieve lay-outs. Mogelijk zijn thema-CSS-wijzigingen "
+"vereist om correct te werken."
 
 #: plugins/mediaelementjs_player.php:138
 #, fuzzy
@@ -30067,10 +30142,14 @@ msgid "Video poster height"
 msgstr "Quicktime video hoogte"
 
 #: plugins/mediaelementjs_player.php:141
+#, fuzzy
 msgid ""
 "Height of the video poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Hoogte van de videoposter (px). De afbeelding wordt automatisch aangepast in "
+"responsieve lay-outs. Mogelijk zijn thema-CSS-wijzigingen vereist om correct "
+"te werken."
 
 #: plugins/mediaelementjs_player.php:142
 #, fuzzy
@@ -30079,9 +30158,9 @@ msgid "Audio width"
 msgstr "audio"
 
 #: plugins/mediaelementjs_player.php:145
-#, php-format
+#, fuzzy, php-format
 msgid "Pixel value or set 100% for responsive layouts (default)."
-msgstr ""
+msgstr "Pixelwaarde of stel 100% in voor responsieve lay-outs (standaard)."
 
 #: plugins/mediaelementjs_player.php:146
 #, fuzzy
@@ -30090,63 +30169,80 @@ msgid "Audio height"
 msgstr "audio"
 
 #: plugins/mediaelementjs_player.php:149
-#, php-format
+#, fuzzy, php-format
 msgid "Pixel value or 100% for responsive layouts (default)."
-msgstr ""
+msgstr "Pixelwaarde of 100% voor responsieve lay-outs (standaard)."
 
 #: plugins/mediaelementjs_player.php:150
 #, fuzzy
 #| msgid "Audio poster (Videothumb)"
 msgid "Audio poster"
-msgstr "Audio poster (video-thumbnail)"
+msgstr "Audio poster"
 
 #: plugins/mediaelementjs_player.php:153
+#, fuzzy
 msgid ""
 "If an image of the videothumb should be shown with audio files. You need to "
 "set the width/height. This is cropped to fit the size."
 msgstr ""
+"Als een poster van de audio-thumbnail getoond moet worden. Dit is dan ge-"
+"cropped naar het formaat van de player (alleen video's)"
 
 #: plugins/mediaelementjs_player.php:154
 #, fuzzy
 #| msgid "Audio poster (Videothumb)"
 msgid "Audio poster width"
-msgstr "Audio poster (video-thumbnail)"
+msgstr "Audio poster breedte"
 
 #: plugins/mediaelementjs_player.php:157
+#, fuzzy
 msgid ""
 "Max width of the audio poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Maximale breedte van de audio poster (px). De afbeelding wordt automatisch "
+"geschaald in responsive layouts. Het kan nodig zijn om de CSS van je thema "
+"aan te passen."
 
 #: plugins/mediaelementjs_player.php:158
 #, fuzzy
 #| msgid "Audio poster (Videothumb)"
 msgid "Audio poster height"
-msgstr "Audio poster (video-thumbnail)"
+msgstr "Audio poster hoogte"
 
 #: plugins/mediaelementjs_player.php:161
+#, fuzzy
 msgid ""
 "Height of the audio poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Hoogte van de audio poster (px). De afbeelding wordt automatisch geschaald "
+"in responsive layouts. Het kan nodig zijn om de CSS van je thema aan te "
+"passen."
 
 #: plugins/mediaelementjs_player.php:165
+#, fuzzy
 msgid ""
 "If enabled the script for playlist support is loaded. For playlists either "
 "use the macro or modify your theme."
 msgstr ""
+"Als dit is aangevinkt wordt het script voor playlists geladen. Gebruik voor "
+"playlists de macro of pas je thema aan."
 
 #: plugins/mediaelementjs_player.php:166
 #, fuzzy
 #| msgid "upload"
 msgid "Preload"
-msgstr "upload"
+msgstr "Preload"
 
 #: plugins/mediaelementjs_player.php:169
+#, fuzzy
 msgid ""
 "If the files should be preloaded (Note if this works is browser dependent "
 "and might not work in all!)."
 msgstr ""
+"Of de bestanden van te voren geladen moeten worden (Opmerking: of dit werkt "
+"is afhankelijk van je browser en misschien werkt het helemaal niet)"
 
 #: plugins/mediaelementjs_player.php:290
 #, fuzzy
@@ -30160,14 +30256,18 @@ msgid "Sorry, no playback capabilities."
 msgstr "Sorry, dat is niet het juiste antwoord."
 
 #: plugins/mediaelementjs_player.php:510
+#, fuzzy
 msgid ""
 "Provide the album name (%1), media file name (%2), optional width (%3) and "
 "optional height (%4)"
 msgstr ""
+"Geef de albumnaam (% 1), mediabestandsnaam (% 2), optionele breedte (% 3) en "
+"optionele hoogte (% 4) op"
 
 #: plugins/npgAnalytics.php:10
+#, fuzzy
 msgid "Outputs a script to invoke Google Analytics."
-msgstr ""
+msgstr "Voert een script uit om Google Analytics aan te roepen."
 
 #: plugins/openAdmin.php:23
 #, fuzzy
@@ -30182,8 +30282,9 @@ msgid "Log access"
 msgstr "Geen toegang"
 
 #: plugins/openAdmin.php:82
+#, fuzzy
 msgid "Log administrative pages visited."
-msgstr ""
+msgstr "Log administratieve pagina's bezocht."
 
 #: plugins/openAdmin.php:202 plugins/openAdmin.php:219
 #, fuzzy
@@ -30192,19 +30293,27 @@ msgid "Show admin login form"
 msgstr "Admin login"
 
 #: plugins/openAdmin.php:203
+#, fuzzy
 msgid ""
 "Login with valid user credentials to bypass the <em>openAdmin</em> plugin."
 msgstr ""
+"Log in met geldige gebruikersgegevens om de plug-in <em>openAdmin</em> te "
+"omzeilen."
 
 #: plugins/openAdmin.php:247
+#, fuzzy
 msgid ""
 "The administrative pages are available for demonstration purposes only. "
 "Actions that would change the state of the installation will be suppressed."
 msgstr ""
+"De administratieve pagina's zijn alleen beschikbaar voor "
+"demonstratiedoeleinden. Acties die de status van de installatie zouden "
+"veranderen, worden onderdrukt."
 
 #: plugins/openAdmin.php:279
+#, fuzzy
 msgid "date\trequestor’s IP\tlink\tpage\ttab\taction\n"
-msgstr ""
+msgstr "datum aanvrager IP-link pagina tabblad actie"
 
 #: plugins/package.php:25
 #, fuzzy
@@ -30213,8 +30322,9 @@ msgid "Generates the <em>netPhotoGraphics.package</em> file."
 msgstr "<em>%1$s</em> bestand"
 
 #: plugins/package.php:41
+#, fuzzy
 msgid "Extract getAllTranslations"
-msgstr ""
+msgstr "Pak getAllTranslations uit"
 
 #: plugins/package.php:45
 #, fuzzy
@@ -30323,8 +30433,9 @@ msgid "Current enabled plugins remembered"
 msgstr "Huidige ingeschakelde plugins onthouden"
 
 #: plugins/pseudomail.php:20
+#, fuzzy
 msgid "Pseudo mailing handler for localhost testing."
-msgstr ""
+msgstr "Pseudo-mailinghandler voor testen van localhost."
 
 #: plugins/pseudomail.php:42
 #, fuzzy
@@ -30336,13 +30447,13 @@ msgstr "Mail protocol:"
 #, fuzzy, php-format
 #| msgid "Title%s"
 msgid "To: %s"
-msgstr "%1$s: %2$s"
+msgstr "Naar: %s"
 
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
 #| msgid "source: %s"
 msgid "Cc: %s"
-msgstr "bron: %s"
+msgstr "Cc: <ph id=\"mtc_1\" equiv-text=\"base64:JXM=\"/>"
 
 #: plugins/pseudomail.php:74
 #, fuzzy, php-format
@@ -30354,11 +30465,14 @@ msgstr "bron: %s"
 #, fuzzy, php-format
 #| msgid "Subject:"
 msgid "Subject: %s"
-msgstr "een onderwerp"
+msgstr "Onderwerp: %s"
 
 #: plugins/releaseNotes.php:12
+#, fuzzy
 msgid "Allows using netPhotoGraphics editing to create release notes."
 msgstr ""
+"Staat het gebruik van netPhotoGraphics-bewerking toe om release-opmerkingen "
+"te maken."
 
 #: plugins/releaseNotes.php:30
 #, fuzzy
@@ -30498,25 +30612,30 @@ msgid "pause"
 msgstr "pause"
 
 #: plugins/tagURLs.php:23
+#, fuzzy
 msgid "Convert Explicit site URLs to portable URLs."
-msgstr ""
+msgstr "Converteer expliciete site-URL's naar draagbare URL's."
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Maakt korte URL’s voor Zenphoto objecten."
 
 #: plugins/tagURLs.php:38
+#, fuzzy
 msgid ""
 "A utility to change explicit site urls in netPhotoGraphics objects to "
 "portable urls."
 msgstr ""
+"Een hulpprogramma om expliciete site-URL's in netPhotoGraphics-objecten te "
+"wijzigen in draagbare URL's."
 
 #: plugins/tagURLs/migrateURLs.php:77
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s object with explicit URLs changed"
 msgid_plural "%1$s objects with explicit URLs changed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$s-object met expliciete URL's gewijzigd"
+msgstr[1] "%1$s objecten met expliciete URL's gewijzigd"
 
 #: plugins/titlelinkMigration.php:22
 #, fuzzy
@@ -30534,21 +30653,25 @@ msgid "Migrate old suffix"
 msgstr "Chinees (Officiëel oud)"
 
 #: plugins/titlelinkMigration.php:35
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Enter the old <code><em>mod_rewrite_suffix</em></code> you wish to migrate "
 "to \"%1$s\""
 msgstr ""
+"Voer de oude <code><em>mod_rewrite_suffix</em></code> u naar \"%1$s\" wilt "
+"migreren"
 
 #: plugins/titlelinkMigration.php:44
-#, php-format
+#, fuzzy, php-format
 msgid "Migrated %1$s titlelink suffix from \"%2$s\" to \"%3$s\"."
 msgstr ""
+"Het achtervoegsel van de titellink van%1$s is gemigreerd van \"%2$s\" naar "
+"\"%3$s\"."
 
 #: plugins/titlelinkMigration.php:44
-#, php-format
+#, fuzzy, php-format
 msgid "Migrated %1$s titlelink suffixes from \"%2$s\" to \"%3$s\"."
-msgstr ""
+msgstr "Gemigreerde%1$s titellinkachtervoegsels van \"%2$s\" naar \"%3$s\"."
 
 #: plugins/titlelinkMigration.php:63
 #, fuzzy
@@ -30564,14 +30687,14 @@ msgstr ""
 "titlelinks."
 
 #: plugins/titlelinkMigration/migrate.php:24
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s titlelink suffix migrated to \"%2$s\"."
-msgstr ""
+msgstr "Het achtervoegsel van de titel van%1$s is gemigreerd naar \"%2$s\"."
 
 #: plugins/titlelinkMigration/migrate.php:24
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s titlelink suffixes migrated to \"%2$s\"."
-msgstr ""
+msgstr "Achtervoegsels van%1$s-titel zijn gemigreerd naar \"%2$s\"."
 
 #: plugins/utf8mb4Migration.php:33
 #, fuzzy
@@ -30611,7 +30734,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Rights migration failed."
 msgid "utf8mb4 migration completed."
-msgstr "Het overzetten van de gebruikersrechten is mislukt."
+msgstr "Herstel gereed"
 
 #: plugins/zenphotoCompatibilityPack.php:22
 #, fuzzy
@@ -30845,17 +30968,12 @@ msgstr " (meest gewaardeerd nieuws)"
 #: themes/ardoise/news.php:14 themes/ardoise/news.php:16
 #, fuzzy
 msgid "newer"
-msgstr ""
-"<strong>Opmerking</strong>: netPhotoGraphics zal de datum van het album "
-"alleen veranderen als er een afbeelding gevonden wordt met een recentere "
-"datum dan die van het album."
+msgstr "nieuwer"
 
 #: themes/ardoise/news.php:21 themes/ardoise/news.php:23
 #, fuzzy
 msgid "older"
-msgstr ""
-"Auto backup bewaart alleen dit aantal backups. Oudere backups worden "
-"verwijderd."
+msgstr "ouder"
 
 #: themes/ardoise/register.php:9 themes/basic/register.php:29
 #: themes/bootstrap/register.php:9 themes/effervescence+/register.php:62
@@ -30970,7 +31088,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:68 themes/masonry/themeoptions.php:73
 #, fuzzy
 msgid "Style"
-msgstr "tekstomloop links: <em>style=\"float:right\"</em>"
+msgstr "Stijl"
 
 #: themes/ardoise/themeoptions.php:70
 #, fuzzy
@@ -31049,7 +31167,7 @@ msgstr "Vink aan om het zoekveld te tonen."
 #: themes/ardoise/themeoptions.php:87
 #, fuzzy
 msgid "Show Tags"
-msgstr "zichtbaar"
+msgstr "Toon Tags"
 
 #: themes/ardoise/themeoptions.php:89
 #, fuzzy
@@ -31123,7 +31241,9 @@ msgstr "Gebruik Colorbox"
 #: themes/ardoise/themeoptions.php:109
 #, fuzzy
 msgid "Check to display the full size image with Colorbox in Image page."
-msgstr "Vink aan om de de volledige afbeelding weer te geven met Colorbox"
+msgstr ""
+"Vink aan om de orginele (grote) afbeelding te tonen in Colorbox op de "
+"afbeeldingspagina."
 
 #: themes/ardoise/themeoptions.php:111
 #, fuzzy
@@ -31368,34 +31488,34 @@ msgstr ""
 #, fuzzy
 #| msgid "View the album %s"
 msgid "View more albums"
-msgstr "Beheerders van één of meer albums."
+msgstr "Meer albums"
 
 #: themes/bootstrap/inc_print_infinitescroll.php:6
 #, fuzzy
 msgid "No more albums to display"
-msgstr "Beheerders van één of meer albums."
+msgstr "Geen albums meer"
 
 #: themes/bootstrap/inc_print_infinitescroll.php:10
 #, fuzzy
 #| msgid "View the image: %s"
 msgid "View more images"
-msgstr "Meer informatie"
+msgstr "Meer afbeeldingen"
 
 #: themes/bootstrap/inc_print_infinitescroll.php:11
 #, fuzzy
 msgid "No more images to display"
-msgstr "Toon afbeeldingen op:"
+msgstr "Geen afbeeldingen meer"
 
 #: themes/bootstrap/inc_print_infinitescroll_news.php:7
 #, fuzzy
 #| msgid "View more"
 msgid "View more news"
-msgstr "Meer informatie"
+msgstr "Meer artikelen"
 
 #: themes/bootstrap/inc_print_infinitescroll_news.php:17
 #, fuzzy
 msgid "No more news to display"
-msgstr "Toon afbeeldingen op:"
+msgstr "Geen artikelen meer"
 
 #: themes/bootstrap/theme_description.php:10
 #, fuzzy
@@ -31412,7 +31532,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Please return later"
 msgid "Please read"
-msgstr "Lees meer"
+msgstr "Leesmateriaal"
 
 #: themes/bootstrap/theme_description.php:13
 #, fuzzy
@@ -31442,7 +31562,7 @@ msgstr ""
 #, fuzzy
 #| msgid " (Latest news and images)"
 msgid "Latest news on Homepage"
-msgstr "(laatste nieuws en albums)"
+msgstr "Laatste nieuws op homepage"
 
 #: themes/bootstrap/themeoptions.php:84
 #, fuzzy
@@ -31457,7 +31577,7 @@ msgstr ""
 #, fuzzy
 #| msgid "stop slideshow"
 msgid "Homepage slider"
-msgstr "Homepage"
+msgstr "Startpagina slider"
 
 #: themes/bootstrap/themeoptions.php:94
 #, fuzzy
@@ -31475,8 +31595,9 @@ msgstr ""
 "galerij gebruikt voor de homepage slider."
 
 #: themes/bootstrap/themeoptions.php:96
+#, fuzzy
 msgid "Select * none * if you do not want any slider."
-msgstr ""
+msgstr "Selecteer * geen * als u geen schuifregelaar wilt."
 
 #: themes/bootstrap/themeoptions.php:98
 #, fuzzy
@@ -31544,7 +31665,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Use text"
 msgid "Use isotope"
-msgstr "Gebruik Colorbox"
+msgstr "Gebruik <em>Isotope</em>"
 
 #: themes/bootstrap/themeoptions.php:125
 #, fuzzy
@@ -31587,7 +31708,7 @@ msgstr "Deze optie overschrijft de oneindige scroll op albumoptie hierboven."
 #: themes/bootstrap/themeoptions.php:132
 #, fuzzy
 msgid "Social Links"
-msgstr "Sociale netwerken"
+msgstr "Sociale Media links"
 
 #: themes/bootstrap/themeoptions.php:136
 #, fuzzy
@@ -31598,7 +31719,7 @@ msgstr "Vink aan om een aantal “Social Links\" te tonen."
 #, fuzzy
 #| msgid "Feed text length"
 msgid "Excerpt length"
-msgstr "CAPTCHA lengte"
+msgstr "Lengte samenvatting"
 
 #: themes/bootstrap/themeoptions.php:148
 #, fuzzy
@@ -31621,7 +31742,7 @@ msgstr ""
 #: themes/bootstrap/themeoptions.php:162
 #, fuzzy
 msgid "Exif"
-msgstr "De PHP EXIF extensie is vereist voor deze optie."
+msgstr "Beschrijving:"
 
 #: themes/bootstrap/themeoptions.php:166
 #, fuzzy
@@ -32150,12 +32271,12 @@ msgstr "hint:"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "%s"
+msgstr "%s "
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "<a href=\"#%1$s\"><code>%1$s</code></a> is al geactiveerd."
+msgstr "%1$s"
 
 #: themes/enlighten/sidebar.php:46
 #, fuzzy
@@ -32165,9 +32286,7 @@ msgstr "laatste"
 #: themes/enlighten/sidebar.php:61
 #, fuzzy
 msgid "Toolbox"
-msgstr ""
-"Hier kun je de CSS van de themeSwitcher select-dropdown aanpassen, wanneer "
-"je bent ingelogd."
+msgstr "Gereedschapskist"
 
 #: themes/enlighten/sidebar.php:69 themes/enlighten/sidebar.php:72
 #, fuzzy
@@ -32350,8 +32469,7 @@ msgstr ""
 #: themes/masonry/404.php:4
 #, fuzzy
 msgid "404 error"
-msgstr ""
-"Zenphoto heeft een 404 fout verwerkt in %s. Zie het debug log voor details."
+msgstr "404 error"
 
 #: themes/masonry/album.php:16 themes/masonry/favorites.php:18
 #, fuzzy
@@ -32361,12 +32479,12 @@ msgstr "%u subalbum"
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 #, fuzzy
 msgid "number"
-msgstr "POP poortnummer."
+msgstr "nummer"
 
 #: themes/masonry/album.php:40 themes/masonry/favorites.php:42
 #, fuzzy
 msgid "total"
-msgstr "Totale tijd voor de verwerking van het Zenphoto script: %.4f seconden"
+msgstr "totaal"
 
 #: themes/masonry/album.php:52 themes/masonry/album.php:123
 #: themes/masonry/favorites.php:54 themes/masonry/favorites.php:125
@@ -32381,19 +32499,19 @@ msgstr "Subalbums"
 #: themes/masonry/search.php:62
 #, fuzzy
 msgid "Play Slideshow"
-msgstr "Speeltijd"
+msgstr "Diavoorstelling starten"
 
 #: themes/masonry/album.php:153 themes/masonry/favorites.php:157
 #: themes/masonry/search.php:129
 #, fuzzy
 msgid "Preview"
-msgstr "Bekijk de release notes voor Zenphoto %s"
+msgstr "Voorbeeld"
 
 #: themes/masonry/comment_form/comment_form.php:24
 #: themes/minimal/z_disable_comment_form/comment_form.php:24
 #, fuzzy
 msgid "E-Mail"
-msgstr "e-mail"
+msgstr "E-mail"
 
 #: themes/masonry/comment_form/comment_form.php:47
 #: themes/minimal/z_disable_comment_form/comment_form.php:47
@@ -32439,12 +32557,12 @@ msgstr "Best gewaardeerde afbeeldingen"
 #: themes/masonry/functions.php:263
 #, fuzzy
 msgid "Random Images"
-msgstr "willekeurige afbeeldingen."
+msgstr "Willekeurige Foto's"
 
 #: themes/masonry/functions.php:282
 #, fuzzy
 msgid "Search Result"
-msgstr "zoeken"
+msgstr "Zoekresultaten"
 
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
@@ -32454,7 +32572,7 @@ msgstr "Beeldnummer/totaal aantal beelden"
 #: themes/masonry/image.php:41
 #, fuzzy
 msgid "Start Slideshow"
-msgstr "start slideshow"
+msgstr "Diavoorstelling starten"
 
 #: themes/masonry/inc-footer.php:21
 #, fuzzy
@@ -32470,19 +32588,19 @@ msgstr "Pagina’s"
 #: themes/masonry/inc-header.php:169
 #, fuzzy
 msgid "image {current} of {total}"
-msgstr "Huidig thema"
+msgstr "afbeelding {current} of {total}"
 
 #: themes/masonry/inc-header.php:38 themes/masonry/inc-header.php:52
 #: themes/masonry/inc-header.php:127 themes/masonry/inc-header.php:131
 #: themes/masonry/news.php:23
 #, fuzzy
 msgid "Latest Comments"
-msgstr " (laatste reacties)"
+msgstr "Laatste reacties"
 
 #: themes/masonry/inc-header.php:102 themes/minimal/inc-header.php:103
 #, fuzzy
 msgid "Password Required"
-msgstr "Wachtwoord vereist"
+msgstr "Wachtwoord Vereist"
 
 #: themes/masonry/inc-header.php:106 themes/minimal/inc-header.php:107
 #, fuzzy
@@ -32513,8 +32631,7 @@ msgstr "Geen reacties"
 #: themes/masonry/index.php:11
 #, fuzzy
 msgid "Welcome"
-msgstr ""
-"Welkom bij Zenphoto! Deze pagina zal Zenphoto %s op je webserver installeren."
+msgstr "Welkom"
 
 #: themes/masonry/index.php:61 themes/minimal/index.php:56
 #, fuzzy
@@ -32534,7 +32651,7 @@ msgstr "« vorige"
 #: themes/minimal/password.php:13
 #, fuzzy
 msgid "Please Login"
-msgstr "Login"
+msgstr "Gelieve in te loggen"
 
 #: themes/masonry/password.php:21 themes/minimal/password.php:17
 #, fuzzy
@@ -32544,7 +32661,7 @@ msgstr "Je moet ingelogd zijn om setup te starten."
 #: themes/masonry/search.php:30 themes/minimal/search.php:29
 #, fuzzy
 msgid "items"
-msgstr "Minimum aantal onderdelen"
+msgstr "items"
 
 #: themes/masonry/search.php:171 themes/minimal/search.php:108
 #, fuzzy
@@ -32631,11 +32748,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:111 themes/minimal/themeoptions.php:78
 #, fuzzy
 msgid "Logo Image"
-msgstr ""
-"De volledige URL naar een specifiek site logo. Facebook, Google+ en andere "
-"gebruiken dat als de thumbnail die wordt gebruikt in voorvertoningen van "
-"links in een reactie. Voor album- en afbeeldingspagina’s worden automatisch "
-"de standaard album- en afbeeldings-thumbnails gebruikt."
+msgstr "Logo afbeelding"
 
 #: themes/masonry/themeoptions.php:115
 #, fuzzy
@@ -32655,7 +32768,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:119
 #, fuzzy
 msgid "Logo Height"
-msgstr "Hoogte"
+msgstr "Logo hoogte"
 
 #: themes/masonry/themeoptions.php:123
 #, fuzzy
@@ -32713,7 +32826,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:145 themes/minimal/themeoptions.php:53
 #, fuzzy
 msgid "Colorbox Style"
-msgstr "Stylesheets (.css)"
+msgstr "Colorbox"
 
 #: themes/masonry/themeoptions.php:149 themes/minimal/themeoptions.php:56
 #, fuzzy
@@ -32849,7 +32962,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:206
 #, fuzzy
 msgid "Custom CSS"
-msgstr "Eigen"
+msgstr "Aangepaste CSS"
 
 #: themes/masonry/themeoptions.php:210
 #, fuzzy
@@ -32878,8 +32991,7 @@ msgstr "Album:"
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
 msgid "Gallery Images"
-msgstr ""
-"Laat statistische grafieken en informatie zien over albums en afbeeldingen."
+msgstr "Galerij afbeeldingen"
 
 #: themes/minimal/inc-footer.php:24
 #, fuzzy
@@ -32894,7 +33006,7 @@ msgstr "galerij"
 #: themes/minimal/news.php:48
 #, fuzzy
 msgid "Next →"
-msgstr "volgende »"
+msgstr "Volgende →"
 
 #: themes/minimal/news.php:48
 #, fuzzy
@@ -32904,7 +33016,7 @@ msgstr "« vorige"
 #: themes/minimal/password.php:4
 #, fuzzy
 msgid "Enter Login"
-msgstr "Login"
+msgstr "Vul gebruikersnaam in"
 
 #: themes/minimal/themeoptions.php:33
 #, fuzzy
@@ -32934,7 +33046,7 @@ msgstr ""
 #: themes/minimal/themeoptions.php:43
 #, fuzzy
 msgid "Sidebar Position on the Right?"
-msgstr "Rechts"
+msgstr "Positie"
 
 #: themes/minimal/themeoptions.php:46
 #, fuzzy
@@ -32983,7 +33095,7 @@ msgstr ""
 #: themes/minimal/themeoptions.php:67
 #, fuzzy
 msgid "Menu Name of Menu Manager"
-msgstr "Menu manager: Wijzig menu-onderdeel"
+msgstr "Menu manager: Voeg menu-onderdeel toe"
 
 #: themes/minimal/themeoptions.php:71
 #, fuzzy
@@ -33122,7 +33234,7 @@ msgstr "thema"
 #, fuzzy
 #| msgid "options"
 msgid "Caption"
-msgstr "Auteur van beschrijving"
+msgstr "Onderschrift"
 
 #: themes/paradigm/image.php:78
 msgid "Location:"
@@ -33132,13 +33244,13 @@ msgstr "Locatie"
 #, fuzzy
 #| msgid "Other"
 msgid "Other info"
-msgstr "Info"
+msgstr "Overige info"
 
 #: themes/paradigm/image.php:112
 #, fuzzy
 #| msgid "Views: %u"
 msgid "Views:"
-msgstr "Bekeken: %u"
+msgstr "Weergaven:"
 
 #: themes/paradigm/image.php:117
 msgid "Copyright:"
@@ -33147,14 +33259,12 @@ msgstr "Copyright:"
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "Toon gevonden albums"
+msgstr "Niet gevonden"
 
 #: themes/paradigm/includes/_gallery.php:12
 #, fuzzy
 msgid "About"
-msgstr ""
-"De tekst die uitlegt dat er een kopie naar het opgegeven e-mailadres wordt "
-"verzonden."
+msgstr "Over"
 
 #: themes/paradigm/includes/_head.php:71 themes/paradigm/includes/_head.php:77
 #: themes/paradigm/includes/_head.php:158
@@ -33170,7 +33280,7 @@ msgstr "Blog"
 #, fuzzy, php-format
 #| msgid "Publish for"
 msgid "Results for"
-msgstr "Toon meer resultaten"
+msgstr "Resultaten voor"
 
 #: themes/paradigm/theme_description.php:9
 #, fuzzy
@@ -33194,7 +33304,7 @@ msgstr ""
 #, fuzzy
 #| msgid "stop slideshow"
 msgid "Homepage slideshow"
-msgstr "Homepage"
+msgstr "Homepagina-slideshow"
 
 #: themes/paradigm/themeoptions.php:68
 #, fuzzy
@@ -33205,19 +33315,19 @@ msgstr "Controleer of er een diavoorstelling op de homepage staat."
 #, fuzzy
 #| msgid "Slideshow: Speed"
 msgid "Slideshow Type"
-msgstr "Slideshow"
+msgstr "Slideshow Type"
 
 #: themes/paradigm/themeoptions.php:75
 #, fuzzy
 #| msgid "random"
 msgid "Random"
-msgstr "willekeurig"
+msgstr "Willekeurig"
 
 #: themes/paradigm/themeoptions.php:76
 #, fuzzy
 #| msgid "Popular Tags"
 msgid "Popular"
-msgstr "Meest populaire albums"
+msgstr "Populair"
 
 #: themes/paradigm/themeoptions.php:77
 #, fuzzy
@@ -33253,7 +33363,7 @@ msgstr "meest beoordeeld"
 #, fuzzy
 #| msgid "top rated"
 msgid "Top Rated"
-msgstr "best beoordeeld"
+msgstr "Hoogst Gewaardeerd"
 
 #: themes/paradigm/themeoptions.php:83
 #, fuzzy
@@ -33281,28 +33391,28 @@ msgstr ""
 #, fuzzy
 #| msgid "Number of RSS feed items:"
 msgid "Number of slides"
-msgstr "Het maximum aantal slides om te tonen."
+msgstr "Aantal slides"
 
 #: themes/paradigm/themeoptions.php:101
 #, fuzzy
 msgid "7"
-msgstr "7: 90 graden linksom gespiegeld"
+msgstr "7"
 
 #: themes/paradigm/themeoptions.php:102
 #, fuzzy
 msgid "8"
-msgstr "8: 90 graden rechtsom"
+msgstr "8"
 
 #: themes/paradigm/themeoptions.php:103
 #, fuzzy
 msgid "9"
-msgstr "Latin 9 (ISO)"
+msgstr "9"
 
 #: themes/paradigm/themeoptions.php:104
 #, fuzzy
 #| msgid "10s"
 msgid "10"
-msgstr "10 meest recente reacties"
+msgstr "10"
 
 #: themes/paradigm/themeoptions.php:105
 #, fuzzy
@@ -33328,12 +33438,12 @@ msgstr ""
 #, fuzzy
 #| msgid "Homepage"
 msgid "Homepage content"
-msgstr "Inhoud"
+msgstr "Homepage content"
 
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
 msgid "Latest pictures"
-msgstr "laatste"
+msgstr "Laatste afbeeldingen"
 
 #: themes/paradigm/themeoptions.php:120
 #, fuzzy
@@ -33395,7 +33505,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:153
 #, fuzzy
 msgid "URL to Facebook"
-msgstr "URL"
+msgstr "Facebook ID"
 
 #: themes/paradigm/themeoptions.php:156
 #, fuzzy
@@ -33506,7 +33616,7 @@ msgstr "Effervescence functie voor het tonen van afbeeldingen."
 #, fuzzy
 #| msgid "Contact"
 msgid "Contact me"
-msgstr "Contact"
+msgstr "Contact opnemen"
 
 #: themes/zenFluid/404.php:16
 #, fuzzy
@@ -33524,13 +33634,13 @@ msgstr "Eigen thema pagina"
 #, fuzzy
 #| msgid "Views: %u"
 msgid "View: "
-msgstr "Bekijk"
+msgstr "Weergave:"
 
 #: themes/zenFluid/image.php:174 themes/zenFluid/pages.php:33
 #, fuzzy
 #| msgid "Views: %u"
 msgid "Views: "
-msgstr "Bekeken: %u"
+msgstr "Weergaven: "
 
 #: themes/zenFluid/inc-footer.php:6 themes/zenFluid/inc-sidebar.php:132
 #, fuzzy
@@ -33548,7 +33658,7 @@ msgstr ""
 #, fuzzy
 #| msgid "RSS feeds"
 msgid "RSS Feeds"
-msgstr "RSS feeds"
+msgstr "RSS Feeds"
 
 #: themes/zenFluid/inc-sidebar.php:82
 #, fuzzy
@@ -33561,12 +33671,12 @@ msgstr "Het ZenFluid thema vereist dat de zenpage plugin wordt ingeschakeld."
 #, fuzzy
 #| msgid "Your response"
 msgid "Your user profile"
-msgstr "Gebruikersnaam* (dit wordt je gebruikersnaam)"
+msgstr "Je profiel"
 
 #: themes/zenFluid/news.php:121
 #, fuzzy
 msgid "Prev"
-msgstr "vorige"
+msgstr "Vorige"
 
 #: themes/zenFluid/search.php:143
 #, fuzzy, php-format
@@ -33582,12 +33692,12 @@ msgstr "White"
 #, fuzzy
 #| msgid "Night"
 msgid "Light Green"
-msgstr "Licht"
+msgstr "Lichtgroen"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "Dark gray"
-msgstr "Donker"
+msgstr "Donkergrijs"
 
 #: themes/zenFluid/themeoptions.php:74
 #, fuzzy
@@ -33609,10 +33719,7 @@ msgstr "Geen rand"
 #, fuzzy
 #| msgid "Timeout"
 msgid "Times"
-msgstr ""
-"Plaats een vinkje in de box voor elke tag die je wilt verwijderen en druk "
-"daarna op de knop <em>Verwijder geselecteerde tags</em>. Tussen haakjes "
-"staat het aantal keer dat een tag voorkomt."
+msgstr "Tijden"
 
 #: themes/zenFluid/themeoptions.php:75
 #, fuzzy
@@ -33732,7 +33839,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:151
 #, fuzzy
 msgid "Print title breadcrumb"
-msgstr "Titel"
+msgstr "Albumtitel"
 
 #: themes/zenFluid/themeoptions.php:155
 #, fuzzy
@@ -33747,7 +33854,7 @@ msgstr ""
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "een title"
+msgstr "Titel-marge"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -33792,7 +33899,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show header"
-msgstr "Toon details"
+msgstr "Toon Header"
 
 #: themes/zenFluid/themeoptions.php:179
 #, fuzzy
@@ -33807,7 +33914,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show title"
 msgid "Show footer"
-msgstr "Toon details"
+msgstr "Voettekst tonen"
 
 #: themes/zenFluid/themeoptions.php:185
 #, fuzzy
@@ -33893,7 +34000,7 @@ msgstr ""
 #: themes/zenFluid/themeoptions.php:219
 #, fuzzy
 msgid "Title position"
-msgstr "Positie:"
+msgstr "Titel Positie"
 
 #: themes/zenFluid/themeoptions.php:225
 #, fuzzy
@@ -33905,7 +34012,7 @@ msgstr "Positie:"
 #, fuzzy
 #| msgid "Description"
 msgid "Description position"
-msgstr "Beschrijving"
+msgstr "Positie Omschrijving"
 
 #: themes/zenFluid/themeoptions.php:232
 #, fuzzy
@@ -33915,7 +34022,7 @@ msgstr "Selecteer afbeeldings layout:"
 #: themes/zenFluid/themeoptions.php:234
 #, fuzzy
 msgid "Button position"
-msgstr "Positie:"
+msgstr "Knop/Button positie"
 
 #: themes/zenFluid/themeoptions.php:239
 #, fuzzy
@@ -34049,6 +34156,9 @@ msgstr ""
 "menu te maken i.p.v. gebruik te maken van de standaard menu’s. De plugin "
 "moet wel geactiveerd zijn.<br /> Een standaard menu “zenpage” wordt "
 "automatisch aangemaakt."
+
+#~ msgid "Select users:"
+#~ msgstr "Selecteer gebruikers:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "PHP Safe Mode staat aan!"

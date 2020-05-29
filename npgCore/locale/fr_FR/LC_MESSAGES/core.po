@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:15-0700\n"
-"PO-Revision-Date: 2020-05-27 15:15-0700\n"
+"POT-Creation-Date: 2020-05-29 12:45-0700\n"
+"PO-Revision-Date: 2020-05-29 12:54-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: Samy Rabih (Fetard) & Michel Gagnon <michel@mgagnon.net>\n"
 "Language: fr_FR\n"
@@ -150,12 +150,18 @@ msgid "close"
 msgstr "fermer"
 
 #: npgCore/admin-functions.php:282
+#, fuzzy
 msgid ""
 "To move a sub-item out from its list you must drag it out via the bottom of "
 "the list. That is drag it to past the last item in the sub-list then drag it "
 "left and drop it. Then you can move it into to another sub-list. If you are "
 "moving out multiple levels you must repeat the move process for each level."
 msgstr ""
+"Pour retirer un sous-poste de sa liste, vous devez le faire glisser en bas "
+"de la liste. C'est-à-dire le faire glisser jusqu'au dernier élément de la "
+"sous-liste, puis le faire glisser vers la gauche et le déposer. Vous pouvez "
+"ensuite le déplacer dans une autre sous-liste. Si vous sortez de plusieurs "
+"niveaux, vous devez répéter le processus de déplacement pour chaque niveau."
 
 #: npgCore/admin-functions.php:293
 #: npgCore/extensions/cacheManager/cacheImages.php:233
@@ -328,7 +334,7 @@ msgstr "Titre de l’album"
 #, fuzzy
 #| msgid "Album Description:"
 msgid "Album Description"
-msgstr "Description de l’album :"
+msgstr "Description de l'album"
 
 #: npgCore/admin-functions.php:1987 npgCore/admin-functions.php:2036
 #, fuzzy
@@ -441,7 +447,7 @@ msgstr "Décroissant"
 #, fuzzy
 #| msgid "custom fields:"
 msgid "custom fields"
-msgstr "champs personnalisés :"
+msgstr "champs personnalisés"
 
 #: npgCore/admin-functions.php:2147 npgCore/admin_options/image.php:258
 #: npgCore/admin_options/search.php:446
@@ -487,7 +493,7 @@ msgstr "*réglages par défaut"
 #, fuzzy
 #| msgid "Thumbnail"
 msgid "Thumbnails"
-msgstr "vignettes %s"
+msgstr "Miniatures"
 
 #: npgCore/admin-functions.php:2286 npgCore/extensions/cacheManager.php:313
 msgid "Thumbnail"
@@ -1223,7 +1229,7 @@ msgstr "développement"
 #, fuzzy
 #| msgid "Simple"
 msgid "example"
-msgstr "Ajoute des exemples de macros"
+msgstr "exemple"
 
 #: npgCore/admin-functions.php:5495
 msgid "mail"
@@ -1255,7 +1261,7 @@ msgstr ""
 #: npgCore/admin-functions.php:5500
 #, fuzzy
 msgid "tools"
-msgstr "Outils sitemap"
+msgstr "Công cụ"
 
 #: npgCore/admin-functions.php:5501 npgCore/admin-globals.php:177
 msgid "users"
@@ -1322,7 +1328,7 @@ msgstr ""
 #: npgCore/admin-functions.php:5643
 #, fuzzy
 msgid "CATEGORY"
-msgstr "Catégorie"
+msgstr "CATEGORIE"
 
 #: npgCore/admin-functions.php:5644
 #, fuzzy
@@ -1630,7 +1636,7 @@ msgstr "pages"
 #, fuzzy
 #| msgid "files"
 msgid "my profile"
-msgstr "Mes favoris"
+msgstr "mon profil"
 
 #: npgCore/admin-globals.php:194
 #, fuzzy
@@ -1664,10 +1670,7 @@ msgstr "recherche"
 #: npgCore/admin-globals.php:222
 #, fuzzy
 msgid "forms"
-msgstr ""
-"Si l’option est activée, le formulaire de connection d’invité comporte un "
-"champ pour le <em>Nom de l’utilisateur</em>. Cela permet aux utilisateurs de "
-"se connecter à partir du formulaire."
+msgstr "formulaires"
 
 #: npgCore/admin-globals.php:224
 msgid "plugin"
@@ -1710,7 +1713,7 @@ msgstr ""
 #: npgCore/admin-globals.php:266 npgCore/utilities/http_header_inspector.php:22
 #, fuzzy
 msgid "HTTP header inspector"
-msgstr "L’en-tête (commande header) qui sera générée"
+msgstr "INSPECTEUR d’en-tête HTTP"
 
 #: npgCore/admin-tabs/album_edit.php:14 npgCore/admin-tabs/edit.php:862
 msgid "Drag the albums into the order you wish them displayed."
@@ -1968,7 +1971,7 @@ msgstr "Afficher les éléments non publiés"
 #, fuzzy
 #| msgid "Within"
 msgid "within"
-msgstr "Parmi"
+msgstr "dans"
 
 #: npgCore/admin-tabs/dynamic-album.php:299
 msgid "tagged"
@@ -1991,11 +1994,16 @@ msgid "Album <em>Tag</em>"
 msgstr "Album <em>Mot-clé</em>"
 
 #: npgCore/admin-tabs/dynamic-album.php:314
+#, fuzzy
 msgid ""
 "This tag will be assigned to each item found by the search. The search "
 "criteria for the album will be exclusively the tag. Thus the contents of "
 "this dynamic album are defined statically at the time of creation."
 msgstr ""
+"Cette étiquette sera attribuée à chaque élément trouvé par la recherche. Le "
+"critère de recherche pour l'album sera exclusivement le tag. Ainsi, le "
+"contenu de cet album dynamique est défini statiquement au moment de la "
+"création."
 
 #: npgCore/admin-tabs/dynamic-album.php:320
 msgid "Search fields:"
@@ -2189,7 +2197,7 @@ msgstr "Aucune n’est sélectionnée pour être affichée"
 #, fuzzy
 #| msgid "Location"
 msgid "Geo location"
-msgstr "Lieu : "
+msgstr "Géo-localisation"
 
 #: npgCore/admin-tabs/image_edit.php:305
 msgid "Edit all image data"
@@ -2694,7 +2702,7 @@ msgstr "Les mots-clés sélectionnés ont été supprimés"
 #, fuzzy
 #| msgid "Assign"
 msgid "Assign to"
-msgstr "Attribuer"
+msgstr "Attribuer à"
 
 #: npgCore/admin-tabs/tags.php:281
 #, fuzzy
@@ -2908,7 +2916,7 @@ msgstr "Modifier"
 #, fuzzy
 #| msgid "Are you sure you want to delete this user?"
 msgid "Do you really want to delete this theme?"
-msgstr "Êtes-vous certain(e) de vouloir supprimer cet utilisateur ?"
+msgstr "Voulez-vous vraiment supprimer ce thème?"
 
 #: npgCore/admin-tabs/themes.php:323
 msgid "Duplicate"
@@ -3084,7 +3092,7 @@ msgstr "L’email %s est déjà utilisé par une autre personne !"
 #, fuzzy, php-format
 #| msgid "Enter a valid email address."
 msgid "%s is not a valid e-mail address."
-msgstr "Vous devez saisir une adresse de courriel."
+msgstr "%s n'est pas une adresse e-mail valide."
 
 #: npgCore/admin-tabs/users.php:171
 #, php-format
@@ -3095,8 +3103,9 @@ msgstr "Le mot de passe %s ne peut pas être vide !"
 msgid "Password reset request."
 msgstr "Demande de réinitialisation du mot de passe."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -3104,10 +3113,7 @@ msgstr "Utilisateurs"
 #, fuzzy
 #| msgid "files"
 msgid "Profile"
-msgstr ""
-"<strong>Note.</strong> Veuillez mettre votre profil à jour en saisissant une "
-"adresse de <em>courriel</em> valide. Nous vous enverrons un lien pour "
-"valider l’accès à ce site."
+msgstr "Profil"
 
 #: npgCore/admin-tabs/users.php:335
 #: npgCore/extensions/user_groups/user_groups-tab.php:170
@@ -3247,7 +3253,7 @@ msgstr "La politique d'utilisation du site a été reconnue."
 #: npgCore/admin-tabs/users.php:773
 #, fuzzy
 msgid "Clear"
-msgstr "Effacer les tags des images"
+msgstr "Effacer"
 
 #: npgCore/admin-tabs/users.php:778
 #, fuzzy
@@ -3258,8 +3264,7 @@ msgstr "La politique d'utilisation du site a été reconnue."
 #, fuzzy
 #| msgid "Pet"
 msgid "Set"
-msgstr ""
-"Aucun mot de passe n’est défini pour l’album. Cliquez ici pour en définir un."
+msgstr "Définir"
 
 #: npgCore/admin-tabs/users.php:831
 msgid "Challenge phrase"
@@ -3467,7 +3472,7 @@ msgstr "La version %s peut être téléchargée par le bouton de l'utilitaire."
 #, fuzzy
 #| msgid "Update"
 msgid "Updates"
-msgstr "Démarrage de la mise à jour de la table"
+msgstr "Mises à jour"
 
 #: npgCore/admin.php:336
 #, fuzzy, php-format
@@ -3831,7 +3836,7 @@ msgstr "Le titre de votre site internet."
 #, fuzzy
 #| msgid "Website url:"
 msgid "Website url"
-msgstr "Adresse du site :"
+msgstr "Site web"
 
 #: npgCore/admin_options/gallery.php:378
 msgid ""
@@ -4051,7 +4056,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Time zone:"
 msgid "Time zone"
-msgstr "Fuseau horaire :"
+msgstr "Fuseau horaire"
 
 #: npgCore/admin_options/general.php:203
 msgid "*not specified"
@@ -4260,7 +4265,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Date format:"
 msgid "Date format"
-msgstr "Format de la date :"
+msgstr "Format de date"
 
 #: npgCore/admin_options/general.php:426
 msgid "Preferred date representation"
@@ -4444,7 +4449,7 @@ msgstr "L’encodage à utiliser pour le système de fichiers."
 #, fuzzy
 #| msgid "Allowed tags:"
 msgid "Allowed tags"
-msgstr "Tags autorisés :"
+msgstr "Mots-clés autorisés"
 
 #: npgCore/admin_options/general.php:527 npgCore/admin_options/theme.php:244
 #: npgCore/admin_options/theme.php:568
@@ -4581,13 +4586,13 @@ msgstr "Cookies"
 #, fuzzy
 #| msgid "WEB path:"
 msgid "path"
-msgstr "Chemin"
+msgstr "chemin"
 
 #: npgCore/admin_options/general.php:613
 #, fuzzy
 #| msgid "Duration"
 msgid "duration"
-msgstr "Durée de vie"
+msgstr "durée"
 
 #: npgCore/admin_options/general.php:623
 msgid "enable gallery sessions"
@@ -4669,7 +4674,7 @@ msgstr ""
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration"
-msgstr "Inscription à la galerie Zenphoto"
+msgstr "Inscription"
 
 #: npgCore/admin_options/general.php:672
 #, fuzzy
@@ -4744,9 +4749,7 @@ msgstr "Cocher pour activer le formulaire de recherche."
 #: npgCore/admin_options/general.php:760
 #, fuzzy
 msgid "ignore"
-msgstr ""
-"Si vous ne souhaitez pas réinitialiser vos mots de passe, vous n’avez qu’à "
-"ignorer ce message. Cette demande expirera automatiquement dans 3 jours."
+msgstr "ignorer"
 
 #: npgCore/admin_options/general.php:764
 #, fuzzy
@@ -4848,7 +4851,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Image quality:"
 msgid "Image quality"
-msgstr "Qualité de l’image :"
+msgstr "Qualité de l'image"
 
 #: npgCore/admin_options/image.php:332
 #, fuzzy
@@ -4928,7 +4931,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Sharpen:"
 msgid "Sharpen"
-msgstr "Renforcement :"
+msgstr "Netteté"
 
 #: npgCore/admin_options/image.php:419 themes/bootstrap/inc_header.php:161
 #, fuzzy
@@ -4940,7 +4943,7 @@ msgstr "vignettes %s"
 #, fuzzy
 #| msgid "Amount"
 msgid "amount"
-msgstr "Force"
+msgstr "montant"
 
 #: npgCore/admin_options/image.php:427
 msgid "Radius"
@@ -5083,7 +5086,7 @@ msgstr "Processus concurrents de mise en cache :"
 #, fuzzy
 #| msgid "Limit"
 msgid "limit"
-msgstr "Limite"
+msgstr "limite"
 
 #: npgCore/admin_options/image.php:550
 msgid "Cache processing worker limit."
@@ -5108,7 +5111,7 @@ msgstr "Format de la mise en cache :"
 #, fuzzy
 #| msgid "Original"
 msgid "original"
-msgstr "Format d’origine"
+msgstr "original"
 
 #: npgCore/admin_options/image.php:578
 msgid ""
@@ -5188,7 +5191,7 @@ msgstr "Mettre en cache les images pleine grandeur"
 #, fuzzy
 #| msgid "password:"
 msgid "password"
-msgstr "Mot de passe"
+msgstr "mot de passe"
 
 #: npgCore/admin_options/image.php:716
 #, fuzzy
@@ -5769,7 +5772,7 @@ msgstr "Trier les articles d'actualités par"
 #, fuzzy
 #| msgid "Image order"
 msgid "Page order"
-msgstr "Méthode de tri"
+msgstr "Ordre des pages"
 
 #: npgCore/admin_options/search.php:558
 #, fuzzy
@@ -5868,9 +5871,7 @@ msgstr "Se connecter"
 #, fuzzy
 #| msgid "Debug"
 msgid "Debug log"
-msgstr ""
-"Zenphoto a produit une erreur 404 sur %s. Voir le journal de déboggage pour "
-"plus de détails."
+msgstr "Journal de débogage"
 
 #: npgCore/admin_options/security.php:164
 #, fuzzy
@@ -6014,7 +6015,7 @@ msgstr "Dans les pages d’images, il y a %1$u rangées de vignettes."
 #: npgCore/admin_options/theme.php:350
 #, fuzzy
 msgid "Transition"
-msgstr "Transition :"
+msgstr "Transition"
 
 #: npgCore/admin_options/theme.php:368
 msgid "separate"
@@ -6039,10 +6040,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
-msgstr ""
-"Vignette personnalisée : taille du plus long côté / (largeur de rognage x "
-"hauteur de rognage). Vous pouvez configurer les tailles par défaut dans les "
-"options de l’extension TinyMCE."
+msgstr "Taille de la miniature"
 
 #: npgCore/admin_options/theme.php:406
 #, php-format
@@ -6053,7 +6051,7 @@ msgstr "Les vignettes standards sont redimensionnées à %u pixels."
 #, fuzzy
 #| msgid "Crop thumbnails:"
 msgid "Crop thumbnails"
-msgstr "Rogner les vignettes :"
+msgstr "Recadrez les vignettes"
 
 #: npgCore/admin_options/theme.php:425
 #, php-format
@@ -6141,8 +6139,7 @@ msgstr "activé"
 #, fuzzy
 #| msgid "separate"
 msgid "separator"
-msgstr ""
-"Activer pour afficher le fil d’Ariane ; sélectionner ensuite le séparateur."
+msgstr "séparateur "
 
 #: npgCore/admin_options/theme.php:543
 msgid "Select if you want parent breadcrumbs and if so the separator for them."
@@ -6284,9 +6281,7 @@ msgstr "Accepter"
 #, fuzzy
 #| msgid "Usage info"
 msgid "More info"
-msgstr ""
-"Veuillez consulter <a href='http://jplayer.org'>jplayer.org</a> pour plus "
-"d’informations sur ce lecteur et sa licence."
+msgstr "En savoir plus"
 
 #: npgCore/allTranslations.php:65
 #, fuzzy
@@ -6803,7 +6798,7 @@ msgstr "Champs de recherche : "
 #, fuzzy
 #| msgid "Objects"
 msgid "Object"
-msgstr "<strong>Objet manquant !</strong>"
+msgstr "Objet"
 
 #: npgCore/classes.php:476
 #, fuzzy, php-format
@@ -7725,9 +7720,7 @@ msgstr "Injecter une page d'accusé de réception de la politique du site."
 #, fuzzy
 #| msgid "Custom menu"
 msgid "Custom url"
-msgstr ""
-"Sélectionner pour créer un lien vers la page de l’image, l’album associé, "
-"une URL personnalisée… ou pour ne pas en créer du tout."
+msgstr "Url personnalisée"
 
 #: npgCore/extensions/GDPR_required.php:63
 #, fuzzy
@@ -7875,8 +7868,11 @@ msgid "LDAP reader ou"
 msgstr "Nom d’usager de l’utilisateur LDAP"
 
 #: npgCore/extensions/LDAP_auth.php:70
+#, fuzzy
 msgid "Organizational Unit where the LDAP reader user credentials are stored"
 msgstr ""
+"Unité organisationnelle où sont stockées les données d'identification de "
+"l'utilisateur du lecteur LDAP"
 
 #: npgCore/extensions/LDAP_auth.php:71
 #, fuzzy
@@ -7923,15 +7919,17 @@ msgstr "Domaine LDAP"
 #, fuzzy
 #| msgid "number"
 msgid "Member"
-msgstr "Nombre"
+msgstr "Membre"
 
 #: npgCore/extensions/LDAP_auth.php:83
+#, fuzzy
 msgid "Member Uid"
-msgstr ""
+msgstr "Membre Uid"
 
 #: npgCore/extensions/LDAP_auth.php:85
+#, fuzzy
 msgid "How users are mapped to LDAP groups."
-msgstr ""
+msgstr "Comment les utilisateurs sont mis en relation avec les groupes LDAP."
 
 #: npgCore/extensions/LDAP_auth.php:86
 #, fuzzy
@@ -7940,10 +7938,13 @@ msgid "LDAP Group ou"
 msgstr "Groupe LDAP"
 
 #: npgCore/extensions/LDAP_auth.php:88
+#, fuzzy
 msgid ""
 "Comma separated list of Organizational Units where Group Membership is "
 "stored."
 msgstr ""
+"Liste séparée par des virgules des unités organisationnelles où "
+"l'appartenance à un groupe est enregistrée."
 
 #: npgCore/extensions/LDAP_auth.php:93
 msgid "The LDAP Group map cannot be managed with the plugin disabled"
@@ -8018,8 +8019,9 @@ msgid "TLS"
 msgstr "TLS"
 
 #: npgCore/extensions/PHPMailer.php:64
+#, fuzzy
 msgid "Encryption to use on the SMTP connection."
-msgstr ""
+msgstr "Chiffrement à utiliser sur la connexion SMTP."
 
 #: npgCore/extensions/PHPMailer.php:65
 msgid "Mail user"
@@ -8237,10 +8239,7 @@ msgstr "Outils pour bloquer les attaques par déni de service."
 #: npgCore/extensions/accessThreshold.php:46
 #, fuzzy
 msgid "Memory"
-msgstr ""
-"Plus il y a de processus concurents de mise en cache, plus la tâche sera "
-"réalisée rapidement… à condition que le serveur ne soit pas sursollicité ou "
-"à court de mémoire."
+msgstr "Mémoire"
 
 #: npgCore/extensions/accessThreshold.php:48
 #, fuzzy
@@ -8259,12 +8258,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:52
 #, fuzzy
 msgid "Window"
-msgstr ""
-"Choisir le lien final pour l’image telle qu’affichée dans image.php. "
-"La valeur par défaut est « aucun lien », mais vous pouvez aussi choisir "
-"« normal » ou « nouveau » (pour afficher dans une nouvelle fenêtre) si vous "
-"souhaitez profiter de certaines fonctions du cœur, comme le téléchargement "
-"automatique."
+msgstr "Fenêtre"
 
 #: npgCore/extensions/accessThreshold.php:54
 #, fuzzy
@@ -8278,9 +8272,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:55
 #, fuzzy
 msgid "Mask"
-msgstr ""
-"<em>Rayon</em> : le rayon en pixels du masque de renforcement (plus le rayon "
-"est petit, plus petits sont les détails renforcés, et vice-versa)."
+msgstr "Masquer"
 
 #: npgCore/extensions/accessThreshold.php:57
 #, fuzzy
@@ -8312,11 +8304,13 @@ msgid "Requests from this IP will be ignored."
 msgstr "Empêcher de poster depuis les IP de cette liste."
 
 #: npgCore/extensions/accessThreshold.php:66
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If your IP address is dynamically assigned you may need to update this on a "
 "regular basis."
 msgstr ""
+"Si votre adresse IP est attribuée de manière dynamique, vous devrez peut-"
+"être la mettre à jour régulièrement."
 
 #: npgCore/extensions/accessThreshold.php:67
 #, fuzzy
@@ -8324,16 +8318,18 @@ msgid "Mointor only"
 msgstr "Icones seulement"
 
 #: npgCore/extensions/accessThreshold.php:69
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "It this box is checked, data will be collected but visitors will not be "
 "blocked."
 msgstr ""
+"Si cette case est cochée, des données seront collectées mais les visiteurs "
+"ne seront pas bloqués."
 
 #: npgCore/extensions/accessThreshold.php:70
 #, fuzzy
 msgid "Clear list"
-msgstr "Effacer la liste"
+msgstr "Supprimer la liste"
 
 #: npgCore/extensions/accessThreshold.php:72
 #, fuzzy
@@ -8343,7 +8339,7 @@ msgstr "Effacer la liste"
 #: npgCore/extensions/accessThreshold.php:108
 #, fuzzy
 msgid "access"
-msgstr "Aucun accès"
+msgstr "přístup"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:78
 #, fuzzy
@@ -8397,12 +8393,12 @@ msgstr "Aucun accès"
 #: npgCore/extensions/accessThreshold/admin_tab.php:146
 #, fuzzy
 msgid "Sort by:"
-msgstr "Trier la galerie"
+msgstr "Trier par:"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:148
 #, fuzzy
 msgid "interval"
-msgstr "Intervalle d’éxécution"
+msgstr "intervalle"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:149
 #: npgCore/extensions/flag_thumbnail.php:69
@@ -8419,12 +8415,12 @@ msgstr "IP :"
 #: npgCore/extensions/accessThreshold/admin_tab.php:150
 #, fuzzy
 msgid "IP"
-msgstr "IP :"
+msgstr "IP"
 
 #: npgCore/extensions/accessThreshold/admin_tab.php:151
 #, fuzzy
 msgid "blocked"
-msgstr "Bloqué(e)"
+msgstr "bloqué"
 
 #: npgCore/extensions/admin-approval.php:14
 msgid ""
@@ -9935,7 +9931,7 @@ msgstr "Date et heure : "
 #, fuzzy
 #| msgid "ID"
 msgid "ID:"
-msgstr "ID"
+msgstr "ID :"
 
 #: npgCore/extensions/comment_form/admin-comments.php:174
 msgid "Street:"
@@ -10337,13 +10333,13 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "Email:"
 msgid "Email: %1$s"
-msgstr "Courriel :"
+msgstr "Email: %1$s"
 
 #: npgCore/extensions/comment_form/functions.php:481
 #, fuzzy, php-format
 #| msgid "Website%s"
 msgid "Website: %1$s"
-msgstr "Site internet<strong>%s</strong> :"
+msgstr "Site Web : %1$s"
 
 #: npgCore/extensions/comment_form/functions.php:486
 #: npgCore/utilities/database_reference.php:195
@@ -11060,7 +11056,7 @@ msgstr "Combien de jours avant le spectacle ?"
 #, fuzzy
 #| msgid "Users per page:"
 msgid "Items per page"
-msgstr "Utilisateurs par page :"
+msgstr "﻿Eléments par page"
 
 #: npgCore/extensions/daily-summary.php:80
 #, fuzzy
@@ -11085,7 +11081,7 @@ msgstr "Crée un lien vers une page de script personnalisée du thème."
 #, fuzzy
 #| msgid "Daily image"
 msgid "Daily Summary"
-msgstr "tous les jours"
+msgstr "Résumé quotidien"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:18
 #: plugins/daily-summary/daily-summary_content.php:19
@@ -11110,7 +11106,7 @@ msgstr[1] ""
 #, fuzzy, php-format
 #| msgid "Title%s"
 msgid "Title: %s"
-msgstr "Titre%s"
+msgstr "Titre : %s"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:31
 #: plugins/daily-summary/daily-summary_content.php:32
@@ -11145,7 +11141,7 @@ msgstr "Nombre d’éléments de ce diaporama"
 #, fuzzy
 #| msgid "Link text"
 msgid "Link: "
-msgstr "Aucun lien"
+msgstr "Lien: "
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:40
 #: plugins/daily-summary/daily-summary_content.php:41
@@ -12149,7 +12145,7 @@ msgstr "Utiliser comme sous-onglet de chargement des <em>fichiers</em>."
 #, fuzzy
 #| msgid "Edit the menu"
 msgid "Edit themes"
-msgstr "Dans les thèmes"
+msgstr "Modifier les thèmes"
 
 #: npgCore/extensions/elFinder.php:57
 #, fuzzy
@@ -12531,7 +12527,7 @@ msgstr "Support de <code>cURL</code> de PHP"
 #: npgCore/extensions/linkedinLogin.php:64
 #, fuzzy
 msgid "App ID"
-msgstr "HERE - App id"
+msgstr "App ID"
 
 #: npgCore/extensions/facebookLogin.php:66
 #, fuzzy
@@ -12543,7 +12539,7 @@ msgstr "C'est votre Facebook <em>App ID</em>."
 #, fuzzy
 #| msgid "Secret"
 msgid "App Secret"
-msgstr "Secret"
+msgstr "App Secret"
 
 #: npgCore/extensions/facebookLogin.php:69
 #, fuzzy
@@ -12902,7 +12898,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View %s"
 msgid "View %1$s"
-msgstr "Voir %s"
+msgstr "Voir %1$s"
 
 #: npgCore/extensions/galleryArticles.php:241
 msgid ""
@@ -12928,7 +12924,7 @@ msgstr "Gère la connexion via le compte <em>Google</em> de l'utilisateur."
 #: npgCore/extensions/googleLogin.php:66
 #, fuzzy
 msgid "OAuth Client ID"
-msgstr "Identifiant :"
+msgstr "ID du client OAuth"
 
 #: npgCore/extensions/googleLogin.php:68
 #, fuzzy
@@ -13220,7 +13216,7 @@ msgstr "Secret"
 #, fuzzy
 #| msgid "OpenID Authentication"
 msgid "Two Factor Authentication"
-msgstr "Authentification Verisign"
+msgstr "Authentification à deux facteurs"
 
 #: npgCore/extensions/googleTFA.php:137
 #, fuzzy
@@ -13276,7 +13272,7 @@ msgstr "L’extension EXIF de PHP est requise pour utiliser cette option."
 #, fuzzy
 #| msgid "Truncate titles*"
 msgid "Translate Title"
-msgstr "Traduire cette page"
+msgstr "Traduire le titre"
 
 #: npgCore/extensions/googleTranslate.php:121
 #: npgCore/extensions/googleTranslate.php:135
@@ -13543,7 +13539,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Album date"
 msgid "Album page"
-msgstr "Active le nuage de mots-clés pour la page de l’album."
+msgstr "Voir la Page de l&#39;Album"
 
 #: npgCore/extensions/html_meta_tags.php:245 npgCore/template-functions.php:499
 #: themes/mobile/archive.php:29 themes/npgmobile/archive.php:33
@@ -13629,7 +13625,7 @@ msgstr "Gère la connexion via le compte <em>Instagram</em> de l'utilisateur."
 #: npgCore/extensions/instagramLogin.php:64
 #, fuzzy
 msgid "Client ID"
-msgstr "Identifiant :"
+msgstr "ID Client"
 
 #: npgCore/extensions/instagramLogin.php:66
 #, fuzzy
@@ -13640,7 +13636,7 @@ msgstr "C'est votre Instagram <em>Client ID</em>."
 #, fuzzy
 #| msgid "Secret"
 msgid "Client Secret"
-msgstr "Secret"
+msgstr "Client Secret"
 
 #: npgCore/extensions/instagramLogin.php:69
 #, fuzzy
@@ -14230,32 +14226,38 @@ msgstr ""
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Content tracking"
-msgstr "Activer le suivi de l'administrateur"
+msgstr "Suivi du contenu"
 
 #: npgCore/extensions/matomo.php:97
 #, fuzzy
 #| msgid "Extra Content"
 msgid "Track all content"
-msgstr "Langue à  suivre"
+msgstr "Suivre tout le contenu"
 
 #: npgCore/extensions/matomo.php:98
 #, fuzzy
 msgid "Track visible content only"
-msgstr "Artiste de la vidéo"
+msgstr "Suivre uniquement le contenu visible"
 
 #: npgCore/extensions/matomo.php:99
 #, fuzzy
 #| msgid "Enable Imagick"
 msgid "Disable content tracking"
-msgstr "Contenu"
+msgstr "Suivi du contenu désactiver"
 
 #: npgCore/extensions/matomo.php:102
+#, fuzzy
 msgid ""
 "Controls if you want Matomo to track content interaction (e.g. link clicks). "
 "Your theme/plugins/site will require specific HTML markup for this to work. "
 "Read more about it on <a href=\"https://developer.matomo.org/guides/content-"
 "tracking\">Content tracking</a>."
 msgstr ""
+"Contrôle si vous souhaitez que Matomo suive l’interaction de contenu (p. ex. "
+"clics de lien). Votre thème/ plugins/site nécessitera une balisage HTML "
+"spécifique pour que cela fonctionne. En savoir plus à ce sujet sur <a href="
+"\"https://developer.matomo.org/guides/content-tracking\">le suivi du "
+"contenu</a>."
 
 #: npgCore/extensions/matomo.php:103
 #, fuzzy
@@ -14341,13 +14343,13 @@ msgstr ""
 #, fuzzy
 #| msgid "required"
 msgid "Not required"
-msgstr "obligatoire"
+msgstr "Non requis"
 
 #: npgCore/extensions/matomo.php:132
 #, fuzzy
 #| msgid "Require"
 msgid "Required"
-msgstr "obligatoire"
+msgstr "Requis"
 
 #: npgCore/extensions/matomo.php:133
 #, fuzzy
@@ -14631,7 +14633,7 @@ msgstr "L’élement de menu d’album <em>%s</em> a été ajouté"
 #, fuzzy, php-format
 #| msgid "Custom page menu item <em>%s</em> added"
 msgid "Home page menu item <em>%s</em> added"
-msgstr "L’élément de menu de la page personnalisée <em>%s</em> a été ajouté"
+msgstr "Article du menu de la page <em>d’accueil %s</em> ajouté"
 
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:524
 #: npgCore/extensions/menu_manager/menu_manager-admin-functions.php:554
@@ -15025,7 +15027,7 @@ msgstr ""
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:164
 #, fuzzy
 msgid "Link Attributes"
-msgstr "Lien direct"
+msgstr "Attributs du lien"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:160
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:290
@@ -15110,7 +15112,7 @@ msgstr "Menu <em>%s</em>"
 #, fuzzy
 #| msgid "Type:"
 msgid "Type"
-msgstr "Type :"
+msgstr "Type"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:375
 msgid "Include <em>&lt;LI&gt;</em> element"
@@ -15423,7 +15425,7 @@ msgstr "Popup des marqueurs"
 #, fuzzy
 #| msgid "thumb"
 msgid "Thumb"
-msgstr "vignette"
+msgstr "Vignette"
 
 #: npgCore/extensions/openstreetmap.php:138
 #, fuzzy
@@ -15838,10 +15840,14 @@ msgstr ""
 "géodonnées."
 
 #: npgCore/extensions/panorama.php:41
+#, fuzzy
 msgid ""
 "Panoramic images can be quite large which may cause issues. Please review "
 "the note in the plugin usage information."
 msgstr ""
+"Les images panoramiques peuvent être assez grandes, ce qui peut poser des "
+"problèmes. Veuillez consulter la note dans les informations sur "
+"l'utilisation du plugin."
 
 #: npgCore/extensions/panorama.php:59
 #, fuzzy
@@ -15850,21 +15856,25 @@ msgid "Panorama height"
 msgstr "Mini-carte : hauteur"
 
 #: npgCore/extensions/panorama.php:61
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "The image will be resized so that its <span style=\"color:blue\">%1$s</span> "
 "pixels high when displayed. The image width will be scaled proportionately."
 msgstr ""
+"L'image sera redimensionnée de manière à ce que ses <span style=\"color:blue"
+"\">%1$s</span> pixels soient hauts lors de l'affichage. La largeur de "
+"l'image sera proportionnelle à sa taille."
 
 #: npgCore/extensions/panorama.php:62
 #, fuzzy
 #| msgid "Image Caption"
 msgid "Start position"
-msgstr "Position :"
+msgstr "Position de départ"
 
 #: npgCore/extensions/panorama.php:65
+#, fuzzy
 msgid "Indicate the start position of the panorama by positioning the slider."
-msgstr ""
+msgstr "Indiquez la position de départ du panorama en positionnant le curseur."
 
 #: npgCore/extensions/panorama.php:66
 #, fuzzy
@@ -15873,7 +15883,7 @@ msgid "Minimum overflow"
 msgstr "Zoom minimum sur la carte"
 
 #: npgCore/extensions/panorama.php:68
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "The excess width the panorama must have, in pixels, before the image is "
 "considered panoramic. In other words, this option allows the image's "
@@ -15881,6 +15891,12 @@ msgid ""
 "blue\">%1$s</span> pixels before the image is panned. Nobody wants a "
 "panorama that can barely be panned, right?"
 msgstr ""
+"La largeur excédentaire que doit avoir le panorama, en pixels, pour que "
+"l'image soit considérée comme panoramique. En d'autres termes, cette option "
+"permet à la largeur calculée de l'image de dépasser celle de son conteneur "
+"parent de <span style=\"color:blue\">%1$s</span> pixels avant que l'image ne "
+"soit panoramique. Personne ne veut d'un panorama qui peut à peine être "
+"panoramique, n'est-ce pas ?"
 
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
@@ -15895,8 +15911,9 @@ msgid "image right"
 msgstr "Migrer les droits"
 
 #: npgCore/extensions/panorama.php:92
+#, fuzzy
 msgid "Scroll left/right to pan through panorama."
-msgstr ""
+msgstr "Faites défiler la page à gauche/droite pour parcourir le panorama."
 
 #: npgCore/extensions/print_album_menu.php:21
 msgid ""
@@ -15933,10 +15950,13 @@ msgstr ""
 "liste. Remarque : certains thèmes peuvent modifier ce comportement."
 
 #: npgCore/extensions/publicCMS.php:28
+#, fuzzy
 msgid ""
 "Provide public CMS <em>pages</em> and <em>categories</em> in a private "
 "gallery."
 msgstr ""
+"Fournir des <em>pages</em> et des <em>catégories</em> publiques du CMS dans "
+"une galerie privée."
 
 #: npgCore/extensions/publicCMS.php:29
 #, fuzzy
@@ -15968,14 +15988,18 @@ msgid "Public categories"
 msgstr "Le commentaire est public"
 
 #: npgCore/extensions/publicCMS.php:65
+#, fuzzy
 msgid ""
 "Check the categories you want to be public. Note: uncategorized articles are "
 "by definition public."
 msgstr ""
+"Cochez les catégories que vous souhaitez rendre publiques. Note : les "
+"articles non catégorisés sont par définition publics."
 
 #: npgCore/extensions/publicCMS.php:73
+#, fuzzy
 msgid "Note: your site is public, so this plugin is of little use."
-msgstr ""
+msgstr "Remarque : votre site est public, ce plugin est donc peu utile."
 
 #: npgCore/extensions/publishContent.php:30
 msgid "A single place to quickly review your unpublished content."
@@ -16248,7 +16272,7 @@ msgstr "réinitialisation"
 #, fuzzy
 #| msgid "Extensions"
 msgid "Active Extension"
-msgstr "Utilisés"
+msgstr "Extension active"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 msgid "User plugins"
@@ -16298,7 +16322,7 @@ msgstr ""
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:196
 #, fuzzy
 msgid "highlighted"
-msgstr "Les modèles sont surlignés."
+msgstr "mise en Surbrillance"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:211
 #, fuzzy
@@ -16344,12 +16368,12 @@ msgstr "<span class=\"zenlogo\"><a href=\"https://"
 #, fuzzy
 #| msgid "hidden items"
 msgid "hidden"
-msgstr "Éléments visibles et masqués"
+msgstr "masqué"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:272
 #, fuzzy
 msgid "empty"
-msgstr "Le champ de critères de recherche est vide."
+msgstr "vide"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:283
 #, fuzzy
@@ -16406,8 +16430,9 @@ msgid "<a href=\"#%1$s\"><code>%1$s</code></a> is already enabled."
 msgstr "<a href=\"#%1$s\"><code>%1$s</code></a> est déjà activée."
 
 #: npgCore/extensions/quota_manager.php:83
+#, fuzzy
 msgid "Stores image disk footprint"
-msgstr ""
+msgstr "Stocke l'empreinte du disque d'image"
 
 #: npgCore/extensions/quota_manager.php:93
 msgid "Default quota"
@@ -16540,13 +16565,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Imagick font size"
 msgid "Icon size"
-msgstr "Icône"
+msgstr "Taille de l'icône"
 
 #: npgCore/extensions/rating.php:82
 #, fuzzy
 #| msgid "Large"
 msgid "large"
-msgstr "Grand"
+msgstr "grand"
 
 #: npgCore/extensions/rating.php:82
 msgid "medium"
@@ -16556,7 +16581,7 @@ msgstr "Moyenne"
 #, fuzzy
 #| msgid "Small"
 msgid "small"
-msgstr "Petit"
+msgstr "petit"
 
 #: npgCore/extensions/rating.php:83
 #, fuzzy
@@ -16644,9 +16669,7 @@ msgstr "Pas encore noté(e)"
 #: npgCore/extensions/rating.php:372
 #, fuzzy
 msgid "like"
-msgstr ""
-"Entrez le nom de domaine de votre site si vous souhaitez en suivre tous les "
-"sous-domaines. Entrez comme <code>domain.com</code>."
+msgstr "j'aime"
 
 #: npgCore/extensions/rating.php:374
 #, php-format
@@ -16690,7 +16713,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Private key"
 msgid "Site key"
-msgstr "Clé de hachage"
+msgstr "Clé de site"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:53
 #, fuzzy
@@ -16722,7 +16745,7 @@ msgstr "Sombre"
 #, fuzzy
 #| msgid "hidden items"
 msgid "Hidden"
-msgstr "Éléments visibles et masqués"
+msgstr "Masqué"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:60
 #, fuzzy
@@ -16738,7 +16761,7 @@ msgstr ""
 #: npgCore/extensions/reCAPTCHA_v2.php:61
 #, fuzzy
 msgid "Widget"
-msgstr "Choisissez la taille du widget reCaptcha."
+msgstr "Widget"
 
 #: npgCore/extensions/reCAPTCHA_v2.php:63
 #, fuzzy
@@ -16801,7 +16824,7 @@ msgstr "Texte de l’indication par défaut du champ <em>inscrire l’usager</em
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration text"
-msgstr "Texte"
+msgstr "Texte d'inscription"
 
 #: npgCore/extensions/register_user.php:67
 #, fuzzy
@@ -17333,7 +17356,7 @@ msgstr ""
 #, fuzzy
 #| msgid "E-mail"
 msgid "e-mail"
-msgstr "email"
+msgstr "e-mail"
 
 #: npgCore/extensions/search_statistics.php:27
 msgid "Collects and displays search criteria."
@@ -17951,7 +17974,7 @@ msgstr "Date de l’album"
 #, fuzzy
 #| msgid "Last changed"
 msgid "last change date"
-msgstr "Auteur du dernier changement"
+msgstr "Dernière date de changement"
 
 #: npgCore/extensions/sitemap-extended.php:92
 msgid "Field to use for the last modification date of albums."
@@ -18357,12 +18380,12 @@ msgstr ""
 #, fuzzy
 #| msgid "Contrast+"
 msgid "Controls"
-msgstr "Position des contrôles de zoom"
+msgstr "Contrôles"
 
 #: npgCore/extensions/slideshow.php:123
 #, fuzzy
 msgid "dark"
-msgstr "Sombre"
+msgstr "sombre"
 
 #: npgCore/extensions/slideshow.php:124
 #, fuzzy
@@ -18795,14 +18818,12 @@ msgstr "Erreur : l’album %s est introuvable."
 #, fuzzy
 #| msgid "generic"
 msgid "numeric"
-msgstr ""
-"Filtre pour améliorer la compatibilité avec les moteurs de recherche ; "
-"convertit les caractères étendus en caractères de base correspondants."
+msgstr "numérique"
 
 #: npgCore/extensions/tinymce.php:85
 #, fuzzy
 msgid "raw"
-msgstr "RAW"
+msgstr "brut"
 
 #: npgCore/extensions/tinymce.php:86
 #, fuzzy
@@ -18814,7 +18835,7 @@ msgstr "Sélectionner la stratégie TinyMCE <em>entity_encoding</em>."
 #, fuzzy
 #| msgid "Text editor text direction"
 msgid "RTL text direction"
-msgstr "Sens d’écriture de l’éditeur de texte"
+msgstr "RTL sens du texte"
 
 #: npgCore/extensions/tinymce.php:89
 msgid ""
@@ -18970,8 +18991,9 @@ msgstr ""
 "L’extension ne fonctionne pas avec Opera pour Android."
 
 #: npgCore/extensions/translateButton.php:12 plugins/downloadButtons.php:16
+#, fuzzy
 msgid "Provides a button to download the latest version of the software."
-msgstr ""
+msgstr "Fournit un bouton pour télécharger la dernière version du logiciel."
 
 #: npgCore/extensions/translateButton.php:25
 #, fuzzy
@@ -19148,20 +19170,20 @@ msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
 msgstr ""
-"La taille du fichier excède la taille définie par la directive "
-"« MAX_FILE_SIZE » du formulaire HTML"
+"Le fichier téléchargé excède la taille de fichier maximale (directive "
+"MAX_FILE_SIZE) qui a été spécifiée dans le formulaire."
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:26
 #, fuzzy
 #| msgid "File was only partially uploaded"
 msgid "The uploaded file was only partially uploaded"
-msgstr "Le fichier a été chargé en partie seulement"
+msgstr "Le fichier n’a été téléchargé que partiellement"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:27
 #, fuzzy
 #| msgid "No File was uploaded"
 msgid "No file was uploaded"
-msgstr "Aucun fichier n’a été chargé"
+msgstr "Aucun fichier n’a été téléchargé"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:28
 msgid "Missing a temporary folder"
@@ -19174,7 +19196,7 @@ msgstr "L’écriture sur le disque a échoué"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:30
 #, fuzzy
 msgid "A PHP extension stopped the file upload"
-msgstr "Le chargement du fichier a été arrêté par son extension"
+msgstr "Une extension PHP a stoppé le téléchargement du fichier"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:31
 #, fuzzy
@@ -19203,34 +19225,34 @@ msgstr "Nombre maximal de fichiers dépassé"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:36
 #, fuzzy
 msgid "Image exceeds maximum width"
-msgstr "Image Open graph – largeur"
+msgstr "L’image dépasse la largeur maximale"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:37
 #, fuzzy
 msgid "Image requires a minimum width"
-msgstr "Image Open graph – largeur"
+msgstr "L’image nécessite une largeur minimale"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:38
 #, fuzzy
 msgid "Image exceeds maximum height"
-msgstr "Image Open graph – hauteur"
+msgstr "L'image dépasse la hauteur maximale"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:39
 #, fuzzy
 msgid "Image requires a minimum height"
-msgstr "Image Open graph – hauteur"
+msgstr "L'image nécessite une hauteur minimale"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:40
 #, fuzzy
 #| msgid "No File was uploaded"
 msgid "File upload aborted"
-msgstr "Autorun a échoué"
+msgstr "Téléchargement du fichier interrompu"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 #| msgid "Failed to write file to disk"
 msgid "Failed to resize image"
-msgstr "Les tailles de cache d'image ont échoué : "
+msgstr "Impossible de redimensionner l'image"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -19254,7 +19276,7 @@ msgstr "Annuler le chargmeent"
 #, fuzzy
 #| msgid "Process changes"
 msgid "Processing..."
-msgstr "Temps de traitement : "
+msgstr "En cours..."
 
 #: npgCore/extensions/user-expiry.php:33
 msgid "Provides management of users based on when they were created."
@@ -19408,7 +19430,7 @@ msgstr "Désactiver"
 #, fuzzy
 #| msgid "Force password renewal"
 msgid "Force password change"
-msgstr "Exiger la modification du mot de passe"
+msgstr "Forcer le changement de mot de passe"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:214
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:245
@@ -19452,7 +19474,7 @@ msgstr "Enlever"
 #, fuzzy
 #| msgid "Enable"
 msgid "Enabled"
-msgstr "activé"
+msgstr "Activé"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:242
 msgid "Force password renewal"
@@ -19537,16 +19559,17 @@ msgid "Deleted"
 msgstr "Supprimé"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 #| msgid "groups"
 msgid "Groups"
-msgstr "groupes"
+msgstr "Groupes"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:185
 #, fuzzy
 #| msgid "assignments"
 msgid "Assignments"
-msgstr "attributions"
+msgstr "Devoirs"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:224
 msgid ""
@@ -19562,7 +19585,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 msgid "group"
 msgstr "groupe"
 
@@ -19671,19 +19693,34 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Liste de diffusion"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 #| msgid "Subscribe: "
 msgid "Un-subscribed users"
 msgstr "S’abonner : "
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
+#, fuzzy
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to "
 "re-subscribe the user."
 msgstr ""
+"Les utilisateurs qui se sont désinscrits de la liste de diffusion sont "
+"contrôlés. Désélectionner pour réabonner l'utilisateur."
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+#| msgid "Excluded pages"
+msgid "Excluded groups"
+msgstr "Pages exclues"
+
+#: npgCore/extensions/user_mailing_list.php:62
+#, fuzzy
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+"Cochez les groupes que vous souhaitez exclure de la liste des destinataires."
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 #| msgid "User mailing list"
 msgid "Opt-out of the mailing list"
@@ -19696,8 +19733,9 @@ msgid "user_mailing_list error"
 msgstr "Liste de diffusion"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:37
+#, fuzzy
 msgid "You are no longer subscribed to the site mailing list"
-msgstr ""
+msgstr "Vous n'êtes plus inscrit à la liste de diffusion du site"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
@@ -19706,8 +19744,9 @@ msgid "Click to resubscribe"
 msgstr "Cliquer pour masquer le contenu"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
+#, fuzzy
 msgid "You are now subscribed to the site mailing list"
-msgstr ""
+msgstr "Vous êtes maintenant inscrit à la liste de diffusion du site"
 
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
@@ -19715,11 +19754,11 @@ msgstr ""
 msgid "Click to un-subscribe"
 msgstr "Secret"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 msgid "User mailing list"
 msgstr "Liste de diffusion"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
 "address. There is always a copy sent to the current admin and all e-mails "
@@ -19729,7 +19768,7 @@ msgstr ""
 "ont fourni leur adresse. Une copie est toujours envoyée à l’administrateur "
 "courant et tous les courriels sont envoyés en <em>copie cachée</em>."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
 "activate and configure a mailer plugin."
@@ -19737,35 +19776,44 @@ msgstr ""
 "<strong>Note: </strong>Aucun filtre <em>sendmail</em> n’est enregistré. "
 "Une extension d’envoi de courriel doit être activée et configurée."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
-msgstr "Message envoyé."
+msgstr "Courrier envoyé"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Veuillez saisir le message que vous souhaitez envoyer."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Sujet : "
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "Corps du message : "
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Choisir les utilisateurs : "
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+#| msgid "Contact recipients"
+msgid "Select recipients :"
+msgstr "Contact des récipiendaires"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 #| msgid "Mail user"
 msgid "all users"
-msgstr "Identifiant de courriel"
+msgstr "tous les utilisateurs"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+#, fuzzy
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+"En sélectionnant un groupe, le message sera envoyé à tous les membres du "
+"groupe."
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "Envoyer un message"
 
@@ -20895,26 +20943,22 @@ msgstr "Défaut"
 #, fuzzy
 #| msgid "cover"
 msgid "Hover"
-msgstr ""
-"Activer si vous voulez apercevoir les limites d’un cluster de marqueurs lors "
-"de son survol."
+msgstr "Survol"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Grab"
-msgstr "Attraper"
+msgstr "Saisir"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Click"
-msgstr "Cliquer sur l’image pour changer le rognage de la vignette."
+msgstr "Cliquer"
 
 #: npgCore/extensions/zoomImage.php:63
 #, fuzzy
 msgid "Toggle"
-msgstr ""
-"<a href=\"javascript: toggle('albumdate');\" >Détails</a> – <em>Utiliser la "
-"date de la plus récente image comme date de l’album</em>"
+msgstr "Basculer"
 
 #: npgCore/extensions/zoomImage.php:64
 #, fuzzy
@@ -21087,8 +21131,10 @@ msgstr ""
 "em> de votre installation."
 
 #: npgCore/functions.php:1299
+#, fuzzy
 msgid "buttonType \"button\" buttons must have a buttonLink;"
 msgstr ""
+"buttonType de bouton Les boutons \"button\" doivent avoir un buttonLink ;"
 
 #: npgCore/functions.php:1656
 msgid "0 Bytes"
@@ -21375,11 +21421,16 @@ msgid "Secure logout"
 msgstr "Se déconnecter"
 
 #: npgCore/lib-auth.php:163
+#, fuzzy
 msgid ""
 "Check if you need the browser to clear site data (\"cache\", \"cookies\", "
 "\"storage\", \"executionContexts\") on logout for security reasons. "
 "<strong>Note:</strong> This may degrade logout response time."
 msgstr ""
+"Vérifiez si vous avez besoin que le navigateur efface les données du site "
+"(\"cache\", \"cookies\", \"stockage\", \"contextes d'exécution\") lors de la "
+"déconnexion pour des raisons de sécurité. <strong>Note :</strong> Cela peut "
+"dégrader le temps de réponse à la déconnexion."
 
 #: npgCore/lib-auth.php:165
 msgid "Primary album edit"
@@ -21466,9 +21517,11 @@ msgid "No PHP support"
 msgstr "Il n’y a aucun support graphique PHP."
 
 #: npgCore/lib-auth.php:432
-#, php-format
+#, fuzzy, php-format
 msgid "The password for user %1$s is using the deprecated %2$s hashing method."
 msgstr ""
+"Le mot de passe pour l'utilisateur %1$s utilise la méthode de hachage %2$s, "
+"qui est obsolète."
 
 #: npgCore/lib-auth.php:584
 #, fuzzy, php-format
@@ -22851,7 +22904,7 @@ msgstr "Taita (Kenya)"
 #: npgCore/localeList.php:106
 #, fuzzy
 msgid "German"
-msgstr "Allemand (Autriche)"
+msgstr "Allemand"
 
 #: npgCore/localeList.php:107
 msgid "German (Austria)"
@@ -22982,7 +23035,7 @@ msgstr "Grec"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English"
-msgstr "Anglais (Royaume-Uni)"
+msgstr "Anglais"
 
 #: npgCore/localeList.php:133
 #, fuzzy
@@ -23214,7 +23267,7 @@ msgstr "Anglais (Hong Kong SAR Chine)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Ireland)"
-msgstr "Anglais (Zimbabwe)"
+msgstr "English (Ireland)"
 
 #: npgCore/localeList.php:173
 #, fuzzy
@@ -23325,7 +23378,7 @@ msgstr "Anglais (Philippines)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Malta)"
-msgstr "Anglais (Inde)"
+msgstr "Anglais (Malte)"
 
 #: npgCore/localeList.php:192
 #, fuzzy
@@ -23453,7 +23506,7 @@ msgstr "Suèdois (Suède)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (Singapore)"
-msgstr "Anglais (Australie)"
+msgstr "Anglais (Singapour)"
 
 #: npgCore/localeList.php:214
 #, fuzzy
@@ -23599,7 +23652,7 @@ msgstr "Espéranto"
 #, fuzzy
 #| msgid "Danish"
 msgid "Spanish"
-msgstr "Espagnol (Chili)"
+msgstr "Espagnol"
 
 #: npgCore/localeList.php:240
 msgid "Spanish (Latin America)"
@@ -23742,7 +23795,7 @@ msgstr "Estonien"
 #: npgCore/localeList.php:270
 #, fuzzy
 msgid "Basque"
-msgstr "Basque (Basque)"
+msgstr "Basque"
 
 #: npgCore/localeList.php:271
 #, fuzzy
@@ -23788,7 +23841,7 @@ msgstr "Finois"
 #, fuzzy
 #| msgid "Swedish (Finland)"
 msgid "Finnish (Finland)"
-msgstr "Finois"
+msgstr "Finlandais (Finlande)"
 
 #: npgCore/localeList.php:280
 #, fuzzy
@@ -23818,7 +23871,7 @@ msgstr "Faroésien"
 #: npgCore/localeList.php:285
 #, fuzzy
 msgid "French"
-msgstr "Français (Canada)"
+msgstr "Français"
 
 #: npgCore/localeList.php:286
 msgid "French (Belgium)"
@@ -24088,7 +24141,7 @@ msgstr "Français (Belgique)"
 #: npgCore/localeList.php:332
 #, fuzzy
 msgid "Friulian"
-msgstr "Frioulane"
+msgstr "Frioulan"
 
 #: npgCore/localeList.php:333
 #, fuzzy
@@ -24099,7 +24152,7 @@ msgstr "Italien (Italie)"
 #: npgCore/localeList.php:334
 #, fuzzy
 msgid "Western Frisian"
-msgstr "Europe occidentale (DOS)"
+msgstr "Frison occidental"
 
 #: npgCore/localeList.php:335
 #, fuzzy
@@ -24142,7 +24195,7 @@ msgstr "Galicien"
 #: npgCore/localeList.php:342
 #, fuzzy
 msgid "Swiss German"
-msgstr "Allemand (Autriche)"
+msgstr "Swiss German"
 
 #: npgCore/localeList.php:343
 #, fuzzy
@@ -24343,13 +24396,13 @@ msgstr "Islandais"
 #, fuzzy
 #| msgid "Icelandic (DOS)"
 msgid "Icelandic (Iceland)"
-msgstr "Islandais"
+msgstr "Islandais (Islande)"
 
 #: npgCore/localeList.php:381
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Italian"
-msgstr "Italien (Italie)"
+msgstr "Italien"
 
 #: npgCore/localeList.php:382
 msgid "Italian (Switzerland)"
@@ -24876,7 +24929,7 @@ msgstr "Macédonien"
 #, fuzzy
 #| msgid "Macedonian"
 msgid "Macedonian (Macedonia)"
-msgstr "Macédonien"
+msgstr "Macédonien (Macédoine)"
 
 #: npgCore/localeList.php:484
 #, fuzzy
@@ -24986,7 +25039,7 @@ msgstr "Nama (Namibie)"
 #, fuzzy
 #| msgid "Norwegian (Bokmål)"
 msgid "Norwegian Bokmål"
-msgstr "Norvégien (Bokmål)"
+msgstr "Norwegian Bokmål"
 
 #: npgCore/localeList.php:505
 #, fuzzy
@@ -25013,7 +25066,7 @@ msgstr "Anglais (Zimbabwe)"
 #: npgCore/localeList.php:509
 #, fuzzy
 msgid "Low German"
-msgstr "Allemand (Autriche)"
+msgstr "Bas-allemand"
 
 #: npgCore/localeList.php:510
 #, fuzzy
@@ -25046,7 +25099,7 @@ msgstr "Népalais (Népal)"
 #: npgCore/localeList.php:515
 #, fuzzy
 msgid "Dutch"
-msgstr "Flamand (Belgique)"
+msgstr "Néerlandais"
 
 #: npgCore/localeList.php:516
 #, fuzzy
@@ -25100,7 +25153,7 @@ msgstr "Kwasio (Cameroun)"
 #, fuzzy
 #| msgid "Norwegian"
 msgid "Norwegian Nynorsk"
-msgstr "Norvégien"
+msgstr "Norvégien Nynorsk"
 
 #: npgCore/localeList.php:526
 #, fuzzy
@@ -25166,7 +25219,7 @@ msgstr "Anglais (Inde)"
 #: npgCore/localeList.php:538
 #, fuzzy
 msgid "Ossetic"
-msgstr "Ossétique"
+msgstr "Ossetic (Ossetic)"
 
 #: npgCore/localeList.php:539
 #, fuzzy
@@ -25212,7 +25265,7 @@ msgstr "Polonais"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "Polish (Poland)"
-msgstr "Polonais"
+msgstr "Polonais (Pologne)"
 
 #: npgCore/localeList.php:548
 #, fuzzy
@@ -25228,7 +25281,7 @@ msgstr "Pachto (Afghanistan)"
 #, fuzzy
 #| msgid "Portuguese (Brazil)"
 msgid "Portuguese"
-msgstr "Portugais (Brésil)"
+msgstr "Portugais"
 
 #: npgCore/localeList.php:551
 #, fuzzy
@@ -25371,7 +25424,7 @@ msgstr "Rombo (Tanzanie)"
 #, fuzzy
 #| msgid "Russian (Russia)"
 msgid "Russian"
-msgstr "Russe (Russie)"
+msgstr "Russe"
 
 #: npgCore/localeList.php:577
 #, fuzzy
@@ -25703,7 +25756,7 @@ msgstr "Serbe"
 #, fuzzy
 #| msgid "Swedish (Sweden)"
 msgid "Swedish"
-msgstr "Suèdois (Suède)"
+msgstr "Suédois"
 
 #: npgCore/localeList.php:641
 #, fuzzy
@@ -25921,7 +25974,7 @@ msgstr "Ukrainien"
 #: npgCore/localeList.php:683
 #, fuzzy
 msgid "Urdu"
-msgstr "Ourdou (Pakistan)"
+msgstr "Urdu"
 
 #: npgCore/localeList.php:684
 #, fuzzy
@@ -26136,7 +26189,7 @@ msgstr "Standard Marocain Tamazight (Maroc)"
 #, fuzzy
 #| msgid "Chinese (Taiwan)"
 msgid "Chinese"
-msgstr "Chinois simplifié (EUC)"
+msgstr "Chinois"
 
 #: npgCore/localeList.php:725
 #, fuzzy
@@ -26152,7 +26205,7 @@ msgstr "Chinois (Taiwan)"
 #, fuzzy
 #| msgid "Chinese Simplified (HZ)"
 msgid "Chinese (Simplified)"
-msgstr "Chinois simplifié (HZ)"
+msgstr "Chinois (Simplifié)"
 
 #: npgCore/localeList.php:728
 #, fuzzy
@@ -26182,7 +26235,7 @@ msgstr "Chinois simplifié (GB2312)"
 #, fuzzy
 #| msgid "Chinese Traditional"
 msgid "Chinese (Traditional)"
-msgstr "Chinois traditionel"
+msgstr "Chinois (Traditionnel)"
 
 #: npgCore/localeList.php:733
 #, fuzzy
@@ -26222,52 +26275,48 @@ msgstr ""
 #: npgCore/page_error.php:9
 #, fuzzy
 msgid "Bad Request"
-msgstr "Mauvais"
+msgstr "Requête erronée"
 
 #: npgCore/page_error.php:12
 #, fuzzy
 #| msgid "Un-categorized"
 msgid "Unauthorized"
-msgstr ""
-"Zenphoto recommande que vous définissiez les droits d’accès des fichiers "
-"sensibles du dossier %1$s de façon à ce qu’ils ne soient accessibles qu’à "
-"leur propriétaire (droits = 0600). Les droits d’accès des fichiers <em>%2$s</"
-"em> sont définis à %3$04o, ce qui permet un accès non autorisé."
+msgstr "Non autorisé"
 
 #: npgCore/page_error.php:15
 #, fuzzy
 #| msgid "Update Required"
 msgid "Payment Required"
-msgstr "obligatoire"
+msgstr "Paiement"
 
 #: npgCore/page_error.php:21
 #, fuzzy
 #| msgid "404 not found"
 msgid "Not Found"
-msgstr "Aucun effet d’image trouvé."
+msgstr "Non trouvé"
 
 #: npgCore/page_error.php:24
 #, fuzzy
 #| msgid "Filetype not allowed"
 msgid "Method Not Allowed"
-msgstr "Utiliser directement la méthode setShow."
+msgstr "Méthode non autorisée"
 
 #: npgCore/page_error.php:27
 #, fuzzy
 msgid "Not Acceptable"
-msgstr "Non accepté"
+msgstr "Pas acceptable"
 
 #: npgCore/page_error.php:30
 #, fuzzy
 #| msgid "Authenticate user"
 msgid "Proxy Authentication Required"
-msgstr "Authentification Verisign"
+msgstr "Authentification du Proxy Requis"
 
 #: npgCore/page_error.php:33
 #, fuzzy
 #| msgid "Timeout"
 msgid "Request Time-out"
-msgstr "Se déconnecter"
+msgstr "Temps de traitement de la Requête dépassé"
 
 #: npgCore/page_error.php:36
 #, fuzzy
@@ -26284,12 +26333,12 @@ msgstr "Disparu"
 #, fuzzy
 #| msgid "Require"
 msgid "Length Required"
-msgstr "Longueur de focale"
+msgstr "Longueur Requis"
 
 #: npgCore/page_error.php:45
 #, fuzzy
 msgid "Precondition Failed"
-msgstr "Requête échouée :"
+msgstr "Précondition Erronée"
 
 #: npgCore/page_error.php:48
 #, fuzzy
@@ -26299,12 +26348,12 @@ msgstr "Requête trop large"
 #: npgCore/page_error.php:51
 #, fuzzy
 msgid "Request-URI Too Large"
-msgstr "URI de la requête : [ <code>%s</code> ]"
+msgstr "URI de  la requête trop long"
 
 #: npgCore/page_error.php:54
 #, fuzzy
 msgid "Unsupported Media Type"
-msgstr "Type :"
+msgstr "Type de média non supporté"
 
 #: npgCore/page_error.php:88
 #, fuzzy
@@ -26431,7 +26480,7 @@ msgstr ""
 #: npgCore/reconfigure.php:331
 #, fuzzy
 msgid "dismiss"
-msgstr "Accepter sur navigation"
+msgstr "ignorer"
 
 #: npgCore/reconfigure.php:331
 #, fuzzy
@@ -26646,10 +26695,14 @@ msgid "Installation folder"
 msgstr "Fichiers d’installation"
 
 #: npgCore/setup/index.php:592
+#, fuzzy
 msgid ""
 "There may not be any folders named <em>npg</em> in the installation path."
 "<br />Rename the <em>npg</em> folder and re-run setup."
 msgstr ""
+"Il ne peut y avoir aucun dossier nommé <em>npg</em> dans le chemin "
+"d'installation.<br />Renommez le dossier <em>npg</em> et relancez "
+"l'installation."
 
 #: npgCore/setup/index.php:609
 #, php-format
@@ -26800,7 +26853,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Map display error"
 msgid "Display_errors"
-msgstr "Module <code>display_errors</code> de PHP"
+msgstr "Le paramètre <code>display_errors</code> de PHP est activé"
 
 #: npgCore/setup/index.php:687
 msgid "PHP <code>display_errors</code>"
@@ -28292,7 +28345,7 @@ msgstr "Hôte de la base de données"
 #, fuzzy
 #| msgid "Sport"
 msgid "port"
-msgstr "Sport"
+msgstr "Cổng"
 
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
@@ -28316,7 +28369,7 @@ msgstr "enregistrer"
 #, fuzzy
 #| msgid "Completed system check"
 msgid "Completed with errors"
-msgstr "Complétée"
+msgstr "Terminé avec des erreurs"
 
 #: npgCore/setup/setupComplete.php:18
 msgid "Completed"
@@ -28395,13 +28448,13 @@ msgstr "nouvel album"
 #, fuzzy
 #| msgid "Logged in as %1$s"
 msgid "Logged in as"
-msgstr "Connecté sous %1$s"
+msgstr "Connecté en tant que"
 
 #: npgCore/template-functions.php:145
 #, fuzzy
 #| msgid "files"
 msgid "My profile"
-msgstr "Mes favoris"
+msgstr "Mon profil"
 
 #: npgCore/template-functions.php:158
 #, fuzzy
@@ -28721,10 +28774,7 @@ msgstr "Préfixe des tables <strong>%s</strong>"
 #, fuzzy
 #| msgid "Database user"
 msgid "Database backup"
-msgstr ""
-"<strong>Attention !</strong> Cette mise à jour effectue des modifications "
-"structurelles à la base de données. Ce sont des changements difficilement "
-"réversibles. Assurez-vous d’avoir une sauvegarde avant de continuer."
+msgstr "Sauvegarde de la base de données"
 
 #: npgCore/utilities/backup_restore.php:595
 msgid "Compression level"
@@ -29385,8 +29435,9 @@ msgid "MyBB database host"
 msgstr "Hôte de la base de données"
 
 #: plugins/MyBB_auth.php:111
+#, fuzzy
 msgid "The host where the MyBB database server resides."
-msgstr ""
+msgstr "L'hôte où réside le serveur de la base de données MyBB."
 
 #: plugins/MyBB_auth.php:112
 #, fuzzy
@@ -29431,8 +29482,9 @@ msgid "MyBB database prefix"
 msgstr "Préfixe des tables de la base de données"
 
 #: plugins/MyBB_auth.php:123
+#, fuzzy
 msgid "The prefix MyBB uses for its database tables."
-msgstr ""
+msgstr "Le préfixe que MyBB utilise pour ses tables de base de données."
 
 #: plugins/MyBB_auth.php:124
 #, fuzzy
@@ -29452,27 +29504,32 @@ msgid "Example: <code>%s</code>"
 msgstr "Cache : [<code>%s</code>]"
 
 #: plugins/MyBB_auth.php:136
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "If not empty, a user album will be created for each user. <code>%s</code> in "
 "the text will be replaced with the user’s name."
 msgstr ""
+"S'il n'est pas vide, un album sera créé pour chaque utilisateur. Les <code>"
+"%s</code> dans le texte seront remplacés par le nom de l'utilisateur."
 
 #: plugins/MyBB_auth.php:138
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "<p class=\"notebox\">Note:</strong> the <code>%s</code> placeholder "
 "<strong>MUST</strong> be present!</p>"
 msgstr ""
+"<p class=\"notebox\"><strong>Note :</strong> le placeur <code>%s</code> "
+"<strong>DOIT</strong> être présent !</p>"
 
 #: plugins/MyBB_auth.php:234
-#, php-format
+#, fuzzy, php-format
 msgid "Failed to connect to the MyBB database \"%1$s:%2$s\""
-msgstr ""
+msgstr "Échec de la connexion à la base de données MyBB \"%1$s:%2$s\""
 
 #: plugins/autoredirect.php:10
+#, fuzzy
 msgid "Redirects to netPhotoGraphics.org after 2 minutes."
-msgstr ""
+msgstr "Redirige vers netPhotoGraphics.org après 2 minutes."
 
 #: plugins/cacheHeader.php:16
 msgid "Outputs a \"Cache-control\" header with selected caching options."
@@ -29674,8 +29731,9 @@ msgid "Creates the database structure template."
 msgstr "les plus récentes mises à jour"
 
 #: plugins/database_template/database.php:126
+#, fuzzy
 msgid "Possible field name changes detected."
-msgstr ""
+msgstr "Changements de noms de champs possibles détectés."
 
 #: plugins/database_template/database.php:134
 #, fuzzy
@@ -29863,7 +29921,7 @@ msgstr "Télécharger %1$s version %2$s."
 #, fuzzy
 #| msgid "Category updated!"
 msgid "Check for updates"
-msgstr "Démarrage de la mise à jour de la table"
+msgstr "Vérifier les mises à jour"
 
 #: plugins/devReleases.php:135
 #, fuzzy
@@ -29894,10 +29952,13 @@ msgid "Places release notes on a page."
 msgstr "Visualiser les notes de la version Zenphoto %s"
 
 #: plugins/downloadButtons.php:63
+#, fuzzy
 msgid ""
 "Yields a link to the netPhotoGraphics gitHub repository (to the sub-folder "
 "%2 if present) with the  %1 as the link text."
 msgstr ""
+"Donne un lien vers le dépôt gitHub de netPhotoGraphics (vers le sous-dossier "
+"%2 s'il existe) avec le %1 comme texte du lien."
 
 #: plugins/downloadButtons.php:116
 #, fuzzy
@@ -29937,8 +29998,9 @@ msgstr ""
 "statut des images."
 
 #: plugins/flag_local.php:12
+#, fuzzy
 msgid "Flag the site as a local test version."
-msgstr ""
+msgstr "Marquez le site comme une version d'essai locale."
 
 #: plugins/flag_local.php:23 plugins/flag_local.php:34
 #, fuzzy
@@ -30014,8 +30076,9 @@ msgid "This multimedia format is not supported by Flowplayer5"
 msgstr "Ce format multimédia n’est pas supporté par jPlayer"
 
 #: plugins/google_analytics.php:14
+#, fuzzy
 msgid "Support for providing Google Analytics tracking"
-msgstr ""
+msgstr "Soutien à la fourniture d'un suivi Google Analytics"
 
 #: plugins/google_analytics.php:64
 #, fuzzy
@@ -30023,12 +30086,14 @@ msgid "Google Analytics Web Property ID"
 msgstr "Identifiant Google Analytics"
 
 #: plugins/google_analytics.php:68
+#, fuzzy
 msgid "If you're going to be using Google Analytics,"
-msgstr ""
+msgstr "Si vous allez utiliser Google Analytics,"
 
 #: plugins/google_analytics.php:68
+#, fuzzy
 msgid "get a Web Property ID</a> and enter it here."
-msgstr ""
+msgstr "<a>obtenir un ID de propriété Web</a> et le saisir ici."
 
 #: plugins/google_analytics.php:70
 #, fuzzy
@@ -30037,10 +30102,14 @@ msgid "Enable Admin tracking"
 msgstr "Activer le suivi de l'administrateur"
 
 #: plugins/google_analytics.php:74
+#, fuzzy
 msgid ""
 "Controls if you want Google Analytics tracking for users logged in as admin. "
 "Default is not selected."
 msgstr ""
+"Contrôle si vous voulez que Google Analytics suive les utilisateurs "
+"connectés en tant qu'administrateur. La valeur par défaut n'est pas "
+"sélectionnée."
 
 #: plugins/headConsolidator.php:26
 msgid "A plugin to collect and consolidate theme_head scripts and css."
@@ -30099,10 +30168,13 @@ msgid "Search redirect keywords"
 msgstr "Mots-clés"
 
 #: plugins/keywordRedirector.php:49
+#, fuzzy
 msgid ""
 "<code>keywordRedirector</code> will process <em>keywords</em> and redirect "
 "to the theme search script with the associated parameters."
 msgstr ""
+"<code>keywordRedirector</code> traitera les <em>mots clés</em> et redirigera "
+"vers le script de recherche du thème avec les paramètres associés."
 
 #: plugins/keywordRedirector.php:65 themes/effervescence+/gallery.php:32
 #: themes/garland/sidebar.php:13 themes/netphotographics/gallery.php:32
@@ -30114,7 +30186,7 @@ msgstr "Rechercher dans les albums"
 #, fuzzy
 #| msgid "Search pages"
 msgid "Search images"
-msgstr "Recherche"
+msgstr "Recherche d'images"
 
 #: plugins/keywordRedirector.php:65
 #, fuzzy
@@ -30186,10 +30258,7 @@ msgstr "<a href=\"#%1$s\"><code>%1$s</code></a> est déjà activée."
 #, fuzzy
 #| msgid "Contrast+"
 msgid "Control bar"
-msgstr ""
-"Astuce : si vous avez besoin de plus d’espace pour saisir votre texte, "
-"utilisez le mode plein écran de TinyMCE (cliquez sur l’icône d’expension "
-"près de l’icône ZP)."
+msgstr "Barre de contrôle"
 
 #: plugins/mediaelementjs_player.php:112
 #, fuzzy
@@ -30200,13 +30269,13 @@ msgstr "lecture"
 #, fuzzy
 #| msgid "Program"
 msgid "Progress"
-msgstr "Mise en cache des images en cours."
+msgstr "Progression"
 
 #: plugins/mediaelementjs_player.php:114
 #, fuzzy
 #| msgid "Current Theme"
 msgid "Current"
-msgstr "Enregistre l’état courant des extensions (activées ou non)."
+msgstr "Actuel"
 
 #: plugins/mediaelementjs_player.php:115
 #, fuzzy
@@ -30223,13 +30292,13 @@ msgstr "Artiste de la vidéo"
 #, fuzzy
 #| msgid "Column"
 msgid "Volume"
-msgstr "volume maximum"
+msgstr "Volume"
 
 #: plugins/mediaelementjs_player.php:118
 #, fuzzy
 #| msgid "full screen"
 msgid "Fullscreen"
-msgstr "plein écran"
+msgstr "Plein écran"
 
 #: plugins/mediaelementjs_player.php:119
 #, fuzzy
@@ -30238,37 +30307,43 @@ msgid "Always show controls"
 msgstr "Afficher les contrôles de cartes"
 
 #: plugins/mediaelementjs_player.php:121
+#, fuzzy
 msgid "Enable what should be shown in the player control bar."
-msgstr ""
+msgstr "Activez ce qui doit être affiché dans la barre de contrôle du joueur."
 
 #: plugins/mediaelementjs_player.php:122
 #, fuzzy
 #| msgid "Slide width"
 msgid "Video width"
-msgstr "Vidéo 3gp : largeur"
+msgstr "Largeur de la vidéo"
 
 #: plugins/mediaelementjs_player.php:125 plugins/mediaelementjs_player.php:129
+#, fuzzy
 msgid "Pixel value or percent for responsive layouts"
-msgstr ""
+msgstr "Valeur de pixel ou pourcentage pour les mises en page réactives"
 
 #: plugins/mediaelementjs_player.php:126
 #, fuzzy
 #| msgid "Slide height"
 msgid "Video height"
-msgstr "Vidéo 3gp : hauteur"
+msgstr "Hauteur de la vidéo"
 
 #: plugins/mediaelementjs_player.php:130
 #, fuzzy
 #| msgid "Video Title"
 msgid "Video Poster"
-msgstr "Affiche (vignette vidéo)"
+msgstr "Publieur Vidéo"
 
 #: plugins/mediaelementjs_player.php:133
+#, fuzzy
 msgid ""
 "If a poster of the videothumb should be shown. This is cropped to fit the "
 "player size as the player would distort image not fitting the player "
 "dimensions otherwise."
 msgstr ""
+"Si un poster du vidéomaton doit être montré. Elle est recadrée pour "
+"s'adapter à la taille du lecteur, car sinon le lecteur déformerait l'image "
+"qui ne correspondrait pas aux dimensions du lecteur."
 
 #: plugins/mediaelementjs_player.php:134
 #, fuzzy
@@ -30277,10 +30352,14 @@ msgid "Video poster width"
 msgstr "Vidéo Quicktime : largeur"
 
 #: plugins/mediaelementjs_player.php:137
+#, fuzzy
 msgid ""
 "Max width of the video poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Largeur maximale de l'affiche vidéo (px). L'image sera automatiquement "
+"dimensionnée en fonction de la mise en page. Pour fonctionner correctement, "
+"il faudra peut-être modifier le CSS du thème."
 
 #: plugins/mediaelementjs_player.php:138
 #, fuzzy
@@ -30289,10 +30368,14 @@ msgid "Video poster height"
 msgstr "Vidéo Quicktime : hauteur"
 
 #: plugins/mediaelementjs_player.php:141
+#, fuzzy
 msgid ""
 "Height of the video poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Hauteur de l'affiche vidéo (px). L'image sera automatiquement dimensionnée "
+"en fonction de la mise en page. Pour fonctionner correctement, il faudra "
+"peut-être modifier le CSS du thème."
 
 #: plugins/mediaelementjs_player.php:142
 #, fuzzy
@@ -30301,9 +30384,11 @@ msgid "Audio width"
 msgstr "Audio"
 
 #: plugins/mediaelementjs_player.php:145
-#, php-format
+#, fuzzy, php-format
 msgid "Pixel value or set 100% for responsive layouts (default)."
 msgstr ""
+"Valeur du pixel ou réglage à 100% pour les mises en page réactives (par "
+"défaut)."
 
 #: plugins/mediaelementjs_player.php:146
 #, fuzzy
@@ -30312,21 +30397,25 @@ msgid "Audio height"
 msgstr "Audio"
 
 #: plugins/mediaelementjs_player.php:149
-#, php-format
+#, fuzzy, php-format
 msgid "Pixel value or 100% for responsive layouts (default)."
-msgstr ""
+msgstr "Valeur du pixel ou 100% pour les mises en page réactives (par défaut)."
 
 #: plugins/mediaelementjs_player.php:150
 #, fuzzy
 #| msgid "Audio poster (Videothumb)"
 msgid "Audio poster"
-msgstr "Affiche audio (vignette audio)"
+msgstr "Affiche audio"
 
 #: plugins/mediaelementjs_player.php:153
+#, fuzzy
 msgid ""
 "If an image of the videothumb should be shown with audio files. You need to "
 "set the width/height. This is cropped to fit the size."
 msgstr ""
+"Si une image de la vidéo doit être montrée avec des fichiers audio. Vous "
+"devez définir la largeur/hauteur. Celle-ci est recadrée pour s'adapter à la "
+"taille."
 
 #: plugins/mediaelementjs_player.php:154
 #, fuzzy
@@ -30335,10 +30424,14 @@ msgid "Audio poster width"
 msgstr "Affiche audio (vignette audio)"
 
 #: plugins/mediaelementjs_player.php:157
+#, fuzzy
 msgid ""
 "Max width of the audio poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Largeur maximale de l'affiche audio (px). L'image sera automatiquement "
+"dimensionnée en fonction de la mise en page. Pour fonctionner correctement, "
+"des modifications CSS du thème peuvent être nécessaires."
 
 #: plugins/mediaelementjs_player.php:158
 #, fuzzy
@@ -30347,28 +30440,39 @@ msgid "Audio poster height"
 msgstr "Affiche audio (vignette audio)"
 
 #: plugins/mediaelementjs_player.php:161
+#, fuzzy
 msgid ""
 "Height of the audio poster (px). Image will be sized automatially in "
 "responsive layouts. Might require theme CSS changes to work correctly."
 msgstr ""
+"Hauteur de l'affiche audio (px). L'image sera automatiquement dimensionnée "
+"en fonction de la mise en page. Pour fonctionner correctement, il faudra "
+"peut-être modifier le CSS du thème."
 
 #: plugins/mediaelementjs_player.php:165
+#, fuzzy
 msgid ""
 "If enabled the script for playlist support is loaded. For playlists either "
 "use the macro or modify your theme."
 msgstr ""
+"Si cette option est activée, le script pour la prise en charge des listes de "
+"lecture est chargé. Pour les playlists, utilisez la macro ou modifiez votre "
+"thème."
 
 #: plugins/mediaelementjs_player.php:166
 #, fuzzy
 #| msgid "upload"
 msgid "Preload"
-msgstr "chargement"
+msgstr "Préchargement"
 
 #: plugins/mediaelementjs_player.php:169
+#, fuzzy
 msgid ""
 "If the files should be preloaded (Note if this works is browser dependent "
 "and might not work in all!)."
 msgstr ""
+"Si les fichiers doivent être préchargés (Notez que si cela fonctionne, cela "
+"dépend du navigateur et peut ne pas fonctionner du tout !)"
 
 #: plugins/mediaelementjs_player.php:290
 #, fuzzy
@@ -30382,14 +30486,18 @@ msgid "Sorry, no playback capabilities."
 msgstr "Désolé, ce n’est pas la réponse"
 
 #: plugins/mediaelementjs_player.php:510
+#, fuzzy
 msgid ""
 "Provide the album name (%1), media file name (%2), optional width (%3) and "
 "optional height (%4)"
 msgstr ""
+"Indiquez le nom de l'album (%1), le nom du fichier multimédia (%2), la "
+"largeur (%3) et la hauteur (%4) facultatives"
 
 #: plugins/npgAnalytics.php:10
+#, fuzzy
 msgid "Outputs a script to invoke Google Analytics."
-msgstr ""
+msgstr "Produit un script pour invoquer Google Analytics."
 
 #: plugins/openAdmin.php:23
 #, fuzzy
@@ -30404,8 +30512,9 @@ msgid "Log access"
 msgstr "Aucun accès"
 
 #: plugins/openAdmin.php:82
+#, fuzzy
 msgid "Log administrative pages visited."
-msgstr ""
+msgstr "Enregistrer les pages administratives visitées."
 
 #: plugins/openAdmin.php:202 plugins/openAdmin.php:219
 #, fuzzy
@@ -30414,19 +30523,27 @@ msgid "Show admin login form"
 msgstr "Connexion comme administrateur"
 
 #: plugins/openAdmin.php:203
+#, fuzzy
 msgid ""
 "Login with valid user credentials to bypass the <em>openAdmin</em> plugin."
 msgstr ""
+"Connectez-vous avec des identifiants d'utilisateur valides pour contourner "
+"le plugin <em>openAdmin</em>."
 
 #: plugins/openAdmin.php:247
+#, fuzzy
 msgid ""
 "The administrative pages are available for demonstration purposes only. "
 "Actions that would change the state of the installation will be suppressed."
 msgstr ""
+"Les pages administratives sont disponibles uniquement à des fins de "
+"démonstration. Les actions qui modifieraient l'état de l'installation seront "
+"supprimées."
 
 #: plugins/openAdmin.php:279
+#, fuzzy
 msgid "date\trequestor’s IP\tlink\tpage\ttab\taction\n"
-msgstr ""
+msgstr "date lien IP du demandeur page onglet action\n"
 
 #: plugins/package.php:25
 #, fuzzy
@@ -30435,8 +30552,9 @@ msgid "Generates the <em>netPhotoGraphics.package</em> file."
 msgstr "Génère le fichier <em>zenphoto.package</em>."
 
 #: plugins/package.php:41
+#, fuzzy
 msgid "Extract getAllTranslations"
-msgstr ""
+msgstr "Extrait de getAllTranslations"
 
 #: plugins/package.php:45
 #, fuzzy
@@ -30537,13 +30655,13 @@ msgstr "Pseudo-gestionnaire d'email pour les tests en mode local (localhost)."
 #, fuzzy
 #| msgid "Mail user"
 msgid "Mail header"
-msgstr "En-tête"
+msgstr "Image d’en-tête des emails"
 
 #: plugins/pseudomail.php:50
 #, fuzzy, php-format
 #| msgid "Title%s"
 msgid "To: %s"
-msgstr "%1$s : %2$s"
+msgstr "A : %s"
 
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
@@ -30561,11 +30679,14 @@ msgstr "Cc : %s"
 #, fuzzy, php-format
 #| msgid "Subject:"
 msgid "Subject: %s"
-msgstr "Sujet<strong>%s</strong> :"
+msgstr "Sujet : %s"
 
 #: plugins/releaseNotes.php:12
+#, fuzzy
 msgid "Allows using netPhotoGraphics editing to create release notes."
 msgstr ""
+"Permet d'utiliser l'édition netPhotoGraphics pour créer des notes de "
+"publication."
 
 #: plugins/releaseNotes.php:30
 #, fuzzy
@@ -30710,25 +30831,30 @@ msgid "pause"
 msgstr "pause"
 
 #: plugins/tagURLs.php:23
+#, fuzzy
 msgid "Convert Explicit site URLs to portable URLs."
-msgstr ""
+msgstr "Convertir les URL de sites explicites en URL portables."
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "Tag URL explicites"
 
 #: plugins/tagURLs.php:38
+#, fuzzy
 msgid ""
 "A utility to change explicit site urls in netPhotoGraphics objects to "
 "portable urls."
 msgstr ""
+"Un utilitaire permettant de changer les urls de sites explicites dans les "
+"objets netPhotoGraphics en urls portables."
 
 #: plugins/tagURLs/migrateURLs.php:77
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s object with explicit URLs changed"
 msgid_plural "%1$s objects with explicit URLs changed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Modification de l'objet %1$s avec des URL explicites"
+msgstr[1] "Les objets %1$s avec des URL explicites ont été modifiés"
 
 #: plugins/titlelinkMigration.php:22
 #, fuzzy
@@ -30746,21 +30872,23 @@ msgid "Migrate old suffix"
 msgstr "Chinois (RPC ancien)"
 
 #: plugins/titlelinkMigration.php:35
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Enter the old <code><em>mod_rewrite_suffix</em></code> you wish to migrate "
 "to \"%1$s\""
 msgstr ""
+"Entrez l'ancien <code><em>mod_rewrite_suffix</em></code> vous souhaitez "
+"migrer vers des \"%1$s"
 
 #: plugins/titlelinkMigration.php:44
-#, php-format
+#, fuzzy, php-format
 msgid "Migrated %1$s titlelink suffix from \"%2$s\" to \"%3$s\"."
-msgstr ""
+msgstr "Migration du suffixe %1$s titlelink de \"%2$s\" à \"%3$s\"."
 
 #: plugins/titlelinkMigration.php:44
-#, php-format
+#, fuzzy, php-format
 msgid "Migrated %1$s titlelink suffixes from \"%2$s\" to \"%3$s\"."
-msgstr ""
+msgstr "Migration des suffixes %1$s titlelink de \"%2$s\" à \"%3$s\"."
 
 #: plugins/titlelinkMigration.php:63
 #, fuzzy
@@ -30776,14 +30904,14 @@ msgstr ""
 "de zenpage."
 
 #: plugins/titlelinkMigration/migrate.php:24
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s titlelink suffix migrated to \"%2$s\"."
-msgstr ""
+msgstr "Le suffixe %1$s titlelink a migré vers \"%2$s\"."
 
 #: plugins/titlelinkMigration/migrate.php:24
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s titlelink suffixes migrated to \"%2$s\"."
-msgstr ""
+msgstr "Les suffixes des liens de titre %1$s ont migré vers \"%2$s\"."
 
 #: plugins/utf8mb4Migration.php:33
 #, fuzzy
@@ -31606,7 +31734,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Please return later"
 msgid "Please read"
-msgstr "Lire la suite"
+msgstr "Veuillez lire"
 
 #: themes/bootstrap/theme_description.php:13
 #, fuzzy
@@ -31654,7 +31782,7 @@ msgstr ""
 #, fuzzy
 #| msgid "stop slideshow"
 msgid "Homepage slider"
-msgstr "Accueil"
+msgstr "Slider de la page d'accueil"
 
 #: themes/bootstrap/themeoptions.php:94
 #, fuzzy
@@ -31673,8 +31801,9 @@ msgstr ""
 "Si Galerie est sélectionné, toute la galerie sera utilisée pour le curseur."
 
 #: themes/bootstrap/themeoptions.php:96
+#, fuzzy
 msgid "Select * none * if you do not want any slider."
-msgstr ""
+msgstr "Sélectionnez * aucun * si vous ne voulez pas de curseur."
 
 #: themes/bootstrap/themeoptions.php:98
 #, fuzzy
@@ -31692,7 +31821,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Use Infinite Scroll?"
 msgid "Use infinite scroll"
-msgstr "Utiliser le défilement infini ?"
+msgstr "Utiliser le défilement infini"
 
 #: themes/bootstrap/themeoptions.php:115
 #, fuzzy
@@ -31796,7 +31925,7 @@ msgstr "Cocher pour afficher certains liens sociaux."
 #, fuzzy
 #| msgid "Feed text length"
 msgid "Excerpt length"
-msgstr "Longueur du Captcha"
+msgstr "Longueur de l'extrait"
 
 #: themes/bootstrap/themeoptions.php:148
 #, fuzzy
@@ -33232,7 +33361,7 @@ msgstr "thème"
 #, fuzzy
 #| msgid "options"
 msgid "Caption"
-msgstr "Légende de la galerie d’images"
+msgstr "Légende"
 
 #: themes/paradigm/image.php:78
 msgid "Location:"
@@ -33250,7 +33379,7 @@ msgstr ""
 #: themes/paradigm/image.php:112
 #, fuzzy
 msgid "Views:"
-msgstr "Affichages : %u"
+msgstr "Vues:"
 
 #: themes/paradigm/image.php:117
 msgid "Copyright:"
@@ -33260,7 +33389,7 @@ msgstr "Copyright : "
 #, fuzzy
 #| msgid "404 not found"
 msgid "Not found"
-msgstr "Aucun effet d’image trouvé."
+msgstr "Non trouvé"
 
 #: themes/paradigm/includes/_gallery.php:12
 msgid "About"
@@ -33280,7 +33409,7 @@ msgstr "Blog"
 #, fuzzy, php-format
 #| msgid "Publish for"
 msgid "Results for"
-msgstr "Afficher plus de résultats"
+msgstr "Résultats de votre recherche"
 
 #: themes/paradigm/theme_description.php:9
 #, fuzzy
@@ -33313,17 +33442,17 @@ msgstr "Cochez cette case pour inclure un diaporama sur la page d'accueil."
 #: themes/paradigm/themeoptions.php:70
 #, fuzzy
 msgid "Slideshow Type"
-msgstr "Diaporama"
+msgstr "Type de slide"
 
 #: themes/paradigm/themeoptions.php:75
 #, fuzzy
 msgid "Random"
-msgstr "aléatoire"
+msgstr "Aléatoire"
 
 #: themes/paradigm/themeoptions.php:76
 #, fuzzy
 msgid "Popular"
-msgstr "Albums les plus populaires"
+msgstr "Populaire"
 
 #: themes/paradigm/themeoptions.php:77
 #, fuzzy
@@ -33348,12 +33477,12 @@ msgstr "Date de publication"
 #: themes/paradigm/themeoptions.php:81
 #, fuzzy
 msgid "Most Rated"
-msgstr "les plus noté(e)s"
+msgstr "Plus Notés"
 
 #: themes/paradigm/themeoptions.php:82
 #, fuzzy
 msgid "Top Rated"
-msgstr "les mieux noté(e)s"
+msgstr "Les mieux notés"
 
 #: themes/paradigm/themeoptions.php:83
 #, fuzzy
@@ -33381,30 +33510,28 @@ msgstr ""
 #, fuzzy
 #| msgid "Number of RSS feed items:"
 msgid "Number of slides"
-msgstr ""
-"Le nombre maximal de diapositives affichées. Les diapositives seront "
-"agrandies si le carousel devient plus grand que la taille originale."
+msgstr "Nombre de diapositives"
 
 #: themes/paradigm/themeoptions.php:101
 #, fuzzy
 msgid "7"
-msgstr "7: -90 degrés + miroir"
+msgstr "7"
 
 #: themes/paradigm/themeoptions.php:102
 #, fuzzy
 msgid "8"
-msgstr "8: 90 degrés"
+msgstr "8"
 
 #: themes/paradigm/themeoptions.php:103
 #, fuzzy
 msgid "9"
-msgstr "Latin 9 (ISO)"
+msgstr "9"
 
 #: themes/paradigm/themeoptions.php:104
 #, fuzzy
 #| msgid "10s"
 msgid "10"
-msgstr "Les 10 commentaires les plus récents"
+msgstr "10"
 
 #: themes/paradigm/themeoptions.php:105
 #, fuzzy
@@ -33434,7 +33561,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Homepage"
 msgid "Homepage content"
-msgstr "Contenu"
+msgstr "Contenu de la page d'accueil"
 
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
@@ -33621,7 +33748,7 @@ msgstr "Mode d’affichage des images du thème Effervescence."
 #, fuzzy
 #| msgid "Contact"
 msgid "Contact me"
-msgstr "Contact"
+msgstr "Contactez-moi"
 
 #: themes/zenFluid/404.php:16
 #, fuzzy
@@ -33639,12 +33766,12 @@ msgstr "Page de thème personnalisée"
 #: themes/zenFluid/search.php:115 themes/zenFluid/search.php:151
 #, fuzzy
 msgid "View: "
-msgstr "Voir"
+msgstr "Vue : "
 
 #: themes/zenFluid/image.php:174 themes/zenFluid/pages.php:33
 #, fuzzy
 msgid "Views: "
-msgstr "Affichages : %u"
+msgstr "Vues:"
 
 #: themes/zenFluid/inc-footer.php:6 themes/zenFluid/inc-sidebar.php:132
 #, fuzzy
@@ -33694,12 +33821,12 @@ msgstr "White"
 #, fuzzy
 #| msgid "Night"
 msgid "Light Green"
-msgstr "Clair"
+msgstr "Vert clair"
 
 #: themes/zenFluid/themeoptions.php:73
 #, fuzzy
 msgid "Dark gray"
-msgstr "Sombre"
+msgstr "Gris sombre"
 
 #: themes/zenFluid/themeoptions.php:74
 #, fuzzy
@@ -33721,10 +33848,7 @@ msgstr "Pas de bordure"
 #, fuzzy
 #| msgid "Timeout"
 msgid "Times"
-msgstr ""
-"Cochez la case correspondant aux tags à supprimer et cliquez sur le bouton "
-"<em>Supprimer les tags cochés</em>. Le nombre d’occurences du tag apparaît "
-"entre parenthèses."
+msgstr "Temps"
 
 #: themes/zenFluid/themeoptions.php:75
 #, fuzzy
@@ -33758,7 +33882,7 @@ msgstr "Style"
 #, fuzzy
 #| msgid "Order by"
 msgid "Border type"
-msgstr "Type :"
+msgstr "Type de bordure"
 
 #: themes/zenFluid/themeoptions.php:106
 #, fuzzy
@@ -33862,7 +33986,7 @@ msgstr ""
 #, fuzzy
 #| msgid "TitleLink"
 msgid "Title Margin"
-msgstr "un titre"
+msgstr "Marge du Titre"
 
 #: themes/zenFluid/themeoptions.php:161
 #, fuzzy
@@ -33877,7 +34001,7 @@ msgstr ""
 #, fuzzy
 #| msgid "title only"
 msgid "Title on top"
-msgstr "Titre"
+msgstr "Titre au-dessus"
 
 #: themes/zenFluid/themeoptions.php:167
 #, fuzzy
@@ -33907,7 +34031,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show theme for:"
 msgid "Show header"
-msgstr "En-tête"
+msgstr "Afficher l’en-tête"
 
 #: themes/zenFluid/themeoptions.php:179
 #, fuzzy
@@ -33922,7 +34046,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Show title"
 msgid "Show footer"
-msgstr "Afficher"
+msgstr "Afficher le pied de page"
 
 #: themes/zenFluid/themeoptions.php:185
 #, fuzzy
@@ -34010,7 +34134,7 @@ msgstr ""
 #, fuzzy
 #| msgid "title only"
 msgid "Title position"
-msgstr "Position :"
+msgstr "Position du titre"
 
 #: themes/zenFluid/themeoptions.php:225
 #, fuzzy
@@ -34022,7 +34146,7 @@ msgstr "Position :"
 #, fuzzy
 #| msgid "Description"
 msgid "Description position"
-msgstr "Description"
+msgstr "Position de la description"
 
 #: themes/zenFluid/themeoptions.php:232
 #, fuzzy
@@ -34032,7 +34156,7 @@ msgstr "Sélectionner la mise en page de l’image par défaut de l’album :"
 #: themes/zenFluid/themeoptions.php:234
 #, fuzzy
 msgid "Button position"
-msgstr "Position :"
+msgstr "Position du bouton"
 
 #: themes/zenFluid/themeoptions.php:239
 #, fuzzy
@@ -34171,6 +34295,9 @@ msgstr ""
 "<em>menu_manager</em>. Si elle est activée, vous pouvez définir un menu "
 "personnalisé et l’utiliser au lieu du menu standard. Le menu standard nommé "
 "« zenpage » est créé automatiquement et utilisé par défaut."
+
+#~ msgid "Select users:"
+#~ msgstr "Choisir les utilisateurs : "
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "Restrictions liées au fait que safe_mode de PHP est activé !"

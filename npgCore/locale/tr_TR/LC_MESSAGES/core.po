@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:12-0700\n"
-"PO-Revision-Date: 2020-05-27 15:12-0700\n"
+"POT-Creation-Date: 2020-05-29 13:00-0700\n"
+"PO-Revision-Date: 2020-05-29 13:01-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -314,7 +314,7 @@ msgstr "tümü"
 #: npgCore/admin-functions.php:1804
 #, fuzzy
 msgid "add tag"
-msgstr "Yorum ekle"
+msgstr "Etiket ekle"
 
 #: npgCore/admin-functions.php:1912 npgCore/admin-functions.php:2631
 #: npgCore/admin-tabs/album_edit.php:76 npgCore/admin-tabs/album_edit.php:133
@@ -561,13 +561,13 @@ msgstr "Süresi doldu!"
 #: npgCore/admin-tabs/image_edit.php:414 npgCore/extensions/zenpage/edit.php:723
 #, fuzzy
 msgid "Publish date"
-msgstr "Tarih:"
+msgstr "Tarih"
 
 #: npgCore/admin-functions.php:2484 npgCore/admin-tabs/image_edit.php:416
 #: npgCore/extensions/zenpage/edit.php:742
 #, fuzzy
 msgid "Expiration date"
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Tarih/Zaman:"
 
 #: npgCore/admin-functions.php:2498 npgCore/admin-tabs/image_edit.php:430
 #: npgCore/admin-tabs/users.php:884 npgCore/extensions/zenpage/edit.php:758
@@ -1055,7 +1055,7 @@ msgstr "Tümünü seç"
 #, fuzzy
 #| msgid "News categories"
 msgid "New categories:"
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/admin-functions.php:4708 npgCore/extensions/zenpage/news.php:270
 #: npgCore/extensions/zenpage/pages.php:176
@@ -1081,7 +1081,7 @@ msgstr "Hedef"
 #: npgCore/admin-functions.php:5026 npgCore/admin-functions.php:5061
 #, fuzzy, php-format
 msgid "codeblock %u"
-msgstr "%u albüm"
+msgstr "sayfa %u"
 
 #: npgCore/admin-functions.php:5027 npgCore/admin-functions.php:5067
 #, fuzzy
@@ -1657,7 +1657,7 @@ msgstr "Profilim"
 #, fuzzy
 #| msgid "most images"
 msgid "my images"
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Resimler"
 
 #: npgCore/admin-globals.php:207
 msgid "general"
@@ -1971,12 +1971,12 @@ msgstr "Arama kriterleri:"
 #: npgCore/admin-tabs/dynamic-album.php:257
 #, fuzzy
 msgid "Return albums found"
-msgstr "Albümler"
+msgstr "%s'e geri dön"
 
 #: npgCore/admin-tabs/dynamic-album.php:261
 #, fuzzy
 msgid "Return images found"
-msgstr "Nesne bulunamadı"
+msgstr "Albüm bulunamadı"
 
 #: npgCore/admin-tabs/dynamic-album.php:265
 #, fuzzy
@@ -2518,7 +2518,7 @@ msgstr ""
 #: npgCore/admin-tabs/plugins.php:299
 #, fuzzy
 msgid "class plugin"
-msgstr "eklenti"
+msgstr "Yönetilecek eklenti bulunamadı."
 
 #: npgCore/admin-tabs/plugins.php:305
 #, fuzzy
@@ -2569,7 +2569,7 @@ msgstr "Takip eden seçenekler %s tarafından özel olarak uygulandı."
 #: npgCore/admin-tabs/plugins.php:507
 #, fuzzy
 msgid "Class plugin"
-msgstr "eklenti"
+msgstr "Yönetilecek eklenti bulunamadı."
 
 #: npgCore/admin-tabs/plugins.php:511
 #, fuzzy
@@ -2647,7 +2647,7 @@ msgstr "%1$s:%2$s değiştirilmedi, etiket çoğaltıldı."
 #: npgCore/admin-tabs/tags.php:182
 #, fuzzy
 msgid "Tags renamed"
-msgstr "İçeri aktarılacak etiket yok."
+msgstr "Etiketleri yeniden adlandır"
 
 #: npgCore/admin-tabs/tags.php:230
 msgid "Tag Management"
@@ -3126,8 +3126,9 @@ msgstr "%s şifresi boş bırakılamaz!"
 msgid "Password reset request."
 msgstr "Sıfırlama isteği gönderildi."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 #, fuzzy
 msgid "Users"
 msgstr "kullanıcılar"
@@ -3213,7 +3214,7 @@ msgstr "%s kullancısı için detayları gizle"
 #: npgCore/admin-tabs/users.php:664
 #, fuzzy
 msgid "New User"
-msgstr "Yeni içe aktarım"
+msgstr "Yeni alt albüm"
 
 #: npgCore/admin-tabs/users.php:692
 msgid "Authenticate user"
@@ -3338,7 +3339,7 @@ msgstr "<em>Ana</em> hesap, tüm nesnelerin tüm haklarına sahiptir."
 #: npgCore/admin-tabs/users.php:949 npgCore/functions.php:706
 #, fuzzy
 msgid "un-categorized"
-msgstr "Yayımlanmış/Yayımlanmamış"
+msgstr "%s albümünü yayımdan çek"
 
 #: npgCore/admin-tabs/users.php:1018
 #, fuzzy, php-format
@@ -3473,7 +3474,7 @@ msgstr "tüm sayaçları sıfırla"
 #: npgCore/admin.php:257
 #, fuzzy
 msgid "purge search cache"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: npgCore/admin.php:264
 #, php-format
@@ -3645,10 +3646,10 @@ msgid_plural "<strong>%u</strong> Comments"
 msgstr[0] "<strong>%u</strong> Yorum"
 
 #: npgCore/admin.php:679
-#, php-format
+#, fuzzy, php-format
 msgid "<strong>%1$u</strong> User (%2$u expired)"
 msgid_plural "<strong>%1$u</strong> Users (%2$u expired)"
-msgstr[0] ""
+msgstr[0] "<strong>%1$u</strong> Yorum (%2$u onay bekliyor)"
 
 #: npgCore/admin.php:681
 #, fuzzy, php-format
@@ -3667,12 +3668,12 @@ msgid_plural "<strong>%u</strong> Groups"
 msgstr[0] "<strong>%u</strong> Albüm"
 
 #: npgCore/admin.php:705
-#, fuzzy, php-format
+#, php-format
 #| msgid "<strong>%u</strong> Image"
 #| msgid_plural "<strong>%u</strong> Images"
 msgid "<strong>%u</strong> Template"
 msgid_plural "<strong>%u</strong> Templates"
-msgstr[0] "<strong>%u</strong> yorum"
+msgstr[0] ""
 
 #: npgCore/admin.php:722
 #, fuzzy
@@ -3746,7 +3747,7 @@ msgstr "Marka logonuz için başlık metnini girin."
 #: npgCore/admin_options/gallery.php:149
 #, fuzzy
 msgid "Gallery type"
-msgstr "Galeri"
+msgstr "galeri"
 
 #: npgCore/admin_options/gallery.php:152 npgCore/admin_options/gallery.php:153
 msgid "public"
@@ -3900,7 +3901,7 @@ msgstr "*öntanımlı"
 #: npgCore/admin_options/gallery.php:477
 #, fuzzy
 msgid "publish images by default"
-msgstr "Resimler için öntanımlı sıralama düzeni."
+msgstr "Yayımla"
 
 #: npgCore/admin_options/gallery.php:483
 msgid "use latest image date as album date"
@@ -4106,7 +4107,7 @@ msgstr "<em>tam</em> boyuttaki resim"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Resimler (dinamik)"
 
 #: npgCore/admin_options/general.php:283
 msgid ""
@@ -5191,7 +5192,7 @@ msgstr ""
 #: npgCore/admin_options/image.php:752
 #, fuzzy
 msgid "Use lock image"
-msgstr "resim"
+msgstr "Resim"
 
 #: npgCore/admin_options/image.php:761
 #, fuzzy
@@ -5464,12 +5465,12 @@ msgstr "Göster: <em>%s</em>"
 #: npgCore/admin_options/search.php:280
 #, fuzzy
 msgid "<em>exact</em>"
-msgstr "<em>VE</em>"
+msgstr "Göster: <em>%s</em>"
 
 #: npgCore/admin_options/search.php:284
 #, fuzzy
 msgid "language specific tags"
-msgstr "Etiketler"
+msgstr "etiketler"
 
 #: npgCore/admin_options/search.php:286
 #, fuzzy
@@ -5506,7 +5507,7 @@ msgstr "<em>VE</em>"
 #: npgCore/admin_options/search.php:303
 #, fuzzy
 msgid "default search"
-msgstr "Arama"
+msgstr "ara"
 
 #: npgCore/admin_options/search.php:304
 #, fuzzy
@@ -5690,7 +5691,7 @@ msgstr "Alt albümleri şöyle sırala: "
 #, fuzzy
 #| msgid "Image order"
 msgid "Page order"
-msgstr "Resim sırası"
+msgstr "[sayfa]"
 
 #: npgCore/admin_options/search.php:558
 #, fuzzy
@@ -5751,7 +5752,7 @@ msgstr ""
 #: npgCore/admin_options/security.php:112
 #, fuzzy
 msgid "Image Processor security"
-msgstr "tam resim"
+msgstr "Resim sırası"
 
 #: npgCore/admin_options/security.php:122
 #, fuzzy
@@ -6267,7 +6268,7 @@ msgstr "Küçük resimler"
 #: themes/zenpage/image.php:73
 #, fuzzy
 msgid "next thumbs »"
-msgstr "ileri"
+msgstr "Küçük resimler"
 
 #: npgCore/allTranslations.php:83
 #, fuzzy
@@ -6354,7 +6355,7 @@ msgstr "Son Albümler"
 #: themes/paradigm/includes/_homepage.php:92
 #, fuzzy
 msgid "Latest images"
-msgstr "Son Albümler"
+msgstr "id'ye göre en son"
 
 #: npgCore/class-feed.php:368
 #, fuzzy
@@ -6476,17 +6477,17 @@ msgstr "Nesne bulunamadı"
 #: npgCore/class-image.php:199 npgCore/extensions/xmpMetadata.php:648
 #, fuzzy
 msgid "Image Headline"
-msgstr "tam resim"
+msgstr "Resim sırası"
 
 #: npgCore/class-image.php:200 npgCore/extensions/xmpMetadata.php:646
 #, fuzzy
 msgid "Image Caption"
-msgstr "Resmin %'si"
+msgstr "Resim sırası"
 
 #: npgCore/class-image.php:201
 #, fuzzy
 msgid "Image Caption Writer"
-msgstr "tam resim"
+msgstr "Resim sırası"
 
 #: npgCore/class-image.php:202
 msgid "Time Taken"
@@ -6503,7 +6504,7 @@ msgstr "Dijital Ortama Aktarım Zamanı"
 #: npgCore/class-image.php:205
 #, fuzzy
 msgid "Date Created"
-msgstr "tarih yok"
+msgstr "Tarih/Zaman:"
 
 #: npgCore/class-image.php:206
 #, fuzzy
@@ -7062,7 +7063,7 @@ msgstr "Renk Sıralı Doğrusal Sensör"
 #: npgCore/exif/exifTranslations.php:72
 #, fuzzy
 msgid "Compulsory Flash"
-msgstr "Dahili Flaş"
+msgstr "Flash Yanmadı"
 
 #: npgCore/exif/exifTranslations.php:73
 #, fuzzy
@@ -7733,7 +7734,7 @@ msgstr "<strong>Standart seçenekler</strong>"
 #: npgCore/exif/exifTranslations.php:214
 #, fuzzy
 msgid "Standard Output Sensitivity"
-msgstr "ISO Hassasiyeti"
+msgstr "<strong>Standart seçenekler</strong>"
 
 #: npgCore/exif/exifTranslations.php:215
 #, fuzzy
@@ -7774,7 +7775,7 @@ msgstr "SXGA Normal"
 #: npgCore/exif/exifTranslations.php:223
 #, fuzzy
 msgid "The file could not be found."
-msgstr "Nesne bulunamadı"
+msgstr "Albüm bulunamadı"
 
 #: npgCore/exif/exifTranslations.php:224
 #, fuzzy
@@ -7868,7 +7869,7 @@ msgstr "URL ayarları:"
 #: npgCore/extensions/GDPR_required.php:63
 #, fuzzy
 msgid "Policy page"
-msgstr "Sonraki sayfa"
+msgstr "sayfa %u"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -8020,7 +8021,7 @@ msgstr "LDAP aramaları için kullanıcı şifresi."
 #: npgCore/extensions/LDAP_auth.php:74
 #, fuzzy
 msgid "LDAP reader password"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/extensions/LDAP_auth.php:76
 #, fuzzy
@@ -8323,7 +8324,7 @@ msgstr "Öntanımlı resim gösterim boyutu."
 #: npgCore/extensions/VideoJS.php:91
 #, fuzzy
 msgid "Custom Player Size"
-msgstr "boyut ="
+msgstr "Özel"
 
 #: npgCore/extensions/VideoJS.php:94
 #, fuzzy
@@ -8451,7 +8452,7 @@ msgstr ""
 #: npgCore/extensions/accessThreshold.php:70
 #, fuzzy
 msgid "Clear list"
-msgstr "parolayı temizle"
+msgstr "Alt albüm listesi"
 
 #: npgCore/extensions/accessThreshold.php:72
 #, fuzzy
@@ -8560,7 +8561,7 @@ msgstr "<em>Yayınlama</em> durumunu değiştirme hakkınız yok."
 #: npgCore/extensions/auto_backup.php:23
 #, fuzzy
 msgid "Periodically backup the database."
-msgstr "Veritabanı adı"
+msgstr "veritabanına bağlanıldı"
 
 #: npgCore/extensions/auto_backup.php:60
 #, fuzzy
@@ -8761,7 +8762,7 @@ msgstr ""
 #: npgCore/extensions/cacheManager.php:132
 #, fuzzy
 msgid "Image caching sizes"
-msgstr "tam resim"
+msgstr "Resim sırası"
 
 #: npgCore/extensions/cacheManager.php:135
 #, fuzzy
@@ -8981,7 +8982,7 @@ msgstr ""
 #: npgCore/extensions/cacheManager.php:560
 #, fuzzy
 msgid "Purge search cache"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: npgCore/extensions/cacheManager.php:564
 #, fuzzy
@@ -9125,7 +9126,7 @@ msgstr "Yayımlanmak için ayarlandı"
 #: npgCore/extensions/cacheManager/cacheImages.php:307
 #, fuzzy, php-format
 msgid "all sizes for <em>%1$s</em>"
-msgstr "%1$s <em>%2$s</em> öğesine atanamadı!"
+msgstr "Albüm düzenle: <em>%1$s%2$s</em>"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:353
 #, fuzzy, php-format
@@ -9334,7 +9335,7 @@ msgstr "ZenPhoto20 galeri"
 #: npgCore/extensions/class-AnyFile.php:42
 #, fuzzy
 msgid "File suffixes to be handled."
-msgstr "Bu dosya düzenlenemiyor!"
+msgstr "Albüm dosyası oluşturmada hata"
 
 #: npgCore/extensions/class-AnyFile.php:43
 #, fuzzy
@@ -9693,12 +9694,12 @@ msgstr "<code>%s</code> Bağlantı oluşturma başarısız oldu."
 #: npgCore/extensions/clone/clone.php:168
 #, fuzzy, php-format
 msgid "Successful clone to %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/clone/clone.php:201
 #, fuzzy
 msgid "setup the new install"
-msgstr "Yeni içe aktarım"
+msgstr "Yeni alt albüm"
 
 #: npgCore/extensions/clone/clone.php:203
 #, fuzzy, php-format
@@ -9795,7 +9796,7 @@ msgstr ""
 #: npgCore/extensions/colorbox_js.php:61
 #, fuzzy
 msgid "Colorbox theme"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: npgCore/extensions/colorbox_js.php:64
 #, fuzzy
@@ -9936,7 +9937,7 @@ msgstr "Yorum formları kontrol edilen sayfalarda sunulacaktır."
 #: npgCore/extensions/comment_form.php:121
 #, fuzzy
 msgid "Toggled comment block"
-msgstr "Yorum gönderildi"
+msgstr "Bir yorum ekle:"
 
 #: npgCore/extensions/comment_form.php:123
 #, fuzzy
@@ -10234,7 +10235,7 @@ msgstr "Yorum anonim değil"
 #: npgCore/extensions/comment_form/admin-comments.php:241
 #, fuzzy
 msgid "Comment does not exist"
-msgstr "Açıklama"
+msgstr "Açıklama:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:275
 msgid "Selected items marked as spam"
@@ -10258,7 +10259,7 @@ msgstr "Yorumları düzenleyebilir veya silebilirsiniz."
 #: npgCore/extensions/comment_form/admin-comments.php:325
 #, fuzzy
 msgid "View truncated"
-msgstr "Slayt Gösterisi Yap"
+msgstr "Görünlenecek bir kayıt bulunamadı."
 
 #: npgCore/extensions/comment_form/admin-comments.php:329
 msgid "View full text"
@@ -10903,7 +10904,7 @@ msgstr "Ülke:"
 #: npgCore/extensions/contact_form.php:219
 #, fuzzy
 msgid "a valid email address"
-msgstr "Eposta:"
+msgstr "Eposta"
 
 #: npgCore/extensions/contact_form.php:222
 #, fuzzy
@@ -10978,19 +10979,19 @@ msgstr "Başlık:"
 #: themes/paradigm/contact_form/form.php:41
 #, fuzzy, php-format
 msgid "Company%s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/contact_form/form.php:102
 #: themes/paradigm/contact_form/form.php:121
 #, fuzzy, php-format
 msgid "Phone%s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/contact_form/form.php:129
 #: themes/paradigm/contact_form/form.php:152
 #, fuzzy
 msgid "Subject<strong>*</strong>"
-msgstr "<strong>Etiketler:</strong>"
+msgstr "<strong>Dosya adı:</strong>"
 
 #: npgCore/extensions/contact_form/form.php:133
 #: themes/paradigm/contact_form/form.php:158
@@ -11024,7 +11025,7 @@ msgstr ""
 #: npgCore/extensions/cookieconsent.php:50
 #, fuzzy
 msgid "Button: Learn more"
-msgstr "Daha fazla sonuç göster"
+msgstr "Daha fazla yükleme kutusu ekle"
 
 #: npgCore/extensions/cookieconsent.php:55
 #, fuzzy
@@ -11209,7 +11210,7 @@ msgstr "Renk"
 #: npgCore/extensions/crop_image.php:26
 #, fuzzy
 msgid "An image cropping tool."
-msgstr "Küçük resim kırpmayı değiştirmek için resme tıklayın."
+msgstr "Kırpma işlemini gerçekleştir"
 
 #: npgCore/extensions/crop_image.php:40 npgCore/extensions/crop_image.php:59
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:354
@@ -11383,7 +11384,7 @@ msgstr "Sunucu tarihi: %s"
 #, fuzzy, php-format
 #| msgid "Image: %s"
 msgid "Image count: %s"
-msgstr "Resmi göster: %s"
+msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:36
 #: plugins/daily-summary/daily-summary_content.php:37
@@ -11838,7 +11839,7 @@ msgstr "Kullanımdan kaldırılmış işlevlerdeki çağrıları bulun."
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:56
 #, fuzzy
 msgid "In Themes"
-msgstr "Temalar"
+msgstr "temalar"
 
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:59
 #, fuzzy
@@ -11919,7 +11920,7 @@ msgstr "%1$u yeni %2$s"
 #: npgCore/extensions/deprecated-functions/class.php:158
 #, fuzzy, php-format
 msgid "core:%s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/deprecated-functions/class.php:167
 #: npgCore/extensions/purgeOptions.php:88 npgCore/setup/setup-functions.php:263
@@ -12470,7 +12471,7 @@ msgstr "Kurulmuş temalar"
 #: npgCore/extensions/elFinder/php/connector_npg.php:89
 #, fuzzy, php-format
 msgid "%s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/elFinder/php/connector_npg.php:110
 #: npgCore/extensions/elFinder/php/connector_npg.php:348
@@ -12527,7 +12528,7 @@ msgstr "Bu bilet otomatik olarak 3 gün içinde sona erecek."
 #: npgCore/extensions/email-newuser.php:28
 #, fuzzy
 msgid "User created"
-msgstr "Veritabanı kullanıcısı"
+msgstr "Kullanıcıyı yetkilendir"
 
 #: npgCore/extensions/email-newuser.php:42
 #, fuzzy
@@ -12602,12 +12603,12 @@ msgstr "RSS beslemeleri aktifleştirildi:"
 #: npgCore/extensions/externalFeed.php:74 npgCore/extensions/rss.php:50
 #, fuzzy
 msgid "Gallery Comments"
-msgstr "Galeri"
+msgstr "galeri"
 
 #: npgCore/extensions/externalFeed.php:77 npgCore/extensions/rss.php:53
 #, fuzzy
 msgid "News/Page Comments"
-msgstr "Yorum Yok"
+msgstr "yorumlar"
 
 #: npgCore/extensions/externalFeed.php:79
 #, fuzzy
@@ -12617,7 +12618,7 @@ msgstr "Etkinleştirmek istediğiniz her yayını kontrol edin."
 #: npgCore/extensions/externalFeed.php:80 npgCore/extensions/rss.php:56
 #, fuzzy
 msgid "Image feed items:"
-msgstr "Albüm RSS beslemesi"
+msgstr "Resim"
 
 #: npgCore/extensions/externalFeed.php:82
 #, fuzzy
@@ -12655,7 +12656,7 @@ msgstr "değişim zamanına göre en son"
 #: npgCore/extensions/rss.php:73 npgCore/extensions/rss.php:80
 #, fuzzy
 msgid "latest by publishdate"
-msgstr "Son Albümler"
+msgstr "id'ye göre en son"
 
 #: npgCore/extensions/externalFeed.php:93
 #, fuzzy
@@ -12789,7 +12790,7 @@ msgstr "Sayfalar"
 #: npgCore/extensions/externalFeed.php:326 npgCore/extensions/rss.php:517
 #, fuzzy
 msgid " (latest comments)"
-msgstr "Yorum Yok"
+msgstr "yorumlar"
 
 #: npgCore/extensions/externalFeed.php:364 npgCore/extensions/rss.php:572
 #: npgCore/extensions/rss.php:580
@@ -12902,7 +12903,7 @@ msgstr "Çoklu setleri"
 #: npgCore/extensions/favoritesHandler.php:103
 #, fuzzy
 msgid "Add button"
-msgstr "Yorum ekle"
+msgstr "Etiket ekle"
 
 #: npgCore/extensions/favoritesHandler.php:106
 #, fuzzy
@@ -12970,7 +12971,7 @@ msgstr ""
 #: npgCore/extensions/flag_thumbnail.php:67
 #, fuzzy
 msgid "Criteria"
-msgstr "Arama kriterlerinizi girin."
+msgstr "Arama kriterlerini toplar ve gösterir."
 
 #: npgCore/extensions/flag_thumbnail.php:69
 #: npgCore/extensions/sitemap-extended.php:90
@@ -13066,7 +13067,7 @@ msgstr "Geodata etiketli resimlerin küçük resimleri işaretlenir."
 #: npgCore/extensions/flag_thumbnail.php:120 plugins/icons.php:30
 #, fuzzy
 msgid "Text"
-msgstr "Metin dosyalarını düzenle"
+msgstr "Tam metni görüntüle"
 
 #: npgCore/extensions/flag_thumbnail.php:101
 #, fuzzy
@@ -13101,7 +13102,7 @@ msgstr "<em>Korunan</em> görüntüler için metin bayrağı."
 #: npgCore/extensions/flag_thumbnail.php:126
 #, fuzzy
 msgid "Use text"
-msgstr "Metin dosyalarını düzenle"
+msgstr "Tam metni görüntüle"
 
 #: npgCore/extensions/flag_thumbnail.php:128
 #, fuzzy
@@ -13211,7 +13212,7 @@ msgstr "Oluşturulan makaleler için bir kategori seçin"
 #: npgCore/extensions/galleryArticles.php:91
 #, fuzzy
 msgid "Use album folder"
-msgstr "dizin adı ile birlikte:"
+msgstr "Dizini yeniden adlandır"
 
 #: npgCore/extensions/galleryArticles.php:93
 #, fuzzy
@@ -13549,7 +13550,7 @@ msgstr "İki Faktörlü Kimlik Doğrulama."
 #: npgCore/extensions/googleTFA.php:59
 #, fuzzy
 msgid "Issuer name"
-msgstr "dizin adı ile birlikte:"
+msgstr "Albüm adı:"
 
 #: npgCore/extensions/googleTFA.php:60
 #, fuzzy
@@ -13721,7 +13722,7 @@ msgstr "IP adresleri:"
 #: plugins/titlelinkMigration.php:61
 #, fuzzy
 msgid "Database"
-msgstr "Wordpress-Veritabanı bilgisi"
+msgstr "<strong>veritabanı hatası</strong> "
 
 #: npgCore/extensions/hitcounter.php:208
 #, fuzzy
@@ -13852,7 +13853,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:111
 #, fuzzy
 msgid "Twitter name"
-msgstr "dizin adı ile birlikte:"
+msgstr "Albüm adı:"
 
 #: npgCore/extensions/html_meta_tags.php:112
 #, fuzzy
@@ -13908,7 +13909,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:119
 #, fuzzy
 msgid "HTML meta tags"
-msgstr "İçeri aktarılacak etiket yok."
+msgstr "Etiketleri yeniden adlandır"
 
 #: npgCore/extensions/html_meta_tags.php:141
 #, fuzzy
@@ -13947,7 +13948,7 @@ msgstr "Yetkili kullanıcıların Apache HTTP kimlik doğrulamasını kontrol ed
 #: npgCore/extensions/http_auth.php:77
 #, fuzzy
 msgid "User validation"
-msgstr "Veritabanı kullanıcısı"
+msgstr "Kullanıcıyı yetkilendir"
 
 #: npgCore/extensions/http_auth.php:78
 #, fuzzy
@@ -14121,7 +14122,7 @@ msgstr "IP listesi aralıkları eklenti devre dışıyken yönetilemez"
 #: npgCore/extensions/ipBlocker.php:170
 #, fuzzy
 msgid "clear list"
-msgstr "parolayı temizle"
+msgstr "Alt albüm listesi"
 
 #: npgCore/extensions/ipBlocker.php:193
 #, fuzzy
@@ -14430,7 +14431,7 @@ msgstr "Karıştır"
 #: npgCore/extensions/jPlayer.php:466
 #, fuzzy
 msgid "full screen"
-msgstr "tam resim"
+msgstr "<em>tam</em> boyuttaki resim"
 
 #: npgCore/extensions/jPlayer.php:473
 #, fuzzy
@@ -14749,7 +14750,7 @@ msgstr ""
 #: npgCore/extensions/matomo.php:127
 #, fuzzy
 msgid "User consent"
-msgstr "Veritabanı kullanıcısı"
+msgstr "Kullanıcıyı yetkilendir"
 
 #: npgCore/extensions/matomo.php:131
 #, fuzzy
@@ -15170,7 +15171,7 @@ msgstr "<em>%s</em> zaten bulunuyor."
 #: npgCore/extensions/menu_manager/menu_tab.php:109
 #, fuzzy, php-format
 msgid "Menu “%s” duplicated"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:148
 #: npgCore/extensions/menu_manager/menu_tab.php:154
@@ -15196,7 +15197,7 @@ msgstr "Dosya Yöneticisi"
 #: npgCore/extensions/menu_manager/menu_tab.php:184
 #, fuzzy, php-format
 msgid " (Menu: %s)"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:191
 #, fuzzy
@@ -15234,7 +15235,7 @@ msgstr "Yeni etiketler"
 #: npgCore/extensions/menu_manager/menu_tab.php:227
 #, fuzzy
 msgid "Edit the menu"
-msgstr "Bu dosyayı düzenle"
+msgstr "yorumu düzenle"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:241
 #, fuzzy
@@ -15255,7 +15256,7 @@ msgstr "Pozlama süresi"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:253
 #, fuzzy
 msgid "Add Menu Items"
-msgstr "Yorum ekle"
+msgstr "Etiket ekle"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:267
 #, fuzzy
@@ -15349,7 +15350,7 @@ msgstr "Değişim sıklığı - ZenPage haber indeksi"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:114
 #, fuzzy
 msgid "All Zenpage categories"
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:115
 #, fuzzy
@@ -15359,7 +15360,7 @@ msgstr "Bir ZenPhoto20 Albüm'üne bir bağlantı oluşturur."
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:119
 #, fuzzy
 msgid "Zenpage news category"
-msgstr "Değişim sıklığı - ZenPage haber indeksi"
+msgstr "Zenpage"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:120
 #, fuzzy
@@ -15554,7 +15555,7 @@ msgstr "PHP Imagick kütüphanesi <em>%s</em>"
 #: npgCore/extensions/mergedRSS.php:64
 #, fuzzy
 msgid "RSS feeds to merge"
-msgstr "RSS beslemeleri için istatistikler"
+msgstr "RSS beslemeleri aktifleştirildi:"
 
 #: npgCore/extensions/mergedRSS.php:67
 #, fuzzy
@@ -15584,7 +15585,7 @@ msgstr "Sitenize bağlanan cihaza göre temanızı seçin"
 #: npgCore/extensions/mobileTheme.php:95
 #, fuzzy
 msgid "Phone theme"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: npgCore/extensions/mobileTheme.php:97 npgCore/extensions/mobileTheme.php:101
 #, fuzzy
@@ -15599,7 +15600,7 @@ msgstr "Bir telefon cihazı bağlandığında kullanılacak temayı seçin."
 #: npgCore/extensions/mobileTheme.php:99
 #, fuzzy
 msgid "Tablet theme"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: npgCore/extensions/mobileTheme.php:102
 #, fuzzy
@@ -15648,7 +15649,7 @@ msgstr "<em>%s</em> tema seçeneklerini ayarlayın"
 #: npgCore/extensions/multiple_layouts.php:111
 #, fuzzy
 msgid "Enable multiple layouts for"
-msgstr "Arama formunu aktifleştirmek için tik koyun."
+msgstr "galeri oturumlarını aktifleştir"
 
 #: npgCore/extensions/multiple_layouts.php:235
 #, fuzzy
@@ -15778,7 +15779,7 @@ msgstr ""
 #: npgCore/extensions/openstreetmap.php:100
 #, fuzzy
 msgid "Default layer"
-msgstr "*öntanımlı"
+msgstr "Öntanımlı haklar"
 
 #: npgCore/extensions/openstreetmap.php:105
 #, fuzzy
@@ -15867,7 +15868,7 @@ msgstr ""
 #: npgCore/extensions/openstreetmap.php:144
 #, fuzzy
 msgid "Layers list"
-msgstr "Alan listesi:"
+msgstr "IP Adres listesi"
 
 #: npgCore/extensions/openstreetmap.php:149
 #, fuzzy
@@ -16076,7 +16077,7 @@ msgstr "Etiket ekle"
 #: npgCore/extensions/optionalObjectFields.php:205
 #, fuzzy
 msgid "Clear tags of articles"
-msgstr "Etiketler"
+msgstr "etiketler"
 
 #: npgCore/extensions/optionalObjectFields.php:214
 #: npgCore/extensions/optionalObjectFields.php:244
@@ -16154,7 +16155,7 @@ msgstr "Prevtext"
 #: npgCore/extensions/paged_thumbs_nav.php:46
 #, fuzzy
 msgid "The text for the previous thumbs."
-msgstr "Önceki resim"
+msgstr "Önceki sayfa"
 
 #: npgCore/extensions/paged_thumbs_nav.php:47
 #, fuzzy
@@ -16164,7 +16165,7 @@ msgstr "Nexttext"
 #: npgCore/extensions/paged_thumbs_nav.php:48
 #, fuzzy
 msgid "The text for the next thumbs."
-msgstr "ileri"
+msgstr "Küçük resimler"
 
 #: npgCore/extensions/paged_thumbs_nav.php:50
 #, fuzzy
@@ -16249,13 +16250,13 @@ msgstr "Sayfa listesi için bağlantı sayısı."
 #: npgCore/extensions/paged_thumbs_nav.php:349
 #, fuzzy
 msgid "previous thumbs"
-msgstr "Önceki resim"
+msgstr "Önceki sayfa"
 
 #: npgCore/extensions/paged_thumbs_nav.php:299
 #: npgCore/extensions/paged_thumbs_nav.php:372
 #, fuzzy
 msgid "next thumbs"
-msgstr "ileri"
+msgstr "Küçük resimler"
 
 #: npgCore/extensions/paged_thumbs_nav.php:325
 #, fuzzy, php-format
@@ -16318,7 +16319,7 @@ msgstr "Resmin %'si"
 #, fuzzy
 #| msgid "Migrate rights"
 msgid "image right"
-msgstr "Hakları taşı"
+msgstr "Resmin %'si"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -16445,7 +16446,7 @@ msgstr "*öntanımlı"
 #: npgCore/extensions/publishContent/publishContent.php:242
 #, fuzzy
 msgid "Publish images by default"
-msgstr "Resimler için öntanımlı sıralama düzeni."
+msgstr "Yayımla"
 
 #: npgCore/extensions/publishContent/publishContent.php:263
 #, fuzzy
@@ -16524,7 +16525,7 @@ msgstr "Aşağıdakilerden daha eski görselleri inceleyin: %s"
 #: npgCore/extensions/publishContent/publishContent.php:376
 #, fuzzy
 msgid "Review images"
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Resimler (dinamik)"
 
 #: npgCore/extensions/publishContent/publishContent.php:376
 #, fuzzy
@@ -16592,7 +16593,7 @@ msgstr[0] "%u albüm"
 #: npgCore/extensions/publishContent/publishContent.php:505
 #, fuzzy
 msgid "No images meet the criteria."
-msgstr "Arama kriterlerinizi girin."
+msgstr "Arama kriterlerini toplar ve gösterir."
 
 #: npgCore/extensions/publishContent/publishContent.php:532
 #, fuzzy
@@ -16613,17 +16614,17 @@ msgstr "Değişiklikler uygulandı"
 #: npgCore/extensions/publishContent/publishContent.php:548
 #, fuzzy
 msgid "Categories:"
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/extensions/publishContent/publishContent.php:560
 #, fuzzy
 msgid "Publish categories"
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/extensions/publishContent/publishContent.php:560
 #, fuzzy
 msgid "Publish waiting categories."
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/extensions/publishContent/publishContent.php:567
 #, fuzzy
@@ -16677,10 +16678,10 @@ msgid "Pages changes applied"
 msgstr "Değişiklikler uygulandı"
 
 #: npgCore/extensions/publishContent/publishContent.php:665
-#, fuzzy, php-format
+#, php-format
 msgid "%u unpublished page"
 msgid_plural "%u unpublished pages"
-msgstr[0] "Sayfa %1$u (Geçerli Sayfa)"
+msgstr[0] ""
 
 #: npgCore/extensions/publishContent/publishContent.php:668
 #, fuzzy
@@ -16720,7 +16721,7 @@ msgstr "%u aktif eklenti:"
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
 msgid "User plugins"
-msgstr "Eklentiler"
+msgstr "eklentiler"
 
 #: npgCore/extensions/purgeOptions/purgeOptions_tab.php:19
 #, fuzzy
@@ -16876,7 +16877,7 @@ msgstr ""
 #: npgCore/extensions/quota_manager.php:93
 #, fuzzy
 msgid "Default quota"
-msgstr "*öntanımlı"
+msgstr "Öntanımlı haklar"
 
 #: npgCore/extensions/quota_manager.php:94
 #, fuzzy
@@ -16886,7 +16887,7 @@ msgstr "Öntanımlı resim gösterim boyutu."
 #: npgCore/extensions/quota_manager.php:95
 #, fuzzy
 msgid "Allow ZIP files"
-msgstr "Dosyalar"
+msgstr "dosyalar"
 
 #: npgCore/extensions/quota_manager.php:96
 #, fuzzy
@@ -16907,7 +16908,7 @@ msgstr "Bu isim zaten kullanılıyor."
 #: npgCore/extensions/quota_manager.php:145
 #, fuzzy
 msgid "Image storage quota:"
-msgstr "resim"
+msgstr "Resim"
 
 #: npgCore/extensions/quota_manager.php:146
 #, fuzzy, php-format
@@ -17047,7 +17048,7 @@ msgstr "Oylama için kullanılan simgenin boyutu."
 #: npgCore/extensions/rating.php:84
 #, fuzzy
 msgid "Individual image control"
-msgstr "tam resim"
+msgstr "Resim sırası"
 
 #: npgCore/extensions/rating.php:86
 #, fuzzy
@@ -17139,7 +17140,7 @@ msgstr "beğen"
 #, fuzzy, php-format
 msgid "%u star"
 msgid_plural "%u stars"
-msgstr[0] "%u albüm"
+msgstr[0] "sayfa %u"
 
 #: npgCore/extensions/rating.php:382
 #, fuzzy
@@ -17302,7 +17303,7 @@ msgstr "Giriş metni"
 #, fuzzy
 #| msgid "User Registration"
 msgid "Registration accepted text."
-msgstr "Kullanıcı kaydı"
+msgstr "Kayıt onayı"
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 #, fuzzy
@@ -17490,7 +17491,7 @@ msgstr ""
 #: npgCore/extensions/related_items.php:161
 #, fuzzy, php-format
 msgid "Related %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/rewriteRules.php:112
 #, fuzzy
@@ -17554,7 +17555,7 @@ msgstr "Rewrite jetonları boş bırakılamaz."
 #: npgCore/extensions/rewriteRules.php:280
 #, fuzzy, php-format
 msgid "Link for <em>%s</em> rule."
-msgstr "<em>%s</em> kategorisi eklendi"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/extensions/rewriteRules.php:306
 #: npgCore/extensions/rewriteRules/rules_tab.php:11
@@ -17907,18 +17908,18 @@ msgstr "Arama yapan üst <em>Eşik</em> Kimliklerini göster."
 #: npgCore/extensions/search_statistics/search_analysis.php:140
 #, fuzzy
 msgid "Search analysis"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:25
 #, fuzzy
 msgid "No search criteria collected."
-msgstr "Arama kriterlerinizi girin."
+msgstr "Arama kriterlerini toplar ve gösterir."
 
 #: npgCore/extensions/search_statistics/search_analysis.php:40
 #, fuzzy
 #| msgid "Search criteria:"
 msgid "Search criteria reset."
-msgstr "Arama kriterlerinizi girin."
+msgstr "Arama kriterlerini toplar ve gösterir."
 
 #: npgCore/extensions/search_statistics/search_analysis.php:154
 #, fuzzy, php-format
@@ -17928,7 +17929,7 @@ msgstr "En başarılı% başarılı arama kriterleri"
 #: npgCore/extensions/search_statistics/search_analysis.php:156
 #, fuzzy
 msgid "Successful search criteria"
-msgstr "Arama kriterlerinizi girin."
+msgstr "Arama kriterlerini toplar ve gösterir."
 
 #: npgCore/extensions/search_statistics/search_analysis.php:185
 #, fuzzy, php-format
@@ -17938,7 +17939,7 @@ msgstr "Üst% u başarısız arama kriteri"
 #: npgCore/extensions/search_statistics/search_analysis.php:187
 #, fuzzy
 msgid "Failed search criteria"
-msgstr "Arama kriterlerinizi girin."
+msgstr "Arama kriterlerini toplar ve gösterir."
 
 #: npgCore/extensions/search_statistics/search_analysis.php:216
 #, fuzzy, php-format
@@ -17963,7 +17964,7 @@ msgstr "Üst% u Arama Kimlikleri"
 #: npgCore/extensions/search_statistics/search_analysis.php:271
 #, fuzzy
 msgid "Search IDs"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:301
 msgid "reset"
@@ -18007,7 +18008,7 @@ msgstr "Tümünü seç"
 #: npgCore/extensions/security-logger.php:98
 #, fuzzy
 msgid "Only user attempts"
-msgstr "Veritabanı kullanıcısı"
+msgstr "Kullanıcıyı yetkilendir"
 
 #: npgCore/extensions/security-logger.php:99
 #, fuzzy
@@ -18042,7 +18043,7 @@ msgstr "Sıfırla"
 #: npgCore/extensions/security-logger.php:148
 #, fuzzy
 msgid "Log deleted"
-msgstr "Giriş"
+msgstr "Değişim günlüğü"
 
 #: npgCore/extensions/security-logger.php:151
 #, fuzzy
@@ -18071,7 +18072,7 @@ msgstr "Kurulum komut dosyalarını koru"
 #: npgCore/extensions/security-logger.php:169
 #, fuzzy
 msgid "Request add user"
-msgstr "Yorum ekle"
+msgstr "kullanıcı adı"
 
 #: npgCore/extensions/security-logger.php:172
 #, fuzzy
@@ -18201,23 +18202,23 @@ msgstr "Temizlik albümü ve resim adları SEO dostu olmalı"
 #, fuzzy, php-format
 msgid "%d album cleaned."
 msgid_plural "%d albums cleaned"
-msgstr[0] "Albümü göster:"
+msgstr[0] "Albüm Başlığı"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:140
 #, fuzzy
 msgid "No albums cleaned."
-msgstr "Albüm İndeks"
+msgstr "Albümler (dinamik)"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:147
 #, fuzzy, php-format
 msgid "%d image cleaned."
 msgid_plural "%d images cleaned"
-msgstr[0] "tam resim"
+msgstr[0] "Resim sırası"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:149
 #, fuzzy
 msgid "No images cleaned."
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Resimler (dinamik)"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:157
 #, fuzzy
@@ -18376,7 +18377,7 @@ msgstr "Oy Durumu:"
 #: npgCore/extensions/site_upgrade.php:105
 #, fuzzy
 msgid "The site is in test mode!"
-msgstr "Siteye kayıt olun"
+msgstr "Web sayfası:"
 
 #: npgCore/extensions/site_upgrade.php:112
 #, fuzzy
@@ -18401,7 +18402,7 @@ msgstr ""
 #: npgCore/extensions/site_upgrade.php:159
 #, fuzzy
 msgid "Site » test mode"
-msgstr "Siteye kayıt olun"
+msgstr "Web sayfası:"
 
 #: npgCore/extensions/site_upgrade.php:163
 #, fuzzy
@@ -18439,7 +18440,7 @@ msgstr ""
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy, php-format
 msgid "%s upgrade"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy, php-format
@@ -18449,12 +18450,12 @@ msgstr "<strong><em> %s</em></strong> yeni sürüme geçiyor"
 #: npgCore/extensions/site_upgrade.php:232
 #, fuzzy
 msgid "Please return later"
-msgstr "otomatik olarak geri dönmelisiniz. Eğer dönmezseniz basın: "
+msgstr "Lütfen tekrar deneyin"
 
 #: npgCore/extensions/site_upgrade.php:240
 #, fuzzy, php-format
 msgid "%s suspended"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/site_upgrade.php:247
 #, fuzzy, php-format
@@ -18981,7 +18982,7 @@ msgstr "Kullanılacak Colorbox geçiş slaydı efekti."
 #: npgCore/extensions/slideshow.php:135
 #, fuzzy
 msgid "Colorbox image type"
-msgstr "resim"
+msgstr "Resim"
 
 #: npgCore/extensions/slideshow.php:137 plugins/slideshow2.php:191
 #, fuzzy
@@ -19144,7 +19145,7 @@ msgstr ""
 #: npgCore/extensions/static_html_cache.php:359
 #, fuzzy
 msgid "Excluded pages"
-msgstr "Sayfalar ve Makaleler"
+msgstr "Yönetilen sayfalar:"
 
 #: npgCore/extensions/static_html_cache.php:360
 #, fuzzy
@@ -19176,7 +19177,7 @@ msgstr "İlgili nesnelere benzersiz etiketler atamayı kolaylaştırır."
 #: npgCore/extensions/tagFromSearch.php:27
 #, fuzzy
 msgid "Tags only searches"
-msgstr "İçeri aktarılacak etiket yok."
+msgstr "Etiketleri yeniden adlandır"
 
 #: npgCore/extensions/tagFromSearch.php:28
 #, fuzzy
@@ -19207,14 +19208,14 @@ msgstr[0] "% d arama öğesi etiketlendi"
 #, fuzzy
 msgid "Tag search item"
 msgid_plural "Tag search items"
-msgstr[0] "Arama"
+msgstr[0] "ara"
 
 #: npgCore/extensions/tagFromSearch/tag.php:138
 #: npgCore/extensions/zenpage/template-functions.php:1600
 #: npgCore/template-functions.php:1366
 #, fuzzy
 msgid "Return to search"
-msgstr "Arama"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/tagFromSearch/tag.php:187
 #, fuzzy, php-format
@@ -19435,7 +19436,7 @@ msgstr "TinyMCE <em>entity_encoding</em> stratejisini seçin."
 #: npgCore/extensions/tinymce.php:87
 #, fuzzy
 msgid "RTL text direction"
-msgstr "Metin dosyalarını düzenle"
+msgstr "Tam metni görüntüle"
 
 #: npgCore/extensions/tinymce.php:89
 #, fuzzy
@@ -19473,7 +19474,7 @@ msgstr "Albüm: %s"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:77
 #, fuzzy, php-format
 msgid "<em>news article</em>: %s"
-msgstr "<em>%s</em> kategorisi eklendi"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:78
 #, fuzzy
@@ -19483,7 +19484,7 @@ msgstr "haber makalesine bağlantı içeren başlık"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:82
 #, fuzzy, php-format
 msgid "<em>page</em>: %s"
-msgstr "<em>%s</em> kategorisi eklendi"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:83
 #, fuzzy
@@ -19518,7 +19519,7 @@ msgstr "Tam resme bağlantı"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:256
 #, fuzzy
 msgid "thumb with link to album"
-msgstr "küçük resim ="
+msgstr "küçük resim"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:268
 #, fuzzy
@@ -19665,7 +19666,7 @@ msgstr "twitter&#39;e bağlanma hatası! daha sonra tekrar deneyin!"
 #, fuzzy
 #| msgid "Registration failed."
 msgid "Twitter authorization failed."
-msgstr "Sorgu başarısız:"
+msgstr "Kayıt başarısız."
 
 #: npgCore/extensions/uploader_http.php:14
 #, fuzzy
@@ -19802,12 +19803,12 @@ msgstr "Yüklenen dosya kısmen yüklendi"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:27
 #, fuzzy
 msgid "No file was uploaded"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:28
 #, fuzzy
 msgid "Missing a temporary folder"
-msgstr "Kayıp"
+msgstr "Dizini yeniden adlandır"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:29
 #, fuzzy
@@ -19827,12 +19828,12 @@ msgstr "Yüklenen dosya, php.ini dosyasındaki post_max_size yönergesini aşıy
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:32
 #, fuzzy
 msgid "File is too big"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:33
 #, fuzzy
 msgid "File is too small"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:34
 #, fuzzy
@@ -19872,7 +19873,7 @@ msgstr "yükle"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 msgid "Failed to resize image"
-msgstr "Sorgu başarısız:"
+msgstr "Kayıt başarısız."
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -19882,7 +19883,7 @@ msgstr "Bu yükleyici, tarayıcı javaScript desteğini gerektirir."
 #: npgCore/extensions/uploader_jQuery/upload_form.php:51
 #, fuzzy
 msgid "Add files..."
-msgstr "Yorum ekle"
+msgstr "Etiket ekle"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:57
 #, fuzzy
@@ -19949,7 +19950,7 @@ msgstr ""
 #: npgCore/extensions/user-expiry.php:86
 #, fuzzy
 msgid "Password cycle"
-msgstr "Parola:"
+msgstr "parolayı temizle"
 
 #: npgCore/extensions/user-expiry.php:88
 #, fuzzy
@@ -19973,7 +19974,7 @@ msgstr "%s sitesi için kullanıcı kimliğinizin %s tarihinde süresi dolar."
 #: npgCore/extensions/user-expiry.php:159
 #, fuzzy
 msgid "User id expiration"
-msgstr "Arama ziyaretçi kullanıcısı için Kullanıcı ID'si"
+msgstr "ID"
 
 #: npgCore/extensions/user-expiry.php:200
 #, fuzzy
@@ -20029,23 +20030,23 @@ msgstr "İşlemde"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:116
 #, fuzzy
 msgid "User expiry"
-msgstr "Veritabanı kullanıcısı"
+msgstr "Kullanıcıyı yetkilendir"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:123
 #, fuzzy
 msgid "Manage user expiry."
-msgstr "Tüm albümleri yönet"
+msgstr "kullanıcı adı"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:153
 #, fuzzy, php-format
 msgid "Expired:%s; "
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:156
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:158
 #, fuzzy, php-format
 msgid "Expires:%s; "
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:175
 #, fuzzy
@@ -20055,7 +20056,7 @@ msgstr "Kullanıcı kimliği önlendi"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:188
 #, fuzzy
 msgid "Enable"
-msgstr "Arama formunu aktifleştirmek için tik koyun."
+msgstr "galeri oturumlarını aktifleştir"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:194
 #, fuzzy
@@ -20065,7 +20066,7 @@ msgstr "Yorumlara kapatın"
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:204
 #, fuzzy
 msgid "Force password change"
-msgstr "Şifre"
+msgstr "Parola:"
 
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:214
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:245
@@ -20115,7 +20116,7 @@ msgstr "<strong>HATA: </strong>ZenPage CMS eklentisi etkinleştirilmemiş."
 #: npgCore/extensions/user-expiry/user-expiry-tab.php:242
 #, fuzzy
 msgid "Force password renewal"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/extensions/userAddressFields.php:19
 #, fuzzy
@@ -20206,6 +20207,7 @@ msgid "Deleted"
 msgstr "Değişiklikler kaydedildiğinde resimler silinecektir."
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 msgid "Groups"
 msgstr "Gruplar"
@@ -20229,7 +20231,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 #, fuzzy
 msgid "group"
 msgstr "grup yok"
@@ -20243,7 +20244,7 @@ msgstr "Tema şablon dosyaları (.php)"
 #: npgCore/extensions/user_groups/user_groups-tab.php:346
 #, fuzzy
 msgid "Are you sure you want to delete this group?"
-msgstr "Seçili öğeleri silmek istediğinizden emin misiniz?"
+msgstr "Bu yorumu silmek istediğinizden emin misiniz?"
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:349
 #, fuzzy
@@ -20347,18 +20348,27 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Alt albüm listesi"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
-msgstr "Yorumlara abone ol"
+msgstr "Onayı kaldır"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to re-"
 "subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+msgid "Excluded groups"
+msgstr "Sayfalar ve Makaleler"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 msgid "Opt-out of the mailing list"
 msgstr "Alt albüm listesi"
@@ -20384,14 +20394,14 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
 msgid "Click to un-subscribe"
-msgstr "Küçük resim kırpmayı değiştirmek için resme tıklayın."
+msgstr "Yorumlara abone ol"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 #, fuzzy
 msgid "User mailing list"
 msgstr "Alt albüm listesi"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 #, fuzzy
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
@@ -20402,7 +20412,7 @@ msgstr ""
 "araç. Mevcut yöneticiye her zaman bir kopya gönderilir ve tüm e-postalar "
 "<em>kör kopya</em> olarak gönderilir."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 #, fuzzy
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
@@ -20411,34 +20421,39 @@ msgstr ""
 "<strong>Not:</strong> <em>Sendmail</em> filtresi kaydedilmemiştir. Bir posta "
 "eklentisini etkinleştirmeli ve yapılandırmalısınız."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 #| msgid "Mail sent."
 msgid "Mail sent"
 msgstr "E-posta gönderildi"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 msgid "Please enter the message you want to send."
 msgstr "Lütfen göndermek istediğiniz mesajı giriniz."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 msgid "Subject:"
 msgstr "Konu:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 msgid "Message:"
 msgstr "İleti:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
-msgid "Select users:"
-msgstr "Kullanıcıları seç:"
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
+#, fuzzy
+msgid "Select recipients :"
+msgstr "Temanın renklerini seçin"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 msgid "all users"
-msgstr "Posta protokolü"
+msgstr "tümü"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 msgid "Send mail"
 msgstr "E-posta gönder"
 
@@ -20452,7 +20467,7 @@ msgstr ""
 #: npgCore/extensions/viewer_size_image.php:55
 #, fuzzy
 msgid "Image sizes allowed"
-msgstr "İzin verilen etiketler:"
+msgstr "Resim"
 
 #: npgCore/extensions/viewer_size_image.php:57
 #, fuzzy
@@ -20538,7 +20553,7 @@ msgstr "$ Varsayılan parametrenizde bir biçim hatası var"
 #: npgCore/extensions/xmpMetadata.php:592
 #, fuzzy
 msgid "Sidecar file extension"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/extensions/xmpMetadata.php:593
 #, fuzzy
@@ -20809,7 +20824,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/admin-functions.php:182
 #, fuzzy, php-format
 msgid "Page <em>%s</em> updated"
-msgstr "<em>%s</em> etiketi aktarıldı"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/extensions/zenpage/admin-functions.php:187
 #: npgCore/extensions/zenpage/admin-functions.php:523
@@ -20890,7 +20905,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/admin-functions.php:518
 #, fuzzy, php-format
 msgid "Article <em>%s</em> updated"
-msgstr "<em>%s</em> kategorisi eklendi"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/extensions/zenpage/admin-functions.php:573
 #, fuzzy
@@ -20965,13 +20980,13 @@ msgstr "Resim sırası"
 #: npgCore/extensions/zenpage/admin-functions.php:797
 #, fuzzy
 msgid "All categories"
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/extensions/zenpage/admin-functions.php:804
 #: npgCore/extensions/zenpage/news.php:131
 #, fuzzy
 msgid "Un-categorized"
-msgstr "Yayımlanmış/Yayımlanmamış"
+msgstr "%s albümünü yayımdan çek"
 
 #: npgCore/extensions/zenpage/admin-functions.php:852
 #, fuzzy, php-format
@@ -21017,7 +21032,7 @@ msgstr "Başlık / titlelink <em> %s</em> içeren bir kategori zaten mevcut!"
 #: npgCore/extensions/zenpage/admin-functions.php:994
 #, fuzzy
 msgid "Edit this category"
-msgstr "Bu dosyayı düzenle"
+msgstr "yorumu düzenle"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1017
 #: npgCore/extensions/zenpage/admin-functions.php:1468
@@ -21028,7 +21043,7 @@ msgstr "%s albümünü yayımdan çek"
 #: npgCore/extensions/zenpage/admin-functions.php:1039
 #, fuzzy
 msgid "view category"
-msgstr "Slayt Gösterisi Yap"
+msgstr "Görünlenecek bir kayıt bulunamadı."
 
 #: npgCore/extensions/zenpage/admin-functions.php:1057
 #, fuzzy
@@ -21038,7 +21053,7 @@ msgstr "Albümü sil"
 #: npgCore/extensions/zenpage/admin-functions.php:1251
 #, fuzzy
 msgid "Untitled page"
-msgstr "Sonraki sayfa"
+msgstr "sayfa %u"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1254
 #, fuzzy
@@ -21217,14 +21232,14 @@ msgstr "Sayfayı silmek istediğniizden emin misiniz? BU İŞLEM GERİ ALINAMAZ!
 #: npgCore/extensions/zenpage/edit.php:750
 #, fuzzy
 msgid "This is not a future date!"
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Tarih/Zaman:"
 
 #: npgCore/extensions/zenpage/edit.php:196
 #: npgCore/extensions/zenpage/edit.php:273
 #: npgCore/extensions/zenpage/news.php:253
 #, fuzzy
 msgid "New Article"
-msgstr "Yeni içe aktarım"
+msgstr "Yeni alt albüm"
 
 #: npgCore/extensions/zenpage/edit.php:217
 #: npgCore/extensions/zenpage/edit.php:278
@@ -21237,7 +21252,7 @@ msgstr "Yeni alt albüm"
 #: npgCore/extensions/zenpage/pages.php:157
 #, fuzzy
 msgid "New Page"
-msgstr "Yeni içe aktarım"
+msgstr "Yeni alt albüm"
 
 #: npgCore/extensions/zenpage/edit.php:253
 #, fuzzy, php-format
@@ -21273,7 +21288,7 @@ msgstr "<strong>Not:</strong> Bu makale şifre korumalı bir kategoriye aittir."
 #: npgCore/extensions/zenpage/edit.php:300
 #, fuzzy
 msgid "Edit Category:"
-msgstr "Bu dosyayı düzenle"
+msgstr "yorumu düzenle"
 
 #: npgCore/extensions/zenpage/edit.php:305
 #, fuzzy
@@ -21283,7 +21298,7 @@ msgstr "Sayfayı Düzenle"
 #: npgCore/extensions/zenpage/edit.php:308
 #, fuzzy
 msgid "(Page scheduled for publishing)"
-msgstr "Sonraki sayfa"
+msgstr "sayfa %u"
 
 #: npgCore/extensions/zenpage/edit.php:311
 #, fuzzy
@@ -21441,12 +21456,12 @@ msgstr ""
 #: npgCore/extensions/zenpage/edit.php:524
 #, fuzzy
 msgid "Edit TitleLink"
-msgstr "Bu dosyayı düzenle"
+msgstr "yorumu düzenle"
 
 #: npgCore/extensions/zenpage/edit.php:534
 #, fuzzy
 msgid "Enable permaTitlelink"
-msgstr "Arama formunu aktifleştirmek için tik koyun."
+msgstr "galeri oturumlarını aktifleştir"
 
 #: npgCore/extensions/zenpage/edit.php:541
 #, fuzzy
@@ -21481,7 +21496,7 @@ msgstr "en yüksek puanlı"
 #: npgCore/extensions/zenpage/edit.php:654
 #, fuzzy, php-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Bu kullanıcıyı silmek istediğinizden emin misiniz?"
+msgstr "Tüm albümü silmek istediğinizden emin misiniz?"
 
 #: npgCore/extensions/zenpage/edit.php:659
 #, fuzzy, php-format
@@ -21506,7 +21521,7 @@ msgstr "Sayacı sıfırla"
 #: npgCore/extensions/zenpage/news.php:266
 #, fuzzy
 msgid "Add categories"
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: npgCore/extensions/zenpage/news.php:267
 #, fuzzy
@@ -21587,7 +21602,7 @@ msgstr[0] "Makale ekle"
 #: npgCore/template-functions.php:1373
 #, fuzzy
 msgid "Return to archive"
-msgstr "Arşiv Görünümü"
+msgstr "Arşiv Kuralları"
 
 #: npgCore/extensions/zenpage/template-functions.php:2059
 #, fuzzy
@@ -21743,7 +21758,7 @@ msgstr "Telif Bilgisi"
 #: npgCore/functions-basic.php:111
 #, fuzzy, php-format
 msgid "%1$s: \"%2$s\" in %3$s on line %4$s"
-msgstr "%1$s %2$s: %3$s%4$s"
+msgstr "%1$s yönetim:%2$s%3$s"
 
 #: npgCore/functions-basic.php:1772
 #, fuzzy, php-format
@@ -21786,7 +21801,7 @@ msgstr "%s öğesine bağlanmadı"
 #: npgCore/functions-db-NULL.php:95
 #, fuzzy
 msgid "No database"
-msgstr "Veritabanı adı"
+msgstr "<strong>veritabanı hatası</strong> "
 
 #: npgCore/functions-db-NULL.php:103
 #, fuzzy
@@ -22117,7 +22132,7 @@ msgstr ""
 #: npgCore/lib-auth.php:165
 #, fuzzy
 msgid "Primary album edit"
-msgstr "Bu albümü düzenle"
+msgstr "Bu albümü düzenle: %s"
 
 #: npgCore/lib-auth.php:167
 #, fuzzy
@@ -22132,7 +22147,7 @@ msgstr ""
 #: npgCore/lib-auth.php:169
 #, fuzzy
 msgid "Minimum password strength"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/lib-auth.php:171
 #, fuzzy, php-format
@@ -22146,7 +22161,7 @@ msgstr ""
 #: npgCore/lib-auth.php:172 npgCore/lib-auth.php:192
 #, fuzzy
 msgid "Password hash algorithm"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/lib-auth.php:175
 #, fuzzy, php-format
@@ -22166,7 +22181,7 @@ msgstr ""
 #: npgCore/lib-auth.php:176
 #, fuzzy
 msgid "Enable Challenge phrase"
-msgstr "Arama formunu aktifleştirmek için tik koyun."
+msgstr "galeri oturumlarını aktifleştir"
 
 #: npgCore/lib-auth.php:178
 #, fuzzy
@@ -22588,7 +22603,7 @@ msgstr "Yarışma sorusu:"
 #: npgCore/lib-auth.php:1216
 #, fuzzy
 msgid "Your response"
-msgstr "Arama kriterlerinizi girin."
+msgstr "Şifreleriniz uyuşmuyor."
 
 #: npgCore/lib-auth.php:1225
 #, fuzzy
@@ -22611,7 +22626,7 @@ msgstr "Yorum yazarına eposta gönder"
 #: npgCore/lib-auth.php:1279
 #, fuzzy, php-format
 msgid "Logon using:%s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/lib-auth.php:1310 npgCore/lib-auth.php:1462 npgCore/lib-auth.php:1569
 #: themes/enlighten/password_form.php:17
@@ -22641,17 +22656,17 @@ msgstr "Sıfırlama isteği gönderildi."
 #: npgCore/lib-auth.php:1467
 #, fuzzy
 msgid "password strength weak"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/lib-auth.php:1470
 #, fuzzy
 msgid "password strength good"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/lib-auth.php:1473
 #, fuzzy
 msgid "password strength strong"
-msgstr "Veritabanı şifresi"
+msgstr "parolayı temizle"
 
 #: npgCore/lib-auth.php:1478
 #, fuzzy
@@ -22688,12 +22703,12 @@ msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 #: npgCore/lib-image.php:27
 #, fuzzy, php-format
 msgid "Request URI: [%s]"
-msgstr "Sıfırlama isteği gönderildi."
+msgstr "%s'e geri dön"
 
 #: npgCore/lib-image.php:30
 #, fuzzy, php-format
 msgid "Cache: [%s]"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/lib-image.php:33
 #, fuzzy, php-format
@@ -22787,12 +22802,12 @@ msgstr "% 1 $ ux% 2 $ u%3$s küçük resim görüntüsünü kullanma."
 #: npgCore/lib-image.php:242
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
-msgstr "Resmi göster: %s"
+msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 
 #: npgCore/lib-image.php:249
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
-msgstr "Resmi göster: %s"
+msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 
 #: npgCore/lib-image.php:292
 #, fuzzy, php-format
@@ -22802,12 +22817,12 @@ msgstr "<html> Bilinmeyen hata işleme %s! Lütfen rapor"
 #: npgCore/lib-image.php:386 npgCore/lib-image.php:412
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
-msgstr "Resmi göster: %s"
+msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 
 #: npgCore/lib-image.php:416
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
-msgstr "Resmi göster: %s"
+msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 
 #: npgCore/lib-image.php:484
 #, fuzzy, php-format
@@ -22832,7 +22847,7 @@ msgstr "*filigran yok"
 #: npgCore/lib-image.php:554
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
-msgstr "Resmi göster: %s"
+msgstr "netPhotoGraphics Resim İşleme Hatası: %s"
 
 #: npgCore/lib-utf8.php:47 npgCore/localeList.php:13
 #, fuzzy
@@ -22842,7 +22857,7 @@ msgstr "Arapça (Irak)"
 #: npgCore/lib-utf8.php:48
 #, fuzzy
 msgid "Chinese Traditional"
-msgstr "Çince (Taiwan)"
+msgstr "Çince (Hong Kong)"
 
 #: npgCore/lib-utf8.php:49
 #, fuzzy
@@ -24572,7 +24587,7 @@ msgstr "Farsça"
 #, fuzzy
 #| msgid "Arabic (Iran)"
 msgid "Persian (Iran)"
-msgstr "Arapça (İran)"
+msgstr "Farsça"
 
 #: npgCore/localeList.php:277
 #, fuzzy
@@ -25037,7 +25052,7 @@ msgstr "Hintçe"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Hindi (India)"
-msgstr "Hintçe"
+msgstr "İngilizce (Hindistan)"
 
 #: npgCore/localeList.php:362
 msgid "Croatian"
@@ -25814,7 +25829,7 @@ msgstr "Almanca (Almanya)"
 #, fuzzy
 #| msgid "German (Switzerland)"
 msgid "Low German (Netherlands)"
-msgstr "Düşük"
+msgstr "Flamanca (Hollanda)"
 
 #: npgCore/localeList.php:512
 #, fuzzy
@@ -26539,7 +26554,7 @@ msgstr "Tamil"
 #, fuzzy
 #| msgid "English (India)"
 msgid "Tamil (India)"
-msgstr "Tamil"
+msgstr "İngilizce (Hindistan)"
 
 #: npgCore/localeList.php:651
 #, fuzzy
@@ -27004,7 +27019,7 @@ msgstr "Parola gerekli"
 #: npgCore/page_error.php:21
 #, fuzzy
 msgid "Not Found"
-msgstr "Hiçbir resim efekti bulunamadı."
+msgstr "<em>%s</em> bulunamadı"
 
 #: npgCore/page_error.php:24
 #, fuzzy
@@ -27045,7 +27060,7 @@ msgstr "Odak Uzaklığı"
 #: npgCore/page_error.php:45
 #, fuzzy
 msgid "Precondition Failed"
-msgstr "Sorgu başarısız:"
+msgstr "Kayıt başarısız."
 
 #: npgCore/page_error.php:48
 #, fuzzy
@@ -27197,7 +27212,7 @@ msgstr "Değişim günlüğü"
 #: npgCore/reconfigure.php:360
 #, fuzzy, php-format
 msgid "to run setup [%s]"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/reconfigure.php:363
 #, fuzzy
@@ -27260,7 +27275,7 @@ msgstr "netPhotoGraphics PHP sürümü %s veya daha büyük gerektirir"
 #: npgCore/setup/index.php:138
 #, fuzzy
 msgid "config file migrated"
-msgstr "Bu dosya düzenlenemiyor!"
+msgstr "Albüm dosyası oluşturmada hata"
 
 #: npgCore/setup/index.php:214
 #, fuzzy
@@ -27346,7 +27361,7 @@ msgstr "Çerez testi başarısız oldu"
 #: npgCore/setup/index.php:465
 #, fuzzy
 msgid "Post of Database credentials"
-msgstr "Veritabanı adı"
+msgstr "veritabanına bağlanıldı"
 
 #: npgCore/setup/index.php:470
 #, fuzzy
@@ -27418,7 +27433,7 @@ msgstr "NetPhotoGraphics v %s yükleniyor"
 #: npgCore/setup/index.php:592
 #, fuzzy
 msgid "Installation folder"
-msgstr "Dosyalar"
+msgstr "Kurulum bilgisi"
 
 #: npgCore/setup/index.php:592
 msgid ""
@@ -27429,12 +27444,12 @@ msgstr ""
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security"
-msgstr "<em>%s</em> bulunamadı"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
 msgid "<em>%s</em> security [is compromised]"
-msgstr "<em>%s</em> kategorisi eklendi"
+msgstr "<em>%s</em> zaten bulunuyor."
 
 #: npgCore/setup/index.php:609
 #, fuzzy, php-format
@@ -27852,7 +27867,7 @@ msgstr ""
 #: npgCore/setup/index.php:804
 #, fuzzy
 msgid "File permissions"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/setup/index.php:810
 #, fuzzy, php-format
@@ -27872,7 +27887,7 @@ msgstr "<em>bilinmeyen</em> ( <code>%o</code> )"
 #: npgCore/setup/index.php:829
 #, fuzzy, php-format
 msgid "File Permissions [are %s]"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/setup/index.php:830
 #, fuzzy
@@ -27890,7 +27905,7 @@ msgstr ""
 #: npgCore/setup/index.php:837
 #, fuzzy
 msgid "Your filesystem is Macintosh"
-msgstr "Arama kriterlerinizi girin."
+msgstr "Şifreleriniz uyuşmuyor."
 
 #: npgCore/setup/index.php:837
 #, fuzzy
@@ -28026,7 +28041,7 @@ msgstr ""
 #: npgCore/setup/index.php:1057
 #, fuzzy
 msgid "Database connection"
-msgstr "veritabanına bağlanıldı"
+msgstr "<strong>veritabanı hatası</strong> "
 
 #: npgCore/setup/index.php:1063
 #, fuzzy
@@ -28057,7 +28072,7 @@ msgstr "Yapılandırma dosyasında veritabanı kurulumu"
 #: npgCore/setup/index.php:1081
 #, fuzzy, php-format
 msgid "Connect to %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/setup/index.php:1081
 #, fuzzy
@@ -28166,7 +28181,7 @@ msgstr ""
 #: npgCore/setup/index.php:1144
 #, fuzzy
 msgid "Grants found:"
-msgstr "Hiçbir resim efekti bulunamadı."
+msgstr "<em>%s</em> bulunamadı"
 
 #: npgCore/setup/index.php:1172
 #, fuzzy
@@ -28280,19 +28295,19 @@ msgstr "ZenPhoto20 galeri"
 #: npgCore/setup/index.php:1356
 #, fuzzy
 msgid "Installation files"
-msgstr "Dosyalar"
+msgstr "Kurulum bilgisi"
 
 #: npgCore/setup/index.php:1372
 #, fuzzy, php-format
 msgid ".svn [%s instance]"
 msgid_plural ".svn [%s instances]"
-msgstr[0] "Sayfalar (%s)"
+msgstr[0] "%s'e geri dön"
 
 #: npgCore/setup/index.php:1375
 #, fuzzy, php-format
 msgid "php.ini [%s instance]"
 msgid_plural "php.ini [%s instances]"
-msgstr[0] "Sayfalar (%s)"
+msgstr[0] "%s'e geri dön"
 
 #: npgCore/setup/index.php:1389 npgCore/setup/index.php:1408
 #: npgCore/setup/index.php:1415
@@ -28318,7 +28333,7 @@ msgstr "Aşağıdaki dosyaları kaldırmalısınız:"
 #: npgCore/setup/index.php:1427
 #, fuzzy
 msgid "Core file permissions"
-msgstr "Bu dosyayı düzenle"
+msgstr "Dosya Adını Değiştir"
 
 #: npgCore/setup/index.php:1427
 #, fuzzy
@@ -28567,7 +28582,7 @@ msgstr ""
 #: npgCore/setup/index.php:1620
 #, fuzzy
 msgid "Setup failed."
-msgstr "Sorgu başarısız:"
+msgstr "Kayıt başarısız."
 
 #: npgCore/setup/index.php:1623
 #, fuzzy
@@ -28688,7 +28703,7 @@ msgstr "%1$s dosyası mevcut değil."
 #: npgCore/setup/setup-functions.php:66
 #, fuzzy, php-format
 msgid "Testing %s."
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/setup/setup-functions.php:74
 #, fuzzy
@@ -28939,7 +28954,7 @@ msgstr "Sadece kayıtlı kullanıcılar yorum gönderebilir."
 #: npgCore/setup/setup-option-defaults.php:659
 #, fuzzy
 msgid "Theme setup:"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: npgCore/setup/setup-option-defaults.php:693
 #, fuzzy, php-format
@@ -28963,7 +28978,7 @@ msgstr "Eklenti: %s kurulum başlatıldı"
 #: npgCore/setup/setup_pluginOptions.php:66
 #, fuzzy, php-format
 msgid "Plugin:%s enabled (%2$s)"
-msgstr "Albüm (%1$s) &amp; Resim (%2$s)"
+msgstr "<em>%1$s</em> %2$s'i yorumladı:"
 
 #: npgCore/setup/setup-option-defaults.php:908
 #: npgCore/setup/setup_pluginOptions.php:85
@@ -28980,7 +28995,7 @@ msgstr "Eklenti:%1$s kurulum% 2 $ .4f saniye içinde tamamlandı"
 #: npgCore/setup/setup-option-defaults.php:917
 #, fuzzy
 msgid "Plugin setup:"
-msgstr "eklenti"
+msgstr "Yönetilecek eklenti bulunamadı."
 
 #: npgCore/setup/setup-option-defaults.php:970
 #, fuzzy
@@ -29004,7 +29019,7 @@ msgstr ""
 #, fuzzy, php-format
 #| msgid "View <em>%s</em>"
 msgid "New themes: <em>%1$s</em>"
-msgstr "Göster: <em>%s</em>"
+msgstr "Albüm düzenle: <em>%1$s%2$s</em>"
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
@@ -29024,12 +29039,12 @@ msgstr ""
 #: npgCore/setup/setup-sqlform.php:49
 #, fuzzy
 msgid "Database engine"
-msgstr "Veritabanını Güncelle"
+msgstr "<strong>veritabanı hatası</strong> "
 
 #: npgCore/setup/setup-sqlform.php:66
 #, fuzzy, php-format
 msgid "%s (experimental)"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/setup/setup-sqlform.php:77
 msgid "Database user"
@@ -29052,7 +29067,7 @@ msgstr "Destek"
 #, fuzzy
 #| msgid "Database user"
 msgid "Database socket"
-msgstr "Veritabanı kullanıcısı"
+msgstr "<strong>veritabanı hatası</strong> "
 
 #: npgCore/setup/setup-sqlform.php:100
 msgid "Database name"
@@ -29159,7 +29174,7 @@ msgstr "Profilim"
 #, fuzzy
 #| msgid "images"
 msgid "My images"
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Resimler"
 
 #: npgCore/template-functions.php:181
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:203
@@ -29236,7 +29251,7 @@ msgstr "Bu albüm şifre korumalıdır."
 #: npgCore/template-functions.php:1143
 #, fuzzy
 msgid "The album is un-published."
-msgstr "Yayımlanmış/Yayımlanmamış"
+msgstr "Yayımlanmamış bir albüm bulunmuyor."
 
 #: npgCore/template-functions.php:1266
 msgid "Album Thumbnails"
@@ -29276,7 +29291,7 @@ msgstr "alanlar"
 #: npgCore/template-functions.php:3955
 #, fuzzy
 msgid "search options"
-msgstr "Arama"
+msgstr "ara"
 
 #: npgCore/template-functions.php:4009
 #, fuzzy
@@ -29310,7 +29325,7 @@ msgstr "Medya odaklı içerik yönetim sistemi"
 #: npgCore/template-functions.php:4368
 #, fuzzy, php-format
 msgid "Powered by %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/template-functions.php:4445
 #, fuzzy, php-format
@@ -29346,7 +29361,7 @@ msgstr "%s öğesi silinemedi."
 #: npgCore/utilities/backup_restore.php:218
 #, fuzzy
 msgid "failed writing to backup!"
-msgstr "Sorgu başarısız:"
+msgstr "Kayıt başarısız."
 
 #: npgCore/utilities/backup_restore.php:237
 #, fuzzy
@@ -29364,7 +29379,7 @@ msgstr[0] "yedekleme <em>%1$s (%2$s)</em> sıkıştırma kullanılarak tamamland
 #| msgid "Database user"
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] "Veritabanı adı"
+msgstr[0] "Tablo öneki: <strong>%1$s</strong>"
 
 #: npgCore/utilities/backup_restore.php:263
 #, fuzzy
@@ -29375,12 +29390,12 @@ msgstr "%s yerelleştirmesi sunucunuz tarafından desteklenmiyor."
 #: npgCore/utilities/backup_restore.php:284
 #, fuzzy
 msgid "backup failed"
-msgstr "Sorgu başarısız:"
+msgstr "Kayıt başarısız."
 
 #: npgCore/utilities/backup_restore.php:292
 #, fuzzy
 msgid "No backup set found."
-msgstr "Hiçbir resim efekti bulunamadı."
+msgstr "<em>%s</em> bulunamadı"
 
 #: npgCore/utilities/backup_restore.php:369
 #, fuzzy
@@ -29476,7 +29491,7 @@ msgstr "Tablo öneki: <strong>%1$s</strong>"
 #, fuzzy
 #| msgid "Database user"
 msgid "Database backup"
-msgstr "Veritabanı adı"
+msgstr "veritabanına bağlanıldı"
 
 #: npgCore/utilities/backup_restore.php:595
 #, fuzzy
@@ -29515,7 +29530,7 @@ msgstr ""
 #: npgCore/utilities/backup_restore.php:649
 #, fuzzy
 msgid "Database restoration"
-msgstr "Wordpress-Veritabanı bilgisi"
+msgstr "<strong>veritabanı hatası</strong> "
 
 #: npgCore/utilities/backup_restore.php:655
 #, fuzzy
@@ -29622,7 +29637,7 @@ msgstr "Sütun"
 #: npgCore/utilities/gallery_statistics.php:88
 #, fuzzy
 msgid "Script Pages"
-msgstr "Sayfalar ve Makaleler"
+msgstr "Yönetilen sayfalar:"
 
 #: npgCore/utilities/gallery_statistics.php:94
 msgid "rss"
@@ -29860,7 +29875,7 @@ msgstr "Tarayıcınız ses etiketini desteklemiyor"
 #: npgCore/utilities/installation_analysis.php:61
 #, fuzzy, php-format
 msgid "source: %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/utilities/installation_analysis.php:82
 #, fuzzy
@@ -29939,7 +29954,7 @@ msgstr "Grafik desteği: <strong>%s</strong>"
 #: npgCore/utilities/installation_analysis.php:219
 #, fuzzy, php-format
 msgid "supporting: %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: npgCore/utilities/installation_analysis.php:225
 #, fuzzy, php-format
@@ -30133,7 +30148,7 @@ msgstr "Albüm Başlığı"
 #: plugins/MyBB_auth.php:108
 #, fuzzy
 msgid "The name of the MyBB site."
-msgstr "Siteye kayıt olun"
+msgstr "Albüm adı:"
 
 #: plugins/MyBB_auth.php:109
 #, fuzzy
@@ -30148,7 +30163,7 @@ msgstr ""
 #: plugins/MyBB_auth.php:112
 #, fuzzy
 msgid "MyBB database"
-msgstr "Veritabanı adı"
+msgstr "Veritabanı kullanıcısı"
 
 #: plugins/MyBB_auth.php:114
 #, fuzzy
@@ -30441,7 +30456,7 @@ msgstr "Tema şablon dosyaları (.php)"
 #: plugins/debugSearch.php:15
 #, fuzzy
 msgid "Search debug tool."
-msgstr "Hata ayıkla"
+msgstr "ara"
 
 #: plugins/demoplugin/image_effects.php:61
 #, fuzzy
@@ -30673,7 +30688,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Filter"
 msgid "Filter Doc Gen"
-msgstr "Filtrele"
+msgstr "%u aktif süzgeç:"
 
 #: plugins/filterDocGen.php:28
 #, fuzzy
@@ -30827,7 +30842,7 @@ msgstr "Detayları göster"
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -30837,7 +30852,7 @@ msgstr "Bu seçenek için PHP EXIF ​​uzantısı gereklidir."
 #: plugins/keywordRedirector.php:47
 #, fuzzy
 msgid "Search redirect keywords"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: plugins/keywordRedirector.php:49
 msgid ""
@@ -30860,7 +30875,7 @@ msgstr "Resimler"
 #: plugins/keywordRedirector.php:65
 #, fuzzy
 msgid "Search news"
-msgstr "Arama"
+msgstr "Haberler"
 
 #: plugins/keywordRedirector.php:65 themes/garland/sidebar.php:17
 #: themes/spellflight/sidebar.php:17
@@ -30871,12 +30886,12 @@ msgstr "Sayfalar"
 #: plugins/keywordRedirector.php:128
 #, fuzzy
 msgid "Theme script"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: plugins/localePropagate.php:17
 #, fuzzy
 msgid "Propegate language files."
-msgstr "Dosyalar"
+msgstr "dosyalar"
 
 #: plugins/logQueries.php:17
 #, fuzzy
@@ -31189,7 +31204,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Plugins"
 msgid "Plugins » all"
-msgstr "Eklentiler"
+msgstr "Kullanılabilir Eklentiler"
 
 #: plugins/pluginEnabler.php:48
 #, fuzzy
@@ -31220,7 +31235,7 @@ msgstr "Mevcut eklenti durumlarını hatırlar."
 #, fuzzy
 #| msgid "Plugins"
 msgid "Plugins × all"
-msgstr "Eklentiler"
+msgstr "Kullanılabilir Eklentiler"
 
 #: plugins/pluginEnabler.php:87
 #, fuzzy
@@ -31230,7 +31245,7 @@ msgstr "PluginEnabler dışındaki tüm eklentileri devre dışı bırakır."
 #: plugins/pluginEnabler/handler.php:22
 #, fuzzy
 msgid "Plugins disabled"
-msgstr "Eklentiler"
+msgstr "eklentiler"
 
 #: plugins/pluginEnabler/handler.php:25
 #, fuzzy
@@ -31264,17 +31279,17 @@ msgstr "Güvenli posta"
 #: plugins/pseudomail.php:50
 #, fuzzy, php-format
 msgid "To: %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: plugins/pseudomail.php:64
 #, fuzzy, php-format
 msgid "Cc: %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: plugins/pseudomail.php:74
 #, fuzzy, php-format
 msgid "Bcc: %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: plugins/pseudomail.php:76
 #, fuzzy, php-format
@@ -31402,7 +31417,7 @@ msgstr "Slayt Gösterisi Yap"
 #: plugins/slideshow2.php:157
 #, fuzzy
 msgid "Slideshow: Description"
-msgstr "Tanım:"
+msgstr "Albüm Açıklaması:"
 
 #: plugins/slideshow2.php:162
 #, fuzzy
@@ -31436,7 +31451,7 @@ msgstr "Geçiş"
 #: plugins/slideshow2.php:185
 #, fuzzy
 msgid "Colorbox: Image type"
-msgstr "resim"
+msgstr "Resim"
 
 #: plugins/slideshow2.php:193
 #, fuzzy
@@ -31458,8 +31473,9 @@ msgid "Convert Explicit site URLs to portable URLs."
 msgstr ""
 
 #: plugins/tagURLs.php:34
+#, fuzzy
 msgid "Tag Explicit URLs"
-msgstr ""
+msgstr "<em>%s</em> etiketi aktarıldı"
 
 #: plugins/tagURLs.php:38
 msgid ""
@@ -31890,7 +31906,7 @@ msgstr "Sayfalar (%s)"
 #: themes/ardoise/themeoptions.php:59
 #, fuzzy
 msgid "Use this file as logo"
-msgstr "Bu dosya düzenlenemiyor!"
+msgstr "Albüm dosyası oluşturmada hata"
 
 #: themes/ardoise/themeoptions.php:62
 #, fuzzy
@@ -31966,7 +31982,7 @@ msgstr ""
 #: themes/ardoise/themeoptions.php:80
 #, fuzzy
 msgid "Show Archive link"
-msgstr "Arşiv Görünümü"
+msgstr "Arşiv Kuralları"
 
 #: themes/ardoise/themeoptions.php:82
 #, fuzzy
@@ -32107,7 +32123,7 @@ msgstr "Kullanılabilir Eklentiler"
 #: themes/spellflight/sidebar.php:37 themes/zenpage/album.php:29
 #, fuzzy
 msgid "Search within album"
-msgstr "Arama sonuçlarından bir albüm oluşturun"
+msgstr "ara"
 
 #: themes/basic/album.php:33 themes/basic/favorites.php:25
 #: themes/basic/image.php:61 themes/effervescence+/404.php:39
@@ -32221,7 +32237,7 @@ msgstr "Yorum Yok"
 #: themes/zenpage/news.php:113
 #, fuzzy
 msgid "Categories: "
-msgstr "Kategoriler"
+msgstr "kategoriler"
 
 #: themes/basic/password.php:30 themes/effervescence+/password.php:37
 #: themes/enlighten/password.php:31 themes/mobile/password.php:86
@@ -32641,7 +32657,7 @@ msgstr "Albüm boş"
 #: themes/zenpage/summary.php:29
 #, fuzzy
 msgid "Search gallery"
-msgstr "Galeri"
+msgstr "galeri"
 
 #: themes/effervescence+/functions.php:155
 #: themes/netphotographics/functions.php:155
@@ -32704,7 +32720,7 @@ msgstr "%3$u fotoğraftan %1$u-%2$u"
 #: themes/netphotographics/functions.php:311
 #, fuzzy, php-format
 msgid "Effervescence %s"
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: themes/effervescence+/functions.php:313
 #: themes/netphotographics/functions.php:313
@@ -32739,7 +32755,7 @@ msgstr "Resmi göster: %s"
 #, fuzzy, php-format
 msgid "%1$u hit on this %2$s"
 msgid_plural "%1$u hits on this %2$s"
-msgstr[0] "%1$u yeni %2$s"
+msgstr[0] "%3$u fotoğraftan %1$u-%2$u"
 
 #: themes/effervescence+/functions.php:389
 #: themes/netphotographics/functions.php:389
@@ -32799,7 +32815,7 @@ msgstr "*galeri resim sıralama yöntemi"
 #: themes/netphotographics/search.php:80 themes/spellflight/sidebar.php:32
 #, fuzzy
 msgid "Search within category"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: themes/effervescence+/search.php:114 themes/netphotographics/search.php:114
 #, fuzzy, php-format
@@ -32811,7 +32827,7 @@ msgstr[0] "Albüm: %s"
 #, fuzzy, php-format
 msgid "Search category: %s"
 msgid_plural "Search categories: %s"
-msgstr[0] "Arama"
+msgstr[0] "ara"
 
 #: themes/effervescence+/search.php:286 themes/netphotographics/search.php:286
 msgid "Enter your search criteria."
@@ -32885,7 +32901,7 @@ msgstr "<strong>HATA: </strong>ZenPage CMS eklentisi etkinleştirilmemiş."
 #: themes/netphotographics/themeoptions.php:109
 #, fuzzy
 msgid "Theme logo"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: themes/effervescence+/themeoptions.php:99
 #: themes/netphotographics/themeoptions.php:114
@@ -32962,7 +32978,7 @@ msgstr "Kontrol edildiyse, tema ayarları özeti altbilgide görüntülenir."
 #: themes/spellflight/themeoptions.php:73
 #, fuzzy
 msgid "Theme personality"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: themes/effervescence+/themeoptions.php:135 themes/garland/themeoptions.php:77
 #: themes/netphotographics/themeoptions.php:157
@@ -33088,7 +33104,7 @@ msgstr "Başka bir ileti gönder."
 #: themes/zenpage/news.php:105
 #, fuzzy
 msgid "Comments:"
-msgstr "Yorumlar"
+msgstr "yorumlar"
 
 #: themes/enlighten/password_form.php:28
 #, php-format
@@ -33099,17 +33115,17 @@ msgstr "İpucu: %s"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "Sayfalar (%s)"
+msgstr "%s'e geri dön"
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "%1$s yönetim:%2$s%3$s"
+msgstr "Sayfa hatası: %2$s (%1$s)"
 
 #: themes/enlighten/sidebar.php:46
 #, fuzzy
 msgid "Latest notes"
-msgstr "Son Albümler"
+msgstr "id'ye göre en son"
 
 #: themes/enlighten/sidebar.php:61
 #, fuzzy
@@ -33187,19 +33203,19 @@ msgstr "Albümü göster %s"
 #: themes/spellflight/album.php:103 themes/spellflight/favorites.php:115
 #, fuzzy
 msgid "Album Navigation"
-msgstr "Albümü göster:"
+msgstr "Albüm Başlığı"
 
 #: themes/garland/album.php:108 themes/garland/favorites.php:120
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
 #, fuzzy
 msgid "Next album"
-msgstr "Sonraki resim"
+msgstr "Sonraki sayfa"
 
 #: themes/garland/album.php:108 themes/garland/favorites.php:120
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
 #, fuzzy
 msgid "Next album »"
-msgstr "Sonraki resim"
+msgstr "Sonraki sayfa"
 
 #: themes/garland/album.php:116 themes/garland/favorites.php:128
 #: themes/spellflight/album.php:116 themes/spellflight/favorites.php:128
@@ -33223,12 +33239,12 @@ msgstr "geri"
 #: themes/zenFluid/news.php:163 themes/zenFluid/pages.php:77
 #, fuzzy
 msgid "Tags: "
-msgstr "Etiketler"
+msgstr "etiketler"
 
 #: themes/garland/album.php:139 themes/spellflight/album.php:139
 #, fuzzy, php-format
 msgid "Latest Images for %s"
-msgstr "Resimler (%s)"
+msgstr "%s resim"
 
 #: themes/garland/functions.php:58
 #, fuzzy
@@ -33242,7 +33258,7 @@ msgstr "Öntanımlı resim gösterim boyutu."
 #: themes/spellflight/main.php:58
 #, fuzzy
 msgid "Latest Images"
-msgstr "Son Albümler"
+msgstr "id'ye göre en son"
 
 #: themes/garland/image.php:122 themes/garland/summary.php:53
 #: themes/spellflight/image.php:122 themes/spellflight/summary.php:53
@@ -33279,7 +33295,7 @@ msgstr "Ulaşmaya çalıştığınız sayfaya giriş için şifre gereklidir"
 #: themes/zenpage/news.php:29 themes/zenpage/search.php:43
 #, fuzzy
 msgid "Search category"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: themes/garland/theme_description.php:9
 #: themes/spellflight/theme_description.php:9
@@ -33415,7 +33431,7 @@ msgstr "Rastgele resimler"
 #: themes/masonry/functions.php:282
 #, fuzzy
 msgid "Search Result"
-msgstr "Aramaya izin ver"
+msgstr "Arama kriterleri:"
 
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
@@ -33430,7 +33446,7 @@ msgstr "Slayt Gösterisi Yap"
 #: themes/masonry/inc-footer.php:21
 #, fuzzy
 msgid "Loading additional pages..."
-msgstr "Sayfalar ve Makaleler"
+msgstr "Yönetilen sayfalar:"
 
 #: themes/masonry/inc-footer.php:23
 #, fuzzy
@@ -33448,7 +33464,7 @@ msgstr "netPhotoGraphics betik işleme toplam:%.4f saniye"
 #: themes/masonry/news.php:23
 #, fuzzy
 msgid "Latest Comments"
-msgstr "Yorum Yok"
+msgstr "yorumlar"
 
 #: themes/masonry/inc-header.php:102 themes/minimal/inc-header.php:103
 #, fuzzy
@@ -33468,12 +33484,12 @@ msgstr "Albüm"
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "İçe aktarılacak yorum yok"
+msgstr "Yorumlara İzin Ver"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "İçe aktarılacak yorum yok"
+msgstr "Yorumlara İzin Ver"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -33483,7 +33499,7 @@ msgstr "Hoşgeldiniz"
 #: themes/masonry/index.php:61 themes/minimal/index.php:56
 #, fuzzy
 msgid "No Images Exist..."
-msgstr "Resimleri tarihe göre sırala"
+msgstr "Resimler (dinamik)"
 
 #: themes/masonry/news.php:92 themes/zenFluid/image.php:140
 #, fuzzy
@@ -33519,7 +33535,7 @@ msgstr "Koyu veya açık renkli bir renk stili seçin."
 #: themes/masonry/themeoptions.php:79
 #, fuzzy
 msgid "General Thumb Sizes"
-msgstr "küçük resim ="
+msgstr "küçük resim"
 
 #: themes/masonry/themeoptions.php:83
 #, fuzzy
@@ -33650,7 +33666,7 @@ msgstr ""
 #: themes/masonry/themeoptions.php:137 themes/minimal/themeoptions.php:73
 #, fuzzy
 msgid "ZenPage Search Results"
-msgstr "Arama"
+msgstr "ara"
 
 #: themes/masonry/themeoptions.php:143
 #, fuzzy
@@ -33817,7 +33833,7 @@ msgstr "Yorumlara abone ol"
 #: themes/minimal/inc-footer.php:11
 #, fuzzy
 msgid "This Album"
-msgstr "Albümü göster:"
+msgstr "Albüm Başlığı"
 
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
@@ -33964,7 +33980,7 @@ msgstr ""
 #: themes/mobile/functions.php:113
 #, fuzzy
 msgid "zpMobile theme by"
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: themes/mobile/functions.php:215 themes/npgmobile/functions.php:169
 #, fuzzy
@@ -33975,13 +33991,13 @@ msgstr "Top 10 listesine dön"
 #, fuzzy, php-format
 msgid "%d album"
 msgid_plural "%d albums"
-msgstr[0] "Albümü göster:"
+msgstr[0] "Albüm Başlığı"
 
 #: themes/mobile/functions.php:239 themes/npgmobile/functions.php:193
 #, fuzzy, php-format
 msgid "%d image"
 msgid_plural "%d images"
-msgstr[0] "Resmin %'si"
+msgstr[0] "Resim sırası"
 
 #: themes/mobile/image.php:54 themes/npgmobile/image.php:54
 #, fuzzy
@@ -33991,7 +34007,7 @@ msgstr "Tam resme bağlantı"
 #: themes/mobile/image.php:63 themes/npgmobile/image.php:63
 #, fuzzy
 msgid "Tags:"
-msgstr "Etiketler"
+msgstr "etiketler"
 
 #: themes/mobile/image.php:72 themes/npgmobile/image.php:72
 #, fuzzy
@@ -34002,7 +34018,7 @@ msgstr "Özel veri:"
 #: themes/zenpage/search.php:48
 #, fuzzy
 msgid "Search album"
-msgstr "Arama"
+msgstr "ara"
 
 #: themes/mobile/theme_description.php:6
 #: themes/npgmobile/theme_description.php:6
@@ -34094,7 +34110,7 @@ msgstr "Telif hakkı:"
 #: themes/paradigm/includes/_breadcrumbs.php:23
 #, fuzzy
 msgid "Not found"
-msgstr "Hiçbir resim efekti bulunamadı."
+msgstr "<em>%s</em> bulunamadı"
 
 #: themes/paradigm/includes/_gallery.php:12
 #, fuzzy
@@ -34265,7 +34281,7 @@ msgstr "İçerik"
 #: themes/paradigm/themeoptions.php:119
 #, fuzzy
 msgid "Latest pictures"
-msgstr "Son Albümler"
+msgstr "id'ye göre en son"
 
 #: themes/paradigm/themeoptions.php:120
 #, fuzzy
@@ -34341,7 +34357,7 @@ msgstr ""
 #: themes/paradigm/themeoptions.php:158
 #, fuzzy
 msgid "Twitter profile name"
-msgstr "dizin adı ile birlikte:"
+msgstr "Albüm adı:"
 
 #: themes/paradigm/themeoptions.php:161
 #, fuzzy
@@ -34469,7 +34485,7 @@ msgstr "Görüntülenme: %u"
 #: themes/zenFluid/inc-footer.php:6 themes/zenFluid/inc-sidebar.php:132
 #, fuzzy
 msgid "zenFluid theme designed by "
-msgstr "Tema renkleri"
+msgstr "*galeri teması"
 
 #: themes/zenFluid/inc-sidebar.php:41
 #, fuzzy
@@ -34491,7 +34507,7 @@ msgstr "ZenFluid teması, zenpage eklentisinin etkinleştirilmesini gerektirir."
 #: themes/zenFluid/inc-sidebar.php:108
 #, fuzzy
 msgid "Your user profile"
-msgstr "Veritabanı kullanıcısı"
+msgstr "Kullanıcıyı yetkilendir"
 
 #: themes/zenFluid/news.php:121
 #, fuzzy
@@ -34564,7 +34580,7 @@ msgstr "Lens Tipi"
 #: themes/zenFluid/themeoptions.php:99
 #, fuzzy
 msgid "Select the font style."
-msgstr "CAPTCHA yazı tipinin büyüklüğü"
+msgstr "Stil dosyaları (.css)"
 
 #: themes/zenFluid/themeoptions.php:101
 #, fuzzy
@@ -34600,7 +34616,7 @@ msgstr "Tüm menü girişlerinin büyük harf olmasını istiyorsanız etkinleş
 #, fuzzy
 #| msgid "Include RSS link"
 msgid "Include HOME link"
-msgstr "RSS bağlantısını iliştir"
+msgstr "Ana Sayfa"
 
 #: themes/zenFluid/themeoptions.php:130
 #, fuzzy
@@ -34625,7 +34641,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Random images"
 msgid "Use random image"
-msgstr "Rastgele resim..."
+msgstr "Rastgele resimler"
 
 #: themes/zenFluid/themeoptions.php:142
 #, fuzzy
@@ -34752,7 +34768,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Comment management"
 msgid "Comment maximum width"
-msgstr "Açıklama"
+msgstr "Açıklama:"
 
 #: themes/zenFluid/themeoptions.php:197
 #, fuzzy
@@ -34841,7 +34857,7 @@ msgstr "Görüntünün altındaki düğmelerin konumunu seçin"
 #, fuzzy
 #| msgid "Comment posted"
 msgid "Comment position"
-msgstr "Yorum gönderildi"
+msgstr "Bir yorum ekle:"
 
 #: themes/zenFluid/themeoptions.php:246
 #, fuzzy
@@ -34967,6 +34983,9 @@ msgstr ""
 "etkinleştirildiyse, <em>menu_manager</em> eklentisini kullanmak istiyorsanız "
 "bunu <em>işaretleyin</em> . &quot;Zenpage&quot; adlı standart bir menü "
 "oluşturulur ve otomatik olarak kullanılır."
+
+#~ msgid "Select users:"
+#~ msgstr "Kullanıcıları seç:"
 
 #~ msgid "PHP Safe Mode Restrictions in effect!"
 #~ msgstr "PHP Safe Mode kısıtlaması var!"

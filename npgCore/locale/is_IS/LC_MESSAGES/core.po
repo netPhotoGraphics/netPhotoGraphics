@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netPhotoGraphics\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 15:14-0700\n"
-"PO-Revision-Date: 2020-05-27 15:14-0700\n"
+"POT-Creation-Date: 2020-05-29 12:56-0700\n"
+"PO-Revision-Date: 2020-05-29 12:56-0700\n"
 "Last-Translator: Stephen <stephen@sbillard.org>\n"
 "Language-Team: \n"
 "Language: is_IS\n"
@@ -105,12 +105,12 @@ msgstr "Skoða"
 #: npgCore/admin-functions.php:50
 #, fuzzy
 msgid "Change log"
-msgstr "Skráð(ur) út"
+msgstr "Innskrá"
 
 #: npgCore/admin-functions.php:51
 #, fuzzy, php-format
 msgid "Server date: %s"
-msgstr "Dagsetning:"
+msgstr "Dagsetning"
 
 #: npgCore/admin-functions.php:164
 #, fuzzy, php-format
@@ -473,7 +473,7 @@ msgstr "Myndir"
 #: npgCore/admin-functions.php:2153
 #, fuzzy
 msgid "*gallery image sort order"
-msgstr "Röðun mynda vistuð"
+msgstr "Sortera gallerý eftir:"
 
 #: npgCore/admin-functions.php:2155
 #, fuzzy
@@ -494,7 +494,7 @@ msgstr "Núgildandi þema gallerýs: <strong>%1$s</strong>"
 #: npgCore/admin-functions.php:2241
 #, fuzzy
 msgid "Album watermarks"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: npgCore/admin-functions.php:2245 npgCore/admin-functions.php:2260
 #: npgCore/extensions/optionalObjectFields.php:400
@@ -578,13 +578,13 @@ msgstr "Útrunnið!"
 #: npgCore/admin-tabs/image_edit.php:414 npgCore/extensions/zenpage/edit.php:723
 #, fuzzy
 msgid "Publish date"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/admin-functions.php:2484 npgCore/admin-tabs/image_edit.php:416
 #: npgCore/extensions/zenpage/edit.php:742
 #, fuzzy
 msgid "Expiration date"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/admin-functions.php:2498 npgCore/admin-tabs/image_edit.php:430
 #: npgCore/admin-tabs/users.php:884 npgCore/extensions/zenpage/edit.php:758
@@ -718,12 +718,12 @@ msgstr "Albúm"
 #: npgCore/admin-functions.php:2682
 #, fuzzy
 msgid "Albums (dynamic)"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/admin-functions.php:2686
 #, fuzzy
 msgid "Images (dynamic)"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/admin-functions.php:2696
 #: npgCore/extensions/zenpage/admin-functions.php:1385
@@ -749,7 +749,7 @@ msgstr "birt / ekki birt / áætlað fyrir útgáfu"
 #: npgCore/extensions/zenpage/admin-functions.php:1400
 #, fuzzy
 msgid "comments on/off"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: npgCore/admin-functions.php:2716
 #, fuzzy
@@ -833,7 +833,7 @@ msgstr "Gefa albúmið %s út"
 #: npgCore/extensions/zenpage/pages.php:172
 #, fuzzy
 msgid "Disable comments"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: npgCore/admin-functions.php:2906 npgCore/admin-tabs/albumsort.php:95
 #: npgCore/admin-tabs/edit.php:645 npgCore/admin-tabs/images.php:283
@@ -843,7 +843,7 @@ msgstr "Ummæli: %d"
 #: npgCore/extensions/zenpage/pages.php:173
 #, fuzzy
 msgid "Enable comments"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: npgCore/admin-functions.php:2921
 #, fuzzy
@@ -987,7 +987,7 @@ msgstr "Fréttir"
 #: npgCore/admin-functions.php:3956
 #, fuzzy
 msgid "Primary album"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: npgCore/admin-functions.php:3958 npgCore/admin-functions.php:4012
 #: npgCore/admin-functions.php:4041 npgCore/admin-tabs/albumsort.php:193
@@ -1301,7 +1301,7 @@ msgstr "netPhotoGraphics"
 #: npgCore/admin-functions.php:5499
 #, fuzzy
 msgid "theme support"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: npgCore/admin-functions.php:5500
 #, fuzzy
@@ -1414,7 +1414,7 @@ msgstr "Skrárnar þínar hafa verið hlaðið inn."
 #: npgCore/admin-functions.php:5778
 #, fuzzy, php-format
 msgid "<em>%s</em> already exists."
-msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
+msgstr "<em>%s</em> er ekki til."
 
 #: npgCore/admin-functions.php:5781
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:244
@@ -1495,7 +1495,7 @@ msgstr "Merki hreinsaðar fyrir myndir af völdum hlutum"
 #: npgCore/extensions/seo_cleanup/admin_tab.php:25
 #, fuzzy
 msgid "Image already exists."
-msgstr "mynd"
+msgstr "Mynd"
 
 #: npgCore/admin-functions.php:5831
 #: npgCore/extensions/seo_cleanup/admin_tab.php:27
@@ -1691,7 +1691,7 @@ msgstr "prófílinn minn"
 #: npgCore/admin-globals.php:194
 #, fuzzy
 msgid "my images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/admin-globals.php:207
 #, fuzzy
@@ -2191,7 +2191,7 @@ msgstr "Smelltu á myndina breyta hve mikið skal skera af smámyndinni."
 #: npgCore/admin-tabs/image_edit.php:61
 #, fuzzy
 msgid "Image filter"
-msgstr "mynd"
+msgstr "Mynd"
 
 #: npgCore/admin-tabs/image_edit.php:64
 #, fuzzy
@@ -2226,7 +2226,7 @@ msgstr "Zoom"
 #: npgCore/admin-tabs/image_edit.php:189
 #, fuzzy
 msgid "<strong>Filename:</strong>"
-msgstr "<strong>Tög:</strong>"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/admin-tabs/image_edit.php:195
 #, fuzzy
@@ -2245,7 +2245,7 @@ msgstr "pt"
 #: npgCore/admin-tabs/image_edit.php:197
 #, fuzzy
 msgid "<strong>Size:</strong>"
-msgstr "<strong>Tög:</strong>"
+msgstr "Nafn<strong>%s</strong>:"
 
 #: npgCore/admin-tabs/image_edit.php:233 npgCore/admin-tabs/plugins.php:205
 #: npgCore/class-search.php:114 npgCore/extensions/favoritesHandler.php:115
@@ -2357,7 +2357,7 @@ msgstr "Endurnýja lýsigögn"
 #: npgCore/admin-tabs/image_edit.php:562
 #, fuzzy
 msgid "Crop thumbnail"
-msgstr "skera %s"
+msgstr "Smámynd:"
 
 #: npgCore/admin-tabs/images.php:411
 #, fuzzy, php-format
@@ -2523,7 +2523,7 @@ msgstr ""
 #: npgCore/admin-tabs/plugins.php:203
 #, fuzzy
 msgid "Available Plugins"
-msgstr "Íbætur veita aukna virkni í netPhotoGraphics."
+msgstr "íbætur"
 
 #: npgCore/admin-tabs/plugins.php:217 npgCore/admin-tabs/plugins.php:499
 #, fuzzy
@@ -2704,7 +2704,7 @@ msgstr "%1$s:%2$s breytt ekki, afrita merki."
 #: npgCore/admin-tabs/tags.php:182
 #, fuzzy
 msgid "Tags renamed"
-msgstr "Vinsæl tög"
+msgstr "Endurskíra tög"
 
 #: npgCore/admin-tabs/tags.php:230
 #, fuzzy
@@ -2835,7 +2835,7 @@ msgstr "Ný tög"
 #: npgCore/extensions/optionalObjectFields.php:266
 #, fuzzy
 msgid "Add tags"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/admin-tabs/tags.php:418
 #, fuzzy
@@ -2944,7 +2944,7 @@ msgstr ""
 #: npgCore/admin-tabs/themes.php:198
 #, fuzzy
 msgid "Installed themes"
-msgstr "Þemu"
+msgstr "þemu"
 
 #: npgCore/admin-tabs/themes.php:199 npgCore/extensions/ipBlocker.php:99
 #: npgCore/extensions/trivialSpam.php:62
@@ -2960,7 +2960,7 @@ msgstr "Textinn fyrir þemamerkið"
 #: npgCore/admin-tabs/themes.php:213
 #, fuzzy
 msgid "Third party theme"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: npgCore/admin-tabs/themes.php:254
 #, fuzzy
@@ -3068,7 +3068,7 @@ msgstr "Þessi vefpóstur samþykkir skráarsniðin: %s og %s."
 #: npgCore/admin-tabs/upload.php:117
 #, fuzzy
 msgid "<strong>Note: </strong>"
-msgstr "<strong>Tög:</strong>"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/admin-tabs/upload.php:122
 #, fuzzy
@@ -3205,8 +3205,9 @@ msgstr ""
 "með nafninu %s bað um að láta núllstilla aðgangsorð sitt á ZenPhoto20 "
 "gallerýinu þínu."
 
-#: npgCore/admin-tabs/users.php:318 npgCore/template-functions.php:138
-#: plugins/create_album.php:136
+#: npgCore/admin-tabs/users.php:318
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:83
+#: npgCore/template-functions.php:138 plugins/create_album.php:136
 #, fuzzy
 msgid "Users"
 msgstr "Notendur"
@@ -3286,8 +3287,7 @@ msgstr "Fela upplýsingar"
 #: npgCore/admin-tabs/users.php:652
 #, fuzzy, php-format
 msgid "Show details for user %s"
-msgstr ""
-"Til að núllstilla netPhotoGraphics stjórnandaaðgangsorðin þín, farðu á %s"
+msgstr "Til að núllstilla ZenPhoto20 stjórnandaaðgangsorðin þín, farðu á %s"
 
 #: npgCore/admin-tabs/users.php:653
 #, fuzzy, php-format
@@ -3375,8 +3375,8 @@ msgstr "Stefna um notkun á vefsvæðum hefur verið viðurkennt."
 #, fuzzy
 msgid "Set"
 msgstr ""
-"Veldu þetta til að setja vatnsmerki á hausmyndina. (Vatnsmerking mynda þarf "
-"að vera virk.)"
+"Aðalaðgangsorð fyrir gallerýið. Ef þetta er virkt verða allir gestir að vita "
+"þetta aðgangsorð til að skoða gallerýið."
 
 #: npgCore/admin-tabs/users.php:831
 #, fuzzy
@@ -3497,7 +3497,7 @@ msgstr "setja fullstóra mynd í skyndiminni"
 #: npgCore/admin.php:127
 #, fuzzy
 msgid "Search cache cleared."
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/admin.php:135
 #, fuzzy
@@ -3569,7 +3569,7 @@ msgstr "Opna allt"
 #: npgCore/admin.php:257
 #, fuzzy
 msgid "purge search cache"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/admin.php:264
 #, fuzzy, php-format
@@ -3584,7 +3584,7 @@ msgstr "Þú hefur ekki réttarrétt til að fá aðgang að %s."
 #: npgCore/admin.php:326
 #, fuzzy
 msgid "There is a new version available."
-msgstr "PHP útgáfa %s"
+msgstr "<em>%s</em> er ekki til."
 
 #: npgCore/admin.php:328
 #, fuzzy, php-format
@@ -4210,7 +4210,7 @@ msgstr "<em>filesystem</em> mynd slóðir"
 #: npgCore/admin_options/general.php:274
 #, fuzzy
 msgid "unique images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/admin_options/general.php:283
 #, fuzzy
@@ -4350,7 +4350,7 @@ msgstr "Dagsetningarsnið:"
 #: npgCore/admin_options/general.php:426
 #, fuzzy
 msgid "Preferred date representation"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/admin_options/general.php:427
 msgid "02/25/08 15:30"
@@ -4585,7 +4585,7 @@ msgstr "Tengill vefsíðu þinnar er ógildur"
 #: npgCore/admin_options/general.php:586
 #, fuzzy
 msgid "notice text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/admin_options/general.php:595
 #, fuzzy
@@ -4726,7 +4726,7 @@ msgstr "Admin pagination"
 #: npgCore/admin_options/general.php:695
 #, fuzzy
 msgid "users per page"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/admin_options/general.php:700
 #, fuzzy
@@ -4736,7 +4736,7 @@ msgstr "Íbætur veita aukna virkni í netPhotoGraphics."
 #: npgCore/admin_options/general.php:714
 #, fuzzy
 msgid "groups per page"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/admin_options/general.php:730
 #, fuzzy
@@ -4868,7 +4868,7 @@ msgstr "Myndgæði:"
 #: npgCore/admin_options/image.php:332
 #, fuzzy
 msgid "normal image"
-msgstr "Fyrri mynd"
+msgstr "% af mynd"
 
 #: npgCore/admin_options/image.php:333
 #, fuzzy
@@ -5175,7 +5175,7 @@ msgstr ""
 #: npgCore/admin_options/image.php:601
 #, fuzzy
 msgid "Secure image processor"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/admin_options/image.php:610
 #, fuzzy
@@ -5290,7 +5290,7 @@ msgstr ""
 #: npgCore/admin_options/image.php:752
 #, fuzzy
 msgid "Use lock image"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/admin_options/image.php:761
 #, fuzzy
@@ -5519,7 +5519,7 @@ msgstr "Vísbending fyrir leitaraðgangsorð:"
 #: npgCore/admin_options/search.php:236
 #, fuzzy
 msgid "Search behavior settings"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/admin_options/search.php:255
 #, fuzzy
@@ -5564,7 +5564,7 @@ msgstr "<em>%s</em> fannst ekki"
 #: npgCore/admin_options/search.php:284
 #, fuzzy
 msgid "language specific tags"
-msgstr "Tög"
+msgstr "tög"
 
 #: npgCore/admin_options/search.php:286
 #, fuzzy
@@ -5608,7 +5608,7 @@ msgstr ""
 #: npgCore/admin_options/search.php:303
 #, fuzzy
 msgid "default search"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/admin_options/search.php:304
 #, fuzzy
@@ -5846,7 +5846,7 @@ msgstr ""
 #: npgCore/admin_options/security.php:112
 #, fuzzy
 msgid "Image Processor security"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/admin_options/security.php:122
 #, fuzzy
@@ -6049,7 +6049,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Thumb size:"
 msgid "Thumbnail size"
-msgstr "stærð ="
+msgstr "Stærð"
 
 #: npgCore/admin_options/theme.php:406
 #, fuzzy, php-format
@@ -6359,7 +6359,7 @@ msgstr "Fyrra albúm"
 #: themes/zenpage/image.php:73
 #, fuzzy
 msgid "next thumbs »"
-msgstr "Næsta mynd"
+msgstr "Næsta síða"
 
 #: npgCore/allTranslations.php:83
 msgid "Click here to register for this site."
@@ -6426,7 +6426,7 @@ msgstr "Ógilt plötuspil: %s er ekki til."
 #: npgCore/class-album.php:1569
 #, fuzzy, php-format
 msgid "Error: The album %s is not readable."
-msgstr "Skoða albúmið: %s"
+msgstr "Breyta þessu albúmi: %s"
 
 #: npgCore/class-album.php:1571
 #, fuzzy, php-format
@@ -6436,7 +6436,7 @@ msgstr "Villa: Ekki er hægt að finna plötuna sem heitir %s."
 #: npgCore/class-feed.php:362
 #, fuzzy
 msgid "Latest albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/class-feed.php:364 themes/ardoise/inc_header.php:79
 #: themes/ardoise/inc_print_image_statistic.php:12
@@ -6445,12 +6445,12 @@ msgstr "Albúmayfirlit"
 #: themes/paradigm/includes/_homepage.php:92
 #, fuzzy
 msgid "Latest images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/class-feed.php:368
 #, fuzzy
 msgid "latest updated albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/class-feed.php:372
 #, fuzzy
@@ -6465,12 +6465,12 @@ msgstr "nýjustu"
 #: npgCore/class-feed.php:379
 #, fuzzy
 msgid "Top rated albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/class-feed.php:381 themes/ardoise/inc_print_image_statistic.php:24
 #, fuzzy
 msgid "Top rated images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/class-feed.php:386
 #, fuzzy
@@ -6571,17 +6571,17 @@ msgstr "Hlutur fannst ekki"
 #: npgCore/class-image.php:199 npgCore/extensions/xmpMetadata.php:648
 #, fuzzy
 msgid "Image Headline"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/class-image.php:200 npgCore/extensions/xmpMetadata.php:646
 #, fuzzy
 msgid "Image Caption"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/class-image.php:201
 #, fuzzy
 msgid "Image Caption Writer"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/class-image.php:202
 #, fuzzy
@@ -6601,7 +6601,7 @@ msgstr "Tímalhliðrun (í klst):"
 #: npgCore/class-image.php:205
 #, fuzzy
 msgid "Date Created"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/class-image.php:206
 #, fuzzy
@@ -6611,7 +6611,7 @@ msgstr "Tímalhliðrun (í klst):"
 #: npgCore/class-image.php:207
 #, fuzzy
 msgid "Digital Creation Date"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/class-image.php:208
 #, fuzzy
@@ -6626,7 +6626,7 @@ msgstr "Listamaður"
 #: npgCore/class-image.php:210 npgCore/extensions/xmpMetadata.php:647
 #, fuzzy
 msgid "Image Credit"
-msgstr "Fyrri mynd"
+msgstr "% af mynd"
 
 #: npgCore/class-image.php:211
 #, fuzzy
@@ -6641,7 +6641,7 @@ msgstr "Titill albúms"
 #: npgCore/class-image.php:213 npgCore/extensions/xmpMetadata.php:653
 #, fuzzy
 msgid "Image Source"
-msgstr "Fyrri mynd"
+msgstr "% af mynd"
 
 #: npgCore/class-image.php:214 npgCore/extensions/html_meta_tags.php:245
 #: npgCore/extensions/scriptless-socialsharing.php:169
@@ -8031,7 +8031,7 @@ msgstr "Tengill vefsíðu:"
 #: npgCore/extensions/GDPR_required.php:63
 #, fuzzy
 msgid "Policy page"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/extensions/GDPR_required.php:66
 #, fuzzy
@@ -8330,7 +8330,7 @@ msgstr "<em>Notandanafn</em> fyrir póstþjón."
 #: npgCore/extensions/PHPMailer.php:67
 #, fuzzy
 msgid "Mail password"
-msgstr "Aðgangsorð"
+msgstr "Lykilorð:"
 
 #: npgCore/extensions/PHPMailer.php:68
 #, fuzzy
@@ -8489,7 +8489,7 @@ msgstr "Sjálfgefin sýnileg stærð mynda."
 #: npgCore/extensions/VideoJS.php:91
 #, fuzzy
 msgid "Custom Player Size"
-msgstr "stærð ="
+msgstr "Stærð"
 
 #: npgCore/extensions/VideoJS.php:94
 #, fuzzy
@@ -8727,7 +8727,7 @@ msgstr "Þú hefur ekki réttindi til að breyta <em>útgáfustöðu</em> ."
 #: npgCore/extensions/auto_backup.php:23
 #, fuzzy
 msgid "Periodically backup the database."
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/extensions/auto_backup.php:60
 #, fuzzy
@@ -8835,7 +8835,7 @@ msgstr "Hæð þumalfallsins. Athugaðu að CSS gæti þurft að breyta."
 #: npgCore/extensions/paged_thumbs_nav.php:49
 #, fuzzy
 msgid "Crop width"
-msgstr "skera %s"
+msgstr "breidd ="
 
 #: npgCore/extensions/bxslider_thumb_nav.php:76
 #: npgCore/extensions/cacheManager.php:293
@@ -8925,7 +8925,7 @@ msgstr "Veitir skyndiminni stjórnun tólum fyrir mynd, HTML og RSS caches."
 #: npgCore/extensions/cacheManager.php:132
 #, fuzzy
 msgid "Image caching sizes"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/cacheManager.php:135
 #, fuzzy
@@ -9141,7 +9141,7 @@ msgstr ""
 #: npgCore/extensions/cacheManager.php:560
 #, fuzzy
 msgid "Purge search cache"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/extensions/cacheManager.php:564
 #, fuzzy
@@ -9197,7 +9197,7 @@ msgstr "Ef þetta er virkt."
 #: npgCore/extensions/cacheManager/cacheDBImages.php:95
 #, fuzzy
 msgid "image processor reference"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/cacheManager/cacheDBImages.php:215
 #, fuzzy
@@ -9264,7 +9264,7 @@ msgstr ""
 #, fuzzy, php-format
 msgid "[%u image]"
 msgid_plural "[%u images]"
-msgstr[0] "síða %u"
+msgstr[0] "% af mynd"
 msgstr[1] "<strong>%u</strong> myndir"
 
 #: npgCore/extensions/cacheManager/cacheImages.php:173
@@ -9465,7 +9465,7 @@ msgstr ""
 #: npgCore/extensions/captcha.php:92
 #, fuzzy
 msgid "Sample CAPTCHA image"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/class-AnyFile.php:19
 #, fuzzy
@@ -9640,7 +9640,7 @@ msgstr ""
 #: npgCore/extensions/class-video.php:125
 #, fuzzy
 msgid "Video File Format"
-msgstr "Endurskíra skrá"
+msgstr "Dagsetningarsnið:"
 
 #: npgCore/extensions/class-video.php:126
 #, fuzzy
@@ -9740,7 +9740,7 @@ msgstr "Spila"
 #: npgCore/extensions/class-video.php:383
 #, fuzzy, php-format
 msgid "getid3 exceptions for %1$s::%2$s"
-msgstr "%1$s x %2$s pixlar"
+msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
 
 #: npgCore/extensions/class-video.php:455
 #, fuzzy
@@ -10092,7 +10092,7 @@ msgstr "Athugasemdareyðublöð verða kynntar á köflunum."
 #: npgCore/extensions/comment_form.php:121
 #, fuzzy
 msgid "Toggled comment block"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form.php:123
 #, fuzzy
@@ -10130,7 +10130,7 @@ msgstr ""
 #: npgCore/extensions/comment_form.php:130
 #, fuzzy
 msgid "Allow private postings"
-msgstr "Leyfa leit"
+msgstr "Leyfa ummæli"
 
 #: npgCore/extensions/comment_form.php:132
 #, fuzzy
@@ -10143,7 +10143,7 @@ msgstr ""
 #: npgCore/extensions/comment_form.php:133
 #, fuzzy
 msgid "Allow anonymous posting"
-msgstr "Leyfa leit"
+msgstr "Leyfa ummæli"
 
 #: npgCore/extensions/comment_form.php:135
 #, fuzzy
@@ -10182,7 +10182,7 @@ msgstr ""
 #: npgCore/extensions/comment_form.php:147
 #, fuzzy
 msgid "Comment editor configuration"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form.php:151
 #, fuzzy
@@ -10266,7 +10266,7 @@ msgstr "sýna"
 #: npgCore/extensions/comment_form.php:265
 #, fuzzy
 msgid "hide comments"
-msgstr "Ummæli: %d"
+msgstr "Ummæli:"
 
 #: npgCore/extensions/comment_form.php:299
 #, fuzzy
@@ -10288,7 +10288,7 @@ msgstr "Lokað fyrir ummæli."
 #: npgCore/extensions/comment_form.php:420
 #, fuzzy
 msgid "Subscribe to comments"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: npgCore/extensions/comment_form/admin-comments.php:118
 msgid "edit comment"
@@ -10353,12 +10353,12 @@ msgstr "Ummæli:"
 #: npgCore/extensions/comment_form/admin-comments.php:193
 #, fuzzy
 msgid "Comment management"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:197
 #, fuzzy
 msgid "Comment is un-approved"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:198
 #: npgCore/extensions/comment_form/admin-comments.php:367
@@ -10369,12 +10369,12 @@ msgstr "Samþykkja"
 #: npgCore/extensions/comment_form/admin-comments.php:199
 #, fuzzy
 msgid "Approve this comment"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:203
 #, fuzzy
 msgid "Comment is approved"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:204
 #, fuzzy
@@ -10384,7 +10384,7 @@ msgstr "Ósamþykkja"
 #: npgCore/extensions/comment_form/admin-comments.php:205
 #, fuzzy
 msgid "Un-approve this comment"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:211
 #, fuzzy
@@ -10394,7 +10394,7 @@ msgstr "Ummæli:"
 #: npgCore/extensions/comment_form/admin-comments.php:213
 #, fuzzy
 msgid "Comment is public"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/admin-comments.php:217
 #, fuzzy
@@ -10404,7 +10404,7 @@ msgstr "Ónafngreindur"
 #: npgCore/extensions/comment_form/admin-comments.php:219
 #, fuzzy
 msgid "Comment is not anonymous"
-msgstr "Ummæli:"
+msgstr "Ónafngreindur"
 
 #: npgCore/extensions/comment_form/admin-comments.php:241
 #, fuzzy
@@ -10559,7 +10559,7 @@ msgstr "Vefsíða<strong>%s</strong>:"
 #: themes/paradigm/contact_form/form.php:51
 #, fuzzy, php-format
 msgid "Street%s"
-msgstr "Vísbending: %s"
+msgstr "Síða: %s"
 
 #: npgCore/extensions/comment_form/comment_form.php:66
 #: npgCore/extensions/contact_form/form.php:54
@@ -10604,13 +10604,13 @@ msgstr "ZenPhoto20 uppsetning"
 #: themes/paradigm/contact_form/form.php:130
 #, fuzzy
 msgid "Enter CAPTCHA<strong>*</strong>"
-msgstr "Fyrirtæki<strong>%s</strong>:"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/extensions/comment_form/comment_form.php:106
 #: themes/paradigm/comment_form/comment_form.php:121
 #, fuzzy
 msgid "<strong>*</strong>Required fields"
-msgstr "Fyrirtæki<strong>%s</strong>:"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/extensions/comment_form/comment_form.php:113
 #: themes/paradigm/comment_form/comment_form.php:127
@@ -10660,7 +10660,7 @@ msgstr "Senda tölvupóst"
 msgid "Error posting comment:"
 msgid_plural "Errors posting comment:"
 msgstr[0] "Ummæli:"
-msgstr[1] "Skrifa ummæli"
+msgstr[1] "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/functions.php:375
 #, fuzzy
@@ -10786,7 +10786,7 @@ msgstr "Breyta þessu ummæli."
 #: plugins/commentNotice.php:91
 #, fuzzy
 msgid "Comment posted"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/comment_form/functions.php:596
 #, fuzzy
@@ -10885,7 +10885,7 @@ msgstr ""
 #: npgCore/extensions/contact_form.php:76
 #, fuzzy
 msgid "Intro text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/contact_form.php:78
 #, fuzzy
@@ -10909,7 +10909,7 @@ msgstr ""
 #: npgCore/extensions/contact_form.php:82
 #, fuzzy
 msgid "Thanks text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/contact_form.php:84
 #, fuzzy
@@ -11414,7 +11414,7 @@ msgstr "Smelltu á myndina breyta hve mikið skal skera af smámyndinni."
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:354
 #, fuzzy
 msgid "Crop image"
-msgstr "mynd"
+msgstr "skera %s"
 
 #: npgCore/extensions/crop_image.php:59
 #, fuzzy
@@ -11429,7 +11429,7 @@ msgstr "Reyndu að skera hlut sem er ekki mynd."
 #: npgCore/extensions/crop_image.php:215
 #, fuzzy
 msgid "crop image"
-msgstr "mynd"
+msgstr "skera %s"
 
 #: npgCore/extensions/crop_image.php:356
 #, fuzzy
@@ -11517,7 +11517,7 @@ msgstr "Stýrir fjölda atriða sem verða sýndar á hverri daglegu samantektar
 #: npgCore/extensions/daily-summary.php:82
 #, fuzzy
 msgid "Theme script page"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: npgCore/extensions/daily-summary.php:88
 #, fuzzy
@@ -11563,20 +11563,20 @@ msgstr "Lýsing:"
 #, fuzzy, php-format
 #| msgid "Album: %s"
 msgid "Albums: %s"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:33
 #: plugins/daily-summary/daily-summary_content.php:34
 #, fuzzy, php-format
 msgid "Uploaded date: %s"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:34
 #: plugins/daily-summary/daily-summary_content.php:35
 #, fuzzy, php-format
 #| msgid "Image: %s"
 msgid "Image count: %s"
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/extensions/daily-summary/daily-summary_content.php:36
 #: plugins/daily-summary/daily-summary_content.php:37
@@ -12040,7 +12040,7 @@ msgstr "Finndu símtöl á úrfallnum aðgerðum."
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:56
 #, fuzzy
 msgid "In Themes"
-msgstr "Þemu"
+msgstr "þemu"
 
 #: npgCore/extensions/deprecated-functions/check_for_deprecated.php:59
 #, fuzzy
@@ -12118,7 +12118,7 @@ msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
 #: npgCore/extensions/deprecated-functions/class.php:155
 #, fuzzy, php-format
 msgid "standard plugin %1$s:%2$s"
-msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
+msgstr "%1$s x %2$s pixlar"
 
 #: npgCore/extensions/deprecated-functions/class.php:158
 #, fuzzy, php-format
@@ -12331,7 +12331,7 @@ msgstr "Zip uppspretta"
 #: npgCore/extensions/downloadList.php:83
 #, fuzzy
 msgid "From album"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: npgCore/extensions/downloadList.php:83
 #, fuzzy
@@ -12425,7 +12425,7 @@ msgstr "Effervescence %1$s %2$s"
 #: npgCore/extensions/downloadList.php:387
 #, fuzzy
 msgid "Album not found"
-msgstr "<em>%s</em> fannst ekki"
+msgstr "Hlutur fannst ekki"
 
 #: npgCore/extensions/downloadList.php:390
 #: npgCore/extensions/downloadList.php:661
@@ -12669,12 +12669,12 @@ msgstr ""
 #: npgCore/extensions/elFinder/php/connector_npg.php:83
 #, fuzzy, php-format
 msgid "Themes (%s)"
-msgstr "Þemu"
+msgstr "þemu"
 
 #: npgCore/extensions/elFinder/php/connector_npg.php:89
 #, fuzzy, php-format
 msgid "%s"
-msgstr "skera %s"
+msgstr "%s pixlar"
 
 #: npgCore/extensions/elFinder/php/connector_npg.php:110
 #: npgCore/extensions/elFinder/php/connector_npg.php:348
@@ -12824,7 +12824,7 @@ msgstr "Athugaðu hverja straum sem þú vilt virkja."
 #: npgCore/extensions/externalFeed.php:80 npgCore/extensions/rss.php:56
 #, fuzzy
 msgid "Image feed items:"
-msgstr "mynd"
+msgstr "Mynd"
 
 #: npgCore/extensions/externalFeed.php:82
 #, fuzzy
@@ -12852,7 +12852,7 @@ msgstr "nýjasta með auðkenni"
 #: npgCore/extensions/rss.php:71 npgCore/extensions/rss.php:78
 #, fuzzy
 msgid "latest by date"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/extensions/externalFeed.php:90 npgCore/extensions/externalFeed.php:97
 #: npgCore/extensions/rss.php:72 npgCore/extensions/rss.php:79
@@ -12917,7 +12917,7 @@ msgstr "Hakaðu í reitinn til að fjarlægja síðuna."
 #: npgCore/extensions/externalFeed.php:111 npgCore/extensions/rss.php:109
 #, fuzzy
 msgid "Feed text length"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/externalFeed.php:113
 #, fuzzy
@@ -12997,14 +12997,14 @@ msgstr "Síður"
 #: npgCore/extensions/externalFeed.php:326 npgCore/extensions/rss.php:517
 #, fuzzy
 msgid " (latest comments)"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: npgCore/extensions/externalFeed.php:364 npgCore/extensions/rss.php:572
 #: npgCore/extensions/rss.php:580
 #, fuzzy, php-format
 msgid "%s (%u image)"
 msgid_plural "%s (%u images)"
-msgstr[0] "Skoða myndina: %s"
+msgstr[0] "Skoða mynd: %s"
 msgstr[1] "%s myndir"
 
 #: npgCore/extensions/facebookLogin.php:33
@@ -13107,7 +13107,7 @@ msgstr "Margfeldi setur"
 #: npgCore/extensions/favoritesHandler.php:103
 #, fuzzy
 msgid "Add button"
-msgstr "Bæta við grein"
+msgstr "Skrifa ummæli"
 
 #: npgCore/extensions/favoritesHandler.php:106
 #, fuzzy
@@ -13269,7 +13269,7 @@ msgstr "Smámyndir fyrir myndir sem eru geodata merktar verða merktar."
 #: npgCore/extensions/flag_thumbnail.php:120 plugins/icons.php:30
 #, fuzzy
 msgid "Text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/flag_thumbnail.php:101
 #, fuzzy
@@ -13304,7 +13304,7 @@ msgstr "Textaflag fyrir <em>verndaðar</em> myndir."
 #: npgCore/extensions/flag_thumbnail.php:126
 #, fuzzy
 msgid "Use text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/flag_thumbnail.php:128
 #, fuzzy
@@ -13379,7 +13379,7 @@ msgstr "Sjálfgefin sýnileg stærð mynda."
 #: npgCore/extensions/galleryArticles.php:81
 #, fuzzy
 msgid "Publish protected"
-msgstr "Gefa albúmið %s út"
+msgstr "Varið aðgangsorði"
 
 #: npgCore/extensions/galleryArticles.php:83
 #, fuzzy
@@ -13842,7 +13842,7 @@ msgstr "Titill albúms"
 #, fuzzy
 #| msgid "Gallery description:"
 msgid "Translate Description"
-msgstr "Lýsing albúms:"
+msgstr "Lýsing:"
 
 #: npgCore/extensions/googleTranslate.php:139
 #, fuzzy
@@ -13885,7 +13885,7 @@ msgstr "IP tölur"
 #: npgCore/extensions/hitcounter.php:63
 #, fuzzy
 msgid "Search Crawlers"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/extensions/hitcounter.php:64
 #, fuzzy
@@ -13926,7 +13926,7 @@ msgstr "Settu inn IP minnið"
 #: plugins/titlelinkMigration.php:61
 #, fuzzy
 msgid "Database"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/extensions/hitcounter.php:208
 #, fuzzy
@@ -14037,7 +14037,7 @@ msgstr "Settu inn <em>innihaldshluta</em> metatagsins sem Google býður upp á.
 #: npgCore/extensions/html_meta_tags.php:109
 #, fuzzy
 msgid "Site logo"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Þemamerki"
 
 #: npgCore/extensions/html_meta_tags.php:110
 #, fuzzy
@@ -14111,7 +14111,7 @@ msgstr ""
 #: npgCore/extensions/html_meta_tags.php:119
 #, fuzzy
 msgid "HTML meta tags"
-msgstr "Vinsæl tög"
+msgstr "Endurskíra tög"
 
 #: npgCore/extensions/html_meta_tags.php:141
 #, fuzzy
@@ -14560,7 +14560,7 @@ msgstr ""
 #: npgCore/extensions/jPlayer.php:215 plugins/mediaelementjs_player.php:500
 #, fuzzy, php-format
 msgid "%1$s::%2$s not found."
-msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
+msgstr "Effervescence %1$s %2$s"
 
 #: npgCore/extensions/jPlayer.php:225
 #, fuzzy
@@ -14625,7 +14625,7 @@ msgstr "Skoða allan texta"
 #: npgCore/extensions/jPlayer.php:473
 #, fuzzy
 msgid "Update Required"
-msgstr "Síðast uppfært: %s"
+msgstr "uppfæra"
 
 #: npgCore/extensions/jPlayer.php:474
 #, fuzzy
@@ -15415,7 +15415,7 @@ msgstr "Ný tög"
 #: npgCore/extensions/menu_manager/menu_tab.php:227
 #, fuzzy
 msgid "Edit the menu"
-msgstr "Breyta albúmi"
+msgstr "breyta ummæli"
 
 #: npgCore/extensions/menu_manager/menu_tab.php:241
 #, fuzzy
@@ -15569,7 +15569,7 @@ msgstr ""
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:142
 #, fuzzy
 msgid "Custom page"
-msgstr "[síða]"
+msgstr "Sérsniðin gögn:"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:143
 #, fuzzy
@@ -15579,7 +15579,7 @@ msgstr "Býr til tengil á sérsniðnum þemuhandritasíðu."
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:145
 #, fuzzy
 msgid "Script page"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:150
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:291
@@ -15606,7 +15606,7 @@ msgstr "Hlekkstexti"
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:290
 #, fuzzy
 msgid "Custom link"
-msgstr "Hlekkstexti"
+msgstr "Sérsniðin gögn:"
 
 #: npgCore/extensions/menu_manager/menu_tab_edit.php:161
 #, fuzzy
@@ -15759,7 +15759,7 @@ msgstr "Veldu þema þitt byggt á tækinu sem tengist vefsvæðinu þínu"
 #: npgCore/extensions/mobileTheme.php:95
 #, fuzzy
 msgid "Phone theme"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: npgCore/extensions/mobileTheme.php:97 npgCore/extensions/mobileTheme.php:101
 #, fuzzy
@@ -16202,12 +16202,12 @@ msgstr "Staðsetning:"
 #: npgCore/extensions/optionalObjectFields.php:267
 #, fuzzy
 msgid "Clear tags"
-msgstr "Vinsæl tög"
+msgstr "Endurskíra tög"
 
 #: npgCore/extensions/optionalObjectFields.php:85
 #, fuzzy
 msgid "Add tags to images"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/optionalObjectFields.php:86
 #, fuzzy
@@ -16237,7 +16237,7 @@ msgstr "Höfundaréttur:"
 #: npgCore/extensions/optionalObjectFields.php:204
 #, fuzzy
 msgid "Add tags to articles"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/optionalObjectFields.php:205
 #, fuzzy
@@ -16264,7 +16264,7 @@ msgstr "setja fullstóra mynd í skyndiminni"
 #: npgCore/extensions/optionalObjectFields.php:464
 #, fuzzy
 msgid "No tags assigned"
-msgstr "Vinsæl tög"
+msgstr "Endurskíra tög"
 
 #: npgCore/extensions/optionalObjectFields.php:476
 #, fuzzy
@@ -16291,7 +16291,7 @@ msgstr "Prentar flettu í þumalfingur á mynd.php, óháð þumalfingri album.p
 #: npgCore/extensions/paged_thumbs_nav.php:41
 #, fuzzy
 msgid "Thumbs per page"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/extensions/paged_thumbs_nav.php:42
 #, fuzzy
@@ -16319,7 +16319,7 @@ msgstr "Fyrri texti"
 #: npgCore/extensions/paged_thumbs_nav.php:46
 #, fuzzy
 msgid "The text for the previous thumbs."
-msgstr "Fyrri mynd"
+msgstr "Fyrri síða"
 
 #: npgCore/extensions/paged_thumbs_nav.php:47
 msgid "Nexttext"
@@ -16328,7 +16328,7 @@ msgstr "Næsti texti"
 #: npgCore/extensions/paged_thumbs_nav.php:48
 #, fuzzy
 msgid "The text for the next thumbs."
-msgstr "Næsta mynd"
+msgstr "Næsta síða"
 
 #: npgCore/extensions/paged_thumbs_nav.php:50
 #, fuzzy
@@ -16410,13 +16410,13 @@ msgstr "Fjöldi tengla á síðulista."
 #: npgCore/extensions/paged_thumbs_nav.php:349
 #, fuzzy
 msgid "previous thumbs"
-msgstr "Fyrri mynd"
+msgstr "Fyrri síða"
 
 #: npgCore/extensions/paged_thumbs_nav.php:299
 #: npgCore/extensions/paged_thumbs_nav.php:372
 #, fuzzy
 msgid "next thumbs"
-msgstr "Næsta mynd"
+msgstr "Næsta síða"
 
 #: npgCore/extensions/paged_thumbs_nav.php:325
 #, fuzzy, php-format
@@ -16478,7 +16478,7 @@ msgstr "% af mynd"
 #: npgCore/extensions/panorama.php:73
 #, fuzzy
 msgid "image right"
-msgstr "Flytja réttindi"
+msgstr "% af mynd"
 
 #: npgCore/extensions/panorama.php:92
 msgid "Scroll left/right to pan through panorama."
@@ -16630,7 +16630,7 @@ msgstr[1] "<strong>%u</strong> albúm"
 #: npgCore/extensions/publishContent/publishContent.php:281
 #, fuzzy
 msgid "Album changes applied"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: npgCore/extensions/publishContent/publishContent.php:288
 #, fuzzy
@@ -16696,7 +16696,7 @@ msgstr "Yfirfara myndir"
 #: npgCore/extensions/publishContent/publishContent.php:385
 #, fuzzy
 msgid "Image changes applied"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/publishContent/publishContent.php:413
 #, fuzzy
@@ -16770,7 +16770,7 @@ msgstr "Útgefið"
 msgid "%u unpublished category"
 msgid_plural "%u unpublished categories"
 msgstr[0] "síða %u"
-msgstr[1] "síða %u"
+msgstr[1] "Flokkar: "
 
 #: npgCore/extensions/publishContent/publishContent.php:543
 #, fuzzy
@@ -16848,7 +16848,7 @@ msgstr "Síður"
 #, fuzzy, php-format
 msgid "%u unpublished page"
 msgid_plural "%u unpublished pages"
-msgstr[0] "[síða]"
+msgstr[0] "síða %u"
 msgstr[1] "síða %u"
 
 #: npgCore/extensions/publishContent/publishContent.php:668
@@ -17070,12 +17070,12 @@ msgstr ""
 #: npgCore/extensions/quota_manager.php:140
 #, fuzzy, php-format
 msgid "(%s kb used)"
-msgstr "Effervescence %s"
+msgstr "Aftur á %s"
 
 #: npgCore/extensions/quota_manager.php:145
 #, fuzzy
 msgid "Image storage quota:"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/quota_manager.php:146
 #, fuzzy, php-format
@@ -17219,7 +17219,7 @@ msgstr "Stærð táknsins sem notaður er til atkvæðagreiðslu."
 #: npgCore/extensions/rating.php:84
 #, fuzzy
 msgid "Individual image control"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/rating.php:86
 #, fuzzy
@@ -17459,22 +17459,22 @@ msgstr "Sjálfgefið vísbendingartexta fyrir notendahópinn."
 #: npgCore/extensions/register_user.php:65
 #, fuzzy
 msgid "Registration text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/register_user.php:67
 #, fuzzy
 msgid "Registration confirmation text."
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/register_user.php:68
 #, fuzzy
 msgid "Accepted text"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/register_user.php:70
 #, fuzzy
 msgid "Registration accepted text."
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/register_user.php:71 plugins/MyBB_auth.php:134
 #, fuzzy
@@ -18086,7 +18086,7 @@ msgstr "Sýna efstu <em>þröskuldar</em> auðkenni sem hafa farið fram."
 #: npgCore/extensions/search_statistics/search_analysis.php:140
 #, fuzzy
 msgid "Search analysis"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:25
 #, fuzzy
@@ -18127,7 +18127,7 @@ msgstr "Top% þú leitarorðin notuð"
 #: npgCore/extensions/search_statistics/search_analysis.php:218
 #, fuzzy
 msgid "Search terms used"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:246
 #, fuzzy
@@ -18142,7 +18142,7 @@ msgstr "Efst% u leitar auðkenni"
 #: npgCore/extensions/search_statistics/search_analysis.php:271
 #, fuzzy
 msgid "Search IDs"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: npgCore/extensions/search_statistics/search_analysis.php:301
 #, fuzzy
@@ -18250,7 +18250,7 @@ msgstr "ZenPhoto20 uppsetning"
 #: npgCore/extensions/security-logger.php:169
 #, fuzzy
 msgid "Request add user"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: npgCore/extensions/security-logger.php:172
 #, fuzzy
@@ -18386,19 +18386,19 @@ msgstr[1] "Albúm"
 #: npgCore/extensions/seo_cleanup/admin_tab.php:140
 #, fuzzy
 msgid "No albums cleaned."
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:147
 #, fuzzy, php-format
 msgid "%d image cleaned."
 msgid_plural "%d images cleaned"
-msgstr[0] "mynd"
+msgstr[0] "Mynd"
 msgstr[1] "Myndir"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:149
 #, fuzzy
 msgid "No images cleaned."
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/extensions/seo_cleanup/admin_tab.php:157
 #, fuzzy
@@ -18793,7 +18793,7 @@ msgstr "Aldrei"
 #: npgCore/extensions/sitemap-extended.php:110
 #, fuzzy
 msgid "Change frequency - albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: npgCore/extensions/sitemap-extended.php:120
 #, fuzzy
@@ -19173,7 +19173,7 @@ msgstr "The Colorbox umskipti renna áhrif til að nota."
 #: npgCore/extensions/slideshow.php:135
 #, fuzzy
 msgid "Colorbox image type"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: npgCore/extensions/slideshow.php:137 plugins/slideshow2.php:191
 #, fuzzy
@@ -19212,7 +19212,7 @@ msgstr "Þetta albúm er varið með aðgangsorði!"
 #: npgCore/extensions/slideshow.php:202 plugins/slideshow2.php:325
 #, fuzzy
 msgid "No images for the slideshow!"
-msgstr "Myndir"
+msgstr "Glærusýning"
 
 #: npgCore/extensions/slideshow.php:370
 msgid "Previous"
@@ -19361,7 +19361,7 @@ msgstr "Auðveldar að úthluta einstökum merkjum við tengda hluti."
 #: npgCore/extensions/tagFromSearch.php:27
 #, fuzzy
 msgid "Tags only searches"
-msgstr "Vinsæl tög"
+msgstr "Endurskíra tög"
 
 #: npgCore/extensions/tagFromSearch.php:28
 #, fuzzy
@@ -19393,7 +19393,7 @@ msgstr[1] "% d leitaratriði merktar"
 #, fuzzy
 msgid "Tag search item"
 msgid_plural "Tag search items"
-msgstr[0] "Leyfa leit"
+msgstr[0] "Leitarskilyrði:"
 msgstr[1] "ZenPhoto20 uppsetning"
 
 #: npgCore/extensions/tagFromSearch/tag.php:138
@@ -19429,7 +19429,7 @@ msgstr[1] "Fréttagreinar"
 msgid "Tag %d page"
 msgid_plural "Tag %d pages"
 msgstr[0] "Ummæli: %d"
-msgstr[1] "Síður"
+msgstr[1] "Ummæli: %d"
 
 #: npgCore/extensions/tagFromSearch/tag.php:220
 #, fuzzy
@@ -19495,7 +19495,7 @@ msgstr ""
 #: npgCore/extensions/themeSwitcher.php:70
 #, fuzzy
 msgid "Theme list"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: npgCore/extensions/themeSwitcher.php:73
 #, fuzzy
@@ -19510,7 +19510,7 @@ msgstr "Þessir þemar eru virkar en hafa ekki fengið sjálfgefin valkosti þei
 #: npgCore/extensions/themeSwitcher.php:179
 #, fuzzy
 msgid "Switch themes"
-msgstr "Þemu"
+msgstr "þemu"
 
 #: npgCore/extensions/themeSwitcher.php:187 themes/zenFluid/functions.php:271
 msgid "Close"
@@ -19533,7 +19533,7 @@ msgstr "Veitir stuttar vefslóðir í gallerísmyndir."
 #: npgCore/extensions/tinyURL.php:61
 #, fuzzy
 msgid "Use in themes for"
-msgstr "Þemu"
+msgstr "þemu"
 
 #: npgCore/extensions/tinyURL.php:65
 #, fuzzy
@@ -19616,7 +19616,7 @@ msgstr "Veldu TinyMCE <em>entity_encoding</em> stefnu."
 #: npgCore/extensions/tinymce.php:87
 #, fuzzy
 msgid "RTL text direction"
-msgstr "Textinn fyrir þemamerkið"
+msgstr "Skoða allan texta"
 
 #: npgCore/extensions/tinymce.php:89
 #, fuzzy
@@ -19641,7 +19641,7 @@ msgstr "<em>%s</em> fannst ekki"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:51
 #, fuzzy, php-format
 msgid "%s with link to image"
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:61
 #, fuzzy, php-format
@@ -19651,7 +19651,7 @@ msgstr "<em>%s</em> fannst ekki"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:62
 #, fuzzy, php-format
 msgid "%s with link to album"
-msgstr "Skoða albúmið: %s"
+msgstr "Breyta þessu albúmi: %s"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:77
 #, fuzzy, php-format
@@ -19671,7 +19671,7 @@ msgstr "<em>%s</em> fannst ekki"
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:83
 #, fuzzy
 msgid "title with link to page"
-msgstr "[síða]"
+msgstr "Hlekkstexti"
 
 #: npgCore/extensions/tinymce/pasteobj/pasteobj.php:87
 #, fuzzy, php-format
@@ -20057,7 +20057,7 @@ msgstr "Endurskíra skrá"
 #: npgCore/extensions/uploader_jQuery/server/php/UploadHandler.php:41
 #, fuzzy
 msgid "Failed to resize image"
-msgstr "mynd"
+msgstr "Mynd"
 
 #: npgCore/extensions/uploader_jQuery/upload_form.php:34
 #, fuzzy
@@ -20395,6 +20395,7 @@ msgid "Deleted"
 msgstr "%s var eytt."
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:183
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:123
 #, fuzzy
 msgid "Groups"
 msgstr "Hópar"
@@ -20418,7 +20419,6 @@ msgstr ""
 
 #: npgCore/extensions/user_groups/user_groups-tab.php:288
 #: npgCore/extensions/user_groups/user_groups-tab.php:311
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:113
 #, fuzzy
 msgid "group"
 msgstr "hópur"
@@ -20538,18 +20538,27 @@ msgstr ""
 msgid "Mailing list"
 msgstr "Undiralbúmalisti"
 
-#: npgCore/extensions/user_mailing_list.php:49
+#: npgCore/extensions/user_mailing_list.php:56
 #, fuzzy
 msgid "Un-subscribed users"
 msgstr "Gerast áskrifandi:"
 
-#: npgCore/extensions/user_mailing_list.php:51
+#: npgCore/extensions/user_mailing_list.php:58
 msgid ""
 "Users who have unsubscribed from the mailing list are checked. Un-check to re-"
 "subscribe the user."
 msgstr ""
 
-#: npgCore/extensions/user_mailing_list.php:72
+#: npgCore/extensions/user_mailing_list.php:60
+#, fuzzy
+msgid "Excluded groups"
+msgstr "Síður"
+
+#: npgCore/extensions/user_mailing_list.php:62
+msgid "Check the groups you wish excluded from the mailing recipient list."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list.php:83
 #, fuzzy
 msgid "Opt-out of the mailing list"
 msgstr "Sannvotta notanda"
@@ -20566,7 +20575,7 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:42
 #, fuzzy
 msgid "Click to resubscribe"
-msgstr "Smelltu á myndina breyta hve mikið skal skera af smámyndinni."
+msgstr "Smelltu hér til að nýskrá þig."
 
 #: npgCore/extensions/user_mailing_list/subscription.php:54
 msgid "You are now subscribed to the site mailing list"
@@ -20575,14 +20584,14 @@ msgstr ""
 #: npgCore/extensions/user_mailing_list/subscription.php:59
 #, fuzzy
 msgid "Click to un-subscribe"
-msgstr "Smelltu hér til að nýskrá þig."
+msgstr "Smelltu á myndina breyta hve mikið skal skera af smámyndinni."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:29
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:30
 #, fuzzy
 msgid "User mailing list"
 msgstr "Sannvotta notanda"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:31
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:32
 #, fuzzy
 msgid ""
 "A tool to send e-mails to all registered users who have provided an e-mail "
@@ -20593,7 +20602,7 @@ msgstr ""
 "tölvupóstfang. Það er alltaf afrit send til núverandi stjórnanda og öll "
 "tölvupóstur er sendur sem <em>blindur eintak</em> ."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:38
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:39
 #, fuzzy
 msgid ""
 "<strong>Note: </strong>No <em>sendmail</em> filter is registered. You must "
@@ -20602,37 +20611,41 @@ msgstr ""
 "<strong>Ath .:</strong> Engin <em>sendmail</em> sía er skráð. Þú verður að "
 "virkja og stilla póstforrit."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:47
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:48
 #, fuzzy
 msgid "Mail sent"
 msgstr "Netfang:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:50
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:51
 #, fuzzy
 msgid "Please enter the message you want to send."
 msgstr "Vinsamlegast sláðu inn skilaboðin sem þú vilt senda."
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:56
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:57
 #, fuzzy
 msgid "Subject:"
 msgstr "Viðfangsefni<strong>%s</strong>:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:58
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:59
 #, fuzzy
 msgid "Message:"
 msgstr "Skilaboð<strong>%s</strong>:"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:65
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:66
 #, fuzzy
-msgid "Select users:"
+msgid "Select recipients :"
 msgstr "Veldu þemapersónuleika"
 
 #: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:68
 #, fuzzy
 msgid "all users"
-msgstr "Netfang:"
+msgstr "Breyta öllum albúmum í"
 
-#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:148
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:142
+msgid "Selecting a group will send the message to all members of the group."
+msgstr ""
+
+#: npgCore/extensions/user_mailing_list/user_mailing_listTab.php:169
 #, fuzzy
 msgid "Send mail"
 msgstr "Senda tölvupóst"
@@ -20645,7 +20658,7 @@ msgstr "Veitir leið til að leyfa notendum að velja myndastærðina til að sk
 #: npgCore/extensions/viewer_size_image.php:55
 #, fuzzy
 msgid "Image sizes allowed"
-msgstr "mynd"
+msgstr "Mynd"
 
 #: npgCore/extensions/viewer_size_image.php:57
 #, fuzzy
@@ -21082,7 +21095,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/admin-functions.php:518
 #, fuzzy, php-format
 msgid "Article <em>%s</em> updated"
-msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
+msgstr "<em>%s</em> er ekki til."
 
 #: npgCore/extensions/zenpage/admin-functions.php:573
 #, fuzzy
@@ -21152,7 +21165,7 @@ msgstr "%s (lækkandi)"
 #: npgCore/extensions/zenpage/admin-functions.php:756
 #, fuzzy
 msgid "Order by title ascending"
-msgstr "Röðun mynda vistuð"
+msgstr "Titill albúms"
 
 #: npgCore/extensions/zenpage/admin-functions.php:797
 #, fuzzy
@@ -21229,7 +21242,7 @@ msgstr "Eyða"
 #: npgCore/extensions/zenpage/admin-functions.php:1251
 #, fuzzy
 msgid "Untitled page"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1254
 #, fuzzy
@@ -21284,7 +21297,7 @@ msgstr[1] "<strong>% 1 $ u</strong> greinar (% 2 $ þú birtist ekki)"
 msgid "<strong>%1$u</strong> Category"
 msgid_plural "<strong>%1$u</strong> Categories"
 msgstr[0] "<strong>%u</strong> myndir"
-msgstr[1] "<strong>%u</strong> myndir"
+msgstr[1] "<strong>%u</strong> albúm"
 
 #: npgCore/extensions/zenpage/admin-functions.php:1362
 #, fuzzy, php-format
@@ -21377,7 +21390,7 @@ msgstr ""
 #, fuzzy
 #| msgid "There are no albums for you to edit."
 msgid "There are no categories for you to edit."
-msgstr "Flokkar: "
+msgstr "Það eru engin albúm til að breyta."
 
 #: npgCore/extensions/zenpage/deprecated-functions.php:18
 #, fuzzy
@@ -21421,7 +21434,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/edit.php:750
 #, fuzzy
 msgid "This is not a future date!"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: npgCore/extensions/zenpage/edit.php:196
 #: npgCore/extensions/zenpage/edit.php:273
@@ -21487,7 +21500,7 @@ msgstr "Breyta síðu"
 #: npgCore/extensions/zenpage/edit.php:308
 #, fuzzy
 msgid "(Page scheduled for publishing)"
-msgstr "Næsta síða"
+msgstr "síða %u"
 
 #: npgCore/extensions/zenpage/edit.php:311
 #, fuzzy
@@ -21643,7 +21656,7 @@ msgstr ""
 #: npgCore/extensions/zenpage/edit.php:524
 #, fuzzy
 msgid "Edit TitleLink"
-msgstr "Breyta albúmi"
+msgstr "breyta ummæli"
 
 #: npgCore/extensions/zenpage/edit.php:534
 #, fuzzy
@@ -21990,7 +22003,7 @@ msgstr "gagnagrunnur tengdur"
 #: npgCore/functions-db-NULL.php:95
 #, fuzzy
 msgid "No database"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/functions-db-NULL.php:103
 #, fuzzy
@@ -22443,7 +22456,7 @@ msgstr "Skoða allt"
 #: npgCore/lib-auth.php:782
 #, fuzzy
 msgid "Post comments"
-msgstr "Ummæli: %d"
+msgstr "Ummæli:"
 
 #: npgCore/lib-auth.php:718 npgCore/lib-auth.php:738
 msgid "Manage all albums"
@@ -23014,12 +23027,12 @@ msgstr "Notaðu% 1 $ ux% 2 $ u%3$s smámyndina."
 #: npgCore/lib-image.php:242
 #, fuzzy, php-format
 msgid "Image %s not renderable (imageGet)."
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/lib-image.php:249
 #, fuzzy, php-format
 msgid "Image %s not rotatable."
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/lib-image.php:292
 #, fuzzy, php-format
@@ -23029,12 +23042,12 @@ msgstr "<html> Óþekkt villa vinnsla %s! Vinsamlegast tilkynntu til"
 #: npgCore/lib-image.php:386 npgCore/lib-image.php:412
 #, fuzzy, php-format
 msgid "Image %s not renderable (resample)."
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/lib-image.php:416
 #, fuzzy, php-format
 msgid "Image %s not renderable (unsharp)."
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/lib-image.php:484
 #, fuzzy, php-format
@@ -23059,7 +23072,7 @@ msgstr "Vatnsmerkja hausmynd"
 #: npgCore/lib-image.php:554
 #, fuzzy, php-format
 msgid "Image %s not renderable (copycanvas)."
-msgstr "Skoða myndina: %s"
+msgstr "Skoða mynd: %s"
 
 #: npgCore/lib-utf8.php:47 npgCore/localeList.php:13
 #, fuzzy
@@ -23094,7 +23107,7 @@ msgstr "Japanska (JIS-Leyfa 1 bæti Kana)"
 #: npgCore/lib-utf8.php:53
 #, fuzzy
 msgid "Arabic (DOS)"
-msgstr "Arabíska (Írak)"
+msgstr "Arabíska (Barein)"
 
 #: npgCore/lib-utf8.php:54
 #, fuzzy
@@ -23219,7 +23232,7 @@ msgstr "Cyrillic (ISO)"
 #: npgCore/lib-utf8.php:78
 #, fuzzy
 msgid "Arabic (ISO)"
-msgstr "Arabíska (Barein)"
+msgstr "Arabíska (Írak)"
 
 #: npgCore/lib-utf8.php:79
 #, fuzzy
@@ -23755,19 +23768,19 @@ msgstr "Katalónska"
 #, fuzzy
 #| msgid "Spanish (Spain)"
 msgid "Catalan (Spain)"
-msgstr "Spænska (Spánn)"
+msgstr "Katalónska"
 
 #: npgCore/localeList.php:83
 #, fuzzy
 #| msgid "French (France)"
 msgid "Catalan (France)"
-msgstr "Franska (Frakkland)"
+msgstr "Katalónska"
 
 #: npgCore/localeList.php:84
 #, fuzzy
 #| msgid "Italian (Italy)"
 msgid "Catalan (Italy)"
-msgstr "Ítalska (Ítalía)"
+msgstr "Katalónska"
 
 #: npgCore/localeList.php:85
 #, fuzzy
@@ -24111,7 +24124,7 @@ msgstr "Ítalska (Sviss)"
 #, fuzzy
 #| msgid "English (Canada)"
 msgid "English (Cook Islands)"
-msgstr "Enska (Bretland)"
+msgstr "Enska (Filipseyjar)"
 
 #: npgCore/localeList.php:151
 #, fuzzy
@@ -24141,7 +24154,7 @@ msgstr "Þýska (Þýskaland)"
 #, fuzzy
 #| msgid "English (South Africa)"
 msgid "English (Diego Garcia)"
-msgstr "Enska (Bretland)"
+msgstr "Enska (Filipseyjar)"
 
 #: npgCore/localeList.php:156
 #, fuzzy
@@ -24485,7 +24498,7 @@ msgstr "Enska (Ástralía)"
 #, fuzzy
 #| msgid "English (India)"
 msgid "English (St. Helena)"
-msgstr "Enska (Bretland)"
+msgstr "Enska (Filipseyjar)"
 
 #: npgCore/localeList.php:215
 #, fuzzy
@@ -24497,7 +24510,7 @@ msgstr "Enska (Simbabve)"
 #, fuzzy
 #| msgid "English (New Zealand)"
 msgid "English (Sierra Leone)"
-msgstr "Enska (Bretland)"
+msgstr "Enska (Filipseyjar)"
 
 #: npgCore/localeList.php:217
 #, fuzzy
@@ -24509,7 +24522,7 @@ msgstr "Enska (Suður-Afríka)"
 #, fuzzy
 #| msgid "English (United States)"
 msgid "English (Sint Maarten)"
-msgstr "Enska (Bretland)"
+msgstr "Enska (Filipseyjar)"
 
 #: npgCore/localeList.php:219
 #, fuzzy
@@ -25179,7 +25192,7 @@ msgstr "Þýska (Sviss)"
 #, fuzzy
 #| msgid "German (Germany)"
 msgid "Swiss German (France)"
-msgstr "Þýska (Austurríki)"
+msgstr "Franska (Frakkland)"
 
 #: npgCore/localeList.php:345
 #, fuzzy
@@ -26695,7 +26708,7 @@ msgstr "Serbneska (latína, Bosnía og Hersegóvína)"
 #: npgCore/localeList.php:637
 #, fuzzy
 msgid "Serbian (Latin, Montenegro)"
-msgstr "Spænska (Rómanska Ameríka)"
+msgstr "Serbneska"
 
 #: npgCore/localeList.php:638
 #, fuzzy
@@ -27247,7 +27260,7 @@ msgstr "Sannvotta notanda"
 #: npgCore/page_error.php:33
 #, fuzzy
 msgid "Request Time-out"
-msgstr "Dagsetning/tími:"
+msgstr "Úr fókus"
 
 #: npgCore/page_error.php:36
 #, fuzzy
@@ -27559,7 +27572,7 @@ msgstr "Uppsetning kex próf misheppnaður"
 #: npgCore/setup/index.php:465
 #, fuzzy
 msgid "Post of Database credentials"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/setup/index.php:470
 #, fuzzy
@@ -28789,7 +28802,7 @@ msgstr "gagnagrunnur tengdur"
 #: npgCore/setup/index.php:1669
 #, fuzzy
 msgid "Database update"
-msgstr "Síðast uppfært: %s"
+msgstr "uppfæra"
 
 #: npgCore/setup/index.php:1674
 #, fuzzy
@@ -28803,7 +28816,7 @@ msgstr ""
 #: npgCore/setup/index.php:1676
 #, fuzzy
 msgid "Database structure updated."
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/setup/index.php:1678
 #, fuzzy
@@ -28994,7 +29007,7 @@ msgstr ""
 #: npgCore/setup/setup-functions.php:317
 #, fuzzy, php-format
 msgid "<em>%1$s</em> folder%2$s"
-msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
+msgstr "Núgildandi sorterun: <em>%1$s%2$s</em>. "
 
 #: npgCore/setup/setup-functions.php:357 npgCore/setup/setup-functions.php:371
 #, fuzzy
@@ -29128,12 +29141,12 @@ msgstr "Nýskráðir og staðfestir notendur"
 #: npgCore/setup/setup-option-defaults.php:659
 #, fuzzy
 msgid "Theme setup:"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: npgCore/setup/setup-option-defaults.php:693
 #, fuzzy, php-format
 msgid "Copyright %1$u  : %2$s "
-msgstr "Albúm %1$u-%2$u af %3$u"
+msgstr "Mynd %1$u af %2$u"
 
 #: npgCore/setup/setup-option-defaults.php:732
 #, fuzzy
@@ -29192,7 +29205,7 @@ msgstr ""
 #: npgCore/setup/setup-option-defaults.php:980
 #, fuzzy, php-format
 msgid "New themes: <em>%1$s</em>"
-msgstr "<em>%s</em> fannst ekki"
+msgstr "Núgildandi sorterun: <em>%1$s%2$s</em>. "
 
 #: npgCore/setup/setup-option-defaults.php:983
 #, fuzzy, php-format
@@ -29211,7 +29224,7 @@ msgstr ""
 #: npgCore/setup/setup-sqlform.php:49
 #, fuzzy
 msgid "Database engine"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/setup/setup-sqlform.php:66
 #, fuzzy, php-format
@@ -29231,7 +29244,7 @@ msgstr "Vísbending aðgangsorðs:"
 #: npgCore/setup/setup-sqlform.php:86
 #, fuzzy
 msgid "Database host"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/setup/setup-sqlform.php:90
 #, fuzzy
@@ -29241,7 +29254,7 @@ msgstr "Íþrótt"
 #: npgCore/setup/setup-sqlform.php:95
 #, fuzzy
 msgid "Database socket"
-msgstr "Sannvotta notanda"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/setup/setup-sqlform.php:100
 #, fuzzy
@@ -29351,7 +29364,7 @@ msgstr "Þinn prófíll"
 #, fuzzy
 #| msgid "images"
 msgid "My images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: npgCore/template-functions.php:181
 #: plugins/zenphotoCompatibilityPack/legacyConverter.php:203
@@ -29566,7 +29579,7 @@ msgstr[1] "öryggisafrit lokið með <em>%1$s (%2$s)</em> samþjöppun"
 #, fuzzy, php-format
 msgid "%1$s table backed up"
 msgid_plural "%1$s tables backed up."
-msgstr[0] "Endurnýjun gagnagrunns lokið"
+msgstr[0] "Töfluforskeyti: <strong>%1$s</strong>"
 msgstr[1] "Endurnýjun gagnagrunns lokið"
 
 #: npgCore/utilities/backup_restore.php:263
@@ -29657,7 +29670,7 @@ msgstr "Endurheimtu lokið með %s samþjöppun"
 #: npgCore/utilities/backup_restore.php:565
 #, fuzzy
 msgid "Restore your Database"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/utilities/backup_restore.php:567
 #, fuzzy
@@ -29682,7 +29695,7 @@ msgstr "Töfluforskeyti: <strong>%1$s</strong>"
 #: npgCore/utilities/backup_restore.php:592
 #, fuzzy
 msgid "Database backup"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/utilities/backup_restore.php:595
 #, fuzzy
@@ -29693,12 +29706,12 @@ msgstr "Þjöppunarstig"
 #, fuzzy
 #| msgid "Select the colors of the theme"
 msgid "Select the tables to backup."
-msgstr "Veldu liti þemans"
+msgstr "Veldu þemapersónuleika"
 
 #: npgCore/utilities/backup_restore.php:633
 #, fuzzy
 msgid "Backup the Database"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/utilities/backup_restore.php:639
 #, fuzzy, php-format
@@ -29775,7 +29788,7 @@ msgstr ""
 #: npgCore/utilities/database_reference.php:52
 #, fuzzy
 msgid "Database quick reference"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: npgCore/utilities/database_reference.php:55
 #, fuzzy
@@ -29846,7 +29859,7 @@ msgstr "mest skoðað"
 #: npgCore/utilities/gallery_statistics.php:609
 #, fuzzy
 msgid "most rated"
-msgstr "10 nýjustu ummælin"
+msgstr "nýjustu"
 
 #: npgCore/utilities/gallery_statistics.php:186
 #: npgCore/utilities/gallery_statistics.php:575
@@ -29990,7 +30003,7 @@ msgstr "<strong>% 1 $ u</strong> fréttagreinar (% 2 $ þú birtist ekki)"
 #: npgCore/utilities/gallery_statistics.php:553
 #, fuzzy, php-format
 msgid "<strong>%1$u</strong> Categories"
-msgstr "<strong>%u</strong> myndir"
+msgstr "<strong>%u</strong> albúm"
 
 #: npgCore/utilities/gallery_statistics.php:558
 #, fuzzy, php-format
@@ -30349,7 +30362,7 @@ msgstr "Vefsíða:"
 #: plugins/MyBB_auth.php:109
 #, fuzzy
 msgid "MyBB database host"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: plugins/MyBB_auth.php:111
 msgid "The host where the MyBB database server resides."
@@ -30358,7 +30371,7 @@ msgstr ""
 #: plugins/MyBB_auth.php:112
 #, fuzzy
 msgid "MyBB database"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: plugins/MyBB_auth.php:114
 #, fuzzy
@@ -30617,7 +30630,7 @@ msgstr "Veldu gagnagrunninn endurheimt skrá:"
 #: plugins/database_template.php:24
 #, fuzzy
 msgid "Database Template"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: plugins/database_template.php:28
 #, fuzzy
@@ -30631,12 +30644,12 @@ msgstr ""
 #: plugins/database_template/database.php:134
 #, fuzzy
 msgid "Database template created"
-msgstr "Endurnýjun gagnagrunns lokið"
+msgstr "<strong>gagnagrunnsvilla</strong> "
 
 #: plugins/debugSearch.php:15
 #, fuzzy
 msgid "Search debug tool."
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: plugins/demoplugin/image_effects.php:61
 #, fuzzy
@@ -30674,7 +30687,7 @@ msgstr "<strong>Villa:</strong> <em> %s</em> gildi er ekki lengur til."
 #: plugins/demoplugin/image_effects.php:135
 #, fuzzy
 msgid "Images (standard)"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: plugins/demoplugin/image_effects.php:138
 #, fuzzy
@@ -30699,7 +30712,7 @@ msgstr ""
 #: plugins/demoplugin/image_effects.php:143
 #, fuzzy
 msgid "Image thumbnails (standard)"
-msgstr "mynd"
+msgstr "Mynd"
 
 #: plugins/demoplugin/image_effects.php:146
 #, fuzzy
@@ -31016,7 +31029,7 @@ msgstr "Sýna þema fyrir:"
 #, fuzzy
 #| msgid "Enter your search criteria."
 msgid "Keyword search redirector."
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: plugins/keywordRedirector.php:29
 #, fuzzy
@@ -31026,7 +31039,7 @@ msgstr "PHP EXIF ​​viðbótin er krafist fyrir þennan valkost."
 #: plugins/keywordRedirector.php:47
 #, fuzzy
 msgid "Search redirect keywords"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: plugins/keywordRedirector.php:49
 msgid ""
@@ -31049,7 +31062,7 @@ msgstr "Myndir"
 #: plugins/keywordRedirector.php:65
 #, fuzzy
 msgid "Search news"
-msgstr "Fréttir"
+msgstr "Leita"
 
 #: plugins/keywordRedirector.php:65 themes/garland/sidebar.php:17
 #: themes/spellflight/sidebar.php:17
@@ -31065,7 +31078,7 @@ msgstr "Þemalitir"
 #: plugins/localePropagate.php:17
 #, fuzzy
 msgid "Propegate language files."
-msgstr "ZenPhoto20 uppsetning"
+msgstr "Tungumál:"
 
 #: plugins/logQueries.php:17
 #, fuzzy
@@ -31358,7 +31371,7 @@ msgstr "Massa virkja / slökkva á viðbætur."
 #: plugins/pluginEnabler.php:31
 #, fuzzy
 msgid "Plugins » standard"
-msgstr "Íbætur veita aukna virkni í netPhotoGraphics."
+msgstr "íbætur"
 
 #: plugins/pluginEnabler.php:35
 #, fuzzy
@@ -31412,7 +31425,7 @@ msgstr "Slökktir á öllum viðbótum nema viðbótartæki."
 #: plugins/pluginEnabler/handler.php:22
 #, fuzzy
 msgid "Plugins disabled"
-msgstr "Íbætur veita aukna virkni í netPhotoGraphics."
+msgstr "íbætur"
 
 #: plugins/pluginEnabler/handler.php:25
 #, fuzzy
@@ -31611,7 +31624,7 @@ msgstr "Colorbox: Umskipti"
 #: plugins/slideshow2.php:185
 #, fuzzy
 msgid "Colorbox: Image type"
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: plugins/slideshow2.php:193
 #, fuzzy
@@ -32027,7 +32040,7 @@ msgstr "%s myndir"
 #: themes/zenFluid/search.php:107 themes/zenpage/search.php:135
 #, fuzzy, php-format
 msgid "Albums (%s)"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: themes/ardoise/search.php:55 themes/basic/search.php:152
 #: themes/bootstrap/search.php:72 themes/effervescence+/search.php:223
@@ -32897,7 +32910,7 @@ msgstr "Skoða albúmið: %s"
 #: themes/netphotographics/functions.php:360
 #, fuzzy
 msgid "The image is marked not visible."
-msgstr "Fyrri mynd"
+msgstr "Eyða mynd"
 
 #: themes/effervescence+/functions.php:364
 #: themes/netphotographics/functions.php:364
@@ -32980,7 +32993,7 @@ msgstr "Leita"
 #, fuzzy, php-format
 msgid "Search album: %s"
 msgid_plural "Search albums: %s"
-msgstr[0] "Skoða albúmið: %s"
+msgstr[0] "Breyta þessu albúmi: %s"
 msgstr[1] "Albúm"
 
 #: themes/effervescence+/search.php:117 themes/netphotographics/search.php:117
@@ -33273,12 +33286,12 @@ msgstr "Vísbending: %s"
 #: themes/enlighten/search.php:127
 #, fuzzy, php-format
 msgid "%s "
-msgstr "skera %s"
+msgstr "%s pixlar"
 
 #: themes/enlighten/search.php:130
 #, fuzzy, php-format
 msgid "%1$s "
-msgstr "Nafn gagnagrunns: <strong>%1$s</strong>"
+msgstr "<em>%1$s</em> gerði atugasemd um %2$s:"
 
 #: themes/enlighten/sidebar.php:46
 #, fuzzy
@@ -33359,19 +33372,19 @@ msgstr "Skoða albúmið: %s"
 #: themes/spellflight/album.php:103 themes/spellflight/favorites.php:115
 #, fuzzy
 msgid "Album Navigation"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: themes/garland/album.php:108 themes/garland/favorites.php:120
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
 #, fuzzy
 msgid "Next album"
-msgstr "Næsta mynd"
+msgstr "Næsta síða"
 
 #: themes/garland/album.php:108 themes/garland/favorites.php:120
 #: themes/spellflight/album.php:108 themes/spellflight/favorites.php:120
 #, fuzzy
 msgid "Next album »"
-msgstr "Næsta mynd"
+msgstr "Næsta síða"
 
 #: themes/garland/album.php:116 themes/garland/favorites.php:128
 #: themes/spellflight/album.php:116 themes/spellflight/favorites.php:128
@@ -33413,7 +33426,7 @@ msgstr "Sjálfgefin sýnileg stærð mynda."
 #: themes/spellflight/main.php:58
 #, fuzzy
 msgid "Latest Images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: themes/garland/image.php:122 themes/garland/summary.php:53
 #: themes/spellflight/image.php:122 themes/spellflight/summary.php:53
@@ -33494,7 +33507,7 @@ msgstr ""
 #: themes/masonry/404.php:4
 #, fuzzy
 msgid "404 error"
-msgstr "Það kom upp villa við innskráninu."
+msgstr "Villa!"
 
 #: themes/masonry/album.php:16 themes/masonry/favorites.php:18
 #, fuzzy
@@ -33547,12 +33560,12 @@ msgstr "Einkamál ummæli (ekki birta)"
 #: themes/masonry/functions.php:213 themes/masonry/inc-header.php:120
 #, fuzzy
 msgid "Latest Albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: themes/masonry/functions.php:218
 #, fuzzy
 msgid "Latest Updated Albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: themes/masonry/functions.php:223
 #, fuzzy
@@ -33562,7 +33575,7 @@ msgstr "Albúm"
 #: themes/masonry/functions.php:228
 #, fuzzy
 msgid "Top Rated Albums"
-msgstr "Albúmayfirlit"
+msgstr "Skoða allt"
 
 #: themes/masonry/functions.php:248
 #, fuzzy
@@ -33577,7 +33590,7 @@ msgstr "10 nýjustu ummælin"
 #: themes/masonry/functions.php:258
 #, fuzzy
 msgid "Top Rated Images"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: themes/masonry/functions.php:263
 #, fuzzy
@@ -33587,7 +33600,7 @@ msgstr "Myndir af handahófi"
 #: themes/masonry/functions.php:282
 #, fuzzy
 msgid "Search Result"
-msgstr "Leyfa leit"
+msgstr "Leitarskilyrði:"
 
 #: themes/masonry/image.php:26 themes/minimal/image.php:44
 #, fuzzy
@@ -33613,14 +33626,14 @@ msgstr "Síður"
 #: themes/masonry/inc-header.php:169
 #, fuzzy
 msgid "image {current} of {total}"
-msgstr "mynd"
+msgstr "Mynd"
 
 #: themes/masonry/inc-header.php:38 themes/masonry/inc-header.php:52
 #: themes/masonry/inc-header.php:127 themes/masonry/inc-header.php:131
 #: themes/masonry/news.php:23
 #, fuzzy
 msgid "Latest Comments"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: themes/masonry/inc-header.php:102 themes/minimal/inc-header.php:103
 #, fuzzy
@@ -33640,12 +33653,12 @@ msgstr "Albúm"
 #: themes/masonry/inc-menu.php:15
 #, fuzzy
 msgid "Comments of this Album"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: themes/masonry/inc-menu.php:18
 #, fuzzy
 msgid "Comments of this Image"
-msgstr "Ummæli: %d"
+msgstr "Leyfa ummæli"
 
 #: themes/masonry/index.php:11
 #, fuzzy
@@ -33655,7 +33668,7 @@ msgstr "Velkomin(n)"
 #: themes/masonry/index.php:61 themes/minimal/index.php:56
 #, fuzzy
 msgid "No Images Exist..."
-msgstr "Myndir eftir dagsetningu"
+msgstr "Sýna myndir eftir:"
 
 #: themes/masonry/news.php:92 themes/zenFluid/image.php:140
 #, fuzzy
@@ -33981,7 +33994,7 @@ msgstr "Gerast áskrifandi:"
 #: themes/minimal/inc-footer.php:11
 #, fuzzy
 msgid "This Album"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: themes/minimal/inc-footer.php:13
 #, fuzzy
@@ -34145,7 +34158,7 @@ msgstr[1] "Albúm"
 #, fuzzy, php-format
 msgid "%d image"
 msgid_plural "%d images"
-msgstr[0] "mynd"
+msgstr[0] "Mynd"
 msgstr[1] "Myndir"
 
 #: themes/mobile/image.php:54 themes/npgmobile/image.php:54
@@ -34227,7 +34240,7 @@ msgstr ""
 #: themes/paradigm/credits.php:35
 #, fuzzy
 msgid "Theme used:"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: themes/paradigm/image.php:67
 #, fuzzy
@@ -34327,7 +34340,7 @@ msgstr "Nýjasta með auðkenni"
 #: themes/paradigm/themeoptions.php:78
 #, fuzzy
 msgid "Latest by Date"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: themes/paradigm/themeoptions.php:79
 #, fuzzy
@@ -34337,12 +34350,12 @@ msgstr "Nýjasta af mtime"
 #: themes/paradigm/themeoptions.php:80
 #, fuzzy
 msgid "Latest by Publish Date"
-msgstr "Myndir eftir dagsetningu"
+msgstr "Dagsetning/tími:"
 
 #: themes/paradigm/themeoptions.php:81
 #, fuzzy
 msgid "Most Rated"
-msgstr "10 nýjustu ummælin"
+msgstr "nýjustu"
 
 #: themes/paradigm/themeoptions.php:82
 #, fuzzy
@@ -34358,7 +34371,7 @@ msgstr "Veldu hvernig myndirnar verða valdar fyrir heimasíðu skyggnusýningun
 #, fuzzy
 #| msgid "Album theme:"
 msgid "Album to choose from"
-msgstr "Skoða albúm:"
+msgstr "Titill albúms"
 
 #: themes/paradigm/themeoptions.php:90
 #, fuzzy
@@ -34602,7 +34615,7 @@ msgstr "ZenPhoto20 sem þú baðst um fannst ekki."
 #: themes/zenFluid/404.php:24
 #, fuzzy
 msgid "Theme page"
-msgstr "Þemalitir"
+msgstr "Núgildandi þema"
 
 #: themes/zenFluid/album.php:37 themes/zenFluid/album.php:73
 #: themes/zenFluid/search.php:115 themes/zenFluid/search.php:151
@@ -34954,7 +34967,7 @@ msgstr "Titill albúms"
 #, fuzzy
 #| msgid "Description"
 msgid "Description position"
-msgstr "Lýsing albúms:"
+msgstr "Lýsing:"
 
 #: themes/zenFluid/themeoptions.php:232
 #, fuzzy
@@ -34975,7 +34988,7 @@ msgstr "Veldu stöðu hnappa undir myndinni"
 #: themes/zenFluid/themeoptions.php:241
 #, fuzzy
 msgid "Comment position"
-msgstr "Skrifa ummæli"
+msgstr "Skrifa ummæli:"
 
 #: themes/zenFluid/themeoptions.php:246
 #, fuzzy
@@ -35097,6 +35110,10 @@ msgstr ""
 "það er gert kleift að búa til sérsniðna valmynd í stað sérstakra staðlaðra. "
 "Stöðluð valmynd sem heitir &quot;zenpage&quot; er búið til og notað "
 "sjálfkrafa."
+
+#, fuzzy
+#~ msgid "Select users:"
+#~ msgstr "Veldu þemapersónuleika"
 
 #, fuzzy
 #~ msgid "PHP Safe Mode Restrictions in effect!"
