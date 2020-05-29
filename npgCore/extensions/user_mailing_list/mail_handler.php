@@ -26,17 +26,38 @@ if (isset($_POST['message'])) {
 }
 
 $toList = $bccList = array();
-$admins = $_authority->getAdministrators();
-$admincount = count($admins);
-foreach ($admins as $admin) {
-	if (isset($_POST["admin_" . $admin['id']])) {
+$admins = $_POST['mailto'];
+$adminlist = $_authority->getAdministrators('all');
+$unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
+
+foreach ($admins as $adminid) {
+	$admin = $adminlist[$adminid];
+	if ($admin['valid']) { //	is a user
 		if ($admin['name']) {
 			$bccList[$admin['name']] = $admin['email'];
 		} else {
 			$bccList[] = $admin['email'];
 		}
+	} else {
+		if ($admin['name'] == 'group') {
+			$group = $admin['user'];
+			foreach ($adminlist as $member) {
+				if ($member['group'] == $group && $member['email']) {
+					$subscribed = !in_array($member['user'], $unsubscribe_list);
+					if ($subscribed) {
+						if ($member['name']) {
+							$bccList[$member['name']] = $member['email'];
+						} else {
+							$bccList[] = $member['email'];
+						}
+					}
+				}
+			}
+		}
 	}
 }
+$bccList = array_unique($bccList);
+
 $currentadminmail = $_current_admin_obj->getEmail();
 if (!empty($currentadminmail)) {
 	$name = $_current_admin_obj->getName();

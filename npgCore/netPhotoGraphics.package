@@ -768,7 +768,6 @@ plugins/headConsolidator.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
 plugins/pluginEnabler.php
-plugins/showNoUserRights.php
 plugins/titlelinkMigration/
 plugins/titlelinkMigration/migrate.php
 plugins/titlelinkMigration.php
@@ -7910,6 +7909,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/user_groups/user_groups-tab.php
 %extensions%/user_mailing_list
 %extensions%/user_mailing_list/mail_handler.php
+%extensions%/user_mailing_list/subscription.php
 %extensions%/user_mailing_list/user_mailing_listTab.php
 %extensions%/VideoJS
 %extensions%/VideoJS/video-js.css

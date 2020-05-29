@@ -2359,14 +2359,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -3100,7 +3100,14 @@ class npgFunctions {
 					$form = file_get_contents($formFile);
 					$form = preg_replace('~\<\!--.*--\>~mUs', '', $form);
 					if (preg_match('~\<div id\=\"emailbody\".*\>(.*)\</div\>~mUs', $form, $matches)) {
-						$form = strtr($form, array('%WEBPATH%' => FULLWEBPATH, '%LOGO%' => $_gallery->getSiteLogo(FULLWEBPATH)));
+						$form = strtr($form, array(
+								'%WEBPATH%' => FULLWEBPATH,
+								'%CORE_PATH%' => CORE_PATH,
+								'%PLUGIN_PATH%' => PLUGIN_PATH,
+								'%USER_PLUGIN_PATH%' => USER_PLUGIN_PATH,
+								'%RW_SUFFIX%' => RW_SUFFIX,
+								'%LOGO%' => $_gallery->getSiteLogo(FULLWEBPATH)
+						));
 						$message = str_replace($matches[1], $message, $form);
 					}
 				}

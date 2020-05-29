@@ -31,13 +31,8 @@ define('SCRIPTPATH', str_replace('\\', '/', dirname(__DIR__)));
 define('CORE_PATH', 'npg');
 define('PLUGIN_PATH', 'extensions');
 define('USER_PLUGIN_PATH', 'extensions');
-
 define('CORE_FOLDER', basename(__DIR__));
-if (strpos(CORE_FOLDER, 'zp-') === false) {
-	define('PLUGIN_FOLDER', PLUGIN_PATH);
-} else {
-	define('PLUGIN_FOLDER', 'zp-extensions');
-}
+define('PLUGIN_FOLDER', PLUGIN_PATH);
 define('COMMON_FOLDER', PLUGIN_FOLDER . '/common');
 define('USER_PLUGIN_FOLDER', 'plugins');
 define('ALBUMFOLDER', 'albums');

@@ -12,10 +12,13 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-$admins = $_authority->getAdministrators();
+$admins = $_authority->getAdministrators('all');
+$admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
+$unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
+$exclude_list = getSerializedArray(getOption('user_mailing_list_excluded'));
 
 printAdminHeader('admin', 'Mailing');
-npgFilters::apply('texteditor_config', 'photo');
+npgFilters::apply('texteditor_config', 'forms');
 ?>
 </head>
 <body>
@@ -29,7 +32,7 @@ npgFilters::apply('texteditor_config', 'photo');
 				<p><?php echo gettext("A tool to send e-mails to all registered users who have provided an e-mail address. There is always a copy sent to the current admin and all e-mails are sent as <em>blind copies</em>."); ?></p>
 				<?php
 				if (!npgFilters::has_filter('sendmail')) {
-					$disabled = ' disabled="disabled"';
+					$disableForm = ' disabled="disabled"';
 					?>
 					<p class="notebox">
 						<?php
@@ -38,7 +41,7 @@ npgFilters::apply('texteditor_config', 'photo');
 					</p>
 					<?php
 				} else {
-					$disabled = '';
+					$disableForm = '';
 				}
 				?>
 				<p id="sent" class="messagebox" style="display:none;">
@@ -52,46 +55,92 @@ npgFilters::apply('texteditor_config', 'photo');
 
 					<div class="floatleft">
 						<labelfor="subject"><?php echo gettext('Subject:'); ?></label><br />
-							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disabled; ?> /><br /><br />
+							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disableForm; ?> /><br /><br />
 							<label for="message"><?php echo gettext('Message:'); ?></label><br />
-							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="10"<?php echo $disabled; ?> ></textarea>
+							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="20"<?php echo $disableForm; ?> ></textarea>
 					</div>
 
 					<div class="floatleft">
 
 						<div>
-							<?php echo gettext('Select users:'); ?>
-
+							<?php echo gettext('Select recipients :'); ?>
 							<span class="floatright">
-								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all'); ?>
+								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all users'); ?>
 							</span>
 						</div>
-						<ul class="unindentedchecklist" style="height: 205px; width: 30em; padding:5px;">
+						<ul class="unindentedchecklist" style="height: 300px; width: 35em; padding:5px;">
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
+							$switched = FALSE;
 							foreach ($admins as $admin) {
-								if (!empty($admin['email']) && $currentadminuser != $admin['user']) {
-									?>
-									<li>
-										<label for="admin_<?php echo $admin['id']; ?>">
-											<input class="anuser ignoredirty" name="admin_<?php echo $admin['id']; ?>" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo html_encode($admin['email']); ?>" checked="checked"  <?php echo $disabled; ?>/>
-											<?php
-											echo $admin['user'] . " (";
-											if (!empty($admin['name'])) {
-												echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
-											} else {
-												echo $admin['email'];
-											}
-											echo ")";
+								if ($admin['valid']) {
+									if (!empty($admin['email']) && $currentadminuser != $admin['user']) {
+										$subscribed = !in_array($admin['user'], $unsubscribe_list);
+										if ($switched) {
+											$switched = FALSE;
 											?>
-										</label>
-									</li>
-									<?php
+											<li>
+												<strong><?php echo gettext('Users'); ?></strong>
+											</li>
+											<?php
+										}
+										?>
+										<li>
+											<label for="admin_<?php echo $admin['id']; ?>">
+												<?php
+												if ($subscribed) {
+													?>
+													<input class="anuser ignoredirty" name="mailto[]" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo $admin['id']; ?>" checked="checked" />
+													<?php
+												} else {
+													?>
+													<span class="icons" style="padding-left: 2px;padding-right: 1px;">
+														<?php
+														echo CROSS_MARK_RED;
+														?>
+													</span>
+													<?php
+												}
+												echo $admin['user'] . " (";
+												if (!empty($admin['name'])) {
+													echo '"' . $admin['name'] . '" &lt;' . $admin['email'] . '&gt;';
+												} else {
+													echo $admin['email'];
+												}
+												echo ")";
+												?>
+											</label>
+										</li>
+										<?php
+									}
+								} else {
+									if ($admin['name'] == 'group') {
+										if (!in_array($admin['user'], $exclude_list)) {
+											if (!$switched) {
+												$switched = TRUE;
+												?>
+												<li>
+													<strong><?php echo gettext('Groups'); ?></strong>
+												</li>
+												<?php
+											}
+											?>
+											<li>
+												<label for="admin_<?php echo $admin['id']; ?>">
+													<input class= ignoredirty" name="mailto[]" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo $admin['id']; ?>" />
+													<em><?php echo $admin['user']; ?></em>
+												</label>
+											</li>
+											<?php
+										}
+									}
 								}
 							}
 							?>
 						</ul>
-
+						<p class="notebox">
+							<?php echo gettext('Selecting a group will send the message to all members of the group.'); ?>
+						</p>
 					</div>
 					<br class="clearall" />
 					<script type="text/javascript">
@@ -117,8 +166,8 @@ if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {
 					</script>
 					<p>
 						<?php
-						applyButton(array('buttonText' => CHECKMARK_GREEN . '	' . gettext("Send mail")));
-						resetButton();
+						applyButton(array('buttonText' => CHECKMARK_GREEN . '	' . gettext("Send mail"), 'disabled' => $disableForm));
+						resetButton(array('disabled' => $disableForm));
 						?>
 					</p>
 					<br style="clear: both" />
