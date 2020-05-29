@@ -57,19 +57,18 @@ npgFilters::apply('texteditor_config', 'forms');
 						<labelfor="subject"><?php echo gettext('Subject:'); ?></label><br />
 							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disableForm; ?> /><br /><br />
 							<label for="message"><?php echo gettext('Message:'); ?></label><br />
-							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="10"<?php echo $disableForm; ?> ></textarea>
+							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="20"<?php echo $disableForm; ?> ></textarea>
 					</div>
 
 					<div class="floatleft">
 
 						<div>
 							<?php echo gettext('Select recipients :'); ?>
-
 							<span class="floatright">
 								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all users'); ?>
 							</span>
 						</div>
-						<ul class="unindentedchecklist" style="height: 205px; width: 35em; padding:5px;">
+						<ul class="unindentedchecklist" style="height: 300px; width: 35em; padding:5px;">
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
 							$switched = FALSE;
