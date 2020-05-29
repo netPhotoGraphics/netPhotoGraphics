@@ -57,7 +57,7 @@ class user_mailing_list {
 						'checkboxes' => $list,
 						'desc' => gettext('Users who have unsubscribed from the mailing list are checked. Un-check to re-subscribe the user.')
 				),
-				gettext('Un-subscribed groups') => array('key' => 'user_mailing_list_excluded', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
+				gettext('Excluded groups') => array('key' => 'user_mailing_list_excluded', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
 						'checkboxes' => $groups,
 						'desc' => gettext('Check the groups you wish excluded from the mailing recipient list.')
 				)
