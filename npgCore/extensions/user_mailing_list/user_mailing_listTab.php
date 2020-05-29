@@ -15,6 +15,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 $admins = $_authority->getAdministrators('all');
 $admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
+$exclude_list = getSerializedArray(getOption('user_mailing_list_excluded'));
 
 printAdminHeader('admin', 'Mailing');
 npgFilters::apply('texteditor_config', 'forms');
@@ -62,19 +63,28 @@ npgFilters::apply('texteditor_config', 'forms');
 					<div class="floatleft">
 
 						<div>
-							<?php echo gettext('Select users:'); ?>
+							<?php echo gettext('Select recipients :'); ?>
 
 							<span class="floatright">
 								<input type="checkbox" class="ignoredirty" checked="checked" onclick="$('.anuser').prop('checked', $(this).prop('checked'))"/><?php echo gettext('all users'); ?>
 							</span>
 						</div>
-						<ul class="unindentedchecklist" style="height: 205px; width: 30em; padding:5px;">
+						<ul class="unindentedchecklist" style="height: 205px; width: 35em; padding:5px;">
 							<?php
 							$currentadminuser = $_current_admin_obj->getUser();
+							$switched = FALSE;
 							foreach ($admins as $admin) {
 								if ($admin['valid']) {
 									if (!empty($admin['email']) && $currentadminuser != $admin['user']) {
 										$subscribed = !in_array($admin['user'], $unsubscribe_list);
+										if ($switched) {
+											$switched = FALSE;
+											?>
+											<li>
+												<strong><?php echo gettext('Users'); ?></strong>
+											</li>
+											<?php
+										}
 										?>
 										<li>
 											<label for="admin_<?php echo $admin['id']; ?>">
@@ -106,20 +116,32 @@ npgFilters::apply('texteditor_config', 'forms');
 									}
 								} else {
 									if ($admin['name'] == 'group') {
-										?>
-										<li>
-											<label for="admin_<?php echo $admin['id']; ?>">
-												<input class= ignoredirty" name="mailto[]" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo $admin['id']; ?>" />
-												<?php echo $admin['user'] . " {<em>" . gettext('group') . '</em>}'; ?>
-											</label>
-										</li>
-										<?php
+										if (!in_array($admin['user'], $exclude_list)) {
+											if (!$switched) {
+												$switched = TRUE;
+												?>
+												<li>
+													<strong><?php echo gettext('Groups'); ?></strong>
+												</li>
+												<?php
+											}
+											?>
+											<li>
+												<label for="admin_<?php echo $admin['id']; ?>">
+													<input class= ignoredirty" name="mailto[]" id="admin_<?php echo $admin['id']; ?>" type="checkbox" value="<?php echo $admin['id']; ?>" />
+													<em><?php echo $admin['user']; ?></em>
+												</label>
+											</li>
+											<?php
+										}
 									}
 								}
 							}
 							?>
 						</ul>
-
+						<p class="notebox">
+							<?php echo gettext('Selecting a group will send the message to all members of the group.'); ?>
+						</p>
 					</div>
 					<br class="clearall" />
 					<script type="text/javascript">

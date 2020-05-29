@@ -37,18 +37,29 @@ class user_mailing_list {
 
 	function getOptionsSupported() {
 		global $_authority;
-		$admins = $_authority->getAdministrators();
-		$admins = sortMultiArray($admins, array('user'), false, TRUE, TRUE, TRUE);
-		$list = array();
+		$admins = $_authority->getAdministrators('all');
+		$admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
+		$groups = $list = array();
 		foreach ($admins as $key => $admin) {
-			if (!empty($admin['email'])) {
-				$list[] = $admin['user'];
+			if ($admin['valid']) {
+				if (!empty($admin['email'])) {
+					$list[] = $admin['user'];
+				}
+			} else {
+				if ($admin['name'] == 'group') {
+					$groups[] = $admin['user'];
+				}
 			}
 		}
+
 		$options = array(
 				gettext('Un-subscribed users') => array('key' => 'user_mailing_list_unsubscribed', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
 						'checkboxes' => $list,
 						'desc' => gettext('Users who have unsubscribed from the mailing list are checked. Un-check to re-subscribe the user.')
+				),
+				gettext('Un-subscribed groups') => array('key' => 'user_mailing_list_excluded', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
+						'checkboxes' => $groups,
+						'desc' => gettext('Check the groups you wish excluded from the mailing recipient list.')
 				)
 		);
 
