@@ -57,6 +57,7 @@ class _Authority {
 		}
 
 		$this->admin_all = $this->admin_groups = $this->admin_users = $this->admin_other = array();
+		$groups = extensionEnabled('user_groups');
 		$sql = 'SELECT * FROM ' . prefix('administrators') . ' ORDER BY `rights` DESC, `id`';
 		$admins = query($sql, false);
 		if ($admins) {
@@ -69,7 +70,11 @@ class _Authority {
 							$this->master_user = $user['user'];
 						break;
 					case 0:
-						$this->admin_groups[$user['id']] = $user;
+						if ($groups) {
+							$this->admin_groups[$user['id']] = $user;
+						} else {
+							unset($this->admin_all[$user['id']]);
+						}
 						break;
 					default:
 						$this->admin_other[$user['id']] = $user;
@@ -78,7 +83,6 @@ class _Authority {
 			}
 			db_free_result($admins);
 		}
-
 		$strongHash = (int) getOption('strong_hash');
 		$list = self::getHashList();
 		$list['default'] = 1000;
@@ -1577,7 +1581,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

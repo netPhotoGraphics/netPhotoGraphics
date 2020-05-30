@@ -56,12 +56,14 @@ class user_mailing_list {
 				gettext('Un-subscribed users') => array('key' => 'user_mailing_list_unsubscribed', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
 						'checkboxes' => $list,
 						'desc' => gettext('Users who have unsubscribed from the mailing list are checked. Un-check to re-subscribe the user.')
-				),
-				gettext('Excluded groups') => array('key' => 'user_mailing_list_excluded', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
-						'checkboxes' => $groups,
-						'desc' => gettext('Check the groups you wish excluded from the mailing recipient list.')
 				)
 		);
+		if (extensionEnabled("user_groups")) {
+			$options[gettext('Excluded groups')] = array('key' => 'user_mailing_list_excluded', 'type' => OPTION_TYPE_CHECKBOX_ARRAY_UL,
+					'checkboxes' => $groups,
+					'desc' => gettext('Check the groups you wish excluded from the mailing recipient list.')
+			);
+		}
 
 		return $options;
 	}
