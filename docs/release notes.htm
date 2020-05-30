@@ -82,7 +82,7 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.05.09</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.05.10</h2>
 <h2>General</h2>
 <p><strong>netPhotoGraphics</strong> is now compatible with PHP version 7.4.</p>
 <p>E-Mails sent by <strong>netPhotoGraphics</strong> are now HTML encoded. In addition, there is now a customizable e-mail "form" that will be used when sending the mails. The standard template is a simple form with the sites branding logo (or the <strong>netPhotoGraphic</strong> logo if none is defined), the body of the e-mail, and "--The Administrator" as a signature. You can view and edit this template on the new "forms" option tab. If you update the form it will be stored in the <em>plugins/forms</em> folder and not overridden on subsequent updates. </p>
@@ -101,6 +101,9 @@
 <h2><strong>panorama</strong></h2>
 <p>This is a new plugin to show panoramic images on your site. It is based on based on <a href="https://github.com/terrymun/paver"><strong>Paver</strong></a> by terrymun</p>
 <p>The plugin will display exceptionally wide images as a scrollable panorama. Images which fit into the image container will not be forced into panorama mode, so the function can replace <code>printDefaultSizedImage()</code> in your <em>image.php</em> script.</p>
+<h2><strong>user_mailing_list</strong></h2>
+<p>Users now have the ability to opt-out of the mailing list. The standard mailform now has a link to an opt-out page. Clicking on the link will take the user to that page which will add him to an unsubscribe list. There will also be an opt-out checkbox in the user's profile.</p>
+<p>Emails may now be sent to all the members of a User Group.</p>
 <hr />
 <h2 style="text-align: center;">Version 2.0</h2>
 <h2>General</h2>
