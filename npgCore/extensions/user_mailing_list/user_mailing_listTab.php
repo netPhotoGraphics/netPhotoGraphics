@@ -14,11 +14,13 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 $admins = $_authority->getAdministrators('all');
 $admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
+
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 $exclude_list = getSerializedArray(getOption('user_mailing_list_excluded'));
 
 printAdminHeader('admin', 'Mailing');
 npgFilters::apply('texteditor_config', 'forms');
+$groupNote = '';
 ?>
 </head>
 <body>
@@ -118,6 +120,9 @@ npgFilters::apply('texteditor_config', 'forms');
 										if (!in_array($admin['user'], $exclude_list)) {
 											if (!$switched) {
 												$switched = TRUE;
+												$groupNote = '<p class="notebox">
+							' . gettext('Selecting a group will send the message to all members of the group.') . '
+						</p>'
 												?>
 												<li>
 													<strong><?php echo gettext('Groups'); ?></strong>
@@ -138,9 +143,7 @@ npgFilters::apply('texteditor_config', 'forms');
 							}
 							?>
 						</ul>
-						<p class="notebox">
-							<?php echo gettext('Selecting a group will send the message to all members of the group.'); ?>
-						</p>
+						<?php echo $groupNote; ?>
 					</div>
 					<br class="clearall" />
 					<script type="text/javascript">
