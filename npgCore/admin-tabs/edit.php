@@ -90,10 +90,10 @@ if (isset($_GET['action'])) {
 			XSRFdefender('savealbumorder');
 			$sort_notify = postAlbumSort(NULL);
 			if ($sort_notify) {
-				if ($notify === true) {
-					$notify = '&saved';
-				} else {
+				if (isset($notify)) {
 					$notify = '&saved' . $notify;
+				} else {
+					$notify = '&saved';
 				}
 				$_gallery->setSortDirection(0);
 				$_gallery->setSortType('manual');
@@ -101,15 +101,13 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '';
 			}
-
 			$bulk_notify = processAlbumBulkActions();
 			if (!empty($bulk_notify)) {
-				$notify .= '&bulkmessage=' . $notify;
+				$notify .= '&bulkmessage=' . $bulk_notify;
 			}
 			if (empty($notify)) {
 				$notify = '&noaction';
 			}
-
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit' . $notify);
 			exit();
 			break;
@@ -117,10 +115,10 @@ if (isset($_GET['action'])) {
 			XSRFdefender('savealbumorder');
 			$sort_notify = postAlbumSort($album->getID());
 			if ($sort_notify) {
-				if ($notify === true) {
-					$notify = '&saved';
-				} else {
+				if (isset($notify)) {
 					$notify = '&saved' . $notify;
+				} else {
+					$notify = '&saved';
 				}
 				$album = newAlbum($folder);
 				$album->setSortType('manual', 'album');
@@ -132,10 +130,10 @@ if (isset($_GET['action'])) {
 			if ($_POST['checkallaction'] == 'noaction') {
 				$bulk_notify = processAlbumBulkActions();
 				if (!empty($bulk_notify)) {
-					$notify .= '&bulkmessage=' . $notify;
+					$notify .= '&bulkmessage=' . $bulk_notify;
 				}
 			}
-			if (empty($notify)) {
+			if (!isset($notify) || empty($notify)) {
 				$notify = '&noaction';
 			}
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . $folder . '&tab=subalbuminfo' . $notify);
