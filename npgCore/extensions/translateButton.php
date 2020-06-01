@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Provides a Google Translate button
  *
@@ -8,11 +9,12 @@
  * @pluginCategory theme
  */
 
-$plugin_is_filter = 5 | THEME_PLUGIN | ADMIN_PLUGIN;
+$plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext("Provides a button to download the latest version of the software.");
 
 
 npgFilters::register('content_macro', 'translateButton::macro');
+npgFilters::register('theme_head', 'translateButton::head');
 
 class translateButton {
 
@@ -29,14 +31,28 @@ class translateButton {
 
 	static function button() {
 		?>
-		<div id="google_translate_element" style="text-decoration: none; float: right !important;"></div>
+		<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+		<div id="google_translate_element" class="google_translate_element"></div>
 		<script type="text/javascript">
+			$('div.google_translate_element').attr('id', 'google_translate_element');
 			function googleTranslateElementInit() {
 				new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 			}
 		</script>
-		<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 		<?php
+
+	}
+
+	static function head() {
+		?>
+		<style>
+			#google_translate_element {
+				text-decoration: none;
+				float: right !important;
+			}
+		</style>
+		<?php
+
 	}
 
 }
