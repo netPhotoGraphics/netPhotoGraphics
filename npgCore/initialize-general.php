@@ -31,7 +31,7 @@ if (class_exists('tidy')) {
 	require_once(CORE_SERVERPATH . 'htmLawed.php');
 
 	function cleanHTML($html) {
-		return htmLawed($html, array('tidy' => '2s2n'));
+		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0));
 	}
 
 }
