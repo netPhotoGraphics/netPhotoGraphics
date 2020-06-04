@@ -1158,10 +1158,13 @@ input.tags {
 	padding-top: 10px;
 }
 
+#albumselectmenu,
 #albumselect input {
 	padding: 4px;
 	font-weight: normal;
 	font-size: 100%;
+	max-width: 100%;
+	overflow: hidden !important;
 }
 
 .theme_links {
