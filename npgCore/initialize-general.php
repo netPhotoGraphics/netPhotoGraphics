@@ -31,7 +31,9 @@ if (class_exists('tidy')) {
 	require_once(CORE_SERVERPATH . 'htmLawed.php');
 
 	function cleanHTML($html) {
-		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0));
+		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
+		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
+		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
 	}
 
 }
