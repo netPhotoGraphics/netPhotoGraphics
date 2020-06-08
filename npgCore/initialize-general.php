@@ -95,5 +95,5 @@ $_locale_Subdomains = npgFunctions::languageSubdomains();
 //	use this for labeling "News" pages, etc.
 define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('CMS_news_label'))));
 
-$_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*CORE_FOLDER*}', '{*CORE_PATH*}', '{*PLUGIN_FOLDER*}', '{*PLUGIN_PATH*}', '{*USER_PLUGIN_FOLDER*}');
-$_tagURLs_values = array(FULLWEBPATH, WEBPATH, CORE_FOLDER, CORE_PATH, PLUGIN_FOLDER, PLUGIN_PATH, USER_PLUGIN_FOLDER);
+$_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*PLUGIN_FOLDER*}', '{*PLUGIN_PATH*}', '{*CORE_FOLDER*}', '{*CORE_PATH*}', '{*USER_PLUGIN_FOLDER*}/');
+$_tagURLs_values = array(FULLWEBPATH, WEBPATH, CORE_FOLDER . '/' . PLUGIN_FOLDER, CORE_PATH . '/' . PLUGIN_PATH, CORE_FOLDER, CORE_PATH, USER_PLUGIN_FOLDER . '/');
