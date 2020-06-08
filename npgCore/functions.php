@@ -2870,7 +2870,14 @@ class npgFunctions {
 				$text = serialize($text);
 			}
 		} else {
-			$text = str_replace($_tagURLs_values, $_tagURLs_tags, $text);
+			preg_match_all("/href\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $hrefmatch);
+			preg_match_all("/src\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $srcmatch);
+			preg_match_all("/url\(\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))\)/is", $text, $urlmatch);
+			$targets = array_unique(array_merge($hrefmatch[0], $srcmatch[0], $urlmatch[0]));
+			foreach ($targets as $target) {
+				$tagged = str_replace($_tagURLs_values, $_tagURLs_tags, $target);
+				$text = str_replace($target, $tagged, $text);
+			}
 		}
 		return $text;
 	}
