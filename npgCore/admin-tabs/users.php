@@ -136,7 +136,7 @@ if (isset($_GET['action'])) {
 								$userobj = npg_Authority::newAdministrator($user);
 							}
 							if (isset($userlist[$i]['policyAck'])) {
-								//possible states: not present--policy acknowledgement not adtive
+								//possible states: not present--policy acknowledgement not active
 								//                 1--force acknowledgement
 								//                 2--clear acknowledgement
 								$userobj->setPolicyACK($v = $userlist[$i]['policyAck'] & 1);
