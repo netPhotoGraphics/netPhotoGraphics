@@ -224,7 +224,7 @@ define('MENU_SYMBOL', '&#9776;');
 define('NO_ENTRY', '<span class="font_icon" style="color: red;">&#9940;</span>');
 define('NORTH_WEST_CORNER_ARROW', '<span class="font_icon" style="color: green; font-size: large;">&#8689;</span>');
 define('OPTIONS_ICON', '<span class="font_icon" style="font-size: large;">' . GEAR_SYMBOL . '</span>');
-define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font-size: large;">&#x270E;</span>');
+define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font-size: large; line-height: 97%;">&#x270E;</span>');
 define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PLACHHOLDER_ICON', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
