@@ -31,7 +31,9 @@ if (class_exists('tidy')) {
 	require_once(CORE_SERVERPATH . 'htmLawed.php');
 
 	function cleanHTML($html) {
-		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0));
+		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
+		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
+		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
 	}
 
 }
@@ -93,5 +95,5 @@ $_locale_Subdomains = npgFunctions::languageSubdomains();
 //	use this for labeling "News" pages, etc.
 define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('CMS_news_label'))));
 
-$_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*CORE_FOLDER*}', '{*CORE_PATH*}', '{*PLUGIN_FOLDER*}', '{*PLUGIN_PATH*}', '{*USER_PLUGIN_FOLDER*}');
-$_tagURLs_values = array(FULLWEBPATH, WEBPATH, CORE_FOLDER, CORE_PATH, PLUGIN_FOLDER, PLUGIN_PATH, USER_PLUGIN_FOLDER);
+$_tagURLs_tags = array('{*FULLWEBPATH*}', '{*WEBPATH*}', '{*PLUGIN_FOLDER*}', '{*PLUGIN_PATH*}', '{*CORE_FOLDER*}', '{*CORE_PATH*}', '{*USER_PLUGIN_FOLDER*}/');
+$_tagURLs_values = array(FULLWEBPATH, WEBPATH, CORE_FOLDER . '/' . PLUGIN_FOLDER, CORE_PATH . '/' . PLUGIN_PATH, CORE_FOLDER, CORE_PATH, USER_PLUGIN_FOLDER . '/');

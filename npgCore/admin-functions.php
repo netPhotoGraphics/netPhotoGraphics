@@ -72,8 +72,7 @@ function printAdminFooter($addl = '') {
 			$('body,html').animate({
 				scrollTop: 0                       // Scroll to top of body
 			}, 400);
-		});
-	</script>
+		});</script>
 	<?php
 	npgFilters::apply('admin_close');
 	db_close(); //	close the database as we are done
@@ -1500,10 +1499,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param array $currentValue list of items to be flagged as checked
 	 * @param array $list the elements of the select list
 	 * @param string $prefix prefix of the input item
-	 * @param string $alterrights are the items changable.
+	 * @param string $alterrights are the items changeable.
 	 * @param bool $sort true for sorted list
 	 * @param string $class optional class for items
 	 * @param bool $localize true if the list local key is text for the item
+	 * @param int $postArray how the list items are "named" 0: simple name; 1: an array; 2: an array element
 	 */
 	function generateUnorderedListFromArray($currentValue, $list, $prefix, $alterrights, $sort, $localize, $class = NULL, $extra = NULL, $postArray = 0) {
 		if (is_null($extra))
@@ -1547,8 +1547,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 			?>
 			<li id="<?php echo $listitem; ?>_element">
 				<label class="displayinline">
-					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?> />
-					<?php echo html_encode($display); ?>
+					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
+								 onclick="
+										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+										 } else {
+											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+										 }
+								 "/>
+								 <?php echo html_encode($display); ?>
 				</label>
 				<?php
 				if (array_key_exists($item, $extra)) {
@@ -1567,14 +1574,30 @@ function printAdminHeader($tab, $subtab = NULL) {
 							} else {
 								$type = 'checkbox';
 							}
+							if ($class) {
+								$classes = substr($class, 0, -2);
+							} else {
+								$classes = ' class="';
+							}
+							if (!$disable) {
+								$classes .= ' ' . $listitem . '_extra';
+							}
+							if ($box['checked']) {
+								$classes .= ' ' . $listitem . '_checked" ';
+								if ($checked) {
+									$checkit = ' checked="checked"';
+								} else {
+									$checkit = '';
+								}
+							} else {
+								$classes .= '"';
+								$checkit = '';
+							}
 							?>
 							<label class="displayinlineright">
-								<input type="<?php echo $type; ?>" id="<?php echo strtolower($listitem) . '_' . $box['name'] . $unique; ?>"<?php echo $class; ?> name="<?php echo $name . '[' . $box['name'] . ']'; ?>"
-											 value="<?php echo html_encode($box['value']); ?>" <?php
-											 if ($box['checked']) {
-												 echo ' checked="checked"';
-											 }
-											 ?>
+								<input type="<?php echo $type; ?>" id="<?php echo strtolower($listitem) . '_' . $box['name'] . $unique; ?>"<?php echo $classes; ?> name="<?php echo $name . '[' . $box['name'] . ']'; ?>"
+											 value="<?php echo html_encode($box['value']); ?>"
+											 <?php echo $checkit; ?>
 											 <?php echo $disable; ?> /> <?php echo $box['display']; ?>
 							</label>
 							<?php
@@ -3499,7 +3522,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $file the file to zip
 	 */
 	function putZip($zipname, $file) {
-//we are dealing with file system items, convert the names
+		//we are dealing with file system items, convert the names
 		$fileFS = internalToFilesystem($file);
 		if (class_exists('ZipArchive')) {
 			$zipfileFS = tempnam('', 'zip');
@@ -3517,7 +3540,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			header("Content-Transfer-Encoding: binary");
 			header("Content-Length: " . filesize($zipfileFS));
 			readfile($zipfileFS);
-// remove zip file from temp path
+			// remove zip file from temp path
 			unlink($zipfileFS);
 		} else {
 			include_once(CORE_SERVERPATH . 'lib-zipStream.php');
@@ -3955,6 +3978,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				if (!empty($flag)) {
 					$legend .= '* ' . gettext('Primary album') . ' ';
 				}
+				$rest = array_diff($objlist, $cv);
 				$legend .= PENCIL_ICON . ' ' . gettext('edit') . ' ';
 				if ($rights & UPLOAD_RIGHTS)
 					$legend .= ARROW_UP_GREEN . ' ' . gettext('upload') . ' ';
@@ -3968,7 +3992,6 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 							$note = '';
 						}
 						$cv[$item['name'] . $note] = $item['data'];
-						$extra[$item['data']][] = array('name' => 'name', 'value' => $item['name'], 'display' => '', 'checked' => 0);
 						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
 						if (($rights & UPLOAD_RIGHTS)) {
 							if (hasDynamicAlbumSuffix($item['data']) && !is_dir(ALBUM_FOLDER_SERVERPATH . $item['data'])) {
@@ -3982,9 +4005,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 						}
 					}
 				}
-				$rest = array_diff($objlist, $cv);
 				foreach ($rest as $unmanaged) {
-					$extra2[$unmanaged][] = array('name' => 'name', 'value' => $unmanaged, 'display' => '', 'checked' => 0);
 					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => 1);
 					if (($rights & UPLOAD_RIGHTS)) {
 						if (hasDynamicAlbumSuffix($unmanaged) && !is_dir(ALBUM_FOLDER_SERVERPATH . $unmanaged)) {
@@ -4014,14 +4035,11 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				foreach ($full as $item) {
 					if ($item['type'] == 'news_categories') {
 						$cv[$item['name']] = $item['data'];
-						$extra[$item['data']][] = array('name' => 'name', 'value' => $item['name'], 'display' => '', 'checked' => 0);
 						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
 						$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
 					}
 				}
-				$rest = array_diff($objlist, $cv);
 				foreach ($rest as $unmanaged) {
-					$extra2[$unmanaged][] = array('name' => 'name', 'value' => $unmanaged, 'display' => '', 'checked' => 0);
 					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => 1);
 					$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => 1);
 				}
@@ -4042,14 +4060,11 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 				foreach ($full as $item) {
 					if ($item['type'] == 'pages') {
 						$cv[$item['name']] = $item['data'];
-						$extra[$item['data']][] = array('name' => 'name', 'value' => $item['name'], 'display' => '', 'checked' => 0);
 						$extra[$item['data']][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_EDIT);
 						$extra[$item['data']][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => $item['edit'] & MANAGED_OBJECT_RIGHTS_VIEW);
 					}
 				}
-				$rest = array_diff($objlist, $cv);
 				foreach ($rest as $unmanaged) {
-					$extra2[$unmanaged][] = array('name' => 'name', 'value' => $unmanaged, 'display' => '', 'checked' => 0);
 					$extra2[$unmanaged][] = array('name' => 'edit', 'value' => MANAGED_OBJECT_RIGHTS_EDIT, 'display' => PENCIL_ICON, 'checked' => 1);
 					$extra2[$unmanaged][] = array('name' => 'view', 'value' => MANAGED_OBJECT_RIGHTS_VIEW, 'display' => EXCLAMATION_RED, 'checked' => 1);
 				}
@@ -4152,14 +4167,13 @@ function processManagedObjects($i, &$rights) {
 
 	if (isset($_POST['user'][$i]['managed'])) {
 		$managedlist = $_POST['user'][$i]['managed'];
-
 		foreach (array('albums', 'pages', 'news_categories') as $class) {
 			$container = array();
 			if (isset($managedlist[$class])) {
 				foreach ($managedlist[$class] as $postkey => $managed) {
 					if (isset($managed['checked'])) {
 						$key = postIndexDecode($postkey);
-						$container[$key] = array('data' => $key, 'name' => $managed['name'], 'type' => $class, 'edit' => MANAGED_OBJECT_MEMBER);
+						$container[$key] = array('data' => $key, 'name' => $managed['checked'], 'type' => $class, 'edit' => MANAGED_OBJECT_MEMBER);
 						if (array_key_exists('edit', $managed)) {
 							$container[$key]['edit'] = $container[$key]['edit'] | MANAGED_OBJECT_RIGHTS_EDIT;
 						}
