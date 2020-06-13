@@ -692,13 +692,15 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 						<table>
 							<tr>
 								<td>
-									<?php echo gettext("users per page"); ?>
+									<?php echo gettext("users"); ?>
+									&nbsp;
 									<input type="text" size="2" id="users_per_page" name="users_per_page" style="float:right;" value="<?php echo getOption('users_per_page'); ?>" />
 								</td>
 								<td>
 									<?php
-									echo gettext("plugins per page");
+									echo gettext("plugins");
 									?>
+									&nbsp;
 									<input type="text" size="2" id="plugins_per_page" name="plugins_per_page" style="float:right;"  value="<?php echo getOption('plugins_per_page'); ?>" />
 								</td>
 							</tr>
@@ -711,8 +713,9 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									<td>
 										<?php
 										$row = true;
-										echo gettext("groups per page");
+										echo gettext("groups & templates");
 										?>
+										&nbsp;
 										<input type="text" size="2" id="groups_per_page" name="groups_per_page" style="float:right;"  value="<?php echo getOption('groups_per_page'); ?>" />
 									</td>
 									<?php
@@ -727,8 +730,9 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									?>
 									<td>
 										<?php
-										echo gettext("articles per page");
+										echo gettext("articles");
 										?>
+										&nbsp;
 										<input type="text" size="2" id="articles_per_page" name="articles_per_page" style="float:right;"  value="<?php echo getOption('articles_per_page'); ?>" />
 									</td>
 									<?php

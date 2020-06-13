@@ -105,7 +105,7 @@ class user_expiry {
 				$subtabs = $tabs['admin']['subtabs'];
 				$c = 0;
 				foreach ($subtabs as $key => $link) {
-					if (!in_array($key, array('users', 'groups', 'assignments'))) {
+					if (!in_array($key, array('users', 'groups', 'templates', 'assignments'))) {
 						break;
 					}
 					$c++;
