@@ -26,4 +26,5 @@ if (!defined('WEBPATH') || !class_exists("CMS"))
 		</div>
 		<?php include("inc-footer.php"); ?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

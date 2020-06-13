@@ -240,8 +240,6 @@ if (!defined('WEBPATH'))
 					</div>
 					<span class="clear"></span>
 				</div>
-				<?php
-				npgFilters::apply('theme_body_close');
-				?>
-				</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 				</html>

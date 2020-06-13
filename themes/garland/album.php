@@ -146,8 +146,6 @@ $map = simpleMap::mapPlugin();
 			</div><!-- container -->
 			<span class="clear"></span>
 		</div><!-- wrapper -->
-		<?php
-		npgFilters::apply('theme_body_close');
-		?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

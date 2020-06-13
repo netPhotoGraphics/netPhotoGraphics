@@ -36,8 +36,8 @@ if (function_exists('printSlideShow')) {
 				printSlideShow(true, true);
 				?>
 			</div>
+	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>
-		</body>
 	</html>
 	<?php
 } else {

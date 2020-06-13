@@ -71,11 +71,7 @@
 	</div>
 </div>		<!-- END #FOOTER -->
 </div>			<!-- END #PAGE -->
-
-<?php
-npgFilters::apply('theme_body_close');
-?>
-
 </body>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>
 <!-- Ardoise 1.4.13 - a netPhotoGraphics/ZenPage theme by Vincent3569  -->

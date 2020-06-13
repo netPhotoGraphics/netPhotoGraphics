@@ -55,6 +55,6 @@ if (function_exists('printLanguageSelector')) {
 	printLanguageSelector(true);
 }
 ?>
-<?php npgFilters::apply('theme_body_close'); ?>
-</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

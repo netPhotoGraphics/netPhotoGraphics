@@ -116,7 +116,7 @@ if (!defined('WEBPATH'))
 							printBareAlbumTitle();
 							?>">
 								<div class="thumbimage">
-										<?php printAlbumThumbImage(getBareAlbumTitle(), "border"); ?>
+									<?php printAlbumThumbImage(getBareAlbumTitle(), "border"); ?>
 									<div class="thumbtitle">
 										<?php
 										$numItems = getNumImages() + getNumAlbums();
@@ -140,7 +140,7 @@ if (!defined('WEBPATH'))
 			if ($numimages > 0) {
 				?>
 				<div class="title border colour">
-	<?php printf(gettext('Images and Videos (%s)'), $numimages); ?>
+					<?php printf(gettext('Images and Videos (%s)'), $numimages); ?>
 				</div>
 				<div class="thumbstage" <?php echo $thumbstageStyle; ?>>
 					<?php
@@ -148,9 +148,9 @@ if (!defined('WEBPATH'))
 						?>
 						<div class="thumbs border">
 							<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php
-								 echo gettext('View: ');
-								 printBareImageTitle();
-								 ?>">
+							echo gettext('View: ');
+							printBareImageTitle();
+							?>">
 								<div class="thumbimage">
 									<?php
 									printImageThumb(getBareImageTitle(), "border");
@@ -182,7 +182,7 @@ if (!defined('WEBPATH'))
 				if (hasPrevPage() || hasNextPage()) {
 					?>
 					<div class="fl_button border colour">
-					<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
+						<?php printPageListWithNav("Prev ", " Next", false, true, 'taglist', NULL, true); ?>
 					</div>
 					<?php
 				}
@@ -192,12 +192,13 @@ if (!defined('WEBPATH'))
 			if ($total == 0) {
 				?>
 				<div class="title border colour">
-				<?php echo gettext("Sorry, no matches found. Try refining your search."); ?>
+					<?php echo gettext("Sorry, no matches found. Try refining your search."); ?>
 				</div>
 				<?php
 			}
 			?>
 		</div>
-<?php include("inc-footer.php"); ?>
+		<?php include("inc-footer.php"); ?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

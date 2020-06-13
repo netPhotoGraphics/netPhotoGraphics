@@ -136,10 +136,8 @@ if (class_exists('favorites')) {
 				</div><!-- container -->
 				<span class="clear"></span>
 			</div><!-- wrapper -->
-			<?php
-			npgFilters::apply('theme_body_close');
-			?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

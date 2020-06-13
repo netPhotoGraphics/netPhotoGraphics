@@ -59,10 +59,8 @@ if (function_exists('printRegistrationForm')) {
 					<span class="clear"></span>
 				</div><!-- /container -->
 			</div>
-			<?php
-			npgFilters::apply('theme_body_close');
-			?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

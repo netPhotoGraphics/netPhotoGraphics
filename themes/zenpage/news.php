@@ -142,10 +142,8 @@ if (class_exists('CMS')) {
 				</div><!-- content -->
 
 			</div><!-- main -->
-			<?php
-			npgFilters::apply('theme_body_close');
-			?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

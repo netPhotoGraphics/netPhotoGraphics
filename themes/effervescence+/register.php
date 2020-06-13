@@ -72,13 +72,8 @@ if (function_exists('printRegistrationForm')) {
 				<?php print_SW_Link(); ?>
 
 			</div> <!-- footerlinks -->
-
-
-			<?php
-			npgFilters::apply('theme_body_close');
-			?>
-
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

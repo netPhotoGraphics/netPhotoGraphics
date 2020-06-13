@@ -92,8 +92,6 @@ if (!defined('WEBPATH'))
 				<span class="clear"></span> </div>
 			<!-- /container -->
 		</div>
-		<?php
-		npgFilters::apply('theme_body_close');
-		?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

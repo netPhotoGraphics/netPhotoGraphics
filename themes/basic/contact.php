@@ -33,10 +33,8 @@ if (function_exists('printContactForm')) {
 			<div id="credit">
 				<?php printSoftwareLink(); ?>
 			</div>
-			<?php
-			npgFilters::apply('theme_body_close');
-			?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

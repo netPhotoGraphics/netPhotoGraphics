@@ -91,8 +91,6 @@ if (!defined('WEBPATH'))
 			<?php jqm_printFooterNav(); ?>
 
 		</div><!-- /page -->
-
-		<?php npgFilters::apply('theme_body_close'); ?>
-
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

@@ -118,10 +118,10 @@ if (class_exists('CMS')) {
 
 			<?php
 			printFooter();
-			npgFilters::apply('theme_body_close');
 			?>
 
 		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

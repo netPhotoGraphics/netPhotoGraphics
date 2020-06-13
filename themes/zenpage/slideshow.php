@@ -18,9 +18,8 @@ if (function_exists('printSlideShow')) {
 			<div id="slideshowpage">
 			<?php printSlideShow(true, true); ?>
 			</div>
+	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>
-
-		</body>
 	</html>
 	<?php
 } else {
