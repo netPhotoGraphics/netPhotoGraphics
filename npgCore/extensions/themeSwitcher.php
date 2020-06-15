@@ -124,7 +124,6 @@ class themeSwitcher {
 
 	static function head() {
 		global $_themeSwitcherThemelist;
-		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));
 		ob_start();
 		$_themeSwitcherThemelist = npgFilters::apply('themeSwitcher_head', $_themeSwitcherThemelist);
 		$scripts = ob_get_contents();
@@ -141,6 +140,10 @@ class themeSwitcher {
 			// ]]> -->
 		</script>
 		<?php
+	}
+
+	static function close() {
+		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));
 	}
 
 	/**
@@ -243,4 +246,5 @@ if (getNPGCookie('themeSwitcher_theme')) {
 }
 npgFilters::register('theme_head', 'themeSwitcher::head', 999);
 npgFilters::register('theme_body_open', 'themeSwitcher::controlLink');
+npgFilters::register('theme_body_close', 'themeSwitcher::close');
 ?>

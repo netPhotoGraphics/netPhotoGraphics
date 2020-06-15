@@ -63,10 +63,6 @@ if (!defined('WEBPATH'))
 			<?php print_SW_Link(); ?>
 			<br />
 		</div>
-
-		<?php
-		npgFilters::apply('theme_body_close');
-		?>
-
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

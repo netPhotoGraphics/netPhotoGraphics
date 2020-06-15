@@ -26,6 +26,11 @@ $adminordered = sortMultiArray($admins, 'user');
 if (isset($_GET['action'])) {
 	$action = sanitize($_GET['action']);
 	$themeswitch = false;
+	if (isset($_REQUEST['tab'])) {
+		$subtab = $_REQUEST['tab'];
+	} else {
+		$subtab = 'assignment';
+	}
 	switch ($action) {
 		case 'deletegroup':
 			XSRFdefender('deletegroup');
@@ -34,7 +39,7 @@ if (isset($_GET['action'])) {
 			$groupobj->remove();
 			// clear out existing user assignments
 			npg_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
-			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=groups&deleted&subpage=' . $subpage);
+			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=' . $subtab . '&deleted&subpage=' . $subpage);
 			exit();
 		case 'savegroups':
 			XSRFdefender('savegroups');
@@ -114,8 +119,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '&post_error';
 			}
-
-			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=groups&subpage=' . $subpage . $notify);
+			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=' . $subtab . '&subpage=' . $subpage . $notify);
 			exit();
 		case 'saveauserassignments':
 			XSRFdefender('saveauserassignments');
@@ -137,7 +141,7 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '&post_error';
 			}
-			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=assignments&subpage=' . $subpage . $notify);
+			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=' . $subtab . '&subpage=' . $subpage . $notify);
 			exit();
 	}
 }
@@ -179,10 +183,16 @@ echo '</head>' . "\n";
 			?>
 			<h1>
 				<?php
-				if ($subtab == 'groups') {
-					echo gettext('Groups');
-				} else {
-					echo gettext('Assignments');
+				switch ($subtab) {
+					case 'group':
+						echo gettext('Groups');
+						break;
+					case 'template':
+						echo gettext('Templates');
+						break;
+					default:
+						echo gettext('Assignments');
+						break;
 				}
 				?>
 			</h1>
@@ -190,14 +200,16 @@ echo '</head>' . "\n";
 			<div id = "tab_users" class = "tabbox">
 				<?php
 				switch ($subtab) {
-					case 'groups':
+					case 'group':
+					case 'template':
 						$adminlist = $adminordered;
 						$list = $users = $groups = array();
 						foreach ($adminlist as $user) {
 							if ($user['valid']) {
 								$users[] = $user['user'];
 							} else {
-								$groups[] = $user;
+								if ($user['name'] == $subtab)
+									$groups[] = $user;
 								$list[] = $user['user'];
 							}
 						}
@@ -224,7 +236,7 @@ echo '</head>' . "\n";
 							echo gettext("Set group rights and select one or more albums for the users in the group to manage. Users with <em>User admin</em> or <em>Manage all albums</em> rights can manage all albums. All others may manage only those that are selected.");
 							?>
 						</p>
-						<form class="dirtylistening" onReset="setClean('savegroups_form');" id="savegroups_form" action="?action=savegroups&amp;tab=groups" method="post" autocomplete="off" onsubmit="return checkSubmit()" >
+						<form class="dirtylistening" onReset="setClean('savegroups_form');" id="savegroups_form" action="?action=savegroups&amp;tab=<?php echo $subtab; ?>" method="post" autocomplete="off" onsubmit="return checkSubmit()" >
 							<?php XSRFToken('savegroups'); ?>
 							<p>
 								<?php
@@ -305,15 +317,9 @@ echo '</head>' . "\n";
 												if (empty($groupname)) {
 													?>
 													<input type="hidden" name="newgroupid" value="<?php echo $id; ?>" />
+													<input type="hidden" name="user[<?php echo $id; ?>][type]" value="<?php echo $subtab; ?>" checked="checked"  />
 													<em>
-														<label>
-															<input type="radio" name="user[<?php echo $id; ?>][type]" value="group" checked="checked" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('group'); ?>
-														</label>
-														<label>
-															<input type="radio" name="user[<?php echo $id; ?>][type]" value="template" onclick="javascrpt:$('#users<?php echo $id; ?>').toggle();
-																	toggleExtraInfo('<?php echo $id; ?>', 'user', true);" /><?php echo gettext('template'); ?>
-														</label>
+														<?php echo gettext('New'); ?>
 													</em>
 													<br />
 													<input type="text" size="35" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][group]" value=""
@@ -322,7 +328,7 @@ echo '</head>' . "\n";
 															 } else {
 																 ?>
 													<span class="userextrashow">
-														<em><?php echo $kind; ?></em>:
+
 														<a onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', true);" title="<?php echo $groupname; ?>" >
 															<strong><?php echo $groupname; ?></strong> <?php echo $count; ?>
 														</a>
@@ -345,7 +351,7 @@ echo '</head>' . "\n";
 												if (!empty($groupname)) {
 													$msg = gettext('Are you sure you want to delete this group?');
 													?>
-													<a href="javascript:if(confirm(<?php echo "'" . $msg . "'"; ?>)) { launchScript('',['tab=groups', 'action=deletegroup','group=<?php echo addslashes($groupname); ?>','XSRFToken=<?php echo getXSRFToken('deletegroup') ?>']); }"
+													<a href="javascript:if(confirm(<?php echo "'" . $msg . "'"; ?>)) { launchScript('',['tab=<?php echo $subtab; ?>', 'action=deletegroup','group=<?php echo addslashes($groupname); ?>','XSRFToken=<?php echo getXSRFToken('deletegroup') ?>']); }"
 														 title="<?php echo gettext('Delete this group.'); ?>" style="color: #c33;">
 															 <?php echo WASTEBASKET; ?>
 													</a>
@@ -517,7 +523,7 @@ echo '</head>' . "\n";
 						<br class="clearall" />
 						<?php
 						break;
-					case 'assignments':
+					case 'assignment':
 						$groups = array();
 						foreach ($adminordered as $user) {
 							if (!$user['valid'] && $user['name'] == 'group') {
@@ -530,7 +536,7 @@ echo '</head>' . "\n";
 							echo gettext("Assign users to groups.");
 							?>
 						</p>
-						<form class="dirtylistening" onReset="setClean('saveAssignments_form');" id="saveAssignments_form" action="?tab=assignments&amp;action=saveauserassignments" method="post" autocomplete="off" >
+						<form class="dirtylistening" onReset="setClean('saveAssignments_form');" id="saveAssignments_form" action="?tab=<?php echo $subtab; ?>&amp;action=saveauserassignments" method="post" autocomplete="off" >
 							<?php XSRFToken('saveauserassignments'); ?>
 							<p>
 								<?php

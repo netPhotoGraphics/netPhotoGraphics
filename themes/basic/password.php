@@ -46,6 +46,6 @@ if (!defined('WEBPATH'))
 			?>
 			<?php printSoftwareLink(); ?>
 		</div>
-		<?php npgFilters::apply('theme_body_close'); ?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

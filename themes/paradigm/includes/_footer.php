@@ -117,11 +117,6 @@
 	</div>
 </footer>
 
-
-<?php
-npgFilters::apply('theme_body_close');
-?>
-
 <?php if (getOption('sharethis_id') != '') { ?>
 
 	<script type="text/javascript">var switchTo5x = true;</script>
@@ -131,5 +126,5 @@ npgFilters::apply('theme_body_close');
 <?php } ?>
 
 </body>
-
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>

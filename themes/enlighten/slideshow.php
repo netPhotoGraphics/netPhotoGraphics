@@ -13,6 +13,6 @@
 		<div id="slideshowpage">
 			<?php printSlideShow(true, true); ?>
 		</div>
-		<?php npgFilters::apply('theme_body_close'); ?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

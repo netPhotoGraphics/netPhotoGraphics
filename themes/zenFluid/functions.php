@@ -2,12 +2,6 @@
 // force UTF-8 Ø
 
 /**
- * Remove admin toolbox for all but site and album admins.
- */
-if (!npg_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))
-	npgFilters::remove('theme_body_close', 'adminToolbox');
-
-/**
  * Returns an image for the home page
  *
  */

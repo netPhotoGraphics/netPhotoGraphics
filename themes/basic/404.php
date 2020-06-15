@@ -32,8 +32,6 @@ if (!defined('WEBPATH'))
 		<div id="credit">
 			<?php printSoftwareLink(); ?>
 		</div>
-		<?php
-		npgFilters::apply('theme_body_close');
-		?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

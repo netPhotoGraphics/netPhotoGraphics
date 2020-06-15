@@ -20,8 +20,8 @@ if (!defined('WEBPATH'))
 		<body>
 			<?php npgFilters::apply('theme_body_open'); ?>
 			<?php printGslideshow(); ?>
-			<?php npgFilters::apply('theme_body_close'); ?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 
 <?php } else { ?>
@@ -40,9 +40,8 @@ if (!defined('WEBPATH'))
 			<div id="slideshowpage">
 				<?php printSlideShow(true, true); ?>
 			</div>
-			<?php npgFilters::apply('theme_body_close'); ?>
-
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 
 <?php } ?>

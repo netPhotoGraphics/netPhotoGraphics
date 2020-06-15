@@ -75,10 +75,8 @@ if (class_exists('favorites')) {
 				@call_user_func('printUserLogin_out', " | ");
 				?>
 			</div>
-			<?php
-			npgFilters::apply('theme_body_close');
-			?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

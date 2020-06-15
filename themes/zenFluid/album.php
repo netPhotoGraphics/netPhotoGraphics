@@ -144,6 +144,7 @@ if (!defined('WEBPATH'))
 		include("inc-footer.php");
 		?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>
 <?php
 

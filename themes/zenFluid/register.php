@@ -23,6 +23,7 @@ if (function_exists('printRegistrationForm')) {
 			</div>
 			<?php include("inc-footer.php"); ?>
 		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

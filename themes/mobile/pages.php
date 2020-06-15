@@ -64,10 +64,8 @@ if (class_exists('CMS')) {
 				<?php jqm_printBacktoTopLink(); ?>
 				<?php jqm_printFooterNav(); ?>
 			</div><!-- /page -->
-
-			<?php npgFilters::apply('theme_body_close');
-			?>
-		</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

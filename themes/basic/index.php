@@ -26,9 +26,9 @@ if (!defined('WEBPATH'))
 				}
 				?>
 				<h2><?php
-					printHomeLink('', ' | ');
-					printGalleryTitle();
-					?></h2>
+				printHomeLink('', ' | ');
+				printGalleryTitle();
+				?></h2>
 			</div>
 			<div id="padbox">
 				<?php printGalleryDesc(); ?>
@@ -112,8 +112,8 @@ if (!defined('WEBPATH'))
 		</div>
 		<?php @call_user_func('mobileTheme::controlLink'); ?>
 		<?php @call_user_func('printLanguageSelector'); ?>
-		<?php
-		npgFilters::apply('theme_body_close');
-		?>
 	</body>
+	<?php
+	npgFilters::apply('theme_body_close');
+	?>
 </html>

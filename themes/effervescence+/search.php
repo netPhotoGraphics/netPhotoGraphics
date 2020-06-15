@@ -310,8 +310,8 @@ $backgroundImagePath = "";
 		<br style="clear:all" />
 		<?php
 		printFooter();
-		npgFilters::apply('theme_body_close');
 		?>
 
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

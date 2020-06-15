@@ -75,10 +75,8 @@ if (class_exists('favorites')) {
 				<?php jqm_printBacktoTopLink(); ?>
 	<?php jqm_printFooterNav(); ?>
 			</div><!-- /page -->
-
+	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>
-
-		</body>
 	</html>
 	<?php
 } else {

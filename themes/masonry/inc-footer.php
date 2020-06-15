@@ -53,6 +53,6 @@ scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/masonry/masonry.pkgd.mi
 		return false;
 	});
 </script>
-<?php npgFilters::apply('theme_body_close'); ?>
-</body>
+	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

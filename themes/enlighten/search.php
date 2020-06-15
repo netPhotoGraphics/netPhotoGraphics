@@ -189,6 +189,6 @@ if (!defined('WEBPATH'))
 			</div><!-- content -->
 
 		</div><!-- main -->
-		<?php npgFilters::apply('theme_body_close'); ?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

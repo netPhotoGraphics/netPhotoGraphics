@@ -9,8 +9,9 @@
  */
 
 npgFilters::register('theme_head', 'printThemeHeadItems', 9999);
+npgFilters::register('theme_body_open', 'adminToolbox');
 npgFilters::register('theme_body_close', 'printThemeCloseItems');
-npgFilters::register('theme_body_close', 'adminToolbox');
+
 if (TEST_RELEASE)
 	npgFilters::register('software_information', 'exposeSoftwareInformation');
 ?>

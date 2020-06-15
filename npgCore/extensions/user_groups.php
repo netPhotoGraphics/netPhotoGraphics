@@ -240,8 +240,9 @@ class user_groups {
 		global $_current_admin_obj;
 		if ((npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID())) {
 			$subtabs = $tabs['admin']['subtabs'];
-			$subtabs[gettext('groups')] = PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=groups';
-			$subtabs[gettext('assignments')] = PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=assignments';
+			$subtabs[gettext('groups')] = PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=group';
+			$subtabs[gettext('templates')] = PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=template';
+			$subtabs[gettext('assignments')] = PLUGIN_FOLDER . '/user_groups/user_groups-tab.php?page=admin&tab=assignment';
 			$tabs['admin']['subtabs'] = $subtabs;
 		}
 		return $tabs;

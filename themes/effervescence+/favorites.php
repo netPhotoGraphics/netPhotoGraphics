@@ -214,12 +214,10 @@ if (class_exists('favorites')) {
 			<!-- Footer -->
 			<br style="clear:all" />
 
-			<?php
-			printFooter();
-			npgFilters::apply('theme_body_close');
-			?>
+			<?php printFooter(); ?>
 
 		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

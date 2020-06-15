@@ -298,14 +298,14 @@ if (count($themelist) == 0) {
 						}
 
 						$editable = npgFilters::apply('theme_editor', '', $theme);
-						if ($editable && themeIsEditable($theme)) {
-							?>
-							<li>
-
-								<?php npgButton('button', PENCIL_ICON . ' ' . gettext("Edit"), array('buttonClick' => $editable, 'buttonClass' => 'fixedwidth')); ?>
-
-							</li>
-							<?php
+						if (themeIsEditable($theme)) {
+							if ($editable) {
+								?>
+								<li>
+									<?php npgButton('button', PENCIL_ICON . ' ' . gettext("Edit"), array('buttonClick' => $editable, 'buttonClass' => 'fixedwidth')); ?>
+								</li>
+								<?php
+							}
 							if ($theme != $current_theme) {
 								$delete_url = getAdminLink('admin-tabs/themes.php') . '?action=deletetheme&amp;themealbum=' . pathurlencode($alb) . '&amp;theme=' . $theme . '&amp;XSRFToken=' . getXSRFToken('admin-tabs/themes');
 								$delete_msg = gettext('Do you really want to delete this theme?');

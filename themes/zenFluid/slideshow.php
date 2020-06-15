@@ -24,4 +24,5 @@ if (!defined('WEBPATH'))
 		}
 		?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

@@ -94,8 +94,6 @@ if (!defined('WEBPATH'))
 			@call_user_func('printUserLogin_out', " | ");
 			?>
 		</div>
-		<?php
-		npgFilters::apply('theme_body_close');
-		?>
 	</body>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>
