@@ -154,7 +154,7 @@ function exitZP() {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_register_filter($hook, $function_name, $priority = NULL) {
 	deprecated_functions::notify(gettext('Use npgFilters::register()'));
@@ -162,7 +162,7 @@ function zp_register_filter($hook, $function_name, $priority = NULL) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_apply_filter($hook, $value = NULL) {
 	deprecated_functions::notify(gettext('Use npgFilters::apply()'));
@@ -174,7 +174,7 @@ function zp_apply_filter($hook, $value = NULL) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_remove_filter($hook, $function_to_remove, $priority = NULL, $accepted_args = 1) {
 	deprecated_functions::notify(gettext('Use npgFilters::remove()'));
@@ -182,7 +182,7 @@ function zp_remove_filter($hook, $function_to_remove, $priority = NULL, $accepte
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_has_filter($hook, $function_to_check = false) {
 	deprecated_functions::notify(gettext('Use npgFilters::has_filter()'));
@@ -190,7 +190,7 @@ function zp_has_filter($hook, $function_to_check = false) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function getSiteHomeURL() {
 	deprecated_functions::notify(gettext('Use getGalleryIndexURL()'));
@@ -198,7 +198,7 @@ function getSiteHomeURL() {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function getDataUsageNotice() {
 	deprecated_functions::notify(gettext('Use the GDPR_required plugin'));
@@ -206,7 +206,7 @@ function getDataUsageNotice() {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_loggedin($rights = ALL_RIGHTS) {
 	deprecated_functions::notify(gettext('Use npg_loggedin()'));
@@ -214,7 +214,7 @@ function zp_loggedin($rights = ALL_RIGHTS) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_setCookie($name, $value, $time = NULL, $security = true) {
 	deprecated_functions::notify(gettext('Use setNPGCookie()'));
@@ -222,7 +222,7 @@ function zp_setCookie($name, $value, $time = NULL, $security = true) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_getCookie($name) {
 	deprecated_functions::notify(gettext('Use getNPGCookie()'));
@@ -230,7 +230,7 @@ function zp_getCookie($name) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zp_clearCookie($name) {
 	deprecated_functions::notify(gettext('Use clearNPGCookie()'));
@@ -238,7 +238,7 @@ function zp_clearCookie($name) {
 }
 
 /**
- * @deprecated since version 1.9.06
+ * @deprecated since version 1.9.6
  */
 function zpFormattedDate($format, $dt) {
 	deprecated_functions::notify(gettext('Use formattedDate()'));
