@@ -88,7 +88,7 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.05.11</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.05.12</h2>
 <h2>General</h2>
 <p><strong>netPhotoGraphics</strong> is now compatible with PHP version 7.4.</p>
 <p>E-Mails sent by <strong>netPhotoGraphics</strong> are now HTML encoded. In addition, there is now a customizable e-mail "form" that will be used when sending the mails. The standard template is a simple form with the sites branding logo (or the <strong>netPhotoGraphic</strong> logo if none is defined), the body of the e-mail, and "--The Administrator" as a signature. You can view and edit this template on the new "forms" option tab. If you update the form it will be stored in the <em>plugins/forms</em> folder and not overridden on subsequent updates. </p>
@@ -97,9 +97,9 @@
 <p>The <em>zpFocus</em> and <em>zpSkeleton</em> themes have been removed from the distribution and are no longer supported. The <em>zpArdoise</em>, <em>zpBootstrap</em>, <em>zpEnlighten</em>, <em>zpMasonry</em>, <em>zpMinimal</em>, and <em>zpMobile</em> themes have been renamed to <em>Ardoise</em>, <em>Bootstrap</em>, <em>Enlighten</em>, <em>Masonry</em>, <em>Minimal</em>, and <em>Mobile</em> respectively. If you use one of these themes your site will automatically migrate to the new name.</p>
 <p><strong>Note:</strong> If you have cloned your install and your server does not support symlinks you will need to re-clone the clones to copy the renamed themes.</p>
 <h2>Plugins</h2>
-<p>The following {*USER_PLUGIN_FOLDER*} have been deprecated:</p>
+<p>The following plugins have been deprecated:</p>
 <div style="padding-left: 20px;"><em>disableAction</em><br /><em>disableWatermark</em><br /><em>filteri-fileSearches</em><br /><em>image_effects</em><br /><em>no_show</em><br /><em>overrideEXIFDesc</em><br /><em>singleAlbum</em><br /><em>text_watermark</em><br /><em>themeEditor</em><br /><em>tweet_news</em><br /><em>wordpress_import<br /><br /></em></div>
-<p>They have been moved to the <em>{*USER_PLUGIN_FOLDER*}</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the {*USER_PLUGIN_FOLDER*} will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these {*USER_PLUGIN_FOLDER*} you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
+<p>They have been moved to the <em>Plugin</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the <em>Plugin</em> will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these <em>Plugins</em> you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
 <h2>slideshow2</h2>
 <p><em>slideshow2</em> has been removed from the distribution and placed in the DevTools repository. The jquery.cycle2 scripts that this plugin use have not been updated in five years and are incompatible with jQuery version 3. </p>
 <h2><strong>tagURLs</strong></h2>
@@ -113,9 +113,9 @@
 <hr />
 <h2 style="text-align: center;">Version 2.0</h2>
 <h2>General</h2>
-<p>The scripts for the administrative scripts of <strong>netPhotoGraphics</strong> have been reorganized. They new folders have been created to store related scripts. This is not a functional change, but any third party themes or {*USER_PLUGIN_FOLDER*} which directly link to these scripts will need updating. Also note that for sites with <em>mod rewrite</em> enabled URLs to the administrative pages are now "rewritten" to be SEO friendly using the defined <em>mod_rewrite</em> suffix. The old direct links (e.g.<em> zp‑core/admin.php</em>) will still work but it is recommended that you update any saved links to the new format. In a future release the <em>zp‑core</em> and <em>zp‑npgCore/extensions</em> folders will be renamed and the legacy links will no longer work.</p>
-<p>The names of many of the scripts have also been changed to allow for more intuitive organization of the software. As part of this reorganization, many of the <strong>netPhotoGraphic</strong> functions and global variables have been renamed. Some functions have been encased into new class definitions. In particular, the {*USER_PLUGIN_FOLDER*} <em>cloneZenphoto, zpCaptcha,</em> and <em>zenphoto_sendmail </em> have been renamed to <em>clone, captcha,</em> and <em>simple_sendmail.</em></p>
-<p>These changes will be transparent to you provided you do not use custom themes or {*USER_PLUGIN_FOLDER*}. The <em>deprecated-functions</em> and <em>zenphotoCompatibilityPack</em> {*USER_PLUGIN_FOLDER*} have been updated to provide a smooth upgrade. But you should run the <em>DEVELOPMENT/LEGACY CONVERTER </em>on your scripts to improve their performance. You may also notice that your custom themes and {*USER_PLUGIN_FOLDER*} show errors during the setup process. This is because the compatibility {*USER_PLUGIN_FOLDER*} are not enabled at setup time. These errors give you an indication of what scripts you need to convert.</p>
+<p>The scripts for the administrative scripts of <strong>netPhotoGraphics</strong> have been reorganized. They new folders have been created to store related scripts. This is not a functional change, but any third party themes or plugins which directly link to these scripts will need updating. Also note that for sites with <em>mod rewrite</em> enabled URLs to the administrative pages are now "rewritten" to be SEO friendly using the defined <em>mod_rewrite</em> suffix. The old direct links (e.g.<em> zp‑core/admin.php</em>) will still work but it is recommended that you update any saved links to the new format. In a future release the <em>zp‑core</em> and <em>zp‑npgCore/extensions</em> folders will be renamed and the legacy links will no longer work.</p>
+<p>The names of many of the scripts have also been changed to allow for more intuitive organization of the software. As part of this reorganization, many of the <strong>netPhotoGraphic</strong> functions and global variables have been renamed. Some functions have been encased into new class definitions. In particular, the plugins <em>cloneZenphoto, zpCaptcha,</em> and <em>zenphoto_sendmail </em> have been renamed to <em>clone, captcha,</em> and <em>simple_sendmail.</em></p>
+<p>These changes will be transparent to you provided you do not use custom themes or plugins. The <em>deprecated-functions</em> and <em>zenphotoCompatibilityPack</em> plugins have been updated to provide a smooth upgrade. But you should run the <em>DEVELOPMENT/LEGACY CONVERTER </em>on your scripts to improve their performance. You may also notice that your custom themes and plugins show errors during the setup process. This is because the compatibility plugins are not enabled at setup time. These errors give you an indication of what scripts you need to convert.</p>
 <p><strong>netPhotoGraphics</strong> now supports the <em>webp</em> image format so long as your installation's graphics library also supports it. You can see what formats your graphics library supports on the admin <em>Overview/Installation Information</em> page. Note: some older browsers may not support this image format.</p>
 <p>Of course, there are also the usual bug fixes and security enhancements included with this release.</p>
 <h2>Security</h2>
@@ -132,7 +132,7 @@
 <p><em>nanospell</em></p>
 <p>This plugin has been deprecated and will be removed. The tinyMCE configurations now enable the browser's spell checker. <em>nanospell </em>required custom installations and special licensing. Modern browsers provide a more seamless spell checking solution</p>
 <p><em>TinyMCE</em></p>
-<p><em>TinyMCE</em> has been updated to version 5. If you have implemented any tinyMCE {*USER_PLUGIN_FOLDER*} please see <a href="https://www.tiny.cloud/docs/migration-from-4x/">Migrating from TinyMCE 4</a> for migrating your code.</p>
+<p><em>TinyMCE</em> has been updated to version 5. If you have implemented any tinyMCE plugins please see <a href="https://www.tiny.cloud/docs/migration-from-4x/">Migrating from TinyMCE 4</a> for migrating your code.</p>
 <p><em>userlogin-out</em></p>
 <p>A new choice has been added to the <code>login form</code> option. <em>Colorbox inline</em> will display the login form in a colorbox pop-up window directly (no need to click on the login link.) This allows a protected site to show its index page darkened out behind the login form when a visitor is not logged in. To do this i<code>ndex.php</code> must be checked in the <em>Unprotected pages</em> Gallery option. There will be no button to close the pop-up without logging in, but be aware that if the visitor types an escape the form will close and your index page will be visible.</p>
 <p><em>googleMap &amp; opeanstreetmap</em></p>
@@ -142,7 +142,7 @@
 <p><em>googleTranslate</em></p>
 <p>This is a new plugin to aid translating of Titles, Descriptions, and CMS content of an object. You can  use it to make a first path translation of the text associated with your locale into the site's other enabled languages. Note: the plugin is an <strong>AID</strong> in translation. You should expect to clean up its results prior to exposing the translations on your site.</p>
 <p><em>rewriteRules</em></p>
-<p>This plugin has been enhanced to allow defining <strong>netPhotoGraphics</strong> rewrite rules through a text file in the {*USER_PLUGIN_FOLDER*} folder. The plugin info has been updated to describe the "rules.txt" file format and to give some insight on how <strong>netPhotoGraphics</strong> process rewrite rules. Because of this enhanced functionality the category for <em>rewriteRules</em> has moved from <em>Development</em> to <em>Admin</em>.</p>
+<p>This plugin has been enhanced to allow defining <strong>netPhotoGraphics</strong> rewrite rules through a text file in the plugins folder. The plugin info has been updated to describe the "rules.txt" file format and to give some insight on how <strong>netPhotoGraphics</strong> process rewrite rules. Because of this enhanced functionality the category for <em>rewriteRules</em> has moved from <em>Development</em> to <em>Admin</em>.</p>
 <p>The plugin has also assumed the handling and display of Rewrite Tokens. The <em>rewriteTokens</em> plugin has been consolidated with <em>rewriteRules</em> and removed from the distribution.</p>
 <p><em>security-logger</em></p>
 <p>You can now control finer details of what is captured in the security logs. Each security logger filter can be individually enabled or disabled.</p>
@@ -154,7 +154,7 @@
 <p><em>Site customizations</em>: You now may change the <strong>netPhotoGraphics</strong> logo to an image of your choice on the General options page. You may also provide a "welcome message" that will be shown to users when they log onto your site.</p>
 <p><em>Image metadata</em>: The software will no longer truncate metadata strings. Even if the field exceeds the length specified by the standard the value will be stored.</p>
 <p>The site administrator(s) may now “log on” as any user. This allows them to view the site as that user would see it.</p>
-<p>Several themes and {*USER_PLUGIN_FOLDER*} have been updated, bug fixes applied, and security issues resolved.</p>
+<p>Several themes and plugins have been updated, bug fixes applied, and security issues resolved.</p>
 <p>The software will now retry connecting to the database (up to 10 times) if it receives a "Max user connections exceeded" error. This should allow recovery from peek database connection situations such as when setup is running.</p>
 <p>The PHP MySQL support library is now marked deprecated. The PHP MySQL was deprecated in PHP 5.5.0 and has been removed from PHP 7.0. The netPhotoGraphics support code will be removed from the next release.</p>
 <h2>News articles and Pages</h2>
@@ -251,7 +251,7 @@
 <p>If the <em>multi-lingual</em> option is set and you create a new tag with a language specified or assign a language to a tag which was previously language independent then subtags for each of the site active languages will automatically be created. The initial value of the tag will be the master tag text with a language indicator postpended. Once created you can edit the subtag text to provide the translation.</p>
 <p>Notes:</p>
 <p>Tags uniqueness now includes the language. That is the same tag spelling is possible so long as the assigned language is different. Thus it is now possible to have both  the English tag "table" and the French tag "table." However, only unique tags are listed for objects as there is no language association there. So if in the example above, only one instance of "table" will be listed.</p>
-<h2>{*USER_PLUGIN_FOLDER*}</h2>
+<h2>plugins</h2>
 <p><em>VideoJS</em></p>
 <p>The plugin provides support for the Video.JS video player (videojs.com). It will play video natively via HTML5 in capable browsers. if the appropiate multimedia formats are provided. It will fall back to flash in older browsers. The player size is responsive to the browser size and is is capable of switching between HD and SD video files.</p>
 <p><em>cacheManager</em></p>
@@ -279,7 +279,7 @@
 <p>Several security fixes have been applied. In addition, ZenPhoto20 now traps and logs fatal PHP errors. It an error occurs during setup of a plugin, that plugin is disabled so that the error cannot prevent loading of the administrative pages.</p>
 <p>ZenPhoto20 development testing is now limited to PHP version 7. While PHP version 5.2 is still supported, version level compatibility issues may find their way into the source. Zend Technologies support for PHP version 5.6 will terminate at the end of 2018. All earlier versions are already past their support life. (PHP version 6 was never released.) You are strongly urged to move your site to PHP version 7 as soon as practical. We reserve the right to deprecate support for PHP version 5 whenever supporting it becomes unmanageable.</p>
 <p>ZenPhoto20 will now check for new releases on GitHub. If a release is found that is newer than the one installed, a download button will appear in the Admin utilities functionss button area. <strong>Note:</strong> this feature requires that you are using PHP version 5.5 or later.</p>
-<p>The register user notify option has been move to the general options page. This option is used by multiple {*USER_PLUGIN_FOLDER*} so a global setting is more appropriate.</p>
+<p>The register user notify option has been move to the general options page. This option is used by multiple plugins so a global setting is more appropriate.</p>
 <p>The <em>backup</em> folder has been relocated to within the <em>data</em> folder.</p>
 <p>The <code>shortenContent()</code> function has been rewritten. It will now count only text characters in shortening the string. Before HTML tags were counted as part of the allowed total. Page break handling is now incorporated in the function. Truncation will prefer to happen at a page break indication (<code>&lt;-- pagebreak --&gt;.</code>) This allows for simplification of <code>getContentShorten()</code> which had been including HTML tags in its character count when deciding what page break to select. The <code>$forceindicator</code> parameter has been removed. It really made no sense and was used only by <code>getContentShorten()</code> when it rolled back to a page break. It was also not applied if no shortening was done even though that was the promise in the comment block.</p>
 <p>Warnings about configuration changes will no longer be displayed on theme pages. In addition, when the warning is displayed on an admin page a button will be included to dismiss the warning. If you are comfortable that the change does not impact your site you may dismiss it and it will no longer be shown.</p>
@@ -297,7 +297,7 @@
 <p>The icons used on the administrative pages have been updated to a more minimal look and feel. In most cases the prior PNG image file has been replaced by a Unicode symbol. Thus the image loads have been eliminated during page rendering. All icons have been reviewed and made internally consistent.</p>
 <h2>News articles</h2>
 <p>The Previous and Next article links on theme news pages will now honor the category of the article. If you view a list of articles in a news category and click on the link to a specific article the previous and next article links for the article will show only articles within the originating category.</p>
-<h2>{*USER_PLUGIN_FOLDER*}</h2>
+<h2>plugins</h2>
 <p><em>utf8mb4Migration</em></p>
 <p>This plugin has been provided for sites that wish to migrate to <em>utf8mb4</em> encoding on text fields such as the Description field. A button to perform migration will be placed in the <em>Development</em> area of the admin home page.</p>
 <p>You should always backup your database before attempting this migration. <em>utf8</em> is a subset of <em>utf8mb4</em> so all data should migrate successfully. <strong>HOWEVER</strong> it is possible that the database contains characters which are invalid in <em>utf8mb4</em>. This could cause the migration to fail or to lose data.</p>
@@ -311,7 +311,7 @@
 <p><em>tinyMCE</em></p>
 <p>The problem whereby page and news forms were deemed dirty if <em>tinyMCE </em>was enabled has been mitigated. The fix requires that the form be "Reset" after <em>tinyMCE </em>is done rendering the the text. This may take some time and the form will look dirty until the rendering is complete. So if you try to leave the form too quickly after it is rendered you will still get the warning. If this is still too sensitive you can exclude <em>tinyMCE</em> from Dirty Forms check via an option on the General Options page.</p>
 <p><em>federated_logon</em></p>
-<p>This plugin has been removed and replaced by individual login {*USER_PLUGIN_FOLDER*}. <em>federated_logon</em> was implemented using a version of OAuth that is no longer supported by the major players. It is now available in the ZenPhoto20 development repository for anyone who still wishes to use it. Place the files in the user plugin folder as with other example {*USER_PLUGIN_FOLDER*}.</p>
+<p>This plugin has been removed and replaced by individual login plugins. <em>federated_logon</em> was implemented using a version of OAuth that is no longer supported by the major players. It is now available in the ZenPhoto20 development repository for anyone who still wishes to use it. Place the files in the user plugin folder as with other example plugins.</p>
 <h2>Themes</h2>
 <p><em>effervescence+, garland, zenpage, and zpEnlighten</em></p>
 <p>Themes that created custom menus did not provide for language translations of the <em>title</em> of the links.</p>
@@ -360,7 +360,7 @@
 <p><em>accessThreshold:</em></p>
 <p>If you are experiencing denial of service attacks from specific networks this plugin may help mitigate the problem. The plugin monitors front-end page requests and tallies them by IP address (or sub portion thereof.) If the request threshold is exceeded script loading will stop without sending a response.</p>
 <p><em>fieldExtender:</em></p>
-<p>The base class has been extended to allow custom field extender {*USER_PLUGIN_FOLDER*} to assert that fields should be added to the search list by default. Fields may also be added to bulk action drop-down lists. See the <em>fieldExtender </em>comment for details. The "get" and "set" methods for custom fields are now defined for the object. E.g. you can use <code>$obj-&gt;getXXX();</code> and <code>$obj-&gt;setXXX('data');</code> to access and update the fields.</p>
+<p>The base class has been extended to allow custom field extender plugins to assert that fields should be added to the search list by default. Fields may also be added to bulk action drop-down lists. See the <em>fieldExtender </em>comment for details. The "get" and "set" methods for custom fields are now defined for the object. E.g. you can use <code>$obj-&gt;getXXX();</code> and <code>$obj-&gt;setXXX('data');</code> to access and update the fields.</p>
 <p><em>customData:</em></p>
 <p>This plugin has been moved to the <em>User Plugins</em> folder and is no longer actively supported as a ZenPhoto20 plugin. If you have need of custom fields in your database you should create a version of the <em>customFieldExtender </em>plugin to define unique fields for your use.</p>
 <p><em>seo_locale:</em></p>
@@ -371,7 +371,7 @@
 <hr />
 <h2 style="text-align: center;">Version 1.2.0</h2>
 <h2>Plugin option edit tab</h2>
-<p>There is now a link to the next and previous {*USER_PLUGIN_FOLDER*} (alphabetically) at the bottom of the plugin option page.</p>
+<p>There is now a link to the next and previous plugins (alphabetically) at the bottom of the plugin option page.</p>
 <h2>Admin tab consolidation</h2>
 <p>The <em>Debug</em> plugin subtabs have been consolidated with the <em>Development</em> subtabs to reduce the number of administration tabs. In addition, the plugin categories have been revisited. <em>MacroList</em>, <em>rewriteRules</em>, and <em>rewriteTokens </em>have been moved to the <em>development</em> category.</p>
 <h2>tinyMCE:obj insertions</h2>
@@ -392,7 +392,7 @@
 <p>It is now possible to add tags to items on these pages.No list of possible tags is shown since that might cause some of the above issues. But <em>tag_suggest</em> will make suggestions from the existing tag list and you can create new tags by simply typing them in the <em>add tag</em> field. Individual tags cannot be removed. However you can elect to clear existing tags so only those you add will be present after the apply button is pressed.</p>
 <h2>Database storage for image metadata fields</h2>
 <p>ZenPhoto20 now allows for database columns for image metadata to be optional. You can reduce the size of image database records by marking the ones you do not need <em>do not process</em> on the<em> image options</em> tab. When <code>setup</code>is run it will add or remove fields based on this setting. There is an additional checkbox on that tab, <em>Mark unused fields do not process</em>, that will cause ZenPhoto20 to examine the database for metadata columns that have not had any data stored. These are then marked <em>do not process</em>. Before using this option you should insure that you have a representative set of images and have refreshed their metadata so as to not remove columns that you might want.</p>
-<p>The <em>class-video</em> and <em>xmpMetadata</em> {*USER_PLUGIN_FOLDER*} will create database columns for their metadata only if they are enabled when <code>setup</code> is run.</p>
+<p>The <em>class-video</em> and <em>xmpMetadata</em> plugins will create database columns for their metadata only if they are enabled when <code>setup</code> is run.</p>
 <p>You may see a "configuration change" notice when you change the state of these options. This will indicate that a <em>setup request</em> has been made (and by what process.) This is a reminder that the change will not take effect until you have run <code>setup</code> so data that might be stored in these fields may not be saved to the database.</p>
 <h2>Plugins</h2>
 <p><em>cloneZenphoto:</em></p>
@@ -473,7 +473,7 @@
 <h2>Sub-rights for pages and news categories</h2>
 <p>Users may now be given "view-only" rights to pages and news categories by un-checking the <em>edit</em> sub-right of the object in the managed objects list. You can also allow users to view un-published items that are members of a category or offspring of a page by checking the <em>view unpublished</em> checkbox (either for the managed object or the global setting.)</p>
 <h2>Optional Object Fields</h2>
-<p>Many of the fields associated with album, image, article, and page objects are now optional. The standard configuration is provided by the <code>optionalObjectFields</code> plugin. If you want none of these fields, simply disable the plugin. If you want your own subset of the fields you can make a copy of the <code>optionalObjectFields</code> plugin in the {*USER_PLUGIN_FOLDER*} folder. Edit the array in the <code>fields()</code> method to remove the elements of the fields you do not want supported. Run setup and the fields will be gone.</p>
+<p>Many of the fields associated with album, image, article, and page objects are now optional. The standard configuration is provided by the <code>optionalObjectFields</code> plugin. If you want none of these fields, simply disable the plugin. If you want your own subset of the fields you can make a copy of the <code>optionalObjectFields</code> plugin in the plugins folder. Edit the array in the <code>fields()</code> method to remove the elements of the fields you do not want supported. Run setup and the fields will be gone.</p>
 <h2>Multi-llingual custom field npgCore/extensions</h2>
 <p>The custom field extension feature now supports multi-lingual fields. It also allows you to provide custom formatting on the admin tab and custom processing of the "saves" data.</p>
 <h2>User management improvements</h2>
@@ -484,7 +484,7 @@
 <p>When you change the site state of the master site (close, close for test, open) the change will be applied to the clone sites as well.</p>
 <h2>Canonical URLs</h2>
 <p>ZenPhoto20 _rewrite_ processing will now cause a "301 permanently moved" redirect if it receives a link that does not conform to the Canonical standard it implements. Basically this means that links that "look" like indexes to sub-items (albums and the News index, for instance) will end with a trailing slash. Items which are interpreted as "final destinations" (An image or single news item, for instance) will not have a trailing slash.</p>
-<h2>New {*USER_PLUGIN_FOLDER*}</h2>
+<h2>New plugins</h2>
 <ul>
 <li><em>overrideEXIFDesc: pprovides</em> a means to compensate for software or cameras which place the image description in the<em> EXIF desc</em> field which by standard is used for the image title.</li>
 <li>optionalObjectFields: extends the use of <em>customFieldExtender </em>to allow certain object fields to be omitted. The distributed version of the plugin supports all the "standard" object fields. You can customize it to add/remove fields of your choice.</li>
@@ -494,13 +494,13 @@
 <hr />
 <h1 style="text-align: center;">Version 1.0.0</h1>
 <h2>Fresh start</h2>
-<p>ZenPhoto20 has been forked from the Zenphoto.org 1.4.6 release. Some cleanup of code and fixes have been applied and some small new features added. Themes and {*USER_PLUGIN_FOLDER*} that are compliant with Zehphoto 1.4.6 (without use of the deprecated-functions plugin) will work with this software.</p>
+<p>ZenPhoto20 has been forked from the Zenphoto.org 1.4.6 release. Some cleanup of code and fixes have been applied and some small new features added. Themes and plugins that are compliant with Zehphoto 1.4.6 (without use of the deprecated-functions plugin) will work with this software.</p>
 <p><strong>Note:</strong> part of this cleanup was to purge the deprecated functions for a fresh start. Lingering calls to these functions will now result in a PHP fault. If you have a custom theme it is recommended you first use the <em>check deprecated use</em> button in the Zenphoto 1.4.6 admin utilities to be sure that you are not using one of the functions which is no longer available.</p>
-<h2>Eliminate the concept of "supported" unsupported themes and {*USER_PLUGIN_FOLDER*}</h2>
-<p>Instead of having a repository for "unsupported" scripts and themes we will include then in the package. Example {*USER_PLUGIN_FOLDER*} will reside in the <code>{*USER_PLUGIN_FOLDER*}</code> folder. New themes will, of course, be found in the <code>themes</code> folder.</p>
+<h2>Eliminate the concept of "supported" unsupported themes and plugins</h2>
+<p>Instead of having a repository for "unsupported" scripts and themes we will include then in the package. Example plugins will reside in the <code>plugins</code> folder. New themes will, of course, be found in the <code>themes</code> folder.</p>
 <p>Newly included themes: gray_highlights (an albums only theme), zpArdoise, zpEnlighten, zpfocus, zpminimal, zpmasonry, and zpskelleton.</p>
-<p>Newly included example {*USER_PLUGIN_FOLDER*}: cacheHeader, cookieInvalidator, create_album, customFieldExtender, disableAction, disableWatermark, filter-fileSearches, galleryToken, headConsolidator, no_show, pluginEnabler, showNoUserRights, single_album, and text_watermark.</p>
-<p>Inclusion of other themes and {*USER_PLUGIN_FOLDER*} will be considered by request.</p>
+<p>Newly included example plugins: cacheHeader, cookieInvalidator, create_album, customFieldExtender, disableAction, disableWatermark, filter-fileSearches, galleryToken, headConsolidator, no_show, pluginEnabler, showNoUserRights, single_album, and text_watermark.</p>
+<p>Inclusion of other themes and plugins will be considered by request.</p>
 <h2>New release packaging</h2>
 <p>Each "tagged" release includes a zip file containing a self-extracting installation script. This file is about one third the size of the individual source files (of which there are about 2000.) So uploading a new release is considerably faster.</p>
 <p>Running the script extracts the release source scripts and then starts the setup process. This work flow is less prone to such things as mis-matched versions of the individual files or overwriting album files.</p>
@@ -516,9 +516,9 @@
 <p>A side benefit of the tinyMCE:obj implementation is that you can also use your clipboard to copy and paste links to spots other than tinyMCE editors.</p>
 <p>The administrative tabs for <em>Page</em>, <em>News articles</em>, category, <em>Image</em>, and <em>Album</em> objects now provide link text that can be copied to the clipboard and pasted wherever desired. (For instance into the content of a <em>News article</em>.) In the case of Images, the <em>crop image</em> function will give a link that will produce the cropped version of the image. These latter are easily inserted into your <em>News article</em> and <em>Page</em> contend by the <em>tinyMCE:obj</em> insert image feature.</p>
 <h2>Purge option for theme and plugin options</h2>
-<p>This feature provides a convenient means to remove options of deleted and forgotten themes and {*USER_PLUGIN_FOLDER*}. Of course it also allows you to "start from scratch" on current ones.</p>
+<p>This feature provides a convenient means to remove options of deleted and forgotten themes and plugins. Of course it also allows you to "start from scratch" on current ones.</p>
 <h2>Custom option handler NUMERIC type option.</h2>
-<p>Allows themes and {*USER_PLUGIN_FOLDER*} to specify that an option be numeric. This allows a shorter input field. Also the data is validated as numeric when updated.</p>
+<p>Allows themes and plugins to specify that an option be numeric. This allows a shorter input field. Also the data is validated as numeric when updated.</p>
 <h2>Favorites albums</h2>
 <p>Create albums from your favorites that can be viewed by others. Favorites albums are essentially "dynamic" albums with the criteria being the selected favorites instance.</p>
 <h2>Improved deprecated function handling</h2>
@@ -531,22 +531,22 @@
 <h2>Image metadata transformation option</h2>
 <p>There is now an option to allow newlines in image metadata to be converted to <code>&lt;br /&gt;</code> tags. This option applies to any metadata destined to the ZenPhoto20 <em>description</em> or <em>title</em> database fields. The raw metadata is left unchanged. This transformation occurs when a new image is discovered or if medadata is refreshed.</p>
 <h2>Plugin tabs</h2>
-<p>The tab categories of {*USER_PLUGIN_FOLDER*} have been reorganized and simplified. In addition, a new tab "enabled" has been created to list all enabled {*USER_PLUGIN_FOLDER*} regardless of their category.</p>
+<p>The tab categories of plugins have been reorganized and simplified. In addition, a new tab "enabled" has been created to list all enabled plugins regardless of their category.</p>
 <h2>Language specific tags</h2>
 <p>Tags may now be assigned a language on the <code>tags</code> tab. If a tag is associated with a language it will not be displayed unless the viewer's language matches the tag language. The default is for tags to be visible in all languages.</p>
 <p>Along with this change comes two new sorting orders for the <code>tags</code> tab. Tags can be sorted by language and most recently added as well as alphabetically and by use count.</p>
 <h2>General unification of objects and names</h2>
-<p>There was considerable inconsistency in both the naming and the methods used in zenphoto objects. We have made progress in making things more uniform. But don't fret. If you have custom {*USER_PLUGIN_FOLDER*} or themes from zenphoto version 1.4.6 or later there is a <code>zenphotoCompatibilityPack</code> plugin that will keep them running just fine.</p>
+<p>There was considerable inconsistency in both the naming and the methods used in zenphoto objects. We have made progress in making things more uniform. But don't fret. If you have custom plugins or themes from zenphoto version 1.4.6 or later there is a <code>zenphotoCompatibilityPack</code> plugin that will keep them running just fine.</p>
 <h2>General bug fixes</h2>
 <p>I have fixed multiple bugs discovered either in my efforts to provide the above or from discussions on Zenphoto forums and tickets.</p>
-<h2>New {*USER_PLUGIN_FOLDER*}</h2>
+<h2>New plugins</h2>
 <ul>
 <li><em>debug</em>: provides tools for debugging your site such as <em>PHPinfo</em>, <em>locale</em> information, etc.</li>
 <li><em>customData</em>: Generally you should not be using the custom_data field of objects now that the <em>customFieldExtender</em> example plugin is availiable. But for legacy use this plugin enables the field on object edit pages.</li>
 <li><em>purgeOptions</em>: see above.</li>
 <li><em>favoritesAlbums</em>: see above.</li>
 <li><em>themeEditor</em>: This is the legacy theme editor which may be used instead of elFinder.</li>
-<li><em>zenphotoCompatibilityPack</em>: A plugin that provides a bridge to Zenphoto.org's 1.4.6 release compatible {*USER_PLUGIN_FOLDER*} and themes.</li>
+<li><em>zenphotoCompatibilityPack</em>: A plugin that provides a bridge to Zenphoto.org's 1.4.6 release compatible plugins and themes.</li>
 </ul>
 <p> </p>
 	</body>
