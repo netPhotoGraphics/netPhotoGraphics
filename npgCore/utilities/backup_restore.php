@@ -422,7 +422,7 @@ if ($action == 'backup') {
 							$missing_table[] = $table;
 						}
 					} else {
-						$table_ignored[] = $tble;
+						$table_ignored[] = $table;
 					}
 
 					$counter++;
