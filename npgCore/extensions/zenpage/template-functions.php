@@ -1377,7 +1377,6 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	if (in_context(NPG_SEARCH) && $mode == 'pages') { // categories are not searched
 		rem_context(ZENPAGE_PAGE);
 	}
-
 	if (0 == count($items) + (int) ($mode == 'allcategories'))
 		return; // nothing to do
 	$startlist = $startlist && !($option == 'omit-top' || $option == 'list-sub');
@@ -1409,10 +1408,10 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 					if (in_context(ZENPAGE_NEWS_CATEGORY) && $mode == 'categories') {
 						$totalcount = count($_CMS_current_category->getArticles(0));
 					} else {
-						save_context();
-						rem_context(ZENPAGE_NEWS_DATE);
+						$saveCategory = $_CMS_current_category;
+						$_CMS_current_category = NULL;
 						$totalcount = count($_CMS->getArticles(0));
-						restore_context();
+						$_CMS_current_category = $saveCategory;
 					}
 					echo ' <span style="white-space:nowrap;"><small>(' . sprintf(ngettext('%u article', '%u articles', $totalcount), $totalcount) . ')</small></span>';
 				}
