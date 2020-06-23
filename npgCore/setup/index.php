@@ -1571,12 +1571,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 
-							if (!isset($_conf_vars['album_folder_class'])) {
-								$_conf_vars['album_folder_class'] = 'std';
-							}
 							if (isset($_conf_vars['album_folder'])) {
 								$albumfolder = str_replace('\\', '/', $_conf_vars['album_folder']);
 								switch ($_conf_vars['album_folder_class']) {
+									default:
+										$_conf_vars['album_folder_class'] = 'std';
 									case 'std':
 										$albumfolder = str_replace('\\', '/', SERVERPATH) . $albumfolder;
 										break;

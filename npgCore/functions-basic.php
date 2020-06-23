@@ -1732,7 +1732,6 @@ function getAlbumFolder($root = SERVERPATH) {
 	$root = str_replace('\\', '/', $root);
 	switch (getOption('album_folder_class')) {
 		default:
-			setOption('album_folder_class', 'std');
 		case 'std':
 			return $root . $_album_folder;
 		case 'in_webpath':
