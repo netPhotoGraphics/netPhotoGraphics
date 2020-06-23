@@ -1720,18 +1720,14 @@ function pathurlencode($path) {
 function getAlbumFolder($root = SERVERPATH) {
 	global $_album_folder;
 	if (is_null($_album_folder)) {
-		if (empty(getOption('external_album_folder'))) {
-			if (empty(getOption('album_folder'))) {
-				setOption('album_folder', $_album_folder = '/' . ALBUMFOLDER . '/');
-			} else {
-				$_album_folder = str_replace('\\', '/', getOption('album_folder'));
-			}
+		if (empty(getOption('album_folder'))) {
+			setOption('album_folder', $_album_folder = '/' . ALBUMFOLDER . '/');
 		} else {
-			setOption('album_folder_class', 'external');
-			$_album_folder = str_replace('\\', '/', getOption('external_album_folder'));
+			$_album_folder = str_replace('\\', '/', getOption('album_folder'));
+			if (substr($_album_folder, -1) != '/') {
+				$_album_folder .= '/';
+			}
 		}
-		if (substr($_album_folder, -1) != '/')
-			$_album_folder .= '/';
 	}
 	$root = str_replace('\\', '/', $root);
 	switch (getOption('album_folder_class')) {

@@ -1571,11 +1571,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 
-							if (isset($_conf_vars['external_album_folder']) && !is_null($_conf_vars['external_album_folder'])) {
-								checkmark(-1, 'albums', gettext("albums [<code>\$conf['external_album_folder']</code> is deprecated]"), sprintf(gettext('You should update your configuration file to conform to the current %1$s example file.'), CONFIGFILE));
-								$_conf_vars['album_folder_class'] = 'external';
-								$albumfolder = $_conf_vars['external_album_folder'];
-							}
 							if (!isset($_conf_vars['album_folder_class'])) {
 								$_conf_vars['album_folder_class'] = 'std';
 							}
