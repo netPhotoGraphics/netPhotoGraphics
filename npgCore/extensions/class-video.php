@@ -446,12 +446,12 @@ class pseudoPlayer {
 			$h = $this->getHeight();
 		}
 
-		$ext = getSuffix($link = $obj->getImagePath());
+		$ext = getSuffix($obj->filename);
 		switch ($ext) {
 			case 'mp3':
 			case 'm4a':
 				return '<audio class="audio-cv" controls>
-							<source src="' . $link . '" type="audio/mpeg">
+							<source src="' . $obj->getFullImageURL() . '" type="audio/mpeg">
 									' . gettext('Your browser does not support the audio tag') . '
 						</audio>';
 			case 'mp4':
