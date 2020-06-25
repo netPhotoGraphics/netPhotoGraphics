@@ -129,7 +129,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	if (!checkAccess($hint, $show)) { // not ok to view
 		//	don't cache the logon page or you can never see the real one
 		$_HTML_cache->abortHTMLCache(true);
-		header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		header("Cache-Control: no-cache, no-store, private;, must-revalidate"); // HTTP 1.1.
 		header("Pragma: no-cache"); // HTTP 1.0.
 		header("Expires: 0"); // Proxies.
 		$_gallery_page = 'password.php';
