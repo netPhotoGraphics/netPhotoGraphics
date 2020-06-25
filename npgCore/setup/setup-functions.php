@@ -554,7 +554,7 @@ function sendImage($class, $which) {
 			break;
 	}
 	// send the right headers
-	header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header("Content-Type: image/png");
 	header("Content-Length: " . strlen($image));
 	header('Content-Disposition: filename="' . $which . '.png"');

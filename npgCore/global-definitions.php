@@ -14,7 +14,7 @@ $v = explode('-', NETPHOTOGRAPHICS_VERSION);
 define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
 unset($v);
 
-define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s') . ' GMT');
+define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s', filemtime(__FILE__)) . ' GMT');
 
 if (!defined('SORT_FLAG_CASE'))
 	define('SORT_FLAG_CASE', 0);

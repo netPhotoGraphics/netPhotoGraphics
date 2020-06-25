@@ -122,7 +122,7 @@ if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
-		header('Last-Modified: ' . NPG_LAST_MODIFIED);
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($_themeScript)) . ' GMT');
 		include(internalToFilesystem($_themeScript));
 		exit();
 	}
