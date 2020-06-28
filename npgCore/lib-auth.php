@@ -854,8 +854,7 @@ class _Authority {
 	 * @param object $user
 	 */
 	static function logUser($user) {
-		$user->set('lastloggedin', $user->get('loggedin'));
-		$user->set('loggedin', date('Y-m-d H:i:s'));
+		$user->set('lastloggedin', date('Y-m-d H:i:s'));
 		$user->save();
 		setNPGCookie("user_auth", $user->getPass() . '.' . $user->getID());
 	}
@@ -1581,7 +1580,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

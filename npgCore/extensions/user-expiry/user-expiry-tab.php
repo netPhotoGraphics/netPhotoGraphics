@@ -76,7 +76,7 @@ if (isset($_GET['action'])) {
 							$user_e = $userobj->getEmail();
 							$user = $userobj->getUser();
 							$key = bin2hex(serialize(array('user' => $user, 'email' => $user_e, 'date' => time())));
-							$link = FULLWEBPATH . '/index.php?user_expiry_reverify=' . $key;
+							$link = '<a href=' . FULLWEBPATH . '/index.php?user_expiry_reverify=' . $key . '>' . WEBPATH . '/renew</a>';
 							$message = sprintf(gettext('Your %1$s credentials need to be renewed. Visit %2$s to renew your logon credentials.'), $site, $link);
 							$msg = npgFunctions::mail(sprintf(gettext('%s renewal required'), $site), $message, array($user => $user_e));
 							break;
@@ -142,7 +142,7 @@ echo '</head>' . "\n";
 								$checked_delete = $checked_disable = $checked_renew = $dup = '';
 								$expires = $user['expires'];
 								$expires_display = date('Y-m-d', $expires);
-								$loggedin = $user['loggedin'];
+								$loggedin = $user['lastloggedin'];
 								if (empty($loggedin)) {
 									$loggedin = gettext('never');
 								} else {
