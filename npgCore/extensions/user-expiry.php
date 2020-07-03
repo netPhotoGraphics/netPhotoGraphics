@@ -256,7 +256,7 @@ class user_expiry {
 				}
 				$userobj->setCredentials($credentials);
 				$userobj->setValid(1);
-				$userobj->set('loggedin', date('Y-m-d H:i:s'));
+				$userobj->set('lastloggedin', date('Y-m-d H:i:s'));
 				$userobj->save();
 
 				npg_Authority::logUser($userobj);

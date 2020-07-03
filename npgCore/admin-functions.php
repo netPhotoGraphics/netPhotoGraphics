@@ -134,9 +134,16 @@ function printAdminHeader($tab, $subtab = NULL) {
 	$multi = getOption('multi_lingual');
 	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
-	if (!npg_loggedin()) {
-//	try to prevent browser, etc. from caching login form
-		header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+	header("Content-Security-Policy: default-src " . FULLWEBPATH . "/ 'unsafe-inline' 'unsafe-eval'; img-src 'self'");
+	header('X-Frame-Options: deny');
+	header('X-Content-Type-Options: nosniff');
+	header('Referrer-Policy: origin');
+
+	if (npg_loggedin()) {
+		header("Cache-Control: private; must-revalidate; max-age=600;"); // HTTP 1.1.
+	} else {
+		//	try to prevent browser, etc. from caching login form
+		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
 		header("Pragma: no-cache"); // HTTP 1.0.
 		header("Expires: 0"); // Proxies.
 	}
@@ -852,14 +859,30 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		if (count($supportedOptions) > 0) {
 			$whom = get_class($optionHandler);
-			$options = $supportedOptions;
-			$option = array_shift($options);
-			if (array_key_exists('order', $option)) {
-				$options = sortMultiArray($supportedOptions, 'order', false, true, false, true);
-				$options = array_keys($options);
+			$option = current($supportedOptions);
+			if (isset($option['order'])) {
+				if (is_numeric($option['order'])) {
+					$order = 'numeric';
+				} else {
+					$order = $option['order'];
+				}
 			} else {
-				$options = array_keys($supportedOptions);
-				natcasesort($options);
+				$order = 'natural';
+			}
+
+			switch ($order) {
+				default:
+				case 'natural':
+					$options = array_keys($supportedOptions);
+					natcasesort($options);
+					break;
+				case 'as_defined':
+					$options = array_keys($supportedOptions);
+					break;
+				case 'numeric':
+					$options = sortMultiArray($supportedOptions, 'order', false, true, false, true);
+					$options = array_keys($options);
+					break;
 			}
 
 			if (method_exists($optionHandler, 'handleOptionSave')) {
@@ -867,7 +890,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX; ?>save-<?php echo $whom; ?>" value="<?php echo $plugin; ?>" />
 				<?php
 			}
-
 
 			foreach ($options as $option) {
 				$descending = $ul = NULL;
