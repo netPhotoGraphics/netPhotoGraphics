@@ -53,7 +53,8 @@ class VideoObject_Options {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		return array(
+		global $_multimedia_extension;
+		$options = array(
 				gettext('Watermark default images') => array('key' => 'video_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
 						'desc' => gettext('Check to place watermark image on default thumbnail images.')),
@@ -61,6 +62,10 @@ class VideoObject_Options {
 						'order' => 1,
 						'desc' => gettext('<code>getFullImageURL()</code> returns a URL to a file with one of these high quality video alternate suffixes if present.'))
 		);
+		if (method_exists($_multimedia_extension, 'getOptionsSupported')) {
+			$options = array_merge($options, $_multimedia_extension->getOptionsSupported());
+		}
+		return $options;
 	}
 
 }
@@ -429,6 +434,20 @@ class pseudoPlayer {
 
 	private $width = 480;
 	private $height = 360;
+
+	public function __construct() {
+		setOptionDefault('class-video_width', $this->width);
+		$this->width = getOption('class-video_width');
+		$this->height = round($this->width * 0.77777 + 5, -1);
+	}
+
+	function getOptionsSupported() {
+		return array(
+				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
+						'order' => 9999,
+						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
+		);
+	}
 
 	function getWidth($dummy) {
 		return $this->width;
