@@ -2,7 +2,7 @@
 
 /**
  *
- * This plugin directly handles `mp4`/`mp4` video and `mp3` audio natively in capable browsers
+ * This plugin handles `mp4`, `mp4` `m4v`, `m4a` and `mp3` natively in capable browsers
  *
  * Other formats require a multimedia player to be enabled. The actual supported multimedia types may vary
  * according to the player enabled.
@@ -16,7 +16,7 @@
 $plugin_is_filter = defaultExtension(990 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('The <em>audio-video</em> handler.');
-	$plugin_notice = gettext('This plugin handles <code>mp3</code> and <code>mp4</code> multi-media files. <strong>Note:</strong> <code>mp3</code> and <code>mp4</code> require HTML5 browser support. You should enable a multimedia player plugin to handle other media files.');
+	$plugin_notice = gettext('This plugin handles <code>mpeg</code> multi-media files. <strong>Note:</strong> native <code>mpeg</code> support requires HTML5 browser support. You should enable a multimedia player plugin to handle other media files.');
 }
 
 if (extensionEnabled('class-video')) {
@@ -448,16 +448,16 @@ class pseudoPlayer {
 
 		$ext = getSuffix($obj->filename);
 		switch ($ext) {
-			case 'mp3':
 			case 'm4a':
+			case 'mp3':
 				return '<audio class="audio-cv" controls>
 							<source src="' . $obj->getFullImageURL() . '" type="audio/mpeg">
 									' . gettext('Your browser does not support the audio tag') . '
 						</audio>';
-			case 'mp4':
 			case 'm4v':
+			case 'mp4':
 				return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
-							<source src="' . $obj->getFullImageURL() . '" type="video/' . $ext . '">
+							<source src="' . $obj->getFullImageURL() . '" type="video/mp4">
 									' . gettext('Your browser does not support the video tag') . '
 						</video>';
 		}

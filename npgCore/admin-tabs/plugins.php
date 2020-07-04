@@ -246,7 +246,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 				}
 				if (isset($details['plugin_notice'])) {
 					if (false === eval($details['plugin_notice'])) {
-						$parserr = $parserr | 1;
+						$parserr = $parserr | 2;
 						$plugin_notice = gettext('<strong>Error parsing <em>plugin_notice</em> string!</strong>.');
 					}
 				} else {
