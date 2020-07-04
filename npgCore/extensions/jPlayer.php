@@ -30,14 +30,28 @@
  * NOTE ON PLAYER SKINS:<br>
  * The look of the player is determined by a pure HTML/CSS based skin (theme). There may occur display issues with themes.
  * Only the default skins <var>light</var> and <var>dark</var>
- * have been tested with the standard themes (and it does not work perfectly for all)). Those two themes are also have a responsive width.
- * So you might need to adjust the skin yourself to work with your theme. It is recommended that
- * you place your custom skins within the root /plugins folder like:
+ * have been tested with the standard themes (and it does not work perfectly for all)).
+ * Those two themes are also have a responsive width.
+ * So you might need to adjust the skin yourself to work with your theme.
+ *
+ * The jplayer <var>Player size</var> options are dynamically determined from the skin css.
+ * The plugin matches for style classes named <code>jp-video-<em>xxx</em>p</code> (where <em>xxx</em>
+ * is the height.) The format of these classes must conform to the following forms:
+ *
+ * <code> .jp-video-270p { max-width: 480px; } </code> or <code>.jp-video-360p {	width: 640px; }</code>
+ *
+ * In the height is determined by the class name and the width is determined by the width element. The width
+ * element must be the first element in the definition.
+ *
+ *
+ * <b>NOTE:</b> A skin may have only one CSS file.
+ *
+ * You should place your custom skins within the root /plugins folder like:
  *
  * plugins/jPlayer/skin/<i>skin name1</i><br>
  * plugins/jPlayer/skin/<i>skin name2</i> ...
  *
- * You can select the skin then via the plugin options. <b>NOTE:</b> A skin may have only one CSS file.
+ * You can select the skin then via the plugin options.
  *
  * USING PLAYLISTS:<br>
  * You can use <var>printjPlayerPlaylist()</var> on your theme's album.php directly to display a
@@ -134,10 +148,25 @@ class jplayer_options {
 		}
 
 		/*
-		  The player size is entirely styled via the CSS skin so there is no free size option. For audio (without thumb/poster) that is always 480px width.
-		  The original jPlayer skin comes with 270p (480x270px) and 360p (640x360px) sizes for videos but the custom skin comes with some more like 480p and 1080p.
-		  If you need different sizes than you need to make your own skin (see the skin option for info about that)
+		 * The player size is entirely styled via the CSS skin so there is no free size option.
+		 * For audio (without thumb/poster) that is always 480px width.
+		 * The original jPlayer skin comes with 270p (480x270px) and 360p (640x360px) sizes for
+		 * videos but the custom skin comes with some more like 480p and 1080p.
+		 * If you need different sizes than you need to make your own skin (see the skin option for info about that)
 		 */
+
+		$skin = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = current($skin);
+		if (!file_exists($skin)) {
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
+		}
+		$skinCSS = file_get_contents($skin);
+		preg_match_all('~\.(jp-video-(\d+)p)\s*\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
+		foreach ($matches[2] as $k => $h) {
+			$w = $matches[3][$k];
+			$sizeSelections[$w . 'x' . $h . 'px'] = 'jp-video-' . $h . 'p';
+		}
 
 		return array(gettext('Autoplay') => array('key' => 'jplayer_autoplay', 'type' => OPTION_TYPE_CHECKBOX,
 						'desc' => gettext("Disabled automatically if several players on one page")),
@@ -156,12 +185,7 @@ class jplayer_options {
 				gettext('Enable download') => array('key' => 'jplayer_download', 'type' => OPTION_TYPE_CHECKBOX,
 						'desc' => gettext("Enables direct file downloads (playlists only).")),
 				gettext('Player size') => array('key' => 'jplayer_size', 'type' => OPTION_TYPE_SELECTOR,
-						'selections' => array(
-								gettext('jp-video-270p (480x270px)') => "jp-video-270p",
-								gettext('jp-video-360p (640x360px)') => "jp-video-360p",
-								gettext('jp-video-480p (720x405px)*') => "jp-video-480p",
-								gettext('jp-video-720p (1280x720px)*') => "jp-video-720p",
-								gettext('jp-video-1080p (1920x1080px)*') => "jp-video-1080p"),
+						'selections' => $sizeSelections,
 						'desc' => gettext("jPlayer is dependent on their HTML and CSS based skin. Sizes marked with a <strong>*</strong> are supported by the two custom skins only (these two skins are also responsive in width). If you need different sizes you need to modify a skin or make your own and also need to change values in the plugin class method getPlayerSize().")),
 				gettext('Player skin') => array('key' => 'jplayer_skin', 'type' => OPTION_TYPE_SELECTOR,
 						'selections' => $skins,
@@ -181,29 +205,18 @@ class jPlayer {
 	public $supplied_counterparts = '';
 
 	function __construct() {
-		$this->playersize = getOption('jplayer_size');
-		switch ($this->playersize) {
-			case 'jp-video-270p':
-				$this->width = 480;
-				$this->height = 270;
-				break;
-			case 'jp-video-360p':
-				$this->width = 640;
-				$this->height = 360;
-				break;
-			case 'jp-video-480p':
-				$this->width = 720;
-				$this->height = 405;
-				break;
-			case 'jp-video-720p':
-				$this->width = 1280;
-				$this->height = 720;
-				break;
-			case 'jp-video-1080p':
-				$this->width = 1920;
-				$this->height = 1080;
-				break;
+
+		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = current($skins);
+		if (!file_exists($skin)) {
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
 		}
+		$skinCSS = file_get_contents($skin);
+		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
+		$which = array_search(getOption('jplayer_size'), $matches[1]);
+		$this->playersize = $matches[1][$which]; //	incase the size option is not supported
+		$this->width = $matches[3][$which];
+		$this->height = $matches[2][$which];
 	}
 
 	static function getMacrojplayer($albumname, $imagename, $count = 1) {
