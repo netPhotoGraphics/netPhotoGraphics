@@ -2390,7 +2390,7 @@ ul.page-list {
 
 .page-list_row .page-list_extra a img {
 	border: 0;
-	vertical-align: central;
+	vertical-align: middle;
 }
 
 .page-list_row .page-list_extra > span,
