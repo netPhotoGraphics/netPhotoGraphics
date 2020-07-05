@@ -86,10 +86,8 @@ if (isset($_GET['action'])) {
 			break;
 		case 'saveoptions':
 			XSRFdefender('saveadmin');
-
 			$notify = $returntab = $msg = '';
 			$newuserid = @$_POST['newuser'];
-
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -380,8 +378,14 @@ echo $refresh;
 							$rangeset = array();
 						} else {
 							if (!empty($showgroup)) {
+								$stamp = time() - getOption('online_persistance') * 60;
 								foreach ($admins as $key => $user) {
 									switch ($showgroup) {
+										case '@': //	online users
+											if ($user['lastaccess'] < $stamp) {
+												unset($admins[$key]);
+											}
+											break;
 										case '*':
 											if ($user['rights'] != 0) {
 												unset($admins[$key]);
@@ -410,7 +414,9 @@ echo $refresh;
 							}
 							$rangeset = getPageSelector($list, USERS_PER_PAGE);
 						}
-						$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
+						if ($showgroup != '@') {
+							$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
+						}
 					} else {
 						$rangeset = array();
 						if ($_current_admin_obj) {
@@ -436,7 +442,7 @@ echo $refresh;
 							}
 						}
 					}
-					if (count($userlist) == 1) {
+					if (!$showgroup && count($userlist) == 1) {
 						$u = reset($userlist);
 						$showset = array($u['user']);
 					}
@@ -522,7 +528,7 @@ echo $refresh;
 							<tr>
 								<td style="width: 48en;">
 									<?php
-									if (count($userlist) != 1) {
+									if ($showgroup || count($userlist) != 1) {
 										?>
 										<span class="nowrap" style="font-weight: normal;">
 											<a onclick="toggleExtraInfo('', 'user', true);"><?php echo gettext('Expand all'); ?></a>
@@ -535,12 +541,17 @@ echo $refresh;
 								</td>
 								<td>
 									<?php
-									if (count($userlist) != 1 && ($pending || count($seenGroups) > 0)) {
+									if ($showgroup || count($userlist) != 1 && ($pending || count($seenGroups) > 0)) {
 										echo gettext('show');
 										?>
 										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo getAdminLink('admin-tabs/users.php'); ?>', ['showgroup=' + $('#showgroup').val()]);" >
 											<option value=""<?php if (!$showgroup) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 											<?php
+											if (count($userlist) != 1) {
+												?>
+												<option value = "@"<?php if ($showgroup == '@') echo ' selected="selected"'; ?>><?php echo gettext('on line'); ?></option>
+												<?php
+											}
 											if ($pending) {
 												?>
 												<option value = "*"<?php if ($showgroup == '*') echo ' selected="selected"'; ?>><?php echo gettext('pending verification'); ?></option>

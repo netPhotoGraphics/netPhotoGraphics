@@ -273,6 +273,7 @@ $questions[] = getSerializedArray(getAllTranslations("When did you first get a c
 $questions[] = getSerializedArray(getAllTranslations("How much wood could a woodchuck chuck if a woodchuck could chuck wood?"));
 $questions[] = getSerializedArray(getAllTranslations("What is the date of the Ides of March?"));
 setOptionDefault('challenge_foils', serialize($questions));
+setOptionDefault('online_persistance', 5);
 
 $admins = $_authority->getAdministrators('all');
 if (empty($admins)) { //	empty administrators table

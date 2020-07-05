@@ -2291,7 +2291,9 @@ function js_encode($this_string) {
 function getXSRFToken($action, $modifier = NULL) {
 	global $_current_admin_obj;
 	if (is_object($_current_admin_obj)) {
-		$modifier .= serialize($_current_admin_obj->getData());
+		$data = $_current_admin_obj->getData();
+		unset($data['lastaccess']);
+		$modifier .= serialize($data);
 	} else {
 		$modifier = microtime();
 	}

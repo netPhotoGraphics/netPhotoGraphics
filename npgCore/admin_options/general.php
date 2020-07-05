@@ -57,7 +57,7 @@ function saveOptions() {
 			$oldsuffix = NULL; //	prevent migrating the CMS links
 		}
 		if (!is_null($oldsuffix)) {
-			//the suffix was changed as opposed to set for the first time
+//the suffix was changed as opposed to set for the first time
 			migrateTitleLinks($oldsuffix, $newsuffix);
 		}
 	}
@@ -82,7 +82,7 @@ function saveOptions() {
 			if ($p == '//') {
 				$p = '/';
 			}
-			//	save a cookie to see if change works
+//	save a cookie to see if change works
 			$returntab .= '&cookiepath';
 			setNPGCookie('cookie_path', $p, 600);
 		}
@@ -680,6 +680,25 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 								if (count($mailinglist) == 0) { //	no one to send the notice to!
 									echo ' ' . gettext('Of course there must be some Administrator with an e-mail address for this option to make sense!');
 								}
+								?>
+							</div>
+						</span>
+				</tr>
+				<tr>
+					<td class="option_name">
+						<?php echo gettext('Online threshold'); ?>
+					</td>
+					<td class="option_value">
+						<label>
+							<input type="text" id="user_persistance" name="online_persistance"  value="<?php echo getOption('online_persistance') ?>" />
+						</label>
+					</td>
+					<td class="option_desc">
+						<span class="option_info">
+							<?php echo INFORMATION_BLUE; ?>
+							<div class="option_desc_hidden">
+								<?php
+								printf(gettext('Users will be considered to be "on-line" if their last page request was no more than %1$s minutes ago.'), getOption('online_persistance'));
 								?>
 							</div>
 						</span>

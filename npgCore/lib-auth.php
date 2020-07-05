@@ -1008,6 +1008,7 @@ class _Authority {
 			clearNPGCookie($cookie);
 		}
 		clearNPGCookie('ssl_state');
+		$_current_admin_obj->updateLastAccess(FALSE);
 		$_loggedin = false;
 		$_pre_authorization = array();
 		npg_session_destroy();
@@ -1580,7 +1581,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -2115,6 +2116,29 @@ class _Administrator extends PersistentObject {
 	 */
 	function getLastLogon() {
 		return $this->get('lastloggedin');
+	}
+
+	/**
+	 * stores current timestamp for user's last page fetch
+	 *
+	 * @param bool $loggedin true if user is on-line
+	 */
+	function updateLastAccess($loggedin) {
+		if ($loggedin) {
+			$loggedin = time();
+		}
+		$this->set('lastaccess', $loggedin);
+		$sql = 'UPDATE ' . prefix('administrators') . ' SET `lastaccess`=' . $loggedin . ' WHERE `id`=' . $this->id;
+		query($sql);
+	}
+
+	/**
+	 * returns the timestamp of a user's last page fetch
+	 *
+	 * @return timestamp
+	 */
+	function getLastAccess() {
+		return $this->get('lastaccess');
 	}
 
 	/**

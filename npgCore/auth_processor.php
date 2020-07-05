@@ -75,6 +75,7 @@ if (isset($_POST['login'])) { //	Handle the login form.
 	}
 }
 if ($_loggedin) {
+	$_current_admin_obj->updateLastAccess(TRUE);
 	if (secureServer()) {
 		// https: refresh the 'ssl_state' marker for redirection
 		setNPGCookie("ssl_state", "needed", NULL, false);

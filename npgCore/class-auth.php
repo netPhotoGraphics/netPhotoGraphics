@@ -13,7 +13,8 @@
  *
  * 		"npg_Administrator" class: supports the basic needs for object manipulation of administrators.
  *
- * (You can include the <code>lib-auth.php</code> script and extend/overwrite _Authority and _Administrator class methods if that suits your needs.)
+ * (You can include the <code>lib-auth.php</code> script and extend/overwrite _Authority
+ * and _Administrator class methods if that suits your needs.)
  *
  * The global $_current_admin_obj represents the current admin.
  *
