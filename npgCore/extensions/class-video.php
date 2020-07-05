@@ -100,7 +100,7 @@ class Video extends Image {
 		$this->video = true;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 
-		// This is where the magic happens...
+// This is where the magic happens...
 		$album_name = $album->name;
 		$this->updateDimensions();
 
@@ -126,7 +126,7 @@ class Video extends Image {
 	 */
 	static function getMetadataFields() {
 		return array(
-				// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
+// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'VideoFormat' => array('VIDEO', 'fileformat', gettext('Video File Format'), false, 32, true, 'string', false),
 				'VideoSize' => array('VIDEO', 'filesize', gettext('Video File Size'), false, 32, true, 'number', false),
 				'VideoArtist' => array('VIDEO', 'artist', gettext('Video Artist'), false, 256, true, 'string', false),
@@ -296,7 +296,7 @@ class Video extends Image {
 	 * @param unknown_type $path
 	 */
 	function getFullImageURL($path = WEBPATH) {
-		// Search for a high quality version of the video
+// Search for a high quality version of the video
 		if ($vid = parent::getFullImageURL($path)) {
 			$folder = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->album->getFileName());
 			$video = stripSuffix($this->filename);
@@ -340,13 +340,18 @@ class Video extends Image {
 	private function getMetaDataID3() {
 		$suffix = getSuffix($this->localpath);
 		if (in_array($suffix, array('m4a', 'm4v', 'mp3', 'mp4', 'flv', 'fla'))) {
-			$getID3 = new getID3;
-			@set_time_limit(30);
-			$ThisFileInfo = $getID3->analyze($this->localpath);
-			getid3_lib::CopyTagsToComments($ThisFileInfo);
-			// output desired information in whatever format you want
-			if (is_array($ThisFileInfo)) {
-				return $ThisFileInfo;
+			try {
+				$getID3 = new getID3;
+				@set_time_limit(30);
+				$ThisFileInfo = $getID3->analyze($this->localpath);
+				getid3_lib::CopyTagsToComments($ThisFileInfo);
+				// output desired information in whatever format you want
+				if (is_array($ThisFileInfo)) {
+					return $ThisFileInfo;
+				}
+			} catch (Exception $exc) {
+				debugLog($exc->getMessage());
+				return NULL;
 			}
 		}
 		return NULL; // don't try to cover other files even if getid3 reads images as well
@@ -392,7 +397,7 @@ class Video extends Image {
 								debugLog($msg);
 								break;
 							default:
-								//discard, not used
+//discard, not used
 								break;
 						}
 						unset($ThisFileInfo[$key]);
@@ -465,29 +470,68 @@ class pseudoPlayer {
 			$h = $this->getHeight();
 		}
 
-		$ext = getSuffix($obj->filename);
-		switch ($ext) {
+		$src = stripSuffix($obj->getFullImageURL());
+		$file = $obj->localpath;
+		$ext = getSuffix($file);
+		$file = stripSuffix($file);
+		$url = '';
+
+		switch (strtolower($ext)) {
 			case 'm4a':
 			case 'mp3':
-				return '<audio class="audio-cv" controls>
-							<source src="' . $obj->getFullImageURL() . '" type="audio/mpeg">
-									' . gettext('Your browser does not support the audio tag') . '
-						</audio>';
+				$src = stripSuffix($obj->getFullImageURL());
+				$alts = safe_glob($file . '.*');
+				foreach ($alts as $alt) {
+					$altext = getSuffix($alt);
+					switch (strtolower($altext)) {
+						case 'ogg':
+						case 'wav':
+							$url .= '<source src="' . $src . '.' . $altext . '" type="video/' . $altext . '">' . "\n";
+							break;
+					}
+				}
+				$url .= '<source src="' . $src . '.' . $ext . '" type="audio/mpeg">';
+				return '
+					<audio class="audio-cv" controls>
+					' . $url . '
+					' . gettext('Your browser does not support the audio tag') . '
+					</audio>' . "\n";
 			case 'm4v':
 			case 'mp4':
-				return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
-							<source src="' . $obj->getFullImageURL() . '" type="video/mp4">
-									' . gettext('Your browser does not support the video tag') . '
-						</video>';
+				$poster = '';
+				if (!is_null($obj->objectsThumb)) {
+					$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
+				} else {
+					$poster = '';
+				}
+
+				$src = stripSuffix($obj->getFullImageURL());
+				$alts = safe_glob($file . '.*');
+				foreach ($alts as $alt) {
+					$altext = getSuffix($alt);
+					switch (strtolower($altext)) {
+						case 'ogg':
+						case 'ogv':
+						case 'webm':
+							$url .= '<source src="' . $src . '.' . $altext . '" type="video/' . $altext . '">' . "\n";
+							break;
+					}
+				}
+				$url .= '<source src="' . $src . '.' . $ext . '" type="video/mp4">';
+				return '
+					<video class="video-cv" width="' . $w . '" height="' . $h . '" controls' . $poster . '>
+						' . $url . '
+						' . gettext('Your browser does not support the video tag') . '
+					</video>' . "\n";
 		}
-		return '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
+		return '<img src = "' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt = "' . gettext('No multimedia extension installed for this format.') . '" />';
 	}
 
 }
 
 function class_video_enable($enabled) {
 	if ($enabled) {
-		//establish defaults for display and disable
+//establish defaults for display and disable
 		$display = $disable = array();
 		$exifvars = Video::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
@@ -502,7 +546,7 @@ function class_video_enable($enabled) {
 		setOption('metadata_displayed', serialize($display));
 		$report = gettext('Metadata fields will be added to the Image object.');
 	} else {
-		$report = gettext('Metadata fields will be <span style="color:red;font-weight:bold;">dropped</span> from the Image object.');
+		$report = gettext('Metadata fields will be <span style = "color:red;font-weight:bold;">dropped</span> from the Image object.');
 	}
 	requestSetup('Video Metadata', $report);
 }
