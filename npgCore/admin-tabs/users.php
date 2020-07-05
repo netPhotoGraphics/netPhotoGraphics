@@ -381,11 +381,10 @@ echo $refresh;
 							$rangeset = array();
 						} else {
 							if (!empty($showgroup)) {
-
 								foreach ($admins as $key => $user) {
 									switch ($showgroup) {
 										case '@': //	online users
-											if ($user['lastaccess'] < $stamp) {
+											if (isset($user['lastaccess']) && $user['lastaccess'] < $stamp) {
 												unset($admins[$key]);
 											}
 											break;
