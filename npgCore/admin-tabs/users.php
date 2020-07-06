@@ -543,7 +543,7 @@ echo $refresh;
 								</td>
 								<td>
 									<?php
-									if ($showgroup || count($userlist) != 1 && ($pending || count($seenGroups) > 0)) {
+									if (count($rangeset) > 1 && ($showgroup || $pending || count($seenGroups) > 0)) {
 										echo gettext('show');
 										?>
 										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo getAdminLink('admin-tabs/users.php'); ?>', ['showgroup=' + $('#showgroup').val()]);" >
@@ -551,7 +551,7 @@ echo $refresh;
 											<?php
 											if ($totalUsers > 1) {
 												?>
-												<option value = "@"<?php if ($showgroup == '@') echo ' selected="selected"'; ?>><?php echo gettext('on line'); ?></option>
+												<option value = "@"<?php if ($showgroup == '@') echo ' selected="selected"'; ?>><?php echo gettext('online'); ?></option>
 												<?php
 											}
 											if ($pending) {
@@ -559,7 +559,7 @@ echo $refresh;
 												<option value = "*"<?php if ($showgroup == '*') echo ' selected="selected"'; ?>><?php echo gettext('pending verification'); ?></option>
 												<?php
 											}
-											if (!empty($seenGroups)) {
+											if (!empty($seenGroups) && extensionEnabled('user_groups')) {
 												if ($nogroup) {
 													?>
 													<option value="$"<?php if ($showgroup == '$') echo ' selected="selected"'; ?>><?php echo gettext('no group'); ?></option>
