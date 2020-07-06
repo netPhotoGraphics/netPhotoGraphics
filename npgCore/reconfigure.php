@@ -305,7 +305,11 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							break;
 						default:
 							$sz = @filesize(CORE_SERVERPATH . $thing);
-							echo '<li>' . sprintf(gettext('The script <code>%1$s</code> has changed.'), $thing) . '</li>';
+							if (getSuffix($thing) == 'php') {
+								echo '<li>' . sprintf(gettext('The script <code>%1$s</code> has changed.'), $thing) . '</li>';
+							} else {
+								echo '<li>' . sprintf(gettext('The <code>%1$s</code> has changed.'), $thing) . '</li>';
+							}
 							break;
 					}
 				}

@@ -2009,7 +2009,8 @@ function installSignature() {
 			'functions.php' => filesize($folder . '/functions.php'),
 			'functions-basic.php' => filesize($folder . '/functions-basic.php'),
 			'lib-controller.php' => filesize($folder . '/lib-controller.php'),
-			'lib-image.php' => filesize($folder . '/lib-image.php')
+			'lib-image.php' => filesize($folder . '/lib-image.php'),
+			'databaseTemplate' => filesize($folder . '/databaseTemplate')
 	);
 
 	$dbs = db_software();
