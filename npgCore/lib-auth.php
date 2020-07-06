@@ -12,7 +12,6 @@ class _Authority {
 	var $admin_users = NULL;
 	var $admin_groups = NULL;
 	var $admin_other = NULL;
-	var $admin_all = NULL;
 	var $rightsset = NULL;
 	protected $master_user = NULL;
 	protected $master_userObj = NULL;
@@ -56,13 +55,12 @@ class _Authority {
 			define('PASSWORD_FUNCTION_DEFAULT', 3);
 		}
 
-		$this->admin_all = $this->admin_groups = $this->admin_users = $this->admin_other = array();
+		$this->admin_groups = $this->admin_users = $this->admin_other = array();
 		$groups = extensionEnabled('user_groups');
 		$sql = 'SELECT * FROM ' . prefix('administrators') . ' ORDER BY `rights` DESC, `id`';
 		$admins = query($sql, false);
 		if ($admins) {
 			while ($user = db_fetch_assoc($admins)) {
-				$this->admin_all[$user['id']] = $user;
 				switch ($user['valid']) {
 					case 1:
 						$this->admin_users[$user['id']] = $user;
@@ -72,8 +70,6 @@ class _Authority {
 					case 0:
 						if ($groups) {
 							$this->admin_groups[$user['id']] = $user;
-						} else {
-							unset($this->admin_all[$user['id']]);
 						}
 						break;
 					default:
@@ -109,7 +105,7 @@ class _Authority {
 	}
 
 	function validID($id) {
-		return array_key_exists($id, $this->admin_all);
+		return array_key_exists($id, $this->admin_users) || array_key_exists($id, $this->admin_other) || array_key_exists($id, $this->admin_groups);
 	}
 
 	/**
@@ -359,9 +355,9 @@ class _Authority {
 			case 'groups':
 				return $this->admin_groups;
 			case 'allusers':
-				return array_merge($this->admin_users, $this->admin_other);
+				return $this->admin_users + $this->admin_other;
 			default:
-				return $this->admin_all;
+				return $this->admin_users + $this->admin_other + $this->admin_groups;
 		}
 	}
 
@@ -378,20 +374,23 @@ class _Authority {
 		}
 		if (isset($find['id'])) {
 			$id = $find['id']['value'];
-			if (isset($this->admin_all[$id])) {
-				$admin = $this->admin_all[$id];
-				foreach ($find as $field => $select) {
-					if ($r = strcmp($admin[$field], $select['value']) == 0) {
-						$ops = array('=', '>=', '<=');
-					} else if ($r > 0) {
-						$ops = array('>', '>=', '!=');
-					} else {
-						$ops = array('<', '<=', '!=');
+			foreach (array($this->admin_users, $this->admin_other, $this->admin_groups) as $list) {
+				if (isset($list[$id])) {
+					$admin = $list[$id];
+					foreach ($find as $field => $select) {
+						if ($r = strcmp($admin[$field], $select['value']) == 0) {
+							$ops = array('=', '>=', '<=');
+						} else if ($r > 0) {
+							$ops = array('>', '>=', '!=');
+						} else {
+							$ops = array('<', '<=', '!=');
+						}
+						if (!in_array($select['op'], $ops)) {
+							unset($admin);
+							break;
+						}
 					}
-					if (!in_array($select['op'], $ops)) {
-						unset($admin);
-						break;
-					}
+					break;
 				}
 			}
 		}
@@ -2124,9 +2123,11 @@ class _Administrator extends PersistentObject {
 	 * @param bool $loggedin true if user is on-line
 	 */
 	function updateLastAccess($loggedin) {
+		global $_authority;
 		if ($loggedin) {
 			$loggedin = time();
 		}
+		$_authority->admin_users[$this->getId()]['lastaccess'] = $loggedin;
 		$this->set('lastaccess', $loggedin);
 		$sql = 'UPDATE ' . prefix('administrators') . ' SET `lastaccess`=' . $loggedin . ' WHERE `id`=' . $this->id;
 		query($sql, false);
