@@ -6,7 +6,6 @@
  *
  * Adapted from {@link https://cookieconsent.insites.com COOKIE CONSENT by Insites }
  *
- * @author Malte Müller (acrylian), Fred Sondaar (fretzl), Vincent Bourganel (vincent3569)
  * @license GPL v3 or later
  *
  * @author Malte Müller (acrylian), Fred Sondaar (fretzl), Vincent Bourganel (vincent3569), Stephen Billard (netPhotoGraphics migration)
@@ -15,11 +14,16 @@
  */
 $plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext("A plugin to add a cookie notify dialog");
+$plugin_disable = (extensionEnabled('GDPR_required')) ? sprintf(gettext('The <a href="#%1$s"><code>%1$s</code></a> plugin is enabled. It is a superset of cookie notification handling.'), 'GDPR_required') : '';
+
 $option_interface = 'cookieConsent';
 
-if (!isset($_COOKIE['cookieconsent_status'])) {
-	npgFilters::register('theme_body_close', 'cookieConsent::getCSS');
-	npgFilters::register('theme_body_close', 'cookieConsent::getJS');
+if (!$plugin_disable) {
+
+	if (!isset($_COOKIE['cookieconsent_status'])) {
+		npgFilters::register('theme_body_close', 'cookieConsent::getCSS');
+		npgFilters::register('theme_body_close', 'cookieConsent::getJS');
+	}
 }
 
 class cookieConsent {
