@@ -1007,7 +1007,9 @@ class _Authority {
 			clearNPGCookie($cookie);
 		}
 		clearNPGCookie('ssl_state');
-		$_current_admin_obj->updateLastAccess(FALSE);
+		if ($_current_admin_obj) {
+			$_current_admin_obj->updateLastAccess(FALSE);
+		}
 		$_loggedin = false;
 		$_pre_authorization = array();
 		npg_session_destroy();
@@ -1580,7 +1582,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

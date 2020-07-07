@@ -4408,7 +4408,7 @@ function exposeSoftwareInformation($obj = '', $plugins = '', $theme = '') {
  */
 function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NULL) {
 	global $_current_admin_obj;
-	if (getOption('GDPR_acknowledge') && !($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') != getOption('GDPR_cookie')) {
+	if (getOption('GDPR_acknowledge') && !($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') < getOption('GDPR_cookie')) {
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
@@ -4439,7 +4439,7 @@ function recordPolicyACK($user = NULL) {
 			$user->save();
 			$what = $user->getUser();
 		} else {
-			setNPGCookie('policyACK', getOption('GDPR_cookie'), FALSE);
+			setNPGCookie('policyACK', getOption('GDPR_cookie'), NULL, FALSE);
 			require_once (CORE_SERVERPATH . 'class-browser.php');
 			$browser = new Browser();
 			$what = sprintf(gettext('%1$s policyACK cookie'), $browser->getBrowser());

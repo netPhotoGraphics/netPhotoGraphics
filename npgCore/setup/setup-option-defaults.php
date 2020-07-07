@@ -514,7 +514,7 @@ setOptionDefault('style_tags', $style_tags);
 setOptionDefault('GDPR_text', getAllTranslations('Check to acknowledge the site <a href="%s">usage policy</a>.'));
 $GDPR_cookie = getOption('GDPR_cookie');
 if (!$GDPR_cookie || strpos(' ', $GDPR_cookie) !== FALSE) {
-	setOption('GDPR_cookie', md5(microtime()));
+	setOption('GDPR_cookie', md5(microtime()), NULL, FALSE);
 }
 
 setOptionDefault('full_image_quality', 75);
