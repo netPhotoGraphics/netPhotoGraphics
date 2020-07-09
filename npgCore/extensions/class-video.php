@@ -186,7 +186,7 @@ class Video extends Image {
 				}
 			}
 		} else {
-			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
+			$imgfile = dirname($this->localpath) . '/' . $this->objectsThumb;
 		}
 		return $imgfile;
 	}
@@ -214,15 +214,15 @@ class Video extends Image {
 		if (empty($wmt)) {
 			$wmt = getWatermarkParam($this, WATERMARK_THUMB);
 		}
-		if ($this->objectsThumb == NULL) {
+		$filename = filesystemToInternal($this->objectsThumb);
+		if ($filename == NULL || !file_exists(dirname($this->localpath) . '/' . $filename)) {
 			$mtime = $cx = $cy = NULL;
 			$filename = makeSpecialImageName($this->getThumbImageFile());
 			if (!getOption('video_watermark_default_images')) {
 				$wmt = '!';
 			}
 		} else {
-			$filename = filesystemToInternal($this->objectsThumb);
-			$mtime = filemtime(ALBUM_FOLDER_SERVERPATH . '/' . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb);
+			$mtime = filemtime(dirname($this->localpath) . '/' . $filename);
 		}
 		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, $crop, true, $wmt, NULL, NULL), $this->album->name);
 		return getImageURI($args, $this->album->name, $filename, $mtime);

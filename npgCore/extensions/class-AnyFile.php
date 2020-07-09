@@ -115,7 +115,7 @@ class AnyFile extends TextObject {
 				}
 			}
 		} else {
-			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
+			$imgfile = dirname($this->localpath) . '/' . $this->objectsThumb;
 		}
 		return $imgfile;
 	}

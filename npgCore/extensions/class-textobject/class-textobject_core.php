@@ -139,7 +139,7 @@ class TextObject extends Image {
 				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
 			}
 		} else {
-			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
+			$imgfile = dirname($this->localpath) . '/' . $this->objectsThumb;
 		}
 		return $imgfile;
 	}
@@ -152,27 +152,34 @@ class TextObject extends Image {
 	 */
 	function getThumb($type = 'image', $wmt = NULL) {
 		$ts = getOption('thumb_size');
-		$sw = getOption('thumb_crop_width');
-		$sh = getOption('thumb_crop_height');
-		list($custom, $cw, $ch, $cx, $cy) = $this->getThumbCropping($ts, $sw, $sh);
-		if (empty($wmt))
+		$crop = false;
+		if (getOption('thumb_crop')) {
+			$crop = true;
+			$sw = getOption('thumb_crop_width');
+			$sh = getOption('thumb_crop_height');
+			list($custom, $cw, $ch, $cx, $cy) = $this->getThumbCropping($ts, $sw, $sh);
+		} else {
+			$crop = false;
+			$sw = $sh = $cw = $ch = $cx = $cy = null;
+		}
+		if (empty($wmt)) {
 			$wmt = $this->watermark;
-		if (empty($wmt))
+		}
+		if (empty($wmt)) {
 			$wmt = getWatermarkParam($this, WATERMARK_THUMB);
-
-		if (is_null($this->objectsThumb)) {
+		}
+		$filename = filesystemToInternal($this->objectsThumb);
+		if ($filename == NULL || !file_exists(dirname($this->localpath) . '/' . $filename)) {
 			$mtime = $cx = $cy = NULL;
 			$filename = makeSpecialImageName($this->getThumbImageFile());
 			if (!$this->watermarkDefault) {
 				$wmt = '!';
 			}
 		} else {
-			$filename = filesystemToInternal($this->objectsThumb);
-			$mtime = filemtime(ALBUM_FOLDER_SERVERPATH . '/' . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb);
+			$mtime = filemtime(dirname($this->localpath) . '/' . $filename);
 		}
-		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, true, true, $wmt, NULL, NULL), $this->album->name);
-		$cachefilename = getImageCacheFilename($alb = $this->album->name, $this->filename, $args);
-		return getImageURI($args, $alb, $filename, $mtime);
+		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, $crop, true, $wmt, NULL, NULL), $this->album->name);
+		return getImageURI($args, $this->album->name, $filename, $mtime);
 	}
 
 	/**
