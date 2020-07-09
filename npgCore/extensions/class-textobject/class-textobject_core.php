@@ -168,14 +168,15 @@ class TextObject extends Image {
 		if (empty($wmt)) {
 			$wmt = getWatermarkParam($this, WATERMARK_THUMB);
 		}
-		$filename = filesystemToInternal($this->objectsThumb);
-		if ($filename == NULL || !file_exists(dirname($this->localpath) . '/' . $filename)) {
+
+		if ($this->objectsThumb == NULL) {
 			$mtime = $cx = $cy = NULL;
 			$filename = makeSpecialImageName($this->getThumbImageFile());
 			if (!$this->watermarkDefault) {
 				$wmt = '!';
 			}
 		} else {
+			$filename = filesystemToInternal($this->objectsThumb);
 			$mtime = filemtime(dirname($this->localpath) . '/' . $filename);
 		}
 		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, $crop, true, $wmt, NULL, NULL), $this->album->name);
@@ -234,6 +235,7 @@ class TextObject extends Image {
 		}
 		if ($thumbStandin & 1) {
 			$args = getImageParameters(array($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, $thumbStandin, NULL, $thumbStandin, $wmt, NULL, $effects), $this->album->name);
+
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!$this->watermarkDefault) {
@@ -242,7 +244,7 @@ class TextObject extends Image {
 				$mtime = NULL;
 			} else {
 				$filename = filesystemToInternal($this->objectsThumb);
-				$mtime = filemtime(ALBUM_FOLDER_SERVERPATH . '/' . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb);
+				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
 			return getImageURI($args, $this->album->name, $filename, $mtime);
 		} else {

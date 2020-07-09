@@ -61,9 +61,11 @@ function parseAllowedTags(&$source) {
 function checkObjectsThumb($localpath) {
 	global $_supported_images;
 	$image = stripSuffix($localpath);
+	$l = strlen($image) + 1;
 	$candidates = safe_glob($image . '.*');
+
 	foreach ($candidates as $file) {
-		$ext = substr($file, strrpos($file, '.') + 1);
+		$ext = substr($file, $l);
 		if (in_array(strtolower($ext), $_supported_images)) {
 			return basename($image . '.' . $ext);
 		}
@@ -2361,14 +2363,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo getAdminLink('cron_runner.php') ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo getAdminLink('cron_runner.php') ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
