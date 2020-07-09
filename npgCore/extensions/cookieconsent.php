@@ -159,7 +159,8 @@ class cookieConsent {
 					"dismissOnScroll": <?php echo js_encode($dismiss_on_scroll); ?>,
 					"cookie": {
 						"expiryDays": <?php echo js_encode($cookie_expiry); ?>,
-						"domain": "<?php echo js_encode($domain); ?>"
+						"domain": "<?php echo js_encode($domain); ?>",
+						"name": "cookiePolicyACK"
 					},
 					"content": {
 						"message": "<?php echo js_encode($message); ?>",

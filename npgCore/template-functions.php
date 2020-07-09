@@ -4399,6 +4399,17 @@ function exposeSoftwareInformation($obj = '', $plugins = '', $theme = '') {
 }
 
 /**
+ * Checks for acknowledged site policy
+ *
+ * @global object $_current_admin_obj
+ * @return bool true if acknowledged
+ */
+function policyACKCheck() {
+	global $_current_admin_obj;
+	return ($_current_admin_obj && $_current_admin_obj->getPolicyAck()) || getNPGCookie('policyACK') >= getOption('GDPR_cookie');
+}
+
+/**
  * displays a policy submit controlled button
  *
  * @global type $_current_admin_obj
@@ -4408,11 +4419,11 @@ function exposeSoftwareInformation($obj = '', $plugins = '', $theme = '') {
  */
 function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NULL) {
 	global $_current_admin_obj;
-	if (getOption('GDPR_acknowledge') && !($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') < getOption('GDPR_cookie')) {
+	if (getOption('GDPR_acknowledge') && !policyACKCheck()) {
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

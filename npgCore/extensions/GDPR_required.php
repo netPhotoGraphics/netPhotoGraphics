@@ -114,7 +114,7 @@ class GDPR_required {
 		if (!checkAccess($hint, $show)) { // password form will be shown!
 			return $themeScript;
 		}
-		if (!($_current_admin_obj && $_current_admin_obj->getPolicyAck()) && getNPGCookie('policyACK') < getOption('GDPR_cookie')) {
+		if (!policyACKCheck()) {
 			if ($link = getOption('GDPR_URL')) {
 				$parts = explode('?', getRequestURI());
 				if ($link == $parts[0]) {
