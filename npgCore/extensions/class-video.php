@@ -53,7 +53,8 @@ class VideoObject_Options {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		return array(
+		global $_multimedia_extension;
+		$options = array(
 				gettext('Watermark default images') => array('key' => 'video_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 0,
 						'desc' => gettext('Check to place watermark image on default thumbnail images.')),
@@ -61,6 +62,10 @@ class VideoObject_Options {
 						'order' => 1,
 						'desc' => gettext('<code>getFullImageURL()</code> returns a URL to a file with one of these high quality video alternate suffixes if present.'))
 		);
+		if (method_exists($_multimedia_extension, 'getOptionsSupported')) {
+			$options = array_merge($options, $_multimedia_extension->getOptionsSupported());
+		}
+		return $options;
 	}
 
 }
@@ -95,7 +100,7 @@ class Video extends Image {
 		$this->video = true;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 
-		// This is where the magic happens...
+// This is where the magic happens...
 		$album_name = $album->name;
 		$this->updateDimensions();
 
@@ -121,7 +126,7 @@ class Video extends Image {
 	 */
 	static function getMetadataFields() {
 		return array(
-				// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
+// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'VideoFormat' => array('VIDEO', 'fileformat', gettext('Video File Format'), false, 32, true, 'string', false),
 				'VideoSize' => array('VIDEO', 'filesize', gettext('Video File Size'), false, 32, true, 'number', false),
 				'VideoArtist' => array('VIDEO', 'artist', gettext('Video Artist'), false, 256, true, 'string', false),
@@ -181,7 +186,7 @@ class Video extends Image {
 				}
 			}
 		} else {
-			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
+			$imgfile = dirname($this->localpath) . '/' . $this->objectsThumb;
 		}
 		return $imgfile;
 	}
@@ -209,6 +214,7 @@ class Video extends Image {
 		if (empty($wmt)) {
 			$wmt = getWatermarkParam($this, WATERMARK_THUMB);
 		}
+
 		if ($this->objectsThumb == NULL) {
 			$mtime = $cx = $cy = NULL;
 			$filename = makeSpecialImageName($this->getThumbImageFile());
@@ -217,7 +223,7 @@ class Video extends Image {
 			}
 		} else {
 			$filename = filesystemToInternal($this->objectsThumb);
-			$mtime = filemtime(ALBUM_FOLDER_SERVERPATH . '/' . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb);
+			$mtime = filemtime(dirname($this->localpath) . '/' . $filename);
 		}
 		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, $crop, true, $wmt, NULL, NULL), $this->album->name);
 		return getImageURI($args, $this->album->name, $filename, $mtime);
@@ -251,6 +257,7 @@ class Video extends Image {
 		}
 		if ($thumbStandin & 1) {
 			$args = array($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, $thumbStandin, NULL, $thumbStandin, NULL, NULL, NULL);
+
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!getOption('video_watermark_default_images')) {
@@ -259,7 +266,7 @@ class Video extends Image {
 				$mtime = NULL;
 			} else {
 				$filename = filesystemToInternal($this->objectsThumb);
-				$mtime = filemtime(ALBUM_FOLDER_SERVERPATH . '/' . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb);
+				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
 			return getImageURI($args, $this->album->name, $filename, $this->filemtime);
 		} else {
@@ -291,7 +298,7 @@ class Video extends Image {
 	 * @param unknown_type $path
 	 */
 	function getFullImageURL($path = WEBPATH) {
-		// Search for a high quality version of the video
+// Search for a high quality version of the video
 		if ($vid = parent::getFullImageURL($path)) {
 			$folder = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->album->getFileName());
 			$video = stripSuffix($this->filename);
@@ -335,13 +342,18 @@ class Video extends Image {
 	private function getMetaDataID3() {
 		$suffix = getSuffix($this->localpath);
 		if (in_array($suffix, array('m4a', 'm4v', 'mp3', 'mp4', 'flv', 'fla'))) {
-			$getID3 = new getID3;
-			@set_time_limit(30);
-			$ThisFileInfo = $getID3->analyze($this->localpath);
-			getid3_lib::CopyTagsToComments($ThisFileInfo);
-			// output desired information in whatever format you want
-			if (is_array($ThisFileInfo)) {
-				return $ThisFileInfo;
+			try {
+				$getID3 = new getID3;
+				@set_time_limit(30);
+				$ThisFileInfo = $getID3->analyze($this->localpath);
+				getid3_lib::CopyTagsToComments($ThisFileInfo);
+				// output desired information in whatever format you want
+				if (is_array($ThisFileInfo)) {
+					return $ThisFileInfo;
+				}
+			} catch (Exception $exc) {
+				debugLog($exc->getMessage());
+				return NULL;
 			}
 		}
 		return NULL; // don't try to cover other files even if getid3 reads images as well
@@ -387,7 +399,7 @@ class Video extends Image {
 								debugLog($msg);
 								break;
 							default:
-								//discard, not used
+//discard, not used
 								break;
 						}
 						unset($ThisFileInfo[$key]);
@@ -430,6 +442,20 @@ class pseudoPlayer {
 	private $width = 480;
 	private $height = 360;
 
+	public function __construct() {
+		setOptionDefault('class-video_width', $this->width);
+		$this->width = getOption('class-video_width');
+		$this->height = round($this->width * 0.77777 + 5, -1);
+	}
+
+	function getOptionsSupported() {
+		return array(
+				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
+						'order' => 9999,
+						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
+		);
+	}
+
 	function getWidth($dummy) {
 		return $this->width;
 	}
@@ -446,29 +472,68 @@ class pseudoPlayer {
 			$h = $this->getHeight();
 		}
 
-		$ext = getSuffix($obj->filename);
-		switch ($ext) {
+		$src = stripSuffix($obj->getFullImageURL());
+		$file = $obj->localpath;
+		$ext = getSuffix($file);
+		$file = stripSuffix($file);
+		$url = '';
+
+		switch (strtolower($ext)) {
 			case 'm4a':
 			case 'mp3':
-				return '<audio class="audio-cv" controls>
-							<source src="' . $obj->getFullImageURL() . '" type="audio/mpeg">
-									' . gettext('Your browser does not support the audio tag') . '
-						</audio>';
+				$src = stripSuffix($obj->getFullImageURL());
+				$alts = safe_glob($file . '.*');
+				foreach ($alts as $alt) {
+					$altext = getSuffix($alt);
+					switch (strtolower($altext)) {
+						case 'ogg':
+						case 'wav':
+							$url .= '<source src="' . $src . '.' . $altext . '" type="video/' . $altext . '">' . "\n";
+							break;
+					}
+				}
+				$url .= '<source src="' . $src . '.' . $ext . '" type="audio/mpeg">';
+				return '
+					<audio class="audio-cv" controls>
+					' . $url . '
+					' . gettext('Your browser does not support the audio tag') . '
+					</audio>' . "\n";
 			case 'm4v':
 			case 'mp4':
-				return '<video class="video-cv"  style="width:' . $w . 'px; height:' . $h . 'px;" controls>
-							<source src="' . $obj->getFullImageURL() . '" type="video/mp4">
-									' . gettext('Your browser does not support the video tag') . '
-						</video>';
+				$poster = '';
+				if (!is_null($obj->objectsThumb)) {
+					$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
+				} else {
+					$poster = '';
+				}
+
+				$src = stripSuffix($obj->getFullImageURL());
+				$alts = safe_glob($file . '.*');
+				foreach ($alts as $alt) {
+					$altext = getSuffix($alt);
+					switch (strtolower($altext)) {
+						case 'ogg':
+						case 'ogv':
+						case 'webm':
+							$url .= '<source src="' . $src . '.' . $altext . '" type="video/' . $altext . '">' . "\n";
+							break;
+					}
+				}
+				$url .= '<source src="' . $src . '.' . $ext . '" type="video/mp4">';
+				return '
+					<video class="video-cv" width="' . $w . '" height="' . $h . '" controls' . $poster . '>
+						' . $url . '
+						' . gettext('Your browser does not support the video tag') . '
+					</video>' . "\n";
 		}
-		return '<img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt="' . gettext('No multimedia extension installed for this format.') . '" />';
+		return '<img src = "' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt = "' . gettext('No multimedia extension installed for this format.') . '" />';
 	}
 
 }
 
 function class_video_enable($enabled) {
 	if ($enabled) {
-		//establish defaults for display and disable
+//establish defaults for display and disable
 		$display = $disable = array();
 		$exifvars = Video::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
@@ -483,7 +548,7 @@ function class_video_enable($enabled) {
 		setOption('metadata_displayed', serialize($display));
 		$report = gettext('Metadata fields will be added to the Image object.');
 	} else {
-		$report = gettext('Metadata fields will be <span style="color:red;font-weight:bold;">dropped</span> from the Image object.');
+		$report = gettext('Metadata fields will be <span style = "color:red;font-weight:bold;">dropped</span> from the Image object.');
 	}
 	requestSetup('Video Metadata', $report);
 }

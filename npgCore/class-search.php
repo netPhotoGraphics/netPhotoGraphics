@@ -1875,7 +1875,7 @@ class SearchEngine {
 		if (empty($searchstring) && empty($searchdate)) {
 			return array(); // nothing to find
 		}
-		$criteria = $this->getCacheTag('pages', serialize($searchstring), $sortkey . '_' . $sortdirection);
+		$criteria = $this->getCacheTag('pages', serialize($searchstring) . '_' . $searchdate, $sortkey . '_' . $sortdirection);
 		if ($criteria && $this->pages && $criteria == $this->searches['pages']) {
 			return $this->pages;
 		}
@@ -1965,7 +1965,7 @@ class SearchEngine {
 		if (empty($searchstring) && empty($searchdate)) {
 			return array(); // nothing to find
 		}
-		$criteria = $this->getCacheTag('news', serialize($searchstring), $sortkey . '_' . $sortdirection);
+		$criteria = $this->getCacheTag('news', serialize($searchstring) . '_' . $searchdate, $sortkey . '_' . $sortdirection);
 		if ($criteria && $this->articles && $criteria == $this->searches['articles']) {
 			return $this->articles;
 		}

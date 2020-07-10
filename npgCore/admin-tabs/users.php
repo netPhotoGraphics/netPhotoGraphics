@@ -86,10 +86,8 @@ if (isset($_GET['action'])) {
 			break;
 		case 'saveoptions':
 			XSRFdefender('saveadmin');
-
 			$notify = $returntab = $msg = '';
 			$newuserid = @$_POST['newuser'];
-
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -340,6 +338,7 @@ echo $refresh;
 				} else {
 					$showgroup = '';
 				}
+				$stamp = time() - getOption('online_persistance') * 60;
 				?>
 				<?php
 				global $_authority;
@@ -372,6 +371,8 @@ echo $refresh;
 								}
 							}
 						}
+						$totalUsers = count($admins);
+
 						$seenGroups = array_unique($seenGroups);
 						if (empty($admins) || !$_current_admin_obj->getID()) {
 							$rights = ALL_RIGHTS;
@@ -382,6 +383,11 @@ echo $refresh;
 							if (!empty($showgroup)) {
 								foreach ($admins as $key => $user) {
 									switch ($showgroup) {
+										case '@': //	online users
+											if (isset($user['lastaccess']) && $user['lastaccess'] < $stamp) {
+												unset($admins[$key]);
+											}
+											break;
 										case '*':
 											if ($user['rights'] != 0) {
 												unset($admins[$key]);
@@ -410,7 +416,9 @@ echo $refresh;
 							}
 							$rangeset = getPageSelector($list, USERS_PER_PAGE);
 						}
-						$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
+						if ($showgroup != '@') {
+							$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
+						}
 					} else {
 						$rangeset = array();
 						if ($_current_admin_obj) {
@@ -436,7 +444,7 @@ echo $refresh;
 							}
 						}
 					}
-					if (count($userlist) == 1) {
+					if (!$showgroup && count($userlist) == 1) {
 						$u = reset($userlist);
 						$showset = array($u['user']);
 					}
@@ -522,7 +530,7 @@ echo $refresh;
 							<tr>
 								<td style="width: 48en;">
 									<?php
-									if (count($userlist) != 1) {
+									if ($showgroup || count($userlist) != 1) {
 										?>
 										<span class="nowrap" style="font-weight: normal;">
 											<a onclick="toggleExtraInfo('', 'user', true);"><?php echo gettext('Expand all'); ?></a>
@@ -535,18 +543,23 @@ echo $refresh;
 								</td>
 								<td>
 									<?php
-									if (count($userlist) != 1 && ($pending || count($seenGroups) > 0)) {
+									if (count($rangeset) > 1 && ($showgroup || $pending || count($seenGroups) > 0)) {
 										echo gettext('show');
 										?>
 										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo getAdminLink('admin-tabs/users.php'); ?>', ['showgroup=' + $('#showgroup').val()]);" >
 											<option value=""<?php if (!$showgroup) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 											<?php
+											if ($totalUsers > 1) {
+												?>
+												<option value = "@"<?php if ($showgroup == '@') echo ' selected="selected"'; ?>><?php echo gettext('online'); ?></option>
+												<?php
+											}
 											if ($pending) {
 												?>
 												<option value = "*"<?php if ($showgroup == '*') echo ' selected="selected"'; ?>><?php echo gettext('pending verification'); ?></option>
 												<?php
 											}
-											if (!empty($seenGroups)) {
+											if (!empty($seenGroups) && extensionEnabled('user_groups')) {
 												if ($nogroup) {
 													?>
 													<option value="$"<?php if ($showgroup == '$') echo ' selected="selected"'; ?>><?php echo gettext('no group'); ?></option>
@@ -654,8 +667,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -664,7 +677,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -709,7 +722,7 @@ echo $refresh;
 													</td>
 													<td style="margin-top: 0px;<?php echo $background; ?>" valign="top">
 														<?php
-														if (!empty($userid) && count($admins) > 1) {
+														if (!empty($userid) && $totalUsers > 1) {
 															$msg = gettext('Are you sure you want to delete this user?');
 															if ($ismaster) {
 																$msg .= ' ' . gettext('This is the master user account. If you delete it another user will be promoted to master user.');
@@ -728,11 +741,31 @@ echo $refresh;
 																	echo PLACHHOLDER_ICON;
 																}
 																?>
+															</span>
+															<span class="floatright">
 																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"
 																	 title="<?php echo gettext('Delete this user.'); ?>" style="color: #c33;">
 																		 <?php echo WASTEBASKET; ?>
 																</a>
 															</span>
+															<?php
+															if (isset($user['lastaccess'])) {
+																?>
+																<div class="floatright">
+																	<?php
+																	$online = $user['lastaccess'];
+																	if ($online > $stamp) {
+																		echo '<span class="lognotice">' . gettext('online') . '</span>';
+																	} else if ($online) {
+																		printf('Last visited %1$s', formattedDate(DATE_FORMAT, $online));
+																	}
+																	?>
+																	&nbsp;&nbsp;&nbsp;&nbsp;
+																	</span>
+																	<?php
+																}
+																?>
+															</div>
 															<?php
 														}
 														?>

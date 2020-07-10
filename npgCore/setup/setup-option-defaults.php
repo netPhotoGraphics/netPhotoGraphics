@@ -273,6 +273,7 @@ $questions[] = getSerializedArray(getAllTranslations("When did you first get a c
 $questions[] = getSerializedArray(getAllTranslations("How much wood could a woodchuck chuck if a woodchuck could chuck wood?"));
 $questions[] = getSerializedArray(getAllTranslations("What is the date of the Ides of March?"));
 setOptionDefault('challenge_foils', serialize($questions));
+setOptionDefault('online_persistance', 5);
 
 $admins = $_authority->getAdministrators('all');
 if (empty($admins)) { //	empty administrators table
@@ -513,7 +514,7 @@ setOptionDefault('style_tags', $style_tags);
 setOptionDefault('GDPR_text', getAllTranslations('Check to acknowledge the site <a href="%s">usage policy</a>.'));
 $GDPR_cookie = getOption('GDPR_cookie');
 if (!$GDPR_cookie || strpos(' ', $GDPR_cookie) !== FALSE) {
-	setOption('GDPR_cookie', md5(microtime()));
+	setOption('GDPR_cookie', md5(microtime()), NULL, FALSE);
 }
 
 setOptionDefault('full_image_quality', 75);
