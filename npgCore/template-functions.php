@@ -255,7 +255,7 @@ function adminToolbox() {
 								function confirmAlbumDelete(url) {
 									if (confirm("<?php echo gettext("Are you sure you want to delete this entire album?"); ?>")) {
 										if (confirm("<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>")) {
-											window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deletealbum&album=<?php echo urlencode(pathurlencode($albumname)) ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+											window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deletealbum&album=<?php echo pathurlencode($albumname) ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 														}
 													}
 												}
@@ -290,7 +290,7 @@ function adminToolbox() {
 									<script type='text/javascript'>
 										function confirmImageDelete() {
 											if (confirm('<?php echo gettext("Are you sure you want to delete the image? THIS CANNOT BE UNDONE!"); ?>')) {
-												window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deleteimage&album=<?php echo urlencode(pathurlencode($albumname)); ?>&image=<?php echo urlencode($imagename); ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+												window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deleteimage&album=<?php echo pathurlencode($albumname); ?>&image=<?php echo urlencode($imagename); ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 														}
 													}
 									</script>
@@ -4423,7 +4423,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
