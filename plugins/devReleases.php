@@ -20,9 +20,7 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Provides an install button from the development releases.');
 
-if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
-}
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 

@@ -154,15 +154,12 @@ echo '</head>';
 											E_USER_ERROR => 'E_USER_ERROR',
 											E_USER_NOTICE => 'E_USER_NOTICE',
 											E_USER_WARNING => 'E_USER_WARNING',
-											E_STRICT => 'E_STRICT'
+											E_STRICT => 'E_STRICT',
+											E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
+											E_DEPRECATED => 'E_DEPRECATED',
+											E_USER_DEPRECATED => 'E_USER_DEPRECATED'
 									);
-									if (version_compare(PHP_VERSION, '5.2.0') == 1) {
-										$erToTxt[E_RECOVERABLE_ERROR] = 'E_RECOVERABLE_ERROR';
-									}
-									if (version_compare(PHP_VERSION, '5.3.0') == 1) {
-										$erToTxt[E_DEPRECATED] = 'E_DEPRECATED';
-										$erToTxt[E_USER_DEPRECATED] = 'E_USER_DEPRECATED';
-									}
+
 									$reporting = error_reporting();
 									$text = array();
 

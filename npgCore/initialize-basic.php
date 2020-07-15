@@ -11,21 +11,9 @@ $_UTF8 = new utf8();
 
 switch (PHP_MAJOR_VERSION) {
 	case 5:
-		switch (PHP_MINOR_VERSION) {
-			case 0:
-			case 1:
-			case 2:
-				define('ENT_FLAGS', ENT_QUOTES);
-				break;
-			case 3:
-				define('ENT_FLAGS', ENT_QUOTES | ENT_IGNORE);
-				break;
-			default: // 4 and beyond
-				define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
-				break;
-		}
+		define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 		break;
-	default: // PHP 6?
+	default: // PHP 7?
 		define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 		break;
 }
