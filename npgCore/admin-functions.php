@@ -5385,46 +5385,47 @@ function getPageSelector($list, $itmes_per_page, $diff = 'fullText') {
 
 function printPageSelector($subpage, $rangeset, $script, $queryParams) {
 	global $instances;
-	$pages = count($rangeset);
-	$jump = $query = '';
-	foreach ($queryParams as $param => $value) {
-		$query .= html_encode($param) . '=' . html_encode($value) . '&amp;';
-		$jump .= "'" . html_encode($param) . "=" . html_encode($value) . "',";
-	}
-	$query = '?' . $query;
-	if ($subpage > 0) {
-		?>
-		<a href="<?php echo getAdminLink($script) . $query; ?>subpage=<?php echo ($subpage - 1); ?>" >« <?php echo gettext('prev'); ?></a>
-		<?php
-	}
-	if ($pages > 2) {
+	if ($pages = count($rangeset)) {
+		$jump = $query = '';
+		foreach ($queryParams as $param => $value) {
+			$query .= html_encode($param) . '=' . html_encode($value) . '&amp;';
+			$jump .= "'" . html_encode($param) . "=" . html_encode($value) . "',";
+		}
+		$query = '?' . $query;
 		if ($subpage > 0) {
 			?>
-			|
+			<a href="<?php echo getAdminLink($script) . $query; ?>subpage=<?php echo ($subpage - 1); ?>" >« <?php echo gettext('prev'); ?></a>
 			<?php
 		}
-		?>
-		<select name="subpage" class="ignoredirty" id="subpage<?php echo $instances; ?>" onchange="launchScript('<?php echo getAdminLink($script); ?>', [<?php echo $jump; ?>'subpage=' + $('#subpage<?php echo $instances; ?>').val()]);" >
-			<?php
-			foreach ($rangeset as $page => $range) {
+		if ($pages > 2) {
+			if ($subpage > 0) {
 				?>
-				<option value="<?php echo $page; ?>" <?php if ($page == $subpage) echo ' selected="selected"'; ?>><?php echo $range; ?></option>
+				|
 				<?php
 			}
 			?>
-		</select>
-		<?php
-	}
-	if ($pages > $subpage + 1) {
-		if ($pages > 2) {
+			<select name="subpage" class="ignoredirty" id="subpage<?php echo $instances; ?>" onchange="launchScript('<?php echo getAdminLink($script); ?>', [<?php echo $jump; ?>'subpage=' + $('#subpage<?php echo $instances; ?>').val()]);" >
+				<?php
+				foreach ($rangeset as $page => $range) {
+					?>
+					<option value="<?php echo $page; ?>" <?php if ($page == $subpage) echo ' selected="selected"'; ?>><?php echo $range; ?></option>
+					<?php
+				}
+				?>
+			</select>
+			<?php
+		}
+		if ($pages > $subpage + 1) {
+			if ($pages > 2) {
+				?>
+				|
+			<?php }
 			?>
-			|
-		<?php }
-		?>
-		<a href="<?php echo getAdminLink($script) . $query; ?>subpage=<?php echo ($subpage + 1); ?>" ><?php echo gettext('next'); ?> »</a>
-		<?php
+			<a href="<?php echo getAdminLink($script) . $query; ?>subpage=<?php echo ($subpage + 1); ?>" ><?php echo gettext('next'); ?> »</a>
+			<?php
+		}
+		$instances++;
 	}
-	$instances++;
 }
 
 /**

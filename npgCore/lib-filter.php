@@ -179,10 +179,9 @@ class npgFilters {
 	 * @param string $hook The filter hook to which the function to be removed is hooked.
 	 * @param callback $function_to_remove The name of the function which should be removed.
 	 * @param int $priority optional. The priority of the function. If not supplied we will get it from npgFilters::has_filter
-	 * @param int $accepted_args optional. The number of arguments the function accpets (default: 1).
 	 * @return boolean Whether the function was registered as a filter before it was removed.
 	 */
-	static function remove($hook, $function_to_remove, $priority = NULL, $accepted_args = 1) {
+	static function remove($hook, $function_to_remove, $priority = NULL) {
 		global $_filters;
 
 		if (is_null($priority)) {
