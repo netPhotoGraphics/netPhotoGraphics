@@ -9,8 +9,8 @@
 // force UTF-8 Ø
 
 Define('PHP_MIN_VERSION', '5.5');
-Define('PHP_MIN_SUPPORTED_VERSION', '5.6');
-Define('PHP_DESIRED_VERSION', '7.3');
+Define('PHP_MIN_SUPPORTED_VERSION', '7.1');
+Define('PHP_DESIRED_VERSION', '7.4');
 define('OFFSET_PATH', 2);
 
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
@@ -644,23 +644,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$issue--;
 									$good = checkMark($issue, '', gettext('<code>Suhosin</code> module [is enabled]'), sprintf(gettext('The following PHP functions are blocked: %s. Flagged functions are required. Other functions in the list may be used, possibly causing reduced functionality or failures.'), '<code>' . implode('</code>, <code>', $blacklist) . '</code>'), $abort) && $good;
 								}
-							}
-
-							if (version_compare(PHP_VERSION, '5.4', '<')) {
-								primeMark(gettext('Magic_quotes'));
-								if (get_magic_quotes_gpc()) {
-									$magic_quotes_disabled = 0;
-								} else {
-									$magic_quotes_disabled = true;
-								}
-								checkMark($magic_quotes_disabled, gettext("PHP <code>magic_quotes_gpc</code>"), gettext("PHP <code>magic_quotes_gpc</code> [is enabled]"), gettext('You must disable <code>magic_quotes_gpc</code>.'));
-								if (get_magic_quotes_runtime()) {
-									$magic_quotes_disabled = 0;
-								} else {
-									$magic_quotes_disabled = true;
-								}
-								checkMark($magic_quotes_disabled, gettext("PHP <code>magic_quotes_runtime</code>"), gettext("PHP <code>magic_quotes_runtime</code> [is enabled]"), gettext('You must disable <code>magic_quotes_runtime</code>.'));
-								checkMark(!ini_get('magic_quotes_sybase'), gettext("PHP <code>magic_quotes_sybase</code>"), gettext("PHP <code>magic_quotes_sybase</code> [is enabled]"), gettext('You must disable <code>magic_quotes_sybase</code>.'));
 							}
 
 							primeMark(gettext('Display_errors'));

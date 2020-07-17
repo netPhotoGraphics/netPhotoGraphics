@@ -350,8 +350,7 @@ echo $refresh;
 					if (!$_current_admin_obj->getID() && $_current_admin_obj->reset) {
 						$clearPass = true;
 					}
-					$alladmins = array();
-					$seenGroups = array();
+					$alladmins = $seenGroups = $rangeset = array();
 					$nogroup = $pending = false;
 					if (npg_loggedin(ADMIN_RIGHTS) && !$_current_admin_obj->reset || !$_current_admin_obj->getID()) {
 						$admins = $_authority->getAdministrators('allusers');
@@ -378,7 +377,6 @@ echo $refresh;
 							$rights = ALL_RIGHTS;
 							$groupname = 'administrators';
 							$showset = array('');
-							$rangeset = array();
 						} else {
 							if (!empty($showgroup)) {
 								foreach ($admins as $key => $user) {
@@ -420,7 +418,6 @@ echo $refresh;
 							$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
 						}
 					} else {
-						$rangeset = array();
 						if ($_current_admin_obj) {
 							$admins = array($_current_admin_obj->getUser() => $_current_admin_obj->getData());
 							$showset = array($_current_admin_obj->getUser());

@@ -427,6 +427,12 @@ function db_count($table, $clause = NULL, $field = "*") {
 	}
 }
 
+/**
+ * decoder for html strings
+ *
+ * @param string $string
+ * @return string
+ */
 function html_decode($string) {
 	$string = html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
 	// Replace numeric entities because html_entity_decode doesn't do it for us.
@@ -449,6 +455,24 @@ function html_encode($this_string) {
 }
 
 /**
+ * rawurlencode function that is path-safe (does not encode /)
+ *
+ * @param string $path URL
+ * @return string
+ */
+function pathurlencode($path) {
+	$parts = mb_parse_url($path);
+	if (isset($parts['query'])) {
+		$pairs = array_map("html_encode", parse_query($parts['query']));
+		$parts['query'] = http_build_query($pairs, '', '&amp;');
+	}
+	if (array_key_exists('path', $parts)) {
+		$parts['path'] = implode("/", array_map("rawurlencode", explode("/", $parts['path'])));
+	}
+	return build_url($parts);
+}
+
+/**
  * Makes directory recursively, returns TRUE if exists or was created sucessfuly.
  * Note: PHP5 includes a recursive parameter to mkdir, but it apparently does not
  * 				does not traverse symlinks!
@@ -466,12 +490,17 @@ function array_map_recursive(callable $func, array $array) {
 	return filter_var($array, \FILTER_CALLBACK, ['options' => $func]);
 }
 
+/**
+ * debugging tool shows labeled variable contents
+ *
+ * @param array $args
+ */
 function varDebug($args) {
 	if (!is_array($args)) {
 		$args = array('var' => $args);
 	}
 	$dump = explode("\n", var_export($args, true));
-	//get rid of the
+	//get rid of the outer array element
 	array_shift($dump);
 	array_pop($dump);
 	$br = '';
@@ -1691,24 +1720,6 @@ function mb_parse_url($url) {
 	}
 
 	return $parts;
-}
-
-/**
- * rawurlencode function that is path-safe (does not encode /)
- *
- * @param string $path URL
- * @return string
- */
-function pathurlencode($path) {
-	$parts = mb_parse_url($path);
-	if (isset($parts['query'])) {
-		$pairs = array_map("htmlspecialchars", parse_query($parts['query']));
-		$parts['query'] = http_build_query($pairs, '', '&amp;');
-	}
-	if (array_key_exists('path', $parts)) {
-		$parts['path'] = implode("/", array_map("rawurlencode", explode("/", $parts['path'])));
-	}
-	return build_url($parts);
 }
 
 /**

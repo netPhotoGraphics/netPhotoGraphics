@@ -9,6 +9,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 define('GROUPS_PER_PAGE', max(1, getOption('groups_per_page')));
+define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
 if (isset($_GET['subpage'])) {
 	$subpage = sanitize_numeric($_GET['subpage']);
 } else {
@@ -208,9 +209,10 @@ echo '</head>' . "\n";
 							if ($user['valid']) {
 								$users[] = $user['user'];
 							} else {
-								if ($user['name'] == $subtab)
+								if ($user['name'] == $subtab) {
 									$groups[] = $user;
-								$list[] = $user['user'];
+									$list[] = $user['user'];
+								}
 							}
 						}
 						$max = floor((count($list) - 1) / GROUPS_PER_PAGE);
@@ -263,7 +265,9 @@ echo '</head>' . "\n";
 										?>
 									</th>
 									<th>
-										<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'users', 'tab' => 'groups')); ?>
+										<?php
+										printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+										?>
 									</th>
 								</tr>
 
@@ -470,7 +474,9 @@ echo '</head>' . "\n";
 										?>
 									</th>
 									<th>
-										<?php printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'users', 'tab' => 'groups')); ?>
+										<?php
+										printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+										?>
 									</th>
 								</tr>
 							</table>
@@ -524,12 +530,23 @@ echo '</head>' . "\n";
 						<?php
 						break;
 					case 'assignment':
-						$groups = array();
+						$list = $groups = array();
 						foreach ($adminordered as $user) {
-							if (!$user['valid'] && $user['name'] == 'group') {
-								$groups[] = $user;
+							if ($user['valid']) {
+								$users[] = $user;
+								$list[] = $user['user'];
+							} else {
+								if ($user['name'] == 'group') {
+									$groups[] = $user;
+								}
 							}
 						}
+						$rangeset = getPageSelector($list, USERS_PER_PAGE);
+						$max = floor((count($users) - 1) / USERS_PER_PAGE);
+						if ($subpage > $max) {
+							$subpage = $max;
+						}
+						$userlist = array_slice($users, $subpage * USERS_PER_PAGE, USERS_PER_PAGE);
 						?>
 						<p>
 							<?php
@@ -538,40 +555,50 @@ echo '</head>' . "\n";
 						</p>
 						<form class="dirtylistening" onReset="setClean('saveAssignments_form');" id="saveAssignments_form" action="?tab=<?php echo $subtab; ?>&amp;action=saveauserassignments" method="post" autocomplete="off" >
 							<?php XSRFToken('saveauserassignments'); ?>
+							<div class="notebox">
+								<?php echo gettext('<strong>Note:</strong> When a group is assigned <em>rights</em> and <em>managed objects</em> are determined by the group!'); ?>
+							</div>
 							<p>
 								<?php
 								applyButton();
 								resetButton();
 								?>
 							</p>
-							<div class="notebox">
-								<?php echo gettext('<strong>Note:</strong> When a group is assigned <em>rights</em> and <em>managed objects</em> are determined by the group!'); ?>
-							</div>
+							<br /><br />
 							<input type="hidden" name="saveauserassignments" value="yes" />
+							<div class="floatright">
+								<?php
+								printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+								?>
+							</div>
+
 							<table class="bordered">
 								<?php
 								$id = 0;
-								foreach ($adminordered as $user) {
-									if ($user['valid']) {
-										$userobj = new npg_Administrator($user['user'], $user['valid']);
-										$group = $user['group'];
-										?>
-										<tr>
-											<td width="20%" style="border-top: 1px solid #D1DBDF;" valign="top">
-												<input type="hidden" name="user[<?php echo $id; ?>][userid]" value="<?php echo $user['user']; ?>" />
-												<?php echo $user['user']; ?>
-											</td>
-											<td style="border-top: 1px solid #D1DBDF;" valign="top" >
-												<?php echo user_groups::groupList($userobj, $id, '', $user['group'], false); ?>
-											</td>
-										</tr>
-										<?php
-										$id++;
-									}
+								foreach ($userlist as $user) {
+									$userobj = new npg_Administrator($user['user'], $user['valid']);
+									$group = $user['group'];
+									?>
+									<tr>
+										<td width="20%" style="border-top: 1px solid #D1DBDF;" valign="top">
+											<input type="hidden" name="user[<?php echo $id; ?>][userid]" value="<?php echo $user['user']; ?>" />
+											<?php echo $user['user']; ?>
+										</td>
+										<td style="border-top: 1px solid #D1DBDF;" valign="top" >
+											<?php echo user_groups::groupList($userobj, $id, '', $user['group'], false); ?>
+										</td>
+									</tr>
+									<?php
+									$id++;
 								}
 								?>
 							</table>
-							<br />
+
+							<div class="floatright">
+								<?php
+								printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+								?>
+							</div>
 							<p>
 								<?php
 								applyButton();
