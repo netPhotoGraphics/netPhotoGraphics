@@ -83,6 +83,7 @@ class favoritesAlbum extends favorites {
 			$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
 			$this->setSortOrder(999);
 			$this->save();
+			setOption('last_admin_action', time());
 			npgFilters::apply('new_album', $this);
 		}
 		npgFilters::apply('album_instantiate', $this);
