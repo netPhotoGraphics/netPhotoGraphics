@@ -18,7 +18,12 @@ if (isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == getXSRFToken('setup')) {
 list($diff, $needs, $found) = checkSignature($must);
 
 if (empty($needs)) {
-	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php');
+	if (isset($_GET['autorun'])) {
+		$auto = '?autorun=' . $_GET['autorun'];
+	} else {
+		$auto = '';
+	}
+	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $auto);
 } else {
 	header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 	header('Content-Type: text/html; charset=utf-8');
