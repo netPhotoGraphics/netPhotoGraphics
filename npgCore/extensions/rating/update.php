@@ -6,7 +6,7 @@
  * @package plugins/rating
  */
 define('OFFSET_PATH', 4);
-require_once(dirname(dirname(__DIR__)) . '/functions.php');
+require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 	if (!npg_loggedin(ADMIN_RIGHTS)) {
@@ -15,14 +15,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 		exit();
 	}
 
-	require_once(CORE_SERVERPATH . 'admin-functions.php');
 	if (session_id() == '') {
 		// force session cookie to be secure when in https
 		if (secureServer()) {
 			$CookieInfo = session_get_cookie_params();
 			session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
 		}
-		npg_session_start();
 	}
 	XSRFdefender('clear_rating');
 	query('UPDATE ' . prefix('images') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
