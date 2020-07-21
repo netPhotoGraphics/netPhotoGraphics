@@ -24,74 +24,6 @@ define('UPLOAD_ERR_QUOTA', -1);
 define('UPLOAD_ERR_BLOCKED', -2);
 
 /**
- * Print the footer <div> for the bottom of all admin pages.
- *
- * @param string $addl additional text to output on the footer.
- * @author Todd Papaioannou (lucky@luckyspin.org)
- * @since  1.0.0
- */
-function printAdminFooter($addl = '') {
-	?>
-	<div id="footer">
-		<span id="footer_left">
-			<?php printLanguageSelector(true); ?>
-		</span>
-		<span id="footer_right">
-			<?php
-			echo '<span class="npglogo"><a href="https://netPhotoGraphics.org" title="' . gettext('A simpler media content management system') . '">' . swLogo() . '</a></span> ' . sprintf(gettext('version %1$s'), NETPHOTOGRAPHICS_VERSION_CONCISE);
-
-			if (!empty($addl)) {
-				echo ' | ' . $addl;
-			}
-			?>
-			| <a href="<?php echo getAdminLink('license.php'); ?>" title="<?php echo gettext('netPhotoGraphics license'); ?>"><?php echo gettext('License'); ?></a>
-			| <a href="https://netPhotoGraphics.org/forum" title="<?php echo gettext('Forum'); ?>"><?php echo gettext('Forum'); ?></a>
-			| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
-			| <a href="https://<?php echo GITHUB; ?>/commits/master" title="<?php echo gettext('View Change log'); ?>"><?php echo gettext('Change log'); ?></a>
-			| <?php printf(gettext('Server date: %s'), date('Y-m-d H:i:s')); ?>
-		</span>
-	</div>
-	<script type="text/javascript">
-		startingPosition = $('.navigation').position().top + 10;
-		// ===== Scroll to Top ====
-		$(window).scroll(function () {
-			var scroll = $(this).scrollTop()
-			if (scroll > startingPosition) {
-				$('.navigation').offset({top: scroll});
-			} else {
-				$('.navigation').offset({top: startingPosition});
-			}
-
-			if (scroll >= 50) {        // If page is scrolled more than 50px
-				$('#return-to-top').fadeIn(200); // Fade in the arrow
-			} else {
-				$('#return-to-top').fadeOut(200); // Else fade out the arrow
-			}
-		});
-		$('#return-to-top').click(function () {      // When arrow is clicked
-			$('body,html').animate({
-				scrollTop: 0                       // Scroll to top of body
-			}, 400);
-		});</script>
-	<?php
-	npgFilters::apply('admin_close');
-	db_close(); //	close the database as we are done
-}
-
-function datepickerJS() {
-	$lang = str_replace('_', '-', getOption('locale'));
-	if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
-		$lang = substr($lang, 0, 2);
-		if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
-			$lang = '';
-		}
-	}
-	if (!empty($lang)) {
-		scriptLoader(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js');
-	}
-}
-
-/**
  * Print the header for all admin pages. Starts at <DOCTYPE> but does not include the </head> tag,
  * in case there is a need to add something further.
  *
@@ -140,7 +72,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	header('Referrer-Policy: origin');
 
 	if (npg_loggedin()) {
-		header("Cache-Control: private; must-revalidate; max-age=600;"); // HTTP 1.1.
+		header("Cache-Control: private; must-revalidate; max-age=60;"); // HTTP 1.1.
 	} else {
 		//	try to prevent browser, etc. from caching login form
 		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
@@ -288,6 +220,74 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php echo gettext('To move a sub-item out from its list you must drag it out via the bottom of the list. That is drag it to past the last item in the sub-list then drag it left and drop it. Then you can move it into to another sub-list. If you are moving out multiple levels you must repeat the move process for each level.'); ?>
 		</p>
 		<?php
+	}
+
+	/**
+	 * Print the footer <div> for the bottom of all admin pages.
+	 *
+	 * @param string $addl additional text to output on the footer.
+	 * @author Todd Papaioannou (lucky@luckyspin.org)
+	 * @since  1.0.0
+	 */
+	function printAdminFooter($addl = '') {
+		?>
+		<div id="footer">
+			<span id="footer_left">
+				<?php printLanguageSelector(true); ?>
+			</span>
+			<span id="footer_right">
+				<?php
+				echo '<span class="npglogo"><a href="https://netPhotoGraphics.org" title="' . gettext('A simpler media content management system') . '">' . swLogo() . '</a></span> ' . sprintf(gettext('version %1$s'), NETPHOTOGRAPHICS_VERSION_CONCISE);
+
+				if (!empty($addl)) {
+					echo ' | ' . $addl;
+				}
+				?>
+				| <a href="<?php echo getAdminLink('license.php'); ?>" title="<?php echo gettext('netPhotoGraphics license'); ?>"><?php echo gettext('License'); ?></a>
+				| <a href="https://netPhotoGraphics.org/forum" title="<?php echo gettext('Forum'); ?>"><?php echo gettext('Forum'); ?></a>
+				| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
+				| <a href="https://<?php echo GITHUB; ?>/commits/master" title="<?php echo gettext('View Change log'); ?>"><?php echo gettext('Change log'); ?></a>
+				| <?php printf(gettext('Server date: %s'), date('Y-m-d H:i:s')); ?>
+			</span>
+		</div>
+		<script type="text/javascript">
+			startingPosition = $('.navigation').position().top + 10;
+			// ===== Scroll to Top ====
+			$(window).scroll(function () {
+				var scroll = $(this).scrollTop()
+				if (scroll > startingPosition) {
+					$('.navigation').offset({top: scroll});
+				} else {
+					$('.navigation').offset({top: startingPosition});
+				}
+
+				if (scroll >= 50) {        // If page is scrolled more than 50px
+					$('#return-to-top').fadeIn(200); // Fade in the arrow
+				} else {
+					$('#return-to-top').fadeOut(200); // Else fade out the arrow
+				}
+			});
+			$('#return-to-top').click(function () {      // When arrow is clicked
+				$('body,html').animate({
+					scrollTop: 0                       // Scroll to top of body
+				}, 400);
+			});</script>
+		<?php
+		npgFilters::apply('admin_close');
+		db_close(); //	close the database as we are done
+	}
+
+	function datepickerJS() {
+		$lang = str_replace('_', '-', getOption('locale'));
+		if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
+			$lang = substr($lang, 0, 2);
+			if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
+				$lang = '';
+			}
+		}
+		if (!empty($lang)) {
+			scriptLoader(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js');
+		}
 	}
 
 	function applyButton($options = array()) {
@@ -1571,11 +1571,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-												 } else {
-													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-												 }
+										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+										 } else {
+											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+										 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -2101,7 +2101,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																		 togglePassword('<?php echo $suffix; ?>');" />
+																 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2430,9 +2430,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2590,7 +2590,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -4635,30 +4635,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-				var sel = obj.options[obj.selectedIndex].value;
-				var mark;
-				switch (sel) {
+			var sel = obj.options[obj.selectedIndex].value;
+							var mark;
+							switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-					case '<?php echo $key; ?>':
-					mark = '<?php echo $mark; ?>';
-									break;
+				case '<?php echo $key; ?>':
+								mark = '<?php echo $mark; ?>';
+								break;
 			<?php
 		}
 		?>
-				default:
-				mark = false;
-								break;
+			default:
+							mark = false;
+							break;
 			}
 			if (mark) {
-				$.colorbox({
-					href: '#' + mark,
-					inline: true,
-					open: true,
-					close: '<?php echo gettext("ok"); ?>'
-				});
-				}
+			$.colorbox({
+			href: '#' + mark,
+							inline: true,
+							open: true,
+							close: '<?php echo gettext("ok"); ?>'
+			});
+			}
 			}
 			// ]]> -->
 		</script>
@@ -5044,27 +5044,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-		// <!-- <![CDATA[
-		$(function () {
-			var tabContainers = $('div.tabs > div');
-			$('.first').addClass('selected');
-		});
-		function cbclick(num, id) {
-			$('.cbx-' + id).hide();
-			$('#cb' + num + '-' + id).show();
-			$('.cbt-' + id).removeClass('selected');
-			$('#cbt' + num + '-' + id).addClass('selected');
-		}
+						// <!-- <![CDATA[
+						$(function () {
+						var tabContainers = $('div.tabs > div');
+										$('.first').addClass('selected');
+						});
+						function cbclick(num, id) {
+						$('.cbx-' + id).hide();
+										$('#cb' + num + '-' + id).show();
+										$('.cbt-' + id).removeClass('selected');
+										$('#cbt' + num + '-' + id).addClass('selected');
+						}
 
 		function cbadd(id, offset) {
-			var num = $('#cbu-' + id + ' li').length - offset;
-			$('li:last', $('#cbu-' + id)).remove();
-			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-							'</div>');
-			cbclick(num, id);
+		var num = $('#cbu-' + id + ' li').length - offset;
+						$('li:last', $('#cbu-' + id)).remove();
+						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+						'</div>');
+						cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5091,6 +5091,21 @@ function printCodeblockEdit($obj, $id) {
 	?>
 	<div id="cbd-<?php echo $id; ?>" class="tabs">
 		<ul id="<?php echo 'cbu' . '-' . $id; ?>" class="tabNavigation">
+			<span class="info_info floatright">
+				<?php echo INFORMATION_BLUE; ?>
+				<div class="option_desc_hidden">
+					<?php
+					if (isImageClass($obj)) {
+						$script = 'image.php';
+					} else if (isAlbumClass($obj)) {
+						$script = 'album.php';
+					} else { //	news and pages
+						$script = $obj->table . '.php';
+					}
+					printf(gettext('To display a codeblock place a function call on <code>printCodeBlocks(</code><em>block number</em><code>)</code> at the appropriate place in your <em>%1$s</em> script.'), $script);
+					?>
+				</div>
+			</span>
 			<?php
 			for ($i = $start; $i < $codeblockCount; $i++) {
 				?>
@@ -5199,6 +5214,7 @@ function XSRFdefender($action, $modifier = NULL) {
 	unset($_REQUEST['XSRFToken']);
 	unset($_POST['XSRFToken']);
 	unset($_GET['XSRFToken']);
+	setOption('last_admin_action', time());
 }
 
 /**
@@ -6011,7 +6027,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php

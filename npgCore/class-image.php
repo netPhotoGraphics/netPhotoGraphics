@@ -133,6 +133,7 @@ class Image extends MediaObject {
 					$this->setOwner($_current_admin_obj->getUser());
 				}
 				$this->setSortOrder(999);
+				setOption('last_admin_action', time());
 			}
 			$this->updateMetaData(); // extract info from image
 			$this->updateDimensions(); // deal with rotation issues

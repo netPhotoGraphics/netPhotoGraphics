@@ -258,6 +258,7 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 	}
 }
 
+setOption('last_admin_action', time());
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);
 
