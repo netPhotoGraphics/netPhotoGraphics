@@ -492,7 +492,7 @@ class ThemeObject extends PersistentObject {
 	var $manage_some_rights = ADMIN_RIGHTS;
 	var $access_rights = VIEW_ALL_RIGHTS;
 
-	function __call($method, $args) {
+	public function __call($method, $args) {
 		return parent::__call($method, $args);
 	}
 
