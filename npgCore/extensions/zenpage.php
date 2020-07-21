@@ -322,13 +322,13 @@ class cmsFilters {
 			// page is zenpage page--provide edit, delete, and add links
 			?>
 			<li>
-				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php'); ?>?page&amp;edit&amp;titlelink=<?php echo urlencode(getPageTitlelink()); ?>&amp;subpage=object"><?php echo gettext("Edit Page"); ?>
+				<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?page&amp;edit&amp;titlelink=<?php echo urlencode(getPageTitlelink()); ?>&amp;subpage=object"><?php echo gettext("Edit Page"); ?>
 				</a>
 			</li>
 			<script type='text/javascript'>
 				function confirmPageDelete() {
 					if (confirm('<?php echo gettext("Are you sure you want to delete the page? THIS CANNOT BE UNDONE!"); ?>')) {
-						window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php'); ?>?delete=<?php echo $_CMS_current_page->getTitlelink(); ?>&add&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
+						window.location = '<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php'); ?>?delete=<?php echo $_CMS_current_page->getTitlelink(); ?>&add&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
 								}
 							}
 			</script>
