@@ -19,4 +19,4 @@
 	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>
 </html>
-<!-- Bootstrap 2.2 - a theme by Vincent3569 -->
+<!-- Bootstrap 2.3 - a theme by Vincent3569 -->

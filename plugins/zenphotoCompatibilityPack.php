@@ -32,9 +32,9 @@ $legacyReplacements = array(
 		'ZP_NEWS_ENABLED' => 'extensionEnabled(\'zenpage\') && hasNews()/* TODO:replaced ZP_NEWS_ENABLED */',
 		'ZP_PAGES_ENABLED' => 'extensionEnabled(\'zenpage\') && hasPages()/* TODO:replaced ZP_PAGES_ENABLED */',
 		'getAllTagsCount\(.*?\)' => 'getAllTagsUnique(NULL, 1, true)',
-		'printHeadTitle\(.*?\);?' => '/* TODO:replaced printHeadTitle() */',
+		'printHeadTitle\(.*?\);' => '/* TODO:replaced printHeadTitle() */',
 		'getSiteHomeURL\(.*?\)' => 'getGalleryIndexURL() /* TODO:replaced getSiteHomeURL() */',
-		'printSiteHomeURL\(.*?\);?' => '/* TODO:replaced printSiteHomeURL() */',
+		'printSiteHomeURL\(.*?\);' => '/* TODO:replaced printSiteHomeURL() */',
 		'getNextPrevNews\([\'"](.*)[\'"]\)' => 'get$1News() /* TODO:replaced getNextPrevNews(\'$1\') */',
 		'zenpagePublish\((.*)\,(.*)\)' => '$1->setShow($2) /* TODO:replaced zenpagePublish() */',
 		'getImageCustomData\(\)' => '($_current_image)?$_current_image->get("custom_data"):NULL /* TODO: Use customFieldExtender to define unique fields */',
@@ -121,7 +121,8 @@ $legacyReplacements = array(
 		'zp_clearCookie\(' => 'clearNPGCookie(',
 		'zpFunctions::' => 'npgFunctions::',
 		'zpFormattedDate\(' => 'formattedDate(',
-		'\$_zp_current_DailySummary' => '$_current_DailySummary'
+		'\$_zp_current_DailySummary' => '$_current_DailySummary',
+		'purgeThemeOption\((.*?)\);' => 'purgeOption($1, basename(__DIR__));',
 );
 
 class zenPhotoCompatibilityPack {

@@ -1141,15 +1141,18 @@ function loadLocalOptions($albumid, $theme) {
  * @global array $_options
  * @param string $key
  */
-function purgeOption($key) {
+function purgeOption($key, $theme = NULL) {
 	global $_options;
 	unset($_options[strtolower($key)]);
 	$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `name`=' . db_quote($key);
+	if ($theme) {
+		$sql .= ' AND `theme`=' . db_quote($theme);
+	}
 	query($sql, false);
 }
 
 /**
- * Retuns the option array
+ * Returns the option array
  *
  * @return array
  */
