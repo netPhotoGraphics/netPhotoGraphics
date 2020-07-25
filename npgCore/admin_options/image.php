@@ -695,7 +695,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																 togglePassword('');" />
+																		 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 
@@ -827,7 +827,6 @@ function getOptionContent() {
 							</ul>
 						</div>
 						<span class="floatright">
-							<?php echo gettext('all'); ?>
 							<label title="<?php echo gettext('restore defaults'); ?>">
 								<input type="radio" name="all_metadata" onclick="setMetaDefaults();" />
 								<?php echo gettext('default'); ?>
