@@ -2555,8 +2555,12 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 					echo "<tr><td class=\"label " . html_encode($field) . "\">$label:</td><td class=\"value\">";
 					switch ($_exifvars[$field][EXIF_FIELD_TYPE]) {
 						case 'time':
-							echo formattedDate(DATE_FORMAT, strtotime($value));
-							break;
+							if (substr($value, 0, 10) == '0000-00-00') {
+								$value = substr($value, 11);
+							}
+							if (substr($value, 11, 8) == '00:00:00') {
+								$value = substr($value, 0, 10);
+							}
 						default:
 							echo html_encode($value);
 							break;
@@ -4423,7 +4427,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

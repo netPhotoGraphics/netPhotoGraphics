@@ -246,6 +246,13 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													foreach ($exif as $field => $value) {
 														$display = $_exifvars[$field][EXIF_DISPLAY] && !empty($value) && !($_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00');
 														if ($display) {
+															if ($_exifvars[$field][EXIF_FIELD_TYPE] == 'time') {
+																if (substr($value, 0, 10) == '0000-00-00') {
+																	$value = substr($value, 11);
+																}
+																if (substr($value, 11, 8) == '00:00:00')
+																	$value = substr($value, 0, 10);
+															}
 															$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
 															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value)) . "</td></tr>\n";
 														}
