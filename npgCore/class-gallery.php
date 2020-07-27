@@ -464,7 +464,7 @@ class Gallery {
 		}
 	}
 
-	private function getImageCount($album) {
+	private static function getImageCount($album) {
 		$count = $album->getNumImages();
 		$albums = $album->getAlbums(0);
 		foreach ($albums as $analbum) {

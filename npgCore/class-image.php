@@ -432,6 +432,13 @@ class Image extends MediaObject {
 					'LangID' => '2#135', //	Language ID												Size:3
 					'Subfile' => '8#010' //	Subfile														Size:2
 			);
+			$timevalues = array(//these need to be formatted for the database
+					'IPTCReleaseTime',
+					'IPTCExpireTime',
+					'IPTCTimeCreated',
+					'IPTCDigitizeTime'
+			);
+
 			$this->set('hasMetadata', 0);
 			foreach ($_exifvars as $field => $exifvar) {
 				$this->set($field, NULL);
@@ -481,7 +488,11 @@ class Image extends MediaObject {
 						foreach ($_exifvars as $field => $exifvar) {
 							if ($exifvar[EXIF_SOURCE] == 'IPTC') {
 								$datum = self::getIPTCTag($IPTCtags[$exifvar[EXIF_KEY]], $iptc);
-								$this->set($field, $this->prepIPTCString($datum, $characterset));
+								$value = $this->prepIPTCString($datum, $characterset);
+								if (in_array($field, $timevalues)) {
+									$value = '0000-00-00 ' . substr($value, 0, 2) . ':' . substr($value, 2, 2) . ':' . substr($value, 4, 2);
+								}
+								$this->set($field, $value);
 							}
 						}
 						/* iptc keywords (tags) */

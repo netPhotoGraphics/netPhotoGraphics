@@ -2490,13 +2490,13 @@ function getImageMetaData($image = NULL, $displayonly = true) {
 	$data = $image->getMetaData();
 
 	foreach ($data as $field => $value) { //	remove the empty or not selected to display
-		if ($_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value = '0000-00-00 00:00:00') {
+		if ($_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00') {
 			$value = ''; // really it is empty
 		}
 		if ($displayonly && (!$value || !$_exifvars[$field][EXIF_DISPLAY])) {
 			unset($data[$field]);
 		} else {
-			$data[$field] = exifTranslate($value);
+			$data[$field] = exifTranslate($value, $field);
 		}
 	}
 	if (count($data) > 0) {
@@ -2553,14 +2553,7 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 				foreach ($exif as $field => $value) {
 					$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
 					echo "<tr><td class=\"label " . html_encode($field) . "\">$label:</td><td class=\"value\">";
-					switch ($_exifvars[$field][EXIF_FIELD_TYPE]) {
-						case 'time':
-							echo formattedDate(DATE_FORMAT, strtotime($value));
-							break;
-						default:
-							echo html_encode($value);
-							break;
-					}
+					echo html_encode($value);
 					echo "</td></tr>\n";
 				}
 				?>
@@ -4423,7 +4416,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

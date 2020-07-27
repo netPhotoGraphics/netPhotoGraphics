@@ -244,12 +244,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												$exif = $image->getMetaData();
 												if (false !== $exif) {
 													foreach ($exif as $field => $value) {
-														if (!(empty($value) || $_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value = '0000-00-00 00:00:00')) {
-															$display = $_exifvars[$field][EXIF_DISPLAY];
-															if ($display) {
-																$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
-																$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value)) . "</td></tr>\n";
-															}
+														$display = $_exifvars[$field][EXIF_DISPLAY] && !empty($value) && !($_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00');
+														if ($display) {
+															$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
+															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value, $field)) . "</td></tr>\n";
 														}
 													}
 												}

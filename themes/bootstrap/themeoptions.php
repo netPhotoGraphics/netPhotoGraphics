@@ -21,7 +21,8 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop', 1);
 		setThemeOptionDefault('thumb_crop_width', 220);
 		setThemeOptionDefault('thumb_crop_height', 220);
-		setThemeOptionDefault('image_size', 800);
+		purgeOption('image_size', basename(__DIR__));
+		setThemeOptionDefault('image_size', 1000);
 		setThemeOptionDefault('image_use_side', 'longest');
 		setThemeOptionDefault('custom_index_page', 'gallery');
 
