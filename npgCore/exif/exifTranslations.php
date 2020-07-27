@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Provides dynamic translations of exif strings
+ * Provides dynamic translations of exif strings adn date/time formatting
  *
  * The data extracted from image metadata is created with "tags" that can later
  * be translated into the current active language when displayed.
@@ -10,7 +10,22 @@
  * for use with netPhotoGrapphics CMS software.
  */
 
-function exifTranslate($source) {
+function exifTranslate($source, $field) {
+	switch ($field) {
+		case 'IPTCTimeCreated':
+		case 'IPTCDigitizeTime':
+		case 'IPTCReleaseTime':
+		case 'IPTCExpireTime':
+			$source = substr($source, 11);
+			break;
+		case 'IPTCDateCreated':
+		case 'IPTCDigitizeDate':
+		case 'IPTCReleaseDate':
+		case 'IPTCExpireDate':
+			$source = substr($source, 0, 10);
+			break;
+	}
+
 	preg_match('/\!.*\!/', $source, $matches);
 	if (isset($matches[0])) {
 		$sw = $matches[0];

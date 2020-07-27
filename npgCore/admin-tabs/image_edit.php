@@ -246,15 +246,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													foreach ($exif as $field => $value) {
 														$display = $_exifvars[$field][EXIF_DISPLAY] && !empty($value) && !($_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00');
 														if ($display) {
-															if ($_exifvars[$field][EXIF_FIELD_TYPE] == 'time') {
-																if (substr($value, 0, 10) == '0000-00-00') {
-																	$value = substr($value, 11);
-																}
-																if (substr($value, 11, 8) == '00:00:00')
-																	$value = substr($value, 0, 10);
-															}
 															$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
-															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value)) . "</td></tr>\n";
+															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value, $field)) . "</td></tr>\n";
 														}
 													}
 												}
@@ -325,9 +318,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-															 $('.expire-<?php echo $currentimage; ?>').html('');"
+																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																		 $('.expire-<?php echo $currentimage; ?>').html('');"
 													 />
 													 <?php echo gettext("Published"); ?>
 									</label>
@@ -465,7 +458,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">
