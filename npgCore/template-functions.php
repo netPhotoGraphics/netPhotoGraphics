@@ -2788,7 +2788,7 @@ function printDefaultSizedImage($alt, $class = NULL, $id = NULL, $title = NULL) 
 	if (isset($title)) {
 		$title = ' title="' . $title . '"';
 	}
-	$content = preg_replace('~@class@~', $id . $class . $title . ' ', $content);
+	$content = preg_replace('~@class@~', $id . $class . $title . $alt, $content);
 
 	echo $content;
 }
