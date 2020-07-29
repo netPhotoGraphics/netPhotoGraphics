@@ -1190,7 +1190,7 @@ class Image extends MediaObject {
 	 * @return string
 	 */
 	function getContent() {
-		$class = '';
+		$class = 'nPGimage';
 		if (!$this->getShow()) {
 			$class .= " not_visible";
 		}

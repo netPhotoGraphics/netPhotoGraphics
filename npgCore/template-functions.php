@@ -2769,7 +2769,28 @@ function getDefaultSizedImage($image = NULL) {
  */
 function printDefaultSizedImage($alt, $class = NULL, $id = NULL, $title = NULL) {
 	global $_current_image;
-	echo $_current_image->getContent();
+	$content = $_current_image->getContent();
+
+	preg_match('~class\s*=\s*"([^"]+)"~', $content, $matches);
+	if ($matches) {
+		$class .= ' ' . $matches[1];
+		$content = preg_replace('~' . $matches[0] . '~', '@class@', $content);
+	} else {
+		debugLog(gettext(getClass($_current_image) . '->getContent() did not provide a class attribute'));
+	}
+	$class = ' class="' . trim($class) . '"';
+	if (isset($id)) {
+		$id = ' id="' . $id . '"';
+	}
+	if (isset($alt)) {
+		$alt = ' alt="' . $alt . '"';
+	}
+	if (isset($title)) {
+		$title = ' title="' . $title . '"';
+	}
+	$content = preg_replace('~@class@~', $id . $class . $title . $alt, $content);
+
+	echo $content;
 }
 
 /**
@@ -4416,7 +4437,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
