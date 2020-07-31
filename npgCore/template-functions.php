@@ -3353,6 +3353,28 @@ function getRandomImagesAlbum($rootAlbum = NULL, $daily = false) {
 }
 
 /**
+ * returns a picture of the day image.
+ *
+ * If called from an album page it will get the image from the album (or subalbums if
+ * the album has no images.) Otherwise it selects one randomly from the gallery.
+ *
+ * Once selected, the image remains until the following day. That is it will change
+ * only once a day.
+ *
+ * @return obj image
+ * @global type $_current_page
+ */
+function getPictureOfTheDay() {
+	global $_current_page;
+	if ($_current_page == 'album.php') {
+		$image = getRandomImagesAlbum(NULL, true);
+	} else {
+		$image = getRandomImages(true);
+	}
+	return $image;
+}
+
+/**
  * Puts up random image thumbs from the gallery
  *
  * @param int $number how many images
@@ -4437,7 +4459,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
