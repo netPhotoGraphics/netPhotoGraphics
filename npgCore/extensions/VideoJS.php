@@ -182,7 +182,7 @@ class VideoJS {
 		}
 
 		$videoThumb = '';
-		if (getOption('VideoJS_poster')) {
+		if (getOption('VideoJS_poster') && !is_null($movie->objectsThumb)) {
 			$videoThumb = $movie->getCustomImage(null, $w, $h, $w, $h, null, null, true);
 		}
 

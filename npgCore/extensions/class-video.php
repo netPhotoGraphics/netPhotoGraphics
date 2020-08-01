@@ -56,15 +56,30 @@ class VideoObject_Options {
 		global $_multimedia_extension;
 		$options = array(
 				gettext('Watermark default images') => array('key' => 'video_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 0,
+						'order' => 1,
 						'desc' => gettext('Check to place watermark image on default thumbnail images.')),
 				gettext('High quality alternate') => array('key' => 'class-video_videoalt', 'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 1,
+						'order' => 2,
 						'desc' => gettext('<code>getFullImageURL()</code> returns a URL to a file with one of these high quality video alternate suffixes if present.'))
 		);
 		if (method_exists($_multimedia_extension, 'getOptionsSupported')) {
-			$options = array_merge($options, $_multimedia_extension->getOptionsSupported());
+			$playeroptions = $_multimedia_extension->getOptionsSupported();
+			$next = 3;
+			foreach ($playeroptions as $key => $option) {
+				if (isset($option['order'])) {
+					$order = $option['order'] + 3;
+					$next = max($next, $order);
+				} else {
+					$order = $next + .05;
+				}
+				$playeroptions[$key]['order'] = $order;
+			}
+
+			$options = $options + array(gettext('player options') => array('key' => 'note', 'type' => OPTION_TYPE_NOTE, 'order' => 2.1, 'desc' => '<hr/>')) + $playeroptions;
+
+			var_dump($options);
 		}
+
 		return $options;
 	}
 
@@ -450,8 +465,12 @@ class pseudoPlayer {
 
 	function getOptionsSupported() {
 		return array(
+				gettext('Poster (Videothumb)') => array('key' => 'class-video_poster',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 3,
+						'desc' => gettext('The videothumb (if present) will be shown when the player is initially displayed.')),
 				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 9999,
+						'order' => 4,
 						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
 		);
 	}
@@ -501,7 +520,7 @@ class pseudoPlayer {
 			case 'm4v':
 			case 'mp4':
 				$poster = '';
-				if (!is_null($obj->objectsThumb)) {
+				if (getOption('Video_poster') && !is_null($obj->objectsThumb)) {
 					$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
 				} else {
 					$poster = '';
