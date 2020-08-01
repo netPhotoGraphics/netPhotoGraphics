@@ -213,7 +213,7 @@ class VideoJS {
 				},
 				function(){
 					var player = this;
-					window.player = player
+					window.player = player;
 					player.on("play", function(){
 						player.poster("")
 					})
