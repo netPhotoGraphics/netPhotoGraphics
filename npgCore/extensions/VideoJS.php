@@ -53,12 +53,14 @@ class VideoJS_options {
 	public $name = 'VideoJS';
 
 	function __construct() {
-		setOptionDefault('VideoJS_autoplay', '');
-		setOptionDefault('VideoJS_poster', 1);
-		setOptionDefault('VideoJS_resolution', 'high');
-		setOptionDefault('VideoJS_size', 'video-JS-270p');
-		setOptionDefault('VideoJS_customsize', '0');
-		setOptionDefault('VideoJS_aspect', 'wide');
+		if (OFFSET_PATH == 2) {
+			setOptionDefault('VideoJS_autoplay', '');
+			setOptionDefault('VideoJS_poster', 1);
+			setOptionDefault('VideoJS_resolution', 'high');
+			setOptionDefault('VideoJS_size', 'video-JS-270p');
+			setOptionDefault('VideoJS_customsize', '0');
+			setOptionDefault('VideoJS_aspect', 'wide');
+		}
 	}
 
 	function getOptionsSupported() {
