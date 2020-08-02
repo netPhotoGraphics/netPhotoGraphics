@@ -67,8 +67,7 @@ printLogoAndLinks();
 	?>
 	<div id="content">
 		<?php
-		$albumlist = array();
-		genAlbumList($albumlist);
+		$albumlist = genAlbumList();
 		//	remove dynamic albums--can't upload to them
 		foreach ($albumlist as $key => $albumname) {
 			if (hasDynamicAlbumSuffix($key) && !is_dir(ALBUM_FOLDER_SERVERPATH . $key)) {

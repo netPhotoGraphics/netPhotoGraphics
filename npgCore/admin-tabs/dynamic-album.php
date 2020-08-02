@@ -139,8 +139,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 		echo "</div>\n";
 	}
 
-	$albumlist = array();
-	genAlbumList($albumlist);
+	$albumlist = genAlbumList();
 	$fields = $search->fieldList;
 	$words = $search->codifySearchString();
 	$inAlbumlist = $search->getAlbumList();
