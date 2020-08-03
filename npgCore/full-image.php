@@ -177,7 +177,7 @@ if (gl_imageCanRotate()) {
 }
 $watermark_use_image = getWatermarkParam($imageobj, WATERMARK_FULL);
 if ($watermark_use_image == NO_WATERMARK) {
-	$watermark_use_image = '';
+	$watermark_use_image = FALSE;
 } else {
 	$process = 2;
 	$watermark_use_image = getWatermarkPath($watermark_use_image);

@@ -1889,11 +1889,13 @@ function imageThemeSetup($album) {
  * @return string
  */
 function getWatermarkPath($wm) {
-	$path = CORE_SERVERPATH . 'watermarks/' . internalToFilesystem($wm) . '.png';
-	if (!file_exists($path)) {
-		$path = USER_PLUGIN_SERVERPATH . '/watermarks/' . internalToFilesystem($wm) . '.png';
+	foreach (array(USER_PLUGIN_SERVERPATH, CORE_SERVERPATH) as $loc) {
+		$path = $loc . 'watermarks/' . internalToFilesystem($wm) . '.png';
+		if (file_exists($path)) {
+			return $path;
+		}
 	}
-	return $path;
+	return FALSE;
 }
 
 /**
