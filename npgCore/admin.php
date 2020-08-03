@@ -90,6 +90,26 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 		}
 		if (npg_loggedin($needs)) {
 			switch ($action) {
+				case 'purgeDBitems':
+					XSRFdefender('purgeDBitems');
+					$class = 'messagebox fade-message';
+					$msg = gettext('Fields and indexes not used by netPhotoGraphics were removed from the database.');
+
+					$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+					$result = query_full_array($sql);
+					foreach ($result as $item) {
+						if ($item['type'] == 'db_orpahned_index') {
+							$what = ' INDEX';
+						} else {
+							$what = '';
+						}
+						$sql = 'ALTER TABLE ' . prefix($item['subtype']) . ' DROP' . $what . ' `' . $item['aux'] . '`';
+						Query($sql, false);
+					}
+					$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+					query($sql);
+					break;
+
 				/** clear the image cache **************************************************** */
 				case "clear_cache":
 					XSRFdefender('clear_cache');
@@ -300,7 +320,7 @@ if (!npg_loggedin()) {
 	// If they are not logged in, display the login form and exit
 	?>
 	<body style="background-image: none">
-	<?php $_authority->printLoginForm($came_from); ?>
+		<?php $_authority->printLoginForm($came_from); ?>
 	</body>
 	<?php
 	echo "\n</html>";
@@ -342,10 +362,28 @@ $buttonlist = array();
 				);
 			}
 		}
+
+		$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%') . ' LIMIT 1';
+		$result = query_full_array($sql);
+		if (!empty($result)) {
+			$buttonlist[] = array(
+					'XSRFTag' => 'purgeDBitems',
+					'category' => gettext('Database'),
+					'enable' => TRUE,
+					'button_text' => $buttonText = gettext('Purge unused structure items'),
+					'formname' => 'purgeDB_button',
+					'action' => getAdminLink('admin.php') . '?action=purgeDBitems',
+					'icon' => WASTEBASKET,
+					'title' => gettext('Removes fields and indexes from the database that are not used by netPhotoGraphics.'),
+					'alt' => '',
+					'hidden' => '<input type="hidden" name="action" value="purgeDBitems" />',
+					'rights' => ADMIN_RIGHTS
+			);
+		}
 	}
 	?>
 	<div id="main">
-			<?php printTabs(); ?>
+		<?php printTabs(); ?>
 		<div id="content">
 			<?php
 			/*			 * * HOME ************************************************************************** */
@@ -528,7 +566,7 @@ $buttonlist = array();
 					<div class="box overview-section overview_utilities">
 						<h2 class="h2_bordered">
 							<a href="<?php echo WEBPATH; ?>/docs/release%20notes.htm" class="doc" title="<?php echo gettext('release notes'); ?>">
-	<?php printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), $v, $official); ?>
+								<?php printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), $v, $official); ?>
 							</a>
 						</h2>
 						<?php
@@ -597,7 +635,7 @@ $buttonlist = array();
 											}
 											?>
 											<div>
-			<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable, 'buttonTitle' => html_encode($button['title']))); ?>
+												<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable, 'buttonTitle' => html_encode($button['title']))); ?>
 											</div><!--buttons -->
 										</form>
 										<?php
@@ -641,13 +679,13 @@ $buttonlist = array();
 								if (class_exists('CMS')) {
 									?>
 									<li>
-		<?php printPagesStatistic(); ?>
+										<?php printPagesStatistic(); ?>
 									</li>
 									<li>
-		<?php printCategoriesStatistic(); ?>
+										<?php printCategoriesStatistic(); ?>
 									</li>
 									<li>
-									<?php printNewsStatistic(); ?>
+										<?php printNewsStatistic(); ?>
 									</li>
 									<?php
 								}
@@ -693,14 +731,14 @@ $buttonlist = array();
 								if ($g) {
 									?>
 									<li>
-									<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
+										<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
 									</li>
 									<?php
 								}
 								if ($t) {
 									?>
 									<li>
-									<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
+										<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
 									</li>
 									<?php
 								}
@@ -717,14 +755,14 @@ $buttonlist = array();
 			} else {
 				?>
 				<div class="errorbox">
-				<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
+					<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
 				</div>
 				<?php
 			}
 			?>
 		</div>
 		<br clear="all">
-<?php printAdminFooter(); ?>
+		<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 <?php

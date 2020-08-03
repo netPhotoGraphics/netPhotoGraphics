@@ -533,7 +533,7 @@ class cacheManager {
 				'enable' => true,
 				'button_text' => gettext('Purge Image cache'),
 				'formname' => 'purge_image_cache.php',
-				'action' => getAdminLink('admin.php') . '?action=action=clear_cache',
+				'action' => getAdminLink('admin.php') . '?action=clear_cache',
 				'icon' => WASTEBASKET,
 				'alt' => '',
 				'title' => gettext('Delete all files from the Image cache'),

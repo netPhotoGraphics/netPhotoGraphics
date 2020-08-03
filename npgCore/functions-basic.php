@@ -1031,7 +1031,7 @@ function setOption($key, $value, $persistent = true) {
 			}
 			$v = db_quote($value);
 		}
-		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' . ' ON DUPLICATE KEY UPDATE `value`=' . $v;
+		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ') ON DUPLICATE KEY UPDATE `value`=' . $v;
 		$result = query($sql, false);
 		if ($result) {
 			if (array_key_exists($keylc, $_conf_options_associations)) {

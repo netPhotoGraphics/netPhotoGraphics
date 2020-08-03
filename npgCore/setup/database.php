@@ -305,7 +305,7 @@ foreach ($template as $tablename => $table) {
 				}
 			} else {
 				if (strpos($field['Comment'], 'optional_') === false) {
-					$orphans[] = sprintf(gettext('Setup found the field "%1$s" in the "%2$s" table. This field is not in use by netPhotoGraphics.'), $key, $tablename);
+					$orphans[] = array('type' => 'field', 'table' => $tablename, 'item' => $key, 'message' => sprintf(gettext('Setup found the field "%1$s" in the "%2$s" table. This field is not in use by netPhotoGraphics.'), $key, $tablename));
 				}
 			}
 		}
@@ -377,7 +377,7 @@ foreach ($template as $tablename => $table) {
 						$_DB_Structure_change = TRUE;
 					}
 				} else {
-					$orphans[] = sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename);
+					$orphans[] = array('type' => 'index', 'table' => $tablename, 'item' => $key, 'message' => sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename));
 				}
 			}
 		}
@@ -404,8 +404,15 @@ setOptionDefault('metadata_displayed', serialize($display));
 //	Don't report these unless npg has previously been installed because the
 //	plugins which might "claim" them will not yet have run
 if ($npgUpgrade) {
-	foreach ($orphans as $message) {
-		setupLog($message, true);
+	if (!empty($orphans)) {
+		$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+		query($sql);
+		foreach ($orphans as $orphan) {
+			$message = $orphan['message'];
+			$sql = 'INSERT INTO ' . prefix('plugin_storage') . '(`type`,`subtype`,`aux`) VALUES ("db_orpahned_' . $orphan['type'] . '",' . db_quote($orphan['table']) . ',' . db_quote($orphan['item']) . ')';
+			query($sql);
+			setupLog($message, TRUE);
+		}
 	}
 }
 ?>
