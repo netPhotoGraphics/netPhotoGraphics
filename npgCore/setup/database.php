@@ -158,7 +158,11 @@ foreach ($metadataProviders as $source => $handler) {
 			switch ($exifvar[EXIF_FIELD_TYPE]) {
 				default:
 				case 'string':
-					$type = "text";
+					if ($size < 256) {
+						$type = 'tinytext';
+					} else {
+						$type = "text";
+					}
 					if ($utf8mb4) {
 						$collation = 'utf8mb4_unicode_ci';
 					} else {

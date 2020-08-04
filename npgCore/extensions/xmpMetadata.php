@@ -615,7 +615,7 @@ class xmpMetadata {
 	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function getMetadataFields() {
-		return array(
+		$fields = array(
 				// Database Field      => array(0:'source', 1:'Metadata Key', 2;'ZP Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'XMPAperatureValue' => array('XMP', '<exif:ApertureValue>', gettext('Aperture Value'), false, 52, true, 'string', false),
 				'XMPArtist' => array('XMP', '<dc:creator>', gettext('Artist'), false, 52, true, 'string', false),
@@ -627,7 +627,6 @@ class xmpMetadata {
 				'XMPFNumber' => array('XMP', '<exif:FNumber>', gettext('Aperture'), true, 52, true, 'string', false),
 				'XMPFocalLength' => array('XMP', '<exif:FocalLength>', gettext('Focal Length'), true, 52, true, 'string', false),
 				'XMPGPSAltitude' => array('XMP', '<exif:GPSAltitude>', gettext('Altitude'), false, 52, true, 'number', false),
-				'XMPGPSAltitudeRef' => array('XMP', '<exif:GPSAltitudeRef>', gettext('Altitude Reference'), false, 52, true, 'string', 'XMPGPSAltitude'),
 				'XMPGPSLatitude' => array('XMP', '<exif:GPSLatitude>', gettext('Latitude'), false, 52, true, 'number', false),
 				'XMPGPSLongitude' => array('XMP', '<exif:GPSLongitude>', gettext('Longitude'), false, 52, true, 'number', false),
 				'XMPISOSpeedRatings' => array('XMP', '<exif:ISOSpeedRatings>', gettext('ISO Sensitivity'), true, 52, true, 'string', false),
@@ -655,6 +654,8 @@ class xmpMetadata {
 				'XMPSubLocation' => array('XMP', '<Iptc4xmpCore:Location>', gettext('Sub-location'), false, 32, true, 'string', false),
 				'XMPrating' => array('XMP', '<MicrosoftPhoto:Rating>', gettext('Rating'), false, 32, true, 'string', false)
 		);
+		ksort($fields, SORT_NATURAL | SORT_FLAG_CASE);
+		return $fields;
 	}
 
 	/**

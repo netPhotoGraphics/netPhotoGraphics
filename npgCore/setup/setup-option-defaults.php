@@ -199,7 +199,8 @@ if (!empty($where)) {
 			}
 			$alt = $img->get('EXIFGPSAltitude');
 			if (!empty($alt)) {
-				if ($img->get('EXIFGPSAltitudeRef') == '-') {
+				$ref = $img->get('EXIFGPSAltitudeRef');
+				if (!is_null($ref) && $ref != 0) {
 					$alt = -$alt;
 				}
 				$img->set('GPSAltitude', $alt);

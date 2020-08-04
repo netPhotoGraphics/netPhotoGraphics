@@ -140,7 +140,7 @@ class Video extends Image {
 	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function getMetadataFields() {
-		return array(
+		$fields = array(
 				// Database Field     	 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'VideoFormat' => array('VIDEO', 'fileformat', gettext('Video File Format'), false, 32, true, 'string', false),
 				'VideoSize' => array('VIDEO', 'filesize', gettext('Video File Size'), false, 32, true, 'number', false),
@@ -163,6 +163,8 @@ class Video extends Image {
 				'VideoAspect_ratio' => array('VIDEO', 'pixel_aspect_ratio', gettext('Aspect ratio'), false, 32, true, 'number', false),
 				'VideoPlaytime' => array('VIDEO', 'playtime_string', gettext('Play Time'), false, 10, true, 'string', false)
 		);
+		ksort($fields, SORT_NATURAL | SORT_FLAG_CASE);
+		return $fields;
 	}
 
 	/**
