@@ -115,7 +115,11 @@ function saveOptions() {
 	} else {
 		foreach ($_exifvars as $key => $item) {
 			if (isset($_POST[$key])) {
-				$v = sanitize_numeric($_POST[$key]);
+				if ($item[EXIF_FIELD_LINKED] && !$_exifvars[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
+					$v = 2;
+				} else {
+					$v = sanitize_numeric($_POST[$key]);
+				}
 			} else {
 				$v = 2;
 			}
@@ -204,16 +208,26 @@ function getOptionContent() {
 		function setMetaDefaults() {
 			$('.showMeta').prop('checked', 'checked');
 	<?php
-	foreach (npgFunctions::exifvars(true) as $key => $data) {
-		if (!$data[5]) {
+	$exifstuff = npgFunctions::exifvars(true);
+	foreach ($exifstuff as $key => $data) {
+		if ($data[EXIF_FIELD_LINKED] && !$exifstuff[$data[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
 			?>
 					$('#<?php echo $key; ?>_disable').prop('checked', 'checked');
+					$('.<?php echo $key; ?>_metaDisable').prop('disabled', 'disabled');
 			<?php
-		} else
-		if (!$data[3] || !$data[4]) {
+		} else {
 			?>
-					$('#<?php echo $key; ?>_hide').prop('checked', 'checked');
+					$('.<?php echo $key; ?>_metaDisable').removeAttr('disabled');
 			<?php
+			if (!$data[EXIF_FIELD_ENABLED]) {
+				?>
+						$('#<?php echo $key; ?>_disable').prop('checked', 'checked');
+				<?php
+			} else if (!$data[EXIF_DISPLAY] || !$data[4]) {
+				?>
+						$('#<?php echo $key; ?>_hide').prop('checked', 'checked');
+				<?php
+			}
 		}
 	}
 	?>
@@ -695,7 +709,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																		 togglePassword('');" />
+																 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 
@@ -775,19 +789,11 @@ function getOptionContent() {
 								<?php
 								foreach ($exifstuff as $key => $item) {
 									$checked_show = $checked_hide = $checked_disabled = '';
-									$class_show = ' class="showMeta"';
-									$class_hide = ' class="hideMeta"';
-
-									if ($item[EXIF_FIELD_LINKED]) {
-										$checked_disabled = ' disabled="disabled"';
-										if (!$exifstuff[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
-											$checked_disabled .= ' checked="checked"';
-										}
-										if ($item[EXIF_DISPLAY]) {
-											$checked_show = ' checked="checked"';
-										} else {
-											$checked_hide = ' checked="checked"';
-										}
+									$class_show = ' class="showMeta ' . $key . '_metaDisable"';
+									$class_hide = ' class="hideMeta ' . $key . '_metaDisable"';
+									if ($item[EXIF_FIELD_LINKED] && !$exifstuff[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
+										$checked_hide = $checked_show = ' disabled="disabled"';
+										$checked_disabled = ' checked="checked" disabled="disabled"';
 									} else {
 										if (!$item[EXIF_FIELD_ENABLED]) {
 											$checked_disabled = ' checked="checked"';
@@ -816,7 +822,7 @@ function getOptionContent() {
 											<?php echo HIDE_ICON; ?>
 										</label>
 										<label title="<?php echo gettext('disable'); ?>">
-											<input id="<?php echo $key; ?>_disable" name="<?php echo $key; ?>" type="radio" class="disableMeta"<?php echo $checked_disabled ?> value="2" />
+											<input id="<?php echo $key; ?>_disable" name="<?php echo $key; ?>" type="radio" class="<?php echo $key; ?>_metaDisable"<?php echo $checked_disabled ?> value="2" />
 											<?php echo CROSS_MARK_RED; ?>
 										</label>
 										<?php echo $item[2] . ' {' . $item[0] . '}'; ?>
