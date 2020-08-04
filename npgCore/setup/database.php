@@ -404,9 +404,9 @@ setOptionDefault('metadata_displayed', serialize($display));
 //	Don't report these unless npg has previously been installed because the
 //	plugins which might "claim" them will not yet have run
 if ($npgUpgrade) {
+	$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+	query($sql);
 	if (!empty($orphans)) {
-		$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
-		query($sql);
 		foreach ($orphans as $orphan) {
 			$message = $orphan['message'];
 			$sql = 'INSERT INTO ' . prefix('plugin_storage') . '(`type`,`subtype`,`aux`) VALUES ("db_orpahned_' . $orphan['type'] . '",' . db_quote($orphan['table']) . ',' . db_quote($orphan['item']) . ')';
