@@ -508,6 +508,7 @@ function addItem(&$reports) {
 
 		case 'album':
 			$result['title'] = $result['link'] = sanitize($_POST['albumselect']);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			if (empty($result['link'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to select an album.") . " </p>";
 				return $result;
@@ -519,6 +520,7 @@ function addItem(&$reports) {
 
 		case 'siteindex':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -549,6 +551,7 @@ function addItem(&$reports) {
 
 		case 'newsindex':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -569,6 +572,7 @@ function addItem(&$reports) {
 
 		case 'custompage':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = sanitize($_POST['custompageselect']);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -579,6 +583,7 @@ function addItem(&$reports) {
 
 		case 'albumindex':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -591,6 +596,7 @@ function addItem(&$reports) {
 		case 'customlink':
 			$result['link'] = sanitize($_POST['link']);
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
@@ -604,6 +610,7 @@ function addItem(&$reports) {
 
 		case 'menulabel':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -614,6 +621,7 @@ function addItem(&$reports) {
 
 		case 'menufunction':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = sanitize($_POST['link'], 4);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -648,9 +656,10 @@ function addItem(&$reports) {
 
 	$count = db_count('menu', 'WHERE menuset=' . db_quote($menuset));
 	$order = sprintf('%03u', $count);
-	$sql = "INSERT INTO " . prefix('menu') . " ( `title`, `link`, `type`, `show`, `menuset`, `sort_order`, `include_li`, `span_id`, `span_class`, `menu_aux`) " .
+	$sql = "INSERT INTO " . prefix('menu') . " ( `title`, `link`, `titletext`, `type`, `show`, `menuset`, `sort_order`, `include_li`, `span_id`, `span_class`, `menu_aux`) " .
 					"VALUES (" . db_quote($result['title']) .
 					", " . db_quote($result['link']) .
+					", " . db_quote(@$result['titletext']) .
 					", " . db_quote($result['type']) . ", " . $result['show'] .
 					", " . db_quote($menuset) . ", " . db_quote($order) . ", " . $result['include_li'] .
 					", " . db_quote($result['span_id']) . ", " . db_quote($result['span_class']) .
@@ -682,6 +691,7 @@ function updateMenuItem(&$reports) {
 	$result['show'] = getCheckboxState('show');
 	$result['type'] = sanitize($_POST['type']);
 	$result['title'] = process_language_string_save("title", 2);
+	$result['titletext'] = process_language_string_save("titletext", 2);
 	$result['include_li'] = getCheckboxState('include_li');
 	$result['menu_aux'] = sanitize($_POST['menu_aux']);
 	if (getCheckboxState('span')) {
@@ -719,6 +729,7 @@ function updateMenuItem(&$reports) {
 
 		case 'newsindex':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -746,6 +757,7 @@ function updateMenuItem(&$reports) {
 
 		case 'albumindex':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
@@ -756,6 +768,7 @@ function updateMenuItem(&$reports) {
 		case 'dynamiclink':
 		case 'customlink':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
@@ -769,6 +782,7 @@ function updateMenuItem(&$reports) {
 
 		case 'menulabel':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			$result['link'] = NULL;
 			unset($_POST['link']); // to avoid later error
 			if (empty($result['title'])) {
@@ -779,6 +793,7 @@ function updateMenuItem(&$reports) {
 
 		case 'menufunction':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
@@ -789,9 +804,10 @@ function updateMenuItem(&$reports) {
 				return $result;
 			}
 			break;
-		case 'html':
 
+		case 'html':
 			$result['title'] = process_language_string_save("title", 2);
+			$result['titletext'] = process_language_string_save("titletext", 2);
 			if (empty($result['title'])) {
 				$reports[] = "<p class = 'errorbox fade-message'>" . gettext("You forgot to give your menu item a <strong>title</strong>!") . " </p>";
 				return $result;
@@ -810,6 +826,7 @@ function updateMenuItem(&$reports) {
 	// update the category in the category table
 	$sql = "UPDATE " . prefix('menu') . " SET title = " . db_quote($result['title']) .
 					", link = " . db_quote($result['link']) .
+					", titletext = " . db_quote($result['titletext']) .
 					", type = " . db_quote($result['type']) . ", `show` = " . db_quote($result['show']) .
 					", menuset = " . db_quote($menuset) . ", include_li = " . $result['include_li'] .
 					", span_id = " . db_quote($result['span_id']) . ", span_class = " . db_quote($result['span_class']) .
@@ -852,7 +869,7 @@ function printAlbumsSelector($current) {
 	global $_gallery;
 	$albumlist = genAlbumList(NULL, ALL_ALBUMS_RIGHTS);
 	?>
-	<select id="albumselector" name="albumselect">
+	<select id="albumselector" name="albumselect" style="max-width: 400px">
 		<?php
 		foreach ($albumlist as $key => $value) {
 			$albumobj = newAlbum($key);

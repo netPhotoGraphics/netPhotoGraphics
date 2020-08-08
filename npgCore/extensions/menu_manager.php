@@ -1184,6 +1184,11 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 		$itemarray = getItemTitleAndURL($item);
 		$itemURL = $itemarray['url'];
 		$itemtitle = get_language_string($itemarray['title']);
+		if (isset($item['titletext']) && !empty($item['titletext'])) {
+			$titleattribute = 'title="' . html_encode(get_language_string($item['titletext'])) . '"';
+		} else {
+			$titleattribute = '';
+		}
 		$level = max(1, count(explode('-', $item['sort_order'])));
 		$process = (($level <= $showsubs && $option == "list") // user wants all the pages whose level is <= to the parameter
 						|| ($option == 'list' || $option == 'list-top') && $level == 1 // show the top level
@@ -1314,7 +1319,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						if (empty($itemURL)) {
 							$itemURL = FULLWEBPATH;
 						}
-						echo '<a href="' . $itemURL . '" title="' . html_encode(getBare($itemtitle)) . '" ' . $item['menu_aux'] . '>' . $itemtitle . '</a>' . $itemcounter;
+						echo '<a href="' . $itemURL . '" data="' . $item['type'] . '"' . $titleattribute . $item['menu_aux'] . '>' . $itemtitle . '</a>' . $itemcounter;
 						break;
 				}
 				if ($item['span_id'] || $item['span_class']) {
