@@ -93,9 +93,9 @@ if ($favorite) {
 } else {
 	$favorite = gettext('favorite');
 }
-$albumlist = array();
+$albumlist = genAlbumList();
 $albumname = $user . '-' . $favorite;
-genAlbumList($albumlist);
+
 
 $images = $source->getImages(0);
 foreach ($images as $image) {

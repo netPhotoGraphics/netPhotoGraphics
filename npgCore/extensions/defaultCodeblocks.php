@@ -28,14 +28,19 @@ class defaultCodeblocks {
 
 	var $codeblocks;
 	var $blocks = array();
-	var $currentObject = NULL;
+	var $table = NULL; //	the DB table for this instantiation of defaultCodeblocks
 
 	function __construct() {
-		$this->blocks = array('gallery' => NULL, 'albums' => NULL, 'images' => NULL, 'news_categories' => NULL, 'news' => NULL, 'pages' => NULL);
+		$this->blocks = array('gallery' => NULL, 'albums' => NULL, 'images' => NULL, 'news' => NULL, 'pages' => NULL);
 		$blocks = query_full_array("SELECT id, `subtype`, `aux`, `data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'defaultCodeblocks'");
 		foreach ($blocks as $block) {
 			if ($block['subtype']) {
-				$this->blocks[$block['subtype']] = $block['data'];
+				if ($block['subtype'] == 'news_categories') {
+					//	there are no news_category pages, thus this needs to be removed
+					query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `id`=' . $block['id']);
+				} else {
+					$this->blocks[$block['subtype']] = $block['data'];
+				}
 			} else {
 				//	migrate the legacy codeblocks
 				$oldoptions = getSerializedArray(getOption('defaultCodeblocks_objects'));
@@ -60,7 +65,7 @@ class defaultCodeblocks {
 	}
 
 	function getOptionsSupported() {
-		$xlate = array('gallery' => gettext('Gallery'), 'albums' => gettext('Albums'), 'images' => gettext('Images'), 'news_categories' => gettext('News Categories'), 'news' => gettext('Articles'), 'pages' => gettext('Pages'));
+		$xlate = array('gallery' => gettext('Gallery'), 'albums' => gettext('Albums'), 'images' => gettext('Images'), 'news' => gettext('Articles'), 'pages' => gettext('Pages'));
 
 		foreach ($this->blocks as $object => $block) {
 			$options [$xlate[$object]] = array('key' => 'defaultCodeblocks_' . $object, 'type' => OPTION_TYPE_CUSTOM,
@@ -74,14 +79,14 @@ class defaultCodeblocks {
 
 	function handleOption($option, $currentValue) {
 		$option = str_replace('defaultCodeblocks_', '', $option);
-		$this->currentObject = $option;
+		$this->table = $option;
 		printCodeblockEdit($this, $option);
 	}
 
 	function handleOptionSave($themename, $themealbum) {
 		if (npg_loggedin(CODEBLOCK_RIGHTS)) {
 			foreach ($this->blocks as $object => $block) {
-				$this->currentObject = $object;
+				$this->table = $object;
 				processCodeblockSave($object, $this);
 			}
 		}
@@ -94,7 +99,7 @@ class defaultCodeblocks {
 	 * @return array
 	 */
 	function getCodeblock() {
-		return npgFunctions::unTagURLs($this->blocks[$this->currentObject]);
+		return npgFunctions::unTagURLs($this->blocks[$this->table]);
 	}
 
 	/**
@@ -102,8 +107,8 @@ class defaultCodeblocks {
 	 *
 	 */
 	function setCodeblock($cb) {
-		$this->blocks[$this->currentObject] = npgFunctions::tagURLs($cb);
-		$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `data`=' . db_quote($this->blocks[$this->currentObject]) . ' WHERE `type`="defaultCodeblocks" AND `subtype`=' . db_quote($this->currentObject);
+		$this->blocks[$this->table] = npgFunctions::tagURLs($cb);
+		$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `data`=' . db_quote($this->blocks[$this->table]) . ' WHERE `type`="defaultCodeblocks" AND `subtype`=' . db_quote($this->table);
 		query($sql);
 	}
 
@@ -113,7 +118,7 @@ class defaultCodeblocks {
 			if (!$_defaultCodeBlocks) {
 				$_defaultCodeBlocks = new defaultCodeblocks();
 			}
-			$_defaultCodeBlocks->currentObject = $object->table;
+			$_defaultCodeBlocks->table = $object->table;
 			$blocks = getSerializedArray($_defaultCodeBlocks->getCodeblock());
 			if (isset($blocks[$number])) {
 				$current = $blocks[$number];

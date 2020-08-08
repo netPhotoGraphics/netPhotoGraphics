@@ -304,8 +304,7 @@ echo "\n</head>";
 			if (isset($_GET['album'])) {
 				/** SINGLE ALBUM ******************************************************************* */
 				// one time generation of this list.
-				$mcr_albumlist = array();
-				genAlbumList($mcr_albumlist);
+				$mcr_albumlist = genAlbumList();
 
 				$oldalbumimagesort = $_gallery->getSortType('image');
 				$direction = $_gallery->getSortDirection('image');

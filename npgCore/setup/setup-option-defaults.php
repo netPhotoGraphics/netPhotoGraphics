@@ -40,7 +40,6 @@ foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
 }
 enableExtension('slideshow2', 0);
 
-
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
@@ -200,7 +199,8 @@ if (!empty($where)) {
 			}
 			$alt = $img->get('EXIFGPSAltitude');
 			if (!empty($alt)) {
-				if ($img->get('EXIFGPSAltitudeRef') == '-') {
+				$ref = $img->get('EXIFGPSAltitudeRef');
+				if (!is_null($ref) && $ref != 0) {
 					$alt = -$alt;
 				}
 				$img->set('GPSAltitude', $alt);
@@ -805,7 +805,6 @@ if (!isset($data['image_sortdirection'])) {
 		$set = 0;
 	$data['image_sorttype'] = $set;
 }
-
 setOption('gallery_data', serialize($data));
 // purge the old versions of these
 foreach ($data as $key => $value) {
@@ -972,7 +971,7 @@ if ($deprecate) {
 		setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation. The deprecated-functions plugin has been enabled.') . '</span>', true);
 	}
 	$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
-	if ($compatibilityIs != $compatibilityWas) {
+	if (!empty($compatibilityWas) && $compatibilityIs != $compatibilityWas) {
 		$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
 		$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
 		if (!empty($themeChange) || !empty($pluginChange)) {

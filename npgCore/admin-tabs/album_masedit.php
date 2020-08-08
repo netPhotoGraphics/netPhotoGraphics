@@ -4,8 +4,7 @@
  */
 
 // one time generation of this list.
-$mcr_albumlist = array();
-genAlbumList($mcr_albumlist);
+$mcr_albumlist = genAlbumList();
 $albumdir = "";
 if (isset($_GET['album'])) {
 	$folder = sanitize_path($_GET['album']);

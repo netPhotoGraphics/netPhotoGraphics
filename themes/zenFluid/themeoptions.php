@@ -75,8 +75,7 @@ class ThemeOptions {
 		$fontList = array(gettext('Times') => 'times/fonttimes', gettext('Com4T') => 'com4t/fontcom4t');
 		$positions = array(gettext('Left') => 'left', gettext('Center') => 'center', gettext('Right') => 'right');
 
-		$list = array();
-		genAlbumList($list);
+		$list = genAlbumList();
 		foreach ($list as $fullfolder => $albumtitle) {
 			$list[$fullfolder] = $fullfolder;
 		}

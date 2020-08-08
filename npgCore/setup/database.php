@@ -118,37 +118,9 @@ foreach (getDBTables() as $table) {
 $npgUpgrade = isset($database['administrators']) && $database['administrators']['fields']['valid']['Comment'] == FIELD_COMMENT;
 
 //metadata display and disable options
-$validMetadataOptions = !is_null(getOption('metadata_displayed'));
 
 $disable = array();
 $display = array();
-
-//clean up metadata item options.
-foreach (array('iptc', 'exif', 'xmp', 'video') as $cat) {
-	foreach (getOptionsLike($cat) as $option => $value) {
-		if (!in_array(strtolower($option), array('iptc_encoding', 'xmpmetadata_suffix', 'video_watermark'))) {
-			$validMetadataOptions = true;
-			if ($value) { // no need to process if the option was not set
-				$matches = explode('-', $option);
-				$key = $matches[0];
-				if (isset($matches[1])) {
-					if ($matches[1] == 'disabled') {
-						$disable[$key] = $key;
-					}
-				} else { //	bare option===display
-					$display[$key] = $key;
-				}
-			}
-			purgeOption($option);
-		}
-	}
-}
-setOptionDefault('metadata_displayed', serialize($display));
-setOptionDefault('metadata_disabled', serialize($disable));
-
-$display = getSerializedArray(getOption('metadata_displayed'));
-$disable = getSerializedArray(getOption('metadata_disabled'));
-
 
 //Add in the enabled image metadata fields
 $metadataProviders = array('class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpMetadata');
@@ -163,20 +135,22 @@ foreach ($metadataProviders as $source => $handler) {
 
 	$exifvars = $handler::getMetadataFields();
 	foreach ($exifvars as $key => $exifvar) {
-		if ($validMetadataOptions) {
-			if (in_array($key, $disable)) {
+		if (!is_null(getOption($key))) {
+			//	cleanup old metadata options
+			if (getOption($key . '-disabled')) {
 				$exifvars[$key][EXIF_DISPLAY] = $exifvars[$key][EXIF_FIELD_ENABLED] = $exifvar[EXIF_FIELD_ENABLED] = false;
 			} else {
-				$exifvars[$key][EXIF_DISPLAY] = isset($display[$key]);
+				$exifvars[$key][EXIF_DISPLAY] = getOption($key);
 				$exifvars[$key][EXIF_FIELD_ENABLED] = $exifvar[EXIF_FIELD_ENABLED] = true;
 			}
-		} else {
-			if ($exifvars[$key][EXIF_DISPLAY]) {
-				$display[$key] = $key;
-			}
-			if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
-				$disable[$key] = $key;
-			}
+			purgeOption($key);
+			purgeOption($key . '-disabled');
+		}
+		if ($exifvars[$key][EXIF_DISPLAY]) {
+			$display[$key] = $key;
+		}
+		if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+			$disable[$key] = $key;
 		}
 
 		$size = $exifvar[EXIF_FIELD_SIZE];
@@ -184,7 +158,11 @@ foreach ($metadataProviders as $source => $handler) {
 			switch ($exifvar[EXIF_FIELD_TYPE]) {
 				default:
 				case 'string':
-					$type = "text";
+					if ($size < 256) {
+						$type = 'tinytext';
+					} else {
+						$type = "text";
+					}
 					if ($utf8mb4) {
 						$collation = 'utf8mb4_unicode_ci';
 					} else {
@@ -331,7 +309,7 @@ foreach ($template as $tablename => $table) {
 				}
 			} else {
 				if (strpos($field['Comment'], 'optional_') === false) {
-					$orphans[] = sprintf(gettext('Setup found the field "%1$s" in the "%2$s" table. This field is not in use by netPhotoGraphics.'), $key, $tablename);
+					$orphans[] = array('type' => 'field', 'table' => $tablename, 'item' => $key, 'message' => sprintf(gettext('Setup found the field "%1$s" in the "%2$s" table. This field is not in use by netPhotoGraphics.'), $key, $tablename));
 				}
 			}
 		}
@@ -403,7 +381,7 @@ foreach ($template as $tablename => $table) {
 						$_DB_Structure_change = TRUE;
 					}
 				} else {
-					$orphans[] = sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename);
+					$orphans[] = array('type' => 'index', 'table' => $tablename, 'item' => $key, 'message' => sprintf(gettext('Setup found the key "%1$s" in the "%2$s" table. This index is not in use by netPhotoGraphics.'), $key, $tablename));
 				}
 			}
 		}
@@ -430,8 +408,15 @@ setOptionDefault('metadata_displayed', serialize($display));
 //	Don't report these unless npg has previously been installed because the
 //	plugins which might "claim" them will not yet have run
 if ($npgUpgrade) {
-	foreach ($orphans as $message) {
-		setupLog($message, true);
+	$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+	query($sql);
+	if (!empty($orphans)) {
+		foreach ($orphans as $orphan) {
+			$message = $orphan['message'];
+			$sql = 'INSERT INTO ' . prefix('plugin_storage') . '(`type`,`subtype`,`aux`) VALUES ("db_orpahned_' . $orphan['type'] . '",' . db_quote($orphan['table']) . ',' . db_quote($orphan['item']) . ')';
+			query($sql);
+			setupLog($message, TRUE);
+		}
 	}
 }
 ?>

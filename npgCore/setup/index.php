@@ -1497,7 +1497,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							$base = true;
 							$f = '';
-							if (strtoupper($rw) == 'ON') {
+							if ($ht) {
 								if (preg_match('~RewriteBase\s+(.*)\s~', $ht, $matches)) {
 									$bs = $matches[1];
 									$base = ($bs == $d);

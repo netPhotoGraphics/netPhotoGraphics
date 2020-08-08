@@ -27,7 +27,7 @@ class imageProcessing {
 				$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
 								. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']';
 				if ($newfilename) {
-					$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . sanitize($newfilename, 3));
+					$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
 				}
 				if ($image || $album) {
 					$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
@@ -186,12 +186,13 @@ class imageProcessing {
 							$watermark_image = IMAGE_WATERMARK;
 						}
 					}
+
+
 					if ($watermark_image) {
-						if ($watermark_image != NO_WATERMARK) {
+						if ($watermark_image == NO_WATERMARK) {
+							$watermark_image = false;
+						} else {
 							$watermark_image = getWatermarkPath($watermark_image);
-							if (!file_exists($watermark_image)) {
-								$watermark_image = false;
-							}
 						}
 					}
 				}
@@ -206,7 +207,7 @@ class imageProcessing {
 			$newfile = SERVERCACHE . $newfilename;
 			mkdir_recursive(dirname($newfile), FOLDER_MOD);
 			if (DEBUG_IMAGE)
-				debugLog("imageProcessing::cache(\$imgfile=" . basename($imgfile) . ", \$newfilename=$newfilename, \$allow_watermark=$allow_watermark, \$theme=$theme) \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=" . (is_null($cx) ? 'NULL' : $cx) . ", \$cy=" . (is_null($cy) ? 'NULL' : $cy) . ", \$quality=$quality, \$thumb=$thumb, \$crop=$crop \$image_use_side=$image_use_side; \$upscale=$upscale);");
+				debugLog("imageProcessing::cache(\$imgfile=" . basename($imgfile) . ", \$newfilename=$newfilename, \$allow_watermark=$allow_watermark, \$theme=$theme) \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=" . (is_null($cx) ? 'NULL' : $cx) . ", \$cy=" . (is_null($cy) ? 'NULL' : $cy) . ", \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$thumbstandin=$thumbstandin, \$passedWM=$passedWM, \$adminrequest=$adminrequest, \$effects=$effects, \$image_use_side=$image_use_side; \$upscale=$upscale);");
 			// Check for the source image.
 			if (!file_exists($imgfile) || !is_readable($imgfile)) {
 				self::error('404 Not Found', sprintf(gettext('Image %s not found or is unreadable.'), filesystemToInternal($imgfile)), 'err-imagenotfound.png');
@@ -423,14 +424,14 @@ class imageProcessing {
 				gl_imageGray($newim);
 			}
 
-			if ($watermark_image) {
+			if ($watermark_image && $watermark_image != NO_WATERMARK) {
 				$newim = self::watermarkImage($newim, $watermark_image, $imgfile);
 			}
 
 			// Create the cached file (with lots of compatibility)...
 			@chmod($newfile, 0777);
 			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
-				if (getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
+				if (!($thumb || $thumbstandin) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
 					global $_images_classes; //	because we are doing the require in a function!
 					require_once(__DIR__ . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
 					$iptc = array(

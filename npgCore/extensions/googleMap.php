@@ -413,8 +413,10 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 			break;
 	}
 
-	if ($_n == 1)
-		$map->zoom = 13;
+	if ($_n == 1) {
+		// autozoom fits to the point cluster, but that can't happen if there is only one point
+		$map->zoom = 13; //	This is the value that is used for "auto" by googlemaps->create_M_map()
+	}
 
 	if ($_n) {
 		$_x = $_x / $_n;

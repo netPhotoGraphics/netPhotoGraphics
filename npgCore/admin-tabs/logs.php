@@ -177,6 +177,7 @@ echo "\n</head>";
 										<tbody>
 											<?php
 											foreach ($logtext as $line) {
+												@set_time_limit(30);
 												?>
 												<tr>
 													<?php
@@ -210,6 +211,7 @@ echo "\n</head>";
 									<?php
 								} else {
 									foreach ($logtext as $line) {
+										@set_time_limit(30);
 										if ($line) {
 											$line = str_replace("\t", '&nbsp;&nbsp;', $line);
 											?>

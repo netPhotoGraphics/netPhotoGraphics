@@ -60,8 +60,7 @@ if (isset($_POST['login'])) { //	Handle the login form.
 		$_authority->validateTicket(sanitize($_GET['ticket']), sanitize(@$_GET['user']));
 	} else {
 		$_loggedin = $_authority->checkCookieCredentials();
-		$cloneid = bin2hex(FULLWEBPATH);
-		if (!$_loggedin && isset($_SESSION['admin'][$cloneid])) { //	"passed" login
+		if (!$_loggedin && isset($_SESSION['admin'][$cloneid = bin2hex(FULLWEBPATH)])) { //	"passed" login
 			$user = unserialize($_SESSION['admin'][$cloneid]);
 			$user2 = $_authority->getAnAdmin(array('`user`=' => $user->getUser(), '`valid`=' => 1));
 			if ($user2 && $user->getPass() == $user2->getPass()) {
@@ -75,7 +74,9 @@ if (isset($_POST['login'])) { //	Handle the login form.
 	}
 }
 if ($_loggedin) {
-	$_current_admin_obj->updateLastAccess(TRUE);
+	if (!$_current_admin_obj->reset) {
+		$_current_admin_obj->updateLastAccess(TRUE);
+	}
 	if (secureServer()) {
 		// https: refresh the 'ssl_state' marker for redirection
 		setNPGCookie("ssl_state", "needed", NULL, false);

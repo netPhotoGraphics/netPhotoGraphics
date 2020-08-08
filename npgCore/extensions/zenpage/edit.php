@@ -40,6 +40,7 @@ if (is_AdminEditPage('page')) {
 	exit();
 }
 
+
 admin_securityChecks($rights, currentRelativeURL());
 
 updatePublished('news');
@@ -510,9 +511,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<label for="show"><?php echo gettext("Published"); ?></label>
 												</p>
@@ -611,7 +612,7 @@ $tagsort = 'alpha';
 																			 name="disclose_password"
 																			 id="disclose_password"
 																			 onclick="passwordClear('');
-																								 togglePassword('');">
+																					 togglePassword('');">
 																			 <?php echo gettext('Show'); ?>
 															</label>
 															<br />

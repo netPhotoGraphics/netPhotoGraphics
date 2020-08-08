@@ -850,8 +850,7 @@ function deleteItem(&$reports) {
  */
 function printAlbumsSelector($current) {
 	global $_gallery;
-	$albumlist = array();
-	genAlbumList($albumlist, NULL, ALL_ALBUMS_RIGHTS);
+	$albumlist = genAlbumList(NULL, ALL_ALBUMS_RIGHTS);
 	?>
 	<select id="albumselector" name="albumselect">
 		<?php

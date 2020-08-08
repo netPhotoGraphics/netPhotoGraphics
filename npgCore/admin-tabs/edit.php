@@ -671,9 +671,7 @@ echo "\n</head>";
 					$mcr_albumlist = $_SESSION['mcr_albumlist'];
 				} else {
 					// one time generation of this list.
-					$mcr_albumlist = array();
-					genAlbumList($mcr_albumlist);
-					$_SESSION['mcr_albumlist'] = $mcr_albumlist;
+					$_SESSION['mcr_albumlist'] = $mcr_albumlist = genAlbumList();
 				}
 
 				$oldalbumimagesort = $_gallery->getSortType('image');

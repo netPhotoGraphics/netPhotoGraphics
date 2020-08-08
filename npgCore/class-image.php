@@ -191,7 +191,7 @@ class Image extends MediaObject {
 	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
 	static function getMetadataFields() {
-		return array(
+		$fields = array(
 				// Database Field       		 => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'EXIFMake' => array('IFD0', 'Make', gettext('Camera Maker'), true, 52, true, 'string', false),
 				'EXIFModel' => array('IFD0', 'Model', gettext('Camera Model'), true, 52, true, 'string', false),
@@ -252,6 +252,8 @@ class Image extends MediaObject {
 				'IPTCOriginatingProgram' => array('IPTC', 'OriginatingProgram', gettext('Originating Program'), false, 32, true, 'string', false),
 				'IPTCProgramVersion' => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string', false)
 		);
+		ksort($fields, SORT_NATURAL | SORT_FLAG_CASE);
+		return $fields;
 	}
 
 	/**
