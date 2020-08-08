@@ -4459,7 +4459,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4682,6 +4682,22 @@ function print404status() {
 function loadJqueryMobile() {
 	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
 	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
+}
+
+/**
+ *
+ * @return type an array of the menus defined
+ */
+function getMenuSets() {
+	if (extensionEnabled('menu_manager')) {
+		$menusets = array();
+		$result = query_full_array("SELECT DISTINCT menuset FROM " . prefix('menu') . " ORDER BY menuset");
+		foreach ($result as $set) {
+			$menusets[$set['menuset']] = $set['menuset'];
+		}
+		return $menusets;
+	}
+	return array();
 }
 
 /**
