@@ -566,7 +566,7 @@ class _Authority {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
-			if (($user['rights'] & $rights) && filter_var($user['email'], FILTER_VALIDATE_EMAIL)) {
+			if (($user['rights'] & $rights) && filter_var($user['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 				$name = $user['name'];
 				if (empty($name)) {
 					$name = $user['user'];

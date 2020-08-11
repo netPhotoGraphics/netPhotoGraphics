@@ -3039,7 +3039,7 @@ class npgFunctions {
 		$result = '';
 		if ($replyTo) {
 			$t = $replyTo;
-			if (!filter_var($m = array_shift($t), FILTER_VALIDATE_EMAIL)) {
+			if (!filter_var($m = array_shift($t), FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 				if (empty($result)) {
 					$result = $failMessage;
 				}
@@ -3054,7 +3054,7 @@ class npgFunctions {
 			}
 		} else {
 			foreach ($email_list as $key => $email) {
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 					unset($email_list[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3074,7 +3074,7 @@ class npgFunctions {
 				return $result;
 			}
 			foreach ($cc_addresses as $key => $email) {
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 					unset($cc_addresses[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3087,7 +3087,7 @@ class npgFunctions {
 			$bcc_addresses = array();
 		} else {
 			foreach ($bcc_addresses as $key => $email) {
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 					unset($bcc_addresses[$key]);
 					if (empty($result)) {
 						$result = $failMessage;

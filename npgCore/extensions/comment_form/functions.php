@@ -370,7 +370,7 @@ function comment_form_addComment($commentobj, $name, $email, $website, $comment,
 	$commentobj->setInModeration(0);
 	$commentobj->setAddressData($customdata);
 
-	if (($whattocheck & COMMENT_EMAIL_REQUIRED) && (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL))) {
+	if (($whattocheck & COMMENT_EMAIL_REQUIRED) && (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE))) {
 		$commentobj->setInModeration(-2);
 		$commentobj->comment_error_text .= ' ' . gettext("You must supply an e-mail address.");
 		$goodMessage = false;
@@ -603,7 +603,7 @@ function comment_form_handle_comment() {
 			}
 			if (isset($_POST['email'])) {
 				$p_email = sanitize($_POST['email'], 3);
-				if (!filter_var($p_email, FILTER_VALIDATE_EMAIL)) {
+				if (!filter_var($p_email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 					$p_email = NULL;
 				}
 			} else {

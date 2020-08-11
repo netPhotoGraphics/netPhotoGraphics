@@ -2052,7 +2052,7 @@ class getid3_write_id3v2
 	 */
 	public static function IsValidEmail($email) {
 		if (function_exists('filter_var')) {
-			return filter_var($email, FILTER_VALIDATE_EMAIL);
+			return filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE);
 		}
 		// VERY crude email validation
 		return preg_match('#^[^ ]+@[a-z\\-\\.]+\\.[a-z]{2,}$#', $email);

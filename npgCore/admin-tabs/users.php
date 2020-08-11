@@ -146,7 +146,7 @@ if (isset($_GET['action'])) {
 							}
 							if (isset($userlist[$i]['admin_email'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
-								if (empty($admin_e) || filter_var($admin_e, FILTER_VALIDATE_EMAIL)) {
+								if (empty($admin_e) || filter_var($admin_e, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
 									if ($admin_e) {
 										$list = $_authority->getAdministrators('users');
 										unset($list[$userobj->getID()]);
