@@ -109,7 +109,7 @@ if (class_exists('_Authority')) {
 			}
 			?>
 			<p><?php echo gettext('<strong>*</strong>Required'); ?></p>
-			<?php policySubmitButton(gettext('Submit'), $class); ?>
+			<?php policySubmitButton(RIGHT_POINTNG_TRIANGLE_GREEN . ' ' . gettext('Submit'), $class); ?>
 		</form>
 	</div>
 	<?php

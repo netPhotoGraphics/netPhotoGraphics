@@ -169,7 +169,7 @@ class GDPR_required {
 			}
 			?>
 			<form name="GDPR_form" id="GDPR" method = "post" action="<?php echo html_encode($target); ?>">
-				<?php policySubmitButton(gettext('Continue to site'), 'GDPR_button'); ?>
+				<?php policySubmitButton(ARROW_RIGHT_BLUE . ' ' . gettext('Continue to site'), 'GDPR_button'); ?>
 			</form>
 			<?php
 		} else {
