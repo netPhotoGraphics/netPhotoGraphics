@@ -2363,14 +2363,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo getAdminLink('cron_runner.php') ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo getAdminLink('cron_runner.php') ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -3039,7 +3039,7 @@ class npgFunctions {
 		$result = '';
 		if ($replyTo) {
 			$t = $replyTo;
-			if (!self::is_valid_email($m = array_shift($t))) {
+			if (!filter_var($m = array_shift($t), FILTER_VALIDATE_EMAIL)) {
 				if (empty($result)) {
 					$result = $failMessage;
 				}
@@ -3054,7 +3054,7 @@ class npgFunctions {
 			}
 		} else {
 			foreach ($email_list as $key => $email) {
-				if (!self::is_valid_email($email)) {
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					unset($email_list[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3074,7 +3074,7 @@ class npgFunctions {
 				return $result;
 			}
 			foreach ($cc_addresses as $key => $email) {
-				if (!self::is_valid_email($email)) {
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					unset($cc_addresses[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3087,7 +3087,7 @@ class npgFunctions {
 			$bcc_addresses = array();
 		} else {
 			foreach ($bcc_addresses as $key => $email) {
-				if (!self::is_valid_email($email)) {
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					unset($bcc_addresses[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3143,23 +3143,6 @@ class npgFunctions {
 			$result .= ' ' . gettext('No “to” address list provided.');
 		}
 		return $result;
-	}
-
-	/**
-	 * Determines if the input is an e-mail address. Adapted from WordPress.
-	 * Name changed to avoid conflicts in WP integrations.
-	 *
-	 * @param string $input_email email address?
-	 * @return bool
-	 */
-	static function is_valid_email($input_email) {
-		$chars = "/^([a-z0-9+_]|\\-|\\.)+@(([a-z0-9_]|\\-)+\\.)+[a-z]{2,6}\$/i";
-		if (strstr($input_email, '@') && strstr($input_email, '.')) {
-			if (preg_match($chars, $input_email)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 }

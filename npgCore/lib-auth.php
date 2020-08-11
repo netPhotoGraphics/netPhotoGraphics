@@ -566,7 +566,7 @@ class _Authority {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
-			if (($user['rights'] & $rights) && npgFunctions::is_valid_email($user['email'])) {
+			if (($user['rights'] & $rights) && filter_var($user['email'], FILTER_VALIDATE_EMAIL)) {
 				$name = $user['name'];
 				if (empty($name)) {
 					$name = $user['user'];

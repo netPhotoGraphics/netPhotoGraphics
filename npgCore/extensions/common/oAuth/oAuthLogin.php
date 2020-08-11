@@ -76,7 +76,7 @@ class oAuthLogin {
 		global $_authority;
 		$class = get_called_class();
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
-		if (npgFunctions::is_valid_email($email)) { // prefer email as user id
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) { // prefer email as user id
 			$user = $email;
 		} else {
 			$user = $oAuthAuthority . '_User_' . $user;
@@ -196,4 +196,5 @@ class oAuthLogin {
 	}
 
 }
+
 ?>
