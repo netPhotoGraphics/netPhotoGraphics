@@ -332,11 +332,15 @@ function printContactForm($subject_override = '') {
 						<input type="hidden" id="message"	name="message" value="<?php echo html_encodeTagged($message); ?>" />
 						<input type="hidden" id="mailaddress" name="mailaddress" value="<?php echo html_encode($mailaddress); ?>" />
 						<input type="hidden" id="username"	name="username" value="<?php echo html_encode($mailcontent['honeypot']); ?>" />
-						<input type="submit" value="<?php echo gettext("Confirm"); ?>" />
+						<?php
+						npgButton('submit', CHECKMARK_GREEN . '	' . gettext("Confirm"));
+						?>
 					</form>
 					<form id="discard" action="<?php echo html_encode(getRequestURI()); ?>" method="post" accept-charset="UTF-8">
 						<input type="hidden" id="discard" name="discard" value="discard" />
-						<input type="submit" value="<?php echo gettext("Discard"); ?>" />
+						<?php
+						npgButton('submit', CROSS_MARK_RED . '	' . gettext("Discard"));
+						?>
 					</form>
 				</div>
 				<?php

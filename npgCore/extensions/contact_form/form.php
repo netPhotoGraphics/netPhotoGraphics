@@ -139,11 +139,14 @@ if (function_exists('showOrNotShowField')) {
 			?>
 			<p>
 				<?php
-				policySubmitButton(gettext('Send e-mail'), $class, $buttonExtra);
-				npgButton('reset', CROSS_MARK_RED . '	' . gettext("Reset"));
+				$display = policySubmitButton(ENVELOPE . ' ' . gettext('Send e-mail'), $class, $buttonExtra, array('id' => 'contact_reset'));
+
+				npgButton('reset', CROSS_MARK_RED . '	' . gettext("Reset"), array('id' => 'contact_reset', 'buttonExtra' => $display));
 				?>
 			</p>
-		<?php } ?>
+			<?php
+		}
+		?>
 	</form>
 	<?php
 }
