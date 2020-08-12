@@ -566,7 +566,7 @@ class _Authority {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
-			if (($user['rights'] & $rights) && filter_var($user['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+			if (($user['rights'] & $rights) && npgFunctions::isValidEmail($user['email'])) {
 				$name = $user['name'];
 				if (empty($name)) {
 					$name = $user['user'];
@@ -1582,7 +1582,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

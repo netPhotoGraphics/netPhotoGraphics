@@ -1467,16 +1467,6 @@ function getNotViewableAlbums() {
 }
 
 /**
- * Checks to see if a URL is valid
- *
- * @param string $url the URL being checked
- * @return bool
- */
-function isValidURL($url) {
-	return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
-}
-
-/**
  * pattern match function Works with characters with diacritical marks where the PHP one does not.
  *
  * @param string $pattern pattern
@@ -3039,7 +3029,7 @@ class npgFunctions {
 		$result = '';
 		if ($replyTo) {
 			$t = $replyTo;
-			if (!filter_var($m = array_shift($t), FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+			if (!npgFunctions::isValidEmail($m = array_shift($t))) {
 				if (empty($result)) {
 					$result = $failMessage;
 				}
@@ -3054,7 +3044,7 @@ class npgFunctions {
 			}
 		} else {
 			foreach ($email_list as $key => $email) {
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+				if (!npgFunctions::isValidEmail($email)) {
 					unset($email_list[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3074,7 +3064,7 @@ class npgFunctions {
 				return $result;
 			}
 			foreach ($cc_addresses as $key => $email) {
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+				if (!npgFunctions::isValidEmail($email)) {
 					unset($cc_addresses[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3087,7 +3077,7 @@ class npgFunctions {
 			$bcc_addresses = array();
 		} else {
 			foreach ($bcc_addresses as $key => $email) {
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+				if (!npgFunctions::isValidEmail($email)) {
 					unset($bcc_addresses[$key]);
 					if (empty($result)) {
 						$result = $failMessage;
@@ -3143,6 +3133,31 @@ class npgFunctions {
 			$result .= ' ' . gettext('No “to” address list provided.');
 		}
 		return $result;
+	}
+
+	/**
+	 * Checks to see if a URL is valid
+	 *
+	 * @param string $url the URL being checked
+	 * @return bool
+	 */
+	static function isValidURL($url) {
+		$parts = parse_url($url);
+		if (isset($parts['host'])) {
+			if (!isset($parts['scheme']) || in_array(strtolower($parts['scheme']), array('http', 'https'))) {
+				return TRUE;
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * Checks if an e-mail address is valid
+	 * @param type $email
+	 * @return type
+	 */
+	static function isValidEmail($email) {
+		return filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE);
 	}
 
 }

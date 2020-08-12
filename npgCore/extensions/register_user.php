@@ -190,7 +190,7 @@ class register_user {
 		} else {
 			$admin_e = trim(sanitize($_POST['user'], 0));
 		}
-		if (!filter_var($admin_e, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+		if (!npgFunctions::isValidEmail($admin_e)) {
 			$_notify = 'invalidemail';
 		}
 
