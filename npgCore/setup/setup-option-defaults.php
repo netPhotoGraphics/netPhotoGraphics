@@ -964,7 +964,21 @@ $plugins = array_keys($plugins);
 
 <?php
 setOptionDefault('deprecated_functions_signature', NULL);
+
 $compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
+$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
+
+//	remove npgPlugins from lists
+foreach ($_npg_plugins as $npgPlugin) {
+	$key = array_search($npgPlugin, $compatibilityIs['plugins']);
+	if ($key !== FALSE) {
+		unset($compatibilityIs['plugins'][$key]);
+	}
+	$key = array_search($npgPlugin, $compatibilityWas['plugins']);
+	if ($key !== FALSE) {
+		unset($compatibilityWas['plugins'][$key]);
+	}
+}
 
 if ($deprecate) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
@@ -975,7 +989,7 @@ if ($deprecate) {
 		enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
 		setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation. The deprecated-functions plugin has been enabled.') . '</span>', true);
 	}
-	$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
+
 	if (!empty($compatibilityWas) && $compatibilityIs != $compatibilityWas) {
 		$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
 		$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
