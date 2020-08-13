@@ -5207,6 +5207,7 @@ function XSRFdefender($action, $modifier = NULL) {
 	$token = getXSRFToken($action, $modifier);
 	if (!isset($_REQUEST['XSRFToken']) || $_REQUEST['XSRFToken'] != $token) {
 		npgFilters::apply('admin_XSRF_access', false, $action);
+		npg_session_destroy(); //	sometimes sessions get screwed up in the browser.
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		header('Location: ' . getAdminLink('admin.php') . '?action=external&error&msg=' . sprintf(gettext('“%s” Cross Site Request Forgery blocked.'), $action));
