@@ -917,13 +917,14 @@ $plugins = array_keys($plugins);
 	natcasesort($plugins);
 	echo gettext('Plugin setup:') . '<br />';
 	foreach ($plugins as $key => $extension) {
+		$deprecateThis = FALSE;
 		$class = 0;
 		$path = getPlugin($extension . '.php');
 		if (strpos($path, USER_PLUGIN_SERVERPATH) === 0) {
 			if (distributedPlugin($plugin)) {
 				unset($plugins[$key]);
 			} else {
-				$deprecate = true;
+				$deprecateThis = true;
 				$class = 1;
 			}
 		} else {
@@ -931,6 +932,7 @@ $plugins = array_keys($plugins);
 		}
 
 		if (isset($pluginDetails[$extension]['deprecated'])) {
+			// Was once a distributed plugin
 			$k = array_search($extension, $deprecatedDeleted);
 			if (is_numeric($k)) {
 				if (extensionEnabled($extension)) {
@@ -946,6 +948,9 @@ $plugins = array_keys($plugins);
 			$addl = ' (' . gettext('deprecated') . ')';
 		} else {
 			$addl = '';
+			if ($deprecateThis) {
+				$deprecate = TRUE;
+			}
 		}
 		?>
 		<span>
