@@ -566,7 +566,7 @@ class _Authority {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
-			if (($user['rights'] & $rights) && npgFunctions::is_valid_email($user['email'])) {
+			if (($user['rights'] & $rights) && npgFunctions::isValidEmail($user['email'])) {
 				$name = $user['name'];
 				if (empty($name)) {
 					$name = $user['user'];
@@ -928,7 +928,7 @@ class _Authority {
 							}
 						}
 						$found = !empty($mails);
-						$cclist = array();
+						$bccList = array();
 						foreach ($admins as $tuser) {
 							$name = $tuser['name'];
 							if (empty($name)) {
@@ -938,7 +938,7 @@ class _Authority {
 								$user = $tuser;
 								$mails[$name] = $tuser['email'];
 							} else {
-								$cclist[$name] = $tuser['email'];
+								$bccList[$name] = $tuser['email'];
 							}
 						}
 
@@ -953,7 +953,7 @@ class _Authority {
 							} else {
 								$msg .= "<p>" . gettext('No matching user was found.' . "</p>\n");
 							}
-							$err_msg = npgFunctions::mail(gettext("The information you requested"), $msg, $mails, $cclist, NULL, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
+							$err_msg = npgFunctions::mail(gettext("The information you requested"), $msg, $mails, NULL, $bccList, NULL, sprintf(gettext('%1$s password reset request mail failed.'), $user['user']));
 							if (empty($err_msg)) {
 								$_login_error = 2;
 							} else {
@@ -1582,7 +1582,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

@@ -335,8 +335,27 @@ $buttonlist = array();
 
 	if (npg_loggedin(ADMIN_RIGHTS)) {
 
+		$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%') . ' LIMIT 1';
+		$result = query_full_array($sql);
+		if (!empty($result)) {
+			$buttonlist[] = array(
+					'XSRFTag' => 'purgeDBitems',
+					'category' => gettext('Database'),
+					'enable' => TRUE,
+					'button_text' => $buttonText = gettext('Purge unused structure items'),
+					'formname' => 'purgeDB_button',
+					'action' => getAdminLink('admin.php') . '?action=purgeDBitems',
+					'icon' => WASTEBASKET,
+					'title' => gettext('Removes fields and indexes from the database that are not used by netPhotoGraphics.'),
+					'alt' => '',
+					'hidden' => '<input type="hidden" name="action" value="purgeDBitems" />',
+					'rights' => ADMIN_RIGHTS
+			);
+		}
+
 		if ($newVersionAvailable = isset($newestVersion)) {
-			if ($newVersionAvailable = version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION_CONCISE, '>')) {
+			$newVersionAvailable = version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION_CONCISE);
+			if ($newVersionAvailable > 0) {
 				if (!isset($_SESSION['new_version_available'])) {
 					$_SESSION['new_version_available'] = $newestVersion;
 					?>
@@ -361,24 +380,6 @@ $buttonlist = array();
 						'rights' => ADMIN_RIGHTS
 				);
 			}
-		}
-
-		$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%') . ' LIMIT 1';
-		$result = query_full_array($sql);
-		if (!empty($result)) {
-			$buttonlist[] = array(
-					'XSRFTag' => 'purgeDBitems',
-					'category' => gettext('Database'),
-					'enable' => TRUE,
-					'button_text' => $buttonText = gettext('Purge unused structure items'),
-					'formname' => 'purgeDB_button',
-					'action' => getAdminLink('admin.php') . '?action=purgeDBitems',
-					'icon' => WASTEBASKET,
-					'title' => gettext('Removes fields and indexes from the database that are not used by netPhotoGraphics.'),
-					'alt' => '',
-					'hidden' => '<input type="hidden" name="action" value="purgeDBitems" />',
-					'rights' => ADMIN_RIGHTS
-			);
 		}
 	}
 	?>
@@ -467,7 +468,7 @@ $buttonlist = array();
 							'rights' => ADMIN_RIGHTS
 					);
 				} else {
-					if ($newVersionAvailable) {
+					if ($newVersionAvailable != 0) {
 						$buttonlist[] = array(
 								'XSRFTag' => 'install_update',
 								'category' => gettext('Updates'),

@@ -233,6 +233,7 @@ define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; pad
 define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; vertical-align: -1px;">&#x25FB;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
+define('RIGHT_POINTNG_TRIANGLE_GREEN', '<span class="font_icon" style="color: green; font-size: large; font-weight: bold;">&#9654;</span>');
 define('SEARCHFIELDS_ICON', '<span class="font_icon; font-size: large; font-weight: bold; color: blue;">&#x1D11A;</span>');
 define('SETUP', '<span class="font_icon" style="color: black;">&#x1F6E0;&#xFE0F;</span>');
 define('SHAPE_HANDLES', '<span class="font_icon" style="color: blue; font-size: x-large; font-weight: bold; vertical-align: -4px;">&#x2BCF;</span>');

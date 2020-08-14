@@ -370,7 +370,7 @@ function comment_form_addComment($commentobj, $name, $email, $website, $comment,
 	$commentobj->setInModeration(0);
 	$commentobj->setAddressData($customdata);
 
-	if (($whattocheck & COMMENT_EMAIL_REQUIRED) && (empty($email) || !npgFunctions::is_valid_email($email))) {
+	if (($whattocheck & COMMENT_EMAIL_REQUIRED) && (empty($email) || !npgFunctions::isValidEmail($email))) {
 		$commentobj->setInModeration(-2);
 		$commentobj->comment_error_text .= ' ' . gettext("You must supply an e-mail address.");
 		$goodMessage = false;
@@ -380,7 +380,7 @@ function comment_form_addComment($commentobj, $name, $email, $website, $comment,
 		$commentobj->comment_error_text .= ' ' . gettext("You must enter your name.");
 		$goodMessage = false;
 	}
-	if (($whattocheck & COMMENT_WEB_REQUIRED) && (empty($website) || !isValidURL($website))) {
+	if (($whattocheck & COMMENT_WEB_REQUIRED) && (empty($website) || !npgFunctions::isValidURL($website))) {
 		$commentobj->setInModeration(-4);
 		$commentobj->comment_error_text .= ' ' . gettext("You must supply a WEB page URL.");
 		$goodMessage = false;
@@ -603,7 +603,7 @@ function comment_form_handle_comment() {
 			}
 			if (isset($_POST['email'])) {
 				$p_email = sanitize($_POST['email'], 3);
-				if (!npgFunctions::is_valid_email($p_email)) {
+				if (!npgFunctions::isValidEmail($p_email)) {
 					$p_email = NULL;
 				}
 			} else {
@@ -614,7 +614,7 @@ function comment_form_handle_comment() {
 				if ($p_website && strpos($p_website, 'http') !== 0) {
 					$p_website = 'http://' . $p_website;
 				}
-				if (!isValidURL($p_website)) {
+				if (!npgFunctions::isValidURL($p_website)) {
 					$p_website = NULL;
 				}
 			} else {

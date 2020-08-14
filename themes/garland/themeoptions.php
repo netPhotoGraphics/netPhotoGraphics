@@ -133,14 +133,9 @@ class ThemeOptions {
 	function handleOption($option, $currentValue) {
 		switch ($option) {
 			case 'garland_menu':
-				$menusets = array($currentValue => $currentValue);
-				echo '<select id="garland_menuset" name="garland_menu"';
-				if (function_exists('printCustomMenu') && class_exists('CMS')) {
-					$result = query_full_array("SELECT DISTINCT menuset FROM " . prefix('menu') . " ORDER BY menuset");
-					foreach ($result as $set) {
-						$menusets[$set['menuset']] = $set['menuset'];
-					}
-				} else {
+				$menusets = getMenuSets();
+				echo '<select id="EF_menuset" name="garland_menu"';
+				if (empty($menusets)) {
 					echo ' disabled="disabled"';
 				}
 				echo ">\n";

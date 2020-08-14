@@ -4452,13 +4452,21 @@ function policyACKCheck() {
  * @param string $buttonText The text displayed on the button
  * @param string $buttonClass optional class to be added to the button
  * @param string $buttonExtra provided for captcha support
+ * @param array $buttonLinked an array of buttons that should be shown when the acknowledge is checked
  */
-function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NULL) {
+function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NULL, $buttonLinked = NULL) {
 	global $_current_admin_obj;
 	if (getOption('GDPR_acknowledge') && !policyACKCheck()) {
+		$linked = '';
+		if ($buttonLinked) {
+			foreach ($buttonLinked as $button) {
+				$linked .= "$('#" . $button . "').show();";
+			}
+		}
 		?>
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
+						 <?php echo $linked; ?>
 							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
@@ -4470,9 +4478,8 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		$display = '';
 	}
 	npgButton('submit', $buttonText, array('buttonClass' => 'policyButton ' . $buttonClass, 'id' => 'submitbutton', 'buttonExtra' => $display . $buttonExtra));
-	?>
-	<br clear="all">
-	<?php
+
+	return $display;
 }
 
 function recordPolicyACK($user = NULL) {
@@ -4682,6 +4689,22 @@ function print404status() {
 function loadJqueryMobile() {
 	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
 	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
+}
+
+/**
+ *
+ * @return type an array of the menus defined
+ */
+function getMenuSets() {
+	if (extensionEnabled('menu_manager')) {
+		$menusets = array();
+		$result = query_full_array("SELECT DISTINCT menuset FROM " . prefix('menu') . " ORDER BY menuset");
+		foreach ($result as $set) {
+			$menusets[$set['menuset']] = $set['menuset'];
+		}
+		return $menusets;
+	}
+	return array();
 }
 
 /**

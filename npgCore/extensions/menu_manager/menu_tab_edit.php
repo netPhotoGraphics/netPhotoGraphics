@@ -47,7 +47,7 @@ $menuset = checkChosenMenuset();
 				// <!-- <![CDATA[
 				function handleSelectorChange(type) {
 					$('#add,#titlelabel,#link_row,#link,#link_label,#visible_row,#show_visible,#span_row').show();
-					$('#include_li_label, #menu_aux_row').hide();
+					$('#include_li_label, #menu_aux_row, #desc_row').hide();
 					$('#type').val(type);
 					$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
 					$('#titlelabel').html('<?php echo js_encode(gettext('Title')); ?>');
@@ -100,6 +100,7 @@ if (class_exists('CMS')) {
 								$('#pageselector').change(function () {
 									$('#link').val($(this).val());
 								});
+								$('#desc_row').show();
 								break;
 							case 'newsindex':
 								$('#albumselector,#pageselector,#categoryselector,#custompageselector,#link_row').hide();
@@ -107,6 +108,7 @@ if (class_exists('CMS')) {
 								$('#description').html('<?php echo js_encode(gettext("Creates a link to the Zenpage News Index.")); ?>');
 								$('#link').attr('disabled', true);
 								$('#titleinput').show();
+								$('#desc_row').show();
 								$('#link').val('<?php echo getNewsIndexURL(); ?>');
 								break;
 							case 'all_categories':
@@ -124,6 +126,7 @@ if (class_exists('CMS')) {
 								$('#categoryselector').change(function () {
 									$('#link').val($(this).val());
 								});
+								$('#desc_row').show();
 								break;
 	<?php
 }
@@ -134,6 +137,7 @@ if (class_exists('CMS')) {
 							$('#description').html('<?php echo js_encode(gettext("Creates a link to Album index page for themes which do not show the albums on the Gallery index.")); ?>');
 							$('#link').attr('disabled', true);
 							$('#titleinput').show();
+							$('#desc_row').show();
 							$('#link').val('<?php echo WEBPATH; ?>/');
 							break;
 						case 'custompage':
@@ -144,6 +148,7 @@ if (class_exists('CMS')) {
 							$('#link').attr('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('Script page')); ?>');
 							$('#titleinput').show();
+							$('#desc_row').show();
 							break;
 						case "dynamiclink":
 							$('#albumselector,#pageselector,#categoryselector,#custompageselector').hide();
@@ -151,6 +156,7 @@ if (class_exists('CMS')) {
 							$('#description').html('<?php echo js_encode(gettext("Creates a dynamic link. The string will be evaluated by PHP to create the link.")); ?>');
 							$('#link').attr('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
+							$('#desc_row').show();
 							$('#menu_aux_label').html('<?php echo js_encode(gettext('Link Attributes')); ?>');
 							$('#menu_aux_row').show();
 							$('#titleinput').show();
@@ -161,6 +167,7 @@ if (class_exists('CMS')) {
 							$('#description').html('<?php echo js_encode(gettext("Creates a link outside the standard structure. Use of a full URL is recommended (e.g. http://www.domain.com).")); ?>');
 							$('#link').attr('disabled', false);
 							$('#link_label').html('<?php echo js_encode(gettext('URL')); ?>');
+							$('#desc_row').show();
 							$('#menu_aux_label').html('<?php echo js_encode(gettext('Link Attributes')); ?>');
 							$('#menu_aux_row').show();
 							$('#titleinput').show();
@@ -313,7 +320,7 @@ if (is_array($result)) {
 							if (is_array($result)) {
 								$selector = html_encode($menuset);
 							} else {
-								$result = array('id' => NULL, 'title' => '', 'link' => '', 'show' => 1, 'type' => NULL, 'include_li' => 1, 'span_id' => '', 'span_class' => '', 'menu_aux' => '');
+								$result = array('id' => NULL, 'title' => '', 'link' => '', 'desc' => '', 'show' => 1, 'type' => NULL, 'include_li' => 1, 'span_id' => '', 'span_class' => '', 'menu_aux' => '');
 								$selector = getMenuSetSelector(false);
 							}
 							?>
@@ -346,6 +353,19 @@ if (is_array($result)) {
 								<td>
 									<?php printCustomPageSelector($result['link']); ?>
 									<input name="link" type="text" size="100" id="link" value="<?php echo html_encode($result['link']); ?>" />
+								</td>
+							</tr>
+							<tr id="desc_row">
+								<td><span id="desclabel"><?php echo gettext("Title attribute text"); ?></span></td>
+								<td>
+									<?php
+									if (array_key_exists('titletext', $result)) {
+										$titletext = $result['titletext'];
+									} else {
+										$titletext = array();
+									}
+									?>
+									<span id="descinput"><?php print_language_string_list($titletext, "titletext", false, NULL, '', 100); ?></span>
 								</td>
 							</tr>
 							<tr id='menu_aux_row'>

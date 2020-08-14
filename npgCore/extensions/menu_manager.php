@@ -1066,11 +1066,12 @@ function createMenu($menuitems, $menuset = 'default') {
 				$sort_order .= sprintf('%03u', $orders[$i]) . '-';
 			}
 			$sort_order = substr($sort_order, 0, -1);
-			$sql = "INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`,`include_li`) " .
+			$sql = "INSERT INTO " . prefix('menu') . " (`title`,`link`, `titletext`,`type`,`show`,`menuset`,`sort_order`,`include_li`) " .
 							"VALUES (" . db_quote($result['title']) .
 							", " . db_quote($result['link']) .
-							"," . db_quote($result['type']) . "," . $result['show'] .
-							"," . db_quote($menuset) . "," . db_quote($sort_order) . ",$includeli)";
+							", " . db_quote(@$result['titletext']) .
+							", " . db_quote($result['type']) . "," . $result['show'] .
+							", " . db_quote($menuset) . "," . db_quote($sort_order) . ",$includeli)";
 			if (!query($sql, false)) {
 				$success = -2;
 				debugLog(sprintf(gettext('createMenu item %1$s query (%2$s) failed: %3$s.'), $key, $sql, db_error()));
@@ -1184,6 +1185,11 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 		$itemarray = getItemTitleAndURL($item);
 		$itemURL = $itemarray['url'];
 		$itemtitle = get_language_string($itemarray['title']);
+		if (isset($item['titletext']) && !empty($item['titletext'])) {
+			$titleattribute = 'title="' . html_encode(get_language_string($item['titletext'])) . '"';
+		} else {
+			$titleattribute = $itemtitle;
+		}
 		$level = max(1, count(explode('-', $item['sort_order'])));
 		$process = (($level <= $showsubs && $option == "list") // user wants all the pages whose level is <= to the parameter
 						|| ($option == 'list' || $option == 'list-top') && $level == 1 // show the top level
@@ -1296,6 +1302,8 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						echo $item['link'];
 						break;
 					case 'menufunction':
+						$out = '';
+						ob_start();
 						$i = strpos($itemURL, '(');
 						if ($i) {
 							$f = substr($itemURL, 0, $i);
@@ -1303,6 +1311,11 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 							if (count($class) == 2 && method_exists($class[0], $class[1]) || function_exists($f)) {
 								eval($itemURL);
 							}
+							$out = ob_get_contents();
+							ob_end_flush();
+						}
+						if (empty($out)) {
+							echo $itemURL;
 						}
 						break;
 					case 'menulabel':
@@ -1314,7 +1327,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 						if (empty($itemURL)) {
 							$itemURL = FULLWEBPATH;
 						}
-						echo '<a href="' . $itemURL . '" title="' . html_encode(getBare($itemtitle)) . '" ' . $item['menu_aux'] . '>' . $itemtitle . '</a>' . $itemcounter;
+						echo '<a href="' . $itemURL . '" data="' . $item['type'] . '"' . $titleattribute . $item['menu_aux'] . '>' . $itemtitle . '</a>' . $itemcounter;
 						break;
 				}
 				if ($item['span_id'] || $item['span_class']) {

@@ -124,7 +124,7 @@ if (function_exists('printCommentErrors')) {
 			?></textarea>
 		<br clear="all">
 		<br />
-		<?php policySubmitButton(gettext('Add Comment'), $class, $buttonExtra); ?>
+		<?php policySubmitButton(PLUS_ICON . ' ' . gettext('Add Comment'), $class, $buttonExtra); ?>
 	</form>
 	<?php
 }

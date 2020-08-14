@@ -48,6 +48,11 @@ if (class_exists('themeSwitcher')) {
 	} else {
 		$personality = strtolower(getOption('effervescence_personality'));
 	}
+
+	$themeMenu = themeSwitcher::themeSelection('themeMenu', getMenuSets());
+	if ($themeMenu) {
+		setOption('effervescence_menu', $themeMenu, false);
+	}
 } else {
 	$personality = strtolower(getOption('effervescence_personality'));
 }
@@ -138,6 +143,10 @@ function switcher_head($ignore) {
 			personality = $('#themePersonality').val();
 			window.location = '?themePersonality=' + personality;
 		}
+		function switchMenu() {
+			personality = $('#themeMenu').val();
+			window.location = '?themeMenu=' + personality;
+		}
 		// ]]> -->
 	</script>
 	<?php
@@ -145,10 +154,10 @@ function switcher_head($ignore) {
 }
 
 function switcher_controllink($ignore) {
-	global $personality, $personalities, $themecolors, $_gallery_page, $themeColor;
+	global $personality, $personalities, $themecolors, $_gallery_page, $themeColor, $themeMenu;
 	$themeColor = getNPGCookie('themeSwitcher_themeColor');
 	if (!$themeColor) {
-		list($personality, $themeColor) = getPersonality();
+		list($personality, $themeColor, $themeMenu) = getPersonality();
 	}
 	?>
 	<span id="themeSwitcher_effervescence">
@@ -169,6 +178,22 @@ function switcher_controllink($ignore) {
 				<?php generateListFromArray(array($personality), $personalities, false, true); ?>
 			</select>
 		</span>
+		<?php
+		$menus = getMenuSets();
+		if ($menus) {
+			if (!$themeMenu) {
+				$themeMenu = getOption('effervescence_menu');
+			}
+			?>
+			<span title="<?php echo gettext("Effervescence menu."); ?>">
+				<?php echo gettext('Menu'); ?>
+				<select name="themeMenu" id="themeMenu" onchange="switchMenu();">
+					<?php generateListFromArray(array($themeMenu), $menus, false, true); ?>
+				</select>
+			</span>
+			<?php
+		}
+		?>
 	</span>
 	<?php
 	return $ignore;
@@ -287,7 +312,8 @@ function getPersonality() {
 		$themeColor = 'kish-my father';
 	}
 	$personality = getOption('effervescence_personality');
-	return array($personality, $themeColor);
+	$themeMenu = getOption('effervescence_menu');
+	return array($personality, $themeColor, $themeMenu);
 }
 
 function printThemeInfo() {

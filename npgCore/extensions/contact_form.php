@@ -215,7 +215,7 @@ function printContactForm($subject_override = '') {
 		if (getOption('contactform_country') == "required" && empty($mailcontent['country'])) {
 			$error[6] = gettext("a country");
 		}
-		if (getOption('contactform_email') == "required" && (empty($mailcontent['email']) || !npgFunctions::is_valid_email($mailcontent['email']))) {
+		if (getOption('contactform_email') == "required" && (empty($mailcontent['email']) || !npgFunctions::isValidEmail($mailcontent['email']))) {
 			$error[7] = gettext("a valid email address");
 		}
 		if (getOption('contactform_website') == "required" && empty($mailcontent['website'])) {
@@ -332,11 +332,15 @@ function printContactForm($subject_override = '') {
 						<input type="hidden" id="message"	name="message" value="<?php echo html_encodeTagged($message); ?>" />
 						<input type="hidden" id="mailaddress" name="mailaddress" value="<?php echo html_encode($mailaddress); ?>" />
 						<input type="hidden" id="username"	name="username" value="<?php echo html_encode($mailcontent['honeypot']); ?>" />
-						<input type="submit" value="<?php echo gettext("Confirm"); ?>" />
+						<?php
+						npgButton('submit', CHECKMARK_GREEN . '	' . gettext("Confirm"));
+						?>
 					</form>
 					<form id="discard" action="<?php echo html_encode(getRequestURI()); ?>" method="post" accept-charset="UTF-8">
 						<input type="hidden" id="discard" name="discard" value="discard" />
-						<input type="submit" value="<?php echo gettext("Discard"); ?>" />
+						<?php
+						npgButton('submit', CROSS_MARK_RED . '	' . gettext("Discard"));
+						?>
 					</form>
 				</div>
 				<?php

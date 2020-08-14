@@ -655,7 +655,6 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 <p>
 	<?php
 	setOption('known_themes', serialize(array())); //	reset known themes
-	$deprecate = false;
 	$themes = array_keys($_gallery->getThemes());
 	natcasesort($themes);
 	echo gettext('Theme setup:') . '<br />';
@@ -665,7 +664,6 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 		if (protectedTheme($theme)) {
 			unset($themes[$key]);
 		} else {
-			$deprecate = true;
 			$class = 1;
 		}
 		?>
@@ -923,7 +921,6 @@ $plugins = array_keys($plugins);
 			if (distributedPlugin($plugin)) {
 				unset($plugins[$key]);
 			} else {
-				$deprecate = true;
 				$class = 1;
 			}
 		} else {
@@ -931,6 +928,7 @@ $plugins = array_keys($plugins);
 		}
 
 		if (isset($pluginDetails[$extension]['deprecated'])) {
+			// Was once a distributed plugin
 			$k = array_search($extension, $deprecatedDeleted);
 			if (is_numeric($k)) {
 				if (extensionEnabled($extension)) {
@@ -959,9 +957,9 @@ $plugins = array_keys($plugins);
 
 <?php
 setOptionDefault('deprecated_functions_signature', NULL);
-$compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
 
-if ($deprecate) {
+if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
+	//	There are either not distributed themes or ot distributed plugins present
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 	$deprecated = new deprecated_functions();
 	$listed = sha1(serialize($deprecated->listed_functions));
@@ -970,22 +968,29 @@ if ($deprecate) {
 		enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
 		setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation. The deprecated-functions plugin has been enabled.') . '</span>', true);
 	}
-	$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
-	if (!empty($compatibilityWas) && $compatibilityIs != $compatibilityWas) {
-		$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
-		$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
-		if (!empty($themeChange) || !empty($pluginChange)) {
-			enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
-			setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
-			if (!empty($themeChange)) {
-				setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', $fullLog);
-			}
-			if (!empty($pluginChange)) {
-				setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', $fullLog);
-			}
+}
+
+$compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
+$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
+$newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $_npg_plugins);
+$newThemes = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
+
+if (!empty($newPlugins) || !empty($newThemes)) {
+
+	$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
+	$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
+	if (!empty($themeChange) || !empty($pluginChange)) {
+		enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
+		setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
+		if (!empty($themeChange)) {
+			setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', $fullLog);
+		}
+		if (!empty($pluginChange)) {
+			setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', $fullLog);
 		}
 	}
 }
+
 
 $_gallery->garbageCollect();
 

@@ -22,6 +22,10 @@ if (!OFFSET_PATH) {
 		} else {
 			$personality = strtolower(getOption('garland_personality'));
 		}
+		$themeMenu = themeSwitcher::themeSelection('themeMenu', getMenuSets());
+		if ($themeMenu) {
+			setOption('garland_menu', $themeMenu, false);
+		}
 	} else {
 		$personality = strtolower(getOption('garland_personality'));
 	}
@@ -42,6 +46,11 @@ function switcher_head($ignore) {
 			personality = $('#themePersonality').val();
 			window.location = '?themePersonality=' + personality;
 		}
+		function switchMenu() {
+			personality = $('#themeMenu').val();
+			window.location = '?themeMenu=' + personality;
+		}
+
 		// ]]> -->
 	</script>
 	<?php
@@ -49,7 +58,7 @@ function switcher_head($ignore) {
 }
 
 function switcher_controllink($html) {
-	global $personality, $personalities, $_gallery_page;
+	global $personality, $personalities, $themeMenu, $_gallery_page;
 	if (!$personality) {
 		$personality = getOption('garland_personality');
 	}
@@ -61,6 +70,22 @@ function switcher_controllink($html) {
 				<?php generateListFromArray(array($personality), $personalities, false, true); ?>
 			</select>
 		</span>
+		<?php
+		$menus = getMenuSets();
+		if ($menus) {
+			if (!$themeMenu) {
+				$themeMenu = getOption('garland_menu');
+			}
+			?>
+			<span title="<?php echo gettext("Garland menu."); ?>">
+				<?php echo gettext('Menu'); ?>
+				<select name="themeMenu" id="themeMenu" onchange="switchMenu();">
+					<?php generateListFromArray(array($themeMenu), $menus, false, true); ?>
+				</select>
+			</span>
+			<?php
+		}
+		?>
 	</span>
 	<?php
 	return $html;
