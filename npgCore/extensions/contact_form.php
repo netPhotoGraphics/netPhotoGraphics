@@ -191,50 +191,52 @@ function printContactForm($subject_override = '') {
 		$mailcontent['message'] = getField('message', 1);
 
 		// if you want other required fields or less add/modify their checks here
+		$e = 0;
 		if (getOption('contactform_title') == "required" && empty($mailcontent['title'])) {
-			$error[1] = gettext("a title");
+			$error[] = gettext("a title");
 		}
 		if (getOption('contactform_name') == "required" && empty($mailcontent['name'])) {
-			$error[2] = gettext("a name");
+			$error[] = gettext("a name");
 		}
 		if (getOption('contactform_company') == "required" && empty($mailcontent['company'])) {
-			$error[3] = gettext("a company");
+			$error[] = gettext("a company");
 		}
 		if (getOption('contactform_street') == "required" && empty($mailcontent['street'])) {
-			$error[4] = gettext("a street");
+			$error[] = gettext("a street");
 		}
 		if (getOption('contactform_city') == "required" && empty($mailcontent['city'])) {
-			$error[5] = gettext("a city");
+			$error[] = gettext("a city");
 		}
 		if (getOption('contactform_state') == "required" && empty($mailcontent['state'])) {
-			$error[5] = gettext("a state");
+			$error[] = gettext("a state");
 		}
 		if (getOption('contactform_postal') == "required" && empty($mailcontent['postal'])) {
-			$error[5] = gettext("a postal code");
+			$error[] = gettext("a postal code");
 		}
 		if (getOption('contactform_country') == "required" && empty($mailcontent['country'])) {
-			$error[6] = gettext("a country");
+			$error[] = gettext("a country");
 		}
 		if (getOption('contactform_email') == "required" && (empty($mailcontent['email']) || !npgFunctions::isValidEmail($mailcontent['email']))) {
-			$error[7] = gettext("a valid email address");
+			$error[] = gettext("a valid email address");
 		}
-		if (getOption('contactform_website') == "required" && empty($mailcontent['website'])) {
-			$error[8] = gettext('a website');
+		if (getOption('contactform_website') == "required" && !npgFunctions::isValidURL($mailcontent['website'])) {
+			$error[] = gettext('a website');
 		} else {
 			if (!empty($mailcontent['website'])) {
-				if (substr($mailcontent['website'], 0, 7) != "http: //") {
+				if (!parse_url($mailcontent['website'], PHP_URL_SCHEME)) {
 					$mailcontent['website'] = "http://" . $mailcontent['website'];
 				}
 			}
 		}
+
 		if (getOption("contactform_phone") == "required" && empty($mailcontent['phone'])) {
-			$error[9] = gettext("a phone number");
+			$error[] = gettext("a phone number");
 		}
 		if (empty($mailcontent['subject'])) {
-			$error[10] = gettext("a subject");
+			$error[] = gettext("a subject");
 		}
 		if (empty($mailcontent['message'])) {
-			$error[11] = gettext("a message");
+			$error[] = gettext("a message");
 		}
 
 		// CAPTCHA start
@@ -242,7 +244,7 @@ function printContactForm($subject_override = '') {
 			$code_ok = trim(isset($_POST['code_h']) ? sanitize($_POST['code_h']) : NULL);
 			$code = trim(isset($_POST['code']) ? sanitize($_POST['code']) : NULL);
 			if (!$_captcha->checkCaptcha($code, $code_ok)) {
-				$error[5] = gettext("CAPTCHA verification.");
+				$error[] = gettext("CAPTCHA verification.");
 			} // no ticket
 		}
 		// CAPTCHA end

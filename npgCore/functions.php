@@ -3124,11 +3124,11 @@ class npgFunctions {
 				// Send the mail
 				$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
 			} else {
-				$result = gettext('Mail send failed. There is no mail handler configured.');
+				$result = $failMessage . ' ' . gettext('There is no mail handler configured.');
 			}
 		} else {
 			if (empty($result)) {
-				$result = gettext('Mail send failed.');
+				$result = $failMessage;
 			}
 			$result .= ' ' . gettext('No “to” address list provided.');
 		}

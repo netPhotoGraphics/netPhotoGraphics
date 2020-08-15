@@ -267,7 +267,7 @@ function printCommentErrors() {
 		}
 		?>
 		<div class="errorbox">
-			<h2><?php echo ngettext('Error posting comment:', 'Errors posting comment:', count($lines)); ?></h2>
+			<strong><?php echo ngettext('Error posting comment:', 'Errors posting comment:', count($lines)); ?></strong>
 			<ul class="errorlist">
 				<?php
 				foreach ($lines as $line) {
@@ -394,7 +394,7 @@ function comment_form_addComment($commentobj, $name, $email, $website, $comment,
 	}
 	if (($whattocheck & COMMENT_BODY_REQUIRED) && empty($comment)) {
 		$commentobj->setInModeration(-6);
-		$commentobj->comment_error_text .= ' ' . gettext("You must enter something in the comment text.");
+		$commentobj->comment_error_text .= ' ' . gettext("You must enter text in the comment field.");
 		$goodMessage = false;
 	}
 	$moderate = 0;
