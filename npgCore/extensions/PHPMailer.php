@@ -126,8 +126,8 @@ function _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name,
 				$authorized = $pop->authorise(getOption('PHPMailer_server'), getOption('PHPMailer_pop_port'), 30, getOption('PHPMailer_user'), getOption('PHPMailer_password'), 0);
 				$mail = new PHPMailer();
 				$mail->isSMTP();
-				$mail->Port = getOption('PHPMailer_smtp_port');
 				$mail->Host = getOption('PHPMailer_server');
+				$mail->Port = getOption('PHPMailer_smtp_port');
 				break;
 			case 'smtp':
 				$mail = new PHPMailer();
@@ -143,15 +143,25 @@ function _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name,
 				$mail->isSendmail();
 				break;
 		}
-		$mail->SMTPSecure = getOption('PHPMailer_secure');
-		$mail->SMTPAutoTLS = (bool) $mail->SMTPSecure;
-		$mail->CharSet = 'UTF-8';
+		switch (getOption('PHPMailer_secure')) {
+			case 'ssl':
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+				break;
+			case 'tls':
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				break;
+			case 0:
+				$mail->SMTPSecure = '';
+				break;
+		}
+		$mail->SMTPAutoTLS = FALSE;
+		$mail->CharSet = PHPMailer::CHARSET_UTF8;
 		$mail->From = $from_mail;
 		$mail->FromName = $from_name;
 		$mail->Subject = $subject;
 		$mail->Body = $message;
 		$mail->AltBody = '';
-		$mail->IsHTML(true);
+		$mail->IsHTML(TRUE);
 
 		foreach ($email_list as $to_name => $to_mail) {
 			if (is_numeric($to_name)) {
@@ -174,7 +184,7 @@ function _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name,
 			$names = array_keys($replyTo);
 			$mail->addReplyTo(array_shift($replyTo), array_shift($names));
 		}
-		$mail->Send();
+		$mail->send();
 	} catch (excepton $e) {
 		$result = sprintf(gettext('<code>PHPMailer</code> failed to send <em>%1$s</em>. ErrorInfo:%2$s'), $subject, $mail->ErrorInfo);
 	}
