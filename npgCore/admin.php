@@ -362,23 +362,11 @@ $buttonlist = array();
 					<div class="newVersion" style="height:78px;">
 						<h2><?php echo gettext('There is a new version available.'); ?></h2>
 						<?php
-						printf(gettext('Version %s can be installed or downloaded from the utility buttons.'), $newestVersion);
+						printf(gettext('Version %s can be installed from the utility buttons.'), $newestVersion);
 						?>
 					</div>
 					<?php
 				}
-				$buttonlist[] = array(
-						'category' => gettext('Updates'),
-						'enable' => 4,
-						'button_text' => $buttonText = sprintf(gettext('Download version %1$s'), $newestVersion),
-						'formname' => 'getUpdates_button',
-						'action' => $newestVersionURI,
-						'icon' => ARROW_DOWN_GREEN,
-						'title' => sprintf(gettext('Download netPhotoGraphics version %1$s to your computer.'), $newestVersion),
-						'alt' => '',
-						'hidden' => '',
-						'rights' => ADMIN_RIGHTS
-				);
 			}
 		}
 	}
