@@ -76,8 +76,6 @@ class VideoObject_Options {
 			}
 
 			$options = $options + array(gettext('player options') => array('key' => 'note', 'type' => OPTION_TYPE_NOTE, 'order' => 2.1, 'desc' => '<hr/>')) + $playeroptions;
-
-			var_dump($options);
 		}
 
 		return $options;
@@ -521,8 +519,7 @@ class pseudoPlayer {
 					</audio>' . "\n";
 			case 'm4v':
 			case 'mp4':
-				$poster = '';
-				if (getOption('Video_poster') && !is_null($obj->objectsThumb)) {
+				if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
 					$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
 				} else {
 					$poster = '';
@@ -541,11 +538,13 @@ class pseudoPlayer {
 					}
 				}
 				$url .= '<source src="' . $src . '.' . $ext . '" type="video/mp4">';
-				return '
+				$html = '
 					<video class="video-cv" width="' . $w . '" height="' . $h . '" controls' . $poster . '>
 						' . $url . '
 						' . gettext('Your browser does not support the video tag') . '
 					</video>' . "\n";
+				$html = npgFilters::apply('standard_video_html', $html);
+				return $html;
 		}
 		return '<img src = "' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt = "' . gettext('No multimedia extension installed for this format.') . '" />';
 	}

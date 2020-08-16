@@ -856,6 +856,27 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>custom_album_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-custom_album_thumb_html --><p>Allows plugins to alter the HTML for an album thumbnail reference.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/image_album_statistics.php (3)</li>
+						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>custom_image_html</strong></span>(<em>var, bool</em>)</p>
+					<!-- description(Object.Media)-custom_image_html --><p>Allows plugins to alter the HTML for an image reference.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/ardoise/functions.php</li>
+						<li class="call_list"><em>theme</em>/effervescence+/functions.php</li>
+						<li class="call_list"><em>theme</em>/masonry/index.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>image_filter</strong></span>(<em>var</em>)</p>
 					<!-- description(Object.Media)-image_filter --><p>Allow a plugin to remove files from the list of images found in an album so that they are not treated as images.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -913,11 +934,39 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_album_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-standard_album_thumb_html --><p>Allows a plugin to modify the HTML used to reference an album thumb.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>standard_image_html</strong></span>(<em>var</em>)</p>
 					<!-- description(Object.Media)-standard_image_html --><p>Allows a plugin to modify the HTML used to reference an image.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/class-image.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_image_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-standard_image_thumb_html --><p>Allows a plugin to modify the HTML used to reference an image thumb.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_video_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-standard_video_html --><p>Allows a plugin to modify the HTML used to reference a video.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/class-video.php</li>
+						<li class="call_list">npgcore/extensions/videojs.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -1188,26 +1237,6 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_album_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Template.Miscellaneous)-custom_album_thumb_html --><p>Allows plugins to alter the HTML for an album thumbnail reference.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/template-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_image_html</strong></span>(<em>var, bool</em>)</p>
-					<!-- description(Template.Miscellaneous)-custom_image_html --><p>Allows plugins to alter the HTML for an image reference.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/ardoise/functions.php</li>
-						<li class="call_list"><em>theme</em>/effervescence+/functions.php</li>
-						<li class="call_list"><em>theme</em>/masonry/index.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>getLink</strong></span>(<em>string, string, string</em>)</p>
 					<!-- description(Template.Miscellaneous)-getLink --><p>Called each time a URL is generated.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1234,24 +1263,6 @@
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/zenpage/template-functions.php (5)</li>
 						<li class="call_list">npgcore/template-functions.php (2)</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_album_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Template.Miscellaneous)-standard_album_thumb_html --><p>Allows a plugin to modify the HTML used to reference an album thumb.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/template-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_image_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Template.Miscellaneous)-standard_image_thumb_html --><p>Allows a plugin to modify the HTML used to reference an image thumb.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/template-functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
