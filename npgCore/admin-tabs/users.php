@@ -86,7 +86,9 @@ if (isset($_GET['action'])) {
 			break;
 		case 'saveoptions':
 			XSRFdefender('saveadmin');
-			$notify = $returntab = $msg = '';
+			$notify = '?saved';
+			$returntab = $msg = '';
+			unset($_SESSION['notify']);
 			$newuserid = @$_POST['newuser'];
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
@@ -107,13 +109,15 @@ if (isset($_GET['action'])) {
 					$alter = isset($_POST['alter_enabled']);
 					$nouser = true;
 					$returntab = $newuser = false;
+
 					for ($i = 0; $i < sanitize_numeric($_POST['totaladmins']); $i++) {
 						$error = false;
 						$userobj = NULL;
+						$msg = '';
 						$pass = trim(sanitize($userlist[$i]['pass'], 0));
 						$user = trim(sanitize($userlist[$i]['adminuser']));
 						if (empty($user) && !empty($pass)) {
-							$notify = '?mismatch=nothing';
+							$_SESSION['notify']['nouser'] = gettext('No user ID was supplied.');
 							$error = true;
 						}
 						if (!empty($user)) {
@@ -122,7 +126,7 @@ if (isset($_GET['action'])) {
 								$newuser = $user;
 								$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 								if (is_object($userobj)) {
-									$notify = '?exists';
+									$_SESSION['notify'][] = sprintf(gettext('%1$s already exists.'), $user);
 									break;
 								} else {
 									$what = 'new';
@@ -146,28 +150,31 @@ if (isset($_GET['action'])) {
 							}
 							if (isset($userlist[$i]['admin_email'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
-								if (empty($admin_e) || npgFunctions::isValidEmail($admin_e)) {
-									if ($admin_e) {
-										$list = $_authority->getAdministrators('users');
-										unset($list[$userobj->getID()]);
-										foreach ($list as $anuser) {
-											if ($anuser['email'] == $admin_e) {
-												$msg = sprintf(gettext('%s is already used by another user.'), $admin_e);
-												break;
-											}
+								if (npgFunctions::isValidEmail($admin_e)) {
+									$list = $_authority->getAdministrators('users');
+									unset($list[$userobj->getID()]);
+									foreach ($list as $anuser) {
+										if ($anuser['email'] == $admin_e) {
+											$msg = sprintf(gettext('%1$s: %2$s is already used by another user.'), $userobj->getUser(), $admin_e);
+											break;
 										}
+									}
+								} else {
+									if ($admin_e) { //	invalid email address
+										$msg = sprintf(gettext('%1$s: %2$s is not a valid e-mail address.'), $userobj->getUser(), $admin_e);
 									}
 								}
 								if (empty($msg)) {
 									$userobj->setEmail($admin_e);
+								} else {
+									$_SESSION['notify'][] = $msg;
+									$error = true;
 								}
-							} else {
-								$msg = sprintf(gettext('%s is not a valid e-mail address.'), $admin_e);
 							}
+
 							if (empty($pass)) {
 								if ($newuser || @$userlist[$i]['passrequired']) {
-									$msg = sprintf(gettext('%s password may not be empty!'), $admin_n);
-									$notify = '?mismatch=format&error=' . urlencode($msg);
+									$_SESSION['notify'][] = sprintf(gettext('%s password may not be empty!'), $admin_n);
 									$error = true;
 								}
 							} else {
@@ -179,12 +186,12 @@ if (isset($_GET['action'])) {
 								if ($pass == $pass2) {
 									$pass2 = $userobj->getPass($pass);
 									if ($msg = npgFilters::apply('can_set_user_password', false, $pass, $userobj)) {
-										$notify = '?mismatch=format&error=' . urlencode($msg);
+										$_SESSION['notify'][] = $msg;
 									} else {
 										$userobj->setPass($pass);
 									}
 								} else {
-									$notify = '?mismatch=password&whom=' . $user . $pass;
+									$_SESSION['notify'][] = sprintf(gettext('%1$s: Password mismatch.'), $userobj->getUser());
 									$error = true;
 								}
 							}
@@ -247,7 +254,7 @@ if (isset($_GET['action'])) {
 						}
 					}
 					if ($nouser) {
-						$notify = '?mismatch=nothing';
+						$_SESSION['notify']['nouser'] = gettext('No user ID was supplied.');
 					}
 				} else {
 					$notify = '?post_error';
@@ -260,9 +267,11 @@ if (isset($_GET['action'])) {
 		if (!empty($newuser)) {
 			$returntab .= '&show[]=' . $newuser;
 		}
-		if (empty($notify)) {
-			$notify = '?saved';
+
+		if (isset($_SESSION['notify'])) {
+			$notify = '?mismatch';
 		}
+
 		header("Location: " . $notify . $returntab . $ticket);
 		exit();
 	}
@@ -462,20 +471,10 @@ echo $refresh;
 					}
 					if (isset($_GET['mismatch'])) {
 						echo '<div class="errorbox fade-message">';
-						switch ($_GET['mismatch']) {
-							case 'mismatch':
-								echo "<h2>" . gettext('You must supply a password.') . "</h2>";
-								break;
-							case 'nothing':
-								echo "<h2>" . gettext('User name not provided') . "</h2>";
-								break;
-							case 'format':
-								echo '<h2>' . html_encode(urldecode(sanitize($_GET['error'], 2))) . '</h2>';
-								break;
-							default:
-								echo "<h2>" . gettext('Your passwords did not match.') . "</h2>";
-								break;
+						foreach ($_SESSION['notify'] as $msg) {
+							echo "<h2>" . html_encode($msg) . "</h2>";
 						}
+						unset($_SESSION['notify']);
 						echo '</div>';
 					}
 					if (isset($_GET['badurl'])) {
@@ -664,9 +663,9 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
-															 <?php
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+														 <?php
 															 if (empty($userid)) {
 																 ?>
 															<input type="hidden" name="newuser" value="<?php echo $id ?>" />
@@ -674,7 +673,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -696,8 +695,8 @@ echo $refresh;
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-															echo NO_RIGHTS . '"';
-															echo $alterrights;
+												echo NO_RIGHTS . '"';
+												echo $alterrights;
 															?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
 																		 <?php
