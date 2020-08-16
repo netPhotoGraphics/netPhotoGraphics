@@ -183,15 +183,16 @@ class VideoJS {
 			$autoplay = 'true';
 		}
 
-		$videoThumb = '';
+		$poster = $videoThumb = '';
 		if (getOption('VideoJS_poster') && !is_null($movie->objectsThumb)) {
 			$videoThumb = $movie->getCustomImage(null, $w, $h, $w, $h, null, null, true);
+			$poster = ' poster="' . $videoThumb . '"';
 		}
 
 		$videoRes = getOption('VideoJS_resolution');
 
 		$playerconfig = '
-				<video id="MyPlayer" class="video-js vjs-default-skin">
+				<video id="MyPlayer" class="video-js vjs-default-skin"' . $poster . '>
 					' . $this->getCounterpartFile($moviepath, "mp4", "HD") . '
 					' . $this->getCounterpartFile($moviepath, "mp4", "SD") . '
 					' . $this->getCounterpartFile($moviepath, "ogv", "HD") . '
@@ -221,6 +222,7 @@ class VideoJS {
 					})
 				})
 			</script>';
+		$playerconfig = npgFilters::apply('standard_video_html', $playerconfig);
 		return $playerconfig;
 	}
 
