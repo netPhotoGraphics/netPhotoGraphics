@@ -723,6 +723,12 @@ plugins/create_album.php
 plugins/customFieldExtender.php
 plugins/devReleases.php
 plugins/headConsolidator.php
+plugins/lazyImage/
+plugins/lazyImage/jquery.lazyloadxt.bootstrap.min.js
+plugins/lazyImage/jquery.lazyloadxt.extra.min.js
+plugins/lazyImage/jquery.lazyloadxt.jquerymobile.min.js
+plugins/lazyImage/jquery.lazyloadxt.min.js
+plugins/lazyImage.php
 plugins/noCaptcha.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
@@ -895,7 +901,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/ipBlocker.php
 %extensions%/jCarousel_thumb_nav.php
 %extensions%/jPlayer.php
-%extensions%/lazyImage.php
+%extensions%/lazyLoader.php
 %extensions%/LDAP_auth.php
 %extensions%/linkedinLogin.php
 %extensions%/macroList.php
@@ -7394,11 +7400,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/jPlayer/skin/pink.flag/mustache/jplayer.pink.flag.audio.stream.html
 %extensions%/jPlayer/skin/pink.flag/mustache/jplayer.pink.flag.video.playlist.html
 %extensions%/jPlayer/skin/pink.flag/mustache/jplayer.pink.flag.video.single.html
-%extensions%/lazyImage
-%extensions%/lazyImage/jquery.lazyloadxt.bootstrap.min.js
-%extensions%/lazyImage/jquery.lazyloadxt.extra.min.js
-%extensions%/lazyImage/jquery.lazyloadxt.jquerymobile.min.js
-%extensions%/lazyImage/jquery.lazyloadxt.min.js
 %extensions%/LDAP_auth
 %extensions%/LDAP_auth/LDAP auth.php
 %extensions%/linkedinLogin
@@ -8163,4 +8164,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8165
+8166
