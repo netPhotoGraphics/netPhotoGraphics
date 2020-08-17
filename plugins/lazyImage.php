@@ -11,7 +11,7 @@
  *
  * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
- * @deprecated since 2.00.07 and will be moved to DevTools repository
+ * @deprecated since 2.00.07 use lazyLoader instead
  */
 
 $plugin_is_filter = 9 | THEME_PLUGIN;
