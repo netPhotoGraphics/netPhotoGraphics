@@ -723,12 +723,6 @@ plugins/create_album.php
 plugins/customFieldExtender.php
 plugins/devReleases.php
 plugins/headConsolidator.php
-plugins/lazyImage/
-plugins/lazyImage/jquery.lazyloadxt.bootstrap.min.js
-plugins/lazyImage/jquery.lazyloadxt.extra.min.js
-plugins/lazyImage/jquery.lazyloadxt.jquerymobile.min.js
-plugins/lazyImage/jquery.lazyloadxt.min.js
-plugins/lazyImage.php
 plugins/noCaptcha.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
@@ -8164,4 +8158,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8166
+8160
