@@ -83,11 +83,16 @@ if (class_exists('CMS')) {
 if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 	if (isset($_GET['action'])) {
 		$action = sanitize($_GET['action']);
-		if ($action == 'external') {
-			$needs = ALL_RIGHTS;
-		} else {
-			$needs = ADMIN_RIGHTS;
+		switch ($action) {
+			case 'external':
+			case 'session':
+				$needs = ALL_RIGHTS;
+				break;
+			default:
+				$needs = ADMIN_RIGHTS;
+				break;
 		}
+
 		if (npg_loggedin($needs)) {
 			switch ($action) {
 				case 'purgeDBitems':
@@ -235,6 +240,8 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					break;
 
 				/** external script return *************************************************** */
+				case 'session':
+					$msg = $_SESSION['errormessage'];
 				case 'external':
 					if (isset($_GET['error'])) {
 						$class = sanitize($_GET['error']);
@@ -246,7 +253,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					}
 					if (isset($_GET['msg'])) {
 						$msg = sanitize($_GET['msg'], 1);
-					} else {
+					} else if (!isset($msg)) {
 						$msg = '';
 					}
 					if (isset($_GET['more'])) {
