@@ -43,10 +43,10 @@ if (isset($_POST['checkForPostTruncation'])) {
 					foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {
 						$v = $_POST["$i-$geo"];
 						if (!empty($v)) {
-							if (preg_match('~[ns]$~i', $v)) {
-								$image->set('GPSLatitude', parseDMS($v));
+							if (filter_var($v, FILTER_VALIDATE_FLOAT)) {
+								$image->set($geo, $v);
 							} else {
-								$image->set('GPSLongitude', parseDMS($v));
+								$image->set($geo, parseDMS($v));
 							}
 						}
 					}
