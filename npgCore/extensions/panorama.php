@@ -130,7 +130,12 @@ class panorama {
 			}
 			?>
 			<div class="panorama" data-paver style="visibility: hidden;">
-				<img src="<?php echo $img_link ?>" alt="<?php echo $title ?>" />
+				<?php
+				$html = '<img src="' . $img_link . '" alt="' . $title . '" />';
+				//	note: paver sets the image to a background URL, so lazyLoading does not apply
+				//	but maybe other filters would, so we apply the filter anyway.
+				echo npgFilters::apply('custom_image_html', $html, FALSE);
+				?>
 			</div>
 
 			<?php
