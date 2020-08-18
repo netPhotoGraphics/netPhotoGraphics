@@ -59,13 +59,13 @@ class panorama {
 				gettext('Panorama height') => array('key' => 'panorama_height', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => sprintf(gettext('The image will be resized so that its <span style="color:blue">%1$s</span> pixels high when displayed. The image width will be scaled proportionately.'), getOption('panorama_height'))),
+///				gettext('Minimum overflow') => array('key' => 'panorama_overflow', 'type' => OPTION_TYPE_NUMBER,
+//						'order' => 3,
+//						'desc' => sprintf(gettext('The excess width the panorama must have, in pixels, before the image is considered panoramic. In other words, this option allows the image\'s computed width to exceed that of its parent container by <span style="color:blue">%1$s</span> pixels before the image is panned. Nobody wants a panorama that can barely be panned, right?'), getOption('panorama_overflow'))),
 				gettext('Start position') => array('key' => 'panorama_start', 'type' => OPTION_TYPE_CUSTOM,
 						'limits' => array('min' => 0, 'max' => 100, 'step' => 1),
 						'order' => 2,
-						'desc' => gettext('Indicate the start position of the panorama by positioning the slider.')),
-				gettext('Minimum overflow') => array('key' => 'panorama_overflow', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 3,
-						'desc' => sprintf(gettext('The excess width the panorama must have, in pixels, before the image is considered panoramic. In other words, this option allows the image\'s computed width to exceed that of its parent container by <span style="color:blue">%1$s</span> pixels before the image is panned. Nobody wants a panorama that can barely be panned, right?'), getOption('panorama_overflow')))
+						'desc' => gettext('Indicate the start position of the panorama by positioning the slider.'))
 		);
 	}
 
@@ -88,15 +88,16 @@ class panorama {
 			$(document).ready(function () {
 				$(function () {
 					// Paver
-					$('div.panorama').paver({
+					$('div.nPG_panorama').paver({
 						failureMessage: '<?php echo gettext('Scroll left/right to pan through panorama.'); ?>',
-						minimumOverflow: <?php echo getOption('panorama_overflow');
+		//						minimumOverflow: <?php echo getOption('panorama_overflow');
 		?>,
+						minimumOverflow: 0,
 						startPosition: <?php echo getOption('panorama_start') / 100; ?>
 					});
-					$('div.panorama').on('ready.paver', function () {
+					$('div.nPG_panorama').on('ready.paver', function () {
 						// Paver is initialized
-						$('div.panorama').css('visibility', 'visible');
+						$('div.nPG_panorama').css('visibility', 'visible');
 					});
 
 				});
@@ -129,7 +130,7 @@ class panorama {
 				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
 			}
 			?>
-			<div class="panorama" data-paver style="visibility: hidden;">
+			<div class="nPG_panorama" data-paver style="visibility: hidden;">
 				<?php
 				$html = '<img src="' . $img_link . '" alt="' . $title . '" />';
 				//	note: paver sets the image to a background URL, so lazyLoading does not apply
