@@ -62,15 +62,6 @@ if (!defined('WEBPATH'))
 				simpleMap::printMap();
 				?>
 
-				<!-- album location -->
-				<?php
-				if (getAlbumLocation() != '') {
-					echo '<p><strong>' . gettext('Location') . '</strong><br/><span itemprop="contentLocation">';
-					printAlbumLocation();
-					echo '</span>';
-				}
-				?>
-
 				<br style="clear:both;" />
 
 				<?php @call_user_func('printCommentForm'); ?>

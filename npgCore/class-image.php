@@ -828,8 +828,8 @@ class Image extends MediaObject {
 	 *
 	 * @param string $location text for the location
 	 */
-	function setLocation($location) {
-		$this->set('location', $location);
+	function setLocation($place) {
+		$this->set('location', $place);
 	}
 
 	/**
