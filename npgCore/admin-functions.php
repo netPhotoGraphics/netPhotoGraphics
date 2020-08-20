@@ -5313,22 +5313,26 @@ function dateDiff($date1, $date2, $page) {
  * @return string
  */
 function parseDMS($geoString) {
-	if (filter_var($geoString, FILTER_VALIDATE_FLOAT)) {
-		$g = $geoString;
-	} else {
-		$geoString = preg_replace('~\s+~', ':', trim($geoString));
-		$matches = explode(':', $geoString);
-		$g = (int) $matches[0];
-		if (isset($matches[1])) {
-			$g = $g + (int) $matches[1] / 60;
-		}
-		if (isset($matches[2])) {
-			$g = $g + (int) $matches[2] / 3600;
-		}
-		if (in_array(strtolower($matches[count($matches) - 1]), array('w', 's'))) {
-			$g = -$g;
+	$geo = preg_replace('~[:\s°\'"]+~', ':', trim($geoString));
+	$matches = explode(':', $geo);
+	if (empty($matches[0])) {
+		return NULL;
+	}
+	$ref = 1;
+	if (in_array($r = strtolower(end($matches)), array('n', 'e', 's', 'w'))) {
+		array_pop($matches);
+		if (in_array($r, array('s', 'w'))) {
+			$ref = -1;
 		}
 	}
+	$g = $matches[0];
+	if (isset($matches[1]) && is_numeric($matches[1])) {
+		$g = $g + $matches[1] / 60;
+		if (isset($matches[2]) && is_numeric($matches[2])) {
+			$g = $g + $matches[2] / 3600;
+		}
+	}
+	$g = $g * $ref;
 	return (float) $g;
 }
 
