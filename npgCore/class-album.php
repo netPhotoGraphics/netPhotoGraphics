@@ -1061,12 +1061,12 @@ class AlbumBase extends MediaObject {
 			$mine = $this->isMyItem(LIST_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS);
 		}
 		if ($mine && !($mine & (MANAGE_ALL_ALBUM_RIGHTS))) {
-//	check for managed album view unpublished image rights
+			//	check for managed album view unpublished image rights
 			$mine = $this->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW);
 		}
 		$sortkey = $this->getImageSortKey($sorttype);
 		if ((trim($sortkey . '`') == 'sort_order') || ($sortkey == 'RAND()')) {
-// manual sort is always ascending
+			// manual sort is always ascending
 			$order = false;
 		} else {
 			if (is_null($sortdirection)) {
@@ -1087,7 +1087,7 @@ class AlbumBase extends MediaObject {
 		while ($row = db_fetch_assoc($result)) {
 			$filename = $row['filename'];
 			if (($key = array_search($filename, $images)) !== false) {
-// the image exists in the filesystem
+				// the image exists in the filesystem
 				$results[] = $row;
 				unset($images[$key]);
 			} else { // the image no longer exists
@@ -1098,18 +1098,18 @@ class AlbumBase extends MediaObject {
 		}
 		db_free_result($result);
 		foreach ($images as $filename) {
-// these images are not in the database
+			// these images are not in the database
 			$imageobj = newImage($this, $filename);
 			$results[] = $imageobj->getData();
 		}
-// now put the results into the right order
+		// now put the results into the right order
 		$results = sortByKey($results, str_replace('`', '', $sortkey), $order);
-// the results are now in the correct order
+		// the results are now in the correct order
 		$images_ordered = array();
 		foreach ($results as $key => $row) {
-// check for visible
+			// check for visible
 			if ($row['show'] || $mine) {
-// don't display it
+				// don't display it
 				$images_ordered[] = $row['filename'];
 			}
 		}
