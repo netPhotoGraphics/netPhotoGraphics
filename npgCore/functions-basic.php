@@ -1715,7 +1715,7 @@ function mb_parse_url($url) {
 		if (TEST_RELEASE) {
 			debugLogBacktrace('Malformed URL: ' . $url);
 		}
-		return array();
+		return array('path' => '/');
 	}
 
 	foreach ($parts as $name => $value) {

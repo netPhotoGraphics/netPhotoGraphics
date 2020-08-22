@@ -161,7 +161,7 @@ class GDPR_required {
 			setOption('GDPR_acknowledge', 1, false);
 			if (is_null($target)) {
 				if (isset($_GET['from'])) {
-					$target = sanitizeRedirect(urldecode($_GET['from']));
+					$target = sanitizeRedirect($_GET['from']);
 				}
 				if (empty($target)) {
 					$target = getGalleryIndexURL();

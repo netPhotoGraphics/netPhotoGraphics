@@ -1727,24 +1727,23 @@ function getBare($content) {
  * @param string $redirectTo
  * @return string
  */
-function sanitizeRedirect($redirectTo, $forceHost = true) {
-	$redirect = NULL;
-	if ($redirectTo && $redir = mb_parse_url($redirectTo)) {
-		if ($forceHost) {
-			$redirect .= FULLHOSTPATH;
-			if (WEBPATH && strpos($redirectTo, WEBPATH) === false) {
-				$redirect .= WEBPATH;
-			}
-		}
-		if (isset($redir['path'])) {
-			$redirect .= urldecode(sanitize($redir['path']));
-		}
-		if (isset($redir['query'])) {
-			$redirect .= '?' . sanitize($redir['query']);
-		}
-		if (isset($redir['fragment'])) {
-			$redirect .= '#' . sanitize($redir['fragment']);
-		}
+function sanitizeRedirect($redirectTo) {
+	$redir = mb_parse_url($redirectTo);
+	if (isset($redir['path'])) {
+		$redirect = urldecode(sanitize($redir['path']));
+	} else {
+		$redirect = '/';
+	}
+	if (WEBPATH && strpos($redirect, WEBPATH) !== 0) {
+		$redirect = FULLWEBPATH . $redirect;
+	} else {
+		$redirect = FULLHOSTPATH . $redirect;
+	}
+	if (isset($redir['query'])) {
+		$redirect .= '?' . sanitize($redir['query']);
+	}
+	if (isset($redir['fragment'])) {
+		$redirect .= '#' . sanitize($redir['fragment']);
 	}
 	return $redirect;
 }
