@@ -874,7 +874,9 @@ $plugins = array_keys($plugins);
 ?>
 <p>
 	<?php
-//clean up plugins needed for themes and other plugins
+	setOptionDefault('deprecated_functions_signature', NULL);
+
+	//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {
@@ -956,8 +958,6 @@ $plugins = array_keys($plugins);
 </p>
 
 <?php
-setOptionDefault('deprecated_functions_signature', NULL);
-
 if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
 	//	There are either not distributed themes or ot distributed plugins present
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');

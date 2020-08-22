@@ -95,7 +95,8 @@ if (isset($_GET['action'])) {
 			}
 		}
 		if ($msg) {
-			header('location: ' . getAdminLink('admin.php') . '?action=external&error&msg=' . html_encodeTagged($msg));
+			$_SESSION['errormessage'] = $msg;
+			header('location: ' . getAdminLink('admin.php') . '?action=session&error');
 			exit();
 		}
 	}
@@ -113,11 +114,11 @@ class devRelease {
 					'enable' => 2,
 					'button_text' => sprintf(gettext('Install DEV %1$s'), $devVersion),
 					'formname' => 'download_update',
-					'action' => getAdminLink('admin.php') . '?action=install_dev',
+					'action' => getAdminLink('admin.php') . '?action = install_dev',
 					'icon' => INSTALL,
 					'alt' => '',
 					'title' => sprintf(gettext('Download and install netPhotoGraphics development version %1$s on your site.'), $devVersion),
-					'hidden' => '<input type="hidden" name="action" value="install_dev" />',
+					'hidden' => '<input type = "hidden" name = "action" value = "install_dev" />',
 					'rights' => ADMIN_RIGHTS
 			);
 		} else {
@@ -127,11 +128,11 @@ class devRelease {
 					'enable' => 1,
 					'button_text' => gettext('Check for updates'),
 					'formname' => 'check_update',
-					'action' => getAdminLink('admin.php') . '?action=check_updates',
+					'action' => getAdminLink('admin.php') . '?action = check_updates',
 					'icon' => CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN,
 					'alt' => '',
 					'title' => gettext('Check for newer versions of netPhotoGraphics.'),
-					'hidden' => '<input type="hidden" name="action" value="check_updates" />',
+					'hidden' => '<input type = "hidden" name = "action" value = "check_updates" />',
 					'rights' => ADMIN_RIGHTS
 			);
 		}

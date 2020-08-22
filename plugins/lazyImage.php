@@ -10,6 +10,8 @@
  * @pluginCategory media
  *
  * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ *
+ * @deprecated since 2.00.07 use lazyLoader instead
  */
 
 $plugin_is_filter = 9 | THEME_PLUGIN;
@@ -60,9 +62,9 @@ class lazyImage {
 	static function head() {
 
 		if (class_exists('Video')) {
-			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.extra.min.js');
+			scriptLoader(USER_PLUGIN_SERVERPATH . '/lazyImage/jquery.lazyloadxt.extra.min.js');
 		} else {
-			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.min.js');
+			scriptLoader(USER_PLUGIN_SERVERPATH . '/lazyImage/jquery.lazyloadxt.min.js');
 		}
 		?>
 		<style>
@@ -73,10 +75,10 @@ class lazyImage {
 		<?php
 
 		if (getOption('lazyImage_jqBootstrap')) {
-			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
+			scriptLoader(USER_PLUGIN_SERVERPATH . '/lazyImage/jquery.lazyloadxt.jquerymobile.min.js');
 		}
 		if (getOption('lazyImage_jqMobile')) {
-			scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
+			scriptLoader(USER_PLUGIN_SERVERPATH . '/lazyImage/jquery.lazyloadxt.bootstrap.min.js');
 		}
 	}
 

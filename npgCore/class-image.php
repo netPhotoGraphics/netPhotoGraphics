@@ -646,7 +646,7 @@ class Image extends MediaObject {
 		$tempma = $tempma * 3600;
 		$min = floor($tempma / 60);
 		$sec = $tempma - ($min * 60);
-		return sprintf('%d° %d\' %.1f" %s', $d[0], $min, $sec, $ref);
+		return sprintf('%d° %d\' %.2f" %s', $d[0], $min, $sec, $ref);
 	}
 
 	/**
@@ -828,8 +828,8 @@ class Image extends MediaObject {
 	 *
 	 * @param string $location text for the location
 	 */
-	function setLocation($location) {
-		$this->set('location', $location);
+	function setLocation($place) {
+		$this->set('location', $place);
 	}
 
 	/**

@@ -269,7 +269,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									}
 									?>
 									<tr>
-										<td class="leftcolumn"><?php echo gettext("Geo location"); ?></td>
+										<td class="leftcolumn"><?php echo gettext("Geolocation"); ?></td>
 										<td class="middlecolumn">
 											<?php
 											$lat = $image->get('GPSLatitude');
@@ -288,8 +288,11 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											} else {
 												$long = image::toDMS($long, 'E');
 											}
+											echo gettext('latitiude');
 											?>
-											<input name="<?php echo $currentimage; ?>-GPSLatitude" type="text" value="<?php echo html_encode($lat); ?>"><input name="<?php echo $currentimage; ?>-GPSLongitude" type="text" value="<?php echo html_encode($long); ?>">
+											<input name="<?php echo $currentimage; ?>-GPSLatitude" type="text" value="<?php echo html_encode($lat); ?>">
+											<?php echo gettext('longitude'); ?>
+											<input name="<?php echo $currentimage; ?>-GPSLongitude" type="text" value="<?php echo html_encode($long); ?>">
 										</td>
 									</tr>
 									<?php
@@ -318,9 +321,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-																		 $('.expire-<?php echo $currentimage; ?>').html('');"
+															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+															 $('.expire-<?php echo $currentimage; ?>').html('');"
 													 />
 													 <?php echo gettext("Published"); ?>
 									</label>
@@ -458,7 +461,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">

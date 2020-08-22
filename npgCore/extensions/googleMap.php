@@ -6,6 +6,19 @@
  * 		markerClustererPlus library 2.0.15
  * 		overlappingMarkerSpiderfier library 0.3 (https://github.com/jawj/OverlappingMarkerSpiderfier)
  *
+ * To use this plugin you will need an API key.
+ *
+ * In order to obtain a personal Google maps API key, you will need to set up an
+ * account and project with Google Cloud Services.
+ * You must add the Maps JavaScript API to your project from the API library and
+ * set up and link in a payment method (although you will not actually have to
+ * pay for moderate usage.)
+ *
+ * You can limit the use of this API to a specific web site and should do so and
+ * you can also set a quota on the number of calls to the API which should guarantee
+ * that you always stay within the "free" limits. Setting up a Google Cloud Services
+ * account is not simple, but once done successfully you can use the API in Google maps plugin.
+ *
  * @author Stephen Billard (sbillard) & Vincent Bourganel (vincent3569)
  *
  * @package plugins/googleMap
@@ -108,7 +121,7 @@ class GoogleMap {
 						'desc' => gettext('If checked GoogleMaps will use sessions to pass map data for the <em>colorbox</em> display option. We recommend this option be selected. It protects against reference forgery security attacks and mitigates problems with data exceeding the allowed by some browsers.')),
 				gettext('API key') => array('key' => 'gmap_map_api_key', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 10,
-						'desc' => gettext('As of June 22, 2016 Google Maps no longer support keyless access (any request that doesn\'t include an API key). You may need to obtain an API key from <a href="https://console.developers.google.com/project">Google</a>.'))
+						'desc' => gettext('As of June 22, 2016 Google Maps no longer support keyless access (any request that doesn\'t include an API key). You may need to obtain an API key from <a href="https://console.developers.google.com/project">Google</a>.') . ' ' . gettext('See also the plugin documentation for more information on this key.'))
 		);
 
 		return $options;
