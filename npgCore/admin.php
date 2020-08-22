@@ -543,7 +543,7 @@ $buttonlist = array();
 
 			if (npg_loggedin(OVERVIEW_RIGHTS)) {
 				if (TEST_RELEASE) {
-					$official = gettext('<em>Debug build</em>');
+					$official = gettext('<em>Debug</em>');
 					$debug = explode('-', NETPHOTOGRAPHICS_VERSION);
 					$v = $debug[0];
 					$debug = explode('_', $debug[1]);
@@ -554,7 +554,7 @@ $buttonlist = array();
 						$official .= ':</strong> ' . implode(', ', $debug) . '<strong>';
 					}
 				} else {
-					$official = gettext('Official build');
+					$official = gettext('Production');
 					$v = NETPHOTOGRAPHICS_VERSION;
 				}
 				?>
