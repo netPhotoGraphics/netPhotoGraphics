@@ -49,6 +49,7 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 		npgFilters::register('admin_note', 'devRelease::notice');
 	}
 }
+
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'check_updates') {
 		XSRFdefender('check_update');
