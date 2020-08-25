@@ -22,10 +22,10 @@ if (!OFFSET_PATH) {
 		} else {
 			$personality = strtolower(getOption('garland_personality'));
 		}
-		$themeMenu = themeSwitcher::themeSelection('themeMenu', getMenuSets());
-		if ($themeMenu) {
-			setOption('garland_menu', $themeMenu, false);
-		}
+		$sets = getMenuSets();
+		$sets[] = ''; //	the built-in menu
+		$themeMenu = themeSwitcher::themeSelection('themeMenu', $sets);
+		setOption('garland_menu', $themeMenu, false);
 	} else {
 		$personality = strtolower(getOption('garland_personality'));
 	}
@@ -80,6 +80,7 @@ function switcher_controllink($html) {
 			<span title="<?php echo gettext("Garland menu."); ?>">
 				<?php echo gettext('Menu'); ?>
 				<select name="themeMenu" id="themeMenu" onchange="switchMenu();">
+					<option value =''><?php echo gettext('*standard menu'); ?></option>
 					<?php generateListFromArray(array($themeMenu), $menus, false, true); ?>
 				</select>
 			</span>

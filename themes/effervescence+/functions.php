@@ -21,8 +21,6 @@ foreach ($persona as $personality) {
 		$personalities[ucfirst(str_replace('_', ' ', $personality))] = $personality;
 }
 
-
-
 chdir(SERVERPATH . "/themes/" . basename(__DIR__) . "/styles");
 $filelist = safe_glob('*.txt');
 if (file_exists(SERVERPATH . "/themes/" . basename(__DIR__) . "/data")) {
@@ -48,11 +46,10 @@ if (class_exists('themeSwitcher')) {
 	} else {
 		$personality = strtolower(getOption('effervescence_personality'));
 	}
-
-	$themeMenu = themeSwitcher::themeSelection('themeMenu', getMenuSets());
-	if ($themeMenu) {
-		setOption('effervescence_menu', $themeMenu, false);
-	}
+	$sets = getMenuSets();
+	$sets[] = ''; //	the built-in menu
+	$themeMenu = themeSwitcher::themeSelection('themeMenu', $sets);
+	setOption('effervescence_menu', $themeMenu, false);
 } else {
 	$personality = strtolower(getOption('effervescence_personality'));
 }
@@ -188,6 +185,7 @@ function switcher_controllink($ignore) {
 			<span title="<?php echo gettext("Effervescence menu."); ?>">
 				<?php echo gettext('Menu'); ?>
 				<select name="themeMenu" id="themeMenu" onchange="switchMenu();">
+					<option value =''><?php echo gettext('*standard menu'); ?></option>
 					<?php generateListFromArray(array($themeMenu), $menus, false, true); ?>
 				</select>
 			</span>
