@@ -893,7 +893,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/image_album_statistics.php
 %extensions%/instagramLogin.php
 %extensions%/ipBlocker.php
-%extensions%/jCarousel_thumb_nav.php
 %extensions%/jPlayer.php
 %extensions%/lazyLoader.php
 %extensions%/LDAP_auth.php
@@ -7345,15 +7344,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/instagramLogin/instagram-login-api.php
 %extensions%/instagramLogin/instagram.php
 %extensions%/instagramLogin/login_button.png
-%extensions%/jCarousel_thumb_nav
-%extensions%/jCarousel_thumb_nav/jcarousel.css
-%extensions%/jCarousel_thumb_nav/jcarousel_loading.gif
-%extensions%/jCarousel_thumb_nav/jcarousel_next.png
-%extensions%/jCarousel_thumb_nav/jcarousel_next_vertical.png
-%extensions%/jCarousel_thumb_nav/jcarousel_prev.png
-%extensions%/jCarousel_thumb_nav/jcarousel_prev_vertical.png
-%extensions%/jCarousel_thumb_nav/jquery.jcarousel.css
-%extensions%/jCarousel_thumb_nav/jquery.jcarousel.pack.js
 %extensions%/jPlayer
 %extensions%/jPlayer/js
 %extensions%/jPlayer/js/jplayer.playlist.min.js
@@ -8158,4 +8148,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8160
+8150
