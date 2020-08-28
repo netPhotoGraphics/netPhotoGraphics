@@ -8,6 +8,8 @@
  * @author Malte Müller (acrylian)
  * @package plugins/jCarousel_thumb_nav
  * @pluginCategory theme
+ *
+ * @deprecated since 2.00.06 use bxslider_thumb_nav
  */
 $plugin_description = gettext("jQuery jCarousel thumb nav plugin with dynamic loading of thumbs on request via JavaScript.");
 $plugin_disable = (extensionEnabled('bxslider_thumb_nav')) ? sprintf(gettext('Only one Carousel plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), 'bxslider_thumb_nav') : '';
@@ -110,13 +112,13 @@ class jcarousel {
 			})(jQuery);
 		</script>
 		<?php
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
+		scriptLoader(USER_PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.pack.js');
+		scriptLoader(USER_PLUGIN_FOLDER . '/jCarousel_thumb_nav/jquery.jcarousel.css');
 		$theme = getCurrentTheme();
 		if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($theme) . '/jcarousel.css')) {
 			// this should comply with the standard!
 			$css = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/jcarousel.css';
-			require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 			deprecated_functions::notify_handler(gettext('The jCarousel css files should be placed in the theme subfolder "jCarousel_thumb_nav"'), NULL);
 		} else {
 			$css = getPlugin('jCarousel_thumb_nav/jcarousel.css', $theme);
