@@ -490,7 +490,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true, $flags = 0)
 		$folder .= '/';
 	$list = array();
 	$curdir = getcwd();
-	$sources = array(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $folder, USER_PLUGIN_SERVERPATH . '/' . $folder);
+	$sources = array(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $folder, USER_PLUGIN_SERVERPATH . $folder);
 
 	foreach ($sources as $basepath) {
 		if (is_dir($basepath)) {
@@ -2412,7 +2412,7 @@ function read_exif_data_protected($path) {
  * @return string
  */
 function getLanguageFlag($lang) {
-	if (file_exists(USER_PLUGIN_SERVERPATH . '/locale/' . $lang . '/flag.png')) {
+	if (file_exists(USER_PLUGIN_SERVERPATH . 'locale/' . $lang . '/flag.png')) {
 		$flag = WEBPATH . '/' . USER_PLUGIN_FOLDER . '/locale/' . $lang . '/flag.png';
 	} else if (file_exists(CORE_SERVERPATH . 'locale/' . $lang . '/flag.png')) {
 		$flag = WEBPATH . '/' . CORE_FOLDER . '/locale/' . $lang . '/flag.png';

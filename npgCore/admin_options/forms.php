@@ -8,15 +8,15 @@ function saveOptions() {
 	global $_gallery;
 
 	if (isset($_POST['revert'])) {
-		unlink(USER_PLUGIN_SERVERPATH . '/forms/mailForm.htm');
+		unlink(USER_PLUGIN_SERVERPATH . 'forms/mailForm.htm');
 	} else {
 		$form = $_POST['email_form'];
 		$form = str_replace('href="' . FULLWEBPATH, 'href="%WEBPATH%', $form);
 		$form = str_replace('src="' . $_gallery->getSiteLogo(FULLWEBPATH) . '"', 'src="%LOGO%"', $form);
 
-		$formFile = USER_PLUGIN_SERVERPATH . '/forms/mailForm.htm';
-		if (!is_dir(USER_PLUGIN_SERVERPATH . '/forms')) {
-			mkdir(USER_PLUGIN_SERVERPATH . '/forms');
+		$formFile = USER_PLUGIN_SERVERPATH . 'forms/mailForm.htm';
+		if (!is_dir(USER_PLUGIN_SERVERPATH . 'forms')) {
+			mkdir(USER_PLUGIN_SERVERPATH . 'forms');
 		}
 
 		file_put_contents($formFile, $form);

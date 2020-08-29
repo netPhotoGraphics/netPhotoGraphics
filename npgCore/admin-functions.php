@@ -3389,7 +3389,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 
 		if ($multi && !empty($activelang)) {
-// put the language list in perferred order
+			// put the language list in perferred order
 			$preferred = array();
 			if ($_current_locale) {
 				$preferred[] = $_current_locale;
@@ -4306,7 +4306,7 @@ function getWatermarks() {
 	foreach ($filelist as $file) {
 		$list[filesystemToInternal(substr(basename($file), 0, -4))] = $basepath . $file;
 	}
-	$basepath = USER_PLUGIN_SERVERPATH . '/watermarks/';
+	$basepath = USER_PLUGIN_SERVERPATH . 'watermarks/';
 	if (is_dir($basepath)) {
 		chdir($basepath);
 		$filelist = safe_glob('*.png');

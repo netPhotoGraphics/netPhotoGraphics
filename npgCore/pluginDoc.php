@@ -207,7 +207,8 @@ if (!defined('OFFSET_PATH')) {
 
 	$pluginType = @$_GET['type'];
 	if ($pluginType) {
-		$pluginToBeDocPath = USER_PLUGIN_SERVERPATH . '/' . $extension . '.php';
+		$pluginToBeDocPath = USER_PLUGIN_SERVERPATH . $extension . '.php';
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php'); //	just incase
 	} else {
 		$pluginToBeDocPath = CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $extension . '.php';
 	}

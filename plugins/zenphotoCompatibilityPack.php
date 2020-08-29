@@ -123,6 +123,10 @@ $legacyReplacements = array(
 		'zpFormattedDate\(' => 'formattedDate(',
 		'\$_zp_current_DailySummary' => '$_current_DailySummary',
 		'purgeThemeOption\((.*?)\);' => 'purgeOption($1, basename(__DIR__));',
+		'gettext_th' => 'gettext',
+		'ngettext_th' => 'ngettext;',
+		'gettext_pl' => 'gettext;',
+		'ngettext_pl' => 'ngettext'
 );
 
 class zenPhotoCompatibilityPack {
