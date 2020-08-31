@@ -3435,7 +3435,7 @@ function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlb
 					$html = '<img src="' . html_encode($randomImage->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					break;
 			}
-			echo npgFilters::apply('custom_image_html', $html, false);
+			echo npgFilters::apply('custom_image_html', $html, FALSE);
 			echo "</a>";
 			echo "</li>\n";
 		} else {

@@ -92,7 +92,7 @@ if (getOption('homepage_slideshow')) {
 					<h2><?php echo gettext("Latest images"); ?></h2>
 					<?php
 					if (function_exists('getImageStatistic')) {
-						printLatestImages_zb(12, "", true, false, false, "", false, NULL, NULL, NULL, "", true);
+						printLatestImages(12, "", true, false, false, "", false, NULL, NULL, NULL, "", true);
 					} else {
 						echo '<div class="alert alert-warning" role="alert">Please enable the image_album_statistics plugin</div>';
 					}

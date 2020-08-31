@@ -256,7 +256,7 @@ class pagedThumbsNav {
 				getMaxSpaceContainer($maxwidth, $maxheight, $image, true);
 				$html = "<img src=\"" . html_encode($image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, true)) . "\" alt=\"" . html_encode(getBare($image->getTitle())) . "\" />";
 			}
-			echo npgFilters::apply('custom_image_html', $html, true);
+			echo npgFilters::apply('custom_image_html', $html, TRUE);
 			echo "</a>\n";
 			$number++;
 		}
