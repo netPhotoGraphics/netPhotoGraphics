@@ -17,13 +17,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed');
 
 		if (extensionEnabled('clone')) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
-			if (class_exists('clone')) {
-				$clones = npgClone::clones();
-				foreach ($clones as $clone => $data) {
-					setSiteState('closed', $clone . '/');
-				}
-			}
+			updateClones('closed');
 		}
 		break;
 	case 'open':
@@ -32,13 +26,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'open');
 
 		if (extensionEnabled('clone')) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
-			if (class_exists('clone')) {
-				$clones = npgClone::clones();
-				foreach ($clones as $clone => $data) {
-					setSiteState('open', $clone . '/');
-				}
-			}
+			updateClones('open');
 		}
 		break;
 	case 'closed_for_test':
@@ -46,13 +34,7 @@ switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed_for_test');
 
 		if (extensionEnabled('clone')) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
-			if (class_exists('clone')) {
-				$clones = npgClone::clones();
-				foreach ($clones as $clone => $data) {
-					setSiteState('closed_for_test', $clone . '/');
-				}
-			}
+			updateClones('closed_for_test');
 		}
 		break;
 }
@@ -74,6 +56,16 @@ function setSiteState($state, $folder = NULL) {
 	$_config_contents = configFile::update('site_upgrade_state', $state, $_config_contents);
 	configFile::store($_config_contents, $folder);
 	$_configMutex->unlock();
+}
+
+function updateClones($state) {
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+	if (class_exists('npgClone')) {
+		$clones = npgClone::clones();
+		foreach ($clones as $clone => $data) {
+			setSiteState($state, $clone . '/');
+		}
+	}
 }
 
 ?>
