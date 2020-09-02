@@ -7,7 +7,8 @@ define('OFFSET_PATH', 3);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'lib-config.php');
 
-admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
+admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
+XSRFdefender('site_upgrade');
 
 $report = '';
 switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
