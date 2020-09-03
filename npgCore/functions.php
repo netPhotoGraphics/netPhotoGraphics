@@ -526,12 +526,12 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true, $flags = 0)
  *
  * @return string
  */
-function getPlugin($plugin, $inTheme = false, $webpath = false) {
+function getPlugin($plugin, $inTheme = FALSE, $webpath = FALSE) {
 	global $_gallery;
 	$pluginFile = NULL;
 	$plugin_fs = internalToFilesystem($plugin);
 	$sources = array('/' . USER_PLUGIN_FOLDER . '/' . $plugin_fs, '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $plugin_fs, '/' . CORE_FOLDER . '/' . $plugin_fs);
-	if ($inTheme === true) {
+	if ($inTheme === TRUE) {
 		$inTheme = $_gallery->getCurrentTheme();
 	}
 	if ($inTheme) {

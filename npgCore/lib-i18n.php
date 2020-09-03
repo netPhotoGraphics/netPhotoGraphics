@@ -61,10 +61,10 @@ class i18n {
 	 *
 	 */
 	static function generateLanguageList($all = false) {
-		global $_active_languages, $_all_languages, $_language_file_location;
+		global $_active_languages, $_all_languages;
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		if (is_null($_all_languages)) {
-			$_active_languages = $_all_languages = $_language_file_location = array();
+			$_active_languages = $_all_languages = array();
 			foreach (array(CORE_SERVERPATH . 'locale/', USER_PLUGIN_SERVERPATH . 'locale/') as $source) {
 				$dir = @opendir($source);
 				if ($dir !== false) {
@@ -72,7 +72,6 @@ class i18n {
 						if (is_dir($source . $dirname) && (substr($dirname, 0, 1) != '.')) {
 							$language = self::getDisplayName($dirname);
 							$_all_languages[$language] = $dirname;
-							$_language_file_location[$dirname] = $source;
 							if (!isset($disallow[$dirname])) {
 								$_active_languages[$language] = $dirname;
 							}
@@ -128,29 +127,28 @@ class i18n {
 	}
 
 	/**
-	 * Sets the translation domain and type for optional theme or plugin based translations
+	 * Sets up the translation domain and language file path
+	 *
 	 * @param $domaine If $type "plugin" or "theme" the file/folder name of the theme or plugin
-	 * @param $type NULL (main translation), "theme" or "plugin"
+	 * @param $type NULL (main translation), "theme" or "plugin" NP type is deprecated!
 	 */
-	static function setupDomain($domain = NULL, $type = NULL) {
-		global $_active_languages, $_all_languages, $_language_file_location, $_current_locale;
-		if (!$_current_locale) {
-			$_current_locale = 'en_US';
-		}
+	static function setupDomain($domain = 'core', $type = NULL) {
+		global $_active_languages, $_all_languages, $_current_locale;
+
 		switch ($type) {
-			case "plugin":
-				$domainpath = getPlugin($domain . "/locale/");
-				break;
 			case "theme":
-				$domainpath = SERVERPATH . "/" . THEMEFOLDER . "/" . $domain . "/locale/";
-				break;
+			case "plugin":
+				$domainpath = getPlugin($domain . "/locale/", $type == 'theme');
+				if ($domainpath) {
+					break;
+				}
 			default:
-				$domain = 'core';
-				$domainpath = $_language_file_location[$_current_locale];
+				if (is_dir(USER_PLUGIN_SERVERPATH . 'locale/' . $_current_locale)) {
+					$domainpath = USER_PLUGIN_SERVERPATH . 'locale/';
+				} else {
+					$domainpath = CORE_SERVERPATH . 'locale/';
+				}
 				break;
-		}
-		if (!$domainpath) { // incase there is a mis-configured theme or plugin
-			$domainpath = $_language_file_location[$_current_locale];
 		}
 		bindtextdomain($domain, $domainpath);
 		bind_textdomain_codeset($domain, 'UTF-8');
