@@ -39,6 +39,7 @@ if (isset($_POST['link'])) {
 		unset($_GET['XSRFToken']);
 		unset($_REQUEST['XSRFToken']);
 	}
+
 	require_once($link);
 }
 ?>

@@ -3,7 +3,9 @@
 /**
  * @package plugins/site_upgrade
  */
-define('OFFSET_PATH', 3);
+if (!defined('OFFSET_PATH')) {
+	define('OFFSET_PATH', 3);
+}
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'lib-config.php');
 

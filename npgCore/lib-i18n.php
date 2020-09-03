@@ -134,6 +134,9 @@ class i18n {
 	 */
 	static function setupDomain($domain = NULL, $type = NULL) {
 		global $_active_languages, $_all_languages, $_language_file_location, $_current_locale;
+		if (!$_current_locale) {
+			$_current_locale = 'en_US';
+		}
 		switch ($type) {
 			case "plugin":
 				$domainpath = getPlugin($domain . "/locale/");
@@ -164,18 +167,19 @@ class i18n {
 	 * @return mixed
 	 */
 	static function setupCurrentLocale($override = NULL) {
+		global $_current_locale;
 		if (is_null($override)) {
 			$locale = getOption('locale');
 		} else {
 			$locale = $override;
 		}
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
+		$languages = self::generateLanguageList();
 		if (isset($disallow[$locale])) {
 			if (DEBUG_LOCALE)
 				debugLogBacktrace("self::setupCurrentLocale($override): $locale denied by option.");
 			$locale = getOption('locale');
 			if (empty($locale) || isset($disallow[$locale])) {
-				$languages = self::generateLanguageList();
 				$locale = array_shift($languages);
 			}
 		}
@@ -192,6 +196,7 @@ class i18n {
 		}
 		if (DEBUG_LOCALE)
 			debugLogBacktrace("self::setupCurrentLocale($override): locale=$locale, \$result=$result");
+		$_current_locale = $locale;
 		self::setupDomain();
 		return $result;
 	}
