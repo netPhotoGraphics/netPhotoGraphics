@@ -7183,8 +7183,13 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/js/i18n/help/pl.html.js
 %extensions%/elFinder/js/i18n/help/ru.html.js
 %extensions%/elFinder/js/i18n/help/sk.html.js
+%extensions%/elFinder/js/i18n/help/tr.html.js
 %extensions%/elFinder/js/proxy
 %extensions%/elFinder/js/proxy/elFinderSupportVer1.js
+%extensions%/elFinder/js/worker
+%extensions%/elFinder/js/worker/calcfilehash.js
+%extensions%/elFinder/js/worker/quicklook.tiff.js
+%extensions%/elFinder/js/worker/quicklook.unzip.js
 %extensions%/elFinder/php
 %extensions%/elFinder/php/autoload.php
 %extensions%/elFinder/php/connector_npg.php
@@ -8127,4 +8132,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8129
+8134
