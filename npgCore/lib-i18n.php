@@ -134,11 +134,12 @@ class i18n {
 	 */
 	static function setupDomain($domain = 'core', $type = NULL) {
 		global $_active_languages, $_all_languages, $_current_locale;
-
+		$theme = NULL;
 		switch ($type) {
 			case "theme":
+				$theme = $domain;
 			case "plugin":
-				$domainpath = getPlugin($domain . "/locale/", $type == 'theme');
+				$domainpath = getPlugin($domain . "/locale/", $theme);
 				if ($domainpath) {
 					break;
 				}
