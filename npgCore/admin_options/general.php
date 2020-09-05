@@ -411,9 +411,16 @@ function getOptionContent() {
 						<span class="option_info">
 							<?php echo INFORMATION_BLUE; ?>
 							<div class="option_desc_hidden">
-								<?php echo gettext("You can disable languages by unchecking their checkboxes. Only checked languages will be available to the installation."); ?>
-								<?php echo gettext("Select the preferred language to display text in. (Set to <em>HTTP_Accept_Language</em> to use the language preference specified by the viewer’s browser.)"); ?>
-								<p><?php echo gettext("Set <em>Multi-lingual</em> to enable multiple language input for options that provide theme text."); ?></p>
+								<p>
+									<?php
+									echo gettext("You can disable languages by unchecking their checkboxes. Only checked languages will be available to the installation.") . ' ';
+									echo gettext("Select the preferred language to display text in. (Set to <em>HTTP_Accept_Language</em> to use the language preference specified by the viewer’s browser.)") . ' ';
+									echo gettext('More languages can be found in the netPhotoGraphics <a href="https://github.com/netPhotoGraphics/language-files" />language-files</a> gitHub repository.');
+									?>
+								</p>
+								<p>
+									<?php echo gettext("Set <em>Multi-lingual</em> to enable multiple language input for options that provide theme text."); ?>
+								</p>
 							</div>
 						</span>
 					</td>
