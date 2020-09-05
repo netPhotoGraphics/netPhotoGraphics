@@ -144,11 +144,7 @@ class i18n {
 					break;
 				}
 			default:
-				if (is_dir(USER_PLUGIN_SERVERPATH . 'locale/' . $_current_locale)) {
-					$domainpath = USER_PLUGIN_SERVERPATH . 'locale/';
-				} else {
-					$domainpath = CORE_SERVERPATH . 'locale/';
-				}
+				$domainpath = self::languageFolder($_current_locale);
 				break;
 		}
 		bindtextdomain($domain, $domainpath);
@@ -156,6 +152,14 @@ class i18n {
 		textdomain($domain);
 		//invalidate because the locale was not setup until now
 		$_active_languages = $_all_languages = NULL;
+	}
+
+	static function languageFolder($lang) {
+		if (is_dir(USER_PLUGIN_SERVERPATH . 'locale/' . $lang)) {
+			return USER_PLUGIN_SERVERPATH . 'locale/';
+		} else {
+			return CORE_SERVERPATH . 'locale/';
+		}
 	}
 
 	/**

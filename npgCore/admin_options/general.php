@@ -130,7 +130,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_gallery, $_server_timezone, $_UTF8, $_authority, $_language_file_location;
+	global $_gallery, $_server_timezone, $_UTF8, $_authority;
 	?>
 	<script type="text/javascript">
 		// <!-- <![CDATA[
@@ -340,9 +340,9 @@ function getOptionContent() {
 									$languageP = '';
 									if (!empty($dirname)) {
 										$flag = getLanguageFlag($dirname);
-										$source = $_language_file_location[$dirname] . $dirname;
-										if (file_exists($source . '/LC_MESSAGES')) {
-											$po = file_get_contents($source . '/LC_MESSAGES/core.po');
+										$source = i18n::languageFolder($dirname) . $dirname . '/LC_MESSAGES/core.po';
+										if (file_exists($source)) {
+											$po = file_get_contents($source);
 											preg_match_all('~^#,\sfuzzy\s+~ims', $po, $fuzzy);
 											if (count($fuzzy[0])) {
 												preg_match_all('~^#:.*?msgid~ims', $po, $msgid);
