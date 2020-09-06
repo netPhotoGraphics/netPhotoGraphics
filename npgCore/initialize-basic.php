@@ -37,15 +37,20 @@ $_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' =>
 // Including the config file more than once is OK, and avoids $conf missing.
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	define('DATA_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
 	$_conf_vars = getConfig();
-} else {
-	define('DATA_MOD', 0777);
 }
+
+if (!defined('CHMOD_VALUE')) {
+	define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
+}
+define('FOLDER_MOD', CHMOD_VALUE | 0311);
+define('FILE_MOD', CHMOD_VALUE & 0666);
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 	define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . '/security.log') & 0777);
+} else if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
 } else {
-	define('LOG_MOD', DATA_MOD);
+	define('LOG_MOD', FILE_MOD);
 }
 define('DATABASE_PREFIX', $_conf_vars['mysql_prefix']);
 define('LOCAL_CHARSET', isset($_conf_vars['charset']) ? $_conf_vars['charset'] : 'UTF-8');
@@ -54,12 +59,6 @@ if (!isset($_conf_vars['special_pages'])) {
 	$stdConfig = getConfig(CORE_FOLDER . '/netPhotoGraphics_cfg.txt');
 	$_conf_vars['special_pages'] = $stdConfig['special_pages'];
 }
-
-if (!defined('CHMOD_VALUE')) {
-	define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
-}
-define('FOLDER_MOD', CHMOD_VALUE | 0311);
-define('FILE_MOD', CHMOD_VALUE & 0666);
 
 if (OFFSET_PATH != 2) {
 	if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {

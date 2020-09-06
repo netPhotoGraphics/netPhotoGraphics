@@ -3815,7 +3815,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					} else {
 						if (file_exists($fullname)) {
 							$result = $result && @copy($fullname, $fullDest);
-							@chmod($fullDest, fileperms($fullname));
+							@chmod($fullDest, FILE_MOD);
 						}
 					}
 				}
