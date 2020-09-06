@@ -97,13 +97,30 @@ echo '</head>';
 								?>
 							</li>
 							<li>
-								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>' ?>
+								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
 							</li>
 							<li>
-								<?php echo gettext('WEB path:') . ' <strong>' . WEBPATH . '</strong>' ?>
+								<?php
+								$permission_names = array(
+										0444 => gettext('readonly'),
+										0644 => gettext('strict'),
+										0664 => gettext('relaxed'),
+										0666 => gettext('loose')
+								);
+								$try = CHMOD_VALUE & 0666 | 4;
+								if (array_key_exists($try, $permission_names)) {
+									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$try], CHMOD_VALUE);
+								} else {
+									$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), CHMOD_VALUE);
+								}
+								echo gettext('File permissions:') . ' <strong>' . $value . '</strong>';
+								?>
 							</li>
 							<li>
-								<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>' ?>
+								<?php echo gettext('WEB path:') . ' <strong>' . WEBPATH . '</strong>'; ?>
+							</li>
+							<li>
+								<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
 							</li>
 							<?php
 							$loaded = get_loaded_extensions();
@@ -399,8 +416,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php

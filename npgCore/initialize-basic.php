@@ -44,7 +44,7 @@ if (!defined('CHMOD_VALUE')) {
 	define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
 }
 define('FOLDER_MOD', CHMOD_VALUE | 0311);
-define('FILE_MOD', CHMOD_VALUE & 0666);
+define('FILE_MOD', CHMOD_VALUE & 0666 | 0400);
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 	define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . '/security.log') & 0777);
 } else if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
