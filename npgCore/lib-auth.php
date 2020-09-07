@@ -948,7 +948,7 @@ class _Authority {
 							$ref = self::getResetTicket($user['user'], $user['pass']);
 							$msg = "<p>" . $requestor . "</p>\n";
 							if ($found) {
-								$msg .= "<p>" . sprintf(gettext('To reset your Admin passwords visit <a href="%1$s">%2$s/reset</a>'), getAdminLink('admin-tabs/users.php') . '?user=' . $user['user'] . '&ticket=' . $ref, WEBPATH) .
+								$msg .= "<p>" . sprintf(gettext('To reset your Admin passwords visit <a href="%1$s">%2$s/reset</a>'), getAdminLink('admin-tabs/users.php') . '?user=' . $user['user'] . '&ticket=' . $ref, FULLWEBPATH) .
 												"</p>\n<p>" . gettext("If you do not wish to reset your passwords just ignore this message. This ticket will automatically expire in 3 days.") . "</p>\n";
 							} else {
 								$msg .= "<p>" . gettext('No matching user was found.' . "</p>\n");
