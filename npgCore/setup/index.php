@@ -8,20 +8,14 @@
  */
 // force UTF-8 Ø
 
-Define('PHP_MIN_VERSION', '5.5');
-Define('PHP_MIN_SUPPORTED_VERSION', '7.1');
-Define('PHP_DESIRED_VERSION', '7.4');
 define('OFFSET_PATH', 2);
 
-if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
-	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
-}
+require_once(dirname(__DIR__) . '/global-definitions.php');
 
 clearstatcache();
 $chmod = fileperms(dirname(__DIR__)) & 0666;
 $_initial_session_path = session_save_path();
 
-require_once(dirname(__DIR__) . '/global-definitions.php');
 require_once(dirname(__DIR__) . '/functions.php');
 require_once(__DIR__ . '/setup-functions.php');
 

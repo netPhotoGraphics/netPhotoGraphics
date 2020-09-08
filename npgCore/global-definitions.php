@@ -1,5 +1,13 @@
 <?php
 
+Define('PHP_MIN_VERSION', '5.6');
+Define('PHP_MIN_SUPPORTED_VERSION', '7.2');
+Define('PHP_DESIRED_VERSION', '7.4');
+
+if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
+	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
+}
+
 global $_conf_vars;
 $_options = array();
 

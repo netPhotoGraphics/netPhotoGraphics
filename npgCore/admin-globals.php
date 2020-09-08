@@ -301,3 +301,7 @@ if (MOD_REWRITE && OFFSET_PATH != 2) {
 		deprecated_functions::logZPCore($uri, '');
 	}
 }
+
+if (version_compare(PHP_VERSION, PHP_MIN_SUPPORTED_VERSION, '<')) {
+	npgFilters::register('admin_note', 'phpWarn');
+}

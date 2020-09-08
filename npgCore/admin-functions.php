@@ -6188,3 +6188,11 @@ function url_fopenDL($fileUrl, $saveTo) {
 	}
 	return $msg;
 }
+
+function phpWarn() {
+	?>
+	<div class="errorbox">
+		<h2><?php printf('The version of PHP you are running (%1$s) has reached <a href="https://www.php.net/eol.php">end of life</a>. You should upgrade to a <a href="https://www.php.net/supported-versions.php">supported version</a>.', PHP_VERSION); ?></h2>
+	</div>
+	<?php
+}
