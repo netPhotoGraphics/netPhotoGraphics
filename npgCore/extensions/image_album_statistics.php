@@ -232,7 +232,7 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 	switch ($crop) {
 		case 0:
 			$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $albumthumb);
-			echo npgFilters::apply('custom_album_thumb_html', '<img src="' . html_encode($albumthumb->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n");
+			$html = '<img src="' . html_encode($albumthumb->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" />';
 			break;
 		case 1;
 			if (isImagePhoto($albumthumb)) {
@@ -240,13 +240,15 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 			} else {
 				$sizes = array($width, $height);
 			}
-			echo npgFilters::apply('custom_album_thumb_html', '<img src="' . html_encode($albumthumb->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n");
+			$html = '<img src="' . html_encode($albumthumb->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" />';
 			break;
-		case 2:
+		default:
 			$sizes = getSizeDefaultThumb($albumthumb);
-			echo npgFilters::apply('custom_album_thumb_html', '<img src="' . html_encode($albumthumb->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" /></a>' . "\n");
+			$html = '<img src="' . html_encode($albumthumb->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" />';
 			break;
 	}
+	npgFilters::apply('custom_album_thumb_html', $html) . "\n</a>\n";
+
 	if ($showtitle) {
 		echo "<h3><a href=\"" . $albumpath . "\" title=\"" . html_encode($album->getTitle()) . "\">\n";
 		echo $album->getTitle() . "</a></h3>\n";
@@ -545,7 +547,7 @@ function getImageStatistic($number, $option, $albumfolder = NULL, $collection = 
  * 		"rating+hitcounter" for both.
  * @param integer $width the width/cropwidth of the thumb if crop=true else $width is longest size. (Default 85px)
  * @param integer $height the height/cropheight of the thumb if crop=true else not used.  (Default 85px)
- * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
+ * @param bool $crop 'true' if the thumb should be cropped, 'false' if not
  * @param bool $collection only if $albumfolder is set: true if you want to get statistics from this album and all of its subalbums
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
  * @param integer $threshold the minimum number of ratings (for rating options) or hits (for popular option) an image must have to be included in the list. (Default 0)
@@ -577,17 +579,19 @@ function printImageStatistic($number, $option, $albumfolder = NULL, $showtitle =
 		switch ($crop) {
 			case 0:
 				$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $image);
-				echo npgFilters::apply('custom_image_html', '<img src="' . html_encode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n");
+				$html = '<img src="' . html_encode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . ' />';
 				break;
 			case 1:
 				$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $image);
-				echo npgFilters::apply('custom_image_html', '<img src="' . html_encode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n");
+				$html = '<img src="' . html_encode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . ' />';
 				break;
-			case 2:
+			default:
 				$sizes = getSizeDefaultThumb($image);
-				echo npgFilters::apply('custom_image_html', '<img src="' . html_encode($image->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . "\" /></a>\n<br />");
+				$html = '<img src="' . html_encode($image->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . ' />';
 				break;
 		}
+		echo npgFilters::apply('custom_image_html', $html) . "\n</a>\n";
+
 		if ($showtitle) {
 			echo '<h3><a href="' . html_encode($image->getLink()) . '" title="' . html_encode($image->getTitle()) . "\">\n";
 			echo $image->getTitle() . "</a></h3>\n";

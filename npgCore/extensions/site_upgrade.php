@@ -124,8 +124,8 @@ class site_upgrade {
 		$hash = getSerializedArray(getOption('site_upgrade_hash'));
 
 		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
-			if (file_exists(USER_PLUGIN_SERVERPATH . '/site_upgrade/' . $name)) {
-				if (!isset($hash[$name]) || $hash[$name] != md5(file_get_contents(USER_PLUGIN_SERVERPATH . '/site_upgrade/' . $name))) {
+			if (file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name)) {
+				if (!isset($hash[$name]) || $hash[$name] != md5(file_get_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name))) {
 					$update = true;
 					break;
 				}
@@ -216,7 +216,7 @@ class site_upgrade {
 
 	static function updateXML() {
 		global $_site_filelist, $_gallery;
-		mkdir_recursive(USER_PLUGIN_SERVERPATH . '/site_upgrade/', FOLDER_MOD);
+		mkdir_recursive(USER_PLUGIN_SERVERPATH . 'site_upgrade/', FOLDER_MOD);
 		setOptionDefault('site_upgrade_hash', NULL);
 		$hash = array();
 		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
@@ -254,8 +254,8 @@ class site_upgrade {
 					ob_end_clean();
 					break;
 			}
-			file_put_contents(USER_PLUGIN_SERVERPATH . '/site_upgrade/' . $name, $data);
-			$hash[$name] = md5(file_get_contents(USER_PLUGIN_SERVERPATH . '/site_upgrade/' . $name));
+			file_put_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name, $data);
+			$hash[$name] = md5(file_get_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name));
 		}
 		setOption('site_upgrade_hash', serialize($hash));
 	}

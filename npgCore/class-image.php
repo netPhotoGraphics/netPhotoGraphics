@@ -1235,7 +1235,7 @@ class Image extends MediaObject {
 		$html = '<img src="' . html_encode($this->getSizedImage($size)) . '" alt="' . html_encode($this->getTitle()) . '"' .
 						' width="' . $neww . '" height="' . $newh . '"' .
 						(($class) ? " class=\"$class\"" : "") . " />";
-		$html = npgFilters::apply('standard_image_html', $html);
+		$html = npgFilters::apply('standard_image_html', $html, FALSE);
 		return $html;
 	}
 

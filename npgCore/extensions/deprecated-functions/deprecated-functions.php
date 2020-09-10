@@ -244,3 +244,79 @@ function zpFormattedDate($format, $dt) {
 	deprecated_functions::notify(gettext('Use formattedDate()'));
 	formattedDate($format, $dt);
 }
+
+/**
+ * @deprecated since version 2.00.07
+ *
+ * Gettext replacement function for separate translations of third party themes.
+ * @param string $string The string to be translated
+ * @param string $theme The name of the plugin. Only required for strings on the 'theme_description.php' file like the general theme description. If the theme is the current theme the function sets it automatically.
+ * @return string
+ */
+function gettext_th($string, $theme = Null) {
+	global $_gallery;
+	deprecated_functions::notify(gettext('Use <code>gettext()</code> and use your translation tool to merge your language file with the one in the distribution <em>locale</em> folder. See the user guide under Multi-language support.'));
+	if (empty($theme)) {
+		$theme = $_gallery->getCurrentTheme();
+	}
+	i18n::setupDomain($theme, 'theme');
+	$translation = gettext($string);
+	i18n::setupDomain();
+	return $translation;
+}
+
+/**
+ * @deprecated since version 2.00.07
+ *
+ * ngettext replacement function for separate translations of third party themes.
+ * @param string $msgid1
+ * @param string $msgid2
+ * @param int $n
+ * @param string $plugin
+ * @return string
+ */
+function ngettext_th($msgid1, $msgid2, $n, $theme = NULL) {
+	global $_gallery;
+	deprecated_functions::notify(gettext('Use <code>ngettext()</code> and use your translation tool to merge your language file with the one in the distribution <em>locale</em> folder. See the user guide under Multi-language support.'));
+	if (empty($theme)) {
+		$theme = $_gallery->getCurrentTheme();
+	}
+	i18n::setupDomain($theme, 'theme');
+	$translation = ngettext($msgid1, $msgid2, $n);
+	i18n::setupDomain();
+	return $translation;
+}
+
+/**
+ * @deprecated since version 2.00.07
+ *
+ * Gettext replacement function for separate translations of third party plugins within the root plugins folder.
+ * @param string $string The string to be translated
+ * @param string $plugin The name of the plugin. Required.
+ * @return string
+ */
+function gettext_pl($string, $plugin) {
+	i18n::setupDomain($plugin, 'plugin');
+	deprecated_functions::notify(gettext('Use <code>gettext()</code> and use your translation tool to merge your language file with the one in the distribution <em>locale</em> folder. See the user guide under Multi-language support.'));
+	$translation = gettext($string);
+	i18n::setupDomain();
+	return $translation;
+}
+
+/**
+ * @deprecated since version 2.00.07
+ *
+ * ngettext replacement function for separate translations of third party plugins within the root plugins folder.
+ * @param string $msgid1
+ * @param string $msgid2
+ * @param int $n
+ * @param string $plugin
+ * @return string
+ */
+function ngettext_pl($msgid1, $msgid2, $n, $plugin) {
+	deprecated_functions::notify(gettext('Use <code>ngettext()</code> and use your translation tool to merge your language file with the one in the distribution <em>locale</em> folder. See the user guide under Multi-language support.'));
+	i18n::setupDomain($plugin, 'plugin');
+	$translation = ngettext($msgid1, $msgid2, $n);
+	i18n::setupDomain();
+	return $translation;
+}

@@ -35,8 +35,8 @@ if (!file_exists($testFile)) {
 }
 
 foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
-	npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . '/' . $remove);
-	@unlink(USER_PLUGIN_SERVERPATH . '/' . $remove . '.php');
+	npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $remove);
+	@unlink(USER_PLUGIN_SERVERPATH . $remove . '.php');
 }
 enableExtension('slideshow2', 0);
 
@@ -833,7 +833,7 @@ setOptionDefault('search_page_sort_direction', '');
 query('UPDATE ' . prefix('administrators') . ' SET `passupdate`=' . db_quote(date('Y-m-d H:i:s')) . ' WHERE `valid`>=1 AND `passupdate` IS NULL');
 setOptionDefault('image_processor_flooding_protection', 1);
 setOptionDefault('codeblock_first_tab', 1);
-setOptionDefault('GD_FreeType_Path', USER_PLUGIN_SERVERPATH . '/gd_fonts');
+setOptionDefault('GD_FreeType_Path', USER_PLUGIN_SERVERPATH . 'gd_fonts');
 
 setOptionDefault('theme_head_listparents', 0);
 setOptionDefault('theme_head_separator', ' | ');
@@ -936,8 +936,8 @@ $plugins = array_keys($plugins);
 				if (extensionEnabled($extension)) {
 					unset($deprecatedDeleted[$k]);
 				} else {
-					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . '/' . $extension);
-					unlink(USER_PLUGIN_SERVERPATH . '/' . $extension . '.php');
+					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
+					unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
 					unset($plugins[$key]);
 					continue;
 				}

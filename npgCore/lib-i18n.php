@@ -64,19 +64,21 @@ class i18n {
 		global $_active_languages, $_all_languages;
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		if (is_null($_all_languages)) {
-			$dir = @opendir(CORE_SERVERPATH . 'locale/');
 			$_active_languages = $_all_languages = array();
-			if ($dir !== false) {
-				while ($dirname = readdir($dir)) {
-					if (is_dir(CORE_SERVERPATH . 'locale/' . $dirname) && (substr($dirname, 0, 1) != '.')) {
-						$language = self::getDisplayName($dirname);
-						$_all_languages[$language] = $dirname;
-						if (!isset($disallow[$dirname])) {
-							$_active_languages[$language] = $dirname;
+			foreach (array(CORE_SERVERPATH . 'locale/', USER_PLUGIN_SERVERPATH . 'locale/') as $source) {
+				$dir = @opendir($source);
+				if ($dir !== false) {
+					while ($dirname = readdir($dir)) {
+						if (is_dir($source . $dirname) && (substr($dirname, 0, 1) != '.')) {
+							$language = self::getDisplayName($dirname);
+							$_all_languages[$language] = $dirname;
+							if (!isset($disallow[$dirname])) {
+								$_active_languages[$language] = $dirname;
+							}
 						}
 					}
+					closedir($dir);
 				}
-				closedir($dir);
 			}
 			ksort($_all_languages, SORT_LOCALE_STRING);
 			ksort($_active_languages, SORT_LOCALE_STRING);
@@ -125,32 +127,39 @@ class i18n {
 	}
 
 	/**
-	 * Sets the translation domain and type for optional theme or plugin based translations
+	 * Sets up the translation domain and language file path
+	 *
 	 * @param $domaine If $type "plugin" or "theme" the file/folder name of the theme or plugin
-	 * @param $type NULL (main translation), "theme" or "plugin"
+	 * @param $type NULL (main translation), "theme" or "plugin" NP type is deprecated!
 	 */
-	static function setupDomain($domain = NULL, $type = NULL) {
-		global $_active_languages, $_all_languages;
+	static function setupDomain($domain = 'core', $type = NULL) {
+		global $_active_languages, $_all_languages, $_current_locale;
+		$theme = NULL;
 		switch ($type) {
-			case "plugin":
-				$domainpath = getPlugin($domain . "/locale/");
-				break;
 			case "theme":
-				$domainpath = SERVERPATH . "/" . THEMEFOLDER . "/" . $domain . "/locale/";
-				break;
+				$theme = $domain;
+			case "plugin":
+				$domainpath = getPlugin($domain . "/locale/", $theme);
+				if ($domainpath) {
+					break;
+				}
 			default:
-				$domain = 'core';
-				$domainpath = CORE_SERVERPATH . 'locale/';
+				$domainpath = self::languageFolder($_current_locale);
 				break;
-		}
-		if (!$domainpath) { // incase there is a mis-configured theme or plugin
-			$domainpath = CORE_SERVERPATH . 'locale/';
 		}
 		bindtextdomain($domain, $domainpath);
 		bind_textdomain_codeset($domain, 'UTF-8');
 		textdomain($domain);
 		//invalidate because the locale was not setup until now
 		$_active_languages = $_all_languages = NULL;
+	}
+
+	static function languageFolder($lang) {
+		if (is_dir(USER_PLUGIN_SERVERPATH . 'locale/' . $lang)) {
+			return USER_PLUGIN_SERVERPATH . 'locale/';
+		} else {
+			return CORE_SERVERPATH . 'locale/';
+		}
 	}
 
 	/**
@@ -161,18 +170,19 @@ class i18n {
 	 * @return mixed
 	 */
 	static function setupCurrentLocale($override = NULL) {
+		global $_current_locale;
 		if (is_null($override)) {
 			$locale = getOption('locale');
 		} else {
 			$locale = $override;
 		}
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
+		$languages = self::generateLanguageList();
 		if (isset($disallow[$locale])) {
 			if (DEBUG_LOCALE)
 				debugLogBacktrace("self::setupCurrentLocale($override): $locale denied by option.");
 			$locale = getOption('locale');
 			if (empty($locale) || isset($disallow[$locale])) {
-				$languages = self::generateLanguageList();
 				$locale = array_shift($languages);
 			}
 		}
@@ -189,6 +199,7 @@ class i18n {
 		}
 		if (DEBUG_LOCALE)
 			debugLogBacktrace("self::setupCurrentLocale($override): locale=$locale, \$result=$result");
+		$_current_locale = $locale;
 		self::setupDomain();
 		return $result;
 	}
@@ -493,70 +504,6 @@ function getAllTranslations($text) {
 	$__translations_seen[$hash] = array('text' => $text, 'translations' => $translated = serialize($result));
 	i18n::setupCurrentLocale($entry_locale);
 	return $translated;
-}
-
-/**
- * Gettext replacement function for separate translations of third party themes.
- * @param string $string The string to be translated
- * @param string $theme The name of the plugin. Only required for strings on the 'theme_description.php' file like the general theme description. If the theme is the current theme the function sets it automatically.
- * @return string
- */
-function gettext_th($string, $theme = Null) {
-	global $_gallery;
-	if (empty($theme)) {
-		$theme = $_gallery->getCurrentTheme();
-	}
-	i18n::setupDomain($theme, 'theme');
-	$translation = gettext($string);
-	i18n::setupDomain();
-	return $translation;
-}
-
-/**
- * ngettext replacement function for separate translations of third party themes.
- * @param string $msgid1
- * @param string $msgid2
- * @param int $n
- * @param string $plugin
- * @return string
- */
-function ngettext_th($msgid1, $msgid2, $n, $theme = NULL) {
-	global $_gallery;
-	if (empty($theme)) {
-		$theme = $_gallery->getCurrentTheme();
-	}
-	i18n::setupDomain($theme, 'theme');
-	$translation = ngettext($msgid1, $msgid2, $n);
-	i18n::setupDomain();
-	return $translation;
-}
-
-/**
- * Gettext replacement function for separate translations of third party plugins within the root plugins folder.
- * @param string $string The string to be translated
- * @param string $plugin The name of the plugin. Required.
- * @return string
- */
-function gettext_pl($string, $plugin) {
-	i18n::setupDomain($plugin, 'plugin');
-	$translation = gettext($string);
-	i18n::setupDomain();
-	return $translation;
-}
-
-/**
- * ngettext replacement function for separate translations of third party plugins within the root plugins folder.
- * @param string $msgid1
- * @param string $msgid2
- * @param int $n
- * @param string $plugin
- * @return string
- */
-function ngettext_pl($msgid1, $msgid2, $n, $plugin) {
-	i18n::setupDomain($plugin, 'plugin');
-	$translation = ngettext($msgid1, $msgid2, $n);
-	i18n::setupDomain();
-	return $translation;
 }
 
 if (function_exists('date_default_timezone_set')) { // insure a correct time zone

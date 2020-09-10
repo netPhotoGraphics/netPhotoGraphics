@@ -1,5 +1,13 @@
 <?php
 
+Define('PHP_MIN_VERSION', '5.6');
+Define('PHP_MIN_SUPPORTED_VERSION', '7.2');
+Define('PHP_DESIRED_VERSION', '7.4');
+
+if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
+	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
+}
+
 global $_conf_vars;
 $_options = array();
 
@@ -152,7 +160,7 @@ if (!defined('SERVERPATH')) {
 	define('SERVERPATH', $const_serverpath);
 }
 define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
-define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER);
+define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
@@ -227,10 +235,10 @@ define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1
 define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
 define('PLACHHOLDER_ICON', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
 define('PLUGIN_PLACHHOLDER', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
-define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold; vertical-align: 1px;">&#x2B58;</span>');
-define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: large;">&#x229B;</span>');
-define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; padding-left: 1px;">&#x29c7;</span>');
-define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; vertical-align: -1px;">&#x25FB;</span>');
+define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold; color:darkgoldenrod; vertical-align: 1px;">&#x2B58;</span>');
+define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: large; color:darkgoldenrod;">&#x229B;</span>');
+define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; color:darkgoldenrod; padding-left: 1px;">&#x29c7;</span>');
+define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; color:darkgoldenrod; vertical-align: -1px;">&#x25FB;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
 define('RIGHT_POINTNG_TRIANGLE_GREEN', '<span class="font_icon" style="color: green; font-size: large; font-weight: bold;">&#9654;</span>');

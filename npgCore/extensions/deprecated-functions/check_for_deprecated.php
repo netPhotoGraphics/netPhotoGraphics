@@ -103,7 +103,7 @@ echo '</head>' . "\n";
 								foreach ($paths as $plugin => $path) {
 									if (strpos($path, USER_PLUGIN_FOLDER) !== false) {
 										if (distributedPlugin($plugin)) {
-											$coreScripts[] = stripSuffix(str_replace(USER_PLUGIN_SERVERPATH . '/', '', $path));
+											$coreScripts[] = stripSuffix(str_replace(USER_PLUGIN_SERVERPATH, '', $path));
 										}
 									}
 								}

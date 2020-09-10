@@ -46,7 +46,7 @@ function checkIfProcessed($kind, $name) {
 	$file = 'none';
 	switch ($kind) {
 		case 'plugin':
-			$file = USER_PLUGIN_SERVERPATH . '/' . $name . '.php';
+			$file = USER_PLUGIN_SERVERPATH . $name . '.php';
 			break;
 		case'theme':
 			$file = SERVERPATH . '/' . THEMEFOLDER . '/' . $name . '/theme_description.php';
@@ -70,8 +70,8 @@ if (isset($_GET['action'])) {
 	}
 	if (isset($_POST['plugins'])) {
 		foreach ($_POST['plugins'] as $plugin) {
-			$pluginFiles = getResidentFiles(USER_PLUGIN_SERVERPATH . '/' . $plugin);
-			$pluginFiles[] = USER_PLUGIN_SERVERPATH . '/' . $plugin . '.php';
+			$pluginFiles = getResidentFiles(USER_PLUGIN_SERVERPATH . $plugin);
+			$pluginFiles[] = USER_PLUGIN_SERVERPATH . $plugin . '.php';
 			$files = array_merge($files, $pluginFiles);
 		}
 	}

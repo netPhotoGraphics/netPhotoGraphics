@@ -130,7 +130,7 @@ function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all'
 					$html = "<img src=\"" . html_encode($randomImage->getThumb()) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
 					break;
 			}
-			echo npgFilters::apply('custom_image_html', $html, false);
+			echo npgFilters::apply('custom_image_html', $html, FALSE);
 			echo "</a>";
 			echo "</li>\n";
 		} else {
@@ -138,84 +138,6 @@ function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all'
 		}
 	}
 	echo "</ul>";
-}
-
-/* zpArdoise_printImageStatistic
-  /*	- use improvements of zenphoto 1.4.6 on printRandomImages
-  /*	- use improvements of zenphoto 1.4.2 on printImageStatistic (http://www.zenphoto.org/trac/ticket/1914)
-  /*	- implements call of colorbox (http://www.zenphoto.org/trac/ticket/1908 and http://www.zenphoto.org/trac/ticket/1909)
- */
-
-function zpArdoise_printImageStatistic($number, $option, $albumfolder = '', $showtitle = false, $showdate = false, $showdesc = false, $desclength = 40, $showstatistic = '', $width = NULL, $height = NULL, $crop = NULL, $collection = false, $fullimagelink = false, $threshold = 0, $a_class = NULL) {
-	if (function_exists('getImageStatistic')) {
-		$images = getImageStatistic($number, $option, $albumfolder, $collection, $threshold);
-		if (is_null($crop) && is_null($width) && is_null($height)) {
-			$crop = 2;
-		} else {
-			if (is_null($width))
-				$width = 85;
-			if (is_null($height))
-				$height = 85;
-			if (is_null($crop)) {
-				$crop = 1;
-			} else {
-				$crop = (int) $crop && true;
-			}
-		}
-
-		echo "\n<div id=\"$option\">\n";
-		echo "<ul>";
-		foreach ($images as $image) {
-			if ($fullimagelink) {
-				$aa_class = ' class="' . $a_class . '"';
-				$imagelink = html_encode($image->getFullImageURL());
-			} else {
-				$aa_class = NULL;
-				$imagelink = $image->getLink();
-			}
-			echo "<li><a href=\"" . html_encode($imagelink) . "\"" . $aa_class . " title=\"" . html_encode($image->getTitle()) . "\">\n";
-			switch ($crop) {
-				case 0:
-					echo "<img src=\"" . html_encode($image->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($image->getTitle()) . "\" /></a>\n";
-					break;
-				case 1:
-					echo "<img src=\"" . html_encode($image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($image->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" /></a>\n";
-					break;
-				case 2:
-					echo "<img src=\"" . html_encode($image->getThumb()) . "\" alt=\"" . html_encode($image->getTitle()) . "\" /></a>\n<br />";
-					break;
-			}
-			if ($showtitle) {
-				echo "<h3><a href=\"" . html_encode($image->getLink()) . "\" title=\"" . html_encode($image->getTitle()) . "\">\n";
-				echo $image->getTitle() . "</a></h3>\n";
-			}
-			if ($showdate) {
-				echo "<p>" . formattedDate(DATE_FORMAT, strtotime($image->getDateTime())) . "</p>";
-			}
-			if ($showstatistic === "rating" OR $showstatistic === "rating+hitcounter") {
-				$votes = $image->get("total_votes");
-				$value = $image->get("total_value");
-				if ($votes != 0) {
-					$rating = round($value / $votes, 1);
-				}
-				echo "<p>" . sprintf(gettext('Rating: %1$u (Votes: %2$u)'), $rating, $votes) . "</p>";
-			}
-			if ($showstatistic === "hitcounter" OR $showstatistic === "rating+hitcounter") {
-				$hitcounter = $image->getHitcounter();
-				if (empty($hitcounter)) {
-					$hitcounter = "0";
-				}
-				echo "<p>" . sprintf(gettext("Views: %u"), $hitcounter) . "</p>";
-			}
-			if ($showdesc) {
-				echo html_encodeTagged(shortenContent($image->getDesc(), $desclength, ' (...)'));
-			}
-			echo "</li>";
-		}
-		echo "</ul></div>\n";
-	} else {
-		echo '<div class="alert alert-warning" role="alert">Please enable the image_album_statistics plugin</div>';
-	}
 }
 
 /* zpArdoise_printEXIF */

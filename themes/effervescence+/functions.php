@@ -245,7 +245,7 @@ function printHeadingImage($randomImage) {
 						html_encode($randomAlt1) .
 						":\n" . html_encode($randomImage->getTitle()) .
 						'" />';
-		$html = npgFilters::apply('custom_image_html', $html, false);
+		$html = npgFilters::apply('custom_image_html', $html, FALSE);
 		echo $html;
 		echo '</a>';
 	}

@@ -511,10 +511,10 @@ if (!function_exists('gl_graphicsLibInfo')) {
 			if (!is_array($_gd_fontlist)) {
 				$_gd_fontlist = array('system' => '');
 				$curdir = getcwd();
-				$paths = array(USER_PLUGIN_SERVERPATH . '/gd_fonts/', CORE_SERVERPATH . 'gd_fonts');
+				$paths = array(USER_PLUGIN_SERVERPATH . 'gd_fonts/', CORE_SERVERPATH . 'gd_fonts');
 				if (GD_FREETYPE) {
 					array_push($paths, CORE_SERVERPATH . 'FreeSerif');
-					if (($basefile = getOption('GD_FreeType_Path')) != USER_PLUGIN_SERVERPATH . '/gd_fonts') {
+					if (($basefile = getOption('GD_FreeType_Path')) != USER_PLUGIN_SERVERPATH . 'gd_fonts') {
 						array_push($paths, $basefile);
 					}
 				}

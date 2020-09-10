@@ -297,8 +297,8 @@ if ($_REQUEST['origin'] == 'upload') {
 	if ($rights & ADMIN_RIGHTS) {
 		$opts['roots'][3] = array(
 				'driver' => 'LocalFileSystem',
-				'startPath' => USER_PLUGIN_SERVERPATH . '/',
-				'path' => USER_PLUGIN_SERVERPATH . '/',
+				'startPath' => USER_PLUGIN_SERVERPATH,
+				'path' => USER_PLUGIN_SERVERPATH,
 				'URL' => WEBPATH . '/' . USER_PLUGIN_FOLDER . '/',
 				'alias' => sprintf(gettext('Third party plugins (%s)'), USER_PLUGIN_FOLDER),
 				'mimeDetect' => 'internal',

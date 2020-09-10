@@ -27,10 +27,11 @@
 		?>
 	</h4>
 	<?php
+	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 	if (getOption('use_galleriffic')) {
-		$number = 8;	// displays 8 thumbnails with default size (85*85) with galleriffic script
+		$number = 8; // displays 8 thumbnails with default size (85*85) with galleriffic script
 	} else {
-		$number = 5;	// displays 5 thumbnails with default size (150*150)
+		$number = 5; // displays 5 thumbnails with default size (150*150)
 	}
 
 	if (getOption('image_statistic') == 'random') {
@@ -41,9 +42,9 @@
 		}
 	} else {
 		if (getOption('use_colorbox_album')) {
-			zpArdoise_printImageStatistic($number, getOption('image_statistic'), '', false, false, false, '', '', NULL, NULL, NULL, false, true, 0, 'colorbox');
+			printImageStatistic($number, getOption('image_statistic'), '', false, false, false, '', '', NULL, NULL, NULL, false, true, 0, 'colorbox');
 		} else {
-			zpArdoise_printImageStatistic($number, getOption('image_statistic'), '', false, false, false, '', '', NULL, NULL, NULL, false, false, 0);
+			printImageStatistic($number, getOption('image_statistic'), '', false, false, false, '', '', NULL, NULL, NULL, false, false, 0);
 		}
 	}
 	?>
