@@ -373,11 +373,9 @@ if (!defined('WEBPATH'))
 
 		<div id="main" class="container">
 			<div class="page-header row">
-				<?php
-				if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
-					?>
-					<div class="col-sm-push-9 col-sm-3">
-						<?php
+				<div class="col-sm-push-9 col-sm-3">
+					<?php
+					if ((extensionEnabled('rss') || getOption('zpB_social_links'))) {
 						if (extensionEnabled('rss')) {
 							$rss = false;
 							if ($_zenpage_news_enabled && (getOption('RSS_articles'))) {
@@ -415,15 +413,7 @@ if (!defined('WEBPATH'))
 							</div>
 							<?php
 						}
-						?>
-					</div>
-					<?php
-				}
-				if ((extensionEnabled('rss')) || (getOption('zpB_social_links'))) {
-					$col_header = ' col-sm-pull-3 col-sm-9';
-				} else {
-					$col_header = '';
-				}
-				?>
-
-				<div class="header<?php echo $col_header; ?>">
+					}
+					?>
+				</div>
+				<div class = "header col-sm-pull-3 col-sm-9">
