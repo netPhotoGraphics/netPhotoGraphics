@@ -375,45 +375,43 @@ if (!defined('WEBPATH'))
 			<div class="page-header row">
 				<div class="col-sm-push-9 col-sm-3">
 					<?php
-					if ((extensionEnabled('rss') || getOption('zpB_social_links'))) {
-						if (extensionEnabled('rss')) {
-							$rss = false;
-							if ($_zenpage_news_enabled && (getOption('RSS_articles'))) {
-								$rss = true;
-								$type = 'News';
-							} else if (getOption('RSS_album_image')) {
-								$rss = true;
-								$type = 'Gallery';
-							}
-							if ($rss) {
-								?>
-								<div class="feed pull-right">
-									<?php printRSSLink($type, '', '', '', false, 'rss'); ?>
-								</div>
-								<script type="text/javascript">
-									//<![CDATA[
-									$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_themeroot; ?>/images/feed_icon.png">');
-									//]]>
-								</script>
-								<?php
-							}
+					if (extensionEnabled('rss')) {
+						$rss = false;
+						if ($_zenpage_news_enabled && (getOption('RSS_articles'))) {
+							$rss = true;
+							$type = 'News';
+						} else if (getOption('RSS_album_image')) {
+							$rss = true;
+							$type = 'Gallery';
 						}
-						if (getOption('zpB_social_links')) {
+						if ($rss) {
 							?>
-							<div class="addthis pull-right">
-								<!-- AddThis Button BEGIN -->
-								<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-									<a class="addthis_button_facebook"></a>
-									<a class="addthis_button_twitter"></a>
-									<!--<a class="addthis_button_favorites"></a>-->
-									<a class="addthis_button_compact"></a>
-								</div>
-								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-								<!-- AddThis Button END -->
+							<div class="feed pull-right">
+								<?php printRSSLink($type, '', '', '', false, 'rss'); ?>
 							</div>
+							<script type="text/javascript">
+								//<![CDATA[
+								$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_themeroot; ?>/images/feed_icon.png">');
+								//]]>
+							</script>
 							<?php
 						}
 					}
+					if (getOption('zpB_social_links')) {
+						?>
+						<div class="addthis pull-right">
+							<!-- AddThis Button BEGIN -->
+							<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+								<a class="addthis_button_facebook"></a>
+								<a class="addthis_button_twitter"></a>
+								<!--<a class="addthis_button_favorites"></a>-->
+								<a class="addthis_button_compact"></a>
+							</div>
+							<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+							<!-- AddThis Button END -->
+						</div>
+						<?php
+					}
 					?>
 				</div>
-				<div class = "header col-sm-pull-3 col-sm-9">
+				<div class="header col-sm-pull-3 col-sm-9">
