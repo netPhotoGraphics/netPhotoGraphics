@@ -703,6 +703,9 @@ plugins/noCaptcha.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
 plugins/pluginEnabler.php
+plugins/tagURLs/
+plugins/tagURLs/migrateURLs.php
+plugins/tagURLs.php
 plugins/titlelinkMigration/
 plugins/titlelinkMigration/migrate.php
 plugins/titlelinkMigration.php
@@ -8124,4 +8127,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8126
+8129
