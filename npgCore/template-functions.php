@@ -58,8 +58,6 @@ function printThemeCloseItems() {
 function adminToolbox() {
 	global $_current_album, $_current_image, $_current_search, $_gallery_page, $_gallery, $_current_admin_obj, $_loggedin;
 	if (npg_loggedin()) {
-		$id = 'admin_tb';
-		$dataid = 'admin_tb_data';
 		$page = getCurrentPage();
 		if (!$name = $_current_admin_obj->getName()) {
 			$name = $_current_admin_obj->getUser();
@@ -80,14 +78,14 @@ function adminToolbox() {
 			<?php
 		}
 		?>
-		<div id="<?php echo $id; ?>">
-			<a onclick="$('#<?php echo $dataid; ?>').toggle();" title="<?php echo gettext('Logged in as') . ' ' . $name; ?>" style="text-decoration: none;">
+		<div id="admin_tb" style="zindex: 90001">
+			<a onclick="$('#admin_tb_data').toggle();" title="<?php echo gettext('Logged in as') . ' ' . $name; ?>" style="text-decoration: none;">
 				<span class="adminGear">
 					<?php echo GEAR_SYMBOL; ?>
 				</span>
 			</a>
 		</div>
-		<div id="<?php echo $dataid; ?>" style="display: none;">
+		<div id="admin_tb_data">
 			<ul style="list-style-type: none;" >
 				<?php
 				if (npg_loggedin(OVERVIEW_RIGHTS)) {
