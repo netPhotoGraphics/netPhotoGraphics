@@ -696,12 +696,9 @@ themes/zenpage/images/footer.jpg
 themes/zenpage/images/header.jpg
 themes/zenpage/images/tag.png
 plugins
-plugins/cacheHeader.php
 plugins/cookieInvalidator.php
-plugins/create_album.php
 plugins/customFieldExtender.php
 plugins/devReleases.php
-plugins/headConsolidator.php
 plugins/noCaptcha.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
@@ -8127,4 +8124,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8129
+8126
