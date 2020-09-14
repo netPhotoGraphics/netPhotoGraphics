@@ -12,7 +12,7 @@ $MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
 				"insertdatetime media nonbreaking save table directionality " .
 				"emoticons template paste ";
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";
-$MCEtoolbars[2] = "media | emoticons | ltr rtl code";
+$MCEtoolbars[2] = "media | emoticons nonbreaking | ltr rtl code";
 $MCEstatusbar = true;
 $MCEmenubar = true;
 include(TINYMCE . '/config/config.js.php');
