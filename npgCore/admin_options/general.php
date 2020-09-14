@@ -10,9 +10,9 @@ function saveOptions() {
 	$notify = $returntab = NULL;
 	$returntab = "&tab=general";
 	$tags = strtolower(sanitize($_POST['allowed_tags'], 0));
-	$test = "(" . $tags . ")";
+	$test = '(' . $tags . ')';
 	$a = parseAllowedTags($test);
-	if ($a) {
+	if (is_array($a)) {
 		setOption('allowed_tags', $tags);
 	} else {
 		$notify = '?tag_parse_error=' . $a;
@@ -526,9 +526,13 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Allowed tags"); ?></td>
 					<td class="option_value">
-						<textarea name="allowed_tags" id="allowed_tags" class="fullwidth" rows="4" cols="35">
-							<?php echo html_encode(getOption('allowed_tags')); ?>
-						</textarea>
+						<?php
+						$tags = getOption('allowed_tags');
+						if (empty($tags)) {
+							$tags = getOption('allowed_tags_default');
+						}
+						?>
+						<textarea name="allowed_tags" id="allowed_tags" class="fullwidth" rows="4" cols="35"><?php echo $tags; ?></textarea>
 						<p>
 							<?php npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext('Revert to default'), array('buttonClick' => "resetallowedtags()")); ?>
 						</p>
