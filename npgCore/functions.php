@@ -44,6 +44,7 @@ function parseAllowedTags(&$source) {
 		}
 		if (@$source[1] == ')') {
 			$source = trim(substr($source, 2));
+			$a[$tag] = array();
 		} else {
 			$x = parseAllowedTags($source);
 			if (!is_array($x)) {

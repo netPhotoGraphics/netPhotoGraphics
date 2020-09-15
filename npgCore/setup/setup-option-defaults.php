@@ -499,8 +499,8 @@ $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>())\n" 
 				"track=>(src=>() kind=>() scrlang=>() label=>() default=>())\n" .
 				"table=>(class=>() id=>())\n" .
 				"caption=>(class=>() id=>())\n" .
-				"th=>(class=>() id=>())\n" .
 				"tr=>(class=>() id=>())\n" .
+				"th=>(class=>() id=>() colspan=>())\n" .
 				"td=>(class=>() id=>() colspan=>())\n" .
 				"thead=>(class=>() id=>())\n" .
 				"tbody=>(class=>() id=>())\n" .
