@@ -1618,6 +1618,7 @@ function getAllowedTags($which) {
 				$style_tags = "(" . getOption('style_tags') . ")";
 				$allowed_tags = parseAllowedTags($style_tags);
 				if (!is_array($allowed_tags)) { // Nobody should be messing with this option! but be safe.
+					debugLog(sprintf(gettext('Style tags parse error: %1$s'), $allowed_tags));
 					$allowed_tags = array();
 				}
 				$_style_tags = $allowed_tags;
@@ -1630,6 +1631,7 @@ function getAllowedTags($which) {
 					$user_tags = "(" . getOption('allowed_tags') . ")";
 					$allowed_tags = parseAllowedTags($user_tags);
 					if (!is_array($allowed_tags)) { // revert to the default
+						debugLog(sprintf(gettext('Allowed tags parse error: %1$s'), $allowed_tags));
 						$allowed_tags = getAllowedTags('allowed_tags_default');
 					}
 					$_user_tags = $allowed_tags;
@@ -1642,6 +1644,7 @@ function getAllowedTags($which) {
 				$default_tags = "(" . getOption('allowed_tags_default') . ")";
 				$allowed_tags = parseAllowedTags($default_tags);
 				if (!is_array($allowed_tags)) { // someone has screwed with the 'allowed_tags' option row in the database, but better safe than sorry
+					debugLog(sprintf(gettext('Allowed tags default parse error: %1$s'), $allowed_tags));
 					$allowed_tags = array();
 				}
 				$_default_tags = $allowed_tags;
