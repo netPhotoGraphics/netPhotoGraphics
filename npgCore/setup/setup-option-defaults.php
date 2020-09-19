@@ -456,25 +456,25 @@ setOptionDefault('hotlink_protection', '1');
 
 setOptionDefault('search_fields', 'title,desc,tags,file,location,city,state,country,content,author');
 
-$style_tags = "abbr =>(class=>() id=>() title =>())\n" .
-				"acronym =>(class=>() id=>() title =>())\n" .
-				"b => (class=>() id=>() )\n" .
-				"blockquote =>(class=>() id=>() cite =>())\n" .
-				"br => (class=>() id=>())\n" .
-				"code => (class=>() id=>())\n" .
-				"em => (class=>() id=>())\n" .
-				"i => (class=>() id=>()) \n" .
-				"strike => (class=>() id=>())\n" .
-				"strong => (class=>() id=>())\n" .
-				"sup => (class=>() id=>())\n" .
-				"sub => (class=>() id=>())\n"
+$style_tags = "abbr=>(class=>() id=>() title=>())\n" .
+				"acronym=>(class=>() id=>() title=>())\n" .
+				"b=>(class=>() id=>() )\n" .
+				"blockquote=>(class=>() id=>() cite=>())\n" .
+				"br=>(class=>() id=>())\n" .
+				"code=>(class=>() id=>())\n" .
+				"em=>(class=>() id=>())\n" .
+				"i=>(class=>() id=>()) \n" .
+				"strike=>(class=>() id=>())\n" .
+				"strong=>(class=>() id=>())\n" .
+				"sup=>(class=>() id=>())\n" .
+				"sub=>(class=>() id=>())\n"
 ;
 
-$general_tags = "a => (href =>() title =>() target=>() class=>() id=>() rel=>())\n" .
-				"ul => (class=>() id=>())\n" .
-				"ol => (class=>() id=>())\n" .
-				"li => (class=>() id=>())\n" .
-				"p => (class=>() id=>() style=>())\n" .
+$general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>())\n" .
+				"ul=>(class=>() id=>())\n" .
+				"ol=>(class=>() id=>())\n" .
+				"li=>(class=>() id=>())\n" .
+				"p=>(class=>() id=>() style=>())\n" .
 				"h1=>(class=>() id=>() style=>())\n" .
 				"h2=>(class=>() id=>() style=>())\n" .
 				"h3=>(class=>() id=>() style=>())\n" .
@@ -485,31 +485,34 @@ $general_tags = "a => (href =>() title =>() target=>() class=>() id=>() rel=>())
 				"address=>(class=>() id=>() style=>())\n" .
 				"span=>(class=>() id=>() style=>())\n" .
 				"div=>(class=>() id=>() style=>())\n" .
-				"img=>(class=>() id=>() style=>() src=>() title=>() alt=>() width=>() height=>() size=>() srcset=>())\n" .
-				"iframe=>(class=>() id=>() style=>() src=>() title=>() width=>() height=>())\n" .
+				"img=>(class=>() id=>() style=>() src=>() title=>() alt=>() width=>() height=>() sizes=>() srcset=>() loading=>())\n" .
+				"iframe=>(class=>() id=>() style=>() src=>() title=>() width=>() height=>() loading=>())\n" .
 				"figure=>(class=>() id=>() style=>())\n" .
 				"figcaption=>(class=>() id=>() style=>())\n" .
 				"article=>(class=>() id=>() style=>())\n" .
-				"section => (class=>() id=>() style=>())\n" .
-				"nav => (class=>() id=>() style=>())\n" .
-				"video => (class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() poster=>())\n" .
-				"audio => (class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() volume=>())\n" .
+				"section=>(class=>() id=>() style=>())\n" .
+				"nav=>(class=>() id=>() style=>())\n" .
+				"video=>(class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() poster=>())\n" .
+				"audio=>(class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() volume=>())\n" .
 				"picture=>(class=>() id=>())\n" .
 				"source=>(src=>() scrset=>() size=>() type=>() media=>())\n" .
 				"track=>(src=>() kind=>() scrlang=>() label=>() default=>())\n" .
-				"table => (class=>() id=>())\n" .
-				"caption => (class=>() id=>())\n" .
-				"th => (class=>() id=>())\n" .
-				"tr => (class=>() id=>())\n" .
-				"td => (class=>() id=>() colspan=>())\n" .
-				"thead => (class=>() id=>())\n" .
-				"tbody => (class=>() id=>())\n" .
-				"tfoot => (class=>() id=>())\n" .
-				"colgroup => (class=>() id=>())\n" .
-				"col => (class=>() id=>())\n"
+				"table=>(class=>() id=>())\n" .
+				"caption=>(class=>() id=>())\n" .
+				"tr=>(class=>() id=>())\n" .
+				"th=>(class=>() id=>() colspan=>())\n" .
+				"td=>(class=>() id=>() colspan=>())\n" .
+				"thead=>(class=>() id=>())\n" .
+				"tbody=>(class=>() id=>())\n" .
+				"tfoot=>(class=>() id=>())\n" .
+				"colgroup=>(class=>() id=>())\n" .
+				"col=>(class=>() id=>())\n"
 ;
+
+if (getOption('allowed_tags_default') == getOption('allowed_tags_default')) {
+	purgeOption('allowed_tags'); //	propegate any updates
+}
 setOption('allowed_tags_default', $style_tags . $general_tags);
-setOptionDefault('allowed_tags', $style_tags . $general_tags);
 setOptionDefault('style_tags', $style_tags);
 
 setOptionDefault('GDPR_text', getAllTranslations('Check to acknowledge the site <a href="%s">usage policy</a>.'));
@@ -876,7 +879,7 @@ $plugins = array_keys($plugins);
 	<?php
 	setOptionDefault('deprecated_functions_signature', NULL);
 
-	//clean up plugins needed for themes and other plugins
+//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {

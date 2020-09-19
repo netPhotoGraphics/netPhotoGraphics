@@ -12,7 +12,7 @@ $MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
 				"insertdatetime media nonbreaking save table " .
 				"emoticons template paste pasteobj directionality ";
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";
-$MCEtoolbars[2] = "media | emoticons pasteobj | ltr rtl code fullscreen";
+$MCEtoolbars[2] = "media | emoticons nonbreaking pasteobj | ltr rtl code fullscreen";
 $MCEstatusbar = true;
 $MCEmenubar = true;
 

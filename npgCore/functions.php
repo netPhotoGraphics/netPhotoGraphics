@@ -21,34 +21,44 @@ require_once(__DIR__ . '/initialize-general.php');
 function parseAllowedTags(&$source) {
 	$source = trim($source);
 	if (@$source[0] != "(") {
-		return false;
+		return gettext('Missing open paren');
 	}
 	$source = substr($source, 1); //strip off the open paren
 	$a = array();
 	while (strlen($source) > 1 && $source[0] != ")") {
-		$i = strpos($source, '=>');
-		if ($i === false) {
-			return false;
+		if (!preg_match('~^([a-zA-Z0-9_]*)\s*([^\(\s]*)~', $source, $matches) || $matches[2] != '=>') {
+			$a = gettext('missing assignment operator ');
+			break;
 		}
+		$i = strpos($source, '=>');
 		$tag = trim(substr($source, 0, $i));
-//strip forbidden tags from list
+		//strip forbidden tags from list
 		if ($tag == 'script') {
-			return 0;
+			$a = gettext('"script" tags are not permitted');
+			break;
 		}
 		$source = trim(substr($source, $i + 2));
 		if (@$source[0] != "(") {
-			return false;
+			$a = gettext('Missing open paren');
+			break;
 		}
-		$x = parseAllowedTags($source);
-		if ($x === false) {
-			return false;
+		if (@$source[1] == ')') {
+			$source = trim(substr($source, 2));
+			$a[$tag] = array();
+		} else {
+			$x = parseAllowedTags($source);
+			if (!is_array($x)) {
+				return $x;
+			}
+			$a[$tag] = $x;
 		}
-		$a[$tag] = $x;
 	}
-	if (@$source[0] != ')') {
-		return false;
+	if (is_array($a) && @$source[0] != ')') {
+		$a = gettext('Missing closing paren');
+	} else {
+		$source = trim(substr($source, 1)); //strip the close paren
 	}
-	$source = trim(substr($source, 1)); //strip the close paren
+
 	return $a;
 }
 
@@ -2352,14 +2362,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
