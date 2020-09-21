@@ -156,7 +156,7 @@ class user_groups {
 			} else {
 				$display = $user['user'];
 			}
-			$grouppart .= '<label title="' . html_encode($user['other_credentials']) . $type . '"' . $highlight . '><input type="checkbox" class="' . $class . '" name="user[' . $i . '][group][]" id="' . $user['user'] . '_' . $i . '" value="' . $user['user'] . '" onclick="groupchange' . $i . '(' . $case . ');"' . $checked . ' />' . html_encode($display) . '</label>' . "\n";
+			$grouppart .= '<label title="' . html_encode(get_language_string($user['other_credentials'])) . $type . '"' . $highlight . '><input type="checkbox" class="' . $class . '" name="user[' . $i . '][group][]" id="' . $user['user'] . '_' . $i . '" value="' . $user['user'] . '" onclick="groupchange' . $i . '(' . $case . ');"' . $checked . ' />' . html_encode($display) . '</label>' . "\n";
 		}
 
 		$grouppart .= "</ul>\n";

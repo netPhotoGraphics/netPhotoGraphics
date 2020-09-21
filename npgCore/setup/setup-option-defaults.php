@@ -548,59 +548,78 @@ setOptionDefault('search_no_albums', 0);
 if (!is_array($groupsdefined)) {
 	$groupsdefined = array();
 }
-if (!in_array('administrators', $groupsdefined)) {
-	$groupobj = npg_Authority::newAdministrator('administrators', 0);
+
+$groupobj = NUll;
+if (!in_array('administrators', $groupsdefined) || $groupobj = $_authority->getAnAdmin(array('`user`=' => 'administrators', '`valid`=' => 0))) {
+	if (!$groupobj) {
+		$groupobj = npg_Authority::newAdministrator('administrators', 0);
+		$groupsdefined[] = 'administrators';
+	}
 	$groupobj->setName('group');
 	$groupobj->setRights(ALL_RIGHTS);
-	$groupobj->set('other_credentials', gettext('Users with full privileges'));
+	$groupobj->set('other_credentials', getAllTranslations('Users with full privileges'));
 	$groupobj->setValid(0);
 	$groupobj->save();
-	$groupsdefined[] = 'administrators';
 }
-if (!in_array('viewers', $groupsdefined)) {
-	$groupobj = npg_Authority::newAdministrator('viewers', 0);
+$groupobj = NUll;
+if (!in_array('viewers', $groupsdefined) || $groupobj = $_authority->getAnAdmin(array('`user`=' => 'viewers', '`valid`=' => 0))) {
+	if (!$groupobj) {
+		$groupobj = npg_Authority::newAdministrator('viewers', 0);
+		$groupsdefined[] = 'blocked';
+	}
 	$groupobj->setName('group');
 	$groupobj->setRights(NO_RIGHTS | POST_COMMENT_RIGHTS | VIEW_ALL_RIGHTS);
-	$groupobj->set('other_credentials', gettext('Users allowed only to view and comment'));
+	$groupobj->set('other_credentials', getAllTranslations('Users allowed only to view and comment'));
 	$groupobj->setValid(0);
 	$groupobj->save();
-	$groupsdefined[] = 'viewers';
 }
-if (!in_array('blocked', $groupsdefined)) {
-	$groupobj = npg_Authority::newAdministrator('blocked', 0);
+$groupobj = NUll;
+if (!in_array('blocked', $groupsdefined) || $groupobj = $_authority->getAnAdmin(array('`user`=' => 'blocked', '`valid`=' => 0))) {
+	if (!$groupobj) {
+		$groupobj = npg_Authority::newAdministrator('blocked', 0);
+		$groupsdefined[] = 'blocked';
+	}
 	$groupobj->setName('group');
 	$groupobj->setRights(0);
-	$groupobj->set('other_credentials', gettext('Banned users'));
+	$groupobj->set('other_credentials', getAllTranslations('Banned users'));
 	$groupobj->setValid(0);
 	$groupobj->save();
-	$groupsdefined[] = 'blocked';
 }
-if (!in_array('album managers', $groupsdefined)) {
-	$groupobj = npg_Authority::newAdministrator('album managers', 0);
+$groupobj = NUll;
+if (!in_array('album managers', $groupsdefined) || $groupobj = $_authority->getAnAdmin(array('`user`=' => 'album managers', '`valid`=' => 0))) {
+	if (!$groupobj) {
+		$groupobj = npg_Authority::newAdministrator('album managers', 0);
+		$groupsdefined[] = 'album managers';
+	}
 	$groupobj->setName('template');
 	$groupobj->setRights(NO_RIGHTS | OVERVIEW_RIGHTS | POST_COMMENT_RIGHTS | VIEW_ALL_RIGHTS | UPLOAD_RIGHTS | COMMENT_RIGHTS | ALBUM_RIGHTS | THEMES_RIGHTS);
-	$groupobj->set('other_credentials', gettext('Managers of one or more albums'));
+	$groupobj->set('other_credentials', getAllTranslations('Managers of one or more albums'));
 	$groupobj->setValid(0);
 	$groupobj->save();
-	$groupsdefined[] = 'album managers';
 }
-if (!in_array('default', $groupsdefined)) {
-	$groupobj = npg_Authority::newAdministrator('default', 0);
+$groupobj = NUll;
+if (!in_array('default', $groupsdefined) || $groupobj = $_authority->getAnAdmin(array('`user`=' => 'default', '`valid`=' => 0))) {
+	if (!$groupobj) {
+		$groupobj = npg_Authority::newAdministrator('default', 0);
+		$groupsdefined[] = 'default';
+	}
 	$groupobj->setName('template');
 	$groupobj->setRights(DEFAULT_RIGHTS);
-	$groupobj->set('other_credentials', gettext('Default user settings'));
+	$groupobj->set('other_credentials', getAllTranslations('Default user settings'));
 	$groupobj->setValid(0);
 	$groupobj->save();
-	$groupsdefined[] = 'default';
 }
-if (!in_array('newuser', $groupsdefined)) {
-	$groupobj = npg_Authority::newAdministrator('newuser', 0);
+$groupobj = NUll;
+if (!in_array('newuser', $groupsdefined) || $groupobj = $_authority->getAnAdmin(array('`user`=' => 'newuser', '`valid`=' => 0))) {
+	if (!$groupobj) {
+		$groupobj = npg_Authority::newAdministrator('newuser', 0);
+		$groupsdefined[] = 'newuser';
+	}
 	$groupobj->setName('template');
 	$groupobj->setRights(NO_RIGHTS);
-	$groupobj->set('other_credentials', gettext('Newly registered and verified users'));
+	$groupobj->set('other_credentials', getAllTranslations('Newly registered and verified users'));
 	$groupobj->setValid(0);
 	$groupobj->save();
-	$groupsdefined[] = 'newuser';
 }
 setOption('defined_groups', serialize($groupsdefined)); // record that these have been set once (and never again)
 
