@@ -56,7 +56,14 @@ if (!defined('WEBPATH'))
 								}
 								?>
 								<a class="image<?php echo $imgclass; ?>" href="<?php echo html_encode($image->getLink()); ?>" title="<?php echo html_encode($image->getTitle()); ?>">
-									<img src="<?php echo $image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL); ?>" alt="<?php echo $image->getTitle(); ?>">
+									<?php
+									$html = '<img src="' . $image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL) . '" alt="' . $image->getTitle() . '">';
+									$html = npgFilters::apply('custom_image_html', $html, FALSE);
+									if (WEBP_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode($image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL, 'webp')) . "\">\n" . $html . "</picture>\n";
+									}
+									echo $html;
+									?>
 								</a>
 								<?php
 							}

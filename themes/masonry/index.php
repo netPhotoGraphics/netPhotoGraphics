@@ -52,7 +52,11 @@
 									$randomImageURL = html_encode($randomImage->getLink());
 									echo '<li><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
 									$html = "<img src=\"" . html_encode($randomImage->getCustomImage(null, $zpmas_ss_size_w, $zpmas_ss_size_h, $zpmas_ss_size_w, $zpmas_ss_size_h, null, null, true)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
-									echo npgFilters::apply('custom_image_html', $html, FALSE);
+									$html = npgFilters::apply('custom_image_html', $html, FALSE);
+									if (WEBP_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(null, $zpmas_ss_size_w, $zpmas_ss_size_h, $zpmas_ss_size_w, $zpmas_ss_size_h, null, null, true, NULL, 'webp')) . "\">\n" . $html . "</picture>\n";
+									}
+									echo $html;
 									echo "</a>";
 									echo '<h3><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">' . html_encodeTagged($randomImage->getTitle()) . '</a></h3>';
 									echo "</li>";

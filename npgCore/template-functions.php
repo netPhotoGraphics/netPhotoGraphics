@@ -2756,13 +2756,13 @@ function isLandscape($image = NULL) {
  *
  * @return string
  */
-function getDefaultSizedImage($image = NULL) {
+function getDefaultSizedImage($image = NULL, $suffix = NULL) {
 	global $_current_image;
 	if (is_null($image))
 		$image = $_current_image;
 	if (is_null($image))
 		return false;
-	return $image->getSizedImage(getOption('image_size'));
+	return $image->getSizedImage(getOption('image_size', $suffix));
 }
 
 /**
@@ -3450,10 +3450,11 @@ function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlb
 					$webp = $randomImage->getThumb(NULL, NULL, 'webp');
 					break;
 			}
-			echo npgFilters::apply('custom_image_html', $html, FALSE);
+			$html = npgFilters::apply('custom_image_html', $html, FALSE);
 			if (WEBP_FALLBACK) {
 				$html = "<picture>\n<source srcset=\"" . html_encode($webp) . "\">\n" . $html . "</picture>\n";
 			}
+			echo $html;
 			echo "</a>";
 			echo "</li>\n";
 		} else {

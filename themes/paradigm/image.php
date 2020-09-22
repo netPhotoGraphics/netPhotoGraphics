@@ -37,24 +37,7 @@ if (!defined('WEBPATH'))
 				<div class="text-center">
 
 					<?php
-					if (isImagePhoto()) {
-						$fullimage = getFullImageURL();
-					} else {
-						$fullimage = NULL;
-					}
-					if (!empty($fullimage)) {
-						?>
-						<?php
-					}
-					if (isImagePhoto()) {
-						echo '<img src="' . getFullImageURL() . '" alt="' . getImageTitle() . '" class="full-image"/>';
-					} else {
-						printDefaultSizedImage(getImageTitle());
-					}
-					if (!empty($fullimage)) {
-						?>
-						<?php
-					}
+					printDefaultSizedImage(getImageTitle());
 					?>
 
 
@@ -62,14 +45,14 @@ if (!defined('WEBPATH'))
 
 				<div class="row">
 					<div class="col-sm-6">
-						<?php
-						if (getImageDesc() != '') {
-							echo '<h2>' . gettext('Caption') . '</h2>';
-							echo '<p itemprop="caption">';
-							printImageDesc();
-							echo '</p>';
-						}
-						?>
+<?php
+if (getImageDesc() != '') {
+	echo '<h2>' . gettext('Caption') . '</h2>';
+	echo '<p itemprop="caption">';
+	printImageDesc();
+	echo '</p>';
+}
+?>
 
 						<?php
 						if ((getImageData('location') != '') || (getImageData('city') != '') || (getImageData('state') != '') || (getImageData('country') != '')) {
@@ -133,16 +116,16 @@ if (!defined('WEBPATH'))
 						?>
 					</div>
 					<div class="col-sm-6">
-						<?php
-						if (getImageMetaData()) {
-							printImageMetadata_zb();
-						}
-						?>
+<?php
+if (getImageMetaData()) {
+	printImageMetadata_zb();
+}
+?>
 					</div>
 				</div>
 
 				<!-- Codeblock 1 -->
-				<?php printCodeBlock(1); ?>
+<?php printCodeBlock(1); ?>
 
 				<?php
 				simpleMap::setMapDisplay('colorbox');
@@ -151,10 +134,10 @@ if (!defined('WEBPATH'))
 
 				<br style="clear:both" />
 
-				<?php @call_user_func('printCommentForm'); ?>
+<?php @call_user_func('printCommentForm'); ?>
 
 			</section>
-			<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
 		</div>
 	</div>
 </div>
