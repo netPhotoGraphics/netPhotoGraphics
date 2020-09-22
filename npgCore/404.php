@@ -16,15 +16,16 @@ if ($image) { //	maybe we can find it
 				$split = explode('?', $i);
 				$i = array_shift($split);
 
-				$i = stripSuffix($i);
+				$base = stripSuffix($i);
 				foreach ($_supported_images as $suffix) {
-					if (file_exists(getAlbumFolder() . $i . '.' . $suffix)) {
-						$uri = getImageURI($args, dirname($i), basename($i) . '.' . $suffix, NULL, $suffix);
+					if (file_exists(getAlbumFolder() . $base . '.' . $suffix)) {
+						$uri = getImageURI($args, dirname($i), basename($base) . '.' . $suffix, NULL, $suffix);
 						break;
 					}
-					$uri = getSpecialImageImageProcessorURI($i, $uri);
 				}
-
+				if (!isset($uri)) { //	Might be a special image
+					$uri = getSpecialImageImageProcessorURI($i, getImageURI($args, dirname($i), basename($i), NULL));
+				}
 				if ($uri) {
 					header("HTTP/1.0 302 Found");
 					header("Status: 302 Found");
