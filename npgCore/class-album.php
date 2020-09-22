@@ -578,9 +578,9 @@ class AlbumBase extends MediaObject {
 	 * Gets the thumbnail URL for the album thumbnail image as returned by $this->getAlbumThumbImage();
 	 * @return string
 	 */
-	function getThumb() {
+	function getThumb($suffix = NULL) {
 		$image = $this->getAlbumThumbImage();
-		return $image->getThumb('album');
+		return $image->getThumb('album', NULL, $suffix);
 	}
 
 	/**

@@ -1243,7 +1243,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  * @param array $args cropping arguments
  * @return string
  */
-function getImageCacheFilename($album8, $image8, $args) {
+function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	global $_supported_images, $_cachefileSuffix;
 	// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
@@ -1252,12 +1252,14 @@ function getImageCacheFilename($album8, $image8, $args) {
 	}
 	$image = stripSuffix(internalToFilesystem($image8));
 
-	if (IMAGE_CACHE_SUFFIX) {
-		$suffix = IMAGE_CACHE_SUFFIX;
-	} else {
-		$suffix = @$_cachefileSuffix[strtoupper(getSuffix($image8))];
-		if (empty($suffix)) {
-			$suffix = 'jpg';
+	if (!$suffix) {
+		if (IMAGE_CACHE_SUFFIX) {
+			$suffix = IMAGE_CACHE_SUFFIX;
+		} else {
+			$suffix = @$_cachefileSuffix[strtoupper(getSuffix($image8))];
+			if (empty($suffix)) {
+				$suffix = 'jpg';
+			}
 		}
 	}
 	// Set default variable values.
@@ -1278,7 +1280,9 @@ function getImageCacheFilename($album8, $image8, $args) {
  * @return string
  */
 function getImageCachePostfix($args) {
-	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbStandin, $passedWM, $adminrequest, $effects) = $args;
+	$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+	extract($args);
+
 	$postfix_string = ($size ? "_s$size" : "") .
 					($width ? "_w$width" : "") .
 					($height ? "_h$height" : "") .
@@ -1286,9 +1290,9 @@ function getImageCachePostfix($args) {
 					($ch ? "_ch$ch" : "") .
 					(is_numeric($cx) ? "_cx$cx" : "") .
 					(is_numeric($cy) ? "_cy$cy" : "") .
-					($thumb || $thumbStandin ? '_thumb' : '') .
+					($thumb ? '_thumb' : '') .
 					($adminrequest ? '_admin' : '') .
-					(($passedWM && $passedWM != NO_WATERMARK) ? '_' . $passedWM : '') .
+					(($WM && $WM != NO_WATERMARK) ? '_' . $WM : '') .
 					($effects ? '_' . $effects : '');
 	return $postfix_string;
 }
@@ -1300,16 +1304,17 @@ function getImageCachePostfix($args) {
  * @return array
  */
 function getImageParameters($args, $album = NULL) {
+	$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+
 	$thumb_crop = getOption('thumb_crop');
 	$thumb_size = getOption('thumb_size');
 	$thumb_crop_width = getOption('thumb_crop_width');
 	$thumb_crop_height = getOption('thumb_crop_height');
 	$image_default_size = getOption('image_size');
 	$quality = getOption('image_quality');
-// Set up the parameters
+	// Set up the parameters
 	$thumb = $crop = false;
-	@list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $WM, $adminrequest, $effects) = $args;
-	$thumb = $thumbstandin;
+	extract($args);
 
 	switch ($size) {
 		case 'thumb':
@@ -1403,8 +1408,8 @@ function getImageParameters($args, $album = NULL) {
 			}
 		}
 	}
-// Return an array of parameters used in image conversion.
-	$args = array($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $WM, $adminrequest, $effects);
+	// Return an array of parameters used in image conversion.
+	$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'quality' => $quality, 'crop' => $crop, 'thumb' => $thumb, 'WM' => $WM, 'adminrequest' => $adminrequest, 'effects' => $effects);
 	return $args;
 }
 
@@ -1430,84 +1435,62 @@ function ipProtectTag($album, $image, $args) {
  * @param string $image the image name
  * @return string
  */
-function getImageProcessorURI($args, $album, $image) {
-	list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
+function getImageProcessorURI($args, $album, $image, $suffix) {
+	$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+	extract($args);
 
 	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . pathurlencode($album);
 	if (is_array($image)) {
 		$uri .= '&i=' . urlencode($image['name']) . '&z=' . ($z = $image['source']);
 	} else {
 		$uri .= '&i=' . urlencode($image);
-		$z = NULL;
 	}
-	if (empty($size)) {
-		$args[0] = NULL;
-	} else {
-		$uri .= '&s=' . ($args[0] = (int) $size);
+	if (!empty($size)) {
+		$uri .= '&s=' . (int) $size;
 	}
 	if ($width) {
-		$uri .= '&w=' . ($args[1] = (int) $width);
-	} else {
-		$args[1] = NULL;
+		$uri .= '&w=' . (int) $width;
 	}
 	if ($height) {
-		$uri .= '&h=' . ($args[2] = (int) $height);
-	} else {
-		$args[2] = NULL;
+		$uri .= '&h=' . (int) $height;
 	}
-	if (is_null($cw)) {
-		$args[3] = NULL;
-	} else {
-		$uri .= '&cw=' . ($args[3] = (int) $cw);
+	if (!is_null($cw)) {
+		$uri .= '&cw=' . (int) $cw;
 	}
-	if (is_null($ch)) {
-		$args[4] = NULL;
-	} else {
-		$uri .= '&ch=' . ($args[4] = (int) $ch);
+	if (!is_null($ch)) {
+		$uri .= '&ch=' . (int) $ch;
 	}
-	if (is_null($cx)) {
-		$args[5] = NULL;
-	} else {
-		$uri .= '&cx=' . ($args[5] = (int) $cx);
+	if (!is_null($cx)) {
+		$uri .= '&cx=' . (int) $cx;
 	}
-	if (is_null($cy)) {
-		$args[6] = NULL;
-	} else {
-		$uri .= '&cy=' . ($args[6] = (int) $cy);
+	if (!is_null($cy)) {
+		$uri .= '&cy=' . (int) $cy;
 	}
 	if ($quality) {
-		$uri .= '&q=' . ($args[7] = (int) $quality);
-	} else {
-		$args[7] = NULL;
+		$uri .= '&q=' . (int) $quality;
 	}
-	$args[8] = NULL; // not used by image processor
 	if ($crop) {
-		$uri .= '&c=' . ($args[9] = 1);
-	} else {
-		$args[9] = NULL;
+		$uri .= '&c=' . ($crop = 1);
 	}
-	if ($thumb || $thumbstandin) {
-		$uri .= '&t=' . ($args[10] = 1);
-	} else {
-		$args[10] = NULL;
+	if ($thumb) {
+		$uri .= '&t=' . ($thumb = 1);
 	}
-	if ($passedWM) {
-		$uri .= '&wmk=' . $passedWM;
-	} else {
-		$args[11] = NULL;
+	if ($WM) {
+		$uri .= '&wmk=' . $WM;
 	}
 	if ($adminrequest) {
-		$args[12] = true;
 		$uri .= '&admin=1';
-	} else {
-		$args[12] = false;
 	}
 	if ($effects) {
 		$uri .= '&effects=' . $effects;
-	} else {
-		$args[13] = NULL;
 	}
-	$args[14] = $z;
+	if ($suffix) {
+		$uri .= '&suffix=' . $suffix;
+		$args['suffix'] = $suffix;
+	}
+	if (isset($z)) {
+		$args['z'] = $z;
+	}
 
 	$uri .= '&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
@@ -1522,57 +1505,55 @@ function getImageProcessorURI($args, $album, $image) {
  * @return array
  */
 function getImageArgs($set) {
-	$args = array(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	$args = array();
 	if (isset($set['s'])) { //0
 		if (is_numeric($s = $set['s'])) {
 			if ($s) {
-				$args[0] = (int) min(abs($s), MAX_SIZE);
+				$args['size'] = (int) min(abs($s), MAX_SIZE);
 			}
 		} else {
-			$args[0] = sanitize($set['s']);
+			$args['size'] = sanitize($set['s']);
 		}
 	} else {
 		if (!isset($set['w']) && !isset($set['h'])) {
-			$args[0] = MAX_SIZE;
+			$args['size'] = MAX_SIZE;
 		}
 	}
+	$i = 0;
 	if (isset($set['w'])) { //1
-		$args[1] = (int) min(abs(sanitize_numeric($set['w'])), MAX_SIZE);
+		$args['width'] = (int) min(abs(sanitize_numeric($set['w'])), MAX_SIZE);
 	}
 	if (isset($set['h'])) { //2
-		$args[2] = (int) min(abs(sanitize_numeric($set['h'])), MAX_SIZE);
+		$args['height'] = (int) min(abs(sanitize_numeric($set['h'])), MAX_SIZE);
 	}
 	if (isset($set['cw'])) { //3
-		$args[3] = (int) sanitize_numeric(($set['cw']));
+		$args['cw'] = (int) sanitize_numeric(($set['cw']));
 	}
 	if (isset($set['ch'])) { //4
-		$args[4] = (int) sanitize_numeric($set['ch']);
+		$args['ch'] = (int) sanitize_numeric($set['ch']);
 	}
 	if (isset($set['cx'])) { //5
-		$args[5] = (int) sanitize_numeric($set['cx']);
+		$args['cx'] = (int) sanitize_numeric($set['cx']);
 	}
 	if (isset($set['cy'])) { //6
-		$args[6] = (int) sanitize_numeric($set['cy']);
+		$args['cy'] = (int) sanitize_numeric($set['cy']);
 	}
 	if (isset($set['q'])) { //7
-		$args[7] = (int) sanitize_numeric($set['q']);
+		$args['quality'] = (int) sanitize_numeric($set['q']);
 	}
 	if (isset($set['c'])) {// 9
-		$args[9] = (int) sanitize($set['c']);
+		$args['crop'] = (int) sanitize($set['c']);
 	}
 	if (isset($set['t'])) { //10
-		$args[10] = (int) sanitize($set['t']);
+		$args['thumb'] = (int) sanitize($set['t']);
 	}
 	if (isset($set['wmk']) && !isset($_GET['admin'])) { //11
-		$args[11] = sanitize($set['wmk']);
+		$args['WM'] = sanitize($set['wmk']);
 	}
-	$args[12] = (bool) isset($_GET['admin']); //12
+	$args['adminrequest'] = (bool) isset($_GET['admin']); //12
 
 	if (isset($set['effects'])) { //13
-		$args[13] = sanitize($set['effects']);
-	}
-	if (isset($set['z'])) { //	14
-		$args[14] = sanitize($set['z']);
+		$args['effects'] = sanitize($set['effects']);
 	}
 
 	return $args;
@@ -1595,14 +1576,14 @@ function getImageArgs($set) {
  * @param int $mitme mtime of the image
  * @return string
  */
-function getImageURI($args, $album, $image, $mtime) {
-	$cachefilename = getImageCacheFilename($album, $image, $args);
+function getImageURI($args, $album, $image, $mtime, $suffix = NULL) {
+	$cachefilename = getImageCacheFilename($album, $image, $args, $suffix);
 	if (OPEN_IMAGE_CACHE && file_exists(SERVERCACHE . $cachefilename)) {
 		if (($cachefiletime = filemtime(SERVERCACHE . $cachefilename)) >= $mtime) {
 			return WEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cachefilename)) . '?cached=' . $cachefiletime;
 		}
 	}
-	return getImageProcessorURI($args, $album, $image);
+	return getImageProcessorURI($args, $album, $image, $suffix);
 }
 
 /**

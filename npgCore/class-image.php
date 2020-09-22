@@ -1152,10 +1152,10 @@ class Image extends MediaObject {
 	 * @param int $size how big an image is wanted
 	 * @return string
 	 */
-	function getSizedImage($size) {
+	function getSizedImage($size, $suffix = NULL) {
 		$wmt = getWatermarkParam($this, WATERMARK_IMAGE);
-		$args = getImageParameters(array($size, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $wmt), $this->album->name);
-		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime);
+		$args = getImageParameters(array('size' => $size, 'WM' => $wmt), $this->album->name);
+		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime, $suffix);
 	}
 
 	/**
@@ -1172,7 +1172,7 @@ class Image extends MediaObject {
 	 * @param bool $effects set to desired image effect (e.g. 'gray' to force gray scale)
 	 * @return string
 	 */
-	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL) {
+	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
 		if ($thumbStandin < 0) {
 			$wmt = '!';
 		} else {
@@ -1182,8 +1182,8 @@ class Image extends MediaObject {
 				$wmt = getWatermarkParam($this, WATERMARK_IMAGE);
 			}
 		}
-		$args = getImageParameters(array($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, $thumbStandin, NULL, $thumbStandin, $wmt, NULL, $effects), $this->album->name);
-		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime);
+		$args = getImageParameters(array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt, 'effects' => $effects), $this->album->name);
+		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime, $suffix);
 	}
 
 	/**
@@ -1234,8 +1234,11 @@ class Image extends MediaObject {
 		}
 		$html = '<img src="' . html_encode($this->getSizedImage($size)) . '" alt="' . html_encode($this->getTitle()) . '"' .
 						' width="' . $neww . '" height="' . $newh . '"' .
-						(($class) ? " class=\"$class\"" : "") . " />";
+						(($class) ? " class=\"$class\"" : "") . " />\n";
 		$html = npgFilters::apply('standard_image_html', $html, FALSE);
+		if (WEBP_FALLBACK) {
+			$html = "<picture>\n<source srcset=\"" . html_encode($this->getSizedImage($size, 'webp')) . "\">\n" . $html . "</picture>\n";
+		}
 		return $html;
 	}
 
@@ -1288,7 +1291,7 @@ class Image extends MediaObject {
 	 *
 	 * @return string
 	 */
-	function getThumb($type = 'image', $wmt = NULL) {
+	function getThumb($type = 'image', $wmt = NULL, $suffix = NULL) {
 		$ts = getOption('thumb_size');
 		if (getOption('thumb_crop')) {
 			$sw = getOption('thumb_crop_width');
@@ -1303,9 +1306,9 @@ class Image extends MediaObject {
 		if (empty($wmt)) {
 			$wmt = getWatermarkParam($this, WATERMARK_THUMB);
 		}
-		$args = getImageParameters(array($ts, NULL, NULL, $sw, $sh, NULL, NULL, NULL, true, NULL, true, $wmt, NULL, NULL), $this->album->name);
+		$args = getImageParameters(array('size' => $ts, 'cw' => $sw, 'ch' => $sh, 'thumb' => TRUE, 'WM' => $wmt), $this->album->name);
 
-		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime);
+		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime, $suffix);
 	}
 
 	/**

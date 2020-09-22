@@ -45,8 +45,11 @@ function saveOptions() {
 	setOption('watermark_allow_upscale', (int) isset($_POST['watermark_allow_upscale']));
 	setOption('watermark_h_offset', sanitize($_POST['watermark_h_offset'], 3));
 	setOption('watermark_w_offset', sanitize($_POST['watermark_w_offset'], 3));
+	setOption('webp_fallback', (int) isset($_POST['webp_fallback']));
+	if (isset($_POST['webp_fallback']) && sanitize($_POST['image_cache_suffix']) == 'webp') {
+		$_POST['image_cache_suffix'] = '';
+	}
 	setOption('image_cache_suffix', sanitize($_POST['image_cache_suffix']));
-
 	$imageplugins = array_unique($_images_classes);
 	foreach ($imageplugins as $plugin) {
 		$opt = $plugin . '_watermark';
@@ -79,6 +82,7 @@ function saveOptions() {
 		@unlink(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
 		setOption('protected_image_cache', 0);
 	}
+
 	setOption('hotlink_protection', (int) isset($_POST['hotlink_protection']));
 	setOption('use_lock_image', (int) isset($_POST['use_lock_image']));
 	$st = sanitize($_POST['image_sorttype'], 3);
@@ -570,30 +574,69 @@ function getOptionContent() {
 				<tr>
 					<td class="option_name"><?php echo gettext("Cache as"); ?></td>
 					<td class="option_value">
-						<?php $type = IMAGE_CACHE_SUFFIX; ?>
+						<?php
+						$type = IMAGE_CACHE_SUFFIX;
+						?>
 						<input type="radio" name="image_cache_suffix" value=""<?php if (empty($type)) echo ' checked="checked"'; ?> />&nbsp;<?php echo gettext("original"); ?>
 						<?php
 						$cachesuffix = array_unique($_cachefileSuffix);
 						foreach ($cachesuffix as $suffix) {
 							if ($suffix) {
+								$checked = '';
+								if (WEBP_FALLBACK && $suffix == 'webp') {
+									$disable = ' disabled="disabled"';
+								} else {
+									$disable = '';
+									if ($type == $suffix) {
+										$checked = ' checked="checked"';
+									}
+								}
 								?>
 								<label>
-									<input type="radio" name="image_cache_suffix" value="<?php echo $suffix; ?>"<?php if ($type == $suffix) echo ' checked="checked"'; ?> />&nbsp;<?php echo $suffix; ?>
+									<input type="radio" name="image_cache_suffix" value="<?php echo $suffix; ?>"<?php echo $checked . $disable ?> />&nbsp;<?php echo $suffix; ?>
 								</label>
 								<?php
 							}
 						}
 						?>
 					</td>
-					<td class="option_desc">
-						<span class="option_info">
-							<?php echo INFORMATION_BLUE; ?>
+					<td class = "option_desc">
+						<span class = "option_info">
+							<?php echo INFORMATION_BLUE;
+							?>
 							<div class="option_desc_hidden">
-								<?php echo gettext("Select a type for the images stored in the image cache. Select <em>Original</em> to preserve the original image’s type."); ?>
+								<?php
+								echo gettext("Select a type for the images stored in the image cache. Select <em>Original</em> to preserve the original image’s type.");
+								?>
 							</div>
 						</span>
 					</td>
 				</tr>
+				<?php
+				if (in_array('webp', $cachesuffix)) {
+					?>
+					<tr>
+						<td class="option_name"><?php echo gettext('webp <em>fallback</em>'); ?></td>
+						<td class="option_value">
+							<label>
+								<input type="checkbox" name="webp_fallback" value="fallback"<?php checked('1', getOption('webp_fallback')); ?> />
+							</label>
+						</td>
+						<td class = "option_desc">
+							<span class = "option_info">
+								<?php echo INFORMATION_BLUE;
+								?>
+								<div class="option_desc_hidden">
+									<?php
+									echo gettext("If webp <em>fallback</em> is checked, Images will be cached as <em>webp</em> in addition to the <em>Cache as</em> option. The standard functions to display images will offer allow the browser to fall back to the <em>Cache as</em> selection if <em>webp</em> is not supported.");
+									?>
+								</div>
+							</span>
+						</td>
+					</tr>
+					<?php
+				}
+				?>
 				<tr>
 					<td class="option_name"><?php echo gettext("Protect image cache"); ?></td>
 					<td class="option_value">
@@ -709,7 +752,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																 togglePassword('');" />
+																		 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 

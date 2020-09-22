@@ -88,7 +88,6 @@ if (!defined('WEBPATH'))
 						} else {
 							$fullimage = NULL;
 						}
-
 						if (!empty($fullimage)) {
 							?>
 							<a href="<?php echo html_encode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="fullimage">

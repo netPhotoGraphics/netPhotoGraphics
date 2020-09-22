@@ -110,8 +110,7 @@ switch ($use_side) {
 		$sizedheight = $size;
 		break;
 }
-$args = array($size, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
-$imageurl = getImageProcessorURI($args, $albumname, $imagepart);
+$imageurl = getImageProcessorURI(array('size' => $size, 'adminrequest' => 1), $albumname, $imagepart);
 
 $isCrop = $imageobj->get('thumbY');
 $iY = round($isCrop * $sr);

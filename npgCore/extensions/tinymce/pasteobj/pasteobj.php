@@ -17,7 +17,7 @@ header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
 function getIPSizedImage($size, $image) {
 	$wmt = getWatermarkParam($image, WATERMARK_IMAGE);
-	$args = getImageParameters(array($size, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $wmt), $image->album->name);
+	$args = getImageParameters(array('size' => $size, 'WM' => $wmt), $image->album->name);
 	return getImageProcessorURI($args, $image->album->name, $image->filename);
 }
 ?>

@@ -211,7 +211,7 @@ class Video extends Image {
 	 *
 	 * @return string
 	 */
-	function getThumb($type = 'image', $wmt = NULL) {
+	function getThumb($type = 'image', $wmt = NULL, $suffix = NULL) {
 		$ts = getOption('thumb_size');
 		$crop = false;
 		if (getOption('thumb_crop')) {
@@ -240,7 +240,8 @@ class Video extends Image {
 			$filename = filesystemToInternal($this->objectsThumb);
 			$mtime = filemtime(dirname($this->localpath) . '/' . $filename);
 		}
-		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, $crop, true, $wmt, NULL, NULL), $this->album->name);
+		$args = array('size' => $ts, 'width' => $sw, 'height' => $sh, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'crop' => $crop, 'thumb' => TRUE, 'WM' => $wmt);
+		$args = getImageParameters($args, $this->album->name);
 		return getImageURI($args, $this->album->name, $filename, $mtime);
 	}
 
@@ -258,10 +259,11 @@ class Video extends Image {
 	 * @param string $class Optional style class
 	 * @param string $id Optional style id
 	 * @param bool $thumbStandin set to true to treat as thumbnail
-	 * @param bool $effects ignored
+	 * @param bool $effects ignore
+	 * @param string $suffix ignored
 	 * @return string
 	 */
-	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL) {
+	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
 		if ($thumbStandin) {
 			$wmt = getOption('Video_watermark');
 			if (empty($wmt)) {
@@ -271,8 +273,7 @@ class Video extends Image {
 			$wmt = NULL;
 		}
 		if ($thumbStandin & 1) {
-			$args = array($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, $thumbStandin, NULL, $thumbStandin, NULL, NULL, NULL);
-
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin);
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!getOption('video_watermark_default_images')) {
@@ -285,7 +286,8 @@ class Video extends Image {
 			}
 			return getImageURI($args, $this->album->name, $filename, $this->filemtime);
 		} else {
-			$args = getImageParameters(array($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, $thumbStandin, NULL, $thumbStandin, $wmt, NULL, $effects), $this->album->name);
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $WM, 'effects' => $effects);
+			$args = getImageParameters($args, $this->album->name);
 			$filename = $this->filename;
 			return getImageURI($args, $this->album->name, $filename, $this->filemtime);
 		}
@@ -295,7 +297,7 @@ class Video extends Image {
 	 * (non-PHPdoc)
 	 * @see Image::getSizedImage()
 	 */
-	function getSizedImage($size) {
+	function getSizedImage($size, $suffix = NULL) {
 		$width = $this->getWidth();
 		$height = $this->getHeight();
 		if ($width > $height) { //portrait

@@ -6,7 +6,6 @@
 define("CACHE_HASH_LENGTH", strlen(sha1(HASH_SEED)));
 
 function getImageProcessorURIFromCacheName($match, $watermarks) {
-	$args = array(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 	$set = array();
 	$done = false;
 	$params = explode('_', stripSuffix($match));

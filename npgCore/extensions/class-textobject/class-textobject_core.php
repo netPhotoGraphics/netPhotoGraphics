@@ -150,7 +150,7 @@ class TextObject extends Image {
 	 * @param string $type 'image' or 'album'
 	 * @return string
 	 */
-	function getThumb($type = 'image', $wmt = NULL) {
+	function getThumb($type = 'image', $wmt = NULL, $suffix = NULL) {
 		$ts = getOption('thumb_size');
 		$crop = false;
 		if (getOption('thumb_crop')) {
@@ -179,7 +179,8 @@ class TextObject extends Image {
 			$filename = filesystemToInternal($this->objectsThumb);
 			$mtime = filemtime(dirname($this->localpath) . '/' . $filename);
 		}
-		$args = getImageParameters(array($ts, $sw, $sh, $cw, $ch, $cx, $cy, NULL, true, $crop, true, $wmt, NULL, NULL), $this->album->name);
+		$args = array('size' => $ts, 'width' => $sw, 'height' => $sh, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'crop' => $crop, 'thumb' => TRUE, 'WM' => $wmt);
+		$args = getImageParameters($args, $this->album->name);
 		return getImageURI($args, $this->album->name, $filename, $mtime);
 	}
 
@@ -222,9 +223,10 @@ class TextObject extends Image {
 	 * @param string $id Optional style id
 	 * @param bool $thumbStandin set to true to treat as thumbnail
 	 * @param bool $effects ignored
+	 * @param string $suffix ignored
 	 * @return string
 	 */
-	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL) {
+	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
 		if ($thumbStandin) {
 			$wmt = $this->watermark;
 			if (empty($wmt)) {
@@ -234,7 +236,8 @@ class TextObject extends Image {
 			$wmt = NULL;
 		}
 		if ($thumbStandin & 1) {
-			$args = getImageParameters(array($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, $thumbStandin, NULL, $thumbStandin, $wmt, NULL, $effects), $this->album->name);
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
+			$args = getImageParameters($args, $this->album->name);
 
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
@@ -256,7 +259,7 @@ class TextObject extends Image {
 	 * (non-PHPdoc)
 	 * @see Image::getSizedImage()
 	 */
-	function getSizedImage($size) {
+	function getSizedImage($size, $suffix = NULL) {
 		switch (getOption('image_use_side')) {
 			case 'width':
 			case 'longest':

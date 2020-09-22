@@ -65,9 +65,6 @@ if (getOption('secure_image_processor')) {
 	unset($albumobj);
 }
 
-$args = getImageArgs($_GET);
-$adminrequest = $args[12];
-
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
 	npg_session_start();
@@ -81,12 +78,13 @@ if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
 		return;
 	}
 }
+$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+$args = getImageParameters(getImageArgs($_GET), filesystemToInternal($album));
+extract($args);
 
-$args = getImageParameters($args, filesystemToInternal($album));
-list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
-if (DEBUG_IMAGE)
-	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$thumbstandin=$thumbstandin, \$passedWM=$passedWM, \$adminrequest=$adminrequest, \$effects=$effects");
-
+if (DEBUG_IMAGE) {
+	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$WM=$WM, \$adminrequest=$adminrequest, \$effects=$effects");
+}
 // Construct the filename to save the cached image.
 $newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args);
 $newfile = SERVERCACHE . $newfilename;

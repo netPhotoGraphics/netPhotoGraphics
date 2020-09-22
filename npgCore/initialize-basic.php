@@ -232,3 +232,5 @@ define('GITHUB_ORG', 'netPhotoGraphics');
 define('GITHUB', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics');
 
 define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s', getOption('last_admin_action')) . ' GMT');
+
+define('WEBP_FALLBACK', getOption('webp_fallback'));
