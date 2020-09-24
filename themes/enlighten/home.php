@@ -46,8 +46,17 @@ if (!defined('WEBPATH'))
 									if ($date) {
 										$date = strftime("%d %B %Y", strtotime($date));
 									}
-									echo "<a href='$link'><img src='$thumb' width='255' height='75'/></a>";
 									?>
+									<a href="<?php echo $link; ?>">
+										<?php
+										$html = "<img src='$thumb' width='255' height='75'/>";
+										$html = npgFilters::apply('custom_image_thumb_html', $html);
+										if (WEBP_FALLBACK) {
+											$html = "<picture>\n<source srcset=\"" . html_encode($i->getCustomImage(NULL, 255, 75, 255, 75, NULL, NULL, false, false, 'webp')) . "\">\n" . $html . "</picture>\n";
+										}
+										echo $html;
+										?>
+									</a>
 								</div>
 								<div class="albumdesc">
 									<?php

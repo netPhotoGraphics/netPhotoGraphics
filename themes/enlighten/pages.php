@@ -9,8 +9,9 @@ if (!defined('WEBPATH'))
 		npgFilters::apply('theme_head');
 
 		scriptLoader($_themeroot . '/style.css');
-
-		printRSSHeaderLink("Gallery", gettext('Gallery'));
+		if (extensionEnabled('rss')) {
+			printRSSHeaderLink("Gallery", gettext('Gallery'));
+		}
 		printZDRoundedCornerJS();
 		?>
 	</head>
