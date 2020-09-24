@@ -495,8 +495,8 @@ $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>())\n" 
 				"video=>(class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() poster=>())\n" .
 				"audio=>(class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() volume=>())\n" .
 				"picture=>(class=>() id=>())\n" .
-				"source=>(src=>() scrset=>() size=>() type=>() media=>())\n" .
-				"track=>(src=>() kind=>() scrlang=>() label=>() default=>())\n" .
+				"source=>(src=>() srcset=>() sizes=>() type=>() media=>())\n" .
+				"track=>(src=>() kind=>() srclang=>() label=>() default=>())\n" .
 				"table=>(class=>() id=>())\n" .
 				"caption=>(class=>() id=>())\n" .
 				"tr=>(class=>() id=>())\n" .
