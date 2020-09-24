@@ -106,7 +106,14 @@ $map = simpleMap::mapPlugin();
 								?>
 								<div id="nextalbum" class="slides">
 									<a href="<?php echo html_encode(getNextAlbumURL()); ?>" title="<?php echo gettext('Next album'); ?>"><?php echo gettext('Next album »'); ?><br />
-										<img src="<?php echo html_encode($nextalbum->getThumb()); ?>" />
+										<?php
+										$html = '<img src="' . html_encode($nextalbum->getThumb()) . '" />';
+										$html = npgFilters::apply('standard_album_thumb_html', $html);
+										if (WEBP_FALLBACK) {
+											$html = "<picture>\n<source srcset=\"" . html_encode($nextalbum->getThumb('webp')) . "\">\n" . $html . "</picture>\n";
+										}
+										echo $html;
+										?>
 									</a>
 								</div>
 								<br />
@@ -116,7 +123,14 @@ $map = simpleMap::mapPlugin();
 								?>
 								<div id="prevalbum" class="slides">
 									<a href="<?php echo html_encode(getPrevAlbumURL()); ?>" title="<?php echo gettext('Prev Album'); ?>"><?php echo gettext('« Prev Album'); ?><br />
-										<img src="<?php echo html_encode($prevalbum->getThumb()); ?>" />
+										<?php
+										$html = '<img src="' . html_encode($prevalbum->getThumb()) . '" />';
+										$html = npgFilters::apply('standard_album_thumb_html', $html);
+										if (WEBP_FALLBACK) {
+											$html = "<picture>\n<source srcset=\"" . html_encode($prevalbum->getThumb('webp')) . "\">\n" . $html . "</picture>\n";
+										}
+										echo $html;
+										?>
 									</a>
 								</div>
 								<?php

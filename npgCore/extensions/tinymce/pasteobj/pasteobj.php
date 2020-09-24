@@ -44,6 +44,7 @@ function getIPSizedImage($size, $image) {
 				$size = getOption('image_size');
 			}
 			if (isset($args['album'])) {
+				// an image type object
 				if (isset($args['image'])) {
 					$obj = newImage(array('folder' => $args['album'], 'filename' => $args['image']));
 					$imagef = $obj->getFullImageURL(FULLWEBPATH);
@@ -71,10 +72,22 @@ function getIPSizedImage($size, $image) {
 				$image = preg_replace('~&check=(.*)~', '', $image);
 				$imagewebp = preg_replace('~&check=(.*)~', '', $image);
 				$alt1 = $obj->getFileName();
-				// an image type object
+
+				$imagehtml = '<img src="' . html_encode($image) . '" alt="%alt1%" title="%title1%" />';
+				if (isset($args['image'])) {
+					$imagehtml = npgFilters::apply('standard_image_thumb_html', $imagehtml, FALSE);
+				} else {
+					$imagehtml = npgFilters::apply('standard_album_thumb_html', $imagehtml, FALSE);
+				}
+				$imagechtml = '<img src="' . html_encode($imageb) . '" alt="%alt1%" title="%title1%" />';
+				$imagechtml = npgFilters::apply('standard_image_html', $imagechtml, FALSE);
+				if (WEBP_FALLBACK) {
+					$imagehtml = "<picture><source srcset=\"" . html_encode($imagewebp) . "\">" . $imagehtml . "</picture>";
+					$imagechtml = "<picture><source srcset=\"" . html_encode(str_replace('i.php', 'i.webp', $imageb) . '&suffix=webp') . "\">" . $imagechtml . "</picture>";
+				}
 			} else {
 				// a simple link
-				$args['album'] = $args['image'] = $imagef = $imageb = $image = $alt1 = $title1 = NULL;
+				$args['album'] = $args['image'] = $imagehtml = $imagechtml = $imagef = $imageb = $image = $alt1 = $title1 = NULL;
 				if (isset($args['news'])) {
 					$obj = newArticle($args['news']);
 					$title = gettext('<em>news article</em>: %s');
@@ -98,15 +111,6 @@ function getIPSizedImage($size, $image) {
 				$link2 = $obj->album->getLink();
 			} else {
 				$link2 = $alt2 = $title2 = false;
-			}
-
-			$imagehtml = '<img src="' . html_encode($image) . '" alt="%alt1%" title="%title1%" />';
-			$imagehtml = npgFilters::apply('standard_image_html', $imagehtml, FALSE);
-			$imagechtml = '<img src="' . html_encode($imageb) . '" alt="%alt1%" title="%title1%" />';
-			$imagechtml = npgFilters::apply('standard_image_html', $imagechtml, FALSE);
-			if (WEBP_FALLBACK) {
-				$imagehtml = "<picture><source srcset=\"" . html_encode($imagewebp) . "\">" . $imagehtml . "</picture>";
-				$imagechtml = "<picture><source srcset=\"" . html_encode(str_replace('i.php', 'i.webp', $imageb) . '&suffix=webp') . "\">" . $imagechtml . "</picture>";
 			}
 			?>
 			<script type="text/javascript">

@@ -52,7 +52,14 @@ if (!defined('WEBPATH'))
 							<div id="nextalbum" class="slides">
 								<a href="<?php echo html_encode(getNextImageURL()); ?>" title="<?php echo gettext('Next image'); ?>">
 									<h2><?php echo gettext('Next »'); ?></h2>
-									<img src="<?php echo html_encode(getNextImageThumb()); ?>" />
+									<?php
+									$html = '<img src="' . html_encode(getNextImageThumb()) . '" />';
+									$html = npgFilters::apply('standard_album_thumb_html', $html);
+									if (WEBP_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode(getNextImageThumb('webp')) . "\">\n" . $html . "</picture>\n";
+									}
+									echo $html;
+									?>
 								</a>
 							</div>
 							<?php
@@ -62,7 +69,14 @@ if (!defined('WEBPATH'))
 							<div id="prevalbum" class="slides">
 								<a href="<?php echo html_encode(getPrevImageURL()); ?>" title="<?php echo gettext('Previous image'); ?>">
 									<h2><?php echo gettext('« Previous'); ?></h2>
-									<img src="<?php echo html_encode(getPrevImageThumb()); ?>" />
+									<?php
+									$html = '<img src="' . html_encode(getPrevImageThumb()) . '" />';
+									$html = npgFilters::apply('standard_album_thumb_html', $html);
+									if (WEBP_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode(getPrevImageThumb('webp')) . "\">\n" . $html . "</picture>\n";
+									}
+									echo $html;
+									?>
 								</a>
 							</div>
 							<?php
