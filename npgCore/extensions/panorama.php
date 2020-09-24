@@ -124,7 +124,7 @@ class panorama {
 			$height = getOption('panorama_height');
 			$width = (int) ($height / $h * $w);
 			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-			if (strpos($img_link, 'i.php') !== FALSE) { //	image processor link, cache the image
+			if (strpos($img_link, '/' . CORE_FOLDER . '/i.') !== FALSE) { //	image processor link, cache the image
 				require_once(dirname(__DIR__) . '/lib-image.php');
 				imageProcessing::cacheFromImageProcessorURI($img_link);
 				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);

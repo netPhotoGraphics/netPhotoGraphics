@@ -434,68 +434,63 @@ class imageProcessing {
 			}
 
 			// Create the cached file (with lots of compatibility)...
-			$targets = array($newfile);
-			if (WEBP_FALLBACK) {
-				$targets[] = stripSuffix($newfile) . '.webp';
-			}
-			foreach ($targets as $newfile) {
-				@chmod($newfile, 0777);
-				if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
-					if (!($thumb ) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
-						global $_images_classes; //	because we are doing the require in a function!
-						require_once(__DIR__ . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
-						$iptc = array(
-								'1#090' => chr(0x1b) . chr(0x25) . chr(0x47), //	character set is UTF-8
-								'2#115' => $_gallery->getTitle() //	source
-						);
-						$iptc_data = gl_imageIPTC($imgfile);
-						if ($iptc_data) {
-							$iptc_data = iptcparse($iptc_data);
-							if ($iptc_data)
-								$iptc = array_merge($iptc_data, $iptc);
-						}
-						$imgfile = str_replace(ALBUM_FOLDER_SERVERPATH, '', $imgfile);
-						$imagename = basename($imgfile);
-						$albumname = dirname($imgfile);
-						$image = newImage(newAlbum($albumname), $imagename);
-						$copyright = $image->getCopyright();
-						if (empty($copyright)) {
-							$copyright = getOption('default_copyright');
-						}
-						if (!empty($copyright)) {
-							$iptc['2#116'] = $copyright;
-						}
-						$credit = $image->getCredit();
-						if (!empty($credit)) {
-							$iptc['2#110'] = $credit;
-						}
-						$iptc_result = '';
-						foreach ($iptc as $tag => $string) {
-							$tag_parts = explode('#', $tag);
-							if (is_array($string)) {
-								foreach ($string as $element) {
-									$iptc_result .= self::iptc_make_tag($tag_parts[0], $tag_parts[1], $element);
-								}
-							} else {
-								$iptc_result .= self::iptc_make_tag($tag_parts[0], $tag_parts[1], $string);
-							}
-						}
-						$content = iptcembed($iptc_result, $newfile);
-						$fw = fopen($newfile, 'w');
-						fwrite($fw, $content);
-						fclose($fw);
-						clearstatcache();
+			@chmod($newfile, 0777);
+			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
+				if (!($thumb ) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
+					global $_images_classes; //	because we are doing the require in a function!
+					require_once(__DIR__ . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
+					$iptc = array(
+							'1#090' => chr(0x1b) . chr(0x25) . chr(0x47), //	character set is UTF-8
+							'2#115' => $_gallery->getTitle() //	source
+					);
+					$iptc_data = gl_imageIPTC($imgfile);
+					if ($iptc_data) {
+						$iptc_data = iptcparse($iptc_data);
+						if ($iptc_data)
+							$iptc = array_merge($iptc_data, $iptc);
 					}
-					@chmod($newfile, FILE_MOD);
-					if (DEBUG_IMAGE)
-						debugLog('Finished:' . basename($imgfile));
-				} else {
-					if (DEBUG_IMAGE)
-						debugLog('imageProcessing::cache: failed to create ' . $newfile);
-					self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-failimage.png');
+					$imgfile = str_replace(ALBUM_FOLDER_SERVERPATH, '', $imgfile);
+					$imagename = basename($imgfile);
+					$albumname = dirname($imgfile);
+					$image = newImage(newAlbum($albumname), $imagename);
+					$copyright = $image->getCopyright();
+					if (empty($copyright)) {
+						$copyright = getOption('default_copyright');
+					}
+					if (!empty($copyright)) {
+						$iptc['2#116'] = $copyright;
+					}
+					$credit = $image->getCredit();
+					if (!empty($credit)) {
+						$iptc['2#110'] = $credit;
+					}
+					$iptc_result = '';
+					foreach ($iptc as $tag => $string) {
+						$tag_parts = explode('#', $tag);
+						if (is_array($string)) {
+							foreach ($string as $element) {
+								$iptc_result .= self::iptc_make_tag($tag_parts[0], $tag_parts[1], $element);
+							}
+						} else {
+							$iptc_result .= self::iptc_make_tag($tag_parts[0], $tag_parts[1], $string);
+						}
+					}
+					$content = iptcembed($iptc_result, $newfile);
+					$fw = fopen($newfile, 'w');
+					fwrite($fw, $content);
+					fclose($fw);
+					clearstatcache();
 				}
 				@chmod($newfile, FILE_MOD);
+				if (DEBUG_IMAGE)
+					debugLog('Finished:' . basename($imgfile));
+			} else {
+				if (DEBUG_IMAGE)
+					debugLog('imageProcessing::cache: failed to create ' . $newfile);
+				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-failimage.png');
 			}
+			@chmod($newfile, FILE_MOD);
+
 			gl_imageKill($newim);
 			gl_imageKill($im);
 		} catch (Exception $e) {

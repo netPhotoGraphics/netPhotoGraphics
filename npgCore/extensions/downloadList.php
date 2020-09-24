@@ -150,7 +150,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-											 togglePassword('_downloadList');">
+									 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -327,7 +327,7 @@ class AlbumZip {
 			$image = newImage($album, $imagename);
 			if ($fromcache) {
 				$full = $image->getSizedImage($defaultSize);
-				if (strpos($full, 'i.php?') !== false)
+				if (strpos($full, '/' . CORE_FOLDER . '/i.') !== false)
 					continue;
 				if (UTF8_IMAGE_URI) {
 					$full = internalToFilesystem($full);

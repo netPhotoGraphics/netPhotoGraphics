@@ -571,7 +571,44 @@ function getOptionContent() {
 						</span>
 					</td>
 				</tr>
-				<tr>
+				<?php
+				$cachesuffix = array_unique($_cachefileSuffix);
+				if (in_array('webp', $cachesuffix)) {
+					if (MOD_REWRITE) {
+						if (getOption('webp_fallback')) {
+							$enabled = ' checked="checked"';
+						} else {
+							$enabled = '';
+						}
+					} else {
+						$enabled = ' disabled="disabled"';
+					}
+					?>
+					<tr>
+						<td class="option_name"><?php echo gettext('webp <em>fallback</em>'); ?></td>
+						<td class="option_value">
+							<label>
+								<input type="checkbox" name="webp_fallback" value="fallback"<?php echo $enabled; ?> />
+							</label>
+						</td>
+						<td class = "option_desc">
+							<span class = "option_info">
+								<?php echo INFORMATION_BLUE;
+								?>
+								<div class="option_desc_hidden">
+									<?php
+									echo gettext("If webp <em>fallback</em> is checked, Images will be cached as <em>webp</em> in addition to the <em>Cache as</em> option. The standard functions to display images will offer allow the browser to fall back to the <em>Cache as</em> selection if <em>webp</em> is not supported.");
+									if (!MOD_REWRITE) {
+										echo '<br /><br />' . gettext('webp <em>fallback</em> requires that mod rewrite be enabled.');
+									}
+									?>
+								</div>
+							</span>
+						</td>
+					</tr>
+					<?php
+				}
+				?>				<tr>
 					<td class="option_name"><?php echo gettext("Cache as"); ?></td>
 					<td class="option_value">
 						<?php
@@ -579,7 +616,6 @@ function getOptionContent() {
 						?>
 						<input type="radio" name="image_cache_suffix" value=""<?php if (empty($type)) echo ' checked="checked"'; ?> />&nbsp;<?php echo gettext("original"); ?>
 						<?php
-						$cachesuffix = array_unique($_cachefileSuffix);
 						foreach ($cachesuffix as $suffix) {
 							if ($suffix) {
 								$checked = '';
@@ -612,31 +648,6 @@ function getOptionContent() {
 						</span>
 					</td>
 				</tr>
-				<?php
-				if (in_array('webp', $cachesuffix)) {
-					?>
-					<tr>
-						<td class="option_name"><?php echo gettext('webp <em>fallback</em>'); ?></td>
-						<td class="option_value">
-							<label>
-								<input type="checkbox" name="webp_fallback" value="fallback"<?php checked('1', getOption('webp_fallback')); ?> />
-							</label>
-						</td>
-						<td class = "option_desc">
-							<span class = "option_info">
-								<?php echo INFORMATION_BLUE;
-								?>
-								<div class="option_desc_hidden">
-									<?php
-									echo gettext("If webp <em>fallback</em> is checked, Images will be cached as <em>webp</em> in addition to the <em>Cache as</em> option. The standard functions to display images will offer allow the browser to fall back to the <em>Cache as</em> selection if <em>webp</em> is not supported.");
-									?>
-								</div>
-							</span>
-						</td>
-					</tr>
-					<?php
-				}
-				?>
 				<tr>
 					<td class="option_name"><?php echo gettext("Protect image cache"); ?></td>
 					<td class="option_value">
@@ -752,7 +763,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																		 togglePassword('');" />
+																 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 

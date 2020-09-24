@@ -86,7 +86,7 @@ if (DEBUG_IMAGE) {
 	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$WM=$WM, \$adminrequest=$adminrequest, \$effects=$effects");
 }
 // Construct the filename to save the cached image.
-$newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args);
+$newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args, @$_GET['suffix']);
 $newfile = SERVERCACHE . $newfilename;
 if (trim($album) == '') {
 	$imgfile = ALBUM_FOLDER_SERVERPATH . $image;

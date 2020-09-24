@@ -53,6 +53,7 @@ function getIPSizedImage($size, $image) {
 						$imageb = $image = $args['picture'];
 					} else {
 						$image = $obj->getThumb();
+						$imagewebp = $obj->getThumb('webp');
 						$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $obj));
 					}
 				} else {
@@ -61,12 +62,14 @@ function getIPSizedImage($size, $image) {
 					$title = gettext('<em>album</em>: %s');
 					$token = gettext('%s with link to album');
 					$image = $obj->getThumb();
+					$imagewebp = $obj->getThumb('webp');
 					$thumbobj = $obj->getAlbumThumbImage();
 					$args['image'] = $thumbobj->getFilename();
 					$args['album'] = $thumbobj->album->getFilename();
 					$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $thumbobj));
 				}
 				$image = preg_replace('~&check=(.*)~', '', $image);
+				$imagewebp = preg_replace('~&check=(.*)~', '', $image);
 				$alt1 = $obj->getFileName();
 				// an image type object
 			} else {
@@ -96,6 +99,15 @@ function getIPSizedImage($size, $image) {
 			} else {
 				$link2 = $alt2 = $title2 = false;
 			}
+
+			$imagehtml = '<img src="' . html_encode($image) . '" alt="%alt1%" title="%title1%" />';
+			$imagehtml = npgFilters::apply('standard_image_html', $imagehtml, FALSE);
+			$imagechtml = '<img src="' . html_encode($imageb) . '" alt="%alt1%" title="%title1%" />';
+			$imagechtml = npgFilters::apply('standard_image_html', $imagechtml, FALSE);
+			if (WEBP_FALLBACK) {
+				$imagehtml = "<picture><source srcset=\"" . html_encode($imagewebp) . "\">" . $imagehtml . "</picture>";
+				$imagechtml = "<picture><source srcset=\"" . html_encode(str_replace('i.php', 'i.webp', $imageb) . '&suffix=webp') . "\">" . $imagechtml . "</picture>";
+			}
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
@@ -104,8 +116,8 @@ function getIPSizedImage($size, $image) {
 				var alt1 = '<?php echo addslashes($alt1); ?>'.replace(/"/g, '\\"');
 				var title1 = '<?php echo addslashes($title1); ?>'.replace(/"/g, '\\"');
 				var title = '<?php echo sprintf($title, addslashes($title1)); ?>'.replace(/"/g, '\\"');
-				var image = '<img src="<?php echo html_encode($image); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
-				var imagec = '<img src="<?php echo html_encode($imageb); ?>" alt="' + alt1 + '" title="' + title1 + '" />';
+				var image = '<?php echo $imagehtml; ?>'.replace(/%alt1%/, alt1).replace(/%title1%/, title1);
+				var imagec = '<?php echo $imagechtml; ?>'.replace(/%alt1%/, alt1).replace(/%title1%/, title1);
 				var imagef = '<?php echo html_encode($imagef); ?>';
 				var picture = <?php echo (int) $picture; ?>;
 				function sizechange() {
@@ -116,11 +128,11 @@ function getIPSizedImage($size, $image) {
 						case 'thumblink2':
 						case 'thumblinkfull':
 							$('#link_image_image').prop('checked', 'checked');
-							zenchange();
+							pasteobjchange();
 							break;
 					}
 				}
-				function zenchange() {
+				function pasteobjchange() {
 					var selectedlink = $('input:radio[name=link]:checked').val();
 					if (picture) {
 						imageb = imagec;
@@ -217,7 +229,7 @@ function getIPSizedImage($size, $image) {
 					pasteObjPopup.close();
 				}
 
-				window.addEventListener('load', zenchange, false);
+				window.addEventListener('load', pasteobjchange, false);
 
 				// ]]> -->
 			</script>
@@ -233,17 +245,17 @@ function getIPSizedImage($size, $image) {
 					if (!$picture) {
 						?>
 						<label class="nowrap">
-							<input type="radio" name="link" value="thumb" id="link_thumb_none" onchange="zenchange();" />
+							<input type="radio" name="link" value="thumb" id="link_thumb_none" onchange="pasteobjchange();" />
 							<?php echo gettext('thumb only'); ?>
 						</label>
-						<label class="nowrap"><input type="radio" name="link" value="thumblink" id="link_thumb_image" checked="checked" onchange="zenchange();" /><?php printf($token, 'thumb'); ?>
+						<label class="nowrap"><input type="radio" name="link" value="thumblink" id="link_thumb_image" checked="checked" onchange="pasteobjchange();" /><?php printf($token, 'thumb'); ?>
 						</label>
 						<?php
 						if ($imagef) {
 							if (isImagePhoto($obj)) {
 								?>
 								<label class="nowrap">
-									<input type="radio" name="link" value="thumblinkfull" id="link_thumb_full" onchange="zenchange();" />
+									<input type="radio" name="link" value="thumblinkfull" id="link_thumb_full" onchange="pasteobjchange();" />
 									<?php echo gettext('thumb with link to full-sized image'); ?>
 								</label>
 								<?php
@@ -252,7 +264,7 @@ function getIPSizedImage($size, $image) {
 						if ($link2) {
 							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="thumblink2" id="link_thumb_album" onchange="zenchange();" />
+								<input type="radio" name="link" value="thumblink2" id="link_thumb_album" onchange="pasteobjchange();" />
 								<?php echo gettext('thumb with link to album'); ?>
 							</label>
 							<?php
@@ -264,18 +276,18 @@ function getIPSizedImage($size, $image) {
 					if (isImagePhoto($obj)) {
 						?>
 						<label class="nowrap">
-							<input type="radio" name="link" value="image" id="link_image_none" onchange="zenchange();" />
+							<input type="radio" name="link" value="image" id="link_image_none" onchange="pasteobjchange();" />
 							<?php echo gettext('image only'); ?>
 						</label>
 						<label class="nowrap">
-							<input type="radio" name="link" value="imagelink" id="link_image_image"<?php if ($picture) echo 'checked="checked"'; ?> onchange="zenchange();" />
+							<input type="radio" name="link" value="imagelink" id="link_image_image"<?php if ($picture) echo 'checked="checked"'; ?> onchange="pasteobjchange();" />
 							<?php printf($token, 'image'); ?>
 						</label>
 						<?php
 						if ($imagef) {
 							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="imagelinkfull" id="link_image_full" onchange="zenchange();" />
+								<input type="radio" name="link" value="imagelinkfull" id="link_image_full" onchange="pasteobjchange();" />
 								<?php echo gettext('image with link to full-sized image'); ?>
 							</label>
 							<?php
@@ -285,7 +297,7 @@ function getIPSizedImage($size, $image) {
 						if ($link2) {
 							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="link2" id="link_image_album" onchange="zenchange();" />
+								<input type="radio" name="link" value="link2" id="link_image_album" onchange="pasteobjchange();" />
 								<?php echo gettext('image with link to album'); ?>
 							</label>
 							<?php
@@ -295,7 +307,7 @@ function getIPSizedImage($size, $image) {
 						if (array_key_exists('MEDIAPLAYER', $content_macros)) {
 							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="player" id="link_image_none" onchange="zenchange();" />
+								<input type="radio" name="link" value="player" id="link_image_none" onchange="pasteobjchange();" />
 								<?php echo gettext('Mediaplayer macro'); ?>
 							</label>
 							<?php
@@ -305,7 +317,7 @@ function getIPSizedImage($size, $image) {
 						if (array_key_exists('SLIDESHOW', $content_macros)) {
 							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="show" id="link_image_none" onchange="zenchange();" />
+								<input type="radio" name="link" value="show" id="link_image_none" onchange="pasteobjchange();" />
 								<?php echo gettext('Slideshow macro'); ?>
 							</label>
 							<?php
@@ -326,18 +338,18 @@ function getIPSizedImage($size, $image) {
 					}
 					?>
 					<label>
-						<input type="checkbox" name="addcaption" id="addcaption" onchange="zenchange()"	/>
+						<input type="checkbox" name="addcaption" id="addcaption" onchange="pasteobjchange()"	/>
 						<?php echo gettext('Include caption'); ?>
 					</label>
 					<?php
 				} else {
 					?>
 					<label class="nowrap">
-						<input type="radio" name="link" value="title" id="link_title" onchange="zenchange();" />
+						<input type="radio" name="link" value="title" id="link_title" onchange="pasteobjchange();" />
 						<?php echo gettext('title only'); ?>
 					</label>
 					<label class="nowrap">
-						<input type="radio" name="link" value="link" id="link_on" checked="checked" onchange="zenchange();" />
+						<input type="radio" name="link" value="link" id="link_on" checked="checked" onchange="pasteobjchange();" />
 						<?php echo $token; ?>
 					</label>
 					<?php

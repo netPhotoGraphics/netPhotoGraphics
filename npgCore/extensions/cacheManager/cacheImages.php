@@ -95,7 +95,7 @@ function loadAlbum($album) {
 						$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbstandin, 'WM' => $WM, 'effects' => $effects);
 						$args = getImageParameters($args, $album->name);
 						$uri = getImageURI($args, $album->name, $_current_image->filename, $_current_image->filemtime);
-						if (strpos($uri, 'i.php?') !== false) {
+						if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 							$uri = str_replace('check=', '', $uri);
 							if (!($count + $countit)) {
 								echo '{ ';
