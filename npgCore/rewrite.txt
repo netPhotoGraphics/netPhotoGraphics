@@ -1,4 +1,5 @@
 	#### Definitions
+	Define %CORE_FOLDER%			=>	CORE_FOLDER
 	Define %CORE%						=>	CORE_PATH
 	Define %RW_SUFFIX%			=>	RW_SUFFIX
 	Define %PAGE%						=>	_PAGE_
@@ -10,6 +11,7 @@
 	RewriteRule ^$                     										index.php [L,QSA]
 	RewriteRule ^index\.php$                     					index.php [L,QSA]
 	RewriteRule ^admin/*$																	%CORE%/admin%RW_SUFFIX% [NC,L,QSA]
+	RewriteRule ^%CORE_FOLDER%/i\.webp(.*)$							  %CORE_FOLDER%/i.php$2 [NC,L,QSA]
 
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [NC,L,QSA]
