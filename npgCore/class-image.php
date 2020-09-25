@@ -1236,8 +1236,8 @@ class Image extends MediaObject {
 						' width="' . $neww . '" height="' . $newh . '"' .
 						(($class) ? " class=\"$class\"" : "") . " />\n";
 		$html = npgFilters::apply('standard_image_html', $html, FALSE);
-		if (WEBP_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode($this->getSizedImage($size, 'webp')) . "\">\n" . $html . "</picture>\n";
+		if (ENCODING_FALLBACK) {
+			$html = "<picture>\n<source srcset=\"" . html_encode($this->getSizedImage($size, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		return $html;
 	}

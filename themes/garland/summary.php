@@ -55,8 +55,8 @@ if (!defined('WEBPATH'))
 									<?php
 									$html = '<img src="' . html_encode(getNextImageThumb()) . '" />';
 									$html = npgFilters::apply('standard_album_thumb_html', $html);
-									if (WEBP_FALLBACK) {
-										$html = "<picture>\n<source srcset=\"" . html_encode(getNextImageThumb('webp')) . "\">\n" . $html . "</picture>\n";
+									if (ENCODING_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode(getNextImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 									}
 									echo $html;
 									?>
@@ -72,8 +72,8 @@ if (!defined('WEBPATH'))
 									<?php
 									$html = '<img src="' . html_encode(getPrevImageThumb()) . '" />';
 									$html = npgFilters::apply('standard_album_thumb_html', $html);
-									if (WEBP_FALLBACK) {
-										$html = "<picture>\n<source srcset=\"" . html_encode(getPrevImageThumb('webp')) . "\">\n" . $html . "</picture>\n";
+									if (ENCODING_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode(getPrevImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 									}
 									echo $html;
 									?>

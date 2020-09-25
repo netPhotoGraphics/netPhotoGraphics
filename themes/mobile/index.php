@@ -59,8 +59,8 @@ if (!defined('WEBPATH'))
 									<?php
 									$html = '<img src="' . $image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL) . '" alt="' . $image->getTitle() . '">';
 									$html = npgFilters::apply('custom_image_html', $html, FALSE);
-									if (WEBP_FALLBACK) {
-										$html = "<picture>\n<source srcset=\"" . html_encode($image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL, 'webp')) . "\">\n" . $html . "</picture>\n";
+									if (ENCODING_FALLBACK) {
+										$html = "<picture>\n<source srcset=\"" . html_encode($image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 									}
 									echo $html;
 									?>

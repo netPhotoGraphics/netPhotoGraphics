@@ -11,7 +11,7 @@
 	RewriteRule ^$                     										index.php [L,QSA]
 	RewriteRule ^index\.php$                     					index.php [L,QSA]
 	RewriteRule ^admin/*$																	%CORE%/admin%RW_SUFFIX% [NC,L,QSA]
-	RewriteRule ^%CORE_FOLDER%/i\.webp(.*)$							  %CORE_FOLDER%/i.php$2 [NC,L,QSA]
+	RewriteRule ^%CORE_FOLDER%/i\..*$											%CORE_FOLDER%/i.php [NC,L,QSA]
 
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [NC,L,QSA]

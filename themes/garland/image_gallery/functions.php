@@ -129,8 +129,8 @@ class imagegallery {
 													<?php
 													$html = '<img src="' . html_encode(getImageThumb()) . 'class="image' . $lastImage . '"	 alt="' . html_encode(getImageDesc()) . '">';
 													$html = npgFilters::apply('standard_album_image_html', $html);
-													if (WEBP_FALLBACK) {
-														$html = "<picture>\n<source srcset=\"" . html_encode(getImageThumb('webp')) . "\">\n" . $html . "</picture>\n";
+													if (ENCODING_FALLBACK) {
+														$html = "<picture>\n<source srcset=\"" . html_encode(getImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 													}
 													echo $html;
 													?>

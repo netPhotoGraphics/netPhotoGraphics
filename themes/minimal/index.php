@@ -63,8 +63,8 @@
 				echo '<a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
 				$html = "<img src=\"" . html_encode($randomImage->getCustomImage(535, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
 				$html = npgFilters::apply('custom_image_html', $html, FALSE);
-				if (WEBP_FALLBACK) {
-					$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(535, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, NULL, 'webp')) . "\">\n" . $html . "</picture>\n";
+				if (ENCODING_FALLBACK) {
+					$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(535, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 				}
 				echo $html;
 				echo "</a>";

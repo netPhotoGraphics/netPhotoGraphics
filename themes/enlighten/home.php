@@ -51,8 +51,8 @@ if (!defined('WEBPATH'))
 										<?php
 										$html = "<img src='$thumb' width='255' height='75'/>";
 										$html = npgFilters::apply('custom_image_thumb_html', $html);
-										if (WEBP_FALLBACK) {
-											$html = "<picture>\n<source srcset=\"" . html_encode($i->getCustomImage(NULL, 255, 75, 255, 75, NULL, NULL, false, false, 'webp')) . "\">\n" . $html . "</picture>\n";
+										if (ENCODING_FALLBACK) {
+											$html = "<picture>\n<source srcset=\"" . html_encode($i->getCustomImage(NULL, 255, 75, 255, 75, NULL, NULL, false, false, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 										}
 										echo $html;
 										?>

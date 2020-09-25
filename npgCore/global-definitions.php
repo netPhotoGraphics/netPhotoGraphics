@@ -164,6 +164,7 @@ define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
+define('FALLBACK_SUFFIX', 'webp');
 
 unset($matches);
 unset($const_webpath);

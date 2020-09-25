@@ -121,8 +121,8 @@ if (class_exists('favorites')) {
 											<?php
 											$html = '<img src = "' . html_encode($nextalbum->getThumb()) . '" />';
 											$html = npgFilters::apply('standard_image_thumb_html', $html);
-											if (WEBP_FALLBACK) {
-												$html = "<picture>\n<source srcset=\"" . html_encode($nextalbum->getThumb('webp')) . "\">\n" . $html . "</picture>\n";
+											if (ENCODING_FALLBACK) {
+												$html = "<picture>\n<source srcset=\"" . html_encode($nextalbum->getThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 											}
 											echo $html;
 											?>
@@ -138,8 +138,8 @@ if (class_exists('favorites')) {
 											<?php
 											$html = '<img src = "' . html_encode($prevalbum->getThumb()) . '" />';
 											$html = npgFilters::apply('standard_image_thumb_html', $html);
-											if (WEBP_FALLBACK) {
-												$html = "<picture>\n<source srcset=\"" . html_encode($prevalbum->getThumb('webp')) . "\">\n" . $html . "</picture>\n";
+											if (ENCODING_FALLBACK) {
+												$html = "<picture>\n<source srcset=\"" . html_encode($prevalbum->getThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 											}
 											echo $html;
 											?>

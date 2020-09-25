@@ -67,7 +67,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		$_lib_GD_info['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
 		$_lib_GD_info['WBM'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
 		$_lib_GD_info['WBMP'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
-		$_lib_GD_info['WEBP'] = ($imgtypes & IMG_WEBP) ? 'webp' : false;
+		$_lib_GD_info[FALLBACK_SUFFIX] = ($imgtypes & IMG_WEBP) ? FALLBACK_SUFFIX : false;
 		unset($imgtypes);
 		unset($info);
 
@@ -94,7 +94,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					return imagecreatefromjpeg($imgfile);
 				case 'gif':
 					return imagecreatefromgif($imgfile);
-				case 'webp':
+				case FALLBACK_SUFFIX:
 					return imagecreatefromwebp($imgfile);
 			}
 			return false;
@@ -125,7 +125,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					return imagejpeg($im, $filename, $qual);
 				case 'gif':
 					return imagegif($im, $filename);
-				case 'webp':
+				case FALLBACK_SUFFIX:
 					return imagewebp($im, $filename);
 			}
 			return false;

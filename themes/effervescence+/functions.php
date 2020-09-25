@@ -246,8 +246,8 @@ function printHeadingImage($randomImage) {
 						":\n" . html_encode($randomImage->getTitle()) .
 						'" />';
 		$html = npgFilters::apply('custom_image_html', $html, FALSE);
-		if (WEBP_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(NULL, $wide, $high, $wide, $high, NULL, NULL, !getOption('Watermark_head_image'), NULL, 'webp')) . "\">\n" . $html . "</picture>\n";
+		if (ENCODING_FALLBACK) {
+			$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(NULL, $wide, $high, $wide, $high, NULL, NULL, !getOption('Watermark_head_image'), NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		echo $html;
 		echo '</a>';

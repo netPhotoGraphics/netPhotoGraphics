@@ -45,8 +45,8 @@ function saveOptions() {
 	setOption('watermark_allow_upscale', (int) isset($_POST['watermark_allow_upscale']));
 	setOption('watermark_h_offset', sanitize($_POST['watermark_h_offset'], 3));
 	setOption('watermark_w_offset', sanitize($_POST['watermark_w_offset'], 3));
-	setOption('webp_fallback', (int) isset($_POST['webp_fallback']));
-	if (isset($_POST['webp_fallback']) && sanitize($_POST['image_cache_suffix']) == 'webp') {
+	setOption('encoding_fallback', (int) isset($_POST['encoding_fallback']));
+	if (isset($_POST['encoding_fallback']) && sanitize($_POST['image_cache_suffix']) == FALLBACK_SUFFIX) {
 		$_POST['image_cache_suffix'] = '';
 	}
 	setOption('image_cache_suffix', sanitize($_POST['image_cache_suffix']));
@@ -573,9 +573,9 @@ function getOptionContent() {
 				</tr>
 				<?php
 				$cachesuffix = array_unique($_cachefileSuffix);
-				if (in_array('webp', $cachesuffix)) {
+				if (in_array(FALLBACK_SUFFIX, $cachesuffix)) {
 					if (MOD_REWRITE) {
-						if (getOption('webp_fallback')) {
+						if (getOption('encoding_fallback')) {
 							$enabled = ' checked="checked"';
 						} else {
 							$enabled = '';
@@ -585,10 +585,10 @@ function getOptionContent() {
 					}
 					?>
 					<tr>
-						<td class="option_name"><?php echo gettext('webp <em>fallback</em>'); ?></td>
+						<td class="option_name"><?php printf(gettext('%1$s <em>fallback</em>'), FALLBACK_SUFFIX); ?></td>
 						<td class="option_value">
 							<label>
-								<input type="checkbox" name="webp_fallback" value="fallback"<?php echo $enabled; ?> />
+								<input type="checkbox" name="encoding_fallback" value="fallback"<?php echo $enabled; ?> />
 							</label>
 						</td>
 						<td class = "option_desc">
@@ -597,9 +597,9 @@ function getOptionContent() {
 								?>
 								<div class="option_desc_hidden">
 									<?php
-									echo gettext("If webp <em>fallback</em> is checked, Images will be cached as <em>webp</em> in addition to the <em>Cache as</em> option. The standard functions to display images will offer allow the browser to fall back to the <em>Cache as</em> selection if <em>webp</em> is not supported.");
+									printf(gettext('If %1$s <em>fallback</em> is checked, the standard functions to display images will offer %1$s images and allow the browser to fall back to the <em>Cache as</em> selection if <em>%1$s</em> is not supported.'), FALLBACK_SUFFIX);
 									if (!MOD_REWRITE) {
-										echo '<br /><br />' . gettext('webp <em>fallback</em> requires that mod rewrite be enabled.');
+										echo '<br /><br />' . sprintf(gettext('%1$s <em>fallback</em> requires that mod rewrite be enabled.'), FALLBACK_SUFFIX);
 									}
 									?>
 								</div>
@@ -619,7 +619,7 @@ function getOptionContent() {
 						foreach ($cachesuffix as $suffix) {
 							if ($suffix) {
 								$checked = '';
-								if (WEBP_FALLBACK && $suffix == 'webp') {
+								if (ENCODING_FALLBACK && $suffix == FALLBACK_SUFFIX) {
 									$disable = ' disabled="disabled"';
 								} else {
 									$disable = '';
@@ -763,7 +763,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																 togglePassword('');" />
+																		 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 

@@ -54,7 +54,7 @@ function getIPSizedImage($size, $image) {
 						$imageb = $image = $args['picture'];
 					} else {
 						$image = $obj->getThumb();
-						$imagewebp = $obj->getThumb('webp');
+						$imagewebp = $obj->getThumb(FALLBACK_SUFFIX);
 						$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $obj));
 					}
 				} else {
@@ -63,7 +63,7 @@ function getIPSizedImage($size, $image) {
 					$title = gettext('<em>album</em>: %s');
 					$token = gettext('%s with link to album');
 					$image = $obj->getThumb();
-					$imagewebp = $obj->getThumb('webp');
+					$imagewebp = $obj->getThumb(FALLBACK_SUFFIX);
 					$thumbobj = $obj->getAlbumThumbImage();
 					$args['image'] = $thumbobj->getFilename();
 					$args['album'] = $thumbobj->album->getFilename();
@@ -81,7 +81,7 @@ function getIPSizedImage($size, $image) {
 				}
 				$imagechtml = '<img src="' . html_encode($imageb) . '" alt="%alt1%" title="%title1%" />';
 				$imagechtml = npgFilters::apply('standard_image_html', $imagechtml, FALSE);
-				if (WEBP_FALLBACK) {
+				if (ENCODING_FALLBACK) {
 					$imagehtml = "<picture><source srcset=\"" . html_encode($imagewebp) . "\">" . $imagehtml . "</picture>";
 					$imagechtml = "<picture><source srcset=\"" . html_encode(str_replace('i.php', 'i.webp', $imageb) . '&suffix=webp') . "\">" . $imagechtml . "</picture>";
 				}
