@@ -423,13 +423,25 @@ setOptionDefault('license_accepted', 0);
 setOptionDefault('protected_image_cache', NULL);
 setOptionDefault('secure_image_processor', NULL);
 
+$cachesuffix = array_unique($_cachefileSuffix);
+if (ENCODING_FALLBACK && in_array(FALLBACK_SUFFIX, $cachesuffix)) {
+	if (getOption('image_cache_suffix') == FALLBACK_SUFFIX) {
+		setOption('image_cache_suffix', '');
+	}
+} else {
+	purgeOption('encoding_fallback');
+}
+$s = getOption('image_cache_suffix');
+if ($s && !in_array($s, $cachesuffix)) {
+	setOption('image_cache_suffix', '');
+}
+
 setoptionDefault('image_allow_upscale', NULL);
 setoptionDefault('image_cache_suffix', NULL);
 setoptionDefault('image_sharpen', NULL);
 setoptionDefault('image_interlace', NULL);
 setOptionDefault('thumb_sharpen', NULL);
 setOptionDefault('use_embedded_thumb', NULL);
-
 
 setOptionDefault('watermark_image', 'watermarks/watermark.png');
 if (getOption('perform_watermark')) {
