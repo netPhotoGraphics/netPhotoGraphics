@@ -56,6 +56,11 @@ $rimage = internalToFilesystem($rimage);
 $album = sanitize_path($ralbum);
 $image = sanitize($rimage);
 $theme = imageThemeSetup(filesystemToInternal($album)); // loads the theme based image options.
+
+$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+$args = getImageParameters(getImageArgs($_GET), filesystemToInternal($album));
+extract($args);
+
 if (getOption('secure_image_processor')) {
 	require_once(__DIR__ . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
@@ -78,9 +83,6 @@ if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
 		return;
 	}
 }
-$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
-$args = getImageParameters(getImageArgs($_GET), filesystemToInternal($album));
-extract($args);
 
 if (DEBUG_IMAGE) {
 	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$WM=$WM, \$adminrequest=$adminrequest, \$effects=$effects");
