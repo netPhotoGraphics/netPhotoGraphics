@@ -67,7 +67,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		$_lib_GD_info['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
 		$_lib_GD_info['WBM'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
 		$_lib_GD_info['WBMP'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
-		$_lib_GD_info[FALLBACK_SUFFIX] = ($imgtypes & IMG_WEBP) ? FALLBACK_SUFFIX : false;
+		$_lib_GD_info['WEBP'] = ($imgtypes & IMG_WEBP) ? 'WEBP' : false;
 		unset($imgtypes);
 		unset($info);
 
