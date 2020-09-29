@@ -547,7 +547,11 @@ class imageProcessing {
 		$nw = round($watermark_width * $r);
 		$nh = round($watermark_height * $r);
 		if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-			if (!gl_resampleImage($watermark, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+			$new_watermark = gl_createImage($nw, $nh, FALSE);
+			if (gl_resampleImage($new_watermark, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+				gl_imageKill($watermark);
+				$watermark = $new_watermark;
+			} else {
 				self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
 			}
 		}
@@ -559,6 +563,7 @@ class imageProcessing {
 		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
 			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $imgfile);
 		}
+
 		gl_imageKill($watermark);
 		return $newim;
 	}
