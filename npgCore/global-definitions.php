@@ -104,10 +104,6 @@ $_DB_details = array(
 );
 define('DB_NOT_CONNECTED', serialize($_DB_details));
 define('MYSQL_CONNECTION_RETRIES', 10);
-define('ER_TOO_MANY_USER_CONNECTIONS', 1203);
-define('ER_CON_COUNT_ERROR', 1040);
-define('ER_SERVER_GONE', 2006);
-define('ER_SERVER_NO_RESPONSE', 2002);
 
 /**
  * OFFSET_PATH definitions:

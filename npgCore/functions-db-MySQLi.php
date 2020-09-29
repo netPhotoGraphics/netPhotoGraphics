@@ -40,7 +40,8 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], '', $config['mysql_port'], $config['mysql_socket']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
-			if (is_object($_DB_connection) || !in_array($e, array(ER_TOO_MANY_USER_CONNECTIONS, ER_CON_COUNT_ERROR, ER_SERVER_GONE))) {
+			if (empty($errorstop) || is_object($_DB_connection)) {
+				//	we either got connected or the caller is prepaired to deal with the failure
 				break;
 			}
 			sleep($i);
