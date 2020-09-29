@@ -218,7 +218,7 @@ define('DUPLICATE_ICON', '<span class="font_icon" style="font-size: large;">&#x1
 define('ENVELOPE', '<span class="font_icon" style="font-size: large;">&#9993;</span>');
 define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-family: Times New Roman; font-weight: bold; font-size: large;">&#33;</span>');
 define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5CE;</span>');
-define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
+define('FOLDER_ICON', '<span class="font_icon" style=" color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
