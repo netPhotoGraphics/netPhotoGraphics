@@ -50,17 +50,15 @@ if (getOption('hotlink_protection')) {
 
 $albumobj = newAlbum($album8, true, true);
 $imageobj = newImage($albumobj, $image8, true);
+
 $args = getImageArgs($_GET);
-$args[0] = 'FULL';
-$adminrequest = $args[12];
+$args['size'] = 'FULL';
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
 	npg_session_start();
 	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
 }
-
-$args[0] = 'FULL';
 
 $hash = getOption('protected_image_password');
 if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)) {
