@@ -781,7 +781,7 @@ function getPageNumURL($page, $total = null) {
 			return NULL;
 		}
 	} else {
-		// handle custom page
+// handle custom page
 		$pg = stripSuffix($_gallery_page);
 		$pagination1 = getCustomPageRewrite($pg) . '/';
 		$pagination2 = 'index.php?p=' . $pg;
@@ -1384,7 +1384,7 @@ function getParentBreadcrumb() {
 		}
 
 		if (!empty($dynamic_album)) {
-			// remove parent links that are not in the search path
+// remove parent links that are not in the search path
 			foreach ($parents as $key => $analbum) {
 				$target = $analbum->name;
 				if ($target !== $dynamic_album->name && !in_array($target, $search_album_list)) {
@@ -1398,12 +1398,12 @@ function getParentBreadcrumb() {
 
 	$n = count($parents);
 	if ($n > 0) {
-		//the following loop code is @Copyright 2016 by Stephen L Billard for use in netPhotoGraphics and derivitoves
+//the following loop code is @Copyright 2016 by Stephen L Billard for use in netPhotoGraphics and derivitoves
 		array_push($parents, $_current_album);
 		$parent = array_shift($parents);
 		while ($parent != $_current_album) {
 			$fromAlbum = array_shift($parents);
-			//cleanup things in description for use as attribute tag
+//cleanup things in description for use as attribute tag
 			$desc = getBare(preg_replace('|</p\s*>|i', '</p> ', preg_replace('|<br\s*/>|i', ' ', $parent->getDesc())));
 			$output[] = array('link' => html_encode($parent->getLink($fromAlbum->getGalleryPage())), 'title' => $desc, 'text' => $parent->getTitle());
 			$parent = $fromAlbum;
@@ -1446,7 +1446,7 @@ function printParentBreadcrumb($before = NULL, $between = NULL, $after = NULL, $
 			if ($i > 0) {
 				$output .= $between;
 			}
-			//cleanup things in description for use as attribute tag
+//cleanup things in description for use as attribute tag
 			$desc = getBare($crumb['title']);
 			if (!empty($desc) && $truncate) {
 				$desc = truncate_string($desc, $truncate, $elipsis);
@@ -2635,11 +2635,11 @@ function getSizeCustomImage($size, $width = NULL, $height = NULL, $cw = NULL, $c
 			$newh = $h;
 		}
 	} else if (($size && ($side == 'longest' && $h > $w) || ($side == 'height') || ($side == 'shortest' && $h < $w)) || $height) {
-		// Scale the height
+// Scale the height
 		$newh = $dim;
 		$neww = $wprop;
 	} else {
-		// Scale the width
+// Scale the width
 		$neww = $dim;
 		$newh = $hprop;
 	}
@@ -2867,11 +2867,11 @@ function getSizeDefaultThumb($image = NULL) {
 		$w = max(getOption('thumb_crop_width'), 1);
 		$h = max(getOption('thumb_crop_height'), 1);
 		if ($w > $h) {
-			//landscape
+//landscape
 			$h = round($h * $s / $w);
 			$w = $s;
 		} else {
-			//portrait
+//portrait
 			$w = round($w * $s / $h);
 			$h = $s;
 		}
@@ -3584,7 +3584,7 @@ function printAllTagsAs($option, $class = '', $sort = NULL, $counter = FALSE, $l
 			natcasesort($keys);
 			break;
 		case 'results':
-			//already in tag count order
+//already in tag count order
 			break;
 		case 'random':
 			shuffle_assoc($keys);
@@ -4381,7 +4381,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 		}
 		$query['userlog'] = 1;
 		if (isset($_GET['p']) && $_GET['p'] == 'password') {
-			// redirecting here would be terribly confusing
+// redirecting here would be terribly confusing
 			unset($query['p']);
 			$parts['path'] = SEO_WEBPATH;
 		}
@@ -4435,22 +4435,37 @@ function print_SW_Link() {
  */
 function exposeSoftwareInformation($obj = '', $plugins = '', $theme = '') {
 	global $_filters;
+	$unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+	$memoryLimit = INI_GET('memory_limit');
+	if ($memoryLimit > 0) {
+		$suffixes = array('' => 1, 'k' => 1024, 'm' => 1048576, 'g' => 1073741824);
+		if (preg_match('/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $memoryLimit, $match)) {
+			$memoryLimit = $match[1] * $suffixes[strtolower($match[2])];
+		}
+		$memoryLimit = @round($memoryLimit / pow(1024, ($i = floor(log($memoryLimit, 1024)))), 1) . ' ' . $unit[$i];
+	} else {
+		$memoryLimit = 'none;';
+	}
+	$memoryUsed = memory_get_peak_usage();
+	$memoryUsed = @round($memoryUsed / pow(1024, ($i = floor(log($memoryUsed, 1024)))), 1) . ' ' . $unit[$i];
 	$a = basename($obj);
-	echo "\n<!-- netPhotoGraphics version " . NETPHOTOGRAPHICS_VERSION;
-	echo " THEME: " . $theme . " (" . $a . ")";
+
+	echo "\n<!--\n netPhotoGraphics version " . NETPHOTOGRAPHICS_VERSION . "\n";
+	echo " THEME: " . $theme . " (" . $a . ")\n";
 	$graphics = gl_graphicsLibInfo();
 	$graphics = str_replace('<br />', ', ', $graphics['Library_desc']);
-	echo " GRAPHICS LIB: " . $graphics;
-	echo ' PLUGINS: ';
+	printf(gettext(' PHP memory limit: %1$s; %2$s used' . "\n"), $memoryLimit, $memoryUsed);
+	echo " GRAPHICS LIB: " . strip_tags($graphics) . "\n";
+	echo " PLUGINS:\n";
 	if (count($plugins) > 0) {
 		sort($plugins);
 		foreach ($plugins as $plugin) {
-			echo $plugin . ' ';
+			echo '  ' . $plugin . "\n";
 		}
 	} else {
-		echo 'none ';
+		echo "none \n";
 	}
-	echo " -->";
+	echo " -->\n";
 }
 
 /**
@@ -4738,10 +4753,10 @@ class simpleMap {
 	 * things differently.
 	 */
 
-	// default values for printGoogleMap parameters
+// default values for printGoogleMap parameters
 	static $text = NULL;
 	static $hide = NULL;
-	// default values for printOpenStreetMap parameters
+// default values for printOpenStreetMap parameters
 	static $width = NULL;
 	static $height = NULL;
 	static $mapcenter = NULL;
