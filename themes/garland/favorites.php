@@ -117,7 +117,16 @@ if (class_exists('favorites')) {
 								if ($nextalbum) {
 									?>
 									<div id="nextalbum" class="slides">
-										<a href="<?php echo html_encode(getNextAlbumURL()); ?>" title="<?php echo gettext('Next album'); ?>"><?php echo gettext('Next album »'); ?><br /><img src="<?php echo html_encode($nextalbum->getThumb()); ?>" /></a>
+										<a href="<?php echo html_encode(getNextAlbumURL()); ?>" title="<?php echo gettext('Next album'); ?>"><?php echo gettext('Next album »'); ?><br />
+											<?php
+											$html = '<img src = "' . html_encode($nextalbum->getThumb()) . '" />';
+											$html = npgFilters::apply('standard_image_thumb_html', $html);
+											if (ENCODING_FALLBACK) {
+												$html = "<picture>\n<source srcset=\"" . html_encode($nextalbum->getThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+											}
+											echo $html;
+											?>
+										</a>
 									</div>
 									<br />
 									<?php
@@ -125,7 +134,16 @@ if (class_exists('favorites')) {
 								if ($prevalbum) {
 									?>
 									<div id="prevalbum" class="slides">
-										<a href="<?php echo html_encode(getPrevAlbumURL()); ?>" title="<?php echo gettext('Prev Album'); ?>"><?php echo gettext('« Prev Album'); ?><br /><img src="<?php echo html_encode($prevalbum->getThumb()); ?>" /></a>
+										<a href="<?php echo html_encode(getPrevAlbumURL()); ?>" title="<?php echo gettext('Prev Album'); ?>"><?php echo gettext('« Prev Album'); ?><br />
+											<?php
+											$html = '<img src = "' . html_encode($prevalbum->getThumb()) . '" />';
+											$html = npgFilters::apply('standard_image_thumb_html', $html);
+											if (ENCODING_FALLBACK) {
+												$html = "<picture>\n<source srcset=\"" . html_encode($prevalbum->getThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+											}
+											echo $html;
+											?>
+										</a>
 									</div>
 									<?php
 								}
@@ -136,8 +154,8 @@ if (class_exists('favorites')) {
 				</div><!-- container -->
 				<span class="clear"></span>
 			</div><!-- wrapper -->
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

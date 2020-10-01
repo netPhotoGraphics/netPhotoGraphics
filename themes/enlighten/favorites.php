@@ -11,8 +11,9 @@ if (class_exists('favorites')) {
 			printZDRoundedCornerJS();
 
 			scriptLoader($_themeroot . '/style.css');
-
-			printRSSHeaderLink('Album', getAlbumTitle());
+			if (extensionEnabled('rss')) {
+				printRSSHeaderLink('Album', getAlbumTitle());
+			}
 			?>
 		</head>
 		<body>
@@ -137,8 +138,8 @@ if (class_exists('favorites')) {
 				</div><!-- content -->
 
 			</div><!-- main -->
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

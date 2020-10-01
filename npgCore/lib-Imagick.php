@@ -140,7 +140,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 			'GIF' => 'gif', 'GIF87' => 'gif',
 			'JPG' => 'jpg', 'JPEG' => 'jpg',
 			'PNG' => 'png', 'PNG8' => 'png', 'PNG24' => 'png', 'PNG32' => 'png',
-			'WEBP' => 'webp',
+			FALLBACK_SUFFIX => FALLBACK_SUFFIX,
 			'TIFF' => 'jpg', 'TIFF64' => 'jpg'
 	);
 

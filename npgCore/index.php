@@ -174,6 +174,7 @@ npgFilters::apply('software_information', $_themeScript, $_loaded_plugins, $_ind
 db_close(); // close the database as we are done
 if (TEST_RELEASE) {
 	echo "\n";
+
 	list($usec, $sec) = explode(' ', array_shift($_themeScript_timer));
 	$first = $last = (float) $usec + (float) $sec;
 
@@ -183,8 +184,9 @@ if (TEST_RELEASE) {
 		printf("<!-- " . gettext('Script processing %1$s:%2$.4f seconds') . " -->\n", $step, $cur - $last);
 		$last = $cur;
 	}
-	if (count($_themeScript_timer) > 1)
+	if (count($_themeScript_timer) > 1) {
 		printf("<!-- " . gettext('Script processing total:%.4f seconds') . " -->\n", $last - $first);
+	}
 }
 $_HTML_cache->endHTMLCache();
 ?>

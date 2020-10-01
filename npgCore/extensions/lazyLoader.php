@@ -91,7 +91,7 @@ class lazyLoader {
 	static function imageHtml($html) {
 		global $_lazyLoder_imageCount;
 		if (++$_lazyLoder_imageCount > getOption('lazyLoader_SkipImages')) {
-			$html = preg_replace('~\s*/>~', ' loading="lazy" />', $html);
+			$html = preg_replace('~<\s*img(.+)\s*/>~', '<img $1 loading="lazy" />', $html);
 		}
 		return $html;
 	}
@@ -99,7 +99,7 @@ class lazyLoader {
 	static function thumbHtml($html) {
 		global $_lazyLoder_thumbCount;
 		if (++$_lazyLoder_thumbCount > getOption('lazyLoader_SkipThumbs')) {
-			$html = preg_replace('~\s*/>~', ' loading="lazy" />', $html);
+			$html = preg_replace('~<\s*img(.+)\s*/>~', '<img $1 loading="lazy" />', $html);
 		}
 		return $html;
 	}
@@ -107,7 +107,7 @@ class lazyLoader {
 	static function videoHtml($html) {
 		//	do not pre-load video if there is a poster
 		if (strpos($html, 'poster=') !== FALSE) {
-			$html = preg_replace('~\s*>~', ' preload="none" >', $html);
+			$html = preg_replace('~<\s*video(.+)\s*>~', '<video $1 preload="none" >', $html);
 		}
 		return $html;
 	}

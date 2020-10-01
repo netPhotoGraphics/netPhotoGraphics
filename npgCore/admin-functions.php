@@ -2696,7 +2696,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function printAlbumButtons($album) {
 		if ($imagcount = $album->getNumImages() > 0) {
-			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitloe' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
+			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
 			?>
 			<br /><br />
 			<?php

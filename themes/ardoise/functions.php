@@ -122,15 +122,22 @@ function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all'
 			switch ($crop) {
 				case 0:
 					$html = "<img src=\"" . html_encode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+					$webp = $randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
 					break;
 				case 1:
 					$html = "<img src=\"" . html_encode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" />\n";
+					$webp = $randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
 					break;
 				case 2:
 					$html = "<img src=\"" . html_encode($randomImage->getThumb()) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+					$webp = $randomImage->getThumb(NULL, NULL, FALLBACK_SUFFIX);
 					break;
 			}
-			echo npgFilters::apply('custom_image_html', $html, FALSE);
+			$html = npgFilters::apply('custom_image_html', $html, FALSE);
+			if (ENCODING_FALLBACK) {
+				$html = "<picture>\n<source srcset=\"" . html_encode($webp) . "\">\n" . $html . "</picture>\n";
+			}
+			echo $html;
 			echo "</a>";
 			echo "</li>\n";
 		} else {

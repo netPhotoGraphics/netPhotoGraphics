@@ -423,13 +423,25 @@ setOptionDefault('license_accepted', 0);
 setOptionDefault('protected_image_cache', NULL);
 setOptionDefault('secure_image_processor', NULL);
 
+$cachesuffix = array_unique($_cachefileSuffix);
+if (ENCODING_FALLBACK && in_array(FALLBACK_SUFFIX, $cachesuffix)) {
+	if (getOption('image_cache_suffix') == FALLBACK_SUFFIX) {
+		setOption('image_cache_suffix', '');
+	}
+} else {
+	purgeOption('encoding_fallback');
+}
+$s = getOption('image_cache_suffix');
+if ($s && !in_array($s, $cachesuffix)) {
+	setOption('image_cache_suffix', '');
+}
+
 setoptionDefault('image_allow_upscale', NULL);
 setoptionDefault('image_cache_suffix', NULL);
 setoptionDefault('image_sharpen', NULL);
 setoptionDefault('image_interlace', NULL);
 setOptionDefault('thumb_sharpen', NULL);
 setOptionDefault('use_embedded_thumb', NULL);
-
 
 setOptionDefault('watermark_image', 'watermarks/watermark.png');
 if (getOption('perform_watermark')) {
@@ -495,8 +507,8 @@ $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>())\n" 
 				"video=>(class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() poster=>())\n" .
 				"audio=>(class=>() id=>() style=>() src=>() controls=>() autoplay=>() buffered=>() height=>() width=>() loop=>() muted=>() preload=>() volume=>())\n" .
 				"picture=>(class=>() id=>())\n" .
-				"source=>(src=>() scrset=>() size=>() type=>() media=>())\n" .
-				"track=>(src=>() kind=>() scrlang=>() label=>() default=>())\n" .
+				"source=>(src=>() srcset=>() sizes=>() type=>() media=>())\n" .
+				"track=>(src=>() kind=>() srclang=>() label=>() default=>())\n" .
 				"table=>(class=>() id=>())\n" .
 				"caption=>(class=>() id=>())\n" .
 				"tr=>(class=>() id=>())\n" .

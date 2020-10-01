@@ -104,10 +104,6 @@ $_DB_details = array(
 );
 define('DB_NOT_CONNECTED', serialize($_DB_details));
 define('MYSQL_CONNECTION_RETRIES', 10);
-define('ER_TOO_MANY_USER_CONNECTIONS', 1203);
-define('ER_CON_COUNT_ERROR', 1040);
-define('ER_SERVER_GONE', 2006);
-define('ER_SERVER_NO_RESPONSE', 2002);
 
 /**
  * OFFSET_PATH definitions:
@@ -164,6 +160,7 @@ define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
+define('FALLBACK_SUFFIX', 'webp');
 
 unset($matches);
 unset($const_webpath);
@@ -217,7 +214,7 @@ define('DUPLICATE_ICON', '<span class="font_icon" style="font-size: large;">&#x1
 define('ENVELOPE', '<span class="font_icon" style="font-size: large;">&#9993;</span>');
 define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-family: Times New Roman; font-weight: bold; font-size: large;">&#33;</span>');
 define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5CE;</span>');
-define('FOLDER_ICON', '<span class="font_icon" style="font-size: large; color: goldenrod;">&#x1F4C1;</span>');
+define('FOLDER_ICON', '<span class="font_icon" style=" color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');

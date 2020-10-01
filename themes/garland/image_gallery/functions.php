@@ -126,9 +126,14 @@ class imagegallery {
 											?>
 											<li>
 												<a href="<?php echo html_encode(getDefaultSizedImage()); ?>">
-													<img src="<?php echo html_encode(getImageThumb()); ?>"
-															 class="image<?php echo $lastImage; ?>"
-															 alt="<?php echo html_encode(getImageDesc()); ?>">
+													<?php
+													$html = '<img src="' . html_encode(getImageThumb()) . 'class="image' . $lastImage . '"	 alt="' . html_encode(getImageDesc()) . '">';
+													$html = npgFilters::apply('standard_album_image_html', $html);
+													if (ENCODING_FALLBACK) {
+														$html = "<picture>\n<source srcset=\"" . html_encode(getImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+													}
+													echo $html;
+													?>
 												</a>
 											</li>
 											<?php

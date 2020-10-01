@@ -94,7 +94,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					return imagecreatefromjpeg($imgfile);
 				case 'gif':
 					return imagecreatefromgif($imgfile);
-				case 'webp':
+				case FALLBACK_SUFFIX:
 					return imagecreatefromwebp($imgfile);
 			}
 			return false;
@@ -125,7 +125,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					return imagejpeg($im, $filename, $qual);
 				case 'gif':
 					return imagegif($im, $filename);
-				case 'webp':
+				case FALLBACK_SUFFIX:
 					return imagewebp($im, $filename);
 			}
 			return false;

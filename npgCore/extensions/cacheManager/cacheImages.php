@@ -81,21 +81,21 @@ function loadAlbum($album) {
 						}
 						$effects = isset($cacheimage['gray']) ? $cacheimage['gray'] : NULL;
 						if (isset($cacheimage['wmk'])) {
-							$passedWM = $cacheimage['wmk'];
+							$WM = $cacheimage['wmk'];
 						} else if ($cacheimage['thumb'] < 0) {
-							$passedWM = '!';
+							$WM = '!';
 						} else if ($thumbstandin) {
-							$passedWM = getWatermarkParam($_current_image, WATERMARK_THUMB);
+							$WM = getWatermarkParam($_current_image, WATERMARK_THUMB);
 						} else {
-							$passedWM = getWatermarkParam($_current_image, WATERMARK_IMAGE);
+							$WM = getWatermarkParam($_current_image, WATERMARK_IMAGE);
 						}
 						if (isset($cacheimage['maxspace'])) {
 							getMaxSpaceContainer($width, $height, $_current_image, $thumbstandin);
 						}
-						$args = array($size, $width, $height, $cw, $ch, $cx, $cy, NULL, $thumbstandin, NULL, $thumbstandin, $passedWM, NULL, $effects);
+						$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbstandin, 'WM' => $WM, 'effects' => $effects);
 						$args = getImageParameters($args, $album->name);
 						$uri = getImageURI($args, $album->name, $_current_image->filename, $_current_image->filemtime);
-						if (strpos($uri, 'i.php?') !== false) {
+						if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 							$uri = str_replace('check=', '', $uri);
 							if (!($count + $countit)) {
 								echo '{ ';
@@ -270,8 +270,8 @@ if ($alb) {
 					$cy = isset($cacheimage['crop_y']) ? $cacheimage['crop_y'] : NULL;
 					$thumbstandin = isset($cacheimage['thumb']) ? $cacheimage['thumb'] : NULL;
 					$effects = isset($cacheimage['gray']) ? $cacheimage['gray'] : NULL;
-					$passedWM = isset($cacheimage['wmk']) ? $cacheimage['wmk'] : NULL;
-					$args = array($size, $width, $height, $cw, $ch, $cx, $cy, NULL, $thumbstandin, NULL, $thumbstandin, $passedWM, NULL, $effects);
+					$WM = isset($cacheimage['wmk']) ? $cacheimage['wmk'] : NULL;
+					$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbstandin, 'WM' => $WM, 'effects' => $effects);
 					$postfix = getImageCachePostfix($args);
 					if (isset($cacheimage['maxspace']) && $cacheimage['maxspace']) {
 						if ($width && $height) {

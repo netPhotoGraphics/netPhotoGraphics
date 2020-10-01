@@ -43,9 +43,12 @@ if (!defined('WEBPATH'))
 
 						<?php
 						if (isImagePhoto()) {
-							?>
-							<img src="<?php echo html_encode(getDefaultSizedImage()); ?>" alt="<?php printBareImageTitle(); ?>" style="max-width:<?php echo getDefaultWidth(); ?>px"/>
-							<?php
+							$html = '<img src="' . html_encode(getDefaultSizedImage()) . '" alt="' . printBareImageTitle() . '" style="max-width:' . getDefaultWidth() . 'px"/>';
+							$html = npgFilters::apply('standard_image_html', $html, FALSE);
+							if (ENCODING_FALLBACK) {
+								$html = "<picture>\n<source srcset=\"" . html_encode(getDefaultSizedImage(NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+							}
+							echo $html;
 						} else {
 							printDefaultSizedImage(getImageTitle());
 						}

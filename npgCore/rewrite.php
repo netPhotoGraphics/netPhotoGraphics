@@ -78,6 +78,7 @@ function rewriteHandler() {
 	//rewrite base
 	$requesturi = ltrim(substr($request[0], strlen(WEBPATH)), '/');
 	list($definitions, $rules) = getRules();
+
 	$skip = 0;
 	//process the rules
 	foreach ($rules as $rule) {

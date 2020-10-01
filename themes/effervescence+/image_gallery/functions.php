@@ -128,9 +128,9 @@ class imagegallery {
 													?>
 													<li>
 														<a href="<?php echo html_encode(getDefaultSizedImage()); ?>">
-															<img src="<?php echo html_encode(getImageThumb()); ?>"
-																	 class="image<?php echo $lastImage; ?>"
-																	 alt="<?php echo html_encode(getImageDesc()); ?>">
+															<?php
+															printImageThumb(getImageDesc(), "image" . $lastImage);
+															?>
 														</a>
 													</li>
 													<?php

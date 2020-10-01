@@ -630,7 +630,7 @@ if (isset($_GET['compression'])) {
 
 							<br />
 							<div id="dbbackup">
-								<?php applyButton(array('buttonText' => BURST_BLUE . ' ' . gettext("Backup the Database"), array('buttonClass' => 'fixedwidth tooltip'))); ?>
+								<?php applyButton(array('buttonText' => BURST_BLUE . ' ' . gettext("Backup the Database"), 'buttonClass' => 'fixedwidth tooltip')); ?>
 							</div>
 							<br class="clearall" />
 							<br />

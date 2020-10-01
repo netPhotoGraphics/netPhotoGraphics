@@ -277,17 +277,24 @@ function printRandomImages_zb($number = 12, $class = null, $option = 'all', $roo
 				case 0:
 					$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $randomImage);
 					$html = '<img src="' . html_encode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$webp = $randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
 					break;
 				case 1:
 					$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $randomImage);
 					$html = '<img src="' . html_encode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$webp = $randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
 					break;
 				case 2:
 					$sizes = getSizeDefaultThumb($randomImage);
 					$html = '<img src="' . html_encode($randomImage->getThumb()) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" rel="lightbox" />' . "\n";
+					$webp = $randomImage->getThumb(NULL, NULL, FALLBACK_SUFFIX);
 					break;
 			}
-			echo npgFilters::apply('custom_image_html', $html, FALSE);
+			$html = npgFilters::apply('custom_image_html', $html, FALSE);
+			if (ENCODING_FALLBACK) {
+				$html = "<picture>\n<source srcset=\"" . html_encode($webp) . "\">\n" . $html . "</picture>\n";
+			}
+			echo $html;
 			echo '</a>';
 			echo '<div class="caption">';
 			echo '<a href="' . html_encode($randomImage->getLink()) . '" title="' . html_encode($randomImage->getTitle()) . '">';

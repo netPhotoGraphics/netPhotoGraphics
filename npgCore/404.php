@@ -11,18 +11,20 @@ if ($image) { //	maybe we can find it
 				require_once(CORE_SERVERPATH . 'admin-functions.php');
 				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager/functions.php');
 				unset($folders[0]);
-				if ($image) {
-					$folders[] = $image;
-				}
-
+				$folders[] = $image;
 				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders), getWatermarks());
 				$split = explode('?', $i);
 				$i = array_shift($split);
 
-				$uri = getImageURI($args, dirname($i), basename($i), NULL);
-				if (!file_exists(getAlbumFolder() . $i)) {
-					//	Might be a special image
-					$uri = getSpecialImageImageProcessorURI($i, $uri);
+				$base = stripSuffix($i);
+				foreach ($_supported_images as $suffix) {
+					if (file_exists(getAlbumFolder() . $base . '.' . $suffix)) {
+						$uri = getImageURI($args, dirname($i), basename($base) . '.' . $suffix, NULL, $suffix);
+						break;
+					}
+				}
+				if (!isset($uri)) { //	Might be a special image
+					$uri = getSpecialImageImageProcessorURI($i, getImageURI($args, dirname($i), basename($i), NULL));
 				}
 				if ($uri) {
 					header("HTTP/1.0 302 Found");

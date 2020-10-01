@@ -74,7 +74,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 	foreach ($tables as $table => $fields) {
 		@set_time_limit(200);
 		foreach ($fields as $field) {
-			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*i.php((\\.|[^\"])*)"';
+			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*i.(php|webp)((\\.|[^\"])*)"';
 			$result = query($sql);
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
@@ -90,7 +90,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 							} else {
 								$update = true;
 
-								if (strpos($uri, 'i.php') !== false) {
+								if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 									$url = '<span><img src="' . npgFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
 									$title = getTitle($table, $row) . ' ' . gettext('image processor reference');
 									?>
@@ -143,7 +143,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 								}
 
 
-								if (strpos($uri, 'i.php?') !== false) {
+								if (strpos($uri, '/' . CORE_FOLDER . '/i') !== false) {
 									$newlink = str_replace(WEBPATH, '', $match);
 									$cachefile = SERVERPATH . $newlink;
 									if (!file_exists($cachefile)) {
@@ -174,7 +174,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 									$missing = false;
 									$image = $base . '.' . $suffix;
 									$uri = getImageURI($args, dirname($image), basename($image), NULL);
-									if (strpos($uri, 'i.php?') !== false) {
+									if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 										$fixed++;
 										$title = getTitle($table, $row);
 										?>

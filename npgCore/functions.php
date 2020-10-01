@@ -2956,7 +2956,7 @@ class npgFunctions {
 						$text = str_replace($matches[1][$key], $imageuri, $text);
 					} else {
 						$imageuri = self::tagURLs(getImageURI($args, urldecode($set['a']), urldecode($set['i']), NULL));
-						if (strpos($imageuri, 'i.php') === false) {
+						if (strpos($imageuri, '/' . CORE_FOLDER . '/i.') === false) {
 							$text = str_replace($matches[1][$key], $imageuri, $text);
 						}
 					}

@@ -32,7 +32,11 @@ if (!defined('WEBPATH'))
 			// ]]> -->
 		</script>
 
-		<?php if (extensionEnabled('rss')) printRSSHeaderLink('Album', getAlbumTitle()); ?>
+		<?php
+		if (extensionEnabled('rss')) {
+			printRSSHeaderLink('Album', getAlbumTitle());
+		}
+		?>
 	</head>
 	<body>
 		<?php npgFilters::apply('theme_body_open'); ?>

@@ -52,7 +52,9 @@ class imageProcessing {
 	 * @param string $imgfile the filename of the image
 	 */
 	static function debug($album, $image, $args, $imgfile) {
-		list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbStandin, $passedWM, $adminrequest, $effects) = $args;
+		$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+		extract($args);
+
 		echo "Album: [ " . html_encode($album) . " ], Image: [ " . html_encode($image) . " ]<br /><br />";
 		if (file_exists($imgfile)) {
 			echo "Image filesize: " . filesize($imgfile);
@@ -73,8 +75,7 @@ class imageProcessing {
 			<li><?php echo gettext("quality =") ?> <strong> <?php echo $quality ?> </strong></li>
 			<li><?php echo gettext("thumb =") ?>   <strong> <?php echo $thumb ?> </strong></li>
 			<li><?php echo gettext("crop =") ?>    <strong> <?php echo $crop ?> </strong></li>
-			<li><?php echo gettext("thumbStandin =") ?>    <strong> <?php echo $thumbStandin ?> </strong></li>
-			<li><?php echo gettext("watermark =") ?>    <strong> <?php echo $passedWM ?> </strong></li>
+			<li><?php echo gettext("watermark =") ?>    <strong> <?php echo $WM ?> </strong></li>
 			<li><?php echo gettext("adminrequest =") ?>    <strong> <?php echo $adminrequest ?> </strong></li>
 			<li><?php echo gettext("effects =") ?>    <strong> <?php echo $effects ?> </strong></li>
 			<li><?php echo gettext("return_checkmark =") ?>    <strong> <?php echo isset($_GET['returncheckmark']) ?> </strong></li>
@@ -155,8 +156,11 @@ class imageProcessing {
 	 */
 	static function cache($newfilename, $imgfile, $args, $allow_watermark = false, $theme, $album) {
 		global $_gallery;
+		$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
+
 		try {
-			@list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
+			extract($args);
+
 			// Set the config variables for convenience.
 			$image_use_side = getOption('image_use_side');
 			$upscale = getOption('image_allow_upscale');
@@ -166,16 +170,16 @@ class imageProcessing {
 			$id = $im = NULL;
 
 			$watermark_image = false;
-			if ($passedWM) {
-				if ($passedWM != NO_WATERMARK) {
-					$watermark_image = getWatermarkPath($passedWM);
+			if ($WM) {
+				if ($WM != NO_WATERMARK) {
+					$watermark_image = getWatermarkPath($WM);
 					if (!file_exists($watermark_image)) {
 						$watermark_image = false;
 					}
 				}
 			} else {
 				if ($allow_watermark) {
-					if ($thumb || $thumbstandin) {
+					if ($thumb) {
 						$watermark_image = getAlbumInherited($album, 'watermark_thumb', $id);
 						if (empty($watermark_image)) {
 							$watermark_image = THUMB_WATERMARK;
@@ -206,8 +210,9 @@ class imageProcessing {
 			}
 			$newfile = SERVERCACHE . $newfilename;
 			mkdir_recursive(dirname($newfile), FOLDER_MOD);
-			if (DEBUG_IMAGE)
-				debugLog("imageProcessing::cache(\$imgfile=" . basename($imgfile) . ", \$newfilename=$newfilename, \$allow_watermark=$allow_watermark, \$theme=$theme) \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=" . (is_null($cx) ? 'NULL' : $cx) . ", \$cy=" . (is_null($cy) ? 'NULL' : $cy) . ", \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$thumbstandin=$thumbstandin, \$passedWM=$passedWM, \$adminrequest=$adminrequest, \$effects=$effects, \$image_use_side=$image_use_side; \$upscale=$upscale);");
+			if (DEBUG_IMAGE) {
+				debugLog("imageProcessing::cache(\$imgfile=" . basename($imgfile) . ", \$newfilename=$newfilename, \$allow_watermark=$allow_watermark, \$theme=$theme) \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=" . (is_null($cx) ? 'NULL' : $cx) . ", \$cy=" . (is_null($cy) ? 'NULL' : $cy) . ", \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$WM=$WM, \$adminrequest=$adminrequest, \$effects=$effects, \$image_use_side=$image_use_side; \$upscale=$upscale);");
+			}
 			// Check for the source image.
 			if (!file_exists($imgfile) || !is_readable($imgfile)) {
 				self::error('404 Not Found', sprintf(gettext('Image %s not found or is unreadable.'), filesystemToInternal($imgfile)), 'err-imagenotfound.png');
@@ -431,7 +436,7 @@ class imageProcessing {
 			// Create the cached file (with lots of compatibility)...
 			@chmod($newfile, 0777);
 			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
-				if (!($thumb || $thumbstandin) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
+				if (!($thumb ) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
 					global $_images_classes; //	because we are doing the require in a function!
 					require_once(__DIR__ . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
 					$iptc = array(
@@ -485,6 +490,7 @@ class imageProcessing {
 				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-failimage.png');
 			}
 			@chmod($newfile, FILE_MOD);
+
 			gl_imageKill($newim);
 			gl_imageKill($im);
 		} catch (Exception $e) {
@@ -501,20 +507,19 @@ class imageProcessing {
 		$params = mb_parse_url(html_decode($img_link));
 		parse_str($params['query'], $query);
 		$args = array(
-				@$query['s'],
-				@$query['w'],
-				@$query['h'],
-				@$query['cw'],
-				@$query['ch'],
-				@$query['cx'],
-				@$query['cy'],
-				@$query['q'],
-				NULL,
-				@$query['c'],
-				@$query['t'],
-				@$query['wmk'],
-				@$query['admin'],
-				@$query['effects'],
+				'size' => @$query['s'],
+				'width' => @$query['w'],
+				'height' => @$query['h'],
+				'cw' => @$query['cw'],
+				'ch' => @$query['ch'],
+				'cx' => @$query['cx'],
+				'cy' => @$query['cy'],
+				'quality' => @$query['q'],
+				'crop' => @$query['c'], //crop
+				'thumb' => @$query['t'], //thumb
+				'WM' => @$query['wmk'], //watermark
+				'adminrequest' => @$query['admin'], //admin request
+				'effects' => @$query['effects'] //effects
 		);
 		$album = $query['a'];
 		$image = $query['i'];
@@ -542,7 +547,11 @@ class imageProcessing {
 		$nw = round($watermark_width * $r);
 		$nh = round($watermark_height * $r);
 		if (($nw != $watermark_width) || ($nh != $watermark_height)) {
-			if (!gl_resampleImage($watermark, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+			$new_watermark = gl_createImage($nw, $nh, FALSE);
+			if (gl_resampleImage($new_watermark, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
+				gl_imageKill($watermark);
+				$watermark = $new_watermark;
+			} else {
 				self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
 			}
 		}
@@ -554,6 +563,7 @@ class imageProcessing {
 		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
 			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $imgfile);
 		}
+
 		gl_imageKill($watermark);
 		return $newim;
 	}
