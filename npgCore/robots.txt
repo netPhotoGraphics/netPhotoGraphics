@@ -18,8 +18,8 @@ Disallow: /plugins/
 Disallow: /*/plugins/
 Disallow: /themes/
 Disallow: /*/themes/
-Disallow: /zp*/
-Disallow: /*/zp*/
+Disallow: /npg*/
+Disallow: /*/npg*/
 Disallow: /uploaded/
 Disallow: /*/uploaded/
 Disallow: /page/search/
