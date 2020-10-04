@@ -1439,11 +1439,14 @@ function getImageProcessorURI($args, $album, $image, $suffix = NULL) {
 	$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
 	extract($args);
 
-	if ($suffix) {
-		$uri = WEBPATH . '/' . CORE_FOLDER . '/i.' . $suffix . '?a=' . pathurlencode($album);
-	} else {
-		$uri = WEBPATH . '/' . CORE_FOLDER . '/i.php?a=' . pathurlencode($album);
+	if (!$s = $suffix) {
+		if (MOD_REWRITE) {
+			$s = getSuffix(getImageCacheFilename($album, $image, $args));
+		} else {
+			$s = 'php';
+		}
 	}
+	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.' . $s . '?a=' . pathurlencode($album);
 
 	if (is_array($image)) {
 		$uri .= '&i=' . urlencode($image['name']) . '&z=' . ($z = $image['source']);
