@@ -90,7 +90,7 @@ class panorama {
 					// Paver
 					$('div.nPG_panorama').paver({
 						failureMessage: '<?php echo gettext('Scroll left/right to pan through panorama.'); ?>',
-		//						minimumOverflow: <?php echo getOption('panorama_overflow');
+						//						minimumOverflow: <?php echo getOption('panorama_overflow');
 		?>,
 						minimumOverflow: 0,
 						startPosition: <?php echo getOption('panorama_start') / 100; ?>
@@ -124,7 +124,8 @@ class panorama {
 			$height = getOption('panorama_height');
 			$width = (int) ($height / $h * $w);
 			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-			if (strpos($img_link, '/' . CORE_FOLDER . '/i.') !== FALSE) { //	image processor link, cache the image
+			if (!MOD_REWRITE && strpos($img_link, '/' . CORE_FOLDER . '/i.') !== FALSE) {
+				//	i.php link, cache the image because "poster" fails if it thinks it can't show the image
 				require_once(dirname(__DIR__) . '/lib-image.php');
 				imageProcessing::cacheFromImageProcessorURI($img_link);
 				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
