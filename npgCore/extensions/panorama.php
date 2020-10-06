@@ -50,7 +50,6 @@ class panorama {
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('panorama_height', 400);
 			setOptionDefault('panorama_start', 50);
-			setOptionDefault('panorama_overflow', 200);
 		}
 	}
 
@@ -59,9 +58,6 @@ class panorama {
 				gettext('Panorama height') => array('key' => 'panorama_height', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => sprintf(gettext('The image will be resized so that its <span style="color:blue">%1$s</span> pixels high when displayed. The image width will be scaled proportionately.'), getOption('panorama_height'))),
-///				gettext('Minimum overflow') => array('key' => 'panorama_overflow', 'type' => OPTION_TYPE_NUMBER,
-//						'order' => 3,
-//						'desc' => sprintf(gettext('The excess width the panorama must have, in pixels, before the image is considered panoramic. In other words, this option allows the image\'s computed width to exceed that of its parent container by <span style="color:blue">%1$s</span> pixels before the image is panned. Nobody wants a panorama that can barely be panned, right?'), getOption('panorama_overflow'))),
 				gettext('Start position') => array('key' => 'panorama_start', 'type' => OPTION_TYPE_CUSTOM,
 						'limits' => array('min' => 0, 'max' => 100, 'step' => 1),
 						'order' => 2,
@@ -90,8 +86,6 @@ class panorama {
 					// Paver
 					$('div.nPG_panorama').paver({
 						failureMessage: '<?php echo gettext('Scroll left/right to pan through panorama.'); ?>',
-						//						minimumOverflow: <?php echo getOption('panorama_overflow');
-		?>,
 						minimumOverflow: 0,
 						startPosition: <?php echo getOption('panorama_start') / 100; ?>
 					});
