@@ -58,7 +58,7 @@ class lazyLoader {
 						'desc' => gettext('Apply lazy loading to thumbnails.')
 				),
 				gettext('Skip thumbnails') => array('key' => 'lazyLoader_SkipThumbs', 'type' => OPTION_TYPE_NUMBER,
-						'desc' => sprintf(ngettext('Do not apply lazy loading to the first thumbnail displayed.', 'Do not apply lazy loading to the first %1$d thumbnails displayed.', getOption('lazyLoader_SkipImages')), getOption('lazyLoader_SkipImages'))
+						'desc' => sprintf(ngettext('Do not apply lazy loading to the first thumbnail displayed.', 'Do not apply lazy loading to the first %1$d thumbnails displayed.', getOption('lazyLoader_SkipThumbs')), getOption('lazyLoader_SkipThumbs'))
 				),
 				gettext('Images') => array('key' => 'lazyLoader_Images', 'type' => OPTION_TYPE_CHECKBOX,
 						'desc' => gettext('Apply lazy loading to images.')
