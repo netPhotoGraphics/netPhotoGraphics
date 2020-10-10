@@ -89,12 +89,10 @@ class panorama {
 						minimumOverflow: 0,
 						startPosition: <?php echo getOption('panorama_start') / 100; ?>
 					});
-					$('div.nPG_panorama').on('ready.paver', function () {
-						// Paver is initialized
-						$('div.nPG_panorama').css('visibility', 'visible');
-					});
-
 				});
+			});
+			window.addEventListener('load', (event) => {
+				$('div.nPG_panorama').css('visibility', 'visible');
 			});
 		</script>
 		<?php
@@ -118,7 +116,7 @@ class panorama {
 			$height = getOption('panorama_height');
 			$width = (int) ($height / $h * $w);
 			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-			if (strpos($img_link, '/' . CORE_FOLDER . '/i.') !== FALSE) {
+			if (strpos($img_link, '/' . CORE_FOLDER . '/i.php') !== FALSE) {
 				//	i.php link, cache the image because paver fails if it is not already cached
 				require_once(dirname(__DIR__) . '/lib-image.php');
 				imageProcessing::cacheFromImageProcessorURI($img_link);
@@ -127,7 +125,7 @@ class panorama {
 			?>
 			<div class="nPG_panorama" data-paver style="visibility: hidden;">
 				<?php
-				$html = '<img src="' . $img_link . '" alt="' . $title . '" />';
+				$html = '<img src="' . $img_link . '" width=' . $width . '; height=' . $height . '; alt="' . $title . '" />';
 				//	note: paver sets the image to a background URL, so lazyLoading does not apply
 				//	but maybe other filters would, so we apply the filter anyway.
 				echo npgFilters::apply('custom_image_html', $html, FALSE);
