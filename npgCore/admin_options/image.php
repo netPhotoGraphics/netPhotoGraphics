@@ -11,12 +11,7 @@ function saveOptions() {
 	global $_gallery, $_images_classes, $_exifvars;
 
 	$notify = $returntab = NULL;
-	$M = sanitize_numeric($_POST['image_max_size']);
-	if ($M) {
-		setOption('image_max_size', $M);
-	} else {
-		$notify = '?maxsize';
-	}
+
 	setOption('image_quality', sanitize($_POST['imagequality'], 3));
 	setOption('thumb_quality', sanitize($_POST['thumbquality'], 3));
 	setOption('image_allow_upscale', (int) isset($_POST['image_allow_upscale']));
@@ -325,21 +320,6 @@ function getOptionContent() {
 							<div class="option_desc_hidden">
 								<p><?php echo gettext("Default sort order for images."); ?></p>
 								<p><?php echo gettext('Custom sort values must be database field names. You can have multiple fields separated by commas.') ?></p>
-							</div>
-						</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="option_name"><?php echo gettext('Maximum image size'); ?></td>
-					<td class="option_value">
-						<input type="textbox" name="image_max_size" size="10" value="<?php echo getOption('image_max_size'); ?>" /> px
-					</td>
-					<td class="option_desc">
-						<span class="option_info">
-							<?php echo INFORMATION_BLUE; ?>
-							<div class="option_desc_hidden">
-
-								<?php echo gettext('The limit on how large an image may be resized. Too large and your server will spend all its time sizing images.'); ?>
 							</div>
 						</span>
 					</td>
@@ -763,7 +743,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																		 togglePassword('');" />
+																 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 

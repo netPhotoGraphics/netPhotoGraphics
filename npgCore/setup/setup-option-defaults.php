@@ -547,7 +547,6 @@ setOptionDefault('albumimagesort', 'ID');
 setOptionDefault('albumimagedirection', 'DESC');
 setOptionDefault('cache_full_image', 0);
 setOptionDefault('exact_tag_match', 0);
-setOptionDefault('image_max_size', 3000);
 setOptionDefault('IPTC_encoding', 'ISO-8859-1');
 setOptionDefault('sharpen_amount', 40);
 setOptionDefault('sharpen_radius', 0.5);
