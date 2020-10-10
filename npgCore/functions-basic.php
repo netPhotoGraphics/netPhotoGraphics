@@ -1420,10 +1420,31 @@ function getImageParameters($args, $album = NULL) {
  * @return string
  */
 function ipProtectTag($album, $image, $args) {
+	$valid = array(
+			'size',
+			'width',
+			'height',
+			'cw',
+			'ch',
+			'cx',
+			'cy',
+			'quality',
+			'crop',
+			'thumb',
+			'WM',
+			'effects'
+	);
+
 	if (is_array($image)) {
 		$image = $image['name'];
 	}
-	$tag = sha1(HASH_SEED . $album . $image . serialize($args));
+	$key = '';
+	foreach ($valid as $index) {
+		if (isset($args[$index]) && $args[$index]) {
+			$key .= $index . $args[$index];
+		}
+	}
+	$tag = sha1(HASH_SEED . $album . $image . $key);
 	return $tag;
 }
 

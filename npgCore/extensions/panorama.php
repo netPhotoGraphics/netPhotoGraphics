@@ -118,8 +118,8 @@ class panorama {
 			$height = getOption('panorama_height');
 			$width = (int) ($height / $h * $w);
 			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
-			if (!MOD_REWRITE && strpos($img_link, '/' . CORE_FOLDER . '/i.') !== FALSE) {
-				//	i.php link, cache the image because "poster" fails if it thinks it can't show the image
+			if (strpos($img_link, '/' . CORE_FOLDER . '/i.') !== FALSE) {
+				//	i.php link, cache the image because paver fails if it is not already cached
 				require_once(dirname(__DIR__) . '/lib-image.php');
 				imageProcessing::cacheFromImageProcessorURI($img_link);
 				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
