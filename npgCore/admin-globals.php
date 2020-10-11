@@ -60,7 +60,7 @@ if (abs(OFFSET_PATH) != 2) {
 	}
 
 	if (!defined('EDITOR_SANITIZE_LEVEL'))
-		define('EDITOR_SANITIZE_LEVEL', 3);
+		define('EDITOR_SANITIZE_LEVEL', 1);
 
 	//	just incase
 	require_once(CORE_SERVERPATH . 'lib-filter.php');
