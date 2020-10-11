@@ -76,9 +76,9 @@ class imageProcessing {
 			<li><?php echo gettext("thumb =") ?>   <strong> <?php echo $thumb ?> </strong></li>
 			<li><?php echo gettext("crop =") ?>    <strong> <?php echo $crop ?> </strong></li>
 			<li><?php echo gettext("watermark =") ?>    <strong> <?php echo $WM ?> </strong></li>
-			<li><?php echo gettext("adminrequest =") ?>    <strong> <?php echo $adminrequest ?> </strong></li>
+			<li><?php echo gettext("adminrequest =") ?>    <strong> <?php echo (int) $adminrequest ?> </strong></li>
 			<li><?php echo gettext("effects =") ?>    <strong> <?php echo $effects ?> </strong></li>
-			<li><?php echo gettext("return_checkmark =") ?>    <strong> <?php echo isset($_GET['returncheckmark']) ?> </strong></li>
+			<li><?php echo gettext("return_checkmark =") ?>    <strong> <?php echo (int) isset($_GET['returncheckmark']) ?> </strong></li>
 		</ul>
 		<?php
 	}
