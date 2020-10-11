@@ -242,7 +242,7 @@ class Video extends Image {
 		}
 		$args = array('size' => $ts, 'width' => $sw, 'height' => $sh, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'crop' => $crop, 'thumb' => TRUE, 'WM' => $wmt);
 		$args = getImageParameters($args, $this->album->name);
-		return getImageURI($args, $this->album->name, $filename, $mtime);
+		return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Video extends Image {
 	 * @param string $id Optional style id
 	 * @param bool $thumbStandin set to true to treat as thumbnail
 	 * @param bool $effects ignore
-	 * @param string $suffix ignored
+	 * @param string $suffix
 	 * @return string
 	 */
 	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
@@ -284,7 +284,7 @@ class Video extends Image {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
-			return getImageURI($args, $this->album->name, $filename, $this->filemtime);
+			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix, $suffix);
 		} else {
 			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $WM, 'effects' => $effects);
 			$args = getImageParameters($args, $this->album->name);

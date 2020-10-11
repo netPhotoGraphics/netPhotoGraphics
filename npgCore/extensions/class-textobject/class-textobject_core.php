@@ -181,7 +181,7 @@ class TextObject extends Image {
 		}
 		$args = array('size' => $ts, 'width' => $sw, 'height' => $sh, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'crop' => $crop, 'thumb' => TRUE, 'WM' => $wmt);
 		$args = getImageParameters($args, $this->album->name);
-		return getImageURI($args, $this->album->name, $filename, $mtime);
+		return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 	}
 
 	/**
@@ -223,7 +223,7 @@ class TextObject extends Image {
 	 * @param string $id Optional style id
 	 * @param bool $thumbStandin set to true to treat as thumbnail
 	 * @param bool $effects ignored
-	 * @param string $suffix ignored
+	 * @param string $suffix
 	 * @return string
 	 */
 	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
@@ -249,7 +249,7 @@ class TextObject extends Image {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
-			return getImageURI($args, $this->album->name, $filename, $mtime);
+			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {
 			return $this->getContent($width, $height);
 		}
