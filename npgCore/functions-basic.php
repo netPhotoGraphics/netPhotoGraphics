@@ -1617,6 +1617,19 @@ function getImageURI($args, $album, $image, $mtime, $suffix = NULL) {
 }
 
 /**
+ * Returns an img src URI encoded based on the OS of the server
+ *
+ * @param string $uri uri in FILESYSTEM_CHARSET encoding
+ * @return string
+ */
+function imgSrcURI($uri) {
+	if (UTF8_IMAGE_URI) {
+		$uri = filesystemToInternal($uri);
+	}
+	return $uri;
+}
+
+/**
  *
  * Returns an array of html tags allowed
  * @param string $which either 'allowed_tags' or 'style_tags' depending on which is wanted.
@@ -1834,18 +1847,6 @@ function getAlbumArray($albumstring, $includepaths = false) {
 	} else {
 		return explode('/', $albumstring);
 	}
-}
-
-/**
- * Returns an img src URI encoded based on the OS of the server
- *
- * @param string $uri uri in FILESYSTEM_CHARSET encoding
- * @return string
- */
-function imgSrcURI($uri) {
-	if (UTF8_IMAGE_URI)
-		$uri = filesystemToInternal($uri);
-	return $uri;
 }
 
 /**
