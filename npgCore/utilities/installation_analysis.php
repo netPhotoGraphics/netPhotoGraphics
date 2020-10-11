@@ -89,6 +89,19 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
+								printf(gettext('Site character set is <strong>%1$s</strong>'), LOCAL_CHARSET);
+								?>
+							</li>
+							<li>
+								<?php
+								printf(gettext('File system character set is <strong>%1$s</strong>'), FILESYSTEM_CHARSET);
+								if (UTF8_IMAGE_URI && FILESYSTEM_CHARSET != 'UTF-8') {
+									echo ', ' . gettext('Image URIs are in <strong>UTF-8</strong>');
+								}
+								?>
+							</li>
+							<li>
+								<?php
 								if (SITE_LOCALE_OPTION) {
 									printf(gettext('Current locale setting: <strong>%1$s</strong>'), SITE_LOCALE_OPTION);
 								} else {
@@ -416,8 +429,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php
