@@ -9,14 +9,7 @@ require_once(__DIR__ . '/lib-encryption.php');
 require_once(__DIR__ . '/lib-utf8.php');
 $_UTF8 = new utf8();
 
-switch (PHP_MAJOR_VERSION) {
-	case 5:
-		define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
-		break;
-	default: // PHP 7?
-		define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
-		break;
-}
+define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 
 // Set error reporting.
 error_reporting(E_ALL | E_STRICT);
