@@ -9,7 +9,7 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
-require_once(CORE_SERVERPATH . 'admin-functions.php');
+require_once(CORE_SERVERPATH . 'admin-globals.php');
 
 list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 
@@ -909,7 +909,7 @@ $plugins = array_keys($plugins);
 	<?php
 	setOptionDefault('deprecated_functions_signature', NULL);
 
-//clean up plugins needed for themes and other plugins
+	//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {
