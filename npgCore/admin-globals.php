@@ -15,6 +15,18 @@ require_once(__DIR__ . '/initialize-basic.php');
 npg_session_start();
 require_once(CORE_SERVERPATH . 'admin-functions.php');
 
+define('TEXTAREA_COLUMNS', 50);
+define('TEXT_INPUT_SIZE', 48);
+define('TEXTAREA_COLUMNS_SHORT', 32);
+define('TEXT_INPUT_SIZE_SHORT', 30);
+
+define('ADMIN_THUMB_LARGE', 160);
+define('ADMIN_THUMB_MEDIUM', 80);
+define('ADMIN_THUMB_SMALL', 40);
+
+define('UPLOAD_ERR_QUOTA', -1);
+define('UPLOAD_ERR_BLOCKED', -2);
+
 $_admin_button_actions = $_admin_menu = array();
 
 if (abs(OFFSET_PATH) != 2) {
@@ -46,6 +58,9 @@ if (abs(OFFSET_PATH) != 2) {
 			}
 		}
 	}
+
+	if (!defined('EDITOR_SANITIZE_LEVEL'))
+		define('EDITOR_SANITIZE_LEVEL', 3);
 
 	//	just incase
 	require_once(CORE_SERVERPATH . 'lib-filter.php');
