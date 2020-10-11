@@ -33,7 +33,7 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 	if (!isset($_GET['album'])) {
 		echo gettext("Gallery");
 	} else {
-		echo "<em>" . html_encode($album->name) . "</em>";
+		echo "<em>" . pathurlencode($album->name) . "</em>";
 	}
 	?>
 </h1>
@@ -59,7 +59,7 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 				<div class="innerbox<?php if (!($currentalbum % 2)) echo '_dark'; ?>" style="padding-left: 15px;padding-right: 15px;">
 
 					<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&album=<?php echo urlencode($album->name); ?>&tab=albuminfo">
-						<em><strong><?php echo html_encode($album->name); ?></strong></em></a>
+						<em><strong><?php echo pathurlencode($album->name); ?></strong></em></a>
 					<br /><br />
 					<?php
 					printAlbumEditForm($currentalbum, $album, false);

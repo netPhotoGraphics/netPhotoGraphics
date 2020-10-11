@@ -185,7 +185,7 @@ echo "\n</head>";
 												 src="<?php echo getAdminThumb($image, 'large'); ?>"
 												 alt="<?php echo html_encode($image->getTitle()); ?>"
 												 title="<?php
-												 echo html_encode($image->getTitle()) . ' (' . html_encode($album->name) . ')';
+												 echo html_encode($image->getTitle()) . ' (' . pathurlencode($album->name) . ')';
 												 ?>"
 												 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
 										<p>
