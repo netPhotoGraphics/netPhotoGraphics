@@ -56,7 +56,7 @@ function loadAlbum($album) {
 						}
 						$countit = 1;
 						?>
-						<a href="<?php echo html_encode($uri); ?>&amp;debug">
+						<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug">
 							<?php
 							echo '<img src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
 							?>
@@ -104,9 +104,9 @@ function loadAlbum($album) {
 							}
 							$countit = 1;
 							?>
-							<span>
+							<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug">
 								<?php echo '<img src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n"; ?>
-							</span>
+							</a>
 							<?php
 						}
 					}
