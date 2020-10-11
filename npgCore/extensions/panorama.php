@@ -91,9 +91,6 @@ class panorama {
 					});
 				});
 			});
-			window.addEventListener('load', (event) => {
-				$('div.nPG_panorama').css('visibility', 'visible');
-			});
 		</script>
 		<?php
 	}
@@ -123,7 +120,7 @@ class panorama {
 				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
 			}
 			?>
-			<div class="nPG_panorama" data-paver style="visibility: hidden;">
+			<div class="nPG_panorama" data-paver>
 				<?php
 				$html = '<img src="' . $img_link . '" width=' . $width . '; height=' . $height . '; alt="' . $title . '" />';
 				//	note: paver sets the image to a background URL, so lazyLoading does not apply
