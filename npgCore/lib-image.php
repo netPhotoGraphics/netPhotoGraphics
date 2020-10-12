@@ -23,17 +23,16 @@ class imageProcessing {
 		if ($debug) {
 			echo '<strong>' . $err . '</strong>';
 		} else {
-			if (DEBUG_IMAGE) {
-				$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
-								. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']';
-				if ($newfilename) {
-					$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
-				}
-				if ($image || $album) {
-					$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
-				}
-				debugLog($msg);
+			$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
+							. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']';
+			if ($newfilename) {
+				$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
 			}
+			if ($image || $album) {
+				$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
+			}
+			debugLog($msg);
+
 			if (!isset($_GET['returncheckmark'])) {
 				header("HTTP/1.0 $status_text");
 				header("Status: $status_text");
