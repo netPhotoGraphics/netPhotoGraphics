@@ -16,7 +16,7 @@ class imageProcessing {
 	 * @param $errorimg string the filename of the error image to display for production. Defaults
 	 *   to 'err-imagegeneral.png'.
 	 */
-	static function error($status_text, $errormessage, $errorimg = 'err-imagegeneral.png') {
+	static function error($status_text, $errormessage, $errorimg) {
 		global $newfilename, $album, $image;
 		$debug = isset($_GET['debug']);
 		$err = sprintf(gettext('Image Processing Error: %s'), $errormessage);
@@ -388,7 +388,7 @@ class imageProcessing {
 				}
 				$newim = gl_createImage($neww, $newh);
 				if (!gl_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
-					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 				}
 			} else {
 				if ($newh >= $h && $neww >= $w && !$rotate && !$effects && !$watermark_image && (!$upscale || $newh == $h && $neww == $w)) {
@@ -560,7 +560,7 @@ class imageProcessing {
 		if (DEBUG_IMAGE)
 			debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
 		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
-			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $imgfile);
+			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 		}
 
 		gl_imageKill($watermark);

@@ -65,7 +65,7 @@ if (getOption('secure_image_processor')) {
 	require_once(__DIR__ . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)", 'err-imageforbidden.png'));
 	}
 	unset($albumobj);
 }
@@ -157,11 +157,11 @@ if (file_exists($newfile) & !$adminrequest) {
 
 if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"), 'err-imageforbidden.png');
 	}
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
-		imageProcessing::error('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)));
+		imageProcessing::error('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');
 	}
 	$fmt = filemtime($newfile);
 }

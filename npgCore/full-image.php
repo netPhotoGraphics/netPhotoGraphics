@@ -15,7 +15,7 @@ require_once(__DIR__ . "/lib-image.php");
 
 $disposal = getOption('protect_full_image');
 if ($disposal == 'No access') { // illegal use of the script!
-	imageProcessing::error('403 Forbidden', gettext("Forbidden"));
+	imageProcessing::error('403 Forbidden', gettext("Forbidden"), 'err-imageforbidden.png');
 } else {
 	if (isset($_GET['dsp'])) {
 		$disposal = sanitize($_GET['dsp']);
@@ -220,7 +220,7 @@ if ($disposal == 'Download') {
 
 if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"));
+		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)", 'err-imageforbidden.png'));
 	}
 	if ($force_cache && !$process) {
 		// we can just use the original!
