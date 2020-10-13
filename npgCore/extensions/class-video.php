@@ -224,7 +224,7 @@ class Video extends Image {
 			$sw = $sh = $cw = $ch = $cx = $cy = null;
 		}
 		if (empty($wmt)) {
-			$wmt = getOption('Video_watermark');
+			$wmt = getOption('video_watermark');
 		}
 		if (empty($wmt)) {
 			$wmt = getWatermarkParam($this, WATERMARK_THUMB);
@@ -242,6 +242,7 @@ class Video extends Image {
 		}
 		$args = array('size' => $ts, 'width' => $sw, 'height' => $sh, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'crop' => $crop, 'thumb' => TRUE, 'WM' => $wmt);
 		$args = getImageParameters($args, $this->album->name);
+
 		return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 	}
 
@@ -264,29 +265,38 @@ class Video extends Image {
 	 * @return string
 	 */
 	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
-		if ($thumbStandin) {
-			$wmt = getOption('Video_watermark');
-			if (empty($wmt)) {
-				$wmt = getWatermarkParam($this, WATERMARK_THUMB);
-			}
-		} else {
-			$wmt = NULL;
+
+		switch ((int) $thumbStandin) {
+			case -1:
+				$wmt = '!';
+				$thumbstandin = 1;
+				break;
+			case 0:
+				$wmt = $wmt = NULL;
+				break;
+			default:
+				$wmt = getOption('video_watermark');
+				if (empty($wmt)) {
+					$wmt = getWatermarkParam($this, WATERMARK_THUMB);
+				}
+				break;
 		}
+
 		if ($thumbStandin & 1) {
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin);
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!getOption('video_watermark_default_images')) {
-					$args[11] = '!';
+					$wmt = '!';
 				}
 				$mtime = NULL;
 			} else {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix, $suffix);
 		} else {
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $WM, 'effects' => $effects);
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt, 'effects' => $effects);
 			$args = getImageParameters($args, $this->album->name);
 			$filename = $this->filename;
 			return getImageURI($args, $this->album->name, $filename, $this->filemtime);

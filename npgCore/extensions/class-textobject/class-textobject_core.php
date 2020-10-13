@@ -204,7 +204,7 @@ class TextObject extends Image {
 			case 'html':
 				return '<' . $container . ' style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</' . $container . '>';
 			default: // just in case we extend and are lazy...
-				return '<img src="' . html_encode($this->getThumb()) . '">';
+				return '<img src="' . html_encode($this->getThumb()) . '" width=' . $w . '; height=' . $h . '>';
 		}
 	}
 
@@ -227,28 +227,36 @@ class TextObject extends Image {
 	 * @return string
 	 */
 	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
-		if ($thumbStandin) {
-			$wmt = $this->watermark;
-			if (empty($wmt)) {
-				$wmt = getWatermarkParam($this, WATERMARK_THUMB);
-			}
-		} else {
-			$wmt = NULL;
-		}
-		if ($thumbStandin & 1) {
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
-			$args = getImageParameters($args, $this->album->name);
 
+		switch ((int) $thumbStandin) {
+			case -1:
+				$wmt = '!';
+				$thumbstandin = 1;
+				break;
+			case 0:
+				$wmt = $wmt = NULL;
+				break;
+			default:
+				$wmt = $this->watermark;
+				if (empty($wmt)) {
+					$wmt = getWatermarkParam($this, WATERMARK_THUMB);
+				}
+				break;
+		}
+
+		if ($thumbStandin & 1) {
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!$this->watermarkDefault) {
-					$args[11] = '!';
+					$wmt = '!';
 				}
 				$mtime = NULL;
 			} else {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
+			$args = getImageParameters($args, $this->album->name);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {
 			return $this->getContent($width, $height);

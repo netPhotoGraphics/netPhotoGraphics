@@ -461,7 +461,7 @@ setOptionDefault('ImbedIPTC', NULL);
 
 if (getOption('perform_video_watermark')) {
 	$v = str_replace('.png', "", basename(getOption('video_watermark_image')));
-	setoptionDefault('Video_watermark', $v);
+	setoptionDefault('video_watermark', $v);
 }
 
 setOptionDefault('hotlink_protection', '1');
