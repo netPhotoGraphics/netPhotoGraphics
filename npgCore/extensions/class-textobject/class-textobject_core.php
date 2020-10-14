@@ -234,8 +234,9 @@ class TextObject extends Image {
 				$thumbstandin = 1;
 				break;
 			case 0:
-				$wmt = $wmt = NULL;
+				$wmt = NULL;
 				break;
+			case 3:
 			default:
 				$wmt = $this->watermark;
 				if (empty($wmt)) {
