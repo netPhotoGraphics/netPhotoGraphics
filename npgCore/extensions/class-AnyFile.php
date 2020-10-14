@@ -136,10 +136,9 @@ class AnyFile extends TextObject {
 			$h = $this->getHeight();
 		$s = min($w, $h);
 		/*
-		 * just return the thumbnail as we do not know how to
-		 * render the file.
+		 * just return the thumbnail image as we do not know how to render the file.
 		 */
-		return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="nPGother" width=' . $s . ' height=' . $s . '>';
+		return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="anyfile_default" width=' . $s . ' height=' . $s . '>';
 	}
 
 }
