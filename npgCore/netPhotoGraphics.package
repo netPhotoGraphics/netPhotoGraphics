@@ -7868,6 +7868,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/images/chevron.png
 %core%/images/err-broken-page.png
 %core%/images/err-failimage.png
+%core%/images/err-imageforbidden.png
 %core%/images/err-imagegeneral.png
 %core%/images/err-imagenotfound.png
 %core%/images/err-passwordprotected.png
@@ -8082,4 +8083,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8084
+8085

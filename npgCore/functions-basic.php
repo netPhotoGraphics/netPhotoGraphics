@@ -1270,6 +1270,7 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	} else {
 		$result = '/' . $album . '/' . $image . $postfix . '.' . $suffix;
 	}
+
 	return $result;
 }
 
@@ -1538,22 +1539,22 @@ function getImageArgs($set) {
 	if (isset($set['s'])) { //0
 		if (is_numeric($s = $set['s'])) {
 			if ($s) {
-				$args['size'] = (int) min(abs($s), MAX_SIZE);
+				$args['size'] = (int) abs($s);
 			}
 		} else {
 			$args['size'] = sanitize($set['s']);
 		}
 	} else {
 		if (!isset($set['w']) && !isset($set['h'])) {
-			$args['size'] = MAX_SIZE;
+			$args['size'] = 3000; // you didn't specify a size so we arbitrarily pick one
 		}
 	}
 	$i = 0;
 	if (isset($set['w'])) { //1
-		$args['width'] = (int) min(abs(sanitize_numeric($set['w'])), MAX_SIZE);
+		$args['width'] = (int) abs(sanitize_numeric($set['w']));
 	}
 	if (isset($set['h'])) { //2
-		$args['height'] = (int) min(abs(sanitize_numeric($set['h'])), MAX_SIZE);
+		$args['height'] = (int) abs(sanitize_numeric($set['h']));
 	}
 	if (isset($set['cw'])) { //3
 		$args['cw'] = (int) sanitize_numeric(($set['cw']));
@@ -1613,6 +1614,19 @@ function getImageURI($args, $album, $image, $mtime, $suffix = NULL) {
 		}
 	}
 	return getImageProcessorURI($args, $album, $image, $suffix);
+}
+
+/**
+ * Returns an img src URI encoded based on the OS of the server
+ *
+ * @param string $uri uri in FILESYSTEM_CHARSET encoding
+ * @return string
+ */
+function imgSrcURI($uri) {
+	if (UTF8_IMAGE_URI) {
+		$uri = filesystemToInternal($uri);
+	}
+	return $uri;
 }
 
 /**
@@ -1833,18 +1847,6 @@ function getAlbumArray($albumstring, $includepaths = false) {
 	} else {
 		return explode('/', $albumstring);
 	}
-}
-
-/**
- * Returns an img src URI encoded based on the OS of the server
- *
- * @param string $uri uri in FILESYSTEM_CHARSET encoding
- * @return string
- */
-function imgSrcURI($uri) {
-	if (UTF8_IMAGE_URI)
-		$uri = filesystemToInternal($uri);
-	return $uri;
 }
 
 /**

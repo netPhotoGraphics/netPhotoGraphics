@@ -97,7 +97,7 @@ $_cached_feeds = array('RSS'); //	Add to this array any feed classes that need c
 
 class cacheManagerFeed extends feed {
 
-//fake feed descendent class so we can use the feed::clearCache()
+	//fake feed descendent class so we can use the feed::clearCache()
 
 	protected $feed = NULL;
 

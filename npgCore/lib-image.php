@@ -16,24 +16,23 @@ class imageProcessing {
 	 * @param $errorimg string the filename of the error image to display for production. Defaults
 	 *   to 'err-imagegeneral.png'.
 	 */
-	static function error($status_text, $errormessage, $errorimg = 'err-imagegeneral.png') {
+	static function error($status_text, $errormessage, $errorimg) {
 		global $newfilename, $album, $image;
 		$debug = isset($_GET['debug']);
 		$err = sprintf(gettext('Image Processing Error: %s'), $errormessage);
 		if ($debug) {
 			echo '<strong>' . $err . '</strong>';
 		} else {
-			if (DEBUG_IMAGE) {
-				$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
-								. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']';
-				if ($newfilename) {
-					$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
-				}
-				if ($image || $album) {
-					$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
-				}
-				debugLog($msg);
+			$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
+							. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']';
+			if ($newfilename) {
+				$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
 			}
+			if ($image || $album) {
+				$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
+			}
+			debugLog($msg);
+
 			if (!isset($_GET['returncheckmark'])) {
 				header("HTTP/1.0 $status_text");
 				header("Status: $status_text");
@@ -76,9 +75,9 @@ class imageProcessing {
 			<li><?php echo gettext("thumb =") ?>   <strong> <?php echo $thumb ?> </strong></li>
 			<li><?php echo gettext("crop =") ?>    <strong> <?php echo $crop ?> </strong></li>
 			<li><?php echo gettext("watermark =") ?>    <strong> <?php echo $WM ?> </strong></li>
-			<li><?php echo gettext("adminrequest =") ?>    <strong> <?php echo $adminrequest ?> </strong></li>
+			<li><?php echo gettext("adminrequest =") ?>    <strong> <?php echo (int) $adminrequest ?> </strong></li>
 			<li><?php echo gettext("effects =") ?>    <strong> <?php echo $effects ?> </strong></li>
-			<li><?php echo gettext("return_checkmark =") ?>    <strong> <?php echo isset($_GET['returncheckmark']) ?> </strong></li>
+			<li><?php echo gettext("return_checkmark =") ?>    <strong> <?php echo (int) isset($_GET['returncheckmark']) ?> </strong></li>
 		</ul>
 		<?php
 	}
@@ -389,7 +388,7 @@ class imageProcessing {
 				}
 				$newim = gl_createImage($neww, $newh);
 				if (!gl_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
-					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 				}
 			} else {
 				if ($newh >= $h && $neww >= $w && !$rotate && !$effects && !$watermark_image && (!$upscale || $newh == $h && $neww == $w)) {
@@ -561,7 +560,7 @@ class imageProcessing {
 		if (DEBUG_IMAGE)
 			debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
 		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
-			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $imgfile);
+			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png');
 		}
 
 		gl_imageKill($watermark);

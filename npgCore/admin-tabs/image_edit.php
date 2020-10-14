@@ -59,7 +59,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<input type="hidden" name="filter" value="<?php echo html_encode($filter); ?>" />
 
 				<?php echo gettext('Image filter'); ?>
-				<select id="filter" name="filter" onchange="launchScript('<?php echo getAdminLink('admin-tabs/edit.php'); ?>', ['page=edit', 'album=<?php echo html_encode($album->name); ?>', 'subpage=1', 'tab=imageinfo', 'filter=' + $('#filter').val()]);">
+				<select id="filter" name="filter" onchange="launchScript('<?php echo getAdminLink('admin-tabs/edit.php'); ?>', ['page=edit', 'album=<?php echo pathurlencode($album->name); ?>', 'subpage=1', 'tab=imageinfo', 'filter=' + $('#filter').val()]);">
 					<option value=""<?php if (empty($filter)) echo ' selected="selected"'; ?>><?php echo gettext('all'); ?></option>
 					<option value="unpublished"<?php if ($filter == 'unpublished') echo ' selected="selected"'; ?>><?php echo gettext('unpublished'); ?></option>
 					<option value="published"<?php if ($filter == 'published') echo ' selected="selected"'; ?>><?php echo gettext('published'); ?></option>
@@ -321,9 +321,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-															 $('.expire-<?php echo $currentimage; ?>').html('');"
+																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																		 $('.expire-<?php echo $currentimage; ?>').html('');"
 													 />
 													 <?php echo gettext("Published"); ?>
 									</label>
@@ -461,7 +461,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">

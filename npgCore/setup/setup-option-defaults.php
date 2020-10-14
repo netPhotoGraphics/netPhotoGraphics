@@ -9,7 +9,7 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
-require_once(CORE_SERVERPATH . 'admin-functions.php');
+require_once(CORE_SERVERPATH . 'admin-globals.php');
 
 list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 
@@ -461,7 +461,7 @@ setOptionDefault('ImbedIPTC', NULL);
 
 if (getOption('perform_video_watermark')) {
 	$v = str_replace('.png', "", basename(getOption('video_watermark_image')));
-	setoptionDefault('Video_watermark', $v);
+	setoptionDefault('video_watermark', $v);
 }
 
 setOptionDefault('hotlink_protection', '1');
@@ -547,7 +547,6 @@ setOptionDefault('albumimagesort', 'ID');
 setOptionDefault('albumimagedirection', 'DESC');
 setOptionDefault('cache_full_image', 0);
 setOptionDefault('exact_tag_match', 0);
-setOptionDefault('image_max_size', 3000);
 setOptionDefault('IPTC_encoding', 'ISO-8859-1');
 setOptionDefault('sharpen_amount', 40);
 setOptionDefault('sharpen_radius', 0.5);
@@ -910,7 +909,7 @@ $plugins = array_keys($plugins);
 	<?php
 	setOptionDefault('deprecated_functions_signature', NULL);
 
-//clean up plugins needed for themes and other plugins
+	//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {

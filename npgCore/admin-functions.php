@@ -9,20 +9,6 @@
 // force UTF-8 Ø
 require_once(__DIR__ . '/functions.php');
 
-define('TEXTAREA_COLUMNS', 50);
-define('TEXT_INPUT_SIZE', 48);
-define('TEXTAREA_COLUMNS_SHORT', 32);
-define('TEXT_INPUT_SIZE_SHORT', 30);
-if (!defined('EDITOR_SANITIZE_LEVEL'))
-	define('EDITOR_SANITIZE_LEVEL', 1);
-
-define('ADMIN_THUMB_LARGE', 160);
-define('ADMIN_THUMB_MEDIUM', 80);
-define('ADMIN_THUMB_SMALL', 40);
-
-define('UPLOAD_ERR_QUOTA', -1);
-define('UPLOAD_ERR_BLOCKED', -2);
-
 /**
  * Print the header for all admin pages. Starts at <DOCTYPE> but does not include the </head> tag,
  * in case there is a need to add something further.
@@ -1572,11 +1558,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-										 } else {
-											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-										 }
+												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+												 } else {
+													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+												 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -2102,7 +2088,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2431,9 +2417,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2591,7 +2577,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2695,20 +2681,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param object $album is the album being emitted
 	 */
 	function printAlbumButtons($album) {
+		$albumLink = pathurlencode($album->name);
 		if ($imagcount = $album->getNumImages() > 0) {
-			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
+			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
 			?>
 			<br /><br />
 			<?php
 			if (extensionEnabled('hitcounter')) {
-				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . html_encode($album->name) . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
+				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . $albumLink . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
 				?>
 				<br /><br />
 				<?php
 			}
 		}
 		if ($imagcount || (!$album->isDynamic() && $album->getNumAlbums())) {
-			npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Refresh album metadata'), array('buttonLink' => getAdminLink('utilities/refresh-metadata.php') . '?album=' . html_encode($album->name) . '&amp;return=' . html_encode($album->name) . '&amp;XSRFToken=' . getXSRFToken('refresh'), 'buttonTitle' => gettext("Refreshes the metadata for the album."), 'buttonClass' => 'fixedwidth'));
+			npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Refresh album metadata'), array('buttonLink' => getAdminLink('utilities/refresh-metadata.php') . '?album=' . $albumLink . '&amp;return=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('refresh'), 'buttonTitle' => gettext("Refreshes the metadata for the album."), 'buttonClass' => 'fixedwidth'));
 		}
 	}
 
@@ -4636,30 +4623,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -5045,27 +5032,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -6037,7 +6024,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
@@ -6134,7 +6121,7 @@ function curlDL($fileUrl, $saveTo) {
 		throw new Exception(sprintf(gettext('Could not create: %1$s') . $saveTo . '/' . basename($fileUrl)));
 	}
 
-//Create a cURL handle.
+	//Create a cURL handle.
 	$ch = curl_init($fileUrl);
 	curl_setopt_array($ch, array(
 			CURLOPT_FILE => $fp, //Pass file handle to cURL.
@@ -6142,21 +6129,21 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-//Execute the request.
+	//Execute the request.
 	curl_exec($ch);
 
-//If there was an error, throw an Exception
+	//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-//Get the HTTP status code.
+	//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-//Close the cURL handler.
+	//Close the cURL handler.
 	curl_close($ch);
 
-//Close the file handle.
+	//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {

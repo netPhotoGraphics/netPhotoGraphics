@@ -1829,7 +1829,7 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 		$html = '<img src="' . html_encode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy)) . '"' . $sizing . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
 		$html = npgFilters::apply('custom_album_thumb_html', $html);
 		if (ENCODING_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		echo $html;
 	} else {
@@ -1889,13 +1889,14 @@ function getMaxSpaceContainer(&$width, &$height, $image, $thumb = false) {
  *
  * @param int $width width
  * @param int $height height
+ * @param string $suffix
  * @return string
  */
-function getCustomAlbumThumbMaxSpace($width, $height) {
+function getCustomAlbumThumbMaxSpace($width, $height, $suffix = NULL) {
 	global $_current_album;
 	$albumthumb = $_current_album->getAlbumThumbImage();
 	getMaxSpaceContainer($width, $height, $albumthumb, true);
-	return getCustomAlbumThumb(NULL, $width, $height, NULL, NULL, NULL, NULL);
+	return getCustomAlbumThumb(NULL, $width, $height, NULL, NULL, NULL, NULL, NULL, $suffix);
 }
 
 /**
@@ -4501,7 +4502,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

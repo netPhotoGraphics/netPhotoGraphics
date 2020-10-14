@@ -130,32 +130,32 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 							if (!file_exists(getAlbumFolder() . $image_uri)) {
 								//	Might be a special image
 								$uriin = getImageURI($args, dirname($image_uri), basename($image_uri), NULL);
-								$uri = getSpecialImageImageProcessorURI($image_uri, $uriin);
-								$parts = mb_parse_url($uri);
-								$query = parse_query($parts['query']);
-								if (isset($query['i']) && strpos($match, $query['i']) === FALSE) {
-									//	need to update the db entry as well
-									$from = stripSuffix(basename($image_uri));
-									$to = stripSuffix($query['i']);
-									$updated = true;
-									$new_link = npgFunctions::tagURLs(str_replace($from, $to, $match));
-									$row[$field] = updateCacheName($row[$field], $match, $new_link);
-								}
+								if ($uri = getSpecialImageImageProcessorURI($image_uri, $uriin)) {
+									$parts = mb_parse_url($uri);
+									$query = parse_query($parts['query']);
+									if (isset($query['i']) && strpos($match, $query['i']) === FALSE) {
+										//	need to update the db entry as well
+										$from = stripSuffix(basename($image_uri));
+										$to = stripSuffix($query['i']);
+										$updated = true;
+										$new_link = npgFunctions::tagURLs(str_replace($from, $to, $match));
+										$row[$field] = updateCacheName($row[$field], $match, $new_link);
+									}
 
-
-								if (strpos($uri, '/' . CORE_FOLDER . '/i') !== false) {
-									$newlink = str_replace(WEBPATH, '', $match);
-									$cachefile = SERVERPATH . $newlink;
-									if (!file_exists($cachefile)) {
-										$fixed++;
-										$title = getTitle($table, $row);
-										?>
-										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
-											<?php
-											echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+									if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
+										$newlink = str_replace(WEBPATH, '', $match);
+										$cachefile = SERVERPATH . $newlink;
+										if (!file_exists($cachefile)) {
+											$fixed++;
+											$title = getTitle($table, $row);
 											?>
-										</a>
-										<?php
+											<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug" title="<?php echo $title; ?>">
+												<?php
+												echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+												?>
+											</a>
+											<?php
+										}
 									}
 								}
 								continue;
@@ -178,7 +178,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										$fixed++;
 										$title = getTitle($table, $row);
 										?>
-										<a href="<?php echo html_encode($uri); ?>&amp;debug" title="<?php echo $title; ?>">
+										<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug" title="<?php echo $title; ?>">
 											<?php
 											echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
 											?>

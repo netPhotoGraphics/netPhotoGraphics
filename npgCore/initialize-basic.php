@@ -9,14 +9,7 @@ require_once(__DIR__ . '/lib-encryption.php');
 require_once(__DIR__ . '/lib-utf8.php');
 $_UTF8 = new utf8();
 
-switch (PHP_MAJOR_VERSION) {
-	case 5:
-		define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
-		break;
-	default: // PHP 7?
-		define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
-		break;
-}
+define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 
 // Set error reporting.
 error_reporting(E_ALL | E_STRICT);
@@ -221,9 +214,6 @@ define('HASH_SEED', getOption('extra_auth_hash_text'));
 define('IP_TIED_COOKIES', getOption('IP_tied_cookies'));
 
 define('NO_WATERMARK', '!');
-
-// Don't let anything get above this, to save the server from burning up...
-define('MAX_SIZE', getOption('image_max_size'));
 
 define('MENU_TRUNCATE_STRING', getOption('menu_truncate_string'));
 define('MENU_TRUNCATE_INDICATOR', getOption('menu_truncate_indicator'));
