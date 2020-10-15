@@ -88,7 +88,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'jPlayer' && Video::multimediaExtension() != 'html5Player', sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', (gettext('This player does not support <em>External Albums</em>.')))));
 }
 
-$option_interface = 'jplayer_options';
+$option_interface = 'jplayer';
 
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video.php');
 
@@ -105,11 +105,18 @@ function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
 	$_multimedia_extension->printjPlayerPlaylist($option, $albumfolder);
 }
 
-class jplayer_options {
+class jPlayer extends html5Player {
 
 	public $name = 'jPlayer';
+	public $width = '';
+	public $height = '';
+	public $playersize = '';
+	public $mode = '';
+	public $supplied = '';
+	public $supplied_counterparts = '';
 
 	function __construct() {
+
 		if (OFFSET_PATH == 2) {
 			$option = getOption('jplayer_skin');
 			if (!is_null($option)) {
@@ -134,6 +141,18 @@ class jplayer_options {
 			 * }
 			 */
 		}
+
+		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = current($skins);
+		if (!file_exists($skin)) {
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
+		}
+		$skinCSS = file_get_contents($skin);
+		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
+		$which = array_search(getOption('jplayer_size'), $matches[1]);
+		$this->playersize = $matches[1][$which]; //	incase the size option is not supported
+		$this->width = $matches[3][$which];
+		$this->height = $matches[2][$which];
 	}
 
 	function getOptionsSupported() {
@@ -186,32 +205,6 @@ class jplayer_options {
 						'selections' => $skins,
 						'desc' => gettext("Select the skin (theme) to use. <br />NOTE: Since the skin is pure HTML/CSS only there may be display issues with certain themes that require manual adjustments. The two custom skins are responsive regarding the player width. Place custom skin within the root plugins folder. See plugin documentation for more info."))
 		);
-	}
-
-}
-
-class jPlayer extends html5Player {
-
-	public $width = '';
-	public $height = '';
-	public $playersize = '';
-	public $mode = '';
-	public $supplied = '';
-	public $supplied_counterparts = '';
-
-	function __construct() {
-
-		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = current($skins);
-		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
-		}
-		$skinCSS = file_get_contents($skin);
-		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
-		$which = array_search(getOption('jplayer_size'), $matches[1]);
-		$this->playersize = $matches[1][$which]; //	incase the size option is not supported
-		$this->width = $matches[3][$which];
-		$this->height = $matches[2][$which];
 	}
 
 	static function getMacrojplayer($albumname, $imagename, $count = 1) {
@@ -708,7 +701,7 @@ class jPlayer extends html5Player {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 								<div class="jp-controls-holder">
-									<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
 									<div class="jp-volume-controls">
 										<button class="jp-mute" role="button" tabindex="0"><?php echo gettext('mute'); ?></button>
 										<button class="jp-volume-max" role="button" tabindex="0"><?php echo gettext('max volume'); ?></button>
@@ -716,7 +709,7 @@ class jPlayer extends html5Player {
 											<div class="jp-volume-bar-value"></div>
 										</div>
 									</div>
-									<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
 								</div>
 								<div class="jp-details">
 									<div class="jp-title" aria-label="title">&nbsp;</div>
@@ -729,7 +722,7 @@ class jPlayer extends html5Player {
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-						<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
+				<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
 					</div>
 				</div>
 				<?php
@@ -739,7 +732,7 @@ class jPlayer extends html5Player {
 				<div id="jp_container_<?php echo $id; ?>" class="jp-audio" role="application" aria-label="media player">
 					<div class="jp-type-playlist">
 						<div class="jp-gui jp-interface">
-							<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
 							<div class="jp-progress">
 								<div class="jp-seek-bar">
 									<div class="jp-play-bar"></div>
@@ -756,14 +749,14 @@ class jPlayer extends html5Player {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 							</div>
-							<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
+				<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
 						</div>
 						<div class="jp-playlist">
 							<ul>
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-						<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
+				<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
 					</div>
 				</div>
 

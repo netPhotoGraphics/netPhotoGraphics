@@ -63,6 +63,7 @@ class VideoObject_Options {
 						'order' => 2,
 						'desc' => gettext('<code>getFullImageURL()</code> returns a URL to a file with one of these high quality video alternate suffixes if present.'))
 		);
+
 		if (method_exists($_multimedia_extension, 'getOptionsSupported')) {
 			$playeroptions = $_multimedia_extension->getOptionsSupported();
 			$next = 3;
@@ -75,8 +76,12 @@ class VideoObject_Options {
 				}
 				$playeroptions[$key]['order'] = $order;
 			}
+			$playeroptions[gettext('player options')] = array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
+					'order' => 2.1,
+					'desc' => sprintf(gettext('<strong>%1$s</strong> options'), get_class($_multimedia_extension)) . '<hr/>'
+			);
 
-			$options = $options + array(gettext('player options') => array('key' => 'note', 'type' => OPTION_TYPE_NOTE, 'order' => 2.1, 'desc' => '<hr/>')) + $playeroptions;
+			$options = $options + $playeroptions;
 		}
 
 		return $options;

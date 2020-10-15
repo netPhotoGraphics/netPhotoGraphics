@@ -39,7 +39,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'VideoJS' && Video::multimediaExtension() != 'html5Player', sprintf(gettext('VideoJS not enabled, <a href="#%1$s"><code>%1$s</code></a> is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', gettext('This player does not support <em>External Albums</em>.'))));
 }
 
-$option_interface = 'VideoJS_options';
+$option_interface = 'VideoJS';
 
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video.php');
 
@@ -50,9 +50,11 @@ Gallery::addImageHandler('mp4', 'Video');
 Gallery::addImageHandler('m4v', 'Video');
 Gallery::addImageHandler('m4a', 'Video');
 
-class VideoJS_options {
+class VideoJS extends html5Player {
 
 	public $name = 'VideoJS';
+	public $width = '';
+	public $height = '';
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
@@ -62,6 +64,38 @@ class VideoJS_options {
 			setOptionDefault('VideoJS_size', 'video-JS-270p');
 			setOptionDefault('VideoJS_customsize', '0');
 			setOptionDefault('VideoJS_aspect', 'wide');
+		}
+		if (getOption('VideoJS_customsize') == 0) {
+			$this->playersize = getOption('VideoJS_size');
+			switch ($this->playersize) {
+				case 'video-JS-270p':
+					$this->width = 480;
+					$this->height = 270;
+					break;
+				case 'video-JS-360p':
+					$this->width = 640;
+					$this->height = 360;
+					break;
+				case 'video-JS-405p':
+					$this->width = 720;
+					$this->height = 405;
+					break;
+				case 'video-JS-720p':
+					$this->width = 1280;
+					$this->height = 720;
+					break;
+				case 'video-JS-1080p':
+					$this->width = 1920;
+					$this->height = 1080;
+					break;
+			}
+		} else {
+			$w = getOption('VideoJS_customsize');
+			$aspectW = (getOption('VideoJS_aspect') == "wide") ? 16 : 4;
+			$aspectH = (getOption('VideoJS_aspect') == "wide") ? 9 : 3;
+			$h = $w * $aspectH / $aspectW;
+			$this->width = $w;
+			$this->height = $h;
 		}
 	}
 
@@ -104,48 +138,6 @@ class VideoJS_options {
 								gettext('Standard') => 'standard'),
 						'desc' => gettext("Aspect ratio for custom player size"))
 		);
-	}
-
-}
-
-class VideoJS extends html5Player {
-
-	public $width = '';
-	public $height = '';
-
-	function __construct() {
-		if (getOption('VideoJS_customsize') == 0) {
-			$this->playersize = getOption('VideoJS_size');
-			switch ($this->playersize) {
-				case 'video-JS-270p':
-					$this->width = 480;
-					$this->height = 270;
-					break;
-				case 'video-JS-360p':
-					$this->width = 640;
-					$this->height = 360;
-					break;
-				case 'video-JS-405p':
-					$this->width = 720;
-					$this->height = 405;
-					break;
-				case 'video-JS-720p':
-					$this->width = 1280;
-					$this->height = 720;
-					break;
-				case 'video-JS-1080p':
-					$this->width = 1920;
-					$this->height = 1080;
-					break;
-			}
-		} else {
-			$w = getOption('VideoJS_customsize');
-			$aspectW = (getOption('VideoJS_aspect') == "wide") ? 16 : 4;
-			$aspectH = (getOption('VideoJS_aspect') == "wide") ? 9 : 3;
-			$h = $w * $aspectH / $aspectW;
-			$this->width = $w;
-			$this->height = $h;
-		}
 	}
 
 	static function headJS() {
