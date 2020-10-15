@@ -239,6 +239,8 @@ class TextObject extends Image {
 				$wmt = NULL;
 				break;
 			case 3:
+				$wmt = '!';
+				break;
 			default:
 				$wmt = $this->watermark;
 				if (empty($wmt)) {
@@ -258,7 +260,7 @@ class TextObject extends Image {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt, 'effects' => $effects);
 			$args = getImageParameters($args, $this->album->name);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {
