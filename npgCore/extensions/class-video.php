@@ -78,7 +78,7 @@ class VideoObject_Options {
 			}
 			$playeroptions[gettext('player options')] = array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 2.1,
-					'desc' => sprintf(gettext('<strong>%1$s</strong> options'), get_class($_multimedia_extension)) . '<hr/>'
+					'desc' => sprintf(gettext('<strong>%1$s</strong> options'), '<hr/>' . get_class($_multimedia_extension)) . "<br/>&nbsp;"
 			);
 
 			$options = $options + $playeroptions;
