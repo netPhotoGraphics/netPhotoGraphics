@@ -204,7 +204,9 @@ class TextObject extends Image {
 			case 'html':
 				return '<' . $container . ' style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</' . $container . '>';
 			default: // just in case we extend and are lazy...
-				return '<img src="' . html_encode($this->getThumb()) . '" width=' . $w . '; height=' . $h . '>';
+				$s = min($w, $h);
+				return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="' . get_class($this) . '_default" width=' . $s . ' height=' . $s . '>';
+				;
 		}
 	}
 
@@ -234,7 +236,10 @@ class TextObject extends Image {
 				$thumbstandin = 1;
 				break;
 			case 0:
-				$wmt = $wmt = NULL;
+				$wmt = NULL;
+				break;
+			case 3:
+				$wmt = '!';
 				break;
 			default:
 				$wmt = $this->watermark;
@@ -255,7 +260,7 @@ class TextObject extends Image {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt, 'effects' => $effects);
 			$args = getImageParameters($args, $this->album->name);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {

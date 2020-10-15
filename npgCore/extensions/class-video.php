@@ -13,6 +13,7 @@
  * @pluginCategory media
  */
 // force UTF-8 Ø
+
 $plugin_is_filter = defaultExtension(990 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('The <em>audio-video</em> handler.');
@@ -62,6 +63,7 @@ class VideoObject_Options {
 						'order' => 2,
 						'desc' => gettext('<code>getFullImageURL()</code> returns a URL to a file with one of these high quality video alternate suffixes if present.'))
 		);
+
 		if (method_exists($_multimedia_extension, 'getOptionsSupported')) {
 			$playeroptions = $_multimedia_extension->getOptionsSupported();
 			$next = 3;
@@ -74,8 +76,12 @@ class VideoObject_Options {
 				}
 				$playeroptions[$key]['order'] = $order;
 			}
+			$playeroptions[gettext('player options')] = array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
+					'order' => 2.1,
+					'desc' => sprintf(gettext('<strong>%1$s</strong> options'), '<hr/>' . get_class($_multimedia_extension)) . "<br/>&nbsp;"
+			);
 
-			$options = $options + array(gettext('player options') => array('key' => 'note', 'type' => OPTION_TYPE_NOTE, 'order' => 2.1, 'desc' => '<hr/>')) + $playeroptions;
+			$options = $options + $playeroptions;
 		}
 
 		return $options;
@@ -269,10 +275,12 @@ class Video extends Image {
 		switch ((int) $thumbStandin) {
 			case -1:
 				$wmt = '!';
-				$thumbstandin = 1;
 				break;
 			case 0:
-				$wmt = $wmt = NULL;
+				$wmt = NULL;
+				break;
+			case 3:
+				$wmt = '!';
 				break;
 			default:
 				$wmt = getOption('video_watermark');
@@ -451,7 +459,7 @@ class Video extends Image {
 
 	/**
 	 * returns the class of the active multi-media handler
-	 * @global pseudoPlayer $_multimedia_extension
+	 * @global html5Player $_multimedia_extension
 	 * @return string
 	 *
 	 * @author Stephen Billard
@@ -464,7 +472,7 @@ class Video extends Image {
 
 }
 
-class pseudoPlayer {
+class html5Player {
 
 	private $width = 480;
 	private $height = 360;
@@ -477,21 +485,21 @@ class pseudoPlayer {
 
 	function getOptionsSupported() {
 		return array(
-				gettext('Poster (Videothumb)') => array('key' => 'class-video_poster',
+				gettext('Poster image') => array('key' => 'class-video_poster',
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 3,
-						'desc' => gettext('The videothumb (if present) will be shown when the player is initially displayed.')),
+						'desc' => gettext('The thumbnail image (if present) will be shown when the player is initially displayed.')),
 				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 4,
 						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
 		);
 	}
 
-	function getWidth($dummy) {
+	function getWidth() {
 		return $this->width;
 	}
 
-	function getHeight($dummy) {
+	function getHeight() {
 		return $this->height;
 	}
 
@@ -508,12 +516,18 @@ class pseudoPlayer {
 		$ext = getSuffix($file);
 		$file = stripSuffix($file);
 		$url = '';
+		if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
+			$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
+		} else {
+			$poster = '';
+		}
 
 		switch (strtolower($ext)) {
 			case 'm4a':
 			case 'mp3':
 				$src = stripSuffix($obj->getFullImageURL());
 				$alts = safe_glob($file . '.*');
+
 				foreach ($alts as $alt) {
 					$altext = getSuffix($alt);
 					switch (strtolower($altext)) {
@@ -525,18 +539,13 @@ class pseudoPlayer {
 				}
 				$url .= '<source src="' . $src . '.' . $ext . '" type="audio/mpeg">';
 				return '
-					<audio class="audio-cv" controls>
-					' . $url . '
-					' . gettext('Your browser does not support the audio tag') . '
-					</audio>' . "\n";
+					      <video class="audio-cv" controls ' . $poster . '>
+					      ' . $url . '
+					      ' . gettext('Your browser does not support the audio tag') . '
+					      </video>' . "\n"
+				;
 			case 'm4v':
 			case 'mp4':
-				if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
-					$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
-				} else {
-					$poster = '';
-				}
-
 				$src = stripSuffix($obj->getFullImageURL());
 				$alts = safe_glob($file . '.*');
 				foreach ($alts as $alt) {
@@ -558,14 +567,15 @@ class pseudoPlayer {
 				$html = npgFilters::apply('standard_video_html', $html);
 				return $html;
 		}
-		return '<img src = "' . WEBPATH . '/' . CORE_FOLDER . '/images/err-imagegeneral.png" alt = "' . gettext('No multimedia extension installed for this format.') . '" />';
+		$s = min($w, $h);
+		return '<span class="error"><img src="' . html_encode($obj->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="multimedia_default" width=' . $s . ' height=' . $s . ' title="' . gettext('No multimedia extension installed for this format.') . '"></span>';
 	}
 
 }
 
 function class_video_enable($enabled) {
 	if ($enabled) {
-//establish defaults for display and disable
+		//establish defaults for display and disable
 		$display = $disable = array();
 		$exifvars = Video::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
@@ -585,5 +595,5 @@ function class_video_enable($enabled) {
 	requestSetup('Video Metadata', $report);
 }
 
-$_multimedia_extension = new pseudoPlayer();
+$_multimedia_extension = new html5Player();
 ?>

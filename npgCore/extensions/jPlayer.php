@@ -85,10 +85,12 @@ $plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext("This plugin handles <code>flv</code>, <code>fla</code>, <code>mp3</code>, <code>mp4</code>, <code>m4v</code>, and <code>m4a</code> multi-media files.");
 	gettext("Please see <a href='http://jplayer.org'>jplayer.org</a> for more info about the player and its license.");
-	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'jPlayer' && Video::multimediaExtension() != 'pseudoPlayer', sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', (gettext('This player does not support <em>External Albums</em>.')))));
+	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'jPlayer' && Video::multimediaExtension() != 'html5Player', sprintf(gettext('jPlayer not enabled, %s is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', (gettext('This player does not support <em>External Albums</em>.')))));
 }
 
-$option_interface = 'jplayer_options';
+$option_interface = 'jplayer';
+
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video.php');
 
 Gallery::addImageHandler('flv', 'Video');
 Gallery::addImageHandler('fla', 'Video');
@@ -97,24 +99,24 @@ Gallery::addImageHandler('mp4', 'Video');
 Gallery::addImageHandler('m4v', 'Video');
 Gallery::addImageHandler('m4a', 'Video');
 
-$_multimedia_extension = new jPlayer(); // claim to be the flash player.
-npgFilters::register('content_macro', 'jPlayer::macro');
-npgFilters::register('theme_body_close', 'jplayer::headJS');
-if (getOption('jplayer_playlist')) {
-	npgFilters::register('theme_body_close', 'jplayer::playlistJS');
-}
-
 // theme function wrapper for user convenience
 function printjPlayerPlaylist($option = "playlist", $albumfolder = "") {
 	global $_multimedia_extension;
 	$_multimedia_extension->printjPlayerPlaylist($option, $albumfolder);
 }
 
-class jplayer_options {
+class jPlayer extends html5Player {
 
 	public $name = 'jPlayer';
+	public $width = '';
+	public $height = '';
+	public $playersize = '';
+	public $mode = '';
+	public $supplied = '';
+	public $supplied_counterparts = '';
 
 	function __construct() {
+
 		if (OFFSET_PATH == 2) {
 			$option = getOption('jplayer_skin');
 			if (!is_null($option)) {
@@ -139,6 +141,18 @@ class jplayer_options {
 			 * }
 			 */
 		}
+
+		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = current($skins);
+		if (!file_exists($skin)) {
+			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
+		}
+		$skinCSS = file_get_contents($skin);
+		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
+		$which = array_search(getOption('jplayer_size'), $matches[1]);
+		$this->playersize = $matches[1][$which]; //	incase the size option is not supported
+		$this->width = $matches[3][$which];
+		$this->height = $matches[2][$which];
 	}
 
 	function getOptionsSupported() {
@@ -191,32 +205,6 @@ class jplayer_options {
 						'selections' => $skins,
 						'desc' => gettext("Select the skin (theme) to use. <br />NOTE: Since the skin is pure HTML/CSS only there may be display issues with certain themes that require manual adjustments. The two custom skins are responsive regarding the player width. Place custom skin within the root plugins folder. See plugin documentation for more info."))
 		);
-	}
-
-}
-
-class jPlayer {
-
-	public $width = '';
-	public $height = '';
-	public $playersize = '';
-	public $mode = '';
-	public $supplied = '';
-	public $supplied_counterparts = '';
-
-	function __construct() {
-
-		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = current($skins);
-		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
-		}
-		$skinCSS = file_get_contents($skin);
-		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
-		$which = array_search(getOption('jplayer_size'), $matches[1]);
-		$this->playersize = $matches[1][$which]; //	incase the size option is not supported
-		$this->width = $matches[3][$which];
-		$this->height = $matches[2][$which];
 	}
 
 	static function getMacrojplayer($albumname, $imagename, $count = 1) {
@@ -278,7 +266,7 @@ class jPlayer {
 		}
 		$ext = getSuffix($moviepath);
 		if (!in_array($ext, array('m4a', 'm4v', 'mp3', 'mp4', 'flv', 'fla'))) {
-			return '<span class="error">' . gettext('This multimedia format is not supported by jPlayer') . '</span>';
+			return parent::getPlayerConfig($movie, $movietitle, $count, $w, $h);
 		}
 		$this->setModeAndSuppliedFormat($ext);
 		if (empty($count)) {
@@ -293,12 +281,13 @@ class jPlayer {
 			$autoplay = '.jPlayer("play")';
 		}
 		$videoThumb = '';
-		if (getOption('jplayer_poster') && ($this->mode == 'video' || ($this->mode == 'audio' && getOption('jplayer_audioposter')))) {
+		if (getOption('jplayer_poster') && !is_null($movie->objectsThumb) && ($this->mode == 'video' || ($this->mode == 'audio' && getOption('jplayer_audioposter')))) {
 			//$splashimagerwidth = $w;
 			//$splashimageheight = $h;
 			//getMaxSpaceContainer($splashimagerwidth, $splashimageheight, $movie, true); // jplayer squishes always if not the right aspect ratio
-			$videoThumb = ',poster:"' . $movie->getCustomImage(null, $w, $h, $w, $h, null, null, true) . '"';
+			$videoThumb = ',poster:"' . $movie->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
 		}
+
 		$playerconfig = '
 		<script type="text/javascript">
 			//<![CDATA[
@@ -351,9 +340,6 @@ class jPlayer {
 			<div class="jp-type-single">
 				<div id="jquery_jplayer_' . $count . '" class="jp-jplayer"></div>
 				<div class="jp-gui">
-					<div class="jp-video-play">
-						<button class="jp-video-play-icon" role="button" tabindex="0">' . gettext('play') . '</button>
-					</div>
 					<div class="jp-interface">
 						<div class="jp-progress">
 							<div class="jp-seek-bar">
@@ -493,12 +479,11 @@ class jPlayer {
 
 	/**
 	 * Returns the width of the player
-	 * @param object $image the image for which the width is requested
 	 *
 	 * @return int
 	 */
-	function getWidth($image = NULL) {
-		if (!is_null($image) && $this->mode == 'audio' && !getOption('jplayer_poster') && !getOption('jplayer_audioposter')) {
+	function getWidth() {
+		if ($this->mode == 'audio' && !getOption('jplayer_poster') && !getOption('jplayer_audioposter')) {
 			return 420; //audio default
 		}
 		return $this->width;
@@ -506,12 +491,11 @@ class jPlayer {
 
 	/**
 	 * Returns the height of the player
-	 * @param object $image the image for which the height is requested
 	 *
 	 * @return int
 	 */
-	function getHeight($image = NULL) {
-		if (!is_null($image) && $this->mode == 'audio' && !getOption('jplayer_poster') && !getOption('jplayer_audioposter')) {
+	function getHeight() {
+		if ($this->mode == 'audio' && !getOption('jplayer_poster') && !getOption('jplayer_audioposter')) {
 			return 0;
 		}
 		return $this->height;
@@ -780,4 +764,10 @@ class jPlayer {
 
 // function playlist
 }
-?>
+
+$_multimedia_extension = new jPlayer(); // claim to be the flash player.
+npgFilters::register('content_macro', 'jPlayer::macro');
+npgFilters::register('theme_body_close', 'jplayer::headJS');
+if (getOption('jplayer_playlist')) {
+	npgFilters::register('theme_body_close', 'jplayer::playlistJS');
+}

@@ -1577,10 +1577,10 @@ function getImageArgs($set) {
 	if (isset($set['t'])) { //10
 		$args['thumb'] = (int) sanitize($set['t']);
 	}
-	if (isset($set['wmk']) && !isset($_GET['admin'])) { //11
+	if (isset($set['wmk']) && !isset($_GET['admin'])) {
 		$args['WM'] = sanitize($set['wmk']);
 	}
-	$args['adminrequest'] = (bool) isset($_GET['admin']); //12
+	$args['adminrequest'] = (bool) isset($_GET['admin']);
 
 	if (isset($set['effects'])) { //13
 		$args['effects'] = sanitize($set['effects']);
