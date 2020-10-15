@@ -340,9 +340,6 @@ class jPlayer extends html5Player {
 			<div class="jp-type-single">
 				<div id="jquery_jplayer_' . $count . '" class="jp-jplayer"></div>
 				<div class="jp-gui">
-					<div class="jp-video-play">
-						<button class="jp-video-play-icon" role="button" tabindex="0">' . gettext('play') . '</button>
-					</div>
 					<div class="jp-interface">
 						<div class="jp-progress">
 							<div class="jp-seek-bar">
@@ -701,7 +698,7 @@ class jPlayer extends html5Player {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 								<div class="jp-controls-holder">
-				<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
+									<?php echo $this->getPlayerHTMLparts('video', 'controls-playlist'); ?>
 									<div class="jp-volume-controls">
 										<button class="jp-mute" role="button" tabindex="0"><?php echo gettext('mute'); ?></button>
 										<button class="jp-volume-max" role="button" tabindex="0"><?php echo gettext('max volume'); ?></button>
@@ -709,7 +706,7 @@ class jPlayer extends html5Player {
 											<div class="jp-volume-bar-value"></div>
 										</div>
 									</div>
-				<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
+									<?php echo $this->getPlayerHTMLparts('video', 'toggles-playlist'); ?>
 								</div>
 								<div class="jp-details">
 									<div class="jp-title" aria-label="title">&nbsp;</div>
@@ -722,7 +719,7 @@ class jPlayer extends html5Player {
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-				<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
+						<?php echo $this->getPlayerHTMLparts('video', 'no-solution'); ?>
 					</div>
 				</div>
 				<?php
@@ -732,7 +729,7 @@ class jPlayer extends html5Player {
 				<div id="jp_container_<?php echo $id; ?>" class="jp-audio" role="application" aria-label="media player">
 					<div class="jp-type-playlist">
 						<div class="jp-gui jp-interface">
-				<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
+							<?php echo $this->getPlayerHTMLparts('audio', 'controls-playlist'); ?>
 							<div class="jp-progress">
 								<div class="jp-seek-bar">
 									<div class="jp-play-bar"></div>
@@ -749,14 +746,14 @@ class jPlayer extends html5Player {
 								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
 								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
 							</div>
-				<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
+							<?php echo $this->getPlayerHTMLparts('audio', 'toggles-playlist'); ?>
 						</div>
 						<div class="jp-playlist">
 							<ul>
 								<li>&nbsp;</li>
 							</ul>
 						</div>
-				<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
+						<?php echo $this->getPlayerHTMLparts('audio', 'no-solution'); ?>
 					</div>
 				</div>
 
