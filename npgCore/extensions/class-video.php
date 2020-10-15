@@ -480,10 +480,10 @@ class html5Player {
 
 	function getOptionsSupported() {
 		return array(
-				gettext('Poster (Videothumb)') => array('key' => 'class-video_poster',
+				gettext('Poster image') => array('key' => 'class-video_poster',
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 3,
-						'desc' => gettext('The videothumb (if present) will be shown when the player is initially displayed.')),
+						'desc' => gettext('The thumbnail image (if present) will be shown when the player is initially displayed.')),
 				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 4,
 						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
@@ -511,17 +511,17 @@ class html5Player {
 		$ext = getSuffix($file);
 		$file = stripSuffix($file);
 		$url = '';
+		if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
+			$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
+		} else {
+			$poster = '';
+		}
 
 		switch (strtolower($ext)) {
 			case 'm4a':
 			case 'mp3':
 				$src = stripSuffix($obj->getFullImageURL());
 				$alts = safe_glob($file . '.*');
-				if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
-					$poster = ' background-image: url(.' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '")';
-				} else {
-					$poster = '';
-				}
 
 				foreach ($alts as $alt) {
 					$altext = getSuffix($alt);
@@ -534,18 +534,13 @@ class html5Player {
 				}
 				$url .= '<source src="' . $src . '.' . $ext . '" type="audio/mpeg">';
 				return '
-					<audio class="audio-cv" controls' . $poster . '>
-					' . $url . '
-					' . gettext('Your browser does not support the audio tag') . '
-					</audio>' . "\n";
+					      <video class="audio-cv" controls ' . $poster . '>
+					      ' . $url . '
+					      ' . gettext('Your browser does not support the audio tag') . '
+					      </video>' . "\n"
+				;
 			case 'm4v':
 			case 'mp4':
-				if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
-					$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
-				} else {
-					$poster = '';
-				}
-
 				$src = stripSuffix($obj->getFullImageURL());
 				$alts = safe_glob($file . '.*');
 				foreach ($alts as $alt) {
