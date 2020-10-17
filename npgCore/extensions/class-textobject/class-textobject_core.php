@@ -239,7 +239,8 @@ class TextObject extends Image {
 				$wmt = NULL;
 				break;
 			case 3:
-				$wmt = '!';
+				//	use thumb image as full sized image (posters, etc.
+				$wmt = getWatermarkParam($this, WATERMARK_IMAGE);
 				break;
 			default:
 				$wmt = $this->watermark;
@@ -249,7 +250,7 @@ class TextObject extends Image {
 				break;
 		}
 
-		if ($thumbStandin & 1) {
+		if ($thumbStandin) {
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!$this->watermarkDefault) {
