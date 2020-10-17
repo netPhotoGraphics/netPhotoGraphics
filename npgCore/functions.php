@@ -1535,26 +1535,27 @@ function getWatermarkParam($image, $use) {
 	}
 	$id = NULL;
 	$album = $image->album;
-	if ($use & (WATERMARK_FULL)) { //	watermark for the full sized image
-		$watermark_use_image = getAlbumInherited($album->name, 'watermark', $id);
-		if (empty($watermark_use_image)) {
-			$watermark_use_image = FULLIMAGE_WATERMARK;
-		}
-	} else {
-		if ($use & (WATERMARK_IMAGE)) { //	watermark for the image
+	switch ($use) {
+		case WATERMARK_FULL:
+			$watermark_use_image = getAlbumInherited($album->name, 'watermark', $id);
+			if (empty($watermark_use_image)) {
+				$watermark_use_image = FULLIMAGE_WATERMARK;
+			}
+			break;
+		case WATERMARK_IMAGE:
 			$watermark_use_image = getAlbumInherited($album->name, 'watermark', $id);
 			if (empty($watermark_use_image)) {
 				$watermark_use_image = IMAGE_WATERMARK;
 			}
-		} else {
-			if ($use & WATERMARK_THUMB) { //	watermark for the thumb
-				$watermark_use_image = getAlbumInherited($album->name, 'watermark_thumb', $id);
-				if (empty($watermark_use_image)) {
-					$watermark_use_image = THUMB_WATERMARK;
-				}
+			break;
+		case WATERMARK_THUMB:
+			$watermark_use_image = getAlbumInherited($album->name, 'watermark_thumb', $id);
+			if (empty($watermark_use_image)) {
+				$watermark_use_image = THUMB_WATERMARK;
 			}
-		}
+			break;
 	}
+
 	if (!empty($watermark_use_image)) {
 		return $watermark_use_image;
 	}
@@ -2362,14 +2363,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

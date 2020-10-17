@@ -280,7 +280,8 @@ class Video extends Image {
 				$wmt = NULL;
 				break;
 			case 3:
-				$wmt = '!';
+				//	use thumb image as full sized image (posters, etc.)
+				$wmt = getWatermarkParam($this, WATERMARK_IMAGE);
 				break;
 			default:
 				$wmt = getOption('video_watermark');
@@ -290,7 +291,7 @@ class Video extends Image {
 				break;
 		}
 
-		if ($thumbStandin & 1) {
+		if ($thumbStandin) {
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!getOption('video_watermark_default_images')) {
