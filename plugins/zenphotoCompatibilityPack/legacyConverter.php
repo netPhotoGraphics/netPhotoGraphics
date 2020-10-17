@@ -133,7 +133,7 @@ echo "\n" . '<div id="container">';
 	}
 	?>
 	<div>
-		<?php echo gettext('Note: you should review any the results of this conversion. Lood for the <code>/* TODO:.... */</code> in the scripts as these contain suggestions on further improvements.'); ?>
+		<?php echo gettext('Note: you should review any the results of this conversion. Look for the <code>/* TODO:.... */</code> in the scripts as these contain suggestions on further improvements.'); ?>
 	</div>
 	<?php
 	$themesP = $themes = $plugins = $pluginsP = $processedV = array();

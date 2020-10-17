@@ -294,7 +294,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 
 		if (npg_loggedin() && getOption('RSS_portable_link')) {
 			$link['user'] = (string) $_current_admin_obj->getID();
-			$link['token'] = npg_Authority::passwordHash(serialize($link), '');
+			$link['token'] = rss::generateToken($link);
 		}
 		$uri = WEBPATH . '/index.php?' . rtrim(str_replace('=&', '&', http_build_query($link)), '=');
 		return $uri;
@@ -374,7 +374,7 @@ class RSS extends feed {
 			//	The link camed from a logged in user, see if it is valid
 			$link = $options;
 			unset($link['token']);
-			$token = npg_Authority::passwordHash(serialize($link), '');
+			$token = rss::generateToken($link);
 			if ($token == $options['token']) {
 				$adminobj = $_authority->getAnAdmin(array('`id`=' => (int) $link['user']));
 				if ($adminobj) {
@@ -531,6 +531,17 @@ class RSS extends feed {
 	}
 
 	/**
+	 * generates a Token that will be used to verify the validity of a portable RSS link
+	 *
+	 * @param array $link the link array
+	 * @return type
+	 */
+	static function generateToken($link) {
+		$token = str_replace('+', '-', base64_encode(_Authority::pbkdf2(serialize($link), HASH_SEED)));
+		return $token;
+	}
+
+	/**
 	 * Updates the hitcoutner for RSS in the plugin_storage db table.
 	 *
 	 */
@@ -599,34 +610,34 @@ class RSS extends feed {
 				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . PROTOCOL . '://' . $itemlink . '"><img src="' . PROTOCOL . '://' . $this->host . html_encode($item->getCustomImage($this->imagesize, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" alt="' . html_encode($title) . '" /></a>' . $item->getDesc($this->locale) . $datecontent;
 			}
 		}
-// title
+		// title
 		if ($this->mode != "albums") {
 			$feeditem['title'] = sprintf('%1$s (%2$s)', $item->getTitle($this->locale), $albumobj->getTitle($this->locale));
 		} else {
 			$feeditem['title'] = $imagenumber;
 		}
-//link
+		//link
 		$feeditem['link'] = PROTOCOL . '://' . $itemlink;
 
-// enclosure
+		// enclosure
 		$feeditem['enclosure'] = '';
 		if (getOption("RSS_enclosure") AND $this->mode != "albums") {
 			$feeditem['enclosure'] = '<enclosure url="' . PROTOCOL . '://' . $fullimagelink . '" type="' . getMimeString($ext) . '" length="' . filesize($item->localpath) . '" />';
 		}
-//category
+		//category
 		if ($this->mode != "albums") {
 			$feeditem['category'] = html_encode($albumobj->getTitle($this->locale));
 		} else {
 			$feeditem['category'] = html_encode($albumobj->getTitle($this->locale));
 		}
-//media content
+		//media content
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
 		if (getOption("RSS_mediarss") AND $this->mode != "albums") {
 			$feeditem['media_content'] = '<media:content url="' . PROTOCOL . '://' . $fullimagelink . '" type="image/jpeg" />';
 			$feeditem['media_thumbnail'] = '<media:thumbnail url="' . PROTOCOL . '://' . $fullimagelink . '" width="' . $this->imagesize . '"	height="' . $this->imagesize . '" />';
 		}
-//date
+		//date
 		if ($this->mode != "albums") {
 			$feeditem['pubdate'] = date("r", strtotime($item->getPublishDate()));
 		} else {

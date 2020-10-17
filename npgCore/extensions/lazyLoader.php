@@ -67,7 +67,7 @@ class lazyLoader {
 						'desc' => sprintf(ngettext('Do not apply lazy loading to the first image displayed.', 'Do not apply lazy loading to the first %1$d images displayed.', getOption('lazyLoader_SkipImages')), getOption('lazyLoader_SkipImages'))
 				),
 				gettext('Videos') => array('key' => 'lazyLoader_Video', 'type' => OPTION_TYPE_CHECKBOX,
-						'desc' => gettext('Delaly loading of videos if there is a poster image.')
+						'desc' => gettext('Delay loading of videos if there is a poster image.')
 				)
 		);
 	}
