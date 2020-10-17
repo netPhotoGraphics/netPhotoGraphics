@@ -58,7 +58,7 @@ $image = sanitize($rimage);
 $theme = imageThemeSetup(filesystemToInternal($album)); // loads the theme based image options.
 
 $size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
-$args = getImageParameters(getImageArgs($_GET), filesystemToInternal($album));
+$args = getImageParameters($checkArgs = getImageArgs($_GET), filesystemToInternal($album));
 extract($args);
 
 if (getOption('secure_image_processor')) {
@@ -70,7 +70,7 @@ if (getOption('secure_image_processor')) {
 	unset($albumobj);
 }
 
-if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $args))) {
+if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
 	npg_session_start();
 	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
