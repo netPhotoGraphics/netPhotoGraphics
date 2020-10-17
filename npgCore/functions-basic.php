@@ -1500,10 +1500,10 @@ function getImageProcessorURI($args, $album, $image, $suffix = NULL) {
 		$uri .= '&q=' . (int) $quality;
 	}
 	if ($crop) {
-		$uri .= '&c=' . ($crop = 1);
+		$uri .= '&c=' . (int) $crop;
 	}
 	if ($thumb) {
-		$uri .= '&t=' . ($thumb = 1);
+		$uri .= '&t=' . (int) $thumb;
 	}
 	if ($WM) {
 		$uri .= '&wmk=' . $WM;
