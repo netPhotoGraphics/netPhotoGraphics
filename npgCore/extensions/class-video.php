@@ -490,8 +490,12 @@ class html5Player {
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 3,
 						'desc' => gettext('The thumbnail image (if present) will be shown when the player is initially displayed.')),
-				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
+				gettext('Autoplay') => array('key' => 'class-video_autoplay',
+						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 4,
+						'desc' => gettext('If checked the the player will start automatically when the page has loaded.')),
+				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
+						'order' => 5,
 						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
 		);
 	}
@@ -518,9 +522,12 @@ class html5Player {
 		$file = stripSuffix($file);
 		$url = '';
 		if (getOption('class-video_poster') && !is_null($obj->objectsThumb)) {
-			$poster = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
+			$addl = ' poster="' . $obj->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
 		} else {
-			$poster = '';
+			$addl = '';
+		}
+		if (getOPtion('class-video_autoplay')) {
+			$addl .= ' autoplay';
 		}
 
 		switch (strtolower($ext)) {
@@ -540,7 +547,7 @@ class html5Player {
 				}
 				$url .= '<source src="' . $src . '.' . $ext . '" type="audio/mpeg">';
 				return '
-					      <video class="audio-cv" controls ' . $poster . '>
+					      <video class="audio-cv" controls ' . $addl . '>
 					      ' . $url . '
 					      ' . gettext('Your browser does not support the audio tag') . '
 					      </video>' . "\n"
@@ -561,7 +568,7 @@ class html5Player {
 				}
 				$url .= '<source src="' . $src . '.' . $ext . '" type="video/mp4">';
 				$html = '
-					<video class="video-cv" width="' . $w . '" height="' . $h . '" controls' . $poster . '>
+					<video class="video-cv" width="' . $w . '" height="' . $h . '" controls' . $addl . '>
 						' . $url . '
 						' . gettext('Your browser does not support the video tag') . '
 					</video>' . "\n";
