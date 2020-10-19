@@ -1,4 +1,4 @@
-# netPhotoGraphics™ (formerly ZenPhoto20) 
+# netPhotoGraphics™  
 
 # Releases
 
