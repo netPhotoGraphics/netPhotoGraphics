@@ -33,11 +33,12 @@ if (!defined('WEBPATH'))
 					<ul data-role="listview" data-inset="true">
 						<?php while (next_album()): ?>
 							<li>
-								<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:');
-						printAnnotatedAlbumTitle();
-							?>">
+								<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php
+								echo gettext('View album:');
+								printAnnotatedAlbumTitle();
+								?>">
 									<div class="gallery-thumb">
-	<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, 79, 79, 79, 79, NULL, null, NULL, NULL); ?>
+	<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('sidth' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
 									</div>
 									<h3><?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small></h3>
 									<div class="albumdesc"><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 100, '(...)', false)); ?></div>
@@ -59,5 +60,5 @@ if (!defined('WEBPATH'))
 <?php jqm_printFooterNav(); ?>
 		</div><!-- /page -->
 	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>

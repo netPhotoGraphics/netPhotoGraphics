@@ -172,7 +172,7 @@ class WEBdocs extends TextObject {
 				return sprintf($providers[getOption($provider)], html_encode($this->getFullImageURL(FULLWEBPATH)));
 			default: // catches all others
 				$s = min($w, $h);
-				return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="WEBdocs_default" width=' . $s . ' height=' . $s . '>';
+				return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="WEBdocs_default" width=' . $s . ' height=' . $s . '>';
 		}
 	}
 

@@ -57,10 +57,10 @@ if (!defined('WEBPATH'))
 								?>
 								<a class="image<?php echo $imgclass; ?>" href="<?php echo html_encode($image->getLink()); ?>" title="<?php echo html_encode($image->getTitle()); ?>">
 									<?php
-									$html = '<img src="' . $image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL) . '" alt="' . $image->getTitle() . '">';
+									$html = '<img src="' . $image->getCustomImage(array('width' => 230, 'height' => 230, 'cw' => 230, 'ch' => 230, 'thumb' => TRUE)) . '" alt="' . $image->getTitle() . '">';
 									$html = npgFilters::apply('custom_image_html', $html, FALSE);
 									if (ENCODING_FALLBACK) {
-										$html = "<picture>\n<source srcset=\"" . html_encode($image->getCustomImage(null, 230, 230, 230, 230, null, null, true, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+										$html = "<picture>\n<source srcset=\"" . html_encode($image->getCustomImage(array('width' => 230, 'height' => 230, 'cw' => 230, 'ch' => 230, 'thumb' => TRUE), FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 									}
 									echo $html;
 									?>

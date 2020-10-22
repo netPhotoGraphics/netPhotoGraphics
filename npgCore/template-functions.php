@@ -1743,21 +1743,28 @@ function printAlbumThumbImage($alt, $class = NULL, $id = NULL, $title = NULL) {
 /**
  * Returns a link to a custom sized thumbnail of the current album
  *
- * @param int $size the size of the image to have
- * @param int $width width
+ * @param array $args of parameters / $size size
+ * @param string suffix of imageURI / int $width width
  * @param int $height height
- * @param int $cropw crop width
- * @param int $croph crop height
- * @param int $cropx crop part x axis
- * @param int $cropy crop part y axis
+ * @param int $cw crop width
+ * @param int $ch crop height
+ * @param int $cx crop part x axis
+ * @param int $cy crop part y axis
  * @param bool $effects image effects (e.g. set 'gray' to force grayscale)
  *
  * @return string
  */
-function getCustomAlbumThumb($size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = null, $effects = NULL, $suffix = NULL) {
+function getCustomAlbumThumb($size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = null, $effects = NULL, $suffix = NULL) {
 	global $_current_album;
+	if (is_array($size)) {
+		$args = $size;
+		$suffix = $width;
+	} else {
+		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'effects' => $effects);
+	}
+	$args['thumb'] = TRUE;
 	$thumb = $_current_album->getAlbumThumbImage();
-	return $thumb->getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, true, $effects, $suffix);
+	return $thumb->getCustomImage($args, $suffix);
 }
 
 /**
@@ -1766,21 +1773,32 @@ function getCustomAlbumThumb($size, $width = NULL, $height = NULL, $cropw = NULL
  * See getCustomImageURL() for details.
  *
  * @param string $alt Alt atribute text
- * @param int $size size
- * @param int $width width
- * @param int $height height
- * @param int $cropw cropwidth
- * @param int $croph crop height
- * @param int $cropx crop part x axis
- * @param int $cropy crop part y axis
+ * @param array $args image argument array / int $size size
+ * @param string $class css class / int $width width
+ * @param string $id css id /int $height height
+ * @param string $title Optional title attribute / int $cw cropwidth
+ * @param int $ch crop height
+ * @param int $cx crop part x axis
+ * @param int $cy crop part y axis
  * @param string $class css class
  * @param string $id css id
  * @param string $title Optional title attribute
  *
  * @return string
  */
-function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = null, $class = NULL, $id = NULL, $title = NULL) {
+function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = null, $class = NULL, $id = NULL, $title = NULL) {
 	global $_current_album;
+
+	if (is_array($size)) {
+		$args = $size;
+		$class = $width;
+		$id = $height;
+		$title = $cw;
+		extract($args);
+	} else {
+		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy);
+	}
+
 	if (!$_current_album->getShow()) {
 		$class .= " not_visible";
 	}
@@ -1792,11 +1810,11 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 	/* set the HTML image width and height parameters in case this image was "imageDefault.png" substituted for no thumbnail then the thumb layout is preserved */
 	$sizing = '';
 	if (is_null($width)) {
-		if (!is_null($cropw) && !is_null($croph)) {
+		if (!is_null($cw) && !is_null($ch)) {
 			if (empty($height)) {
 				$height = $size;
 			}
-			$s = round($height * ($cropw / $croph));
+			$s = round($height * ($cw / $ch));
 			if (!empty($s))
 				$sizing = ' width="' . $s . '"';
 		}
@@ -1804,11 +1822,11 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 		$sizing = ' width="' . $width . '"';
 	}
 	if (is_null($height)) {
-		if (!is_null($cropw) && !is_null($croph)) {
+		if (!is_null($cw) && !is_null($ch)) {
 			if (empty($width)) {
 				$width = $size;
 			}
-			$s = round($width * ($croph / $cropw));
+			$s = round($width * ($ch / $cw));
 			if (!empty($s))
 				$sizing = $sizing . ' height="' . $s . '"';
 		}
@@ -1826,10 +1844,10 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 	}
 
 	if (!getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || empty($pwd)) {
-		$html = '<img src="' . html_encode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy)) . '"' . $sizing . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
+		$html = '<img src="' . html_encode(getCustomAlbumThumb($args)) . '"' . $sizing . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
 		$html = npgFilters::apply('custom_album_thumb_html', $html);
 		if (ENCODING_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomAlbumThumb($size, $width, $height, $cropw, $croph, $cropx, $cropy, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomAlbumThumb($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		echo $html;
 	} else {
@@ -1896,7 +1914,7 @@ function getCustomAlbumThumbMaxSpace($width, $height, $suffix = NULL) {
 	global $_current_album;
 	$albumthumb = $_current_album->getAlbumThumbImage();
 	getMaxSpaceContainer($width, $height, $albumthumb, true);
-	return getCustomAlbumThumb(NULL, $width, $height, NULL, NULL, NULL, NULL, NULL, $suffix);
+	return getCustomAlbumThumb(array('width' => $width, 'height' => $height), $suffix);
 }
 
 /**
@@ -1915,7 +1933,7 @@ function printCustomAlbumThumbMaxSpace($alt, $width, $height, $class = NULL, $id
 	global $_current_album;
 	$albumthumb = $_current_album->getAlbumThumbImage();
 	getMaxSpaceContainer($width, $height, $albumthumb, true);
-	printCustomAlbumThumbImage($alt, NULL, $width, $height, NULL, NULL, NULL, NULL, $class, $id, $title);
+	printCustomAlbumThumbImage($alt, array('width' => $width, 'height' => $height), $class, $id, $title);
 }
 
 /**
@@ -2989,21 +3007,21 @@ function getProtectedImageURL($image = NULL, $disposal = NULL) {
  * @param int $size The size the image is to be
  */
 function getSizedImageURL($size) {
-	return getCustomImageURL($size);
+	return getCustomImageURL(array('size' => $size));
 }
 
 /**
  * Returns the url to the image with the dimensions you define with this function.
  *
- * @param int $size the size of the image to have
- * @param int $width width
+ * @param array $args of parameters / $size size
+ * @param string $suffix url suffix desired / int $width width
  * @param int $height height
- * @param int $cropw crop width
- * @param int $croph crop height
- * @param int $cropx crop part x axis
- * @param int $cropy crop part y axis
- * @param bool $thumbStandin set true to inhibit watermarking
- * @param bool $effects image effects (e.g. set gray to force to grayscale)
+ * @param int $cw crop width
+ * @param int $ch crop height
+ * @param int $cx crop x axis
+ * @param int $cy crop y axis
+ * @param bool $thumbStandin set to true to treat as thumbnail
+ * @param bool $effects set to desired image effect (e.g. 'gray' to force gray scale)
  * @return string
  *
  * $size, $width, and $height are used in determining the final image size.
@@ -3015,46 +3033,54 @@ function getSizedImageURL($size) {
  * The $crop* parameters determine the portion of the original image that
  * will be incorporated into the final image.
  *
- * $cropw and $croph "sizes" are typically proportional. That is you can
+ * $cw and $ch "sizes" are typically proportional. That is you can
  * set them to values that reflect the ratio of width to height that you
  * want for the final image. Typically you would set them to the final
  * height and width. These values will always be adjusted so that they are
  * not larger than the original image dimensions.
  *
- * The $cropx and $cropy values represent the offset of the crop from the
- * top left corner of the image. If these values are provided, the $croph
- * and $cropw parameters are treated as absolute pixels not proportions of
+ * The $cx and $cy values represent the offset of the crop from the
+ * top left corner of the image. If these values are provided, the $ch
+ * and $cw parameters are treated as absolute pixels not proportions of
  * the image. If cropx and cropy are not provided, the crop will be
  * "centered" in the image.
  *
- * When $cropx and $cropy are not provided the crop is offset from the top
+ * When $cx and $cy are not provided the crop is offset from the top
  * left proportionally to the ratio of the final image size and the crop
  * size.
  *
  * Some typical croppings:
  *
- * $size=200, $width=NULL, $height=NULL, $cropw=200, $croph=100,
- * $cropx=NULL, $cropy=NULL produces an image cropped to a 2x1 ratio which
+ * $size=200, $width=NULL, $height=NULL, $cw=200, $ch=100,
+ * $cx=NULL, $cy=NULL produces an image cropped to a 2x1 ratio which
  * will fit in a 200x200 pixel frame.
  *
- * $size=NULL, $width=200, $height=NULL, $cropw=200, $croph=100, $cropx=100,
- * $cropy=10 will will take a 200x100 pixel slice from (10,100) of the
+ * $size=NULL, $width=200, $height=NULL, $cw=200, $ch=100, $cx=100,
+ * $cy=10 will will take a 200x100 pixel slice from (10,100) of the
  * picture and create a 200x100 image
  *
- * $size=NULL, $width=200, $height=100, $cropw=200, $croph=120, $cropx=NULL,
- * $cropy=NULL will produce a (distorted) image 200x100 pixels from a 1x0.6
+ * $size=NULL, $width=200, $height=100, $cw=200, $ch=120, $cx=NULL,
+ * $cy=NULL will produce a (distorted) image 200x100 pixels from a 1x0.6
  * crop of the image.
  *
- * $size=NULL, $width=200, $height=NULL, $cropw=180, $croph=120, $cropx=NULL, $cropy=NULL
+ * $size=NULL, $width=200, $height=NULL, $cw=180, $ch=120, $cx=NULL, $cy=NULL
  * will produce an image that is 200x133 from a 1.5x1 crop that is 5% from the left
  * and 15% from the top of the image.
  *
  */
-function getCustomImageURL($size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = NULL, $thumbStandin = false, $effects = NULL) {
+function getCustomImageURL($size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = NULL, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
 	global $_current_image;
-	if (is_null($_current_image))
+
+	if (is_null($_current_image)) {
 		return false;
-	return $_current_image->getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin, $effects);
+	}
+	if (is_array($size)) {
+		$args = $size;
+		$suffix = $width;
+	} else {
+		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbStandin, 'effects' => $effects);
+	}
+	return $_current_image->getCustomImage($args, $suffix);
 }
 
 /**
@@ -3069,23 +3095,34 @@ function getCustomImageURL($size, $width = NULL, $height = NULL, $cropw = NULL, 
  * you would set them to the fincal height and width.
  *
  * @param string $alt Alt text for the url
- * @param int $size size
- * @param int $width width
+ * @param array $args of parameters / int $size size
+ * @param string $title title attribute / int $width width
  * @param int $height height
- * @param int $cropw crop width
- * @param int $croph crop height
- * @param int $cropx crop x axis
- * @param int $cropy crop y axis
+ * @param int $cw crop width
+ * @param int $ch crop height
+ * @param int $cx crop x axis
+ * @param int $cy crop y axis
  * @param string $class Optional style class
  * @param string $id Optional style id
  * @param bool $thumbStandin set to true to treat as thumbnail
  * @param bool $effects image effects (e.g. set gray to force grayscale)
  * @param string $title title attribute
  * */
-function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = NULL, $class = NULL, $id = NULL, $thumbStandin = false, $effects = NULL, $title = NULL) {
+function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = NULL, $class = NULL, $id = NULL, $thumbStandin = false, $effects = NULL, $title = NULL) {
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
+
+	if (is_array($size)) {
+		$args = $size;
+		$title = $width;
+		if (!isset($args['thumb'])) {
+			$args['thumb'] = NULL;
+		}
+	} else {
+		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbStandin, 'effects' => $effects);
+	}
+
 	if (!$_current_image->getShow()) {
 		$class .= " not_visible";
 	}
@@ -3117,12 +3154,12 @@ function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $crop
 		$title = ' title="' . html_encode($title) . '"';
 	}
 	if (isImagePhoto() || $thumbStandin) {
-		$html = '<img src="' . html_encode(getCustomImageURL($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin, $effects)) . '"' .
+		$html = '<img src="' . html_encode(getCustomImageURL($args)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
 		$html = npgFilters::apply('custom_image_html', $html, $thumbStandin);
 		if (ENCODING_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomImageURL($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin, $effects, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomImageURL($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		echo $html;
 	} else { // better be a plugin
@@ -3143,7 +3180,7 @@ function getCustomSizedImageMaxSpace($width, $height) {
 	if (is_null($_current_image))
 		return false;
 	getMaxSpaceContainer($width, $height, $_current_image);
-	return getCustomImageURL(NULL, $width, $height);
+	return getCustomImageURL(array('width' => $width, 'height' => $height));
 }
 
 /**
@@ -3159,7 +3196,7 @@ function getCustomSizedImageThumbMaxSpace($width, $height) {
 	if (is_null($_current_image))
 		return false;
 	getMaxSpaceContainer($width, $height, $_current_image, true);
-	return getCustomImageURL(NULL, $width, $height, NULL, NULL, NULL, NULL, true);
+	return getCustomImageURL(array('width' => $width, 'height' => $height, 'thumb' => TRUE));
 }
 
 /**
@@ -3437,13 +3474,13 @@ function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlb
 			switch ($crop) {
 				case 0:
 					$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $randomImage);
-					$html = '<img src="' . html_encode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
-					$webp = $randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
+					$html = '<img src="' . html_encode($randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$webp = $randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE, FALLBACK_SUFFIX));
 					break;
 				case 1:
 					$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $randomImage);
-					$html = '<img src="' . html_encode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
-					$webp = $randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
+					$html = '<img src="' . html_encode($randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
+					$webp = $randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE, FALLBACK_SUFFIX));
 					break;
 				case 2:
 					$sizes = getSizeDefaultThumb($randomImage);

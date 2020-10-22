@@ -78,7 +78,7 @@ if (!defined('WEBPATH'))
 							<?php $annotate = annotateAlbum(); ?>
 							<div class="imagethumb">
 								<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo html_encode($annotate); ?>">
-									<?php printCustomAlbumThumbImage($annotate, null, ALBUM_THMB_WIDTH, null, ALBUM_THMB_WIDTH, ALBUM_THUMB_HEIGHT); ?>
+									<?php printCustomAlbumThumbImage($annotate, array('width' => ALBUM_THMB_WIDTH, 'cw' => ALBUM_THMB_WIDTH, 'ch' => ALBUM_THUMB_HEIGHT)); ?>
 								</a>
 							</div>
 							<h4><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo html_encode($annotate); ?>"><?php printBareAlbumTitle(25); ?></a></h4>

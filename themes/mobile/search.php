@@ -144,16 +144,16 @@ if (!defined('WEBPATH'))
 									echo gettext('View album:');
 									printAnnotatedAlbumTitle();
 									?>">
-		<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, 79, 79, 79, 79, NULL, null, NULL, NULL); ?>
+											 <?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('sidth' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
 										<h3><?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small></h3>
 										<div class="albumdesc"><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 100, '(...)', false)); ?></div>
 										<small class="ui-li-aside ui-li-count"><?php jqm_printImageAlbumCount() ?></small>
 									</a>
 								</li>
-						<?php endwhile; ?>
+							<?php endwhile; ?>
 						</ul>
 					<?php } ?>
-						<?php if (getNumImages() > 0) { ?>
+					<?php if (getNumImages() > 0) { ?>
 						<div class="ui-grid-c">
 							<?php
 							$count = '';
@@ -176,9 +176,9 @@ if (!defined('WEBPATH'))
 								}
 								?>
 								<a class="image<?php echo $imgclass; ?>" href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>">
-								<?php printCustomSizedImage(getAnnotatedImageTitle(), NULL, 230, 230, 230, 230, NULL, NULL, NULL, NULL, true, NULL); ?>
+									<?php printCustomSizedImage(getAnnotatedImageTitle(), NULL, 230, 230, 230, 230, NULL, NULL, NULL, NULL, true, NULL); ?>
 								</a>
-	<?php } ?>
+							<?php } ?>
 						</div>
 						<br class="clearall" />
 					<?php } ?>
@@ -194,11 +194,11 @@ if (!defined('WEBPATH'))
 
 				</div>
 				<div class="content-secondary">
-<?php jqm_printMenusLinks(); ?>
+					<?php jqm_printMenusLinks(); ?>
 				</div>
 			</div><!-- /content -->
 			<?php jqm_printBacktoTopLink(); ?>
-		<?php jqm_printFooterNav(); ?>
+			<?php jqm_printFooterNav(); ?>
 		</div><!-- /page -->
 	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>

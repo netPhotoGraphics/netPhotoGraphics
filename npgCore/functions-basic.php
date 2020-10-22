@@ -1471,7 +1471,7 @@ function getImageProcessorURI($args, $album, $image, $suffix = NULL) {
 	$uri = WEBPATH . '/' . CORE_FOLDER . '/i.' . $s . '?a=' . pathurlencode($album);
 
 	if (is_array($image)) {
-		$uri .= '&i=' . urlencode($image['name']) . '&z=' . ($z = $image['source']);
+		$uri .= '&i=' . urlencode($image['name']) . '&z=' . ($z = pathurlencode($image['source']));
 	} else {
 		$uri .= '&i=' . urlencode($image);
 	}

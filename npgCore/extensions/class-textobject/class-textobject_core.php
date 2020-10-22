@@ -205,7 +205,7 @@ class TextObject extends Image {
 				return '<' . $container . ' style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</' . $container . '>';
 			default: // just in case we extend and are lazy...
 				$s = min($w, $h);
-				return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="' . get_class($this) . '_default" width=' . $s . ' height=' . $s . '>';
+				return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="' . get_class($this) . '_default" width=' . $s . ' height=' . $s . '>';
 				;
 		}
 	}
@@ -213,55 +213,61 @@ class TextObject extends Image {
 	/**
 	 *  Get a custom sized version of this image based on the parameters.
 	 *
-	 * @param string $alt Alt text for the url
-	 * @param int $size size
-	 * @param int $width width
+	 * @param array $args of parameters / $size size
+	 * @param string suffix of imageURI / int $width width
 	 * @param int $height height
 	 * @param int $cropw crop width
 	 * @param int $croph crop height
 	 * @param int $cropx crop x axis
 	 * @param int $cropy crop y axis
-	 * @param string $class Optional style class
-	 * @param string $id Optional style id
 	 * @param bool $thumbStandin set to true to treat as thumbnail
-	 * @param bool $effects ignored
-	 * @param string $suffix
+	 * @param bool $effects set to desired image effect (e.g. 'gray' to force gray scale)
 	 * @return string
 	 */
-	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
+	function getCustomImage($size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = NULL, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
+		if (is_array($size)) {
+			$args = $size;
+			$suffix = $width;
+			if (!isset($args['thumb'])) {
+				$args['thumb'] = NULL;
+			}
+		} else {
+			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
+		}
 
-		switch ((int) $thumbStandin) {
+		switch ((int) $args['thumb']) {
 			case -1:
-				$wmt = '!';
-				$thumbstandin = 1;
+				$args['WM'] = '!';
+				$args['thumb'] = 1;
 				break;
 			case 0:
-				$wmt = NULL;
+				$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
 				break;
 			case 3:
 				//	use thumb image as full sized image (posters, etc.
-				$wmt = getWatermarkParam($this, WATERMARK_IMAGE);
+				$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
 				break;
 			default:
-				$wmt = $this->watermark;
-				if (empty($wmt)) {
-					$wmt = getWatermarkParam($this, WATERMARK_THUMB);
+				if (empty($this->watermark)) {
+					$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
+				} else {
+					$args['WM'] = $this->watermark;
 				}
 				break;
 		}
 
-		if ($thumbStandin) {
+		if ($args['thumb']) {
 			if ($this->objectsThumb == NULL) {
 				$filename = makeSpecialImageName($this->getThumbImageFile());
 				if (!$this->watermarkDefault) {
-					$wmt = '!';
+					$args['WM'] = '!';
 				}
 				$mtime = NULL;
 			} else {
 				$filename = filesystemToInternal($this->objectsThumb);
 				$mtime = filemtime(dirname($this->localpath) . '/' . $this->objectsThumb);
 			}
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt, 'effects' => $effects);
+
 			$args = getImageParameters($args, $this->album->name);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {

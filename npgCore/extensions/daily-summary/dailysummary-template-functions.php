@@ -117,8 +117,17 @@ function getDailySummaryAlbumNameText($includeLinks = false) {
 
 function getCustomDailySummaryThumb($size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = null, $effects = NULL) {
 	global $_current_DailySummaryItem;
+	if (is_array($size)) {
+		$args = $size;
+		$suffix = $width;
+		if (!isset($args['thumb'])) {
+			$args['thumb'] = TRUE;
+		}
+	} else {
+		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => TRUE, 'effects' => $effects);
+	}
 	$thumb = $_current_DailySummaryItem->getDailySummaryThumbImage();
-	return $thumb->getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, true, $effects);
+	return $thumb->getCustomImage($args);
 }
 
 function next_DailySummaryItem($all = false) {

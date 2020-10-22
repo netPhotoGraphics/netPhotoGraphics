@@ -199,7 +199,7 @@ class htmlmetatags {
 				if (getOption('htmlmeta_opengraph') || getOption('htmlmeta_twittercard')) {
 					$thumbimg = $_current_album->getAlbumThumbImage();
 					getMaxSpaceContainer($ogimage_width, $ogimage_height, $thumbimg, false);
-					$thumb = FULLHOSTPATH . html_encode($thumbimg->getCustomImage(NULL, $ogimage_width, $ogimage_height, NULL, NULL, NULL, NULL, false, NULL));
+					$thumb = FULLHOSTPATH . html_encode($thumbimg->getCustomImage(array('width' => $ogimage_width, 'height' => $ogimage_height)));
 					$twittercard_type = 'summary_large_image';
 				}
 				break;

@@ -249,12 +249,12 @@ class pagedThumbsNav {
 			echo "<a $css href=\"" . html_encode($image->getLink()) . "\" title=\"" . html_encode(getBare($image->getTitle())) . "\">";
 
 			if ($this->crop) {
-				$html = "<img src='" . html_encode($image->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true)) . "' alt=\"" . html_encode(getBare($image->getTitle())) . "\" width='" . $this->width . "' height='" . $this->height . "' />";
+				$html = "<img src='" . html_encode($image->getCustomImage(array('width' => $this->width, 'height' => $this->height, 'cw' => $this->width, 'ch' => $this->height, 'thumb' => TRUE))) . "' alt=\"" . html_encode(getBare($image->getTitle())) . "\" width='" . $this->width . "' height='" . $this->height . "' />";
 			} else {
 				$maxwidth = $this->width; // needed because otherwise getMaxSpaceContainer will use the values of the first image for all others, too
 				$maxheight = $this->height;
 				getMaxSpaceContainer($maxwidth, $maxheight, $image, true);
-				$html = "<img src=\"" . html_encode($image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, true)) . "\" alt=\"" . html_encode(getBare($image->getTitle())) . "\" />";
+				$html = "<img src=\"" . html_encode($image->getCustomImage(array('width' => $maxwidth, 'heigfht' => $maxheight, 'thumb' => true))) . "\" alt=\"" . html_encode(getBare($image->getTitle())) . "\" />";
 			}
 			echo npgFilters::apply('custom_image_html', $html, TRUE);
 			echo "</a>\n";

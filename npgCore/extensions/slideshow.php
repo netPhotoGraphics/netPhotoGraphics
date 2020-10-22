@@ -236,12 +236,12 @@ class slideshow {
 			$ext = slideshow::is_valid($filename, $validtypes);
 			if ($ext) {
 				if ($crop) {
-					$img = $image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, NULL, NULL);
+					$img = $image->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height));
 				} else {
 					$maxwidth = $width;
 					$maxheight = $height;
 					getMaxSpaceContainer($maxwidth, $maxheight, $image);
-					$img = $image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, NULL, NULL);
+					$img = $image->getCustomImage(array('width' => $maxwidth, 'maxheight' => $height));
 				}
 				$slideshow .= 'ImageList[' . $cntr . '] = "' . $img . '";' . "\n";
 				$slideshow .= 'TitleList[' . $cntr . '] = "' . js_encode($image->getTitle()) . '";' . "\n";
@@ -430,12 +430,12 @@ class slideshow {
 					if ($linkslides)
 						$slideshow .= '<a href="' . html_encode($image->getLink()) . '">';
 					if ($crop) {
-						$img = $image->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, NULL, NULL);
+						$img = $image->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height));
 					} else {
 						$maxwidth = $width;
 						$maxheight = $height;
 						getMaxSpaceContainer($maxwidth, $maxheight, $image);
-						$img = $image->getCustomImage(NULL, $maxwidth, $maxheight, NULL, NULL, NULL, NULL, NULL, NULL);
+						$img = $image->getCustomImage(array('width' => $maxwidth, 'height' => $maxheight));
 					}
 					$slideshow .= '<img src="' . html_encode($img) . '" alt="" />';
 					if ($linkslides)
@@ -633,7 +633,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 									$imagelink = getFullImageURL($imgobj);
 									break;
 								case 'sizedimage':
-									$imagelink = $imgobj->getCustomImage(getOption("slideshow_width"), NULL, NULL, NULL, NULL, NULL, NULL, false, NULL);
+									$imagelink = $imgobj->getCustomImage(array('size' => getOption("slideshow_width")));
 									break;
 							}
 							$imagetitle = '';

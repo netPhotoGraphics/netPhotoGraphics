@@ -51,10 +51,10 @@
 									$randomList = $randomList . ' ' . $imageName;
 									$randomImageURL = html_encode($randomImage->getLink());
 									echo '<li><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
-									$html = "<img src=\"" . html_encode($randomImage->getCustomImage(null, $zpmas_ss_size_w, $zpmas_ss_size_h, $zpmas_ss_size_w, $zpmas_ss_size_h, null, null, true)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+									$html = "<img src=\"" . html_encode($randomImage->getCustomImage(array('width' => $zpmas_ss_size_w, 'height' => $zpmas_ss_size_h, 'cw' => $zpmas_ss_size_w, 'ch' => $zpmas_ss_size_h, 'thumb' => TRUE))) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
 									$html = npgFilters::apply('custom_image_html', $html, FALSE);
 									if (ENCODING_FALLBACK) {
-										$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(null, $zpmas_ss_size_w, $zpmas_ss_size_h, $zpmas_ss_size_w, $zpmas_ss_size_h, null, null, true, NULL, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+										$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(array('width' => $zpmas_ss_size_w, 'height' => $zpmas_ss_size_h, 'cw' => $zpmas_ss_size_w, 'ch' => $zpmas_ss_size_h, 'thumb' => TRUE), FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 									}
 									echo $html;
 									echo "</a>";
@@ -78,7 +78,7 @@
 			<div class="box <?php echo $zpmas_col_album; ?> album">
 				<h3><?php echo getAlbumTitle(); ?></h3>
 				<a class="thumb-link" href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo html_encode(getAnnotatedAlbumTitle()); ?>">
-					<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, $zpmas_album_size_w, $zpmas_album_size_h, $zpmas_album_size_w, $zpmas_album_size_h); ?>
+					<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('width' => $zpmas_album_size_w, 'height' => $zpmas_album_size_h, 'cw' => $zpmas_album_size_w, 'ch' => $zpmas_album_size_h)); ?>
 				</a>
 				<?php
 				$singletag = getTags();

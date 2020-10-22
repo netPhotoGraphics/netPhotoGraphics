@@ -178,13 +178,13 @@ function printUserSizeSelector($text = '', $default = NULL, $usersizes = NULL) {
 			foreach ($sizes as $key => $size) {
 				if (empty($size['$s'])) {
 					$display = sprintf(gettext('%1$s x %2$s px'), $size['$w'], $size['$h']);
-					$url = getCustomImageURL(null, $size['$w'], $size['$h'], null, null, null, null, false);
+					$url = getCustomImageURL(array('width' => $size['$w'], 'height' => $size['$h']));
 					$value = '$h=' . $size['$h'] . ',$w=' . $size['$w'];
 					$dims = array($size['$w'], $size['$h']);
 				} else {
 					$dims = getSizeCustomImage($size['$s']);
 					$display = sprintf(gettext('%s px'), $size['$s']);
-					$url = getCustomImageURL($size['$s'], null, null, null, null, null, null, false);
+					$url = getCustomImageURL(array('size' => $size['$s']));
 					$value = '$s=' . $size['$s'];
 				}
 				if ($selector) {

@@ -39,26 +39,26 @@ if (class_exists('favorites')) {
 									echo gettext('View album:');
 									printAnnotatedAlbumTitle();
 									?>">
-										<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, 79, 79, 79, 79, NULL, null, NULL, NULL); ?>
-		<?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small>
+											 <?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('sidth' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
+										<?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small>
 										<div class="albumdesc"><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 100, '(...)', false)); ?></div>
 										<small class="ui-li-count"><?php jqm_printImageAlbumCount() ?></small>
 									</a>
-								<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
+									<?php printAddToFavorites($_current_album, '', gettext('Remove')); ?>
 								</li>
-	<?php endwhile; ?>
+							<?php endwhile; ?>
 						</ul>
 						<ul data-role="listview" data-inset="true" data-theme="a" class="ui-listview ui-group-theme-a">
-	<?php while (next_image()): ?>
+							<?php while (next_image()): ?>
 								<li>
 									<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>">
 										<?php printCustomSizedImage(getAnnotatedImageTitle(), NULL, 79, 79, 79, 79, NULL, NULL, NULL, NULL, true, NULL); ?>
-		<?php printImageTitle(); ?><small> (<?php printImageDate(''); ?>)</small>
+										<?php printImageTitle(); ?><small> (<?php printImageDate(''); ?>)</small>
 										<div class="albumdesc"><?php echo $_current_image->getAlbum()->getTitle(); ?></div>
 									</a>
-								<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
+									<?php printAddToFavorites($_current_image, '', gettext('Remove')); ?>
 								</li>
-	<?php endwhile; ?>
+							<?php endwhile; ?>
 						</ul>
 						<br class="clearall" />
 						<?php if (hasPrevPage() || hasNextPage()) printPageListWithNav(gettext("prev"), gettext("next"), false, true, 'pagelist', NULL, true, 7); ?>
@@ -69,14 +69,14 @@ if (class_exists('favorites')) {
 						?>
 					</div>
 					<div class="content-secondary">
-	<?php jqm_printMenusLinks(); ?>
+						<?php jqm_printMenusLinks(); ?>
 					</div>
 				</div><!-- /content -->
 				<?php jqm_printBacktoTopLink(); ?>
-	<?php jqm_printFooterNav(); ?>
+				<?php jqm_printFooterNav(); ?>
 			</div><!-- /page -->
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

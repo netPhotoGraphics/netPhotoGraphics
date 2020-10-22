@@ -210,7 +210,7 @@
 		if ($_gallery_page == 'album.php') {
 			echo '<meta property="og:image" content="';
 			echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
-			echo getCustomAlbumThumb(Null, 650, 650);
+			echo getCustomAlbumThumb(array('width' => 650, 'height' => 650));
 			;
 			echo '" />
 ';
@@ -325,7 +325,7 @@
 			<meta name="twitter:url" content="<?php echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"]); ?>" />
 			<meta name="twitter:image" content="<?php
 			echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
-			echo getCustomAlbumThumb(Null, 650, 650);
+			echo getCustomAlbumThumb(array('width' => 650, 'height' => 650));
 			?>" />
 					<?php } ?>
 					<?php if ((($_gallery_page == 'news.php') && (is_NewsArticle()))) { ?>
