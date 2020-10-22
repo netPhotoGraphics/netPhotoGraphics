@@ -499,7 +499,7 @@ class html5Player {
 				gettext('Autoplay') => array('key' => 'class-video_autoplay',
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 4,
-						'desc' => gettext('If checked the the player will start automatically when the page has loaded.')),
+						'desc' => gettext('If checked the player will start automatically when the page has loaded.')),
 				gettext('Player width') => array('key' => 'class-video_width', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
 						'desc' => sprintf(gettext('The width of the video player. Currentlly the player is %1$dx%2$s pixels.'), $this->width, $this->height))
