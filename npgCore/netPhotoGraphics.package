@@ -841,7 +841,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/bxslider_thumb_nav.php
 %extensions%/cacheManager.php
 %extensions%/captcha.php
-%extensions%/class-AnyFile.php
 %extensions%/class-textobject.php
 %extensions%/class-video.php
 %extensions%/class-WEBdocs.php
@@ -960,8 +959,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/captcha
 %extensions%/captcha/c.php
 %extensions%/captcha/captcha_background.png
-%extensions%/class-AnyFile
-%extensions%/class-AnyFile/anyFileDefault.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
 %extensions%/class-textobject/textDefault.png
@@ -8087,4 +8084,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8089
+8086

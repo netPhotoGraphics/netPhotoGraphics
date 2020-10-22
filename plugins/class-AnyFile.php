@@ -13,6 +13,7 @@
  * @package plugins/class-AnyFile
  * @pluginCategory media
  *
+ * @deprecated since 2.00.08
  */
 $plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
@@ -76,7 +77,8 @@ function get_AnyFile_suffixes() {
 	return getSerializedArray(getOption('AnyFileSuffixList'));
 }
 
-require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
+require_once(file_get_contents(__DIR__ . '/core-locator.npg') . '/admin-globals.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-textobject/class-textobject_core.php');
 
 class AnyFile extends TextObject {
 
