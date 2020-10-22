@@ -276,6 +276,8 @@ themes/enlighten/images/footer.png
 themes/enlighten/images/header.jpg
 themes/enlighten/images/header.png
 themes/enlighten/images/hr.png
+themes/enlighten/images/next.png
+themes/enlighten/images/prev.png
 themes/enlighten/images/search.gif
 themes/enlighten/images/search.png
 themes/enlighten/images/sidebar_bottom.png
@@ -694,6 +696,8 @@ themes/zenpage/images/arrow_right.gif
 themes/zenpage/images/body.jpg
 themes/zenpage/images/footer.jpg
 themes/zenpage/images/header.jpg
+themes/zenpage/images/next.png
+themes/zenpage/images/prev.png
 themes/zenpage/images/tag.png
 plugins
 plugins/cookieInvalidator.php
@@ -8083,4 +8087,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8085
+8089
