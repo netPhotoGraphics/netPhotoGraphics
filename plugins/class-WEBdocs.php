@@ -12,7 +12,7 @@
  * @package plugins/class-WEBdocs
  * @pluginCategory media
  *
- * @deprecated since 2.00.08
+ * @deprecated since 2.00.08 GoogleDocs and Zoho appear to no longer support the iframe rendering of these documents
  */
 $plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
@@ -178,7 +178,7 @@ class WEBdocs extends TextObject {
 				break;
 		}
 
-		$html = '<div style="background-image: url(\'' . html_encode($this->getCustomImage(array('size' => min($w, $h), 'thumb' => 3, 'WM' => 'err-broken-page'))) . '\'); background-repeat: no-repeat; background-position: center;">' .
+		$html = '<div style="background-image: url(\'' . html_encode($this->getCustomImage(array('size' => min($w, $h), 'thumb' => 3, 'WM' => 'err-broken-page'))) . '\'); background-repeat: no-repeat; background-position: center;" >' .
 						$iframe .
 						'</div>';
 		return $html;
