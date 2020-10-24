@@ -234,26 +234,27 @@ class TextObject extends Image {
 		if (!isset($args['thumb'])) {
 			$args['thumb'] = NULL;
 		}
-
-		switch ((int) $args['thumb']) {
-			case -1:
-				$args['WM'] = '!';
-				$args['thumb'] = 1;
-				break;
-			case 0:
-				$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
-				break;
-			case 3:
-				//	use thumb image as full sized image (posters, etc.
-				$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
-				break;
-			default:
-				if (empty($this->watermark)) {
-					$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
-				} else {
-					$args['WM'] = $this->watermark;
-				}
-				break;
+		if (!isset($args['WM'])) {
+			switch ((int) $args['thumb']) {
+				case -1:
+					$args['WM'] = '!';
+					$args['thumb'] = 1;
+					break;
+				case 0:
+					$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
+					break;
+				case 3:
+					//	use thumb image as full sized image (posters, etc.
+					$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
+					break;
+				default:
+					if (empty($this->watermark)) {
+						$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
+					} else {
+						$args['WM'] = $this->watermark;
+					}
+					break;
+			}
 		}
 
 		if ($args['thumb']) {

@@ -12,6 +12,7 @@
  * @package plugins/class-WEBdocs
  * @pluginCategory media
  *
+ * @deprecated since 2.00.08
  */
 $plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
@@ -88,7 +89,7 @@ class WEBdocs_Options {
 
 }
 
-require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-textobject/class-textobject_core.php');
 
 class WEBdocs extends TextObject {
 
@@ -132,7 +133,7 @@ class WEBdocs extends TextObject {
 			}
 			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/' . $img;
+				$imgfile = $path . "/" . USER_PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/' . $img;
 			}
 		} else {
 			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
@@ -160,6 +161,7 @@ class WEBdocs extends TextObject {
 				'zoho' => '<iframe src="http://viewer.zoho.com/api/urlview.do?url=%s&amp;embed=true" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto" class="WEBdocs_zoho"></iframe>',
 				'local' => '<iframe src="%s" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto" class="WEBdocs_local"></iframe>'
 		);
+
 		switch ($suffix = getSuffix($this->filename)) {
 			case 'ppt':
 				$suffix = 'pps';
@@ -169,11 +171,17 @@ class WEBdocs extends TextObject {
 			case 'pps':
 			case 'pdf':
 				$provider = 'WEBdocs_' . $suffix . '_provider';
-				return sprintf($providers[getOption($provider)], html_encode($this->getFullImageURL(FULLWEBPATH)));
+				$iframe = sprintf($providers[getOption($provider)], html_encode($this->getFullImageURL(FULLWEBPATH)));
+				break;
 			default: // catches all others
-				$s = min($w, $h);
-				return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="WEBdocs_default" width=' . $s . ' height=' . $s . '>';
+				$iframe = '';
+				break;
 		}
+
+		$html = '<div style="background-image: url(\'' . html_encode($this->getCustomImage(array('size' => min($w, $h), 'thumb' => 3, 'WM' => 'err-broken-page'))) . '\'); background-repeat: no-repeat; background-position: center;">' .
+						$iframe .
+						'</div>';
+		return $html;
 	}
 
 }

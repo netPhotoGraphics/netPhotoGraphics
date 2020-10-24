@@ -277,25 +277,26 @@ class Video extends Image {
 		if (!isset($args['thumb'])) {
 			$args['thumb'] = NULL;
 		}
-
-		switch ((int) $args['thumb']) {
-			case -1:
-				$args['WM'] = '!';
-				break;
-			case 0:
-				$wmt = NULL;
-				break;
-			case 3:
-				//	use thumb image as full sized image (posters, etc.
-				$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
-				break;
-			default:
-				if (empty(getOption('video_watermark'))) {
-					$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
-				} else {
-					$args['WM'] = getOption('video_watermark');
-				}
-				break;
+		if (!isset($args['WM'])) {
+			switch ((int) $args['thumb']) {
+				case -1:
+					$args['WM'] = '!';
+					break;
+				case 0:
+					$wmt = NULL;
+					break;
+				case 3:
+					//	use thumb image as full sized image (posters, etc.
+					$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
+					break;
+				default:
+					if (empty(getOption('video_watermark'))) {
+						$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
+					} else {
+						$args['WM'] = getOption('video_watermark');
+					}
+					break;
+			}
 		}
 
 		if ($args['thumb']) {

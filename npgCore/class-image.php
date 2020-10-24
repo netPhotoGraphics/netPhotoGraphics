@@ -1183,19 +1183,20 @@ class Image extends MediaObject {
 			$args['thumb'] = NULL;
 		}
 
-		switch ((int) $args['thumb']) {
-			case -1:
-				$args['WM'] = '!';
-				$args['thumb'] = 1;
-				break;
-			case 0:
-				$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
-				break;
-			default:
-				$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
-				break;
+		if (!isset($args['WM'])) {
+			switch ((int) $args['thumb']) {
+				case -1:
+					$args['WM'] = '!';
+					$args['thumb'] = 1;
+					break;
+				case 0:
+					$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
+					break;
+				default:
+					$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
+					break;
+			}
 		}
-
 		$args = getImageParameters($args, $this->album->name);
 		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime, $suffix);
 	}
