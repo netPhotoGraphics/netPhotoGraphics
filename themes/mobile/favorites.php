@@ -39,7 +39,7 @@ if (class_exists('favorites')) {
 									echo gettext('View album:');
 									printAnnotatedAlbumTitle();
 									?>">
-											 <?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('sidth' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
+											 <?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('width' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
 										<?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small>
 										<div class="albumdesc"><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 100, '(...)', false)); ?></div>
 										<small class="ui-li-count"><?php jqm_printImageAlbumCount() ?></small>
@@ -52,7 +52,7 @@ if (class_exists('favorites')) {
 							<?php while (next_image()): ?>
 								<li>
 									<a href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>">
-										<?php printCustomSizedImage(getAnnotatedImageTitle(), NULL, 79, 79, 79, 79, NULL, NULL, NULL, NULL, true, NULL); ?>
+										<?php printCustomSizedImage(getAnnotatedImageTitle(), array('width' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79, 'thumb' => TRUE)); ?>
 										<?php printImageTitle(); ?><small> (<?php printImageDate(''); ?>)</small>
 										<div class="albumdesc"><?php echo $_current_image->getAlbum()->getTitle(); ?></div>
 									</a>

@@ -39,7 +39,7 @@ if (!defined('WEBPATH'))
 								echo gettext('View album:');
 								printAnnotatedAlbumTitle();
 								?>">
-										 <?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('sidth' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
+										 <?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('width' => 79, 'height' => 79, 'cw' => 79, 'ch' => 79)); ?>
 									<h3><?php printAlbumTitle(); ?><small> (<?php printAlbumDate(''); ?>)</small></h3>
 									<div class="albumdesc"><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 100, '(...)', false)); ?></div>
 									<small class="ui-li-aside ui-li-count"><?php jqm_printImageAlbumCount() ?></small>
@@ -69,7 +69,7 @@ if (!defined('WEBPATH'))
 							}
 							?>
 							<a class="image<?php echo $imgclass; ?>" href="<?php echo html_encode(getImageURL()); ?>" title="<?php printBareImageTitle(); ?>">
-								<?php printCustomSizedImage(getAnnotatedImageTitle(), NULL, 230, 230, 230, 230, NULL, NULL, NULL, NULL, true, NULL); ?>
+								<?php printCustomSizedImage(getAnnotatedImageTitle(), array('width' => 230, 'height' => 230, 'cw' => 230, 'ch' => 230, 'thumb' => TRUE)); ?>
 							</a>
 						<?php endwhile; ?>
 					</div>

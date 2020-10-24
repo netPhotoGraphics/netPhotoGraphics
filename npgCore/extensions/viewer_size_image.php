@@ -286,7 +286,7 @@ function printUserSizeImage($alt, $default = NULL, $class = NULL, $id = NULL) {
 	if (empty($size)) {
 		printCustomSizedImageMaxSpace($alt, $width, $height, $class, $id);
 	} else {
-		printCustomSizedImage($alt, $size, $width, $height, NULL, NULL, NULL, NULL, $class, $id, false);
+		printCustomSizedImage($alt, array('size' => $size, 'width' => $width, 'height' => $height), $class, $id);
 	}
 }
 ?>

@@ -1743,24 +1743,25 @@ function printAlbumThumbImage($alt, $class = NULL, $id = NULL, $title = NULL) {
 /**
  * Returns a link to a custom sized thumbnail of the current album
  *
- * @param array $args of parameters / $size size
- * @param string suffix of imageURI / int $width width
- * @param int $height height
- * @param int $cw crop width
- * @param int $ch crop height
- * @param int $cx crop part x axis
- * @param int $cy crop part y axis
- * @param bool $effects image effects (e.g. set 'gray' to force grayscale)
+ * @param array $args of parameters
+ * @param string suffix of imageURI
  *
  * @return string
  */
-function getCustomAlbumThumb($size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = null, $effects = NULL, $suffix = NULL) {
+function getCustomAlbumThumb($args, $suffix = NULL) {
 	global $_current_album;
-	if (is_array($size)) {
-		$args = $size;
-		$suffix = $width;
-	} else {
-		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'effects' => $effects);
+	if (!is_array($args)) {
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
+		$p = func_get_args();
+		$args = array();
+		foreach ($p as $k => $v) {
+			$args[$a[$k]] = $v;
+		}
+		$suffix = @$args['suffix'];
+		unset($args['suffix']);
+
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
 	}
 	$args['thumb'] = TRUE;
 	$thumb = $_current_album->getAlbumThumbImage();
@@ -1772,32 +1773,40 @@ function getCustomAlbumThumb($size, $width = NULL, $height = NULL, $cw = NULL, $
  *
  * See getCustomImageURL() for details.
  *
- * @param string $alt Alt atribute text
- * @param array $args image argument array / int $size size
- * @param string $class css class / int $width width
- * @param string $id css id /int $height height
- * @param string $title Optional title attribute / int $cw cropwidth
- * @param int $ch crop height
- * @param int $cx crop part x axis
- * @param int $cy crop part y axis
+ * @param string $alt Alt attribute text
+ * @param array $args image argument array
  * @param string $class css class
- * @param string $id css id
- * @param string $title Optional title attribute
+ * @param string $id html id for the element
+ * @param string $title the title of the element
  *
  * @return string
  */
-function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = null, $class = NULL, $id = NULL, $title = NULL) {
+function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $title = NULL) {
 	global $_current_album;
 
-	if (is_array($size)) {
-		$args = $size;
-		$class = $width;
-		$id = $height;
-		$title = $cw;
-		extract($args);
-	} else {
-		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy);
+	if (!is_array($args)) {
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'title');
+		$p = func_get_args();
+		array_shift($p); //	$alt
+		$args = array();
+		foreach ($p as $k => $v) {
+			$args[$a[$k]] = $v;
+		}
+		$class = @$args['class'];
+		unset($args['class']);
+		$id = @$args['id'];
+		unset($args['id']);
+		$title = @$args['title'];
+		unset($args['title']);
+
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
 	}
+	$args['thumb'] = TRUE;
+
+	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
+	extract($args);
+
 
 	if (!$_current_album->getShow()) {
 		$class .= " not_visible";
@@ -1816,10 +1825,10 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 			}
 			$s = round($height * ($cw / $ch));
 			if (!empty($s))
-				$sizing = ' width="' . $s . '"';
+				$sizing = ' width = "' . $s . '"';
 		}
 	} else {
-		$sizing = ' width="' . $width . '"';
+		$sizing = ' width = "' . $width . '"';
 	}
 	if (is_null($height)) {
 		if (!is_null($cw) && !is_null($ch)) {
@@ -1828,23 +1837,23 @@ function printCustomAlbumThumbImage($alt, $size, $width = NULL, $height = NULL, 
 			}
 			$s = round($width * ($ch / $cw));
 			if (!empty($s))
-				$sizing = $sizing . ' height="' . $s . '"';
+				$sizing = $sizing . ' height = "' . $s . '"';
 		}
 	} else {
-		$sizing = $sizing . ' height="' . $height . '"';
+		$sizing = $sizing . ' height = "' . $height . '"';
 	}
 	if ($id) {
-		$id = ' id="' . $id . '"';
+		$id = ' id = "' . $id . '"';
 	}
 	if ($class) {
-		$class = ' class="' . $class . '"';
+		$class = ' class = "' . $class . '"';
 	}
 	if ($title) {
-		$title = ' title="' . html_encode($title) . '"';
+		$title = ' title = "' . html_encode($title) . '"';
 	}
 
 	if (!getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || empty($pwd)) {
-		$html = '<img src="' . html_encode(getCustomAlbumThumb($args)) . '"' . $sizing . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
+		$html = '<img src = "' . html_encode(getCustomAlbumThumb($args)) . '"' . $sizing . ' alt = "' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
 		$html = npgFilters::apply('custom_album_thumb_html', $html);
 		if (ENCODING_FALLBACK) {
 			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomAlbumThumb($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
@@ -2253,7 +2262,7 @@ function printImageDate($before = '', $format = null) {
 	$date = getImageDate($format);
 	if ($date) {
 		if ($before) {
-			$date = '<span class="beforetext">' . html_encode($before) . '</span>' . $date;
+			$date = '<span class = "beforetext">' . html_encode($before) . '</span>' . $date;
 		}
 	}
 	echo $date;
@@ -2546,24 +2555,24 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 		$title = gettext('Image Info');
 	}
 	if ($class) {
-		$class = ' class="' . $class . '"';
+		$class = ' class = "' . $class . '"';
 	}
 	if (!$span) {
 		$span = 'exif_link';
 	}
 	$dataid = $id . '_data';
 	if ($id) {
-		$id = ' id="' . $id . '"';
+		$id = ' id = "' . $id . '"';
 	}
 	$refh = $refa = $style = '';
 	if ($toggle == 'colorbox' && npgFilters::has_filter('theme_head', 'colorbox::css')) {
-		$refh = '<a href="#" class="colorbox" title="' . $title . '">';
+		$refh = '<a href = "#" class = "colorbox" title = "' . $title . '">';
 		$refa = '</a>';
-		$style = ' style="display:none"';
+		$style = ' style = "display:none"';
 	} else if ($toggle) {
-		$refh = '<a onclick="$(\'#' . $dataid . '\').toggle();" title="' . $title . '">';
+		$refh = '<a onclick = "$(\'#' . $dataid . '\').toggle();" title = "' . $title . '">';
 		$refa = '</a>';
-		$style = ' style="display:none"';
+		$style = ' style = "display:none"';
 	}
 	?>
 	<span id="<?php echo $span; ?>" class="metadata_title">
@@ -2589,20 +2598,34 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 /**
  * Returns an array with the height & width
  *
- * @param int $size size
- * @param int $width width
- * @param int $height height
- * @param int $cw crop width
- * @param int $ch crop height
- * @param int $cx crop x axis
- * @param int $cy crop y axis
- * @param $image object the image for which the size is desired. NULL means the current image
+ * @param array $args of parameters
+ * @param string suffix of imageURI
  * @return array
  */
-function getSizeCustomImage($size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = NULL, $image = NULL) {
+function getSizeCustomImage($args, $suffix = NULL, $image = NULL) {
 	global $_current_image;
-	if (is_null($image))
+
+	if (!is_array($args)) {
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'image', 'suffix');
+		$p = func_get_args();
+		$args = array();
+		foreach ($p as $k => $v) {
+			$args[$a[$k]] = $v;
+		}
+		$image = @$args['image'];
+		unset($args['image']);
+		$suffix = @$args['suffix'];
+		unset($args['suffix']);
+
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
+	}
+	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
+	extract($args);
+
+	if (is_null($image)) {
 		$image = $_current_image;
+	}
 	if (is_null($image))
 		return false;
 
@@ -2614,8 +2637,9 @@ function getSizeCustomImage($size, $width = NULL, $height = NULL, $cw = NULL, $c
 
 	$side = getOption('image_use_side');
 	$us = (bool) getOption('image_allow_upscale');
-	$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'WM' => 'ignore');
+
 	$args = getImageParameters($args, $image->album->name);
+	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = $WM = NULL;
 	extract($args);
 
 	if (!empty($size)) {
@@ -2801,7 +2825,7 @@ function printDefaultSizedImage($alt, $class = NULL, $id = NULL, $title = NULL) 
 		$class .= ' ' . $matches[1];
 		$content = preg_replace('~' . $matches[0] . '~', '@class@', $content);
 	} else {
-		debugLog(gettext(getClass($_current_image) . '->getContent() did not provide a class attribute'));
+		debugLogBacktrace(gettext(get_class($_current_image) . '->getContent() did not provide a class attribute'));
 	}
 	$class = ' class="' . trim($class) . '"';
 	if (isset($id)) {
@@ -2865,7 +2889,7 @@ function printImageThumb($alt, $class = NULL, $id = NULL, $title = NULL) {
 	$html = '<img src="' . html_encode($url) . '"' . $size . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />";
 	$html = npgFilters::apply('standard_image_thumb_html', $html);
 	if (ENCODING_FALLBACK) {
-		$html = "<picture>\n<source srcset=\"" . html_encode(getImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+		$html = "<picture>\n<source srcset = \"" . html_encode(getImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 	}
 	echo $html;
 }
@@ -3013,15 +3037,8 @@ function getSizedImageURL($size) {
 /**
  * Returns the url to the image with the dimensions you define with this function.
  *
- * @param array $args of parameters / $size size
- * @param string $suffix url suffix desired / int $width width
- * @param int $height height
- * @param int $cw crop width
- * @param int $ch crop height
- * @param int $cx crop x axis
- * @param int $cy crop y axis
- * @param bool $thumbStandin set to true to treat as thumbnail
- * @param bool $effects set to desired image effect (e.g. 'gray' to force gray scale)
+ * @param array $args of parameters
+ * @param string $suffix url suffix desired
  * @return string
  *
  * $size, $width, and $height are used in determining the final image size.
@@ -3068,17 +3085,24 @@ function getSizedImageURL($size) {
  * and 15% from the top of the image.
  *
  */
-function getCustomImageURL($size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = NULL, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
+function getCustomImageURL($args, $suffix = NULL) {
 	global $_current_image;
 
 	if (is_null($_current_image)) {
 		return false;
 	}
-	if (is_array($size)) {
-		$args = $size;
-		$suffix = $width;
-	} else {
-		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbStandin, 'effects' => $effects);
+	if (!is_array($args)) {
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
+		$p = func_get_args();
+		$args = array();
+		foreach ($p as $k => $v) {
+			$args[$a[$k]] = $v;
+		}
+		$suffix = @$args['suffix'];
+		unset($args['suffix']);
+
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
 	}
 	return $_current_image->getCustomImage($args, $suffix);
 }
@@ -3095,33 +3119,38 @@ function getCustomImageURL($size, $width = NULL, $height = NULL, $cw = NULL, $ch
  * you would set them to the fincal height and width.
  *
  * @param string $alt Alt text for the url
- * @param array $args of parameters / int $size size
- * @param string $title title attribute / int $width width
- * @param int $height height
- * @param int $cw crop width
- * @param int $ch crop height
- * @param int $cx crop x axis
- * @param int $cy crop y axis
- * @param string $class Optional style class
- * @param string $id Optional style id
- * @param bool $thumbStandin set to true to treat as thumbnail
- * @param bool $effects image effects (e.g. set gray to force grayscale)
+ * @param array $args of parameters
  * @param string $title title attribute
  * */
-function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $cw = NULL, $ch = NULL, $cx = NULL, $cy = NULL, $class = NULL, $id = NULL, $thumbStandin = false, $effects = NULL, $title = NULL) {
+function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = NULL) {
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
 
-	if (is_array($size)) {
-		$args = $size;
-		$title = $width;
+	if (is_array($args)) {
 		if (!isset($args['thumb'])) {
 			$args['thumb'] = NULL;
 		}
 	} else {
-		$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbStandin, 'effects' => $effects);
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'thumb', 'effects', 'title');
+		$p = func_get_args();
+		array_shift($p); //	$alt
+		$args = array();
+		foreach ($p as $k => $v) {
+			$args[$a[$k]] = $v;
+		}
+		$class = @$args['class'];
+		unset($args['class']);
+		$id = @$args['id'];
+		unset($args['id']);
+		$title = @$args['title'];
+		unset($args['title']);
+
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
 	}
+	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
+	extract($args);
 
 	if (!$_current_image->getShow()) {
 		$class .= " not_visible";
@@ -3157,7 +3186,7 @@ function printCustomSizedImage($alt, $size, $width = NULL, $height = NULL, $cw =
 		$html = '<img src="' . html_encode(getCustomImageURL($args)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
-		$html = npgFilters::apply('custom_image_html', $html, $thumbStandin);
+		$html = npgFilters::apply('custom_image_html', $html, $thumb);
 		if (ENCODING_FALLBACK) {
 			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomImageURL($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
@@ -3214,7 +3243,7 @@ function printCustomSizedImageThumbMaxSpace($alt, $width, $height, $class = NULL
 	if (is_null($_current_image))
 		return;
 	getMaxSpaceContainer($width, $height, $_current_image, true);
-	printCustomSizedImage($alt, NULL, $width, $height, NULL, NULL, NULL, NULL, $class, $id, true, null, $title);
+	printCustomSizedImage($alt, array('width' => $width, 'height' => $height), $class, $id, $title);
 }
 
 /**
@@ -3233,7 +3262,7 @@ function printCustomSizedImageMaxSpace($alt, $width, $height, $class = NULL, $id
 	if (is_null($_current_image))
 		return;
 	getMaxSpaceContainer($width, $height, $_current_image, $thumb);
-	printCustomSizedImage($alt, NULL, $width, $height, NULL, NULL, NULL, NULL, $class, $id, $thumb, null, $title);
+	printCustomSizedImage($alt, array('width' => $width, 'height' => $height), $class, $id, $title);
 }
 
 /**

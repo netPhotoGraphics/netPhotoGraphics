@@ -70,7 +70,7 @@ class zoomImage {
 	static function body_close() {
 		global $_zoomImage_id_list;
 		scriptLoader(getPlugin('zoomImage/zoom.css', true));
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
 		?>
 		<script type="text/javascript">
 		<?php
@@ -136,7 +136,7 @@ function printZoomImage($size = NULL, $type = NULL, $magnify = NULL, $target = N
 	$_zoomImage_id_list[$zid] = '{' . implode(', ', $params) . '}';
 	?>
 	<span class="zoom zoom<?php echo ucfirst($type); ?>" id="<?php echo $zid; ?>">
-		<?php printCustomSizedImage($alt, $size, NULL, NULL, NULL, NULL, NULL, NULL, $class, $id, false, NULL, $title); ?>
+		<?php printCustomSizedImage($alt, array('size' => $size), $class, $id, $title); ?>
 	</span>
 	<?php
 }

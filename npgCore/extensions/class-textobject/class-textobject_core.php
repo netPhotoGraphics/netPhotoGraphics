@@ -213,26 +213,26 @@ class TextObject extends Image {
 	/**
 	 *  Get a custom sized version of this image based on the parameters.
 	 *
-	 * @param array $args of parameters / $size size
-	 * @param string suffix of imageURI / int $width width
-	 * @param int $height height
-	 * @param int $cropw crop width
-	 * @param int $croph crop height
-	 * @param int $cropx crop x axis
-	 * @param int $cropy crop y axis
-	 * @param bool $thumbStandin set to true to treat as thumbnail
-	 * @param bool $effects set to desired image effect (e.g. 'gray' to force gray scale)
+	 * @param array $args of parameters
+	 * @param string suffix of imageURI
 	 * @return string
 	 */
-	function getCustomImage($size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = NULL, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
-		if (is_array($size)) {
-			$args = $size;
-			$suffix = $width;
-			if (!isset($args['thumb'])) {
-				$args['thumb'] = NULL;
+	function getCustomImage($args, $suffix = NULL) {
+		if (!is_array($args)) {
+			$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
+			$p = func_get_args();
+			$args = array();
+			foreach ($p as $k => $v) {
+				$args[$a[$k]] = $v;
 			}
-		} else {
-			$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'effects' => $effects);
+			$suffix = @$args['suffix'];
+			unset($args['suffix']);
+
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+			deprecated_functions::notify_call('TextObject::getCustomImage', gettext('The function should be called with an image arguments array.'));
+		}
+		if (!isset($args['thumb'])) {
+			$args['thumb'] = NULL;
 		}
 
 		switch ((int) $args['thumb']) {
@@ -271,7 +271,7 @@ class TextObject extends Image {
 			$args = getImageParameters($args, $this->album->name);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {
-			return $this->getContent($width, $height);
+			return $this->getContent($args['width'], $args['height']);
 		}
 	}
 

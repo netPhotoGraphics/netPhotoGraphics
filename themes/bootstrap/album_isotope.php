@@ -62,11 +62,11 @@ $tags_album = getAllTagsFromAlbum($name, false, 'images');
 				<a class="thumb" href="<?php echo html_encode(html_encode($fullimage)); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 					<?php
 					if (getFullWidth() > getFullHeight()) {
-						printCustomSizedImage(getBareImageTitle(), NULL, 235, 150, 235, 150, NULL, NULL, 'remove-attributes img-responsive', NULL, true);
+						printCustomSizedImage(getBareImageTitle(), array('width' => 235, 'height' => 150, 'cw' => 235, 'ch' => 150, 'thuimb' => TRUE), 'remove-attributes img-responsive');
 					} else if (getFullWidth() < getFullHeight()) {
-						printCustomSizedImage(getBareImageTitle(), NULL, 150, 235, 150, 235, NULL, NULL, 'remove-attributes img-responsive', NULL, true);
+						printCustomSizedImage(getBareImageTitle(), array('width' => 235, 'height' => 150, 'cw' => 235, 'ch' => 150, 'thuimb' => TRUE), 'remove-attributes img-responsive');
 					} else {
-						printCustomSizedImage(getBareImageTitle(), NULL, 150, 150, NULL, NULL, NULL, NULL, 'remove-attributes img-responsive', NULL, true);
+						printCustomSizedImage(getBareImageTitle(), array('width' => 235, 'height' => 150, 'cw' => 235, 'ch' => 150, 'thuimb' => TRUE), 'remove-attributes img-responsive');
 					}
 					?>
 				</a>
@@ -133,4 +133,5 @@ switch (simplemap::mapPlugin()) {
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php');
+<?php
+include('inc_footer.php');
