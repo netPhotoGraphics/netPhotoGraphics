@@ -275,12 +275,12 @@ function printRandomImages_zb($number = 12, $class = null, $option = 'all', $roo
 			echo '>';
 			switch ($crop) {
 				case 0:
-					$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $randomImage);
+					$sizes = getSizeCustomImage(array('size' => $width), $randomImage);
 					$html = '<img src="' . html_encode($randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					$webp = $randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE), FALLBACK_SUFFIX);
 					break;
 				case 1:
-					$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $randomImage);
+					$sizes = getSizeCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height), $randomImage);
 					$html = '<img src="' . html_encode($randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					$webp = $randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE), FALLBACK_SUFFIX);
 					break;

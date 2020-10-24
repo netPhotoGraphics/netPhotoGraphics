@@ -2602,7 +2602,7 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
  * @param string suffix of imageURI
  * @return array
  */
-function getSizeCustomImage($args, $suffix = NULL, $image = NULL) {
+function getSizeCustomImage($args, $image = NULL) {
 	global $_current_image;
 
 	if (!is_array($args)) {
@@ -2704,7 +2704,7 @@ function getSizeCustomImage($args, $suffix = NULL, $image = NULL) {
 function getSizeDefaultImage($size = NULL, $image = NULL) {
 	if (is_null($size))
 		$size = getOption('image_size');
-	return getSizeCustomImage($size, NULL, NULL, NULL, NULL, NULL, NULL, $image);
+	return getSizeCustomImage(array('size' => $size), $image);
 }
 
 /**
@@ -3162,7 +3162,7 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 	}
 	$sizing = '';
 	if ($size) {
-		$dims = getSizeCustomImage($size);
+		$dims = getSizeCustomImage(array('size' => $size));
 		if ($dims[0])
 			$sizing = ' width="' . $dims[0] . '"';
 		if ($dims[1])
@@ -3356,6 +3356,7 @@ function getRandomImages($daily = false, $limit = 1) {
 		$result = query($sql);
 		$_random_image_list = filterImageQueryList($result, NULL, $limit, TRUE);
 	}
+
 	$image = array_shift($_random_image_list);
 	if ($image) {
 		if ($daily) {
@@ -3502,12 +3503,12 @@ function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlb
 			echo '<a href="' . html_encode($randomImageURL) . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
 			switch ($crop) {
 				case 0:
-					$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $randomImage);
+					$sizes = getSizeCustomImage(array('size' => $width), $randomImage);
 					$html = '<img src="' . html_encode($randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					$webp = $randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE, FALLBACK_SUFFIX));
 					break;
 				case 1:
-					$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $randomImage);
+					$sizes = getSizeCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height), $randomImage);
 					$html = '<img src="' . html_encode($randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($randomImage->getTitle()) . '" />' . "\n";
 					$webp = $randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE, FALLBACK_SUFFIX));
 					break;
@@ -4568,7 +4569,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

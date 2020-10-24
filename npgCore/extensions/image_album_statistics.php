@@ -231,12 +231,12 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 	$albumthumb = $album->getAlbumThumbImage();
 	switch ($crop) {
 		case 0:
-			$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $albumthumb);
+			$sizes = getSizeCustomImage(array('size' => $width), $albumthumb);
 			$html = '<img src="' . html_encode($albumthumb->getCustomImage(array('size' => $width, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" />';
 			break;
 		case 1;
 			if (isImagePhoto($albumthumb)) {
-				$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $albumthumb);
+				$sizes = getSizeCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height), $albumthumb);
 			} else {
 				$sizes = array($width, $height);
 			}
@@ -578,11 +578,11 @@ function printImageStatistic($number, $option, $albumfolder = NULL, $showtitle =
 		echo '<li><a href="' . html_encode($imagelink) . '" title="' . html_encode($image->getTitle()) . "\">\n";
 		switch ($crop) {
 			case 0:
-				$sizes = getSizeCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, $image);
+				$sizes = getSizeCustomImage(array('size' => $width), $image);
 				$html = '<img src="' . html_encode($image->getCustomImage(array('size' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . ' />';
 				break;
 			case 1:
-				$sizes = getSizeCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, $image);
+				$sizes = getSizeCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height), $image);
 				$html = '<img src="' . html_encode($image->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($image->getTitle()) . ' />';
 				break;
 			default:

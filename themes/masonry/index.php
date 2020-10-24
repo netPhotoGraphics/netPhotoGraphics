@@ -40,29 +40,22 @@
 					?>
 					<ul>
 						<?php
-						$randomList = "";
 						for ($i = 1; $i <= $zpmas_sscount; $i++) {
-							$randomImage = getRandomImages();
-							if (is_object($randomImage) && $randomImage->exists) {
-								$imageName = $randomImage->getFileName();
-								if (strpos($randomList, $imageName)) {
-									$i--;
-								} else {
-									$randomList = $randomList . ' ' . $imageName;
-									$randomImageURL = html_encode($randomImage->getLink());
-									echo '<li><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
-									$html = "<img src=\"" . html_encode($randomImage->getCustomImage(array('width' => $zpmas_ss_size_w, 'height' => $zpmas_ss_size_h, 'cw' => $zpmas_ss_size_w, 'ch' => $zpmas_ss_size_h, 'thumb' => TRUE))) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
-									$html = npgFilters::apply('custom_image_html', $html, FALSE);
-									if (ENCODING_FALLBACK) {
-										$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(array('width' => $zpmas_ss_size_w, 'height' => $zpmas_ss_size_h, 'cw' => $zpmas_ss_size_w, 'ch' => $zpmas_ss_size_h, 'thumb' => TRUE), FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
-									}
-									echo $html;
-									echo "</a>";
-									echo '<h3><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">' . html_encodeTagged($randomImage->getTitle()) . '</a></h3>';
-									echo "</li>";
+							$randomImage = getRandomImages(FALSE, $zpmas_sscount);
+							if (is_object($randomImage)) {
+								$randomImageURL = html_encode($randomImage->getLink());
+								echo '<li><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">';
+								$html = "<img src=\"" . html_encode($randomImage->getCustomImage(array('width' => $zpmas_ss_size_w, 'height' => $zpmas_ss_size_h, 'cw' => $zpmas_ss_size_w, 'ch' => $zpmas_ss_size_h, 'thumb' => TRUE))) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+								$html = npgFilters::apply('custom_image_html', $html, FALSE);
+								if (ENCODING_FALLBACK) {
+									$html = "<picture>\n<source srcset=\"" . html_encode($randomImage->getCustomImage(array('width' => $zpmas_ss_size_w, 'height' => $zpmas_ss_size_h, 'cw' => $zpmas_ss_size_w, 'ch' => $zpmas_ss_size_h, 'thumb' => TRUE), FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 								}
+								echo $html;
+								echo "</a>";
+								echo '<h3><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">' . html_encodeTagged($randomImage->getTitle()) . '</a></h3>';
+								echo "</li>";
 							} else {
-								echo gettext('No Images Exist...');
+								echo '<li>' . gettext('No Images Exist...') . '</li>';
 							}
 						}
 						?>
