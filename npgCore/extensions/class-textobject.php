@@ -55,6 +55,8 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 Gallery::addImageHandler('htm', 'TextObject');
 Gallery::addImageHandler('html', 'TextObject');
 Gallery::addImageHandler('txt', 'TextObject');
+Gallery::addImageHandler('pdf', 'TextObject');
+
 $option_interface = 'textObject_Options';
 
 /**

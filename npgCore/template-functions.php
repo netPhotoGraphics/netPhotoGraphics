@@ -2606,7 +2606,7 @@ function getSizeCustomImage($args, $image = NULL) {
 	global $_current_image;
 
 	if (!is_array($args)) {
-		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'image', 'suffix');
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'image');
 		$p = func_get_args();
 		$args = array();
 		foreach ($p as $k => $v) {

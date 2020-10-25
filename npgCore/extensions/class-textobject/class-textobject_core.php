@@ -130,8 +130,14 @@ class TextObject extends Image {
 		$path = SERVERPATH;
 		if (is_null($this->objectsThumb)) {
 			switch (getSuffix($this->filename)) {
+				case 'txt':
+				case 'htm':
+				case 'html':
 				default: // just in case we extend and are lazy...
 					$img = '/textDefault.png';
+					break;
+				case 'pdf':
+					$img = '/pdfDefault.png';
 					break;
 			}
 			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
@@ -189,10 +195,9 @@ class TextObject extends Image {
 	 *
 	 * @param int $w optional width
 	 * @param int $h optional height
-	 * @param string $container override "div" if you want a different container,
 	 * @return string
 	 */
-	function getContent($w = NULL, $h = NULL, $container = 'div') {
+	function getContent($w = NULL, $h = NULL) {
 		$this->updateDimensions();
 		if (is_null($w))
 			$w = $this->getWidth();
@@ -202,10 +207,16 @@ class TextObject extends Image {
 			case 'txt':
 			case 'htm':
 			case 'html':
-				return '<' . $container . ' style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</' . $container . '>';
+				return '<div style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</div>';
+			case 'pdf':
+				return '<div style="background-image: url(\'' . html_encode($this->getCustomImage(array('size' => min($w, $h), 'thumb' => 3, 'WM' => 'err-broken-page'))) . '\'); background-repeat: no-repeat; background-position: center;" >' .
+								'<iframe src="' .
+								html_encode($this->getFullImageURL(FULLWEBPATH)) .
+								'" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto" class="WEBdocs_local"></iframe>' .
+								'</div>';
 			default: // just in case we extend and are lazy...
 				$s = min($w, $h);
-				return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="' . get_class($this) . '_default" width=' . $s . ' height=' . $s . '>';
+				return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3, 'WM' => 'err-broken-page'))) . '" class="' . get_class($this) . '_default" width=' . $s . ' height=' . $s . '>';
 				;
 		}
 	}

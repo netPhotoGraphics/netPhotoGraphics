@@ -964,6 +964,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/class-AnyFile/xxxDefault.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
+%extensions%/class-textobject/pdfDefault.png
 %extensions%/class-textobject/textDefault.png
 %extensions%/class-video
 %extensions%/class-video/m4aDefault.png
@@ -8084,4 +8085,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8086
+8087
