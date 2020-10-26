@@ -961,7 +961,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/captcha/captcha_background.png
 %extensions%/class-AnyFile
 %extensions%/class-AnyFile/anyFileDefault.png
-%extensions%/class-AnyFile/xxxDefault.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
 %extensions%/class-textobject/pdfDefault.png
@@ -8085,4 +8084,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8087
+8086
