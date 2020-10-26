@@ -1140,7 +1140,10 @@ class Gallery {
 	 */
 	static function addImageHandler($suffix, $objectName) {
 		global $_images_classes;
-		$_images_classes[strtolower($suffix)] = $objectName;
+		$suffix = strtolower($suffix);
+		if (!isset($_images_classes[$suffix])) { //	plugin priority determines who handles
+			$_images_classes[$suffix] = $objectName;
+		}
 	}
 
 	/**

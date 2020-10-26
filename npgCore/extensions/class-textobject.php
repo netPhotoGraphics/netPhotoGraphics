@@ -7,9 +7,10 @@
  * 	<li><var>.txt</var></var>
  * 	<li><var>.htm</var></li>
  * 	<li><var>.html</var></var>
+ * <li><var>.pdf</var></var>
  * </ul>
- * 		The contents of these files are "dumpped" into a <var><span>...</span></var> sized to a 24x36 ratioed box based on your
- * 		theme	"image size" option. This has a class of "textobject" so it can be styled.
+ * 		The contents of these files are "dumpped" into a container based on your
+ * 		theme	"image size" options. This has a class of "textobject" so it can be styled.
  *
  * What this plugin really is for is to serve as a model of how a plugin can be made to handle file types
  * that are not handle natively.
@@ -22,10 +23,13 @@
  * 	<li>There is one VERY IMPORTANT method that you must provide which is not part of the "Image" base class. The	getContent() method. This method is called by template-functions.php in place of where it would normally put a URL to the image to show. This method must do everything needed to cause your image object to be viewable by the  browser.</li>
  * </ul>
  *
- * So, briefly, the first three lines of code below are the standard plugin interface to Admin.
+ * So, briefly, the first lines of code below are the standard plugin interface to Admin.
  * Then there are calls on <var>addPlginType(«file extension», «Object Name»);</var> This function registers the plugin as the
  * handler for files with the specified extension. If the plugin can handle more than one file extension, make a call
  * to the registration function for each extension that it handles.
+ *
+ * Then the plugin loads the common non-image handler object
+ *
  * The rest is the object class for handling these files.
  *
  * The code of the object instantiation function is mostly required. Plugin <i>images</i> follow the lead of <var>class-video</var> in that
@@ -33,8 +37,7 @@
  * This image is fetched by the call on <var>checkObjectsThumb()</var>. There is also code in the <var>getThumb()</var> method to deal with
  * this property.
  *
- * Since text files have no natural height and width, we set them based on the image size option. This happens after the call
- * <var>common_instantiate()</var>. The rest of the code there sets up the default title.
+ * Since text files have no natural height and width, we set them based on the theme image size options.
  *
  * <var>getThumb()</var> is responsible for generating the thumbnail image for the object. As above, if there is a similar named real
  * image, it will be used. Otherwise [for this object implementation] we will use a thumbnail image provided with the plugin.
@@ -47,23 +50,31 @@
  * @pluginCategory media
  *
  */
-$plugin_is_filter = 990 | CLASS_PLUGIN;
+$plugin_is_filter = 800 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Provides a means for showing text type documents (.txt, .html, .htm).');
 }
+
+$option_interface = 'textObject';
 
 Gallery::addImageHandler('htm', 'TextObject');
 Gallery::addImageHandler('html', 'TextObject');
 Gallery::addImageHandler('txt', 'TextObject');
 Gallery::addImageHandler('pdf', 'TextObject');
 
-$option_interface = 'textObject_Options';
+require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
-/**
- * Option class for textobjects objects
- *
- */
-class TextObject_Options {
+class TextObject extends TextObject_core {
+
+	function __construct($album = NULL, $filename = NULL, $quiet = false) {
+
+		$this->watermark = getOption('TextObject_watermark');
+		$this->watermarkDefault = getOption('textobject_watermark_default_images');
+
+		if (is_object($album)) {
+			parent::__construct($album, $filename, $quiet);
+		}
+	}
 
 	/**
 	 * Standard option interface
@@ -76,6 +87,3 @@ class TextObject_Options {
 	}
 
 }
-
-require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
-?>

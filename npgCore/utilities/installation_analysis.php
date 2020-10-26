@@ -246,6 +246,18 @@ echo '</head>';
 								printf(gettext('supporting: %s'), '<em>' . strtolower(implode(', ', array_keys($graphics_lib))) . '</em>');
 								?>
 							</li>
+							<?php
+							/** for debug use
+							  <li>
+							  <?php
+							  echo gettext('Image handlers');
+							  foreach ($_images_classes as $suffix => $handler) {
+							  echo '<br />&nbsp;&nbsp;&nbsp;' . $suffix . ':' . 'class ' . $handler;
+							  }
+							  ?>
+							  </li>
+							 */
+							?>
 							<li>
 								<?php
 								$memoryLimit = INI_GET('memory_limit');

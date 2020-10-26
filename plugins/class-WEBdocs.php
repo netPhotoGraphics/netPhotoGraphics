@@ -30,17 +30,28 @@ if (getOption('WEBdocs_tif_provider')) {
 	Gallery::addImageHandler('tiff', 'WEBdocs');
 }
 
-/**
- * Option class for textobjects objects
- *
- */
-class WEBdocs_Options {
 
-	function __construct() {
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-textobject/class-textobject_core.php');
+
+/**
+ * creates a WEBdocs (image standin)
+ *
+ * @param object $album the owner album
+ * @param string $filename the filename of the text file
+ * @return TextObject
+ */
+class WEBdocs extends TextObject_core {
+
+	function __construct($album, $filename, $quiet = false) {
+
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('WEBdocs_pps_provider', 'google');
 			setOptionDefault('WEBdocs_tif_provider', 'zoho');
 		}
+		$this->watermark = getOption('WEBdocs_watermark');
+		$this->watermarkDefault = getOption('WEBdocs_watermark_default_images');
+
+		parent::__construct($album, $filename, $quiet);
 	}
 
 	/**
@@ -69,27 +80,6 @@ class WEBdocs_Options {
 						'order' => 2,
 						'desc' => gettext("Choose the WEB service to use for rendering TIFF images."))
 		);
-	}
-
-}
-
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-textobject/class-textobject_core.php');
-
-class WEBdocs extends TextObject {
-
-	/**
-	 * creates a WEBdocs (image standin)
-	 *
-	 * @param object $album the owner album
-	 * @param string $filename the filename of the text file
-	 * @return TextObject
-	 */
-	function __construct($album, $filename, $quiet = false) {
-
-		$this->watermark = getOption('WEBdocs_watermark');
-		$this->watermarkDefault = getOption('WEBdocs_watermark_default_images');
-
-		$this->common_instantiate($album, $filename, $quiet);
 	}
 
 	/**
