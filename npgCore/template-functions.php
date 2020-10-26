@@ -1935,7 +1935,6 @@ function getCustomAlbumThumbMaxSpace($width, $height, $suffix = NULL) {
  * @param int $height height
  * @param string $class Optional style class
  * @param string $id Optional style id
- * @param bool $thumbStandin set to true to treat as thumbnail
  * @param string $title optional title attribute
  */
 function printCustomAlbumThumbMaxSpace($alt, $width, $height, $class = NULL, $id = NULL, $title = NULL) {
@@ -3182,7 +3181,7 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 	if ($title) {
 		$title = ' title="' . html_encode($title) . '"';
 	}
-	if (isImagePhoto() || $thumbStandin) {
+	if (isImagePhoto() || $thumb) {
 		$html = '<img src="' . html_encode(getCustomImageURL($args)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
@@ -4569,7 +4568,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
