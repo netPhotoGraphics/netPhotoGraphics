@@ -86,7 +86,7 @@ function checkObjectsThumb($localpath) {
 /**
  * Returns a truncated string
  *
- * @param string $string souirce string
+ * @param string $string source string
  * @param int $length how long it should be
  * @param string $elipsis the text to tack on indicating shortening
  * @return string
@@ -2363,14 +2363,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

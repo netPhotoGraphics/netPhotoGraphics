@@ -206,8 +206,8 @@ class flag_thumbnail {
 		return $html;
 	}
 
-	static function custom_images($html, $thumbstandin = FALSE) {
-		if ($thumbstandin) {
+	static function custom_images($html, $thumb = FALSE) {
+		if ($thumb) {
 			$html = static::insert_class($html);
 		}
 		return $html;

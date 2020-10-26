@@ -12,6 +12,7 @@
  * @package plugins/class-WEBdocs
  * @pluginCategory media
  *
+ * @deprecated since 2.00.08 GoogleDocs and Zoho appear to no longer support the iframe rendering of these documents
  */
 $plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
@@ -20,9 +21,6 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'WEBdocs_Options';
 
-if (getOption('WEBdocs_pdf_provider')) {
-	Gallery::addImageHandler('pdf', 'WEBdocs');
-}
 if (getOption('WEBdocs_pps_provider')) {
 	Gallery::addImageHandler('pps', 'WEBdocs');
 	Gallery::addImageHandler('ppt', 'WEBdocs');
@@ -40,7 +38,6 @@ class WEBdocs_Options {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('WEBdocs_pdf_provider', 'local');
 			setOptionDefault('WEBdocs_pps_provider', 'google');
 			setOptionDefault('WEBdocs_tif_provider', 'zoho');
 		}
@@ -56,18 +53,6 @@ class WEBdocs_Options {
 				gettext('Watermark default images') => array('key' => 'WEBdocs_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 1,
 						'desc' => gettext('Check to place watermark image on default thumbnail images.')),
-				gettext('PDF') => array('key' => 'WEBdocs_pdf_provider', 'type' => OPTION_TYPE_RADIO,
-						'buttons' => array(gettext('Disabled') => '',
-								gettext('GoogleDocs') => 'google',
-								gettext('Zoho') => 'zoho',
-								gettext('Browser default') => 'local'
-						),
-						'order' => 2,
-						'desc' => gettext("Choose the WEB service to use for rendering pdf documents.") .
-						'<p>' . sprintf(gettext('Select <em>google</em> to use the <a href="%s">GoogleDocs viewer</a>'), 'http://docs.google.com/viewer') . '</p>' .
-						'<p>' . sprintf(gettext('Select <em>zoho</em> to use the <a href="%s">Zoho document viewer</a>'), 'http://viewer.zoho.com/home.do') . '</p>' .
-						'<p>' . gettext('Select <em>Browser default</em> to use the your browser default application') . '</p>'
-				),
 				gettext('PowerPoint') => array('key' => 'WEBdocs_pps_provider', 'type' => OPTION_TYPE_RADIO,
 						'buttons' => array(gettext('Disabled') => '',
 								gettext('GoogleDocs') => 'google',
@@ -88,7 +73,7 @@ class WEBdocs_Options {
 
 }
 
-require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-textobject/class-textobject_core.php');
 
 class WEBdocs extends TextObject {
 
@@ -132,7 +117,7 @@ class WEBdocs extends TextObject {
 			}
 			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/' . $img;
+				$imgfile = $path . "/" . USER_PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . '/' . $img;
 			}
 		} else {
 			$imgfile = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($this->imagefolder) . '/' . $this->objectsThumb;
@@ -145,10 +130,9 @@ class WEBdocs extends TextObject {
 	 *
 	 * @param int $w optional width
 	 * @param int $h optional height
-	 * @param dummy $container not used,
 	 * @return string
 	 */
-	function getContent($w = NULL, $h = NULL, $container = NULL) {
+	function getContent($w = NULL, $h = NULL) {
 		$this->updateDimensions();
 		if (is_null($w))
 			$w = $this->getWidth();
@@ -160,6 +144,7 @@ class WEBdocs extends TextObject {
 				'zoho' => '<iframe src="http://viewer.zoho.com/api/urlview.do?url=%s&amp;embed=true" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto" class="WEBdocs_zoho"></iframe>',
 				'local' => '<iframe src="%s" width="' . $w . 'px" height="' . $h . 'px" frameborder="0" border="none" scrolling="auto" class="WEBdocs_local"></iframe>'
 		);
+
 		switch ($suffix = getSuffix($this->filename)) {
 			case 'ppt':
 				$suffix = 'pps';
@@ -167,13 +152,18 @@ class WEBdocs extends TextObject {
 				$suffix = substr($suffix, 0, 3);
 			case 'tif':
 			case 'pps':
-			case 'pdf':
 				$provider = 'WEBdocs_' . $suffix . '_provider';
-				return sprintf($providers[getOption($provider)], html_encode($this->getFullImageURL(FULLWEBPATH)));
+				$iframe = sprintf($providers[getOption($provider)], html_encode($this->getFullImageURL(FULLWEBPATH)));
+				break;
 			default: // catches all others
-				$s = min($w, $h);
-				return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="WEBdocs_default" width=' . $s . ' height=' . $s . '>';
+				$iframe = '';
+				break;
 		}
+
+		$html = '<div style="background-image: url(\'' . html_encode($this->getCustomImage(array('size' => min($w, $h), 'thumb' => 3, 'WM' => 'err-broken-page'))) . '\'); background-repeat: no-repeat; background-position: center;" >' .
+						$iframe .
+						'</div>';
+		return $html;
 	}
 
 }

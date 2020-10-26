@@ -33,7 +33,7 @@ function printHomepageImage($imageRoot, $imageRandom, $titleStyle, $imageStyle) 
 				<?php
 			}
 		}
-		echo '<a href="' . $titleImage->getLink() . '"><img class="imgheight border" style="' . $imageStyle . '" src="' . $titleImage->getCustomImage(null, null, null, null, null, null, null) . '" title="' . $title . '" /></a>';
+		echo '<a href="' . $titleImage->getLink() . '"><img class="imgheight border" style="' . $imageStyle . '" src="' . $titleImage->getCustomImage(array()) . '" title="' . $title . '" /></a>';
 		if (!getOption('zenfluid_titletop')) {
 			if ($title) {
 				?>

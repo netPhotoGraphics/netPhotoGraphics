@@ -2231,12 +2231,12 @@ function zenpageAlbumImage($albumname, $imagename = NULL, $size = NULL, $linkalb
 				rem_context(NPG_IMAGE);
 				echo '<a href="' . html_encode($album->getLink()) . '"   title="' . sprintf(gettext('View the %s album'), $albumname) . '">';
 				add_context(NPG_IMAGE);
-				printCustomSizedImage(sprintf(gettext('View the album %s'), $albumname), $size);
+				printCustomSizedImage(sprintf(gettext('View the album %s'), $albumname), array('size' => $size));
 				rem_context(NPG_IMAGE | NPG_ALBUM);
 				echo '</a>';
 			} else {
 				echo '<a href="' . html_encode(getImageURL()) . '" title="' . sprintf(gettext('View %s'), $imagename) . '">';
-				printCustomSizedImage(sprintf(gettext('View %s'), $imagename), $size);
+				printCustomSizedImage(sprintf(gettext('View %s'), $imagename), array('size' => $size));
 				rem_context(NPG_IMAGE | NPG_ALBUM);
 				echo '</a>';
 			}

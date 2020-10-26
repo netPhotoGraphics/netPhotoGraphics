@@ -179,7 +179,7 @@ class VideoJS extends html5Player {
 
 		$poster = $videoThumb = '';
 		if (getOption('VideoJS_poster') && !is_null($movie->objectsThumb)) {
-			$videoThumb = $movie->getCustomImage(null, $w, $h, $w, $h, null, null, 3);
+			$videoThumb = $movie->getCustomImage(array('width' => $w, 'height' => $h, 'cw' => $w, 'ch' => $h, 'thumb' => 3));
 			$poster = ' poster="' . $videoThumb . '"';
 		}
 

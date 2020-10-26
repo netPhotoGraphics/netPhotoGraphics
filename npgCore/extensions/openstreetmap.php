@@ -623,7 +623,7 @@ class openStreetMap {
 			if (!empty($lat) && !empty($long)) {
 				$lat_f = self::inputConvert($lat);
 				$long_f = self::inputConvert($long);
-				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true) . "' alt='' /></a>";
+				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(array('size' => 150, 'thumb' => TRUE)) . "' alt='' /></a>";
 				$title = shortenContent($image->getTitle(), 50, '...') . '<br />';
 				$desc = shortenContent($image->getDesc(), 100, '...');
 				return array('lat' => $lat_f, 'long' => $long_f, 'title' => $title, 'desc' => $desc, 'thumb' => $thumb, 'current' => 0);

@@ -145,7 +145,7 @@ if (!defined('WEBPATH'))
 							<?php while (next_album()): ?>
 								<div class="album">
 									<div class="thumb">
-										<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), NULL, 95, 95, 95, 95); ?></a>
+										<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), array('width' => 95, 'height' => 95, 'cw' => 95, 'ch' => 95)); ?></a>
 									</div>
 									<div class="albumdesc">
 										<h3><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printAlbumTitle(); ?></a></h3>

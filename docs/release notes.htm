@@ -88,12 +88,13 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.08.03</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.08.04</h2>
 <h2>General</h2>
 <p><strong>netPhotoGraphics</strong> is now compatible with PHP version 7.4.</p>
 <p>E-Mails sent by <strong>netPhotoGraphics</strong> are now HTML encoded. In addition, there is now a customizable e-mail "form" that will be used when sending the mails. The standard template is a simple form with the sites branding logo (or the <strong>netPhotoGraphic</strong> logo if none is defined), the body of the e-mail, and "--The Administrator" as a signature. You can view and edit this template on the new "forms" option tab. If you update the form it will be stored in the <em>plugins/forms</em> folder and not overridden on subsequent updates. </p>
 <h2>Image caching and serving</h2>
 <p>Support for <em>webp</em> has been enhanced to provide serving images in <em>webp </em>format while allowing browsers that do not support <em>webp </em>to fall back to the site selected <em>cache as</em> image format.</p>
+<p>The parameters for several image serving functions have been revamped. They were a cumbersome list of image parameters that was easy to get our of order or omit a key item. Now the function calls should pass an array of the form <code>array('size'=&gt;500, 'height'=&gt; 500, 'width'=&gt;500, 'cx'=&gt;500, 'cy'=&gt;500... etc.)</code>. Individual items may be omitted so long as that makes functional sense. The order of the items is not important. Existing parameter list based function calls will continue to work, but they will be flagged as deprecated.</p>
 <h2>Language support</h2>
 <p>Many older language translations with low fidelity have been removed from the <strong>netPhotoGraphics </strong>distribution. A new <a href="https://github.com/netPhotoGraphics/language-files">repository </a>has been created to hold these translations in case they might be of use to someone or if a volunteer takes on the task of updating the translation. The language system has been enhanced to allow languages to be stored in the <em>plugins/locale</em> folder so that they will persist over software update installs.</p>
 <p>As part of the re-branding the names of the language files have been changed. You can ignore this unless you are planning to participate in localizing <strong>netPhotoGraphics</strong>. </p>
@@ -102,8 +103,11 @@
 <p><strong>Note:</strong> If you have cloned your install and your server does not support symlinks you will need to re-clone the clones to copy the renamed themes.</p>
 <h2>Plugins</h2>
 <p>The following plugins have been deprecated:</p>
+<div style="padding-left: 20px;"><em>class-WebDocs</em></div>
 <div style="padding-left: 20px;"><em>disableAction</em><br /><em>disableWatermark</em><br /><em>filteri-fileSearches</em><br /><em>image_effects</em><br /><em>no_show</em><br /><em>overrideEXIFDesc</em><br /><em>singleAlbum</em><br /><em>text_watermark</em><br /><em>themeEditor</em><br /><em>tweet_news</em><br /><em>wordpress_import<br /><br /></em></div>
 <p>They have been moved to the <em>Plugin</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the <em>Plugin</em> will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these <em>Plugins</em> you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
+<h2>class-textobject</h2>
+<p>With the deprecation of class-WebDocs, PDF files are now supported  by class-textobject using browser default rendering.</p>
 <h2>slideshow2</h2>
 <p><em>slideshow2</em> has been removed from the distribution and placed in the DevTools repository. The jquery.cycle2 scripts that this plugin use have not been updated in five years and are incompatible with jQuery version 3. </p>
 <h2><strong>tagURLs</strong></h2>

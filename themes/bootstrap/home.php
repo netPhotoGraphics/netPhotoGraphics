@@ -33,7 +33,7 @@ if ('* none *' != $album_filename = getOption('zpB_homepage_album_filename')) {
 						?>
 						<li>
 							<a href="<?php echo html_encode(getCustomPageURL('gallery')); ?>" title="<?php html_encode(gettext('Gallery')); ?>">
-								<?php printCustomSizedImage(gettext('Gallery'), NULL, 1000, 500, 1000, 500, NULL, NULL, 'remove-attributes img-responsive'); ?>
+								<?php printCustomSizedImage(gettext('Gallery'), array('width' => 1000, 'height' => 500, 'cw' => 1000, 'ch' => 500), 'remove-attributes img-responsive'); ?>
 							</a>
 						</li>
 					<?php } ?>
@@ -70,4 +70,5 @@ if ('* none *' != $album_filename = getOption('zpB_homepage_album_filename')) {
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php');
+<?php
+include('inc_footer.php');

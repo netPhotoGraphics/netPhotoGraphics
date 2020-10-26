@@ -285,7 +285,7 @@ class jPlayer extends html5Player {
 			//$splashimagerwidth = $w;
 			//$splashimageheight = $h;
 			//getMaxSpaceContainer($splashimagerwidth, $splashimageheight, $movie, true); // jplayer squishes always if not the right aspect ratio
-			$videoThumb = ',poster:"' . $movie->getCustomImage(null, $w, $h, $w, $h, null, null, 3) . '"';
+			$videoThumb = ',poster:"' . $movie->getCustomImage(array('width' => $w, 'height' => $h, 'cw' => $w, 'ch' => $h, 'thumb' => 3)) . '"';
 		}
 
 		$playerconfig = '
@@ -627,7 +627,7 @@ class jPlayer extends html5Player {
 					$videoThumb = '';
 					$this->setModeAndSuppliedFormat($ext);
 					if ($option == 'playlist' && getOption('jplayer_poster')) {
-						$videoThumb = ',poster:"' . $video->getCustomImage(null, $this->width, $this->height, $this->width, $this->height, null, null, true) . '"';
+						$videoThumb = ',poster:"' . $video->getCustomImage(array('width' => $this->width, 'height' => $this->height, 'cw' => $this->width, 'ch' => $this->height, 'thumb' => 3)) . '"';
 					}
 					$playtime = '';
 					if (getOption('jplayer_playlist_playtime')) {

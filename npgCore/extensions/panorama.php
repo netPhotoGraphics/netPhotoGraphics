@@ -112,12 +112,12 @@ class panorama {
 			$w = $image->getWidth();
 			$height = getOption('panorama_height');
 			$width = (int) ($height / $h * $w);
-			$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
+			$img_link = $image->getCustomImage(array('width' => $width, 'height' => $height));
 			if (strpos($img_link, '/' . CORE_FOLDER . '/i.php') !== FALSE) {
 				//	i.php link, cache the image because paver fails if it is not already cached
 				require_once(dirname(__DIR__) . '/lib-image.php');
 				imageProcessing::cacheFromImageProcessorURI($img_link);
-				$img_link = $image->getCustomImage(NULL, $width, $height, NULL, NULL, NULL, NULL);
+				$img_link = $image->getCustomImage(array('width' => $width, 'height' => $height));
 			}
 			?>
 			<div class="nPG_panorama" data-paver>

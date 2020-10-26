@@ -844,7 +844,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/class-AnyFile.php
 %extensions%/class-textobject.php
 %extensions%/class-video.php
-%extensions%/class-WEBdocs.php
 %extensions%/clone.php
 %extensions%/colorbox_js.php
 %extensions%/comment_form.php
@@ -962,8 +961,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/captcha/captcha_background.png
 %extensions%/class-AnyFile
 %extensions%/class-AnyFile/anyFileDefault.png
+%extensions%/class-AnyFile/xxxDefault.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
+%extensions%/class-textobject/pdfDefault.png
 %extensions%/class-textobject/textDefault.png
 %extensions%/class-video
 %extensions%/class-video/m4aDefault.png
@@ -986,10 +987,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/class-video/getid3/module.tag.id3v1.php
 %extensions%/class-video/getid3/module.tag.id3v2.php
 %extensions%/class-video/getid3/module.tag.lyrics3.php
-%extensions%/class-WEBdocs
-%extensions%/class-WEBdocs/pdfDefault.png
-%extensions%/class-WEBdocs/ppsDefault.png
-%extensions%/class-WEBdocs/tifDefault.png
 %extensions%/clone
 %extensions%/clone/clone.php
 %extensions%/clone/cloneTab.php
@@ -8071,6 +8068,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/utilities/reset_albumthumbs.php
 %core%/watermarks
 %core%/watermarks/copyright.png
+%core%/watermarks/err-broken-page.png
 %core%/watermarks/watermark-text.png
 %core%/watermarks/watermark-video.png
 %core%/watermarks/watermark.png
@@ -8087,4 +8085,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8089
+8087

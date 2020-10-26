@@ -114,7 +114,7 @@ class bxslider {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -122,7 +122,7 @@ class bxslider {
 		global $_bxslider_scripts;
 		$theme = getCurrentTheme();
 		$_bxslider_scripts = getPlugin('bxslider_thumb_nav/jquery.bxslider.min.css', getCurrentTheme());
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '//bxslider_thumb_nav/jquery.bxslider.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '//bxslider_thumb_nav/jquery.bxslider.min.js');
 		scriptLoader($_bxslider_scripts);
 	}
 
@@ -227,7 +227,7 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 					} else {
 						$active = '';
 					}
-					$imageurl = $imgobj->getCustomImage(NULL, $width, $height, $cropw, $croph, NULL, NULL, true);
+					$imageurl = $imgobj->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'thumb' => TRUE));
 					$items[] = '<li' . $active . '><a href="' . $link . '"><img src="' . html_encode($imageurl) . '" alt="' . html_encode($imgobj->getTitle()) . '"></a></li>';
 				}
 			}

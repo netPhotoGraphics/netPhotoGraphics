@@ -362,9 +362,9 @@ function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $fi
 					}
 					$selected = checkSelectedAlbum($albumobj->name, "album");
 					if ($firstimagelink && $numimages != 0) {
-						$link = "<option $selected value='" . html_encode($albumobj->getImage(0)->getLink()) . "'>" . $arrow . getBare($albumobj->getTitle()) . $count . "</option>";
+						$link = "<option $selected value='" . html_encode($albumobj->getImage(0)->getLink()) . "'>" . $arrow . truncate_string(getBare($albumobj->getTitle()), 50) . $count . "</option>";
 					} else {
-						$link = "<option $selected value='" . html_encode($albumobj->getLink(1)) . "'>" . $arrow . getBare($albumobj->getTitle()) . $count . "</option>";
+						$link = "<option $selected value='" . html_encode($albumobj->getLink(1)) . "'>" . $arrow . truncate_string(getBare($albumobj->getTitle()), 50) . $count . "</option>";
 					}
 					echo $link;
 				}

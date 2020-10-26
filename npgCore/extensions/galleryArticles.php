@@ -203,7 +203,7 @@ class galleryArticles {
 		}
 		$article = newArticle(seoFriendly('galleryArticles-' . $title));
 		$article->setTitle(serialize($galleryitem_text));
-		$imglink = $img->getCustomImage(getOption('galleryArticles_size'), NULL, NULL, NULL, NULL, NULL, NULL, -1);
+		$imglink = $img->getCustomImage(array('size' => getOption('galleryArticles_size'), 'thumb' => -1));
 		$desc = '<p><a class="' . $class . '" href="' . $obj->getLink() . '" title="' . sprintf(gettext('View %1$s'), $title) . '"><img src="' . $imglink . '"></a></p><p>[GALLERYARTICLEDESC ' . $ref . ']</p>';
 
 		$article->setContent($desc);
