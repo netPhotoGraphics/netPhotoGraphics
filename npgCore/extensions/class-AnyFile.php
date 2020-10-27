@@ -11,7 +11,7 @@
  * extend this by creating php script in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. This script is named
  * <var>class-Suffix.php</var> where suffix is the upper case first file suffix that is being handled. The script defines
  * an object named <var>Suffix</var> which extends <var>AnyFile</var> and has at least the <var>getContents()</var>
- * method.
+ * method. There are example scripts in the netPhotoGraphics {@link https://github.com/%GITHUB_ORG%/DevTools DevTools} repository.
  *
  * File suffixes supported by the plugin are computed from the list of thumbnail and/or class scripts.
  *

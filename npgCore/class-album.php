@@ -108,7 +108,7 @@ class AlbumBase extends MediaObject {
 			}
 		}
 
-// Set default data for a new Album (title and parent_id)
+		// Set default data for a new Album (title and parent_id)
 		$this->set('mtime', time());
 		$title = trim($this->name);
 		if (!is_null($parentalbum = $this->getParent())) {
@@ -118,7 +118,7 @@ class AlbumBase extends MediaObject {
 		$this->set('title', $title);
 		$this->setShow($_gallery->getAlbumPublish());
 
-//	load images
+		//	load images
 		if (is_null($this->getImages())) {
 			$this->images = array();
 		}
@@ -395,11 +395,11 @@ class AlbumBase extends MediaObject {
 	 * @return array
 	 */
 	function getImages($page = 0, $firstPageCount = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
-// Return the cut of images based on $page. Page 0 means show all.
+		// Return the cut of images based on $page. Page 0 means show all.
 		if ($page == 0) {
 			return $this->images;
 		} else {
-// Only return $firstPageCount images if we are on the first page and $firstPageCount > 0
+			// Only return $firstPageCount images if we are on the first page and $firstPageCount > 0
 			if (($page == 1) && ($firstPageCount > 0)) {
 				$pageStart = 0;
 				$images_per_page = $firstPageCount;
@@ -1494,15 +1494,15 @@ class Album extends AlbumBase {
 
 		$files = $this->loadFileNames();
 
-// Does the filename from the db row match any in the files on disk?
+		// Does the filename from the db row match any in the files on disk?
 		while ($row = db_fetch_assoc($result)) {
 			if (!in_array($row['filename'], $files)) {
-// In the database but not on disk. Kill it.
+				// In the database but not on disk. Kill it.
 				$dead[] = $row['id'];
 			} else if (in_array($row['filename'], $live)) {
-// Duplicate in the database. Kill it.
+				// Duplicate in the database. Kill it.
 				$dead[] = $row['id'];
-// Do something else here? Compare titles/descriptions/metadata/update dates to see which is the latest?
+				// Do something else here? Compare titles/descriptions/metadata/update dates to see which is the latest?
 			} else {
 				$live[] = $row['filename'];
 			}
@@ -1520,11 +1520,11 @@ class Album extends AlbumBase {
 			query($sql2);
 		}
 
-// Get all sub-albums and make sure they exist.
+		// Get all sub-albums and make sure they exist.
 		$result = query("SELECT * FROM " . prefix('albums') . " WHERE `folder` LIKE " . db_quote(db_LIKE_escape($this->name) . '%'));
 		$dead = array();
 		$live = array();
-// Does the dirname from the db row exist on disk?
+		// Does the dirname from the db row exist on disk?
 		while ($row = db_fetch_assoc($result)) {
 			if (!is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($row['folder'])) || in_array($row['folder'], $live) || substr($row['folder'], -1) == '/' || substr($row['folder'], 0, 1) == '/') {
 				$dead[] = $row['id'];
@@ -1593,6 +1593,7 @@ class Album extends AlbumBase {
 				}
 			}
 		}
+
 		closedir($dir);
 		if (count($others) > 0) {
 			$others_thumbs = array();

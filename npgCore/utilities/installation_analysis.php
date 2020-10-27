@@ -247,16 +247,18 @@ echo '</head>';
 								?>
 							</li>
 							<?php
-							/** for debug use
-							  <li>
-							  <?php
-							  echo gettext('Image handlers');
-							  foreach ($_images_classes as $suffix => $handler) {
-							  echo '<br />&nbsp;&nbsp;&nbsp;' . $suffix . ':' . 'class ' . $handler;
-							  }
-							  ?>
-							  </li>
-							 */
+							if (TEST_RELEASE) {
+								?>
+								<li>
+									<?php
+									echo gettext('Image handlers');
+									foreach ($_images_classes as $suffix => $handler) {
+										echo '<br />&nbsp;&nbsp;&nbsp;' . $suffix . ':' . 'class ' . $handler;
+									}
+									?>
+								</li>
+								<?php
+							}
 							?>
 							<li>
 								<?php
