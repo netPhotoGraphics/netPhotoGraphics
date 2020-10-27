@@ -916,6 +916,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/sitemap-extended.php
 %extensions%/slideshow.php
 %extensions%/static_html_cache.php
+%extensions%/swipe_gestures.php
 %extensions%/tag_extras.php
 %extensions%/tag_suggest.php
 %extensions%/tagFromSearch.php
@@ -7495,6 +7496,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/slideshow/slideshow-counter.php
 %extensions%/slideshow/slideshow-lite.css
 %extensions%/slideshow/slideshow.css
+%extensions%/swipe_gestures
+%extensions%/swipe_gestures/jquery.touchSwipe.min.js
 %extensions%/tag_suggest
 %extensions%/tag_suggest/encoder.min.js
 %extensions%/tag_suggest/tag.css
@@ -8084,4 +8087,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8086
+8089

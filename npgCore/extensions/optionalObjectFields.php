@@ -292,7 +292,7 @@ class optionalObjectFields extends fieldExtender {
 
 	static function mediaItemEdit($html, $object, $i) {
 		if ($i) {
-//	only tags on bulk edit tabs
+			//	only tags on bulk edit tabs
 			return parent::_mediaItemEdit($html, $object, $i, array(array('table' => $object->table, 'name' => 'tags', 'desc' => gettext('Tags'), 'type' => NULL, 'edit' => 'function', 'function' => 'optionalObjectFields::tags')));
 		} else {
 			return parent::_mediaItemEdit($html, $object, $i, self::fields());

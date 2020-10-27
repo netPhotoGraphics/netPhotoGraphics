@@ -19,7 +19,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Provides a means for showing documents using <em>WEBdocs</em> for the document rendering.');
 }
 
-$option_interface = 'WEBdocs_Options';
+$option_interface = 'WEBdocs';
 
 if (getOption('WEBdocs_pps_provider')) {
 	Gallery::addImageHandler('pps', 'WEBdocs');
@@ -42,7 +42,7 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-textobject/class-textobje
  */
 class WEBdocs extends TextObject_core {
 
-	function __construct($album, $filename, $quiet = false) {
+	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('WEBdocs_pps_provider', 'google');
@@ -51,7 +51,9 @@ class WEBdocs extends TextObject_core {
 		$this->watermark = getOption('WEBdocs_watermark');
 		$this->watermarkDefault = getOption('WEBdocs_watermark_default_images');
 
-		parent::__construct($album, $filename, $quiet);
+		if (is_object($album)) {
+			parent::__construct($album, $filename, $quiet);
+		}
 	}
 
 	/**
