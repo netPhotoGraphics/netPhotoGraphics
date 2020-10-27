@@ -106,6 +106,11 @@
 <div style="padding-left: 20px;"><em>class-WebDocs</em></div>
 <div style="padding-left: 20px;"><em>disableAction</em><br /><em>disableWatermark</em><br /><em>filteri-fileSearches</em><br /><em>image_effects</em><br /><em>no_show</em><br /><em>overrideEXIFDesc</em><br /><em>singleAlbum</em><br /><em>text_watermark</em><br /><em>themeEditor</em><br /><em>tweet_news</em><br /><em>wordpress_import<br /><br /></em></div>
 <p>They have been moved to the <em>Plugin</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the <em>Plugin</em> will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these <em>Plugins</em> you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
+<h2>swipe_gestures</h2>
+<p>A new plugin that allows using swipe left and right to move between pages in a sequence on touch screen devices.</p>
+<h2>class-AnyFile</h2>
+<p>The AnyFile class may now be extended so that you can supply custom rendering of the "image." Create a new php script in the <em>plugins/class-AnyFile</em> folder that extends the AnyFile class and overrides the <code>getContents()</code> method. This method provides your custom rendering of the file content on an image page.</p>
+<p>Along with this change, the plugin no longer uses an option to specify the file suffixes it supports. Instead it will scan the <em>plugins/class-AnyFile</em> folder for scripts or <em>default</em> images to determin what suffixes it supports. See the plugin information for details.</p>
 <h2>class-textobject</h2>
 <p>With the deprecation of class-WebDocs, PDF files are now supported  by class-textobject using browser default rendering.</p>
 <h2>slideshow2</h2>
