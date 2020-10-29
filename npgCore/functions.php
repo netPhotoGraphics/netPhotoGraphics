@@ -3037,20 +3037,32 @@ class npgFunctions {
 			$failMessage = gettext('Mail send failed.') . ' ';
 		}
 		$result = '';
+		if (empty($subject)) {
+			if (empty($result)) {
+				$result = $failMessage;
+			}
+			$result .= gettext('Mail messagaes must have a subject. ');
+		}
+		if (empty($message)) {
+			if (empty($result)) {
+				$result = $failMessage;
+			}
+			$result .= gettext('Mail messagaes must have a body. ');
+		}
 		if ($replyTo) {
 			$t = $replyTo;
 			if (!npgFunctions::isValidEmail($m = array_shift($t))) {
 				if (empty($result)) {
 					$result = $failMessage;
 				}
-				$result .= sprintf(gettext('Invalid “reply-to” mail address %s.'), '"' . $m . '"');
+				$result .= sprintf(gettext('Invalid “reply-to” mail address %s. '), '"' . $m . '"');
 			}
 		}
 		if (is_null($email_list)) {
 			if ($_authority) {
 				$email_list = $_authority->getAdminEmail();
 			} else {
-				return $failMessage . gettext('There is no administrator with an e-mail address.');
+				return $failMessage . gettext('There is no administrator with an e-mail address. ');
 			}
 		} else {
 			foreach ($email_list as $key => $email) {
@@ -3059,7 +3071,7 @@ class npgFunctions {
 					if (empty($result)) {
 						$result = $failMessage;
 					}
-					$result .= ' ' . sprintf(gettext('Invalid “to” mail address %s.'), '"' . $email . '"');
+					$result .= ' ' . sprintf(gettext('Invalid “to” mail address %s.'), '"' . $email . '" ');
 				}
 			}
 		}
@@ -3070,7 +3082,7 @@ class npgFunctions {
 				if (empty($result)) {
 					$result = $failMessage;
 				}
-				$result .= ' ' . gettext('“cc” list provided without “to” address list.');
+				$result .= ' ' . gettext('“cc” list provided without “to” address list. ');
 				return $result;
 			}
 			foreach ($cc_addresses as $key => $email) {
@@ -3079,7 +3091,7 @@ class npgFunctions {
 					if (empty($result)) {
 						$result = $failMessage;
 					}
-					$result = ' ' . sprintf(gettext('Invalid “cc” mail address %s.'), '"' . $email . '"');
+					$result = ' ' . sprintf(gettext('Invalid “cc” mail address %s. '), '"' . $email . '"');
 				}
 			}
 		}
@@ -3092,7 +3104,7 @@ class npgFunctions {
 					if (empty($result)) {
 						$result = $failMessage;
 					}
-					$result = ' ' . sprintf(gettext('Invalid “bcc” mail address %s.'), '"' . $email . '"');
+					$result = ' ' . sprintf(gettext('Invalid “bcc” mail address %s. '), '"' . $email . '"');
 				}
 			}
 		}
@@ -3134,13 +3146,13 @@ class npgFunctions {
 				// Send the mail
 				$result = npgFilters::apply('sendmail', $result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo); // will be true if all mailers succeeded
 			} else {
-				$result = $failMessage . ' ' . gettext('There is no mail handler configured.');
+				$result = $failMessage . ' ' . gettext('There is no mail handler configured. ');
 			}
 		} else {
 			if (empty($result)) {
 				$result = $failMessage;
 			}
-			$result .= ' ' . gettext('No “to” address list provided.');
+			$result .= ' ' . gettext('No “to” address list provided. ');
 		}
 		return $result;
 	}

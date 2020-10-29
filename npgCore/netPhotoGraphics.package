@@ -781,6 +781,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/load_objectClasses.php
 %core%/localeList.php
 %core%/loginForm.css
+%core%/mailMessage.php
 %core%/netPhotoGraphics.package
 %core%/netPhotoGraphics_cfg.txt
 %core%/no_uploader.php
@@ -8087,4 +8088,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8089
+8090
