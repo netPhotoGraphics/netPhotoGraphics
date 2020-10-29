@@ -3130,7 +3130,7 @@ class npgFunctions {
 				$formFile = getPlugin('forms/mailForm.htm');
 				if ($formFile) {
 					$form = file_get_contents($formFile);
-					$form = preg_replace('~\<\!--.*--\>~mUs', '', $form);
+					$form = npgFilters::apply('mail_form', preg_replace('~\<\!--.*--\>~mUs', '', $form));
 					if (preg_match('~\<div id\=\"emailbody\".*\>(.*)\</div\>~mUs', $form, $matches)) {
 						$form = strtr($form, array(
 								'%WEBPATH%' => FULLWEBPATH,
