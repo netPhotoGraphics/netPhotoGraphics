@@ -1051,8 +1051,8 @@ class AlbumBase extends MediaObject {
 	 * key must be one of (filename, title, sort_order) at the moment.
 	 *
 	 * @param array $images The array of filenames to be sorted.
-	 * @param  string $sorttype optional sort type
-	 * @param  bool $sortdirection optional sort direction
+	 * @param string $sorttype optional sort type
+	 * @param bool $sortdirection optional sort direction
 	 * @param bool $mine set to true/false to override ownership clause
 	 * @return array
 	 */
@@ -1080,8 +1080,9 @@ class AlbumBase extends MediaObject {
 			}
 		}
 		$sql = "SELECT * FROM " . prefix("images") . " WHERE `albumid`= " . $this->getID() . ' ORDER BY ' . $sortkey;
-		if ($order)
+		if ($order) {
 			$sql .= ' DESC';
+		}
 		$result = query($sql);
 		$results = array();
 		while ($row = db_fetch_assoc($result)) {
@@ -1100,7 +1101,9 @@ class AlbumBase extends MediaObject {
 		foreach ($images as $filename) {
 			// these images are not in the database
 			$imageobj = newImage($this, $filename);
-			$results[] = $imageobj->getData();
+			if ($imageobj->exists) {
+				$results[] = $imageobj->getData();
+			}
 		}
 		// now put the results into the right order
 		$results = sortByKey($results, str_replace('`', '', $sortkey), $order);
