@@ -125,6 +125,7 @@ if (function_exists('showOrNotShowField')) {
 			<?php
 		}
 		?>
+		<p>&nbsp;</p>
 		<p>
 			<label for="subject"><?php echo gettext("Subject<strong>*</strong>"); ?></label>
 			<input type="text" id="subject" name="subject" size="50" value="<?php echo html_encode($mailcontent['subject']); ?>" class="inputbox"<?php if ($_processing_post) echo ' disabled="disabled"'; ?> />
