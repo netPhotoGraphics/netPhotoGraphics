@@ -78,7 +78,7 @@ if ($err_msg) {
 function unscbscribe_link($form) {
 	$link = '
 	<p style="float: right">
-		<a href="%WEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/user_mailing_list/subscription' . RW_SUFFIX . '">' . gettext('un-subscribe') . '</a>
+		<a href="' . getAdminLink(PLUGIN_FOLDER . '/user_mailing_list/subscription.php') . '">' . gettext('un-subscribe') . '</a>
 	</p>
 ';
 	$div_i = strrpos($form, '</div>');
