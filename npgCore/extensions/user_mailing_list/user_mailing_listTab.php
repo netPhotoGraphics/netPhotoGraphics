@@ -51,15 +51,21 @@ $groupNote = '';
 				</p>
 
 				<h2><?php echo gettext('Please enter the message you want to send.'); ?></h2>
-				<form class="dirtylistening" onReset="setClean('massmail');" id="massmail" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/user_mailing_list/mail_handler.php'); ?>?sendmail" method="post" accept-charset="UTF-8" autocomplete="off">
+				<form class="dirtylistening" onReset="setClean('massmail');" id="massmail" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/user_mailing_list/mail_handler.php'); ?>?sendmail" method="post" accept-charset="UTF-8" autocomplete="off"<?php echo $disableForm; ?> >
 					<?php XSRFToken('mailing_list'); ?>
 
 
 					<div class="floatleft">
-						<labelfor="subject"><?php echo gettext('Subject:'); ?></label><br />
-							<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disableForm; ?> /><br /><br />
-							<label for="message"><?php echo gettext('Message:'); ?></label><br />
-							<textarea id="message" class="texteditor" name="message" value="" cols="68" rows="20"<?php echo $disableForm; ?> ></textarea>
+						<label for="subject"><?php echo gettext('Subject:'); ?></label><br />
+						<input type="text" id="subject" name="subject" value="" size="70"<?php echo $disableForm; ?> /><br /><br />
+						<label for="message"><?php echo gettext('Message:'); ?></label><br />
+						<textarea id="message" <?php
+						if ($disableForm) {
+							echo 'disabled';
+						} else {
+							echo 'class="texteditor"';
+						}
+						?> name="message" value="" cols="68" rows="20"></textarea>
 					</div>
 
 					<div class="floatleft">
