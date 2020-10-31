@@ -103,7 +103,7 @@ function saveOptions() {
 	}
 
 	$email = sanitize($_POST['site_email']);
-	if (npgFunctions::isValidEmail($email)) {
+	if (empty($email) || npgFunctions::isValidEmail($email)) {
 		setOption('site_email', $email);
 	} else {
 		$notify .= '&Invalid_email_format';

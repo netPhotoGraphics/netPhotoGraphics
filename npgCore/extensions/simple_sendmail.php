@@ -13,7 +13,10 @@
 $plugin_is_filter = defaultExtension(5 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext("Outgoing mail handler based on the PHP <em>mail</em> facility.");
-	$plugin_disable = (npgFilters::has_filter('sendmail') && !extensionEnabled('simple_sendmail')) ? sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(npgFilters::script('sendmail'))) : '';
+	$plugin_disable = npgFunctions::pluginDisable(array(
+							array(empty(getOption('site_email')), gettext('The general option "Email"—used as the "From" address for all mails sent by the gallery—must be set.')),
+							array(npgFilters::has_filter('sendmail') && !extensionEnabled('simple_sendmail'), sprintf(gettext('Only one Email handler plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), stripSuffix(npgFilters::script('sendmail'))))
+	));
 }
 
 if (OFFSET_PATH == 2) {
