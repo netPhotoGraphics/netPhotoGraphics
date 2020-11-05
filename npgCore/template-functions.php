@@ -4594,7 +4594,7 @@ function recordPolicyACK($user = NULL) {
 			$user->save();
 			$what = $user->getUser();
 		} else {
-			setNPGCookie('policyACK', getOption('GDPR_cookie'), NULL, FALSE);
+			setNPGCookie('policyACK', getOption('GDPR_cookie'), NULL, ['secure' => FALSE]);
 			require_once (CORE_SERVERPATH . 'class-browser.php');
 			$browser = new Browser();
 			$what = sprintf(gettext('%1$s policyACK cookie'), $browser->getBrowser());

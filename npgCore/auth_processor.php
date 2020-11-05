@@ -79,7 +79,7 @@ if ($_loggedin) {
 	}
 	if (secureServer()) {
 		// https: refresh the 'ssl_state' marker for redirection
-		setNPGCookie("ssl_state", "needed", NULL, false);
+		setNPGCookie("ssl_state", "needed", NULL, ['secure' => FALSE]);
 	}
 } else {
 	if (class_exists('ipBlocker')) {

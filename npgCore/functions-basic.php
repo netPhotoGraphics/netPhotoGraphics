@@ -702,7 +702,6 @@ function secureServer() {
 function npg_session_start() {
 	$result = session_id();
 	if ($result) {
-
 		return $result;
 	} else {
 		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
@@ -719,10 +718,22 @@ function npg_session_start() {
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
 		$sessionCookie = session_get_cookie_params();
-		session_set_cookie_params($sessionCookie['lifetime'], WEBPATH . '/', $_SERVER['HTTP_HOST'], secureServer(), true);
+		$sessionCookie['secure'] = secureServer();
+		$sessionCookie['httponly'] = TRUE;
+		$sessionCookie['samesite'] = 'Lax';
+		$sessionCookie['path'] = WEBPATH . '/';
+		$sessionCookie['domain'] = $_SERVER['HTTP_HOST'];
+		if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+			session_set_cookie_params($sessionCookie);
+		} else {
+			session_set_cookie_params($sessionCookie['lifetime'], $sessionCookie['path'], $sessionCookie['domain'], $sessionCookie['secure'], $sessionCookie['httponly']);
+		}
 
 		$result = session_start();
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
+
+
+
 		return $result;
 	}
 }
@@ -789,10 +800,10 @@ function encodeNPGCookie($value) {
  * @param string $value The value to be stored
  * @param int $time The time delta until the cookie expires. Set negative to clear cookie,
  * 									set to FALSE to expire at end of session
- * @param bool $security set to false to make the cookie send for any kind of connection
+ * @param array $options setCookie options array / bool $security TRUE for a secure cookie
  */
-function setNPGCookie($name, $value, $time = NULL, $security = TRUE) {
-	$secure = $security && secureServer();
+function setNPGCookie($name, $value, $time = NULL, $options = array()) {
+
 	if (empty($value)) {
 		$cookiev = '';
 	} else {
@@ -800,27 +811,40 @@ function setNPGCookie($name, $value, $time = NULL, $security = TRUE) {
 	}
 	if (is_null($t = $time)) {
 		$t = time() + COOKIE_PERSISTENCE;
-		$tString = COOKIE_PERSISTENCE;
 	} else {
-		if ($time === false) {
-			$tString = 'FALSE';
-		} else {
+		if (!$time === false) {
 			$t = time() + $time;
-			$tString = (int) $time;
 		}
 	}
 	$path = getOption('cookie_path');
 	if (empty($path)) {
 		$path = WEBPATH;
 	}
-	if (substr($path, -1, 1) != '/') {
-		$path .= '/';
+
+	if (is_array($options)) {
+		$options['secure'] = secureServer() && isset($options['secure']) && $options['secure'];
+	} else {
+		$options = array('secure' => $options && secureServer());
 	}
+
+	$options = array_merge(
+					array(
+			'expires' => (int) $t,
+			'path' => rtrim($path, '/') . '/',
+			'domain' => '',
+			'httponly' => TRUE,
+			'samesite' => 'Lax'
+					), $options);
+
 	if (DEBUG_LOGIN) {
-		debugLog("setNPGCookie($name, $value, $tString)::path=" . $path . "; secure=" . sprintf('%u', $secure) . "; album_session=" . GALLERY_SESSION . "; SESSION=" . session_id());
+		debugLogVar(["setNPGCookie($name, $value)" => $options, 'album_session' => GALLERY_SESSION, 'SESSION' => session_id()]);
 	}
 	if (($time < 0) || !GALLERY_SESSION) {
-		setcookie($name, $cookiev, (int) $t, $path, "", $secure, true);
+		if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
+			setcookie($name, $cookiev, $options);
+		} else {
+			setcookie($name, $cookiev, $options['expires'], $options['path'], $options['domain'], $options['secure'], $options['httponly']);
+		}
 	}
 	if ($time < 0) {
 		if (session_id()) {
@@ -843,7 +867,7 @@ function setNPGCookie($name, $value, $time = NULL, $security = TRUE) {
  * @param string $name
  */
 function clearNPGCookie($name) {
-	setNPGCookie($name, 'null', -368000, false);
+	setNPGCookie($name, 'null', -368000, FALSE);
 }
 
 /**
