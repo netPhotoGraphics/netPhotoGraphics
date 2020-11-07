@@ -539,7 +539,7 @@ class Controller {
 	 */
 	static function prepareIndexPage() {
 		global $_gallery_page, $_themeScript, $_current_page;
-		setNPGCookie('index_page_paged', $_current_page, false);
+		setNPGCookie('index_page_paged', $_current_page, FALSE);
 		handleSearchParms('index');
 		$theme = setupTheme();
 		$_gallery_page = basename($_themeScript = THEMEFOLDER . "/$theme/index.php");

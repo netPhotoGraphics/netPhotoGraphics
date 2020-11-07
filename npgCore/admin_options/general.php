@@ -15,7 +15,7 @@ function saveOptions() {
 	if (is_array($a)) {
 		setOption('allowed_tags', $tags);
 	} else {
-		$notify = '?tag_parse_error=' . $a;
+		$notify .= '&tag_parse_error=' . $a;
 	}
 	$oldloc = SITE_LOCALE; // get the option as stored in the database, not what might have been set by a cookie
 	$newloc = sanitize($_POST['locale'], 3);
@@ -32,12 +32,12 @@ function saveOptions() {
 	if ($newloc != $oldloc) {
 		$oldDisallow = getSerializedArray(getOption('locale_disallowed'));
 		if (!empty($newloc) && isset($oldDisallow[$newloc])) {
-			$notify = '?local_failed=' . $newloc;
+			$notify .= '&local_failed=' . $newloc;
 		} else {
 			clearNPGCookie('dynamic_locale'); // clear the language cookie
 			$result = i18n::setLocale($newloc);
 			if (!empty($newloc) && ($result === false)) {
-				$notify = '?local_failed=' . $newloc;
+				$notify .= '&local_failed=' . $newloc;
 			}
 			setOption('locale', $newloc);
 		}
@@ -52,12 +52,12 @@ function saveOptions() {
 	if ($oldsuffix != $newsuffix) {
 		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 		if (!updateRootIndexFile()) {
-			$notify = '?root_update_failed';
+			$notify .= '&root_update_failed';
 			setOption('mod_rewrite_suffix', $oldsuffix);
 			$oldsuffix = NULL; //	prevent migrating the CMS links
 		}
 		if (!is_null($oldsuffix)) {
-//the suffix was changed as opposed to set for the first time
+			//the suffix was changed as opposed to set for the first time
 			migrateTitleLinks($oldsuffix, $newsuffix);
 		}
 	}
@@ -82,7 +82,7 @@ function saveOptions() {
 			if ($p == '//') {
 				$p = '/';
 			}
-//	save a cookie to see if change works
+			//	save a cookie to see if change works
 			$returntab .= '&cookiepath';
 			setNPGCookie('cookie_path', $p, 600);
 		}
@@ -102,7 +102,13 @@ function saveOptions() {
 		npgFilters::apply('policy_ack', true, 'policyACK', NULL, gettext('All acknowledgements cleared'));
 	}
 
-	setOption('site_email', sanitize($_POST['site_email']), 3);
+	$email = sanitize($_POST['site_email']);
+	if (empty($email) || npgFunctions::isValidEmail($email)) {
+		setOption('site_email', $email);
+	} else {
+		$notify .= '&Invalid_email_format';
+	}
+
 	setOption('site_email_name', process_language_string_save('site_email_name', 3));
 	setOption('users_per_page', sanitize_numeric($_POST['users_per_page']));
 	if (isset($_POST['groups_per_page'])) {
@@ -124,6 +130,9 @@ function saveOptions() {
 			setOption($matches[1] . '_log_size', $value);
 			setOption($matches[1] . '_log_mail', (int) isset($_POST['log_mail_' . $matches[1]]));
 		}
+	}
+	if ($notify) {
+		$notify = '?' . ltrim($notify, '&');
 	}
 
 	return array($returntab, $notify, NULL, NULL, NULL);
@@ -171,6 +180,14 @@ function getOptionContent() {
 			gettext("Could not update the root index.php file") .
 			"</h2>";
 			echo gettext("Perhaps there is a permissions issue. Your <em>mod_rewrite suffix</em> was not changed.");
+			echo '</div>';
+		}
+		if (isset($_GET['Invalid_email_format'])) {
+			echo '<div class="errorbox">';
+			echo "<h2>" .
+			gettext("Invaid email address") .
+			"</h2>";
+			echo gettext("The gallery email address is not valid.");
 			echo '</div>';
 		}
 		?>

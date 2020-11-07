@@ -233,7 +233,6 @@ if (isset($_POST['db'])) { //try to update the config file
 	}
 }
 
-define('ACK_REGISTER_GLOBALS', 1);
 define('ACK_DISPLAY_ERRORS', 2);
 
 if (isset($_GET['security_ack'])) {

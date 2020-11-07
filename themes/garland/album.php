@@ -55,7 +55,7 @@ $map = simpleMap::mapPlugin();
 											?>
 											<div class="album">
 												<a class="albumthumb" href="<?php echo getAlbumURL(); ?>" title="<?php printf(gettext('View album: %s'), html_encode(getBareAlbumTitle())); ?>">
-													<?php printCustomAlbumThumbImage(getAlbumTitle(), 85, NULL, NULL, 85, 85); ?>
+													<?php printCustomAlbumThumbImage(getAlbumTitle(), array('size' => 85, 'cw' => 85, 'ch' => 85)); ?>
 												</a>
 												<div class="albumdesc">
 													<h3>

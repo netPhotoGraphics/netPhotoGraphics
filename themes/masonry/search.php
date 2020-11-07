@@ -85,7 +85,7 @@ if (!empty($searchdate)) {
 				<h3><?php echo getAlbumTitle(); ?></h3>
 				<div class="image-block" style="width:<?php echo $zpmas_album_size_w; ?>px;height:<?php echo $zpmas_album_size_h; ?>px;">
 					<a class="thumb-link" href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo html_encodeTagged(getAnnotatedAlbumTitle()) ?>">
-						<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, $zpmas_album_size_w, $zpmas_album_size_h, $zpmas_album_size_w, $zpmas_album_size_h); ?>
+						<?php printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('width' => $zpmas_album_size_w, 'height' => $zpmas_album_size_h, 'cw' => $zpmas_album_size_w, 'ch' => $zpmas_album_size_h)); ?>
 					</a>
 				</div>
 				<?php
@@ -116,7 +116,7 @@ if (!empty($searchdate)) {
 				<?php if ($zpmas_imagetitle) echo '<h3>' . getImageTitle() . '</h3>'; ?>
 				<div class="image-block" style="width:<?php echo $zpmas_image_size; ?>px;height:<?php echo $zpmas_image_size; ?>px;">
 					<div class="back">
-						<a class="thumb-link" href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printCustomSizedImage(getAnnotatedImageTitle(), null, $zpmas_image_size, $zpmas_image_size, $zpmas_image_size, $zpmas_image_size, null, null, null, null, true); ?></a>
+						<a class="thumb-link" href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printCustomSizedImage(getAnnotatedImageTitle(), array('width' => $zpmas_image_size, 'height' => $zpmas_image_size, 'cw' => $zpmas_image_size, 'ch' => $zpmas_image_size, 'thumb' => TRUE)); ?></a>
 					</div>
 					<?php if (!isImageVideo()) { ?>
 						<div class="overlay">

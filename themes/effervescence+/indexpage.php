@@ -76,7 +76,7 @@ if (!isset($zenpage)) {
 				if ($randomImage) {
 					?>
 					<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Albums Index'); ?>">
-						<?php printCustomSizedImage(gettext('Visit the image gallery'), $size); ?>
+						<?php printCustomSizedImage(gettext('Visit the image gallery'), array('size' => $size)); ?>
 					</a>
 					<?php
 				} else {

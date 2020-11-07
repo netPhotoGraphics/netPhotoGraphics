@@ -69,8 +69,8 @@ function loadAlbum($album) {
 						$size = isset($cacheimage['image_size']) ? $cacheimage['image_size'] : NULL;
 						$width = isset($cacheimage['image_width']) ? $cacheimage['image_width'] : NULL;
 						$height = isset($cacheimage['image_height']) ? $cacheimage['image_height'] : NULL;
-						$thumbstandin = isset($cacheimage['thumb']) ? $cacheimage['thumb'] : NULL;
-						if ($special = ($thumbstandin === true)) {
+						$thumb = isset($cacheimage['thumb']) ? $cacheimage['thumb'] : NULL;
+						if ($special = ($thumb === true)) {
 							list($special, $cw, $ch, $cx, $cy) = $_current_image->getThumbCropping($size, $width, $height);
 						}
 						if (!$special) {
@@ -84,15 +84,15 @@ function loadAlbum($album) {
 							$WM = $cacheimage['wmk'];
 						} else if ($cacheimage['thumb'] < 0) {
 							$WM = '!';
-						} else if ($thumbstandin) {
+						} else if ($thumb) {
 							$WM = getWatermarkParam($_current_image, WATERMARK_THUMB);
 						} else {
 							$WM = getWatermarkParam($_current_image, WATERMARK_IMAGE);
 						}
 						if (isset($cacheimage['maxspace'])) {
-							getMaxSpaceContainer($width, $height, $_current_image, $thumbstandin);
+							getMaxSpaceContainer($width, $height, $_current_image, $thumb);
 						}
-						$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbstandin, 'WM' => $WM, 'effects' => $effects);
+						$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumb, 'WM' => $WM, 'effects' => $effects);
 						$args = getImageParameters($args, $album->name);
 						$uri = getImageURI($args, $album->name, $_current_image->filename, $_current_image->filemtime);
 						if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
@@ -268,10 +268,10 @@ if ($alb) {
 					$ch = isset($cacheimage['crop_height']) ? $cacheimage['crop_height'] : NULL;
 					$cx = isset($cacheimage['crop_x']) ? $cacheimage['crop_x'] : NULL;
 					$cy = isset($cacheimage['crop_y']) ? $cacheimage['crop_y'] : NULL;
-					$thumbstandin = isset($cacheimage['thumb']) ? $cacheimage['thumb'] : NULL;
+					$thumb = isset($cacheimage['thumb']) ? $cacheimage['thumb'] : NULL;
 					$effects = isset($cacheimage['gray']) ? $cacheimage['gray'] : NULL;
 					$WM = isset($cacheimage['wmk']) ? $cacheimage['wmk'] : NULL;
-					$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumbstandin, 'WM' => $WM, 'effects' => $effects);
+					$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => $thumb, 'WM' => $WM, 'effects' => $effects);
 					$postfix = getImageCachePostfix($args);
 					if (isset($cacheimage['maxspace']) && $cacheimage['maxspace']) {
 						if ($width && $height) {

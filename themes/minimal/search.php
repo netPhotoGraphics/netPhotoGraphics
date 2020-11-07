@@ -40,9 +40,9 @@ if (!empty($searchdate)) {
 					<a class="thumb-link" href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo truncate_string(getBareAlbumDesc(), 300, '...'); ?>">
 						<?php
 						if ($zpmin_thumb_crop) {
-							printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), null, $zpmin_album_thumb_size, $zpmin_album_thumb_size, $zpmin_album_thumb_size, $zpmin_album_thumb_size);
+							printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('width' => $zpmin_album_thumb_size, 'height' => $zpmin_album_thumb_size, 'cw' => $zpmin_album_thumb_size, 'ch' => $zpmin_album_thumb_size));
 						} else {
-							printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), $zpmin_album_thumb_size);
+							printCustomAlbumThumbImage(getAnnotatedAlbumTitle(), array('size' => $zpmin_album_thumb_size));
 						}
 						?>
 						<span class="album-title"><?php echo html_encodeTagged(shortenContent(getAlbumTitle(), 25, '...')); ?></span>

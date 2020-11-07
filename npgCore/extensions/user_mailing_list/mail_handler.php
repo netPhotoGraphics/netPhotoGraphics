@@ -15,6 +15,8 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 XSRFdefender('mailing_list');
 
+npgFilters::register('mail_form', 'unscbscribe_link');
+
 //form handling stuff to add...
 $subject = NULL;
 $message = NULL;
@@ -72,4 +74,15 @@ $err_msg = npgFunctions::mail($subject, $message, $toList, NULL, $bccList);
 if ($err_msg) {
 	debugLogVar([gettext('user_mailing_list error') => $err_msg]);
 }
-?>
+
+function unscbscribe_link($form) {
+	$link = '
+	<p style="float: right">
+		<a href="' . getAdminLink(PLUGIN_FOLDER . '/user_mailing_list/subscription.php') . '">' . gettext('un-subscribe') . '</a>
+	</p>
+';
+	$div_i = strrpos($form, '</div>');
+	$form = substr($form, 0, $div_i) . $link . substr($form, $div_i);
+
+	return $form;
+}

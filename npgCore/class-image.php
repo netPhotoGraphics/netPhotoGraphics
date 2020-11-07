@@ -1161,33 +1161,43 @@ class Image extends MediaObject {
 	/**
 	 *  Get a custom sized version of this image based on the parameters.
 	 *
-	 * @param int $size size
-	 * @param int $width width
-	 * @param int $height height
-	 * @param int $cropw crop width
-	 * @param int $croph crop height
-	 * @param int $cropx crop x axis
-	 * @param int $cropy crop y axis
-	 * @param bool $thumbStandin set to true to treat as thumbnail
-	 * @param bool $effects set to desired image effect (e.g. 'gray' to force gray scale)
+	 * @param array $args of parameters
+	 * @param string suffix of imageURI
 	 * @return string
 	 */
-	function getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, $thumbStandin = false, $effects = NULL, $suffix = NULL) {
+	function getCustomImage($args, $suffix = NULL) {
+		if (!is_array($args)) {
+			$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
+			$p = func_get_args();
+			$args = array();
+			foreach ($p as $k => $v) {
+				$args[$a[$k]] = $v;
+			}
+			$suffix = @$args['suffix'];
+			unset($args['suffix']);
 
-		switch ((int) $thumbStandin) {
-			case -1:
-				$wmt = '!';
-				$thumbstandin = 1;
-				break;
-			case 0:
-				$wmt = getWatermarkParam($this, WATERMARK_IMAGE);
-				break;
-			default:
-				$wmt = getWatermarkParam($this, WATERMARK_THUMB);
-				break;
+			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+			deprecated_functions::notify_call('Image::getCustomImage', gettext('The function should be called with an image arguments array.'));
+		}
+		if (!isset($args['thumb'])) {
+			$args['thumb'] = NULL;
 		}
 
-		$args = getImageParameters(array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cropw, 'ch' => $croph, 'cx' => $cropx, 'cy' => $cropy, 'thumb' => $thumbStandin, 'WM' => $wmt, 'effects' => $effects), $this->album->name);
+		if (!isset($args['WM'])) {
+			switch ((int) $args['thumb']) {
+				case -1:
+					$args['WM'] = '!';
+					$args['thumb'] = 1;
+					break;
+				case 0:
+					$args['WM'] = getWatermarkParam($this, WATERMARK_IMAGE);
+					break;
+				default:
+					$args['WM'] = getWatermarkParam($this, WATERMARK_THUMB);
+					break;
+			}
+		}
+		$args = getImageParameters($args, $this->album->name);
 		return getImageURI($args, $this->album->name, $this->filename, $this->filemtime, $suffix);
 	}
 
@@ -1303,7 +1313,7 @@ class Image extends MediaObject {
 			$sh = getOption('thumb_crop_height');
 			list($custom, $cw, $ch, $cx, $cy) = $this->getThumbCropping($ts, $sw, $sh);
 			if ($custom) {
-				return $this->getCustomImage(NULL, $sw, $sh, $cw, $ch, $cx, $cy, true);
+				return $this->getCustomImage(array('width' => $sw, 'height' => $sh, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'thumb' => TRUE));
 			}
 		} else {
 			$sw = $sh = NULL;

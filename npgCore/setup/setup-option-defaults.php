@@ -258,6 +258,14 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 	}
 }
 
+//	check custom email form for unsubscribe link
+if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms/mailForm.htm')) {
+	$form = file_get_contents(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms/mailForm.htm');
+	if (strpos($form, '%WEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/user_mailing_list/subscription') !== FALSE) {
+		setupLog(gettext('<span style="color: red;">Setup detected an un-subscribe link in your custom mail form. You should remove the link as it is supplied automatically when appropriate.</span>'), TRUE);
+	}
+}
+
 setOption('last_admin_action', time());
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);

@@ -115,10 +115,24 @@ function getDailySummaryAlbumNameText($includeLinks = false) {
 	return $description;
 }
 
-function getCustomDailySummaryThumb($size, $width = NULL, $height = NULL, $cropw = NULL, $croph = NULL, $cropx = NULL, $cropy = null, $effects = NULL) {
+function getCustomDailySummaryThumb($args, $suffix = NULL) {
 	global $_current_DailySummaryItem;
+	if (!is_array($args)) {
+		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
+		$p = func_get_args();
+		$args = array();
+		foreach ($p as $k => $v) {
+			$args[$a[$k]] = $v;
+		}
+		$suffix = @$args['suffix'];
+		unset($args['suffix']);
+
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		deprecated_functions::notify_call('getCustomDailySummaryThumb', gettext('The function should be called with an image arguments array.'));
+	}
+	$args['thumb'] = TRUE;
 	$thumb = $_current_DailySummaryItem->getDailySummaryThumbImage();
-	return $thumb->getCustomImage($size, $width, $height, $cropw, $croph, $cropx, $cropy, true, $effects);
+	return $thumb->getCustomImage($args);
 }
 
 function next_DailySummaryItem($all = false) {

@@ -191,7 +191,7 @@ class GoogleMap {
 		if (isImageClass($image)) {
 			$lat = $image->get('GPSLatitude');
 			$long = $image->get('GPSLongitude');
-			$thumbimg = $image->getCustomImage(150, NULL, NULL, NULL, NULL, NULL, NULL, true);
+			$thumbimg = $image->getCustomImage(array('size' => 150, 'thumb' => true));
 			if (!empty($lat) && !empty($long)) {
 				$lat_f = self::inputConvert($lat);
 				$long_f = self::inputConvert($long);
@@ -495,7 +495,13 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 						var center = map.getCenter();
 						google.maps.event.trigger(map, "resize");
 						map.setCenter(center);
-						fitMapToBounds();
+			<?php
+			if ($map->zoom == 'auto') {
+				?>
+							fitMapToBounds();
+				<?php
+			}
+			?>
 					} else {
 						$('#<?php echo $id_data; ?>').addClass('hidden_map');
 					}

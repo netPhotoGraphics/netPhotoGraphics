@@ -208,7 +208,7 @@ class mobileTheme {
 
 }
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
 
 class mobile extends Mobile_Detect {
 
@@ -241,14 +241,7 @@ class mobile extends Mobile_Detect {
 }
 
 if (isset($_GET['mobile'])) {
-	switch ($_GET['mobile']) {
-		default:
-			setNPGCookie('mobileTheme_disable', 0, false);
-			break;
-		case 'off':
-			setNPGCookie('mobileTheme_disable', 1, false);
-			break;
-	}
+	setNPGCookie('mobileTheme_disable', (int) $_GET['mobile'] == 'off', FALSE);
 }
 
 if (!getNPGCookie('mobileTheme_disable')) {

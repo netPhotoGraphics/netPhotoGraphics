@@ -121,12 +121,12 @@ function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all'
 			echo '<a href="' . html_encode($randomImageURL) . '"' . $aa_class . ' title="' . html_encode($randomImage->getTitle()) . '">';
 			switch ($crop) {
 				case 0:
-					$html = "<img src=\"" . html_encode($randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
-					$webp = $randomImage->getCustomImage($width, NULL, NULL, NULL, NULL, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
+					$html = "<img src=\"" . html_encode($randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE))) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";
+					$webp = $randomImage->getCustomImage(array('size' => $width, 'thumb' => TRUE), FALLBACK_SUFFIX);
 					break;
 				case 1:
-					$html = "<img src=\"" . html_encode($randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE)) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" />\n";
-					$webp = $randomImage->getCustomImage(NULL, $width, $height, $width, $height, NULL, NULL, TRUE, NULL, FALLBACK_SUFFIX);
+					$html = "<img src=\"" . html_encode($randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE))) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" width=\"" . $width . "\" height=\"" . $height . "\" />\n";
+					$webp = $randomImage->getCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height, 'thumb' => TRUE), FALLBACK_SUFFIX);
 					break;
 				case 2:
 					$html = "<img src=\"" . html_encode($randomImage->getThumb()) . "\" alt=\"" . html_encode($randomImage->getTitle()) . "\" />\n";

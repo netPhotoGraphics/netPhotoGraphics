@@ -47,7 +47,7 @@ if (class_exists('favorites')) {
 								}
 								?> >
 									<div class="thumb">
-										<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), NULL, 255, 75, 255, 75); ?></a>
+										<a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php printBareAlbumTitle(); ?>"><?php printCustomAlbumThumbImage(getBareAlbumTitle(), array('width' => 255, 'height' => 75, 'cw' => 255, 'ch' => 75)); ?></a>
 									</div>
 									<div class="albumdesc">
 										<h3>

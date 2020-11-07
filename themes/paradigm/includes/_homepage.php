@@ -13,14 +13,14 @@ if (getOption('homepage_slideshow')) {
 					if (function_exists('getImageStatistic')) {
 						$images = getImageStatistic(getOption('carousel_number'), getOption('carousel_type'), getOption('carousel_album'), true);
 						$firstpict = array_shift($images);
-						echo '<div class="item active" style="background-image:url(' . html_encode($firstpict->getCustomImage(null, null, null, null, null, null, null, true)) . ')">';
+						echo '<div class="item active" style="background-image:url(' . html_encode($firstpict->getCustomImage(array('thumb' => TRUE))) . ')">';
 						echo '<div class="carousel-caption">';
 						echo '<p>' . $firstpict->getTitle() . '</p>';
 						echo '</div>';
 						echo '</div>';
 
 						foreach ($images as $image) {
-							echo '<div class="item" style="background-image:url(' . html_encode($image->getCustomImage(null, null, null, null, null, null, null, true)) . ')">';
+							echo '<div class="item" style="background-image:url(' . html_encode($image->getCustomImage(array('thumb' => TRUE))) . ')">';
 							echo '<div class="carousel-caption">';
 							echo '<p>' . $image->getTitle() . '</p>';
 							echo '</div>';

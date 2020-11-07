@@ -2,7 +2,7 @@
 
 /**
  *
- * Generates a list of albums containg the summary of all photos taken that day
+ * Generates a list of albums containing the summary of all photos taken that day
  *
  * <b>Installation</b>
  * <ol>
@@ -28,7 +28,7 @@
 
  */
 $plugin_is_filter = 5 | THEME_PLUGIN;
-$plugin_description = gettext("Generates a list of albums containg the summary of all photos taken that day.");
+$plugin_description = gettext("Generates a list of albums containing the summary of all photos taken that day.");
 $plugin_author = "Marcus Wong (wongm) and Stephen Billard";
 
 $option_interface = 'DailySummaryOptions';

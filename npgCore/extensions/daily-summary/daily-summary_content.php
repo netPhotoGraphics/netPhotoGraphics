@@ -26,7 +26,7 @@ if ($_current_DailySummary->getTotalItems()) {
 	while (next_DailySummaryItem()) {
 		?>
 		<b><a href="<?php echo getDailySummaryUrl(); ?>"><?php echo date("F j", strtotime(getDailySummaryDate())); ?></a></b>
-		<p><img border="0" src="<?php echo getCustomDailySummaryThumb(getOption('thumb_size')); ?>" alt="<?php echo getDailySummaryTitle() ?>" /></p>
+		<p><img border="0" src="<?php echo getCustomDailySummaryThumb(array('size' => getOption('thumb_size'))); ?>" alt="<?php echo getDailySummaryTitle() ?>" /></p>
 		<p><?php printf(gettext('Title: %s'), getDailySummaryTitle()); ?></p>
 		<p><?php printf(gettext('Description: %s'), getDailySummaryDesc()); ?></p>
 		<p><?php printf(gettext('Albums: %s'), getDailySummaryAlbumNameText()); ?></p>

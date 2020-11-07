@@ -435,17 +435,6 @@ $buttonlist = array();
 					}
 				}
 			}
-			$buttonlist = npgFilters::apply('admin_utilities_buttons', $buttonlist);
-
-			foreach ($buttonlist as $key => $button) {
-				if (npg_loggedin($button['rights'])) {
-					if (!array_key_exists('category', $button)) {
-						$buttonlist[$key]['category'] = gettext('Misc');
-					}
-				} else {
-					unset($buttonlist[$key]);
-				}
-			}
 			if (npg_loggedin(ADMIN_RIGHTS)) {
 
 				if ($newVersion) {
@@ -528,6 +517,17 @@ $buttonlist = array();
 							);
 						}
 						break;
+				}
+			}
+			$buttonlist = npgFilters::apply('admin_utilities_buttons', $buttonlist);
+
+			foreach ($buttonlist as $key => $button) {
+				if (npg_loggedin($button['rights'])) {
+					if (!array_key_exists('category', $button)) {
+						$buttonlist[$key]['category'] = gettext('Misc');
+					}
+				} else {
+					unset($buttonlist[$key]);
 				}
 			}
 

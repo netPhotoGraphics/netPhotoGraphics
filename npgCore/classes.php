@@ -318,8 +318,9 @@ class PersistentObject {
 				$this->save();
 				$entry = query_single_row($sql);
 				// If we still don't have an entry, something went wrong...
-				if (!$entry)
-					return null;
+				if (!$entry) {
+					return NULL;
+				}
 				// Save this new entry into the cache so we get a hit next time.
 				$entry = array_change_key_case($entry, CASE_LOWER);
 				$this->addToCache($entry);
@@ -327,7 +328,7 @@ class PersistentObject {
 		}
 		$this->data = $entry;
 		$this->id = (int) $entry['id'];
-		$this->loaded = true;
+		$this->loaded = TRUE;
 		return $new;
 	}
 

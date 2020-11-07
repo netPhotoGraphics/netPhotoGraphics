@@ -40,7 +40,7 @@ if (!defined('WEBPATH'))
 							?> >
 								<div class="thumb">
 									<?php
-									$thumb = $i->getCustomImage(NULL, 255, 75, 255, 75, NULL, NULL, false, false);
+									$thumb = $i->getCustomImage(array('width' => 255, 'height' => 75, 'cw' => 255, 'ch' => 75, 'thumb' => TRUE));
 									$link = $i->getLink();
 									$date = $i->getDateTime();
 									if ($date) {
@@ -52,7 +52,7 @@ if (!defined('WEBPATH'))
 										$html = "<img src='$thumb' width='255' height='75'/>";
 										$html = npgFilters::apply('custom_image_thumb_html', $html);
 										if (ENCODING_FALLBACK) {
-											$html = "<picture>\n<source srcset=\"" . html_encode($i->getCustomImage(NULL, 255, 75, 255, 75, NULL, NULL, false, false, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+											$html = "<picture>\n<source srcset=\"" . html_encode($i->getCustomImage(array('width' => 255, 'height' => 75, 'cw' => 255, 'ch' => 75, 'thumb' => TRUE), FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 										}
 										echo $html;
 										?>

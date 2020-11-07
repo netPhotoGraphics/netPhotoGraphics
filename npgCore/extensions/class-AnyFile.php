@@ -1,12 +1,22 @@
 <?php
+
 /**
  *
  * Use this plugin to handle filetypes as "images" that are not otherwise provided for by other plugins.
  *
- * Default thumbnail images may be created in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. The naming convention is
+ * Default thumbnail images should be created in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. The naming convention is
  * <i>suffix</i><var>Default.png</var>. If no such file is found, the class object default thumbnail will be used.
  *
- * The plugin is an extension of <var>TextObject</var>. For more details see the <i>class-textobject</i> plugin.
+ * The default behavior of the content display is to display an image based on the above default thumbnail. You can
+ * extend this by creating php script in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. This script is named
+ * <var>class-Suffix.php</var> where suffix is the upper case first file suffix that is being handled. The script defines
+ * an object named <var>Suffix</var> which extends <var>AnyFile</var> and has at least the <var>getContents()</var>
+ * method. There are example scripts in the netPhotoGraphics {@link https://github.com/%GITHUB_ORG%/DevTools DevTools} repository.
+ *
+ * File suffixes supported by the plugin are computed from the list of thumbnail and/or class scripts.
+ *
+ *
+ * The plugin is an extension of <var>TextObject_core</var>. For more details see the <i>class-textobject</i> plugin.
  *
  * @author Stephen Billard (sbillard)
  *
@@ -19,66 +29,11 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Provides a means for handling arbitrary file types. (No rendering provided!)');
 }
 
-foreach (get_AnyFile_suffixes() as $suffix) {
-	Gallery::addImageHandler($suffix, 'AnyFile');
-}
-$option_interface = 'AnyFile_Options';
-
-/**
- * Option class for textobjects objects
- *
- */
-class AnyFile_Options {
-
-	/**
-	 * Standard option interface
-	 *
-	 * @return array
-	 */
-	function getOptionsSupported() {
-		return array(gettext('Watermark default images') => array('key' => 'AnyFile_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
-						'desc' => gettext('Check to place watermark image on default thumbnail images.')),
-				gettext('Handled files') => array('key' => 'AnyFile_file_list', 'type' => OPTION_TYPE_CUSTOM,
-						'desc' => gettext('File suffixes to be handled.')),
-				gettext('Add file suffix') => array('key' => 'AnyFile_file_new', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Add a file suffix to be handled by the plugin'))
-		);
-	}
-
-	function handleOption($option, $currentValue) {
-		$list = get_AnyFile_suffixes();
-		?>
-		<ul class="customchecklist">
-			<?php
-			generateUnorderedListFromArray($list, $list, 'AnyFile_file_', false, false, false, NULL, NULL, true);
-			?>
-		</ul>
-		<?php
-	}
-
-	function handleOptionSave($themename, $themealbum) {
-		if (isset($_POST['AnyFile_file_list'])) {
-			$mysetoptions = sanitize($_POST['AnyFile_file_list']);
-		} else {
-			$mysetoptions = array();
-		}
-		if ($new = getOption('AnyFile_file_new')) {
-			$mysetoptions[] = $new;
-		}
-		purgeOption('AnyFile_file_new');
-		setOption('AnyFileSuffixList', serialize($mysetoptions));
-		return false;
-	}
-
-}
-
-function get_AnyFile_suffixes() {
-	return getSerializedArray(getOption('AnyFileSuffixList'));
-}
+$option_interface = 'AnyFile';
 
 require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
-class AnyFile extends TextObject {
+class AnyFile extends TextObject_core {
 
 	/**
 	 * creates a WEBdocs (image standin)
@@ -87,12 +42,35 @@ class AnyFile extends TextObject {
 	 * @param string $filename the filename of the text file
 	 * @return TextObject
 	 */
-	function __construct($album, $filename, $quiet = false) {
+	function __construct($album = NULL, $filename = NULL, $quiet = false) {
+
+		if (OFFSET_PATH == 2) {
+			$supported = getSerializedArray(getOption('AnyFileSuffixList'));
+			foreach ($supported as $suffix) {
+				if (!file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png')) {
+					copy(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-AnyFile/anyFileDefault.png', USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png');
+				}
+			}
+			purgeOption('AnyFile_file_list');
+		}
 
 		$this->watermark = getOption('AnyFile_watermark');
 		$this->watermarkDefault = getOption('AnyFile_watermark_default_images');
 
-		$this->common_instantiate($album, $filename, $quiet);
+		if (is_object($album)) {
+			parent::__construct($album, $filename, $quiet);
+		}
+	}
+
+	/**
+	 * Standard option interface
+	 *
+	 * @return array
+	 */
+	function getOptionsSupported() {
+		return array(gettext('Watermark default images') => array('key' => 'AnyFile_watermark_default_images', 'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Check to place watermark image on default thumbnail images.'))
+		);
 	}
 
 	/**
@@ -128,7 +106,7 @@ class AnyFile extends TextObject {
 	 * @param dummy $container not used
 	 * @return string
 	 */
-	function getContent($w = NULL, $h = NULL, $container = NULL) {
+	function getContent($w = NULL, $h = NULL) {
 		$this->updateDimensions();
 		if (is_null($w))
 			$w = $this->getWidth();
@@ -138,8 +116,37 @@ class AnyFile extends TextObject {
 		/*
 		 * just return the thumbnail image as we do not know how to render the file.
 		 */
-		return '<img src="' . html_encode($this->getCustomImage($s, NULL, NULL, NULL, NULL, NULL, NULL, 3)) . '" class="anyfile_default" width=' . $s . ' height=' . $s . '>';
+		return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="anyfile_default" width=' . $s . ' height=' . $s . '>';
+	}
+
+	static function get_AnyFile_suffixes() {
+		return getSerializedArray(getOption('AnyFileSuffixList'));
 	}
 
 }
+
+$supported = array();
+$files = safe_glob(USER_PLUGIN_SERVERPATH . 'class-AnyFile/*.*');
+foreach ($files as $file) {
+	switch (getSuffix($file)) {
+		case 'php':
+			$supported[] = strtolower(str_replace('class-', '', stripSuffix(basename($file))));
+			break;
+		case 'png':
+			$supported[] = strtolower(str_replace('Default', '', stripSuffix(basename($file))));
+			break;
+	}
+}
+$supported = array_unique($supported);
+foreach ($supported as $suffix) {
+	$handler = ucfirst($suffix);
+	if (file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/class-' . $handler . '.php')) {
+		require_once(USER_PLUGIN_SERVERPATH . 'class-AnyFile/class-' . $handler . '.php');
+		Gallery::addImageHandler($suffix, $handler);
+	} else {
+		Gallery::addImageHandler($suffix, 'AnyFile');
+	}
+}
+
+unset($supported);
 ?>

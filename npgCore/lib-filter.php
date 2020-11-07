@@ -235,9 +235,11 @@ class npgFilters {
 	static function script($hook) {
 		global $_filters;
 		$scripts = array();
-		foreach ($_filters[$hook] as $priority) {
-			foreach ($priority as $actor) {
-				$scripts[] = $actor['script'];
+		if (isset($_filters[$hook])) {
+			foreach ($_filters[$hook] as $priority) {
+				foreach ($priority as $actor) {
+					$scripts[] = $actor['script'];
+				}
 			}
 		}
 		return implode(', ', $scripts);
