@@ -1,20 +1,20 @@
 <?php
 /**
- * A plugin to add a cookie notify dialog to comply with the EU cookie law and Google's requirement for Google Ads and more
- * https://www.cookiechoices.org
+ * Provides a cookie notify dialog to comply with the EU cookie law and {@link https://www.cookiechoices.org Google's requirement} for Google Ads and more.
  *
- * Adapted of https://cookieconsent.osano.com/
+ * Adapted from {@link https://cookieconsent.osano.com/ Osano}
  *
- * Note that to actually use the opt-in and out-out complicance modes your theme may require customisation.
- * as the plugin does not clear or block scripts by itself. It is not possible to savely delete third party cookies.
+ * Note that to actually use the opt-in and out-out compliance modes your theme may require customization.
+ * as the plugin does not clear or block scripts by itself. It is not possible to safely delete third party cookies.
  *
- * It also does not block cookies Zenphoto sets itself as these are not privacy related and require to work properly.
- * Learn more about Zenphotp's cookies on: https://zenphoto.org/news/cookies/
+ * It also does not block netPhotoGraphics cookies as these are not privacy related and are require to work properly.
  *
  * But you can use this plugin to only executed scripts on consent by:
  *
- * a) Add the JS calls to block or allow the scripts option so they cannot set or use their cookies unless allowed to run
- * b) Use the method `cookieconsemt::checkConsent()` to manually wrap JS script calls
+ * <ul>
+ * <li>Add the JS calls to block or allow the scripts option so they cannot set or use their cookies unless allowed to run</li>
+ * <li>Use the method `cookieconsemt::checkConsent()` to manually wrap JS script calls</li>
+ * </ul>
  *
  * @author Malte Müller (acrylian), Fred Sondaar (fretzl), Vincent Bourganel (vincent3569)
  * @license GPL v3 or later
@@ -22,7 +22,7 @@
  * @pluginCategory theme
  */
 $plugin_is_filter = 5 | THEME_PLUGIN;
-$plugin_description = gettext("A plugin to add a cookie notify dialog to comply with the EU cookie law and Google's request regarding usages of Google Adwords, Analytics and more. Based on <a href='https://cookieconsent.osano.com/'>https://cookieconsent.osano.com/</a>");
+$plugin_description = gettext("A plugin to add a cookie notify dialog.");
 $plugin_notice = gettext('Note: This plugin cannot block or delete cookies by itself without proper configuration that also may require customisations to your site.');
 $plugin_disable = (extensionEnabled('GDPR_required')) ? sprintf(gettext('The <a href="#%1$s"><code>%1$s</code></a> plugin is enabled. It is a superset of cookie notification handling.'), 'GDPR_required') : '';
 
@@ -37,6 +37,7 @@ if (!$plugin_disable && !npg_loggedin() && !isset($_COOKIE['cookieconsent_status
 class cookieConsent {
 
 	function __construct() {
+
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('zpcookieconsent_domain', $_SERVER['HTTP_HOST']);
 			setOptionDefault('zpcookieconsent_expirydays', 365);
@@ -47,6 +48,15 @@ class cookieConsent {
 			setOptionDefault('zpcookieconsent_compliancetype', 'info');
 			setOptionDefault('zpcookieconsent_consentrevokable', 0);
 			setOptionDefault('zpcookieconsent_layout', 'basic');
+
+			setOptionDefault('zpcookieconsent_message', getAllTranslations(gettext('This website uses cookies. By continuing to browse the site, you agree to our use of cookies.')));
+			setOptionDefault('zpcookieconsent_buttonagree', getAllTranslations(gettext('Agree')));
+			setOptionDefault('zpcookieconsent_buttonallow', getAllTranslations(gettext('Allow cookies')));
+			setOptionDefault('zpcookieconsent_buttondecline', getAllTranslations(gettext('Decline')));
+			setOptionDefault('zpcookieconsent_policy', getAllTranslations(gettext('Cookie Policy')));
+			setOptionDefault('zpcookieconsent_header', getAllTranslations(gettext('Cookies used on the website!')));
+			setOptionDefault('zpcookieconsent_buttonlearnmore', getAllTranslations(gettext('More information')));
+			setOptionDefault('zpcookieconsent_buttonlearnmorelink', getOption('GDPR_URL'));
 		}
 	}
 
@@ -56,22 +66,22 @@ class cookieConsent {
 						'key' => 'zpcookieconsent_buttonagree',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'multilingual' => 1,
-						'desc' => gettext('Text used for the dismiss button in info complicance. Leave empty to use the default text.')),
+						'desc' => gettext('Text used for the dismiss button in info complicance.')),
 				gettext('Button: Allow cookies') => array(
 						'key' => 'zpcookieconsent_buttonallow',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'multilingual' => 1,
-						'desc' => gettext('Text used for the button to allow cookies in opt-in and opt-out complicance. Leave empty to use the default text.')),
+						'desc' => gettext('Text used for the button to allow cookies in opt-in and opt-out complicance.')),
 				gettext('Button: Decline cookies') => array(
 						'key' => 'zpcookieconsent_buttondecline',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'multilingual' => 1,
-						'desc' => gettext('Text used for the button to decline cookies in opt-in and opt-out complicance. Leave empty to use the default text.')),
+						'desc' => gettext('Text used for the button to decline cookies in opt-in and opt-out complicance.')),
 				gettext('Button: Learn more') => array(
 						'key' => 'zpcookieconsent_buttonlearnmore',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'multilingual' => 1,
-						'desc' => gettext('Text used for the learn more info button. Leave empty to use the default text.')),
+						'desc' => gettext('Text used for the learn more info button.')),
 				gettext('Button: Learn more - URL') => array(
 						'key' => 'zpcookieconsent_buttonlearnmorelink',
 						'type' => OPTION_TYPE_TEXTBOX,
@@ -80,7 +90,7 @@ class cookieConsent {
 						'key' => 'zpcookieconsent_message',
 						'type' => OPTION_TYPE_TEXTAREA,
 						'multilingual' => 1,
-						'desc' => gettext('The message shown by the plugin. Leave empty to use the default text.')),
+						'desc' => gettext('The message shown by the plugin.')),
 				gettext('Cookie Policy') => array(
 						'key' => 'zpcookieconsent_policy',
 						'type' => OPTION_TYPE_TEXTAREA,
@@ -175,58 +185,18 @@ class cookieConsent {
 	 * Gets the JS definition of the cookieconsent script based on the options
 	 */
 	static function getJS() {
-		$message = gettext('This website uses cookies. By continuing to browse the site, you agree to our use of cookies.');
-		if (getOption('zpcookieconsent_message')) {
-			$message = get_language_string(getOption('zpcookieconsent_message'));
-		}
-		$dismiss = gettext('Agree');
-		if (getOption('zpcookieconsent_buttonagree')) {
-			$dismiss = get_language_string(getOption('zpcookieconsent_buttonagree'));
-		}
-		$allow = gettext('Allow cookies');
-		if (getOption('zpcookieconsent_buttonallow')) {
-			$allow = get_language_string(getOption('zpcookieconsent_buttonallow'));
-		}
-		$decline = gettext('Decline');
-		if (getOption('zpcookieconsent_buttondecline')) {
-			$decline = get_language_string(getOption('zpcookieconsent_buttondecline'));
-		}
-		$policy = gettext('Cookie Policy');
-		if (getOption('zpcookieconsent_policy')) {
-			$policy = get_language_string(getOption('zpcookieconsent_policy'));
-		}
-		$header = gettext('Cookies used on the website!');
-		if (getOption('zpcookieconsent_header')) {
-			$header = get_language_string(getOption('zpcookieconsent_header'));
-		}
-		$dataprivacy_info = array('url' => NULL, 'linktext' => NULL, 'linktext' => NULL)/* TODO:replaced getDataUsageNotice Use the GDPR_required plugin instead */;
-		if (getOption('zpcookieconsent_buttonlearnmore')) {
-			$learnmore = get_language_string(getOption('zpcookieconsent_buttonlearnmore'));
-		} else {
-			$learnmore = $dataprivacy_info['linktext'];
-		}
-		if (getOption('zpcookieconsent_buttonlearnmorelink')) {
-			$link = getOption('zpcookieconsent_buttonlearnmorelink');
-		} else {
-			$link = $dataprivacy_info['url'];
-		}
-		$theme = 'block';
-		if (getOption('zpcookieconsent_theme')) {
-			$theme = getOption('zpcookieconsent_theme');
-			//fix old option
-			if (!in_array($theme, array('block', 'edgeless', 'classic', 'custom'))) {
-				$theme = 'block';
-				setOption('zpcookieconsent_theme', $theme, true);
-			}
-		}
-		$layout = 'basic';
-		if (getOption('zpcookieconsent_layout')) {
-			$layout = getOption('zpcookieconsent_layout');
-		}
-		$domain = '';
-		if (getOption('zpcookieconsent_domain')) {
-			$domain = getOption('zpcookieconsent_domain');
-		}
+
+		$message = get_language_string(getOption('zpcookieconsent_message'));
+		$dismiss = get_language_string(getOption('zpcookieconsent_buttonagree'));
+		$allow = get_language_string(getOption('zpcookieconsent_buttonallow'));
+		$decline = get_language_string(getOption('zpcookieconsent_buttondecline'));
+		$policy = get_language_string(getOption('zpcookieconsent_policy'));
+		$header = get_language_string(getOption('zpcookieconsent_header'));
+		$learnmore = get_language_string(getOption('zpcookieconsent_buttonlearnmore'));
+		$link = getOption('zpcookieconsent_buttonlearnmorelink');
+		$theme = getOption('zpcookieconsent_theme');
+		$layout = getOption('zpcookieconsent_layout');
+		$domain = getOption('zpcookieconsent_domain');
 		$position = getOption('zpcookieconsent_position');
 		$cookie_expiry = getOption('zpcookieconsent_expirydays');
 		$dismiss_on_scroll = "false";
