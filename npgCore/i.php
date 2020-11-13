@@ -73,11 +73,19 @@ if (getOption('secure_image_processor')) {
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
 	npg_session_start();
-	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != @$_COOKIE['user_auth'];
+	if (isset($_SESSION['adminRequest'])) {
+		if ($_SESSION['adminRequest'] == @$_COOKIE['user_auth']) {
+			$forbidden = false;
+		} else {
+			$forbidden = 3;
+		}
+	} else {
+		$forbidden = 2;
+	}
 }
 
 if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
-	// No image parameters specified
+// No image parameters specified
 	if (getOption('album_folder_class') !== 'external') {
 		header("Location: " . getAlbumFolder(FULLWEBPATH) . pathurlencode(filesystemToInternal($album)) . "/" . rawurlencode(filesystemToInternal($image)));
 		return;
@@ -157,7 +165,7 @@ if (file_exists($newfile) & !$adminrequest) {
 
 if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"), 'err-imageforbidden.png');
+		imageProcessing::error('403 Forbidden', gettext("Forbidden($forbidden)"), 'err-imageforbidden.png');
 	}
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
@@ -171,16 +179,16 @@ $protocol = FULLWEBPATH;
 $path = $protocol . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($newfilename));
 
 if ($debug) {
-	//	i.php is being accessed directly via an image debug link
+//	i.php is being accessed directly via an image debug link
 	echo "\n<p>Image: <img src=\"" . $path . "\" /></p>";
 } else {
 	if (isset($_GET['returncheckmark'])) {
-		//	from the cachemanager cache image generator
+//	from the cachemanager cache image generator
 		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 		sendImage((int) ($thumb && true), 'i.php');
 		exit();
 	}
-	// ... and redirect the browser to it.
+// ... and redirect the browser to it.
 	$suffix = getSuffix($newfilename);
 	switch ($suffix) {
 		case 'jpg':
@@ -190,21 +198,21 @@ if ($debug) {
 			$suffix = 'wbmp';
 			break;
 		default:
-		// use suffix as is
+// use suffix as is
 	}
 	if (OPEN_IMAGE_CACHE) {
-		// send the right headers
+// send the right headers
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $fmt) . ' GMT');
 		header('Content-Type: image/' . $suffix);
-		//redirect to the cached image
+//redirect to the cached image
 		header('Location: ' . $path, true, 301);
 	} else {
 		$fp = fopen($newfile, 'rb');
-		// send the right headers
+// send the right headers
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		header("Content-Type: image/$suffix");
 		header("Content-Length: " . filesize($newfile));
-		// dump the picture
+// dump the picture
 		fpassthru($fp);
 		fclose($fp);
 	}
