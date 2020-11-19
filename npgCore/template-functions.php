@@ -3994,7 +3994,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * Tokens may be enclosed in quotation marks to create exact pattern matches or to include the boolean operators and
  * parens as part of the tag..
  *
- * @param string $prevtext text to go before the search form
+ * @param string $options options array / text to go before the search form
  * @param string $id css id for the search form, default is 'search'
  * @param string $buttonSource optional path to the image for the button or if not a path to an image,
  * 											this will be the button hint
@@ -4007,18 +4007,27 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @param string $placeholder HTML5 placeholder text for search words input field
  * @since 1.1.3
  */
-function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL, $placeholder = NULL) {
+function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL, $placeholder = NULL) {
 	global $_current_search, $_current_album;
+
+	if (is_array($options)) {
+		$default = array('prevtext' => NULL, 'id' => 'search', 'buttonSource' => gettext("Search"), 'buttontext' => '', 'iconsource' => NULL, 'query_fields' => NULL, 'object_list' => NULL, 'within' => NULL, 'placeholder' => gettext('Search target'));
+		$options = array_merge($default, $options);
+		extract($options);
+	} else {
+		$prevtext = $options;
+		if (empty($buttontext)) {
+			$buttontext = gettext("Search");
+		}
+		if (is_null($placeholder)) {
+			$placeholder = gettext('Search target');
+		}
+	}
 	$engine = new SearchEngine();
 	if (!is_null($_current_search) && !$_current_search->getSearchWords()) {
 		$engine->clearSearchWords();
 	}
-	if (empty($buttontext)) {
-		$buttontext = gettext("Search");
-	}
-	if (is_null($placeholder)) {
-		$placeholder = gettext('Search target');
-	}
+
 	if ($placeholder) {
 		$placeholder = ' placeholder="' . $placeholder . '"';
 	}
