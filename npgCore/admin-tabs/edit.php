@@ -253,6 +253,9 @@ if (isset($_GET['action'])) {
 			if (isset($_REQUEST['singleimage'])) {
 				$return .= '&singleimage=' . sanitize($_REQUEST['singleimage']);
 			}
+			if (isset($_REQUEST['subpage'])) {
+				$return .= '&subpage=' . $_REQUEST['subpage'];
+			}
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . $return);
 			exit();
 			break;
