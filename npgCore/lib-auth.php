@@ -27,16 +27,16 @@ class _Authority {
 	 */
 	function __construct() {
 
-		if (function_exists('password_hash')) {
-			if (OFFSET_PATH == 2) {
-				setOptionDefault('strong_hash', 1000);
-				setOptionDefault('password_strength ', 10);
-				setOptionDefault('min_password_lenght ', 6);
-				setOptionDefault('user_album_edit_default ', 1);
-				setOptionDefault('challenge_foil_enabled ', 1);
-				setOptionDefault('libauth_version ', self::$preferred_version);
-			}
+		if (OFFSET_PATH == 2) {
+			setOptionDefault('strong_hash', 1000);
+			setOptionDefault('password_strength', 10);
+			setOptionDefault('min_password_lenght', 6);
+			setOptionDefault('user_album_edit_default', 1);
+			setOptionDefault('challenge_foil_enabled', 1);
+			setOptionDefault('libauth_version', self::$preferred_version);
+		}
 
+		if (function_exists('password_hash')) {
 			if (is_int(PASSWORD_DEFAULT)) {
 				define('PASSWORD_FUNCTION_DEFAULT', PASSWORD_DEFAULT + 3);
 			} else {
