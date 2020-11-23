@@ -206,7 +206,6 @@ class themeSwitcher {
 						echo '>' . $item . "</option>" . "\n";
 					}
 					?>
-					<?php //generateListFromArray(array($theme), $themes, false, true);   ?>
 				</select>
 				<?php npgFilters::apply('themeSwitcher_Controllink', $theme); ?>
 			</div>

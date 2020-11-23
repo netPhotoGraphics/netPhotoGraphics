@@ -3994,7 +3994,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * Tokens may be enclosed in quotation marks to create exact pattern matches or to include the boolean operators and
  * parens as part of the tag..
  *
- * @param string $prevtext text to go before the search form
+ * @param string $options options array / text to go before the search form
  * @param string $id css id for the search form, default is 'search'
  * @param string $buttonSource optional path to the image for the button or if not a path to an image,
  * 											this will be the button hint
@@ -4004,16 +4004,32 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @param array $objects_list optional array of things to search eg. [albums]=>[list], etc.
  * 														if the list is simply 0, the objects will be omitted from the search
  * @param string $within set to true to search within current results, false to search fresh
+ * @param string $placeholder HTML5 placeholder text for search words input field
  * @since 1.1.3
  */
-function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL) {
+function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL, $placeholder = NULL) {
 	global $_current_search, $_current_album;
+
+	if (is_array($options)) {
+		$default = array('prevtext' => NULL, 'id' => 'search', 'buttonSource' => gettext("Search"), 'buttontext' => '', 'iconsource' => NULL, 'query_fields' => NULL, 'object_list' => NULL, 'within' => NULL, 'placeholder' => gettext('Search target'));
+		$options = array_merge($default, $options);
+		extract($options);
+	} else {
+		$prevtext = $options;
+		if (empty($buttontext)) {
+			$buttontext = gettext("Search");
+		}
+		if (is_null($placeholder)) {
+			$placeholder = gettext('Search target');
+		}
+	}
 	$engine = new SearchEngine();
 	if (!is_null($_current_search) && !$_current_search->getSearchWords()) {
 		$engine->clearSearchWords();
 	}
-	if (empty($buttontext)) {
-		$buttontext = gettext("Search");
+
+	if ($placeholder) {
+		$placeholder = ' placeholder="' . $placeholder . '"';
 	}
 	$searchwords = $engine->codifySearchString();
 	if (substr($searchwords, -1, 1) == ',') {
@@ -4068,7 +4084,7 @@ function printSearchForm($prevtext = NULL, $id = 'search', $buttonSource = NULL,
 			<?php echo $prevtext; ?>
 			<div>
 				<span class="tagSuggestContainer">
-					<input type="text" name="words" value="" id="search_input" class="tagsuggest" size="10" />
+					<input type="text" name="words" value="" id="search_input" class="tagsuggest" size="10"<?php echo $placeholder; ?> />
 				</span>
 				<?php
 				if (count($fields) > 1 || $searchwords) {
