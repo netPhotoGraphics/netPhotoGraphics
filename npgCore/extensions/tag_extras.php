@@ -41,19 +41,23 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 		$albumWhere = "WHERE `dynamic`=0";
 	} else {
 		$albumscheck = query_full_array("SELECT * FROM " . prefix('albums') . " ORDER BY title");
+		$passwordcheck = array();
 		foreach ($albumscheck as $albumcheck) {
 			if (!checkAlbumPassword($albumcheck['folder'])) {
-				$albumpasswordcheck = " AND id != " . $albumcheck['id'];
-				$passwordcheck = $passwordcheck . $albumpasswordcheck;
+				$passwordcheck[] = $albumcheck['id'];
 			}
 		}
-		$albumWhere = "WHERE `dynamic`=0 AND `show`=1" . $passwordcheck;
+		$albumWhere = "WHERE `dynamic`=0 AND `show`=1";
+		if (!empty($passwordcheck)) {
+			$albumWhere .= ' AND id in(' . implode(',', $passwordcheck) . ')';
+		}
 	}
 	if ($subalbums) {
 		$albumWhere .= " AND `folder` LIKE " . db_quote(db_LIKE_escape($albumname) . "%");
 	} else {
 		$albumWhere .= " AND `folder` = " . db_quote($albumname);
 	}
+
 	$albumids = query_full_array("SELECT id, folder FROM " . prefix('albums') . $albumWhere);
 	switch ($mode) {
 		case "images":
@@ -122,7 +126,6 @@ function getAllTagsFromZenpage($mode = 'news') {
 	if (!class_exists('CMS')) {
 		return FALSE;
 	}
-	$passwordcheck = '';
 	$ids = array();
 	$where = '';
 	$tagWhere = "";
