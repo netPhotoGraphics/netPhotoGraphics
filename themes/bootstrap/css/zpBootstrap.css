@@ -556,3 +556,7 @@ div.buttons button {
 	animation-name: reveal;
 	animation-direction: reverse;
 }
+
+.hundered_percent {
+	max-width: 100%;
+}
