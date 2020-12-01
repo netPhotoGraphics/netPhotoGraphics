@@ -85,7 +85,7 @@ function adminToolbox() {
 				</span>
 			</a>
 		</div>
-		<div id="admin_tb_data">
+		<div id="admin_tb_data" style="display: none;">
 			<ul style="list-style-type: none;" >
 				<?php
 				if (npg_loggedin(OVERVIEW_RIGHTS)) {
