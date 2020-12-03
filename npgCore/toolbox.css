@@ -17,7 +17,7 @@ Default admin toolbox css
 	padding-left: 5px !important;
 	margin-right: 10px;
 }
-#admin_tb_data{
+#admin_tb_data {
 	display: none;
 	position: fixed;
 	top: 0px;
@@ -34,6 +34,10 @@ Default admin toolbox css
 	font: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+#admin_tb_data ul {
+	list-style-type: none;
+}
+
 #admin_tb h3 {
 	font-weight: normal;
 	color: #999;
@@ -47,6 +51,9 @@ Default admin toolbox css
 	color: #036;
 }
 
+#admin_tb a {
+	text-decoration: none;
+}
 #admin_tb a:hover {
 	cursor: pointer;
 	text-decoration: none;
