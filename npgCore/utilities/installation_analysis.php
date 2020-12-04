@@ -140,11 +140,9 @@ echo '</head>';
 							$loaded = array_flip($loaded);
 							$desired = explode(',', DESIRED_PHP_EXTENSIONS);
 							$missing = '';
-							$check = 1;
 							foreach ($desired as $module) {
 								if (!isset($loaded[$module])) {
 									$missing .= '<strong>' . $module . '</strong>, ';
-									$check = -1;
 								}
 							}
 							if (!empty($missing)) {
