@@ -674,16 +674,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 							checkMark($check, gettext('PHP extensions'), gettext('PHP extensions [missing]'), sprintf(gettext('To improve netPhotoGraphics performance and functionality you should enable the following PHP extensions: %s'), rtrim($missing, ', ')), false);
-							$required = explode(',', REQUIRED_PHP_EXTENSIONS);
-							$missing = '';
-							$check = 1;
-							foreach ($required as $module) {
-								if (!isset($loaded[$module])) {
-									$missing .= '<strong>' . $module . '</strong>, ';
-									$check = -1;
-								}
-							}
-							checkMark($check, gettext('PHP extensions'), gettext('PHP required extensions [missing]'), sprintf(gettext('You may receive un-recoverable errors because the following PHP extensions are missing.: %s'), rtrim($missing, ', ')), false);
 
 							if (!$setupMutex) {
 								checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
