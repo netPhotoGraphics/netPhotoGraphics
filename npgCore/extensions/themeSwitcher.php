@@ -176,14 +176,14 @@ class themeSwitcher {
 			$theme = $_gallery->getCurrentTheme();
 			/* Note inline styles needed to override some theme javascript issues */
 			?>
-			<div class="themeSwitcherMenuMain themeSwitcherControl" style="position: fixed; z-index: 90001; left: 0px; top: 0px; padding-top: 5px; padding-left: 5px;">
+			<div class="themeSwitcherMenuMain themeSwitcherControl" >
 				<a onclick="$('.themeSwitcherControl').toggle();" title="<?php echo gettext('Switch themes'); ?>" style="text-decoration: none;" >
 					<span class="themeSwitcherMenu">
 						<?php echo MENU_SYMBOL; ?>
 					</span>
 				</a>
 			</div>
-			<div class="themeSwitcherControlLink themeSwitcherControl" style="display:none;">
+			<div class="themeSwitcherControlLink themeSwitcherControl" style="display: none;">
 				<div>
 					<a onclick="$('.themeSwitcherControl').toggle();" title="<?php echo gettext('Close'); ?>" style="text-decoration: none;" />
 					<span class="themeSwitcherMenuShow">
