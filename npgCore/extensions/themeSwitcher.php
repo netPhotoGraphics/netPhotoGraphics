@@ -140,9 +140,6 @@ class themeSwitcher {
 			// ]]> -->
 		</script>
 		<?php
-	}
-
-	static function close() {
 		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));
 	}
 
@@ -246,5 +243,4 @@ if (getNPGCookie('themeSwitcher_theme')) {
 }
 npgFilters::register('theme_head', 'themeSwitcher::head', 999);
 npgFilters::register('theme_body_open', 'themeSwitcher::controlLink');
-npgFilters::register('theme_body_close', 'themeSwitcher::close');
 ?>

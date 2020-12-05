@@ -228,13 +228,16 @@ class jPlayer extends html5Player {
 		return $macros;
 	}
 
-	static function headJS() {
+	static function CSS() {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
 			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
 		}
 		scriptLoader($skin);
+	}
+
+	static function JS() {
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
 	}
 
@@ -767,7 +770,8 @@ class jPlayer extends html5Player {
 
 $_multimedia_extension = new jPlayer(); // claim to be the flash player.
 npgFilters::register('content_macro', 'jPlayer::macro');
-npgFilters::register('theme_body_close', 'jplayer::headJS');
+npgFilters::register('theme_head', 'jplayer::CSS');
+npgFilters::register('theme_body_close', 'jplayer::JS');
 if (getOption('jplayer_playlist')) {
 	npgFilters::register('theme_body_close', 'jplayer::playlistJS');
 }

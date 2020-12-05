@@ -140,7 +140,7 @@ class VideoJS extends html5Player {
 		);
 	}
 
-	static function headJS() {
+	static function head() {
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/video-js.css');
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/videojs-resolution-switcher.css');
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/VideoJS/ie8/videojs-ie8.min.js');
@@ -278,4 +278,4 @@ class VideoJS extends html5Player {
 }
 
 $_multimedia_extension = new VideoJS(); // claim to be the flash player.
-npgFilters::register('theme_head', 'VideoJS::headJS');
+npgFilters::register('theme_head', 'VideoJS::head');

@@ -61,7 +61,7 @@ define('LOCALE_TYPE', getOption('dynamic_locale_subdomain'));
 define('BASE_LOCALE', getOption('dynamic_locale_base'));
 
 if (OFFSET_PATH != 2) {
-	npgFilters::register('theme_body_close', 'dynamic_locale::dynamic_localeCSS');
+	npgFilters::register('theme_head', 'dynamic_locale::dynamic_localeCSS');
 	if (LOCALE_TYPE == 1) {
 		define('SEO_WEBPATH', seo_locale::localePath());
 		define('SEO_FULLWEBPATH', seo_locale::localePath(true));
