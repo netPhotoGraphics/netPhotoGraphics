@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * This module helps you to keep track of your visitors through the Matomo platform (formerly known as Piwik).
+ * This module helps you to keep track of your visitors through the Matomo platform.
  * It places the <i>Matomo JavaScript tracking scripts</i> at the bottom of your webpages using the <i>theme_body_close</i>
  * filter. It also supports tracking for users with JavaScript disabled.
  *
@@ -33,7 +33,7 @@
  * @pluginCategory seo
  */
 $plugin_is_filter = 9 | ADMIN_PLUGIN | THEME_PLUGIN;
-$plugin_description = gettext('A plugin to insert Matomo (formerly Piwik) JavaScript tracking code into theme pages.');
+$plugin_description = gettext('A plugin to insert Matomo JavaScript tracking code into theme pages.');
 
 $option_interface = 'matomoStats';
 
@@ -50,22 +50,10 @@ class matomoStats {
 	function __construct() {
 		global $testRelease;
 		if (OFFSET_PATH == 2) {
-			//migrate piwik plugin options
-			$old = getOptionsLike('piwik_');
-			foreach ($old as $key => $value) {
-				purgeOption($key);
-				setOption(str_replace('piwik', 'matomo', $key), $value);
-			}
-			if (!empty($old)) {
-				setupLog('Plugin:matomo ' . gettext('Piwik options migrated to Matomo plugin'), $testRelease);
-			}
-			if (extensionEnabled('piwik')) {
-				enableExtension('matomo', 9 | ADMIN_PLUGIN | THEME_PLUGIN);
-			}
 			setOptionDefault('matomo_disablecookies', 0);
+			setOptionDefault('matomo_requireconsent', 'no-consent');
+			setOptionDefault('matomo_contenttracking', 'disabled');
 		}
-		setOptionDefault('matomo_requireconsent', 'no-consent');
-		setOptionDefault('matomo_contenttracking', 'disabled');
 	}
 
 	function getOptionsSupported() {
@@ -178,33 +166,33 @@ class matomoStats {
 			?>
 				_paq.push(['trackPageView']);
 				_paq.push(['enableLinkTracking']);
-				<?php 
-				switch(getOption('matomo_contenttracking')) {
-					case 'all-content':
-						?>
+			<?php
+			switch (getOption('matomo_contenttracking')) {
+				case 'all-content':
+					?>
 						_paq.push(['trackAllContentImpressions']);
-						<?php
-						break;
-					case 'visible-content':
-						?>
+					<?php
+					break;
+				case 'visible-content':
+					?>
 						_paq.push(['trackVisibleContentImpressions']);
-						<?php
-						break;
-				}
-				?>
+					<?php
+					break;
+			}
+			?>
 				(function () {
 					var u = "//<?php echo str_replace(array('http://', 'https://'), '', $url); ?>/";
-					_paq.push(['setTrackerUrl', u + 'piwik.php']);
+					_paq.push(['setTrackerUrl', u + 'matomo.php']);
 					_paq.push(['setSiteId', <?php echo $id; ?>]);
 					var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
 					g.type = 'text/javascript';
 					g.defer = true;
 					g.async = true;
-					g.src = u + 'piwik.js';
+					g.src = u + 'matomo.js';
 					s.parentNode.insertBefore(g, s);
 				})();
 			</script>
-			<noscript><p><img src="<?php echo $url ?>/piwik.php?idsite=<?php echo $id ?>&rec=1" style="border:0" alt="" /></p></noscript>
+			<noscript><p><img src="<?php echo $url ?>/matomo.php?idsite=<?php echo $id ?>&rec=1" style="border:0" alt="" /></p></noscript>
 			<!-- End Matomo Tag -->
 			<?php
 		}
