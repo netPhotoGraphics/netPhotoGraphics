@@ -30,6 +30,7 @@ if (getOption('rating_image_individual_control')) {
 
 // register the scripts needed
 if (in_context(NPG_INDEX)) {
+	npgFilters::register('theme_head', 'jquery_rating::ratingCSS');
 	npgFilters::register('theme_body_close', 'jquery_rating::ratingJS');
 }
 
@@ -149,11 +150,7 @@ class jquery_rating {
 		return false;
 	}
 
-	static function ratingJS() {
-		$ME = substr(basename(__FILE__), 0, -4);
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
-
+	static function ratingCSS() {
 		$size = getOption('rating_star_size');
 		if (getOption('rating_like-dislike')) {
 			$css = getPlugin('rating/jquery.rating_like-' . $size . '.css', true);
@@ -161,10 +158,16 @@ class jquery_rating {
 			$css = getPlugin('rating/jquery.rating-' . $size . '.css', true);
 		}
 		scriptLoader($css);
+	}
+
+	static function ratingJS() {
+		$ME = substr(basename(__FILE__), 0, -4);
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $ME . '/jquery.MetaData.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $ME . '/jquery.rating.js');
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[
-			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo $size; ?>};
+			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo getOption('rating_star_size'); ?>};
 			// ]]> -->
 		</script>
 		<?php

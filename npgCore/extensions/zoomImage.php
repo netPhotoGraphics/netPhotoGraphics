@@ -47,6 +47,7 @@ $option_interface = 'zoomImage';
 
 require_once(CORE_SERVERPATH . 'lib-image.php');
 
+npgFilters::register('theme_head', 'zoomImage::head');
 npgFilters::register('theme_body_close', 'zoomImage::body_close');
 
 class zoomImage {
@@ -67,9 +68,12 @@ class zoomImage {
 		return $options;
 	}
 
+	static function head() {
+		scriptLoader(getPlugin('zoomImage/zoom.css', true));
+	}
+
 	static function body_close() {
 		global $_zoomImage_id_list;
-		scriptLoader(getPlugin('zoomImage/zoom.css', true));
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/zoomImage/jquery.zoom.min.js');
 		?>
 		<script type="text/javascript">

@@ -42,6 +42,7 @@ $plugin_notice = gettext('Panoramic images can be quite large which may cause is
 
 $option_interface = 'panorama';
 
+npgFilters::register('theme_head', 'panorama::head');
 npgFilters::register('theme_body_close', 'panorama::close');
 
 class panorama {
@@ -69,10 +70,13 @@ class panorama {
 		putSlider('<span style="float:left">' . gettext('image left') . '</span><span style="float:right">' . gettext('image right') . '</span><br />', $key, 0, 100, $v, FALSE);
 	}
 
+	static function head() {
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/panorama/paver.css');
+	}
+
 	static function close() {
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/panorama/jquery.paver.min.js');
 		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/panorama/jquery.ba-throttle-debounce.min.js');
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/panorama/paver.css');
 		?>
 		<style>
 			.nPG_panorama {

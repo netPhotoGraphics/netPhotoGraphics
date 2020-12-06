@@ -36,19 +36,20 @@ function printThemeHeadItems() {
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
+	load_jQuery_CSS();
 	load_jQuery_scripts('theme');
+	scriptLoader(CORE_SERVERPATH . 'button.css');
+	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
+	if (npg_loggedin()) {
+		scriptLoader(getPlugin('toolbox.css', true));
+	}
 }
 
 /**
  * Stuff that belongs at then end of the theme html
  */
 function printThemeCloseItems() {
-	scriptLoader(CORE_SERVERPATH . 'button.css');
-	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
-	load_jQuery_CSS();
-	if (npg_loggedin()) {
-		scriptLoader(getPlugin('toolbox.css', true));
-	}
+
 }
 
 /**
@@ -79,14 +80,14 @@ function adminToolbox() {
 		}
 		/* Note inline styles needed to override some theme javascript issues */
 		?>
-		<div id="admin_tb" style="position: fixed; right: 0px;	width: 23px; margin-right: 10px; z-index: 90001;">
+		<div id="admin_tb">
 			<a onclick="$('#admin_tb_data').toggle();" title="<?php echo gettext('Logged in as') . ' ' . $name; ?>">
 				<span class="adminGear">
 					<?php echo GEAR_SYMBOL; ?>
 				</span>
 			</a>
 		</div>
-		<div id="admin_tb_data" style="display: none;">
+		<div id="admin_tb_data">
 			<ul>
 				<?php
 				if (npg_loggedin(OVERVIEW_RIGHTS)) {
@@ -4585,7 +4586,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

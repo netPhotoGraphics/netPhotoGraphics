@@ -50,7 +50,7 @@ $plugin_description = gettext('Provides scriptless and privacy friendly sharing 
 $option_interface = 'scriptlessSocialsharing';
 
 if (getOption('scriptless_socialsharing_iconfont')) {
-	npgFilters::register('theme_body_close', 'scriptlessSocialsharing::CSS');
+	npgFilters::register('theme_head', 'scriptlessSocialsharing::CSS');
 }
 
 class scriptlessSocialsharing {

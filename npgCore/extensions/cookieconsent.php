@@ -25,7 +25,7 @@ $plugin_disable = (extensionEnabled('GDPR_required')) ? sprintf(gettext('The <a 
 $option_interface = 'cookieConsent';
 
 if (!$plugin_disable && !npg_loggedin()) {
-	npgFilters::register('theme_body_close', 'cookieConsent::getCSS');
+	npgFilters::register('theme_head', 'cookieConsent::getCSS');
 	npgFilters::register('theme_body_close', 'cookieConsent::getJS');
 }
 
