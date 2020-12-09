@@ -289,10 +289,11 @@ class feed {
 	protected function getCommentFeedType() {
 		$valid = false;
 		if (isset($this->options['type'])) {
-			if ($this->options['type'] == 'image' || $this->options['type'] == 'album') {
+			if (in_array($this->options['type'], array('image', 'album', 'pages'))) {
 				$this->options['type'] = $this->options['type'] . 's'; //	some old feeds have the singular
+				return $this->options['type'];
 			}
-			if (in_array($this->options['type'], array('albums', 'images', 'pages', 'news', 'all'))) {
+			if (in_array($this->options['type'], array('albums', 'images', 'pages', 'news'))) {
 				return $this->options['type'];
 			}
 		}
@@ -480,8 +481,6 @@ class feed {
 					case 'images':
 						$items = getLatestComments($this->itemnumber, 'image', $this->id);
 						break;
-					case 'zenpage':
-						$type = 'all';
 					case 'news':
 					case 'pages':
 						if (function_exists('getLatestZenpageComments')) {
