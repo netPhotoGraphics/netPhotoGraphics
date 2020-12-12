@@ -391,40 +391,41 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 					</div><!-- id="commententry" -->
 					<?php
 				}
-			} else {
+
+				if (getOption('comment_form_rss') && getOption('RSS_comments')) {
+					?>
+					<br clear="all" />
+					<?php
+					if (class_exists('RSS')) {
+						switch ($_gallery_page) {
+							case "image.php":
+								printRSSLink("Comments-image", "", gettext("Subscribe to comments"), "");
+								break;
+							case "album.php":
+								printRSSLink("Comments-album", "", gettext("Subscribe to comments"), "");
+								break;
+							case "news.php":
+								printRSSLink("Comments-news", "", gettext("Subscribe to comments"), "");
+								break;
+							case "pages.php":
+								printRSSLink("Comments-page", "", gettext("Subscribe to comments"), "");
+								break;
+						}
+					}
+				}
 				?>
-				<div id="commententry">
-					<h3><?php echo gettext('Closed for comments.'); ?></h3>
-				</div><!-- id="commententry" -->
+				<!-- end printCommentForm -->
 				<?php
 			}
+		} else {
 			?>
-		</div><!-- id="commentcontent" -->
-		<?php
-		if (getOption('comment_form_rss') && getOption('RSS_comments')) {
-			?>
-			<br clear="all" />
+			<div id="commententry">
+				<h3><?php echo gettext('Closed for comments.'); ?></h3>
+			</div><!-- id="commententry" -->
 			<?php
-			if (class_exists('RSS')) {
-				switch ($_gallery_page) {
-					case "image.php":
-						printRSSLink("Comments-image", "", gettext("Subscribe to comments"), "");
-						break;
-					case "album.php":
-						printRSSLink("Comments-album", "", gettext("Subscribe to comments"), "");
-						break;
-					case "news.php":
-						printRSSLink("Comments-news", "", gettext("Subscribe to comments"), "");
-						break;
-					case "pages.php":
-						printRSSLink("Comments-page", "", gettext("Subscribe to comments"), "");
-						break;
-				}
-			}
 		}
 		?>
-		<!-- end printCommentForm -->
-		<?php
-	}
+	</div><!-- id="commentcontent" -->
+	<?php
 }
 ?>
