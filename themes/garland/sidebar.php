@@ -27,12 +27,12 @@ if (getOption('Allow_search')) {
 			break;
 		case 'search.php':
 			$categorylist = $_current_search->getCategoryList();
-			if (is_array($categorylist)) {
+			if (!empty($categorylist)) {
 				$list = array('news' => $categorylist, 'albums' => '0', 'images' => '0', 'pages' => '0');
 				$text = gettext('Search within category');
 			} else {
 				$albumlist = $_current_search->getAlbumList();
-				if (is_array($albumlist)) {
+				if (!empty($albumlist)) {
 					$list = array('albums' => $albumlist, 'pages' => '0', 'news' => '0');
 					$text = gettext('Search within album');
 				} else {

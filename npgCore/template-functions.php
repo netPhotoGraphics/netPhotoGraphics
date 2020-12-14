@@ -4065,9 +4065,6 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, 
 		$iconsource = '<image src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
 
-	if (is_null($within)) {
-		$within = getOption('search_within');
-	}
 	if (MOD_REWRITE) {
 		$searchurl = SEO_WEBPATH . '/' . _SEARCH_ . '/';
 	} else {
