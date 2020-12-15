@@ -26,7 +26,7 @@ if (!defined('WEBPATH'))
 				<?php
 				if (getOption('Allow_search')) {
 					$album_list = array('albums' => array($_current_album->name), 'pages' => '0', 'news' => '0');
-					printSearchForm(NULL, 'search', gettext('Search within album'), gettext('Search'), NULL, NULL, $album_list);
+					printSearchForm(NULL, 'search', gettext('Search album'), gettext('Search'), NULL, NULL, $album_list);
 				}
 				?>
 			</div>

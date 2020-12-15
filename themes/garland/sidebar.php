@@ -6,7 +6,7 @@ if (getOption('Allow_search')) {
 		case 'album.php':
 		case 'image.php':
 			$list = array('albums' => array($_current_album->name), 'pages' => '0', 'news' => '0');
-			$text = gettext('Search within album');
+			$text = gettext('Search album');
 			break;
 		case 'gallery.php':
 			$list = array('albums' => '1', 'pages' => '0', 'news' => '0');
@@ -29,12 +29,12 @@ if (getOption('Allow_search')) {
 			$categorylist = $_current_search->getCategoryList();
 			if (!empty($categorylist)) {
 				$list = array('news' => $categorylist, 'albums' => '0', 'images' => '0', 'pages' => '0');
-				$text = gettext('Search within category');
+				$text = gettext('Search category');
 			} else {
 				$albumlist = $_current_search->getAlbumList();
 				if (!empty($albumlist)) {
 					$list = array('albums' => $albumlist, 'pages' => '0', 'news' => '0');
-					$text = gettext('Search within album');
+					$text = gettext('Search album');
 				} else {
 					$list = NULL;
 					$text = gettext('Search gallery');

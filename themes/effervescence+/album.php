@@ -50,7 +50,7 @@ $map = simpleMap::mapPlugin();
 					<?php
 					if (getOption('Allow_search')) {
 						$album_list = array('albums' => array($_current_album->name), 'pages' => '0', 'news' => '0');
-						printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within album'), NULL, NULL, $album_list);
+						printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search album'), NULL, NULL, $album_list);
 					}
 					?>
 				</div> <!-- header -->
