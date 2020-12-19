@@ -4044,9 +4044,10 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, 
 	}
 
 	$hint_new = $buttontext;
-	$hint_in = sprintf(gettext('%s within previous results'), $buttontext);
+	$hint_in = gettext('Search within previous results');
 	if ($within) {
 		$button = ' title="' . $hint_in . '"';
+		$buttontext = $hint_in;
 	} else {
 		$button = ' title="' . $buttontext . '"';
 	}
@@ -4065,9 +4066,6 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, 
 		$iconsource = '<image src="' . $iconsource . '" alt="' . gettext('fields') . '" id="searchfields_icon" />';
 	}
 
-	if (is_null($within)) {
-		$within = getOption('search_within');
-	}
 	if (MOD_REWRITE) {
 		$searchurl = SEO_WEBPATH . '/' . _SEARCH_ . '/';
 	} else {

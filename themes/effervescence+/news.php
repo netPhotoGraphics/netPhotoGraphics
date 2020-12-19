@@ -25,7 +25,7 @@ if (class_exists('CMS')) {
 						if (getOption('Allow_search')) {
 							if (is_NewsCategory()) {
 								$catlist = array('news' => array($_CMS_current_category->getTitlelink()), 'albums' => '0', 'images' => '0', 'pages' => '0');
-								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within category'), NULL, NULL, $catlist);
+								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search category'), NULL, NULL, $catlist);
 							} else {
 								$catlist = array('news' => '1', 'albums' => '0', 'images' => '0', 'pages' => '0');
 								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search'), NULL, NULL, $catlist);

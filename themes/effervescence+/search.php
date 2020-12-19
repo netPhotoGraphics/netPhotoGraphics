@@ -75,14 +75,14 @@ $backgroundImagePath = "";
 					$albumlist = NULL;
 					if (getOption('Allow_search')) {
 						$categorylist = $_current_search->getCategoryList();
-						if (is_array($categorylist)) {
+						if (!empty($categorylist)) {
 							$catlist = array('news' => $categorylist, 'albums' => '0', 'images' => '0', 'pages' => '0');
-							printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within category'), NULL, NULL, $catlist);
+							printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search category'), NULL, NULL, $catlist);
 						} else {
 							$albumlist = $_current_search->getAlbumList();
-							if (is_array($albumlist)) {
+							if (!empty($albumlist)) {
 								$album_list = array('albums' => $albumlist, 'pages' => '0', 'news' => '0');
-								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search within album'), NULL, NULL, $album_list);
+								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search album'), NULL, NULL, $album_list);
 							} else {
 								printSearchForm(NULL, 'search', $_themeroot . '/images/search.png', gettext('Search gallery'));
 							}
