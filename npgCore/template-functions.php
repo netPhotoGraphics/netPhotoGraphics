@@ -4189,7 +4189,7 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, 
 								}
 							} else {
 								?>
-								<input type="hidden" name="SEARCH_<?php echo array_pop($fields); ?>" value="<?php echo html_encode($key); ?>" />
+								<input type="hidden" name="SEARCH_<?php echo $key = array_pop($fields); ?>" value="<?php echo html_encode($key); ?>" />
 								</li>
 								<?php
 							}
