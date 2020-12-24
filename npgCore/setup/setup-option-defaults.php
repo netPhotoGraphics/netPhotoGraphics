@@ -489,6 +489,10 @@ $style_tags = "abbr=>(class=>() id=>() title=>() lang=>())\n" .
 				"sup=>(class=>() id=>() lang=>())\n" .
 				"sub=>(class=>() id=>() lang=>())\n"
 ;
+$a = parseAllowedTags($style_tags);
+if (!is_array($a)) {
+	debugLog('$style_tags parse error:' . $a);
+}
 
 $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>() lang=>())\n" .
 				"ul=>(class=>() id=>() lang=>())\n" .
@@ -528,6 +532,10 @@ $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>() lang
 				"colgroup=>(class=>() id=>() lang=>())\n" .
 				"col=>(class=>() id=>() lang=>())\n"
 ;
+$a = parseAllowedTags($general_tags);
+if (!is_array($a)) {
+	debugLog('$general_tags parse error:' . $a);
+}
 
 if (getOption('allowed_tags_default') == getOption('allowed_tags')) {
 	purgeOption('allowed_tags'); //	propegate any updates
