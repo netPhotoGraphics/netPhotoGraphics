@@ -155,7 +155,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 			$headline = $typename . " - " . gettext("most viewed");
 			break;
 		case "popularimages":
-			$dbquery = "SELECT a.id, a.folder,a.title, SUM( i.hitcounter ) AS hits  FROM " . prefix('albums') . " a INNER JOIN " . prefix('images') . " i ON i.albumid = a.id WHERE i.hitcounter>0 GROUP BY i.albumid ORDER BY hits DESC LIMIT " . $queryLimit;
+			$dbquery = "SELECT a.id, a.folder,a.title, SUM( i.hitcounter ) AS hits  FROM " . prefix('albums') . " a INNER JOIN " . prefix('images') . " i ON i.albumid=a.id WHERE i.hitcounter>0 GROUP BY i.albumid ORDER BY hits DESC LIMIT " . $queryLimit;
 			$itemssorted = query_full_array($dbquery);
 			if (empty($itemssorted)) {
 				$maxvalue = 0;
@@ -186,7 +186,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 			$headline = $typename . " - " . gettext("top rated");
 			break;
 		case "mostcommented":
-			$dbquery = "SELECT comments.ownerid, count(*) as commentcount, " . $type . ".* FROM " . prefix('comments') . " AS comments, " . prefix($type) . " AS " . $type . " WHERE " . $type . ".id=comments.ownerid AND type = '" . $type . "' GROUP BY comments.ownerid ORDER BY commentcount DESC LIMIT " . $queryLimit;
+			$dbquery = "SELECT comments.ownerid, count(*) as commentcount, " . $type . ".* FROM " . prefix('comments') . " AS comments, " . prefix($type) . " AS " . $type . " WHERE " . $type . ".id=comments.ownerid AND type='" . $type . "' GROUP BY comments.ownerid ORDER BY commentcount DESC LIMIT " . $queryLimit;
 			$itemssorted = query_full_array($dbquery);
 			if (empty($itemssorted)) {
 				$maxvalue = 0;
@@ -366,7 +366,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 				break;
 			case 'images':
 				if ($item['albumid']) {
-					$getalbumfolder = query_single_row("SELECT title, folder, `show` from " . prefix("albums") . " WHERE id = " . $item['albumid']);
+					$getalbumfolder = query_single_row("SELECT title, folder, `show` from " . prefix("albums") . " WHERE id=" . $item['albumid']);
 					if ($sortorder === "latest") {
 						$value = "<span";
 						if ($getalbumfolder['show'] != "1") {

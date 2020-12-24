@@ -10,13 +10,17 @@ function saveOptions() {
 	$notify = $returntab = NULL;
 	$returntab = "&tab=general";
 	$tags = strtolower(sanitize($_POST['allowed_tags'], 0));
-	$test = '(' . $tags . ')';
-	$a = parseAllowedTags($test);
+
+	$a = parseAllowedTags($tags);
 	if (is_array($a)) {
 		setOption('allowed_tags', $tags);
 	} else {
-		$notify .= '&tag_parse_error=' . $a;
+		debugLog('tag parse error:' . $a);
+		$notify .= '&tag_parse_error';
 	}
+
+
+
 	$oldloc = SITE_LOCALE; // get the option as stored in the database, not what might have been set by a cookie
 	$newloc = sanitize($_POST['locale'], 3);
 	$languages = i18n::generateLanguageList(true);

@@ -18,7 +18,22 @@ require_once(__DIR__ . '/initialize-general.php');
  * @return array the allowed_tags array.
  * @since 1.1.3
  * */
-function parseAllowedTags(&$source) {
+function parseAllowedTags($source) {
+	$lines = explode("\n", $source);
+	$allowed = array();
+	foreach ($lines as $lineNO => $tag) {
+		$parse = '(' . trim($tag, "\n") . ')';
+		$a = parseTags($parse);
+		if (is_array($a)) {
+			$allowed = array_merge($allowed, $a);
+		} else {
+			return $a . '[' . $lineNO . '] ' . $tag;
+		}
+	}
+	return $allowed;
+}
+
+function parseTags(&$source) {
 	$source = trim($source);
 	if (@$source[0] != "(") {
 		return gettext('Missing open paren');
@@ -46,7 +61,7 @@ function parseAllowedTags(&$source) {
 			$source = trim(substr($source, 2));
 			$a[$tag] = array();
 		} else {
-			$x = parseAllowedTags($source);
+			$x = parseTags($source);
 			if (!is_array($x)) {
 				return $x;
 			}
