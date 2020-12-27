@@ -31,17 +31,21 @@ if (isset($_POST['checkForPostTruncation'])) {
 						$image->set('total_votes', 0);
 						$image->set('used_ips', 0);
 					}
-					$pubdate = $image->setPublishDate(sanitize($_POST['publishdate-' . $i]));
-					$image->setExpireDate(sanitize($_POST['expirationdate-' . $i]));
+					if (isset($_POST['publishdate-' . $i])) {
+						$image->setPublishDate(sanitize($_POST['publishdate-' . $i]));
+					}
+					if (isset($_POST['expirationdate-' . $i])) {
+						$image->setExpireDate(sanitize($_POST['expirationdate-' . $i]));
+					}
 					$image->setTitle(process_language_string_save("$i-title", 2));
 					$image->setDesc(process_language_string_save("$i-desc", EDITOR_SANITIZE_LEVEL));
 					if (isset($_POST[$i . '-owner'])) {
 						$image->setOwner(sanitize($_POST[$i . '-owner']));
 					}
-					$image->set('GPSLatitude', NULL);
-					$image->set('GPSLongitude', NULL);
 					foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {
-						$image->set($geo, parseDMS($_POST["$i-$geo"]));
+						if (isset($_POST["$i-$geo"])) {
+							$image->set($geo, parseDMS($_POST["$i-$geo"]));
+						}
 					}
 					if (isset($_POST[$i . '-oldrotation']) && isset($_POST[$i . '-rotation'])) {
 						$oldrotation = (int) $_POST[$i . '-oldrotation'];
@@ -53,10 +57,13 @@ if (isset($_POST['checkForPostTruncation'])) {
 							Gallery::clearCache($album->name);
 						}
 					}
-					$image->setCommentsAllowed(isset($_POST["$i-allowcomments"]));
+					if (isset($_POST["$i-allowcomments"])) {
+						$image->setCommentsAllowed(isset($_POST["$i-allowcomments"]));
+					}
 					if (isset($_POST["reset_hitcounter$i"])) {
 						$image->set('hitcounter', 0);
 					}
+
 					$image->set('filesize', filesize($image->localpath));
 					$image->setShow(isset($_POST["$i-Visible"]));
 					npgFilters::apply('save_image_data', $image, $i);
