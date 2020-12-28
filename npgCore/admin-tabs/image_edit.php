@@ -7,6 +7,8 @@ require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
+$showmeta = $editgeneral = $editutilities = $editgeotags = 1;
+
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
 	if ($totalimages == 1) {
@@ -32,9 +34,53 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 		$albumHeritage[' ' . str_repeat('» ', count($t)) . basename($name)] = $name;
 	}
 	consolidatedEditMessages('imageinfo');
-	?>
-	<div style="padding-bottom:10px;">
-		<?php
+	if (!$singleimage) {
+		$items = getSerializedArray(getNPGCookie('image_edit_items'));
+		extract($items);
+		?>
+		<div id="menu_selector_button">
+			<div id="menu_button">
+				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+			</div>
+			<div id="menu_selections" style="display: none;">
+				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<div class="floatright">
+					<label>
+						<input id="metabox" type="checkbox" value="1" <?php if ($showmeta) echo 'checked="checked"' ?> onclick="$('.metadata_stuff').toggle();$('.show_metadata').val($('#metabox').prop('checked') | 0);"><?php echo gettext('Metadata'); ?>
+					</label>
+					<br />
+					<label>
+						<input id="geobox" type="checkbox" value="1" <?php if ($editgeotags) echo 'checked="checked"' ?> onclick="$('.geo_stuff').prop('disabled', function (i, v) {
+										return !v;
+									});
+									$('.geo_stuff').toggle();
+									$('.edit_geo').val($('#geobox').prop('checked') | 0);"><?php echo gettext('Geo location'); ?>
+					</label>
+					<br />
+					<label>
+						<input id="genbox" type="checkbox" value="1" <?php if ($editgeneral) echo 'checked="checked"' ?> onclick="$('.general_stuff').prop('disabled', function (i, v) {
+										return !v;
+									});
+									$('.general_stuff').toggle();
+									$('.edit_general').val($('#genbox').prop('checked') | 0);"><?php echo gettext('General'); ?>
+					</label>
+					<br />
+					<label>
+						<input id="utilbox" type="checkbox" value="1" <?php if ($editutilities) echo 'checked="checked"' ?> onclick="$('.utilities_stuff').prop('disabled', function (i, v) {
+										return !v;
+									});
+									$('.utilities_stuff').toggle();
+									$('.edit_utilities').val($('#utilbox').prop('checked') | 0);"><?php echo gettext('Utilities'); ?>
+					</label>
+					<br />
+				</div>
+			</div>
+		</div>
+		<br style="clear:both"/><br />
+		<div style="padding-bottom:10px;">
+			<?php
+		}
+
 		echo gettext("Click on the image to change the thumbnail cropping.");
 		if ($showfilter) {
 			$numsteps = ceil(max($allimagecount, $imagesTab_imageCount) / ADMIN_IMAGES_STEP);
@@ -99,10 +145,18 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 			<input type="hidden" name="subpage" value="<?php echo html_encode($pagenum); ?>" />
 			<input type="hidden" name="tagsort" value="<?php echo html_encode($tagsort); ?>" />
 			<input type="hidden" name="filter" value="<?php echo html_encode($filter); ?>" />
+
 			<?php
 			if ($singleimage) {
 				?>
 				<input type="hidden" name="singleimage" value="<?php echo html_encode($singleimage); ?>" />
+				<?php
+			} else {
+				?>
+				<input type="hidden" class="show_metadata" name="show_metadata" value="<?php echo $showmeta; ?>" />
+				<input type="hidden" class="edit_general" name="edit_general" value="<?php echo $editgeneral; ?>" />
+				<input type="hidden" class="edit_utilities" name="edit_utilities" value="<?php echo $editutilities; ?>" />
+				<input type="hidden" class="edit_geo" name="edit_geo" value="<?php echo $editgeotags; ?>" />
 				<?php
 			}
 			?>
@@ -236,7 +290,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<?php
 									if ($image->get('hasMetadata')) {
 										?>
-										<tr>
+										<tr class="metadata_stuff"<?php if (!$showmeta) echo ' style="display:none";'; ?>>
 											<td class="leftcolumn"><?php echo gettext("Metadata"); ?></td>
 											<td class="middlecolumn">
 												<?php
@@ -268,7 +322,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php
 									}
 									?>
-									<tr>
+									<tr class="geo_stuff"<?php if (!$editgeotags) echo ' style="display:none";'; ?>>
 										<td class="leftcolumn"><?php echo gettext("Geolocation"); ?></td>
 										<td class="middlecolumn">
 											<?php
@@ -290,14 +344,15 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											}
 											echo gettext('latitiude');
 											?>
-											<input name="<?php echo $currentimage; ?>-GPSLatitude" type="text" value="<?php echo html_encode($lat); ?>">
+											<input name="<?php echo $currentimage; ?>-GPSLatitude" class="geo_stuff" type="text" value="<?php echo html_encode($lat); ?>"<?php if (!$editgeotags) echo 'disabled="disabled"'; ?>>
 											<?php echo gettext('longitude'); ?>
-											<input name="<?php echo $currentimage; ?>-GPSLongitude" type="text" value="<?php echo html_encode($long); ?>">
+											<input name="<?php echo $currentimage; ?>-GPSLongitude" class="geo_stuff" type="text" value="<?php echo html_encode($long); ?>"<?php if (!$editgeotags) echo 'disabled="disabled"'; ?>>
 										</td>
 									</tr>
 									<?php
-									echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
-									if (!$singleimage) {
+									if ($singleimage) {
+										echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
+									} else {
 										?>
 										<tr>
 											<td colspan="100%" style="border-bottom:none;">
@@ -314,27 +369,29 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 							</div>
 
 							<div class="floatleft rightcolumn">
-								<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
-								<div class="box-edit">
+								<h2 class="h2_bordered_edit general_stuff" <?php if (!$editgeneral) echo ' style="display:none"'; ?>><?php echo gettext("General"); ?></h2>
+								<div class="box-edit general_stuff"<?php if (!$editgeneral) echo ' style="display:none"'; ?>>
 									<label class="checkboxlabel">
-										<input type="checkbox" id="Visible-<?php echo $currentimage; ?>"
+										<input type="checkbox" id="Visible-<?php echo $currentimage; ?>" class="general_stuff"
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
 																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
 																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
 																		 $('.expire-<?php echo $currentimage; ?>').html('');"
-													 />
+													 <?php if (!$editgeneral) echo ' disabled="disabled"'; ?> />
 													 <?php echo gettext("Published"); ?>
 									</label>
 									<?php
 									if (extensionEnabled('comment_form')) {
 										?>
 										<label class="checkboxlabel">
-											<input type="checkbox" id="allowcomments-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-allowcomments" value="1" <?php
+											<input type="checkbox" id="allowcomments-<?php echo $currentimage; ?>" class="general_stuff" name="<?php echo $currentimage; ?>-allowcomments" value="1" <?php
 											if ($image->getCommentsAllowed()) {
 												echo ' checked = "checked"';
 											}
+											if (!$editgeneral)
+												echo ' disable="disable"';
 											?> />
 														 <?php echo gettext("Allow Comments"); ?>
 										</label>
@@ -347,7 +404,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										}
 										?>
 										<label class="checkboxlabel">
-											<input type="checkbox" name="reset_hitcounter<?php echo $currentimage; ?>"<?php if (!$hc) echo ' disabled = "disabled"'; ?> />
+											<input type="checkbox" name="reset_hitcounter<?php echo $currentimage; ?>"<?php if (!$hc) echo ' disabled="disabled"'; ?> />
 											<?php echo sprintf(ngettext("Reset hitcounter (%u hit)", "Reset hitcounter (%u hits)", $hc), $hc); ?>
 										</label>
 										<?php
@@ -360,7 +417,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											$hc = $tv / $tc;
 											?>
 											<label class="checkboxlabel">
-												<input type="checkbox" id="reset_rating-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-reset_rating" value="1" />
+												<input type="checkbox" id="reset_rating-<?php echo $currentimage; ?>" class="general_stuff" name="<?php echo $currentimage; ?>-reset_rating" value="1"<?php if (!$editgeneral) echo ' disable="disable"'; ?> />
 												<?php printf(ngettext('Reset rating (%u star)', 'Reset rating (%u stars)', $hc), $hc); ?>
 											</label>
 											<?php
@@ -413,9 +470,14 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<hr />
 									<p>
 										<label for="publishdate-<?php echo $currentimage; ?>"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
-										<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" <?php if ($publishdate > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
+										<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" class="general_stuff" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" <?php
+										if ($publishdate > date('Y-m-d H:i:s'))
+											echo 'style="color:blue"';
+										if (!$editgeneral)
+											echo ' disable="disable"';
+										?> />
 										<br /><label for="expirationdate-<?php echo $currentimage; ?>"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
-										<br /><input value="<?php echo $expirationdate; ?>" type="text" size="20" maxlength="30" name="expirationdate-<?php echo $currentimage; ?>" id="expirationdate-<?php echo $currentimage; ?>" />
+										<br /><input value="<?php echo $expirationdate; ?>" type="text" size="20" maxlength="30" class="general_stuff" name="expirationdate-<?php echo $currentimage; ?>" id="expirationdate-<?php echo $currentimage; ?>"<?php if (!$editgeneral) echo ' disable="disable"'; ?> />
 										<strong class="expire-<?php echo $currentimage; ?>" style="color:red">
 											<?php
 											if (!empty($expirationdate) && ($expirationdate <= date('Y-m-d H:i:s'))) {
@@ -436,7 +498,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 										echo gettext("Owner");
 										?>
-										<select name="<?php echo $currentimage; ?>-owner" size='1'>
+										<select name="<?php echo $currentimage; ?>-owner" size='1' class="general_stuff"<?php if (!$editgeneral) echo ' disable="disable"'; ?>>
 											<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 										</select>
 										<?php
@@ -447,8 +509,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</p>
 								</div>
 
-								<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
-								<div class="box-edit">
+								<h2 class="h2_bordered_edit utilities_stuff"<?php if (!$editutilities) echo ' style="display:none";'; ?>><?php echo gettext("Utilities"); ?></h2>
+								<div class="box-edit utilities_stuff"<?php if (!$editutilities) echo ' style="display:none";'; ?>>
 									<!-- Move/Copy/Rename this image -->
 									<label class="checkboxlabel">
 										<input type="radio" id="move-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="move" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', 'move');"  /> <?php echo gettext("Move"); ?>
