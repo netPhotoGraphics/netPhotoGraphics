@@ -7,7 +7,7 @@ require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
-$showmeta = $editgeneral = $editutilities = $editgeotags = 1;
+$editmetadata = $editgeneral = $editutilities = $editgeotags = 1;
 
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
@@ -35,9 +35,33 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	}
 	consolidatedEditMessages('imageinfo');
 	if (!$singleimage) {
-		$items = getSerializedArray(getNPGCookie('image_edit_items'));
-		extract($items);
+		if (($cookiepath = WEBPATH) == '') {
+			$cookiepath = '/';
+		}
+		foreach ($_COOKIE as $cookie => $value) {
+			if (strpos($cookie, 'image_edit_') === 0) {
+				$item = substr($cookie, 11);
+				$set = '$edit' . $item . '=' . (int) ($value == 'true') . ';';
+				eval($set);
+			}
+		}
 		?>
+		<div class="floatleft">
+			<?php
+			echo gettext("Click on the image to change the thumbnail cropping.");
+			?>
+		</div>
+		<script type="text/javascript">
+			function toggle_stuff(stuff) {
+				state = $('#' + stuff + '_box').prop('checked')
+				$('.' + stuff + '_stuff').toggle();
+				$('.' + stuff + '_stuff').prop('disabled', !state);
+				$('.edit_' + stuff).val(state);
+
+				document.cookie = 'image_edit_' + stuff + '=' + state + '; expires=<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path=<?php echo $cookiepath ?>';
+			}
+
+		</script>
 		<div id="menu_selector_button">
 			<div id="menu_button">
 				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
@@ -46,42 +70,30 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
 					<label>
-						<input id="metabox" type="checkbox" value="1" <?php if ($showmeta) echo 'checked="checked"' ?> onclick="$('.metadata_stuff').toggle();$('.show_metadata').val($('#metabox').prop('checked') | 0);"><?php echo gettext('Metadata'); ?>
+						<input id="metadata_box" type="checkbox" value="1" <?php if ($editmetadata) echo 'checked="checked"' ?> onclick="toggle_stuff('metadata');"><?php echo gettext('Metadata'); ?>
 					</label>
 					<br />
 					<label>
-						<input id="geobox" type="checkbox" value="1" <?php if ($editgeotags) echo 'checked="checked"' ?> onclick="$('.geo_stuff').prop('disabled', function (i, v) {
-										return !v;
-									});
-									$('.geo_stuff').toggle();
-									$('.edit_geo').val($('#geobox').prop('checked') | 0);"><?php echo gettext('Geo location'); ?>
+						<input id="geotags_box" type="checkbox" value="1" <?php if ($editgeotags) echo 'checked="checked"' ?> onclick="toggle_stuff('geotags');"><?php echo gettext('Geo location'); ?>
 					</label>
 					<br />
 					<label>
-						<input id="genbox" type="checkbox" value="1" <?php if ($editgeneral) echo 'checked="checked"' ?> onclick="$('.general_stuff').prop('disabled', function (i, v) {
-										return !v;
-									});
-									$('.general_stuff').toggle();
-									$('.edit_general').val($('#genbox').prop('checked') | 0);"><?php echo gettext('General'); ?>
+						<input id="general_box" type="checkbox" value="1" <?php if ($editgeneral) echo 'checked="checked"' ?> onclick="toggle_stuff('general');"><?php echo gettext('General'); ?>
 					</label>
 					<br />
 					<label>
-						<input id="utilbox" type="checkbox" value="1" <?php if ($editutilities) echo 'checked="checked"' ?> onclick="$('.utilities_stuff').prop('disabled', function (i, v) {
-										return !v;
-									});
-									$('.utilities_stuff').toggle();
-									$('.edit_utilities').val($('#utilbox').prop('checked') | 0);"><?php echo gettext('Utilities'); ?>
+						<input id="utilities_box" type="checkbox" value="1" <?php if ($editutilities) echo 'checked="checked"' ?> onclick="toggle_stuff('utilities');"><?php echo gettext('Utilities'); ?>
 					</label>
 					<br />
 				</div>
 			</div>
 		</div>
 		<br style="clear:both"/><br />
-		<div style="padding-bottom:10px;">
-			<?php
-		}
-
-		echo gettext("Click on the image to change the thumbnail cropping.");
+		<?php
+	}
+	?>
+	<div>
+		<?php
 		if ($showfilter) {
 			$numsteps = ceil(max($allimagecount, $imagesTab_imageCount) / ADMIN_IMAGES_STEP);
 			if ($numsteps) {
@@ -153,10 +165,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<?php
 			} else {
 				?>
-				<input type="hidden" class="show_metadata" name="show_metadata" value="<?php echo $showmeta; ?>" />
+				<input type="hidden" class="edit_metadata" name="edit_metadata" value="<?php echo $editmetadata; ?>" />
 				<input type="hidden" class="edit_general" name="edit_general" value="<?php echo $editgeneral; ?>" />
 				<input type="hidden" class="edit_utilities" name="edit_utilities" value="<?php echo $editutilities; ?>" />
-				<input type="hidden" class="edit_geo" name="edit_geo" value="<?php echo $editgeotags; ?>" />
+				<input type="hidden" class="edit_geotags" name="edit_geotags" value="<?php echo $editgeotags; ?>" />
 				<?php
 			}
 			?>
@@ -290,7 +302,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<?php
 									if ($image->get('hasMetadata')) {
 										?>
-										<tr class="metadata_stuff"<?php if (!$showmeta) echo ' style="display:none";'; ?>>
+										<tr class="metadata_stuff"<?php if (!$editmetadata) echo ' style="display:none";'; ?>>
 											<td class="leftcolumn"><?php echo gettext("Metadata"); ?></td>
 											<td class="middlecolumn">
 												<?php
@@ -322,7 +334,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php
 									}
 									?>
-									<tr class="geo_stuff"<?php if (!$editgeotags) echo ' style="display:none";'; ?>>
+									<tr class="geotags_stuff"<?php if (!$editgeotags) echo ' style="display:none";'; ?>>
 										<td class="leftcolumn"><?php echo gettext("Geolocation"); ?></td>
 										<td class="middlecolumn">
 											<?php
@@ -344,9 +356,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											}
 											echo gettext('latitiude');
 											?>
-											<input name="<?php echo $currentimage; ?>-GPSLatitude" class="geo_stuff" type="text" value="<?php echo html_encode($lat); ?>"<?php if (!$editgeotags) echo 'disabled="disabled"'; ?>>
+											<input name="<?php echo $currentimage; ?>-GPSLatitude" class="geotags_stuff" type="text" value="<?php echo html_encode($lat); ?>"<?php if (!$editgeotags) echo 'disabled="disabled"'; ?>>
 											<?php echo gettext('longitude'); ?>
-											<input name="<?php echo $currentimage; ?>-GPSLongitude" class="geo_stuff" type="text" value="<?php echo html_encode($long); ?>"<?php if (!$editgeotags) echo 'disabled="disabled"'; ?>>
+											<input name="<?php echo $currentimage; ?>-GPSLongitude" class="geotags_stuff" type="text" value="<?php echo html_encode($long); ?>"<?php if (!$editgeotags) echo 'disabled="disabled"'; ?>>
 										</td>
 									</tr>
 									<?php

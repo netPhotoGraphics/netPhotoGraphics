@@ -9,21 +9,6 @@ if (isset($_POST['checkForPostTruncation'])) {
 	$returntab = '&tagsort=' . $tagsort . '&tab=imageinfo&filter=' . $filter;
 	if (isset($_POST['singleimage'])) {
 		$single = sanitize($_POST['singleimage']);
-	} else {
-		$edititems = array();
-		if (isset($_POST['show_metadata'])) {
-			$edititems['showmeta'] = $_POST['show_metadata'];
-		}
-		if (isset($_POST['edit_general'])) {
-			$edititems['editgeneral'] = $_POST['edit_general'];
-		}
-		if (isset($_POST['edit_utilities'])) {
-			$edititems['editutilities'] = $_POST['edit_utilities'];
-		}
-		if (isset($_POST['edit_geo'])) {
-			$edititems['editgeotags'] = $_POST['edit_geo'];
-		}
-		setNPGCookie('image_edit_items', serialize($edititems));
 	}
 
 	$changed = FALSE;
