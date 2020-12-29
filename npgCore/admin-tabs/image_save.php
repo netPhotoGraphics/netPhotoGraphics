@@ -109,7 +109,7 @@ if (isset($_POST['checkForPostTruncation'])) {
 	if (isset($_POST['ids'])) { //	process bulk actions
 		$action = processImageBulkActions($album);
 		if (!empty($action)) {
-			$bulknotify = '&bulkmessage=' . $action;
+			$bulknotify = '&bulkmessage = ' . $action;
 		}
 	}
 	if (empty($notify) && !$changed) {
