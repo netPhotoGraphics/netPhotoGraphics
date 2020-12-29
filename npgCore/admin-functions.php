@@ -2120,7 +2120,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						  $sort[gettext('Random')] = 'random';
 						 */
 						?>
-						<tr>
+						<tr class="sort_stuff">
 							<td class="leftcolumn"><?php echo gettext("Sort subalbums by"); ?> </td>
 							<td>
 								<span class="nowrap">
@@ -2175,7 +2175,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							</td>
 						</tr>
 
-						<tr>
+						<tr class="sort_stuff">
 							<td class="leftcolumn"><?php echo gettext("Sort images by"); ?> </td>
 							<td>
 								<span class="nowrap">
@@ -2236,7 +2236,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						<?php
 						if (is_null($album->getParent())) {
 							?>
-							<tr>
+							<tr class="theme_stuff">
 								<td class="leftcolumn"><?php echo gettext("Album theme"); ?> </td>
 								<td>
 									<select id="album_theme" class="album_theme" name="<?php echo $prefix; ?>album_theme"	<?php if (!npg_loggedin(THEMES_RIGHTS)) echo 'disabled="disabled" '; ?>	>
@@ -2269,7 +2269,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 						if (!$album->isDynamic()) {
 							?>
-							<tr>
+							<tr class="watermark_stuff">
 								<td class="leftcolumn"><?php echo gettext("Album watermarks"); ?> </td>
 								<td>
 									<?php $current = $album->getWatermark(); ?>
@@ -2284,7 +2284,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									<em><?php echo gettext('Images'); ?></em>
 								</td>
 							</tr>
-							<tr>
+							<tr class="watermark_stuff">
 								<td class="leftcolumn"></td>
 								<td>
 									<?php $current = $album->getWatermarkThumb(); ?>
@@ -2402,16 +2402,16 @@ function printAdminHeader($tab, $subtab = NULL) {
 								</td>
 							</tr>
 							<?php
+							echo $custom = npgFilters::apply('edit_album_custom', '', $album, $prefix);
 						}
-						echo $custom = npgFilters::apply('edit_album_custom', '', $album, $prefix);
 						?>
 					</table>
 				</div>
 			</div>
 			<div class="floatleft">
 				<div class="rightcolumn" valign="top">
-					<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
-					<div class="box-edit">
+					<h2 class="h2_bordered_edit general_stuff"><?php echo gettext("General"); ?></h2>
+					<div class="box-edit general_stuff">
 						<label class="checkboxlabel">
 							<input type="checkbox"
 										 name="<?php echo $prefix; ?>Published"
@@ -2546,8 +2546,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						</p>
 					</div>
 					<!-- **************** Move/Copy/Rename ****************** -->
-					<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
-					<div class="box-edit">
+					<h2 class="h2_bordered_edit utilities_stuff"><?php echo gettext("Utilities"); ?></h2>
+					<div class="box-edit utilities_stuff">
 
 						<label class="checkboxlabel">
 							<input type="radio" id="a-<?php echo $prefix; ?>move" name="a-<?php echo $prefix; ?>MoveCopyRename" value="move"
@@ -3120,30 +3120,33 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$album->setTags($tags);
 		if (isset($_POST[$prefix . 'thumb']))
 			$album->setThumb(sanitize($_POST[$prefix . 'thumb']));
-		$album->setCommentsAllowed(isset($_POST[$prefix . 'allowcomments']));
-		$sorttype = strtolower(sanitize($_POST[$prefix . 'sortby'], 3));
-		if ($sorttype == 'custom') {
-			$sorttype = unquote(strtolower(sanitize($_POST[$prefix . 'customimagesort'], 3)));
-		}
-		$album->setSortType($sorttype, 'image');
-		if (($sorttype == 'manual') || ($sorttype == 'random')) {
-			$album->setSortDirection(false, 'image');
-		} else {
-			if (empty($sorttype)) {
-				$direction = false;
-			} else {
-				$direction = isset($_POST[$prefix . 'image_sortdirection']);
+
+		if (isset($_POST[$prefix . 'sortby'])) {
+			$sorttype = strtolower(sanitize($_POST[$prefix . 'sortby'], 3));
+			if ($sorttype == 'custom') {
+				$sorttype = unquote(strtolower(sanitize($_POST[$prefix . 'customimagesort'], 3)));
 			}
-			$album->setSortDirection($direction, 'image');
-		}
-		$sorttype = strtolower(sanitize($_POST[$prefix . 'subalbumsortby'], 3));
-		if ($sorttype == 'custom')
-			$sorttype = strtolower(sanitize($_POST[$prefix . 'customalbumsort'], 3));
-		$album->setSortType($sorttype, 'album');
-		if (($sorttype == 'manual') || ($sorttype == 'random')) {
-			$album->setSortDirection(false, 'album');
-		} else {
-			$album->setSortDirection(isset($_POST[$prefix . 'album_sortdirection']), 'album');
+			$album->setSortType($sorttype, 'image');
+
+			if (($sorttype == 'manual') || ($sorttype == 'random')) {
+				$album->setSortDirection(false, 'image');
+			} else {
+				if (empty($sorttype)) {
+					$direction = false;
+				} else {
+					$direction = isset($_POST[$prefix . 'image_sortdirection']);
+				}
+				$album->setSortDirection($direction, 'image');
+			}
+			$sorttype = strtolower(sanitize($_POST[$prefix . 'subalbumsortby'], 3));
+			if ($sorttype == 'custom')
+				$sorttype = strtolower(sanitize($_POST[$prefix . 'customalbumsort'], 3));
+			$album->setSortType($sorttype, 'album');
+			if (($sorttype == 'manual') || ($sorttype == 'random')) {
+				$album->setSortDirection(false, 'album');
+			} else {
+				$album->setSortDirection(isset($_POST[$prefix . 'album_sortdirection']), 'album');
+			}
 		}
 		if (isset($_POST['reset_hitcounter' . $prefix])) {
 			$album->set('hitcounter', 0);
@@ -3153,8 +3156,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->set('total_votes', 0);
 			$album->set('used_ips', 0);
 		}
-		$pubdate = $album->setPublishDate(sanitize($_POST['publishdate-' . $prefix]));
-		$album->setExpireDate(sanitize($_POST['expirationdate-' . $prefix]));
+		if (isset($_POST['publishdate-' . $prefix])) {
+			$pubdate = $album->setPublishDate(sanitize($_POST['publishdate-' . $prefix]));
+			$album->setExpireDate(sanitize($_POST['expirationdate-' . $prefix]));
+		}
 		$fail = '';
 		processCredentials($album, $suffix);
 		$oldtheme = $album->getAlbumTheme();
@@ -3168,14 +3173,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermark(sanitize($_POST[$prefix . 'album_watermark'], 3));
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
-		$album->setShow(isset($_POST[$prefix . 'Published']));
+
+		if ($index === 0 || getNPGCookie('album_edit_general') == 'true') {
+			/* single album or the General box is enabled
+			 * needed to be sure we don't reset these values because the input was disabled
+			 */
+			$album->setShow(isset($_POST[$prefix . 'Published']));
+			$album->setCommentsAllowed(isset($_POST[$prefix . 'allowcomments']));
+		}
 
 		npgFilters::apply('save_album_data', $album, $prefix);
 		if ($album->save() == 2) {
 			$notify = '&noaction';
 		}
 
-// Move/Copy/Rename the album after saving.
+		// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
 		if (isset($_POST['a-' . $prefix . 'MoveCopyRename'])) {
 			$movecopyrename_action = sanitize($_POST['a-' . $prefix . 'MoveCopyRename'], 3);
@@ -3193,7 +3205,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		if ($movecopyrename_action == 'move') {
 			$dest = sanitize_path($_POST['a' . $prefix . '-albumselect']);
-// Append the album name.
+			// Append the album name.
 			$dest = ($dest ? $dest . '/' : '') . (strpos($album->name, '/') === FALSE ? $album->name : basename($album->name));
 			if ($dest && $dest != $album->name) {
 				if ($suffix = $album->isDynamic()) { // be sure there is a .alb suffix
@@ -3207,7 +3219,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$redirectto = $dest;
 				}
 			} else {
-// Cannot move album to same album.
+				// Cannot move album to same album.
 				$notify = "&mcrerr=3";
 			}
 		} else if ($movecopyrename_action == 'copy') {
@@ -3217,8 +3229,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$notify = "&mcrerr=" . $e;
 				}
 			} else {
-// Cannot copy album to existing album.
-// Or, copy with rename?
+				// Cannot copy album to existing album.
+				// Or, copy with rename?
 				$notify = '&mcrerr=3';
 			}
 		} else if ($movecopyrename_action == 'rename') {
@@ -6025,7 +6037,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-		 <?php echo CLIPBOARD; ?>
+			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }

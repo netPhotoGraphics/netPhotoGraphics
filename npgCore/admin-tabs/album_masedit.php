@@ -29,12 +29,13 @@ if (isset($_GET['album'])) {
 npgFilters::apply('admin_note', 'albums', $subtab);
 ?>
 <h1>
-	<?php echo gettext("Edit All Albums in"); ?> <?php
+	<?php
 	if (!isset($_GET['album'])) {
-		echo gettext("Gallery");
+		$what = gettext("Gallery");
 	} else {
-		echo "<em>" . pathurlencode($album->name) . "</em>";
+		$what = "<em>" . pathurlencode($album->name) . "</em>";
 	}
+	printf(gettext('Edit All Albums in %1$s'), $what);
 	?>
 </h1>
 <div class="tabbox">
@@ -46,8 +47,80 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 		backButton(array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit'));
 		applyButton();
 		resetButton();
+		if (($cookiepath = WEBPATH) == '') {
+			$cookiepath = '/';
+		}
+		$edit = array('general' => 1, 'utilities' => 1, 'sort' => 1, 'theme' => 1, 'watermark' => 1);
+		foreach ($_COOKIE as $cookie => $value) {
+			if (strpos($cookie, 'album_edit_') === 0) {
+				$item = substr($cookie, 11);
+				$set = '$edit[\'' . $item . '\']=' . (int) (strtolower($value) == 'true') . ';';
+				eval($set);
+			}
+		}
 		?>
-		<br class = "clearall">
+
+		<script type="text/javascript">
+			function toggle_stuff(stuff) {
+				state = $('#' + stuff + '_box').prop('checked')
+				$('.' + stuff + '_stuff').toggle();
+				$('.' + stuff + '_stuff :input').prop('disabled', !state);
+				$('.initial_disabled').prop('disabled', true);
+				document.cookie = 'album_edit_' + stuff + '=' + state + '; expires=<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path=<?php echo $cookiepath ?>';
+			}
+			window.addEventListener('load', function () {
+<?php ?>
+				$('input:disabled').addClass('initial_disabled');
+<?php
+foreach ($edit as $stuff => $state) {
+	if (!$state) {
+		?>
+						toggle_stuff('<?php echo $stuff; ?>', false);
+		<?php
+	}
+}
+?>
+			}, false);
+		</script>
+		<div id="menu_selector_button">
+			<div id="menu_button">
+				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+			</div>
+			<div id="menu_selections" style="display: none;">
+				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<div class="floatright">
+					<label>
+						<input id="sort_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['sort']) echo 'checked="checked"' ?> onclick="toggle_stuff('sort');"><?php echo gettext('Sorts'); ?>
+					</label>
+					<br />
+					<?php
+					if (!isset($_GET['album'])) {
+						?>
+						<label>
+							<input id="theme_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['theme']) echo 'checked="checked"' ?> onclick="toggle_stuff('theme');"><?php echo gettext('Album theme'); ?>
+						</label>
+						<br />
+						<?php
+					}
+					?>
+					<label>
+						<input id="watermark_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['watermark']) echo 'checked="checked"' ?> onclick="toggle_stuff('watermark');"><?php echo gettext('Watermark'); ?>
+					</label>
+					<br />
+					<label>
+						<input id="general_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['general']) echo 'checked="checked"' ?> onclick="toggle_stuff('general');"><?php echo gettext('General'); ?>
+					</label>
+					<br />
+					<label>
+						<input id="utilities_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['utilities']) echo 'checked="checked"' ?> onclick="toggle_stuff('utilities');"><?php echo gettext('Utilities'); ?>
+					</label>
+					<br />
+				</div>
+			</div>
+		</div>
+		<br style="clear:both"/><br />
+
+
 		<br />
 		<div class = "outerbox">
 			<?php

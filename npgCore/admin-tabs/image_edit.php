@@ -7,7 +7,7 @@ require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
-$editmetadata = $editgeneral = $editutilities = $editgeotags = 1;
+$edit = array('metadata' => 1, 'general' => 1, 'utilities' => 1, 'geotags' => 1);
 
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
@@ -38,6 +38,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 		if (($cookiepath = WEBPATH) == '') {
 			$cookiepath = '/';
 		}
+
 		foreach ($_COOKIE as $cookie => $value) {
 			if (strpos($cookie, 'image_edit_') === 0) {
 				$item = substr($cookie, 11);
@@ -392,9 +393,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-																		 $('.expire-<?php echo $currentimage; ?>').html('');" />
+															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+															 $('.expire-<?php echo $currentimage; ?>').html('');" />
 													 <?php echo gettext("Published"); ?>
 									</label>
 									<?php
@@ -534,7 +535,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">

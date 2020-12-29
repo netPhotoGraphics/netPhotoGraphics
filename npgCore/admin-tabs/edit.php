@@ -342,6 +342,11 @@ if (isset($_GET['action'])) {
 			$bulknotify = $notify = $returntab = '';
 			XSRFdefender('albumedit');
 			/** SAVE A SINGLE ALBUM ****************************************************** */
+			if (isset($_POST['subpage'])) {
+				$pg = '&subpage=' . ($subpage = sanitize($_POST['subpage']));
+			} else {
+				$subpage = $pg = false;
+			}
 			if (isset($_POST['album'])) {
 				$folder = sanitize_path($_POST['album']);
 				$album = newAlbum($folder, false, true);
@@ -356,11 +361,6 @@ if (isset($_GET['action'])) {
 				// Redirect to the same album we saved.
 				if (isset($folder) && !empty($folder)) {
 					$qs_albumsuffix .= '&album=' . pathurlencode($folder);
-				}
-				if (isset($_POST['subpage'])) {
-					$pg = '&subpage=' . ($subpage = sanitize($_POST['subpage']));
-				} else {
-					$subpage = $pg = false;
 				}
 				if (isset($_POST['totalimages']) && $album->exists) {
 					require_once(CORE_SERVERPATH . 'admin-tabs/image_save.php');
