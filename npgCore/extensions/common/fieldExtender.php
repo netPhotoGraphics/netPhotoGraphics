@@ -205,7 +205,6 @@ class fieldExtender {
 				$newdata = call_user_func($field['function'], $obj, $instance, $field, 'save');
 				break;
 			default:
-
 				$newdata = NULL;
 				if ($userfield) {
 					if (isset($_POST[$userfield][$instance][$field['name']])) {
