@@ -66,7 +66,7 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 				$('.' + stuff + '_stuff').toggle();
 				$('.' + stuff + '_stuff :input').prop('disabled', !state);
 				$('.initial_disabled').prop('disabled', true);
-				document.cookie = 'album_edit_' + stuff + '=' + state + '; expires=<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path=<?php echo $cookiepath ?>';
+				setCookie('album_edit_' + stuff, state, 2, '<?php echo $cookiepath ?>');
 			}
 			window.addEventListener('load', function () {
 <?php ?>
@@ -76,6 +76,7 @@ foreach ($edit as $stuff => $state) {
 	if (!$state) {
 		?>
 						toggle_stuff('<?php echo $stuff; ?>', false);
+						setCookie('image_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
 		<?php
 	}
 }

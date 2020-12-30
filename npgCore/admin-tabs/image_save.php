@@ -64,7 +64,7 @@ if (isset($_POST['checkForPostTruncation'])) {
 
 					$image->set('filesize', filesize($image->localpath));
 
-					if ($i === 0 || getNPGCookie('image_edit_general') == 'true') {
+					if ($i === 0 || isset($_COOKIE['image_edit_general']) && strtolower($_COOKIE['image_edit_general']) == 'true') {
 						/* single image or the General box is enabled
 						 * needed to be sure we don't reset these values because the input was disabled
 						 */
