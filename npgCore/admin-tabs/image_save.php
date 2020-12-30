@@ -57,15 +57,21 @@ if (isset($_POST['checkForPostTruncation'])) {
 							Gallery::clearCache($album->name);
 						}
 					}
-					if (isset($_POST["$i-allowcomments"])) {
-						$image->setCommentsAllowed(isset($_POST["$i-allowcomments"]));
-					}
+
 					if (isset($_POST["reset_hitcounter$i"])) {
 						$image->set('hitcounter', 0);
 					}
 
 					$image->set('filesize', filesize($image->localpath));
-					$image->setShow(isset($_POST["$i-Visible"]));
+
+					if ($i === 0 || getNPGCookie('image_edit_general') == 'true') {
+						/* single image or the General box is enabled
+						 * needed to be sure we don't reset these values because the input was disabled
+						 */
+						$image->setShow(isset($_POST["$i-Visible"]));
+						$image->setCommentsAllowed(isset($_POST["$i-allowcomments"]));
+					}
+
 					npgFilters::apply('save_image_data', $image, $i);
 					if ($image->save() == 1) {
 						$changed = true;
