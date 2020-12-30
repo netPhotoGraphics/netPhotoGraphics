@@ -3174,7 +3174,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
 
-		if ($index === 0 || getNPGCookie('album_edit_general') == 'true') {
+		if ($index === 0 || isset($_COOKIE['album_edit_general']) && strtolower($_COOKIE['album_edit_general']) == 'true') {
 			/* single album or the General box is enabled
 			 * needed to be sure we don't reset these values because the input was disabled
 			 */

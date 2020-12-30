@@ -68,6 +68,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 		if (!$state) {
 			?>
 						toggle_stuff('<?php echo $stuff; ?>', false);
+						document.cookie = 'image_edit_' + stuff + '=false; expires =<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path =<?php echo $cookiepath ?>';
 			<?php
 		}
 	}

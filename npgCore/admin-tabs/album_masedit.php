@@ -76,6 +76,7 @@ foreach ($edit as $stuff => $state) {
 	if (!$state) {
 		?>
 						toggle_stuff('<?php echo $stuff; ?>', false);
+						document.cookie = 'album_edit_' + stuff + '=false; expires =<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path =<?php echo $cookiepath ?>';
 		<?php
 	}
 }
