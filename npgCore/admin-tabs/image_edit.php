@@ -58,7 +58,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				$('.' + stuff + '_stuff').toggle();
 				$('.' + stuff + '_stuff :input').prop('disabled', !state);
 				$('.initial_disabled').prop('disabled', true);
-				document.cookie = 'image_edit_' + stuff + '=' + state + '; expires=<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path=<?php echo $cookiepath ?>';
+				setCookie('image_edit_' + stuff, state, 2, '<?php echo $cookiepath ?>');
 			}
 			window.addEventListener('load', function () {
 	<?php ?>
@@ -68,7 +68,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 		if (!$state) {
 			?>
 						toggle_stuff('<?php echo $stuff; ?>', false);
-						document.cookie = 'image_edit_' + stuff + '=false; expires =<?php echo date('Y-m-d H:i:s', time() + COOKIE_PERSISTENCE); ?>; path =<?php echo $cookiepath ?>';
+						setCookie('image_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
 			<?php
 		}
 	}
