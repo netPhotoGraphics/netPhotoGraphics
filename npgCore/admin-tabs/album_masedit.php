@@ -50,7 +50,7 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 		if (($cookiepath = WEBPATH) == '') {
 			$cookiepath = '/';
 		}
-		$edit = array('general' => 1, 'utilities' => 1, 'sort' => 1, 'theme' => 1, 'watermark' => 1);
+		$edit = array('description' => 1, 'general' => 1, 'utilities' => 1, 'sort' => 1, 'theme' => 1, 'watermark' => 1);
 		foreach ($_COOKIE as $cookie => $value) {
 			if (strpos($cookie, 'album_edit_') === 0) {
 				$item = substr($cookie, 11);
@@ -76,7 +76,7 @@ foreach ($edit as $stuff => $state) {
 	if (!$state) {
 		?>
 						toggle_stuff('<?php echo $stuff; ?>', false);
-						setCookie('image_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
+						setCookie('album_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
 		<?php
 	}
 }
@@ -88,8 +88,12 @@ foreach ($edit as $stuff => $state) {
 				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
+					<label>
+						<input id="description_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['description']) echo 'checked="checked"' ?> onclick="toggle_stuff('description');"><?php echo gettext('Description'); ?>
+					</label>
+					<br />
 					<label>
 						<input id="sort_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['sort']) echo 'checked="checked"' ?> onclick="toggle_stuff('sort');"><?php echo gettext('Sorts'); ?>
 					</label>
