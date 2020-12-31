@@ -109,7 +109,7 @@ foreach ($edit as $stuff => $state) {
 					}
 					?>
 					<label>
-						<input id="watermark_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['watermark']) echo 'checked="checked"' ?> onclick="toggle_stuff('watermark');"><?php echo gettext('Watermark'); ?>
+						<input id="watermark_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['watermark']) echo 'checked="checked"' ?> onclick="toggle_stuff('watermark');"><?php echo gettext('Watermarks'); ?>
 					</label>
 					<br />
 					<label>
