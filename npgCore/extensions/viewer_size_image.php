@@ -29,51 +29,50 @@ $plugin_disable = extensionEnabled('panorama') ? gettext('Viewer sized image is 
 
 $option_interface = 'viewer_size_image_options';
 
-if ($plugin_disable) {
-	enableExtension('viewer_size_image', 0);
-} else {
+/**
+ * Plugin option handling class
+ *
+ */
+class viewer_size_image_options {
 
-	/**
-	 * Plugin option handling class
-	 *
-	 */
-	class viewer_size_image_options {
-
-		function __construct() {
-			if (OFFSET_PATH == 2) {
-				$default = getOption('image_size');
-				setOptionDefault('viewer_size_image_sizes', '$s=' . ($default - 200) . '; $s=' . ($default - 100) . '; $s=' . ($default) . '; $s=' . ($default + 100) . '; $s=' . ($default + 200) . ';');
-				setOptionDefault('viewer_size_image_default', '$s=' . $default);
-				setOptionDefault('viewer_size_image_radio', 2);
-				if (class_exists('cacheManager')) {
-					cacheManager::deleteCacheSizes('viewer_size_image');
-					cacheManager::addCacheSize('viewer_size_image', $default - 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-					cacheManager::addCacheSize('viewer_size_image', $default - 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-					cacheManager::addCacheSize('viewer_size_image', $default, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-					cacheManager::addCacheSize('viewer_size_image', $default + 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-					cacheManager::addCacheSize('viewer_size_image', $default + 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-				}
+	function __construct() {
+		if (OFFSET_PATH == 2) {
+			$default = getOption('image_size');
+			setOptionDefault('viewer_size_image_sizes', '$s=' . ($default - 200) . '; $s=' . ($default - 100) . '; $s=' . ($default) . '; $s=' . ($default + 100) . '; $s=' . ($default + 200) . ';');
+			setOptionDefault('viewer_size_image_default', '$s=' . $default);
+			setOptionDefault('viewer_size_image_radio', 2);
+			if (class_exists('cacheManager')) {
+				cacheManager::deleteCacheSizes('viewer_size_image');
+				cacheManager::addCacheSize('viewer_size_image', $default - 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+				cacheManager::addCacheSize('viewer_size_image', $default - 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+				cacheManager::addCacheSize('viewer_size_image', $default, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+				cacheManager::addCacheSize('viewer_size_image', $default + 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+				cacheManager::addCacheSize('viewer_size_image', $default + 200, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 			}
 		}
+	}
 
-		function getOptionsSupported() {
-			return array(gettext('Image sizes allowed') => array('key' => 'viewer_size_image_sizes', 'type' => OPTION_TYPE_TEXTAREA,
-							'multilingual' => false,
-							'desc' => gettext('List of sizes from which the viewer may select.<br />The form is "$s=&lt;size&gt;" or "$h=&lt;height&gt;,$w=&lt;width&gt;"....<br />See printCustomSizedImage() for details')),
-					gettext('Selector') => array('key' => 'viewer_size_image_radio', 'type' => OPTION_TYPE_RADIO,
-							'buttons' => array(gettext('Radio buttons') => 2, gettext('Drop-down') => 1),
-							'desc' => gettext('Choose the kind of selector to be presented the viewer.')),
-					gettext('Default size') => array('key' => 'viewer_size_image_default', 'type' => OPTION_TYPE_TEXTBOX,
-							'desc' => gettext('The initial size for the image. Format is a single instance of the sizes list.'))
-			);
-		}
+	function getOptionsSupported() {
+		return array(gettext('Image sizes allowed') => array('key' => 'viewer_size_image_sizes', 'type' => OPTION_TYPE_TEXTAREA,
+						'multilingual' => false,
+						'desc' => gettext('List of sizes from which the viewer may select.<br />The form is "$s=&lt;size&gt;" or "$h=&lt;height&gt;,$w=&lt;width&gt;"....<br />See printCustomSizedImage() for details')),
+				gettext('Selector') => array('key' => 'viewer_size_image_radio', 'type' => OPTION_TYPE_RADIO,
+						'buttons' => array(gettext('Radio buttons') => 2, gettext('Drop-down') => 1),
+						'desc' => gettext('Choose the kind of selector to be presented the viewer.')),
+				gettext('Default size') => array('key' => 'viewer_size_image_default', 'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('The initial size for the image. Format is a single instance of the sizes list.'))
+		);
+	}
 
-		function handleOption($option, $currentValue) {
-
-		}
+	function handleOption($option, $currentValue) {
 
 	}
 
+}
+
+if ($plugin_disable) {
+	enableExtension('viewer_size_image', 0);
+} else {
 	if (!OFFSET_PATH) {
 		$saved = @$_COOKIE['viewer_size_image_saved']; //	This cookie set by JavaScript, so not bound to the IP. cannot use getNPGCookie()
 		if (empty($saved)) {
