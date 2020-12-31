@@ -2001,7 +2001,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<?php
 						}
 						?>
-						<tr>
+						<tr class="description_stuff">
 							<td class="leftcolumn">
 								<?php echo gettext("Album Description"); ?>
 							</td>
@@ -3107,7 +3107,16 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		$notify = '';
 		$album->setTitle(process_language_string_save($prefix . 'albumtitle', 2));
-		$album->setDesc(process_language_string_save($prefix . 'albumdesc', EDITOR_SANITIZE_LEVEL));
+
+		if (!$index || !isset($_COOKIE['album_edit_description']) || strtolower($_COOKIE['album_edit_description']) == 'true') {
+			/* single image or the General box is enabled
+			 * needed to be sure we don't reset these values because the input was disabled
+			 */
+			$album->setDesc(process_language_string_save($prefix . 'albumdesc', EDITOR_SANITIZE_LEVEL));
+
+			echo "set<br/>";
+		}
+
 		if (isset($_POST[$prefix . 'owner'])) {
 			$album->setOwner(sanitize($_POST[$prefix . 'owner']));
 		}
@@ -3174,7 +3183,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
 
-		if ($index === 0 || isset($_COOKIE['album_edit_general']) && strtolower($_COOKIE['album_edit_general']) == 'true') {
+		if (!$index || !isset($_COOKIE['album_edit_general']) || strtolower($_COOKIE['album_edit_general']) == 'true') {
 			/* single album or the General box is enabled
 			 * needed to be sure we don't reset these values because the input was disabled
 			 */

@@ -7,7 +7,7 @@ require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
-$edit = array('metadata' => 1, 'general' => 1, 'utilities' => 1, 'geotags' => 1);
+$edit = array('description' => 1, 'metadata' => 1, 'general' => 1, 'utilities' => 1, 'geotags' => 1);
 
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
@@ -80,8 +80,12 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
+					<label>
+						<input id="description_box" type="checkbox" value="1" <?php if ($edit['description']) echo 'checked="checked"' ?> onclick="toggle_stuff('description');"><?php echo gettext('Description'); ?>
+					</label>
+					<br />
 					<label>
 						<input id="metadata_box" type="checkbox" value="1" <?php if ($edit['metadata']) echo 'checked="checked"' ?> onclick="toggle_stuff('metadata');"><?php echo gettext('Metadata'); ?>
 					</label>
@@ -281,7 +285,6 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 								?>
 							</div>
 
-
 							<div class="floatleft">
 								<table class="width100percent" id="image-<?php echo $currentimage; ?>">
 									<tr>
@@ -301,7 +304,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<?php echo linkPickerItem($image, 'image_link-' . $currentimage); ?>
 										</td>
 									</tr>
-									<tr>
+									<tr class="description_stuff">
 										<td class="leftcolumn"><?php echo gettext("Description"); ?></td>
 										<td class="middlecolumn"><?php print_language_string_list($image->getDesc('all'), $currentimage . '-desc', true, NULL, 'texteditor', '100%'); ?></td>
 									</tr>

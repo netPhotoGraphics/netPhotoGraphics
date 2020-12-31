@@ -327,7 +327,6 @@ class fieldExtender {
 
 			$output = array_chunk($list, round($count / 2));
 
-
 			$html .= '<div class="user_left">' .
 							implode("\n", $output[0]) .
 							'</div>';
