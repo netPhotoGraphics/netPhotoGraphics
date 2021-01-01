@@ -1248,7 +1248,7 @@ function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  */
 function printStandardMeta() {
 	?>
-	<meta name="generator" content="netPhotoGraphics <?php echo NETPHOTOGRAPHICS_VERSION_CONCISE; ?>" />
+	<meta name="generator" content="netPhotoGraphics <?php echo NETPHOTOGRAPHICS_VERSION_CONCISE . ' https://' . GITHUB; ?>" />
 	<meta charset="<?php echo LOCAL_CHARSET; ?>" />
 	<?php
 }
