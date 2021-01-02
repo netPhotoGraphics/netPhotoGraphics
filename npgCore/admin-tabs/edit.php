@@ -413,7 +413,7 @@ if (isset($_GET['action'])) {
 				header('Location: ' . $link);
 				exit();
 			}
-			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page = edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
+			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
 			exit();
 			break;
 
