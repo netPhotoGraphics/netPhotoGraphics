@@ -90,6 +90,8 @@ if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db
 			'mysql_user' => '',
 			'mysql_pass' => '',
 			'mysql_host' => '',
+			'mysql_port' => '',
+			'mysql_socket' => '',
 			'mysql_database' => '',
 			'mysql_prefix' => '',
 			'UTF-8' => '')
