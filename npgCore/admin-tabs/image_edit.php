@@ -7,7 +7,14 @@ require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
-$edit = array('description' => 1, 'metadata' => 1, 'general' => 1, 'utilities' => 1, 'geotags' => 1);
+
+$stuff = array('description' => gettext('Description'), 'metadata' => gettext('Metadata'), 'geotags' => gettext('Geolocation'), 'general' => gettext('General'), 'utilities' => gettext("Utilities"));
+$stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'images'));
+asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
+$edit = array();
+foreach ($stuff as $item => $name) {
+	$edit[$item] = 1;
+}
 
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
@@ -64,10 +71,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	<?php ?>
 				$('input:disabled').addClass('initial_disabled');
 	<?php
-	foreach ($edit as $stuff => $state) {
+	foreach ($edit as $item => $state) {
 		if (!$state) {
 			?>
-						toggle_stuff('<?php echo $stuff; ?>', false);
+						toggle_stuff('<?php echo $item; ?>', false);
 						setCookie('image_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
 			<?php
 		}
@@ -82,26 +89,16 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 			<div id="menu_selections" style="display: none;">
 				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
-					<label>
-						<input id="description_box" type="checkbox" value="1" <?php if ($edit['description']) echo 'checked="checked"' ?> onclick="toggle_stuff('description');"><?php echo gettext('Description'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="metadata_box" type="checkbox" value="1" <?php if ($edit['metadata']) echo 'checked="checked"' ?> onclick="toggle_stuff('metadata');"><?php echo gettext('Metadata'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="geotags_box" type="checkbox" value="1" <?php if ($edit['geotags']) echo 'checked="checked"' ?> onclick="toggle_stuff('geotags');"><?php echo gettext('Geo location'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="general_box" type="checkbox" value="1" <?php if ($edit['general']) echo 'checked="checked"' ?> onclick="toggle_stuff('general');"><?php echo gettext('General'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="utilities_box" type="checkbox" value="1" <?php if ($edit['utilities']) echo 'checked="checked"' ?> onclick="toggle_stuff('utilities');"><?php echo gettext('Utilities'); ?>
-					</label>
-					<br />
+					<?php
+					foreach ($stuff as $item => $name) {
+						?>
+						<label>
+							<input id="<?php echo $item; ?>_box" type="checkbox" value="1" <?php if ($edit[$item]) echo 'checked="checked"' ?> onclick="toggle_stuff('<?php echo $item; ?>');"><?php echo $name; ?>
+						</label>
+						<br />
+						<?php
+					}
+					?>
 				</div>
 			</div>
 		</div>
@@ -371,9 +368,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</td>
 									</tr>
 									<?php
-									if ($singleimage) {
-										echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
-									} else {
+									echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
+									if (!$singleimage) {
 										?>
 										<tr>
 											<td colspan="100%" style="border-bottom:none;">

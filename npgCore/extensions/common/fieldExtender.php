@@ -371,7 +371,7 @@ class fieldExtender {
 			if ($field['table'] == $object->table) {
 				list($item, $formatted) = fieldExtender::_editHandler($object, $field, $i);
 				if (!is_null($formatted)) {
-					$html .= '<tr>' . "\n" . '<td><span class="nowrap">' . $field['desc'] . "</span></td>\n<td>";
+					$html .= '<tr class="' . $field['name'] . '_stuff">' . "\n" . '<td><span class="nowrap">' . $field['desc'] . "</span></td>\n<td>";
 					if ($formatted) {
 						$html .= $item;
 					} else {
@@ -456,6 +456,7 @@ value="' . $item . '" />';
 		if (isset($items['albums'])) {
 			npgFilters::register("save_album_data", "$me::mediaItemSave");
 			npgFilters::register("edit_album_custom", "$me::mediaItemEdit");
+			npgFilters::register("mass_edit_selector", "$me::mediaEditSelector");
 			if (isset($actions['albums'])) {
 				npgFilters::register('bulk_album_actions', "$me::bulkAlbum");
 				npgFilters::register('processBulkAlbumsSave', "$me::bulkAlbumSave");
@@ -464,6 +465,7 @@ value="' . $item . '" />';
 		if (isset($items['images'])) {
 			npgFilters::register("save_image_data", "$me::mediaItemSave");
 			npgFilters::register("edit_image_custom", "$me::mediaItemEdit");
+			npgFilters::register("mass_edit_selector", "$me::mediaEditSelector");
 			if (isset($actions['images'])) {
 				npgFilters::register('bulk_image_actions', "$me::bulkImage");
 				npgFilters::register('processBulkImageSave', "$me::bulkImageSave");

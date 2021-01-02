@@ -50,7 +50,18 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 		if (($cookiepath = WEBPATH) == '') {
 			$cookiepath = '/';
 		}
-		$edit = array('description' => 1, 'general' => 1, 'utilities' => 1, 'sort' => 1, 'theme' => 1, 'watermark' => 1);
+
+		$stuff = array('description' => gettext('Description'), 'general' => gettext('General'), 'utilities' => gettext("Utilities"), 'sort' => gettext('Sorts'), 'watermark' => gettext('Watermarks'));
+		if (!isset($_GET['album'])) {
+			$stuff['theme'] = gettext('Album theme');
+		}
+		$stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'albums'));
+		asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
+		$edit = array();
+		foreach ($stuff as $item => $name) {
+			$edit[$item] = 1;
+		}
+
 		foreach ($_COOKIE as $cookie => $value) {
 			if (strpos($cookie, 'album_edit_') === 0) {
 				$item = substr($cookie, 11);
@@ -72,10 +83,10 @@ npgFilters::apply('admin_note', 'albums', $subtab);
 <?php ?>
 				$('input:disabled').addClass('initial_disabled');
 <?php
-foreach ($edit as $stuff => $state) {
+foreach ($edit as $item => $state) {
 	if (!$state) {
 		?>
-						toggle_stuff('<?php echo $stuff; ?>', false);
+						toggle_stuff('<?php echo $item; ?>', false);
 						setCookie('album_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
 		<?php
 	}
@@ -90,36 +101,16 @@ foreach ($edit as $stuff => $state) {
 			<div id="menu_selections" style="display: none;">
 				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
-					<label>
-						<input id="description_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['description']) echo 'checked="checked"' ?> onclick="toggle_stuff('description');"><?php echo gettext('Description'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="sort_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['sort']) echo 'checked="checked"' ?> onclick="toggle_stuff('sort');"><?php echo gettext('Sorts'); ?>
-					</label>
-					<br />
 					<?php
-					if (!isset($_GET['album'])) {
+					foreach ($stuff as $item => $name) {
 						?>
 						<label>
-							<input id="theme_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['theme']) echo 'checked="checked"' ?> onclick="toggle_stuff('theme');"><?php echo gettext('Album theme'); ?>
+							<input id="<?php echo $item; ?>_box" type="checkbox" value="1" <?php if ($edit[$item]) echo 'checked="checked"' ?> onclick="toggle_stuff('<?php echo $item; ?>');"><?php echo $name; ?>
 						</label>
 						<br />
 						<?php
 					}
 					?>
-					<label>
-						<input id="watermark_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['watermark']) echo 'checked="checked"' ?> onclick="toggle_stuff('watermark');"><?php echo gettext('Watermarks'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="general_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['general']) echo 'checked="checked"' ?> onclick="toggle_stuff('general');"><?php echo gettext('General'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="utilities_box" type="checkbox" class="ignoredirty" value="1" <?php if ($edit['utilities']) echo 'checked="checked"' ?> onclick="toggle_stuff('utilities');"><?php echo gettext('Utilities'); ?>
-					</label>
-					<br />
 				</div>
 			</div>
 		</div>
