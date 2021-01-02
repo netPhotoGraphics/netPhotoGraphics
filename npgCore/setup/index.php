@@ -35,7 +35,6 @@ if ($debug = isset($_REQUEST['debug'])) {
 $upgrade = false;
 
 require_once(dirname(__DIR__) . '/lib-utf8.php');
-
 if (isset($_REQUEST['autorun'])) {
 	$displayLimited = true;
 	if (!empty($_REQUEST['autorun'])) {
@@ -1154,7 +1153,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							primeMark(gettext('netPhotoGraphics files'));
 							@set_time_limit(120);
 							$stdExclude = Array('Thumbs.db', 'readme.md', 'data');
-
 							$base = SERVERPATH . '/';
 							getResidentFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
 							if (CASE_INSENSITIVE) {
