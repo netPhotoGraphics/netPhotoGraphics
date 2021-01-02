@@ -39,7 +39,7 @@ function getResidentFiles($folder, $exclude) {
 		$file = str_replace('\\', '/', $file);
 		if ($file != '.' && $file != '..' && !in_array($file, $exclude)) {
 			if (is_dir($folder . '/' . $file)) {
-				if ($file != 'session') {
+				if ($file != 'session' && is_readable($folder . '/' . $file)) {
 					getResidentFiles($folder . '/' . $file, $exclude);
 					$entry = $folder . '/' . $file;
 					if (CASE_INSENSITIVE)
