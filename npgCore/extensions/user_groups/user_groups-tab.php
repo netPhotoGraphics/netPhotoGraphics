@@ -8,8 +8,46 @@ define('OFFSET_PATH', 4);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
-define('GROUPS_PER_PAGE', max(1, getOption('groups_per_page')));
-define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
+
+
+switch (@$_GET['tab']) {
+	case 'assignment':
+		if (isset($_GET['selection'])) {
+			define('USERS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+		} else {
+			if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
+				define('USERS_PER_PAGE', $s);
+			} else {
+				define('USERS_PER_PAGE', 10);
+			}
+		}
+		setNPGCookie('usersTab_userCount', USERS_PER_PAGE);
+		break;
+	case 'group':
+	case 'template':
+	default:
+		if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
+			define('USERS_PER_PAGE', $s);
+		} else {
+			define('USERS_PER_PAGE', 10);
+		}
+
+		if (isset($_GET['selection'])) {
+			define('GROUPS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+		} else {
+			if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
+				define('GROUPS_PER_PAGE', $s);
+			} else {
+				define('GROUPS_PER_PAGE', 10);
+			}
+		}
+		setNPGCookie('groupsTab_groupCountgroupsTab_groupCount', GROUPS_PER_PAGE);
+		break;
+}
+define('GROUP_STEP', 5);
+
+
+
 if (isset($_GET['subpage'])) {
 	$subpage = sanitize_numeric($_GET['subpage']);
 } else {
@@ -205,21 +243,26 @@ echo '</head>' . "\n";
 					case 'template':
 						$adminlist = $adminordered;
 						$list = $users = $groups = array();
+						$userCount = $groupCount = 0;
 						foreach ($adminlist as $user) {
 							if ($user['valid']) {
 								$users[] = $user['user'];
+								$userCount++;
 							} else {
 								if ($user['name'] == $subtab) {
 									$groups[] = $user;
 									$list[] = $user['user'];
+									$groupCount++;
 								}
 							}
 						}
+
 						$max = floor((count($list) - 1) / GROUPS_PER_PAGE);
 						if ($subpage > $max) {
 							$subpage = $max;
 						}
 						$rangeset = getPageSelector($list, GROUPS_PER_PAGE);
+
 						$groups = array_slice($groups, $subpage * GROUPS_PER_PAGE, GROUPS_PER_PAGE);
 						if (count($groups) == 1) {
 							$display = '';
@@ -231,6 +274,24 @@ echo '</head>' . "\n";
 							$alb = newAlbum($folder);
 							$name = $alb->getTitle();
 							$albumlist[$name] = $folder;
+						}
+						if ($groupCount > GROUP_STEP) {
+							?>
+							<div class="floatright">
+								<?php
+								$numsteps = ceil(max($groupCount, GROUPS_PER_PAGE) / GROUP_STEP);
+								if ($numsteps) {
+									?>
+									<?php
+									$steps = array();
+									for ($i = 1; $i <= $numsteps; $i++) {
+										$steps[] = $i * GROUP_STEP;
+									}
+									printEditDropdown('groupinfo', $steps, GROUPS_PER_PAGE, '&amp;tab=' . $subtab);
+								}
+								?>
+							</div>
+							<?php
 						}
 						?>
 						<p>
@@ -245,7 +306,9 @@ echo '</head>' . "\n";
 								applyButton();
 								resetButton();
 								?>
+								<br /><br />
 							</p>
+
 							<input type="hidden" name="savegroups" value="yes" />
 							<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
 
@@ -485,7 +548,9 @@ echo '</head>' . "\n";
 								applyButton();
 								resetButton();
 								?>
+								<br /><br />
 							</p>
+
 							<input type="hidden" name="totalgroups" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />
 						</form>
@@ -531,13 +596,16 @@ echo '</head>' . "\n";
 						break;
 					case 'assignment':
 						$list = $groups = array();
+						$userCount = $groupCount = 0;
 						foreach ($adminordered as $user) {
 							if ($user['valid']) {
 								$users[] = $user;
 								$list[] = $user['user'];
+								$userCount++;
 							} else {
 								if ($user['name'] == 'group') {
 									$groups[] = $user;
+									$groupCount++;
 								}
 							}
 						}
@@ -547,6 +615,24 @@ echo '</head>' . "\n";
 							$subpage = $max;
 						}
 						$userlist = array_slice($users, $subpage * USERS_PER_PAGE, USERS_PER_PAGE);
+						if ($userCount > GROUP_STEP) {
+							?>
+							<div class="floatright">
+								<?php
+								$numsteps = ceil(max($userCount, USERS_PER_PAGE) / GROUP_STEP);
+								if ($numsteps) {
+									?>
+									<?php
+									$steps = array();
+									for ($i = 1; $i <= $numsteps; $i++) {
+										$steps[] = $i * GROUP_STEP;
+									}
+									printEditDropdown('groupinfo', $steps, USERS_PER_PAGE, '&amp;tab=assignment');
+								}
+								?>
+							</div>
+							<?php
+						}
 						?>
 						<p>
 							<?php
@@ -563,14 +649,17 @@ echo '</head>' . "\n";
 								applyButton();
 								resetButton();
 								?>
+								<br />
 							</p>
-							<br /><br />
+
 							<input type="hidden" name="saveauserassignments" value="yes" />
 							<div class="floatright">
+
 								<?php
 								printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
 								?>
 							</div>
+
 
 							<table class="bordered">
 								<?php
@@ -605,6 +694,7 @@ echo '</head>' . "\n";
 								resetButton();
 								?>
 							</p>
+
 							<input type="hidden" name="totalusers" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />
 						</form>

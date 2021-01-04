@@ -9,9 +9,22 @@
 // force UTF-8 Ø
 
 define('OFFSET_PATH', 1);
+define('ADMIN_USERS_STEP', 5);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
+
+admin_securityChecks(USER_RIGHTS, currentRelativeURL());
+
+if (isset($_GET['selection'])) {
+	define('USERS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+} else {
+	if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
+		define('USERS_PER_PAGE', $s);
+	} else {
+		define('USERS_PER_PAGE', 10);
+	}
+}
+setNPGCookie('usersTab_userCount', USERS_PER_PAGE, 3600 * 24 * 365 * 10);
 
 $stuff = array('rights' => gettext('Rights'), 'objects' => gettext('Managed objects'));
 $stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'users'));
@@ -22,7 +35,6 @@ if (isset($_GET['ticket'])) {
 } else {
 	$ticket = '';
 }
-admin_securityChecks(USER_RIGHTS, currentRelativeURL());
 
 $newuser = array();
 if (isset($_REQUEST['show']) && is_array($_REQUEST['show'])) {
@@ -513,6 +525,24 @@ echo $refresh;
 							});
 						}
 					</script>
+					<?php
+					printEditSelector('user_edit', $stuff, "toggleExtraInfo('', 'user', true);");
+					$count = count($admins);
+					if ($count > ADMIN_USERS_STEP) {
+						$numsteps = ceil(max($count, USERS_PER_PAGE) / ADMIN_USERS_STEP);
+						if ($numsteps) {
+							?>
+							<?php
+							$steps = array();
+							for ($i = 1; $i <= $numsteps; $i++) {
+								$steps[] = $i * ADMIN_USERS_STEP;
+							}
+							printEditDropdown('userinfo', $steps, USERS_PER_PAGE, '&amp;showgroup=' . $showgroup);
+						}
+					}
+					?>
+					<br style="clear:both"/>
+
 					<form class="dirtylistening" onReset="closePasswords();
 							setClean('user_form');" id="user_form" action="?action=saveoptions<?php echo str_replace('&', '&amp;', $ticket); ?>" method="post" autocomplete="off" onsubmit="return checkNewuser();" >
 								<?php XSRFToken('saveadmin'); ?>
@@ -529,14 +559,12 @@ echo $refresh;
 							<?php
 							applyButton();
 							resetButton();
-
-							printEditSelector('user_edit', $stuff, "toggleExtraInfo('', 'user', true);");
 							?>
 						</p>
 
 						<table class="unbordered"> <!-- main table -->
 							<tr>
-								<td style="width: 48en;">
+								<td style="width: 30%;">
 									<?php
 									if ($showgroup || count($userlist) != 1) {
 										?>
@@ -551,7 +579,7 @@ echo $refresh;
 								</td>
 								<td>
 									<?php
-									if (count($rangeset) > 1 && ($showgroup || $pending || count($seenGroups) > 0)) {
+									if ($showgroup || $pending || count($seenGroups) > 0) {
 										echo gettext('show');
 										?>
 										<select name="showgroup" id="showgroup" class="ignoredirty" onchange="launchScript('<?php echo getAdminLink('admin-tabs/users.php'); ?>', ['showgroup=' + $('#showgroup').val()]);" >
@@ -677,8 +705,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -687,7 +715,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {

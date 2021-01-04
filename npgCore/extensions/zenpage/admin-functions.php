@@ -845,7 +845,12 @@ function printArticlesPerPageDropdown($subpage) {
 	<form name="AutoListBox5" id="articlesperpagedropdown" method="POST" style="float:left; margin:5px;"	action="#">
 		<select name="ListBoxURL" size="1"	onchange="npg_gotoLink(this.form)">
 			<?php
-			$list = array_unique(array(15, 30, 60, max(1, getOption('articles_per_page'))));
+			$c = getNPGCookie('articleTab_articleCount');
+			if (!$c) {
+				$c = 15;
+			}
+
+			$list = array_unique(array(15, 30, 60, max(1, $c)));
 			sort($list);
 			foreach ($list as $count) {
 				?>

@@ -39,7 +39,7 @@ if (isset($_POST['checkForPostTruncation'])) {
 					}
 					$image->setTitle(process_language_string_save("$i-title", 2));
 
-					if (!$i || !isset($_COOKIE['image_edit_description']) || strtolower($_COOKIE['image_edit_description']) == 'true') {
+					if (!$i || editSelectorEnabled('images_edit_description')) {
 						/* single image or the General box is enabled
 						 * needed to be sure we don't reset these values because the input was disabled
 						 */

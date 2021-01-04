@@ -864,10 +864,20 @@ setOptionDefault('search_cache_duration', 30);
 setOptionDefault('cache_random_search', 1);
 setOptionDefault('search_within', 1);
 
-setOptionDefault('plugins_per_page', 25);
-setOptionDefault('users_per_page', 10);
-setOptionDefault('groups_per_page', 10);
-setOptionDefault('articles_per_page', 15);
+if ($s = getOption('users_per_page'))
+	setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
+if ($s = getOption('plugins_per_page'))
+	setNPGCookie('pluginsTab_pluginCount', $s, 3600 * 24 * 365 * 10);
+if ($s = getOption('groups_per_page'))
+	setNPGCookie('groupsTab_groupCount', $s, 3600 * 24 * 365 * 10);
+if ($s = getOption('articles_per_page'))
+	setNPGCookie('articleTab_articleCount', $s, 3600 * 24 * 365 * 10);
+
+purgeOption('plugins_per_page', 25);
+purgeOption('users_per_page', 10);
+purgeOption('groups_per_page', 10);
+purgeOption('articles_per_page', 15);
+
 setOptionDefault('debug_log_size', 5000000);
 setOptionDefault('imageProcessorConcurrency', 15);
 setOptionDefault('search_album_sort_type', 'title');
