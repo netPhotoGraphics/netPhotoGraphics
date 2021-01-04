@@ -299,8 +299,14 @@ class optionalObjectFields extends fieldExtender {
 		}
 	}
 
-	static function mediaEditSelector($list, $what) {
-		return array_merge($list, array('tags' => gettext('Tags')));
+	static function mediaEditSelector($list, $whom) {
+		switch ($whom) {
+			case 'images':
+			case'albums':
+				$list ['tags'] = gettext('Tags');
+				break;
+		}
+		return $list;
 	}
 
 	static function cmsItemSave($object) {

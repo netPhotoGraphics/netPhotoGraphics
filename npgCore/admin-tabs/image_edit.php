@@ -11,10 +11,7 @@ $showfilter = true;
 $stuff = array('description' => gettext('Description'), 'metadata' => gettext('Metadata'), 'geotags' => gettext('Geolocation'), 'general' => gettext('General'), 'utilities' => gettext("Utilities"));
 $stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'images'));
 asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
-$edit = array();
-foreach ($stuff as $item => $name) {
-	$edit[$item] = 1;
-}
+
 
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
@@ -42,68 +39,14 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	}
 	consolidatedEditMessages('imageinfo');
 	if (!$singleimage) {
-		if (($cookiepath = WEBPATH) == '') {
-			$cookiepath = '/';
-		}
-
-		foreach ($_COOKIE as $cookie => $value) {
-			if (strpos($cookie, 'image_edit_') === 0) {
-				$item = substr($cookie, 11);
-				$set = '$edit[\'' . $item . '\']=' . (int) (strtolower($value) == 'true') . ';';
-				eval($set);
-			}
-		}
 		?>
 		<div class="floatleft">
 			<?php
 			echo gettext("Click on the image to change the thumbnail cropping.");
 			?>
 		</div>
-		<script type="text/javascript">
-			function toggle_stuff(stuff) {
-				state = $('#' + stuff + '_box').prop('checked')
-				$('.' + stuff + '_stuff').toggle();
-				$('.' + stuff + '_stuff :input').prop('disabled', !state);
-				$('.initial_disabled').prop('disabled', true);
-				setCookie('image_edit_' + stuff, state, 2, '<?php echo $cookiepath ?>');
-			}
-			window.addEventListener('load', function () {
-	<?php ?>
-				$('input:disabled').addClass('initial_disabled');
-	<?php
-	foreach ($edit as $item => $state) {
-		if (!$state) {
-			?>
-						toggle_stuff('<?php echo $item; ?>', false);
-						setCookie('image_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
-			<?php
-		}
-	}
-	?>
-			}, false);
-		</script>
-		<div id="menu_selector_button">
-			<div id="menu_button">
-				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
-			</div>
-			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
-				<div class="floatright">
-					<?php
-					foreach ($stuff as $item => $name) {
-						?>
-						<label>
-							<input id="<?php echo $item; ?>_box" type="checkbox" value="1" <?php if ($edit[$item]) echo 'checked="checked"' ?> onclick="toggle_stuff('<?php echo $item; ?>');"><?php echo $name; ?>
-						</label>
-						<br />
-						<?php
-					}
-					?>
-				</div>
-			</div>
-		</div>
-		<br style="clear:both"/><br />
 		<?php
+		printEditSelector('images_edit', $stuff);
 	}
 	?>
 	<div>

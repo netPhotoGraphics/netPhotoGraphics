@@ -89,7 +89,12 @@ class userAddressFields extends fieldExtender {
 		return parent::_mediaItemEdit($html, $object, $i, self::fields());
 	}
 
-	static function mediaEditSelector($list, $what) {
+	static function mediaEditSelector($list, $whom) {
+		switch ($whom) {
+			case 'users':
+				$list['userAddress'] = gettext('User address fields');
+				break;
+		}
 		return $list;
 	}
 

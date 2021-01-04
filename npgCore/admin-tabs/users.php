@@ -13,6 +13,10 @@ define('OFFSET_PATH', 1);
 require_once(dirname(__DIR__) . '/admin-globals.php');
 define('USERS_PER_PAGE', max(1, getOption('users_per_page')));
 
+$stuff = array('rights' => gettext('Rights'), 'objects' => gettext('Managed objects'));
+$stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'users'));
+asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
+
 if (isset($_GET['ticket'])) {
 	$ticket = '&ticket=' . sanitize($_GET['ticket']) . '&user=' . sanitize(@$_GET['user']);
 } else {
@@ -221,12 +225,12 @@ if (isset($_GET['action'])) {
 								$oldobjects = $userobj->getObjects();
 								$oldrights = $rights;
 								$objects = processManagedObjects($i, $rights);
-								if (compareObjects($objects, $oldobjects)) {
+								if (!editSelectorEnabled('user_edit_objects') || compareObjects($objects, $oldobjects)) {
 									$userobj->setObjects(NULL); //	indicates no change
 								} else {
 									$userobj->setObjects($objects);
 								}
-								if ($rights != $oldrights) {
+								if ($rights != $oldrights && editSelectorEnabled('user_edit_rights')) {
 									$userobj->setRights($rights | NO_RIGHTS);
 								}
 							} else {
@@ -525,8 +529,11 @@ echo $refresh;
 							<?php
 							applyButton();
 							resetButton();
+
+							printEditSelector('user_edit', $stuff, "toggleExtraInfo('', 'user', true);");
 							?>
 						</p>
+
 						<table class="unbordered"> <!-- main table -->
 							<tr>
 								<td style="width: 48en;">
@@ -582,6 +589,8 @@ echo $refresh;
 									<span class="floatright padded">
 										<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users')); ?>
 									</span>
+									<br clear="all">
+									<br />
 								</td>
 							</tr>
 
@@ -668,8 +677,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -678,7 +687,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -784,7 +793,7 @@ echo $refresh;
 											$no_change = array();
 											if (!npg_loggedin(ADMIN_RIGHTS) && !$_current_admin_obj->reset) {
 												?>
-												<tr <?php if (!$current) echo 'style="display:none;"'; ?> class="userextrainfo">
+												<tr class="userextrainfo<?php if (!$current) echo ' hidden'; ?>">
 													<td <?php if (!empty($background)) echo " style=\"$background\""; ?> colspan="100%">
 														<p class="notebox">
 															<?php echo gettext('<strong>Note:</strong> You must have ADMIN rights to alter anything but your personal information.'); ?>
@@ -795,7 +804,7 @@ echo $refresh;
 											}
 											if (getOption('GDPR_acknowledge') || extensionEnabled('GDPR_required')) {
 												?>
-												<tr <?php if (!$current) echo 'style="display:none;"'; ?> class="userextrainfo">
+												<tr class="userextrainfo <?php if (!$current) echo ' hidden'; ?>">
 													<td <?php if (!empty($background)) echo " style=\"$background\""; ?> colspan="100%">
 														<div class="user_left">
 															<p>
@@ -825,7 +834,7 @@ echo $refresh;
 												<?php
 											}
 											?>
-											<tr <?php if (!$current) echo 'style="display:none;"'; ?> class="userextrainfo">
+											<tr class="userextrainfo<?php if (!$current) echo ' hidden'; ?>">
 												<td <?php if (!empty($background)) echo " style=\"$background\""; ?> valign="top" colspan="100%">
 													<div class="user_left">
 														<p>

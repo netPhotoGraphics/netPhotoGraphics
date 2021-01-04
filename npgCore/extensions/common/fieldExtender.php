@@ -216,8 +216,6 @@ class fieldExtender {
 					}
 					if (isset($_POST[$field['name'] . $instance])) {
 						$newdata = sanitize($_POST[$field['name'] . $instance]);
-					} else {
-
 					}
 				}
 		}
@@ -304,7 +302,7 @@ class fieldExtender {
 			if ($field['table'] == 'administrators') {
 				list($item, $formatted) = fieldExtender::_editHandler($userobj, $field, $i);
 				if (!is_null($formatted)) {
-					$input = '<fieldset>' .
+					$input = '<fieldset class="userAddress_stuff">' .
 									'<legend>' . $field['desc'] . '</legend>';
 					if ($formatted) {
 						$html .= $item;
@@ -474,6 +472,7 @@ value="' . $item . '" />';
 		if (isset($items['administrators'])) {
 			npgFilters::register("save_admin_data", "$me::adminSave");
 			npgFilters::register("edit_admin_custom", "$me::adminEdit");
+			npgFilters::register("mass_edit_selector", "$me::mediaEditSelector");
 			//there are no admin bulk actions currently
 		}
 		if (isset($items['news'])) {
