@@ -266,20 +266,6 @@ if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms/mailForm.htm')) 
 	}
 }
 
-if ($s = getOption('users_per_page'))
-	setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
-if ($s = getOption('plugins_per_page'))
-	setNPGCookie('pluginsTab_pluginCount', $s, 3600 * 24 * 365 * 10);
-if ($s = getOption('groups_per_page'))
-	setNPGCookie('groupsTab_groupCount', $s, 3600 * 24 * 365 * 10);
-if ($s = getOption('articles_per_page'))
-	setNPGCookie('articleTab_articleCount', $s, 3600 * 24 * 365 * 10);
-
-purgeOption('plugins_per_page', 25);
-purgeOption('users_per_page', 10);
-purgeOption('groups_per_page', 10);
-purgeOption('articles_per_page', 15);
-
 setOption('last_admin_action', time());
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);

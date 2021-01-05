@@ -452,6 +452,22 @@ if ($setup_checked) {
 	} else {
 		setupLog(gettext('Setup cookie test unsuccessful'), true);
 	}
+	if ($s = getOption('users_per_page')) {
+		setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
+		purgeOption('users_per_page', 10);
+	}
+	if ($s = getOption('plugins_per_page')) {
+		setNPGCookie('pluginsTab_pluginCount', $s, 3600 * 24 * 365 * 10);
+		purgeOption('plugins_per_page', 25);
+	}
+	if ($s = getOption('groups_per_page')) {
+		setNPGCookie('groupsTab_groupCount', $s, 3600 * 24 * 365 * 10);
+		purgeOption('groups_per_page', 10);
+	}
+	if ($s = getOption('articles_per_page')) {
+		setNPGCookie('articleTab_articleCount', $s, 3600 * 24 * 365 * 10);
+		purgeOption('articles_per_page', 15);
+	}
 } else {
 	if (isset($_POST['db'])) {
 		setupLog(gettext("Post of Database credentials"), true);
