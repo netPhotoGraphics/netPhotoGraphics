@@ -198,7 +198,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 	<div class="floatright">
 		<?php
 		$allplugincount = count($pluginlist);
-		$numsteps = ceil(max($allplugincount, PLUGINS_PER_PAGE, 100) / PLUGINS_STEP);
+		$numsteps = ceil(min(100, $allplugincount) / PLUGINS_STEP);
 		if ($numsteps) {
 			?>
 			<?php

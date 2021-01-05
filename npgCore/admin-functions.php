@@ -4665,8 +4665,9 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 	<form name="AutoListBox2" style="float: right;padding-right: 14px;" action="#" >
 		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form);">
 			<?php
-			foreach ($nestinglevels as $nestinglevel) {
-				if ($nesting == $nestinglevel) {
+			$highest = count($nestinglevels) - 1;
+			foreach ($nestinglevels as $key => $nestinglevel) {
+				if ($nestinglevels == $nestinglevel || $key = $highest) {
 					$selected = 'selected="selected"';
 				} else {
 					$selected = "";

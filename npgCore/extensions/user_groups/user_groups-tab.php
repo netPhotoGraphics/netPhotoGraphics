@@ -279,7 +279,7 @@ echo '</head>' . "\n";
 							?>
 							<div class="floatright">
 								<?php
-								$numsteps = ceil(max($groupCount, GROUPS_PER_PAGE) / GROUP_STEP);
+								$numsteps = ceil(min(100, $groupCount) / GROUP_STEP);
 								if ($numsteps) {
 									?>
 									<?php
@@ -619,7 +619,7 @@ echo '</head>' . "\n";
 							?>
 							<div class="floatright">
 								<?php
-								$numsteps = ceil(max($userCount, USERS_PER_PAGE) / GROUP_STEP);
+								$numsteps = ceil(min(100, $userCount) / GROUP_STEP);
 								if ($numsteps) {
 									?>
 									<?php

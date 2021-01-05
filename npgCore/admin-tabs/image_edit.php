@@ -52,7 +52,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	<div>
 		<?php
 		if ($showfilter) {
-			$numsteps = ceil(max($allimagecount, $imagesTab_imageCount, 100) / ADMIN_IMAGES_STEP);
+			$numsteps = ceil(min(100, $allimagecount) / ADMIN_IMAGES_STEP);
 			if ($numsteps) {
 				?>
 				<?php
