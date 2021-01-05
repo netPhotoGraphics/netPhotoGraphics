@@ -529,7 +529,7 @@ echo $refresh;
 					printEditSelector('user_edit', $stuff, "toggleExtraInfo('', 'user', true);");
 					$count = count($admins);
 					if ($count > ADMIN_USERS_STEP) {
-						$numsteps = ceil(max($count, USERS_PER_PAGE) / ADMIN_USERS_STEP);
+						$numsteps = ceil(max($count, USERS_PER_PAGE) / ADMIN_USERS_STEP, 100);
 						if ($numsteps) {
 							?>
 							<?php
