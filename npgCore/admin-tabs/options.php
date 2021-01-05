@@ -158,7 +158,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 					echo '</div>';
 				}
 
-				if (isset($_GET['cookiepath']) && @$_COOKIE['cookie_path'] != getOption('cookie_path')) {
+				if (isset($_GET['cookiepath']) && getNPGCookie('cookie_path') != getOption('cookie_path')) {
 					setOption('cookie_path', NULL);
 					?>
 					<div class="errorbox">

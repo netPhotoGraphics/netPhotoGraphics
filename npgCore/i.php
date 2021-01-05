@@ -74,7 +74,7 @@ if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_G
 	// maybe it was from javascript which does not know better!
 	npg_session_start();
 	if (isset($_SESSION['adminRequest'])) {
-		if ($_SESSION['adminRequest'] == @$_COOKIE['user_auth']) {
+		if ($_SESSION['adminRequest'] == getNPGCookie('user_auth')) {
 			$forbidden = false;
 		} else {
 			$forbidden = 3;
