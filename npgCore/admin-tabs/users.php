@@ -17,6 +17,7 @@ admin_securityChecks(USER_RIGHTS, currentRelativeURL());
 
 if (isset($_GET['selection'])) {
 	define('USERS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+	setNPGCookie('usersTab_userCount', USERS_PER_PAGE, 3600 * 24 * 365 * 10);
 } else {
 	if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
 		define('USERS_PER_PAGE', $s);
@@ -24,7 +25,6 @@ if (isset($_GET['selection'])) {
 		define('USERS_PER_PAGE', 10);
 	}
 }
-setNPGCookie('usersTab_userCount', USERS_PER_PAGE, 3600 * 24 * 365 * 10);
 
 $stuff = array('rights' => gettext('Rights'), 'objects' => gettext('Managed objects'));
 $stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'users'));

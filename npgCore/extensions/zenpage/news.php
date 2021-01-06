@@ -17,6 +17,7 @@ if (isset($_GET['articles_page'])) {
 	} else {
 		$articles_page = max(1, sanitize_numeric($_GET['articles_page']));
 	}
+	setNPGCookie('articleTab_articleCount', $articles_page, 3600 * 24 * 365 * 10);
 } else {
 	$c = getNPGCookie('articleTab_articleCount');
 	if (!$c) {
@@ -24,7 +25,6 @@ if (isset($_GET['articles_page'])) {
 	}
 	$articles_page = max(1, $c);
 }
-setNPGCookie('articleTab_articleCount', $articles_page, 3600 * 24 * 365 * 10);
 
 $reports = array();
 

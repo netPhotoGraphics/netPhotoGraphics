@@ -14,6 +14,7 @@ switch (@$_GET['tab']) {
 	case 'assignment':
 		if (isset($_GET['selection'])) {
 			define('USERS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+			setNPGCookie('usersTab_userCount', USERS_PER_PAGE, 3600 * 24 * 365 * 10);
 		} else {
 			if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
 				define('USERS_PER_PAGE', $s);
@@ -21,7 +22,7 @@ switch (@$_GET['tab']) {
 				define('USERS_PER_PAGE', 10);
 			}
 		}
-		setNPGCookie('usersTab_userCount', USERS_PER_PAGE);
+
 		break;
 	case 'group':
 	case 'template':
@@ -33,15 +34,16 @@ switch (@$_GET['tab']) {
 		}
 
 		if (isset($_GET['selection'])) {
+			setNPGCookie('groupsTab_groupCount', GROUPS_PER_PAGE, 3600 * 24 * 365 * 10);
 			define('GROUPS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
 		} else {
-			if ($s = sanitize_numeric(getNPGCookie('usersTab_userCount'))) {
+			if ($s = sanitize_numeric(getNPGCookie('groupsTab_groupCount'))) {
 				define('GROUPS_PER_PAGE', $s);
 			} else {
 				define('GROUPS_PER_PAGE', 10);
 			}
 		}
-		setNPGCookie('groupsTab_groupCountgroupsTab_groupCount', GROUPS_PER_PAGE);
+
 		break;
 }
 define('GROUP_STEP', 5);

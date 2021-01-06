@@ -18,17 +18,18 @@ require_once(dirname(__DIR__) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-define('PLUGINS_STEP', 5);
+define('PLUGINS_STEP', 20);
 if (isset($_GET['selection'])) {
-	define('PLUGS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+	define('PLUGINS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+	setNPGCookie('pluginsTab_pluginCount', PLUGINS_PER_PAGE, 3600 * 24 * 365 * 10);
 } else {
-	if ($s = sanitize_numeric(getNPGCookie('pluginTab_pluginCount'))) {
-		define('PLUGS_PER_PAGE', $s);
+	if ($s = sanitize_numeric(getNPGCookie('pluginsTab_pluginCount'))) {
+		define('PLUGINS_PER_PAGE', $s);
 	} else {
-		define('PLUGS_PER_PAGE', 10);
+		define('PLUGINS_PER_PAGE', 10);
 	}
 }
-setNPGCookie('pluginTab_pluginCount', PLUGS_PER_PAGE, 3600 * 24 * 365 * 10);
+
 
 /* handle posts */
 if (isset($_GET['action'])) {
@@ -116,8 +117,6 @@ if (isset($_GET['action'])) {
 }
 
 $_GET['page'] = 'plugins';
-
-define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
 
 $saved = isset($_GET['saved']);
 printAdminHeader('plugins');

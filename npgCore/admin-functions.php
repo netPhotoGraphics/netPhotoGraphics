@@ -4666,38 +4666,39 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form);">
 			<?php
 			$highest = count($nestinglevels) - 1;
-			foreach ($nestinglevels as $key => $nestinglevel) {
-				if ($nestinglevels == $nestinglevel || $key = $highest) {
+			foreach ($nestinglevels as $key => $level) {
+				if ($nesting == $level || $key == $highest) {
 					$selected = 'selected="selected"';
+					$highest = -1;
 				} else {
 					$selected = "";
 				}
-				echo '<option ' . $selected . ' value="' . $page . $link . $nestinglevel . $query . '">';
+				echo '<option ' . $selected . ' value="' . $page . $link . $level . $query . '">';
 				switch ($subtab) {
 					case '':
 					case 'subalbuminfo':
-						printf(ngettext('Show %u album level', 'Show %u album levels', $nestinglevel), $nestinglevel);
+						printf(ngettext('Show %u album level', 'Show %u album levels', $level), $level);
 						break;
 					case 'imageinfo':
-						printf(ngettext('%u image per page', '%u images per page', $nestinglevel), $nestinglevel);
+						printf(ngettext('%u image per page', '%u images per page', $level), $level);
 						break;
 					case 'userinfo':
-						printf(ngettext('%u user per page', '%u users per page', $nestinglevel), $nestinglevel);
+						printf(ngettext('%u user per page', '%u users per page', $level), $level);
 						break;
 					case 'plugininfo':
-						printf(ngettext('%u plugin per page', '%u plugins per page', $nestinglevel), $nestinglevel);
+						printf(ngettext('%u plugin per page', '%u plugins per page', $level), $level);
 						break;
 					case 'groupinfo':
 						$which = str_replace('&amp;tab=', '', $query);
 						switch ($which) {
 							case 'assignment';
-								printf(ngettext('%u user per page', '%u users per page', $nestinglevel), $nestinglevel);
+								printf(ngettext('%u user per page', '%u users per page', $level), $level);
 								break;
 							case 'group':
-								printf(ngettext('%u group per page', '%u groups per page', $nestinglevel), $nestinglevel);
+								printf(ngettext('%u group per page', '%u groups per page', $level), $level);
 								break;
 							case 'template':
-								printf(ngettext('%u template per page', '%u templates per page', $nestinglevel), $nestinglevel);
+								printf(ngettext('%u template per page', '%u templates per page', $level), $level);
 								break;
 						}
 						break;

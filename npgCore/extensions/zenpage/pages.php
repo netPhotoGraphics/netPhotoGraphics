@@ -141,11 +141,13 @@ updatePublished('pages');
 						printSortableDirections(gettext("Select a page to edit or drag the pages into the order, including subpage levels, you wish them displayed."));
 						if (GALLERY_SECURITY == 'public') {
 							?>
-							<p class="notebox"><?php echo gettext("<strong>Note:</strong> Subpages of password protected pages inherit the protection."); ?></p>
+							<p class="notebox">
+								<?php echo gettext("<strong>Note:</strong> Subpages of password protected pages inherit the protection."); ?>
+							</p>
 							<?php
 						}
 						?>
-						<p>
+						<div style="padding-bottom: 5px;">
 							<?php
 							applyButton(array('buttonClass' => 'serialize'));
 							resetButton();
@@ -153,35 +155,33 @@ updatePublished('pages');
 							<?php
 							if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 								?>
-								<span class="floatright">
+								<span class="floatright" style="padding-left: 10px;">
 									<?php npgButton('button', PLUS_ICON . ' ' . gettext('New Page'), array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;add&amp;XSRFToken=' . getXSRFToken('add'))); ?>
 								</span>
 								<?php
 							}
 							?>
-						</p>
+							<div class="headline">
+								<?php
+								$checkarray = array(
+										gettext('*Bulk actions*') => 'noaction',
+										gettext('Delete') => 'deleteall',
+										gettext('Set to published') => 'showall',
+										gettext('Set to unpublished') => 'hideall',
+										gettext('Disable comments') => 'commentsoff',
+										gettext('Enable comments') => 'commentson'
+								);
+								if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+									$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
+								}
 
-						<div class="headline">
-
-							<?php
-							$checkarray = array(
-									gettext('*Bulk actions*') => 'noaction',
-									gettext('Delete') => 'deleteall',
-									gettext('Set to published') => 'showall',
-									gettext('Set to unpublished') => 'hideall',
-									gettext('Disable comments') => 'commentsoff',
-									gettext('Enable comments') => 'commentson'
-							);
-							if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
-								$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
-							}
-
-							if (extensionEnabled('hitcounter')) {
-								$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
-							}
-							$checkarray = npgFilters::apply('bulk_page_actions', $checkarray);
-							printBulkActions($checkarray);
-							?>
+								if (extensionEnabled('hitcounter')) {
+									$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
+								}
+								$checkarray = npgFilters::apply('bulk_page_actions', $checkarray);
+								printBulkActions($checkarray);
+								?>
+							</div>
 						</div>
 						<br clear="all">
 						<div class="bordered">
