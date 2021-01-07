@@ -690,21 +690,21 @@ function printCurrentNewsArchive($before = '', $mode = 'formatted', $format = '%
  * @param string $newsindex How you want to call the link the main news page without a category, leave empty if you don't want to print it at all.
  * @param bool $counter TRUE or FALSE (default TRUE). If you want to show the number of articles behind the category name within brackets,
  * @param string $css_id The CSS id for the list
- * @param string $css_class_active The css class for the active menu item
+ * @param string $css_class_topactive The css class for the active menu item
  * @param bool $startlist set to true to output the UL tab
- * @param int $showsubs Set to depth of sublevels that should be shown always. 0 by default. To show all, set to a true! Only valid if option=="list".
  * @param string $css_class CSS class of the sub level list(s)
- * @param string $$css_class_active CSS class of the sub level list(s)
+ * @param string $css_class_active CSS class of the sub level list(s)
  * @param string $option The mode for the menu:
  * 												"list" context sensitive toplevel plus sublevel pages,
  * 												"list-top" only top level pages,
  * 												"omit-top" only sub level pages
  * 												"list-sub" lists only the current pages direct offspring
+ * @param int $showsubs Set to depth of sublevels that should be shown always. 0 by default. To show all, set to a true! Only valid if option=="list".
  * @param int $limit truncation of display text
  * @return string
  */
 function printAllNewsCategories($newsindex = 'All news', $counter = true, $css_id = '', $css_class_topactive = '', $startlist = true, $css_class = '', $css_class_active = '', $option = 'list', $showsubs = false, $limit = NULL) {
-	printNestedMenu($option, 'allcategories', $counter, $css_id, $css_class_topactive, $css_class, $css_class_active, $newsindex, $showsubs, $startlist, $limit);
+	printNestedMenu($option, 'categories', $counter, $css_id, $css_class_topactive, $css_class, $css_class_active, $newsindex, $showsubs, $startlist, $limit);
 }
 
 /* * ********************************************* */
@@ -1311,6 +1311,10 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	if (is_null($limit)) {
 		$limit = MENU_TRUNCATE_STRING;
 	}
+	if ($mode == 'allcategories') {
+		$mode = 'categories';
+	}
+
 
 	if (is_null($css_id)) {
 		switch ($mode) {
@@ -1318,7 +1322,6 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				$css_id = 'menu_pages';
 				break;
 			case 'categories':
-			case 'allcategories':
 				$css_id = 'menu_categories';
 				break;
 		}
@@ -1346,7 +1349,6 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 			$currentitem_sortorder = getPageSortorder();
 			break;
 		case 'categories':
-		case 'allcategories':
 			$articleCategories = array();
 			if ($_CMS_current_article) { // should expand all categories it is a member of
 				foreach ($_CMS_current_article->getCategories() as $catMember) {
@@ -1377,7 +1379,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	if (in_context(NPG_SEARCH) && $mode == 'pages') { // categories are not searched
 		rem_context(ZENPAGE_PAGE);
 	}
-	if (0 == count($items) + (int) ($mode == 'allcategories'))
+	if (0 == count($items) + (int) ($mode == 'categories'))
 		return; // nothing to do
 	$startlist = $startlist && !($option == 'omit-top' || $option == 'list-sub');
 	if ($startlist)
@@ -1398,7 +1400,6 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				}
 				break;
 			case 'categories':
-			case 'allcategories':
 				if (($_gallery_page == "news.php") && !is_NewsCategory() && !is_NewsArchive() && !is_NewsArticle()) {
 					echo '<li class="' . $css_class_topactive . '">' . html_encode($display);
 				} else {
@@ -1448,7 +1449,6 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				}
 				break;
 			case 'categories':
-			case 'allcategories':
 				$catobj = newCategory($item['titlelink']);
 				$itemtitle = $catobj->getTitle();
 				$itemsortorder = $catobj->getSortOrder();
@@ -1537,7 +1537,6 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 							}
 							break;
 						case 'categories':
-						case 'allcategories':
 							if ($_gallery_page == 'news.php') {
 								$current = $class;
 							}
