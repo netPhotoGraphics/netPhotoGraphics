@@ -147,6 +147,11 @@ class customFieldExtender extends fieldExtender {
 		return parent::_mediaItemEdit($html, $object, $i, self::$fields);
 	}
 
+	static function mediaEditSelector($list, $what) {
+		// you should add to the list any fields that should be selectable on mass edit pages
+		return $list;
+	}
+
 	static function cmsItemSave($object) {
 		return parent::_cmsItemSave($object, self::$fields);
 	}

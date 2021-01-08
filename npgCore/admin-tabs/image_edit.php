@@ -7,7 +7,11 @@ require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
-$edit = array('description' => 1, 'metadata' => 1, 'general' => 1, 'utilities' => 1, 'geotags' => 1);
+
+$stuff = array('description' => gettext('Description'), 'metadata' => gettext('Metadata'), 'geotags' => gettext('Geolocation'), 'general' => gettext('General'), 'utilities' => gettext("Utilities"));
+$stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'images'));
+asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
+
 
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
@@ -35,84 +39,20 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	}
 	consolidatedEditMessages('imageinfo');
 	if (!$singleimage) {
-		if (($cookiepath = WEBPATH) == '') {
-			$cookiepath = '/';
-		}
-
-		foreach ($_COOKIE as $cookie => $value) {
-			if (strpos($cookie, 'image_edit_') === 0) {
-				$item = substr($cookie, 11);
-				$set = '$edit[\'' . $item . '\']=' . (int) (strtolower($value) == 'true') . ';';
-				eval($set);
-			}
-		}
 		?>
 		<div class="floatleft">
 			<?php
 			echo gettext("Click on the image to change the thumbnail cropping.");
 			?>
 		</div>
-		<script type="text/javascript">
-			function toggle_stuff(stuff) {
-				state = $('#' + stuff + '_box').prop('checked')
-				$('.' + stuff + '_stuff').toggle();
-				$('.' + stuff + '_stuff :input').prop('disabled', !state);
-				$('.initial_disabled').prop('disabled', true);
-				setCookie('image_edit_' + stuff, state, 2, '<?php echo $cookiepath ?>');
-			}
-			window.addEventListener('load', function () {
-	<?php ?>
-				$('input:disabled').addClass('initial_disabled');
-	<?php
-	foreach ($edit as $stuff => $state) {
-		if (!$state) {
-			?>
-						toggle_stuff('<?php echo $stuff; ?>', false);
-						setCookie('image_edit_' + stuff, 'false', 2, '<?php echo $cookiepath ?>');
-			<?php
-		}
-	}
-	?>
-			}, false);
-		</script>
-		<div id="menu_selector_button">
-			<div id="menu_button">
-				<a onclick="$('#menu_selections').show();$('#menu_button').hide();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
-			</div>
-			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
-				<div class="floatright">
-					<label>
-						<input id="description_box" type="checkbox" value="1" <?php if ($edit['description']) echo 'checked="checked"' ?> onclick="toggle_stuff('description');"><?php echo gettext('Description'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="metadata_box" type="checkbox" value="1" <?php if ($edit['metadata']) echo 'checked="checked"' ?> onclick="toggle_stuff('metadata');"><?php echo gettext('Metadata'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="geotags_box" type="checkbox" value="1" <?php if ($edit['geotags']) echo 'checked="checked"' ?> onclick="toggle_stuff('geotags');"><?php echo gettext('Geo location'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="general_box" type="checkbox" value="1" <?php if ($edit['general']) echo 'checked="checked"' ?> onclick="toggle_stuff('general');"><?php echo gettext('General'); ?>
-					</label>
-					<br />
-					<label>
-						<input id="utilities_box" type="checkbox" value="1" <?php if ($edit['utilities']) echo 'checked="checked"' ?> onclick="toggle_stuff('utilities');"><?php echo gettext('Utilities'); ?>
-					</label>
-					<br />
-				</div>
-			</div>
-		</div>
-		<br style="clear:both"/><br />
 		<?php
+		printEditSelector('images_edit', $stuff);
 	}
 	?>
 	<div>
 		<?php
 		if ($showfilter) {
-			$numsteps = ceil(max($allimagecount, $imagesTab_imageCount) / ADMIN_IMAGES_STEP);
+			$numsteps = ceil(min(100, $allimagecount) / ADMIN_IMAGES_STEP);
 			if ($numsteps) {
 				?>
 				<?php
@@ -371,9 +311,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										</td>
 									</tr>
 									<?php
-									if ($singleimage) {
-										echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
-									} else {
+									echo npgFilters::apply('edit_image_custom', '', $image, $currentimage);
+									if (!$singleimage) {
 										?>
 										<tr>
 											<td colspan="100%" style="border-bottom:none;">
@@ -397,9 +336,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-															 $('.expire-<?php echo $currentimage; ?>').html('');" />
+																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																		 $('.expire-<?php echo $currentimage; ?>').html('');" />
 													 <?php echo gettext("Published"); ?>
 									</label>
 									<?php
@@ -539,7 +478,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">

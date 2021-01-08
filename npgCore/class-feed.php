@@ -553,7 +553,7 @@ class feed {
 				$category = get_language_string($item['albumtitle']);
 				$website = $item['website'];
 				$title = $category . ": " . $title;
-				$commentpath = PROTOCOL . '://' . $this->host . $link . "#" . $item['id'];
+				$commentpath = PROTOCOL . '://' . $this->host . $link . "#_comment_id_" . $item['id'];
 				break;
 			case 'albums':
 				$obj = newAlbum($item['folder']);
@@ -561,7 +561,7 @@ class feed {
 				$feeditem['pubdate'] = date("r", strtotime($item['date']));
 				$title = get_language_string($item['albumtitle']);
 				$website = $item['website'];
-				$commentpath = PROTOCOL . '://' . $this->host . $link . "#" . $item['id'];
+				$commentpath = PROTOCOL . '://' . $this->host . $link . "#_comment_id_" . $item['id'];
 				break;
 			case 'news':
 			case 'pages':

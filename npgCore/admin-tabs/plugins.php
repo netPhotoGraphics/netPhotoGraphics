@@ -18,6 +18,19 @@ require_once(dirname(__DIR__) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
+define('PLUGINS_STEP', 20);
+if (isset($_GET['selection'])) {
+	define('PLUGINS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+	setNPGCookie('pluginsTab_pluginCount', PLUGINS_PER_PAGE, 3600 * 24 * 365 * 10);
+} else {
+	if ($s = sanitize_numeric(getNPGCookie('pluginsTab_pluginCount'))) {
+		define('PLUGINS_PER_PAGE', $s);
+	} else {
+		define('PLUGINS_PER_PAGE', 10);
+	}
+}
+
+
 /* handle posts */
 if (isset($_GET['action'])) {
 	$notify = '&post_error';
@@ -105,8 +118,6 @@ if (isset($_GET['action'])) {
 
 $_GET['page'] = 'plugins';
 
-define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
-
 $saved = isset($_GET['saved']);
 printAdminHeader('plugins');
 
@@ -182,8 +193,26 @@ npgFilters::apply('admin_note', 'plugins', '');
 	</p>
 	<p class='notebox'><?php echo gettext("<strong>Note:</strong> Support for a particular plugin may be theme dependent! You may need to add the plugin theme functions if the theme does not currently provide support."); ?>
 	</p>
-	<form class="dirtylistening" onReset="setClean('form_plugins');" id="form_plugins" action="?action=saveplugins&amp;page=plugins&amp;tab=<?php echo html_encode($plugin_default); ?>" method="post" autocomplete="off" >
-		<?php XSRFToken('saveplugins'); ?>
+
+	<div class="floatright">
+		<?php
+		$allplugincount = count($pluginlist);
+		$numsteps = ceil(min(100, $allplugincount) / PLUGINS_STEP);
+		if ($numsteps) {
+			?>
+			<?php
+			$steps = array();
+			for ($i = 1; $i <= $numsteps; $i++) {
+				$steps[] = $i * PLUGINS_STEP;
+			}
+			printEditDropdown('plugininfo', $steps, PLUGINS_PER_PAGE, '&amp;tab=' . $plugin_default);
+		}
+		?>
+	</div>
+
+	<form class = "dirtylistening" onReset = "setClean('form_plugins');" id = "form_plugins" action = "?action=saveplugins&amp;page=plugins&amp;tab=<?php echo html_encode($plugin_default); ?>" method = "post" autocomplete = "off" >
+		<?php XSRFToken('saveplugins');
+		?>
 		<input type="hidden" name="saveplugins" value="yes" />
 		<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
 		<p>

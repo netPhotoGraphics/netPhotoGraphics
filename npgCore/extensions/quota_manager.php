@@ -41,6 +41,7 @@ if ($plugin_disable) {
 } else {
 	npgFilters::register('save_admin_data', 'quota_manager::save_admin');
 	npgFilters::register('edit_admin_custom', 'quota_manager::edit_admin');
+	npgFilters::register("mass_edit_selector", "quota_manager::editSelector");
 	npgFilters::register('new_image', 'quota_manager::new_image');
 	npgFilters::register('image_refresh', 'quota_manager::image_refresh');
 	npgFilters::register('check_upload_quota', 'quota_manager::checkQuota');
@@ -111,8 +112,13 @@ class quota_manager extends fieldExtender {
 	 * @return bool
 	 */
 	static function save_admin($userobj, $i, $alter) {
-		if (isset($_POST['user'][$i]['quota']) && $alter) {
-			$userobj->setQuota(sanitize_numeric($_POST['user'][$i]['quota']));
+		if (editSelectorEnabled('user_edit_quota_manager')) {
+			/* single image or the General box is enabled
+			 * needed to be sure we don't reset these values because the input was disabled
+			 */
+			if (isset($_POST['user'][$i]['quota']) && $alter) {
+				$userobj->setQuota(sanitize_numeric($_POST['user'][$i]['quota']));
+			}
 		}
 		return $userobj;
 	}
@@ -141,7 +147,7 @@ class quota_manager extends fieldExtender {
 		} else {
 			$used = '';
 		}
-		$result = '<div class="user_left">' . "\n"
+		$result = '<div class="user_left quota_manager_stuff">' . "\n"
 						. gettext("Image storage quota:") . '&nbsp;' .
 						sprintf(gettext('Allowed: %s kb'), '<input type="text" size="10" name="user[' . $i . '][quota]" value="' . $quota . '" ' . $local_alterrights . ' />') . ' ' .
 						$used . "\n"
@@ -149,6 +155,14 @@ class quota_manager extends fieldExtender {
 						. '<br class="clearall" />' . "\n";
 
 		return $html . $result;
+	}
+
+	static function editSelector($stuff, $whom) {
+		switch ($whom) {
+			case 'users':
+				$stuff['quota_manager'] = gettext('Quotas');
+		}
+		return $stuff;
 	}
 
 	/**

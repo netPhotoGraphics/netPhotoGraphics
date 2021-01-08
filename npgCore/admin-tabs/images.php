@@ -442,14 +442,16 @@ echo "\n</head>";
 							$base = '';
 							foreach ($parts as $cur => $analbum) {
 								$albumObj = newalbum($base . $analbum);
-								$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
-								if (isset($albums[$base . $analbum])) {
-									$count = $albums[$base . $analbum]['image_count'];
-								} else {
-									$count = 0;
+								if ($albumObj) {
+									$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
+									if (isset($albums[$base . $analbum])) {
+										$count = $albums[$base . $analbum]['image_count'];
+									} else {
+										$count = 0;
+									}
+									$list[$base . $analbum] = array('name' => $base . $analbum, 'sort_order' => $level, 'image_count' => $count);
+									$base .= $analbum . '/';
 								}
-								$list[$base . $analbum] = array('name' => $base . $analbum, 'sort_order' => $level, 'image_count' => $count);
-								$base .= $analbum . '/';
 							}
 						}
 						?>

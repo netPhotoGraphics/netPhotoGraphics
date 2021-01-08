@@ -27,8 +27,9 @@ $is_massedit = $subtab == 'massedit';
 
 $subalbum_nesting = 1;
 $album_nesting = 1;
-define('ADMIN_IMAGES_STEP', 5); //	the step for imges per page
 $imagesTab_imageCount = 10;
+define('ADMIN_IMAGES_STEP', 5); //	the step for imges per page
+
 processEditSelection($subtab);
 
 //check for security incursions

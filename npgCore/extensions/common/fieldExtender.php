@@ -216,8 +216,6 @@ class fieldExtender {
 					}
 					if (isset($_POST[$field['name'] . $instance])) {
 						$newdata = sanitize($_POST[$field['name'] . $instance]);
-					} else {
-
 					}
 				}
 		}
@@ -304,7 +302,7 @@ class fieldExtender {
 			if ($field['table'] == 'administrators') {
 				list($item, $formatted) = fieldExtender::_editHandler($userobj, $field, $i);
 				if (!is_null($formatted)) {
-					$input = '<fieldset>' .
+					$input = '<fieldset class="userAddress_stuff">' .
 									'<legend>' . $field['desc'] . '</legend>';
 					if ($formatted) {
 						$html .= $item;
@@ -371,7 +369,7 @@ class fieldExtender {
 			if ($field['table'] == $object->table) {
 				list($item, $formatted) = fieldExtender::_editHandler($object, $field, $i);
 				if (!is_null($formatted)) {
-					$html .= '<tr>' . "\n" . '<td><span class="nowrap">' . $field['desc'] . "</span></td>\n<td>";
+					$html .= '<tr class="' . $field['name'] . '_stuff">' . "\n" . '<td><span class="nowrap">' . $field['desc'] . "</span></td>\n<td>";
 					if ($formatted) {
 						$html .= $item;
 					} else {
@@ -456,6 +454,7 @@ value="' . $item . '" />';
 		if (isset($items['albums'])) {
 			npgFilters::register("save_album_data", "$me::mediaItemSave");
 			npgFilters::register("edit_album_custom", "$me::mediaItemEdit");
+			npgFilters::register("mass_edit_selector", "$me::mediaEditSelector");
 			if (isset($actions['albums'])) {
 				npgFilters::register('bulk_album_actions', "$me::bulkAlbum");
 				npgFilters::register('processBulkAlbumsSave', "$me::bulkAlbumSave");
@@ -464,6 +463,7 @@ value="' . $item . '" />';
 		if (isset($items['images'])) {
 			npgFilters::register("save_image_data", "$me::mediaItemSave");
 			npgFilters::register("edit_image_custom", "$me::mediaItemEdit");
+			npgFilters::register("mass_edit_selector", "$me::mediaEditSelector");
 			if (isset($actions['images'])) {
 				npgFilters::register('bulk_image_actions', "$me::bulkImage");
 				npgFilters::register('processBulkImageSave', "$me::bulkImageSave");
@@ -472,6 +472,7 @@ value="' . $item . '" />';
 		if (isset($items['administrators'])) {
 			npgFilters::register("save_admin_data", "$me::adminSave");
 			npgFilters::register("edit_admin_custom", "$me::adminEdit");
+			npgFilters::register("mass_edit_selector", "$me::mediaEditSelector");
 			//there are no admin bulk actions currently
 		}
 		if (isset($items['news'])) {

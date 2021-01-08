@@ -22,6 +22,7 @@ npgFilters::register('admin_tabs', 'user_groups::admin_tabs', 2000);
 npgFilters::register('admin_alterrights', 'user_groups::admin_alterrights');
 npgFilters::register('save_admin_data', 'user_groups::save_admin');
 npgFilters::register('edit_admin_custom', 'user_groups::edit_admin');
+npgFilters::register("mass_edit_selector", "user_groups::editSelector");
 
 class user_groups {
 
@@ -96,13 +97,18 @@ class user_groups {
 	 * @return bool
 	 */
 	static function save_admin($userobj, $i, $alter) {
-		if ($alter && $userobj->getValid()) {
-			if (isset($_POST['user'][$i]['group'])) {
-				$newgroups = sanitize($_POST['user'][$i]['group']);
-			} else {
-				$newgroups = array(''); //	no group assigned!
+		if (editSelectorEnabled('user_edit_user_groups')) {
+			/* single image or the General box is enabled
+			 * needed to be sure we don't reset these values because the input was disabled
+			 */
+			if ($alter && $userobj->getValid()) {
+				if (isset($_POST['user'][$i]['group'])) {
+					$newgroups = sanitize($_POST['user'][$i]['group']);
+				} else {
+					$newgroups = array(''); //	no group assigned!
+				}
+				self::merge_rights($userobj, $newgroups, self::getPrimeObjects($userobj));
 			}
-			self::merge_rights($userobj, $newgroups, self::getPrimeObjects($userobj));
 		}
 		return $userobj;
 	}
@@ -226,14 +232,22 @@ class user_groups {
 				$grouppart = '<code>' . gettext('no group affiliation') . '</code>';
 			}
 		}
-		$result = '<div class="user_left">' . "\n" . sprintf(gettext('User group membership: %s'), $grouppart) . "\n"
+		$result = '<div class="user_left user_groups_stuff">' . "\n" . sprintf(gettext('User group membership: %s'), $grouppart) . "\n"
 						. '</div>' . "\n"
-						. '<div class="user_right user_column">' . "\n"
+						. '<div class="user_right user_column user_groups_stuff">' . "\n"
 						. '<br />'
 						. $notice
 						. '</div>' . "\n"
 						. '<br class="clearall" />' . "\n";
 		return $html . $result;
+	}
+
+	static function editSelector($stuff, $whom) {
+		switch ($whom) {
+			case 'users':
+				$stuff['user_groups'] = gettext('User group management');
+		}
+		return $stuff;
 	}
 
 	static function admin_tabs($tabs) {

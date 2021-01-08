@@ -466,7 +466,13 @@ class RSS extends feed {
 						}
 						break;
 				}
-				$this->channel_title = html_encode($this->channel_title . $this->cattitle . $titleappendix);
+
+				if ($this->cattitle) {
+					$cattitle = " - " . $this->cattitle;
+				} else {
+					$cattitle = "";
+				}
+				$this->channel_title = html_encode($this->channel_title . $cattitle . $titleappendix);
 				$this->itemnumber = getOption("RSS_zenpage_items"); // # of Items displayed on the feed
 				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
 				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');

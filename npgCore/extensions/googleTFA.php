@@ -42,6 +42,7 @@ require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
 npgFilters::register('admin_login_attempt', 'googleTFA::check');
 npgFilters::register('save_admin_data', 'googleTFA::save');
 npgFilters::register('edit_admin_custom', 'googleTFA::edit', 999);
+npgFilters::register("mass_edit_selector", "googleTFA::editSelector");
 npgFilters::register('admin_head', 'googleTFA::head');
 
 class googleTFA extends fieldExtender {
@@ -80,16 +81,21 @@ class googleTFA extends fieldExtender {
 	}
 
 	static function save($userobj, $i, $alter) {
-		if (isset($_POST['user'][$i]['otp']) && $alter) {
-			if (!$userobj->getOTAsecret()) {
-				$secretFactory = new \Dolondro\GoogleAuthenticator\SecretFactory();
-				$secret = $secretFactory->create(WEBPATH, $userobj->getUser());
-				$userobj->setOTAsecret($secret->getSecretKey());
-				$userobj->setQRuri($secret->getUri());
-			}
-		} else {
-			if ($userobj->getOTAsecret()) {
-				$userobj->setOTAsecret(NULL);
+		if (editSelectorEnabled('user_edit_googleTFA')) {
+			/* single image or the General box is enabled
+			 * needed to be sure we don't reset these values because the input was disabled
+			 */
+			if (isset($_POST['user'][$i]['otp']) && $alter) {
+				if (!$userobj->getOTAsecret()) {
+					$secretFactory = new \Dolondro\GoogleAuthenticator\SecretFactory();
+					$secret = $secretFactory->create(WEBPATH, $userobj->getUser());
+					$userobj->setOTAsecret($secret->getSecretKey());
+					$userobj->setQRuri($secret->getUri());
+				}
+			} else {
+				if ($userobj->getOTAsecret()) {
+					$userobj->setOTAsecret(NULL);
+				}
 			}
 		}
 		return $userobj;
@@ -124,7 +130,7 @@ class googleTFA extends fieldExtender {
 		} else {
 			$checked = '';
 		}
-		$result = '<div class="user_left">' . "\n"
+		$result = '<div class="user_left googleTFA_stuff">' . "\n"
 						. "<label>\n"
 						. '<input type="checkbox" name="user[' . $id . '][otp]" value="1" ' . $checked . ' />&nbsp;'
 						. gettext("Two Factor Authentication") . "\n"
@@ -148,6 +154,14 @@ class googleTFA extends fieldExtender {
 		$result .= "</div>\n"
 						. '<br clear="all">' . "\n";
 		return $html . $result;
+	}
+
+	static function editSelector($stuff, $whom) {
+		switch ($whom) {
+			case 'users':
+				$stuff['googleTFA'] = gettext('Two factor authenitcation');
+		}
+		return $stuff;
 	}
 
 	static function checkCache($key) {

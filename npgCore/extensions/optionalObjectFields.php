@@ -299,6 +299,16 @@ class optionalObjectFields extends fieldExtender {
 		}
 	}
 
+	static function mediaEditSelector($list, $whom) {
+		switch ($whom) {
+			case 'images':
+			case'albums':
+				$list ['tags'] = gettext('Tags');
+				break;
+		}
+		return $list;
+	}
+
 	static function cmsItemSave($object) {
 		return parent::_cmsItemSave($object, self::fields());
 	}

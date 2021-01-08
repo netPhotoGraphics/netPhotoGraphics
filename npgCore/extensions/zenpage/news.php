@@ -11,6 +11,21 @@ require_once("admin-functions.php");
 
 admin_securityChecks(ZENPAGE_NEWS_RIGHTS, currentRelativeURL());
 
+if (isset($_GET['articles_page'])) {
+	if ($_GET['articles_page'] == 'all') {
+		$articles_page = 0;
+	} else {
+		$articles_page = max(1, sanitize_numeric($_GET['articles_page']));
+	}
+	setNPGCookie('articleTab_articleCount', $articles_page, 3600 * 24 * 365 * 10);
+} else {
+	$c = getNPGCookie('articleTab_articleCount');
+	if (!$c) {
+		$c = 15;
+	}
+	$articles_page = max(1, $c);
+}
+
 $reports = array();
 
 if (isset($_GET['delete'])) {
@@ -187,14 +202,6 @@ updatePublished('news');
 					$total = 1;
 					$articles = count($result);
 					if ($articles || !empty($categories) || npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
-						$articles_page = max(1, getOption('articles_per_page'));
-						if (isset($_GET['articles_page'])) {
-							if ($_GET['articles_page'] == 'all') {
-								$articles_page = 0;
-							} else {
-								$articles_page = sanitize_numeric($_GET['articles_page']);
-							}
-						}
 						// Basic setup for the global for the current admin page first
 						if (!isset($_GET['subpage'])) {
 							$subpage = 0;

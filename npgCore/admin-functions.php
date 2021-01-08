@@ -677,6 +677,29 @@ function printAdminHeader($tab, $subtab = NULL) {
 			echo ' checked="checked"';
 	}
 
+	function getJavaCookie($cookie) {
+		if (isset($_COOKIE[$cookie])) {
+			return $_COOKIE[$cookie];
+		} else {
+			return NULL;
+		}
+	}
+
+	/**
+	 * checks the java cookie of an edit selector to see if it is enabled
+	 * Used in saves to leave the state unchanged it the selector is disabled
+	 *
+	 * @param string $selector
+	 * @return bool true if the selector is enabled
+	 */
+	function editSelectorEnabled($selector) {
+		if (isset($_COOKIE[$selector])) {
+			return strtolower($_COOKIE[$selector]) == 'true';
+		} else {
+			return true;
+		}
+	}
+
 	/**
 	 * @global obj $_gallery
 	 * @param array $list The array to fill with the album list
@@ -1884,6 +1907,79 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	/**
+	 *
+	 * @param string $whom the calling location
+	 * @param array $what list of selectables
+	 */
+	function printEditSelector($whom, $stuff, $toggle = '') {
+		$edit = array();
+		foreach ($stuff as $item => $name) {
+			$edit[$item] = 1;
+		}
+		foreach ($_COOKIE as $cookie => $value) {
+			if (strpos($cookie, $whom . '_') === 0) {
+				$item = str_replace($whom . '_', '', $cookie);
+				$set = '$edit[\'' . $item . '\']=' . (int) (strtolower($value) == 'true') . ';';
+				eval($set);
+			}
+		}
+		if (($cookiepath = WEBPATH) == '') {
+			$cookiepath = '/';
+		}
+		?>
+		<script type="text/javascript">
+			function toggle_stuff(stuff) {
+				state = $('#' + stuff + '_box').prop('checked')
+				$('.' + stuff + '_stuff').toggle();
+				$('.' + stuff + '_stuff :input').prop('disabled', !state);
+				$('.initial_disabled').prop('disabled', true);
+				setCookie('<?php echo $whom; ?>_' + stuff, state, 2, '<?php echo $cookiepath ?>');
+			}
+
+			function setEditState() {
+	<?php
+	foreach ($edit as $item => $state) {
+		if (!$state) {
+			?>
+						$('.<?php echo $item; ?>_stuff').hide();
+						$('.<?php echo $item; ?>_stuff :input').prop('disabled', true);
+						setCookie('<?php echo $whom . '_' . $item; ?>', 'false', 2, '<?php echo $cookiepath ?>');
+			<?php
+		}
+	}
+	?>
+				$('.initial_disabled').prop('disabled', true);
+			}
+			window.addEventListener('load', function () {
+				$('input:disabled').addClass('initial_disabled');
+				setEditState();
+			}, false);
+		</script>
+		<div id="menu_selector_button">
+			<div id="menu_button">
+				<a onclick="$('#menu_selections').show();
+							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+			</div>
+			<div id="menu_selections" style="display: none;">
+				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<div class="floatright">
+					<?php
+					foreach ($stuff as $item => $name) {
+						?>
+						<label>
+							<input id="<?php echo $item; ?>_box" type="checkbox" value="1" <?php if ($edit[$item]) echo 'checked="checked"' ?> onclick="toggle_stuff('<?php echo $item; ?>');"><?php echo $name; ?>
+						</label>
+						<br />
+						<?php
+					}
+					?>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
 	 * emits the html for editing album information
 	 * called in edit album and mass edit
 	 * @param string $index the index of the entry in mass edit or '0' if single album
@@ -2402,8 +2498,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 								</td>
 							</tr>
 							<?php
-							echo $custom = npgFilters::apply('edit_album_custom', '', $album, $prefix);
 						}
+						echo $custom = npgFilters::apply('edit_album_custom', '', $album, $prefix);
 						?>
 					</table>
 				</div>
@@ -3108,7 +3204,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$notify = '';
 		$album->setTitle(process_language_string_save($prefix . 'albumtitle', 2));
 
-		if (!$index || !isset($_COOKIE['album_edit_description']) || strtolower($_COOKIE['album_edit_description']) == 'true') {
+		if (!$index || editSelectorEnabled('albums_edit_description')) {
 			/* single image or the General box is enabled
 			 * needed to be sure we don't reset these values because the input was disabled
 			 */
@@ -3181,7 +3277,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setWatermarkThumb(sanitize($_POST[$prefix . 'album_watermark_thumb'], 3));
 		}
 
-		if (!$index || !isset($_COOKIE['album_edit_general']) || strtolower($_COOKIE['album_edit_general']) == 'true') {
+		if (!$index || editSelectorEnabled('albums_edit_general')) {
 			/* single album or the General box is enabled
 			 * needed to be sure we don't reset these values because the input was disabled
 			 */
@@ -3929,7 +4025,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
 		$rightslist = sortMultiArray(npg_Authority::getRights(), array('set', 'value'));
 		?>
-		<div class="box-rights">
+		<div class="box-rights rights_stuff">
 			<strong><?php echo gettext("Rights:"); ?></strong>
 			<?php
 			$element = 3;
@@ -4118,7 +4214,7 @@ function printManagedObjects($type, $objlist, $alterrights, $userobj, $prefix_id
 		$itemcount = '';
 	}
 	?>
-	<div class="box-albums-unpadded">
+	<div class="box-albums-unpadded objects_stuff">
 		<h2 class="h2_bordered_albums">
 			<a onclick="$('#<?php echo $prefix ?>').toggle();" title="<?php echo html_encode($hint); ?>" ><?php echo $text . $itemcount; ?></a>
 		</h2>
@@ -4536,6 +4632,7 @@ function printNestedImageList($albums, $show_thumb, $owner) {
  *
  */
 function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
+	$page = getAdminLink('admin-tabs/edit.php');
 	switch ($subtab) {
 		case '':
 			$link = '?selection=';
@@ -4551,25 +4648,59 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 			}
 			$link = '?page=edit&amp;album=' . html_encode($_GET['album']) . '&amp;tab=imageinfo' . html_encode($tagsort) . '&amp;selection=';
 			break;
+		case 'userinfo':
+			$page = getAdminLink('admin-tabs/users.php');
+			$link = '?page=admin&amp;tab=users&amp;selection=';
+			break;
+		case 'plugininfo':
+			$page = getAdminLink('admin-tabs/plugins.php');
+			$link = '?page=plugins&amp;selection=';
+			break;
+		case 'groupinfo':
+			$page = getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php');
+			$link = '?page=admin&amp;selection=';
+			break;
 	}
 	?>
 	<form name="AutoListBox2" style="float: right;padding-right: 14px;" action="#" >
 		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form);">
 			<?php
-			foreach ($nestinglevels as $nestinglevel) {
-				if ($nesting == $nestinglevel) {
+			$highest = count($nestinglevels) - 1;
+			foreach ($nestinglevels as $key => $level) {
+				if ($nesting == $level || $key == $highest) {
 					$selected = 'selected="selected"';
+					$highest = -1;
 				} else {
 					$selected = "";
 				}
-				echo '<option ' . $selected . ' value="' . getAdminLink('admin-tabs/edit.php') . $link . $nestinglevel . $query . '">';
+				echo '<option ' . $selected . ' value="' . $page . $link . $level . $query . '">';
 				switch ($subtab) {
 					case '':
 					case 'subalbuminfo':
-						printf(ngettext('Show %u album level', 'Show %u album levels', $nestinglevel), $nestinglevel);
+						printf(ngettext('Show %u album level', 'Show %u album levels', $level), $level);
 						break;
 					case 'imageinfo':
-						printf(ngettext('%u image per page', '%u images per page', $nestinglevel), $nestinglevel);
+						printf(ngettext('%u image per page', '%u images per page', $level), $level);
+						break;
+					case 'userinfo':
+						printf(ngettext('%u user per page', '%u users per page', $level), $level);
+						break;
+					case 'plugininfo':
+						printf(ngettext('%u plugin per page', '%u plugins per page', $level), $level);
+						break;
+					case 'groupinfo':
+						$which = str_replace('&amp;tab=', '', $query);
+						switch ($which) {
+							case 'assignment';
+								printf(ngettext('%u user per page', '%u users per page', $level), $level);
+								break;
+							case 'group':
+								printf(ngettext('%u group per page', '%u groups per page', $level), $level);
+								break;
+							case 'template':
+								printf(ngettext('%u template per page', '%u templates per page', $level), $level);
+								break;
+						}
 						break;
 				}
 				echo '</option>';
@@ -4586,24 +4717,28 @@ function processEditSelection($subtab) {
 		switch ($subtab) {
 			case '':
 				$album_nesting = max(1, sanitize_numeric($_GET['selection']));
-				setNPGCookie('gallery_nesting', $album_nesting);
+				setNPGCookie('album_nesting', $album_nesting, 3600 * 24 * 365 * 10);
 				break;
 			case 'subalbuminfo':
 				$subalbum_nesting = max(1, sanitize_numeric($_GET['selection']));
-				setNPGCookie('subalbum_nesting', $subalbum_nesting);
+				setNPGCookie('subalbum_nesting', $subalbum_nesting, 3600 * 24 * 365 * 10);
 				break;
 			case 'imageinfo':
 				$imagesTab_imageCount = max(ADMIN_IMAGES_STEP, sanitize_numeric($_GET['selection']));
-				setNPGCookie('imagesTab_imageCount', $imagesTab_imageCount);
+				setNPGCookie('imagesTab_imageCount', $imagesTab_imageCount, 3600 * 24 * 365 * 10);
 				break;
 		}
 	} else {
 		switch ($subtab) {
 			case '':
-				$album_nesting = getNPGCookie('gallery_nesting');
+				$count = getNPGCookie('album_nesting');
+				if ($count)
+					$album_nesting = $count;
 				break;
 			case 'subalbuminfo':
-				$subalbum_nesting = getNPGCookie('subalbum_nesting');
+				$count = getNPGCookie('subalbum_nesting');
+				if ($count)
+					$subalbum_nesting = $count;
 				break;
 			case 'imageinfo':
 				$count = getNPGCookie('imagesTab_imageCount');
