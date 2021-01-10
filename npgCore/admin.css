@@ -37,6 +37,9 @@ body {
 .centered {
 	text-align: center !important;
 }
+.middle {
+	vertical-align: middle;
+}
 
 em {
 	color: black;

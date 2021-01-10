@@ -32,16 +32,22 @@ function getOptionContent() {
 	?>
 	<div id="tab_forms" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="forms" />
-
-			<p>
+			<div class="centered middle" style="width:800px;">
+				<?php
+				echo gettext('E-mail form');
+				?>
+			</div>
+			<span class="float-left">
 				<?php
 				applyButton();
 				resetButton();
 				?>
-			</p>
+			</span>
+			<br clear="all">
+			<br />
 
 			<?php
 			$formFile = getPlugin('forms/mailForm.htm');
@@ -52,7 +58,6 @@ function getOptionContent() {
 				$form = str_replace('href="%WEBPATH%', 'href="' . FULLWEBPATH, $form);
 				$form = str_replace('src="%LOGO%"', 'src="' . $_gallery->getSiteLogo() . '"', $form);
 			}
-			echo gettext('E-mail form');
 			?>
 			<div style="width:800px;">
 				<textarea name="email_form" class="texteditor" cols="<?php echo TEXTAREA_COLUMNS; ?>"	style="width: 800px" rows="30">
