@@ -103,7 +103,7 @@ $_DB_details = array(
 		'mysql_pass' => ''
 );
 define('DB_NOT_CONNECTED', serialize($_DB_details));
-define('MYSQL_CONNECTION_RETRIES', 10);
+define('MYSQL_CONNECTION_RETRIES', 5);
 
 /**
  * OFFSET_PATH definitions:

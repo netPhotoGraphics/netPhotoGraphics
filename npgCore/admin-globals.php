@@ -307,7 +307,7 @@ if (@$_loggedin) {
 	loadLocalOptions(0, $_gallery->getCurrentTheme());
 }
 
-if (MOD_REWRITE && OFFSET_PATH != 2) {
+if (defined('MOD_REWRITE') && MOD_REWRITE && OFFSET_PATH != 2) {
 	$uri = getRequestURI();
 	$parts = mb_parse_url($uri);
 	if (strpos($parts['path'], 'zp-core') !== FALSE) {
