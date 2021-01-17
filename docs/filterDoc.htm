@@ -329,7 +329,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>edit_image_custom</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.Media)-edit_image_custom --><p>Allows a plugin to manage custom data for images. This invocation is for when the comment is presented for editing.</p><!--e-->
+					<!-- description(Admin.Media)-edit_image_custom --><p>Allows a plugin to manage custom data for images. This invocation is for when the imiage is presented for editing.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-tabs/image_edit.php</li>
@@ -343,6 +343,17 @@
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-tabs/image_edit.php</li>
 						<li class="call_list">npgcore/plugindoc.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>mass_edit_selector</strong></span>(<em>array</em>)</p>
+					<!-- description(Admin.Media)-mass_edit_selector --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/admin-tabs/album_masedit.php</li>
+						<li class="call_list">npgcore/admin-tabs/image_edit.php</li>
+						<li class="call_list">npgcore/admin-tabs/users.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -694,6 +705,24 @@
 	<!-- classhead Miscellaneous --><p></p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>cookieconsent_consentscripts</strong></span>(<em>var, string</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_consentscripts --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/cookieconsent.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>cookieconsent_externalconsentscripts</strong></span>(<em>var, string</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_externalconsentscripts --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/cookieconsent.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>database_query</strong></span>(<em>string, var</em>)</p>
 					<!-- description(Miscellaneous.Miscellaneous)-database_query --><p>Allows filtering of database queries.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -719,6 +748,15 @@
 						<li class="call_list">npgcore/admin.php (3)</li>
 						<li class="call_list">npgcore/setup/index.php</li>
 						<li class="call_list">npgcore/setup/setupcomplete.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>mail_form</strong></span>(<em>string</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-mail_form --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -860,13 +898,13 @@
 					<!-- description(Object.Media)-custom_album_thumb_html --><p>Allows plugins to alter the HTML for an album thumbnail reference.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/image_album_statistics.php (3)</li>
+						<li class="call_list">npgcore/extensions/image_album_statistics.php</li>
 						<li class="call_list">npgcore/template-functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_image_html</strong></span>(<em>var, bool</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>custom_image_html</strong></span>(<em>var, string</em>)</p>
 					<!-- description(Object.Media)-custom_image_html --><p>Allows plugins to alter the HTML for an image reference.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
@@ -938,27 +976,33 @@
 					<!-- description(Object.Media)-standard_album_thumb_html --><p>Allows a plugin to modify the HTML used to reference an album thumb.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">npgcore/template-functions.php</li>
+						<li class="call_list"><em>theme</em>/garland/album.php (2)</li>
+						<li class="call_list"><em>theme</em>/garland/image.php (2)</li>
+						<li class="call_list"><em>theme</em>/garland/summary.php (2)</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_image_html</strong></span>(<em>var</em>)</p>
+					<p class="filterdef"><span class="inlinecode"><strong>standard_image_html</strong></span>(<em>var, string</em>)</p>
 					<!-- description(Object.Media)-standard_image_html --><p>Allows a plugin to modify the HTML used to reference an image.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/mobile/image.php</li>
+						<li class="call_list"><em>theme</em>/npgmobile/image.php</li>
 						<li class="call_list">npgcore/class-image.php</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>standard_image_thumb_html</strong></span>(<em>var</em>)</p>
 					<!-- description(Object.Media)-standard_image_thumb_html --><p>Allows a plugin to modify the HTML used to reference an image thumb.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">npgcore/template-functions.php</li>
+						<li class="call_list"><em>theme</em>/garland/favorites.php (2)</li>
+						<li class="call_list"><em>theme</em>/spellflight/favorites.php (2)</li>
+						<li class="call_list">npgcore/extensions/tinymce/pasteobj/pasteobj.php</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>standard_video_html</strong></span>(<em>var</em>)</p>
@@ -1257,6 +1301,15 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>log_404</strong></span>(<em>string</em>)</p>
+					<!-- description(Template.Miscellaneous)-log_404 --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>next_object_loop</strong></span>(<em>var, var</em>)</p>
 					<!-- description(Template.Miscellaneous)-next_object_loop --><p>Called from the bottom of functions like next_album passing the resultant object.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1291,6 +1344,15 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/colorbox_js.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>custom_image_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Theme.Script)-custom_image_thumb_html --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/enlighten/home.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -1336,6 +1398,16 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/index.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_album_image_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Theme.Script)-standard_album_image_html --><p></p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/garland/image_gallery/functions.php</li>
+						<li class="call_list"><em>theme</em>/spellflight/image_gallery/functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->

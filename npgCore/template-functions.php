@@ -4755,40 +4755,41 @@ function checkPageValidity($request, $gallery_page, $page) {
 function print404status() {
 	global $_404_data;
 	list($album, $image, $galleryPage, $theme, $page) = $_404_data;
-	if (DEBUG_404) {
-		if (!preg_match('~\.(css|js)\.map$~i', $album)) { //	don't log these
-			$list = explode('/', $album);
-			if (array_shift($list) != 'cache') {
-				$target = getRequestURI();
-				if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/' . DATA_FOLDER . '/tést.jpg'))) {
-					$output = "404 error details\n\t\t\tSERVER:\n";
-					foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'HTTP_USER_AGENT', 'REDIRECT_STATUS') as $key) {
-						if (is_null(@$_SERVER[$key])) {
-							$value = 'NULL';
-						} else {
-							$value = "'$_SERVER[$key]'";
-						}
-						$output .= "\t\t\t\t\t$key\t=>\t$value\n";
+
+	$log = npgFilters::apply('log_404', DEBUG_404 && !preg_match('~\.(css|js)\.map$~i', $album), $_404_data); //	don't log these
+	if ($log) {
+		$list = explode('/', $album);
+		if (array_shift($list) != 'cache') {
+			$target = getRequestURI();
+			if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/' . DATA_FOLDER . '/tést.jpg'))) {
+				$output = "404 error details\n\t\t\tSERVER:\n";
+				foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'HTTP_USER_AGENT', 'REDIRECT_STATUS') as $key) {
+					if (is_null(@$_SERVER[$key])) {
+						$value = 'NULL';
+					} else {
+						$value = "'$_SERVER[$key]'";
 					}
-					$output .= "\t\t\tREQUEST:\n";
-					$request = $_REQUEST;
-					$request['theme'] = $theme;
-					if (!empty($image)) {
-						$request['image'] = $image;
-					}
-					foreach ($request as $key => $value) {
-						if (is_array($value)) {
-							$value = '*ARRAY*';
-						} else {
-							$value = truncate_string($value, 50);
-						}
-						$output .= "\t\t\t\t\t$key\t=>\t'$value'\n";
-					}
-					debugLog($output);
+					$output .= "\t\t\t\t\t$key\t=>\t$value\n";
 				}
+				$output .= "\t\t\tREQUEST:\n";
+				$request = $_REQUEST;
+				$request['theme'] = $theme;
+				if (!empty($image)) {
+					$request['image'] = $image;
+				}
+				foreach ($request as $key => $value) {
+					if (is_array($value)) {
+						$value = '*ARRAY*';
+					} else {
+						$value = truncate_string($value, 50);
+					}
+					$output .= "\t\t\t\t\t$key\t=>\t'$value'\n";
+				}
+				debugLog($output);
 			}
 		}
 	}
+
 	echo "\n<strong>" . gettext("Error:</strong> the requested object was not found.");
 	if ($album) {
 		echo '<br />' . sprintf(gettext('Album: %s'), html_encode($album));
