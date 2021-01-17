@@ -174,8 +174,8 @@ if (isset($_GET['mod_rewrite'])) {
 }
 
 $_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-
 $update_config = false;
+
 if (strpos($_config_contents, "\$conf['charset']") === false) {
 	$k = strpos($_config_contents, "\$conf['UTF-8'] = true;");
 	$_config_contents = substr($_config_contents, 0, $k) . "\$conf['charset'] = 'UTF-8';\n" . substr($_config_contents, $k);
@@ -372,6 +372,11 @@ if ($selected_database) {
 	$connectDBErr = '';
 	$connection = $__initialDBConnection;
 	if ($connection) { // got the database handler and the database itself connected
+		//	Flag a successful connection has occurred
+		$_conf_vars['db_client'] = $connection->client_info;
+		$_config_contents = configFile::update('db_client', $connection->client_info, $_config_contents);
+		configFile::store($_config_contents);
+
 		$result = query("SELECT `id` FROM " . $_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
 		if ($result) {
 			if (db_num_rows($result) > 0) {

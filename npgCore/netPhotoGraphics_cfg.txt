@@ -34,6 +34,7 @@ $conf['mysql_database'] = '';       // Supply the name the database
 // If you're sharing the database with other tables, use a prefix to be safe.
 $conf['mysql_prefix'] = ".";
 
+$conf['db_client'] = '';						//	database client info from last setup run
 // If you are having problems with displaying some characters you may have to change
 // the following:
 $conf['charset'] = 'UTF-8';
