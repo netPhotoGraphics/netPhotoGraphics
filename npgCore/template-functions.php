@@ -3443,11 +3443,10 @@ function getRandomImagesAlbum($rootAlbum = NULL, $daily = false) {
  * only once a day.
  *
  * @return obj image
- * @global type $_current_page
  */
 function getPictureOfTheDay() {
-	global $_current_page;
-	if ($_current_page == 'album.php') {
+	global $gallery_page;
+	if ($gallery_page == 'album.php') {
 		$image = getRandomImagesAlbum(NULL, true);
 	} else {
 		$image = getRandomImages(true);
