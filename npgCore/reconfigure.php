@@ -79,22 +79,30 @@ function reconfigureAction($mandatory) {
 				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 			}
 			require_once(CORE_SERVERPATH . 'admin-globals.php');
-			header('Last-Modified: ' . NPG_LAST_MODIFIED);
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 			header('Content-Type: text/html; charset=UTF-8');
 			?>
 			<!DOCTYPE html>
-			<html xmlns="http://www.w3.org/1999/xhtml"<?php i18n::htmlLanguageCode(); ?>>
+			<html xmlns="http://www.w3.org/1999/xhtml">
 				<head>
 					<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 					<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
 					<?php reconfigureCS(); ?>
 				</head>
 				<body>
-					<?php if ($_gallery) printLogoAndLinks(); ?>
+					<?php
+					if ($_gallery) {
+						printLogoAndLinks();
+					} else {
+						?>
+						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/admin-logo.png" id="site logo" alt="site_logo" style="height:78px; width:auto;" />
+						<?php
+					}
+					?>
 					<div id="main">
 						<?php if ($_gallery) printTabs(); ?>
 						<div id="content">
-							<h1><?php echo gettext('Setup request'); ?></h1>
+							<h1><?php echo gettext('Setup needed'); ?></h1>
 							<div class="tabbox">
 								<?php reconfigurePage($diff, $needs, $mandatory); ?>
 							</div>
@@ -275,7 +283,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	?>
 	<div class="reconfigbox">
 		<h1>
-			<?php echo gettext('A change has been detected in your installation.'); ?>
+			<?php echo gettext('A change has been detected in the installation.'); ?>
 		</h1>
 		<div id="errors">
 			<ul>
@@ -286,10 +294,10 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							echo '<li>' . sprintf(gettext('Version %1$s has been copied over %2$s.'), $rslt['new'], $rslt['old']) . '</li>';
 							break;
 						case 'FOLDER':
-							echo '<li>' . sprintf(gettext('Your installation has moved from %1$s to %2$s.'), $rslt['old'], $rslt['new']) . '</li>';
+							echo '<li>' . sprintf(gettext('The installation has moved from %1$s to %2$s.'), $rslt['old'], $rslt['new']) . '</li>';
 							break;
 						case 'CONFIGURATION':
-							echo '<li>' . gettext('Your installation configuration is damaged.') . ' ' . $rslt['old'] . '</li>';
+							echo '<li>' . gettext('The installation configuration is damaged.') . ' ' . $rslt['old'] . '</li>';
 							$l1 = '';
 							break;
 						case 'REQUESTS':
@@ -319,7 +327,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 		<p>
 			<?php
 			if ($mandatory) {
-				printf(gettext('The change detected is critical. You <strong>must</strong> run %1$ssetup%2$s for your site to function.'), $l1, $l2);
+				printf(gettext('The change detected is critical. %1$s<em>setup</em>%2$s <strong>must</strong> be run for the site to function.'), $l1, $l2);
 			} else {
 				printf(gettext('The change detected may not be critical but you should run %1$ssetup%2$s at your earliest convenience.'), $l1, $l2);
 				$request = mb_parse_url(getRequestURI());
