@@ -362,12 +362,19 @@ function reconfigurePage($diff, $needs, $mandatory) {
  * 						11	No config file
  * 						12	No database specified
  * 						13	No DB connection
- * 						14	checkInstall Version has changed
  */
 function restoreSetupScrpts($reason) {
-//log setup file restore no matter what!
+	//log setup file restore no matter what!
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
+
+	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();
+
 	switch ($reason) {
+		case 6:
+		case 13:
+			if (isset($_conf_vars['db_client']) && !empty($_conf_vars['db_client'])) {
+				$allowed = false; // If this was set, there was once a good connection to the DB
+			}
 		default:
 			$addl = sprintf(gettext('to run setup [%s]'), $reason);
 			break;
@@ -378,7 +385,6 @@ function restoreSetupScrpts($reason) {
 			$addl = gettext('by cloning');
 			break;
 	}
-	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();
 	security_logger::log_setup($allowed, 'restore', $addl);
 	if ($allowed) {
 		if (!defined('FILE_MOD')) {
