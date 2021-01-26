@@ -57,11 +57,11 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input type="hidden" name="saveoptions" value="gallery" />
 			<input type="hidden" name="password_enabled" id="password_enabled" value="0" />
-			//	catch and discard browser auto filling of user/password so they do not go where they are not wanted!
+			<!--	catch and discard browser auto filling of user/password so they do not go where they are not wanted! -->
 			<input type="text" id="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0" />
 			<input type="password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0" />
 			<table>
@@ -258,7 +258,7 @@ function getOptionContent() {
 											 name="disclose_password"
 											 id="disclose_password"
 											 onclick="passwordClear('');
-															 togglePassword('');" /><?php echo gettext('Show'); ?>
+													 togglePassword('');" /><?php echo gettext('Show'); ?>
 							</label>
 
 							<br />
