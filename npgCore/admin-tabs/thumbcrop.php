@@ -142,7 +142,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	if (isset($_REQUEST['clear_crop']) || ($cw == 0 && $ch == 0)) {
 		$cx = $cy = $cw = $ch = NULL;
 	} else {
-
 		$rw = $width / $sizedwidth;
 		$rh = $height / $sizedheight;
 		$cw = round($cw * $rw);

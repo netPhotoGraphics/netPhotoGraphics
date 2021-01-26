@@ -399,7 +399,7 @@ class PersistentObject {
 			} else {
 				$sql = '';
 				foreach ($this->updates as $col => $value) {
-					if ($this->data[$col] != $value) {
+					if ($this->data[$col] !== $value) {
 						if ($sql) {
 							$sql .= ",";
 						}
