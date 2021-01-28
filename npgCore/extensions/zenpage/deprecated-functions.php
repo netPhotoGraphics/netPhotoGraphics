@@ -38,8 +38,12 @@ function getNewsCustomData() {
 	global $_CMS_current_article;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
 	if (!is_null($_CMS_current_article)) {
-		return $_CMS_current_article->getCustomData();
+		$data = $_CMS_current_article->getData();
+		if (array_key_exists('customdata', $data)) {
+			return $_CMS_current_article->getCustomData();
+		}
 	}
+	return NULL;
 }
 
 /**
@@ -80,8 +84,12 @@ function getPageCustomData() {
 	global $_CMS_current_page;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
 	if (!is_null($_CMS_current_page)) {
-		return $_CMS_current_page->getCustomData();
+		$data = $_CMS_current_page->getData();
+		if (array_key_exists('customdata', $data)) {
+			return $_CMS_current_page->getCustomData();
+		}
 	}
+	return NULL;
 }
 
 /**
