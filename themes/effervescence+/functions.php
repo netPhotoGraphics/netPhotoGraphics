@@ -78,9 +78,6 @@ function EF_head() {
 	$genfile = $basePath . 'styles/' . $themeColor . '.txt';
 	if (!file_exists($genfile)) {
 		$genfile = $basePath . 'data/' . $themeColor . '.txt';
-		if (!file_exists($genfile)) {
-			$genfile = $basePath . 'styles/kish-my father.txt';
-		}
 	}
 
 	if (!file_exists($csfile) || ($mtime = filemtime($csfile) < filemtime($genfile)) || $mtime < filemtime($basePath . '/base.css')) {
@@ -242,7 +239,6 @@ function printHeadingImage($randomImage) {
 			$wide = min(620, $randomImage->getWidth());
 			$high = min(180, $randomImage->getHeight());
 		}
-
 		echo "<a href='" . $randomImageURL . "' title='" . gettext('Random picture...') . "'>";
 		$html = "<img src='" . html_encode($randomImage->getCustomImage(array('width' => $wide, 'height' => $high, 'cw' => $wide, 'ch' => $high, 'thumb' => !getOption('Watermark_head_image')))) .
 						"' width='$wide' height='$high' alt=" . '"' .

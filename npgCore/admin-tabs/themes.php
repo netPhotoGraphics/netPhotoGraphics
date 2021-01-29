@@ -239,18 +239,7 @@ if (count($themelist) == 0) {
 				</td>
 				<td <?php echo $style; ?>>
 					<?php echo $ico; ?>
-
-					<?php
-					if (isset($themeinfo['deprecated'])) {
-						?>
-						<strong><span class="deprecated"><?php echo $themeinfo['name']; ?></span></strong> <a title="<?php echo gettext('Theme is deprecated'); ?>"><?php echo WARNING_SIGN_ORANGE; ?></a>
-						<?php
-					} else {
-						?>
-						<strong><?php echo $themeinfo['name']; ?></strong>
-						<?php
-					}
-					?>
+					<strong><?php echo $themeinfo['name']; ?></strong>
 					<br />
 					<?php echo $themeinfo['author']; ?>
 					<br />
