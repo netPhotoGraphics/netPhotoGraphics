@@ -1,5 +1,7 @@
 <?php
 
+require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/deprecated-functions/class.php');
+
 class cachemanager_internal_deprecations {
 
 	/**

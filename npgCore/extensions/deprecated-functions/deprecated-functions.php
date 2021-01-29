@@ -76,7 +76,13 @@ function getAllTagsCount($language = NULL) {
 function getAlbumCustomData() {
 	global $_current_album;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
-	return $_current_album->getCustomData();
+	if (!is_null($_current_album)) {
+		$data = $_current_album->getData();
+		if (array_key_exists('customdata', $data)) {
+			return $_current_album->getCustomData();
+		}
+	}
+	return NULL;
 }
 
 /**
@@ -93,7 +99,13 @@ function printAlbumCustomData() {
 function getImageCustomData() {
 	global $_current_image;
 	deprecated_functions::notify(gettext('Use customFieldExtender to define unique fields'));
-	return $_current_image->getCustomData();
+	if (!is_null($_current_image)) {
+		$data = $_current_image->getData();
+		if (array_key_exists('customdata', $data)) {
+			return $_current_image->getCustomData();
+		}
+	}
+	return NULL;
 }
 
 /**
