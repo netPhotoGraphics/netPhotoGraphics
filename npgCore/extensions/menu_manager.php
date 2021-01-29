@@ -235,16 +235,15 @@ function getItemTitleAndURL($item) {
 		case "album":
 			$folderFS = internalToFilesystem($item['link']);
 			$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS;
-			$dynamic = hasDynamicAlbumSuffix($folderFS) && !is_dir($folderFS);
-			if (!file_exists($localpath) && ($dynamic || is_dir($localpath)) || strpos($localpath, '..') !== false) {
-				$error = 2;
-				$url = '';
-				$protected = 0;
-			} else {
-				$obj = newAlbum($item['link']);
+			$obj = newAlbum($item['link'], FALSE, TRUE);
+			if ($obj->exists) {
 				$url = $obj->getLink(0);
 				$protected = $obj->isProtected();
 				$title = $obj->getTitle();
+			} else {
+				$error = 2;
+				$url = '';
+				$protected = 0;
 			}
 			$array = array(
 					"title" => $title,
