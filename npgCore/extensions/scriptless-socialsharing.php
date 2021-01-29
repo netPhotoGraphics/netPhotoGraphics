@@ -49,6 +49,7 @@ $plugin_is_filter = 9 | THEME_PLUGIN;
 $plugin_description = gettext('Provides scriptless and privacy friendly sharing buttons.');
 $option_interface = 'scriptlessSocialsharing';
 
+npgFilters::register('content_macro', 'scriptlessSocialsharing::macro');
 if (getOption('scriptless_socialsharing_iconfont')) {
 	npgFilters::register('theme_head', 'scriptlessSocialsharing::CSS');
 }
@@ -224,7 +225,7 @@ class scriptlessSocialsharing {
 			$buttons[] = array(
 					'class' => 'sharingicon-linkedin',
 					'title' => 'Linkedin',
-					'url' => 'https://www.linkedin.com/shareArticle?mini=true&amp;url=' . $url . '>&amp;title=' . $title . '&amp;source=' . $url
+					'url' => 'https://www.linkedin.com/shareArticle?url=' . $url . '&amp;mini=true&amp;title=' . $title . '&amp;source=' . $url
 			);
 		}
 		if (getOption('scriptless_socialsharing_xing')) {
@@ -343,7 +344,7 @@ class scriptlessSocialsharing {
 				}
 				?>
 				<li<?php echo $li_class; ?>>
-					<a class="<?php echo $button['class']; ?>" href="<?php echo $button['url']; ?>" title="<?php echo $button['title']; ?>" target="_blank">
+					<a class="<?php echo $button['class']; ?>" title="<?php echo $button['title']; ?>" xxxhref="<?php echo $button['url']; ?>" target="_blank">
 						<?php
 						if (!$iconsonly) {
 							echo $button['title'];
@@ -361,6 +362,17 @@ class scriptlessSocialsharing {
 			?>
 		</ul>
 		<?php
+	}
+
+	static function macro($macros) {
+		$my_macros = array(
+				'SOCIALSHARINGBUTTONS' => array('class' => 'procedure',
+						'params' => array('string*', 'string*', 'bool*'),
+						'value' => 'scriptlessSocialsharing::printButtons',
+						'owner' => 'scriptlessSocialsharing',
+						'desc' => gettext('Prints the social sharing buttons.'))
+		);
+		return array_merge($macros, $my_macros);
 	}
 
 }
