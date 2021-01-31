@@ -23,7 +23,9 @@ if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)/(.*?)\?~i', $uri . '?', $mat
 		}
 	}
 	if (preg_match('~\.php$~i', $base)) {
-		trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
+		if (file_exists(__DIR__ . $base)) {
+			trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
+		}
 	} else {
 		$base = preg_replace('~RW_SUFFIX$~i', '', $base) . '.php';
 	}
