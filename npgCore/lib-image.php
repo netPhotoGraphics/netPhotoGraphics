@@ -24,6 +24,7 @@ class imageProcessing {
 			echo '<strong>' . $err . '</strong>';
 		} else {
 			$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
+							. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(@$_SERVER['HTTP_REFERER'], 3) . ']'
 							. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']'
 							. "\n\t\t" . "IP: " . getUserID();
 			if ($newfilename) {
