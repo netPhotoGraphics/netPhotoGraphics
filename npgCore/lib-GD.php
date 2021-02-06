@@ -351,7 +351,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 			if (is_array($rslt)) {
 				return array('width' => $rslt[0], 'height' => $rslt[1]);
 			} else {
-				return false;
+				return array('width' => 1, 'height' => 1);
 			}
 		}
 
