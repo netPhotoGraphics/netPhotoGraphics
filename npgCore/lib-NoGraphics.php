@@ -83,7 +83,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 	}
 
 	function gl_imageDims($filename) {
-		return false;
+		return array('width' => 1, 'height' => 1);
 	}
 
 	function gl_imageIPTC($filename) {

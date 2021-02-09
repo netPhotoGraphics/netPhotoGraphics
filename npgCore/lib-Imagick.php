@@ -444,7 +444,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 			return array('width' => $ping->getImageWidth(), 'height' => $ping->getImageHeight());
 		}
 
-		return false;
+		return array('width' => 1, 'height' => 1);
 	}
 
 	/**

@@ -1037,8 +1037,9 @@ class _Authority {
 		if ($loggedin) {
 			return $loggedin;
 		}
-
-		clearNPGCookie("user_auth");
+		if ($auth) { //	expired/invalid auth cookie
+			clearNPGCookie("user_auth");
+		}
 		return NULL;
 	}
 
