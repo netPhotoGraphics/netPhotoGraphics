@@ -274,6 +274,13 @@ class Controller {
 	static function load_album($folder, $force_nocache = false) {
 		global $_current_album, $_gallery, $_albumHandlers;
 		$path = internalToFilesystem(getAlbumFolder(SERVERPATH) . $folder);
+
+		$handled = array();
+		foreach (array_keys($_albumHandlers) as $key => $suffix) {
+			$handled[$key] = '.' . $suffix;
+		}
+		array_push($handled, '');
+
 		if (!is_dir($path)) {
 			//see if there is a dynamic album in the path
 			$parents = array();
@@ -294,13 +301,14 @@ class Controller {
 					$c = 0;
 					foreach ($subalbums as $sub) {
 						$c++;
-						foreach (array_keys($_albumHandlers) as $suffix) {
-							if ($try . '.' . $suffix == basename($sub)) {
+						foreach ($handled as $suffix) {
+							if ($try . $suffix == basename($sub)) {
 								$album = newAlbum($sub);
 								$album->linkname = $build;
 								$album->parentLinks = $parents;
 								$album->index = $c;
 								$fail = false;
+								break;
 							}
 						}
 					}
@@ -330,13 +338,6 @@ class Controller {
 			}
 
 			$_current_album = $album;
-
-			/*
-			  if ($suffix = self::isHandledAlbum($path)) { //	it is a dynamic album sans suffix
-			  $folder .= '.' . $suffix;
-			  }
-			 *
-			 */
 		} else {
 			$_current_album = newAlbum($folder, !$force_nocache, true);
 		}
