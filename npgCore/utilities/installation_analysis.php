@@ -249,6 +249,7 @@ echo '</head>';
 								?>
 								<li>
 									<?php
+									ksort($_images_classes, SORT_NATURAL | SORT_FLAG_CASE);
 									echo gettext('Image handlers');
 									foreach ($_images_classes as $suffix => $handler) {
 										echo '<br />&nbsp;&nbsp;&nbsp;' . $suffix . ':' . 'class ' . $handler;
