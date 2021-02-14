@@ -4,14 +4,18 @@
  *
  * Use this plugin to handle filetypes as "images" that are not otherwise provided for by other plugins.
  *
+ * This plugin provides handlers for <b>TIFF</b> and <b>PDF</b> files. These scripts relegate the rendering of the item to
+ * browser native support, so may not work on a particular browser. However; they provide a starting point for custom file
+ * handling scripts.
+ *
  * Default thumbnail images should be created in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. The naming convention is
- * <i>suffix</i><var>Default.png</var>. If no such file is found, the class object default thumbnail will be used.
+ * <i>suffix</i><var>Default.png</var>.
  *
  * The default behavior of the content display is to display an image based on the above default thumbnail. You can
  * extend this by creating php script in the <var>%USER_PLUGIN_FOLDER%/class-AnyFile</var> folder. This script is named
  * <var>class-Suffix.php</var> where suffix is the upper case first file suffix that is being handled. The script defines
  * an object named <var>Suffix</var> which extends <var>AnyFile</var> and has at least the <var>getContents()</var>
- * method. There are example scripts in the netPhotoGraphics {@link https://github.com/%GITHUB_ORG%/DevTools DevTools} repository.
+ * method.
  *
  * File suffixes supported by the plugin are computed from the list of thumbnail and/or class scripts.
  *
@@ -26,7 +30,7 @@
  */
 $plugin_is_filter = 990 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_description = gettext('Provides a means for handling arbitrary file types. (No rendering provided!)');
+	$plugin_description = gettext('Provides a means for handling arbitrary file types as "images".');
 }
 
 $option_interface = 'AnyFile';
@@ -46,15 +50,21 @@ class AnyFile extends TextObject_core {
 
 		if (OFFSET_PATH == 2) {
 			$supported = getSerializedArray(getOption('AnyFileSuffixList'));
-			foreach ($supported as $suffix) {
-				if (!file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png')) {
-					copy(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-AnyFile/anyFileDefault.png', USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png');
+			if (!empty($supported)) {
+				if (!is_dir(USER_PLUGIN_SERVERPATH . 'class-AnyFile')) {
+					mkdir(USER_PLUGIN_SERVERPATH . 'class-AnyFile');
 				}
+				foreach ($supported as $suffix) {
+					if (!file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png')) {
+						copy(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-AnyFile/Default.png', USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png');
+					}
+				}
+				purgeOption('AnyFileSuffixList');
 			}
 			purgeOption('AnyFile_file_list');
+			purgeOption('AnyFile_watermark');
 		}
 
-		$this->watermark = getOption('AnyFile_watermark');
 		$this->watermarkDefault = getOption('AnyFile_watermark_default_images');
 
 		if (is_object($album)) {
@@ -119,34 +129,35 @@ class AnyFile extends TextObject_core {
 		return '<img src="' . html_encode($this->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="anyfile_default" width=' . $s . ' height=' . $s . '>';
 	}
 
-	static function get_AnyFile_suffixes() {
-		return getSerializedArray(getOption('AnyFileSuffixList'));
+	static function init() {
+		$supported = array();
+		$files = getPluginFiles('class-AnyFile/*.*');
+		foreach ($files as $file) {
+			switch (getSuffix($file)) {
+				case 'php':
+					$handler = strtolower(str_replace('class-', '', stripSuffix(basename($file))));
+					break;
+				case 'png':
+					$handler = strtolower(str_replace('Default', '', stripSuffix(basename($file))));
+					break;
+			}
+			if (!empty($handler)) {
+				$supported[] = $handler;
+			}
+		}
+
+		$supported = array_unique($supported);
+		foreach ($supported as $suffix) {
+			$handler = getPlugin(ucfirst($suffix) . '.php');
+			if ($handler) {
+				require_once($handler);
+				Gallery::addImageHandler($suffix, $handler);
+			} else {
+				Gallery::addImageHandler($suffix, 'AnyFile');
+			}
+		}
 	}
 
 }
 
-$supported = array();
-$files = safe_glob(USER_PLUGIN_SERVERPATH . 'class-AnyFile/*.*');
-foreach ($files as $file) {
-	switch (getSuffix($file)) {
-		case 'php':
-			$supported[] = strtolower(str_replace('class-', '', stripSuffix(basename($file))));
-			break;
-		case 'png':
-			$supported[] = strtolower(str_replace('Default', '', stripSuffix(basename($file))));
-			break;
-	}
-}
-$supported = array_unique($supported);
-foreach ($supported as $suffix) {
-	$handler = ucfirst($suffix);
-	if (file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/class-' . $handler . '.php')) {
-		require_once(USER_PLUGIN_SERVERPATH . 'class-AnyFile/class-' . $handler . '.php');
-		Gallery::addImageHandler($suffix, $handler);
-	} else {
-		Gallery::addImageHandler($suffix, 'AnyFile');
-	}
-}
-
-unset($supported);
-?>
+AnyFile::init();
