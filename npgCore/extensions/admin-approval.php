@@ -23,9 +23,9 @@ class admin_approval {
 		if (is_subclass_of($object, 'ThemeObject') && !npg_loggedin($object->manage_rights)) { // not allowed to change the published status
 			//	retrieve the original value of publish details
 			$data = $object->getData();
-			$show = (int) @$data['show'];
-			$pub = @$data['publishdate'];
-			$exp = @$data['expiredate'];
+			$show = isset($data['show']) ? (int) $data['show'] : 0;
+			$pub = isset($data['publishdate']) ? $data['publishdate'] : NULL;
+			$exp = isset($data['expiredate']) ? $data['expiredate'] : NULL;
 			if ($object->getShow() != $show || $object->getPublishDate() != $pub || $object->getExpireDate() != $exp) { //	publish details have been changed, restore the original publish details
 				$object->set('show', $show);
 				$object->set('publishdate', $pub);

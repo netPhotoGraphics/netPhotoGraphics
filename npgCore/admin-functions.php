@@ -575,9 +575,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 	function getCurrentTab() {
 		global $_admin_menu, $_admin_tab, $_admin_subtab;
-		$tabs = @$_admin_menu[$_admin_tab]['subtabs'];
+		if (isset($_admin_menu[$_admin_tab]['subtabs'])) {
+			$tabs = $_admin_menu[$_admin_tab]['subtabs'];
+		} else {
+			$tabs = NULL;
+		}
 		if (!is_array($tabs))
 			return $_admin_subtab;
+
 		$current = $_admin_subtab;
 		if (isset($_GET['tab'])) {
 			$test = sanitize($_GET['tab']);
@@ -909,7 +914,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 
 				$type = $row['type'];
-				$key = @$row['key'];
+				if (isset($row['key'])) {
+					$key = $row['key'];
+				} else {
+					$key = NULL;
+				}
+
 				$postkey = postIndexEncode($key);
 				$optionID = $whom . '_' . $key;
 
@@ -2779,10 +2789,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function printAlbumButtons($album) {
 		$albumLink = pathurlencode($album->name);
 		if ($imagcount = $album->getNumImages() > 0) {
-			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
-			?>
-			<br /><br />
-			<?php
+			if (!$album->isDynamic()) {
+				npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
+				?>
+				<br /><br />
+				<?php
+			}
 			if (extensionEnabled('hitcounter')) {
 				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . $albumLink . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
 				?>
@@ -3742,8 +3754,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$stack[] = $dir;
 		while ($stack) {
 			$current_dir = array_pop($stack);
-			if ($dh = @opendir($current_dir)) {
-				while (($file = @readdir($dh)) !== false) {
+			if ($dh = opendir($current_dir)) {
+				while (($file = readdir($dh)) !== false) {
 					if ($file !== '.' AND $file !== '..') {
 						$current_file = "{$current_dir}/{$file}";
 						if (is_file($current_file) && is_readable($current_file)) {
@@ -3767,14 +3779,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function themeIsEditable($theme) {
 		if (function_exists('readlink')) {
-			$link = @readlink(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme);
+			$link = is_link(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme);
 		} else {
-			$link = '';
+			$link = FALSE;
 		}
-		if (empty($link) || str_replace('\\', '/', $link) == SERVERPATH . '/' . THEMEFOLDER . '/' . $theme) {
-			return !protectedTheme($theme);
-		} else {
+
+		if ($link) {
 			return false;
+		} else {
+			return !protectedTheme($theme);
 		}
 	}
 
@@ -3858,7 +3871,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 			$f = fopen($target . '/theme_description.php', 'w');
 			if ($f !== FALSE) {
-				@fwrite($f, $description);
+				fwrite($f, $description);
 				fclose($f);
 				$message = gettext('New custom theme created successfully!');
 			} else {
@@ -3906,7 +3919,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$result = true;
 			$handle = opendir($source);
 			if (mkdir($destination)) {
-				@chmod($destination, FOLDER_MOD);
+				chmod($destination, FOLDER_MOD);
 				while (false !== ($filename = readdir($handle))) {
 					$fullname = $source . '/' . $filename;
 					$fullDest = $destination . '/' . $filename;
@@ -3916,8 +3929,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 					} else {
 						if (file_exists($fullname)) {
-							$result = $result && @copy($fullname, $fullDest);
-							@chmod($fullDest, FILE_MOD);
+							$result = $result && copy($fullname, $fullDest);
+							chmod($fullDest, FILE_MOD);
 						}
 					}
 				}
@@ -3940,7 +3953,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 				} else {
 					if (file_exists($fullname)) {
-						@chmod($fullname, 0777);
+						chmod($fullname, 0777);
 						$result = $result && unlink($fullname);
 					}
 				}
@@ -5275,8 +5288,13 @@ function printCodeblockEdit($obj, $id) {
 					<span class="notebox"><?php echo gettext('Codeblock 0 is deprecated.') ?></span>
 					<?php
 				}
+				if (isset($codeblock[$i])) {
+					$block = $codeblock[$i];
+				} else {
+					$block = '';
+				}
 				?>
-				<textarea name="codeblock<?php echo $i; ?>-<?php echo $id; ?>" class="codeblock" id="codeblock<?php echo $i; ?>-<?php echo $id; ?>" rows="40" cols="60"<?php echo $disabled; ?>><?php echo html_encode(@$codeblock[$i]); ?></textarea>
+				<textarea name="codeblock<?php echo $i; ?>-<?php echo $id; ?>" class="codeblock" id="codeblock<?php echo $i; ?>-<?php echo $id; ?>" rows="40" cols="60"<?php echo $disabled; ?>><?php echo html_encode($block); ?></textarea>
 			</div>
 			<?php
 		}
@@ -5425,7 +5443,7 @@ function dateDiff($date1, $date2, $page) {
 
 	$date = '';
 	for ($i = 1; $i <= 6; $i++) {
-		if (@$matches1[$i] != @$matches2[$i]) {
+		if (!isset($matches1[$i]) || !isset($matches2[$i]) || $matches1[$i] != $matches2[$i]) {
 			break;
 		}
 	}
@@ -5534,12 +5552,20 @@ function getPageSelector($list, $itmes_per_page, $diff = 'fullText') {
 			if (array_key_exists($last, $list)) {
 				$ranges[$page]['end'] = strtolower($list[$last]);
 			} else {
-				$ranges[$page]['end'] = strtolower(@array_pop($list));
+				if (!empty($list)) {
+					$ranges[$page]['end'] = strtolower(array_pop($list));
+				} else {
+					$ranges[$page]['end'] = NULL;
+				}
 			}
 		}
 		$last = '';
 		foreach ($ranges as $page => $range) {
-			$next = @$ranges[$page + 1]['start'];
+			if (isset($ranges[$page + 1]['start'])) {
+				$next = $ranges[$page + 1]['start'];
+			} else {
+				$next = '';
+			}
 			$rangeset[$page] = $diff($last, $range['start'], $page);
 			if ($itmes_per_page > 1) {
 				$rangeset[$page] .= ' » ' . $diff($next, $range['end'], $page + 1);
@@ -6133,7 +6159,7 @@ function clonedFrom() {
 	if (PRIMARY_INSTALLATION) {
 		return false;
 	} else {
-		$master = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER));
+		$master = str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER));
 		return dirname($master);
 	}
 }
@@ -6226,7 +6252,7 @@ function parse_size($size) {
 
 function convert_size($size, $round = 0) {
 	$unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
-	return @round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $unit[$i];
+	return round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $unit[$i];
 }
 
 /**
@@ -6243,14 +6269,18 @@ function getRemoteFile($source, $dest) {
 			$msg = curlDL($source, $dest);
 		} catch (Exception $ex) {
 			$msg = $ex->getMessage();
-			@unlink($dest . '/' . basename($source));
+			if (file_exists($dest . '/' . basename($source))) {
+				unlink($dest . '/' . basename($source));
+			}
 		}
 	} else if (ini_get('allow_url_fopen')) {
 		try {
 			$msg = url_fopenDL($source, $dest);
 		} catch (Exception $ex) {
 			$msg = $ex->getMessage();
-			@unlink($dest . '/' . basename($source));
+			if (file_exists($dest . '/' . basename($source))) {
+				unlink($dest . '/' . basename($source));
+			}
 		}
 	} else {
 		$msg = gettext('Either the PHP <code>curl</code> extension or the PHP ini setting <code>allow_url_fopen</code> must be enabled.');
@@ -6320,7 +6350,7 @@ function curlDL($fileUrl, $saveTo) {
 function url_fopenDL($fileUrl, $saveTo) {
 	$msg = NULL;
 	error_clear_last();
-	if (!@copy($fileUrl, $saveTo . '/' . basename($fileUrl))) {
+	if (!copy($fileUrl, $saveTo . '/' . basename($fileUrl))) {
 		if ($m = error_get_last()) {
 			$msg = sprintf(gettext('PHP <code>copy(%1$s)</code> failed: %2$s'), $fileUrl, $m['message']);
 		} else {

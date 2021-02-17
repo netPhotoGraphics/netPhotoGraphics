@@ -32,12 +32,12 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		$username = $config['mysql_user'];
 		$password = $config['mysql_pass'];
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
-			$port = @ini_get('mysqli.default_port');
+			$port = ini_get('mysqli.default_port');
 		} else {
 			$port = $config['mysql_port'];
 		}
 		if (!isset($config['mysql_socket']) || $config['mysql_socket']) {
-			$socket = @ini_get('mysqli.default_socket');
+			$socket = ini_get('mysqli.default_socket');
 		} else {
 			$socket = $config['mysql_socket'];
 		}

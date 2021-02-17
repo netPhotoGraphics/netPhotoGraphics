@@ -721,7 +721,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 					</td>
 					<td class="option_value">
 						<label>
-							<input type="text" id="user_persistance" name="online_persistance"  value="<?php echo getOption('online_persistance') ?>" />
+							<input type="number" min="0" step='5' id="user_persistance" name="online_persistance"  value="<?php echo getOption('online_persistance') ?>" />
 						</label>
 					</td>
 					<td class="option_desc">

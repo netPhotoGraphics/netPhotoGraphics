@@ -1079,7 +1079,7 @@ class xmpMetadata {
 		} else {
 			$file = stripSuffix($object->localpath) . '.xmp';
 		}
-		@chmod($file, 0777);
+		chmod($file, 0777);
 		$f = fopen($file, 'w');
 		fwrite($f, '<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2-c020 1.124078, Tue Sep 11 2007 23:21:40 ">' . "\n");
 		fwrite($f, ' <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">' . "\n");
@@ -1148,7 +1148,7 @@ class xmpMetadata {
 		fwrite($f, '</x:xmpmeta>' . "\n");
 		fclose($f);
 		clearstatcache();
-		@chmod($file, FILE_MOD);
+		chmod($file, FILE_MOD);
 		return gettext('Metadata exported');
 	}
 

@@ -45,7 +45,7 @@ if (!defined('WEBPATH'))
 			}
 			printCustomPageURL(gettext("Archive View"), "archive", '', '', ' | ');
 			printSoftwareLink();
-			@call_user_func('printUserLogin_out', " | ");
+			if (function_exists('printUserLogin_out')) printUserLogin_out(" | ");
 			?>
 		</div>
 	</body>

@@ -1068,7 +1068,7 @@ function createMenu($menuitems, $menuset = 'default') {
 			$sql = "INSERT INTO " . prefix('menu') . " (`title`,`link`, `titletext`,`type`,`show`,`menuset`,`sort_order`,`include_li`) " .
 							"VALUES (" . db_quote($result['title']) .
 							", " . db_quote($result['link']) .
-							", " . db_quote(@$result['titletext']) .
+							", " . db_quote(isset($result['titletext']) ? $result['titletext'] : NULL) .
 							", " . db_quote($result['type']) . "," . $result['show'] .
 							", " . db_quote($menuset) . "," . db_quote($sort_order) . ",$includeli)";
 			if (!query($sql, false)) {
@@ -1154,7 +1154,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	if (count($items) == 0) {
 		return; // nothing to do
 	}
-	$currentitem_parentid = @$items[$sortorder]['parentid'];
+	$currentitem_parentid = isset($items[$sortorder]['parentid']) ? $items[$sortorder]['parentid'] : NULL;
 	if ($startlist = !($option == 'omit-top' || $option == 'list-sub')) {
 		echo "<ul$css_id>";
 	}

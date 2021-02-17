@@ -226,12 +226,12 @@ function customFieldExtender_enable($enabled) {
 	requestSetup('customFieldExtender', $report);
 }
 
-function getCustomField($field, $object = NULL, &$detail = NULL) {
+function getCustomField($field, $object, &$detail) {
 	$detail = NULL;
 	return fieldExtender::getField($field, $object, $detail, customFieldExtender::$fields);
 }
 
-function printCustomField($field, $label = NULL, $object = NULL) {
+function printCustomField($field, $object, $label = NULL) {
 	$detail = NULL;
 	$text = getCustomField($field, $object, $detail);
 	if (is_null($label)) {

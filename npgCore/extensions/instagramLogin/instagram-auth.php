@@ -26,7 +26,7 @@ if (isset($_GET['code'])) {
 		// Get user information
 		$user_info = $instagram_ob->GetUserProfileInfo($access_token);
 
-		instagramLogin::credentials($user_info['username'], @$user_info['email'], $user_info['full_name'], $_SESSION['redirect']);
+		instagramLogin::credentials($user_info['username'], isset($user_info['email']) ? $user_info['email'] : NULL, $user_info['full_name'], $_SESSION['redirect']);
 	} catch (Exception $e) {
 		$error = $e->getMessage();
 	}

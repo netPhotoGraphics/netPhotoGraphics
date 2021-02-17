@@ -34,7 +34,7 @@ if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
 require_once(__DIR__ . '/functions-basic.php');
 
-$iMutex = new npgMutex('i', @$_GET['limit']);
+$iMutex = new npgMutex('i', isset($_GET['limit']) ? $_GET['limit'] : NULL);
 $iMutex->lock();
 
 require_once(__DIR__ . '/initialize-basic.php');
@@ -96,7 +96,12 @@ if (DEBUG_IMAGE) {
 	debugLog("i.php($ralbum, $rimage): \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$WM=$WM, \$adminrequest=$adminrequest, \$effects=$effects");
 }
 // Construct the filename to save the cached image.
-$newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args, @$_GET['suffix']);
+if (isset($_GET['suffix'])) {
+	$get_suffix = $_GET['suffix'];
+} else {
+	$get_suffix = NULL;
+}
+$newfilename = getImageCacheFilename(filesystemToInternal($album), filesystemToInternal($image), $args, $get_suffix);
 $newfile = SERVERCACHE . $newfilename;
 if (trim($album) == '') {
 	$imgfile = ALBUM_FOLDER_SERVERPATH . $image;
@@ -112,13 +117,13 @@ if ($debug) {
  * **************************************** */
 // Make sure the cache directory is writable, attempt to fix. Issue a warning if not fixable.
 if (!is_dir(SERVERCACHE)) {
-	@mkdir(SERVERCACHE, FOLDER_MOD);
-	@chmod(SERVERCACHE, FOLDER_MOD);
+	mkdir(SERVERCACHE, FOLDER_MOD);
+	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_dir(SERVERCACHE))
 		imageProcessing::error('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-failimage.png');
 }
 if (!is_writable(SERVERCACHE)) {
-	@chmod(SERVERCACHE, FOLDER_MOD);
+	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_writable(SERVERCACHE))
 		imageProcessing::error('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-failimage.png');
 }
@@ -144,10 +149,10 @@ foreach ($albumdirs as $dir) {
 	$dir = internalToFilesystem($dir);
 	$dir = SERVERCACHE . '/' . $dir;
 	if (!is_dir($dir)) {
-		@mkdir($dir, FOLDER_MOD);
-		@chmod($dir, FOLDER_MOD);
+		mkdir($dir, FOLDER_MOD);
+		chmod($dir, FOLDER_MOD);
 	} else if (!is_writable($dir)) {
-		@chmod($dir, FOLDER_MOD);
+		chmod($dir, FOLDER_MOD);
 	}
 }
 unset($dir);

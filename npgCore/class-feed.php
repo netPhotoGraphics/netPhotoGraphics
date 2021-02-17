@@ -126,8 +126,8 @@ class feed {
 				exit();
 			} else {
 				if (file_exists($cachefilepath)) {
-					@chmod($cachefilepath, 0777);
-					@unlink($cachefilepath);
+					chmod($cachefilepath, 0777);
+					unlink($cachefilepath);
 				}
 				ob_start();
 			}
@@ -147,7 +147,7 @@ class feed {
 				mkdir_recursive(SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/', FOLDER_MOD);
 				$pagecontent = ob_get_contents();
 				ob_end_clean();
-				if ($fh = @fopen($cachefilepath, "w")) {
+				if ($fh = fopen($cachefilepath, "w")) {
 					fputs($fh, $pagecontent);
 					fclose($fh);
 					clearstatcache();

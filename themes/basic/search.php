@@ -197,7 +197,7 @@ if (!defined('WEBPATH'))
 				</div>
 				<br class="clearall" />
 				<?php
-				@call_user_func('printSlideShowLink');
+				if (function_exists('printSlideShowLink')) printSlideShowLink();
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 				?>
 			</div>
@@ -216,7 +216,7 @@ if (!defined('WEBPATH'))
 			}
 			?>
 			<?php printSoftwareLink(); ?>
-			<?php @call_user_func('printUserLogin_out', " | "); ?>
+			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 		</div>
 	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>

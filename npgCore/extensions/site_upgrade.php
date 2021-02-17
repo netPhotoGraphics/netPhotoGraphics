@@ -59,7 +59,7 @@ class site_upgrade {
 
 	static function note($where) {
 		global $_conf_vars;
-		switch (@$_conf_vars['site_upgrade_state']) {
+		switch (isset($_conf_vars['site_upgrade_state']) ? $_conf_vars['site_upgrade_state'] : NULL) {
 			case 'closed':
 				if ($where == 'Overview') {
 					?>
@@ -91,7 +91,7 @@ class site_upgrade {
 
 	static function status() {
 		global $_conf_vars;
-		switch (@$_conf_vars['site_upgrade_state']) {
+		switch (isset($_conf_vars['site_upgrade_state']) ? $_conf_vars['site_upgrade_state'] : NULL) {
 			case 'closed':
 				?>
 				<li>
@@ -118,7 +118,7 @@ class site_upgrade {
 
 	static function button($buttons) {
 		global $_conf_vars, $_site_filelist;
-		$state = @$_conf_vars['site_upgrade_state'];
+		$state = isset($_conf_vars['site_upgrade_state']) ? $_conf_vars['site_upgrade_state'] : NULL;
 
 		$update = false;
 		$hash = getSerializedArray(getOption('site_upgrade_hash'));
@@ -264,7 +264,7 @@ class site_upgrade {
 
 switch (OFFSET_PATH) {
 	case 0:
-		$state = @$_conf_vars['site_upgrade_state'];
+		$state = isset($_conf_vars['site_upgrade_state']) ? $_conf_vars['site_upgrade_state'] : NULL;
 		if ((!npg_loggedin(ADMIN_RIGHTS | DEBUG_RIGHTS) && $state == 'closed_for_test') || $state == 'closed') {
 			header('location: ' . getAdminLink(USER_PLUGIN_FOLDER . '/site_upgrade/closed.php'));
 			exit();

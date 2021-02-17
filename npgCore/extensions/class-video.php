@@ -268,8 +268,10 @@ class Video extends Image {
 			foreach ($p as $k => $v) {
 				$args[$a[$k]] = $v;
 			}
-			$suffix = @$args['suffix'];
-			unset($args['suffix']);
+			if (isset($args['suffix'])) {
+				$suffix = $args['suffix'];
+				unset($args['suffix']);
+			}
 
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 			deprecated_functions::notify_call('Video::getCustomImage', gettext('The function should be called with an image arguments array.'));
@@ -387,7 +389,7 @@ class Video extends Image {
 		if (in_array($suffix, array('m4a', 'm4v', 'mp3', 'mp4', 'flv', 'fla'))) {
 			try {
 				$getID3 = new getID3;
-				@set_time_limit(30);
+				set_time_limit(30);
 				$ThisFileInfo = $getID3->analyze($this->localpath);
 				getid3_lib::CopyTagsToComments($ThisFileInfo);
 				// output desired information in whatever format you want

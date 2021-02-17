@@ -30,10 +30,10 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
-			$config['mysql_port'] = @ini_get('mysqli.default_port');
+			$config['mysql_port'] = ini_get('mysqli.default_port');
 		}
 		if (!isset($config['mysql_socket']) || $config['mysql_socket']) {
-			$config['mysql_socket'] = @ini_get('mysqli.default_socket');
+			$config['mysql_socket'] = ini_get('mysqli.default_socket');
 		}
 
 		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
@@ -75,7 +75,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 	}
 
 	// set the sql_mode to relaxed (if possible)
-	@$_DB_connection->query('SET SESSION sql_mode="";');
+	$_DB_connection->query('SET SESSION sql_mode="";');
 	return $_DB_connection;
 }
 
@@ -99,7 +99,7 @@ function db_query($sql, $errorstop = true) {
 				debugLogVar(["EXPLAIN $sql" => $explaination]);
 			}
 		}
-		if ($result = @$_DB_connection->query($sql)) {
+		if ($result = $_DB_connection->query($sql)) {
 			return $result;
 		}
 	}

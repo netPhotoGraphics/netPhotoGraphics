@@ -253,7 +253,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 				$check = $chmod;
 			}
 			if (setupUserAuthorized() && $updatechmod) {
-				@chmod($path, $chmod);
+				chmod($path, $chmod);
 				clearstatcache();
 				$perms = fileperms($path) & 0777;
 				if (!checkPermissions($perms, $chmod)) {
@@ -444,7 +444,7 @@ function configMod() {
 	$mod = 0600;
 	$str = NULL;
 	while (empty($str)) {
-		@chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $mod);
+		chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $mod);
 		$str = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 		if ($mod == 0666) {
 			break;
@@ -604,7 +604,7 @@ function migrate_folder($folder) {
 	$files = safe_glob($folder . '*');
 	foreach ($files as $file) {
 		if (is_dir($file)) {
-			@set_time_limit(200);
+			set_time_limit(200);
 			$conversions = $conversions + migrate_folder($file . '/');
 		} else {
 			$suffix = strtolower(getSuffix($file));
@@ -651,7 +651,7 @@ function migrateDB() {
 		}
 	}
 	foreach ($tables as $table => $fields) {
-		@set_time_limit(200);
+		set_time_limit(200);
 		foreach ($fields as $field) {
 			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*/' . CACHEFOLDER . '/((\\.|[^\"])*)"';
 			$result = query($sql);
@@ -665,7 +665,8 @@ function migrateDB() {
 						if ($newname) {
 							$image = safe_glob(SERVERPATH . '/' . ALBUMFOLDER . '/' . str_replace(WEBPATH . '/' . CACHEFOLDER . '/', '', dirname($file)) . '/' . urldecode($basename) . '.*');
 							if (!empty($image)) {
-								if (FALSE !== $data = @unserialize($row[$field])) {
+								if (is_serialized($row[$field])) {
+									$data = unserialize($row[$field]);
 									foreach ($data as $key => $v) {
 										$data[$key] = str_replace(basename($file), $newname, $data[$key]);
 									}
@@ -718,7 +719,7 @@ function newCacheName($file) {
 function updateRootIndexFile() {
 	$index = SERVERPATH . '/index.php';
 	if (file_exists($index)) {
-		@rename($index, $index . '.bak');
+		rename($index, $index . '.bak');
 	}
 
 	$defines = array(
@@ -731,17 +732,19 @@ function updateRootIndexFile() {
 	);
 	$script = file_get_contents(SERVERPATH . '/' . CORE_FOLDER . '/root_index.php');
 	$script = strtr($script, $defines);
-	$rootupdate = @file_put_contents($index, $script);
+	$rootupdate = file_put_contents($index, $script);
 	if (!$rootupdate) {
-		$f1 = @file_get_contents($index);
+		$f1 = file_get_contents($index);
 		$rootupdate = $f1 == $script; // it is ok, the contents is correct
 	}
 	if ($rootupdate) {
-		@unlink($index . '.bak');
+		if (file_exists($index . '.bak')) {
+			unlink($index . '.bak');
+		}
 		file_put_contents(USER_PLUGIN_SERVERPATH . 'core-locator.npg', CORE_SERVERPATH);
 		chmod(USER_PLUGIN_SERVERPATH . 'core-locator.npg', FILE_MOD);
 	} else {
-		@rename($index . '.bak', $index);
+		rename($index . '.bak', $index);
 	}
 	return $rootupdate;
 }

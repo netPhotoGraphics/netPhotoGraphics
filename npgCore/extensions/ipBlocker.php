@@ -201,11 +201,11 @@ class ipBlocker {
 				$import_list = array();
 				// insert current list into import list for posterity
 				foreach ($list as $range) {
-					$ipa = explode('.', $range['end']);
-					$ipend = sprintf('%03u.%03u.%03u.%03u', @$ipa[0], @$ipa[1], @$ipa[2], @$ipa[3]);
-					$ipa = explode('.', $range['start']);
+					$ipa = explode('.', $range['end'] . '0.0.0.0');
+					$ipend = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
+					$ipa = explode('.', $range['start'] . '0.0.0.0');
 					do {
-						$current = sprintf('%03u.%03u.%03u.%03u', @$ipa[0], @$ipa[1], @$ipa[2], @$ipa[3]);
+						$current = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
 						$ipa[3] ++;
 						if ($ipa[3] > 255) {
 							$ipa[3] = 0;
@@ -231,8 +231,8 @@ class ipBlocker {
 				foreach ($import as $ip) {
 					$ip = trim($ip);
 					if ($ip) {
-						$ipa = explode('.', $ip);
-						$import_list[] = sprintf('%03u.%03u.%03u.%03u', @$ipa[0], @$ipa[1], @$ipa[2], @$ipa[3]);
+						$ipa = explode('.', $ip . '0.0.0.0');
+						$import_list[] = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
 					}
 				}
 
@@ -265,7 +265,7 @@ class ipBlocker {
 									}
 								}
 							}
-							$next = sprintf('%03u.%03u.%03u.%03u', @$ipa[0], @$ipa[1], @$ipa[2], @$ipa[3]);
+							$next = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
 							$current = $try;
 							if ($clean = $current != $next) {
 								$list[] = array('start' => $start, 'end' => $end);
@@ -340,8 +340,8 @@ class ipBlocker {
 		$allow = getOption('ipBlocker_type') == 'allow';
 		$gate = $allow;
 		if (!empty($list)) {
-			$ipa = explode('.', getUserIP());
-			$ip = sprintf('%03u.%03u.%03u.%03u', @$ipa[0], @$ipa[1], @$ipa[2], @$ipa[3]);
+			$ipa = explode('.', getUserIP() . '0.0.0.0');
+			$ip = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
 			foreach ($list as $range) {
 				if ($ip >= $range['start'] && $ip <= $range['end']) {
 					$gate = !$allow;

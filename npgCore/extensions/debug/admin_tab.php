@@ -19,7 +19,7 @@ if (isset($_POST['delete_cookie'])) {
 	exit();
 }
 
-printAdminHeader('development', @$_GET['tab']);
+printAdminHeader('development', isset($_GET['tab']) ? $_GET['tab'] : NULL);
 $subtab = getCurrentTab();
 
 echo "\n</head>";
@@ -125,7 +125,7 @@ echo "\n</head>";
 							ob_start();
 							phpinfo();
 							$phpinfo = ob_get_clean();
-							@ob_end_flush();
+							ob_end_flush();
 
 
 							$i = strpos($phpinfo, '<div class="center">');

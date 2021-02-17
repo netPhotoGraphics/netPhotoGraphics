@@ -153,7 +153,7 @@ class TextObject_core extends Image {
 			case 'txt':
 			case 'htm':
 			case 'html':
-				return '<div style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . @file_get_contents($this->localpath) . '</div>';
+				return '<div style="display:block;width:' . $w . 'px;height:' . $h . 'px;" class="textobject">' . file_get_contents($this->localpath) . '</div>';
 			case 'pdf':
 				return '<div style="background-image: url(\'' . html_encode($this->getCustomImage(array('size' => min($w, $h), 'thumb' => 3, 'WM' => 'err-broken-page'))) . '\'); background-repeat: no-repeat; background-position: center;" >' .
 								'<iframe src="' .
@@ -182,8 +182,10 @@ class TextObject_core extends Image {
 			foreach ($p as $k => $v) {
 				$args[$a[$k]] = $v;
 			}
-			$suffix = @$args['suffix'];
-			unset($args['suffix']);
+			if (isset($args['suffix'])) {
+				$suffix = $args['suffix'];
+				unset($args['suffix']);
+			}
 
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 			deprecated_functions::notify_call('TextObject::getCustomImage', gettext('The function should be called with an image arguments array.'));

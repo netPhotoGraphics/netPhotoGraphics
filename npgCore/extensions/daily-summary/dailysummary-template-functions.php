@@ -124,8 +124,10 @@ function getCustomDailySummaryThumb($args, $suffix = NULL) {
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		$suffix = @$args['suffix'];
-		unset($args['suffix']);
+		if (isset($args['suffix'])) {
+			$suffix = $args['suffix'];
+			unset($args['suffix']);
+		}
 
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomDailySummaryThumb', gettext('The function should be called with an image arguments array.'));

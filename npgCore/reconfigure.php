@@ -74,7 +74,7 @@ function reconfigureAction($mandatory) {
 			require_once(__DIR__ . '/lib-filter.php');
 
 			if (!defined('FULLWEBPATH')) {
-				$protocol = (@$_SERVER['https']) ? 'HTTPS' : 'HTTP';
+				$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
 				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
 				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 			}
@@ -132,7 +132,7 @@ function checkSignature($mandatory) {
 	global $_configMutex, $_DB_connection, $_reconfigureMutex;
 	$old = NULL;
 	if (function_exists('query_full_array') && $_DB_connection) {
-		$old = @unserialize(getOption('netphotographics_install'));
+		$old = getSerializedArray(getOption('netphotographics_install'));
 		unset($old['SERVER_SOFTWARE']);
 		unset($old['DATABASE']);
 		$new = installSignature();
@@ -163,7 +163,7 @@ function checkSignature($mandatory) {
 	$keys = array_unique(array_merge(array_keys($new), array_keys($old)));
 	foreach ($keys as $key) {
 		if (!array_key_exists($key, $new) || !array_key_exists($key, $old) || $old[$key] != $new[$key]) {
-			$diff[$key] = array('old' => @$old[$key], 'new' => @$new[$key]);
+			$diff[$key] = array('old' => isset($old[$key]) ? $old[$key] : NULL, 'new' => isset($new[$key]) ? $new[$key] : NULL);
 		}
 	}
 
@@ -183,8 +183,8 @@ function checkSignature($mandatory) {
 		foreach ($have as $key => $f) {
 			$f = str_replace('.php', '.xxx', $f);
 			if (file_exists($f)) {
-				@chmod($f, 0777);
-				@unlink($f);
+				chmod($f, 0777);
+				unlink($f);
 			}
 		}
 		$restore = safe_glob('*.xxx');
@@ -312,7 +312,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							}
 							break;
 						default:
-							$sz = @filesize(CORE_SERVERPATH . $thing);
+							$sz = filesize(CORE_SERVERPATH . $thing);
 							if (getSuffix($thing) == 'php') {
 								echo '<li>' . sprintf(gettext('The script <code>%1$s</code> has changed.'), $thing) . '</li>';
 							} else {
@@ -394,7 +394,7 @@ function restoreSetupScrpts($reason) {
 		$found = safe_glob('*.xxx');
 		foreach ($found as $script) {
 			chmod($script, 0777);
-			if (@rename($script, stripSuffix($script) . '.php')) {
+			if (rename($script, stripSuffix($script) . '.php')) {
 				chmod(stripSuffix($script) . '.php', FILE_MOD);
 			} else {
 				chmod($script, FILE_MOD);

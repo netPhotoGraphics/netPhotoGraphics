@@ -72,7 +72,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 	$watermarks = getWatermarks();
 	$missingImages = NULL;
 	foreach ($tables as $table => $fields) {
-		@set_time_limit(200);
+		set_time_limit(200);
 		foreach ($fields as $field) {
 			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*i.(php|webp)((\\.|[^\"])*)"';
 			$result = query($sql);

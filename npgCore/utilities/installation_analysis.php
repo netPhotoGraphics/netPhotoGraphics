@@ -219,7 +219,7 @@ echo '</head>';
 									?>
 								</li>
 								<?php
-								if (@ini_get('display_errors')) {
+								if (ini_get('display_errors')) {
 									?>
 									<li><a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a></li>
 									<?php
@@ -356,7 +356,11 @@ echo '</head>';
 										$pluginStream = file_get_contents(getPlugin($extension . '.php'));
 										$plugin_version = '';
 										if ($str = isolate('$plugin_version', $pluginStream)) {
-											@eval($str);
+											try {
+												eval($str);
+											} catch (Exception $e) {
+
+											}
 										}
 										if ($plugin_version) {
 											$version = ' v' . $plugin_version;
@@ -365,7 +369,11 @@ echo '</head>';
 										}
 										$plugin_is_filter = 1;
 										if ($str = isolate('$plugin_is_filter', $pluginStream)) {
-											@eval($str);
+											try {
+												eval($str);
+											} catch (Exception $e) {
+
+											}
 										}
 										echo "<li>" . $extension . $version . "</li>";
 										preg_match_all('|npgFilters::register\s*\((.+?)\)\s*?;|', $pluginStream, $matches);

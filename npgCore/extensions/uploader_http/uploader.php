@@ -64,7 +64,7 @@ if (isset($_POST['processed'])) {
 			if (!is_dir($targetPath)) {
 				mkdir_recursive($targetPath, FOLDER_MOD);
 			}
-			@chmod($targetPath, FOLDER_MOD);
+			chmod($targetPath, FOLDER_MOD);
 			$album = newAlbum($folder);
 			if ($album->exists) {
 				$title = sanitize($_POST['albumtitle'], 2);
@@ -101,7 +101,7 @@ if (isset($_POST['processed'])) {
 									$uploadfile = $targetPath . '/' . internalToFilesystem($soename);
 								}
 								move_uploaded_file($tmp_name, $uploadfile);
-								@chmod($uploadfile, FILE_MOD);
+								chmod($uploadfile, FILE_MOD);
 								$image = newImage($album, $soename);
 								$image->setOwner($_current_admin_obj->getUser());
 								if ($name != $soename) {

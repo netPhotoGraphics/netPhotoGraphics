@@ -523,9 +523,8 @@ value="' . $item . '" />';
 		}
 	}
 
-	static function getField($field, $object = NULL, &$detail = NULL, $fields) {
-		global $_current_admin_obj, $_current_album, $_current_image
-		, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category;
+	static function getField($field, $object, &$detail, $fields) {
+		global $_current_admin_obj, $_current_album, $_current_image, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category;
 		$objects = $tables = array();
 		if (is_null($object)) {
 			if (in_context(NPG_IMAGE)) {

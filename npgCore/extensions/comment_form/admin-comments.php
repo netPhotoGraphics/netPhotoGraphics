@@ -172,15 +172,15 @@ printLogoAndLinks();
 								if (getOption('comment_form_addresses')) {
 									?>
 									<label for="comment_form_street"><?php echo gettext('Street:'); ?></label>
-									<input type="text" name="0-comment_form_street" id="comment_form_street" class="inputbox" size="40" value="<?php echo @$commentarr['street']; ?>">
+									<input type="text" name="0-comment_form_street" id="comment_form_street" class="inputbox" size="40" value="<?php if (isset($commentarr['street'])) echo $commentarr['street']; ?>">
 									<label for="comment_form_city"><?php echo gettext('City:'); ?></label>
-									<input type="text" name="0-comment_form_city" id="comment_form_city" class="inputbox" size="40" value="<?php echo @$commentarr['city']; ?>">
+									<input type="text" name="0-comment_form_city" id="comment_form_city" class="inputbox" size="40" value="<?php if (isset($commentarr['city'])) echo $commentarr['city']; ?>">
 									<label for="comment_form_state"><?php echo gettext('State:'); ?></label>
-									<input type="text" name="0-comment_form_state" id="comment_form_state" class="inputbox" size="40" value="<?php echo @$commentarr['state']; ?>">
+									<input type="text" name="0-comment_form_state" id="comment_form_state" class="inputbox" size="40" value="<?php if (isset($commentarr['state'])) echo $commentarr['state']; ?>">
 									<label for="comment_form_country"><?php echo gettext('Country:'); ?></label>
-									<input type="text" name="0-comment_form_country" id="comment_form_country" class="inputbox" size="40" value="<?php echo @$commentarr['country']; ?>">
+									<input type="text" name="0-comment_form_country" id="comment_form_country" class="inputbox" size="40" value="<?php if (isset($commentarr['country'])) echo $commentarr['country']; ?>">
 									<label for="comment_form_postal"><?php echo gettext('Postal code:'); ?></label>
-									<input type="text" name="0-comment_form_postal" id="comment_form_postal" class="inputbox" size="40" value="<?php echo @$commentarr['postal']; ?>">
+									<input type="text" name="0-comment_form_postal" id="comment_form_postal" class="inputbox" size="40" value="<?php if (isset($commentarr['postal'])) echo $commentarr['postal']; ?>">
 									<?php
 								}
 								?>
@@ -251,8 +251,12 @@ printLogoAndLinks();
 					$fulltexturl = '';
 				}
 				$allcomments = fetchComments(NULL);
+				if (isset($_GET['subpage'])) {
+					$pagenum = max(1, sanitize_numeric($_GET['subpage']));
+				} else {
+					$pagenum = 1;
+				}
 
-				$pagenum = max((int) @$_GET['subpage'], 1);
 
 				$comments = array_slice($allcomments, ($pagenum - 1) * COMMENTS_PER_PAGE, COMMENTS_PER_PAGE);
 				$allcommentscount = count($allcomments);

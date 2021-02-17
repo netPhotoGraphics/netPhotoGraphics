@@ -20,7 +20,7 @@ admin_securityChecks($localrights, $return = currentRelativeURL());
 
 function loadAlbum($album) {
 	global $_current_album, $_current_image, $_gallery, $custom, $enabled, $fullImage;
-	@set_time_limit(200);
+	set_time_limit(200);
 	$subalbums = $album->getAlbums();
 	sort($subalbums);
 	$started = false;
@@ -154,9 +154,9 @@ while ($row = db_fetch_assoc($result)) {
 }
 $custom = sortMultiArray($custom, array('theme', 'album', 'thumb', 'image_size', 'image_width', 'image_height'), false, true, true);
 
-if (isset($_GET['action']) && $_GET['action'] == 'select') {
+if (isset($_GET['action']) && $_GET['action'] == 'select' && isset($_POST['enable'])) {
 	XSRFdefender('cacheImages');
-	$enabled = @$_POST['enable'];
+	$enabled = $_POST['enable'];
 } else {
 	$enabled = false;
 }

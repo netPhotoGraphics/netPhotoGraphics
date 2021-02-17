@@ -205,7 +205,7 @@ if (!defined('OFFSET_PATH')) {
 
 	$real_locale = i18n::getUserLocale();
 
-	$pluginType = @$_GET['type'];
+	$pluginType = isset($_GET['type']) ? $_GET['type'] : NULL;
 	if ($pluginType) {
 		$pluginToBeDocPath = USER_PLUGIN_SERVERPATH . $extension . '.php';
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php'); //	just incase
@@ -246,12 +246,12 @@ if (!defined('OFFSET_PATH')) {
 	$content_macros = getMacros();
 	krsort($content_macros);
 	foreach ($content_macros as $macro => $detail) {
-		if (@$detail['owner'] != $extension) {
+		if (!isset($detail['owner']) || $detail['owner'] != $extension) {
 			unset($content_macros[$macro]);
 		}
 	}
 
-	$pluginStream = str_replace('/* LegacyConverter was here */', '', @file_get_contents($pluginToBeDocPath));
+	$pluginStream = str_replace('/* LegacyConverter was here */', '', file_get_contents($pluginToBeDocPath));
 	$i = strpos($pluginStream, '/*');
 	$j = strpos($pluginStream, '*/');
 
@@ -528,8 +528,8 @@ if (!defined('OFFSET_PATH')) {
 									<?php
 									$category = '';
 									foreach ($buttonlist as $button) {
-										$button_category = @$button['category'];
-										$button_icon = @$button['icon'];
+										$button_category = isset($button['category']) ? $button['category'] : NULL;
+										$button_icon = isset($button['icon']) ? $button['icon'] : NULL;
 										if ($category != $button_category) {
 											if ($category) {
 												?>
@@ -543,7 +543,7 @@ if (!defined('OFFSET_PATH')) {
 											}
 											?>
 											<form class="overview_utility_buttons">
-												<div class="moc_button tip" title="<?php echo @$button['title']; ?>" >
+												<div class="moc_button tip" title="<?php if (isset($button['title'])) echo $button['title']; ?>" >
 													<?php
 													if (!empty($button_icon)) {
 														if (strpos($button_icon, 'images/') === 0) {
@@ -555,7 +555,9 @@ if (!defined('OFFSET_PATH')) {
 															echo $button_icon . ' ';
 														}
 													}
-													echo html_encode(@$button['button_text']);
+													if (isset($button['button_text'])) {
+														echo html_encode($button['button_text']);
+													}
 													?>
 												</div>
 											</form>

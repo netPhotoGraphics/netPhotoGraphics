@@ -64,7 +64,7 @@ if (!defined('WEBPATH'))
 
 				<br style="clear:both;" />
 
-				<?php @call_user_func('printCommentForm'); ?>
+				<?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 
 			</section>
 

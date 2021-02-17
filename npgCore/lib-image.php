@@ -24,7 +24,7 @@ class imageProcessing {
 			echo '<strong>' . $err . '</strong>';
 		} else {
 			$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
-							. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(@$_SERVER['HTTP_REFERER'], 3) . ']'
+							. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL, 3) . ']'
 							. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']'
 							. "\n\t\t" . "IP: " . getUserID();
 			if ($newfilename) {
@@ -155,7 +155,7 @@ class imageProcessing {
 	 * @param string $theme the current theme
 	 * @param string $album the album containing the image
 	 */
-	static function cache($newfilename, $imgfile, $args, $allow_watermark = false, $theme, $album) {
+	static function cache($newfilename, $imgfile, $args, $allow_watermark, $theme, $album) {
 		global $_gallery;
 		$size = $width = $height = $cw = $ch = $ch = $cx = $cy = $quality = $thumb = $crop = $WM = $adminrequest = $effects = NULL;
 
@@ -395,12 +395,12 @@ class imageProcessing {
 			} else {
 				if ($newh >= $h && $neww >= $w && !$rotate && !$effects && !$watermark_image && (!$upscale || $newh == $h && $neww == $w)) {
 					// we can just use the original!
-					if (SYMLINK && @symlink($imgfile, $newfile)) {
+					if (SYMLINK && symlink($imgfile, $newfile)) {
 						if (DEBUG_IMAGE)
 							debugLog("imageProcessing::cache:symlink original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 						clearstatcache();
 						return true;
-					} else if (@copy($imgfile, $newfile)) {
+					} else if (copy($imgfile, $newfile)) {
 						if (DEBUG_IMAGE)
 							debugLog("imageProcessing::cache:copy original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 						clearstatcache();
@@ -435,7 +435,11 @@ class imageProcessing {
 			}
 
 			// Create the cached file (with lots of compatibility)...
-			@chmod($newfile, 0777);
+
+
+			if (file_exists($newfile)) {
+				chmod($newfile, 0777);
+			}
 			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
 				if (!($thumb ) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
 					global $_images_classes; //	because we are doing the require in a function!
@@ -482,7 +486,7 @@ class imageProcessing {
 					fclose($fw);
 					clearstatcache();
 				}
-				@chmod($newfile, FILE_MOD);
+				chmod($newfile, FILE_MOD);
 				if (DEBUG_IMAGE)
 					debugLog('Finished:' . basename($imgfile));
 			} else {
@@ -490,7 +494,7 @@ class imageProcessing {
 					debugLog('imageProcessing::cache: failed to create ' . $newfile);
 				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-failimage.png');
 			}
-			@chmod($newfile, FILE_MOD);
+			chmod($newfile, FILE_MOD);
 
 			gl_imageKill($newim);
 			gl_imageKill($im);
@@ -508,19 +512,19 @@ class imageProcessing {
 		$params = mb_parse_url(html_decode($img_link));
 		parse_str($params['query'], $query);
 		$args = array(
-				'size' => @$query['s'],
-				'width' => @$query['w'],
-				'height' => @$query['h'],
-				'cw' => @$query['cw'],
-				'ch' => @$query['ch'],
-				'cx' => @$query['cx'],
-				'cy' => @$query['cy'],
-				'quality' => @$query['q'],
-				'crop' => @$query['c'], //crop
-				'thumb' => @$query['t'], //thumb
-				'WM' => @$query['wmk'], //watermark
-				'adminrequest' => @$query['admin'], //admin request
-				'effects' => @$query['effects'] //effects
+				'size' => isset($query['s']) ? $query['s'] : NULL,
+				'width' => isset($query['w']) ? $query['w'] : NULL,
+				'height' => isset($query['h']) ? $query['h'] : NULL,
+				'cw' => isset($query['cw']) ? $query['cw'] : NULL,
+				'ch' => isset($query['ch']) ? $query['ch'] : NULL,
+				'cx' => isset($query['cx']) ? $query['cx'] : NULL,
+				'cy' => isset($query['cy']) ? $query['cy'] : NULL,
+				'quality' => isset($query['p']) ? $query['q'] : NULL,
+				'crop' => isset($query['c']) ? $query['c'] : NULL, //crop
+				'thumb' => isset($query['t']) ? $query['t'] : NULL, //thumb
+				'WM' => isset($query['wmk']) ? $query['wmk'] : NULL, //watermark
+				'adminrequest' => isset($query['admin']) ? $query['admin'] : NULL, //admin request
+				'effects' => isset($query['effects']) ? $query['effects'] : NULL //effects
 		);
 		$album = $query['a'];
 		$image = $query['i'];
@@ -602,7 +606,7 @@ class imageProcessing {
 			} else {
 				//try the file directly as this might be an image not in the database
 				if (function_exists('exif_read_data') && in_array(getSuffix($img), array('jpg', 'jpeg', 'tif', 'tiff'))) {
-					$result = @exif_read_data($img);
+					$result = exif_read_data($img);
 					if (is_array($result) && array_key_exists('Orientation', $result)) {
 						$rotation = $result['Orientation'];
 					}

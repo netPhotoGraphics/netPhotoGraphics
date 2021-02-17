@@ -120,7 +120,7 @@ class favoritesAlbum extends favorites {
 	}
 
 	protected function succeed($dest) {
-		return @copy($this->localpath, $dest);
+		return copy($this->localpath, $dest);
 	}
 
 	function move($newfolder) {
@@ -135,8 +135,8 @@ class favoritesAlbum extends favorites {
 	 */
 	function remove() {
 		if ($rslt = parent::remove()) {
-			@chmod($this->localpath, 0777);
-			$rslt = @unlink($this->localpath);
+			chmod($this->localpath, 0777);
+			$rslt = unlink($this->localpath);
 			clearstatcache();
 		}
 		$this->_removeCache(substr($this->localpath, strlen(ALBUM_FOLDER_SERVERPATH)));
@@ -153,7 +153,7 @@ class favoritesAlbum extends favorites {
 			if ($_gallery_page == 'favorites.php') {
 				?>
 				<li>
-					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/favoritesAlbums/admin-album.php') ?>?title=<?php echo @$_GET['instance']; ?>" title="<?php echo gettext('Create an album from favorites'); ?>"><?php echo gettext('Create Album'); ?></a>
+					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/favoritesAlbums/admin-album.php') ?>?title=<?php if (isset($_GET['instance'])) echo $_GET['instance']; ?>" title="<?php echo gettext('Create an album from favorites'); ?>"><?php echo gettext('Create Album'); ?></a>
 				</li>
 				<?php
 			}

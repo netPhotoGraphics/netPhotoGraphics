@@ -93,13 +93,14 @@ class ef_colorbox {
 						</div>
 						<?php
 					}
-					@call_user_func('printSlideShowLink', NULL, 'text-align:center;');
+					if (function_exists('printSlideShowLink'))
+						printSlideShowLink(NULL, 'text-align:center;');
 					?>
 				</div><!-- images -->
-				<?php @call_user_func('printRating'); ?>
+		<?php if (function_exists('printRating')) printRating(); ?>
 			</div><!-- main -->
 			<div class="clearage"></div>
-			<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
+		<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
 		</div><!-- content -->
 		<?php
 	}

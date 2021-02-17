@@ -5,19 +5,22 @@
  */
 require_once(__DIR__ . '/global-definitions.php');
 
-require_once(__DIR__ . '/lib-encryption.php');
-require_once(__DIR__ . '/lib-utf8.php');
-$_UTF8 = new utf8();
-
 define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
+
+ini_set('session.use_strict_mode', 1);
 
 // Set error reporting.
 error_reporting(E_ALL | E_STRICT);
 if (DISPLAY_ERRORS) {
-	@ini_set('display_errors', 1);
+	ini_set('display_errors', 1);
 } else {
-	@ini_set('display_errors', 0);
+	ini_set('display_errors', 0);
 }
+
+
+require_once(__DIR__ . '/lib-encryption.php');
+require_once(__DIR__ . '/lib-utf8.php');
+$_UTF8 = new utf8();
 
 set_error_handler("npgErrorHandler");
 set_exception_handler("npgExceptionHandler");
@@ -119,8 +122,8 @@ if ($data) {
 } else {
 	$data = array();
 }
-define('GALLERY_SESSION', @$data['album_session']);
-define('GALLERY_SECURITY', @$data['gallery_security']);
+define('GALLERY_SESSION', isset($data['album_session']) ? $data['album_session'] : NULL);
+define('GALLERY_SECURITY', isset($data['gallery_security']) ? $data['gallery_security'] : NULL);
 unset($data);
 
 // insure a correct timezone
@@ -128,17 +131,17 @@ if (function_exists('date_default_timezone_set')) {
 	$level = error_reporting(0);
 	$_server_timezone = date_default_timezone_get();
 	date_default_timezone_set($_server_timezone);
-	@ini_set('date.timezone', $_server_timezone);
+	ini_set('date.timezone', $_server_timezone);
 	error_reporting($level);
 }
 
 // Set the memory limit to unlimited -- suppress errors if user doesn't have control.
-@ini_set('memory_limit', '-1');
+ini_set('memory_limit', '-1');
 
 // Set the internal encoding
-@ini_set('default_charset', LOCAL_CHARSET);
+ini_set('default_charset', LOCAL_CHARSET);
 if (function_exists('mb_internal_encoding')) {
-	@mb_internal_encoding(LOCAL_CHARSET);
+	mb_internal_encoding(LOCAL_CHARSET);
 }
 
 // load graphics libraries in priority order

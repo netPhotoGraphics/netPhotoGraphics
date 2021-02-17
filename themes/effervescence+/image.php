@@ -157,7 +157,7 @@ if (!defined('WEBPATH'))
 			<div id="description">
 				<p><?php printImageDesc(); ?></p>
 				<?php
-				@call_user_func('printRating');
+				if (function_exists('printRating')) printRating();
 				If (function_exists('printAddToFavorites'))
 					printAddToFavorites($_current_image);
 				if (simpleMap::mapPlugin()) {

@@ -314,7 +314,7 @@ class Image extends MediaObject {
 			$this->displayname = $this->filename;
 		}
 		$this->comments = null;
-		$this->filemtime = @filemtime($this->localpath);
+		$this->filemtime = filemtime($this->localpath);
 		$this->imagetype = strtolower(get_class($this)) . 's';
 		$date = $this->get('date');
 		if (!$date || $date == '0000-00-00 00:00:00') {
@@ -959,16 +959,16 @@ class Image extends MediaObject {
 			$result = true;
 			$filestodelete = safe_glob(substr($this->localpath, 0, strrpos($this->localpath, '.')) . '.*');
 			foreach ($filestodelete as $file) {
-				@chmod($file, 0777);
-				$result = $result && @unlink($file);
+				chmod($file, 0777);
+				$result = $result && unlink($file);
 			}
 			if ($result) {
 				query("DELETE FROM " . prefix('obj_to_tag') . " WHERE `type`='images' AND `objectid`=" . $this->id);
 				query("DELETE FROM " . prefix('comments') . " WHERE `type` ='images' AND `ownerid`=" . $this->id);
 				$filestodelete = safe_glob(SERVERCACHE . '/' . substr(dirname($this->localpath), strlen(ALBUM_FOLDER_SERVERPATH)) . '/*' . stripSuffix(basename($this->localpath)) . '*');
 				foreach ($filestodelete as $file) {
-					@chmod($file, 0777);
-					$result = $result && @unlink($file);
+					chmod($file, 0777);
+					$result = $result && unlink($file);
 				}
 			}
 		}
@@ -1005,22 +1005,22 @@ class Image extends MediaObject {
 			}
 		}
 		$filename = basename($this->localpath);
-		@chmod($filename, 0777);
-		$result = @rename($this->localpath, $newpath);
-		@chmod($filename, FILE_MOD);
+		chmod($filename, 0777);
+		$result = rename($this->localpath, $newpath);
+		chmod($filename, FILE_MOD);
 		clearstatcache();
 		if ($result) {
 			$filestomove = safe_glob(substr($this->localpath, 0, strrpos($this->localpath, '.')) . '.*');
 			foreach ($filestomove as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
-					$result = $result && @rename($file, stripSuffix($newpath) . '.' . getSuffix($file));
+					$result = $result && rename($file, stripSuffix($newpath) . '.' . getSuffix($file));
 				}
 			}
 			//purge the cache as it is easier than figuring out what the new cache name should be
 			$filestodelete = safe_glob(SERVERCACHE . '/' . substr(dirname($this->localpath), strlen(ALBUM_FOLDER_SERVERPATH)) . '/*' . stripSuffix(basename($this->localpath)) . '*');
 			foreach ($filestodelete as $file) {
-				@chmod($file, 0777);
-				@unlink($file);
+				chmod($file, 0777);
+				unlink($file);
 			}
 		}
 		$this->localpath = $newpath;
@@ -1063,12 +1063,12 @@ class Image extends MediaObject {
 			return 2;
 		}
 		$filename = basename($this->localpath);
-		$result = @copy($this->localpath, $newpath);
+		$result = copy($this->localpath, $newpath);
 		if ($result) {
 			$filestocopy = safe_glob(substr($this->localpath, 0, strrpos($this->localpath, '.')) . '.*');
 			foreach ($filestocopy as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
-					$result = $result && @copy($file, $newalbum->localpath . basename($file));
+					$result = $result && copy($file, $newalbum->localpath . basename($file));
 				}
 			}
 		}
@@ -1173,8 +1173,10 @@ class Image extends MediaObject {
 			foreach ($p as $k => $v) {
 				$args[$a[$k]] = $v;
 			}
-			$suffix = @$args['suffix'];
-			unset($args['suffix']);
+			if (isset($args['suffix'])) {
+				$suffix = $args['suffix'];
+				unset($args['suffix']);
+			}
 
 			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 			deprecated_functions::notify_call('Image::getCustomImage', gettext('The function should be called with an image arguments array.'));
@@ -1346,13 +1348,16 @@ class Image extends MediaObject {
 				$target = array_keys(array_filter($images, function($item) use($filename, $imagefolder) {
 									return $item['filename'] == $filename && $item['folder'] == $imagefolder;
 								}));
-				$this->index = @$target[0];
 			} else {
 				$images = $this->album->getImages(0);
 				$target = array_keys(array_filter($images, function($item) use ($filename) {
 									return $item == $filename;
 								}));
-				$this->index = @$target[0];
+			}
+			if (isset($target[0])) {
+				$this->index = $target[0];
+			} else {
+				$this->index = NULL;
 			}
 		}
 		return $this->index;
@@ -1535,7 +1540,7 @@ class Transientimage extends Image {
 		if (empty($this->displayname)) {
 			$this->displayname = $this->filename['name'];
 		}
-		$this->filemtime = @filemtime($this->localpath);
+		$this->filemtime = filemtime($this->localpath);
 		$this->comments = null;
 		$this->instantiate('images', array('filename' => $filename['name'], 'albumid' => $this->album->getID()), 'filename', true, true);
 		$this->exists = false;

@@ -65,7 +65,7 @@ if (!empty($folder)) {
 		$album->setShow((int) ($_POST['publishalbum'] == 'true'));
 		$album->save();
 	}
-	@chmod($targetPath, FOLDER_MOD);
+	chmod($targetPath, FOLDER_MOD);
 }
 
 require('UploadHandler.php');

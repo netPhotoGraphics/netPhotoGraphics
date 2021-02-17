@@ -70,37 +70,18 @@ if ($plugin_disable) {
 		static function clones($only_valid = true) {
 			global $_current_admin_obj;
 			$clones = array();
-			$sig = @file_get_contents(CORE_SERVERPATH . 'version.php');
+			$sig = file_get_contents(CORE_SERVERPATH . 'version.php');
 			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone"')) {
 				while ($row = db_fetch_assoc($result)) {
 					if (SYMLINK) {
 						$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . CORE_FOLDER));
 						if (empty($path)) {
-							//	look for the other guy
-							$valid = false;
-							switch (CORE_FOLDER) {
-								case 'zp-core':
-									$path = $row['aux'] . '/npgCore';
-									break;
-								case 'npgCore':
-									$path = $row['aux'] . '/zp-core';
-									break;
-							}
-							if ($path) {
-								@chmod($path, 0777);
-								$success = @rmdir($path);
-								if (!$success) { // some systems treat it as a dir, others as a file!
-									$success = @unlink($path);
-								}
-								if ($success) {
-									$valid = @symlink(SERVERPATH . '/' . CORE_FOLDER, $row['aux'] . '/' . CORE_FOLDER);
-								}
-							}
+							$valid = FALSE;
 						} else {
 							$valid = $path == SERVERPATH . '/' . CORE_FOLDER;
 						}
 					} else { //	best guess if the clone has been changed
-						$clonesig = @file_get_contents($row['aux'] . '/' . CORE_FOLDER . '/version.php');
+						$clonesig = file_get_contents($row['aux'] . '/' . CORE_FOLDER . '/version.php');
 						$valid = $sig == $clonesig;
 					}
 					$link = mb_parse_url($row['data']);

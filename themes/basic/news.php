@@ -61,7 +61,11 @@ if (class_exists('CMS')) {
 					<div class="newsarticlecredit">
 						<span class="newsarticlecredit-left">
 							<?php
-							$count = @call_user_func('getCommentCount');
+							if (function_exists('getCommentCount')) {
+								$count = getCommentCount();
+							} else {
+								$count = 0;
+							}
 							$cat = getNewsCategories();
 							printNewsDate();
 							if ($count > 0) {
@@ -80,7 +84,8 @@ if (class_exists('CMS')) {
 						<?php printCodeblock(2); ?>
 					</div>
 					<?php
-					@call_user_func('printCommentForm');
+					if (function_exists('printCommentForm'))
+						printCommentForm();
 				} else { // news article loop
 					while (next_news()) {
 						$newstypedisplay = NEWS_LABEL;
@@ -93,7 +98,11 @@ if (class_exists('CMS')) {
 							<div class="newsarticlecredit">
 								<span class="newsarticlecredit-left">
 									<?php
-									$count = @call_user_func('getCommentCount');
+									if (function_exists('getCommentCount')) {
+										$count = getCommentCount();
+									} else {
+										$count = 0;
+									}
 									$cat = getNewsCategories();
 									printNewsDate();
 									if ($count > 0) {
@@ -135,10 +144,10 @@ if (class_exists('CMS')) {
 					printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
 				}
 				?>
-				<?php @call_user_func('printUserLogin_out', " | "); ?>
+				<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 			</div>
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

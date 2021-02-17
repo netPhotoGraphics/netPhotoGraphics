@@ -124,7 +124,11 @@ function printLanguageSelector($flags = NULL) {
 			$request['query'] = implode('&', $query);
 		}
 	}
-	$uri = pathurlencode(@$request['path']);
+	if (isset($request['path'])) {
+		$uri = pathurlencode($request['path']);
+	} else {
+		$uri = NULL;
+	}
 	$separator = '?';
 	if (isset($request['query'])) {
 		$uri .= '?' . $request['query'];

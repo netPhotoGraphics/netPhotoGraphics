@@ -21,7 +21,7 @@ $_imagemagick_version_pass = false;
 $_imagick_present = extension_loaded('imagick') && $_imagick_version_pass;
 
 if ($_imagick_present) {
-	@$_imagemagick_version = Imagick::getVersion();
+	$_imagemagick_version = Imagick::getVersion();
 	preg_match('/\d+(\.\d+)*/', $_imagemagick_version['versionString'], $matches);
 
 	$_imagemagick_version['versionNumber'] = $matches[0];
@@ -597,7 +597,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 		global $_imagick_fontlist;
 
 		if (!is_array($_imagick_fontlist)) {
-			@$_imagick_fontlist = Imagick::queryFonts();
+			$_imagick_fontlist = Imagick::queryFonts();
 			$_imagick_fontlist = array('system' => '') + array_combine($_imagick_fontlist, $_imagick_fontlist);
 
 			$paths = array(USER_PLUGIN_SERVERPATH . 'imagick_fonts', CORE_SERVERPATH . 'FreeSerif');

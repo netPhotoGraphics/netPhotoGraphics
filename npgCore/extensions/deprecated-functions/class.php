@@ -53,7 +53,7 @@ class deprecated_functions {
 							'plugin' => $plugin,
 							'function' => $function,
 							'class' => trim($functions[1][$key]),
-							'since' => @$versions[1][$key],
+							'since' => isset($versions[1]) ? $versions[1][$key] : NULL,
 							'option' => $option,
 							'multiple' => array_key_exists($function, $this->unique_functions));
 				}
@@ -175,7 +175,7 @@ class deprecated_functions {
 			$log = true;
 		}
 		if ($log) {
-			if (@$traces[1]['class']) {
+			if (isset($traces[1]['class']) && $traces[1]['class']) {
 				$flag = '_method';
 			} else {
 				$flag = '';

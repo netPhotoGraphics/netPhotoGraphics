@@ -30,7 +30,7 @@ class Tiff extends AnyFile {
 			if (!file_exists($imgfile)) {
 				$imgfile = $path . "/" . USER_PLUGIN_FOLDER . '/class-AnyFile' . $img;
 				if (!file_exists($imgfile)) {
-					$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-AnyFile/anyFileDefault.png';
+					$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-AnyFile/Default.png';
 				}
 			}
 		} else {

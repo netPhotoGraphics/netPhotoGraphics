@@ -12,9 +12,12 @@
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 
+$recentIP = $localeList = $ipList = array();
 $ip = sanitize($_GET['selected_ip']);
-$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
-$localeList = $ipList = array();
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
+	$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+}
+
 if (isset($recentIP[$ip])) {
 	foreach ($recentIP[$ip]['accessed'] as $instance) {
 		$ipList[] = $instance['ip'];

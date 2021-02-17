@@ -159,7 +159,7 @@ class imagegallery {
 						?>
 					</div><!-- images -->
 					<?php if (function_exists('printAddToFavorites')) printAddToFavorites($_current_album); ?>
-					<?php @call_user_func('printRating'); ?>
+					<?php if (function_exists('printRating')) printRating(); ?>
 				</div><!-- main -->
 				<div class="clearage"></div>
 			</div><!-- content -->

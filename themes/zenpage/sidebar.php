@@ -150,4 +150,4 @@ if ((function_exists("printUserLogin_out") ) || !npg_loggedin() && function_exis
 	<?php
 }
 ?>
-<?php @call_user_func('printLanguageSelector'); ?>
+<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>

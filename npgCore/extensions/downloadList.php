@@ -150,7 +150,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-									 togglePassword('_downloadList');">
+											 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -404,7 +404,7 @@ class AlbumZip {
 			$zip = new ZipArchive;
 			$zip->open($zipfileFS, ZipArchive::CREATE);
 			foreach ($_zip_list as $path => $file) {
-				@set_time_limit(6000);
+				set_time_limit(6000);
 				$zip->addFile($path, internalToFilesystem(trim($file, '/')));
 			}
 			$zip->close();
@@ -424,7 +424,7 @@ class AlbumZip {
 			require_once(CORE_SERVERPATH . 'lib-zipStream.php');
 			$zip = new ZipStream(internalToFilesystem($zipname) . '.zip', $opt);
 			foreach ($_zip_list as $path => $file) {
-				@set_time_limit(6000);
+				set_time_limit(6000);
 				$zip->add_file_from_path(internalToFilesystem($file), $path);
 			}
 			$zip->finish();
@@ -496,7 +496,7 @@ function getdownloadList($dir8, $filters8, $excludesuffixes, $sort) {
 		natsort($dirs);
 	}
 	foreach ($dirs as $file) {
-		if (@$file[0] != '.') { //	exclude "hidden" files
+		if (isset($file[0]) && $file[0] != '.') { //	exclude "hidden" files
 			if (is_dir(internalToFilesystem($dir) . '/' . $file)) {
 				$dirN = filesystemToInternal($dir) . "/" . filesystemToInternal($file);
 				$dir_array[$file] = getdownloadList($dirN, $filters8, $excludesuffixes, $sort);
@@ -544,7 +544,7 @@ function printDownloadURL($file, $linktext = NULL) {
 	}
 	$filesize = '';
 	if (getOption('downloadList_showfilesize')) {
-		$filesize = @filesize(internalToFilesystem($file));
+		$filesize = filesize(internalToFilesystem($file));
 		$filesize = ' (' . byteConvert($filesize) . ')';
 	}
 	if (getOption('downloadList_showdownloadcounter')) {
@@ -687,7 +687,7 @@ if (isset($_GET['download'])) {
 			}
 		}
 	}
-	switch (@$_GET['type']) {
+	switch (isset($_GET['type']) ? $_GET['type'] : NULL) {
 		case 'searchzip':
 			$album = new SearchEngine();
 		case 'albumzip':

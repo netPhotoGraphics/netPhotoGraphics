@@ -17,7 +17,10 @@ if (!extension_loaded('intl')) {
 
 		static function getDisplayName($locale) {
 			global $__languages;
-			return @$__languages[$locale];
+			if (isset($__languages[$locale])) {
+				return $__languages[$locale];
+			}
+			return NULL;
 		}
 
 	}
@@ -66,8 +69,8 @@ class i18n {
 		if (is_null($_all_languages)) {
 			$_active_languages = $_all_languages = array();
 			foreach (array(CORE_SERVERPATH . 'locale/', USER_PLUGIN_SERVERPATH . 'locale/') as $source) {
-				$dir = @opendir($source);
-				if ($dir !== false) {
+				if (is_dir($source)) {
+					$dir = opendir($source);
 					while ($dirname = readdir($dir)) {
 						if (is_dir($source . $dirname) && (substr($dirname, 0, 1) != '.')) {
 							$language = self::getDisplayName($dirname);
@@ -111,9 +114,9 @@ class i18n {
 		$try['NULL'] = NULL;
 		$rslt = setlocale(LC_ALL, $try);
 
-		@putenv("LC_ALL=$locale");
-		@putenv("LANG=$locale");
-		@putenv("LANGUAGE=$locale");
+		putenv("LC_ALL=$locale");
+		putenv("LANG=$locale");
+		putenv("LANGUAGE=$locale");
 
 		if (function_exists('T_setlocale')) { //	using php-gettext
 			T_setlocale(LC_ALL, $locale);
@@ -216,8 +219,8 @@ class i18n {
 	 */
 	static function parseHttpAcceptLanguage($str = NULL) {
 		// getting http instruction if not provided
-		if (!$str) {
-			$str = @$_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		if (!$str && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+			$str = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 		}
 		if (!is_string($str)) {
 			return array();
@@ -273,7 +276,7 @@ class i18n {
 					if (DEBUG_LOCALE)
 						debugLog("locale set from $source: " . $locale);
 					break;
-				} else if (@preg_match('/^' . $userlocale . '/', strtoupper($value))) { // we got a partial match
+				} else if (preg_match('/^' . $userlocale . '/', strtoupper($value))) { // we got a partial match
 					$locale = $value;
 					if (DEBUG_LOCALE)
 						debugLog("locale set from $source (partial match): " . $locale);
@@ -305,7 +308,11 @@ class i18n {
 			if (DEBUG_LOCALE)
 				debugLog("dynamic_locale from URL: " . sanitize($_REQUEST['locale']) . "=>$_current_locale");
 		} else {
-			$matches = explode('.', @$_SERVER['HTTP_HOST']);
+			if (isset($_SERVER['HTTP_HOST'])) {
+				$matches = explode('.', $_SERVER['HTTP_HOST']);
+			} else {
+				$matches = array(NULL);
+			}
 			$_current_locale = self::validateLocale($matches[0], 'HTTP_HOST');
 			if ($_current_locale && getNPGCookie('dynamic_locale')) {
 				clearNPGCookie('dynamic_locale');
@@ -511,7 +518,7 @@ if (function_exists('date_default_timezone_set')) { // insure a correct time zon
 	if (!empty($tz)) {
 		$err = error_reporting(0);
 		date_default_timezone_set($tz);
-		@ini_set('date.timezone', $tz);
+		ini_set('date.timezone', $tz);
 		error_reporting($err);
 	}
 	unset($tz);

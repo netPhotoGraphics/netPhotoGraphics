@@ -2013,7 +2013,7 @@ class PclZip
                 // ----- List of items in folder
                 $v_dirlist_descr = array();
                 $v_dirlist_nb    = 0;
-                if ($v_folder_handler = @opendir($v_descr['filename'])) {
+                if ($v_folder_handler = opendir($v_descr['filename'])) {
                     while (($v_item_handler = @readdir($v_folder_handler)) !== false) {
 
                         // ----- Skip '.' and '..'
@@ -2182,7 +2182,7 @@ class PclZip
         if (($v_result = $this->privAddFileList($p_filedescr_list, $v_header_list, $p_options)) != 1) {
             fclose($v_zip_temp_fd);
             $this->privCloseFd();
-            @unlink($v_zip_temp_name);
+            unlink($v_zip_temp_name);
             $this->privSwapBackMagicQuotes();
 
             // ----- Return
@@ -2208,7 +2208,7 @@ class PclZip
                 if (($v_result = $this->privWriteCentralFileHeader($v_header_list[$i])) != 1) {
                     fclose($v_zip_temp_fd);
                     $this->privCloseFd();
-                    @unlink($v_zip_temp_name);
+                    unlink($v_zip_temp_name);
                     $this->privSwapBackMagicQuotes();
 
                     // ----- Return
@@ -2262,11 +2262,11 @@ class PclZip
 
         // ----- Delete the zip file
         // TBC : I should test the result ...
-        @unlink($this->zipname);
+        unlink($this->zipname);
 
         // ----- Rename the temporary file
         // TBC : I should test the result ...
-        //@rename($v_zip_temp_name, $this->zipname);
+        //rename($v_zip_temp_name, $this->zipname);
         PclZipUtilRename($v_zip_temp_name, $this->zipname);
 
         // ----- Return
@@ -2812,7 +2812,7 @@ class PclZip
         @fclose($v_file_compressed);
 
         // ----- Unlink the temporary file
-        @unlink($v_gzip_temp_name);
+        unlink($v_gzip_temp_name);
 
         // ----- Return
         return $v_result;
@@ -3736,7 +3736,7 @@ class PclZip
                 if (isset($p_options[PCLZIP_OPT_SET_CHMOD])) {
 
                     // ----- Change the mode of the file
-                    @chmod($p_entry['filename'], $p_options[PCLZIP_OPT_SET_CHMOD]);
+                    chmod($p_entry['filename'], $p_options[PCLZIP_OPT_SET_CHMOD]);
                 }
 
             }
@@ -3839,7 +3839,7 @@ class PclZip
         @gzclose($v_src_file);
 
         // ----- Delete the temporary file
-        @unlink($v_gzip_temp_name);
+        unlink($v_gzip_temp_name);
 
         // ----- Return
         return $v_result;
@@ -4619,7 +4619,7 @@ class PclZip
                     // ----- Close the zip file
                     $this->privCloseFd();
                     $v_temp_zip->privCloseFd();
-                    @unlink($v_zip_temp_name);
+                    unlink($v_zip_temp_name);
 
                     // ----- Error log
                     PclZip::privErrorLog(PCLZIP_ERR_INVALID_ARCHIVE_ZIP, 'Invalid archive size');
@@ -4634,7 +4634,7 @@ class PclZip
                     // ----- Close the zip file
                     $this->privCloseFd();
                     $v_temp_zip->privCloseFd();
-                    @unlink($v_zip_temp_name);
+                    unlink($v_zip_temp_name);
 
                     // ----- Return
                     return $v_result;
@@ -4651,7 +4651,7 @@ class PclZip
                     // ----- Close the zip file
                     $this->privCloseFd();
                     $v_temp_zip->privCloseFd();
-                    @unlink($v_zip_temp_name);
+                    unlink($v_zip_temp_name);
 
                     // ----- Return
                     return $v_result;
@@ -4662,7 +4662,7 @@ class PclZip
                     // ----- Close the zip file
                     $this->privCloseFd();
                     $v_temp_zip->privCloseFd();
-                    @unlink($v_zip_temp_name);
+                    unlink($v_zip_temp_name);
 
                     // ----- Return
                     return $v_result;
@@ -4678,7 +4678,7 @@ class PclZip
                 if (($v_result = $v_temp_zip->privWriteCentralFileHeader($v_header_list[$i])) != 1) {
                     $v_temp_zip->privCloseFd();
                     $this->privCloseFd();
-                    @unlink($v_zip_temp_name);
+                    unlink($v_zip_temp_name);
 
                     // ----- Return
                     return $v_result;
@@ -4703,7 +4703,7 @@ class PclZip
                 unset($v_header_list);
                 $v_temp_zip->privCloseFd();
                 $this->privCloseFd();
-                @unlink($v_zip_temp_name);
+                unlink($v_zip_temp_name);
 
                 // ----- Return
                 return $v_result;
@@ -4715,11 +4715,11 @@ class PclZip
 
             // ----- Delete the zip file
             // TBC : I should test the result ...
-            @unlink($this->zipname);
+            unlink($this->zipname);
 
             // ----- Rename the temporary file
             // TBC : I should test the result ...
-            //@rename($v_zip_temp_name, $this->zipname);
+            //rename($v_zip_temp_name, $this->zipname);
             PclZipUtilRename($v_zip_temp_name, $this->zipname);
 
             // ----- Destroy the temporary archive
@@ -4960,11 +4960,11 @@ class PclZip
 
         // ----- Delete the zip file
         // TBC : I should test the result ...
-        @unlink($this->zipname);
+        unlink($this->zipname);
 
         // ----- Rename the temporary file
         // TBC : I should test the result ...
-        //@rename($v_zip_temp_name, $this->zipname);
+        //rename($v_zip_temp_name, $this->zipname);
         PclZipUtilRename($v_zip_temp_name, $this->zipname);
 
         // ----- Return
@@ -5345,12 +5345,12 @@ function PclZipUtilRename($p_src, $p_dest)
     $v_result = 1;
 
     // ----- Try to rename the files
-    if (!@rename($p_src, $p_dest)) {
+    if (!rename($p_src, $p_dest)) {
 
         // ----- Try to copy & unlink the src
-        if (!@copy($p_src, $p_dest)) {
+        if (!copy($p_src, $p_dest)) {
             $v_result = 0;
-        } elseif (!@unlink($p_src)) {
+        } elseif (!unlink($p_src)) {
             $v_result = 0;
         }
     }

@@ -200,14 +200,14 @@ class security_logger {
 		$file = SERVERPATH . '/' . DATA_FOLDER . '/security.log';
 		$max = getOption('security_log_size');
 		$_mutex->lock();
-		if ($max && @filesize($file) > $max) {
+		if (file_exists($file) && $max && filesize($file) > $max) {
 			switchLog('security');
 		}
 		$preexists = file_exists($file) && filesize($file) > 0;
 		$f = fopen($file, 'a');
 		if ($f) {
 			if (!$preexists) { // add a header
-				@chmod($file, LOG_MOD);
+				chmod($file, LOG_MOD);
 				$message = gettext('date' . "\t" . 'requestor’s IP' . "\t" . 'type' . "\t" . 'user ID' . "\t" . 'user name' . "\t" . 'outcome' . "\t" . 'authority' . "\tadditional information");
 				fwrite($f, $message . NEWLINE);
 			}

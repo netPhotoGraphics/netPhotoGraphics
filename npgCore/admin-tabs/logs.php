@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
 				XSRFdefender($action, $what);
 				$_mutex->lock();
 				$f = fopen($file, 'w');
-				if (@ftruncate($f, 0)) {
+				if (ftruncate($f, 0)) {
 					$class = 'messagebox';
 					$result = sprintf(gettext('%s log was emptied.'), $what);
 				} else {
@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
 					$result = sprintf(gettext('%s log could not be emptied.'), $what);
 				}
 				fclose($f);
-				@chmod($file, LOGS_MOD);
+				chmod($file, LOGS_MOD);
 				clearstatcache();
 				$_mutex->unlock();
 				if (basename($file) == 'security.log') {
@@ -55,8 +55,8 @@ if (isset($_GET['action'])) {
 				XSRFdefender($action, $what);
 				purgeOption('logviewed_' . $what);
 				$_mutex->lock();
-				@chmod($file, 0777);
-				if (@unlink($file)) {
+				chmod($file, 0777);
+				if (unlink($file)) {
 					$class = 'messagebox';
 					$result = sprintf(gettext('%s log was removed.'), $what);
 				} else {
@@ -177,7 +177,7 @@ echo "\n</head>";
 										<tbody>
 											<?php
 											foreach ($logtext as $line) {
-												@set_time_limit(30);
+												set_time_limit(30);
 												?>
 												<tr>
 													<?php
@@ -211,7 +211,7 @@ echo "\n</head>";
 									<?php
 								} else {
 									foreach ($logtext as $line) {
-										@set_time_limit(30);
+										set_time_limit(30);
 										if ($line) {
 											$line = str_replace("\t", '&nbsp;&nbsp;', $line);
 											?>

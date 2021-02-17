@@ -82,7 +82,11 @@ if (class_exists('CMS')) {
 							<div class="newsarticlecredit">
 								<span class="newsarticlecredit-left">
 									<?php
-									$count = @call_user_func('getCommentCount');
+									if (function_exists('getCommentCount')) {
+										$count = getCommentCount();
+									} else {
+										$count = 0;
+									}
 									$cat = getNewsCategories();
 									printNewsDate();
 									if ($count > 0) {

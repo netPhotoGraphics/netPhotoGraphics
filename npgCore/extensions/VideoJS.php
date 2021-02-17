@@ -65,7 +65,7 @@ class VideoJS extends html5Player {
 			setOptionDefault('VideoJS_customsize', '0');
 			setOptionDefault('VideoJS_aspect', 'wide');
 		}
-		if (getOption('VideoJS_customsize') == 0) {
+		if ((int) getOption('VideoJS_customsize') == 0) {
 			$this->playersize = getOption('VideoJS_size');
 			switch ($this->playersize) {
 				case 'video-JS-270p':
@@ -90,7 +90,7 @@ class VideoJS extends html5Player {
 					break;
 			}
 		} else {
-			$w = getOption('VideoJS_customsize');
+			$w = (int) getOption('VideoJS_customsize');
 			$aspectW = (getOption('VideoJS_aspect') == "wide") ? 16 : 4;
 			$aspectH = (getOption('VideoJS_aspect') == "wide") ? 9 : 3;
 			$h = $w * $aspectH / $aspectW;
@@ -127,7 +127,7 @@ class VideoJS extends html5Player {
 								gettext('VideoJS-1080p (1920x1080px)') => "video-JS-1080p"),
 						'desc' => gettext("Default player size")),
 				gettext('Custom Player Size') => array('key' => 'VideoJS_customsize',
-						'type' => OPTION_TYPE_TEXTBOX,
+						'type' => OPTION_TYPE_NUMBER,
 						'order' => 4,
 						'desc' => gettext("Custom player size (width in pixels). Set to 0 to use default player size")),
 				gettext('Custom Aspect Ratio') => array('key' => 'VideoJS_aspect',

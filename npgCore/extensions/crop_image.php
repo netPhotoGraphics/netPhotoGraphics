@@ -63,8 +63,8 @@ class crop_image {
 
 }
 
-$albumname = sanitize_path(@$_REQUEST['a']);
-$imagename = sanitize(@$_REQUEST['i']);
+$albumname = isset($_REQUEST['a']) ? sanitize_path($_REQUEST['a']) : NULL;
+$imagename = isset($_REQUEST['a']) ? sanitize($_REQUEST['i']) : NULL;
 $album = newAlbum($albumname, true, true);
 if (!$album->exists || !$album->isMyItem(ALBUM_RIGHTS)) { // prevent nefarious access to this page.
 	if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
@@ -172,8 +172,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 
 	$newim = gl_createImage($cw, $ch);
 	gl_resampleImage($newim, $timg, 0, 0, $cx, $cy, $cw, $ch, $cw, $ch, getSuffix($imagename));
-	@chmod($imgpath, 0777);
-	@unlink($imgpath);
+	chmod($imgpath, 0777);
+	unlink($imgpath);
 	if (gl_imageOutputt($newim, getSuffix($imgpath), $imgpath, $quality)) {
 		if (DEBUG_IMAGE)
 			debugLog('image_crop Finished:' . basename($imgpath));
@@ -181,7 +181,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 		if (DEBUG_IMAGE)
 			debugLog('image_crop: failed to create ' . $imgpath);
 	}
-	@chmod($imgpath, FILE_MOD);
+	chmod($imgpath, FILE_MOD);
 	gl_imageKill($newim);
 	gl_imageKill($timg);
 	Gallery::clearCache($albumname);

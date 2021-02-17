@@ -40,7 +40,7 @@ function folderPermissions($folder) {
 	foreach ($files as $file) {
 		$path = $folder . '/' . $file;
 		if (is_dir($path)) {
-			@chmod($path, FOLDER_MOD);
+			chmod($path, FOLDER_MOD);
 			clearstatcache();
 			if (checkPermissions(fileperms($path) & 0777, FOLDER_MOD)) {
 				if (!folderPermissions($path)) {
@@ -50,7 +50,7 @@ function folderPermissions($folder) {
 				return false;
 			}
 		} else {
-			@chmod($path, FILE_MOD);
+			chmod($path, FILE_MOD);
 			clearstatcache();
 			if (!checkPermissions(fileperms($path) & 0777, FILE_MOD)) {
 				return false;

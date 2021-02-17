@@ -811,7 +811,7 @@ class _Authority {
 		if (isset($rightsset['VIEW_ALL_RIGHTS']['value'])) {
 			$rightsset['DEFAULT_RIGHTS']['value'] = $rightsset['DEFAULT_RIGHTS']['value'] | $rightsset['VIEW_ALL_RIGHTS']['value'];
 		} else {
-			$rightsset['DEFAULT_RIGHTS']['value'] = $rightsset['DEFAULT_RIGHTS'] | $rightsset['ALL_ALBUMS_RIGHTS']['value'] |
+			$rightsset['DEFAULT_RIGHTS']['value'] = $rightsset['DEFAULT_RIGHTS']['value'] | $rightsset['ALL_ALBUMS_RIGHTS']['value'] |
 							$rightsset['ALL_PAGES_RIGHTS']['value'] | $rightsset['ALL_NEWS_RIGHTS']['value'] |
 							$rightsset['VIEW_SEARCH_RIGHTS']['value'] | $rightsset['VIEW_GALLERY_RIGHTS']['value'];
 		}
@@ -864,10 +864,18 @@ class _Authority {
 	function handleLogon() {
 		global $_current_admin_obj, $_login_error, $_captcha, $_loggedin, $_gallery;
 		if (isset($_POST['login'])) {
-			$post_user = sanitize(@$_POST['user'], 0);
-			$post_pass = sanitize(@$_POST['pass'], 0);
+			if (isset($_POST['user'])) {
+				$post_user = sanitize($_POST['user'], 0);
+			} else {
+				$post_user = NULL;
+			}
+			if (isset($_POST['pass'])) {
+				$post_pass = sanitize($_POST['pass'], 0);
+			} else {
+				$post_pass = NULL;
+			}
 			$_loggedin = false;
-			switch (@$_POST['password']) {
+			switch (isset($_POST['password']) ? $_POST['password'] : NULL) {
 				default:
 					if (isset($_POST['user'])) { //	otherwise must be a guest logon, don't even try admin path
 						$user = self::checkLogon($post_user, $post_pass);
@@ -898,7 +906,7 @@ class _Authority {
 					$_REQUEST['logon_step'] = 'challenge';
 					break;
 				case 'captcha':
-					if ($_captcha->checkCaptcha(trim(@$_POST['code']), sanitize(@$_POST['code_h'], 3))) {
+					if ($_captcha->checkCaptcha(trim(isset($_POST['code']) ? $_POST['code'] : NULL), sanitize(isset($_POST['code_h']) ? $_POST['code_h'] : NULL, 3))) {
 						require_once(__DIR__ . '/load_objectClasses.php'); // be sure that the plugins are loaded for the mail handler
 						if (empty($post_user)) {
 							$requestor = gettext('You are receiving this e-mail because of a password reset request on your gallery.');
@@ -1068,7 +1076,7 @@ class _Authority {
 			$showUserField = $_gallery->getUserLogonField();
 		}
 
-		$cycle = sanitize_numeric(@$_GET['cycle']) + 1;
+		$cycle = sanitize_numeric(isset($_GET['cycle']) ? $_GET['cycle'] : 0) + 1;
 		if (isset($_POST['user'])) {
 			$requestor = sanitize($_POST['user'], 0);
 		} else {
@@ -1125,7 +1133,7 @@ class _Authority {
 				}
 			}
 		}
-		$whichForm = sanitize(@$_REQUEST['logon_step']);
+		$whichForm = sanitize(isset($_REQUEST['logon_step']) ? $_REQUEST['logon_step'] : NULL);
 		if ($logo && $_gallery->branded) {
 			$logo = $_gallery->getSiteLogo(SERVERPATH);
 			$im = gl_imageGet($logo);
@@ -1670,8 +1678,10 @@ class _Administrator extends PersistentObject {
 		$this->instantiate('administrators', array('user' => $user, 'valid' => $valid), NULL, false, empty($user), $create);
 		if (empty($user)) {
 			$this->set('id', -1);
+			$this->id = -1;
 		}
 		if ($this->loaded) {
+			$this->exists = TRUE;
 			$rights = $this->getRights();
 			$new_rights = 0;
 			if ($_authority->isMasterUser($user)) {
@@ -2076,7 +2086,7 @@ class _Administrator extends PersistentObject {
 		}
 		$path = ALBUM_FOLDER_SERVERPATH . $filename . $ext;
 		$albumname = filesystemToInternal($filename . $ext);
-		if (@mkdir_recursive($path, FOLDER_MOD)) {
+		if (mkdir_recursive($path, FOLDER_MOD)) {
 			$album = newAlbum($albumname);
 			if ($title = $this->getName()) {
 				$album->setTitle($title);

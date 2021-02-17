@@ -262,7 +262,7 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 				}
 			}
 
-			if ((in_context(NPG_ALBUM) && !in_context(SEARCH_LINKED) && (@$_current_album->getID() == $albumobj->getID() ||
+			if ((in_context(NPG_ALBUM) && !in_context(SEARCH_LINKED) && ($_current_album && $_current_album->getID() == $albumobj->getID() ||
 							$albumobj->name == $currenturalbumname)) ||
 							(in_context(SEARCH_LINKED)) && ($a = $_current_search->getDynamicAlbum()) && $a->name == $albumobj->name) {
 				$current = $css_class_t;

@@ -37,7 +37,7 @@ global $handle, $buffer, $counter, $file_version, $compression_handler; // so th
 $buffer = '';
 
 function extendExecution() {
-	@set_time_limit(30);
+	set_time_limit(30);
 	echo ' ';
 }
 
@@ -175,7 +175,7 @@ if ($action == 'backup') {
 		if (!is_dir($folder)) {
 			mkdir($folder, FOLDER_MOD);
 		}
-		@chmod($folder, FOLDER_MOD);
+		chmod($folder, FOLDER_MOD);
 		$writeresult = $handle = fopen($filename, 'w');
 
 		if ($handle === false) {
@@ -231,7 +231,7 @@ if ($action == 'backup') {
 				}
 			}
 			fclose($handle);
-			@chmod($filename, LOG_MOD);
+			chmod($filename, LOG_MOD);
 		}
 	} else {
 		$msg = gettext('SHOW TABLES failed!');

@@ -324,12 +324,13 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 					$disabled = array('name' => '', 'website' => '', 'anon' => '', 'private' => '', 'comment' => '',
 							'street' => '', 'city' => '', 'state' => '', 'country' => '', 'postal' => '');
 					$stored = array_merge(array('email' => '', 'custom' => ''), $disabled, getCommentStored());
-					$addresses = getSerializedArray(@$stored['addresses']);
-					foreach ($addresses as $key => $value) {
-						if (!empty($value))
-							$stored[$key] = $value;
+					if (isset($stored['addresses'])) {
+						$addresses = getSerializedArray($stored['addresses']);
+						foreach ($addresses as $key => $value) {
+							if (!empty($value))
+								$stored[$key] = $value;
+						}
 					}
-
 					foreach ($stored as $key => $value) {
 						$disabled[$key] = false;
 					}

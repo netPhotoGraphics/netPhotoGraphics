@@ -35,7 +35,7 @@ function parseAllowedTags($source) {
 
 function parseTags(&$source) {
 	$source = trim($source);
-	if (@$source[0] != "(") {
+	if (!$source || $source[0] != "(") {
 		return gettext('Missing open paren');
 	}
 	$source = substr($source, 1); //strip off the open paren
@@ -53,11 +53,11 @@ function parseTags(&$source) {
 			break;
 		}
 		$source = trim(substr($source, $i + 2));
-		if (@$source[0] != "(") {
+		if (!$source || $source[0] != "(") {
 			$a = gettext('Missing open paren');
 			break;
 		}
-		if (@$source[1] == ')') {
+		if (strlen($source) < 2 || $source[1] == ')') {
 			$source = trim(substr($source, 2));
 			$a[$tag] = array();
 		} else {
@@ -68,7 +68,7 @@ function parseTags(&$source) {
 			$a[$tag] = $x;
 		}
 	}
-	if (is_array($a) && @$source[0] != ')') {
+	if (is_array($a) && (!$source || $source[0] != ')')) {
 		$a = gettext('Missing closing paren');
 	} else {
 		$source = trim(substr($source, 1)); //strip the close paren
@@ -1418,7 +1418,7 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 	if (!is_array($field)) {
 		$field = array($field);
 	}
-//create the comparator function
+	//create the comparator function
 	$comp = 'str';
 	if ($nat) {
 		$comp .= 'nat';
@@ -1432,7 +1432,7 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 			$retval = 0;
 			foreach ($field as $fieldname) {
 				if ($retval == 0) {
-					$retval = $comp(@$a[$fieldname], @$b[$fieldname]);
+					$retval = $comp(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
 				} else {
 					break;
 				}
@@ -1444,7 +1444,7 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 			$retval = 0;
 			foreach ($field as $fieldname) {
 				if ($retval == 0) {
-					$retval = $comp(@$a[$fieldname], @$b[$fieldname]);
+					$retval = $comp(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
 				} else {
 					break;
 				}
@@ -1499,7 +1499,7 @@ function getNotViewableAlbums() {
  * @return bool
  */
 function safe_fnmatch($pattern, $string) {
-	return @preg_match('/^' . strtr(addcslashes($pattern, '\\.+^$(){}=!<>|'), array('*' => '.*', '?' => '.?')) . '$/i', $string);
+	return preg_match('/^' . strtr(addcslashes($pattern, '\\.+^$(){}=!<>|'), array('*' => '.*', '?' => '.?')) . '$/i', $string);
 }
 
 /**
@@ -1686,7 +1686,7 @@ function byteConvert($bytes) {
  * @return mixed
  */
 function dateTimeConvert($datetime, $raw = false) {
-// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
+	// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
 	$datetime = preg_replace('/(\d{4}):(\d{2}):(\d{2})/', ' \1-\2-\3', $datetime);
 	$time = strtotime($datetime);
 	if ($time == -1 || $time === false)
@@ -1787,7 +1787,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 	if (empty($authType)) { // not supplied by caller
 		$check_auth = '';
 		$auth = array();
-		if (isset($_GET['z']) && @$_GET['p'] == 'full-image' || isset($_GET['p']) && $_GET['p'] == '*full-image') {
+		if (isset($_GET['z']) && isset($_GET['p']) && ($_GET['p'] == 'full-image' || isset($_GET['p']) && $_GET['p'] == '*full-image')) {
 			$authType = 'image_auth';
 			$check_auth = getOption('protected_image_password');
 			$check_user = getOption('protected_image_user');
@@ -1970,8 +1970,10 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
  */
 function getOptionFromDB($key) {
 	$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($key) . " AND `ownerid`=0";
-	$optionlist = query_single_row($sql, false);
-	return @$optionlist['value'];
+	if ($optionlist = query_single_row($sql, false)) {
+		return $optionlist['value'];
+	}
+	return NULL;
 }
 
 /**
@@ -2378,14 +2380,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
@@ -2728,10 +2730,14 @@ class npgFunctions {
 	static function getLanguageText($loc = NULL, $separator = NULL) {
 		global $_locale_Subdomains;
 		if (is_null($loc)) {
-			$text = @$_locale_Subdomains[getNPGCookie('dynamic_locale')];
-		} else {
-			$text = @$_locale_Subdomains[$loc];
+			$loc = getNPGCookie('dynamic_locale');
 		}
+		if (isset($_locale_Subdomains[$loc])) {
+			$text = $_locale_Subdomains[$loc];
+		} else {
+			$text = '';
+		}
+
 		if (!is_null($separator)) {
 			$text = str_replace('_', $separator, $text);
 		}
@@ -2822,15 +2828,8 @@ class npgFunctions {
 	 */
 	static function hasPrimaryScripts() {
 		if (!defined('PRIMARY_INSTALLATION')) {
-			if (function_exists('readlink') && ($f = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER)))) {
-// no error reading the link info
-				$os = strtoupper(PHP_OS);
-				$sp = SERVERPATH;
-				if (substr($os, 0, 3) == 'WIN' || $os == 'DARWIN') { // canse insensitive file systems
-					$sp = strtolower($sp);
-					$f = strtolower($f);
-				}
-				define('PRIMARY_INSTALLATION', $sp == dirname($f));
+			if (function_exists('readlink') && is_link(SERVERPATH . '/' . CORE_FOLDER)) {
+				define('PRIMARY_INSTALLATION', false);
 			} else {
 				define('PRIMARY_INSTALLATION', true);
 			}
@@ -2845,7 +2844,7 @@ class npgFunctions {
 	 * @return boolean
 	 */
 	static function removeDir($path, $within = false) {
-		if (($dir = @opendir($path)) !== false) {
+		if (($dir = opendir($path)) !== false) {
 			while (($file = readdir($dir)) !== false) {
 				if ($file != '.' && $file != '..') {
 					if ((is_dir($path . '/' . $file))) {
@@ -2853,8 +2852,8 @@ class npgFunctions {
 							return false;
 						}
 					} else {
-						@chmod($path . $file, 0777);
-						if (!@unlink($path . '/' . $file)) {
+						chmod($path . '/' . $file, 0777);
+						if (!unlink($path . '/' . $file)) {
 							return false;
 						}
 					}
@@ -2862,8 +2861,8 @@ class npgFunctions {
 			}
 			closedir($dir);
 			if (!$within) {
-				@chmod($path, 0777);
-				if (!@rmdir($path)) {
+				chmod($path, 0777);
+				if (!rmdir($path)) {
 					return false;
 				}
 			}
@@ -2878,8 +2877,8 @@ class npgFunctions {
 	 */
 	static function tagURLs($text) {
 		global $_tagURLs_tags, $_tagURLs_values;
-		if ($serial = is_string($text) && (($data = @unserialize($text)) !== FALSE || $text === 'b:0;')) { //	serialized array
-			$text = $data;
+		if ($serial = is_serialized($text)) {
+			$text = unserialize($text);
 		}
 		if (is_array($text)) {
 			foreach ($text as $key => $textelement) {
@@ -2917,8 +2916,8 @@ class npgFunctions {
 	 */
 	static function unTagURLs($text, $debug = NULL) {
 		global $_tagURLs_tags, $_tagURLs_values;
-		if ($serial = is_string($text) && (($data = @unserialize($text)) !== FALSE || $text === 'b:0;')) { //	serialized array
-			$text = $data;
+		if ($serial = is_serialized($text)) {
+			$text = unserialize($text);
 		}
 		if (is_array($text)) {
 			foreach ($text as $key => $textelement) {

@@ -86,7 +86,7 @@ class Controller {
 				return '';
 
 			unset($query['album']);
-			$redirectURL = preg_replace('~^' . WEBPATH . '/~', '', $obj->getLink(@$query['page']));
+			$redirectURL = preg_replace('~^' . WEBPATH . '/~', '', $obj->getLink(isset($query['page']) ? $query['page'] : NULL));
 			unset($query['page']);
 		} else if (isset($query['page'])) { //index page
 			$redirectURL = _PAGE_ . '/' . trim($query['page'], '/');
@@ -398,8 +398,7 @@ class Controller {
 		}
 		if ($album->isDynamic() && $_current_page) {
 			$matches = array_keys($album->imageNames, $filename);
-			$albumName = @$matches[$_current_page - 1];
-			if ($albumName) {
+			if (isset($matches[$_current_page - 1]) && $albumName = $matches[$_current_page - 1]) {
 				$filename = array('folder' => dirname($albumName), 'filename' => $filename);
 			}
 			$_current_page = NULL;
@@ -506,7 +505,7 @@ class Controller {
 						return self::load_search();
 					case 'pages':
 						if (class_exists('CMS') && $_CMS->pages_enabled) {
-							return self::load_zenpage_pages(sanitize(trim(@$_GET['title'], '/')));
+							return self::load_zenpage_pages(sanitize(trim(isset($_GET['title']) ? $_GET['title'] : NULL, '/')));
 						}
 						return false;
 					case 'news':

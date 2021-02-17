@@ -204,7 +204,33 @@ function getOptionContent() {
 					$themes = $_gallery->getThemes();
 					if (array_key_exists($themename, $themes)) {
 						$theme = $themes[$themename];
+
+						$prev = $next = '&nbsp;';
+						$found = NULL;
+						foreach ($themes as $atheme => $data) {
+							unset($themes[$atheme]);
+							if ($atheme == $themename) {
+								$found = true;
+							} else {
+								if ($found) {
+									$next = $atheme;
+									break;
+								}
+								$prev = $atheme;
+							}
+						}
 						?>
+						<tr>
+							<td colspan="100%">
+								<p class="padded">
+									<a href="?page=options&tab=theme&optiontheme=<?php echo urlencode($prev); ?>"><?php echo $prev; ?></a>
+									<span class="floatright" >
+										<a href="?page=options&tab=theme&optiontheme=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
+									</span>
+								</p>
+								<br class="clearall" />
+							</td>
+						</tr>
 						<tr>
 							<th colspan='2'>
 								<h2 style='float: left'>
@@ -575,28 +601,6 @@ function getOptionContent() {
 				}
 				?>
 			</table>
-			<?php
-			$prev = $next = $found = NULL;
-			foreach ($themes as $atheme => $data) {
-				unset($themes[$atheme]);
-				if ($atheme == $themename) {
-					$found = true;
-				} else {
-					if ($found) {
-						$next = $atheme;
-						break;
-					}
-					$prev = $atheme;
-				}
-			}
-			?>
-			<p class="padded">
-				<a href="?page=options&tab=theme&optiontheme=<?php echo urlencode($prev); ?>"><?php echo $prev; ?></a>
-				<span class="floatright" >
-					<a href="?page=options&tab=theme&optiontheme=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
-				</span>
-			</p>
-			<br class="clearall" />
 		</form>
 	</div>
 	<!-- end of tab_theme div -->

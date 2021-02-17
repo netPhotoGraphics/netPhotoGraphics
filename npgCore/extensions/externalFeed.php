@@ -176,7 +176,7 @@ class ExternalFeed extends feed {
 		if (empty($options))
 			self::feed404();
 		$this->feedtype = $options['externalfeed'];
-		$this->key = @$options['accesskey'];
+		$this->key = isset($options['accesskey']) ? $options['accesskey'] : NULL;
 		parent::__construct($options);
 
 
@@ -437,8 +437,8 @@ class ExternalFeed extends feed {
 
 	public function getitems() {
 		$items = array();
-		if (($album = @$this->options['album'])) {
-			if ($image = @$this->options['image']) {
+		if (isset($this->options['album']) && $album = $this->options['album']) {
+			if (isset($this->options['image']) && $image = $this->options['image']) {
 				if (!is_array($image)) {
 					$image = array($image);
 				}
@@ -462,7 +462,7 @@ class ExternalFeed extends feed {
 			return $items;
 		}
 
-		if ($this->feedtype == 'news' && $news = @$this->options['titlelink']) {
+		if ($this->feedtype == 'news' && isset($this->options['titlelink']) && $news = $this->options['titlelink']) {
 			if (!is_array($news)) {
 				$news = array($news);
 			}
@@ -474,7 +474,7 @@ class ExternalFeed extends feed {
 			}
 			return $items;
 		}
-		if ($this->feedtype == 'pages' && $pages = @$this->options['titlelink']) {
+		if ($this->feedtype == 'pages' && isset($this->options['titlelink']) && $pages = $this->options['titlelink']) {
 			if (!is_array($pages)) {
 				$pages = array($pages);
 			}

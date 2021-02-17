@@ -76,7 +76,12 @@ if (isset($_GET['action'])) {
 	$action = sanitize($_GET['action']);
 	switch ($action) {
 		default:
-			$return = sanitize_path($r = @$_GET['return']);
+			if (isset($_GET['return'])) {
+				$r = $_GET['return'];
+			} else {
+				$r = NULL;
+			}
+			$return = sanitize_path($r);
 			if (!empty($return)) {
 				$return = '&album=' . $return;
 				if (strpos($r, '*') === 0) {
@@ -476,7 +481,7 @@ if (isset($_GET['action'])) {
 			} else {
 				mkdir_recursive($uploaddir, FOLDER_MOD);
 			}
-			@chmod($uploaddir, FOLDER_MOD);
+			chmod($uploaddir, FOLDER_MOD);
 
 			$album = newAlbum($folder);
 			if ($album->exists) {

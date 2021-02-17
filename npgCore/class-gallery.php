@@ -5,7 +5,6 @@
  * @package classes
  */
 // force UTF-8 Ø
-$_gallery = new Gallery();
 
 class Gallery {
 
@@ -372,7 +371,7 @@ class Gallery {
 	function getThemes() {
 		if (empty($this->themes)) {
 			$themedir = SERVERPATH . "/" . THEMEFOLDER;
-			if ($dp = @opendir($themedir)) {
+			if ($dp = opendir($themedir)) {
 				while (false !== ($dir = readdir($dp))) {
 					if (substr($dir, 0, 1) != "." && is_dir("$themedir/$dir")) {
 						$themefile = $themedir . "/$dir/theme_description.php";
@@ -1187,4 +1186,4 @@ class Gallery {
 
 }
 
-?>
+$_gallery = new Gallery();

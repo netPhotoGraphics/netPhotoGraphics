@@ -31,7 +31,10 @@ $stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'u
 asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
 
 if (isset($_GET['ticket'])) {
-	$ticket = '&ticket=' . sanitize($_GET['ticket']) . '&user=' . sanitize(@$_GET['user']);
+	$ticket = '&ticket=' . sanitize($_GET['ticket']);
+	if (isset($_GET['user'])) {
+		$ticket .= sanitize($_GET['user']);
+	}
 } else {
 	$ticket = '';
 }
@@ -105,7 +108,11 @@ if (isset($_GET['action'])) {
 			$notify = '?saved';
 			$returntab = $msg = '';
 			unset($_SESSION['notify']);
-			$newuserid = @$_POST['newuser'];
+			if (isset($_POST['newuser'])) {
+				$newuserid = $_POST['newuser'];
+			} else {
+				$newuserid = NULL;
+			}
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -138,7 +145,7 @@ if (isset($_GET['action'])) {
 						}
 						if (!empty($user)) {
 							$nouser = false;
-							if ($i === $newuserid) {
+							if ($i == $newuserid) {
 								$newuser = $user;
 								$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 								if (is_object($userobj)) {
@@ -189,7 +196,7 @@ if (isset($_GET['action'])) {
 							}
 
 							if (empty($pass)) {
-								if ($newuser || @$userlist[$i]['passrequired']) {
+								if ($newuser || isset($userlist[$i]['passrequired']) && $userlist[$i]['passrequired']) {
 									$_SESSION['notify'][] = sprintf(gettext('%s password may not be empty!'), $admin_n);
 									$error = true;
 								}
@@ -197,7 +204,11 @@ if (isset($_GET['action'])) {
 								if (isset($userlist[$i]['disclose_password']) && $userlist[$i]['disclose_password'] == 'on') {
 									$pass2 = $pass;
 								} else {
-									$pass2 = trim(sanitize(@$userlist[$i]['pass_r'], 0));
+									if (isset($userlist[$i]['pass_r'])) {
+										$pass2 = trim(sanitize($userlist[$i]['pass_r'], 0));
+									} else {
+										$pass2 = NULL;
+									}
 								}
 								if ($pass == $pass2) {
 									$pass2 = $userobj->getPass($pass);
@@ -255,7 +266,8 @@ if (isset($_GET['action'])) {
 								$userobj->createPrimealbum();
 							}
 							npgFilters::apply('save_admin_data', $userobj, $i, $alter);
-							if (!($error && !$_current_admin_obj->getID())) { //	new install and password problems, leave with no admin
+
+							if (!($error && $_current_admin_obj->getID() <= 0)) { //	new install and password problems, leave with no admin
 								$userobj->transient = false;
 								$saved = $userobj->save();
 								if ($saved == 1) {
