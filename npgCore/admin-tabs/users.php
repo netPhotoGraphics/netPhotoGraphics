@@ -450,11 +450,11 @@ echo $refresh;
 							$admins = sortMultiArray($admins, 'user', false, true, true);
 							$rights = DEFAULT_RIGHTS;
 							$groupname = 'default';
-							$list = array();
+							$pagination = array();
 							foreach ($admins as $admin) {
-								$list[] = $admin['user'];
+								$pagination[] = $admin['user'];
 							}
-							$rangeset = getPageSelector($list, USERS_PER_PAGE);
+							$rangeset = getPageSelector($pagination, USERS_PER_PAGE);
 						}
 						if ($showgroup != '@') {
 							$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
@@ -1027,16 +1027,16 @@ echo $refresh;
 															}
 															printManagedObjects('albums', $albumlist, $alter_rights, $userobj, $id, gettext('user'), $flag);
 															if (class_exists('CMS')) {
-																$pagelist = array();
 																if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 																	$alter_rights = $local_alterrights;
 																} else {
 																	$alter_rights = ' disabled="disabled"';
 																}
+																$pagination = array();
 																$pages = $_CMS->getPages(false);
 																foreach ($pages as $page) {
 																	if (!$page['parentid']) {
-																		$pagelist[get_language_string($page['title'])] = $page['titlelink'];
+																		$pagination[get_language_string($page['title'])] = $page['titlelink'];
 																	}
 																}
 																$newslist = array('"' . gettext('un-categorized') . '"' => '`');
@@ -1050,7 +1050,7 @@ echo $refresh;
 																} else {
 																	$alter_rights = ' disabled = "disabled"';
 																}
-																printManagedObjects('pages', $pagelist, $alter_rights, $userobj, $id, gettext('user'), NULL);
+																printManagedObjects('pages', $pagination, $alter_rights, $userobj, $id, gettext('user'), NULL);
 															}
 														}
 														?>
