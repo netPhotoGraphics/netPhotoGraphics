@@ -132,6 +132,7 @@ if (isset($_GET['action'])) {
 					$alter = isset($_POST['alter_enabled']);
 					$nouser = true;
 					$returntab = $newuser = false;
+					$list = $_authority->getAdministrators('users');
 
 					for ($i = 0; $i < sanitize_numeric($_POST['totaladmins']); $i++) {
 						$error = false;
@@ -174,10 +175,8 @@ if (isset($_GET['action'])) {
 							if (isset($userlist[$i]['admin_email'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
 								if (npgFunctions::isValidEmail($admin_e)) {
-									$list = $_authority->getAdministrators('users');
-									unset($list[$userobj->getID()]);
 									foreach ($list as $anuser) {
-										if ($anuser['email'] == $admin_e) {
+										if ($anuser['user'] != $user && $anuser['email'] == $admin_e) {
 											$msg = sprintf(gettext('%1$s: %2$s is already used by another user.'), $userobj->getUser(), $admin_e);
 											break;
 										}
@@ -290,6 +289,7 @@ if (isset($_GET['action'])) {
 			}
 			break;
 	}
+
 	if (isset($returntab)) { //	if "nothing happened" just fall thru. (Open Admib situation.)
 		$returntab .= "&page=admin&tab=users";
 		if (!empty($newuser)) {
