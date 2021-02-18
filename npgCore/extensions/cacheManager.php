@@ -571,17 +571,15 @@ class cacheManager {
 	}
 
 	static function albumbutton($html, $object, $prefix) {
-		if (!$object->isDynamic()) {
-			$html .= '<hr />';
-			if (query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" LIMIT 1')) {
-				$disable = '';
-				$title = gettext('Finds images that have not been cached and creates the cached versions.');
-			} else {
-				$disable = ' disabled="disabled"';
-				$title = gettext("You must first set the plugin options for cached image parameters.");
-			}
-			$html .= get_npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images'), array('buttonTitle' => $title, 'buttonLink' => getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . html_encode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages'), 'buttonClass' => 'fixedwidth')) . '<br />';
+		$html .= '<hr />';
+		if (query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" LIMIT 1')) {
+			$disable = '';
+			$title = gettext('Finds images that have not been cached and creates the cached versions.');
+		} else {
+			$disable = ' disabled="disabled"';
+			$title = gettext("You must first set the plugin options for cached image parameters.");
 		}
+		$html .= get_npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images'), array('buttonTitle' => $title, 'buttonLink' => getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . html_encode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages'), 'buttonClass' => 'fixedwidth')) . '<br />';
 		return $html;
 	}
 
