@@ -319,6 +319,13 @@ class PersistentObject {
 				$entry = query_single_row($sql);
 				// If we still don't have an entry, something went wrong...
 				if (!$entry) {
+					//	populate $this->data so that the set method will work correctly
+					$result = db_list_fields($this->table);
+					if ($result) {
+						foreach ($result as $row) {
+							$this->data[strtolower($row['Field'])] = NULL;
+						}
+					}
 					return NULL;
 				}
 				// Save this new entry into the cache so we get a hit next time.
