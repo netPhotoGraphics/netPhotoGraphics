@@ -1677,10 +1677,10 @@ class _Administrator extends PersistentObject {
 		global $_authority;
 		$this->instantiate('administrators', array('user' => $user, 'valid' => $valid), NULL, false, empty($user), $create);
 		$this->setUser($user);
-		$this->setValid($valid);
+		$this->set('valid', $this->valid = 1);
+
 		if (empty($user)) {
-			$this->set('id', -1);
-			$this->id = -1;
+			$this->set('id', $this->id = -1);
 		}
 		if ($this->loaded) {
 			$this->exists = TRUE;
