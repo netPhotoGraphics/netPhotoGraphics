@@ -7291,7 +7291,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/favoritesAlbums
 %extensions%/favoritesAlbums/admin-album.php
 %extensions%/favoritesHandler
-%extensions%/favoritesHandler/favoritesClass.php
+%extensions%/favoritesHandler/class-favorites.php
 %extensions%/flag_thumbnail
 %extensions%/flag_thumbnail/action.png
 %extensions%/flag_thumbnail/GPS.png

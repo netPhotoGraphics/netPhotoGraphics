@@ -648,14 +648,9 @@ echo "\n</head>";
 					gettext('Delete') => 'deleteall',
 					gettext('Set to published') => 'showall',
 					gettext('Set to unpublished') => 'hideall',
-					gettext('Disable comments') => 'commentsoff',
-					gettext('Enable comments') => 'commentson'
 			);
 			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				$checkarray_images[gettext('Change owner')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
-			}
-			if (extensionEnabled('hitcounter')) {
-				$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
 			}
 			$checkarray_albums = array_merge($checkarray_images, array(
 					gettext('Delete') => 'deleteallalbum'

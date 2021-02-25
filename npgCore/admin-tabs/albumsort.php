@@ -91,12 +91,7 @@ echo "\n</head>";
 			gettext('Delete') => 'deleteall',
 			gettext('Set to published') => 'showall',
 			gettext('Set to unpublished') => 'hideall',
-			gettext('Disable comments') => 'commentsoff',
-			gettext('Enable comments') => 'commentson'
 	);
-	if (extensionEnabled('hitcounter')) {
-		$checkarray_images[gettext('Reset hitcounter')] = 'resethitcounter';
-	}
 	$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
 
 	// Layout the page

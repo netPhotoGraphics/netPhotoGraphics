@@ -268,16 +268,11 @@ updatePublished('news');
 											gettext('Delete') => 'deleteall',
 											gettext('Set to published') => 'showall',
 											gettext('Set to unpublished') => 'hideall',
-											gettext('Disable comments') => 'commentsoff',
-											gettext('Enable comments') => 'commentson',
 											gettext('Add categories') => array('name' => 'addcats', 'action' => 'mass_cats_data'),
 											gettext('Clear categories') => 'clearcats'
 									);
 									if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
 										$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
-									}
-									if (extensionEnabled('hitcounter')) {
-										$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
 									}
 									$checkarray = npgFilters::apply('bulk_article_actions', $checkarray);
 									printBulkActions($checkarray);
@@ -376,28 +371,32 @@ updatePublished('news');
 												<div class="page-list_icon">
 													<?php printPublishIconLink($article, $option); ?>
 												</div>
-												<div class="page-list_icon">
-													<?php
-													if ($article->getCommentsAllowed()) {
-														?>
-														<a href="<?php echo $option . $divider; ?>commentson=0&amp;titlelink=<?php
-														echo html_encode($article->getTitlelink());
-														?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Disable comments'); ?>">
-																 <?php echo BULLSEYE_GREEN; ?>
-														</a>
-														<?php
-													} else {
-														?>
-														<a href="<?php echo $option . $divider; ?>commentson=1&amp;titlelink=<?php
-														echo html_encode($article->getTitlelink());
-														?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Enable comments'); ?>">
-																 <?php echo BULLSEYE_RED; ?>
-														</a>
-														<?php
-													}
-													?>
-												</div>
 												<?php
+												if (extensionEnabled('comment_form')) {
+													?>
+													<div class="page-list_icon">
+														<?php
+														if ($article->getCommentsAllowed()) {
+															?>
+															<a href="<?php echo $option . $divider; ?>commentson=0&amp;titlelink=<?php
+															echo html_encode($article->getTitlelink());
+															?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Disable comments'); ?>">
+																	 <?php echo BULLSEYE_GREEN; ?>
+															</a>
+															<?php
+														} else {
+															?>
+															<a href="<?php echo $option . $divider; ?>commentson=1&amp;titlelink=<?php
+															echo html_encode($article->getTitlelink());
+															?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Enable comments'); ?>">
+																	 <?php echo BULLSEYE_RED; ?>
+															</a>
+															<?php
+														}
+														?>
+													</div>
+													<?php
+												}
 											} else {
 												?>
 												<div class="page-list_icon">

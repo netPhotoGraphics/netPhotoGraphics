@@ -2847,11 +2847,17 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<?php echo CLOCKFACE . '&nbsp;'; ?>
 				<?php echo gettext("published/not published/scheduled for publishing"); ?>
 			</li>
-			<li>
-				<?php echo BULLSEYE_GREEN; ?>
-				<?php echo BULLSEYE_RED; ?>
-				<?php echo gettext("comments on/off"); ?>
-			</li>
+			<?php
+			if (extensionEnabled('comment_form')) {
+				?>
+				<li>
+					<?php echo BULLSEYE_GREEN; ?>
+					<?php echo BULLSEYE_RED; ?>
+					<?php echo gettext("comments on/off"); ?>
+				</li>
+				<?php
+			}
+			?>
 			<li>
 				<?php echo BULLSEYE_BLUE; ?>
 				<?php echo gettext("view the album"); ?>
@@ -3025,39 +3031,45 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 					?>
 				</div>
-				<div class="page-list_icon">
-					<?php
-					if ($album->getCommentsAllowed()) {
-						if ($enableEdit) {
-							?>
-							<a href="?action=comments&amp;commentson=0&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Disable comments'); ?>">
-								<?php
-							}
-							?>
-							<?php echo BULLSEYE_GREEN; ?>
-							<?php
-							if ($enableEdit) {
-								?>
-							</a>
-							<?php
-						}
-					} else {
-						if ($enableEdit) {
-							?>
-							<a href="?action=comments&amp;commentson=1&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Enable comments'); ?>">
-								<?php
-							}
-							?>
-							<?php echo BULLSEYE_RED; ?>
-							<?php
-							if ($enableEdit) {
-								?>
-							</a>
-							<?php
-						}
-					}
+				<?php
+				if (extensionEnabled('comment_form')) {
 					?>
-				</div>
+					<div class="page-list_icon">
+						<?php
+						if ($album->getCommentsAllowed()) {
+							if ($enableEdit) {
+								?>
+								<a href="?action=comments&amp;commentson=0&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Disable comments'); ?>">
+									<?php
+								}
+								?>
+								<?php echo BULLSEYE_GREEN; ?>
+								<?php
+								if ($enableEdit) {
+									?>
+								</a>
+								<?php
+							}
+						} else {
+							if ($enableEdit) {
+								?>
+								<a href="?action=comments&amp;commentson=1&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Enable comments'); ?>">
+									<?php
+								}
+								?>
+								<?php echo BULLSEYE_RED; ?>
+								<?php
+								if ($enableEdit) {
+									?>
+								</a>
+								<?php
+							}
+						}
+						?>
+					</div>
+					<?php
+				}
+				?>
 				<div class="page-list_icon">
 					<a href="<?php echo $album->getLink(); ?>" title="<?php echo gettext("View album"); ?>">
 						<?php echo BULLSEYE_BLUE; ?>

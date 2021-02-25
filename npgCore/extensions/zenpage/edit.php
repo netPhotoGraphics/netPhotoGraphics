@@ -35,7 +35,7 @@ if (is_AdminEditPage('page')) {
 	$update = 'updateCategory';
 	$returnpage = 'newscategory';
 } else {
-	//we should not be here!
+//we should not be here!
 	header('Location: ' . getAdminLink('admin.php'));
 	exit();
 }
@@ -168,6 +168,16 @@ $tagsort = 'alpha';
 	window.addEventListener('load', function () {
 		resizeTable();
 	}, false);
+
+	$(function () {
+		$("#date").datepicker({
+			dateFormat: 'yy-mm-dd',
+			showOn: 'button',
+			buttonImage: '<?php echo CALENDAR; ?>',
+			buttonText: '<?php echo gettext('calendar'); ?>',
+			buttonImageOnly: true
+		});
+	});
 	// ]]> -->
 </script>
 <?php npg_Authority::printPasswordFormJS(); ?>
@@ -459,9 +469,108 @@ $tagsort = 'alpha';
 													?>
 												</td>
 											</tr>
+											<?php
+											if (get_class($result) == 'Page' || get_class($result) == 'Category') {
+												$hint = $result->getPasswordHint('all');
+												$user = $result->getUser();
+												$x = $result->getPassword();
+												?>
+												<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
 
+												<?php
+												if (GALLERY_SECURITY == 'public') {
+													?>
+													<tr>
+														<td class="leftcolumn">
+														</td>
+														<td class="middlecolumn">
+															<p class="passwordextrashow">
+																<?php
+																if (empty($x)) {
+																	?>
+																	<a onclick="toggle_passwords('', true);">
+																		<?php echo gettext("Password:"); ?>
+																		<?php echo LOCK_OPEN; ?>
+																	</a>
+																	<?php
+																} else {
+																	$info = password_get_info($x);
+																	$x = '          ';
+																	?>
+																	<a onclick="resetPass('');" title="<?php echo gettext('clear password'); ?>">
+																		<?php echo gettext("Password:"); ?>
+																		<?php echo LOCK; ?>
+																	</a>
+																	<?php
+																	if (!$info['algo']) {
+																		?>
+																		<a title="<?php echo gettext('Password is encrypted with a deprecated password hashing algorithm.'); ?>"><?php echo WARNING_SIGN_ORANGE; ?>											</a>
+																		<?php
+																	}
+																}
+																?>
+															</p>
+															<div class="passwordextrahide" style="display:none; width:200px;">
+																<a onclick="toggle_passwords('', false);">
+																	<?php echo gettext("Guest user:"); ?>
+																</a>
+																<br />
+																<input type="text"
+																			 class="passignore ignoredirty" autocomplete="off"
+																			 size="27"
+																			 id="user_name"
+																			 name="user"
+																			 onkeydown="passwordClear('');"
+																			 value="<?php echo html_encode($user); ?>" />
+																<br />
+																<span id="strength"><?php echo gettext("Password:"); ?></span>
+																<label class="floatright">
+																	<input type="checkbox"
+																				 name="disclose_password"
+																				 id="disclose_password"
+																				 onclick="passwordClear('');
+																						 togglePassword('');">
+																				 <?php echo gettext('Show'); ?>
+																</label>
+																<br />
+																<input type="password"
+																			 class="passignore ignoredirty" autocomplete="off"
+																			 size="27"
+																			 id="pass" name="pass"
+																			 onkeydown="passwordClear('');"
+																			 onkeyup="passwordStrength('');"
+																			 value="<?php echo $x; ?>" />
+
+																<br />
+																<span class="password_field_">
+																	<span id="match"><?php echo gettext("(repeat)"); ?></span>
+																	<br />
+																	<input type="password"
+																				 class="passignore ignoredirty" autocomplete="off"
+																				 size="27"
+																				 id="pass_r" name="pass_r" disabled="disabled"
+																				 onkeydown="passwordClear('');"
+																				 onkeyup="passwordMatch('');"
+																				 value="<?php echo $x; ?>" />
+																</span>
+
+																<br />
+																<?php echo gettext("Password hint:"); ?>
+																<br />
+																<?php print_language_string_list($hint, 'hint', false, NULL, 'hint'); ?>
+																<br />
+															</div>
+														</td>
+													</tr>
+													<?php
+												}
+											} else {
+												$hint = $user = $x = '';
+											}
+											?>
 											<tr>
-												<td class="leftcolumn"><?php
+												<td class="leftcolumn">
+													<?php
 													if (is_AdminEditPage("newscategory")) {
 														echo gettext('Description');
 													} else {
@@ -503,9 +612,9 @@ $tagsort = 'alpha';
 
 									<div class="floatleft">
 										<div class="rightcolumn">
-											<h2 class="h2_bordered_edit"><?php echo gettext("Publish"); ?></h2>
+											<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
 											<div class="box-edit">
-												<p class="checkbox">
+												<label class="checkboxlabel">
 													<input name="show"
 																 type="checkbox"
 																 id="show"
@@ -515,38 +624,41 @@ $tagsort = 'alpha';
 																		 $('#pubdate').css('color', 'black');
 																		 $('.expire').html('');"
 																 />
-													<label for="show"><?php echo gettext("Published"); ?></label>
-												</p>
+													<?php echo gettext("Published"); ?></label>
+
 												<?php
 												if (!$result->transient) {
 													?>
-													<p class="checkbox">
+													<label class="checkboxlabel">
 														<input name="edittitlelink" type="checkbox" id="edittitlelink" value="1" onclick="toggleTitlelink();" />
-														<label for="edittitlelink"><?php echo gettext("Edit TitleLink"); ?></label>
-													</p>
+														<?php echo gettext("Edit TitleLink"); ?></label>
+
 													<?php
 												}
 												?>
-												<p class="checkbox">
+												<label class="checkboxlabel">
 													<input name="permalink"
 																 type="checkbox" id="permalink"
 																 value="1" <?php checkIfChecked($result->getPermalink()); ?>
 																 />
-													<label for="permalink"><?php echo gettext("Enable permaTitlelink"); ?></label>
-												</p>
+													<?php echo gettext("Enable permaTitlelink"); ?></label>
+
 												<?php
 												if (!is_AdminEditPage("newscategory")) {
 													?>
-													<p class="checkbox">
+													<label class="checkboxlabel">
 														<input name="locked" type="checkbox" id="locked" value="1" <?php checkIfChecked($result->getLocked()); ?> />
-														<label for="locked"><?php echo gettext("Locked for changes"); ?></label>
-													</p>
-													<?php
+														<?php echo gettext("Locked for changes"); ?></label>
+														<?php
 												}
+												?>
+												<br clear="all">
+												<?php
 												if (is_AdminEditPage('newsarticle')) {
 													$sticky = $result->get('sticky');
 													?>
-													<p><?php echo gettext("Position:"); ?>
+													<p>
+														<?php echo gettext("Position:"); ?>
 														<select id="sticky" name="sticky">
 															<option value="<?php echo NEWS_POSITION_NORMAL; ?>" <?php if ($sticky == NEWS_POSITION_NORMAL) echo 'selected="selected"'; ?>><?php echo gettext("normal"); ?></option>
 															<option value="<?php echo NEWS_POSITION_STICKY; ?>" <?php if ($sticky == NEWS_POSITION_STICKY) echo 'selected="selected"'; ?>><?php echo gettext("sticky"); ?></option>
@@ -555,172 +667,18 @@ $tagsort = 'alpha';
 													</p>
 													<?php
 												}
-												if (get_class($result) == 'Page' || get_class($result) == 'Category') {
-													$hint = $result->getPasswordHint('all');
-													$user = $result->getUser();
-													$x = $result->getPassword();
-												} else {
-													$hint = $user = $x = '';
-												}
-												if (is_AdminEditPage('page') || is_AdminEditPage('newscategory')) {
+
+
+												if (!is_AdminEditPage("newscategory")) {
 													?>
-													<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
-
-													<?php
-													if (GALLERY_SECURITY == 'public') {
-														?>
-														<p class="passwordextrashow">
-															<?php
-															if (empty($x)) {
-																?>
-																<a onclick="toggle_passwords('', true);">
-																	<?php echo gettext("Password:"); ?>
-																	<?php echo LOCK_OPEN; ?>
-																</a>
-																<?php
-															} else {
-																$info = password_get_info($x);
-																$x = '          ';
-																?>
-																<a onclick="resetPass('');" title="<?php echo gettext('clear password'); ?>">
-																	<?php echo gettext("Password:"); ?>
-																	<?php echo LOCK; ?>
-																</a>
-																<?php
-																if (!$info['algo']) {
-																	?>
-																	<a title="<?php echo gettext('Password is encrypted with a deprecated password hashing algorithm.'); ?>"><?php echo WARNING_SIGN_ORANGE; ?>											</a>
-																	<?php
-																}
-															}
-															?>
-														</p>
-														<div class="passwordextrahide" style="display:none">
-															<a onclick="toggle_passwords('', false);">
-																<?php echo gettext("Guest user:"); ?>
-															</a>
-															<input type="text"
-																		 class="passignore ignoredirty" autocomplete="off"
-																		 size="27"
-																		 id="user_name"
-																		 name="user"
-																		 onkeydown="passwordClear('');"
-																		 value="<?php echo html_encode($user); ?>" />
-															<span id="strength"><?php echo gettext("Password:"); ?></span>
-															<label class="floatright" style="padding-right: 25px;">
-																<input type="checkbox"
-																			 name="disclose_password"
-																			 id="disclose_password"
-																			 onclick="passwordClear('');
-																					 togglePassword('');">
-																			 <?php echo gettext('Show'); ?>
-															</label>
-															<br />
-															<input type="password"
-																		 class="passignore ignoredirty" autocomplete="off"
-																		 size="27"
-																		 id="pass" name="pass"
-																		 onkeydown="passwordClear('');"
-																		 onkeyup="passwordStrength('');"
-																		 value="<?php echo $x; ?>" />
-
-															<br />
-															<span class="password_field_">
-																<span id="match"><?php echo gettext("(repeat)"); ?></span>
-																<br />
-																<input type="password"
-																			 class="passignore ignoredirty" autocomplete="off"
-																			 size="27"
-																			 id="pass_r" name="pass_r" disabled="disabled"
-																			 onkeydown="passwordClear('');"
-																			 onkeyup="passwordMatch('');"
-																			 value="<?php echo $x; ?>" />
-															</span>
-
-															<br />
-															<?php echo gettext("Password hint:"); ?>
-															<br />
-															<?php print_language_string_list($hint, 'hint', false, NULL, 'hint', 27); ?>
-														</div>
-														<?php
-													}
-												}
-												if (!$result->transient) {
-													?>
-													<label class="checkboxlabel">
-														<input type="radio" id="copy_object" name="copy_delete_object" value="copy" onclick="$('#copyfield').show(); $('#deletemsg').hide();" />
-														<?php echo gettext("Copy"); ?>
-													</label>
-													<label class="checkboxlabel">
-														<input type="radio" id="delete_object" name="copy_delete_object" value="delete" onclick="deleteConfirm('delete_object', '', '<?php addslashes(printf(gettext('Are you sure you want to delete this %s?'), $deleteitem)); ?>'); $('#copyfield').hide();" />
-														<?php echo gettext('delete'); ?>
-													</label>
-													<br class="clearall" />
-													<div class="copydelete resetHide" id="copyfield" style="display:none" >
-														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />'); ?>
-														<p>
-															<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "$('#copy_object').prop('checked', false);$('#copyfield').hide();")); ?>
-														</p>
-
-													</div>
-													<div class="copydelete resetHide" id="deletemsg"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
-														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem);
-														?>
-														<p>
-															<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "$('#delete_object').prop('checked', false);$('#deletemsg').hide();")); ?>
-														</p>
-													</div>
-													<?php
-												}
-												?>
-											</div>
-											<?php
-											if ($utilities = npgFilters::apply('edit_cms_utilities', '', $result)) {
-												?>
-												<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
-												<div class="box-edit">
-													<?php echo $utilities; ?>
-												</div>
-												<?php
-											}
-											if (!is_AdminEditPage("newscategory")) {
-												?>
-												<h2 class="h2_bordered_edit"><?php echo gettext("Date"); ?></h2>
-												<div class="box-edit">
 													<p>
-														<script type="text/javascript">
-															// <!-- <![CDATA[
-															$(function () {
-																$("#date").datepicker({
-																	dateFormat: 'yy-mm-dd',
-																	showOn: 'button',
-																	buttonImage: '<?php echo CALENDAR; ?>',
-																	buttonText: '<?php echo gettext('calendar'); ?>',
-																	buttonImageOnly: true
-																});
-															});
-															// ]]> -->
-														</script>
+
 														<?php
 														$date = $result->getDatetime();
 														?>
 														<input name="date" type="text" id="date" value="<?php echo $date; ?>" />
 													</p>
-													<hr />
 													<p>
-														<script type="text/javascript">
-															// <!-- <![CDATA[
-															$(function () {
-																$("#pubdate").datepicker({
-																	dateFormat: 'yy-mm-dd',
-																	showOn: 'button',
-																	buttonImage: '<?php echo CALENDAR; ?>',
-																	buttonText: '<?php echo gettext('calendar'); ?>',
-																	buttonImageOnly: true
-																});
-															});
-															// ]]> -->
-														</script>
 														<?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small>
 														<?php $date = $result->getPublishDate(); ?>
 														<input name="pubdate" type="text" id="pubdate" value="<?php echo $date; ?>" onchange="checkFuturePub();" <?php if ($date > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
@@ -760,12 +718,7 @@ $tagsort = 'alpha';
 														</p>
 														<?php
 													}
-													?>
-												</div>
 
-												<h2 class="h2_bordered_edit"><?php echo gettext("General"); ?></h2>
-												<div class="box-edit">
-													<?php
 													if (!is_AdminEditPage("newscategory")) {
 														if (is_AdminEditPage("newsarticle")) {
 															$manager = MANAGE_ALL_NEWS_RIGHTS;
@@ -835,33 +788,79 @@ $tagsort = 'alpha';
 													}
 													echo npgFilters::apply('general_utilities', '', $result);
 													?>
-												</div>
+
+													<?php
+												} // if !category end
+												?>
+											</div>
+
+											<?php
+											$utilities = npgFilters::apply('edit_cms_utilities', '', $result);
+											?>
+											<h2 class="h2_bordered_edit"><?php echo gettext("Utilities"); ?></h2>
+											<div class="box-edit">
 												<?php
-												if (is_AdminEditPage("newsarticle")) {
+												if (!$result->transient) {
 													?>
-													<h2 class="h2_bordered_edit"><?php echo gettext("Categories"); ?></h2>
-													<div class="zenpagechecklist">
-														<?php
-														if (is_object($result)) {
-															?>
-															<ul>
-																<?php printNestedItemsList('cats-checkboxlist', $result->getID()); ?>
-															</ul>
-															<?php
-														} else {
-															?>
-															<ul>
-																<?php printNestedItemsList('cats-checkboxlist', '', 'all'); ?>
-															</ul>
-															<?php
-														}
+													<label class="checkboxlabel">
+														<input type="radio" id="copy_object" name="copy_delete_object" value="copy" onclick="$('#copyfield').show();
+																$('#deletemsg').hide();" />
+																	 <?php echo gettext("Copy"); ?>
+													</label>
+													<label class="checkboxlabel">
+														<input type="radio" id="delete_object" name="copy_delete_object" value="delete" onclick="deleteConfirm('delete_object', '', '<?php addslashes(printf(gettext('Are you sure you want to delete this %s?'), $deleteitem)); ?>');
+																$('#copyfield').hide();" />
+																	 <?php echo gettext('delete'); ?>
+													</label>
+													<br class="clearall" />
+													<div class = "copydelete resetHide" id = "copyfield" style = "display:none" >
+														<?php printf(gettext('copy as: %s'), '<input type="text" name="copy_object_as" value = "" />');
 														?>
+														<p>
+															<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "$('#copy_object').prop('checked', false);$('#copyfield').hide();")); ?>
+														</p>
 													</div>
-													<br />
+													<div class="copydelete resetHide" id="deletemsg"	style="padding-top: .5em; padding-left: .5em; color: red; display: none">
+														<?php printf(gettext('%s will be deleted when changes are applied.'), $deleteitem);
+														?>
+														<p>
+															<?php npgButton('button', CROSS_MARK_RED . ' ' . gettext("Cancel"), array('buttonClick' => "$('#delete_object').prop('checked', false);$('#deletemsg').hide();")); ?>
+														</p>
+													</div>
+													<?php
+												}
+												if ($utilities) {
+													echo '<hr>';
+												}
+												echo $utilities;
+												?>
+											</div>
+											<?php
+											if (is_AdminEditPage("newsarticle")) {
+												?>
+												<h2 class="h2_bordered_edit"><?php echo gettext("Categories"); ?></h2>
+												<div class="zenpagechecklist">
+													<?php
+													if (is_object($result)) {
+														?>
+														<ul>
+															<?php printNestedItemsList('cats-checkboxlist', $result->getID()); ?>
+														</ul>
+														<?php
+													} else {
+														?>
+														<ul>
+															<?php printNestedItemsList('cats-checkboxlist', '', 'all'); ?>
+														</ul>
+														<?php
+													}
+													?>
 													<?php
 												} // if article for categories
-											} // if !category end
-											?>
+												?>
+											</div>
+											<br />
+
 										</div>
 									</div>
 

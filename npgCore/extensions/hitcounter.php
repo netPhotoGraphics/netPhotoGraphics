@@ -16,6 +16,10 @@ $option_interface = 'hitcounter';
 
 npgFilters::register('load_theme_script', 'hitcounter::load_script');
 npgFilters::register('admin_utilities_buttons', 'hitcounter::button');
+npgFilters::register('bulk_image_actions', 'hitcounter::bulkActions');
+npgFilters::register('bulk_album_actions', 'hitcounter::bulkActions');
+npgFilters::register('bulk_article_actions', 'hitcounter::bulkActions');
+npgFilters::register('bulk_page_actions', 'hitcounter::bulkActions');
 
 $_scriptpage_hitcounters = getSerializedArray(getOption('page_hitcounters'));
 
@@ -219,6 +223,11 @@ class hitcounter {
 				'rights' => ADMIN_RIGHTS
 		);
 		return $buttons;
+	}
+
+	static function bulkActions($checkarray) {
+		$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
+		return $checkarray;
 	}
 
 }

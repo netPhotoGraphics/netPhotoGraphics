@@ -22,6 +22,10 @@ $plugin_description = gettext("Provides a unified comment handling facility.");
 $option_interface = 'comment_form';
 
 npgFilters::register('admin_toolbox_global', 'comment_form::toolbox');
+npgFilters::register('bulk_image_actions', 'comment_form::bulkActions');
+npgFilters::register('bulk_album_actions', 'comment_form::bulkActions');
+npgFilters::register('bulk_article_actions', 'comment_form::bulkActions');
+npgFilters::register('bulk_page_actions', 'comment_form::bulkActions');
 
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/class-comment.php');
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/functions.php');
@@ -184,6 +188,12 @@ class comment_form {
 			</li>
 			<?php
 		}
+	}
+
+	static function bulkActions($checkarray) {
+		$checkarray[gettext('Disable comments')] = 'commentsoff';
+		$checkarray[gettext('Enable comments')] = 'commentson';
+		return $checkarray;
 	}
 
 }

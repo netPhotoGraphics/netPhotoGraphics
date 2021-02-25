@@ -167,17 +167,12 @@ updatePublished('pages');
 										gettext('*Bulk actions*') => 'noaction',
 										gettext('Delete') => 'deleteall',
 										gettext('Set to published') => 'showall',
-										gettext('Set to unpublished') => 'hideall',
-										gettext('Disable comments') => 'commentsoff',
-										gettext('Enable comments') => 'commentson'
+										gettext('Set to unpublished') => 'hideall'
 								);
 								if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 									$checkarray[gettext('Change author')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
 								}
 
-								if (extensionEnabled('hitcounter')) {
-									$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
-								}
 								$checkarray = npgFilters::apply('bulk_page_actions', $checkarray);
 								printBulkActions($checkarray);
 								?>
