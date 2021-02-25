@@ -350,7 +350,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												echo ' checked = "checked"';
 											}
 											?> />
-														 <?php echo gettext("Allow Comments"); ?>
+														 <?php echo gettext("Comments enabled"); ?>
 										</label>
 										<?php
 									}
@@ -561,30 +561,30 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
-						checked(0, $rotation);
-						echo $disablerotate
-										?> />
+											checked(0, $rotation);
+											echo $disablerotate
+											?> />
 														 <?php echo gettext('none'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
-										 checked(6, $rotation);
-										 echo $disablerotate
-														 ?> />
+											checked(6, $rotation);
+											echo $disablerotate
+											?> />
 														 <?php echo gettext('90 degrees'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_180-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="3" <?php
-										 checked(3, $rotation);
-										 echo $disablerotate
-														 ?> />
+											checked(3, $rotation);
+											echo $disablerotate
+											?> />
 														 <?php echo gettext('180 degrees'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
-										 checked(8, $rotation);
-										 echo $disablerotate
-														 ?> />
+											checked(8, $rotation);
+											echo $disablerotate
+											?> />
 														 <?php echo gettext('270 degrees'); ?>
 										</label>
 										<?php
