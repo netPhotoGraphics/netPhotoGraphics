@@ -111,7 +111,7 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
 	debugLogBacktrace($msg, 1);
 
-	if (!ini_get('display_errors') && ($errno == E_ERROR || $errno = E_USER_ERROR)) {
+	if (!ini_get('display_errors') && ($errno == E_ERROR || $errno == E_USER_ERROR)) {
 		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
