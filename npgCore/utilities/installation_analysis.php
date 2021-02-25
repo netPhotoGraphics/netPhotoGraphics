@@ -168,9 +168,6 @@ echo '</head>';
 							<li>
 								<?php
 								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
-								if (ini_get('display_errors')) {
-									echo ' <span style="color:red;">' . gettext('error display is enabled') . '</span>';
-								}
 								?>
 							</li>
 							<?php
@@ -226,15 +223,15 @@ echo '</head>';
 									?>
 								</li>
 								<?php
-								if (ini_get('display_errors')) {
-									?>
-									<li><a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a></li>
-									<?php
-								} else {
-									?>
-									<li><?php echo gettext('<em>display_errors</em> is <strong>Off</strong>') ?></li>
-									<?php
-								}
+							}
+							if (ini_get('display_errors')) {
+								?>
+								<li><a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a></li>
+								<?php
+							} else {
+								?>
+								<li><?php echo gettext('<em>display_errors</em> is <strong>Off</strong>') ?></li>
+								<?php
 							}
 							?>
 							<li>
