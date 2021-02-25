@@ -165,7 +165,14 @@ echo '</head>';
 								printf(gettext('Current gallery theme: <strong>%1$s</strong>'), $currenttheme);
 								?>
 							</li>
-							<li><?php printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion()); ?></li>
+							<li>
+								<?php
+								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
+								if (ini_get('display_errors')) {
+									echo ' <span style="color:red;">' . gettext('error display is enabled') . '</span>';
+								}
+								?>
+							</li>
 							<?php
 							if (TEST_RELEASE) {
 								?>
@@ -450,8 +457,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php
