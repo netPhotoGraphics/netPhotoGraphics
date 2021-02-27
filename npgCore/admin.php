@@ -302,8 +302,10 @@ if (npg_loggedin(ADMIN_RIGHTS)) {
 		}
 	}
 }
-$newestVersionURI = getOption('getUpdates_latest');
-$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
+if (npgFunctions::hasPrimaryScripts()) {
+	$newestVersionURI = getOption('getUpdates_latest');
+	$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
+}
 
 if (npg_loggedin() && $_admin_menu) {
 	//	check rights if logged in, if not we will display the logon form below
@@ -365,7 +367,7 @@ $buttonlist = array();
 			);
 		}
 
-		if ($newVersionAvailable = isset($newestVersion)) {
+		if ($newVersionAvailable = isset($newestVersion) && $newestVersion) {
 			$newVersionAvailable = version_compare(preg_replace('~[^0-9,.]~', '', $newestVersion), preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE));
 			if ($newVersionAvailable > 0) {
 				if (!isset($_SESSION['new_version_available'])) {
@@ -390,29 +392,32 @@ $buttonlist = array();
 			/*			 * * HOME ************************************************************************** */
 			/*			 * ********************************************************************************* */
 			$setupUnprotected = printSetupWarning();
-
-			$found = safe_glob(SERVERPATH . '/setup-*.zip');
-			if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
-				if ($extract) {
-					$f = fopen($file, 'r');
-					$buffer = fread($f, 1024);
-					fclose($f);
-					preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
-					$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
-					$buttonTitle = gettext('Install the netPhotoGraphics update.');
-				} else {
-					preg_match('~[^\d]*(.*)~', stripSuffix(basename($found[0])), $matches);
-					$newestVersion = $matches[1];
-					$buttonText = sprintf(gettext('Install %1$s'), $newestVersion);
-					$buttonTitle = gettext('Extract and install the netPhotoGraphics update.');
-				}
-				?>
-				<div class="notebox">
-					<?php
-					echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an installation file. To install the update click on the <em>Install</em> button below.') . ' ';
+			if (npgFunctions::hasPrimaryScripts()) {
+				$found = safe_glob(SERVERPATH . '/setup-*.zip');
+				if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
+					if ($extract) {
+						$f = fopen($file, 'r');
+						$buffer = fread($f, 1024);
+						fclose($f);
+						preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
+						$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
+						$buttonTitle = gettext('Install the netPhotoGraphics update.');
+					} else {
+						preg_match('~[^\d]*(.*)~', stripSuffix(basename($found[0])), $matches);
+						$newestVersion = $matches[1];
+						$buttonText = sprintf(gettext('Install %1$s'), $newestVersion);
+						$buttonTitle = gettext('Extract and install the netPhotoGraphics update.');
+					}
 					?>
-				</div>
-				<?php
+					<div class="notebox">
+						<?php
+						echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an installation file. To install the update click on the <em>Install</em> button below.') . ' ';
+						?>
+					</div>
+					<?php
+				}
+			} else {
+				$newVersion = FALSE;
 			}
 
 			npgFilters::apply('admin_note', 'overview', '');
