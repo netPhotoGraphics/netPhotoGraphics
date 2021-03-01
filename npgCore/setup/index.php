@@ -705,7 +705,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							$loaded = get_loaded_extensions();
 							$loaded = array_flip($loaded);
-							$desired = explode(',', DESIRED_PHP_EXTENSIONS);
+							$desired = DESIRED_PHP_EXTENSIONS;
 							$missing = '';
 							$check = 1;
 							foreach ($desired as $module) {

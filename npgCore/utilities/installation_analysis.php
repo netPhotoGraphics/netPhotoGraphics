@@ -138,7 +138,7 @@ echo '</head>';
 							<?php
 							$loaded = get_loaded_extensions();
 							$loaded = array_flip($loaded);
-							$desired = explode(',', DESIRED_PHP_EXTENSIONS);
+							$desired = DESIRED_PHP_EXTENSIONS;
 							$missing = '';
 							foreach ($desired as $module) {
 								if (!isset($loaded[$module])) {
@@ -454,8 +454,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php

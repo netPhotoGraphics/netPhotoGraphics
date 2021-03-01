@@ -166,7 +166,25 @@ unset($matches);
 unset($const_webpath);
 unset($const_serverpath);
 
-define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,intl,mbstring,openssl,session,tidy,zip');
+define('DESIRED_PHP_EXTENSIONS', array(
+		'bz2',
+		'curl',
+		'dom',
+		'exif',
+		'fileinfo',
+		'gettext',
+		'hash',
+		'iconv',
+		'intl',
+		'json',
+		'mbstring',
+		'openssl',
+		'session',
+		'tidy',
+		'xml',
+		'zip'
+				)
+);
 
 // Contexts (Bitwise and combinable)
 define("NPG_INDEX", 1);
