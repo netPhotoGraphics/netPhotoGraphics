@@ -177,7 +177,7 @@ class Image extends MediaObject {
 		$msg = false;
 		if (!is_object($album) || !$album->exists) {
 			$msg = sprintf(gettext('Invalid %s instantiation: Album does not exist'), get_class($this)) . ' (' . $album . ')';
-		} else if (!$this->classSetup($album, $filename) || !file_exists($this->localpath) || is_dir($this->localpath)) {
+		} else if (!file_exists($album->localpath . $filename) || is_dir($album->localpath . $filename) || !$this->classSetup($album, $filename)) {
 			$msg = sprintf(gettext('Invalid %s instantiation: file does not exist'), get_class($this)) . ' (' . $album . '/' . $filename . ')';
 		}
 		return $msg;
