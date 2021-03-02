@@ -114,15 +114,7 @@ function saveOptions() {
 	}
 
 	setOption('site_email_name', process_language_string_save('site_email_name', 3));
-	setOption('users_per_page', sanitize_numeric($_POST['users_per_page']));
-	if (isset($_POST['groups_per_page'])) {
-		setOption('groups_per_page', sanitize_numeric($_POST['groups_per_page']));
-	}
 	setOption('dirtyform_enable', sanitize_numeric($_POST['dirtyform_enable']));
-	setOption('plugins_per_page', sanitize_numeric($_POST['plugins_per_page']));
-	if (isset($_POST['articles_per_page'])) {
-		setOption('articles_per_page', sanitize_numeric($_POST['articles_per_page']));
-	}
 	setOption('multi_lingual', (int) isset($_POST['multi_lingual']));
 	$f = sanitize($_POST['date_format_list'], 3);
 	if ($f == 'custom')
@@ -721,7 +713,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 					</td>
 					<td class="option_value">
 						<label>
-							<input type="text" id="user_persistance" name="online_persistance"  value="<?php echo getOption('online_persistance') ?>" />
+							<input type="number" min="0" step='5' id="user_persistance" name="online_persistance"  value="<?php echo getOption('online_persistance') ?>" />
 						</label>
 					</td>
 					<td class="option_desc">

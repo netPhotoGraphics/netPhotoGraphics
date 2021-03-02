@@ -33,7 +33,7 @@ class favorites extends AlbumBase {
 		$this->imageSortType = getOption('favorites_image_sort_type');
 		$this->albumSortType = getOption('favorites_album_sort_type');
 		$this->multi = getOption('favorites_multi');
-		$list = query_full_array('SELECT `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `aux` REGEXP ' . db_quote('[[:<:]]' . $user . '[[:>:]]'));
+		$list = query_full_array('SELECT `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `aux` LIKE' . db_quote('%' . $user . '%'));
 
 		foreach ($list as $aux) {
 			$instance = getSerializedArray($aux['aux']);

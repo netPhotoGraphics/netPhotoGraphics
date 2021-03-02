@@ -57,7 +57,12 @@ if (isset($_POST['login'])) { //	Handle the login form.
 	}
 } else { //	no login form, check the cookie
 	if (isset($_GET['ticket'])) { // password reset query
-		$_authority->validateTicket(sanitize($_GET['ticket']), sanitize(@$_GET['user']));
+		if (isset($_GET['user'])) {
+			$get_user = sanitize($_GET['user']);
+		} else {
+			$get_user = NULL;
+		}
+		$_authority->validateTicket(sanitize($_GET['ticket']), $get_user);
 	} else {
 		$_loggedin = $_authority->checkCookieCredentials();
 		if (!$_loggedin && isset($_SESSION['admin'][$cloneid = bin2hex(FULLWEBPATH)])) { //	"passed" login

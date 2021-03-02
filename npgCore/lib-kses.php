@@ -127,7 +127,7 @@ function kses_split2($matches) {
 	$elem = $matches[2];
 	$attrlist = $matches[3];
 
-	if (!@isset($allowed_html[strtolower($elem)]))
+	if (!isset($allowed_html[strtolower($elem)]))
 		return '';
 	//They are using a not allowed HTML element
 
@@ -161,7 +161,7 @@ function kses_attr($element, $attr, $allowed_html, $allowed_protocols) {
 
 	//Are any attributes allowed at all for this element?
 
-	if (@count($allowed_html[strtolower($element)]) == 0)
+	if (count($allowed_html[strtolower($element)]) == 0)
 		return "<$element$xhtml_slash>";
 
 	//Split it
@@ -174,7 +174,7 @@ function kses_attr($element, $attr, $allowed_html, $allowed_protocols) {
 	$attr2 = '';
 
 	foreach ($attrarr as $arreach) {
-		if (!@isset($allowed_html[strtolower($element)]
+		if (!isset($allowed_html[strtolower($element)]
 										[strtolower($arreach['name'])]))
 			continue; //the attribute is not allowed
 

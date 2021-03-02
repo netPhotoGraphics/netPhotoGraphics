@@ -42,7 +42,7 @@ if (class_exists("CMS")) {
 					<!-- Codeblock1 -->
 					<p><?php printCodeblock(1); ?> </p>
 
-	<?php @call_user_func('printCommentForm'); ?>
+	<?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 				</section>
 	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
 			</div>

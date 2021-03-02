@@ -9,6 +9,10 @@
  */
 // force UTF-8 Ø
 
+
+ini_set('post_max_size', "10M");
+ini_set('post_input_vars', "2500");
+
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
 
@@ -71,9 +75,6 @@ if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_WEBPATH', WEBPATH);
 }
 
-@ini_set('post_max_size', "10M");
-@ini_set('post_input_vars', "2500");
-
 $_SESSION['adminRequest'] = getNPGCookie('user_auth'); //	Allow "unprotected" i.php if the request came from an admin session
 
 require_once(CORE_SERVERPATH . 'rewrite.php');
@@ -94,7 +95,7 @@ $_sortby = array(
 );
 
 // setup sub-tab arrays for use in dropdown
-if (@$_loggedin) {
+if (isset($_loggedin) && $_loggedin) {
 	if ($_current_admin_obj->reset) {
 		$_loggedin = USER_RIGHTS;
 		$_admin_menu['admin'] = array(

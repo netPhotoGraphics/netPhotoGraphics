@@ -42,20 +42,22 @@ if (isset($_GET['purge'])) {
 				chmod($folder . $old, 0777);
 				rename($folder . $old, $folder . '/' . DATA_FOLDER);
 			} else {
-				@mkdir($folder . DATA_FOLDER);
+				mkdir($folder . DATA_FOLDER);
 			}
 			chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
 		}
 		foreach (array(internalToFilesystem('charset_tést'), internalToFilesystem('charset.tést')) as $charset) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset)) {
-				@chmod($folder . DATA_FOLDER . '/' . $charset, 0777);
-				@unlink($folder . DATA_FOLDER . '/' . $charset);
+				if (file_exists($folder . DATA_FOLDER . '/' . $charset)) {
+					chmod($folder . DATA_FOLDER . '/' . $charset, 0777);
+					unlink($folder . DATA_FOLDER . '/' . $charset);
+				}
 				copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset, $folder . DATA_FOLDER . '/' . $charset);
 			}
 		}
 
 		if (!is_dir($folder . THEMEFOLDER)) {
-			@mkdir($folder . THEMEFOLDER);
+			mkdir($folder . THEMEFOLDER);
 		}
 		if (!file_exists($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 			$path = str_replace(array(' ', '/'), '_', trim(str_replace(str_replace(WEBPATH, '/', SERVERPATH), '', $folder), '/')) . '_';
@@ -66,13 +68,13 @@ if (isset($_GET['purge'])) {
 
 		foreach ($targets as $target => $type) {
 			if (file_exists($folder . $target)) {
-				$link = str_replace('\\', '/', @readlink($folder . $target));
+				$link = str_replace('\\', '/', readlink($folder . $target));
 				switch ($type) {
 					case 'dir':
 						if (empty($link) || $link == $folder . $target) {
 							// an actual folder
 							if (npgFunctions::removeDir($folder . $target)) {
-								if (SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+								if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 									$msg[] = sprintf(gettext('The existing folder <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								} else {
 									$msg[] = sprintf(gettext('The existing folder <code>%1$s</code> was removed but Link creation failed.'), $target) . "<br />\n";
@@ -84,13 +86,13 @@ if (isset($_GET['purge'])) {
 							}
 						} else {
 							// is a symlink
-							@chmod($folder . $target, 0777);
+							chmod($folder . $target, 0777);
 							$success = @rmdir($folder . $target);
 							if (!$success) { // some systems treat it as a dir, others as a file!
 								$success = @unlink($folder . $target);
 							}
 							if ($success) {
-								if (SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+								if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								} else {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was removed but Link creation failed.'), $target) . "<br />\n";
@@ -100,13 +102,13 @@ if (isset($_GET['purge'])) {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								$success = false;
 							}
-							@chmod($folder . $target, FOLDER_MOD);
+							chmod($folder . $target, FOLDER_MOD);
 						}
 						break;
 					case 'file':
-						@chmod($folder . $target, 0777);
-						if (@unlink($folder . $target)) {
-							if (SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+						chmod($folder . $target, 0777);
+						if (unlink($folder . $target)) {
+							if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 								if ($folder . $target == $link) {
 									$msg[] = sprintf(gettext('The existing file <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								} else {
@@ -124,11 +126,11 @@ if (isset($_GET['purge'])) {
 							}
 							$success = false;
 						}
-						@chmod($folder . $target, FILE_MOD);
+						chmod($folder . $target, FILE_MOD);
 						break;
 				}
 			} else {
-				if (SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+				if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
 						case 'zp-core':
@@ -142,13 +144,13 @@ if (isset($_GET['purge'])) {
 							break;
 					}
 					if ($core && file_exists($folder . $core)) {
-						$link = str_replace('\\', '/', @readlink($folder . $core));
+						$link = str_replace('\\', '/', readlink($folder . $core));
 						if (empty($link) || $link == $folder . $core) {
 							$success = npgFunctions::removeDir($folder . $core);
 						} else {
-							$success = @rmdir($folder . $core);
+							$success = rmdir($folder . $core);
 							if (!$success) { // some systems treat it as a dir, others as a file!
-								$success = @unlink($folder . $core);
+								$success = unlink($folder . $core);
 							}
 						}
 						if ($success) {

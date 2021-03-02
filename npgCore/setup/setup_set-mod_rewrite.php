@@ -9,15 +9,16 @@
  * @package setup
  *
  */
+ini_set('display_errors', 1);
+
 $__script = 'Mod_rewrite';
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
 
-npg_session_start();
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
-@ini_set('display_errors', 1);
+
+npg_session_start();
 
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;

@@ -8,20 +8,21 @@
  * @package setup
  *
  */
+ini_set('display_errors', 1);
+
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
 
-npg_session_start();
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
+
+npg_session_start();
 
 list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-@ini_set('display_errors', 1);
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present

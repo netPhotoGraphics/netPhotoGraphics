@@ -143,7 +143,11 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	}
 
 	//update publish state, but only on static cache expiry intervals
-	$lastupdate = (int) @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck');
+	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck')) {
+		$lastupdate = (int) file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck');
+	} else {
+		$lastupdate = NULL;
+	}
 	if (time() - $lastupdate > getOption('static_cache_expire')) {
 		$tables = array('albums', 'images');
 		if (class_exists('CMS')) {

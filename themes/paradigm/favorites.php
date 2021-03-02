@@ -26,8 +26,8 @@ if (class_exists('favorites')) {
 					<?php include("includes/_imagethumbs.php"); ?>
 					<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
 
-	<?php @call_user_func('printRating'); ?>
-	<?php @call_user_func('printCommentForm'); ?>
+	<?php if (function_exists('printRating')) printRating(); ?>
+	<?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 
 				</section>
 

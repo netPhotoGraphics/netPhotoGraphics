@@ -29,7 +29,7 @@ if (function_exists('printContactForm')) {
 				<h3><?php echo gettext('Contact us') ?></h3>
 				<?php printContactForm(); ?>
 			</div>
-			<?php @call_user_func('printLanguageSelector'); ?>
+			<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>
 			<div id="credit">
 				<?php printSoftwareLink(); ?>
 			</div>

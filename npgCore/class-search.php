@@ -1793,7 +1793,10 @@ class SearchEngine {
 		$target = array_keys(array_filter($images, function($item) use($album, $filename) {
 							return $item['filename'] == $filename && $item['folder'] == $album;
 						}));
-		return @$target[0];
+		if (isset($target[0])) {
+			return $target[0];
+		}
+		return NULL;
 	}
 
 	/**

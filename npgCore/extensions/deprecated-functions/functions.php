@@ -89,7 +89,7 @@ function listUses($files, $base, $patterns) {
 	$oldLocation = '';
 	foreach ($files as $file) {
 		if (basename($file) != 'deprecated-functions.php') {
-			@set_time_limit(120);
+			set_time_limit(120);
 			$subject = file_get_contents($file);
 			$location = ltrim(str_replace($base, '', dirname($file)), '/');
 			$folders = explode('/', $location);
@@ -134,7 +134,11 @@ function listDBUses($pattern) {
 						break;
 					case 'images':
 						$album = getItemByID('albums', $row['albumid']);
-						$what = @$album->name . ':' . $row['filename'] . '::' . $key;
+						if (is_object($album)) {
+							$what = $album->name . ':' . $row['filename'] . '::' . $key;
+						} else {
+							$what = ':' . $row['filename'] . '::' . $key;
+						}
 						break;
 					case 'albums':
 						$what = $row['folder'] . '::' . $key;

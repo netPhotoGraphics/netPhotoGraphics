@@ -64,9 +64,20 @@ if (empty($image) && Gallery::imageObjectClass($album)) {
 	$image = basename($album);
 	$album = dirname($album);
 }
-$_404_data = array($album, $image, $obj = @$_gallery_page, @$_index_theme, @$_current_page);
-
+if (isset($_gallery_page)) {
+	$obj = $_gallery_page;
+} else {
+	$obj = NULL;
+}
 $_gallery_page = '404.php';
+if (!isset($_index_theme)) {
+	$_index_theme = NULL;
+}
+if (!isset($_current_page)) {
+	$_current_page = NULL;
+}
+$_404_data = array($album, $image, $obj, $_index_theme, $_current_page);
+
 if (isset($_index_theme)) {
 	$_themeScript = SERVERPATH . "/" . THEMEFOLDER . '/' . internalToFilesystem($_index_theme) . '/404.php';
 } else {

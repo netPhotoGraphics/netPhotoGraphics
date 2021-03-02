@@ -88,7 +88,11 @@ class accessThreshold {
 			$recentIP = array();
 			setOption('accessThreshold_Owner', getUserIP());
 		} else {
-			$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
+				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+			} else {
+				$recentIP = array();
+			}
 		}
 		purgeOption('accessThreshold_CLEAR');
 		$recentIP['config'] = array(
@@ -115,7 +119,11 @@ class accessThreshold {
 
 	static function walk(&$element, $key, $__time) {
 		global $__previous, $__interval, $__count;
-		$v = @$element['time'];
+		if (isset($element['time'])) {
+			$v = $element['time'];
+		} else {
+			$v = 0;
+		}
 		if ($__time - $v < 3600) { //only the within the last 10 minutes
 			if ($__count > 0) {
 				$__interval = $__interval + ($v - $__previous);
@@ -137,7 +145,11 @@ $monitor = getOption('accessThreshold_Monitor');
 if ($me && getUserIP() != $me) {
 	$mu = new npgMutex('aT');
 	$mu->lock();
-	$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
+		$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+	} else {
+		$recentIP = array();
+	}
 	if (array_key_exists('config', $recentIP)) {
 		$__time = time();
 		$__config = $recentIP['config'];
@@ -165,7 +177,7 @@ if ($me && getUserIP() != $me) {
 			);
 		}
 		$recentIP[$ip]['lastAccessed'] = $__time;
-		if (!$monitor && @$recentIP[$ip]['blocked']) {
+		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', serialize($recentIP));
 			$mu->unlock();
 			exit();

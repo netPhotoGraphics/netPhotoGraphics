@@ -30,7 +30,7 @@ if (isset($_REQUEST['redirect'])) {
 
 
 // Include twitter PHP Library
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php");
 $error = '';
 
 if (isset($_GET['request'])) {
@@ -61,7 +61,7 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['token'] == $_REQUEST['oauth_to
 
 		$user_data = $connection->get('account/verify_credentials');
 
-		twitterLogin::credentials($user_data['id'], @$user_data['email'], $user_data['name'], $_SESSION['redirect']);
+		twitterLogin::credentials($user_data['id'], isset(user_data['email']) ? $user_data['email'] : NULL, $user_data['name'], $_SESSION['redirect']);
 	}
 	if (empty($error)) {
 		$error = gettext('Twitter authorization failed.');

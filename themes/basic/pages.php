@@ -48,7 +48,7 @@ if (class_exists('CMS')) {
 				</div>
 
 				<?php
-				@call_user_func('printCommentForm');
+				if (function_exists('printCommentForm')) printCommentForm();
 
 				$pages = $_CMS_current_page->getPages(NULL, true); // top level only
 				if (!empty($pages)) {
@@ -80,7 +80,7 @@ if (class_exists('CMS')) {
 					printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
 				}
 				?>
-				<?php @call_user_func('printUserLogin_out', " | "); ?>
+				<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 			</div>
 	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>

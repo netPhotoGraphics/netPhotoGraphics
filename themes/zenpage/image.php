@@ -127,12 +127,12 @@ if (!defined('WEBPATH'))
 						<?php
 						If (function_exists('printAddToFavorites'))
 							printAddToFavorites($_current_image);
-						@call_user_func('printRating');
+						if (function_exists('printRating')) printRating();
 						simpleMap::printMap();
 						?>
 
 					</div>
-					<?php @call_user_func('printCommentForm'); ?>
+					<?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 
 				</div><!-- content-left -->
 

@@ -71,10 +71,10 @@ function saveOptions() {
 	if (isset($_POST['protected_image_cache'])) {
 		setOption('protected_image_cache', 1);
 		copy(CORE_SERVERPATH . 'cacheprotect', SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
-		@chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0444);
+		chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0444);
 	} else {
-		@chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0777);
-		@unlink(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
+		chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0777);
+		unlink(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
 		setOption('protected_image_cache', 0);
 	}
 
@@ -743,7 +743,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																 togglePassword('');" />
+																		 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 

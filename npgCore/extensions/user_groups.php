@@ -72,7 +72,7 @@ class user_groups {
 			$key = serialize(array('type' => $object['type'], 'data' => $object['data']));
 			if (array_key_exists($key, $newobjects)) {
 				if (array_key_exists('edit', $object)) {
-					$newobjects[$key]['edit'] = @$newobjects[$key]['edit'] | $object['edit'];
+					$newobjects[$key]['edit'] = isset($newobjects[$key]['edit']) ? $newobjects[$key]['edit'] : NULL | $object['edit'];
 				}
 			} else {
 				$newobjects[$key] = $object;

@@ -55,7 +55,7 @@ if (class_exists('CMS')) {
 						?>
 						<br style="clear:both;" /><br />
 						<?php
-						@call_user_func('printCommentForm');
+						if (function_exists('printCommentForm')) printCommentForm();
 						?>
 					</div><!-- content left-->
 

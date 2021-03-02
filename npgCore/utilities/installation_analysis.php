@@ -138,7 +138,7 @@ echo '</head>';
 							<?php
 							$loaded = get_loaded_extensions();
 							$loaded = array_flip($loaded);
-							$desired = explode(',', DESIRED_PHP_EXTENSIONS);
+							$desired = DESIRED_PHP_EXTENSIONS;
 							$missing = '';
 							foreach ($desired as $module) {
 								if (!isset($loaded[$module])) {
@@ -165,7 +165,11 @@ echo '</head>';
 								printf(gettext('Current gallery theme: <strong>%1$s</strong>'), $currenttheme);
 								?>
 							</li>
-							<li><?php printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion()); ?></li>
+							<li>
+								<?php
+								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
+								?>
+							</li>
 							<?php
 							if (TEST_RELEASE) {
 								?>
@@ -219,15 +223,15 @@ echo '</head>';
 									?>
 								</li>
 								<?php
-								if (@ini_get('display_errors')) {
-									?>
-									<li><a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a></li>
-									<?php
-								} else {
-									?>
-									<li><?php echo gettext('<em>display_errors</em> is <strong>Off</strong>') ?></li>
-									<?php
-								}
+							}
+							if (ini_get('display_errors')) {
+								?>
+								<li><a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a></li>
+								<?php
+							} else {
+								?>
+								<li><?php echo gettext('<em>display_errors</em> is <strong>Off</strong>') ?></li>
+								<?php
 							}
 							?>
 							<li>
@@ -249,6 +253,7 @@ echo '</head>';
 								?>
 								<li>
 									<?php
+									ksort($_images_classes, SORT_NATURAL | SORT_FLAG_CASE);
 									echo gettext('Image handlers');
 									foreach ($_images_classes as $suffix => $handler) {
 										echo '<br />&nbsp;&nbsp;&nbsp;' . $suffix . ':' . 'class ' . $handler;
@@ -355,7 +360,11 @@ echo '</head>';
 										$pluginStream = file_get_contents(getPlugin($extension . '.php'));
 										$plugin_version = '';
 										if ($str = isolate('$plugin_version', $pluginStream)) {
-											@eval($str);
+											try {
+												eval($str);
+											} catch (Exception $e) {
+
+											}
 										}
 										if ($plugin_version) {
 											$version = ' v' . $plugin_version;
@@ -364,7 +373,11 @@ echo '</head>';
 										}
 										$plugin_is_filter = 1;
 										if ($str = isolate('$plugin_is_filter', $pluginStream)) {
-											@eval($str);
+											try {
+												eval($str);
+											} catch (Exception $e) {
+
+											}
 										}
 										echo "<li>" . $extension . $version . "</li>";
 										preg_match_all('|npgFilters::register\s*\((.+?)\)\s*?;|', $pluginStream, $matches);

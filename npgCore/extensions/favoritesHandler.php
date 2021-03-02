@@ -49,7 +49,7 @@ $plugin_description = gettext('Support for <em>favorites</em> handling.');
 
 $option_interface = 'favoritesHandler';
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/favoritesClass.php');
+require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/class-favorites.php');
 
 class favoritesHandler {
 

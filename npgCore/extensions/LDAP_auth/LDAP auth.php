@@ -34,8 +34,13 @@ class npg_Authority extends _Authority {
 
 	function handleLogon() {
 		global $_current_admin_obj;
-		$user = sanitize(@$_POST['user'], 0);
-		$password = sanitize(@$_POST['pass'], 0);
+		$loggedin = $user = $password = false;
+		if (isset($_POST['user'])) {
+			$user = sanitize($_POST['user'], 0);
+		}
+		if (isset($_POST['pass'])) {
+			$password = sanitize($_POST['pass'], 0);
+		}
 		$loggedin = false;
 
 		$ad = self::ldapInit(LDAP_DOMAIN);
@@ -43,7 +48,7 @@ class npg_Authority extends _Authority {
 			$userdn = 'uid=' . $user . ',ou=' . LDAP_OU . ',' . LDAP_BASEDN;
 			// We suppress errors in the binding process, to prevent a warning
 			// in the case of authorisation failure.
-			if (@ldap_bind($ad, $userdn, $password)) { //	valid LDAP user
+			if (ldap_bind($ad, $userdn, $password)) { //	valid LDAP user
 				self::ldapReader($ad);
 				$userData = array_change_key_case(self::ldapUser($ad, "(uid={$user})"), CASE_LOWER);
 				$userobj = self::setupUser($ad, $userData);
@@ -64,7 +69,7 @@ class npg_Authority extends _Authority {
 					debugLog("LDAPhandleLogon: Could not bind to LDAP");
 				}
 			}
-			@ldap_unbind($ad);
+			ldap_unbind($ad);
 		}
 		if ($loggedin) {
 			return $loggedin;
@@ -105,7 +110,7 @@ class npg_Authority extends _Authority {
 						}
 					}
 				}
-				@ldap_unbind($ad);
+				ldap_unbind($ad);
 			}
 		}
 		if ($_current_admin_obj) {
@@ -230,7 +235,7 @@ class npg_Authority extends _Authority {
 	static function ldapReader($ad) {
 		if (LDAP_READER_USER) {
 			$userdn = 'uid=' . LDAP_READER_USER . ',ou=' . LDAP_READER_OU . ',' . LDAP_BASEDN;
-			if (!@ldap_bind($ad, $userdn, LDAP_READER_PASS)) {
+			if (!ldap_bind($ad, $userdn, LDAP_READER_PASS)) {
 				debugLog('LDAP reader authorization failed.');
 			}
 		}

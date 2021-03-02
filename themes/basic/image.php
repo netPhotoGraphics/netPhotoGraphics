@@ -109,7 +109,7 @@ if (!defined('WEBPATH'))
 					</strong>
 					<?php
 					if (isImagePhoto()) {
-						@call_user_func('printUserSizeSelector');
+						if (function_exists('printUserSizeSelector')) printUserSizeSelector();
 					}
 				}
 				?>
@@ -146,8 +146,8 @@ if (!defined('WEBPATH'))
 				?>
 				<br class="clearall" />
 				<?php
-				@call_user_func('printRating');
-				@call_user_func('printCommentForm');
+				if (function_exists('printRating')) printRating();
+				if (function_exists('printCommentForm')) printCommentForm();
 				?>
 			</div>
 		</div>
@@ -164,7 +164,7 @@ if (!defined('WEBPATH'))
 				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
 			}
 			?>
-			<?php @call_user_func('printUserLogin_out', " | "); ?>
+			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 		</div>
 	</body>
 	<?php npgFilters::apply('theme_body_close'); ?>

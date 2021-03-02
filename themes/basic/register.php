@@ -30,8 +30,8 @@ if (function_exists('printRegistrationForm')) {
 				<?php printRegistrationForm(); ?>
 			</div>
 			<?php
-			@call_user_func('printUserLogin_out', "");
-			@call_user_func('printLanguageSelector');
+			if (function_exists('printUserLogin_out')) printUserLogin_out("");
+			if (function_exists('printLanguageSelector')) printLanguageSelector();
 			?>
 			<div id="credit">
 				<?php printSoftwareLink(); ?>

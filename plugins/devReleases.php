@@ -42,7 +42,8 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 		}
 	}
 	$devVersionURI = getOption('getDEVUpdates_latest');
-	$devVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($devVersionURI))));
+	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
+	$newestVersion = $matches[1];
 
 	npgFilters::register('admin_utilities_buttons', 'devRelease::buttons');
 	if (isset($_GET['update_check'])) {
@@ -106,9 +107,12 @@ if (isset($_GET['action'])) {
 class devRelease {
 
 	static function buttons($buttons) {
-		global $devVersion, $newestVersion;
+		$devVersionURI = getOption('getDEVUpdates_latest');
+		preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
+		$devVersion = $matches[1];
+		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
 
-		if (version_compare($devVersion, NETPHOTOGRAPHICS_VERSION_CONCISE, '>')) {
+		if (version_compare(preg_replace('~[^0-9,.]~', '', $devVersion), $npgVersion, '>')) {
 			$buttons[] = array(
 					'XSRFTag' => 'install_update',
 					'category' => gettext('Updates'),
@@ -141,8 +145,13 @@ class devRelease {
 	}
 
 	static function notice() {
-		global $devVersion;
-		if (isset($newestVersion) || version_compare($devVersion, NETPHOTOGRAPHICS_VERSION_CONCISE, '>')) {
+		$newestVersionURI = getOption('getUpdates_latest');
+		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
+		$devVersionURI = getOption('getDEVUpdates_latest');
+		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
+
+		preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
+		if (version_compare(preg_replace('~[^0-9,.]~', '', $matches[1]), $npgVersion, '>') && version_compare($newestVersion, $npgVersion, '>')) {
 			$msg = gettext('There is an update available.');
 		} else {
 			$msg = gettext('You are running the latest netPhotoGraphics version.');

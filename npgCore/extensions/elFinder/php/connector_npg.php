@@ -356,7 +356,7 @@ if ($_REQUEST['origin'] == 'upload') {
 				'acceptedName' => '/^[^\.].*$/',
 				'uploadDeny' => array('text/x-php', 'text/html', 'application')
 		);
-		switch (@$_GET['type']) {
+		switch (isset($_GET['type']) ? $_GET['type'] : NULL) {
 			case 'media':
 				$opts['roots'][0]['accessControl'] = 'accessMedia';
 				break;

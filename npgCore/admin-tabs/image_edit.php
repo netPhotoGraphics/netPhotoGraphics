@@ -350,7 +350,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												echo ' checked = "checked"';
 											}
 											?> />
-														 <?php echo gettext("Allow Comments"); ?>
+														 <?php echo gettext("Comments enabled"); ?>
 										</label>
 										<?php
 									}
@@ -537,8 +537,26 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php echo gettext("Rotation:"); ?>
 										<br />
 										<?php
-										$unflip = array(0 => 0, 1 => 0, 2 => 0, 3 => 3, 4 => 3, 5 => 8, 6 => 6, 7 => 6, 8 => 8);
-										$rotation = @$unflip[substr(trim($image->get('rotation'), '!'), 0, 1)];
+										switch (substr(trim($image->get('rotation'), '!'), 0, 1)) {
+											default:
+											case 0:
+											case 1:
+											case 2:
+												$rotation = 0;
+												break;
+											case 3:
+											case 4:
+												$rotation = 3;
+												break;
+											case 5:
+											case 8:
+												$rotation = 8;
+												break;
+											case 6:
+											case 7:
+												$rotation = 6;
+												break;
+										}
 										?>
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">

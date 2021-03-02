@@ -238,7 +238,7 @@ class cacheManager {
 					if ($owner) {
 						$inputclass = 'hidden';
 						echo '<span class="' . $type . '"><em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')</span>';
-						$subtype = @$ownerdata['album'];
+						$subtype = isset($ownerdata['album']) ? $ownerdata['album'] : NULL;
 					} else {
 						$inputclass = 'textbox';
 						$subtype = '_custom_';

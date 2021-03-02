@@ -5,13 +5,13 @@
  * If you wish to change the appearance or behavior of
  * the site when closed you may edit the .htm and .xmp files
  */
-$_contents = @file_get_contents(dirname(dirname(__DIR__)) . '/CORE_FOLDER/CONFIGFILE');
-if ($_contents) {
+if (file_exists(dirname(dirname(__DIR__)) . '/CORE_FOLDER/CONFIGFILE')) {
+	$_contents = file_get_contents(dirname(dirname(__DIR__)) . '/CORE_FOLDER/CONFIGFILE');
 	if (strpos($_contents, '<?php') !== false)
 		$_contents = '?>' . $_contents;
-	@eval($_contents);
+	eval($_contents);
 	$_conf_vars = $_zp_conf_vars;
-	if (@$_conf_vars['site_upgrade_state'] == 'open') {
+	if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'open') {
 		// site is now open, redirect to index
 		header("HTTP/1.0 307 Found");
 		header("Status: 307 Found");
@@ -24,8 +24,8 @@ $glob = array();
 if (($dir = opendir(__DIR__)) !== false) {
 	while (($file = readdir($dir)) !== false) {
 		preg_match('~(.*)\-closed\.*~', $file, $matches);
-		if (@$matches[1]) {
-			$glob[@$matches[1]] = $file;
+		if (isset($matches[1]) && $matches[1]) {
+			$glob[$matches[1]] = $file;
 		}
 	}
 }

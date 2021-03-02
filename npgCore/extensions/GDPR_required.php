@@ -121,7 +121,11 @@ class GDPR_required {
 					$_GDPR_acknowledge_loaded = true;
 				} else {
 					$goodBots = explode(',', strtolower(getOption('GDPR_Bots_Allowed')));
-					$agent = strtolower(@$_SERVER['HTTP_USER_AGENT']);
+					if (isset($_SERVER['HTTP_USER_AGENT'])) {
+						$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+					} else {
+						$agent = NULL;
+					}
 					$require = true;
 					foreach ($goodBots as $bot) {
 						if (strpos($agent, $bot) !== false) {

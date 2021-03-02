@@ -53,7 +53,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								if ($_DB_connection = db_connect($config, false)) {
 									$sql = 'SELECT * FROM `' . $config['mysql_prefix'] . 'options` WHERE `name`="netphotographics_install"';
 									if ($result = query_single_row($sql, FALSE)) {
-										$signature = @unserialize($result['value']);
+										$signature = getSerializedArray($result['value']);
 										if ($signature['NETPHOTOGRAPHICS'] != $myVersion) {
 											$version = ' (' . sprintf(gettext('Last setup run version: %s'), $signature['NETPHOTOGRAPHICS']) . ')';
 										}

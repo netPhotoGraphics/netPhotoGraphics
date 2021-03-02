@@ -88,21 +88,6 @@ function getOptionContent() {
 				<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
 				<table>
 					<?php
-					if ($single) {
-						?>
-						<tr>
-							<td colspan="100%">
-								<p>
-									<?php
-									backButton(array('buttonLink' => $backlink));
-									applyButton();
-									resetButton();
-									?>
-								</p>
-							</td>
-						</tr>
-						<?php
-					}
 					if (!$showExtension) {
 						?>
 						<tr>
@@ -120,6 +105,18 @@ function getOptionContent() {
 						$enabled = extensionEnabled($extension);
 						$path = getPlugin($extension . '.php');
 						if (!empty($path)) {
+							$key = array_search($extension, $list);
+							if ($key > 0) {
+								$prev = $list[$key - 1];
+							} else {
+								$prev = NULL;
+							}
+							if ($key + 1 >= count($list)) {
+								$next = NULL;
+							} else {
+								$next = $list[$key + 1];
+							}
+
 							$pluginStream = file_get_contents($path);
 							if ($str = isolate('$plugin_description', $pluginStream)) {
 								if (false === eval($str)) {
@@ -143,7 +140,38 @@ function getOptionContent() {
 							}
 							if (!empty($option_interface)) {
 								$_plugin_count++;
+								if ($single) {
+									?>
+									<tr>
+										<td colspan="100%">
+											<p class="padded">
+												<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($prev); ?>"><?php echo $prev; ?></a>
+												<span class="floatright" >
+													<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
+												</span>
+											</p>
+										</td>
+									</tr>
+
+									<tr>
+										<td colspan="100%">
+											<p>
+												<?php
+												backButton(array('buttonLink' => $backlink));
+												applyButton();
+												resetButton();
+												?>
+												<br /><br /><br />
+											</p>
+										</td>
+									</tr>
+									<?php
+								}
 								?>
+
+
+
+
 								<!-- <?php echo $extension; ?> -->
 								<tr>
 									<td class="option_name<?php if ($showExtension) echo ' option_shaded'; ?>">
@@ -177,7 +205,7 @@ function getOptionContent() {
 											?>
 										</span>
 									</td>
-									<td class="option_value<?php if ($showExtension) echo ' option_shaded'; ?>" colspan="100%">
+									<td class="option_value<?php if ($showExtension) echo ' option_shaded'; ?>">
 										<?php echo $plugin_description; ?>
 									</td>
 								</tr>
@@ -195,17 +223,6 @@ function getOptionContent() {
 									$supportedOptions = $option_interface->getOptionsSupported();
 									if (count($supportedOptions) > 0) {
 										customOptions($option_interface, '', NULL, false, $supportedOptions, NULL, NULL, $extension);
-									}
-									$key = array_search($extension, $list);
-									if ($key > 0) {
-										$prev = $list[$key - 1];
-									} else {
-										$prev = NULL;
-									}
-									if ($key + 1 >= count($list)) {
-										$next = NULL;
-									} else {
-										$next = $list[$key + 1];
 									}
 								}
 							}
@@ -249,19 +266,6 @@ function getOptionContent() {
 						}
 						?>
 					</table>
-					<?php
-					if ($single) {
-						?>
-						<p class="padded">
-							<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($prev); ?>"><?php echo $prev; ?></a>
-							<span class="floatright" >
-								<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
-							</span>
-						</p>
-						<?php
-					}
-					?>
-
 					<input type="hidden" name="checkForPostTruncation" value="1" />
 					<?php
 				}

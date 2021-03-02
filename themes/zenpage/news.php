@@ -85,7 +85,7 @@ if (class_exists('CMS')) {
 							<br style="clear:both;" /><br />
 							<?php
 							// COMMENTS TEST
-							@call_user_func('printCommentForm');
+							if (function_exists('printCommentForm')) printCommentForm();
 						} else {
 							printNewsPageListWithNav(gettext('next »'), gettext('« prev'), true, 'pagelist', true);
 							echo "<hr />";

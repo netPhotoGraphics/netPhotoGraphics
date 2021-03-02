@@ -107,7 +107,11 @@ if (isset($_GET['action'])) {
 					if (count($tags) > 0) {
 						$sql = "UPDATE " . prefix('tags') . " SET `private`=$private WHERE ";
 						foreach ($tags as $key => $tag) {
-							$lang = @$langs[$key];
+							if (isset($langs[$key])) {
+								$lang = $langs[$key];
+							} else {
+								$lang = NULL;
+							}
 							$sql .= "(`name`=" . (db_quote($tag)) . ' AND `language`=' . db_quote($lang) . ") OR ";
 						}
 						$sql = substr($sql, 0, strlen($sql) - 4);
@@ -126,7 +130,11 @@ if (isset($_GET['action'])) {
 						$languageList = i18n::generateLanguageList(false);
 
 						foreach ($tags as $key => $tagname) {
-							$lang = @$langs[$key];
+							if (isset($langs[$key])) {
+								$lang = $langs[$key];
+							} else {
+								$lang = NULL;
+							}
 							$sql = 'UPDATE ' . prefix('tags') . ' SET `language`=' . db_quote($language) . ' WHERE `name`=' . db_quote($tagname) . ' AND `language`=' . db_quote($lang);
 							$success = query($sql, false);
 							if ($success) {

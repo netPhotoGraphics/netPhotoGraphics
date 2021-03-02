@@ -45,7 +45,7 @@ class npgFilters {
 	 */
 	static function register($hook, $function_name, $priority = NULL) {
 		global $_filters, $_EnabledPlugins;
-		$bt = @debug_backtrace();
+		$bt = debug_backtrace();
 		if (is_array($bt)) {
 			$b = array_shift($bt);
 			$base = basename($b['file']);

@@ -10,7 +10,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 
-switch (@$_GET['tab']) {
+switch (isset($_GET['tab']) ? $_GET['tab'] : NULL) {
 	case 'assignment':
 		if (isset($_GET['selection'])) {
 			define('USERS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
@@ -86,7 +86,7 @@ if (isset($_GET['action'])) {
 			XSRFdefender('savegroups');
 			if (isset($_POST['checkForPostTruncation'])) {
 				$saved = false;
-				$newgroupid = @$_POST['newgroup'];
+				$newgroupid = isset($_POST['newgroup']) ? $_POST['newgroup'] : NULL;
 				$grouplist = $_POST['user'];
 				foreach ($grouplist as $i => $groupelement) {
 					$groupname = trim(sanitize($groupelement['group']));
@@ -367,7 +367,11 @@ echo '</head>' . "\n";
 									$groupobj = new npg_Administrator($groupname, 0);
 									if ($grouptype == 'group') {
 										$kind = gettext('group');
-										$count = ' (' . (int) @$user_count[$groupname] . ')';
+										if (isset($user_count[$groupname])) {
+											$count = ' (' . (int) $user_count[$groupname] . ')';
+										} else {
+											$count = '';
+										}
 									} else {
 										$kind = gettext('template');
 										$count = '';

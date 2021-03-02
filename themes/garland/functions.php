@@ -143,11 +143,11 @@ function footer() {
 			$prev = ' | ';
 		}
 		?>
-		<?php @call_user_func('printUserLogin_out', $prev); ?>
+		<?php if (function_exists('printUserLogin_out')) printUserLogin_out($prev); ?>
 		<br />
-		<?php @call_user_func('mobileTheme::controlLink'); ?>
+		<?php if (function_exists('mobileTheme::controlLink')) mobileTheme::controlLink(); ?>
 		<br />
-		<?php @call_user_func('printLanguageSelector'); ?>
+		<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>
 		<?php print_SW_Link(); ?>
 	</div>
 	<?php
@@ -166,7 +166,11 @@ function commonNewsLoop($paged) {
 			<div class="newsarticlecredit">
 				<span class="newsarticlecredit-left">
 					<?php
-					$count = @call_user_func('getCommentCount');
+					if (function_exists('getCommentCount')) {
+						$count = getCommentCount();
+					} else {
+						$count = 0;
+					};
 					$cat = getNewsCategories();
 					printNewsDate();
 					if ($count > 0) {

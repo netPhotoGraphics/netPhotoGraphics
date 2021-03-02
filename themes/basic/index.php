@@ -94,7 +94,7 @@ if (!defined('WEBPATH'))
 				printFavoritesURL(NULL, '', ' | ', '<br />');
 			}
 			?>
-			<?php @call_user_func('printUserLogin_out', '', ' | '); ?>
+			<?php if (function_exists('printUserLogin_out')) printUserLogin_out('', ' | '); ?>
 			<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
@@ -110,8 +110,8 @@ if (!defined('WEBPATH'))
 			?>
 			<?php printSoftwareLink(); ?>
 		</div>
-		<?php @call_user_func('mobileTheme::controlLink'); ?>
-		<?php @call_user_func('printLanguageSelector'); ?>
+		<?php if (function_exists('mobileTheme::controlLink')) mobileTheme::controlLink(); ?>
+		<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>
 	</body>
 	<?php
 	npgFilters::apply('theme_body_close');

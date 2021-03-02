@@ -73,7 +73,7 @@ define('EXIF_FIELD_TYPE', 6);
 define('EXIF_FIELD_LINKED', 7);
 
 
-define('SYMLINK', function_exists('symlink') && strpos(@ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
+define('SYMLINK', function_exists('symlink') && strpos(ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
 define('CASE_INSENSITIVE', file_exists(strtoupper(__FILE__)));
 
 $_debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
@@ -166,7 +166,25 @@ unset($matches);
 unset($const_webpath);
 unset($const_serverpath);
 
-define('DESIRED_PHP_EXTENSIONS', 'bz2,curl,exif,gettext,hash,iconv,intl,mbstring,openssl,session,tidy,zip');
+define('DESIRED_PHP_EXTENSIONS', array(
+		'bz2',
+		'curl',
+		'dom',
+		'exif',
+		'fileinfo',
+		'gettext',
+		'hash',
+		'iconv',
+		'intl',
+		'json',
+		'mbstring',
+		'openssl',
+		'session',
+		'tidy',
+		'xml',
+		'zip'
+				)
+);
 
 // Contexts (Bitwise and combinable)
 define("NPG_INDEX", 1);

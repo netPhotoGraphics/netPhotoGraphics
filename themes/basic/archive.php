@@ -67,7 +67,7 @@ if (!defined('WEBPATH'))
 			if (class_exists('RSS'))
 				printRSSLink('Gallery', '', 'RSS', ' | ');
 			printSoftwareLink();
-			@call_user_func('printUserLogin_out', " | ");
+			if (function_exists('printUserLogin_out')) printUserLogin_out(" | ");
 			?>
 		</div>
 	</body>

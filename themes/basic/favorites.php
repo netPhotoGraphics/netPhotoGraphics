@@ -64,7 +64,7 @@ if (class_exists('favorites')) {
 					</div>
 					<br class="clearall" />
 					<?php
-					@call_user_func('printSlideShowLink');
+					if (function_exists('printSlideShowLink')) printSlideShowLink();
 					printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 					?>
 				</div>
@@ -72,7 +72,7 @@ if (class_exists('favorites')) {
 			<div id="credit">
 				<?php
 				printSoftwareLink();
-				@call_user_func('printUserLogin_out', " | ");
+				if (function_exists('printUserLogin_out')) printUserLogin_out(" | ");
 				?>
 			</div>
 	</body>

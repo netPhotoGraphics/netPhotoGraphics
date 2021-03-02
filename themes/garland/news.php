@@ -60,7 +60,11 @@ if (class_exists('CMS')) {
 												<span class="newsarticlecredit-left">
 													<?php
 													$cat = getNewsCategories();
-													$count = @call_user_func('getCommentCount');
+													if (function_exists('getCommentCount')) {
+														$count = getCommentCount();
+													} else {
+														$count = 0;
+													}
 													printNewsDate();
 													if ($count > 0) {
 														echo ' | ';
@@ -79,12 +83,13 @@ if (class_exists('CMS')) {
 												<?php printCodeblock(2); ?>
 											</div>
 											<?php
-											@call_user_func('printCommentForm');
+											if (function_exists('printCommentForm'))
+												printCommentForm();
 										} else { // news article loop
 											commonNewsLoop(true);
 										}
 										?>
-										<?php footer(); ?>
+	<?php footer(); ?>
 										<p style="clear: both;"></p>
 									</div>
 									<!-- end content -->
@@ -126,7 +131,7 @@ if (class_exists('CMS')) {
 					</div><!-- sidebar -->
 				</div><!-- /container -->
 			</div>
-	</body>
+		</body>
 	<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php

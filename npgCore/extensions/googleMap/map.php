@@ -25,18 +25,19 @@ GoogleMap::js();
 <body>
 	<?php
 	if (getOption('gmap_sessions')) {
-		$map_data = @$_SESSION['GoogleMapVars'];
+		$map_data = $_SESSION['GoogleMapVars'];
 	} else {
-		$param = base64_decode(str_replace(' ', '+', sanitize(@$_GET['map_data'])));
-		if ($param) {
-			if (function_exists('bzcompress')) {
-				$data = bzdecompress($param);
-			} else {
-				$data = gzuncompress($param);
+		$map_data = '';
+		if (isset($_GET['map_data'])) {
+			$param = base64_decode(str_replace(' ', '+', sanitize($_GET['map_data'])));
+			if ($param) {
+				if (function_exists('bzcompress')) {
+					$data = bzdecompress($param);
+				} else {
+					$data = gzuncompress($param);
+				}
+				$map_data = sanitize(unserialize($data), 4);
 			}
-			$map_data = sanitize(unserialize($data), 4);
-		} else {
-			$map_data = '';
 		}
 	}
 

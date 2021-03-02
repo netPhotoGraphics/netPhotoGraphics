@@ -89,10 +89,10 @@ if (!defined('WEBPATH'))
 					<?php
 					if (function_exists('printAddToFavorites'))
 						printAddToFavorites($_current_album);
-					@call_user_func('printRating');
+					if (function_exists('printRating')) printRating();
 					simpleMap::printMap();
 
-					@call_user_func('printCommentForm');
+					if (function_exists('printCommentForm')) printCommentForm();
 					?>
 				</div><!-- content left-->
 

@@ -30,13 +30,19 @@ require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést');
 if (!file_exists($testFile)) {
-	@unlink($testFile); //	if it were a symbolic link....
+	if (is_link($testFile)) {
+		unlink($testFile); //	if it were a symbolic link....
+	}
 	file_put_contents($testFile, '');
 }
 
 foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
-	npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $remove);
-	@unlink(USER_PLUGIN_SERVERPATH . $remove . '.php');
+	if (is_dir(USER_PLUGIN_SERVERPATH . $remove)) {
+		npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $remove);
+	}
+	if (file_exists(USER_PLUGIN_SERVERPATH . $remove . '.php')) {
+		unlink(USER_PLUGIN_SERVERPATH . $remove . '.php');
+	}
 }
 enableExtension('slideshow2', 0);
 
@@ -236,13 +242,13 @@ if (in_array($_gallery->getCurrentTheme(), $migrate)) {
 
 if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 	$themes = array();
-	if ($dp = @opendir(SERVERPATH . '/' . THEMEFOLDER)) {
+	if ($dp = opendir(SERVERPATH . '/' . THEMEFOLDER)) {
 		while (false !== ($theme = readdir($dp))) {
 			$p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme;
 			if (is_link($p)) {
-				if (!is_dir($p)) { //	theme removed from master install
-					if (!@unlink($p)) {
-						@rmdir($p);
+				if (!is_dir(readlink($p))) { //	theme removed from master install
+					if (!rmdir($p)) {
+						unlink($p);
 					}
 				}
 			}
@@ -270,8 +276,13 @@ setOption('last_admin_action', time());
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);
 
-$old = @unserialize(getOption('netphotographics_install'));
-$from = preg_replace('/\[.*\]/', '', @$old['NETPHOTOGRAPHICS']);
+$old = getSerializedArray(getOption('netphotographics_install'));
+if (isset($old['NETPHOTOGRAPHICS'])) {
+	$from = preg_replace('/\[.*\]/', '', $old['NETPHOTOGRAPHICS']);
+} else {
+	$from = NULL;
+}
+
 purgeOption('netphotographics_install');
 setOption('netphotographics_install', serialize(installSignature()));
 
@@ -335,7 +346,7 @@ if (empty($admins)) { //	empty administrators table
 		purgeOption('extra_auth_hash_text');
 	}
 } else {
-	$groupsdefined = @unserialize(getOption('defined_groups'));
+	$groupsdefined = getSerializedArray(getOption('defined_groups'));
 }
 purgeOption('defined_groups');
 
@@ -728,14 +739,14 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 query('DELETE FROM ' . prefix('options') . ' WHERE  `name` ="search_space_is_OR"', false);
 
 if (!file_exists(SERVERPATH . '/favicon.ico')) {
-	@copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
+	copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
 } else {
 	$ico = md5_file(SERVERPATH . '/favicon.ico');
 	$ico_L = '2a479b69ab8479876cb5a7e6384e7a85'; //	hash of legacy zenphoto favicon
 	$ico_20 = '8eac492afff6cbb0d3f1e4b913baa8a3'; //	hash of zenphoto20 favicon
 	if ($ico_L == $ico || $ico_20 == $ico) {
 		unlink(SERVERPATH . '/favicon.ico');
-		@copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
+		copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
 	}
 }
 
@@ -921,7 +932,7 @@ $plugins = array_keys($plugins);
 	<?php
 	setOptionDefault('deprecated_functions_signature', NULL);
 
-	//clean up plugins needed for themes and other plugins
+//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {
@@ -981,7 +992,9 @@ $plugins = array_keys($plugins);
 				if (extensionEnabled($extension)) {
 					unset($deprecatedDeleted[$k]);
 				} else {
-					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
+					if (is_dir(USER_PLUGIN_SERVERPATH . $extension)) {
+						npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
+					}
 					unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
 					unset($plugins[$key]);
 					continue;
@@ -1016,7 +1029,7 @@ if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
 }
 
 $compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
-$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
+$compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), getSerializedArray(getOption('zenphotoCompatibilityPack_signature')));
 $newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $_npg_plugins);
 $newThemes = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
 

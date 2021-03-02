@@ -1357,8 +1357,10 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 					$articleCategories[$catMember['titlelink']] = $catMember['cat_id'];
 					while ($parentid) {
 						$cat = getItemByID('news_categories', $parentid);
-						$articleCategories[@$cat->getTitleLink()] = $parentid;
-						$parentid = @$cat->getParentID();
+						if ($cat) {
+							$articleCategories[$cat->getTitleLink()] = $parentid;
+							$parentid = @$cat->getParentID();
+						}
 					}
 				}
 			}
@@ -1552,7 +1554,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				if ($limit) {
 					$itemtitle = shortenContent($itemtitle, $limit, MENU_TRUNCATE_INDICATOR);
 				}
-				echo '<li><a' . $current . ' href="' . html_encode($itemurl) . '" title="' . html_encode(getBare($itemtitle)) . '">' . html_encode($itemtitle) . '</a>' . $count;
+				echo '<li class="' . $current . '"><a href="' . html_encode($itemurl) . '" title="' . html_encode(getBare($itemtitle)) . '">' . html_encode($itemtitle) . '</a>' . $count;
 			}
 		}
 	}

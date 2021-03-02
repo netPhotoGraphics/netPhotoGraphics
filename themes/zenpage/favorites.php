@@ -69,14 +69,14 @@ if (class_exists('favorites')) {
 						</div>
 						<p style="clear: both; "></p>
 						<?php
-						@call_user_func('printSlideShowLink');
+						if (function_exists('printSlideShowLink')) printSlideShowLink();
 						printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 						printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', ', ');
 						?>
 						<br style="clear:both;" /><br />
 						<?php
-						@call_user_func('printRating');
-						@call_user_func('printCommentForm');
+						if (function_exists('printRating')) printRating();
+						if (function_exists('printCommentForm')) printCommentForm();
 						?>
 					</div><!-- content left-->
 

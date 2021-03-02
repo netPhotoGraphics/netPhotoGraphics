@@ -403,7 +403,11 @@ function printFooter($admin = true) {
 	<!-- Footer -->
 	<div class="footlinks">
 		<?php
-		$h = @call_user_func('getHitcounter');
+		if (function_exists('getHitCounter')) {
+			$h = getHitCounter();
+		} else {
+			$h = 0;
+		}
 		if (!is_null($h)) {
 			?>
 			<p>
@@ -456,7 +460,8 @@ function printFooter($admin = true) {
 		}
 		?>
 		<?php
-		@call_user_func('printUserLogin_out', '', '<br />');
+		if (function_exists('printUserLogin_out'))
+			printUserLogin_out('', '<br />');
 		?>
 		<?php
 		if ($_gallery_page != 'contact.php' && extensionEnabled('contact_form') && ($_gallery_page != 'password.php' || $_gallery->isUnprotectedPage('contact'))) {
@@ -470,8 +475,8 @@ function printFooter($admin = true) {
 			echo '<br />';
 		}
 		?>
-		<?php @call_user_func('mobileTheme::controlLink'); ?>
-		<?php @call_user_func('printLanguageSelector'); ?>
+		<?php if (function_exists('mobileTheme::controlLink')) mobileTheme::controlLink(); ?>
+	<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>
 		<br class="clearall" />
 	</div>
 	<!-- Administration Toolbox -->
@@ -491,7 +496,11 @@ function commonNewsLoop($paged) {
 			<div class="newsarticlecredit">
 				<span class="newsarticlecredit-left">
 					<?php
-					$count = @call_user_func('getCommentCount');
+					if (function_exists('getCommentCount')) {
+						$count = getCommentCount();
+					} else {
+						$count = 0;
+					}
 					$cat = getNewsCategories();
 					printNewsDate();
 					if ($count > 0) {
@@ -510,7 +519,7 @@ function commonNewsLoop($paged) {
 			<br clear="all">
 			<?php printCodeblock(1); ?>
 			<?php printNewsContent(); ?>
-			<?php printCodeblock(2); ?>
+		<?php printCodeblock(2); ?>
 			<br class="clearall" />
 		</div>
 		<?php

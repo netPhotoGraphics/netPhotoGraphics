@@ -80,7 +80,7 @@ if (npg_loggedin(FILES_RIGHTS)) {
 							'XSRFToken':'<?php echo getXSRFToken('elFinder'); ?>',
 											'user_auth':'<?php echo getNPGCookie('user_auth'); ?>',
 											'origin':'tinyMCE',
-											'type':'<?php echo sanitize(@$_GET['type']); ?>'
+											'type':'<?php if (isset($_GET['type'])) echo sanitize($_GET['type']); ?>'
 							},
 							url : '<?php echo getAdminLink(PLUGIN_PATH . '/elFinder/php/connector_npg.php'); ?>', // connector URL (REQUIRED)
 							getFileCallback: function(file, fm) { // editor callback

@@ -8,6 +8,8 @@
  */
 // force UTF-8 Ø
 
+ini_set('session.use_strict_mode', 1);
+
 define('OFFSET_PATH', 2);
 
 require_once(dirname(__DIR__) . '/global-definitions.php');
@@ -104,12 +106,12 @@ $_SESSION['save_session_path'] = session_save_path();
 
 $en_US = dirname(__DIR__) . '/locale/en_US/';
 if (!file_exists($en_US)) {
-	@mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
-	@mkdir($en_US, $chmod | 0311);
+	mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
+	mkdir($en_US, $chmod | 0311);
 }
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
-	@mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
+	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
 }
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak')) {
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak'); //	remove any old backup file
@@ -137,35 +139,53 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	$i = strpos($config_contents, '/** Do not edit above this line. **/');
 	$config_contents = "<?php\nglobal \$_conf_vars;\n\$conf = array()\n" . substr($config_contents, $i);
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
-	$result = @unlink(dirname(dirname(__DIR__)) . '/' . CORE_FOLDER . '/zp-config.php');
+	$result = unlink(dirname(dirname(__DIR__)) . '/' . CORE_FOLDER . '/zp-config.php');
 	configMod();
 } else if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg')) {
 	$config_contents = "<?php\n" . file_get_contents($oldconfig) . "\n?>";
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
-	@unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg');
+	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg');
 	configMod();
 } else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$newconfig = true;
-	@copy(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	copy(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
 
-@chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0777);
-@copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
-@chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
-
-if (file_exists(SERVERPATH . '/backup')) {
-	/* move the files */
-	@chmod(SERVERPATH . '/' . BACKUPFOLDER, 0777);
-	@rename(SERVERPATH . '/backup', SERVERPATH . '/' . BACKUPFOLDER);
-	@chmod(SERVERPATH . '/' . BACKUPFOLDER, $chmod | 0311);
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess')) {
+	chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0777);
 }
+copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
+chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
+
 if (!file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
 	@mkdir(SERVERPATH . '/' . BACKUPFOLDER, $chmod | 0311);
 }
-@chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
-@copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
-@chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
+if (file_exists(SERVERPATH . '/backup')) {
+	/* move the files */
+	if (($dir = opendir(SERVERPATH . '/backup')) !== false) {
+		if (file_exists(SERVERPATH . '/backup/.htaccess')) {
+			chmod(SERVERPATH . '/backup/.htaccess', 0777);
+			unlink(SERVERPATH . '/backup/.htaccess');
+		}
+		while (($file = readdir($dir)) !== false) {
+			if ($file != '.' && $file != '..') {
+				chmod(SERVERPATH . '/backup/' . $file, 0777);
+				rename(SERVERPATH . '/backup/' . $file, SERVERPATH . '/' . BACKUPFOLDER . '/' . $file);
+			}
+		}
+		closedir($dir);
+	}
+	/* remove the folder */
+	chmod(SERVERPATH . '/backup', 0777);
+	rmdir(SERVERPATH . '/backup');
+}
+
+if (file_exists(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess')) {
+	chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
+}
+copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
+chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
 
 if (isset($_GET['mod_rewrite'])) {
 	$mod = '&mod_rewrite=' . $_GET['mod_rewrite'];
@@ -173,7 +193,7 @@ if (isset($_GET['mod_rewrite'])) {
 	$mod = '';
 }
 
-$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+$_config_contents = file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) ? file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) : NULL;
 $update_config = false;
 
 if (strpos($_config_contents, "\$conf['charset']") === false) {
@@ -438,9 +458,11 @@ $forcerewrite = isset($_SESSION['clone'][$cloneid]['mod_rewrite']) && $_SESSION[
 $newht = file_get_contents(CORE_SERVERPATH . 'htaccess');
 if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 	if (($newconfig || $forcerewrite) && !file_exists(SERVERPATH . '/.htaccess') || setupUserAuthorized()) {
-		@chmod(SERVERPATH . '/.htaccess', 0777);
+		if (file_exists(SERVERPATH . '/.htaccess')) {
+			chmod(SERVERPATH . '/.htaccess', 0777);
+		}
 		file_put_contents(SERVERPATH . '/.htaccess', $newht);
-		@chmod(SERVERPATH . '/.htaccess', 0444);
+		chmod(SERVERPATH . '/.htaccess', 0444);
 	}
 }
 
@@ -631,8 +653,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							checkmark($session && session_id() && $_initial_session_path !== false, gettext('PHP <code>Sessions</code>.'), gettext('PHP <code>Sessions</code> [appear to not be working].'), sprintf(gettext('PHP Sessions are required for administrative functions. Check your <code>session.save_path</code> (<code>%1$s</code>) and the PHP configuration <code>[session]</code> settings'), session_save_path()), true);
 
-							@ini_set('session.use_strict_mode', 1);
-							if (preg_match('#(1|ON)#i', @ini_get('session.use_strict_mode'))) {
+							if (preg_match('#(1|ON)#i', ini_get('session.use_strict_mode'))) {
 								$strictSession = 1;
 							} else {
 								$strictSession = -1;
@@ -640,7 +661,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$good = checkMark($strictSession, gettext('PHP <code>session.use_strict_mode</code>'), gettext('PHP <code>session.use_strict_mode</code> [is not set]'), gettext('Enabling <code>session.use_strict_mode</code> is mandatory for general session security. Change your PHP.ini settings to <code>session.use_strict_mode = on</code>.')) && $good;
 
 							if (!extension_loaded('suhosin')) {
-								$blacklist = @ini_get("suhosin.executor.func.blacklist");
+								$blacklist = ini_get("suhosin.executor.func.blacklist");
 								if ($blacklist) {
 									$requiredUses = array('symlink' => 0);
 									$abort = $issue = 0;
@@ -684,7 +705,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							$loaded = get_loaded_extensions();
 							$loaded = array_flip($loaded);
-							$desired = explode(',', DESIRED_PHP_EXTENSIONS);
+							$desired = DESIRED_PHP_EXTENSIONS;
 							$missing = '';
 							$check = 1;
 							foreach ($desired as $module) {
@@ -837,7 +858,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										} else {
 											primeMark(gettext('Character set'));
 											$sets = array_merge($_UTF8->iconv_sets, $_UTF8->mb_sets);
-											$charset_defined = @$sets[FILESYSTEM_CHARSET];
+											$charset_defined = isset($sets[FILESYSTEM_CHARSET]) ? $sets[FILESYSTEM_CHARSET] : NULL;
 											$test = '';
 											if (($dir = opendir(SERVERPATH . '/' . DATA_FOLDER . '/')) !== false) {
 												while (($file = readdir($dir)) !== false) {
@@ -1059,10 +1080,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										checkMark(false, '', gettext("Database credentials in configuration file"), sprintf(gettext('<em>%1$s</em> reported: %2$s'), DATABASE_SOFTWARE, $connectDBErr));
 										// input form for the information
 										if (!isset($_conf_vars['mysql_port']) || empty($_conf_vars['mysql_port'])) {
-											$_conf_vars['mysql_port'] = @ini_get('mysqli.default_port');
+											$_conf_vars['mysql_port'] = ini_get('mysqli.default_port');
 										}
 										if (!isset($_conf_vars['mysql_socket']) || empty($_conf_vars['mysql_socket'])) {
-											$_conf_vars['mysql_socket'] = @ini_get('mysqli.default_socket');
+											$_conf_vars['mysql_socket'] = ini_get('mysqli.default_socket');
 										}
 										include(__DIR__ . '/setup-sqlform.php');
 									} else {
@@ -1172,7 +1193,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 
 							primeMark(gettext('netPhotoGraphics files'));
-							@set_time_limit(120);
+							set_time_limit(120);
 							$stdExclude = Array('Thumbs.db', 'readme.md', 'data');
 							$base = SERVERPATH . '/';
 							getResidentFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
@@ -1226,7 +1247,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									}
 									if (is_dir($component)) {
 										if ($updatechmod) {
-											@chmod($component, $chmod | 0311);
+											chmod($component, $chmod | 0311);
 											clearstatcache();
 											$perms = fileperms($component) & 0777;
 											if ($permissions == 1 && !checkPermissions($perms, $chmod | 0311)) {
@@ -1244,7 +1265,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										}
 									} else {
 										if ($updatechmod) {
-											@chmod($component, $chmod);
+											chmod($component, $chmod);
 											clearstatcache();
 											$perms = fileperms($component) & 0777;
 											if ($permissions == 1 && !checkPermissions($perms, $chmod)) {
@@ -1268,7 +1289,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							if ($updatechmod && count($folders) > 0) {
 								foreach ($folders as $key => $folder) {
 									if (!checkPermissions(fileperms($folder) & 0777, 0755)) { // need to set them?.
-										@chmod($folder, $chmod | 0311);
+										chmod($folder, $chmod | 0311);
 										clearstatcache();
 										$perms = fileperms($folder) & 0777;
 										if ($permissions == 1 && !checkPermissions($perms, $chmod | 0311)) {
@@ -1354,7 +1375,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$phi_ini_count = $svncount = 0;
 								foreach ($_resident_files as $extra) {
 									if (getSuffix($extra) == 'xxx') {
-										@unlink($extra); //	presumed to be protected copies of the setup files
+										unlink($extra); //	presumed to be protected copies of the setup files
 									} else if (strpos($extra, 'php.ini') !== false) {
 										$phi_ini_count++;
 									} else if ($testRelease || (strpos($extra, '/.svn') === false)) {
@@ -1376,8 +1397,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 												$file8 = $_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
 												$file = $base . $file_s;
 												if (!is_dir($file)) {
-													@chmod($file, 0777);
-													if (!@unlink($file) || file_exists($file)) {
+													chmod($file, 0777);
+													if (!unlink($file) || file_exists($file)) {
 														$filelist[] = $file8;
 													} else {
 														unset($systemlist[$key]);
@@ -1389,11 +1410,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											foreach ($systemlist as $key => $file_s) {
 												$file8 = $_UTF8->convert($file, FILESYSTEM_CHARSET, 'UTF-8');
 												$file = $base . $file_s;
-												@chmod($file, 0777);
+												chmod($file, 0777);
 												if (is_dir($file)) {
 													$offspring = safe_glob($file . '/*.*');
 													foreach ($offspring as $child) {
-														if (!(@unlink($child) || !file_exists($child))) {
+														if (!(unlink($child) || !file_exists($child))) {
 															$filelist[] = $file8 . '/' . $_UTF8->convert($file_s, FILESYSTEM_CHARSET, 'UTF-8');
 														}
 													}
@@ -1403,7 +1424,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 														setuplog(sprintf(gettext('Deleted %1$s'), $file8), true);
 													}
 												} else {
-													if (!@unlink($file) || file_exists($file)) {
+													if (!unlink($file) || file_exists($file)) {
 														$filelist[] = $file8;
 													} else {
 														unset($systemlist[$key]);
@@ -1423,23 +1444,13 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 
-							//	remove the "other" core folder so there is only one
-							switch (CORE_FOLDER) {
-								case 'zp-core';
-									npgFunctions::removeDir(SERVERPATH . '/npgCore');
-									break;
-								case 'npgCore':
-									npgFunctions::removeDir(SERVERPATH . '/zp-core');
-									break;
-							}
-
 							$msg = gettext("<em>.htaccess</em> file");
 							$Apache = stristr($_SERVER['SERVER_SOFTWARE'], "apache");
 							$Nginx = stristr($_SERVER['SERVER_SOFTWARE'], "nginx");
 							$htfile = SERVERPATH . '/.htaccess';
 							$copyaccess = false;
 							if (file_exists($htfile)) {
-								$ht = trim(@file_get_contents($htfile));
+								$ht = trim(file_get_contents($htfile));
 							} else {
 								$ht = false;
 								$copyaccess = $Apache;
@@ -1535,14 +1546,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 								if ($save) {
 									// try and fix it
-									@chmod($htfile, 0777);
+									chmod($htfile, 0777);
 									if (is_writeable($htfile)) {
-										if (@file_put_contents($htfile, $ht)) {
+										if (file_put_contents($htfile, $ht)) {
 											$err = '';
 										}
 										clearstatcache();
 									}
-									@chmod($htfile, 0444);
+									chmod($htfile, 0444);
 								}
 								$good = checkMark($base, $b, $err, gettext("Setup was not able to write to the file. Change RewriteBase match the install folder.") .
 																"<br />" . sprintf(gettext("Either make the file writeable or set <code>RewriteBase</code> in your <code>.htaccess</code> file to <code>%s</code>."), $d)) && $good;
@@ -1592,8 +1603,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$good = checkmark(file_exists($en_US), gettext('<em>locale</em> folders'), gettext('<em>locale</em> folders [Are not complete]'), gettext('Be sure you have uploaded the complete netPhotoGraphics package. You must have at least the <em>en_US</em> folder.')) && $good;
 							$good = folderCheck(gettext('uploaded'), SERVERPATH . '/' . UPLOAD_FOLDER . '/', 'std', NULL, false, $chmod | 0311, $updatechmod) && $good;
 							$good = folderCheck(DATA_FOLDER, SERVERPATH . '/' . DATA_FOLDER . '/', 'std', NULL, false, $chmod | 0311, $updatechmod) && $good;
-							@rmdir(SERVERPATH . '/' . DATA_FOLDER . '/mutex');
-							@mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
+							if (is_dir(SERVERPATH . '/' . DATA_FOLDER . '/mutex')) {
+								npgFunctions::removeDir(SERVERPATH . '/' . DATA_FOLDER . '/mutex');
+							}
+							if (!is_dir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
+								mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
+							}
 
 							$good = folderCheck(gettext('HTML cache'), SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/', 'std', $Cache_html_subfolders, true, $chmod | 0311, $updatechmod) && $good;
 							$good = folderCheck(gettext('Third party plugins'), USER_PLUGIN_SERVERPATH, 'std', $plugin_subfolders, true, $chmod | 0311, $updatechmod) && $good;

@@ -9,7 +9,7 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 		$uri = '/' . $uri;
 	}
 } else {
-	$uri = str_replace('\\', '/', @$_SERVER['SCRIPT_NAME']);
+	$uri = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
 }
 $parts = explode('?', $uri);
 $uri = $parts[0];
@@ -44,30 +44,34 @@ if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)/(.*?)\?~i', $uri . '?', $mat
 unset($uri);
 
 define('OFFSET_PATH', 0);
-if (!$_themeScript = @$_SERVER['SCRIPT_FILENAME']) {
+if (isset($_SERVER['SCRIPT_FILENAME'])) {
+	$_themeScript = $_SERVER['SCRIPT_FILENAME'];
+} else {
 	$_themeScript = __FILE__;
 }
-$_contents = @file_get_contents(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE');
-
-if ($_contents) {
-	if (strpos($_contents, '<?php') !== false)
-		$_contents = '?>' . $_contents;
-	@eval($_contents);
-	if (isset($conf)) {
-		$_conf_vars = $conf;
-	} else {
-		$_conf_vars = $_zp_conf_vars;
-	}
-	if (@$_conf_vars['site_upgrade_state'] == 'closed') {
-		if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
-			if (isset($_SERVER['HTTPS'])) {
-				$protocol = 'https';
-			} else {
-				$protocol = 'http';
-			}
-			header('location: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) . 'plugins/site_upgrade/closed.php');
+if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
+	$_contents = file_get_contents(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE');
+	if ($_contents) {
+		if (strpos($_contents, '<?php') !== false) {
+			$_contents = '?>' . $_contents;
 		}
-		exit();
+		try {
+			eval($_contents);
+			if (isset($conf)) {
+				$_conf_vars = $conf;
+			} else {
+				$_conf_vars = $_zp_conf_vars;
+			}
+			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed') {
+				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
+					$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
+					header('location: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) . 'plugins/site_upgrade/closed.php');
+				}
+				exit();
+			}
+		} catch (exception $e) {
+
+		}
 	}
 }
 unset($_contents);

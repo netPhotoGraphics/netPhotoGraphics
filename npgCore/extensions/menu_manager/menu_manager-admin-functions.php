@@ -659,7 +659,7 @@ function addItem(&$reports) {
 	$sql = "INSERT INTO " . prefix('menu') . " ( `title`, `link`, `titletext`, `type`, `show`, `menuset`, `sort_order`, `include_li`, `span_id`, `span_class`, `menu_aux`) " .
 					"VALUES (" . db_quote($result['title']) .
 					", " . db_quote($result['link']) .
-					", " . db_quote(@$result['titletext']) .
+					", " . db_quote(isset($result['titletext']) ? $result['titletext'] : NULL) .
 					", " . db_quote($result['type']) . ", " . $result['show'] .
 					", " . db_quote($menuset) . ", " . db_quote($order) . ", " . $result['include_li'] .
 					", " . db_quote($result['span_id']) . ", " . db_quote($result['span_class']) .

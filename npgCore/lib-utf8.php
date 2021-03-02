@@ -106,7 +106,7 @@ class utf8 {
 		$this->iconv_sets = array();
 		$this->mb_sets = array();
 		if (function_exists('mb_convert_encoding')) {
-			@mb_substitute_character('none');
+			mb_substitute_character('none');
 			if (function_exists('mb_list_encodings')) {
 				$list = mb_list_encodings();
 			} else {
@@ -226,20 +226,20 @@ class utf8 {
 		$encode_iconv = array_key_exists($encoding, $this->iconv_sets);
 		$dest_iconv = array_key_exists($destination, $this->iconv_sets);
 		if ($encode_iconv && $dest_iconv) {
-			return @iconv($encoding, $destination . '//IGNORE', $string);
+			return iconv($encoding, $destination . '//IGNORE', $string);
 		}
 		// must use mixed conversion
 		if ($encode_mb) {
 			$instring = mb_convert_encoding($string, 'UTF-8', $encoding);
 		} else if ($encode_iconv) {
-			$instring = @iconv($encoding, 'UTF-8' . '//IGNORE', $string);
+			$instring = iconv($encoding, 'UTF-8' . '//IGNORE', $string);
 		} else {
 			$instring = $string;
 		}
 		if ($dest_mb) {
 			$outstring = mb_convert_encoding($instring, $destination, 'UTF-8');
 		} else if ($dest_iconv) {
-			$outstring = @iconv('UTF-8', $destination . '//IGNORE', $instring);
+			$outstring = iconv('UTF-8', $destination . '//IGNORE', $instring);
 		} else {
 			$outstring = $instring;
 		}
@@ -485,7 +485,7 @@ class utf8 {
 			$additional_headers .= "Content-Type: text/plain; charset=" . LOCAL_CHARSET;
 		}
 
-		return @mail($to, $subject, $message, $additional_headers, $additional_parameter);
+		return mail($to, $subject, $message, $additional_headers, $additional_parameter);
 	}
 
 	/**

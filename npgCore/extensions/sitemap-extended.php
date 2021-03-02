@@ -578,7 +578,7 @@ class sitemap {
 				$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 			}
 			foreach ($albums as $album) {
-				@set_time_limit(120); //	Extend script timeout to allow for gathering the images.
+				set_time_limit(120); //	Extend script timeout to allow for gathering the images.
 				$albumobj = newAlbum($album['folder']);
 				$images = $albumobj->getImages();
 				// print plain images links if available
@@ -958,7 +958,7 @@ class sitemap {
 					}
 				} else {
 					if (file_exists($fullname) && !(substr($filename, 0, 1) == '.')) {
-						@chmod($fullname, 0777);
+						chmod($fullname, 0777);
 						unlink($fullname);
 					}
 				}

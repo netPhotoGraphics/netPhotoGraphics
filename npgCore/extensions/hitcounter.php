@@ -16,6 +16,10 @@ $option_interface = 'hitcounter';
 
 npgFilters::register('load_theme_script', 'hitcounter::load_script');
 npgFilters::register('admin_utilities_buttons', 'hitcounter::button');
+npgFilters::register('bulk_image_actions', 'hitcounter::bulkActions');
+npgFilters::register('bulk_album_actions', 'hitcounter::bulkActions');
+npgFilters::register('bulk_article_actions', 'hitcounter::bulkActions');
+npgFilters::register('bulk_page_actions', 'hitcounter::bulkActions');
 
 $_scriptpage_hitcounters = getSerializedArray(getOption('page_hitcounters'));
 
@@ -189,7 +193,11 @@ class hitcounter {
 						default:
 							if (!npg_loggedin(ADMIN_RIGHTS)) {
 								$page = stripSuffix($_gallery_page);
-								$_scriptpage_hitcounters[$page] = @$_scriptpage_hitcounters[$page] + 1;
+								if (isset($_scriptpage_hitcounters[$page])) {
+									$_scriptpage_hitcounters[$page] = $_scriptpage_hitcounters[$page] + 1;
+								} else {
+									$_scriptpage_hitcounters[$page] = 1;
+								}
 								setOption('page_hitcounters', serialize($_scriptpage_hitcounters));
 							}
 							break;
@@ -215,6 +223,11 @@ class hitcounter {
 				'rights' => ADMIN_RIGHTS
 		);
 		return $buttons;
+	}
+
+	static function bulkActions($checkarray) {
+		$checkarray[gettext('Reset hitcounter')] = 'resethitcounter';
+		return $checkarray;
 	}
 
 }
@@ -252,7 +265,11 @@ function getHitcounter($obj = NULL) {
 				break;
 			default:
 				$page = stripSuffix($_gallery_page);
-				return @$_scriptpage_hitcounters[$page];
+				if (isset($_scriptpage_hitcounters[$page])) {
+					return $_scriptpage_hitcounters[$page];
+				} else {
+					return NULL;
+				}
 		}
 	}
 	return $obj->getHitcounter();

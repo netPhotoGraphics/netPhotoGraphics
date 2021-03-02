@@ -182,7 +182,7 @@ if (class_exists('favorites')) {
 							</div><!-- images -->
 						</div> <!-- main -->
 						<div class="clearage"></div>
-						<span style="text-align:center"><?php @call_user_func('printSlideShowLink'); ?></span>
+						<span style="text-align:center"><?php if (function_exists('printSlideShowLink')) printSlideShowLink(); ?></span>
 						<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
 					</div> <!-- content -->
 					<?php

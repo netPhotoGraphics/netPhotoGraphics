@@ -199,7 +199,7 @@ class register_user {
 		if (empty($pass)) {
 			$_notify = 'empty';
 		} else if (!empty($user) && !(empty($admin_n)) && !empty($admin_e)) {
-			if (isset($_POST['disclose_password']) || $pass == trim(sanitize(@$_POST['pass_r']))) {
+			if (isset($_POST['disclose_password']) || isset($_POST['pass_r']) && $pass == trim(sanitize($_POST['pass_r']))) {
 				$currentadmin = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 				if (is_object($currentadmin)) {
 					$_notify = 'exists';

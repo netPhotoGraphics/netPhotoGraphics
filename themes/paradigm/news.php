@@ -77,7 +77,7 @@ if (class_exists("CMS")) {
 
 							<?php
 							// COMMENTS TEST
-							@call_user_func('printCommentForm');
+							if (function_exists('printCommentForm')) printCommentForm();
 							?>
 						</article>
 						<!-- pagination -->

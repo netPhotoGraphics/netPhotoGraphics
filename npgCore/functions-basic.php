@@ -111,7 +111,7 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
 	debugLogBacktrace($msg, 1);
 
-	if (!ini_get('display_errors') && ($errno == E_ERROR || $errno = E_USER_ERROR)) {
+	if (!ini_get('display_errors') && ($errno == E_ERROR || $errno == E_USER_ERROR)) {
 		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
@@ -229,7 +229,7 @@ function sanitize_path($filename) {
  */
 function sanitize_numeric($num) {
 	$f = filter_var($num, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-	if ($f === false) {
+	if (!$f) {
 		return 0;
 	} else {
 		return (int) round($f);
@@ -483,7 +483,7 @@ function mkdir_recursive($pathname, $mode) {
 	if (!is_dir(dirname($pathname))) {
 		mkdir_recursive(dirname($pathname), $mode);
 	}
-	return is_dir($pathname) || @mkdir($pathname, $mode);
+	return is_dir($pathname) || mkdir($pathname, $mode);
 }
 
 function array_map_recursive(callable $func, array $array) {
@@ -541,10 +541,15 @@ function debugLog($message, $reset = false, $log = 'debug') {
 	if (defined('SERVERPATH')) {
 		global $_mutex;
 		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
+		if (file_exists($path)) {
+			$size = filesize($path);
+		} else {
+			$size = 0;
+		}
 		$me = getmypid();
 		if (is_object($_mutex))
 			$_mutex->lock();
-		if ($reset || ($size = @filesize($path)) == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
+		if ($reset || $size == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
 			if (!$reset && $size > 0) {
 				$perms = fileperms($path);
 				switchLog('debug');
@@ -562,7 +567,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 				}
 				fwrite($f, $preamble . NEWLINE);
 				if (defined('LOG_MOD')) {
-					@chmod($path, LOG_MOD);
+					chmod($path, LOG_MOD);
 				}
 			}
 		} else {
@@ -600,6 +605,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 	global $_current_admin_obj, $_index_theme;
 	$output = trim($message) . NEWLINE;
+	$uri = FALSE;
 	if (array_key_exists('REQUEST_URI', $_SERVER)) {
 		$uri = sanitize($_SERVER['REQUEST_URI']);
 		preg_match('|^(http[s]*\://[a-zA-Z0-9\-\.]+/?)*(.*)$|xis', $uri, $matches);
@@ -608,7 +614,9 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 			$uri = '/' . $uri;
 		}
 	} else {
-		$uri = sanitize(@$_SERVER['SCRIPT_NAME']);
+		if (isset($_SERVER['SCRIPT_NAME'])) {
+			$uri = sanitize($_SERVER['SCRIPT_NAME']);
+		}
 	}
 	if ($uri) {
 		$uri = "\n URI:" . urldecode(str_replace('\\', '/', $uri));
@@ -683,7 +691,7 @@ function secureServer() {
 	global $_conf_vars;
 	if (isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
 		return true;
-	} else if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strpos(strtolower($_SERVER['HTTPS']), 'off') === false) {
+	} else if (!(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")) {
 		return true;
 	} else if (isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] )) {
 		return true;
@@ -706,7 +714,6 @@ function npg_session_start() {
 	} else {
 		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
 		session_name('Session_' . str_replace('.', '_', $p . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
-		@ini_set('session.use_strict_mode', 1);
 		//	insure that the session data has a place to be saved
 		if (getOption('session_save_path')) {
 			session_save_path($_conf_vars['session_save_path']);
@@ -873,6 +880,38 @@ function clearNPGCookie($name) {
 }
 
 /**
+ * test for serialized array string
+ *
+ * @param type string
+ * @return boolean
+ */
+function is_serialized($data) {
+	// if it isn't a string, it isn't serialized
+	if (!is_string($data))
+		return false;
+	$data = trim($data);
+	if ('N;' == $data)
+		return true;
+	if (!preg_match('/^([adObis]):/', $data, $badions))
+		return false;
+	switch ($badions[1]) {
+		case 'a' :
+		case 'O' :
+		case 's' :
+			if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data))
+				return true;
+			break;
+		case 'b' :
+		case 'i' :
+		case 'd' :
+			if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data))
+				return true;
+			break;
+	}
+	return false;
+}
+
+/**
  * if $string is an serialzied array it is unserialized otherwise an appropriate array is returned
  *
  * @param string $string
@@ -883,15 +922,12 @@ function getSerializedArray($string) {
 	if (is_array($string)) {
 		return $string;
 	}
-	if (empty($string)) {
-		return array();
-	}
-	if (is_string($string) && (($data = @unserialize($string)) !== FALSE || $string === 'b:0;')) {
-		if (is_array($data)) {
-			return $data;
-		} else {
-			return array($data);
+	if (is_serialized($string)) {
+		$strings = unserialize($string);
+		if (is_array($strings)) {
+			return $strings;
 		}
+		return array($strings);
 	}
 	return array($string);
 }
@@ -914,6 +950,10 @@ class npgMutex {
 			if (is_null($folder)) {
 				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
 			}
+			if (!is_dir($folder)) {
+				mkdir_recursive($folder, fileperms(__DIR__) & 0666 | 311);
+			}
+
 			if ($concurrent > 1) {
 				If ($subLock = self::which_lock($lock, $concurrent, $folder)) {
 					$this->lock = $folder . '/' . $lock . '_' . $subLock;
@@ -1066,7 +1106,7 @@ function setOption($key, $value, $persistent = true) {
 					//	it is stored in the config file, update that too
 					require_once(CORE_SERVERPATH . 'lib-config.php');
 					$_configMutex->lock();
-					$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+					$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 					$_config_contents = configFile::update($configKey, $value, $_config_contents);
 					configFile::store($_config_contents);
 					$_configMutex->unlock();
@@ -1282,8 +1322,10 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 		if (IMAGE_CACHE_SUFFIX) {
 			$suffix = IMAGE_CACHE_SUFFIX;
 		} else {
-			$suffix = @$_cachefileSuffix[strtoupper(getSuffix($image8))];
-			if (empty($suffix)) {
+			$sfx = strtoupper(getSuffix($image8));
+			if (isset($cachefileSuffix[$sfx]) && $_cachefileSuffix[$sfx]) {
+				$suffix = $_cachefileSuffix[$sfx];
+			} else {
 				$suffix = 'jpg';
 			}
 		}
@@ -1828,7 +1870,7 @@ function switchLog($log) {
 	$counter = count($list) + 1;
 
 	chdir($dir);
-	@copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log', SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '-' . $counter . '.log');
+	copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log', SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '-' . $counter . '.log');
 	if (getOption($log . '_log_mail')) {
 		npgFunctions::mail(sprintf(gettext('%s log size limit exceeded'), $log), sprintf(gettext('The %1$s log has exceeded its size limit and has been renamed to %2$s.'), $log, $log . '-' . $counter . '.log'));
 	}
@@ -1916,7 +1958,7 @@ function imageThemeSetup($album) {
 	$theme = getAlbumInherited(filesystemToInternal($album), 'album_theme', $id);
 	if (empty($theme)) {
 		$galleryoptions = getSerializedArray(getOption('gallery_data'));
-		$theme = @$galleryoptions['current_theme'];
+		$theme = isset($galleryoptions['current_theme']) ? $galleryoptions['current_theme'] : NULL;
 	}
 	loadLocalOptions($id, $theme);
 	return $theme;
@@ -1956,7 +1998,11 @@ function getRequestURI($decode = true) {
 			$uri = '/' . $uri;
 		}
 	} else {
-		$uri = sanitize(str_replace('\\', '/', @$_SERVER['SCRIPT_NAME']));
+		if (isset($_SERVER['SCRIPT_NAME'])) {
+			$uri = sanitize(str_replace('\\', '/', $_SERVER['SCRIPT_NAME']));
+		} else {
+			$uri = NULL;
+		}
 	}
 	if ($decode) {
 		$uri = sanitize(urldecode($uri));
@@ -1987,7 +2033,7 @@ function safe_glob($pattern, $flags = 0) {
 	if (($dir = opendir($path)) !== false) {
 		$glob = array();
 		while (($file = readdir($dir)) !== false) {
-			if (@preg_match($match, $file) && $file[0] != '.') {
+			if (preg_match($match, $file) && $file[0] != '.') {
 				if (is_dir("$path/$file")) {
 					if ($flags & GLOB_MARK)
 						$file .= '/';
@@ -2088,7 +2134,7 @@ function installSignature() {
  * @param type $from the config file name
  */
 function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
-	@eval('?>' . file_get_contents(SERVERPATH . '/' . $from));
+	eval('?>' . file_get_contents(SERVERPATH . '/' . $from));
 	if (isset($conf)) {
 		return $conf;
 	}

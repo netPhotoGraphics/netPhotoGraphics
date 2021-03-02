@@ -85,7 +85,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 					}
 				}
 				$criteria = explode('::', sanitize($_POST['words']));
-				$words = @$criteria[0];
+				if (isset($criteria[0])) {
+					$words = $criteria[0];
+				} else {
+					$words = NULL;
+				}
 			}
 			if (isset($_POST['thumb'])) {
 				$thumb = sanitize($_POST['thumb']);
@@ -192,7 +196,11 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 							<option value="" style="font-weight: bold;">/</option>
 							<?php
 						}
-						$parentalbum = sanitize(@$_GET['folder']);
+						if (isset($_GET['folder'])) {
+							$parentalbum = sanitize($_GET['folder']);
+						} else {
+							$parentalbum = NULL;
+						}
 						$bglevels = array('#fff', '#f8f8f8', '#efefef', '#e8e8e8', '#dfdfdf', '#d8d8d8', '#cfcfcf', '#c8c8c8');
 						foreach ($albumlist as $fullfolder => $albumtitle) {
 							$singlefolder = $fullfolder;

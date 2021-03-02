@@ -22,6 +22,10 @@ $plugin_description = gettext("Provides a unified comment handling facility.");
 $option_interface = 'comment_form';
 
 npgFilters::register('admin_toolbox_global', 'comment_form::toolbox');
+npgFilters::register('bulk_image_actions', 'comment_form::bulkActions');
+npgFilters::register('bulk_album_actions', 'comment_form::bulkActions');
+npgFilters::register('bulk_article_actions', 'comment_form::bulkActions');
+npgFilters::register('bulk_page_actions', 'comment_form::bulkActions');
 
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/class-comment.php');
 require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/functions.php');
@@ -186,6 +190,12 @@ class comment_form {
 		}
 	}
 
+	static function bulkActions($checkarray) {
+		$checkarray[gettext('Disable comments')] = 'commentsoff';
+		$checkarray[gettext('Enable comments')] = 'commentson';
+		return $checkarray;
+	}
+
 }
 
 /**
@@ -324,12 +334,13 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 					$disabled = array('name' => '', 'website' => '', 'anon' => '', 'private' => '', 'comment' => '',
 							'street' => '', 'city' => '', 'state' => '', 'country' => '', 'postal' => '');
 					$stored = array_merge(array('email' => '', 'custom' => ''), $disabled, getCommentStored());
-					$addresses = getSerializedArray(@$stored['addresses']);
-					foreach ($addresses as $key => $value) {
-						if (!empty($value))
-							$stored[$key] = $value;
+					if (isset($stored['addresses'])) {
+						$addresses = getSerializedArray($stored['addresses']);
+						foreach ($addresses as $key => $value) {
+							if (!empty($value))
+								$stored[$key] = $value;
+						}
 					}
-
 					foreach ($stored as $key => $value) {
 						$disabled[$key] = false;
 					}

@@ -22,10 +22,10 @@ $search = new SearchEngine(true);
 $fields = $search->fieldList;
 $words = $search->codifySearchString();
 
-$imagechecked = !isset($_POST['XSRFToken']) || @$_POST['image_tag'];
-$albumchecked = !isset($_POST['XSRFToken']) || @$_POST['album_tag'];
-$articlechecked = !isset($_POST['XSRFToken']) || @$_POST['article_tag'];
-$pagechecked = !isset($_POST['XSRFToken']) || @$_POST['page_tag'];
+$imagechecked = !isset($_POST['XSRFToken']) || isset($_POST['image_tag']) && $_POST['image_tag'];
+$albumchecked = !isset($_POST['XSRFToken']) || isset($_POST['album_tag']) && $_POST['album_tag'];
+$articlechecked = !isset($_POST['XSRFToken']) || isset($_POST['article_tag']) && $_POST['article_tag'];
+$pagechecked = !isset($_POST['XSRFToken']) || isset($_POST['page_tag']) && $_POST['page_tag'];
 
 $images = $search->getImages(0);
 $albums = $search->getAlbums(0);

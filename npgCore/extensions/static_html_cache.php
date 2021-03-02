@@ -178,7 +178,7 @@ class static_html_cache {
 			if (!empty($cachefilepath)) {
 				$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachefilepath;
 				if (file_exists($cachefilepath)) {
-					$lastmodified = @filemtime($cachefilepath);
+					$lastmodified = filemtime($cachefilepath);
 					// don't use cache if comment is posted or cache has expired
 					if (time() - $lastmodified < getOption("static_cache_expire")) {
 						//send the headers!
@@ -358,14 +358,17 @@ class static_html_cache {
 	 * @param string $cachefolder the sub-folder to clean
 	 */
 	static function clearHTMLCache($folder = NULL) {
-		if (is_null($folder)) {
+		if ($folder) {
+			$cachesubfolders = array($folder);
+		} else {
 			$cachesubfolders = array("index", "albums", "images", "pages");
-			foreach ($cachesubfolders as $cachesubfolder) {
+		}
+		foreach ($cachesubfolders as $cachesubfolder) {
+			if (is_dir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachesubfolder)) {
 				npgFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachesubfolder, true);
 			}
-		} else {
-			npgFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $folder);
 		}
+
 		clearstatcache();
 	}
 

@@ -575,9 +575,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 	function getCurrentTab() {
 		global $_admin_menu, $_admin_tab, $_admin_subtab;
-		$tabs = @$_admin_menu[$_admin_tab]['subtabs'];
+		if (isset($_admin_menu[$_admin_tab]['subtabs'])) {
+			$tabs = $_admin_menu[$_admin_tab]['subtabs'];
+		} else {
+			$tabs = NULL;
+		}
 		if (!is_array($tabs))
 			return $_admin_subtab;
+
 		$current = $_admin_subtab;
 		if (isset($_GET['tab'])) {
 			$test = sanitize($_GET['tab']);
@@ -909,7 +914,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 
 				$type = $row['type'];
-				$key = @$row['key'];
+				if (isset($row['key'])) {
+					$key = $row['key'];
+				} else {
+					$key = NULL;
+				}
+
 				$postkey = postIndexEncode($key);
 				$optionID = $whom . '_' . $key;
 
@@ -1581,11 +1591,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-										 } else {
-											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-										 }
+												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+												 } else {
+													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+												 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -1958,7 +1968,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<div id="menu_selector_button">
 			<div id="menu_button">
 				<a onclick="$('#menu_selections').show();
-						$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
 				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
@@ -2184,7 +2194,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2513,9 +2523,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2528,7 +2538,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									echo ' checked="checked"';
 								}
 								?> />
-											 <?php echo gettext("Allow Comments"); ?>
+											 <?php echo gettext("Comments enabled"); ?>
 							</label>
 							<?php
 						}
@@ -2673,7 +2683,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2779,10 +2789,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function printAlbumButtons($album) {
 		$albumLink = pathurlencode($album->name);
 		if ($imagcount = $album->getNumImages() > 0) {
-			npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
-			?>
-			<br /><br />
-			<?php
+			if (!$album->isDynamic()) {
+				npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
+				?>
+				<br /><br />
+				<?php
+			}
 			if (extensionEnabled('hitcounter')) {
 				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . $albumLink . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
 				?>
@@ -2835,11 +2847,17 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<?php echo CLOCKFACE . '&nbsp;'; ?>
 				<?php echo gettext("published/not published/scheduled for publishing"); ?>
 			</li>
-			<li>
-				<?php echo BULLSEYE_GREEN; ?>
-				<?php echo BULLSEYE_RED; ?>
-				<?php echo gettext("comments on/off"); ?>
-			</li>
+			<?php
+			if (extensionEnabled('comment_form')) {
+				?>
+				<li>
+					<?php echo BULLSEYE_GREEN; ?>
+					<?php echo BULLSEYE_RED; ?>
+					<?php echo gettext("comments on/off"); ?>
+				</li>
+				<?php
+			}
+			?>
 			<li>
 				<?php echo BULLSEYE_BLUE; ?>
 				<?php echo gettext("view the album"); ?>
@@ -3013,39 +3031,45 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 					?>
 				</div>
-				<div class="page-list_icon">
-					<?php
-					if ($album->getCommentsAllowed()) {
-						if ($enableEdit) {
-							?>
-							<a href="?action=comments&amp;commentson=0&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Disable comments'); ?>">
-								<?php
-							}
-							?>
-							<?php echo BULLSEYE_GREEN; ?>
-							<?php
-							if ($enableEdit) {
-								?>
-							</a>
-							<?php
-						}
-					} else {
-						if ($enableEdit) {
-							?>
-							<a href="?action=comments&amp;commentson=1&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Enable comments'); ?>">
-								<?php
-							}
-							?>
-							<?php echo BULLSEYE_RED; ?>
-							<?php
-							if ($enableEdit) {
-								?>
-							</a>
-							<?php
-						}
-					}
+				<?php
+				if (extensionEnabled('comment_form')) {
 					?>
-				</div>
+					<div class="page-list_icon">
+						<?php
+						if ($album->getCommentsAllowed()) {
+							if ($enableEdit) {
+								?>
+								<a href="?action=comments&amp;commentson=0&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Disable comments'); ?>">
+									<?php
+								}
+								?>
+								<?php echo BULLSEYE_GREEN; ?>
+								<?php
+								if ($enableEdit) {
+									?>
+								</a>
+								<?php
+							}
+						} else {
+							if ($enableEdit) {
+								?>
+								<a href="?action=comments&amp;commentson=1&amp;album=<?php echo html_encode($album->getFileName()); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('albumedit') ?>" title="<?php echo gettext('Enable comments'); ?>">
+									<?php
+								}
+								?>
+								<?php echo BULLSEYE_RED; ?>
+								<?php
+								if ($enableEdit) {
+									?>
+								</a>
+								<?php
+							}
+						}
+						?>
+					</div>
+					<?php
+				}
+				?>
 				<div class="page-list_icon">
 					<a href="<?php echo $album->getLink(); ?>" title="<?php echo gettext("View album"); ?>">
 						<?php echo BULLSEYE_BLUE; ?>
@@ -3742,8 +3766,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$stack[] = $dir;
 		while ($stack) {
 			$current_dir = array_pop($stack);
-			if ($dh = @opendir($current_dir)) {
-				while (($file = @readdir($dh)) !== false) {
+			if ($dh = opendir($current_dir)) {
+				while (($file = readdir($dh)) !== false) {
 					if ($file !== '.' AND $file !== '..') {
 						$current_file = "{$current_dir}/{$file}";
 						if (is_file($current_file) && is_readable($current_file)) {
@@ -3767,14 +3791,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function themeIsEditable($theme) {
 		if (function_exists('readlink')) {
-			$link = @readlink(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme);
+			$link = is_link(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme);
 		} else {
-			$link = '';
+			$link = FALSE;
 		}
-		if (empty($link) || str_replace('\\', '/', $link) == SERVERPATH . '/' . THEMEFOLDER . '/' . $theme) {
-			return !protectedTheme($theme);
-		} else {
+
+		if ($link) {
 			return false;
+		} else {
+			return !protectedTheme($theme);
 		}
 	}
 
@@ -3858,7 +3883,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 			$f = fopen($target . '/theme_description.php', 'w');
 			if ($f !== FALSE) {
-				@fwrite($f, $description);
+				fwrite($f, $description);
 				fclose($f);
 				$message = gettext('New custom theme created successfully!');
 			} else {
@@ -3906,7 +3931,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$result = true;
 			$handle = opendir($source);
 			if (mkdir($destination)) {
-				@chmod($destination, FOLDER_MOD);
+				chmod($destination, FOLDER_MOD);
 				while (false !== ($filename = readdir($handle))) {
 					$fullname = $source . '/' . $filename;
 					$fullDest = $destination . '/' . $filename;
@@ -3916,8 +3941,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 					} else {
 						if (file_exists($fullname)) {
-							$result = $result && @copy($fullname, $fullDest);
-							@chmod($fullDest, FILE_MOD);
+							$result = $result && copy($fullname, $fullDest);
+							chmod($fullDest, FILE_MOD);
 						}
 					}
 				}
@@ -3940,7 +3965,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 				} else {
 					if (file_exists($fullname)) {
-						@chmod($fullname, 0777);
+						chmod($fullname, 0777);
 						$result = $result && unlink($fullname);
 					}
 				}
@@ -4777,30 +4802,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -5186,27 +5211,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5275,8 +5300,13 @@ function printCodeblockEdit($obj, $id) {
 					<span class="notebox"><?php echo gettext('Codeblock 0 is deprecated.') ?></span>
 					<?php
 				}
+				if (isset($codeblock[$i])) {
+					$block = $codeblock[$i];
+				} else {
+					$block = '';
+				}
 				?>
-				<textarea name="codeblock<?php echo $i; ?>-<?php echo $id; ?>" class="codeblock" id="codeblock<?php echo $i; ?>-<?php echo $id; ?>" rows="40" cols="60"<?php echo $disabled; ?>><?php echo html_encode(@$codeblock[$i]); ?></textarea>
+				<textarea name="codeblock<?php echo $i; ?>-<?php echo $id; ?>" class="codeblock" id="codeblock<?php echo $i; ?>-<?php echo $id; ?>" rows="40" cols="60"<?php echo $disabled; ?>><?php echo html_encode($block); ?></textarea>
 			</div>
 			<?php
 		}
@@ -5425,7 +5455,7 @@ function dateDiff($date1, $date2, $page) {
 
 	$date = '';
 	for ($i = 1; $i <= 6; $i++) {
-		if (@$matches1[$i] != @$matches2[$i]) {
+		if (!isset($matches1[$i]) || !isset($matches2[$i]) || $matches1[$i] != $matches2[$i]) {
 			break;
 		}
 	}
@@ -5534,12 +5564,20 @@ function getPageSelector($list, $itmes_per_page, $diff = 'fullText') {
 			if (array_key_exists($last, $list)) {
 				$ranges[$page]['end'] = strtolower($list[$last]);
 			} else {
-				$ranges[$page]['end'] = strtolower(@array_pop($list));
+				if (!empty($list)) {
+					$ranges[$page]['end'] = strtolower(array_pop($list));
+				} else {
+					$ranges[$page]['end'] = NULL;
+				}
 			}
 		}
 		$last = '';
 		foreach ($ranges as $page => $range) {
-			$next = @$ranges[$page + 1]['start'];
+			if (isset($ranges[$page + 1]['start'])) {
+				$next = $ranges[$page + 1]['start'];
+			} else {
+				$next = '';
+			}
 			$rangeset[$page] = $diff($last, $range['start'], $page);
 			if ($itmes_per_page > 1) {
 				$rangeset[$page] .= ' » ' . $diff($next, $range['end'], $page + 1);
@@ -6133,7 +6171,7 @@ function clonedFrom() {
 	if (PRIMARY_INSTALLATION) {
 		return false;
 	} else {
-		$master = str_replace('\\', '/', @readlink(SERVERPATH . '/' . CORE_FOLDER));
+		$master = str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER));
 		return dirname($master);
 	}
 }
@@ -6178,7 +6216,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
@@ -6226,7 +6264,7 @@ function parse_size($size) {
 
 function convert_size($size, $round = 0) {
 	$unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
-	return @round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $unit[$i];
+	return round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $unit[$i];
 }
 
 /**
@@ -6243,14 +6281,18 @@ function getRemoteFile($source, $dest) {
 			$msg = curlDL($source, $dest);
 		} catch (Exception $ex) {
 			$msg = $ex->getMessage();
-			@unlink($dest . '/' . basename($source));
+			if (file_exists($dest . '/' . basename($source))) {
+				unlink($dest . '/' . basename($source));
+			}
 		}
 	} else if (ini_get('allow_url_fopen')) {
 		try {
 			$msg = url_fopenDL($source, $dest);
 		} catch (Exception $ex) {
 			$msg = $ex->getMessage();
-			@unlink($dest . '/' . basename($source));
+			if (file_exists($dest . '/' . basename($source))) {
+				unlink($dest . '/' . basename($source));
+			}
 		}
 	} else {
 		$msg = gettext('Either the PHP <code>curl</code> extension or the PHP ini setting <code>allow_url_fopen</code> must be enabled.');
@@ -6320,7 +6362,7 @@ function curlDL($fileUrl, $saveTo) {
 function url_fopenDL($fileUrl, $saveTo) {
 	$msg = NULL;
 	error_clear_last();
-	if (!@copy($fileUrl, $saveTo . '/' . basename($fileUrl))) {
+	if (!copy($fileUrl, $saveTo . '/' . basename($fileUrl))) {
 		if ($m = error_get_last()) {
 			$msg = sprintf(gettext('PHP <code>copy(%1$s)</code> failed: %2$s'), $fileUrl, $m['message']);
 		} else {

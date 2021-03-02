@@ -11,11 +11,11 @@
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 
-$recentIP = getSerializedArray(@file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
 $__config = $recentIP['config'];
 unset($recentIP['config']);
 
-switch (@$_POST['data_sortby']) {
+switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 	case 'date':
 		$sort = 'accessTime';
 		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
@@ -27,8 +27,8 @@ switch (@$_POST['data_sortby']) {
 			$_a = explode('.', str_replace(':', '.', $a));
 			$_b = explode('.', str_replace(':', '.', $b));
 			foreach ($_a as $key => $va) {
-				if ($retval == 0) {
-					$retval = strnatcmp($va, @$_b[$key]);
+				if ($retval == 0 && isset($_b[$key])) {
+					$retval = strnatcmp($va, $_b[$key]);
 				} else {
 					break;
 				}

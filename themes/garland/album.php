@@ -81,8 +81,8 @@ $map = simpleMap::mapPlugin();
 									}
 									if (function_exists('printAddToFavorites'))
 										printAddToFavorites($_current_album);
-									@call_user_func('printRating');
-									@call_user_func('printCommentForm');
+									if (function_exists('printRating')) printRating();
+									if (function_exists('printCommentForm')) printCommentForm();
 									printCodeblock(2);
 									footer();
 									?>

@@ -629,7 +629,7 @@ class AlbumBase extends MediaObject {
 			$filestoremove = safe_glob(substr($this->localpath, 0, -1) . '.*');
 			foreach ($filestoremove as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
-					@chmod($file, 0777);
+					chmod($file, 0777);
 					unlink($file);
 				}
 			}
@@ -642,10 +642,10 @@ class AlbumBase extends MediaObject {
 		$success = true;
 		$filestoremove = safe_glob(SERVERCACHE . '/' . $folder . '/*');
 		foreach ($filestoremove as $file) {
-			@chmod($file, 0777);
-			$success = $success && @unlink($file);
+			chmod($file, 0777);
+			$success = $success && unlink($file);
 		}
-		@rmdir(SERVERCACHE . '/' . $folder);
+		rmdir(SERVERCACHE . '/' . $folder);
 		return $success;
 	}
 
@@ -655,11 +655,11 @@ class AlbumBase extends MediaObject {
 	 * @return int
 	 */
 	protected function _move($newfolder) {
-// First, ensure the new base directory exists.
+		// First, ensure the new base directory exists.
 		$dest = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($newfolder);
-// Check to see if the destination already exists
+		// Check to see if the destination already exists
 		if (file_exists($dest)) {
-// Disallow moving an album over an existing one.
+			// Disallow moving an album over an existing one.
 			if (!(CASE_INSENSITIVE && strtolower($dest) == strtolower(rtrim($this->localpath, '/')))) {
 				return 3;
 			}
@@ -675,17 +675,17 @@ class AlbumBase extends MediaObject {
 				}
 			}
 			if ($sub) {
-// Disallow moving to a subfolder of the current folder.
+				// Disallow moving to a subfolder of the current folder.
 				return 4;
 			}
 		}
 		$filemask = substr($this->localpath, 0, -1) . '.*';
 
-		@chmod($this->localpath, 0777);
-		$success = @rename(rtrim($this->localpath, '/'), $dest);
-		@chmod($dest, FOLDER_MOD);
+		chmod($this->localpath, 0777);
+		$success = rename(rtrim($this->localpath, '/'), $dest);
+		chmod($dest, FOLDER_MOD);
 		if ($success) {
-//purge the cache
+			//purge the cache
 			$success = $success && $this->_removeCache(substr($this->localpath, strlen(ALBUM_FOLDER_SERVERPATH)));
 			$this->name = $newfolder;
 			$this->localpath = $dest . "/";
@@ -693,17 +693,17 @@ class AlbumBase extends MediaObject {
 			foreach ($filestomove as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
 					$d = stripslashes($dest) . '.' . getSuffix($file);
-					@chmod($file, 0777);
-					$success = $success && @rename($file, $d);
-					@chmod($d, FILE_MOD);
+					chmod($file, 0777);
+					$success = $success && rename($file, $d);
+					chmod($d, FILE_MOD);
 				}
 			}
 			clearstatcache();
 			$success = self::move($newfolder);
 			if ($success) {
 				$this->updateParent($newfolder);
-//rename the cache folder
-				$cacherename = @rename(SERVERCACHE . '/' . $this->name, SERVERCACHE . '/' . $newfolder);
+				//rename the cache folder
+				$cacherename = rename(SERVERCACHE . '/' . $this->name, SERVERCACHE . '/' . $newfolder);
 				return 0;
 			}
 		}
@@ -778,7 +778,7 @@ class AlbumBase extends MediaObject {
 				$filestocopy = safe_glob($filemask);
 				foreach ($filestocopy as $file) {
 					if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
-						$success = $success && @copy($file, dirname($dest) . '/' . basename($file));
+						$success = $success && copy($file, dirname($dest) . '/' . basename($file));
 					}
 				}
 			}
@@ -1389,7 +1389,7 @@ class Album extends AlbumBase {
 			$filelist = safe_glob('*');
 			foreach ($filelist as $file) {
 				if (($file != '.') && ($file != '..')) {
-					@chmod($file, 0777);
+					chmod($file, 0777);
 					unlink($this->localpath . $file); // clean out any other files in the folder
 				}
 			}
@@ -1402,13 +1402,13 @@ class Album extends AlbumBase {
 			$filestoremove = safe_glob(stripSuffix($this->localpath) . '.*');
 			foreach ($filestoremove as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
-					@chmod($file, 0777);
+					chmod($file, 0777);
 					$success = $success && unlink($file);
 				}
 			}
 			$success = $success && $this->_removeCache(substr($this->localpath, strlen(ALBUM_FOLDER_SERVERPATH)));
-			@chmod($this->localpath, 0777);
-			$rslt = @rmdir($this->localpath) && $success;
+			chmod($this->localpath, 0777);
+			$rslt = rmdir($this->localpath) && $success;
 		}
 		clearstatcache();
 		return $rslt;
@@ -1425,8 +1425,8 @@ class Album extends AlbumBase {
 		$oldfolder = $this->name;
 		$rslt = $this->_move($newfolder);
 		if (!$rslt) {
-// Then: go through the db and change the album (and subalbum) paths. No ID changes are necessary for a move.
-// Get the subalbums.
+			// Then: go through the db and change the album (and subalbum) paths. No ID changes are necessary for a move.
+			// Get the subalbums.
 			$sql = "SELECT id, folder FROM " . prefix('albums') . " WHERE folder LIKE " . db_quote(db_LIKE_escape($oldfolder) . '%');
 			$result = query($sql);
 			if ($result) {
@@ -1567,7 +1567,7 @@ class Album extends AlbumBase {
 	protected function loadFileNames($dirs = false) {
 		clearstatcache();
 		$albumdir = $this->localpath;
-		$dir = @opendir($albumdir);
+		$dir = opendir($albumdir);
 		if (!$dir) {
 			if (is_dir($albumdir)) {
 				$msg = sprintf(gettext("Error: The album %s is not readable."), html_encode($this->name));
@@ -1583,7 +1583,7 @@ class Album extends AlbumBase {
 
 		while (false !== ($file = readdir($dir))) {
 			$file8 = filesystemToInternal($file);
-			if (@$file8[0] != '.') {
+			if (isset($file8[0]) && $file8[0] != '.') {
 				if ($dirs && (is_dir($albumdir . $file) || hasDynamicAlbumSuffix($file))) {
 					$files[] = $file8;
 				} else if (!$dirs && is_file($albumdir . $file)) {
@@ -1796,8 +1796,8 @@ class dynamicAlbum extends AlbumBase {
 	 */
 	function remove() {
 		if ($rslt = parent::remove()) {
-			@chmod($this->localpath, 0777);
-			$rslt = @unlink($this->localpath);
+			chmod($this->localpath, 0777);
+			$rslt = unlink($this->localpath);
 			clearstatcache();
 			$rslt = $rslt && $this->_removeCache(substr($this->localpath, strlen(ALBUM_FOLDER_SERVERPATH)));
 		}
@@ -1816,7 +1816,7 @@ class dynamicAlbum extends AlbumBase {
 	}
 
 	protected function succeed($dest) {
-		return @copy($this->localpath, $dest);
+		return copy($this->localpath, $dest);
 	}
 
 	/**

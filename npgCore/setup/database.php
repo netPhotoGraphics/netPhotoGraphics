@@ -397,7 +397,7 @@ foreach ($uniquekeys as $table => $keys) {
 }
 //if this is a new database, update the config file for the utf8 encoding
 if ($utf8mb4 && !array_search(true, $tablePresent)) {
-	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	$_config_contents = file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) ? file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) : NULL;
 	$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
 	configFile::store($_config_contents);
 }

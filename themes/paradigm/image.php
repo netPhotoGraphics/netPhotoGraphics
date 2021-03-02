@@ -134,7 +134,7 @@ if (getImageMetaData()) {
 
 				<br style="clear:both" />
 
-<?php @call_user_func('printCommentForm'); ?>
+<?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 
 			</section>
 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>

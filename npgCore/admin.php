@@ -38,6 +38,249 @@ use Milo\Github;
 if (npg_loggedin(ADMIN_RIGHTS)) {
 	checkInstall();
 
+	if (isset($_GET['_login_error'])) {
+		$_login_error = sanitize($_GET['_login_error']);
+	}
+
+	if (time() > getOption('last_garbage_collect') + 864000) {
+		$_gallery->garbageCollect();
+	}
+	if (isset($_GET['report'])) {
+		$class = 'messagebox fade-message';
+		$msg = sanitize($_GET['report']);
+	} else {
+		$msg = '';
+	}
+	if (class_exists('CMS')) {
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
+	}
+
+	if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
+		if (isset($_GET['action'])) {
+			$action = sanitize($_GET['action']);
+			switch ($action) {
+				case 'external':
+				case 'session':
+					$needs = ALL_RIGHTS;
+					break;
+				default:
+					$needs = ADMIN_RIGHTS;
+					break;
+			}
+
+			if (npg_loggedin($needs)) {
+				switch ($action) {
+					case 'purgeDBitems':
+						XSRFdefender('purgeDBitems');
+						$class = 'messagebox fade-message';
+						$msg = gettext('Fields and indexes not used by netPhotoGraphics were removed from the database.');
+
+						$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+						$result = query_full_array($sql);
+						foreach ($result as $item) {
+							if ($item['type'] == 'db_orpahned_index') {
+								$what = ' INDEX';
+							} else {
+								$what = '';
+							}
+							$sql = 'ALTER TABLE ' . prefix($item['subtype']) . ' DROP' . $what . ' `' . $item['aux'] . '`';
+							Query($sql, false);
+						}
+						$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+						query($sql);
+						break;
+
+					/** clear the image cache **************************************************** */
+					case "clear_cache":
+						XSRFdefender('clear_cache');
+						Gallery::clearCache();
+						$class = 'messagebox fade-message';
+						$msg = gettext('Image cache cleared.');
+						break;
+
+					/** clear the RSScache ********************************************************** */
+					case "clear_rss_cache":
+						if (class_exists('RSS')) {
+							XSRFdefender('clear_cache');
+							$RSS = new RSS(array('rss' => 'null'));
+							$RSS->clearCache();
+							$class = 'messagebox fade-message';
+							$msg = gettext('RSS cache cleared.');
+						}
+						break;
+
+					/** clear the HTMLcache ****************************************************** */
+					case 'clear_html_cache':
+						XSRFdefender('ClearHTMLCache');
+						require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/static_html_cache.php');
+						static_html_cache::clearHTMLCache();
+						$class = 'messagebox fade-message';
+						$msg = gettext('HTML cache cleared.');
+						break;
+					/** clear the search cache ****************************************************** */
+					case 'clear_search_cache':
+						XSRFdefender('ClearSearchCache');
+						SearchEngine::clearSearchCache(NULL);
+						$class = 'messagebox fade-message';
+						$msg = gettext('Search cache cleared.');
+						break;
+					/** restore the setup files ************************************************** */
+					case 'restore_setup':
+						XSRFdefender('restore_setup');
+						list($diff, $needs) = checkSignature(2);
+						if (empty($needs)) {
+							$class = 'messagebox fade-message';
+							$msg = gettext('Setup files restored.');
+						} else {
+							npgFilters::apply('log_setup', false, 'restore', implode(', ', $needs));
+							$class = 'errorbox fade-message';
+							$msg = gettext('Setup files restore failed.');
+						}
+						break;
+
+					/** protect the setup files ************************************************** */
+					case 'protect_setup':
+						XSRFdefender('protect_setup');
+						chdir(CORE_SERVERPATH . 'setup/');
+						$list = safe_glob('*.php');
+
+						$rslt = array();
+						foreach ($list as $component) {
+							if ($component == 'setup-functions.php') { // some plugins may need these.
+								continue;
+							}
+							chmod(CORE_SERVERPATH . 'setup/' . $component, 0777);
+							if (rename(CORE_SERVERPATH . 'setup/' . $component, CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx')) {
+								chmod(CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
+							} else {
+								chmod(CORE_SERVERPATH . 'setup/' . $component, FILE_MOD);
+								$rslt[] = $component;
+							}
+						}
+						if (empty($rslt)) {
+							npgFilters::apply('log_setup', true, 'protect', gettext('protected'));
+							$class = 'messagebox fade-message';
+							$msg = gettext('Setup files protected.');
+						} else {
+							npgFilters::apply('log_setup', false, 'protect', implode(', ', $rslt));
+							$class = 'errorbox fade-message';
+							$msg = gettext('Protecting setup files failed.');
+						}
+						break;
+
+					case 'install_update':
+					case 'download_update':
+						XSRFdefender('install_update');
+						$msg = FALSE;
+						if ($action == 'download_update') {
+							$newestVersionURI = getOption('getUpdates_latest');
+							if ($msg = getRemoteFile($newestVersionURI, SERVERPATH)) {
+								$found = file_exists($file = SERVERPATH . '/' . basename($newestVersionURI));
+								if ($found) {
+									unlink($file);
+								}
+								purgeOption('getUpdates_lastCheck'); //	incase we missed the update
+								$class = 'errorbox';
+								$msg .= '<br /><br />' . gettext('The latest version may be downloded from the <a href="https://netPhotoGraphics.org">netPhotoGraphics</a> website.');
+								$msg .= '<br /><br />' . sprintf(gettext('Click on the <code>%1$s</code> button to download the release to your computer, FTP the zip file to your site, and revisit the overview page. Then there will be an <code>Install</code> button that will install the update.'), ARROW_DOWN_GREEN . 'netPhotoGraphics');
+								break;
+							}
+						}
+						$found = safe_glob(SERVERPATH . '/setup-*.zip');
+						if (!empty($found)) {
+							$file = array_shift($found);
+							if (!unzip($file, SERVERPATH)) {
+								$class = 'errorbox';
+								$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');
+								break;
+							} else {
+								unlink(SERVERPATH . '/readme.txt');
+								unlink(SERVERPATH . '/release notes.htm');
+							}
+						}
+						if (file_exists(SERVERPATH . '/extract.php.bin')) {
+							if (isset($file)) {
+								unlink($file);
+							}
+							if (!rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
+								$class = 'errorbox';
+								$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
+							}
+						}
+						if (file_exists(SERVERPATH . '/extract.php')) {
+							header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
+							exit();
+						} else {
+							$class = 'errorbox';
+							$msg = gettext('Did not find the <code>extract</code> file.');
+						}
+						break;
+
+					/** external script return *************************************************** */
+					case 'session':
+						$msg = $_SESSION['errormessage'];
+					case 'external':
+						if (isset($_GET['error'])) {
+							$class = sanitize($_GET['error']);
+							if (empty($class)) {
+								$class = 'errorbox fade-message';
+							}
+						} else {
+							$class = 'messagebox fade-message';
+						}
+						if (isset($_GET['msg'])) {
+							$msg = sanitize($_GET['msg'], 1);
+						} else if (!isset($msg)) {
+							$msg = '';
+						}
+						if (isset($_GET['more'])) {
+							$class = 'messagebox'; //	no fade!
+							$more = $_SESSION[$_GET['more']];
+							foreach ($more as $detail) {
+								$msg .= '<br />' . $detail;
+							}
+						}
+						break;
+
+					/** default ****************************************************************** */
+					default:
+						$func = preg_replace('~\(.*\);*~', '', $action);
+						if (in_array($func, $_admin_button_actions)) {
+							call_user_func($action);
+						}
+						break;
+				}
+			} else {
+				$class = 'errorbox fade-message';
+				$actions = array(
+						'clear_cache' => gettext('purge Image cache'),
+						'clear_rss_cache' => gettext('purge RSS cache'),
+						'reset_hitcounters' => gettext('reset all hitcounters'),
+						'clear_search_cache' => gettext('purge search cache')
+				);
+				if (array_key_exists($action, $actions)) {
+					$msg = $actions[$action];
+				} else {
+					$msg = '<em>' . html_encode($action) . '</em>';
+				}
+				$msg = sprintf(gettext('You do not have proper rights to %s.'), $msg);
+			}
+		} else {
+			if (isset($_GET['from'])) {
+				$class = 'errorbox fade-message';
+				$msg = sprintf(gettext('You do not have proper rights to access %s.'), html_encode(sanitize($_GET['from'])));
+			}
+		}
+
+
+		/*		 * ********************************************************************************* */
+		/** End Action Handling ************************************************************ */
+		/*		 * ********************************************************************************* */
+	}
+
+	/*
+	 * connect with Github for curren release
+	 */
 	if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 		/*
 		 * Update check Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
@@ -57,247 +300,11 @@ if (npg_loggedin(ADMIN_RIGHTS)) {
 				debugLog(gettext('GitHub repository not accessible. ') . $e);
 			}
 		}
-
-		$newestVersionURI = getOption('getUpdates_latest');
-		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
 	}
 }
-
-if (isset($_GET['_login_error'])) {
-	$_login_error = sanitize($_GET['_login_error']);
-}
-
-if (time() > getOption('last_garbage_collect') + 864000) {
-	$_gallery->garbageCollect();
-}
-if (isset($_GET['report'])) {
-	$class = 'messagebox fade-message';
-	$msg = sanitize($_GET['report']);
-} else {
-	$msg = '';
-}
-if (class_exists('CMS')) {
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/admin-functions.php');
-}
-
-if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
-	if (isset($_GET['action'])) {
-		$action = sanitize($_GET['action']);
-		switch ($action) {
-			case 'external':
-			case 'session':
-				$needs = ALL_RIGHTS;
-				break;
-			default:
-				$needs = ADMIN_RIGHTS;
-				break;
-		}
-
-		if (npg_loggedin($needs)) {
-			switch ($action) {
-				case 'purgeDBitems':
-					XSRFdefender('purgeDBitems');
-					$class = 'messagebox fade-message';
-					$msg = gettext('Fields and indexes not used by netPhotoGraphics were removed from the database.');
-
-					$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
-					$result = query_full_array($sql);
-					foreach ($result as $item) {
-						if ($item['type'] == 'db_orpahned_index') {
-							$what = ' INDEX';
-						} else {
-							$what = '';
-						}
-						$sql = 'ALTER TABLE ' . prefix($item['subtype']) . ' DROP' . $what . ' `' . $item['aux'] . '`';
-						Query($sql, false);
-					}
-					$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
-					query($sql);
-					break;
-
-				/** clear the image cache **************************************************** */
-				case "clear_cache":
-					XSRFdefender('clear_cache');
-					Gallery::clearCache();
-					$class = 'messagebox fade-message';
-					$msg = gettext('Image cache cleared.');
-					break;
-
-				/** clear the RSScache ********************************************************** */
-				case "clear_rss_cache":
-					if (class_exists('RSS')) {
-						XSRFdefender('clear_cache');
-						$RSS = new RSS(array('rss' => 'null'));
-						$RSS->clearCache();
-						$class = 'messagebox fade-message';
-						$msg = gettext('RSS cache cleared.');
-					}
-					break;
-
-				/** clear the HTMLcache ****************************************************** */
-				case 'clear_html_cache':
-					XSRFdefender('ClearHTMLCache');
-					require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/static_html_cache.php');
-					static_html_cache::clearHTMLCache();
-					$class = 'messagebox fade-message';
-					$msg = gettext('HTML cache cleared.');
-					break;
-				/** clear the search cache ****************************************************** */
-				case 'clear_search_cache':
-					XSRFdefender('ClearSearchCache');
-					SearchEngine::clearSearchCache(NULL);
-					$class = 'messagebox fade-message';
-					$msg = gettext('Search cache cleared.');
-					break;
-				/** restore the setup files ************************************************** */
-				case 'restore_setup':
-					XSRFdefender('restore_setup');
-					list($diff, $needs) = checkSignature(2);
-					if (empty($needs)) {
-						$class = 'messagebox fade-message';
-						$msg = gettext('Setup files restored.');
-					} else {
-						npgFilters::apply('log_setup', false, 'restore', implode(', ', $needs));
-						$class = 'errorbox fade-message';
-						$msg = gettext('Setup files restore failed.');
-					}
-					break;
-
-				/** protect the setup files ************************************************** */
-				case 'protect_setup':
-					XSRFdefender('protect_setup');
-					chdir(CORE_SERVERPATH . 'setup/');
-					$list = safe_glob('*.php');
-
-					$rslt = array();
-					foreach ($list as $component) {
-						if ($component == 'setup-functions.php') { // some plugins may need these.
-							continue;
-						}
-						@chmod(CORE_SERVERPATH . 'setup/' . $component, 0777);
-						if (@rename(CORE_SERVERPATH . 'setup/' . $component, CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx')) {
-							@chmod(CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
-						} else {
-							@chmod(CORE_SERVERPATH . 'setup/' . $component, FILE_MOD);
-							$rslt[] = $component;
-						}
-					}
-					if (empty($rslt)) {
-						npgFilters::apply('log_setup', true, 'protect', gettext('protected'));
-						$class = 'messagebox fade-message';
-						$msg = gettext('Setup files protected.');
-					} else {
-						npgFilters::apply('log_setup', false, 'protect', implode(', ', $rslt));
-						$class = 'errorbox fade-message';
-						$msg = gettext('Protecting setup files failed.');
-					}
-					break;
-
-				case 'install_update':
-				case 'download_update':
-					XSRFdefender('install_update');
-					$msg = FALSE;
-					if ($action == 'download_update') {
-						if ($msg = getRemoteFile($newestVersionURI, SERVERPATH)) {
-							$found = file_exists($file = SERVERPATH . '/' . basename($newestVersionURI));
-							if ($found) {
-								unlink($file);
-							}
-							purgeOption('getUpdates_lastCheck'); //	incase we missed the update
-							$class = 'errorbox';
-							$msg .= '<br /><br />' . sprintf(gettext('Click on the <code>%1$s</code> button to download the release to your computer, FTP the zip file to your site, and revisit the overview page. Then there will be an <code>Install</code> button that will install the update.'), ARROW_DOWN_GREEN . 'netPhotoGraphics ' . $newestVersion);
-							break;
-						}
-					}
-					$found = safe_glob(SERVERPATH . '/setup-*.zip');
-					if (!empty($found)) {
-						$file = array_shift($found);
-						if (!unzip($file, SERVERPATH)) {
-							$class = 'errorbox';
-							$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');
-							break;
-						} else {
-							unlink(SERVERPATH . '/readme.txt');
-							unlink(SERVERPATH . '/release notes.htm');
-						}
-					}
-					if (file_exists(SERVERPATH . '/extract.php.bin')) {
-						if (isset($file)) {
-							unlink($file);
-						}
-						if (!rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
-							$class = 'errorbox';
-							$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
-						}
-					}
-					if (file_exists(SERVERPATH . '/extract.php')) {
-						header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
-						exit();
-					} else {
-						$class = 'errorbox';
-						$msg = gettext('Did not find the <code>extract</code> file.');
-					}
-					break;
-
-				/** external script return *************************************************** */
-				case 'session':
-					$msg = $_SESSION['errormessage'];
-				case 'external':
-					if (isset($_GET['error'])) {
-						$class = sanitize($_GET['error']);
-						if (empty($class)) {
-							$class = 'errorbox fade-message';
-						}
-					} else {
-						$class = 'messagebox fade-message';
-					}
-					if (isset($_GET['msg'])) {
-						$msg = sanitize($_GET['msg'], 1);
-					} else if (!isset($msg)) {
-						$msg = '';
-					}
-					if (isset($_GET['more'])) {
-						$class = 'messagebox'; //	no fade!
-						$more = $_SESSION[$_GET['more']];
-						foreach ($more as $detail) {
-							$msg .= '<br />' . $detail;
-						}
-					}
-					break;
-
-				/** default ****************************************************************** */
-				default:
-					$func = preg_replace('~\(.*\);*~', '', $action);
-					if (in_array($func, $_admin_button_actions)) {
-						call_user_func($action);
-					}
-					break;
-			}
-		} else {
-			$class = 'errorbox fade-message';
-			$actions = array(
-					'clear_cache' => gettext('purge Image cache'),
-					'clear_rss_cache' => gettext('purge RSS cache'),
-					'reset_hitcounters' => gettext('reset all hitcounters'),
-					'clear_search_cache' => gettext('purge search cache')
-			);
-			if (array_key_exists($action, $actions)) {
-				$msg = $actions[$action];
-			} else {
-				$msg = '<em>' . html_encode($action) . '</em>';
-			}
-			$msg = sprintf(gettext('You do not have proper rights to %s.'), $msg);
-		}
-	} else {
-		if (isset($_GET['from'])) {
-			$class = 'errorbox fade-message';
-			$msg = sprintf(gettext('You do not have proper rights to access %s.'), html_encode(sanitize($_GET['from'])));
-		}
-	}
-
-	/*	 * ********************************************************************************* */
-	/** End Action Handling ************************************************************ */
-	/*	 * ********************************************************************************* */
+if (npgFunctions::hasPrimaryScripts()) {
+	$newestVersionURI = getOption('getUpdates_latest');
+	$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
 }
 
 if (npg_loggedin() && $_admin_menu) {
@@ -360,8 +367,8 @@ $buttonlist = array();
 			);
 		}
 
-		if ($newVersionAvailable = isset($newestVersion)) {
-			$newVersionAvailable = version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION_CONCISE);
+		if ($newVersionAvailable = isset($newestVersion) && $newestVersion) {
+			$newVersionAvailable = version_compare(preg_replace('~[^0-9,.]~', '', $newestVersion), preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE));
 			if ($newVersionAvailable > 0) {
 				if (!isset($_SESSION['new_version_available'])) {
 					$_SESSION['new_version_available'] = $newestVersion;
@@ -385,28 +392,32 @@ $buttonlist = array();
 			/*			 * * HOME ************************************************************************** */
 			/*			 * ********************************************************************************* */
 			$setupUnprotected = printSetupWarning();
-
-			$found = safe_glob(SERVERPATH . '/setup-*.zip');
-			if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
-				if ($extract) {
-					$f = fopen($file, 'r');
-					$buffer = fread($f, 1024);
-					fclose($f);
-					preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
-					$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
-					$buttonTitle = gettext('Install the netPhotoGraphics update.');
-				} else {
-					$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($found[0]))));
-					$buttonText = sprintf(gettext('Install version %1$s'), $newestVersion);
-					$buttonTitle = gettext('Extract and install the netPhotoGraphics update.');
-				}
-				?>
-				<div class="notebox">
-					<?php
-					echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an installation file. To install the update click on the <em>Install</em> button below.') . ' ';
+			if (npgFunctions::hasPrimaryScripts()) {
+				$found = safe_glob(SERVERPATH . '/setup-*.zip');
+				if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
+					if ($extract) {
+						$f = fopen($file, 'r');
+						$buffer = fread($f, 1024);
+						fclose($f);
+						preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
+						$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
+						$buttonTitle = gettext('Install the netPhotoGraphics update.');
+					} else {
+						preg_match('~[^\d]*(.*)~', stripSuffix(basename($found[0])), $matches);
+						$newestVersion = $matches[1];
+						$buttonText = sprintf(gettext('Install %1$s'), $newestVersion);
+						$buttonTitle = gettext('Extract and install the netPhotoGraphics update.');
+					}
 					?>
-				</div>
-				<?php
+					<div class="notebox">
+						<?php
+						echo gettext('<strong>netPhotoGraphics</strong> has detected the presence of an installation file. To install the update click on the <em>Install</em> button below.') . ' ';
+						?>
+					</div>
+					<?php
+				}
+			} else {
+				$newVersion = FALSE;
 			}
 
 			npgFilters::apply('admin_note', 'overview', '');

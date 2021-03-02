@@ -31,7 +31,10 @@ $stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'u
 asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
 
 if (isset($_GET['ticket'])) {
-	$ticket = '&ticket=' . sanitize($_GET['ticket']) . '&user=' . sanitize(@$_GET['user']);
+	$ticket = '&ticket=' . sanitize($_GET['ticket']);
+	if (isset($_GET['user'])) {
+		$ticket .= sanitize($_GET['user']);
+	}
 } else {
 	$ticket = '';
 }
@@ -105,7 +108,11 @@ if (isset($_GET['action'])) {
 			$notify = '?saved';
 			$returntab = $msg = '';
 			unset($_SESSION['notify']);
-			$newuserid = @$_POST['newuser'];
+			if (isset($_POST['newuser'])) {
+				$newuserid = $_POST['newuser'];
+			} else {
+				$newuserid = NULL;
+			}
 			if (isset($_POST['saveadminoptions'])) {
 				if (isset($_POST['checkForPostTruncation'])) {
 					$userlist = $_POST['user'];
@@ -125,6 +132,7 @@ if (isset($_GET['action'])) {
 					$alter = isset($_POST['alter_enabled']);
 					$nouser = true;
 					$returntab = $newuser = false;
+					$list = $_authority->getAdministrators('users');
 
 					for ($i = 0; $i < sanitize_numeric($_POST['totaladmins']); $i++) {
 						$error = false;
@@ -138,7 +146,7 @@ if (isset($_GET['action'])) {
 						}
 						if (!empty($user)) {
 							$nouser = false;
-							if ($i === $newuserid) {
+							if ($i == $newuserid) {
 								$newuser = $user;
 								$userobj = $_authority->getAnAdmin(array('`user`=' => $user, '`valid`>' => 0));
 								if (is_object($userobj)) {
@@ -167,10 +175,8 @@ if (isset($_GET['action'])) {
 							if (isset($userlist[$i]['admin_email'])) {
 								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
 								if (npgFunctions::isValidEmail($admin_e)) {
-									$list = $_authority->getAdministrators('users');
-									unset($list[$userobj->getID()]);
 									foreach ($list as $anuser) {
-										if ($anuser['email'] == $admin_e) {
+										if ($anuser['user'] != $user && $anuser['email'] == $admin_e) {
 											$msg = sprintf(gettext('%1$s: %2$s is already used by another user.'), $userobj->getUser(), $admin_e);
 											break;
 										}
@@ -189,7 +195,7 @@ if (isset($_GET['action'])) {
 							}
 
 							if (empty($pass)) {
-								if ($newuser || @$userlist[$i]['passrequired']) {
+								if ($newuser || isset($userlist[$i]['passrequired']) && $userlist[$i]['passrequired']) {
 									$_SESSION['notify'][] = sprintf(gettext('%s password may not be empty!'), $admin_n);
 									$error = true;
 								}
@@ -197,7 +203,11 @@ if (isset($_GET['action'])) {
 								if (isset($userlist[$i]['disclose_password']) && $userlist[$i]['disclose_password'] == 'on') {
 									$pass2 = $pass;
 								} else {
-									$pass2 = trim(sanitize(@$userlist[$i]['pass_r'], 0));
+									if (isset($userlist[$i]['pass_r'])) {
+										$pass2 = trim(sanitize($userlist[$i]['pass_r'], 0));
+									} else {
+										$pass2 = NULL;
+									}
 								}
 								if ($pass == $pass2) {
 									$pass2 = $userobj->getPass($pass);
@@ -255,7 +265,8 @@ if (isset($_GET['action'])) {
 								$userobj->createPrimealbum();
 							}
 							npgFilters::apply('save_admin_data', $userobj, $i, $alter);
-							if (!($error && !$_current_admin_obj->getID())) { //	new install and password problems, leave with no admin
+
+							if (!($error && $_current_admin_obj->getID() <= 0)) { //	new install and password problems, leave with no admin
 								$userobj->transient = false;
 								$saved = $userobj->save();
 								if ($saved == 1) {
@@ -278,6 +289,7 @@ if (isset($_GET['action'])) {
 			}
 			break;
 	}
+
 	if (isset($returntab)) { //	if "nothing happened" just fall thru. (Open Admib situation.)
 		$returntab .= "&page=admin&tab=users";
 		if (!empty($newuser)) {
@@ -438,11 +450,11 @@ echo $refresh;
 							$admins = sortMultiArray($admins, 'user', false, true, true);
 							$rights = DEFAULT_RIGHTS;
 							$groupname = 'default';
-							$list = array();
+							$pagination = array();
 							foreach ($admins as $admin) {
-								$list[] = $admin['user'];
+								$pagination[] = $admin['user'];
 							}
-							$rangeset = getPageSelector($list, USERS_PER_PAGE);
+							$rangeset = getPageSelector($pagination, USERS_PER_PAGE);
 						}
 						if ($showgroup != '@') {
 							$newuser = array('id' => -1, 'user' => '', 'pass' => '', 'passhash' => getOption('strong_hash'), 'name' => '', 'email' => '', 'rights' => $rights, 'custom_data' => NULL, 'valid' => 1, 'group' => $groupname);
@@ -705,9 +717,9 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
-															 <?php
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+														 <?php
 															 if (empty($userid)) {
 																 ?>
 															<input type="hidden" name="newuser" value="<?php echo $id ?>" />
@@ -715,7 +727,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -737,8 +749,8 @@ echo $refresh;
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-															echo NO_RIGHTS . '"';
-															echo $alterrights;
+												echo NO_RIGHTS . '"';
+												echo $alterrights;
 															?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
 																		 <?php
@@ -1015,16 +1027,16 @@ echo $refresh;
 															}
 															printManagedObjects('albums', $albumlist, $alter_rights, $userobj, $id, gettext('user'), $flag);
 															if (class_exists('CMS')) {
-																$pagelist = array();
 																if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
 																	$alter_rights = $local_alterrights;
 																} else {
 																	$alter_rights = ' disabled="disabled"';
 																}
+																$pagination = array();
 																$pages = $_CMS->getPages(false);
 																foreach ($pages as $page) {
 																	if (!$page['parentid']) {
-																		$pagelist[get_language_string($page['title'])] = $page['titlelink'];
+																		$pagination[get_language_string($page['title'])] = $page['titlelink'];
 																	}
 																}
 																$newslist = array('"' . gettext('un-categorized') . '"' => '`');
@@ -1038,7 +1050,7 @@ echo $refresh;
 																} else {
 																	$alter_rights = ' disabled = "disabled"';
 																}
-																printManagedObjects('pages', $pagelist, $alter_rights, $userobj, $id, gettext('user'), NULL);
+																printManagedObjects('pages', $pagination, $alter_rights, $userobj, $id, gettext('user'), NULL);
 															}
 														}
 														?>

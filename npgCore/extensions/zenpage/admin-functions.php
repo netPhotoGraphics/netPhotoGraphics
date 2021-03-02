@@ -297,24 +297,28 @@ function printPagesListTable($page, $toodeep) {
 				<div class="page-list_icon">
 					<?php printPublishIconLink($page, NULL); ?>
 				</div>
-				<div class="page-list_icon">
-					<?php
-					if ($page->getCommentsAllowed()) {
-						?>
-						<a href="?commentson=0&amp;titlelink=<?php echo html_encode($page->getTitlelink()); ?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Disable comments'); ?>">
-							<?php echo BULLSEYE_GREEN; ?>
-						</a>
-						<?php
-					} else {
-						?>
-						<a href="?commentson=1&amp;titlelink=<?php echo html_encode($page->getTitlelink()); ?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Enable comments'); ?>">
-							<?php echo BULLSEYE_RED; ?>
-						</a>
-						<?php
-					}
-					?>
-				</div>
 				<?php
+				if ($page->getCommentsAllowed()) {
+					?>
+					<div class="page-list_icon">
+						<?php
+						if ($page->getCommentsAllowed()) {
+							?>
+							<a href="?commentson=0&amp;titlelink=<?php echo html_encode($page->getTitlelink()); ?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Disable comments'); ?>">
+								<?php echo BULLSEYE_GREEN; ?>
+							</a>
+							<?php
+						} else {
+							?>
+							<a href="?commentson=1&amp;titlelink=<?php echo html_encode($page->getTitlelink()); ?>&amp;XSRFToken=<?php echo getXSRFToken('update') ?>" title="<?php echo gettext('Enable comments'); ?>">
+								<?php echo BULLSEYE_RED; ?>
+							</a>
+							<?php
+						}
+						?>
+					</div>
+					<?php
+				}
 			} else {
 				?>
 				<div class="page-list_icon">
@@ -1005,13 +1009,13 @@ function printCategoryListSortableTable($cat, $toodeep) {
 
 		<div class="page-list_iconwrapper">
 			<div class="page-list_icon"><?php
-				$password = $cat->getPassword();
-				if ($password) {
-					echo LOCK;
-				} else {
-					echo LOCK_OPEN;
-				}
-				?>
+		$password = $cat->getPassword();
+		if ($password) {
+			echo LOCK;
+		} else {
+			echo LOCK_OPEN;
+		}
+			?>
 			</div>
 			<div class="page-list_icon">
 				<?php echo linkPickerIcon($cat); ?>

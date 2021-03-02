@@ -1762,8 +1762,10 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		$suffix = @$args['suffix'];
-		unset($args['suffix']);
+		if (isset($args['suffix'])) {
+			$suffix = $args['suffix'];
+			unset($args['suffix']);
+		}
 
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
@@ -1797,16 +1799,23 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		$class = @$args['class'];
-		unset($args['class']);
-		$id = @$args['id'];
-		unset($args['id']);
-		$title = @$args['title'];
-		unset($args['title']);
+		if (isset($args['class'])) {
+			$class = $args['class'];
+			unset($args['class']);
+		}
+		if (isset($args['id'])) {
+			$id = $args['id'];
+			unset($args['id']);
+		}
+		if (isset($args['title'])) {
+			$title = $args['title'];
+			unset($args['title']);
+		}
 
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
 	}
+
 	$args['thumb'] = TRUE;
 
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -2619,11 +2628,14 @@ function getSizeCustomImage($args, $image = NULL) {
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		$image = @$args['image'];
-		unset($args['image']);
-		$suffix = @$args['suffix'];
-		unset($args['suffix']);
-
+		if (isset($args['image'])) {
+			$image = $args['image'];
+			unset($args['image']);
+		}
+		if (isset($args['suffix'])) {
+			$suffix = $args['suffix'];
+			unset($args['suffix']);
+		}
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
 	}
@@ -3105,9 +3117,10 @@ function getCustomImageURL($args, $suffix = NULL) {
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		$suffix = @$args['suffix'];
-		unset($args['suffix']);
-
+		if (isset($args['suffix'])) {
+			$suffix = $args['suffix'];
+			unset($args['suffix']);
+		}
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
 	}
@@ -3146,12 +3159,18 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		$class = @$args['class'];
-		unset($args['class']);
-		$id = @$args['id'];
-		unset($args['id']);
-		$title = @$args['title'];
-		unset($args['title']);
+		if (isset($args['class'])) {
+			$class = $args['class'];
+			unset($args['class']);
+		}
+		if (isset($args['id'])) {
+			$id = $args['id'];
+			unset($args['id']);
+		}
+		if (isset($args['title'])) {
+			$title = $args['title'];
+			unset($args['title']);
+		}
 
 		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
@@ -3301,7 +3320,7 @@ function filterImageQueryList($result, $source, $limit = 1, $photo = true) {
 	$list = array();
 	if ($result) {
 		while ($limit && $row = db_fetch_assoc($result)) {
-			@set_time_limit(120);
+			set_time_limit(120);
 			$image = getItemByID('images', $row['id']);
 			if ($image && $image->exists) {
 				$album = $image->album;
@@ -4534,12 +4553,12 @@ function exposeSoftwareInformation($obj = '', $plugins = '', $theme = '') {
 		if (preg_match('/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $memoryLimit, $match)) {
 			$memoryLimit = $match[1] * $suffixes[strtolower($match[2])];
 		}
-		$memoryLimit = @round($memoryLimit / pow(1024, ($i = floor(log($memoryLimit, 1024)))), 1) . ' ' . $unit[$i];
+		$memoryLimit = round($memoryLimit / pow(1024, ($i = floor(log($memoryLimit, 1024)))), 1) . ' ' . $unit[$i];
 	} else {
-		$memoryLimit = 'none;';
+		$memoryLimit = 'none';
 	}
 	$memoryUsed = memory_get_peak_usage();
-	$memoryUsed = @round($memoryUsed / pow(1024, ($i = floor(log($memoryUsed, 1024)))), 1) . ' ' . $unit[$i];
+	$memoryUsed = round($memoryUsed / pow(1024, ($i = floor(log($memoryUsed, 1024)))), 1) . ' ' . $unit[$i];
 	$a = basename($obj);
 
 	echo "\n<!--\n netPhotoGraphics version " . NETPHOTOGRAPHICS_VERSION . "\n";
@@ -4682,9 +4701,13 @@ function getCodeblock($number = 1, $object = NULL) {
 		return NULL;
 	}
 	$codeblock = getSerializedArray($object->getcodeblock());
-	$codeblock = npgFilters::apply('codeblock', @$codeblock[$number], $object, $number);
-	if ($codeblock) {
-		$codeblock = applyMacros($codeblock);
+	if (isset($codeblock[$number])) {
+		$codeblock = npgFilters::apply('codeblock', $codeblock[$number], $object, $number);
+		if ($codeblock) {
+			$codeblock = applyMacros($codeblock);
+		}
+	} else {
+		$codeblock = '';
 	}
 	return $codeblock;
 }
@@ -4773,10 +4796,10 @@ function print404status() {
 			if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/' . DATA_FOLDER . '/tést.jpg'))) {
 				$output = "404 error details\n\t\t\tSERVER:\n";
 				foreach (array('REQUEST_URI', 'HTTP_REFERER', 'REMOTE_ADDR', 'HTTP_USER_AGENT', 'REDIRECT_STATUS') as $key) {
-					if (is_null(@$_SERVER[$key])) {
-						$value = 'NULL';
-					} else {
+					if (isset($_SERVER[$key])) {
 						$value = "'$_SERVER[$key]'";
+					} else {
+						$value = 'NULL';
 					}
 					$output .= "\t\t\t\t\t$key\t=>\t$value\n";
 				}

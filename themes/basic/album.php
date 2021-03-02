@@ -76,9 +76,10 @@ if (!defined('WEBPATH'))
 					printAddToFavorites($_current_album);
 				printTags('links', gettext('<strong>Tags:</strong>') . ' ', 'taglist', '');
 				simpleMap::printMap();
-				@call_user_func('printSlideShowLink');
-				@call_user_func('printRating');
-				@call_user_func('printCommentForm');
+				if (function_exists('printSlideShowLink'))
+					printSlideShowLink();
+				if (function_exists('printRating')) printRating();
+				if (function_exists('printCommentForm')) printCommentForm();
 				?>
 			</div>
 		</div>
@@ -91,9 +92,9 @@ if (!defined('WEBPATH'))
 				printRSSLink('Album', '', gettext('Album'), ' | ');
 			printCustomPageURL(gettext("Archive View"), "archive", '', '', ' | ');
 			printSoftwareLink();
-			@call_user_func('printUserLogin_out', " | ");
+			if (function_exists('printUserLogin_out')) printUserLogin_out(" | ");
 			?>
 		</div>
 	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>

@@ -10,7 +10,7 @@
  */
 
 $plugin_is_filter = 5 | FEATURE_PLUGIN;
-$plugin_description = gettext("Provides a button to download the latest version of the software.");
+$plugin_description = gettext("Provides a macro to produce a Google Translate button.");
 
 
 npgFilters::register('content_macro', 'translateButton::macro');

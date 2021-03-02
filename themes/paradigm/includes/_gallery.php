@@ -42,6 +42,6 @@
 	<!-- Codeblock 1 -->
 <?php printCodeBlock(1); ?>
 
-<?php @call_user_func('printCommentForm'); ?>
+<?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 
 </div>
