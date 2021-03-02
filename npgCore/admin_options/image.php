@@ -73,8 +73,10 @@ function saveOptions() {
 		copy(CORE_SERVERPATH . 'cacheprotect', SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
 		chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0444);
 	} else {
-		chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0777);
-		unlink(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
+		if (file_exists(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess')) {
+			chmod(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess', 0777);
+			unlink(SERVERPATH . '/' . CACHEFOLDER . '/.htaccess');
+		}
 		setOption('protected_image_cache', 0);
 	}
 
@@ -743,7 +745,7 @@ function getOptionContent() {
 														 name="disclose_password"
 														 id="disclose_password"
 														 onclick="passwordClear('');
-																		 togglePassword('');" />
+																 togglePassword('');" />
 														 <?php echo gettext('Show'); ?>
 										</label>
 
