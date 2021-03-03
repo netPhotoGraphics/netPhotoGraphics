@@ -649,7 +649,7 @@ $tagsort = 'alpha';
 													<label class="checkboxlabel">
 														<input name="locked" type="checkbox" id="locked" value="1" <?php checkIfChecked($result->getLocked()); ?> />
 														<?php echo gettext("Locked for changes"); ?></label>
-														<?php
+													<?php
 												}
 												?>
 												<br clear="all">
@@ -668,14 +668,11 @@ $tagsort = 'alpha';
 													<?php
 												}
 
-
 												if (!is_AdminEditPage("newscategory")) {
 													?>
 													<p>
-
-														<?php
-														$date = $result->getDatetime();
-														?>
+														<?php echo gettext('Date'); ?> <small>(YYYY-MM-DD)</small>
+														<?php $date = $result->getDatetime(); ?>
 														<input name="date" type="text" id="date" value="<?php echo $date; ?>" />
 													</p>
 													<p>
@@ -786,10 +783,6 @@ $tagsort = 'alpha';
 														</p>
 														<?php
 													}
-													echo npgFilters::apply('general_utilities', '', $result);
-													?>
-
-													<?php
 												} // if !category end
 												?>
 											</div>
