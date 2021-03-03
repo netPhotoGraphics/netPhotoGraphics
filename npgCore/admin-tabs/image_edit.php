@@ -336,57 +336,12 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-																		 $('.expire-<?php echo $currentimage; ?>').html('');" />
+															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+															 $('.expire-<?php echo $currentimage; ?>').html('');" />
 													 <?php echo gettext("Published"); ?>
 									</label>
 									<?php
-									if (extensionEnabled('comment_form')) {
-										?>
-										<label class="checkboxlabel">
-											<input type="checkbox" id="allowcomments-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-allowcomments" value="1" <?php
-											if ($image->getCommentsAllowed()) {
-												echo ' checked = "checked"';
-											}
-											?> />
-														 <?php echo gettext("Comments enabled"); ?>
-										</label>
-										<?php
-									}
-									if (extensionEnabled('hitcounter')) {
-										$hc = $image->get('hitcounter');
-										if (empty($hc)) {
-											$hc = '0';
-										}
-										?>
-										<label class="checkboxlabel">
-											<input type="checkbox" name="reset_hitcounter<?php echo $currentimage; ?>"<?php if (!$hc) echo ' disabled="disabled"'; ?> />
-											<?php echo sprintf(ngettext("Reset hitcounter (%u hit)", "Reset hitcounter (%u hits)", $hc), $hc); ?>
-										</label>
-										<?php
-									}
-									if (extensionEnabled('rating')) {
-										$tv = $image->get('total_value');
-										$tc = $image->get('total_votes');
-
-										if ($tc > 0) {
-											$hc = $tv / $tc;
-											?>
-											<label class="checkboxlabel">
-												<input type="checkbox" id="reset_rating-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-reset_rating" value="1" />
-												<?php printf(ngettext('Reset rating (%u star)', 'Reset rating (%u stars)', $hc), $hc); ?>
-											</label>
-											<?php
-										} else {
-											?>
-											<label class="checkboxlabel">
-												<input type="checkbox" id="reset_rating-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-reset_rating" value="1" disabled="disabled"/>
-												<?php echo gettext('Reset rating (unrated)'); ?>
-											</label>
-											<?php
-										}
-									}
 									$publishdate = $image->getPublishDate();
 									$expirationdate = $image->getExpireDate();
 									?>
@@ -424,14 +379,15 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										// ]]> -->
 									</script>
 									<br class="clearall" />
-									<hr />
 									<p>
 										<label for="publishdate-<?php echo $currentimage; ?>"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
 										<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" <?php
 										if ($publishdate > date('Y-m-d H:i:s'))
 											echo 'style="color:blue"';
 										?> />
-										<br /><label for="expirationdate-<?php echo $currentimage; ?>"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
+									</p>
+									<p>
+										<label for="expirationdate-<?php echo $currentimage; ?>"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
 										<br /><input value="<?php echo $expirationdate; ?>" type="text" size="20" maxlength="30" name="expirationdate-<?php echo $currentimage; ?>" id="expirationdate-<?php echo $currentimage; ?>" />
 										<strong class="expire-<?php echo $currentimage; ?>" style="color:red">
 											<?php
@@ -440,28 +396,88 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											}
 											?>
 										</strong>
-										<?php
-										if ($image->getlastchangeuser()) {
-											?>
-											<br />
+									</p>
+									<?php
+									if ($image->getlastchangeuser()) {
+										?>
+										<p>
 											<?php
 											printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
-										}
-										?>
-									<hr />
-									<?php
-									if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-										echo gettext("Owner");
-										?>
-										<select name="<?php echo $currentimage; ?>-owner" size='1' >
-											<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
-										</select>
+											?>
+										</p>
 										<?php
-									} else {
-										printf(gettext('Owner: %1$s'), $image->getOwner());
 									}
 									?>
+									<p>
+										<?php
+										if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+											echo gettext("Owner");
+											?>
+											<select name="<?php echo $currentimage; ?>-owner" size='1' >
+												<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
+											</select>
+											<?php
+										} else {
+											printf(gettext('Owner: %1$s'), $image->getOwner());
+										}
+										?>
 									</p>
+									<?php
+									if (extensionEnabled('comment_form')) {
+										?>
+										<p class="checkbox">
+											<label class="checkboxlabel">
+												<input type="checkbox" id="allowcomments-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-allowcomments" value="1" <?php
+												if ($image->getCommentsAllowed()) {
+													echo ' checked = "checked"';
+												}
+												?> />
+															 <?php echo gettext("Comments on"); ?>
+											</label>
+										</p>
+										<?php
+									}
+									if (extensionEnabled('hitcounter')) {
+										$hc = $image->get('hitcounter');
+										if (empty($hc)) {
+											$hc = '0';
+										}
+										?>
+										<p class="checkbox">
+											<label class="checkboxlabel">
+												<input type="checkbox" name="reset_hitcounter<?php echo $currentimage; ?>"<?php if (!$hc) echo ' disabled="disabled"'; ?> />
+												<?php echo sprintf(ngettext("Reset hitcounter (%u hit)", "Reset hitcounter (%u hits)", $hc), $hc); ?>
+											</label>
+										</p>
+										<?php
+									}
+									if (extensionEnabled('rating')) {
+										$tv = $image->get('total_value');
+										$tc = $image->get('total_votes');
+
+										if ($tc > 0) {
+											$hc = $tv / $tc;
+											?>
+											<p class="checkbox">
+												<label class="checkboxlabel">
+													<input type="checkbox" id="reset_rating-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-reset_rating" value="1" />
+													<?php printf(ngettext('Reset rating (%u star)', 'Reset rating (%u stars)', $hc), $hc); ?>
+												</label>
+											</p>
+											<?php
+										} else {
+											?>
+											<p class="checkbox">
+												<label class="checkboxlabel">
+													<input type="checkbox" id="reset_rating-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-reset_rating" value="1" disabled="disabled"/>
+													<?php echo gettext('Reset rating (unrated)'); ?>
+												</label>
+											</p>
+											<?php
+										}
+									}
+									?>
+									<br clear="all">
 								</div>
 
 								<h2 class="h2_bordered_edit utilities_stuff"\><?php echo gettext("Utilities"); ?></h2>
@@ -478,7 +494,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">

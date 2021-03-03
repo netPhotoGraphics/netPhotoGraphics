@@ -1591,11 +1591,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-												 } else {
-													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-												 }
+										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+										 } else {
+											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+										 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -1968,7 +1968,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<div id="menu_selector_button">
 			<div id="menu_button">
 				<a onclick="$('#menu_selections').show();
-							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+						$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
 				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
@@ -2194,7 +2194,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																		 togglePassword('<?php echo $suffix; ?>');" />
+																 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2523,58 +2523,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
 						<?php
-						if (extensionEnabled('comment_form')) {
-							?>
-							<label class="checkboxlabel">
-								<input type="checkbox" name="<?php echo $prefix . 'allowcomments'; ?>" value="1" <?php
-								if ($album->getCommentsAllowed()) {
-									echo ' checked="checked"';
-								}
-								?> />
-											 <?php echo gettext("Comments enabled"); ?>
-							</label>
-							<?php
-						}
-						if (extensionEnabled('hitcounter')) {
-							$hc = $album->get('hitcounter');
-							if (empty($hc)) {
-								$hc = '0';
-							}
-							?>
-							<label class="checkboxlabel">
-								<input type="checkbox" name="reset_hitcounter<?php echo $prefix; ?>"<?php if (!$hc) echo ' disabled="disabled"'; ?> />
-								<?php echo sprintf(ngettext("Reset hit counter (%u hit)", "Reset hit counter (%u hits)", $hc), $hc); ?>
-							</label>
-							<?php
-						}
-						if (extensionEnabled('rating')) {
-							$tv = $album->get('total_value');
-							$tc = $album->get('total_votes');
-
-							if ($tc > 0) {
-								$hc = $tv / $tc;
-								?>
-								<label class="checkboxlabel">
-									<input type="checkbox" id="reset_rating<?php echo $suffix; ?>" name="<?php echo $prefix; ?>reset_rating" value="1" />
-									<?php printf(gettext('Reset rating (%u stars)'), $hc); ?>
-								</label>
-								<?php
-							} else {
-								?>
-								<label class="checkboxlabel">
-									<input type="checkbox" name="<?php echo $prefix; ?>reset_rating" value="1" disabled="disabled"/>
-									<?php echo gettext('Reset rating (unrated)'); ?>
-								</label>
-								<?php
-							}
-						}
 						$publishdate = $album->getPublishDate();
 						$expirationdate = $album->getExpireDate();
 						?>
@@ -2611,15 +2566,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 							});
 							// ]]> -->
 						</script>
-						<br class=																"clearall">
-
-						<hr>
-
-
+						<br class="clearall">
 						<p>
 							<label for="<?php echo $prefix; ?>publishdate"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
 							<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>publishdate" <?php if ($publishdate > date('Y-m-d H:i:s')) echo 'style="color:blue"'; ?> />
-							<br /><label for="<?php echo $prefix; ?>expirationdate"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
+						</p>
+						<p>
+							<label for="<?php echo $prefix; ?>expirationdate"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
 							<br /><input value="<?php echo $expirationdate; ?>" type="text" size="20" maxlength="30" name="expirationdate-<?php echo $prefix; ?>" id="<?php echo $prefix; ?>expirationdate" />
 							<strong class="<?php echo $prefix; ?>expire" style="color:red">
 								<?php
@@ -2628,28 +2581,88 @@ function printAdminHeader($tab, $subtab = NULL) {
 								}
 								?>
 							</strong>
-							<?php
-							if ($album->getlastchangeuser()) {
-								?>
-								<br />
+						</p>
+						<?php
+						if ($album->getlastchangeuser()) {
+							?>
+							<p>
 								<?php
 								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
-							}
-							?>
-						<hr />
-						<?php
-						if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-							echo gettext("Owner");
-							?>
-							<select name="<?php echo $suffix; ?>owner" size='1'>
-								<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
-							</select>
+								?>
+							</p>
 							<?php
-						} else {
-							printf(gettext('Owner: %1$s'), $album->getOwner());
 						}
 						?>
+						<p>
+							<?php
+							if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								echo gettext("Owner");
+								?>
+								<select name="<?php echo $suffix; ?>owner" size='1'>
+									<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
+								</select>
+								<?php
+							} else {
+								printf(gettext('Owner: %1$s'), $album->getOwner());
+							}
+							?>
 						</p>
+						<?php
+						if (extensionEnabled('comment_form')) {
+							?>
+							<p class="checkbox">
+								<label class="checkboxlabel">
+									<input type="checkbox" name="<?php echo $prefix . 'allowcomments'; ?>" value="1" <?php
+					if ($album->getCommentsAllowed()) {
+						echo ' checked="checked"';
+					}
+							?> />
+												 <?php echo gettext("Comments on"); ?>
+								</label>
+							</p>
+							<?php
+						}
+						if (extensionEnabled('hitcounter')) {
+							$hc = $album->get('hitcounter');
+							if (empty($hc)) {
+								$hc = '0';
+							}
+							?>
+							<p class="checkbox">
+								<label class="checkboxlabel">
+									<input type="checkbox" name="reset_hitcounter<?php echo $prefix; ?>"<?php if (!$hc) echo ' disabled="disabled"'; ?> />
+									<?php echo sprintf(ngettext("Reset hit counter (%u hit)", "Reset hit counter (%u hits)", $hc), $hc); ?>
+								</label>
+							</p>
+							<?php
+						}
+						if (extensionEnabled('rating')) {
+							$tv = $album->get('total_value');
+							$tc = $album->get('total_votes');
+
+							if ($tc > 0) {
+								$hc = $tv / $tc;
+								?>
+								<p class="checkbox">
+									<label class="checkboxlabel">
+										<input type="checkbox" id="reset_rating<?php echo $suffix; ?>" name="<?php echo $prefix; ?>reset_rating" value="1" />
+										<?php printf(gettext('Reset rating (%u stars)'), $hc); ?>
+									</label>
+								</p>
+								<?php
+							} else {
+								?>
+								<p class="checkbox">
+									<label class="checkboxlabel">
+										<input type="checkbox" name="<?php echo $prefix; ?>reset_rating" value="1" disabled="disabled"/>
+										<?php echo gettext('Reset rating (unrated)'); ?>
+									</label>
+								</p>
+								<?php
+							}
+						}
+						?>
+						<br clear="all">
 					</div>
 					<!-- **************** Move/Copy/Rename ****************** -->
 					<h2 class="h2_bordered_edit utilities_stuff"><?php echo gettext("Utilities"); ?></h2>
@@ -2683,7 +2696,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2835,7 +2848,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php echo LOCK; ?>
 					<?php echo LOCK_OPEN; ?>
 					<?php echo gettext("has/does not have password"); ?></li>
-				<?php
+					<?php
 			}
 			?>
 			<li>
@@ -4077,10 +4090,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 						<label style="padding-right: 15px;" title="<?php echo html_encode(get_language_string($right['hint'])); ?>">
 							<input type="checkbox" name="<?php printf($format, $rightselement, $id); ?>" id="<?php echo $rightselement . '-' . $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $right['value']; ?>"<?php
-							if ($rights & $right['value'])
-								echo ' checked="checked"';
-							echo $alterrights;
-							?> />
+				if ($rights & $right['value'])
+					echo ' checked="checked"';
+				echo $alterrights;
+						?> />
 										 <?php echo $right['name']; ?>
 						</label>
 
@@ -4802,30 +4815,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-				var sel = obj.options[obj.selectedIndex].value;
-				var mark;
-				switch (sel) {
+			var sel = obj.options[obj.selectedIndex].value;
+							var mark;
+							switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-					case '<?php echo $key; ?>':
-					mark = '<?php echo $mark; ?>';
-									break;
+				case '<?php echo $key; ?>':
+								mark = '<?php echo $mark; ?>';
+								break;
 			<?php
 		}
 		?>
-				default:
-				mark = false;
-								break;
+			default:
+							mark = false;
+							break;
 			}
 			if (mark) {
-				$.colorbox({
-					href: '#' + mark,
-					inline: true,
-					open: true,
-					close: '<?php echo gettext("ok"); ?>'
-				});
-				}
+			$.colorbox({
+			href: '#' + mark,
+							inline: true,
+							open: true,
+							close: '<?php echo gettext("ok"); ?>'
+			});
+			}
 			}
 			// ]]> -->
 		</script>
@@ -5211,27 +5224,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-		// <!-- <![CDATA[
-		$(function () {
-			var tabContainers = $('div.tabs > div');
-			$('.first').addClass('selected');
-		});
-		function cbclick(num, id) {
-			$('.cbx-' + id).hide();
-			$('#cb' + num + '-' + id).show();
-			$('.cbt-' + id).removeClass('selected');
-			$('#cbt' + num + '-' + id).addClass('selected');
-		}
+						// <!-- <![CDATA[
+						$(function () {
+						var tabContainers = $('div.tabs > div');
+										$('.first').addClass('selected');
+						});
+						function cbclick(num, id) {
+						$('.cbx-' + id).hide();
+										$('#cb' + num + '-' + id).show();
+										$('.cbt-' + id).removeClass('selected');
+										$('#cbt' + num + '-' + id).addClass('selected');
+						}
 
 		function cbadd(id, offset) {
-			var num = $('#cbu-' + id + ' li').length - offset;
-			$('li:last', $('#cbu-' + id)).remove();
-			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-							'</div>');
-			cbclick(num, id);
+		var num = $('#cbu-' + id + ' li').length - offset;
+						$('li:last', $('#cbu-' + id)).remove();
+						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+						'</div>');
+						cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -6216,8 +6229,8 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-			 <?php echo CLIPBOARD; ?>
+										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+		 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }
