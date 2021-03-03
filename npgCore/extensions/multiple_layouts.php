@@ -348,7 +348,7 @@ function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false)
 	ksort($list, SORT_LOCALE_STRING);
 
 	$html = $text;
-	if (count($files) != 0) {
+	if (count($files) > 0) {
 		$html .= '<select id="' . $type . $prefix . '" name="' . $prefix . 'multiple_layouts_' . $type . '">' . "\n";
 		if (is_array($getlayout)) {
 			$selectedlayout = $getlayout['data'];
