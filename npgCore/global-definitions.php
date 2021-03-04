@@ -250,8 +250,7 @@ define('OPTIONS_ICON', '<span class="font_icon" style="font-size: large;">' . GE
 define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font-size: large; line-height: 97%;">&#x270E;</span>');
 define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BF;</span>');
 define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;</span>');
-define('PLACHHOLDER_ICON', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
-define('PLUGIN_PLACHHOLDER', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
+define('PLACEHOLDER_ICON', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
 define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold; color:darkgoldenrod; vertical-align: 1px;">&#x2B58;</span>');
 define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: large; color:darkgoldenrod;">&#x229B;</span>');
 define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; color:darkgoldenrod; padding-left: 1px;">&#x29c7;</span>');

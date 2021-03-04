@@ -322,10 +322,10 @@ function printPagesListTable($page, $toodeep) {
 			} else {
 				?>
 				<div class="page-list_icon">
-					<?php echo PLACHHOLDER_ICON; ?>
+					<?php echo PLACEHOLDER_ICON; ?>
 				</div>
 				<div class="page-list_icon">
-					<?php echo PLACHHOLDER_ICON; ?>
+					<?php echo PLACEHOLDER_ICON; ?>
 				</div>
 				<?php
 			}
@@ -1042,7 +1042,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			<div class="page-list_icon">
 				<?php
 				if ($count == 0) {
-					echo PLACHHOLDER_ICON;
+					echo PLACEHOLDER_ICON;
 				} else {
 					?>
 					<a href="<?php echo $cat->getlink(); ?>" title="<?php echo gettext("view category"); ?>">

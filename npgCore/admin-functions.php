@@ -3091,7 +3091,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<div class="page-list_icon">
 					<?php
 					if ($album->isDynamic() || !$enableEdit) {
-						echo PLACHHOLDER_ICON;
+						echo PLACEHOLDER_ICON;
 					} else {
 						?>
 						<a class="warn" href="<?php echo getAdminLink('utilities/refresh-metadata.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('refresh') ?>" title="<?php echo sprintf(gettext('Refresh metadata for the album %s'), $album->name); ?>">
@@ -3107,7 +3107,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<div class="page-list_icon">
 						<?php
 						if (!$enableEdit) {
-							echo PLACHHOLDER_ICON;
+							echo PLACEHOLDER_ICON;
 						} else {
 							?>
 							<a class="reset" href="?action=reset_hitcounters&amp;albumid=<?php echo $album->getID(); ?>&amp;album=<?php echo pathurlencode($album->name); ?>&amp;subalbum=true&amp;return=*<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('hitcounter') ?>" title="<?php echo sprintf(gettext('Reset hit counters for album %s'), $album->name); ?>">
@@ -3126,7 +3126,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$supress = !npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS) && $myalbum && $album->getID() == $myalbum->getID();
 					if (!$enableEdit || $supress) {
 						?>
-						echo PLACHHOLDER_ICON;
+						echo PLACEHOLDER_ICON;
 						} else {
 						?>
 						<a class="delete" href="javascript:confirmDeleteAlbum('?page=edit&amp;action=deletealbum&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>');" title="<?php echo sprintf(gettext("Delete the album %s"), js_encode($album->name)); ?>">
