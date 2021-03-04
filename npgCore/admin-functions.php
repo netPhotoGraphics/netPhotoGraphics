@@ -2613,10 +2613,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<p class="checkbox">
 								<label class="checkboxlabel">
 									<input type="checkbox" name="<?php echo $prefix . 'allowcomments'; ?>" value="1" <?php
-					if ($album->getCommentsAllowed()) {
-						echo ' checked="checked"';
-					}
-							?> />
+									if ($album->getCommentsAllowed()) {
+										echo ' checked="checked"';
+									}
+									?> />
 												 <?php echo gettext("Comments on"); ?>
 								</label>
 							</p>
@@ -2828,7 +2828,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<?php echo gettext("Albums"); ?>
 			</li>
 			<li>
-				<?php echo PICTURE_FOLDER; ?>
+				<?php echo IMAGE_FOLDER; ?>
 				<?php echo gettext("Images"); ?>
 			</li>
 			<li>
@@ -2836,7 +2836,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<?php echo gettext("Albums (dynamic)"); ?>
 			</li>
 			<li>
-				<?php echo PICTURE_FOLDER_DYNAMIC; ?>
+				<?php echo IMAGE_FOLDER_DYNAMIC; ?>
 				<?php echo gettext("Images (dynamic)"); ?>
 			</li>
 		</ul>
@@ -2848,7 +2848,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<?php echo LOCK; ?>
 					<?php echo LOCK_OPEN; ?>
 					<?php echo gettext("has/does not have password"); ?></li>
-					<?php
+				<?php
 			}
 			?>
 			<li>
@@ -2962,10 +2962,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</div>
 			<?php
 			if ($album->isDynamic()) {
-				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER_DYNAMIC . '</span>';
+				$imgi = '<span title="' . gettext('images') . '">' . IMAGE_FOLDER_DYNAMIC . '</span>';
 				$imga = '<span title="' . gettext('albums') . '">' . PICTURE_FOLDER_DYNAMIC . '</span>';
 			} else {
-				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER . '</span>';
+				$imgi = '<span title="' . gettext('images') . '">' . IMAGE_FOLDER . '</span>';
 				$imga = '<span title="' . gettext('albums') . '">' . PICTURE_FOLDER . '</span>';
 			}
 			$ci = count($album->getImages());
@@ -3182,7 +3182,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				} else {
 					$thumb = WEBPATH . '/' . CORE_FOLDER . '/images/thumb_standin.png';
 				}
-				$imgi = '<span title="' . gettext('images') . '">' . PICTURE_FOLDER . '</span>';
+				$imgi = '<span title="' . gettext('images') . '">' . IMAGE_FOLDER . '</span>';
 				$ci = $count;
 				$si = sprintf('%1$s <span>(%2$u)</span>', $imgi, $ci);
 				if ($ci) {
@@ -4090,10 +4090,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 						<label style="padding-right: 15px;" title="<?php echo html_encode(get_language_string($right['hint'])); ?>">
 							<input type="checkbox" name="<?php printf($format, $rightselement, $id); ?>" id="<?php echo $rightselement . '-' . $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $right['value']; ?>"<?php
-				if ($rights & $right['value'])
-					echo ' checked="checked"';
-				echo $alterrights;
-						?> />
+							if ($rights & $right['value'])
+								echo ' checked="checked"';
+							echo $alterrights;
+							?> />
 										 <?php echo $right['name']; ?>
 						</label>
 
@@ -6230,7 +6230,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-		 <?php echo CLIPBOARD; ?>
+			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }
