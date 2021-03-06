@@ -61,6 +61,7 @@ class AnyFile extends TextObject_core {
 				}
 				purgeOption('AnyFileSuffixList');
 			}
+			purgeOption('AnyFile_file_new');
 			purgeOption('AnyFile_file_list');
 			purgeOption('AnyFile_watermark');
 		}
@@ -141,9 +142,10 @@ class AnyFile extends TextObject_core {
 					$handler = strtolower(str_replace('Default', '', stripSuffix(basename($file))));
 					break;
 			}
-			if (!empty($handler)) {
+			if (isset($handler)) {
 				$supported[] = $handler;
 			}
+			unset($handler);
 		}
 
 		$supported = array_unique($supported);
