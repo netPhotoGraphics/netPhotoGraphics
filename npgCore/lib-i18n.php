@@ -513,6 +513,22 @@ function getAllTranslations($text) {
 	return $translated;
 }
 
+/**
+ * if possible sort by locale rules
+ *
+ * @global type $_current_locale
+ * @param array $strings passed by reference
+ */
+function localeSort(&$strings) {
+	global $_current_locale;
+	if (class_exists('Collator')) {
+		$coll = new Collator($_current_locale);
+		$coll->asort($strings);
+	} else {
+		natcasesort($strings);
+	}
+}
+
 if (function_exists('date_default_timezone_set')) { // insure a correct time zone
 	$tz = getOption('time_zone');
 	if (!empty($tz)) {
