@@ -416,7 +416,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 										<?php echo $plugin_disable; ?>
 									</div>
 									<span class="icons" style="padding-left: 4px;padding-right: 3px;">
-										<?php echo CROSS_MARK_RED; ?>
+										<?php echo NO_ENTRY; ?>
 									</span>
 									<input type="hidden" name="<?php echo $opt; ?>" id="<?php echo $opt; ?>" value="0" />
 									<?php
@@ -476,7 +476,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 									} else {
 										?>
 										<a href="javascript:confirmDelete('<?php echo getAdminLink('admin-tabs/plugins.php'); ?>?action=delete&plugin=<?php echo html_encode($extension); ?>&tab=<?php echo html_encode($plugin_default); ?>&subpage=<?php echo $subpage; ?>&XSRFToken=<?php echo getXSRFToken('deleteplugin'); ?>','<?php printf(gettext('Ok to delete %1$s? This cannot be undone.'), $extension); ?>')" title="<?php echo gettext('Delete the plugin.'); ?>">
-											<?php echo CROSS_MARK_RED; ?>
+											<?php echo WASTEBASKET; ?>
 										</a>
 										<?php
 									}
