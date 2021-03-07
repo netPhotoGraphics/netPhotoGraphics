@@ -88,9 +88,9 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.09.01</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.09.02</h2>
 <h2>General</h2>
-<p><strong>netPhotoGraphics</strong> is now compatible with PHP version 7.4.</p>
+<p><strong>netPhotoGraphics</strong> is now compatible with PHP version 8.0.</p>
 <p>E-Mails sent by <strong>netPhotoGraphics</strong> are now HTML encoded. In addition, there is now a customizable e-mail "form" that will be used when sending the mails. The standard template is a simple form with the sites branding logo (or the <strong>netPhotoGraphic</strong> logo if none is defined), the body of the e-mail, and "--The Administrator" as a signature. You can view and edit this template on the new "forms" option tab. If you update the form it will be stored in the <em>plugins/forms</em> folder and not overridden on subsequent updates. </p>
 <p>A "mail" button has been added for each user who has an e-mail address.  You can use this to send e-mail to individual users.</p>
 <h2>Album, Image and User editing</h2>
@@ -114,7 +114,7 @@
 <p>A new plugin that allows using swipe left and right to move between pages in a sequence on touch screen devices.</p>
 <h2>class-AnyFile</h2>
 <p>The AnyFile class may now be extended so that you can supply custom rendering of the "image." Create a new php script in the <em>plugins/class-AnyFile</em> folder that extends the AnyFile class and overrides the <code>getContents()</code> method. This method provides your custom rendering of the file content on an image page.</p>
-<p>Along with this change, the plugin no longer uses an option to specify the file suffixes it supports. Instead it will scan the <em>plugins/class-AnyFile</em> folder for scripts or <em>default</em> images to determin what suffixes it supports. See the plugin information for details.</p>
+<p>Along with this change, the plugin no longer uses an option to specify the file suffixes it supports. Instead it will scan the <em>plugins/class-AnyFile</em> folder for scripts or <em>default</em> images to determine what suffixes it supports. See the plugin information for details.</p>
 <h2>class-textobject</h2>
 <p>With the deprecation of class-WebDocs, PDF files are now supported  by class-textobject using browser default rendering.</p>
 <h2>slideshow2</h2>
