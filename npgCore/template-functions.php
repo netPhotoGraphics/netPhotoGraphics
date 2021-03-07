@@ -3678,10 +3678,10 @@ function printAllTagsAs($option, $class = '', $sort = NULL, $counter = FALSE, $l
 	$keys = array_keys($tagcount);
 	switch ($sort) {
 		default:
-			natcasesort($keys);
+			localeSort($keys);
 			break;
 		case 'results':
-//already in tag count order
+			//already in tag count order
 			break;
 		case 'random':
 			shuffle_assoc($keys);

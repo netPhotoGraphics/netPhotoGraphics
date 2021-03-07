@@ -115,7 +115,7 @@ function printItemsListTable($item, $toodeep) {
 					<?php echo LOCK; ?>
 					<?php
 				} else {
-					echo PLACHHOLDER_ICON;
+					echo PLACEHOLDER_ICON;
 				}
 				?>
 			</div>
@@ -156,7 +156,7 @@ function printItemsListTable($item, $toodeep) {
 					case 'menulabel':
 					case 'menufunction':
 					case 'html':
-						echo PLACHHOLDER_ICON;
+						echo PLACEHOLDER_ICON;
 						break;
 				}
 				?>

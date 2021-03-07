@@ -788,7 +788,7 @@ echo $refresh;
 																	</a>
 																	<?php
 																} else {
-																	echo PLACHHOLDER_ICON;
+																	echo PLACEHOLDER_ICON;
 																}
 																?>
 															</span>

@@ -13,7 +13,7 @@
  * 		theme	"image size" options. This has a class of "textobject" so it can be styled.
  *
  * What this plugin really is for is to serve as a model of how a plugin can be made to handle file types
- * that are not handle natively.
+ * that are not handled natively.
  *
  * Some key points to note:
  * <ul>

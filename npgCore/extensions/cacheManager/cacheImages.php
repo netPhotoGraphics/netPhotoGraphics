@@ -223,7 +223,7 @@ if ($alb) {
 					if (!is_array($enabled)) {
 						?>
 						<span class="icons" id="<?php echo $theme; ?>_arrow">
-							<?php echo PLACHHOLDER_ICON; ?>
+							<?php echo PLACEHOLDER_ICON; ?>
 						</span>
 						<?php
 					}

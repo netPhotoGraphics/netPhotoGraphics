@@ -859,7 +859,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/dynamic-locale.php
 %extensions%/elFinder.php
 %extensions%/email-newuser.php
-%extensions%/exampleMacros.php
 %extensions%/externalFeed.php
 %extensions%/facebookLogin.php
 %extensions%/favoritesAlbums.php
@@ -910,7 +909,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/seo_basic.php
 %extensions%/seo_cleanup.php
 %extensions%/seo_null.php
-%extensions%/show_not_logged-in.php
 %extensions%/simple_sendmail.php
 %extensions%/simpleSpam.php
 %extensions%/site_upgrade.php
@@ -962,10 +960,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/captcha/c.php
 %extensions%/captcha/captcha_background.png
 %extensions%/class-AnyFile
-%extensions%/class-AnyFile/class-PDF.php
 %extensions%/class-AnyFile/class-TIFF.php
 %extensions%/class-AnyFile/Default.png
-%extensions%/class-AnyFile/pdfDefault.png
 %extensions%/class-AnyFile/tiffDefault.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
@@ -8092,4 +8088,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8094
+8090

@@ -298,7 +298,7 @@ function printPagesListTable($page, $toodeep) {
 					<?php printPublishIconLink($page, NULL); ?>
 				</div>
 				<?php
-				if ($page->getCommentsAllowed()) {
+				if (extensionEnabled('comment_form')) {
 					?>
 					<div class="page-list_icon">
 						<?php
@@ -322,10 +322,10 @@ function printPagesListTable($page, $toodeep) {
 			} else {
 				?>
 				<div class="page-list_icon">
-					<?php echo PLACHHOLDER_ICON; ?>
+					<?php echo PLACEHOLDER_ICON; ?>
 				</div>
 				<div class="page-list_icon">
-					<?php echo PLACHHOLDER_ICON; ?>
+					<?php echo PLACEHOLDER_ICON; ?>
 				</div>
 				<?php
 			}
@@ -1009,13 +1009,13 @@ function printCategoryListSortableTable($cat, $toodeep) {
 
 		<div class="page-list_iconwrapper">
 			<div class="page-list_icon"><?php
-		$password = $cat->getPassword();
-		if ($password) {
-			echo LOCK;
-		} else {
-			echo LOCK_OPEN;
-		}
-			?>
+				$password = $cat->getPassword();
+				if ($password) {
+					echo LOCK;
+				} else {
+					echo LOCK_OPEN;
+				}
+				?>
 			</div>
 			<div class="page-list_icon">
 				<?php echo linkPickerIcon($cat); ?>
@@ -1042,7 +1042,7 @@ function printCategoryListSortableTable($cat, $toodeep) {
 			<div class="page-list_icon">
 				<?php
 				if ($count == 0) {
-					echo PLACHHOLDER_ICON;
+					echo PLACEHOLDER_ICON;
 				} else {
 					?>
 					<a href="<?php echo $cat->getlink(); ?>" title="<?php echo gettext("view category"); ?>">

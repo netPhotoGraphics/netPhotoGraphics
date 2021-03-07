@@ -410,7 +410,7 @@ function sortByMultilingual($dbresult, $field, $descending) {
 	foreach ($dbresult as $key => $row) {
 		$temp[$key] = get_language_string($row[$field]);
 	}
-	natcasesort($temp);
+	localeSort($temp);
 	if ($descending) {
 		$temp = array_reverse($temp, true);
 	}
@@ -1149,7 +1149,7 @@ function readTags($id, $tbl, $language, $full = false) {
 		return $tagsFull;
 	} else {
 		$tags = array_unique($tags);
-		natcasesort($tags);
+		localeSort($tags);
 		return $tags;
 	}
 }
@@ -1165,10 +1165,9 @@ function generateListFromArray($currentValue, $list, $descending, $localize) {
 	if (!is_null($descending)) {
 		if ($localize) {
 			$list = array_flip($list);
+			localeSort($list);
 			if ($descending) {
-				arsort($list);
-			} else {
-				natcasesort($list);
+				$temp = array_reverse($temp, true);
 			}
 			$list = array_flip($list);
 		} else {
@@ -2380,14 +2379,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

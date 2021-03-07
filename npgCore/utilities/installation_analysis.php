@@ -133,6 +133,16 @@ echo '</head>';
 								<?php echo gettext('WEB path:') . ' <strong>' . WEBPATH . '</strong>'; ?>
 							</li>
 							<li>
+								<?php
+								$themes = $_gallery->getThemes();
+								$currenttheme = $_gallery->getCurrentTheme();
+								if (array_key_exists($currenttheme, $themes) && isset($themes[$currenttheme]['name'])) {
+									$currenttheme = $themes[$currenttheme]['name'];
+								}
+								printf(gettext('Current gallery theme: <strong>%1$s</strong>'), $currenttheme);
+								?>
+							</li>
+							<li>
 								<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
 							</li>
 							<?php
@@ -157,17 +167,23 @@ echo '</head>';
 							?>
 							<li>
 								<?php
-								$themes = $_gallery->getThemes();
-								$currenttheme = $_gallery->getCurrentTheme();
-								if (array_key_exists($currenttheme, $themes) && isset($themes[$currenttheme]['name'])) {
-									$currenttheme = $themes[$currenttheme]['name'];
-								}
-								printf(gettext('Current gallery theme: <strong>%1$s</strong>'), $currenttheme);
+								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
 								?>
 							</li>
 							<li>
 								<?php
-								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
+								$memoryLimit = INI_GET('memory_limit');
+								printf(gettext('PHP memory limit: <strong>%1$s</strong>; <strong>%2$s</strong> used'), $memoryLimit < 0 ? 'none' : convert_size(parse_size($memoryLimit)), convert_size(memory_get_peak_usage(), 1));
+								?>
+							</li>
+
+							<li>
+								<?php
+								if (class_exists('Collator')) {
+									echo gettext('PHP Collaror class will be used for localized string sorting.');
+								} else {
+									echo gettext('PHP Collaror class is not present. Localized string sorting is not available.');
+								}
 								?>
 							</li>
 							<?php
@@ -263,12 +279,6 @@ echo '</head>';
 								<?php
 							}
 							?>
-							<li>
-								<?php
-								$memoryLimit = INI_GET('memory_limit');
-								printf(gettext('PHP memory limit: <strong>%1$s</strong>; <strong>%2$s</strong> used'), $memoryLimit < 0 ? 'none' : convert_size(parse_size($memoryLimit)), convert_size(memory_get_peak_usage(), 1));
-								?>
-							</li>
 							<li>
 								<?php
 								$dbsoftware = db_software();

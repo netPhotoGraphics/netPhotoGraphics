@@ -235,6 +235,8 @@ define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5C
 define('FOLDER_ICON', '<span class="font_icon" style=" color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
+define('IMAGE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BC;</span>');
+define('IMAGE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BC;</span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');
 define('INSTALL', '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/install_icon.png" /></span>');
 define('KEY_RED', '<span class="font_icon" style="color: red;">&#128273;</span>');
@@ -246,10 +248,9 @@ define('NO_ENTRY', '<span class="font_icon" style="color: red;">&#9940;</span>')
 define('NORTH_WEST_CORNER_ARROW', '<span class="font_icon" style="color: green; font-size: large;">&#8689;</span>');
 define('OPTIONS_ICON', '<span class="font_icon" style="font-size: large;">' . GEAR_SYMBOL . '</span>');
 define('PENCIL_ICON', '<span class="font_icon" style="color: darkgoldenrod; font-size: large; line-height: 97%;">&#x270E;</span>');
-define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BF;&#xFE0F;</span>');
-define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;&#xFE0F;</span>');
-define('PLACHHOLDER_ICON', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
-define('PLUGIN_PLACHHOLDER', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
+define('PICTURE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BF;</span>');
+define('PICTURE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BF;</span>');
+define('PLACEHOLDER_ICON', '<span class="font_icon" style="font-size: large; vertical-align: -1px; color: transparent;">&#x25FB;</span>');
 define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-weight: bold; color:darkgoldenrod; vertical-align: 1px;">&#x2B58;</span>');
 define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: large; color:darkgoldenrod;">&#x229B;</span>');
 define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; color:darkgoldenrod; padding-left: 1px;">&#x29c7;</span>');
