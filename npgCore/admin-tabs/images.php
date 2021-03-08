@@ -280,221 +280,221 @@ echo "\n</head>";
 				$thumbmsg = gettext('Show album thumb');
 			}
 			$checkarray_images = array(
-			gettext('*Bulk actions*') => 'noaction',
-			gettext('Delete') => 'deleteall',
-			gettext('Set to published') => 'showall',
-			gettext('Set to unpublished') => 'hideall',
+					gettext('*Bulk actions*') => 'noaction',
+					gettext('Delete') => 'deleteall',
+					gettext('Set to published') => 'showall',
+					gettext('Set to unpublished') => 'hideall',
 			);
-		}
-		$checkarray_albums = array_merge($checkarray_images, array(
-				gettext('Delete') => 'deleteallalbum'
-						)
-		);
-		$checkarray_images = array_merge($checkarray_images, array(
-				gettext('Delete') => 'deleteall',
-				gettext('Move') => array('name' => 'moveimages', 'action' => 'mass_movecopy_data'),
-				gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
-						)
-		);
-		$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
 
-		/** EDIT ***************************************************************************
-		 *
-		 *  ********************************************************************************
-		 */
-		if (isset($_GET['album'])) {
-			/** SINGLE ALBUM ******************************************************************* */
-			// one time generation of this list.
-			$mcr_albumlist = genAlbumList();
+			$checkarray_albums = array_merge($checkarray_images, array(
+					gettext('Delete') => 'deleteallalbum'
+							)
+			);
+			$checkarray_images = array_merge($checkarray_images, array(
+					gettext('Delete') => 'deleteall',
+					gettext('Move') => array('name' => 'moveimages', 'action' => 'mass_movecopy_data'),
+					gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
+							)
+			);
+			$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);
 
-			$oldalbumimagesort = $_gallery->getSortType('image');
-			$direction = $_gallery->getSortDirection('image');
+			/** EDIT ***************************************************************************
+			 *
+			 *  ********************************************************************************
+			 */
+			if (isset($_GET['album'])) {
+				/** SINGLE ALBUM ******************************************************************* */
+				// one time generation of this list.
+				$mcr_albumlist = genAlbumList();
 
-			if (!($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
-				$allimages = array();
-				$requestor = $_current_admin_obj->getUser();
+				$oldalbumimagesort = $_gallery->getSortType('image');
+				$direction = $_gallery->getSortDirection('image');
 
-				$albumowner = $album->getOwner();
+				if (!($album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
+					$allimages = array();
+					$requestor = $_current_admin_obj->getUser();
 
-				$sql = 'SELECT * FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (`owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
-				if ($direction)
-					$sql .= ' DESC';
+					$albumowner = $album->getOwner();
 
-				$result = query($sql);
-				if ($result) {
-					while ($row = db_fetch_assoc($result)) {
-						$allimages[] = $row['filename'];
-					}
-					db_free_result($result);
-				}
-			} else {
-				$allimages = $album->getImages(0, 0, $oldalbumimagesort, $direction ? 'desc' : 'asc');
-			}
+					$sql = 'SELECT * FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (`owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
+					if ($direction)
+						$sql .= ' DESC';
 
-
-			if (isset($_GET['filter'])) {
-				$filter = sanitize($_GET['filter']);
-			} else {
-				$filter = '';
-			}
-			switch ($filter) {
-				case'unpublished':
-					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="0"';
-					$select = query_full_array($sql);
-					break;
-				case'published':
-					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="1"';
-					$select = query_full_array($sql);
-					break;
-				default:
-					$select = false;
-			}
-			if (!empty($select)) {
-				$include = array();
-				foreach ($select as $img) {
-					$include[] = $img['filename'];
-				}
-				$allimages = array_intersect($allimages, $include);
-			}
-
-			$allimagecount = count($allimages);
-			if (isset($_GET['tab']) && $_GET['tab'] == 'imageinfo' && isset($_GET['image'])) { // directed to an image
-				$target_image = urldecode(sanitize($_GET['image']));
-				$imageno = array_search($target_image, $allimages);
-				if ($imageno !== false) {
-					$pagenum = ceil(($imageno + 1) / $imagesTab_imageCount);
-				}
-			} else {
-				$target_image = '';
-			}
-			if (!isset($pagenum)) {
-				if (isset($_GET['subpage'])) {
-					if (is_numeric($_GET['subpage'])) {
-						$pagenum = max(intval($_GET['subpage']), 1);
-						if (($pagenum - 1) * $imagesTab_imageCount >= $allimagecount)
-							$pagenum--;
-					} else {
-						$pagenum = sanitize($_GET['subpage']);
+					$result = query($sql);
+					if ($result) {
+						while ($row = db_fetch_assoc($result)) {
+							$allimages[] = $row['filename'];
+						}
+						db_free_result($result);
 					}
 				} else {
-					$pagenum = 1;
+					$allimages = $album->getImages(0, 0, $oldalbumimagesort, $direction ? 'desc' : 'asc');
 				}
-			}
-			if (is_numeric($pagenum)) {
-				$images = array_slice($allimages, ($pagenum - 1) * $imagesTab_imageCount, $imagesTab_imageCount);
-			} else {
-				$images = $allimages;
-			}
 
-			$totalimages = count($images);
 
-			$parent = dirname($album->name);
-			if (($parent == '/') || ($parent == '.') || empty($parent)) {
-				$parent = '';
-			} else {
-				$parent = "&amp;album=" . pathurlencode($parent);
-			}
-			if (isset($_GET['metadata_refresh'])) {
-				echo '<div class="messagebox fade-message">';
-				echo "<h2>" . gettext("Image metadata refreshed.") . "</h2>";
-				echo '</div>';
-			}
+				if (isset($_GET['filter'])) {
+					$filter = sanitize($_GET['filter']);
+				} else {
+					$filter = '';
+				}
+				switch ($filter) {
+					case'unpublished':
+						$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="0"';
+						$select = query_full_array($sql);
+						break;
+					case'published':
+						$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND `show`="1"';
+						$select = query_full_array($sql);
+						break;
+					default:
+						$select = false;
+				}
+				if (!empty($select)) {
+					$include = array();
+					foreach ($select as $img) {
+						$include[] = $img['filename'];
+					}
+					$allimages = array_intersect($allimages, $include);
+				}
 
-			if ($album->getParent()) {
-				$link = getAlbumBreadcrumbAdmin($album);
-			} else {
-				$link = '';
-			}
-			$alb = removeParentAlbumNames($album);
-			npgFilters::apply('admin_note', 'albums', $subtab);
-			?>
-			<h1><?php printf(gettext('Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
-			<?php
-			$subtab = getCurrentTab();
-			if ($subtab == 'imageinfo') {
-				$backButton = getAdminLink('admin-tabs/images.php') . '?page=edit' . $parent;
-				require_once(CORE_SERVERPATH . 'admin-tabs/image_edit.php');
-			}
-		} else { /* Display a list of albums to edit. */
-			npgFilters::apply('admin_note', 'albums', $subtab);
-			?>
-			<h1><?php echo gettext("Albums"); ?></h1>
-			<div class="tabbox">
-				<?php
-				consolidatedEditMessages('');
-
-				$albums = array();
-				$sql = 'SELECT * FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_current_admin_obj->getUser()) . ' ORDER BY a.folder';
-				$result = query($sql);
-
-				while ($row = db_fetch_assoc($result)) {
-					$folder = $row['folder'];
-					if (isset($albums[$folder])) {
-						$albums[$folder]['image_count'] ++;
+				$allimagecount = count($allimages);
+				if (isset($_GET['tab']) && $_GET['tab'] == 'imageinfo' && isset($_GET['image'])) { // directed to an image
+					$target_image = urldecode(sanitize($_GET['image']));
+					$imageno = array_search($target_image, $allimages);
+					if ($imageno !== false) {
+						$pagenum = ceil(($imageno + 1) / $imagesTab_imageCount);
+					}
+				} else {
+					$target_image = '';
+				}
+				if (!isset($pagenum)) {
+					if (isset($_GET['subpage'])) {
+						if (is_numeric($_GET['subpage'])) {
+							$pagenum = max(intval($_GET['subpage']), 1);
+							if (($pagenum - 1) * $imagesTab_imageCount >= $allimagecount)
+								$pagenum--;
+						} else {
+							$pagenum = sanitize($_GET['subpage']);
+						}
 					} else {
-						$albums[$folder] = array('folder' => $folder, 'image_count' => 1);
+						$pagenum = 1;
 					}
 				}
-				if (count($albums) > 0) {
-					$list = array();
-					foreach ($albums as $album => $data) {
-						$level = array();
-						$parts = explode('/', $album);
-						$base = '';
-						foreach ($parts as $cur => $analbum) {
-							$albumObj = newalbum($base . $analbum);
-							if ($albumObj) {
-								$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
-								if (isset($albums[$base . $analbum])) {
-									$count = $albums[$base . $analbum]['image_count'];
-								} else {
-									$count = 0;
-								}
-								$list[$base . $analbum] = array('name' => $base . $analbum, 'sort_order' => $level, 'image_count' => $count);
-								$base .= $analbum . '/';
-							}
+				if (is_numeric($pagenum)) {
+					$images = array_slice($allimages, ($pagenum - 1) * $imagesTab_imageCount, $imagesTab_imageCount);
+				} else {
+					$images = $allimages;
+				}
+
+				$totalimages = count($images);
+
+				$parent = dirname($album->name);
+				if (($parent == '/') || ($parent == '.') || empty($parent)) {
+					$parent = '';
+				} else {
+					$parent = "&amp;album=" . pathurlencode($parent);
+				}
+				if (isset($_GET['metadata_refresh'])) {
+					echo '<div class="messagebox fade-message">';
+					echo "<h2>" . gettext("Image metadata refreshed.") . "</h2>";
+					echo '</div>';
+				}
+
+				if ($album->getParent()) {
+					$link = getAlbumBreadcrumbAdmin($album);
+				} else {
+					$link = '';
+				}
+				$alb = removeParentAlbumNames($album);
+				npgFilters::apply('admin_note', 'albums', $subtab);
+				?>
+				<h1><?php printf(gettext('Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>
+				<?php
+				$subtab = getCurrentTab();
+				if ($subtab == 'imageinfo') {
+					$backButton = getAdminLink('admin-tabs/images.php') . '?page=edit' . $parent;
+					require_once(CORE_SERVERPATH . 'admin-tabs/image_edit.php');
+				}
+			} else { /* Display a list of albums to edit. */
+				npgFilters::apply('admin_note', 'albums', $subtab);
+				?>
+				<h1><?php echo gettext("Albums"); ?></h1>
+				<div class="tabbox">
+					<?php
+					consolidatedEditMessages('');
+
+					$albums = array();
+					$sql = 'SELECT * FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_current_admin_obj->getUser()) . ' ORDER BY a.folder';
+					$result = query($sql);
+
+					while ($row = db_fetch_assoc($result)) {
+						$folder = $row['folder'];
+						if (isset($albums[$folder])) {
+							$albums[$folder]['image_count'] ++;
+						} else {
+							$albums[$folder] = array('folder' => $folder, 'image_count' => 1);
 						}
 					}
-					?>
-					<p>
-						<?php
-						echo gettext('Select an album to view your images.');
+					if (count($albums) > 0) {
+						$list = array();
+						foreach ($albums as $album => $data) {
+							$level = array();
+							$parts = explode('/', $album);
+							$base = '';
+							foreach ($parts as $cur => $analbum) {
+								$albumObj = newalbum($base . $analbum);
+								if ($albumObj) {
+									$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
+									if (isset($albums[$base . $analbum])) {
+										$count = $albums[$base . $analbum]['image_count'];
+									} else {
+										$count = 0;
+									}
+									$list[$base . $analbum] = array('name' => $base . $analbum, 'sort_order' => $level, 'image_count' => $count);
+									$base .= $analbum . '/';
+								}
+							}
+						}
 						?>
-					</p>
-
-					<div class="headline">
-					</div>
-					<div class="subhead">
-						<label style="float: left;padding-top:3px;">
+						<p>
 							<?php
-							npgButton('button', $thumbmsg, array(
-									'buttonLink' => getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images&amp;showthumbs=' . $thumbshow,
-									'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
-											)
-							);
+							echo gettext('Select an album to view your images.');
 							?>
-						</label>
+						</p>
 
+						<div class="headline">
+						</div>
+						<div class="subhead">
+							<label style="float: left;padding-top:3px;">
+								<?php
+								npgButton('button', $thumbmsg, array(
+										'buttonLink' => getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images&amp;showthumbs=' . $thumbshow,
+										'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
+												)
+								);
+								?>
+							</label>
+
+						</div>
+						<div class="bordered">
+							<ul class="page-list" id="albumsort">
+								<?php printNestedImageList($list, $showthumb, NULL); ?>
+							</ul>
+
+						</div>
+
+						<br class="clearall" />
 					</div>
-					<div class="bordered">
-						<ul class="page-list" id="albumsort">
-							<?php printNestedImageList($list, $showthumb, NULL); ?>
-						</ul>
 
-					</div>
-
-					<br class="clearall" />
-				</div>
-
-				<?php
-			} else {
-				echo gettext("You have no images assigned to you.");
+					<?php
+				} else {
+					echo gettext("You have no images assigned to you.");
+				}
 			}
-		}
-		?>
+			?>
 		</div><!-- content -->
 
-	<?php printAdminFooter(); ?>
+		<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 <?php
