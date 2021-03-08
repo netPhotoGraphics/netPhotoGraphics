@@ -645,7 +645,11 @@ class Image extends MediaObject {
 		$tempma = $d[1] * pow(10, -strlen($d[1]));
 		$tempma = $tempma * 3600;
 		$min = floor($tempma / 60);
-		$sec = $tempma - ($min * 60);
+		$sec = round($tempma - ($min * 60), 2);
+		if ($sec >= 60) {
+			$min++;
+			$sec = $sec - 60;
+		}
 		return sprintf('%d° %d\' %.2f" %s', $d[0], $min, $sec, $ref);
 	}
 
