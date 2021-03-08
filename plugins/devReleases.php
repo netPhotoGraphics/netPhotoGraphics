@@ -60,6 +60,7 @@ if (isset($_GET['action'])) {
 		exit();
 	}
 	if ($_GET['action'] == 'install_dev') {
+		XSRFdefender('install_update');
 		if ($msg = getRemoteFile($devVersionURI, SERVERPATH)) {
 			$found = file_exists($file = SERVERPATH . '/' . basename($devVersionURI));
 			if ($found) {
@@ -147,14 +148,18 @@ class devRelease {
 	static function notice() {
 		$newestVersionURI = getOption('getUpdates_latest');
 		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
-		$devVersionURI = getOption('getDEVUpdates_latest');
 		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
 
-		preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
-		if (version_compare(preg_replace('~[^0-9,.]~', '', $matches[1]), $npgVersion, '>') && version_compare($newestVersion, $npgVersion, '>')) {
-			$msg = gettext('There is an update available.');
-		} else {
-			$msg = gettext('You are running the latest netPhotoGraphics version.');
+		switch (version_compare($newestVersion, $npgVersion)) {
+			case -1:
+				$msg = gettext('You are running a version greater than the current release.');
+				break;
+			case 0:
+				$msg = gettext('You are running the latest netPhotoGraphics version.');
+				break;
+			case 1:
+				$msg = gettext('There is an update available.');
+				break;
 		}
 		?>
 		<div class="messagebox fade-message">
