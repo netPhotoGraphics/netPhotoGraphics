@@ -795,6 +795,13 @@ class openStreetMap {
 					$this->center = array($lat, $lon);
 					break;
 			}
+		} else {
+			//fallback if no geodata at all
+			$this->center = FALSE; // not null as we don't need to re-do if there is nothing
+		}
+		// fallback if geodata was somehow wrong
+		if (empty($this->center) || empty($this->center[0]) || !is_int($this->center[0]) || empty($this->center[1]) || !is_int($this->center[1])) {
+			$this->center = FALSE;
 		}
 		return $this->center;
 	}
@@ -837,7 +844,7 @@ class openStreetMap {
 	 */
 	function printMap() {
 		$geodataJS = $this->getGeoDataJS();
-		if (!empty($geodataJS)) {
+		if (!empty($geodataJS) && !empty($this->center)) {
 			$class = $this->class;
 			$id = $this->mapid . $this->mapnumber;
 			$id_data = $id . '_data';
