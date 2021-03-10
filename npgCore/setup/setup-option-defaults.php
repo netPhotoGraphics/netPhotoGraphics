@@ -541,7 +541,8 @@ $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>() lang
 				"tbody=>(class=>() id=>() lang=>())\n" .
 				"tfoot=>(class=>() id=>() lang=>())\n" .
 				"colgroup=>(class=>() id=>() lang=>())\n" .
-				"col=>(class=>() id=>() lang=>())\n"
+				"col=>(class=>() id=>() lang=>())\n" .
+				"form => (action=>() method=>() accept-charset=>() id=>() class=>() title=>() name=>() target=>() lang=>())\n";
 ;
 $a = parseAllowedTags($general_tags);
 if (!is_array($a)) {

@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
 					$result = sprintf(gettext('%s log could not be emptied.'), $what);
 				}
 				fclose($f);
-				chmod($file, LOGS_MOD);
+				chmod($file, LOG_MOD);
 				clearstatcache();
 				$_mutex->unlock();
 				if (basename($file) == 'security.log') {
