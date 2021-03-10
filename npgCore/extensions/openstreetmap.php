@@ -593,26 +593,6 @@ class openStreetMap {
 	}
 
 	/**
-	 * converts a cordinate in string format to a float
-	 * NOTE: this function presumes that there are no thousands separators!!!
-	 *
-	 * @param string $num
-	 * @return float
-	 */
-	static function inputConvert($num) {
-		if (is_string($num)) {
-			$d = preg_split('/[,\.]/', $num . '.0');
-			$float = abs($d[0]) + $d[1] * pow(10, -strlen($d[1]));
-			if (strpos($num, '-') !== FALSE) {
-				$float = - $float;
-			}
-		} else {
-			$float = (float) $num;
-		}
-		return $float;
-	}
-
-	/**
 	 * $returns coordinate informations for an image
 	 * @param $image		image object
 	 */
@@ -621,12 +601,10 @@ class openStreetMap {
 			$lat = $image->get('GPSLatitude');
 			$long = $image->get('GPSLongitude');
 			if (!empty($lat) && !empty($long)) {
-				$lat_f = self::inputConvert($lat);
-				$long_f = self::inputConvert($long);
 				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(array('size' => 150, 'thumb' => TRUE)) . "' alt='' /></a>";
 				$title = shortenContent($image->getTitle(), 50, '...') . '<br />';
 				$desc = shortenContent($image->getDesc(), 100, '...');
-				return array('lat' => $lat_f, 'long' => $long_f, 'title' => $title, 'desc' => $desc, 'thumb' => $thumb, 'current' => 0);
+				return array('lat' => $lat, 'long' => $long, 'title' => $title, 'desc' => $desc, 'thumb' => $thumb, 'current' => 0);
 			}
 		}
 		return false;
@@ -799,8 +777,9 @@ class openStreetMap {
 			//fallback if no geodata at all
 			$this->center = FALSE; // not null as we don't need to re-do if there is nothing
 		}
+
 		// fallback if geodata was somehow wrong
-		if (empty($this->center) || empty($this->center[0]) || !is_int($this->center[0]) || empty($this->center[1]) || !is_int($this->center[1])) {
+		if (empty($this->center) || empty($this->center[0]) || empty($this->center[1])) {
 			$this->center = FALSE;
 		}
 		return $this->center;
@@ -1074,6 +1053,7 @@ class openStreetMap {
 function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false, $id = NULL, $hide = NULL, $text = NULL) {
 
 	$map = new openStreetMap($geodata, $obj);
+
 	if (!is_null($width)) {
 		$map->width = $width;
 	}
