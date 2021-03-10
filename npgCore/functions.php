@@ -41,7 +41,7 @@ function parseTags(&$source) {
 	$source = substr($source, 1); //strip off the open paren
 	$a = array();
 	while (strlen($source) > 1 && $source[0] != ")") {
-		if (!preg_match('~^([a-zA-Z0-9_]*)\s*([^\(\s]*)~', $source, $matches) || $matches[2] != '=>') {
+		if (!preg_match('~^([a-zA-Z0-9_\-]*)\s*([^\(\s]*)~', $source, $matches) || $matches[2] != '=>') {
 			$a = gettext('missing assignment operator ');
 			break;
 		}
@@ -2379,14 +2379,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
