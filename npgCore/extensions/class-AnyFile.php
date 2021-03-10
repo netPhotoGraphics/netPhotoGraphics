@@ -133,6 +133,7 @@ class AnyFile extends TextObject_core {
 	static function init() {
 		$supported = array();
 		$files = getPluginFiles('class-AnyFile/*.*');
+		unset($files['class-AnyFile/Default']);
 		foreach ($files as $file) {
 			switch (getSuffix($file)) {
 				case 'php':
