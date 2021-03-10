@@ -49,17 +49,21 @@ class AnyFile extends TextObject_core {
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
 		if (OFFSET_PATH == 2) {
-			$supported = getSerializedArray(getOption('AnyFileSuffixList'));
-			if (!empty($supported)) {
+			$supported = getOption('AnyFileSuffixList');
+			if ($supported) {
+				$supported = getSerializedArray($supported);
 				if (!is_dir(USER_PLUGIN_SERVERPATH . 'class-AnyFile')) {
 					mkdir(USER_PLUGIN_SERVERPATH . 'class-AnyFile');
 				}
 				foreach ($supported as $suffix) {
-					if (!file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png')) {
+					if ($suffix && !file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png')) {
 						copy(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-AnyFile/Default.png', USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png');
 					}
 				}
 				purgeOption('AnyFileSuffixList');
+			}
+			if (file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/Default.png')) {
+				unlink(USER_PLUGIN_SERVERPATH . 'class-AnyFile/Default.png');
 			}
 			purgeOption('AnyFile_file_new');
 			purgeOption('AnyFile_file_list');
