@@ -822,10 +822,11 @@ class xmpMetadata {
 	/**
 	 * Finds and returns xmp metadata
 	 *
-	 * @param int $j
+	 * @param string $metadata_path
 	 * @return string
 	 */
-	private static function extractXMP($f) {
+	private static function extractXMP($metadata_path) {
+		$f = file_get_contents($metadata_path);
 		if (preg_match('~<.*?xmpmeta~', $f, $m)) {
 			$open = $m[0];
 			$close = str_replace('<', '</', $open);
@@ -833,7 +834,6 @@ class xmpMetadata {
 			if ($j !== false) {
 				$k = strpos($f, $close, $j + 4);
 				$meta = substr($f, $j, $k + 14 - $j);
-				$l = 0;
 				return $meta;
 			}
 		}
@@ -880,7 +880,12 @@ class xmpMetadata {
 	 */
 	static function new_image($image) {
 		$source = '';
-		$metadata_path = '';
+		if (getOption('xmpMetadata_examine_images_' . strtolower(substr(strrchr($image->localpath, "."), 1)))) {
+			$metadata_path = $image->localpath;
+		} else {
+			$metadata_path = '';
+		}
+
 		$files = safe_glob(substr($image->localpath, 0, strrpos($image->localpath, '.')) . '.*');
 		if (count($files) > 0) {
 			foreach ($files as $file) {
@@ -890,150 +895,126 @@ class xmpMetadata {
 				}
 			}
 		}
-		if (!empty($metadata_path)) {
-			$source = self::extractXMP(file_get_contents($metadata_path));
-		} else if (getOption('xmpMetadata_examine_images_' . strtolower(substr(strrchr($image->localpath, "."), 1)))) {
-			$f = file_get_contents($image->localpath);
-			$l = filesize($image->localpath);
-			$abort = 0;
-			$i = 0;
-			while ($i < $l && $abort < 200 && !$source) {
-				$tag = bin2hex(substr($f, $i, 2));
-				$size = hexdec(bin2hex(substr($f, $i + 2, 2)));
-				switch ($tag) {
-					case 'ffe1': // EXIF
-					case 'ffe2': // EXIF extension
-					case 'fffe': // COM
-					case 'ffe0': // IPTC marker
-						$source = self::extractXMP($f);
-						$i = $i + $size + 2;
-						$abort = 0;
-						break;
-					default:
-						if ($f[$i] == '<') {
-							$source = self::extractXMP($f);
-						}
-						$i = $i + 1;
-						$abort++;
-						break;
-				}
-			}
-		}
-		// direct import to fields with no processing required
-		$import = array(
-				'location' => 'XMPSubLocation',
-				'city' => 'XMPCity',
-				'city' => 'XMPCity',
-				'state' => 'XMPState',
-				'country' => 'XMPLocationName',
-				'copyright' => 'XMPCopyright',
-				'rotation' => 'XMPOrientation'
-		);
-		if (!empty($source)) {
-			$metadata = self::extract($source);
-			if (!empty($metadata)) {
-				$exifVars = self::getMetadataFields();
-				foreach ($metadata as $field => $element) {
-					if (!array_key_exists($field, $exifVars) || $exifVars[$field][EXIF_FIELD_ENABLED]) {
-						$image->set('hasMetadata', 1);
-						$v = self::to_string($element);
-						if (($key = array_search($field, $import)) !== false) {
-							$image->set($key, $v);
-						} else {
-							switch ($field) {
-								case 'XMPSource':
-									if (!isset($metadata['XMPImageCredit'])) {
+		if ($metadata_path) {
+			$source = self::extractXMP($metadata_path);
+			if ($source) {
+
+				// direct import to fields with no processing required
+				$import = array(
+						'location' => 'XMPSubLocation',
+						'city' => 'XMPCity',
+						'city' => 'XMPCity',
+						'state' => 'XMPState',
+						'country' => 'XMPLocationName',
+						'copyright' => 'XMPCopyright',
+						'rotation' => 'XMPOrientation'
+				);
+
+				$metadata = self::extract($source);
+				if (!empty($metadata)) {
+					$exifVars = self::getMetadataFields();
+					foreach ($metadata as $field => $element) {
+						if (!array_key_exists($field, $exifVars) || $exifVars[$field][EXIF_FIELD_ENABLED]) {
+							$image->set('hasMetadata', 1);
+							$v = self::to_string($element);
+							if (($key = array_search($field, $import)) !== false) {
+								$image->set($key, $v);
+							} else {
+								switch ($field) {
+									case 'XMPSource':
+										if (!isset($metadata['XMPImageCredit'])) {
+											$this->set('credit', $v);
+										}
+										break;
+									case 'XMPImageCredit':
 										$this->set('credit', $v);
-									}
-									break;
-								case 'XMPImageCredit':
-									$this->set('credit', $v);
-									break;
-								case 'XMPImageHeadline':
-									if (getoption('transform_newlines')) {
-										$v = nl2br($v);
-									}
-									$image->setTitle($v);
-									break;
-								case 'XMPImageCaption':
-									if (getoption('transform_newlines')) {
-										$v = nl2br(v);
-									}
-									$image->setDesc($v);
-									break;
-								case 'XMPDateTimeOriginal':
-									$image->setDateTime($element);
-									break;
-								case 'XMPExposureTime':
-									$v = formatExposure(self::rationalNum($element));
-									break;
-								case 'XMPFocalLength':
-									$v = self::rationalNum($element) . ' mm';
-									break;
-								case 'XMPAperatureValue':
-								case 'XMPFNumber':
-									$v = 'f/' . self::rationalNum($element);
-									break;
-								case 'XMPExposureBiasValue':
-								case 'XMPGPSAltitude':
-									$v = self::rationalNum($element);
-									break;
-								case 'XMPGPSLatitude':
-								case 'XMPGPSLongitude':
-									$n = explode(',', substr($element, 0, -1));
-									$r = $n[0] + $n[1] / 60;
-									$ref = strtoupper(substr($element, -1, 1));
-									$v = Image::toDMS($r, $ref);
-									if (in_array($ref, array('S', 'W'))) {
-										$r = -$r;
-									}
-									$r = (float) $r;
-									$image->set(substr($field, 3), $r);
-									break;
-								case 'XMPLensInfo':
-									preg_match_all('~(\d+/\d+)~', $v, $matches);
-									if (isset($matches[1]) && !empty($matches[1])) {
-										$lens = array();
-										foreach ($matches[1] as $i => $f) {
-											$term = explode('/', $f);
-											if ($term[0] != 0 && $term[1] != 0) {
-												$lens[$i] = convertToFraction($term[0] / $term[1]);
+										break;
+									case 'XMPImageHeadline':
+										if (getoption('transform_newlines')) {
+											$v = nl2br($v);
+										}
+										$image->setTitle($v);
+										break;
+									case 'XMPImageCaption':
+										if (getoption('transform_newlines')) {
+											$v = nl2br(v);
+										}
+										$image->setDesc($v);
+										break;
+									case 'XMPDateTimeOriginal':
+										$image->setDateTime($element);
+										break;
+									case 'XMPExposureTime':
+										$v = formatExposure(self::rationalNum($element));
+										break;
+									case 'XMPFocalLength':
+										$v = self::rationalNum($element) . ' mm';
+										break;
+									case 'XMPAperatureValue':
+									case 'XMPFNumber':
+										$v = 'f/' . self::rationalNum($element);
+										break;
+									case 'XMPExposureBiasValue':
+									case 'XMPGPSAltitude':
+										$v = self::rationalNum($element);
+										break;
+									case 'XMPGPSLatitude':
+									case 'XMPGPSLongitude':
+										$n = explode(',', substr($element, 0, -1));
+										$r = $n[0] + $n[1] / 60;
+										$ref = strtoupper(substr($element, -1, 1));
+										$v = Image::toDMS($r, $ref);
+										if (in_array($ref, array('S', 'W'))) {
+											$r = -$r;
+										}
+										$r = (float) $r;
+										$image->set(substr($field, 3), $r);
+										break;
+									case 'XMPLensInfo':
+										preg_match_all('~(\d+/\d+)~', $v, $matches);
+										if (isset($matches[1]) && !empty($matches[1])) {
+											$lens = array();
+											foreach ($matches[1] as $i => $f) {
+												$term = explode('/', $f);
+												if ($term[0] != 0 && $term[1] != 0) {
+													$lens[$i] = convertToFraction($term[0] / $term[1]);
+												} else {
+													$lens[$i] = 0;
+												}
+											}
+											if ($lens[0] == $lens[1]) {
+												$v = sprintf('%0.0fmm', $lens[0]);
 											} else {
-												$lens[$i] = 0;
+												$v = sprintf('%0.0f-%0.0fmm', $lens[0], $lens[1]);
+											}
+											if ($lens[2] == $lens[3]) {
+												if ($lens[2] != 0) {
+													$v .= sprintf(' f/%0.1f', $lens[2]);
+												}
+											} else {
+												$v .= sprintf(' f/%0.1f-%0.1f', $lens[3], $lens[2]);
 											}
 										}
-										if ($lens[0] == $lens[1]) {
-											$v = sprintf('%0.0fmm', $lens[0]);
-										} else {
-											$v = sprintf('%0.0f-%0.0fmm', $lens[0], $lens[1]);
+										break;
+									case 'rating':
+										$v = min(getoption('rating_stars_count'), $v) * min(1, getOption('rating_split_stars'));
+										$image->set('total_value', $v);
+										$image->set('total_votes', 1);
+										break;
+									case 'XMPKeywords':
+										if (!is_array($element)) {
+											$element = explode(',', $element);
 										}
-										if ($lens[2] == $lens[3]) {
-											if ($lens[2] != 0) {
-												$v .= sprintf(' f/%0.1f', $lens[2]);
-											}
-										} else {
-											$v .= sprintf(' f/%0.1f-%0.1f', $lens[3], $lens[2]);
-										}
-									}
-									break;
-								case 'rating':
-									$v = min(getoption('rating_stars_count'), $v) * min(1, getOption('rating_split_stars'));
-									$image->set('total_value', $v);
-									$image->set('total_votes', 1);
-									break;
-								case 'XMPKeywords':
-									if (!is_array($element)) {
-										$element = explode(',', $element);
-									}
-									$element = array_unique(array_merge($image->getTags(), $element));
-									$image->setTags($element);
-									break;
+										$element = array_unique(array_merge($image->getTags(), $element));
+										$image->setTags($element);
+										break;
+								}
 							}
+							$image->set($field, $v);
 						}
-						$image->set($field, $v);
 					}
+					$image->save();
 				}
-				$image->save();
 			}
 		}
 		return $image;
