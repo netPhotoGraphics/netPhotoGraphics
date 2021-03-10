@@ -1186,7 +1186,7 @@ function read_exif_data_raw($path, $verbose) {
 				$result['JFIF']['Identifier'] = substr($data, 0, 5);
 				$result['JFIF']['ExtensionCode'] = bin2hex(substr($data, 6, 1));
 
-				$globalOffset+=hexdec($size) + 2;
+				$globalOffset += hexdec($size) + 2;
 			} else if ($data == 'ffe1') { // APP1 Marker : EXIF Metadata(TIFF IFD format) or JPEG Thumbnail or Adobe XMP
 				$header = fread($in, 6); // Exif block starts with 'Exif\0\0' header
 				if ($header == "Exif\0\0") { // EXIF Marker ?
@@ -1198,7 +1198,7 @@ function read_exif_data_raw($path, $verbose) {
 					if (hexdec($size) - 2 > 0) {
 						$data = fread($in, hexdec($size) - 2 - 6); // skip XMP or Thumbnail data, and loop again
 					}
-					$globalOffset+=hexdec($size) + 2;
+					$globalOffset += hexdec($size) + 2;
 				}
 			} else if ($data == 'ffe2') { // APP2 Marker : EXIF extension
 				$result['ValidAPP2Data'] = 1;
@@ -1208,7 +1208,7 @@ function read_exif_data_raw($path, $verbose) {
 					$data = fread($in, hexdec($size) - 2);
 					$result['APP2']['Data'] = $data;
 				}
-				$globalOffset+=hexdec($size) + 2;
+				$globalOffset += hexdec($size) + 2;
 			} else if ($data == 'ffed') { // IPTC Marker
 				$result['ValidIPTCData'] = 1;
 				$result['IPTC']['Size'] = hexdec($size);
@@ -1217,7 +1217,7 @@ function read_exif_data_raw($path, $verbose) {
 					$data = fread($in, hexdec($size) - 2);
 					$result['IPTC']['Data'] = $data;
 				}
-				$globalOffset+=hexdec($size) + 2;
+				$globalOffset += hexdec($size) + 2;
 			} else if ($data == 'fffe') { // Comment extension Marker
 				$result['ValidCOMData'] = 1;
 				$result['COM']['Size'] = hexdec($size);
@@ -1226,12 +1226,12 @@ function read_exif_data_raw($path, $verbose) {
 					$data = fread($in, hexdec($size) - 2);
 					$result['COM']['Data'] = $data;
 				}
-				$globalOffset+=hexdec($size) + 2;
+				$globalOffset += hexdec($size) + 2;
 			} else { // unknown Marker
 				if (hexdec($size) - 2 > 0) {
 					$data = fread($in, hexdec($size) - 2);
 				}
-				$globalOffset+=hexdec($size) + 2;
+				$globalOffset += hexdec($size) + 2;
 			}
 		}
 		// END MARKER LOOP
@@ -1275,28 +1275,9 @@ function read_exif_data_raw($path, $verbose) {
 		$unknown = fread($in, hexdec($offset) - 8); // fixed this bug in 1.3
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // add 12 to the offset to account for TIFF header
 	if ($result['ValidJpeg'] == 1) {
-		$globalOffset+=12;
+		$globalOffset += 12;
 	}
 
 

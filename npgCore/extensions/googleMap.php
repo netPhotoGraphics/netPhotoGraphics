@@ -164,26 +164,6 @@ class GoogleMap {
 	}
 
 	/**
-	 * converts a cordinate in string format to a float
-	 * NOTE: this function presumes that there are no thousands separators!!!
-	 *
-	 * @param string $num
-	 * @return float
-	 */
-	static function inputConvert($num) {
-		if (is_string($num)) {
-			$d = preg_split('/[,\.]/', $num . '.0');
-			$float = abs($d[0]) + $d[1] * pow(10, -strlen($d[1]));
-			if (strpos($num, '-') !== FALSE) {
-				$float = - $float;
-			}
-		} else {
-			$float = (float) $num;
-		}
-		return $float;
-	}
-
-	/**
 	 * $returns coordinate informations for an image
 	 * @param $image		image object
 	 */
@@ -193,10 +173,8 @@ class GoogleMap {
 			$long = $image->get('GPSLongitude');
 			$thumbimg = $image->getCustomImage(array('size' => 150, 'thumb' => true));
 			if (!empty($lat) && !empty($long)) {
-				$lat_f = self::inputConvert($lat);
-				$long_f = self::inputConvert($long);
 				$thumb = '<a href="javascript:image(\'' . $image->albumname . '\',\'' . $image->filename . '\');"><img src="' . $thumbimg . '" /></a>';
-				return array('lat' => $lat_f, 'long' => $long_f, 'title' => $image->getTitle(), 'desc' => $image->getDesc(), 'thumb' => $thumb);
+				return array('lat' => $lat, 'long' => $long, 'title' => $image->getTitle(), 'desc' => $image->getDesc(), 'thumb' => $thumb);
 			}
 		}
 		return false;
