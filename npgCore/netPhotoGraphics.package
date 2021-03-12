@@ -8078,6 +8078,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/version.php:*
 %core%/setup:*
 %core%/setup/database.php:*
+%core%/setup/icon.php:*
 %core%/setup/index.php:*
 %core%/setup/setup-functions.php:*
 %core%/setup/setup-option-defaults.php:*
@@ -8088,4 +8089,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8090
+8091
