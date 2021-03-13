@@ -4949,10 +4949,7 @@ class simpleMap {
 	 * † use is plugin dependent
 	 */
 	static function printMap($points = NULL, $options = array()) {
-		$text = NULL;
-		$id = NULL;
-		$hide = NULL;
-		$obj = NULL;
+		$text = $id = $hide = $obj = NULL;
 		$class = '';
 		extract($options);
 		global $_simpleMap_map_points;

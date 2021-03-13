@@ -171,8 +171,8 @@ class GoogleMap {
 		if (isImageClass($image)) {
 			$lat = $image->get('GPSLatitude');
 			$long = $image->get('GPSLongitude');
-			$thumbimg = $image->getCustomImage(array('size' => 150, 'thumb' => true));
 			if (!empty($lat) && !empty($long)) {
+				$thumbimg = $image->getCustomImage(array('size' => 150, 'thumb' => true));
 				$thumb = '<a href="javascript:image(\'' . $image->albumname . '\',\'' . $image->filename . '\');"><img src="' . $thumbimg . '" /></a>';
 				return array('lat' => $lat, 'long' => $long, 'title' => $image->getTitle(), 'desc' => $image->getDesc(), 'thumb' => $thumb);
 			}
