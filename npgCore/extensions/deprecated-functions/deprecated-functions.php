@@ -166,6 +166,14 @@ function exitZP() {
 }
 
 /**
+ * @deprecated since version 1.8.1
+ */
+function zp_error($error_msg, $error_type) {
+	deprecated_functions::notify(gettext("triger_error($error_msg, $error_type)"));
+	trigger_error($error_msg, $error_type);
+}
+
+/**
  * @deprecated since version 1.9.6
  */
 function zp_register_filter($hook, $function_name, $priority = NULL) {

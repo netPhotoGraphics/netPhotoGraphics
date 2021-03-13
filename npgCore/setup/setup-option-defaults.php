@@ -395,6 +395,9 @@ setOptionDefault('dirtyform_enable', 2);
 		});
 	});
 </script>
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
 <?php
 purgeOption('mod_rewrite_detected');
 
@@ -933,7 +936,7 @@ $plugins = array_keys($plugins);
 	<?php
 	setOptionDefault('deprecated_functions_signature', NULL);
 
-//clean up plugins needed for themes and other plugins
+	//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {
@@ -1015,7 +1018,15 @@ $plugins = array_keys($plugins);
 	setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 	?>
 </p>
-
+<p>
+	<span class="floatright">
+		<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php echo gettext('Successful initialization'); ?>
+		<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php echo gettext('Successful initialization (third party item)'); ?>
+		<?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?>
+		<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" alt="<?php echo gettext('deprecated'); ?>" height="16px" width="16px" /> <?php echo gettext('Deprecated'); ?>
+	</span>
+</p>
+<br clear="all">
 <?php
 if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
 	//	There are either not distributed themes or ot distributed plugins present
