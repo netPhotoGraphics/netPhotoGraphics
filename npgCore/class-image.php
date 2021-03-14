@@ -361,6 +361,22 @@ class Image extends MediaObject {
 	}
 
 	/**
+	 * these functions return the "consolidated" geo coordinates as floats
+	 * strange things happen with locales, so best to be "separator blind"
+	 *
+	 * @return float
+	 */
+	function getGPSLatitude() {
+		$d = preg_split('/[,\.]/', str_replace('-', '', $this->get('GPSLatitude')) . '.0');
+		return floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
+	}
+
+	function getGPSLongitude() {
+		$d = preg_split('/[,\.]/', str_replace('-', '', $this->get('GPSLongitude')) . '.0');
+		return floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
+	}
+
+	/**
 	 * check if a metadata field should be used
 	 * @global type $_exifvars
 	 * @param type $field

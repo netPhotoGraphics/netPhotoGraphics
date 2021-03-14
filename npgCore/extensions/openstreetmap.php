@@ -598,8 +598,8 @@ class openStreetMap {
 	 */
 	static function getGeoCoord($image) {
 		if (isImageClass($image)) {
-			$lat = $image->get('GPSLatitude');
-			$long = $image->get('GPSLongitude');
+			$lat = $image->getGPSLatitude();
+			$long = $image->getGPSLongitude();
 			if (!empty($lat) && !empty($long)) {
 				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(array('size' => 150, 'thumb' => TRUE)) . "' alt='' /></a>";
 				$title = shortenContent($image->getTitle(), 50, '...') . '<br />';
