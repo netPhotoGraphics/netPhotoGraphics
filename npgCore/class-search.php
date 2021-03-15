@@ -987,7 +987,7 @@ class SearchEngine {
 	}
 
 	/**
-	 * get connical sort key and direction parameters.
+	 * get conical sort key and direction parameters.
 	 * @param type $sorttype sort field desired
 	 * @param bool $sortdirection DESC or ASC
 	 * @param type $defaulttype if no sort type otherwise selected use this one
