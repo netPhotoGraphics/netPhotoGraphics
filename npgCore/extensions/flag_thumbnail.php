@@ -172,7 +172,7 @@ class flag_thumbnail {
 				$obj = $obj->getAlbumThumbImage();
 			}
 			if (is_object($obj) && isImageClass($obj)) {
-				if ($obj->get('GPSLatitude') && $obj->get('GPSLongitude')) {
+				if ($obj->getGPSLatitude() && $obj->getGPSLongitude()) {
 					if (getOption('flag_thumbnail_use_text')) {
 						$html .= '<span class="textasnewflag" style="position: absolute;bottom: 10px;right: 6px;">' . getOption('flag_thumbnail_use_text') . "</span>\n";
 					} else {

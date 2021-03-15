@@ -146,10 +146,10 @@ function elFinder_tinymce($discard) {
 
 function elFinderThemeEdit($html, $theme) {
 	$html = "launchScript('" . getAdminLink(PLUGIN_FOLDER . '/elFinder/filemanager.php') . "', [
-													'page = upload',
-													'tab = elFinder',
-													'type = files',
-													'themeEdit = " . urlencode($theme) . "'
+													'page=upload',
+													'tab=elFinder',
+													'type=files',
+													'themeEdit=" . urlencode($theme) . "'
 												])";
 	return $html;
 }

@@ -361,6 +361,35 @@ class Image extends MediaObject {
 	}
 
 	/**
+	 * these functions return the "consolidated" geo coordinates as floats
+	 * strange things happen with locales, so best to be "separator blind"
+	 *
+	 * @return float
+	 */
+	private function floatGPS($coord) {
+		$d = preg_split('/[,\.]/', str_replace('-', '', $coord) . '.0');
+		$v = floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
+		if (substr($coord, 0, 1) == '-') {
+			$v = -$v;
+		}
+		return $v;
+	}
+
+	function getGPSLatitude() {
+		if ($coord = $this->get('GPSLatitude')) {
+			return self::floatGPS($coord);
+		}
+		return NULL;
+	}
+
+	function getGPSLongitude() {
+		if ($coord = $this->get('GPSLongitude')) {
+			return self::floatGPS($coord);
+		}
+		return NULL;
+	}
+
+	/**
 	 * check if a metadata field should be used
 	 * @global type $_exifvars
 	 * @param type $field
