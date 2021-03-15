@@ -366,18 +366,25 @@ class Image extends MediaObject {
 	 *
 	 * @return float
 	 */
+	private function floatGPS($coord) {
+		$d = preg_split('/[,\.]/', str_replace('-', '', $coord) . '.0');
+		$v = floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
+		if (substr($coord, 0, 1) == '-') {
+			$v = -$v;
+		}
+		return $v;
+	}
+
 	function getGPSLatitude() {
 		if ($coord = $this->get('GPSLatitude')) {
-			$d = preg_split('/[,\.]/', str_replace('-', '', $coord) . '.0');
-			return floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
+			return self::floatGPS($coord);
 		}
 		return NULL;
 	}
 
 	function getGPSLongitude() {
 		if ($coord = $this->get('GPSLongitude')) {
-			$d = preg_split('/[,\.]/', str_replace('-', '', $coord) . '.0');
-			return floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
+			return self::floatGPS($coord);
 		}
 		return NULL;
 	}
