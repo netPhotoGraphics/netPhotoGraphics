@@ -376,14 +376,16 @@ class Image extends MediaObject {
 	}
 
 	function getGPSLatitude() {
-		if ($coord = $this->get('GPSLatitude')) {
+		$coord = $this->get('GPSLatitude');
+		if (!is_null($coord)) {
 			return self::floatGPS($coord);
 		}
 		return NULL;
 	}
 
 	function getGPSLongitude() {
-		if ($coord = $this->get('GPSLongitude')) {
+		$coord = $this->get('GPSLongitude');
+		if (!is_null($coord)) {
 			return self::floatGPS($coord);
 		}
 		return NULL;
