@@ -1414,24 +1414,22 @@ function sortByKey($results, $sortkey, $order) {
  *
  */
 function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array()) {
+	global $_current_locale;
 	if (!is_array($field)) {
 		$field = array($field);
 	}
 	//create the comparator function
-	$comp = 'str';
-	if ($nat) {
-		$comp .= 'nat';
-	}
-	if ($case) {
-		$comp .= 'case';
-	}
-	$comp .= 'cmp';
-	if ($desc) {
-		uasort($data, function($b, $a) use($field, $comp) {
+	if ($nat && class_exists('Collator')) {
+		$coll = new Collator($_current_locale);
+		$coll->setAttribute(Collator::NUMERIC_COLLATION, Collator::ON);
+		if (!$case) {
+			$coll->setAttribute(Collator::CASE_FIRST, Collator::UPPER_FIRST);
+		}
+		uasort($data, function($a, $b) use($field, $coll) {
 			$retval = 0;
 			foreach ($field as $fieldname) {
 				if ($retval == 0) {
-					$retval = $comp(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
+					$retval = $coll->compare(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
 				} else {
 					break;
 				}
@@ -1439,7 +1437,16 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 			return $retval;
 		});
 	} else {
+		$comp = 'str';
+		if ($nat) {
+			$comp .= 'nat';
+		}
+		if ($case) {
+			$comp .= 'case';
+		}
+		$comp .= 'cmp';
 		uasort($data, function($a, $b) use($field, $comp) {
+			global $coll;
 			$retval = 0;
 			foreach ($field as $fieldname) {
 				if ($retval == 0) {
@@ -1451,9 +1458,11 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 			return $retval;
 		});
 	}
-	if (!$preserveKeys) {
-		$data = array_values($data);
+
+	if ($desc) {
+		$data = array_reverse($data, true);
 	}
+
 	if (!empty($removeCriteria)) {
 		foreach ($data as $key => $datum) {
 			foreach ($removeCriteria as $column) {
@@ -1461,6 +1470,11 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 			}
 		}
 	}
+
+	if (!$preserveKeys) {
+		$data = array_values($data);
+	}
+
 	return $data;
 }
 
@@ -1685,7 +1699,7 @@ function byteConvert($bytes) {
  * @return mixed
  */
 function dateTimeConvert($datetime, $raw = false) {
-	// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
+// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
 	$datetime = preg_replace('/(\d{4}):(\d{2}):(\d{2})/', ' \1-\2-\3', $datetime);
 	$time = strtotime($datetime);
 	if ($time == -1 || $time === false)
@@ -1867,7 +1881,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 		$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 	}
 
-	// Handle the login form.
+// Handle the login form.
 	if (DEBUG_LOGIN) {
 		debugLogVar(["handle_password:" => $auth]);
 	}
@@ -2059,7 +2073,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 	if (empty($theme)) {
 		$theme = $_gallery->getCurrentTheme();
 	}
-	// album-theme order of preference is: Album theme => Theme => album => general
+// album-theme order of preference is: Album theme => Theme => album => general
 	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme`="") ORDER BY `theme` DESC, `id` DESC LIMIT 1';
 	$db = query_single_row($sql);
 	if (empty($db)) {
@@ -2379,14 +2393,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}

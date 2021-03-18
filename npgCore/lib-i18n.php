@@ -523,6 +523,7 @@ function localeSort(&$strings) {
 	global $_current_locale;
 	if (class_exists('Collator')) {
 		$coll = new Collator($_current_locale);
+		$coll->setAttribute(Collator::NUMERIC_COLLATION, Collator::ON);
 		$coll->asort($strings);
 	} else {
 		natcasesort($strings);
