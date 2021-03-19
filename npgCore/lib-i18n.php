@@ -534,21 +534,34 @@ if (function_exists('date_default_timezone_set')) { // insure a correct time zon
 /**
  * Sort by locale rules with fallback if Collator class not present
  *
- * @global type $_current_locale
  * @param array $strings passed by reference
+ * @return bool true if success
  */
 function localeSort(&$strings) {
 	global $Collator;
 	if (isset($Collator)) {
-		$Collator->asort($strings);
+		$Collator->setAttribute(Collator::CASE_FIRST, Collator::OFF);
+		return $Collator->asort($strings);
 	} else {
-		natcasesort($strings);
+		return natcasesort($strings);
 	}
 }
 
+/**
+ * locale aware comparator with fallback if Collator class not present
+ *
+ * @param string $a
+ * @param string $b
+ * @param bool $nat true for natural comparison
+ * @param bool $case true for case insensitive comparison
+ * @return int 1 if $a is greater than $b
+ *             0 if $a is equal to $b
+ *            -1 if $a is less than $b
+ */
 function localeCompare($a, $b, $nat, $case) {
 	global $Collator;
 	if ($nat && isset($Collator)) {
+		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
 		return $Collator->compare($a, $b);
 	} else {
 		//create the comparator function

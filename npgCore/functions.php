@@ -1378,13 +1378,8 @@ function sortByKey($results, $sortkey, $order) {
 		case 'desc':
 			return sortByMultilingual($results, $sortkey, $order);
 		case 'RAND()':
-			$new = array();
-			$keys = array_keys($results);
-			shuffle($keys);
-			foreach ($keys as $key) {
-				$new[$key] = $results[$key];
-			}
-			return $new;
+			shuffle_assoc($results);
+			return $results;
 		default:
 			if (preg_match('`[\/\(\)\*\+\-!\^\%\<\>\ = \&\|]`', $sortkey)) {
 				return $results; //	We cannot deal with expressions
@@ -1424,7 +1419,18 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 		$retval = 0;
 		foreach ($field as $fieldname) {
 			if ($retval == 0) {
-				$retval = localeCompare(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL, $nat, $case);
+				switch ($fieldname) {
+					case 'title':
+					case 'desc':
+						$s1 = isset($a[$fieldname]) ? get_language_string($a[$fieldname]) : NULL;
+						$s2 = isset($b[$fieldname]) ? get_language_string($b[$fieldname]) : NULL;
+						break;
+					default:
+						$s1 = isset($a[$fieldname]) ? $a[$fieldname] : NULL;
+						$s2 = isset($b[$fieldname]) ? $b[$fieldname] : NULL;
+						break;
+				}
+				$retval = localeCompare($s1, $s2, $nat, $case);
 			} else {
 				break;
 			}
