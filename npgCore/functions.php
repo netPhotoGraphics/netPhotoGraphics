@@ -1414,50 +1414,23 @@ function sortByKey($results, $sortkey, $order) {
  *
  */
 function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array()) {
-	global $_current_locale;
+
 	if (!is_array($field)) {
 		$field = array($field);
 	}
-	//create the comparator function
-	if ($nat && class_exists('Collator')) {
-		$coll = new Collator($_current_locale);
-		$coll->setAttribute(Collator::NUMERIC_COLLATION, Collator::ON);
-		if (!$case) {
-			$coll->setAttribute(Collator::CASE_FIRST, Collator::UPPER_FIRST);
-		}
-		uasort($data, function($a, $b) use($field, $coll) {
-			$retval = 0;
-			foreach ($field as $fieldname) {
-				if ($retval == 0) {
-					$retval = $coll->compare(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
-				} else {
-					break;
-				}
+
+	uasort($data, function($a, $b) use($field, $nat, $case) {
+		global $coll;
+		$retval = 0;
+		foreach ($field as $fieldname) {
+			if ($retval == 0) {
+				$retval = localeCompare(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL, $nat, $case);
+			} else {
+				break;
 			}
-			return $retval;
-		});
-	} else {
-		$comp = 'str';
-		if ($nat) {
-			$comp .= 'nat';
 		}
-		if ($case) {
-			$comp .= 'case';
-		}
-		$comp .= 'cmp';
-		uasort($data, function($a, $b) use($field, $comp) {
-			global $coll;
-			$retval = 0;
-			foreach ($field as $fieldname) {
-				if ($retval == 0) {
-					$retval = $comp(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
-				} else {
-					break;
-				}
-			}
-			return $retval;
-		});
-	}
+		return $retval;
+	});
 
 	if ($desc) {
 		$data = array_reverse($data, true);
