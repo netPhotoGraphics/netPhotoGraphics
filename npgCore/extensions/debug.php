@@ -37,12 +37,12 @@ $option_interface = 'debug';
 npgFilters::register('admin_tabs', 'debug::tabs', 100);
 npgFilters::register('admin_utilities_buttons', 'debug::button');
 
-if (isset($_REQUEST['markRelease'])) {
+if (isset($_GET['markRelease'])) {
 	XSRFdefender('markRelease');
-	$version = debug::version($_REQUEST['markRelease'] == 'released');
+	$version = debug::version($_GET['markRelease'] == 'released');
 	setOption('markRelease_state', $version);
 	debug::updateVersion($version);
-	header('location:' . getAdminLink('admin.php'));
+	header('location:' . getAdminLink('admin.php') . '?marked=' . $_GET['markRelease']);
 	exit();
 } else {
 	if (!TEST_RELEASE && strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
@@ -161,6 +161,7 @@ class debug {
 		$version = "define('NETPHOTOGRAPHICS_VERSION', '$version');\n";
 		$v = preg_replace("~define\('NETPHOTOGRAPHICS_VERSION.*\n~", $version, $v);
 		file_put_contents(CORE_SERVERPATH . 'version.php', $v);
+		clearstatcache();
 	}
 
 	static function version($released) {
@@ -178,10 +179,10 @@ class debug {
 	static function button($buttons) {
 		$text = array('released' => gettext('released'), 'debug' => gettext('debug'));
 		if (TEST_RELEASE) {
-			$mark = '-DEBUG';
+			$mark = BULLSEYE_GREEN;
 			$action = 'released';
 		} else {
-			$mark = '';
+			$mark = BULLSEYE_RED;
 			$action = 'debug';
 		}
 
@@ -191,10 +192,10 @@ class debug {
 				'button_text' => gettext('Mark release'),
 				'formname' => 'markRelease_button',
 				'action' => '?markRelease=' . $action,
-				'icon' => $mark ? BULLSEYE_GREEN : BULLSEYE_RED,
+				'icon' => $mark,
 				'title' => sprintf(gettext('Edits the version.php file making a “%s” install.'), $text[$action]),
 				'alt' => '',
-				'hidden' => '<input type="hidden" name="markRelease" value="' . $action . '" />',
+				'hidden' => '', //<input type="hidden" name="markRelease" value="' . $action . '" />',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'markRelease'
 		);

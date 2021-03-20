@@ -901,7 +901,7 @@ class Gallery {
 			if ($mine ||
 							($album->getShow() || $viewUnpublished) // published or overridden by parameter
 							|| $subrights && is_null($album->getParent()) // is the user's managed album
-							|| $subrights && ($subrights & MANAGED_OBJECT_RIGHTS_VIEW ) //	managed subalbum and  user has unpublished rights
+							|| $subrights && ($subrights & MANAGED_OBJECT_RIGHTS_VIEW ) //	managed subalbum and user has unpublished rights
 			) {
 				$albums_ordered[] = $folder;
 			}

@@ -2321,7 +2321,7 @@ function getXSRFToken($action, $modifier = NULL) {
  */
 function XSRFToken($action, $modifier = NULL) {
 	?>
-	<input type="hidden" name="XSRFToken" id="XSRFToken" value="<?php echo getXSRFToken($action, $modifier); ?>" />
+	<input type="hidden" name="XSRFToken" class="XSRFToken" value="<?php echo getXSRFToken($action, $modifier); ?>" />
 	<?php
 }
 
