@@ -508,7 +508,6 @@ $buttonlist = array();
 									'icon' => SETUP,
 									'alt' => '',
 									'title' => gettext('Run the setup script.'),
-									'hidden' => '',
 									'rights' => ADMIN_RIGHTS
 							);
 						}
@@ -523,7 +522,6 @@ $buttonlist = array();
 									'icon' => KEY_RED,
 									'alt' => '',
 									'title' => gettext('Protects setup files so setup cannot be run.'),
-									'hidden' => '<input type="hidden" name="action" value="protect_setup" />',
 									'rights' => ADMIN_RIGHTS
 							);
 						}
@@ -584,6 +582,7 @@ $buttonlist = array();
 								<?php
 								$category = '';
 								foreach ($buttonlist as $button) {
+
 									$button_category = $button['category'];
 									$button_icon = $button['icon'];
 
@@ -617,9 +616,12 @@ $buttonlist = array();
 										?>
 										<form name="<?php echo $button['formname']; ?>"	id="<?php echo $button['formname']; ?>" action="<?php echo $button['action']; ?>" method="post" class="overview_utility_buttons">
 											<?php
-											if (isset($button['XSRFTag']) && $button['XSRFTag'])
+											if (isset($button['XSRFTag']) && $button['XSRFTag']) {
 												XSRFToken($button['XSRFTag']);
-											echo $button['hidden'];
+											}
+											if (isset($button['hidden']) && $button['hidden']) {
+												echo $button['hidden'];
+											}
 											if (isset($button['onclick'])) {
 												$buttonType = 'button';
 												$buttonClick = $button['onclick'];

@@ -37,7 +37,6 @@ class tagURLs {
 				'icon' => BADGE_BLUE,
 				'title' => gettext('A utility to change explicit site urls in netPhotoGraphics objects to portable urls.'),
 				'alt' => '',
-				'hidden' => '',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'tagURLs'
 		);

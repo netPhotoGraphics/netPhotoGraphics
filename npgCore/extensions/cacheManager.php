@@ -523,7 +523,6 @@ class cacheManager {
 					'icon' => WASTEBASKET,
 					'alt' => '',
 					'title' => gettext('Delete all files from the RSS cache'),
-					'hidden' => '<input type="hidden" name="action" value="clear_rss_cache" />',
 					'rights' => ADMIN_RIGHTS
 			);
 		}
@@ -537,7 +536,6 @@ class cacheManager {
 				'icon' => WASTEBASKET,
 				'alt' => '',
 				'title' => gettext('Delete all files from the Image cache'),
-				'hidden' => '<input type="hidden" name="action" value="clear_cache" />',
 				'rights' => ADMIN_RIGHTS
 		);
 		$buttons[] = array(
@@ -549,7 +547,6 @@ class cacheManager {
 				'icon' => WASTEBASKET,
 				'title' => gettext('Clear the static HTML cache. HTML pages will be re-cached as they are viewed.'),
 				'alt' => '',
-				'hidden' => '<input type="hidden" name="action" value="clear_html_cache">',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'ClearHTMLCache'
 		);
@@ -563,7 +560,6 @@ class cacheManager {
 				'icon' => WASTEBASKET,
 				'title' => gettext('Clear the static search cache.'),
 				'alt' => '',
-				'hidden' => '<input type="hidden" name="action" value="clear_search_cache">',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'ClearSearchCache'
 		);

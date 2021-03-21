@@ -195,7 +195,6 @@ class debug {
 				'icon' => $mark,
 				'title' => sprintf(gettext('Edits the version.php file making a “%s” install.'), $text[$action]),
 				'alt' => '',
-				'hidden' => '', //<input type="hidden" name="markRelease" value="' . $action . '" />',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'markRelease'
 		);

@@ -146,7 +146,6 @@ class site_upgrade {
 					'icon' => CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN,
 					'title' => gettext('Restores the files in the "plugins/site_upgrade" folder to their default state. Note: this will overwrite any custom edits you may have made.'),
 					'alt' => '',
-					'hidden' => '',
 					'rights' => ADMIN_RIGHTS
 			);
 		}

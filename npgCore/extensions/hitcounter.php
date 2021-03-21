@@ -219,7 +219,6 @@ class hitcounter {
 				'icon' => RECYCLE_ICON,
 				'alt' => '',
 				'title' => gettext('Reset all hitcounters to zero'),
-				'hidden' => '<input type="hidden" name="action" value="reset_all_hitcounters" />',
 				'rights' => ADMIN_RIGHTS
 		);
 		return $buttons;

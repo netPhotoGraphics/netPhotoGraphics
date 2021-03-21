@@ -17,7 +17,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 	$paths = getPluginFiles('*.php');
 	$pluginlist = array_keys($paths);
 
-	switch ($setting = sanitize($_GET['pluginsEnable'])) {
+	switch ($setting = sanitize_numeric($_REQUEST['pluginsEnable'])) {
 		case 0:
 			$report = gettext('Plugins disabled');
 			break;
