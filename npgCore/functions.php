@@ -2836,7 +2836,7 @@ class npgFunctions {
 	 * @return boolean
 	 */
 	static function removeDir($path, $within = false) {
-		if (($dir = opendir($path)) !== false) {
+		if (is_dir($path) && ($dir = opendir($path)) !== false) {
 			while (($file = readdir($dir)) !== false) {
 				if ($file != '.' && $file != '..') {
 					if ((is_dir($path . '/' . $file))) {
