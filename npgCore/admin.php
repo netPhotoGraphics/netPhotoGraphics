@@ -615,7 +615,7 @@ $buttonlist = array();
 											<?php
 										}
 										?>
-										<form name="<?php echo $button['formname']; ?>"	id="<?php echo $button['formname']; ?>" action="<?php echo $button['action']; ?>" class="overview_utility_buttons">
+										<form name="<?php echo $button['formname']; ?>"	id="<?php echo $button['formname']; ?>" action="<?php echo $button['action']; ?>" method="post" class="overview_utility_buttons">
 											<?php
 											if (isset($button['XSRFTag']) && $button['XSRFTag'])
 												XSRFToken($button['XSRFTag']);

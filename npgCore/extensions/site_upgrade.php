@@ -142,11 +142,11 @@ class site_upgrade {
 					'enable' => true,
 					'button_text' => gettext('Restore site_upgrade files'),
 					'formname' => 'refreshHTML',
-					'action' => getAdminLink('admin.php'),
+					'action' => getAdminLink('admin.php') . '?refreshHTML=1',
 					'icon' => CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN,
 					'title' => gettext('Restores the files in the "plugins/site_upgrade" folder to their default state. Note: this will overwrite any custom edits you may have made.'),
 					'alt' => '',
-					'hidden' => '<input type="hidden" name="refreshHTML" value="1" />',
+					'hidden' => '',
 					'rights' => ADMIN_RIGHTS
 			);
 		}
@@ -276,7 +276,7 @@ switch (OFFSET_PATH) {
 		npgFilters::register('admin_utilities_buttons', 'site_upgrade::button');
 		npgFilters::register('installation_information', 'site_upgrade::status');
 		npgFilters::register('admin_note', 'site_upgrade::note');
-		if (isset($_REQUEST['refreshHTML'])) {
+		if (isset($_GET['refreshHTML'])) {
 			XSRFdefender('site_upgrade_refresh');
 			site_upgrade::updateXML();
 			$_GET['report'] = gettext('site_upgrade files Restored to original.');
