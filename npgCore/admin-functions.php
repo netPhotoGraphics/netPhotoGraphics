@@ -5749,17 +5749,17 @@ function getLogTabs() {
  */
 function getPluginTabs() {
 	/* subpackages */
-	$pluginCategoryNames = array(
-			'admin' => gettext('admin support'),
-			'development' => gettext('development'),
-			'example' => gettext('example'),
-			'mail' => gettext('mail'),
-			'media' => gettext('media'),
-			'misc' => gettext('misc'),
-			'netPhotoGraphics' => gettext('netPhotoGraphics'),
-			'theme' => gettext('theme support'),
-			'tools' => gettext('tools'),
-			'users' => gettext('users')
+	$pluginCategoryNames = array (
+			'admin'	=>	gettext('admin support'),
+			'development'	=>	gettext('development'),
+			'example'	=>	gettext('example'),
+			'mail'	=>	gettext('mail'),
+			'media'	=>	gettext('media'),
+			'misc'	=>	gettext('misc'),
+			'netphotographics'	=>	gettext('netPhotoGraphics'),
+			'theme'	=>	gettext('theme support'),
+			'tools'	=>	gettext('tools'),
+			'users'	=>	gettext('users')
 	);
 	$classXlate = array(
 			'all' => gettext('all'),
