@@ -200,12 +200,12 @@ class Image extends MediaObject {
 				'IPTCImageHeadline' => array('IPTC', 'ImageHeadline', gettext('Image Headline'), false, 256, true, 'string', false),
 				'IPTCImageCaption' => array('IPTC', 'ImageCaption', gettext('Image Caption'), false, 2000, true, 'string', false),
 				'IPTCImageCaptionWriter' => array('IPTC', 'ImageCaptionWriter', gettext('Image Caption Writer'), false, 32, true, 'string', false),
-				'EXIFDateTime' => array('SubIFD', 'DateTime', gettext('Time Taken'), true, 52, true, 'time', false),
-				'EXIFDateTimeOriginal' => array('SubIFD', 'DateTimeOriginal', gettext('Original Time Taken'), true, 52, true, 'time', false),
-				'EXIFDateTimeDigitized' => array('SubIFD', 'DateTimeDigitized', gettext('Time Digitized'), true, 52, true, 'time', false),
-				'IPTCDateCreated' => array('IPTC', 'DateCreated', gettext('Date Created'), false, 8, true, 'time', false),
+				'EXIFDateTime' => array('SubIFD', 'DateTime', gettext('Time Taken'), true, 52, true, 'datetime', false),
+				'EXIFDateTimeOriginal' => array('SubIFD', 'DateTimeOriginal', gettext('Original Time Taken'), true, 52, true, 'datetime', false),
+				'EXIFDateTimeDigitized' => array('SubIFD', 'DateTimeDigitized', gettext('Time Digitized'), true, 52, true, 'datetime', false),
+				'IPTCDateCreated' => array('IPTC', 'DateCreated', gettext('Date Created'), false, 8, true, 'date', false),
 				'IPTCTimeCreated' => array('IPTC', 'TimeCreated', gettext('Time Created'), false, 11, true, 'time', false),
-				'IPTCDigitizeDate' => array('IPTC', 'DigitizeDate', gettext('Digital Creation Date'), false, 8, true, 'time', false),
+				'IPTCDigitizeDate' => array('IPTC', 'DigitizeDate', gettext('Digital Creation Date'), false, 8, true, 'date', false),
 				'IPTCDigitizeTime' => array('IPTC', 'DigitizeTime', gettext('Digital Creation Time'), false, 11, true, 'time', false),
 				'EXIFArtist' => array('IFD0', 'Artist', gettext('Artist'), false, 52, true, 'string', false),
 				'IPTCImageCredit' => array('IPTC', 'ImageCredit', gettext('Image Credit'), false, 32, true, 'string', false),
@@ -252,7 +252,6 @@ class Image extends MediaObject {
 				'IPTCOriginatingProgram' => array('IPTC', 'OriginatingProgram', gettext('Originating Program'), false, 32, true, 'string', false),
 				'IPTCProgramVersion' => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string', false)
 		);
-		ksort($fields, SORT_NATURAL | SORT_FLAG_CASE);
 		return $fields;
 	}
 
@@ -465,12 +464,6 @@ class Image extends MediaObject {
 					'LangID' => '2#135', //	Language ID												Size:3
 					'Subfile' => '8#010' //	Subfile														Size:2
 			);
-			$timevalues = array(//these need to be formatted for the database
-					'IPTCReleaseTime',
-					'IPTCExpireTime',
-					'IPTCTimeCreated',
-					'IPTCDigitizeTime'
-			);
 
 			$this->set('hasMetadata', 0);
 			foreach ($_exifvars as $field => $exifvar) {
@@ -522,8 +515,21 @@ class Image extends MediaObject {
 							if ($exifvar[EXIF_SOURCE] == 'IPTC') {
 								$datum = self::getIPTCTag($IPTCtags[$exifvar[EXIF_KEY]], $iptc);
 								$value = $this->prepIPTCString($datum, $characterset);
-								if (in_array($field, $timevalues)) {
-									$value = '0000-00-00 ' . substr($value, 0, 2) . ':' . substr($value, 2, 2) . ':' . substr($value, 4, 2);
+								switch ($exifvar[EXIF_FIELD_TYPE]) {
+									case 'date':
+										if ($value) {
+											$value = substr($value, 0, 4) . '-' . substr($value, 4, 2) . '-' . substr($value, 6, 2);
+										} else {
+											$value = NULL;
+										}
+										break;
+									case 'time':
+										if ($value) {
+											$value = substr($value, 0, 2) . ':' . substr($value, 2, 2) . ':' . substr($value, 4, 2);
+										} else {
+											$value = NULL;
+										}
+										break;
 								}
 								$this->set($field, $value);
 							}

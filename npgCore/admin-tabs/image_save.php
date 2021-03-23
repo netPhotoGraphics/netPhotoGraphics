@@ -29,7 +29,7 @@ if (isset($_POST['checkForPostTruncation'])) {
 					if (isset($_POST[$i . '-reset_rating'])) {
 						$image->set('total_value', 0);
 						$image->set('total_votes', 0);
-						$image->set('used_ips', 0);
+						$image->set('used_ips', NULL);
 					}
 					if (isset($_POST['publishdate-' . $i])) {
 						$image->setPublishDate(sanitize($_POST['publishdate-' . $i]));

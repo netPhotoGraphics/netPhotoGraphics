@@ -620,7 +620,7 @@ class xmpMetadata {
 				'XMPAperatureValue' => array('XMP', '<exif:ApertureValue>', gettext('Aperture Value'), false, 52, true, 'string', false),
 				'XMPArtist' => array('XMP', '<dc:creator>', gettext('Artist'), false, 52, true, 'string', false),
 				'XMPContrast' => array('XMP', '<exif:Contrast>', gettext('Contrast Setting'), false, 52, true, 'string', false),
-				'XMPDateTimeOriginal' => array('XMP', '<exif:DateTimeOriginal>', gettext('Original Time Taken'), true, 52, true, 'time', false),
+				'XMPDateTimeOriginal' => array('XMP', '<exif:DateTimeOriginal>', gettext('Original Time Taken'), true, 52, true, 'datetime', false),
 				'XMPExposureBiasValue' => array('XMP', '<exif:ExposureBiasValue>', gettext('Exposure Compensation'), true, 52, true, 'string', false),
 				'XMPExposureProgram' => array('XMP', '<exif:ExposureProgram>', gettext('Exposure program'), true, 52, true, 'string', false),
 				'XMPExposureTime' => array('XMP', '<exif:ExposureTime>', gettext('Exposure time'), true, 52, true, 'string', false),

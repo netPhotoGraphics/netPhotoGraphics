@@ -134,6 +134,7 @@ foreach ($metadataProviders as $source => $handler) {
 	}
 
 	$exifvars = $handler::getMetadataFields();
+
 	foreach ($exifvars as $key => $exifvar) {
 		if (!is_null(getOption($key))) {
 			//	cleanup old metadata options
@@ -173,8 +174,16 @@ foreach ($metadataProviders as $source => $handler) {
 					$type = 'tinytext';
 					$collation = 'utf8_unicode_ci';
 					break;
-				case 'time':
+				case 'datetime':
 					$type = 'datetime';
+					$collation = NULL;
+					break;
+				case 'date':
+					$type = 'date';
+					$collation = NULL;
+					break;
+				case 'time':
+					$type = 'time';
 					$collation = NULL;
 					break;
 			}
@@ -277,6 +286,7 @@ foreach ($template as $tablename => $table) {
 			}
 			$addString = sprintf($string, 'ADD COLUMN') . $comment . $after . ';';
 			$changeString = sprintf($string, "CHANGE `" . $field['Field'] . "`") . $comment . $after . ';';
+
 			if ($exists) {
 				if (array_key_exists($key, $database[$tablename]['fields'])) {
 					if ($field != $database[$tablename]['fields'][$key] || array_search($key, $templateorder) != array_search($key, $dborder)) {

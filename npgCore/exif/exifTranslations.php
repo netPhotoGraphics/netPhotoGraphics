@@ -11,20 +11,6 @@
  */
 
 function exifTranslate($source, $field) {
-	switch ($field) {
-		case 'IPTCTimeCreated':
-		case 'IPTCDigitizeTime':
-		case 'IPTCReleaseTime':
-		case 'IPTCExpireTime':
-			$source = substr($source, 11);
-			break;
-		case 'IPTCDateCreated':
-		case 'IPTCDigitizeDate':
-		case 'IPTCReleaseDate':
-		case 'IPTCExpireDate':
-			$source = substr($source, 0, 10);
-			break;
-	}
 
 	preg_match('/\!.*\!/', $source, $matches);
 	if (isset($matches[0])) {
