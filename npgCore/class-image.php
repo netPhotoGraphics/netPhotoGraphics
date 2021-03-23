@@ -517,16 +517,19 @@ class Image extends MediaObject {
 								$value = $this->prepIPTCString($datum, $characterset);
 								switch ($exifvar[EXIF_FIELD_TYPE]) {
 									case 'date':
-										if ($value) {
-											$value = substr($value, 0, 4) . '-' . substr($value, 4, 2) . '-' . substr($value, 6, 2);
-										} else {
+										if (!$value) {
 											$value = NULL;
 										}
 										break;
 									case 'time':
 										if ($value) {
-											$value = substr($value, 0, 2) . ':' . substr($value, 2, 2) . ':' . substr($value, 4, 2);
+											$value = substr($value, 0, 6); //	strip off any timezone indicator
 										} else {
+											$value = NULL;
+										}
+										break;
+									case 'datetime':
+										if (!$value) {
 											$value = NULL;
 										}
 										break;
