@@ -516,18 +516,9 @@ class Image extends MediaObject {
 								$datum = self::getIPTCTag($IPTCtags[$exifvar[EXIF_KEY]], $iptc);
 								$value = $this->prepIPTCString($datum, $characterset);
 								switch ($exifvar[EXIF_FIELD_TYPE]) {
-									case 'date':
-										if (!$value) {
-											$value = NULL;
-										}
-										break;
 									case 'time':
-										if ($value) {
-											$value = substr($value, 0, 6); //	strip off any timezone indicator
-										} else {
-											$value = NULL;
-										}
-										break;
+										$value = substr($value, 0, 6); //	strip off any timezone indicator
+									case 'date':
 									case 'datetime':
 										if (!$value) {
 											$value = NULL;
