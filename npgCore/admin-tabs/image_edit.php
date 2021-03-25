@@ -172,20 +172,19 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 
 							<div class="floatleft leftdeatil">
 								<div class="edit_thumb_container">
-
 									<?php
-									if ($close = isImagePhoto($image)) {
+									if ($zoom = isImagePhoto($image)) {
 										?>
-										<a href="<?php echo html_encode(pathurlencode($image->getFullImageURL())); ?>" class="colorbox fullimagelink">
-											<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'large-uncropped')); ?>" alt="<?php echo html_encode($image->filename); ?>" title="<?php echo gettext('zoom'); ?>"/>
+										<a href="<?php echo html_encode(pathurlencode($image->getFullImageURL())); ?>" class="colorbox fullimagelink" title="<?php echo gettext('zoom'); ?>" >
 											<?php
-											if ($close) {
-												?>
-												<div class="fullimage-icon">
-													<?php
-													echo MAGNIFY;
-												}
-												?>
+										}
+										?>
+										<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'large-uncropped')); ?>" alt="<?php echo html_encode($image->filename); ?>" />
+										<?php
+										if ($zoom) {
+											?>
+											<div class="fullimage-icon">
+												<?php echo MAGNIFY; ?>
 											</div>
 										</a>
 										<?php
