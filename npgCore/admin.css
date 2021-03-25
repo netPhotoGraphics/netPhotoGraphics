@@ -2587,8 +2587,9 @@ tr.highlightselection td {
 	z-index: 500;
 	top: 2px;
 	right: 2px;
-	padding: 0 1px 0 1px;
+	padding: 4px 1px 0 1px;
 	line-height: 1em;
+	text-align: center;
 	background: lightgray;
 }
 

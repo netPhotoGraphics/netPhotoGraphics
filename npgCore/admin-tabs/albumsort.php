@@ -168,8 +168,8 @@ echo "\n</head>";
 										<?php
 										if (!$image->getShow()) {
 											?>
-											<div  class="images_publishstatus">
-												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/action.png" alt="<?php echo gettext('Unpublished'); ?>" title="<?php echo gettext('Unpublished'); ?>">
+											<div  class="images_publishstatus" title="<?php echo gettext('unpublished'); ?>" >
+												<?php echo EXCLAMATION_RED; ?>
 											</div>
 											<?php
 										}
