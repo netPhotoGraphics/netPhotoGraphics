@@ -5925,6 +5925,28 @@ function getAdminThumb($image, $size) {
 			return $image->getCustomImage(array('size' => ADMIN_THUMB_LARGE, 'cw' => ADMIN_THUMB_LARGE, 'ch' => ADMIN_THUMB_LARGE, 'thumb' => -1));
 		default:
 			return $image->getCustomImage(array('size' => ADMIN_THUMB_SMALL, 'cw' => ADMIN_THUMB_SMALL, 'ch' => ADMIN_THUMB_SMALL, 'thumb' => -1));
+		case 'large-uncropped':
+			$uncroppedSize = ADMIN_THUMB_LARGE;
+		case 'medium-uncropped':
+			if (!isset($uncroppedSize)) {
+				$uncroppedSize = ADMIN_THUMB_MEDIUM;
+			}
+		case 'small-uncropped':
+			if (!isset($uncroppedSize)) {
+				$uncroppedSize = ADMIN_THUMB_SMALL;
+			}
+			$thumbsize = $width = $height = NULL;
+			$orientation = $image->getWidth() - $image->getHeight();
+
+			if ($orientation >= 0) { //	landscape or square
+				$width = $uncroppedSize;
+			} else { //	portrait
+				$height = $uncroppedSize;
+			}
+
+
+			return $image->getCustomImage(array('width' => $width, 'height' => $height, 'thumb' => -1));
+			break;
 	}
 }
 

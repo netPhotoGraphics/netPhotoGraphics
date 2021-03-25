@@ -2589,6 +2589,7 @@ tr.highlightselection td {
 	right: 2px;
 	padding: 0 1px 0 1px;
 	line-height: 1em;
+	background: lightgray;
 }
 
 /* definition lists */
@@ -2722,4 +2723,28 @@ form.tinyDirty input[type=submit]:active {
 
 .strike {
 	text-decoration: line-through;
+}
+
+.edit_thumb_container {
+	width: 135;
+	position: relative;
+  text-align: left;
+}
+
+.edit_thumb_container .fullimagelink {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.edit_thumb_container .fullimagelink img {
+
+}
+
+.edit_thumb_container .fullimage-icon {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	background: lightgray;
 }

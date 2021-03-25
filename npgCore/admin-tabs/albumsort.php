@@ -165,41 +165,34 @@ echo "\n</head>";
 								if ($image->exists) {
 									?>
 									<li id="id_<?php echo $image->getID(); ?>">
-										<div  class="images_publishstatus">
-											<?php
-											if (!$image->getShow()) {
-												$publishstatus_text = gettext('Unpublished');
-												$publishstatus_icon = '/images/action.png';
-												?>
-												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER . $publishstatus_icon; ?>" alt="<?php echo $publishstatus_text; ?>" title="<?php echo $publishstatus_text; ?>">
-												<?php
-											}
+										<?php
+										if (!$image->getShow()) {
 											?>
-										</div>
+											<div  class="images_publishstatus">
+												<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/action.png" alt="<?php echo gettext('Unpublished'); ?>" title="<?php echo gettext('Unpublished'); ?>">
+											</div>
+											<?php
+										}
+										?>
 										<img class="imagethumb"
-												 src="<?php echo getAdminThumb($image, 'large'); ?>"
+												 src="<?php echo getAdminThumb($image, 'medium-uncropped'); ?>"
 												 alt="<?php echo html_encode($image->getTitle()); ?>"
-												 title="<?php
-												 echo html_encode($image->getTitle()) . ' (' . pathurlencode($album->name) . ')';
-												 ?>"
-												 width="<?php echo ADMIN_THUMB_LARGE; ?>" height="<?php echo ADMIN_THUMB_LARGE; ?>"  />
-										<p>
-											<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>">
-											<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
-												<?php echo PENCIL_ICON; ?>
+												 title="<?php echo html_encode($image->getTitle()) . ' (' . pathurlencode($album->name) . ')'; ?>"												   />
+										<br />
+										<input type="checkbox" name="ids[]" value="<?php echo $imagename; ?>" title="<?php echo gettext('bulk action'); ?>">
+										<a href="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&amp;album=<?php echo pathurlencode($album->name); ?>&amp;image=<?php echo urlencode($imagename); ?>&amp;tab=imageinfo#IT" title="<?php echo gettext('edit'); ?>">
+											<?php echo PENCIL_ICON; ?>
+										</a>
+										<?php
+										if (isImagePhoto($image)) {
+											?>
+											<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
+												<?php echo MAGNIFY; ?>
 											</a>
 											<?php
-											if (isImagePhoto($image)) {
-												?>
-												<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
-													<?php echo MAGNIFY; ?>
-												</a>
-												<?php
-											}
-											linkPickerIcon($image);
-											?>
-										</p>
-										</label>
+										}
+										linkPickerIcon($image);
+										?>
 									</li>
 									<?php
 								}

@@ -171,35 +171,29 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 							?>
 
 							<div class="floatleft leftdeatil">
-								<div style="width: 135px;">
-									<?php
-									if ($close = (isImagePhoto($image) || !is_null($image->objectsThumb))) {
-										?>
-										<a href="<?php echo getAdminLink('admin-tabs/thumbcrop.php'); ?>?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
-											<?php
-										}
-										?>
+								<div class="edit_thumb_container">
 
-										<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'medium')); ?>" alt="<?php echo html_encode($image->filename); ?>" />
-										<?php
-										if ($close) {
-											?>
+									<?php
+									if ($close = isImagePhoto($image)) {
+										?>
+										<a href="<?php echo html_encode(pathurlencode($image->getFullImageURL())); ?>" class="colorbox fullimagelink">
+											<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'large-uncropped')); ?>" alt="<?php echo html_encode($image->filename); ?>" title="<?php echo gettext('zoom'); ?>"/>
+											<?php
+											if ($close) {
+												?>
+												<div class="fullimage-icon">
+													<?php
+													echo MAGNIFY;
+												}
+												?>
+											</div>
 										</a>
 										<?php
 									}
 									?>
 								</div>
-								<?php
-								if (isImagePhoto($image)) {
-									$h = $image->getHeight();
-									$w = $image->getWidth();
-									npgButton('button', MAGNIFY . ' ' . gettext('Zoom'), array('buttonClick' => "$.colorbox({iframe: true, href: '" . $image->getFullImageURL() . "', maxWidth: '" . ($w + 100) . "px', innerWidth: '" . $w . "px', maxHeight: '" . ($h + 100) . "px', innerHeight: '" . $h . "px', scalePhotos: true, close: '" . gettext("close") . "'});", 'buttonClass' => 'fillwidth'));
-									?>
-									<br style="clear: both" />
-									<?php
-								}
-								viewButton(array('buttonLink' => $image->getLink(), 'buttonClass' => 'fillwidth'));
-								?>
+								<br clear="all">
+								<?php viewButton(array('buttonLink' => $image->getLink(), 'buttonClass' => 'fillwidth')); ?>
 								<br style="clear: both" />
 								<p>
 									<?php echo gettext('<strong>Filename:</strong>'); ?>
