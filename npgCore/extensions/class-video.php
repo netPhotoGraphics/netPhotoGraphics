@@ -177,7 +177,6 @@ class Video extends Image {
 	 */
 	function updateDimensions() {
 		global $_multimedia_extension;
-		$ext = getSuffix($this->filename);
 		$h = $_multimedia_extension->getHeight($this);
 		$w = $_multimedia_extension->getWidth($this);
 		$this->set('width', $w);

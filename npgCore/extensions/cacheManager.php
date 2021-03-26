@@ -121,6 +121,14 @@ class cacheManager {
 			self::addCacheSize('admin', ADMIN_THUMB_LARGE, NULL, NULL, ADMIN_THUMB_LARGE, ADMIN_THUMB_LARGE, NULL, NULL, -1);
 			self::addCacheSize('admin', ADMIN_THUMB_MEDIUM, NULL, NULL, ADMIN_THUMB_MEDIUM, ADMIN_THUMB_MEDIUM, NULL, NULL, -1);
 			self::addCacheSize('admin', ADMIN_THUMB_SMALL, NULL, NULL, ADMIN_THUMB_SMALL, ADMIN_THUMB_SMALL, NULL, NULL, -1);
+
+			self::addCacheSize('admin', NULL, ADMIN_THUMB_LARGE, NULL, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, ADMIN_THUMB_MEDIUM, NULL, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, ADMIN_THUMB_SMALL, NULL, NULL, NULL, NULL, NULL, -1);
+
+			self::addCacheSize('admin', NULL, NULL, ADMIN_THUMB_LARGE, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, NULL, ADMIN_THUMB_MEDIUM, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, NULL, ADMIN_THUMB_SMALL, NULL, NULL, NULL, NULL, -1);
 		}
 	}
 
