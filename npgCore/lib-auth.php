@@ -723,7 +723,7 @@ class _Authority {
 						'ZENPAGE_RIGHTS' => array('value' => 2049, 'name' => gettext('Zenpage'), 'set' => '', 'display' => true, 'hint' => ''),
 						'TAGS_RIGHTS' => array('value' => 4096, 'name' => gettext('Tags'), 'set' => '', 'display' => true, 'hint' => ''),
 						'OPTIONS_RIGHTS' => array('value' => 8192, 'name' => gettext('Options'), 'set' => '', 'display' => true, 'hint' => ''),
-						'ADMIN_RIGHTS' => array('value' => 65536, 'name' => gettext('Admin'), 'set' => '', 'display' => true, 'hint' => ''));
+						'ADMIN_RIGHTS' => array('value' => 65536, 'name' => gettext('All rights'), 'set' => '', 'display' => false, 'hint' => ''));
 				break;
 			case 2:
 				$rightsset = array('NO_RIGHTS' => array('value' => 1, 'name' => gettext('No rights'), 'set' => '', 'display' => false, 'hint' => ''),
@@ -742,7 +742,7 @@ class _Authority {
 						'THEMES_RIGHTS' => array('value' => pow(2, 26), 'name' => gettext('Themes'), 'set' => gettext('Gallery'), 'display' => true, 'hint' => gettext('Users with this right may make themes related changes. These are limited to the themes associated with albums checked in their managed albums list.')),
 						'TAGS_RIGHTS' => array('value' => pow(2, 28), 'name' => gettext('Tags'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('Users with this right may make additions and changes to the set of tags.')),
 						'OPTIONS_RIGHTS' => array('value' => pow(2, 29), 'name' => gettext('Options'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('Users with this right may make changes on the options.')),
-						'ADMIN_RIGHTS' => array('value' => pow(2, 30), 'name' => gettext('Admin'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('The master privilege. A user with "Admin" can do anything. (No matter what his other rights might indicate!)')));
+						'ADMIN_RIGHTS' => array('value' => pow(2, 30), 'name' => gettext('All rights'), 'set' => gettext('General'), 'display' => false, 'hint' => gettext('The master privilege. A user with "Admin" can do anything. (No matter what his other rights might indicate!)')));
 				break;
 			case 3:
 				$rightsset = array('NO_RIGHTS' => array('value' => 1, 'name' => gettext('No rights'), 'set' => '', 'display' => false, 'hint' => ''),
@@ -767,7 +767,7 @@ class _Authority {
 						'THEMES_RIGHTS' => array('value' => pow(2, 26), 'name' => gettext('Themes'), 'set' => gettext('Gallery'), 'display' => true, 'hint' => gettext('Users with this right may make themes related changes. These are limited to the themes associated with albums checked in their managed albums list.')),
 						'TAGS_RIGHTS' => array('value' => pow(2, 28), 'name' => gettext('Tags'), 'set' => gettext('Gallery'), 'display' => true, 'hint' => gettext('Users with this right may make additions and changes to the set of tags.')),
 						'OPTIONS_RIGHTS' => array('value' => pow(2, 29), 'name' => gettext('Options'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('Users with this right may make changes on the options.')),
-						'ADMIN_RIGHTS' => array('value' => pow(2, 30), 'name' => gettext('Admin'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('The master privilege. A user with "Admin" can do anything. (No matter what his other rights might indicate!)')));
+						'ADMIN_RIGHTS' => array('value' => pow(2, 30), 'name' => gettext('All rights'), 'set' => gettext('General'), 'display' => false, 'hint' => gettext('The master privilege. A user with "Admin" can do anything. (No matter what his other rights might indicate!)')));
 				break;
 			case 4:
 				$rightsset = array('NO_RIGHTS' => array('value' => 1, 'name' => gettext('No rights'), 'set' => '', 'display' => false, 'hint' => ''),
@@ -799,7 +799,7 @@ class _Authority {
 						//2*27
 						'TAGS_RIGHTS' => array('value' => pow(2, 28), 'name' => gettext('Tags'), 'set' => gettext('Gallery'), 'display' => true, 'hint' => gettext('Users with this right may make additions and changes to the set of tags.')),
 						'OPTIONS_RIGHTS' => array('value' => pow(2, 29), 'name' => gettext('Options'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('Users with this right may make changes on the options.')),
-						'ADMIN_RIGHTS' => array('value' => pow(2, 30), 'name' => gettext('Admin'), 'set' => gettext('General'), 'display' => true, 'hint' => gettext('The master privilege. A user with "Admin" can do anything. (No matter what his other rights might indicate!)')));
+						'ADMIN_RIGHTS' => array('value' => pow(2, 30), 'name' => gettext('All rights'), 'set' => gettext('General'), 'display' => false, 'hint' => gettext('The master privilege. A user with "Admin" can do anything. (No matter what his other rights might indicate!)')));
 				break;
 		}
 		$allrights = 0;

@@ -1971,7 +1971,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<a onclick="$('#menu_selections').hide(); $('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
 					<?php
 					foreach ($stuff as $item => $name) {
@@ -4062,15 +4062,20 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
 		$rightslist = sortMultiArray(npg_Authority::getRights(), array('set', 'value'));
+
+		$element = 3;
+		$activeset = false;
+		$format = 'user[%2$s][%1$s]';
 		?>
 		<div class="box-rights rights_stuff">
-			<strong><?php echo gettext("Rights:"); ?></strong>
-			<?php
-			$element = 3;
-			$activeset = false;
-			$format = 'user[%2$s][%1$s]';
-			?>
-			<input type="checkbox" name="<?php printf($format, 'rightsenabled', $id); ?>" class="user-<?php echo $id; ?>" value="1" checked="checked" <?php echo $alterrights; ?> style="display:none" />
+			<div>
+				<span class="bold"><?php echo gettext("Rights:"); ?></span><span style="float: right; padding-right: 10px;"><input type="checkbox" name="<?php printf($format, 'ADMIN_RIGHTS', $id); ?>" id="ADMIN_RIGHTS-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
+					if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
+						echo ' checked="checked"';
+					echo $alterrights;
+					?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#ADMIN_RIGHTS-<?php echo $id; ?>').prop('checked'));"/> <?php echo $rightslist['ADMIN_RIGHTS']['name']; ?></span>
+			</div>
+			<input type="hidden" name="<?php printf($format, 'rightsenabled', $id); ?>" class="user-<?php echo $id; ?>" value="1" checked="checked" <?php echo $alterrights; ?> />
 			<?php
 			foreach ($rightslist as $rightselement => $right) {
 				if (!empty($right['set'])) {
@@ -5943,8 +5948,6 @@ function getAdminThumb($image, $size) {
 			} else { //	portrait
 				$height = $uncroppedSize;
 			}
-
-
 			return $image->getCustomImage(array('width' => $width, 'height' => $height, 'thumb' => -1));
 			break;
 	}
