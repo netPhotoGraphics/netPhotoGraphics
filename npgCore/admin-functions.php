@@ -4074,7 +4074,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		?>
 		<div class="box-rights rights_stuff">
 			<div>
-				<span class="bold"><?php echo gettext("Rights:"); ?></span><span style="float: right; padding-right: 10px;"><input type="checkbox" name="<?php printf($format, 'ADMIN_RIGHTS', $id); ?>" id="ADMIN_RIGHTS-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
+				<span class="bold"><?php echo gettext("Rights:"); ?></span><span style="float: right; padding-right: 12px;"><input type="checkbox" name="<?php printf($format, 'ADMIN_RIGHTS', $id); ?>" id="ADMIN_RIGHTS-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
 					if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
 						echo ' checked="checked"';
 					echo $alterrights;
