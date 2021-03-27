@@ -4061,7 +4061,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param bit $rights rights of the admin
 	 */
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
-		$rightslist = sortMultiArray(npg_Authority::getRights(), array('set', 'value'));
+		$order = array(gettext('General'), gettext('Gallery'), gettext('Albums'), gettext('News'), gettext('Pages'));
+		$rightslist = npg_Authority::getRights();
+		foreach ($rightslist as $rightselement => $right) {
+			$rightslist[$rightselement]['sort'] = array_search($right['set'], $order);
+		}
+		$rightslist = sortMultiArray($rightslist, array('sort', 'value'));
 
 		$element = 3;
 		$activeset = false;
