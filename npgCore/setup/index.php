@@ -726,12 +726,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							primeMark(gettext('mb_strings'));
 							if (function_exists('mb_internal_encoding')) {
-								if (($mbcharset = mb_internal_encoding()) == LOCAL_CHARSET) {
+								if (mb_internal_encoding(LOCAL_CHARSET)) {
+									$mbcharset = LOCAL_CHARSET;
 									$mb = 1;
 								} else {
+									$mbcharset = mb_internal_encoding();
 									$mb = -1;
 								}
-								$m2 = sprintf(gettext('Setting <em>mbstring.internal_encoding</em> to <strong>%s</strong> in your <em>php.ini</em> file is recommended to insure accented and multi-byte characters function properly.'), LOCAL_CHARSET);
+								$m2 = sprintf(gettext('<code>mb_internal_encoding("%1$s")</code> failed. Accented and multi-byte characters may notfunction properly.'), LOCAL_CHARSET);
 								checkMark($mb, gettext("PHP <code>mbstring</code> package"), sprintf(gettext('PHP <code>mbstring</code> package [Your internal character set is <strong>%s</strong>]'), $mbcharset), $m2);
 							} else {
 								if (LOCAL_CHARSET == 'ISO-8859-1') {
