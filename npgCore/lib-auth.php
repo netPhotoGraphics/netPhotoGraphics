@@ -851,7 +851,7 @@ class _Authority {
 								'sort' => 2,
 								'display' => true,
 								'hint' => gettext('Users who do not have “Admin” rights normally are restricted to manage only objects to which they have been assigned. This right allows them to manage any album in the gallery.')),
-						//2**24
+						//	pow(2, 24)
 						'CODEBLOCK_RIGHTS' => array('value' => pow(2, 25),
 								'name' => gettext('Codeblock'),
 								'set' => gettext('General'),
@@ -864,7 +864,7 @@ class _Authority {
 								'sort' => 1,
 								'display' => true,
 								'hint' => gettext('Users with this right may make themes related changes. These are limited to the themes associated with albums checked in their managed albums list.')),
-						//2*27
+						//	pow(2, 27)
 						'TAGS_RIGHTS' => array('value' => pow(2, 28),
 								'name' => gettext('Tags'),
 								'set' => gettext('Gallery'),
@@ -878,7 +878,7 @@ class _Authority {
 								'display' => true,
 								'hint' => gettext('Users with this right may make changes on the options.')),
 						'ADMIN_RIGHTS' => array('value' => pow(2, 30),
-								'name' => gettext('All rights'),
+								'name' => gettext('Master rights'),
 								'set' => gettext('General'),
 								'sort' => 0,
 								'display' => false,

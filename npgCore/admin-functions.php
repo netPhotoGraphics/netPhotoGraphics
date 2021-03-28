@@ -4078,7 +4078,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
 							echo ' checked="checked"';
 						echo $alterrights;
-						?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#all-<?php echo $id; ?>').prop('checked'));"/> <?php echo $rightslist['ADMIN_RIGHTS']['name']; ?>
+						?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#all-<?php echo $id; ?>').prop('checked'));"/>
+									 <?php echo gettext('All rights'); ?>
 					</label>
 				</span>
 			</div>
@@ -4296,7 +4297,6 @@ function processRights($i) {
 			$rights = $rights | $right['value'] | NO_RIGHTS;
 		}
 	}
-	//var_dump($userdata);
 
 	if (($rights & ~HIDDEN_RIGHTS) == (ALL_RIGHTS & ~HIDDEN_RIGHTS)) {
 		$rights = $rights | ADMIN_RIGHTS;
