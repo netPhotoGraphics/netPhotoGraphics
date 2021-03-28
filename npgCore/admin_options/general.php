@@ -197,7 +197,7 @@ function getOptionContent() {
 				?>
 			</p>
 			<br clear="all">
-			<div id="columns" class="optionColumns">
+			<div id="columns">
 				<table>
 					<tr>
 						<?php

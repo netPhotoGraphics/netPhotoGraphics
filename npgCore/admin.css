@@ -678,14 +678,6 @@ table.options tr td {
 	padding: 5px;
 }
 
-.optionColumns {
-	column-count: 2;
-}
-
-.optionColumns tr {
-	break-inside: avoid;
-}
-
 .option_value {
 	vertical-align: top;
 	text-align:left;
@@ -697,6 +689,10 @@ table.options tr td {
 	vertical-align: top;
 	text-align:left;
 	padding: 5px;
+}
+
+.optionColumns tr {
+	break-inside: avoid;
 }
 
 .option_desc_hidden {

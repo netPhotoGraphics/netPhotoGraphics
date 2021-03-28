@@ -57,7 +57,7 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input type="hidden" name="saveoptions" value="gallery" />
 			<input type="hidden" name="password_enabled" id="password_enabled" value="0" />
@@ -71,7 +71,7 @@ function getOptionContent() {
 				?>
 			</p>
 			<br clear="all">
-			<div id="columns" class="optionColumns">
+			<div id="columns">
 				<table>
 					<tr>
 						<td class="option_name"><?php echo gettext("Gallery title"); ?></td>
@@ -256,7 +256,7 @@ function getOptionContent() {
 												 name="disclose_password"
 												 id="disclose_password"
 												 onclick="passwordClear('');
-																 togglePassword('');" /><?php echo gettext('Show'); ?>
+														 togglePassword('');" /><?php echo gettext('Show'); ?>
 								</label>
 
 								<br />
@@ -488,7 +488,7 @@ function getOptionContent() {
 							</label>
 							<br />
 							<label>
-								<input type="checkbox" name="multilevel_thumb_select_images" id="thumb_select_images"
+								<input type="checkbox" name="multilevel_thumb_select_images" id="multilevel_thumb_select_images"
 											 value="1" <?php checked('1', $_gallery->getSecondLevelThumbs()); ?> />
 											 <?php echo gettext("show subalbum thumbs"); ?>
 							</label>
