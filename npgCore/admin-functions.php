@@ -4061,12 +4061,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param bit $rights rights of the admin
 	 */
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
-		$order = array(gettext('General'), gettext('Gallery'), gettext('Albums'), gettext('News'), gettext('Pages'));
-		$rightslist = npg_Authority::getRights();
-		foreach ($rightslist as $rightselement => $right) {
-			$rightslist[$rightselement]['sort'] = array_search($right['set'], $order);
-		}
-		$rightslist = sortMultiArray($rightslist, array('sort', 'value'));
+		$rightslist = sortMultiArray(npg_Authority::getRights(), array('sort', 'value'));
 
 		$element = 3;
 		$activeset = false;
@@ -4074,13 +4069,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 		?>
 		<div class="box-rights rights_stuff">
 			<div>
-				<span class="bold"><?php echo gettext("Rights:"); ?></span><span style="float: right; padding-right: 12px;"><input type="checkbox" name="<?php printf($format, 'ADMIN_RIGHTS', $id); ?>" id="ADMIN_RIGHTS-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
-					if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
-						echo ' checked="checked"';
-					echo $alterrights;
-					?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#ADMIN_RIGHTS-<?php echo $id; ?>').prop('checked'));"/> <?php echo $rightslist['ADMIN_RIGHTS']['name']; ?></span>
+				<span class="bold">
+					<?php echo gettext("Rights:"); ?>
+				</span>
+				<span style="float: right; padding-right: 12px;">
+					<label title="<?php echo gettext('check/uncheck all'); ?>">
+						<input type="checkbox" name="all_<?php echo $id; ?>" id="all-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
+						if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
+							echo ' checked="checked"';
+						echo $alterrights;
+						?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#all-<?php echo $id; ?>').prop('checked'));"/> <?php echo $rightslist['ADMIN_RIGHTS']['name']; ?>
+					</label>
+				</span>
 			</div>
 			<input type="hidden" name="<?php printf($format, 'rightsenabled', $id); ?>" class="user-<?php echo $id; ?>" value="1" checked="checked" <?php echo $alterrights; ?> />
+
 			<?php
 			foreach ($rightslist as $rightselement => $right) {
 				if (!empty($right['set'])) {
@@ -4106,14 +4109,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							?> />
 										 <?php echo $right['name']; ?>
 						</label>
-
 						<?php
-					} else {
-						if ($rights & $right['value']) {
-							?>
-							<input type="hidden" name="<?php printf($format, $rightselement, $id); ?>" id="<?php echo $rightselement . '-' . $id; ?>" value="<?php echo $right['value']; ?>" />
-							<?php
-						}
 					}
 				}
 			}
@@ -4300,6 +4296,12 @@ function processRights($i) {
 			$rights = $rights | $right['value'] | NO_RIGHTS;
 		}
 	}
+	//var_dump($userdata);
+
+	if (($rights & ~HIDDEN_RIGHTS) == (ALL_RIGHTS & ~HIDDEN_RIGHTS)) {
+		$rights = $rights | ADMIN_RIGHTS;
+	}
+
 	if ($rights & MANAGE_ALL_ALBUM_RIGHTS) { // these are lock-step linked!
 		$rights = $rights | ALL_ALBUMS_RIGHTS | ALBUM_RIGHTS;
 	}
