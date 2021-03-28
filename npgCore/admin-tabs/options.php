@@ -89,6 +89,29 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	npgFilters::apply('texteditor_config', 'forms');
 	npg_Authority::printPasswordFormJS();
 	?>
+	<script type="text/javascript">
+		// <!-- <![CDATA[
+		var table;
+
+		function setColumns() {
+			var frame = $('#columns').width();
+			if (frame > table * 2) {
+				$('#columns').addClass('optionColumns');
+			} else {
+				$('#columns').removeClass('optionColumns')
+			}
+		}
+
+		$(window).resize(function () {
+			setColumns();
+		});
+
+		window.addEventListener('load', function () {
+			table = $('#columns table').width();
+			setColumns();
+		}, false);
+		// ]]> -->
+	</script>
 	</head>
 	<body>
 		<?php printLogoAndLinks(); ?>

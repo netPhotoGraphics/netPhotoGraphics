@@ -637,6 +637,7 @@ table.options th {
 	border-bottom: 1px solid #cccccc;
 	background: #f0f4f5;
 	background-repeat: repeat-x;
+	break-inside: avoid;
 }
 
 
@@ -675,6 +676,14 @@ table.options tr td {
 	vertical-align: top;
 	text-align:left;
 	padding: 5px;
+}
+
+.optionColumns {
+	column-count: 2;
+}
+
+.optionColumns tr {
+	break-inside: avoid;
 }
 
 .option_value {
