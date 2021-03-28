@@ -188,7 +188,7 @@ function getOptionContent() {
 												 name="disclose_password"
 												 id="disclose_password"
 												 onclick="passwordClear('');
-															 togglePassword('');" /><?php echo gettext('Show'); ?>
+																 togglePassword('');" /><?php echo gettext('Show'); ?>
 								</label>
 								<br />
 								<span class="password_field_">
@@ -606,16 +606,6 @@ function getOptionContent() {
 						}
 					}
 					?>
-					<tr>
-						<td colspan="100%">
-							<p>
-								<?php
-								applyButton();
-								resetButton();
-								?>
-							</p>
-						</td>
-					</tr>
 				</table>
 			</div>
 			<p>
