@@ -40,9 +40,9 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'ipBlocker';
 
-npgFilters::register('admin_login_attempt', 'ipBlocker::login', 9999);
-npgFilters::register('federated_login_attempt', 'ipBlocker::login', 9999);
-npgFilters::register('guest_login_attempt', 'ipBlocker::login', 9999);
+npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
+npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
+npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
 
 /**
  * Option handler class
@@ -79,23 +79,9 @@ class ipBlocker {
 	function getOptionsSupported() {
 		$buttons = array(gettext('Allow') => 'allow', gettext('Block') => 'block');
 		$text = array_flip($buttons);
-		$cwd = getcwd();
-		chdir(SERVERPATH . '/' . UPLOAD_FOLDER);
-		$list = safe_glob('*.txt');
-		chdir($cwd);
-		$files = array('' => '');
-		foreach ($list as $file) {
-			$files[$file] = $file;
-		}
 		$options = array(gettext('IP list') => array('key' => 'ipBlocker_IP', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 5,
 						'desc' => sprintf(gettext('List of IP ranges to %s.'), $text[getOption('ipBlocker_type')])),
-				gettext('Import list') => array('key' => 'ipBlocker_import', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 6,
-						'selections' => $files,
-						'nullselection' => '',
-						'disabled' => !extensionEnabled('ipBlocker'),
-						'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE)),
 				gettext('Action') => array('key' => 'ipBlocker_type', 'type' => OPTION_TYPE_RADIO,
 						'order' => 4,
 						'buttons' => $buttons,
@@ -110,6 +96,29 @@ class ipBlocker {
 						'order' => 3,
 						'desc' => gettext('The block will be removed after this many minutes.'))
 		);
+		$disabled = !extensionEnabled('ipBlocker');
+		$cwd = getcwd();
+		chdir(SERVERPATH . '/' . UPLOAD_FOLDER);
+		$list = safe_glob('*.txt');
+		chdir($cwd);
+		if ($list) {
+			$files = array('' => '');
+			foreach ($list as $file) {
+				$files[$file] = $file;
+			}
+		} else {
+			$files = array('no text files found' => '');
+			$disabled = true;
+		}
+		$options[gettext('Import list')] = array('key' => 'ipBlocker_import', 'type' => OPTION_TYPE_SELECTOR,
+				'order' => 6,
+				'selections' => $files,
+				'nullselection' => '',
+				'disabled' => $disabled,
+				'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE)
+		);
+
+
 		if (!extensionEnabled('ipBlocker')) {
 			$options['note'] = array('key' => 'ipBlocker_note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 0,
@@ -295,9 +304,18 @@ class ipBlocker {
 	 * @param string $pass ignored
 	 */
 	static function login($loggedin, $user, $pass = NULL, $auth = NULL) {
-		if (!$loggedin)
+		if ($loggedin) {
+			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote(getUserIP());
+			query($sql);
+		} else {
 			self::ipGate('logon');
+		}
 		return $loggedin;
+	}
+
+	static function handle404($log) {
+		self::ipGate('404');
+		return $log;
 	}
 
 	/**
@@ -306,6 +324,15 @@ class ipBlocker {
 	 * @param string $page ignored
 	 */
 	static function ipGate($type) {
+		switch ($type) {
+			case 'logon':
+				$threshold = getOption('ipBlocker_threshold');
+				break;
+			case '404':
+				$threshold = getOption('ipBlocker_404_threshold');
+				break;
+		}
+
 		//	clean out expired attempts
 		$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="ipBlocker" AND `aux` < "' . (time() - getOption('ipBlocker_timeout') * 60) . '"';
 		query($sql);
@@ -314,16 +341,12 @@ class ipBlocker {
 		query($sql);
 		//	check how many times this has happened recently
 		$count = db_count('plugin_storage', 'WHERE `type`="ipBlocker" AND `subtype`=' . db_quote($type) . ' AND `data`="' . getUserIP() . '"');
-		if ($count >= ($threshold = getOption('ipBlocker_threshold'))) {
+		if ($count >= $threshold) {
 			$ip = getUserIP();
 			npgFilters::apply('security_misc', 2, $type, 'ipBlocker', gettext('Suspended'));
 
-			$block = getOption('ipBlocker_forbidden');
-			if ($block) {
-				$block = getSerializedArray($block);
-			} else {
-				$block = array();
-			}
+			$block = getSerializedArray(getOption('ipBlocker_forbidden'));
+
 			$block[$ip] = time();
 			setOption('ipBlocker_forbidden', serialize($block));
 			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
@@ -391,4 +414,6 @@ class ipBlocker {
 	}
 
 }
+
+ipBlocker::load();
 ?>
