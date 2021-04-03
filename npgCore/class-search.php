@@ -1142,7 +1142,7 @@ class SearchEngine {
 	 * we can cache this sql and reuse it.
 	 *
 	 * @param string $searchstring the string we are searching on
-	 * @param string $table the table beind searched
+	 * @param string $table the table being searched
 	 * @param array $tagPattern the matching criteria for tags
 	 * @return array
 	 */
