@@ -23,7 +23,7 @@ if (!defined('WEBPATH'))
 					});
 	<?php
 	$disposal = getOption('protect_full_image');
-	if ($disposal == 'Unprotected' || $disposal == 'Protected view') {
+	if ($disposal != 'Download') {
 		?>
 						$("a.thickbox").colorbox({
 							maxWidth: "98%",
@@ -101,8 +101,10 @@ if (!defined('WEBPATH'))
 									<?php
 									If (function_exists('printAddToFavorites'))
 										printAddToFavorites($_current_image);
-									if (function_exists('printRating')) printRating();
-									if (function_exists('printCommentForm')) printCommentForm();
+									if (function_exists('printRating'))
+										printRating();
+									if (function_exists('printCommentForm'))
+										printCommentForm();
 									printCodeblock(2);
 									footer();
 									?>
@@ -164,7 +166,7 @@ if (!defined('WEBPATH'))
 							simpleMap::setMapDisplay('colorbox');
 							?>
 							<span id="map_link">
-								<?php simplemap::printMap(); ?>
+							<?php simplemap::printMap(); ?>
 							</span>
 							<br class="clearall" />
 							<?php
@@ -176,5 +178,5 @@ if (!defined('WEBPATH'))
 			<!-- /container -->
 		</div>
 	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>

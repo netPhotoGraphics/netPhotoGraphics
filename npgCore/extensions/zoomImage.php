@@ -121,7 +121,7 @@ function printZoomImage($size = NULL, $type = NULL, $magnify = NULL, $target = N
 	$disposal = getOption('protect_full_image');
 	if ($disposal == 'Download') {
 		//we need the actual image
-		$disposal = 'Protected view';
+		$disposal = 'Protected';
 	}
 
 	$zid = 'zoomImageID_' . ++$_zoomImage_ID;

@@ -47,7 +47,7 @@ function loadAlbum($album) {
 			if (isImagePhoto($_current_image)) {
 				$countit = 0;
 				if ($fullImage) {
-					$uri = getFullImageURL(NULL, 'Protected view');
+					$uri = getFullImageURL(NULL, 'Protected');
 					if (strpos($uri, 'full-image.php?') !== false) {
 						if (!($count + $countit)) {
 							echo "{ ";

@@ -2959,14 +2959,13 @@ function getFullImageURL($image = NULL) {
 	if (is_null($image)) {
 		return false;
 	}
-	$outcome = getOption('protect_full_image');
-	if ($outcome == 'No access') {
-		return NULL;
-	}
-	if ($outcome == 'Unprotected') {
-		return $image->getFullImageURL();
-	} else {
-		return getProtectedImageURL($image, $outcome);
+	switch ($outcome = getOption('protect_full_image')) {
+		case 'No access':
+			return NULL;
+		case 'Unprotected':
+			return $image->getFullImageURL();
+		default:
+			return getProtectedImageURL($image, $outcome);
 	}
 }
 

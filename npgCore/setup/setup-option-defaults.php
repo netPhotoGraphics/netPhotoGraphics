@@ -565,7 +565,10 @@ if (!$GDPR_cookie || strpos(' ', $GDPR_cookie) !== FALSE) {
 }
 
 setOptionDefault('full_image_quality', 75);
-setOptionDefault('protect_full_image', 'Protected view');
+if (getOption('protect_full_image') == 'Protected view') {
+	purgeOption('protext_full_image');
+}
+setOptionDefault('protect_full_image', 'Protected');
 
 setOptionDefault('locale', '');
 setOptionDefault('date_format', '%x');
