@@ -1329,25 +1329,18 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 							$filelist = '';
-							$report = $installed_files;
-							if (count($report) > 15) {
-								shuffle($report);
-								$report = array_slice($report, 0, 15);
-								natsort($report);
-							}
-							foreach ($report as $extra) {
+
+							foreach ($installed_files as $extra) {
 								$filelist .= filesystemToInternal(str_replace($base, '', $extra) . '<br />');
 							}
-							if ($report != $installed_files) {
-								$filelist .= '....<br />';
-							}
+
 							if (npgFunctions::hasPrimaryScripts() && count($installed_files) > 0) {
 								if ($testRelease) {
 									$msg1 = gettext("Core files [This is a <em>debug</em> build. Some files are missing or seem wrong]");
 								} else {
 									$msg1 = gettext("Core files [Some files are missing or seem wrong]");
 								}
-								$msg2 = gettext('Perhaps there was a problem with the upload. You should check the following files: ') . '<p><code>' . substr($filelist, 0, -6) . '</code></p>';
+								$msg2 = gettext('Perhaps there was a problem with the upload. You should check the following files: ') . '<p class="filelist"><code>' . substr($filelist, 0, -6) . '</code></p>';
 								$mark = -1;
 							} else {
 								if (isset($rootupdate) && !$rootupdate) {
