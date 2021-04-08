@@ -266,7 +266,7 @@ function getOptionContent() {
 						customOptions($handler, '');
 					}
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Sort images by"); ?></td>
 						<td class="option_value">
 							<?php
@@ -323,7 +323,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Image quality"); ?></td>
 						<td class="option_value">
 							<?php putSlider(gettext('normal image'), 'imagequality', 0, 100, getOption('image_quality')); ?>
@@ -341,7 +341,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Interlace"); ?></td>
 						<td class="option_value">
 							<label>
@@ -357,7 +357,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Use embedded thumbnail'); ?></td>
 						<?php
 						if (function_exists('exif_thumbnail')) {
@@ -389,7 +389,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Allow upscale"); ?></td>
 						<td class="option_value">
 							<input type="checkbox" name="image_allow_upscale" value="1" <?php checked('1', getOption('image_allow_upscale')); ?> />
@@ -403,7 +403,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Sharpen"); ?></td>
 						<td class="option_value">
 							<!--<span class="nowrap">-->
@@ -420,11 +420,11 @@ function getOptionContent() {
 							<?php putSlider(gettext('amount'), 'sharpen_amount', 0, 100, getOption('sharpen_amount')); ?>
 
 							<table>
-								<tr>
+								<tr class="optionSet">
 									<td class="image_option_tablerow"><?php echo gettext('Radius'); ?>&nbsp;</td>
 									<td class="image_option_tablerow"><input type="text" name = "sharpen_radius" size="2" value="<?php echo getOption('sharpen_radius'); ?>" /></td>
 								</tr>
-								<tr>
+								<tr class="optionSet">
 									<td class="image_option_tablerow"><?php echo gettext('Threshold'); ?>&nbsp;</td>
 									<td class="image_option_tablerow"><input type="text" name = "sharpen_threshold" size="3" value="<?php echo getOption('sharpen_threshold'); ?>" /></td>
 								</tr>
@@ -442,11 +442,11 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Watermarks"); ?></td>
 						<td class="option_value">
 							<table>
-								<tr>
+								<tr class="optionSet">
 									<td class="image_option_tablerow"><?php echo gettext('images'); ?> </td>
 									<td class="image_option_tablerow">
 										<select id="fullimage_watermark" name="fullimage_watermark">
@@ -459,7 +459,7 @@ function getOptionContent() {
 										</select>
 									</td>
 								</tr>
-								<tr>
+								<tr class="optionSet">
 									<td class="image_option_tablerow"><?php echo gettext('full sized images'); ?> </td>
 									<td class="image_option_tablerow">
 										<select id="fullsizeimage_watermark" name="fullsizeimage_watermark">
@@ -479,7 +479,7 @@ function getOptionContent() {
 									$opt = $plugin . '_watermark';
 									$current = getOption($opt);
 									?>
-									<tr>
+									<tr class="optionSet">
 										<td class="image_option_tablerow">
 											<?php printf(gettext('%s thumbnails'), lcfirst(gettext($plugin))); ?>
 										</td>
@@ -534,7 +534,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Caching concurrency"); ?></td>
 						<td class="option_value">
 							<?php putSlider(gettext('limit'), 'imageProcessorConcurrency', 1, 60, getOption('imageProcessorConcurrency')); ?>
@@ -563,7 +563,7 @@ function getOptionContent() {
 							$enabled = ' disabled="disabled"';
 						}
 						?>
-						<tr>
+						<tr class="optionSet">
 							<td class="option_name"><?php printf(gettext('%1$s <em>fallback</em>'), FALLBACK_SUFFIX); ?></td>
 							<td class="option_value">
 								<label>
@@ -587,7 +587,7 @@ function getOptionContent() {
 						</tr>
 						<?php
 					}
-					?>				<tr>
+					?>				<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Cache as"); ?></td>
 						<td class="option_value">
 							<?php
@@ -627,7 +627,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Protect image cache"); ?></td>
 						<td class="option_value">
 							<input type="checkbox" name="protected_image_cache" value="1" <?php checked('1', getOption('protected_image_cache')); ?> />
@@ -644,7 +644,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Secure image processor"); ?></td>
 						<td class="option_value">
 							<input type="checkbox" name="secure_image_processor" value="1" <?php checked('1', getOption('secure_image_processor')); ?> />
@@ -661,7 +661,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Full image protection"); ?></td>
 						<td class="option_value" style="margin:0">
 							<label>
@@ -795,7 +795,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Use lock image"); ?></td>
 						<td class="option_value">
 							<input type="checkbox" name="use_lock_image" value="1"
@@ -811,7 +811,7 @@ function getOptionContent() {
 						</td>
 					</tr>
 
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php
 							echo gettext("Metadata");
 							$exifstuff = sortMultiArray($_exifvars, array(EXIF_DISPLAY_TEXT, EXIF_SOURCE));
@@ -941,7 +941,7 @@ function getOptionContent() {
 					ksort($sets, SORT_LOCALE_STRING);
 					if (!empty($sets)) {
 						?>
-						<tr>
+						<tr class="optionSet">
 							<td class="option_name"><?php echo gettext("IPTC encoding"); ?></td>
 							<td class="option_value">
 								<select id="IPTC_encoding" name="IPTC_encoding">
@@ -967,7 +967,7 @@ function getOptionContent() {
 						$desc = gettext('If checked IPTC data from the original image will be imbedded in cached copies. If the image has no IPTC data a copyright notice will be imbedded. (The text supplied will be used if the original image has no copyright.)');
 					}
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("IPTC Imbedding"); ?></td>
 						<td class="option_value">
 							<label>

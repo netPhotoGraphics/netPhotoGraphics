@@ -57,7 +57,7 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input type="hidden" name="saveoptions" value="gallery" />
 			<input type="hidden" name="password_enabled" id="password_enabled" value="0" />
@@ -73,7 +73,7 @@ function getOptionContent() {
 			<br clear="all">
 			<div id="columns">
 				<table>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Gallery title"); ?></td>
 						<td class="option_value">
 							<?php print_language_string_list($_gallery->getTitle('all'), 'gallery_title', false, null, '', '100%'); ?>
@@ -87,7 +87,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Gallery description"); ?></td>
 						<td class="option_value">
 							<?php print_language_string_list($_gallery->getDesc('all'), 'Gallery_description', true, NULL, 'texteditor', '100%'); ?>
@@ -101,7 +101,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Branding logo"); ?></td>
 						<td class="option_value">
 							<?php
@@ -143,7 +143,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Gallery type'); ?></td>
 						<td class="option_value">
 							<label>
@@ -256,7 +256,7 @@ function getOptionContent() {
 												 name="disclose_password"
 												 id="disclose_password"
 												 onclick="passwordClear('');
-														 togglePassword('');" /><?php echo gettext('Show'); ?>
+																 togglePassword('');" /><?php echo gettext('Show'); ?>
 								</label>
 
 								<br />
@@ -298,7 +298,7 @@ function getOptionContent() {
 						<?php
 					}
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Logon welcome'); ?></td>
 						<td class="option_value">
 							<?php print_language_string_list($_gallery->getLogonWelcome('all'), 'logon_welcome', false, null, '', '100%'); ?>
@@ -312,7 +312,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Unprotected pages'); ?></td>
 						<td class="option_value">
 							<?php
@@ -351,7 +351,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Website title"); ?></td>
 						<td class="option_value">
 							<?php print_language_string_list($_gallery->getWebsiteTitle('all'), 'website_title', false, null, '', '100%'); ?>
@@ -365,7 +365,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Website url"); ?></td>
 						<td class="option_value"><input type="text" name="website_url" style="width:100%;"
 																						value="<?php echo html_encode($_gallery->getWebsiteURL()); ?>" /></td>
@@ -378,7 +378,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Album thumbnails"); ?></td>
 						<td class="option_value">
 							<?php
@@ -402,7 +402,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Sort gallery by"); ?></td>
 						<td class="option_value">
 							<?php
@@ -462,7 +462,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Gallery behavior"); ?></td>
 						<td class="option_value">
 							<label>

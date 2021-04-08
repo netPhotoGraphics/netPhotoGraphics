@@ -584,7 +584,6 @@ table.noinput td {
 	border: 1px solid #E5E5E5;
 }
 
-
 table.bordered th {
 	font-weight: bold;
 	padding: 8px 8px 4px 10px;
@@ -621,6 +620,11 @@ table.bordered table.compact tr {
 table.bordered table.compact td {
 	padding: 8px 8px;
 	margin: 0px;
+}
+
+.checkbox_array {
+	max-width: 700px !important;
+	min-width: 350px !important;
 }
 
 table.options {
@@ -667,10 +671,10 @@ table.options tr td {
 	background-repeat: repeat-x;
 }
 
-.checkbox_array {
-	max-width: 700px !important;
-	min-width: 350px !important;
+.optionSet {
+	break-inside: avoid;
 }
+
 .option_name {
 	white-space: nowrap !important;
 	vertical-align: top;
@@ -689,10 +693,6 @@ table.options tr td {
 	vertical-align: top;
 	text-align:left;
 	padding: 5px;
-}
-
-.optionColumns tr {
-	break-inside: avoid;
 }
 
 .option_desc_hidden {

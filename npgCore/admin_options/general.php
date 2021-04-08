@@ -199,7 +199,7 @@ function getOptionContent() {
 			<br clear="all">
 			<div id="columns">
 				<table>
-					<tr>
+					<tr class="optionSet">
 						<?php
 						if (function_exists('date_default_timezone_get')) {
 							$offset = timezoneDiff($_server_timezone, $tz = getOption('time_zone'));
@@ -244,7 +244,7 @@ function getOptionContent() {
 						}
 						?>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("URL options"); ?></td>
 						<td class="option_value">
 							<?php
@@ -332,7 +332,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Language"); ?></td>
 						<td class="option_value">
 							<div id="languagelist">
@@ -434,7 +434,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Date format"); ?></td>
 						<td class="option_value">
 							<select id="date_format_list" name="date_format_list" onchange="showfield(this, 'customTextBox')">
@@ -506,7 +506,7 @@ function getOptionContent() {
 						</td>
 					</tr>
 
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Filesystem Charset"); ?></td>
 						<td class="option_value">
 							<select id="filesystem_charset" name="filesystem_charset">
@@ -534,7 +534,7 @@ function getOptionContent() {
 						</td>
 					</tr>
 
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Allowed tags"); ?></td>
 						<td class="option_value">
 							<?php
@@ -585,7 +585,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Usage policy"); ?></td>
 						<td class="option_value">
 							<label>
@@ -619,7 +619,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name">
 							<?php echo gettext("Cookies"); ?>
 						</td>
@@ -664,7 +664,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name">
 							<?php echo gettext("Name"); ?>
 							<p><?php echo gettext("Email"); ?></p>
@@ -682,7 +682,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name">
 							<?php echo gettext('Registration'); ?>
 						</td>
@@ -705,7 +705,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 								</div>
 							</span>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name">
 							<?php echo gettext('Online threshold'); ?>
 						</td>
@@ -724,7 +724,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 								</div>
 							</span>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name">
 							<?php echo gettext('Dirty form check'); ?>
 						</td>
@@ -754,7 +754,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 					<?php
 					$subtabs = array('security' => gettext('security'), 'debug' => gettext('debug'));
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name">
 							<?php
 							foreach ($subtabs as $subtab => $log) {

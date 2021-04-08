@@ -63,7 +63,7 @@ function getOptionContent() {
 			<br clear="all">
 			<div id="columns">
 				<table>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Cookie security') ?></td>
 						<td class="option_value">
 							<label>
@@ -90,7 +90,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Obscure cache filenames'); ?></td>
 						<td class="option_value">
 							<label>
@@ -106,7 +106,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Image Processor security') ?></td>
 						<td class="option_value">
 							<label>
@@ -122,7 +122,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Log encryption') ?></td>
 						<td class="option_value">
 							<?php
@@ -222,7 +222,7 @@ function getOptionContent() {
 					$file = basename($authority->getFileName());
 					if ($file != 'class-auth.php') {
 						?>
-						<tr>
+						<tr class="optionSet">
 							<td class="option_name">
 								<?php echo gettext('Authentication authority'); ?>
 							</td>
@@ -236,7 +236,7 @@ function getOptionContent() {
 						$supportedOptions = $_authority->getOptionsSupported();
 						if (count($supportedOptions) > 0) {
 							?>
-							<tr>
+							<tr class="optionSet">
 								<?php customOptions($_authority, ''); ?>
 							</tr>
 							<?php

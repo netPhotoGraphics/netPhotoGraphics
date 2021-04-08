@@ -230,7 +230,7 @@ function getOptionContent() {
 						<?php
 					}
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Search behavior settings"); ?></td>
 						<?php
 						$engine = new SearchEngine();
@@ -356,7 +356,7 @@ function getOptionContent() {
 							</div>
 						</span>
 					</td>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Cache expiry'); ?></td>
 						<td class="option_value">
 							<?php printf(gettext('redo search after %s minutes.'), '<input type="textbox" size="4" name="search_cache_duration" value="' . getOption('search_cache_duration') . '" />'); ?>
@@ -380,7 +380,7 @@ function getOptionContent() {
 					$sort[gettext('Custom')] = 'custom';
 					$sort[gettext('Album order')] = 'sort_order';
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Sort albums by"); ?> </td>
 						<td class="option_value">
 							<span class="nowrap">
@@ -440,7 +440,7 @@ function getOptionContent() {
 					<?php
 					unset($sort[gettext('Album order')]);
 					?>
-					<tr>
+					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Sort images by"); ?> </td>
 						<td class="option_value">
 							<span class="nowrap">
@@ -497,7 +497,7 @@ function getOptionContent() {
 						unset($sort[gettext('Filename')]);
 						if ($_CMS->news_enabled) {
 							?>
-							<tr>
+							<tr class="optionSet">
 								<td class="option_name"><?php echo gettext("Sort articles by"); ?> </td>
 								<td class="option_value">
 									<span class="nowrap">
@@ -552,7 +552,7 @@ function getOptionContent() {
 						if ($_CMS->pages_enabled) {
 							$sort[gettext('Page order')] = 'sort_order';
 							?>
-							<tr>
+							<tr class="optionSet">
 								<td class="option_name"><?php echo gettext("Sort pages by"); ?> </td>
 								<td class="option_value">
 									<span class="nowrap">
