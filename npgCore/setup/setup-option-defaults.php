@@ -757,9 +757,7 @@ if (!file_exists(SERVERPATH . '/favicon.ico')) {
 	}
 }
 
-setOptionDefault('default_copyright', sprintf(gettext('Copyright %1$u  : %2$s '), date('Y'), $_SERVER["HTTP_HOST"]));
 setOptionDefault('fullsizeimage_watermark', getOption('fullimage_watermark'));
-
 
 $data = getOption('gallery_data');
 if ($data) {
@@ -805,6 +803,19 @@ if (!isset($data['gallery_user']))
 	$data['gallery_user'] = getOption('gallery_user');
 if (!isset($data['gallery_hint']))
 	$data['gallery_hint'] = getOption('gallery_hint');
+if (!isset($data['copyright']) || empty($data['copyright'])) {
+	$text = getOption('default_copyright');
+	if (empty($text)) {
+		$admin = $_authority->getMasterUser();
+		if (!$author = $admin->getName()) {
+			$author = $admin->getUser();
+		}
+		$text = sprintf(gettext('© %1$u : %2$s - %3$s'), date('Y'), $_SERVER["HTTP_HOST"], $author);
+	} else {
+		purgeOption('default_copyright');
+	}
+	$data['copyright'] = $text;
+}
 if (!isset($data['hitcounter'])) {
 	$data['hitcounter'] = $result = getOption('Page-Hitcounter-index');
 	purgeOption('Page-Hitcounter-index');
