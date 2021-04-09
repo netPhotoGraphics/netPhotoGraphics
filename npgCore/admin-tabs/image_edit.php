@@ -394,26 +394,13 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									if ($image->getlastchangeuser()) {
 										?>
 										<p>
-											<?php
-											printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
-											?>
+											<?php printLastChange($image); ?>
 										</p>
 										<?php
 									}
 									?>
 									<p>
-										<?php
-										if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-											echo gettext("Owner");
-											?>
-											<select name="<?php echo $currentimage; ?>-owner" size='1' >
-												<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
-											</select>
-											<?php
-										} else {
-											printf(gettext('Owner: %1$s'), $image->getOwner());
-										}
-										?>
+										<?php printChangeOwner($image, UPLOAD_RIGHTS | ALBUM_RIGHTS, gettext("Owner"), $currentimage); ?>
 									</p>
 									<?php
 									if (extensionEnabled('comment_form')) {

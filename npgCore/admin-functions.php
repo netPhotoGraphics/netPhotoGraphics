@@ -2586,26 +2586,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 						if ($album->getlastchangeuser()) {
 							?>
 							<p>
-								<?php
-								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
-								?>
+								<?php printLastChange($album); ?>
 							</p>
 							<?php
 						}
 						?>
 						<p>
-							<?php
-							if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-								echo gettext("Owner");
-								?>
-								<select name="<?php echo $suffix; ?>owner" size='1'>
-									<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
-								</select>
-								<?php
-							} else {
-								printf(gettext('Owner: %1$s'), $album->getOwner());
-							}
-							?>
+							<?php printChangeOwner($album, UPLOAD_RIGHTS | ALBUM_RIGHTS, gettext("Owner"), $prefix); ?>
 						</p>
 						<?php
 						if (extensionEnabled('comment_form')) {
@@ -5269,7 +5256,7 @@ function codeblocktabsJS() {
  * @param object $obj
  * @param int $id
  */
-function printCodeblockEdit($obj, $id) {
+function printCodeblockEdit($obj, $id, $hint = TRUE) {
 	$codeblock = getSerializedArray($obj->getCodeblock());
 	$keys = array_keys($codeblock);
 	array_push($keys, 1);
@@ -5280,24 +5267,28 @@ function printCodeblockEdit($obj, $id) {
 	} else {
 		$start = (int) getOption('codeblock_first_tab');
 	}
+	if (isImageClass($obj)) {
+		$script = 'image.php';
+	} else if (isAlbumClass($obj)) {
+		$script = 'album.php';
+	} else { //	news and pages
+		$script = $obj->table . '.php';
+	}
+	$hintText = sprintf(gettext('To display a codeblock place a function call on <code>printCodeBlocks(</code><em>block number</em><code>)</code> at the appropriate place in your <em>%1$s</em> script.'), $script);
+	if ($hint) {
+		?>
+
+		<span class="info_info floatright">
+			<?php echo INFORMATION_BLUE; ?>
+			<div class="option_desc_hidden">
+				<?php echo $hintText ?>
+			</div>
+		</span>
+		<?php
+	}
 	?>
 	<div id="cbd-<?php echo $id; ?>" class="tabs">
 		<ul id="<?php echo 'cbu' . '-' . $id; ?>" class="tabNavigation">
-			<span class="info_info floatright">
-				<?php echo INFORMATION_BLUE; ?>
-				<div class="option_desc_hidden">
-					<?php
-					if (isImageClass($obj)) {
-						$script = 'image.php';
-					} else if (isAlbumClass($obj)) {
-						$script = 'album.php';
-					} else { //	news and pages
-						$script = $obj->table . '.php';
-					}
-					printf(gettext('To display a codeblock place a function call on <code>printCodeBlocks(</code><em>block number</em><code>)</code> at the appropriate place in your <em>%1$s</em> script.'), $script);
-					?>
-				</div>
-			</span>
 			<?php
 			for ($i = $start; $i < $codeblockCount; $i++) {
 				?>
@@ -5338,6 +5329,7 @@ function printCodeblockEdit($obj, $id) {
 		?>
 	</div>
 	<?php
+	return $hintText;
 }
 
 /**
@@ -5691,10 +5683,56 @@ function admin_owner_list($owner, $rightsNeeded) {
 			if ($owner == $user['user']) {
 				$adminlist .= ' SELECTED="SELECTED"';
 			}
+			if ($user['name']) {
+				$adminlist .= ' title="' . $user['name'] . '"';
+			}
 			$adminlist .= '>' . $user['user'] . "</option>\n";
 		}
 	}
 	return $adminlist;
+}
+
+/**
+ * prints the date and user who last changed the object
+ *
+ * @param object $obj the object changed
+ */
+function printLastChange($obj) {
+	$name = '';
+	$user = $obj->getlastchangeuser();
+	if ($user) {
+		$userobj = new npg_Administrator($user, 1);
+		$name = $userobj->getName();
+	}
+	printf(gettext('Last changed %1$s by %2$s'), $obj->getLastchange() . '<br /><span title="' . $name . '">', $obj->getlastchangeuser() . '</span>');
+}
+
+/**
+ * Prints the change owner selector
+ *
+ * @param object $obj the object owned
+ * @param bool $rightsDesired the rights filter for the list
+ * @param string $called the "name" of the element
+ */
+function printChangeOwner($obj, $rightsDesired, $called, $unique = NULL) {
+	if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		echo $called;
+		?>
+		<select name="<?php echo $unique; ?>owner" size='1'>
+			<?php echo admin_owner_list($obj->getOwner(), $rightsDesired); ?>
+		</select>
+		<?php
+	} else {
+		$name = '';
+		$owner = $obj->getOwner();
+		if ($owner) {
+			$userobj = new npg_Administrator($owner, 1);
+			$name = $userobj->getName();
+		}
+		echo '<span title="' . $name . '">';
+		printf(gettext('Owner: %1$s'), $owner);
+		echo '</span>';
+	}
 }
 
 /**

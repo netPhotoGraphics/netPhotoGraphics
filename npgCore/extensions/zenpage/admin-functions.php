@@ -139,8 +139,8 @@ function updatePage(&$reports) {
 	$page->setTitle($title);
 	$page->setContent($content);
 	$page->setCommentsAllowed($commentson);
-	if (isset($_POST['author'])) {
-		$page->setOwner(sanitize($_POST['author']));
+	if (isset($_POST['owner'])) {
+		$page->setOwner(sanitize($_POST['owner']));
 	}
 	$page->setPermalink($permalink);
 	$page->setLocked($locked);
@@ -454,8 +454,8 @@ function updateArticle(&$reports, $newarticle = false) {
 	$article->setContent($content);
 	$article->setDateTime($date);
 	$article->setCommentsAllowed($commentson);
-	if (isset($_POST['author'])) {
-		$article->setOwner(sanitize($_POST['author']));
+	if (isset($_POST['owner'])) {
+		$article->setOwner(sanitize($_POST['owner']));
 	}
 	$article->setPermalink($permalink);
 	$article->setLocked($locked);

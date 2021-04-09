@@ -529,7 +529,7 @@ $tagsort = 'alpha';
 																				 name="disclose_password"
 																				 id="disclose_password"
 																				 onclick="passwordClear('');
-																						 togglePassword('');">
+																									 togglePassword('');">
 																				 <?php echo gettext('Show'); ?>
 																</label>
 																<br />
@@ -620,9 +620,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																		 $('#expiredate').val('');
-																		 $('#pubdate').css('color', 'black');
-																		 $('.expire').html('');"
+																			 $('#expiredate').val('');
+																			 $('#pubdate').css('color', 'black');
+																			 $('.expire').html('');"
 																 />
 													<?php echo gettext("Published"); ?></label>
 
@@ -709,12 +709,7 @@ $tagsort = 'alpha';
 														</strong>
 													</p>
 													<?php
-													if ($result->getlastchangeuser()) {
-														?>
-														<p><?php printf(gettext('Last changed %1$s by %2$s'), $result->getLastchange() . '<br />', $result->getlastchangeuser()); ?>
-														</p>
-														<?php
-													}
+													printLastChange($result);
 
 													if (!is_AdminEditPage("newscategory")) {
 														if (is_AdminEditPage("newsarticle")) {
@@ -726,18 +721,9 @@ $tagsort = 'alpha';
 														}
 														?>
 														<p>
-															<?php
-															if (npg_loggedin($manager)) {
-																echo gettext("Author");
-																?>
-																<select size='1' name="author" id="author">
-																	<?php echo admin_owner_list($result->getOwner(), $rightsDesired); ?>
-																</select>
-															</p>
-															<?php
-														} else {
-															printf(gettext('Author: %1$s'), $result->getOwner());
-														}
+															<?php printChangeOwner($result, $rightsDesired, gettext("Author")); ?>
+														</p>
+														<?php
 													}
 													if (extensionEnabled('comment_form')) {
 														?>
@@ -797,12 +783,12 @@ $tagsort = 'alpha';
 													?>
 													<label class="checkboxlabel">
 														<input type="radio" id="copy_object" name="copy_delete_object" value="copy" onclick="$('#copyfield').show();
-																$('#deletemsg').hide();" />
+																		$('#deletemsg').hide();" />
 																	 <?php echo gettext("Copy"); ?>
 													</label>
 													<label class="checkboxlabel">
 														<input type="radio" id="delete_object" name="copy_delete_object" value="delete" onclick="deleteConfirm('delete_object', '', '<?php addslashes(printf(gettext('Are you sure you want to delete this %s?'), $deleteitem)); ?>');
-																$('#copyfield').hide();" />
+																		$('#copyfield').hide();" />
 																	 <?php echo gettext('delete'); ?>
 													</label>
 													<br class="clearall" />
