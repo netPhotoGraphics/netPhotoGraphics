@@ -160,7 +160,7 @@ class htmlmetatags {
 		if (!$author = $admin->getName()) {
 			$author = $admin->getUser();
 		}
-		$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+		$copyright_notice = $_gallery->getCopyright();
 
 		// Convert locale shorttag to allowed html meta format
 		$locale_ = i18n::getUserLocale();
@@ -225,25 +225,29 @@ class htmlmetatags {
 					$twittercard_type = 'summary_large_image';
 				}
 				$metadata = $_current_image->getMetaData();
-				if (isset($metadata['XMPImageCredit']) && !empty($metadata['XMPImageCredit'])) {
-					$author = $metadata['XMPImageCredit'];
-				} else if (isset($metadata['EXIFArtist']) && !empty($metadata['EXIFArtist'])) {
-					$author = $metadata['EXIFArtist'];
-				} else if (isset($metadata['IPTCByLine']) && !empty($metadata['IPTCByLine'])) {
-					$author = $metadata['IPTCByLine'];
-				} else {
+				$ownerFields = array('XMPImageCredit', 'VideoArtist', 'EXIFArtist', 'IPTCByLine');
+				$holder = NULL;
+				foreach ($ownerFields as $field) {
+					if (isset($metadata[$field]) && !empty($metadata[$field])) {
+						$holder = $metadata[$field];
+						break;
+					}
+				}
+				if (empty($holder)) {
 					if ($holder = self::getOwnerName($_current_image->getOwner())) {
 						$author = $holder;
 					}
 				}
-				if (isset($metadata['XMPCopyright']) && !empty($metadata['XMPCopyright'])) {
-					$copyright_notice = $metadata['XMPCopyright'];
-				} else if (isset($metadata['IPTCCopyright']) && !empty($metadata['IPTCCopyright'])) {
-					$copyright_notice = $metadata['IPTCCopyright'];
-				} else if (isset($metadata['EXIFCopyright']) && !empty($metadata['EXIFCopyright'])) {
-					$copyright_notice = $metadata['EXIFCopyright'];
-				} else {
-					$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+				if ($holder) {
+					$author = $holder;
+				}
+				$copyrightFields = array('XMPCopyright', 'IPTCCopyright', 'EXIFCopyright');
+				$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+				foreach ($ownerFields as $field) {
+					if (isset($metadata[$field]) && !empty($metadata[$field])) {
+						$copyright_notice = $metadata[$field];
+						break;
+					}
 				}
 				break;
 			case 'news.php':

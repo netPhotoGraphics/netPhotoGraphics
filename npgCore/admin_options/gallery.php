@@ -19,6 +19,7 @@ function saveOptions() {
 	$_gallery->setLogonWelcome(process_language_string_save('logon_welcome', EDITOR_SANITIZE_LEVEL));
 	$_gallery->setSiteLogo(sanitize_path($_POST['sitelogoimage']));
 	$_gallery->setSiteLogoTitle(process_language_string_save('sitelogotitle', EDITOR_SANITIZE_LEVEL));
+	$_gallery->setCopyright(process_language_string_save('sitecopyright', EDITOR_SANITIZE_LEVEL));
 	$web = sanitize($_POST['website_url'], 3);
 	$_gallery->setWebsiteURL($web);
 	$_gallery->setAlbumUseImagedate((int) isset($_POST['album_use_new_image_date']));
@@ -129,7 +130,7 @@ function getOptionContent() {
 							</span>
 						</td>
 					</tr>
-					<tr id="sitelogotitle"<?php if (empty($sitelogo)) echo ' style="display: none;"'; ?>>
+					<tr id="sitelogotitle"<?php if (empty($sitelogo)) echo ' style="display: none;"'; ?> class="optionSet">
 						<td class="option_name"><?php echo gettext("Branding logo title"); ?></td>
 						<td class="option_value">
 							<?php print_language_string_list($_gallery->getSiteLogoTitle('all'), 'sitelogotitle', false, null, '', '100%'); ?>
@@ -139,6 +140,19 @@ function getOptionContent() {
 								<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
 									<?php echo gettext("Enter the title text for your branding logo."); ?>
+								</div>
+							</span>
+						</td>
+					</tr>
+					<tr class="optionSet">
+						<td class="option_name"><?php echo gettext('Site copyright'); ?></td>
+						<td class="option_value">
+							<input type="text" style="width:100%;" name="sitecopyright" value="<?php echo $_gallery->getCopyright(); ?>" />
+						<td class="option_desc">
+							<span class="option_info">
+								<?php echo INFORMATION_BLUE; ?>
+								<div class="option_desc_hidden">
+									<?php echo gettext("Enter the text for your site copyright."); ?>
 								</div>
 							</span>
 						</td>
@@ -521,9 +535,15 @@ function getOptionContent() {
 					<tr valign="top">
 						<td class="topalign-nopadding"><br /><?php echo gettext("Codeblocks"); ?></td>
 						<td>
-							<?php printCodeblockEdit($_gallery, 0); ?>
+							<?php $hint = printCodeblockEdit($_gallery, 0, FALSE); ?>
 						</td>
 						<td>
+							<span class="option_info">
+								<?php echo INFORMATION_BLUE; ?>
+								<div class="option_desc_hidden">
+									<?php echo $hint; ?>
+								</div>
+							</span>
 						</td>
 					</tr>
 				</table>

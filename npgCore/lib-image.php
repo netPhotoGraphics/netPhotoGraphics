@@ -460,7 +460,7 @@ class imageProcessing {
 					$image = newImage(newAlbum($albumname), $imagename);
 					$copyright = $image->getCopyright();
 					if (empty($copyright)) {
-						$copyright = getOption('default_copyright');
+						$copyright = $_gallery->getCopyright();
 					}
 					if (!empty($copyright)) {
 						$iptc['2#116'] = $copyright;

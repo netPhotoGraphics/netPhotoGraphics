@@ -90,6 +90,20 @@ class Gallery {
 		$this->set('Gallery_description', $desc);
 	}
 
+	function getCopyright($locale = NULL) {
+		$text = $this->get('copyright');
+		if ($locale == 'all') {
+			return npgFunctions::unTagURLs($text);
+		} else {
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
+		}
+		return $text;
+	}
+
+	function setCopyright($text) {
+		$this->set('copyright', $text);
+	}
+
 	/**
 	 * Returns the website logon welcome message
 	 *

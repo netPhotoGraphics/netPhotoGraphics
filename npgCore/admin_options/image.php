@@ -19,7 +19,6 @@ function saveOptions() {
 	setOption('image_sharpen', (int) isset($_POST['image_sharpen']));
 	setOption('image_interlace', (int) isset($_POST['image_interlace']));
 	setOption('ImbedIPTC', (int) isset($_POST['ImbedIPTC']));
-	setOption('default_copyright', sanitize($_POST['default_copyright']));
 	setOption('sharpen_amount', sanitize_numeric($_POST['sharpen_amount']));
 	$num = str_replace(',', '.', sanitize($_POST['sharpen_radius']));
 	if (is_numeric($num)) {
@@ -964,7 +963,7 @@ function getOptionContent() {
 						$desc = gettext('If checked and an image has no IPTC data a copyright notice will be imbedded cached copies.');
 					} else {
 						$optionText = gettext('replicate IPTC metadata');
-						$desc = gettext('If checked IPTC data from the original image will be imbedded in cached copies. If the image has no IPTC data a copyright notice will be imbedded. (The text supplied will be used if the original image has no copyright.)');
+						$desc = gettext('If checked IPTC data from the original image will be imbedded in cached copies. If the image has no copyright notice the gallery copyright will be used.');
 					}
 					?>
 					<tr class="optionSet">
@@ -974,9 +973,6 @@ function getOptionContent() {
 								<input type="checkbox" name="ImbedIPTC" value="1"	<?php checked('1', getOption('ImbedIPTC')); ?> />
 								<?php echo $optionText; ?>
 							</label>
-							<p>
-								<input type="textbox" name="default_copyright" value="<?php echo getOption('default_copyright'); ?>" size="50" />
-							</p>
 						</td>
 						<td class="option_desc">
 							<span class="option_info">
