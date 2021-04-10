@@ -8,10 +8,10 @@
 
 class Gallery {
 
-	var $albumdir = NULL;
-	var $table = 'gallery';
-	var $name = '..gallery..';
-	var $branded = false;
+	public $albumdir = NULL;
+	public $table = 'gallery';
+	public $name = '..gallery..';
+	public $branded = false;
 	protected $albums = NULL;
 	protected $theme;
 	protected $themes;

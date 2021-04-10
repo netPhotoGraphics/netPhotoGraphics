@@ -12,9 +12,9 @@ function newCategory($catllink, $create = NULL) {
  */
 class Category extends CMSRoot {
 
-	var $manage_rights = MANAGE_ALL_NEWS_RIGHTS;
-	var $manage_some_rights = ZENPAGE_NEWS_RIGHTS;
-	var $access_rights = ALL_NEWS_RIGHTS;
+	public $manage_rights = MANAGE_ALL_NEWS_RIGHTS;
+	public $manage_some_rights = ZENPAGE_NEWS_RIGHTS;
+	public $access_rights = ALL_NEWS_RIGHTS;
 	protected $sortorder = 'date';
 	protected $sortdirection = true;
 	protected $sortSticky = true;

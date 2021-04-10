@@ -26,9 +26,9 @@ npgFilters::register('codeblock', 'defaultCodeblocks::codeblock');
 
 class defaultCodeblocks {
 
-	var $codeblocks;
-	var $blocks = array();
-	var $table = NULL; //	the DB table for this instantiation of defaultCodeblocks
+	public $codeblocks;
+	public $blocks = array();
+	public $table = NULL; //	the DB table for this instantiation of defaultCodeblocks
 
 	function __construct() {
 		$this->blocks = array('gallery' => NULL, 'albums' => NULL, 'images' => NULL, 'news' => NULL, 'pages' => NULL);

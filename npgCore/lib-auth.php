@@ -9,10 +9,10 @@ require_once(__DIR__ . '/classes.php');
 
 class _Authority {
 
-	var $admin_users = NULL;
-	var $admin_groups = NULL;
-	var $admin_other = NULL;
-	var $rightsset = NULL;
+	public $admin_users = NULL;
+	public $admin_groups = NULL;
+	public $admin_other = NULL;
+	public $rightsset = NULL;
 	protected $master_user = NULL;
 	protected $master_userObj = NULL;
 	static $preferred_version = 4;
@@ -1875,10 +1875,10 @@ class _Administrator extends PersistentObject {
 	 *
 	 */
 	protected $objects = NULL;
-	var $master = false; //	will be set to true if this is the inherited master user
-	var $msg = NULL; //	a means of storing error messages from filter processing
-	var $logout_link = true; // for a logout
-	var $reset = false; // if true the user was setup by a "reset password" event
+	public $master = false; //	will be set to true if this is the inherited master user
+	public $msg = NULL; //	a means of storing error messages from filter processing
+	public $logout_link = true; // for a logout
+	public $reset = false; // if true the user was setup by a "reset password" event
 
 	/**
 	 * Constructor for an Administrator

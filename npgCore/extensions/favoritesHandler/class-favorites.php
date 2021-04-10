@@ -7,15 +7,15 @@
  */
 class favorites extends AlbumBase {
 
-	var $imageSortDirection;
-	var $albumSortDirection;
-	var $imageSortType;
-	var $albumSortType;
-	var $list = array('');
-	var $owner;
-	var $instance = '';
-	var $multi;
-	var $imageNames; // list of images for handling duplicate file names
+	public $imageSortDirection;
+	public $albumSortDirection;
+	public $imageSortType;
+	public $albumSortType;
+	public $list = array('');
+	public $owner;
+	public $instance = '';
+	public $multi;
+	public $imageNames; // list of images for handling duplicate file names
 
 	function __construct($user) {
 

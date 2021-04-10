@@ -80,7 +80,7 @@ class static_html_cache_options {
 
 class static_html_cache {
 
-	var $enabled = true; // manual disable caching a page
+	public $enabled = true; // manual disable caching a page
 	private $pageCachePath = NULL;
 	private $dirty;
 

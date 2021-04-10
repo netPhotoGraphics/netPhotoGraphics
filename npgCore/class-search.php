@@ -18,20 +18,20 @@ define('SEARCH_CACHE_DURATION', getOption('search_cache_duration'));
 
 class SearchEngine {
 
-	var $name = '*search*';
-	var $exists = true;
-	var $fieldList = NULL;
-	var $page = 1;
-	var $images = NULL;
-	var $albums = NULL;
-	var $articles = NULL;
-	var $pages = NULL;
-	var $pattern;
-	var $tagPattern;
-	var $language;
+	public $name = '*search*';
+	public $exists = true;
+	public $fieldList = NULL;
+	public $page = 1;
+	public $images = NULL;
+	public $albums = NULL;
+	public $articles = NULL;
+	public $pages = NULL;
+	public $pattern;
+	public $tagPattern;
+	public $language;
 	protected $dynalbumname = NULL;
 	protected $searchprivatetags = NULL;
-	var $album = NULL;
+	public $album = NULL;
 	protected $words;
 	protected $dates;
 	protected $search_no_albums = false; // omit albums
@@ -50,11 +50,11 @@ class SearchEngine {
 	protected $tagSQL = array(); //	cache for the tag hit list
 	// $specialChars are characters with special meaning in parasing searach strings
 	// set to false and they are treated as regular characters
-	var $specialChars = array('"' => true, "'" => true, '`' => true, '\\' => true);
+	public $specialChars = array('"' => true, "'" => true, '`' => true, '\\' => true);
 	// mimic album object
-	var $loaded = false;
-	var $table = 'albums';
-	var $transient = true;
+	public $loaded = false;
+	public $table = 'albums';
+	public $transient = true;
 
 	/**
 	 * Constuctor

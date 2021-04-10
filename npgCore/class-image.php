@@ -77,25 +77,25 @@ function isImageClass($image) {
  */
 class Image extends MediaObject {
 
-	var $filename; // true filename of the image.
-	var $exists = true; // Does the image exist?
-	var $webpath; // The full URL path to the original image.
-	var $localpath; // Latin1 full SERVER path to the original image.
-	var $displayname; // $filename with the extension stripped off.
-	var $album; // An album object for the album containing this image.
-	var $albumname; // The name of the album for which this image was instantiated. (MAY NOT be $this->album->name!!!!).
-	var $albumnamealbum; //	An album object representing the above;
-	var $albumlink; // "rewrite" verwion of the album name, eg. may not have the .alb
-	var $imagefolder; // The album folder containing the image (May be different from the albumname!!!!)
+	public $filename; // true filename of the image.
+	public $exists = true; // Does the image exist?
+	public $webpath; // The full URL path to the original image.
+	public $localpath; // Latin1 full SERVER path to the original image.
+	public $displayname; // $filename with the extension stripped off.
+	public $album; // An album object for the album containing this image.
+	public $albumname; // The name of the album for which this image was instantiated. (MAY NOT be $this->album->name!!!!).
+	public $albumnamealbum; //	An album object representing the above;
+	public $albumlink; // "rewrite" verwion of the album name, eg. may not have the .alb
+	public $imagefolder; // The album folder containing the image (May be different from the albumname!!!!)
 	protected $index; // The index of the current image in the album array.
 	protected $sortorder; // The position that this image should be shown in the album
-	var $filemtime; // Last modified time of this image
-	var $sidecars = array(); // keeps the list of suffixes associated with this image
-	var $manage_rights = MANAGE_ALL_ALBUM_RIGHTS;
-	var $manage_some_rights = ALBUM_RIGHTS;
-	var $access_rights = ALL_ALBUMS_RIGHTS;
+	public $filemtime; // Last modified time of this image
+	public $sidecars = array(); // keeps the list of suffixes associated with this image
+	public $manage_rights = MANAGE_ALL_ALBUM_RIGHTS;
+	public $manage_some_rights = ALBUM_RIGHTS;
+	public $access_rights = ALL_ALBUMS_RIGHTS;
 	// Plugin handler support
-	var $objectsThumb = NULL; // Thumbnail image for the object
+	public $objectsThumb = NULL; // Thumbnail image for the object
 
 	/**
 	 * Constructor for class-image

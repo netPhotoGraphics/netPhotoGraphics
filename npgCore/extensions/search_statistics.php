@@ -38,7 +38,7 @@ npgFilters::register('admin_tabs', 'search_statistics::admin_tabs');
  */
 class search_statistics {
 
-	var $ratingstate;
+	public $ratingstate;
 
 	/**
 	 * class instantiation function

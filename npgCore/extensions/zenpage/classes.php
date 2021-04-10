@@ -28,8 +28,8 @@ class CMS {
 	// page defaults
 	protected $page_sortorder = 'sort_order';
 	protected $page_sortdirection = false;
-	var $news_enabled = NULL;
-	var $pages_enabled = NULL;
+	public $news_enabled = NULL;
+	public $pages_enabled = NULL;
 
 	/**
 	 * Class instantiator

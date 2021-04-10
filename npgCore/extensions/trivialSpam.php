@@ -30,7 +30,7 @@ if ($plugin_disable) {
  */
 class _TrivialSpam {
 
-	var $name = 'trivialSpam';
+	public $name = 'trivialSpam';
 
 	/**
 	 * The SpamFilter class instantiation function.

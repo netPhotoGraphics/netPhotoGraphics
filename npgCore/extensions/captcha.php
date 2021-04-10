@@ -21,7 +21,7 @@ $option_interface = 'captcha';
 
 class captcha {
 
-	var $name = 'captcha';
+	public $name = 'captcha';
 
 	/**
 	 * Class instantiator

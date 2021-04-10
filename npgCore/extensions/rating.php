@@ -40,7 +40,7 @@ if (in_context(NPG_INDEX)) {
  */
 class jquery_rating {
 
-	var $ratingstate;
+	public $ratingstate;
 
 	/**
 	 * class instantiation function

@@ -8,7 +8,7 @@
  */
 class DailySummary extends Gallery {
 
-	var $imagaecount;
+	public $imagaecount;
 
 	protected function loadAlbumNames() {
 		$minDate = floor(strtotime('-' . getOption('DailySummaryDays') . ' days') / 86400) * 86400;

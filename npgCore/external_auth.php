@@ -10,7 +10,7 @@
  */
 class external_auth {
 
-	var $auth = 'external';
+	public $auth = 'external';
 
 	/**
 	 * returns an array with the user details from the external authorization

@@ -10,8 +10,8 @@ define('DEPRECATED_LOG', SERVERPATH . '/' . DATA_FOLDER . '/deprecated.log');
 
 class deprecated_functions {
 
-	var $listed_functions = array();
-	var $unique_functions = array();
+	public $listed_functions = array();
+	public $unique_functions = array();
 
 	function __construct() {
 
