@@ -325,6 +325,14 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
+								$authority = new ReflectionClass('_Authority');
+								$file = trim(str_replace(SERVERPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
+								echo gettext('Authentication authority: ') . '<strong>' . $file . '</strong>';
+								?>
+
+							</li>
+							<li>
+								<?php
 								if (isset($_spamFilter)) {
 									$filter = $_spamFilter->displayName();
 								} else {
@@ -464,8 +472,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php

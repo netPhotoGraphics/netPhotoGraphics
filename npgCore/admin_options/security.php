@@ -51,6 +51,11 @@ function getOptionContent() {
 	global $_gallery, $_config_contents, $_configMutex, $_authority;
 	?>
 	<div id="tab_security" class="tabbox">
+		<?php
+		$authority = new ReflectionClass('_Authority');
+		$file = trim(str_replace(SERVERPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
+		echo gettext('Authentication authority: ') . '<strong>' . stripSuffix($file) . '</strong>';
+		?>
 		<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 			<?php XSRFToken('saveoptions'); ?>
 			<input type="hidden" name="saveoptions" value="security" />
@@ -216,20 +221,6 @@ function getOptionContent() {
 					} else {
 						?>
 						<input type="hidden" name="login_user_field" id="login_user_field"	value="<?php echo $_gallery->getUserLogonField(); ?>" />
-						<?php
-					}
-					$authority = new ReflectionClass('_Authority');
-					$file = basename($authority->getFileName());
-					if ($file != 'class-auth.php') {
-						?>
-						<tr class="optionSet">
-							<td class="option_name">
-								<?php echo gettext('Authentication authority'); ?>
-							</td>
-							<td class="option_value" colspan="100%">
-								<?php echo stripSuffix($file); ?>
-							</td>
-						</tr>
 						<?php
 					}
 					if (method_exists($_authority, 'getOptionsSupported')) {
