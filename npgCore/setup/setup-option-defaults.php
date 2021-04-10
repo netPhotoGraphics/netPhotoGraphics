@@ -810,7 +810,7 @@ if (!isset($data['copyright']) || empty($data['copyright'])) {
 		if (!$author = $admin->getName()) {
 			$author = $admin->getUser();
 		}
-		$text = sprintf(gettext('© %1$u : %2$s - %3$s'), date('Y'), $_SERVER["HTTP_HOST"], $author);
+		$text = sprintf(gettext('© %1$u : %2$s - %3$s'), date('Y'), FULLHOSTPATH, $author);
 	} else {
 		purgeOption('default_copyright');
 	}
