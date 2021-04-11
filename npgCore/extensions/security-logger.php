@@ -74,10 +74,8 @@ class security_logger {
 			setOptionDefault('logger_access_log_type', 'all_user');
 			setOptionDefault('security_log_size', 5000000);
 			setOptionDefault('security_log_encryption', 0);
-			setOptionDefault('admin_login_attempt', getOption('logger_log_admin'));
-			purgeOption('logger_log_admin');
-			setOptionDefault('guest_login_attempt', getOption('logger_log_guests'));
-			purgeOption('logger_log_guests');
+			renameOption('logger_log_admin', 'admin_login_attempt');
+			renameOption('logger_log_guests', 'guest_login_attempt');
 		}
 	}
 

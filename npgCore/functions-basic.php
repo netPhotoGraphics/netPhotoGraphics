@@ -1034,6 +1034,7 @@ class npgMutex {
 
 function primeOptions() {
 	global $_options;
+	$_options = array();
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
 	$rslt = query($sql, false);
 	if ($rslt) {

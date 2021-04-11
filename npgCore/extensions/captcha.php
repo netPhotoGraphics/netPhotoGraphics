@@ -36,17 +36,11 @@ class captcha {
 				enableExtension('zpCaptcha', 0);
 			}
 			if (getOption('zenphoto_captcha_key')) {
-				setOption('npg_captcha_font', getOption('zenphoto_captcha_font'));
-				setOption('npg_captcha_length', getOption('zenphoto_captcha_length'));
-				setOption('npg_captcha_font_size', getOption('zenphoto_captcha_font_size'));
-				setOption('npg_captcha_key', getOption('zenphoto_captcha_key'));
-				setOption('npg_captcha_string', getOption('zenphoto_captcha_string'));
-
-				purgeOption('zenphoto_captcha_font');
-				purgeOption('zenphoto_captcha_length');
-				purgeOption('zenphoto_captcha_font_size');
-				purgeOption('zenphoto_captcha_key');
-				purgeOption('zenphoto_captcha_string');
+				renameOption('zenphoto_captcha_font', 'npg_captcha_font');
+				renameOption('zenphoto_captcha_length', 'npg_captcha_length');
+				renameOption('zenphoto_captcha_font_size', 'npg_captcha_font_size');
+				renameOption('zenphoto_captcha_key', 'npg_captcha_key');
+				renameOption('zenphoto_captcha_string', 'npg_captcha_string');
 			}
 
 			if (getopt('npg_captcha_font_size') < 20) {

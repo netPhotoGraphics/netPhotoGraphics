@@ -748,3 +748,20 @@ function updateRootIndexFile() {
 	}
 	return $rootupdate;
 }
+
+/**
+ * Use to migrate options. If option $newKey exists simply purge the old option
+ * else if option $oldKey exists set the option to its value
+ *
+ * @param string $oldKey
+ * @param string $newKey
+ */
+function renameOption($oldKey, $newKey) {
+	$existing = getOptionList();
+	if (!array_key_exists($newKey, $existing)) {
+		if (isset($existing[$oldKey])) {
+			setOption($newKey, $existing[$oldKey]);
+		}
+	}
+	purgeOption($oldKey);
+}

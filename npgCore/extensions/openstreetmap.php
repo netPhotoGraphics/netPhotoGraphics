@@ -30,9 +30,11 @@ class openStreetMapOptions {
 	function __construct() {
 		/* clean up old options */
 		if (OFFSET_PATH == 2) {
-			replaceOption('osmap_controlpos', 'osmap_zoomcontrolpos', 'topleft');
-			replaceOption('osmap_maptiles', 'osmap_defaultlayer', 'OpenStreetMap.Mapnik');
+			renameOption('osmap_controlpos', 'osmap_zoomcontrolpos');
+			renameOption('osmap_maptiles', 'osmap_defaultlayer');
 
+			setOptionDefault('osmap_zoomcontrolpos', 'topleft');
+			setOptionDefault('osmap_defaultlayer', 'OpenStreetMap.Mapnik');
 			setOptionDefault('osmap_width', '100%'); //responsive by default!
 			setOptionDefault('osmap_height', '300px');
 			setOptionDefault('osmap_zoom', 4);

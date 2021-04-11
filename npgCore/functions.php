@@ -2063,32 +2063,6 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 }
 
 /**
- * Use to migrate options. If option $newKey exists simply purge the old option
- * else if option $oldKey exists set the option to its value, otherwise set the
- * option to the default
- *
- * @param string $oldKey
- * @param sstring $newKey
- * @param mixed $default
- */
-function replaceOption($oldKey, $newKey, $default, $setOption = 'setOptionDefault') {
-	$existing = getOptionList();
-	if (!array_key_exists($newKey, $existing)) {
-		if (isset($existing[$oldKey])) {
-			$v = $existing[$oldKey];
-		} else {
-			$v = $default;
-		}
-		$setOption($newKey, $v);
-	}
-	purgeOption($oldKey);
-}
-
-function replaceThemeOption($oldKey, $newKey, $default) {
-	replaceOption($oldKey, $newKey, $default, 'setThemeOptionDefault');
-}
-
-/**
  * Returns a list of database tables for the installation
  * @return type
  */
@@ -2372,14 +2346,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

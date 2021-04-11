@@ -34,7 +34,9 @@ class htmlmetatags {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			replaceOption('google-site-verification', 'htmlmeta_google-site-verification', '');
+			renameOption('google-site-verification', 'htmlmeta_google-site-verification');
+
+			setOptionDefault('htmlmeta_google-site-verification', '');
 			setOptionDefault('htmlmeta_cache_control', 'no-cache');
 			setOptionDefault('htmlmeta_robots', 'index');
 			setOptionDefault('htmlmeta_revisit_after', '10');

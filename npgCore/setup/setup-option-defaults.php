@@ -10,7 +10,11 @@
  */
 setupLog(gettext('Set default options'), true);
 require_once(CORE_SERVERPATH . 'admin-globals.php');
-
+?>
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
+<?php
 list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 
 $setOptions = getOptionList();
@@ -49,13 +53,13 @@ enableExtension('slideshow2', 0);
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
-// setup a hash seed
+	// setup a hash seed
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
-	setOptionDefault('extra_auth_hash_text', $auth_extratext);
+	setOption('extra_auth_hash_text', $auth_extratext);
 }
 if (!isset($setOptions['secret_key_text'])) {
 	$auth_extratext = "";
@@ -63,7 +67,7 @@ if (!isset($setOptions['secret_key_text'])) {
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
-	setOptionDefault('secret_key_text', $auth_extratext);
+	setOption('secret_key_text', $auth_extratext);
 }
 if (!isset($setOptions['secret_init_vector'])) {
 	$auth_extratext = "";
@@ -71,7 +75,7 @@ if (!isset($setOptions['secret_init_vector'])) {
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
-	setOptionDefault('secret_init_vector', $auth_extratext);
+	setOption('secret_init_vector', $auth_extratext);
 }
 purgeOption('adminTagsTab');
 
@@ -332,8 +336,7 @@ if (empty($admins)) { //	empty administrators table
 			if (empty($oldv)) {
 				//	The password hash of these old versions did not have the extra text.
 				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
-				purgeOption('extra_auth_hash_text');
-				setOptionDefault('extra_auth_hash_text', '');
+				setOption('extra_auth_hash_text', '');
 			} else {
 				$msg = sprintf(gettext('Migrating lib-auth data version %1$s => version %2$s '), $oldv, npg_Authority::$preferred_version);
 				if (!$_authority->migrateAuth(npg_Authority::$preferred_version)) {
@@ -343,7 +346,6 @@ if (empty($admins)) { //	empty administrators table
 				setupLog($msg, true);
 			}
 		}
-		purgeOption('extra_auth_hash_text');
 	}
 } else {
 	$groupsdefined = getSerializedArray(getOption('defined_groups'));
@@ -395,9 +397,6 @@ setOptionDefault('dirtyform_enable', 2);
 		});
 	});
 </script>
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
 <?php
 purgeOption('mod_rewrite_detected');
 
