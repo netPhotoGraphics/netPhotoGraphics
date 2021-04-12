@@ -365,8 +365,7 @@ function debugLogRaw($message) {
 	}
 	ob_start();
 	var_dump($var);
-	$str = ob_get_contents();
-	ob_end_clean();
+	$str = ob_get_clean();
 	debugLog($message . $str);
 }
 ?>

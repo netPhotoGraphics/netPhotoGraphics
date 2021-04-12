@@ -30,8 +30,7 @@ if (!extension_loaded('intl')) {
 		static function getLocales($param) {
 			ob_start();
 			system('locale -a');
-			$locales = ob_get_contents();
-			ob_end_clean();
+			$locales = ob_get_clean();
 			return explode("\n", trim($locales));
 		}
 

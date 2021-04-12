@@ -150,7 +150,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-											 togglePassword('_downloadList');">
+									 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -408,7 +408,7 @@ class AlbumZip {
 				$zip->addFile($path, internalToFilesystem(trim($file, '/')));
 			}
 			$zip->close();
-			ob_get_clean();
+			@ob_end_clean();
 			header("Pragma: public");
 			header("Expires: 0");
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");

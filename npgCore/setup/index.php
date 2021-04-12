@@ -1809,7 +1809,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							$task .= $autorunq;
 							if ($blindInstall) {
-								ob_end_clean();
+								@ob_end_clean();
 								$blindInstall = false;
 								$stop = !$autorun;
 							} else {
@@ -1880,7 +1880,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 					}
 
 					if ($blindInstall) {
-						ob_end_clean();
+						@ob_end_clean();
 					}
 					?>
 					<br class="clearall" />

@@ -674,8 +674,7 @@ function debugLogVar($var) {
 	}
 	ob_start();
 	varDebug($var);
-	$str = ob_get_contents();
-	ob_end_clean();
+	$str = ob_get_clean();
 	$str = preg_replace('~<[/]*pre(.*?)>~', '', $str);
 	$str = html_decode($str);
 	$str = str_replace('  ', "\t", $str);

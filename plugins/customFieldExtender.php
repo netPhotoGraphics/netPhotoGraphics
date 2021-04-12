@@ -208,8 +208,7 @@ class customFieldExtender extends fieldExtender {
 					<?php echo admin_owner_list($item, UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 				</select>
 				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
+				$item = ob_get_clean();
 			}
 			return $item;
 		}

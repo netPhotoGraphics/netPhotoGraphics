@@ -2566,15 +2566,14 @@ function applyMacros($text) {
 						if ($class == 'function') {
 							ob_start();
 							$data = call_user_func_array($macro['value'], $parameters);
+							$output = ob_get_clean();
 							if (is_null($data)) {
-								$data = ob_get_contents();
+								$data = $output;
 							}
-							ob_end_clean();
 						} else {
 							ob_start();
 							call_user_func_array($macro['value'], $parameters);
-							$data = ob_get_contents();
-							ob_end_clean();
+							$data = ob_get_clean();
 							if (empty($data)) {
 								$data = NULL;
 							}

@@ -217,8 +217,7 @@ class static_html_cache {
 		global $_themeScript_timer, $_image_need_cache;
 		$cachefilepath = $this->pageCachePath;
 		if (!empty($cachefilepath)) {
-			$pagecontent = ob_get_contents();
-			ob_end_clean();
+			$pagecontent = ob_get_clean();
 			if ($this->enabled && $fh = fopen($cachefilepath, "w")) {
 				fputs($fh, $pagecontent);
 				fclose($fh);
@@ -261,9 +260,9 @@ class static_html_cache {
 		if (!empty($this->pageCachePath)) {
 			$this->pageCachePath = NULL;
 			if ($flush) {
-				ob_end_flush();
+				@ob_end_flush();
 			} else {
-				ob_end_clean();
+				@ob_end_clean();
 			}
 		}
 	}

@@ -249,8 +249,7 @@ class site_upgrade {
 					$obj = new $source(array(strtolower($source) => 'null'));
 					ob_start();
 					$obj->printFeed($items);
-					$data = ob_get_contents();
-					ob_end_clean();
+					$data = ob_get_clean();
 					break;
 			}
 			file_put_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name, $data);

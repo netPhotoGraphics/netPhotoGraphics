@@ -91,7 +91,7 @@ if ($str = isolate('$option_interface', $p)) {
 		}
 		ob_start(); //	some plugins emit output from the getOptionsSupported() method
 		$options = $option_interface->getOptionsSupported();
-		ob_end_clean();
+		@ob_end_clean();
 		$owner = replaceScriptPath($path);
 		foreach ($options as $option) {
 			if (isset($option['key'])) {
