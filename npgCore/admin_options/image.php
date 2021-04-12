@@ -223,7 +223,7 @@ function getOptionContent() {
 				?>
 						$('#<?php echo $key; ?>_disable').prop('checked', 'checked');
 				<?php
-			} else if (!$data[EXIF_DISPLAY] || !$data[4]) {
+			} else if (!$data[EXIF_DISPLAY] || !$data[EXIF_FIELD_SIZE]) {
 				?>
 						$('#<?php echo $key; ?>_hide').prop('checked', 'checked');
 				<?php
@@ -741,7 +741,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																			 togglePassword('');" />
+																	 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 
@@ -857,7 +857,7 @@ function getOptionContent() {
 												<input id="<?php echo $key; ?>_disable" name="<?php echo $key; ?>" type="radio" class="<?php echo $key; ?>_metaDisable"<?php echo $checked_disabled ?> value="2" />
 												<?php echo CROSS_MARK_RED; ?>
 											</label>
-											<?php echo $item[2] . ' {' . $item[0] . '}'; ?>
+											<?php echo $item[EXIF_DISPLAY_TEXT] . ' {' . $item[EXIF_SOURCE] . '}'; ?>
 										</li>
 										<?php
 									}

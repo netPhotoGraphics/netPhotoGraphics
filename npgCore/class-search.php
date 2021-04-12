@@ -122,10 +122,13 @@ class SearchEngine {
 			$this->search_structure['titlelink'] = gettext('TitleLink');
 			$this->search_structure['news_categories'] = gettext('Categories');
 		}
+		$this->search_structure['gpsLatitude'] = gettext('Latitude');
+		$this->search_structure['gpsLongitude'] = gettext('Longitude');
+
 		//metadata fields
 		foreach ($_exifvars as $field => $row) {
 			if ($row[EXIF_DISPLAY] && $row[EXIF_FIELD_ENABLED]) { //	only those that are "real" and "processed"
-				$this->search_structure[strtolower($field)] = $row[EXIF_DISPLAY_TEXT];
+				$this->search_structure[strtolower($field)] = $row[EXIF_DISPLAY_TEXT] . ' {' . $row[EXIF_SOURCE] . '}';
 			}
 		}
 
