@@ -228,10 +228,15 @@ function hasNews() {
  * @return int
  */
 function getNumNews($total = false) {
-	global $_CMS, $_current_search;
+	global $_CMS, $_current_search, $_CMS_current_category;
 	if ($_CMS->news_enabled) {
 		if ($total) {
-			return count($_CMS->getArticles(0));
+			//	all means all, even if we are in a category context!
+			$stack = $_CMS_current_category;
+			$_CMS_current_category = NULL;
+			$c = count($_CMS->getArticles(0));
+			$_CMS_current_category = $stack;
+			return $c;
 		} else if (in_context(NPG_SEARCH)) {
 			return count($_current_search->getArticles());
 		} else {
