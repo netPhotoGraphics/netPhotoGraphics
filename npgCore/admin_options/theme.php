@@ -234,16 +234,15 @@ function getOptionContent() {
 				<br clear="all">
 				<br />
 				<div id="columns">
-					<table>
-
-						<tr class="alt1">
-							<th align="left">
-
-							</th>
-							<th colspan="100%" >
-								<?php echo gettext('<em>These image and album presentation options provided by the Core for all themes.</em>') . '<p class="notebox">' . gettext('<strong>Note:</strong> These are <em>recommendations</em> as themes may choose to override them for design reasons.'); ?></p>
-							</th>
-						</tr>
+					<div class="colwidth">
+						<p>
+							<?php echo gettext('<em>These image and album presentation options provided by the Core for all themes.</em>'); ?>
+						</p>
+						<p class="notebox">
+							<?php echo gettext('<strong>Note:</strong> These are <em>recommendations</em> as themes may choose to override them for design reasons.'); ?>
+						</p>
+					</div>
+					<table id="npgOptions">
 						<tr>
 							<td class="option_name"><?php echo gettext("Albums"); ?></td>
 							<td class="option_value">
@@ -533,23 +532,24 @@ function getOptionContent() {
 										</div>
 									</span></td>
 							</tr>
-							<?php
-						}
-						if (count($supportedOptions) > 0) {
-							?>
-							<tr class="alt1" >
-								<th align="left">
-
-								</th>
-								<th colspan="100%">
-									<em><?php printf(gettext('The following are options specifically implemented by %s.'), $theme['name']); ?></em>
-								</th>
-							</tr>
+						</table>
+						<?php
+					}
+					if (count($supportedOptions) > 0) {
+						?>
+						<div class="colwidth breakpoint columnbreak">
+							<p>
+								<em><?php printf(gettext('The following are options specifically implemented by %s.'), $theme['name']); ?></em>
+							</p>
+						</div>
+						<table id="customOptions">
 							<?php
 							customOptions($optionHandler, '', $album, false, $supportedOptions, $themename);
-						}
-						?>
-					</table>
+							?>
+						</table>
+						<?php
+					}
+					?>
 				</div>
 				<p>
 					<?php

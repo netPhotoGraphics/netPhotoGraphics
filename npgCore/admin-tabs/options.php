@@ -93,13 +93,24 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 		// <!-- <![CDATA[
 		var table;
 
+		function setColumns() {
+			var columns = Math.floor($('#columns').width() / table);
+			if (columns < 2) {
+				$('.breakpoint').removeClass('columnbreak');
+			} else {
+				$('.breakpoint').addClass('columnbreak');
+			}
+			$('#columns').css('column-count', columns);
+		}
+
 		$(window).resize(function () {
-			$('#columns').css('column-count', Math.floor($('#columns').width() / table));
+			setColumns();
 		});
 
 		window.addEventListener('load', function () {
-			table = $('#columns table').width();
-			$('#columns').css('column-count', Math.floor($('#columns').width() / table));
+			table = $('#npgOptions').width();
+			$('.colwidth').width(table);
+			setColumns();
 		}, false);
 		// ]]> -->
 	</script>

@@ -627,6 +627,14 @@ table.bordered table.compact td {
 	min-width: 350px !important;
 }
 
+.columnbreak {
+	break-before: column;
+}
+
+.noColumnBreak {
+	break-inside: avoid-column;
+}
+
 table.options {
 	width: 100%;
 	padding: 0px;
@@ -641,7 +649,7 @@ table.options th {
 	border-bottom: 1px solid #cccccc;
 	background: #f0f4f5;
 	background-repeat: repeat-x;
-	break-inside: avoid;
+	break-inside: avoid-column;
 }
 
 

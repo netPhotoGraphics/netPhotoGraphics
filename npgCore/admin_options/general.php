@@ -198,7 +198,7 @@ function getOptionContent() {
 			</p>
 			<br clear="all">
 			<div id="columns">
-				<table>
+				<table id="npgOptions">
 					<tr class="optionSet">
 						<?php
 						if (function_exists('date_default_timezone_get')) {

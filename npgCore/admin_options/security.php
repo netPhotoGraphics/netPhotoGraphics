@@ -67,7 +67,7 @@ function getOptionContent() {
 			</p>
 			<br clear="all">
 			<div id="columns">
-				<table>
+				<table id="npgOptions">
 					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Cookie security') ?></td>
 						<td class="option_value">

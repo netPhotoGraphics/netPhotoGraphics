@@ -259,7 +259,7 @@ function getOptionContent() {
 			</p>
 			<br clear="all">
 			<div id="columns">
-				<table>
+				<table id="npgOptions">
 					<?php
 					foreach ($_graphics_optionhandlers as $handler) {
 						customOptions($handler, '');
@@ -741,7 +741,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																	 togglePassword('');" />
+																			 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 
