@@ -151,7 +151,7 @@ class Image extends MediaObject {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->imagefolder . '/' . $this->filename;
+		return $this->table . '(' . $this->imagefolder . '/' . $this->filename . ')';
 	}
 
 	/**

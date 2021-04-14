@@ -237,7 +237,7 @@ class SearchEngine {
 	 * @return string
 	 */
 	public function __toString() {
-		return 'search object';
+		return 'SearchEngine Object';
 	}
 
 	/**
