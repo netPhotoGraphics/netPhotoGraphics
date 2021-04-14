@@ -213,9 +213,7 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
  * @global object $_CMS
  */
 function hasNews() {
-	global $_CMS;
-	$news = $_CMS->news_enabled && $_CMS->getArticles(0, NULL, false, NULL, NULL, NULL, NULL, null, 1);
-	return $news;
+	return getNumNews(TRUE);
 }
 
 /**
@@ -1654,7 +1652,7 @@ $_CMS_pagelist = NULL;
  * @return bool
  */
 function hasPages() {
-	return getNumPages(true);
+	return getNumPages(TRUE);
 }
 
 /**
