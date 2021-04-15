@@ -1327,7 +1327,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										break;
 								}
 							}
-							$filelist = '';
+							$filelist = '<br />';
 
 							foreach ($installed_files as $extra) {
 								$filelist .= filesystemToInternal(str_replace($base, '', $extra) . '<br />');
