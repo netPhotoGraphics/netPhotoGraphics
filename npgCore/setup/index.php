@@ -826,8 +826,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 													'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
 													'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
 													'<input type="hidden" name="debug" value="' . $debug . '">' .
-													'<p>' . sprintf(gettext('Set File permissions to %s.'), permissionsSelector($permission_names, $chmod)) .
-													'</p></form>';
+													sprintf(gettext('Set File permissions to %s'), permissionsSelector($permission_names, $chmod)) .
+													'</form>';
 								} else {
 									$chmodselector = '';
 								}
@@ -846,7 +846,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$severity = -2;
 								}
 								$msg = sprintf(gettext('File Permissions [are %s]'), $value);
-								checkMark($severity, $msg, $msg, '<p>' . gettext('If file permissions are not set to <em>strict</em> or tighter there could be a security risk. However, on some servers the software does not function correctly with tight file permissions. If permission errors occur, run setup again and select a more relaxed permission.') . '</p>' .
+								checkMark($severity, $msg, $msg, gettext('If file permissions are not set to <em>strict</em> or tighter there could be a security risk. However, on some servers the software does not function correctly with tight file permissions. If permission errors occur, run setup again and select a more relaxed permission.') .
 												$chmodselector);
 
 								$notice = 0;
@@ -899,15 +899,15 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 													}
 													break;
 											}
-											$msg2 = '<p>' . sprintf(gettext('If your server filesystem character set is different from <code>%s</code> and you create album or image filenames names containing characters with diacritical marks you may have problems with these objects.'), $charset_defined) . '</p>' . "\n" .
+											$msg2 = sprintf(gettext('If your server filesystem character set is different from <code>%s</code> and you create album or image filenames names containing characters with diacritical marks you may have problems with these objects.'), $charset_defined) . '<br />' . "\n" .
 															'<form action="#">' .
 															'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' . "\n" .
 															'<input type="hidden" name="charset_attempts" value="' . $tries . '" />' . "\n" .
 															'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' . "\n" .
 															'<input type="hidden" name="debug" value="' . $debug . '">' . "\n" .
-															'<p>' . "\n" .
+															"\n" .
 															gettext('Change the filesystem character set define to %1$s') . "\n" .
-															'</p>' . "\n" .
+															"\n" .
 															'</form>' . "\n" .
 															'<br class="clearall" />' . "\n";
 
@@ -942,7 +942,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 											} else {
 												//	no test file
 												$msg1 = sprintf(gettext('The filesystem character define is %1$s [no test performed]'), $charset_defined);
-												$msg2 = '<p>' . sprintf(gettext('Setup did not perform a test of the filesystem character set. You can cause setup to test for a proper definition by creating a file in your <code>%1$s</code> folder named <strong><code>charset_tést</code></strong> and re-running setup.'), DATA_FOLDER) . '</p>' . $msg2;
 												if (isset($_conf_vars['FILESYSTEM_CHARSET'])) {
 													//	but we have a define value
 													$notice = -3;
@@ -1340,7 +1339,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								} else {
 									$msg1 = gettext("Core files [Some files are missing or seem wrong]");
 								}
-								$msg2 = gettext('Perhaps there was a problem with the upload. You should check the following files: ') . '<p class="filelist"><code>' . substr($filelist, 0, -6) . '</code></p>';
+								$msg2 = gettext('Perhaps there was a problem with the upload. You should check the following files: ') . '<span class="filelist"><code>' . substr($filelist, 0, -6) . '</code></span>';
 								$mark = -1;
 							} else {
 								if (isset($rootupdate) && !$rootupdate) {
