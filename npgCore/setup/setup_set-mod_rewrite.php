@@ -38,7 +38,7 @@ if (is_null($mod_rewrite)) {
 }
 setOption('mod_rewrite_detected', 1);
 setOptionDefault('mod_rewrite', 1);
-setupLog(gettext('Notice: “Module mod_rewrite” is working.') . ' ' . $msg, $fullLog);
+setupLog('<span class="lognotice">' . gettext('Note: “Module mod_rewrite” is working.') . '</span><div class="logAddl">' . $msg . '</div>', $fullLog);
 
 sendImage(0, 'mod_rewrite');
 

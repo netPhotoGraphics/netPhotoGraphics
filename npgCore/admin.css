@@ -497,6 +497,10 @@ code {
 	color: #DD6666;
 }
 
+.logAddl {
+	padding-left: 2em;
+}
+
 /* Warning Messages
 ------------------------------ */
 .logwarning {
