@@ -377,6 +377,7 @@ class i18n {
 			debugLog("self::getUserLocale Returning locale: " . $new_locale);
 
 		if (class_exists('Collator')) {
+			//	create the global $collator variable
 			$GLOBALS['Collator'] = new Collator($new_locale);
 			$GLOBALS['Collator']->setAttribute(Collator::NUMERIC_COLLATION, Collator::ON);
 		}
@@ -534,12 +535,13 @@ if (function_exists('date_default_timezone_set')) { // insure a correct time zon
  * Sort by locale rules with fallback if Collator class not present
  *
  * @param array $strings passed by reference
+ * @param bool $case TRUE for case insensitive sort
  * @return bool true if success
  */
-function localeSort(&$strings) {
+function localeSort(&$strings, $case = TRUE) {
 	global $Collator;
 	if (isset($Collator)) {
-		$Collator->setAttribute(Collator::CASE_FIRST, Collator::OFF);
+		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
 		return $Collator->asort($strings);
 	} else {
 		return natcasesort($strings);
