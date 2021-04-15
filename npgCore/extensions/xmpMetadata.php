@@ -585,7 +585,7 @@ class xmpMetadata {
 				$list[] = $suffix;
 		}
 		$listi = array();
-		natcasesort($list);
+		localeSort($list);
 		foreach ($list as $suffix) {
 			$listi[$suffix] = 'xmpMetadata_examine_images_' . $suffix;
 		}

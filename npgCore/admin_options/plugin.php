@@ -47,7 +47,7 @@ function getOptionContent() {
 
 		$plugins = array();
 		$list = array_keys(getPluginFiles('*.php'));
-		natcasesort($list);
+		localeSort($list);
 		foreach ($list as $extension) {
 			$option_interface = NULL;
 			$path = getPlugin($extension . '.php');

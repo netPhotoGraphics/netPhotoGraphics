@@ -722,7 +722,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	<?php
 	setOption('known_themes', serialize(array())); //	reset known themes
 	$themes = array_keys($_gallery->getThemes());
-	natcasesort($themes);
+	localeSort($themes);
 	echo gettext('Theme setup:') . '<br />';
 
 	foreach ($themes as $key => $theme) {
@@ -987,7 +987,7 @@ $plugins = array_keys($plugins);
 	}
 
 	$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
-	natcasesort($plugins);
+	localeSort($plugins);
 	echo gettext('Plugin setup:') . '<br />';
 	foreach ($plugins as $key => $extension) {
 		$class = 0;

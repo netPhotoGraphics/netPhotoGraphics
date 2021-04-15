@@ -373,7 +373,7 @@ echo '</head>';
 							<ul class="plugins">
 								<?php
 								if ($c > 0) {
-									natcasesort($plugins);
+									localeSort($plugins);
 									foreach ($plugins as $extension) {
 										$pluginStream = file_get_contents(getPlugin($extension . '.php'));
 										$plugin_version = '';

@@ -13,7 +13,7 @@ function saveOptions() {
 	} else {
 		$searchfields = array();
 	}
-	natcasesort($searchfields);
+	localeSort($searchfields);
 	setOption('search_fields', implode(',', $searchfields));
 	setOption('search_cache_duration', sanitize_numeric($_POST['search_cache_duration']));
 	setOption('cache_random_search', (int) isset($_POST['cache_random_search']));

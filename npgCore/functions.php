@@ -1174,7 +1174,7 @@ function generateListFromArray($currentValue, $list, $descending, $localize) {
 			if ($descending) {
 				rsort($list);
 			} else {
-				natcasesort($list);
+				localeSort($list);
 			}
 		}
 	}

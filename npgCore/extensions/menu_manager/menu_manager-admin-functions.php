@@ -300,7 +300,7 @@ function getMenuSetSelector($active) {
 	if (empty($menusets)) {
 		return NULL;
 	}
-	natcasesort($menusets);
+	localeSort($menusets);
 
 	if ($active) {
 		$selector = '<select name="menuset" id="menuset" class="ignoredirty" size="1" onchange="window.location=\'?menuset=\'+encodeURIComponent($(\'#menuset\').val())">' . "\n";

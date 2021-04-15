@@ -434,7 +434,7 @@ $buttonlist = array();
 			$curdir = getcwd();
 			chdir(CORE_SERVERPATH . UTILITIES_FOLDER . '/');
 			$filelist = safe_glob('*' . 'php');
-			natcasesort($filelist);
+			localeSort($filelist);
 			foreach ($filelist as $utility) {
 				$utilityStream = file_get_contents($utility);
 				$s = strpos($utilityStream, '$buttonlist');

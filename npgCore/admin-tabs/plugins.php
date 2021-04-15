@@ -125,7 +125,7 @@ $_GET['page'] = 'plugins';
 $saved = isset($_GET['saved']);
 printAdminHeader('plugins');
 
-natcasesort($pluginlist);
+localeSort($pluginlist);
 $rangeset = getPageSelector($pluginlist, PLUGINS_PER_PAGE);
 $filelist = array_slice($pluginlist, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PAGE);
 ?>

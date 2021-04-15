@@ -94,11 +94,11 @@ foreach ($albumlist as $key => $value) {
 		<div class="tabbox">
 			<p>
 				<?php
-				natcasesort($_supported_images);
+				localeSort($_supported_images);
 				$types = array_keys($_images_classes);
 				$types[] = 'ZIP';
 				$types = npgFilters::apply('upload_filetypes', $types);
-				natcasesort($types);
+				localeSort($types);
 				$upload_extensions = $types;
 				$last = strtoupper(array_pop($types));
 				$s1 = strtoupper(implode(', ', $types));
