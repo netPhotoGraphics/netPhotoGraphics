@@ -107,7 +107,7 @@ echo "\n</head>";
 			} else {
 				$link = '';
 			}
-			$alb = removeParentAlbumNames($album);
+			$alb = basename($album->name);
 
 			npgFilters::apply('admin_note', 'albums', 'sort');
 			?>
