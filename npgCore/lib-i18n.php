@@ -544,7 +544,11 @@ function localeSort(&$strings, $case = TRUE) {
 		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
 		return $Collator->asort($strings);
 	} else {
-		return natcasesort($strings);
+		if ($case) {
+			return natcasesort($strings);
+		} else {
+			return natsort($strings);
+		}
 	}
 }
 

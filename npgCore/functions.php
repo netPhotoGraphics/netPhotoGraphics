@@ -1160,23 +1160,20 @@ function readTags($id, $tbl, $language, $full = false) {
  * @param array $currentValue list of items to be flagged as checked
  * @param array $list the elements of the select list
  * @param bool $descending set true for a reverse order sort
+ * @param bool $localize set true if $list is an array of "language string" => value to sort on the language string
  */
 function generateListFromArray($currentValue, $list, $descending, $localize) {
 	if (!is_null($descending)) {
 		if ($localize) {
 			$list = array_flip($list);
 			localeSort($list);
-			if ($descending) {
-				$temp = array_reverse($temp, true);
-			}
 			$list = array_flip($list);
 		} else {
-			if ($descending) {
-				rsort($list);
-			} else {
-				localeSort($list);
-			}
+			localeSort($list);
 		}
+	}
+	if ($descending) {
+		$list = array_reverse($list, true);
 	}
 
 	foreach ($list as $key => $item) {
@@ -2346,14 +2343,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
