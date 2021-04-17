@@ -32,9 +32,6 @@ npgFilters::register('standard_album_thumb_html', 'flag_thumbnail::std_album_thu
 npgFilters::register('custom_album_thumb_html', 'flag_thumbnail::custom_album_thumbs', 99);
 npgFilters::register('custom_image_html', 'flag_thumbnail::custom_images', 99);
 
-
-var_dump('Flag Thumbnails loaded');
-
 /**
  * Plugin option handling class
  *
