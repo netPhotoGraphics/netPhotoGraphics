@@ -70,8 +70,8 @@ $plugin_description = gettext('View available <code>content macros</code>.');
 npgFilters::register('admin_tabs', 'macro_admin_tabs', 200);
 
 //	load theme plugins but only if we are on the macro list tab
-if (OFFSET_PATH && npg_loggedin(ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS | ALBUM_RIGHTS)) {
-	if (isset($_GET['page']) && $_GET['page'] == 'development' && isset($_GET['tab']) && $_GET['tab'] == 'macros') {
+if (!OFFSET_PATH && npg_loggedin(ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS | ALBUM_RIGHTS)) {
+	if (isset($_GET['page']) && $_gallery['page'] == 'development' && isset($_GET['tab']) && $_GET['tab'] == 'macros') {
 		foreach (getEnabledPlugins() as $ext => $pn) {
 			$loadtype = $pn['priority'];
 			if ($loadtype & THEME_PLUGIN) {
