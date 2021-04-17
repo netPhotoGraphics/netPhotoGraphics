@@ -22,6 +22,7 @@
  * @package plugins/flag_thumbnail
  * @pluginCategory media
  */
+$plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext('Overlay icons over thumbnails to indicate image status.');
 
 $option_interface = 'flag_thumbnail';
@@ -30,6 +31,9 @@ npgFilters::register('standard_image_thumb_html', 'flag_thumbnail::std_image_thu
 npgFilters::register('standard_album_thumb_html', 'flag_thumbnail::std_album_thumbs', 99);
 npgFilters::register('custom_album_thumb_html', 'flag_thumbnail::custom_album_thumbs', 99);
 npgFilters::register('custom_image_html', 'flag_thumbnail::custom_images', 99);
+
+
+var_dump('Flag Thumbnails loaded');
 
 /**
  * Plugin option handling class
@@ -149,6 +153,11 @@ class flag_thumbnail {
 			} else {
 				$obj = $_current_album;
 			}
+
+			if (empty($obj)) {
+				debugLogBacktrace('flag thumbnail on NULL');
+			}
+
 			switch (getOption('flag_thumbnail_date')) {
 				case "date":
 					$imagedatestamp = strtotime($obj->getDateTime());
