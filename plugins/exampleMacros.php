@@ -5,7 +5,7 @@
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/exampleMacros
- * @pluginCategory development
+ * @pluginCategory example
 
  */
 $plugin_is_filter = 5 | THEME_PLUGIN | ADMIN_PLUGIN;
