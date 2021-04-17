@@ -516,6 +516,7 @@ class Gallery {
 	 */
 	function garbageCollect($cascade = true, $complete = false, $restart = '') {
 		global $_gallery, $_authority;
+		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/comment_form/functions.php'); // in case comment_form not enabled
 		if (empty($restart)) {
 			setOption('last_garbage_collect', time());
 			/* purge old search cache items */
@@ -767,6 +768,7 @@ class Gallery {
 			$images = query($sql);
 			if ($images) {
 				$c = 0;
+				$imagetypes = npg_image_types('"');
 				while ($image = db_fetch_assoc($images)) {
 					$albumobj = getItemByID('albums', $image['albumid']);
 					if ($albumobj && $albumobj->exists && file_exists($imageName = internalToFilesystem(ALBUM_FOLDER_SERVERPATH . $albumobj->name . '/' . $image['filename']))) {
@@ -781,8 +783,10 @@ class Gallery {
 					} else {
 						$sql = 'DELETE FROM ' . prefix('images') . ' WHERE `id`="' . $image['id'] . '";';
 						$result = query($sql);
-						$sql = 'DELETE FROM ' . prefix('comments') . ' WHERE `type` IN (' . npg_image_types('"') . ') AND `ownerid` ="' . $image['id'] . '";';
-						$result = query($sql);
+						if ($imagetypes) {
+							$sql = 'DELETE FROM ' . prefix('comments') . ' WHERE `type` IN (' . $imagetypes . ') AND `ownerid` ="' . $image['id'] . '";';
+							$result = query($sql);
+						}
 					}
 					if (++$c >= RECORD_LIMIT) {
 						return $image['id']; // avoide excessive processing

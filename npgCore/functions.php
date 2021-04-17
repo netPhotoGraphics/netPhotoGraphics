@@ -1567,22 +1567,6 @@ function getWatermarkParam($image, $use) {
 }
 
 /**
- * returns a list of comment record 'types' for "images"
- * @param string $quote quotation mark to use
- *
- * @return string
- */
-function npg_image_types($quote) {
-	global $_images_classes;
-	$types = array_unique($_images_classes);
-	$typelist = '';
-	foreach ($types as $type) {
-		$typelist .= $quote . strtolower($type) . 's' . $quote . ',';
-	}
-	return substr($typelist, 0, -1);
-}
-
-/**
 
  * Returns video argument of the current Image.
  *
@@ -2343,14 +2327,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}
